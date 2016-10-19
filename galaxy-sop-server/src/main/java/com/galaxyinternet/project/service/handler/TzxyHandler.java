@@ -34,7 +34,7 @@ import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
  * 		fileType:必传，存储类型
  * 		fileWorktype:必传，文档所属业务分类
  * 		voucherType:若为签署证明，则必传
- * 		hasStockTransfer:当项目是外部投资，若涉及股权转让协议则必传
+ * 		hasStockTransfer:当项目是投资，若涉及股权转让协议则必传
  * 		content:非必传
  * }
  */
@@ -84,18 +84,18 @@ public class TzxyHandler implements Handler {
 			sopFileDao.updateById(f);
 			
 			/**
-			 * 如果内部创建，只有投资协议
-			 * 如果是外部投资，投资协议必须，股权转让非必须[根据其在上传投资协议签署证明时是否勾选"涉及股权转让"来判断]
+			 * 如果创建，只有投资协议
+			 * 如果是投资，投资协议必须，股权转让非必须[根据其在上传投资协议签署证明时是否勾选"涉及股权转让"来判断]
 			 * 
 			 * 前一个判断是可以将项目状态切换为股权交割
 			 * 后一个判断是需要上传股权转让协议
 			 */
 			String messageType = null;
-			if(project.getProjectType().equals(DictEnum.projectType.内部创建.getCode())
-					|| (project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())
+			if(project.getProjectType().equals(DictEnum.projectType.创建.getCode())
+					|| (project.getProjectType().equals(DictEnum.projectType.投资.getCode())
 							&& q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())
 							&& (q.getHasStockTransfer() == null || q.getHasStockTransfer().intValue() != 1)
-							|| project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())
+							|| project.getProjectType().equals(DictEnum.projectType.投资.getCode())
 							&& q.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode()) && q.getHasStockTransfer() != null && q.getHasStockTransfer().intValue() == 1)){
 				//修改项目阶段
 				project.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());

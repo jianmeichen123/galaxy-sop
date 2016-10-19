@@ -37,7 +37,7 @@ public class ChartServiceImpl extends BaseServiceImpl<Chart>implements ChartServ
 	// private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public static final int perAllProTarget = 500; // 每人 每年 项目目标
-	public static final int perWbProTarget = 500; // 每人 每年 外部投资 项目目标数
+	public static final int perWbProTarget = 500; // 每人 每年 投资 项目目标数
 	public static final int perZjProTarget = 500; // 每人 每年 内部自建 项目目标数
 
 	@Autowired
@@ -108,7 +108,7 @@ public class ChartServiceImpl extends BaseServiceImpl<Chart>implements ChartServ
 				subResult.put("notcompleted", 0);// 未完成数
 				subResult.put("completed", 0);// 完成项目数
 				subResult.put("zj_completed", 0);// 自建项目数
-				subResult.put("wb_completed", 0);// 外部投资项目数
+				subResult.put("wb_completed", 0);// 投资项目数
 
 				subResult.put("rate", 0); // 完成率
 				subResult.put("wb_rate", 0);// 已完成项目占比： 外部完成率
@@ -138,7 +138,7 @@ public class ChartServiceImpl extends BaseServiceImpl<Chart>implements ChartServ
 					if (projectType == null) {
 						subResult.put("target", perAllProTarget * (int) (au.getUserTzjlSum()));// 目标数
 					} else if (projectType.equals("projectType:1")) {
-						subResult.put("target", perWbProTarget * (int) (au.getUserTzjlSum()));// 外部投资目标数
+						subResult.put("target", perWbProTarget * (int) (au.getUserTzjlSum()));// 投资目标数
 					} else if (projectType.equals("projectType:2")) {
 						subResult.put("target", perZjProTarget * (int) (au.getUserTzjlSum()));// 自建目标数
 					}
@@ -158,8 +158,8 @@ public class ChartServiceImpl extends BaseServiceImpl<Chart>implements ChartServ
 		for (Project apro : proList) {
 			Map<String, Object> subResult = mmm.get(apro.getProjectDepartid());
 			if (subResult != null) {
-				if (apro.getProjectType() != null && apro.getProjectType().equals("projectType:1")) { // 外部投资
-					subResult.put("wb_completed", apro.getCompleted());// 外部投资项目数
+				if (apro.getProjectType() != null && apro.getProjectType().equals("projectType:1")) { // 投资
+					subResult.put("wb_completed", apro.getCompleted());// 投资项目数
 				} else if (apro.getProjectType() != null && apro.getProjectType().equals("projectType:2")) { // 内部
 					subResult.put("zj_completed", apro.getCompleted());// 自建项目数
 				}
@@ -360,7 +360,7 @@ public class ChartServiceImpl extends BaseServiceImpl<Chart>implements ChartServ
 			if (!nowid.equals(u.getId())) {
 				// 自建项目数
 				int zj_completed = 0;
-				// 外部投资项目数
+				// 投资项目数
 				int wb_completed = 0;
 				// 完成项目数
 				int completed = 0;

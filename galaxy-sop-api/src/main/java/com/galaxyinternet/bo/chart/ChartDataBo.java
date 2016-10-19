@@ -20,12 +20,12 @@ public class ChartDataBo extends DataReport{
 	
 	private Integer target;        //目标数
 	private Integer zjCompleted;   //自建项目数
-	private Integer wbCompleted;   //外部投资项目数
+	private Integer wbCompleted;   //投资项目数
 	private Integer completed;     //项目数,	                项目id数， 创建项目数
 	private Integer completedAll;  //累计已完成数     累计已完成的项目数。 仅不受查询时间影响
 	private Integer notCompleted;  //未完成数 =目标数-完成项目数
 
-	private Double wbRate;   //外部投资项目数占比
+	private Double wbRate;   //投资项目数占比
 	private Double zjRate;   //自建项目数比率
 	
 	private Integer companyRank;    //公司排名		个人项目数在公司的排名
@@ -255,13 +255,13 @@ public class ChartDataBo extends DataReport{
 	}
 	
 	/**
-	 * 外部投资项目数
+	 * 投资项目数
 	 */	
 	public Integer getWbCompleted() {
 		return wbCompleted;
 	}
 	/**
-	 * 外部投资项目数
+	 * 投资项目数
 	 */	
 	public void setWbCompleted(Integer wbCompleted) {
 		this.wbCompleted = wbCompleted;
@@ -281,13 +281,13 @@ public class ChartDataBo extends DataReport{
 	}
 	
 	/**
-	 * 内部创建与外部投资项目数占比
+	 * 创建与投资项目数占比
 	 */	
 	public Double getWbRate() {
 		return wbRate;
 	}
 	/**
-	 * 内部创建与外部投资项目数占比
+	 * 创建与投资项目数占比
 	 */	
 	public void setWbRate(Double wbRate) {
 		this.wbRate = wbRate;

@@ -222,7 +222,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		project.setIndustryOwn(idea.getDepartmentId());
 		project.setStockTransfer(0);
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
-		project.setProjectType(DictEnum.projectType.内部创建.getCode());
+		project.setProjectType(DictEnum.projectType.创建.getCode());
 		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		try 
 		{

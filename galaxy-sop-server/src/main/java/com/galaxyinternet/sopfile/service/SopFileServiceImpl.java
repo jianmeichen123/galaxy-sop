@@ -362,7 +362,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		sopTaskDao.insert(task2);
 		
 		
-		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())){
+		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.投资.getCode())){
 			//财务dd  任务生成
 			SopTask task3 = new SopTask();
 			task3.setProjectId(project.getId());         //项目id

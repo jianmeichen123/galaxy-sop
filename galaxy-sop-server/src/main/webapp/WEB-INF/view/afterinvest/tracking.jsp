@@ -33,8 +33,8 @@
                   <dd>
                     <select class="disabled">
                       <option>全部</option>
-                      <option>内部创建</option>
-                      <option>外部投资</option>
+                      <option>创建</option>
+                      <option>投资</option>
                     </select>
                   </dd>
                 </dl>
@@ -249,8 +249,8 @@
                   <dd>
                     <select class="disabled">
                       <option>全部</option>
-                      <option>内部创建</option>
-                      <option>外部投资</option>
+                      <option>创建</option>
+                      <option>投资</option>
                     </select>
                   </dd>
                 </dl>

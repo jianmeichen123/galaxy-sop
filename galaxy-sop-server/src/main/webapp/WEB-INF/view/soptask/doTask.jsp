@@ -43,7 +43,7 @@ String projectId=(String)request.getAttribute("projectId");
                       <td>
                         <dl>
                           <dt>来源：</dt>
-                          <dd>外部投资</dd>
+                          <dd>投资</dd>
                         </dl>
                       </td>
                   </tr>

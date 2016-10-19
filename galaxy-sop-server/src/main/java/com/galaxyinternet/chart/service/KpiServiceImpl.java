@@ -1035,14 +1035,14 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 		// //过滤已否决
 		Long allProQueryNum = projectDao.selectCount(allProNumQ1);
 
-		// 事业线 - projecttype项目数 内部创建("内部创建","projectType:2");
+		// 事业线 - projecttype项目数 创建("创建","projectType:2");
 		double zjRate = 0;
 		Map<Long, Integer> deptProNumByTypetMap = new HashMap<Long, Integer>();
 		if (StringUtils.isBlank(query.getProjectType())) {
 			ProjectBo proCountByType = new ProjectBo();
 			proCountByType.setStartTime(query.getStartTime());
 			proCountByType.setEndTime(query.getEndTime());
-			proCountByType.setProjectType(DictEnum.projectType.内部创建.getCode());
+			proCountByType.setProjectType(DictEnum.projectType.创建.getCode());
 			proCountByType.setDeptIdList(deptIdList);
 			// proCountByType.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
 			// //过滤已否决
@@ -1053,7 +1053,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 						pro.getCompleted());
 			}
 		} else if (query.getProjectType().equals(
-				DictEnum.projectType.内部创建.getCode())) {
+				DictEnum.projectType.创建.getCode())) {
 			zjRate = 1;
 		}
 
@@ -1164,7 +1164,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 			}
 			kpi.setTotalRate(total_rate);
 
-			// 内部创建项目占比
+			// 创建项目占比
 			if (StringUtils.isBlank(query.getProjectType())) {
 				if (deptProNumByTypetMap.get(pro.getProjectDepartid()) != null) {
 					zjRate = deptProNumByTypetMap.get(pro.getProjectDepartid())
@@ -1241,7 +1241,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		if (StringUtils.isBlank(query.getProjectType())) {
-			proQuery.setProjectType(DictEnum.projectType.内部创建.getCode());
+			proQuery.setProjectType(DictEnum.projectType.创建.getCode());
 		} else {
 			proQuery.setProjectType(query.getProjectType());
 			proQuery.setResultNullFilter(0);
@@ -1301,11 +1301,11 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 
 			if (StringUtils.isBlank(query.getProjectType())
 					|| query.getProjectType().equals(
-							DictEnum.projectType.内部创建.getCode())) {
+							DictEnum.projectType.创建.getCode())) {
 				zj_completed = pro.getType_completed();
 				wb_completed = completed - zj_completed;
 			} else if (query.getProjectType().equals(
-					DictEnum.projectType.外部投资.getCode())) {
+					DictEnum.projectType.投资.getCode())) {
 				wb_completed = pro.getType_completed();
 				zj_completed = completed - wb_completed;
 			}
@@ -1319,7 +1319,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 			if (target != 0) {
 				if (query.getProjectType() == null) {
 					rate = completed * 1.0 / target;
-				} else if (DictEnum.projectType.内部创建.getCode().equals(
+				} else if (DictEnum.projectType.创建.getCode().equals(
 						query.getProjectType())) {
 					rate = zj_completed * 1.0 / target;
 				} else {
@@ -1393,7 +1393,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		if (StringUtils.isBlank(query.getProjectType())) {
-			proQuery.setProjectType(DictEnum.projectType.内部创建.getCode());
+			proQuery.setProjectType(DictEnum.projectType.创建.getCode());
 		} else {
 			proQuery.setProjectType(query.getProjectType());
 			proQuery.setResultNullFilter(0);
@@ -1444,11 +1444,11 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 
 			if (StringUtils.isBlank(query.getProjectType())
 					|| query.getProjectType().equals(
-							DictEnum.projectType.内部创建.getCode())) {
+							DictEnum.projectType.创建.getCode())) {
 				zj_completed = pro.getType_completed();
 				wb_completed = completed - zj_completed;
 			} else if (query.getProjectType().equals(
-					DictEnum.projectType.外部投资.getCode())) {
+					DictEnum.projectType.投资.getCode())) {
 				wb_completed = pro.getType_completed();
 				zj_completed = completed - wb_completed;
 			}
@@ -1458,7 +1458,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 			double rate = 0;
 			if (query.getProjectType() == null) {
 				rate = completed * 1.0 / target;
-			} else if (DictEnum.projectType.内部创建.getCode().equals(
+			} else if (DictEnum.projectType.创建.getCode().equals(
 					query.getProjectType())) {
 				rate = zj_completed * 1.0 / target;
 			} else {

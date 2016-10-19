@@ -72,8 +72,8 @@ function pro_num_init(){
         		zj_rate = ( projectType=='projectType:2' || projectType=='') ? ( zj_completed/(zj_completed+wb_completed) ) * 100 : 0;
         		wb_rate = ( projectType=='projectType:1' || projectType=='') ? ( wb_completed/(zj_completed+wb_completed) ) * 100 : 0;
         		containerXmstjBtOptions.series[0].data = [ 
-        		                                           {name:"外部投资",y:parseFloat(wb_rate.toFixed(2)),num:wb_completed,color:"#6fbdeb"},
-        		                                           {name:"内部创建",y:parseFloat(zj_rate.toFixed(2)),num:zj_completed,color:"#529be2"} 
+        		                                           {name:"投资",y:parseFloat(wb_rate.toFixed(2)),num:wb_completed,color:"#6fbdeb"},
+        		                                           {name:"创建",y:parseFloat(zj_rate.toFixed(2)),num:zj_completed,color:"#529be2"} 
         		                                         ];
         		var chart = new Highcharts.Chart(containerXmstjBtOptions);
         	}
@@ -215,11 +215,11 @@ function xmstjprojectList(userid,deptid){
              }
          },
          series: [{
-         name: '内部创建',
+         name: '创建',
          color:'#4fd7cd',
          //data: [216, 210, 200, 180, 165, 155, 135, 125, 120, 100]
      }, {
-         name: '外部投资',
+         name: '投资',
          color:'#95b0c0',
          //data: [106, 106, 100, 90, 88, 66, 55, 44, 33, 22]
      }]
@@ -288,12 +288,12 @@ function xmstjprojectList(userid,deptid){
          name: '完成占比',
          /*data: [
              {
-                 name:'外部投资',
+                 name:'投资',
                  y:5,
                  num:98,
                  color:"#86c664"
              },
-             { name:'内部创建', y: 20,num:98,color:"#ff955b"},
+             { name:'创建', y: 20,num:98,color:"#ff955b"},
          ],*/
          dataLabels: {
              enabled: true,

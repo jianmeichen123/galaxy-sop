@@ -121,8 +121,8 @@ public class TzyxsHandler implements Handler {
 			task.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);
 			sopTaskDao.insert(task);
 			
-			//外部投资需要额外的财务和法务尽调
-			if(project.getProjectType() == null || project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())){
+			//投资需要额外的财务和法务尽调
+			if(project.getProjectType() == null || project.getProjectType().equals(DictEnum.projectType.投资.getCode())){
 				task.setId(null);
 				task.setTaskName(SopConstant.TASK_NAME_FWJD);
 				task.setTaskFlag(SopConstant.TASK_FLAG_FWJD);

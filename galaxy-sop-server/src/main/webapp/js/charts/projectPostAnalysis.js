@@ -45,14 +45,14 @@ var chartPostAnalysisUtils = {
 		        itemGap:20,
 		        data:[
 		            {
-		                name:'内部创建',
+		                name:'创建',
 		                textStyle:{
 		                    color:'#7a8798'
 		                },
 		                icon:'stack'
 		            },
 		            {
-		                name:'外部投资',
+		                name:'投资',
 		                textStyle:{
 		                    color:'#7a8798'
 		                },
@@ -129,7 +129,7 @@ var chartPostAnalysisUtils = {
 		    ],
 		    series : [
 		        {
-		            name:'内部创建',
+		            name:'创建',
 		            type:'bar',
 		            stack:"项目数",
 		            "barWidth":"18",//柱图宽度
@@ -144,7 +144,7 @@ var chartPostAnalysisUtils = {
                  },
 		        },
 		        {
-		            name:'外部投资',
+		            name:'投资',
 		            type:'bar',
 		            stack:"项目数",
 		            "barWidth":"18",//柱图宽度

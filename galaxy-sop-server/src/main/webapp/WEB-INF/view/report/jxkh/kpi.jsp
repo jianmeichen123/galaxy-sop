@@ -60,8 +60,8 @@
 						<dd>
 							<select name="projectType" id="userkpi_projectType">
 								<option value="">全部</option>
-								<option value="projectType:2">内部创建</option>
-								<option value="projectType:1">外部投资</option>
+								<option value="projectType:2">创建</option>
+								<option value="projectType:1">投资</option>
 							</select>
 						</dd>
 					</dl>
@@ -115,8 +115,8 @@
 						<dd>
 							<select name="projectType" id="deptkpi_projectType">
 								<option value="">全部</option>
-								<option value="projectType:2">内部创建</option>
-								<option value="projectType:1">外部投资</option>
+								<option value="projectType:2">创建</option>
+								<option value="projectType:1">投资</option>
 							</select>
 						</dd>
 					</dl>
@@ -149,7 +149,7 @@
 							<th data-field="completed"  		class="data-input" data-formatter="cat_deptkpi">项目数</th>
 							<th data-field="completedAll"  		class="data-input">累计已完成数</th>
 							<th data-field="companyRank"  		class="data-input">公司排名</th>
-							<th data-field="zjRate"  		class="data-input" data-formatter="rate_format">内部创建项目占比</th>
+							<th data-field="zjRate"  		class="data-input" data-formatter="rate_format">创建项目占比</th>
 							<th data-field="totalRate"  	class="data-input" data-formatter="rate_format">公司完成数占比</th>
 							<th data-field="lxhPnumber"  	class="data-input">立项会通过数</th>
 							<th data-field="tjhPnumber"  	class="data-input">投资决策会通过数</th>
