@@ -1,14 +1,17 @@
 package com.galaxyinternet.chart.controller;
 
 
-import javax.annotation.Resource;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,8 +31,10 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.report.SopReportModal;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.report.service.ReportServiceImpl;
+import com.galaxyinternet.service.chart.KpiGradeService;
 import com.galaxyinternet.service.chart.KpiService;
 
 @Controller
@@ -43,10 +48,15 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	
 	@Autowired
 	private KpiService kpiService;
-	@Resource(name="kpiGradeServiceImpl")
-	private ReportServiceImpl reportService;
+	@Autowired
+	private KpiGradeService reportService;
 	
+	private String tempfilePath;
 	
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
 
 	@Override
 	protected BaseService<ChartDataBo> getBaseService() {
@@ -817,6 +827,17 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		return responseBody;
 	}
 
+	@ResponseBody
+	@RequestMapping(value="/exportKpiGrade",method=RequestMethod.POST)
+	public void exportKpiGrade(HttpServletRequest request,HttpServletResponse response){
+		List<ChartDataBo> chartDataList = (List<ChartDataBo>) request.getSession().getAttribute("kpiDataList");	
+		try {
+			SopReportModal modal = reportService.createReport(chartDataList,tempfilePath);
+			reportService.download(request, response, modal);
+		} catch (Exception e) {
+			logger.error("下载失败.",e);
+		}
+	}
 	
 	
 	

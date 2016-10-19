@@ -28,25 +28,30 @@ import com.galaxyinternet.service.ReportService;
 
 public abstract class ReportServiceImpl<T extends DataReport> implements ReportService<T> {
 	
-	public static String modelPath = "J:/report.xlsx";
-	public static String outPath = "J:/";
-	public static int sheetPage = 0;
-	public static ImportExcel2007Manager excelManager = new ImportExcel2007Manager();
+	private ImportExcel2007Manager excelManager = new ImportExcel2007Manager();
 	
-	
-	public String createReport(List<T> dataSource) throws Exception{
-		String path = outPath + System.currentTimeMillis() +".xlsx";
+	public SopReportModal createReport(List<T> dataSource,String tempFilePath) throws Exception{
+		String path = "";
 		InputStream is = null;
 		OutputStream out = null;
+		SopReportModal modal = null;
 		try {
-			excelManager.copyFile(modelPath, path);
+			modal = createModal();
+			//临时模板文件名称
+			String tempName = Long.toString(System.currentTimeMillis());
+			//模板后缀
+			String templeteSuffix = modal.getFileSuffix();
+			//模板生成路径
+			path = tempFilePath + tempName + "." + templeteSuffix;
+			//此处需判断模板格式并进行判断模板的生成后缀（xls,xlsx）(现在写死了xlsx)
+			
+			excelManager.copyFile(ReportServiceImpl.class.getClassLoader().getResource(modal.getTemplateName()).toString(), path);
 			File file = new File(path);
 			is = new FileInputStream(file);
 			XSSFWorkbook workbook = new XSSFWorkbook(is);
 			List<XSSFSheet> sheetList = excelManager.getExcelSheetList(workbook);
-			SopReportModal modal = createModal();
-			if(sheetList!=null && sheetList.size() > sheetPage){
-				XSSFSheet reportSheet = sheetList.get(sheetPage);
+			if(sheetList!=null && sheetList.size() > modal.getSheetPage()){
+				XSSFSheet reportSheet = sheetList.get(modal.getSheetPage());
 				//写入附表头
 				writeSecondHeader(workbook,reportSheet, modal.getSecondTableHeader(), dataSource.get(0));
 				//获取可写入行数
@@ -70,6 +75,8 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 				}
 				out =  new FileOutputStream(file);
 				excelManager.saveDoc(workbook,out);
+				modal.setTempName(tempName);
+				modal.setDownloadPath(tempFilePath);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -102,7 +109,7 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 			}
 			
 		}
-		return path;	
+		return modal;	
 	}
 	
 	public void writeTableHeader(XSSFSheet sheet,BasicElement be){

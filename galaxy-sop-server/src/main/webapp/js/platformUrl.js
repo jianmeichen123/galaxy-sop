@@ -958,6 +958,10 @@ var platformUrl = {
 	 * 高管首页-健康状况报表展示详情
 	 */
 	toHealthChartDetail : Constants.sopEndpointURL + "/galaxy/health/toHealthChartDetail",
+	/**
+	 * kpi导出
+	 */
+	exportKpiGrade : Constants.sopEndpointURL + "/galaxy/kpireport/exportKpiGrade"
 
 	
 
