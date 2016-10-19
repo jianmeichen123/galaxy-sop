@@ -9,6 +9,14 @@ String path = request.getContextPath();
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
+<script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="header clearfix">
@@ -192,15 +200,13 @@ String path = request.getContextPath();
     <!--内容显示区域-->
  	<div class="ritmin clearfix">
 	<%
-		String[] modules = {"task","dataChart","div_duration_gg","div_performance_gg","idea_summary","message_tip","projectProgress","matterPreview","ytxmfx"};
+		String[] modules = {"task","dataChart","idea_summary","message_tip","projectProgress","matterPreview","project_health","div_project_progress_gg","div_performance_gg","ytxmfx","div_duration_gg"};
 		for(String module : modules)
 		{
 			String url = "/galaxy/desktop/"+module;
 			//if(!hasPermission) break;
 	%>
-			<div class="floatBox fl" style="display:none">
-			<jsp:include page="<%=url %>" flush="true"></jsp:include>
-			</div>
+			<div class="floatBox fl" data-url="<%=url%>"></div>
 	<%
 			
 		}
@@ -211,9 +217,6 @@ String path = request.getContextPath();
 
 </div>
 
-<script src="<%=path%>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="<%=path%>/js/axure.js" type="text/javascript"></script>
-<script src="<%=path%>/js/axure_ext.js" type="text/javascript"></script>
 <script>
   /*展开/收起按钮定位*/
   $(function(){
@@ -259,7 +262,14 @@ String path = request.getContextPath();
     });
     $(".man_info ul").closeDom();
 	
-    $(".floatBox").show();
+   $(".floatBox").each(function(){
+	   var _this = this;
+	   var opts = {
+		   url : "<%=path%>"+ $(this).data('url'),
+		   type:'POST'
+	   };
+	   $(_this).loadHtml(opts);
+   });
     
   })
 </script>

@@ -2,14 +2,6 @@
 <% 
 String path = request.getContextPath();
 %>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-
-<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
-<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
 <dl>
 <dt><h3 class="ico t4">消息提醒</h3></dt>
    <dd>

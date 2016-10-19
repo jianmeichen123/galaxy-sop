@@ -2,8 +2,6 @@
 <% 
 String path = request.getContextPath();
 %>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <div class="pagebox">
  <div class="min">
         <!--表格列表-->
@@ -45,8 +43,6 @@ String path = request.getContextPath();
 </div>
 </div>
 </div>
-<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
-<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
 <script src="<%=path %>/js/charts/indexMatterPreview.js"></script>
 <script>
 matterPreviewUtils.init();

@@ -187,12 +187,14 @@ var containerKpiOptions = {
 var browser=navigator.appName 
 var b_version=navigator.appVersion 
 var version=b_version.split(";"); 
-var trim_Version=version[1].replace(/[ ]/g,""); 
-if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
-{ 
-	$(".highchartsAxisName").show();
-} 
-
+if(version[1])
+{
+	var trim_Version=version[1].replace(/[ ]/g,""); 
+	if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
+	{ 
+		$(".highchartsAxisName").show();
+	} 
+}
 
 
 

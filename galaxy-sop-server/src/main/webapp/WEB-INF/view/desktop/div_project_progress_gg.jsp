@@ -2,10 +2,6 @@
 <% 
 	String path = request.getContextPath();
 %>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-
-
 	<!-- 项目进度 -->
 	<dl resource-mark="div_project_progress_gg" >
 		<dt>
@@ -20,7 +16,6 @@
 	</dl>
 
 
-<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/charts/projectProgress.js"></script>
 <script type="text/javascript">
 

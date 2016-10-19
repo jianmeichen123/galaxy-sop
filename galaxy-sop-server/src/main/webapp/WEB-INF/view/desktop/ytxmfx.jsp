@@ -3,8 +3,6 @@
 <% 
 String path = request.getContextPath();
 %>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!-- 已投项目分析 -->
 <dl class="executive_last ytxm_block">
 	<dt>
@@ -25,5 +23,4 @@ String path = request.getContextPath();
 		<div id="charts_cbl" data-tab="con" style="min-width: 300px; height: 200px; padding-top: 5px; z-index: 0;"></div>
 	</dd>
 </dl>
-<script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>

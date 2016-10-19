@@ -2,9 +2,6 @@
 <% 
 	String path = request.getContextPath();
 %>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
 	<dl style="position: relative; class="Creative_library" resource-mark="idea_summary">
 

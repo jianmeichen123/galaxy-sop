@@ -1046,5 +1046,33 @@
 			obj.init();
         });
 	};
-	
+	$.fn.loadHtml = function(options){
+		var opts = {type:'GET',async:true};
+		$.extend(opts,options);
+		var _this = this;
+		$.ajax({
+			type:"GET",
+			data:opts.data,
+			async:opts.async,
+			dataType:"html",
+			url:opts.url,
+			beforeSend : function(xhr) {
+				/**清楚浏览器缓存**/
+				xhr.setRequestHeader("If-Modified-Since","0"); 
+				xhr.setRequestHeader("Cache-Control","no-cache");
+				if (sessionId) {
+					xhr.setRequestHeader("sessionId", sessionId);
+				}
+				if(userId){
+					xhr.setRequestHeader("guserId", userId);
+				}
+			},
+			success:function(html){
+				$(_this).html(html);
+			},
+			error:function(){
+				alert("网络错误")
+			}	
+		})
+	}
 })(jQuery);

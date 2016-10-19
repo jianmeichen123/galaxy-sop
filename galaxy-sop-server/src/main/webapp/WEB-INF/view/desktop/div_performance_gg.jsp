@@ -2,12 +2,9 @@
 <% 
 	String path = request.getContextPath();
 %>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-
 
 	<!-- 绩效考核 -->
-	<dl resource-mark="div_performance_gg" class="r_news executive_last">
+	<dl>
 		<dt>
 			<h3 class="ico t10">绩效考核</h3>
 			<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
@@ -20,7 +17,6 @@
 	</dl>
 
 
-<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/charts/indexKpi.js"></script>
 <script type="text/javascript">
 
@@ -29,6 +25,4 @@ load_data_chart_kpi();
 
 </script>
 
-</body>
-</html>
 
