@@ -221,18 +221,21 @@ public class ImportExcel2007Manager {
 	 * @param oldPath
 	 * @param newPath
 	 */
-	public void copyFile(String oldPath, String newPath) throws FileNotFoundException,IOException{
+	public void copyFile(String oldPath,String newParentPath,String newPath) throws FileNotFoundException,IOException{
 		InputStream in = null;
 		FileOutputStream out = null;
 		BufferedInputStream fis = null;
 		BufferedOutputStream fos = null;
 		File oldfile = new File(oldPath);
+		File parentPath = new File(newParentPath);
 		File newFile = new File(newPath);
 		try {
 			// 文件存在时
 			if (oldfile.exists()) {
 				if(!newFile.exists()){
-//					newFile.mkdirs();
+					if(!parentPath.exists()){
+						parentPath.mkdirs();
+					}	
 					newFile.createNewFile();//生成文件 
 				}
 				// 读入原文件
