@@ -400,6 +400,20 @@ $(function(){
 		});
 		return false;
 	});
+	//修改密码
+	$("[data-btn='change_password']").on("click",function(){
+		$('.pop').remove();
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				//$(this).change_password();
+			}//模版反回成功执行	
+		});
+		return false;
+	});
 	
 	// 创意弹层
 	$("[data-btn='creative']").on("click",function(){ 
