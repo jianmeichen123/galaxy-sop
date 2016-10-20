@@ -1,6 +1,7 @@
 package com.galaxyinternet.chart.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.query.ChartKpiQuery;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -34,6 +36,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.chart.KpiGradeService;
 import com.galaxyinternet.service.chart.KpiService;
 
@@ -45,6 +48,8 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@Autowired
 	private KpiService kpiService;
@@ -111,7 +116,6 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	
 	
 	
-	
 	/**
 	 * 首页 项目历时
 	 * @param request
@@ -125,6 +129,19 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
+			
 			if(query==null){
 				query = new ChartKpiQuery();
 			}
@@ -206,6 +223,19 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
+			
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
 			}
@@ -255,6 +285,19 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
+			
 			String queryParamsJsonStr = GSONUtil.toJson(query);
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
@@ -294,6 +337,19 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		//返回对象
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
+			
 			//强制 HHR 只能看个人部门下的数据
 			int hhrDeptId = getDepId(request);
 			if(hhrDeptId!=-1){
@@ -382,6 +438,19 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
+			
 			String queryParamsJsonStr = GSONUtil.toJson(query);
 			
 			if(StringUtils.isBlank(query.getSdate())){
@@ -430,6 +499,18 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
 			//强制 HHR 能看
 			int hhrDeptId = getDepId(request);
 			if(hhrDeptId!=-1){
@@ -497,6 +578,17 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
 		try {
+			Long total = 0l;
+			List<Project> kpiDataList = new ArrayList<Project>();
+			Page<Project> kpiPage = new Page<Project>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
 			
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
@@ -558,6 +650,18 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
 			if(query.getMeetingType()==null){
 				responseBody.setResult(new Result(Status.ERROR,null, "统计条件缺失"));
 				return responseBody;
@@ -612,6 +716,18 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
 			if(query.getMeetingType()==null){
 				responseBody.setResult(new Result(Status.ERROR,null, "统计条件缺失"));
 				return responseBody;
@@ -672,6 +788,17 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
 		try {
+			Long total = 0l;
+			List<Project> kpiDataList = new ArrayList<Project>();
+			Page<Project> kpiPage = new Page<Project>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
 			
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
@@ -737,6 +864,18 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
 			if(query==null){
 				query = new ChartKpiQuery();
 			}
@@ -784,6 +923,18 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			Long total = 0l;
+			List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+			Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
+			
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setPageList(kpiPage);
+				return responseBody;
+			}
+			
 			if(query==null){
 				query = new ChartKpiQuery();
 			}
