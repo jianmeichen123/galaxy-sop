@@ -28,6 +28,9 @@ function loadAjaxSopUserSchedule(url){
 			 var htmlstart="";
 			   if (dataList.length==0) {
 				    htmlstart+="<span class=\"schedule_noinfo\">无日程安排</span>";
+				    $("#today_now").hide();
+			   }else{
+				   $("#today_now").show();
 			   }
 			/*	if(dataList.length<3){
 					$("#top").siblings().children('.more').css("display","none");

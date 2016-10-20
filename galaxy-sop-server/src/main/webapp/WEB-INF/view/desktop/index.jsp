@@ -35,8 +35,8 @@ String path = request.getContextPath();
         <div class="sico"></div>
         <!--时间-->
         <div class="top_small">
-          <a href="#" class="add blue">添加日程</a>
-           <span><b class="b1 null">点</b>今日日程</span>
+          <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add blue">添加日程</a>
+           <span id="today_now"><b class="b1 null">点</b>今日日程</span>
         </div>
         <!--立项排期会-->
         <div class="bottom_small">
