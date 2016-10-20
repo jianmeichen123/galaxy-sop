@@ -7,7 +7,7 @@
 
 
 	<!-- 项目文档 -->
-	<dl resource-mark="div_pro_doc" id="dan_k" style="display:none;position:relative;">
+	<dl resource-mark="div_pro_doc" id="dan_k" style="position:relative;">
                 	<dt><h3 class="ico t5">项目文档</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
