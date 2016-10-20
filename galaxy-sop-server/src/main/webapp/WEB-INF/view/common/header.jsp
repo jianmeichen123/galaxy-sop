@@ -50,18 +50,44 @@
    	<p><a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a></p>
 </div>
 <div class="header clearfix">
+
+  <a href="javascript:;" class="logo null">繁星</a>
+    
+    <!-- 头部右边 -->
+    <div class="usermsg rit clearfix">
+       <!--用户信息-->
+        <div class="usermsg fl">
+              <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办任务<em class="totalUrgent"></em></a>
+            <a href="javascript:;" class="work">紧急<em class="bubble">5</em></a>
+            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a> 
+    
+        </div>      <!--当日信息-->
+      <div class="man_info fl">
+        <span class="ico name"><span class="avator"></span><%=realName%></span>
+        <ul>
+          <li><a href="/sop/html/change_password.html" id="hid" data-btn="change_password" class="register_all_input">修改密码</a></li>
+           <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
+        </ul>
+      </div>
+      <div class="xingmou fr">
+        <a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a>
+      </div>
+    </div>
+</div>
+
+<!--  <div class="header clearfix">
  <div class="warning" id="warning"><i></i>建议使用IE10以上浏览器，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
 	<a href="javascript:;" class="logo null">繁星</a>
-    <!--头部中间-->
+    <!--头部中间
     <div class="min clearfix">
-        <!--用户信息-->
+        <!--用户信息
         <div class="usermsg clearfix"  id="messages">
             <span class="light_blue">当前您有：</span>
             <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办任务<em class="totalUrgent"></em></a>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
             <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a> 
         </div>    	
-        <!--当日信息-->
+        <!--当日信息
     	<div class="todaymsg clearfix">
         	<span class="weather"><iframe allowtransparency="true" frameborder="0" width="220" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=1&v=0&d=3&bd=0&k=000000&f=004080&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe></span>
             <span>
@@ -74,14 +100,14 @@
             </span>              
         </div>
     </div>
-    <!-- 头部右边 -->
+    <!-- 头部右边
     <div class="usermsg rit clearfix">
         <span class="ico name"  href="<%=path%>/html/register.html?&realName=<%=realName%>&deptName=<%=deptName%>&roleName=<%=roleName%>" data-btn="login_infor">您好，<%=realName%></span>
         <b class="line null">分割线</b>
         
         <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
     </div>
-</div>
+</div>-->
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
 $("#daiban").attr('href','<%=path %>/galaxy/soptask?sid='+sessionId+'&guid='+userId+'&_is_menu_=true');

@@ -10,9 +10,10 @@ String path = request.getContextPath();
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
+<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
@@ -22,30 +23,7 @@ String path = request.getContextPath();
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 </head>
 <body>
-<div class="header clearfix">
-
-  <a href="javascript:;" class="logo null">繁星</a>
-    
-    <!-- 头部右边 -->
-    <div class="usermsg rit clearfix">
-       <!--用户信息-->
-        <div class="usermsg fl">
-            <a href="javascript:;" class="work">待办</a>
-            <a href="javascript:;" class="work">紧急<em class="bubble">5</em></a>
-            <a href="javascript:;" class="work">消息</a> 
-        </div>      <!--当日信息-->
-      <div class="man_info fl">
-        <span class="ico name"><span class="avator"></span>${sessionScope.galax_session_user.realName }</span>
-        <ul>
-          <li><a href="#">修改密码</a></li>
-          <li><a href="#">退出</a></li>
-        </ul>
-      </div>
-      <div class="xingmou fr">
-        <a href="#" target="_blank"><span class="navbar xingmou"></span>星眸</a>
-      </div>
-    </div>
-</div>
+<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
   <!--右侧-->
   <!-- 收起 -->
