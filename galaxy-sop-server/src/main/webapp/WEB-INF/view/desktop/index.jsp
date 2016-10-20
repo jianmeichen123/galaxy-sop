@@ -1,4 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page import="com.galaxyinternet.model.user.User"%>
+<%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 String path = request.getContextPath();
 %>
@@ -32,7 +35,7 @@ String path = request.getContextPath();
             <a href="javascript:;" class="work">消息</a> 
         </div>      <!--当日信息-->
       <div class="man_info fl">
-        <span class="ico name"><span class="avator"></span>闫皓</span>
+        <span class="ico name"><span class="avator"></span>${sessionScope.galax_session_user.realName }</span>
         <ul>
           <li><a href="#">修改密码</a></li>
           <li><a href="#">退出</a></li>
@@ -199,18 +202,9 @@ String path = request.getContextPath();
     </ul>
     <!--内容显示区域-->
  	<div class="ritmin clearfix">
-	<%
-		String[] modules = {"task","dataChart","idea_summary","message_tip","projectProgress","matterPreview","project_health","div_project_progress_gg","div_performance_gg","ytxmfx","div_duration_gg"};
-		for(String module : modules)
-		{
-			String url = "/galaxy/desktop/"+module;
-			//if(!hasPermission) break;
-	%>
-			<div class="floatBox fl" data-url="<%=url%>"></div>
-	<%
-			
-		}
-	%>
+ 	<c:forEach var="module" items="${modules }">
+ 		<div class="floatBox fl" data-url="${module.resourceUrl }"></div>
+ 	</c:forEach>
   </div>
 <!--内容显示区域结束-->
 
@@ -265,7 +259,7 @@ String path = request.getContextPath();
    $(".floatBox").each(function(){
 	   var _this = this;
 	   var opts = {
-		   url : "<%=path%>"+ $(this).data('url'),
+		   url : "<%=path%>/"+ $(this).data('url'),
 		   type:'POST'
 	   };
 	   $(_this).loadHtml(opts);

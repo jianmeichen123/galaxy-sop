@@ -96,7 +96,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		List<IndexConfigBo> models = indexConfigService.queryUserIndexModel(params);
 		logger.debug(GSONUtil.toJson(models));
 		request.setAttribute("modules", models);
-		return "index";
+		return "desktop/index";
 	}
 	
 	/**
