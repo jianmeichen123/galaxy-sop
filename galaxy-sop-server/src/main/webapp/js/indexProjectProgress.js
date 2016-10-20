@@ -61,6 +61,7 @@ var chartIndexPProgressUtils = {
 		    },
 		    series: [{
 		        name: '项目数',
+		        color:'#5cbed6', 
 		        //data: [8,5,4,3,3,2,2,2,2],
 		        dataLabels: {
 		            enabled: false,

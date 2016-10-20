@@ -1,10 +1,14 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page import="com.galaxyinternet.model.user.User"%>
+<%@ page import="com.galaxyinternet.framework.core.oss.OSSConstant"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <% 
 String path = request.getContextPath();
+String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
+java.util.Map<String, String> map = new com.google.gson.Gson().fromJson(endpoint,new com.google.gson.reflect.TypeToken<java.util.Map<String, String>>() {}.getType());
+String reportEndpoint = map.get("galaxy.project.report.endpoint");
 %>
 <!doctype html>
 <html>
@@ -18,6 +22,15 @@ String path = request.getContextPath();
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+<!-- 富文本编辑器 -->
+<script id="d" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/dialogs/map/map.js"></script>
+<script id="e" type="text/javascript" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload/zh_CN.js" type="text/javascript"></script>
 
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
