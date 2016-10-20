@@ -250,7 +250,7 @@ String path = request.getContextPath();
 			$(list).each(function() {
 				var templ = $(this)[0];
 				i = i + 1;
-				if(i=4) return;
+				
 				var _td;
 				sendGetRequest(platformUrl.judgeRole + "/"+ templ.projectId,null,
 					function(data) {
@@ -347,7 +347,7 @@ String path = request.getContextPath();
 			$(list).each(function() {
 				var temp = $(this)[0];
 				i = i + 1;
-				if(i=4) return;
+				
 				var _td;
 				sendGetRequest(platformUrl.judgeRole + "/"+ temp.projectId,null,
 						function(data) {
@@ -443,7 +443,7 @@ String path = request.getContextPath();
 			$(list).each(function(){
 				 var templ = $(this)[0];
 				 i = i + 1;
-				 if(i=4) return;
+				 
 				 var _td;
 				 sendGetRequest(platformUrl.judgeRole + "/" + templ.projectId, null,function(data){
 					if(data.result.status!="OK"){
