@@ -2,6 +2,7 @@
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <% 
 String path = request.getContextPath();
 %>
@@ -37,9 +38,9 @@ String path = request.getContextPath();
         <!--立项排期会-->
         <div class="bottom_small">
           <ul>
-            <li><a href="javascript:;" onclick="paiqidate('meetingType:3');"><span class="ico_small lxh"></span><span>立项会</span></a></li>
-            <li><a href="javascript:;" onclick="paiqidate('meetingType:4');"><span class="ico_small tjh"></span><span>投决会</span></a></li>
-            <li><a href="javascript:;" onclick="paiqidate('meetingType:2');"><span class="ico_small psh"></span><span>CEO评审</span></a></li>
+            <li><a href="<%=path %>/html/projectMeeting.html" data-btn="project" ><span class="ico_small lxh"></span><span>立项会</span></a></li>
+            <li><a href="<%=path %>/html/voteMeeting.html" data-btn="vote" ><span class="ico_small tjh"></span><span>投决会</span></a></li>
+            <li><a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" ><span class="ico_small psh"></span><span>CEO评审</span></a></li>
             <li><span class="ico_small tool"></span><span>常用工具</span></li>
           </ul>
         </div>
@@ -85,8 +86,6 @@ String path = request.getContextPath();
         </dl>
         
         
-        
-        
         <!--投决会排期-->
          <dl>
           <dt>
@@ -104,7 +103,6 @@ String path = request.getContextPath();
 		    </div>    
 		</dd>
         </dl>
-        
         
         
         <!-- ceo评审 -->
@@ -132,8 +130,20 @@ String path = request.getContextPath();
             <dd class="tool">
               <a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                 <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
-                <a href="javascript:;"><b class="b3 ico null">ico</b>新增会议</a>
-                <a href="javascript:;"><b class="b4 ico null">ico</b>新增访谈</a>
+                
+                <c:choose>
+		        	<c:when test="${fx:hasRole(20)}">
+                   	<a href="javascript:;" class="light_gray"><b class="b3 ico null">ico</b>新增会议</a>
+					<a href="javascript:;" class="light_gray "><b class="b4 ico null">ico</b>新增访谈</a>
+		        	
+		        	</c:when>
+		        	<c:otherwise>
+		        	
+                       <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
+                   	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a>
+		        	</c:otherwise>
+	        	</c:choose>
+		        	
                 <a href="javascript:;" class="light_gray"><b class="b5 ico null">ico</b>发邮件</a>
                 <a href="javascript:;" class="add ico">&nbsp;</a>
             </dd>
@@ -289,6 +299,7 @@ String path = request.getContextPath();
 	
 	// 所有立项排期
 	function showList() {
+		alert(99)
 		moreProjectMeeting();
 	}
 	function moreProjectMeeting() {
