@@ -254,7 +254,13 @@ String path = request.getContextPath();
   
   
   //=====
-	  
+	$(function(){
+		top5ProjectMeeting();
+		ProjectVoteWill();
+		top5CeoPsMeeting();
+	});
+  
+  
 	//排期时间  
 	function paiqidate(type){
 		forwardWithHeader(platformUrl.popupMeetingList + type);
@@ -262,13 +268,13 @@ String path = request.getContextPath();
 
 	
 
-	// top5立项排期
+	// top2立项排期
 	function top5ProjectMeeting() {
 		sendGetRequest(platformUrl.top5ProjectMeeting, null, top5ProjectMeetingCallback);
 	}
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if (list.length < 3) {
+		if (list.length < 2) {
 			$("#tlbody").parent().parent().siblings().children('.more').css("display", "none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -298,10 +304,8 @@ String path = request.getContextPath();
 						}
 
 						var tr = '<tr>'
-								+ '<td>'+ i+ '</td>'
 								+ _td
 								+ '<td>'+ getDateValue(templ.meetingDate)+ '</td>'
-								+ '<td>'+ getIntegerValue(templ.meetingCount)+ '</td>' 
 								+ ' </tr>';
 								
 						tbodyList.append(tr);
@@ -334,21 +338,19 @@ String path = request.getContextPath();
 					function() {
 						var templ = $(this)[0];
 						i = i + 1;
-						var tr = '<tr>' + '<td>' + i + '</td>' + '<td>'
-								+ getValue(templ.projectName) + '</td>'
-								+ '<td>' + getIntegerValue(templ.meetingCount)
-								+ '</td>' + '<td>'
-								+ getDateValue(templ.meetingDate) + '</td>'
-								+ '<td>' + getValue(templ.projectCareerline)
-								+ '</td>' + '<td>'
-								+ getValue(templ.createUname) + '</td>'
+						var tr = '<tr>' 
+								+ '<td>' + i + '</td>' 
+								+ '<td>' + getValue(templ.projectName) + '</td>'
+								+ '<td>' + getIntegerValue(templ.meetingCount) + '</td>' 
+								+ '<td>' + getDateValue(templ.meetingDate) + '</td>'
+								+ '<td>' + getValue(templ.projectCareerline) + '</td>' 
+								+ '<td>' + getValue(templ.createUname) + '</td>'
 								+ '<td>' + getValue(templ.remark) + '</td>'
 								+ ' </tr>';
 						tbodyList.append(tr);
 					});
 			if (list.length < 3) {
-				$("#tcbody").parent().parent().siblings().children('.more')
-						.css("display", "none");
+				$("#tcbody").parent().parent().siblings().children('.more').css("display", "none");
 			}
 		} else {
 			var tbodyList = $("#tcbody");
@@ -363,14 +365,15 @@ String path = request.getContextPath();
 	
 	
 	
-	//top5投决排期
+	//top2投决排期
 	function ProjectVoteWill() {
 		sendGetRequest(platformUrl.ProjectVoteWill, null, ProjectVoteWillCallback);
 	}
 	function ProjectVoteWillCallback(data) {
+		$("#tbody").empty();
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
-		if (list.length < 3) {
+		if (list.length < 2) {
 			$("#tbody").parent().parent().siblings().children('.more').css("display", "none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -399,10 +402,8 @@ String path = request.getContextPath();
 	
 							i = i + 1;
 							var tr = '<tr>'
-									+ '<td>'+ i+ '</td>'
 									+ _td
 									+ '<td>'+ getDateValue(temp.meetingDate)+ '</td>'
-									+ '<td>'+ getIntegerValue(temp.meetingCount)+ '</td>' 
 									+ ' </tr>';
 							tbodyList.append(tr);
 						});
@@ -464,7 +465,7 @@ String path = request.getContextPath();
 	
 	
 	
-	// top5ceo评审
+	// top2ceo评审
 	function top5CeoPsMeeting() {
 		sendGetRequest(platformUrl.top5CeoPsMeeting, null, top5CeoPsMeetingCallback);
 	}
@@ -489,10 +490,8 @@ String path = request.getContextPath();
 				 });
 				 i=i+1;
 				 var tr='<tr>'+
-					 '<td>'+i+'</td>'+
 					 _td+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
-					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 				 
@@ -508,7 +507,7 @@ String path = request.getContextPath();
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
-		if(list.length<3){
+		if(list.length<2){
 			$("#ceo_p .position").css("display","none");
 		}
 	}
