@@ -22,6 +22,7 @@ String path = request.getContextPath();
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
+<script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
@@ -60,10 +61,10 @@ String path = request.getContextPath();
                 <p class="month_box_date"></p>
               </div>
               <p class="time time_moment fl"></p>
-              <button class="bluebtn btn fr">添加日程</button>
+               <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="bluebtn btn fr">添加日程</a>
             </div>
-            <a href="javascript:;" class="link"><b class="b1 null">点</b>明天，要和创业团队见面</a>
-            <a href="javascript:;" class="link"><b class="b2 null">点</b>后天，要和夹克的虾团队见面</a>
+            <div id="top">
+            </div>
         </div>
         
         
@@ -299,7 +300,6 @@ String path = request.getContextPath();
 	
 	// 所有立项排期
 	function showList() {
-		alert(99)
 		moreProjectMeeting();
 	}
 	function moreProjectMeeting() {
@@ -590,7 +590,7 @@ String path = request.getContextPath();
 			return dict[arguments[0]];
 		});
 	}
-	
+	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	
 	
 </script>
