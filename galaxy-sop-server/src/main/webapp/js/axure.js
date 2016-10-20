@@ -247,7 +247,7 @@
 			var whichOne = event.which,targetOne = event.target;
 			var oneBox = $this.has($(targetOne)).length == 0?false:true;
 			(whichOne==1||whichOne==0)&&!oneBox?$this.hide():false;
-			fn();
+			//fn();
 		};
 		$(document).on("mousedown",documentHide);	
 	}

@@ -37,17 +37,20 @@ String path = request.getContextPath();
         <!--立项排期会-->
         <div class="bottom_small">
           <ul>
-            <li><span class="ico_small lxh"></span><span>立项会</span></li>
-            <li><span class="ico_small tjh"></span><span>投决会</span></li>
-            <li><span class="ico_small psh"></span><span>CEO评审</span></li>
+            <li><a href="javascript:;" onclick="paiqidate('meetingType:3');"><span class="ico_small lxh"></span><span>立项会</span></a></li>
+            <li><a href="javascript:;" onclick="paiqidate('meetingType:4');"><span class="ico_small tjh"></span><span>投决会</span></a></li>
+            <li><a href="javascript:;" onclick="paiqidate('meetingType:2');"><span class="ico_small psh"></span><span>CEO评审</span></a></li>
             <li><span class="ico_small tool"></span><span>常用工具</span></li>
           </ul>
         </div>
     </div>
+    
+    
     <!-- 展开 -->
     <div class="rit big">
       <div class="bico"></div>
       <div class="big_con">
+      
         <!--时间-->
         <div class="top">
             <div class="tody ico">
@@ -61,84 +64,102 @@ String path = request.getContextPath();
             <a href="javascript:;" class="link"><b class="b1 null">点</b>明天，要和创业团队见面</a>
             <a href="javascript:;" class="link"><b class="b2 null">点</b>后天，要和夹克的虾团队见面</a>
         </div>
+        
+        
         <!--立项排期会-->
         <dl>
           <dt>
-            <a href="javascript:;" class="blue">排期时间</a>
-            <a href="javascript:;" class="more"></a>
+            <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:3');">排期时间</a>
+            <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
- <dd class='clearfix'> 
-    <div class="ico_index lxh fl"></div>
-    <div class="table fr">
-      <table width="100%" cellspacing="0" cellpadding="0" class="index">
-        <tbody>
-            <tr>
-                <td>美好时代</td>
-                <td>2016-1-1</td>
-            </tr>
-            <tr>
-                <td class="noborder">美好时代</td>
-                <td class="noborder">2016-1-1</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    </div>    
-</dd>
+		 <dd class='clearfix'> 
+		    <div class="ico_index lxh fl"></div>
+		    <div class="table fr">
+		      <table width="100%"  id="projectMeeting"  cellspacing="0" cellpadding="0" class="index">
+		      
+		      				<!-- <th>序号</th>
+                            <th>项目名称</th>
+                            <th>上次过会时间</th>
+                            <th>过会次数</th> -->
+                            
+		        <tbody id="tlbody">
+		            <tr>
+		                <td>美好时代</td>
+		                <td>2016-1-1</td>
+		            </tr>
+		            <tr>
+		                <td class="noborder">美好时代</td>
+		                <td class="noborder">2016-1-1</td>
+		            </tr>
+		            
+		        </tbody>
+		    </table>
+		    </div>    
+		</dd>
         </dl>
+        
+        
+        
+        
         <!--投决会排期-->
          <dl>
           <dt>
-            <a href="javascript:;" class="blue">排期时间</a>
-            <a href="javascript:;" class="more"></a>
+            <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:4');">排期时间</a>
+            <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
- <dd class='clearfix'> 
-    <div class="ico_index tjh fl"></div>
-    <div class="table fr">
-      <table width="100%" cellspacing="0" cellpadding="0" class="index">
-        <tbody>
-            <tr>
-                <td>美好时代</td>
-                <td>2016-1-1</td>
-            </tr>
-            <tr>
-                <td class="noborder">美好时代</td>
-                <td class="noborder">2016-1-1</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    </div>    
-</dd>
+		 <dd class='clearfix'> 
+		    <div class="ico_index tjh fl"></div>
+		    <div class="table fr">
+		      <table width="100%" cellspacing="0" cellpadding="0" class="index">
+		        <tbody  id="tbody">
+		            <tr>
+		                <td>美好时代</td>
+		                <td>2016-1-1</td>
+		            </tr>
+		            <tr>
+		                <td class="noborder">美好时代</td>
+		                <td class="noborder">2016-1-1</td>
+		            </tr>
+		            
+		        </tbody>
+		    </table>
+		    </div>    
+		</dd>
         </dl>
+        
+        
+        
         <!-- ceo评审 -->
          <dl>
           <dt>
-            <a href="javascript:;" class="blue">排期时间</a>
-            <a href="javascript:;" class="more"></a>
+            <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:2');">排期时间</a>
+            <a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
- <dd class='clearfix'> 
-    <div class="ico_index psh fl"></div>
-    <div class="table fr">
-      <table width="100%" cellspacing="0" cellpadding="0" class="index">
-        <tbody>
-            <tr>
-                <td>美好时代</td>
-                <td>2016-1-1</td>
-            </tr>
-            <tr>
-                <td class="noborder">美好时代</td>
-                <td class="noborder">2016-1-1</td>
-            </tr>
-            
-        </tbody>
-    </table>
-    </div>    
-</dd>
+			 <dd class='clearfix'> 
+			    <div class="ico_index psh fl"></div>
+			    <div class="table fr">
+			      <table id="ceopsMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
+			        <tbody  id="ceopsbodytop">
+			            <tr>
+			                <td>美好时代</td>
+			                <td>2016-1-1</td>
+			            </tr>
+			            <tr>
+			                <td class="noborder">美好时代</td>
+			                <td class="noborder">2016-1-1</td>
+			            </tr>
+			            
+			        </tbody>
+			    </table>
+			    </div>    
+			</dd>
         </dl>
+        
+        
+        
         <!-- 常用工具 -->
         <dl  class="tool_radius">
             <dd class="tool">
@@ -224,6 +245,378 @@ String path = request.getContextPath();
    });
     
   })
+  
+  
+  
+  
+  
+  
+  
+  
+  //=====
+	  
+	//排期时间  
+	function paiqidate(type){
+		forwardWithHeader(platformUrl.popupMeetingList + type);
+	}
+
+	
+
+	// top5立项排期
+	function top5ProjectMeeting() {
+		sendGetRequest(platformUrl.top5ProjectMeeting, null, top5ProjectMeetingCallback);
+	}
+	function top5ProjectMeetingCallback(data) {
+		var list = data.entityList;
+		if (list.length < 3) {
+			$("#tlbody").parent().parent().siblings().children('.more').css("display", "none");
+		};
+		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
+			var tbodyList = $("#tlbody");
+			tbodyList.empty();
+			var i = 0;
+			$(list).each(function() {
+				var templ = $(this)[0];
+				i = i + 1;
+
+				var _td;
+				sendGetRequest(platformUrl.judgeRole + "/"+ templ.projectId,null,
+					function(data) {
+						if (data.result.status != "OK") {
+							return false;
+						}
+						if (data.result.message == "show") {
+							_td = '<td  title="'+ getValue(templ.projectName)+ '">'
+									+ '<a class="blue cutstr" href="javascript:void(0)" onclick="to_pro_info('+ templ.projectId+ ')">'
+									+ getValue(templ.projectName)
+									+ '</a>' 
+									+ '</td>';
+						} else {
+							_td = '<td title="'+ getValue(templ.projectName)+ '" class="cutstr">'
+									+ getValue(templ.projectName)
+									+ '</td>';
+						}
+
+						var tr = '<tr>'
+								+ '<td>'+ i+ '</td>'
+								+ _td
+								+ '<td>'+ getDateValue(templ.meetingDate)+ '</td>'
+								+ '<td>'+ getIntegerValue(templ.meetingCount)+ '</td>' 
+								+ ' </tr>';
+								
+						tbodyList.append(tr);
+					});
+			});
+		} else {
+			var tbodyList = $("#tlbody");
+			var noData = '<tr>'
+					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ ' </tr>';
+			tbodyList.append(noData);
+		}
+		cutStr(5, 'cutstr');
+	}
+	
+	// 所有立项排期
+	function showList() {
+		moreProjectMeeting();
+	}
+	function moreProjectMeeting() {
+		sendGetRequest(Constants.sopEndpointURL+"/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback);
+	}
+	function moreProjectMeetingCallback(data) {
+		var list = data.entityList;
+		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
+			var tbodyList = $("#tcbody");
+			tbodyList.empty();
+			var i = 0;
+			$(list).each(
+					function() {
+						var templ = $(this)[0];
+						i = i + 1;
+						var tr = '<tr>' + '<td>' + i + '</td>' + '<td>'
+								+ getValue(templ.projectName) + '</td>'
+								+ '<td>' + getIntegerValue(templ.meetingCount)
+								+ '</td>' + '<td>'
+								+ getDateValue(templ.meetingDate) + '</td>'
+								+ '<td>' + getValue(templ.projectCareerline)
+								+ '</td>' + '<td>'
+								+ getValue(templ.createUname) + '</td>'
+								+ '<td>' + getValue(templ.remark) + '</td>'
+								+ ' </tr>';
+						tbodyList.append(tr);
+					});
+			if (list.length < 3) {
+				$("#tcbody").parent().parent().siblings().children('.more')
+						.css("display", "none");
+			}
+		} else {
+			var tbodyList = $("#tcbody");
+			var noData = '<tr>'
+					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ ' </tr>';
+			tbodyList.append(noData);
+		}
+	}
+	
+	
+	
+	
+	
+	//top5投决排期
+	function ProjectVoteWill() {
+		sendGetRequest(platformUrl.ProjectVoteWill, null, ProjectVoteWillCallback);
+	}
+	function ProjectVoteWillCallback(data) {
+		//根据id判断类型（组装json数据）
+		var list = data.entityList;
+		if (list.length < 3) {
+			$("#tbody").parent().parent().siblings().children('.more').css("display", "none");
+		};
+		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
+			var tbodyList = $("#tbody");
+			var i = 0;
+			$(list).each(function() {
+				var temp = $(this)[0];
+	
+				var _td;
+				sendGetRequest(platformUrl.judgeRole + "/"+ temp.projectId,null,
+						function(data) {
+							if (data.result.status != "OK") {
+								return false;
+							}
+							if (data.result.message == "show") {
+								_td = '<td title="'+ getValue(temp.projectName)+ '">'
+										+ '<a class="cutstr blue" href="javascript:void(0)" onclick="to_pro_info('+ temp.projectId+ ')">'
+										+ getValue(temp.projectName)
+										+ '</a>' 
+										+ '</td>';
+							} else {
+								_td = '<td class="cutstr" title="'+ getValue(temp.projectName)+ '">'
+										+ getValue(temp.projectName)
+										+ '</td>';
+							}
+	
+							i = i + 1;
+							var tr = '<tr>'
+									+ '<td>'+ i+ '</td>'
+									+ _td
+									+ '<td>'+ getDateValue(temp.meetingDate)+ '</td>'
+									+ '<td>'+ getIntegerValue(temp.meetingCount)+ '</td>' 
+									+ ' </tr>';
+							tbodyList.append(tr);
+						});
+			});
+			cutStr(5, 'cutstr');
+		} else {
+			var tbodyList = $("#tbody");
+			var noData = '<tr>'
+					+ '<td colspan="4" class="no_info"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ ' </tr>';
+			tbodyList.append(noData);
+		}
+
+	}
+	
+	//所有投决会
+	function showList1() {
+		moreProjectVoteWill();
+	}
+	function moreProjectVoteWill() {
+		sendGetRequest(platformUrl.moreProjectVoteWill, null, moreVotebodyMeetingCallback);
+	}
+	function moreVotebodyMeetingCallback(data) {
+		var list = data.entityList;
+		if (list != null && list != "" && typeof (list) != 'undefined'
+				&& list.length != 0) {
+			var tbodyList = $("#votebody");
+			tbodyList.empty();
+			var i = 0;
+			$(list).each(
+					function() {
+						var templ = $(this)[0];
+						i = i + 1;
+						var tr = '<tr>' + '<td>' + i + '</td>' + '<td>'
+								+ getValue(templ.projectName) + '</td>'
+								+ '<td>' + getIntegerValue(templ.meetingCount)
+								+ '</td>' + '<td>'
+								+ getDateValue(templ.meetingDate) + '</td>'
+								+ '<td>' + getValue(templ.projectCareerline)
+								+ '</td>' + '<td>'
+								+ getValue(templ.createUname) + '</td>'
+								+ '<td>' + getValue(templ.remark) + '</td>'
+								+ ' </tr>';
+						tbodyList.append(tr);
+					});
+			if (list.length < 3) {
+				$("#votebody").parent().parent().siblings().children('.more')
+						.css("display", "none");
+			}
+		} else {
+			var tbodyList = $("#votebody");
+			var noData = '<tr>'
+					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ ' </tr>';
+			tbodyList.append(noData);
+		}
+	}
+	
+	
+	
+	
+	// top5ceo评审
+	function top5CeoPsMeeting() {
+		sendGetRequest(platformUrl.top5CeoPsMeeting, null, top5CeoPsMeetingCallback);
+	}
+	function top5CeoPsMeetingCallback(data) {		
+		var list = data.entityList;
+		if(list != "" || list != undefined || list != null){
+			var tbodyList = $("#ceopsbodytop"); 
+			tbodyList.empty();
+			var i=0;
+			$(list).each(function(){
+				 var templ = $(this)[0];
+				 var _td;
+				 sendGetRequest(platformUrl.judgeRole + "/" + templ.projectId, null,function(data){
+					if(data.result.status!="OK"){
+						return false;
+					}
+					if(data.result.message=="show"){
+						_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="to_pro_info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
+					}else{
+						_td = '<td  title="'+ getValue(templ.projectName)+'" class="cutstr">'+ getValue(templ.projectName) +'</td>';
+					}
+				 });
+				 i=i+1;
+				 var tr='<tr>'+
+					 '<td>'+i+'</td>'+
+					 _td+
+					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+					' </tr>'; 
+				 tbodyList.append(tr);
+				 
+			  });
+			cutStr(5,'cutstr');
+		}		
+		if (list.length==0) {
+			
+			var tbodyList = $("#ceopsbodytop"); 
+			var noData =
+				'<tr>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
+				' </tr>'; 			
+			tbodyList.append(noData);
+	   }
+		if(list.length<3){
+			$("#ceo_p .position").css("display","none");
+		}
+	}
+	
+	//所有CEO评审
+	function showList2() {
+		moreProjectCeoPsWill();
+	}
+	function moreProjectCeoPsWill() {
+		sendGetRequest(platformUrl.moreProjectCeoPsWill, null, moreCeoPsbodyMeetingCallback);
+	}
+	function moreCeoPsbodyMeetingCallback(data) {
+		var list = data.entityList;
+		if(list != "" || list != undefined || list != null){
+			var tbodyList = $("#ceopsbody"); 
+			tbodyList.empty();
+			var i=0;
+			$(list).each(function(){
+				 var templ = $(this)[0];
+				 i=i+1;
+				 var tr='<tr>'+
+					 '<td>'+i+'</td>'+
+					 '<td>'+ getValue(templ.projectName)+'</td>'+
+					 //'<td>'+ getStatusValue(templ.status)+'</td>'+
+					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+					 '<td>'+getValue(templ.projectCareerline)+'</td>'+
+					 '<td>'+getValue(templ.createUname)+'</td>'+
+					 '<td>'+getValue(templ.remark)+'</td>'+
+					' </tr>'; 
+				 tbodyList.append(tr);
+			  });
+		}
+	}
+
+
+	
+	function getValue(str) {
+		if (typeof (str) == "undefined") {
+			return "-";
+		} else {
+			return str;
+		}
+	}
+	
+	function getDateValue(str) {
+		if (str == null || typeof (str) == "undefined") {
+			return " ";
+		} else {
+			return formatDate(str);
+		}
+	}
+
+	function getStatusValue(str) {
+		if (typeof (str) == "undefined" || str == null) {
+			return "-";
+		} else if (str == "meetingResult:2") {
+			return "待完成";
+		} else if (str == "meetingResult:1") {
+			return "待认领";
+		} else if (str == "meetingResult:3") {
+			return "已完成";
+		}
+	}
+	
+
+	function getIntegerValue(str) {
+		if (str == null) {
+			return 0
+		} else {
+			return str
+		}
+	}
+	function formatDate(date, format) {
+		if (!date)
+			return null;
+		if (!format)
+			format = "yyyy-MM-dd";
+		switch (typeof date) {
+		case "string":
+			date = new Date(date.replace(/-/, "/"));
+			break;
+		case "number":
+			date = new Date(date);
+			break;
+		}
+		if (!date instanceof Date)
+			return;
+		var dict = {
+			"yyyy" : date.getFullYear(),
+			"M" : date.getMonth() + 1,
+			"d" : date.getDate(),
+			"H" : date.getHours(),
+			"m" : date.getMinutes(),
+			"s" : date.getSeconds(),
+			"MM" : ("" + (date.getMonth() + 101)).substr(1),
+			"dd" : ("" + (date.getDate() + 100)).substr(1),
+			"HH" : ("" + (date.getHours() + 100)).substr(1),
+			"mm" : ("" + (date.getMinutes() + 100)).substr(1),
+			"ss" : ("" + (date.getSeconds() + 100)).substr(1)
+		};
+		return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function() {
+			return dict[arguments[0]];
+		});
+	}
+	
+	
+	
 </script>
 
 
