@@ -23,6 +23,8 @@ String path = request.getContextPath();
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 <script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
+<script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
+<script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
@@ -61,10 +63,9 @@ String path = request.getContextPath();
                 <p class="month_box_date"></p>
               </div>
               <p class="time time_moment fl"></p>
-               <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="bluebtn btn fr">添加日程</a>
+              <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="bluebtn btn fr">添加日程</a>
             </div>
             <div id="top">
-            </div>
         </div>
         
         
@@ -233,6 +234,7 @@ String path = request.getContextPath();
   
   //=====
 	$(function(){
+		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 		top5ProjectMeeting();
 		ProjectVoteWill();
 		top5CeoPsMeeting();
@@ -590,7 +592,7 @@ String path = request.getContextPath();
 			return dict[arguments[0]];
 		});
 	}
-	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
+	
 	
 	
 </script>
