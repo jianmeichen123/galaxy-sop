@@ -145,7 +145,6 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 			throw new Exception(e);
 		}finally{
 			try {
-				tempFile.delete();
 				if(fis != null)
 				{
 					fis.close();
@@ -154,7 +153,7 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 				{
 					out.close();
 				}
-//				tempFile.delete();
+				tempFile.delete();
 			} catch (IOException e) {
 				logger.error("下载失败.",e);
 			}
