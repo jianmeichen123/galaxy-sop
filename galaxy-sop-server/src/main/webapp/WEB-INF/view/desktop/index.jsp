@@ -77,22 +77,7 @@ String path = request.getContextPath();
 		    <div class="ico_index lxh fl"></div>
 		    <div class="table fr">
 		      <table width="100%"  id="projectMeeting"  cellspacing="0" cellpadding="0" class="index">
-		      
-		      				<!-- <th>序号</th>
-                            <th>项目名称</th>
-                            <th>上次过会时间</th>
-                            <th>过会次数</th> -->
-                            
 		        <tbody id="tlbody">
-		            <tr>
-		                <td>美好时代</td>
-		                <td>2016-1-1</td>
-		            </tr>
-		            <tr>
-		                <td class="noborder">美好时代</td>
-		                <td class="noborder">2016-1-1</td>
-		            </tr>
-		            
 		        </tbody>
 		    </table>
 		    </div>    
@@ -114,15 +99,6 @@ String path = request.getContextPath();
 		    <div class="table fr">
 		      <table width="100%" cellspacing="0" cellpadding="0" class="index">
 		        <tbody  id="tbody">
-		            <tr>
-		                <td>美好时代</td>
-		                <td>2016-1-1</td>
-		            </tr>
-		            <tr>
-		                <td class="noborder">美好时代</td>
-		                <td class="noborder">2016-1-1</td>
-		            </tr>
-		            
 		        </tbody>
 		    </table>
 		    </div>    
@@ -143,15 +119,6 @@ String path = request.getContextPath();
 			    <div class="table fr">
 			      <table id="ceopsMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
 			        <tbody  id="ceopsbodytop">
-			            <tr>
-			                <td>美好时代</td>
-			                <td>2016-1-1</td>
-			            </tr>
-			            <tr>
-			                <td class="noborder">美好时代</td>
-			                <td class="noborder">2016-1-1</td>
-			            </tr>
-			            
 			        </tbody>
 			    </table>
 			    </div>    
@@ -268,23 +235,22 @@ String path = request.getContextPath();
 
 	
 
-	// top2立项排期
+	// top3立项排期
 	function top5ProjectMeeting() {
 		sendGetRequest(platformUrl.top5ProjectMeeting, null, top5ProjectMeetingCallback);
 	}
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if (list.length < 2) {
+		if (list.length < 3) {
 			$("#tlbody").parent().parent().siblings().children('.more').css("display", "none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
 			var tbodyList = $("#tlbody");
-			tbodyList.empty();
 			var i = 0;
 			$(list).each(function() {
 				var templ = $(this)[0];
 				i = i + 1;
-
+				if(i=4) return;
 				var _td;
 				sendGetRequest(platformUrl.judgeRole + "/"+ templ.projectId,null,
 					function(data) {
@@ -365,15 +331,14 @@ String path = request.getContextPath();
 	
 	
 	
-	//top2投决排期
+	//top3投决排期
 	function ProjectVoteWill() {
 		sendGetRequest(platformUrl.ProjectVoteWill, null, ProjectVoteWillCallback);
 	}
 	function ProjectVoteWillCallback(data) {
-		$("#tbody").empty();
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
-		if (list.length < 2) {
+		if (list.length < 3) {
 			$("#tbody").parent().parent().siblings().children('.more').css("display", "none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -381,7 +346,8 @@ String path = request.getContextPath();
 			var i = 0;
 			$(list).each(function() {
 				var temp = $(this)[0];
-	
+				i = i + 1;
+				if(i=4) return;
 				var _td;
 				sendGetRequest(platformUrl.judgeRole + "/"+ temp.projectId,null,
 						function(data) {
@@ -400,7 +366,6 @@ String path = request.getContextPath();
 										+ '</td>';
 							}
 	
-							i = i + 1;
 							var tr = '<tr>'
 									+ _td
 									+ '<td>'+ getDateValue(temp.meetingDate)+ '</td>'
@@ -465,7 +430,7 @@ String path = request.getContextPath();
 	
 	
 	
-	// top2ceo评审
+	// top3ceo评审
 	function top5CeoPsMeeting() {
 		sendGetRequest(platformUrl.top5CeoPsMeeting, null, top5CeoPsMeetingCallback);
 	}
@@ -477,6 +442,8 @@ String path = request.getContextPath();
 			var i=0;
 			$(list).each(function(){
 				 var templ = $(this)[0];
+				 i = i + 1;
+				 if(i=4) return;
 				 var _td;
 				 sendGetRequest(platformUrl.judgeRole + "/" + templ.projectId, null,function(data){
 					if(data.result.status!="OK"){
@@ -488,7 +455,6 @@ String path = request.getContextPath();
 						_td = '<td  title="'+ getValue(templ.projectName)+'" class="cutstr">'+ getValue(templ.projectName) +'</td>';
 					}
 				 });
-				 i=i+1;
 				 var tr='<tr>'+
 					 _td+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
@@ -507,7 +473,7 @@ String path = request.getContextPath();
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
-		if(list.length<2){
+		if(list.length<3){
 			$("#ceo_p .position").css("display","none");
 		}
 	}
