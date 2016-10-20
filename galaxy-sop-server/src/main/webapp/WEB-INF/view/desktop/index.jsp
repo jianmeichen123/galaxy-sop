@@ -259,7 +259,7 @@ String path = request.getContextPath();
    $(".floatBox").each(function(){
 	   var _this = this;
 	   var opts = {
-		   url : "<%=path%>/"+ $(this).data('url'),
+		   url : "/"+$(this).data('url'),
 		   type:'POST'
 	   };
 	   $(_this).loadHtml(opts);
