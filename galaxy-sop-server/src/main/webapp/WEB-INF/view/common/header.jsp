@@ -65,7 +65,7 @@
       <div class="man_info fl">
         <span class="ico name"><span class="avator"></span><%=realName%></span>
         <ul>
-          <li><a href="/sop/html/change_password.html" id="hid" data-btn="change_password" class="register_all_input">修改密码</a></li>
+          <li><a href="/sop/html/change_password.html" id="hid" data-btn="change_password">修改密码</a></li>
            <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
         </ul>
       </div>
@@ -173,18 +173,6 @@ if(isContainResourceByMark("task_into_view")){
      $(this).hide();
  })
  
-				$("[data-btn='change_password']").on("click",function(){
-					$('.pop').remove();
-					var $self = $(this);
-					var _url = $self.attr("href");
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){
-							//$(this).change_password();
-						}//模版反回成功执行	
-					});
-					return false;
-				});
+				
  
 </script>
