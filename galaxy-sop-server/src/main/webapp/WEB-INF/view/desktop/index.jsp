@@ -177,43 +177,23 @@ String path = request.getContextPath();
       
     </div>
 	<!--左侧导航-->
-  <ul class="lft">
-      <li class="on"><a href="#"><span class="navbar nav160"></span>工作桌面</a></li>
-        <li>
-          <a href="javascript:;"><span class="navbar nav171"></span>创投项目</a>
-        </li>
-        <li>
-          <a href="javascript:;"><span class="navbar nav143"></span>数据简报</a>
-        </li>
-        <li>
-          <a href="javascript:;"><span class="navbar nav144"></span>项目分析</a>
-        </li>
-        <li>
-          <a href="javascript:;"><span class="navbar nav147"></span>绩效考核</a>
-        </li>
-        <li class="toggle_li">
-          <a href="javascript:;"><span class="navbar nav150"></span>投后运营</a>
-          <ul>
-            <li><a href="#" >投后项目跟踪</a></li>
-            <li><a href="#">投后业务运营</a></li>
-            <li><a href="#">投后企业财报</a></li>
-          </ul>
-        </li>
-    </ul>
+  <jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--内容显示区域-->
  	<div class="ritmin clearfix">
  	<c:forEach var="module" items="${modules }">
  		<div class="floatBox fl" data-url="${module.resourceUrl }"></div>
  	</c:forEach>
   </div>
+  
 <!--内容显示区域结束-->
 
 
 </div>
-
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 <script>
   /*展开/收起按钮定位*/
   $(function(){
+	  createMenus(1);
     var w_h=$(window).height();
         s_h=$(".sico").height();
     $(".sico").css({"top":(w_h-s_h)/2-80,"left":"-16px"});
