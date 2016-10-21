@@ -14,7 +14,12 @@ String path = request.getContextPath();
 </dl>
 
 <script>
-$("#platform_health_more").click(function(){
-	forwardWithHeader(platformUrl.toHealthChartDetail+"?urlFlag=null");
-})
+if(roleId!=1 || roleId!=2 || roleId!=3){
+	$("#platform_health_more").hide();
+}else{
+	$("#platform_health_more").click(function(){
+		forwardWithHeader(platformUrl.toHealthChartDetail+"?urlFlag=null");
+	})
+}
+
 </script>
