@@ -215,23 +215,13 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
       $(".small").hide();
       $(".big").show();
       disposedWidth();
-      $.getScript("<%=path %>/js/echarts_health.js");
-      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
-      $.getScript("<%=path %>/js/indexProjectProgress.js");
-      $.getScript("<%=path %>/js/charts/projectProgress.js");
-      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
-      $.getScript("<%=path %>/js/charts/indexKpi.js");
+      getScript();
     });
     $(".bico").click(function(){
       $(".small").show();
       $(".big").hide();
       disposedWidth();
-      $.getScript("<%=path %>/js/echarts_health.js");
-      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
-      $.getScript("<%=path %>/js/indexProjectProgress.js");
-      $.getScript("<%=path %>/js/charts/projectProgress.js");
-      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
-      $.getScript("<%=path %>/js/charts/indexKpi.js");
+      getScript();
     })
     //下拉框
     $(".man_info .name").hover(function(){
@@ -248,7 +238,15 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	   $(_this).loadHtml(opts);
    });
    
-  
+  //改变屏幕大小时，重新调用图表的js文件
+  function getScript(){
+	  $.getScript("<%=path %>/js/echarts_health.js");
+      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
+      $.getScript("<%=path %>/js/indexProjectProgress.js");
+      $.getScript("<%=path %>/js/charts/projectProgress.js");
+      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
+      $.getScript("<%=path %>/js/charts/indexKpi.js");
+  }
     
   })
   
