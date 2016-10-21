@@ -20,21 +20,21 @@ String path = request.getContextPath();
 			</span>
 		</div>
 		<div class="l_previewBottom clearfix">
-		<div class="l_previewBottom_l l_previewBottom_b fl">
-			<a href="javascript:;" id=""></a>
-				<span><p>排期等待</p></span>
+			<div class="eduling_wait_title fl">
+				<p class="eduling_wait_ico"><img src="<%=path %>/img/eduling_wait_ico.png"></p>
+				<p>排期等待</p>
 			</div>
-			<div class="l_previewBottom_l l_previewBottom_b fl">
-			<a href="javascript:;" id="lxh_eduling_wait"></a>
-				<span><p>立项会</p></span>
+			<div class="l_previewBottom_b fl">
+				<a href="javascript:;" id="lxh_eduling_wait"></a>
+				<p>立项会</p>
 			</div>
-			<div class="l_previewBottom_r l_previewBottom_b fl">
-			<a href="javascript:;" id="tjh_eduling_wait"></a>
-				<span><p>投决会</p></span>
+			<div class="l_previewBottom_b fl">
+				<a href="javascript:;" id="tjh_eduling_wait"></a>
+				<p>投决会</p>
 			</div>
-			<div class="l_previewBottom_r l_previewBottom_b fl">
-			<a href="javascript:;" id="psh_eduling_wait"></a>
-				<span><p>评审会</p></span>
+			<div class="l_previewBottom_b fl">
+				<a href="javascript:;" id="psh_eduling_wait"></a>
+				<p>评审会</p>
 			</div>
 		</div>
 	</dd>
