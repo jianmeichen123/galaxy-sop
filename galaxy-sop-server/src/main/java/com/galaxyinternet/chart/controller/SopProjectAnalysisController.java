@@ -259,6 +259,9 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
 				query.setDepartmentId(user.getDepartmentId());
+			}else{
+				responseBody.setResult(new Result(Status.OK, ""));
+				return responseBody;
 			}
 			List<SopCharts> chartsList = analysisService.queryPostAnalysis(query);
 			responseBody.setEntityList(chartsList);
