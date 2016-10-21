@@ -20,9 +20,11 @@
 <script src="<%=path %>/js/charts/indexKpi.js"></script>
 <script type="text/javascript">
 
-//项目历时
 load_data_chart_kpi();
-
+if(roleId!=1 || roleId!=2 || roleId!=3){
+	$("#platform_jxkh_more").hide();
+	//$("#platform_jxkh_more").show();
+}
 </script>
 
 
