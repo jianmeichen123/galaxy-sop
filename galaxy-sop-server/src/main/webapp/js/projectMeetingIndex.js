@@ -1,0 +1,8 @@
+/**
+ * 
+ */
+var projectMeetingIndex = {
+		init : function(){
+			
+		}
+}

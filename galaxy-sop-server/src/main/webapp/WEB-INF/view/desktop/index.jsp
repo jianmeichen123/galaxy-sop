@@ -84,7 +84,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         
         
         <!--立项排期会-->
-        <dl>
+        <dl id="projectMeeting_dl">
           <dt>
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:3');">排期时间</a>
             <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more"></a>
@@ -103,7 +103,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         
         
         <!--投决会排期-->
-         <dl>
+         <dl id="projectVoteMeeting_dl">
           <dt>
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:4');">排期时间</a>
             <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more"></a>
@@ -219,7 +219,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
 		if (list.length < 3) {
-			$("#tlbody").parent().parent().siblings().children('.more').css("display", "none");
+// 			$("#tlbody").parent().parent().siblings().children('.more').css("display", "none");
+			$("#projectMeeting_dl").find('.more').css("display", "none !important");
+			
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
 			var tbodyList = $("#tlbody");
@@ -315,8 +317,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	function ProjectVoteWillCallback(data) {
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
-		if (list.length < 3) {
-			$("#tbody").parent().parent().siblings().children('.more').css("display", "none");
+		console.log(list)
+		if (list.length < 4) {
+// 			$("#tbody").parent().parent().siblings().children('.more').css("display", "none");
+			$("#projectVoteMeeting_dl .more").css("display","none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
 			var tbodyList = $("#tbody");

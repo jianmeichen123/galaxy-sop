@@ -961,7 +961,11 @@ var platformUrl = {
 	/**
 	 * kpi导出
 	 */
-	exportKpiGrade : Constants.sopEndpointURL + "/galaxy/kpireport/exportKpiGrade"
+	exportKpiGrade : Constants.sopEndpointURL + "/galaxy/kpireport/exportKpiGrade",
+	/**
+	 * 报表格式选择对话框
+	 */
+	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix"
 
 	
 

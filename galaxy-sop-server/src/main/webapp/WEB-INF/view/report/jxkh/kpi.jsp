@@ -237,7 +237,7 @@
 <script src="<%=path%>/js/kpi/tab_perkpi.js"></script>
 <script src="<%=path%>/js/kpi/tab_teamkpi.js"></script>
 <script src="<%=path%>/js/kpi/kpi_tag.js"></script>
-
+<script src="<%=path%>/js/kpi/tabChooseSuffix.js"></script>
 <script>
 
 
@@ -268,7 +268,8 @@ function setDefineDate(id){
 }
 
 $("#kpiExport").on('click',function(){
-	window.location.href = platformUrl.exportKpiGrade;
+// 	window.location.href = platformUrl.exportKpiGrade;
+	reportChooseSuffix.init();
 });
 	
 </script>
