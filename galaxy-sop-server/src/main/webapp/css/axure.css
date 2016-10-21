@@ -2245,7 +2245,7 @@ margin: 45px auto 30px;}
     font-size: 12px;
     color: #FFF;}
 /* 内容区域 */
-.floatBox{margin:0 10px 10px;height:216px;background-color: #fff;border-radius:2px;box-shadow:0px 0px 25px #ddd;}
+.floatBox{margin:0 10px 10px;height:216px;background-color: #fff;border-radius:2px;box-shadow:0px 0px 25px #ddd;overflow:hidden;}
 .floatBox dt{margin-top:10px;padding:0 0 20px 20px;}
 .floatBox dt h3{font-size:16px;font-weight:normal;color:#6b799f;font-family:"微软雅黑"}
 .floatBox .position{top:7px;right:10px;}

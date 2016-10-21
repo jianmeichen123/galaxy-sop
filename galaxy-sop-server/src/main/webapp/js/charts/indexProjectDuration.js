@@ -17,7 +17,7 @@ function noDataProTimeDiv(){
                 text: "<span style='color:#e9ebf2'>"+'0天'+"</span>",
                 verticalAlign:'middle',
                 y:5,
-                x:-95,
+                x:-80,
                 style:{
                     fontFamily:'微软雅黑',
                     color:'#e9ebf2',
@@ -67,6 +67,7 @@ function noDataProTimeDiv(){
                 fontWeight:'normal',
                 color:'#7a8798',
             },
+            x:30
         },            
 
             series: [{
@@ -138,7 +139,7 @@ function load_data_chart_project_time(){
 						{
 							text: "<span style='color:#4490d2'>"+ e.point.y +"天</span>"+"<br/>"+"<span>"+ parseFloat(e.point.percentage.toFixed(1)) +"%</span>",
 							y:-5,
-							x:-95
+							x:-80
 						}
 				);
 				chart.redraw();
@@ -151,7 +152,7 @@ function load_data_chart_project_time(){
 	    					{
 	    						text: "<span style='color:#4490d2'>"+ totalDay +"天</span>"+"<br/>",
 	    						y:5,
-	    						x:-90
+	    						x:-80
 	    					}
 	    			);
 				}
@@ -166,7 +167,7 @@ function load_data_chart_project_time(){
 						{
 							text: "<span style='color:#4490d2'>"+ e.target.y +"天</span>"+"<br/>"+"<span>"+ parseFloat(e.target.percentage.toFixed(1)) +"%</span>",
 							y:-5,
-							x:-95
+							x:-80
 						}
 				);       		
 				chart.redraw();
@@ -178,7 +179,7 @@ function load_data_chart_project_time(){
 	    					{
 	    						text: "<span style='color:#4490d2'>"+ totalDay +"天</span>"+"<br/>",
 	    						y:5,
-	    						x:-95
+	    						x:-80
 	    					}
 	    			);
 				}
@@ -207,7 +208,7 @@ var containerProjectTimeOptions = {
          text: "<span style='color:#4490d2'>"+'60天'+"</span>"+"<br/>"+"<span>"+'45%'+"</span>",
          verticalAlign:'middle',
          y:5,
-         x:-90,
+         x:-80,
          style:{
              fontFamily:'微软雅黑',
              color:'#4490d2',
@@ -286,7 +287,7 @@ var containerProjectTimeOptions = {
 	         fontWeight:'normal',
 	         color:'#7a8798',
 	     },
-	     //x:0,
+	     x:30
 	 },            
 
      series: [{
