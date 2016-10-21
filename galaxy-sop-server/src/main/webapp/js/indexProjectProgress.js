@@ -90,6 +90,7 @@ var chartIndexPProgressUtils = {
 					createUid : formdata.createUid ? formdata.createUid : userId,
 					startTime :  DateUtils.getTime(DateUtils.getYearFirstDay())
 			};		
+			console.log(form);
 			sendPostRequestByJsonObj(platformUrl.searchOverView,form,function(data){
 				if(data.result.status == 'OK'){
 					if(data.entityList){
