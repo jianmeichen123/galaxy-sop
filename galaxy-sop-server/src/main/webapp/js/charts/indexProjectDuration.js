@@ -2,6 +2,8 @@ var totalDay_all='';
 /**
  * 项目历时
  */
+load_data_chart_project_time();
+noDataProTimeDiv();
 function noDataProTimeDiv(){
 	//项目历时无数据样式
 	if(($("#container_time .highcharts-title span").text()=="0天") || ($("#container_time .highcharts-title tspan").text()=="0天")){

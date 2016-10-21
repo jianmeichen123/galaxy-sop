@@ -12,7 +12,7 @@
 		<dd style="position: relative;">
 			<div class="mask_platform_time"></div>
 			<div id="container_time"
-				style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
+				style="width:100%; height: 145px; margin-left: -5%"></div>
 		</dd>
 	</dl>
 
