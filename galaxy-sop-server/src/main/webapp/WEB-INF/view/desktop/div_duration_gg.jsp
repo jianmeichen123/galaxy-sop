@@ -18,12 +18,7 @@
 
 
 <script src="<%=path %>/js/charts/indexProjectDuration.js"></script>
-<script type="text/javascript">
 
-load_data_chart_project_time();
-noDataProTimeDiv();
-	
-</script>
 
 
 
