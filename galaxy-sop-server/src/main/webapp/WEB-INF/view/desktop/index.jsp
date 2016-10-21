@@ -210,17 +210,20 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         $(".floatBox").css("width",w_ritmin/2-20);
         $(".pagebox .ritmin").css("margin","70px 0 0 9.375%");
     }
-
     //右侧展开收起
     $(".sico").click(function(){
       $(".small").hide();
       $(".big").show();
       disposedWidth();
+      $.getScript("<%=path %>/js/echarts_health.js");
+      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
     });
     $(".bico").click(function(){
       $(".small").show();
       $(".big").hide();
       disposedWidth();
+      $.getScript("<%=path %>/js/echarts_health.js");
+      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
     })
     //下拉框
     $(".man_info .name").hover(function(){
@@ -236,6 +239,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	   };
 	   $(_this).loadHtml(opts);
    });
+   
+  
     
   })
   

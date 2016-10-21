@@ -18,9 +18,9 @@ String path = request.getContextPath();
 		</c:if>
 	</dt>
 	<dd>
-		<div id="charts_Joint" data-tab="con" style="min-width: 300px; height: 200px; padding-top: 5px; z-index: 0;"></div>
-		<div id="charts_rk" data-tab="con" style="min-width: 300px; height: 200px; padding-top: 5px; z-index: 0;"></div>
-		<div id="charts_cbl" data-tab="con" style="min-width: 300px; height: 200px; padding-top: 5px; z-index: 0;"></div>
+		<div id="charts_Joint" data-tab="con" style="min-width: 300px; height: 180px; z-index: 0;"></div>
+		<div id="charts_rk" data-tab="con" style="min-width: 300px; height: 180px; z-index: 0;"></div>
+		<div id="charts_cbl" data-tab="con" style="min-width: 300px; height: 180px; z-index: 0;"></div>
 	</dd>
 </dl>
 <script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>

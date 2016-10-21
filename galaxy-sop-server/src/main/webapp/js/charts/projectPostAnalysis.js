@@ -28,14 +28,15 @@ var chartPostAnalysisUtils = {
 		        dataBackgroundColor:'#e9f3fb',
 		        fillerColor:'#e9f3fb',
 		        handleSize:5,
-		        height:12,
-		        y:175,
+		        height:10,
+		        y:145,
 		        zoomLock:true,
 		        showDetail:false
 		    },
 		    calculable : true,
 		    legend:{
 		        show:true,
+		        y:-5,
 		        orient:'horizontal',
 		        textStyle:{
 		        	 fontFamily:'宋体'
@@ -62,10 +63,10 @@ var chartPostAnalysisUtils = {
 		    },
 		    grid: {
              borderWidth: 0,
-             y : 30,
-             y2 : 55,
-             x : 40,
-             x2 : 5
+             y : 20,
+             y2 : 65,
+             x : 50,
+             x2 : 15
              },
 		    xAxis : [
 		        {
