@@ -102,8 +102,6 @@ var chartIndexPProgressUtils = {
 						chartIndexPProgressUtils.chartIndexPProgressOptions.series[0].data = projectCountArr;
 						chartIndexPProgressUtils.chartIndexPProgressOptions.xAxis.categories = projectProgressArr;
 						var chart = new Highcharts.Chart(chartIndexPProgressUtils.chartIndexPProgressOptions);
-					}else{
-						layer.msg('后端数据为空');
 					}
 				}else{
 					layer.msg(data.result.errorCode);
