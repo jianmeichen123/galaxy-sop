@@ -6,7 +6,7 @@
 	<dl resource-mark="div_project_progress_gg" >
 		<dt>
 			<h3 class="ico t8">项目进度</h3>
-			<a href="javascript:;" class="more position_0 null" id="more_progress">more</a>
+			<a href="javascript:;" class="more position null" id="more_progress">more</a>
 		</dt>
 		<dd style="position: relative;">
 			<div class="mask_platform_progress"></div>

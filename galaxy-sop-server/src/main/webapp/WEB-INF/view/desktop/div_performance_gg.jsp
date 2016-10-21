@@ -7,7 +7,7 @@
 	<dl>
 		<dt>
 			<h3 class="ico t10">绩效考核</h3>
-			<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
+			<span class="more null position" id="platform_jxkh_more" style="cursor: pointer;">more</span>
 		</dt>
 		<dd style="position:relative;">
 			<span class="highchartsAxisName name1">项目数(个)</span>

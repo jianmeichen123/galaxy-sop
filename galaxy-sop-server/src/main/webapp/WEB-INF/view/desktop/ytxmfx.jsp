@@ -7,7 +7,7 @@ String path = request.getContextPath();
 <dl class="executive_last ytxm_block">
 	<dt>
 		<h3 class="ico t9">
-			已投项目分析<span class="Htips">（截止至当前）</span>
+			已投项目分析<span class="Htips"></span>
 		</h3>
 		<c:if test="${!fx:hasRole(3)}">
 			<ul class="ytxm_tab position_tab clearfix">

@@ -587,8 +587,8 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .l_previewBottom .l_previewBottom_b a{font-size: 22px;color: #7d89ab;font-family: "微软雅黑";}
 .l_previewBottom .l_previewBottom_b a.gray{color:#d6dae9;}
 .pagebox .rit_executive .top_radius{border-top-right-radius: 6px;border-top-left-radius: 6px;}
-.bj_pagebox{    width: 31%;  display:block;height: 55px; line-height:55px;float: left;text-indent:10px;}
-.bj_pagebox_left{ text-indent:10%;}
+.bj_pagebox{    width: 33.3333%;  display:block;height: 55px; line-height:55px;float: left;text-indent:10px;}
+.bj_pagebox_left{ text-align:center;}
 /*工具*/
 .pagebox .min .tablist .tool{ text-align:center; padding:17px 0 1px; height:175px;border-bottom-right-radius: 6px;}
 .pagebox .min .tablist .tool_radius{border-bottom-right-radius: 6px;}
@@ -2183,7 +2183,8 @@ margin: 45px auto 30px;}
 .top_small span{font-size: 12px;font-family:"宋体";}
 .bottom_small{height:100%;background-color: #fff;}
 .bottom_small ul li{padding:20px 0 10px 0;}
-.bottom_small ul li span{display: block;text-align: center;width: 100%;font-size: 14px;color: #c2c2c2;}
+.bottom_small ul li span,.bottom_small ul li a{display: block;text-align: center;width: 100%;font-size: 14px;color: #c2c2c2;font-family:"微软雅黑"}
+.bottom_small ul li a:hover{text-decoration:none;}
 .bottom_small ul li .ico_small{width:36px;height:36px;margin:0 auto 6px;background:url(../img/ico_index.png) 0 0 no-repeat;}
 .bottom_small ul li .tjh{background-position: 0 -55px;}
 .bottom_small ul li .psh{background-position: 0 -109px;}
@@ -2201,7 +2202,7 @@ margin: 45px auto 30px;}
 .month_box .month{color:#fff;}
 .month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;}
 .pagebox .rit .top .tody .time_moment{font-weight: bold;font-size: 30px;color:#7a8094;margin-top: 10px;}
-.pagebox .rit .top .tody button{font-size: 12px;background-color: #539be2;border:none;padding:3px 8px;margin-right: 14px;margin-top: 17px;}
+.pagebox .rit .top .tody a[data-btn="shecudle_list"]{font-size: 12px;background-color: #539be2;border:none;padding:3px 8px;margin-right: 14px;margin-top: 17px;}
 .pagebox .rit .top .link{font-size: 14px;font-family: "微软雅黑";color:#7a8094;margin:0 22px 15px;}
 .pagebox .big dd{border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1; padding:0;}
 .pagebox .big dl {text-align: right;height:122px;}
