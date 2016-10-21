@@ -1,5 +1,6 @@
 package com.galaxyinternet.chart.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -77,14 +79,16 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			return responseBody;
 		}
 		try {
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-					.getId());
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.YYFZR) || roleIdList.contains(UserConstant.THYY)) {
 				query.setCreateUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){
 				query.setDepartmentId(user.getDepartmentId());
 			}else if(roleIdList.contains(UserConstant.TZJL)){
-				query.setCreateUid(user.getId());
+				//query.setCreateUid(user.getId());
+				
+				responseBody.setResult(new Result(Status.OK, ""));
+				return responseBody;
 			}
 			//去掉关闭的项目统计
 			query.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
