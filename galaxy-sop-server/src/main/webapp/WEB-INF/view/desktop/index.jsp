@@ -220,6 +220,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
       $.getScript("<%=path %>/js/indexProjectProgress.js");
       $.getScript("<%=path %>/js/charts/projectProgress.js");
       $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
+      $.getScript("<%=path %>/js/charts/indexKpi.js");
     });
     $(".bico").click(function(){
       $(".small").show();
@@ -230,6 +231,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
       $.getScript("<%=path %>/js/indexProjectProgress.js");
       $.getScript("<%=path %>/js/charts/projectProgress.js");
       $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
+      $.getScript("<%=path %>/js/charts/indexKpi.js");
     })
     //下拉框
     $(".man_info .name").hover(function(){

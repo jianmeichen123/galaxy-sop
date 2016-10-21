@@ -1,7 +1,8 @@
 /**
  * 绩效考核
  */
-
+//项目历时
+load_data_chart_kpi();
 var isGG = true;
 if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 	isGG = true;
@@ -61,6 +62,7 @@ var containerKpiOptions = {
     	renderTo:'container_kpi',
         zoomType: 'xy',
         backgroundColor: 'rgba(255, 255, 255, 0)',
+        marginTop:20,
     },
     title: {
         text: ''
@@ -160,6 +162,7 @@ var containerKpiOptions = {
             fontWeight:'normal',
             color:'#7a8798',
         },
+        y:-8,
     },
     series: [{
         name: '项目数',
