@@ -171,7 +171,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	<!--左侧导航-->
   <jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--内容显示区域-->
- 	<div class="ritmin clearfix">
+ 	<div class="ritmin clearfix ritmin-index">
  	<c:forEach var="module" items="${modules }">
  		<div class="floatBox fl" data-url="${module.resourceUrl }"></div>
  	</c:forEach>
@@ -185,75 +185,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script>
   $(function(){
 	  createMenus(1);
-	  //浏览器窗口该变，自适应
-	  $(window).resize(function(){
-	      var w_win=$(window).width();
-	      disposedWidth();
-	      getScript();
-	    })
-	  /*展开/收起按钮定位*/
-    var w_h=$(window).height();
-        s_h=$(".sico").height();
-    $(".sico").css({"top":(w_h-s_h)/2-80,"left":"-16px"});
-    $(".bico").css({"top":(w_h-s_h)/2-80,"left":"-13px"});
-    //获取当前日期
-    var myDate = new Date();
-    $(".month_box .month span").text(myDate.getMonth()+1);
-    $(".month_box_date").text(myDate.getDate());
-
-    //首页获取ritmin的宽度
-    disposedWidth();
-    function disposedWidth(){
-      var w_win=$(window).width();
-          display =$('.small').css('display');
-          if(display == 'none'){
-            w_rit=$(".big").outerWidth()+20;
-          }else{
-            w_rit=$(".small").outerWidth()+20;
-          }
-        w_lft=$(".lft").width();
-        w_ritmin=w_win-w_rit-w_lft;
-        $(".floatBox").css("width",w_ritmin/2-20);
-        $(".pagebox .ritmin").css("margin","70px 0 0 9.375%");
-    }
-    //右侧展开收起
-    $(".sico").click(function(){
-      $(".small").hide();
-      $(".big").show();
-      disposedWidth();
-      getScript();
-    });
-    $(".bico").click(function(){
-      $(".small").show();
-      $(".big").hide();
-      disposedWidth();
-      getScript();
-    })
-    //下拉框
-    $(".man_info .name").hover(function(){
-      $(".man_info ul").show();
-    });
-    $(".man_info ul").closeDom();
 	
-   $(".floatBox").each(function(){
-	   var _this = this;
-	   var opts = {
-		   url : "/"+$(this).data('url'),
-		   type:'POST'
-	   };
-	   $(_this).loadHtml(opts);
-   });
-   
-  //改变屏幕大小时，重新调用图表的js文件
-  function getScript(){
-	  $.getScript("<%=path %>/js/echarts_health.js");
-      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
-      $.getScript("<%=path %>/js/indexProjectProgress.js");
-      $.getScript("<%=path %>/js/charts/projectProgress.js");
-      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
-      $.getScript("<%=path %>/js/charts/indexKpi.js");
-  }
-    
+  
   })
   
   

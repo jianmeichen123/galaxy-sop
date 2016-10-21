@@ -522,16 +522,16 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*页面框架---------------------*/
 .pagebox{ min-width:1260px; margin:0 auto; padding:0 0 10px}
 /*左侧导航*/
-.pagebox .lft{ float:left; width:9.375%; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
+/* .pagebox .lft{ float:left; width:9.375%; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
 .pagebox .lft li{ float:left; width:100%; min-height:48px;}
-.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; /* margin:0 auto; */ height:48px; text-align:left; line-height:48px; font-size:12px; color:#d8dce5;cursor: pointer;padding-left:50px;}
+.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; margin:0 auto; height:48px; text-align:left; line-height:48px; font-size:12px; color:#d8dce5;cursor: pointer;padding-left:50px;}
 .pagebox .lft .on a,
 .pagebox .lft li a:hover{ text-decoration:none; color:#6dafee;}
 .pagebox .lft li ul li a{font-family: "微软雅黑";display:block; height:40px; line-height:40px; font-size:12px; color:#6b799f;padding-left:30px;}
 .pagebox .lft li div{position: relative;}
 .pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; left: 15%;}
 .pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
-.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;} 
+.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;}  */
 /*中部内容*/
 .pagebox .min{ float:left; width:71.25%;padding: 10px 0 0 0;margin:60px 0 0 10.505%;}
 .pagebox .min h2{ padding:0 0 0 10px; line-height:48px; height:49px; font-size:18px; font-weight:normal; color:#808e9b}
@@ -630,7 +630,8 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .rit dd{ padding:0 10px 7px}
 .pagebox .rit dd .more{ float:right}
 /*右中部分*/
-.pagebox .ritmin{ float:left; width:88.5%;margin:60px 0 0 10.505%;}
+.pagebox .ritmin{ float:left; width:88.5%;margin:60px 0 0 10.505%;padding-left:10px;}
+.pagebox .ritmin-index{padding-left:0;}
 .pagebox .ritmin h2{ line-height:46px; height:46px; font-size:22px; font-weight:normal; color:#808e9b}
 .pagebox .ritmin .breadcrumb{height: 48px;line-height: 44px;font-size:14px; font-weight:normal;}
 .pagebox .ritmin .breadcrumb li{float: left;color:#808e9b; }
@@ -1302,7 +1303,7 @@ em{font-style: normal;}
 .installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
 /* 添加二维码 */
 .erwm{position: fixed;z-index: 13;left:4.6875%;cursor:pointer;}
-.erwms{width:50px;height:70px;margin-left:-25px;bottom: 30px;}
+.erwms{width:50px;height:70px;margin-left:-55px;bottom: 10px;}
 .erwmb{width:90px;height:145px;margin-left:-45px;bottom: 10px;display:none;}
 .erwmb img{margin-bottom:10px;}
 .erwm p,.erwm a{font-size:12px;font-family:"微软雅黑";color:#7a8798;text-align:center;margin-bottom:6px;}
@@ -1825,7 +1826,7 @@ font-family: "宋体";
     color: #3e4351;
 }
 /*左侧导航icon*/
-.navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22px;}
+/* .navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22px;}
 .nav160{background-position: 0 0;}
 .nav168{background-position: 0 -72px;}
 .nav171{background-position: 0 -144px;}
@@ -1883,7 +1884,7 @@ font-family: "宋体";
 .lft .toggle_li ul{background-color: #1f222d !important;}
 .lft .toggle_li li a{color:#eee !important;}
 .lft .toggle_li li ul a{padding-left:30px;}
-.lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;}
+.lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;} */
 /*消息提醒*/
 /* .message table{border-radius:6px;margin-bottom: 10px;width:80% !important;}*/
 .message table .message_t{width:20%;}

@@ -1,17 +1,20 @@
 @charset "utf-8";
 /*左侧导航*/
-.pagebox .lft{ float:left; width:60px; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
-.pagebox .lft li{ float:left; width:100%; min-height:48px;}
-.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; /* margin:0 auto; */ height:62px; text-align:left; font-size:12px; color:#d8dce5;cursor: pointer;text-align: center;}
+.pagebox .lft{ float:left; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
+.pagebox .lft li{ float:left; width:100%; min-height:48px;padding-top: 10px;}
+/* 修改样式 */
+.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; /* margin:0 auto;  height:62px;*/ text-align:left; font-size:12px; color:#d8dce5;cursor: pointer;text-align: center;}
 .pagebox .lft .on a,
 .pagebox .lft li a:hover{ text-decoration:none; color:#6dafee;}
-.pagebox .lft li ul li a{font-family: "微软雅黑";display:block; height:40px; line-height:40px; font-size:12px; color:#6b799f;padding-left:30px;}
+/* 修改样式 */
+.pagebox .lft li ul li a{font-family: "微软雅黑";display:block; height:40px; line-height:40px; font-size:12px; color:#6b799f;/* padding-left:30px; */}
 .pagebox .lft li div{position: relative;}
 .pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; left: 15%;}
 .pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
-.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;} 
+/* 修改 */
+.pagebox .lft li ul{/* width: 100%; */margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;} 
 /*左侧导航icon*/
-.navbar{width:20px;height:22px;background: url(../img/baricon.png) 0 0 no-repeat;display: block;margin:0 auto;}
+.navbar{width:20px;height:22px;background: url(../img/baricon.png) 0 0 no-repeat;display: block;margin:0 auto;}/* 修改样式 */
 .nav160{background-position: 0 0;}
 .nav168{background-position: 0 -72px;}
 .nav171{background-position: 0 -144px;}
@@ -38,7 +41,7 @@
 .nav158{background-position: 0 -854px;}
 .nav186{background-position: 0 -1141px;}
 .nav192{background-position: 0 -1092px;}
-.xingmou{background-position: 0 -1234px;}
+.xingmou{background-position: -37px -1230px;position: absolute;}   /* 修改样式 */
 .lft li:hover .nav160,.lft li.on .nav160{background-position: -40px 0;}
 .lft li:hover .nav168,.lft li.on .nav168{background-position: -40px -72px;}
 .lft li:hover .nav171,.lft li.on .nav171{background-position: -40px -144px;}
@@ -66,7 +69,13 @@
 .lft li:hover .nav186,.lft li.on .nav186{background-position: -40px -1141px;}
 .lft li:hover .nav192,.lft li.on .nav192{background-position: -40px -1092px;}
 .lft li:hover .xingmou,.lft li.on .xingmou{background-position: -40px -1230px;}
-.lft .toggle_li ul{background-color: #1f222d !important;}
+.lft .toggle_li ul{background-color: #353946 !important;}
 .lft .toggle_li li a{color:#eee !important;}
 .lft .toggle_li li ul a{padding-left:30px;}
 .lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;}
+/* 新增样式 */
+.usermsg div.xingmou .navbar{top:16px;}
+.lft .toggle_li{position: relative;}
+.lft .toggle_li ul{position: absolute;left:60px;width:118px;top:0;}
+.pagebox .lft li.on{background-color: #353946;}
+.lft .toggle_li ul li{padding-top:0;min-height:40px;}

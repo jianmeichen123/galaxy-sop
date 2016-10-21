@@ -40,6 +40,7 @@
     <span data-btn="close_erwm">关闭</span> 
     <a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a>
 </div> --%>
+<link href="<%=path %>/css/more1280.css" type="text/css" rel="stylesheet" id="mainCss"/>
 <div class="erwms erwm">
 	<p>繁星APP</p>
    	<img src="<%=path %>/img/ewms.gif" alt="">
@@ -172,6 +173,99 @@ if(isContainResourceByMark("task_into_view")){
      $(this).hide();
  })
  
-				
+$(function(){
+	  /*展开/收起按钮定位*/
+    var w_h=$(window).height();
+        s_h=$(".sico").height();
+    $(".sico").css({"top":(w_h-s_h)/2-80,"left":"-16px"});
+    $(".bico").css({"top":(w_h-s_h)/2-80,"left":"-13px"});
+    //获取当前日期
+    var myDate = new Date();
+    $(".month_box .month span").text(myDate.getMonth()+1);
+    $(".month_box_date").text(myDate.getDate());
+
+    //首页获取ritmin的宽度
+    disposedWidth();
+    function disposedWidth(){
+      var w_win=$(window).width();
+          display =$('.small').css('display');
+          if(display == 'none'){
+            w_rit=$(".big").outerWidth()+20;
+          }else{
+            w_rit=$(".small").outerWidth()+20;
+          }
+        w_lft=$(".lft").width();
+        w_ritmin=w_win-w_rit-w_lft;
+        $(".floatBox").css("width",w_ritmin/2-20);
+        $(".pagebox .ritmin").css("margin","60px 0 0 9.375%");
+        $(".pagebox .ritmin-index").css("margin","70px 0 0 9.375%");
+        $(".pagebox .ritmin").css("width",w_ritmin-10);
+        $(".pagebox .ritmin-index").css("width",w_ritmin);
+        $(".pagebox .ritmin").css("margin-left",w_lft);
+    }
+    //右侧展开收起
+    $(".sico").click(function(){
+      $(".small").hide();
+      $(".big").show();
+      disposedWidth();
+      getScript();
+    });
+    $(".bico").click(function(){
+      $(".small").show();
+      $(".big").hide();
+      disposedWidth();
+      getScript();
+    })
+    //下拉框
+    $(".man_info .name").hover(function(){
+      $(".man_info ul").show();
+    });
+    $(".man_info ul").closeDom();
+	
+   $(".floatBox").each(function(){
+	   var _this = this;
+	   var opts = {
+		   url : "/"+$(this).data('url'),
+		   type:'POST'
+	   };
+	   $(_this).loadHtml(opts);
+   });
+   
+  //改变屏幕大小时，重新调用图表的js文件
+  function getScript(){
+	  $.getScript("<%=path %>/js/echarts_health.js");
+      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
+      $.getScript("<%=path %>/js/indexProjectProgress.js");
+      $.getScript("<%=path %>/js/charts/projectProgress.js");
+      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
+      $.getScript("<%=path %>/js/charts/indexKpi.js");
+  }
+//浏览器小于1280的时候左侧导航
+  var w_win=$(window).width();
+  if(w_win<=1280){   //浏览器屏幕等于1280，默认加载样式
+       $("#mainCss").attr("href","<%=path%>/css/less1280.css");
+       $(".pagebox .lft").css("width","60px");
+       disposedWidth();
+        w_lft=$(".lft").width();        
+    }else{
+      $(".pagebox .lft").css("width","9.375%");
+       disposedWidth();
+    }
+//浏览器窗口该变，自适应
+$(window).resize(function(){
+	var w_win=$(window).width();
+    disposedWidth();
+    getScript();
+    if(w_win<=1280){
+        $("#mainCss").attr("href","<%=path%>/css/less1280.css");
+        $(".pagebox .lft").css("width","60px");
+     }else{
+       $("#mainCss").attr("href","<%=path%>/css/more1280.css");
+        $(".pagebox .lft").css("width","9.375%");
+
+     }
+  })
+  
+  })			
  
 </script>
