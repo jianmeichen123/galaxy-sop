@@ -977,12 +977,18 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		return responseBody;
 	}
 
+	@RequestMapping(value="/toChooseReportSuffix",method=RequestMethod.GET)
+	public String toChooseReportSuffix(){
+		return "report/jxkh/reportChooseSuffix";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/exportKpiGrade")
 	public void exportKpiGrade(HttpServletRequest request,HttpServletResponse response){
 		List<ChartDataBo> chartDataList = (List<ChartDataBo>) request.getSession().getAttribute("kpiDataList");	
+		String suffix = request.getParameter("suffix");
 		try {
-			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath);
+			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
 			reportService.download(request, response, modal);
 		} catch (Exception e) {
 			logger.error("下载失败.",e);

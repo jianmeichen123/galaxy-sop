@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.common.utils.StrUtils;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.report.BasicElement;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
@@ -30,7 +31,7 @@ import com.galaxyinternet.sopfile.controller.SopFileController;
 @Service("kpiGradeServiceImpl") 
 public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implements KpiGradeService {
 	
-	final Logger logger = LoggerFactory.getLogger(SopFileController.class);
+	
 	@Override
 	public List<BasicElement> getColumns() {
 		// TODO Auto-generated method stub
@@ -71,12 +72,12 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 			case 6:
 				element.setColumn(i);
 				element.setValue("过会率/CEO评审会");
-				element.setGetterMethod("getCeoRate");
+				element.setGetterMethod("getCeoRateStr");
 				break;
 			case 7:
 				element.setColumn(i);
 				element.setValue("过会率/立项会");
-				element.setGetterMethod("getLxhRate");
+				element.setGetterMethod("getLxhRateStr");
 				break;
 			default:
 				break;
@@ -104,80 +105,11 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 		modal.setSecondTableHeader(secondHeader);
 		modal.setColumns(getColumns());
 		modal.setTemplateName("template/kpiGradeTemplate.xlsx");
-		modal.setDownloadName("绩效报表");
+		modal.setDownloadName("合伙人日常业务绩效评分表"+DateUtil.longToString(System.currentTimeMillis(),"yyyyMMdd"));
 		modal.setFileSuffix("xlsx");
 		return modal;
 	}
 
-	@Override
-	public void download(HttpServletRequest request,
-			HttpServletResponse response,SopReportModal modal) throws Exception {
-		// TODO Auto-generated method stub
-
-		InputStream fis = null;
-		OutputStream out = null;
-		
-				
-		File tempDir = new File(modal.getDownloadPath());
-		File tempFile = new File(modal.getDownloadPath()+modal.getTempName()+"."+modal.getFileSuffix());
-		
-		if (!tempDir.exists()) {
-			tempDir.mkdirs();
-		}
-		
-		try{			
-			String fileName = getFileNameByBrowser(request,modal.getDownloadName()+"."+modal.getFileSuffix());
-			response.reset();
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("application/x-download");
-			response.setHeader("Content-Disposition", "attachment;filename="
-					+ fileName);
-			response.setHeader("Content-Length", "" + tempFile.length());
-			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(tempFile.getPath()));
-			byte[] buffer = new byte[1024 * 2];
-			
-			while (fis.read(buffer) != -1) {
-				out.write(buffer);
-			}
-			response.flushBuffer();
-		}catch(Exception e){
-			throw new Exception(e);
-		}finally{
-			try {
-				if(fis != null)
-				{
-					fis.close();
-				}
-				if(out != null)
-				{
-					out.close();
-				}
-				tempFile.delete();
-			} catch (IOException e) {
-				logger.error("下载失败.",e);
-			}
-		}	
-	}
 	
-	private String getFileNameByBrowser(HttpServletRequest request,String fileName) throws UnsupportedEncodingException{
-		boolean ie10 = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-				.indexOf("MSIE") > 0;
-		boolean ie11p = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-				.indexOf("RV:11") > 0
-				&& request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-						.indexOf("LIKE GECKO") > 0;
-		boolean iedge = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-				.indexOf("EDGE") > 0;
-		boolean ie = ie10 || ie11p || iedge;
-		if (ie) {
-			fileName = new String(StrUtils.encodString(fileName).getBytes("UTF-8"), "ISO8859-1");
-
-		} else {
-			fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
-
-		}
-		return fileName;
-	}
 
 }
