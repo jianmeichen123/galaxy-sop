@@ -25,13 +25,13 @@
 
 <script>
 
-	var url = "<%=path%>/galaxy/mpl?sid="+sessionId+"&guid="+userId;
+	var url = Constants.sopEndpointURL + "/galaxy/mpl?sid="+sessionId+"&guid="+userId;
 	$("#project-progress-div .more").attr('href',url);
 	$('#project-progress-table').bootstrapTable({
 		queryParamsType : 'size|page', // undefined
 		pageSize : 3,
 		showRefresh : false,
-		url : '../project/search',
+		url : Constants.sopEndpointURL + '/galaxy/project/search',
 		sidePagination : 'server',
 		method : 'post',
 		sortOrder : 'desc',
