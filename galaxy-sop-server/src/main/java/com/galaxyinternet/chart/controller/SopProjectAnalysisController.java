@@ -85,10 +85,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			}else if(roleIdList.contains(UserConstant.HHR)){
 				query.setDepartmentId(user.getDepartmentId());
 			}else if(roleIdList.contains(UserConstant.TZJL)){
-				//query.setCreateUid(user.getId());
-				
-				responseBody.setResult(new Result(Status.OK, ""));
-				return responseBody;
+				query.setCreateUid(user.getId());
 			}
 			//去掉关闭的项目统计
 			query.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
