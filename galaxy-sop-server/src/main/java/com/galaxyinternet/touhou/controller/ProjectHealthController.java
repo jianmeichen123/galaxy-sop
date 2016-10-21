@@ -2,6 +2,7 @@ package com.galaxyinternet.touhou.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -179,8 +181,13 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 			return responseBody;
 		}	
 		
-		//有搜索条件则不启动默认筛选
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		if(!(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.HHR))){ 
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		}
+		
+		//有搜索条件则不启动默认筛选
 		Map<String,Object> params=new HashMap<String,Object>();
 		Map<String,Object> map=new HashMap<String,Object>();
 		if (roleIdList.contains(UserConstant.HHR)){
