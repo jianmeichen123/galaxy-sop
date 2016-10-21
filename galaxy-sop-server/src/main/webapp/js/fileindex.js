@@ -29,15 +29,15 @@ var fileGridIndex = {
 			onLoadSuccess : function(data){
 				var obj=this;
 				var result=data;
+				$("#file_gird_more").click(function(){
+					console.log("more...");
+					Sopfile();
+				});
 				if(typeof(result.pageList.total)=='undefined' || result.pageList.total<4){
 					$("#file_gird_more").hide();
 				}
 			},
 			columns : [{
-				field : 'id',
-				title : '序号',
-				formatter : fileGridIndex.rowFormatter
-			}, {
 				field : 'fWorktype',
 				title : '文档名称',
 				formatter:fileGridIndex.Doctype
@@ -103,7 +103,14 @@ var fileGridIndex = {
 
 
 
-
+function Sopfile(){
+	if($("#menus").find("[data-menueid='135']").attr("href")){
+		window.location.href=$("#menus").find("[data-menueid='135']").attr("href");
+	}else{
+		window.location.href=platformUrl.toFileList
+	}
+	
+}
 
 
 

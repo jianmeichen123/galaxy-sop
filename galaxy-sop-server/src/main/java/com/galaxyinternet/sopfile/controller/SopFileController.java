@@ -372,7 +372,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			PageRequest pageRequest = null;
 			if ("index".equals(sopFile.getPageType())) {
 				// 起始页从0开始
-				pageRequest = new PageRequest(0, 4, Direction.DESC,
+				pageRequest = new PageRequest(0, 3, Direction.DESC,
 						"updated_time");
 			} else {
 				pageRequest = new PageRequest(sopFile.getPageNum(),

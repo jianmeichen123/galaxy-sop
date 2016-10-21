@@ -201,6 +201,10 @@ var platformUrl = {
 	 */
 	queryFile : Constants.sopEndpointURL+"/galaxy/sopFile/query",
 	/**
+	 * 项目文档-模块入口
+	 */
+	toFileList : Constants.sopEndpointURL+"/galaxy/sopFile/toFileList",
+	/**
 	 * 任务处理-上传文档
 	 */
 	uploadFile2Task : Constants.sopEndpointURL+"/galaxy/taskprocess/uploadFile",

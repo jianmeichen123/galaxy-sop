@@ -571,7 +571,5 @@ function toCyPage(){
 function toCyOper(ideaid){
 	window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid="+ideaid;
 }
-function Sopfile(){
-	window.location.href=$("#menus").find("[data-menueid='135']").attr("href");
-}
+
 

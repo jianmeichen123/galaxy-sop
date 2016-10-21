@@ -15,7 +15,7 @@
                         </table>
                     </dd>
                     <dd class="clearfix position">
-                    	<a  href="javascript:void(0)" onclick="Sopfile()"  class="more null" id="file_gird_more">more</a>
+                    	<a  href="javascript:void(0)"  class="more null" id="file_gird_more">more</a>
                     </dd>
     </dl>
 
