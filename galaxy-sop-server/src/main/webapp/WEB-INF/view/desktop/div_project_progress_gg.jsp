@@ -11,30 +11,12 @@
 		<dd style="position: relative;">
 			<div class="mask_platform_progress"></div>
 			<div id="container_progress"
-				style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
+				style="width:100%; height: 145px; margin-left: -5%"></div>
 		</dd>
 	</dl>
 
 
 <script src="<%=path %>/js/charts/projectProgress.js"></script>
-<script type="text/javascript">
 
-//项目进度
-var progressFormdata = {
-		domid : 'container_progress'
-}
-chartProjectProgressUtils.init(progressFormdata);
-noDataProGressDiv();
-
-//项目进度图表默认加载链接
-$("#container_progress .highcharts-title tspan").click(function(){
-	var url = platformUrl.projectAnalysis;
-	if(forwardParam.progressParam){
-		url += "?forwardProgress=" + forwardParam.progressParam ;
-	}
-	forwardWithHeader(url);
-});
-
-</script>
 
 
