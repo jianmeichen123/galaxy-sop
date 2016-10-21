@@ -61,10 +61,25 @@ public class ChartDataBo extends DataReport{
 	private Double ceoRate; //CEO评审过会率
 	private Double lxhRate; //立项会过会率
 	
+	private String ceoRateStr;
+	private String lxhRateStr;
 	
 	
 	
 	
+	
+	public String getCeoRateStr() {
+		return ceoRateStr;
+	}
+	public void setCeoRateStr(String ceoRateStr) {
+		this.ceoRateStr = ceoRateStr;
+	}
+	public String getLxhRateStr() {
+		return lxhRateStr;
+	}
+	public void setLxhRateStr(String lxhRateStr) {
+		this.lxhRateStr = lxhRateStr;
+	}
 	public String getName() {
 		return name;
 	}

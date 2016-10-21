@@ -2135,6 +2135,18 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 				double lxhRate = meetingPassRateService.passLXHMeetingRate(
 						query.getStartTime(), query.getEndTime(), dep.getId());
 				cb.setLxhRate(Double.parseDouble(String.valueOf(lxhRate)));
+				
+				//ceorate格式转换
+				java.math.BigDecimal   ceobig   =   new   java.math.BigDecimal(cb.getCeoRate()*100);  
+				String  ceoRateStr = ceobig.setScale(2,java.math.BigDecimal.ROUND_HALF_UP).doubleValue() +"%";
+				cb.setCeoRateStr(ceoRateStr);
+				
+				//lxhrate格式转换
+				java.math.BigDecimal   lxhbig   =   new   java.math.BigDecimal(cb.getLxhRate()*100);  
+				String  lxhRateStr = lxhbig.setScale(2,java.math.BigDecimal.ROUND_HALF_UP).doubleValue() +"%";
+				cb.setLxhRateStr(lxhRateStr);
+				
+				
 				cb.setStartTime(query.getSdate());
 				cb.setEndTime(query.getEdate());
 				kpiDataList.add(cb);
