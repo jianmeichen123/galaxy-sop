@@ -217,6 +217,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
       disposedWidth();
       $.getScript("<%=path %>/js/echarts_health.js");
       $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
+      $.getScript("<%=path %>/js/indexProjectProgress.js");
     });
     $(".bico").click(function(){
       $(".small").show();
@@ -224,6 +225,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
       disposedWidth();
       $.getScript("<%=path %>/js/echarts_health.js");
       $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
+      $.getScript("<%=path %>/js/indexProjectProgress.js");
     })
     //下拉框
     $(".man_info .name").hover(function(){
