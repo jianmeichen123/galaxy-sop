@@ -183,9 +183,15 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 <script>
-  /*展开/收起按钮定位*/
   $(function(){
 	  createMenus(1);
+	  //浏览器窗口该变，自适应
+	  $(window).resize(function(){
+	      var w_win=$(window).width();
+	      disposedWidth();
+	      getScript();
+	    })
+	  /*展开/收起按钮定位*/
     var w_h=$(window).height();
         s_h=$(".sico").height();
     $(".sico").css({"top":(w_h-s_h)/2-80,"left":"-16px"});
