@@ -4,6 +4,7 @@
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://www.galaxyinternet.com/tags/acl" prefix="acl" %>
 <% 
 String path = request.getContextPath();
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
@@ -54,9 +55,15 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <!--立项排期会-->
         <div class="bottom_small">
           <ul>
+          	<acl:acl resourceMark="shedule_lxh">
             <li><a href="<%=path %>/html/projectMeeting.html" data-btn="project" ><span class="ico_small lxh"></span><span>立项会</span></a></li>
+            </acl:acl>
+            <acl:acl resourceMark="shedule_tjh">
             <li><a href="<%=path %>/html/voteMeeting.html" data-btn="vote" ><span class="ico_small tjh"></span><span>投决会</span></a></li>
+            </acl:acl>
+            <acl:acl resourceMark="shedule_ceo">
             <li><a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" ><span class="ico_small psh"></span><span>CEO评审</span></a></li>
+            </acl:acl>
             <li><span class="ico_small tool"></span><span>常用工具</span></li>
           </ul>
         </div>
@@ -84,6 +91,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         
         
         <!--立项排期会-->
+        <acl:acl resourceMark="shedule_lxh">
         <dl id="projectMeeting_dl">
           <dt>
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:3');">排期时间</a>
@@ -100,9 +108,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		    </div>    
 		</dd>
         </dl>
-        
+        </acl:acl>
         
         <!--投决会排期-->
+        <acl:acl resourceMark="shedule_tjh">
          <dl id="projectVoteMeeting_dl">
           <dt>
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:4');">排期时间</a>
@@ -119,9 +128,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		    </div>    
 		</dd>
         </dl>
-        
+        </acl:acl>
         
         <!-- ceo评审 -->
+         <acl:acl resourceMark="shedule_ceo">
          <dl>
           <dt>
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:2');">排期时间</a>
@@ -138,7 +148,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			    </div>    
 			</dd>
         </dl>
-        
+        </acl:acl>
         
         
         <!-- 常用工具 -->
