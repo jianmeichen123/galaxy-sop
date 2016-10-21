@@ -118,7 +118,7 @@ var chartsInvestmentUtils = {
 			    			$('#'+formdata.domid).html('<div  class="no_info_div"><span class="no_info_icon">　没有找到匹配的记录</span></div>');
 			    		}
 					}else{
-						layer.msg('后端查询数据为空');
+						//layer.msg('后端查询数据为空');
 					}
 					
 				}else{

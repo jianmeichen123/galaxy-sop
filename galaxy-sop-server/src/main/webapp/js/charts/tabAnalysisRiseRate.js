@@ -323,7 +323,7 @@ var chartRiseRateUtils = {
 			    		}
 			    		var chart = new Highcharts.Chart(chartRiseRateUtils.chartRiseRateOptions);
 					}else{
-						layer.msg('后端查询数据为空');
+						//layer.msg('后端查询数据为空');
 					}
 					
 				}else{

@@ -320,7 +320,7 @@ var chartProjectProgressUtils = {
 			    			forwardWithHeader(platformUrl.projectAnalysis);
 			    		});
 					}else{
-						layer.msg('后端查询数据为空');
+						//layer.msg('后端查询数据为空');
 					}
 				}else{
 					layer.msg(data.result.errorCode);
