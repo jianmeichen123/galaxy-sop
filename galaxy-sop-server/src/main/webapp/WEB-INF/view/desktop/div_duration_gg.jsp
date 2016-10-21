@@ -12,18 +12,13 @@
 		<dd style="position: relative;">
 			<div class="mask_platform_time"></div>
 			<div id="container_time"
-				style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
+				style="width:100%; height: 145px; margin-left: -5%"></div>
 		</dd>
 	</dl>
 
 
 <script src="<%=path %>/js/charts/indexProjectDuration.js"></script>
-<script type="text/javascript">
 
-load_data_chart_project_time();
-noDataProTimeDiv();
-	
-</script>
 
 
 

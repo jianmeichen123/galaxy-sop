@@ -11,9 +11,3 @@ String path = request.getContextPath();
 	</dd>
 </dl>
 <script src="<%=path %>/js/indexProjectProgress.js" type="text/javascript"></script>
-<script>
-var formdata = {
-		domid : "histogram"
-}
-chartIndexPProgressUtils.init(formdata);
-</script>

@@ -320,7 +320,7 @@ var chartProjectProgressUtils = {
 			    			forwardWithHeader(platformUrl.projectAnalysis);
 			    		});
 					}else{
-						layer.msg('后端查询数据为空');
+						//layer.msg('后端查询数据为空');
 					}
 				}else{
 					layer.msg(data.result.errorCode);
@@ -391,3 +391,18 @@ var chartProjectProgressUtils = {
 			}		
 		}
 }
+//项目进度
+var progressFormdata = {
+		domid : 'container_progress'
+}
+chartProjectProgressUtils.init(progressFormdata);
+noDataProGressDiv();
+
+//项目进度图表默认加载链接
+$("#container_progress .highcharts-title tspan").click(function(){
+	var url = platformUrl.projectAnalysis;
+	if(forwardParam.progressParam){
+		url += "?forwardProgress=" + forwardParam.progressParam ;
+	}
+	forwardWithHeader(url);
+});

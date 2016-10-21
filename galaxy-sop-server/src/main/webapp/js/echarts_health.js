@@ -89,8 +89,8 @@ $(function(){
 	              borderWidth: 0,
 	              y: 10,
 	              y2: 30,
-	              x:40,
-	              x2:0
+	              x:50,
+	              x2:10
 	          },
 	        
 	          series : [

@@ -111,3 +111,8 @@ var chartIndexPProgressUtils = {
 			});
 		}
 }
+
+var formdata = {
+		domid : "histogram"
+}
+chartIndexPProgressUtils.init(formdata);

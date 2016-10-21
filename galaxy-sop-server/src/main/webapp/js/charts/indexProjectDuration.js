@@ -371,8 +371,8 @@ var projectIndurationUtils = {
 			}		
 		}
 }
-
-
+load_data_chart_project_time();
+noDataProTimeDiv();
 
 
 
