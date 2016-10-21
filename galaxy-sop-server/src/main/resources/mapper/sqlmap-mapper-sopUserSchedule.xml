@@ -161,7 +161,7 @@
 		from sop_user_schedule where item_date >= #{itemDate} 
 		<if test="userId != null">  and user_id =#{userId} </if>
 		order by item_date asc,created_time asc 
-		<if test="type == 1">  limit 3</if>
+		<if test="type == 1">  limit 2</if>
 	</select>
 	<!-- 查询分页日期排序 -->
 	<select id="selectByFenye" resultMap="BaseResultMap" parameterType="java.util.Map">
