@@ -64,12 +64,12 @@ function SopTaskCallback(data){
 				 '<td style="width:20%">'+ taskOrderDesc+'</td>'+
 				 '<td style="width:20%" title="'+ temp.taskName+'" >'+ temp.taskName+'</td>'+
 				 '<td style="width:25%">'+ temp.taskStatus+'</td>'+
-				 '<td style="width:20%" title="'+ temp.projectName+'" class="cutstr">'+ getValue(temp.projectName)+'</td>'+
+				 '<td style="width:20%" title="'+ temp.projectName+'">'+ getValue(temp.projectName)+'</td>'+
 				 '<td style="width:15%">'+ temp.caozuohtml+'</td>'+
 				' </tr>'; 
 			 tbodyList.append(tr);
 		  });
-		cutStr(10,'cutstr');
+		//cutStr(10,'cutstr');
 	}else{
 		var tbodyList = $("#sopStak"); 
 		var noData =
