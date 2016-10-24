@@ -2,7 +2,7 @@
 <% 
 String path = request.getContextPath();
 %>
-<dl>
+<dl class="r_news">
 <dt><h3 class="ico t4">消息提醒</h3></dt>
    <dd>
    <table id="message-data-table" data-url="operationMessageQueryList" data-page-size="3" data-page-list="[3,20,30]" data-show-refresh="true">

@@ -2,7 +2,7 @@
 <% 
 String path = request.getContextPath();
 %>
-<dl style="position: relative;">
+<dl style="position: relative;" class="task">
 	<dt>
 		<h3 class="ico t1">待办任务</h3>
 	</dt>
@@ -10,11 +10,11 @@ String path = request.getContextPath();
 		<table width="100%" cellspacing="0" cellpadding="0">
 			<thead>
 				<tr>
-					<th>优先级</th>
-					<th>任务名称</th>
-					<th>任务状态</th>
-					<th>所属项目</th>
-					<th>操作</th>
+					<th style="width:20%">优先级</th>
+					<th style="width:20%">任务名称</th>
+					<th style="width:20%">任务状态</th>
+					<th style="width:25%">所属项目</th>
+					<th style="width:15%">操作</th>
 				</tr>
 			</thead>
 			<tbody id="sopStak">
@@ -61,11 +61,11 @@ function SopTaskCallback(data){
 				 }
 			 }
 			 var tr='<tr>'+
-				 '<td>'+ taskOrderDesc+'</td>'+
-				 '<td>'+ temp.taskName+'</td>'+
-				 '<td>'+ temp.taskStatus+'</td>'+
-				 '<td title="'+ temp.projectName+'" class="cutstr">'+ getValue(temp.projectName)+'</td>'+
-				 '<td>'+ temp.caozuohtml+'</td>'+
+				 '<td style="width:20%">'+ taskOrderDesc+'</td>'+
+				 '<td style="width:20%" title="'+ temp.taskName+'" >'+ temp.taskName+'</td>'+
+				 '<td style="width:25%">'+ temp.taskStatus+'</td>'+
+				 '<td style="width:20%" title="'+ temp.projectName+'" class="cutstr">'+ getValue(temp.projectName)+'</td>'+
+				 '<td style="width:15%">'+ temp.caozuohtml+'</td>'+
 				' </tr>'; 
 			 tbodyList.append(tr);
 		  });
