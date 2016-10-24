@@ -2173,6 +2173,8 @@ margin: 45px auto 30px;}
 .xingmou{background-position: -37px -1230px;}
 .usermsg div.xingmou a{padding-left: 40px;}
 .usermsg div.xingmou .navbar{left:10px;width:24px;}
+.man_info{position:relative;}
+.man_info .name{position:absoute;}
 .usermsg a,.man_info span{font-size: 14px;font-family: "微软雅黑";line-height: 24px;}
 .man_info .avator{width:24px;height:24px;display:inline-block;background:url(../img/defalut_avator.png) 0 0 no-repeat;margin-right: 10px;}
 .header .usermsg .name{line-height: 24px;background:url(../img/xiala.png) right 6px no-repeat;padding:0 15px 0 0px;margin:0 30px 0 0;}
@@ -2267,7 +2269,7 @@ margin: 45px auto 30px;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 /* 下拉修改密码 */
-.man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;margin-left: -33px;display: none;padding-top: 16px;}
+.man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;}
 .man_info ul li{height:54px;line-height: 54px;}
 .header .usermsg .man_info ul a{color:#666;text-align: center;display: block;width: 100%;line-height: 50px;}
 .header .usermsg .man_info ul a:hover{color:#529be2;text-decoration: none;};
