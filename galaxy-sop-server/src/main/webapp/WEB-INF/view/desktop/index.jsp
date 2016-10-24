@@ -25,10 +25,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 
 <!-- 富文本编辑器 -->
-<script id="d" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/umeditor.min.js"></script>
-<script id="c" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/umeditor.config.js"></script>
-<script id="b" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/dialogs/map/map.js"></script>
-<script id="e" type="text/javascript" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/lang/zh-cn/zh-cn.js"></script>
+<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
 <script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload/zh_CN.js" type="text/javascript"></script>
