@@ -47,7 +47,7 @@ var fileGridIndex = {
 		        formatter:fileGridIndex.projectName
 		    },{
 				field : 'fType',
-				title : '存储类型'
+				title : '文档类型'
 				}]
 		});
 
