@@ -1352,7 +1352,7 @@ em{font-style: normal;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
-.table{border-radius: 6px !important; float: left;width:100%;}
+.table{border-radius: 6px !important; width:100%;}
 .news_ritmin .table{border-top-left-radius: 0px;}
 .news_table{border-radius: 0 !important;}
 .news_top{margin:0 !important;}
