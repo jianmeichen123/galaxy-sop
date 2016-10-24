@@ -40,14 +40,17 @@ var fileGridIndex = {
 			columns : [{
 				field : 'fWorktype',
 				title : '文档名称',
+				width:'40%',
 				formatter:fileGridIndex.Doctype
 			},{
 		        field: 'projectName',
 		        title: '所属项目',
+		        width:'40%',
 		        formatter:fileGridIndex.projectName
 		    },{
 				field : 'fType',
-				title : '文档类型'
+				title : '文档类型',
+				width:'20%',
 				}]
 		});
 
@@ -56,7 +59,9 @@ var fileGridIndex = {
 	},
 	projectName :function(value,row,index){
 		var str=row.projectName;
-		if(str.length>10){
+		var str = "<span title='"+str+"'>"+str+"</span>";
+		return str;
+		/*if(str.length>10){
 			subStr = str.substring(0,10);
 			var str = "<span title='"+str+"'>"+subStr+"</span>";
 			return str;
@@ -64,11 +69,13 @@ var fileGridIndex = {
 		else{
 			var str = "<span title='"+str+"'>"+str+"</span>";
 			return str;
-		}
+		}*/
 	},
 	Doctype :function(value,row,index){
 		var str=row.fWorktype;
-		if(str.length>5){
+		var str = "<span title='"+str+"'>"+str+"</span>";
+		return str;
+		/*if(str.length>5){
 			subStr = str.substring(0,5);
 			var str = "<span title='"+str+"'>"+subStr+"</span>";
 			return str;
@@ -76,7 +83,7 @@ var fileGridIndex = {
 		else{
 			var str = "<span title='"+str+"'>"+str+"</span>";
 			return str;
-		}
+		}*/
 	},
 	rowFormatter : function(value, row, index){
 		return [index+1].join('');
