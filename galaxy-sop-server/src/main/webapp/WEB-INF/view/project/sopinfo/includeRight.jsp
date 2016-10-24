@@ -96,7 +96,7 @@
             <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
             <div class="correlation">
             	近期会议纪要
-				<span class="more null new_righ" id="meet_more" style="cursor: pointer;" >more</span>
+				<span class="more null new_righ" id="meet_more" style="cursor: pointer;">more</span>
 			</div>
             <div class="new_correlation_cen new_correlation_cen_con" id="near_meet">
             <div class="no_con">
@@ -115,8 +115,22 @@
             </div>
             </c:if>
             
+            
         </div>
         <!-- 投前End -->
+        <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
+        	<div class="tabtable_con_on">
+            	<div class="new_bottom_color">
+                    <span class="new_ico_hint"></span>
+                    <span class="new_color size16">温馨提示</span>
+                </div>
+                <ul class="basic_right_ul">
+                    <li>1、生成项目并完成接触访谈，计1分</li>
+                    <li>2、通过CEO评审，投资项目计1分，创建项目计5分</li>
+                    <li>3、通过立项会，投资项目计10分，创建项目计20分</li>
+                </ul>     	
+            </div>
+        </div>
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var pRigthInfo = ${proinfo}
@@ -289,10 +303,12 @@ function toCheckShowIcon(){
 function initMoreLine(){
 
 	$("#meet_more").on("click", function(){
-		showTabs(proid,4)
+		$('ul.projectDetail li').eq(4).addClass('on').siblings().removeClass("on");
+		initTabMeeting();
 	});
 	$("#view_more").on("click", function(){
-		showTabs(proid,3)
+		$('ul.projectDetail li').eq(3).addClass('on').siblings().removeClass("on");
+		initTabInterview();
 	});
 
 	/* if(projectInfo.projectStatus != 'meetingResult:3' && projectInfo.projectStatus != 'projectStatus:2' && projectInfo.projectStatus != 'projectStatus:3'){

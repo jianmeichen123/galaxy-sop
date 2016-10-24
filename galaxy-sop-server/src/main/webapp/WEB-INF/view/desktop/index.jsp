@@ -234,9 +234,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
 		if (list.length < 3) {
-// 			$("#tlbody").parent().parent().siblings().children('.more').css("display", "none");
-			$("#projectMeeting_dl").find('.more').css("display", "none !important");
-			
+			$("#projectMeeting_dl").find('.more').css("display", "none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
 			var tbodyList = $("#tlbody");
@@ -309,6 +307,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 								+ ' </tr>';
 						tbodyList.append(tr);
 					});
+			
 			if (list.length < 3) {
 				$("#tcbody").parent().parent().siblings().children('.more').css("display", "none");
 			}
@@ -332,9 +331,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	function ProjectVoteWillCallback(data) {
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
-		console.log(list)
-		if (list.length < 4) {
-// 			$("#tbody").parent().parent().siblings().children('.more').css("display", "none");
+		if (list.length < 3) {
 			$("#projectVoteMeeting_dl .more").css("display","none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -470,7 +467,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			tbodyList.append(noData);
 	   }
 		if(list.length<3){
-			$("#ceo_p .position").css("display","none");
+			$("[data-btn='ceops'].more").css("display","none");
 		}
 	}
 	

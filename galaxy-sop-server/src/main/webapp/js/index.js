@@ -257,7 +257,7 @@
 		
 		}
 
-	function top5ProjectMeetingCallback(data) {			
+	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
 		if(list.length<3){
 			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
