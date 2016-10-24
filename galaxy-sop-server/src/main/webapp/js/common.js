@@ -1583,7 +1583,7 @@ function ajaxPopup(obj,tite_mame){
 		    search: false, //显示搜索框
 		    queryParamsType: 'size|page',
 		    method : 'post',
-		    height:350,
+		    //height:350,
 		    queryParams: function(params){params.meetingType=obj.params.meetingType;params.scheduleStatus=obj.params.scheduleStatus;params.type=obj.params.type;return params;},
 		    pageSize:20,
 		    pagination: true,

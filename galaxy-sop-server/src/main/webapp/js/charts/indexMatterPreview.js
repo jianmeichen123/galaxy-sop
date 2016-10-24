@@ -2,7 +2,6 @@
  * 事项预览
  * matterPreviewUtils.init();
  */
-
 var matterPreviewUtils = {
 		init : function(){
 			var params = {deptid:-1};
@@ -91,12 +90,12 @@ var matterPreviewUtils = {
 					forwardWithHeader(platformUrl.popupMeetingList + "meetingType:2");
 				});
 				
-				if ( lxh_eduling_wait >0 ){			
+				if ( lxh_eduling_wait >0 ){	
 					$("#lxh_eduling_wait").bind('click',function(){
 						meeting_obj.params.meetingType = "meetingType:3";
 						meeting_obj.params.scheduleStatus = 0;
 						meeting_obj.params.type ="1";
-						var tite_mame=$(this).parent().find('span').text();
+						var tite_mame=$(this).attr("data-name");
 						ajaxPopup(meeting_obj,tite_mame);
 					});
 				}
@@ -106,7 +105,7 @@ var matterPreviewUtils = {
 						meeting_obj.params.meetingType = "meetingType:4";
 						meeting_obj.params.scheduleStatus = 0;
 						meeting_obj.params.type ="1";
-						var tite_mame=$(this).parent().find('span').text();
+						var tite_mame=$(this).attr("data-name");
 						ajaxPopup(meeting_obj,tite_mame);
 					});
 				}
@@ -116,7 +115,7 @@ var matterPreviewUtils = {
 						meeting_obj.params.meetingType = "meetingType:2";
 						meeting_obj.params.scheduleStatus = 0;
 						meeting_obj.params.type ="1";
-						var tite_mame=$(this).parent().find('span').text();
+						var tite_mame=$(this).attr("data-name");
 						ajaxPopup(meeting_obj,tite_mame);
 					});
 				}
