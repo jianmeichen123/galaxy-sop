@@ -18,7 +18,7 @@ function noDataProGressDiv(){
                 text: "<span style='color:#e9ebf2'>"+'0个'+"</span>",
                 verticalAlign:'middle',
                 y:5,
-                x:-95,
+                x:-80,
                 style:{
                     fontFamily:'微软雅黑',
                     color:'#e9ebf2',
@@ -65,7 +65,7 @@ function noDataProGressDiv(){
                 fontWeight:'normal',
                 color:'#7a8798',
             },
-            //x:0,
+            x:30,
         },            
 
             series: [{
@@ -107,7 +107,7 @@ var chartProjectProgressUtils = {
 		        text: "<span style='color:#4490d2'>"+'0个'+"</span>"+"<br/>"+"<span>"+'0%'+"</span>",
 		        verticalAlign:'middle',
 		        y:5,
-		        x:-95,
+		        x:-80,
 		        style:{
 		            fontFamily:'微软雅黑',
 		            color:'#4490d2',
@@ -186,8 +186,8 @@ var chartProjectProgressUtils = {
 			    itemStyle:{
 			        fontWeight:'normal',
 			        color:'#7a8798',
-			    }
-			    //x:0,
+			    },
+			    x: 30 //距离x轴的距离		    	
 			},            
 		    series: [{
 		        type: 'pie',
@@ -247,7 +247,7 @@ var chartProjectProgressUtils = {
 			    					{
 			    						text: "<span style='color:#4490d2'>"+ e.point.y +"个</span>"+"<br/>"+"<span>"+ parseFloat(e.point.percentage.toFixed(1)) +"%</span>",
 			    						y:-5,
-			    						x:-95
+			    						x:-80
 			    					}
 			    			);
 			    			chart.redraw();
@@ -260,7 +260,7 @@ var chartProjectProgressUtils = {
 			        					{
 			        						text: "<span style='color:#4490d2'>"+ totalCount +"个</span>"+"<br/>",
 			        						y:5,
-			        						x:-95
+			        						x:-80
 			        					}
 			        			);
 			    			}
@@ -276,7 +276,7 @@ var chartProjectProgressUtils = {
 			    					{
 			    						text: "<span style='color:#4490d2'>"+ e.target.y +"个</span>"+"<br/>"+"<span>"+ parseFloat(e.target.percentage.toFixed(1)) +"%</span>",
 			    						y:-5,
-			    						x:-95
+			    						x:-80
 			    					}
 			    			);
 			    			chart.redraw();
@@ -288,7 +288,7 @@ var chartProjectProgressUtils = {
 			        					{
 			        						text: "<span style='color:#4490d2'>"+ totalCount +"个</span>"+"<br/>",
 			        						y:5,
-			        						x:-95
+			        						x:-80
 			        					}
 			        			);
 			    			}
@@ -320,7 +320,7 @@ var chartProjectProgressUtils = {
 			    			forwardWithHeader(platformUrl.projectAnalysis);
 			    		});
 					}else{
-						layer.msg('后端查询数据为空');
+						//layer.msg('后端查询数据为空');
 					}
 				}else{
 					layer.msg(data.result.errorCode);
@@ -391,3 +391,18 @@ var chartProjectProgressUtils = {
 			}		
 		}
 }
+//项目进度
+var progressFormdata = {
+		domid : 'container_progress'
+}
+chartProjectProgressUtils.init(progressFormdata);
+noDataProGressDiv();
+
+//项目进度图表默认加载链接
+$("#container_progress .highcharts-title tspan").click(function(){
+	var url = platformUrl.projectAnalysis;
+	if(forwardParam.progressParam){
+		url += "?forwardProgress=" + forwardParam.progressParam ;
+	}
+	forwardWithHeader(url);
+});

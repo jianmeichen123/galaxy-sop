@@ -201,6 +201,10 @@ var platformUrl = {
 	 */
 	queryFile : Constants.sopEndpointURL+"/galaxy/sopFile/query",
 	/**
+	 * 项目文档-模块入口
+	 */
+	toFileList : Constants.sopEndpointURL+"/galaxy/sopFile/toFileList",
+	/**
 	 * 任务处理-上传文档
 	 */
 	uploadFile2Task : Constants.sopEndpointURL+"/galaxy/taskprocess/uploadFile",
@@ -824,6 +828,9 @@ var platformUrl = {
 	 * 2. 工作桌面－绩效考核
 	 */
 	deptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpi",
+	
+	
+	partnerkpi : Constants.sopEndpointURL + "/galaxy/kpireport/partnerkpi",
 	/**
 	 * 团队kpi 弹窗
 	 * 团队绩效－项目列表页面
@@ -882,41 +889,41 @@ var platformUrl = {
 	toRefuseProject : Constants.sopEndpointURL + "/galaxy/project/toRefuseProject",
 	
 	/**
-	 * 拨款信息开始
+	 * 注资信息开始
 	 */
-    //添加分期拨款计划弹出页面
+    //添加分期注资计划弹出页面
 	toApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/part/toApprActualAging",
-    //添加总拨款计划弹出页面
+    //添加总注资计划弹出页面
 	toApprAllAdd : Constants.sopEndpointURL + "/galaxy/grant/total/toApprAllAdd",
-    //添加总拨款计划提交
+    //添加总注资计划提交
 	addGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/addGrantTotal",
-	//查询总拨款计划列表
+	//查询总注资计划列表
 	queryGrantTotalList : Constants.sopEndpointURL + "/galaxy/grant/total/search",
-	//查询单个总拨款计划列表
+	//查询单个总注资计划列表
 	getGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/getGrantTotal",
-	//删除总拨款计划列表
+	//删除总注资计划列表
 	deleteGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/deleteGrantTotal",
-	//编辑总拨款计划列表
+	//编辑总注资计划列表
 	resetGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/resetGrantTotal",
-	//添加分期拨款计划
+	//添加分期注资计划
 	toAddApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/part/addGrantPart",
-	//谈书实际拨款列表
+	//谈书实际注资列表
 	toApprActualPage : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualPage",
-	//查看实际拨款详情
+	//查看实际注资详情
 	toApprActualLook : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLook",
-	//查看实际拨款详情
+	//查看实际注资详情
 	toApprActualAdd : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLook",
-	//右侧拨款进度
+	//右侧注资进度
 	getApprProcess : Constants.sopEndpointURL + "/galaxy/grant/total/getApprProcess",
 	//删除成功提示框
 	deleteAlert : Constants.sopEndpointURL + "/galaxy/deleteAlert",
-	//实际拨款编辑弹窗
+	//实际注资编辑弹窗
 	toEditApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/toEditApprActual",
-	//初始化拨款编辑弹窗
+	//初始化注资编辑弹窗
 	initEditApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/initEditApprActual",
-	//保存实际拨款
+	//保存实际注资
 	saveApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/saveApprActual",
-	//删除实际拨款
+	//删除实际注资
 	deleteApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/deleteApprActual",
 	//获取分拨中所有实际金额
 	getActualPartMoney : Constants.sopEndpointURL + "/galaxy/grant/actual/getActualPartMoney",
@@ -955,6 +962,14 @@ var platformUrl = {
 	 * 高管首页-健康状况报表展示详情
 	 */
 	toHealthChartDetail : Constants.sopEndpointURL + "/galaxy/health/toHealthChartDetail",
+	/**
+	 * kpi导出
+	 */
+	exportKpiGrade : Constants.sopEndpointURL + "/galaxy/kpireport/exportKpiGrade",
+	/**
+	 * 报表格式选择对话框
+	 */
+	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix"
 
 	
 

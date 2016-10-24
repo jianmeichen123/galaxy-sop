@@ -1,6 +1,8 @@
 package com.galaxyinternet.service.chart;
 
 
+import javax.servlet.http.HttpSession;
+
 import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.common.query.ChartKpiQuery;
 import com.galaxyinternet.framework.core.model.Page;
@@ -13,6 +15,8 @@ public interface KpiService extends BaseService<ChartDataBo> {
 	Page<ChartDataBo> userKpi(ChartKpiQuery query);
 
 	Page<ChartDataBo> deptkpi(ChartKpiQuery query);
+	
+	Page<ChartDataBo> parterkpi(ChartKpiQuery query,HttpSession session) throws Exception;
 
 	Page<ChartDataBo> ggLineChart(ChartKpiQuery query);
 

@@ -33,8 +33,8 @@
                   <dd>
                     <select class="disabled">
                       <option>全部</option>
-                      <option>内部创建</option>
-                      <option>外部投资</option>
+                      <option>创建</option>
+                      <option>投资</option>
                     </select>
                   </dd>
                 </dl>
@@ -62,7 +62,7 @@
                           <th>合伙人</th>
                           <th>项目名称</th>
                           <th>申请时间</th>
-                          <th>拨款时间</th>
+                          <th>注资时间</th>
                           <th>融资估值（百万）</th>
                           <th>融资总额（百万）</th>
                           <th>出让股份占比</th>
@@ -249,8 +249,8 @@
                   <dd>
                     <select class="disabled">
                       <option>全部</option>
-                      <option>内部创建</option>
-                      <option>外部投资</option>
+                      <option>创建</option>
+                      <option>投资</option>
                     </select>
                   </dd>
                 </dl>

@@ -110,7 +110,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	}
 	
 	/**
-	 * 新建分期拨款计划
+	 * 新建分期注资计划
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -127,7 +127,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		try {
 			GrantTotal total = grantTotalService.queryById(grantPart.getTotalGrantId());
 			if(total == null){
-				responseBody.setResult(new Result(Status.ERROR,"csds" , "未找到总拨款计划!"));
+				responseBody.setResult(new Result(Status.ERROR,"csds" , "未找到总注资计划!"));
 				return responseBody;
 			}
 			
@@ -165,13 +165,13 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 				uNum = UrlNumber.two;
 				grantPartService.upateGrantPart(grantPart);
 			}
-			responseBody.setResult(new Result(Status.OK, "success", "操作分期拨款计划成功!"));
+			responseBody.setResult(new Result(Status.OK, "success", "操作分期注资计划成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.2", uNum);
-			_common_logger_.info("操作总拨款计划成功"+grantPart.getGrantName());
+			_common_logger_.info("操作总注资计划成功"+grantPart.getGrantName());
 		} catch (Exception e) {
 			e.printStackTrace();
-			responseBody.setResult(new Result(Status.ERROR, "error", "操作总拨款计划失败!"));
-			_common_logger_.error("操作总拨款计划失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "操作总注资计划失败!"));
+			_common_logger_.error("操作总注资计划失败！", e);
 		}
 		return responseBody;
 	}
@@ -193,7 +193,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			ga.setPartGrantId(grantPartid);
 			Long actual = grantActualService.queryCount(ga);
 			if(actual > 0){
-				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行删除操作"));
+				responseBody.setResult(new Result(Status.ERROR,null, "存在实际注资,不允许进行删除操作"));
 				return responseBody;
 			}
 			GrantPart part = grantPartService.queryById(grantPartid);
@@ -228,7 +228,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			ga.setPartGrantId(grantPartid);
 			Long actual = grantActualService.queryCount(ga);
 			if(actual > 0){
-				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行编辑操作"));
+				responseBody.setResult(new Result(Status.ERROR,null, "存在实际注资,不允许进行编辑操作"));
 				return responseBody;
 			}
 			

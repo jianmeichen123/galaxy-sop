@@ -110,9 +110,9 @@ public class AppFileUploadController extends BaseControllerImpl<SopFile, AppSopF
 				
 				Project  project = projectService.queryById(appSopFile.getProjectId());
 				String proType = project.getProjectType();
-				if(StringUtils.isNotBlank(proType) && proType.equals(DictEnum.projectType.外部投资.getCode())){//外部投资
+				if(StringUtils.isNotBlank(proType) && proType.equals(DictEnum.projectType.投资.getCode())){//投资
 					entity.setFileSource("2");
-				}else if (StringUtils.isNotBlank(proType) && proType.equals(DictEnum.projectType.内部创建.getCode())){//内部创建
+				}else if (StringUtils.isNotBlank(proType) && proType.equals(DictEnum.projectType.创建.getCode())){//创建
 					entity.setFileSource("1");
 				}			
 				entity.setFileType(DictEnum.fileType.文档.getCode());

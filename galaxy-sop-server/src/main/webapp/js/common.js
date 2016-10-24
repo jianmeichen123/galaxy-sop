@@ -1608,7 +1608,7 @@ function to_pro_info(id){
 }
 
 function setData(sumPlanMoney,sumActualMoney){
-	 //拨款进度
+	 //注资进度
 	  $("#bar_m").css("width","0px");  //初始化进度条宽度；
 	    var moneyComplete=sumActualMoney;
 	        moneyTotal=sumPlanMoney;

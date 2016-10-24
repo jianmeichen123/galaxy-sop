@@ -23,7 +23,7 @@
 		                </dd>
 		            </dl>
 	                <dl class="fmdl fl_l  clearfix">
-		                <dt>拨款时间 ：</dt>
+		                <dt>注资时间 ：</dt>
 		                <dd>
 		                	<div>
 		                    	<input class="edittxt" name="grantDetail" type="text" value="" size="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个字符" />
@@ -31,7 +31,7 @@
 		                </dd>
 		            </dl>
 	                 <dl class="fmdl fl_l  clearfix">
-		                <dt>拨款金额 ：</dt>
+		                <dt>注资金额 ：</dt>
 		                <dd>
 		                	
 		                	<div>

@@ -2,12 +2,13 @@ package com.galaxyinternet.bo.chart;
 
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.model.report.DataReport;
 
 /**
  * 图表返回数据
  *
  */
-public class ChartDataBo extends PagableEntity{
+public class ChartDataBo extends DataReport{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -19,12 +20,12 @@ public class ChartDataBo extends PagableEntity{
 	
 	private Integer target;        //目标数
 	private Integer zjCompleted;   //自建项目数
-	private Integer wbCompleted;   //外部投资项目数
+	private Integer wbCompleted;   //投资项目数
 	private Integer completed;     //项目数,	                项目id数， 创建项目数
 	private Integer completedAll;  //累计已完成数     累计已完成的项目数。 仅不受查询时间影响
 	private Integer notCompleted;  //未完成数 =目标数-完成项目数
 
-	private Double wbRate;   //外部投资项目数占比
+	private Double wbRate;   //投资项目数占比
 	private Double zjRate;   //自建项目数比率
 	
 	private Integer companyRank;    //公司排名		个人项目数在公司的排名
@@ -51,7 +52,40 @@ public class ChartDataBo extends PagableEntity{
 	private Long dayLine;        //目标数
 	
 	
+	private String name;
+	private Long score1; //分数/生成项目
+	private Long score2; //分数/通过CEO评审
+	private Long score3; // 分数/通过立项会
+	private Long sumScore; //总分数
 	
+	private Double ceoRate; //CEO评审过会率
+	private Double lxhRate; //立项会过会率
+	
+	private String ceoRateStr;
+	private String lxhRateStr;
+	
+	
+	
+	
+	
+	public String getCeoRateStr() {
+		return ceoRateStr;
+	}
+	public void setCeoRateStr(String ceoRateStr) {
+		this.ceoRateStr = ceoRateStr;
+	}
+	public String getLxhRateStr() {
+		return lxhRateStr;
+	}
+	public void setLxhRateStr(String lxhRateStr) {
+		this.lxhRateStr = lxhRateStr;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Long getUserId() {
 		return userId;
 	}
@@ -236,13 +270,13 @@ public class ChartDataBo extends PagableEntity{
 	}
 	
 	/**
-	 * 外部投资项目数
+	 * 投资项目数
 	 */	
 	public Integer getWbCompleted() {
 		return wbCompleted;
 	}
 	/**
-	 * 外部投资项目数
+	 * 投资项目数
 	 */	
 	public void setWbCompleted(Integer wbCompleted) {
 		this.wbCompleted = wbCompleted;
@@ -262,13 +296,13 @@ public class ChartDataBo extends PagableEntity{
 	}
 	
 	/**
-	 * 内部创建与外部投资项目数占比
+	 * 创建与投资项目数占比
 	 */	
 	public Double getWbRate() {
 		return wbRate;
 	}
 	/**
-	 * 内部创建与外部投资项目数占比
+	 * 创建与投资项目数占比
 	 */	
 	public void setWbRate(Double wbRate) {
 		this.wbRate = wbRate;
@@ -341,6 +375,44 @@ public class ChartDataBo extends PagableEntity{
 	public void setDayLine(Long dayLine) {
 		this.dayLine = dayLine;
 	}
+	public Long getScore1() {
+		return score1;
+	}
+	public void setScore1(Long score1) {
+		this.score1 = score1;
+	}
+	public Long getScore2() {
+		return score2;
+	}
+	public void setScore2(Long score2) {
+		this.score2 = score2;
+	}
+	public Long getScore3() {
+		return score3;
+	}
+	public void setScore3(Long score3) {
+		this.score3 = score3;
+	}
+	public Long getSumScore() {
+		return sumScore;
+	}
+	public void setSumScore(Long sumScore) {
+		this.sumScore = sumScore;
+	}
+	public Double getCeoRate() {
+		return ceoRate;
+	}
+	public void setCeoRate(Double ceoRate) {
+		this.ceoRate = ceoRate;
+	}
+	public Double getLxhRate() {
+		return lxhRate;
+	}
+	public void setLxhRate(Double lxhRate) {
+		this.lxhRate = lxhRate;
+	}
+	
+	
 	
 	
 	

@@ -28,17 +28,17 @@
 							<div id="bar"></div>
 						</div>
 					</div>
-					 <!-- 拨款进度 -->
+					 <!-- 注资进度 -->
               <div class="money">
-                <div class="title">拨款进度</div>
+                <div class="title">注资进度</div>
                 <input type="hidden" id="planMoney">
                 <ul class="clearfix">
-                  <li class="fl">已拨款：<span class="money_complete"></span>万</li>
-                  <li class="fr">计划拨款：<span class="money_total"></span>万</li>
+                  <li class="fl">已注资：<span class="money_complete"></span>万</li>
+                  <li class="fr">计划注资：<span class="money_total"></span>万</li>
                 </ul>
                 <div class="progressBar"><div id="bar_m"></div></div>
               </div>
-              <!-- 拨款进度end -->
+              <!-- 注资进度end -->
 				</div>
 				
 				<div class="correlation">相关操作</div> 
@@ -224,7 +224,7 @@ $(function(){
 	  	}
 	 }
 		function setData(sumPlanMoney,sumActualMoney){
-			 //拨款进度
+			 //注资进度
 			  $("#bar_m").css("width","0px");  //初始化进度条宽度；
 			    var moneyComplete=sumActualMoney;
 			        moneyTotal=sumPlanMoney;

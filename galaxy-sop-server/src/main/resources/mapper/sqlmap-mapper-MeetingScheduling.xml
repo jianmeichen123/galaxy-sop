@@ -81,7 +81,7 @@
 		<include refid="Base_Column_List" />
 		    from sop_meeting_scheduling 
 		    where meeting_type =  #{type} and status ="meetingResult:2"
-		    order by meeting_count desc,meeting_date desc limit 3
+		    order by meeting_count desc,meeting_date desc limit 2
 	</select>
 	 <select id="selectProjectMeetingByType" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select

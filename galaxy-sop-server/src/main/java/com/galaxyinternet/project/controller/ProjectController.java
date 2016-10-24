@@ -1032,15 +1032,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			
-			// 如果是内部创建/未勾选"涉及股权转让"没有股权转让文档
+			// 如果是创建/未勾选"涉及股权转让"没有股权转让文档
 			if (p.getFileWorktype().equals(
 					DictEnum.fileWorktype.股权转让协议.getCode())) {
 				if (project != null
 						&& project.getProjectType() != null
 						&& project.getProjectType().equals(
-								DictEnum.projectType.内部创建.getCode())) {
+								DictEnum.projectType.创建.getCode())) {
 					responseBody.setResult(new Result(Status.ERROR, null,
-							"内部创建项目不需要股权转让协议!"));
+							"创建项目不需要股权转让协议!"));
 					return responseBody;
 				} else if (project.getStockTransfer() == null
 						|| project.getStockTransfer() == 0) {
@@ -1556,9 +1556,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		List<SopFile> files = sopFileService.queryList(file);
 		if (files == null
 				|| (project.getProjectType().equals(
-						DictEnum.projectType.外部投资.getCode()) && files.size() < 4)
+						DictEnum.projectType.投资.getCode()) && files.size() < 4)
 				|| (project.getProjectType().equals(
-						DictEnum.projectType.内部创建.getCode()) && files.size() < 2)) {
+						DictEnum.projectType.创建.getCode()) && files.size() < 2)) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"文档不齐全，不能申请投决会!"));
 			return responseBody;
@@ -1579,8 +1579,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 			List<SopFile> files = sopFileService.queryList(file);
 			if (files == null
-					|| (project.getProjectType().equals(DictEnum.projectType.外部投资.getCode()) && files.size() < 4)
-					|| (project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && files.size() < 2)) {
+					|| (project.getProjectType().equals(DictEnum.projectType.投资.getCode()) && files.size() < 4)
+					|| (project.getProjectType().equals(DictEnum.projectType.创建.getCode()) && files.size() < 2)) {
 				toGreen = true;
 			}
 			//校验，文件记录存在，并且 aliyun中对应的key也存在
@@ -1957,9 +1957,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 				boolean allHas = true;
 				if (files != null
-						&& ((projectType.equals(DictEnum.projectType.外部投资
+						&& ((projectType.equals(DictEnum.projectType.投资
 								.getCode()) && files.size() == 4) || (projectType
-								.equals(DictEnum.projectType.内部创建.getCode()) && files
+								.equals(DictEnum.projectType.创建.getCode()) && files
 								.size() == 2))) {
 					for (SopFile f : files) {
 						if (f.getFileKey() == null

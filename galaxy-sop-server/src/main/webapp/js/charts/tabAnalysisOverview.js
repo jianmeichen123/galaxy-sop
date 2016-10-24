@@ -41,9 +41,7 @@ var searchOverviewPanel = {
 					
 					queryOverviewUtils.query();
 				})
-				
-				
-				
+						
 			});
 		}
 }

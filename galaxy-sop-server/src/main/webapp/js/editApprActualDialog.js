@@ -1,5 +1,5 @@
 /**
- * 编辑实际拨款弹窗
+ * 编辑实际注资弹窗
  * actualId : 实际付款ID 当为编辑和查看时 必传
  * parentId : 分拨付款ID 当为添加时必传
  * operatorFlag : 1:添加 2:编辑 3: 查看 默认为添加
@@ -23,10 +23,10 @@ var editApprActualDialog = {
 									sendPostRequestByJsonObj(platformUrl.initEditApprActual, param, function(data){
 										if(data.result.status=='OK'){
 											var $protocolName = $("#form_edit_actual_dialog").find("#label_protocol_name") //创业服务协议
-											var $planGrantTime = $("#form_edit_actual_dialog").find("#label_plan_grant_time") //计划拨款时间
-											var $planGrantMoney = $("#form_edit_actual_dialog").find("#label_plan_grant_money") //计划拨款金额
-											var $labelGrantMoney = $("#form_edit_actual_dialog").find("#label_grant_money"); //实际拨款协议上层标签
-											var $formGrantMoney = $("#form_edit_actual_dialog").find("#form_grant_money"); //实际拨款金额文本
+											var $planGrantTime = $("#form_edit_actual_dialog").find("#label_plan_grant_time") //计划注资时间
+											var $planGrantMoney = $("#form_edit_actual_dialog").find("#label_plan_grant_money") //计划注资金额
+											var $labelGrantMoney = $("#form_edit_actual_dialog").find("#label_grant_money"); //实际注资协议上层标签
+											var $formGrantMoney = $("#form_edit_actual_dialog").find("#form_grant_money"); //实际注资金额文本
 											var $surplusGrantMoney = $("#form_edit_actual_dialog").find("#label_surplus_grant_money"); //剩余金额
 											var $labelPopName = $("#form_edit_actual_dialog").find("#label_pop_name");
 											var $okBtn = $("#form_edit_actual_dialog").find("#win_ok_btn");
@@ -49,7 +49,7 @@ var editApprActualDialog = {
 												popName = "添加";
 											}
 											
-											$labelPopName.html(popName + "实际拨款信息");
+											$labelPopName.html(popName + "实际注资信息");
 											
 											
 											if(data.entity.protocolName){
@@ -73,7 +73,7 @@ var editApprActualDialog = {
 													var grantMoneyOld=$formGrantMoney.val(); 
 													var remainMoney = data.entity.surplusGrantMoney;
 													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
-													remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); // 剩余+实际拨款
+													remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); // 剩余+实际注资
 													$surplusGrantMoney.html("剩余金额" + remainMoney + "元");											         
 													$formGrantMoney.blur(function(){
 													var grantMoney=$formGrantMoney.val();
@@ -114,7 +114,7 @@ var editApprActualDialog = {
 									});
 								},
 								/**
-								 * 编辑实际拨款弹窗
+								 * 编辑实际注资弹窗
 								 * preMoney : 初始实际金额
 								 * surplusGrantMoney : 剩余金额
 								 */
@@ -133,7 +133,7 @@ var editApprActualDialog = {
 //										console.log("初始剩余金额" + saveParam.surplusGrantMoney);
 										console.log(fallMoney>saveParam.surplusGrantMoney);
 										if(fallMoney > saveParam.surplusGrantMoney){
-											layer.msg("实际拨款金额之和大于分期拨款金额");
+											layer.msg("实际注资金额之和大于分期注资金额");
 											return false;
 										}
 									}

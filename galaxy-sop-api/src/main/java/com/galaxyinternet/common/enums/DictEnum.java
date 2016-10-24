@@ -58,8 +58,10 @@ public enum DictEnum {
     
 	//项目类型
 	public enum projectType {
-		外部投资("外部投资","projectType:1"),
-		内部创建("内部创建","projectType:2");
+		
+		投资("投资","projectType:1"),
+		创建("创建","projectType:2");
+		
 		private String name;
 
 		private String code;
