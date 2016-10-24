@@ -96,7 +96,7 @@
             <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
             <div class="correlation">
             	近期会议纪要
-				<span class="more null new_righ" id="meet_more" style="cursor: pointer;" >more</span>
+				<span class="more null new_righ" id="meet_more" style="cursor: pointer;">more</span>
 			</div>
             <div class="new_correlation_cen new_correlation_cen_con" id="near_meet">
             <div class="no_con">
@@ -289,10 +289,12 @@ function toCheckShowIcon(){
 function initMoreLine(){
 
 	$("#meet_more").on("click", function(){
-		showTabs(proid,4)
+		$('ul.projectDetail li').eq(4).addClass('on').siblings().removeClass("on");
+		initTabMeeting();
 	});
 	$("#view_more").on("click", function(){
-		showTabs(proid,3)
+		$('ul.projectDetail li').eq(3).addClass('on').siblings().removeClass("on");
+		initTabInterview();
 	});
 
 	/* if(projectInfo.projectStatus != 'meetingResult:3' && projectInfo.projectStatus != 'projectStatus:2' && projectInfo.projectStatus != 'projectStatus:3'){
