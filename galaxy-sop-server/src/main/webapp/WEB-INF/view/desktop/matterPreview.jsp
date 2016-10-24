@@ -25,21 +25,20 @@ String path = request.getContextPath();
 				<p>排期等待</p>
 			</div>
 			<div class="l_previewBottom_b fl">
-				<a href="javascript:;" id="lxh_eduling_wait"></a>
+				<a href="javascript:;" id="lxh_eduling_wait" data-name="立项会排期等待"></a>
 				<p>立项会</p>
 			</div>
 			<div class="l_previewBottom_b fl">
-				<a href="javascript:;" id="tjh_eduling_wait"></a>
+				<a href="javascript:;" id="tjh_eduling_wait" data-name="投决会排期等待"></a>
 				<p>投决会</p>
 			</div>
 			<div class="l_previewBottom_b fl">
-				<a href="javascript:;" id="psh_eduling_wait"></a>
+				<a href="javascript:;" id="psh_eduling_wait" data-name="评审会排期等待"></a>
 				<p>评审会</p>
 			</div>
 		</div>
 	</dd>
 </dl>
-
 <script src="<%=path %>/js/charts/indexMatterPreview.js"></script>
 <script>
 matterPreviewUtils.init();
