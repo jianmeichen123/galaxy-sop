@@ -46,8 +46,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <div class="sico"></div>
         <!--时间-->
         <div class="top_small">
+           <acl:acl resourceMark="shedule_list">
           <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add blue">添加日程</a>
            <span id="today_now"><b class="b1 null">点</b>今日日程</span>
+           </acl:acl>
         </div>
         <!--立项排期会-->
         <div class="bottom_small">
@@ -61,7 +63,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             <acl:acl resourceMark="shedule_ceo">
             <li><a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" ><span class="ico_small psh"></span><span>CEO评审</span></a></li>
             </acl:acl>
+            <acl:acl resourceMark="div_normal_tool">
             <li><span class="ico_small tool"></span><span>常用工具</span></li>
+            </acl:acl>
           </ul>
         </div>
     </div>
@@ -73,6 +77,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
       <div class="big_con">
       
         <!--时间-->
+         <acl:acl resourceMark="shedule_list">
         <div class="top">
             <div class="tody ico">
               <div class="month_box fl">
@@ -85,6 +90,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             <div id="top">
             </div>
         </div>
+        </acl:acl>
         
         
         <!--立项排期会-->
@@ -149,6 +155,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         
         
         <!-- 常用工具 -->
+        <acl:acl resourceMark="div_normal_tool">
         <dl  class="tool_radius">
             <dd class="tool">
               <a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
@@ -171,6 +178,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <a href="javascript:;" class="add ico">&nbsp;</a>
             </dd>
         </dl>
+        </acl:acl>
       </div>
       
       
