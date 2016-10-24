@@ -467,7 +467,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			tbodyList.append(noData);
 	   }
 		if(list.length<3){
-			$("[data-btn='ceops']").css("display","none");
+			$("[data-btn='ceops'].more").css("display","none");
 		}
 	}
 	
