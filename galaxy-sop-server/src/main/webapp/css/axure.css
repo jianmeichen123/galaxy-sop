@@ -2159,7 +2159,7 @@ margin: 45px auto 30px;}
 .eblock{height:216px;margin:0 10px;background-color: #fff;border-radius: 5px;box-shadow: 3px 5px 5px #ddd;}
 .addEblockCon button{margin:70px auto;cursor: pointer;display: block;}
 .addCircleBtn{width:76px;height:76px;border-radius: 50%;border:1px dashed #b6bbcd;background-color: #fff;font-size: 45px;color:#b6bbcd;}
-.addEblockContc label{display:block;text-align: center;margin:10px 0;cursor: pointer;}
+.addEblockContc label{display:block;text-align: left;margin:10px 35px;cursor: pointer;}
 .addEblockContc label input{margin-right:5px;}
 .addEblockContc .form{padding-top: 40px;}
 .addEblockContc .btnbox{margin:20px 0 10px;}
