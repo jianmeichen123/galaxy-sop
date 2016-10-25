@@ -26,7 +26,7 @@
 				<thead>
 				    <tr>
 			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际注资金额（元）</th>
-			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">注资日期<span></span></th>
+			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">注资人<span></span></th>
 			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="25%">操作</th>
  					</tr>	
