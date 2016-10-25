@@ -104,8 +104,8 @@
 		<if test="meetingResult != null"> and m.meeting_result = #{meetingResult}</if>
 		and p.project_departId = #{departmentId}
 		<![CDATA[
-		and m.created_time >= #{startDate}
-		and m.created_time <= #{endDate}
+		and m.meeting_date >= #{startDate}
+		and m.meeting_date <= #{endDate}
 		]]>
 	</select>
 	
