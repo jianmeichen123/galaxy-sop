@@ -10,8 +10,10 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
-<div class="addmentc">
+<style>
+.bars{display:none;}
+</style>
+<div class="addmentc" style="max-height:350px;">
 	<div class="title_bj" id="popup_name">实际注资信息列表</div>
      
     <div class="addbutton btnbox_f1 clearfix margin_45">                        	
