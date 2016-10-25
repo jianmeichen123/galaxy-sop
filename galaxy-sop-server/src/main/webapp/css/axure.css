@@ -587,7 +587,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .l_previewBottom .l_previewBottom_b a{font-size: 22px;color: #7d89ab;font-family: "微软雅黑";}
 .l_previewBottom .l_previewBottom_b a.gray{color:#d6dae9;}
 .pagebox .rit_executive .top_radius{border-top-right-radius: 6px;border-top-left-radius: 6px;}
-.bj_pagebox{    width: 33.3333%;  display:block;height: 55px; line-height:55px;float: left;text-indent:10px;}
+.bj_pagebox{    width: 33.3333%;  display:block;height: 55px; line-height:55px;float: left;text-align:center;}
 .bj_pagebox_left{ text-align:center;}
 /*工具*/
 .pagebox .min .tablist .tool{ text-align:center; padding:17px 0 1px; height:175px;border-bottom-right-radius: 6px;}
@@ -1905,8 +1905,8 @@ font-family: "宋体";
 /*无内容样式*/
 .no_info{color:#bbb;border:0;height:133px; text-align: center;}
 .no_info01{height:120px; text-align: center;}
-.no_info_icon{background:url(../img/no_icon.png) 0 -26px no-repeat;display:inline-block;width:172px;height:30px;}
-.no_info_icon_xhhl{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:155px;height:25px;}
+.no_info_icon{background:url(../img/no_icon.png) 0 -26px no-repeat;display:inline-block;width:172px;height:30px;line-height:30px;color:#999;}
+.no_info_icon_xhhl{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:170px;height:25px;}
 .position{position: absolute;right: 5px;top: 15px;display: block;}
 .schedule_noinfo{font-size:12px;font-family:'宋体';display:inline-block;width:70px;margin:15px 37%;color:#bbb;hight:18px;line-height:18px;background:url(../img/no_icon.png) 0 0 no-repeat;padding-left:25px;}
 dl{position: relative;}
@@ -2248,7 +2248,7 @@ margin: 45px auto 30px;}
     font-size: 12px;
     color: #FFF;}
 /* 内容区域 */
-#tbody a,#tlbody a,#ceopsbodytop a{font-size:14px;font-family:"微软雅黑"}
+#tbody a,#tlbody a,#ceopsbodytop a,#cy_index a{font-size:14px;font-family:"微软雅黑"}
 .floatBox{margin:0 10px 10px;height:216px;background-color: #fff;border-radius:2px;box-shadow:0px 0px 25px #ddd;overflow:hidden;}
 .floatBox dt{margin-top:10px;padding:0 0 20px 20px;}
 .floatBox dt h3{font-size:16px;font-weight:normal;color:#6b799f;font-family:"微软雅黑"}
@@ -2257,9 +2257,9 @@ margin: 45px auto 30px;}
 .floatBox .bootstrap-table table tbody  tr td{padding-left:20px !important;font-size:14px;}
 .floatBox table th{color:#9e9e9e;}
 .floatBox table td{color:#666;}
-.floatBox .l_previewTop{width:80%;margin:0 auto;}
+.floatBox .l_previewTop{width:87%;margin:0 auto;}
 .floatBox .l_previewTop span{font-size:14px;color:#666}
-.floatBox .l_previewTop span a{color:#3b8bd9;font-size:18px;margin-left:10px;font-family:"微软雅黑"}
+.floatBox .l_previewTop span a{color:#3b8bd9;font-size:18px;margin-left:5px;font-family:"微软雅黑"}
 .floatBox .l_previewBottom{margin:0 20px;background:#f0f4f7;height:80px;}
 .floatBox .eduling_wait_title{width:22%;text-align:center;background:#e9ebf2;height:80px;}
 .eduling_wait_ico img{margin:12px auto 5px;}

@@ -11,8 +11,8 @@
 		<table id="project-progress-table">
 			<thead>
 				<tr>
-					<th data-field="projectName" data-align="left" >项目名称</th>
-					<th data-field="projectCareerline" data-align="left">事业线</th>
+					<th data-field="projectName" data-align="left" data-formatter="projectName">项目名称</th>
+					<th data-field="projectCareerline" data-align="left" data-formatter="projectCareerline">事业线</th>
 					<th data-field="progress" data-align="left">目前进度</th>
 				</tr>
 			</thead>
@@ -48,5 +48,14 @@
 			}
 		}
 	});
-
+	function projectName(value,row,index){
+		var str=row.projectName;
+		var str = "<span title='"+str+"'>"+str+"</span>";
+		return str;
+	}
+	function projectCareerline(value,row,index){
+		var str=row.projectCareerline;
+		var str = "<span title='"+str+"'>"+str+"</span>";
+		return str;
+	}
 </script>
