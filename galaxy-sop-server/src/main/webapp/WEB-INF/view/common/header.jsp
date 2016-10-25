@@ -130,7 +130,12 @@ if(isContainResourceByMark("task_into_view")){
  }
  function remindcbf(data){
 	if(data.result.status == "OK"){
-		 $(".work em[action='remind']").html(data.entity.count);
+		var remindCount=data.entity.count;
+		if(remindCount>99){
+			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
+		}else{
+			$(".work em[action='remind']").html(remindCount);
+		}
 	}
  }
  function logout(){
