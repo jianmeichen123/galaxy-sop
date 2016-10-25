@@ -19,7 +19,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
+<link href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
