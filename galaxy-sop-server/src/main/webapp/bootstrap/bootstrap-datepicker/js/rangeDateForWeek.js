@@ -150,6 +150,21 @@ $(function(){
 		var nowDay = now.getDate();//当前日
 		var nowDayOfWeek = now.getDay();//今天本周的第几天
 		
+		var current ="";
+		if(startOrEnd == "INIT"){
+			current = new Date();
+		}
+	    if(startOrEnd != "INIT"){
+	    	 var currentDate =ev.date.format("yyyy-MM-dd");
+	    	 current = new Date(currentDate).getTime();
+	    	 //星期几
+	 		 now = UTCDate(ev.date.getFullYear(), ev.date.getMonth(), ev.date.getDate());
+	 		 nowYear = now.getFullYear();//当前年
+	 		 nowMonth = now.getMonth();//当前月
+	 		 nowDay = now.getDate();//当前日
+	 		 nowDayOfWeek = now.getDay();//今天本周的第几天
+	    }
+	    
 		//获得本周的开始日期
 	    var getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -1);
 	    var getWeekStartDate =  formatDate(getWeekStartDate);
@@ -157,20 +172,7 @@ $(function(){
 	    var getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek-1));
 	    var getWeekEndDate =  formatDate(getWeekEndDate);
 	    
-	    if(startOrEnd != "INIT"){
-	    	 var currentDate =ev.date.format("yyyy-MM-dd");
-	    	 var current = new Date(currentDate).getTime();
-	    	 //星期几
-	 		 now = UTCDate(ev.date.getFullYear(), ev.date.getMonth(), ev.date.getDate());
-	 		 var nowYear = now.getFullYear();//当前年
-	 		 var nowMonth = now.getMonth();//当前月
-	 		 var nowDay = now.getDate();//当前日
-	 		 var nowDayOfWeek = now.getDay();//今天本周的第几天
-	    }
 	    
-		if(startOrEnd == "INIT"){
-			current = new Date();
-		}
 		var start = new Date(getWeekStartDate).getTime();
 		var end = new Date(getWeekEndDate).getTime();
 		
