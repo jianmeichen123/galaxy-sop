@@ -128,10 +128,6 @@ $(function(){
 		});
 		return false;
 	});	
-	var data = {
-			_domid : "file_gird_index"
-	}
-	fileGridIndex.init(data);
 		
 });
 </script>
