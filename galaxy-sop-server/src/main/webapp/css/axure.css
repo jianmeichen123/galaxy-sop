@@ -1905,8 +1905,8 @@ font-family: "宋体";
 /*无内容样式*/
 .no_info{color:#bbb;border:0;height:133px; text-align: center;}
 .no_info01{height:120px; text-align: center;}
-.no_info_icon{background:url(../img/no_icon.png) 0 -26px no-repeat;display:inline-block;width:172px;height:30px;}
-.no_info_icon_xhhl{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:155px;height:25px;}
+.no_info_icon{background:url(../img/no_icon.png) 0 -26px no-repeat;display:inline-block;width:172px;height:30px;line-height:30px;color:#999;}
+.no_info_icon_xhhl{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:170px;height:25px;}
 .position{position: absolute;right: 5px;top: 15px;display: block;}
 .schedule_noinfo{font-size:12px;font-family:'宋体';display:inline-block;width:70px;margin:15px 37%;color:#bbb;hight:18px;line-height:18px;background:url(../img/no_icon.png) 0 0 no-repeat;padding-left:25px;}
 dl{position: relative;}
