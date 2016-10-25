@@ -2211,7 +2211,7 @@ margin: 45px auto 30px;}
 .pagebox .big dd{border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1; padding:0;}
 .pagebox .big dl {text-align: right;height:122px;}
 .pagebox .big dl dt{line-height: 20px;height: 20px;}
-.pagebox .big dl a{margin:0 14px 0 6px;}
+.pagebox .big dl dt a{margin:0 14px 0 6px;}
 .pagebox .big dl a.more{display: inline-block;}
 .pagebox .big table td{height:40px;line-height: 40px;font-size: 14px;font-family: "微软雅黑";color:#7a8094;}
 .pagebox .big table td.noborder{border-bottom: 0;}
