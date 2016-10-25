@@ -185,7 +185,7 @@
 						</dd>
 						
 						<dd>
-							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_partnerkpi">查询</a>  <!-- id="querySearch_deptkpi" -->
+							<a href="javascript:;" class="bluebtn ico tj cx_prj" id="querySearch_partnerkpi">搜索</a>  <!-- id="querySearch_deptkpi" -->
 						</dd>
 					</dl>
 				</div>

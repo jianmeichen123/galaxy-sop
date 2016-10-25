@@ -8,22 +8,17 @@
 <style>
 .radiosbox input{margin-left:20px;}
 </style>
-<div class="addmentc margin_45" id="reportChooseSuffix">
-	<div class="title_bj">报表格式选择</div>
+<div class="addmentc" id="reportChooseSuffix">
+	<div class="title_bj">提示</div>
     <div class="form clearfix">
         <div class="role_all">
         	<ul>	
-        		<li class='pocein'>
-        			<p class="tips deltc">
-					<b class="null tips_d">ico</b>
-						请选择报表导出格式
-					</p>
-				</li>
                 <li>
                 <form id="chooseForm">
-                    <div class="radiosbox" style="width:190px;margin:0 auto;">
-                    	<input type="radio" name="suffix" value="xlsx" checked="checked">XLSX
-                    	<input type="radio" name="suffix" value="csv">CSV
+                    <div class="radiosbox" style="width:250px;margin:50px auto 20px;">
+                    	<span>保存格式：</span>
+                    	<input type="radio" name="suffix" value="xlsx" checked="checked">.xlsx
+                    	<input type="radio" name="suffix" value="csv">.csv
                     </div>  
                 </form>
                 </li>

@@ -2201,17 +2201,17 @@ margin: 45px auto 30px;}
 .pagebox .rit dt{background:none;}
 .pagebox .rit .top .tody{padding:0;}
 .pagebox .rit .top{padding-top: 16px;}
-.month_box{width:56px;padding-top: 4px;margin-right: 18px;}
+.month_box{width:56px;padding-top: 4px;margin-right: 18px;height:48px}
 .month_box p{text-align: center;}
-.month_box .month{color:#fff;}
-.month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;}
+.month_box .month{color:#fff;height:20px;line-height:20px;}
+.month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;height:24px;}
 .pagebox .rit .top .tody .time_moment{font-weight: bold;font-size: 30px;color:#7a8094;margin-top: 10px;}
 .pagebox .rit .top .tody a[data-btn="shecudle_list"]{font-size: 12px;background-color: #539be2;border:none;padding:3px 8px;margin-right: 14px;margin-top: 17px;}
 .pagebox .rit .top .link{font-size: 14px;font-family: "微软雅黑";color:#7a8094;margin:0 22px 15px;}
 .pagebox .big dd{border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1; padding:0;}
 .pagebox .big dl {text-align: right;height:122px;}
 .pagebox .big dl dt{line-height: 20px;height: 20px;}
-.pagebox .big dl a{margin:0 14px 0 6px;}
+.pagebox .big dl dt a{margin:0 14px 0 6px;}
 .pagebox .big dl a.more{display: inline-block;}
 .pagebox .big table td{height:40px;line-height: 40px;font-size: 14px;font-family: "微软雅黑";color:#7a8094;}
 .pagebox .big table td.noborder{border-bottom: 0;}
@@ -2268,6 +2268,7 @@ margin: 45px auto 30px;}
 /* 首页截断 */
 .ritmin-index table{table-layout:fixed;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ritmin-index .fixed-table-container thead th .th-inner{padding:5px 0;}
 /* 下拉修改密码 */
 .man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;}
 .man_info ul li{height:54px;line-height: 54px;}
