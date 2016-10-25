@@ -487,7 +487,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .header .usermsg .line{ border-left:1px solid #97c7ee; height:11px; margin:2px 10px 0 0; width:0}
 .header .usermsg .loginout{ margin:0 30px 0 0}
 .header .usermsg .work{ margin:0 30px 0 0;position:relative;}
-.header .usermsg em{font-size:12px;position:absolute;top:-7px;width:18px;height:18px;border-radius:50%;background:#fe552f;text-align:center;line-height:18px;}
+.header .usermsg em{font-size:12px;position:absolute;top:-10px;width:20px;height:20px;border-radius:50%;background:#fe552f;text-align:center;line-height:20px;font-family"宋体"}
 .header .usermsg .work em.bubble{display:inline-block; width: 20px;height: 16;text-align:center;line-height:16px;background: url(../img/bubble.png) no-repeat;margin:0 0 0 4px;padding: 0;}
 .header .usermsg .work .bubble{   /* 后加 */
    			-webkit-animation:shark 0.8s linear 0.1s infinite alternate;
@@ -2268,6 +2268,7 @@ margin: 45px auto 30px;}
 /* 首页截断 */
 .ritmin-index table{table-layout:fixed;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ritmin-index .fixed-table-container thead th .th-inner{padding:5px 0;}
 /* 下拉修改密码 */
 .man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;}
 .man_info ul li{height:54px;line-height: 54px;}

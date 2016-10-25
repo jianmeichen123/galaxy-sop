@@ -119,16 +119,13 @@
         </div>
         <!-- 投前End -->
         <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
-        	<div class="tabtable_con_on">
-            	<div class="new_bottom_color">
-                    <span class="new_ico_hint"></span>
-                    <span class="new_color size16">温馨提示</span>
-                </div>
-                <ul class="basic_right_ul">
+           <div class="correlation" style="position:relative;padding-left:20px;"><span class="new_ico_hint" style="position:absolute;left:15px;top:11px;"></span>温馨提示</div>
+            <div class="new_correlation_cen_con" style="height:120px;">
+            	<ul class="basic_right_ul">
                     <li>1、生成项目并完成接触访谈，计1分</li>
                     <li>2、通过CEO评审，投资项目计1分，创建项目计5分</li>
                     <li>3、通过立项会，投资项目计10分，创建项目计20分</li>
-                </ul>     	
+                </ul>
             </div>
         </div>
 <script src="<%=path %>/js/refuseProject.js"></script>
