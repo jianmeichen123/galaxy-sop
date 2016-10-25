@@ -173,15 +173,15 @@
 					</dl>
 					<dl class="fmdl fmmr clearfix">
 						<dd id="weekType">
-							<input type="text" class="txt time weekStartDatepicker" id="partnerkpi_sdate" name="partnerSdate" value="" /> 
+							<input type="text" class="txt time weekStartDatepicker" readonly id="partnerkpi_sdate" name="partnerSdate" value="" /> 
 							<span>至</span> 
-							<input type="text" class="txt time weekEndDatepicker" id="partnerkpi_edate" name="partnerEdate" value="" />
+							<input type="text" class="txt time weekEndDatepicker" readonly id="partnerkpi_edate" name="partnerEdate" value="" />
 						</dd>
 						
 					   <dd id="definedType" style="display:none">
-							<input type="text" class="txt time datepicker" name="partnerSdate" id="partnerkpi_sdate" value="" /> 
+							<input type="text" class="txt time datepicker" name="partnerSdate" readonly id="partnerkpi_sdate" value="" /> 
 							<span>至</span> 
-							<input type="text" class="txt time datepicker" name="partnerEdate" id="partnerkpi_edate" value="" />
+							<input type="text" class="txt time datepicker" name="partnerEdate" readonly id="partnerkpi_edate" value="" />
 						</dd>
 						
 						<dd>
