@@ -2201,10 +2201,10 @@ margin: 45px auto 30px;}
 .pagebox .rit dt{background:none;}
 .pagebox .rit .top .tody{padding:0;}
 .pagebox .rit .top{padding-top: 16px;}
-.month_box{width:56px;padding-top: 4px;margin-right: 18px;}
+.month_box{width:56px;padding-top: 4px;margin-right: 18px;height:48px}
 .month_box p{text-align: center;}
-.month_box .month{color:#fff;}
-.month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;}
+.month_box .month{color:#fff;height:20px;line-height:20px;}
+.month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;height:24px;}
 .pagebox .rit .top .tody .time_moment{font-weight: bold;font-size: 30px;color:#7a8094;margin-top: 10px;}
 .pagebox .rit .top .tody a[data-btn="shecudle_list"]{font-size: 12px;background-color: #539be2;border:none;padding:3px 8px;margin-right: 14px;margin-top: 17px;}
 .pagebox .rit .top .link{font-size: 14px;font-family: "微软雅黑";color:#7a8094;margin:0 22px 15px;}
