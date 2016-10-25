@@ -150,7 +150,7 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 		Font font = excelManager.createFonts(workBook,Font.BOLDWEIGHT_NORMAL,"宋体",false,(short)200);
 		CellStyle cellStyle = workBook.createCellStyle();
 		cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-		cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+		cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
 		cellStyle.setFont(font);
 		cell.setCellStyle(cellStyle);
 		if(BasicElement.VALUE_DATE.equals(be.getValue())){
