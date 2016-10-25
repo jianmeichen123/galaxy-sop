@@ -27,6 +27,11 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
+
 <script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload/zh_CN.js" type="text/javascript"></script>
 
