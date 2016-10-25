@@ -238,7 +238,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	}
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if (list.length < 3) {
+		if (list.length < 2) {
 			$("#projectMeeting_dl").find('.more').css("display", "none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -336,7 +336,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	function ProjectVoteWillCallback(data) {
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
-		if (list.length < 3) {
+		if (list.length < 2) {
 			$("#projectVoteMeeting_dl .more").css("display","none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -467,7 +467,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 				'<div class="no_info no_info01" style="height:55px;margin-top:25px"><span class="no_info_icon">没有找到匹配的记录</span></div>'; 			
 			tbodyList.append(noData);
 	   }
-		if(list.length<3){
+		if(list.length<2){
 			$("[data-btn='ceops'].more").css("display","none");
 		}
 	}
