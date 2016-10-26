@@ -124,7 +124,7 @@ $(function(){
 				return;
 			}else{
 				var userData = data.userData;
-				alert("33")
+		
 				option.series[0].data[0] =userData.healthHighNum;
 				option.series[0].data[1] =userData.healthGoodNum;
 				option.series[0].data[2] =userData.healthWarnNum;
@@ -137,7 +137,7 @@ $(function(){
 				}
 			}
 	  	});
-	   //window.onresize = myChart.resize; 
+	   window.onresize = myChart.resize; 
 	   myChart.setOption(option); 
 	   
 	 //下面是需要添加的方法内容
