@@ -222,12 +222,24 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   
   
   
-  //=====
+  	//=====
 	$(function(){
-		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
-		top5ProjectMeeting();
-		ProjectVoteWill();
-		top5CeoPsMeeting();
+		if($('dl[resource-mark="shedule_list"]').css("display") == 'block'){
+			loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
+		}
+		
+		if($('dl[resource-mark="shedule_lxh"]').css("display") == 'block'){
+			top5ProjectMeeting();
+		}
+		
+		if($('dl[resource-mark="shedule_tjh"]').css("display") == 'block'){
+			ProjectVoteWill();
+		}
+		
+		if($('dl[resource-mark="shedule_ceo"]').css("display") == 'block'){
+			top5CeoPsMeeting();
+		}
+		
 	});
   
   
