@@ -1,4 +1,4 @@
-$(function(){
+
 	alert("33")
 	var myChart = echarts.init(document.getElementById('container_health'));   
 	  var option = {
@@ -138,7 +138,7 @@ $(function(){
 				}
 			}
 	  	});
-	   //window.onresize = myChart.resize; 
+	   window.onresize = myChart.resize; 
 	   myChart.setOption(option); 
 	   
 	 //下面是需要添加的方法内容
@@ -165,6 +165,6 @@ $(function(){
 	});
 
 
-})  
+
 
 
