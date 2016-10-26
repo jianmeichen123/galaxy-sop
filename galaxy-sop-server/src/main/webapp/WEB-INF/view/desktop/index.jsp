@@ -319,7 +319,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		} else {
 			var tbodyList = $("#tcbody");
 			var noData = '<tr>'
-					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
 					+ ' </tr>';
 			tbodyList.append(noData);
 		}
@@ -417,7 +417,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		} else {
 			var tbodyList = $("#votebody");
 			var noData = '<tr>'
-					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
 					+ ' </tr>';
 			tbodyList.append(noData);
 		}
@@ -500,6 +500,13 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
+		}
+		if(list.length==0){
+			var tbodyList = $("#ceopsbody");
+			var noData = '<tr>'
+					+ '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ ' </tr>';
+			tbodyList.append(noData);
 		}
 	}
 
