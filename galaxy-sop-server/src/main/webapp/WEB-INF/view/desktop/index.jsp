@@ -90,9 +90,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <p class="month_box_date"></p>
               </div>
               <p class="time time_moment fl"></p>
-               <acl:acl resourceMark="shedule_list">
 	          	<a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="bluebtn btn fr">添加日程</a>
-	           </acl:acl>
             </div>
             <div id="top">
             </div>
