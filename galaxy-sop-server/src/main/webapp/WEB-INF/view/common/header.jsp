@@ -182,8 +182,15 @@ $(function(){
 	  /*展开/收起按钮定位*/
     var w_h=$(window).height();
         s_h=$(".sico").height();
+        rit_h=Math.round($(".ritmin-index .floatBox").length/2);
     $(".sico").css({"top":(w_h-s_h)/2-80,"left":"-16px"});
-    $(".bico").css({"top":(w_h-s_h)/2-80,"left":"-13px"});
+    $(".bico").css({"top":(w_h-s_h)/2-30,"right":"330px"});
+    if(w_h>226*rit_h){
+    	$(".pagebox .big").css({"height":w_h})
+    }else{
+    	$(".pagebox .big").css("height",226*rit_h)
+    }
+    
     //获取当前日期
     var myDate = new Date();
     $(".month_box .month span").text(myDate.getMonth()+1);

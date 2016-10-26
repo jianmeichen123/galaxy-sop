@@ -2195,7 +2195,7 @@ margin: 45px auto 30px;}
 .bottom_small ul li .tool{background-position: 0 -164px;}
 .sico,.bico{width:16px;height:61px;position: absolute;background: url(../img/ico_index.png) 0 -210px no-repeat;box-shadow:-5px 0px 3px #ddd;cursor: pointer; }
 .bico{background-position: -20px -210px;}
-.pagebox .big{display:none;width:325px;background-color: #e9ebf2;position:fixed;box-shadow:-5px 0px 3px #ddd;top: 0px;right: 0;height: 100%; }
+.pagebox .big{display:none;width:325px;background-color: #e9ebf2;box-shadow:-5px 0px 3px #ddd;}
 .big_con{background-color: #fff;height: 100%;}
 .pagebox .big dl{border:0;}
 .pagebox .rit dt{background:none;}
