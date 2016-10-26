@@ -246,6 +246,7 @@ $("#week").on('click',function(){
 	$("#weekType").find(':input').attr('data', 'false');
 	$("#weekType").show();
 	$("#definedType").hide();
+	setDateRange(new Date(),"INIT");
 	
 });
 

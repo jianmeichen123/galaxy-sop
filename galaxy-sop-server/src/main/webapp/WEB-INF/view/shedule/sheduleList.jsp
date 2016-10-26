@@ -123,10 +123,35 @@
     </div>
 </div>
     <script type="text/javascript">
-    $(function(){
         $("#updateShow").css("display","none");
         $("#addShow").css("display","block");
-    });
+      //日期视图
+    	$('.datepicker').datepicker({
+    	    format: 'yyyy-mm-dd',
+    	    language: "zh-CN",
+    	    autoclose: true,
+    	    todayHighlight: false,
+    	    //calendarWeeks: true,
+    	    defaultDate : Date,
+    	    //weekStart:1,
+    	    today: "Today",
+    	    todayBtn:'linked',
+    	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+    	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+    	    forceParse:false,
+    	    currentText: 'Now',
+    	    setDate:'2016-09-09'
+    	    //defaultViewDate: new Date()
+    	    //daysOfWeekDisabled: "0",
+    	    //daysOfWeekHighlighted: "0",
+    	    //clearBtn: true,
+    	    //startView: 1, //0,month 1,year 2,decade
+    	    //minViewMode: 1,  //0,days 1,month 2,years
+    	    //maxViewMode: 1, //0,days 1,month 2,years
+    	    //startDate: '-3d',
+    	    //endDate: '+3d'
+    	});
+    	$('.datepicker').datepicker("setDate",new Date());
 
 <%-- if('<%=timestr%>' !=''){
     	 $("#itemDate").val('<%=timestr%>');
@@ -150,7 +175,6 @@
      } --%>
     //保存日程
     function saveShedule(){
-    	
     	if(beforeSubmit()){
 	    	var id=$("#id").val();
 	    	if(id == '' || id == 'null' || id == null){

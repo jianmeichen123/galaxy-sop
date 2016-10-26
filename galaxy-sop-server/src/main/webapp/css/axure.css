@@ -2151,8 +2151,8 @@ margin: 45px auto 30px;}
 .pagebox .min .tablist dt .t13{ background-position:0 -287px}
 /* ie8X轴名称显示 */
 .highchartsAxisName{color:#7a8798;font-size:12px;font-family:"宋体";writing-mode:tb-rl;position:absolute;display:none;}
-.name1{top:75px;left:30px}
-.name2{top:75px;right:30px;}
+.name1{top:40px;left:20px}
+.name2{top:40px;right:20px;}
 /*------------------------------- V2.3.102-------------------------------- */
 /* 后台桌面配置 */
 .eblockRow{margin-bottom: 10px;}
@@ -2195,7 +2195,7 @@ margin: 45px auto 30px;}
 .bottom_small ul li .tool{background-position: 0 -164px;}
 .sico,.bico{width:16px;height:61px;position: absolute;background: url(../img/ico_index.png) 0 -210px no-repeat;box-shadow:-5px 0px 3px #ddd;cursor: pointer; }
 .bico{background-position: -20px -210px;}
-.pagebox .big{display:none;width:325px;background-color: #e9ebf2;position:fixed;box-shadow:-5px 0px 3px #ddd;top: 0px;right: 0;height: 100%; }
+.pagebox .big{display:none;width:325px;background-color: #e9ebf2;box-shadow:-5px 0px 3px #ddd;}
 .big_con{background-color: #fff;height: 100%;}
 .pagebox .big dl{border:0;}
 .pagebox .rit dt{background:none;}
@@ -2247,6 +2247,10 @@ margin: 45px auto 30px;}
   background-position: 3px -226px;
     font-size: 12px;
     color: #FFF;}
+.pagebox .big .tool a.light_gray .b3{width: 50px;
+    background-position: 4px -300px;}
+.pagebox .big .tool a.light_gray .b4{width: 50px;
+    background-position: 4px -347px;}
 /* 内容区域 */
 #tbody a,#tlbody a,#ceopsbodytop a,#cy_index a{font-size:14px;font-family:"微软雅黑"}
 .floatBox{margin:0 10px 10px;height:216px;background-color: #fff;border-radius:2px;box-shadow:0px 0px 25px #ddd;overflow:hidden;}
