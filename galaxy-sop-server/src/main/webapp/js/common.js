@@ -569,7 +569,12 @@ function totalMissionCallback(data) {
 	if (data.total != null) {
 		total =data.total;
 	}
-	$('.totalUrgent').html(total)
+	if(total>99){
+		$('.totalUrgent').html('<span style="line-height:12px;">99<sup>+</sup></span>')
+	}else{
+		$('.totalUrgent').html(total)
+	}
+	
 }
 
 function fillHeaderdata() {
@@ -1017,10 +1022,10 @@ function getVal(val,defaultValIfNull)
 function projectNameLineFormat(value, row, index){
 	var id = row.projectId;
 	var aa = " <a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\">"+
-				row.projectName +
-			"</a> " ;
+				row.projectName + "</a>";
 	var content =value.replace("projectname",aa);
-	return content;
+	var str = "<span title='"+value.replace("projectname",row.projectName)+"'>"+content+"</span>";
+	return str;
 	
 }
 

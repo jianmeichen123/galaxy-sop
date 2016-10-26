@@ -19,13 +19,18 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
+<link href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
 
 <script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload/zh_CN.js" type="text/javascript"></script>
@@ -233,7 +238,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	}
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if (list.length < 3) {
+		if (list.length < 2) {
 			$("#projectMeeting_dl").find('.more').css("display", "none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -271,9 +276,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			});
 		} else {
 			var tbodyList = $("#tlbody");
-			var noData = '<tr>'
-					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
-					+ ' </tr>';
+			var noData = 
+					'<div class="no_info no_info01" style="height:55px;margin-top:25px"><span class="no_info_icon">没有找到匹配的记录</span></div>'
+					
 			tbodyList.append(noData);
 		}
 		cutStr(5, 'cutstr');
@@ -331,7 +336,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	function ProjectVoteWillCallback(data) {
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
-		if (list.length < 3) {
+		if (list.length < 2) {
 			$("#projectVoteMeeting_dl .more").css("display","none");
 		};
 		if (list != null && list != "" && typeof (list) != 'undefined' && list.length != 0) {
@@ -369,9 +374,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			cutStr(5, 'cutstr');
 		} else {
 			var tbodyList = $("#tbody");
-			var noData = '<tr>'
-					+ '<td colspan="4" class="no_info"><span class="no_info_icon">没有找到匹配的记录</span></td>'
-					+ ' </tr>';
+			var noData = '<div class="no_info no_info01" style="height:55px;margin-top:25px"><span class="no_info_icon">没有找到匹配的记录</span></div>';
 			tbodyList.append(noData);
 		}
 
@@ -461,12 +464,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			
 			var tbodyList = $("#ceopsbodytop"); 
 			var noData =
-				'<tr>'+
-				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
-				' </tr>'; 			
+				'<div class="no_info no_info01" style="height:55px;margin-top:25px"><span class="no_info_icon">没有找到匹配的记录</span></div>'; 			
 			tbodyList.append(noData);
 	   }
-		if(list.length<3){
+		if(list.length<2){
 			$("[data-btn='ceops'].more").css("display","none");
 		}
 	}

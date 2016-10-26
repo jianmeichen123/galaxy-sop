@@ -21,7 +21,7 @@
 <script type="text/javascript">
 
 load_data_chart_kpi();
-if(roleId!=1 || roleId!=2 || roleId!=3){
+if(roleId!=1 && roleId!=2 && roleId!=3){
 	$("#platform_jxkh_more").hide();
 	//$("#platform_jxkh_more").show();
 }

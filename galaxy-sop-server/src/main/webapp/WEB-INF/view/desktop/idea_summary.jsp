@@ -14,12 +14,12 @@
 				<thead>
 					<tr>
 						<!-- <th>创意编号</th> -->
-						<th>创意名称</th>
+						<th style="width:30%;">创意名称</th>
 						<!-- <th>所属行业</th> -->
-						<th>创建时间</th>
+						<th style="width:25%;">创建时间</th>
 						<!-- <th>最后编辑时间</th> -->
-						<th>创建人</th>
-						<th>状态</th>
+						<th style="width:25%;">创建人</th>
+						<th style="width:20%;">状态</th>
 					</tr>
 				</thead>
 
@@ -99,6 +99,9 @@
 	
 	function toCyPage(){
 		window.location.href=$("#menus").find("[data-menueid='137']").attr("href");
+	}
+	function toCyOper(ideaid){
+		window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid="+ideaid;
 	}
 </script>
 

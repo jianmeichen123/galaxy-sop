@@ -9,13 +9,11 @@ String path = request.getContextPath();
 		<h3 class="ico t9">
 			已投项目分析<span class="Htips"></span>
 		</h3>
-		<c:if test="${!fx:hasRole(3)}">
 			<ul class="ytxm_tab position_tab clearfix">
 				<li data-tab="nav">联合创业</li>
 				<li data-tab="nav">融快</li>
 				<li data-tab="nav">创保联</li>
 			</ul>
-		</c:if>
 	</dt>
 	<dd>
 		<div id="charts_Joint" data-tab="con" style="min-width: 300px; height: 180px; z-index: 0;"></div>
@@ -24,3 +22,8 @@ String path = request.getContextPath();
 	</dd>
 </dl>
 <script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>
+<<script type="text/javascript">
+if(roleId==3){
+	$(".ytxm_tab").hide();
+}
+</script>

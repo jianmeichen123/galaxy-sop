@@ -487,7 +487,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .header .usermsg .line{ border-left:1px solid #97c7ee; height:11px; margin:2px 10px 0 0; width:0}
 .header .usermsg .loginout{ margin:0 30px 0 0}
 .header .usermsg .work{ margin:0 30px 0 0;position:relative;}
-.header .usermsg em{font-size:12px;position:absolute;top:-7px;width:18px;height:18px;border-radius:50%;background:#fe552f;text-align:center;line-height:18px;}
+.header .usermsg em{font-size:12px;position:absolute;top:-10px;width:20px;height:20px;border-radius:50%;background:#fe552f;text-align:center;line-height:20px;font-family"宋体"}
 .header .usermsg .work em.bubble{display:inline-block; width: 20px;height: 16;text-align:center;line-height:16px;background: url(../img/bubble.png) no-repeat;margin:0 0 0 4px;padding: 0;}
 .header .usermsg .work .bubble{   /* 后加 */
    			-webkit-animation:shark 0.8s linear 0.1s infinite alternate;
@@ -587,7 +587,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .l_previewBottom .l_previewBottom_b a{font-size: 22px;color: #7d89ab;font-family: "微软雅黑";}
 .l_previewBottom .l_previewBottom_b a.gray{color:#d6dae9;}
 .pagebox .rit_executive .top_radius{border-top-right-radius: 6px;border-top-left-radius: 6px;}
-.bj_pagebox{    width: 33.3333%;  display:block;height: 55px; line-height:55px;float: left;text-indent:10px;}
+.bj_pagebox{    width: 33.3333%;  display:block;height: 55px; line-height:55px;float: left;text-align:center;}
 .bj_pagebox_left{ text-align:center;}
 /*工具*/
 .pagebox .min .tablist .tool{ text-align:center; padding:17px 0 1px; height:175px;border-bottom-right-radius: 6px;}
@@ -1903,10 +1903,10 @@ font-family: "宋体";
 /*排期入口*/
 .paiqidate{position:absolute;bottom:5px;right:15px;background:url(../img/no_icon.png) 0 -77px no-repeat;padding-left:20px;}
 /*无内容样式*/
-.no_info{color:#bbb;border:0;height:160px; text-align: center;}
+.no_info{color:#bbb;border:0;height:133px; text-align: center;}
 .no_info01{height:120px; text-align: center;}
-.no_info_icon{background:url(../img/no_icon.png) 0 -22px no-repeat;display:inline-block;width:172px;height:30px;}
-.no_info_icon_xhhl{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:155px;height:25px;}
+.no_info_icon{background:url(../img/no_icon.png) 0 -26px no-repeat;display:inline-block;width:172px;height:30px;line-height:30px;color:#999;}
+.no_info_icon_xhhl{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:170px;height:25px;}
 .position{position: absolute;right: 5px;top: 15px;display: block;}
 .schedule_noinfo{font-size:12px;font-family:'宋体';display:inline-block;width:70px;margin:15px 37%;color:#bbb;hight:18px;line-height:18px;background:url(../img/no_icon.png) 0 0 no-repeat;padding-left:25px;}
 dl{position: relative;}
@@ -2127,7 +2127,7 @@ dl{position: relative;}
     margin-right: 10px;
 }
 
-.actual_all{width: 650px;height:250px; margin: 15px auto 30px;}
+.actual_all{width: 650px;height:250px; margin: 5px auto 30px;}
 .addmentc fmdl{margin: 0 0 15px;}
 .edittxt{width: 230px; font-size: 12px; line-height: 28px; height: 30px; 
 border: 1px solid #dadfe3;
@@ -2201,17 +2201,17 @@ margin: 45px auto 30px;}
 .pagebox .rit dt{background:none;}
 .pagebox .rit .top .tody{padding:0;}
 .pagebox .rit .top{padding-top: 16px;}
-.month_box{width:56px;padding-top: 4px;margin-right: 18px;}
+.month_box{width:56px;padding-top: 4px;margin-right: 18px;height:48px}
 .month_box p{text-align: center;}
-.month_box .month{color:#fff;}
-.month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;}
+.month_box .month{color:#fff;height:20px;line-height:20px;}
+.month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;height:24px;}
 .pagebox .rit .top .tody .time_moment{font-weight: bold;font-size: 30px;color:#7a8094;margin-top: 10px;}
 .pagebox .rit .top .tody a[data-btn="shecudle_list"]{font-size: 12px;background-color: #539be2;border:none;padding:3px 8px;margin-right: 14px;margin-top: 17px;}
 .pagebox .rit .top .link{font-size: 14px;font-family: "微软雅黑";color:#7a8094;margin:0 22px 15px;}
 .pagebox .big dd{border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1; padding:0;}
 .pagebox .big dl {text-align: right;height:122px;}
 .pagebox .big dl dt{line-height: 20px;height: 20px;}
-.pagebox .big dl a{margin:0 14px 0 6px;}
+.pagebox .big dl dt a{margin:0 14px 0 6px;}
 .pagebox .big dl a.more{display: inline-block;}
 .pagebox .big table td{height:40px;line-height: 40px;font-size: 14px;font-family: "微软雅黑";color:#7a8094;}
 .pagebox .big table td.noborder{border-bottom: 0;}
@@ -2248,7 +2248,7 @@ margin: 45px auto 30px;}
     font-size: 12px;
     color: #FFF;}
 /* 内容区域 */
-#tbody a,#tlbody a,#ceopsbodytop a{font-size:14px;font-family:"微软雅黑"}
+#tbody a,#tlbody a,#ceopsbodytop a,#cy_index a{font-size:14px;font-family:"微软雅黑"}
 .floatBox{margin:0 10px 10px;height:216px;background-color: #fff;border-radius:2px;box-shadow:0px 0px 25px #ddd;overflow:hidden;}
 .floatBox dt{margin-top:10px;padding:0 0 20px 20px;}
 .floatBox dt h3{font-size:16px;font-weight:normal;color:#6b799f;font-family:"微软雅黑"}
@@ -2257,9 +2257,9 @@ margin: 45px auto 30px;}
 .floatBox .bootstrap-table table tbody  tr td{padding-left:20px !important;font-size:14px;}
 .floatBox table th{color:#9e9e9e;}
 .floatBox table td{color:#666;}
-.floatBox .l_previewTop{width:80%;margin:0 auto;}
+.floatBox .l_previewTop{width:87%;margin:0 auto;}
 .floatBox .l_previewTop span{font-size:14px;color:#666}
-.floatBox .l_previewTop span a{color:#3b8bd9;font-size:18px;margin-left:10px;font-family:"微软雅黑"}
+.floatBox .l_previewTop span a{color:#3b8bd9;font-size:18px;margin-left:5px;font-family:"微软雅黑"}
 .floatBox .l_previewBottom{margin:0 20px;background:#f0f4f7;height:80px;}
 .floatBox .eduling_wait_title{width:22%;text-align:center;background:#e9ebf2;height:80px;}
 .eduling_wait_ico img{margin:12px auto 5px;}
@@ -2268,6 +2268,7 @@ margin: 45px auto 30px;}
 /* 首页截断 */
 .ritmin-index table{table-layout:fixed;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ritmin-index .fixed-table-container thead th .th-inner {padding:5px 0;}
 /* 下拉修改密码 */
 .man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;}
 .man_info ul li{height:54px;line-height: 54px;}

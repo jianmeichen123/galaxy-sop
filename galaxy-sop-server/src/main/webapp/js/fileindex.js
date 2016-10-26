@@ -33,7 +33,7 @@ var fileGridIndex = {
 					console.log("more...");
 					Sopfile();
 				});
-				if(typeof(result.pageList.total)=='undefined' || result.pageList.total<4){
+				if(typeof(result.pageList.total)=='undefined' || result.pageList.total<3){
 					$("#file_gird_more").hide();
 				}
 			},

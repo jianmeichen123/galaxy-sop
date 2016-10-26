@@ -81,7 +81,7 @@ function  assembleHtml(grantTotal,i){
      + '<thead>'
           +'<tr>'
              +'<th>分拨</th>'
-              +'<th>注资时间</th>'
+              +'<th>计划注资时间</th>'
               +'<th>计划注资金额（元）</th>'
                +'<th>实际注资金额（元）</th>'
               +'<th>附件数</th>'

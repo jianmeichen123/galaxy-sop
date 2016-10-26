@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.dao.chart.ChartDao;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.project.controller.ProjectController;
 import com.galaxyinternet.service.chart.statistics.MeetingPassRateService;
 
@@ -37,8 +38,8 @@ public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("meetingType", "meetingType:2");
 		params.put("departmentId", departmentId);
-		params.put("startDate", startDate);
-		params.put("endDate", endDate);
+		params.put("startDate", DateUtil.longToString(startDate, "yyyy-MM-dd HH:mm:ss"));
+		params.put("endDate", DateUtil.longToString(endDate, "yyyy-MM-dd HH:mm:ss"));
 		//投资
 		params.put("projectType", "projectType:1");
 		long a = chartDao.scoreCEOMeeting(params);
@@ -54,8 +55,8 @@ public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("meetingType", "meetingType:3");
 		params.put("departmentId", departmentId);
-		params.put("startDate", startDate);
-		params.put("endDate", endDate);
+		params.put("startDate", DateUtil.longToString(startDate, "yyyy-MM-dd HH:mm:ss"));
+		params.put("endDate", DateUtil.longToString(endDate, "yyyy-MM-dd HH:mm:ss"));
 		//投资
 		params.put("projectType", "projectType:1");
 		long a = chartDao.scoreCEOMeeting(params);
@@ -71,8 +72,8 @@ public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("meetingType", "meetingType:2");
 		params.put("departmentId", departmentId);
-		params.put("startDate", startDate);
-		params.put("endDate", endDate);
+		params.put("startDate", DateUtil.longToString(startDate, "yyyy-MM-dd HH:mm:ss"));
+		params.put("endDate", DateUtil.longToString(endDate, "yyyy-MM-dd HH:mm:ss"));
 		long a = chartDao.countMeetingRate(params);
 		params.put("meetingResult", "meetingResult:1");
 		long b = chartDao.countMeetingRate(params);
@@ -89,8 +90,8 @@ public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("meetingType", "meetingType:3");
 		params.put("departmentId", departmentId);
-		params.put("startDate", startDate);
-		params.put("endDate", endDate);
+		params.put("startDate", DateUtil.longToString(startDate, "yyyy-MM-dd HH:mm:ss"));
+		params.put("endDate", DateUtil.longToString(endDate, "yyyy-MM-dd HH:mm:ss"));
 		long a = chartDao.countMeetingRate(params);
 		params.put("meetingResult", "meetingResult:1");
 		long b = chartDao.countMeetingRate(params);

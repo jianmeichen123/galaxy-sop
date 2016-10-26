@@ -14,7 +14,7 @@ String path = request.getContextPath();
 </dl>
 
 <script>
-if(roleId!=1 || roleId!=2 || roleId!=3){
+if(roleId!=1 && roleId!=2 && roleId!=3){
 	$("#platform_health_more").hide();
 }else{
 	$("#platform_health_more").click(function(){

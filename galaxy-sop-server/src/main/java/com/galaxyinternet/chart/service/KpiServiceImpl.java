@@ -2138,12 +2138,12 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 				
 				//ceorate格式转换
 				java.math.BigDecimal   ceobig   =   new   java.math.BigDecimal(cb.getCeoRate()*100);  
-				String  ceoRateStr = ceobig.setScale(2,java.math.BigDecimal.ROUND_HALF_UP).doubleValue() +"%";
+				String  ceoRateStr = ceobig.setScale(2,java.math.BigDecimal.ROUND_HALF_UP) +"%";
 				cb.setCeoRateStr(ceoRateStr);
 				
 				//lxhrate格式转换
 				java.math.BigDecimal   lxhbig   =   new   java.math.BigDecimal(cb.getLxhRate()*100);  
-				String  lxhRateStr = lxhbig.setScale(2,java.math.BigDecimal.ROUND_HALF_UP).doubleValue() +"%";
+				String  lxhRateStr = lxhbig.setScale(2,java.math.BigDecimal.ROUND_HALF_UP) +"%";
 				cb.setLxhRateStr(lxhRateStr);
 				
 				
