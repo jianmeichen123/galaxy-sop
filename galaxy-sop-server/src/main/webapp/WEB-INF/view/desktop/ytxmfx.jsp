@@ -16,9 +16,9 @@ String path = request.getContextPath();
 			</ul>
 	</dt>
 	<dd>
-		<div id="charts_Joint" class="echarts_ytxm" data-tab="con" style="height: 180px; z-index: 0;"></div>
-		<div id="charts_rk" class="echarts_ytxm" data-tab="con" style="height: 180px; z-index: 0;"></div>
-		<div id="charts_cbl" class="echarts_ytxm" data-tab="con" style="height: 180px; z-index: 0;"></div>
+		<div id="charts_Joint" data-tab="con" style="height: 180px; z-index: 0;"></div>
+		<div id="charts_rk" data-tab="con" style="height: 180px; z-index: 0;"></div>
+		<div id="charts_cbl" data-tab="con" style="height: 180px; z-index: 0;"></div>
 	</dd>
 </dl>
 <script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>

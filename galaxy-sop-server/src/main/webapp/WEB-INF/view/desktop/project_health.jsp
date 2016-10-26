@@ -9,7 +9,7 @@ String path = request.getContextPath();
 		<span class="more null position" id="platform_health_more" style="cursor: pointer;">more</span>
 	</dt>
 	<dd>
-		<div id="container_health" class="echarts_health" style="height: 162px;padding-top:5px;z-index:0;"></div>
+		<div id="container_health" style="height: 162px;padding-top:5px;z-index:0;"></div>
 	</dd>
 </dl>
 
