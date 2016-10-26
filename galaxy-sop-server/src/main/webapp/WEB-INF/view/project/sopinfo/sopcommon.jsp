@@ -91,16 +91,7 @@ function back(){
 		window.history.go(-1); */
 		
 }
-function backHealthy(){
-	if()
-	var href_url=getCookieValue("href_url");
-	if(href_url){
-		deleteCookie("href_url","/");
-		window.location=href_url;
-	}/* else
-		window.history.go(-1); */
-		
-}
+
 $(function(){
 	var str=projectInfo.projectName;
 	if(projectInfo.projectName.length>24){
