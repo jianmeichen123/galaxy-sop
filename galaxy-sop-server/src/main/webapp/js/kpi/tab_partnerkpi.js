@@ -64,7 +64,10 @@ function getPartnerToobarQueryParams(ToolbarId){
 			}
 		
 	});
-	console.log(query);
+	if(query.partnerSdate>query.partnerEdate){
+		layer.msg("开始时间不能大于结束时间");
+		return false;
+	}
 	return query;
 }
 
