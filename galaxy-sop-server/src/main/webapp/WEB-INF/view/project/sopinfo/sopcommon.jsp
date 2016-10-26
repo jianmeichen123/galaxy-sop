@@ -78,7 +78,21 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 
 
 function back(){
-	setCookie("backProjectList", 'click',24,'/');	
+	if(getCookie("project_detail_back_path")!=""){
+		deleteCookie("project_detail_back_path");
+	}else{
+		setCookie("backProjectList", 'click',24,'/');
+	}
+	var href_url=getCookieValue("href_url");
+	if(href_url){
+		deleteCookie("href_url","/");
+		window.location=href_url;
+	}/* else
+		window.history.go(-1); */
+		
+}
+function backHealthy(){
+	if()
 	var href_url=getCookieValue("href_url");
 	if(href_url){
 		deleteCookie("href_url","/");
