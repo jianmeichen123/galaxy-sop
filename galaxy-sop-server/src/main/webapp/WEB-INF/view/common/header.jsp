@@ -247,7 +247,9 @@ $(function(){
    
   //改变屏幕大小时，重新调用图表的js文件
   function getScript(){
+	  alert("11")
 	  $.getScript("<%=path %>/js/echarts_health.js");
+	  alert("12")
       $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
       $.getScript("<%=path %>/js/indexProjectProgress.js");
       $.getScript("<%=path %>/js/charts/projectProgress.js");
