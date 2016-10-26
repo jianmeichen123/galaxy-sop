@@ -2273,6 +2273,7 @@ margin: 45px auto 30px;}
 .ritmin-index table{table-layout:fixed;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .ritmin-index .fixed-table-container thead th .th-inner {padding:5px 0;}
+.echarts_health,.echarts_ytxm{width:100%;}
 /* 下拉修改密码 */
 .man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;}
 .man_info ul li{height:54px;line-height: 54px;}
