@@ -102,7 +102,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <acl:acl resourceMark="shedule_lxh">
         <dl id="projectMeeting_dl">
           <dt>
+          <c:if test="${fx:hasRole(4)}">
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:3');">排期时间</a>
+           </c:if>
             <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
@@ -122,7 +124,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <acl:acl resourceMark="shedule_tjh">
          <dl id="projectVoteMeeting_dl">
           <dt>
+          <c:if test="${fx:hasRole(4)}">
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:4');">排期时间</a>
+          </c:if>
             <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
@@ -142,7 +146,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
          <acl:acl resourceMark="shedule_ceo">
          <dl>
           <dt>
+          <c:if test="${fx:hasRole(4)}">
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:2');">排期时间</a>
+          </c:if>
             <a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
