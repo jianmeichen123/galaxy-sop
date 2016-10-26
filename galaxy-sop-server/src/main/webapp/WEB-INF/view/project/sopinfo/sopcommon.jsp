@@ -78,8 +78,8 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 
 
 function back(){
-	if(getCookie("project_detail_back_path")!=""){
-		deleteCookie("project_detail_back_path");
+	if(getCookieValue("project_detail_back_path")!=""){
+		deleteCookie("project_detail_back_path","/");
 	}else{
 		setCookie("backProjectList", 'click',24,'/');
 	}
