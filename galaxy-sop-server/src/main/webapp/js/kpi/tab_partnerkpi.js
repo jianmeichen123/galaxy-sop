@@ -45,6 +45,7 @@ function partner_kpi_init(){
 
 $("#querySearch_partnerkpi").on('click',function(){
 	$("#kpiExport").attr("class","bluebtn ico tj disabled");
+	$('#data-table-partnerkpi').bootstrapTable('destroy');
 	$('#data-table-partnerkpi').bootstrapTable('refresh',getPartnerToobarQueryParams('custom-toolbasr-partnerkpi')); 
 });
 
