@@ -4,6 +4,7 @@ var partnerkpi_pageNum = 1;
 function partner_kpi_init(){
 	$('#data-table-partnerkpi').bootstrapTable('destroy');
 	$("#kpiExport").attr("class","bluebtn ico tj disabled");
+	$("#kpiExport").attr("disabled","disabled");
 	//绑定querySearch事件
 	$('#data-table-partnerkpi').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -39,12 +40,14 @@ function partner_kpi_init(){
     	   		var chart = new Highcharts.Chart(containerDeptKpiOptions);
         	}
         	$("#kpiExport").attr("class","bluebtn ico tj");
+        	$("#kpiExport").removeAttr("disabled");
         }
 	});
 }
 
 $("#querySearch_partnerkpi").on('click',function(){
 	$("#kpiExport").attr("class","bluebtn ico tj disabled");
+	$("#kpiExport").attr("disabled","disabled");
 	partner_kpi_init();
 	//$('#data-table-partnerkpi').bootstrapTable('refresh',getPartnerToobarQueryParams('custom-toolbasr-partnerkpi')); 
 });
