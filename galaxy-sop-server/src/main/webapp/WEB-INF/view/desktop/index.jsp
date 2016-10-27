@@ -210,6 +210,24 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script>
   $(function(){
 	  createMenus(1);
+	  $(".sico").click(function(){
+	      getScript();
+	    });
+	  $(".bico").click(function(){
+	      getScript();
+	    })
+	   $(window).resize(function(){
+		   getScript();
+	   })
+	  //改变屏幕大小时，重新调用图表的js文件
+	  function getScript(){
+		  $.getScript("<%=path %>/js/echarts_health.js");
+	      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
+	      $.getScript("<%=path %>/js/indexProjectProgress.js");
+	      $.getScript("<%=path %>/js/charts/projectProgress.js");
+	      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
+	      $.getScript("<%=path %>/js/charts/indexKpi.js");
+	  }
 	
   
   })
