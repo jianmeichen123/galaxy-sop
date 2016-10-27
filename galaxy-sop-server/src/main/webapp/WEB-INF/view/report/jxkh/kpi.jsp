@@ -240,7 +240,9 @@
 <script src="<%=path%>/js/kpi/tabChooseSuffix.js"></script>
 <script>
 
-
+$(function(){
+setDefineDate("definedType");
+});
 //周报|自定义选择切换
 $("#week").on('click',function(){
 	$("#weekType").find(':input').attr('data', 'false');
