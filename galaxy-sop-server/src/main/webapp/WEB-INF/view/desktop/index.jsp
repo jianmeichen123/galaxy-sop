@@ -90,7 +90,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <p class="month_box_date"></p>
               </div>
               <p class="time time_moment fl"></p>
-              <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="bluebtn btn fr">添加日程</a>
+	          	<a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="bluebtn btn fr">添加日程</a>
             </div>
             <div id="top">
             </div>
@@ -102,7 +102,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <acl:acl resourceMark="shedule_lxh">
         <dl id="projectMeeting_dl">
           <dt>
+          <c:if test="${fx:hasRole(4)}">
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:3');">排期时间</a>
+           </c:if>
             <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
@@ -122,7 +124,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <acl:acl resourceMark="shedule_tjh">
          <dl id="projectVoteMeeting_dl">
           <dt>
+          <c:if test="${fx:hasRole(4)}">
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:4');">排期时间</a>
+          </c:if>
             <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
@@ -142,7 +146,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
          <acl:acl resourceMark="shedule_ceo">
          <dl>
           <dt>
+          <c:if test="${fx:hasRole(4)}">
             <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:2');">排期时间</a>
+          </c:if>
             <a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more"></a>
           </dt>
             <!-- <dd class='no_content'>暂无内容</dd> -->
@@ -216,12 +222,24 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   
   
   
-  //=====
+  	//=====
 	$(function(){
-		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
-		top5ProjectMeeting();
-		ProjectVoteWill();
-		top5CeoPsMeeting();
+		if($('dl[resource-mark="shedule_list"]').css("display") == 'block'){
+			loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
+		}
+		
+		if($('dl[resource-mark="shedule_lxh"]').css("display") == 'block'){
+			top5ProjectMeeting();
+		}
+		
+		if($('dl[resource-mark="shedule_tjh"]').css("display") == 'block'){
+			ProjectVoteWill();
+		}
+		
+		if($('dl[resource-mark="shedule_ceo"]').css("display") == 'block'){
+			top5CeoPsMeeting();
+		}
+		
 	});
   
   
@@ -319,7 +337,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		} else {
 			var tbodyList = $("#tcbody");
 			var noData = '<tr>'
-					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
 					+ ' </tr>';
 			tbodyList.append(noData);
 		}
@@ -417,7 +435,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		} else {
 			var tbodyList = $("#votebody");
 			var noData = '<tr>'
-					+ '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
 					+ ' </tr>';
 			tbodyList.append(noData);
 		}
@@ -500,6 +518,13 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
+		}
+		if(list.length==0){
+			var tbodyList = $("#ceopsbody");
+			var noData = '<tr>'
+					+ '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'
+					+ ' </tr>';
+			tbodyList.append(noData);
 		}
 	}
 

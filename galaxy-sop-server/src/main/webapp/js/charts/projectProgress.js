@@ -316,9 +316,14 @@ var chartProjectProgressUtils = {
 			    			forwardWithHeader(url);
 			    		});
 			    		//more 链接
-			    		$("#more_progress").click(function(){
-			    			forwardWithHeader(platformUrl.projectAnalysis);
-			    		});
+			    		if(roleId!=1 && roleId!=2 && roleId!=3){
+			    			$("#more_progress").hide();
+			    		}else{
+			    			$("#more_progress").click(function(){
+				    			forwardWithHeader(platformUrl.projectAnalysis);
+				    		});
+			    		}
+			    		
 					}else{
 						//layer.msg('后端查询数据为空');
 					}
