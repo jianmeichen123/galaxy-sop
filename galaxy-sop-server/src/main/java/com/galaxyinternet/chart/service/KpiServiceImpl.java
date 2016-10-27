@@ -760,7 +760,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		//统计个人在部门内排名
 		Map<Long, Integer> depIdNuntMap = new HashMap<Long, Integer>();                   
 		for(Project pro : proList){
-			int ordNum = 1;
+			int ordNum = query.getPageNum() * query.getPageSize() + 1;
 			if(depIdNuntMap.containsKey(pro.getProjectDepartid())){
 				ordNum = depIdNuntMap.get(pro.getProjectDepartid())+1;
 				pro.setDepNumOrder(ordNum);
@@ -1032,7 +1032,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		//结果集中 各部门的 HHR
 		Map<Long, User> deptOfHHRMap = queryDeptOfHHR(deptIdList,3);
 		
-		int companyRank = 0;
+		int companyRank = query.getPageNum() * query.getPageSize();
 		for(Project pro : proList){
 			companyRank += 1;
 			
