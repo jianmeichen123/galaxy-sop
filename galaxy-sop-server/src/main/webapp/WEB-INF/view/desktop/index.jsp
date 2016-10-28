@@ -211,23 +211,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   $(function(){
 	  createMenus(1);
 	  $(".sico").click(function(){
-		  $("#container_health").width("300px");
 	      getScript();
-	      container_health();
-	      var aa=$(".ritmin-index").width();
-		  $(".ritmin-index").resize(function(){
-			  alert("12");
-			  container_health();
-		  })
 	    });
 	  $(".bico").click(function(){
-		  $("#container_health").width("300px");
 	      getScript();
-	      container_health();
-	      var aa=$(".ritmin-index").width();
-		  $(".ritmin-index").resize(function(){
-			  container_health();
-		  })
 	    })
 	   $(window).resize(function(){
 		   getScript();
@@ -236,10 +223,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	  function getScript(){
 		  $.getScript("<%=path %>/js/echarts_health.js");
 	      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
-	     <%--  $.getScript("<%=path %>/js/indexProjectProgress.js");
+	      $.getScript("<%=path %>/js/indexProjectProgress.js");
 	      $.getScript("<%=path %>/js/charts/projectProgress.js");
 	      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
-	      $.getScript("<%=path %>/js/charts/indexKpi.js"); --%>
+	      $.getScript("<%=path %>/js/charts/indexKpi.js"); 
 	  }
 	
   
