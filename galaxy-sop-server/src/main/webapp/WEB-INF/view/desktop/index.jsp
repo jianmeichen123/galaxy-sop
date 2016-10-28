@@ -197,6 +197,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   <jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--内容显示区域-->
  	<div class="ritmin clearfix ritmin-index">
+ 	<div id="chart"></div>
  	<c:forEach var="module" items="${modules }">
  		<div class="floatBox fl" data-url="${module.resourceUrl }"></div>
  	</c:forEach>
