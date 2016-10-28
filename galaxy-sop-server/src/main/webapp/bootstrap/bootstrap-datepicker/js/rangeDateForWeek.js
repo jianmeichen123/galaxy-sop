@@ -188,6 +188,8 @@ function setDateRange(ev,startOrEnd){
 	    var getUpWeekEndDate =  formatDate(getUpWeekEndDate);
 	    endTime = getUpWeekEndDate;
 	    $(".weekStartDatepicker").val(getUpWeekStartDate);
+	    alert(getUpWeekStartDate);
+	    alert("上周："+nowDayOfWeek)
    	    $(".weekEndDatepicker").val(getUpWeekEndDate);
     }else{
 		//获得本周的开始日期
@@ -197,7 +199,7 @@ function setDateRange(ev,startOrEnd){
 	    var getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek-1));
 	    var getWeekEndDate =  formatDate(getWeekEndDate);
 	     endTime = getWeekEndDate;
-	     
+	     alert("本周："+nowDayOfWeek)
 	     
 	    if(nowDayOfWeek == 6){
 	    	//获得本周的开始日期
