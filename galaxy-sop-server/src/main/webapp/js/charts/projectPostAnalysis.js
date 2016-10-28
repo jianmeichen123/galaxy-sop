@@ -215,8 +215,8 @@ var chartPostAnalysisUtils = {
 					            //外部
 					            chartPostAnalysisUtils.postAnalysisOptions.series[1].data = wbCountArr;
 					            var sum_wb=0;
-					            for(var i=0;i<nbCountArr.length;i++){
-					            	sum_wb+=nbCountArr[i];
+					            for(var i=0;i<wbCountArr.length;i++){
+					            	sum_wb+=wbCountArr[i];
 					            }
 					            //无数据显示
 					            if(sum_nb==0 && sum_wb==0){
