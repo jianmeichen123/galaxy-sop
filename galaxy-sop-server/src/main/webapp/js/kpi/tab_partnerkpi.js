@@ -22,25 +22,25 @@ function partner_kpi_init(){
         search: false,
         url: partnerpi_url,
         onLoadSuccess: function(backdata){
-        	queryParamsJson = eval("("+backdata.queryParamsJsonStr+")");
-        	var options = $('#data-table-partnerkpi').bootstrapTable('getOptions');
-        	var data = options.data;
-        	partnerkpi_pageNum = options.pageNumber;
-        	if(partnerkpi_pageNum == 1){
-        		var re = [];
-    	   		var categories = [];
-        		for(var i=0;i<data.length;i++){
-        			if(i>=10){
-        				break;
-        			}else{
-        				re.push(data[i].completed);
-           	   			categories.push(data[i].departmentName);
-        			}
-            	}
-        		containerDeptKpiOptions.series[0].data = re;
-	    		containerDeptKpiOptions.xAxis.categories = categories;
-    	   		var chart = new Highcharts.Chart(containerDeptKpiOptions);
-        	}
+//        	queryParamsJson = eval("("+backdata.queryParamsJsonStr+")");
+//        	var options = $('#data-table-partnerkpi').bootstrapTable('getOptions');
+//        	var data = options.data;
+//        	partnerkpi_pageNum = options.pageNumber;
+//        	if(partnerkpi_pageNum == 1){
+//        		var re = [];
+//    	   		var categories = [];
+//        		for(var i=0;i<data.length;i++){
+//        			if(i>=10){
+//        				break;
+//        			}else{
+//        				re.push(data[i].completed);
+//           	   			categories.push(data[i].departmentName);
+//        			}
+//            	}
+//        		containerDeptKpiOptions.series[0].data = re;
+//	    		containerDeptKpiOptions.xAxis.categories = categories;
+//    	   		var chart = new Highcharts.Chart(containerDeptKpiOptions);
+//        	}
         	$("#kpiExport").attr("class","bluebtn ico tj");
         	$("#kpiExport").removeAttr("disabled");
         }
