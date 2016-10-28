@@ -139,6 +139,11 @@ $(function(){
 	  	});
 	   window.onresize = myChart.resize; 
 	   myChart.setOption(option); 
+	   window.addEventListener("resize", function () {
+
+           option.chart.resize();
+
+       });
 	   
 	 //下面是需要添加的方法内容
 	   //点击柱状图跳转相应页面的功能，其中param.name参数为横坐标的值 

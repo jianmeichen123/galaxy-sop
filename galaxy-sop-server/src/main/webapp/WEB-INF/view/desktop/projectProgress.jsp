@@ -50,7 +50,7 @@
 	});
 	function projectName(value,row,index){
 		var str=row.projectName;
-		var str = "<span title='"+str+"'>"+str+"</span>";
+		var str = '<a href="'+Constants.sopEndpointURL + "/galaxy/project/detail/" + row.id+'">'+"<span title='"+str+"'>"+str+"</span>"+'</a>';
 		return str;
 	}
 	function projectCareerline(value,row,index){
