@@ -198,6 +198,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
     <!--内容显示区域-->
  	<div class="ritmin clearfix ritmin-index">
  	<div id="chart"></div>
+ 	<div id="histogram" class="histogram" style="height: 160px;display:none;"></div>
+ 	<div id="container_time" style="height: 160px;display:none;"></div>
+ 	<div id="container_kpi" style="height: 160px;display:none;"></div>
+ 	<div id="container_progress" style="height: 160px;display:none;"></div>
  	<c:forEach var="module" items="${modules }">
  		<div class="floatBox fl" data-url="${module.resourceUrl }"></div>
  	</c:forEach>
