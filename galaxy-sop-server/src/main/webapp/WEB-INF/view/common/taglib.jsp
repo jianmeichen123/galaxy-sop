@@ -81,7 +81,7 @@ if(null!=user){
 		});
 		return result;
 	}
-checkVersion()
+/* checkVersion() */
 function getInternetExplorerVersion(){
 	var rv = -1; 
 	if (navigator.appName == 'Microsoft Internet Explorer'){
@@ -93,7 +93,7 @@ function getInternetExplorerVersion(){
 	return rv;
 }
 
-function checkVersion(){
+/* function checkVersion(){
 	var msg =Constants.sopEndpointURL;
 	var ver = getInternetExplorerVersion();
 	if ( ver> -1 ) {
@@ -107,7 +107,7 @@ function checkVersion(){
 		document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
 	}
 
-}
+} */
 </script>
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/layer/layer.js"></script>
