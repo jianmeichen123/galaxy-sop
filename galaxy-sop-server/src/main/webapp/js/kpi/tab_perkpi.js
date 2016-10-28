@@ -6,13 +6,15 @@ var userkpi_url = platformUrl.userkpi;
 var userkpi_pageNum = 1;
 
 
+$("#querySearch_perkpi").on('click',function(){
+	$("#data-table-userkpi").bootstrapTable('destroy');
+	//$('#data-table-userkpi').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-userkpi')); 
+	per_kpi_init();
+});
+
 function per_kpi_init(){
 	//表单事业线下拉初始化
 	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
-	
-	$("#querySearch_perkpi").on('click',function(){
-		$('#data-table-userkpi').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-userkpi')); 
-	});
 	
 	//绑定querySearch事件
 	$('#data-table-userkpi').bootstrapTable({
@@ -33,6 +35,11 @@ function per_kpi_init(){
         	//var data = $('#data-table-userkpi').bootstrapTable('getData');
         	var data = options.data;
         	userkpi_pageNum = options.pageNumber;
+        	
+        	if(backdata.result.status == "ERROR"){
+        		layer.msg(backdata.result.message);
+        	}
+        	
         	if(userkpi_pageNum == 1){
         		var re = [];
     	   		var categories = [];

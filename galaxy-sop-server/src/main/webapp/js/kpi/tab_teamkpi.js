@@ -4,11 +4,12 @@
 var teamkpi_url = platformUrl.deptkpi;
 var teamkpi_pageNum = 1;
 
+$("#querySearch_teamkpi").on('click',function(){
+	$("#data-table-deptkpi").bootstrapTable('destroy');
+	team_kpi_init();
+});
+
 function team_kpi_init(){
-	$("#querySearch_teamkpi").on('click',function(){
-		$('#data-table-deptkpi').bootstrapTable('refresh',getToobarQueryParams('custom-toolbasr-deptkpi')); 
-	});
-	
 	//绑定querySearch事件
 	$('#data-table-deptkpi').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -28,6 +29,7 @@ function team_kpi_init(){
         	var options = $('#data-table-deptkpi').bootstrapTable('getOptions');
         	var data = options.data;
         	teamkpi_pageNum = options.pageNumber;
+        
         	if(teamkpi_pageNum == 1){
         		var re = [];
     	   		var categories = [];

@@ -25,7 +25,7 @@ function partner_kpi_init(){
 	        	partnerkpi_pageNum = options.pageNumber;
 	        	
 	        	if(backdata.result.status == "ERROR"){
-	        		layer.msg("开始时间不能大于结束时间");
+	        		layer.msg(backdata.result.message);
 	        		return;
 	        	}
 	        	$("#kpiExport").attr("class","bluebtn ico tj");
