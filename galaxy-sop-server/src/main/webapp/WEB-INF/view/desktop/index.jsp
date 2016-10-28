@@ -211,14 +211,33 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   $(function(){
 	  createMenus(1);
 	  $(".sico").click(function(){
-		  $("#container_health>div").remove();
+		  if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+		  { 
+			  $("#container_health>div").remove();
+			  $("#charts_Joint>div").remove();
+			  $("#charts_rk>div").remove();
+			  $("#charts_cbl>div").remove();
+		  } 
 	      getScript();
 	    });
 	  $(".bico").click(function(){
-		  $("#container_health>div").remove();
+		  if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+		  { 
+			  $("#container_health>div").remove();
+			  $("#charts_Joint>div").remove();
+			  $("#charts_rk>div").remove();
+			  $("#charts_cbl>div").remove();
+		  }
 	      getScript();
 	    })
 	   $(window).resize(function(){
+		   if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+			  { 
+			   $("#container_health>div").remove();
+				  $("#charts_Joint>div").remove();
+				  $("#charts_rk>div").remove();
+				  $("#charts_cbl>div").remove();
+			  }
 		   getScript();
 	   });
 	  //改变屏幕大小时，重新调用图表的js文件
