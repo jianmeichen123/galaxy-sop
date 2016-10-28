@@ -211,14 +211,19 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   $(function(){
 	  createMenus(1);
 	  $(".sico").click(function(){
+		  $("#container_health").width("300px")
 	      getScript();
+	      var aa=$(".ritmin-index").width();
+		  $(".ritmin-index").resize(function(){
+			  alert("12")
+		  })
 	    });
 	  $(".bico").click(function(){
 	      getScript();
 	    })
 	   $(window).resize(function(){
 		   getScript();
-	   })
+	   });
 	  //改变屏幕大小时，重新调用图表的js文件
 	  function getScript(){
 		  $.getScript("<%=path %>/js/echarts_health.js");
