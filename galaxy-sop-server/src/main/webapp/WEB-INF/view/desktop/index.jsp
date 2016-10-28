@@ -211,9 +211,11 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   $(function(){
 	  createMenus(1);
 	  $(".sico").click(function(){
+		  $("#container_health>div").remove();
 	      getScript();
 	    });
 	  $(".bico").click(function(){
+		  $("#container_health>div").remove();
 	      getScript();
 	    })
 	   $(window).resize(function(){
