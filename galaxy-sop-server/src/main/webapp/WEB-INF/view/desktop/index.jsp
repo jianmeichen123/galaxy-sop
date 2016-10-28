@@ -212,7 +212,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	  createMenus(1);
 	  $(".sico").click(function(){
 		  $("#container_health").width("600px");
-	      /* getScript(); */
+	      getScript();
 	      container_health();
 	      var aa=$(".ritmin-index").width();
 		  $(".ritmin-index").resize(function(){
@@ -221,7 +221,13 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		  })
 	    });
 	  $(".bico").click(function(){
+		  $("#container_health").width("600px");
 	      getScript();
+	      container_health();
+	      var aa=$(".ritmin-index").width();
+		  $(".ritmin-index").resize(function(){
+			  container_health();
+		  })
 	    })
 	   $(window).resize(function(){
 		   getScript();
