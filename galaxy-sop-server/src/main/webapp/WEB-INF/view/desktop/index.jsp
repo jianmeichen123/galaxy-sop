@@ -223,10 +223,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	  function getScript(){
 		  $.getScript("<%=path %>/js/echarts_health.js");
 	      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
-	      $.getScript("<%=path %>/js/indexProjectProgress.js");
+	     <%--  $.getScript("<%=path %>/js/indexProjectProgress.js");
 	      $.getScript("<%=path %>/js/charts/projectProgress.js");
 	      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
-	      $.getScript("<%=path %>/js/charts/indexKpi.js");
+	      $.getScript("<%=path %>/js/charts/indexKpi.js"); --%>
 	  }
 	
   
