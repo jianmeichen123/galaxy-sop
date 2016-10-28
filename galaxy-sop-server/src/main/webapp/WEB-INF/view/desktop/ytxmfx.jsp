@@ -16,6 +16,7 @@ String path = request.getContextPath();
 			</ul>
 	</dt>
 	<dd>
+		<div id="chart"></div>
 		<div id="charts_Joint" data-tab="con" style="height: 180px; z-index: 0;"></div>
 		<div id="charts_rk" data-tab="con" style="height: 180px; z-index: 0;"></div>
 		<div id="charts_cbl" data-tab="con" style="height: 180px; z-index: 0;"></div>
