@@ -141,7 +141,7 @@ $(function(){
 	   myChart.setOption(option); 
 	   window.addEventListener("resize", function () {
 
-           option.chart.resize();
+		   myChart.resize();
 
        });
 	   
