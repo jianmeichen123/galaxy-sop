@@ -50,7 +50,7 @@
 	});
 	function projectName(value,row,index){
 		var str=row.projectName;
-		var str = '<a href="'+Constants.sopEndpointURL + "/galaxy/project/detail/" + row.id+'">'+"<span title='"+str+"'>"+str+"</span>"+'</a>';
+		var str = '<a href="'+Constants.sopEndpointURL + "/galaxy/project/detail/" + row.id+'" class=\"blue project_name\" >'+"<span title='"+str+"'>"+str+"</span>"+'</a>';
 		return str;
 	}
 	function projectCareerline(value,row,index){
@@ -58,4 +58,6 @@
 		var str = "<span title='"+str+"'>"+str+"</span>";
 		return str;
 	}
+	
+	
 </script>
