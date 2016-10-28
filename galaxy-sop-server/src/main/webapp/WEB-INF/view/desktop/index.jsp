@@ -216,7 +216,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	      container_health();
 	      var aa=$(".ritmin-index").width();
 		  $(".ritmin-index").resize(function(){
-			  alert("12")
+			  alert("12");
+			  container_health();
 		  })
 	    });
 	  $(".bico").click(function(){
