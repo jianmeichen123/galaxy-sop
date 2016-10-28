@@ -1,4 +1,4 @@
-$(function(){
+function container_health(){
 	var myChart = echarts.init(document.getElementById('container_health'));   
 	  var option = {
 	          tooltip: {
@@ -162,6 +162,9 @@ $(function(){
 	           }
 	       }
 	});
+}
+$(function(){
+	container_health();
 
 
 })  

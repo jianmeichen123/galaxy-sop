@@ -211,8 +211,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   $(function(){
 	  createMenus(1);
 	  $(".sico").click(function(){
-		  $("#container_health").width("300px")
+		  $("#container_health").width("300px");
 	      getScript();
+	      container_health();
 	      var aa=$(".ritmin-index").width();
 		  $(".ritmin-index").resize(function(){
 			  alert("12")
