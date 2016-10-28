@@ -2,6 +2,8 @@ var partnerpi_url = platformUrl.partnerkpi;
 var partnerkpi_pageNum = 1;
 
 function partner_kpi_init(){
+	isRightTime("custom-toolbasr-partnerkpi");
+	
 	$('#data-table-partnerkpi').bootstrapTable('destroy');
 	$("#kpiExport").attr("class","bluebtn ico tj disabled");
 	$("#kpiExport").attr("disabled","disabled");
@@ -48,7 +50,6 @@ function partner_kpi_init(){
 $("#querySearch_partnerkpi").on('click',function(){
 	$("#kpiExport").attr("class","bluebtn ico tj disabled");
 	$("#kpiExport").attr("disabled","disabled");
-	getPartnerToobarQueryParams('custom-toolbasr-partnerkpi');
 	partner_kpi_init();
 	//$('#data-table-partnerkpi').bootstrapTable('refresh',getPartnerToobarQueryParams('custom-toolbasr-partnerkpi')); 
 });
@@ -69,12 +70,26 @@ function getPartnerToobarQueryParams(ToolbarId){
 			}
 		
 	});
+	return query;
+}
+
+
+//根据toobar id 获取表单参数
+function isRightTime(ToolbarId){
+	var toolbar = $("#"+ToolbarId);
+	var query = {};
+	toolbar.find("input[name][type!='radio'][ data!='true']").each(function(){
+			var input = $(this);
+			var name = input.attr("name");
+			var val = input.val();
+			if(val!=''){
+				query[name]=val;
+			}
+	});
 	if(query.partnerSdate>query.partnerEdate){
 		layer.msg("开始时间不能大于结束时间");
-		$('#data-table-partnerkpi').bootstrapTable('destroy');
-		return false;
+		return;
 	}
-	return query;
 }
 
 
