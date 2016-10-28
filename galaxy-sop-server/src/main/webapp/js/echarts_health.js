@@ -1,6 +1,5 @@
 $(function(){
 	$("#container_health").css("width","100%");
-	alert($("#container_health").width());
 	var myChart = echarts.init(document.getElementById('container_health'));   
 	  var option = {
 	          tooltip: {

@@ -8,7 +8,8 @@ String path = request.getContextPath();
 		<h3 class="ico t13">项目健康度<span class="Htips"></span></h3>
 		<span class="more null position" id="platform_health_more" style="cursor: pointer;">more</span>
 	</dt>
-	<dd style="width:100%">
+	<dd>
+		<div id="chart"></div>
 		<div id="container_health" style="height: 162px;padding-top:5px;z-index:0;"></div>
 	</dd>
 </dl>
