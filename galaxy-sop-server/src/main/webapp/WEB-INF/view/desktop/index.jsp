@@ -211,7 +211,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   $(function(){
 	  createMenus(1);
 	  $(".sico").click(function(){
-		  $("#container_health").width("600px");
+		  $("#container_health").width("300px");
 	      getScript();
 	      container_health();
 	      var aa=$(".ritmin-index").width();
@@ -221,7 +221,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		  })
 	    });
 	  $(".bico").click(function(){
-		  $("#container_health").width("600px");
+		  $("#container_health").width("300px");
 	      getScript();
 	      container_health();
 	      var aa=$(".ritmin-index").width();
