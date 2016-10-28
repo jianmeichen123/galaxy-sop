@@ -257,7 +257,7 @@
 		
 		}
 
-	function top5ProjectMeetingCallback(data) {			
+	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
 		if(list.length<3){
 			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
@@ -571,7 +571,5 @@ function toCyPage(){
 function toCyOper(ideaid){
 	window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid="+ideaid;
 }
-function Sopfile(){
-	window.location.href=$("#menus").find("[data-menueid='135']").attr("href");
-}
+
 

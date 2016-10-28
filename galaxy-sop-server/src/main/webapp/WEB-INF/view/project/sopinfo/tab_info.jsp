@@ -83,7 +83,7 @@
 			</tr>
 			<tr>
 				<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">&nbsp;%</span></td>
-				<td><span class="new_color_gray">服务费：</span><span class="new_color_black" id="serviceCharge"></span><span class="new_color_black">&nbsp;%</span></td>
+				<td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black" id="serviceCharge"></span><span class="new_color_black">&nbsp;%</span></td>
 	
 			</tr>
 		</table>
@@ -152,7 +152,7 @@
 	            </tr>
 	            <tr>
 	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;　%</span></td>
-	                <td><span class="new_color_gray">服务费&nbsp;：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" allowNULL="yes" valType="OTHER" regString="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">加速服务费占比&nbsp;：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" allowNULL="yes" valType="OTHER" regString="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数"/>&nbsp;　%</span></td>
 	     	
 	     		</tr>
 	        </table>

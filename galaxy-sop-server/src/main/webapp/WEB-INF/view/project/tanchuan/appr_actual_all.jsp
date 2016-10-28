@@ -13,13 +13,13 @@
 	                <input type="hidden"  name="id" id="totallId" >
 	                <dd>
 	                	<div>
-	                    	<input class="edittxt" type="text" id="grantName" name="grantName"   valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个字符"/>
+	                    	<input class="edittxt" type="text" id="grantName" name="grantName" maxLength="20"  valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个字符"/>
 	                    </div>
 	                </dd>
 	            </dl>
                 <input type="hidden" name="projectId" id="projectId" value="${projectId}">
                 <dl class="fmdl fl_l  clearfix">
-	                <dt>计划拨款金额 ：</dt>
+	                <dt>计划总注资金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
 	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数">

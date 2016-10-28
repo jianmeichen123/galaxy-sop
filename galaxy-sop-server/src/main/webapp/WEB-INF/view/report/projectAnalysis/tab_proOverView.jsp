@@ -65,8 +65,8 @@
 						<dd>
 							<select name="projectType" id="search_project_type">
 								<option value="all">全部</option>
-								<option value="projectType:2">内部创建</option>
-								<option value="projectType:1">外部投资</option>
+								<option value="projectType:2">创建</option>
+								<option value="projectType:1">投资</option>
 							</select>
 						</dd>
 					</dl>
@@ -114,8 +114,8 @@
 						<dd>
 							<select name="projectType" id="xmstj_projectType">
 								<option value="">全部</option>
-								<option value="projectType:2">内部创建</option>
-								<option value="projectType:1">外部投资</option>
+								<option value="projectType:2">创建</option>
+								<option value="projectType:1">投资</option>
 							</select>
 						</dd>
 					</dl>
@@ -182,8 +182,8 @@
 							<dd>
 								<select name="projectType" id="search_project_type">
 									<option value="all">全部</option>
-									<option value="projectType:2">内部创建</option>
-									<option value="projectType:1">外部投资</option>
+									<option value="projectType:2">创建</option>
+									<option value="projectType:1">投资</option>
 								</select>
 							</dd>
 						</dl>

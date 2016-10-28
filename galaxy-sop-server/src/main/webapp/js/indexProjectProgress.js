@@ -61,6 +61,7 @@ var chartIndexPProgressUtils = {
 		    },
 		    series: [{
 		        name: '项目数',
+		        color:'#5cbed6', 
 		        //data: [8,5,4,3,3,2,2,2,2],
 		        dataLabels: {
 		            enabled: false,
@@ -89,6 +90,7 @@ var chartIndexPProgressUtils = {
 					createUid : formdata.createUid ? formdata.createUid : userId,
 					startTime :  DateUtils.getTime(DateUtils.getYearFirstDay())
 			};		
+			console.log(form);
 			sendPostRequestByJsonObj(platformUrl.searchOverView,form,function(data){
 				if(data.result.status == 'OK'){
 					if(data.entityList){
@@ -101,8 +103,6 @@ var chartIndexPProgressUtils = {
 						chartIndexPProgressUtils.chartIndexPProgressOptions.series[0].data = projectCountArr;
 						chartIndexPProgressUtils.chartIndexPProgressOptions.xAxis.categories = projectProgressArr;
 						var chart = new Highcharts.Chart(chartIndexPProgressUtils.chartIndexPProgressOptions);
-					}else{
-						layer.msg('后端数据为空');
 					}
 				}else{
 					layer.msg(data.result.errorCode);
@@ -110,3 +110,8 @@ var chartIndexPProgressUtils = {
 			});
 		}
 }
+
+var formdata = {
+		domid : "histogram"
+}
+chartIndexPProgressUtils.init(formdata);

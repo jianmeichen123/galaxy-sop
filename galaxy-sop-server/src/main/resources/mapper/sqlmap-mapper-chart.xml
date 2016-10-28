@@ -72,5 +72,43 @@
 	<select id="appBrief" resultType="java.util.Map" parameterType="java.util.Map">
 		call t_ft_app_brief(#{deptid},#{userid});
 	</select>
+	
+	<!-- 统计"通过CEO评审"/"通过立项会 "的分数 -->
+	<select id="scoreCEOMeeting" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(p.id) from fx_db.sop_project as p inner join fx_db.sop_meeting_record as m on p.id = m.project_id 
+		where m.meeting_type = #{meetingType}
+		and m.meeting_result = 'meetingResult:1' 
+		and p.project_type = #{projectType}
+		and p.project_departId = #{departmentId}
+		<![CDATA[
+		and m.meeting_date >= #{startDate}
+		and m.meeting_date <= #{endDate}
+		]]>
+	</select>
+	
+	<!-- 统计"生成项目"的分数 -->
+	<select id="scoreCreateProject" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from fx_db.sop_project 
+		where id in (select distinct project_id from fx_db.sop_interview_record) 
+		and project_departId = #{departmentId}
+		<![CDATA[
+		and created_time >= #{startDate}
+		and created_time <= #{endDate}
+		]]>
+	</select>
+	
+	<!-- 统计"过会率"相关参数 -->
+	<select id="countMeetingRate" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(distinct p.id) from fx_db.sop_project as p inner join fx_db.sop_meeting_record as m on p.id = m.project_id 
+		where m.meeting_type = #{meetingType}
+		<if test="meetingResult != null"> and m.meeting_result = #{meetingResult}</if>
+		and p.project_departId = #{departmentId}
+		<![CDATA[
+		and m.meeting_date >= #{startDate}
+		and m.meeting_date <= #{endDate}
+		]]>
+	</select>
+	
+	
 </mapper>
 	

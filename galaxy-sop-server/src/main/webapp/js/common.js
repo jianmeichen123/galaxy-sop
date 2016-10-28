@@ -569,7 +569,12 @@ function totalMissionCallback(data) {
 	if (data.total != null) {
 		total =data.total;
 	}
-	$('.totalUrgent').html(total)
+	if(total>99){
+		$('.totalUrgent').html('<span style="line-height:12px;">99<sup>+</sup></span>')
+	}else{
+		$('.totalUrgent').html(total)
+	}
+	
 }
 
 function fillHeaderdata() {
@@ -1017,10 +1022,10 @@ function getVal(val,defaultValIfNull)
 function projectNameLineFormat(value, row, index){
 	var id = row.projectId;
 	var aa = " <a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\">"+
-				row.projectName +
-			"</a> " ;
+				row.projectName + "</a>";
 	var content =value.replace("projectname",aa);
-	return content;
+	var str = "<span title='"+value.replace("projectname",row.projectName)+"'>"+content+"</span>";
+	return str;
 	
 }
 
@@ -1583,7 +1588,7 @@ function ajaxPopup(obj,tite_mame){
 		    search: false, //显示搜索框
 		    queryParamsType: 'size|page',
 		    method : 'post',
-		    height:350,
+		    //height:350,
 		    queryParams: function(params){params.meetingType=obj.params.meetingType;params.scheduleStatus=obj.params.scheduleStatus;params.type=obj.params.type;return params;},
 		    pageSize:20,
 		    pagination: true,
@@ -1608,7 +1613,7 @@ function to_pro_info(id){
 }
 
 function setData(sumPlanMoney,sumActualMoney){
-	 //拨款进度
+	 //注资进度
 	  $("#bar_m").css("width","0px");  //初始化进度条宽度；
 	    var moneyComplete=sumActualMoney;
 	        moneyTotal=sumPlanMoney;

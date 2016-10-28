@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -362,7 +362,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		sopTaskDao.insert(task2);
 		
 		
-		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())){
+		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.投资.getCode())){
 			//财务dd  任务生成
 			SopTask task3 = new SopTask();
 			task3.setProjectId(project.getId());         //项目id

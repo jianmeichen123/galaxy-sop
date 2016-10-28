@@ -7,7 +7,7 @@ public class ProjectAnalysis extends PagableEntity{
 	private static final long serialVersionUID = 1L;
 	//完成率
 	private double rate;
-	//内部创建与外部投资项目数占比
+	//创建与投资项目数占比
 	private double wbRate;
 	//未完成数=目标数-完成项目数
 	private int notCompleted;
@@ -15,7 +15,7 @@ public class ProjectAnalysis extends PagableEntity{
 	private int zjCompleted;
 	//自建项目数比率
 	private double zjRate;
-	//外部投资项目数
+	//投资项目数
 	private int wbCompleted;
 	//完成项目数
 	private double completed;

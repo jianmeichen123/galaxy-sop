@@ -11,7 +11,10 @@ public class SopCharts extends BaseEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * 报表名称
+	 */
+	private String reportName;
 	/**
 	 * 项目阶段
 	 */
@@ -368,6 +371,12 @@ public class SopCharts extends BaseEntity implements Serializable {
 	}
 	public void setBelongType(Long belongType) {
 		this.belongType = belongType;
+	}
+	public String getReportName() {
+		return reportName;
+	}
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
 	}
 	
 	

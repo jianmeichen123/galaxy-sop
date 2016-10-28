@@ -18,19 +18,19 @@
 	                </dd>
 	            </dl>
                 <dl class="fmdl fl_l  clearfix">
-	                <dt>计划拨款时间 ：</dt>
+	                <dt>计划注资时间 ：</dt>
 	                <dd>
 	                	<div>${actualInfo.partDetail}</div> 
 	                </dd>
 	            </dl>
                 <dl class="fmdl fl_l  clearfix">
-	                <dt>计划拨款金额：</dt>
+	                <dt>计划注资金额：</dt>
 	                <dd>
 	                	<div>${actualInfo.partMoney}</div> 
 	                </dd>
 	            </dl>
                  <dl class="fmdl fl_l  clearfix">
-	                <dt>实际拨款金额 ：</dt>
+	                <dt>实际注资金额 ：</dt>
 	                <dd>
 	                	<div>${actualInfo.actualMoney}</div> 
                         <div class="gray">剩余金额${actualInfo.remainMoney}元</div> 

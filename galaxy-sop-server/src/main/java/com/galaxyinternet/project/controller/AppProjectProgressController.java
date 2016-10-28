@@ -493,8 +493,8 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					if (listSop!=null && listSop.size()>0) {
 						for (SopFile sop : listSop) {					
 							_tsopFile = new AppSopFile();
-							//如果项目是外部投资
-							if(projectType.equals(DictEnum.projectType.外部投资.getCode())){
+							//如果项目是投资
+							if(projectType.equals(DictEnum.projectType.投资.getCode())){
 								if (sop.getFileWorktype().equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())) {
 									_tsopFile.setFileYwCode(sop.getFileWorktype());
 									_tsopFile.setFileWorktype(sop.getfWorktype());
@@ -618,7 +618,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 								}							
 							}
 							//如果项目是内部投资
-							else if(projectType.equals(DictEnum.projectType.内部创建.getCode())){
+							else if(projectType.equals(DictEnum.projectType.创建.getCode())){
 								if (sop.getFileWorktype().equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())) {
 									_tsopFile.setFileYwCode(sop.getFileWorktype());
 									_tsopFile.setFileWorktype(sop.getfWorktype());
@@ -684,7 +684,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					}
 					
 					List<AppFileDTO> list = new ArrayList<AppFileDTO>();
-					if(projectType.equals(DictEnum.projectType.外部投资.getCode())){
+					if(projectType.equals(DictEnum.projectType.投资.getCode())){
 						AppFileDTO appfileDto = new AppFileDTO();
 						appfileDto.setFileTypeCode(DictEnum.fileWorktype.业务尽职调查报告.getCode());
 						appfileDto.setFileTypeName("业务尽调");
@@ -711,7 +711,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 						
 						appProgress.setAppFileDtoList(list);
 						appProgresslist.add(appProgress);	
-					}else if(projectType.equals(DictEnum.projectType.内部创建.getCode())){
+					}else if(projectType.equals(DictEnum.projectType.创建.getCode())){
 						AppFileDTO appfileDto = new AppFileDTO();
 						appfileDto.setFileTypeCode(DictEnum.fileWorktype.业务尽职调查报告.getCode());
 						appfileDto.setFileTypeName("业务尽调");

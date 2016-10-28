@@ -62,7 +62,7 @@ public class InitProject extends AbstractJUnit4SpringContextTests  {
 			//项目类型
 			String projectType = projectPo.getProjectType().trim();
 			if(projectType.equals("外部")){
-				projectType = "外部投资";
+				projectType = "投资";
 			}
 			DictEnum.projectType[] types =DictEnum.projectType.values();
 			for(int t = 0; t<types.length; t++){
