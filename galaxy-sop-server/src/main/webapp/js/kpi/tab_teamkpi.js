@@ -30,6 +30,10 @@ function team_kpi_init(){
         	var data = options.data;
         	teamkpi_pageNum = options.pageNumber;
         
+        	if(backdata.result.status == "ERROR"){
+        		layer.msg(backdata.result.message);
+        	}
+        	
         	if(teamkpi_pageNum == 1){
         		var re = [];
     	   		var categories = [];

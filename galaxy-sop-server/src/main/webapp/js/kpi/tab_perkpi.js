@@ -8,7 +8,6 @@ var userkpi_pageNum = 1;
 
 $("#querySearch_perkpi").on('click',function(){
 	$("#data-table-userkpi").bootstrapTable('destroy');
-	//$('#data-table-userkpi').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-userkpi')); 
 	per_kpi_init();
 });
 
