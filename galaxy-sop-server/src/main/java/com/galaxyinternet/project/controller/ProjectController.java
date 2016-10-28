@@ -2499,7 +2499,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setPageList(pageEntity);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
-		} catch (Exception e) {
+		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"queryUserList faild"));
 			if (_common_logger_.isErrorEnabled()) {
