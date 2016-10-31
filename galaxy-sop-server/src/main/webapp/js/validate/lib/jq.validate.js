@@ -1,4 +1,4 @@
-$(function(){
+
 	//拦截form,在form提交前进行验证
     $('form').bind('submit',beforeSubmit);
 	//为带有valType属性的元素初始化提示信息并注册onblur事件
@@ -75,7 +75,7 @@ $(function(){
 			return $.Validator.ajaxValidate();
 		}
 	});
-});
+
 
 /**
  * 输入框焦点离开后对文本框的内容进行格式验证
