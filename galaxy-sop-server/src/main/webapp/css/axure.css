@@ -1343,7 +1343,7 @@ em{font-style: normal;}
 }
 /*日程插件样式*/
  #calendar {width:100%;margin: 0 auto;}
-.calendar_box{width: 255px;padding: 10px;height: auto;background-color: #fff; position: absolute;  z-index: 1000; left:50%;  margin-left: -178px; padding:10px;display: none;box-shadow: 2px 2px 2px #ccc;border: 1px solid #ccc;border-radius: 5px;}
+.calendar_box{width: auto;padding: 20px;height: auto;background-color: #fff; position: absolute;  z-index: 1000; left:50%;  margin-left: -178px; display: none;box-shadow: 2px 2px 2px #ccc;border: 1px solid #ccc;border-radius: 5px;}
 .calendar_box dl dt,.calendar_box dl dd{float: left;}
 .calendar_box dl{height:30px;line-height: 30px;color:#3e4351;}
 .calendar_box dl dt{font-size: 14px;font-family: "微软雅黑";}
