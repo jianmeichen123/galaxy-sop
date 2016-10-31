@@ -399,7 +399,6 @@ var ossClient = {
 			}
 		} else {
 			layer.msg("上传失败");
-			// alert("上传失败");
 		}
 	},
 	BeforeUpload : function(up) {

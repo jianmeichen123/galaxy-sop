@@ -58,8 +58,8 @@
     <div class="usermsg rit clearfix">
        <!--用户信息-->
         <div class="usermsg fl">
-              <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办任务<em class="totalUrgent"></em></a>
-            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a> 
+              <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办<em class="totalUrgent"></em></a>
+            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息<em action="remind">0</em></a> 
     
         </div>      <!--当日信息-->
       <div class="man_info fl">
@@ -154,7 +154,6 @@ if(isContainResourceByMark("task_into_view")){
 				}
 			},
 			error : function(request) {
-				//alert("connetion error");
 			},
 			success : function(data) {
 				if(data.result.status=="OK"){
@@ -220,13 +219,13 @@ $(function(){
       $(".small").hide();
       $(".big").show();
       disposedWidth();
-      getScript();
+      //getScript();
     });
     $(".bico").click(function(){
       $(".small").show();
       $(".big").hide();
       disposedWidth();
-      getScript();
+      //getScript();
     })
     //下拉框
     $(".man_info .name").hover(function(){
@@ -246,14 +245,14 @@ $(function(){
    });
    
   //改变屏幕大小时，重新调用图表的js文件
-  function getScript(){
+ <%--  function getScript(){
 	  $.getScript("<%=path %>/js/echarts_health.js");
       $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
       $.getScript("<%=path %>/js/indexProjectProgress.js");
       $.getScript("<%=path %>/js/charts/projectProgress.js");
       $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
       $.getScript("<%=path %>/js/charts/indexKpi.js");
-  }
+  } --%>
 //浏览器小于1280的时候左侧导航
   var w_win=$(window).width();
   if(w_win<=1280){   //浏览器屏幕等于1280，默认加载样式
@@ -269,7 +268,7 @@ $(function(){
 $(window).resize(function(){
 	var w_win=$(window).width();
     disposedWidth();
-    getScript();
+    //getScript();
     if(w_win<=1280){
         $("#mainCss").attr("href","<%=path%>/css/less1280.css");
         $(".pagebox .lft").css("width","60px");

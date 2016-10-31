@@ -83,11 +83,9 @@ var datepickerSelecter = {
 						$("#" + formdata.domid).find("#search_date_choose_day").show();
 					}
 				}else{
-					alert("元素ID不能为空");
 					return;
 				}
 			}else{
-				alert("请传递参数");
 				return;
 			}
 			

@@ -12,7 +12,7 @@
 		<dd style="position:relative;">
 			<span class="highchartsAxisName name1">项目数(个)</span>
 			<span class="highchartsAxisName name2">过会率(%)</span>
-			<div id="container_kpi" style="height: 170px;"></div>
+			<div id="container_kpi" style="height: 162px;"></div>
 		</dd>
 	</dl>
 

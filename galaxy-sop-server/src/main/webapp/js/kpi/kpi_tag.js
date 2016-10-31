@@ -59,6 +59,14 @@ function loadDataDetpKpi(){
 }
 
 function loadDataPartnerKpi(){
+	$("#defined").removeAttr("checked");
+	//$("input[type=radio][name=week][value=0]").attr("checked","checked");
+	//$("#week").attr('checked');
+	$("#week").prop("checked",true) 
+	$("#weekType").find(':input').attr('data', 'false');
+	$("#weekType").show();
+	$("#definedType").hide();
+	setDateRange(new Date(),"INIT");
 	partner_kpi_init();
 }
 

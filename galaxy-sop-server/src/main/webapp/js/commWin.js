@@ -64,7 +64,6 @@ var projectDialog = {
 				      }]
 				    });
 				dom.on('click-row.bs.table', function(e, row, $element){
-//					alert(row.id);
 					commWin.fillDom.data("tid",row.id);
 					commWin.fillDom.val(row.projectName);
 					commWin.close(_this);

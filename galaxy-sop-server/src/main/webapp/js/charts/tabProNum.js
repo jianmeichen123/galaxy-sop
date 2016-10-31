@@ -7,7 +7,8 @@ var pageNum_pronum = 1;
 var queryParamsJson_pronum = {};
 
 $("#querySearch_xmstj").on('click',function(){
-	$('#data-table-xmstj').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-xmstj')); 
+	$("#data-table-xmstj").bootstrapTable('destroy');
+	pro_num_init();
 });
 
 

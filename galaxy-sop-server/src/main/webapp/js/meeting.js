@@ -35,7 +35,8 @@ function setMeetProSelect(data){
 	if(entityList.length == 0 ){
 		layer.msg("无相关项目可添加记录");
 		$(".pop").remove();
-		$("#popbg").remove();	
+		$("#popbg").remove();
+		$(body).css("overflow-y","auto");
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
@@ -66,7 +67,6 @@ function getMeetTypes(){
 function setMeetTypes(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		//alert(data.result.message);
 		layer.msg(data.result.message);
 		return;
 	}

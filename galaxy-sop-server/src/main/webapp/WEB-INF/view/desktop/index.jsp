@@ -59,11 +59,11 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <!--立项排期会-->
         <div class="bottom_small">
           <ul>
+           <acl:acl resourceMark="shedule_tjh">
+            <li><a href="<%=path %>/html/voteMeeting.html" data-btn="vote" ><span class="ico_small tjh"></span><span>投决会</span></a></li>
+            </acl:acl>
           	<acl:acl resourceMark="shedule_lxh">
             <li><a href="<%=path %>/html/projectMeeting.html" data-btn="project" ><span class="ico_small lxh"></span><span>立项会</span></a></li>
-            </acl:acl>
-            <acl:acl resourceMark="shedule_tjh">
-            <li><a href="<%=path %>/html/voteMeeting.html" data-btn="vote" ><span class="ico_small tjh"></span><span>投决会</span></a></li>
             </acl:acl>
             <acl:acl resourceMark="shedule_ceo">
             <li><a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" ><span class="ico_small psh"></span><span>CEO评审</span></a></li>
@@ -97,6 +97,27 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         </div>
         </acl:acl>
         
+          <!--投决会排期-->
+        <acl:acl resourceMark="shedule_tjh">
+         <dl id="projectVoteMeeting_dl">
+          <dt>
+          <c:if test="${fx:hasRole(4)}">
+            <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:4');">排期时间</a>
+          </c:if>
+            <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more"></a>
+          </dt>
+            <!-- <dd class='no_content'>暂无内容</dd> -->
+		 <dd class='clearfix'> 
+		    <div class="ico_index tjh fl"></div>
+		    <div class="table fr">
+		      <table width="100%" cellspacing="0" cellpadding="0" class="index">
+		        <tbody  id="tbody">
+		        </tbody>
+		    </table>
+		    </div>    
+		</dd>
+        </dl>
+        </acl:acl>
         
         <!--立项排期会-->
         <acl:acl resourceMark="shedule_lxh">
@@ -113,28 +134,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		    <div class="table fr">
 		      <table width="100%"  id="projectMeeting"  cellspacing="0" cellpadding="0" class="index">
 		        <tbody id="tlbody">
-		        </tbody>
-		    </table>
-		    </div>    
-		</dd>
-        </dl>
-        </acl:acl>
-        
-        <!--投决会排期-->
-        <acl:acl resourceMark="shedule_tjh">
-         <dl id="projectVoteMeeting_dl">
-          <dt>
-          <c:if test="${fx:hasRole(4)}">
-            <a href="javascript:;" class="blue" onclick="paiqidate('meetingType:4');">排期时间</a>
-          </c:if>
-            <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more"></a>
-          </dt>
-            <!-- <dd class='no_content'>暂无内容</dd> -->
-		 <dd class='clearfix'> 
-		    <div class="ico_index tjh fl"></div>
-		    <div class="table fr">
-		      <table width="100%" cellspacing="0" cellpadding="0" class="index">
-		        <tbody  id="tbody">
 		        </tbody>
 		    </table>
 		    </div>    
@@ -211,6 +210,45 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script>
   $(function(){
 	  createMenus(1);
+	  $(".sico").click(function(){
+		  if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+		  { 
+			  $("#container_health>div").remove();
+			  $("#charts_Joint>div").remove();
+			  $("#charts_rk>div").remove();
+			  $("#charts_cbl>div").remove();
+		  } 
+	      getScript();
+	    });
+	  $(".bico").click(function(){
+		  if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+		  { 
+			  $("#container_health>div").remove();
+			  $("#charts_Joint>div").remove();
+			  $("#charts_rk>div").remove();
+			  $("#charts_cbl>div").remove();
+		  }
+	      getScript();
+	    })
+	   $(window).resize(function(){
+		   if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+			  { 
+			   $("#container_health>div").remove();
+				  $("#charts_Joint>div").remove();
+				  $("#charts_rk>div").remove();
+				  $("#charts_cbl>div").remove();
+			  }
+		   getScript();
+	   });
+	  //改变屏幕大小时，重新调用图表的js文件
+	  function getScript(){
+		  $.getScript("<%=path %>/js/echarts_health.js");
+	      $.getScript("<%=path %>/js/charts/projectPostAnalysis.js");
+	      $.getScript("<%=path %>/js/indexProjectProgress.js");
+	      $.getScript("<%=path %>/js/charts/projectProgress.js");
+	      $.getScript("<%=path %>/js/charts/indexProjectDuration.js");
+	      $.getScript("<%=path %>/js/charts/indexKpi.js"); 
+	  }
 	
   
   })
@@ -224,21 +262,13 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
   
   	//=====
 	$(function(){
-		if($('dl[resource-mark="shedule_list"]').css("display") == 'block'){
 			loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
-		}
 		
-		if($('dl[resource-mark="shedule_lxh"]').css("display") == 'block'){
 			top5ProjectMeeting();
-		}
 		
-		if($('dl[resource-mark="shedule_tjh"]').css("display") == 'block'){
 			ProjectVoteWill();
-		}
 		
-		if($('dl[resource-mark="shedule_ceo"]').css("display") == 'block'){
 			top5CeoPsMeeting();
-		}
 		
 	});
   
