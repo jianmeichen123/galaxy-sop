@@ -152,7 +152,7 @@ var containerKpiOptions = {
         }
     },
     legend: {
-        itemMarginTop:-10,
+        itemMarginTop:-5,
         itemMarginBottom:-10,
         layout: 'horizontal',
         align: 'center',
