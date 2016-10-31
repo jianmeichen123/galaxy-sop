@@ -1302,9 +1302,9 @@ em{font-style: normal;}
 .installation .cn1,.installation .cn2,.installation .cn3,.installation .cn4,.installation .cn5,.installation .cn6{width: 100%;}
 .installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
 /* 添加二维码 */
-.erwm{position: fixed;z-index: 13;left:4.6875%;cursor:pointer;}
+.erwm{position: fixed;z-index: 13;cursor:pointer;}
 .erwms{width:50px;height:70px;margin-left:-55px;bottom: 10px;}
-.erwmb{width:90px;height:145px;margin-left:-45px;bottom: 10px;display:none;}
+.erwmb{width:90px;height:145px;margin-left:-45px;bottom: 10px;display:none;left:4.6875%;}
 .erwmb img{margin-bottom:10px;}
 .erwm p,.erwm a{font-size:12px;font-family:"微软雅黑";color:#7a8798;text-align:center;margin-bottom:6px;}
  /*登录信息与密码*/
@@ -1343,7 +1343,7 @@ em{font-style: normal;}
 }
 /*日程插件样式*/
  #calendar {width:100%;margin: 0 auto;}
-.calendar_box{width: 255px;padding: 10px;height: auto;background-color: #fff; position: absolute;  z-index: 1000; left:50%;  margin-left: -178px; padding:10px;display: none;box-shadow: 2px 2px 2px #ccc;border: 1px solid #ccc;border-radius: 5px;}
+.calendar_box{width: auto;padding: 20px;height: auto;background-color: #fff; position: absolute;  z-index: 1000; left:50%;  margin-left: -178px; display: none;box-shadow: 2px 2px 2px #ccc;border: 1px solid #ccc;border-radius: 5px;}
 .calendar_box dl dt,.calendar_box dl dd{float: left;}
 .calendar_box dl{height:30px;line-height: 30px;color:#3e4351;}
 .calendar_box dl dt{font-size: 14px;font-family: "微软雅黑";}
@@ -2269,6 +2269,7 @@ margin: 45px auto 30px;}
 .eduling_wait_ico img{margin:12px auto 5px;}
 .floatBox .l_previewBottom_b{width:26%;text-align:center;padding:14px 0 0 0;}
 .floatBox .l_previewBottom_b p{margin-top:4px;}
+#project-progress-div td span{font-size:14px;font-family:"微软雅黑"}
 /* 首页截断 */
 .ritmin-index table{table-layout:fixed;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}

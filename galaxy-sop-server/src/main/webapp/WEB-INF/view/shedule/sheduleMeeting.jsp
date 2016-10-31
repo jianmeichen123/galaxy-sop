@@ -28,6 +28,15 @@ String path = request.getContextPath();
   $(document).ready(function() {
 	  createMenus(1);
     var meetingType = '<%=request.getAttribute("type")%>';
+    
+    var meetShedul_defaultView=getCookieValue("meetShedul_defaultView");
+    
+    if(meetShedul_defaultView){
+		deleteCookie("meetShedul_defaultView","/");
+	}else{
+		meetShedul_defaultView = 'agendaDay';
+	}
+    
     $('#calendar').fullCalendar({
       theme: true,
       header: {
@@ -52,7 +61,7 @@ String path = request.getContextPath();
             }, 
             // allDaySlot:false, 是否显示allday
 
-      defaultView:'agendaDay',//默认显示视图
+      defaultView:meetShedul_defaultView,//默认显示视图
       defaultDate: new Date(),
       editable: true,
       axisFormat:'H:mm',
@@ -104,6 +113,20 @@ String path = request.getContextPath();
       }
     });
     
+    
+    if(meetShedul_defaultView){
+		
+		var view_value = $(".ui-state-active").text();
+
+	    if(meetShedul_defaultView == 'month'){
+	    	$("fc-agendaDay-button").removeClass("ui-state-active");
+	    	$(".fc-month-button").addClass("ui-state-active");
+	    }else if(meetShedul_defaultView == 'agendaWeek'){
+	    	$("fc-agendaDay-button").removeClass("ui-state-active");
+	    	$(".fc-agendaWeek-button").addClass("ui-state-active");
+	    }
+	}
+    
   });
   
   
@@ -117,8 +140,21 @@ String path = request.getContextPath();
 
   function showProjectDetail(projectId)
 	{
+	    var href_url=window.location;
+	    var view_value = $(".ui-state-active").text();
+
+	    if(view_value == '月'){
+	    	view_value = 'month';
+	    }else if(view_value == '周'){
+	    	view_value = 'agendaWeek';
+	    }else{
+	    	view_value = 'agendaDay';
+	    }
+	    setCookie("meetShedul_defaultView", view_value,24,'/');
+		setCookie("href_url", href_url,24,'/');
 	   forwardWithHeader(platformUrl.projectDetail+projectId);
 	}
+
   
 </script>
 </head>

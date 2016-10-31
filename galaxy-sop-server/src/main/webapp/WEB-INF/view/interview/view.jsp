@@ -192,7 +192,6 @@ function showLogdetail(selectRowId){
 		var um=UM.getEditor('viewNotes');
 		um.setContent(interviewSelectRow.viewNotes);
 		var uid='<%=userId%>';
-	//	alert(uid+"----"+interviewSelectRow.createdId);
 		if(uid!=interviewSelectRow.createdId){
 			$("#interviewsave").hide();
 			um.setDisabled();

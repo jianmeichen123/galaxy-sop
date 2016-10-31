@@ -62,7 +62,11 @@ var projectTime='';
 if(createTime !='' || createTime !=null || typeof(createTime) != "undefined"){
 	projectTime=createTime;
 }
-
+//浏览器的判断
+var browser=navigator.appName 
+var b_version=navigator.appVersion 
+var version=b_version.split(";"); 
+var trim_Version=version[1].replace(/[ ]/g,""); 
 $(function(){
 	
 	setDateRange(new Date(),"INIT");
@@ -174,10 +178,15 @@ function setDateRange(ev,startOrEnd){
     }
     
 	if(startOrEnd == "INIT"){
-		current = new Date();
+		current = new Date().getTime();
 	}
 	var start = new Date(getWeekStartDate).getTime();
 	var end = new Date(getWeekEndDate).getTime();
+	if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
+	{ 
+		 start = new Date(getWeekStartDate.replace(/-/g,"/")).getTime();
+		 end = new Date(getWeekEndDate.replace(/-/g,"/")).getTime();
+	} 
 	
     if(start < current && current < end){
     	//获得上周的开始日期
@@ -201,12 +210,13 @@ function setDateRange(ev,startOrEnd){
 	     
 	    if(nowDayOfWeek == 6){
 	    	//获得本周的开始日期
-		    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 7 -1);
+		    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek - 7 -1);
 		    getWeekStartDate =  formatDate(getWeekStartDate);
 		    //获得本周的结束日期
-		    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek + 7 -1));
+		    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 7 -1));
 		    getWeekEndDate =  formatDate(getWeekEndDate);
 	    }
+	    
 	    $(".weekStartDatepicker").val(getWeekStartDate);
 	    $(".weekEndDatepicker").val(getWeekEndDate);
     }

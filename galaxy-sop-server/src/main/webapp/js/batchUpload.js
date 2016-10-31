@@ -135,15 +135,12 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						}); 
 					    $("#"+fieInputId).val('');
 					    //layer.closeAll('loading');
-					    alert(data.result.message);
-					    
 					}
 					
 				});
 				}
 		    },
 			Error: function(up, err) {
-				alert(err.message);
 			}
 			
 		}

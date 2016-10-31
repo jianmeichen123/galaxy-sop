@@ -378,7 +378,6 @@ var fileGrid = {
 	},
 
 	downloadCallBackfunction : function(data){
-		alert(1)
 	},
 	
 };

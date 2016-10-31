@@ -67,7 +67,6 @@ function getMeetTypes(){
 function setMeetTypes(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		//alert(data.result.message);
 		layer.msg(data.result.message);
 		return;
 	}
