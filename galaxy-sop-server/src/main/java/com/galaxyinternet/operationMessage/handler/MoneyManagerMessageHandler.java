@@ -16,15 +16,15 @@ public class MoneyManagerMessageHandler implements MessageHandler {
 	
 	
 	/**
-	 * 14.1添加/编辑/删除总拨款计划
+	 * 14.1添加/编辑/删除总注资计划
 	 */
 	public static final String MONEY_ALL = "14.1";
 	/**
-	 * 14.2添加/编辑/删除分期拨款计划
+	 * 14.2添加/编辑/删除分期注资计划
 	 */
 	public static final String MONEY_SEPARATE_ = "14.2";
 	/**
-	 * 14.3添加/编辑/删除实际拨款信息
+	 * 14.3添加/编辑/删除实际注资信息
 	 */
 	public static final String MONEY_IMPLEMENT_ = "14.3";
 
@@ -42,18 +42,18 @@ public class MoneyManagerMessageHandler implements MessageHandler {
 	@Override
 	public OperationMessage handle(OperationMessage message){
 		/*
-		14.1添加/编辑/删除总拨款计划：<日期时间>  <用户名>添加/编辑/删除项目<项目名称>的总拨款计划。
-		14.2添加/编辑/删除分期拨款计划：<日期时间>  <用户名>添加/编辑/删除项目<项目名称>的分期拨款计划。
-		14.3添加/编辑／删除实际拨款信息：<日期时间>  <用户名>添加／编辑/删除项目<项目名称>的实际拨款信息。
+		14.1添加/编辑/删除总注资计划：<日期时间>  <用户名>添加/编辑/删除项目<项目名称>的总注资计划。
+		14.2添加/编辑/删除分期注资计划：<日期时间>  <用户名>添加/编辑/删除项目<项目名称>的分期注资计划。
+		14.3添加/编辑／删除实际注资信息：<日期时间>  <用户名>添加／编辑/删除项目<项目名称>的实际注资信息。
 		 */
 		
 		String title = "";
 		if(message.getMessageType().equals(MONEY_ALL)){
-			title = "总拨款计划";
+			title = "总注资计划";
 		}else if(message.getMessageType().equals(MONEY_SEPARATE_)){
-			title = "分期拨款计划";
+			title = "分期注资计划";
 		}else if(message.getMessageType().equals(MONEY_IMPLEMENT_)){
-			title = "实际拨款信息";
+			title = "实际注资信息";
 		}else
 			return null;
 		

@@ -194,7 +194,6 @@ function sendPostRequest(reqUrl, callbackFun) {
 		},
 		async : false,
 		error : function(request) {
-			//alert("connetion error");
 		},
 		success : function(data) {
 			if(data){
@@ -266,10 +265,8 @@ DataStrore = {
 	storage : window.localStorage,
 	checkBrowerSupport : function() {
 		if (window.localStorage) {
-			alert('This browser supports localStorage');
 			return true;
 		} else {
-			alert('This browser does not support localStorage');
 			return false;
 		}
 	},
@@ -536,10 +533,8 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 						 {
 						    'addClass': 'loading-indicator'						
 						 });
-				//alert(JSON.stringify(getSaveCondition()));
 			},
 			Error: function(up, err) {
-				//alert("错误"+err);
 				layer.msg("上传格式等错误,请重新选择文件!");
 				$(_this.id).hideLoading();
 			}
@@ -569,7 +564,12 @@ function totalMissionCallback(data) {
 	if (data.total != null) {
 		total =data.total;
 	}
-	$('.totalUrgent').html(total)
+	if(total>99){
+		$('.totalUrgent').html('<span style="line-height:12px;">99<sup>+</sup></span>')
+	}else{
+		$('.totalUrgent').html(total)
+	}
+	
 }
 
 function fillHeaderdata() {
@@ -1017,10 +1017,10 @@ function getVal(val,defaultValIfNull)
 function projectNameLineFormat(value, row, index){
 	var id = row.projectId;
 	var aa = " <a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\">"+
-				row.projectName +
-			"</a> " ;
+				row.projectName + "</a>";
 	var content =value.replace("projectname",aa);
-	return content;
+	var str = "<span title='"+value.replace("projectname",row.projectName)+"'>"+content+"</span>";
+	return str;
 	
 }
 
@@ -1347,12 +1347,8 @@ var DateUtils = {
 		},
 		getTime : function(date){
 //			var dateCurson = date.split(' ');
-//			alert(dateCurson[0]);
-//			alert(dateCurson[1]);
 			if(typeof(date) == 'string'){
 				var dateCurson = date.split(' ');
-//				alert(dateCurson[0]);
-//				alert(dateCurson[1]);
 				var datePart = dateCurson[0].split('-');
 				var timePart = dateCurson[1].split(':');
 				return new Date(datePart[0],datePart[1]-1,datePart[2],timePart[0],timePart[1],timePart[2]).getTime();
@@ -1583,7 +1579,7 @@ function ajaxPopup(obj,tite_mame){
 		    search: false, //显示搜索框
 		    queryParamsType: 'size|page',
 		    method : 'post',
-		    height:350,
+		    //height:350,
 		    queryParams: function(params){params.meetingType=obj.params.meetingType;params.scheduleStatus=obj.params.scheduleStatus;params.type=obj.params.type;return params;},
 		    pageSize:20,
 		    pagination: true,
@@ -1608,7 +1604,7 @@ function to_pro_info(id){
 }
 
 function setData(sumPlanMoney,sumActualMoney){
-	 //拨款进度
+	 //注资进度
 	  $("#bar_m").css("width","0px");  //初始化进度条宽度；
 	    var moneyComplete=sumActualMoney;
 	        moneyTotal=sumPlanMoney;

@@ -93,7 +93,6 @@ function dateFormatter(val,row,index)
 			function(data){
 			if(data.result.status == "Error")
 			{
-				alert(data.result.message );
 				return;
 			}
 			idea = data.entity;

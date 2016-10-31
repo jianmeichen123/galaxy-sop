@@ -36,7 +36,7 @@ function createMenus(current){
 	   		 }
 	   	 });
 	   	 //星眸链接
-	   	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
+	  // 	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
 	   	 $("#menus").html(html);
 	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {

@@ -25,7 +25,6 @@ function   request(paramName)
 {
 	//获取URL的字符串
 	var sSource=String(window.document.location);
-	alert(sSource);
 	var sName= paramName;  
 	var sReturn="";   
 	var sQUS="?";   
@@ -42,14 +41,12 @@ function   request(paramName)
 	//若iPos = -1，则：从-1 到 sSource.length+1
 	var strQuery=sSource.substr(iPos,sSource.length-iPos); 
 
-	// alert(strQuery); 
 	//先全部转换为小写
 	var   strLCQuery = strQuery.toLowerCase();   
 	var   strLCName  = sName.toLowerCase(); 
 
 	//从子字符串strLCQuery中查找“?”、参数名，以及“=”，即“?参数名=”
 	iPos   = strLCQuery.indexOf(sQUS + strLCName + sEQ);
-	//alert(iPos);
 	//如果不存在
 	if(iPos == -1)   
 	{   

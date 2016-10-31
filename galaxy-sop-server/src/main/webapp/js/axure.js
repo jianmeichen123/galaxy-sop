@@ -247,7 +247,7 @@
 			var whichOne = event.which,targetOne = event.target;
 			var oneBox = $this.has($(targetOne)).length == 0?false:true;
 			(whichOne==1||whichOne==0)&&!oneBox?$this.hide():false;
-			fn();
+			//fn();
 		};
 		$(document).on("mousedown",documentHide);	
 	}
@@ -654,7 +654,6 @@
 						_this.postionEve();
 					},
 					error:function(){
-						alert("网络错误")
 					}	
 				})
 			}
@@ -698,7 +697,6 @@
 						$("body").css("overflow-y","hidden");
 					},
 					error:function(){
-						alert("网络错误")
 					}	
 				})
 			}	
@@ -781,7 +779,6 @@
 							opts.okback();
 						},
 						error:function(){
-							alert("网络错误")
 						}	
 					})
 				}	
@@ -920,7 +917,6 @@
 							opts.okback();
 						},
 						error:function(){
-							alert("网络错误")
 						}	
 					})
 				}	
@@ -1046,5 +1042,32 @@
 			obj.init();
         });
 	};
-	
+	$.fn.loadHtml = function(options){
+		var opts = {type:'GET',async:true};
+		$.extend(opts,options);
+		var _this = this;
+		$.ajax({
+			type:"GET",
+			data:opts.data,
+			async:opts.async,
+			dataType:"html",
+			url:opts.url,
+			beforeSend : function(xhr) {
+				/**清楚浏览器缓存**/
+				xhr.setRequestHeader("If-Modified-Since","0"); 
+				xhr.setRequestHeader("Cache-Control","no-cache");
+				if (sessionId) {
+					xhr.setRequestHeader("sessionId", sessionId);
+				}
+				if(userId){
+					xhr.setRequestHeader("guserId", userId);
+				}
+			},
+			success:function(html){
+				$(_this).html(html);
+			},
+			error:function(){
+			}	
+		})
+	}
 })(jQuery);

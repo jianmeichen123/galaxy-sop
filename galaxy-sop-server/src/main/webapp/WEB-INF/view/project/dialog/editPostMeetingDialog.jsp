@@ -115,6 +115,5 @@
 	    			 $(this).remove();
 	    		}
 	    	})
-	       //alert( $('.tip-yellowsimple').text()=='*会议时间不能为空');
 	    });
 </script>

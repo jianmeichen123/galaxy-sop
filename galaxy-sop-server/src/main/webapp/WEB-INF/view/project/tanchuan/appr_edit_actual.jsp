@@ -18,19 +18,19 @@
 	                </dd>
 	            </dl>
                 <dl class="fmdl fl_l  clearfix">
-	                <dt>计划拨款时间 ：</dt>
+	                <dt>计划注资时间 ：</dt>
 	                <dd>
 	                	<div id="label_plan_grant_time">完成条款4后15个工作日内</div> 
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l  clearfix">
-	                <dt>计划拨款金额 ：</dt>
+	                <dt>计划注资金额 ：</dt>
 	                <dd>
 	                	<div id="label_plan_grant_money"></div> 
 	                </dd>
 	            </dl>
                 <dl class="fmdl fl_l  clearfix">
-	                <dt>实际拨款金额 ：</dt>
+	                <dt>实际注资金额 ：</dt>
 	                <dd>
 	                	
 	                	<div id="label_grant_money">

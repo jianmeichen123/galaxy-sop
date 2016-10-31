@@ -127,42 +127,19 @@
 	 }
 	 function proInfo(id){
 			//项目详情页返回地址
-			setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
-			//返回附带参数功能代码
-			var options = $("#project-table").bootstrapTable('getOptions');
-			var tempPageSize = options.pageSize ? options.pageSize : 10;
-			var tempPageNum = options.pageNumber ? options.pageNumber : 1;
-			var projectType = $("select[name='projectType']").val();
-			var financeStatus = $("select[name='financeStatus']").val();
-			var projectProgress = $("select[name='projectProgress']").val();
-			var projectStatus = $("select[name='projectStatus']").val();
-			var projectDepartid = $("select[name='projectDepartid']").val();
-			var createUid = $("select[name='createUid']").val();
-			var nameCodeLike = $("input[name='nameCodeLike']").val();
-			var projectPerson = $("input[name='projectPerson']").val();
-			var faFlag = $("input[name='faFlag']:checked").val();
-			
-			var formdata = {
-					_paramKey : 'projectList',
-					_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
-					_path : "/",
-					_param : {
-						pageNum : tempPageNum,
-		        		pageSize : tempPageSize,
-		        		projectType : projectType,
-		        		financeStatus : financeStatus,
-		        		projectProgress : projectProgress,
-		        		projectStatus : projectStatus,
-		        		projectDepartid : projectDepartid,
-		        		createUid : createUid,
-		        		nameCodeLike : nameCodeLike,
-		        		projectPerson:projectPerson,
-		        		faFlag:faFlag
-					}
-			}
+		//	setCookie("href_flag", "healthy",24,'/');
+		//	var formdata = {
+		//			_paramKey : 'projectList',
+		///			_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
+		//			_path : "/",
+		//			_param : {
+						
+		//			}
+	//		}
 			var href_url=window.location;
 			setCookie("href_url", href_url,24,'/');
-			cookieOperator.forwardPushCookie(formdata);
+		//	cookieOperator.forwardPushCookie(formdata);
+			forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 		}
 	 function back(){
 		 window.history.go(-1);

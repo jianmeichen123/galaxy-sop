@@ -405,7 +405,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		task2.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
 		sopTaskDao.insert(task2);
 		
-		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())){
+		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.投资.getCode())){
 			//财务dd  任务生成
 			SopTask task3 = new SopTask();
 			task3.setProjectId(project.getId());         //项目id

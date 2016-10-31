@@ -37,7 +37,6 @@ function setCookie(name,value,hours,path){
 	 */
 	function cookies_szie(){
 		var PageSize_ab = getCookieValue("PageSize_ab");
-		//alert(PageSize_ab+'dddd')
 		if(PageSize_ab!=''){
 			return PageSize_ab;
 		}else{

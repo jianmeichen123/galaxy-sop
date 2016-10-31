@@ -122,7 +122,6 @@ function addPersonCallBack(data){
 			url: url+"?personId="+id, 
 			data:"",//传递参数
 			okback:function(){
-			/* alert("进入完善简历页面"); */
 			$(".resumetc .tabtable").tabchange2();
 			}//模版反回成功执行	
 		}); 

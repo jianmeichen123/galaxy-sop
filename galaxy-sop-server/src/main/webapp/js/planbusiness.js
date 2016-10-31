@@ -142,7 +142,6 @@ var initPage = {
 					downloadBusinessPlan : function(){
 						var id = data.entity.id;
 						if(id == undefined || id == ""){
-							alert("传入的文件ID为空");
 							return;
 						}
 						window.location.href=platformUrl.downLoadFile+'/'+id ;

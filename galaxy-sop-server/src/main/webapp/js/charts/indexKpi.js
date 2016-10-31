@@ -1,7 +1,8 @@
 /**
  * 绩效考核
  */
-
+//项目历时
+load_data_chart_kpi();
 var isGG = true;
 if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 	isGG = true;
@@ -61,6 +62,7 @@ var containerKpiOptions = {
     	renderTo:'container_kpi',
         zoomType: 'xy',
         backgroundColor: 'rgba(255, 255, 255, 0)',
+        marginTop:20,
     },
     title: {
         text: ''
@@ -150,7 +152,7 @@ var containerKpiOptions = {
         }
     },
     legend: {
-        itemMarginTop:-10,
+        itemMarginTop:-5,
         itemMarginBottom:-10,
         layout: 'horizontal',
         align: 'center',
@@ -160,6 +162,7 @@ var containerKpiOptions = {
             fontWeight:'normal',
             color:'#7a8798',
         },
+        y:-8,
     },
     series: [{
         name: '项目数',
@@ -187,12 +190,14 @@ var containerKpiOptions = {
 var browser=navigator.appName 
 var b_version=navigator.appVersion 
 var version=b_version.split(";"); 
-var trim_Version=version[1].replace(/[ ]/g,""); 
-if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
-{ 
-	$(".highchartsAxisName").show();
-} 
-
+if(version[1])
+{
+	var trim_Version=version[1].replace(/[ ]/g,""); 
+	if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
+	{ 
+		$(".highchartsAxisName").show();
+	} 
+}
 
 
 

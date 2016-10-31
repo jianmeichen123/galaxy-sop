@@ -18,7 +18,7 @@
                         <!--按钮-->
                         <c:if test="${isEditable}">
                         <div class="btnbox_f btnbox_f1">
-                            <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
+                            <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</a>
                         </div>
                         </c:if>
                     </div>
@@ -27,7 +27,7 @@
                     <div class="min_document fund_list clearfix">
                       <div class="bottom clearfix">
                         <dl class="fmdl fmdll clearfix">
-                          <dt>计划拨款金额：</dt>
+                          <dt>计划注资金额：</dt>
                           <dd>
                             <input class=" txt " id="searchPartMoney" type="text" value="" onkeyup="value=value.replace(/[^\d.]/g,'')"/>
                           </dd>
@@ -69,7 +69,7 @@ var searchPartMoney;
 		  $("#tabApprAllList .b_agreement_r").hide();
 		  $("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
 	  }
-		//添加，编辑总拨款计划弹出页面
+		//添加，编辑总注资计划弹出页面
 	$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
 		var _url=platformUrl.toApprAllAdd+"?pid=${pid}";
@@ -95,7 +95,7 @@ var searchPartMoney;
 	    function showGrantPart(tid){
 	    	
 	    }
-		//编辑总拨款计划
+		//编辑总注资计划
 		$("[data-btn='actual_aging']").on("click",function(){ 			
 		var $self = $(this);
 		var _data_type = $self.attr("data_type");
@@ -122,7 +122,7 @@ var searchPartMoney;
 				okback:function(){
 					$("#popup_name").html(_name);
 					$("#totalName").html(_total_name);
-					if($("#popup_name").text()=="添加分期拨款计划"){
+					if($("#popup_name").text()=="添加分期注资计划"){
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
 					  
@@ -205,7 +205,7 @@ var searchPartMoney;
 	    return false;
 		});
 
-		//实际拨款信息列表
+		//实际注资信息列表
 		$("[data-btn='actual']").on("click",function(){ 
 			var $self = $(this);
 			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");
@@ -328,7 +328,7 @@ function paramsContion(){
 	var grantDetail = $("#grantDetail").val();
 	var check =/^[\s]*$/;
 	if(check.test(grantDetail)){
-		layer.msg("拨款时间输入错误!");
+		layer.msg("注资时间输入错误!");
 		return false;
 	}
 	var remainMoney = $("#remainMoney").val();
@@ -337,7 +337,7 @@ function paramsContion(){
 	
 	var inputValueMoney = Number(partMoney).toFixed(2);
 	if(parseFloat(inputValueMoney) > parseFloat(newgrant)){
-		layer.msg("分期拨款金额之和大于总拨款金额");
+		layer.msg("分期注资金额之和大于总注资金额");
 		return false;
 	}
 	var condition = JSON.parse($("#actual_aging_form").serializeObject());
@@ -388,7 +388,7 @@ function saveCallBackFuc(data){
 }
 function to_del_grantPart(selectRowId){
 	
-	layer.confirm('是否删除分期拨款计划?',
+	layer.confirm('是否删除分期注资计划?',
 			
 			
 		{

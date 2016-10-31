@@ -1,0 +1,72 @@
+@charset "utf-8";
+/*左侧导航*/
+.pagebox .lft{ float:left;background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
+.pagebox .lft li{ float:left; width:100%; min-height:48px;}
+.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; /* margin:0 auto; */ height:48px; text-align:left; line-height:48px; font-size:12px; color:#d8dce5;cursor: pointer;padding-left:50px;}
+.pagebox .lft .on a,
+.pagebox .lft li a:hover{ text-decoration:none; color:#6dafee;}
+.pagebox .lft li ul li a{font-family: "微软雅黑";display:block; height:40px; line-height:40px; font-size:12px; color:#6b799f;padding-left:30px;}
+.pagebox .lft li div{position: relative;}
+.pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; left: 15%;}
+.pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
+.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;}
+/*左侧导航icon*/
+.navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22px;}
+.nav160{background-position: 0 0;}
+.nav168{background-position: 0 -72px;}
+.nav171{background-position: 0 -144px;}
+.nav4{background-position: 0 -216px;}
+.nav5{background-position: 0 -288px;}
+.nav6{background-position: 0 -330px;}
+.nav7{background-position: 0 -377px;}
+.nav8{background-position: 0 -425px;}
+.nav9{background-position: 0 -475px;}
+.nav137{background-position: 0 -216px;}
+.nav143{background-position: 0 -570px;}
+.nav144{background-position: 0 -615px;}
+.nav147{background-position: 0 -673px;}
+.nav150{background-position: 0 -720px;}
+.nav134{background-position: 0 -950px;}
+.nav195{background-position: 0 -902px;}
+.nav136{background-position: 0 -998px;}
+.nav135{background-position: 0 -1046px;}
+.nav177,.nav189{background-position: 0 -378px;}
+.nav180{background-position: 0 -1189px;}
+.nav183{background-position: 0 -378px;}
+.nav156{background-position: 0 -756px;}
+.nav157{background-position: 0 -805px;}
+.nav158{background-position: 0 -854px;}
+.nav186{background-position: 0 -1141px;}
+.nav192{background-position: 0 -1092px;}
+.xingmou{background-position: -37px -1230px;position: absolute;}
+.lft li:hover .nav160,.lft li.on .nav160{background-position: -40px 0;}
+.lft li:hover .nav168,.lft li.on .nav168{background-position: -40px -72px;}
+.lft li:hover .nav171,.lft li.on .nav171{background-position: -40px -144px;}
+.lft li:hover .nav4,.lft li.on .nav4{background-position: -40px -216px;}
+.lft li:hover .nav5,.lft li.on .nav5{background-position: -40px -288px;}
+.lft li:hover .nav6,.lft li.on .nav6{background-position: -40px -330px;}
+.lft li:hover .nav7,.lft li.on .nav7{background-position: -40px -377px;}
+.lft li:hover .nav8,.lft li.on .nav8{background-position: -40px -425px;}
+.lft li:hover .nav9,.lft li.on .nav9{background-position: -40px -475px;}
+.lft li:hover .nav137,.lft li.on .nav137{background-position: -40px -216px;}
+.lft li:hover .nav143,.lft li.on .nav143{background-position: -40px -570px;}
+.lft li:hover .nav144,.lft li.on .nav144{background-position: -40px -615px;}
+.lft li:hover .nav147,.lft li.on .nav147{background-position: -40px -673px;}
+.lft li:hover .nav150,.lft li.on .nav150{background-position: -40px -720px;}
+.lft li:hover .nav134,.lft li.on .nav134{background-position: -40px -950px;}
+.lft li:hover .nav195,.lft li.on .nav195{background-position: -40px -902px;}
+.lft li:hover .nav136,.lft li.on .nav136{background-position: -40px -998px;}
+.lft li:hover .nav135,.lft li.on .nav135{background-position: -40px -1046px;}
+.lft li:hover .nav177,.lft li.on .nav177,.lft li:hover .nav189,.lft li.on .nav189{background-position: -40px -378px;}
+.lft li:hover .nav183,.lft li.on .nav183{background-position: -40px -378px;}
+.lft li:hover .nav180,.lft li.on .nav180{background-position: -40px -1189px;}
+.lft li:hover .nav156,.lft li.on .nav156{background-position: -40px -756px;}
+.lft li:hover .nav157,.lft li.on .nav157{background-position: -40px -805px;}
+.lft li:hover .nav158,.lft li.on .nav158{background-position: -40px -854px;}
+.lft li:hover .nav186,.lft li.on .nav186{background-position: -40px -1141px;}
+.lft li:hover .nav192,.lft li.on .nav192{background-position: -40px -1092px;}
+.lft li:hover .xingmou,.lft li.on .xingmou{background-position: -40px -1230px;}
+.lft .toggle_li ul{background-color: #1f222d !important;}
+.lft .toggle_li li a{color:#eee !important;}
+.lft .toggle_li li ul a{padding-left:30px;}
+.lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;}

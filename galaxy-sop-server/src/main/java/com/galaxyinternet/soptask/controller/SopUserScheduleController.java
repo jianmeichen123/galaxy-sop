@@ -250,6 +250,8 @@ public class SopUserScheduleController extends
 			for(Department department : careerlineList){
 				careerlineMap.put(department.getId(), department);
 			}
+			
+			List<MeetingSchedulingBo> mbsList = new ArrayList<MeetingSchedulingBo>();
 			//组装数据
 			for(MeetingSchedulingBo ms : mslist){
 				    Project p = projectProMap.get(ms.getProjectId());
@@ -262,9 +264,10 @@ public class SopUserScheduleController extends
 						ms.setStart(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
 						ms.setEnd(DateUtil.convertDateToStringForChina(ms.getReserveTimeEnd()));
 		                ms.setTitle(p.getProjectName()+ms.getMeetingType());
+		                mbsList.add(ms);
 				    }
 			}
-			responseBody.setEntityList(mslist);
+			responseBody.setEntityList(mbsList);
 		}catch(Exception e){
 			logger.error("排期时间出错:"+e.getMessage());
 		}

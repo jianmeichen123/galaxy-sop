@@ -28,14 +28,15 @@ var chartPostAnalysisUtils = {
 		        dataBackgroundColor:'#e9f3fb',
 		        fillerColor:'#e9f3fb',
 		        handleSize:5,
-		        height:12,
-		        y:175,
+		        height:10,
+		        y:145,
 		        zoomLock:true,
 		        showDetail:false
 		    },
 		    calculable : true,
 		    legend:{
 		        show:true,
+		        y:-5,
 		        orient:'horizontal',
 		        textStyle:{
 		        	 fontFamily:'宋体'
@@ -45,14 +46,14 @@ var chartPostAnalysisUtils = {
 		        itemGap:20,
 		        data:[
 		            {
-		                name:'内部创建',
+		                name:'创建',
 		                textStyle:{
 		                    color:'#7a8798'
 		                },
 		                icon:'stack'
 		            },
 		            {
-		                name:'外部投资',
+		                name:'投资',
 		                textStyle:{
 		                    color:'#7a8798'
 		                },
@@ -62,10 +63,10 @@ var chartPostAnalysisUtils = {
 		    },
 		    grid: {
              borderWidth: 0,
-             y : 30,
-             y2 : 55,
-             x : 40,
-             x2 : 5
+             y : 20,
+             y2 : 65,
+             x : 50,
+             x2 : 15
              },
 		    xAxis : [
 		        {
@@ -129,7 +130,7 @@ var chartPostAnalysisUtils = {
 		    ],
 		    series : [
 		        {
-		            name:'内部创建',
+		            name:'创建',
 		            type:'bar',
 		            stack:"项目数",
 		            "barWidth":"18",//柱图宽度
@@ -144,7 +145,7 @@ var chartPostAnalysisUtils = {
                  },
 		        },
 		        {
-		            name:'外部投资',
+		            name:'投资',
 		            type:'bar',
 		            stack:"项目数",
 		            "barWidth":"18",//柱图宽度
@@ -214,8 +215,8 @@ var chartPostAnalysisUtils = {
 					            //外部
 					            chartPostAnalysisUtils.postAnalysisOptions.series[1].data = wbCountArr;
 					            var sum_wb=0;
-					            for(var i=0;i<nbCountArr.length;i++){
-					            	sum_wb+=nbCountArr[i];
+					            for(var i=0;i<wbCountArr.length;i++){
+					            	sum_wb+=wbCountArr[i];
 					            }
 					            //无数据显示
 					            if(sum_nb==0 && sum_wb==0){

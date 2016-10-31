@@ -15,9 +15,9 @@ $(function(){
 				case 1: initTabProjectTeam(); break;  //标签1:团队成员
 				case 2: initTabEquity(); break;  //标签2: 股权结构
 				case 3: initTabInterview();   break;  //标签3:访谈记录
-				case 4: initTabMeeting();   break;  //标签4:会议记录
+				case 4: initTabMeeting(projectId);   break;  //标签4:会议记录
 				case 5: initTabDelivery();   break;  //标签5:交割前事项
-				case 6: initTabAppropriation(projectId);   break;  //标签6:拨款信息
+				case 6: initTabAppropriation(projectId);   break;  //标签6:注资信息
 				case 7: initTabPostMeeting();   break;  //标签7:运营分析
 				case 8: initTabSopFile(projectId);   break;  //标签8:项目文档
 				case 9: initTabOperLog();   break;  //标签9:操作日志
@@ -68,7 +68,7 @@ function initTabInterview(){
 	});
 }
 //会议纪要
-function initTabMeeting(){
+function initTabMeeting(projectId){
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/promeet/" + projectId
 	});
@@ -79,7 +79,7 @@ function initTabDelivery(){
 		url : Constants.sopEndpointURL+"/galaxy/delivery/toprodeliver/" + projectId
 	});
 }
-//拨款信息
+//注资信息
 function initTabAppropriation(projectId){
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/toAppropriation/null/"+projectId

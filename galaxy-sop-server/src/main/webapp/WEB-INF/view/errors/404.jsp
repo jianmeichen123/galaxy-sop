@@ -132,7 +132,6 @@ window.setInterval("reloadMessage(),fillHeaderdata()",10000);
 				}
 			},
 			error : function(request) {
-				//alert("connetion error");
 			},
 			success : function(data) {
 				if(data.result.status=="OK"){

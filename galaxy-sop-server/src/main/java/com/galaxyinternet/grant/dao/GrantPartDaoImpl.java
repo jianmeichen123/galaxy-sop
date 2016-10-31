@@ -22,7 +22,7 @@ public class GrantPartDaoImpl extends BaseDaoImpl<GrantPart, Long> implements Gr
 			return sqlSessionTemplate.selectOne(getSqlName("sumBelongToPartMoney"), totalId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException(String.format("计算实际拨款总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);
+			throw new DaoException(String.format("计算实际注资总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);
 		}
 	}
 

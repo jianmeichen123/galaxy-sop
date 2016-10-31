@@ -232,7 +232,6 @@ $(function(){
 				/*if (_url.indexOf("?") != -1){
 					var index = _url.indexOf("?");
 					var str =_url.substring(index+1);
-					alert(str)
 					if (str =="type=1") {
 						showList();
 					} else {
@@ -400,6 +399,20 @@ $(function(){
 		});
 		return false;
 	});
+	//修改密码
+	$("[data-btn='change_password']").on("click",function(){
+		$('.pop').remove();
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				//$(this).change_password();
+			}//模版反回成功执行	
+		});
+		return false;
+	});
 	
 	// 创意弹层
 	$("[data-btn='creative']").on("click",function(){ 
@@ -521,7 +534,7 @@ $(function(){
 		return false;
 	});
 	
-	/*//实际拨款信息列表
+	/*//实际注资信息列表
 	$("[data-btn='health_case']").on("click",function(){ 
 		var $self = $(this);
 		var _url = $self.attr("href");
@@ -539,7 +552,7 @@ $(function(){
 
 	
 	
-	//编辑分期拨款计划
+	//编辑分期注资计划
 	$("[data-btn='actual_aging']").on("click",function(){ 
 		var $self = $(this);
 		var _url = $self.attr("href");

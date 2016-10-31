@@ -146,7 +146,6 @@ function getProjectInfo(projectLoaded)
 		function(data){
 			if(data.result.status == "Error")
 			{
-				alert(data.result.message );
 				return;
 			}
 			var project = data.entity;
@@ -164,7 +163,6 @@ function getProjectInfo(projectLoaded)
 					if(id=='projectDescribe'){
 						var desc = project[id];
 						var text1=delHtmlTag(desc);
-					//	alert(text1.length)
 						if(desc && text1.length>100)
 						{
 							self.html(desc.substring(0,100)+'...');
@@ -182,7 +180,6 @@ function getProjectInfo(projectLoaded)
 				}
 				if(self.attr('id') =='projectName'){
 					var str=project[id];
-					//alert(str.length);
 					if(str.length>15){
 						self.text(str.substring(0,15));
 						self.attr("title",str);
@@ -194,7 +191,6 @@ function getProjectInfo(projectLoaded)
 				if(self.attr('id') =='projectCompany'){
 					var str=$.trim(project[id]);
 					//console.log(str)
-					//alert(str.length);
 					if(str == undefined || str == null || str ==''){
 						self.text('');
 					}else if(str.length>20){

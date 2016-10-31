@@ -49,8 +49,8 @@
                     <ul class="basic_ul">
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
-                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">&nbsp;外部投资</label></span>
-                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">&nbsp;内部创建</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">&nbsp;投资</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">&nbsp;创建</label></span>
                            <span id="projectTypeTip"  style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                             </span>
