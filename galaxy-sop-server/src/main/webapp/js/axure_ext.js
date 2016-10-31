@@ -232,7 +232,6 @@ $(function(){
 				/*if (_url.indexOf("?") != -1){
 					var index = _url.indexOf("?");
 					var str =_url.substring(index+1);
-					alert(str)
 					if (str =="type=1") {
 						showList();
 					} else {

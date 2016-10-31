@@ -55,7 +55,6 @@ function wanshancbf(data){
 /*			成员关系的下拉框不需要
  * 			var obj=$("#memberRelation option");
 			for(var i=0;i<obj.length;i++){
-				alert(obj[i].value+"----"+personPool['memberRelation']);
 				if(obj[i].value==personPool['memberRelation']){
 					obj[i].selected='selected' ;
 				}
@@ -83,7 +82,6 @@ function wanshancbf(data){
 				input.val(personLearn[input.attr("name")]);
 			});
 			$(td_personLearn[i]).attr("data-val",personLearn["id"]);			
-			/*alert(ma);*/			
 			var dege = personLearn['degree'];
 			var objg=$("#de"+i+" option");			
 			for(var j=0;j<objg.length;j++){				
@@ -284,34 +282,26 @@ function setValue(obj) {
 function setValue1(obj) {
     
 /*	 var ar = obj.value;
-	  alert(ar);
 	var text = document.getElementById("degree1"); $("input[name='degree']");
 	text.value = ar;
 		*/
 	 var ar = obj.value;
-	 /* alert("ar:"+ar);*/
 	var text = document.getElementById("degree1");
 	text.value = ar;
-	/*alert("1:"+text.value);*/
-	/*alert($("#degree1").val());*/
 }
 function setValue2(obj) {
     
 	 var ar = obj.value;
-	  /*alert(ar);*/
 	var text = document.getElementById("degree2");
 	text.value = ar;
 		
-	/*alert($("#degree2").val());*/
 }
 function setValue3(obj) {
     
 	 var ar = obj.value;
-	 /* alert(ar);*/
 	var text = document.getElementById("degree3");
 	text.value = ar;
 		
-	/*alert($("#degree3").val());*/
 }
 function setValue4(obj) {
     
@@ -415,7 +405,6 @@ $(".btnbox").on("click",".bluebtn",function(){
 	//var v=$();
 	/*data['personPool']['memberRelation'] = $("#memberRelation option:selected").val();*/
    //拿到选中项的值
-	/*alert($("#memberRelation option:selected").val())*/
 	if($("#levelStar").find("input[name='score']").val() != ''){
 		data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
 	}

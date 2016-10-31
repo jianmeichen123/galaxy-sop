@@ -25,7 +25,6 @@ function changeTab(url,data) {
 			$("#cur_tab").html(html);
 		},
 		error:function(){
-			alert("网络错误")
 		}	
 	})
 }*/

@@ -499,7 +499,6 @@ function revokePro(){
 function closeback(data,fuc){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
 		return;
 	}else{
 		layer.msg("该项目已关闭");

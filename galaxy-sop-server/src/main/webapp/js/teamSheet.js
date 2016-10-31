@@ -1,6 +1,5 @@
 	var dataGrid = {
 			load : function(projectId){
-				//alert("更新Grid");
 				var params = {
 						"projectId" : projectId
 				}
@@ -37,11 +36,9 @@
 				);	
 			},
 			empty : function(_tbody){
-				//alert("清空Grid");
 				_tbody.empty();
 			},
 			render : function(_tr,param){
-				//alert("渲染Grid");
 			},
 			initPanel : function(_item){
 				$("[data-tid='"+_item.id+"'][data-act='uploadFileBtn']").click(function(){
@@ -64,7 +61,6 @@
 					
 				});
 				$("[data-tid='"+_item.id+"'][data-act='uploadProveFileBtn']").click(function(){
-//					alert("上传签署协议");
 					//上传插件参数
 					var _formdata = {
 							_id : item.id,
@@ -81,7 +77,6 @@
 				
 				
 				$("[data-tid='"+_item.id+"'][data-act='downloadFileBtn']").click(function(){
-					alert("下载附件");
 				});
 				
 			}
@@ -96,7 +91,6 @@
 				$.popup({
 					txt : $("#uploadPanel").html(),
 					showback:function(){
-						//alert("弹出层初始化");
 						var _this = this;
 						win.fillData(_this,_formdata);
 						//plupload上传对象初始化
@@ -119,7 +113,6 @@
 								PostInit: function(){	
 									//上传按钮点击事件开始上传
 									$(_this.id).find("#win_uploadBtn").click(function(){
-										//alert("上传保存事件并关闭弹出框");
 										uploader.start();
 										return false;
 									})
@@ -157,16 +150,13 @@
 											dataGrid.load(_projectId);
 										}else{
 											layer.msg(_restmp.result.errorCode);
-//											alert(_restmp.result.errorCode);
 										}
 										
 									}else{
 										layer.msg("上传失败");
-//										alert("上传失败");
 									}
 								},
 								BeforeUpload:function(up){
-//									alert($(_this.id).find("#isProve").is(":checked"));
 									
 									var form = {
 											"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
