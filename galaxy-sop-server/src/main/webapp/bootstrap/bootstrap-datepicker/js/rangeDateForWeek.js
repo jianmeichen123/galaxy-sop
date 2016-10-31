@@ -147,13 +147,11 @@ function disableSpecificDates(date) {
 
 function setDateRange(ev,startOrEnd){
 	var now = new Date();
-	alert(now)
 	/***获取本周的日期**/
 	var nowYear = now.getFullYear();//当前年
 	var nowMonth = now.getMonth();//当前月
 	var nowDay = now.getDate();//当前日
 	var nowDayOfWeek = now.getDay();//今天本周的第几天
-	alert(nowDayOfWeek);
 	
     
     var current;
@@ -170,14 +168,11 @@ function setDateRange(ev,startOrEnd){
   //获得本周的开始日期
     var getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -1);
     var getWeekStartDate =  formatDate(getWeekStartDate);
-    alert("本周的开始日期:"+getWeekStartDate)
     //获得本周的结束日期
     var getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek-1));
     var getWeekEndDate =  formatDate(getWeekEndDate);
-    alert("本周的结束日期:"+getWeekEndDate)
 	if(startOrEnd == "INIT"){
 		current = formatDate(new Date());
-		alert("当前："+current)
 	}
   //ie8
    function getDays(strDateStart,strDateEnd){ 
@@ -190,12 +185,20 @@ function setDateRange(ev,startOrEnd){
 	   iDays = parseInt(Math.abs(strDateS - strDateE ) / (1000*24*3600)) 
 	   return iDays ; 
 	 }
-   alert(getDays(getWeekStartDate,current)) 
 	var start = new Date(getWeekStartDate).getTime();
 	var end = new Date(getWeekEndDate).getTime();
-	alert("开始："+start);
-	alert("结束："+end);
-    if(start < current && current < end){
+	if(getDays(getWeekStartDate,current)>0 && getDays(current,getWeekEndDate)){
+		//获得上周的开始日期
+	    var getUpWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
+	    var getUpWeekStartDate =  formatDate(getUpWeekStartDate);
+	    //获得上周的结束日期
+	    var getUpWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 7 -1));
+	    var getUpWeekEndDate =  formatDate(getUpWeekEndDate);
+	    endTime = getUpWeekEndDate;
+	    $(".weekStartDatepicker").val(getUpWeekStartDate);
+   	    $(".weekEndDatepicker").val(getUpWeekEndDate);
+	}
+   /* if(start < current && current < end){
     	alert("当前小于结束")
     	//获得上周的开始日期
 	    var getUpWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
@@ -206,7 +209,7 @@ function setDateRange(ev,startOrEnd){
 	    endTime = getUpWeekEndDate;
 	    $(".weekStartDatepicker").val(getUpWeekStartDate);
    	    $(".weekEndDatepicker").val(getUpWeekEndDate);
-    }else{
+    }*/else{
 		//获得本周的开始日期
 	    var getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -1);
 	    var getWeekStartDate =  formatDate(getWeekStartDate);
