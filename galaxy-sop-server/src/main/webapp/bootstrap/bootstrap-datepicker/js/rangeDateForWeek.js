@@ -189,9 +189,6 @@ function setDateRange(ev,startOrEnd){
 		 start = new Date(getWeekStartDate.replace(/-/g,"/")).getTime();
 		 end = new Date(getWeekEndDate.replace(/-/g,"/")).getTime();
 	} 
-	alert("start:"+start);
-	alert("end:"+end);
-	alert("current:"+current);
 	
     if(start < current && current < end){
     	//获得上周的开始日期
