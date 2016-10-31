@@ -183,11 +183,16 @@ function setDateRange(ev,startOrEnd){
 	}
 	var start = new Date(getWeekStartDate).getTime();
 	var end = new Date(getWeekEndDate).getTime();
+	
 	if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
 	{ 
-		 start = new Date(getWeekStartDate.replace(/-/g,"")).getTime();
-		 end = new Date(getWeekEndDate.replace(/-/g,"")).getTime();
+		 start = new Date(getWeekStartDate.replace(/-/g,"/")).getTime();
+		 end = new Date(getWeekEndDate.replace(/-/g,"/")).getTime();
 	} 
+	alert("start:"+start);
+	alert("end:"+end);
+	alert("current:"+current);
+	
     if(start < current && current < end){
     	//获得上周的开始日期
 	    var getUpWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
@@ -196,6 +201,7 @@ function setDateRange(ev,startOrEnd){
 	    var getUpWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 7 -1));
 	    var getUpWeekEndDate =  formatDate(getUpWeekEndDate);
 	    endTime = getUpWeekEndDate;
+	    alert("上周");
 	    $(".weekStartDatepicker").val(getUpWeekStartDate);
    	    $(".weekEndDatepicker").val(getUpWeekEndDate);
     }else{
@@ -206,7 +212,7 @@ function setDateRange(ev,startOrEnd){
 	    var getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek-1));
 	    var getWeekEndDate =  formatDate(getWeekEndDate);
 	     endTime = getWeekEndDate;
-	     
+	    alert("本周");
 	    if(nowDayOfWeek == 6){
 	    	//获得本周的开始日期
 		    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 7 -1);
