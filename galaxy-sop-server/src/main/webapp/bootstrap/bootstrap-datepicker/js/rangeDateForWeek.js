@@ -177,12 +177,14 @@ function setDateRange(ev,startOrEnd){
     alert("本周的结束日期:"+getWeekEndDate)
 	if(startOrEnd == "INIT"){
 		current = new Date();
+		alert("当前："+current)
 	}
-	var start = new Date(getWeekStartDate).getTime();
-	var end = new Date(getWeekEndDate).getTime();
+	var start = new Date(getWeekStartDate);
+	var end = new Date(getWeekEndDate);
 	alert("开始："+start);
 	alert("结束："+end);
     if(start < current && current < end){
+    	alert("当前小于结束")
     	//获得上周的开始日期
 	    var getUpWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
 	    var getUpWeekStartDate =  formatDate(getUpWeekStartDate);
