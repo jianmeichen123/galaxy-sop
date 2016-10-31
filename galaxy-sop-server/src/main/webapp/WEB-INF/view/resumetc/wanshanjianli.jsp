@@ -77,9 +77,7 @@ function SopTaskRenyuan(data){
 		var i=0;
 		$(list).each(function(){
 			 var temp = $(this)[0];
-			 //alert(temp.id);
 			 var personId = temp.id;
-			// alert(personId);
 			 i=i+1;
 			 var tr='<tr>'+
 				 '<td>'+ temp.personName+'</td>'+
@@ -120,7 +118,6 @@ function SopTaskRenyuan(data){
 		url: url+"?personId="+personId, 
 		data:"",//传递参数
 		okback:function(){
-		/* alert("进入完善简历页面"); */
 		$(".resumetc .tabtable").tabchange2();
 		}//模版反回成功执行	
 	}); 

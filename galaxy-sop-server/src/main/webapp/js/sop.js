@@ -343,7 +343,6 @@ function air(indexNum){
 							return;
 						}
 						if(viewDateStr == null ||  viewDateStr == ""){
-							alert("日期不能为空");
 							return false;
 						}
 						if(viewTarget == null ||  viewTarget == ""){
@@ -420,19 +419,15 @@ function startReview(){
 						var um = UM.getEditor("meeting_notes");
 						var meetingNotes = $.trim(um.getContent());
 						if(pid == null || pid == ""){
-							alert("项目不能为空");
 							return;
 						}
 						if(meetingDateStr == null ||  meetingDateStr == ""){
-							alert("日期不能为空");
 							return;
 						}
 						if(meetingType == null ||  meetingType == ""){
-							alert("会议类型不能为空");
 							return;
 						}
 						if(meetingResult == null ||  meetingResult == ""){
-							alert("结果不能为空");
 							return;
 						}
 						$.popupTwoClose(); 
@@ -603,22 +598,18 @@ function tzyxs(flag){
 				var	condition = {};
 				var pid = projectId;
 				if(pid == null || pid == ""){
-					alert("项目不能为空");
 					return;
 				}
 				var type = $("input[name='fileSource']:checked").val();
 				if(type == null || type == ""){
-					alert("档案来源不能为空");
 					return;
 				}
 				var fileType = $("#fileType").val();
 				if(fileType == null || fileType == ""){
-					alert("存储类型不能为空");
 					return;
 				}
 				var fileWorktype = $("#fileWorkType").val();
 				if(fileWorktype == null || fileWorktype == ""){
-					alert("业务分类不能为空");
 					return;
 				}
 				var voucherType = $("input[id='voucherType']:checked").val();
@@ -879,22 +870,18 @@ function uploadYwjd(){
 				var	condition = {};
 				var pid = projectId;
 				if(pid == null || pid == ""){
-					alert("项目不能为空");
 					return;
 				}
 				var type = $("input[name='fileSource']:checked").val();
 				if(type == null || type == ""){
-					alert("档案来源不能为空");
 					return;
 				}
 				var fileType = $("#fileType").val();
 				if(fileType == null || fileType == ""){
-					alert("存储类型不能为空");
 					return;
 				}
 				var fileWorktype = $("#fileWorkType").val();
 				if(fileWorktype == null || fileWorktype == ""){
-					alert("业务分类不能为空");
 					return;
 				}
 				condition.pid = pid;
@@ -1104,22 +1091,18 @@ function tzxy(st,projectType){
 				var	condition = {};
 				var pid = projectId;
 				if(pid == null || pid == ""){
-					alert("项目不能为空");
 					return;
 				}
 				var type = $("input[name='fileSource']:checked").val();
 				if(type == null || type == ""){
-					alert("档案来源不能为空");
 					return;
 				}
 				var fileType = $("#fileType").val();
 				if(fileType == null || fileType == ""){
-					alert("存储类型不能为空");
 					return;
 				}
 				var fileWorktype = $("#fileWorkType").val();
 				if(fileWorktype == null || fileWorktype == ""){
-					alert("业务分类不能为空");
 					return;
 				}
 				var voucherType = $("input[id='voucherType']:checked").val();
@@ -1192,22 +1175,18 @@ function selected(obj){
 				var	condition = {};
 				var pid = projectId;
 				if(pid == null || pid == ""){
-					alert("项目不能为空");
 					return;
 				}
 				var type = $("input[name='fileSource']:checked").val();
 				if(type == null || type == ""){
-					alert("档案来源不能为空");
 					return;
 				}
 				var fileType = $("#fileType").val();
 				if(fileType == null || fileType == ""){
-					alert("存储类型不能为空");
 					return;
 				}
 				var fileWorktype = $("#fileWorkType").val();
 				if(fileWorktype == null || fileWorktype == ""){
-					alert("业务分类不能为空");
 					return;
 				}
 				var voucherType = $("input[id='voucherType']:checked").val();
@@ -1404,7 +1383,6 @@ function showLogdetail(selectRowId){
 		okback:function(){
 		var um=UM.getEditor('viewNotes');
 		um.setContent(interviewSelectRow.viewNotes);
-		//alert(uid+"----"+interviewSelectRow.createdId);
 		$("#vid").val(selectRowId);
 		if(typeof(variable) !== 'undefined' && uid!=interviewSelectRow.createdId){
 			$("#interviewsave").hide();

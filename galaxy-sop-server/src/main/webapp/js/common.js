@@ -194,7 +194,6 @@ function sendPostRequest(reqUrl, callbackFun) {
 		},
 		async : false,
 		error : function(request) {
-			//alert("connetion error");
 		},
 		success : function(data) {
 			if(data){
@@ -266,10 +265,8 @@ DataStrore = {
 	storage : window.localStorage,
 	checkBrowerSupport : function() {
 		if (window.localStorage) {
-			alert('This browser supports localStorage');
 			return true;
 		} else {
-			alert('This browser does not support localStorage');
 			return false;
 		}
 	},
@@ -536,10 +533,8 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 						 {
 						    'addClass': 'loading-indicator'						
 						 });
-				//alert(JSON.stringify(getSaveCondition()));
 			},
 			Error: function(up, err) {
-				//alert("错误"+err);
 				layer.msg("上传格式等错误,请重新选择文件!");
 				$(_this.id).hideLoading();
 			}
@@ -1352,12 +1347,8 @@ var DateUtils = {
 		},
 		getTime : function(date){
 //			var dateCurson = date.split(' ');
-//			alert(dateCurson[0]);
-//			alert(dateCurson[1]);
 			if(typeof(date) == 'string'){
 				var dateCurson = date.split(' ');
-//				alert(dateCurson[0]);
-//				alert(dateCurson[1]);
 				var datePart = dateCurson[0].split('-');
 				var timePart = dateCurson[1].split(':');
 				return new Date(datePart[0],datePart[1]-1,datePart[2],timePart[0],timePart[1],timePart[2]).getTime();

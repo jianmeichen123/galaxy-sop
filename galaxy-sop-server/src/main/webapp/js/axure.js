@@ -654,7 +654,6 @@
 						_this.postionEve();
 					},
 					error:function(){
-						alert("网络错误")
 					}	
 				})
 			}
@@ -698,7 +697,6 @@
 						$("body").css("overflow-y","hidden");
 					},
 					error:function(){
-						alert("网络错误")
 					}	
 				})
 			}	
@@ -781,7 +779,6 @@
 							opts.okback();
 						},
 						error:function(){
-							alert("网络错误")
 						}	
 					})
 				}	
@@ -920,7 +917,6 @@
 							opts.okback();
 						},
 						error:function(){
-							alert("网络错误")
 						}	
 					})
 				}	
@@ -1071,7 +1067,6 @@
 				$(_this).html(html);
 			},
 			error:function(){
-				alert("网络错误")
 			}	
 		})
 	}

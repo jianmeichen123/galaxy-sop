@@ -49,7 +49,6 @@ $(function(){
 			        scrollTop: scroll_top
 			    }, 1000);   
 			var open=$(this).attr('data-name')
-			//alert(open)
 			$('.'+open+'_on').show();
 			$('.'+open+'_center').hide();
 			$('.bj_hui_on').show();
