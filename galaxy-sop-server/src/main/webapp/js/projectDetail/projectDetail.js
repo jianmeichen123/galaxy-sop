@@ -68,7 +68,7 @@ function initTabInterview(){
 	});
 }
 //会议纪要
-function initTabMeeting(projectId){
+function initTabMeeting(Id){
 	$.getTabHtml({
 		url : Constants.sopEndpointURL+"/galaxy/project/promeet/" + projectId
 	});
