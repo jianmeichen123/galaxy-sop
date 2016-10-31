@@ -130,7 +130,7 @@ function formatDate(date) {
     if(myweekday < 10){
         myweekday = "0" + myweekday;
     }
-    return (myyear+"-"+mymonth + "-" + myweekday);
+    return (myyear+","+mymonth + "," + myweekday);
 }
 
 function disableSpecificDates(date) { 
@@ -138,7 +138,7 @@ function disableSpecificDates(date) {
     var day = date.getDate(); 
     var year = date.getFullYear(); 
     for (i = 0; i < daysToDisable.length; i++) { 
-        if ($.inArray((month + 1) + '-' + day + '-' + year, daysToDisable) != -1) { 
+        if ($.inArray((month + 1) + ',' + day + ',' + year, daysToDisable) != -1) { 
             return [false]; 
         } 
     } 
@@ -158,7 +158,7 @@ function setDateRange(ev,startOrEnd){
     
     var current;
     if(startOrEnd != "INIT"){
-    	 var currentDate =ev.date.format("yyyy-MM-dd");
+    	 var currentDate =ev.date.format("yyyy,MM,dd");
     	 current = new Date(currentDate).getTime();
     	 //星期几
  		 now = UTCDate(ev.date.getFullYear(), ev.date.getMonth(), ev.date.getDate());
@@ -179,8 +179,23 @@ function setDateRange(ev,startOrEnd){
 		current = new Date();
 		alert("当前："+current)
 	}
-	var start = new Date(getWeekStartDate);
-	var end = new Date(getWeekEndDate);
+   /* getDays();
+  //ie8
+    function getDays(getWeekStartDate,current){ 
+    	var strSeparator = "-"; //日期分隔符 
+    	var oDate1; 
+    	var oDate2; 
+    	var iDays; 
+    	oDate1= getWeekStartDate.split(strSeparator); 
+    	oDate2= current.split(strSeparator); 
+    	var strDateS = new Date(oDate1[0], oDate1[1]-1, oDate1[2]); 
+    	var strDateE = new Date(oDate2[0], oDate2[1]-1, oDate2[2]); 
+    	iDays = parseInt(Math.abs(strDateS - strDateE ) / 1000 / 60 / 60 /24)//把相差的毫秒数转换为天数 
+    	alert("时间差"+iDays)
+    	return iDays ; 
+    	}*/
+	var start = new Date(getWeekStartDate).getTime();
+	var end = new Date(getWeekEndDate).getTime();
 	alert("开始："+start);
 	alert("结束："+end);
     if(start < current && current < end){
