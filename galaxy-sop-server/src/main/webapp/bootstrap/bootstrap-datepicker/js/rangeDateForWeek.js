@@ -221,14 +221,26 @@ function setDateRange(ev,startOrEnd){
 	 		 end = new Date(getWeekEndDate.replace(/-/g,"/")).getTime();
 	 	} 
 	     if(nowDayOfWeek == 6){
+	    	
+	    	 
 		    	if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
 		    	{ 
-		    		//获得本周的开始日期
-				    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
-				    getWeekStartDate =  formatDate(getWeekStartDate);
-				    //获得本周的结束日期
-				    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek -7 -1));
-				    getWeekEndDate =  formatDate(getWeekEndDate);
+		    		 if(startOrEnd == "INIT"){
+		    			//获得本周的开始日期
+						    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek +7 -1);
+						    getWeekStartDate =  formatDate(getWeekStartDate);
+						    //获得本周的结束日期
+						    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek +7 -1));
+						    getWeekEndDate =  formatDate(getWeekEndDate);
+			    		}else{
+			    			//获得本周的开始日期
+						    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
+						    getWeekStartDate =  formatDate(getWeekStartDate);
+						    //获得本周的结束日期
+						    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek -7 -1));
+						    getWeekEndDate =  formatDate(getWeekEndDate);
+			    		}
+		    	
 		    	}else{
 		    		//获得本周的开始日期
 				    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 7 -1);
