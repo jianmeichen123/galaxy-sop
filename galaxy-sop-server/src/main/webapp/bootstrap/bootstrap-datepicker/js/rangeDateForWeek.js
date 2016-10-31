@@ -147,12 +147,13 @@ function disableSpecificDates(date) {
 
 function setDateRange(ev,startOrEnd){
 	var now = new Date();
+	alert(now)
 	/***获取本周的日期**/
 	var nowYear = now.getFullYear();//当前年
 	var nowMonth = now.getMonth();//当前月
 	var nowDay = now.getDate();//当前日
 	var nowDayOfWeek = now.getDay();//今天本周的第几天
-	
+	alert(nowDayOfWeek);
 	
     
     var current;
@@ -169,16 +170,18 @@ function setDateRange(ev,startOrEnd){
   //获得本周的开始日期
     var getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -1);
     var getWeekStartDate =  formatDate(getWeekStartDate);
+    alert("本周的开始日期:"+getWeekStartDate)
     //获得本周的结束日期
     var getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek-1));
     var getWeekEndDate =  formatDate(getWeekEndDate);
-    
+    alert("本周的结束日期:"+getWeekEndDate)
 	if(startOrEnd == "INIT"){
 		current = new Date();
 	}
 	var start = new Date(getWeekStartDate).getTime();
 	var end = new Date(getWeekEndDate).getTime();
-	
+	alert("开始："+start);
+	alert("结束："+end);
     if(start < current && current < end){
     	//获得上周的开始日期
 	    var getUpWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
