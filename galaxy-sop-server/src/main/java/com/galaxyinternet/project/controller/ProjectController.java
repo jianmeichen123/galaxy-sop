@@ -170,6 +170,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	
 	/**
+	 * 跳转到添加项目页面
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProject", method = RequestMethod.GET)
+	public String addProject(HttpServletRequest request) {
+		return "project/v_addProject";
+	}
+	
+	
+	
+	/**
 	 * 项目列表查询
 	 * @version 2016-06-21
 	 * @author yangshuhua
