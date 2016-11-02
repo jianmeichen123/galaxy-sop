@@ -76,6 +76,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
     </div>
     
     
+    <!-- 展开背景-->
+    <div class="wrap_right_bg" style="display:none;position:fixed;width:325px;background:#e9ebf2;padding:0 0 0 5px;height:100%;top:0;right:0;box-shadow:-5px 0px 3px #ddd">
+    	<div class="big_con_bg" style="background-color:#fff;height:100%"></div>
+    </div>
     <!-- 展开 -->
     <div class="rit big">
       <div class="bico"></div>

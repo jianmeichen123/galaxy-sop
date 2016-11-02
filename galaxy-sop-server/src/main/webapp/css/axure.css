@@ -520,7 +520,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
    		}  
 
 /*页面框架---------------------*/
-.pagebox{ min-width:1260px; margin:0 auto; padding:0 0 10px}
+.pagebox{ min-width:1260px; margin:0 auto;}
 /*左侧导航*/
 /* .pagebox .lft{ float:left; width:9.375%; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
 .pagebox .lft li{ float:left; width:100%; min-height:48px;}
