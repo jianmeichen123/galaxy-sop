@@ -12,11 +12,29 @@ public class Project {
 	
 	@Id
 	private String id;
+	/*唯一编码*/
+	private String uuid;
+	/*项目的创建人ID*/
+	private Long uid;
+	/*项目的状态*/
+	private int status;
+	/*项目名称*/
 	private String pn;
+	/*项目关联的股权结构*/
 	private List<ProjectShares> psc;
+	
 	
 	public String getId() {
 		return id;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public Long getUid() {
+		return uid;
+	}
+	public int getStatus() {
+		return status;
 	}
 	public String getPn() {
 		return pn;
@@ -26,6 +44,15 @@ public class Project {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public void setUid(Long uid) {
+		this.uid = uid;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	public void setPn(String pn) {
 		this.pn = pn;
