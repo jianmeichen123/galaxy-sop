@@ -969,10 +969,13 @@ var platformUrl = {
 	/**
 	 * 报表格式选择对话框
 	 */
-	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix"
+	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix",
+	/**
+	 * 添加融资历史
+	 */
+	addFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/addFinanceHistory"
 
 	
-
 }
 
 /**

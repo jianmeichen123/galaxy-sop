@@ -121,7 +121,7 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">融资历史</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button class="blue fr add_history" href="tchtml/historytc.html" data-btn="add_history" data-name="融资历史" >添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     	<tr>
@@ -559,3 +559,21 @@ $('[data-btn="pre"]').click(function(){
 <script src="<%=path%>/js/v_add_project_4.js"></script>
 </body>
 </html>
+<script>
+
+
+$("[data-btn='add_history']").on("click",function(){ 
+	var $self = $(this);
+	var _url =platformUrl.addFinanceHistory;
+	var _name= $self.attr("data-name");
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$("#popup_name").html(_name);
+		}//模版反回成功执行	
+	});
+	return false;
+});
+
+</script>

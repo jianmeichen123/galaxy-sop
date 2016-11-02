@@ -167,7 +167,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
 	}
-	
+	//##########################版本V2.3.111开始##########################
 	
 	/**
 	 * 跳转到添加项目页面
@@ -178,9 +178,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String addProject(HttpServletRequest request) {
 		return "project/v_addProject";
 	}
+	/**
+	 * 跳转到添加投资历史信息页面
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addFinanceHistory", method = RequestMethod.GET)
+	public String addFinanceHistory(HttpServletRequest request) {
+		return "project/v_addFinanceHistory";
+	}
 	
 	
 	
+	//##########################版本V2.3.111结束##########################
 	/**
 	 * 项目列表查询
 	 * @version 2016-06-21

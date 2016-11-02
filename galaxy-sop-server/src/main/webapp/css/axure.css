@@ -2286,4 +2286,23 @@ margin: 45px auto 30px;}
 .man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;display: none;padding-top: 16px;position:absolute;}
 .man_info ul li{height:54px;line-height: 54px;}
 .header .usermsg .man_info ul a{color:#666;text-align: center;display: block;width: 100%;line-height: 50px;}
-.header .usermsg .man_info ul a:hover{color:#529be2;text-decoration: none;};
+.header .usermsg .man_info ul a:hover{color:#529be2;text-decoration: none;}
+/* 融资历史弹窗 */
+.historytc dl{margin-bottom: 10px;padding-left: 100px;}
+.historytc dt{width:138px;text-align: right;}
+.historytc input.txt{width:150px;}
+/* 添加团队成员 */
+.addPersontc{width:650px;}
+.addPerson_all{margin:50px auto 30px;height:350px;overflow-y:auto; }
+.qualifications_all{margin:50px auto 30px;}
+.addPerson_all h3{font-size: 14px;line-height:28px;margin-bottom:10px;font-family: "微软雅黑";border-bottom:1px solid #dadfe3;font-weight: normal;color:#2d3342;}
+.addPersontc dt,.qualificationstc dt,.stocktc dt{width:110px;text-align: right;}
+.addPersontc dl{width:50%;margin-bottom: 10px;}
+.addPersontc dd .txt{width: 130px;}
+.addPersontc dd textarea{width:458px;height:50px;}
+.addPersontc .block{width:100%;}
+.qualifications{position: relative;min-height: 125px;}
+.qualifications .add{position: absolute;top: 8px;right: 10px;cursor:pointer;font-size: 12px;font-family: "宋体"}
+.qualificationstc,.stocktc{width:500px;}
+.qualificationstc dl,.stocktc dl{margin-bottom: 10px;}
+.stocktc dd textarea{width:300px;height:50px;}
