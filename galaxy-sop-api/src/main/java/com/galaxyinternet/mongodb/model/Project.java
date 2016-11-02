@@ -1,4 +1,4 @@
-package com.galaxyinternet.model.mongodb;
+package com.galaxyinternet.mongodb.model;
 
 import java.util.List;
 

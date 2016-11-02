@@ -1,38 +1,51 @@
 package com.galaxyinternet.test.service.mongo;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.galaxyinternet.framework.core.exception.MongoDBException;
-import com.galaxyinternet.test.service.mongo.impl.ProjectMongoDBDaoImpl;
+import com.galaxyinternet.framework.core.utils.UUIDUtils;
+import com.galaxyinternet.model.project.ProjectShares;
+import com.galaxyinternet.mongodb.model.Project;
+import com.galaxyinternet.mongodb.service.ProjectService;
+
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:spring/server_ctx.xml")
 public class MongoServiceTest {
 	
+	private static final Logger loggger = LoggerFactory.getLogger(MongoServiceTest.class);
+	
 	@Autowired
-	private ProjectMongoDBDaoImpl projectMongoDBDaoImpl;
+	private ProjectService projectService;
+	
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void test(){
-	
-			/*ProjectMongoDB pd = new ProjectMongoDB();
-			pd.setId(1342L);
-			pd.setDirection("3546576");
-			pd.setProjectName("测试");
-			projectMongoDBDaoImpl.save(pd);*/
-			//List<ProjectMongoDB>  list = projectMongoDBDaoImpl.find(pd);
-			//System.out.println("999999999999999999999:"+list);
-		
-		System.out.println(projectMongoDBDaoImpl);
-		
-		
+		try {
+			Project project = new Project();
+			project.setPn("aaaaaaaaa");
+			project.setStatus(1);
+			project.setUid(100L);
+			project.setUuid(UUIDUtils.create().toString());
+			List<ProjectShares> list = new ArrayList<ProjectShares>(2);
+			ProjectShares ps = new ProjectShares();
+			ps.setSharesType("ssss");
+			list.add(ps);
+			project.setPsc(list);
+			projectService.save(project);
+		} catch (MongoDBException e) {
+			loggger.error(e.toString());
+		}
 	}
 }
