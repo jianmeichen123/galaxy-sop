@@ -10,6 +10,21 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!-- 通用样式 -->
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!-- 校验 -->
+<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
+<!-- 富文本编辑器 -->
+<link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
