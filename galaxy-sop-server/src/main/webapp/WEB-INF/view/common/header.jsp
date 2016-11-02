@@ -177,9 +177,10 @@ $(function(){
     $(".sico").css({"top":(w_h-s_h)/2-80,"left":"-16px"});
     $(".bico").css({"top":(w_h-s_h)/2-30,"right":"330px"});
     if(w_h>226*rit_h){
-    	$(".pagebox .big").css({"height":w_h})
+    	//$(".pagebox .big").css({"height":w_h-50})
+    	$(".pagebox .big").css({"position":"fixed","top":"50px","right":"0","margin-top":"0","height":"100%"})
     }else{
-    	$(".pagebox .big").css("height",226*rit_h)
+    	$(".pagebox .big").css("height",226*rit_h+20)
     }
     
     //获取当前日期
@@ -211,12 +212,14 @@ $(function(){
       $(".small").hide();
       $(".big").show();
       disposedWidth();
+      $(".wrap_right_bg").show();
       //getScript();
     });
     $(".bico").click(function(){
       $(".small").show();
       $(".big").hide();
       disposedWidth();
+      $(".wrap_right_bg").hide();
       //getScript();
     })
     //下拉框
