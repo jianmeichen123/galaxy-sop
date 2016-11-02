@@ -38,11 +38,11 @@ public class MongoServiceTest {
 			project.setStatus(1);
 			project.setUid(100L);
 			project.setUuid(UUIDUtils.create().toString());
-			List<ProjectShares> list = new ArrayList<ProjectShares>(2);
+			/*List<ProjectShares> list = new ArrayList<ProjectShares>(2);
 			ProjectShares ps = new ProjectShares();
 			ps.setSharesType("ssss");
 			list.add(ps);
-			project.setPsc(list);
+			project.setPsc(list);*/
 			projectService.save(project);
 		} catch (MongoDBException e) {
 			loggger.error(e.toString());

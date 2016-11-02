@@ -72,15 +72,8 @@ function add(){
 		return;
 	}
 	var nowFormData = $("#add_form").serializeObject();
-	if(formData != nowFormData){
-		//获取TOKEN 用于验证表单提交
-		sendPostRequest(platformUrl.getToken,function(data){
-			TOKEN=data.TOKEN;
-			return TOKEN;
-		});
-	}
 	//if(beforeSubmit()){
-		sendPostRequestBySignJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
+	sendPostRequestByJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
 			if(!data){
 				layer.msg("提交表单过于频繁!");
 			}else if(data.result.status=="ERROR"){
@@ -96,7 +89,7 @@ function add(){
 				forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 			}
 			
-		},TOKEN);
+		});
 	//}
 }
 function calculationValuations(){

@@ -26,6 +26,25 @@ public class Project {
 	/*团队成员的学习经历*/
 	private List<PersonLearn> plc;
 	
+	private String projectType;
+	private String projectName;
+	private String createDate;
+	private Long industryOwn;
+	private String financeStatus;
+	
+	private Integer faFlag;
+	private String faName;
+	
+	private String remark;
+	
+	private String formatContribution;
+	
+	private String formatValuations;
+	
+	private String formatShareRatio;
+	
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -68,4 +87,72 @@ public class Project {
 	public void setPlc(List<PersonLearn> plc) {
 		this.plc = plc;
 	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	public Long getIndustryOwn() {
+		return industryOwn;
+	}
+	public void setIndustryOwn(Long industryOwn) {
+		this.industryOwn = industryOwn;
+	}
+	public String getFinanceStatus() {
+		return financeStatus;
+	}
+	public void setFinanceStatus(String financeStatus) {
+		this.financeStatus = financeStatus;
+	}
+	public Integer getFaFlag() {
+		return faFlag;
+	}
+	public void setFaFlag(Integer faFlag) {
+		this.faFlag = faFlag;
+	}
+	public String getFaName() {
+		return faName;
+	}
+	public void setFaName(String faName) {
+		this.faName = faName;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getFormatContribution() {
+		return formatContribution;
+	}
+	public void setFormatContribution(String formatContribution) {
+		this.formatContribution = formatContribution;
+	}
+	public String getFormatValuations() {
+		return formatValuations;
+	}
+	public void setFormatValuations(String formatValuations) {
+		this.formatValuations = formatValuations;
+	}
+	public String getFormatShareRatio() {
+		return formatShareRatio;
+	}
+	public void setFormatShareRatio(String formatShareRatio) {
+		this.formatShareRatio = formatShareRatio;
+	}
+	public String getProjectType() {
+		return projectType;
+	}
+	public void setProjectType(String projectType) {
+		this.projectType = projectType;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	
+	
 }

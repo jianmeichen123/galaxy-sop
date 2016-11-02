@@ -61,6 +61,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
+import com.galaxyinternet.framework.core.utils.UUIDUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
@@ -250,6 +251,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (MongoDBException e) {
 			_common_logger_.error(user.getId() + ":" + user.getRealName() + " to save person learning get an exception", e);
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 新建项目接口
+	 * @version 2016-06-21
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/apDB", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> apDB(@RequestBody com.galaxyinternet.mongodb.model.Project project,
+			HttpServletRequest request) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		try {
+			project.setUuid(UUIDUtils.create().toString());
+			mongoProjectService.save(project);
+		} catch (Exception e) {
+			_common_logger_.error("异常信息:",e.getMessage());
 		}
 		return responseBody;
 	}
