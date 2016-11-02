@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.project.ProjectShares;
 
 @Document(collection="galaxy.sop.project")
@@ -22,7 +23,8 @@ public class Project {
 	private String pn;
 	/*项目关联的股权结构*/
 	private List<ProjectShares> psc;
-	
+	/*团队成员的学习经历*/
+	private List<PersonLearn> plc;
 	
 	public String getId() {
 		return id;
@@ -59,5 +61,11 @@ public class Project {
 	}
 	public void setPsc(List<ProjectShares> psc) {
 		this.psc = psc;
+	}
+	public List<PersonLearn> getPlc() {
+		return plc;
+	}
+	public void setPlc(List<PersonLearn> plc) {
+		this.plc = plc;
 	}
 }

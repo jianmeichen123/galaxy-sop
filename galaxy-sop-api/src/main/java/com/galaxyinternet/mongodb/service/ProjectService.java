@@ -9,8 +9,12 @@ public interface ProjectService {
 	
 	public void save(Project project) throws MongoDBException;
 	
+	public void updateById(String id, Project t) throws MongoDBException;
+	
 	public List<Project> find(Project project) throws MongoDBException;
 	
 	public Project findOne(Project project) throws MongoDBException;
+	
+	public Project findById(String id) throws MongoDBException;
 
 }

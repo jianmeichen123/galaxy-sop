@@ -19,7 +19,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public void save(Project project) throws MongoDBException {
 		projectDao.save(project);
 	}
-
+	
+	@Override
+	public void updateById(String id, Project t) throws MongoDBException {
+		projectDao.updateById(id, t);
+	}
+	
 	@Override
 	public List<Project> find(Project project) throws MongoDBException {
 		return projectDao.find(project);
@@ -28,6 +33,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public Project findOne(Project project) throws MongoDBException {
 		return projectDao.findOne(project);
+	}
+
+	@Override
+	public Project findById(String id) throws MongoDBException {
+		return projectDao.findOneById(id);
 	}
 
 }

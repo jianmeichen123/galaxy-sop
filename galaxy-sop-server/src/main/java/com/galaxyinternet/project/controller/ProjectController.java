@@ -46,6 +46,7 @@ import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.form.Token;
@@ -65,6 +66,7 @@ import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
@@ -146,6 +148,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private SopTaskService sopTaskService;
 	
+	@Autowired
+	private com.galaxyinternet.mongodb.service.ProjectService mongoProjectService;
+	
 	@Resource(name ="utilsService")
 	private UtilsService utilsService;
 	
@@ -178,14 +183,75 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String addProject(HttpServletRequest request) {
 		return "project/v_addProject";
 	}
+	
 	/**
-	 * 跳转到添加投资历史信息页面
+	 * 添加团队成员弹出层
 	 * @version v
 	 * @return
 	 */
-	@RequestMapping(value = "/addFinanceHistory", method = RequestMethod.GET)
-	public String addFinanceHistory(HttpServletRequest request) {
-		return "project/v_addFinanceHistory";
+	@RequestMapping(value = "/addProjectPerson", method = RequestMethod.GET)
+	public String addProjectPerson(HttpServletRequest request) {
+		return "project/v_project_person";
+	}
+	
+	/**
+	 * 添加团队成员-学习经历弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addPersonLearning", method = RequestMethod.GET)
+	public String addPersonLearning(HttpServletRequest request) {
+		return "project/v_person_learning";
+	}
+	
+	/**
+	 * 添加团队成员-工作经历弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addPersonWork", method = RequestMethod.GET)
+	public String addPersonWork(HttpServletRequest request) {
+		return "project/v_person_work";
+	}
+	
+	/**
+	 * 添加股权结构弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProjectShares", method = RequestMethod.GET)
+	public String addProjectShares(HttpServletRequest request) {
+		return "project/v_project_shares";
+	}
+	
+	/**
+	 * 添加股权结构弹出层
+	 * @version v
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/savePersonLearning/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> savePersonLearning(@PathVariable("id") String id, 
+			@RequestBody PersonLearn personLearn,
+			HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		if(id == null || "".equals(id.trim()) || personLearn == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			personLearn.setCreatedTime(System.currentTimeMillis());
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			project.getPlc().add(personLearn);
+			mongoProjectService.updateById(id, project);
+			_common_logger_.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
+			responseBody.setResult(new Result(Status.OK, "ok" , "添加学习经历成功!"));
+		} catch (MongoDBException e) {
+			_common_logger_.error(user.getId() + ":" + user.getRealName() + " to save person learning get an exception", e);
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
 	}
 	
 	
