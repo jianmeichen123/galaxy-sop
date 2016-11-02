@@ -87,7 +87,7 @@
                         <li>
                         	<span class="basic_span">备注：</span>
                             <span>
-                            	<textarea class="new_nputr text" maxlength="50" placeholder="最多输入50字"></textarea>
+                            	<textarea class="new_nputr text" name="remark" maxlength="50" placeholder="最多输入50字"></textarea>
                         	</span>
                         </li>
                     </ul>  
@@ -148,7 +148,7 @@
                     </table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                        <span class="pubbtn bluebtn fl"  data-btn="next">下一步</span>
+	                        <span class="pubbtn bluebtn fl"  data-btn="next" >下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">1</label>/<label>4</label>
 	                        </div>
@@ -545,6 +545,13 @@ createMenus(5);
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
+	if(num==0){
+		var result=add();
+		if(!result){
+			alert("参数圈");
+			return;
+		}
+	}
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){

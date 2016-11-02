@@ -27,10 +27,6 @@ var platformUrl = {
 	 */
 	getProjectCode : Constants.sopEndpointURL + "/galaxy/project/cpc",
 	/**
-	 * 添加项目
-	 */
-	addProject : Constants.sopEndpointURL + "/galaxy/project/ap",
-	/**
 	 * 关闭项目
 	 */
 	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro",
@@ -970,12 +966,19 @@ var platformUrl = {
 	 * 报表格式选择对话框
 	 */
 	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix",
+	
+	//###############################版v2.3.111开始##################################
 	/**
 	 * 添加融资历史
 	 */
-	addFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/addFinanceHistory"
-
+	addFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/addFinanceHistory",
 	
+	/**
+	 * 添加项目到草稿箱
+	 */
+	addProject : Constants.sopEndpointURL + "/galaxy/project/apDB"
+	
+	//###############################版v2.3.111结束##################################
 }
 
 /**
