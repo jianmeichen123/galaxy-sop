@@ -1,159 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-	说明：
-	1、日志级别及文件
-		日志记录采用分级记录，级别与日志文件名相对应，不同级别的日志信息记录到不同的日志文件中
-		例如：error级别记录到log_error_xxx.log或log_error.log（该文件为当前记录的日志文件），而log_error_xxx.log为归档日志，
-		日志文件按日期记录，同一天内，若日志文件大小等于或大于2M，则按0、1、2...顺序分别命名
-		例如log-level-2013-12-21.0.log
-		其它级别的日志也是如此。
-	2、文件路径
-		若开发、测试用，在Eclipse中运行项目，则到Eclipse的安装路径查找logs文件夹，以相对路径../logs。
-		若部署到Tomcat下，则在Tomcat下的logs文件中
-	3、Appender
-		FILEERROR对应error级别，文件名以log-error-xxx.log形式命名
-		FILEWARN对应warn级别，文件名以log-warn-xxx.log形式命名
-		FILEINFO对应info级别，文件名以log-info-xxx.log形式命名
-		FILEDEBUG对应debug级别，文件名以log-debug-xxx.log形式命名
-		stdout将日志信息输出到控制上，为方便开发测试使用
- -->
 <configuration>
+	<!-- 设置logback配置变量名及对应的值 -->
+	<property name="PROJECT_NAME" value="sop" />
+	<property name="LOG_PATH" value="${log4j.path}" />
 
-       <!-- 在Eclipse中运行，请到Eclipse的安装目录中找log文件，Tomcat下，请到Tomcat目录下找 -->
-       <property name="PROJECT_NAME" value="sop" />
-       <property name="LOG_PATH" value="${log4j.path}" />
-       
-       <!-- 发送邮件配置 -->
-       <property name="smtpHost" value="smtp.qq.com" />  
-	   <property name="smtpPort" value="587" />  
-	   <property name="username" value="439655771" />  
-	   <property name="password" value="sop000000" />  
-	   <property name="SSL" value="true" />  
-	   <property name="email_to" value="jianmeichen@galaxyinternet.com" />  
-	   <property name="email_from" value="439655771@qq.com" />  
-	   <property name="email_subject" value="【Error】: %logger" />
-       
-         <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
-       <!-- 日志记录器，日期滚动记录 -->
-       <appender name="FILEERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-              <!-- 正在记录的日志文件的路径及文件名 -->
-              <file>${log4j.path}/logs/error/${PROJECT_NAME}-error.log</file>
-              <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
-              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                     <!-- 归档的日志文件的路径，例如今天是2013-12-21日志，当前写的日志文件路径为file节点指定，可以将此文件与file指定文件路径设置为不同路径，从而将当前日志文件或归档日志文件置不同的目录。
-                                                                              而2013-12-21的日志文件在由fileNamePattern指定。%d{yyyy-MM-dd}指定日期格式，%i指定索引 -->
-                     <fileNamePattern>${log4j.path}/backuplogs/error/${PROJECT_NAME}-error_%d{yyyy-MM-dd}.%d{hhmmss}.log</fileNamePattern>
-                     <!-- 除按日志记录之外，还配置了日志文件不能超过2M，若超过2M，日志文件会以索引0开始，
-                                                                              命名日志文件，例如log-error-2013-12-21.0.log -->
-                     <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                            <maxFileSize>20MB</maxFileSize>
-                     </timeBasedFileNamingAndTriggeringPolicy>
-              </rollingPolicy>
-              <!-- 追加方式记录日志 -->
-              <append>true</append>
-              <!-- 日志文件的格式 -->
-               <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                     <pattern>%-5p [%d] %C:%L - %m %n</pattern>
-                     <charset>utf-8</charset>
-              </encoder>
-              
-              <!-- 此日志文件只记录error级别的 -->
-              <filter class="ch.qos.logback.classic.filter.LevelFilter">
-                     <level>error</level>
-                     <onMatch>ACCEPT</onMatch>
-                     <onMismatch>DENY</onMismatch>
-              </filter>
-       </appender>
+	<!-- 错误信息发送邮件 -->
+	<!-- <property name="smtpHost" value="smtp.qq.com" />
+	<property name="smtpPort" value="587" />
+	<property name="username" value="371408447" />
+	<property name="password" value="********" />
+	<property name="SSL" value="true" />
+	<property name="email_to" value="yaxinliu@galaxyinternet.com" />
+	<property name="email_from" value="371408447@qq.com" />
+	<property name="email_subject" value="【Error】: %logger" />
+	<appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+		<smtpHost>${smtpHost}</smtpHost>
+		<smtpPort>${smtpPort}</smtpPort>
+		<username>${username}</username>
+		<password>${password}</password>
+		<SSL>${SSL}</SSL>
+		<asynchronousSending>false</asynchronousSending>
+		<to>${email_to}</to>
+		<from>${email_from}</from>
+		<subject>${email_subject}</subject>
+		<layout class="ch.qos.logback.classic.html.HTMLLayout">
+			<pattern>%date%level%thread%logger{0}%line%message</pattern>
+		</layout>
+	</appender> -->
 
-       <appender name="FILEWARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
-              <file>${log4j.path}/logs/warn/${PROJECT_NAME}-warn.log</file>
-              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                     <fileNamePattern>${log4j.path}/backuplogs/warn/${PROJECT_NAME}-warn_%d{yyyy-MM-dd}.%d{hhmmss}.log</fileNamePattern>
-                     <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                            <maxFileSize>20MB</maxFileSize>
-                     </timeBasedFileNamingAndTriggeringPolicy>
-              </rollingPolicy>
-              <append>true</append>
-              <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                     <pattern>%date [%thread] %-5level %logger{50} - %msg%n</pattern>
-                     <charset>utf-8</charset>
-              </encoder>
-              <!-- 此日志文件只记录warn级别，不记录大于warn级别的日志 -->
-              <filter class="ch.qos.logback.classic.filter.LevelFilter">
-                     <level>WARN</level>
-                     <onMatch>ACCEPT</onMatch>
-                     <onMismatch>DENY</onMismatch>
-              </filter>
-       </appender>
 
-       <appender name="FILEINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-              <file>${log4j.path}/logs/info/${PROJECT_NAME}-info.log</file>
-              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                     <fileNamePattern>${log4j.path}/backuplogs/info/${PROJECT_NAME}-info_%d{yyyy-MM-dd}.%d{hhmmss}.log</fileNamePattern>
-                     <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                            <maxFileSize>20MB</maxFileSize>
-                     </timeBasedFileNamingAndTriggeringPolicy>
-              </rollingPolicy>
-              <append>true</append>
-               <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                     <pattern>%date [%thread] %-5level %logger{50} - %msg%n</pattern>
-                     <charset>utf-8</charset>
-              </encoder>
-              <!-- 此日志文件只记录info级别，不记录大于info级别的日志 -->
-              <filter class="ch.qos.logback.classic.filter.LevelFilter">
-                     <level>INFO</level>
-                     <onMatch>ACCEPT</onMatch>
-                     <onMismatch>DENY</onMismatch>
-              </filter>
-       </appender>
+	<appender name="FILEERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 正在记录的日志文件的路径及文件名 -->
+		<file>${log4j.path}/logs/error/${PROJECT_NAME}-error.log</file>
+		<!-- 日志记录器的滚动策略，按日期，按大小记录 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 归档的日志文件的路径及格式 -->
+			<fileNamePattern>
+				${log4j.path}/backuplogs/error/${PROJECT_NAME}-error_%d{yyyy-MM-dd}.%d{hhmmss}.log
+			</fileNamePattern>
+			<!-- 除按日志记录之外，还配置了日志文件不能超过2M，若超过2M，日志文件会以索引0开始， 命名日志文件，例如log-error-2013-12-21.0.log -->
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+		<!-- 日志文件的格式 -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%-5p [%d] %C:%L - %m %n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
 
-       <appender name="FILEDEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-              <file>${log4j.path}/logs/debug/${PROJECT_NAME}-debug.log</file>
-              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                     <fileNamePattern>${log4j.path}/backuplogs/debug/${PROJECT_NAME}-debug_%d{yyyy-MM-dd}.%d{hhmmss}.log</fileNamePattern>
-                     <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                            <maxFileSize>20MB</maxFileSize>
-                     </timeBasedFileNamingAndTriggeringPolicy>
-              </rollingPolicy>
-              <append>true</append>
-               <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-                     <pattern>%date [%thread] %-5level %logger{50} - %msg%n</pattern>
-                     <charset>utf-8</charset>
-              </encoder>
-              
-              <!-- 此日志文件只记录debug级别，不记录大于debug级别的日志 -->
-              <filter class="ch.qos.logback.classic.filter.LevelFilter">
-                     <level>DEBUG</level>
-                     <onMatch>ACCEPT</onMatch>
-                     <onMismatch>DENY</onMismatch>
-              </filter>
-       </appender>
-      
-     <!-- 错误信息发送邮件 
-     <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
-        <smtpHost>${smtpHost}</smtpHost>  
-        <smtpPort>${smtpPort}</smtpPort>  
-        <username>${username}</username>  
-        <password>${password}</password>  
-        <SSL>${SSL}</SSL>  
-        <asynchronousSending>false</asynchronousSending>  
-        <to>${email_to}</to>  
-        <from>${email_from}</from>  
-        <subject>${email_subject}</subject>  
-        <layout class="ch.qos.logback.classic.html.HTMLLayout" >  
-            <pattern>%date%level%thread%logger{0}%line%message</pattern>  
-        </layout>
-	</appender>-->
+		<!-- 此日志文件只记录error级别的 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>error</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="FILEWARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log4j.path}/logs/warn/${PROJECT_NAME}-warn.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>
+				${log4j.path}/backuplogs/warn/${PROJECT_NAME}-warn_%d{yyyy-MM-dd}.%d{hhmmss}.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread] %-5level %logger{50} - %msg%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="FILEINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log4j.path}/logs/info/${PROJECT_NAME}-info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>
+				${log4j.path}/backuplogs/info/${PROJECT_NAME}-info_%d{yyyy-MM-dd}.%d{hhmmss}.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread] %-5level %logger{50} - %msg%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="FILEDEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log4j.path}/logs/debug/${PROJECT_NAME}-debug.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>
+				${log4j.path}/backuplogs/debug/${PROJECT_NAME}-debug_%d{yyyy-MM-dd}.%d{hhmmss}.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%date [%thread] %-5level %logger{50} - %msg%n</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
 	
-    <!-- 统计sql文件 -->
-	<appender name="LOG_SQL"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
+	
+	<!-- 打印到控制台 -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+
+	<!-- 统计sql文件 -->
+	<appender name="LOG_SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<File>${log4j.path}/logs/info/${PROJECT_NAME}-sql.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${log4j.path}/backuplogs/info/${PROJECT_NAME}-sql_%d{yyyy-MM-dd}.%d{hhmmss}.log
+			<fileNamePattern>
+				${log4j.path}/backuplogs/info/${PROJECT_NAME}-sql_%d{yyyy-MM-dd}.%d{hhmmss}.log
 			</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>100MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
@@ -162,33 +151,17 @@
 			<pattern>%date [%thread] %-5level %logger{50} - %msg%n</pattern>
 			<charset>utf-8</charset>
 		</encoder>
-		
 	</appender>
 	
-	<!-- 记录sql start -->
-	<logger name="jdbc.sqlonly" level="DEBUG">
-	   <appender-ref ref="LOG_SQL"/>
-	</logger>
 	
-	<logger name="jdbc.sqltiming" level="DEBUG">
-	   <appender-ref ref="LOG_SQL"/>
-	</logger>
-    <!-- 记录com文件夹下的日志 -->
-	<logger name="com" level="debug"> 
-		 <appender-ref ref="LOG_SQL" /> 
-	</logger>
-	<!-- 记录sql end -->
-	
-	
-	<!-- 告警日志 -->
-	<appender name="IS_ALARM"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${log4j.path}/logs/info/new-project-count.log</File>
+	<!-- 告警日志:public static final Logger _alarm_logger_ = LoggerFactory.getLogger("IS_ALARM"); -->
+	<appender name="IS_ALARM" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${LOG_PATH}/logs/info/new-project-count.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${log4j.path}/backuplogs/info/new-project-count_%d{yyyy-MM-dd}.%d{hhmmss}.log
+			<fileNamePattern>
+				${LOG_PATH}/backuplogs/info/new-project-count_%d{yyyy-MM-dd}.%d{hhmmss}.log
 			</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>100MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
@@ -201,30 +174,40 @@
 			<level>INFO</level>
 		</filter>
 	</appender>
-    <logger name="ALARM_LOG" additivity="false" level="INFO"> 
-		 <appender-ref ref="IS_ALARM" /> 
+	<logger name="ALARM_LOG" additivity="false" level="INFO">
+		<appender-ref ref="IS_ALARM" />
 	</logger>
 	
-    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-		</encoder>
-	</appender>
-     <!-- 为单独的包配置日志级别，若root的级别大于此级别， 此处级别也会输出
-		      应用场景：生产环境一般不会将日志级别设置为trace或debug，但是为详细的记录SQL语句的情况，
-		      可将hibernate的级别设置为debug，如此一来，日志文件中就会出现hibernate的debug级别日志，
-		      而其它包则会按root的级别输出日志
-     -->
-    <logger name="org.springframework" level="INFO"/>
-       <!-- 生产环境，将此级别配置为适合的级别，以名日志文件太多或影响程序性能;
-                                   本地开发测试时建议使用debug级别,生成环境建议使用info级别 -->
-       <root level="info">
-              <appender-ref ref="FILEDEBUG" />
-              <appender-ref ref="FILEINFO" />
-              <appender-ref ref="FILEWARN" />
-              <appender-ref ref="FILEERROR" />
-              <!-- <appender-ref ref="EMAIL"/> -->
-              <!-- 生产环境将请stdout去掉 -->
-              <appender-ref ref="stdout" /> 
-       </root>
+	
+	
+	<!--打印logback上下文状态 -->
+	<!-- <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> -->
+
+	<!-- 记录sql start -->
+	<logger name="jdbc.sqlonly" level="DEBUG">
+		<appender-ref ref="LOG_SQL" />
+	</logger>
+	<logger name="jdbc.sqltiming" level="DEBUG">
+		<appender-ref ref="LOG_SQL" />
+	</logger>
+	<!-- 记录com文件夹下的日志 -->
+	<logger name="com" level="DEBUG">
+		<appender-ref ref="LOG_SQL" />
+	</logger>
+	
+	
+	
+	<!-- 为单独的包配置日志级别，若root的级别大于此级别， 此处级别也会输出 应用场景：生产环境一般不会将日志级别设置为trace或debug，但是为详细的记录SQL语句的情况， 
+		可将hibernate的级别设置为debug，如此一来，日志文件中就会出现hibernate的debug级别日志， 而其它包则会按root的级别输出日志 -->
+	<logger name="org.springframework" level="ERROR" />
+	<!-- 生产环境，将此级别配置为适合的级别，以名日志文件太多或影响程序性能; 本地开发测试时建议使用debug级别,生成环境建议使用info级别 -->
+	<root level="info">
+		<appender-ref ref="FILEDEBUG" />
+		<appender-ref ref="FILEINFO" />
+		<appender-ref ref="FILEWARN" />
+		<appender-ref ref="FILEERROR" />
+		<appender-ref ref="EMAIL" />
+		<!-- 生产环境将请stdout去掉 -->
+		<appender-ref ref="stdout" />
+	</root>
 </configuration>

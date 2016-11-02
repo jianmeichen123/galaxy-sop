@@ -1499,7 +1499,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     color: #66b1f2;
     text-decoration: none;
 }
-.new_ico_basic{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 0; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_basic{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 4px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_financing{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 3px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_practical{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-25px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_project{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-50px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
@@ -1723,7 +1723,7 @@ font-family: "宋体";
 .new_table_stock span{  margin-top: 0px;}
 .legal{height: 125px;}
 .hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 125px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
-.hidden td input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}
+.hidden td input,.legal_box input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}
 .legal .btn button{float: left;margin-left: 10px;}
 .stock .bars{margin:0 !important;}
 .legal .timeico{display:inline-block;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 180px -154px;}
@@ -1753,7 +1753,7 @@ font-family: "宋体";
 .basic_ul li span{ display:block; float:left;}
 .m_r15{ margin-right:15px;}
 .m_r30{ margin-right:30px;position:relative;}
-.basic_span{ width:90px; text-align:right; position: relative;}
+.basic_span{ width:90px; text-align:right; position: relative;color:#999;}
 .basic_span em{  height:20px; width:8px; left:10px; top:2px; position: absolute; display:block;}
 .basic_table{margin-top:20px; overflow:hidden; border:1px solid #e9ebf2;}
 .basic_table th{ background-color:#f9fafc; }
@@ -1768,7 +1768,14 @@ font-family: "宋体";
 .basic_right .tabtable_con_on{padding-top: 4px;}
 .basic_table{margin:20px 20px;}
 .upload{background:url(../img/functionico.png) 0 -305px no-repeat;height:20px;display: inline-block;line-height: 20px;padding-left: 20px;}
-
+.new_nputr.text{width:521px;height:50px;}
+.add_history{border:0;background:none;margin-top:7px;margin-right:20px;cursor:pointer;outline:none;}
+.compile_on_center .compile_on_left{margin-right:38px;}
+.pages{line-height:30px;color:#999;font-size:12px;}
+.page{display:none;}
+.page.on{display:block;}
+.page[data-btn="page1"]{position:relative}
+.table_interview td{line-height:20px;}
 /*日志*/
 .ritmin .tabtable .tabtable_con .log_table ,.log_table td{border:0; position:relative; color:#7a8798;}
 .log_table th { background-color:#fff; font-weight:bold;  border:0; border-bottom:1px solid #edeff5}
@@ -1816,6 +1823,7 @@ font-family: "宋体";
   overflow:hidden;
   height: 310px;
 }
+.page .project_on{height:600px}
 .title_bj_tzjl {
     width: 100%;
     background-color: #f9fafc;
