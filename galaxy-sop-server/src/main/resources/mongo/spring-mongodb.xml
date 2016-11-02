@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		  http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		  http://www.springframework.org/schema/context   
+          http://www.springframework.org/schema/context/spring-context-4.0.xsd   
+          http://www.springframework.org/schema/data/mongo   
+          http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+
+	<context:property-placeholder location="classpath*:mongo/mongodb.properties" />
+	<mongo:mongo-client 
+		id="mongo"
+		host="${mongo.host}" 
+		port="${mongo.port}"
+		credentials="${mongo.username}:${mongo.password}@${mongo.dbname}">
+		<mongo:client-options connections-per-host="${mongo.connectionsPerHost}"
+			threads-allowed-to-block-for-connection-multiplier="${mongo.threadsAllowedToBlockForConnectionMultiplier}"
+			connect-timeout="${mongo.connectTimeout}"
+			max-wait-time="${mongo.maxWaitTime}"
+			socket-keep-alive="${mongo.socketKeepAlive}"
+			socket-timeout="${mongo.socketTimeout}"/>
+	</mongo:mongo-client>
+
+	<mongo:db-factory id="mongoDbFactory" dbname="${mongo.dbname}" mongo-ref="mongo" />
+	
+	<bean id="dbRefResolver" class="org.springframework.data.mongodb.core.convert.DefaultDbRefResolver">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />  
+	</bean>  
+	
+	<bean id="mappingContext" class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />  
+    
+    <!-- 默认Mongodb类型映射 -->  
+    <bean id="defaultMongoTypeMapper" class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">  
+        <constructor-arg name="typeKey">  
+            <null /><!-- 这里设置为空,可以把 spring data mongodb 多余保存的_class字段去掉 -->  
+        </constructor-arg>  
+    </bean>  
+    
+    <!-- 配置mongodb映射类型 -->  
+    <bean id="mappingMongoConverter" class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">  
+        <constructor-arg name="dbRefResolver" ref="dbRefResolver" />  
+        <constructor-arg name="mappingContext" ref="mappingContext" />  
+        <property name="typeMapper" ref="defaultMongoTypeMapper" />  
+    </bean>  
+  
+    <!-- 操作mongodb -->  
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">  
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />  
+        <constructor-arg name="mongoConverter" ref="mappingMongoConverter" />  
+    </bean>
+</beans>
