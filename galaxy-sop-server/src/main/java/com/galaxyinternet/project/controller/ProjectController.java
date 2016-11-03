@@ -3597,7 +3597,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (MongoDBException e) {
 			// TODO Auto-generated catch block
 			responseBody.setResult(new Result(Status.ERROR, "操作失败!"));
-			_common_logger_.error("add project step2 error", e);
+			logger.error("add project step2 error", e);
 		}
 		return responseBody;
 	}
@@ -3613,7 +3613,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			request.setAttribute("project", pro);
 		} catch (MongoDBException e) {
 			// TODO Auto-generated catch block
-			_common_logger_.error("add project step2 error", e);
+			logger.error("add project step2 error", e);
 		}
 		
 		return "project/v_addProject";
