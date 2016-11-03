@@ -47,21 +47,19 @@
             <div class="qualifications">
                 <h3>学历背景</h3>
                 <span onclick="addPersonLearning();" class="blue fr add" data-btn="qualifications" data-name="学历背景">添加</span>
-                <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
-                    <tr>
-                        <th>毕业院校</th>
-                        <th>专业</th>
-                        <th>时间</th>
-                        <th>学历</th>
-                        <th>操作</th>
-                    </tr>
-                    <tr>
-                        <td>毕业院校</td>
-                        <td>专业</td>
-                        <td>2016-01-05 - 2016-10-12</td>
-                        <td>学历</td>
-                        <td><a class="blue" href="javascript:void(0)">删除</a></td>
-                    </tr>
+                <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                    <thead>
+	                    <tr>
+	                        <th>毕业院校</th>
+	                        <th>专业</th>
+	                        <th>时间</th>
+	                        <th>学历</th>
+	                        <th>操作</th>
+	                    </tr>
+                    </thead>
+                    <tbody id="learning-tbody">
+	                    
+                    </tbody>
                 </table>
             </div>
             <div class="qualifications">
@@ -90,5 +88,15 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-
+$(function(){
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectLearning/581aa5092b7c2b01c4094166", 
+			null, 
+			function(data){
+		if(data.result.status == 'OK'){
+			generateLearningInnerHtml(data.entityList);
+		}else{
+			generateLearningEmptyInnerHtml();
+		}
+	});
+});
 </script>

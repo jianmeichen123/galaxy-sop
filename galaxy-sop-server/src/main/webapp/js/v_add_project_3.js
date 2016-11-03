@@ -46,3 +46,23 @@ function addProjectShares(){
 	return false;
 }
 
+function generateLearningInnerHtml(list){
+	var innerHtml = "";
+	$.each(list, function(i, o){
+		innerHtml += '<tr>';
+		innerHtml += '<td>'+o.school+'</td>';
+		innerHtml += '<td>'+o.major+'</td>';
+		innerHtml += '<td>'+o.beginDateStr+' - '+o.overDateStr+'</td>';
+		innerHtml += '<td>'+o.degree+'</td>';
+		innerHtml += '<td><a class="blue" href="javascript:void(0)">删除</a></td>';
+		innerHtml += '</tr>';
+	});
+	$("#learning-tbody").empty();
+	$("#learning-tbody").append(innerHtml);
+}
+
+function generateLearningEmptyInnerHtml(){
+	var innerHtml = "<tr><td>暂无数据</td></tr>";
+	$("#learning-tbody").empty();
+	$("#learning-tbody").append(innerHtml);
+}
