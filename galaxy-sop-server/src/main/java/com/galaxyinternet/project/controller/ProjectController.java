@@ -261,14 +261,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/apDB", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> apDB(@RequestBody com.galaxyinternet.mongodb.model.Project project,
+	public ResponseData<com.galaxyinternet.mongodb.model.Project> apDB(@RequestBody com.galaxyinternet.mongodb.model.Project project,
 			HttpServletRequest request) {
-		ResponseData<Project> responseBody = new ResponseData<Project>();
+		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
+		//校验
+		User user = (User) getUserFromSession(request);
 		try {
-			project.setUuid(UUIDUtils.create().toString());
+			String uuid=UUIDUtils.create().toString();
+			project.setUuid(uuid);
 			mongoProjectService.save(project);
+			com.galaxyinternet.mongodb.model.Project param=new com.galaxyinternet.mongodb.model.Project();
+			param.setUuid(uuid);
+			param = mongoProjectService.findOne(param);
+			responseBody.setEntity(param);
+			_common_logger_.info(user.getId() + ":" + user.getRealName() + " to save project successful");
+			responseBody.setResult(new Result(Status.OK, "ok" , "保存基本信息成功!"));
 		} catch (Exception e) {
 			_common_logger_.error("异常信息:",e.getMessage());
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		}
 		return responseBody;
 	}

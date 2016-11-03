@@ -74,20 +74,7 @@ function add(){
 	var nowFormData = $("#add_form").serializeObject();
 	//if(beforeSubmit()){
 	sendPostRequestByJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
-			if(!data){
-				layer.msg("提交表单过于频繁!");
-			}else if(data.result.status=="ERROR"){
-				if(data.result.errorCode == "csds"){
-					layer.msg("必要的参数丢失!");
-				}else if(data.result.errorCode == "myqx"){
-					layer.msg("没有权限添加项目!");
-				}else if(data.result.errorCode == "mccf"){
-					layer.msg("项目名重复!");
-				}
-				formData = $("#add_form").serializeObject();
-			}else{
-				forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
-			}
+			var re=data;
 			
 		});
 	//}
