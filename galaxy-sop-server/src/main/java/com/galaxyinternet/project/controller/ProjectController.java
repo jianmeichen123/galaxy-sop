@@ -59,6 +59,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.FormatterUtils;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.UUIDUtils;
@@ -254,6 +255,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		User user = (User) getUserFromSession(request);
 		try {
+			personLearn.setUuid(UUIDUtils.create().toString());
 			personLearn.setCreatedTime(System.currentTimeMillis());
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
 			List<PersonLearn> learnList = null;
@@ -284,7 +286,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 团队信息的学习经历数据查询
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/deleteProjectLearning/{uuid}/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/deleteProjectLearning/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonLearn> deleteProjectLearning(@PathVariable("uuid") String uuid,
 			@PathVariable("pid") String pid,
 			HttpServletRequest request) {
@@ -297,8 +299,27 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
+			PersonLearn l = new PersonLearn();
+			l.setUuid(uuid);
+			if(project != null && project.getPlc() != null && project.getPlc().contains(l)){
+				project.getPlc().remove(l);
+				mongoProjectService.updateById(pid, project);
+				if(logger.isInfoEnabled()){
+					logger.info(FormatterUtils.formatStr(
+							"{0}:{1} to delete learning successfully {pid : {3}, uuid : {4}}", 
+							user.getId(), user.getRealName(), pid, uuid));
+				}
+				responseBody.setResult(new Result(Status.OK,"ok" , "删除学习经历成功!"));
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"no" , "未找该学习经历记录!"));
+			}
 		} catch (MongoDBException e) {
-			e.printStackTrace();
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to delete learning get an exception {pid : {3}, uuid : {4}}", 
+						user.getId(), user.getRealName(), pid, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		}
 		return responseBody;
 	}

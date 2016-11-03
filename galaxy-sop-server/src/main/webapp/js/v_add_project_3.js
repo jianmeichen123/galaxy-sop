@@ -46,6 +46,21 @@ function addProjectShares(){
 	return false;
 }
 
+function deleteLearn(){
+	var uuid = $(this).attr("uuid");
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+uuid+"/581ae7822b7c2b20f4a747bc", 
+			null, 
+			function(data){
+		if(data.result.status == 'OK'){
+			generateLearningInnerHtml(data.entityList);
+		}else{
+			
+		}
+	});
+}
+
+
+
 function generateLearningInnerHtml(list){
 	var innerHtml = "";
 	$.each(list, function(i, o){
@@ -54,11 +69,12 @@ function generateLearningInnerHtml(list){
 		innerHtml += '<td>'+o.major+'</td>';
 		innerHtml += '<td>'+o.beginDateStr+' - '+o.overDateStr+'</td>';
 		innerHtml += '<td>'+o.degree+'</td>';
-		innerHtml += '<td><a class="blue" href="javascript:void(0)">删除</a></td>';
+		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
 		innerHtml += '</tr>';
 	});
 	$("#learning-tbody").empty();
-	$("#learning-tbody").append(innerHtml);
+	$("#learning-tbody").append(innerHtml)
+	$(".operatorDelete").bind('click', deleteLearn);
 }
 
 function generateLearningEmptyInnerHtml(){

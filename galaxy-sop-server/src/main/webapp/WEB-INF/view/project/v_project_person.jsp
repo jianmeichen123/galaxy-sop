@@ -89,10 +89,12 @@
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
 $(function(){
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectLearning/581aa5092b7c2b01c4094166", 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectLearning/581ae7822b7c2b20f4a747bc", 
 			null, 
 			function(data){
-		if(data.result.status == 'OK'){
+		if(data.result.status == 'OK' 
+				&& typeof(data.entityList) != 'undefined' 
+				&& data.entityList.length > 0){
 			generateLearningInnerHtml(data.entityList);
 		}else{
 			generateLearningEmptyInnerHtml();
