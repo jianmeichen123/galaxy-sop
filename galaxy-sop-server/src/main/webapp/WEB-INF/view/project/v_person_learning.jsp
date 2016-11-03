@@ -71,6 +71,11 @@ $(function(){
 					$("#add_person_learning").serializeObject(), 
 					function(data){
 				$.popupTwoClose();
+				if(data.result.status == 'OK'){
+					generateLearningInnerHtml(data.entityList);
+				}else{
+					generateLearningEmptyInnerHtml();
+				}
 			});
 		}
 	});
