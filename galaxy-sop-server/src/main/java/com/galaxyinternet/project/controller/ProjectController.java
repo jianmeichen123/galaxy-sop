@@ -276,12 +276,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		User user = (User) getUserFromSession(request);
-		// 判断当前用户是否为投资经理
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-		if (!roleIdList.contains(UserConstant.TZJL)) {
-			responseBody.setResult(new Result(Status.ERROR, "myqx", "没有权限添加项目!"));
-			return responseBody;
-		}
 		try {
 			String uuid=UUIDUtils.create().toString();
 			project.setUuid(uuid);
