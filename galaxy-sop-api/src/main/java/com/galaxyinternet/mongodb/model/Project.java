@@ -43,6 +43,16 @@ public class Project {
 	
 	private String formatShareRatio;
 	
+	/**step2**/
+	private String projectDescribe;//项目描述
+    private String projectBusinessModel;//商业模式
+    private String companyLocation;//公司定位
+    private String userPortrait;//用户画像
+    private String prospectAnalysis;//尽情分析
+    private String nextFinancingSource;//下一轮融资计划
+    private String industryAnalysis;//行业分析
+    private String operationalData;//运营数据
+	
 	
 	
 	public String getId() {
@@ -152,6 +162,54 @@ public class Project {
 	}
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+	public String getProjectDescribe() {
+		return projectDescribe;
+	}
+	public void setProjectDescribe(String projectDescribe) {
+		this.projectDescribe = projectDescribe;
+	}
+	public String getProjectBusinessModel() {
+		return projectBusinessModel;
+	}
+	public void setProjectBusinessModel(String projectBusinessModel) {
+		this.projectBusinessModel = projectBusinessModel;
+	}
+	public String getCompanyLocation() {
+		return companyLocation;
+	}
+	public void setCompanyLocation(String companyLocation) {
+		this.companyLocation = companyLocation;
+	}
+	public String getUserPortrait() {
+		return userPortrait;
+	}
+	public void setUserPortrait(String userPortrait) {
+		this.userPortrait = userPortrait;
+	}
+	public String getProspectAnalysis() {
+		return prospectAnalysis;
+	}
+	public void setProspectAnalysis(String prospectAnalysis) {
+		this.prospectAnalysis = prospectAnalysis;
+	}
+	public String getNextFinancingSource() {
+		return nextFinancingSource;
+	}
+	public void setNextFinancingSource(String nextFinancingSource) {
+		this.nextFinancingSource = nextFinancingSource;
+	}
+	public String getIndustryAnalysis() {
+		return industryAnalysis;
+	}
+	public void setIndustryAnalysis(String industryAnalysis) {
+		this.industryAnalysis = industryAnalysis;
+	}
+	public String getOperationalData() {
+		return operationalData;
+	}
+	public void setOperationalData(String operationalData) {
+		this.operationalData = operationalData;
 	}
 	
 	
