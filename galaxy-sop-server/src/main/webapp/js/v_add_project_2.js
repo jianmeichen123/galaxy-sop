@@ -159,3 +159,24 @@ $(function(){
 		}
 	}
 });
+/**
+ * 表单验证
+ */
+function step2Valiate(id){
+	var flag = true;
+	$.each($("#"+id).find("[valiate]"),function(i, n) {
+		 //清除可能已有的提示信息
+		 if($(n).attr("valiate")=='required') {//对不能为空的文本框进行验证
+			 var id = $(n).attr("id").replace("_show","_valiate");
+			 if($(n).text()=='' || $.trim($(n).text())=='') {
+				 $("#"+id).html('<span style="font-color:red">参数丢失!</span>');
+				 $("#"+id).show();
+				 flag = false;
+			 }else{
+				 $("#"+id).hide();
+			 }
+			 
+		 }
+	});
+	return flag;
+}
