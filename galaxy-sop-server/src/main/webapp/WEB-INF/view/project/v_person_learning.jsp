@@ -66,7 +66,7 @@ $('input[name="beginDate"], input[name="overDate"]').datepicker({
 $(function(){
 	$("#save_person_learning").click)(function(){
 		if(beforeSubmit()){
-			sendPostRequestBySignJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning", 
+			sendPostRequestBySignJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/5819bc2a5637d921cc50b519", 
 					$("#add_person_learning").serializeObject(), 
 					function(data){
 				

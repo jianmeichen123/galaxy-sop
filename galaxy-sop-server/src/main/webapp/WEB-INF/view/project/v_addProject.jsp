@@ -393,7 +393,7 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">团队成员</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button onclick="addProjectPerson();" class="blue fr add_history">添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     	<tr>
