@@ -254,7 +254,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			personLearn.setCreatedTime(System.currentTimeMillis());
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-			project.getPlc().add(personLearn);
+			List<PersonLearn> learnList = null;
+			if(project.getPlc() == null){
+				learnList = new ArrayList<PersonLearn>();
+			}else{
+				learnList = project.getPlc();
+			}
+			learnList.add(personLearn);
+			project.setPlc(learnList);
 			mongoProjectService.updateById(id, project);
 			_common_logger_.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 			responseBody.setResult(new Result(Status.OK, "ok" , "添加学习经历成功!"));

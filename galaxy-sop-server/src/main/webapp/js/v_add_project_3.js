@@ -16,6 +16,7 @@ function addPersonLearning(){
 		url:_url,
 		data:"",
 		okback:function(_this){
+			
 		}
 	});
 	return false;

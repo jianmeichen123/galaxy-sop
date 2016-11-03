@@ -4,15 +4,15 @@
 %>
 <div class="qualificationstc">
 	<div class="title_bj" id="qualifications_popup_name"></div>
-        <div class="qualifications_all">
+        <div class="qualifications_all" id="learning">
         	<form action="" id="add_person_learning" method="post">
             <div class="info clearfix">
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
                     <dd>
-                    	<input name="beginDate" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
+                    	<input name="beginDateStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
                     	<span class="fl">&nbsp;至&nbsp;</span>
-                    	<input name="overDate" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
+                    	<input name="overDateStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                     </dd>
                 </dl>
                 <dl class="fmdl fl">
@@ -50,7 +50,7 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-$('input[name="beginDate"], input[name="overDate"]').datepicker({
+$('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
     format: 'yyyy-mm-dd',
     language: "zh-CN",
     autoclose: true,
@@ -64,12 +64,13 @@ $('input[name="beginDate"], input[name="overDate"]').datepicker({
     currentText: 'Now'
 });
 $(function(){
-	$("#save_person_learning").click)(function(){
-		if(beforeSubmit()){
-			sendPostRequestBySignJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/5819bc2a5637d921cc50b519", 
+	initDialogValstr("learning");
+	$("#save_person_learning").click(function(){
+		if(beforeSubmitById("learning")){
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/581aa5092b7c2b01c4094166", 
 					$("#add_person_learning").serializeObject(), 
 					function(data){
-				
+				$.popupTwoClose();
 			});
 		}
 	});
