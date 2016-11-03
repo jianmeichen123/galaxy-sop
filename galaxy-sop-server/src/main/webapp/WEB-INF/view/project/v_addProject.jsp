@@ -43,7 +43,7 @@
         	<div class="tabtable_con_on">
         		<div class="page on clearfix" data-btn="page0">
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_basic"></span>
+                        <span class="new_ico_basic ico_add_project"></span>
                         <span class="new_color size16">基本信息</span>
                     </div>  
                     <form action="" id="add_form" method="post">
@@ -124,7 +124,7 @@
                     </ul>
                     </form>
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_history ico_add_project"></span>
                         <span class="new_color size16">融资历史</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
@@ -181,35 +181,36 @@
 							</div>
 		                    <div class="compile_on_center">
 		                        <div class="compile_on_right">
-		                            <span class="pubbtn bluebtn" id="save_describe">保存</span>
+		                            <span class="pubbtn bluebtn" id="save_describe" data-name="project" data-on="close">保存</span>
 		                            <span class="pubbtn fffbtn" data-name="project" data-on="close">取消</span>
 		                        </div>  
 		                    </div>
 					    </div>
 					    <div class="project_center">
 							<div class="new_r_compile ">
-								<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
-								
+								<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"></span>
+								<span class="new_fctbox">
+									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
+								</span>
 							</div>
 							<div class="new_ul_all new_top_color describe_show" >
 								<span class="ico_dot ico"></span>
-								<p id="describe_show"></p>
+								<p id="describe_show" valiate="required"></p>
+								<p id="describe2_show" valiate="required"></p>
 							</div>
 						</div>
 					</div>
 					<div class="tabtable_con_on">
 						<div class='company_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
-								<c:if test="${isEditable}">
+								<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 								</span>
-								</c:if>
 							</div>
 							<div class="new_ul_all new_top_color location_show">
 								<span class="ico_dot ico"></span>
-								<p id="location_show"></p>
+								<p id="location_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='company_on'>					
@@ -217,7 +218,7 @@
 							<div id="company_editor" type="text/plain" class='width_fwb'></div>  
 			                <div class="compile_on_center">
 			                    <div class="compile_on_right">
-			                        <span class="pubbtn bluebtn" id="save_location">保存</span>
+			                        <span class="pubbtn bluebtn" id="save_location" data-name='company' data-on="close">保存</span>
 			                        <span class="pubbtn fffbtn" data-name='company' data-on="close">取消</span>
 			                    </div>  
 			                </div>
@@ -226,16 +227,14 @@
 					<div class="tabtable_con_on">
 						<div class='portrayal_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
-								<c:if test="${isEditable}">
+								<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 								<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 								</span>
-								</c:if>
 							</div>
 							<div class="new_ul_all new_top_color portrait_show">
 								<span class="ico_dot ico"></span>
-								<p id="portrait_show"></p>
+								<p id="portrait_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='portrayal_on'>
@@ -243,7 +242,7 @@
 							<div id="portrait_editor" type="text/plain" class='width_fwb'></div>  
 			                <div class="compile_on_center">
 			                    <div class="compile_on_right">
-			                        <span class="pubbtn bluebtn" id="save_portrait">保存</span>
+			                        <span class="pubbtn bluebtn" id="save_portrait" data-name='portrayal' data-on="close">保存</span>
 			                        <span class="pubbtn fffbtn" data-name='portrayal' data-on="close">取消</span>
 			                    </div>  
 			                </div>
@@ -252,16 +251,14 @@
 					<div class="tabtable_con_on">
 						<div class='product_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
-								<c:if test="${isEditable}">
+								<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 								</span>
-								</c:if>
 							</div>
 							<div class="new_ul_all new_top_color business_model_show">
 								<span class="ico_dot ico"></span>
-								<p id="business_model_show"></p>
+								<p id="business_model_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='product_on'>
@@ -269,7 +266,7 @@
 							<div id="business_editor" type="text/plain" class='width_fwb' ></div>  
 			                <div class="compile_on_center">
 			                    <div class="compile_on_right">
-			                        <span class="pubbtn bluebtn" id="save_business">保存</span>
+			                        <span class="pubbtn bluebtn" id="save_business" data-name='product' data-on="close">保存</span>
 			                        <span class="pubbtn fffbtn" data-name='product' data-on="close">取消</span>
 			                    </div>  
 			                </div>
@@ -278,12 +275,10 @@
 					<div class="tabtable_con_on">
 						<div class='operation_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
-								<c:if test="${isEditable}">
+								<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" style="display:none" id="operational_data_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
 								</span>
-								</c:if>
 							</div>
 							<div class="new_ul_all new_top_color operational_data_show">
 								<span class="ico_dot ico"></span>
@@ -295,7 +290,7 @@
 							<div id="operation_editor" type="text/plain" class='width_fwb' ></div>  
 			                <div class="compile_on_center">
 			                    <div class="compile_on_right">
-			                        <span class="pubbtn bluebtn" id="save_operation">保存</span>
+			                        <span class="pubbtn bluebtn" id="save_operation" data-name='operation' data-on="close">保存</span>
 			                        <span class="pubbtn fffbtn" data-name='operation' data-on="close">取消</span>
 			                    </div>  
 			                </div>
@@ -304,16 +299,14 @@
 					<div class="tabtable_con_on">
 						<div class='industry_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
-								<c:if test="${isEditable}">
+								<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
-								</c:if>
 							</div>
 							<div class="new_ul_all new_top_color industry_analysis_show">
 								<span class="ico_dot ico"></span>
-								<p id="industry_analysis_show"></p>
+								<p id="industry_analysis_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='industry_on'>
@@ -321,7 +314,7 @@
 							<div id="industry_editor" type="text/plain" class='width_fwb' ></div>  
 			                <div class="compile_on_center">
 			                    <div class="compile_on_right">
-			                        <span class="pubbtn bluebtn" id="save_industry">保存</span>
+			                        <span class="pubbtn bluebtn" id="save_industry" data-name='industry' data-on="close">保存</span>
 			                        <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
 			                    </div>  
 			                </div>
@@ -330,16 +323,14 @@
 					<div class="tabtable_con_on">
 						<div class='analysis_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
-								<c:if test="${isEditable}">
+								<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 								</span>
-								</c:if>
 							</div>
 							<div class="new_ul_all new_top_color analysis_show">
 								<span class="ico_dot ico"></span>
-								<p id="analysis_show"></p>
+								<p id="analysis_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='analysis_on'>
@@ -347,7 +338,7 @@
 							<div id="analysis_editor" type="text/plain" class='width_fwb'></div>  
 			                <div class="compile_on_center">
 			                    <div class="compile_on_right">
-			                        <span class="pubbtn bluebtn" id="save_analysis">保存</span>
+			                        <span class="pubbtn bluebtn" id="save_analysis" data-name='analysis' data-on="close">保存</span>
 			                        <span class="pubbtn fffbtn" data-name='analysis' data-on="close">取消</span>
 			                    </div>  
 			                </div>
@@ -356,12 +347,10 @@
 					<div class="tabtable_con_on">
 						<div class='next_financing_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
-								<c:if test="${isEditable}">
+								<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" style="display:none" id="next_financing_source_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 								<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
 								</span>
-								</c:if>
 							</div>
 							<div class="new_ul_all new_top_color next_financing_source_show">
 								<span class="ico_dot ico"></span>
@@ -373,7 +362,7 @@
 							<script id="next_financing_editor" type="text/plain" class='width_fwb'></script>  
 			                <div class="compile_on_center">
 			                    <div class="compile_on_right">
-			                        <span class="pubbtn bluebtn" id="save_next_financing">保存</span>
+			                        <span class="pubbtn bluebtn" id="save_next_financing" data-name='next_financing' data-on="close">保存</span>
 			                        <span class="pubbtn fffbtn" data-name='next_financing' data-on="close">取消</span>
 			                    </div>  
 			                </div>
@@ -391,7 +380,7 @@
                 </div>
                 <div class="page clearfix" data-btn="page2">
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_person ico_add_project"></span>
                         <span class="new_color size16">团队成员</span>
                         <button onclick="addProjectPerson();" class="blue fr add_history">添加</button>
                     </div>
@@ -418,7 +407,7 @@
                     	</tr>
                     </table>
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_stock_add ico_add_project"></span>
                         <span class="new_color size16">股权结构</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
@@ -481,27 +470,30 @@
                 </div>
                 <div class="page" data-btn="page3">
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_interview ico_add_project"></span>
                         <span class="new_color size16">访谈记录</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
-                    <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table table_interview">
-                    	<tr>
-                    		<th>访谈概况</th>
-                    		<th>访谈记录</th>
-                    		<th>操作</th>
-                    	</tr>
-                    	<tr>
-                    		<td>
-                    			<div style="text-align:left;padding:10px 0 10px 0px;">访谈时间：2016-10-28 11:11<br>访谈对象：<label class="meeting_result color_pass">通过</label><br>访谈录音：</div>
-                    		</td>
-                    		<td>12</td>
-                    		<td>
-                    			<a class="meet_see blue" href="javascript:void(0)">查看</a>
-	                    		<a class="meet_edit blue" href="javascript:void(0)">编辑</a>
-                    		</td>
-                    	</tr>
-                    </table>
+                    <div id="view_custom-toolbar">
+						<input type="hidden" name="projectId" value="">
+					</div>
+                    <table style="table-layout:fixed"  id="pre_pro_view_table" 
+                    	data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
+		          		data-toolbar="#view_custom-toolbar" 
+						data-id-field="uuid" data-unique-id="uuid" data-show-refresh="true">
+						<colgroup >
+							<col style="width:30%;">
+							<col style="width:50%;">
+							<col style="width:20%;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th  data-formatter="intervierInfoFormat" data-class="th_no1">访谈概况</th>
+								<th  data-field="viewNotes"  data-formatter="viewNotesFormat">访谈记录</th>
+								<th  data-formatter="pro_view_op">操作</th>
+							</tr>
+						</thead>
+					</table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
@@ -544,22 +536,31 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 createMenus(5);
+var id = "581ae7822b7c2b20f4a747bc";
+var pid;
+
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
+	
 	if(num==0){
 		var result=add();
 		if(result){
-			$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+			pid = "581aa5092b7c2b01c4094166";
 		}else{
 			alert("重要参数丢失");
+			return;
 		}
-	}else{
-		$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+	}else if(num==1){
+		if(!step2Valiate("step2")){
+			return;
+		};
+	}else if(num==2){
+		
 	}
-
 	
+	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){
 	var prePageNum=$(this).parent().parent().parent().attr("data-btn");
@@ -569,7 +570,6 @@ $('[data-btn="pre"]').click(function(){
 </script>
 <!-- step2 for JS -->
 <jsp:include page="v_project_step2JS.jsp" flush="true"></jsp:include>
-
 <script src="<%=path%>/js/v_add_project_1.js"></script>
 <script src="<%=path%>/js/v_add_project_2.js"></script>
 <script src="<%=path%>/js/v_add_project_3.js"></script>

@@ -8,7 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.project.FinanceHistory;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.ProjectShares;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 @Document(collection="galaxy.sop.project")
 public class Project {
@@ -52,6 +54,7 @@ public class Project {
 	
 	/**step2**/
 	private String projectDescribe;//项目描述
+	private String projectDescribeFinancing ;//项目描述要点
     private String projectBusinessModel;//商业模式
     private String companyLocation;//公司定位
     private String userPortrait;//用户画像
@@ -59,6 +62,13 @@ public class Project {
     private String nextFinancingSource;//下一轮融资计划
     private String industryAnalysis;//行业分析
     private String operationalData;//运营数据
+    private SopFile sopFile;
+    private String sopfiletype; //上传文件标识
+    
+    
+    /**step4  访谈记录 **/
+    private List<InterviewRecord> view;
+    
 	/**
 	 * 创建时间
 	 */
@@ -252,5 +262,30 @@ public class Project {
 	public void setFh(List<FinanceHistory> fh) {
 		this.fh = fh;
 	}
+	public String getProjectDescribeFinancing() {
+		return projectDescribeFinancing;
+	}
+	public void setProjectDescribeFinancing(String projectDescribeFinancing) {
+		this.projectDescribeFinancing = projectDescribeFinancing;
+	}
+	public SopFile getSopFile() {
+		return sopFile;
+	}
+	public void setSopFile(SopFile sopFile) {
+		this.sopFile = sopFile;
+	}
+	public String getSopfiletype() {
+		return sopfiletype;
+	}
+	public void setSopfiletype(String sopfiletype) {
+		this.sopfiletype = sopfiletype;
+	}
+	public List<InterviewRecord> getView() {
+		return view;
+	}
+	public void setView(List<InterviewRecord> view) {
+		this.view = view;
+	}
+	
 	
 }

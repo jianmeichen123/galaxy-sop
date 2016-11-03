@@ -1499,7 +1499,6 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     color: #66b1f2;
     text-decoration: none;
 }
-.new_ico_basic{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 4px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_financing{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 3px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_practical{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-25px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_project{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-50px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
@@ -1512,6 +1511,12 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_ico_run{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 3px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_nex{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -159px -29px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_industry{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -129px -27px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.ico_add_project{background-image:url(../img/add_project.png); background-repeat:no-repeat;width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_history{background-position:0 4px;}
+.new_ico_basic{background-position:0 -31px; }
+.new_ico_person{background-position:0 -64px;}
+.new_ico_stock_add{background-position:0 -100px;}
+.new_ico_interview{background-position:0 -135px;}
 .tabtable_con_on {
     background-color: #fff;
     overflow: hidden;

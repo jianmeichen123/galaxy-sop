@@ -8,5 +8,5 @@
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <!-- 上传执行文件 -->
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/v_addPlanbusiness.js'></script>
 <!-- step2 end -->
