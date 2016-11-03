@@ -43,7 +43,7 @@
         	<div class="tabtable_con_on">
         		<div class="page on clearfix" data-btn="page0">
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_basic"></span>
+                        <span class="new_ico_basic ico_add_project"></span>
                         <span class="new_color size16">基本信息</span>
                     </div>  
                     <form action="" id="add_form" method="post">
@@ -124,7 +124,7 @@
                     </ul>
                     </form>
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_history ico_add_project"></span>
                         <span class="new_color size16">融资历史</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
@@ -380,7 +380,7 @@
                 </div>
                 <div class="page clearfix" data-btn="page2">
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_person ico_add_project"></span>
                         <span class="new_color size16">团队成员</span>
                         <button onclick="addProjectPerson();" class="blue fr add_history">添加</button>
                     </div>
@@ -407,7 +407,7 @@
                     	</tr>
                     </table>
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_stock_add ico_add_project"></span>
                         <span class="new_color size16">股权结构</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
@@ -470,7 +470,7 @@
                 </div>
                 <div class="page" data-btn="page3">
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_book"></span>
+                        <span class="new_ico_interview ico_add_project"></span>
                         <span class="new_color size16">访谈记录</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
