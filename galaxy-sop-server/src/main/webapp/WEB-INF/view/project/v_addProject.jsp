@@ -553,7 +553,9 @@ $('[data-btn="next"]').click(function(){
 			return;
 		}
 	}else if(num==1){
-		
+		if(!step2Valiate("step2")){
+			return;
+		};
 	}else if(num==2){
 		
 	}
