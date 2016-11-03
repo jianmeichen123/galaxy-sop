@@ -50,15 +50,15 @@ var matterPreviewUtils = {
 				var meeting_obj = {serverUrl: platformUrl.MeetingSheduleNewList};
 				meeting_obj.params={meetingType:'',scheduleStatus:'',type:''};
 				meeting_obj.columns = [
-				               {field:'projectName',"class":'data-input',title:'项目名称'},
-				               {field:'meetingType',"class":'data-input',title:'会议类型'},
-				               {field:'status',"class":'data-input',title:'状态'},
-				               {field:'meetingCount',"class":'data-input',title:'过会次数'},
+				               {field:'projectName',"class":'data-input',width:'135px',title:'项目名称'},
+				               {field:'meetingType',"class":'data-input',width:'90px',title:'会议类型'},
+				               {field:'status',"class":'data-input',width:'80px',title:'状态'},
+				               {field:'meetingCount',"class":'data-input',width:'80px',title:'过会次数'},
 				              // {field:'pre_meeting_date',class:'data-input',title:'上次过会时间'},
-				               {field:'meetingDateStr',"class":'data-input',title:'上次过会时间'},
-				               {field:'projectCareerline',"class":'data-input',title:'投资事业线'},
-				               {field:'createUname',"class":'data-input',title:'投资经理'},
-				               {field:'remark',"class":'data-input',title:'备注'}];
+				               {field:'meetingDateStr',"class":'data-input',width:'135px',title:'上次过会时间'},
+				               {field:'projectCareerline',"class":'data-input',width:'135px',title:'投资事业线'},
+				               {field:'createUname',"class":'data-input',width:'162px',title:'投资经理'},
+				               {field:'remark',"class":'data-input',width:'66px',title:'备注'}];
 						
 				$("#meeting_number_today").bind('click',function(){
 					meeting_obj.params.meetingType = "('meetingType:3','meetingType:4')";
