@@ -550,7 +550,7 @@ $('[data-btn="next"]').click(function(){
 	if(num==0){
 		var result=add();
 		if(result){
-			pid = $("#flagId").value;
+			pid = "581aa5092b7c2b01c4094166";
 		}else{
 			alert("重要参数丢失");
 			return;

@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.project.FinanceHistory;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.ProjectShares;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -63,6 +64,10 @@ public class Project {
     private String operationalData;//运营数据
     private SopFile sopFile;
     private String sopfiletype; //上传文件标识
+    
+    
+    /**step4  访谈记录 **/
+    private List<InterviewRecord> view;
     
 	/**
 	 * 创建时间
@@ -274,6 +279,12 @@ public class Project {
 	}
 	public void setSopfiletype(String sopfiletype) {
 		this.sopfiletype = sopfiletype;
+	}
+	public List<InterviewRecord> getView() {
+		return view;
+	}
+	public void setView(List<InterviewRecord> view) {
+		this.view = view;
 	}
 	
 	
