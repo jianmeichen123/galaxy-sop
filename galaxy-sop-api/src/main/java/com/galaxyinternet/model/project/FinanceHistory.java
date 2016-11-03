@@ -13,11 +13,11 @@ public class FinanceHistory extends BaseEntity {
     
     private double financeAmount;//融资金额
     
-    private Integer finance_unit;//融资货币
+    private Integer financeUnit;//融资货币
     
-    private double finance_proportion;//融资占比
+    private double financeProportion;//融资占比
     
-    private Integer finance_round;//融资轮次
+    private Integer financeStatus;//融资轮次
     
     private Long createUid;//创建人
     
@@ -53,29 +53,29 @@ public class FinanceHistory extends BaseEntity {
 	public void setFinanceAmount(double financeAmount) {
 		this.financeAmount = financeAmount;
 	}
-
-	public Integer getFinance_unit() {
-		return finance_unit;
+	
+	public Integer getFinanceUnit() {
+		return financeUnit;
 	}
 
-	public void setFinance_unit(Integer finance_unit) {
-		this.finance_unit = finance_unit;
+	public void setFinanceUnit(Integer financeUnit) {
+		this.financeUnit = financeUnit;
 	}
 
-	public double getFinance_proportion() {
-		return finance_proportion;
+	public double getFinanceProportion() {
+		return financeProportion;
 	}
 
-	public void setFinance_proportion(double finance_proportion) {
-		this.finance_proportion = finance_proportion;
+	public void setFinanceProportion(double financeProportion) {
+		this.financeProportion = financeProportion;
 	}
 
-	public Integer getFinance_round() {
-		return finance_round;
+	public Integer getFinanceStatus() {
+		return financeStatus;
 	}
 
-	public void setFinance_round(Integer finance_round) {
-		this.finance_round = finance_round;
+	public void setFinanceStatus(Integer financeStatus) {
+		this.financeStatus = financeStatus;
 	}
 
 	public Long getCreateUid() {
