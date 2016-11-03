@@ -58,7 +58,7 @@ $(function(){
 		var projectDescribe = describeUm.getContent();
 		var projectDescribeFinancing = describeUm2.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "projectDescribe" : projectDescribe,"projectDescribeFinancing":projectDescribeFinancing}, saveCallBack);
-		
+		step2Valiate("step2");
 	});
 	
 	/**
@@ -67,7 +67,7 @@ $(function(){
 	$("#save_location").click(function(){
 		var companyLocation = companyUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "companyLocation" : companyLocation}, saveCallBack);
-		
+		step2Valiate("step2");
 	});
 	
 	/**
@@ -76,6 +76,7 @@ $(function(){
 	$("#save_portrait").click(function(){
 		var userPortrait = portraitUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "userPortrait" : userPortrait}, saveCallBack);
+		step2Valiate("step2");
 	});
 	
 	/**
@@ -84,7 +85,7 @@ $(function(){
 	$("#save_business").click(function(){
 		var projectBusinessModel = businessUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "projectBusinessModel" : projectBusinessModel}, saveCallBack);
-		
+		step2Valiate("step2");
 	});
 	
 	/**
@@ -93,7 +94,7 @@ $(function(){
 	$("#save_operation").click(function(){
 		var operationalData = operationUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "operationalData" : operationalData}, saveCallBack);
-	
+		step2Valiate("step2");
 	});
 	
 	/**
@@ -102,7 +103,7 @@ $(function(){
 	$("#save_industry").click(function(){
 		var industryAnalysis = industryUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "industryAnalysis" : industryAnalysis}, saveCallBack);
-		
+		step2Valiate("step2");
 	});
 	
 	/**
@@ -111,7 +112,7 @@ $(function(){
 	$("#save_analysis").click(function(){
 		var prospectAnalysis = analysisUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "prospectAnalysis" : prospectAnalysis}, saveCallBack);
-		
+		step2Valiate("step2");
 	});
 	
 	/**
@@ -120,7 +121,7 @@ $(function(){
 	$("#save_next_financing").click(function(){
 		var nextFinancingSource = nextFinancingUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "nextFinancingSource" : nextFinancingSource}, saveCallBack);
-	
+		step2Valiate("step2");
 	});
 	
 	/**
