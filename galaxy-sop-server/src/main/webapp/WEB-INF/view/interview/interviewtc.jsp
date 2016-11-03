@@ -28,7 +28,7 @@
 <div class="title_bj">新增访谈</div>
 <div class="meetingtc margin_45">
 	<div class="top clearfix">
-    	<div class="searchall clearfix">
+    	<div class="searchall clearfix" id="div_pro">
             <dl>
             	<dt>项目 :</dt> 
                 <dd>

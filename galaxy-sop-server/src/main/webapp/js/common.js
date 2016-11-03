@@ -700,7 +700,26 @@ function getInterViewCondition(hasProid,projectId,
 	return condition;
 }
 
-
+function getPreViewCondition(
+		viewDateId,
+		viewTargetId,
+		viewNotesId){
+	var	condition = {};
+	
+	if(!beforeSubmit()){
+		return false;
+	}
+	var viewDateStr = $("#"+viewDateId).val();
+	var viewTarget = $.trim($("#"+viewTargetId).val());
+	var um = UM.getEditor(viewNotesId);
+	var viewNotes = $.trim(um.getContent());
+	
+	condition.viewDateStr = viewDateStr;
+	condition.viewTarget = viewTarget;
+	condition.viewNotes = viewNotes;
+	
+	return condition;
+}
 
 
 /**
