@@ -6,10 +6,14 @@ import java.util.Date;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 public class InterviewRecord extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
+	
+	/*唯一编码*/
+	private String uuid;
 	
     private Long projectId;
     
@@ -23,13 +27,24 @@ public class InterviewRecord extends BaseEntity{
     private String viewNotes;
     private String viewNotesText;
     
-    private String fname;
-    
     private Long createdId;
     
+    private String fname;
+	
+    private SopFile sopFile;
     
     
-    public Long getProjectId() {
+    
+    
+    public SopFile getSopFile() {
+		return sopFile;
+	}
+
+	public void setSopFile(SopFile sopFile) {
+		this.sopFile = sopFile;
+	}
+
+	public Long getProjectId() {
         return projectId;
     }
 
@@ -112,6 +127,15 @@ public class InterviewRecord extends BaseEntity{
 			viewDateStr = DateUtil.convertDateToString(viewDate,"yyyy-MM-dd HH:mm");
 		}
 		this.viewDateStr = viewDateStr;
+	}
+
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public String getFname() {

@@ -471,28 +471,32 @@
                     </div>
                 </div>
                 <div class="page" data-btn="page3">
-                    <div class="new_r_compile new_bottom_color">
+                	 <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">访谈记录</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button class="blue fr add_history" href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="pro_interview" data-name="访谈记录">添加</button>
                     </div>
-                    <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table table_interview">
-                    	<tr>
-                    		<th>访谈概况</th>
-                    		<th>访谈记录</th>
-                    		<th>操作</th>
-                    	</tr>
-                    	<tr>
-                    		<td>
-                    			<div style="text-align:left;padding:10px 0 10px 0px;">访谈时间：2016-10-28 11:11<br>访谈对象：<label class="meeting_result color_pass">通过</label><br>访谈录音：</div>
-                    		</td>
-                    		<td>12</td>
-                    		<td>
-                    			<a class="meet_see blue" href="javascript:void(0)">查看</a>
-	                    		<a class="meet_edit blue" href="javascript:void(0)">编辑</a>
-                    		</td>
-                    	</tr>
-                    </table>
+                    
+			        <div id="view_custom-toolbar">
+						<input type="hidden" name="projectId" value="">
+					</div>
+                    <table style="table-layout:fixed"  id="pre_pro_view_table" 
+                    	data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
+		          		data-toolbar="#view_custom-toolbar" 
+						data-id-field="uuid" data-unique-id="uuid" data-show-refresh="true">
+						<colgroup >
+							<col style="width:30%;">
+							<col style="width:50%;">
+							<col style="width:20%;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th  data-formatter="intervierInfoFormat" data-class="th_no1">访谈概况</th>
+								<th  data-field="viewNotes"  data-formatter="viewNotesFormat">访谈记录</th>
+								<th  data-formatter="pro_view_op">操作</th>
+							</tr>
+						</thead>
+					</table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
@@ -536,23 +540,30 @@
 <script type="text/javascript">
 createMenus(5);
 var id = "581aa5092b7c2b01c4094166";
+var pid;
+
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
+	
 	if(num==0){
 		var result=add();
 		if(result){
-			$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+			pid = $("#flagId").value;
 		}else{
 			alert("重要参数丢失");
+			return;
 		}
-	}else{
-		$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+	}else if(num==1){
+		
+	}else if(num==2){
+		
 	}
-
 	
+	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
+
 $('[data-btn="pre"]').click(function(){
 	var prePageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(prePageNum.substr(prePageNum.length-1,1));
@@ -561,6 +572,7 @@ $('[data-btn="pre"]').click(function(){
 </script>
 <!-- step2 for JS -->
 <jsp:include page="v_project_step2JS.jsp" flush="true"></jsp:include>
+
 <script src="<%=path%>/js/v_add_project_1.js"></script>
 <script src="<%=path%>/js/v_add_project_2.js"></script>
 <script src="<%=path%>/js/v_add_project_3.js"></script>
