@@ -47,6 +47,7 @@
                         <span class="new_color size16">基本信息</span>
                     </div>  
                     <form action="" id="add_form" method="post">
+                     <input type="hidden" id="id" value="">
                     <ul class="basic_ul">
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
@@ -547,8 +548,17 @@ createMenus(5);
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
-	
-	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+	if(num==0){
+		var result=add();
+		if(result){
+			$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+		}else{
+			alert("重要参数丢失");
+		}
+	}else{
+		$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+	}
+
 	
 })
 $('[data-btn="pre"]').click(function(){

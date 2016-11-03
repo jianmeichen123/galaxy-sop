@@ -265,11 +265,31 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			HttpServletRequest request) {
 		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
 		//校验
+		if (project == null || project.getProjectName() == null
+				|| "".equals(project.getProjectName().trim())
+				|| project.getProjectType() == null
+				|| "".equals(project.getProjectType().trim())
+				|| project.getCreateDate() == null
+				|| "".equals(project.getCreateDate().trim())
+				|| project.getIndustryOwn() == null) {
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
 		User user = (User) getUserFromSession(request);
+		// 判断当前用户是否为投资经理
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		if (!roleIdList.contains(UserConstant.TZJL)) {
+			responseBody.setResult(new Result(Status.ERROR, "myqx", "没有权限添加项目!"));
+			return responseBody;
+		}
 		try {
 			String uuid=UUIDUtils.create().toString();
 			project.setUuid(uuid);
-			mongoProjectService.save(project);
+			if(null==project.getId()||"".equals(project.getId())){
+			   mongoProjectService.save(project);
+			}else{
+				mongoProjectService.updateById(project.getId(), project);
+			}
 			com.galaxyinternet.mongodb.model.Project param=new com.galaxyinternet.mongodb.model.Project();
 			param.setUuid(uuid);
 			param = mongoProjectService.findOne(param);

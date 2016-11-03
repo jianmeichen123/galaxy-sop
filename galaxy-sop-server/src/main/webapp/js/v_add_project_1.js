@@ -73,11 +73,12 @@ function add(){
 	}
 	var nowFormData = $("#add_form").serializeObject();
 	//if(beforeSubmit()){
-	sendPostRequestByJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
+	     sendPostRequestByJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
 			var re=data;
-			
+			$("#id").val(data.entity.id);
 		});
 	//}
+	     return true;
 }
 function calculationValuations(){
 	var projectShareRatio = $("#formatShareRatio").val();
