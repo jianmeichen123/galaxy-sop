@@ -3508,10 +3508,55 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/sopinfo/includeRight";
 	}
 	
+	/**
+	 * 新建项目step2
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addProjectStep2", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<com.galaxyinternet.mongodb.model.Project> addProjectStep2(@RequestBody com.galaxyinternet.mongodb.model.Project project,
+			HttpServletRequest request) throws ParseException {
+		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
+		
+		if(project.getId() == null || "".equals(project.getId())){
+			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!")); 
+		}
+		    responseBody.setResult(new Result(Status.OK, "操作成功!")); 
+		try {
+			if(!StringUtils.isEmpty(project.getSopfiletype())){
+				//验证商业计划书是否上传成功
+				SopFile file = (SopFile) request.getSession().getAttribute("businessPlan");
+				if(file != null && file.getFileLength().longValue() <= 0){
+					responseBody.setResult(new Result(Status.ERROR, "file error", "商业计划书上传失败!"));
+					return responseBody;
+				}
+				project.setSopFile(file);
+			}
+			mongoProjectService.updateById(project.getId(), project);
+			responseBody.setEntity(project);
+		} catch (MongoDBException e) {
+			// TODO Auto-generated catch block
+			responseBody.setResult(new Result(Status.ERROR, "操作失败!"));
+			_common_logger_.error("add project step2 error", e);
+		}
+		return responseBody;
+	}
 	
 	
-	
-	
+	/**
+	 * 跳转Right页面
+	 */
+	@RequestMapping(value = "/addProjectHistory/{id}", method = RequestMethod.GET)
+	public String toRight(@PathVariable("id") String id, HttpServletRequest request) {
+		try {
+			com.galaxyinternet.mongodb.model.Project pro = mongoProjectService.findById(id);
+			request.setAttribute("project", pro);
+		} catch (MongoDBException e) {
+			// TODO Auto-generated catch block
+			_common_logger_.error("add project step2 error", e);
+		}
+		
+		return "project/v_addProject";
+	}
 	
 	
 }
