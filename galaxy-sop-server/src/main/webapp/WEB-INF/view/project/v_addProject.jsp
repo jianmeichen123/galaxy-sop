@@ -282,7 +282,7 @@
 							</div>
 							<div class="new_ul_all new_top_color operational_data_show">
 								<span class="ico_dot ico"></span>
-								<p id="operational_data_show" valiate="required"></p>
+								<p id="operational_data_show"></p>
 							</div>
 						</div>
 						<div class='operation_on'>
@@ -354,7 +354,7 @@
 							</div>
 							<div class="new_ul_all new_top_color next_financing_source_show">
 								<span class="ico_dot ico"></span>
-								<p id="next_financing_source_show" valiate="required"></p>
+								<p id="next_financing_source_show"></p>
 							</div>
 						</div>
 						<div class='next_financing_on'>
