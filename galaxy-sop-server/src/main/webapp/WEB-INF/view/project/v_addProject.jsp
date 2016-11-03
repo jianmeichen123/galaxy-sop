@@ -19,6 +19,10 @@
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
+<!-- table列表 -->
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <!-- 富文本编辑器 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
@@ -87,7 +91,7 @@
                         <li>
                         	<span class="basic_span">备注：</span>
                             <span>
-                            	<textarea class="new_nputr text" name="remark" maxlength="50" placeholder="最多输入50字"></textarea>
+                            	<textarea class="new_nputr text" maxlength="50" placeholder="最多输入50字"></textarea>
                         	</span>
                         </li>
                     </ul>  
@@ -121,7 +125,7 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">融资历史</span>
-                        <button class="blue fr add_history" href="tchtml/historytc.html" data-btn="add_history" data-name="融资历史" >添加</button>
+                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     	<tr>
@@ -148,14 +152,14 @@
                     </table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                        <span class="pubbtn bluebtn fl"  data-btn="next" >下一步</span>
+	                        <span class="pubbtn bluebtn fl"  data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">1</label>/<label>4</label>
 	                        </div>
 	                    </div>
                     </div>
         		</div>
-                <div class="page clearfix" data-btn="page1">
+                <div id="step2" class="page clearfix" data-btn="page1">
 					<div class="tabtable_con_on">
 						<div class="new_r_compile ">
 							<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
@@ -184,13 +188,9 @@
 					    <div class="project_center">
 							<div class="new_r_compile ">
 								<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
-								<c:if test="${isEditable}">
-								<span class="new_fctbox">
-									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
-								</span>
-								</c:if>
+								
 							</div>
-							<div class="new_ul_all new_top_color describe_show" style="display:none;">
+							<div class="new_ul_all new_top_color describe_show" >
 								<span class="ico_dot ico"></span>
 								<p id="describe_show"></p>
 							</div>
@@ -380,8 +380,8 @@
 					</div>
 					<div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl"  data-btn="next">下一步</span>
+	                    	<span class="pubbtn bluebtn fl"  data-btn="pre" id="toStep1">上一步</span>
+	                        <span class="pubbtn bluebtn fl"  data-btn="next" id="toStep3">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">2</label>/<label>4</label>
 	                        </div>
@@ -392,7 +392,7 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">团队成员</span>
-                        <button onclick="addProjectPerson();" class="blue fr add_history" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     	<tr>
@@ -539,20 +539,17 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<!--隐藏-->
+<div class="bj_hui_on"></div>
 <script type="text/javascript">
 createMenus(5);
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
-	if(num==0){
-		var result=add();
-		if(!result){
-			alert("参数圈");
-			return;
-		}
-	}
+	
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
+	
 })
 $('[data-btn="pre"]').click(function(){
 	var prePageNum=$(this).parent().parent().parent().attr("data-btn");
@@ -560,6 +557,9 @@ $('[data-btn="pre"]').click(function(){
 	$("[data-btn='page"+(num-1)+"']").addClass("on").siblings().removeClass("on");
 })
 </script>
+<!-- step2 for JS -->
+<jsp:include page="v_project_step2JS.jsp" flush="true"></jsp:include>
+
 <script src="<%=path%>/js/v_add_project_1.js"></script>
 <script src="<%=path%>/js/v_add_project_2.js"></script>
 <script src="<%=path%>/js/v_add_project_3.js"></script>
