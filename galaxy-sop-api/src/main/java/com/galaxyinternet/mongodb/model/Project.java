@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.ProjectShares;
 
 @Document(collection="galaxy.sop.project")
@@ -25,12 +27,15 @@ public class Project {
 	private List<ProjectShares> psc;
 	/*团队成员的学习经历*/
 	private List<PersonLearn> plc;
+	/*团队成员的学习经历*/
+	private List<FinanceHistory> fh;
 	/*判断是修改或者新增的标示*/
 	private String flagId;
 	
 	private String projectType;
 	private String projectName;
 	private String createDate;
+	private String updateDate;
 	private Long industryOwn;
 	private String financeStatus;
 	
@@ -54,7 +59,14 @@ public class Project {
     private String nextFinancingSource;//下一轮融资计划
     private String industryAnalysis;//行业分析
     private String operationalData;//运营数据
-	
+	/**
+	 * 创建时间
+	 */
+	protected Long createdTime;
+	/**
+	 * 更新时间
+	 */
+	protected Long updatedTime;
 	
 	
 	public String getId() {
@@ -98,12 +110,6 @@ public class Project {
 	}
 	public void setPlc(List<PersonLearn> plc) {
 		this.plc = plc;
-	}
-	public String getCreateDate() {
-		return createDate;
-	}
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
 	}
 	public Long getIndustryOwn() {
 		return industryOwn;
@@ -219,6 +225,32 @@ public class Project {
 	public void setFlagId(String flagId) {
 		this.flagId = flagId;
 	}
-	
+	public String getCreateDate() {
+		return createDate;
+	}
+    
+	public void setCreatedTime(Long createdTime) {
+		this.createdTime = createdTime;
+		if (createdTime != null) {
+			this.createDate = DateUtil.longToString(createdTime);
+		}
+	}
+
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdatedTime(Long updatedTime) {
+		this.updatedTime = updatedTime;
+		if (updatedTime != null) {
+			this.updateDate = DateUtil.longToString(updatedTime);
+		}
+	}
+	public List<FinanceHistory> getFh() {
+		return fh;
+	}
+	public void setFh(List<FinanceHistory> fh) {
+		this.fh = fh;
+	}
 	
 }

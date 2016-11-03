@@ -70,6 +70,7 @@ import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -224,6 +225,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String addProjectShares(HttpServletRequest request) {
 		return "project/v_project_shares";
 	}
+	/**
+	 * 添加股权结构弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addFinanceHistory", method = RequestMethod.GET)
+	public String addFinanceHistory(HttpServletRequest request) {
+		return "project/v_addFinanceHistory";
+	}
 	
 	/**
 	 * 添加股权结构弹出层
@@ -298,7 +308,44 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
-	
+	/**
+	 * 添加股权结构弹出层
+	 * @version v
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveFinanceHistory/{flagId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> saveFinanceHistory(@PathVariable("flagId") String flagId, 
+			@RequestBody FinanceHistory financeHistory,
+			HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		if(financeHistory == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			financeHistory.setCreatedTime(System.currentTimeMillis());
+			com.galaxyinternet.mongodb.model.Project project =new com.galaxyinternet.mongodb.model.Project();
+			if(null==flagId||"".equals(flagId)){
+				String uuid=UUIDUtils.create().toString();
+				project.setUuid(uuid);
+				project.setUid(user.getId());
+				project.getFh().add(financeHistory);
+				mongoProjectService.save(project);
+			}else{
+				project=mongoProjectService.findById(flagId);
+				project.getFh().add(financeHistory);
+				mongoProjectService.updateById(flagId, project);
+			}
+			_common_logger_.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
+			responseBody.setResult(new Result(Status.OK, "ok" , "添加融资历史成功!"));
+		} catch (MongoDBException e) {
+			_common_logger_.error(user.getId() + ":" + user.getRealName() + " to save person learning get an exception", e);
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
 	
 	//##########################版本V2.3.111结束##########################
 	/**
