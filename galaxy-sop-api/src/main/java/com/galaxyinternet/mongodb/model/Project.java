@@ -25,6 +25,8 @@ public class Project {
 	private List<ProjectShares> psc;
 	/*团队成员的学习经历*/
 	private List<PersonLearn> plc;
+	/*判断是修改或者新增的标示*/
+	private String flagId;
 	
 	private String projectType;
 	private String projectName;
@@ -210,6 +212,12 @@ public class Project {
 	}
 	public void setOperationalData(String operationalData) {
 		this.operationalData = operationalData;
+	}
+	public String getFlagId() {
+		return flagId;
+	}
+	public void setFlagId(String flagId) {
+		this.flagId = flagId;
 	}
 	
 	

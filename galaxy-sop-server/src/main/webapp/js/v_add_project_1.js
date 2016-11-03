@@ -75,7 +75,7 @@ function add(){
 	//if(beforeSubmit()){
 	     sendPostRequestByJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
 			var re=data;
-			$("#id").val(data.entity.id);
+			$("#flagId").val(data.entity.id);
 		});
 	//}
 	     return true;

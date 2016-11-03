@@ -47,7 +47,7 @@
                         <span class="new_color size16">基本信息</span>
                     </div>  
                     <form action="" id="add_form" method="post">
-                     <input type="hidden" id="id" value="">
+                     <input type="hidden" id="flagId" name="flagId" value="">
                     <ul class="basic_ul">
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>

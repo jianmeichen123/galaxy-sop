@@ -280,10 +280,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			String uuid=UUIDUtils.create().toString();
 			project.setUuid(uuid);
 			project.setUid(user.getId());
-			if(null==project.getId()||"".equals(project.getId())){
+			if(null==project.getFlagId()||"".equals(project.getFlagId())){
 			   mongoProjectService.save(project);
 			}else{
-				mongoProjectService.updateById(project.getId(), project);
+				mongoProjectService.updateById(project.getFlagId(), project);
 			}
 			com.galaxyinternet.mongodb.model.Project param=new com.galaxyinternet.mongodb.model.Project();
 			param.setUuid(uuid);
