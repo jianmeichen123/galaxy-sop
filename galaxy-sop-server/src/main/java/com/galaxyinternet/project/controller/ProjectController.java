@@ -256,8 +256,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	/**
 	 * 新建项目接口
-	 * @version 2016-06-21
-	 * @author yangshuhua
+	 * @version 2016-11-03
+	 * @author chenjianmei
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/apDB", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -279,6 +279,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			String uuid=UUIDUtils.create().toString();
 			project.setUuid(uuid);
+			project.setUid(user.getId());
 			if(null==project.getId()||"".equals(project.getId())){
 			   mongoProjectService.save(project);
 			}else{
