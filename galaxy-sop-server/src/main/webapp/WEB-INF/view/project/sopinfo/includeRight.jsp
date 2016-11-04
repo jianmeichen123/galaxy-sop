@@ -173,7 +173,10 @@ $(function(){
 		{
 			$("#thyy_div").show();
 			$("#thyy_meet_more").click(function(){
-				showTabs(proid,9)
+				
+				//showTabs(proid,9);
+				initTabMeeting(proid);
+				$(".projectDetail li").eq(4).addClass("on").siblings().removeClass("on");
 			});
 			setThyyInfo();
 		}
