@@ -184,8 +184,8 @@ function setDateRange(ev,startOrEnd){
 	var end = new Date(getWeekEndDate).getTime();
 	if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
 	{ 
-		 start = new Date(getWeekStartDate.replace(/-/g,"")).getTime();
-		 end = new Date(getWeekEndDate.replace(/-/g,"")).getTime();
+		 start = new Date(getWeekStartDate.replace(/-/g,"/")).getTime();
+		 end = new Date(getWeekEndDate.replace(/-/g,"/")).getTime();
 	} 
 	
     if(start < current && current < end){
