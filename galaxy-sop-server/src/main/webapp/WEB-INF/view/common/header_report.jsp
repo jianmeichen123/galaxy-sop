@@ -152,16 +152,6 @@ function initHref(){
 	$("#work_xxtx").attr('href' , platformUrl.MessageIndex);//消息提醒
 }
 
-/*关闭二维码*/
-$(".erwms").on("mouseover",function(){
-	 $(this).hide();
-    $(".erwmb").show();
-})
- $(".erwmb").on("mouseout",function(){
-	 $(".erwms").show();
-    $(this).hide();
-})
-
 $(function(){
 	  /*展开/收起按钮定位*/
    var w_h=$(window).height();
@@ -262,6 +252,18 @@ $(window).resize(function(){
        $(".pagebox .lft").css("width","9.375%");
 
     }
+ })
+    /*二维码*/
+ var ewm_w=$(".erwms").width();
+     w_lft=$(".lft").width();
+     $(".erwms").css("margin-left",(w_lft-ewm_w)/2);
+ $(".erwms").on("mouseover",function(){
+	 $(this).hide();
+     $(".erwmb").show();
+ })
+  $(".erwmb").on("mouseout",function(){
+	 $(".erwms").show();
+     $(this).hide();
  })
  
  })	
