@@ -976,7 +976,13 @@ var platformUrl = {
 	/**
 	 * 添加项目到草稿箱
 	 */
-	addProject : Constants.sopEndpointURL + "/galaxy/project/apDB"
+	addProject : Constants.sopEndpointURL + "/galaxy/project/apDB",
+	
+	/**
+	 * 添加项目到草稿箱
+	 */
+	saveFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/saveFinanceHistory"
+	
 	
 	//###############################版v2.3.111结束##################################
 }

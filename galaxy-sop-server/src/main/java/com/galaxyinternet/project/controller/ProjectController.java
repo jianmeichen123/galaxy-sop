@@ -322,10 +322,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveFinanceHistory/{flagId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonLearn> saveFinanceHistory(@PathVariable("flagId") String flagId, 
+	public ResponseData<com.galaxyinternet.mongodb.model.Project> saveFinanceHistory(@PathVariable("flagId") String flagId, 
 			@RequestBody FinanceHistory financeHistory,
 			HttpServletRequest request) {
-		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
 		if(financeHistory == null){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
@@ -334,19 +334,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			financeHistory.setCreatedTime(System.currentTimeMillis());
 			com.galaxyinternet.mongodb.model.Project project =new com.galaxyinternet.mongodb.model.Project();
+			com.galaxyinternet.mongodb.model.Project entity =new com.galaxyinternet.mongodb.model.Project();
+			
 			if(null==flagId||"".equals(flagId)){
 				String uuid=UUIDUtils.create().toString();
 				project.setUuid(uuid);
 				project.setUid(user.getId());
 				project.getFh().add(financeHistory);
 				mongoProjectService.save(project);
+				entity=mongoProjectService.findOne(project);
 			}else{
 				project=mongoProjectService.findById(flagId);
 				project.getFh().add(financeHistory);
 				mongoProjectService.updateById(flagId, project);
+				entity=project;
 			}
 			_common_logger_.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 			responseBody.setResult(new Result(Status.OK, "ok" , "添加融资历史成功!"));
+			responseBody.setEntity(entity);
 		} catch (MongoDBException e) {
 			_common_logger_.error(user.getId() + ":" + user.getRealName() + " to save person learning get an exception", e);
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
