@@ -285,25 +285,7 @@
 		}
 		$form.find('[name="formationDate"]').val(date);
 	}
-	//股权结构列表
-	$sharesTable = $("#shares-table").bootstrapTable({
-		queryParamsType: 'size|page', 
-		pageSize:10,
-		url: platformUrl.projectSharesList,  
-		showRefresh : false ,
-		sidePagination: 'server',
-		method : 'post',
-		pagination: true,
-        search: false,
-        onLoadSuccess: function (data) {
-       		$("#shares-table span.edit").click(function(){
-       			editStock($(this).data('id'));
-       		});
-       		$("#shares-table span.del").click(function(){
-       			delStock($(this).data('id'));
-       		});
-        }
-	});
+	
 	
 	function shareOperatFormater(val,row,index)
 	{
@@ -412,6 +394,24 @@
 			);
 		}
 	}
-	
+	//股权结构列表
+	$sharesTable = $("#shares-table").bootstrapTable({
+		queryParamsType: 'size|page', 
+		pageSize:10,
+		url: platformUrl.projectSharesList,  
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+        search: false,
+        onLoadSuccess: function (data) {
+       		$("#shares-table span.edit").click(function(){
+       			editStock($(this).data('id'));
+       		});
+       		$("#shares-table span.del").click(function(){
+       			delStock($(this).data('id'));
+       		});
+        }
+	});
 </script>
 </c:if>

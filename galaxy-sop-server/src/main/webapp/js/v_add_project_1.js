@@ -42,7 +42,13 @@ $(function(){
 		return false;
 	});
 })
-
+//格式化
+function shareOperatFormater(val,row,index)
+{
+   var e = '<span class="edit" data-id="'+row.id+'">编辑</span> ';  
+   var d = '<span class="del" data-id="'+row.id+'">删除</span>';  
+   return e+d;  
+}
 function setText(obj){
 		if(obj=="set"){
 			$("#faName").attr("style","display:inline-block;")
@@ -82,19 +88,4 @@ function calculationValuations(){
 		return projectContribution * (100/projectShareRatio);
 	}
 	return null;
-}
-
-function addFinanceHistory(){
-	
-	var flagId=$("#flagId").val();
-	if(flagId==""){
-		flagId=null;
-	}
-	var nowFormData = $("#add_Historyform").serializeObject();
-	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+flagId, nowFormData, function(data){
-			var re=data;
-			$("#flagId").val(data.entity.id);
-			$(".poptxt").remove();
-		});
-	     return true;
 }

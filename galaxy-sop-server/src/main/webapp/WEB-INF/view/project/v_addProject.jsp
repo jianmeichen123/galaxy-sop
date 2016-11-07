@@ -126,9 +126,11 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_history ico_add_project"></span>
                         <span class="new_color size16">融资历史</span>
+                        <input type="hidden" id="">
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                     <thead>
                     	<tr>
                     		<th>融资时间</th>
                     		<th>投资方(机构或个人)</th>
@@ -138,18 +140,9 @@
                     		<th>融资轮次</th>
                     		<th>操作</th>
                     	</tr>
-                    	<tr>
-                    		<td>2015-12-16</td>
-                    		<td>红杉资本</td>
-                    		<td>1000</td>
-                    		<td>人民币</td>
-                    		<td>9</td>
-                    		<td>A轮</td>
-                    		<td>
-	                    		<a class="meet_edit blue" href="javascript:void(0)">编辑</a>
-	                    		<a class="meet_delete blue" href="javascript:void(0)">删除</a>
-                    		</td>
-                    	</tr>
+                    </thead>
+	                    <tbody id="financeHistory_table">
+	                    </tbody>
                     </table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
@@ -578,5 +571,6 @@ $('[data-btn="pre"]').click(function(){
 <script src="<%=path%>/js/v_add_project_2.js"></script>
 <script src="<%=path%>/js/v_add_project_3.js"></script>
 <script src="<%=path%>/js/v_add_project_4.js"></script>
+<script src="<%=path%>/js/v_add_project_history.js"></script>
 </body>
 </html>

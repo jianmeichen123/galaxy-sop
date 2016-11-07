@@ -73,8 +73,4 @@
  * @version 2016-06-21
  */
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
-
-
-
 </script>
-<script src="<%=path%>/js/v_add_project_1.js"></script>

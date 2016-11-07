@@ -449,6 +449,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	/**
+	 * 团队信息的学习经历数据查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchFinanceHistory/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<FinanceHistory> searchFinanceHistory(@PathVariable("id") String id, HttpServletRequest request) {
+		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
+		if(id == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		if(id.equals("null")){
+			responseBody.setEntityList(null);
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			responseBody.setEntityList(project != null ? project.getFh() : null);
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询融资历史成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search person learning get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
 	
 	//##########################版本V2.3.111结束##########################
 	/**
