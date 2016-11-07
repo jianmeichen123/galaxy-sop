@@ -57,7 +57,7 @@ function initViewUpload() {
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
-						sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/showProject",res,function(data){
+						sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/savePreProViewAndFile/"+pid,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#saveInterView").removeClass("disabled");
@@ -65,9 +65,7 @@ function initViewUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
-								
-								$("#data-table").bootstrapTable('refresh');
-								
+								$("#pre_pro_view_table").bootstrapTable('refresh');
 								removePop1();
 							}
 						});
@@ -100,9 +98,7 @@ function initViewUpload() {
 					return false;
 				}else{
 					layer.msg("保存成功", {time : 500});
-					
-					$("#data-table").bootstrapTable('refresh');
-					
+					$("#pre_pro_view_table").bootstrapTable('refresh');
 					removePop1();
 				}
 			},
@@ -131,7 +127,8 @@ function initViewUpload() {
 
 //todo 访谈记录   -- table 回显
 
-function viewTableRefresh(){
+function viewTableRefresh(pid){
+	$("input[name='pid']").val(pid);
 	
 	//$('#pre_pro_view_table').bootstrapTable('destroy');
 	$('#pre_pro_view_table').bootstrapTable({
@@ -264,9 +261,6 @@ function interviewsave(){
 		});
 	}
 }
-
-
-
 
 
 

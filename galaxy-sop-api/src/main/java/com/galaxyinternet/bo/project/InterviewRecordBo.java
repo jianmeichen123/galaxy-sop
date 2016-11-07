@@ -14,6 +14,10 @@ public class InterviewRecordBo extends InterviewRecord{
 	private static final long serialVersionUID = 1L;
 	private String proName;
 
+
+	private String fkey;
+	private String bucketName;
+	private Long fileLength;
 	
 	private Long uid;
 	private String startTime; // yyyy-mm-dd
@@ -105,10 +109,6 @@ public class InterviewRecordBo extends InterviewRecord{
 	public void setInpro(int inpro) {
 		this.inpro = inpro;
 	}
-
-	private String fkey;
-	private String bucketName;
-	private Long fileLength;
 	
 	public String getFkey() {
 		return fkey;

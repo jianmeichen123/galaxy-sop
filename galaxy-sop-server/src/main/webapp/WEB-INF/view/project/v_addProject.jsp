@@ -468,14 +468,18 @@
 	                    </div>
                     </div>
                 </div>
+                
+                
+                
                 <div class="page" data-btn="page3">
-                    <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_interview ico_add_project"></span>
+                	 <div class="new_r_compile new_bottom_color">
+                        <span class="new_ico_book"></span>
                         <span class="new_color size16">访谈记录</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button class="blue fr add_history" href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="pro_interview" data-name="访谈记录">添加</button>
                     </div>
-                    <div id="view_custom-toolbar">
-						<input type="hidden" name="projectId" value="">
+                    
+			        <div id="view_custom-toolbar">
+						<input type="hidden" name="pid" value="">
 					</div>
                     <table style="table-layout:fixed"  id="pre_pro_view_table" 
                     	data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 

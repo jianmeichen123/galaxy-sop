@@ -14,6 +14,7 @@ public class InterviewRecord extends BaseEntity{
 	
 	/*唯一编码*/
 	private String uuid;
+	private String pid;
 	
     private Long projectId;
     
@@ -36,7 +37,15 @@ public class InterviewRecord extends BaseEntity{
     
     
     
-    public SopFile getSopFile() {
+    public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
+	public SopFile getSopFile() {
 		return sopFile;
 	}
 
