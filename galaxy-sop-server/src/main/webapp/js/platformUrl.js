@@ -990,9 +990,19 @@ var platformUrl = {
 	/**
 	 * 添加项目到草稿箱
 	 */
-	deleteFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/deleteFinanceHistory"
+	deleteFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/deleteFinanceHistory",
 
+	/**
+	 * 添加项目到草稿箱
+	 */
+	updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/upateFinanceHistory"
+	/**
+	 * 修改保存
+	 */
 	
+	updateSave:updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/updateSave"
+
+
 	
 	
 	//###############################版v2.3.111结束##################################

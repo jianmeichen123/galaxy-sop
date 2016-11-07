@@ -230,13 +230,23 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/v_project_shares";
 	}
 	/**
-	 * 添加股权结构弹出层
+	 * 添加融资历史
 	 * @version v
 	 * @return
 	 */
 	@RequestMapping(value = "/addFinanceHistory", method = RequestMethod.GET)
 	public String addFinanceHistory(HttpServletRequest request) {
 		return "project/v_addFinanceHistory";
+	}
+	
+	/**
+	 * 修改融资历史信息
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/upateFinanceHistory", method = RequestMethod.GET)
+	public String upateFinanceHistory(HttpServletRequest request) {
+		return "project/v_upateFinanceHistory";
 	}
 	
 	
@@ -525,8 +535,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 删除历史投资信息
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateFinanceHistory/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<com.galaxyinternet.mongodb.model.Project> updateFinanceHistory(@PathVariable("uuid") String uuid,
+	@RequestMapping(value = "/updateSave/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<com.galaxyinternet.mongodb.model.Project> updateSave(@PathVariable("uuid") String uuid,
 			@PathVariable("pid") String pid,@RequestBody FinanceHistory financeHistory,
 			HttpServletRequest request) {
 		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
