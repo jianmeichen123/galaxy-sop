@@ -9,6 +9,7 @@ function addFinanceHistory(){
 			var re=data;
 			$("#flagId").val(data.entity.id);
 			$.popupOneClose();
+			$("body").css("overflow","auto")
 			formatterTable(re.entity.fh);
 		});
 	     return true;
