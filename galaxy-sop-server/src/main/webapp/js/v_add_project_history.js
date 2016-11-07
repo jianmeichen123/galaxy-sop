@@ -30,8 +30,8 @@ function formatterTable(entity){
 					"<td>"+obj.financeProportion+"</td>"+
 					"<td>"+obj.financeStatus+"</td>"+
 					"<td>"+
-						"<a class='meet_edit blue' href='javascript:void(0)'>编辑</a>"+
-						"<a class='meet_delete blue' href='javascript:void(0)'>删除</a>"+
+						"<a class='finance_edit blue'   onclick='deleteFinance("+obj.uuid+")' href='javascript:void(0)'>编辑 &nbsp;</a>"+
+						"<a class='finance_delete blue' onclick='updateFinance("+obj.uuid+")' href='javascript:void(0)'>删除</a>"+
 					"</td>"+
 			   "</tr>";
 		}
@@ -39,5 +39,16 @@ function formatterTable(entity){
 	}
 	
 	$("#financeHistory_table").append(html);
+	
+}
+function deleteFinance(uuid){
+	
+	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
+			var re=data;
+			formatterTable(re.entity.fh);
+		});
+	
+}
+function updateFinance(uuid){
 	
 }

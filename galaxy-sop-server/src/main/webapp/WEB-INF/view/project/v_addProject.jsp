@@ -541,7 +541,7 @@ $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
 	
-	/* if(num==0){
+	 if(num==0){
 		var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
@@ -553,7 +553,7 @@ $('[data-btn="next"]').click(function(){
 		if(!step2Valiate("step2")){
 			return;
 		};
-	}else  */ if(num==2){
+	}else if(num==2){
 		viewTableShow(pid);
 	}
 	

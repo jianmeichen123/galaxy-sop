@@ -1,9 +1,12 @@
 package com.galaxyinternet.model.project;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.model.hr.PersonLearn;
 
 public class FinanceHistory extends BaseEntity {
 	private static final long serialVersionUID = 1L;
+	
+	private String uuid;
 
     private Long projectId;//项目id
     
@@ -86,4 +89,19 @@ public class FinanceHistory extends BaseEntity {
 		this.createUid = createUid;
 	}
 
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(uuid != null && obj != null && obj instanceof FinanceHistory && ((FinanceHistory) obj).getUuid() != null){
+			return this.getUuid().equals(((FinanceHistory) obj).getUuid());
+		}
+		return super.equals(obj);
+	}
+	
 }

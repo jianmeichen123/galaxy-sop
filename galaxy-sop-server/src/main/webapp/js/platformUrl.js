@@ -985,8 +985,13 @@ var platformUrl = {
 	/**
 	 * 添加项目到草稿箱
 	 */
-	searchFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/searchFinanceHistory"
+	searchFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/searchFinanceHistory",
 	
+	/**
+	 * 添加项目到草稿箱
+	 */
+	deleteFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/deleteFinanceHistory"
+
 	
 	
 	
