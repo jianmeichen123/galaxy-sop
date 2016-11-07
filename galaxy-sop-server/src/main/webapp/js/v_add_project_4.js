@@ -31,7 +31,7 @@ function initViewUpload() {
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#file-select-btn")[0], 
 		
-		url : Constants.sopEndpointURL+"/galaxy/project/savePreProViewAndFile/"+pid,
+		url : Constants.sopEndpointURL+"/galaxy/project/savePreProViewAndFile",
 		
 		multipart:true,
 		multi_selection:false,
@@ -51,13 +51,13 @@ function initViewUpload() {
 						$("#saveInterView").removeClass("disabled");
 						return;
 					}
-					
+					res.pid = pid;
 					//var file = $("#fileName").val();
 					if(up.files.length != 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
-						sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/savePreProViewAndFile/"+pid,res,function(data){
+						sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/savePreProViewAndFile",res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#saveInterView").removeClass("disabled");
@@ -127,7 +127,8 @@ function initViewUpload() {
 
 //todo 访谈记录   -- table 回显
 
-function viewTableRefresh(pid){
+function viewTableShow(pid){
+	alert("to show");
 	$("input[name='pid']").val(pid);
 	
 	//$('#pre_pro_view_table').bootstrapTable('destroy');

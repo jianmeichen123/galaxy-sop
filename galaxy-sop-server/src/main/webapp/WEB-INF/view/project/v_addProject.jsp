@@ -482,7 +482,7 @@
 						<input type="hidden" name="pid" value="">
 					</div>
                     <table style="table-layout:fixed"  id="pre_pro_view_table" 
-                    	data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
+                    	data-url="<%=path %>/galaxy/project/queryPreProView" data-method="post" 
 		          		data-toolbar="#view_custom-toolbar" 
 						data-id-field="uuid" data-unique-id="uuid" data-show-refresh="true">
 						<colgroup >
@@ -541,14 +541,14 @@
 <script type="text/javascript">
 createMenus(5);
 var id = "581ae7822b7c2b20f4a747bc";
-var pid;
+var pid = "581afb34cf20891a84d4fadc";
 
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
 	
-	if(num==0){
+	/* if(num==0){
 		var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
@@ -560,8 +560,8 @@ $('[data-btn="next"]').click(function(){
 		if(!step2Valiate("step2")){
 			return;
 		};
-	}else if(num==2){
-		
+	}else  */ if(num==2){
+		viewTableShow(pid);
 	}
 	
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");

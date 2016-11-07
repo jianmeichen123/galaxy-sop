@@ -705,10 +705,11 @@ function getPreViewCondition(
 		viewTargetId,
 		viewNotesId){
 	var	condition = {};
-	
+	/*
 	if(!beforeSubmit()){
 		return false;
 	}
+	*/
 	var viewDateStr = $("#"+viewDateId).val();
 	var viewTarget = $.trim($("#"+viewTargetId).val());
 	var um = UM.getEditor(viewNotesId);
