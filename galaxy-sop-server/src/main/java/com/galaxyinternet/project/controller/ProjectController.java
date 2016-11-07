@@ -527,7 +527,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@ResponseBody
 	@RequestMapping(value = "/updateFinanceHistory/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<com.galaxyinternet.mongodb.model.Project> updateFinanceHistory(@PathVariable("uuid") String uuid,
-			@PathVariable("pid") String pid,
+			@PathVariable("pid") String pid,@RequestBody FinanceHistory financeHistory,
 			HttpServletRequest request) {
 		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
 		if(uuid == null || "".equals(uuid.trim()) 
@@ -542,6 +542,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			l.setUuid(uuid);
 			if(project != null && project.getPlc() != null && project.getFh().contains(l)){
 				project.getFh().remove(l);
+				financeHistory.setUuid(uuid);
+				project.getFh().add(financeHistory);
 				mongoProjectService.updateById(pid, project);
 				if(logger.isInfoEnabled()){
 					logger.info(FormatterUtils.formatStr(

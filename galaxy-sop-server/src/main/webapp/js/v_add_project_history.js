@@ -42,7 +42,6 @@ function formatterTable(entity){
 	
 }
 function deleteFinance(uuid){
-	
 	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			var re=data;
 			formatterTable(re.entity.fh);
@@ -50,5 +49,6 @@ function deleteFinance(uuid){
 	
 }
 function updateFinance(uuid){
+	
 	
 }
