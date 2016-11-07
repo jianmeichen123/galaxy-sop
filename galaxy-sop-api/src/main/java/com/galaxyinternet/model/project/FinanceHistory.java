@@ -7,7 +7,7 @@ public class FinanceHistory extends BaseEntity {
 
     private Long projectId;//项目id
     
-    private long financeDate;//融资日期
+    private String financeDate;//融资日期
     
     private String financeFrom;//融资来源
     
@@ -17,7 +17,7 @@ public class FinanceHistory extends BaseEntity {
     
     private double financeProportion;//融资占比
     
-    private Integer financeStatus;//融资轮次
+    private String financeStatus;//融资轮次
     
     private Long createUid;//创建人
     
@@ -30,11 +30,11 @@ public class FinanceHistory extends BaseEntity {
         this.projectId = projectId;
     }
 
-	public long getFinanceDate() {
+	public String getFinanceDate() {
 		return financeDate;
 	}
 
-	public void setFinanceDate(long financeDate) {
+	public void setFinanceDate(String financeDate) {
 		this.financeDate = financeDate;
 	}
 
@@ -70,11 +70,11 @@ public class FinanceHistory extends BaseEntity {
 		this.financeProportion = financeProportion;
 	}
 
-	public Integer getFinanceStatus() {
+	public String getFinanceStatus() {
 		return financeStatus;
 	}
 
-	public void setFinanceStatus(Integer financeStatus) {
+	public void setFinanceStatus(String financeStatus) {
 		this.financeStatus = financeStatus;
 	}
 

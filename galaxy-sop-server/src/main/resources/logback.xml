@@ -178,7 +178,7 @@
 		<appender-ref ref="IS_ALARM" />
 	</logger>
 	
-	
+	<logger name="org.apache.ibatis.jdbc.ScriptRunner" level="INFO" />
 	
 	<!--打印logback上下文状态 -->
 	<!-- <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> -->

@@ -385,6 +385,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(null==project.getFlagId()||"".equals(project.getFlagId())){
 			   mongoProjectService.save(project);
 			}else{
+				com.galaxyinternet.mongodb.model.Project fh=new com.galaxyinternet.mongodb.model.Project();
+				fh=mongoProjectService.findById(project.getFlagId());
+				project.setFh(fh.getFh());
 				mongoProjectService.updateById(project.getFlagId(), project);
 			}
 			com.galaxyinternet.mongodb.model.Project param=new com.galaxyinternet.mongodb.model.Project();
@@ -421,13 +424,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			com.galaxyinternet.mongodb.model.Project project =new com.galaxyinternet.mongodb.model.Project();
 			com.galaxyinternet.mongodb.model.Project entity =new com.galaxyinternet.mongodb.model.Project();
 			
-			if(null==flagId||"".equals(flagId)){
+			if(null==flagId||"null".equals(flagId)){
 				String uuid=UUIDUtils.create().toString();
 				project.setUuid(uuid);
 				project.setUid(user.getId());
 				project.getFh().add(financeHistory);
 				mongoProjectService.save(project);
-				entity=mongoProjectService.findOne(project);
+				com.galaxyinternet.mongodb.model.Project param =new com.galaxyinternet.mongodb.model.Project();
+				param.setUuid(uuid);
+				param.setUid(user.getId());
+				entity=mongoProjectService.findOne(param);
 			}else{
 				project=mongoProjectService.findById(flagId);
 				project.getFh().add(financeHistory);

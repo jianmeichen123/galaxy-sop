@@ -85,11 +85,16 @@ function calculationValuations(){
 }
 
 function addFinanceHistory(){
-	var nowFormData = $("#add_Historyform").serializeObject();
 	
-	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+$("#flagId").val(), $("#add_Historyform").serializeObject(), function(data){
+	var flagId=$("#flagId").val();
+	if(flagId==""){
+		flagId=null;
+	}
+	var nowFormData = $("#add_Historyform").serializeObject();
+	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+flagId, nowFormData, function(data){
 			var re=data;
-			//$("#flagId").val(data.entity.id);
+			$("#flagId").val(data.entity.id);
+			$(".poptxt").remove();
 		});
 	     return true;
 }

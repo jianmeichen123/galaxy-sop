@@ -35,8 +35,8 @@
             <dl class="fmdl clearfix">
                  <dt>币种：</dt>
                 <dd>
-                    <select>
-                        <option value="0" name="financeUnit">人民币</option>
+                    <select name="financeUnit">
+                        <option value="0" select="selected" name="financeUnit">人民币</option>
                         <option value="1" name="financeUnit">美元</option>
                         <option value="2" name="financeUnit">英镑</option>
                         <option value="3" name="financeUnit">欧元</option>
@@ -58,13 +58,13 @@
             </dl>
         </div>
     </div>
-    
+      	</form>
     
     <div class="button_affrim">
         <a href="javascript:;"  class="register_all_affrim fl" id="save_file"  onclick="addFinanceHistory()">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
-  	</form>
+
 </div>
 <script>
 

@@ -1,10 +1,12 @@
 package com.galaxyinternet.mongodb.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.galaxyinternet.framework.core.dao.utils.QueryField;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.project.FinanceHistory;
@@ -18,6 +20,7 @@ public class Project {
 	@Id
 	private String id;
 	/*唯一编码*/
+	@QueryField(attribute="uuid")
 	private String uuid;
 	/*项目的创建人ID*/
 	private Long uid;
@@ -30,7 +33,7 @@ public class Project {
 	/*团队成员的学习经历*/
 	private List<PersonLearn> plc;
 	/*团队成员的学习经历*/
-	private List<FinanceHistory> fh;
+	private List<FinanceHistory> fh=new ArrayList<FinanceHistory>();
 	/*判断是修改或者新增的标示*/
 	private String flagId;
 	
