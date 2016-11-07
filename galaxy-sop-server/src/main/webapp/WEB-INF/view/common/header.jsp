@@ -70,7 +70,7 @@
         </ul>
       </div>
       <div class="xingmou fr">
-        <a href="http://xm.galaxyinternet.com/user/userlogin/auth?sid=<%=user.getSessionId() %>&uid=<%=user.getId() %>" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a>
+        <a href="http://xm.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a>
       </div>
     </div>
 </div>
