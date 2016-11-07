@@ -67,10 +67,17 @@ $(function(){
 	initDialogValstr("learning");
 	$("#save_person_learning").click(function(){
 		if(beforeSubmitById("learning")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/581aa5092b7c2b01c4094166", 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/581ae7822b7c2b20f4a747bc", 
 					$("#add_person_learning").serializeObject(), 
 					function(data){
 				$.popupTwoClose();
+				if(data.result.status == 'OK'
+					&& typeof(data.entityList) != 'undefined' 
+					&& data.entityList.length > 0){
+					generateLearningInnerHtml(data.entityList);
+				}else{
+					generateLearningEmptyInnerHtml();
+				}
 			});
 		}
 	});

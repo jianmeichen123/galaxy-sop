@@ -7,6 +7,7 @@ import com.galaxyinternet.framework.core.model.BaseEntity;
 public class PersonLearn extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
+	private String uuid;
 	private Long personId; //关联人力资源的ID 
 	private String degree; //字典 学历,关联数据字典数据项ID
 	private String school; //学校
@@ -22,6 +23,14 @@ public class PersonLearn extends BaseEntity{
 	private String classmatePhone;//同学电话
 	private String   beginDateStr; //入学时间
 	private String   overDateStr; // 毕业时间
+	
+	
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	public Long getPersonId() {
 		return personId;
 	}
@@ -113,9 +122,11 @@ public class PersonLearn extends BaseEntity{
 		this.overDateStr = overDateStr;
 	}
 	
-	
-	
-                                 
-	
-
+	@Override
+	public boolean equals(Object obj) {
+		if(uuid != null && obj != null && obj instanceof PersonLearn && ((PersonLearn) obj).getUuid() != null){
+			return this.getUuid().equals(((PersonLearn) obj).getUuid());
+		}
+		return super.equals(obj);
+	}
 }

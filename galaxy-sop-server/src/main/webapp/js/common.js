@@ -1608,6 +1608,7 @@ function ajaxPopup(obj,tite_mame){
 		    undefinedText:' ',
 		    onLoadSuccess:function(result){
 		    	//$(toolbar).html("");
+		    	$("#fixed-table").css("width",$("#data-table-ajax-popup tbody").width())
 		    }
  			});
  		}
