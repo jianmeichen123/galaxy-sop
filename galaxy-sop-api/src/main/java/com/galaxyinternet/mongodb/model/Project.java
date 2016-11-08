@@ -9,8 +9,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.InterviewRecord;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.ProjectShares;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -28,10 +30,10 @@ public class Project {
 	private int status;
 	/*项目名称*/
 	private String pn;
+	/*团队成员列表*/
+	private List<PersonPool> pc;
 	/*项目关联的股权结构*/
 	private List<ProjectShares> psc;
-	/*团队成员的学习经历*/
-	private List<PersonLearn> plc;
 	/*团队成员的学习经历*/
 	private List<FinanceHistory> fh=new ArrayList<FinanceHistory>();
 	/*判断是修改或者新增的标示*/
@@ -115,14 +117,14 @@ public class Project {
 	public void setPn(String pn) {
 		this.pn = pn;
 	}
+	public List<PersonPool> getPc() {
+		return pc;
+	}
+	public void setPc(List<PersonPool> pc) {
+		this.pc = pc;
+	}
 	public void setPsc(List<ProjectShares> psc) {
 		this.psc = psc;
-	}
-	public List<PersonLearn> getPlc() {
-		return plc;
-	}
-	public void setPlc(List<PersonLearn> plc) {
-		this.plc = plc;
 	}
 	public Long getIndustryOwn() {
 		return industryOwn;

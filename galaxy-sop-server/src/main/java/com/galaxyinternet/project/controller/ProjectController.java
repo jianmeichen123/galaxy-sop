@@ -72,6 +72,7 @@ import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FinanceHistory;
@@ -197,7 +198,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@RequestMapping(value = "/addProjectPerson", method = RequestMethod.GET)
 	public String addProjectPerson(HttpServletRequest request) {
-		return "project/v_project_person";
+		request.setAttribute("uuid", UUIDUtils.create().toString());
+		return "project/v_add_project_person";
 	}
 	
 	/**
@@ -250,19 +252,323 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	
-	
 	/**
-	 * 添加股权结构弹出层
-	 * @version v
-	 * @return
+	 * 添加团队成员记录
+	 * @param uuid 新增团队成员的uuid
+	 * @param id 项目ID
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/savePersonLearning/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonLearn> savePersonLearning(@PathVariable("id") String id, 
+	@RequestMapping(value = "/savePerson/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> savePerson(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id, 
+			@RequestBody PersonPool personPool,
+			HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(id == null || "".equals(id.trim()) || personPool == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			personPool.setUuid(uuid);
+			personPool.setCreatedTime(System.currentTimeMillis());
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			List<PersonPool> personList = null;
+			if(project.getPc() == null){
+				personList = new ArrayList<PersonPool>();
+				personList.add(personPool);
+			}else{
+				personList = project.getPc();
+				if(personList.contains(personPool)){
+					for(PersonPool p : personList){
+						if(p.getUuid().equals(uuid)){
+							personList.remove(personPool);
+							personPool.setPwc(p.getPwc());
+							personPool.setPlc(p.getPlc());
+							personList.add(personPool);
+						}
+					}
+				}else{
+					personList.add(personPool);
+				}
+			}
+			project.setPc(personList);
+			mongoProjectService.updateById(id, project);
+			if(logger.isInfoEnabled()){
+				logger.info(user.getId() + ":" + user.getRealName() + " to save person successful > " + project.getId());
+			}
+			responseBody.setEntityList(personList);
+			responseBody.setResult(new Result(Status.OK, "ok" , "添加团队成员成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to save person get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 删除团队成员
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteProjectPerson/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> deleteProjectPerson(@PathVariable("uuid") String uuid,
+			@PathVariable("pid") String pid,
+			HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(uuid == null || "".equals(uuid.trim()) 
+				|| pid == null || "".equals(pid.trim()) ){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
+			PersonPool w = new PersonPool();
+			w.setUuid(uuid);
+			if(project != null && project.getPc() != null && project.getPc().contains(w)){
+				project.getPc().remove(w);
+				mongoProjectService.updateById(pid, project);
+				if(logger.isInfoEnabled()){
+					logger.info(FormatterUtils.formatStr(
+							"{0}:{1} to delete person successfully > pid : {3}, uuid : {4}", 
+							user.getId(), user.getRealName(), pid, uuid));
+				}
+				responseBody.setEntityList(project.getPc());
+				responseBody.setResult(new Result(Status.OK,"ok" , "删除团队成员成功!"));
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"no" , "未找该团队成员记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to delete person get an exception > pid : {3}, uuid : {4}", 
+						user.getId(), user.getRealName(), pid, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 查询团队成员列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchProjectPerson/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> searchProjectPerson(@PathVariable("id") String id, HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(id == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			responseBody.setEntityList(project != null ? project.getPc() : null);
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询团队成员信息成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search person data get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 添加工作经历记录
+	 * @param puuid 团队成员记录的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/savePersonWork/{puuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> savePersonWork(@PathVariable("puuid") String puuid,
+			@PathVariable("id") String id, 
+			@RequestBody PersonWork personWork,
+			HttpServletRequest request) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		if(id == null || "".equals(id.trim())
+				|| puuid == null || "".equals(puuid.trim())
+				|| personWork == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			personWork.setUuid(UUIDUtils.create().toString());
+			personWork.setCreatedTime(System.currentTimeMillis());
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			PersonPool w = new PersonPool();
+			w.setUuid(puuid);
+			List<PersonWork> workList = null;
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				if(list.contains(w)){
+					for(PersonPool p : list){
+						if(p.getUuid().equals(puuid.trim())){
+							if(p.getPwc() == null){
+								workList = new ArrayList<PersonWork>();
+							}else{
+								workList = p.getPwc();
+							}
+							workList.add(personWork);
+							p.setPwc(workList);
+							list.remove(p);
+							list.add(p);
+							project.setPc(list);
+							mongoProjectService.updateById(id, project);
+							break;
+						}
+					}
+				}else{
+					workList = new ArrayList<PersonWork>();
+					workList.add(personWork);
+					w.setPwc(workList);
+					list.add(w);
+					project.setPc(list);
+					mongoProjectService.updateById(id, project);
+				}
+			}else{
+				workList = new ArrayList<PersonWork>();
+				workList.add(personWork);
+				w.setPwc(workList);
+				List<PersonPool> pList = new ArrayList<PersonPool>();
+				pList.add(w);
+				project.setPc(pList);
+				mongoProjectService.updateById(id, project);
+			}
+			if(logger.isInfoEnabled()){
+				logger.info(user.getId() + ":" + user.getRealName() + " to save person work successful > " + project.getId());
+			}
+			responseBody.setEntityList(workList);
+			responseBody.setResult(new Result(Status.OK, "ok" , "添加工作经历成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to save person work get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 删除工作经历记录
+	 * @param puuid 团队成员记录的uuid
+	 * @param uuid 工作经历记录的uuid
+	 * @param pid 所属团队信息的ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteProjectWork/{puuid}/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> deleteProjectWork(@PathVariable("puuid") String puuid,
+			@PathVariable("uuid") String uuid,
+			@PathVariable("pid") String pid,
+			HttpServletRequest request) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		if(puuid == null || "".equals(puuid.trim()) 
+				||uuid == null || "".equals(uuid.trim()) 
+				|| pid == null || "".equals(pid.trim()) ){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
+			PersonWork w = new PersonWork();
+			w.setUuid(uuid);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				PersonPool pp = new PersonPool();
+				pp.setUuid(puuid);
+				if(list.contains(pp)){
+					for(PersonPool p : list){
+						if(p.getUuid().equals(puuid.trim())){
+							List<PersonWork> works = p.getPwc();
+							works.remove(w);
+							list.remove(p);
+							list.add(p);
+							project.setPc(list);
+							mongoProjectService.updateById(pid, project);
+							if(logger.isInfoEnabled()){
+								logger.info(FormatterUtils.formatStr(
+										"{0}:{1} to delete work successfully > pid : {3}, uuid : {4}", 
+										user.getId(), user.getRealName(), pid, uuid));
+							}
+							responseBody.setEntityList(works);
+							responseBody.setResult(new Result(Status.OK,"ok" , "删除工作经历成功!"));
+							break;
+						}
+					}
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"no" , "未找该工作经历记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to delete work get an exception > pid : {3}, uuid : {4}", 
+						user.getId(), user.getRealName(), pid, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 工作经历列表查询
+	 * @param puuid 团队成员的uuid
+	 * @param pid 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchProjectWork/{puuid}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> searchProjectWork(@PathVariable("puuid") String puuid,
+			@PathVariable("id") String id, 
+			HttpServletRequest request) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		if(id == null || "".equals(id.trim())
+				|| puuid == null || "".equals(puuid.trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			PersonPool pool = new PersonPool();
+			pool.setUuid(puuid);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				for(PersonPool p : list){
+					if(p.getUuid().equals(puuid)){
+						responseBody.setEntityList(p.getPwc());
+						break;
+					}
+				}
+			}
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询工作经历数据成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search person work get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
+	
+	
+	
+	/**
+	 * 添加学习经历记录
+	 * @param id 草稿项目ID
+	 * @param puuid 团队成员记录的uuid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/savePersonLearning/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> savePersonLearning(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id, 
 			@RequestBody PersonLearn personLearn,
 			HttpServletRequest request) {
 		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
-		if(id == null || "".equals(id.trim()) || personLearn == null){
+		if(id == null || "".equals(id.trim())
+				|| uuid == null || "".equals(uuid.trim())
+				|| personLearn == null){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
@@ -271,15 +577,45 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			personLearn.setUuid(UUIDUtils.create().toString());
 			personLearn.setCreatedTime(System.currentTimeMillis());
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			PersonPool w = new PersonPool();
+			w.setUuid(uuid);
 			List<PersonLearn> learnList = null;
-			if(project.getPlc() == null){
-				learnList = new ArrayList<PersonLearn>();
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				if(list.contains(w)){
+					for(PersonPool p : list){
+						if(p.getUuid().equals(uuid.trim())){
+							if(p.getPlc() == null){
+								learnList = new ArrayList<PersonLearn>();
+							}else{
+								learnList = p.getPlc();
+							}
+							learnList.add(personLearn);
+							p.setPlc(learnList);
+							list.remove(p);
+							list.add(p);
+							project.setPc(list);
+							mongoProjectService.updateById(id, project);
+							break;
+						}
+					}
+				}else{
+					learnList = new ArrayList<PersonLearn>();
+					learnList.add(personLearn);
+					w.setPlc(learnList);
+					list.add(w);
+					project.setPc(list);
+					mongoProjectService.updateById(id, project);
+				}
 			}else{
-				learnList = project.getPlc();
+				learnList = new ArrayList<PersonLearn>();
+				learnList.add(personLearn);
+				w.setPlc(learnList);
+				List<PersonPool> pList = new ArrayList<PersonPool>();
+				pList.add(w);
+				project.setPc(pList);
+				mongoProjectService.updateById(id, project);
 			}
-			learnList.add(personLearn);
-			project.setPlc(learnList);
-			mongoProjectService.updateById(id, project);
 			if(logger.isInfoEnabled()){
 				logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 			}
@@ -293,18 +629,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-	
-	
 	/**
-	 * 团队信息的学习经历数据查询
+	 * 删除学习经历记录
+	 * @param pid 草稿项目ID
+	 * @param puuid 团队成员记录的uuid
+	 * @param uuid 学习经历记录的uuid
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/deleteProjectLearning/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonLearn> deleteProjectLearning(@PathVariable("uuid") String uuid,
+	@RequestMapping(value = "/deleteProjectLearning/{puuid}/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> deleteProjectLearning(@PathVariable("puuid") String puuid,
+			@PathVariable("uuid") String uuid,
 			@PathVariable("pid") String pid,
 			HttpServletRequest request) {
 		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
-		if(uuid == null || "".equals(uuid.trim()) 
+		if(puuid == null || "".equals(puuid.trim()) 
+				||uuid == null || "".equals(uuid.trim()) 
 				|| pid == null || "".equals(pid.trim()) ){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
@@ -312,47 +651,75 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
-			PersonLearn l = new PersonLearn();
-			l.setUuid(uuid);
-			if(project != null && project.getPlc() != null && project.getPlc().contains(l)){
-				project.getPlc().remove(l);
-				mongoProjectService.updateById(pid, project);
-				if(logger.isInfoEnabled()){
-					logger.info(FormatterUtils.formatStr(
-							"{0}:{1} to delete learning successfully {pid : {3}, uuid : {4}}", 
-							user.getId(), user.getRealName(), pid, uuid));
+			PersonLearn w = new PersonLearn();
+			w.setUuid(uuid);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				PersonPool pp = new PersonPool();
+				pp.setUuid(puuid);
+				if(list.contains(pp)){
+					for(PersonPool p : list){
+						if(p.getUuid().equals(puuid.trim())){
+							List<PersonLearn> learns = p.getPlc();
+							learns.remove(w);
+							list.remove(p);
+							list.add(p);
+							project.setPc(list);
+							mongoProjectService.updateById(pid, project);
+							if(logger.isInfoEnabled()){
+								logger.info(FormatterUtils.formatStr(
+										"{0}:{1} to delete learning successfully > pid : {3}, uuid : {4}", 
+										user.getId(), user.getRealName(), pid, uuid));
+							}
+							responseBody.setEntityList(learns);
+							responseBody.setResult(new Result(Status.OK,"ok" , "删除学习经历成功!"));
+							break;
+						}
+					}
 				}
-				responseBody.setResult(new Result(Status.OK,"ok" , "删除学习经历成功!"));
 			}else{
 				responseBody.setResult(new Result(Status.ERROR,"no" , "未找该学习经历记录!"));
 			}
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
 				logger.error(FormatterUtils.formatStr(
-						"{0}:{1} to delete learning get an exception {pid : {3}, uuid : {4}}", 
+						"{0}:{1} to delete learning get an exception > pid : {3}, uuid : {4}", 
 						user.getId(), user.getRealName(), pid, uuid), e);
 			}
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		}
 		return responseBody;
 	}
-	
-	
 	/**
-	 * 团队信息的学习经历数据查询
+	 * 学习经历列表查询
+	 * @param pid 草稿项目ID
+	 * @param puuid 团队成员的uuid
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/searchProjectLearning/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonLearn> searchProjectLearning(@PathVariable("id") String id, HttpServletRequest request) {
+	@RequestMapping(value = "/searchProjectLearning/{puuid}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> searchProjectLearning(@PathVariable("puuid") String puuid,
+			@PathVariable("id") String id, 
+			HttpServletRequest request) {
 		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
-		if(id == null){
+		if(id == null || "".equals(id.trim())
+				|| puuid == null || "".equals(puuid.trim())){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-			responseBody.setEntityList(project != null ? project.getPlc() : null);
+			PersonPool pool = new PersonPool();
+			pool.setUuid(puuid);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				for(PersonPool p : list){
+					if(p.getUuid().equals(puuid)){
+						responseBody.setEntityList(p.getPlc());
+						break;
+					}
+				}
+			}
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询学习经历数据成功!"));
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
@@ -362,7 +729,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-	
 	
 	
 	

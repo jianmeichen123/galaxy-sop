@@ -65,9 +65,10 @@ $('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
 });
 $(function(){
 	initDialogValstr("learning");
+	var uuid = $('input[name="uuid"]').val();
 	$("#save_person_learning").click(function(){
 		if(beforeSubmitById("learning")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/581ae7822b7c2b20f4a747bc", 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/"+uuid+"/581ae7822b7c2b20f4a747bc", 
 					$("#add_person_learning").serializeObject(), 
 					function(data){
 				$.popupTwoClose();
@@ -75,6 +76,7 @@ $(function(){
 					&& typeof(data.entityList) != 'undefined' 
 					&& data.entityList.length > 0){
 					generateLearningInnerHtml(data.entityList);
+					$("#person-learning").val(data.entityList.length);
 				}else{
 					generateLearningEmptyInnerHtml();
 				}
