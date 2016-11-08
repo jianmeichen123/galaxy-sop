@@ -11,32 +11,32 @@
 <div class="historytc">
 	<div class="title_bj" id="popup_name"></div>
 	<form id="add_Historyform" method="post">
-    <div class="form clearfix">
-        <div class="conference_all">
+    <div class="form clearfix" id="financeDetail">
+        <div class="conference_all" >
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
                 <dd>
-                    <input type="text" class="datetimepickerFinance txt time" readonly="" name="financeDate" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
+                    <input type="text" class="datetimepickerFinance txt time" readonly="" name="financeDate" id="financeDate" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
                 </dd>
             </dl>
             
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt" name="financeFrom"/>
+                    <input type="text" class="txt" name="financeFrom" id="financeFrom"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
                  <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="financeAmount"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="financeAmount" id="financeAmount"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
                  <dt>币种：</dt>
                 <dd>
                     <select name="financeUnit">
-                        <option value="0" select="selected" name="financeUnit">人民币</option>
+                        <option value="0" select="selected" name="financeUnit" id="financeUnit">人民币</option>
                         <option value="1" name="financeUnit">美元</option>
                         <option value="2" name="financeUnit">英镑</option>
                         <option value="3" name="financeUnit">欧元</option>
@@ -46,13 +46,13 @@
             <dl class="fmdl clearfix">
                  <dt>占比：</dt>
                 <dd>
-                    <input type="text" class="txt" name="financeProportion"/>
+                    <input type="text" class="txt" name="financeProportion"id="financeProportion" />
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
                  <dt>融资轮次：</dt>
                 <dd>
-					<select name="financeStatus" class='new_nputr'>
+					<select name="financeStatus" class='new_nputr' id="financeStatus">
 			         </select>
                 </dd>
             </dl>

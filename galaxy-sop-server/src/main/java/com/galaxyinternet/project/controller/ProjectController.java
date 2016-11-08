@@ -530,7 +530,46 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-	
+	/**
+	 * 删除历史投资信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getFinanceHistory/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<FinanceHistory> getFinanceHistory(@PathVariable("uuid") String uuid,
+			@PathVariable("pid") String pid,@RequestBody FinanceHistory financeHistory,
+			HttpServletRequest request) {
+		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
+		if(uuid == null || "".equals(uuid.trim()) 
+				|| pid == null || "".equals(pid.trim()) ){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
+			FinanceHistory l = new FinanceHistory();
+			l.setUuid(uuid);
+			if(project != null && project.getPlc() != null && project.getFh().contains(l)){
+		        for(int i=0;i<project.getFh().size();i++){
+		        	if(project.getFh().get(i).getUuid().equals(uuid)){
+		        		l=project.getFh().get(i);
+		        	}
+		        }
+				responseBody.setEntity(l);
+				responseBody.setResult(new Result(Status.OK,"ok" , "查询融资历史成功!"));
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"no" , "未找到该融资信息!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to delete learning get an exception {pid : {3}, uuid : {4}}", 
+						user.getId(), user.getRealName(), pid, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
 	/**
 	 * 删除历史投资信息
 	 */

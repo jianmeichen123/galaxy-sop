@@ -30,25 +30,61 @@ function formatterTable(entity){
 					"<td>"+obj.financeProportion+"</td>"+
 					"<td>"+obj.financeStatus+"</td>"+
 					"<td>"+
-						"<a class='finance_edit blue'   onclick='deleteFinance("+obj.uuid+")' href='javascript:void(0)'>编辑 &nbsp;</a>"+
-						"<a class='finance_delete blue' onclick='updateFinance("+obj.uuid+")' href='javascript:void(0)'>删除</a>"+
+						"<a class='finance_edit blue'   onclick='updateFinance("+obj.uuid+")' href='javascript:void(0)'>编辑 &nbsp;</a>"+
+						"<a class='finance_delete blue' onclick='deleteFinance("+obj.uuid+")' href='javascript:void(0)'>删除</a>"+
 					"</td>"+
 			   "</tr>";
 		}
 		
 	}
-	
 	$("#financeHistory_table").append(html);
-	
 }
+
+
+function updateFinance(uuid){
+	var $self = $(this);
+	var _url =platformUrl.updateFinanceHistory;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			getFinanceHistory(uuid);
+		}//模版反回成功执行	
+	});
+	return false;
+};
 function deleteFinance(uuid){
+	var nowFormData = $("#add_Historyform").serializeObject();
 	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			var re=data;
 			formatterTable(re.entity.fh);
 		});
 	
 }
-function updateFinance(uuid){
+function updateSave(uuid){
 	
 	
 }
+function getFinanceHistory(uuid){
+	 sendPostRequestByJsonStr(platformUrl.getFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), null, function(data){
+			setDataFinance(data);
+	});
+}
+
+function setDataFinance(data){
+	$("#financeDetail dd")
+	.each(function(){
+		var self = $(this);
+		if(self.attr('id') != 'undefined')
+		{
+			var id = self.attr('id');
+			var formatter = self.data('formatter');
+			var text = data[id];
+			self.val(text);
+			
+		}
+	});
+}
+
+
+

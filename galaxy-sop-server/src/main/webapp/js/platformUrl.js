@@ -993,17 +993,18 @@ var platformUrl = {
 	deleteFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/deleteFinanceHistory",
 
 	/**
-	 * 添加项目到草稿箱
+	 * 跳转到
 	 */
 	updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/upateFinanceHistory",
 	/**
 	 * 修改保存
 	 */
 	
-	updateSave : Constants.sopEndpointURL + "/galaxy/project/updateSave"
-
-
-	
+	updateSave : Constants.sopEndpointURL + "/galaxy/project/updateSave",
+	/**
+	 * 查询融资历史信息单个
+	 */
+	getFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/getFinanceHistory"
 	
 	//###############################版v2.3.111结束##################################
 }
