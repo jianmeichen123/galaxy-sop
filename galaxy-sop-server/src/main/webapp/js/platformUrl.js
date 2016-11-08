@@ -1000,7 +1000,7 @@ var platformUrl = {
 	 * 修改保存
 	 */
 	
-	updateSave:updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/updateSave"
+	updateSave : Constants.sopEndpointURL + "/galaxy/project/updateSave"
 
 
 	
