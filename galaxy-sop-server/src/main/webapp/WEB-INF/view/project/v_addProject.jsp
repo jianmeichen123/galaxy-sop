@@ -379,12 +379,14 @@
                     </div>
                 </div>
                 <div class="page clearfix" data-btn="page2">
+               	    <input type="hidden" value="0" id="person"/>
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_person ico_add_project"></span>
                         <span class="new_color size16">团队成员</span>
                         <button onclick="addProjectPerson();" class="blue fr add_history">添加</button>
                     </div>
-                    <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                    <table id="person-table" style="width:94%;" cellspacing="0" cellpadding="0" class="basic_table table">
+                    	<thead>
                     	<tr>
                     		<th>姓名</th>
                     		<th>当前职务</th>
@@ -393,18 +395,10 @@
                     		<th>电话号码</th>
                     		<th>操作</th>
                     	</tr>
-                    	<tr>
-                    		<td>李铭</td>
-                    		<td>技术总监</td>
-                    		<td>男</td>
-                    		<td>1988-09-08</td>
-                    		<td>15880609508</td>
-                    		<td>
-	                    		<a class="meet_see blue" href="javascript:void(0)">查看</a>
-	                    		<a class="meet_edit blue" href="javascript:void(0)">编辑</a>
-	                    		<a class="meet_delete blue" href="javascript:void(0)">删除</a>
-                    		</td>
-                    	</tr>
+                    	</thead>
+                    	<tbody id="person-tbody">
+	                    
+                    	</tbody>
                     </table>
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_stock_add ico_add_project"></span>
@@ -544,7 +538,7 @@ $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
 	
-	if(num==0){
+	/* if(num==0){
 		var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
@@ -558,7 +552,7 @@ $('[data-btn="next"]').click(function(){
 		};
 	}else if(num==2){
 		
-	}
+	} */
 	
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
@@ -567,6 +561,21 @@ $('[data-btn="pre"]').click(function(){
 	num=Number(prePageNum.substr(prePageNum.length-1,1));
 	$("[data-btn='page"+(num-1)+"']").addClass("on").siblings().removeClass("on");
 })
+
+$(function(){
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/581ae7822b7c2b20f4a747bc", 
+			null, 
+			function(data){
+		if(data.result.status == 'OK' 
+				&& typeof(data.entityList) != 'undefined' 
+				&& data.entityList.length > 0){
+			generatePersonInnerHtml(data.entityList);
+			$("#person").val(data.entityList.length);
+		}else{
+			generatePersonEmptyInnerHtml();
+		}
+	});
+});
 </script>
 <!-- step2 for JS -->
 <jsp:include page="v_project_step2JS.jsp" flush="true"></jsp:include>

@@ -7,7 +7,7 @@ import com.galaxyinternet.framework.core.model.BaseEntity;
 public class PersonWork extends BaseEntity{
 	
 	private static final long serialVersionUID = 1L;
-	private Long id;//人力_工作经历项的ID 
+	private String uuid;
 	private Long personId;//关联人力资源ID
 	private String companyName;//公司名称
 	private String workDepart;//所在部门
@@ -28,12 +28,13 @@ public class PersonWork extends BaseEntity{
 	private String colleaguePhone;//同事电话
 	
 	private String beginWorkStr;//入职时间 
+	private String overWorkStr;//入职时间 
 	
-	public Long getId() {
-		return id;
+	public String getUuid() {
+		return uuid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	public Long getPersonId() {
 		return personId;
@@ -150,7 +151,18 @@ public class PersonWork extends BaseEntity{
 	public void setBeginWorkStr(String beginWorkStr) {
 		this.beginWorkStr = beginWorkStr;
 	}
+	public String getOverWorkStr() {
+		return overWorkStr;
+	}
+	public void setOverWorkStr(String overWorkStr) {
+		this.overWorkStr = overWorkStr;
+	}
 	
-	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if(uuid != null && obj != null && obj instanceof PersonWork && ((PersonWork) obj).getUuid() != null){
+			return this.getUuid().equals(((PersonWork) obj).getUuid());
+		}
+		return super.equals(obj);
+	}
 }

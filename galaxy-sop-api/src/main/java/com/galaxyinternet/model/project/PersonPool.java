@@ -1,8 +1,11 @@
 package com.galaxyinternet.model.project;
 
 import java.util.Date;
+import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonWork;
 
 public class PersonPool extends PagableEntity{
 	private static final long serialVersionUID = 1L;
@@ -10,30 +13,66 @@ public class PersonPool extends PagableEntity{
 	public final static String ID = "团队成员id";
 	public final static String PERSONNAME = "团队成员名称";
 	private Long tid;
+	/*uuid*/
+	private String uuid;
+	/*草稿箱：是否可见*/
+	private int tempStatus;
+	/*姓名*/
     private String personName;
+    /*性别*/
     private Integer personSex;
+    /*年龄*/
     private Integer personAge;
+    /*最高学历*/
     private String highestDegree;
+    /*工龄*/
     private Integer workTime;
+    /*当前职务*/
     private String personDuties;
+    /*生日*/
     private Date personBirthday;
+    /*身份证号码*/
     private String personIdcard;
+    /*手机号码*/
     private String personTelephone;
+    /*是否为联系人*/
+    private int isContacts;
+    /*邮箱地址*/
     private String personEmail;
+    /*性格特点*/
     private String personCharacter;
+    /*优势*/
     private String personGoodness;
+    /*劣势*/
     private String personDisparity;
+    /*沟通能力*/
     private String talkAbility;
+    /*团队协作能力*/
     private String teamAbility;
+    /*核心竞争力*/
     private String businessStrength;
+    /*是否空闲*/
     private Integer free;
+    /*团队角色*/
     private String teamRole;
+    /*成员关系*/
     private String memberRelation;
+    /*是否有过劳务纠纷*/
     private Integer laborDispute;
+    /*能力匹配评星*/
     private Integer abilityStar;
+    /*评级评星*/
     private Integer levelStar;
+    /*最终评语*/
     private String endComment;
     private Long createId;
+    /*备注*/
+    private String remark;
+    
+    /*团队成员的学习经历*/
+	private List<PersonLearn> plc;
+	/*团队成员的工作经历*/
+	private List<PersonWork> pwc;
     
     //添加的 时间字段
     private String personBirthdayStr;
@@ -73,6 +112,18 @@ public class PersonPool extends PagableEntity{
 	}
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public int getTempStatus() {
+		return tempStatus;
+	}
+	public void setTempStatus(int tempStatus) {
+		this.tempStatus = tempStatus;
 	}
 	public String getPersonName() {
         return personName;
@@ -151,7 +202,13 @@ public class PersonPool extends PagableEntity{
         this.personTelephone = personTelephone == null ? null : personTelephone.trim();
     }
 
-    public String getPersonEmail() {
+    public int getIsContacts() {
+		return isContacts;
+	}
+	public void setIsContacts(int isContacts) {
+		this.isContacts = isContacts;
+	}
+	public String getPersonEmail() {
         return personEmail;
     }
 
@@ -276,6 +333,30 @@ public class PersonPool extends PagableEntity{
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
-    
-    
+	public List<PersonLearn> getPlc() {
+		return plc;
+	}
+	public List<PersonWork> getPwc() {
+		return pwc;
+	}
+	public void setPlc(List<PersonLearn> plc) {
+		this.plc = plc;
+	}
+	public void setPwc(List<PersonWork> pwc) {
+		this.pwc = pwc;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(uuid != null && obj != null && obj instanceof PersonPool && ((PersonPool) obj).getUuid() != null){
+			return this.getUuid().equals(((PersonPool) obj).getUuid());
+		}
+		return super.equals(obj);
+	}
 }
