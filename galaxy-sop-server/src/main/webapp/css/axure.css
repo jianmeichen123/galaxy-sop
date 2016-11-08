@@ -2311,3 +2311,5 @@ margin: 45px auto 30px;}
 .qualificationstc,.stocktc{width:500px;}
 .qualificationstc dl,.stocktc dl{margin-bottom: 10px;}
 .stocktc dd textarea{width:300px;height:50px;}
+/* 添加项目第二页提示框 */
+#describe_valiate{color:#999060;font-size:12px;font-family:"宋体";border:1px solid #c7bf93;background:#fff9c9;}

@@ -3,6 +3,7 @@ package com.galaxyinternet.project.service;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
@@ -30,16 +33,22 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.project.ProjectShares;
 import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
@@ -68,7 +77,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private DepartmentService departmentService;
 	@Autowired
 	private PersonPoolDao personPoolDao;
-
+	@Autowired
+	private ConfigService configService;
 	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -563,4 +573,88 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public List<Long> getProIdsForPrivilege(Map<String,Object> params) {
 		return projectDao.selectProIdsForPrivilege(params);
 	}
+
+	@Override
+	@Transactional
+	public void newProByPreInfo(Long userId,Long deptId, String userName, com.galaxyinternet.mongodb.model.Project project) throws Exception {
+		//project
+		Project newPro = new Project();
+		BeanUtils.copyProperties(project, newPro);
+		
+		//创建项目编码
+		Config config = configService.createCode();
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setGroupingUsed(false);
+		nf.setMaximumIntegerDigits(6);
+		nf.setMinimumIntegerDigits(6);
+		int code = EnumUtil.getCodeByCareerline(deptId.longValue());
+		String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
+		newPro.setProjectCode(String.valueOf(projectCode));
+				
+		if (newPro.getProjectValuations() == null) {
+			if (newPro.getProjectShareRatio() != null
+					&& newPro.getProjectShareRatio() > 0
+					&& newPro.getProjectContribution() != null
+					&& newPro.getProjectContribution() > 0) {
+				newPro.setProjectValuations(newPro.getProjectContribution() * 100 / newPro.getProjectShareRatio());
+			}
+		}
+		newPro.setCurrencyUnit(0);
+		
+		//默认不涉及股权转让
+		newPro.setStockTransfer(0);
+		newPro.setCreateUid(userId);
+		newPro.setCreateUname(userName);
+		newPro.setProjectDepartid(deptId);
+		newPro.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+		newPro.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
+		newPro.setUpdatedTime(new Date().getTime());
+		newPro.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+		
+		//商业计划书
+		SopFile businessPlan = project.getSopFile();
+		businessPlan.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+		businessPlan.setFileUid(userId);
+		businessPlan.setRecordType((byte)0);
+		businessPlan.setCareerLine(deptId);
+		
+		Long newProId = newProject(newPro, businessPlan);
+		
+		
+		
+		//融资历史
+		List<FinanceHistory> pFinanceHistory= project.getFh();
+		
+		
+		
+		
+		
+		//团队成员
+		//PersonPool
+		//ProjectPerson
+		//PersonLearn
+		List<PersonLearn> prePerLearn= project.getPlc();
+		
+		List<PersonPool> pPool= new ArrayList<PersonPool>();
+		for(PersonLearn apre: prePerLearn){
+			
+		}
+		
+		
+		
+		
+		
+		//股权结构
+		List<ProjectShares> pShares= project.getPsc();
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 }

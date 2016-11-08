@@ -128,17 +128,17 @@ function initViewUpload() {
 //todo 访谈记录   -- table 回显
 
 function viewTableShow(pid){
-	alert("to show");
 	$("input[name='pid']").val(pid);
-	
+    
 	//$('#pre_pro_view_table').bootstrapTable('destroy');
 	$('#pre_pro_view_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		showRefresh : false ,
+		sidePagination: 'server',
 		method : 'post',
 		pagination: false,
 		clickToSelect: true,
-        search: false,
+        search: false
 	});
 }
 
@@ -156,10 +156,17 @@ function pro_viewInfo_format(value,row,index){
 	}else{
 		targerHtml = "</br>访谈对象：<label class='meeting_result color_pass'>" + targetStr + "</label>";
 	}
-	
-	//访谈录音
-	if( row.fileName!=null && row.fileName!=undefined && row.fileName!="undefined" && fileKey !=null ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+	if(row.sopFile != null){
+		//访谈录音
+		if( row.sopFile.fileName!=null && row.sopFile.fileKey !=null ){
+			/*var fileDownCon = {};
+			fileDownCon.fileName = row.sopFile.fileName;
+			fileDownCon.fileSuffix = row.sopFile.fileSuffix;
+			fileDownCon.fileSize = row.sopFile.fileLength;
+			fileDownCon.fileKey = row.sopFile.fileKey;
+			console.log(JSON.stringify(fileDownCon));*/
+			fileinfo = "<a href=\"javascript:filedownByFileInfo('"+row.sopFile.fileName+"','"+row.sopFile.fileSuffix+"',"+row.sopFile.fileLength+",'"+row.sopFile.fileKey+"');\" class=\"blue\" >"+row.sopFile.fileName+"</a>"
+		}
 	}
 	
 	rc = "<div style=\"text-align:left;padding:10px 0 10px 25px;\">"+
@@ -204,8 +211,8 @@ function pro_viewNote_format(value,row,index){
 * 查看  编辑  删除
 */
 function pro_viewOp_format(value,row,index){  
-	var view_detail = "<a href=\"javascript:;\" class=\"meet_see blue\" onclick=\"showviewdetail("+row.id+",'v')\" >查看</a> &nbsp ";
-	var view_edit = "<a href=\"javascript:;\" class=\"meet_edit blue\" onclick=\"showviewdetail("+row.id+",'e')\" >编辑</a>";
+	var view_detail = "<a href=\"javascript:;\" class=\"meet_see blue\" onclick=\"showviewdetail('"+row.uuid+"','" + index + "','v')\" >查看</a> &nbsp ";
+	var view_edit = "<a href=\"javascript:;\" class=\"meet_edit blue\" onclick=\"showviewdetail('"+row.uuid+"','" + index +"','e')\" >编辑</a>";
 	return view_detail+view_edit;
 }
 
@@ -216,9 +223,10 @@ function pro_viewOp_format(value,row,index){
 
 var interviewSelectRow = null;
 var viewSelectRowId = null;
+var viewSelectIndex = null;
 
-
-function showLogdetail(selectRowId,type){
+function showviewdetail(selectRowId,index,type){
+	viewSelectIndex = index;
 	viewSelectRowId = selectRowId;
 	interviewSelectRow = $('#pre_pro_view_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
@@ -238,31 +246,26 @@ function showLogdetail(selectRowId,type){
 	return false;
 }
 function interviewsave(){  
-	var um = UM.getEditor('viewNotes');
+	var um = UM.getEditor('viewNotes');  
 	var log = um.getContent();
-	var pid=$("#vid").val();
-	if(pid != ''){
-		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
-			if (data.result.status=="OK") {
-				$("#hint_all").css("display","none");
-				layer.msg("保存成功");
-				$(".meetingtc").find("[data-close='close']").click();
-				
-				
-				interviewSelectRow.viewNotes = log;
-				$('#pre_pro_view_table').bootstrapTable('updateByUniqueId', {id: pid, row: interviewSelectRow});
-				
-				
-				//$("#data-table").bootstrapTable('refresh');
-			} else {
-				layer.msg(data.result.message);
-				$("#hint_all").css("display","block");
-			}
+	
+	sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/editPreProViewAndFile/"+pid, {"uuid": viewSelectRowId,"viewNotes" : log}, function(data){
+		if (data.result.status=="OK") {
+			$("#hint_all").css("display","none");
+			layer.msg("保存成功");
+			$(".meetingtc").find("[data-close='close']").click();
 			
-		});
-	}
+			interviewSelectRow.viewNotes = log;
+			$('#pre_pro_view_table').bootstrapTable('updateRow', {index: viewSelectIndex, row: interviewSelectRow});
+			//$('#pre_pro_view_table').bootstrapTable('updateByUniqueId', {uuid: viewSelectRowId, row: interviewSelectRow});
+			//$("#data-table").bootstrapTable('refresh');
+		} else {
+			layer.msg(data.result.message);
+			$("#hint_all").css("display","block");
+		}
+		
+	});
 }
-
 
 
 
