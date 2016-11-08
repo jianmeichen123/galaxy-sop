@@ -875,7 +875,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
 			FinanceHistory l = new FinanceHistory();
 			l.setUuid(uuid);
-			if(project != null && project.getPlc() != null && project.getFh().contains(l)){
+			if(project != null && project.getFh() != null && project.getFh().contains(l)){
 				project.getFh().remove(l);
 				mongoProjectService.updateById(pid, project);
 				if(logger.isInfoEnabled()){
