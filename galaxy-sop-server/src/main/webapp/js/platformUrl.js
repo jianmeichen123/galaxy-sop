@@ -995,7 +995,7 @@ var platformUrl = {
 	/**
 	 * 添加项目到草稿箱
 	 */
-	updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/upateFinanceHistory"
+	updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/upateFinanceHistory",
 	/**
 	 * 修改保存
 	 */
