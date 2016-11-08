@@ -12,11 +12,6 @@ $(function(){
 	
 	$("#createDate").val(new Date().format("yyyy-MM-dd"));
 	createMenus(5);
-	//获取TOKEN 用于验证表单提交
-	sendPostRequest(platformUrl.getToken,function(data){
-		TOKEN=data.TOKEN;
-		return TOKEN;
-	});
 	$("#formatShareRatio").blur(function(){
 		var valuations = calculationValuations();
 		if(valuations != null){
@@ -47,7 +42,13 @@ $(function(){
 		return false;
 	});
 })
-
+//格式化
+function shareOperatFormater(val,row,index)
+{
+   var e = '<span class="edit" data-id="'+row.id+'">编辑</span> ';  
+   var d = '<span class="del" data-id="'+row.id+'">删除</span>';  
+   return e+d;  
+}
 function setText(obj){
 		if(obj=="set"){
 			$("#faName").attr("style","display:inline-block;")

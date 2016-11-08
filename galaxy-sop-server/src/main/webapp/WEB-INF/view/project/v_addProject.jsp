@@ -126,30 +126,23 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_history ico_add_project"></span>
                         <span class="new_color size16">融资历史</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <input type="hidden" id="">
+                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="添加融资历史">添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                     <thead>
                     	<tr>
                     		<th>融资时间</th>
                     		<th>投资方(机构或个人)</th>
-                    		<th>投资额(万元)</th>
+                    		<th>投资金额(万元)</th>
                     		<th>币种</th>
                     		<th>占比（%）</th>
                     		<th>融资轮次</th>
                     		<th>操作</th>
                     	</tr>
-                    	<tr>
-                    		<td>2015-12-16</td>
-                    		<td>红杉资本</td>
-                    		<td>1000</td>
-                    		<td>人民币</td>
-                    		<td>9</td>
-                    		<td>A轮</td>
-                    		<td>
-	                    		<a class="meet_edit blue" href="javascript:void(0)">编辑</a>
-	                    		<a class="meet_delete blue" href="javascript:void(0)">删除</a>
-                    		</td>
-                    	</tr>
+                    </thead>
+	                    <tbody id="financeHistory_table">
+	                    </tbody>
                     </table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
@@ -163,7 +156,7 @@
                 <div id="step2" class="page clearfix" data-btn="page1">
 					<div class="tabtable_con_on">
 						<div class="new_r_compile ">
-							<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
+							<span class="new_ico_book"></span> <span class="new_color size16"><em class="red">*</em>商业计划书</span>
 						</div>
 						<table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
                     	</table>
@@ -188,7 +181,7 @@
 					    </div>
 					    <div class="project_center">
 							<div class="new_r_compile ">
-								<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"></span>
+								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"></span>
 								<span class="new_fctbox">
 									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 								</span>
@@ -203,7 +196,7 @@
 					<div class="tabtable_con_on">
 						<div class='company_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate">暂无数据</span>
+								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 								</span>
@@ -227,7 +220,7 @@
 					<div class="tabtable_con_on">
 						<div class='portrayal_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate">暂无数据</span>
+								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 								<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 								</span>
@@ -251,7 +244,7 @@
 					<div class="tabtable_con_on">
 						<div class='product_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate">暂无数据</span>
+								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 								</span>
@@ -299,7 +292,7 @@
 					<div class="tabtable_con_on">
 						<div class='industry_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate">暂无数据</span>
+								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
@@ -323,7 +316,7 @@
 					<div class="tabtable_con_on">
 						<div class='analysis_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate">暂无数据</span>
+								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 								</span>
@@ -382,7 +375,7 @@
                	    <input type="hidden" value="0" id="person"/>
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_person ico_add_project"></span>
-                        <span class="new_color size16">团队成员</span>
+                        <span class="new_color size16"><em class="red">*</em>团队成员</span>
                         <button onclick="addProjectPerson();" class="blue fr add_history">添加</button>
                     </div>
                     <table id="person-table" style="width:94%;" cellspacing="0" cellpadding="0" class="basic_table table">
@@ -402,7 +395,7 @@
                     </table>
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_stock_add ico_add_project"></span>
-                        <span class="new_color size16">股权结构</span>
+                        <span class="new_color size16"><em class="red">*</em>股权结构</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
 					<div class="legal">
@@ -426,7 +419,7 @@
 					  </div>
 					</div>
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_color size16">股权结构</span>
+                        <span class="new_color size16"><em class="red">*</em>股权结构</span>
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
@@ -462,17 +455,21 @@
 	                    </div>
                     </div>
                 </div>
-                <div class="page" data-btn="page3">
-                    <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_interview ico_add_project"></span>
-                        <span class="new_color size16">访谈记录</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                
+                
+                
+                 <div class="page" data-btn="page3">
+                	 <div class="new_r_compile new_bottom_color">
+                        <span class="new_ico_book"></span>
+                        <span class="new_color size16"><em class="red">*</em>访谈记录</span>
+                        <button class="blue fr add_history" href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="pro_interview" data-name="访谈记录">添加</button>
                     </div>
-                    <div id="view_custom-toolbar">
-						<input type="hidden" name="projectId" value="">
+                    
+			        <div id="view_custom-toolbar">
+						<input type="hidden" name="pid" value="">
 					</div>
                     <table style="table-layout:fixed"  id="pre_pro_view_table" 
-                    	data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
+                    	data-url="<%=path %>/galaxy/project/queryPreProView" data-method="post" 
 		          		data-toolbar="#view_custom-toolbar" 
 						data-id-field="uuid" data-unique-id="uuid" data-show-refresh="true">
 						<colgroup >
@@ -482,9 +479,9 @@
 						</colgroup>
 						<thead>
 							<tr>
-								<th  data-formatter="intervierInfoFormat" data-class="th_no1">访谈概况</th>
-								<th  data-field="viewNotes"  data-formatter="viewNotesFormat">访谈记录</th>
-								<th  data-formatter="pro_view_op">操作</th>
+								<th  data-formatter="pro_viewInfo_format" data-class="th_no1">访谈概况</th>
+								<th  data-field="viewNotes"  data-formatter="pro_viewNote_format">访谈记录</th>
+								<th  data-formatter="pro_viewOp_format">操作</th>
 							</tr>
 						</thead>
 					</table> 
@@ -531,14 +528,15 @@
 <script type="text/javascript">
 createMenus(5);
 var id = "581ae7822b7c2b20f4a747bc";
-var pid;
+var pid = "581afb34cf20891a84d4fadc";
 
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
 	
-	/* if(num==0){
+
+	 if(num==0){
 		var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
@@ -551,8 +549,8 @@ $('[data-btn="next"]').click(function(){
 			return;
 		};
 	}else if(num==2){
-		
-	} */
+		viewTableShow(pid);
+	}
 	
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
@@ -583,5 +581,6 @@ $(function(){
 <script src="<%=path%>/js/v_add_project_2.js"></script>
 <script src="<%=path%>/js/v_add_project_3.js"></script>
 <script src="<%=path%>/js/v_add_project_4.js"></script>
+<script src="<%=path%>/js/v_add_project_history.js"></script>
 </body>
 </html>

@@ -976,7 +976,34 @@ var platformUrl = {
 	/**
 	 * 添加项目到草稿箱
 	 */
-	addProject : Constants.sopEndpointURL + "/galaxy/project/apDB"
+	addProject : Constants.sopEndpointURL + "/galaxy/project/apDB",
+	
+	/**
+	 * 保存历史信息到草稿箱
+	 */
+	saveFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/saveFinanceHistory",
+	/**
+	 * 添加项目到草稿箱
+	 */
+	searchFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/searchFinanceHistory",
+	
+	/**
+	 * 添加项目到草稿箱
+	 */
+	deleteFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/deleteFinanceHistory",
+
+	/**
+	 * 添加项目到草稿箱
+	 */
+	updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/upateFinanceHistory",
+	/**
+	 * 修改保存
+	 */
+	
+	updateSave : Constants.sopEndpointURL + "/galaxy/project/updateSave"
+
+
+	
 	
 	//###############################版v2.3.111结束##################################
 }

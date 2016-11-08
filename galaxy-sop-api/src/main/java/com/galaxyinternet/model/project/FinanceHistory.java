@@ -1,13 +1,16 @@
 package com.galaxyinternet.model.project;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.model.hr.PersonLearn;
 
 public class FinanceHistory extends BaseEntity {
 	private static final long serialVersionUID = 1L;
+	
+	private String uuid;
 
     private Long projectId;//项目id
     
-    private long financeDate;//融资日期
+    private String financeDate;//融资日期
     
     private String financeFrom;//融资来源
     
@@ -17,7 +20,7 @@ public class FinanceHistory extends BaseEntity {
     
     private double financeProportion;//融资占比
     
-    private Integer financeStatus;//融资轮次
+    private String financeStatus;//融资轮次
     
     private Long createUid;//创建人
     
@@ -30,11 +33,11 @@ public class FinanceHistory extends BaseEntity {
         this.projectId = projectId;
     }
 
-	public long getFinanceDate() {
+	public String getFinanceDate() {
 		return financeDate;
 	}
 
-	public void setFinanceDate(long financeDate) {
+	public void setFinanceDate(String financeDate) {
 		this.financeDate = financeDate;
 	}
 
@@ -70,11 +73,11 @@ public class FinanceHistory extends BaseEntity {
 		this.financeProportion = financeProportion;
 	}
 
-	public Integer getFinanceStatus() {
+	public String getFinanceStatus() {
 		return financeStatus;
 	}
 
-	public void setFinanceStatus(Integer financeStatus) {
+	public void setFinanceStatus(String financeStatus) {
 		this.financeStatus = financeStatus;
 	}
 
@@ -86,4 +89,19 @@ public class FinanceHistory extends BaseEntity {
 		this.createUid = createUid;
 	}
 
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(uuid != null && obj != null && obj instanceof FinanceHistory && ((FinanceHistory) obj).getUuid() != null){
+			return this.getUuid().equals(((FinanceHistory) obj).getUuid());
+		}
+		return super.equals(obj);
+	}
+	
 }

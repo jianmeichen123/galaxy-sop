@@ -1761,8 +1761,8 @@ font-family: "宋体";
 .basic_span{ width:90px; text-align:right; position: relative;color:#999;}
 .basic_span em{  height:20px; width:8px; left:10px; top:2px; position: absolute; display:block;}
 .basic_table{margin-top:20px; overflow:hidden; border:1px solid #e9ebf2;}
-.basic_table th{ background-color:#f9fafc; }
-.basic_table td{line-height: 38px; height:38px;}
+.basic_table th{ background-color:#f9fafc; padding:0 8px;}
+.basic_table td{line-height: 38px; height:38px;padding:0 8px;}
 .basic_table a{ color:#529be2; text-decoration:inherit;}
 .basic_input{  text-align:center; height:30px; line-height:30px; background-color:#529be2; color:#fff; border-radius:4px;  cursor:pointer;}
 .basic_right{ width:23%; float:right; background-color:#fff; margin-top:10px; position:relative; border-radius:4px;font-size: 12px;font-family: "宋体"}
@@ -2311,3 +2311,5 @@ margin: 45px auto 30px;}
 .qualificationstc,.stocktc{width:500px;}
 .qualificationstc dl,.stocktc dl{margin-bottom: 10px;}
 .stocktc dd textarea{width:300px;height:50px;}
+/* 添加项目第二页提示框 */
+#describe_valiate{color:#999060;font-size:12px;font-family:"宋体";border:1px solid #c7bf93;background:#fff9c9;}

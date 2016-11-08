@@ -8700,15 +8700,28 @@ UM.ui.define('popup', {
         if (this.trigger('beforeshow') === false) {
             return;
         } else {
+        	if($(".edui-container").width()>920){
+        		this.root().css($.extend({display: 'block'}, $obj ? {
+                    right:$(".edui-container").width()-24- (posObj.offsetLeft || 0)-($obj[fnname]().left + (posObj.dir == 'left' ? $obj.outerWidth() : 0)),
+                }: {}));
+        		 this.root().find('.edui-popup-caret').css({
+                     right: posObj.caretLeft || 0,
+                 })
+        	}else{
+        		this.root().css($.extend({display: 'block'}, $obj ? {
+                    left:$obj[fnname]().left + (posObj.dir == 'right' ? $obj.outerWidth() : 0) - (posObj.offsetLeft || 0),
+                }: {}));
+        		 this.root().find('.edui-popup-caret').css({
+                     left: posObj.caretLeft || 0,
+                 })
+        	}
             this.root().css($.extend({display: 'block'}, $obj ? {
                 top: $obj[fnname]().top + ( posObj.dir == 'right' ? 0 : $obj.outerHeight()) - (posObj.offsetTop || 0),
-                left: $obj[fnname]().left + (posObj.dir == 'right' ? $obj.outerWidth() : 0) - (posObj.offsetLeft || 0),
                 position: 'absolute'
             } : {}));
 
             this.root().find('.edui-popup-caret').css({
                 top: posObj.caretTop || 0,
-                left: posObj.caretLeft || 0,
                 position: 'absolute'
             }).addClass(posObj.caretDir || "up")
 
