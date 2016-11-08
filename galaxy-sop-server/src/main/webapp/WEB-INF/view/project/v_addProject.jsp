@@ -127,14 +127,14 @@
                         <span class="new_ico_history ico_add_project"></span>
                         <span class="new_color size16">融资历史</span>
                         <input type="hidden" id="">
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="添加融资历史">添加</button>
                     </div>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                      <thead>
                     	<tr>
                     		<th>融资时间</th>
                     		<th>投资方(机构或个人)</th>
-                    		<th>投资额(万元)</th>
+                    		<th>投资金额(万元)</th>
                     		<th>币种</th>
                     		<th>占比（%）</th>
                     		<th>融资轮次</th>
