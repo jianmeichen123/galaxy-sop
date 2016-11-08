@@ -156,7 +156,7 @@
                 <div id="step2" class="page clearfix" data-btn="page1">
 					<div class="tabtable_con_on">
 						<div class="new_r_compile ">
-							<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
+							<span class="new_ico_book"></span> <span class="new_color size16"><em class="red">*</em>商业计划书</span>
 						</div>
 						<table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
                     	</table>
@@ -181,7 +181,7 @@
 					    </div>
 					    <div class="project_center">
 							<div class="new_r_compile ">
-								<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"></span>
+								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"></span>
 								<span class="new_fctbox">
 									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 								</span>
@@ -196,7 +196,7 @@
 					<div class="tabtable_con_on">
 						<div class='company_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate">暂无数据</span>
+								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 								</span>
@@ -220,7 +220,7 @@
 					<div class="tabtable_con_on">
 						<div class='portrayal_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate">暂无数据</span>
+								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 								<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 								</span>
@@ -244,7 +244,7 @@
 					<div class="tabtable_con_on">
 						<div class='product_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate">暂无数据</span>
+								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 								</span>
@@ -292,7 +292,7 @@
 					<div class="tabtable_con_on">
 						<div class='industry_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate">暂无数据</span>
+								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
@@ -316,7 +316,7 @@
 					<div class="tabtable_con_on">
 						<div class='analysis_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate">暂无数据</span>
+								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 								</span>
