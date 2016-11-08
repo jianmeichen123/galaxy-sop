@@ -30,8 +30,8 @@ function formatterTable(entity){
 					"<td>"+obj.financeProportion+"</td>"+
 					"<td>"+obj.financeStatus+"</td>"+
 					"<td>"+
-						"<a class='finance_edit blue'   onclick='updateFinance("+obj.uuid+")' href='javascript:void(0)'>编辑 &nbsp;</a>"+
-						"<a class='finance_delete blue' onclick='deleteFinance("+obj.uuid+")' href='javascript:void(0)'>删除</a>"+
+						"<a class='finance_edit blue'   onclick=\"updateFinance('"+obj.uuid+"')\" href='javascript:void(0)'>编辑 &nbsp;</a>"+
+						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.uuid+"')\" href='javascript:void(0)'>删除</a>"+
 					"</td>"+
 			   "</tr>";
 		}
@@ -61,29 +61,39 @@ function deleteFinance(uuid){
 		});
 	
 }
-function updateSave(uuid){
-	
-	
+var historyUuid;
+function updateFinanceHistory(){
+	var nowFormData = $("#update_Historyform").serializeObject();
+	     sendPostRequestByJsonStr(platformUrl.updateSave+"/"+historyUuid+"/"+$("#flagId").val(), nowFormData, function(data){
+			$("#flagId").val(data.entity.id);
+		});
 }
 function getFinanceHistory(uuid){
-	 sendPostRequestByJsonStr(platformUrl.getFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), null, function(data){
-			setDataFinance(data);
+	sendPostRequest(platformUrl.getFinanceHistory+"/"+uuid+"/"+$("#flagId").val(),  function(data){
+			setDataFinance(data.entity);
 	});
 }
 
 function setDataFinance(data){
-	$("#financeDetail dd")
+	historyUuid=data.uuid;
+	$("#financeDetail dd input")
 	.each(function(){
 		var self = $(this);
 		if(self.attr('id') != 'undefined')
 		{
-			var id = self.attr('id');
-			var formatter = self.data('formatter');
-			var text = data[id];
-			self.val(text);
-			
+		   var id = self.attr('id');
+		   var formatter = self.data('formatter');
+		   var text = data[id];
+		   self.val(text);
 		}
 	});
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", data[financeStatus]);
+	var financeUnit=$("#financeUnit option");
+	for(var i=0;i<financeUnit.legth;i++){
+		if(data['financeUnit']==financeUnit.value){
+			financeUnit[i].attr("selected","selected");
+		}
+	}
 }
 
 

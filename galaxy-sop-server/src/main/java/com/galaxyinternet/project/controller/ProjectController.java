@@ -436,8 +436,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			
 			if(null==flagId||"null".equals(flagId)){
 				String uuid=UUIDUtils.create().toString();
+				String uuidHistory=UUIDUtils.create().toString();
 				project.setUuid(uuid);
 				project.setUid(user.getId());
+				financeHistory.setUuid(uuidHistory);
 				project.getFh().add(financeHistory);
 				mongoProjectService.save(project);
 				com.galaxyinternet.mongodb.model.Project param =new com.galaxyinternet.mongodb.model.Project();
@@ -536,7 +538,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@ResponseBody
 	@RequestMapping(value = "/getFinanceHistory/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<FinanceHistory> getFinanceHistory(@PathVariable("uuid") String uuid,
-			@PathVariable("pid") String pid,@RequestBody FinanceHistory financeHistory,
+			@PathVariable("pid") String pid,
 			HttpServletRequest request) {
 		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
 		if(uuid == null || "".equals(uuid.trim()) 
@@ -549,7 +551,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
 			FinanceHistory l = new FinanceHistory();
 			l.setUuid(uuid);
-			if(project != null && project.getPlc() != null && project.getFh().contains(l)){
+			if(project != null && project.getFh() != null && project.getFh().contains(l)){
 		        for(int i=0;i<project.getFh().size();i++){
 		        	if(project.getFh().get(i).getUuid().equals(uuid)){
 		        		l=project.getFh().get(i);
@@ -589,7 +591,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
 			FinanceHistory l = new FinanceHistory();
 			l.setUuid(uuid);
-			if(project != null && project.getPlc() != null && project.getFh().contains(l)){
+			if(project != null && project.getFh() != null && project.getFh().contains(l)){
 				project.getFh().remove(l);
 				financeHistory.setUuid(uuid);
 				project.getFh().add(financeHistory);
