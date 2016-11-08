@@ -464,7 +464,7 @@
                 
                 
                 
-                <div class="page" data-btn="page3">
+                 <div class="page" data-btn="page3">
                 	 <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">访谈记录</span>
@@ -485,9 +485,9 @@
 						</colgroup>
 						<thead>
 							<tr>
-								<th  data-formatter="intervierInfoFormat" data-class="th_no1">访谈概况</th>
-								<th  data-field="viewNotes"  data-formatter="viewNotesFormat">访谈记录</th>
-								<th  data-formatter="pro_view_op">操作</th>
+								<th  data-formatter="pro_viewInfo_format" data-class="th_no1">访谈概况</th>
+								<th  data-field="viewNotes"  data-formatter="pro_viewNote_format">访谈记录</th>
+								<th  data-formatter="pro_viewOp_format">操作</th>
 							</tr>
 						</thead>
 					</table> 

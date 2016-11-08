@@ -3788,184 +3788,220 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	//TODO STEP 4 
 	
-		/**
-		 * 查询项目 创建前 访谈记录
-		 * 
-		 * @param uuid:mongoDB中 项目标识 <br/>
-		 * 	
-		 * @return responseBody
-		 */
-		@ResponseBody
-		@RequestMapping(value = "/queryPreProView", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseData<InterviewRecord> queryPreProView(HttpServletRequest request, @RequestBody InterviewRecord view) {
-			ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-			
-			Long total = 0l;
-			List<InterviewRecord> resultViewList = new ArrayList<InterviewRecord>();
-			Page<InterviewRecord> resultViewPage = new Page<InterviewRecord>(resultViewList, total);
-			
-			try {
-				String id = view.getPid();
-				if(id!=null){
-					com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-					if(project!=null){
-						resultViewList = project.getView();
-						if(resultViewList!=null && !resultViewList.isEmpty()){
-							resultViewPage.setContent(resultViewList);
-							resultViewPage.setTotal((long) resultViewList.size());
+			/**
+			 * 查询项目 创建前 访谈记录
+			 * 
+			 * @param uuid:mongoDB中 项目标识 <br/>
+			 * 	
+			 * @return responseBody
+			 */
+			@ResponseBody
+			@RequestMapping(value = "/queryPreProView", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+			public ResponseData<InterviewRecord> queryPreProView(HttpServletRequest request, @RequestBody InterviewRecord view) {
+				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+				
+				Long total = 0l;
+				List<InterviewRecord> resultViewList = new ArrayList<InterviewRecord>();
+				Page<InterviewRecord> resultViewPage = new Page<InterviewRecord>(resultViewList, total);
+				
+				try {
+					String id = view.getPid();
+					if(id!=null){
+						com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+						if(project!=null){
+							resultViewList = project.getView();
+							if(resultViewList!=null && !resultViewList.isEmpty()){
+								resultViewPage.setContent(resultViewList);
+								resultViewPage.setTotal((long) resultViewList.size());
+							}
 						}
-					}
-				}else{
-					responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
-					return responseBody;
-				}
-				
-				responseBody.setPageList(resultViewPage);
-				responseBody.setResult(new Result(Status.OK, ""));
-				
-				return responseBody;
-			} catch (Exception e) {
-				responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
-				logger.error("add project step4 error", e);
-			}
-			
-			return responseBody;
-		}
-		
-		
-		/**
-		 * 保存项目 创建前 访谈记录
-		 * 
-		 * @param id:mongoDB中 项目标识 <br/>
-		 * 	
-		 * @return responseBody
-		 */
-		@ResponseBody
-		@RequestMapping(value = "/savePreProViewAndFile", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseData<InterviewRecord> savePreProViewAndFile(InterviewRecord interviewRecord, HttpServletRequest request,HttpServletResponse response ) {
-			
-			ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			
-			try {
-				if(interviewRecord.getViewTarget() == null){
-					String json = JSONUtils.getBodyString(request);
-					interviewRecord = GSONUtil.fromJson(json, InterviewRecord.class);
-				}
-				
-				if(interviewRecord == null || interviewRecord.getPid() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
-					responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
-					return responseBody;
-				}
-				
-				com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(interviewRecord.getPid());
-				if(project == null){
-					responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
-					return responseBody;
-				}
-				
-				List<InterviewRecord> resultViewList = project.getView();
-				if(resultViewList==null || resultViewList.isEmpty()){
-					resultViewList = new ArrayList<InterviewRecord>();
-				}
-				
-				interviewRecord.setCreatedId(user.getId());
-				String uuid=UUIDUtils.create().toString();
-				interviewRecord.setUuid(uuid);
-				
-				
-				//保存
-				if(ServletFileUpload.isMultipartContent(request)){
-					String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-					UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
-					//上传成功后
-					if(result!=null){
-						Map<String,String> nameMap = new HashMap<String,String>();
-						
-						SopFile sopFile = new SopFile();
-						//sopFile.setProjectId(project.getId());
-						sopFile.setProjectProgress("projectProgress:1");
-						sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
-						sopFile.setFileKey(fileKey);  
-						sopFile.setFileLength(result.getContentLength()); 
-						sopFile.setFileName(nameMap.get("fileName"));
-						sopFile.setFileSuffix(nameMap.get("fileSuffix"));
-						sopFile.setFileUid(user.getId());	 //上传人
-						sopFile.setCareerLine(user.getDepartmentId());
-						sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   
-						sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  
-						sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-						
-						interviewRecord.setSopFile(sopFile);
 					}else{
-						responseBody.setResult(new Result(Status.ERROR,null, "访谈添加文件上传失败"));
+						responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
 						return responseBody;
 					}
-				}
-				
-				resultViewList.add(interviewRecord);
-				project.setView(resultViewList);
-				mongoProjectService.updateById(interviewRecord.getPid(), project);
-				
-				responseBody.setResult(new Result(Status.OK, ""));
-
-			} catch (Exception e) {
-				responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
-				logger.error("add project step4 error", e);
-			}
-			return responseBody;
-		}
-		
-		
-		
-		/**
-		 * 保存项目 创建前 访谈记录(编辑后保存)
-		 * 
-		 * @param id:mongoDB中 项目标识 <br/>
-		 * 	
-		 * @return responseBody
-		 */
-		@ResponseBody
-		@RequestMapping(value = "/editPreProViewAndFile/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseData<InterviewRecord> editPreProViewAndFile(HttpServletRequest request,@PathVariable("id") String id, @RequestBody InterviewRecord view ) {
-			
-			ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-			
-			
-			try {
-				
-				com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-				if(project == null){
-					responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
+					
+					responseBody.setPageList(resultViewPage);
+					responseBody.setResult(new Result(Status.OK, ""));
+					
 					return responseBody;
+				} catch (Exception e) {
+					responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+					logger.error("add project step4 error", e);
 				}
-				
-				List<InterviewRecord> resultViewList = project.getView();
-				if(resultViewList==null || resultViewList.isEmpty()){
-					responseBody.setResult(new Result(Status.ERROR,null, "访谈信息缺失"));
-					return responseBody;
-				}
-				
-				for(InterviewRecord inView : resultViewList){
-					if(inView.getUuid().equals(view.getUuid())){
-						inView.setViewNotes(view.getViewNotes());
-						break;
-					}
-				}
-				
-				project.setView(resultViewList);
-				mongoProjectService.updateById(id, project);
-				
-				responseBody.setResult(new Result(Status.OK, ""));
 				
 				return responseBody;
-			} catch (Exception e) {
-				responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
-				logger.error("add project step4 error", e);
 			}
 			
-			return responseBody;
-		}
+			
+			/**
+			 * 保存项目 创建前 访谈记录
+			 * 
+			 * @param id:mongoDB中 项目标识 <br/>
+			 * 	
+			 * @return responseBody
+			 */
+			@ResponseBody
+			@RequestMapping(value = "/savePreProViewAndFile", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)
+			public ResponseData<InterviewRecord> savePreProViewAndFile(InterviewRecord interviewRecord, HttpServletRequest request,HttpServletResponse response ) {
+				
+				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+				User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+				
+				try {
+					if(interviewRecord.getPid() == null || interviewRecord.getViewTarget() == null){
+						String json = JSONUtils.getBodyString(request);
+						interviewRecord = GSONUtil.fromJson(json, InterviewRecord.class);
+					}
+					
+					if(interviewRecord == null || interviewRecord.getPid() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
+						responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
+						return responseBody;
+					}
+					
+					com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(interviewRecord.getPid());
+					if(project == null){
+						responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
+						return responseBody;
+					}
+					
+					List<InterviewRecord> resultViewList = project.getView();
+					if(resultViewList==null || resultViewList.isEmpty()){
+						resultViewList = new ArrayList<InterviewRecord>();
+					}
+					
+					interviewRecord.setCreatedId(user.getId());
+					String uuid=UUIDUtils.create().toString();
+					interviewRecord.setUuid(uuid);
+					
+					
+					//保存
+					if(ServletFileUpload.isMultipartContent(request)){
+						String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+						UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+						//上传成功后
+						if(result!=null){
+							SopFile sopFile = new SopFile();
+							//sopFile.setProjectId(project.getId());
+							sopFile.setProjectProgress("projectProgress:1");
+							sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
+							sopFile.setFileKey(fileKey); 
+							sopFile.setFileLength(result.getContentLength()); 
+							sopFile.setFileName(result.getFileName());
+							sopFile.setFileSuffix(result.getFileSuffix());
+							sopFile.setFileUid(user.getId());	 //上传人
+							sopFile.setCareerLine(user.getDepartmentId());
+							sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   
+							sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  
+							sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+							
+							interviewRecord.setSopFile(sopFile);
+						}else{
+							responseBody.setResult(new Result(Status.ERROR,null, "访谈添加文件上传失败"));
+							return responseBody;
+						}
+					}
+					
+					resultViewList.add(interviewRecord);
+					project.setView(resultViewList);
+					mongoProjectService.updateById(interviewRecord.getPid(), project);
+					
+					responseBody.setResult(new Result(Status.OK, ""));
+
+				} catch (Exception e) {
+					responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
+					logger.error("add project step4 error", e);
+				}
+				return responseBody;
+			}
+			
+			
+			
+			/**
+			 * 保存项目 创建前 访谈记录(编辑后保存)
+			 * 
+			 * @param id:mongoDB中 项目标识 <br/>
+			 * 	
+			 * @return responseBody
+			 */
+			@ResponseBody
+			@RequestMapping(value = "/editPreProViewAndFile/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+			public ResponseData<InterviewRecord> editPreProViewAndFile(HttpServletRequest request,@PathVariable("id") String id, @RequestBody InterviewRecord view ) {
+				
+				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+				
+				try {
+					
+					com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+					if(project == null){
+						responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
+						return responseBody;
+					}
+					
+					List<InterviewRecord> resultViewList = project.getView();
+					if(resultViewList==null || resultViewList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR,null, "访谈信息缺失"));
+						return responseBody;
+					}
+					
+					for(InterviewRecord inView : resultViewList){
+						if(inView.getUuid().equals(view.getUuid())){
+							inView.setViewNotes(view.getViewNotes());
+							break;
+						}
+					}
+					
+					project.setView(resultViewList);
+					mongoProjectService.updateById(id, project);
+					
+					responseBody.setResult(new Result(Status.OK, ""));
+					
+					return responseBody;
+				} catch (Exception e) {
+					responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
+					logger.error("add project step4 error", e);
+				}
+				
+				return responseBody;
+			}
+				
+			
+		
+		
+		
+		
+			/**
+			 * 项目 创建前
+			 */
+			@ResponseBody
+			@RequestMapping(value = "/createProByPreInfo/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+			public ResponseData<InterviewRecord> createProByPreInfo(HttpServletRequest request,@PathVariable("id") String id) {
+				
+				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+				
+				try {
+					User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+					
+					com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+					if(project == null){
+						responseBody.setResult(new Result(Status.ERROR,null, "项目前置信息缺失"));
+						return responseBody;
+					}
+					
+					projectService.newProByPreInfo(user.getId(),user.getDepartmentId(),user.getRealName(),project);
+
+					mongoProjectService.updateById(id, project);
+					
+					responseBody.setResult(new Result(Status.OK, ""));
+					
+					return responseBody;
+				} catch (Exception e) {
+					responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
+					logger.error("add project step4 error", e);
+				}
+				
+				return responseBody;
+			}
+		
 			
 		
 	

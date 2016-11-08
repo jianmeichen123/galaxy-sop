@@ -531,6 +531,20 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 	}
 	
+	@RequestMapping(value="/downloadFileBy" , produces = MediaType.APPLICATION_JSON_VALUE)
+	public void downloadFileBy(HttpServletRequest request, HttpServletResponse response,@RequestBody SopDownLoad query)
+	{
+		
+		try {
+			if(query!=null && query.getFileKey()!=null){
+				sopFileService.download(request, response, tempfilePath, query);
+			}
+			
+		} catch (Exception e) {
+			logger.error("下载失败.",e);
+		}
+	}
+	
 	/***
 	 * 档案上传通用
 	 * @param request

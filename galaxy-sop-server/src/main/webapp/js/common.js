@@ -593,7 +593,20 @@ function filedown(fileid , filekey, type){
 		layer.msg("下载失败");
 	}
 }
-
+//附件点击下载
+function filedownByFileInfo(fileName,fileSuffix,fileSize,fileKey){
+	try {
+		var fileDownCon = {};
+		fileDownCon.fileName = fileName;
+		fileDownCon.fileSuffix = fileSuffix;
+		fileDownCon.fileSize = fileSize;
+		fileDownCon.fileKey = fileKey;
+		var url =Constants.sopEndpointURL+"/galaxy/sopFile/downloadFileBy"; 
+		sendPostRequestByJsonStr(url,fileDownCon,null);
+	} catch (e) {
+		layer.msg("下载失败");
+	}
+}
 
 
 

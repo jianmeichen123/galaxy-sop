@@ -51,7 +51,9 @@ public interface ProjectService extends BaseService<Project> {
 	public Page<Project> queryPageListByChart(Project query,PageRequest pageRequest);
 
 	List<Long> getProIdsForPrivilege(Map<String, Object> params);
-	
+
+	public void newProByPreInfo(Long id, Long deptId, String userName, com.galaxyinternet.mongodb.model.Project project) throws Exception;
+
 	
 
 }
