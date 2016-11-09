@@ -629,20 +629,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		
 		
 		
-		//团队成员
-		//PersonPool
-		//ProjectPerson
-		//PersonLearn
-		List<PersonLearn> prePerLearn= project.getPlc();
-		
-		List<PersonPool> pPool= new ArrayList<PersonPool>();
-		for(PersonLearn apre: prePerLearn){
-			
-		}
-		
-		
-		
-		
 		
 		//股权结构
 		List<ProjectShares> pShares= project.getPsc();
