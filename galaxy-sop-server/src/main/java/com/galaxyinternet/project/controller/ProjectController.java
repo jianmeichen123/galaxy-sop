@@ -253,6 +253,37 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	
 	/**
+	 * 查看团队成员信息
+	 * @param id 项目ID
+	 * @param uuid 团队成员的uuid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/savePerson/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> savePerson(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id,
+			HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(id == null || "".equals(id.trim())
+			|| uuid == null || "".equals(uuid.trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		PersonPool p = new PersonPool();
+		p.setUuid(uuid);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to save person get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		
+		return responseBody;
+	}
+	
+	/**
 	 * 添加团队成员记录
 	 * @param uuid 新增团队成员的uuid
 	 * @param id 项目ID
