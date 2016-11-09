@@ -140,7 +140,7 @@ $(function(){
 			}
 			
 			$('input[name="tempStatus"]').val(1);
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePerson/"+uuid+"/581ae7822b7c2b20f4a747bc", 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePerson/"+uuid+"/"+id, 
 					$("#add_person").serializeObject(), 
 					function(data){
 				$.popupTwoClose();

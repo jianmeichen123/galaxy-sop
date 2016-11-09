@@ -55,7 +55,7 @@ $(function(){
 	var uuid = $('input[name="uuid"]').val();
 	$("#save_person_work").click(function(){
 		if(beforeSubmitById("work")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonWork/"+uuid+"/581ae7822b7c2b20f4a747bc", 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonWork/"+uuid+"/"+id, 
 					$("#add_person_work").serializeObject(), 
 					function(data){
 				$.popupTwoClose();

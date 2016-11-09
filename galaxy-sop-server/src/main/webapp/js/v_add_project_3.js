@@ -12,13 +12,22 @@ function addProjectPerson(){
 
 function lookPerson(){
 	var uuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/personDetail/"+uuid;
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			
+		}
+	});
+	return false;
 }
 function editPerson(){
 	var uuid = $(this).attr("uuid");
 }
 function deletePerson(){
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectPerson/"+uuid+"/581ae7822b7c2b20f4a747bc", 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectPerson/"+uuid+"/"+id, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK'){
@@ -36,7 +45,7 @@ function generatePersonInnerHtml(list){
 			innerHtml += '<tr>';
 			innerHtml += '<td>'+o.personName+'</td>';
 			innerHtml += '<td>'+o.personDuties+'</td>';
-			innerHtml += '<td>'+o.personSex+'</td>';
+			innerHtml += '<td>'+(o.personSex=='0' ? '男' : '女')+'</td>';
 			innerHtml += '<td>'+o.personBirthdayStr+'</td>';
 			innerHtml += '<td>'+o.personTelephone+'</td>';
 			innerHtml += '<td>';
@@ -90,7 +99,7 @@ function addProjectShares(){
 function deleteLearn(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+puuid+"/"+uuid+"/581ae7822b7c2b20f4a747bc", 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+puuid+"/"+uuid+"/"+id, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK'){
@@ -144,7 +153,7 @@ function addPersonWork(){
 function deleteWork(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectWork/"+puuid+"/"+uuid+"/581ae7822b7c2b20f4a747bc", 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectWork/"+puuid+"/"+uuid+"/"+id, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK'){
@@ -174,4 +183,42 @@ function generateWorkEmptyInnerHtml(){
 	var innerHtml = "<tr><td>暂无数据</td></tr>";
 	$("#work-tbody").empty();
 	$("#work-tbody").append(innerHtml);
+}
+
+function generatePersonDetail(data){
+	if(data.result.status == 'OK'){
+		var detailInnerHTML = "";
+		detailInnerHTML += "<tr>";
+		detailInnerHTML += '<td>'+data.entity.personName+'</td>';
+		detailInnerHTML += '<td>'+data.entity.personDuties+'</td>';
+		detailInnerHTML += '<td>'+(data.entity.personSex=='0' ? '男' : '女')+'</td>';
+		detailInnerHTML += '<td>'+data.entity.personBirthdayStr+'</td>';
+		detailInnerHTML += '<td>'+data.entity.personTelephone+'</td>';
+		detailInnerHTML += '<td>'+data.entity.remark+'</td>';
+		detailInnerHTML += '</tr>';
+		$("#detail-tbody").append(detailInnerHTML);
+		
+		var learnInnerHTML="";
+		$.each(data.entity.plc, function(i, o){
+			learnInnerHTML += '<tr>';
+			learnInnerHTML += '<td>'+o.school+'</td>';
+			learnInnerHTML += '<td>'+o.major+'</td>';
+			learnInnerHTML += '<td>'+o.beginDateStr+' - '+o.overDateStr+'</td>';
+			learnInnerHTML += '<td>'+o.degree+'</td>';
+			learnInnerHTML += '</tr>';
+		});
+		$("#learning-tbody").append(learnInnerHTML);
+		
+		var workInnerHTML="";
+		$.each(data.entity.pwc, function(i, o){
+			workInnerHTML += '<tr>';
+			workInnerHTML += '<td>'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
+			workInnerHTML += '<td>'+o.companyName+'</td>';
+			workInnerHTML += '<td>'+o.workPosition+'</td>';
+			workInnerHTML += '</tr>';
+		});
+		$("#work-tbody").append(workInnerHTML);
+	}else{
+		
+	}
 }

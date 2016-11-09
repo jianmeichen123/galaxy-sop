@@ -68,7 +68,7 @@ $(function(){
 	var uuid = $('input[name="uuid"]').val();
 	$("#save_person_learning").click(function(){
 		if(beforeSubmitById("learning")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/"+uuid+"/581ae7822b7c2b20f4a747bc", 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/"+uuid+"/"+id, 
 					$("#add_person_learning").serializeObject(), 
 					function(data){
 				$.popupTwoClose();

@@ -251,6 +251,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/v_upateFinanceHistory";
 	}
 	
+	/**
+	 * 查看团队信息弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/personDetail/{puuid}", method = RequestMethod.GET)
+	public String personDetail(@PathVariable("puuid") String puuid, HttpServletRequest request) {
+		request.setAttribute("uuid", puuid);
+		return "project/v_look_project_person";
+	}
+	
 	
 	/**
 	 * 查看团队成员信息
@@ -258,8 +268,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param uuid 团队成员的uuid
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/savePerson/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> savePerson(@PathVariable("uuid") String uuid,
+	@RequestMapping(value = "/lookPerson/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> lookPerson(@PathVariable("uuid") String uuid,
 			@PathVariable("id") String id,
 			HttpServletRequest request) {
 		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
@@ -273,6 +283,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		p.setUuid(uuid);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> pools = project.getPc();
+				for(PersonPool pool : pools){
+					if(pool.getUuid().equals(uuid.trim())){
+						responseBody.setEntity(pool);
+						responseBody.setResult(new Result(Status.OK, "ok" , "查看团队成员信息成功!"));
+						break;
+					}
+				}
+			}
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
 				logger.error(user.getId() + ":" + user.getRealName() + " to save person get an exception", e);
