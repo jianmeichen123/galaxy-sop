@@ -799,13 +799,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			financeHistory.setCreatedTime(System.currentTimeMillis());
 			com.galaxyinternet.mongodb.model.Project project =new com.galaxyinternet.mongodb.model.Project();
 			com.galaxyinternet.mongodb.model.Project entity =new com.galaxyinternet.mongodb.model.Project();
-			
+			String uuidHistory=UUIDUtils.create().toString();
+			financeHistory.setUuid(uuidHistory);
 			if(null==flagId||"null".equals(flagId)){
 				String uuid=UUIDUtils.create().toString();
-				String uuidHistory=UUIDUtils.create().toString();
 				project.setUuid(uuid);
 				project.setUid(user.getId());
-				financeHistory.setUuid(uuidHistory);
 				project.getFh().add(financeHistory);
 				mongoProjectService.save(project);
 				com.galaxyinternet.mongodb.model.Project param =new com.galaxyinternet.mongodb.model.Project();
@@ -846,6 +845,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
 			responseBody.setEntityList(project != null ? project.getFh() : null);
+			logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询融资历史成功!"));
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
@@ -878,11 +878,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(project != null && project.getFh() != null && project.getFh().contains(l)){
 				project.getFh().remove(l);
 				mongoProjectService.updateById(pid, project);
-				if(logger.isInfoEnabled()){
-					logger.info(FormatterUtils.formatStr(
-							"{0}:{1} to delete learning successfully {pid : {3}, uuid : {4}}", 
-							user.getId(), user.getRealName(), pid, uuid));
-				}
+				logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 				responseBody.setEntity(project);
 				responseBody.setResult(new Result(Status.OK,"ok" , "删除融资历史成功!"));
 			}else{
@@ -962,11 +958,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				financeHistory.setUuid(uuid);
 				project.getFh().add(financeHistory);
 				mongoProjectService.updateById(pid, project);
-				if(logger.isInfoEnabled()){
-					logger.info(FormatterUtils.formatStr(
-							"{0}:{1} to delete learning successfully {pid : {3}, uuid : {4}}", 
-							user.getId(), user.getRealName(), pid, uuid));
-				}
+				logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 				responseBody.setEntity(project);
 				responseBody.setResult(new Result(Status.OK,"ok" , "删除融资历史成功!"));
 			}else{

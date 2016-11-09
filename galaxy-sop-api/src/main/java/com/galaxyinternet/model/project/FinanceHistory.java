@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.project;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hr.PersonLearn;
 
 public class FinanceHistory extends BaseEntity {
@@ -24,7 +25,10 @@ public class FinanceHistory extends BaseEntity {
     
     private Long createUid;//创建人
     
-
+    private String createDate;
+    
+    private String updateDate;
+    
     public Long getProjectId() {
         return projectId;
     }
@@ -96,6 +100,20 @@ public class FinanceHistory extends BaseEntity {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
+	
+  
+    public void setCreatedTime(Long createdTime) {
+    	this.createdTime = createdTime;
+    	if(createdTime != null){
+    		this.createDate = DateUtil.longToString(createdTime);
+    	}
+    }
+    public void setUpdatedTime(Long updatedTime) {
+    	this.updatedTime = updatedTime;
+    	if(updatedTime != null){
+    		this.updateDate = DateUtil.longToString(updatedTime);
+    	}
+    }
 	@Override
 	public boolean equals(Object obj) {
 		if(uuid != null && obj != null && obj instanceof FinanceHistory && ((FinanceHistory) obj).getUuid() != null){

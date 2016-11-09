@@ -100,7 +100,7 @@
 <!--             enableUpdateByExample="false"></table> -->
             <table 
         	schema="fx_db"  
-        	tableName="sop_file"
+        	tableName="finance_history"
         	enableCountByExample="false"  
             enableDeleteByExample="false" 
             enableSelectByExample="false"  

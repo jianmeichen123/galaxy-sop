@@ -633,12 +633,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//PersonPool
 		//ProjectPerson
 		//PersonLearn
-		List<PersonLearn> prePerLearn= project.getPlc();
+	//	List<PersonLearn> prePerLearn= project.getPlc();
 		
 		List<PersonPool> pPool= new ArrayList<PersonPool>();
-		for(PersonLearn apre: prePerLearn){
-			
-		}
 		
 		
 		

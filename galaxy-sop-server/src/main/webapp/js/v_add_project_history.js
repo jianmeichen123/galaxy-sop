@@ -15,9 +15,11 @@ function addFinanceHistory(){
 	     return true;
 }
 function formatterTable(entity){
+	$("#financeHistory_table").children('tr').remove();
 	var html;
 	if(null==entity){
 		html="<tr><td rowspan='7' align='center'>暂无数据<td></tr>";
+		$("#financeHistory_table").append(html);
 	}else{
 		for(var i=0;i<entity.length;i++){
 			var obj=entity[i];
@@ -34,10 +36,11 @@ function formatterTable(entity){
 						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.uuid+"')\" href='javascript:void(0)'>删除</a>"+
 					"</td>"+
 			   "</tr>";
+			$("#financeHistory_table").append(html);
 		}
 		
 	}
-	$("#financeHistory_table").append(html);
+	
 }
 
 
@@ -57,8 +60,10 @@ function deleteFinance(uuid){
 	var nowFormData = $("#add_Historyform").serializeObject();
 	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			var re=data;
+			$.popupOneClose();
+			$("body").css("overflow","auto")
 			formatterTable(re.entity.fh);
-		});
+	});
 	
 }
 var historyUuid;
@@ -66,6 +71,9 @@ function updateFinanceHistory(){
 	var nowFormData = $("#update_Historyform").serializeObject();
 	     sendPostRequestByJsonStr(platformUrl.updateSave+"/"+historyUuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			$("#flagId").val(data.entity.id);
+			$.popupOneClose();
+			$("body").css("overflow","auto")
+			formatterTable(data.entity.fh);
 		});
 }
 function getFinanceHistory(uuid){
@@ -87,7 +95,7 @@ function setDataFinance(data){
 		   self.val(text);
 		}
 	});
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", data[financeStatus]);
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", data["financeStatus"]);
 	var financeUnit=$("#financeUnit option");
 	for(var i=0;i<financeUnit.legth;i++){
 		if(data['financeUnit']==financeUnit.value){
