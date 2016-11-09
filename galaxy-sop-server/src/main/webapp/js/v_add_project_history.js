@@ -30,25 +30,71 @@ function formatterTable(entity){
 					"<td>"+obj.financeProportion+"</td>"+
 					"<td>"+obj.financeStatus+"</td>"+
 					"<td>"+
-						"<a class='finance_edit blue'   onclick='deleteFinance("+obj.uuid+")' href='javascript:void(0)'>编辑 &nbsp;</a>"+
-						"<a class='finance_delete blue' onclick='updateFinance("+obj.uuid+")' href='javascript:void(0)'>删除</a>"+
+						"<a class='finance_edit blue'   onclick=\"updateFinance('"+obj.uuid+"')\" href='javascript:void(0)'>编辑 &nbsp;</a>"+
+						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.uuid+"')\" href='javascript:void(0)'>删除</a>"+
 					"</td>"+
 			   "</tr>";
 		}
 		
 	}
-	
 	$("#financeHistory_table").append(html);
-	
 }
+
+
+function updateFinance(uuid){
+	var $self = $(this);
+	var _url =platformUrl.updateFinanceHistory;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			getFinanceHistory(uuid);
+		}//模版反回成功执行	
+	});
+	return false;
+};
 function deleteFinance(uuid){
+	var nowFormData = $("#add_Historyform").serializeObject();
 	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			var re=data;
 			formatterTable(re.entity.fh);
 		});
 	
 }
-function updateFinance(uuid){
-	
-	
+var historyUuid;
+function updateFinanceHistory(){
+	var nowFormData = $("#update_Historyform").serializeObject();
+	     sendPostRequestByJsonStr(platformUrl.updateSave+"/"+historyUuid+"/"+$("#flagId").val(), nowFormData, function(data){
+			$("#flagId").val(data.entity.id);
+		});
 }
+function getFinanceHistory(uuid){
+	sendPostRequest(platformUrl.getFinanceHistory+"/"+uuid+"/"+$("#flagId").val(),  function(data){
+			setDataFinance(data.entity);
+	});
+}
+
+function setDataFinance(data){
+	historyUuid=data.uuid;
+	$("#financeDetail dd input")
+	.each(function(){
+		var self = $(this);
+		if(self.attr('id') != 'undefined')
+		{
+		   var id = self.attr('id');
+		   var formatter = self.data('formatter');
+		   var text = data[id];
+		   self.val(text);
+		}
+	});
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", data[financeStatus]);
+	var financeUnit=$("#financeUnit option");
+	for(var i=0;i<financeUnit.legth;i++){
+		if(data['financeUnit']==financeUnit.value){
+			financeUnit[i].attr("selected","selected");
+		}
+	}
+}
+
+
+
