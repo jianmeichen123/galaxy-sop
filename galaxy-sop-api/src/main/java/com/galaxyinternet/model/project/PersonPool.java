@@ -208,7 +208,8 @@ public class PersonPool extends PagableEntity{
 	public void setIsContacts(int isContacts) {
 		this.isContacts = isContacts;
 	}
-	public String getPersonEmail() {
+	
+    public String getPersonEmail() {
         return personEmail;
     }
 

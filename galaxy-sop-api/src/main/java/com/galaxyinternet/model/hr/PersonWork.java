@@ -28,7 +28,7 @@ public class PersonWork extends BaseEntity{
 	private String colleaguePhone;//同事电话
 	
 	private String beginWorkStr;//入职时间 
-	private String overWorkStr;//入职时间 
+	private String overWorkStr;//离职时间 
 	
 	public String getUuid() {
 		return uuid;

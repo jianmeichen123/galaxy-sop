@@ -1,9 +1,13 @@
 package com.galaxyinternet.project.service;
 
+import static com.galaxyinternet.utils.ExceptUtils.isNull;
+import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,9 +26,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
+import com.galaxyinternet.dao.hr.PersonLearnDao;
+import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -33,9 +40,13 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.hr.PersonInvest;
 import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonResumetc;
+import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
@@ -79,6 +90,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private PersonPoolDao personPoolDao;
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private PersonLearnDao personLearnDao;
+	@Autowired
+	private PersonWorkDao personWorkDao;
+	@Autowired
+	private ProjectPersonDao projectPersonDao;
 	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -629,6 +647,14 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		
 		
 		
+		//团队成员
+		//PersonPool
+		//ProjectPerson
+		//PersonLearn
+		
+		
+		
+		
 		
 		//股权结构
 		List<ProjectShares> pShares= project.getPsc();
@@ -642,5 +668,108 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 添加团队成员
+	 * 1、personPool
+	 * 2、personLearn
+	 * 3、personWork
+	 * 4、projectPerson
+	 */
+	@Transactional
+	@Override
+	public Long addProPersonAndPerInfo(PersonResumetc personResumetc) throws Exception {
+		//person info
+		PersonPool personPool = personResumetc.getPersonPool();
+		Long personId = personPool.getId();
+		
+		if(personPool.getPersonBirthdayStr() != null){
+			try {
+				Date date = DateUtil.convertStringToDate(personPool.getPersonBirthdayStr());
+				personPool.setPersonBirthday(date);
+			} catch (ParseException e) {
+				throw new Exception(personPool.getPersonBirthdayStr() +" 转  Date 失败" + e);
+			}
+		}
+		if(personId!=null){
+			personPoolDao.updateById(personPool);
+		}else{
+			personId = personPoolDao.insert(personPool);
+		}
+		//person Learning
+		List<PersonLearn> personLearns = personResumetc.getPersonLearn();
+		if(personLearns != null&& personLearns.size() >0){
+			for (PersonLearn personLearn : personLearns) {
+				if(personLearn.getOverDateStr()!= null){
+					try {
+						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr());
+						personLearn.setOverDate(date);
+					} catch (ParseException e) {
+						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
+					}
+				}
+				if(personLearn.getId() == null){
+					personLearn.setPersonId(personId);
+					personLearnDao.insert(personLearn);
+				}else {
+					personLearnDao.updateById(personLearn);
+				}
+			}
+		}
+		//person work
+		List<PersonWork> personWorks = personResumetc.getPersonWork();
+		if(personWorks != null && personWorks.size() >0){
+			for (PersonWork personWork : personWorks) {
+				if(personWork.getBeginWorkStr() != null){
+					try {
+						Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr());
+						personWork.setBeginWork(date);
+					} catch (ParseException e) {
+						throw new Exception(personWork.getBeginWorkStr() +" 转  Date 失败" + e);
+					}
+				}
+				if(personWork.getOverWorkStr() != null){
+					try {
+						Date date = DateUtil.convertStringToDate(personWork.getOverWorkStr());
+						personWork.setOverWork(date);
+					} catch (ParseException e) {
+						throw new Exception(personWork.getOverWorkStr() +" 转  Date 失败" + e);
+					}
+				}
+				if(personWork.getId() == null){
+					personWork.setPersonId(personId);
+					personWorkDao.insert(personWork);
+				}else {
+					personWorkDao.updateById(personWork);
+				}
+			}
+		}
+		//project --- person
+		ProjectPerson projectPerson = new ProjectPerson();
+		projectPerson.setProjectId(personPool.getProjectId());
+		projectPerson.setPersonId(personId);
+		projectPersonDao.insert(projectPerson);
+		
+		return personId;
+	}
+	
+	
+
 	
 }
