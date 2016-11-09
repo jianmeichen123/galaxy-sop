@@ -4,7 +4,8 @@ import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class ProjectShares extends PagableEntity {
 	private static final long serialVersionUID = 1L;
-
+	
+	private String uuid;
     private Long projectId;
 
     private String sharesType;
@@ -65,6 +66,12 @@ public class ProjectShares extends PagableEntity {
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
-    
-    
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 }

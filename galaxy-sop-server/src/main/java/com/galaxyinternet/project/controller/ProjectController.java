@@ -83,6 +83,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.project.ProjectShares;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -269,6 +270,60 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String personDetail(@PathVariable("puuid") String puuid, HttpServletRequest request) {
 		request.setAttribute("uuid", puuid);
 		return "project/v_look_project_person";
+	}
+	
+	/**
+	 * 添加股权结构弹出层
+	 * @param id 项目ID
+	 * @return
+	 */
+	@RequestMapping(value = "/toAddShares", method = RequestMethod.GET)
+	public String toAddShares(HttpServletRequest request) {
+		return "project/v_add_project_shares";
+	}
+	
+	
+	/**
+	 * 添加股权结构
+	 * @param uuid 新增团队成员的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveShares/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectShares> saveShares(@PathVariable("id") String id, 
+			@RequestBody ProjectShares projectShares,
+			HttpServletRequest request) {
+		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		if(id == null || "".equals(id.trim()) || projectShares == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			projectShares.setUuid(UUIDUtils.create().toString());
+			projectShares.setCreatedTime(System.currentTimeMillis());
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			List<ProjectShares> sharesList = null;
+			if(project.getPsc() == null){
+				sharesList = new ArrayList<ProjectShares>();
+			}else{
+				sharesList = project.getPsc();
+			}
+			sharesList.add(projectShares);
+			project.setPsc(sharesList);
+			mongoProjectService.updateById(id, project);
+			if(logger.isInfoEnabled()){
+				logger.info(user.getId() + ":" + user.getRealName() + " to save shares successful > " + project.getId());
+			}
+			responseBody.setEntityList(sharesList);
+			responseBody.setResult(new Result(Status.OK, "ok" , "添加股权结构成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to save shares get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
 	}
 	
 	
