@@ -1672,47 +1672,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 
-	/**
-	 * 添加团队成员
-	 * 
-	 * @author yangshuhua
-	 */
-	@com.galaxyinternet.common.annotation.Logger
-	@ResponseBody
-	@RequestMapping(value = "/app", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPoolBo> addProjectPerson(
-			@RequestBody PersonPoolBo pool, HttpServletRequest request) {
-		ResponseData<PersonPoolBo> responseBody = new ResponseData<PersonPoolBo>();
-		if (pool.getProjectId() == null || pool.getProjectId() <= 0
-				|| pool.getPersonName() == null
-				|| pool.getPersonTelephone() == null) {
-			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
-			return responseBody;
-		}
-		User user = (User) getUserFromSession(request);
-		Project p = projectService.queryById(pool.getProjectId());
-		// 项目创建者用户ID与当前登录人ID是否一样
-		if (p != null
-				&& user.getId().doubleValue() != p.getCreateUid().doubleValue()) {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"没有权限为该项目添加团队成员!"));
-			return responseBody;
-		}
-		try {
-			pool.setCreatedTime(System.currentTimeMillis());
-			Long id = personPoolService.addProjectPerson(pool);
-			if (id > 0) {
-				responseBody
-						.setResult(new Result(Status.OK, null, "团队成员添加成功!"));
-				responseBody.setEntity(pool);
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						p.getProjectName(), p.getId());
-			}
-		} catch (Exception e) {
-			logger.error("添加团队异常 ",e.getMessage());
-		}
-		return responseBody;
-	}
+	
 
 	/**
 	 * 修改团队成员
