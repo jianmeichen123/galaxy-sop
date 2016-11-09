@@ -527,7 +527,7 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 createMenus(5);
-var id = "581ae7822b7c2b20f4a747bc";
+var id = "5822bee05637d90414df258c";
 var pid = "581afb34cf20891a84d4fadc";
 
 //上一步，下一步
@@ -536,7 +536,7 @@ $('[data-btn="next"]').click(function(){
 	num=Number(pageNum.substr(pageNum.length-1,1));
 	
 
-	 if(num==0){
+	 /* if(num==0){
 		var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
@@ -550,7 +550,7 @@ $('[data-btn="next"]').click(function(){
 		};
 	}else if(num==2){
 		viewTableShow(pid);
-	}
+	} */
 	
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
@@ -561,7 +561,7 @@ $('[data-btn="pre"]').click(function(){
 })
 
 $(function(){
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/581ae7822b7c2b20f4a747bc", 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/"+id, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK' 

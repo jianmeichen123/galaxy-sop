@@ -395,6 +395,15 @@ $(function(){
 		}
 		$("[data-on='save']").click(function(){
 			var data=getUpdateData();
+			//增加来源FA信息验证
+			var faFlag=$('input:radio[name="faFlag"]:checked').val();
+			if(faFlag=="1"){
+				var faNameEditVal=$("#faNameEdit").val();
+				if(faNameEditVal=="请输入FA名称"){
+					layer.msg("请输入FA名称!");
+					return false;
+				}
+			}
 			if(beforeSubmit()){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 					layer.msg("修改项目基本信息成功!");

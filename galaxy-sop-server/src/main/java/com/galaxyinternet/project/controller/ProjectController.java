@@ -72,6 +72,7 @@ import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonResumetc;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
@@ -83,6 +84,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.project.ProjectShares;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -101,7 +103,9 @@ import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.PassRateService;
+import com.galaxyinternet.service.PersonLearnService;
 import com.galaxyinternet.service.PersonPoolService;
+import com.galaxyinternet.service.PersonWorkService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
@@ -124,6 +128,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private UserRoleService userRoleService;
 	@Autowired
 	private PersonPoolService personPoolService;
+	@Autowired
+	private PersonLearnService personLearnService;
+	@Autowired
+	private PersonWorkService personWorkService;
+	
 	@Autowired
 	private ProjectPersonService projectPersonService;
 	@Autowired
@@ -251,6 +260,121 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/v_upateFinanceHistory";
 	}
 	
+	/**
+	 * 编辑团队成员
+	 * @return
+	 */
+	@RequestMapping(value = "/editPerson/{puuid}", method = RequestMethod.GET)
+	public String editPerson(@PathVariable("puuid") String puuid, HttpServletRequest request) {
+		request.setAttribute("uuid", puuid);
+		return "project/v_update_project_person";
+	}
+	
+	/**
+	 * 查看团队信息弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/personDetail/{puuid}", method = RequestMethod.GET)
+	public String personDetail(@PathVariable("puuid") String puuid, HttpServletRequest request) {
+		request.setAttribute("uuid", puuid);
+		return "project/v_look_project_person";
+	}
+	
+	/**
+	 * 添加股权结构弹出层
+	 * @param id 项目ID
+	 * @return
+	 */
+	@RequestMapping(value = "/toAddShares", method = RequestMethod.GET)
+	public String toAddShares(HttpServletRequest request) {
+		return "project/v_add_project_shares";
+	}
+	
+	
+	/**
+	 * 添加股权结构
+	 * @param uuid 新增团队成员的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveShares/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectShares> saveShares(@PathVariable("id") String id, 
+			@RequestBody ProjectShares projectShares,
+			HttpServletRequest request) {
+		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		if(id == null || "".equals(id.trim()) || projectShares == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			projectShares.setUuid(UUIDUtils.create().toString());
+			projectShares.setCreatedTime(System.currentTimeMillis());
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			List<ProjectShares> sharesList = null;
+			if(project.getPsc() == null){
+				sharesList = new ArrayList<ProjectShares>();
+			}else{
+				sharesList = project.getPsc();
+			}
+			sharesList.add(projectShares);
+			project.setPsc(sharesList);
+			mongoProjectService.updateById(id, project);
+			if(logger.isInfoEnabled()){
+				logger.info(user.getId() + ":" + user.getRealName() + " to save shares successful > " + project.getId());
+			}
+			responseBody.setEntityList(sharesList);
+			responseBody.setResult(new Result(Status.OK, "ok" , "添加股权结构成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to save shares get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 查看团队成员信息
+	 * @param id 项目ID
+	 * @param uuid 团队成员的uuid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/lookPerson/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> lookPerson(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id,
+			HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(id == null || "".equals(id.trim())
+			|| uuid == null || "".equals(uuid.trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		PersonPool p = new PersonPool();
+		p.setUuid(uuid);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> pools = project.getPc();
+				for(PersonPool pool : pools){
+					if(pool.getUuid().equals(uuid.trim())){
+						responseBody.setEntity(pool);
+						responseBody.setResult(new Result(Status.OK, "ok" , "查看团队成员信息成功!"));
+						break;
+					}
+				}
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to save person get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		
+		return responseBody;
+	}
 	
 	/**
 	 * 添加团队成员记录
@@ -286,6 +410,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							personPool.setPwc(p.getPwc());
 							personPool.setPlc(p.getPlc());
 							personList.add(personPool);
+							break;
 						}
 					}
 				}else{
@@ -307,6 +432,56 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
+	/**
+	 * 编辑团队成员记录
+	 * @param uuid 团队成员的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updatePerson/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> updatePerson(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id, 
+			@RequestBody PersonPool personPool,
+			HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(id == null || "".equals(id.trim()) || personPool == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			personPool.setUuid(uuid);
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			List<PersonPool> personList = null;
+			if(project.getPc() != null && project.getPc().contains(personPool)){
+				personList = project.getPc();
+				for(PersonPool p : personList){
+					if(p.getUuid().equals(uuid)){
+						personList.remove(personPool);
+						personPool.setPwc(p.getPwc());
+						personPool.setPlc(p.getPlc());
+						personList.add(personPool);
+						project.setPc(personList);
+						mongoProjectService.updateById(id, project);
+						if(logger.isInfoEnabled()){
+							logger.info(user.getId() + ":" + user.getRealName() + " to update person successful > " + project.getId());
+						}
+						responseBody.setEntityList(personList);
+						responseBody.setResult(new Result(Status.OK, "ok" , "修改团队成员成功!"));
+						break;
+					}
+				}
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to update person get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
 	/**
 	 * 删除团队成员
 	 */
@@ -1489,47 +1664,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 
-	/**
-	 * 添加团队成员
-	 * 
-	 * @author yangshuhua
-	 */
-	@com.galaxyinternet.common.annotation.Logger
-	@ResponseBody
-	@RequestMapping(value = "/app", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPoolBo> addProjectPerson(
-			@RequestBody PersonPoolBo pool, HttpServletRequest request) {
-		ResponseData<PersonPoolBo> responseBody = new ResponseData<PersonPoolBo>();
-		if (pool.getProjectId() == null || pool.getProjectId() <= 0
-				|| pool.getPersonName() == null
-				|| pool.getPersonTelephone() == null) {
-			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
-			return responseBody;
-		}
-		User user = (User) getUserFromSession(request);
-		Project p = projectService.queryById(pool.getProjectId());
-		// 项目创建者用户ID与当前登录人ID是否一样
-		if (p != null
-				&& user.getId().doubleValue() != p.getCreateUid().doubleValue()) {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"没有权限为该项目添加团队成员!"));
-			return responseBody;
-		}
-		try {
-			pool.setCreatedTime(System.currentTimeMillis());
-			Long id = personPoolService.addProjectPerson(pool);
-			if (id > 0) {
-				responseBody
-						.setResult(new Result(Status.OK, null, "团队成员添加成功!"));
-				responseBody.setEntity(pool);
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						p.getProjectName(), p.getId());
-			}
-		} catch (Exception e) {
-			logger.error("添加团队异常 ",e.getMessage());
-		}
-		return responseBody;
-	}
+	
 
 	/**
 	 * 修改团队成员
@@ -4187,225 +4322,472 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	//TODO STEP 4 
 	
-			/**
-			 * 查询项目 创建前 访谈记录
-			 * 
-			 * @param uuid:mongoDB中 项目标识 <br/>
-			 * 	
-			 * @return responseBody
-			 */
-			@ResponseBody
-			@RequestMapping(value = "/queryPreProView", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-			public ResponseData<InterviewRecord> queryPreProView(HttpServletRequest request, @RequestBody InterviewRecord view) {
-				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-				
-				Long total = 0l;
-				List<InterviewRecord> resultViewList = new ArrayList<InterviewRecord>();
-				Page<InterviewRecord> resultViewPage = new Page<InterviewRecord>(resultViewList, total);
-				
-				try {
-					String id = view.getPid();
-					if(id!=null){
-						com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-						if(project!=null){
-							resultViewList = project.getView();
-							if(resultViewList!=null && !resultViewList.isEmpty()){
-								resultViewPage.setContent(resultViewList);
-								resultViewPage.setTotal((long) resultViewList.size());
-							}
-						}
-					}else{
-						responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
-						return responseBody;
+	/**
+	 * 查询项目 创建前 访谈记录
+	 * 
+	 * @param uuid:mongoDB中 项目标识 <br/>
+	 * 	
+	 * @return responseBody
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryPreProView", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecord> queryPreProView(HttpServletRequest request, @RequestBody InterviewRecord view) {
+		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		
+		Long total = 0l;
+		List<InterviewRecord> resultViewList = new ArrayList<InterviewRecord>();
+		Page<InterviewRecord> resultViewPage = new Page<InterviewRecord>(resultViewList, total);
+		
+		try {
+			String id = view.getPid();
+			if(id!=null){
+				com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+				if(project!=null){
+					resultViewList = project.getView();
+					if(resultViewList!=null && !resultViewList.isEmpty()){
+						resultViewPage.setContent(resultViewList);
+						resultViewPage.setTotal((long) resultViewList.size());
 					}
-					
-					responseBody.setPageList(resultViewPage);
-					responseBody.setResult(new Result(Status.OK, ""));
-					
-					return responseBody;
-				} catch (Exception e) {
-					responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
-					logger.error("add project step4 error", e);
 				}
-				
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
 				return responseBody;
 			}
 			
+			responseBody.setPageList(resultViewPage);
+			responseBody.setResult(new Result(Status.OK, ""));
 			
-			/**
-			 * 保存项目 创建前 访谈记录
-			 * 
-			 * @param id:mongoDB中 项目标识 <br/>
-			 * 	
-			 * @return responseBody
-			 */
-			@ResponseBody
-			@RequestMapping(value = "/savePreProViewAndFile", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)
-			public ResponseData<InterviewRecord> savePreProViewAndFile(InterviewRecord interviewRecord, HttpServletRequest request,HttpServletResponse response ) {
-				
-				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-				User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-				
-				try {
-					if(interviewRecord.getPid() == null || interviewRecord.getViewTarget() == null){
-						String json = JSONUtils.getBodyString(request);
-						interviewRecord = GSONUtil.fromJson(json, InterviewRecord.class);
-					}
+			return responseBody;
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+			logger.error("add project step4 error", e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 保存项目 创建前 访谈记录
+	 * 
+	 * @param id:mongoDB中 项目标识 <br/>
+	 * 	
+	 * @return responseBody
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/savePreProViewAndFile", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecord> savePreProViewAndFile(InterviewRecord interviewRecord, HttpServletRequest request,HttpServletResponse response ) {
+		
+		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		
+		try {
+			if(interviewRecord.getPid() == null || interviewRecord.getViewTarget() == null){
+				String json = JSONUtils.getBodyString(request);
+				interviewRecord = GSONUtil.fromJson(json, InterviewRecord.class);
+			}
+			
+			if(interviewRecord == null || interviewRecord.getPid() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
+				return responseBody;
+			}
+			
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(interviewRecord.getPid());
+			if(project == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
+				return responseBody;
+			}
+			
+			List<InterviewRecord> resultViewList = project.getView();
+			if(resultViewList==null || resultViewList.isEmpty()){
+				resultViewList = new ArrayList<InterviewRecord>();
+			}
+			
+			interviewRecord.setCreatedId(user.getId());
+			String uuid=UUIDUtils.create().toString();
+			interviewRecord.setUuid(uuid);
+			
+			
+			//保存
+			if(ServletFileUpload.isMultipartContent(request)){
+				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+				//上传成功后
+				if(result!=null){
+					SopFile sopFile = new SopFile();
+					//sopFile.setProjectId(project.getId());
+					sopFile.setProjectProgress("projectProgress:1");
+					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
+					sopFile.setFileKey(fileKey); 
+					sopFile.setFileLength(result.getContentLength()); 
+					sopFile.setFileName(result.getFileName());
+					sopFile.setFileSuffix(result.getFileSuffix());
+					sopFile.setFileUid(user.getId());	 //上传人
+					sopFile.setCareerLine(user.getDepartmentId());
+					sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   
+					sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  
+					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 					
-					if(interviewRecord == null || interviewRecord.getPid() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
-						responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
-						return responseBody;
-					}
-					
-					com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(interviewRecord.getPid());
-					if(project == null){
-						responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
-						return responseBody;
-					}
-					
-					List<InterviewRecord> resultViewList = project.getView();
-					if(resultViewList==null || resultViewList.isEmpty()){
-						resultViewList = new ArrayList<InterviewRecord>();
-					}
-					
-					interviewRecord.setCreatedId(user.getId());
-					String uuid=UUIDUtils.create().toString();
-					interviewRecord.setUuid(uuid);
-					
-					
-					//保存
-					if(ServletFileUpload.isMultipartContent(request)){
-						String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-						UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
-						//上传成功后
-						if(result!=null){
-							SopFile sopFile = new SopFile();
-							//sopFile.setProjectId(project.getId());
-							sopFile.setProjectProgress("projectProgress:1");
-							sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
-							sopFile.setFileKey(fileKey); 
-							sopFile.setFileLength(result.getContentLength()); 
-							sopFile.setFileName(result.getFileName());
-							sopFile.setFileSuffix(result.getFileSuffix());
-							sopFile.setFileUid(user.getId());	 //上传人
-							sopFile.setCareerLine(user.getDepartmentId());
-							sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   
-							sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  
-							sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-							
-							interviewRecord.setSopFile(sopFile);
-						}else{
-							responseBody.setResult(new Result(Status.ERROR,null, "访谈添加文件上传失败"));
-							return responseBody;
-						}
-					}
-					
-					resultViewList.add(interviewRecord);
-					project.setView(resultViewList);
-					mongoProjectService.updateById(interviewRecord.getPid(), project);
-					
-					responseBody.setResult(new Result(Status.OK, ""));
+					interviewRecord.setSopFile(sopFile);
+				}else{
+					responseBody.setResult(new Result(Status.ERROR,null, "访谈添加文件上传失败"));
+					return responseBody;
+				}
+			}
+			
+			resultViewList.add(interviewRecord);
+			project.setView(resultViewList);
+			mongoProjectService.updateById(interviewRecord.getPid(), project);
+			
+			responseBody.setResult(new Result(Status.OK, ""));
 
-				} catch (Exception e) {
-					responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
-					logger.error("add project step4 error", e);
-				}
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
+			logger.error("add project step4 error", e);
+		}
+		return responseBody;
+	}
+	
+	
+	
+	/**
+	 * 保存项目 创建前 访谈记录(编辑后保存)
+	 * 
+	 * @param id:mongoDB中 项目标识 <br/>
+	 * 	
+	 * @return responseBody
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editPreProViewAndFile/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecord> editPreProViewAndFile(HttpServletRequest request,@PathVariable("id") String id, @RequestBody InterviewRecord view ) {
+		
+		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		
+		try {
+			
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
 				return responseBody;
 			}
 			
-			
-			
-			/**
-			 * 保存项目 创建前 访谈记录(编辑后保存)
-			 * 
-			 * @param id:mongoDB中 项目标识 <br/>
-			 * 	
-			 * @return responseBody
-			 */
-			@ResponseBody
-			@RequestMapping(value = "/editPreProViewAndFile/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-			public ResponseData<InterviewRecord> editPreProViewAndFile(HttpServletRequest request,@PathVariable("id") String id, @RequestBody InterviewRecord view ) {
-				
-				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-				
-				try {
-					
-					com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-					if(project == null){
-						responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
-						return responseBody;
-					}
-					
-					List<InterviewRecord> resultViewList = project.getView();
-					if(resultViewList==null || resultViewList.isEmpty()){
-						responseBody.setResult(new Result(Status.ERROR,null, "访谈信息缺失"));
-						return responseBody;
-					}
-					
-					for(InterviewRecord inView : resultViewList){
-						if(inView.getUuid().equals(view.getUuid())){
-							inView.setViewNotes(view.getViewNotes());
-							break;
-						}
-					}
-					
-					project.setView(resultViewList);
-					mongoProjectService.updateById(id, project);
-					
-					responseBody.setResult(new Result(Status.OK, ""));
-					
-					return responseBody;
-				} catch (Exception e) {
-					responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
-					logger.error("add project step4 error", e);
-				}
-				
+			List<InterviewRecord> resultViewList = project.getView();
+			if(resultViewList==null || resultViewList.isEmpty()){
+				responseBody.setResult(new Result(Status.ERROR,null, "访谈信息缺失"));
 				return responseBody;
 			}
-				
 			
+			for(InterviewRecord inView : resultViewList){
+				if(inView.getUuid().equals(view.getUuid())){
+					inView.setViewNotes(view.getViewNotes());
+					break;
+				}
+			}
+			
+			project.setView(resultViewList);
+			mongoProjectService.updateById(id, project);
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+			return responseBody;
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
+			logger.error("add project step4 error", e);
+		}
 		
+		return responseBody;
+	}
 		
-		
-		
-			/**
-			 * 项目 创建前
-			 */
-			@ResponseBody
-			@RequestMapping(value = "/createProByPreInfo/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-			public ResponseData<InterviewRecord> createProByPreInfo(HttpServletRequest request,@PathVariable("id") String id) {
-				
-				ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-				
-				try {
-					User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-					
-					com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-					if(project == null){
-						responseBody.setResult(new Result(Status.ERROR,null, "项目前置信息缺失"));
-						return responseBody;
-					}
-					
-					projectService.newProByPreInfo(user.getId(),user.getDepartmentId(),user.getRealName(),project);
+	
 
-					mongoProjectService.updateById(id, project);
-					
-					responseBody.setResult(new Result(Status.OK, ""));
-					
-					return responseBody;
-				} catch (Exception e) {
-					responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
-					logger.error("add project step4 error", e);
-				}
-				
+
+
+
+	/**
+	 * 项目 创建前
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/createProByPreInfo/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecord> createProByPreInfo(HttpServletRequest request,@PathVariable("id") String id) {
+		
+		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		
+		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "项目前置信息缺失"));
 				return responseBody;
 			}
-		
 			
+			projectService.newProByPreInfo(user.getId(),user.getDepartmentId(),user.getRealName(),project);
+
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+			return responseBody;
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
+			logger.error("add project step4 error", e);
+		}
 		
+		return responseBody;
+	}
+
+	
+
+
+
+
+
+	/**
+	 * 添加/编辑  团队成员弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProPerson", method = RequestMethod.GET)
+	public String addProPerson(HttpServletRequest request) {
+		return "project/tanchuan/v_project_person";
+	}
+	
+	
+	/**
+	 * 添加团队成员
+	 * 1、personPool
+	 * 2、personLearn
+	 * 3、personWork
+	 * 4、projectPerson
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@ResponseBody
+	@RequestMapping(value = "/app", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> addProPersonAndPerInfo(@RequestBody PersonResumetc personResumetc, HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		
+		try {
+			PersonPool pool = personResumetc.getPersonPool();
+			if (pool.getProjectId() == null || pool.getProjectId() <= 0 || pool.getPersonName() == null || pool.getPersonTelephone() == null) {
+				responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+				return responseBody;
+			}
+			User user = (User) getUserFromSession(request);
+			Project p = projectService.queryById(pool.getProjectId());
+			// 项目创建者用户ID与当前登录人ID是否一样
+			if (p != null && user.getId().longValue() != p.getCreateUid().longValue()) {
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限为该项目添加团队成员!"));
+				return responseBody;
+			}
+			
+			Long id = projectService.addProPersonAndPerInfo(personResumetc);
+			responseBody.setResult(new Result(Status.OK, null, "团队成员添加成功!"));
+			//responseBody.setEntity(pool);
+			ControllerUtils.setRequestParamsForMessageTip(request,p.getProjectName(), p.getId());
+		} catch (Exception e) {
+			logger.error("添加团队成员异常 ",e.getMessage());
+		}
+		return responseBody;
+	}
 	
 	
 	
+	
+	
+	/**
+	 * 添加团队成员-学习经历弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProPerLearning", method = RequestMethod.GET)
+	public String addProPerLearning(HttpServletRequest request) {
+		return "project/tanchuan/v_person_learning";
+	}
+	
+	/**
+	 * 团队成员的学习经历 数据查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProPerLearn", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> queryProPerLearn(HttpServletRequest request, @RequestBody PersonLearn query) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		
+		Long total = 0l;
+		List<PersonLearn> resultViewList = new ArrayList<PersonLearn>();
+		Page<PersonLearn> resultViewPage = new Page<PersonLearn>(resultViewList, total);
+		
+		try {
+			Long personId = query.getPersonId();
+			if(personId!=null){
+				resultViewList = personLearnService.queryList(query);
+				if(resultViewList!=null && !resultViewList.isEmpty()){
+					resultViewPage.setContent(resultViewList);
+					resultViewPage.setTotal((long) resultViewList.size());
+				}
+			}
+			responseBody.setPageList(resultViewPage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历查询失败"));
+			logger.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+		
+	}
+	
+	/**
+	 * 新增    或   编辑     团队成员的学习经历     
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveOrEditProPerLearn", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> editProPerLearn(HttpServletRequest request, @RequestBody PersonLearn query) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		try {
+			Long personId = query.getPersonId();
+			if(personId ==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "人员id缺失，更新失败"));
+				return responseBody;
+			}
+			
+			if(query.getId()==null){
+				Long id = personLearnService.insert(query);
+				query.setId(id);
+			}else{
+				personLearnService.updateById(query);
+			}
+			
+			responseBody.setId(query.getId());
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			logger.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+	}
+	
+	/**
+	 * 删除  团队信息的学习经历
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteProPerLearning/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> deleteProPerLearning(@PathVariable("id") Long id, HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		try {
+			if(id == null){
+				responseBody.setResult(new Result(Status.ERROR, null, "id缺失"));
+				return responseBody;
+			}
+			personLearnService.deleteById(id);
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			logger.error("queryProPerLearn error", e);
+		}
+		return responseBody;
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 添加团队成员-工作经历弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProPerWork", method = RequestMethod.GET)
+	public String addProPerWork(HttpServletRequest request) {
+		return "project/tanchuan/v_person_work";
+	}
+	
+	/**
+	 * 团队成员的工作经历 数据查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProPerWork", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> queryProPerLearn(HttpServletRequest request, @RequestBody PersonWork query) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		
+		Long total = 0l;
+		List<PersonWork> resultViewList = new ArrayList<PersonWork>();
+		Page<PersonWork> resultViewPage = new Page<PersonWork>(resultViewList, total);
+		
+		try {
+			Long personId = query.getPersonId();
+			if(personId!=null){
+				resultViewList = personWorkService.queryList(query);
+				if(resultViewList!=null && !resultViewList.isEmpty()){
+					resultViewPage.setContent(resultViewList);
+					resultViewPage.setTotal((long) resultViewList.size());
+				}
+			}
+			responseBody.setPageList(resultViewPage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历查询失败"));
+			logger.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+		
+	}
+	
+	/**
+	 * 添加  或  编辑     团队成员的工作经历     
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveOrEditProPerWork", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> editProPerWork(HttpServletRequest request, @RequestBody PersonWork query) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		try {
+			Long personId = query.getPersonId();
+			if(personId ==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "人员id缺失，更新失败"));
+				return responseBody;
+			}
+
+			if(query.getId()==null){
+				Long id = personWorkService.insert(query);
+				query.setId(id);
+			}else{
+				personWorkService.updateById(query);
+			}
+			
+			responseBody.setId(query.getId());
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			logger.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+	}
+	
+	/**
+	 * 删除  团队信息的工作经历
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteProPerWork/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> deleteProPerWork(@PathVariable("id") Long id, HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		try {
+			if(id == null){
+				responseBody.setResult(new Result(Status.ERROR, null, "id缺失"));
+				return responseBody;
+			}
+			personWorkService.deleteById(id);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			logger.error("queryProPerLearn error", e);
+		}
+		return responseBody;
+	}
 	
 	
 	
