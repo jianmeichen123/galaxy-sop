@@ -31,8 +31,8 @@
 		
 		<!--表格内容-->
 		<div class="tab-pane active commonsize" id="view">
-			<!-- <table id="tablePerson"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
-			</table> -->
+			<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
+			</table>
 		</div>
 
 	</div>
@@ -68,6 +68,77 @@ $(function(){
 		$("#add_person_btn").addClass('limits_gray');
 	}
 });	
+
+
+
+function getTabPerson(){
+	var html='<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
+	$("#view").html(html);
+	var $table = $('#tablePerson');
+    $table.bootstrapTable({
+	    url: platformUrl.projectPersonList,
+	    dataType: "json",
+	    pagination: true, //分页
+	    search: false, //显示搜索框
+	    pageList: [10,20,30],
+	    queryParamsType: 'size|page',
+	    queryParams: function(params){params.projectId=projectId; return params;},
+	    sidePagination: "server", //服务端处理分页
+        
+		columns : [ {
+					title : '姓名',
+					field : 'personName',
+	
+					valign : 'middle',
+					'class' : 'personName',
+					formatter : 'personName'
+				}, {
+					title : '当前职务',
+					field : 'personDuties',
+	
+					valign : 'middle',
+					formatter : 'personDuties'
+				}, {
+					title : '性别',
+					field : 'personSex',
+	
+					valign : 'middle',
+					formatter : 'sexFormat'
+				}, {
+					title : '出生年月',
+					field : 'personBirthday',
+	
+					valign : 'middle'
+				}, {
+					title : '电话',
+					field : 'personTelephone',
+	
+					valign : 'middle'
+				}, {
+					title : '操作',
+					field : 'id',
+	
+					formatter : 'proPerOpFormat'
+				} ],
+
+		onLoadSuccess : function(data) {
+			if (data.pageList.total > 0 && isTransfering == 'true') {
+				$table.find("tr span").parent().addClass('limits_gray');
+			}
+		}
+	});
+    
+	$table.bootstrapTable('refresh');
+}
+
+
+
+
+
+
+
+
+
 
 /** 
  * 添加团队成员
@@ -157,7 +228,7 @@ function savePerson() {
 			}
 			
 		}else{
-			layer.msg("项目id缺失，保存失败"};
+			layer.msg("项目id缺失，保存失败");
 		}
 	}
 }
@@ -185,80 +256,6 @@ function savePersonCallBack(data) {
 
 
 
-function getTabPerson(){
-	var html='<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
-	$("#view").html(html);
-	var $table = $('#tablePerson');
-    $table.bootstrapTable({
-	    url: platformUrl.projectPersonList,
-	    dataType: "json",
-	    pagination: true, //分页
-	    search: false, //显示搜索框
-	    pageList: [10,20,30],
-	    queryParamsType: 'size|page',
-	    queryParams: function(params){params.projectId=projectId; return params;},
-	    sidePagination: "server", //服务端处理分页
-        
-		columns : [ {
-					title : '姓名',
-					field : 'personName',
-	
-					valign : 'middle',
-					'class' : 'personName',
-					formatter : 'personName'
-				}, {
-					title : '当前职务',
-					field : 'personDuties',
-	
-					valign : 'middle',
-					formatter : 'personDuties'
-				}, {
-					title : '性别',
-					field : 'personSex',
-	
-					valign : 'middle',
-					formatter : 'sexFormat'
-				}, {
-					title : '出生年月',
-					field : 'personBirthday',
-	
-					valign : 'middle'
-				}, /* {
-					title : '年龄',
-					field : 'personAge',
-	
-					valign : 'middle'
-				}, {
-					title : '最高学历',
-					field : 'highestDegree',
-	
-					valign : 'middle',
-					formatter : 'highestDegreeFormat'
-				}, {
-					title : '工作年限',
-					field : 'workTime',
-	
-					valign : 'middle'
-				}, */ {
-					title : '电话',
-					field : 'personTelephone',
-	
-					valign : 'middle'
-				}, {
-					title : '操作',
-					field : 'id',
-	
-					formatter : 'proPerOpFormat'
-				} ],
-
-		onLoadSuccess : function(data) {
-			if (data.pageList.total > 0 && isTransfering == 'true') {
-				$table.find("tr span").parent().addClass('limits_gray');
-			}
-		}
-	});
-	$table.bootstrapTable('refresh');
-}
 
 	
 
@@ -317,45 +314,19 @@ function personDuties(value, row, index) {
 }
 
 function proPerOpFormat(value, row, index) {
-	/* viewSelectIndex = index;
-	viewSelectRowId = selectRowId;
-	interviewSelectRow = $('#pre_pro_view_table').bootstrapTable('getRowByUniqueId', selectRowId); */
 	
-	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"showviewdetail('"+row.id+"','" + index + "')\" >查看</a>;
-	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>;
-	var toDelete = "<a href=\"javascript:;\" class=\"blue\" onclick=\"showviewdetail('"+row.id+"','" + index + "')\" >删除</a>;
+	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"')\" >查看</a>";
+	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
+	var toDelete = "<a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
 	
-	
-	
-	
-	 else {
-			$table.find("tr span").click(function() {
-				var id = $(this).data('id');
-				if ($(this).hasClass('resume')) {
-					tiaozhuan(id);
-				} else if ($(this).hasClass('edit')) {
-					updatePer(id);
-				} else if ($(this).hasClass('del')) {
-					deletePer(id);
-				}
-			});
-		}
-	 
-	 
-	var content = 
+	var content = toShow
 	if (isCreatedByUser == 'true' && isTransfering == 'false') {
-		content += '<span class="edit" data-id="'+row.id+'">编辑</span>';
-		content += '<span class="del" data-id="'+row.id+'">删除</span>';
+		content += toEdit;
+		content += toDelete;
 	}
 
 	return content;
 }
-
-
-
-
-
-
 
 
 
@@ -383,7 +354,7 @@ function tiaozhuan(id) {
  * 删除团队成员
  * @param id
  */
-function deletePer(id, url) {
+function deletePer(id) {
 	layer.confirm('是否删除事项?', {
 		btn : [ '确定', '取消' ]
 	}, function(index, layero) {
@@ -405,13 +376,8 @@ function deletePer(id, url) {
 	
 
 
-
-	
-
-
 	function reloadJS() {
-		loadJs('
-<%=request.getContextPath() %>/js/axure.js'); 
+		loadJs('<%=request.getContextPath() %>/js/axure.js'); 
 	}
 </script>
 

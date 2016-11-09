@@ -189,17 +189,6 @@ var isCreatOrEditLearn = "c";  //判断   是新创建 person ：c  是编辑per
 
 //弹窗  编辑 、保存  --  初始化
 function toAddPersonLearning(row){
-	/* if(row && row!=null && typeof(row)!='undefined' ){ //判断是编辑模式
-		learnSelectRow = row;
-		
-		if(row.id && row.id!=null && typeof(row.id)!='undefined' ){
-			isCreatOrEditLearn = "oe";
-		}else{
-			isCreatOrEditLearn = "ne";
-		}
-	}else{ //判断是添加模式
-		
-	} */
 	
 	if(row && row!=null && typeof(row)!='undefined' ){ //判断是编辑模式
 		learnSelectRow = row;
@@ -218,7 +207,7 @@ function toAddPersonLearning(row){
 			$("#learn_person_Id").val($("#person_pool_id").val());
 			$("#learn_id").val(learnSelectRow.id);
 			
-			//if(isCreatOrEditLearn == "oe" || isCreatOrEditLearn == "ne"){//获取数据
+			//if(isCreatOrEditLearn == "oe" || isCreatOrEditLearn == "ne")//获取数据
 			if(isCreatOrEditLearn == "e"){//获取数据
 				console.log("编辑learn ： "+learnSelectRow);
 				$("#learn_id").val(learnSelectRow.id);
