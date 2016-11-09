@@ -24,6 +24,15 @@ function lookPerson(){
 }
 function editPerson(){
 	var uuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/editPerson/"+uuid;
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			
+		}
+	});
+	return false;
 }
 function deletePerson(){
 	var uuid = $(this).attr("uuid");
@@ -56,17 +65,21 @@ function generatePersonInnerHtml(list){
 			innerHtml += '</tr>';
 		}
 	});
-	$("#person-tbody").empty();
-	$("#person-tbody").append(innerHtml);
-	$(".meet_see").bind('click', lookPerson);
-	$(".meet_edit").bind('click', editPerson);
-	$(".meet_delete").bind('click', deletePerson);
+	if(innerHtml.length <= 0){
+		generatePersonEmptyInnerHtml();
+	}else{
+		$("#person-tbody").empty();
+		$("#person-tbody").append(innerHtml);
+		$(".meet_see").bind('click', lookPerson);
+		$(".meet_edit").bind('click', editPerson);
+		$(".meet_delete").bind('click', deletePerson);
+	}
 }
 
 function generatePersonEmptyInnerHtml(){
 	var innerHtml = "<tr><td>暂无数据</td></tr>";
-	$("#work-tbody").empty();
-	$("#work-tbody").append(innerHtml);
+	$("#person-tbody").empty();
+	$("#person-tbody").append(innerHtml);
 }
 
 
@@ -197,6 +210,7 @@ function generatePersonDetail(data){
 		detailInnerHTML += '<td>'+data.entity.remark+'</td>';
 		detailInnerHTML += '</tr>';
 		$("#detail-tbody").append(detailInnerHTML);
+		
 		
 		var learnInnerHTML="";
 		$.each(data.entity.plc, function(i, o){

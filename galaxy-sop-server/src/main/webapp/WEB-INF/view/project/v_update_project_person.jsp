@@ -4,7 +4,7 @@
 %>
 <div class="addPersontc">
 	<div class="title_bj" id="popup_name"></div>
-		<form action="" id="add_person" method="post">
+		<form action="" id="update_person_form" method="post">
 		<input type="hidden" value="0" name="tempStatus">
 		<input type="hidden" value="${uuid}" name="uuid">
         <div class="addPerson_all" id="person-pool">
@@ -87,7 +87,7 @@
         </div>
         </form>
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="save_person" >确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="update_person" >确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
@@ -119,13 +119,24 @@ $('input[name="personBirthdayStr"]').datepicker({
     currentText: 'Now'
 });
 $(function(){
-	generatePersonEmptyInnerHtml();
-	generateLearningEmptyInnerHtml();
-	generateWorkEmptyInnerHtml();
-	
 	var uuid = $('input[name="uuid"]').val();
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookPerson/"+uuid+"/"+id, 
+			null, 
+			function(data){
+		$('input[name="personName"]').val(data.entity.personName);
+		$('input[name="personSex"]:eq('+data.entity.personSex+')').attr("checked",'checked');
+		$('input[name="personDuties"]').val(data.entity.personDuties);
+		$('input[name="personBirthdayStr"]').val(data.entity.personBirthdayStr);
+		$('input[name="personTelephone"]').val(data.entity.personTelephone);
+		$('input[name="isContacts"]:eq('+data.entity.isContacts+')').attr("checked",'checked');
+		$('textarea[name="remark"]').val(data.entity.remark);
+		generateLearningInnerHtml(data.entity.plc);
+		generateWorkInnerHtml(data.entity.pwc);
+		$("#person-learning").val(data.entity.plc.length);
+		$("#person-work").val(data.entity.pwc.length);
+	});
 	initDialogValstr("person-pool");
-	$("#save_person").click(function(){
+	$("#update_person").click(function(){
 		$("#learn-tip").css("display","none");
 		$("#work-tip").css("display","none");
 		if(beforeSubmitById("person-pool")){
@@ -139,10 +150,9 @@ $(function(){
 				$("#work-tip").css("display","block");
 				return;
 			}
-			
 			$('input[name="tempStatus"]').val(1);
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePerson/"+uuid+"/"+id, 
-					$("#add_person").serializeObject(), 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePerson/"+uuid+"/"+id, 
+					$("#update_person_form").serializeObject(), 
 					function(data){
 				$.popupTwoClose();
 				if(data.result.status == 'OK'

@@ -252,6 +252,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	/**
+	 * 编辑团队成员
+	 * @return
+	 */
+	@RequestMapping(value = "/editPerson/{puuid}", method = RequestMethod.GET)
+	public String editPerson(@PathVariable("puuid") String puuid, HttpServletRequest request) {
+		request.setAttribute("uuid", puuid);
+		return "project/v_update_project_person";
+	}
+	
+	/**
 	 * 查看团队信息弹出层
 	 * @return
 	 */
@@ -337,6 +347,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							personPool.setPwc(p.getPwc());
 							personPool.setPlc(p.getPlc());
 							personList.add(personPool);
+							break;
 						}
 					}
 				}else{
@@ -358,6 +369,56 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
+	/**
+	 * 编辑团队成员记录
+	 * @param uuid 团队成员的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updatePerson/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> updatePerson(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id, 
+			@RequestBody PersonPool personPool,
+			HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(id == null || "".equals(id.trim()) || personPool == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			personPool.setUuid(uuid);
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			List<PersonPool> personList = null;
+			if(project.getPc() != null && project.getPc().contains(personPool)){
+				personList = project.getPc();
+				for(PersonPool p : personList){
+					if(p.getUuid().equals(uuid)){
+						personList.remove(personPool);
+						personPool.setPwc(p.getPwc());
+						personPool.setPlc(p.getPlc());
+						personList.add(personPool);
+						project.setPc(personList);
+						mongoProjectService.updateById(id, project);
+						if(logger.isInfoEnabled()){
+							logger.info(user.getId() + ":" + user.getRealName() + " to update person successful > " + project.getId());
+						}
+						responseBody.setEntityList(personList);
+						responseBody.setResult(new Result(Status.OK, "ok" , "修改团队成员成功!"));
+						break;
+					}
+				}
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to update person get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
 	/**
 	 * 删除团队成员
 	 */
