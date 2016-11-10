@@ -521,7 +521,7 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 createMenus(5);
-var pid = $("#flagId").val();
+var pid;
 
 //上一步，下一步
 $('[data-btn="next"]').click(function(){

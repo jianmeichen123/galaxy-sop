@@ -8,6 +8,7 @@ function addFinanceHistory(){
 	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+flagId, nowFormData, function(data){
 			var re=data;
 			$("#flagId").val(data.entity.id);
+			pid = data.entity.id;
 			$.popupOneClose();
 			$("body").css("overflow","auto")
 			formatterTable(re.entity.fh);
@@ -80,6 +81,7 @@ function updateFinanceHistory(){
 	var nowFormData = $("#update_Historyform").serializeObject();
 	     sendPostRequestByJsonStr(platformUrl.updateSave+"/"+historyUuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			$("#flagId").val(data.entity.id);
+			pid = data.entity.id;
 			$.popupOneClose();
 			$("body").css("overflow","auto")
 			formatterTable(data.entity.fh);
