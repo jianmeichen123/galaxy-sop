@@ -39,7 +39,7 @@ function editPerson(){
 }
 function deletePerson(){
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectPerson/"+uuid+"/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectPerson/"+uuid+"/"+pid, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK'){
@@ -102,7 +102,7 @@ function addPersonLearning(){
 function deleteLearn(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+puuid+"/"+uuid+"/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+puuid+"/"+uuid+"/"+pid, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK'){
@@ -160,7 +160,7 @@ function addPersonWork(){
 function deleteWork(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectWork/"+puuid+"/"+uuid+"/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectWork/"+puuid+"/"+uuid+"/"+pid, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK'){
@@ -261,7 +261,7 @@ function toEditShares(){
 }
 function deleteShares(){
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectShares/"+uuid+"/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectShares/"+uuid+"/"+pid, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK'){

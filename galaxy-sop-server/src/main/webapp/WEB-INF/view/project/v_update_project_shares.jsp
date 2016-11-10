@@ -49,7 +49,7 @@
 <script>
 $(function(){
 	var uuid = $('input[name="sharesUuid"]').val();
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookProjectShares/"+uuid+"/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookProjectShares/"+uuid+"/"+pid, 
 			null, 
 			function(data){
 		$('input[name="sharesOwner"]').val(data.entity.sharesOwner);
@@ -62,7 +62,7 @@ $(function(){
 	initDialogValstr("form_shares");
 	$("#update_shares").click(function(){
 		if(beforeSubmitById("form_shares")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updateShares/"+uuid+"/"+id, 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updateShares/"+uuid+"/"+pid, 
 					$("#stock_form").serializeObject(), 
 					function(data){
 				$.popupTwoClose();

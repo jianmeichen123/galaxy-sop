@@ -521,8 +521,7 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 createMenus(5);
-var id = "5822bee05637d90414df258c";
-var pid = "581afb34cf20891a84d4fadc";
+var pid = $("#flagId").val();
 
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
@@ -530,9 +529,7 @@ $('[data-btn="next"]').click(function(){
 	num=Number(pageNum.substr(pageNum.length-1,1));
 	if(num==0){
 		var result=add();
-		if(result){
-			pid = "581aa5092b7c2b01c4094166";
-		}else{
+		if(!result){
 			alert("重要参数丢失");
 			return;
 		} 
@@ -541,7 +538,7 @@ $('[data-btn="next"]').click(function(){
 			return;
 		}
 	}else if(num==2){
-		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+id, 
+		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+pid, 
 				$("#company-info-form").serializeObject(), 
 				function(data){
 			//layer.msg(data.result.message);
@@ -571,7 +568,7 @@ $('input[name="formationDate"]').datepicker({
 
 
 $(function(){
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/"+pid, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK' 
@@ -583,7 +580,7 @@ $(function(){
 			generatePersonEmptyInnerHtml();
 		}
 	});
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectShares/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectShares/"+pid, 
 			null, 
 			function(data){
 		if(data.result.status == 'OK' 

@@ -60,7 +60,7 @@
 <script>
 $(function(){
 	var uuid = $('input[name="uuid"]').val();
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookPerson/"+uuid+"/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookPerson/"+uuid+"/"+pid, 
 			null, 
 			function(data){
 		generatePersonDetail(data);

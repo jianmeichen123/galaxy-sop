@@ -50,7 +50,7 @@ $(function(){
 	initDialogValstr("form_shares");
 	$("#save_shares").click(function(){
 		if(beforeSubmitById("form_shares")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/saveShares/"+id, 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/saveShares/"+pid, 
 					$("#stock_form").serializeObject(), 
 					function(data){
 				$.popupTwoClose();

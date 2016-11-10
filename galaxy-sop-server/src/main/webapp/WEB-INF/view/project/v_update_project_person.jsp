@@ -120,7 +120,7 @@ $('input[name="personBirthdayStr"]').datepicker({
 });
 $(function(){
 	var uuid = $('input[name="uuid"]').val();
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookPerson/"+uuid+"/"+id, 
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookPerson/"+uuid+"/"+pid, 
 			null, 
 			function(data){
 		$('input[name="personName"]').val(data.entity.personName);
@@ -151,7 +151,7 @@ $(function(){
 				return;
 			}
 			$('input[name="tempStatus"]').val(1);
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePerson/"+uuid+"/"+id, 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePerson/"+uuid+"/"+pid, 
 					$("#update_person_form").serializeObject(), 
 					function(data){
 				$.popupTwoClose();
