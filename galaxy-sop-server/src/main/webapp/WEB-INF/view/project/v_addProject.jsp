@@ -20,6 +20,7 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <!-- table列表 -->
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
@@ -521,8 +522,8 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 createMenus(5);
-var pid = $("#flagId").val();
 initDialogValstr("add_form");
+var pid;
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
@@ -541,7 +542,7 @@ $('[data-btn="next"]').click(function(){
 		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+pid, 
 				$("#company-info-form").serializeObject(), 
 				function(data){
-			//layer.msg(data.result.message);
+			viewTableShow(pid);
 		});
 	}
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
