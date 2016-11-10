@@ -130,8 +130,8 @@ function personDuties(value, row, index) {
 function proPerOpFormat(value, row, index) {
 	
 	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >查看</a>";
-	var toEdit = "&nbsp;&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
-	var toDelete = "&nbsp;&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
+	var toEdit = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
+	var toDelete = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
 	
 	var content = toShow
 	if (isCreatedByUser == 'true' && isTransfering == 'false') {
@@ -184,6 +184,7 @@ function toAddPerson(id,index){
 		personSelectRow = $('#tablePerson').bootstrapTable('getRowByUniqueId', id);
 		console.log("person select : " + JSON.stringify(personSelectRow));
 	}else{
+		isEditOrCreatePerson = "c";
 		personSelectRow = null;
 	}
 
@@ -360,6 +361,7 @@ function toAddPersonLearning(selectIndex){
 		
 		console.log("learn select : " + JSON.stringify(learnSelectRow));
 	}else{
+		isCreatOrEditLearn = "c";
 		learnSelectRown = null;
 	}
 	
@@ -547,6 +549,7 @@ function toAddPersonWork(selectIndex){
 		workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
 		isCreatOrEditWork = "e";
 	}else{
+		isCreatOrEditWork = "c";
 		workSelectRow = null;
 	}
 	

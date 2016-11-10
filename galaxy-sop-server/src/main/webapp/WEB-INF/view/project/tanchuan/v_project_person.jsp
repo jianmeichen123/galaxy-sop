@@ -71,7 +71,6 @@ radio name="personSex"
         </div>
         
         
-        
         <div class="qualifications">
             <h3>学历背景</h3>
             <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="学历背景">添加</span>
@@ -103,21 +102,6 @@ radio name="personSex"
 					</tr>
 				</thead>
 			</table> 
-
-            <!-- <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
-                <thead>
-                 <tr>
-                     <th>毕业院校</th>
-                     <th>专业</th>
-                     <th>时间</th>
-                     <th>学历</th>
-                     <th>操作</th>
-                 </tr>
-                </thead>
-                <tbody id="learning-tbody">
-                 
-                </tbody>
-            </table> -->
         </div>
         
         
@@ -151,21 +135,6 @@ radio name="personSex"
 					</tr>
 				</thead>
 			</table> 
-            
-            <!-- <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
-                <tr>
-                    <th>时间</th>
-                    <th>任职公司名称</th>
-                    <th>职位</th>
-                    <th>操作</th>
-                </tr>
-                <tr>
-                    <td>2016-01-05 - 2016-10-12</td>
-                    <td>公司名称</td>
-                    <td>交互</td>
-                    <td><a class="blue" href="javascript:void(0)">删除</a></td>
-                </tr>
-            </table> -->
         </div>
         
     </div>
