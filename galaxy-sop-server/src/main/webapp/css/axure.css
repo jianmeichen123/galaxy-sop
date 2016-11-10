@@ -1771,7 +1771,7 @@ font-family: "宋体";
 .basic_right_ul li{ line-height:30px; line-height:30px;}
 .basic_p{color:#6b799f; margin:20px;line-height: 22px;}
 .basic_right .tabtable_con_on{padding-top: 4px;}
-.basic_table{margin:20px 20px;}
+.basic_table,.pagebox .ritmin .tabtable .basic_table{margin:20px 20px;}
 .upload{background:url(../img/functionico.png) 0 -305px no-repeat;height:20px;display: inline-block;line-height: 20px;padding-left: 20px;}
 .new_nputr.text{width:521px;height:50px;}
 .add_history{border:0;background:none;margin-top:7px;margin-right:20px;cursor:pointer;outline:none;}
@@ -1825,7 +1825,6 @@ font-family: "宋体";
   background-color: #fff;
   width: 100%;
   margin-top: 10px;
-  overflow:hidden;
   height: 310px;
 }
 .page .project_on{height:600px}
@@ -2313,3 +2312,9 @@ margin: 45px auto 30px;}
 .stocktc dd textarea{width:300px;height:50px;}
 /* 添加项目第二页提示框 */
 #describe_valiate{color:#999060;font-size:12px;font-family:"宋体";border:1px solid #c7bf93;background:#fff9c9;}
+#step2 .new_ul_all {margin-top:-11px;display:none;}
+#step2 .new_r_compile{border-bottom:1px solid #e6e8f1;padding-bottom:5px;}
+.addProject{background:#fff;border-radius:6px;margin-top:10px;}
+.learning-table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.learning-table{table-layout:fixed}
+/* #step2 .edui-container,#step2 .width_fwb{width:98% !important;}  */

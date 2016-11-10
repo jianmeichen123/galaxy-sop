@@ -8,8 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.galaxyinternet.framework.core.dao.utils.QueryField;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.hr.PersonLearn;
-import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.PersonPool;
@@ -69,6 +67,12 @@ public class Project {
     private String operationalData;//运营数据
     private SopFile sopFile;
     private String sopfiletype; //上传文件标识
+    
+    /**step3**/
+	private String projectCompany;//公司名称
+	private String projectCompanyCode ;//组织代码
+    private String companyLegal;//法人
+    private String formationDate;//成立日期
     
     
     /**step4  访谈记录 **/
@@ -290,6 +294,30 @@ public class Project {
 	}
 	public void setView(List<InterviewRecord> view) {
 		this.view = view;
+	}
+	public String getProjectCompany() {
+		return projectCompany;
+	}
+	public String getProjectCompanyCode() {
+		return projectCompanyCode;
+	}
+	public String getCompanyLegal() {
+		return companyLegal;
+	}
+	public String getFormationDate() {
+		return formationDate;
+	}
+	public void setProjectCompany(String projectCompany) {
+		this.projectCompany = projectCompany;
+	}
+	public void setProjectCompanyCode(String projectCompanyCode) {
+		this.projectCompanyCode = projectCompanyCode;
+	}
+	public void setCompanyLegal(String companyLegal) {
+		this.companyLegal = companyLegal;
+	}
+	public void setFormationDate(String formationDate) {
+		this.formationDate = formationDate;
 	}
 	
 	

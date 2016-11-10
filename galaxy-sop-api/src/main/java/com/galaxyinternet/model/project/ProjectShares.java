@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.project;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.model.hr.PersonLearn;
 
 public class ProjectShares extends PagableEntity {
 	private static final long serialVersionUID = 1L;
@@ -91,5 +92,13 @@ public class ProjectShares extends PagableEntity {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(uuid != null && obj != null && obj instanceof ProjectShares && ((ProjectShares) obj).getUuid() != null){
+			return this.getUuid().equals(((ProjectShares) obj).getUuid());
+		}
+		return super.equals(obj);
 	}
 }

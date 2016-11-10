@@ -376,7 +376,7 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_person ico_add_project"></span>
                         <span class="new_color size16"><em class="red">*</em>团队成员</span>
-                        <button onclick="addProjectPerson();" class="blue fr add_history">添加</button>
+                        <button onclick="addProjectPerson();" class="blue fr add_history" data-name="添加团队成员" data-btn="addProjectPerson">添加</button>
                     </div>
                     <table id="person-table" style="width:94%;" cellspacing="0" cellpadding="0" class="basic_table table">
                     	<thead>
@@ -403,7 +403,7 @@
 					      <div class="title">
 					          <span class="new_color size16">法人信息</span>
 					      </div>
-					      <form action="#" id="company-info-form">
+					      <form action="" id="company-info-form">
 					      <input type="hidden" name="id" value="${projectId }">
 					      <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
 					          <tr>
@@ -420,9 +420,11 @@
 					</div>
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_color size16"><em class="red">*</em>股权结构</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button onclick="addProjectShares();" class="blue fr add_history">添加</button>
                     </div>
+                    <input type="hidden" value="0" id="shares"/>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                    	<thead>
                     	<tr>
                     		<th>所有权人</th>
                     		<th>所有权人类型</th>
@@ -432,23 +434,15 @@
                     		<th>备注</th>
                     		<th>操作</th>
                     	</tr>
-                    	<tr>
-                    		<td>李铭</td>
-                    		<td>12</td>
-                    		<td>12</td>
-                    		<td>12</td>
-                    		<td>美元</td>
-                    		<td>黑熊精...</td>
-                    		<td>
-	                    		<a class="meet_edit blue" href="javascript:void(0)">编辑</a>
-	                    		<a class="meet_delete blue" href="javascript:void(0)">删除</a>
-                    		</td>
-                    	</tr>
+                    	</thead>
+                    	<tbody id="shares-tbody">
+	                    
+                    	</tbody>
                     </table>
                      <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl"  data-btn="next">下一步</span>
+	                    	<span class="pubbtn bluebtn fl"  id="step3-previous" data-btn="pre">上一步</span>
+	                        <span class="pubbtn bluebtn fl"  id="step3-next" data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">3</label>/<label>4</label>
 	                        </div>
@@ -534,24 +528,25 @@ var pid = "581afb34cf20891a84d4fadc";
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
-	
-
-	 /* if(num==0){
-		var result=add();
+	if(num==0){
+		/* var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
 		}else{
 			alert("重要参数丢失");
 			return;
-		}
+		} */
 	}else if(num==1){
-		if(!step2Valiate("step2")){
+		/* if(!step2Valiate("step2")){
 			return;
-		};
+		}; */
 	}else if(num==2){
-		viewTableShow(pid);
-	} */
-	
+		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+id, 
+				$("#company-info-form").serializeObject(), 
+				function(data){
+			//layer.msg(data.result.message);
+		});
+	}
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){
@@ -559,6 +554,21 @@ $('[data-btn="pre"]').click(function(){
 	num=Number(prePageNum.substr(prePageNum.length-1,1));
 	$("[data-btn='page"+(num-1)+"']").addClass("on").siblings().removeClass("on");
 })
+
+$('input[name="formationDate"]').datepicker({
+    format: 'yyyy-mm-dd',
+    language: "zh-CN",
+    autoclose: true,
+    todayHighlight: false,
+    defaultDate : Date,
+    today: "Today",
+    todayBtn:'linked',
+    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+    forceParse:false,
+    currentText: 'Now'
+});
+
 
 $(function(){
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/"+id, 
@@ -571,6 +581,18 @@ $(function(){
 			$("#person").val(data.entityList.length);
 		}else{
 			generatePersonEmptyInnerHtml();
+		}
+	});
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectShares/"+id, 
+			null, 
+			function(data){
+		if(data.result.status == 'OK' 
+				&& typeof(data.entityList) != 'undefined' 
+				&& data.entityList.length > 0){
+			generateSharesInnerHtml(data.entityList);
+			$("#shares").val(data.entityList.length);
+		}else{
+			generateSharesEmptyInnerHtml();
 		}
 	});
 });
