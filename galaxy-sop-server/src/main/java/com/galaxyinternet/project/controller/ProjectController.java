@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -114,6 +115,7 @@ import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.CollectionUtils;
+import com.galaxyinternet.utils.ListSortUtil;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
@@ -976,6 +978,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			com.galaxyinternet.mongodb.model.Project entity =new com.galaxyinternet.mongodb.model.Project();
 			String uuidHistory=UUIDUtils.create().toString();
 			financeHistory.setUuid(uuidHistory);
+			financeHistory.setFinanceDate(null);
+			financeHistory.setFinanceStatus(financeHistory.getFinanceStatus());
 			if(null==flagId||"null".equals(flagId)){
 				String uuid=UUIDUtils.create().toString();
 				project.setUuid(uuid);
@@ -1019,6 +1023,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
+			sortList.Sort(project.getFh(),"financeTime",
+					"desc");
 			responseBody.setEntityList(project != null ? project.getFh() : null);
 			logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询融资历史成功!"));
@@ -1128,6 +1135,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
 			FinanceHistory l = new FinanceHistory();
 			l.setUuid(uuid);
+			financeHistory.setFinanceStatus(financeHistory.getFinanceStatus());
+			financeHistory.setFinanceDate(null);
 			if(project != null && project.getFh() != null && project.getFh().contains(l)){
 				project.getFh().remove(l);
 				financeHistory.setUuid(uuid);

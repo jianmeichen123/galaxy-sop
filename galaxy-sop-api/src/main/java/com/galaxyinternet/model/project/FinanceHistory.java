@@ -1,8 +1,11 @@
 package com.galaxyinternet.model.project;
 
+import java.text.ParseException;
+import java.util.Date;
+
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.hr.PersonLearn;
 
 public class FinanceHistory extends BaseEntity {
 	private static final long serialVersionUID = 1L;
@@ -11,7 +14,7 @@ public class FinanceHistory extends BaseEntity {
 
     private Long projectId;//项目id
     
-    private String financeDate;//融资日期
+    private String financeDateStr;//融资日期
     
     private String financeFrom;//融资来源
     
@@ -25,9 +28,12 @@ public class FinanceHistory extends BaseEntity {
     
     private Long createUid;//创建人
     
+    private String financeStatusDs;
     private String createDate;
     
     private String updateDate;
+    
+    private Date financeDate;
     
     public Long getProjectId() {
         return projectId;
@@ -36,14 +42,6 @@ public class FinanceHistory extends BaseEntity {
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
     }
-
-	public String getFinanceDate() {
-		return financeDate;
-	}
-
-	public void setFinanceDate(String financeDate) {
-		this.financeDate = financeDate;
-	}
 
 	public String getFinanceFrom() {
 		return financeFrom;
@@ -82,7 +80,12 @@ public class FinanceHistory extends BaseEntity {
 	}
 
 	public void setFinanceStatus(String financeStatus) {
-		this.financeStatus = financeStatus;
+		this.financeStatus = financeStatus == null ? null: financeStatus.trim();
+        if(financeStatus != null){
+			this.financeStatusDs = DictEnum.financeStatus.getNameByCode(financeStatus);
+		}else{
+			this.financeStatusDs ="不明确";
+		}
 	}
 
 	public Long getCreateUid() {
@@ -108,12 +111,89 @@ public class FinanceHistory extends BaseEntity {
     		this.createDate = DateUtil.longToString(createdTime);
     	}
     }
+	public Date getFinanceDate() { //2016-05-27 16:00:00   19
+		if(financeDate==null && financeDateStr!=null){
+			financeDateStr = dateStrformat(financeDateStr);
+			try {
+				financeDate = DateUtil.convertStringtoD(financeDateStr);
+			} catch (ParseException e) {
+				financeDate = null;
+			}
+		}else{
+			if(financeDateStr==null && financeDate!=null){
+				//meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
+				financeDateStr = DateUtil.convertDateToString(financeDate,"yyyy-MM-dd");
+			}
+		}
+        return financeDate;
+    }
+	
+    public void setFinanceDate(Date financeDate) {
+    	if(financeDate==null && financeDateStr!=null){
+    		financeDateStr = dateStrformat(financeDateStr);
+			try {
+				financeDate = DateUtil.convertStringtoD(this.financeDateStr);
+			} catch (ParseException e) {
+				financeDate = null;
+			}
+		}else{
+			if(financeDateStr==null && financeDate!=null){
+				financeDateStr = DateUtil.convertDateToString(financeDate,"yyyy-MM-dd");
+			}
+		}
+        this.financeDate = financeDate;
+    }
+    
+	public String getFinanceDateStr() {
+		if(financeDateStr==null && financeDate!=null){
+			financeDateStr = DateUtil.convertDateToString(financeDate,"yyyy-MM-dd");
+		}
+		return financeDateStr;
+	}
+	public void setFinanceDateStr(String financeDateStr) { ////2016-05-27 16:00:00   19
+		if(financeDateStr==null && financeDate!=null){
+			financeDateStr = DateUtil.convertDateToString(financeDate,"yyyy-MM-dd");
+		}
+		this.financeDateStr = financeDateStr;
+	}
     public void setUpdatedTime(Long updatedTime) {
     	this.updatedTime = updatedTime;
     	if(updatedTime != null){
     		this.updateDate = DateUtil.longToString(updatedTime);
     	}
     }
+    
+	public String getFinanceStatusDs() {
+		return financeStatusDs;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public String getUpdateDate() {
+		return updateDate;
+	}
+	public static String dateStrformat(String dateStr){  //2016-05-27 16:00:00   19
+		int len = dateStr.length();
+		if( dateStr.indexOf("/") != -1){
+			dateStr = dateStr.replaceAll("/", "-");
+		}
+		switch (len) {
+		case 10:
+			dateStr = dateStr + " 00:00:00";
+			break;
+		case 13:
+			dateStr = dateStr + ":00:00";
+			break;
+		case 16:
+			dateStr = dateStr + ":00";
+			break;
+		default:
+			break;
+		}
+		return dateStr;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if(uuid != null && obj != null && obj instanceof FinanceHistory && ((FinanceHistory) obj).getUuid() != null){
@@ -121,5 +201,4 @@ public class FinanceHistory extends BaseEntity {
 		}
 		return super.equals(obj);
 	}
-	
 }

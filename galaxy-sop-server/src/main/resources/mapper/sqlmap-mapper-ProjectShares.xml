@@ -11,7 +11,7 @@
     <result column="gain_mode" property="gainMode" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="finance_amount" property="financeAmount" jdbcType="DECIMAL" />
-    <result column="finance_unit" property="financeUnit" jdbcType="INTEGER" />
+    <result column="finance_unit" property="financeUnit" jdbcType="VARCHAR" />
    
   </resultMap>
   
@@ -32,7 +32,7 @@
 			     <if test="gainMode != null" >and gain_mode = #{gainMode,jdbcType=VARCHAR} </if>
 			     <if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
 			      <if test="financeAmount != null" >and finance_amount = #{financeAmount,jdbcType=DECIMAL} </if>
-			      <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=INTEGER} </if>
+			      <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -69,7 +69,7 @@
 	      remark,finance_amount,finance_unit)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{sharesType,jdbcType=VARCHAR}, 
 	      #{sharesOwner,jdbcType=VARCHAR}, #{sharesRatio,jdbcType=DECIMAL}, #{gainMode,jdbcType=VARCHAR}, 
-	      #{remark,jdbcType=VARCHAR},#{financeAmount,jdbcType=DECIMAL},#{financeUnit,jdbcType=INTEGER})
+	      #{remark,jdbcType=VARCHAR},#{financeAmount,jdbcType=DECIMAL},#{financeUnit,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
@@ -84,7 +84,7 @@
 		     <if test="gainMode != null" > gain_mode = #{gainMode,jdbcType=VARCHAR}, </if>
 		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 		     <if test="financeAmount != null" > finance_amount = #{financeAmount,jdbcType=DECIMAL}, </if>
-		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=INTEGER} </if>
+		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
 		     
 		</set>
 		<where>
@@ -97,7 +97,7 @@
 			    <if test="gainMode != null" >and gain_mode = #{gainMode,jdbcType=VARCHAR} </if>
 			    <if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
 			    <if test="financeAmount != null" >and finance_amount = #{financeAmount,jdbcType=DECIMAL} </if>
-			    <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=INTEGER} </if>
+			    <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
 			
 			</trim>
 		</where>
@@ -113,7 +113,7 @@
 		     <if test="gainMode != null" > gain_mode = #{gainMode,jdbcType=VARCHAR}, </if>
 		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 		     <if test="financeAmount != null" > finance_amount = #{financeAmount,jdbcType=DECIMAL}, </if>
-		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=INTEGER} </if>
+		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
 		   
 		</set>
 		where id = #{id}

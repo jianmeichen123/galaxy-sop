@@ -2,6 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <div class="addmentc margin_45">
 <div class="title_bj">编辑股权结构</div>
   <form action="" id="up_stock_form" method="post" type="validate">
@@ -28,10 +30,10 @@
         <dt>币种：</dt>
         <dd>  
 	         <select name="financeUnit">
-                        <option value="0" select="selected" name="financeUnit">人民币</option>
-                        <option value="1" >美元</option>
-                        <option value="2" >英镑</option>
-                        <option value="3" >欧元</option>
+                        <option value="0" <c:if test='${share.financeUnit==0}'>  selected="selected"  </c:if>>人民币</option>
+                        <option value="1" <c:if test='${share.financeUnit==1}'>  selected="selected"  </c:if>>美元</option>
+                        <option value="2" <c:if test='${share.financeUnit==2}'>  selected="selected"  </c:if>>英镑</option>
+                        <option value="3" <c:if test='${share.financeUnit==3}'>  selected="selected"  </c:if>>欧元</option>
              </select>
         </dd>
       </dl>
@@ -46,7 +48,7 @@
   <div class="form_textarea">
     <dl class="fmdl">
       <dt>备注：</dt>
-      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符">${share.remark }</textarea></dd>
+      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符">${share.remark}</textarea></dd>
     </dl>
   </div>
       <a href="javascript:;" onclick="updateStock()" class="pubbtn bluebtn">保存</a>

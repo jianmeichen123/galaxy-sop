@@ -15,22 +15,31 @@ function addFinanceHistory(){
 	     return true;
 }
 function formatterTable(entity){
+	if(entity.length>=10){
+		$("#add_history").css("display","none");
+	}
 	$("#financeHistory_table").children('tr').remove();
 	var html;
 	if(null==entity){
 		html="<tr><td rowspan='7' align='center'>暂无数据<td></tr>";
 		$("#financeHistory_table").append(html);
 	}else{
+		 var data={
+					"0":"人民币",
+					"1":"美元", 
+				    "2":"英镑" ,
+				    "3":"欧元" 
+				 };
 		for(var i=0;i<entity.length;i++){
 			var obj=entity[i];
 			html=
 				"<tr>"+
-					"<td>"+obj.financeDate+"</td>"+
+					"<td>"+obj.financeDateStr+"</td>"+
 					"<td>"+obj.financeFrom+"</td>"+
 					"<td>"+obj.financeAmount+"</td>"+
-					"<td>"+obj.financeUnit+"</td>"+
+					"<td>"+data[obj.financeUnit]+"</td>"+
 					"<td>"+obj.financeProportion+"</td>"+
-					"<td>"+obj.financeStatus+"</td>"+
+					"<td>"+obj.financeStatusDs+"</td>"+
 					"<td>"+
 						"<a class='finance_edit blue'   onclick=\"updateFinance('"+obj.uuid+"')\" href='javascript:void(0)'>编辑 &nbsp;</a>"+
 						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.uuid+"')\" href='javascript:void(0)'>删除</a>"+
@@ -95,14 +104,14 @@ function setDataFinance(data){
 		   self.val(text);
 		}
 	});
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", data["financeStatus"]);
+	var index=data["financeStatus"].split(":")[1];
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", index);
 	var financeUnit=$("#financeUnit option");
-	for(var i=0;i<financeUnit.legth;i++){
-		if(data['financeUnit']==financeUnit.value){
-			financeUnit[i].attr("selected","selected");
+	for(var i=0;i<financeUnit.length;i++){
+		if(data['financeUnit']==financeUnit[i].value){
+			financeUnit[i].selected=true;
 		}
 	}
 }
-
-
+ 
 
