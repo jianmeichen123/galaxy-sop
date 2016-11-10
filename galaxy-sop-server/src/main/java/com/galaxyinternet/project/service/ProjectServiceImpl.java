@@ -690,7 +690,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	 * 4、projectPerson
 	 */
 	@Transactional
-	@Override
 	public Long addProPersonAndPerInfo( PersonPool personPool) throws Exception {
 		//person info
 		//PersonPool personPool = personResumetc.getPersonPool();
