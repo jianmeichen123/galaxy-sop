@@ -10,6 +10,7 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hr.PersonResumetc;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -55,7 +56,7 @@ public interface ProjectService extends BaseService<Project> {
 
 	public void newProByPreInfo(Long id, Long deptId, String userName, com.galaxyinternet.mongodb.model.Project project) throws Exception;
 
-	public Long addProPersonAndPerInfo(PersonResumetc personResumetc) throws Exception;
+	public Long addProPersonAndPerInfo(PersonPool pool) throws Exception;
 
 	
 

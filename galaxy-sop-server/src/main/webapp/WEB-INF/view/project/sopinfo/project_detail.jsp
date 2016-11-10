@@ -123,7 +123,7 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/projectDetail/appro.js" type="text/javascript"></script>
 <script src="<%=path %>/js/base_appropriation.js" type="text/javascript"></script>
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript"></script>
-
+<script src="<%=path %>/js/projectDetail/proPerOp.js"></script>
 
 
 <%-- <script src="<%=path %>/js/person.js"></script> --%>

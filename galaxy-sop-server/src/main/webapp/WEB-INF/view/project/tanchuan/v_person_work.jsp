@@ -11,7 +11,7 @@
         	<form action="" id="add_person_work" method="post">
     	
 	    	<!-- 工作--项目的成员 id -->
-	    	<input type="hidden" name="personId" id="work_person_Id" value="" />
+	    	<input type="hidden" name="personId" id="work_person_Id" />
 	    	
 	    	<!-- 工作-- id -->
 	    	<input type="hidden" name="id" id="work_id" value="" />
@@ -54,7 +54,7 @@
 <jsp:include page="../../common/validateJs.jsp" flush="true"></jsp:include>
 
 <script>
-$('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
+$('input[name="beginWorkStr"], input[name="overWorkStr"]').datepicker({
     format: 'yyyy-mm-dd',
     language: "zh-CN",
     autoclose: true,
