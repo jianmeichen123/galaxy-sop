@@ -9,7 +9,6 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hr.PersonResumetc;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;

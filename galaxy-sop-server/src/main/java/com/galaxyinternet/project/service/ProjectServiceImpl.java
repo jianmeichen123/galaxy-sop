@@ -37,12 +37,9 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.hr.PersonInvest;
 import com.galaxyinternet.model.hr.PersonLearn;
-import com.galaxyinternet.model.hr.PersonResumetc;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -682,6 +679,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	
 	
 	
+	
 	/**
 	 * 添加团队成员
 	 * 1、personPool
@@ -690,6 +688,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	 * 4、projectPerson
 	 */
 	@Transactional
+	@Override
 	public Long addProPersonAndPerInfo( PersonPool personPool) throws Exception {
 		//person info
 		//PersonPool personPool = personResumetc.getPersonPool();
