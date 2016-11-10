@@ -1,8 +1,5 @@
 package com.galaxyinternet.project.service;
 
-import static com.galaxyinternet.utils.ExceptUtils.isNull;
-import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
@@ -651,11 +648,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//PersonPool
 		//ProjectPerson
 		//PersonLearn
-
-		//List<PersonLearn> prePerLearn= project.getPlc();
 		
-		List<PersonPool> pPool= new ArrayList<PersonPool>();
-	
 		
 		
 		
@@ -698,9 +691,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	 */
 	@Transactional
 	@Override
-	public Long addProPersonAndPerInfo(PersonResumetc personResumetc) throws Exception {
+	public Long addProPersonAndPerInfo( PersonPool personPool) throws Exception {
 		//person info
-		PersonPool personPool = personResumetc.getPersonPool();
+		//PersonPool personPool = personResumetc.getPersonPool();
 		Long personId = personPool.getId();
 		
 		if(personPool.getPersonBirthdayStr() != null){
@@ -717,9 +710,18 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			personId = personPoolDao.insert(personPool);
 		}
 		//person Learning
-		List<PersonLearn> personLearns = personResumetc.getPersonLearn();
+//		List<PersonLearn> personLearns = personResumetc.getPersonLearn();
+		List<PersonLearn> personLearns = personPool.getPlc();
 		if(personLearns != null&& personLearns.size() >0){
 			for (PersonLearn personLearn : personLearns) {
+				if(personLearn.getBeginDateStr()!= null){
+					try {
+						Date date = DateUtil.convertStringToDate(personLearn.getBeginDateStr());
+						personLearn.setBeginDate(date);
+					} catch (ParseException e) {
+						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
+					}
+				}
 				if(personLearn.getOverDateStr()!= null){
 					try {
 						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr());
@@ -737,7 +739,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			}
 		}
 		//person work
-		List<PersonWork> personWorks = personResumetc.getPersonWork();
+		List<PersonWork> personWorks = personPool.getPwc();
 		if(personWorks != null && personWorks.size() >0){
 			for (PersonWork personWork : personWorks) {
 				if(personWork.getBeginWorkStr() != null){

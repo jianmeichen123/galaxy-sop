@@ -538,12 +538,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 查看团队成员信息
 	 * @param id 项目ID
@@ -1230,11 +1224,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-			ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
-			sortList.Sort(project.getFh(),"financeTime",
-					"desc");
 			responseBody.setEntityList(project != null ? project.getFh() : null);
-			logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询融资历史成功!"));
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
@@ -1897,6 +1887,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
+		try {
+			
 		User user = (User) getUserFromSession(request);
 		Project p = projectService.queryById(pool.getProjectId());
 		// 项目创建者用户ID与当前登录人ID是否一样
@@ -1906,12 +1898,28 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					"没有权限修改该项目的团队成员信息!"));
 			return responseBody;
 		}
-
+		
+		if(pool.getPersonBirthdayStr() != null){
+			try {
+				Date date = DateUtil.convertStringToDate(pool.getPersonBirthdayStr());
+				pool.setPersonBirthday(date);
+			} catch (ParseException e) {
+				throw new Exception(pool.getPersonBirthdayStr() +" 转  Date 失败" + e);
+			}
+		}
+		
 		int num = personPoolService.updateById(pool);
 		if (num > 0) {
 			responseBody.setResult(new Result(Status.OK, null, "团队成员信息修改成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
 					p.getProjectName(), p.getId());
+		}
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"resetProjectPerson faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("resetProjectPerson ", e);
+			}
 		}
 		return responseBody;
 	}
@@ -4778,11 +4786,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/app", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> addProPersonAndPerInfo(@RequestBody PersonResumetc personResumetc, HttpServletRequest request) {
+	public ResponseData<PersonPool> addProPersonAndPerInfo(@RequestBody PersonPool pool, HttpServletRequest request) {
 		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
 		
 		try {
-			PersonPool pool = personResumetc.getPersonPool();
+			//PersonPool pool = personResumetc.getPersonPool();
 			if (pool.getProjectId() == null || pool.getProjectId() <= 0 || pool.getPersonName() == null || pool.getPersonTelephone() == null) {
 				responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 				return responseBody;
@@ -4795,7 +4803,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			
-			Long id = projectService.addProPersonAndPerInfo(personResumetc);
+			Long id = projectService.addProPersonAndPerInfo(pool);
 			responseBody.setResult(new Result(Status.OK, null, "团队成员添加成功!"));
 			//responseBody.setEntity(pool);
 			ControllerUtils.setRequestParamsForMessageTip(request,p.getProjectName(), p.getId());
@@ -4865,7 +4873,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "人员id缺失，更新失败"));
 				return responseBody;
 			}
-			
+			if(query.getBeginDateStr()!= null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getBeginDateStr());
+					query.setBeginDate(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getOverDateStr() +" 转  Date 失败" + e);
+				}
+			}
+			if(query.getOverDateStr()!= null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getOverDateStr());
+					query.setOverDate(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getOverDateStr() +" 转  Date 失败" + e);
+				}
+			}
 			if(query.getId()==null){
 				Long id = personLearnService.insert(query);
 				query.setId(id);
@@ -4967,7 +4990,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "人员id缺失，更新失败"));
 				return responseBody;
 			}
-
+			
+			if(query.getBeginWorkStr() != null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getBeginWorkStr());
+					query.setBeginWork(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getBeginWorkStr() +" 转  Date 失败" + e);
+				}
+			}
+			if(query.getOverWorkStr() != null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getOverWorkStr());
+					query.setOverWork(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getOverWorkStr() +" 转  Date 失败" + e);
+				}
+			}
+			
 			if(query.getId()==null){
 				Long id = personWorkService.insert(query);
 				query.setId(id);

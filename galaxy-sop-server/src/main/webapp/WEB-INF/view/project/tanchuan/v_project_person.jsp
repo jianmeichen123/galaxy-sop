@@ -57,14 +57,14 @@ radio name="personSex"
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;是否为联系人：</dt>
                 <dd class="clearfix">
-                    <label><input type="radio" name="personSex1" value="0" checked="checked" />是</label>
-                    <label><input type="radio" name="personSex1" value="1" />否</label>
+                    <label><input type="radio" name="isContacts" value="0" checked="checked" />是</label>
+                    <label><input type="radio" name="isContacts" value="1" />否</label>
                 </dd>
             </dl>
-            
+           
             <dl class="fmdl fl block">
                 <dt>备注：</dt>
-                <dd><textarea maxlength="50" name="endComment"></textarea></dd>
+                <dd><textarea maxlength="50" name="remark"></textarea></dd>
             </dl>
             
             </form>
@@ -74,19 +74,20 @@ radio name="personSex"
         
         <div class="qualifications">
             <h3>学历背景</h3>
-            <span onclick="toAddPersonLearning(/'/');" class="blue fr add"  data-name="学历背景">添加</span>
+            <span onclick="toAddPersonLearning('');" class="blue fr add"  data-name="学历背景">添加</span>
             
             <div id="learning_table_custom_toolbar">
-				<input type="hidden" name="personId" value="">
+				<input type="hidden" name="personId" value="" />
 			</div>
-            <table style="table-layout:fixed"  id="per_learning_table" 
+            <table  id="per_learning_table" 
                	data-url="<%=path %>/galaxy/project/queryProPerLearn" data-method="post" 
-	       		data-toolbar="#learning_table_custom_toolbar" data-id-field="id" data-unique-id="id" >
+	       		data-toolbar="#learning_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
 				<colgroup >
+					<col style="width:0;">
 					<col style="width:25%;">
 					<col style="width:15%;">
-					<col style="width:25%;">
-					<col style="width:15%;">
+					<col style="width:30%;">
+					<col style="width:10%;">
 					<col style="width:20%;">
 				</colgroup>
 				<thead>
@@ -98,7 +99,7 @@ radio name="personSex"
 	                     <!--  beginDate overDate beginDateStr overDateStr -->
 	                     <th data-field="BE_time"  data-align="center" data-formatter="learn_TimeFormat">时间</th>
 	                     <th data-field="degree"  data-align="center" >学历</th>
-	                     <th data-formatter="pro_learning_format">操作</th>
+	                     <th data-field="learn_op" data-formatter="pro_learning_format">操作</th>
 					</tr>
 				</thead>
 			</table> 
@@ -123,15 +124,16 @@ radio name="personSex"
         
         <div class="qualifications">
             <h3>工作履历</h3>
-            <span  onclick="toAddPersonWork(/'/');" class="blue fr add"  data-name="工作履历" >添加</span>
+            <span  onclick="toAddPersonWork('');" class="blue fr add"  data-name="工作履历" >添加</span>
             
             <div id="work_table_custom_toolbar">
-				<input type="hidden" name="personId" value="">
+				<input type="hidden" name="personId" value="" />
 			</div>
-            <table style="table-layout:fixed"  id="per_work_table" 
+            <table id="per_work_table" 
                	data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
-	       		data-toolbar="#work_table_custom_toolbar" data-id-field="id" data-unique-id="id" >
+	       		data-toolbar="#work_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
 				<colgroup >
+					<col style="width:0;">
 					<col style="width:30%;">
 					<col style="width:30%;">
 					<col style="width:20%;">
@@ -145,7 +147,7 @@ radio name="personSex"
 						
 						<th data-field="companyName"  data-align="center" >任职公司名称</th>
 		                <th data-field="workPosition"  data-align="center" >职位</th>
-	                    <th data-formatter="pro_work_format">操作</th>
+	                    <th data-field="work_op" data-formatter="pro_work_format">操作</th>
 					</tr>
 				</thead>
 			</table> 
@@ -170,220 +172,39 @@ radio name="personSex"
     
         
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="save_file" >确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save_file" onclick="savePerson()">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
 <jsp:include page="../../common/validateJs.jsp" flush="true"></jsp:include>
 
 <script>
-
-//TODO 学习
-
-
-/*
- * 新建 :c 、 编辑:e    学习经历 - 弹窗
- */
-var learnSelectRow;
-var isCreatOrEditLearn = "c";  //判断   是新创建 person ：c  是编辑person ： e  是新创建编辑person ： ne  是已有编辑 person ： oe 
-
-//弹窗  编辑 、保存  --  初始化
-function toAddPersonLearning(row){
-	
-	if(row && row!=null && typeof(row)!='undefined' ){ //判断是编辑模式
-		learnSelectRow = row;
-		isCreatOrEditLearn = "e";
-	}
-	
-	var _url=Constants.sopEndpointURL + '/galaxy/project/addProPerLearning';
-	var $self = $(this);
-	var _name= $self.attr("name");
-	$.getHtml({
-		url:_url,
-		data:"",
-		okback:function(){
-			$("#qualifications_popup_name").html(_name);
-			
-			$("#learn_person_Id").val($("#person_pool_id").val());
-			$("#learn_id").val(learnSelectRow.id);
-			
-			//if(isCreatOrEditLearn == "oe" || isCreatOrEditLearn == "ne")//获取数据
-			if(isCreatOrEditLearn == "e"){//获取数据
-				console.log("编辑learn ： "+learnSelectRow);
-				$("#learn_id").val(learnSelectRow.id);
-			}
-		}
-	});
-	return false;
-}
-
-	
-// 新建  -- 编辑   学习经历
-function savePersonLearning(){
-	var learn = JSON.parse($("#add_person_learning").serializeObject());
-	
-	console.log("save learn : " + learn);
-	
-	var id = learn.id;
-	var perondId = learn.personId;
-	
-	if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
-		sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/saveOrEditProPerLearn",learn,function(data){
-			var result = data.result.status;
-			if(result == "ERROR"){ //OK, ERROR
-				layer.msg(data.result.message);
-				return;
-			}else{
-				learn.id = data.id;
-				layer.msg("保存成功", {time : 500});
-				//$("#per_learning_table").bootstrapTable('refresh');
-				$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: learn});
-			}
-		});
-	}else{
-		if(isCreatOrEditLearn == "e"){
-			$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: learn});
-		}else{
-			$('#per_learning_table').bootstrapTable('append', learn);
-		}
-	}
-	
-	//去除弹层
-	removePop1();
-	$.popupTwoClose();
-}
-
-
-
-//删除
-function deleteLearn(value,row,index){
-	if(row && row!=null && typeof(row)!='undefined' && row.id!=null && typeof(row.id)!='undefined' ){
-		sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+row.id, null, function(data){
-			var result = data.result.status;
-			if(result == "ERROR"){ //OK, ERROR
-				layer.msg(data.result.message);
-				return;
-			}
-		});
-	}
-		
-	$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: index});
-}
-
-
-
-
-//TODO 工作
-
-
-/*
- * 新建 :c 、 编辑:e    学习经历 - 弹窗
- */
-
-var workSelectRow;
-var isCreatOrEditWork = "c";  //判断   是新创建 person ：c  是新创建编辑person ： ne  是已有编辑 person ： oe 
-
-//弹窗  --  初始化
-function toAddPersonWork(row){
-	/* if(row && row!=null && typeof(row)!='undefined' ){
-		workSelectRow = row;
-		
-		if(row.id && row.id!=null && typeof(row.id)!='undefined' ){
-			isCreatOrEditWork = "oe";
-		}else{
-			isCreatOrEditWork = "ne";
-		}
-	} */
-	
-	if(row && row!=null && typeof(row)!='undefined' ){ //判断是编辑模式
-		workSelectRow = row;
-		isCreatOrEditWork = "e";
-	}
-	
-	var _url=Constants.sopEndpointURL + '/galaxy/project/addProPerWork';
-	var $self = $(this);
-	var _name= $self.attr("name");
-	$.getHtml({
-		url:_url,
-		data:"",
-		okback:function(){
-			$("#qualifications_popup_name").html(_name);
-			
-			$("#work_person_Id").val($("#person_pool_id").val());
-			$("#work_id").val(workSelectRow.id);
-			
-			if(isCreatOrEditWork == "e"){//获取数据
-				console.log("编辑work ： "+workSelectRow);
-				$("#work_id").val(workSelectRow.id);
-			}
-		}
-	});
-	return false;
-}
-
-//新建  -- 编辑   工作经历
-function savePersonWork(){
-	var work = JSON.parse($("#add_person_work").serializeObject());
-	
-	console.log("save work : " + work);
-	
-	var id = work.id;
-	var perondId = work.personId;
-	
-	if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
-		sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/saveOrEditProPerWork",work,function(data){
-			var result = data.result.status;
-			if(result == "ERROR"){ //OK, ERROR
-				layer.msg(data.result.message);
-				return;
-			}else{
-				work.id = data.id;
-				layer.msg("保存成功", {time : 500});
-				//$("#per_learning_table").bootstrapTable('refresh');
-				$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex, row: work});
-			}
-		});
-	}else{
-		if(isCreatOrEditLearn == "e"){
-			$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex, row: work});
-		}else{
-			$('#per_work_table').bootstrapTable('append', work);
-		}
-	}
-	
-	//去除弹层
-	removePop1();
-	$.popupTwoClose();
-}
-
-
-
-//删除
-function deleteWork(value,row,index){
-	if(row && row!=null && typeof(row)!='undefined' && row.id!=null && typeof(row.id)!='undefined' ){
-		sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+row.id, null, function(data){
-			var result = data.result.status;
-			if(result == "ERROR"){ //OK, ERROR
-				layer.msg(data.result.message);
-				return;
-			}
-		});
-	}
-		
-	$('#per_work_table').bootstrapTable('remove', {field: 'deleteIndex', values: index});
-}
+$('input[name="personBirthdayStr"]').datepicker({
+    format: 'yyyy-mm-dd',
+    language: "zh-CN",
+    autoclose: true,
+    todayHighlight: false,
+    defaultDate : Date,
+    today: "Today",
+    todayBtn:'linked',
+    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+    forceParse:false,
+    currentText: 'Now'
+});
 
 
 
 
 
 
+/* 
 //验证输入框内不能输入特殊字符,输入就立刻清除
 function cleanSpelChar(th){
     if(/["'<>%;)(&+]/.test(th.value)){
           $(th).val(th.value.replace(/["'<>%;)(&+]/,""));
     }
-}
+} */
 
  
 

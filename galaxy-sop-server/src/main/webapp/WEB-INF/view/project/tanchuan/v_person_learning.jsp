@@ -11,7 +11,7 @@
     	<form action="" id="add_person_learning" method="post">
     	
     	<!-- 学习--项目的成员 id -->
-    	<input type="hidden" name="personId" id="learn_person_Id" value="" />
+    	<input type="hidden" name="personId" id="learn_person_Id" />
     	
     	<!-- 学习-- id -->
     	<input type="hidden" name="id" id="learn_id" value="" />
@@ -24,7 +24,7 @@
                 	<span class="fl">&nbsp;至&nbsp;</span>
                 	<input name="overDateStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                 </dd>
-            </dl>
+            </dl>  
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;毕业院校：</dt>
                 <dd class="clearfix">
