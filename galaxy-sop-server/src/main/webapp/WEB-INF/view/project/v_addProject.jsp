@@ -20,6 +20,7 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <!-- table列表 -->
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
