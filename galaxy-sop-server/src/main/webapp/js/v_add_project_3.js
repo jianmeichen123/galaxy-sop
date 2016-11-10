@@ -95,20 +95,6 @@ function addPersonLearning(){
 	return false;
 }
 
-
-
-function addProjectShares(){
-	var _url=Constants.sopEndpointURL + '/galaxy/project/addProjectShares';
-	$.getHtml({
-		url:_url,
-		data:"",
-		okback:function(_this){
-			
-		}
-	});
-	return false;
-}
-
 function deleteLearn(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
@@ -235,4 +221,66 @@ function generatePersonDetail(data){
 	}else{
 		
 	}
+}
+
+
+
+function addProjectShares(){
+	var _url=Constants.sopEndpointURL + '/galaxy/project/toAddShares';
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			
+		}
+	});
+	return false;
+}
+function toEditShares(){
+	var uuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + '/galaxy/project/toEditShares/'+uuid;
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			
+		}
+	});
+	return false;
+}
+function deleteShares(){
+	var uuid = $(this).attr("uuid");
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectShares/"+uuid+"/"+id, 
+			null, 
+			function(data){
+		if(data.result.status == 'OK'){
+			generateSharesInnerHtml(data.entityList);
+			$("#shares").val(data.entityList.length);
+		}else{
+			layer.msg(data.result.message);
+		}
+	});
+}
+function generateSharesInnerHtml(list){
+	var innerHtml = "";
+	$.each(list, function(i, o){
+		innerHtml += '<tr>';
+		innerHtml += '<td>'+o.sharesOwner+'</td>';
+		innerHtml += '<td>'+o.sharesType+'</td>';
+		innerHtml += '<td>'+o.sharesRatio+'</td>';
+		innerHtml += '<td>'+o.gainMode+'</td>';
+		innerHtml += '<td>'+(o.financeUnit=='0' ? '人民币' : '美元')+'</td>';
+		innerHtml += '<td>'+o.remark+'</td>';
+		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑</a><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
+		innerHtml += '</tr>';
+	});
+	$("#shares-tbody").empty();
+	$("#shares-tbody").append(innerHtml);
+	$(".operatorEdit").bind('click', toEditShares);
+	$(".operatorDelete").bind('click', deleteShares);
+}
+function generateSharesEmptyInnerHtml(){
+	var innerHtml = "<tr><td>暂无数据</td></tr>";
+	$("#shares-tbody").empty();
+	$("#shares-tbody").append(innerHtml);
 }

@@ -289,6 +289,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String toAddShares(HttpServletRequest request) {
 		return "project/v_add_project_shares";
 	}
+	/**
+	 * 编辑股权结构弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/toEditShares/{uuid}", method = RequestMethod.GET)
+	public String toEditShares(@PathVariable("uuid") String uuid, HttpServletRequest request) {
+		request.setAttribute("uuid", uuid);
+		return "project/v_update_project_shares";
+	}
 	
 	
 	/**
@@ -333,6 +342,165 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	/**
+	 * 获取指定的股权结构信息
+	 * @param uuid 股权结构的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/lookProjectShares/{uuid}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectShares> lookProjectShares(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id, 
+			HttpServletRequest request) {
+		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		if(id == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project != null && project.getPsc() != null){
+				List<ProjectShares> list = project.getPsc();
+				for(ProjectShares s : list){
+					if(s.getUuid().equals(uuid)){
+						responseBody.setEntity(s);
+						break;
+					}
+				}
+			}
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询股权结构信息成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search shares data get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 编辑股权结构记录
+	 * @param uuid 股权结构的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateShares/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectShares> updateShares(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id, 
+			@RequestBody ProjectShares personShares,
+			HttpServletRequest request) {
+		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		if(id == null || "".equals(id.trim()) || personShares == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			personShares.setUuid(uuid);
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			List<ProjectShares> sharesList = null;
+			if(project.getPsc() != null && project.getPsc().contains(personShares)){
+				sharesList = project.getPsc();
+				for(ProjectShares s : sharesList){
+					if(s.getUuid().equals(uuid)){
+						sharesList.remove(personShares);
+						sharesList.add(personShares);
+						project.setPsc(sharesList);
+						mongoProjectService.updateById(id, project);
+						if(logger.isInfoEnabled()){
+							logger.info(user.getId() + ":" + user.getRealName() + " to update shares successful > " + project.getId());
+						}
+						responseBody.setEntityList(sharesList);
+						responseBody.setResult(new Result(Status.OK, "ok" , "修改股权结构成功!"));
+						break;
+					}
+				}
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to update shares get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 删除股权结构
+	 * @param uuid 股权结构的uuid
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteProjectShares/{uuid}/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectShares> deleteProjectShares(@PathVariable("uuid") String uuid,
+			@PathVariable("id") String id,
+			HttpServletRequest request) {
+		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		if(uuid == null || "".equals(uuid.trim()) 
+				|| uuid == null || "".equals(uuid.trim()) ){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			ProjectShares w = new ProjectShares();
+			w.setUuid(uuid);
+			if(project != null && project.getPsc() != null && project.getPsc().contains(w)){
+				project.getPsc().remove(w);
+				mongoProjectService.updateById(id, project);
+				if(logger.isInfoEnabled()){
+					logger.info(FormatterUtils.formatStr(
+							"{0}:{1} to delete shares successfully > pid : {3}, uuid : {4}", 
+							user.getId(), user.getRealName(), id, uuid));
+				}
+				responseBody.setEntityList(project.getPsc());
+				responseBody.setResult(new Result(Status.OK,"ok" , "删除股权结构成功!"));
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"no" , "未找该股权结构记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to delete shares get an exception > pid : {3}, uuid : {4}", 
+						user.getId(), user.getRealName(), id, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 查询股权结构列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchProjectShares/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectShares> searchProjectShares(@PathVariable("id") String id, HttpServletRequest request) {
+		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		if(id == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			responseBody.setEntityList(project != null ? project.getPsc() : null);
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询股权结构信息成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search shares data get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/**

@@ -420,9 +420,11 @@
 					</div>
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_color size16"><em class="red">*</em>股权结构</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
+                        <button onclick="addProjectShares();" class="blue fr add_history">添加</button>
                     </div>
+                    <input type="hidden" value="0" id="shares"/>
                     <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                    	<thead>
                     	<tr>
                     		<th>所有权人</th>
                     		<th>所有权人类型</th>
@@ -432,18 +434,10 @@
                     		<th>备注</th>
                     		<th>操作</th>
                     	</tr>
-                    	<tr>
-                    		<td>李铭</td>
-                    		<td>12</td>
-                    		<td>12</td>
-                    		<td>12</td>
-                    		<td>美元</td>
-                    		<td>黑熊精...</td>
-                    		<td>
-	                    		<a class="meet_edit blue" href="javascript:void(0)">编辑</a>
-	                    		<a class="meet_delete blue" href="javascript:void(0)">删除</a>
-                    		</td>
-                    	</tr>
+                    	</thead>
+                    	<tbody id="shares-tbody">
+	                    
+                    	</tbody>
                     </table>
                      <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
@@ -571,6 +565,18 @@ $(function(){
 			$("#person").val(data.entityList.length);
 		}else{
 			generatePersonEmptyInnerHtml();
+		}
+	});
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectShares/"+id, 
+			null, 
+			function(data){
+		if(data.result.status == 'OK' 
+				&& typeof(data.entityList) != 'undefined' 
+				&& data.entityList.length > 0){
+			generateSharesInnerHtml(data.entityList);
+			$("#shares").val(data.entityList.length);
+		}else{
+			generateSharesEmptyInnerHtml();
 		}
 	});
 });

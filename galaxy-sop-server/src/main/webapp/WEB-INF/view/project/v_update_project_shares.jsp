@@ -5,6 +5,7 @@
 <div class="addmentc margin_45" id="form_shares">
   <div class="title_bj">添加股权结构</div>
   <form action="" id="stock_form" method="post" type="validate">
+  <input type="hidden" value="${uuid}" name="sharesUuid">
   <div class="form clearfix">
       <dl class="fmdl fml">
         <dt>所有权人：</dt>
@@ -26,7 +27,7 @@
         <dt>币种：</dt>
         <dd>  
         	<select name="financeUnit">
-                <option value="0" select="selected" name="financeUnit">人民币</option>
+                <option value="0" name="financeUnit">人民币</option>
                 <option value="1" name="financeUnit">美元</option>
             </select>
         </dd>
@@ -39,7 +40,7 @@
     </dl>
   </div>
   <div class="button_affrim">
-      <a href="javascript:;"  class="register_all_affrim fl" id="save_shares" >确定</a>
+      <a href="javascript:;"  class="register_all_affrim fl" id="update_shares" >确定</a>
       <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
   </div>
   </form>
@@ -47,10 +48,21 @@
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
 $(function(){
+	var uuid = $('input[name="sharesUuid"]').val();
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookProjectShares/"+uuid+"/"+id, 
+			null, 
+			function(data){
+		$('input[name="sharesOwner"]').val(data.entity.sharesOwner);
+		$('select[name="financeUnit"]').val(data.entity.financeUnit);
+		$('input[name="sharesType"]').val(data.entity.sharesType);
+		$('input[name="sharesRatio"]').val(data.entity.sharesRatio);
+		$('input[name="gainMode"]').val(data.entity.gainMode);
+		$('textarea[name="remark"]').val(data.entity.remark);
+	});
 	initDialogValstr("form_shares");
-	$("#save_shares").click(function(){
+	$("#update_shares").click(function(){
 		if(beforeSubmitById("form_shares")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/saveShares/"+id, 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updateShares/"+uuid+"/"+id, 
 					$("#stock_form").serializeObject(), 
 					function(data){
 				$.popupTwoClose();
