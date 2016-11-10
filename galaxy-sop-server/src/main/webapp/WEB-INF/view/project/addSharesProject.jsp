@@ -22,7 +22,7 @@
       </dl> 
       <dl class="fmdl">
         <dt>出资金额：</dt>
-        <dd><input type="text" name="gainMode" value="" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
+        <dd><input type="text" name="financeAmount" value="" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>币种：</dt>

@@ -77,7 +77,9 @@
 	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">类型</th>
         	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">所有权人</th>
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
-        	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>
+        <!--  	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>-->
+        	<th data-field="financeAmount" data-align="left" class="data-input">出资金额（万元）</th>
+        	<th data-field="financeUnit" data-align="left" class="data-input" data-formatter="UnitFormater">币种</th>
         	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
         	<c:if test="${isEditable }">
         	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
@@ -151,6 +153,17 @@
 				return options;
 			}
 		}
+	 function UnitFormater(value,row,index){
+		 var result="-";
+		 var data={
+			"0":"人民币",
+			"1":"美元", 
+		    "2":"英镑" ,
+		    "3":"欧元" 
+		 };
+		 result=data[value]
+		 return result;
+	 }
 	 function sharesOwnerFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.sharesOwner;
