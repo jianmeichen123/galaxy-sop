@@ -542,10 +542,8 @@ $('[data-btn="next"]').click(function(){
 		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+pid, 
 				$("#company-info-form").serializeObject(), 
 				function(data){
-			//layer.msg(data.result.message);
+			viewTableShow(pid);
 		});
-	}else if(num==3){
-		viewTableShow(pid);
 	}
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
