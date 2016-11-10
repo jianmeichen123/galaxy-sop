@@ -529,17 +529,17 @@ $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
 	if(num==0){
-		/* var result=add();
+		var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
 		}else{
 			alert("重要参数丢失");
 			return;
-		} */
+		} 
 	}else if(num==1){
-		/* if(!step2Valiate("step2")){
+		if(!step2Valiate("step2")){
 			return;
-		}; */
+		}
 	}else if(num==2){
 		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+id, 
 				$("#company-info-form").serializeObject(), 
