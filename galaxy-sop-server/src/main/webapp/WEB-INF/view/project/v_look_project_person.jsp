@@ -8,7 +8,7 @@
         <div class="addPerson_all" id="person-pool">
             <div class="qualifications">
                 <h3>基本信息</h3>
-                <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table learning-table">
                     <thead>
 	                    <tr>
 	                        <th>姓名</th>

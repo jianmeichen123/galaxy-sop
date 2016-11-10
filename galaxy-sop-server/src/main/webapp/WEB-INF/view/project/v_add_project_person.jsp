@@ -50,7 +50,7 @@
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-learning"/>
                 <h3>学历背景</h3>
-                <span onclick="addPersonLearning();" class="blue fr add" data-btn="qualifications" data-name="学历背景">添加</span>
+                <span onclick="addPersonLearning();" class="blue fr add" data-btn="qualifications" data-name="添加学历背景">添加</span>
                 <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     <thead>
 	                    <tr>
@@ -69,7 +69,7 @@
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-work"/>
                 <h3>工作履历</h3>
-                <span class="blue fr add" onclick="addPersonWork();">添加</span>
+                <span class="blue fr add" onclick="addPersonWork();" data-btn="addPersonWork" data-name="添加工作履历">添加</span>
                 <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
 	                <thead>
 	                    <tr>
@@ -122,7 +122,6 @@ $(function(){
 	generatePersonEmptyInnerHtml();
 	generateLearningEmptyInnerHtml();
 	generateWorkEmptyInnerHtml();
-	
 	var uuid = $('input[name="uuid"]').val();
 	initDialogValstr("person-pool");
 	$("#save_person").click(function(){
