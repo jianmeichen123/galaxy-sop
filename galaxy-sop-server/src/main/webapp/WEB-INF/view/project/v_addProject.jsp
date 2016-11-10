@@ -544,6 +544,8 @@ $('[data-btn="next"]').click(function(){
 				function(data){
 			//layer.msg(data.result.message);
 		});
+	}else if(num==3){
+		viewTableShow(pid);
 	}
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
