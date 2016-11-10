@@ -403,7 +403,7 @@
 					      <div class="title">
 					          <span class="new_color size16">法人信息</span>
 					      </div>
-					      <form action="#" id="company-info-form">
+					      <form action="" id="company-info-form">
 					      <input type="hidden" name="id" value="${projectId }">
 					      <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
 					          <tr>
@@ -441,8 +441,8 @@
                     </table>
                      <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl"  data-btn="next">下一步</span>
+	                    	<span class="pubbtn bluebtn fl"  id="step3-previous" data-btn="pre">上一步</span>
+	                        <span class="pubbtn bluebtn fl"  id="step3-next" data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">3</label>/<label>4</label>
 	                        </div>
@@ -528,24 +528,25 @@ var pid = "581afb34cf20891a84d4fadc";
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
-	
-
-	 /* if(num==0){
-		var result=add();
+	if(num==0){
+		/* var result=add();
 		if(result){
 			pid = "581aa5092b7c2b01c4094166";
 		}else{
 			alert("重要参数丢失");
 			return;
-		}
+		} */
 	}else if(num==1){
-		if(!step2Valiate("step2")){
+		/* if(!step2Valiate("step2")){
 			return;
-		};
+		}; */
 	}else if(num==2){
-		viewTableShow(pid);
-	} */
-	
+		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+id, 
+				$("#company-info-form").serializeObject(), 
+				function(data){
+			//layer.msg(data.result.message);
+		});
+	}
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){
@@ -553,6 +554,21 @@ $('[data-btn="pre"]').click(function(){
 	num=Number(prePageNum.substr(prePageNum.length-1,1));
 	$("[data-btn='page"+(num-1)+"']").addClass("on").siblings().removeClass("on");
 })
+
+$('input[name="formationDate"]').datepicker({
+    format: 'yyyy-mm-dd',
+    language: "zh-CN",
+    autoclose: true,
+    todayHighlight: false,
+    defaultDate : Date,
+    today: "Today",
+    todayBtn:'linked',
+    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+    forceParse:false,
+    currentText: 'Now'
+});
+
 
 $(function(){
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/"+id, 

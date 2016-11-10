@@ -301,6 +301,45 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	
 	/**
+	 * "下一步"3
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/save3/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<com.galaxyinternet.mongodb.model.Project> save3(@PathVariable("id") String id, 
+			@RequestBody com.galaxyinternet.mongodb.model.Project project,
+			HttpServletRequest request) {
+		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
+		if(id == null || "".equals(id.trim()) || project == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project p = mongoProjectService.findById(id);
+			if(p != null){
+				p.setProjectCompany(project.getProjectCompany());
+				p.setProjectCompanyCode(project.getProjectCompanyCode());
+				p.setCompanyLegal(project.getCompanyLegal());
+				p.setFormationDate(project.getFormationDate());
+				mongoProjectService.updateById(id, p);
+				if(logger.isInfoEnabled()){
+					logger.info(user.getId() + ":" + user.getRealName() + " to update company messages successful > " + project.getId());
+				}
+				responseBody.setResult(new Result(Status.OK, "ok" , "操作成功!"));
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, "error" , "未找到匹配记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to update company messages get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	
+	/**
 	 * 添加股权结构
 	 * @param uuid 新增团队成员的uuid
 	 * @param id 项目ID
