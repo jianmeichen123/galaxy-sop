@@ -75,7 +75,7 @@
 			                    	<option value="">--请选择--</option>
 			                    </select>
                             </span>
-                        	<span class="basic_span"><em class="red">*</em>融资状态：</span>
+                        	<span class="basic_span" valType="required" msg="<font color=red>*</font>融资状态不能为空"><em class="red">*</em>融资状态：</span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
 			                    </select>
@@ -522,7 +522,7 @@
 <script type="text/javascript">
 createMenus(5);
 var pid = $("#flagId").val();
-
+initDialogValstr("add_form");
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");

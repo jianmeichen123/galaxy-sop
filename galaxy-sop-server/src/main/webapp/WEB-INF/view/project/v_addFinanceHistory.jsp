@@ -67,7 +67,7 @@
 
 </div>
 <script>
-
+initDialogValstr("add_Historyform");
 /**
  * 获取融资状态下拉项
  * @version 2016-06-21

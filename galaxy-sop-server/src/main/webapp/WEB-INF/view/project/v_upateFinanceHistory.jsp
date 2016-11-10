@@ -66,3 +66,6 @@
     </div>
 
 </div>
+<script>
+initDialogValstr("update_Historyform");
+</script>
