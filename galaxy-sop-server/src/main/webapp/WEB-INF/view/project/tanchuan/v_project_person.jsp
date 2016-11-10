@@ -74,7 +74,7 @@ radio name="personSex"
         
         <div class="qualifications">
             <h3>学历背景</h3>
-            <span onclick="toAddPersonLearning('');" class="blue fr add"  data-name="学历背景">添加</span>
+            <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="学历背景">添加</span>
             
             <div id="learning_table_custom_toolbar">
 				<input type="hidden" name="personId" value="" />
@@ -124,7 +124,7 @@ radio name="personSex"
         
         <div class="qualifications">
             <h3>工作履历</h3>
-            <span  onclick="toAddPersonWork('');" class="blue fr add"  data-name="工作履历" >添加</span>
+            <span  onclick="toAddPersonWork(null);" class="blue fr add"  data-name="工作履历" >添加</span>
             
             <div id="work_table_custom_toolbar">
 				<input type="hidden" name="personId" value="" />
@@ -141,7 +141,7 @@ radio name="personSex"
 				</colgroup>
 				<thead>
 					<tr>
-						<th data-field="deleteIndex"  data-align="center" data-formatter="deleteIndex_Format" ></th>
+						<th data-field="deleteIndex"  data-align="center" data-formatter="work_deleteIndex_Format" ></th>
 						<!--  beginWork overWork beginWorkStr overWorkStr -->
 						<th data-field="BE_time"  data-align="center" data-formatter="work_TimeFormat">时间</th>
 						
