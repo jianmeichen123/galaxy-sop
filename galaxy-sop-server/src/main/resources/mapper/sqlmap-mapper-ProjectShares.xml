@@ -10,8 +10,8 @@
     <result column="shares_ratio" property="sharesRatio" jdbcType="DECIMAL" />
     <result column="gain_mode" property="gainMode" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="financeAmount" property="finance_amount" jdbcType="DECIMAL" />
-    <result column="financeUnit" property="finance_unit" jdbcType="INTEGER" />
+    <result column="finance_amount" property="financeAmount" jdbcType="DECIMAL" />
+    <result column="finance_unit" property="financeUnit" jdbcType="INTEGER" />
    
   </resultMap>
   
