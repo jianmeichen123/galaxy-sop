@@ -414,7 +414,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project p = mongoProjectService.findById(id);
-			if(p != null){
+			if(p != null && p.getProjectCompany() != null && !"".equals(p.getProjectCompany().trim())
+					&& p.getProjectCompanyCode() != null && !"".equals(p.getProjectCompanyCode().trim())
+					&& p.getCompanyLegal() != null && !"".equals(p.getCompanyLegal().trim())
+					&& p.getFormationDate() != null && !"".equals(p.getFormationDate().trim())){
 				p.setProjectCompany(project.getProjectCompany());
 				p.setProjectCompanyCode(project.getProjectCompanyCode());
 				p.setCompanyLegal(project.getCompanyLegal());
@@ -1519,7 +1522,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					obj.setCurrencyUnit(0);
 					obj.setProjectShareRatio(Double.parseDouble(project.getFormatShareRatio()));
 					obj.setProjectCompany(project.getProjectCompany());
-					obj.setFormationDate(DateUtil.convertStringToDate(project.getFormationDate().trim(), "yyyy-MM-dd").getTime());
+					if(project.getFormationDate() != null && !"".equals(project.getFormationDate().trim())){
+						obj.setFormationDate(DateUtil.convertStringToDate(project.getFormationDate().trim(), "yyyy-MM-dd").getTime());
+					}
 					obj.setCompanyLegal(project.getCompanyLegal());
 					obj.setProjectCompanyCode(project.getProjectCompanyCode());
 					obj.setCreateUid(user.getId());
