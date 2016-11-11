@@ -26,7 +26,7 @@
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <!-- 富文本编辑器 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.js"></script>
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -40,8 +40,8 @@
         <div class="new_tit_b">
             <span class="size18">添加项目</span>
         </div>
-        <div class="new_left">
-        	<div class="tabtable_con_on">
+        <div class="new_left addProject">
+        	<div class="">
         		<div class="page on clearfix" data-btn="page0">
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_basic ico_add_project"></span>
@@ -80,7 +80,7 @@
 			                    </select>
                             </span>
                         	<span class="basic_span" ><em class="red">*</em>融资状态：</span>
-                            <span class="m_r30">
+                 	          <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
 			                    </select>
 							</span>
@@ -185,7 +185,7 @@
 					    </div>
 					    <div class="project_center">
 							<div class="new_r_compile ">
-								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"></span>
+								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"><em class="red">*</em>项目描述不能为空</span>
 								<span class="new_fctbox">
 									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 								</span>
@@ -200,7 +200,7 @@
 					<div class="tabtable_con_on">
 						<div class='company_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate">暂无数据</span>
+								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate"><em class="red">*</em>公司定位不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 								</span>
@@ -224,7 +224,7 @@
 					<div class="tabtable_con_on">
 						<div class='portrayal_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate">暂无数据</span>
+								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate"><em class="red">*</em>用户画像不能为空</span>
 								<span class="new_fctbox"> 
 								<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 								</span>
@@ -248,7 +248,7 @@
 					<div class="tabtable_con_on">
 						<div class='product_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate">暂无数据</span>
+								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate"><em class="red">*</em>产品服务不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 								</span>
@@ -296,7 +296,7 @@
 					<div class="tabtable_con_on">
 						<div class='industry_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate">暂无数据</span>
+								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate"><em class="red">*</em>行业分析不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
@@ -320,7 +320,7 @@
 					<div class="tabtable_con_on">
 						<div class='analysis_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate">暂无数据</span>
+								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate"><em class="red">*</em>竞争分析不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 								</span>
@@ -346,12 +346,12 @@
 							<div class="new_r_compile ">
 								<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" style="display:none" id="next_financing_source_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
-								<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
+								<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open" >编辑</a>
 								</span>
 							</div>
 							<div class="new_ul_all new_top_color next_financing_source_show">
 								<span class="ico_dot ico"></span>
-								<p id="next_financing_source_show"></p>
+								<p id="next_financing_source_show" ></p>
 							</div>
 						</div>
 						<div class='next_financing_on'>
@@ -445,8 +445,8 @@
                     </table>
                      <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                    	<span class="pubbtn bluebtn fl"  id="step3-previous" data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl"  id="step3-next" data-btn="next">下一步</span>
+	                    	<span class="pubbtn bluebtn fl" id="step3-previous" data-btn="pre">上一步</span>
+	                        <span class="pubbtn bluebtn fl" id="step3-next"  data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">3</label>/<label>4</label>
 	                        </div>

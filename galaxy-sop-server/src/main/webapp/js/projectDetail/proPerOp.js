@@ -130,8 +130,8 @@ function personDuties(value, row, index) {
 function proPerOpFormat(value, row, index) {
 	
 	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >查看</a>";
-	var toEdit = "&nbsp;&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
-	var toDelete = "&nbsp;&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
+	var toEdit = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
+	var toDelete = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
 	
 	var content = toShow
 	if (isCreatedByUser == 'true' && isTransfering == 'false') {
@@ -183,6 +183,9 @@ function toAddPerson(id,index){
 		isEditOrCreatePerson = "oe";
 		personSelectRow = $('#tablePerson').bootstrapTable('getRowByUniqueId', id);
 		console.log("person select : " + JSON.stringify(personSelectRow));
+	}else{
+		isEditOrCreatePerson = "c";
+		personSelectRow = null;
 	}
 
 	$.getHtml({
@@ -299,10 +302,15 @@ function savePersonCallBack(data) {
 
 
 //TODO 学习
+var learn_code_index = 0;
 
 function deleteIndex_Format(value, row, index) {
-	row.deleteIndex = index;
-	return index;
+	if(row.deleteIndex){
+		return row.deleteIndex;
+	}
+	learn_code_index = learn_code_index + 1;
+	row.deleteIndex = learn_code_index;
+	return learn_code_index;
 }
 
 function learn_TimeFormat(value, row, index) {
@@ -331,8 +339,8 @@ function learn_TimeFormat(value, row, index) {
 }
 
 function pro_learning_format(value, row, index) {
-	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonLearning('" + index + "')\" >编辑</a>";
-	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteLearn('"+ index +"')\" >删除</a>";
+	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonLearning('" + row.deleteIndex + "')\" >编辑</a>";
+	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteLearn('"+ row.deleteIndex +"')\" >删除</a>";
 	
 	return toEdit + toDelete;
 }
@@ -352,6 +360,9 @@ function toAddPersonLearning(selectIndex){
 		isCreatOrEditLearn = "e";
 		
 		console.log("learn select : " + JSON.stringify(learnSelectRow));
+	}else{
+		isCreatOrEditLearn = "c";
+		learnSelectRown = null;
 	}
 	
 	var _url=Constants.sopEndpointURL + '/galaxy/project/addProPerLearning';
@@ -361,7 +372,6 @@ function toAddPersonLearning(selectIndex){
 		data:"",
 		okback:function(){
 			$("#learn_person_Id").val($("#person_pool_id").val());
-			$("#learn_id").val(learnSelectRow.id);
 
 			if(isCreatOrEditLearn == "e"){//获取数据
 				_name= "编辑学历背景";
@@ -399,7 +409,7 @@ function toAddPersonLearning(selectIndex){
 function savePersonLearning(){
 	var learn = JSON.parse($("#add_person_learning").serializeObject());
 	
-	console.log("save learn : " + learn);
+	console.log("save learn : " + JSON.stringify(learn));
 	
 	var id = learn.id;
 	var perondId = learn.personId;
@@ -433,10 +443,15 @@ function savePersonLearning(){
 	//removePop1();
 	//$.popupTwoClose();
 }
+
 function learnTableRefresh(newDataRow){
 	if(isCreatOrEditLearn == "e"){
-		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: newDataRow});
+		newDataRow.deleteIndex = learnSelectRow.deleteIndex;
+		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex-1, row: newDataRow});
+		//$('#per_learning_table').bootstrapTable('updateByUniqueId', {deleteIndex: learnSelectRow.deleteIndex, row: newDataRow});
 	}else{
+		learn_code_index = learn_code_index+1;
+		newDataRow.deleteIndex = learn_code_index;
 		$('#per_learning_table').bootstrapTable('append', newDataRow);
 	}
 }
@@ -463,8 +478,9 @@ function deleteLearn(selectIndex){
 			}
 		});
 	}
-	
-	$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
+
+	$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
+	//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
 }
 
 
@@ -477,7 +493,19 @@ function deleteLearn(selectIndex){
 /*
  * 新建 :c 、 编辑:e    工作经历 - 弹窗
  */
-	
+
+var work_code_index = 0;
+
+function work_deleteIndex_Format(value, row, index) {
+	if(row.deleteIndex){
+		return row.deleteIndex;
+	}
+	work_code_index = work_code_index + 1;
+	row.deleteIndex = work_code_index;
+	return work_code_index;
+}
+
+
 function work_TimeFormat(value, row, index) {
 	var bstr;
 	var estr;
@@ -504,8 +532,8 @@ function work_TimeFormat(value, row, index) {
 }
 
 function pro_work_format(value, row, index) {
-	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonWork('" + index + "')\" >编辑</a>";
-	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteWork('"+ index +"')\" >删除</a>";
+	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonWork('" + row.deleteIndex + "')\" >编辑</a>";
+	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteWork('"+ row.deleteIndex +"')\" >删除</a>";
 	
 	return toEdit + toDelete;
 }
@@ -520,23 +548,25 @@ function toAddPersonWork(selectIndex){
 	if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){ //判断是编辑模式
 		workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
 		isCreatOrEditWork = "e";
+	}else{
+		isCreatOrEditWork = "c";
+		workSelectRow = null;
 	}
 	
+		
+	
 	var _url=Constants.sopEndpointURL + '/galaxy/project/addProPerWork';
-	var $self = $(this);
-	var _name= $self.attr("name");
+	var _name= "添加工作履历";
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(){
-			$("#qualifications_popup_name").html(_name);
-			
 			$("#work_person_Id").val($("#person_pool_id").val());
-			$("#work_id").val(workSelectRow.id);
 			
 			if(isCreatOrEditWork == "e"){//获取数据
-				$("#work_id").val(workSelectRow.id);
+				_name= "编辑工作履历";
 				
+				$("#work_id").val(workSelectRow.id);
 				
 				if(workSelectRow.beginWorkStr && workSelectRow.beginWorkStr !=null){
 					$("#add_person_work [name='beginWorkStr']").val(workSelectRow.beginWorkStr);
@@ -554,9 +584,9 @@ function toAddPersonWork(selectIndex){
 				
 				$("#add_person_work [name='companyName']").val(workSelectRow.companyName);
 				$("#add_person_work [name='workPosition']").val(workSelectRow.workPosition);
-				
-				
 			}
+			
+			$("#qualifications_popup_name").html(_name);
 		}
 	});
 	return false;
@@ -566,7 +596,7 @@ function toAddPersonWork(selectIndex){
 function savePersonWork(){
 	var work = JSON.parse($("#add_person_work").serializeObject());
 	
-	console.log("save work : " + work);
+	console.log("save work : " + JSON.stringify(work));
 	
 	var id = work.id;
 	var perondId = work.personId;
@@ -601,8 +631,10 @@ function savePersonWork(){
 
 function workTableRefresh(newRowData){
 	if(isCreatOrEditWork == "e"){
-		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex, row: newRowData});
+		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex-1, row: newRowData});
 	}else{
+		work_code_index = work_code_index+1;
+		newRowData.deleteIndex = work_code_index;
 		$('#per_work_table').bootstrapTable('append', newRowData);
 	}
 }
@@ -627,14 +659,9 @@ function deleteWork(selectIndex){
 			}
 		});
 	}
-		
-	$('#per_work_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
+	
+	$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
 }
-
-
-
-
-
 
 
 
