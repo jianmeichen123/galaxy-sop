@@ -84,7 +84,7 @@ function initViewUpload() {
 								var plan_business_table_val=$("#pre_pro_view_table tbody tr").attr("class");
 								console.log(plan_business_table_val);
 								if(plan_business_table_val!="no-records-found"){
-									$("[data-btn='page3'] span[data-btn='createProject']").removeClass("disabled");
+								//	$("[data-btn='page3'] span[data-btn='createProject']").removeClass("disabled");
 									return;
 								}
 								$("#pre_pro_view_table").bootstrapTable('refresh');
