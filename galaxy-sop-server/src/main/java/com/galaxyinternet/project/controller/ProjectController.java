@@ -4812,6 +4812,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			Long id = projectService.addProPersonAndPerInfo(pool);
+			
+			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, null, "团队成员添加成功!"));
 			//responseBody.setEntity(pool);
 			ControllerUtils.setRequestParamsForMessageTip(request,p.getProjectName(), p.getId());

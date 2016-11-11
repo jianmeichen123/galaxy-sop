@@ -65,7 +65,8 @@ function getTabPerson(){
 function remark_format(value, row, index) {
 	if(value){
 		if(getLength(value)>10){
-			value = "<label title='"+value+"'>" + cutStr(10,value) + "</label>";
+			var str =  cutStr(10,value)  + "...";
+			value = "<label title='"+value+"'>" + str + "</label>";
 		}
 	}else{
 		value =  "-";
@@ -307,14 +308,20 @@ function savePerson() {
 				return;
 			}
 			
-			if(isEditOrCreatePerson == "c"){
+			/*if(isEditOrCreatePerson == "c"){
 				personPool.id = null;
 				personPool.plc = learnList;
 				personPool.pwc = workList;
 				sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
 			}else{
 				sendPostRequestByJsonObj(Constants.sopEndpointURL + '/galaxy/project/upp', personPool, savePersonCallBack);
+			}*/
+			if(isEditOrCreatePerson == "c"){
+				personPool.id = null;
 			}
+			personPool.plc = learnList;
+			personPool.pwc = workList;
+			sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
 		}else{
 			layer.msg("项目id缺失，保存失败");
 		}
@@ -339,10 +346,6 @@ function savePersonCallBack(data) {
 		$('#tablePerson').bootstrapTable('refresh');
 	}
 }
-
-
-
-
 
 
 
@@ -466,7 +469,7 @@ function savePersonLearning(){
 		learn.personId = null;
 	}
 	
-	if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
+	/*if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/saveOrEditProPerLearn",learn,function(data){
 			var result = data.result.status;
 			if(result == "ERROR"){ //OK, ERROR
@@ -476,21 +479,22 @@ function savePersonLearning(){
 				learn.id = data.id;
 				layer.msg("保存成功", {time : 500});
 				learnTableRefresh(learn);
-				//$("#per_learning_table").bootstrapTable('refresh');
-				//$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: learn});
 			}
 		});
 	}else{
 		learnTableRefresh(learn);
-	}
-	
+	}*/
+	learnTableRefresh(learn);
 	//去除弹层
-	//removePop1();
-	//$.popupTwoClose();
+	$(".qualificationstc").find("[data-close='close']").click();
 }
+
 
 function learnTableRefresh(newDataRow){
 	if(isCreatOrEditLearn == "e"){
+		if(newDataRow.id && newDataRow.id != null){
+			newDataRow.isEditOrCreate = 1;
+		}
 		newDataRow.deleteIndex = learnSelectRow.deleteIndex;
 		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex-1, row: newDataRow});
 		//$('#per_learning_table').bootstrapTable('updateByUniqueId', {deleteIndex: learnSelectRow.deleteIndex, row: newDataRow});
@@ -653,7 +657,7 @@ function savePersonWork(){
 		work.personId = null;
 	}
 	
-	if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
+	/*if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/saveOrEditProPerWork",work,function(data){
 			var result = data.result.status;
 			if(result == "ERROR"){ //OK, ERROR
@@ -667,15 +671,18 @@ function savePersonWork(){
 		});
 	}else{
 		workTableRefresh(work);
-	}
-	
+	}*/
+	workTableRefresh(work);
 	//去除弹层
-	//removePop1();
-	//$.popupTwoClose();
+	$(".qualificationstc").find("[data-close='close']").click();
 }
 
 function workTableRefresh(newRowData){
 	if(isCreatOrEditWork == "e"){
+		if(newRowData.id && newRowData.id != null){
+			newRowData.isEditOrCreate = 1;
+		}
+		newRowData.deleteIndex = workSelectRow.deleteIndex;
 		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex-1, row: newRowData});
 	}else{
 		work_code_index = work_code_index+1;
@@ -754,7 +761,7 @@ function cutStr(theNum,theOldStr){
 			}
 			leaveStr += theOldStr.charAt(i);
 		}
-		return leaveStr + "...";
+		return leaveStr;
 	}
 	return theOldStr;
 }

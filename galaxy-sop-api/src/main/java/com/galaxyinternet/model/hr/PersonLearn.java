@@ -24,7 +24,7 @@ public class PersonLearn extends BaseEntity{
 	private String   beginDateStr; //入学时间
 	private String   overDateStr; // 毕业时间
 	
-	
+	private Integer isEditOrCreate; // 1:id有值 编辑
 	public String getUuid() {
 		return uuid;
 	}
@@ -122,6 +122,12 @@ public class PersonLearn extends BaseEntity{
 		this.overDateStr = overDateStr;
 	}
 	
+	public Integer getIsEditOrCreate() {
+		return isEditOrCreate;
+	}
+	public void setIsEditOrCreate(Integer isEditOrCreate) {
+		this.isEditOrCreate = isEditOrCreate;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if(uuid != null && obj != null && obj instanceof PersonLearn && ((PersonLearn) obj).getUuid() != null){
