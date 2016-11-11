@@ -31,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -73,7 +72,6 @@ import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hr.PersonLearn;
-import com.galaxyinternet.model.hr.PersonResumetc;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
@@ -115,7 +113,6 @@ import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.CollectionUtils;
-import com.galaxyinternet.utils.ListSortUtil;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
@@ -283,6 +280,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	/**
+	 * 添加商业计划书弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/toAddBuessDoc", method = RequestMethod.GET)
+	public String toAddBuessDoc(HttpServletRequest request) {
+		return "project/v_add_bussiness_doc";
+	}
+	
+	/**
 	 * 添加股权结构弹出层
 	 * @param id 项目ID
 	 * @return
@@ -299,6 +305,93 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String toEditShares(@PathVariable("uuid") String uuid, HttpServletRequest request) {
 		request.setAttribute("uuid", uuid);
 		return "project/v_update_project_shares";
+	}
+	
+	/**
+	 * 获取指定的商业计划书信息
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/lookBuessDoc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> lookBuessDoc(@PathVariable("id") String id, 
+			HttpServletRequest request) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		if(id == null || "".equals(id.trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project p = mongoProjectService.findById(id);
+			if(p != null && p.getSopFile() != null){
+				responseBody.setEntity(p.getSopFile());
+				responseBody.setResult(new Result(Status.OK, "ok" , "操作成功!"));
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, "error" , "未找到指定的记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to find bussiness doc get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}	
+	/**
+	 * 创建项目时上传/更新商业计划书
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/inBuessDoc", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> inBuessDoc(SopFile file,
+			HttpServletRequest request) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		if(file.getTempPid() == null || "".equals(file.getTempPid().trim())
+				||file.getFileSource() == null || "".equals(file.getFileSource().trim())
+				||file.getFileType() == null || "".equals(file.getFileType().trim())
+				||file.getFileWorktype() == null || "".equals(file.getFileWorktype().trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project p = mongoProjectService.findById(file.getTempPid());
+			if(p != null){
+				String fileKey = null;
+				if(file.getFileKey() != null){
+					fileKey = file.getFileKey();
+				}else{
+					fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				}
+				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+				if (result != null && result.getResult().getStatus().equals(Result.Status.OK)) {
+					file.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+					file.setCareerLine(user.getDepartmentId());
+					file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+					file.setFileUid(user.getId());
+					file.setCreatedTime(System.currentTimeMillis());
+					file.setFileLength(result.getContentLength());
+					file.setFileKey(fileKey);
+					file.setBucketName(result.getBucketName());
+					file.setFileName(result.getFileName());
+					file.setFileSuffix(result.getFileSuffix());
+					file.setRecordType((byte)0);
+					p.setSopFile(file);
+					mongoProjectService.updateById(file.getTempPid(), p);
+					if(logger.isInfoEnabled()){
+						logger.info(user.getId() + ":" + user.getRealName() + " to upload bussiness doc successful > " + file.getTempPid());
+					}
+					responseBody.setEntity(file);
+					responseBody.setResult(new Result(Status.OK, "ok" , "操作成功!"));
+				}
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to upload bussiness doc get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
 	}
 	
 	
@@ -1350,6 +1443,36 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				logger.error(FormatterUtils.formatStr(
 						"{0}:{1} to delete learning get an exception {pid : {3}, uuid : {4}}", 
 						user.getId(), user.getRealName(), pid, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 创建项目
+	 * @param id 项目ID
+	 * @return
+	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
+	@ResponseBody
+	@RequestMapping(value = "/createProject/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> createProject(@PathVariable("id") String id,
+			HttpServletRequest request) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		if(id == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project != null){
+				
+			}
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询股权结构信息成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search shares data get an exception", e);
 			}
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		}

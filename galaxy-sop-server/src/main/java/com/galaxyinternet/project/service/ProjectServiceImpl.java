@@ -96,7 +96,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	protected BaseDao<Project, Long> getBaseDao() {
 		return this.projectDao;
 	}
-
+	
+	@Override
+	@Transactional
+	public long createProject(com.galaxyinternet.mongodb.model.Project project) throws Exception{
+		return 0L;
+	}
+	
 	@Override
 	@Transactional
 	public long newProject(Project project, SopFile file) throws Exception {
