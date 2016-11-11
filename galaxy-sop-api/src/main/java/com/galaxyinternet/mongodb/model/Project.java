@@ -32,8 +32,8 @@ public class Project {
 	private List<PersonPool> pc;
 	/*项目关联的股权结构*/
 	private List<ProjectShares> psc;
-	/*团队成员的学习经历*/
-	private List<FinanceHistory> fh=new ArrayList<FinanceHistory>();
+	/*融资历史*/
+	private List<FinanceHistory> fh = new ArrayList<FinanceHistory>();
 	/*判断是修改或者新增的标示*/
 	private String flagId;
 	
@@ -48,11 +48,11 @@ public class Project {
 	private String faName;
 	
 	private String remark;
-	
+	/*融资金额*/
 	private String formatContribution;
-	
+	/*项目估值*/
 	private String formatValuations;
-	
+	/*出让股份*/
 	private String formatShareRatio;
 	
 	/**step2**/

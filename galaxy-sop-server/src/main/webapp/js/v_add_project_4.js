@@ -1,5 +1,21 @@
 
-
+function createProject(){
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/createProject/"+pid, 
+			$("#add_person").serializeObject(), 
+			function(data){
+		$.popupTwoClose();
+		if(data.result.status == 'OK'
+			&& typeof(data.entityList) != 'undefined' 
+			&& data.entityList.length > 0){
+			$.popupOneClose();
+			generatePersonInnerHtml(data.entityList);
+			$("#person").val(data.entityList.length);
+			nextBtn();
+		}else{
+			generatePersonEmptyInnerHtml();
+		}
+	});
+}
 
 // todo 新增访谈记录
 

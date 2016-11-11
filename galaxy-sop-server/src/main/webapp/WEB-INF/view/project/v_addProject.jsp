@@ -507,7 +507,7 @@
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn disabled fl" data-btn="createProject" >生成项目</span>
+	                        <span class="pubbtn bluebtn disabled fl" onclick="createProject();" >生成项目</span>
 	                        <span class="pubbtn fffbtn fl"  data-btn="close">取消</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">4</label>/<label>4</label>
@@ -552,7 +552,7 @@ var pid;
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
-	/* if(num==0){
+	if(num==0){
 		var result=add();
 		if(!result){
 		//	alert("重要参数丢失");
@@ -568,7 +568,7 @@ $('[data-btn="next"]').click(function(){
 				function(data){
 			viewTableShow(pid);
 		});
-	} */
+	}
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){

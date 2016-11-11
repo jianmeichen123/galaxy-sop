@@ -25,10 +25,13 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
+import com.galaxyinternet.dao.project.FinanceHistoryDao;
+import com.galaxyinternet.dao.project.InterviewRecordDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
+import com.galaxyinternet.dao.project.ProjectSharesDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -42,6 +45,7 @@ import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.FinanceHistory;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
@@ -55,6 +59,8 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.FinanceHistoryService;
+import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
@@ -91,17 +97,173 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private PersonWorkDao personWorkDao;
 	@Autowired
 	private ProjectPersonDao projectPersonDao;
+	@Autowired
+	private FinanceHistoryDao financeHistoryDao;
+	@Autowired
+	private ProjectSharesDao projectSharesDao;
+	@Autowired
+	private InterviewRecordDao interviewRecordDao;
 	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
 		return this.projectDao;
 	}
 	
+	
 	@Override
 	@Transactional
-	public long createProject(com.galaxyinternet.mongodb.model.Project project) throws Exception{
-		return 0L;
+	public long createProject(com.galaxyinternet.mongodb.model.Project p, Project project) throws Exception {
+		long id = projectDao.insertProject(project);
+		//存商业计划书
+		if(p.getSopFile() != null){
+			p.getSopFile().setProjectId(id);
+			p.getSopFile().setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+			sopFileDao.insert(p.getSopFile());
+		}
+		//通用属性
+		SopFile f = new SopFile();
+		f.setProjectId(id);
+		f.setCareerLine(project.getProjectDepartid());
+		f.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+		f.setCreatedTime((new Date()).getTime());
+		SopVoucherFile svf = new SopVoucherFile();
+		svf.setProjectId(id);
+		svf.setCareerLine(project.getProjectDepartid());
+		svf.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+		svf.setCreatedTime((new Date()).getTime());
+		//投资意向书，先提交投资意向书-签署-上传签署证明
+		svf.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
+		svf.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
+		Long fid = sopVoucherFileDao.insert(svf);
+		svf.setId(null);
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
+		f.setVoucherId(fid);
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setVoucherId(null);
+		//尽调阶段
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.业务尽职调查报告.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setFileValid(0);
+		f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		//投资协议文档，投资协议文档+签署证明
+		svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+		svf.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
+		fid = sopVoucherFileDao.insert(svf);
+		svf.setId(null);
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
+		f.setVoucherId(fid);
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setVoucherId(null);
+		//股权交割
+		f.setFileValid(0);
+		f.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.工商转让凭证.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setFileValid(0);
+		f.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.资金拨付凭证.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		
+		//投后运营
+		/*f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.公司资料.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.财务预测报告.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);
+		f.setFileValid(1);
+		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+		f.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
+		sopFileDao.insert(f);
+		f.setId(null);*/
+		
+		if(project.getProjectType() != null && 
+				DictEnum.projectType.投资.getCode().equals(project.getProjectType())){
+			//投资项目必须四个尽调、创建必须两个尽调
+			f.setFileValid(0);
+			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+			f.setFileWorktype(DictEnum.fileWorktype.法务尽职调查报告.getCode());
+			sopFileDao.insert(f);
+			f.setId(null);
+			f.setFileValid(0);
+			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+			f.setFileWorktype(DictEnum.fileWorktype.财务尽职调查报告.getCode());
+			sopFileDao.insert(f);
+			f.setId(null);
+			//投资转让协议文档，投资转让协议文档+签署证明
+			svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+			svf.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
+			fid = sopVoucherFileDao.insert(svf);
+			svf.setId(null);
+			f.setFileValid(1);
+			f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
+			f.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
+			f.setVoucherId(fid);
+			sopFileDao.insert(f);
+			f.setId(null);
+		}
+		
+		//融资历史
+		if(p.getFh() != null){
+			for(FinanceHistory financeHistory: p.getFh()){
+				financeHistory.setProjectId(id);
+				financeHistoryDao.insert(financeHistory);
+			}
+		}
+		//团队成员
+		if(p.getPc() != null){
+			for(PersonPool pool : p.getPc()){
+				Long poolId = personPoolDao.insert(pool);
+				ProjectPerson person = new ProjectPerson();
+				person.setProjectId(id);
+				person.setPersonId(poolId);
+				projectPersonDao.insert(person);
+			}
+		}
+		
+		//股权结构
+		if(p.getPsc() != null){
+			for(ProjectShares projectShares : p.getPsc()){
+				projectShares.setProjectId(id);
+				projectSharesDao.insert(projectShares);
+			}
+		}
+		
+		//接触访谈
+		if(p.getView() != null){
+			List<InterviewRecord> views = p.getView();
+			for(InterviewRecord view : views){
+				Long viewFileID = null;
+				if(view.getSopFile() != null){
+					view.getSopFile().setProjectId(id);
+					viewFileID = sopFileDao.insert(view.getSopFile());
+				}
+				view.setFileId(viewFileID);
+				view.setProjectId(id);
+				interviewRecordDao.insert(view);
+			}
+		}
+		return id;
 	}
+	
 	
 	@Override
 	@Transactional
