@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -113,6 +114,7 @@ import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.CollectionUtils;
+import com.galaxyinternet.utils.ListSortUtil;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
@@ -1270,6 +1272,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			financeHistory.setCreatedTime(System.currentTimeMillis());
 			com.galaxyinternet.mongodb.model.Project project =new com.galaxyinternet.mongodb.model.Project();
 			com.galaxyinternet.mongodb.model.Project entity =new com.galaxyinternet.mongodb.model.Project();
+			ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
 			String uuidHistory=UUIDUtils.create().toString();
 			financeHistory.setUuid(uuidHistory);
 			financeHistory.setFinanceDate(null);
@@ -1290,6 +1293,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				mongoProjectService.updateById(flagId, project);
 				entity=project;
 			}
+			
+			sortList.Sort(entity.getFh(),"financeDateStr",
+					"desc");
 			logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
 			responseBody.setResult(new Result(Status.OK, "ok" , "添加融资历史成功!"));
 			responseBody.setEntity(entity);
@@ -1314,9 +1320,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setEntityList(null);
 			return responseBody;
 		}
+		ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			sortList.Sort(project.getFh(),"financeDateStr",
+					"desc");
 			responseBody.setEntityList(project != null ? project.getFh() : null);
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询融资历史成功!"));
 		} catch (MongoDBException e) {
@@ -1351,6 +1360,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.getFh().remove(l);
 				mongoProjectService.updateById(pid, project);
 				logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
+				ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
+				sortList.Sort(project.getFh(),"financeDateStr",
+						"desc");
 				responseBody.setEntity(project);
 				responseBody.setResult(new Result(Status.OK,"ok" , "删除融资历史成功!"));
 			}else{
@@ -1367,7 +1379,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	/**
-	 * 删除历史投资信息
+	 * 查询历史投资信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getFinanceHistory/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -1407,7 +1419,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	/**
-	 * 删除历史投资信息
+	 * 修改历史投资信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateSave/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -1433,8 +1445,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.getFh().add(financeHistory);
 				mongoProjectService.updateById(pid, project);
 				logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
+				ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
+				sortList.Sort(project.getFh(),"financeDateStr",
+						"desc");
 				responseBody.setEntity(project);
-				responseBody.setResult(new Result(Status.OK,"ok" , "删除融资历史成功!"));
+				responseBody.setResult(new Result(Status.OK,"ok" , "更新融资历史成功!"));
 			}else{
 				responseBody.setResult(new Result(Status.ERROR,"no" , "未找到该融资信息!"));
 			}
