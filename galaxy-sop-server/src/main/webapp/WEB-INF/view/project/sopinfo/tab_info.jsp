@@ -55,6 +55,9 @@
 			     <tr>
 				     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
 					</tr>
+			 <tr>
+				     <td colspan="2"><span class="new_color_gray">备注：</span><span class="new_color_black" id=""></span></td>
+					</tr>
 		
 		</table>
 
@@ -124,6 +127,9 @@
                                  <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
                              </span></td>
                            </tr>
+                   <tr>
+                             <td colspan="2"><span class="new_color_gray">备注：</span><span><textarea maxlength="50"></textarea></span></td>
+                         </tr>
 	        </table>  
 	        
 	        <!--融资计划-->

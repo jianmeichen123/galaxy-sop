@@ -93,7 +93,8 @@ public class Project extends PagableEntity {
 	
 	
 
-	
+	/*备注*/
+	private String remark;
 	
     public Long getId() {
         return id;
@@ -604,6 +605,14 @@ public class Project extends PagableEntity {
 
 	public void setGreanChannel(String greanChannel) {
 		this.greanChannel = greanChannel;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 

@@ -32,27 +32,33 @@ public class Project {
 	private List<PersonPool> pc;
 	/*项目关联的股权结构*/
 	private List<ProjectShares> psc;
-	/*融资历史*/
-	private List<FinanceHistory> fh = new ArrayList<FinanceHistory>();
+	/*项目融资历史*/
+	private List<FinanceHistory> fh=new ArrayList<FinanceHistory>();
 	/*判断是修改或者新增的标示*/
 	private String flagId;
-	
+	/*项目类型*/
 	private String projectType;
+	/*项目名称*/
 	private String projectName;
+	/*项目创建时间*/
 	private String createDate;
+	/*项目更新时间*/
 	private String updateDate;
+	/*行业归属*/
 	private Long industryOwn;
+	/*融资状态（融资轮次）*/
 	private String financeStatus;
-	
+	/*是否来自中介*/
 	private Integer faFlag;
+	/*中介名称*/
 	private String faName;
-	
+	/*备注*/
 	private String remark;
-	/*融资金额*/
+	/*计划投资额*/
 	private String formatContribution;
-	/*项目估值*/
+	/*估值*/
 	private String formatValuations;
-	/*出让股份*/
+	/*股权占比*/
 	private String formatShareRatio;
 	
 	/**step2**/
