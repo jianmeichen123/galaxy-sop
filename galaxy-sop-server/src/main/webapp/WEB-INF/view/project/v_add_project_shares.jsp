@@ -49,6 +49,7 @@
 $(function(){
 	initDialogValstr("form_shares");
 	$("#save_shares").click(function(){
+		$("body").css("overflow","auto");
 		if(beforeSubmitById("form_shares")){
 			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/saveShares/"+pid, 
 					$("#stock_form").serializeObject(), 

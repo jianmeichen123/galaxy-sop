@@ -486,7 +486,7 @@
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl" >生成项目</span>
+	                        <span class="pubbtn bluebtn disabled fl" >生成项目</span>
 	                        <span class="pubbtn fffbtn fl"  data-btn="close">取消</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">4</label>/<label>4</label>
@@ -551,6 +551,7 @@ $('[data-btn="next"]').click(function(){
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){
+	$("body").css("overflow","auto");
 	var prePageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(prePageNum.substr(prePageNum.length-1,1));
 	$("[data-btn='page"+(num-1)+"']").addClass("on").siblings().removeClass("on");
