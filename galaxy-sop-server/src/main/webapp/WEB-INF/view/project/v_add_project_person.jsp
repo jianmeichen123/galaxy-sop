@@ -150,6 +150,7 @@ $(function(){
 					$.popupOneClose();
 					generatePersonInnerHtml(data.entityList);
 					$("#person").val(data.entityList.length);
+					nextBtn();
 				}else{
 					generatePersonEmptyInnerHtml();
 				}

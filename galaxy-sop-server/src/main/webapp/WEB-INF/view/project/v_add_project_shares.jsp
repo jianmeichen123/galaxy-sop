@@ -60,6 +60,7 @@ $(function(){
 					$.popupOneClose();
 					generateSharesInnerHtml(data.entityList);
 					$("#shares").val(data.entityList.length);
+					nextBtn();
 				}else{
 					generateSharesEmptyInnerHtml();
 				}
