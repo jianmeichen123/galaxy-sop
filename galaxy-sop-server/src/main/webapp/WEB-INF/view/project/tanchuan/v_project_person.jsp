@@ -25,7 +25,9 @@ radio name="personSex"
             <h3>基本信息</h3>
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;姓名：</dt>
-                <dd><input type="text" class="txt" name="personName" /></dd>
+                <dd>
+                	<input type="text" class="txt" name="personName" valtype="required"  msg="<font color=red>*</font>姓名不能为空"/>
+                </dd>
             </dl>
             
             <dl class="fmdl fl">
@@ -38,20 +40,22 @@ radio name="personSex"
             
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;当前职务：</dt>
-                <dd><input type="text" class="txt" name="personDuties" /></dd>
+                <dd>
+                	<input type="text" class="txt" name="personDuties" valtype="required"  msg="<font color=red>*</font>当前职务不能为空"/>
+                </dd>
             </dl>
             
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;出生日期：</dt>
                 <dd>
                     <input type="text" class="datetimepickerHour txt time" name="personBirthdayStr"
-                    readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
+                    	readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
                 </dd>
             </dl>
             
              <dl class="fmdl fl">
                 <dt>电话号码：</dt>
-                <dd><input type="text" class="txt" name="personTelephone" placeholder="请输入电话号码"/></dd>
+                <dd><input type="text" class="txt" name="personTelephone" placeholder="请输入电话号码" /></dd>
             </dl>
             
             <dl class="fmdl fl">
@@ -64,7 +68,7 @@ radio name="personSex"
            
             <dl class="fmdl fl block">
                 <dt>备注：</dt>
-                <dd><textarea maxlength="50" name="remark"></textarea></dd>
+                <dd><textarea maxlength="50" name="remark" placeholder="50字以内"></textarea></dd>
             </dl>
             
             </form>

@@ -296,16 +296,19 @@ function savePerson() {
 
 			var personPool = JSON.parse($("#person_form").serializeObject());
 			
+			var learnList = $('#per_learning_table').bootstrapTable('getData');
+			var workList = $('#per_work_table').bootstrapTable('getData');
+			if(learnList && learnList.length < 0){
+				layer.msg("学习经历不能为空");
+			}
+			if(workList && workList.length < 0){
+				layer.msg("工作经历不能为空");
+			}
+			
 			if(isEditOrCreatePerson == "c"){
 				personPool.id = null;
-				var learnList = $('#per_learning_table').bootstrapTable('getData');
-				var workList = $('#per_work_table').bootstrapTable('getData');
-				if(learnList && learnList.length > 0){
-					personPool.plc = learnList;
-				}
-				if(learnList && learnList.length > 0){
-					personPool.pwc = workList;
-				}
+				personPool.plc = learnList;
+				personPool.pwc = workList;
 				sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
 			}else{
 				sendPostRequestByJsonObj(Constants.sopEndpointURL + '/galaxy/project/upp', personPool, savePersonCallBack);
