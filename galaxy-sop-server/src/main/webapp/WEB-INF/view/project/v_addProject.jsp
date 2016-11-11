@@ -60,6 +60,9 @@
                             	<input name="projectType" type="radio" value="projectType:2" id="radio_n">
                             	<label for="radio_n">&nbsp;创建</label>
                             </span>
+                            <span id="projectTypeTip"  style="display:none;">
+                            	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
+                            </span>
                         </li>
                         <li>
                             <span class="basic_span"><em class="red">*</em>项目名称：</span>
@@ -76,7 +79,7 @@
 			                    	<option value="">--请选择--</option>
 			                    </select>
                             </span>
-                        	<span class="basic_span" valType="required" msg="<font color=red>*</font>融资状态不能为空"><em class="red">*</em>融资状态：</span>
+                        	<span class="basic_span" ><em class="red">*</em>融资状态：</span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
 			                    </select>
@@ -87,13 +90,13 @@
 	                        <span class="m_r30" style="with:400px">
 	                             <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否
 	                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-	                             <input type="text" class="new_nputr" value="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
+	                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
 	                        </span>
                         </li>
                         <li>
                         	<span class="basic_span">备注：</span>
                             <span>
-                            	<textarea class="new_nputr text" maxlength="50" placeholder="最多输入50字"></textarea>
+                            	<textarea class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea>
                         	</span>
                         </li>
                     </ul>  
@@ -106,19 +109,19 @@
                         <li>
                             <span class="basic_span"><em class="red">*</em>融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
                             </span>
                             <span class="m_r30">万元人民币</span>
                             <span class="basic_span"><em class="red">*</em>项目估值：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" />
                             </span>
                             <span class="m_r30">万元人民币</span>
                         </li>
                         <li>
                         	<span class="basic_span"><em class="red">*</em>出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
@@ -531,7 +534,7 @@ $('[data-btn="next"]').click(function(){
 	if(num==0){
 		var result=add();
 		if(!result){
-			alert("重要参数丢失");
+		//	alert("重要参数丢失");
 			return;
 		} 
 	}else if(num==1){

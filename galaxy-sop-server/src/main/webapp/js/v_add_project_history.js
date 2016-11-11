@@ -5,6 +5,8 @@ function addFinanceHistory(){
 		flagId=null;
 	}
 	var nowFormData = $("#add_Historyform").serializeObject();
+	if(beforeSubmitById("add_Historyform")){
+	
 	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+flagId, nowFormData, function(data){
 			var re=data;
 			$("#flagId").val(data.entity.id);
@@ -13,7 +15,7 @@ function addFinanceHistory(){
 			$("body").css("overflow","auto")
 			formatterTable(re.entity.fh);
 		});
-	     return true;
+	}
 }
 function formatterTable(entity){
 	if(entity.length>=10){
@@ -79,6 +81,7 @@ function deleteFinance(uuid){
 var historyUuid;
 function updateFinanceHistory(){
 	var nowFormData = $("#update_Historyform").serializeObject();
+	if(beforeSubmitById("add_Historyform")){
 	     sendPostRequestByJsonStr(platformUrl.updateSave+"/"+historyUuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			$("#flagId").val(data.entity.id);
 			pid = data.entity.id;
@@ -86,6 +89,7 @@ function updateFinanceHistory(){
 			$("body").css("overflow","auto")
 			formatterTable(data.entity.fh);
 		});
+	}
 }
 function getFinanceHistory(uuid){
 	sendPostRequest(platformUrl.getFinanceHistory+"/"+uuid+"/"+$("#flagId").val(),  function(data){
