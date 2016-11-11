@@ -298,11 +298,13 @@ function savePerson() {
 			
 			var learnList = $('#per_learning_table').bootstrapTable('getData');
 			var workList = $('#per_work_table').bootstrapTable('getData');
-			if(learnList && learnList.length < 0){
-				layer.msg("学习经历不能为空");
+			if(!learnList || learnList.length == 0){
+				layer.msg("学历背景不能为空");
+				return;
 			}
-			if(workList && workList.length < 0){
-				layer.msg("工作经历不能为空");
+			if(!workList || workList.length == 0){
+				layer.msg("工作履历不能为空");
+				return;
 			}
 			
 			if(isEditOrCreatePerson == "c"){
@@ -707,6 +709,24 @@ function deleteWork(selectIndex){
 }
 
 
+
+
+function beTimeCompare(btime,etime){
+	if(btime && etime){
+		var startTime = (new Date(btime)).getTime();		
+		var endTime = (new Date(etime)).getTime();
+		if(startTime > endTime){
+			layer.msg("开始时间不能大于结束时间");
+			return false;
+		}
+		//兼容safari
+		if(btime>etime){
+			layer.msg("开始时间不能大于结束时间");
+			return false;
+		}
+	}
+	return true;
+}
 
 
 function delHtmlTag(str)
