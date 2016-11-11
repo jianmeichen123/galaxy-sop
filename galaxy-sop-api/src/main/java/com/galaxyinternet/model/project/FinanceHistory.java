@@ -113,9 +113,8 @@ public class FinanceHistory extends BaseEntity {
     }
 	public Date getFinanceDate() { //2016-05-27 16:00:00   19
 		if(financeDate==null && financeDateStr!=null){
-			financeDateStr = dateStrformat(financeDateStr);
 			try {
-				financeDate = DateUtil.convertStringtoD(financeDateStr);
+				financeDate = DateUtil.convertStringToDate(financeDateStr);
 			} catch (ParseException e) {
 				financeDate = null;
 			}
@@ -130,9 +129,8 @@ public class FinanceHistory extends BaseEntity {
 	
     public void setFinanceDate(Date financeDate) {
     	if(financeDate==null && financeDateStr!=null){
-    		financeDateStr = dateStrformat(financeDateStr);
 			try {
-				financeDate = DateUtil.convertStringtoD(this.financeDateStr);
+				financeDate = DateUtil.convertStringToDate(this.financeDateStr);
 			} catch (ParseException e) {
 				financeDate = null;
 			}
