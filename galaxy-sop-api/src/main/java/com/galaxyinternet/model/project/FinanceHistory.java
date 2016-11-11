@@ -14,7 +14,7 @@ public class FinanceHistory extends BaseEntity {
 
     private Long projectId;//项目id
     
-    private String financeDateStr;//融资日期
+    private String financeDateStr;//融资日期格式化
     
     private String financeFrom;//融资来源
     
@@ -28,12 +28,13 @@ public class FinanceHistory extends BaseEntity {
     
     private Long createUid;//创建人
     
-    private String financeStatusDs;
-    private String createDate;
+    private String financeStatusDs;//融资轮次	格式化
     
-    private String updateDate;
+    private String createDate;//创建时间
     
-    private Date financeDate;
+    private String updateDate;//更新时间
+    
+    private Date financeDate;//融资时间
     
     public Long getProjectId() {
         return projectId;
