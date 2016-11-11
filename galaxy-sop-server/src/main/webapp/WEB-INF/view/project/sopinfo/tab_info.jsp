@@ -56,7 +56,7 @@
 				     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
 					</tr>
 			 <tr>
-				     <td colspan="2"><span class="new_color_gray">备注：</span><span class="new_color_black" id=""></span></td>
+				     <td colspan="2"><span class="new_color_gray">备注：</span><span class="new_color_black" id="remark"></span></td>
 					</tr>
 		
 		</table>
@@ -128,7 +128,7 @@
                              </span></td>
                            </tr>
                    <tr>
-                             <td colspan="2"><span class="new_color_gray">备注：</span><span><textarea maxlength="50" id="remark"></textarea></span></td>
+                             <td colspan="2"><span class="new_color_gray">备注：</span><span><textarea maxlength="50" id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea></span></td>
                          </tr>
 	        </table>  
 	        

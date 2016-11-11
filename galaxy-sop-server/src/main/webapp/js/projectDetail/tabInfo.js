@@ -1,5 +1,4 @@
 $(function(){
-		
 		var width_fwb=$('.tabtable_con_on').width();
 		$('.width_fwb').css('width',(width_fwb-20));
 
@@ -105,7 +104,7 @@ $(function(){
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
-			$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
+			$("#remark").text(projectInfo.remark==null?"":projectInfo.remark);
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			var p;
