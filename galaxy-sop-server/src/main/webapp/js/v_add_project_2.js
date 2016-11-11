@@ -187,41 +187,50 @@ $(function(){
 			
 			if($("#describe_show").html()!=""  && $.trim($("#describe_show").text())!="" ){
 				$(".describe_show").show();
+				display_show("describe_show");
+				display_show("describe2_show");
 			}else{
 				$(".describe_show").hide();
 			};
 			if($("#location_show").html()!="" && $.trim($("#location_show").text())!=""){
 				$(".location_show").show();
+				display_show("location_show");
 			}else{
 				$(".location_show").hide();
 			};
 			if($("#portrait_show").html()!="" && $.trim($("#portrait_show").text())!=""){
 				$(".portrait_show").show();
+				display_show("portrait_show");
 			}else{
 				$(".portrait_show").hide();
 			};
 			if($("#business_model_show").html()!="" && $.trim($("#business_model_show").text())!=""){
 				$(".business_model_show").show();
+				display_show("business_model_show");
 			}else{
 				$(".business_model_show").hide();
 			};
 			if($("#operational_data_show").html()!="" && $.trim($("#operational_data_show").text())!=""){
 				$(".operational_data_show").show();
+				display_show("operational_data_show");
 			}else{
 				$(".operational_data_show").hide();
 			};
 			if($("#industry_analysis_show").html()!="" && $.trim($("#industry_analysis_show").text())!=""){
 				$(".industry_analysis_show").show();
+				display_show("industry_analysis_show");
 			}else{
 				$(".industry_analysis_show").hide();
 			};
 			if($("#analysis_show").html()!="" && $.trim($("#analysis_show").text())!=""){
 				$(".analysis_show").show();
+				display_show("analysis_show");
 			}else{
 				$(".analysis_show").hide();
 			};
 			if($("#next_financing_source_show").html()!="" && $.trim($("#next_financing_source_show").text())!=""){
 				$(".next_financing_source_show").show();
+				display_show("next_financing_source_show");
 			}else{
 				$(".next_financing_source_show").hide();
 			};
@@ -231,6 +240,30 @@ $(function(){
 		}
 	}
 });
+/**
+ * 控制展开收起
+ */
+function  display_show(obj){
+	var height=$('#'+obj).outerHeight();
+	if(height>100){
+		var str='';
+		str+='<span class="show_more">',
+		str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
+		str+='</span>';
+		$('#'+obj).append(str);
+		$('#'+obj).parent().css('height','100px')
+	}
+}
+$('.new_top_color').delegate(".f4","click",function(){
+	$(this).hide();
+	$(this).parent().children('.f3').show();
+	$(this).parent().parent().parent().css('height','auto')
+}) 
+$('.new_top_color').delegate(".f3","click",function(){
+	$(this).hide();
+	$(this).parent().children('.f4').show();
+	$(this).parent().parent().parent().css('height','100px')
+}) 
 /**
  * 表单验证
  */
