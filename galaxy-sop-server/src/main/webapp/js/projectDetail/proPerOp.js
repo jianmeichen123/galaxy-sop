@@ -61,6 +61,18 @@ function getTabPerson(){
 	$table.bootstrapTable('refresh');
 }
 
+	
+function remark_format(value, row, index) {
+	if(value){
+		if(getLength(value)>10){
+			value = "<label title='"+value+"'>" + cutStr(10,value) + "</label>";
+		}
+	}else{
+		value =  "-";
+	}
+	return value;
+}
+
 
 function sexFormat(value, row, index) {
 	if (row.personSex == 0) {
@@ -129,7 +141,7 @@ function personDuties(value, row, index) {
 
 function proPerOpFormat(value, row, index) {
 	
-	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >查看</a>";
+	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toProPerInfoView('"+row.id+"')\" >查看</a>";
 	var toEdit = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
 	var toDelete = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
 	
@@ -143,6 +155,33 @@ function proPerOpFormat(value, row, index) {
 }
 
 
+
+/**
+ * 查看 团队成员
+ * @param id
+ */
+function toProPerInfoView(id) {
+	if(!(id && id!=null && typeof(id)!='undefined' )){
+		layer.msg("页面信息获取失败");
+		return;
+	}
+	
+	var _name = "查看团队成员";
+	$.getHtml({
+		url : Constants.sopEndpointURL + "/galaxy/project/toProPerView", 
+		data : "",//传递参数
+		okback : function() {
+			$("#popup_name").html(_name);
+			
+			$("#pool_id").val(id);
+			$("input[name='personId']").val(id);
+			
+			tableShow("pro_per_info");
+			tableShow("pro_per_learn_table");
+			tableShow("pro_per_work_table");
+		}
+	});
+}
 
 
 
@@ -169,8 +208,9 @@ function deletePer(id) {
 
 
 
+
 /** 
- * 添加团队成员
+ * 添加 编辑 团队成员
  */
 
  var personSelectRow;
@@ -666,8 +706,34 @@ function deleteWork(selectIndex){
 
 
 
+function delHtmlTag(str)
+{
+	if(str){
+		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}
+}
 
-
-
+function cutStr(theNum,theOldStr){
+	var leaveStr = "";
+	var leng = getLength(theOldStr);
+	if(theNum >= leng){
+		return theOldStr;
+	}else{
+		var cont = 0;
+		for (var i = 0; i < theOldStr.length; i++) {
+			if (theOldStr.charCodeAt(i) >= 0x4e00 && theOldStr.charCodeAt(i) <= 0x9fa5){ 
+				cont += 2;
+			}else {
+				cont++;
+			}
+			if(cont >= theNum){
+				break;
+			}
+			leaveStr += theOldStr.charAt(i);
+		}
+		return leaveStr + "...";
+	}
+	return theOldStr;
+}
 
 

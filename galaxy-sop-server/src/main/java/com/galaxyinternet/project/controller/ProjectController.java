@@ -4775,6 +4775,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/tanchuan/v_project_person";
 	}
 	
+	/**
+	 * 查看团队信息弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/toProPerView", method = RequestMethod.GET)
+	public String toProPerView(HttpServletRequest request) {
+		return "project/tanchuan/v_look_project_person";
+	}
 	
 	/**
 	 * 添加团队成员
@@ -4812,6 +4820,43 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
+	
+	/**
+	 * 团队成员   数据查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProPerInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> queryProPerInfo(HttpServletRequest request, @RequestBody PersonPool query) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		
+		Long total = 0l;
+		List<PersonPool> resultViewList = new ArrayList<PersonPool>();
+		Page<PersonPool> resultViewPage = new Page<PersonPool>(resultViewList, total);
+		
+		try {
+			Long personId = query.getId();
+			if(personId!=null){
+				resultViewList = personPoolService.queryList(query);
+				if(resultViewList!=null && !resultViewList.isEmpty()){
+					resultViewPage.setContent(resultViewList);
+					resultViewPage.setTotal((long) resultViewList.size());
+				}
+			}
+			responseBody.setPageList(resultViewPage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+			logger.error("queryProPerInfo error", e);
+		}
+		
+		return responseBody;
+		
+	}
+	
+	
+	
 	
 	
 	
