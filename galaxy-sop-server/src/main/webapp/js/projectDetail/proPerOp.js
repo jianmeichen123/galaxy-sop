@@ -61,6 +61,19 @@ function getTabPerson(){
 	$table.bootstrapTable('refresh');
 }
 
+	
+function remark_format(value, row, index) {
+	if(value){
+		if(getLength(value)>10){
+			var str =  cutStr(10,value)  + "...";
+			value = "<label title='"+value+"'>" + str + "</label>";
+		}
+	}else{
+		value =  "-";
+	}
+	return value;
+}
+
 
 function sexFormat(value, row, index) {
 	if (row.personSex == 0) {
@@ -129,9 +142,9 @@ function personDuties(value, row, index) {
 
 function proPerOpFormat(value, row, index) {
 	
-	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >查看</a>";
-	var toEdit = "&nbsp;&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
-	var toDelete = "&nbsp;&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
+	var toShow = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toProPerInfoView('"+row.id+"')\" >查看</a>";
+	var toEdit = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPerson('"+row.id+"','" + index + "')\" >编辑</a>";
+	var toDelete = "&nbsp; <a href=\"javascript:;\" class=\"blue\" onclick=\"deletePer('"+row.id+"')\" >删除</a>";
 	
 	var content = toShow
 	if (isCreatedByUser == 'true' && isTransfering == 'false') {
@@ -143,6 +156,33 @@ function proPerOpFormat(value, row, index) {
 }
 
 
+
+/**
+ * 查看 团队成员
+ * @param id
+ */
+function toProPerInfoView(id) {
+	if(!(id && id!=null && typeof(id)!='undefined' )){
+		layer.msg("页面信息获取失败");
+		return;
+	}
+	
+	var _name = "查看团队成员";
+	$.getHtml({
+		url : Constants.sopEndpointURL + "/galaxy/project/toProPerView", 
+		data : "",//传递参数
+		okback : function() {
+			$("#popup_name").html(_name);
+			
+			$("#pool_id").val(id);
+			$("input[name='personId']").val(id);
+			
+			tableShow("pro_per_info");
+			tableShow("pro_per_learn_table");
+			tableShow("pro_per_work_table");
+		}
+	});
+}
 
 
 
@@ -169,8 +209,9 @@ function deletePer(id) {
 
 
 
+
 /** 
- * 添加团队成员
+ * 添加 编辑 团队成员
  */
 
  var personSelectRow;
@@ -183,6 +224,9 @@ function toAddPerson(id,index){
 		isEditOrCreatePerson = "oe";
 		personSelectRow = $('#tablePerson').bootstrapTable('getRowByUniqueId', id);
 		console.log("person select : " + JSON.stringify(personSelectRow));
+	}else{
+		isEditOrCreatePerson = "c";
+		personSelectRow = null;
 	}
 
 	$.getHtml({
@@ -253,20 +297,31 @@ function savePerson() {
 
 			var personPool = JSON.parse($("#person_form").serializeObject());
 			
-			if(isEditOrCreatePerson == "c"){
+			var learnList = $('#per_learning_table').bootstrapTable('getData');
+			var workList = $('#per_work_table').bootstrapTable('getData');
+			if(!learnList || learnList.length == 0){
+				layer.msg("学历背景不能为空");
+				return;
+			}
+			if(!workList || workList.length == 0){
+				layer.msg("工作履历不能为空");
+				return;
+			}
+			
+			/*if(isEditOrCreatePerson == "c"){
 				personPool.id = null;
-				var learnList = $('#per_learning_table').bootstrapTable('getData');
-				var workList = $('#per_work_table').bootstrapTable('getData');
-				if(learnList && learnList.length > 0){
-					personPool.plc = learnList;
-				}
-				if(learnList && learnList.length > 0){
-					personPool.pwc = workList;
-				}
+				personPool.plc = learnList;
+				personPool.pwc = workList;
 				sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
 			}else{
 				sendPostRequestByJsonObj(Constants.sopEndpointURL + '/galaxy/project/upp', personPool, savePersonCallBack);
+			}*/
+			if(isEditOrCreatePerson == "c"){
+				personPool.id = null;
 			}
+			personPool.plc = learnList;
+			personPool.pwc = workList;
+			sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
 		}else{
 			layer.msg("项目id缺失，保存失败");
 		}
@@ -294,15 +349,16 @@ function savePersonCallBack(data) {
 
 
 
-
-
-
-
 //TODO 学习
+var learn_code_index = 0;
 
 function deleteIndex_Format(value, row, index) {
-	row.deleteIndex = index;
-	return index;
+	if(row.deleteIndex){
+		return row.deleteIndex;
+	}
+	learn_code_index = learn_code_index + 1;
+	row.deleteIndex = learn_code_index;
+	return learn_code_index;
 }
 
 function learn_TimeFormat(value, row, index) {
@@ -331,8 +387,8 @@ function learn_TimeFormat(value, row, index) {
 }
 
 function pro_learning_format(value, row, index) {
-	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonLearning('" + index + "')\" >编辑</a>";
-	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteLearn('"+ index +"')\" >删除</a>";
+	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonLearning('" + row.deleteIndex + "')\" >编辑</a>";
+	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteLearn('"+ row.deleteIndex +"')\" >删除</a>";
 	
 	return toEdit + toDelete;
 }
@@ -352,6 +408,9 @@ function toAddPersonLearning(selectIndex){
 		isCreatOrEditLearn = "e";
 		
 		console.log("learn select : " + JSON.stringify(learnSelectRow));
+	}else{
+		isCreatOrEditLearn = "c";
+		learnSelectRown = null;
 	}
 	
 	var _url=Constants.sopEndpointURL + '/galaxy/project/addProPerLearning';
@@ -361,7 +420,6 @@ function toAddPersonLearning(selectIndex){
 		data:"",
 		okback:function(){
 			$("#learn_person_Id").val($("#person_pool_id").val());
-			$("#learn_id").val(learnSelectRow.id);
 
 			if(isCreatOrEditLearn == "e"){//获取数据
 				_name= "编辑学历背景";
@@ -399,7 +457,7 @@ function toAddPersonLearning(selectIndex){
 function savePersonLearning(){
 	var learn = JSON.parse($("#add_person_learning").serializeObject());
 	
-	console.log("save learn : " + learn);
+	console.log("save learn : " + JSON.stringify(learn));
 	
 	var id = learn.id;
 	var perondId = learn.personId;
@@ -411,7 +469,7 @@ function savePersonLearning(){
 		learn.personId = null;
 	}
 	
-	if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
+	/*if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/saveOrEditProPerLearn",learn,function(data){
 			var result = data.result.status;
 			if(result == "ERROR"){ //OK, ERROR
@@ -421,22 +479,28 @@ function savePersonLearning(){
 				learn.id = data.id;
 				layer.msg("保存成功", {time : 500});
 				learnTableRefresh(learn);
-				//$("#per_learning_table").bootstrapTable('refresh');
-				//$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: learn});
 			}
 		});
 	}else{
 		learnTableRefresh(learn);
-	}
-	
+	}*/
+	learnTableRefresh(learn);
 	//去除弹层
-	//removePop1();
-	//$.popupTwoClose();
+	$(".qualificationstc").find("[data-close='close']").click();
 }
+
+
 function learnTableRefresh(newDataRow){
 	if(isCreatOrEditLearn == "e"){
-		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: newDataRow});
+		if(newDataRow.id && newDataRow.id != null){
+			newDataRow.isEditOrCreate = 1;
+		}
+		newDataRow.deleteIndex = learnSelectRow.deleteIndex;
+		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex-1, row: newDataRow});
+		//$('#per_learning_table').bootstrapTable('updateByUniqueId', {deleteIndex: learnSelectRow.deleteIndex, row: newDataRow});
 	}else{
+		learn_code_index = learn_code_index+1;
+		newDataRow.deleteIndex = learn_code_index;
 		$('#per_learning_table').bootstrapTable('append', newDataRow);
 	}
 }
@@ -463,8 +527,9 @@ function deleteLearn(selectIndex){
 			}
 		});
 	}
-	
-	$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
+
+	$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
+	//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
 }
 
 
@@ -477,7 +542,19 @@ function deleteLearn(selectIndex){
 /*
  * 新建 :c 、 编辑:e    工作经历 - 弹窗
  */
-	
+
+var work_code_index = 0;
+
+function work_deleteIndex_Format(value, row, index) {
+	if(row.deleteIndex){
+		return row.deleteIndex;
+	}
+	work_code_index = work_code_index + 1;
+	row.deleteIndex = work_code_index;
+	return work_code_index;
+}
+
+
 function work_TimeFormat(value, row, index) {
 	var bstr;
 	var estr;
@@ -504,8 +581,8 @@ function work_TimeFormat(value, row, index) {
 }
 
 function pro_work_format(value, row, index) {
-	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonWork('" + index + "')\" >编辑</a>";
-	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteWork('"+ index +"')\" >删除</a>";
+	var toEdit = "<a href=\"javascript:;\" class=\"blue\" onclick=\"toAddPersonWork('" + row.deleteIndex + "')\" >编辑</a>";
+	var toDelete = "&nbsp;<a href=\"javascript:;\" class=\"blue\" onclick=\"deleteWork('"+ row.deleteIndex +"')\" >删除</a>";
 	
 	return toEdit + toDelete;
 }
@@ -520,23 +597,25 @@ function toAddPersonWork(selectIndex){
 	if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){ //判断是编辑模式
 		workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
 		isCreatOrEditWork = "e";
+	}else{
+		isCreatOrEditWork = "c";
+		workSelectRow = null;
 	}
 	
+		
+	
 	var _url=Constants.sopEndpointURL + '/galaxy/project/addProPerWork';
-	var $self = $(this);
-	var _name= $self.attr("name");
+	var _name= "添加工作履历";
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(){
-			$("#qualifications_popup_name").html(_name);
-			
 			$("#work_person_Id").val($("#person_pool_id").val());
-			$("#work_id").val(workSelectRow.id);
 			
 			if(isCreatOrEditWork == "e"){//获取数据
-				$("#work_id").val(workSelectRow.id);
+				_name= "编辑工作履历";
 				
+				$("#work_id").val(workSelectRow.id);
 				
 				if(workSelectRow.beginWorkStr && workSelectRow.beginWorkStr !=null){
 					$("#add_person_work [name='beginWorkStr']").val(workSelectRow.beginWorkStr);
@@ -554,9 +633,9 @@ function toAddPersonWork(selectIndex){
 				
 				$("#add_person_work [name='companyName']").val(workSelectRow.companyName);
 				$("#add_person_work [name='workPosition']").val(workSelectRow.workPosition);
-				
-				
 			}
+			
+			$("#qualifications_popup_name").html(_name);
 		}
 	});
 	return false;
@@ -566,7 +645,7 @@ function toAddPersonWork(selectIndex){
 function savePersonWork(){
 	var work = JSON.parse($("#add_person_work").serializeObject());
 	
-	console.log("save work : " + work);
+	console.log("save work : " + JSON.stringify(work));
 	
 	var id = work.id;
 	var perondId = work.personId;
@@ -578,7 +657,7 @@ function savePersonWork(){
 		work.personId = null;
 	}
 	
-	if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
+	/*if(perondId && perondId!=null && typeof(perondId)!='undefined'){  //有人员信息，编辑 保存 数据库
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"/galaxy/project/saveOrEditProPerWork",work,function(data){
 			var result = data.result.status;
 			if(result == "ERROR"){ //OK, ERROR
@@ -592,17 +671,22 @@ function savePersonWork(){
 		});
 	}else{
 		workTableRefresh(work);
-	}
-	
+	}*/
+	workTableRefresh(work);
 	//去除弹层
-	//removePop1();
-	//$.popupTwoClose();
+	$(".qualificationstc").find("[data-close='close']").click();
 }
 
 function workTableRefresh(newRowData){
 	if(isCreatOrEditWork == "e"){
-		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex, row: newRowData});
+		if(newRowData.id && newRowData.id != null){
+			newRowData.isEditOrCreate = 1;
+		}
+		newRowData.deleteIndex = workSelectRow.deleteIndex;
+		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex-1, row: newRowData});
 	}else{
+		work_code_index = work_code_index+1;
+		newRowData.deleteIndex = work_code_index;
 		$('#per_work_table').bootstrapTable('append', newRowData);
 	}
 }
@@ -627,20 +711,59 @@ function deleteWork(selectIndex){
 			}
 		});
 	}
-		
-	$('#per_work_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
+	
+	$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
 }
 
 
 
 
+function beTimeCompare(btime,etime){
+	if(btime && etime){
+		var startTime = (new Date(btime)).getTime();		
+		var endTime = (new Date(etime)).getTime();
+		if(startTime > endTime){
+			layer.msg("开始时间不能大于结束时间");
+			return false;
+		}
+		//兼容safari
+		if(btime>etime){
+			layer.msg("开始时间不能大于结束时间");
+			return false;
+		}
+	}
+	return true;
+}
 
 
+function delHtmlTag(str)
+{
+	if(str){
+		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}
+}
 
-
-
-
-
-
+function cutStr(theNum,theOldStr){
+	var leaveStr = "";
+	var leng = getLength(theOldStr);
+	if(theNum >= leng){
+		return theOldStr;
+	}else{
+		var cont = 0;
+		for (var i = 0; i < theOldStr.length; i++) {
+			if (theOldStr.charCodeAt(i) >= 0x4e00 && theOldStr.charCodeAt(i) <= 0x9fa5){ 
+				cont += 2;
+			}else {
+				cont++;
+			}
+			if(cont >= theNum){
+				break;
+			}
+			leaveStr += theOldStr.charAt(i);
+		}
+		return leaveStr;
+	}
+	return theOldStr;
+}
 
 

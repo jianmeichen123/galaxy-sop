@@ -33,12 +33,6 @@ function generateBuessDocEmptyInnerHtml(){
 
 $(function(){
 	/**
-	 * 编辑弹出富文本窗口宽度设置
-	 */
-	var width_fwb=$('.tabtable_con_on').width();
-	$('.width_fwb').css('width',(width_fwb-20));
-	
-	/**
 	 * 富文本实例化
 	 */
 	var describeUm = UM.getEditor('describe_editor');//项目 描述
@@ -66,14 +60,31 @@ $(function(){
 		{
 			return;
 		}
+		 var scroll_top=$(this).offset().top;
+		 $('html,body').animate({  
+		        scrollTop: scroll_top
+		    }, 1000);  
 		var open=$(this).attr('data-name')
 		$('.'+open+'_on').show();
-		$('.'+open+'_on').css("top","30%")
+		//$('.'+open+'_on').css("top","30%")
 		$('.'+open+'_center').hide();
 		$('.bj_hui_on').show();
 		responseData();
+		//调整富文本宽度
+		var width=$(".addProject").width();
+		$("#step2 .edui-container").css("width",width*0.98);
+		$("#step2 .width_fwb").css("width",width*0.96);
+		//跳跃填写，提示框展示
+		/*var btnName=$(this).attr("data-btn");
+		btnNum=btnName.substring(btnName.length-1,btnName.length);
+		for(var i=0;i<btnNum;i++){
+			if($('[data-btn="editor'+i+'"]').text()=="" || $.trim($('[data-btn="editor'+i+'"]').text())==''){
+				var id=$('[data-btn="editor'+i+'"]').attr("id").replace("_show","_valiate");
+				$("#"+id).show();
+			}
+		}*/
+		
 	})
-	
 	/**
 	 * 富文本弹出框点击取消事件
 	 */
@@ -83,6 +94,19 @@ $(function(){
 		$('.'+close+'_center').show();
 		$('.bj_hui_on').hide();
 	})
+	/**
+	 * 取消
+	 */
+	$(".fffbtn").click(function(){
+		var idArr=$(this).siblings().attr("id").split("_");
+		id=idArr[idArr.length-1];
+		if($('#'+id+'_show').text()==""|| $.trim($('#'+id+'_show').text())==""){
+			$('#'+id+'_valiate').show();
+		}else{
+			$('#'+id+'_valiate').hide();
+		}
+		
+	})
 	
 	/**
 	 * 保存项目描述
@@ -91,7 +115,8 @@ $(function(){
 		var projectDescribe = describeUm.getContent();
 		var projectDescribeFinancing = describeUm2.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":projectDescribeFinancing}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
+		Valiate("describe_show");
 	});
 	
 	/**
@@ -100,7 +125,8 @@ $(function(){
 	$("#save_location").click(function(){
 		var companyLocation = companyUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "companyLocation" : companyLocation}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
+		Valiate("location_show")
 	});
 	
 	/**
@@ -109,7 +135,8 @@ $(function(){
 	$("#save_portrait").click(function(){
 		var userPortrait = portraitUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "userPortrait" : userPortrait}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
+		Valiate("portrait_show")
 	});
 	
 	/**
@@ -118,7 +145,8 @@ $(function(){
 	$("#save_business").click(function(){
 		var projectBusinessModel = businessUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
+		Valiate("business_show")
 	});
 	
 	/**
@@ -127,7 +155,7 @@ $(function(){
 	$("#save_operation").click(function(){
 		var operationalData = operationUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "operationalData" : operationalData}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
 	});
 	
 	/**
@@ -136,7 +164,8 @@ $(function(){
 	$("#save_industry").click(function(){
 		var industryAnalysis = industryUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "industryAnalysis" : industryAnalysis}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
+		Valiate("industry_show")
 	});
 	
 	/**
@@ -145,7 +174,8 @@ $(function(){
 	$("#save_analysis").click(function(){
 		var prospectAnalysis = analysisUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
+		Valiate("analysis_show")
 	});
 	
 	/**
@@ -154,7 +184,7 @@ $(function(){
 	$("#save_next_financing").click(function(){
 		var nextFinancingSource = nextFinancingUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveCallBack);
-		step2Valiate("step2");
+		//step2Valiate("step2");
 	});
 	
 	/**
@@ -188,11 +218,93 @@ $(function(){
 			$("#analysis_show").html(data.entity.prospectAnalysis);
 			$("#next_financing_source_show").html(data.entity.nextFinancingSource);
 			
+			if($("#describe_show").html()!=""  && $.trim($("#describe_show").text())!="" ){
+				$(".describe_show").show();
+				display_show("describe_show");
+				display_show("describe2_show");
+			}else{
+				$(".describe_show").hide();
+			};
+			if($("#location_show").html()!="" && $.trim($("#location_show").text())!=""){
+				$(".location_show").show();
+				display_show("location_show");
+			}else{
+				$(".location_show").hide();
+			};
+			if($("#portrait_show").html()!="" && $.trim($("#portrait_show").text())!=""){
+				$(".portrait_show").show();
+				display_show("portrait_show");
+			}else{
+				$(".portrait_show").hide();
+			};
+			if($("#business_model_show").html()!="" && $.trim($("#business_model_show").text())!=""){
+				$(".business_model_show").show();
+				display_show("business_model_show");
+			}else{
+				$(".business_model_show").hide();
+			};
+			if($("#operational_data_show").html()!="" && $.trim($("#operational_data_show").text())!=""){
+				$(".operational_data_show").show();
+				display_show("operational_data_show");
+			}else{
+				$(".operational_data_show").hide();
+			};
+			if($("#industry_analysis_show").html()!="" && $.trim($("#industry_analysis_show").text())!=""){
+				$(".industry_analysis_show").show();
+				display_show("industry_analysis_show");
+			}else{
+				$(".industry_analysis_show").hide();
+			};
+			if($("#analysis_show").html()!="" && $.trim($("#analysis_show").text())!=""){
+				$(".analysis_show").show();
+				display_show("analysis_show");
+			}else{
+				$(".analysis_show").hide();
+			};
+			if($("#next_financing_source_show").html()!="" && $.trim($("#next_financing_source_show").text())!=""){
+				$(".next_financing_source_show").show();
+				display_show("next_financing_source_show");
+			}else{
+				$(".next_financing_source_show").hide();
+			};
+			
 		}else{
 			layer.msg(data.result.message);
 		}
 	}
 });
+/*下一步提示*/
+$("[data-btn='page1']").click(function(){
+	var plan_business_table_val=$("#plan_business_table tbody td").eq(0).text()
+	if(step2Valiate("step2") && plan_business_table_val!="-"){
+		$("[data-btn='page1'] span[data-btn='next']").removeClass("disabled");
+		return;
+	}
+})
+/**
+ * 控制展开收起
+ */
+function  display_show(obj){
+	var height=$('#'+obj).outerHeight();
+	if(height>100){
+		var str='';
+		str+='<span class="show_more">',
+		str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
+		str+='</span>';
+		$('#'+obj).append(str);
+		$('#'+obj).parent().css('height','100px')
+	}
+}
+$('.new_top_color').delegate(".f4","click",function(){
+	$(this).hide();
+	$(this).parent().children('.f3').show();
+	$(this).parent().parent().parent().css('height','auto')
+}) 
+$('.new_top_color').delegate(".f3","click",function(){
+	$(this).hide();
+	$(this).parent().children('.f4').show();
+	$(this).parent().parent().parent().css('height','100px')
+}) 
 /**
  * 表单验证
  */
@@ -203,7 +315,28 @@ function step2Valiate(id){
 		 if($(n).attr("valiate")=='required') {//对不能为空的文本框进行验证
 			 var id = $(n).attr("id").replace("_show","_valiate");
 			 if($(n).text()=='' || $.trim($(n).text())=='') {
-				 $("#"+id).html('<span style="font-color:red">参数丢失!</span>');
+				/* $("#"+id).html('<span style="font-color:red">参数丢失!</span>');*/
+				 //$("#"+id).show();
+				 flag = false;
+			 }else{
+				 $("#"+id).hide();
+			 }
+			 
+		 }
+	});
+	return flag;
+}
+/**
+ * 表单单个验证
+ */
+function Valiate(id){
+	var flag = true;
+	$.each($("#"+id),function(i, n) {
+		 //清除可能已有的提示信息
+		 if($(n).attr("valiate")=='required') {//对不能为空的文本框进行验证
+			 var id = $(n).attr("id").replace("_show","_valiate");
+			 if($(n).text()=='' || $.trim($(n).text())=='') {
+				/* $("#"+id).html('<span style="font-color:red">参数丢失!</span>');*/
 				 $("#"+id).show();
 				 flag = false;
 			 }else{

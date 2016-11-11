@@ -86,6 +86,7 @@ function generatePersonEmptyInnerHtml(){
 }
 
 
+
 function addPersonLearning(){
 	var _url=Constants.sopEndpointURL + '/galaxy/project/addPersonLearning';
 	 	_name=$('[data-btn="qualifications"]').attr("data-name");
@@ -267,6 +268,9 @@ function deleteShares(){
 		if(data.result.status == 'OK'){
 			generateSharesInnerHtml(data.entityList);
 			$("#shares").val(data.entityList.length);
+			if(data.entityList.length==0){
+				generateSharesEmptyInnerHtml();
+			}
 		}else{
 			layer.msg(data.result.message);
 		}
@@ -282,7 +286,7 @@ function generateSharesInnerHtml(list){
 		innerHtml += '<td>'+o.gainMode+'</td>';
 		innerHtml += '<td>'+(o.financeUnit=='0' ? '人民币' : '美元')+'</td>';
 		innerHtml += '<td>'+o.remark+'</td>';
-		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑</a><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
+		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑&nbsp;</a><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
 		innerHtml += '</tr>';
 	});
 	$("#shares-tbody").empty();
@@ -291,7 +295,22 @@ function generateSharesInnerHtml(list){
 	$(".operatorDelete").bind('click', deleteShares);
 }
 function generateSharesEmptyInnerHtml(){
-	var innerHtml = "<tr><td>暂无数据</td></tr>";
+	var innerHtml = "<tr><td colspan='7' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";	
 	$("#shares-tbody").empty();
 	$("#shares-tbody").append(innerHtml);
 }
+
+/*下一步提示*/
+function nextBtn(){
+	var plan_business_table_val=$("#person-table tbody td").eq(0).text();
+	var shares=$("#shares").val();
+	if(plan_business_table_val!="没有找到匹配的记录"&&shares>0){
+		$("[data-btn='page2'] span[data-btn='next']").removeClass("disabled");
+		return;
+	}else{
+		$("[data-btn='page2'] span[data-btn='next']").addClass("disabled");
+	}
+}
+$("[data-btn='page2']").click(function(){
+	nextBtn();
+})

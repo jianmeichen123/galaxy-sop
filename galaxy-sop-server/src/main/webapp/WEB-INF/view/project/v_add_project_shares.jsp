@@ -20,7 +20,7 @@
       </dl> 
       <dl class="fmdl">
         <dt>出资金额：</dt>
-        <dd><input type="text" name="gainMode" value="" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/>万元</dd>
+        <dd><input type="text" name="gainMode" value="" class="txt" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>万元</dd>
       </dl>
       <dl class="fmdl">
         <dt>币种：</dt>
@@ -49,6 +49,7 @@
 $(function(){
 	initDialogValstr("form_shares");
 	$("#save_shares").click(function(){
+		$("body").css("overflow","auto");
 		if(beforeSubmitById("form_shares")){
 			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/saveShares/"+pid, 
 					$("#stock_form").serializeObject(), 
@@ -60,6 +61,7 @@ $(function(){
 					$.popupOneClose();
 					generateSharesInnerHtml(data.entityList);
 					$("#shares").val(data.entityList.length);
+					nextBtn();
 				}else{
 					generateSharesEmptyInnerHtml();
 				}

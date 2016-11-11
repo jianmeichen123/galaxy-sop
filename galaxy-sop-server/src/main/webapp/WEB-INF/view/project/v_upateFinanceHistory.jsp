@@ -23,20 +23,20 @@
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt" id="financeFrom" name="financeFrom"/>
+                    <input type="text" class="txt" id="financeFrom" name="financeFrom" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
                  <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
                  <dt>币种：</dt>
                 <dd>
                     <select name="financeUnit" id="financeUnit">
-                        <option value="0" select="selected" name="financeUnit" >人民币</option>
+                        <option value="0" select="selected" name="financeUnit" selected="selected" >人民币</option>
                         <option value="1" name="financeUnit">美元</option>
                         <option value="2" name="financeUnit">英镑</option>
                         <option value="3" name="financeUnit">欧元</option>
@@ -46,7 +46,7 @@
             <dl class="fmdl clearfix">
                  <dt>占比：</dt>
                 <dd>
-                    <input type="text" class="txt" name="financeProportion" id="financeProportion"/>
+                    <input type="text" class="txt" name="financeProportion" id="financeProportion" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -66,3 +66,6 @@
     </div>
 
 </div>
+<script>
+initDialogValstr("update_Historyform");
+</script>

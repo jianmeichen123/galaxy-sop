@@ -160,6 +160,34 @@
 	</div>
 </div>
 <!--商业计划书-->
+<div class="tabtable_con_on" >
+     <div class="history_center">
+		<div class="new_r_compile ">
+			<span class="new_ico_history ico_add_project"></span> <span class="new_color size16">融资历史</span> <span class="bj_ico" id="history">暂无数据</span>
+			<span class="new_fctbox">
+				<a href="javascript:;" style="margin:0 0 0 5px;" data-btn="add_history" data-name="添加融资历史"><span class="blue" style="font-size:22px;font-family:'微软雅黑';">+</span>添加</a>
+			</span>
+		</div>
+		<div class="new_ul_all new_top_color history_show" >
+			<table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+            <thead>
+               <tr>
+                  <th>融资时间</th>
+                  <th>投资方(机构或个人)</th>
+                  <th>投资金额(万元)</th>
+                  <th>币种</th>
+                  <th>占比（%）</th>
+                  <th>融资轮次</th>
+                  <th>操作</th>
+                 </tr>
+             </thead>
+	         <tbody id="financeHistory_table">
+	         </tbody>
+         </table>
+		</div>
+	</div>
+</div>
+<!--商业计划书-->
 <div class="tabtable_con_on">
 	<div class="new_r_compile ">
 		<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>

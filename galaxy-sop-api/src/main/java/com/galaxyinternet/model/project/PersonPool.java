@@ -36,7 +36,7 @@ public class PersonPool extends PagableEntity{
     /*手机号码*/
     private String personTelephone;
     /*是否为联系人*/
-    private int isContacts;
+    private Integer isContacts;
     /*邮箱地址*/
     private String personEmail;
     /*性格特点*/

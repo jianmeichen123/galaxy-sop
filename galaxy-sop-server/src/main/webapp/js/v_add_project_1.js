@@ -41,6 +41,7 @@ $(function(){
 		});
 		return false;
 	});
+	formatterTable(null);
 })
 //格式化
 function shareOperatFormater(val,row,index)
@@ -73,15 +74,21 @@ function add(){
 		return;
 	}
 	var nowFormData = $("#add_form").serializeObject();
-	//if(beforeSubmit()){
+	if(beforeSubmitByIdNext("add_form")){
 	     sendPostRequestByJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
 			var re=data;
 			$("#flagId").val(data.entity.id);
 			pid = data.entity.id;
 		});
-	//}
-	     return true;
+	   return true;
+	}
 }
+$("[data-btn='page0']").click(function(){
+	if(beforeSubmitByIdNext("add_form")){
+		$("[data-btn='page0'] span[data-btn='next']").removeClass("disabled");
+		  return true;
+		   	}
+})
 function calculationValuations(){
 	var projectShareRatio = $("#formatShareRatio").val();
 	var projectContribution = $("#formatContribution").val();

@@ -44,7 +44,7 @@ var planGrid = {
 					    			_remark : "hide",
 									callFuc : function(){
 										console.log("刷新商业计划表格");
-										sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : id, "sopfiletype" : "1"}, backFunction);
+										sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "sopfiletype" : "1"}, backFunction);
 										$('#' + planGrid.domid).bootstrapTable('refresh',planGrid.queryParams);
 									},
 									_url : platformUrl.uploadBpToSession, //兼容老板插件

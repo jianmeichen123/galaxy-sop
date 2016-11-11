@@ -74,7 +74,9 @@ $(function(){
 	
 	$("#save_per_work").click(function(){
 		if(beforeSubmitById("working")){
-			savePersonWork();
+			if(beTimeCompare($("#add_person_work [name='beginWorkStr']").val(),$("#add_person_work [name='overWorkStr']").val())){
+				savePersonWork();
+			}
 		}
 	});
 });

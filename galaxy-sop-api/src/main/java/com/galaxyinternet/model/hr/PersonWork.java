@@ -30,6 +30,8 @@ public class PersonWork extends BaseEntity{
 	private String beginWorkStr;//入职时间 
 	private String overWorkStr;//离职时间 
 	
+	private Integer isEditOrCreate; // 1:id有值 编辑
+	
 	public String getUuid() {
 		return uuid;
 	}
@@ -158,6 +160,12 @@ public class PersonWork extends BaseEntity{
 		this.overWorkStr = overWorkStr;
 	}
 	
+	public Integer getIsEditOrCreate() {
+		return isEditOrCreate;
+	}
+	public void setIsEditOrCreate(Integer isEditOrCreate) {
+		this.isEditOrCreate = isEditOrCreate;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if(uuid != null && obj != null && obj instanceof PersonWork && ((PersonWork) obj).getUuid() != null){

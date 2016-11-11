@@ -26,7 +26,7 @@
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <!-- 富文本编辑器 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.js"></script>
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -40,8 +40,8 @@
         <div class="new_tit_b">
             <span class="size18">添加项目</span>
         </div>
-        <div class="new_left">
-        	<div class="tabtable_con_on">
+        <div class="new_left addProject">
+        	<div class="">
         		<div class="page on clearfix" data-btn="page0">
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_basic ico_add_project"></span>
@@ -60,6 +60,9 @@
                             	<input name="projectType" type="radio" value="projectType:2" id="radio_n">
                             	<label for="radio_n">&nbsp;创建</label>
                             </span>
+                            <span id="projectTypeTip"  style="display:none;">
+                            	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
+                            </span>
                         </li>
                         <li>
                             <span class="basic_span"><em class="red">*</em>项目名称：</span>
@@ -76,8 +79,8 @@
 			                    	<option value="">--请选择--</option>
 			                    </select>
                             </span>
-                        	<span class="basic_span"><em class="red">*</em>融资状态：</span>
-                            <span class="m_r30">
+                        	<span class="basic_span" ><em class="red">*</em>融资状态：</span>
+                 	          <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
 			                    </select>
 							</span>
@@ -87,13 +90,13 @@
 	                        <span class="m_r30" style="with:400px">
 	                             <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否
 	                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-	                             <input type="text" class="new_nputr" value="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
+	                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
 	                        </span>
                         </li>
                         <li>
                         	<span class="basic_span">备注：</span>
                             <span>
-                            	<textarea class="new_nputr text" maxlength="50" placeholder="最多输入50字"></textarea>
+                            	<textarea class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea>
                         	</span>
                         </li>
                     </ul>  
@@ -106,19 +109,19 @@
                         <li>
                             <span class="basic_span"><em class="red">*</em>融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
                             </span>
                             <span class="m_r30">万元人民币</span>
                             <span class="basic_span"><em class="red">*</em>项目估值：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" />
                             </span>
                             <span class="m_r30">万元人民币</span>
                         </li>
                         <li>
                         	<span class="basic_span"><em class="red">*</em>出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
@@ -147,7 +150,7 @@
                     </table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                        <span class="pubbtn bluebtn fl"  data-btn="next">下一步</span>
+	                        <span class="pubbtn bluebtn disabled fl"  data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">1</label>/<label>4</label>
 	                        </div>
@@ -203,7 +206,7 @@
 					    </div>
 					    <div class="project_center">
 							<div class="new_r_compile ">
-								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"></span>
+								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"><em class="red">*</em>项目描述不能为空</span>
 								<span class="new_fctbox">
 									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 								</span>
@@ -218,7 +221,7 @@
 					<div class="tabtable_con_on">
 						<div class='company_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate">暂无数据</span>
+								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate"><em class="red">*</em>公司定位不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 								</span>
@@ -242,7 +245,7 @@
 					<div class="tabtable_con_on">
 						<div class='portrayal_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate">暂无数据</span>
+								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate"><em class="red">*</em>用户画像不能为空</span>
 								<span class="new_fctbox"> 
 								<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 								</span>
@@ -266,7 +269,7 @@
 					<div class="tabtable_con_on">
 						<div class='product_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate">暂无数据</span>
+								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate"><em class="red">*</em>产品服务不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 								</span>
@@ -314,7 +317,7 @@
 					<div class="tabtable_con_on">
 						<div class='industry_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate">暂无数据</span>
+								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate"><em class="red">*</em>行业分析不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
@@ -338,7 +341,7 @@
 					<div class="tabtable_con_on">
 						<div class='analysis_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate">暂无数据</span>
+								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate"><em class="red">*</em>竞争分析不能为空</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 								</span>
@@ -364,12 +367,12 @@
 							<div class="new_r_compile ">
 								<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" style="display:none" id="next_financing_source_valiate">暂无数据</span>
 								<span class="new_fctbox"> 
-								<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
+								<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open" >编辑</a>
 								</span>
 							</div>
 							<div class="new_ul_all new_top_color next_financing_source_show">
 								<span class="ico_dot ico"></span>
-								<p id="next_financing_source_show"></p>
+								<p id="next_financing_source_show" ></p>
 							</div>
 						</div>
 						<div class='next_financing_on'>
@@ -386,7 +389,7 @@
 					<div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre" id="toStep1">上一步</span>
-	                        <span class="pubbtn bluebtn fl"  data-btn="next" id="toStep3">下一步</span>
+	                        <span class="pubbtn bluebtn disabled fl"  data-btn="next" id="toStep3">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">2</label>/<label>4</label>
 	                        </div>
@@ -463,8 +466,8 @@
                     </table>
                      <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                    	<span class="pubbtn bluebtn fl"  id="step3-previous" data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl"  id="step3-next" data-btn="next">下一步</span>
+	                    	<span class="pubbtn bluebtn fl" id="step3-previous" data-btn="pre">上一步</span>
+	                        <span class="pubbtn bluebtn disabled fl" id="step3-next"  data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">3</label>/<label>4</label>
 	                        </div>
@@ -504,7 +507,7 @@
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl" >生成项目</span>
+	                        <span class="pubbtn bluebtn disabled fl" data-btn="createProject" >生成项目</span>
 	                        <span class="pubbtn fffbtn fl"  data-btn="close">取消</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">4</label>/<label>4</label>
@@ -543,8 +546,8 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 createMenus(5);
+initDialogValstr("add_form");
 var pid;
-
 //上一步，下一步
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
@@ -552,8 +555,8 @@ $('[data-btn="next"]').click(function(){
 	/* if(num==0){
 		var result=add();
 		if(!result){
-			alert("重要参数丢失");
-			return;
+		//	alert("重要参数丢失");
+			//return;
 		} 
 	}else if(num==1){
 		if(!step2Valiate("step2")){
@@ -569,6 +572,7 @@ $('[data-btn="next"]').click(function(){
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){
+	$("body").css("overflow","auto");
 	var prePageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(prePageNum.substr(prePageNum.length-1,1));
 	$("[data-btn='page"+(num-1)+"']").addClass("on").siblings().removeClass("on");

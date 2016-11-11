@@ -23,7 +23,7 @@
 			<div class="top clearfix">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 clearfix">
-					<a id="add_person_btn" href="javascript:;" onclick="toAddPerson('','');" class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
+					<a id="add_person_btn" href="javascript:;" onclick="toAddPerson(null,null);" class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
 					<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
 				</div>
 			</div>

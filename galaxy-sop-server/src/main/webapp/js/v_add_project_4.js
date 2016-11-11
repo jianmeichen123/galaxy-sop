@@ -64,7 +64,13 @@ function initViewUpload() {
 								layer.msg(data.result.message);
 								return;
 							}else{
-								layer.msg("保存成功", {time : 500});
+								layer.msg("保存成功", {time : 1000});
+								var plan_business_table_val=$("#pre_pro_view_table tbody tr").attr("class");
+								console.log(plan_business_table_val);
+								if(plan_business_table_val!="no-records-found"){
+									$("[data-btn='page3'] span[data-btn='createProject']").removeClass("disabled");
+									return;
+								}
 								$("#pre_pro_view_table").bootstrapTable('refresh');
 								removePop1();
 							}
@@ -295,8 +301,5 @@ function cutStr(theNum,theOldStr){
 	}
 	return theOldStr;
 }
-
-
-
 
 
