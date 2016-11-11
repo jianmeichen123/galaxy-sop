@@ -59,8 +59,6 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
-import com.galaxyinternet.service.FinanceHistoryService;
-import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
@@ -232,6 +230,18 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		if(p.getPc() != null){
 			for(PersonPool pool : p.getPc()){
 				Long poolId = personPoolDao.insert(pool);
+				if(pool.getPlc() != null){
+					for(PersonLearn learn : pool.getPlc()){
+						learn.setPersonId(poolId);
+						personLearnDao.insert(learn);
+					}
+				}
+				if(pool.getPwc() != null){
+					for(PersonWork work : pool.getPwc()){
+						work.setPersonId(poolId);
+						personWorkDao.insert(work);
+					}
+				}
 				ProjectPerson person = new ProjectPerson();
 				person.setProjectId(id);
 				person.setPersonId(poolId);
