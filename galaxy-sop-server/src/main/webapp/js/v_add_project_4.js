@@ -64,7 +64,13 @@ function initViewUpload() {
 								layer.msg(data.result.message);
 								return;
 							}else{
-								layer.msg("保存成功", {time : 500});
+								layer.msg("保存成功", {time : 1000});
+								var plan_business_table_val=$("#pre_pro_view_table tbody tr").attr("class");
+								console.log(plan_business_table_val);
+								if(plan_business_table_val!="no-records-found"){
+									$("[data-btn='page3'] span[data-btn='createProject']").removeClass("disabled");
+									return;
+								}
 								$("#pre_pro_view_table").bootstrapTable('refresh');
 								removePop1();
 							}
@@ -259,11 +265,6 @@ function interviewsave(){
 			$('#pre_pro_view_table').bootstrapTable('updateRow', {index: viewSelectIndex, row: interviewSelectRow});
 			//$('#pre_pro_view_table').bootstrapTable('updateByUniqueId', {uuid: viewSelectRowId, row: interviewSelectRow});
 			//$("#data-table").bootstrapTable('refresh');
-			var plan_business_table_val=$(".th_no1").text();
-			if(plan_business_table_val!="没有找到匹配的记录"){
-				$("[data-btn='page3'] span[data-btn='next']").removeClass("disabled");
-				return;
-			}
 		} else {
 			layer.msg(data.result.message);
 			$("#hint_all").css("display","block");
