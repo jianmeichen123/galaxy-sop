@@ -1,3 +1,36 @@
+function toAddBuessDoc(){
+	var _url=Constants.sopEndpointURL + '/galaxy/project/toAddBuessDoc';
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			
+		}
+	});
+	return false;
+}
+function generateBuessDocInnerHtml(entity){
+	var innerHTML = '<tr>';
+	innerHTML += '<td>'+entity.createDate+'</td>';
+	innerHTML += '<td>'+entity.fileName+"."+entity.fileSuffix+'</td>';
+	innerHTML += '<td>';
+	innerHTML += '<a class="uploadlink blue ico_pgn 3333" href="javascript:void(0)">更新附件</a>';
+	innerHTML += '</td>';
+	innerHTML += '</tr>';
+	$("#doc_tbody").empty();
+	$("#file_key").val(entity.fileKey);
+	$("#doc_tbody").append(innerHTML);
+	$(".uploadlink").bind('click', toAddBuessDoc);
+}
+
+function generateBuessDocEmptyInnerHtml(){
+	var innerHtml = "<tr><td>-</td><td>-</td><td>";
+	innerHtml += '<a onclick="toAddBuessDoc();" class="uploadlink blue ico_pgn 3333" href="javascript:void(0)">上传附件</a>';
+	innerHtml += '</td></tr>';
+	$("#doc_tbody").empty();
+	$("#doc_tbody").append(innerHtml);
+}
+
 $(function(){
 	/**
 	 * 编辑弹出富文本窗口宽度设置

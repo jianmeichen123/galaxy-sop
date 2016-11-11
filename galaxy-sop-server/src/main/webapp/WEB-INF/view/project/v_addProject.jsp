@@ -159,7 +159,28 @@
 						<div class="new_r_compile ">
 							<span class="new_ico_book"></span> <span class="new_color size16"><em class="red">*</em>商业计划书</span>
 						</div>
+						<input type="hidden" value="0" id="buess_doc"/>
+						<input type="hidden" value="" id="file_key"/>
 						<table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
+                    	<thead>
+                    		<tr class="">
+                    			<th style="" data-field="createDate">
+                    				<div class="th-inner ">更新时间</div>
+                    				<div class="fht-cell"></div>
+                    			</th>
+                    			<th style="" data-field="fileName">
+                    				<div class="th-inner ">文档名称</div>
+                    				<div class="fht-cell"></div>
+                    			</th>
+                    			<th style="" data-field="operate">
+                    				<div class="th-inner ">操作</div>
+                    				<div class="fht-cell"></div>
+                    			</th>
+                    		</tr>
+                    	</thead>
+                    	<tbody id="doc_tbody">
+                    		
+                    	</tbody>
                     	</table>
 					</div>
 					<div class="tabtable_con_on" >
@@ -528,7 +549,7 @@ var pid;
 $('[data-btn="next"]').click(function(){
 	var pageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(pageNum.substr(pageNum.length-1,1));
-	if(num==0){
+	/* if(num==0){
 		var result=add();
 		if(!result){
 			alert("重要参数丢失");
@@ -544,7 +565,7 @@ $('[data-btn="next"]').click(function(){
 				function(data){
 			viewTableShow(pid);
 		});
-	}
+	} */
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){
@@ -569,6 +590,17 @@ $('input[name="formationDate"]').datepicker({
 
 
 $(function(){
+	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookBuessDoc/"+pid, 
+			null, 
+			function(data){
+		if(data.result.status == 'OK' 
+				&& typeof(data.entity) != 'undefined'){
+			generateBuessDocInnerHtml(data.entity);
+			$("#buess_doc").val(1);
+		}else{
+			generateBuessDocEmptyInnerHtml();
+		}
+	});
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/searchProjectPerson/"+pid, 
 			null, 
 			function(data){
@@ -596,7 +628,6 @@ $(function(){
 });
 </script>
 <!-- step2 for JS -->
-<jsp:include page="v_project_step2JS.jsp" flush="true"></jsp:include>
 <script src="<%=path%>/js/v_add_project_1.js"></script>
 <script src="<%=path%>/js/v_add_project_2.js"></script>
 <script src="<%=path%>/js/v_add_project_3.js"></script>

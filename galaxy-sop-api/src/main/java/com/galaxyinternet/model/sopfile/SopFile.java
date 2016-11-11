@@ -136,12 +136,19 @@ public class SopFile extends SopParentFile implements Serializable{
   	private String fileWorktypeNullFilter;
   	
   	private MultipartFile multipartFile;
+  	/* 创建项目时，project的ID */
+  	private String tempPid;
 
   
+	public String getTempPid() {
+		return tempPid;
+	}
+	public void setTempPid(String tempPid) {
+		this.tempPid = tempPid;
+	}
 	public MultipartFile getMultipartFile() {
 		return multipartFile;
 	}
-
 	public void setMultipartFile(MultipartFile multipartFile) {
 		this.multipartFile = multipartFile;
 	}
