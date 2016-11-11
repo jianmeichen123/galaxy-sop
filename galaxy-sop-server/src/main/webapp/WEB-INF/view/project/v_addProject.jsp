@@ -551,6 +551,7 @@ $('[data-btn="next"]').click(function(){
 	$("[data-btn='page"+(num+1)+"']").addClass("on").siblings().removeClass("on");
 })
 $('[data-btn="pre"]').click(function(){
+	$("body").css("overflow","auto");
 	var prePageNum=$(this).parent().parent().parent().attr("data-btn");
 	num=Number(prePageNum.substr(prePageNum.length-1,1));
 	$("[data-btn='page"+(num-1)+"']").addClass("on").siblings().removeClass("on");

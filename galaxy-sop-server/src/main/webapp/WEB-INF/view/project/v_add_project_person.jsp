@@ -125,6 +125,7 @@ $(function(){
 	var uuid = $('input[name="uuid"]').val();
 	initDialogValstr("person-pool");
 	$("#save_person").click(function(){
+		$("body").css("overflow","auto");
 		$("#learn-tip").css("display","none");
 		$("#work-tip").css("display","none");
 		if(beforeSubmitById("person-pool")){
