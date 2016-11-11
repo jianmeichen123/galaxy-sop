@@ -240,6 +240,14 @@ $(function(){
 		}
 	}
 });
+/*下一步提示*/
+$("[data-btn='page1']").click(function(){
+	var plan_business_table_val=$("#plan_business_table tbody td").eq(0).text()
+	if(step2Valiate("step2") && plan_business_table_val!="-"){
+		$("[data-btn='page1'] span[data-btn='next']").removeClass("disabled");
+		return;
+	}
+})
 /**
  * 控制展开收起
  */
@@ -275,7 +283,7 @@ function step2Valiate(id){
 			 var id = $(n).attr("id").replace("_show","_valiate");
 			 if($(n).text()=='' || $.trim($(n).text())=='') {
 				/* $("#"+id).html('<span style="font-color:red">参数丢失!</span>');*/
-				 $("#"+id).show();
+				 //$("#"+id).show();
 				 flag = false;
 			 }else{
 				 $("#"+id).hide();

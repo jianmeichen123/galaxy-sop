@@ -150,7 +150,7 @@
                     </table> 
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
-	                        <span class="pubbtn bluebtn fl"  data-btn="next">下一步</span>
+	                        <span class="pubbtn bluebtn disabled fl"  data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">1</label>/<label>4</label>
 	                        </div>
@@ -368,7 +368,7 @@
 					<div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre" id="toStep1">上一步</span>
-	                        <span class="pubbtn bluebtn fl"  data-btn="next" id="toStep3">下一步</span>
+	                        <span class="pubbtn bluebtn disabled fl"  data-btn="next" id="toStep3">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">2</label>/<label>4</label>
 	                        </div>
@@ -446,7 +446,7 @@
                      <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl" id="step3-previous" data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn fl" id="step3-next"  data-btn="next">下一步</span>
+	                        <span class="pubbtn bluebtn disabled fl" id="step3-next"  data-btn="next">下一步</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">3</label>/<label>4</label>
 	                        </div>
@@ -535,7 +535,7 @@ $('[data-btn="next"]').click(function(){
 		var result=add();
 		if(!result){
 		//	alert("重要参数丢失");
-			return;
+			//return;
 		} 
 	}else if(num==1){
 		if(!step2Valiate("step2")){
