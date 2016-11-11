@@ -86,6 +86,7 @@ function generatePersonEmptyInnerHtml(){
 }
 
 
+
 function addPersonLearning(){
 	var _url=Constants.sopEndpointURL + '/galaxy/project/addPersonLearning';
 	 	_name=$('[data-btn="qualifications"]').attr("data-name");
@@ -291,7 +292,16 @@ function generateSharesInnerHtml(list){
 	$(".operatorDelete").bind('click', deleteShares);
 }
 function generateSharesEmptyInnerHtml(){
-	var innerHtml = "<tr><td>暂无数据</td></tr>";
-	$("#shares-tbody").empty();
+	var innerHtml = "<tr><td colspan='7' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";	$("#shares-tbody").empty();
 	$("#shares-tbody").append(innerHtml);
 }
+
+/*下一步提示*/
+$("[data-btn='page2']").click(function(){
+	var plan_business_table_val=$("#person-table tbody td").eq(0).text();
+	var shares=$("#shares").val();
+	if(plan_business_table_val!="没有找到匹配的记录"&&shares>0){
+		$("[data-btn='page2'] span[data-btn='next']").removeClass("disabled");
+		return;
+	}
+})

@@ -17,16 +17,19 @@ function addFinanceHistory(){
 		});
 	}
 }
+
 function formatterTable(entity){
-	if(entity.length>=10){
-		$("#add_history").css("display","none");
-	}
 	$("#financeHistory_table").children('tr').remove();
 	var html;
-	if(null==entity){
-		html="<tr><td rowspan='7' align='center'>暂无数据<td></tr>";
+	if(null==entity||""==entity){
+		html="<tr><td colspan='7' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";
 		$("#financeHistory_table").append(html);
 	}else{
+		if(entity.length>=10){
+			$("#add_history").css("display","none");
+		}else{
+			$("#add_history").css("display","block");
+		}
 		 var data={
 					"0":"人民币",
 					"1":"美元", 
@@ -44,7 +47,7 @@ function formatterTable(entity){
 					"<td>"+obj.financeProportion+"</td>"+
 					"<td>"+obj.financeStatusDs+"</td>"+
 					"<td>"+
-						"<a class='finance_edit blue'   onclick=\"updateFinance('"+obj.uuid+"')\" href='javascript:void(0)'>编辑 &nbsp;</a>"+
+						"<a class='finance_edit blue'   onclick=\"updateFinance('"+obj.uuid+"')\" href='javascript:void(0)' data-name='编辑融资历史'>编辑 &nbsp;</a>"+
 						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.uuid+"')\" href='javascript:void(0)'>删除</a>"+
 					"</td>"+
 			   "</tr>";
@@ -59,10 +62,12 @@ function formatterTable(entity){
 function updateFinance(uuid){
 	var $self = $(this);
 	var _url =platformUrl.updateFinanceHistory;
+	var _name=$(".finance_edit").attr("data-name");
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			$("#popup_name").text(_name);
 			getFinanceHistory(uuid);
 		}//模版反回成功执行	
 	});

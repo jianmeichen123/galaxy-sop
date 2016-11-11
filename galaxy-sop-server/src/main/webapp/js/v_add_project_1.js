@@ -41,6 +41,7 @@ $(function(){
 		});
 		return false;
 	});
+	formatterTable(null);
 })
 //格式化
 function shareOperatFormater(val,row,index)

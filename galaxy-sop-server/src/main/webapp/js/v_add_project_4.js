@@ -259,6 +259,11 @@ function interviewsave(){
 			$('#pre_pro_view_table').bootstrapTable('updateRow', {index: viewSelectIndex, row: interviewSelectRow});
 			//$('#pre_pro_view_table').bootstrapTable('updateByUniqueId', {uuid: viewSelectRowId, row: interviewSelectRow});
 			//$("#data-table").bootstrapTable('refresh');
+			var plan_business_table_val=$(".th_no1").text();
+			if(plan_business_table_val!="没有找到匹配的记录"){
+				$("[data-btn='page3'] span[data-btn='next']").removeClass("disabled");
+				return;
+			}
 		} else {
 			layer.msg(data.result.message);
 			$("#hint_all").css("display","block");
@@ -295,8 +300,5 @@ function cutStr(theNum,theOldStr){
 	}
 	return theOldStr;
 }
-
-
-
 
 
