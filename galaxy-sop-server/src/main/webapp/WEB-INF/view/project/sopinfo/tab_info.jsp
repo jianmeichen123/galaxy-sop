@@ -128,7 +128,7 @@
                              </span></td>
                            </tr>
                    <tr>
-                             <td colspan="2"><span class="new_color_gray">备注：</span><span><textarea maxlength="50"></textarea></span></td>
+                             <td colspan="2"><span class="new_color_gray">备注：</span><span><textarea maxlength="50" id="remark"></textarea></span></td>
                          </tr>
 	        </table>  
 	        
