@@ -30,8 +30,8 @@
 	         <select name="financeUnit">
                         <option value="0" select="selected" name="financeUnit">人民币</option>
                         <option value="1" name="financeUnit">美元</option>
-                        <option value="2" name="financeUnit">英镑</option>
-                        <option value="3" name="financeUnit">欧元</option>
+                       <!--  <option value="2" name="financeUnit">英镑</option>
+                        <option value="3" name="financeUnit">欧元</option> -->
              </select>
         </dd>
       </dl>
@@ -45,7 +45,8 @@
   <div class="form_textarea">
     <dl class="fmdl">
       <dt>备注：</dt>
-      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea></dd>
+      
+      <dd><textarea name="remark" class="new_nputr text" valType="requiredDiv" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea></dd>
     </dl>
   </div>
       <a href="javascript:;" onclick="savaStock();" class="pubbtn bluebtn">保存</a>
