@@ -1012,7 +1012,7 @@ var platformUrl = {
 	/**
 	 * 项目详情-新增一融资历史信息
 	 */
-	addFH : Constants.sopEndpointURL + "/galaxy/financeHistory/addFH",
+	saveFH : Constants.sopEndpointURL + "/galaxy/financeHistory/saveFH",
 	/**
 	 * 项目详情-跳转到融资历史修改页面
 	 */

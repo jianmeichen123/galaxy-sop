@@ -7,10 +7,10 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/financeDateForHour.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="historytc" id="financeDetail">
 	<div class="title_bj" id="popup_name"></div>
-	<form id="update_Historyform" method="post" >
+	<form id="updateOrSave_HF" method="post" >
     <div class="form clearfix">
         <div class="conference_all">
             <dl class="fmdl clearfix">
@@ -61,11 +61,20 @@
       	</form>
     
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="save_file"  onclick="updateFinanceHistory()">确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save_file"  onclick="updateOrsave()">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 
 </div>
 <script>
-initDialogValstr("update_Historyform");
+$(function(){
+	$('input[name="financeDateStr"]').val(new Date().format("yyyy-MM-dd"));
+});
+/**
+ * 获取融资状态下拉项
+ * @version 2016-06-21
+ */
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
+
+initDialogValstr("updateOrSave_Historyform");
 </script>

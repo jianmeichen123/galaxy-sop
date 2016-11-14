@@ -47,7 +47,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 	 */
 	@RequestMapping(value = "/toUpateOrSaveFH", method = RequestMethod.GET)
 	public String upateFinanceHistory(HttpServletRequest request) {
-		return "project/v_upateFH";
+		return "project/v_upateOrsaveFH";
 	}
 	/**
 	 * 根据项目id查询项目的历史投资信息

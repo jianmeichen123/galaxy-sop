@@ -80,7 +80,7 @@
 	      finance_proportion,finance_status,created_uid,created_time,updated_uid,updated_time)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{financeDate,jdbcType=TIMESTAMP}, 
 	      #{financeFrom,jdbcType=VARCHAR}, #{financeAmount,jdbcType=DECIMAL}, #{financeUnit,jdbcType=DECIMAL}, 
-	      #{financeProportion,jdbcType=DECIMAL},#{financeStatus,jdbcType=VARCHAR},#{createdUid,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{updatedUid,jdbcType=VARCHAR},#{updatedTime,jdbcType=BIGINT})
+	      #{financeProportion,jdbcType=DECIMAL},#{financeStatus,jdbcType=VARCHAR},#{createUid,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{updatedUid,jdbcType=VARCHAR},#{updatedTime,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
@@ -95,7 +95,7 @@
 		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR}, </if>
 		     <if test="financeProportion != null" > finance_proportion = #{financeProportion,jdbcType=DECIMAL}, </if>
 		     <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
-		     <if test="createdUid != null" > created_uid = #{createdUid,jdbcType=BIGINT} ,</if>
+		     <if test="createUid != null" > created_uid = #{createUid,jdbcType=BIGINT} ,</if>
 		     <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		     <if test="updatedUid != null" > updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
 		     <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT} </if>

@@ -49,7 +49,7 @@ function formatterTable(entity){
  */
 function toUpdateOrSave(id){
 	var $self = $(this);
-	var _url =platformUrl.updateFinanceHistory;
+	var _url =platformUrl.toUpateOrSaveFH;
 	var _name=$(".finance_edit").attr("data-name");
 	$.getHtml({
 		url:_url,//模版请求地址
@@ -63,10 +63,10 @@ function toUpdateOrSave(id){
 	});
 	return false;
 };
-function addFinanceHistory(){
-	var nowFormData = $("#add_Historyform").serializeObject();
-	if(beforeSubmitById("add_Historyform")){
-	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+pid, nowFormData, function(data){
+function updateOrsave(){
+	var nowFormData = $("#updateOrSave_HF").serializeObject();
+	if(beforeSubmitById("updateOrSave_HF")){
+	     sendPostRequestByJsonStr(platformUrl.saveFH+"/"+pid, nowFormData, function(data){
 			var re=data;
 			$("#flagId").val(data.entity.id);
 			pid = data.entity.id;
@@ -85,8 +85,7 @@ var historyid;
 function updateFinanceHistory(){
 	var nowFormData = $("#update_Historyform").serializeObject();
 	if(beforeSubmitById("add_Historyform")){
-	     sendPostRequestByJsonStr(platformUrl.updateSave+"/"+historyUuid+"/"+$("#flagId").val(), nowFormData, function(data){
-			$("#flagId").val(data.entity.id);
+	     sendPostRequestByJsonStr(platformUrl.upateFHSave+"/"+pid, nowFormData, function(data){
 			pid = data.entity.id;
 			$.popupOneClose();
 			$("body").css("overflow","auto")
@@ -94,9 +93,9 @@ function updateFinanceHistory(){
 		});
 	}
 }
-function deleteFinance(uuid){
+function deleteFinance(id){
 	var nowFormData = $("#add_Historyform").serializeObject();
-	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
+	 sendPostRequestByJsonStr(platformUrl.deleteFH+"/"+id, nowFormData, function(data){
 			var re=data;
 			$.popupOneClose();
 			$("body").css("overflow","auto")
