@@ -17,14 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.FinanceHistoryBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.FormatterUtils;
+import com.galaxyinternet.framework.core.utils.UUIDUtils;
 import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.FinanceHistoryService;
+import com.galaxyinternet.utils.ListSortUtil;
 
 @Controller
 @RequestMapping("/galaxy/financeHistory")
@@ -45,7 +48,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 	 * @version v
 	 * @return
 	 */
-	@RequestMapping(value = "/upateFH", method = RequestMethod.GET)
+	@RequestMapping(value = "/toUpateOrSaveFH", method = RequestMethod.GET)
 	public String upateFinanceHistory(HttpServletRequest request) {
 		return "project/v_upateFH";
 	}
@@ -53,7 +56,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 	 * 根据项目id查询项目的历史投资信息
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/searchFinanceHistory/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/searchFH/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<FinanceHistory> searchFinanceHistory(@PathVariable("pid") String pid, HttpServletRequest request) {
 		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
 		if(pid == null){
@@ -71,6 +74,33 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 			if(logger.isErrorEnabled()){
 				logger.error(user.getId() + ":" + user.getRealName() + " to search financeHistory get an exception", e);
 			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 添加股权结构弹出层
+	 * @version v
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveFH/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<com.galaxyinternet.mongodb.model.Project> saveFinanceHistory(@PathVariable("pid") Long pid, 
+			@RequestBody FinanceHistory financeHistory,
+			HttpServletRequest request) {
+		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
+		if(null ==  financeHistory ||null == pid){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			financeHistory.setProjectId(pid);
+			financeHistoryService.insert(financeHistory);
+			logger.info(user.getId() + ":" + user.getRealName() + " to save FinanceHistory successful > " + pid);
+			responseBody.setResult(new Result(Status.OK, "ok" , "添加融资历史成功!"));
+		} catch (Exception e) {
+			logger.error(user.getId() + ":" + user.getRealName() + " to save FinanceHistory get an exception", e);
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		}
 		return responseBody;
@@ -111,7 +141,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 	 * 删除历史投资信息
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/deleteFinanceHistory/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/deleteFH/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<FinanceHistory> deleteFinanceHistory(@PathVariable("id") String id,
 			HttpServletRequest request) {
 		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
