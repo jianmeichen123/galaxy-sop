@@ -23,7 +23,7 @@
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;当前职务：</dt>
-                    <dd><input type="text" class="txt" name="personDuties" valtype="required" msg="<font color=red>*</font>姓名不能为空"/></dd>
+                    <dd><input type="text" class="txt" name="personDuties" valtype="required" msg="<font color=red>*</font>当前职务不能为空"/></dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;出生日期：</dt>
@@ -159,5 +159,25 @@ $(function(){
 			});
 		}
 	});
+	//调整谈弹窗提示框
+	$("#person-pool").scroll(function(){
+		var offsetTop=$(this).offset().top;
+		var top=$(this).scrollTop();
+		console.log(top);
+		$(".tip-yellowsimple").css("margin-top",-top);
+		var marginTop=$(".tip-yellowsimple").css("margin-top");
+		for(var i=0;i<$(".tip-yellowsimple").length;i++){
+			var txt=$(".tip-yellowsimple").eq(i).text();
+			if(top>130 && txt=="*手机格式不正确"){
+				$(".tip-yellowsimple").eq(i).css("opacity","0");
+			}else if(top>80 && txt=="*当前职务不能为空"){
+				$(".tip-yellowsimple").eq(i).css("opacity","0");
+			}else if(top>50 && txt=="*姓名不能为空"){
+				$(".tip-yellowsimple").eq(i).css("opacity","0");
+			}else{
+				$(".tip-yellowsimple").eq(i).css("opacity","1");
+			}
+		}
+	})
 });
 </script>
