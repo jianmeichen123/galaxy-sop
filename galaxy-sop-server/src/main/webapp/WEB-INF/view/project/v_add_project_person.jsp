@@ -119,6 +119,7 @@ $('input[name="personBirthdayStr"]').datepicker({
     currentText: 'Now'
 });
 $(function(){
+	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
 	generatePersonEmptyInnerHtml();
 	generateLearningEmptyInnerHtml();
 	generateWorkEmptyInnerHtml();
