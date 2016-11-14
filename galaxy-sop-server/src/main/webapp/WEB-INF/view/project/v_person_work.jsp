@@ -51,6 +51,7 @@ $('input[name="beginWorkStr"], input[name="overWorkStr"]').datepicker({
     currentText: 'Now'
 });
 $(function(){
+	$('input[name="beginWorkStr"], input[name="overWorkStr"]').val(new Date().format("yyyy-MM-dd"));
 	initDialogValstr("work");
 	var uuid = $('input[name="uuid"]').val();
 	$("#save_person_work").click(function(){

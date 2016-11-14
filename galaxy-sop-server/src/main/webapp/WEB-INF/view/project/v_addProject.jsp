@@ -96,7 +96,7 @@
                         <li>
                         	<span class="basic_span">备注：</span>
                             <span>
-                            	<textarea class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea>
+                            	<textarea class="new_nputr text" maxlength="50" placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea>
                         	</span>
                         </li>
                     </ul>  

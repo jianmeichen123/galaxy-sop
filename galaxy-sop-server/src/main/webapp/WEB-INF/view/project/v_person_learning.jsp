@@ -64,6 +64,7 @@ $('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
     currentText: 'Now'
 });
 $(function(){
+	$('input[name="beginDateStr"], input[name="overDateStr"]').val(new Date().format("yyyy-MM-dd"));
 	initDialogValstr("learning");
 	var uuid = $('input[name="uuid"]').val();
 	$("#save_person_learning").click(function(){
