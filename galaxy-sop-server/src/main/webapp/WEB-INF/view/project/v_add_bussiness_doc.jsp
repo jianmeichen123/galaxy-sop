@@ -47,12 +47,12 @@
 </div>
 
 <!--  文件提示  -->
-<div id="file-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 511px; top: 271px;">
+<!-- <div id="file-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 511px; top: 271px;">
     <div class="tip-inner tip-bg-image">
         <font color="red">*</font>商业计划书不能为空
     </div>
     <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
-</div>
+</div> -->
 <script type="text/javascript">
 $(function(){
 	var fileValidate = false;
@@ -103,6 +103,12 @@ $(function(){
 			$.popupOneClose();
 			generateBuessDocInnerHtml(response.entity);
 			$("#buess_doc").val(1);
+			//下一步变亮
+			var plan_business_table_val=$("#plan_business_table tbody td").eq(0).text()
+			if(step2Valiate("step2") && plan_business_table_val!="-"){
+				$("[data-btn='page1'] span[data-btn='next']").removeClass("disabled");
+				return;
+			}
 		}else{
 			layer.msg(response.result.message);
 		}
@@ -110,10 +116,12 @@ $(function(){
     $("#win_uploadBtn").click(function(){
     	if(!fileValidate){
     		$("#file-tip").css("display","block");
+    		$.popupOneClose();
+    		$("body").css("overflow","auto");
     	}
     	if(fileValidate){
     		uploader.start();
-    		$("body").css("overflow","auto")
+    		$("body").css("overflow","auto");
     	}
     });
 });

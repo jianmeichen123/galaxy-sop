@@ -161,10 +161,16 @@
 					<div class="tabtable_con_on">
 						<div class="new_r_compile ">
 							<span class="new_ico_book"></span> <span class="new_color size16"><em class="red">*</em>商业计划书</span>
+							<span id="file-tip" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+							    <div class="tip-inner tip-bg-image">
+							        <font color="red">*</font>商业计划书不能为空
+							    </div>
+							    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+							</span>
 						</div>
 						<input type="hidden" value="0" id="buess_doc"/>
 						<input type="hidden" value="" id="file_key"/>
-						<table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
+						<table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table table">
                     	<thead>
                     		<tr class="">
                     			<th style="" data-field="createDate">
@@ -206,7 +212,13 @@
 					    </div>
 					    <div class="project_center">
 							<div class="new_r_compile ">
-								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" style="display:none" id="describe_valiate"><em class="red">*</em>项目描述不能为空</span>
+								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span>
+								<span id="describe_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>项目描述不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span> 
 								<span class="new_fctbox">
 									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 								</span>
@@ -221,7 +233,13 @@
 					<div class="tabtable_con_on">
 						<div class='company_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" style="display:none" id="location_valiate"><em class="red">*</em>公司定位不能为空</span>
+								<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span>
+								<span id="location_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>公司定位不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 								</span>
@@ -245,7 +263,13 @@
 					<div class="tabtable_con_on">
 						<div class='portrayal_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" style="display:none" id="portrait_valiate"><em class="red">*</em>用户画像不能为空</span>
+								<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span>
+								<span id="portrait_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>用户画像不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span>
 								<span class="new_fctbox"> 
 								<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 								</span>
@@ -269,7 +293,13 @@
 					<div class="tabtable_con_on">
 						<div class='product_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" style="display:none" id="business_model_valiate"><em class="red">*</em>产品服务不能为空</span>
+								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span>
+								<span id="business_model_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>产品服务不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 								</span>
@@ -317,7 +347,13 @@
 					<div class="tabtable_con_on">
 						<div class='industry_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" style="display:none" id="industry_analysis_valiate"><em class="red">*</em>行业分析不能为空</span>
+								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span>
+								<span id="industry_analysis_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>行业分析不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
@@ -341,7 +377,13 @@
 					<div class="tabtable_con_on">
 						<div class='analysis_center'>
 							<div class="new_r_compile ">
-								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" style="display:none" id="analysis_valiate"><em class="red">*</em>竞争分析不能为空</span>
+								<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span>
+								<span id="analysis_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>竞争分析不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span>
 								<span class="new_fctbox"> 
 									<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 								</span>
