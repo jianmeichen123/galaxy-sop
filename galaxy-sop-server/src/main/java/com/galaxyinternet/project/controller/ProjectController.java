@@ -1301,11 +1301,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			
 			sortList.Sort(entity.getFh(),"financeDateStr",
 					"desc");
-			logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
+			logger.info(user.getId() + ":" + user.getRealName() + " to save FinanceHistory successful > " + project.getId());
 			responseBody.setResult(new Result(Status.OK, "ok" , "添加融资历史成功!"));
 			responseBody.setEntity(entity);
 		} catch (MongoDBException e) {
-			logger.error(user.getId() + ":" + user.getRealName() + " to save person learning get an exception", e);
+			logger.error(user.getId() + ":" + user.getRealName() + " to save FinanceHistory get an exception", e);
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		}
 		return responseBody;
@@ -1335,7 +1335,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询融资历史成功!"));
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
-				logger.error(user.getId() + ":" + user.getRealName() + " to search person learning get an exception", e);
+				logger.error(user.getId() + ":" + user.getRealName() + " to search FinanceHistory get an exception", e);
 			}
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		}
@@ -1364,7 +1364,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(project != null && project.getFh() != null && project.getFh().contains(l)){
 				project.getFh().remove(l);
 				mongoProjectService.updateById(pid, project);
-				logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
+				logger.info(user.getId() + ":" + user.getRealName() + " to delete FinanceHistory successful > " + project.getId());
 				ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
 				sortList.Sort(project.getFh(),"financeDateStr",
 						"desc");
@@ -1376,7 +1376,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
 				logger.error(FormatterUtils.formatStr(
-						"{0}:{1} to delete learning get an exception {pid : {3}, uuid : {4}}", 
+						"{0}:{1} to delete financeHistory get an exception {pid : {3}, uuid : {4}}", 
 						user.getId(), user.getRealName(), pid, uuid), e);
 			}
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
@@ -1410,8 +1410,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		        }
 				responseBody.setEntity(l);
 				responseBody.setResult(new Result(Status.OK,"ok" , "查询融资历史成功!"));
+				logger.info(user.getId() + ":" + user.getRealName() + " to search FinanceHistory by uuid successful > " + project.getId());
 			}else{
-				responseBody.setResult(new Result(Status.ERROR,"no" , "未找到该融资信息!"));
+				responseBody.setResult(new Result(Status.ERROR,"error" , "未找到该融资信息!"));
 			}
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
@@ -1449,7 +1450,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				financeHistory.setUuid(uuid);
 				project.getFh().add(financeHistory);
 				mongoProjectService.updateById(pid, project);
-				logger.info(user.getId() + ":" + user.getRealName() + " to save person learning successful > " + project.getId());
+				logger.info(user.getId() + ":" + user.getRealName() + " to updateSave financeHistory successful > " + project.getId());
 				ListSortUtil<FinanceHistory> sortList = new ListSortUtil<FinanceHistory>();
 				sortList.Sort(project.getFh(),"financeDateStr",
 						"desc");
@@ -1461,7 +1462,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){
 				logger.error(FormatterUtils.formatStr(
-						"{0}:{1} to delete learning get an exception {pid : {3}, uuid : {4}}", 
+						"{0}:{1} to updateSave financeHistory get an exception {pid : {3}, uuid : {4}}", 
 						user.getId(), user.getRealName(), pid, uuid), e);
 			}
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
