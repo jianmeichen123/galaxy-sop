@@ -37,8 +37,8 @@ function formatterTable(entity){
 					"<td>"+obj.financeProportion+"</td>"+
 					"<td>"+obj.financeStatusDs+"</td>"+
 					"<td>"+
-						"<a class='finance_edit blue'   onclick=\"updateFinance('"+obj.uuid+"')\" href='javascript:void(0)' data-name='编辑融资历史'>编辑 &nbsp;</a>"+
-						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.uuid+"')\" href='javascript:void(0)'>删除</a>"+
+						"<a class='finance_edit blue'   onclick=\"toUpdateOrSave('"+obj.id+"')\" href='javascript:void(0)' data-name='编辑融资历史'>编辑 &nbsp;</a>"+
+						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.id+"')\" href='javascript:void(0)'>删除</a>"+
 					"</td>"+
 			   "</tr>";
 			$("#financeHistory_table").append(html);
@@ -76,8 +76,8 @@ function updateOrsave(){
 		});
 	}
 }
-function getFinanceHistory(uuid){
-	sendPostRequest(platformUrl.getFH+"/"+pid,  function(data){
+function getFinanceHistory(id){
+	sendPostRequest(platformUrl.getFH+"/"+id,  function(data){
 			setDataFinance(data.entity);
 	});
 }
@@ -94,12 +94,10 @@ function updateFinanceHistory(){
 	}
 }
 function deleteFinance(id){
-	var nowFormData = $("#add_Historyform").serializeObject();
-	 sendPostRequestByJsonStr(platformUrl.deleteFH+"/"+id, nowFormData, function(data){
-			var re=data;
+	sendPostRequest(platformUrl.deleteFH+"/"+id, function(data){
 			$.popupOneClose();
 			$("body").css("overflow","auto")
-			formatterTable(re.entity.fh);
+			searchFH();
 	});
 	
 }
