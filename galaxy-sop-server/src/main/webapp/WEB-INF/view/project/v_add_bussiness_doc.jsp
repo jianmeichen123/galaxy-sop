@@ -113,6 +113,7 @@ $(function(){
     	}
     	if(fileValidate){
     		uploader.start();
+    		$("body").css("overflow","auto")
     	}
     });
 });
