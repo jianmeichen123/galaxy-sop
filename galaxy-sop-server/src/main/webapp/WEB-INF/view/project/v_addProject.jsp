@@ -190,11 +190,11 @@
 						<div class="project_on " >
 							<div class="title_bj_tzjl">项目描述</div>
 							<div class="describe1">
-								<span class="basic_span"><em class="red">*</em>商业模式：</span>
+								<span class="basic_span1"><em class="red">*</em>商业模式：</span>
 							 	<div id="describe_editor" type="text/plain" class='width_fwb'></div>  
 							</div>
 							<div class="describe2">
-								<span class="basic_span"><em class="red">*</em>业务简要概述和项目亮点：</span>
+								<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
 							 	<div id="describe_editor2" type="text/plain" class='width_fwb'></div>  
 							</div>
 		                    <div class="compile_on_center">
@@ -421,7 +421,6 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_stock_add ico_add_project"></span>
                         <span class="new_color size16"><em class="red">*</em>股权结构</span>
-                        <button class="blue fr add_history" href="tanchuan/historytc.jsp" data-btn="add_history" data-name="融资历史">添加</button>
                     </div>
 					<div class="legal">
 					    <div class="legal_box">
@@ -448,7 +447,7 @@
                         <button onclick="addProjectShares();" class="blue fr add_history">添加</button>
                     </div>
                     <input type="hidden" value="0" id="shares"/>
-                    <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                    <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table sharestable">
                     	<thead>
                     	<tr>
                     		<th>所有权人</th>
