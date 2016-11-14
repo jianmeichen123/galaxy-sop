@@ -414,15 +414,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project p = mongoProjectService.findById(id);
-			if(p != null && p.getProjectCompany() != null && !"".equals(p.getProjectCompany().trim())
-					&& p.getProjectCompanyCode() != null && !"".equals(p.getProjectCompanyCode().trim())
-					&& p.getCompanyLegal() != null && !"".equals(p.getCompanyLegal().trim())
-					&& p.getFormationDate() != null && !"".equals(p.getFormationDate().trim())){
-				p.setProjectCompany(project.getProjectCompany());
-				p.setProjectCompanyCode(project.getProjectCompanyCode());
-				p.setCompanyLegal(project.getCompanyLegal());
-				p.setFormationDate(project.getFormationDate());
-				mongoProjectService.updateById(id, p);
+			if(p != null){
+				if(project.getProjectCompany() != null && !"".equals(project.getProjectCompany().trim())
+						&& project.getProjectCompanyCode() != null && !"".equals(project.getProjectCompanyCode().trim())
+						&& project.getCompanyLegal() != null && !"".equals(project.getCompanyLegal().trim())
+						&& project.getFormationDate() != null && !"".equals(project.getFormationDate().trim())){
+					p.setProjectCompany(project.getProjectCompany().trim());
+					p.setProjectCompanyCode(project.getProjectCompanyCode().trim());
+					p.setCompanyLegal(project.getCompanyLegal());
+					p.setFormationDate(project.getFormationDate());
+					mongoProjectService.updateById(id, p);
+				}
 				if(logger.isInfoEnabled()){
 					logger.info(user.getId() + ":" + user.getRealName() + " to update company messages successful > " + project.getId());
 				}
