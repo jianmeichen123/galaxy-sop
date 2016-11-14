@@ -55,7 +55,10 @@ radio name="personSex"
             
              <dl class="fmdl fl">
                 <dt>电话号码：</dt>
-                <dd><input type="text" class="txt" name="personTelephone" placeholder="请输入电话号码" /></dd>
+                <dd>
+                	<input type="text" class="txt" name="personTelephone" 
+                		placeholder="请输入电话号码" valtype="required"  msg="<font color=red>*</font>电话号码不能为空" />
+                </dd>
             </dl>
             
             <dl class="fmdl fl">
@@ -76,7 +79,7 @@ radio name="personSex"
         
         
         <div class="qualifications">
-            <h3>学历背景</h3>
+            <h3><em class="red">*</em>&nbsp;学历背景</h3>
             <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="学历背景">添加</span>
             
             <div id="learning_table_custom_toolbar">
@@ -111,7 +114,7 @@ radio name="personSex"
         
         
         <div class="qualifications">
-            <h3>工作履历</h3>
+            <h3><em class="red">*</em>&nbsp;工作履历</h3>
             <span  onclick="toAddPersonWork(null);" class="blue fr add"  data-name="工作履历" >添加</span>
             
             <div id="work_table_custom_toolbar">
@@ -167,6 +170,11 @@ $('input[name="personBirthdayStr"]').datepicker({
 });
 
 
+$("input:radio[name='isContacts']").change(function() {
+	// 0 y; 1 n
+	var $selectedvalue = $("input:radio[name='isContacts']:checked").val();
+	radio_isContacts_tel($selectedvalue);
+});
 
 
 
