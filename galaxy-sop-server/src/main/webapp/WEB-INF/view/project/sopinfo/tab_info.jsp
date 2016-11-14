@@ -443,3 +443,4 @@
 	var projectInfo = ${proinfo};
 </script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
+<script src="<%=path%>/js/v_baseInfo_project_history.js"></script>

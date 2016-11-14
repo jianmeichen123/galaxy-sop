@@ -1018,6 +1018,10 @@ var platformUrl = {
 	 */
 	toUpateOrSaveFH : Constants.sopEndpointURL + "/galaxy/financeHistory/toUpateOrSaveFH",
 	/**
+	 * 项目详情-查询改融资历史的详细信息
+	 */
+	getFH : Constants.sopEndpointURL + "/galaxy/financeHistory/getFH",
+	/**
 	 * 项目详情-融资历史修改保存
 	 */
 	upateFHSave : Constants.sopEndpointURL + "/galaxy/financeHistory/upateFHSave",

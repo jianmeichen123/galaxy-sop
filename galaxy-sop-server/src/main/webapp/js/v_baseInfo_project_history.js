@@ -1,24 +1,10 @@
-
-
-
-$(function(){
-		sendPostRequest(platformUrl.getFinanceHistory+"/"+pid,  function(data){
-			formatterTable(data.entityList);
-		});
-})
-function addFinanceHistory(){
-	var nowFormData = $("#add_Historyform").serializeObject();
-	if(beforeSubmitById("add_Historyform")){
-	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+pid, nowFormData, function(data){
-			var re=data;
-			$("#flagId").val(data.entity.id);
-			pid = data.entity.id;
-			$.popupOneClose();
-			$("body").css("overflow","auto")
-			formatterTable(re.entity.fh);
-		});
-	}
-}
+/**
+ * 加载该项目的融资历史
+ */
+sendPostRequest(platformUrl.searchFH+"/"+pid,  function(data){
+	console.log(pid);
+	formatterTable(data.entityList);
+});
 function formatterTable(entity){
 	$("#financeHistory_table").children('tr').remove();
 	var html;
@@ -58,9 +44,10 @@ function formatterTable(entity){
 	}
 	
 }
-
-
-function updateFinance(uuid){
+/**
+ * 跳转至新增修改页面
+ */
+function toUpdateOrSave(id){
 	var $self = $(this);
 	var _url =platformUrl.updateFinanceHistory;
 	var _name=$(".finance_edit").attr("data-name");
@@ -69,22 +56,32 @@ function updateFinance(uuid){
 		data:"",//传递参数
 		okback:function(){
 			$("#popup_name").text(_name);
-			getFinanceHistory(uuid);
+			if(null!=id&&"underfined"!=id){//修改页面
+				getFinanceHistory(id);//修改页面数据加载
+			}
 		}//模版反回成功执行	
 	});
 	return false;
 };
-function deleteFinance(uuid){
+function addFinanceHistory(){
 	var nowFormData = $("#add_Historyform").serializeObject();
-	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
+	if(beforeSubmitById("add_Historyform")){
+	     sendPostRequestByJsonStr(platformUrl.saveFinanceHistory+"/"+pid, nowFormData, function(data){
 			var re=data;
+			$("#flagId").val(data.entity.id);
+			pid = data.entity.id;
 			$.popupOneClose();
 			$("body").css("overflow","auto")
 			formatterTable(re.entity.fh);
-	});
-	
+		});
+	}
 }
-var historyUuid;
+function getFinanceHistory(uuid){
+	sendPostRequest(platformUrl.getFH+"/"+pid,  function(data){
+			setDataFinance(data.entity);
+	});
+}
+var historyid;
 function updateFinanceHistory(){
 	var nowFormData = $("#update_Historyform").serializeObject();
 	if(beforeSubmitById("add_Historyform")){
@@ -97,14 +94,19 @@ function updateFinanceHistory(){
 		});
 	}
 }
-function getFinanceHistory(uuid){
-	sendPostRequest(platformUrl.getFinanceHistory+"/"+uuid+"/"+$("#flagId").val(),  function(data){
-			setDataFinance(data.entity);
+function deleteFinance(uuid){
+	var nowFormData = $("#add_Historyform").serializeObject();
+	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
+			var re=data;
+			$.popupOneClose();
+			$("body").css("overflow","auto")
+			formatterTable(re.entity.fh);
 	});
+	
 }
 
 function setDataFinance(data){
-	historyUuid=data.uuid;
+	historyUuid=data.id;
 	$("#financeDetail dd input")
 	.each(function(){
 		var self = $(this);

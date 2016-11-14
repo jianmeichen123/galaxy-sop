@@ -17,17 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.FinanceHistoryBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.FormatterUtils;
-import com.galaxyinternet.framework.core.utils.UUIDUtils;
 import com.galaxyinternet.model.project.FinanceHistory;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.FinanceHistoryService;
-import com.galaxyinternet.utils.ListSortUtil;
 
 @Controller
 @RequestMapping("/galaxy/financeHistory")
@@ -136,7 +133,39 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 		}
 		return responseBody;
 	}
-	
+	/**
+	 * 查询历史投资信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getFH/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<FinanceHistory> getFinanceHistory(@PathVariable("id") String id,
+			HttpServletRequest request) {
+		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
+		if(id == null || "".equals(id.trim()) ){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		FinanceHistory fh = new FinanceHistory();
+		try {
+			fh=financeHistoryService.queryById(Long.parseLong(id));
+			if(null!=fh&&!"".equals(fh)){
+				responseBody.setEntity(fh);
+				responseBody.setResult(new Result(Status.OK,"ok" , "查询融资历史成功!"));
+				logger.info(user.getId() + ":" + user.getRealName() + " to search FinanceHistory by uuid successful > " + fh.getProjectId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"error" , "未找到该融资信息!"));
+			}
+		} catch (Exception e) {
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to delete learning get an exception {pid : {3}, uuid : {4}}", 
+						user.getId(), user.getRealName(), fh.getProjectId(), id), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
 	/**
 	 * 删除历史投资信息
 	 */
