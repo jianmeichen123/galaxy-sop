@@ -28,6 +28,9 @@ public class FinanceHistory extends BaseEntity {
     
     private Long createUid;//创建人
     
+    private Long updatedUid;
+    
+    
     private String financeStatusDs;//融资轮次	格式化
     
     private String createDate;//创建时间
@@ -173,26 +176,16 @@ public class FinanceHistory extends BaseEntity {
 	public String getUpdateDate() {
 		return updateDate;
 	}
-	public static String dateStrformat(String dateStr){  //2016-05-27 16:00:00   19
-		int len = dateStr.length();
-		if( dateStr.indexOf("/") != -1){
-			dateStr = dateStr.replaceAll("/", "-");
-		}
-		switch (len) {
-		case 10:
-			dateStr = dateStr + " 00:00:00";
-			break;
-		case 13:
-			dateStr = dateStr + ":00:00";
-			break;
-		case 16:
-			dateStr = dateStr + ":00";
-			break;
-		default:
-			break;
-		}
-		return dateStr;
+	
+	
+	public Long getUpdatedUid() {
+		return updatedUid;
 	}
+
+	public void setUpdatedUid(Long updatedUid) {
+		this.updatedUid = updatedUid;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if(uuid != null && obj != null && obj instanceof FinanceHistory && ((FinanceHistory) obj).getUuid() != null){
@@ -200,4 +193,6 @@ public class FinanceHistory extends BaseEntity {
 		}
 		return super.equals(obj);
 	}
+	
+	
 }

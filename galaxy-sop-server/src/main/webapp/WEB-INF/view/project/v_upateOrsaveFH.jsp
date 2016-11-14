@@ -61,7 +61,7 @@
       	</form>
     
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="save_file"  onclick="updateOrsave()">确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save_file"  onclick="updateOrsave('')">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 

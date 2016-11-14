@@ -1,10 +1,13 @@
+searchFH();
 /**
  * 加载该项目的融资历史
  */
-sendPostRequest(platformUrl.searchFH+"/"+pid,  function(data){
-	console.log(pid);
-	formatterTable(data.entityList);
-});
+function searchFH(){
+	sendPostRequest(platformUrl.searchFH+"/"+pid,  function(data){
+		console.log(pid);
+		formatterTable(data.entityList);
+	});
+}
 function formatterTable(entity){
 	$("#financeHistory_table").children('tr').remove();
 	var html;
@@ -67,12 +70,9 @@ function updateOrsave(){
 	var nowFormData = $("#updateOrSave_HF").serializeObject();
 	if(beforeSubmitById("updateOrSave_HF")){
 	     sendPostRequestByJsonStr(platformUrl.saveFH+"/"+pid, nowFormData, function(data){
-			var re=data;
-			$("#flagId").val(data.entity.id);
-			pid = data.entity.id;
 			$.popupOneClose();
 			$("body").css("overflow","auto")
-			formatterTable(re.entity.fh);
+			searchFH(pid);
 		});
 	}
 }

@@ -54,7 +54,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/searchFH/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<FinanceHistory> searchFinanceHistory(@PathVariable("pid") String pid, HttpServletRequest request) {
+	public ResponseData<FinanceHistory> searchFH(@PathVariable("pid") String pid, HttpServletRequest request) {
 		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
 		if(pid == null){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
@@ -82,10 +82,10 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveFH/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<com.galaxyinternet.mongodb.model.Project> saveFinanceHistory(@PathVariable("pid") Long pid, 
+	public ResponseData<FinanceHistory> saveFinanceHistory(@PathVariable("pid") Long pid, 
 			@RequestBody FinanceHistory financeHistory,
 			HttpServletRequest request) {
-		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
+		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
 		if(null ==  financeHistory ||null == pid){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;

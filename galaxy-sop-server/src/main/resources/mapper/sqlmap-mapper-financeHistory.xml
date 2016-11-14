@@ -38,9 +38,7 @@
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
 			     <if test="financeDate != null" >and finance_date = #{financeDate,jdbcType=TIMESTAMP} </if>
 			     <if test="financeFrom != null" >and finance_from = #{financeFrom,jdbcType=VARCHAR} </if>
-			     <if test="financeAmount != null" >and finance_amount = #{financeAmount,jdbcType=DECIMAL} </if>
 			     <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
-			     <if test="financeProportion != null" >and finance_proportion = #{financeProportion,jdbcType=DECIMAL} </if>
 			     <if test="financeStatus != null" >and finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
 			     <if test="createUid != null" >and updated_uid = #{createUid,jdbcType=LONG} </if>
 			     <if test="createTime != null" >and updated_time = #{createTime,jdbcType=LONG} </if>
@@ -77,7 +75,7 @@
 	    <![CDATA[
 	    insert into finance_history (id, project_id, finance_date, 
 	      finance_from, finance_amount, finance_unit, 
-	      finance_proportion,finance_status,created_uid,created_time,updated_uid,updated_time)
+	      finance_proportion,finance_status,create_uid,create_time,updated_uid,updated_time)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{financeDate,jdbcType=TIMESTAMP}, 
 	      #{financeFrom,jdbcType=VARCHAR}, #{financeAmount,jdbcType=DECIMAL}, #{financeUnit,jdbcType=DECIMAL}, 
 	      #{financeProportion,jdbcType=DECIMAL},#{financeStatus,jdbcType=VARCHAR},#{createUid,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{updatedUid,jdbcType=VARCHAR},#{updatedTime,jdbcType=BIGINT})
@@ -95,8 +93,8 @@
 		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR}, </if>
 		     <if test="financeProportion != null" > finance_proportion = #{financeProportion,jdbcType=DECIMAL}, </if>
 		     <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
-		     <if test="createUid != null" > created_uid = #{createUid,jdbcType=BIGINT} ,</if>
-		     <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		     <if test="createUid != null" > create_uid = #{createUid,jdbcType=BIGINT} ,</if>
+		     <if test="createdTime != null" > create_time = #{createdTime,jdbcType=BIGINT}, </if>
 		     <if test="updatedUid != null" > updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
 		     <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 		     
@@ -107,9 +105,7 @@
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
 			    <if test="financeDate != null" >and finance_date = #{financeDate,jdbcType=TIMESTAMP} </if>
 			    <if test="financeFrom != null" >and finance_from = #{financeFrom,jdbcType=VARCHAR} </if>
-			    <if test="financeAmount != null" >and finance_amount = #{financeAmount,jdbcType=DECIMAL} </if>
 			    <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
-			    <if test="financeProportion != null" >and finance_proportion = #{financeProportion,jdbcType=DECIMAL} </if>
 			    <if test="financeStatus != null" >and finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
