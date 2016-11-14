@@ -13,7 +13,7 @@
 		<result property="updateUid" column="updated_uid" />
 		<result property="updatedTime" column="updated_time" />
 		<result property="createUid" column="create_uid" />
-		<result property="createTime" column="create_time" />
+		<result property="createdTime" column="create_time" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
@@ -41,7 +41,7 @@
 			     <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
 			     <if test="financeStatus != null" >and finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
 			     <if test="createUid != null" >and updated_uid = #{createUid,jdbcType=LONG} </if>
-			     <if test="createTime != null" >and updated_time = #{createTime,jdbcType=LONG} </if>
+			     <if test="createdTime != null" >and updated_time = #{createdTime,jdbcType=LONG} </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>

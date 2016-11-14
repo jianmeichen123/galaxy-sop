@@ -171,7 +171,7 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/deleteFH/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<FinanceHistory> deleteFinanceHistory(@PathVariable("id") String id,
+	public ResponseData<FinanceHistory> deleteFH(@PathVariable("id") String id,
 			HttpServletRequest request) {
 		ResponseData<FinanceHistory> responseBody = new ResponseData<FinanceHistory>();
 		if (id == null || "".equals(id.trim())) {
@@ -181,8 +181,8 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 		User user = (User) getUserFromSession(request);
 		FinanceHistory financeHistory=new FinanceHistory();
 		try {
-			int result = financeHistoryService.deleteById(Long.parseLong(id));
 			financeHistory=financeHistoryService.queryById(Long.parseLong(id));
+			int result = financeHistoryService.deleteById(Long.parseLong(id));
 			if(result>0){
 					logger.info(user.getId() + ":" + user.getRealName() + " to deleteFinanceHistory financeHistory successful > "
 							+ financeHistory.getProjectId());
