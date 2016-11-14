@@ -7,7 +7,7 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/financeDateForHour.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="historytc">
 	<div class="title_bj" id="popup_name"></div>
 	<form id="add_Historyform" method="post">
@@ -16,7 +16,7 @@
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
                 <dd>
-                    <input type="text" class="datetimepickerFinance txt time" readonly="" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
+                    <input type="text" class="datepicker-text txt time" readonly="" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
                 </dd>
             </dl>
             
@@ -29,7 +29,7 @@
             <dl class="fmdl clearfix">
                  <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="financeAmount" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="financeAmount" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>大于0的数字"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -73,4 +73,7 @@ initDialogValstr("add_Historyform");
  * @version 2016-06-21
  */
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
+$(function(){
+	$('input[name="financeDateStr"]').val(new Date().format("yyyy-MM-dd"));
+});
 </script>
