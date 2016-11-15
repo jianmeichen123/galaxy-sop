@@ -169,7 +169,7 @@
 <div class="tabtable_con_on" >
      <div class="history_center">
 		<div class="new_r_compile ">
-			<span class="new_ico_history ico_add_project"></span> <span class="new_color size16">融资历史</span> <span class="bj_ico" id="history">暂无数据</span>
+			<span class="new_ico_history ico_add_project"></span> <span class="new_color size16">融资历史</span>
 			<span class="new_fctbox" id="add">
 				<a href="javascript:;" style="margin:0 0 0 5px;" onclick="toUpdateOrSave()" data-btn="add_history" data-name="添加融资历史"><span class="blue" style="font-size:22px;font-family:'微软雅黑';">+</span>添加</a>
 			</span>
@@ -211,9 +211,16 @@
 </div>
 <!--项目概述-->
 <div class="tabtable_con_on" >
-	<div class="project_on " >
+	<div class="project_on " style="height:560px;">
 		<div class="title_bj_tzjl">项目描述</div>
-                   <div id="describe_editor" type="text/plain" class='width_fwb'></div>  
+                  <div class="describe1">
+								<span class="basic_span1"><em class="red">*</em>商业模式：</span>
+							 	<div id="describe_editor" type="text/plain" class='width_fwb'></div>  
+							</div>
+							<div class="describe2">
+								<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
+							 	<div id="describe_editor2" type="text/plain" class='width_fwb'></div>  
+							</div>
                      <div class="compile_on_center">
                         <div class="compile_on_right">
                             <span class="pubbtn bluebtn" id="save_describe">保存</span>
@@ -232,7 +239,9 @@
 		</div>
 		<div class="new_ul_all new_top_color describe_show" >
 			<span class="ico_dot ico"></span>
-			<p id="describe_show"></p>
+			<p id="describe_show" valiate="required"></p>
+			<span class="ico_dot ico"></span>
+			<p id="describe2_show" valiate="required"></p>
 		</div>
 	</div>
 </div>

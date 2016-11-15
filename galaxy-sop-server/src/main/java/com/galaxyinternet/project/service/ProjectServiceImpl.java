@@ -229,16 +229,21 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//团队成员
 		if(p.getPc() != null){
 			for(PersonPool pool : p.getPc()){
+				pool.setPersonBirthday(DateUtil.convertStringToDate(pool.getPersonBirthdayStr(), "yyyy-MM-dd"));
 				Long poolId = personPoolDao.insert(pool);
 				if(pool.getPlc() != null){
 					for(PersonLearn learn : pool.getPlc()){
 						learn.setPersonId(poolId);
+						learn.setBeginDate(DateUtil.convertStringToDate(learn.getBeginDateStr(), "yyyy-MM-dd"));
+						learn.setOverDate(DateUtil.convertStringToDate(learn.getOverDateStr(), "yyyy-MM-dd"));
 						personLearnDao.insert(learn);
 					}
 				}
 				if(pool.getPwc() != null){
 					for(PersonWork work : pool.getPwc()){
 						work.setPersonId(poolId);
+						work.setBeginWork(DateUtil.convertStringToDate(work.getBeginWorkStr(), "yyyy-MM-dd"));
+						work.setOverWork(DateUtil.convertStringToDate(work.getOverWorkStr(), "yyyy-MM-dd"));
 						personWorkDao.insert(work);
 					}
 				}
@@ -910,7 +915,11 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 					personLearn.setPersonId(personId);
 					personLearnDao.insert(personLearn);
 				}else {
-					personLearnDao.updateById(personLearn);
+					if(personLearn.getIsEditOrCreate()!=null && personLearn.getIsEditOrCreate().intValue()==2 ){
+						personLearnDao.deleteById(personLearn.getId());
+					}else{
+						personLearnDao.updateById(personLearn);
+					}
 				}
 			}
 		}
@@ -938,7 +947,11 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 					personWork.setPersonId(personId);
 					personWorkDao.insert(personWork);
 				}else {
-					personWorkDao.updateById(personWork);
+					if(personWork.getIsEditOrCreate()!=null && personWork.getIsEditOrCreate().intValue()==2 ){
+						personWorkDao.deleteById(personWork.getId());
+					}else{
+						personWorkDao.updateById(personWork);
+					}
 				}
 			}
 		}

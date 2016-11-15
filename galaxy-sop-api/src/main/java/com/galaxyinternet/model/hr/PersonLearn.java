@@ -24,7 +24,7 @@ public class PersonLearn extends BaseEntity{
 	private String   beginDateStr; //入学时间
 	private String   overDateStr; // 毕业时间
 	
-	private Integer isEditOrCreate; // 1:id有值 编辑
+	private Integer isEditOrCreate; //标记 1:id 有值 编辑   2:id 有值 删除
 	public String getUuid() {
 		return uuid;
 	}

@@ -23,6 +23,7 @@ $(function(){
 		
 //		UM.getEditor('editor');
 		var describeUm = UM.getEditor('describe_editor');
+		var describeUm2 = UM.getEditor('describe_editor2');
 		var companyUm = UM.getEditor('company_editor');
 		var portraitUm = UM.getEditor('portrait_editor');
 		var operationUm = UM.getEditor('operation_editor');
