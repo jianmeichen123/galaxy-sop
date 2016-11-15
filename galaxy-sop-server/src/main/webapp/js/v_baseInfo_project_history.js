@@ -87,11 +87,30 @@ function getFinanceHistory(id){
 	});
 }
 function deleteFinance(id){
-	sendPostRequest(platformUrl.deleteFH+"/"+id, function(data){
-			$.popupOneClose();
-			$("body").css("overflow","auto")
-			searchFH();
-	});
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = platformUrl.deleteFH+"/"+id;
+				sendPostRequest(
+					url,
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							$.popupOneClose();
+							$("body").css("overflow","auto")
+							searchFH();
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
+			}
+		);
 	
 }
 function setDataFinance(data){

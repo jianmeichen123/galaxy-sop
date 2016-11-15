@@ -39,16 +39,30 @@ function editPerson(){
 }
 function deletePerson(){
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectPerson/"+uuid+"/"+pid, 
-			null, 
-			function(data){
-		if(data.result.status == 'OK'){
-			generatePersonInnerHtml(data.entityList);
-			$("#person").val(data.entityList.length);
-		}else{
-			layer.msg(data.result.message);
-		}
-	});
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectPerson/"+uuid+"/"+pid;
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generatePersonInnerHtml(data.entityList);
+							$("#person").val(data.entityList.length);
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
+			}
+		);
 }
 function generatePersonInnerHtml(list){
 	var innerHtml = "";
@@ -103,19 +117,33 @@ function addPersonLearning(){
 function deleteLearn(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+puuid+"/"+uuid+"/"+pid, 
-			null, 
-			function(data){
-		if(data.result.status == 'OK'){
-			generateLearningInnerHtml(data.entityList);
-			$("#person-learning").val(data.entityList.length);
-			if(data.entityList.length==0){
-				generateLearningEmptyInnerHtml();
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+puuid+"/"+uuid+"/"+pid; 
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generateLearningInnerHtml(data.entityList);
+							$("#person-learning").val(data.entityList.length);
+							if(data.entityList.length==0){
+								generateLearningEmptyInnerHtml();
+							}
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
 			}
-		}else{
-			layer.msg(data.result.message);
-		}
-	});
+		);
 }
 
 
@@ -161,19 +189,33 @@ function addPersonWork(){
 function deleteWork(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectWork/"+puuid+"/"+uuid+"/"+pid, 
-			null, 
-			function(data){
-		if(data.result.status == 'OK'){
-			generateWorkInnerHtml(data.entityList);
-			$("#person-work").val(data.entityList.length);
-			if(data.entityList.length==0){
-				generateWorkEmptyInnerHtml();
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectWork/"+puuid+"/"+uuid+"/"+pid;
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generateWorkInnerHtml(data.entityList);
+							$("#person-work").val(data.entityList.length);
+							if(data.entityList.length==0){
+								generateWorkEmptyInnerHtml();
+							}
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
 			}
-		}else{
-			layer.msg(data.result.message);
-		}
-	});
+		);
 }
 function generateWorkInnerHtml(list){
 	var innerHtml = "";
@@ -262,19 +304,34 @@ function toEditShares(){
 }
 function deleteShares(){
 	var uuid = $(this).attr("uuid");
-	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/deleteProjectShares/"+uuid+"/"+pid, 
-			null, 
-			function(data){
-		if(data.result.status == 'OK'){
-			generateSharesInnerHtml(data.entityList);
-			$("#shares").val(data.entityList.length);
-			if(data.entityList.length==0){
-				generateSharesEmptyInnerHtml();
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectShares/"+uuid+"/"+pid;
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generateSharesInnerHtml(data.entityList);
+							$("#shares").val(data.entityList.length);
+							if(data.entityList.length==0){
+								generateSharesEmptyInnerHtml();
+							}
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
 			}
-		}else{
-			layer.msg(data.result.message);
-		}
-	});
+		);
+	
 }
 function generateSharesInnerHtml(list){
 	var innerHtml = "";
