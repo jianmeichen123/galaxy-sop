@@ -146,7 +146,7 @@ $(function(){
 		var projectBusinessModel = businessUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("business_show")
+		Valiate("business_model_show")
 	});
 	
 	/**
@@ -165,7 +165,7 @@ $(function(){
 		var industryAnalysis = industryUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "industryAnalysis" : industryAnalysis}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("industry_show")
+		Valiate("industry_analysis_show")
 	});
 	
 	/**
@@ -335,6 +335,7 @@ function Valiate(id){
 		 //清除可能已有的提示信息
 		 if($(n).attr("valiate")=='required') {//对不能为空的文本框进行验证
 			 var id = $(n).attr("id").replace("_show","_valiate");
+			 console.log(id)
 			 if($(n).text()=='' || $.trim($(n).text())=='') {
 				/* $("#"+id).html('<span style="font-color:red">参数丢失!</span>');*/
 				 $("#"+id).show();

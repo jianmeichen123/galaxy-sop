@@ -38,7 +38,7 @@
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;学历：</dt>
                 <dd>
-                   <select name="degree"  valType="required" msg="<font color=red>*</font>最高学历不能为空" >
+                   <select name="degree"  valType="required" msg="<font color=red>*</font>学历不能为空" >
                        <option value="">请选择</option>
                        <option value="高中">高中</option>
                        <option value="大专">大专</option>

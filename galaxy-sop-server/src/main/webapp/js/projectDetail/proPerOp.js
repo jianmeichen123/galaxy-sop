@@ -210,6 +210,18 @@ function deletePer(id) {
 
 
 
+
+//成员添加 编辑时   电话号码 校验处理
+function radio_isContacts_tel(isContactsV){
+	var phone = $("input[name='personTelephone']");
+	if (isContactsV == 0 || isContactsV == '0') {
+		$("input[name='personTelephone']").attr({placeholder:"请输入电话号码",valtype:"MOBILE",msg:"<font color=red>*</font>电话号码格式不正确"});
+	} else if (isContactsV == 1 || isContactsV == '1') {
+		$("input[name='personTelephone']").removeAttr('valtype').removeAttr('placeholder').removeAttr('msg');
+	} 
+}
+
+
 /** 
  * 添加 编辑 团队成员
  */
@@ -258,6 +270,7 @@ function toAddPerson(id,index){
 				
 				$("input:radio[name='personSex'][value='"+personSelectRow.personSex +"']").attr("checked","checked"); 
 				$("input:radio[name='isContacts'][value='"+personSelectRow.isContacts +"']").attr("checked","checked"); 
+				radio_isContacts_tel(personSelectRow.isContacts);
 			}
 			
 			tableShow("per_learning_table");
@@ -283,6 +296,11 @@ function tableShow(tableId){
         search: false,
         onLoadSuccess: function (data) {
         	$('#'+tableId).bootstrapTable('hideColumn', 'deleteIndex');
+        	if(tableId == 'per_learning_table'){
+        		learn_code_index = 0;
+        	}else if(tableId == 'per_work_table'){
+        		work_code_index = 0;
+        	}
         }
 	});
 }
