@@ -44,7 +44,8 @@
 			     <if test="createdTime != null" >and updated_time = #{createdTime,jdbcType=LONG} </if>
 			</trim>
 		</where>
-		<if test="sorting != null">order by ${sorting}</if>
+		<!--  <if test="sorting != null">order by ${sorting}</if>-->
+		order by finance_date desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

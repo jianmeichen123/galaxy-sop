@@ -4,8 +4,10 @@ searchFH();
  */
 function searchFH(){
 	sendPostRequest(platformUrl.searchFH+"/"+pid,  function(data){
-		console.log(pid);
 		formatterTable(data.entityList);
+		if(entityList.length>=0){
+            $(".new_fctbox").css("display","none");
+		}
 	});
 }
 function formatterTable(entity){
