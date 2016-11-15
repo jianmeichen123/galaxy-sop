@@ -1732,6 +1732,7 @@ font-family: "宋体";
 .legal .btn button{float: left;margin-left: 10px;}
 .stock .bars{margin:0 !important;}
 .legal .timeico{display:inline-block;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 180px -154px;}
+.stock table td .edit,.stock table td .del{background:none;font-size:12px;color:#66b1f2;width:auto;height:auto;}
 /*访谈记录*/
 .add_interview{width:110px;}
 .interview .min_document{margin:0 30px;width:auto;position: relative;margin-top: 10px;margin-bottom: 20px}
