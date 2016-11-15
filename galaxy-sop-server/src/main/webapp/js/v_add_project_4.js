@@ -3,16 +3,10 @@ function createProject(){
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/createProject/"+pid, 
 			$("#add_person").serializeObject(), 
 			function(data){
-		$.popupTwoClose();
-		if(data.result.status == 'OK'
-			&& typeof(data.entityList) != 'undefined' 
-			&& data.entityList.length > 0){
-			$.popupOneClose();
-			generatePersonInnerHtml(data.entityList);
-			$("#person").val(data.entityList.length);
-			//nextBtn();
+		if(data.result.status == 'OK'){
+			forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 		}else{
-			generatePersonEmptyInnerHtml();
+			layer.msg(data.result.message);
 		}
 	});
 }

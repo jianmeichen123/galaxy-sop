@@ -279,7 +279,8 @@
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
 	      company_location, user_portrait, 
-	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark)
+	      prospect_analysis,next_financing_source,industry_analysis,
+	      operational_data,idea_id,fa_flag,fa_name,grean_channel,remark)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
@@ -288,7 +289,9 @@
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
-	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{nextFinancingSource,jdbcType=LONGVARCHAR},
+	      #{industryAnalysis,jdbcType=LONGVARCHAR},#{operationalData,jdbcType=LONGVARCHAR},
+	      #{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
