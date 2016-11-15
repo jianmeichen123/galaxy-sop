@@ -6,24 +6,24 @@
   <div class="title_bj">添加股权结构</div>
   <form action="" id="stock_form" method="post" type="validate">
   <div class="form clearfix">
-      <dl class="fmdl fml">
-        <dt>所有权人：</dt>
-        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^\S{1,50}[^\d]+$" msg="<font color=red>*</font>只能是汉字或是字符,最长度为50"/></dd>
+      <dl class="fmdl fl">
+        <dt><em class="red">*</em>&nbsp;所有权人：</dt>
+        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^\S{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl>
-       <dl class="fmdl">
-        <dt>所有权人类型：</dt>
+       <dl class="fmdl fl">
+        <dt><em class="red">*</em>&nbsp;所有权人类型：</dt>
         <dd><input type="text" name="sharesType" value="" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl> 
-      <dl class="fmdl">
-        <dt>占比：</dt>
+      <dl class="fmdl fl">
+        <dt><em class="red">*</em>&nbsp;占比：</dt>
         <dd><input type="text" name="sharesRatio" value="" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
       </dl> 
-      <dl class="fmdl">
-        <dt>出资金额：</dt>
-        <dd><input type="text" name="gainMode" value="" class="txt" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>万元</dd>
+      <dl class="fmdl fl">
+        <dt><em class="red">*</em>&nbsp;出资金额：</dt>
+        <dd><input type="text" name="gainMode" value="" class="txt" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/><span>&nbsp;万元</span></dd>
       </dl>
-      <dl class="fmdl">
-        <dt>币种：</dt>
+      <dl class="fmdl fl">
+        <dt><em class="red">*</em>&nbsp;币种：</dt>
         <dd>  
         	<select name="financeUnit">
                 <option value="0" select="selected" name="financeUnit">人民币</option>
@@ -33,9 +33,9 @@
       </dl>
   </div>
   <div class="form_textarea">
-    <dl class="fmdl">
-      <dt>备注：</dt>
-      <dd><textarea class="new_nputr text" name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符"></textarea></dd>
+    <dl class="fmdl clearfix">
+      <dt class="fl">备注：</dt>
+      <dd class="fl"><textarea class="new_nputr text" name="remark" maxLength="50" placeholder="最多输入50字"></textarea></dd>
     </dl>
   </div>
   <div class="button_affrim">
