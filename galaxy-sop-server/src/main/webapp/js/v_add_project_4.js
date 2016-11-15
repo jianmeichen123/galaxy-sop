@@ -149,7 +149,7 @@ function viewTableShow(pid){
 		pagination: false,
 		clickToSelect: true,
         search: false,
-        onLoadSuccess:function(){
+        onLoadSuccess:function(data){
         	//生成项目
         	var plan_business_table_val=$("#pre_pro_view_table tbody tr td").eq(0).text();
 			if(plan_business_table_val!="没有找到匹配的记录"){
