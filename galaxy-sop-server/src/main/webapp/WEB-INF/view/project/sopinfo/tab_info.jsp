@@ -56,7 +56,7 @@
 				     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
 					</tr>
 			 <tr>
-				     <td colspan="2"><span class="new_color_gray">备注：</span><span class="new_color_black" id="remark"></span></td>
+				     <td colspan="2"><span class="new_color_gray">备注：</span><span class="new_color_black" id="remarkStr"></span></td>
 					</tr>
 		
 		</table>

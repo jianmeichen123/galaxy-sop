@@ -602,7 +602,8 @@ function filedownByFileInfo(fileName,fileSuffix,fileSize,fileKey){
 		fileDownCon.fileSize = fileSize;
 		fileDownCon.fileKey = fileKey;
 		var url =Constants.sopEndpointURL+"/galaxy/sopFile/downloadFileBy"; 
-		sendPostRequestByJsonStr(url,fileDownCon,null);
+		window.location.href=url+"?sid="+sessionId+"&guid="+userId+"&fileName="+fileName+"&fileSuffix="+fileSuffix+"&fileSize="+fileSize+"&fileKey="+fileKey;
+		//sendPostRequestByJsonObj(url,fileDownCon,null);
 	} catch (e) {
 		layer.msg("下载失败");
 	}
@@ -718,11 +719,9 @@ function getPreViewCondition(
 		viewTargetId,
 		viewNotesId){
 	var	condition = {};
-	/*
-	if(!beforeSubmit()){
+	if(!beforeSubmitById("inter_subm_val")){
 		return false;
 	}
-	*/
 	var viewDateStr = $("#"+viewDateId).val();
 	var viewTarget = $.trim($("#"+viewTargetId).val());
 	var um = UM.getEditor(viewNotesId);

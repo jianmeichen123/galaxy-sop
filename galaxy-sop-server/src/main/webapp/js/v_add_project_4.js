@@ -171,8 +171,8 @@ function pro_viewInfo_format(value,row,index){
 	var rc = "";
 	//访谈对象
 	var targetStr = row.viewTarget;
-	if(targetStr.length>8){
-		targerHtml = "</br>访谈对象：<label class='meeting_result color_pass' title="+targetStr+">" + cutStr(8,targetStr) + "</label>";
+	if(targetStr.length>10){
+		targerHtml = "</br>访谈对象：<label class='meeting_result color_pass' title="+targetStr+">" + cutStr(10,targetStr) + "</label>";
 	}else{
 		targerHtml = "</br>访谈对象：<label class='meeting_result color_pass'>" + targetStr + "</label>";
 	}
@@ -207,7 +207,7 @@ function pro_viewNote_format(value,row,index){
 		str=delHtmlTag($.trim(value))
 	}
 	if(str.length && str.length>120){
-		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+		var rc = "<div id=\"log\" style=\"text-align:left;\"  class=\"text-overflow1\" title="+str+">"+
 					cutStr(120,str)+
 				'</div>';
 		return rc;

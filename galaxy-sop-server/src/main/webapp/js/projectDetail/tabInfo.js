@@ -104,7 +104,7 @@ $(function(){
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
-			$("#remark").text(projectInfo.remark==null?"":projectInfo.remark);
+			$("#remarkStr").text(projectInfo.remark==null?"":projectInfo.remark);
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			var p;
@@ -431,6 +431,7 @@ $(function(){
 			var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
 			var faFlag=$('input:radio[name="faFlag"]:checked').val();
 			var remark=$('#remark').val();
+			console.log(remark);
 			var faName="";
 			if(faFlag=='0'){
 				faName="";

@@ -26,7 +26,7 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <div class="title_bj">新增访谈</div>
-<div class="meetingtc margin_45">
+<div class="meetingtc margin_45" id="inter_subm_val">
 	<div class="top clearfix">
     	<div class="searchall clearfix" id="div_pro">
             <dl>
@@ -101,5 +101,6 @@
 
  <script type="text/javascript">
 	var interviewEditor = UM.getEditor('viewNotes');
+	initDialogValstr("inter_subm_val");
 </script>
 

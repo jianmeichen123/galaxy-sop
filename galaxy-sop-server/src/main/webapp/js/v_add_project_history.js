@@ -75,13 +75,32 @@ function updateFinance(uuid){
 };
 function deleteFinance(uuid){
 	var nowFormData = $("#add_Historyform").serializeObject();
-	 sendPostRequestByJsonStr(platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val(), nowFormData, function(data){
-			var re=data;
-			$.popupOneClose();
-			$("body").css("overflow","auto")
-			formatterTable(re.entity.fh);
-	});
-	
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = platformUrl.deleteFinanceHistory+"/"+uuid+"/"+$("#flagId").val();
+				sendPostRequestByJsonStr(
+					url,
+					nowFormData,
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							var re=data;
+							$.popupOneClose();
+							$("body").css("overflow","auto")
+							formatterTable(re.entity.fh);
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
+			}
+		);
 }
 var historyUuid;
 function updateFinanceHistory(){
