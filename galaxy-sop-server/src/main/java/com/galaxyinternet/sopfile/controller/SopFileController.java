@@ -532,11 +532,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	@RequestMapping(value="/downloadFileBy" , produces = MediaType.APPLICATION_JSON_VALUE)
-	public void downloadFileBy(HttpServletRequest request, HttpServletResponse response,@RequestBody SopDownLoad query)
+	public void downloadFileBy(HttpServletRequest request, HttpServletResponse response,SopDownLoad query)
 	{
 		
 		try {
 			if(query!=null && query.getFileKey()!=null){
+				query.setFileSuffix("." + query.getFileSuffix());
 				sopFileService.download(request, response, tempfilePath, query);
 			}
 			
