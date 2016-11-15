@@ -97,7 +97,16 @@ $(function(){
 		params.fileWorktype = $("#fileWorktype").val();
     	uploader.settings.multipart_params = params;
     });
+	uploader.bind('BeforeUpload',function(uploader){
+		$("#powindow").showLoading(
+				 {
+				    'addClass': 'loading-indicator'						
+				 });
+		$("#win_uploadBtn").addClass("disabled");
+	});
     uploader.bind('FileUploaded',function(uploader,files,rtn){
+    	$("#powindow").hideLoading();
+    	$("#win_uploadBtn").removeClass("disabled");
     	var response = $.parseJSON(rtn.response);
 		if(response.result.status == "OK"){
 			$.popupOneClose();
