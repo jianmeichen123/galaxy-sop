@@ -2,6 +2,10 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<<style>
+.bars {display:none;}
+.basic_table{border:1px solid #e9ebf2 !important;margin:0;}
+</style>
 <div class="addPersontc">
 	<div class="title_bj" id="popup_name"></div>
 	
@@ -86,30 +90,24 @@ radio name="personSex"
             <div id="learning_table_custom_toolbar">
 				<input type="hidden" name="personId" value="" />
 			</div>
-            <table  id="per_learning_table" 
-               	data-url="<%=path %>/galaxy/project/queryProPerLearn" data-method="post" 
-	       		data-toolbar="#learning_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
-				<colgroup >
-					<col style="width:0;">
-					<col style="width:25%;">
-					<col style="width:15%;">
-					<col style="width:30%;">
-					<col style="width:10%;">
-					<col style="width:20%;">
-				</colgroup>
-				<thead>
-					<tr>
-						<th data-field="deleteIndex"  data-align="center" data-formatter="deleteIndex_Format" ></th>
-						<th data-field="school"  data-align="center" >毕业院校</th>
-		                <th data-field="major"  data-align="center" >专业</th>
-	                     
-	                     <!--  beginDate overDate beginDateStr overDateStr -->
-	                     <th data-field="BE_time"  data-align="center" data-formatter="learn_TimeFormat">时间</th>
-	                     <th data-field="degree"  data-align="center" >学历</th>
-	                     <th data-field="learn_op" data-formatter="pro_learning_format">操作</th>
-					</tr>
-				</thead>
-			</table> 
+			<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
+	            <table  id="per_learning_table" class="basic_table"
+	               	data-url="<%=path %>/galaxy/project/queryProPerLearn" data-method="post" 
+		       		data-toolbar="#learning_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
+					<thead>
+						<tr>
+							<th data-field="deleteIndex"  data-align="center" data-formatter="deleteIndex_Format" ></th>
+							<th data-field="school"  data-align="center" >毕业院校</th>
+			                <th data-field="major"  data-align="center" >专业</th>
+		                     
+		                     <!--  beginDate overDate beginDateStr overDateStr -->
+		                     <th data-field="BE_time"  data-align="center" data-formatter="learn_TimeFormat">时间</th>
+		                     <th data-field="degree"  data-align="center" >学历</th>
+		                     <th data-field="learn_op" data-formatter="pro_learning_format">操作</th>
+						</tr>
+					</thead>
+				</table> 
+			</div>
         </div>
         
         
@@ -121,16 +119,17 @@ radio name="personSex"
             <div id="work_table_custom_toolbar">
 				<input type="hidden" name="personId" value="" />
 			</div>
-            <table id="per_work_table" 
+			<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
+			<table id="per_work_table" class="basic_table" 
                	data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
 	       		data-toolbar="#work_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
-				<colgroup >
+				<!-- <colgroup >
 					<col style="width:0;">
 					<col style="width:30%;">
 					<col style="width:30%;">
 					<col style="width:20%;">
 					<col style="width:20%;">
-				</colgroup>
+				</colgroup> -->
 				<thead>
 					<tr>
 						<th data-field="deleteIndex"  data-align="center" data-formatter="work_deleteIndex_Format" ></th>
@@ -142,7 +141,9 @@ radio name="personSex"
 	                    <th data-field="work_op" data-formatter="pro_work_format">操作</th>
 					</tr>
 				</thead>
-			</table> 
+			</table>
+			</div>
+             
         </div>
         
     </div>
@@ -187,7 +188,27 @@ function cleanSpelChar(th){
           $(th).val(th.value.replace(/["'<>%;)(&+]/,""));
     }
 } */
-
+$(function(){
+	//调整谈弹窗提示框
+	$(".addPerson_all").scroll(function(){
+		var offsetTop=$(this).offset().top;
+		var top=$(this).scrollTop();
+		$(".tip-yellowsimple").css("margin-top",-top);
+		var marginTop=$(".tip-yellowsimple").css("margin-top");
+		for(var i=0;i<$(".tip-yellowsimple").length;i++){
+			var txt=$(".tip-yellowsimple").eq(i).text();
+			if(top>130 && txt=="*电话号码不能为空"){
+				$(".tip-yellowsimple").eq(i).css("opacity","0");
+			}else if(top>80 && (txt=="*当前职务不能为空" || txt=="*出生日期不能为空")){
+				$(".tip-yellowsimple").eq(i).css("opacity","0");
+			}else if(top>50 && txt=="*姓名不能为空"){
+				$(".tip-yellowsimple").eq(i).css("opacity","0");
+			}else{
+				$(".tip-yellowsimple").eq(i).css("opacity","1");
+			}
+		}
+	})
+})
  
 
 </script>
