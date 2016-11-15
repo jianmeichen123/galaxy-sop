@@ -25,6 +25,7 @@ $(function(){
 		}
 	});
 	$('input:radio[name="projectType"]').click(function(){
+		$(this).attr("checked","checked");
 		$("#projectTypeTip").css("display","none");
 	});
 	
@@ -84,7 +85,8 @@ function add(){
 	}
 }
 $("[data-btn='page0']").click(function(){
-	if(beforeSubmitByIdNext("add_form")){
+	var val=$('input:radio[name="projectType"]').attr("checked");
+	if(beforeSubmitByIdNext("add_form") && val=="checked"){
 		$("[data-btn='page0'] span[data-btn='next']").removeClass("disabled");
 		  return true;
 		   	}
