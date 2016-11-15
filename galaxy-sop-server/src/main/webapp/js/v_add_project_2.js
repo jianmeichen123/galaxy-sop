@@ -111,6 +111,11 @@ $(function(){
 	/**
 	 * 保存项目描述
 	 */
+	$("#describe_editor").keyup(function(){   //商业描述50字以内，超过50字，限制输入
+		var content = describeUm.getContentTxt();
+		describeUm.setContent(content.substring(0,50));
+		describeUm.focus(true);
+	})
 	$("#save_describe").click(function(){
 		var projectDescribe = describeUm.getContent();
 		var projectDescribeFinancing = describeUm2.getContent();
@@ -126,7 +131,7 @@ $(function(){
 		var companyLocation = companyUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "companyLocation" : companyLocation}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("location_show")
+		Valiate("location_show");
 	});
 	
 	/**
