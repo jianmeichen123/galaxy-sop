@@ -526,6 +526,12 @@ function learnTableRefresh(newDataRow){
 
 //删除
 function deleteLearn(selectIndex){
+	layer.confirm(
+			'确定要删除数据？',
+			deleteLearn_do(selectIndex)
+		);
+}
+function deleteLearn_do(selectIndex){
 	
 	if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){
 		learnSelectRow = $('#per_learning_table').bootstrapTable('getRowByUniqueId', selectIndex);
@@ -713,8 +719,16 @@ function workTableRefresh(newRowData){
 
 
 
+
 //删除
 function deleteWork(selectIndex){
+	layer.confirm(
+			'确定要删除数据？',
+			deleteWork_do(selectIndex)
+		);
+}
+function deleteWork_do(selectIndex){
+
 	if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){ 
 		workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
 	}else{
