@@ -915,7 +915,11 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 					personLearn.setPersonId(personId);
 					personLearnDao.insert(personLearn);
 				}else {
-					personLearnDao.updateById(personLearn);
+					if(personLearn.getIsEditOrCreate()!=null && personLearn.getIsEditOrCreate().intValue()==2 ){
+						personLearnDao.deleteById(personLearn.getId());
+					}else{
+						personLearnDao.updateById(personLearn);
+					}
 				}
 			}
 		}
@@ -943,7 +947,11 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 					personWork.setPersonId(personId);
 					personWorkDao.insert(personWork);
 				}else {
-					personWorkDao.updateById(personWork);
+					if(personWork.getIsEditOrCreate()!=null && personWork.getIsEditOrCreate().intValue()==2 ){
+						personWorkDao.deleteById(personWork.getId());
+					}else{
+						personWorkDao.updateById(personWork);
+					}
 				}
 			}
 		}

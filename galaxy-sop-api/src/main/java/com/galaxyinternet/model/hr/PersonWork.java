@@ -30,7 +30,7 @@ public class PersonWork extends BaseEntity{
 	private String beginWorkStr;//入职时间 
 	private String overWorkStr;//离职时间 
 	
-	private Integer isEditOrCreate; // 1:id有值 编辑
+	private Integer isEditOrCreate; //标记 1:id 有值 编辑   2:id 有值 删除
 	
 	public String getUuid() {
 		return uuid;

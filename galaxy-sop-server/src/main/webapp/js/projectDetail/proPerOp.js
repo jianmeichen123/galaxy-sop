@@ -537,16 +537,18 @@ function deleteLearn(selectIndex){
 	if(learnSelectRow && learnSelectRow!=null && typeof(learnSelectRow)!='undefined' 
 			&& learnSelectRow.id!=null && typeof(learnSelectRow.id)!='undefined' ){
 		
-		sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+learnSelectRow.id, null, function(data){
+		learnSelectRow.isEditOrCreate = 2;
+		$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+		
+		/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+learnSelectRow.id, null, function(data){
 			var result = data.result.status;
 			if(result == "ERROR"){ //OK, ERROR
 				layer.msg(data.result.message);
 				return;
 			}
-		});
-	}
-
-	$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
+		});*/
+	}else
+		$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
 	//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
 }
 
@@ -720,17 +722,21 @@ function deleteWork(selectIndex){
 		return;
 	}
 	
-	if(workSelectRow && workSelectRow!=null && typeof(workSelectRow)!='undefined' && workSelectRow.id!=null && typeof(workSelectRow.id)!='undefined' ){
-		sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+workSelectRow.id, null, function(data){
+	if(workSelectRow && workSelectRow!=null && typeof(workSelectRow)!='undefined' 
+		&& workSelectRow.id!=null && typeof(workSelectRow.id)!='undefined' ){
+		
+		workSelectRow.isEditOrCreate = 2;
+		$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+		
+		/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+workSelectRow.id, null, function(data){
 			var result = data.result.status;
 			if(result == "ERROR"){ //OK, ERROR
 				layer.msg(data.result.message);
 				return;
 			}
-		});
-	}
-	
-	$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
+		});*/
+	}else
+		$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
 }
 
 
