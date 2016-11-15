@@ -4,9 +4,12 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -1282,10 +1285,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			financeHistory.setUuid(uuidHistory);
 			financeHistory.setFinanceDate(null);
 			financeHistory.setFinanceStatus(financeHistory.getFinanceStatus());
+			List<FinanceHistory> fh=null;
 			if(null==flagId||"null".equals(flagId)){
 				String uuid=UUIDUtils.create().toString();
 				project.setUuid(uuid);
 				project.setUid(user.getId());
+				if(null==project.getFh()){
+					fh= new ArrayList<FinanceHistory>();
+					project.setFh(fh);
+				}
 				project.getFh().add(financeHistory);
 				mongoProjectService.save(project);
 				com.galaxyinternet.mongodb.model.Project param =new com.galaxyinternet.mongodb.model.Project();
@@ -1329,6 +1337,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(null!=project.getFh()){
+				project.setFh(new ArrayList<FinanceHistory>());
+			}
 			sortList.Sort(project.getFh(),"financeDateStr",
 					"desc");
 			responseBody.setEntityList(project != null ? project.getFh() : null);

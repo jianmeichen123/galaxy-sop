@@ -33,7 +33,7 @@ public class Project {
 	/*项目关联的股权结构*/
 	private List<ProjectShares> psc;
 	/*项目融资历史*/
-	private List<FinanceHistory> fh=new ArrayList<FinanceHistory>();
+	private List<FinanceHistory> fh;
 	/*判断是修改或者新增的标示*/
 	private String flagId;
 	/*项目类型*/

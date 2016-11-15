@@ -114,14 +114,14 @@
                             <span class="m_r30">万元人民币</span>
                             <span class="basic_span"><em class="red">*</em>项目估值：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" />
+                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
                             </span>
                             <span class="m_r30">万元人民币</span>
                         </li>
                         <li>
                         	<span class="basic_span"><em class="red">*</em>出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="no" valType="OTHER" regString="^([1-9]{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
