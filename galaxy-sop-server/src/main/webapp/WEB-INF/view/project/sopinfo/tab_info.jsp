@@ -170,7 +170,7 @@
      <div class="history_center">
 		<div class="new_r_compile ">
 			<span class="new_ico_history ico_add_project"></span> <span class="new_color size16">融资历史</span> <span class="bj_ico" id="history">暂无数据</span>
-			<span class="new_fctbox">
+			<span class="new_fctbox" id="add">
 				<a href="javascript:;" style="margin:0 0 0 5px;" onclick="toUpdateOrSave()" data-btn="add_history" data-name="添加融资历史"><span class="blue" style="font-size:22px;font-family:'微软雅黑';">+</span>添加</a>
 			</span>
 		</div>

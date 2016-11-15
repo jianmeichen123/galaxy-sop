@@ -5,8 +5,11 @@ searchFH();
 function searchFH(){
 	sendPostRequest(platformUrl.searchFH+"/"+pid,  function(data){
 		formatterTable(data.entityList);
-		if(entityList.length>=0){
-            $(".new_fctbox").css("display","none");
+		if(data.entityList.length>=10){
+            $("#add").css("display","none");
+		}else{
+
+            $("#add").css("display","block");
 		}
 	});
 }
@@ -83,18 +86,6 @@ function getFinanceHistory(id){
 			setDataFinance(data.entity);
 	});
 }
-var historyid;
-function updateFinanceHistory(){
-	var nowFormData = $("#update_Historyform").serializeObject();
-	if(beforeSubmitById("add_Historyform")){
-	     sendPostRequestByJsonStr(platformUrl.upateFHSave+"/"+pid, nowFormData, function(data){
-			pid = data.entity.id;
-			$.popupOneClose();
-			$("body").css("overflow","auto")
-			formatterTable(data.entity.fh);
-		});
-	}
-}
 function deleteFinance(id){
 	sendPostRequest(platformUrl.deleteFH+"/"+id, function(data){
 			$.popupOneClose();
@@ -103,7 +94,6 @@ function deleteFinance(id){
 	});
 	
 }
-
 function setDataFinance(data){
 	historyUuid=data.id;
 	$("#financeDetail dd input")
