@@ -32,9 +32,9 @@
 	         <select name="financeUnit">
                         <option value="0" <c:if test='${share.financeUnit==0}'>  selected="selected"  </c:if>>人民币</option>
                         <option value="1" <c:if test='${share.financeUnit==1}'>  selected="selected"  </c:if>>美元</option>
-                        <option value="2" <c:if test='${share.financeUnit==2}'>  selected="selected"  </c:if>>英镑</option>
+                      <%--   <option value="2" <c:if test='${share.financeUnit==2}'>  selected="selected"  </c:if>>英镑</option>
                         <option value="3" <c:if test='${share.financeUnit==3}'>  selected="selected"  </c:if>>欧元</option>
-             </select>
+       --%>       </select>
         </dd>
       </dl>
  
@@ -48,7 +48,7 @@
   <div class="form_textarea">
     <dl class="fmdl">
       <dt>备注：</dt>
-      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符">${share.remark}</textarea></dd>
+      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过2000字符">${share.remark}</textarea></dd>
     </dl>
   </div>
       <a href="javascript:;" onclick="updateStock()" class="pubbtn bluebtn">保存</a>
