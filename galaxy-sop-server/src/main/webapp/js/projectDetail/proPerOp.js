@@ -215,9 +215,9 @@ function deletePer(id) {
 function radio_isContacts_tel(isContactsV){
 	var phone = $("input[name='personTelephone']");
 	if (isContactsV == 0 || isContactsV == '0') {
-		$("input[name='personTelephone']").attr({placeholder:"请输入电话号码",valtype:"required",msg:"<font color=red>*</font>电话号码不能为空"});
+		$("input[name='personTelephone']").attr({placeholder:"请输入电话号码",valtype:"MOBILE",msg:"<font color=red>*</font>电话号码格式不正确"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
-		$("input[name='personTelephone']").removeAttr('placeholder').removeAttr('valtype').removeAttr('msg');
+		$("input[name='personTelephone']").removeAttr('valtype').removeAttr('placeholder').removeAttr('msg');
 	} 
 }
 
@@ -296,6 +296,11 @@ function tableShow(tableId){
         search: false,
         onLoadSuccess: function (data) {
         	$('#'+tableId).bootstrapTable('hideColumn', 'deleteIndex');
+        	if(tableId == 'per_learning_table'){
+        		learn_code_index = 0;
+        	}else if(tableId == 'per_work_table'){
+        		work_code_index = 0;
+        	}
         }
 	});
 }
