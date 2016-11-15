@@ -548,7 +548,7 @@
                     <div class="compile_on_center">
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
-	                        <span class="pubbtn bluebtn disabled fl" onclick="createProject();" >生成项目</span>
+	                        <span class="pubbtn bluebtn disabled fl" onclick="createProject();" data-btn="createProject">生成项目</span>
 	                        <span class="pubbtn fffbtn fl"  data-btn="close">取消</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">4</label>/<label>4</label>
