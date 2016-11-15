@@ -61,7 +61,8 @@ radio name="personSex"
                 <dt>电话号码：</dt>
                 <dd>
                 	<input type="text" class="txt" name="personTelephone" 
-                		placeholder="请输入电话号码" valtype="required"  msg="<font color=red>*</font>电话号码不能为空" />
+                		placeholder="请输入电话号码" />
+                		<!--  valtype="MOBILE"  msg="<font color=red>*</font>电话号码格式不正确" -->
                 </dd>
             </dl>
             
