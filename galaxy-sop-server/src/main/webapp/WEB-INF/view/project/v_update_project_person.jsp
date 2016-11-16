@@ -2,6 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="addPersontc">
 	<div class="title_bj" id="popup_name"></div>
 		<form action="" id="update_person_form" method="post">
@@ -28,7 +29,7 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;出生日期：</dt>
                     <dd>
-                        <input name="personBirthdayStr" type="text" class="datetimepickerHour txt time" readonly="" value="" valtype="required" msg="<font color=red>*</font>出生日期不能为空">
+                        <input name="personBirthdayStr" type="text" class="datepicker-text txt time" readonly="" value="" valtype="required" msg="<font color=red>*</font>出生日期不能为空">
                     </dd>
                 </dl>
                  <dl class="fmdl fl">
@@ -105,19 +106,6 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-$('input[name="personBirthdayStr"]').datepicker({
-    format: 'yyyy-mm-dd',
-    language: "zh-CN",
-    autoclose: true,
-    todayHighlight: false,
-    defaultDate : Date,
-    today: "Today",
-    todayBtn:'linked',
-    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
-    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-    forceParse:false,
-    currentText: 'Now'
-});
 $(function(){
 	var uuid = $('input[name="uuid"]').val();
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookPerson/"+uuid+"/"+pid, 
