@@ -91,13 +91,13 @@
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
-<div id="learn-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 280px; opacity: 1; width: 89px;">
+<div id="learn-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 280px; opacity: 1; width: 100px;">
 	<div class="tip-inner tip-bg-image">
 		<font color="red">*</font>学历背景不能为空
 	</div>
 	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 </div>
-<div id="work-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 300px; opacity: 1; width: 89px;">
+<div id="work-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 423px; opacity: 1; width: 100px;">
 	<div class="tip-inner tip-bg-image">
 		<font color="red">*</font>工作履历不能为空
 	</div>
