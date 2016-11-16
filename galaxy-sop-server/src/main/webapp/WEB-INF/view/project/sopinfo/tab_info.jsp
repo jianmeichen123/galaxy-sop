@@ -175,7 +175,7 @@
 			</span>
 		</div>
 		<div class="new_ul_all new_top_color history_show" >
-			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="basic_table table">
+			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="basic_table table financeHistoryTable">
             <thead>
                <tr>
                   <th>融资时间</th>

@@ -221,6 +221,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	/**
+	 * 编辑学习经历弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/toEditLearn/{puuid}/{luuid}", method = RequestMethod.GET)
+	public String toEditLearn(@PathVariable("puuid") String puuid,
+			@PathVariable("luuid") String luuid,
+			HttpServletRequest request) {
+		request.setAttribute("puuid", puuid);
+		request.setAttribute("luuid", luuid);
+		return "project/v_update_person_learn";
+	}
+	
+	/**
 	 * 添加团队成员-工作经历弹出层
 	 * @version v
 	 * @return
@@ -1118,8 +1131,71 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	/**
+	 * 编辑学习经历记录
+	 * @param pid 项目ID
+	 * @param puuid 团队成员记录的uuid
+	 * @param uuid 学习经历记录的uuid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updatePersonLearning/{puuid}/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> updatePersonLearning(@PathVariable("puuid") String puuid,
+			@PathVariable("uuid") String uuid,
+			@PathVariable("pid") String pid,
+			PersonLearn learn,
+			HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		if(puuid == null || "".equals(puuid.trim()) 
+				||uuid == null || "".equals(uuid.trim()) 
+				|| pid == null || "".equals(pid.trim()) ){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
+			PersonLearn w = new PersonLearn();
+			w.setUuid(uuid);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				PersonPool pp = new PersonPool();
+				pp.setUuid(puuid);
+				if(list.contains(pp)){
+					for(PersonPool p : list){
+						if(p.getUuid().equals(puuid.trim())){
+							List<PersonLearn> learns = p.getPlc();
+							learns.remove(w);
+							learns.add(learn);
+							list.remove(p);
+							list.add(p);
+							project.setPc(list);
+							mongoProjectService.updateById(pid, project);
+							if(logger.isInfoEnabled()){
+								logger.info(FormatterUtils.formatStr(
+										"{0}:{1} to update learning successfully > pid : {3}, uuid : {4}", 
+										user.getId(), user.getRealName(), pid, uuid));
+							}
+							responseBody.setEntityList(learns);
+							responseBody.setResult(new Result(Status.OK,"ok" , "更新学习经历成功!"));
+							break;
+						}
+					}
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"no" , "未找该学习经历记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to update learning get an exception > pid : {3}, uuid : {4}", 
+						user.getId(), user.getRealName(), pid, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
 	 * 删除学习经历记录
-	 * @param pid 草稿项目ID
+	 * @param pid 项目ID
 	 * @param puuid 团队成员记录的uuid
 	 * @param uuid 学习经历记录的uuid
 	 */
@@ -1205,6 +1281,49 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(p.getUuid().equals(puuid)){
 						responseBody.setEntityList(p.getPlc());
 						break;
+					}
+				}
+			}
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询学习经历数据成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search person learning get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 学习经历信息查询
+	 * @param pid 项目ID
+	 * @param puuid 团队成员的uuid
+	 * @param uuid 学习经历的uuid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/lookProjectLearning/{uuid}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> lookProjectLearning(@PathVariable("id") String id, 
+			@PathVariable("uuid") String uuid, 
+			HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		if(id == null || "".equals(id.trim())
+				|| uuid == null || "".equals(uuid.trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				for(PersonPool p : list){
+					if(p.getPlc() != null){
+						List<PersonLearn> learns = p.getPlc();
+						for(PersonLearn l : learns){
+							if(l.getUuid().equals(uuid.trim())){
+								responseBody.setEntity(l);
+								break;
+							}
+						}
 					}
 				}
 			}

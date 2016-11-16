@@ -133,7 +133,7 @@
                         <input type="hidden" id="">
                         <button class="blue fr add_history" href="tanchuan/historytc.jsp" id="add_history" data-btn="add_history" data-name="添加融资历史">添加</button>
                     </div>
-                    <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                    <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table financeHistoryTable">
                      <thead>
                     	<tr>
                     		<th>融资时间</th>

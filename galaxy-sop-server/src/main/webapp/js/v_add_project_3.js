@@ -145,9 +145,20 @@ function deleteLearn(){
 			}
 		);
 }
-
-
-
+function editLearn(){
+	var puuid = $('input[name="uuid"]').val();
+	var luuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/toEditLearn/"+puuid+"/"+luuid;
+	var _name=$(this).attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#popup_name").text(_name);
+		}
+	});
+	return false;
+}
 function generateLearningInnerHtml(list){
 	var innerHtml = "";
 	$.each(list, function(i, o){
@@ -156,11 +167,15 @@ function generateLearningInnerHtml(list){
 		innerHtml += '<td>'+o.major+'</td>';
 		innerHtml += '<td>'+o.beginDateStr+' - '+o.overDateStr+'</td>';
 		innerHtml += '<td>'+o.degree+'</td>';
-		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
+		innerHtml += '<td>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a>';
+		innerHtml += '</td>';
 		innerHtml += '</tr>';
 	});
 	$("#learning-tbody").empty();
 	$("#learning-tbody").append(innerHtml);
+	$(".operatorEdit").bind('click', editLearn);
 	$(".operatorDelete").bind('click', deleteLearn);
 }
 
