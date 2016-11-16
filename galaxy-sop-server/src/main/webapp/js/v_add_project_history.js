@@ -105,7 +105,7 @@ function deleteFinance(uuid){
 var historyUuid;
 function updateFinanceHistory(){
 	var nowFormData = $("#update_Historyform").serializeObject();
-	if(beforeSubmitById("add_Historyform")){
+	if(beforeSubmitById("update_Historyform")){
 	     sendPostRequestByJsonStr(platformUrl.updateSave+"/"+historyUuid+"/"+$("#flagId").val(), nowFormData, function(data){
 			$("#flagId").val(data.entity.id);
 			pid = data.entity.id;

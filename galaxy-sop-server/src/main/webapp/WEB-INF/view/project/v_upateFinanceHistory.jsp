@@ -15,7 +15,7 @@
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
                 <dd>
-                    <input type="text" class="datetimepickerFinance txt time" readonly="" id="financeDateStr" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
+                    <input type="text" class="datetimepickerFinance txt time"  id="financeDateStr" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
                 </dd>
             </dl>
             
