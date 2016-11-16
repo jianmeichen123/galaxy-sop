@@ -120,7 +120,6 @@ $('input[name="personBirthdayStr"]').datepicker({
 });
 $(function(){
 	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
-	generatePersonEmptyInnerHtml();
 	generateLearningEmptyInnerHtml();
 	generateWorkEmptyInnerHtml();
 	var uuid = $('input[name="uuid"]').val();
