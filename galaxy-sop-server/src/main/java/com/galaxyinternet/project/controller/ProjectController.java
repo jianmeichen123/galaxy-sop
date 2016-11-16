@@ -1150,7 +1150,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(project != null && project.getPc() != null){
 				List<PersonPool> list = project.getPc();
 				for(PersonPool p : list){
-					if(p.getPlc() != null){
+					if(p.getPwc() != null){
 						List<PersonWork> works = p.getPwc();
 						for(PersonWork l : works){
 							if(l.getUuid().equals(uuid.trim())){
