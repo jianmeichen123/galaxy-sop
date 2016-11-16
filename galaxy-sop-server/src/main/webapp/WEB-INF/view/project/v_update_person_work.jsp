@@ -47,10 +47,10 @@ $(function(){
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookProjectWork/"+wuuid+"/"+pid, 
 			null, 
 			function(data){
-		$('input[name="beginWorkStr"]').val(data.entity.beginDateStr);
-		$('input[name="overWorkStr"]').val(data.entity.overDateStr);
-		$('input[name="companyName"]').val(data.entity.school);
-		$('input[name="workPosition"]').val(data.entity.major);
+		$('input[name="beginWorkStr"]').val(data.entity.beginWorkStr);
+		$('input[name="overWorkStr"]').val(data.entity.overWorkStr);
+		$('input[name="companyName"]').val(data.entity.companyName);
+		$('input[name="workPosition"]').val(data.entity.workPosition);
 	});
 	initDialogValstr("updatework");
 	$("#sure_btn").click(function(){
