@@ -2,6 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="addPersontc">
 	<div class="title_bj" id="popup_name"></div>
 		<form action="" id="add_person" method="post">
@@ -28,7 +29,7 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;出生日期：</dt>
                     <dd>
-                        <input name="personBirthdayStr" type="text" class="datetimepickerHour txt time" readonly="" value="" valtype="required" msg="<font color=red>*</font>出生日期不能为空">
+                        <input name="personBirthdayStr" type="text" class="datepicker-text txt time" readonly="" value="" valtype="required" msg="<font color=red>*</font>出生日期不能为空">
                     </dd>
                 </dl>
                  <dl class="fmdl fl">
@@ -49,7 +50,7 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-learning"/>
-                <h3>学历背景</h3>
+                <h3><em class="red">*</em>&nbsp;学历背景</h3>
                 <span onclick="addPersonLearning();" class="blue fr add" data-btn="qualifications" data-name="添加学历背景">添加</span>
                 <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     <thead>
@@ -68,7 +69,7 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-work"/>
-                <h3>工作履历</h3>
+                <h3><em class="red">*</em>&nbsp;工作履历</h3>
                 <span class="blue fr add" onclick="addPersonWork();" data-btn="addPersonWork" data-name="添加工作履历">添加</span>
                 <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
 	                <thead>
@@ -91,13 +92,13 @@
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
-<div id="learn-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 280px; opacity: 1; width: 89px;">
+<div id="learn-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 280px; opacity: 1; width: 100px;">
 	<div class="tip-inner tip-bg-image">
 		<font color="red">*</font>学历背景不能为空
 	</div>
 	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 </div>
-<div id="work-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 300px; opacity: 1; width: 89px;">
+<div id="work-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 423px; opacity: 1; width: 100px;">
 	<div class="tip-inner tip-bg-image">
 		<font color="red">*</font>工作履历不能为空
 	</div>
@@ -105,19 +106,6 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-$('input[name="personBirthdayStr"]').datepicker({
-    format: 'yyyy-mm-dd',
-    language: "zh-CN",
-    autoclose: true,
-    todayHighlight: false,
-    defaultDate : Date,
-    today: "Today",
-    todayBtn:'linked',
-    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
-    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-    forceParse:false,
-    currentText: 'Now'
-});
 $(function(){
 	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
 	generateLearningEmptyInnerHtml();

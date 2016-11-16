@@ -23,7 +23,7 @@
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt" id="financeFrom" name="financeFrom" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"/>
+                    <input type="text" class="txt" id="financeFrom" name="financeFrom" valType="OTHER" allowNULL="no" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -70,11 +70,5 @@
 $(function(){
 	$('input[name="financeDateStr"]').val(new Date().format("yyyy-MM-dd"));
 });
-/**
- * 获取融资状态下拉项
- * @version 2016-06-21
- */
-createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
-
 initDialogValstr("updateOrSave_HF");
 </script>

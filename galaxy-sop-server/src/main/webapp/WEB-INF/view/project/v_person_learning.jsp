@@ -78,6 +78,7 @@ $(function(){
 					&& data.entityList.length > 0){
 					generateLearningInnerHtml(data.entityList);
 					$("#person-learning").val(data.entityList.length);
+					$("#learn-tip").hide();
 				}else{
 					generateLearningEmptyInnerHtml();
 				}

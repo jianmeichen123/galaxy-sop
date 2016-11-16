@@ -4,12 +4,9 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -54,7 +51,6 @@ import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.MongoDBException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.form.Token;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.model.Page;
@@ -476,6 +472,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			projectShares.setUuid(UUIDUtils.create().toString());
 			projectShares.setCreatedTime(System.currentTimeMillis());
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			ListSortUtil<ProjectShares> sortList = new ListSortUtil<ProjectShares>();
 			List<ProjectShares> sharesList = null;
 			if(project.getPsc() == null){
 				sharesList = new ArrayList<ProjectShares>();
@@ -488,6 +485,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(logger.isInfoEnabled()){
 				logger.info(user.getId() + ":" + user.getRealName() + " to save shares successful > " + project.getId());
 			}
+			sortList.Sort(sharesList, "sharesRatio", "desc");
 			responseBody.setEntityList(sharesList);
 			responseBody.setResult(new Result(Status.OK, "ok" , "添加股权结构成功!"));
 		} catch (MongoDBException e) {
@@ -555,6 +553,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			personShares.setUuid(uuid);
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
 			List<ProjectShares> sharesList = null;
+			ListSortUtil<ProjectShares> sortList = new ListSortUtil<ProjectShares>();
 			if(project.getPsc() != null && project.getPsc().contains(personShares)){
 				sharesList = project.getPsc();
 				for(ProjectShares s : sharesList){
@@ -566,6 +565,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						if(logger.isInfoEnabled()){
 							logger.info(user.getId() + ":" + user.getRealName() + " to update shares successful > " + project.getId());
 						}
+						sortList.Sort(sharesList, "sharesRatio", "desc");
 						responseBody.setEntityList(sharesList);
 						responseBody.setResult(new Result(Status.OK, "ok" , "修改股权结构成功!"));
 						break;
@@ -599,6 +599,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		User user = (User) getUserFromSession(request);
 		try {
+			ListSortUtil<ProjectShares> sortList = new ListSortUtil<ProjectShares>();
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
 			ProjectShares w = new ProjectShares();
 			w.setUuid(uuid);
@@ -610,6 +611,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							"{0}:{1} to delete shares successfully > pid : {3}, uuid : {4}", 
 							user.getId(), user.getRealName(), id, uuid));
 				}
+				sortList.Sort(project.getPsc(), "sharesRatio", "desc");
 				responseBody.setEntityList(project.getPsc());
 				responseBody.setResult(new Result(Status.OK,"ok" , "删除股权结构成功!"));
 			}else{
@@ -636,10 +638,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
+		ListSortUtil<ProjectShares> sortList = new ListSortUtil<ProjectShares>();
 		User user = (User) getUserFromSession(request);
 		try {
 			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-			responseBody.setEntityList(project != null ? project.getPsc() : null);
+			if(project != null&& null!=project.getPsc()&& project.getPsc().size()>0){
+				sortList.Sort(project.getPsc(), "sharesRatio", "desc");
+				responseBody.setEntityList(project.getPsc());
+			}else{
+				responseBody.setEntityList(null);
+			}
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询股权结构信息成功!"));
 		} catch (MongoDBException e) {
 			if(logger.isErrorEnabled()){

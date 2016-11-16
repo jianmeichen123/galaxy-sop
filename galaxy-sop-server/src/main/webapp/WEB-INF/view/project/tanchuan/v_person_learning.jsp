@@ -84,9 +84,10 @@ $(function(){
 		if(beforeSubmitById("learning")){
 			
 			if(beTimeCompare($("#add_person_learning [name='beginDateStr']").val(),$("#add_person_learning [name='overDateStr']").val())){
-				savePersonLearning();
+				savePersonLearning();				
 			}
 		}
+		
 	});
 });
 

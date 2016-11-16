@@ -65,6 +65,7 @@ $(function(){
 					&& data.entityList.length > 0){
 					generateWorkInnerHtml(data.entityList);
 					$("#person-work").val(data.entityList.length);
+					$("#work-tip").hide();
 				}else{
 					generateWorkEmptyInnerHtml();
 				}

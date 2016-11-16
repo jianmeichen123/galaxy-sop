@@ -2,6 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="addPersontc">
 	<div class="title_bj" id="popup_name"></div>
 		<form action="" id="update_person_form" method="post">
@@ -28,7 +29,7 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;出生日期：</dt>
                     <dd>
-                        <input name="personBirthdayStr" type="text" class="datetimepickerHour txt time" readonly="" value="" valtype="required" msg="<font color=red>*</font>出生日期不能为空">
+                        <input name="personBirthdayStr" type="text" class="datepicker-text txt time" readonly="" value="" valtype="required" msg="<font color=red>*</font>出生日期不能为空">
                     </dd>
                 </dl>
                  <dl class="fmdl fl">
@@ -49,7 +50,7 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-learning"/>
-                <h3>学历背景</h3>
+                <h3><em class="red">*</em>&nbsp;学历背景</h3>
                 <span onclick="addPersonLearning();" class="blue fr add" data-btn="qualifications" data-name="学历背景">添加</span>
                 <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     <thead>
@@ -68,8 +69,8 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-work"/>
-                <h3>工作履历</h3>
-                <span class="blue fr add" onclick="addPersonWork();">添加</span>
+                <h3><em class="red">*</em>&nbsp;工作履历</h3>
+                <span class="blue fr add" onclick="addPersonWork();" data-btn="addPersonWork" data-name="添加工作履历">添加</span>
                 <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
 	                <thead>
 	                    <tr>
@@ -105,19 +106,6 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-$('input[name="personBirthdayStr"]').datepicker({
-    format: 'yyyy-mm-dd',
-    language: "zh-CN",
-    autoclose: true,
-    todayHighlight: false,
-    defaultDate : Date,
-    today: "Today",
-    todayBtn:'linked',
-    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
-    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-    forceParse:false,
-    currentText: 'Now'
-});
 $(function(){
 	var uuid = $('input[name="uuid"]').val();
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookPerson/"+uuid+"/"+pid, 
