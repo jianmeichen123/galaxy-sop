@@ -64,7 +64,7 @@ function toUpdateOrSave(id){
 		okback:function(){
 			console.log(id);
 			if(null==id){
-				$("#popup_name").text("新增融资历史");
+				$("#popup_name").text("添加融资历史");
 				/**
 				 * 获取融资状态下拉项
 				 * @version 2016-06-21
