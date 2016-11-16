@@ -232,6 +232,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("luuid", luuid);
 		return "project/v_update_person_learn";
 	}
+	/**
+	 * 编辑工作经历弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/toEditWork/{puuid}/{wuuid}", method = RequestMethod.GET)
+	public String toEditWork(@PathVariable("puuid") String puuid,
+			@PathVariable("wuuid") String wuuid,
+			HttpServletRequest request) {
+		request.setAttribute("puuid", puuid);
+		request.setAttribute("wuuid", wuuid);
+		return "project/v_update_person_work";
+	}
 	
 	/**
 	 * 添加团队成员-工作经历弹出层
@@ -952,6 +964,70 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	/**
+	 * 编辑工作经历记录
+	 * @param pid 项目ID
+	 * @param puuid 团队成员记录的uuid
+	 * @param uuid 学习经历记录的uuid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updatePersonWork/{puuid}/{uuid}/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> updatePersonWork(@PathVariable("puuid") String puuid,
+			@PathVariable("uuid") String uuid,
+			@PathVariable("pid") String pid,
+			@RequestBody PersonWork work,
+			HttpServletRequest request) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		if(puuid == null || "".equals(puuid.trim()) 
+				||uuid == null || "".equals(uuid.trim()) 
+				|| pid == null || "".equals(pid.trim())
+				|| work == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(pid);
+			PersonWork w = new PersonWork();
+			w.setUuid(uuid);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				PersonPool pp = new PersonPool();
+				pp.setUuid(puuid);
+				if(list.contains(pp)){
+					for(PersonPool p : list){
+						if(p.getUuid().equals(puuid.trim())){
+							List<PersonWork> works = p.getPwc();
+							works.remove(w);
+							works.add(work);
+							list.remove(p);
+							list.add(p);
+							project.setPc(list);
+							mongoProjectService.updateById(pid, project);
+							if(logger.isInfoEnabled()){
+								logger.info(FormatterUtils.formatStr(
+										"{0}:{1} to update work successfully > pid : {3}, uuid : {4}", 
+										user.getId(), user.getRealName(), pid, uuid));
+							}
+							responseBody.setEntityList(works);
+							responseBody.setResult(new Result(Status.OK,"ok" , "更新工作经历成功!"));
+							break;
+						}
+					}
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,"no" , "未找该学习经历记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(FormatterUtils.formatStr(
+						"{0}:{1} to update work get an exception > pid : {3}, uuid : {4}", 
+						user.getId(), user.getRealName(), pid, uuid), e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
 	 * 删除工作经历记录
 	 * @param puuid 团队成员记录的uuid
 	 * @param uuid 工作经历记录的uuid
@@ -1039,6 +1115,49 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(p.getUuid().equals(puuid)){
 						responseBody.setEntityList(p.getPwc());
 						break;
+					}
+				}
+			}
+			responseBody.setResult(new Result(Status.OK, "ok" , "查询工作经历数据成功!"));
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to search person work get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 学习经历信息查询
+	 * @param pid 项目ID
+	 * @param puuid 团队成员的uuid
+	 * @param uuid 学习经历的uuid
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/lookProjectWork/{uuid}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> lookProjectWork(@PathVariable("id") String id, 
+			@PathVariable("uuid") String uuid, 
+			HttpServletRequest request) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		if(id == null || "".equals(id.trim())
+				|| uuid == null || "".equals(uuid.trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			if(project != null && project.getPc() != null){
+				List<PersonPool> list = project.getPc();
+				for(PersonPool p : list){
+					if(p.getPlc() != null){
+						List<PersonWork> works = p.getPwc();
+						for(PersonWork l : works){
+							if(l.getUuid().equals(uuid.trim())){
+								responseBody.setEntity(l);
+								break;
+							}
+						}
 					}
 				}
 			}

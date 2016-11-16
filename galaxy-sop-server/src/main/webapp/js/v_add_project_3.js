@@ -201,6 +201,20 @@ function addPersonWork(){
 	});
 	return false;
 }
+function editWork(){
+	var puuid = $('input[name="uuid"]').val();
+	var luuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/toEditWork/"+puuid+"/"+luuid;
+	var _name=$(this).attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#popup_name").text(_name);
+		}
+	});
+	return false;
+}
 function deleteWork(){
 	var puuid = $('input[name="uuid"]').val();
 	var uuid = $(this).attr("uuid");
@@ -239,11 +253,15 @@ function generateWorkInnerHtml(list){
 		innerHtml += '<td>'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
 		innerHtml += '<td>'+o.companyName+'</td>';
 		innerHtml += '<td>'+o.workPosition+'</td>';
-		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
+		innerHtml += '<td>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a>';
+		innerHtml += '</td>';
 		innerHtml += '</tr>';
 	});
 	$("#work-tbody").empty();
 	$("#work-tbody").append(innerHtml);
+	$(".operatorEdit").bind('click', editWork);
 	$(".operatorDelete").bind('click', deleteWork);
 }
 
