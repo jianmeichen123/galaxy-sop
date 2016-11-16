@@ -202,14 +202,14 @@ public class PersonPool extends PagableEntity{
         this.personTelephone = personTelephone == null ? null : personTelephone.trim();
     }
 
-    public int getIsContacts() {
+	
+    public Integer getIsContacts() {
 		return isContacts;
 	}
-	public void setIsContacts(int isContacts) {
+	public void setIsContacts(Integer isContacts) {
 		this.isContacts = isContacts;
 	}
-	
-    public String getPersonEmail() {
+	public String getPersonEmail() {
         return personEmail;
     }
 

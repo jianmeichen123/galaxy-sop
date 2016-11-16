@@ -139,11 +139,11 @@
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray"><em class="red">*</em>融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>　&nbsp;万元人民币</span></td>
-	                <td><span class="new_color_gray"><em class="red">*</em>项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
+	                <td><span class="basic_span"><em class="red">*</em>融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>　&nbsp;万元人民币</span></td>
+	                <td><span class="basic_span"><em class="red">*</em>项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray"><em class="red">*</em>出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
+	                <td><span class="basic_span"><em class="red">*</em>出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
 	            </tr>
 	              </table>
 	        <!--实际投资-->
@@ -171,7 +171,7 @@
 		<div class="new_r_compile ">
 			<span class="new_ico_history ico_add_project"></span> <span class="new_color size16">融资历史</span>
 			<span class="new_fctbox" id="add">
-				<a href="javascript:;" style="margin:0 0 0 5px;" onclick="toUpdateOrSave()" data-btn="add_history" data-name="添加融资历史"><span class="blue" style="font-size:22px;font-family:'微软雅黑';">+</span>添加</a>
+				<a href="javascript:;" style="margin:0 0 0 5px;" onclick="toUpdateOrSave()" data-btn="add_history" data-name="添加融资历史">添加</a>
 			</span>
 		</div>
 		<div class="new_ul_all new_top_color history_show" >
@@ -238,10 +238,10 @@
 			</c:if>
 		</div>
 		<div class="new_ul_all new_top_color describe_show" >
-			<span class="ico_dot ico"></span>
-			<p id="describe_show" valiate="required"></p>
-			<span class="ico_dot ico"></span>
-			<p id="describe2_show" valiate="required"></p>
+			<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
+			<p style="padding-left:22px" id="describe_show" valiate="required"></p>
+			<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
+			<p style="padding-left:22px" id="describe2_show" valiate="required"></p>
 		</div>
 	</div>
 </div>

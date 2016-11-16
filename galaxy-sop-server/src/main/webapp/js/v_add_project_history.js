@@ -12,7 +12,7 @@ function addFinanceHistory(){
 			$("#flagId").val(data.entity.id);
 			pid = data.entity.id;
 			$.popupOneClose();
-			$("body").css("overflow","auto")
+			$.locksCreenOpen();
 			formatterTable(re.entity.fh);
 		});
 	}
@@ -89,7 +89,7 @@ function deleteFinance(uuid){
 							layer.msg('删除成功');
 							var re=data;
 							$.popupOneClose();
-							$("body").css("overflow","auto")
+							$.locksCreenOpen();
 							formatterTable(re.entity.fh);
 						}
 						else
@@ -110,7 +110,7 @@ function updateFinanceHistory(){
 			$("#flagId").val(data.entity.id);
 			pid = data.entity.id;
 			$.popupOneClose();
-			$("body").css("overflow","auto")
+			$.locksCreenOpen();
 			formatterTable(data.entity.fh);
 		});
 	}
