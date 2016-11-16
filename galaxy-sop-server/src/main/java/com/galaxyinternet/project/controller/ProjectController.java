@@ -1165,7 +1165,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						if(p.getUuid().equals(puuid.trim())){
 							List<PersonLearn> learns = p.getPlc();
 							learns.remove(w);
-							learn.setUuid(uuid);
 							learns.add(learn);
 							list.remove(p);
 							list.add(p);

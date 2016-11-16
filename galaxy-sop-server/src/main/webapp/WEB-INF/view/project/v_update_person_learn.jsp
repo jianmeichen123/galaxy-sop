@@ -5,9 +5,9 @@
 <div class="qualificationstc">
 	<div class="title_bj" id="qualifications_popup_name"></div>
         <div class="qualifications_all" id="updatelearning">
-        	<input type="hidden" value="${puuid}" name="puuid">
-        	<input type="hidden" value="${luuid}" name="luuid">
         	<form action="" id="update_person_learning" method="post">
+        	<input type="hidden" value="${puuid}" name="puuid">
+        	<input type="hidden" value="${luuid}" name="uuid" id="luuid">
             <div class="info clearfix">
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
@@ -67,7 +67,7 @@ $('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
 });
 $(function(){
 	var puuid = $('input[name="puuid"]').val();
-	var luuid = $('input[name="luuid"]').val();
+	var luuid = $('#luuid').val();
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookProjectLearning/"+luuid+"/"+pid, 
 			null, 
 			function(data){
