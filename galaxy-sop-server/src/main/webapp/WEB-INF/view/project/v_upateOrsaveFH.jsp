@@ -38,8 +38,8 @@
                     <select name="financeUnit" id="financeUnit">
                         <option value="0" select="selected" name="financeUnit" selected="selected" >人民币</option>
                         <option value="1" name="financeUnit">美元</option>
-                        <option value="2" name="financeUnit">英镑</option>
-                        <option value="3" name="financeUnit">欧元</option>
+                        <!-- <option value="2" name="financeUnit">英镑</option>
+                        <option value="3" name="financeUnit">欧元</option> -->
                     </select>
                 </dd>
             </dl>
