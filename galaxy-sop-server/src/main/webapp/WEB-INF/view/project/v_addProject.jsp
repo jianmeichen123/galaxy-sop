@@ -121,7 +121,7 @@
                         <li>
                         	<span class="basic_span"><em class="red">*</em>出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="no" valType="OTHER" regString="^([1-9]{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>

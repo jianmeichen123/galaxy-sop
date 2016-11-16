@@ -33,8 +33,8 @@
                     </dd>
                 </dl>
                  <dl class="fmdl fl">
-                    <dt>电话号码：</dt>
-                    <dd><input type="text" class="txt" placeholder="请输入电话号码" name="personTelephone" valtype="MOBILE" msg="<font color=red>*</font>手机格式不正确"/></dd>
+                    <dt>手机号码：</dt>
+                    <dd><input type="text" class="txt" placeholder="请输入手机号码" name="personTelephone" valtype="MOBILE" msg="<font color=red>*</font>手机号码格式不正确"/></dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;是否为联系人：</dt>
@@ -164,7 +164,7 @@ $(function(){
 		var marginTop=$(".tip-yellowsimple").css("margin-top");
 		for(var i=0;i<$(".tip-yellowsimple").length;i++){
 			var txt=$(".tip-yellowsimple").eq(i).text();
-			if(top>130 && txt=="*手机格式不正确"){
+			if(top>130 && txt=="*手机号码格式不正确"){
 				$(".tip-yellowsimple").eq(i).css("opacity","0");
 			}else if(top>80 && txt=="*当前职务不能为空"){
 				$(".tip-yellowsimple").eq(i).css("opacity","0");
