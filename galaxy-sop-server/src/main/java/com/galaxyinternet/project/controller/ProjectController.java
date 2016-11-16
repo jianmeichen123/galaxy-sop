@@ -1141,7 +1141,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<PersonLearn> updatePersonLearning(@PathVariable("puuid") String puuid,
 			@PathVariable("uuid") String uuid,
 			@PathVariable("pid") String pid,
-			PersonLearn learn,
+			@RequestBody PersonLearn learn,
 			HttpServletRequest request) {
 		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
 		if(puuid == null || "".equals(puuid.trim()) 

@@ -4,7 +4,7 @@
 %>
 <div class="qualificationstc">
 	<div class="title_bj" id="qualifications_popup_name"></div>
-        <div class="qualifications_all" id="learning">
+        <div class="qualifications_all" id="updatelearning">
         	<input type="hidden" value="${puuid}" name="puuid">
         	<input type="hidden" value="${luuid}" name="luuid">
         	<form action="" id="update_person_learning" method="post">
@@ -77,13 +77,22 @@ $(function(){
 		$('input[name="major"]').val(data.entity.major);
 		$('select[name="degree"]').val(data.entity.degree);
 	});
-	initDialogValstr("learning");
+	initDialogValstr("updatelearning");
 	$("#update_person_learning").click(function(){
-		if(beforeSubmitById("learning")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePersonLearning/"+puuid+"/"+luuid"/"+pid, 
+		if(beforeSubmitById("updatelearning")){
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePersonLearning/"+puuid+"/"+luuid+"/"+pid, 
 					$("#update_person_learning").serializeObject(), 
 					function(data){
-				
+				$.popupTwoClose();
+				if(data.result.status == 'OK'
+					&& typeof(data.entityList) != 'undefined' 
+					&& data.entityList.length > 0){
+					generateLearningInnerHtml(data.entityList);
+					$("#person-learning").val(data.entityList.length);
+					$("#learn-tip").hide();
+				}else{
+					generateLearningEmptyInnerHtml();
+				}
 			});
 		}
 	});
