@@ -110,6 +110,7 @@ $(function(){
     	var response = $.parseJSON(rtn.response);
 		if(response.result.status == "OK"){
 			$.popupOneClose();
+			$.locksCreenOpen();
 			generateBuessDocInnerHtml(response.entity);
 			$("#buess_doc").val(1);
 			//下一步变亮
@@ -126,11 +127,11 @@ $(function(){
     	if(!fileValidate){
     		$("#file-tip").css("display","block");
     		$.popupOneClose();
-    		$("body").css("overflow","auto");
+    		$.locksCreenOpen();
     	}
     	if(fileValidate){
     		uploader.start();
-    		$("body").css("overflow","auto");
+    		$.locksCreenOpen();
     	}
     });
 });
