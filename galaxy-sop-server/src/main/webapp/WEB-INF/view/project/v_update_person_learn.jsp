@@ -5,9 +5,9 @@
 <div class="qualificationstc">
 	<div class="title_bj" id="qualifications_popup_name"></div>
         <div class="qualifications_all" id="updatelearning">
-        	<input type="hidden" value="${puuid}" name="puuid">
-        	<input type="hidden" value="${luuid}" name="luuid">
         	<form action="" id="update_person_learning" method="post">
+        	<input type="hidden" value="${puuid}" name="puuid">
+        	<input type="hidden" value="${luuid}" name="uuid" id="luuid">
             <div class="info clearfix">
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
@@ -46,7 +46,7 @@
             </form>
         </div>
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="update_person_learning" >确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="update_person_learn" >确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
@@ -67,7 +67,7 @@ $('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
 });
 $(function(){
 	var puuid = $('input[name="puuid"]').val();
-	var luuid = $('input[name="luuid"]').val();
+	var luuid = $('#luuid').val();
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookProjectLearning/"+luuid+"/"+pid, 
 			null, 
 			function(data){
@@ -78,7 +78,7 @@ $(function(){
 		$('select[name="degree"]').val(data.entity.degree);
 	});
 	initDialogValstr("updatelearning");
-	$("#update_person_learning").click(function(){
+	$("#update_person_learn").click(function(){
 		if(beforeSubmitById("updatelearning")){
 			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePersonLearning/"+puuid+"/"+luuid+"/"+pid, 
 					$("#update_person_learning").serializeObject(), 

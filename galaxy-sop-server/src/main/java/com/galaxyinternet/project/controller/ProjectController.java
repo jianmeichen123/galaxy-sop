@@ -1146,7 +1146,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
 		if(puuid == null || "".equals(puuid.trim()) 
 				||uuid == null || "".equals(uuid.trim()) 
-				|| pid == null || "".equals(pid.trim()) ){
+				|| pid == null || "".equals(pid.trim())
+				|| learn == null){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}

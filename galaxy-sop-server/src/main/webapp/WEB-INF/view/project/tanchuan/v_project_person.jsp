@@ -59,10 +59,10 @@ radio name="personSex"
             </dl>
             
              <dl class="fmdl fl">
-                <dt>电话号码：</dt>
+                <dt>手机号码：</dt>
                 <dd>
                 	<input type="text" class="txt" name="personTelephone" 
-                		placeholder="请输入电话号码" valtype="MOBILE"  msg="<font color=red>*</font>电话号码格式不正确" />
+                		placeholder="请输入手机号码" valtype="MOBILE"  msg="<font color=red>*</font>手机号码格式不正确" />
                 		<!--   -->
                 </dd>
             </dl>
@@ -86,7 +86,7 @@ radio name="personSex"
         
         <div class="qualifications">
             <h3><em class="red">*</em>&nbsp;学历背景</h3>
-            <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="学历背景">添加</span>
+            <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="添加学历背景">添加</span>
             
             <div id="learning_table_custom_toolbar">
 				<input type="hidden" name="personId" value="" />
@@ -184,7 +184,7 @@ $(function(){
 		var marginTop=$(".tip-yellowsimple").css("margin-top");
 		for(var i=0;i<$(".tip-yellowsimple").length;i++){
 			var txt=$(".tip-yellowsimple").eq(i).text();
-			if(top>130 && txt=="*电话号码不能为空"){
+			if(top>130 && txt=="*手机号码格式不正确"){
 				$(".tip-yellowsimple").eq(i).css("opacity","0");
 			}else if(top>80 && (txt=="*当前职务不能为空" || txt=="*出生日期不能为空")){
 				$(".tip-yellowsimple").eq(i).css("opacity","0");

@@ -2,6 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
+
 <div class="qualificationstc">
 	<div class="title_bj" id="qualifications_popup_name"></div>
         <div class="qualifications_all" id="work">
@@ -10,9 +12,9 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
                     <dd>
-                    	<input name="beginWorkStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
+                    	<input name="beginWorkStr" type="text" class="datepicker-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
                     	<span class="fl">&nbsp;至&nbsp;</span>
-                    	<input name="overWorkStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
+                    	<input name="overWorkStr" type="text" class="datepicker-text txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                     </dd>
                 </dl>
                 <dl class="fmdl fl">
@@ -37,7 +39,7 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-$('input[name="beginWorkStr"], input[name="overWorkStr"]').datepicker({
+/* $('input[name="beginWorkStr"], input[name="overWorkStr"]').datepicker({
     format: 'yyyy-mm-dd',
     language: "zh-CN",
     autoclose: true,
@@ -49,7 +51,7 @@ $('input[name="beginWorkStr"], input[name="overWorkStr"]').datepicker({
     rightArrow: '<i class="fa fa-long-arrow-right"></i>',
     forceParse:false,
     currentText: 'Now'
-});
+}); */
 $(function(){
 	$('input[name="beginWorkStr"], input[name="overWorkStr"]').val(new Date().format("yyyy-MM-dd"));
 	initDialogValstr("work");
