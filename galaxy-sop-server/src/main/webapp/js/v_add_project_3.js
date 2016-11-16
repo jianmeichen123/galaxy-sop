@@ -247,7 +247,7 @@ function generatePersonDetail(data){
 		detailInnerHTML += '<td>'+(data.entity.personSex=='0' ? '男' : '女')+'</td>';
 		detailInnerHTML += '<td>'+data.entity.personBirthdayStr+'</td>';
 		detailInnerHTML += '<td>'+data.entity.personTelephone+'</td>';
-		detailInnerHTML += '<td>'+data.entity.remark+'</td>';
+		detailInnerHTML += '<td title='+data.entity.remark+'>'+data.entity.remark+'</td>';
 		detailInnerHTML += '</tr>';
 		$("#detail-tbody").append(detailInnerHTML);
 		
