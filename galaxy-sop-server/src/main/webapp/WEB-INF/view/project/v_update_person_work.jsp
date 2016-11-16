@@ -55,7 +55,7 @@ $(function(){
 	initDialogValstr("updatework");
 	$("#sure_btn").click(function(){
 		if(beforeSubmitById("updatework")){
-			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePersonWork/"+puuid+"/"+luuid+"/"+pid, 
+			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePersonWork/"+puuid+"/"+wuuid+"/"+pid, 
 					$("#update_person_work").serializeObject(), 
 					function(data){
 				$.popupTwoClose();
