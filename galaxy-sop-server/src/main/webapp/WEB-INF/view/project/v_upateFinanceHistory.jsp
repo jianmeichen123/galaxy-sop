@@ -7,6 +7,7 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="historytc" id="financeDetail">
 	<div class="title_bj" id="popup_name"></div>
 	<form id="update_Historyform" method="post" >
@@ -15,7 +16,7 @@
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
                 <dd>
-                    <input type="text" class="datetimepickerFinance txt time"  id="financeDateStr" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
+                    <input type="text" class="datepicker-text txt time"  id="financeDateStr" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
                 </dd>
             </dl>
             
