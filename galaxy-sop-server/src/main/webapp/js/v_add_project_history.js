@@ -41,7 +41,7 @@ function formatterTable(entity){
 			html=
 				"<tr>"+
 					"<td>"+obj.financeDateStr+"</td>"+
-					"<td>"+obj.financeFrom+"</td>"+
+					"<td title='"+obj.financeFrom+"'>"+obj.financeFrom+"</td>"+
 					"<td>"+obj.financeAmount+"</td>"+
 					"<td>"+data[obj.financeUnit]+"</td>"+
 					"<td>"+obj.financeProportion+"</td>"+

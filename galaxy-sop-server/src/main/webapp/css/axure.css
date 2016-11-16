@@ -2315,8 +2315,8 @@ margin: 45px auto 30px;}
 #step2 .new_ul_all {margin-top:-11px;display:none;}
 #step2 .new_r_compile{border-bottom:1px solid #e6e8f1;padding-bottom:5px;}
 .addProject{background:#fff;border-radius:6px;margin-top:10px;}
-.learning-table td,.sharestable td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.learning-table,.sharestable{table-layout:fixed}
+.learning-table td,.sharestable td,.financeHistoryTable td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.learning-table,.sharestable,.financeHistoryTable{table-layout:fixed}
 .project_on .basic_span1{font-size:14px;margin:3px 10px;display:block;color:#3e4351}
 #step2 .tip-yellowsimple .tip-arrow-left{margin-top:-12px;margin-left:-14px;}
 #step2 .tip-yellowsimple{margin-left:10px;height:16px;}
