@@ -49,7 +49,7 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-learning"/>
-                <h3>学历背景</h3>
+                <h3><em class="red">*</em>&nbsp;学历背景</h3>
                 <span onclick="addPersonLearning();" class="blue fr add" data-btn="qualifications" data-name="学历背景">添加</span>
                 <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     <thead>
@@ -68,7 +68,7 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-work"/>
-                <h3>工作履历</h3>
+                <h3><em class="red">*</em>&nbsp;工作履历</h3>
                 <span class="blue fr add" onclick="addPersonWork();">添加</span>
                 <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
 	                <thead>
