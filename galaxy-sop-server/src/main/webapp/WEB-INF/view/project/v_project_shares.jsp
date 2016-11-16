@@ -46,7 +46,7 @@
             </div>
             <div class="qualifications">
                 <h3>学历背景</h3>
-                <span class="blue fr add" data-btn="qualifications" data-name="学历背景" href="tchtml/qualificationstc.html">添加</span>
+                <span class="blue fr add" data-btn="qualifications" data-name="添加学历背景" href="tchtml/qualificationstc.html">添加</span>
                 <table style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
                     <tr>
                         <th>毕业院校</th>

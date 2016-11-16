@@ -86,7 +86,7 @@ radio name="personSex"
         
         <div class="qualifications">
             <h3><em class="red">*</em>&nbsp;学历背景</h3>
-            <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="学历背景">添加</span>
+            <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="添加学历背景">添加</span>
             
             <div id="learning_table_custom_toolbar">
 				<input type="hidden" name="personId" value="" />
