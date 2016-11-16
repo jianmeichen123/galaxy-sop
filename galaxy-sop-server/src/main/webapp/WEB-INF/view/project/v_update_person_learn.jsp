@@ -46,7 +46,7 @@
             </form>
         </div>
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="update_person_learning" >确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="update_person_learn" >确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
@@ -78,7 +78,7 @@ $(function(){
 		$('select[name="degree"]').val(data.entity.degree);
 	});
 	initDialogValstr("updatelearning");
-	$("#update_person_learning").click(function(){
+	$("#update_person_learn").click(function(){
 		if(beforeSubmitById("updatelearning")){
 			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/updatePersonLearning/"+puuid+"/"+luuid+"/"+pid, 
 					$("#update_person_learning").serializeObject(), 
