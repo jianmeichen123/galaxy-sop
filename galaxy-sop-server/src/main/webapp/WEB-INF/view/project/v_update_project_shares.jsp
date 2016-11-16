@@ -56,7 +56,7 @@ $(function(){
 		$('select[name="financeUnit"]').val(data.entity.financeUnit);
 		$('input[name="sharesType"]').val(data.entity.sharesType);
 		$('input[name="sharesRatio"]').val(data.entity.sharesRatio);
-		$('input[name="gainMode"]').val(data.entity.gainMode);
+		$('input[name="financeAmount"]').val(data.entity.financeAmount);
 		$('textarea[name="remark"]').val(data.entity.remark);
 	});
 	initDialogValstr("form_shares");
