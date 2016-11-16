@@ -151,7 +151,7 @@ $(function(){
 		var projectBusinessModel = businessUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("business_model_show")
+		Valiate("business_show")
 	});
 	
 	/**
@@ -170,7 +170,7 @@ $(function(){
 		var industryAnalysis = industryUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "industryAnalysis" : industryAnalysis}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("industry_analysis_show")
+		Valiate("industry_show")
 	});
 	
 	/**
@@ -202,7 +202,7 @@ $(function(){
 		$("#portrait_editor").html($("#portrait_show").html());
 		$("#business_editor").html($("#business_model_show").html());
 		$("#operation_editor").html($("#operational_data_show").html());
-		$("#industry_editor").html($("#industry_analysis_show").html());
+		$("#industry_editor").html($("#industry_show").html());
 		$("#analysis_editor").html($("#analysis_show").html());
 		$("#next_financing_editor").html($("#next_financing_source_show").html());
 	}
@@ -219,7 +219,7 @@ $(function(){
 			$("#portrait_show").html(data.entity.userPortrait);
 			$("#business_model_show").html(data.entity.projectBusinessModel);
 			$("#operational_data_show").html(data.entity.operationalData);
-			$("#industry_analysis_show").html(data.entity.industryAnalysis);
+			$("#industry_show").html(data.entity.industryAnalysis);
 			$("#analysis_show").html(data.entity.prospectAnalysis);
 			$("#next_financing_source_show").html(data.entity.nextFinancingSource);
 			
@@ -254,11 +254,11 @@ $(function(){
 			}else{
 				$(".operational_data_show").hide();
 			};
-			if($("#industry_analysis_show").html()!="" && $.trim($("#industry_analysis_show").text())!=""){
-				$(".industry_analysis_show").show();
-				display_show("industry_analysis_show");
+			if($("#industry_show").html()!="" && $.trim($("#industry_show").text())!=""){
+				$(".industry_show").show();
+				display_show("industry_show");
 			}else{
-				$(".industry_analysis_show").hide();
+				$(".industry_show").hide();
 			};
 			if($("#analysis_show").html()!="" && $.trim($("#analysis_show").text())!=""){
 				$(".analysis_show").show();

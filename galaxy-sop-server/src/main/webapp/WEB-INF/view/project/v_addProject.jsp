@@ -294,7 +294,7 @@
 						<div class='product_center'>
 							<div class="new_r_compile ">
 								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span>
-								<span id="business_model_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								<span id="business_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
 								    <div class="tip-inner tip-bg-image">
 								        <font color="red">*</font>产品服务不能为空
 								    </div>
@@ -348,7 +348,7 @@
 						<div class='industry_center'>
 							<div class="new_r_compile ">
 								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span>
-								<span id="industry_analysis_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								<span id="industry_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
 								    <div class="tip-inner tip-bg-image">
 								        <font color="red">*</font>行业分析不能为空
 								    </div>
@@ -358,9 +358,9 @@
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color industry_analysis_show">
+							<div class="new_ul_all new_top_color industry_show">
 								<span class="ico_dot ico"></span>
-								<p id="industry_analysis_show" valiate="required"></p>
+								<p id="industry_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='industry_on'>
