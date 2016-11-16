@@ -202,6 +202,18 @@ $(function(){
 				$('.describe_show').hide();
 				$("#describe_show").html('');
 			}
+			if(projectInfo.projectDescribeFinancing){
+//				var um = UM.getEditor('describe_editor');
+				$("#describe2_show").html(projectInfo.projectDescribeFinancing);
+				describeUm2.setContent(projectInfo.projectDescribeFinancing);
+				$("#descript").hide();
+				$('.describe_show').show();
+				display_show("describe_show");
+			}else{
+				$('.describe_show').hide();
+				$("#describe2_show").html('');
+			}
+			
 			if(projectInfo.projectBusinessModel){
 //				var um = UM.getEditor('business_editor');
 				businessUm.setContent(projectInfo.projectBusinessModel);
@@ -476,8 +488,9 @@ $(function(){
 		$("#save_describe").click(function(){
 //			var um = UM.getEditor('describe_editor');
 			var projectDescribe = describeUm.getContent();
+			var projectDescribeFinancing = describeUm2.getContent();
 			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess);
+				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":projectDescribeFinancing}, saveSuccess);
 			}
 		});
 

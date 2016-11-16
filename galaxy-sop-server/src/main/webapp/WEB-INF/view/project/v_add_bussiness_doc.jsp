@@ -66,7 +66,10 @@ $(function(){
 		//chunk_size:"200kb",//分片上传
 		filters : {
 			mime_types : [
-	           { title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBER" }
+	           { title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBER" },
+	           {title : "music files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R"},
+	           {title : "image files", extensions : "bmp,jpg,gif,png,jpeg,BMP,JPG,GIF,PNG,JPEG"},
+	           {title : "Zip files", extensions : "zip,rar,ZIP,RAR"}
 	        ],
 			max_file_size : '25mb',
 			prevent_duplicates : true //不允许选取重复文件

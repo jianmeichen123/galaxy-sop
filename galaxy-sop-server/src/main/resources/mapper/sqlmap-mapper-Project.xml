@@ -31,6 +31,7 @@
     <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />    
     <result column="project_describe" property="projectDescribe" jdbcType="LONGVARCHAR" />
+    <result column="project_describe_financing" property="projectDescribeFinancing" jdbcType="LONGVARCHAR" />
     <result column="project_business_model" property="projectBusinessModel" jdbcType="LONGVARCHAR" />
     <result column="company_location" property="companyLocation" jdbcType="LONGVARCHAR" />
     <result column="user_portrait" property="userPortrait" jdbcType="LONGVARCHAR" />
@@ -54,7 +55,7 @@
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
     project_valuations,industry_own, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
-    project_describe, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
+    project_describe,project_describe_financing, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
     industry_analysis,operational_data, idea_id,fa_flag,fa_name,grean_channel,remark
   </sql>
   
@@ -277,7 +278,7 @@
 	      currency_unit, project_share_ratio, final_share_ratio, service_charge,project_company, formation_date, project_company_code, company_legal, create_uid, 
 	      create_uname, create_uposition, project_progress, 
 	      project_status, updated_time, created_time, 
-	      project_describe, project_business_model, 
+	      project_describe,project_describe_financing, project_business_model, 
 	      company_location, user_portrait, 
 	      prospect_analysis,next_financing_source,industry_analysis,
 	      operational_data,idea_id,fa_flag,fa_name,grean_channel,remark)
@@ -287,7 +288,7 @@
 	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL},#{serviceCharge,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
 	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
-	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
+	      #{projectDescribe,jdbcType=LONGVARCHAR},#{projectDescribeFinancing,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
 	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{nextFinancingSource,jdbcType=LONGVARCHAR},
 	      #{industryAnalysis,jdbcType=LONGVARCHAR},#{operationalData,jdbcType=LONGVARCHAR},
@@ -303,7 +304,7 @@
 	      currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
 	      create_uname, create_uposition, project_progress, 
 	      project_status, updated_time, created_time, 
-	      project_describe, project_business_model, 
+	      project_describe, project_describe_financing,project_business_model, 
 	      company_location, user_portrait, 
 	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
@@ -312,7 +313,7 @@
 	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL},#{serviceCharge,jdbcType=DECIMAL},  #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
 	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
-	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
+	      #{projectDescribe,jdbcType=LONGVARCHAR},#{projectDescribeFinancing,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
 	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
 	    ]]>
@@ -353,6 +354,7 @@
 		      <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		      <if test="projectDescribe != null" >  project_describe = #{projectDescribe,jdbcType=LONGVARCHAR}, </if>
+		      <if test="projectDescribeFinancing != null" >  project_describe_financing = #{projectDescribeFinancing,jdbcType=LONGVARCHAR}, </if>
 		      <if test="projectBusinessModel != null" >  project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR}, </if>
 		      <if test="companyLocation != null" >  company_location = #{companyLocation,jdbcType=LONGVARCHAR}, </if>
 		      <if test="userPortrait != null" >  user_portrait = #{userPortrait,jdbcType=LONGVARCHAR}, </if>
@@ -398,6 +400,7 @@
 		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		      -->
 		      <if test="projectDescribe != null" > and project_describe = #{projectDescribe,jdbcType=LONGVARCHAR} </if>
+		      <if test="projectDescribeFinancing != null" >  project_describe_financing = #{projectDescribeFinancing,jdbcType=LONGVARCHAR}, </if>
 		      <if test="projectBusinessModel != null" > and project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR} </if>
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
 		      <if test="userPortrait != null" > and user_portrait = #{userPortrait,jdbcType=LONGVARCHAR} </if>
@@ -440,6 +443,7 @@
 		      <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		      <if test="projectDescribe != null" >  project_describe = #{projectDescribe,jdbcType=LONGVARCHAR}, </if>
+		      <if test="projectDescribeFinancing != null" >  project_describe_financing = #{projectDescribeFinancing,jdbcType=LONGVARCHAR}, </if>
 		      <if test="projectBusinessModel != null" >  project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR}, </if>
 		      <if test="companyLocation != null" >  company_location = #{companyLocation,jdbcType=LONGVARCHAR}, </if>
 		      <if test="userPortrait != null" >  user_portrait = #{userPortrait,jdbcType=LONGVARCHAR}, </if>

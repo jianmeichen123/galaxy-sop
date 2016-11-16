@@ -1545,6 +1545,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					obj.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 					obj.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 					obj.setProjectDescribe(project.getProjectDescribe());
+					obj.setProjectDescribeFinancing(project.getProjectDescribeFinancing());
 					obj.setProjectBusinessModel(project.getProjectBusinessModel());
 					obj.setCompanyLocation(project.getCompanyLocation());
 					obj.setUserPortrait(project.getUserPortrait());
