@@ -151,10 +151,25 @@ radio name="personSex"
     
         
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="save_file" onclick="savePerson()">确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl"  onclick="savePerson()">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
+
+<div id="learn-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 280px; opacity: 1; width: 100px;">
+	<div class="tip-inner tip-bg-image">
+		<font color="red">*</font>学历背景不能为空
+	</div>
+	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+</div>
+<div id="work-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 423px; opacity: 1; width: 100px;">
+	<div class="tip-inner tip-bg-image">
+		<font color="red">*</font>工作履历不能为空
+	</div>
+	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+</div>
+
+
 <jsp:include page="../../common/validateJs.jsp" flush="true"></jsp:include>
 
 <script>
@@ -166,7 +181,6 @@ $("input:radio[name='isContacts']").change(function() {
 
 
 
-
 /* 
 //验证输入框内不能输入特殊字符,输入就立刻清除
 function cleanSpelChar(th){
@@ -175,7 +189,15 @@ function cleanSpelChar(th){
     }
 } */
 $(function(){
+	
 	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
+	
+	$("body").css("overflow","auto");
+	$("#learn-tip").css("display","none");
+	$("#work-tip").css("display","none");
+	
+	
+	
 	//调整谈弹窗提示框
 	$(".addPerson_all").scroll(function(){
 		var offsetTop=$(this).offset().top;
@@ -194,7 +216,9 @@ $(function(){
 				$(".tip-yellowsimple").eq(i).css("opacity","1");
 			}
 		}
-	})
+	});
+	
+	
 })
  
 

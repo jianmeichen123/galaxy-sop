@@ -309,40 +309,59 @@ function tableShow(tableId){
 /*
  * 新建  编辑  团队成员
  */
-function savePerson() {
-	if (beforeSubmit()) {
-		if ($("#person_project_id").val() && $("#person_project_id").val() != '') {
 
-			var personPool = JSON.parse($("#person_form").serializeObject());
-			
-			var learnList = $('#per_learning_table').bootstrapTable('getData');
-			var workList = $('#per_work_table').bootstrapTable('getData');
-			if(!learnList || learnList.length == 0){
-				layer.msg("学历背景不能为空");
-				return;
-			}
-			if(!workList || workList.length == 0){
-				layer.msg("工作履历不能为空");
-				return;
-			}
-			
-			/*if(isEditOrCreatePerson == "c"){
-				personPool.id = null;
-				personPool.plc = learnList;
-				personPool.pwc = workList;
-				sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
-			}else{
-				sendPostRequestByJsonObj(Constants.sopEndpointURL + '/galaxy/project/upp', personPool, savePersonCallBack);
-			}*/
-			if(isEditOrCreatePerson == "c"){
-				personPool.id = null;
-			}
+function savePerson(){
+
+	if (beforeSubmit()) {
+		var learnList = $('#per_learning_table').bootstrapTable('getData');
+		var workList = $('#per_work_table').bootstrapTable('getData');
+		if(!learnList || learnList.length == 0){
+			$("#learn-tip").css("display","block");
+			//layer.msg("学历背景不能为空");
+			return;
+		}
+		if(!workList || workList.length == 0){
+			console.log($("#per_learning_table tbody tr").css("display"));
+			$("#work-tip").css("display","block");
+			//layer.msg("工作履历不能为空");
+			return;
+		}
+		
+		savePerson_do(learnList,workList);
+	}
+}
+function savePerson_do(learnList,workList) {
+	if ($("#person_project_id").val() && $("#person_project_id").val() != '') {
+
+		var personPool = JSON.parse($("#person_form").serializeObject());
+		/*
+		var learnList = $('#per_learning_table').bootstrapTable('getData');
+		var workList = $('#per_work_table').bootstrapTable('getData');
+		if(!learnList || learnList.length == 0){
+			layer.msg("学历背景不能为空");
+			return;
+		}
+		if(!workList || workList.length == 0){
+			layer.msg("工作履历不能为空");
+			return;
+		}*/
+		
+		/*if(isEditOrCreatePerson == "c"){
+			personPool.id = null;
 			personPool.plc = learnList;
 			personPool.pwc = workList;
 			sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
 		}else{
-			layer.msg("项目id缺失，保存失败");
+			sendPostRequestByJsonObj(Constants.sopEndpointURL + '/galaxy/project/upp', personPool, savePersonCallBack);
+		}*/
+		if(isEditOrCreatePerson == "c"){
+			personPool.id = null;
 		}
+		personPool.plc = learnList;
+		personPool.pwc = workList;
+		sendPostRequestByJsonObj(platformUrl.addPerson, personPool, savePersonCallBack);
+	}else{
+		layer.msg("项目id缺失，保存失败");
 	}
 }
 //保存成功回调
