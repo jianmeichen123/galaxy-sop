@@ -2,7 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<<style>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
+<style>
 .bars {display:none;}
 .basic_table{border:1px solid #e9ebf2 !important;margin:0;}
 </style>
@@ -52,7 +53,7 @@ radio name="personSex"
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;出生日期：</dt>
                 <dd>
-                    <input type="text" class="datetimepickerHour txt time" name="personBirthdayStr"
+                    <input type="text" class="datepicker-text txt time" name="personBirthdayStr"
                     	readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
                 </dd>
             </dl>
@@ -157,21 +158,6 @@ radio name="personSex"
 <jsp:include page="../../common/validateJs.jsp" flush="true"></jsp:include>
 
 <script>
-$('input[name="personBirthdayStr"]').datepicker({
-    format: 'yyyy-mm-dd',
-    language: "zh-CN",
-    autoclose: true,
-    todayHighlight: false,
-    defaultDate : Date,
-    today: "Today",
-    todayBtn:'linked',
-    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
-    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-    forceParse:false,
-    currentText: 'Now'
-});
-
-
 $("input:radio[name='isContacts']").change(function() {
 	// 0 y; 1 n
 	var $selectedvalue = $("input:radio[name='isContacts']:checked").val();
@@ -189,6 +175,7 @@ function cleanSpelChar(th){
     }
 } */
 $(function(){
+	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
 	//调整谈弹窗提示框
 	$(".addPerson_all").scroll(function(){
 		var offsetTop=$(this).offset().top;
