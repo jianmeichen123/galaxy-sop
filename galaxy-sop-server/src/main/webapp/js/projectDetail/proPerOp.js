@@ -315,16 +315,35 @@ function savePerson(){
 	if (beforeSubmit()) {
 		var learnList = $('#per_learning_table').bootstrapTable('getData');
 		var workList = $('#per_work_table').bootstrapTable('getData');
+		
 		if(!learnList || learnList.length == 0){
 			$("#learn-tip").css("display","block");
-			//layer.msg("学历背景不能为空");
 			return;
+		}else{
+			var learnList_hidden = $("#per_learning_table tbody tr:hidden");
+			if(learnList_hidden && learnList_hidden.length > 0){
+				var allL = learnList.length;
+				var hiddenL = learnList_hidden.length;
+				if(allL == hiddenL){
+					$("#learn-tip").css("display","block");
+					return;
+				}
+			}
 		}
+		
 		if(!workList || workList.length == 0){
-			console.log($("#per_learning_table tbody tr").css("display"));
 			$("#work-tip").css("display","block");
-			//layer.msg("工作履历不能为空");
 			return;
+		}else{
+			var workList_hidden = $("#per_work_table tbody tr:hidden");
+			if(workList_hidden && workList_hidden.length > 0){
+				var allL = workList.length;
+				var hiddenL = workList_hidden.length;
+				if(allL == hiddenL){
+					$("#learn-tip").css("display","block");
+					return;
+				}
+			}
 		}
 		
 		savePerson_do(learnList,workList);
