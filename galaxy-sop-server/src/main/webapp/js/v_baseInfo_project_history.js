@@ -65,6 +65,12 @@ function toUpdateOrSave(id){
 			console.log(id);
 			if(null==id){
 				$("#popup_name").text("新增融资历史");
+				/**
+				 * 获取融资状态下拉项
+				 * @version 2016-06-21
+				 */
+				createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
+
 			}else{
 				$("#popup_name").text("编辑融资历史");
 			}	

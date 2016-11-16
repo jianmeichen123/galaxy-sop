@@ -70,11 +70,5 @@
 $(function(){
 	$('input[name="financeDateStr"]').val(new Date().format("yyyy-MM-dd"));
 });
-/**
- * 获取融资状态下拉项
- * @version 2016-06-21
- */
-createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
-
 initDialogValstr("updateOrSave_HF");
 </script>
