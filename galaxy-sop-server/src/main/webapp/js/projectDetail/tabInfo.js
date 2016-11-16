@@ -105,7 +105,8 @@ $(function(){
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
-			$("#remarkStr").text(projectInfo.remark==null?"":projectInfo.remark);
+			$("#remarkStr").text(projectInfo.remark==""?"无":projectInfo.remark);
+			console.log(projectInfo.remark)
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			var p;

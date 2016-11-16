@@ -90,7 +90,7 @@
 	                        <span class="m_r30" style="with:400px">
 	                             <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否
 	                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-	                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
+	                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能是汉字或是字符,长度为20" id="faName"/>
 	                        </span>
                         </li>
                         <li>
@@ -224,9 +224,10 @@
 								</span>
 							</div>
 							<div class="new_ul_all new_top_color describe_show" >
-								<span class="ico_dot ico"></span>
-								<p id="describe_show" valiate="required"></p>
-								<p id="describe2_show" valiate="required"></p>
+								<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
+								<p style="padding-left:22px" id="describe_show" valiate="required"></p>
+								<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
+								<p style="padding-left:22px" id="describe2_show" valiate="required"></p>
 							</div>
 						</div>
 					</div>
@@ -294,7 +295,7 @@
 						<div class='product_center'>
 							<div class="new_r_compile ">
 								<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span>
-								<span id="business_model_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								<span id="business_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
 								    <div class="tip-inner tip-bg-image">
 								        <font color="red">*</font>产品服务不能为空
 								    </div>
@@ -348,7 +349,7 @@
 						<div class='industry_center'>
 							<div class="new_r_compile ">
 								<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span>
-								<span id="industry_analysis_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								<span id="industry_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
 								    <div class="tip-inner tip-bg-image">
 								        <font color="red">*</font>行业分析不能为空
 								    </div>
@@ -358,9 +359,9 @@
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color industry_analysis_show">
+							<div class="new_ul_all new_top_color industry_show">
 								<span class="ico_dot ico"></span>
-								<p id="industry_analysis_show" valiate="required"></p>
+								<p id="industry_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='industry_on'>
@@ -495,7 +496,7 @@
                     		<th>所有权人</th>
                     		<th>所有权人类型</th>
                     		<th>占比(%)</th>
-                    		<th>出资额(万元)</th>
+                    		<th>出资金额(万元)</th>
                     		<th>币种</th>
                     		<th>备注</th>
                     		<th>操作</th>

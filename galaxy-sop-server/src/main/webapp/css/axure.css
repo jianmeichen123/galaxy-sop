@@ -1365,7 +1365,7 @@ dl dt,dl label{font-weight: normal !important;}
 .search_adjust2 .fml dd{width:160px !important;}
 .block dl dd p{word-break:break-all;}
 /*ie8select文字垂直居中*/
-select{padding: 6px 0 !important;}
+select{padding: 5px 0 !important;}
 /**切断文字**/
 .text-overflow{width:420px;padding:5px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;word-break:break-all;}
 .text-overflow1{padding:10px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;word-break:break-all;}
@@ -2325,3 +2325,5 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 #form_shares .form  dl,.form_shares .form  dl{width:50%;margin:0 0 10px 0;}
 #form_shares .form  .txt,.form_shares .form  .txt{display:inline-block;}
 #form_shares .new_nputr.text,.form_shares .new_nputr.text{width:478px;}
+.new_table em.red{left:0;}
+.new_table .basic_span{width:75px;}
