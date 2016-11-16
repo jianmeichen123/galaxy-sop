@@ -337,12 +337,12 @@ function generateSharesInnerHtml(list){
 	var innerHtml = "";
 	$.each(list, function(i, o){
 		innerHtml += '<tr>';
-		innerHtml += '<td>'+o.sharesOwner+'</td>';
-		innerHtml += '<td>'+o.sharesType+'</td>';
+		innerHtml += '<td title="'+o.sharesOwner+'">'+o.sharesOwner+'</td>';
+		innerHtml += '<td title="'+o.sharesType+'">'+o.sharesType+'</td>';
 		innerHtml += '<td>'+o.sharesRatio+'</td>';
 		innerHtml += '<td>'+o.financeAmount+'</td>';
 		innerHtml += '<td>'+(o.financeUnit=='0' ? '人民币' : '美元')+'</td>';
-		innerHtml += '<td>'+o.remark+'</td>';
+		innerHtml += '<td title="'+o.remark+'">'+o.remark+'</td>';
 		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑&nbsp;</a><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
 		innerHtml += '</tr>';
 	});
