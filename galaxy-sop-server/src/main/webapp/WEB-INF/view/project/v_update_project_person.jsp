@@ -70,7 +70,7 @@
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-work"/>
                 <h3><em class="red">*</em>&nbsp;工作履历</h3>
-                <span class="blue fr add" onclick="addPersonWork();">添加</span>
+                <span class="blue fr add" onclick="addPersonWork();" data-btn="addPersonWork" data-name="添加工作履历">添加</span>
                 <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
 	                <thead>
 	                    <tr>
