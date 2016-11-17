@@ -4922,6 +4922,41 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	//TODO STEP 4 
 	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 保存项目 创建前 访谈记录
+	 * 
+	 * @param id:mongoDB中 项目标识 <br/>
+	 * 	
+	 * @return responseBody
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/noToSaveProject/{id}", method = RequestMethod.GET,  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecord> noToSaveProject(@PathVariable("id") String id, HttpServletRequest request,HttpServletResponse response ) {
+		
+		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		
+		try {
+			if(id == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
+				return responseBody;
+			}
+			mongoProjectService.deleteById(id);
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "取消失败"));
+			logger.error("noToSaveProject step4 error", e);
+		}
+		return responseBody;
+	}
+	
+	
 	/**
 	 * 查询项目 创建前 访谈记录
 	 * 

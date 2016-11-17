@@ -15,7 +15,9 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
+<!-- file -->
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <!-- 校验 -->
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -553,7 +555,7 @@
 	                	<div class="compile_on_left fr clearfix">
 	                    	<span class="pubbtn bluebtn fl"  data-btn="pre">上一步</span>
 	                        <span class="pubbtn bluebtn disabled fl" onclick="createProject();" data-btn="createProject">生成项目</span>
-	                        <span class="pubbtn fffbtn fl"  data-btn="close">取消</span>
+	                        <span class="pubbtn bluebtn fl"  data-btn="close" onclick="to_no_save()">取消</span>
 	                        <div class="fl pages">
 	                        	<label class="current_page blue">4</label>/<label>4</label>
 	                        </div>
