@@ -43,7 +43,7 @@
       <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
           <tr>
               <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="30"></td>
-              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td>
+              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20" onkeyup="value=value.replace(/[^\w./]/ig,'')"></td>
           </tr>
           <tr>
               <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>

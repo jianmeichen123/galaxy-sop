@@ -55,6 +55,7 @@ function formatterTable(entity){
 /**
  * 跳转至新增修改页面
  */
+var fhId="";
 function toUpdateOrSave(id){
 	var $self = $(this);
 	var _url =platformUrl.toUpateOrSaveFH;
@@ -63,7 +64,7 @@ function toUpdateOrSave(id){
 		data:"",//传递参数
 		okback:function(){
 			console.log(id);
-			if(null==id){
+			if(null==id&&"underfined"==id){
 				$("#popup_name").text("添加融资历史");
 				/**
 				 * 获取融资状态下拉项
@@ -73,18 +74,23 @@ function toUpdateOrSave(id){
 
 			}else{
 				$("#popup_name").text("编辑融资历史");
-			}	
-			if(null!=id&&"underfined"!=id){//修改页面
 				getFinanceHistory(id);//修改页面数据加载
-			}
+				fhId=id;
+			}	
 		}//模版反回成功执行	
 	});
 	return false;
 };
 function updateOrsave(){
+	var _url="";
+	if(fhId==""){
+		_url=platformUrl.saveFH+"/"+pid;
+	}else{
+		_url=platformUrl.upateFHSave+"/"+fhId;
+	}
 	var nowFormData = $("#updateOrSave_HF").serializeObject();
 	if(beforeSubmitById("updateOrSave_HF")){
-	     sendPostRequestByJsonStr(platformUrl.saveFH+"/"+pid, nowFormData, function(data){
+	     sendPostRequestByJsonStr(_url, nowFormData, function(data){
 			$.popupOneClose();
 			$("body").css("overflow","auto")
 			searchFH(pid);

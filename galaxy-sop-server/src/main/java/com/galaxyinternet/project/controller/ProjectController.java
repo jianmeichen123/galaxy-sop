@@ -1548,6 +1548,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				entity=mongoProjectService.findOne(param);
 			}else{
 				project=mongoProjectService.findById(flagId);
+				if(null==project.getFh()){
+					fh= new ArrayList<FinanceHistory>();
+					project.setFh(fh);
+				}
 				project.getFh().add(financeHistory);
 				mongoProjectService.updateById(flagId, project);
 				entity=project;
