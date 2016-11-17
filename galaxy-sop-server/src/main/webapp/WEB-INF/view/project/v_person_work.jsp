@@ -58,6 +58,13 @@ $(function(){
 	var uuid = $('input[name="uuid"]').val();
 	$("#save_person_work").click(function(){
 		if(beforeSubmitById("work")){
+			
+			var bbbb = beTimeCompare($('input[name="beginWorkStr"]').val(),$('input[name="overWorkStr"]').val());
+			if(bbbb == false || bbb = "false"){
+				layer.msg("开始时间不能大于结束时间");
+				return;
+			}
+			
 			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonWork/"+uuid+"/"+pid, 
 					$("#add_person_work").serializeObject(), 
 					function(data){
