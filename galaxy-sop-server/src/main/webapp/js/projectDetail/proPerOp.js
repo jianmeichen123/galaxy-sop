@@ -40,7 +40,7 @@ function getTabPerson(){
 					valign : 'middle',
 					formatter : 'date_str_format'
 				}, {
-					title : '电话',
+					title : '手机号码',
 					field : 'personTelephone',
 	
 					valign : 'middle'
@@ -230,7 +230,7 @@ function deletePer(id) {
 function radio_isContacts_tel(isContactsV){
 	var phone = $("input[name='personTelephone']");
 	if (isContactsV == 0 || isContactsV == '0') {
-		$("input[name='personTelephone']").attr({placeholder:"请输入电话号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>电话号码格式不正确"});
+		$("input[name='personTelephone']").attr({placeholder:"请输入手机号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>手机号码格式不正确"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
 		$("input[name='personTelephone']").attr('allowNULL','yes').removeAttr('placeholder').removeAttr('msg');
 	} 

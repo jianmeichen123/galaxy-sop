@@ -25,7 +25,7 @@
 							<th data-field="personDuties"  data-align="left" data-formatter="personDuties">当前职务</th>
 			                <th data-field="personSex"  data-align="left" data-formatter="sexFormat">性别</th>
 		                     <th data-field="personBirthday"  data-align="left" data-formatter="date_str_format">出生日期</th>
-		                     <th data-field="personTelephone"  data-align="left" >电话号码</th>
+		                     <th data-field="personTelephone"  data-align="left" >手机号码</th>
 		                     <th data-field="remark" data-align="left" data-formatter="remark_format">备注</th>
 						</tr>
 					</thead>
