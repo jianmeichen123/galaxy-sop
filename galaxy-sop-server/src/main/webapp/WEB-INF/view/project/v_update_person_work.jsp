@@ -56,7 +56,7 @@ $(function(){
 	$("#sure_btn").click(function(){
 		if(beforeSubmitById("updatework")){
 			var bbbb = beTimeCompare($('input[name="beginWorkStr"]').val(),$('input[name="overWorkStr"]').val());
-			if(bbbb == false || bbb == "false"){
+			if(bbbb == false || bbbb == "false"){
 				layer.msg("开始时间不能大于结束时间");
 				return;
 			}
