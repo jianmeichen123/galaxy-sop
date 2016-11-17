@@ -483,7 +483,7 @@
 					          <tr>
 					              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
 					              <td><span class="new_color_gray th">成立日期：</span>
-					             	 <input type="text" class='datepicker-text new_nputr' id="fr_d_val" name="formationDate" onkeydown="return false;" readonly />
+					             	 <input type="text" class='datepicker-text timeico' id="fr_d_val" name="formationDate" onkeydown="return false;" readonly />
 					              </td>
 					          </tr>
 					      </table>                    
