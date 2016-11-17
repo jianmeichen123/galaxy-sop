@@ -312,6 +312,10 @@
 			url:_url,
 			okback:function(){
 				$("#up_stock_form #projectId").val("${projectId}");
+				//去掉出资金额科学计数
+				var num=$('input[name="financeAmount"]').val();
+				var numNew=parseFloat(num).toString();
+				$('input[name="financeAmount"]').val(numNew)
 			},
 			hideback:function(){
 				$sharesTable.bootstrapTable('refresh');
@@ -420,7 +424,6 @@
         onLoadSuccess: function (data) {
        		$("#shares-table span.edit").click(function(){
        			editStock($(this).data('id'));
-       			console.log(editStock($(this).data('id')))
        		});
        		$("#shares-table span.del").click(function(){
        			delStock($(this).data('id'));
