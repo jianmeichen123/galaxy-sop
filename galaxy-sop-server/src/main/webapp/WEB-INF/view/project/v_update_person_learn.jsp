@@ -20,12 +20,12 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;毕业院校：</dt>
                     <dd class="clearfix">
-                        <input name="school" type="text" class="txt" valType="required" msg="<font color=red>*</font>毕业院校不能为空"/>
+                        <input name="school" type="text" class="txt" valtype="OTHER" regstring="^\S{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
                     </dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;专业：</dt>
-                    <dd><input name="major" type="text" class="txt" valType="required" msg="<font color=red>*</font>专业不能为空"/></dd>
+                    <dd><input name="major" type="text" class="txt" valtype="OTHER" regstring="^\S{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;学历：</dt>
