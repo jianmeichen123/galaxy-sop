@@ -15,6 +15,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
 <!-- 校验 -->
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -479,7 +480,9 @@
 					          </tr>
 					          <tr>
 					              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
-					              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
+					              <td><span class="new_color_gray th">成立日期：</span>
+					             	 <input type="text" class='datepicker-text new_nputr' id="fr_d_val" name="formationDate" onkeydown="return false;" readonly />
+					              </td>
 					          </tr>
 					      </table>                    
 					      </form>
@@ -605,6 +608,13 @@ $('[data-btn="next"]').click(function(){
 			return;
 		}
 	}else if(num==2){
+		
+		var sTime = (new Date($("#fr_d_val").val())).getTime();		
+		var nTime = (new Date()).getTime();
+		if(sTime > nTime || $("#fr_d_val").val() > new Date().format("yyyy-MM-dd")){
+			layer.msg("成立日期不能大于当前日期");
+			return;
+		}
 		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+pid, 
 				$("#company-info-form").serializeObject(), 
 				function(data){
