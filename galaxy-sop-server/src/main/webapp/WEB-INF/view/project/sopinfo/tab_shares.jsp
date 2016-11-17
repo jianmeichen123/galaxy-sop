@@ -420,6 +420,7 @@
         onLoadSuccess: function (data) {
        		$("#shares-table span.edit").click(function(){
        			editStock($(this).data('id'));
+       			console.log(editStock($(this).data('id')))
        		});
        		$("#shares-table span.del").click(function(){
        			delStock($(this).data('id'));

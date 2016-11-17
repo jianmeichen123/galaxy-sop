@@ -155,8 +155,23 @@ function proPerOpFormat(value, row, index) {
 	return content;
 }
 
-
-
+//团队成员表格title提示
+function school(value, row, index) {
+	var options = "<label title='"+row.school+"'>" + row.school + "</label>";
+	return options;
+}
+function major(value, row, index) {
+	var options = "<label title='"+row.major+"'>" + row.major + "</label>";
+	return options;
+}
+function companyName(value, row, index) {
+	var options = "<label title='"+row.companyName+"'>" + row.companyName + "</label>";
+	return options;
+}
+function workPosition(value, row, index) {
+	var options = "<label title='"+row.workPosition+"'>" + row.workPosition + "</label>";
+	return options;
+}
 /**
  * 查看 团队成员
  * @param id
@@ -420,7 +435,6 @@ function deleteIndex_Format(value, row, index) {
 function learn_TimeFormat(value, row, index) {
 	var bstr;
 	var estr;
-	
 	if(row.beginDateStr){
 		bstr = row.beginDateStr;
 	}else if(row.beginDate){
@@ -439,7 +453,9 @@ function learn_TimeFormat(value, row, index) {
 		estr="-";
 	}
 	
-	return bstr +" - "+ estr ;
+	//return bstr +" - "+ estr ;
+	var options = "<label title='"+bstr +' - '+ estr+"'>" + bstr +' - '+ estr + "</label>";
+	return options;
 }
 
 function pro_learning_format(value, row, index) {
@@ -641,7 +657,9 @@ function work_TimeFormat(value, row, index) {
 		estr = "-";
 	}
 	
-	return bstr +" - "+ estr ;
+	//return bstr +" - "+ estr ;
+	var options = "<label title='"+bstr +' - '+ estr+"'>" + bstr +' - '+ estr + "</label>";
+	return options;
 }
 
 function pro_work_format(value, row, index) {

@@ -21,12 +21,12 @@
                 	data-toolbar="#pro_per_info_toolbar" >
 	        		<thead>
 						<tr>
-							<th data-field="personName"  data-align="center" data-formatter="personName" >姓名</th>
-							<th data-field="personDuties"  data-align="center" data-formatter="personDuties">当前职务</th>
-			                <th data-field="personSex"  data-align="center" data-formatter="sexFormat">性别</th>
-		                     <th data-field="personBirthday"  data-align="center" data-formatter="date_str_format">出生日期</th>
-		                     <th data-field="personTelephone"  data-align="center" >电话号码</th>
-		                     <th data-field="remark" data-align="center" data-formatter="remark_format">备注</th>
+							<th data-field="personName"  data-align="left" data-formatter="personName" >姓名</th>
+							<th data-field="personDuties"  data-align="left" data-formatter="personDuties">当前职务</th>
+			                <th data-field="personSex"  data-align="left" data-formatter="sexFormat">性别</th>
+		                     <th data-field="personBirthday"  data-align="left" data-formatter="date_str_format">出生日期</th>
+		                     <th data-field="personTelephone"  data-align="left" >电话号码</th>
+		                     <th data-field="remark" data-align="left" data-formatter="remark_format">备注</th>
 						</tr>
 					</thead>
 				</table>
@@ -52,10 +52,10 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th data-field="school"  data-align="center" >毕业院校</th>
-			                <th data-field="major"  data-align="center" >专业</th>
-		                     <th data-field="BE_time"  data-align="center" data-formatter="learn_TimeFormat">时间</th>
-		                     <th data-field="degree"  data-align="center" >学历</th>
+							<th data-field="school"  data-align="left" data-formatter="school" >毕业院校</th>
+			                <th data-field="major"  data-align="left" data-formatter="major">专业</th>
+		                     <th data-field="BE_time"  data-align="left" data-formatter="learn_TimeFormat">时间</th>
+		                     <th data-field="degree"  data-align="left" >学历</th>
 						</tr>
 					</thead>
 				</table>
@@ -81,9 +81,9 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th data-field="BE_time"  data-align="center" data-formatter="work_TimeFormat">时间</th>
-							<th data-field="companyName"  data-align="center" >任职公司名称</th>
-			                <th data-field="workPosition"  data-align="center" >职位</th>
+							<th data-field="BE_time"  data-align="left" data-formatter="work_TimeFormat">时间</th>
+							<th data-field="companyName"  data-align="left" data-formatter="companyName">任职公司名称</th>
+			                <th data-field="workPosition"  data-align="left" data-formatter="workPosition">职位</th>
 						</tr>
 					</thead>
 				</table> 
