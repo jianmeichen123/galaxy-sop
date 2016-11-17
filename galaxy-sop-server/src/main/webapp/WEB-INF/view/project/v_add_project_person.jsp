@@ -107,6 +107,11 @@
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
 $(function(){
+	$("input:radio[name='isContacts']").change(function() {
+		// 0 y; 1 n
+		var $selectedvalue = $("input:radio[name='isContacts']:checked").val();
+		radio_isContacts_tel($selectedvalue);
+	});
 	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
 	generateLearningEmptyInnerHtml();
 	generateWorkEmptyInnerHtml();

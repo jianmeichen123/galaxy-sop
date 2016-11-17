@@ -175,5 +175,11 @@ $(function(){
 			}
 		}
 	})
+	$("input:radio[name='isContacts']").change(function() {
+		// 0 y; 1 n
+		var $selectedvalue = $("input:radio[name='isContacts']:checked").val();
+		radio_isContacts_tel($selectedvalue);
+	});
+
 });
 </script>

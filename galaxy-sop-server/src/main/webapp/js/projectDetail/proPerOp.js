@@ -582,7 +582,37 @@ function learnTableRefresh(newDataRow){
 function deleteLearn(selectIndex){
 	layer.confirm(
 			'确定要删除数据？',
-			deleteLearn_do(selectIndex)
+			{btn : [ '确定', '取消' ]}, 
+			function(selectIndex){
+				
+				if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){
+					learnSelectRow = $('#per_learning_table').bootstrapTable('getRowByUniqueId', selectIndex);
+				}else{
+					layer.msg("选择判断错误");
+					return;
+				}
+				
+				if(learnSelectRow && learnSelectRow!=null && typeof(learnSelectRow)!='undefined' 
+						&& learnSelectRow.id!=null && typeof(learnSelectRow.id)!='undefined' ){
+					
+					learnSelectRow.isEditOrCreate = 2;
+					$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+					
+					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+learnSelectRow.id, null, function(data){
+						var result = data.result.status;
+						if(result == "ERROR"){ //OK, ERROR
+							layer.msg(data.result.message);
+							return;
+						}
+					});*/
+				}else{
+					$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
+				//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
+				}
+				$(".layui-layer-btn1").click();
+			}, 
+			function(index) {
+			}
 		);
 }
 function deleteLearn_do(selectIndex){
@@ -780,8 +810,41 @@ function workTableRefresh(newRowData){
 function deleteWork(selectIndex){
 	layer.confirm(
 			'确定要删除数据？',
-			deleteWork_do(selectIndex)
+			{btn : [ '确定', '取消' ]}, 
+			function(){
+				if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){ 
+					workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
+				}else{
+					layer.msg("选择判断错误");
+					return;
+				}
+				
+				if(workSelectRow && workSelectRow!=null && typeof(workSelectRow)!='undefined' 
+					&& workSelectRow.id!=null && typeof(workSelectRow.id)!='undefined' ){
+					
+					workSelectRow.isEditOrCreate = 2;
+					$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+					
+					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+workSelectRow.id, null, function(data){
+						var result = data.result.status;
+						if(result == "ERROR"){ //OK, ERROR
+							layer.msg(data.result.message);
+							return;
+						}
+					});*/
+				}else{
+					$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
+				}
+				$(".layui-layer-btn1").click();
+			}, 
+			function(index) {
+			}
 		);
+	
+	/*layer.confirm(
+			'确定要删除数据？',
+			deleteWork_do(selectIndex)
+		);*/
 }
 function deleteWork_do(selectIndex){
 
