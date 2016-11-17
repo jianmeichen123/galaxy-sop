@@ -65,7 +65,7 @@ function getTabPerson(){
 function remark_format(value, row, index) {
 	if(value){
 		if(getLength(value)>10){
-			var cutString = cutStr(10,value);
+			var cutString = cutStr_z(10,value);
 			value = "<label title='"+value+"'>" + cutString + "...</label>";
 		}
 	}else{
@@ -920,7 +920,7 @@ function delHtmlTag(str)
 	}
 }
 
-function cutStr(theNum,theOldStr){
+function cutStr_z(theNum,theOldStr){
 	var leaveStr = "";
 	var leng = getLength(theOldStr);
 	if(theNum >= leng){

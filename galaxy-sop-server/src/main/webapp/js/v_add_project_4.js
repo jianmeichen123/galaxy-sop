@@ -198,7 +198,7 @@ function pro_viewInfo_format(value,row,index){
 	//访谈对象
 	var targetStr = delHtmlTag(row.viewTarget);
 	if(targetStr.length>10){
-		var cutSting = cutStr(10,targetStr);
+		var cutSting = cutStr_z(10,targetStr);
 		targerHtml = "</br>访谈对象：<label class='meeting_result color_pass' title='"+targetStr+"'>" + cutSting + "</label>";
 	}else{
 		targerHtml = "</br>访谈对象：<label class='meeting_result color_pass'>" + targetStr + "</label>";
@@ -234,7 +234,7 @@ function pro_viewNote_format(value,row,index){
 		str=delHtmlTag($.trim(value))
 	}
 	if(str.length && str.length>120){
-		var curString = cutStr(120,str);
+		var curString = cutStr_z(120,str);
 		var rc = "<div id=\"log\" style=\"text-align:left;\"  class=\"text-overflow1\" title='"+str+"'>"+
 					curString+
 				'</div>';
@@ -321,7 +321,7 @@ function interviewsave(){
 //todo 基础方法
 
 
-function cutStr(theNum,theOldStr){
+function cutStr_z(theNum,theOldStr){
 	var leaveStr = "";
 	var leng = getLength(theOldStr);
 	if(theNum >= leng){
