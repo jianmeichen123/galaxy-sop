@@ -122,7 +122,21 @@ $(function(){
 		var projectDescribeFinancing = describeUm2.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":projectDescribeFinancing}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("describe_show");
+		if($("#describe2_show").text()=='' || $.trim($("#describe2_show").text())=='') {
+			if($("#describe_valiate").attr("style") == "display:none;visibility: inherit;"){
+				$("#describe2_valiate").attr("style","visibility: inherit; display: block;");
+			}
+		}else{
+			$("#describe2_valiate").attr("style","display:none;visibility: inherit;");
+		}
+		if($("#describe_show").text()=='' || $.trim($("#describe_show").text())=='') {
+			if($("#describe2_valiate").attr("style") == "display:none;visibility: inherit;"){
+			    $("#describe_valiate").attr("style","visibility: inherit; display: block;");
+			}
+		}else{
+			$("#describe_valiate").attr("style","display:none;visibility: inherit;");
+		}
+	    
 	});
 	
 	/**
@@ -227,10 +241,17 @@ $(function(){
 			if($("#describe_show").html()!=""  && $.trim($("#describe_show").text())!="" ){
 				$(".describe_show").show();
 				display_show("describe_show");
-				display_show("describe2_show");
+				//display_show("describe2_show");
 			}else{
 				$(".describe_show").hide();
 			};
+			if($("#describe2_show").html()!=""  && $.trim($("#describe2_show").text())!="" ){
+				$(".describe2_show").show();
+				display_show("describe2_show");
+			}else{
+				$(".describe2_show").hide();
+			};
+			
 			if($("#location_show").html()!="" && $.trim($("#location_show").text())!=""){
 				$(".location_show").show();
 				display_show("location_show");
