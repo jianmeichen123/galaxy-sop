@@ -13,7 +13,7 @@
                 <h3>基本信息</h3>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;姓名：</dt>
-                    <dd><input type="text" class="txt" name="personName" valtype="required" msg="<font color=red>*</font>姓名不能为空"/></dd>
+                    <dd><input type="text" class="txt" name="personName" valtype="OTHER" regstring="^\S{1,20}$" msg="<font color=red>*</font>不能为空且字符长度最大20"/></dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;性别：</dt>
