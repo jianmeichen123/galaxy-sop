@@ -71,6 +71,13 @@ $(function(){
 	var uuid = $('input[name="uuid"]').val();
 	$("#save_person_learning").click(function(){
 		if(beforeSubmitById("learning")){
+			
+			var bbbb = beTimeCompare($('input[name="beginDateStr"]').val(),$('input[name="overDateStr"]').val());
+			if(bbbb == false || bbb = "false"){
+				layer.msg("开始时间不能大于结束时间");
+				return;
+			}
+			
 			sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/savePersonLearning/"+uuid+"/"+pid, 
 					$("#add_person_learning").serializeObject(), 
 					function(data){

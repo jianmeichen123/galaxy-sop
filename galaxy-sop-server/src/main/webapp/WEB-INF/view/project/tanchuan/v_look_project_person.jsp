@@ -2,6 +2,9 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<style>
+.bars{display:none;} 
+</style>
 <div class="addPersontc">
 	<div class="title_bj" id="popup_name"></div>
 	
@@ -13,7 +16,8 @@
                <div id="pro_per_info_toolbar">
 					<input type="hidden" name="id" id="pool_id" value="" />
 				</div>
-                <table id="pro_per_info"  data-url="<%=path %>/galaxy/project/queryProPerInfo" data-method="post" 
+				<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
+					  <table id="pro_per_info" class="basic_table" data-url="<%=path %>/galaxy/project/queryProPerInfo" data-method="post" 
                 	data-toolbar="#pro_per_info_toolbar" >
 	        		<thead>
 						<tr>
@@ -26,7 +30,7 @@
 						</tr>
 					</thead>
 				</table>
-			
+				</div>
             </div>
             
             
@@ -37,7 +41,8 @@
                 <div id="pro_per_learn_toolbar">
 					<input type="hidden" name="personId" value="" />
 				</div>
-	            <table  id="pro_per_learn_table" data-url="<%=path %>/galaxy/project/queryProPerLearn" data-method="post" 
+				<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
+	            <table  id="pro_per_learn_table" class="basic_table"  data-url="<%=path %>/galaxy/project/queryProPerLearn" data-method="post" 
 		       		data-toolbar="#pro_per_learn_toolbar"  >
 					<colgroup >
 						<col style="width:30%;">
@@ -53,7 +58,8 @@
 		                     <th data-field="degree"  data-align="center" >学历</th>
 						</tr>
 					</thead>
-				</table> 
+				</table>
+				</div> 
                 
             </div>
             
@@ -65,7 +71,8 @@
                 <div id="pro_per_work_toolbar">
 					<input type="hidden" name="personId" value="" />
 				</div>
-	            <table id="pro_per_work_table" data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
+				<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
+	            <table id="pro_per_work_table" class="basic_table"  data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
 		       		data-toolbar="#pro_per_work_toolbar" >
 					<colgroup >
 						<col style="width:35%;">
@@ -80,6 +87,7 @@
 						</tr>
 					</thead>
 				</table> 
+				</div>
 			
             </div>
             

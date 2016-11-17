@@ -592,6 +592,22 @@
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
+
+function beTimeCompare(btime,etime){
+	if(btime && etime){
+		var startTime = (new Date(btime)).getTime();		
+		var endTime = (new Date(etime)).getTime();
+		if(startTime > endTime){
+			return false;
+		}
+		//兼容safari
+		if(btime>etime){
+			return false;
+		}
+	}
+	return true;
+}
+
 createMenus(5);
 initDialogValstr("add_form");
 var pid;
