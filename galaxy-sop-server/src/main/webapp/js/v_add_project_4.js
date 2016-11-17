@@ -3,8 +3,16 @@
 //删除
 function to_no_save(){
 	layer.confirm(
-			'是否取消提交项目？',
-			no_save()
+			'是否取消提交项目?', 
+			{btn : [ '确定', '取消' ]}, 
+			function(){
+				sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/noToSaveProject/"+pid, 
+						null, 
+						function(data){
+						forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
+				});
+			}, 
+			function(index) {}
 		);
 }
 
@@ -12,9 +20,7 @@ function no_save(){
 	sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/noToSaveProject/"+pid, 
 			null, 
 			function(data){
-		if(data.result.status == 'OK'){
 			forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
-		}
 	});
 }
 
