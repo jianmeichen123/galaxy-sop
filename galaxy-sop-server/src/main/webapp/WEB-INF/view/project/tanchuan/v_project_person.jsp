@@ -190,7 +190,8 @@ function cleanSpelChar(th){
 } */
 $(function(){
 	
-	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
+	//$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
+	$('input[name="personBirthdayStr"]').val("1900-01-01");
 	
 	$.locksCreenOpen();
 	$("#learn-tip").css("display","none");
