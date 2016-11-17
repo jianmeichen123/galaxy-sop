@@ -92,18 +92,18 @@ radio name="personSex"
 				<input type="hidden" name="personId" value="" />
 			</div>
 			<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
-	            <table  id="per_learning_table" class="basic_table"
+	            <table  id="per_learning_table" class="basic_table learning-table"
 	               	data-url="<%=path %>/galaxy/project/queryProPerLearn" data-method="post" 
 		       		data-toolbar="#learning_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
 					<thead>
 						<tr>
-							<th data-field="deleteIndex"  data-align="center" data-formatter="deleteIndex_Format" ></th>
-							<th data-field="school"  data-align="center" >毕业院校</th>
-			                <th data-field="major"  data-align="center" >专业</th>
+							<th data-field="deleteIndex"  data-align="left" data-formatter="deleteIndex_Format" ></th>
+							<th data-field="school"  data-align="left" data-formatter="school" >毕业院校</th>
+			                <th data-field="major"  data-align="left" data-formatter="major" >专业</th>
 		                     
 		                     <!--  beginDate overDate beginDateStr overDateStr -->
-		                     <th data-field="BE_time"  data-align="center" data-formatter="learn_TimeFormat">时间</th>
-		                     <th data-field="degree"  data-align="center" >学历</th>
+		                     <th data-field="BE_time"  data-align="left" data-formatter="learn_TimeFormat">时间</th>
+		                     <th data-field="degree"  data-align="left" >学历</th>
 		                     <th data-field="learn_op" data-formatter="pro_learning_format">操作</th>
 						</tr>
 					</thead>
@@ -121,7 +121,7 @@ radio name="personSex"
 				<input type="hidden" name="personId" value="" />
 			</div>
 			<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
-			<table id="per_work_table" class="basic_table" 
+			<table id="per_work_table" class="basic_table learning-table" 
                	data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
 	       		data-toolbar="#work_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
 				<!-- <colgroup >
@@ -133,12 +133,12 @@ radio name="personSex"
 				</colgroup> -->
 				<thead>
 					<tr>
-						<th data-field="deleteIndex"  data-align="center" data-formatter="work_deleteIndex_Format" ></th>
+						<th data-field="deleteIndex"  data-align="left" data-formatter="work_deleteIndex_Format" ></th>
 						<!--  beginWork overWork beginWorkStr overWorkStr -->
-						<th data-field="BE_time"  data-align="center" data-formatter="work_TimeFormat">时间</th>
+						<th data-field="BE_time"  data-align="left" data-formatter="work_TimeFormat">时间</th>
 						
-						<th data-field="companyName"  data-align="center" >任职公司名称</th>
-		                <th data-field="workPosition"  data-align="center" >职位</th>
+						<th data-field="companyName"  data-align="left" data-formatter="companyName">任职公司名称</th>
+		                <th data-field="workPosition"  data-align="left" data-formatter="workPosition">职位</th>
 	                    <th data-field="work_op" data-formatter="pro_work_format">操作</th>
 					</tr>
 				</thead>
@@ -192,11 +192,9 @@ $(function(){
 	
 	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
 	
-	$("body").css("overflow","auto");
+	$.locksCreenOpen();
 	$("#learn-tip").css("display","none");
 	$("#work-tip").css("display","none");
-	
-	
 	
 	//调整谈弹窗提示框
 	$(".addPerson_all").scroll(function(){

@@ -40,7 +40,7 @@ function getTabPerson(){
 					valign : 'middle',
 					formatter : 'date_str_format'
 				}, {
-					title : '电话',
+					title : '手机号码',
 					field : 'personTelephone',
 	
 					valign : 'middle'
@@ -155,8 +155,23 @@ function proPerOpFormat(value, row, index) {
 	return content;
 }
 
-
-
+//团队成员表格title提示
+function school(value, row, index) {
+	var options = "<label title='"+row.school+"'>" + row.school + "</label>";
+	return options;
+}
+function major(value, row, index) {
+	var options = "<label title='"+row.major+"'>" + row.major + "</label>";
+	return options;
+}
+function companyName(value, row, index) {
+	var options = "<label title='"+row.companyName+"'>" + row.companyName + "</label>";
+	return options;
+}
+function workPosition(value, row, index) {
+	var options = "<label title='"+row.workPosition+"'>" + row.workPosition + "</label>";
+	return options;
+}
 /**
  * 查看 团队成员
  * @param id
@@ -215,7 +230,7 @@ function deletePer(id) {
 function radio_isContacts_tel(isContactsV){
 	var phone = $("input[name='personTelephone']");
 	if (isContactsV == 0 || isContactsV == '0') {
-		$("input[name='personTelephone']").attr({placeholder:"请输入电话号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>电话号码格式不正确"});
+		$("input[name='personTelephone']").attr({placeholder:"请输入手机号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>手机号码格式不正确"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
 		$("input[name='personTelephone']").attr('allowNULL','yes').removeAttr('placeholder').removeAttr('msg');
 	} 
@@ -420,7 +435,6 @@ function deleteIndex_Format(value, row, index) {
 function learn_TimeFormat(value, row, index) {
 	var bstr;
 	var estr;
-	
 	if(row.beginDateStr){
 		bstr = row.beginDateStr;
 	}else if(row.beginDate){
@@ -439,7 +453,9 @@ function learn_TimeFormat(value, row, index) {
 		estr="-";
 	}
 	
-	return bstr +" - "+ estr ;
+	//return bstr +" - "+ estr ;
+	var options = "<label title='"+bstr +' - '+ estr+"'>" + bstr +' - '+ estr + "</label>";
+	return options;
 }
 
 function pro_learning_format(value, row, index) {
@@ -566,7 +582,37 @@ function learnTableRefresh(newDataRow){
 function deleteLearn(selectIndex){
 	layer.confirm(
 			'确定要删除数据？',
-			deleteLearn_do(selectIndex)
+			{btn : [ '确定', '取消' ]}, 
+			function(selectIndex){
+				
+				if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){
+					learnSelectRow = $('#per_learning_table').bootstrapTable('getRowByUniqueId', selectIndex);
+				}else{
+					layer.msg("选择判断错误");
+					return;
+				}
+				
+				if(learnSelectRow && learnSelectRow!=null && typeof(learnSelectRow)!='undefined' 
+						&& learnSelectRow.id!=null && typeof(learnSelectRow.id)!='undefined' ){
+					
+					learnSelectRow.isEditOrCreate = 2;
+					$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+					
+					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+learnSelectRow.id, null, function(data){
+						var result = data.result.status;
+						if(result == "ERROR"){ //OK, ERROR
+							layer.msg(data.result.message);
+							return;
+						}
+					});*/
+				}else{
+					$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
+				//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
+				}
+				$(".layui-layer-btn1").click();
+			}, 
+			function(index) {
+			}
 		);
 }
 function deleteLearn_do(selectIndex){
@@ -641,7 +687,9 @@ function work_TimeFormat(value, row, index) {
 		estr = "-";
 	}
 	
-	return bstr +" - "+ estr ;
+	//return bstr +" - "+ estr ;
+	var options = "<label title='"+bstr +' - '+ estr+"'>" + bstr +' - '+ estr + "</label>";
+	return options;
 }
 
 function pro_work_format(value, row, index) {
@@ -762,8 +810,41 @@ function workTableRefresh(newRowData){
 function deleteWork(selectIndex){
 	layer.confirm(
 			'确定要删除数据？',
-			deleteWork_do(selectIndex)
+			{btn : [ '确定', '取消' ]}, 
+			function(){
+				if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){ 
+					workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
+				}else{
+					layer.msg("选择判断错误");
+					return;
+				}
+				
+				if(workSelectRow && workSelectRow!=null && typeof(workSelectRow)!='undefined' 
+					&& workSelectRow.id!=null && typeof(workSelectRow.id)!='undefined' ){
+					
+					workSelectRow.isEditOrCreate = 2;
+					$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+					
+					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+workSelectRow.id, null, function(data){
+						var result = data.result.status;
+						if(result == "ERROR"){ //OK, ERROR
+							layer.msg(data.result.message);
+							return;
+						}
+					});*/
+				}else{
+					$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
+				}
+				$(".layui-layer-btn1").click();
+			}, 
+			function(index) {
+			}
 		);
+	
+	/*layer.confirm(
+			'确定要删除数据？',
+			deleteWork_do(selectIndex)
+		);*/
 }
 function deleteWork_do(selectIndex){
 

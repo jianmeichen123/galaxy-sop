@@ -92,7 +92,7 @@ function updateOrsave(){
 	if(beforeSubmitById("updateOrSave_HF")){
 	     sendPostRequestByJsonStr(_url, nowFormData, function(data){
 			$.popupOneClose();
-			$("body").css("overflow","auto")
+			$.locksCreenOpen();
 			searchFH(pid);
 		});
 	}
@@ -115,7 +115,7 @@ function deleteFinance(id){
 						{
 							layer.msg('删除成功');
 							$.popupOneClose();
-							$("body").css("overflow","auto")
+							$.locksCreenOpen();
 							searchFH();
 						}
 						else
