@@ -159,12 +159,12 @@ function editLearn(){
 	var puuid = $('input[name="uuid"]').val();
 	var luuid = $(this).attr("uuid");
 	var _url=Constants.sopEndpointURL + "/galaxy/project/toEditLearn/"+puuid+"/"+luuid;
-	var _name=$(this).attr("data-name");
+	var _name=$(".operatorLearnEdit").attr("data-name");
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(_this){
-			$("#popup_name").text(_name);
+			$("#qualifications_popup_name").text(_name);
 		}
 	});
 	return false;
@@ -178,7 +178,7 @@ function generateLearningInnerHtml(list){
 		innerHtml += '<td title="'+o.beginDateStr+' - '+o.overDateStr+'">'+o.beginDateStr+' - '+o.overDateStr+'</td>';
 		innerHtml += '<td>'+o.degree+'</td>';
 		innerHtml += '<td>';
-		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnEdit" href="javascript:void(0);">编辑&nbsp;</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnEdit" href="javascript:void(0);" data-name="编辑学历背景">编辑&nbsp;</a>';
 		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnDelete" href="javascript:void(0);">删除</a>';
 		innerHtml += '</td>';
 		innerHtml += '</tr>';
@@ -215,12 +215,12 @@ function editWork(){
 	var puuid = $('input[name="uuid"]').val();
 	var luuid = $(this).attr("uuid");
 	var _url=Constants.sopEndpointURL + "/galaxy/project/toEditWork/"+puuid+"/"+luuid;
-	var _name=$(this).attr("data-name");
+	var _name=$(".operatorEdit").attr("data-name");
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(_this){
-			$("#popup_name").text(_name);
+			$("#qualifications_popup_name").text(_name);
 		}
 	});
 	return false;
@@ -264,7 +264,7 @@ function generateWorkInnerHtml(list){
 		innerHtml += '<td title="'+o.companyName+'">'+o.companyName+'</td>';
 		innerHtml += '<td title="'+o.workPosition+'">'+o.workPosition+'</td>';
 		innerHtml += '<td>';
-		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑&nbsp;</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);" data-name="编辑工作履历">编辑&nbsp;</a>';
 		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a>';
 		innerHtml += '</td>';
 		innerHtml += '</tr>';
@@ -336,11 +336,12 @@ function addProjectShares(){
 function toEditShares(){
 	var uuid = $(this).attr("uuid");
 	var _url=Constants.sopEndpointURL + '/galaxy/project/toEditShares/'+uuid;
+	var _name=$(this).attr("data-name");
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(_this){
-			
+			$("#qualifications_popup_name").text(_name);
 		}
 	});
 	return false;
