@@ -192,7 +192,7 @@ $(function(){
 	
 	$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
 	
-	$("body").css("overflow","auto");
+	$.locksCreenOpen();
 	$("#learn-tip").css("display","none");
 	$("#work-tip").css("display","none");
 	
