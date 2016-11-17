@@ -241,16 +241,11 @@ $(function(){
 			if($("#describe_show").html()!=""  && $.trim($("#describe_show").text())!="" ){
 				$(".describe_show").show();
 				display_show("describe_show");
-				//display_show("describe2_show");
+				display_show("describe2_show");
 			}else{
 				$(".describe_show").hide();
 			};
-			if($("#describe2_show").html()!=""  && $.trim($("#describe2_show").text())!="" ){
-				$(".describe2_show").show();
-				display_show("describe2_show");
-			}else{
-				$(".describe2_show").hide();
-			};
+			
 			
 			if($("#location_show").html()!="" && $.trim($("#location_show").text())!=""){
 				$(".location_show").show();
