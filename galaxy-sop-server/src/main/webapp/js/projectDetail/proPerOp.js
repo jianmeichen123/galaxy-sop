@@ -597,7 +597,17 @@ function deleteLearn(selectIndex){
 					
 					learnSelectRow.isEditOrCreate = 2;
 					$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
-					
+					//全部删除后暂无数据样式
+					var learnList = $('#per_learning_table').bootstrapTable('getData');
+					var learnList_hidden = $("#per_learning_table tbody tr:hidden");
+					if(learnList_hidden && learnList_hidden.length > 0){
+						var allL = learnList.length;
+						var hiddenL = learnList_hidden.length;
+						if(allL == hiddenL){
+							var noData='<tr class="no-records-found"><td colspan="5" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+							$("#per_learning_table tbody").append(noData);
+						}
+					}
 					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+learnSelectRow.id, null, function(data){
 						var result = data.result.status;
 						if(result == "ERROR"){ //OK, ERROR
@@ -824,7 +834,17 @@ function deleteWork(selectIndex){
 					
 					workSelectRow.isEditOrCreate = 2;
 					$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
-					
+					//全部删除后暂无数据样式
+					var learnList = $('#per_work_table').bootstrapTable('getData');
+					var learnList_hidden = $("#per_work_table tbody tr:hidden");
+					if(learnList_hidden && learnList_hidden.length > 0){
+						var allL = learnList.length;
+						var hiddenL = learnList_hidden.length;
+						if(allL == hiddenL){
+							var noData='<tr class="no-records-found"><td colspan="4" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+							$("#per_work_table tbody").append(noData);
+						}
+					}
 					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+workSelectRow.id, null, function(data){
 						var result = data.result.status;
 						if(result == "ERROR"){ //OK, ERROR
