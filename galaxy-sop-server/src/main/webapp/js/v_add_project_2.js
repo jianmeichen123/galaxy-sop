@@ -238,7 +238,7 @@ $(function(){
 			$("#analysis_show").html(data.entity.prospectAnalysis);
 			$("#next_financing_source_show").html(data.entity.nextFinancingSource);
 			
-			if($("#describe_show").html()!=""  && $.trim($("#describe_show").text())!="" ){
+			if($("#describe_show").html()!=""  || $.trim($("#describe_show").text())!="" ){
 				$(".describe_show").show();
 				display_show("describe_show");
 				display_show("describe2_show");
@@ -247,43 +247,43 @@ $(function(){
 			};
 			
 			
-			if($("#location_show").html()!="" && $.trim($("#location_show").text())!=""){
+			if($("#location_show").html()!="" || $.trim($("#location_show").text())!=""){
 				$(".location_show").show();
 				display_show("location_show");
 			}else{
 				$(".location_show").hide();
 			};
-			if($("#portrait_show").html()!="" && $.trim($("#portrait_show").text())!=""){
+			if($("#portrait_show").html()!="" || $.trim($("#portrait_show").text())!=""){
 				$(".portrait_show").show();
 				display_show("portrait_show");
 			}else{
 				$(".portrait_show").hide();
 			};
-			if($("#business_model_show").html()!="" && $.trim($("#business_model_show").text())!=""){
+			if($("#business_model_show").html()!="" || $.trim($("#business_model_show").text())!=""){
 				$(".business_model_show").show();
 				display_show("business_model_show");
 			}else{
 				$(".business_model_show").hide();
 			};
-			if($("#operational_data_show").html()!="" && $.trim($("#operational_data_show").text())!=""){
+			if($("#operational_data_show").html()!="" || $.trim($("#operational_data_show").text())!=""){
 				$(".operational_data_show").show();
 				display_show("operational_data_show");
 			}else{
 				$(".operational_data_show").hide();
 			};
-			if($("#industry_show").html()!="" && $.trim($("#industry_show").text())!=""){
+			if($("#industry_show").html()!="" || $.trim($("#industry_show").text())!=""){
 				$(".industry_show").show();
 				display_show("industry_show");
 			}else{
 				$(".industry_show").hide();
 			};
-			if($("#analysis_show").html()!="" && $.trim($("#analysis_show").text())!=""){
+			if($("#analysis_show").html()!="" || $.trim($("#analysis_show").text())!=""){
 				$(".analysis_show").show();
 				display_show("analysis_show");
 			}else{
 				$(".analysis_show").hide();
 			};
-			if($("#next_financing_source_show").html()!="" && $.trim($("#next_financing_source_show").text())!=""){
+			if($("#next_financing_source_show").html()!="" || $.trim($("#next_financing_source_show").text())!=""){
 				$(".next_financing_source_show").show();
 				display_show("next_financing_source_show");
 			}else{
@@ -336,7 +336,7 @@ function step2Valiate(id){
 		 //清除可能已有的提示信息
 		 if($(n).attr("valiate")=='required') {//对不能为空的文本框进行验证
 			 var id = $(n).attr("id").replace("_show","_valiate");
-			 if($(n).text()=='' || $.trim($(n).text())=='') {
+			 if($(n).html()=='' && $(n).text()=='' && $.trim($(n).text())=='') {
 				/* $("#"+id).html('<span style="font-color:red">参数丢失!</span>');*/
 				 //$("#"+id).show();
 				 flag = false;
@@ -358,7 +358,7 @@ function Valiate(id){
 		 if($(n).attr("valiate")=='required') {//对不能为空的文本框进行验证
 			 var id = $(n).attr("id").replace("_show","_valiate");
 			 console.log(id)
-			 if($(n).text()=='' || $.trim($(n).text())=='') {
+			 if($(n).html()=='' && $(n).text()=='' && $.trim($(n).text())=='') {
 				/* $("#"+id).html('<span style="font-color:red">参数丢失!</span>');*/
 				 $("#"+id).show();
 				 flag = false;
