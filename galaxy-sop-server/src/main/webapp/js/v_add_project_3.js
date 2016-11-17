@@ -178,15 +178,15 @@ function generateLearningInnerHtml(list){
 		innerHtml += '<td>'+o.beginDateStr+' - '+o.overDateStr+'</td>';
 		innerHtml += '<td>'+o.degree+'</td>';
 		innerHtml += '<td>';
-		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑</a>';
-		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnEdit" href="javascript:void(0);">编辑&nbsp;</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnDelete" href="javascript:void(0);">删除</a>';
 		innerHtml += '</td>';
 		innerHtml += '</tr>';
 	});
 	$("#learning-tbody").empty();
 	$("#learning-tbody").append(innerHtml);
-	$(".operatorEdit").bind('click', editLearn);
-	$(".operatorDelete").bind('click', deleteLearn);
+	$(".operatorLearnEdit").bind('click', editLearn);
+	$(".operatorLearnDelete").bind('click', deleteLearn);
 }
 
 function generateLearningEmptyInnerHtml(){
@@ -264,7 +264,7 @@ function generateWorkInnerHtml(list){
 		innerHtml += '<td>'+o.companyName+'</td>';
 		innerHtml += '<td>'+o.workPosition+'</td>';
 		innerHtml += '<td>';
-		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑&nbsp;</a>';
 		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a>';
 		innerHtml += '</td>';
 		innerHtml += '</tr>';
