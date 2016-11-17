@@ -618,8 +618,7 @@ $('[data-btn="next"]').click(function(){
 	if(num==0){
 		var result=add();
 		if(!result){
-		//	alert("重要参数丢失");
-			//return;
+			return;
 		} 
 	}else if(num==1){
 		if(!step2Valiate("step2")){
@@ -633,6 +632,16 @@ $('[data-btn="next"]').click(function(){
 			layer.msg("成立日期不能大于当前日期");
 			return;
 		}
+		
+		var valiate_flag = false;
+		if($("#shares-tbody tr td").length <= 1 || $("#person-tbody tr td").length <= 1){
+			valiate_flag = true;
+			layer.msg("必要的参数丢失!");
+		}
+		if(valiate_flag){
+			return;
+		}
+		
 		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+pid, 
 				$("#company-info-form").serializeObject(), 
 				function(data){
