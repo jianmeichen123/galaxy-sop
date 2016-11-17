@@ -88,7 +88,7 @@
 		</thead>
 	</table>
 </div>
-
+<div class="bj_hui_on"></div>
 <script type="text/javascript">
 	var $sharesTable;
 	var isTransfering = "${fx:isTransfering(pid) }";
