@@ -794,7 +794,6 @@ function deleteWork(selectIndex){
 			'确定要删除数据？',
 			{btn : [ '确定', '取消' ]}, 
 			function(){
-
 				if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){ 
 					workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
 				}else{
