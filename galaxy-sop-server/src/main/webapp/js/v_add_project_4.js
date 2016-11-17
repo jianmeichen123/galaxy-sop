@@ -1,4 +1,24 @@
 
+
+//删除
+function to_no_save(){
+	layer.confirm(
+			'是否取消提交项目？',
+			no_save()
+		);
+}
+
+function no_save(){
+	sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/noToSaveProject/"+pid, 
+			null, 
+			function(data){
+		if(data.result.status == 'OK'){
+			forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
+		}
+	});
+}
+
+
 function createProject(){
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/createProject/"+pid, 
 			$("#add_person").serializeObject(), 

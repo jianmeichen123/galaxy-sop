@@ -39,5 +39,10 @@ public class ProjectServiceImpl implements ProjectService {
 	public Project findById(String id) throws MongoDBException {
 		return projectDao.findOneById(id);
 	}
+	
+	@Override
+	public void deleteById(String id) throws MongoDBException {
+		projectDao.deleteById(id);
+	}
 
 }
