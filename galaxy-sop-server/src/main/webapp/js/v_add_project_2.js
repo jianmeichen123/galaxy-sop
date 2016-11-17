@@ -1,10 +1,11 @@
 function toAddBuessDoc(){
 	var _url=Constants.sopEndpointURL + '/galaxy/project/toAddBuessDoc';
+	var _name=$(".uploadlink").attr("data-name")
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(_this){
-			
+			$(".title_bj").text(_name);
 		}
 	});
 	return false;
@@ -14,7 +15,7 @@ function generateBuessDocInnerHtml(entity){
 	innerHTML += '<td>'+entity.createDate+'</td>';
 	innerHTML += '<td>'+entity.fileName+"."+entity.fileSuffix+'</td>';
 	innerHTML += '<td>';
-	innerHTML += '<a class="uploadlink blue ico_pgn 3333" href="javascript:void(0)">更新附件</a>';
+	innerHTML += '<a class="uploadlink blue ico_pgn 3333" href="javascript:void(0)" data-name="更新商业计划书">更新附件</a>';
 	innerHTML += '</td>';
 	innerHTML += '</tr>';
 	$("#doc_tbody").empty();
@@ -25,7 +26,7 @@ function generateBuessDocInnerHtml(entity){
 
 function generateBuessDocEmptyInnerHtml(){
 	var innerHtml = "<tr><td>-</td><td>-</td><td>";
-	innerHtml += '<a onclick="toAddBuessDoc();" class="uploadlink blue ico_pgn 3333" href="javascript:void(0)">上传附件</a>';
+	innerHtml += '<a onclick="toAddBuessDoc();" class="uploadlink blue ico_pgn 3333" href="javascript:void(0)" data-name="上传商业计划书">上传附件</a>';
 	innerHtml += '</td></tr>';
 	$("#doc_tbody").empty();
 	$("#doc_tbody").append(innerHtml);
