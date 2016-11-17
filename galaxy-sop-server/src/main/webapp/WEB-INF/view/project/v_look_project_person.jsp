@@ -26,7 +26,7 @@
             </div>
             <div class="qualifications">
                 <h3>学历背景</h3>
-                <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table learning-table">
                     <thead>
 	                    <tr>
 	                        <th>毕业院校</th>
@@ -42,7 +42,7 @@
             </div>
             <div class="qualifications">
                 <h3>工作履历</h3>
-                <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table">
+                <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table learning-table">
 	                <thead>
 	                    <tr>
 	                        <th>时间</th>

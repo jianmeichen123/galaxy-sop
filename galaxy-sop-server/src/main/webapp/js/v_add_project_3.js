@@ -79,8 +79,8 @@ function generatePersonInnerHtml(list){
 	$.each(list, function(i, o){
 		if(o.tempStatus == '1'){
 			innerHtml += '<tr>';
-			innerHtml += '<td>'+o.personName+'</td>';
-			innerHtml += '<td>'+o.personDuties+'</td>';
+			innerHtml += '<td title="'+o.personName+'">'+o.personName+'</td>';
+			innerHtml += '<td title="'+o.personDuties+'">'+o.personDuties+'</td>';
 			innerHtml += '<td>'+(o.personSex=='0' ? '男' : '女')+'</td>';
 			innerHtml += '<td>'+o.personBirthdayStr+'</td>';
 			innerHtml += '<td>'+o.personTelephone+'</td>';
@@ -173,9 +173,9 @@ function generateLearningInnerHtml(list){
 	var innerHtml = "";
 	$.each(list, function(i, o){
 		innerHtml += '<tr>';
-		innerHtml += '<td>'+o.school+'</td>';
-		innerHtml += '<td>'+o.major+'</td>';
-		innerHtml += '<td>'+o.beginDateStr+' - '+o.overDateStr+'</td>';
+		innerHtml += '<td title="'+o.school+'">'+o.school+'</td>';
+		innerHtml += '<td title="'+o.major+'">'+o.major+'</td>';
+		innerHtml += '<td title="'+o.beginDateStr+' - '+o.overDateStr+'">'+o.beginDateStr+' - '+o.overDateStr+'</td>';
 		innerHtml += '<td>'+o.degree+'</td>';
 		innerHtml += '<td>';
 		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnEdit" href="javascript:void(0);">编辑&nbsp;</a>';
@@ -260,9 +260,9 @@ function generateWorkInnerHtml(list){
 	var innerHtml = "";
 	$.each(list, function(i, o){
 		innerHtml += '<tr>';
-		innerHtml += '<td>'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
-		innerHtml += '<td>'+o.companyName+'</td>';
-		innerHtml += '<td>'+o.workPosition+'</td>';
+		innerHtml += '<td title="'+o.beginWorkStr+' - '+o.overWorkStr+'">'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
+		innerHtml += '<td title="'+o.companyName+'">'+o.companyName+'</td>';
+		innerHtml += '<td title="'+o.workPosition+'">'+o.workPosition+'</td>';
 		innerHtml += '<td>';
 		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑&nbsp;</a>';
 		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a>';
@@ -285,8 +285,8 @@ function generatePersonDetail(data){
 	if(data.result.status == 'OK'){
 		var detailInnerHTML = "";
 		detailInnerHTML += "<tr>";
-		detailInnerHTML += '<td>'+data.entity.personName+'</td>';
-		detailInnerHTML += '<td>'+data.entity.personDuties+'</td>';
+		detailInnerHTML += '<td title="'+data.entity.personName+'">'+data.entity.personName+'</td>';
+		detailInnerHTML += '<td title="'+data.entity.personDuties+'">'+data.entity.personDuties+'</td>';
 		detailInnerHTML += '<td>'+(data.entity.personSex=='0' ? '男' : '女')+'</td>';
 		detailInnerHTML += '<td>'+data.entity.personBirthdayStr+'</td>';
 		detailInnerHTML += '<td>'+data.entity.personTelephone+'</td>';
@@ -298,9 +298,9 @@ function generatePersonDetail(data){
 		var learnInnerHTML="";
 		$.each(data.entity.plc, function(i, o){
 			learnInnerHTML += '<tr>';
-			learnInnerHTML += '<td>'+o.school+'</td>';
-			learnInnerHTML += '<td>'+o.major+'</td>';
-			learnInnerHTML += '<td>'+o.beginDateStr+' - '+o.overDateStr+'</td>';
+			learnInnerHTML += '<td title="'+o.school+'">'+o.school+'</td>';
+			learnInnerHTML += '<td title="'+o.major+'">'+o.major+'</td>';
+			learnInnerHTML += '<td title="'+o.beginDateStr+' - '+o.overDateStr+'">'+o.beginDateStr+' - '+o.overDateStr+'</td>';
 			learnInnerHTML += '<td>'+o.degree+'</td>';
 			learnInnerHTML += '</tr>';
 		});
@@ -309,9 +309,9 @@ function generatePersonDetail(data){
 		var workInnerHTML="";
 		$.each(data.entity.pwc, function(i, o){
 			workInnerHTML += '<tr>';
-			workInnerHTML += '<td>'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
-			workInnerHTML += '<td>'+o.companyName+'</td>';
-			workInnerHTML += '<td>'+o.workPosition+'</td>';
+			workInnerHTML += '<td title="'+o.beginWorkStr+' - '+o.overWorkStr+'">'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
+			workInnerHTML += '<td title="'+o.companyName+'">'+o.companyName+'</td>';
+			workInnerHTML += '<td title="'+o.workPosition+'">'+o.workPosition+'</td>';
 			workInnerHTML += '</tr>';
 		});
 		$("#work-tbody").append(workInnerHTML);

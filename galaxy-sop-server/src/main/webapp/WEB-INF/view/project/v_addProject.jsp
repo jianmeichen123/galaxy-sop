@@ -449,7 +449,7 @@
                         <span class="new_color size16"><em class="red">*</em>团队成员</span>
                         <button onclick="addProjectPerson();" class="blue fr add_history" data-name="添加团队成员" data-btn="addProjectPerson">添加</button>
                     </div>
-                    <table id="person-table" style="width:94%;" cellspacing="0" cellpadding="0" class="basic_table table">
+                    <table id="person-table" style="width:94%;" cellspacing="0" cellpadding="0" class="basic_table table learning-table">
                     	<thead>
                     	<tr>
                     		<th>姓名</th>
