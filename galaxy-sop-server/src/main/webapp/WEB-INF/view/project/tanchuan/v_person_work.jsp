@@ -22,10 +22,10 @@
             <div class="info clearfix">
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
-                   	<dd>   <!-- type="text" class="datetimepickerHour txt time fl" -->
+                   	<dd class="clearfix">   <!-- type="text" class="datetimepickerHour txt time fl" -->
 	                	<input name="beginWorkStr" type="text" class="datepicker-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
 	                	<span class="fl">&nbsp;至&nbsp;</span>
-	                	<input name="overWorkStr" type="text" class="datepicker-text txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
+	                	<input name="overWorkStr" type="text" class="datepicker-text fl txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                     </dd>
                 </dl>
                 

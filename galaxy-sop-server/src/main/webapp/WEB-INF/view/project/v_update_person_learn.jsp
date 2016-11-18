@@ -11,7 +11,7 @@
             <div class="info clearfix">
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
-                    <dd>
+                    <dd class="clearfix">
                     	<input name="beginDateStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
                     	<span class="fl">&nbsp;至&nbsp;</span>
                     	<input name="overDateStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
