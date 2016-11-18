@@ -769,95 +769,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectDao.selectProIdsForPrivilege(params);
 	}
 
-	@Override
-	@Transactional
-	public void newProByPreInfo(Long userId,Long deptId, String userName, com.galaxyinternet.mongodb.model.Project project) throws Exception {
-		//project
-		Project newPro = new Project();
-		BeanUtils.copyProperties(project, newPro);
-		
-		//创建项目编码
-		Config config = configService.createCode();
-		NumberFormat nf = NumberFormat.getInstance();
-		nf.setGroupingUsed(false);
-		nf.setMaximumIntegerDigits(6);
-		nf.setMinimumIntegerDigits(6);
-		int code = EnumUtil.getCodeByCareerline(deptId.longValue());
-		String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
-		newPro.setProjectCode(String.valueOf(projectCode));
-				
-		if (newPro.getProjectValuations() == null) {
-			if (newPro.getProjectShareRatio() != null
-					&& newPro.getProjectShareRatio() > 0
-					&& newPro.getProjectContribution() != null
-					&& newPro.getProjectContribution() > 0) {
-				newPro.setProjectValuations(newPro.getProjectContribution() * 100 / newPro.getProjectShareRatio());
-			}
-		}
-		newPro.setCurrencyUnit(0);
-		
-		//默认不涉及股权转让
-		newPro.setStockTransfer(0);
-		newPro.setCreateUid(userId);
-		newPro.setCreateUname(userName);
-		newPro.setProjectDepartid(deptId);
-		newPro.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
-		newPro.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
-		newPro.setUpdatedTime(new Date().getTime());
-		newPro.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
-		
-		//商业计划书
-		SopFile businessPlan = project.getSopFile();
-		businessPlan.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-		businessPlan.setFileUid(userId);
-		businessPlan.setRecordType((byte)0);
-		businessPlan.setCareerLine(deptId);
-		
-		Long newProId = newProject(newPro, businessPlan);
-		
-		
-		
-		//融资历史
-		List<FinanceHistory> pFinanceHistory= project.getFh();
-		
-		
-		
-		
-		
-		//团队成员
-		//PersonPool
-		//ProjectPerson
-		//PersonLearn
-		
-		
-		
-		
-		
-		//股权结构
-		List<ProjectShares> pShares= project.getPsc();
-		
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -875,6 +786,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public Long addProPersonAndPerInfo( PersonPool personPool) throws Exception {
 		//person info
 		//PersonPool personPool = personResumetc.getPersonPool();
+		Boolean isNew = false;
 		Long personId = personPool.getId();
 		
 		if(personPool.getPersonBirthdayStr() != null){
@@ -888,6 +800,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		if(personId!=null){
 			personPoolDao.updateById(personPool);
 		}else{
+			isNew = true;
 			personId = personPoolDao.insert(personPool);
 		}
 		//person Learning
@@ -955,11 +868,14 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				}
 			}
 		}
+		
 		//project --- person
-		ProjectPerson projectPerson = new ProjectPerson();
-		projectPerson.setProjectId(personPool.getProjectId());
-		projectPerson.setPersonId(personId);
-		projectPersonDao.insert(projectPerson);
+		if(isNew){
+			ProjectPerson projectPerson = new ProjectPerson();
+			projectPerson.setProjectId(personPool.getProjectId());
+			projectPerson.setPersonId(personId);
+			projectPersonDao.insert(projectPerson);
+		}
 		
 		return personId;
 	}

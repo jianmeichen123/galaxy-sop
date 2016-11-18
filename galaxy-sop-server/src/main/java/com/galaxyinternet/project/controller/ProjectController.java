@@ -5142,39 +5142,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 
 
-	/**
-	 * 项目 创建前
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/createProByPreInfo/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecord> createProByPreInfo(HttpServletRequest request,@PathVariable("id") String id) {
-		
-		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-		
-		try {
-			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			
-			com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
-			if(project == null){
-				responseBody.setResult(new Result(Status.ERROR,null, "项目前置信息缺失"));
-				return responseBody;
-			}
-			
-			projectService.newProByPreInfo(user.getId(),user.getDepartmentId(),user.getRealName(),project);
-
-			
-			responseBody.setResult(new Result(Status.OK, ""));
-			
-			return responseBody;
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, null,"操作失败"));
-			logger.error("add project step4 error", e);
-		}
-		
-		return responseBody;
-	}
-
-	
 
 
 

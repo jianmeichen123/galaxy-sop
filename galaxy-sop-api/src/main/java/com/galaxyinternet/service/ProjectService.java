@@ -58,7 +58,6 @@ public interface ProjectService extends BaseService<Project> {
 
 	List<Long> getProIdsForPrivilege(Map<String, Object> params);
 
-	public void newProByPreInfo(Long id, Long deptId, String userName, com.galaxyinternet.mongodb.model.Project project) throws Exception;
 
 	public Long addProPersonAndPerInfo(PersonPool pool) throws Exception;
 
