@@ -1,4 +1,6 @@
 searchFH();
+var isEditable = $(isEditable);
+
 /**
  * 加载该项目的融资历史
  */
@@ -40,12 +42,19 @@ function formatterTable(entity){
 					"<td>"+obj.financeAmount+"</td>"+
 					"<td>"+data[obj.financeUnit]+"</td>"+
 					"<td>"+obj.financeProportion+"</td>"+
-					"<td>"+obj.financeStatusDs+"</td>"+
+					"<td>"+obj.financeStatusDs+"</td>";
+			var html_1 =
 					"<td>"+
 						"<a class='finance_edit blue'   onclick=\"toUpdateOrSave('"+obj.id+"')\" href='javascript:void(0)' data-name='编辑融资历史'>编辑 &nbsp;</a>"+
 						"<a class='finance_delete blue' onclick=\"deleteFinance('"+obj.id+"')\" href='javascript:void(0)'>删除</a>"+
-					"</td>"+
-			   "</tr>";
+					"</td>";
+			
+			var html_2 = "</tr>";
+			if(isEditable &&( isEditable==false || isEditable=='false' )){
+				html = html + html_2;
+			}else{
+				html = html + html_1 + html_2;
+			}
 			$("#financeHistory_table").append(html);
 		}
 		
@@ -63,7 +72,8 @@ function toUpdateOrSave(id){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			if(null==id && undefined==id){
+			console.log(id);
+			if(null==id&&"underfined"==id){
 				$("#popup_name").text("添加融资历史");
 				/**
 				 * 获取融资状态下拉项
