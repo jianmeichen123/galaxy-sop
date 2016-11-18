@@ -103,6 +103,7 @@ function initViewUpload() {
 								layer.msg("保存成功", {time : 1000});
 								$("#pre_pro_view_table").bootstrapTable('refresh');
 								removePop1();
+								$.locksCreenOpen();
 							}
 						});
 					}  
