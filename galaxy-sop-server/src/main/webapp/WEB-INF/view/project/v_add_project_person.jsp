@@ -50,7 +50,15 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-learning"/>
-                <h3><em class="red">*</em>&nbsp;学历背景</h3>
+                <div class="tip-yellowsimple-wrap">
+		            <h3><em class="red">*</em>&nbsp;学历背景</h3>
+		            <div id="learn-tip" class="tip-yellowsimple">
+						<div class="tip-inner tip-bg-image">
+							<font color="red">*</font>学历背景不能为空
+						</div>
+						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+					</div>
+		        </div>
                 <span onclick="addPersonLearning();" class="blue fr add" data-btn="qualifications" data-name="添加学历背景">添加</span>
                 <table id="learning-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table learning-table">
                     <thead>
@@ -69,7 +77,15 @@
             </div>
             <div class="qualifications">
             	<input type="hidden" value="0" id="person-work"/>
-                <h3><em class="red">*</em>&nbsp;工作履历</h3>
+                <div class="tip-yellowsimple-wrap">
+		        	<h3><em class="red">*</em>&nbsp;工作履历</h3>
+			        <div id="work-tip" class="tip-yellowsimple">
+						<div class="tip-inner tip-bg-image">
+							<font color="red">*</font>工作履历不能为空
+						</div>
+						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+					</div>
+		        </div>
                 <span class="blue fr add" onclick="addPersonWork();" data-btn="addPersonWork" data-name="添加工作履历">添加</span>
                 <table id="work-table" style="width:94%;"  cellspacing="0" cellpadding="0" class="basic_table table learning-table">
 	                <thead>
@@ -91,18 +107,6 @@
         <a href="javascript:;"  class="register_all_affrim fl" id="save_person" >确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
-</div>
-<div id="learn-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 280px; opacity: 1; width: 100px;">
-	<div class="tip-inner tip-bg-image">
-		<font color="red">*</font>学历背景不能为空
-	</div>
-	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
-</div>
-<div id="work-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 423px; opacity: 1; width: 100px;">
-	<div class="tip-inner tip-bg-image">
-		<font color="red">*</font>工作履历不能为空
-	</div>
-	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
