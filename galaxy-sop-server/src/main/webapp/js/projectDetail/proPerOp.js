@@ -6,14 +6,19 @@ function getTabPerson(){
 	var $table = $('#tablePerson');
     $table.bootstrapTable({
 	    url: platformUrl.projectPersonList,
+	    queryParamsType: 'size|page',
 	    dataType: "json",
 	    pagination: true, //分页
 	    search: false, //显示搜索框
 	    pageList: [10,20,30],
-	    queryParamsType: 'size|page',
-	    queryParams: function(params){params.projectId=projectId; return params;},
 	    sidePagination: "server", //服务端处理分页
-        
+	    queryParams: function(params){
+	    	params.projectId=projectId; 
+	    	//var pn = get_del_pageNum("tablePerson",0);
+	    	//params.pageNum = pn;
+	    	console.log("params "+ JSON.stringify(params));
+	    	return params;
+	    },
 		columns : [ {
 					title : '姓名',
 					field : 'personName',
@@ -58,7 +63,7 @@ function getTabPerson(){
 		}
 	});
     
-	$table.bootstrapTable('refresh');
+	//$table.bootstrapTable('refresh');
 }
 
 	
@@ -414,7 +419,7 @@ function savePersonCallBack(data) {
 		$("#popbg,#powindow").remove();
 		/* var projectId = $("#pid").val();
 		getTabPerson(projectId); */
-		$('#tablePerson').bootstrapTable('refresh');
+		$('#tablePerson').bootstrapTable('querySearch');
 	}
 }
 
