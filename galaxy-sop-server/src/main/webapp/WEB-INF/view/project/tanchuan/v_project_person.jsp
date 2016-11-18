@@ -85,7 +85,15 @@ radio name="personSex"
         
         
         <div class="qualifications">
-            <h3><em class="red">*</em>&nbsp;学历背景</h3>
+	        <div class="tip-yellowsimple-wrap">
+	            <h3><em class="red">*</em>&nbsp;学历背景</h3>
+	            <div id="learn-tip" class="tip-yellowsimple">
+					<div class="tip-inner tip-bg-image">
+						<font color="red">*</font>学历背景不能为空
+					</div>
+					<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+				</div>
+	        </div>
             <span onclick="toAddPersonLearning(null);" class="blue fr add"  data-name="添加学历背景">添加</span>
             
             <div id="learning_table_custom_toolbar">
@@ -114,7 +122,15 @@ radio name="personSex"
         
         
         <div class="qualifications">
-            <h3><em class="red">*</em>&nbsp;工作履历</h3>
+	        <div class="tip-yellowsimple-wrap">
+	        	<h3><em class="red">*</em>&nbsp;工作履历</h3>
+		        <div id="work-tip" class="tip-yellowsimple">
+					<div class="tip-inner tip-bg-image">
+						<font color="red">*</font>工作履历不能为空
+					</div>
+					<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+				</div>
+	        </div>
             <span  onclick="toAddPersonWork(null);" class="blue fr add"  data-name="工作履历" >添加</span>
             
             <div id="work_table_custom_toolbar">
@@ -156,18 +172,8 @@ radio name="personSex"
     </div>
 </div>
 
-<div id="learn-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 280px; opacity: 1; width: 100px;">
-	<div class="tip-inner tip-bg-image">
-		<font color="red">*</font>学历背景不能为空
-	</div>
-	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
-</div>
-<div id="work-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 75px; top: 423px; opacity: 1; width: 100px;">
-	<div class="tip-inner tip-bg-image">
-		<font color="red">*</font>工作履历不能为空
-	</div>
-	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
-</div>
+
+
 
 
 <jsp:include page="../../common/validateJs.jsp" flush="true"></jsp:include>
@@ -215,7 +221,7 @@ $(function(){
 				$(".tip-yellowsimple").eq(i).css("opacity","1");
 			}
 		}
-	});
+	}); 
 	
 	
 })
