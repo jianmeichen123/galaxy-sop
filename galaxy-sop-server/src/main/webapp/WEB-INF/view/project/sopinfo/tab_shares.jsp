@@ -322,7 +322,7 @@
 				$('input[name="financeAmount"]').val(numNew)
 			},
 			hideback:function(){
-				$sharesTable.bootstrapTable('refresh');
+				$sharesTable.bootstrapTable('querySearch');
 			}
 		});
 		return false;
@@ -341,7 +341,7 @@
 						if(data.result.status=="OK")
 						{
 							layer.msg('删除成功');
-							$sharesTable.bootstrapTable('refresh');
+							$sharesTable.bootstrapTable('querySearch');
 						}
 						else
 						{
@@ -365,7 +365,7 @@
 				$("#stock_form #projectId").val("${projectId}");
 			},
 			hideback:function(){
-				$sharesTable.bootstrapTable('refresh');
+				$sharesTable.bootstrapTable('querySearch');
 			}
 		});
 		return false;
@@ -383,7 +383,7 @@
 						layer.msg('保存成功');
 						console.log($(".pop .close")[0]);
 						$("[data-close='close']").click();
-						$("#shares-table").bootstrapTable('refresh');
+						$("#shares-table").bootstrapTable('querySearch');
 					}
 					else
 					{
@@ -405,7 +405,7 @@
 						layer.msg('保存成功');
 						console.log($(".pop .close")[0]);
 						$("[data-close='close']").click();
-						$("#shares-table").bootstrapTable('refresh');
+						$("#shares-table").bootstrapTable('querySearch');
 					}
 					else
 					{
