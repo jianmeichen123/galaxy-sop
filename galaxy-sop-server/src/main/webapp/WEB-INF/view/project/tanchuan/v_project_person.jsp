@@ -105,14 +105,14 @@ radio name="personSex"
 		       		data-toolbar="#learning_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
 					<thead>
 						<tr>
-							<th data-field="deleteIndex"  data-align="left" data-formatter="deleteIndex_Format" ></th>
-							<th data-field="school"  data-align="left" data-formatter="school" >毕业院校</th>
-			                <th data-field="major"  data-align="left" data-formatter="major" >专业</th>
+							<th data-field="deleteIndex"  data-align="left" data-formatter="deleteIndex_Format"></th>
+							<th data-field="school"  data-align="left" data-formatter="school" data-width="20%">毕业院校</th>
+			                <th data-field="major"  data-align="left" data-formatter="major" data-width="20%">专业</th>
 		                     
 		                     <!--  beginDate overDate beginDateStr overDateStr -->
-		                     <th data-field="BE_time"  data-align="left" data-formatter="learn_TimeFormat">时间</th>
-		                     <th data-field="degree"  data-align="left" >学历</th>
-		                     <th data-field="learn_op" data-formatter="pro_learning_format">操作</th>
+		                     <th data-field="BE_time"  data-align="left" data-formatter="learn_TimeFormat" data-width="20%">时间</th>
+		                     <th data-field="degree"  data-align="left" data-width="20%">学历</th>
+		                     <th data-field="learn_op" data-formatter="pro_learning_format" data-width="20%">操作</th>
 						</tr>
 					</thead>
 				</table> 
@@ -151,11 +151,11 @@ radio name="personSex"
 					<tr>
 						<th data-field="deleteIndex"  data-align="left" data-formatter="work_deleteIndex_Format" ></th>
 						<!--  beginWork overWork beginWorkStr overWorkStr -->
-						<th data-field="BE_time"  data-align="left" data-formatter="work_TimeFormat">时间</th>
+						<th data-field="BE_time"  data-align="left" data-formatter="work_TimeFormat" data-width="25%">时间</th>
 						
-						<th data-field="companyName"  data-align="left" data-formatter="companyName">任职公司名称</th>
-		                <th data-field="workPosition"  data-align="left" data-formatter="workPosition">职位</th>
-	                    <th data-field="work_op" data-formatter="pro_work_format">操作</th>
+						<th data-field="companyName"  data-align="left" data-formatter="companyName" data-width="25%">任职公司名称</th>
+		                <th data-field="workPosition"  data-align="left" data-formatter="workPosition" data-width="25%">职位</th>
+	                    <th data-field="work_op" data-formatter="pro_work_format" data-width="25%">操作</th>
 					</tr>
 				</thead>
 			</table>
