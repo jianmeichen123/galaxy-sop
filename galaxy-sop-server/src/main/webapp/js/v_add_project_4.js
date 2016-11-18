@@ -3,7 +3,7 @@
 //删除
 function to_no_save(){
 	layer.confirm(
-			'是否取消提交项目?', 
+			'是否取消添加项目?', 
 			{btn : [ '确定', '取消' ]}, 
 			function(){
 				sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/noToSaveProject/"+pid, 
