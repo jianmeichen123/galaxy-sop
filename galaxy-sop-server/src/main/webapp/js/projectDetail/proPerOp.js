@@ -602,6 +602,7 @@ function deleteLearn(selectIndex){
 					
 					learnSelectRow.isEditOrCreate = 2;
 					$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+					layer.msg('删除成功');
 					//全部删除后暂无数据样式
 					var learnList = $('#per_learning_table').bootstrapTable('getData');
 					var learnList_hidden = $("#per_learning_table tbody tr:hidden");
@@ -839,6 +840,7 @@ function deleteWork(selectIndex){
 					
 					workSelectRow.isEditOrCreate = 2;
 					$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
+					layer.msg('删除成功');
 					//全部删除后暂无数据样式
 					var learnList = $('#per_work_table').bootstrapTable('getData');
 					var learnList_hidden = $("#per_work_table tbody tr:hidden");
