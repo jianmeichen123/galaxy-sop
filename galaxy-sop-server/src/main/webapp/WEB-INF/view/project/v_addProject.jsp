@@ -50,7 +50,7 @@
                         <span class="new_ico_basic ico_add_project"></span>
                         <span class="new_color size16">基本信息</span>
                     </div>  
-                    <form action="" id="add_form" method="post">
+                    <form action="" id="add_form" method="post" autocomplete="off">
                      <input type="hidden" id="flagId" name="flagId" value="">
                     <ul class="basic_ul">
                     	<li>
