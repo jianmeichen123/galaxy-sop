@@ -35,6 +35,13 @@
          	</select>
         </dd>
     </dl>
+    <dl class="fmdl clearfix">
+    	<dt>所属项目：</dt>
+        <dd>
+        	<input type="text" value="-" id="win_sopProjectId" data-tid="" class="txt disabled" disabled="disabled">
+        </dd>
+       <dd><a class="searchbtn null" id="win_searchProjectBtn" href="javascript:;" disabled="disabled">搜索</a></dd>
+    </dl>
      <dl class="fmdl clearfix">
     	<dt>文档上传：</dt>
         <dd>
