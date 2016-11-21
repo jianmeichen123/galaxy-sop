@@ -17,7 +17,7 @@
 					<input type="hidden" name="id" id="pool_id" value="" />
 				</div>
 				<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
-					  <table id="pro_per_info" class="basic_table" data-url="<%=path %>/galaxy/project/queryProPerInfo" data-method="post" 
+					  <table id="pro_per_info" class="basic_table learning-table" data-url="<%=path %>/galaxy/project/queryProPerInfo" data-method="post" 
                 	data-toolbar="#pro_per_info_toolbar" >
 	        		<thead>
 						<tr>
@@ -72,7 +72,7 @@
 					<input type="hidden" name="personId" value="" />
 				</div>
 				<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
-	            <table id="pro_per_work_table" class="basic_table"  data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
+	            <table id="pro_per_work_table" class="basic_table learning-table"  data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
 		       		data-toolbar="#pro_per_work_toolbar" >
 					<colgroup >
 						<col style="width:35%;">

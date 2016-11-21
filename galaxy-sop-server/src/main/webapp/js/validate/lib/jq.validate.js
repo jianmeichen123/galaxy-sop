@@ -15,6 +15,20 @@
 		});
 		$(n).bind('blur',validateBefore);
 	});
+	//为带有valType1属性的元素初始化提示信息并注册onblur事件
+	$.each($("[valType1]"),function(i, n) {  //团队成员验证，单独加了一个表单提示的样式
+		/*$(n).poshytip({
+			className: 'tip-yellowsimple',
+			content: $(n).attr('msg'),
+			showOn: 'none',
+			alignTo: 'target',
+			alignX: 'right',
+			alignY: 'center',
+			offsetX: 5,
+			offsetY: 10
+		});*/
+		$(n).bind('blur',validateBeforeScroll);
+	});
 	
 	//定义一个验证器对象
 	$.Validator=function(para) {
@@ -141,7 +155,61 @@ function validateBefore() {
 	}
 	
 }
-
+function validateBeforeScroll() {  //团队成员验证，单独加了一个表单提示的样式
+	//验证通过标识
+	var flag=true;
+	//获取验证类型
+	var valType=$(this).attr('valType1');
+	//获取验证不通过时的提示信息
+	var id =$(this).attr("name")+'_valiate';
+	//var msg=$(this).attr('msg');
+	//自定义的验证字符串
+	var regString;
+	if(valType=='required') {//不能为空的判断
+		if($(this).val()=='' || $.trim($(this).val())=='') {
+			flag=false;
+		}
+	} else if(valType=='requiredDiv'){
+		if($(this).text()!='') {
+			if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
+				flag=false;
+		    }
+	   }
+	} else if(valType=='MAXBYTE') {
+		if($.trim($(this).html())!='') {
+			if (!($(this).html()!=''&&$.Validator.match({
+				data : $.trim($(this).html()),
+				rule : $(this).attr('valType'),
+				regString : $(this).attr('regString')
+			}))) {
+				//$(this).poshytip('show');
+				$("#"+id).show();
+				flag = false;
+			}
+		}
+	} else{
+		if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
+			//允许为空且未输入值,放行
+		}else{
+			if(valType=='OTHER'){//如果类型是自定义，则获取自定义的验证字符串
+				regString=$(this).attr('regString');
+				flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:valType, regString:$(this).attr('regString')});
+			} else {
+				if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType1')}))) {
+					flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType1')});
+				}
+			}
+		}
+	}  
+	//先清除原来的tips
+	$("#"+id).hide();
+	//$(this).poshytip('hide');
+	//如果验证没有通过，显示tips
+	if(!flag) {
+		$("#"+id).show();
+	}
+	
+}
 //submit之前对所有表单进行验证
 function beforeSubmit() {
 	var flag=true;
@@ -288,6 +356,61 @@ function beforeSubmitByIdNext(id) {
 				} else {//对使用已定义规则的文本框进行验证	
 					if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')}))) {
 						//$(n).poshytip('show');
+						flag=false;
+					}
+				}
+			}
+		}
+	 });
+     return flag;
+}
+
+function beforeSubmitScroll(id) {  //团队成员验证，单独加了一个表单提示的样式
+	var flag=true;
+	 $.each($("#"+id).find("[valType1]"),function(i, n){
+		 //清除可能已有的提示信息
+		 if($(n).attr("valType1")=='required') {//对不能为空的文本框进行验证
+			 var id = $(n).attr("name")+'_valiate';
+			if($(n).val()=='' || $.trim($(n).val())=='') {
+				//显示tips			
+				$("#"+id).show();
+				flag=false;
+			}
+		 } else if($(n).attr("valType1")=='requiredDiv'){//html元素的文本值是否为空
+			 var id = $(n).attr("name")+'_valiate';
+			 if($(n).text()!='') {
+				if(!($(n).text()!=''&&$.Validator.match({data:$(n).text(), rule:'OTHER', regString:$(n).attr('regString')}))) {
+					//显示tips			
+					$("#"+id).show();
+					flag=false;
+				}
+			 }
+		} else if($(n).attr("valType1")=='MAXBYTE') {//对自定义的文本框进行验证
+			 var id = $(n).attr("name")+'_valiate';
+			if($.trim($(n).html())!='') {
+				if (!($(n).html()!=''&&$.Validator.match({
+					data : $.trim($(n).html()),
+					rule : $(n).attr('valType1'),
+					regString : $(n).attr('regString')
+				}))) {
+					$("#"+id).show();
+					flag = false;
+				}
+			}
+		} else{
+			if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
+				//允许为空且未输入值,放行
+			}else{
+				 var id = $(n).attr("name")+'_valiate';
+				 if($(n).attr("valType1")=='OTHER') {//对自定义的文本框进行验证
+					if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType1'), regString:$(this).attr('regString')}))) {
+						$("#"+id).show();
+						flag=false;
+					}
+				} else {//对使用已定义规则的文本框进行验证	
+					 var id = $(n).attr("name")+'_valiate';
+					if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType1')}))) {
+						$("#"+id).show();
 						flag=false;
 					}
 				}

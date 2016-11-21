@@ -109,7 +109,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	
 	
 	@Override
-	@Transactional
 	public long createProject(com.galaxyinternet.mongodb.model.Project p, Project project) throws Exception {
 		long id = projectDao.insertProject(project);
 		//存商业计划书

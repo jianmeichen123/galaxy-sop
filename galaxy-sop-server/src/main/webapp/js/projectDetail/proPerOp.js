@@ -293,37 +293,19 @@ function toAddPerson(id,index){
 				radio_isContacts_tel(personSelectRow.isContacts);
 			}
 			
+			learn_code_index = null;
+        	work_code_index = null;
+        	deleteLearnRowData = [];
+        	deleteWorkRowData = [];
+        	
 			tableShow("per_learning_table");
 			tableShow("per_work_table");
-			
+
 			$("#popup_name").html(_name);
 		}
 	});
 }
-/** 
- * 团队成员学习
- * 团队成员工作
- deleteIndex
- */
-function tableShow(tableId){
-	$('#'+tableId).bootstrapTable({
-		queryParamsType: 'size|page', // undefined
-		showRefresh : false ,
-		sidePagination: 'server',
-		method : 'post',
-		pagination: false,
-		clickToSelect: true,
-        search: false,
-        onLoadSuccess: function (data) {
-        	$('#'+tableId).bootstrapTable('hideColumn', 'deleteIndex');
-        	if(tableId == 'per_learning_table'){
-        		learn_code_index = 0;
-        	}else if(tableId == 'per_work_table'){
-        		work_code_index = 0;
-        	}
-        }
-	});
-}
+
 
 
 /*
@@ -332,7 +314,7 @@ function tableShow(tableId){
 
 function savePerson(){
 
-	if (beforeSubmit()) {
+	if (beforeSubmit("addPerson_all")) {
 		var learnList = $('#per_learning_table').bootstrapTable('getData');
 		var workList = $('#per_work_table').bootstrapTable('getData');
 		
@@ -395,6 +377,17 @@ function savePerson_do(learnList,workList) {
 		}*/
 		if(isEditOrCreatePerson == "c"){
 			personPool.id = null;
+		}else{
+			if(deleteLearnRowData.length >0){
+				for(var x=0;x<deleteLearnRowData.length;x++){
+					learnList.push(deleteLearnRowData[x]);
+				}
+			}
+			if(deleteWorkRowData.length >0){
+				for(var x=0;x<deleteWorkRowData.length;x++){
+					workList.push(deleteWorkRowData[x]);
+				}
+			}
 		}
 		personPool.plc = learnList;
 		personPool.pwc = workList;
@@ -425,14 +418,59 @@ function savePersonCallBack(data) {
 
 
 
-//TODO 学习
-var learn_code_index = 0;
 
-function deleteIndex_Format(value, row, index) {
+
+
+
+
+
+/** 
+ * 团队成员学习
+ * 团队成员工作
+ deleteIndex
+ */
+function tableShow(tableId){
+	$('#'+tableId).bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: false,
+		clickToSelect: true,
+        search: false,
+        onLoadSuccess: function (data) {
+        	$('#'+tableId).bootstrapTable('hideColumn', 'deleteIndex');
+        }
+	});
+}
+
+
+
+
+
+//TODO 学习
+var learn_code_index;
+
+/*function deleteIndex_Format(value, row, index) {
 	if(row.deleteIndex){
 		return row.deleteIndex;
 	}
+	if(index == 0){
+		work_code_index = 0;
+	}
 	learn_code_index = learn_code_index + 1;
+	row.deleteIndex = learn_code_index;
+	return learn_code_index;
+}*/
+function deleteIndex_Format(value, row, index) {
+	/*if(index && index!=null && typeof(index)!='undefined' && typeof(index)!= undefined ){
+		
+	}*/
+	if(learn_code_index == null){
+		learn_code_index = 0;
+	}else{
+		learn_code_index = learn_code_index + 1;
+	}
 	row.deleteIndex = learn_code_index;
 	return learn_code_index;
 }
@@ -475,6 +513,7 @@ function pro_learning_format(value, row, index) {
  * 新建 :c 、 编辑:e    学习经历 - 弹窗
  */
 var learnSelectRow;
+var deleteLearnRowData = [];
 var isCreatOrEditLearn = "c";  //判断   是新创建 person ：c  是编辑person ： e  是新创建编辑person ： ne  是已有编辑 person ： oe 
 
 //弹窗  编辑 、保存  --  初始化
@@ -573,12 +612,25 @@ function learnTableRefresh(newDataRow){
 			newDataRow.isEditOrCreate = 1;
 		}
 		newDataRow.deleteIndex = learnSelectRow.deleteIndex;
-		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex-1, row: newDataRow});
+		$('#per_learning_table').bootstrapTable('updateByUniqueId', {id: learnSelectRow.deleteIndex, row: newDataRow});
 		//$('#per_learning_table').bootstrapTable('updateByUniqueId', {deleteIndex: learnSelectRow.deleteIndex, row: newDataRow});
 	}else{
-		learn_code_index = learn_code_index+1;
+		if(learn_code_index == null){
+			learn_code_index = 0;
+		}else{
+			learn_code_index = learn_code_index + 1;
+		}
 		newDataRow.deleteIndex = learn_code_index;
 		$('#per_learning_table').bootstrapTable('append', newDataRow);
+		
+		/*var learnList = $('#per_learning_table').bootstrapTable('getData');
+		
+		var learn_data = {};
+		learn_data.pageList = {};
+		learn_data.pageList.total = learnList.length;
+		learn_data.pageList.content = learnList;
+        
+		$('#per_learning_table').bootstrapTable('load', learn_data);*/
 	}
 }
 
@@ -601,19 +653,9 @@ function deleteLearn(selectIndex){
 						&& learnSelectRow.id!=null && typeof(learnSelectRow.id)!='undefined' ){
 					
 					learnSelectRow.isEditOrCreate = 2;
-					$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
-					layer.msg('删除成功');
-					//全部删除后暂无数据样式
-					var learnList = $('#per_learning_table').bootstrapTable('getData');
-					var learnList_hidden = $("#per_learning_table tbody tr:hidden");
-					if(learnList_hidden && learnList_hidden.length > 0){
-						var allL = learnList.length;
-						var hiddenL = learnList_hidden.length;
-						if(allL == hiddenL){
-							var noData='<tr class="no-records-found"><td colspan="5" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
-							$("#per_learning_table tbody").append(noData);
-						}
-					}
+					//$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex, uniqueId: selectIndex});
+					deleteLearnRowData.push(learnSelectRow);
+					
 					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+learnSelectRow.id, null, function(data){
 						var result = data.result.status;
 						if(result == "ERROR"){ //OK, ERROR
@@ -621,42 +663,32 @@ function deleteLearn(selectIndex){
 							return;
 						}
 					});*/
-				}else{
-					$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
-				//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
 				}
+				
+				$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
+				//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
+				
+				layer.msg('删除成功');
+				
+				//全部删除后暂无数据样式
+				var learnList = $('#per_learning_table').bootstrapTable('getData');
+				var learnList_hidden = $("#per_learning_table tbody tr:hidden");
+				if(learnList_hidden && learnList_hidden.length > 0){
+					var allL = learnList.length;
+					var hiddenL = learnList_hidden.length;
+					if(allL == hiddenL){
+						var noData='<tr class="no-records-found"><td colspan="5" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+						$("#per_learning_table tbody").append(noData);
+					}
+				}
+				
 				$(".layui-layer-btn1").click();
 			}, 
 			function(index) {
 			}
 		);
 }
-function deleteLearn_do(selectIndex){
-	
-	if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){
-		learnSelectRow = $('#per_learning_table').bootstrapTable('getRowByUniqueId', selectIndex);
-	}else{
-		layer.msg("选择判断错误");
-		return;
-	}
-	
-	if(learnSelectRow && learnSelectRow!=null && typeof(learnSelectRow)!='undefined' 
-			&& learnSelectRow.id!=null && typeof(learnSelectRow.id)!='undefined' ){
-		
-		learnSelectRow.isEditOrCreate = 2;
-		$('#per_learning_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
-		
-		/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerLearning/"+learnSelectRow.id, null, function(data){
-			var result = data.result.status;
-			if(result == "ERROR"){ //OK, ERROR
-				layer.msg(data.result.message);
-				return;
-			}
-		});*/
-	}else
-		$('#per_learning_table').bootstrapTable('removeByUniqueId', selectIndex);
-	//$('#per_learning_table').bootstrapTable('remove', {field: 'deleteIndex', values: selectIndex});
-}
+
 
 
 
@@ -669,17 +701,28 @@ function deleteLearn_do(selectIndex){
  * 新建 :c 、 编辑:e    工作经历 - 弹窗
  */
 
-var work_code_index = 0;
+var work_code_index = null;
 
-function work_deleteIndex_Format(value, row, index) {
+/*function work_deleteIndex_Format(value, row, index) {
 	if(row.deleteIndex){
 		return row.deleteIndex;
+	}
+	if(index == 0){
+		work_code_index = 0;
 	}
 	work_code_index = work_code_index + 1;
 	row.deleteIndex = work_code_index;
 	return work_code_index;
+}*/
+function work_deleteIndex_Format(value, row, index) {
+	if(work_code_index == null){
+		work_code_index = 0;
+	}else{
+		work_code_index = work_code_index + 1;
+	}
+	row.deleteIndex = work_code_index;
+	return work_code_index;
 }
-
 
 function work_TimeFormat(value, row, index) {
 	var bstr;
@@ -717,6 +760,7 @@ function pro_work_format(value, row, index) {
 
 
 var workSelectRow;
+var deleteWorkRowData = [];
 var isCreatOrEditWork = "c";  //判断   是新创建 person ：c  是新创建编辑person ： ne  是已有编辑 person ： oe 
 
 //弹窗  --  初始化
@@ -730,7 +774,6 @@ function toAddPersonWork(selectIndex){
 		workSelectRow = null;
 	}
 	
-		
 	
 	var _url=Constants.sopEndpointURL + '/galaxy/project/addProPerWork';
 	var _name= "添加工作履历";
@@ -811,11 +854,16 @@ function workTableRefresh(newRowData){
 			newRowData.isEditOrCreate = 1;
 		}
 		newRowData.deleteIndex = workSelectRow.deleteIndex;
-		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex-1, row: newRowData});
+		$('#per_work_table').bootstrapTable('updateByUniqueId', {id: workSelectRow.deleteIndex, row: newRowData});
 	}else{
-		work_code_index = work_code_index+1;
+		if(work_code_index == null){
+			work_code_index = 0;
+		}else{
+			work_code_index = work_code_index + 1;
+		}
 		newRowData.deleteIndex = work_code_index;
 		$('#per_work_table').bootstrapTable('append', newRowData);
+		
 	}
 }
 
@@ -839,19 +887,9 @@ function deleteWork(selectIndex){
 					&& workSelectRow.id!=null && typeof(workSelectRow.id)!='undefined' ){
 					
 					workSelectRow.isEditOrCreate = 2;
-					$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
-					layer.msg('删除成功');
-					//全部删除后暂无数据样式
-					var learnList = $('#per_work_table').bootstrapTable('getData');
-					var learnList_hidden = $("#per_work_table tbody tr:hidden");
-					if(learnList_hidden && learnList_hidden.length > 0){
-						var allL = learnList.length;
-						var hiddenL = learnList_hidden.length;
-						if(allL == hiddenL){
-							var noData='<tr class="no-records-found"><td colspan="4" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
-							$("#per_work_table tbody").append(noData);
-						}
-					}
+					//$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex, uniqueId: selectIndex});
+					deleteWorkRowData.push(workSelectRow);
+					
 					/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+workSelectRow.id, null, function(data){
 						var result = data.result.status;
 						if(result == "ERROR"){ //OK, ERROR
@@ -859,44 +897,28 @@ function deleteWork(selectIndex){
 							return;
 						}
 					});*/
-				}else{
-					$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
 				}
+				
+				$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
+				layer.msg('删除成功');
+				
+				//全部删除后暂无数据样式
+				var learnList = $('#per_work_table').bootstrapTable('getData');
+				var learnList_hidden = $("#per_work_table tbody tr:hidden");
+				if(learnList_hidden && learnList_hidden.length > 0){
+					var allL = learnList.length;
+					var hiddenL = learnList_hidden.length;
+					if(allL == hiddenL){
+						var noData='<tr class="no-records-found"><td colspan="4" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+						$("#per_work_table tbody").append(noData);
+					}
+				}
+				
 				$(".layui-layer-btn1").click();
 			}, 
 			function(index) {
 			}
 		);
-	
-	/*layer.confirm(
-			'确定要删除数据？',
-			deleteWork_do(selectIndex)
-		);*/
-}
-function deleteWork_do(selectIndex){
-
-	if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){ 
-		workSelectRow = $('#per_work_table').bootstrapTable('getRowByUniqueId', selectIndex);
-	}else{
-		layer.msg("选择判断错误");
-		return;
-	}
-	
-	if(workSelectRow && workSelectRow!=null && typeof(workSelectRow)!='undefined' 
-		&& workSelectRow.id!=null && typeof(workSelectRow.id)!='undefined' ){
-		
-		workSelectRow.isEditOrCreate = 2;
-		$('#per_work_table').bootstrapTable('hideRow', {index: selectIndex-1, uniqueId: selectIndex});
-		
-		/*sendGetRequest(Constants.sopEndpointURL + "/galaxy/project/deleteProPerWork/"+workSelectRow.id, null, function(data){
-			var result = data.result.status;
-			if(result == "ERROR"){ //OK, ERROR
-				layer.msg(data.result.message);
-				return;
-			}
-		});*/
-	}else
-		$('#per_work_table').bootstrapTable('removeByUniqueId', selectIndex);
 }
 
 

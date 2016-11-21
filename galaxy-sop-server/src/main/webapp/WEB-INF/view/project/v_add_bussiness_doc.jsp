@@ -136,6 +136,11 @@ $(function(){
 		}
     });
     $("#win_uploadBtn").click(function(){
+    	var fileTxt=$("#win_fileTxt").val();
+    	if(fileTxt==""){
+    		layer.msg("请选择文件");
+    		return false;
+    	}
     	if(!fileValidate){
     		$("#file-tip").css("display","block");
     		$.popupOneClose();

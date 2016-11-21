@@ -2328,9 +2328,9 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 #form_shares .new_nputr.text,.form_shares .new_nputr.text{width:478px;}
 .new_table em.red{left:0;}
 .new_table .basic_span{width:75px;}
-/* #person_form dl dd{position:relative;}
-#person_form dl dd .tip-yellowsimple{position:absolute;visibility:visible;display:none;left: 146px; top: 0px; opacity: 1;}
- */
+ #person_form dl dd,#add_person dl dd,#update_person_form dl dd{position:relative;}
+#person_form dl dd .tip-yellowsimple,#add_person dl dd .tip-yellowsimple,#update_person_form dl dd .tip-yellowsimple{position:absolute;visibility:visible;display:none;left: 146px; top: 0px; opacity: 1;}
+ 
  #person-pool table.basic_table{margin:0;}
 .basic_table .fixed-table-container thead th .th-inner{padding:5px 8px;}
 .tip-yellowsimple-wrap{position:relative;}

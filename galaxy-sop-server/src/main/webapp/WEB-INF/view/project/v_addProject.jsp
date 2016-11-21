@@ -316,7 +316,7 @@
 							</div>
 							<div class="new_ul_all new_top_color business_model_show">
 								<span class="ico_dot ico"></span>
-								<p id="business_model_show" valiate="required"></p>
+								<p id="business_show" valiate="required"></p>
 							</div>
 						</div>
 						<div class='product_on'>
