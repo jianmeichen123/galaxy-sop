@@ -391,7 +391,8 @@ function del_deliver(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			$("#project_delivery_table").bootstrapTable('refresh');
+			//$("#project_delivery_table").bootstrapTable('refresh');
+			initTabDelivery();
 		} else {
 			layer.msg(data.result.message);
 		}
