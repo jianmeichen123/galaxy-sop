@@ -652,7 +652,7 @@ $('[data-btn="next"]').click(function(){
 			return;
 		}
 		
-		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+pid+"/3"+, 
+		sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/save3/"+pid+"/3", 
 				$("#company-info-form").serializeObject(), 
 				function(data){
 			viewTableShow(pid);
