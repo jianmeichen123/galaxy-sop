@@ -237,8 +237,7 @@ $(function(){
 			$("#industry_show").html(data.entity.industryAnalysis);
 			$("#analysis_show").html(data.entity.prospectAnalysis);
 			$("#next_financing_source_show").html(data.entity.nextFinancingSource);
-			
-			if($("#describe_show").html()!=""  || $.trim($("#describe_show").text())!="" ){
+			if(($("#describe_show").html()!=""  || $.trim($("#describe_show").text())!="") && ($("#describe2_show").html()!='' || $.trim($("#describe2_show").text())!='')){
 				$(".describe_show").show();
 				display_show("describe_show");
 				display_show("describe2_show");
