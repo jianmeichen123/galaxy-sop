@@ -140,7 +140,7 @@
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
 	                <td><span class="basic_span"><em class="red">*</em>融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>　&nbsp;万元人民币</span></td>
-	                <td><span class="basic_span"><em class="red">*</em>项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" />&nbsp;　万元人民币</span></td>
+	                <td><span class="basic_span"><em class="red">*</em>项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
 	            </tr>
 	            <tr>
 	                <td><span class="basic_span"><em class="red">*</em>出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
