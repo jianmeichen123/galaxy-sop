@@ -73,7 +73,7 @@ function toUpdateOrSave(id){
 		data:"",//传递参数
 		okback:function(){
 			console.log(id);
-			if(null==id&&"underfined"==id){
+			if(null==id&& undefined==id){
 				$("#popup_name").text("添加融资历史");
 				/**
 				 * 获取融资状态下拉项
