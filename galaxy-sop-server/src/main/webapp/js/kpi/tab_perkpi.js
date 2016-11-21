@@ -12,6 +12,7 @@ $("#querySearch_perkpi").on('click',function(){
 });
 
 function per_kpi_init(){
+	$("#userkpi_deptid option").not(":first").remove();  //初始化事业线前先清空
 	//表单事业线下拉初始化
 	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
 	
