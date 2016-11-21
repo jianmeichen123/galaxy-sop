@@ -332,7 +332,7 @@ function tableShow(tableId){
 
 function savePerson(){
 
-	if (beforeSubmit()) {
+	if (beforeSubmitScroll()) {
 		var learnList = $('#per_learning_table').bootstrapTable('getData');
 		var workList = $('#per_work_table').bootstrapTable('getData');
 		
