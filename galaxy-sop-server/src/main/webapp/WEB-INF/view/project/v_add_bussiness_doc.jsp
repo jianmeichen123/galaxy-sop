@@ -92,6 +92,8 @@ $(function(){
 			uploader.splice(0, uploader.files.length-1);
 		}
 		plupload.each(files, function(file) {
+			/***存储类型被选中***/
+			attrFileType("fileType",file);//定位选中存储类型
 			$("#win_fileTxt").val(file.name);
 		});
     });
