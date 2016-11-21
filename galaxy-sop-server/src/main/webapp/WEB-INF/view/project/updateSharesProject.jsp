@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -20,11 +21,11 @@
       </dl>  
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>%</span></dd>
+        <dd><input type="text" name="sharesRatio" value="<fmt:formatNumber type="number" value="${share.sharesRatio } "/>" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>%</span></dd>
       </dl> 
        <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;出资金额：</dt>
-        <dd><input type="text" name="financeAmount" value="${share.financeAmount}" class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>大于0的数字"/><span>&nbsp;万元</span></dd>
+        <dd><input type="text" name="financeAmount" value="<fmt:formatNumber type="number" value="${share.financeAmount} "/>" class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>大于0的数字"/><span>&nbsp;万元</span></dd>
       </dl>
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;币种：</dt>

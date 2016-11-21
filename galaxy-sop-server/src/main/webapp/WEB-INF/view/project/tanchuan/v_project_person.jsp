@@ -11,7 +11,7 @@
 	<div class="title_bj" id="popup_name"></div>
 	
 	
-    <div class="addPerson_all">
+    <div class="addPerson_all" id="addPerson_all">
     
 <!--     
 type  name="personName"  name="personDuties"  name="personBirthdayStr"  name="personTelephone"
@@ -219,27 +219,6 @@ $(function(){
 	$.locksCreenOpen();
 	$("#learn-tip").css("display","none");
 	$("#work-tip").css("display","none");
-	
-	//调整谈弹窗提示框
-	$(".addPerson_all").scroll(function(){
-		var offsetTop=$(this).offset().top;
-		var top=$(this).scrollTop();
-		$(".tip-yellowsimple").css("margin-top",-top);
-		var marginTop=$(".tip-yellowsimple").css("margin-top");
-		for(var i=0;i<$(".tip-yellowsimple").length;i++){
-			var txt=$(".tip-yellowsimple").eq(i).text();
-			if(top>130 && txt=="*手机号码格式不正确"){
-				$(".tip-yellowsimple").eq(i).css("opacity","0");
-			}else if(top>80 && (txt=="*当前职务不能为空" || txt=="*出生日期不能为空")){
-				$(".tip-yellowsimple").eq(i).css("opacity","0");
-			}else if(top>50 && txt=="*姓名不能为空"){
-				$(".tip-yellowsimple").eq(i).css("opacity","0");
-			}else{
-				$(".tip-yellowsimple").eq(i).css("opacity","1");
-			}
-		}
-	}); 
-	
 	
 })
  

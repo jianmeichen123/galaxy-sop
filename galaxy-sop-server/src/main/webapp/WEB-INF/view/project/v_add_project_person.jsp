@@ -13,7 +13,15 @@
                 <h3>基本信息</h3>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;姓名：</dt>
-                    <dd><input type="text" class="txt" name="personName" valtype="OTHER" regstring="^.{1,20}$" msg="<font color=red>*</font>不能为空且字符长度最大20"/></dd>
+                    <dd>
+                    	<input type="text" class="txt" name="personName" valtype1="OTHER" regstring="^.{1,20}$"/>
+                    	<div id="personName_valiate" class="tip-yellowsimple">
+							<div class="tip-inner tip-bg-image">
+								<font color="red">*</font>不能为空且字符长度最大20
+							</div>
+							<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+						</div>
+                    </dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;性别：</dt>
@@ -24,7 +32,15 @@
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;当前职务：</dt>
-                    <dd><input type="text" class="txt" name="personDuties" valtype="required" msg="<font color=red>*</font>当前职务不能为空"/></dd>
+                    <dd>
+                    	<input type="text" class="txt" name="personDuties" valtype1="required"/>
+                    	<div id="personDuties_valiate" class="tip-yellowsimple">
+							<div class="tip-inner tip-bg-image">
+								<font color="red">*</font>当前职务不能为空
+							</div>
+							<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+						</div>
+                    </dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;出生日期：</dt>
@@ -34,7 +50,15 @@
                 </dl>
                  <dl class="fmdl fl">
                     <dt>手机号码：</dt>
-                    <dd><input type="text" class="txt" placeholder="请输入手机号码" name="personTelephone" valtype="MOBILE" msg="<font color=red>*</font>手机号码格式不正确"/></dd>
+                    <dd>
+                    	<input type="text" class="txt" placeholder="请输入手机号码" name="personTelephone" valtype1="MOBILE"/>
+                    	<div id="personTelephone_valiate" class="tip-yellowsimple">
+							<div class="tip-inner tip-bg-image">
+								<font color="red">*</font>手机号码格式不正确
+							</div>
+							<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+						</div>
+                    </dd>
                 </dl>
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;是否为联系人：</dt>
@@ -125,7 +149,7 @@ $(function(){
 		$.locksCreenOpen();
 		$("#learn-tip").css("display","none");
 		$("#work-tip").css("display","none");
-		if(beforeSubmitById("person-pool")){
+		if(beforeSubmitScroll("person-pool")){
 			var learns = $("#person-learning").val();
 			var works = $("#person-work").val();
 			if(learns <= 0){
@@ -155,25 +179,6 @@ $(function(){
 			});
 		}
 	});
-	//调整谈弹窗提示框
-	$("#person-pool").scroll(function(){
-		var offsetTop=$(this).offset().top;
-		var top=$(this).scrollTop();
-		console.log(top);
-		$(".tip-yellowsimple").css("margin-top",-top);
-		var marginTop=$(".tip-yellowsimple").css("margin-top");
-		for(var i=0;i<$(".tip-yellowsimple").length;i++){
-			var txt=$(".tip-yellowsimple").eq(i).text();
-			if(top>130 && txt=="*手机号码格式不正确"){
-				$(".tip-yellowsimple").eq(i).css("opacity","0");
-			}else if(top>80 && txt=="*当前职务不能为空"){
-				$(".tip-yellowsimple").eq(i).css("opacity","0");
-			}else if(top>50 && txt=="*姓名不能为空"){
-				$(".tip-yellowsimple").eq(i).css("opacity","0");
-			}else{
-				$(".tip-yellowsimple").eq(i).css("opacity","1");
-			}
-		}
-	})
+
 });
 </script>
