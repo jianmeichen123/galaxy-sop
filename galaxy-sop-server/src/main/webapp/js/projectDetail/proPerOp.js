@@ -588,7 +588,7 @@ function deleteLearn(selectIndex){
 	layer.confirm(
 			'确定要删除数据？',
 			{btn : [ '确定', '取消' ]}, 
-			function(selectIndex){
+			function(){
 				
 				if(selectIndex && selectIndex!=null && typeof(selectIndex)!='undefined' ){
 					learnSelectRow = $('#per_learning_table').bootstrapTable('getRowByUniqueId', selectIndex);
