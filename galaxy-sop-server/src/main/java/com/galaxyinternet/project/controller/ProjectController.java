@@ -1819,9 +1819,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
 		} catch (Exception e) {
 			if(logger.isErrorEnabled()){
-				logger.error(user.getId() + ":" + user.getRealName() + " to search shares data get an exception", e);
+				logger.error(user.getId() + ":" + user.getRealName() + " to create project get an exception", e);
 			}
-			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+			responseBody.setResult(new Result(Status.ERROR,"error" , "输入值异常!"));
 		}
 		return responseBody;
 	}

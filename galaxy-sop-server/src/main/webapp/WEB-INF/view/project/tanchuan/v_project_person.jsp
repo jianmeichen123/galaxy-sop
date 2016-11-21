@@ -31,7 +31,7 @@ radio name="personSex"
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;姓名：</dt>
                 <dd>
-                	<input type="text" class="txt" name="personName" valtype="OTHER" regstring="^\S{1,20}$" msg="<font color=red>*</font>不能为空且字符长度最大20"/>
+                	<input type="text" class="txt" name="personName" valtype="OTHER" regstring="^.{1,20}$" msg="<font color=red>*</font>不能为空且字符长度最大20"/>
                 </dd>
             </dl>
             

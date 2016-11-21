@@ -115,7 +115,7 @@ $(function(){
 	$("#describe_editor").blur(function(){   //商业描述50字以内，超过50字，限制输入
 		var content = describeUm.getContentTxt();
 		describeUm.setContent(content.substring(0,50));
-		describeUm.focus(true);
+		//describeUm.focus(true);
 	})
 	$("#save_describe").click(function(){
 		var projectDescribe = describeUm.getContent();
