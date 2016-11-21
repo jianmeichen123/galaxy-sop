@@ -215,7 +215,7 @@ $(function(){
 		$("#describe_editor2").html($("#describe2_show").html());
 		$("#company_editor").html($("#location_show").html());
 		$("#portrait_editor").html($("#portrait_show").html());
-		$("#business_editor").html($("#business_model_show").html());
+		$("#business_editor").html($("#business_show").html());
 		$("#operation_editor").html($("#operational_data_show").html());
 		$("#industry_editor").html($("#industry_show").html());
 		$("#analysis_editor").html($("#analysis_show").html());
@@ -232,7 +232,7 @@ $(function(){
 			$("#describe2_show").html(data.entity.projectDescribeFinancing);
 			$("#location_show").html(data.entity.companyLocation);
 			$("#portrait_show").html(data.entity.userPortrait);
-			$("#business_model_show").html(data.entity.projectBusinessModel);
+			$("#business_show").html(data.entity.projectBusinessModel);
 			$("#operational_data_show").html(data.entity.operationalData);
 			$("#industry_show").html(data.entity.industryAnalysis);
 			$("#analysis_show").html(data.entity.prospectAnalysis);
@@ -259,7 +259,7 @@ $(function(){
 			}else{
 				$(".portrait_show").hide();
 			};
-			if($("#business_model_show").html()!="" || $.trim($("#business_model_show").text())!=""){
+			if($("#business_show").html()!="" || $.trim($("#business_show").text())!=""){
 				$(".business_model_show").show();
 				display_show("business_model_show");
 			}else{
