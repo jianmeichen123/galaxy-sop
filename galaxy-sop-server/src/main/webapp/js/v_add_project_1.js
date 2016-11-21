@@ -76,7 +76,7 @@ function add(){
 	}
 	var nowFormData = $("#add_form").serializeObject();
 	if(beforeSubmitByIdNext("add_form")){
-	     sendPostRequestByJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
+	     sendPostRequestByJsonStr(platformUrl.addProject+"/1", $("#add_form").serializeObject(), function(data){
 			var re=data;
 			$("#flagId").val(data.entity.id);
 			pid = data.entity.id;

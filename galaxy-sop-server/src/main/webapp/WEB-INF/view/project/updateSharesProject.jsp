@@ -16,7 +16,7 @@
       </dl>
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;所有权人类型：</dt>
-        <dd><input type="text" name="sharesType" value="${share.sharesType }" class="txt" valType="OTHER" regstring="^\S{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
+        <dd><input type="text" name="sharesType" value="${share.sharesType}" class="txt" valType="OTHER" regstring="^\S{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl>  
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;占比：</dt>
@@ -55,3 +55,6 @@
   </form>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+<script type="text/javascript">
+
+</script>

@@ -418,6 +418,40 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	/**
+	 * "下一步"3
+	 * @param id 项目ID
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/save2/{id}/{nowPage}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<com.galaxyinternet.mongodb.model.Project> save2(@PathVariable("id") String id,@PathVariable("nowPage") int nowPage,
+			HttpServletRequest request) {
+		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
+		if(id == null || "".equals(id.trim())){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		User user = (User) getUserFromSession(request);
+		try {
+			com.galaxyinternet.mongodb.model.Project p = mongoProjectService.findById(id);
+			if(p != null){
+					p.setNowPage(nowPage);
+					mongoProjectService.updateById(id, p);
+				if(logger.isInfoEnabled()){
+					logger.info(user.getId() + ":" + user.getRealName() + " to update company messages successful > " + p.getId());
+				}
+				responseBody.setResult(new Result(Status.OK, "ok" , "操作成功!"));
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, "error" , "未找到匹配记录!"));
+			}
+		} catch (MongoDBException e) {
+			if(logger.isErrorEnabled()){
+				logger.error(user.getId() + ":" + user.getRealName() + " to update company messages get an exception", e);
+			}
+			responseBody.setResult(new Result(Status.ERROR,"error" , "出现未知异常!"));
+		}
+		return responseBody;
+	}
 	
 	
 	/**
@@ -425,9 +459,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param id 项目ID
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/save3/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/save3/{id}/{nowPage}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<com.galaxyinternet.mongodb.model.Project> save3(@PathVariable("id") String id, 
-			@RequestBody com.galaxyinternet.mongodb.model.Project project,
+			@RequestBody com.galaxyinternet.mongodb.model.Project project,@PathVariable("nowPage") int nowPage,
 			HttpServletRequest request) {
 		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
 		if(id == null || "".equals(id.trim()) || project == null){
@@ -446,6 +480,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					p.setProjectCompanyCode(project.getProjectCompanyCode().trim());
 					p.setCompanyLegal(project.getCompanyLegal());
 					p.setFormationDate(project.getFormationDate());
+					p.setNowPage(nowPage);
 					mongoProjectService.updateById(id, p);
 				}
 				if(logger.isInfoEnabled()){
@@ -1465,8 +1500,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author chenjianmei
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/apDB", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/apDB/{nowPage}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<com.galaxyinternet.mongodb.model.Project> apDB(@RequestBody com.galaxyinternet.mongodb.model.Project project,
+			@PathVariable("nowPage") Integer nowPage,
 			HttpServletRequest request) {
 		ResponseData<com.galaxyinternet.mongodb.model.Project> responseBody = new ResponseData<com.galaxyinternet.mongodb.model.Project>();
 		//校验
@@ -1482,6 +1518,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		User user = (User) getUserFromSession(request);
 		try {
+			project.setProjectSource("pc");
+			//如果是创建设项目第一页点击保存草稿这个值传  null   改值默认为0，保存页面第一页
+			project.setNowPage(nowPage);
 			String uuid=UUIDUtils.create().toString();
 			project.setUuid(uuid);
 			project.setUid(user.getId());

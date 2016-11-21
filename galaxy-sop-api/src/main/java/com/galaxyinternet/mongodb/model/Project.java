@@ -93,6 +93,15 @@ public class Project {
 	 */
 	protected Long updatedTime;
 	
+	/**
+	 * 当前页
+	 *
+	 */
+	private Integer nowPage;
+	/**
+	 * 项目来源
+	 */
+	private String projectSource;
 	
 	public String getId() {
 		return id;
@@ -324,6 +333,21 @@ public class Project {
 	}
 	public void setFormationDate(String formationDate) {
 		this.formationDate = formationDate;
+	}
+	public Integer getNowPage() {
+		return nowPage;
+	}
+	public void setNowPage(Integer nowPage) {
+		this.nowPage = nowPage;
+		if(null==nowPage){
+		   this.nowPage=0;
+		}
+	}
+	public String getProjectSource() {
+		return projectSource;
+	}
+	public void setProjectSource(String projectSource) {
+		this.projectSource = projectSource;
 	}
 	
 	
