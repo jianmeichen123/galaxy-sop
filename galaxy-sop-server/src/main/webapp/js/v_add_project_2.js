@@ -211,15 +211,15 @@ $(function(){
 	 * 组装数据
 	 */
 	function responseData(){
-		$("#describe_editor").html($("#describe_show").html());
-		$("#describe_editor2").html($("#describe2_show").html());
-		$("#company_editor").html($("#location_show").html());
-		$("#portrait_editor").html($("#portrait_show").html());
-		$("#business_editor").html($("#business_show").html());
-		$("#operation_editor").html($("#operational_data_show").html());
-		$("#industry_editor").html($("#industry_show").html());
-		$("#analysis_editor").html($("#analysis_show").html());
-		$("#next_financing_editor").html($("#next_financing_source_show").html());
+		$("#describe_editor").html(describeUm.getContent());
+		$("#describe_editor2").html(describeUm2.getContent());
+		$("#company_editor").html(companyUm.getContent());
+		$("#portrait_editor").html(portraitUm.getContent());
+		$("#business_editor").html(businessUm.getContent());
+		$("#operation_editor").html(operationUm.getContent());
+		$("#industry_editor").html(industryUm.getContent());
+		$("#analysis_editor").html(analysisUm.getContent());
+		$("#next_financing_editor").html(nextFinancingUm.getContent());
 	}
 	
 	/**
@@ -260,7 +260,7 @@ $(function(){
 			};
 			if($("#business_show").html()!="" || $.trim($("#business_show").text())!=""){
 				$(".business_model_show").show();
-				display_show("business_model_show");
+				display_show("business_show");
 			}else{
 				$(".business_model_show").hide();
 			};
@@ -318,12 +318,12 @@ function  display_show(obj){
 }
 $('.new_top_color').delegate(".f4","click",function(){
 	$(this).hide();
-	$(this).parent().children('.f3').show();
+	$(this).siblings('.f3').show();
 	$(this).parent().parent().parent().css('height','auto')
 }) 
 $('.new_top_color').delegate(".f3","click",function(){
 	$(this).hide();
-	$(this).parent().children('.f4').show();
+	$(this).siblings('.f4').show();
 	$(this).parent().parent().parent().css('height','100px')
 }) 
 /**
