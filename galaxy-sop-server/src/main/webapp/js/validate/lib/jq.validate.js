@@ -365,9 +365,9 @@ function beforeSubmitByIdNext(id) {
      return flag;
 }
 
-function beforeSubmitScroll() {  //团队成员验证，单独加了一个表单提示的样式
+function beforeSubmitScroll(id) {  //团队成员验证，单独加了一个表单提示的样式
 	var flag=true;
-	 $.each($("[valType1]"),function(i, n) {
+	 $.each($("#"+id).find("[valType1]"),function(i, n){
 		 //清除可能已有的提示信息
 		 if($(n).attr("valType1")=='required') {//对不能为空的文本框进行验证
 			 var id = $(n).attr("name")+'_valiate';
