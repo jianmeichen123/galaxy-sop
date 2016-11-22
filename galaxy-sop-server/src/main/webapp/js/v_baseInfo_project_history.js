@@ -91,6 +91,7 @@ function toUpdateOrSave(id){
 	return false;
 };
 function updateOrsave(){
+	console.log(fhId);
 	var _url="";
 	if(fhId==""){
 		_url=platformUrl.saveFH+"/"+pid;
@@ -100,6 +101,7 @@ function updateOrsave(){
 	var nowFormData = $("#updateOrSave_HF").serializeObject();
 	if(beforeSubmitById("updateOrSave_HF")){
 	     sendPostRequestByJsonStr(_url, nowFormData, function(data){
+	 		fhId="";
 			$.popupOneClose();
 			$.locksCreenOpen();
 			searchFH(pid);
