@@ -699,12 +699,12 @@ function getInterViewCondition(hasProid,projectId,
 		}
 	}
 	
-	if(viewNotes != null && viewNotes.length > 0){
+	/*if(viewNotes != null && viewNotes.length > 0){
 		if(getLength(viewNotes) > 9000){
 			layer.msg("访谈记录长度最大9000字符");
 			return false;
 		}
-	}
+	}*/
 	
 	condition.projectId = projectId;
 	condition.viewDateStr = viewDateStr;

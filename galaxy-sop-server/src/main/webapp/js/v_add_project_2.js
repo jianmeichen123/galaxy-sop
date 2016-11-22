@@ -95,6 +95,7 @@ $(function(){
 		$('.'+close+'_center').show();
 		$('.bj_hui_on').hide();
 	})
+	
 	/**
 	 * 取消
 	 */
@@ -121,21 +122,8 @@ $(function(){
 		var projectDescribe = describeUm.getContent();
 		var projectDescribeFinancing = describeUm2.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":projectDescribeFinancing}, saveCallBack);
-		//step2Valiate("step2");
-		if($("#describe2_show").text()=='' || $.trim($("#describe2_show").text())=='') {
-			if($("#describe_valiate").attr("style") == "display:none;visibility: inherit;"){
-				$("#describe2_valiate").attr("style","visibility: inherit; display: block;");
-			}
-		}else{
-			$("#describe2_valiate").attr("style","display:none;visibility: inherit;");
-		}
-		if($("#describe_show").text()=='' || $.trim($("#describe_show").text())=='') {
-			if($("#describe2_valiate").attr("style") == "display:none;visibility: inherit;"){
-			    $("#describe_valiate").attr("style","visibility: inherit; display: block;");
-			}
-		}else{
-			$("#describe_valiate").attr("style","display:none;visibility: inherit;");
-		}
+
+			
 	    
 	});
 	
@@ -321,7 +309,7 @@ $(function(){
 		}
 	}
 });
-/*下一步提示*/
+//下一步提示
 $("[data-btn='page1']").click(function(){
 	var plan_business_table_val=$("#plan_business_table tbody td").eq(0).text()
 	if(step2Valiate("step2") && plan_business_table_val!="-"){
@@ -329,6 +317,7 @@ $("[data-btn='page1']").click(function(){
 		return;
 	}
 })
+
 /**
  * 控制展开收起
  */
@@ -372,6 +361,35 @@ function step2Valiate(id){
 				 flag = false;
 			 }else{
 				 $("#"+id).hide();
+			 }
+			 if(id == "describe_valiate"){
+				if(($("#describe_show").text() ==""  || $.trim($("#describe_show").text()) =="") && ($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) =="")){
+								$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+				}
+					
+				var html =  '<span id="describe_valiate" class="tip-yellowsimple" style="display:block;visibility: inherit;">'+
+						    '<div class="tip-inner tip-bg-image">'+
+						        '<font color="red">*</font>项目描述不能为空'+
+						    '</div>'+
+						    '<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>'+
+						    '</span>';
+					if($("#describe_show").text() == ""  || $.trim($("#describe_show").text()) ==""){
+						$("#test2").html('');
+						$("#test").html(html);
+						$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+					}
+					
+					if($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) ==""){
+						$("#test").html('');
+						$("#test2").html(html);
+						$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+					}
+					
+					if(($("#describe_show").text() ==""  || $.trim($("#describe_show").text()) =="") && ($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) =="")){
+						$("#test").html('');
+						$("#test2").html(html);
+						$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+					}
 			 }
 			 
 		 }

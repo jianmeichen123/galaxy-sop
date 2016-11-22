@@ -52,6 +52,7 @@ $(function(){
 			$('.'+open+'_on').show();
 			$('.'+open+'_center').hide();
 			$('.bj_hui_on').show();
+			responseData();
 		})
 		//统一关
 		$('[data-on="close"]').on('click',function(){
@@ -70,7 +71,20 @@ $(function(){
 		$("#project_name").attr("title",projectInfo.projectName);
 		
 		
-		
+		/**
+		 * 组装数据
+		 */
+		function responseData(){
+			$("#describe_editor").html($("#describe_show").html());
+			$("#describe_editor2").html($("#describe2_show").html());
+			$("#company_editor").html($("#location_show").html());
+			$("#portrait_editor").html($("#portrait_show").html());
+			$("#business_editor").html($("#business_model_show").html());
+			$("#operation_editor").html($("#operational_data_show").html());
+			$("#industry_editor").html($("#industry_analysis_show").html());
+			$("#analysis_editor").html($("#analysis_show").html());
+			$("#next_financing_editor").html($("#next_financing_source_show").html());
+		}
 		
 		
 	   /**
