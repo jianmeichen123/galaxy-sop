@@ -300,6 +300,7 @@ function initViewUpload() {
 						toshowbut();
 					} */
 					toFormatNearNotes();
+					$.locksCreenOpen();
 					var _this = $("#projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
 						removePop1();
