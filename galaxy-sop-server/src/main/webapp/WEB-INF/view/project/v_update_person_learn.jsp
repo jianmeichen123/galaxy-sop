@@ -52,6 +52,20 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script type="text/javascript">
+$('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
+	format: 'yyyy-mm-dd',
+    language: "zh-CN",
+    autoclose: true,
+    todayHighlight: false,
+    today: "Today",
+    todayBtn:'linked',
+    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+    forceParse:false,
+    currentText: 'Now',
+    endDate: dateadd,
+    defaultDate : new Date()
+});
 $(function(){
 	$('input[name="beginDateStr"], input[name="overDateStr"]').val(new Date().format("yyyy-MM-dd"));
 	var puuid = $('input[name="puuid"]').val();
