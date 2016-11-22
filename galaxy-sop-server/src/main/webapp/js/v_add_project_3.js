@@ -415,8 +415,6 @@ function nextBtn(){
 	if(plan_business_table_val!="没有找到匹配的记录"&&shares>0){
 		$("[data-btn='page2'] span[data-btn='next']").removeClass("disabled");
 		return;
-	}else{
-		$("[data-btn='page2'] span[data-btn='next']").addClass("disabled");
 	}
 }
 $("[data-btn='page2']").click(function(){
