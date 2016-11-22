@@ -21,7 +21,7 @@
       </dl>  
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="<fmt:formatNumber type="number" value="${share.sharesRatio } "/>" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>%</span></dd>
+        <dd><input type="text" name="sharesRatio" value="<fmt:formatNumber type="number" value="${share.sharesRatio } "/>" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?)$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>%</span></dd>
       </dl> 
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;出资金额：</dt>

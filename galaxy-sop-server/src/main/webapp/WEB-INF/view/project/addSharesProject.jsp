@@ -18,7 +18,7 @@
       </dl> 
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
+        <dd><input type="text" name="sharesRatio" value="" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?)$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
       </dl> 
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;出资金额：</dt>
