@@ -19,4 +19,6 @@ public interface ProjectService {
 
 	void deleteById(String id) throws MongoDBException;
 
+	void deleteByCondition(Project project) throws MongoDBException;
+
 }

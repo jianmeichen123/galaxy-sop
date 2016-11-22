@@ -45,4 +45,9 @@ public class ProjectServiceImpl implements ProjectService {
 		projectDao.deleteById(id);
 	}
 
+	@Override
+	public void deleteByCondition(Project project) throws MongoDBException {
+		projectDao.deleteByCondition(project);
+	}
+	
 }

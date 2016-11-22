@@ -57,11 +57,11 @@
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
                             <span class="m_r30">
                             	<input name="projectType" type="radio" value="projectType:1" id="radio_w">
-                            	<label for="radio_w">&nbsp;投资</label>
+                            	<label for="radio_w">投资</label>
                             </span>
                             <span class="m_r30">
                             	<input name="projectType" type="radio" value="projectType:2" id="radio_n">
-                            	<label for="radio_n">&nbsp;创建</label>
+                            	<label for="radio_n">创建</label>
                             </span>
                             <span id="projectTypeTip"  style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
@@ -91,8 +91,8 @@
                         <li>
 	                        <span class="basic_span"><em class="red">*</em>来源于FA：</span>
 	                        <span class="m_r30" style="with:400px">
-	                             <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否&nbsp;
-	                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
+	                             <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')"><label>否&nbsp;</label>
+	                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2"><label>是</label>
 	                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能是汉字或是字符,长度为20" id="faName"/>
 	                        </span>
                         </li>
@@ -593,6 +593,10 @@
             </div>
         </div>
     </div>
+</div>
+<div id="valuations-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 555px; top: 463px; opacity: 1; width: 77px;">
+	<div class="tip-inner tip-bg-image"><font color="red">*</font>支持两位小数</div>
+	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <!--隐藏-->

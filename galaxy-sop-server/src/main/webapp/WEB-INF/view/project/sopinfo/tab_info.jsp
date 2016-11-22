@@ -186,7 +186,9 @@
                   <th>币种</th>
                   <th>占比（%）</th>
                   <th>融资轮次</th>
+                  <c:if test="${isEditable}">
                   <th>操作</th>
+                  </c:if>
                  </tr>
              </thead>
 	         <tbody id="financeHistory_table">
