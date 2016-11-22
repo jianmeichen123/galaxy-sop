@@ -2,6 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="qualificationstc">
 	<div class="title_bj" id="qualifications_popup_name"></div>
         <div class="qualifications_all" id="updatelearning">
@@ -12,9 +13,9 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
                     <dd class="clearfix">
-                    	<input name="beginDateStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
+                    	<input name="beginDateStr" type="text" class="datepicker-text txt time fl" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
                     	<span class="fl">&nbsp;至&nbsp;</span>
-                    	<input name="overDateStr" type="text" class="datetimepickerHour txt time fl" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
+                    	<input name="overDateStr" type="text" class="datepicker-text txt time fl" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                     </dd>
                 </dl>
                 <dl class="fmdl fl">
@@ -53,19 +54,21 @@
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script type="text/javascript">
 $('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
-    format: 'yyyy-mm-dd',
+	format: 'yyyy-mm-dd',
     language: "zh-CN",
     autoclose: true,
     todayHighlight: false,
-    defaultDate : Date,
     today: "Today",
     todayBtn:'linked',
     leftArrow: '<i class="fa fa-long-arrow-left"></i>',
     rightArrow: '<i class="fa fa-long-arrow-right"></i>',
     forceParse:false,
-    currentText: 'Now'
+    currentText: 'Now',
+    endDate: dateadd,
+    defaultDate : new Date()
 });
 $(function(){
+	$('input[name="beginDateStr"], input[name="overDateStr"]').val(new Date().format("yyyy-MM-dd"));
 	var puuid = $('input[name="puuid"]').val();
 	var luuid = $('#luuid').val();
 	sendPostRequestByJsonStr(Constants.sopEndpointURL + "/galaxy/project/lookProjectLearning/"+luuid+"/"+pid, 
