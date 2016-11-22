@@ -21,7 +21,7 @@
       </dl> 
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;出资金额：</dt>
-        <dd><input type="text" name="financeAmount" value="" class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>大于0的数字"/>万元</dd>
+        <dd><input type="text" name="financeAmount" value="" class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>支持两位小数"/>万元</dd>
       </dl>
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;币种：</dt>
