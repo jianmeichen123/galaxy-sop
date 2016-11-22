@@ -46,7 +46,7 @@
             <dl class="fmdl clearfix">
                  <dt>占比：</dt>
                 <dd>
-                    <input type="text" class="txt" name="financeProportion" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                    <input type="text" class="txt fl" name="financeProportion" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;<span>%</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">

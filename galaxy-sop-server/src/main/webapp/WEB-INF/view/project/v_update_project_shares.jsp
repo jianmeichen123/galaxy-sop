@@ -3,7 +3,7 @@
 	String path = request.getContextPath(); 
 %>
 <div class="addmentc margin_45" id="form_shares">
-  <div class="title_bj">编辑股权结构</div>
+  <div class="title_bj">编辑股权结构</div>    
   <form action="" id="stock_form" method="post" type="validate">
   <input type="hidden" value="${uuid}" name="sharesUuid">
   <div class="form clearfix">
@@ -56,7 +56,9 @@ $(function(){
 		$('select[name="financeUnit"]').val(data.entity.financeUnit);
 		$('input[name="sharesType"]').val(data.entity.sharesType);
 		$('input[name="sharesRatio"]').val(data.entity.sharesRatio);
-		$('input[name="financeAmount"]').val(data.entity.financeAmount);
+		if(data.entity.financeAmount){
+			$('input[name="financeAmount"]').val(data.entity.financeAmount);
+		} 
 		$('textarea[name="remark"]').val(data.entity.remark);
 	});
 	initDialogValstr("form_shares");
