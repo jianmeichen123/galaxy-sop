@@ -216,18 +216,11 @@
 					    <div class="project_center">
 							<div class="new_r_compile ">
 								<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span>
-								<span id="describe_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
-								    <div class="tip-inner tip-bg-image">
-								        <font color="red">*</font>项目描述不能为空
-								    </div>
-								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
-								</span> 
-								<span id="describe2_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
-								    <div class="tip-inner tip-bg-image">
-								        <font color="red">*</font>项目描述不能为空
-								    </div>
-								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
-								</span> 
+								
+								<div id="test">
+								</div> 
+								<div id="test2">
+								</div> 
 								<span class="new_fctbox">
 									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 								</span>
