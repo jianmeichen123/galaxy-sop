@@ -1845,6 +1845,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					obj.setFaFlag(project.getFaFlag());
 					obj.setFaName(project.getFaName());
 					projectService.createProject(project, obj);
+					if(logger.isInfoEnabled()){
+						logger.info(FormatterUtils.formatStr(
+								"{0}:{1} create project successfully > pid : {2}, pname : {3}, fid : {4}", 
+								user.getId(), user.getRealName(), 
+								obj.getId(),project.getProjectName(), project.getSopFile().getId()));
+					}
+					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), obj.getId(),StageChangeHandler._6_1_,project.getSopFile());
 				}
 			}
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询股权结构信息成功!"));
