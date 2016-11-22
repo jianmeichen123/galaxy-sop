@@ -211,15 +211,15 @@ $(function(){
 	 * 组装数据
 	 */
 	function responseData(){
-		$("#describe_editor").html(describeUm.getContent());
-		$("#describe_editor2").html(describeUm2.getContent());
-		$("#company_editor").html(companyUm.getContent());
-		$("#portrait_editor").html(portraitUm.getContent());
-		$("#business_editor").html(businessUm.getContent());
-		$("#operation_editor").html(operationUm.getContent());
-		$("#industry_editor").html(industryUm.getContent());
-		$("#analysis_editor").html(analysisUm.getContent());
-		$("#next_financing_editor").html(nextFinancingUm.getContent());
+		$("#describe_editor").html($("#describe_show").html());
+		$("#describe_editor2").html($("#describe2_show").html());
+		$("#company_editor").html($("#location_show").html());
+		$("#portrait_editor").html($("#portrait_show").html());
+		$("#business_editor").html($("#business_show").html());
+		$("#operation_editor").html($("#operational_data_show").html());
+		$("#industry_editor").html($("#industry_show").html());
+		$("#analysis_editor").html($("#analysis_show").html());
+		$("#next_financing_editor").html($("#next_financing_source_show").html());
 	}
 	
 	/**
@@ -239,7 +239,7 @@ $(function(){
 			$("#next_financing_source_show").html(data.entity.nextFinancingSource);
 			if(($("#describe_show").html()!=""  || $.trim($("#describe_show").text())!="") && ($("#describe2_show").html()!='' || $.trim($("#describe2_show").text())!='')){
 				$(".describe_show").show();
-				$("#describe2_show .show_more").remove();
+				$("#describe2_show").siblings(".show_more").remove();
 				display_show("describe_show");
 				display_show("describe2_show");
 			}else{
@@ -249,49 +249,49 @@ $(function(){
 			
 			if($("#location_show").html()!="" || $.trim($("#location_show").text())!=""){
 				$(".location_show").show();
-				$("#location_show .show_more").remove();
+				$("#location_show").siblings(".show_more").remove();
 				display_show("location_show");
 			}else{
 				$(".location_show").hide();
 			};
 			if($("#portrait_show").html()!="" || $.trim($("#portrait_show").text())!=""){
 				$(".portrait_show").show();
-				$("#portrait_show .show_more").remove();
+				$("#portrait_show").siblings(".show_more").remove();
 				display_show("portrait_show");
 			}else{
 				$(".portrait_show").hide();
 			};
 			if($("#business_show").html()!="" || $.trim($("#business_show").text())!=""){
 				$(".business_model_show").show();
-				$("#business_show .show_more").remove();
+				$("#business_show").siblings(".show_more").remove();
 				display_show("business_show");
 			}else{
 				$(".business_model_show").hide();
 			};
 			if($("#operational_data_show").html()!="" || $.trim($("#operational_data_show").text())!=""){
 				$(".operational_data_show").show();
-				$("#operational_data_show .show_more").remove();
+				$("#operational_data_show").siblings(".show_more").remove();
 				display_show("operational_data_show");
 			}else{
 				$(".operational_data_show").hide();
 			};
 			if($("#industry_show").html()!="" || $.trim($("#industry_show").text())!=""){
 				$(".industry_show").show();
-				$("#industry_show .show_more").remove();
+				$("#industry_show").siblings(".show_more").remove();
 				display_show("industry_show");
 			}else{
 				$(".industry_show").hide();
 			};
 			if($("#analysis_show").html()!="" || $.trim($("#analysis_show").text())!=""){
 				$(".analysis_show").show();
-				$("#analysis_show .show_more").remove();
+				$("#analysis_show").siblings(".show_more").remove();
 				display_show("analysis_show");
 			}else{
 				$(".analysis_show").hide();
 			};
 			if($("#next_financing_source_show").html()!="" || $.trim($("#next_financing_source_show").text())!=""){
 				$(".next_financing_source_show").show();
-				$("#next_financing_source_show .show_more").remove();
+				$("#next_financing_source_show").siblings(".show_more").remove();
 				display_show("next_financing_source_show");
 			}else{
 				$(".next_financing_source_show").hide();
@@ -320,19 +320,19 @@ function  display_show(obj){
 		str+='<span class="show_more">',
 		str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
 		str+='</span>';
-		$('#'+obj).append(str);
+		$('#'+obj).parent().append(str);
 		$('#'+obj).parent().css('height','100px')
 	}
 }
 $('.new_top_color').delegate(".f4","click",function(){
 	$(this).hide();
 	$(this).siblings('.f3').show();
-	$(this).parent().parent().parent().css('height','auto')
+	$(this).parent().parent().css('height','auto')
 }) 
 $('.new_top_color').delegate(".f3","click",function(){
 	$(this).hide();
 	$(this).siblings('.f4').show();
-	$(this).parent().parent().parent().css('height','100px')
+	$(this).parent().parent().css('height','100px')
 }) 
 /**
  * 表单验证

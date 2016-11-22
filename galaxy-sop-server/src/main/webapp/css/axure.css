@@ -1450,9 +1450,9 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_top_color{ overflow: hidden; position: relative; border-top:1px solid #e6e8f1;padding:0 20px; margin-bottom: 25px;}
 .new_r_compile .new_fctbox{ display:block; float:right;}
 .new_top_color .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
-.new_top_color .f4{background-position: right -95px;padding: 0 30px 0 11px; }
-.new_top_color .f3{background-position: right -40px;padding: 0 30px 0 0px; }
-.new_top_color .f4{ position: absolute; top:78px; right:0; background-color:#fff; color: #66b1f2; cursor:pointer}
+.new_top_color .f4{background-position: right -95px;padding: 2px 30px 0 11px; }
+.new_top_color .f3{background-position: right -40px;padding: 0px 30px 0 0px; }
+.new_top_color .f4{ position: absolute; bottom:0px; right:0; background-color:#fff; color: #66b1f2; cursor:pointer}
 .new_top_color .f3{ position: absolute; bottom:0px; right:0; background-color:#fff; color: #66b1f2; cursor:pointer}
 .new_fctbox .f1 {
     background-position: 0 0; float:left;
