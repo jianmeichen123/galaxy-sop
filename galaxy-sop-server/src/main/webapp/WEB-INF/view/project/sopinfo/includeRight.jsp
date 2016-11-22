@@ -175,8 +175,9 @@ $(function(){
 			$("#thyy_meet_more").click(function(){
 				
 				//showTabs(proid,9);
-				initTabMeeting(proid);
-				$(".projectDetail li").eq(4).addClass("on").siblings().removeClass("on");
+				initTabPostMeeting();
+				//initTabMeeting(proid);
+				$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
 			});
 			setThyyInfo();
 		}
@@ -304,7 +305,7 @@ function initMoreLine(){
 
 	$("#meet_more").on("click", function(){
 		$('ul.projectDetail li').eq(4).addClass('on').siblings().removeClass("on");
-		initTabMeeting();
+		initTabMeeting(proid);
 	});
 	$("#view_more").on("click", function(){
 		$('ul.projectDetail li').eq(3).addClass('on').siblings().removeClass("on");
