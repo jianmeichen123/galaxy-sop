@@ -4968,7 +4968,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	
 	/**
-	 * 保存项目 创建前 访谈记录
+	 * 取消保存项目
 	 * 
 	 * @param id:mongoDB中 项目标识 <br/>
 	 * 	
@@ -4985,7 +4985,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR,null, "项目信息缺失"));
 				return responseBody;
 			}
-			mongoProjectService.deleteById(id);
+			
+			//com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
+			
+			//mongoProjectService.deleteById(id);
+			com.galaxyinternet.mongodb.model.Project project = new com.galaxyinternet.mongodb.model.Project();
+			project.setId(id);
+			mongoProjectService.deleteByCondition(project);
 			
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
