@@ -35,7 +35,7 @@
 		        		value=0
 		        	</c:otherwise>
 		        </c:choose>	
-        	class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>大于0的数字"/><span>&nbsp;万元</span></dd>
+        	class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>支持两位小数"/><span>&nbsp;万元</span></dd>
       </dl>
       
       <dl class="fmdl fl">
