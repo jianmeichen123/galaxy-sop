@@ -1840,6 +1840,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					obj.setIndustryAnalysis(project.getIndustryAnalysis());
 					obj.setOperationalData(project.getOperationalData());
 					obj.setUpdatedTime(new Date().getTime());
+					obj.setRemark(project.getRemark());
 					obj.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 					obj.setFaFlag(project.getFaFlag());
 					obj.setFaName(project.getFaName());
