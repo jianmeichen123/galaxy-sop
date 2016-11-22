@@ -133,7 +133,7 @@
 var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
-if('${fx:isTransfering(pid) }' == 'true')
+if('${fx:isTransfering(pid)}' == 'true')
 {
 	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
