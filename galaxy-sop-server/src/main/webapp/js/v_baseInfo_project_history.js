@@ -1,5 +1,4 @@
 searchFH();
-var isEditable = '$(isEditable)';
 
 /**
  * 加载该项目的融资历史
