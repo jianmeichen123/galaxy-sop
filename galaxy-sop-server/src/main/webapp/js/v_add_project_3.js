@@ -4,6 +4,7 @@ function radio_isContacts_tel(isContactsV){
 	if (isContactsV == 0 || isContactsV == '0') {
 		$("input[name='personTelephone']").attr({placeholder:"请输入手机号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>手机号码格式不正确"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
+		$("#personTelephone_valiate").attr("style","display:none;");
 		$("input[name='personTelephone']").attr('allowNULL','yes').removeAttr('placeholder').removeAttr('msg');
 	} 
 }
