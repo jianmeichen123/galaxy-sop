@@ -405,6 +405,12 @@ function generateSharesEmptyInnerHtml(){
 function nextBtn(){
 	var plan_business_table_val=$("#person-table tbody td").eq(0).text();
 	var shares=$("#shares").val();
+	if(plan_business_table_val!="没有找到匹配的记录"){
+		$("#person_block_valiate").hide();
+	}
+	if(shares>0){
+		$("#shares_block_valiate").hide();
+	}
 	if(plan_business_table_val!="没有找到匹配的记录"&&shares>0){
 		$("[data-btn='page2'] span[data-btn='next']").removeClass("disabled");
 		return;

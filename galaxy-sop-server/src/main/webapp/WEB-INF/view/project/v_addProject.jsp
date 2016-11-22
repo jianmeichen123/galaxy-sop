@@ -453,6 +453,12 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_person ico_add_project"></span>
                         <span class="new_color size16"><em class="red">*</em>团队成员</span>
+                        <span id="person_block_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>团队成员不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span>
                         <button onclick="addProjectPerson();" class="blue fr add_history" data-name="添加团队成员" data-btn="addProjectPerson">添加</button>
                     </div>
                     <table id="person-table" style="width:94%;" cellspacing="0" cellpadding="0" class="basic_table table learning-table">
@@ -498,6 +504,12 @@
 					</div>
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_color size16"><em class="red">*</em>股权结构</span>
+                        <span id="shares_block_valiate" class="tip-yellowsimple" style="display:none;visibility: inherit;">
+								    <div class="tip-inner tip-bg-image">
+								        <font color="red">*</font>股权结构不能为空
+								    </div>
+								    <div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+								</span>
                         <button onclick="addProjectShares();" class="blue fr add_history">添加</button>
                     </div>
                     <input type="hidden" value="0" id="shares"/>
@@ -648,9 +660,13 @@ $('[data-btn="next"]').click(function(){
 		}
 		
 		var valiate_flag = false;
-		if($("#shares-tbody tr td").length <= 1 || $("#person-tbody tr td").length <= 1){
+		if($("#shares-tbody tr td").length <= 1){
 			valiate_flag = true;
-			layer.msg("必要的参数丢失!");
+			$("#shares_block_valiate").show();
+		}
+		if($("#person-tbody tr td").length <= 1){
+			valiate_flag = true;
+			$("#person_block_valiate").show();
 		}
 		if(valiate_flag){
 			return;
