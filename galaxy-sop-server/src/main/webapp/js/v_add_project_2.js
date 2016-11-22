@@ -122,7 +122,8 @@ $(function(){
 		var projectDescribe = describeUm.getContent();
 		var projectDescribeFinancing = describeUm2.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":projectDescribeFinancing}, saveCallBack);
-
+		next();
+		describe();
 			
 	    
 	});
@@ -135,6 +136,7 @@ $(function(){
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "companyLocation" : companyLocation}, saveCallBack);
 		//step2Valiate("step2");
 		Valiate("location_show");
+		next();
 	});
 	
 	/**
@@ -144,7 +146,8 @@ $(function(){
 		var userPortrait = portraitUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "userPortrait" : userPortrait}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("portrait_show")
+		Valiate("portrait_show");
+		next();
 	});
 	
 	/**
@@ -154,7 +157,8 @@ $(function(){
 		var projectBusinessModel = businessUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("business_show")
+		Valiate("business_show");
+		next();
 	});
 	
 	/**
@@ -164,6 +168,7 @@ $(function(){
 		var operationalData = operationUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "operationalData" : operationalData}, saveCallBack);
 		//step2Valiate("step2");
+		next();
 	});
 	
 	/**
@@ -173,7 +178,8 @@ $(function(){
 		var industryAnalysis = industryUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "industryAnalysis" : industryAnalysis}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("industry_show")
+		Valiate("industry_show");
+		next();
 	});
 	
 	/**
@@ -183,7 +189,8 @@ $(function(){
 		var prospectAnalysis = analysisUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveCallBack);
 		//step2Valiate("step2");
-		Valiate("analysis_show")
+		Valiate("analysis_show");
+		next();
 	});
 	
 	/**
@@ -193,6 +200,7 @@ $(function(){
 		var nextFinancingSource = nextFinancingUm.getContent();
 		sendPostRequestByJsonObj(Constants.sopEndpointURL+"galaxy/project/addProjectStep2", {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveCallBack);
 		//step2Valiate("step2");
+		next();
 	});
 	
 	/**
@@ -310,13 +318,44 @@ $(function(){
 	}
 });
 //下一步提示
-$("[data-btn='page1']").click(function(){
+function next(){
 	var plan_business_table_val=$("#plan_business_table tbody td").eq(0).text()
 	if(step2Valiate("step2") && plan_business_table_val!="-"){
 		$("[data-btn='page1'] span[data-btn='next']").removeClass("disabled");
 		return;
 	}
-})
+}
+//项目描述验证
+function describe(){
+			if(($("#describe_show").text() ==""  || $.trim($("#describe_show").text()) =="") && ($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) =="")){
+							$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+			}
+				
+			var html =  '<span id="describe_valiate" class="tip-yellowsimple" style="display:block;visibility: inherit;">'+
+					    '<div class="tip-inner tip-bg-image">'+
+					        '<font color="red">*</font>项目描述不能为空'+
+					    '</div>'+
+					    '<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>'+
+					    '</span>';
+				if($("#describe_show").text() == ""  || $.trim($("#describe_show").text()) ==""){
+					$("#test2").html('');
+					$("#test").html(html);
+					$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+				}
+				
+				if($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) ==""){
+					$("#test").html('');
+					$("#test2").html(html);
+					$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+				}
+				
+				if(($("#describe_show").text() ==""  || $.trim($("#describe_show").text()) =="") && ($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) =="")){
+					$("#test").html('');
+					$("#test2").html(html);
+					$("#describe_valiate").attr("style","display:block;visibility: inherit;");
+				}
+		
+}
 
 /**
  * 控制展开收起
@@ -362,36 +401,6 @@ function step2Valiate(id){
 			 }else{
 				 $("#"+id).hide();
 			 }
-			 if(id == "describe_valiate"){
-				if(($("#describe_show").text() ==""  || $.trim($("#describe_show").text()) =="") && ($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) =="")){
-								$("#describe_valiate").attr("style","display:block;visibility: inherit;");
-				}
-					
-				var html =  '<span id="describe_valiate" class="tip-yellowsimple" style="display:block;visibility: inherit;">'+
-						    '<div class="tip-inner tip-bg-image">'+
-						        '<font color="red">*</font>项目描述不能为空'+
-						    '</div>'+
-						    '<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>'+
-						    '</span>';
-					if($("#describe_show").text() == ""  || $.trim($("#describe_show").text()) ==""){
-						$("#test2").html('');
-						$("#test").html(html);
-						$("#describe_valiate").attr("style","display:block;visibility: inherit;");
-					}
-					
-					if($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) ==""){
-						$("#test").html('');
-						$("#test2").html(html);
-						$("#describe_valiate").attr("style","display:block;visibility: inherit;");
-					}
-					
-					if(($("#describe_show").text() ==""  || $.trim($("#describe_show").text()) =="") && ($("#describe2_show").text() ==""  || $.trim($("#describe2_show").text()) =="")){
-						$("#test").html('');
-						$("#test2").html(html);
-						$("#describe_valiate").attr("style","display:block;visibility: inherit;");
-					}
-			 }
-			 
 		 }
 	});
 	return flag;
