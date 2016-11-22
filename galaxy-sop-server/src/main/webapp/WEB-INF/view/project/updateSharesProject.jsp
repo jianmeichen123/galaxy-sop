@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% 
 	String path = request.getContextPath(); 
-%>
+%>      
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <div class="addmentc margin_45 form_shares">
@@ -25,7 +25,21 @@
       </dl> 
        <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;出资金额：</dt>
-        <dd><input type="text" name="financeAmount" value="<fmt:formatNumber type="number" value="${share.financeAmount} "/>" class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>大于0的数字"/><span>&nbsp;万元</span></dd>
+        <dd><input type="text" name="financeAmount" 
+        	                
+                <c:choose>
+		        	<c:when test="${share.financeAmount != null}">
+		        		value="<fmt:formatNumber type="number" value="${share.financeAmount} "/>" 
+		        	</c:when>
+		        	<c:otherwise>
+		        		value=0
+		        	</c:otherwise>
+		        </c:choose>	
+        	
+        	<c:if test='${share.financeAmount != null}'>
+        		
+        	</c:if>
+        	class="txt" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>大于0的数字"/><span>&nbsp;万元</span></dd>
       </dl>
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;币种：</dt>
