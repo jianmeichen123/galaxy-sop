@@ -242,6 +242,25 @@ $(function(){
 				//$("#describe2_show").siblings(".show_more").remove();
 				display_show("describe_show");
 				display_show("describe2_show");
+				//单独控制展开收起
+				$("#describe2_show").css('height','70px');
+				var PH1=$("#describe_show").height();
+				var PH2=$("#describe2_show").height();
+				$(".describe_show").css('height',PH1+PH2+92);
+				$('.describe_show').delegate(".f4","click",function(){
+					$(this).hide();
+					$(this).siblings('.f3').show();
+					$('#describe2_show').css('height','auto');
+					var H1=$('#describe2_show').height();
+					$('.describe_show').css('height',PH1+H1+92);
+				}) 
+				$('.describe_show').delegate(".f3","click",function(){
+					$(this).hide();
+					$(this).siblings('.f4').show();
+					$("#describe_show").css('height',PH1);
+					$('#describe2_show').css('height','70px');
+					$('.describe_show').css('height',PH1+PH2+92);
+				}) 
 			}else{
 				$(".describe_show").hide();
 			};
@@ -325,14 +344,14 @@ function  display_show(obj){
 		$('#'+obj).parent().css('height','120px')
 	}
 }
-$('.new_top_color').delegate(".f4","click",function(){
+$('.new_top_color_new').delegate(".f4","click",function(){
 	$(this).hide();
 	$(this).siblings('.f3').show();
 	$(this).parent().siblings('p').css('height','auto');
 	var H1=$(this).parent().siblings('p').height();
-	$(this).parent().parent().css('height',H1+20);
+	$(this).parent().parent().css('height',H1+20)
 }) 
-$('.new_top_color').delegate(".f3","click",function(){
+$('.new_top_color_new').delegate(".f3","click",function(){
 	$(this).hide();
 	$(this).siblings('.f4').show();
 	$(this).parent().siblings('p').css('height','100px');

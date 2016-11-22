@@ -241,7 +241,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color describe_show" >
+		<div class="new_ul_all new_top_color describe_show clearfix" >
 			<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
 			<p style="padding-left:22px" id="describe_show" valiate="required"></p>
 			<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
@@ -260,7 +260,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color location_show">
+		<div class="new_ul_all new_top_color location_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="location_show"></p>
 		</div>
@@ -288,7 +288,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color portrait_show">
+		<div class="new_ul_all new_top_color portrait_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="portrait_show"></p>
 		</div>
@@ -318,7 +318,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color business_model_show">
+		<div class="new_ul_all new_top_color business_model_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="business_model_show"></p>
 		</div>
@@ -346,7 +346,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color operational_data_show">
+		<div class="new_ul_all new_top_color operational_data_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="operational_data_show"></p>
 		</div>
@@ -376,7 +376,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color industry_analysis_show">
+		<div class="new_ul_all new_top_color industry_analysis_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="industry_analysis_show"></p>
 		</div>
@@ -404,7 +404,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color analysis_show">
+		<div class="new_ul_all new_top_color analysis_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="analysis_show"></p>
 		</div>
@@ -432,7 +432,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color next_financing_source_show">
+		<div class="new_ul_all new_top_color next_financing_source_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="next_financing_source_show"></p>
 		</div>

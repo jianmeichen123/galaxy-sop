@@ -232,7 +232,7 @@
 									<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color describe_show" >
+							<div class="new_ul_all new_top_color describe_show clearfix">
 								<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
 								<p style="padding-left:22px" id="describe_show" valiate="required"></p>
 								<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
@@ -254,7 +254,7 @@
 									<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color location_show">
+							<div class="new_ul_all new_top_color location_show new_top_color_new">
 								<span class="ico_dot ico"></span>
 								<p id="location_show" valiate="required"></p>
 							</div>
@@ -284,7 +284,7 @@
 								<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color portrait_show">
+							<div class="new_ul_all new_top_color portrait_show new_top_color_new">
 								<span class="ico_dot ico"></span>
 								<p id="portrait_show" valiate="required"></p>
 							</div>
@@ -314,7 +314,7 @@
 									<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color business_model_show">
+							<div class="new_ul_all new_top_color business_model_show new_top_color_new">
 								<span class="ico_dot ico"></span>
 								<p id="business_show" valiate="required"></p>
 							</div>
@@ -338,7 +338,7 @@
 									<a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color operational_data_show">
+							<div class="new_ul_all new_top_color operational_data_show new_top_color_new">
 								<span class="ico_dot ico"></span>
 								<p id="operational_data_show"></p>
 							</div>
@@ -368,7 +368,7 @@
 									<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color industry_show">
+							<div class="new_ul_all new_top_color industry_show new_top_color_new">
 								<span class="ico_dot ico"></span>
 								<p id="industry_show" valiate="required"></p>
 							</div>
@@ -398,7 +398,7 @@
 									<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color analysis_show">
+							<div class="new_ul_all new_top_color analysis_show new_top_color_new">
 								<span class="ico_dot ico"></span>
 								<p id="analysis_show" valiate="required"></p>
 							</div>
@@ -422,7 +422,7 @@
 								<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open" >编辑</a>
 								</span>
 							</div>
-							<div class="new_ul_all new_top_color next_financing_source_show">
+							<div class="new_ul_all new_top_color next_financing_source_show new_top_color_new">
 								<span class="ico_dot ico"></span>
 								<p id="next_financing_source_show" ></p>
 							</div>

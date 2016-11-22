@@ -209,7 +209,26 @@ $(function(){
 				describeUm2.setContent(projectInfo.projectDescribeFinancing);
 				$("#descript").hide();
 				$('.describe_show').show();
-				display_show("describe_show");
+				display_show("describe2_show");
+				//单独控制展开收起
+				$("#describe2_show").css('height','70px');
+				var PH1=$("#describe_show").height();
+				var PH2=$("#describe2_show").height();
+				$(".describe_show").css('height',PH1+PH2+92);
+				$('.describe_show').delegate(".f4","click",function(){
+					$(this).hide();
+					$(this).siblings('.f3').show();
+					$('#describe2_show').css('height','auto');
+					var H1=$('#describe2_show').height();
+					$('.describe_show').css('height',PH1+H1+92);
+				}) 
+				$('.describe_show').delegate(".f3","click",function(){
+					$(this).hide();
+					$(this).siblings('.f4').show();
+					$("#describe_show").css('height',PH1);
+					$('#describe2_show').css('height','70px');
+					$('.describe_show').css('height',PH1+PH2+92);
+				}) 
 			}else{
 				$('.describe_show').hide();
 				$("#describe2_show").html('');
@@ -302,19 +321,23 @@ $(function(){
 					str+='<span class="show_more">',
 					str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
 					str+='</span>';
-					$('#'+obj).append(str);
-					$('#'+obj).parent().css('height','100px')
+					$('#'+obj).parent().append(str);
+					$('#'+obj).css({'height':'100px','overflow':'hidden'});
+					$('#'+obj).parent().css('height','120px')
 				}
 			}
-			$('.new_top_color').delegate(".f4","click",function(){
+			$('.new_top_color_new').delegate(".f4","click",function(){
 				$(this).hide();
-				$(this).parent().children('.f3').show();
-				$(this).parent().parent().parent().css('height','auto')
+				$(this).siblings('.f3').show();
+				$(this).parent().siblings('p').css('height','auto');
+				var H1=$(this).parent().siblings('p').height();
+				$(this).parent().parent().css('height',H1+20)
 			}) 
-			$('.new_top_color').delegate(".f3","click",function(){
+			$('.new_top_color_new').delegate(".f3","click",function(){
 				$(this).hide();
-				$(this).parent().children('.f4').show();
-				$(this).parent().parent().parent().css('height','100px')
+				$(this).siblings('.f4').show();
+				$(this).parent().siblings('p').css('height','100px');
+				$(this).parent().parent().css('height','120px');
 			}) 
 			/**
 			 * 商业计划
@@ -486,6 +509,11 @@ $(function(){
 		/**
 		 * 保存项目描述
 		 */
+		$("#describe_editor").blur(function(){   //商业描述50字以内，超过50字，限制输入
+			var content = describeUm.getContentTxt();
+			describeUm.setContent(content.substring(0,50));
+			//describeUm.focus(true);
+		})
 		$("#save_describe").click(function(){
 //			var um = UM.getEditor('describe_editor');
 			var projectDescribe = describeUm.getContent();
