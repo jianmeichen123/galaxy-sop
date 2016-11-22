@@ -68,7 +68,27 @@ function setText(obj){
 		
 	}
 var formData;
+$('input[name="formatValuations"]').change(function(){
+	if($(this).val() == ''){
+		$("#valuations-tip").css("display","block");
+	}else{
+		$("#valuations-tip").css("display","none");
+	}
+});
+$('input[name="formatValuations"]').blur(function(){
+	if($(this).val() == ''){
+		$("#valuations-tip").css("display","block");
+	}else{
+		$("#valuations-tip").css("display","none");
+	}
+});
 function add(){
+	$("#valuations-tip").css("display","none");
+	var formatValuations = $('input[name="formatValuations"]').val();
+	if(formatValuations == ''){
+		$("#valuations-tip").css("display","block");
+		return;
+	}
 	var val=$('input:radio[name="projectType"]:checked').val();
 	if(val == null || typeof(val) == "undefined"){
 		$("#projectTypeTip").css("display","block");
