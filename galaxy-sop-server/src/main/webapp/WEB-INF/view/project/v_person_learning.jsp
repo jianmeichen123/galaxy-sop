@@ -52,19 +52,7 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-/* $('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
-    format: 'yyyy-mm-dd',
-    language: "zh-CN",
-    autoclose: true,
-    todayHighlight: false,
-    defaultDate : Date,
-    today: "Today",
-    todayBtn:'linked',
-    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
-    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-    forceParse:false,
-    currentText: 'Now'
-}); */
+
 $(function(){
 	$('input[name="beginDateStr"], input[name="overDateStr"]').val(new Date().format("yyyy-MM-dd"));
 	initDialogValstr("learning");
