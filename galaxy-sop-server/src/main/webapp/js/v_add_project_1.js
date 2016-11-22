@@ -69,14 +69,14 @@ function setText(obj){
 	}
 var formData;
 $('input[name="formatValuations"]').change(function(){
-	if($(this).val() == ''){
+	if($(this).val() == '' && new RegExp("^(([1-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$").test($(this).val())){
 		$("#valuations-tip").css("display","block");
 	}else{
 		$("#valuations-tip").css("display","none");
 	}
 });
 $('input[name="formatValuations"]').blur(function(){
-	if($(this).val() == ''){
+	if($(this).val() == '' && new RegExp("^(([1-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$").test($(this).val())){
 		$("#valuations-tip").css("display","block");
 	}else{
 		$("#valuations-tip").css("display","none");
@@ -85,7 +85,7 @@ $('input[name="formatValuations"]').blur(function(){
 function add(){
 	$("#valuations-tip").css("display","none");
 	var formatValuations = $('input[name="formatValuations"]').val();
-	if(formatValuations == ''){
+	if(formatValuations == '' && new RegExp("^(([1-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$").test(formatValuations)){
 		$("#valuations-tip").css("display","block");
 		return;
 	}
