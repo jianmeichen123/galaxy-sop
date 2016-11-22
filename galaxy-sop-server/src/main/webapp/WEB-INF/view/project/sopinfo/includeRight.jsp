@@ -538,6 +538,8 @@ function setThyyInfo()
 			//运营会议
 			if(data.entityList.length<3){
 				$("#thyy_meet_more").hide();
+			}else{
+				$("#thyy_meet_more").show();
 			}
 			if(data.entityList != null && data.entityList.length>0)
 			{
