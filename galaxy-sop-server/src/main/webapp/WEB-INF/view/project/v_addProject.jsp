@@ -112,7 +112,7 @@
                         <li>
                             <span class="basic_span"><em class="red">*</em>融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
                             </span>
                             <span class="m_r30">万元人民币</span>
                             <span class="basic_span"><em class="red">*</em>项目估值：</span>
