@@ -63,8 +63,8 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;是否为联系人：</dt>
                     <dd class="clearfix">
-                        <label><input type="radio" value="0" name="isContacts" checked="checked"/>是</label>
-                        <label><input type="radio" value="1" name="isContacts"/>否</label>
+                        <label><input type="radio" value="0" name="isContacts" checked="checked" onclick="setPersonValiate()"/>是</label>
+                        <label><input type="radio" value="1" name="isContacts" onclick="canclePersonValiate()"/>否</label>
                     </dd>
                 </dl>
                 <dl class="fmdl fl block">
@@ -183,7 +183,8 @@ $(function(){
 			});
 		}
 	});
-
+	var $selectedvalue = $("input:radio[name='isContacts']:checked").val();
+	radio_isContacts_tel($selectedvalue);
 	$("input:radio[name='isContacts']").change(function() {
 		// 0 y; 1 n
 		var $selectedvalue = $("input:radio[name='isContacts']:checked").val();

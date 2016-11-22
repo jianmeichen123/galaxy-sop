@@ -2,6 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="qualificationstc">
 	<div class="title_bj" id="qualifications_popup_name"></div>
         <div class="qualifications_all" id="updatelearning">
