@@ -93,7 +93,7 @@
 	                        <span class="m_r30" style="with:400px">
 	                             <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')"><label>否&nbsp;</label>
 	                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2"><label>是</label>
-	                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能是汉字或是字符,长度为20" id="faName"/>
+	                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^[^\s](.{0,19})$" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20" id="faName"/>
 	                        </span>
                         </li>
                         <li>
