@@ -62,13 +62,23 @@
 		createMenus(1);
 		var initParams,
 				pageParams=cookieOperator.getDataNoDelete({_paramKey : 'messageList',_path : "/"}),
+				toPageNum = 1,
 				initPageSize = 10;
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
+			
+			if(pageParams.pageNum && typeof(pageParams.pageNum) != "undefined"){
+				toPageNum = pageParams.pageNum;
+			}
+			
+			deleteCookie("backProjectList","/");
 		}
+		
+		
 		$('#message-table').bootstrapTable({
 			queryParamsType: 'size|page',
 			pageSize:initPageSize,
+			pageNumber:toPageNum,
 			showRefresh : false,
 			url : platformUrl[$('#message-table').attr("data-url")],
 			sidePagination: 'server',
@@ -79,18 +89,18 @@
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams : function(param){
-	        	if(getCookieValue("backProjectList")!=''){
+	        	/* if(getCookieValue("backProjectList")!=''){
 	        		initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : "/"});
 	        		deleteCookie("backProjectList","/");
 	        	}else{
 	        		initParams=undefined;
 	        	}
 	    		if(typeof(initParams) !== 'undefined'){
-		    		param.pageNum = initParams.pageNum - 1;
+		    		//param.pageNum = initParams.pageNum - 1;
 		        	param.pageSize = initParams.pageSize;
 		        	var options = $("#data-table").bootstrapTable('getOptions');
 		 	        options.pageNumber = initParams.pageNum - 1;
-		    	}
+		    	} */
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
