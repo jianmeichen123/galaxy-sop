@@ -593,7 +593,21 @@ function filedown(fileid , filekey, type){
 		layer.msg("下载失败");
 	}
 }
-
+//附件点击下载
+function filedownByFileInfo(fileName,fileSuffix,fileSize,fileKey){
+	try {
+		var fileDownCon = {};
+		fileDownCon.fileName = fileName;
+		fileDownCon.fileSuffix = fileSuffix;
+		fileDownCon.fileSize = fileSize;
+		fileDownCon.fileKey = fileKey;
+		var url =Constants.sopEndpointURL+"/galaxy/sopFile/downloadFileBy"; 
+		window.location.href=url+"?sid="+sessionId+"&guid="+userId+"&fileName="+fileName+"&fileSuffix="+fileSuffix+"&fileSize="+fileSize+"&fileKey="+fileKey;
+		//sendPostRequestByJsonObj(url,fileDownCon,null);
+	} catch (e) {
+		layer.msg("下载失败");
+	}
+}
 
 
 
@@ -685,12 +699,12 @@ function getInterViewCondition(hasProid,projectId,
 		}
 	}
 	
-	if(viewNotes != null && viewNotes.length > 0){
+	/*if(viewNotes != null && viewNotes.length > 0){
 		if(getLength(viewNotes) > 9000){
 			layer.msg("访谈记录长度最大9000字符");
 			return false;
 		}
-	}
+	}*/
 	
 	condition.projectId = projectId;
 	condition.viewDateStr = viewDateStr;
@@ -700,7 +714,25 @@ function getInterViewCondition(hasProid,projectId,
 	return condition;
 }
 
-
+function getPreViewCondition(
+		viewDateId,
+		viewTargetId,
+		viewNotesId){
+	var	condition = {};
+	if(!beforeSubmitById("inter_subm_val")){
+		return false;
+	}
+	var viewDateStr = $("#"+viewDateId).val();
+	var viewTarget = $.trim($("#"+viewTargetId).val());
+	var um = UM.getEditor(viewNotesId);
+	var viewNotes = $.trim(um.getContent());
+	
+	condition.viewDateStr = viewDateStr;
+	condition.viewTarget = viewTarget;
+	condition.viewNotes = viewNotes;
+	
+	return condition;
+}
 
 
 /**
@@ -1136,6 +1168,22 @@ function createDictionaryOptions(url, name, selectIndex){
 		$('select[name="'+name+'"]').append(options.join(''));
 	});
 }
+/**
+ * 创建项目第一步，防止两个融资轮次冲突，其中一个使用该函数
+ */
+function createDictionaryOptionsBak(url, id, selectIndex){
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			if(selectIndex && i == selectIndex){
+				options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+			}else{
+				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+			}
+		});
+		$('#'+id+'').append(options.join(''));
+	});
+}
 
 /**
  * 查询事业线
@@ -1167,7 +1215,7 @@ function createUserOptions(url, name, mark){
 			options.push('<option value="0">请选择</option>');
 		}
 		$.each(data.entityList, function(i, value){
-			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
+			options.push('<option value="'+value.idstr+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
 		});
 		if(mark == 1){
 	     	$('select[name="'+name+'"]').html(options.join(''));
@@ -1193,7 +1241,7 @@ function createUserOptions_All(url, name, mark){
 			options.push('<option value="0">全部</option>');
 		}
 		$.each(data.entityList, function(i, value){
-			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
+			options.push('<option value="'+value.idstr+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
 		});
 		if(mark == 1){
 	     	$('select[name="'+name+'"]').html(options.join(''));
@@ -1589,6 +1637,7 @@ function ajaxPopup(obj,tite_mame){
 		    undefinedText:' ',
 		    onLoadSuccess:function(result){
 		    	//$(toolbar).html("");
+		    	$("#fixed-table").css("width",$("#data-table-ajax-popup tbody").width())
 		    }
  			});
  		}

@@ -2157,6 +2157,29 @@
         this.initBody(true);
     };
 
+    BootstrapTable.prototype.updateByUniqueId = function (params) {
+        var that = this;
+        var allParams = $.isArray(params) ? params : [ params ];
+
+        $.each(allParams, function(i, params) {
+            var rowId;
+
+            if (!params.hasOwnProperty('id') || !params.hasOwnProperty('row')) {
+                return;
+            }
+
+            rowId = $.inArray(that.getRowByUniqueId(params.id), that.options.data);
+
+            if (rowId === -1) {
+                return;
+            }
+            $.extend(that.data[rowId], params.row);
+        });
+
+        this.initSort();
+        this.initBody(true);
+    };
+    
     BootstrapTable.prototype.showRow = function (params) {
         if (!params.hasOwnProperty('index')) {
             return;
@@ -2446,7 +2469,7 @@
         'getOptions',
         'getSelections', 'getAllSelections', 'getData',
         'load', 'append', 'prepend', 'remove', 'removeAll',
-        'insertRow', 'updateRow', 'updateCell', 'removeByUniqueId',
+        'insertRow', 'updateRow', 'updateCell', 'removeByUniqueId','updateByUniqueId',
         'getRowByUniqueId', 'showRow', 'hideRow', 'getRowsHidden',
         'mergeCells',
         'checkAll', 'uncheckAll',

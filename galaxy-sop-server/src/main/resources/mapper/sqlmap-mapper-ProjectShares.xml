@@ -10,11 +10,14 @@
     <result column="shares_ratio" property="sharesRatio" jdbcType="DECIMAL" />
     <result column="gain_mode" property="gainMode" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="finance_amount" property="financeAmount" jdbcType="DECIMAL" />
+    <result column="finance_unit" property="financeUnit" jdbcType="VARCHAR" />
+   
   </resultMap>
   
   
   <sql id="Base_Column_List" >
-    id, project_id, shares_type, shares_owner, shares_ratio, gain_mode, remark
+    id, project_id, shares_type, shares_owner, shares_ratio, gain_mode, remark,finance_amount,finance_unit
   </sql>
   
   
@@ -28,6 +31,8 @@
 			     <if test="sharesRatio != null" >and shares_ratio = #{sharesRatio,jdbcType=DECIMAL} </if>
 			     <if test="gainMode != null" >and gain_mode = #{gainMode,jdbcType=VARCHAR} </if>
 			     <if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
+			      <if test="financeAmount != null" >and finance_amount = #{financeAmount,jdbcType=DECIMAL} </if>
+			      <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -61,10 +66,10 @@
 	    <![CDATA[
 	    insert into sop_project_shares (id, project_id, shares_type, 
 	      shares_owner, shares_ratio, gain_mode, 
-	      remark)
+	      remark,finance_amount,finance_unit)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{sharesType,jdbcType=VARCHAR}, 
 	      #{sharesOwner,jdbcType=VARCHAR}, #{sharesRatio,jdbcType=DECIMAL}, #{gainMode,jdbcType=VARCHAR}, 
-	      #{remark,jdbcType=VARCHAR})
+	      #{remark,jdbcType=VARCHAR},#{financeAmount,jdbcType=DECIMAL},#{financeUnit,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
@@ -77,7 +82,10 @@
 		     <if test="sharesOwner != null" > shares_owner = #{sharesOwner,jdbcType=VARCHAR}, </if>
 		     <if test="sharesRatio != null" > shares_ratio = #{sharesRatio,jdbcType=DECIMAL}, </if>
 		     <if test="gainMode != null" > gain_mode = #{gainMode,jdbcType=VARCHAR}, </if>
-		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR} </if>
+		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
+		     <if test="financeAmount != null" > finance_amount = #{financeAmount,jdbcType=DECIMAL}, </if>
+		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
+		     
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -88,6 +96,9 @@
 			    <if test="sharesRatio != null" >and shares_ratio = #{sharesRatio,jdbcType=DECIMAL} </if>
 			    <if test="gainMode != null" >and gain_mode = #{gainMode,jdbcType=VARCHAR} </if>
 			    <if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
+			    <if test="financeAmount != null" >and finance_amount = #{financeAmount,jdbcType=DECIMAL} </if>
+			    <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
+			
 			</trim>
 		</where>
 	</update>
@@ -100,7 +111,10 @@
 		     <if test="sharesOwner != null" > shares_owner = #{sharesOwner,jdbcType=VARCHAR}, </if>
 		     <if test="sharesRatio != null" > shares_ratio = #{sharesRatio,jdbcType=DECIMAL}, </if>
 		     <if test="gainMode != null" > gain_mode = #{gainMode,jdbcType=VARCHAR}, </if>
-		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR} </if>
+		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
+		     <if test="financeAmount != null" > finance_amount = #{financeAmount,jdbcType=DECIMAL}, </if>
+		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
+		   
 		</set>
 		where id = #{id}
 	</update>

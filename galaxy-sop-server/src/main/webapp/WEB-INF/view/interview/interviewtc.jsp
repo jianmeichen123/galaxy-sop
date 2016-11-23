@@ -26,9 +26,9 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <div class="title_bj">新增访谈</div>
-<div class="meetingtc margin_45">
+<div class="meetingtc margin_45" id="inter_subm_val">
 	<div class="top clearfix">
-    	<div class="searchall clearfix">
+    	<div class="searchall clearfix" id="div_pro">
             <dl>
             	<dt>项目 :</dt> 
                 <dd>
@@ -74,7 +74,7 @@
 	        	  </div> --%>
 	        	  
 	        	  <div type="text/plain" id="viewNotes" class='width_fwb'
-	        	  valType="MAXBYTE" regString="9000" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
+	        	  valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
 	        	  </div>
 			</dd>
         </dl>
@@ -101,5 +101,6 @@
 
  <script type="text/javascript">
 	var interviewEditor = UM.getEditor('viewNotes');
+	initDialogValstr("inter_subm_val");
 </script>
 

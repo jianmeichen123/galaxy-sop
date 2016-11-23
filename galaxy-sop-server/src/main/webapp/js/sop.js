@@ -350,7 +350,7 @@ function air(indexNum){
 							return false;
 						}
 
-						$.popupTwoClose(); 
+						//$.popupTwoClose(); 
 						condition.pid = pid;
 						condition.stage = "projectProgress:1";
 						condition.createDate = viewDateStr;
@@ -430,7 +430,6 @@ function startReview(){
 						if(meetingResult == null ||  meetingResult == ""){
 							return;
 						}
-						$.popupTwoClose(); 
 						condition.pid = pid;
 						condition.stage = "projectProgress:"+num;
 						condition.createDate = meetingDateStr;

@@ -109,16 +109,6 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	}
 	
 	/**
-	 * 跳转到添加项目页面
-	 * @return
-	 */
-	@RequestMapping(value = "/app", method = RequestMethod.GET)
-	public String addProject(HttpServletRequest request) {
-		request.getSession().removeAttribute("businessPlan");
-		return "project/add";
-	}
-	
-	/**
 	 * 跳转到修改项目页面
 	 * @return
 	 */

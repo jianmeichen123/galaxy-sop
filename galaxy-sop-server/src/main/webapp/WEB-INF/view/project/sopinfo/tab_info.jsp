@@ -8,7 +8,7 @@
 <!-- 富文本编辑器 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
-<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.js"></script>
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
@@ -54,6 +54,9 @@
 			</tr>
 			     <tr>
 				     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
+					</tr>
+			 <tr>
+				     <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span class="new_color_black" id="remarkStr"></span></td>
 					</tr>
 		
 		</table>
@@ -119,11 +122,14 @@
                            <tr>
                              <td><span class="new_color_gray">来源于FA：</span>
                              <span class="mar_left">
-                             	<div class="mar_left"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否 </div>
+                             	<div class="mar_left"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否 &nbsp;</div>
                                  <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                 <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
+                                 <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^[^\s](.{0,19})$" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/></div>
                              </span></td>
                            </tr>
+                   <tr>
+                             <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><textarea maxlength="50" id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea></span></td>
+                         </tr>
 	        </table>  
 	        
 	        <!--融资计划-->
@@ -133,11 +139,11 @@
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>　&nbsp;万元人民币</span></td>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
+	                <td><span class="basic_span"><em class="red">*</em>融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="no" valType="LIMIT_NUMBER" msg="<font color=red>*</font>支持两位小数"/>　&nbsp;万元人民币</span></td>
+	                <td><span class="basic_span"><em class="red">*</em>项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit"/>&nbsp;　万元人民币</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
+	                <td><span class="basic_span"><em class="red">*</em>出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
 	            </tr>
 	              </table>
 	        <!--实际投资-->
@@ -160,6 +166,38 @@
 	</div>
 </div>
 <!--商业计划书-->
+<div class="tabtable_con_on" >
+     <div class="history_center">
+		<div class="new_r_compile ">
+			<span class="new_ico_history ico_add_project"></span> <span class="new_color size16">融资历史</span>
+			<c:if test="${isEditable}">
+			<span class="new_fctbox" id="add">
+				<a href="javascript:;" style="margin:0 0 0 5px;" onclick="toUpdateOrSave()" data-btn="add_history" data-name="添加融资历史">添加</a>
+			</span>
+			</c:if>
+		</div>
+		<div class="new_ul_all new_top_color history_show" >
+			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="basic_table table financeHistoryTable">
+            <thead>
+               <tr>
+                  <th>融资时间</th>
+                  <th>投资方(机构或个人)</th>
+                  <th>投资金额(万元)</th>
+                  <th>币种</th>
+                  <th>占比（%）</th>
+                  <th>融资轮次</th>
+                  <c:if test="${isEditable}">
+                  <th>操作</th>
+                  </c:if>
+                 </tr>
+             </thead>
+	         <tbody id="financeHistory_table">
+	         </tbody>
+         </table>
+		</div>
+	</div>
+</div>
+<!--商业计划书-->
 <div class="tabtable_con_on">
 	<div class="new_r_compile ">
 		<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
@@ -177,9 +215,16 @@
 </div>
 <!--项目概述-->
 <div class="tabtable_con_on" >
-	<div class="project_on " >
+	<div class="project_on " style="height:560px;">
 		<div class="title_bj_tzjl">项目描述</div>
-                   <div id="describe_editor" type="text/plain" class='width_fwb'></div>  
+                  <div class="describe1">
+								<span class="basic_span1"><em class="red">*</em>商业模式：</span>
+							 	<div id="describe_editor" type="text/plain" class='width_fwb'></div>  
+							</div>
+							<div class="describe2">
+								<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
+							 	<div id="describe_editor2" type="text/plain" class='width_fwb'></div>  
+							</div>
                      <div class="compile_on_center">
                         <div class="compile_on_right">
                             <span class="pubbtn bluebtn" id="save_describe">保存</span>
@@ -196,9 +241,11 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color describe_show" >
-			<span class="ico_dot ico"></span>
-			<p id="describe_show"></p>
+		<div class="new_ul_all new_top_color describe_show clearfix" >
+			<div id="describe_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
+			<p style="padding-left:22px" id="describe_show" valiate="required"></p>
+			<div id="describe2_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
+			<p style="padding-left:22px" id="describe2_show" valiate="required"></p>
 		</div>
 	</div>
 </div>
@@ -213,7 +260,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color location_show">
+		<div class="new_ul_all new_top_color location_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="location_show"></p>
 		</div>
@@ -241,7 +288,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color portrait_show">
+		<div class="new_ul_all new_top_color portrait_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="portrait_show"></p>
 		</div>
@@ -271,7 +318,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color business_model_show">
+		<div class="new_ul_all new_top_color business_model_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="business_model_show"></p>
 		</div>
@@ -299,7 +346,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color operational_data_show">
+		<div class="new_ul_all new_top_color operational_data_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="operational_data_show"></p>
 		</div>
@@ -329,7 +376,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color industry_analysis_show">
+		<div class="new_ul_all new_top_color industry_analysis_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="industry_analysis_show"></p>
 		</div>
@@ -357,7 +404,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color analysis_show">
+		<div class="new_ul_all new_top_color analysis_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="analysis_show"></p>
 		</div>
@@ -385,7 +432,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color next_financing_source_show">
+		<div class="new_ul_all new_top_color next_financing_source_show new_top_color_new">
 			<span class="ico_dot ico"></span>
 			<p id="next_financing_source_show"></p>
 		</div>
@@ -402,10 +449,14 @@
 	</div>
 	
 </div>
-
+<div id="valuations-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 629px; top: 366px; opacity: 1; width: 77px;">
+	<div class="tip-inner tip-bg-image"><font color="red">*</font>支持两位小数</div>
+	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+</div>
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 	var projectInfo = ${proinfo};
 </script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
+<script src="<%=path%>/js/v_baseInfo_project_history.js"></script>

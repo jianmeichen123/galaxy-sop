@@ -36,7 +36,8 @@ public class Project extends PagableEntity {
     private String createUposition;
     private String projectProgress;
     private String projectStatus;
-    private String projectDescribe;
+    private String projectDescribe;//商业模式
+    private String projectDescribeFinancing ;//业务简要概述和项目亮点
     private String projectBusinessModel;
     private String companyLocation;
     private String userPortrait;
@@ -93,7 +94,8 @@ public class Project extends PagableEntity {
 	
 	
 
-	
+	/*备注*/
+	private String remark;
 	
     public Long getId() {
         return id;
@@ -303,7 +305,15 @@ public class Project extends PagableEntity {
         this.projectDescribe = projectDescribe == null ? null : projectDescribe.trim();
     }
 
-    public String getProjectBusinessModel() {
+    public String getProjectDescribeFinancing() {
+		return projectDescribeFinancing;
+	}
+
+	public void setProjectDescribeFinancing(String projectDescribeFinancing) {
+		this.projectDescribeFinancing = projectDescribeFinancing;
+	}
+
+	public String getProjectBusinessModel() {
         return projectBusinessModel;
     }
 
@@ -604,6 +614,14 @@ public class Project extends PagableEntity {
 
 	public void setGreanChannel(String greanChannel) {
 		this.greanChannel = greanChannel;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 

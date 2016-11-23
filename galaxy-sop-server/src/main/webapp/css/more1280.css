@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*左侧导航*/
-.pagebox .lft{ float:left;background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
+.pagebox .lft{ float:left;background:#282d3b;position: fixed;width:9.375%;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
 .pagebox .lft li{ float:left; width:100%; min-height:48px;}
 .pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; /* margin:0 auto; */ height:48px; text-align:left; line-height:48px; font-size:12px; color:#d8dce5;cursor: pointer;padding-left:50px;}
 .pagebox .lft .on a,

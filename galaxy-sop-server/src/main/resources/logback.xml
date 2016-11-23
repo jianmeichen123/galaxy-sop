@@ -179,7 +179,6 @@
 	</logger>
 	
 	
-	
 	<!--打印logback上下文状态 -->
 	<!-- <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" /> -->
 

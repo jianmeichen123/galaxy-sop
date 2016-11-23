@@ -189,8 +189,15 @@
 		var obj = new popEve();
 		obj.init();
 	};
+	
+	//一次弹窗关闭
+	$.popupOneClose =function(){
+		$('div[data-id="popid0"]').remove();
+		$("#popbg").remove();
+	};
 	//二次弹窗关闭
 	$.popupTwoClose =function(){
+		$('div[data-id="popid1"]').remove();
 		$("#popbg01").remove();
 	};
 	//屏幕开屏

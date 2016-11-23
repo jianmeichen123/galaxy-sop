@@ -1,9 +1,13 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<% 
+	String path = request.getContextPath(); 
+%>  
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <c:if test="${aclViewProject==true}">
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <!--法人信息-->
 <div class="legal">
 	<div class="show">
@@ -42,12 +46,12 @@
       <input type="hidden" name="id" value="${projectId }">
       <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
           <tr>
-              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="30"></td>
-              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td>
+              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50"></td>
+              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20" onkeyup="value=value.replace(/[^\w./]/ig,'')"></td>
           </tr>
           <tr>
-              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
-              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
+              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="50"></td>
+              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="datepicker-text timeico" name="formationDate" onkeydown="return false;"></td>
           </tr>
       </table>                    
       </form>
@@ -74,10 +78,12 @@
   	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
    	<thead>
 	    <tr>
-	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">类型</th>
-        	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">所有权人</th>
+	    	<th data-field="sharesOwner" data-align="left" class="data-input sharesType" data-formatter="sharesOwnerFormatter">所有权人</th>
+	    	<th data-field="sharesType" data-align="left" class="data-input " data-formatter="typeFormatter">所有权人类型</th>
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
-        	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>
+        <!--  	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>-->
+        	<th data-field="financeAmount" data-align="left" class="data-input">出资金额（万元）</th>
+        	<th data-field="financeUnit" data-align="left" class="data-input" data-formatter="UnitFormater">币种</th>
         	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
         	<c:if test="${isEditable }">
         	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
@@ -86,7 +92,7 @@
 		</thead>
 	</table>
 </div>
-
+<div class="bj_hui_on"></div>
 <script type="text/javascript">
 	var $sharesTable;
 	var isTransfering = "${fx:isTransfering(pid) }";
@@ -112,7 +118,7 @@
 		$('.legal .hidden').hide();
 	});
 		
-	$('#company-info-form [name="formationDate"]').datepicker({
+/* 	$('#company-info-form [name="formationDate"]').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -124,7 +130,7 @@
 	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
 	    forceParse:false,
 	    currentText: 'Now'
-	});
+	}); */
 	 function remarkFormater(value,row,index){
 		    var id=row.id;
 			var str=row.remark;
@@ -151,6 +157,17 @@
 				return options;
 			}
 		}
+	 function UnitFormater(value,row,index){
+		 var result="-";
+		 var data={
+			"0":"人民币",
+			"1":"美元", 
+		    "2":"英镑" ,
+		    "3":"欧元" 
+		 };
+		 result=data[value]
+		 return result;
+	 }
 	 function sharesOwnerFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.sharesOwner;
@@ -285,25 +302,7 @@
 		}
 		$form.find('[name="formationDate"]').val(date);
 	}
-	//股权结构列表
-	$sharesTable = $("#shares-table").bootstrapTable({
-		queryParamsType: 'size|page', 
-		pageSize:10,
-		url: platformUrl.projectSharesList,  
-		showRefresh : false ,
-		sidePagination: 'server',
-		method : 'post',
-		pagination: true,
-        search: false,
-        onLoadSuccess: function (data) {
-       		$("#shares-table span.edit").click(function(){
-       			editStock($(this).data('id'));
-       		});
-       		$("#shares-table span.del").click(function(){
-       			delStock($(this).data('id'));
-       		});
-        }
-	});
+	
 	
 	function shareOperatFormater(val,row,index)
 	{
@@ -317,9 +316,13 @@
 			url:_url,
 			okback:function(){
 				$("#up_stock_form #projectId").val("${projectId}");
+				//去掉出资金额科学计数
+				var num=$('input[name="financeAmount"]').val();
+				var numNew=parseFloat(num).toString();
+				$('input[name="financeAmount"]').val(numNew)
 			},
 			hideback:function(){
-				$sharesTable.bootstrapTable('refresh');
+				$sharesTable.bootstrapTable('querySearch');
 			}
 		});
 		return false;
@@ -338,7 +341,7 @@
 						if(data.result.status=="OK")
 						{
 							layer.msg('删除成功');
-							$sharesTable.bootstrapTable('refresh');
+							$sharesTable.bootstrapTable('querySearch');
 						}
 						else
 						{
@@ -362,7 +365,7 @@
 				$("#stock_form #projectId").val("${projectId}");
 			},
 			hideback:function(){
-				$sharesTable.bootstrapTable('refresh');
+				$sharesTable.bootstrapTable('querySearch');
 			}
 		});
 		return false;
@@ -380,7 +383,7 @@
 						layer.msg('保存成功');
 						console.log($(".pop .close")[0]);
 						$("[data-close='close']").click();
-						$("#shares-table").bootstrapTable('refresh');
+						$("#shares-table").bootstrapTable('querySearch');
 					}
 					else
 					{
@@ -402,7 +405,7 @@
 						layer.msg('保存成功');
 						console.log($(".pop .close")[0]);
 						$("[data-close='close']").click();
-						$("#shares-table").bootstrapTable('refresh');
+						$("#shares-table").bootstrapTable('querySearch');
 					}
 					else
 					{
@@ -412,6 +415,24 @@
 			);
 		}
 	}
-	
+	//股权结构列表
+	$sharesTable = $("#shares-table").bootstrapTable({
+		queryParamsType: 'size|page', 
+		pageSize:10,
+		url: platformUrl.projectSharesList,  
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+        search: false,
+        onLoadSuccess: function (data) {
+       		$("#shares-table span.edit").click(function(){
+       			editStock($(this).data('id'));
+       		});
+       		$("#shares-table span.del").click(function(){
+       			delStock($(this).data('id'));
+       		});
+        }
+	});
 </script>
 </c:if>

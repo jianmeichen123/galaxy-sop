@@ -9,14 +9,20 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 
 public interface ProjectService extends BaseService<Project> {
 	
+	
+	/**
+	 * 创建项目
+	 */
+	public long createProject(com.galaxyinternet.mongodb.model.Project p, Project project) throws Exception;
+	
 	/**
 	 * 添加项目
-	 * 对于每个新添加的项目来讲，整个生命周期中所关联的文档已确定，这里需要一并添加
 	 */
 	public long newProject(Project project, SopFile file) throws Exception;
 	
@@ -51,7 +57,10 @@ public interface ProjectService extends BaseService<Project> {
 	public Page<Project> queryPageListByChart(Project query,PageRequest pageRequest);
 
 	List<Long> getProIdsForPrivilege(Map<String, Object> params);
-	
+
+
+	public Long addProPersonAndPerInfo(PersonPool pool) throws Exception;
+
 	
 
 }

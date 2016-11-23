@@ -422,6 +422,8 @@ var editPostMeetingDialog = {
 							//回调函数
 							saveCallBackFuc : function (data){
 								editPostMeetingDialog.callFuc(data,_this);
+								//刷新投后运营简报信息
+	    						setThyyInfo();
 							}
 					};
 					

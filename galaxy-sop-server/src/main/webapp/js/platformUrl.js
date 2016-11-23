@@ -27,10 +27,6 @@ var platformUrl = {
 	 */
 	getProjectCode : Constants.sopEndpointURL + "/galaxy/project/cpc",
 	/**
-	 * 添加项目
-	 */
-	addProject : Constants.sopEndpointURL + "/galaxy/project/ap",
-	/**
 	 * 关闭项目
 	 */
 	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro",
@@ -969,10 +965,75 @@ var platformUrl = {
 	/**
 	 * 报表格式选择对话框
 	 */
-	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix"
-
+	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix",
 	
+	//###############################版v2.3.111开始##################################
+	/**
+	 * 添加融资历史
+	 */
+	addFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/addFinanceHistory",
+	
+	/**
+	 * 添加项目到草稿箱
+	 */
+	addProject : Constants.sopEndpointURL + "/galaxy/project/apDB",
+	
+	/**
+	 * 保存历史信息到草稿箱
+	 */
+	saveFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/saveFinanceHistory",
+	/**
+	 * 添加项目到草稿箱
+	 */
+	searchFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/searchFinanceHistory",
+	
+	/**
+	 * 添加项目到草稿箱
+	 */
+	deleteFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/deleteFinanceHistory",
 
+	/**
+	 * 跳转到
+	 */
+	updateFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/upateFinanceHistory",
+	/**
+	 * 修改保存
+	 */
+	
+	updateSave : Constants.sopEndpointURL + "/galaxy/project/updateSave",
+	/**
+	 * 查询融资历史信息单个
+	 */
+	getFinanceHistory : Constants.sopEndpointURL + "/galaxy/project/getFinanceHistory",
+	/**
+	 * 项目详情-根据项目id查询融资历史信息
+	 */
+	searchFH : Constants.sopEndpointURL + "/galaxy/financeHistory/searchFH",
+	/**
+	 * 项目详情-新增一融资历史信息
+	 */
+	saveFH : Constants.sopEndpointURL + "/galaxy/financeHistory/saveFH",
+	/**
+	 * 项目详情-跳转到融资历史修改页面
+	 */
+	toUpateOrSaveFH : Constants.sopEndpointURL + "/galaxy/financeHistory/toUpateOrSaveFH",
+	/**
+	 * 项目详情-查询改融资历史的详细信息
+	 */
+	getFH : Constants.sopEndpointURL + "/galaxy/financeHistory/getFH",
+	/**
+	 * 项目详情-融资历史修改保存
+	 */
+	upateFHSave : Constants.sopEndpointURL + "/galaxy/financeHistory/upateFHSave",
+	/**
+	 * 项目详情-删除融资历史信息
+	 */
+	deleteFH : Constants.sopEndpointURL + "/galaxy/financeHistory/deleteFH"
+	
+	
+	
+	
+	//###############################版v2.3.111结束##################################
 }
 
 /**

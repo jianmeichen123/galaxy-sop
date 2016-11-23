@@ -160,6 +160,7 @@ function initMeetUpload() {
 				}else{
 					layer.msg("保存成功", {time : 500});
 					var _this = $("#data-table");
+					$.locksCreenOpen();
 					if(_this == null || _this.length == 0 || _this == undefined){
 						removePop1();
 					}else{

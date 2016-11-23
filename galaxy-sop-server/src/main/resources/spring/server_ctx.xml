@@ -20,10 +20,10 @@
 	<!-- 属性配置信息  -->
 	<import resource="conf_main/main_ctx.xml" />
 	<import resource="conf_service/service_ctx.xml" />
-	<!-- <import resource="classpath*:mongodb/galaxy-mongo-config.xml" /> -->
+	<import resource="classpath*:mongo/spring-mongodb.xml" />
 	<import resource="classpath*:dubbo/sop-dubbo-provider.xml" />
 	<import resource="classpath*:galaxy-dubbo-consumer.xml" />
-	<import resource="classpath*:applicationContext-cache.xml" />
+	<import resource="classpath*:applicationContext-cache.xml" /> 
 	<!-- <import resource="classpath*:redis/galaxy-redis-config.xml" /> -->
 	<!-- <import resource="classpath*:redis/userRepository-context.xml" /> -->
 	

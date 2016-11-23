@@ -376,12 +376,13 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public ResponseData<InterviewRecord> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
 		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
 		try {
-			interviewRecordService.updateById(interviewRecord);
+			InterviewRecord toNew =  interviewRecordService.queryById(interviewRecord.getId());
+			toNew.setViewNotes(interviewRecord.getViewNotes());
+			interviewRecordService.updateById(toNew);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(interviewRecord.getId());
 			
-			interviewRecord = interviewRecordService.queryById(interviewRecord.getId());
-			Project project = projectService.queryById(interviewRecord.getProjectId());
+			Project project = projectService.queryById(toNew.getProjectId());
 			
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "3", UrlNumber.one);
 		} catch (Exception e) {

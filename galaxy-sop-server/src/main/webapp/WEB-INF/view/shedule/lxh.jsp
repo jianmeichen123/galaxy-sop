@@ -257,11 +257,17 @@
 		$optionHtml.insertAfter($('option[value=""]'));
 	});
 
-	var initParams,
+	var initParams,toPageNum = 1,
 			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'meetingSheduleList',_path : "/"}),
 			initPageSize = 10;
 	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
+		
+		if(pageParams.pageNum && typeof(pageParams.pageNum) != "undefined"){
+			toPageNum = pageParams.pageNum;
+		}
+		
+		deleteCookie("meetingSheduleList","/");
 	}
 	$("button[action='querySearch']").click(function(){
 		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : "/"});
@@ -269,6 +275,7 @@
 	$("#meeting-shedule-list").bootstrapTable({
 		queryParamsType: 'size|page',
 		pageSize:initPageSize,
+		pageNumber:toPageNum,
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
@@ -283,8 +290,8 @@
 	        	initParams=undefined;
 	        }
 	    	if(typeof(initParams) !== 'undefined'){
-	    		param.pageNum = initParams.pageNum - 1;
-	        	param.pageSize = initParams.pageSize;
+	    		//param.pageNum = initParams.pageNum - 1;
+	        	//param.pageSize = initParams.pageSize;
 	        	param.keyword = initParams.keyword;
 	        	if(initParams.scheduleStatus != ''){
 	        		param.scheduleStatus = initParams.scheduleStatus;

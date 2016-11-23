@@ -58,6 +58,7 @@ public class MessageGenerator implements InitializingBean,ApplicationContextAwar
 		return message;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public OperationMessage generate(OperationType type, User user, Map<String, Object> map)
 	{
 		OperationMessage entity = new OperationMessage();
@@ -84,6 +85,7 @@ public class MessageGenerator implements InitializingBean,ApplicationContextAwar
 		entity.setBelongUname(u.getRealName());
 		entity.setType(type.getType());
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
+		if(map.get(PlatformConst.REQUEST_SCOPE_USER_LISTDATA) != null) entity.setListObj(map.get(PlatformConst.REQUEST_SCOPE_USER_LISTDATA));
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
 		entity.setMessageType(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE)));
 		entity.setUserData((Serializable) map.get(PlatformConst.REQUEST_SCOPE_USER_DATA));

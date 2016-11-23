@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
+	response.setHeader("Cache-Control","no-cache"); //HTTP 1.1    
+	response.setHeader("Pragma","no-cache"); //HTTP 1.0    
+	response.setDateHeader ("Expires", 0); //prevents caching at the proxy server  
 %>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  
@@ -133,7 +136,7 @@
 var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
-if('${fx:isTransfering(pid) }' == 'true')
+if('${fx:isTransfering(pid)}' == 'true')
 {
 	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
@@ -175,8 +178,9 @@ $(function(){
 			$("#thyy_meet_more").click(function(){
 				
 				//showTabs(proid,9);
-				initTabMeeting(proid);
-				$(".projectDetail li").eq(4).addClass("on").siblings().removeClass("on");
+				initTabPostMeeting();
+				//initTabMeeting(proid);
+				$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
 			});
 			setThyyInfo();
 		}
@@ -304,7 +308,7 @@ function initMoreLine(){
 
 	$("#meet_more").on("click", function(){
 		$('ul.projectDetail li').eq(4).addClass('on').siblings().removeClass("on");
-		initTabMeeting();
+		initTabMeeting(proid);
 	});
 	$("#view_more").on("click", function(){
 		$('ul.projectDetail li').eq(3).addClass('on').siblings().removeClass("on");
@@ -537,6 +541,8 @@ function setThyyInfo()
 			//运营会议
 			if(data.entityList.length<3){
 				$("#thyy_meet_more").hide();
+			}else{
+				$("#thyy_meet_more").show();
 			}
 			if(data.entityList != null && data.entityList.length>0)
 			{

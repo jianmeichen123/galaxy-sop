@@ -7,7 +7,7 @@ import com.galaxyinternet.framework.core.model.BaseEntity;
 public class PersonLearn extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
-	private Long id;  //人力_学习经历项ID
+	private String uuid;
 	private Long personId; //关联人力资源的ID 
 	private String degree; //字典 学历,关联数据字典数据项ID
 	private String school; //学校
@@ -23,11 +23,13 @@ public class PersonLearn extends BaseEntity{
 	private String classmatePhone;//同学电话
 	private String   beginDateStr; //入学时间
 	private String   overDateStr; // 毕业时间
-	public Long getId() {
-		return id;
+	
+	private Integer isEditOrCreate; //标记 1:id 有值 编辑   2:id 有值 删除
+	public String getUuid() {
+		return uuid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	public Long getPersonId() {
 		return personId;
@@ -120,9 +122,17 @@ public class PersonLearn extends BaseEntity{
 		this.overDateStr = overDateStr;
 	}
 	
-	
-	
-                                 
-	
-
+	public Integer getIsEditOrCreate() {
+		return isEditOrCreate;
+	}
+	public void setIsEditOrCreate(Integer isEditOrCreate) {
+		this.isEditOrCreate = isEditOrCreate;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if(uuid != null && obj != null && obj instanceof PersonLearn && ((PersonLearn) obj).getUuid() != null){
+			return this.getUuid().equals(((PersonLearn) obj).getUuid());
+		}
+		return super.equals(obj);
+	}
 }

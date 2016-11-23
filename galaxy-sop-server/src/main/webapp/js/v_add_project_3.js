@@ -1,0 +1,422 @@
+//成员添加 编辑时   电话号码 校验处理
+function radio_isContacts_tel(isContactsV){
+	var phone = $("input[name='personTelephone']");
+	if (isContactsV == 0 || isContactsV == '0') {
+		$("input[name='personTelephone']").attr({placeholder:"请输入手机号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>手机号码格式不正确"});
+	} else if (isContactsV == 1 || isContactsV == '1') {
+		$("#personTelephone_valiate").attr("style","display:none;");
+		$("input[name='personTelephone']").attr('allowNULL','yes').removeAttr('placeholder').removeAttr('msg');
+	} 
+}
+
+function addProjectPerson(){
+	var _url=Constants.sopEndpointURL + '/galaxy/project/addProjectPerson';
+		_name=$('[data-btn="addProjectPerson"]').attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#popup_name").text(_name);
+		}
+	});
+	return false;
+}
+
+function lookPerson(){
+	var uuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/personDetail/"+uuid;
+	var _name=$(this).attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#popup_name").text(_name)
+		}
+	});
+	return false;
+}
+function editPerson(){
+	var uuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/editPerson/"+uuid;
+	var _name=$(this).attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#popup_name").text(_name);
+		}
+	});
+	return false;
+}
+function deletePerson(){
+	var uuid = $(this).attr("uuid");
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectPerson/"+uuid+"/"+pid;
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generatePersonInnerHtml(data.entityList);
+							$("#person").val(data.entityList.length);
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
+			}
+		);
+}
+function generatePersonInnerHtml(list){
+	var innerHtml = "";
+	$.each(list, function(i, o){
+		if(o.tempStatus == '1'){
+			innerHtml += '<tr>';
+			innerHtml += '<td title="'+o.personName+'">'+o.personName+'</td>';
+			innerHtml += '<td title="'+o.personDuties+'">'+o.personDuties+'</td>';
+			innerHtml += '<td>'+(o.personSex=='0' ? '男' : '女')+'</td>';
+			innerHtml += '<td>'+o.personBirthdayStr+'</td>';
+			innerHtml += '<td>'+o.personTelephone+'</td>';
+			innerHtml += '<td>';
+			innerHtml += '<a uuid="'+o.uuid+'" class="meet_see blue" href="javascript:void(0);" data-name="查看团队成员">查看&nbsp;</a>';
+			innerHtml += '<a uuid="'+o.uuid+'" class="meet_edit blue" href="javascript:void(0);" data-name="编辑团队成员">编辑&nbsp;</a>';
+			innerHtml += '<a uuid="'+o.uuid+'" class="meet_delete blue" href="javascript:void(0);">删除</a>';
+			innerHtml += '</td>';
+			innerHtml += '</tr>';
+		}
+	});
+	if(innerHtml.length <= 0){
+		generatePersonEmptyInnerHtml();
+	}else{
+		$("#person-tbody").empty();
+		$("#person-tbody").append(innerHtml);
+		$(".meet_see").bind('click', lookPerson);
+		$(".meet_edit").bind('click', editPerson);
+		$(".meet_delete").bind('click', deletePerson);
+	}
+}
+
+function generatePersonEmptyInnerHtml(){
+	var innerHtml = "<tr><td colspan='6' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";
+	$("#person-tbody").empty();
+	$("#person-tbody").append(innerHtml);
+}
+
+
+
+function addPersonLearning(){
+	var _url=Constants.sopEndpointURL + '/galaxy/project/addPersonLearning';
+	 	_name=$('[data-btn="qualifications"]').attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#qualifications_popup_name").text(_name);
+		}
+	});
+	return false;
+}
+
+function deleteLearn(){
+	var puuid = $('input[name="uuid"]').val();
+	var uuid = $(this).attr("uuid");
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectLearning/"+puuid+"/"+uuid+"/"+pid; 
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generateLearningInnerHtml(data.entityList);
+							$("#person-learning").val(data.entityList.length);
+							if(data.entityList.length==0){
+								generateLearningEmptyInnerHtml();
+							}
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
+			}
+		);
+}
+function editLearn(){
+	var puuid = $('input[name="uuid"]').val();
+	var luuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/toEditLearn/"+puuid+"/"+luuid;
+	var _name=$(".operatorLearnEdit").attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#qualifications_popup_name").text(_name);
+		}
+	});
+	return false;
+}
+function generateLearningInnerHtml(list){
+	var innerHtml = "";
+	$.each(list, function(i, o){
+		innerHtml += '<tr>';
+		innerHtml += '<td title="'+o.school+'">'+o.school+'</td>';
+		innerHtml += '<td title="'+o.major+'">'+o.major+'</td>';
+		innerHtml += '<td title="'+o.beginDateStr+' - '+o.overDateStr+'">'+o.beginDateStr+' - '+o.overDateStr+'</td>';
+		innerHtml += '<td>'+o.degree+'</td>';
+		innerHtml += '<td>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnEdit" href="javascript:void(0);" data-name="编辑学历背景">编辑&nbsp;</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorLearnDelete" href="javascript:void(0);">删除</a>';
+		innerHtml += '</td>';
+		innerHtml += '</tr>';
+	});
+	$("#learning-tbody").empty();
+	$("#learning-tbody").append(innerHtml);
+	$(".operatorLearnEdit").bind('click', editLearn);
+	$(".operatorLearnDelete").bind('click', deleteLearn);
+}
+
+function generateLearningEmptyInnerHtml(){
+	var innerHtml = "<tr><td colspan='5' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";
+	$("#learning-tbody").empty();
+	$("#learning-tbody").append(innerHtml);
+}
+
+
+
+
+
+function addPersonWork(){
+	var _url=Constants.sopEndpointURL + '/galaxy/project/addPersonWork';
+	_name=$('[data-btn="addPersonWork"]').attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#qualifications_popup_name").text(_name);
+		}
+	});
+	return false;
+}
+function editWork(){
+	var puuid = $('input[name="uuid"]').val();
+	var luuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + "/galaxy/project/toEditWork/"+puuid+"/"+luuid;
+	var _name=$(".operatorEdit").attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#qualifications_popup_name").text(_name);
+		}
+	});
+	return false;
+}
+function deleteWork(){
+	var puuid = $('input[name="uuid"]').val();
+	var uuid = $(this).attr("uuid");
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectWork/"+puuid+"/"+uuid+"/"+pid;
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generateWorkInnerHtml(data.entityList);
+							$("#person-work").val(data.entityList.length);
+							if(data.entityList.length==0){
+								generateWorkEmptyInnerHtml();
+							}
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
+			}
+		);
+}
+function generateWorkInnerHtml(list){
+	var innerHtml = "";
+	$.each(list, function(i, o){
+		innerHtml += '<tr>';
+		innerHtml += '<td title="'+o.beginWorkStr+' - '+o.overWorkStr+'">'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
+		innerHtml += '<td title="'+o.companyName+'">'+o.companyName+'</td>';
+		innerHtml += '<td title="'+o.workPosition+'">'+o.workPosition+'</td>';
+		innerHtml += '<td>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);" data-name="编辑工作履历">编辑&nbsp;</a>';
+		innerHtml += '<a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a>';
+		innerHtml += '</td>';
+		innerHtml += '</tr>';
+	});
+	$("#work-tbody").empty();
+	$("#work-tbody").append(innerHtml);
+	$(".operatorEdit").bind('click', editWork);
+	$(".operatorDelete").bind('click', deleteWork);
+}
+
+function generateWorkEmptyInnerHtml(){
+	var innerHtml = "<tr><td colspan='4' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";
+	$("#work-tbody").empty();
+	$("#work-tbody").append(innerHtml);
+}
+
+function generatePersonDetail(data){
+	if(data.result.status == 'OK'){
+		var detailInnerHTML = "";
+		detailInnerHTML += "<tr>";
+		detailInnerHTML += '<td title="'+data.entity.personName+'">'+data.entity.personName+'</td>';
+		detailInnerHTML += '<td title="'+data.entity.personDuties+'">'+data.entity.personDuties+'</td>';
+		detailInnerHTML += '<td>'+(data.entity.personSex=='0' ? '男' : '女')+'</td>';
+		detailInnerHTML += '<td>'+data.entity.personBirthdayStr+'</td>';
+		detailInnerHTML += '<td>'+data.entity.personTelephone+'</td>';
+		detailInnerHTML += '<td title='+data.entity.remark+'>'+data.entity.remark+'</td>';
+		detailInnerHTML += '</tr>';
+		$("#detail-tbody").append(detailInnerHTML);
+		
+		
+		var learnInnerHTML="";
+		$.each(data.entity.plc, function(i, o){
+			learnInnerHTML += '<tr>';
+			learnInnerHTML += '<td title="'+o.school+'">'+o.school+'</td>';
+			learnInnerHTML += '<td title="'+o.major+'">'+o.major+'</td>';
+			learnInnerHTML += '<td title="'+o.beginDateStr+' - '+o.overDateStr+'">'+o.beginDateStr+' - '+o.overDateStr+'</td>';
+			learnInnerHTML += '<td>'+o.degree+'</td>';
+			learnInnerHTML += '</tr>';
+		});
+		$("#learning-tbody").append(learnInnerHTML);
+		
+		var workInnerHTML="";
+		$.each(data.entity.pwc, function(i, o){
+			workInnerHTML += '<tr>';
+			workInnerHTML += '<td title="'+o.beginWorkStr+' - '+o.overWorkStr+'">'+o.beginWorkStr+' - '+o.overWorkStr+'</td>';
+			workInnerHTML += '<td title="'+o.companyName+'">'+o.companyName+'</td>';
+			workInnerHTML += '<td title="'+o.workPosition+'">'+o.workPosition+'</td>';
+			workInnerHTML += '</tr>';
+		});
+		$("#work-tbody").append(workInnerHTML);
+	}else{
+		
+	}
+}
+
+
+
+function addProjectShares(){
+	var _url=Constants.sopEndpointURL + '/galaxy/project/toAddShares';
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			
+		}
+	});
+	return false;
+}
+function toEditShares(){
+	var uuid = $(this).attr("uuid");
+	var _url=Constants.sopEndpointURL + '/galaxy/project/toEditShares/'+uuid;
+	var _name=$(this).attr("data-name");
+	$.getHtml({
+		url:_url,
+		data:"",
+		okback:function(_this){
+			$("#qualifications_popup_name").text(_name);
+		}
+	});
+	return false;
+}
+function deleteShares(){
+	var uuid = $(this).attr("uuid");
+	layer.confirm(
+			'确定要删除数据？',
+			function(index){
+				layer.close(index);
+				var url = Constants.sopEndpointURL + "/galaxy/project/deleteProjectShares/"+uuid+"/"+pid;
+				sendPostRequestByJsonStr(
+					url,
+					null, 
+					function(data){
+						if(data.result.status=="OK")
+						{
+							layer.msg('删除成功');
+							generateSharesInnerHtml(data.entityList);
+							$("#shares").val(data.entityList.length);
+							if(data.entityList.length==0){
+								generateSharesEmptyInnerHtml();
+							}
+						}
+						else
+						{
+							layer.msg(data.result.message);
+						}
+						
+					}
+				);
+			}
+		);
+	
+}
+function generateSharesInnerHtml(list){
+	var innerHtml = "";
+	$.each(list, function(i, o){
+		innerHtml += '<tr>';
+		innerHtml += '<td title="'+o.sharesOwner+'">'+o.sharesOwner+'</td>';
+		innerHtml += '<td title="'+o.sharesType+'">'+o.sharesType+'</td>';
+		innerHtml += '<td>'+o.sharesRatio+'</td>';
+		innerHtml += '<td>'+o.financeAmount+'</td>';
+		innerHtml += '<td>'+(o.financeUnit=='0' ? '人民币' : '美元')+'</td>';
+		innerHtml += '<td title="'+o.remark+'">'+o.remark+'</td>';
+		innerHtml += '<td><a uuid="'+o.uuid+'" class="blue operatorEdit" href="javascript:void(0);">编辑&nbsp;</a><a uuid="'+o.uuid+'" class="blue operatorDelete" href="javascript:void(0);">删除</a></td>';
+		innerHtml += '</tr>';
+	});
+	$("#shares-tbody").empty();
+	$("#shares-tbody").append(innerHtml);
+	$(".operatorEdit").bind('click', toEditShares);
+	$(".operatorDelete").bind('click', deleteShares);
+}
+function generateSharesEmptyInnerHtml(){
+	var innerHtml = "<tr><td colspan='7' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";	
+	$("#shares-tbody").empty();
+	$("#shares-tbody").append(innerHtml);
+}
+
+/*下一步提示*/
+function nextBtn(){
+	var plan_business_table_val=$("#person-table tbody td").eq(0).text();
+	var shares=$("#shares").val();
+	if(plan_business_table_val!="没有找到匹配的记录"){
+		$("#person_block_valiate").hide();
+	}
+	if(shares>0){
+		$("#shares_block_valiate").hide();
+	}
+	if(plan_business_table_val!="没有找到匹配的记录"&&shares>0){
+		$("[data-btn='page2'] span[data-btn='next']").removeClass("disabled");
+		return;
+	}
+}
+$("[data-btn='page2']").click(function(){
+	nextBtn();
+})

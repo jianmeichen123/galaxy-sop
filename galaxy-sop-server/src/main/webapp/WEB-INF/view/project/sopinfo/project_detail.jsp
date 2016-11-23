@@ -46,6 +46,7 @@
 <script type="text/javascript">
 var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
 var isTransfering = "${fx:isTransfering(projectId) }";
+var isEditable = "${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}";
 var projectInfo;
 $(function(){
 	createMenus(4);
@@ -123,10 +124,7 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/projectDetail/appro.js" type="text/javascript"></script>
 <script src="<%=path %>/js/base_appropriation.js" type="text/javascript"></script>
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript"></script>
-
-
-
-<%-- <script src="<%=path %>/js/person.js"></script> --%>
+<script src="<%=path %>/js/projectDetail/proPerOp.js"></script>
 <script>
 var projectId = <%=projectId%>;
 </script>
