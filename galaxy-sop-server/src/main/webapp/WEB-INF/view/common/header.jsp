@@ -75,40 +75,6 @@
     </div>
 </div>
 
-<!--  <div class="header clearfix">
- <div class="warning" id="warning"><i></i>建议使用IE10以上浏览器，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
-	<a href="javascript:;" class="logo null">繁星</a>
-    <!--头部中间
-    <div class="min clearfix">
-        <!--用户信息
-        <div class="usermsg clearfix"  id="messages">
-            <span class="light_blue">当前您有：</span>
-            <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办任务<em class="totalUrgent"></em></a>
-            <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
-            <%-- <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a>  --%>
-        </div>    	
-        <!--当日信息
-    	<div class="todaymsg clearfix">
-        	<span class="weather"><iframe allowtransparency="true" frameborder="0" width="220" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=1&v=0&d=3&bd=0&k=000000&f=004080&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe></span>
-            <span>
-                <em id="sday" style="display:none">
-                2014-01-08
-                </em>
-                <div id="xianhao" class="xianhao">
-                <em class="today" id="todayweek"></em>限行尾号为<em class="todaynum" id="todaynum"></em><em>，</em><em class="tomorrow" id="tomorrowweek"></em>为<em class="tomorrownum" id="tomorrownum"></em><em>！</em>　
-                </div>            
-            </span>              
-        </div>
-    </div>
-    <!-- 头部右边
-    <div class="usermsg rit clearfix">
-        <span class="ico name"  href="<%=path%>/html/register.html?&realName=<%=realName%>&deptName=<%=deptName%>&roleName=<%=roleName%>" data-btn="login_infor">您好，<%=realName%></span>
-        <b class="line null">分割线</b>
-        
-        <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
-    </div>
-</div>-->
-
 <script type="text/javascript">
 $("#daiban").attr('href','<%=path %>/galaxy/soptask?sid='+sessionId+'&guid='+userId+'&_is_menu_=true');
 reloadMessage();
@@ -177,8 +143,12 @@ $(function(){
     $(".sico").css({"top":(w_h-s_h)/2-80,"left":"-16px"});
     $(".bico").css({"top":(w_h-s_h)/2-30,"right":"330px"});
     if(w_h>226*rit_h){
-    	//$(".pagebox .big").css({"height":w_h-50})
-    	$(".pagebox .big").css({"position":"fixed","top":"50px","right":"0","margin-top":"0","height":"100%"})
+    	if(rit_h<3){
+    		$(".pagebox .big").css("height",226*rit_h+20)
+    	}else{
+    		//$(".pagebox .big").css({"height":w_h-50})
+        	$(".pagebox .big").css({"position":"fixed","top":"50px","right":"0","margin-top":"0","height":"100%"})
+    	}
     }else{
     	$(".pagebox .big").css("height",226*rit_h+20)
     }
