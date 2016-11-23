@@ -199,6 +199,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					if(messageTip != null){
 						for(String temp : messageTip){
 							message.setContent(temp);
+							message.setMessageType("3");
 							operationMessageService.insert(message);
 						}
 					}
