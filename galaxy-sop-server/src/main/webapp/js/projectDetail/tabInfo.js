@@ -470,14 +470,14 @@ $(function(){
 			}
 		}
 		$('#project_valuations_edit').change(function(){
-			if($(this).val() != '' && !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
+			if($(this).val() == '' || !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
 				$("#valuations-tip").css("display","block");
 			}else{
 				$("#valuations-tip").css("display","none");
 			}
 		});
 		$('#project_valuations_edit').blur(function(){
-			if($(this).val() != '' && !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
+			if($(this).val() == '' || !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
 				$("#valuations-tip").css("display","block");
 			}else{
 				$("#valuations-tip").css("display","none");
@@ -486,7 +486,7 @@ $(function(){
 		$("[data-on='save']").click(function(){
 			$("#valuations-tip").css("display","none");
 			var formatValuations = $('#project_valuations_edit').val();
-			if(formatValuations != '' && !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test(formatValuations)){
+			if(formatValuations == '' || !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test(formatValuations)){
 				$("#valuations-tip").css("display","block");
 				return;
 			}
