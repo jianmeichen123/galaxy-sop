@@ -376,6 +376,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public ResponseData<InterviewRecord> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
 		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
 		try {
+			interviewRecord.setViewDate(null);
 			interviewRecordService.updateById(interviewRecord);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(interviewRecord.getId());
