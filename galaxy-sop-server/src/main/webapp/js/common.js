@@ -1156,7 +1156,9 @@ function initTcVal(){
  * @param name  select的name属性值
  */
 function createDictionaryOptions(url, name, selectIndex){
-	$('select[name="'+name+'"]').children('option').remove();
+	if(name=="financeStatus"){
+	   $('select[name="'+name+'"]').children('option').remove();
+	}
 	sendGetRequest(url,null, function(data){
 		var options = [];
 		$.each(data.entityList, function(i, value){
