@@ -162,20 +162,40 @@ function proPerOpFormat(value, row, index) {
 
 //团队成员表格title提示
 function school(value, row, index) {
-	var options = "<label title='"+row.school+"'>" + row.school + "</label>";
-	return options;
+	if(row.school && typeof(row.school)!='undefined' ) {
+		var options = "<label title='"+row.school+"'>" + row.school + "</label>";
+		return options;
+	}else{
+		return "-";
+	}
+	
 }
 function major(value, row, index) {
-	var options = "<label title='"+row.major+"'>" + row.major + "</label>";
-	return options;
+	if(row.major && typeof(row.major)!='undefined' ) {
+		var options = "<label title='"+row.major+"'>" + row.major + "</label>";
+		return options;
+	}else{
+		return "-";
+	}
+	
 }
 function companyName(value, row, index) {
-	var options = "<label title='"+row.companyName+"'>" + row.companyName + "</label>";
-	return options;
+	if(row.companyName && typeof(row.companyName)!='undefined' ) {
+		var options = "<label title='"+row.companyName+"'>" + row.companyName + "</label>";
+		return options;
+	}else{
+		return "-";
+	}
+	
 }
 function workPosition(value, row, index) {
-	var options = "<label title='"+row.workPosition+"'>" + row.workPosition + "</label>";
-	return options;
+	if(row.workPosition && typeof(row.workPosition)!='undefined' ) {
+		var options = "<label title='"+row.workPosition+"'>" + row.workPosition + "</label>";
+		return options;
+	}else{
+		return "-";
+	}
+	
 }
 /**
  * 查看 团队成员
@@ -277,8 +297,8 @@ function toAddPerson(id,index){
 				$("#person_pool_id").val(personSelectRow.id);
 				$("[name='personId']").val(personSelectRow.id);
 				
-				$("#person_form [name='personName']").val(personSelectRow.personName);
-				$("#person_form [name='personDuties']").val(personSelectRow.personDuties);
+				if(personSelectRow.personName && typeof(personSelectRow.personName)!='undefined' ) $("#person_form [name='personName']").val(personSelectRow.personName);
+				if(personSelectRow.personDuties && typeof(personSelectRow.personDuties)!='undefined' ) $("#person_form [name='personDuties']").val(personSelectRow.personDuties);
 				
 				if(personSelectRow.personBirthdayStr && personSelectRow.personBirthdayStr !=null){
 					$("#person_form [name='personBirthdayStr']").val(personSelectRow.personBirthdayStr);
@@ -286,11 +306,12 @@ function toAddPerson(id,index){
 					var str = new Date(personSelectRow.personBirthday).format("yyyy-MM-dd");
 					$("#person_form [name='personBirthdayStr']").val(str);
 				}
-				$("#person_form [name='personTelephone']").val(personSelectRow.personTelephone);
-				$("#person_form [name='remark']").val(personSelectRow.remark);
+				if(personSelectRow.personTelephone && typeof(personSelectRow.personTelephone)!='undefined' ) $("#person_form [name='personTelephone']").val(personSelectRow.personTelephone);
+				if(personSelectRow.remark && typeof(personSelectRow.remark)!='undefined' ) $("#person_form [name='remark']").val(personSelectRow.remark);
 				
-				$("input:radio[name='personSex'][value='"+personSelectRow.personSex +"']").attr("checked","checked"); 
-				$("input:radio[name='isContacts'][value='"+personSelectRow.isContacts +"']").attr("checked","checked"); 
+				if(personSelectRow.personSex && typeof(personSelectRow.personSex)!='undefined' ) $("input:radio[name='personSex'][value='"+personSelectRow.personSex +"']").attr("checked","checked"); 
+				if(personSelectRow.isContacts && typeof(personSelectRow.isContacts)!='undefined' ) $("input:radio[name='isContacts'][value='"+personSelectRow.isContacts +"']").attr("checked","checked"); 
+				
 				radio_isContacts_tel(personSelectRow.isContacts);
 			}
 			
@@ -556,10 +577,10 @@ function toAddPersonLearning(selectIndex){
 					$("#add_person_learning [name='overDateStr']").val(str);
 				}
 				
-				$("#add_person_learning [name='school']").val(learnSelectRow.school);
-				$("#add_person_learning [name='major']").val(learnSelectRow.major);
+			 	if(learnSelectRow.school && typeof(learnSelectRow.school)!='undefined' ) $("#add_person_learning [name='school']").val(learnSelectRow.school);
+			 	if(learnSelectRow.major && typeof(learnSelectRow.major)!='undefined' ) $("#add_person_learning [name='major']").val(learnSelectRow.major);
 				
-				$("select[name='degree'] option[value='"+learnSelectRow.degree+"']").attr("selected", "selected"); 
+			 	if(learnSelectRow.degree && typeof(learnSelectRow.degree)!='undefined' ) $("select[name='degree'] option[value='"+learnSelectRow.degree+"']").attr("selected", "selected"); 
 				//$(" select option[value='"+tem+"']").attr("select","selected");  
 			}
 			
@@ -803,8 +824,8 @@ function toAddPersonWork(selectIndex){
 					$("#add_person_work [name='overWorkStr']").val(str);
 				}
 				
-				$("#add_person_work [name='companyName']").val(workSelectRow.companyName);
-				$("#add_person_work [name='workPosition']").val(workSelectRow.workPosition);
+			 	if(workSelectRow.companyName && typeof(workSelectRow.companyName)!='undefined' )  $("#add_person_work [name='companyName']").val(workSelectRow.companyName);
+			 	if(workSelectRow.workPosition && typeof(workSelectRow.workPosition)!='undefined' )  $("#add_person_work [name='workPosition']").val(workSelectRow.workPosition);
 			}
 			
 			$("#qualifications_popup_name").html(_name);
