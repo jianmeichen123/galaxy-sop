@@ -449,7 +449,7 @@
 	</div>
 	
 </div>
-<div id="valuations-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 623px; top: 366px; opacity: 1; width: 77px;">
+<div id="valuations-tip" class="tip-yellowsimple" style="display:none;visibility: inherit; left: 629px; top: 366px; opacity: 1; width: 77px;">
 	<div class="tip-inner tip-bg-image"><font color="red">*</font>支持两位小数</div>
 	<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 </div>
