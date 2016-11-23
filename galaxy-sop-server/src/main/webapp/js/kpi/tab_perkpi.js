@@ -8,11 +8,50 @@ var userkpi_pageNum = 1;
 
 $("#querySearch_perkpi").on('click',function(){
 	$("#data-table-userkpi").bootstrapTable('destroy');
-	per_kpi_init();
+	//绑定querySearch事件
+	$('#data-table-userkpi').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:10,
+		pageList : [10, 20, 30 ],
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		queryParams:function(params){
+			return json_2_1(params,getToobarQueryParams('custom-toolbasr-userkpi'));
+		},
+		pagination: true,
+        search: false,
+        url: userkpi_url,
+        onLoadSuccess: function(backdata){
+        	var options = $('#data-table-userkpi').bootstrapTable('getOptions');
+        	//var data = $('#data-table-userkpi').bootstrapTable('getData');
+        	var data = options.data;
+        	userkpi_pageNum = options.pageNumber;
+        	
+        	if(backdata.result.status == "ERROR"){
+        		layer.msg(backdata.result.message);
+        	}
+        	
+        	if(userkpi_pageNum == 1){
+        		var re = [];
+    	   		var categories = [];
+        		for(var i=0;i<data.length;i++){
+        			if(i>=10){
+        				break;
+        			}else{
+        				re.push(data[i].completed);
+           	   			categories.push(data[i].realName);
+        			}
+            	}
+    	   		containerUserKpiOptions.series[0].data = re;
+    	   		containerUserKpiOptions.xAxis.categories = categories;
+    	   		var chart = new Highcharts.Chart(containerUserKpiOptions);
+        	}
+        }
+	});
 });
 
 function per_kpi_init(){
-	$("#userkpi_deptid option").not(":first").remove();  //初始化事业线前先清空
 	//表单事业线下拉初始化
 	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
 	
