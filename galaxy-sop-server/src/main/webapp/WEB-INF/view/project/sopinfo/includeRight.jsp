@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
+	response.setHeader("Cache-Control","no-cache"); //HTTP 1.1    
+	response.setHeader("Pragma","no-cache"); //HTTP 1.0    
+	response.setDateHeader ("Expires", 0); //prevents caching at the proxy server  
 %>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  

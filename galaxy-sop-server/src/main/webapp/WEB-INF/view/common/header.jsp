@@ -59,7 +59,8 @@
        <!--用户信息-->
         <div class="usermsg fl">
               <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办<em class="totalUrgent"></em></a>
-            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息<em action="remind">0</em></a> 
+            <%-- <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息<em action="remind">0</em></a>  --%>
+             <a href="javascript:;"  onclick="to_message()" class="work">消息<em action="remind">0</em></a> 
     
         </div>      <!--当日信息-->
       <div class="man_info fl">
@@ -104,6 +105,15 @@ if(isContainResourceByMark("task_into_view")){
 		}
 	}
  }
+ 
+ 
+
+ function to_message(){
+	 deleteCookie("messageList","/");
+	 var url=Constants.sopEndpointURL+"/galaxy/operationMessage/index";
+	 forwardWithHeader(url);
+ }
+ 
  function logout(){
 		$.ajax({
 			url : platformUrl.logout,

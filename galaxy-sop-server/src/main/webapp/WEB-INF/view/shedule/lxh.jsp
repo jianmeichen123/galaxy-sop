@@ -267,7 +267,7 @@
 			toPageNum = pageParams.pageNum;
 		}
 		
-		deleteCookie("backProjectList","/");
+		deleteCookie("meetingSheduleList","/");
 	}
 	$("button[action='querySearch']").click(function(){
 		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : "/"});
