@@ -46,5 +46,4 @@
 </div>
 <script type="text/javascript">
 	//UM.getEditor('viewNotes');
-	//$("#viewDate").val(new Date().format("yyyy-MM-dd"));
 </script>
