@@ -215,10 +215,6 @@
 				<if test="greanChannel != null">
 					and (grean_channel like CONCAT("%",#{greanChannel},"%")
 				</if>
-				<if test="remark != null">
-					and remark = #{remark}
-				</if>
-				
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
