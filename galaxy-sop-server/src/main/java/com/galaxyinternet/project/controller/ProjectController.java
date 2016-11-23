@@ -5006,9 +5006,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			//com.galaxyinternet.mongodb.model.Project project = mongoProjectService.findById(id);
 			
 			//mongoProjectService.deleteById(id);
-			com.galaxyinternet.mongodb.model.Project project = new com.galaxyinternet.mongodb.model.Project();
+			/*com.galaxyinternet.mongodb.model.Project project = new com.galaxyinternet.mongodb.model.Project();
 			project.setId(id);
-			mongoProjectService.deleteByCondition(project);
+			mongoProjectService.deleteByCondition(project);*/
 			
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
