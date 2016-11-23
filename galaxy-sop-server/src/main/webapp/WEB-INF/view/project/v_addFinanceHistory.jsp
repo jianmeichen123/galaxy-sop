@@ -52,7 +52,7 @@
             <dl class="fmdl clearfix">
                  <dt>融资轮次：</dt>
                 <dd>
-					<select name="financeStatus" class='new_nputr'>
+					<select id="financeStatus_select2" name="financeStatus" class='new_nputr'>
 			         </select>
                 </dd>
             </dl>
@@ -72,7 +72,7 @@ initDialogValstr("add_Historyform");
  * 获取融资状态下拉项
  * @version 2016-06-21
  */
-createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
+ createDictionaryOptionsBak(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus_select2", 17);
 $(function(){
 	$('input[name="financeDateStr"]').val(new Date().format("yyyy-MM-dd"));
 });

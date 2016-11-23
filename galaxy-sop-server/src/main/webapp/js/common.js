@@ -1168,6 +1168,22 @@ function createDictionaryOptions(url, name, selectIndex){
 		$('select[name="'+name+'"]').append(options.join(''));
 	});
 }
+/**
+ * 创建项目第一步，防止两个融资轮次冲突，其中一个使用该函数
+ */
+function createDictionaryOptionsBak(url, id, selectIndex){
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			if(selectIndex && i == selectIndex){
+				options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+			}else{
+				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+			}
+		});
+		$('#'+id+'').append(options.join(''));
+	});
+}
 
 /**
  * 查询事业线

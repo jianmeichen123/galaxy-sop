@@ -84,7 +84,7 @@
                             </span>
                         	<span class="basic_span" ><em class="red">*</em>融资状态：</span>
                  	          <span class="m_r30">
-								<select name="financeStatus_home" class='new_nputr'>
+								<select id="financeStatus_select" name="financeStatus" class='new_nputr'>
 			                    </select>
 							</span>
                         </li>

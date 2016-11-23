@@ -52,7 +52,7 @@
             <dl class="fmdl clearfix">
                  <dt>融资轮次：</dt>
                 <dd>
-					<select name="financeStatus" id="financeStatus" class='new_nputr'>
+					<select name="financeStatus" id="financeStatus_select2" class='new_nputr'>
 			         </select>
                 </dd>
             </dl>

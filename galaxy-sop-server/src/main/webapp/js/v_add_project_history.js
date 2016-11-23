@@ -135,7 +135,7 @@ function setDataFinance(data){
 		}
 	});
 	var index=data["financeStatus"].split(":")[1];
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", index);
+	createDictionaryOptionsBak(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus_select2", index);
 	var financeUnit=$("#financeUnit option");
 	for(var i=0;i<financeUnit.length;i++){
 		if(data['financeUnit']==financeUnit[i].value){
