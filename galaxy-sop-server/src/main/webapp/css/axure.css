@@ -1541,6 +1541,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 	line-height:35px;
 	font-size: 12px;
 font-family: "宋体";
+word-break:break-all;
+word-wrap:break-word;
 }
 
 /*右边*/
