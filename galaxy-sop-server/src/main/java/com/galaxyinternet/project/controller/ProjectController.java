@@ -1851,7 +1851,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 								user.getId(), user.getRealName(), 
 								obj.getId(),project.getProjectName(), project.getSopFile().getId()));
 					}
-					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), obj.getId(),StageChangeHandler._6_1_,project.getSopFile());
+					
+					List<String> viewTip = null;
+					if(project.getView()!=null && !project.getView().isEmpty()){
+						viewTip = new ArrayList<String>();
+						for(int i = 0 ; i<project.getView().size(); i++){
+							viewTip.add(user.getRealName()+"为项目projectname添加了访谈记录");
+						}
+					}
+					
+					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), obj.getId(),StageChangeHandler._6_1_,project.getSopFile(),viewTip);
 				}
 			}
 			responseBody.setResult(new Result(Status.OK, "ok" , "查询股权结构信息成功!"));
