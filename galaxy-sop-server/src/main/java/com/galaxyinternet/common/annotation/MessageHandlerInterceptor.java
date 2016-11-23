@@ -193,6 +193,16 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					}
 				}
 				
+				if(message.getListObj()!=null){
+					@SuppressWarnings("unchecked")
+					List<String> messageTip = (List<String>) message.getListObj();
+					if(messageTip != null){
+						for(String temp : messageTip){
+							message.setContent(temp);
+							operationMessageService.insert(message);
+						}
+					}
+				}
 				
 				
 			} else if(message.getMessageType().equals(StageChangeHandler._6_3_)){

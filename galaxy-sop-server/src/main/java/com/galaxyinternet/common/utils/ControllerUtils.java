@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 
@@ -61,6 +62,21 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, userData);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
+	
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId,
+			String messageType, Object userData, Object listdata) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+		params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, userData);
+		params.put(PlatformConst.REQUEST_SCOPE_USER_LISTDATA, listdata);
+		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
+	}
+	
+	
+	
+	
 	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId,UrlNumber number) 
 	{
 		setRequestParamsForMessageTip(request,projectName,projectId,null,number);
@@ -143,4 +159,6 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH, mapList);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
+
+	
 }

@@ -206,6 +206,7 @@ $(function(){
 				    }
 					 
 				}
+			//项目描述
 			if(projectInfo.projectDescribe){
 //				var um = UM.getEditor('describe_editor');
 				$("#describe_show").html(projectInfo.projectDescribe);
@@ -213,12 +214,15 @@ $(function(){
 				$("#descript").hide();
 				$('.describe_show').show();
 				display_show("describe_show");
+				
 			}else{
 				$('.describe_show').hide();
 				$("#describe_show").html('');
 			}
+			//业务亮点
 			if(projectInfo.projectDescribeFinancing){
 //				var um = UM.getEditor('describe_editor');
+				
 				$("#describe2_show").html(projectInfo.projectDescribeFinancing);
 				describeUm2.setContent(projectInfo.projectDescribeFinancing);
 				$("#descript").hide();
@@ -243,10 +247,31 @@ $(function(){
 					$('#describe2_show').css('height','70px');
 					$('.describe_show').css('height',PH1+PH2+92);
 				}) 
+				
+				
+				//兼容历史数据-为空
+				if(!projectInfo.projectDescribe){
+					//$("#describe_show_div").hide();
+					$("#describe_show").html('');
+					$("#describe2_show").html(projectInfo.projectDescribeFinancing);
+				}
+				
+				
 			}else{
-				$('.describe_show').hide();
-				$("#describe2_show").html('');
+				//历史数据-为空
+				if(!projectInfo.projectDescribe){
+					$('.describe_show').hide();
+					$("#describe2_show").html('');
+				}else{
+					//$("#describe2_show_div").hide();
+					$("#describe2_show").html('');
+				}
+				
+				
 			}
+			
+			
+			
 			
 			if(projectInfo.projectBusinessModel){
 //				var um = UM.getEditor('business_editor');
