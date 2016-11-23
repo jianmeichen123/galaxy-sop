@@ -378,6 +378,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			interviewRecord.setViewDate(null);
 			interviewRecordService.updateById(interviewRecord);
+			responseBody.setEntity(interviewRecord);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(interviewRecord.getId());
 			
