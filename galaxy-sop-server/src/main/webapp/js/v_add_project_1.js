@@ -76,7 +76,7 @@ $('input[name="formatValuations"]').change(function(){
 	}
 });
 $('input[name="formatValuations"]').blur(function(){
-	if($(this).val() == '' && new RegExp("^^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
+	if($(this).val() == '' && new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
 		$("#valuations-tip").css("display","block");
 	}else{
 		$("#valuations-tip").css("display","none");
@@ -85,7 +85,7 @@ $('input[name="formatValuations"]').blur(function(){
 function add(){
 	$("#valuations-tip").css("display","none");
 	var formatValuations = $('input[name="formatValuations"]').val();
-	if(formatValuations == '' && new RegExp("^(([1-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$").test(formatValuations)){
+	if(formatValuations == '' && new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test(formatValuations)){
 		$("#valuations-tip").css("display","block");
 		return;
 	}
