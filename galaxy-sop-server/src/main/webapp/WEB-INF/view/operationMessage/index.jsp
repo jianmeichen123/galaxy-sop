@@ -71,7 +71,7 @@
 				toPageNum = pageParams.pageNum;
 			}
 			
-			deleteCookie("backProjectList","/");
+			deleteCookie("messageList","/");
 		}
 		
 		

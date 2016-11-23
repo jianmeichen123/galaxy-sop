@@ -3,6 +3,14 @@
 	String path = request.getContextPath(); 
 %>
 <script>
+
+function menu_to_view(url,name){
+	if(name == '立项会' || name == '投决会' || name == 'CEO评审会'){
+		deleteCookie("meetingSheduleList","/");
+	}
+	window.location.href = url;
+}
+
 function createMenus(current){
 	sendGetRequest(platformUrl.createMenus + current, {}, function(data){
 		 var selected = data.header.attachment;
@@ -10,9 +18,12 @@ function createMenus(current){
 	   	 $.each(data.entityList, function(i,o){
 	   		 if(typeof(o.nodes) == "undefined"){
 	   			if(selected == o.id){
-		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
-		   		}else{
-		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
+		   			/* html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
+		   			html += '<li class="on"><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
+		   			
+	   			}else{
+		   			/* html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
+		   			html += '<li><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}
 	   		 }else{
 	   			var innerHtml ="";
@@ -20,9 +31,11 @@ function createMenus(current){
 	   			 $.each(o.nodes, function(i,obj){
 	   				 if(selected == obj.id){
 	   					isExend = true;
-	   					innerHtml += '<li class="on"><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>';
+	   					/* innerHtml += '<li class="on"><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>'; */
+	   					innerHtml += '<li  class="on"><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
 			   		 }else{
-			   			innerHtml += '<li><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>';
+			   			/* innerHtml += '<li><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>'; */
+			   			innerHtml += '<li><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
 			   		 }
 	   			 });
 	   			 
