@@ -242,9 +242,9 @@
 			</c:if>
 		</div>
 		<div class="new_ul_all new_top_color describe_show clearfix" >
-			<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
+			<div id="describe_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
 			<p style="padding-left:22px" id="describe_show" valiate="required"></p>
-			<div><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
+			<div id="describe2_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
 			<p style="padding-left:22px" id="describe2_show" valiate="required"></p>
 		</div>
 	</div>
