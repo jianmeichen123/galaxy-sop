@@ -72,6 +72,7 @@ $(function(){
 					&& typeof(data.entityList) != 'undefined' 
 					&& data.entityList.length > 0){
 					$.popupOneClose();
+					$.locksCreenOpen();
 					generateSharesInnerHtml(data.entityList);
 					$("#shares").val(data.entityList.length);
 				}else{
