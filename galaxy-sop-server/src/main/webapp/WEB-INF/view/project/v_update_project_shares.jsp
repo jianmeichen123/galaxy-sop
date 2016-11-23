@@ -9,11 +9,11 @@
   <div class="form clearfix">
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;所有权人：</dt>
-        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^.{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
+        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl>
        <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;所有权人类型：</dt>
-        <dd><input type="text" name="sharesType" value="" class="txt" valType="OTHER" regString="^.{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
+        <dd><input type="text" name="sharesType" value="" class="txt" valType="OTHER" regString="^[^\s](.{0,49})$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl> 
       <dl class="fmdl fl">
         <dt><em class="red">*</em>&nbsp;占比：</dt>
@@ -72,6 +72,7 @@ $(function(){
 					&& typeof(data.entityList) != 'undefined' 
 					&& data.entityList.length > 0){
 					$.popupOneClose();
+					$.locksCreenOpen();
 					generateSharesInnerHtml(data.entityList);
 					$("#shares").val(data.entityList.length);
 				}else{

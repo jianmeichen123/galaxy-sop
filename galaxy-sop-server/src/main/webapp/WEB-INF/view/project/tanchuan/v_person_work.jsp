@@ -32,14 +32,14 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;任职公司名称：</dt>
                     <dd class="clearfix">
-                        <input type="text" name="companyName" class="txt" valtype="OTHER" regstring="^.{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
+                        <input type="text" name="companyName" class="txt" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
                     </dd>
                 </dl>
                 
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;职位：</dt>
                     <dd>
-                    	<input type="text" name="workPosition" class="txt" valtype="OTHER" regstring="^.{1,50}$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
+                    	<input type="text" name="workPosition" class="txt" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
                     </dd>
                 </dl>
                 
