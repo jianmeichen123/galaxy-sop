@@ -71,7 +71,7 @@ function remark_format(value, row, index) {
 	if(value){
 		if(getLength(value)>10){
 			var cutString = cutStr_z(10,value);
-			value = "<label title='"+value+"'>" + cutString + "...</label>";
+			value = "<label title='"+value+"'>" + value + "</label>";
 		}
 	}else{
 		value =  "-";
