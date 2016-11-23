@@ -1544,7 +1544,7 @@ font-family: "宋体";
 word-break:break-all;
 word-wrap:break-word;
 }
-
+.new_ul_all p img{width:100%;margin:0 auto;}
 /*右边*/
 .new_right{ width:24%; float:right; background-color:#fff; margin-top:30px; position:relative;}
 .sj_ico {
