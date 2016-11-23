@@ -69,14 +69,14 @@ function setText(obj){
 	}
 var formData;
 $('input[name="formatValuations"]').change(function(){
-	if($(this).val() == '' && new RegExp("^(([1-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$").test($(this).val())){
+	if($(this).val() == '' && new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
 		$("#valuations-tip").css("display","block");
 	}else{
 		$("#valuations-tip").css("display","none");
 	}
 });
 $('input[name="formatValuations"]').blur(function(){
-	if($(this).val() == '' && new RegExp("^(([1-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$").test($(this).val())){
+	if($(this).val() == '' && new RegExp("^^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
 		$("#valuations-tip").css("display","block");
 	}else{
 		$("#valuations-tip").css("display","none");
