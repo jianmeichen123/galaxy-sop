@@ -32,7 +32,7 @@ function createMenus(current){
 	   				 if(selected == obj.id){
 	   					isExend = true;
 	   					/* innerHtml += '<li class="on"><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>'; */
-	   					innerHtml += '<li  class="on"><a href="javascript:;"  data-menueid="' + obj.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
+	   					innerHtml += '<li  class="on"><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+obj.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
 			   		 }else{
 			   			/* innerHtml += '<li><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>'; */
 			   			innerHtml += '<li><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+obj.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
