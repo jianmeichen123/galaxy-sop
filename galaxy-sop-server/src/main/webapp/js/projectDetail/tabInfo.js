@@ -251,7 +251,7 @@ $(function(){
 				
 				//兼容历史数据-为空
 				if(!projectInfo.projectDescribe){
-					$("#describe_show_div").hide();
+					//$("#describe_show_div").hide();
 					$("#describe_show").html('');
 					$("#describe2_show").html(projectInfo.projectDescribeFinancing);
 				}
@@ -263,7 +263,7 @@ $(function(){
 					$('.describe_show').hide();
 					$("#describe2_show").html('');
 				}else{
-					$("#describe2_show_div").hide();
+					//$("#describe2_show_div").hide();
 					$("#describe2_show").html('');
 				}
 				
