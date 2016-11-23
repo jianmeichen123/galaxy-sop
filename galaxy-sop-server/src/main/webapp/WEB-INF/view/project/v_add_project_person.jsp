@@ -14,7 +14,7 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;姓名：</dt>
                     <dd>
-                    	<input type="text" class="txt" name="personName" valtype1="OTHER" regstring="^.{1,20}$"/>
+                    	<input type="text" class="txt" name="personName" valtype1="OTHER" regstring="^[^\s](.{0,19})$"/>
                     	<div id="personName_valiate" class="tip-yellowsimple">
 							<div class="tip-inner tip-bg-image">
 								<font color="red">*</font>不能为空且字符长度最大20
