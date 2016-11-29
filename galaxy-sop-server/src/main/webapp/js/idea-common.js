@@ -699,7 +699,7 @@ function dateFormatter(val,row,index)
 				//setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
 					
 				}else{
-					layer.msg(data.result.errorCode);
+					layer.msg(data.result.message);
 				}
 				
 			});
