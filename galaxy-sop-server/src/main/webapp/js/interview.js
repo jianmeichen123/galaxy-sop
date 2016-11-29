@@ -188,6 +188,7 @@ function initViewUpload() {
 			
 			FileUploaded: function(up, files, rtn) {  //上传回调
 				$("#powindow").hideLoading();
+				$.locksCreenOpen();
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
