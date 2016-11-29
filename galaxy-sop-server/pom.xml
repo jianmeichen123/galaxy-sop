@@ -6,7 +6,6 @@
 		<artifactId>galaxy-sop</artifactId>
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
-	
 	<artifactId>galaxy-sop-server</artifactId>
 	<packaging>war</packaging>
 	<name />

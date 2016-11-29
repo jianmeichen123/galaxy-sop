@@ -9,7 +9,6 @@
 	<artifactId>galaxy-sop-api</artifactId>
 	<packaging>jar</packaging>
 	<name />
-	
 	<description />
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
