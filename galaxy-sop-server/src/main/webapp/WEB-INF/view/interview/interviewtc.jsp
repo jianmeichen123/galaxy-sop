@@ -73,9 +73,13 @@
 	        	  valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
 	        	  </div> --%>
 	        	  
-	        	  <div type="text/plain" id="viewNotes" class='width_fwb'
+	        	<%--   <div type="text/plain" id="viewNotes" class='width_fwb'
 	        	  valType="MAXBYTE" regString="9000" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
+	        	  </div> --%>
+	        	   <div type="text/plain" id="viewNotes" class='width_fwb'
+	        	  valType=requiredDiv regString="^.{0,9000}$" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
 	        	  </div>
+	        	  
 			</dd>
         </dl>
             
