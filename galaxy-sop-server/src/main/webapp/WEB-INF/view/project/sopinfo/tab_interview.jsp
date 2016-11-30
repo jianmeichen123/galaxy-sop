@@ -76,7 +76,7 @@
 							<thead>
 								<tr>
 									<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1 th_no1">访谈概况</th>
-									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈记录</th>
+									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈纪要</th>
 									<th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th>
 								</tr>
 							</thead>

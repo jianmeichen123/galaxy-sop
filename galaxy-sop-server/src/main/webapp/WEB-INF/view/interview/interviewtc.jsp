@@ -67,7 +67,7 @@
 		var projectDescribe = um.getContent();
 		-->
 	    <dl class="fmdl clearfix">
-	        <dt>访谈日志:</dt>
+	        <dt>访谈纪要:</dt>
 	        <dd style="width:675px;">
 	        	 <%--  <div type="text/plain" id="viewNotes" style="width:100%; height:150px;"
 	        	  valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
