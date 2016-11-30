@@ -94,12 +94,12 @@
     </div> 
     <div class="top clearfix">
         <!--按钮-->
-          <c:if test="${isEditable}">
-	          <div class="btnbox_f btnbox_f1 clearfix">
-	              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="toUpdateOrSave()">添加</a>
-	          </div>
-          </c:if>
-     </div>
+       <c:if test="${isEditable}">
+          <div class="btnbox_f btnbox_f1 clearfix">
+              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="toUpdateOrSave()">添加</a>
+          </div>
+        </c:if>
+      </div>
   	<div class="new_ul_all history_show" >
 			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
             <thead>
@@ -121,8 +121,9 @@
 		</div>
 </div>
 
+
 <script type="text/javascript">
-    searchFH();
+     searchFH();
 	var $sharesTable;
 	var isTransfering = "${fx:isTransfering(pid) }";
 	if(isTransfering == 'true')
@@ -189,28 +190,34 @@
 	 function sharesOwnerFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.sharesOwner;
-			if(null!=str&&str.length>10){
+			if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
 				return options;
 			}
 			else{
-				var options = "<label title=''></label>";
+				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
 			}
 		}
 	 function gainModeFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.gainMode;
-			if(null!=str&&str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
+			if(null!=str){
+				if(str.length>10){
+					subStr = str.substring(0,10);
+					var options = "<label title='"+str+"'>"+subStr+"</label>";
+					return options;
+				}
+				else{
+					var options = "<label title='"+str+"'>"+str+"</label>";
+					return options;
+				}
+			}else{
+				var options = "<label title='--'>--</label>";
 				return options;
 			}
-			else{
-				var options = "<label title=''></label>";
-				return options;
-			}
+			
 		}
 	
 	
