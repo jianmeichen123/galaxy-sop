@@ -47,7 +47,7 @@
 			</tr>
 			
 		     <tr>
-				<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
+				<td><span class="new_color_gray">本轮融资轮次：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 				<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
 				<span class="new_color_gray" id="s">(</span>
 					<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
@@ -64,8 +64,8 @@
 		</div>
 		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 			<tr>
-				<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
+				<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span class="new_color_black">&nbsp;万元</span></td>
 			</tr>
 			<tr>
 				<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span><span class="new_color_black">&nbsp;%</span></td>
@@ -78,8 +78,8 @@
 		</div>
 		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 			<tr>
-				<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
+				<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span class="new_color_black">&nbsp;万元</span></td>
 			</tr>
 			<tr>
 				<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">&nbsp;%</span></td>
@@ -113,7 +113,7 @@
 	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
 	            </tr>
 	            <tr>
-                             <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
+                             <td><span class="new_color_gray">本轮融资轮次：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
                               <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                          </tr>
                            <tr>
