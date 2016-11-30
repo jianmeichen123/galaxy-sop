@@ -970,7 +970,30 @@ var platformUrl = {
 	 * 报表格式选择对话框
 	 */
 	toChooseReportSuffix : Constants.sopEndpointURL + "/galaxy/kpireport/toChooseReportSuffix"
-
+	/**
+	 * 项目详情-根据项目id查询融资历史信息
+	 */
+	searchFH : Constants.sopEndpointURL + "/galaxy/financeHistory/searchFH",
+	/**
+	 * 项目详情-新增一融资历史信息
+	 */
+	saveFH : Constants.sopEndpointURL + "/galaxy/financeHistory/saveFH",
+	/**
+	 * 项目详情-跳转到融资历史修改页面
+	 */
+	toUpateOrSaveFH : Constants.sopEndpointURL + "/galaxy/financeHistory/toUpateOrSaveFH",
+	/**
+	 * 项目详情-查询改融资历史的详细信息
+	 */
+	getFH : Constants.sopEndpointURL + "/galaxy/financeHistory/getFH",
+	/**
+	 * 项目详情-融资历史修改保存
+	 */
+	upateFHSave : Constants.sopEndpointURL + "/galaxy/financeHistory/upateFHSave",
+	/**
+	 * 项目详情-删除融资历史信息
+	 */
+	deleteFH : Constants.sopEndpointURL + "/galaxy/financeHistory/deleteFH"
 	
 
 }
