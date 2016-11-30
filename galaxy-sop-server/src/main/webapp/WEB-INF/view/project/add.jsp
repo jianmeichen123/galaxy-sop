@@ -19,9 +19,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<!-- 校验 -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 </head>
 
@@ -58,7 +55,7 @@
                         <li>
                             <span class="basic_span"><em class="red">*</em>项目名称：</span>
                             <span class="m_r30"><input type="text" class='new_nputr' maxlength="24" id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
-                            <span class="basic_span"><em class="red">*</em>创建时间：</span>
+                            <span class="basic_span" style="margin-left:23px;"><em class="red">*</em>创建时间：</span>
                             <span class="m_r30"><input type="text" class='datepicker-text new_nputr' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>
                         <li>
@@ -68,7 +65,7 @@
 			                    	<option value="">--请选择--</option>
 			                    </select>
                             </span>
-                        	<span class="basic_span"><em class="red">*</em>融资状态：</span>
+                        	<span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
 			                    </select>
@@ -88,7 +85,6 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_financing"></span>
                         <span class="new_color size16 m_r15">融资计划</span>
-                        <span class="new_color_gray">请折算为人民币进行计算</span>
                     </div>  
                     <ul class="basic_ul">
                     	
@@ -97,12 +93,12 @@
                             <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
                             </span>
-                            <span class="m_r30">万元人民币</span>
+                            <span class="m_r30">万元</span>
                             <span class="basic_span">项目估值：</span>
                             <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
                             </span>
-                            <span class="m_r30">万元人民币</span>
+                            <span class="m_r30">万元</span>
                         </li>
                         <li>
                         	<span class="basic_span">出让股份：</span>
@@ -152,6 +148,9 @@
 	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew.js'></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness.js'></script>
+<!-- 校验 -->
+<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <script type="text/javascript">
 	/**
 	 * @version 2016-06-21
@@ -281,6 +280,8 @@
   		}
 		
 	})
+	
+
 	
 </script>
 

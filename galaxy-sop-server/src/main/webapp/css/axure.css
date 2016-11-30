@@ -1761,7 +1761,7 @@ word-wrap:break-word;
 .basic_ul li span{ display:block; float:left;}
 .m_r15{ margin-right:15px;}
 .m_r30{ margin-right:30px;position:relative;}
-.basic_span{ width:90px; text-align:right; position: relative;color:#999;}
+.basic_span{ width:82px; text-align:right; position: relative;color:#999;}
 .basic_span em{  height:20px; width:8px; left:10px; top:2px; position: absolute; display:block;}
 .basic_table{margin-top:20px; overflow:hidden; border:1px solid #e9ebf2;}
 .basic_table th{ background-color:#f9fafc; padding:0 8px;}
