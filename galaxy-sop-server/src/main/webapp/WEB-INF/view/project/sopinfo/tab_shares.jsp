@@ -86,6 +86,51 @@
 		</thead>
 	</table>
 </div>
+<!-- 融资历史 -->
+<div class="member financeHistory">
+    <div class="title">
+        <span class="new_ico_stock icon"></span>
+        <span class="new_color size16">融资历史</span> 
+    </div> 
+    <div class="top clearfix">
+        <!--按钮-->
+          <div class="btnbox_f btnbox_f1 clearfix">
+              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile">添加</a>
+          </div>
+      </div>
+  	<div class="new_ul_all history_show" >
+			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
+            <thead>
+               <tr>
+                  <th>融资时间</th>
+                  <th>投资方(机构或个人)</th>
+                  <th>投资金额(万元)</th>
+                  <th>币种</th>
+                  <th>股权占比（%）</th>
+                  <th>融资轮次</th>
+                  <c:if test="${isEditable}">
+                  <th>操作</th>
+                  </c:if>
+                 </tr>
+             </thead>
+	         <tbody id="financeHistory_table">
+	         	<tr>
+                  <td>2016-01-10</td>
+                  <td>投资方(机构或个人)</td>
+                  <td>1000</td>
+                  <td>人民币</td>
+                  <td>20</td>
+                  <td>A轮</td>
+                  <td>
+                  	<label class="blue">编辑</label>
+                  	<label class="blue">删除</label>
+                  </td>
+                 </tr>
+	         </tbody>
+         </table>
+		</div>
+</div>
+
 
 <script type="text/javascript">
 	var $sharesTable;
