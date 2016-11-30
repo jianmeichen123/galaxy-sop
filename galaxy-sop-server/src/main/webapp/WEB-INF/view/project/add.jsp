@@ -91,12 +91,12 @@
                         <li>
                             <span class="basic_span">融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
                             <span class="basic_span">项目估值：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
                         </li>
