@@ -105,6 +105,8 @@ $(function(){
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
+		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
+			console.log(projectInfo.remark)
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			var p;
@@ -132,7 +134,7 @@ $(function(){
 				$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
-				
+				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)				
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').attr("checked","checked");
 					$("#faNameEdit").val(projectInfo.faName);
@@ -421,6 +423,8 @@ $(function(){
 			var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
 			var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
 			var faFlag=$('input:radio[name="faFlag"]:checked').val();
+			var remark=$('#remark').val();
+			console.log(remark);
 			var faName="";
 			if(faFlag=='0'){
 				faName="";
@@ -440,8 +444,8 @@ $(function(){
 		  	               "finalShareRatio":finalshare_ratio,	//实际股权占比	
 		  	               "serviceCharge":serviceCharge,
 		  	               "faFlag":faFlag,
-		  	               "faName":faName
-		  	             
+		  	               "faName":faName,
+		  	               "remark":remark
 		  	               
 			};
 			return formatData;
