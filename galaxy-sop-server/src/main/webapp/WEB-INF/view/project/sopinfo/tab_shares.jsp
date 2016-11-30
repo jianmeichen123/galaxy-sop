@@ -95,7 +95,7 @@
     <div class="top clearfix">
         <!--按钮-->
           <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile">添加</a>
+              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="toUpdateOrSave()">添加</a>
           </div>
       </div>
   	<div class="new_ul_all history_show" >
@@ -114,18 +114,6 @@
                  </tr>
              </thead>
 	         <tbody id="financeHistory_table">
-	         	<tr>
-                  <td>2016-01-10</td>
-                  <td>投资方(机构或个人)</td>
-                  <td>1000</td>
-                  <td>人民币</td>
-                  <td>20</td>
-                  <td>A轮</td>
-                  <td>
-                  	<label class="blue">编辑</label>
-                  	<label class="blue">删除</label>
-                  </td>
-                 </tr>
 	         </tbody>
          </table>
 		</div>
