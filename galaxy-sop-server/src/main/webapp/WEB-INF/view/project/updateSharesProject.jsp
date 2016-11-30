@@ -23,10 +23,10 @@
         <dt>股东类型：</dt>
         <dd><input type="text" name="sharesType" value="${share.sharesType }" class="txt" valType="OTHER" regString="^\S{1,30}$"msg="<font color=red>*</font>不能为空且字符长度最大30"/></dd>
       </dl>  
-      <dl class="fmdl">
+      <%-- <dl class="fmdl">
         <dt>获取方式：</dt>
         <dd><input type="text" name="gainMode" value="${share.gainMode }" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
-      </dl>
+      </dl> --%>
     </div>
   </div>
   <div class="form_textarea">
