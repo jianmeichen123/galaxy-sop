@@ -31,13 +31,17 @@
     <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
     <result column="project_id" property="projectId" jdbcType="BIGINT"/>
+    
+    <result column="is_contacts" property="isContacts" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
   </resultMap>
   
   <sql id="Base_Column_List" >
     id, tid, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     person_character, person_goodness, person_disparity, talk_ability, team_ability, 
     business_strength, free, team_role, member_relation, labor_dispute, ability_star, 
-    level_star, end_comment, create_id, updated_time, created_time
+    level_star, end_comment, create_id, updated_time, created_time,is_contacts,remark
   </sql>
   
   
@@ -47,6 +51,7 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="tid != null"> and tid =#{tid}</if>
+			  <if test="isContacts != null"> and is_contacts =#{isContacts}</if>
 			  <if test="ids != null">
 					AND id IN
 					<foreach collection="ids" index="item" item="item" open="("
@@ -111,7 +116,7 @@
 	     insert into sop_person_pool (id,tid, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     		person_character, person_goodness, person_disparity, talk_ability, team_ability, 
    			business_strength, free, team_role, member_relation, labor_dispute, ability_star, 
-    		level_star, end_comment, create_id, updated_time, created_time)
+    		level_star, end_comment, create_id, updated_time, created_time,is_contacts,remark)
 	    values (#{id,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT}, #{personName,jdbcType=VARCHAR}, #{personSex,jdbcType=INTEGER}, 
 	      #{personAge,jdbcType=INTEGER}, #{highestDegree,jdbcType=VARCHAR}, #{workTime,jdbcType=INTEGER}, #{personDuties,jdbcType=VARCHAR},
 	      #{personBirthday,jdbcType=TIMESTAMP}, #{personIdcard,jdbcType=VARCHAR}, #{personTelephone,jdbcType=VARCHAR}, 
@@ -121,7 +126,7 @@
 	      #{free,jdbcType=INTEGER}, #{teamRole,jdbcType=VARCHAR}, #{memberRelation,jdbcType=VARCHAR}, 
 	      #{laborDispute,jdbcType=INTEGER}, #{abilityStar,jdbcType=INTEGER}, #{levelStar,jdbcType=INTEGER}, 
 	      #{endComment,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, 
-	      #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT})
+	      #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, #{isContacts,jdbcType=INTEGER},#{remark,jdbcType=VARCHAR} )
 	    ]]>
     </insert>
     
@@ -156,6 +161,9 @@
 		      <if test="createId != null" >  create_id = #{createId,jdbcType=BIGINT}, </if>
 		      <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		      
+		      <if test="isContacts != null" >  is_contacts = #{isContacts,jdbcType=INTEGER}, </if>
+		      <if test="remark != null" >  remark = #{remark,jdbcType=VARCHAR}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -195,6 +203,8 @@
 		      <if test="createId != null" >  create_id = #{createId,jdbcType=BIGINT}, </if>
 		      <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		      <if test="isContacts != null" >  is_contacts = #{isContacts,jdbcType=INTEGER}, </if>
+		      <if test="remark != null" >  remark = #{remark,jdbcType=VARCHAR}, </if>
 		</set>
 		where id = #{id}
 	</update>

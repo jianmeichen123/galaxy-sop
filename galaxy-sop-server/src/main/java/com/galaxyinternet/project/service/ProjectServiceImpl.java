@@ -3,6 +3,7 @@ package com.galaxyinternet.project.service;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,9 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.dao.hr.PersonLearnDao;
+import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -31,9 +35,12 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
@@ -52,6 +59,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 
 	@Autowired
 	private ProjectDao projectDao;
+	@Autowired
+	private PersonLearnDao personLearnDao;
+	@Autowired
+	private PersonWorkDao personWorkDao;
+	@Autowired
+	private ProjectPersonDao projectPersonDao;
 	@Autowired
 	private SopFileDao sopFileDao;
 	@Autowired
@@ -562,5 +575,107 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public List<Long> getProIdsForPrivilege(Map<String,Object> params) {
 		return projectDao.selectProIdsForPrivilege(params);
+	}
+
+	/**
+	 * 添加团队成员
+	 * 1、personPool
+	 * 2、personLearn
+	 * 3、personWork
+	 * 4、projectPerson
+	 */
+	@Transactional
+	@Override
+	public Long addProPersonAndPerInfo( PersonPool personPool) throws Exception {
+		Boolean isNew = false;
+		Long personId = personPool.getId();
+		
+		if(personPool.getPersonBirthdayStr() != null){
+			try {
+				Date date = DateUtil.convertStringToDate(personPool.getPersonBirthdayStr()+"-01-01 00:00:00");
+				personPool.setPersonBirthday(date);
+			} catch (ParseException e) {
+				throw new Exception(personPool.getPersonBirthdayStr() +" 转  Date 失败" + e);
+			}
+		}
+		if(personId!=null){
+			personPoolDao.updateById(personPool);
+		}else{
+			isNew = true;
+			personId = personPoolDao.insert(personPool);
+		}
+		List<PersonLearn> personLearns = personPool.getPlc();
+		if(personLearns != null&& personLearns.size() >0){
+			for (PersonLearn personLearn : personLearns) {
+				if(personLearn.getBeginDateStr()!= null){
+					try {
+						Date date = DateUtil.convertStringToDate(personLearn.getBeginDateStr()+"-01 00:00:00");
+						personLearn.setBeginDate(date);
+					} catch (ParseException e) {
+						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
+					}
+				}
+				if(personLearn.getOverDateStr()!= null){
+					try {
+						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr()+"-01 00:00:00");
+						personLearn.setOverDate(date);
+					} catch (ParseException e) {
+						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
+					}
+				}
+				if(personLearn.getId() == null){
+					personLearn.setPersonId(personId);
+					personLearnDao.insert(personLearn);
+				}else {
+					if(personLearn.getIsEditOrCreate()!=null && personLearn.getIsEditOrCreate().intValue()==2 ){
+						personLearnDao.deleteById(personLearn.getId());
+					}else{
+						personLearnDao.updateById(personLearn);
+					}
+				}
+			}
+		}
+		//person work
+		List<PersonWork> personWorks = personPool.getPwc();
+		if(personWorks != null && personWorks.size() >0){
+			for (PersonWork personWork : personWorks) {
+				if(personWork.getBeginWorkStr() != null){
+					try {
+						Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr()+"-01 00:00:00");
+						personWork.setBeginWork(date);
+					} catch (ParseException e) {
+						throw new Exception(personWork.getBeginWorkStr() +" 转  Date 失败" + e);
+					}
+				}
+				if(personWork.getOverWorkStr() != null){
+					try {
+						Date date = DateUtil.convertStringToDate(personWork.getOverWorkStr()+"-01 00:00:00");
+						personWork.setOverWork(date);
+					} catch (ParseException e) {
+						throw new Exception(personWork.getOverWorkStr() +" 转  Date 失败" + e);
+					}
+				}
+				if(personWork.getId() == null){
+					personWork.setPersonId(personId);
+					personWorkDao.insert(personWork);
+				}else {
+					if(personWork.getIsEditOrCreate()!=null && personWork.getIsEditOrCreate().intValue()==2 ){
+						personWorkDao.deleteById(personWork.getId());
+					}else{
+						personWorkDao.updateById(personWork);
+					}
+				}
+			}
+		}
+		
+		//project --- person
+		if(isNew){
+			ProjectPerson projectPerson = new ProjectPerson();
+			projectPerson.setProjectId(personPool.getProjectId());
+			projectPerson.setPersonId(personId);
+			projectPersonDao.insert(projectPerson);
+		}
+		
+		return personId;
 	}
 }

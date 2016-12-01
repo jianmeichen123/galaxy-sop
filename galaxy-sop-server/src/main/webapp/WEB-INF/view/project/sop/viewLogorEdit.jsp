@@ -19,7 +19,7 @@
 
 <!-- 添加访谈记录弹出层 -->
 <div class="meetingtc margin_45">
-<div class="title_bj">访谈日志</div>
+<div class="title_bj">访谈纪要</div>
 
 	<input type="hidden" id="vid">
 	 

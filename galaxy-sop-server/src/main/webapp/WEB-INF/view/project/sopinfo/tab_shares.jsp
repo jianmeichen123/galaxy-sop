@@ -74,10 +74,10 @@
   	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
    	<thead>
 	    <tr>
-	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">类型</th>
+	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">股东类型</th>
         	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">所有权人</th>
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
-        	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>
+<!--         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th> -->
         	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
         	<c:if test="${isEditable }">
         	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
@@ -94,9 +94,11 @@
     </div> 
     <div class="top clearfix">
         <!--按钮-->
+       <c:if test="${isEditable}">
           <div class="btnbox_f btnbox_f1 clearfix">
               <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="toUpdateOrSave()">添加</a>
           </div>
+        </c:if>
       </div>
   	<div class="new_ul_all history_show" >
 			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
@@ -121,6 +123,7 @@
 
 
 <script type="text/javascript">
+     searchFH();
 	var $sharesTable;
 	var isTransfering = "${fx:isTransfering(pid) }";
 	if(isTransfering == 'true')
@@ -200,15 +203,21 @@
 	 function gainModeFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.gainMode;
-			if(str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
+			if(null!=str){
+				if(str.length>10){
+					subStr = str.substring(0,10);
+					var options = "<label title='"+str+"'>"+subStr+"</label>";
+					return options;
+				}
+				else{
+					var options = "<label title='"+str+"'>"+str+"</label>";
+					return options;
+				}
+			}else{
+				var options = "<label title='--'>--</label>";
 				return options;
 			}
-			else{
-				var options = "<label title='"+str+"'>"+str+"</label>";
-				return options;
-			}
+			
 		}
 	
 	
