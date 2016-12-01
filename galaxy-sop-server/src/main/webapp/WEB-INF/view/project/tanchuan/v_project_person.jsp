@@ -131,7 +131,7 @@ radio name="personSex"
         
         <div class="qualifications">
 	        <div class="tip-yellowsimple-wrap">
-	            <h3><em class="red">*</em>&nbsp;学历背景</h3>
+	            <h3>学历背景</h3>
 	            <div id="learn-tip" class="tip-yellowsimple">
 					<div class="tip-inner tip-bg-image">
 						<font color="red">*</font>学历背景不能为空
@@ -168,7 +168,7 @@ radio name="personSex"
         
         <div class="qualifications">
 	        <div class="tip-yellowsimple-wrap">
-	        	<h3><em class="red">*</em>&nbsp;工作履历</h3>
+	        	<h3>工作履历</h3>
 		        <div id="work-tip" class="tip-yellowsimple">
 					<div class="tip-inner tip-bg-image">
 						<font color="red">*</font>工作履历不能为空
