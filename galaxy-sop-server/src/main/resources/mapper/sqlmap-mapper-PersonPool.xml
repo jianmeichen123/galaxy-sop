@@ -235,7 +235,13 @@
 	
 	
 	
-	
+	<!-- 根据项目ID查询所属的团队成员 -->
+	<select id="selectPersonPoolByPID" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select * from sop_person_pool as pool 
+		inner join sop_project_person as pp 
+		on pp.person_id=pool.id 
+		where pp.project_id=#{id};
+	</select>
 	
 	
 </mapper>

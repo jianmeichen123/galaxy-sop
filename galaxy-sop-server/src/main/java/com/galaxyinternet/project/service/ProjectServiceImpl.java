@@ -592,7 +592,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		
 		if(personPool.getPersonBirthdayStr() != null){
 			try {
-				Date date = DateUtil.convertStringToDate(personPool.getPersonBirthdayStr());
+				Date date = DateUtil.convertStringToDate(personPool.getPersonBirthdayStr()+"-01-01 00:00:00");
 				personPool.setPersonBirthday(date);
 			} catch (ParseException e) {
 				throw new Exception(personPool.getPersonBirthdayStr() +" 转  Date 失败" + e);
@@ -609,7 +609,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			for (PersonLearn personLearn : personLearns) {
 				if(personLearn.getBeginDateStr()!= null){
 					try {
-						Date date = DateUtil.convertStringToDate(personLearn.getBeginDateStr());
+						Date date = DateUtil.convertStringToDate(personLearn.getBeginDateStr()+"-01 00:00:00");
 						personLearn.setBeginDate(date);
 					} catch (ParseException e) {
 						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
@@ -617,7 +617,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				}
 				if(personLearn.getOverDateStr()!= null){
 					try {
-						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr());
+						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr()+"-01 00:00:00");
 						personLearn.setOverDate(date);
 					} catch (ParseException e) {
 						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
@@ -641,7 +641,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			for (PersonWork personWork : personWorks) {
 				if(personWork.getBeginWorkStr() != null){
 					try {
-						Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr());
+						Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr()+"-01 00:00:00");
 						personWork.setBeginWork(date);
 					} catch (ParseException e) {
 						throw new Exception(personWork.getBeginWorkStr() +" 转  Date 失败" + e);
@@ -649,7 +649,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				}
 				if(personWork.getOverWorkStr() != null){
 					try {
-						Date date = DateUtil.convertStringToDate(personWork.getOverWorkStr());
+						Date date = DateUtil.convertStringToDate(personWork.getOverWorkStr()+"-01 00:00:00");
 						personWork.setOverWork(date);
 					} catch (ParseException e) {
 						throw new Exception(personWork.getOverWorkStr() +" 转  Date 失败" + e);

@@ -23,9 +23,9 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
                    	<dd class="clearfix">   <!-- type="text" class="datetimepickerHour txt time fl" -->
-	                	<input name="beginWorkStr" type="text" class="datepicker-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
+	                	<input name="beginWorkStr" type="text" class="datepicker-month-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
 	                	<span class="fl">&nbsp;至&nbsp;</span>
-	                	<input name="overWorkStr" type="text" class="datepicker-text fl txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
+	                	<input name="overWorkStr" type="text" class="datepicker-month-text fl txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                     </dd>
                 </dl>
                 
@@ -56,7 +56,7 @@
 
 <script>
 
-$('input[name="beginWorkStr"], input[name="overWorkStr"]').val(new Date().format("yyyy-MM-dd"));
+$('input[name="beginWorkStr"], input[name="overWorkStr"]').val(new Date().format("yyyy-MM"));
 
 /* $('input[name="beginWorkStr"], input[name="overWorkStr"]').datepicker({
     format: 'yyyy-mm-dd',

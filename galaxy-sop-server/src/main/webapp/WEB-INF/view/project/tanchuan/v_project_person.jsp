@@ -52,7 +52,35 @@ radio name="personSex"
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;当前职务：</dt>
                 <dd>
-                	<input type="text" class="txt" name="personDuties" valtype1="required" />
+                	<!-- <input type="text" class="txt" name="personDuties" valtype1="required" /> -->
+                	<select name="personDuties"  valType1="required">
+                       <option value="">请选择</option>
+                      <!--  <option value="CEO">首席执行官</option>
+                       <option value="COO">首席运营官</option>
+                       <option value="CFO">首席财务官</option>
+                       <option value="CIO">首席信息官</option>
+                       <option value="CTO">首席技术官</option>
+                       <option value="CDO">首席数据官</option>
+                       <option value="CMO">首席市场官</option>
+                       <option value="CBO">首席商务官</option>
+                       <option value="GM">总经理</option>
+                       <option value="VP">副总裁</option>
+                       <option value="Expert Consultant">专家顾问</option>
+                       <option value="Others">其他</option> -->
+                       <option value="首席执行官">首席执行官</option>
+                       <option value="首席运营官">首席运营官</option>
+                       <option value="CFO">首席财务官</option>
+                       <option value="首席财务官">首席信息官</option>
+                       <option value="首席技术官">首席技术官</option>
+                       <option value="首席数据官">首席数据官</option>
+                       <option value="首席市场官">首席市场官</option>
+                       <option value="首席商务官">首席商务官</option>
+                       <option value="总经理">总经理</option>
+                       <option value="副总裁">副总裁</option>
+                       <option value="专家顾问">专家顾问</option>
+                       <option value="其他">其他</option>
+                   </select>
+                   
                 	<div id="personDuties_valiate" class="tip-yellowsimple">
 						<div class="tip-inner tip-bg-image">
 							<font color="red">*</font>当前职务不能为空
@@ -65,7 +93,7 @@ radio name="personSex"
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;出生日期：</dt>
                 <dd>
-                    <input type="text" class="datepicker-text txt time" name="personBirthdayStr"
+                    <input type="text" class="datepicker-year-text txt time" name="personBirthdayStr"
                     	readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
                 </dd>
             </dl>
@@ -103,7 +131,7 @@ radio name="personSex"
         
         <div class="qualifications">
 	        <div class="tip-yellowsimple-wrap">
-	            <h3><em class="red">*</em>&nbsp;学历背景</h3>
+	            <h3>学历背景</h3>
 	            <div id="learn-tip" class="tip-yellowsimple">
 					<div class="tip-inner tip-bg-image">
 						<font color="red">*</font>学历背景不能为空
@@ -140,7 +168,7 @@ radio name="personSex"
         
         <div class="qualifications">
 	        <div class="tip-yellowsimple-wrap">
-	        	<h3><em class="red">*</em>&nbsp;工作履历</h3>
+	        	<h3>工作履历</h3>
 		        <div id="work-tip" class="tip-yellowsimple">
 					<div class="tip-inner tip-bg-image">
 						<font color="red">*</font>工作履历不能为空
@@ -214,7 +242,7 @@ function cleanSpelChar(th){
 $(function(){
 	
 	//$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
-	$('input[name="personBirthdayStr"]').val("1900-01-01");
+	$('input[name="personBirthdayStr"]').val("1900");
 	
 	$.locksCreenOpen();
 	$("#learn-tip").css("display","none");

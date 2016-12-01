@@ -21,9 +21,9 @@
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;时间：</dt>
                 <dd class="clearfix">
-                	<input name="beginDateStr" type="text" class="datepicker-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
+                	<input name="beginDateStr" type="text" class="datepicker-month-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
                 	<span class="fl">&nbsp;至&nbsp;</span>
-                	<input name="overDateStr" type="text" class="datepicker-text fl txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
+                	<input name="overDateStr" type="text" class="datepicker-month-text fl txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                 </dd>
             </dl>  
             <dl class="fmdl fl">
@@ -64,7 +64,7 @@
 <jsp:include page="../../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
 
-$('input[name="beginDateStr"], input[name="overDateStr"]').val(new Date().format("yyyy-MM-dd"));
+$('input[name="beginDateStr"], input[name="overDateStr"]').val(new Date().format("yyyy-MM"));
 
 /* $('input[name="beginDateStr"], input[name="overDateStr"]').datepicker({
     format: 'yyyy-mm-dd',
