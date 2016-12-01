@@ -94,7 +94,7 @@ function date_str_format(value, row, index) {
 	if(row.personBirthdayStr && row.personBirthdayStr !=null){
 		return row.personBirthdayStr;
 	}else if(value){
-		return new Date(value).format("yyyy-MM-dd");
+		return new Date(value).format("yyyy");
 	}
 	return "-";
 }
@@ -303,7 +303,7 @@ function toAddPerson(id,index){
 				if(personSelectRow.personBirthdayStr && personSelectRow.personBirthdayStr !=null){
 					$("#person_form [name='personBirthdayStr']").val(personSelectRow.personBirthdayStr);
 				}else if(personSelectRow.personBirthday && personSelectRow.personBirthday !=null){
-					var str = new Date(personSelectRow.personBirthday).format("yyyy-MM-dd");
+					var str = new Date(personSelectRow.personBirthday).format("yyyy");
 					$("#person_form [name='personBirthdayStr']").val(str);
 				}
 				if(personSelectRow.personTelephone && typeof(personSelectRow.personTelephone)!='undefined' ) $("#person_form [name='personTelephone']").val(personSelectRow.personTelephone);
@@ -504,7 +504,7 @@ function learn_TimeFormat(value, row, index) {
 		bstr = row.beginDateStr;
 	}else if(row.beginDate){
 		bstr = row.beginDate;
-		bstr = new Date(bstr).format("yyyy-MM-dd");
+		bstr = new Date(bstr).format("yyyy-MM");
 	}else{
 		bstr="-";
 	}
@@ -513,7 +513,7 @@ function learn_TimeFormat(value, row, index) {
 		estr = row.overDateStr;
 	}else if(row.overDate){
 		estr = row.overDate;
-		estr = new Date(estr).format("yyyy-MM-dd");
+		estr = new Date(estr).format("yyyy-MM");
 	}else{
 		estr="-";
 	}
@@ -566,14 +566,14 @@ function toAddPersonLearning(selectIndex){
 				if(learnSelectRow.beginDateStr && learnSelectRow.beginDateStr !=null){
 					$("#add_person_learning [name='beginDateStr']").val(learnSelectRow.beginDateStr);
 				}else if(learnSelectRow.beginDate && learnSelectRow.beginDate !=null){
-					var str = new Date(learnSelectRow.beginDate).format("yyyy-MM-dd");
+					var str = new Date(learnSelectRow.beginDate).format("yyyy-MM");
 					$("#add_person_learning [name='beginDateStr']").val(str);
 				}
 				 
 			 	if(learnSelectRow.overDateStr && learnSelectRow.overDateStr !=null){
 					$("#add_person_learning [name='overDateStr']").val(learnSelectRow.overDateStr);
 				}else if(learnSelectRow.overDate && learnSelectRow.overDate !=null){
-					var str = new Date(learnSelectRow.overDate).format("yyyy-MM-dd");
+					var str = new Date(learnSelectRow.overDate).format("yyyy-MM");
 					$("#add_person_learning [name='overDateStr']").val(str);
 				}
 				
@@ -754,7 +754,7 @@ function work_TimeFormat(value, row, index) {
 		bstr = row.beginWorkStr;
 	}else if(row.beginWork){
 		bstr = row.beginWork;
-		bstr = new Date(bstr).format("yyyy-MM-dd");
+		bstr = new Date(bstr).format("yyyy-MM");
 	}else{
 		bstr="-";
 	}
@@ -763,7 +763,7 @@ function work_TimeFormat(value, row, index) {
 		estr = row.overWorkStr;
 	}else if(row.overWork){
 		estr = row.overWork;
-		estr = new Date(estr).format("yyyy-MM-dd");
+		estr = new Date(estr).format("yyyy-MM");
 	}else{
 		estr = "-";
 	}
@@ -813,14 +813,14 @@ function toAddPersonWork(selectIndex){
 				if(workSelectRow.beginWorkStr && workSelectRow.beginWorkStr !=null){
 					$("#add_person_work [name='beginWorkStr']").val(workSelectRow.beginWorkStr);
 				}else if(workSelectRow.beginWork && workSelectRow.beginWork !=null){
-					var str = new Date(workSelectRow.beginWork).format("yyyy-MM-dd");
+					var str = new Date(workSelectRow.beginWork).format("yyyy-MM");
 					$("#add_person_work [name='beginWorkStr']").val(str);
 				}
 				 
 			 	if(workSelectRow.overWorkStr && workSelectRow.overWorkStr !=null){
 					$("#add_person_work [name='overWorkStr']").val(workSelectRow.overWorkStr);
 				}else if(workSelectRow.overWork && workSelectRow.overWork !=null){
-					var str = new Date(workSelectRow.overWork).format("yyyy-MM-dd");
+					var str = new Date(workSelectRow.overWork).format("yyyy-MM");
 					$("#add_person_work [name='overWorkStr']").val(str);
 				}
 				

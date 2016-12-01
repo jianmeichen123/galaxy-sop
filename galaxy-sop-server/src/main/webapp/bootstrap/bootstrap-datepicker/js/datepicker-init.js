@@ -58,8 +58,16 @@ function GetDateStr(AddDayCount)
 	var d = dd.getDate();
 	return y+"-"+m+"-"+d;
 }
+function GetDateYearStr(AddDayCount)
+{
+	var dd = new Date();
+	var y = dd.getFullYear();
+	return y;
+}
+
 var dateLimit = GetDateStr(-1);
 var dateadd=GetDateStr(-0);
+var enddata = GetDateYearStr();
 var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 var weekLimitnow = GetDateStr(-(nowTemp.getDay())+7);
@@ -313,6 +321,66 @@ $(function(){
 	    //maxViewMode: 1, //0,days 1,month 2,years
 	  //  startDate: projectTime,
 	    endDate: dateadd,
+	    defaultDate : new Date(),
+	   // setDate:"Today"
+	    //endDate: '+3d'
+	});
+	//日期视图
+	$('.datepicker-year-text').datepicker({
+	    format: 'yyyy',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    //calendarWeeks: true,
+	    //defaultDate : new Date(),
+	    //weekStart:1,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now',
+	    minViewMode: 2,
+	    //defaultViewDate: new Date()
+	    //daysOfWeekDisabled: "0",
+	    //daysOfWeekHighlighted: "0",
+	    //clearBtn: true,
+	    //startView: 1, //0,month 1,year 2,decade
+	    //minViewMode: 1,  //0,days 1,month 2,years
+	    //maxViewMode: 1, //0,days 1,month 2,years
+	  //  startDate: projectTime,
+	    //endDate: enddata,
+	   // startDate : '1900',
+	    defaultDate : new Date(),
+	   // setDate:"Today"
+	    //endDate: '+3d'
+	});
+	//日期视图
+	$('.datepicker-month-text').datepicker({
+	    format: 'yyyy-mm',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    //calendarWeeks: true,
+	    //defaultDate : new Date(),
+	    //weekStart:1,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now',
+	    minViewMode: 1,
+	    //defaultViewDate: new Date()
+	    //daysOfWeekDisabled: "0",
+	    //daysOfWeekHighlighted: "0",
+	    //clearBtn: true,
+	    //startView: 1, //0,month 1,year 2,decade
+	    //minViewMode: 1,  //0,days 1,month 2,years
+	    //maxViewMode: 1, //0,days 1,month 2,years
+	  //  startDate: projectTime,
+	    //endDate: enddata,
+	   // startDate : '1900',
 	    defaultDate : new Date(),
 	   // setDate:"Today"
 	    //endDate: '+3d'

@@ -65,7 +65,7 @@ radio name="personSex"
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;出生日期：</dt>
                 <dd>
-                    <input type="text" class="datepicker-text txt time" name="personBirthdayStr"
+                    <input type="text" class="datepicker-year-text txt time" name="personBirthdayStr"
                     	readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
                 </dd>
             </dl>
@@ -214,7 +214,7 @@ function cleanSpelChar(th){
 $(function(){
 	
 	//$('input[name="personBirthdayStr"]').val(new Date().format("yyyy-MM-dd"));
-	$('input[name="personBirthdayStr"]').val("1900-01-01");
+	$('input[name="personBirthdayStr"]').val("1900");
 	
 	$.locksCreenOpen();
 	$("#learn-tip").css("display","none");
