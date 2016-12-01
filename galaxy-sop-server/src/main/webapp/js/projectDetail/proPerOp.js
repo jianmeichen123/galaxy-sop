@@ -298,7 +298,11 @@ function toAddPerson(id,index){
 				$("[name='personId']").val(personSelectRow.id);
 				
 				if(personSelectRow.personName && typeof(personSelectRow.personName)!='undefined' ) $("#person_form [name='personName']").val(personSelectRow.personName);
-				if(personSelectRow.personDuties && typeof(personSelectRow.personDuties)!='undefined' ) $("#person_form [name='personDuties']").val(personSelectRow.personDuties);
+				
+				
+				//if(personSelectRow.personDuties && typeof(personSelectRow.personDuties)!='undefined' ) $("#person_form [name='personDuties']").val(personSelectRow.personDuties);
+				if(personSelectRow.personDuties && typeof(personSelectRow.personDuties)!='undefined' ) $("select[name='personDuties'] option[value='"+personSelectRow.personDuties+"']").attr("selected", "selected"); 
+				
 				
 				if(personSelectRow.personBirthdayStr && personSelectRow.personBirthdayStr !=null){
 					$("#person_form [name='personBirthdayStr']").val(personSelectRow.personBirthdayStr);
@@ -340,6 +344,7 @@ function savePerson(){
 		var learnList = $('#per_learning_table').bootstrapTable('getData');
 		var workList = $('#per_work_table').bootstrapTable('getData');
 		
+		/*
 		if(!learnList || learnList.length == 0){
 			$("#learn-tip").css("display","block");
 			return;
@@ -368,7 +373,7 @@ function savePerson(){
 					return;
 				}
 			}
-		}
+		}*/
 		
 		savePerson_do(learnList,workList);
 	}
