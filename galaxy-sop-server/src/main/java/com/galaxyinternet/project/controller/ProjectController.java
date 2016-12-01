@@ -1331,11 +1331,71 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setResult(new Result(Status.OK, null, ""));
 		return responseBody;
 	}
-
+	
+	
+	private boolean validatePersonMessage(Project p){
+		if(p != null){
+			List<PersonPool> personList = personPoolService.selectPersonPoolByPID(p.getId());
+			if(personList != null && personList.size() > 0){
+				for(PersonPool pool : personList){
+					if(pool.getPersonName() != null && !"".equals(pool.getPersonName().trim())
+							&& pool.getPersonSex() != null
+							&& pool.getPersonDuties() != null && !"".equals(pool.getPersonDuties().trim())
+							&& pool.getPersonBirthday() != null
+							//&& (pool.get || (pool.get && pool.get))是否为联系人校验
+							){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	private boolean validateBusinessBook(Project p){
+		if(p != null){
+			SopFile query = new SopFile();
+			query.setProjectId(p.getId());
+			query.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
+			List<SopFile> fList = sopFileService.queryList(query);
+			if(fList != null && fList.size() > 0){
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean validateInterviewRecord(Project p){
+		if(p != null){
+			InterviewRecord query = new InterviewRecord();
+			query.setProjectId(p.getId());
+			List<InterviewRecord> irList = interviewRecordService.queryList(query);
+			if(irList != null && irList.size() > 0){
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean validateBasicData(Project p){
+		if(p != null 
+				//项目的几个大文本内容必填验证
+				&& p.getProjectDescribe() != null && !"".equals(p.getProjectDescribe().trim())
+				&& p.getProjectBusinessModel() != null && !"".equals(p.getProjectBusinessModel().trim())
+				&& p.getCompanyLocation() != null && !"".equals(p.getCompanyLocation().trim())
+				&& p.getUserPortrait() != null && !"".equals(p.getUserPortrait().trim())
+				&& p.getProjectBusinessModel() != null && !"".equals(p.getProjectBusinessModel().trim())
+				&& p.getIndustryAnalysis() != null && !"".equals(p.getIndustryAnalysis().trim())
+				&& p.getProspectAnalysis() != null && !"".equals(p.getProspectAnalysis())
+				//融资计划不能为空
+				&& p.getProjectContribution() != null && p.getProjectContribution().doubleValue() > 0
+				&& p.getProjectShareRatio() != null && p.getProjectShareRatio().doubleValue() > 0
+				&& p.getProjectValuations() != null && p.getProjectValuations().doubleValue() > 0
+				){
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * 接触访谈阶段: 启动内部评审
-	 * 
-	 * @author yangshuhua
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -1345,6 +1405,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		Project project = projectService.queryById(pid);
+		
+		if(!validateBasicData(project) 
+				|| !validateInterviewRecord(project)
+				|| !validateBusinessBook(project)
+				|| !validatePersonMessage(project)){
+			responseBody.setResult(new Result(Status.ERROR, "401", "前置参数丢失!"));
+			return responseBody;
+		}
 		Result result = validate(DictEnum.projectProgress.接触访谈.getCode(),
 				project, user);
 		if (!result.getStatus().equals(Status.OK)) {

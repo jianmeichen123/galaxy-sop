@@ -13,6 +13,7 @@ import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.project.PersonPool;
@@ -75,6 +76,12 @@ public class PersonPoolServiceImpl extends BaseServiceImpl<PersonPool> implement
 		pp.setCreatedTime(System.currentTimeMillis());
 		projectPersonDao.insert(pp);
 		return id;
+	}
+
+
+	@Override
+	public List<PersonPool> selectPersonPoolByPID(Long pid) throws DaoException {
+		return personPoolDao.selectPersonPoolByPID(pid);
 	}
 
 }
