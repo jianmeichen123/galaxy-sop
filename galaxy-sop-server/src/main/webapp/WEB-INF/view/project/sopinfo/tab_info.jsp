@@ -58,12 +58,11 @@
 			 <tr>
 				     <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span class="new_color_black" id="remarkStr"></span></td>
 					</tr>
-		
 		</table>
 
 		<!--融资计划-->
 		<div class="new_r_compile new_bottom_color">
-			<span class="new_ico_financing"></span> <span class="new_color size16">融资计划</span>
+			<span class="new_ico_financing"></span> <span class="new_color size16"><em class="red">*</em>融资计划</span>
 		</div>
 		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 			<tr>
@@ -127,21 +126,21 @@
                                  <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
                              </span></td>
                            </tr>
-                                <tr>
-                             <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><textarea maxlength="50" id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea></span></td>
-                         </tr>
-	        
+
+                 <tr>
+                      <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><textarea maxlength="50" id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea></span></td>
+                 </tr>
 	        </table>  
 	        
 	        <!--融资计划-->
 	        <div class="new_r_compile new_bottom_color">
 	            <span class="new_ico_financing"></span>
-	            <span class="new_color size16">融资计划</span>
+	            <span class="new_color size16"><em class="red">*</em>融资计划</span>
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>　&nbsp;万元人民币</span></td>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
+	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>　&nbsp;万元</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
 	            </tr>
 	            <tr>
 	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
@@ -154,8 +153,8 @@
 	        </div>  
 	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
+	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
 	            </tr>
 	            <tr>
 	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;　%</span></td>
@@ -169,7 +168,7 @@
 <!--商业计划书-->
 <div class="tabtable_con_on">
 	<div class="new_r_compile ">
-		<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
+		<span class="new_ico_book"></span> <span class="new_color size16"><em class="red">*</em>商业计划书</span>
 	</div>
 	<ul class="new_ul_all new_top_color" id='business_plan'>
 		<li></li>
@@ -196,7 +195,7 @@
               </div>
               <div class="project_center">
 		<div class="new_r_compile ">
-			<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
+			<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox">
 				<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
@@ -213,7 +212,7 @@
 <div class="tabtable_con_on">
 	<div class='company_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
+			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox"> 
 				<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
@@ -241,7 +240,7 @@
 <div class="tabtable_con_on">
 	<div class='portrayal_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
+			<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox"> 
 			<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
@@ -271,7 +270,7 @@
 <div class="tabtable_con_on">
 	<div class='product_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
+			<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox"> 
 				<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
@@ -329,7 +328,7 @@
 <div class="tabtable_con_on">
 	<div class='industry_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
+			<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox"> 
 				<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
@@ -357,7 +356,7 @@
 <div class="tabtable_con_on">
 	<div class='analysis_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
+			<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox"> 
 				<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
