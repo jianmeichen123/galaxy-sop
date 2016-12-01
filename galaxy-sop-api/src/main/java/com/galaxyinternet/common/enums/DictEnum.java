@@ -18,7 +18,9 @@ public enum DictEnum {
 	档案来源("档案来源","fileSource"),
 	学历("学历","degree"),
 	融资状态("融资状态","financeStatus"),
-	项目状态("项目状态","projectStatus");
+	项目状态("项目状态","projectStatus"),
+	//行业归属
+行业归属("行业归属","industryOwn");
 	
 	private String name;
 
@@ -832,6 +834,60 @@ public enum DictEnum {
 				}
 				return null;
 			}
+		}
+		//行业归属
+		public enum industryOwn {
+			企业服务("企业服务","28"),
+			互联网金融("互联网金融","6"),
+			数字娱乐("数字娱乐","5"),
+			互联网教育("互联网教育","14"),
+			互联网医疗("互联网医疗","9"),
+			互联网汽车("互联网汽车","17"),
+			云计算大数据("云计算大数据","8"),
+			互联网旅游("互联网旅游","10"),
+			O2O及电商("O2O及电商","11"),
+			社交媒体("社交媒体","16"),
+			互联网农业("互联网农业","12"),
+			互联网餐饮("互联网餐饮","7"),
+			人工智能("人工智能","13"),
+			互联网房地产("互联网房地产","26"),
+			虚拟现实("虚拟现实","31"),
+			互联网服装("互联网服装","15");
+			private String name;
+
+			private String code;
+
+			private industryOwn(String name, String code) {
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+			
+			/**
+		     * 根据code get name
+		     * @param reslut
+		     * @return
+		     */
+		    public static String getNameByCode(String code) {
+		        
+		        if (code != null && !code.trim().equals("")) {
+		            
+		        	industryOwn[] values = industryOwn.values();
+		            for (int i = 0;i < values.length;i++) {
+		                if (code.equals(values[i].getCode())) {
+		                    return values[i].getName();
+		                }                
+		            }
+		        }
+		        return null;
+		    }
 		}
 }
 

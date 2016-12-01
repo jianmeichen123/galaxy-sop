@@ -106,7 +106,6 @@ $(function(){
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
-			console.log(projectInfo.remark)
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			var p;
@@ -141,13 +140,14 @@ $(function(){
 					$("#faNameEdit").css("display","block");
 				}
 				 p=projectInfo.industryOwn;
+				 console.log(p);
 			    fs=projectInfo.financeStatus;
 			    var sectionName = $(this).data('name');
 			    if('basic' == sectionName)
 		    	{
 			    	//融资
 			    	sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
-			    	sendGetRequest(platformUrl.getDepartMentDict+"/all",null,CallBackA);
+			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
 			    	
 			    	initDialogVal();
 		    	}
@@ -156,7 +156,7 @@ $(function(){
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel");
 			    var childNum = _dom.find("option").length;
-			    if(!childNum || childNum ==0 ){
+			    if(!childNum || childNum !=0 ){
 			    	$.each(data.entityList,function(){
 						if(this.code){
 							if(this.code==fs){
@@ -176,18 +176,13 @@ $(function(){
 			function CallBackA(data){
 			       var _dom=$("#industry_own_sel");
 			       var childNum = _dom.find("option").length;
-				    if(!childNum || childNum ==0 ){
+				    if(!childNum || childNum !=0 ){
 				    	$.each(data.entityList,function(){
-							if(this.code){
-								_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
-							}else{
-								if(this.id==p){
-									_dom.append("<option selected value='"+this.id+"'>"+this.name+"</option>");
+								if(this.code==p){
+									_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
 								}else{
-									_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
+									_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
 								}
-							}
-							
 						});
 				    }
 					 

@@ -166,7 +166,7 @@
 	 * 查询事业线
 	 * @version 2016-06-21
 	 */
-	createCareelineOptions(platformUrl.getCareerlineList,"industryOwn","select");
+	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
 	/**
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21

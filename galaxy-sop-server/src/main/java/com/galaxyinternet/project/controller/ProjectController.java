@@ -431,9 +431,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
-				if (queryTwo != null) {
-					project.setIndustryOwnDs(queryTwo.getName());				
+                String name=DictEnum.industryOwn.getNameByCode(
+        		 project.getIndustryOwn().toString());
+			if (name != null) {
+					project.setIndustryOwnDs(name);				
+				}else{
+					project.setIndustryOwnDs(null);
 				}
 			}						
 			
@@ -3286,13 +3289,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				
 				if(project.getIndustryOwn()!=null){
-					Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
-					if (queryTwo != null) {
-						project.setIndustryOwnDs(queryTwo.getName());				
-					}
-				}						
-				
-			} 
+				    String name=DictEnum.industryOwn.getNameByCode(
+			        		 project.getIndustryOwn().toString());
+						if (name != null) {
+								project.setIndustryOwnDs(name);				
+							}else{
+								project.setIndustryOwnDs(null);
+							}
+						}					
+										
+			}
+			
 			request.setAttribute("proinfo", GSONUtil.toJson(project));
 			request.setAttribute("projectId", projectId);
 		}
