@@ -49,7 +49,7 @@
         </dl>
     </div>
     <dl class="fmdl clearfix">
-        <dt>访谈日志：</dt>
+        <dt>访谈纪要：</dt>
         <dd style="width:585px;">
             <div type="text/plain" id="viewNotes" style="width:100%;height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字符"></div>
         </dd>

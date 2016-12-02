@@ -102,7 +102,7 @@
 					<tr>
 						<th  data-formatter="intervierInfoFormat" data-class="th_no1">访谈概况</th>
 						<th  data-field="proName" >所属项目</th>  
-						<th  data-field="viewNotes"  data-formatter="viewNotesFormat">访谈日志</th>
+						<th  data-field="viewNotes"  data-formatter="viewNotesFormat">访谈纪要</th>
 						<!-- <th  data-field="createdId" ></th> -->
 					</tr>
 				</thead>

@@ -1,0 +1,6 @@
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='32';
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='30';
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2011';
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2015';
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2004';
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2012';

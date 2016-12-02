@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">-->
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-report.js"></script>
 
 
 

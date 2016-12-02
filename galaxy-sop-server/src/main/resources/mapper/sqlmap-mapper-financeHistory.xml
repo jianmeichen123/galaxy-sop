@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.project.FinanceHistory">
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.FinanceHistory">
+		<id column="id" property="id" />
+		<result property="projectId" column="project_id" />
+		<result property="financeDate" column="finance_date"  jdbcType="TIMESTAMP"/>
+		<result property="financeFrom" column="finance_from" />
+		<result property="financeAmount" column="finance_amount" />
+		<result property="financeUnit" column="finance_unit" />
+		<result property="financeProportion" column="finance_proportion" />
+		<result property="financeStatus" column="finance_status" />
+		<result property="updateUid" column="updated_uid" />
+		<result property="updatedTime" column="updated_time" />
+		<result property="createUid" column="create_uid" />
+		<result property="createdTime" column="create_time" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,
+		project_id,
+		finance_date,
+		finance_from,
+		finance_amount,
+		finance_unit,
+		finance_proportion,
+		finance_status,
+		updated_uid,
+		updated_time,
+		create_uid,
+		create_time
+	</sql>
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			     <if test="financeDate != null" >and finance_date = #{financeDate,jdbcType=TIMESTAMP} </if>
+			     <if test="financeFrom != null" >and finance_from = #{financeFrom,jdbcType=VARCHAR} </if>
+			     <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
+			     <if test="financeStatus != null" >and finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
+			     <if test="createUid != null" >and updated_uid = #{createUid,jdbcType=LONG} </if>
+			     <if test="createdTime != null" >and updated_time = #{createdTime,jdbcType=LONG} </if>
+			</trim>
+		</where>
+		<!--  <if test="sorting != null">order by ${sorting}</if>-->
+		order by finance_date desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from finance_history
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from finance_history
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from finance_history where id = #{id}
+	</select>
+	
+  	<insert id="insert" parameterType="com.galaxyinternet.model.project.ProjectShares" >
+	    <![CDATA[
+	    insert into finance_history (id, project_id, finance_date, 
+	      finance_from, finance_amount, finance_unit, 
+	      finance_proportion,finance_status,create_uid,create_time,updated_uid,updated_time)
+	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{financeDate,jdbcType=TIMESTAMP}, 
+	      #{financeFrom,jdbcType=VARCHAR}, #{financeAmount,jdbcType=DECIMAL}, #{financeUnit,jdbcType=DECIMAL}, 
+	      #{financeProportion,jdbcType=DECIMAL},#{financeStatus,jdbcType=VARCHAR},#{createUid,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{updatedUid,jdbcType=VARCHAR},#{updatedTime,jdbcType=BIGINT})
+	    ]]>
+    </insert>
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.ProjectShares">
+		update finance_history
+		<set>
+			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+		     <if test="financeDate != null" > finance_date = #{financeDate,jdbcType=TIMESTAMP}, </if>
+		     <if test="financeFrom != null" > finance_from = #{financeFrom,jdbcType=VARCHAR}, </if>
+		     <if test="financeAmount != null" > finance_amount = #{financeAmount,jdbcType=DECIMAL}, </if>
+		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR}, </if>
+		     <if test="financeProportion != null" > finance_proportion = #{financeProportion,jdbcType=DECIMAL}, </if>
+		     <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
+		     <if test="createUid != null" > create_uid = #{createUid,jdbcType=BIGINT} ,</if>
+		     <if test="createdTime != null" > create_time = #{createdTime,jdbcType=BIGINT}, </if>
+		     <if test="updatedUid != null" > updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
+		     <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+		     
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			    <if test="financeDate != null" >and finance_date = #{financeDate,jdbcType=TIMESTAMP} </if>
+			    <if test="financeFrom != null" >and finance_from = #{financeFrom,jdbcType=VARCHAR} </if>
+			    <if test="financeUnit != null" >and finance_unit = #{financeUnit,jdbcType=VARCHAR} </if>
+			    <if test="financeStatus != null" >and finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.project.ProjectShares">
+		update finance_history
+		<set>
+			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+		     <if test="financeDate != null" > finance_date = #{financeDate,jdbcType=TIMESTAMP}, </if>
+		     <if test="financeFrom != null" > finance_from = #{financeFrom,jdbcType=VARCHAR}, </if>
+		     <if test="financeAmount != null" > finance_amount = #{financeAmount,jdbcType=DECIMAL}, </if>
+		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR}, </if>
+		     <if test="financeProportion != null" > finance_proportion = #{financeProportion,jdbcType=DECIMAL}, </if>
+		     <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
+		   
+		</set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from finance_history
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from finance_history where id = #{id}
+	</delete>
+	
+	
+  
+</mapper>

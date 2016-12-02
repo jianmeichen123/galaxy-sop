@@ -76,7 +76,7 @@
 							<thead>
 								<tr>
 									<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1 th_no1">访谈概况</th>
-									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈记录</th>
+									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈纪要</th>
 									<th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th>
 								</tr>
 							</thead>
@@ -402,7 +402,11 @@ function startReview(){
 				layer.msg("启动内部评审成功!");
 				window.location.reload();
 			}else{
-				layer.msg(data.result.message);
+				if(data.result.errorCode == '401'){
+					layer.msg("无法启动内部评审，需要补全以下信息：商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息。");
+				}else{
+					layer.msg(data.result.message);
+				}
 			}
 		});
 	}

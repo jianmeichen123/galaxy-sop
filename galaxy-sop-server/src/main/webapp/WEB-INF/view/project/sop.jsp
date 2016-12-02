@@ -250,7 +250,7 @@
 						<tr>
 							<th  data-formatter="intervierInfoFormat" class="th_no1">访谈概况</th>
 						<!-- <th data-field="ftgk" >访谈概况</th> -->
-						<th data-field="viewNotes"  data-formatter="tc_viewNotesFormat">访谈日志</th>
+						<th data-field="viewNotes"  data-formatter="tc_viewNotesFormat">访谈纪要</th>
 						</tr>
 					</thead>
 				</table>

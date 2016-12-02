@@ -270,6 +270,7 @@
     	}
     	$("#powindow").remove();
     	$("#popbg").remove();
+    	$.locksCreenOpen();
     	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
     	<%request.removeAttribute("sheduleList");%>
     	//shecudle();

@@ -19,9 +19,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<!-- 校验 -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 </head>
 
@@ -58,7 +55,7 @@
                         <li>
                             <span class="basic_span"><em class="red">*</em>项目名称：</span>
                             <span class="m_r30"><input type="text" class='new_nputr' maxlength="24" id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
-                            <span class="basic_span"><em class="red">*</em>创建时间：</span>
+                            <span class="basic_span" style="margin-left:23px;"><em class="red">*</em>创建时间：</span>
                             <span class="m_r30"><input type="text" class='datepicker-text new_nputr' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>
                         <li>
@@ -68,7 +65,7 @@
 			                    	<option value="">--请选择--</option>
 			                    </select>
                             </span>
-                        	<span class="basic_span"><em class="red">*</em>融资状态：</span>
+                        	<span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
 			                    </select>
@@ -88,21 +85,20 @@
                     <div class="new_r_compile new_bottom_color">
                         <span class="new_ico_financing"></span>
                         <span class="new_color size16 m_r15">融资计划</span>
-                        <span class="new_color_gray">请折算为人民币进行计算</span>
                     </div>  
                     <ul class="basic_ul">
                     	
                         <li>
                             <span class="basic_span">融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
                             </span>
-                            <span class="m_r30">万元人民币</span>
+                            <span class="m_r30">万元</span>
                             <span class="basic_span">项目估值：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
                             </span>
-                            <span class="m_r30">万元人民币</span>
+                            <span class="m_r30">万元</span>
                         </li>
                         <li>
                         	<span class="basic_span">出让股份：</span>
@@ -136,13 +132,7 @@
                     <span class="new_ico_hint"></span>
                     <span class="new_color size16">温馨提示</span>
                 </div>
-                <ul class="basic_right_ul">
-                	<li>有效项目数据的最低标准如下:</li>
-                    <li>1、已录入商业计划书</li>
-                    <li>2、已录入至少一条访谈记录</li>
-                    <li>3、已录入至少一名创业团队成员</li>
-                </ul>     	
-                <p class="basic_p">不满足以上标准的项目数据，将会被系统删除。请尽快将项目信息补充完整，以达到项目数据的最低标准。</p>
+                <p class="basic_p">标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）。</p>
             </div>
         </div>
         <!--右边 end--> 
@@ -158,6 +148,9 @@
 	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew.js'></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness.js'></script>
+<!-- 校验 -->
+<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <script type="text/javascript">
 	/**
 	 * @version 2016-06-21
@@ -173,7 +166,7 @@
 	 * 查询事业线
 	 * @version 2016-06-21
 	 */
-	createCareelineOptions(platformUrl.getCareerlineList,"industryOwn","select");
+	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"industryOwn","industryOwn");
 	/**
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
@@ -287,6 +280,8 @@
   		}
 		
 	})
+	
+
 	
 </script>
 

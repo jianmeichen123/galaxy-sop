@@ -65,6 +65,8 @@ import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
@@ -92,7 +94,9 @@ import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.PassRateService;
+import com.galaxyinternet.service.PersonLearnService;
 import com.galaxyinternet.service.PersonPoolService;
+import com.galaxyinternet.service.PersonWorkService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
@@ -115,6 +119,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private UserRoleService userRoleService;
 	@Autowired
 	private PersonPoolService personPoolService;
+	@Autowired
+	private PersonLearnService personLearnService;
+	@Autowired
+	private PersonWorkService personWorkService;
 	@Autowired
 	private ProjectPersonService projectPersonService;
 	@Autowired
@@ -423,9 +431,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
-				if (queryTwo != null) {
-					project.setIndustryOwnDs(queryTwo.getName());				
+                String name=DictEnum.industryOwn.getNameByCode(
+        		 project.getIndustryOwn().toString());
+			if (name != null) {
+					project.setIndustryOwnDs(name);				
+				}else{
+					project.setIndustryOwnDs(null);
 				}
 			}						
 			
@@ -687,7 +698,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 添加团队成员
 	 * 
 	 * @author yangshuhua
-	 */
+	 *//*
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/app", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -723,7 +734,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			_common_logger_.error("添加团队异常 ",e.getMessage());
 		}
 		return responseBody;
-	}
+	}*/
 
 	/**
 	 * 修改团队成员
@@ -1331,11 +1342,71 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setResult(new Result(Status.OK, null, ""));
 		return responseBody;
 	}
-
+	
+	
+	private boolean validatePersonMessage(Project p){
+		if(p != null){
+			List<PersonPool> personList = personPoolService.selectPersonPoolByPID(p.getId());
+			if(personList != null && personList.size() > 0){
+				for(PersonPool pool : personList){
+					if(pool.getPersonName() != null && !"".equals(pool.getPersonName().trim())
+							&& pool.getPersonSex() != null
+							&& pool.getPersonDuties() != null && !"".equals(pool.getPersonDuties().trim())
+							&& pool.getPersonBirthday() != null
+							//&& (pool.get || (pool.get && pool.get))是否为联系人校验
+							){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	private boolean validateBusinessBook(Project p){
+		if(p != null){
+			SopFile query = new SopFile();
+			query.setProjectId(p.getId());
+			query.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
+			List<SopFile> fList = sopFileService.queryList(query);
+			if(fList != null && fList.size() > 0){
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean validateInterviewRecord(Project p){
+		if(p != null){
+			InterviewRecord query = new InterviewRecord();
+			query.setProjectId(p.getId());
+			List<InterviewRecord> irList = interviewRecordService.queryList(query);
+			if(irList != null && irList.size() > 0){
+				return true;
+			}
+		}
+		return false;
+	}
+	private boolean validateBasicData(Project p){
+		if(p != null 
+				//项目的几个大文本内容必填验证
+				&& p.getProjectDescribe() != null && !"".equals(p.getProjectDescribe().trim())
+				&& p.getProjectBusinessModel() != null && !"".equals(p.getProjectBusinessModel().trim())
+				&& p.getCompanyLocation() != null && !"".equals(p.getCompanyLocation().trim())
+				&& p.getUserPortrait() != null && !"".equals(p.getUserPortrait().trim())
+				&& p.getProjectBusinessModel() != null && !"".equals(p.getProjectBusinessModel().trim())
+				&& p.getIndustryAnalysis() != null && !"".equals(p.getIndustryAnalysis().trim())
+				&& p.getProspectAnalysis() != null && !"".equals(p.getProspectAnalysis())
+				//融资计划不能为空
+				&& p.getProjectContribution() != null && p.getProjectContribution().doubleValue() > 0
+				&& p.getProjectShareRatio() != null && p.getProjectShareRatio().doubleValue() > 0
+				&& p.getProjectValuations() != null && p.getProjectValuations().doubleValue() > 0
+				){
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * 接触访谈阶段: 启动内部评审
-	 * 
-	 * @author yangshuhua
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -1345,6 +1416,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		Project project = projectService.queryById(pid);
+		
+		if(!validateBasicData(project) 
+				|| !validateInterviewRecord(project)
+				|| !validateBusinessBook(project)
+				|| !validatePersonMessage(project)){
+			responseBody.setResult(new Result(Status.ERROR, "401", "前置参数丢失!"));
+			return responseBody;
+		}
 		Result result = validate(DictEnum.projectProgress.接触访谈.getCode(),
 				project, user);
 		if (!result.getStatus().equals(Status.OK)) {
@@ -3278,13 +3357,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				
 				if(project.getIndustryOwn()!=null){
-					Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
-					if (queryTwo != null) {
-						project.setIndustryOwnDs(queryTwo.getName());				
-					}
-				}						
-				
-			} 
+				    String name=DictEnum.industryOwn.getNameByCode(
+			        		 project.getIndustryOwn().toString());
+						if (name != null) {
+								project.setIndustryOwnDs(name);				
+							}else{
+								project.setIndustryOwnDs(null);
+							}
+						}					
+										
+			}
+			
 			request.setAttribute("proinfo", GSONUtil.toJson(project));
 			request.setAttribute("projectId", projectId);
 		}
@@ -3322,6 +3405,332 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/sopinfo/includeRight";
 	}
 	
+	/**
+	 * 添加/编辑  团队成员弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProPerson", method = RequestMethod.GET)
+	public String addProPerson(HttpServletRequest request) {
+		return "project/tanchuan/v_project_person";
+	}
+	
+	/**
+	 * 查看团队信息弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/toProPerView", method = RequestMethod.GET)
+	public String toProPerView(HttpServletRequest request) {
+		return "project/tanchuan/v_look_project_person";
+	}
+	
+	/**
+	 * 添加团队成员
+	 * 1、personPool
+	 * 2、personLearn
+	 * 3、personWork
+	 * 4、projectPerson
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@ResponseBody
+	@RequestMapping(value = "/app", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> addProPersonAndPerInfo(@RequestBody PersonPool pool, HttpServletRequest request) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		
+		try {
+			//PersonPool pool = personResumetc.getPersonPool();
+			if (pool.getProjectId() == null || pool.getProjectId() <= 0 || pool.getPersonName() == null || pool.getPersonTelephone() == null) {
+				responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+				return responseBody;
+			}
+			User user = (User) getUserFromSession(request);
+			Project p = projectService.queryById(pool.getProjectId());
+			// 项目创建者用户ID与当前登录人ID是否一样
+			if (p != null && user.getId().longValue() != p.getCreateUid().longValue()) {
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限为该项目添加团队成员!"));
+				return responseBody;
+			}
+			
+			Long id = projectService.addProPersonAndPerInfo(pool);
+			
+			responseBody.setId(id);
+			responseBody.setResult(new Result(Status.OK, null, "团队成员添加成功!"));
+			//responseBody.setEntity(pool);
+			ControllerUtils.setRequestParamsForMessageTip(request,p.getProjectName(), p.getId());
+		} catch (Exception e) {
+			_common_logger_.error("添加团队成员异常 ",e.getMessage());
+		}
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 团队成员   数据查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProPerInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> queryProPerInfo(HttpServletRequest request, @RequestBody PersonPool query) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		
+		Long total = 0l;
+		List<PersonPool> resultViewList = new ArrayList<PersonPool>();
+		Page<PersonPool> resultViewPage = new Page<PersonPool>(resultViewList, total);
+		
+		try {
+			Long personId = query.getId();
+			if(personId!=null){
+				resultViewList = personPoolService.queryList(query);
+				if(resultViewList!=null && !resultViewList.isEmpty()){
+					resultViewPage.setContent(resultViewList);
+					resultViewPage.setTotal((long) resultViewList.size());
+				}
+			}
+			responseBody.setPageList(resultViewPage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+			_common_logger_.error("queryProPerInfo error", e);
+		}
+		
+		return responseBody;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 添加团队成员-学习经历弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProPerLearning", method = RequestMethod.GET)
+	public String addProPerLearning(HttpServletRequest request) {
+		return "project/tanchuan/v_person_learning";
+	}
+	
+	/**
+	 * 团队成员的学习经历 数据查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProPerLearn", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> queryProPerLearn(HttpServletRequest request, @RequestBody PersonLearn query) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		
+		Long total = 0l;
+		List<PersonLearn> resultViewList = new ArrayList<PersonLearn>();
+		Page<PersonLearn> resultViewPage = new Page<PersonLearn>(resultViewList, total);
+		
+		try {
+			Long personId = query.getPersonId();
+			if(personId!=null){
+				resultViewList = personLearnService.queryList(query);
+				if(resultViewList!=null && !resultViewList.isEmpty()){
+					resultViewPage.setContent(resultViewList);
+					resultViewPage.setTotal((long) resultViewList.size());
+				}
+			}
+			responseBody.setPageList(resultViewPage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历查询失败"));
+			_common_logger_.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+		
+	}
+	
+	/**
+	 * 新增    或   编辑     团队成员的学习经历     
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveOrEditProPerLearn", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> editProPerLearn(HttpServletRequest request, @RequestBody PersonLearn query) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		try {
+			Long personId = query.getPersonId();
+			if(personId ==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "人员id缺失，更新失败"));
+				return responseBody;
+			}
+			if(query.getBeginDateStr()!= null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getBeginDateStr());
+					query.setBeginDate(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getOverDateStr() +" 转  Date 失败" + e);
+				}
+			}
+			if(query.getOverDateStr()!= null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getOverDateStr());
+					query.setOverDate(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getOverDateStr() +" 转  Date 失败" + e);
+				}
+			}
+			if(query.getId()==null){
+				Long id = personLearnService.insert(query);
+				query.setId(id);
+			}else{
+				personLearnService.updateById(query);
+			}
+			
+			responseBody.setId(query.getId());
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			_common_logger_.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+	}
+	
+	/**
+	 * 删除  团队信息的学习经历
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteProPerLearning/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> deleteProPerLearning(@PathVariable("id") Long id, HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		try {
+			if(id == null){
+				responseBody.setResult(new Result(Status.ERROR, null, "id缺失"));
+				return responseBody;
+			}
+			personLearnService.deleteById(id);
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			_common_logger_.error("queryProPerLearn error", e);
+		}
+		return responseBody;
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 添加团队成员-工作经历弹出层
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/addProPerWork", method = RequestMethod.GET)
+	public String addProPerWork(HttpServletRequest request) {
+		return "project/tanchuan/v_person_work";
+	}
+	
+	/**
+	 * 团队成员的工作经历 数据查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProPerWork", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> queryProPerLearn(HttpServletRequest request, @RequestBody PersonWork query) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		
+		Long total = 0l;
+		List<PersonWork> resultViewList = new ArrayList<PersonWork>();
+		Page<PersonWork> resultViewPage = new Page<PersonWork>(resultViewList, total);
+		
+		try {
+			Long personId = query.getPersonId();
+			if(personId!=null){
+				resultViewList = personWorkService.queryList(query);
+				if(resultViewList!=null && !resultViewList.isEmpty()){
+					resultViewPage.setContent(resultViewList);
+					resultViewPage.setTotal((long) resultViewList.size());
+				}
+			}
+			responseBody.setPageList(resultViewPage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历查询失败"));
+			_common_logger_.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+		
+	}
+	
+	/**
+	 * 添加  或  编辑     团队成员的工作经历     
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveOrEditProPerWork", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> editProPerWork(HttpServletRequest request, @RequestBody PersonWork query) {
+		ResponseData<PersonWork> responseBody = new ResponseData<PersonWork>();
+		try {
+			Long personId = query.getPersonId();
+			if(personId ==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "人员id缺失，更新失败"));
+				return responseBody;
+			}
+			
+			if(query.getBeginWorkStr() != null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getBeginWorkStr());
+					query.setBeginWork(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getBeginWorkStr() +" 转  Date 失败" + e);
+				}
+			}
+			if(query.getOverWorkStr() != null){
+				try {
+					Date date = DateUtil.convertStringToDate(query.getOverWorkStr());
+					query.setOverWork(date);
+				} catch (ParseException e) {
+					throw new Exception(query.getOverWorkStr() +" 转  Date 失败" + e);
+				}
+			}
+			
+			if(query.getId()==null){
+				Long id = personWorkService.insert(query);
+				query.setId(id);
+			}else{
+				personWorkService.updateById(query);
+			}
+			
+			responseBody.setId(query.getId());
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			_common_logger_.error("queryProPerLearn error", e);
+		}
+		
+		return responseBody;
+	}
+	
+	/**
+	 * 删除  团队信息的工作经历
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteProPerWork/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> deleteProPerWork(@PathVariable("id") Long id, HttpServletRequest request) {
+		ResponseData<PersonLearn> responseBody = new ResponseData<PersonLearn>();
+		try {
+			if(id == null){
+				responseBody.setResult(new Result(Status.ERROR, null, "id缺失"));
+				return responseBody;
+			}
+			personWorkService.deleteById(id);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"学习经历更新失败"));
+			_common_logger_.error("queryProPerLearn error", e);
+		}
+		return responseBody;
+	}
 	
 	
 	
