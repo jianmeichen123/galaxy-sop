@@ -1353,7 +1353,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							&& pool.getPersonSex() != null
 							&& pool.getPersonDuties() != null && !"".equals(pool.getPersonDuties().trim())
 							&& pool.getPersonBirthday() != null
-							&& (pool.getIsContacts()==0 && pool.getPersonTelephone()!=null)
+							&& (pool.getIsContacts()==1 || (pool.getIsContacts()==0 &&
+							null!=pool.getPersonTelephone()&&!"".equals(pool.getPersonTelephone())))
 							){
 						return true;
 					}
