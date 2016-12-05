@@ -20,7 +20,14 @@
     <div class="right">
       <dl class="fmdl">
         <dt>股东类型：</dt>
-        <dd><input type="text" name="sharesType" value="" class="txt" valType="OTHER" regString="^\S{1,30}$"msg="<font color=red>*</font>不能为空且字符长度最大30"/></dd>
+        <dd>
+	        <select name='sharesType'>
+	           <option>请选择</option>
+	           <option value="自然人">自然人</option>
+	           <option value="法人">法人</option>
+	           <option value="其他">其他</option>
+	        </select>
+        </dd>
       </dl>  
       <%-- <dl class="fmdl">
         <dt>获取方式：</dt>
