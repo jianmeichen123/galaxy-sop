@@ -158,7 +158,7 @@ public class Project extends PagableEntity {
 
     public Double getProjectValuations() {
     	if(this.formatValuations != null && !"".equals(this.formatValuations.trim())){
-			this.projectValuations = NumberUtils.toFormatNoSplit(this.formatValuations.trim());
+			this.projectValuations = NumberUtils.toFormatNoSplitFour(this.formatValuations.trim());
 		}
         return projectValuations;
     }
@@ -169,7 +169,7 @@ public class Project extends PagableEntity {
 
     public Double getProjectContribution() {
     	if(this.formatContribution != null && !"".equals(this.formatContribution.trim())){
-			this.projectContribution = NumberUtils.toFormatNoSplit(this.formatContribution.trim());
+			this.projectContribution = NumberUtils.toFormatNoSplitFour(this.formatContribution.trim());
 		}
         return projectContribution;
     }
