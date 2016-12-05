@@ -373,7 +373,7 @@ $(function(){
 			var projectShareRatio = $("#finalShareRatio_edit").val();
 			var projectContribution = $("#finalContribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(2);
+				return (projectContribution * (100/projectShareRatio)).toFixed(4);
 			}
 			return null;
 		}
