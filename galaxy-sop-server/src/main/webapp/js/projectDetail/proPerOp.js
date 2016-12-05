@@ -437,9 +437,9 @@ function savePersonCallBack(data) {
 		//return;
 	}else{
 		$("#popbg,#powindow").remove();
-		/* var projectId = $("#pid").val();
-		getTabPerson(projectId); */
-		$('#tablePerson').bootstrapTable('querySearch');
+		var projectId = $("#pid").val();
+		getTabPerson(projectId);
+		/*$('#tablePerson').bootstrapTable('querySearch');*/
 	}
 }
 
