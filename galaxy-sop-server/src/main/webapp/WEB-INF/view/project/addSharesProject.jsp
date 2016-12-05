@@ -9,11 +9,11 @@
   <div class="form clearfix">
     <div class="left">
       <dl class="fmdl fml">
-        <dt>所有权人：</dt>
+        <dt>股东：</dt>
         <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^\S{1,20}[^\d]+$" msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
       </dl>
       <dl class="fmdl">
-        <dt>占比：</dt>
+        <dt>股权占比：</dt>
         <dd><input type="text" name="sharesRatio" value="" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
       </dl> 
     </div>
