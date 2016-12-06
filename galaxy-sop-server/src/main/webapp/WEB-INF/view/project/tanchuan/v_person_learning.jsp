@@ -27,19 +27,19 @@
                 </dd>
             </dl>  
             <dl class="fmdl fl">
-                <dt><em class="red">*</em>&nbsp;毕业院校：</dt>
+                <dt>毕业院校：</dt>
                 <dd class="clearfix">
-                    <input name="school" type="text" class="txt" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
+                    <input name="school" type="text" class="txt" allowNULL="yes" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>字符长度最大50"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
-                <dt><em class="red">*</em>&nbsp;专业：</dt>
-                <dd><input name="major" type="text" class="txt" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
+                <dt>专业：</dt>
+                <dd><input name="major" type="text" class="txt" allowNULL="yes" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>字符长度最大50"/></dd>
             </dl>
             <dl class="fmdl fl">
-                <dt><em class="red">*</em>&nbsp;学历：</dt>
+                <dt>学历：</dt>
                 <dd>
-                   <select name="degree"  valType="required" msg="<font color=red>*</font>学历不能为空" >
+                   <select name="degree">
                        <option value="">请选择</option>
                        <option value="高中">高中</option>
                        <option value="大专">大专</option>
@@ -80,17 +80,13 @@ $('input[name="beginDateStr"], input[name="overDateStr"]').val(new Date().format
     currentText: 'Now'
 }); */
 
-$(function(){
-	
-	initDialogValstr("learning");
-	
-	$("#save_person_learning").click(function(){
-		if(beforeSubmitById("learning")){
-			
+$(function(){	
+	initDialogValstr("learning");	
+	$("#save_person_learning").click(function(){		
 			if(beTimeCompare($("#add_person_learning [name='beginDateStr']").val(),$("#add_person_learning [name='overDateStr']").val())){
 				savePersonLearning();				
 			}
-		}
+		
 		
 	});
 });
