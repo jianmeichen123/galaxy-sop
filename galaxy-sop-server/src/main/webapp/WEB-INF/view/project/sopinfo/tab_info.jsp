@@ -205,7 +205,7 @@
               </div>
               <div class="project_center">
 		<div class="new_r_compile ">
-			<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
+			<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox">
 				<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
