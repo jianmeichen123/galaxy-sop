@@ -1712,7 +1712,7 @@ word-wrap:break-word;
 #tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:35px !important;}
  */
  /*股权结构*/
-.sharesType{padding-left:30px !important;}
+#shares-table th{padding-left:30px !important;}
 #shares-table td{padding-left:35px !important;}
 .stock{border-radius: 6px;}
 .title{height: 45px;line-height: 44px;border-bottom:1px solid #e6e8f1;padding:0 20px;position: relative;}
