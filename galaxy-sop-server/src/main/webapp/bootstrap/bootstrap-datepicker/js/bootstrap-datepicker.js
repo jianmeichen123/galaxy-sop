@@ -600,6 +600,7 @@
 
 		setValue: function(){
 			var formatted = this.getFormattedDate();
+			//console.log(formatted)
 			if (!this.isInput){
 				if (this.component){
 					this.element.find('input').val(formatted);
@@ -607,6 +608,9 @@
 			}
 			else {
 				this.element.val(formatted);
+				if(this.element.val()=="NaN-NaN-NaN" || this.element.val()=="NaN-NaN" || this.element.val()=="NaN"){
+					this.element.val("至今")
+				}
 			}
 			return this;
 		},
@@ -896,6 +900,7 @@
 				endMonth = this.o.endDate !== Infinity ? this.o.endDate.getUTCMonth() : Infinity,
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
+				upToNowtxt = dates[this.o.language].upToNow || dates['en'].upToNow || '',
 				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
 				tooltip;
 			if (isNaN(year) || isNaN(month))
@@ -908,6 +913,9 @@
 			this.picker.find('tfoot .clear')
 						.text(cleartxt)
 						.toggle(this.o.clearBtn !== false);
+			this.picker.find('tfoot .upToNow')
+			.text(upToNowtxt)
+			.toggle(this.o.upToNowBtn !== false);
 			this.picker.find('thead .datepicker-title')
 						.text(this.o.title)
 						.toggle(this.o.title !== '');
@@ -1100,6 +1108,7 @@
 			var target = $(e.target).closest('span, td, th'),
 				year, month, day;
 			if (target.length === 1){
+				//console.log(target[0].className)
 				switch (target[0].nodeName.toLowerCase()){
 					case 'th':
 						switch (target[0].className){
@@ -1125,8 +1134,13 @@
 								break;
 							case 'today':
 								this.showMode(-2);
+								this.clearDates();
 								var which = this.o.todayBtn === 'linked' ? null : 'view';
 								this._setDate(UTCToday(), which);
+								break;
+							case 'upToNow':
+								this.clearDates();
+								this._setDate("至今");
 								break;
 							case 'clear':
 								this.clearDates();
@@ -1139,7 +1153,13 @@
 							if (target.hasClass('month')){
 								day = 1;
 								month = target.parent().find('span').index(target);
-								year = this.viewDate.getUTCFullYear();
+								//year = this.viewDate.getUTCFullYear();  
+								if(year="NaN"){ //加入“至今”选择后更改年份
+									year=$(".datepicker-switch").text().substring(0,4);
+								}else{
+									year = this.viewDate.getUTCFullYear();
+								}
+								
 								this.viewDate.setUTCMonth(month);
 								this._trigger('changeMonth', this.viewDate);
 								if (this.o.minViewMode === 1){
@@ -1164,6 +1184,7 @@
 						}
 						break;
 					case 'td':
+						this.clearDates();
 						if (target.hasClass('day') && !target.hasClass('disabled')){
 							day = parseInt(target.text(), 10)||1;
 							year = this.viewDate.getUTCFullYear();
@@ -1640,6 +1661,7 @@
 		startDate: -Infinity,
 		startView: 0,
 		todayBtn: false,
+		upToNowBtn: false,
 		todayHighlight: false,
 		weekStart: 0,
 		disableTouchKeyboard: false,
@@ -1665,6 +1687,7 @@
 			monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 			today: "Today",
 			clear: "Clear",
+			upToNow:"upToNow",
 			titleFormat: "MM yyyy"
 		}
 	};
@@ -1855,6 +1878,9 @@
 							'<tr>'+
 								'<th colspan="7" class="clear"></th>'+
 							'</tr>'+
+							'<tr>'+
+							'<th colspan="7" class="upToNow"></th>'+
+						'</tr>'+
 						'</tfoot>'
 	};
 	DPGlobal.template = '<div class="datepicker">'+
