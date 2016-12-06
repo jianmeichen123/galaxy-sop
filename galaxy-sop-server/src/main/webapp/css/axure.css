@@ -1700,6 +1700,8 @@ word-wrap:break-word;
 .sort .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
+#tablePerson th,#project_delivery_table th,#meetGrid th{padding-left:25px;}
+#tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:30px !important;}
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px; overflow:hidden;}
 .member .delivery a{margin-right: 10px;}
