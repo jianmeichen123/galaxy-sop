@@ -372,6 +372,7 @@ $(function(){
 	    forceParse:false,
 	    currentText: 'Now',
 	    minViewMode: 1,
+	    orientation: "bottom left",
 	    //defaultViewDate: new Date()
 	    //daysOfWeekDisabled: "0",
 	    //daysOfWeekHighlighted: "0",
@@ -404,6 +405,7 @@ $(function(){
 	    forceParse:false,
 	    currentText: 'Now',
 	    minViewMode: 1,
+	    orientation: "bottom left",
 	    //defaultViewDate: new Date()
 	    //daysOfWeekDisabled: "0",
 	    //daysOfWeekHighlighted: "0",
