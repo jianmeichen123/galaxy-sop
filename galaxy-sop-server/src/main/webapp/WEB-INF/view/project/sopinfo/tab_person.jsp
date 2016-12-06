@@ -31,7 +31,7 @@
 		
 		<!--表格内容-->
 		<div class="tab-pane active commonsize" id="view">
-			<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
+			<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
 			</table>
 		</div>
 

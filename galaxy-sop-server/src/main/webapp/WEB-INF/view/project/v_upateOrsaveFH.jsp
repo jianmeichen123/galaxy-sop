@@ -29,7 +29,7 @@
             <dl class="fmdl clearfix">
                  <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="no" msg="<font color=red>*</font>支持两位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
