@@ -37,6 +37,7 @@ public class Project extends PagableEntity {
     private String projectProgress;
     private String projectStatus;
     private String projectDescribe;
+    private String projectDescribeFinancing;
     private String projectBusinessModel;
     private String companyLocation;
     private String userPortrait;
@@ -615,8 +616,15 @@ public class Project extends PagableEntity {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public String getProjectDescribeFinancing() {
+		return projectDescribeFinancing;
+	}
+
+	public void setProjectDescribeFinancing(String projectDescribeFinancing) {
+		this.projectDescribeFinancing = projectDescribeFinancing;
+	}
    
-	
  
 
 
