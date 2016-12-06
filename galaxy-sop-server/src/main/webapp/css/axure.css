@@ -1105,7 +1105,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .studyxpricetc table{margin-bottom: 20px;}
 .btn_center{position: absolute;left: 50%;margin-left: -40px;}
 /* 股权结构弹窗 */
-.form_textarea textarea{width:430px;font-size: 12px !important;font-family: '宋体';}
+#stock_form .form_textarea textarea{width:290px;height:100px;font-size: 12px !important;font-family: '宋体';}
+#stock_form .pubbtn{margin: 20px 0 0 133px;}
 /* 重置密码 */
 .resettc{ width:330px; padding:40px 0}
 .resettc .tips{ line-height:22px; font-size:14px; color:#1f2128; }
