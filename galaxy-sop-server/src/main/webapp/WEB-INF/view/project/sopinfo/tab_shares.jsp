@@ -71,7 +71,7 @@
     <div id="shares-custom-toolbar">
 		<input type="hidden" name="projectId" value="${projectId }">
 	</div>	
-  	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
+  	<table id="shares-table" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
    	<thead>
 	    <tr>
 	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">股东类型</th>

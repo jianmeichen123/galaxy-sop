@@ -23,23 +23,23 @@
                 <dl class="fmdl fl">
                     <dt><em class="red">*</em>&nbsp;时间：</dt>
                    	<dd class="clearfix">   <!-- type="text" class="datetimepickerHour txt time fl" -->
-	                	<input name="beginWorkStr" type="text" class="datepicker-month-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
+	                	<input name="beginWorkStr" type="text" class="datepicker-month-start-text fl txt time" readonly valType="required" msg="<font color=red>*</font>开始时间不能为空"/>
 	                	<span class="fl">&nbsp;至&nbsp;</span>
 	                	<input name="overWorkStr" type="text" class="datepicker-month-text fl txt time" readonly valType="required" msg="<font color=red>*</font>结束时间不能为空"/>
                     </dd>
                 </dl>
                 
                 <dl class="fmdl fl">
-                    <dt><em class="red">*</em>&nbsp;任职公司名称：</dt>
+                    <dt>任职公司名称：</dt>
                     <dd class="clearfix">
-                        <input type="text" name="companyName" class="txt" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
+                        <input type="text" name="companyName" class="txt" allowNULL="yes" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>字符长度最大50"/>
                     </dd>
                 </dl>
                 
                 <dl class="fmdl fl">
-                    <dt><em class="red">*</em>&nbsp;职位：</dt>
+                    <dt>职位：</dt>
                     <dd>
-                    	<input type="text" name="workPosition" class="txt" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能为空且字符长度最大50"/>
+                    	<input type="text" name="workPosition" class="txt" allowNULL="yes" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>字符长度最大50"/>
                     </dd>
                 </dl>
                 
@@ -77,11 +77,9 @@ $(function(){
 	initDialogValstr("working");
 	
 	$("#save_per_work").click(function(){
-		if(beforeSubmitById("working")){
 			if(beTimeCompare($("#add_person_work [name='beginWorkStr']").val(),$("#add_person_work [name='overWorkStr']").val())){
 				savePersonWork();
 			}
-		}
 	});
 });
 

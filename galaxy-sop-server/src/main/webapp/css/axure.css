@@ -1105,7 +1105,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .studyxpricetc table{margin-bottom: 20px;}
 .btn_center{position: absolute;left: 50%;margin-left: -40px;}
 /* 股权结构弹窗 */
-.form_textarea textarea{width:430px;font-size: 12px !important;font-family: '宋体';}
+#stock_form .form_textarea textarea{width:290px;height:100px;font-size: 12px !important;font-family: '宋体';}
+#stock_form .pubbtn{margin: 20px 0 0 133px;}
 /* 重置密码 */
 .resettc{ width:330px; padding:40px 0}
 .resettc .tips{ line-height:22px; font-size:14px; color:#1f2128; }
@@ -1699,6 +1700,8 @@ word-wrap:break-word;
 .sort .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
+#tablePerson th,#project_delivery_table th,#meetGrid th{padding-left:25px;}
+#tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:30px !important;}
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px; overflow:hidden;}
 .member .delivery a{margin-right: 10px;}
@@ -1712,7 +1715,7 @@ word-wrap:break-word;
 #tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:35px !important;}
  */
  /*股权结构*/
-.sharesType{padding-left:30px !important;}
+#shares-table th{padding-left:30px !important;}
 #shares-table td{padding-left:35px !important;}
 .stock{border-radius: 6px;}
 .title{height: 45px;line-height: 44px;border-bottom:1px solid #e6e8f1;padding:0 20px;position: relative;}

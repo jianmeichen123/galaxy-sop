@@ -1,7 +1,7 @@
 
 
 function getTabPerson(){
-	var html='<table id="tablePerson"  data-height="555" data-id-field="id" data-unique-id="id" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
+	var html='<table id="tablePerson"  data-id-field="id" data-unique-id="id" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
 	$("#view").html(html);
 	var $table = $('#tablePerson');
     $table.bootstrapTable({
@@ -520,7 +520,7 @@ function learn_TimeFormat(value, row, index) {
 		estr = row.overDate;
 		estr = new Date(estr).format("yyyy-MM");
 	}else{
-		estr="-";
+		estr="至今";
 	}
 	
 	//return bstr +" - "+ estr ;
@@ -580,6 +580,8 @@ function toAddPersonLearning(selectIndex){
 				}else if(learnSelectRow.overDate && learnSelectRow.overDate !=null){
 					var str = new Date(learnSelectRow.overDate).format("yyyy-MM");
 					$("#add_person_learning [name='overDateStr']").val(str);
+				}else{
+					$("#add_person_learning [name='overDateStr']").val("至今");
 				}
 				
 			 	if(learnSelectRow.school && typeof(learnSelectRow.school)!='undefined' ) $("#add_person_learning [name='school']").val(learnSelectRow.school);
@@ -770,7 +772,7 @@ function work_TimeFormat(value, row, index) {
 		estr = row.overWork;
 		estr = new Date(estr).format("yyyy-MM");
 	}else{
-		estr = "-";
+		estr = "至今";
 	}
 	
 	//return bstr +" - "+ estr ;
@@ -827,6 +829,8 @@ function toAddPersonWork(selectIndex){
 				}else if(workSelectRow.overWork && workSelectRow.overWork !=null){
 					var str = new Date(workSelectRow.overWork).format("yyyy-MM");
 					$("#add_person_work [name='overWorkStr']").val(str);
+				}else{
+					$("#add_person_work [name='overWorkStr']").val("至今");
 				}
 				
 			 	if(workSelectRow.companyName && typeof(workSelectRow.companyName)!='undefined' )  $("#add_person_work [name='companyName']").val(workSelectRow.companyName);

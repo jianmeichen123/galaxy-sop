@@ -3444,6 +3444,29 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 				return responseBody;
 			}
+			//学习简历时间
+			List<PersonLearn> personLearn = pool.getPlc();
+			if(personLearn != null && personLearn.size() > 0){
+				for(PersonLearn pl : personLearn){
+					if(StringUtils.isNotEmpty(pl.getOverDateStr())
+							&& "至今".equals(pl.getOverDateStr())){
+						pl.setOverDate(null);
+						pl.setOverDateStr(null);
+					}
+				}
+			}
+			//工作简历时间
+			List<PersonWork> personWork = pool.getPwc();
+			if(personWork != null && personWork.size() > 0){
+				for(PersonWork pw : personWork){
+					if(StringUtils.isNotEmpty(pw.getOverWorkStr())
+							&& "至今".equals(pw.getOverWorkStr())){
+						pw.setOverWork(null);
+						pw.setOverWorkStr(null);
+					}
+				}
+			}
+			
 			User user = (User) getUserFromSession(request);
 			Project p = projectService.queryById(pool.getProjectId());
 			// 项目创建者用户ID与当前登录人ID是否一样
