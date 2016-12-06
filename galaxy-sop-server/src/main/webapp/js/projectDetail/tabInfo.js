@@ -187,8 +187,10 @@ $(function(){
 				    }
 					 
 				}
-			if(projectInfo.projectDescribe){
-				$("#describe_show").html(projectInfo.projectDescribe);
+			if(projectInfo.projectDescribeFinancing){
+				console.log();
+				$("#describe_editor").val(projectInfo.projectDescribeFinancing);
+				$("#describe_show").html(projectInfo.projectDescribeFinancing);
 				$("#descript").hide();
 				$('.describe_show').show();
 				display_show("describe_show");
@@ -197,9 +199,9 @@ $(function(){
 				$("#describe_show").html('');
 			}
 			//业务亮点
-			if(projectInfo.projectDescribeFinancing){
-				$("#describe2_show").html(projectInfo.projectDescribeFinancing);
-				describeUm2.setContent(projectInfo.projectDescribeFinancing);
+			if(projectInfo.projectDescribe){
+				$("#describe2_show").html(projectInfo.projectDescribe);
+				describeUm2.setContent(projectInfo.projectDescribe);
 				$("#descript").hide();
 				$('.describe_show').show();
 				display_show("describe2_show");
@@ -227,14 +229,14 @@ $(function(){
 				//兼容历史数据-为空
 				if(!projectInfo.projectDescribe){
 					//$("#describe_show_div").hide();
-					$("#describe_show").html('');
-					$("#describe2_show").html(projectInfo.projectDescribeFinancing);
+					$("#describe2_show").html('');
+					$("#describe_show").html(projectInfo.projectDescribeFinancing);
 				}
 				
 				
 			}else{
 				//历史数据-为空
-				if(!projectInfo.projectDescribe){
+				if(!projectInfo.projectDescribeFinancing){
 					$('.describe_show').hide();
 					$("#describe2_show").html('');
 				}else{
@@ -509,9 +511,11 @@ $(function(){
 		$("#save_describe").click(function(){
 //			var um = UM.getEditor('describe_editor');
 			var projectDescribe = describeUm2.getContent();
+			var projectDescribeFinancing=$("#describe_editor");
+			var textarea=projectDescribeFinancing.val();
 			//var projectDescribeFinancing = describeUm2.getContent();
 			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess);
+				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":textarea}, saveSuccess);
 			}
 		});
 
