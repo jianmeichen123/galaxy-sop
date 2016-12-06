@@ -190,7 +190,7 @@
                   <div class="describe1">
 								<span class="basic_span1"><em class="red">*</em>商业模式：</span>
 							 	<!-- <div id="describe_editor" type="text/plain" class='width_fwb'></div>   -->
-							 	<textarea rows="" cols="" id="describe_editor"></textarea>
+							 	<textarea rows="" cols="" id="describe_editor" class="new_nputr text"></textarea>
 							</div>
 							<div class="describe2">
 								<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>

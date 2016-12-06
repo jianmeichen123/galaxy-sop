@@ -1,4 +1,5 @@
 $(function(){
+		
 		var width_fwb=$('.tabtable_con_on').width();
 		$('.width_fwb').css('width',(width_fwb-20));
 
@@ -22,7 +23,6 @@ $(function(){
 		}
 		
 //		UM.getEditor('editor');
-		var describeUm = $("#describe_editor");
 		var describeUm2 = UM.getEditor('describe_editor2');
 		var companyUm = UM.getEditor('company_editor');
 		var portraitUm = UM.getEditor('portrait_editor');
@@ -52,7 +52,6 @@ $(function(){
 			$('.'+open+'_on').show();
 			$('.'+open+'_center').hide();
 			$('.bj_hui_on').show();
-			responseData();
 		})
 		//统一关
 		$('[data-on="close"]').on('click',function(){
@@ -71,20 +70,7 @@ $(function(){
 		$("#project_name").attr("title",projectInfo.projectName);
 		
 		
-		/**
-		 * 组装数据
-		 */
-		function responseData(){
-		/*	$("#describe_editor").html($("#describe_show").html());
-		*/	$("#describe_editor2").html($("#describe2_show").html());
-			$("#company_editor").html($("#location_show").html());
-			$("#portrait_editor").html($("#portrait_show").html());
-			$("#business_editor").html($("#business_model_show").html());
-			$("#operation_editor").html($("#operational_data_show").html());
-			$("#industry_editor").html($("#industry_analysis_show").html());
-			$("#analysis_editor").html($("#analysis_show").html());
-			$("#next_financing_editor").html($("#next_financing_source_show").html());
-		}
+		
 		
 		
 	   /**
@@ -119,8 +105,7 @@ $(function(){
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
-			$("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
-			console.log(projectInfo.remark)
+		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			var p;
@@ -148,20 +133,21 @@ $(function(){
 				$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
-				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)
+				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)				
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').attr("checked","checked");
 					$("#faNameEdit").val(projectInfo.faName);
 					$("#faNameEdit").css("display","block");
 				}
 				 p=projectInfo.industryOwn;
+				 console.log(p);
 			    fs=projectInfo.financeStatus;
 			    var sectionName = $(this).data('name');
 			    if('basic' == sectionName)
 		    	{
 			    	//融资
 			    	sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
-			    	sendGetRequest(platformUrl.getDepartMentDict+"/all",null,CallBackA);
+			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
 			    	
 			    	initDialogVal();
 		    	}
@@ -170,7 +156,7 @@ $(function(){
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel");
 			    var childNum = _dom.find("option").length;
-			    if(!childNum || childNum ==0 ){
+			    if(!childNum || childNum !=0 ){
 			    	$.each(data.entityList,function(){
 						if(this.code){
 							if(this.code==fs){
@@ -190,39 +176,28 @@ $(function(){
 			function CallBackA(data){
 			       var _dom=$("#industry_own_sel");
 			       var childNum = _dom.find("option").length;
-				    if(!childNum || childNum ==0 ){
+				    if(!childNum || childNum !=0 ){
 				    	$.each(data.entityList,function(){
-							if(this.code){
-								_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
-							}else{
-								if(this.id==p){
-									_dom.append("<option selected value='"+this.id+"'>"+this.name+"</option>");
+								if(this.code==p){
+									_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
 								}else{
-									_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
+									_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
 								}
-							}
-							
 						});
 				    }
 					 
 				}
-			//项目描述
 			if(projectInfo.projectDescribe){
-//				var um = UM.getEditor('describe_editor');
 				$("#describe_show").html(projectInfo.projectDescribe);
-				describeUm.val(projectInfo.projectDescribe);
 				$("#descript").hide();
 				$('.describe_show').show();
 				display_show("describe_show");
-				
 			}else{
 				$('.describe_show').hide();
 				$("#describe_show").html('');
 			}
 			//业务亮点
 			if(projectInfo.projectDescribeFinancing){
-//				var um = UM.getEditor('describe_editor');
-				
 				$("#describe2_show").html(projectInfo.projectDescribeFinancing);
 				describeUm2.setContent(projectInfo.projectDescribeFinancing);
 				$("#descript").hide();
@@ -269,9 +244,6 @@ $(function(){
 				
 				
 			}
-			
-			
-			
 			
 			if(projectInfo.projectBusinessModel){
 //				var um = UM.getEditor('business_editor');
@@ -360,23 +332,19 @@ $(function(){
 					str+='<span class="show_more">',
 					str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
 					str+='</span>';
-					$('#'+obj).parent().append(str);
-					$('#'+obj).css({'height':'100px','overflow':'hidden'});
-					$('#'+obj).parent().css('height','120px')
+					$('#'+obj).append(str);
+					$('#'+obj).parent().css('height','100px')
 				}
 			}
-			$('.new_top_color_new').delegate(".f4","click",function(){
+			$('.new_top_color').delegate(".f4","click",function(){
 				$(this).hide();
-				$(this).siblings('.f3').show();
-				$(this).parent().siblings('p').css('height','auto');
-				var H1=$(this).parent().siblings('p').height();
-				$(this).parent().parent().css('height',H1+20)
+				$(this).parent().children('.f3').show();
+				$(this).parent().parent().parent().css('height','auto')
 			}) 
-			$('.new_top_color_new').delegate(".f3","click",function(){
+			$('.new_top_color').delegate(".f3","click",function(){
 				$(this).hide();
-				$(this).siblings('.f4').show();
-				$(this).parent().siblings('p').css('height','100px');
-				$(this).parent().parent().css('height','120px');
+				$(this).parent().children('.f4').show();
+				$(this).parent().parent().parent().css('height','100px')
 			}) 
 			/**
 			 * 商业计划
@@ -417,7 +385,7 @@ $(function(){
 			var projectShareRatio = $("#project_share_ratio_edit").val();
 			var projectContribution = $("#project_contribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(2);
+				return (projectContribution * (100/projectShareRatio)).toFixed(4);
 			}
 			return null;
 		}
@@ -452,7 +420,7 @@ $(function(){
 			var projectShareRatio = $("#finalShareRatio_edit").val();
 			var projectContribution = $("#finalContribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(2);
+				return (projectContribution * (100/projectShareRatio)).toFixed(4);
 			}
 			return null;
 		}
@@ -469,37 +437,8 @@ $(function(){
 				return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
 			}
 		}
-		$('#project_valuations_edit').change(function(){
-			if($(this).val() == '' || !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
-				$("#valuations-tip").css("display","block");
-			}else{
-				$("#valuations-tip").css("display","none");
-			}
-		});
-		$('#project_valuations_edit').blur(function(){
-			if($(this).val() == '' || !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test($(this).val())){
-				$("#valuations-tip").css("display","block");
-			}else{
-				$("#valuations-tip").css("display","none");
-			}
-		});
 		$("[data-on='save']").click(function(){
-			$("#valuations-tip").css("display","none");
-			var formatValuations = $('#project_valuations_edit').val();
-			if(formatValuations == '' || !new RegExp("^(([1-9][0-9]{0,10})|([0-9]{1,11}\.[1-9]{1,2})|([0-9]{1,11}\.[0][1-9]{1})|([0-9]{1,11}\.[1-9]{1}[0])|([1-9][0-9]{0,10}\.[0][0]))$").test(formatValuations)){
-				$("#valuations-tip").css("display","block");
-				return;
-			}
 			var data=getUpdateData();
-			//增加来源FA信息验证
-			var faFlag=$('input:radio[name="faFlag"]:checked').val();
-			if(faFlag=="1"){
-				var faNameEditVal=$("#faNameEdit").val();
-				if(faNameEditVal=="请输入FA名称"){
-					layer.msg("请输入FA名称!");
-					return false;
-				}
-			}
 			if(beforeSubmit()){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 					layer.msg("修改项目基本信息成功!");
@@ -549,7 +488,6 @@ $(function(){
 		  	               "faFlag":faFlag,
 		  	               "faName":faName,
 		  	               "remark":remark
-		  	             
 		  	               
 			};
 			return formatData;
@@ -568,17 +506,12 @@ $(function(){
 		/**
 		 * 保存项目描述
 		 */
-		$("#describe_editor").blur(function(){   //商业描述50字以内，超过50字，限制输入
-			var content = describeUm.getContentTxt();
-			describeUm.setContent(content.substring(0,50));
-			//describeUm.focus(true);
-		})
 		$("#save_describe").click(function(){
 //			var um = UM.getEditor('describe_editor');
-			var projectDescribe = describeUm.getContent();
-			var projectDescribeFinancing = describeUm2.getContent();
+			var projectDescribe = describeUm2.getContent();
+			//var projectDescribeFinancing = describeUm2.getContent();
 			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":projectDescribeFinancing}, saveSuccess);
+				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess);
 			}
 		});
 
@@ -660,3 +593,4 @@ $(function(){
 			
 		});
 });
+
