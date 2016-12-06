@@ -183,11 +183,19 @@
 		</span></li>
 	</ul>
 </div>
-<!--项目概述-->
+
 <div class="tabtable_con_on" >
-	<div class="project_on " >
+	<div class="project_on " style="height:560px;">
 		<div class="title_bj_tzjl">项目描述</div>
-                   <div id="describe_editor" type="text/plain" class='width_fwb'></div>  
+                  <div class="describe1">
+								<span class="basic_span1"><em class="red">*</em>商业模式：</span>
+							 	<!-- <div id="describe_editor" type="text/plain" class='width_fwb'></div>   -->
+							 	<textarea rows="" cols="" id="describe_editor"></textarea>
+							</div>
+							<div class="describe2">
+								<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
+							 	<div id="describe_editor2" type="text/plain" class='width_fwb'></div>  
+							</div>
                      <div class="compile_on_center">
                         <div class="compile_on_right">
                             <span class="pubbtn bluebtn" id="save_describe">保存</span>
@@ -197,16 +205,18 @@
               </div>
               <div class="project_center">
 		<div class="new_r_compile ">
-			<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
+			<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
 			<c:if test="${isEditable}">
 			<span class="new_fctbox">
 				<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color describe_show" >
-			<span class="ico_dot ico"></span>
-			<p id="describe_show"></p>
+		<div class="new_ul_all new_top_color describe_show clearfix" >
+			<div id="describe_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">商业模式</span></div>
+			<p style="padding-left:22px" id="describe_show" valiate="required"></p>
+			<div id="describe2_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;">业务简要概述和项目亮点</span></div>
+			<p style="padding-left:22px" id="describe2_show" valiate="required"></p>
 		</div>
 	</div>
 </div>
