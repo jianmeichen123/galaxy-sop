@@ -130,7 +130,7 @@
                            </tr>
 
                  <tr>
-                      <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><textarea maxlength="50" id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^.{0,50}$" msg="<font color=red>*</font>不能超过50字符"></textarea></span></td>
+                      <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><textarea id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></textarea></span></td>
                  </tr>
 	        </table>  
 	        
@@ -185,12 +185,12 @@
 </div>
 
 <div class="tabtable_con_on" >
-	<div class="project_on " style="height:560px;">
+	<div class="project_on " style="height:420px;">
 		<div class="title_bj_tzjl">项目描述</div>
                   <div class="describe1">
 								<span class="basic_span1"><em class="red">*</em>商业模式：</span>
 							 	<!-- <div id="describe_editor" type="text/plain" class='width_fwb'></div>   -->
-							 	<textarea rows="" cols="" id="describe_editor" class="new_nputr text"></textarea>
+							 	<textarea rows="" cols="" id="describe_editor" class="new_nputr text" placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></textarea>
 							</div>
 							<div class="describe2">
 								<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
@@ -231,7 +231,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color location_show">
+		<div class="new_ul_all new_top_color new_top_color_new location_show">
 			<span class="ico_dot ico"></span>
 			<p id="location_show"></p>
 		</div>
@@ -259,7 +259,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color portrait_show">
+		<div class="new_ul_all new_top_color new_top_color_new portrait_show">
 			<span class="ico_dot ico"></span>
 			<p id="portrait_show"></p>
 		</div>
@@ -289,7 +289,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color business_model_show">
+		<div class="new_ul_all new_top_color new_top_color_new business_model_show">
 			<span class="ico_dot ico"></span>
 			<p id="business_model_show"></p>
 		</div>
@@ -317,7 +317,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color operational_data_show">
+		<div class="new_ul_all new_top_color new_top_color_new operational_data_show">
 			<span class="ico_dot ico"></span>
 			<p id="operational_data_show"></p>
 		</div>
@@ -347,7 +347,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color industry_analysis_show">
+		<div class="new_ul_all new_top_color new_top_color_new industry_analysis_show">
 			<span class="ico_dot ico"></span>
 			<p id="industry_analysis_show"></p>
 		</div>
@@ -375,7 +375,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color analysis_show">
+		<div class="new_ul_all new_top_color new_top_color_new analysis_show">
 			<span class="ico_dot ico"></span>
 			<p id="analysis_show"></p>
 		</div>
@@ -403,7 +403,7 @@
 			</span>
 			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color next_financing_source_show">
+		<div class="new_ul_all new_top_color new_top_color_new next_financing_source_show">
 			<span class="ico_dot ico"></span>
 			<p id="next_financing_source_show"></p>
 		</div>

@@ -334,19 +334,23 @@ $(function(){
 					str+='<span class="show_more">',
 					str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
 					str+='</span>';
-					$('#'+obj).append(str);
-					$('#'+obj).parent().css('height','100px')
+					$('#'+obj).parent().append(str);
+					$('#'+obj).css({'height':'100px','overflow':'hidden'});
+					$('#'+obj).parent().css('height','120px')
 				}
 			}
-			$('.new_top_color').delegate(".f4","click",function(){
+			$('.new_top_color_new').delegate(".f4","click",function(){
 				$(this).hide();
 				$(this).parent().children('.f3').show();
-				$(this).parent().parent().parent().css('height','auto')
+				$(this).parent().siblings('p').css('height','auto');
+				var H1=$(this).parent().siblings('p').height();
+				$(this).parent().parent().css('height',H1+20)
 			}) 
-			$('.new_top_color').delegate(".f3","click",function(){
+			$('.new_top_color_new').delegate(".f3","click",function(){
 				$(this).hide();
 				$(this).parent().children('.f4').show();
-				$(this).parent().parent().parent().css('height','100px')
+				$(this).parent().siblings('p').css('height','100px');
+				$(this).parent().parent().css('height','120px');
 			}) 
 			/**
 			 * 商业计划
