@@ -1417,12 +1417,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		Project project = projectService.queryById(pid);
-		
+		String message="无法启动内部评审，需要补全以下信息：商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息。";
 		if(!validateBasicData(project) 
 				|| !validateInterviewRecord(project)
 				|| !validateBusinessBook(project)
 				|| !validatePersonMessage(project)){
-			responseBody.setResult(new Result(Status.ERROR, "401", "前置参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, "401", message));
 			return responseBody;
 		}
 		Result result = validate(DictEnum.projectProgress.接触访谈.getCode(),
