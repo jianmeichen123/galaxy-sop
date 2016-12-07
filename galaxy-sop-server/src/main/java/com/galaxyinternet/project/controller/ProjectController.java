@@ -3654,7 +3654,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String addProPerWork(HttpServletRequest request) {
 		return "project/tanchuan/v_person_work";
 	}
-	
+	/**
+	 * 启动内部评审失败提示框弹出
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/prompt", method = RequestMethod.GET)
+	public String prompt(HttpServletRequest request) {
+		return "project/prompt";
+	}
 	/**
 	 * 团队成员的工作经历 数据查询
 	 */
