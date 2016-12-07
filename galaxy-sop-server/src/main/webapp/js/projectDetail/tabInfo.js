@@ -189,7 +189,7 @@ $(function(){
 				}
 			if(projectInfo.projectDescribeFinancing){
 				console.log();
-				$("#describe_editor").val(projectInfo.projectDescribeFinancing);
+				$("#describe_editor").val(delHtmlTag(projectInfo.projectDescribeFinancing));
 				$("#describe_show").html(projectInfo.projectDescribeFinancing);
 				$("#descript").hide();
 				$('.describe_show').show();
