@@ -46,3 +46,13 @@
   </form>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+<script>
+var sharesType='${share.sharesType}';
+var options= $("select[name='sharesType'] option");
+for(var i=0;i<options.length;i++){
+	if(options[i].value==sharesType){
+		options[i].selected='selected';
+	}
+}
+
+</script>
