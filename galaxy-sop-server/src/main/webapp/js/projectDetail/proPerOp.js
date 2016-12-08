@@ -39,7 +39,7 @@ function getTabPerson(){
 					valign : 'middle',
 					formatter : 'sexFormat'
 				}, {
-					title : '出生年月',
+					title : '出生年份',
 					field : 'personBirthday',
 	
 					valign : 'middle',
