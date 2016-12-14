@@ -2343,3 +2343,6 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 
 
 .financeHistory{margin-top:10px;}
+.prompttc{width:400px;}
+.prompttc .tips{margin:20px auto 0;width:350px;font-size:14px;}
+.prompttc .tipspc{background:url(../img/tips.png) 0 -16px no-repeat;display:inline-block;width:25px;height:25px;position:absolute;top:0;left:0;}
