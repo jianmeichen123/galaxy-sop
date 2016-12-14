@@ -14,9 +14,11 @@
 		<dl class="fmdl clearfix">
 			<dt>健康状况：</dt>
 			<dd>
+			    <label class="radio"> <input type="radio" name="healthState" value="0"> 初始 </label> 
 				<label class="radio"> <input type="radio" name="healthState" value="1"> 高于预期 </label> 
 				<label class="radio"> <input type="radio" name="healthState" value="2" checked="checked"> 正常 </label> 
 				<label class="radio"> <input type="radio" name="healthState" value="3"> 健康预警 </label>
+				<label class="radio"> <input type="radio" name="healthState" value="4"> 清算 </label>
 			</dd>
 		</dl>
 		
