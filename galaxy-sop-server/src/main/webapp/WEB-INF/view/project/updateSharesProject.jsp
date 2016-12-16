@@ -10,18 +10,25 @@
   <div class="form clearfix">
     <div class="left">
       <dl class="fmdl fml">
-        <dt>所有权人：</dt>
+        <dt>股东：</dt>
         <dd><input type="text" name="sharesOwner" value="${share.sharesOwner }" class="txt" valType="OTHER" regString="^\S{1,20}[^\d]+$"msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
       </dl>
       <dl class="fmdl">
-        <dt>占比：</dt>
+        <dt>股权占比：</dt>
         <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>%</span></dd>
       </dl> 
     </div>
     <div class="right">
       <dl class="fmdl">
         <dt>股东类型：</dt>
-        <dd><input type="text" name="sharesType" value="${share.sharesType }" class="txt" valType="OTHER" regString="^\S{1,30}$"msg="<font color=red>*</font>不能为空且字符长度最大30"/></dd>
+        <dd>
+          <select name='sharesType'>
+	           <option value="">请选择</option>
+	           <option value="自然人">自然人</option>
+	           <option value="法人">法人</option>
+	           <option value="其他">其他</option>
+	        </select>
+	    </dd>
       </dl>  
       <%-- <dl class="fmdl">
         <dt>获取方式：</dt>
@@ -39,3 +46,13 @@
   </form>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+<script>
+var sharesType='${share.sharesType}';
+var options= $("select[name='sharesType'] option");
+for(var i=0;i<options.length;i++){
+	if(options[i].value==sharesType){
+		options[i].selected='selected';
+	}
+}
+
+</script>

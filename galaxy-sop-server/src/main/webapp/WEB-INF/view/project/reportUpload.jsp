@@ -10,7 +10,7 @@
 	<div class="title_bj">添加项目立项报告</div>
 
 	<div class="fmdl clearfix ">
-		<dt style="width: 130px; text-align: right;" id="reportName">项目立项报告：</dt>
+		<dt style="width: 145px; text-align: right;" id="reportName">项目立项报告：</dt>
 		<dd>
 			<input type="text" name="fileName" class="txt pointer-events" />
 		</dd>

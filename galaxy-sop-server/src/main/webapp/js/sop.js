@@ -389,7 +389,15 @@ function startReview(){
 				$("#powindow,#popbg").remove();
 				info(pid);
 			}else{
-				layer.msg(data.result.message);
+				var  _url=Constants.sopEndpointURL+"/galaxy/project/prompt?sid="+sessionId+"&guid="+userId;
+			 	$.getHtml({
+					url:_url,//模版请求地址
+					data:"",//传递参数
+					okback:function(){
+			
+					}//模版反回成功执行	
+				});
+				//layer.msg(data.result.message);
 			}
 		});
 	}

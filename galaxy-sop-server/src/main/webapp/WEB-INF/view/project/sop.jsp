@@ -915,11 +915,11 @@
 				}
 				if('fileWorktype:18' == type)
 				{
-					name="尽职调查启动会报告";
+					name="尽职调查启动会报告：";
 				}
 				else if('fileWorktype:19' == type)
 				{
-					name="尽职调查总结会报告";
+					name="尽职调查总结会报告：";
 				}
 				$('.title_bj').html(action+name)
 				$('#reportName').html(name)

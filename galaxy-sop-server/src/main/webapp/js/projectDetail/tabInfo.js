@@ -23,7 +23,7 @@ $(function(){
 		}
 		
 //		UM.getEditor('editor');
-		var describeUm = UM.getEditor('describe_editor');
+		var describeUm2 = UM.getEditor('describe_editor2');
 		var companyUm = UM.getEditor('company_editor');
 		var portraitUm = UM.getEditor('portrait_editor');
 		var operationUm = UM.getEditor('operation_editor');
@@ -187,10 +187,10 @@ $(function(){
 				    }
 					 
 				}
-			if(projectInfo.projectDescribe){
-//				var um = UM.getEditor('describe_editor');
-				$("#describe_show").html(projectInfo.projectDescribe);
-				describeUm.setContent(projectInfo.projectDescribe);
+			if(projectInfo.projectDescribeFinancing){
+				console.log();
+				$("#describe_editor").val(delHtmlTag(projectInfo.projectDescribeFinancing));
+				$("#describe_show").html(projectInfo.projectDescribeFinancing);
 				$("#descript").hide();
 				$('.describe_show').show();
 				display_show("describe_show");
@@ -198,6 +198,55 @@ $(function(){
 				$('.describe_show').hide();
 				$("#describe_show").html('');
 			}
+			//业务亮点
+			if(projectInfo.projectDescribe){
+				$("#describe2_show").html(projectInfo.projectDescribe);
+				describeUm2.setContent(projectInfo.projectDescribe);
+				$("#descript").hide();
+				$('.describe_show').show();
+				display_show("describe2_show");
+				//单独控制展开收起
+				$("#describe2_show").css('height','70px');
+				var PH1=$("#describe_show").height();
+				var PH2=$("#describe2_show").height();
+				$(".describe_show").css('height',PH1+PH2+92);
+				$('.describe_show').delegate(".f4","click",function(){
+					$(this).hide();
+					$(this).siblings('.f3').show();
+					$('#describe2_show').css('height','auto');
+					var H1=$('#describe2_show').height();
+					$('.describe_show').css('height',PH1+H1+92);
+				}) 
+				$('.describe_show').delegate(".f3","click",function(){
+					$(this).hide();
+					$(this).siblings('.f4').show();
+					$("#describe_show").css('height',PH1);
+					$('#describe2_show').css('height','70px');
+					$('.describe_show').css('height',PH1+PH2+92);
+				}) 
+				
+				
+				//兼容历史数据-为空
+				if(!projectInfo.projectDescribe){
+					//$("#describe_show_div").hide();
+					$("#describe2_show").html('');
+					$("#describe_show").html(projectInfo.projectDescribeFinancing);
+				}
+				
+				
+			}else{
+				//历史数据-为空
+				if(!projectInfo.projectDescribeFinancing){
+					$('.describe_show').hide();
+					$("#describe2_show").html('');
+				}else{
+					//$("#describe2_show_div").hide();
+					$("#describe2_show").html('');
+				}
+				
+				
+			}
+			
 			if(projectInfo.projectBusinessModel){
 //				var um = UM.getEditor('business_editor');
 				businessUm.setContent(projectInfo.projectBusinessModel);
@@ -285,19 +334,23 @@ $(function(){
 					str+='<span class="show_more">',
 					str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
 					str+='</span>';
-					$('#'+obj).append(str);
-					$('#'+obj).parent().css('height','100px')
+					$('#'+obj).parent().append(str);
+					$('#'+obj).css({'height':'100px','overflow':'hidden'});
+					$('#'+obj).parent().css('height','120px')
 				}
 			}
-			$('.new_top_color').delegate(".f4","click",function(){
+			$('.new_top_color_new').delegate(".f4","click",function(){
 				$(this).hide();
 				$(this).parent().children('.f3').show();
-				$(this).parent().parent().parent().css('height','auto')
+				$(this).parent().siblings('p').css('height','auto');
+				var H1=$(this).parent().siblings('p').height();
+				$(this).parent().parent().css('height',H1+20)
 			}) 
-			$('.new_top_color').delegate(".f3","click",function(){
+			$('.new_top_color_new').delegate(".f3","click",function(){
 				$(this).hide();
 				$(this).parent().children('.f4').show();
-				$(this).parent().parent().parent().css('height','100px')
+				$(this).parent().siblings('p').css('height','100px');
+				$(this).parent().parent().css('height','120px');
 			}) 
 			/**
 			 * 商业计划
@@ -338,7 +391,7 @@ $(function(){
 			var projectShareRatio = $("#project_share_ratio_edit").val();
 			var projectContribution = $("#project_contribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(2);
+				return (projectContribution * (100/projectShareRatio)).toFixed(4);
 			}
 			return null;
 		}
@@ -373,7 +426,7 @@ $(function(){
 			var projectShareRatio = $("#finalShareRatio_edit").val();
 			var projectContribution = $("#finalContribution_edit").val();
 			if(projectShareRatio > 0 && projectContribution > 0){
-				return (projectContribution * (100/projectShareRatio)).toFixed(2);
+				return (projectContribution * (100/projectShareRatio)).toFixed(4);
 			}
 			return null;
 		}
@@ -461,9 +514,12 @@ $(function(){
 		 */
 		$("#save_describe").click(function(){
 //			var um = UM.getEditor('describe_editor');
-			var projectDescribe = describeUm.getContent();
+			var projectDescribe = describeUm2.getContent();
+			var projectDescribeFinancing=$("#describe_editor");
+			var textarea=projectDescribeFinancing.val();
+			//var projectDescribeFinancing = describeUm2.getContent();
 			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess);
+				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":textarea}, saveSuccess);
 			}
 		});
 
@@ -545,7 +601,4 @@ $(function(){
 			
 		});
 });
-
-
-
 

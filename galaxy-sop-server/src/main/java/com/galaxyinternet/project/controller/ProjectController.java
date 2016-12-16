@@ -1353,7 +1353,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							&& pool.getPersonSex() != null
 							&& pool.getPersonDuties() != null && !"".equals(pool.getPersonDuties().trim())
 							&& pool.getPersonBirthday() != null
-							//&& (pool.get || (pool.get && pool.get))是否为联系人校验
+							&& (pool.getIsContacts()==1 || (pool.getIsContacts()==0 &&
+							null!=pool.getPersonTelephone()&&!"".equals(pool.getPersonTelephone())))
 							){
 						return true;
 					}
@@ -1416,12 +1417,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		Project project = projectService.queryById(pid);
-		
+		String message="无法启动内部评审，需要补全以下信息：商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息。";
 		if(!validateBasicData(project) 
 				|| !validateInterviewRecord(project)
 				|| !validateBusinessBook(project)
 				|| !validatePersonMessage(project)){
-			responseBody.setResult(new Result(Status.ERROR, "401", "前置参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, "401", message));
 			return responseBody;
 		}
 		Result result = validate(DictEnum.projectProgress.接触访谈.getCode(),
@@ -3443,6 +3444,29 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 				return responseBody;
 			}
+			//学习简历时间
+			List<PersonLearn> personLearn = pool.getPlc();
+			if(personLearn != null && personLearn.size() > 0){
+				for(PersonLearn pl : personLearn){
+					if(StringUtils.isNotEmpty(pl.getOverDateStr())
+							&& "至今".equals(pl.getOverDateStr())){
+						pl.setOverDate(null);
+						pl.setOverDateStr(null);
+					}
+				}
+			}
+			//工作简历时间
+			List<PersonWork> personWork = pool.getPwc();
+			if(personWork != null && personWork.size() > 0){
+				for(PersonWork pw : personWork){
+					if(StringUtils.isNotEmpty(pw.getOverWorkStr())
+							&& "至今".equals(pw.getOverWorkStr())){
+						pw.setOverWork(null);
+						pw.setOverWorkStr(null);
+					}
+				}
+			}
+			
 			User user = (User) getUserFromSession(request);
 			Project p = projectService.queryById(pool.getProjectId());
 			// 项目创建者用户ID与当前登录人ID是否一样
@@ -3630,7 +3654,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String addProPerWork(HttpServletRequest request) {
 		return "project/tanchuan/v_person_work";
 	}
-	
+	/**
+	 * 启动内部评审失败提示框弹出
+	 * @version v
+	 * @return
+	 */
+	@RequestMapping(value = "/prompt", method = RequestMethod.GET)
+	public String prompt(HttpServletRequest request) {
+		return "project/prompt";
+	}
 	/**
 	 * 团队成员的工作经历 数据查询
 	 */

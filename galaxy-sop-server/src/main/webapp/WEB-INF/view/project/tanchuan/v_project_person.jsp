@@ -31,10 +31,10 @@ radio name="personSex"
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;姓名：</dt>
                 <dd>
-                	<input type="text" class="txt" name="personName" valtype1="OTHER" regstring="^[^\s](.{0,19})$"/>
+                	<input type="text" class="txt" name="personName" valtype1="OTHER" regstring="^[^\s](.{0,49})$"/>
                 	<div id="personName_valiate" class="tip-yellowsimple">
 						<div class="tip-inner tip-bg-image">
-							<font color="red">*</font>不能为空且字符长度最大20
+							<font color="red">*</font>不能为空且字符长度最大50
 						</div>
 						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 					</div>
@@ -53,7 +53,7 @@ radio name="personSex"
                 <dt><em class="red">*</em>&nbsp;当前职务：</dt>
                 <dd>
                 	<!-- <input type="text" class="txt" name="personDuties" valtype1="required" /> -->
-                	<select name="personDuties"  valType1="required">
+                	<select name="personDuties"  valType1="required" style="width:140px;">
                        <option value="">请选择</option>
                       <!--  <option value="CEO">首席执行官</option>
                        <option value="COO">首席运营官</option>
@@ -111,7 +111,6 @@ radio name="personSex"
 					</div>
                 </dd>
             </dl>
-            
             <dl class="fmdl fl">
                 <dt><em class="red">*</em>&nbsp;是否为联系人：</dt>
                 <dd class="clearfix">
@@ -119,7 +118,6 @@ radio name="personSex"
                     <label><input type="radio" name="isContacts" value="1" />否</label>
                 </dd>
             </dl>
-           
             <dl class="fmdl fl block">
                 <dt>备注：</dt>
                 <dd><textarea maxlength="50" name="remark" placeholder="50字以内"></textarea></dd>

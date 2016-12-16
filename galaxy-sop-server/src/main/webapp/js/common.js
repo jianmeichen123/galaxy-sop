@@ -1041,9 +1041,9 @@ function delHtmlTag(str)
 {
 	if(str){
 		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}else{
+		return "";
 	}
-
-
 }
 
 function getNowDay(fg){

@@ -7,26 +7,30 @@
   <form action="" id="stock_form" method="post" type="validate">
   <input type="hidden" value="" name="projectId" id="projectId">
   <div class="form clearfix">
-    <div class="left">
       <dl class="fmdl fml">
-        <dt>所有权人：</dt>
+        <dt>股东：</dt>
         <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^\S{1,20}[^\d]+$" msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
       </dl>
-      <dl class="fmdl">
-        <dt>占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
-      </dl> 
-    </div>
-    <div class="right">
-      <dl class="fmdl">
+       <dl class="fmdl">
         <dt>股东类型：</dt>
-        <dd><input type="text" name="sharesType" value="" class="txt" valType="OTHER" regString="^\S{1,30}$"msg="<font color=red>*</font>不能为空且字符长度最大30"/></dd>
-      </dl>  
+        <dd>
+	        <select name='sharesType'>
+	           <option>请选择</option>
+	           <option value="自然人">自然人</option>
+	           <option value="法人">法人</option>
+	           <option value="其他">其他</option>
+	        </select>
+        </dd>
+      </dl> 
+      <dl class="fmdl">
+        <dt>股权占比：</dt>
+        <dd class="clearfix"><input type="text" name="sharesRatio" value="" class="txt fl" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
+      </dl> 
       <%-- <dl class="fmdl">
         <dt>获取方式：</dt>
         <dd><input type="text" name="gainMode" value="" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl> --%>
-    </div>
+    
   </div>
   <div class="form_textarea">
     <dl class="fmdl">

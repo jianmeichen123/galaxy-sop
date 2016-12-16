@@ -1,6 +1,16 @@
-SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='32';
-SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='30';
-SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2011';
-SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2015';
-SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2004';
-SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2012';
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='32';-- 互联网教育二部
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='30';-- 联合创业-互联网医疗二部
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2011';-- 成长投资-人工智能
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2015';-- 成长投资-出行
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2004';-- 成长投资-教育
+SELECT * FROM  `sop_project`  s WHERE s.`industry_own`='2012';-- 成长投资-B2B
+
+
+
+
+UPDATE sop_project SET industry_own='14' WHERE industry_own='32';-- 互联网教育二部 67
+UPDATE sop_project SET industry_own='9' WHERE industry_own='30';-- 联合创业-互联网医疗二部 1
+UPDATE sop_project SET industry_own=NULL WHERE industry_own='2011';-- 成长投资-人工智能   194
+UPDATE sop_project SET industry_own=NULL WHERE industry_own='2015';-- 成长投资-出行  76
+UPDATE sop_project SET industry_own='14' WHERE industry_own='2004';-- 成长投资-教育   32
+UPDATE sop_project SET industry_own=NULL WHERE industry_own='2012';-- 成长投资-B2B   79012';-- 成长投资-B2B
