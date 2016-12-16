@@ -1017,7 +1017,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .pop .ico{ background-image:url(../img/tcico.png)}
 /*认领弹窗*/
 .claimtc{ width:330px; padding:40px 0}
-.claimtc .tips{ padding:0 0 0; position:relative; line-height:26px; font-size:16px; color:#1f2128; margin:0 0 20px}
+.claimtc .tips{ padding:0 0 0 118px; position:relative; line-height:26px; font-size:16px; color:#1f2128; margin:0 0 20px}
 .claimtc .tips .ok{ position:absolute; width:40px; height:40px; background-position:0 0; left:60px; top:50%; margin:-20px 0 0}
 .claimtc .btnbox{ text-align:center}
 .claimtc .btnbox .pubbtn{ margin:0 10px; display:inline-block; *display:inline; zoom:1;}
