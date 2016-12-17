@@ -187,13 +187,13 @@
 		$("#formatShareRatio").blur(function(){
 			var valuations = calculationValuations();
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(2));
+				$("#formatValuations").val(valuations.toFixed(4));
 			}
 		});
 		$("#formatContribution").blur(function(){
 			var valuations = calculationValuations();
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(2));
+				$("#formatValuations").val(valuations.toFixed(4));
 			}
 		});
 		$('input:radio[name="projectType"]').click(function(){
