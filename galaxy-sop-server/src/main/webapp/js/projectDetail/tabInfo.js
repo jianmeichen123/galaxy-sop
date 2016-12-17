@@ -445,7 +445,7 @@ $(function(){
 		}
 		$("[data-on='save']").click(function(){
 			var data=getUpdateData();
-			if(beforeSubmit()){
+			if(beforeSubmitById("updateProjectInfo")){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 					layer.msg("修改项目基本信息成功!");
 //					window.location.reload();
@@ -518,7 +518,7 @@ $(function(){
 			var projectDescribeFinancing=$("#describe_editor");
 			var textarea=projectDescribeFinancing.val();
 			//var projectDescribeFinancing = describeUm2.getContent();
-			if(pid != ''){
+			if(pid != '' && beforeSubmitById("updateProjectDescribe")){
 				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":textarea}, saveSuccess);
 			}
 		});

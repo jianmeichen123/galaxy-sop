@@ -39,7 +39,7 @@
         	<div class="tabtable_con_on">
                     <!--融资计划-->
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_basic"></span>
+                        <span class="new_ico_basic ico_add_project"></span>
                         <span class="new_color size16">基本信息</span>
                     </div>  
                     <form action="" id="add_form" method="post">
@@ -76,7 +76,7 @@
                             <span class="m_r30" style="with:400px">
                             <span class="m_r30"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否</span>
                              <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-                             <input type="text" class="new_nputr" value="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
+                             <input type="text" class="new_nputr"  placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
                         </span>
                         </li>
                     </ul>  
@@ -132,7 +132,7 @@
                     <span class="new_ico_hint"></span>
                     <span class="new_color size16">温馨提示</span>
                 </div>
-                <p class="basic_p">标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）。</p>
+                <p class="basic_p">标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）</p>
             </div>
         </div>
         <!--右边 end--> 
@@ -187,13 +187,13 @@
 		$("#formatShareRatio").blur(function(){
 			var valuations = calculationValuations();
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(2));
+				$("#formatValuations").val(valuations.toFixed(4));
 			}
 		});
 		$("#formatContribution").blur(function(){
 			var valuations = calculationValuations();
 			if(valuations != null){
-				$("#formatValuations").val(valuations.toFixed(2));
+				$("#formatValuations").val(valuations.toFixed(4));
 			}
 		});
 		$('input:radio[name="projectType"]').click(function(){

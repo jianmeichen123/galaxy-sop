@@ -41,7 +41,7 @@
 			</tr>
 			
 			<tr>
-				<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs"></span></td>
+				<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs" ></span></td>
 				<td><span class="new_color_gray" >投资经理：</span>
 					<span class="new_color_black" id="createUname"></span><span class="new_color_gray">(</span><span class="new_color_gray" id="projectCareerline"></span><span class="new_color_gray">)</span></td>
 			</tr>
@@ -93,7 +93,7 @@
 	<!-- 编辑页面 -->
 	<div class="basic_on">
 		<div class="title_bj_tzjl">编辑项目基本信息</div>
-		<div class="compile_on_center">
+		<div class="compile_on_center" id="updateProjectInfo">
 	        <div class="compile_on_right">
 	            <span class="pubbtn bluebtn"  data-on="save">保存</span>
 	            <span class="pubbtn fffbtn" data-name="basic" data-on="close">取消</span>
@@ -111,7 +111,7 @@
 	                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit"></span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" >
+	                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" valType="required" msg="<font color=red>*</font>行业归属不能为空" >
 	                	<option value="">--请选择--</option>
 	                </select></span></td>
 	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
@@ -137,7 +137,7 @@
 	        <!--融资计划-->
 	        <div class="new_r_compile new_bottom_color">
 	            <span class="new_ico_financing"></span>
-	            <span class="new_color size16"><em class="red">*</em>融资计划</span>
+	            <span class="new_color size16">融资计划</span>
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
@@ -185,7 +185,7 @@
 </div>
 
 <div class="tabtable_con_on" >
-	<div class="project_on " style="height:420px;">
+	<div class="project_on" id="updateProjectDescribe" style="height:420px;">
 		<div class="title_bj_tzjl">项目描述</div>
                   <div class="describe1">
 								<span class="basic_span1"><em class="red">*</em>商业模式：</span>

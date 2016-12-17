@@ -105,14 +105,14 @@
                         </dl>
                       </td>
                   </tr>
-                  <tr>
+                  <!-- <tr>
                     <td colspan="2">
                       <dl>
                         <dt>项目描述：</dt>
                         <dd class="tarea" id="projectDescribe"></dd><div class="tips"></div>
                       </dl>
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>       <%-- <%=path %>/galaxy/detail/  upp --%>
             <a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t'  class="pjt_more url_cookie">项目详细信息&gt;</a>

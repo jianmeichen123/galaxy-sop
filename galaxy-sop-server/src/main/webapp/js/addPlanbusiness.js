@@ -8,8 +8,9 @@ var planGrid = {
 	init : 	function(data){
 		var gridFormatter = {
 				fileNameFormatter : function(value,row,index){
+					console.log(row.fileSuffix);
 					if(row.fileName){
-						return row.fileName + "." + row.fileSuffix;
+						return row.fileName + row.fileSuffix;
 					}else{
 						return "-";
 					}
