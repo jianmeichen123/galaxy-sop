@@ -41,7 +41,7 @@
 			</tr>
 			
 			<tr>
-				<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs"></span></td>
+				<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs" ></span></td>
 				<td><span class="new_color_gray" >投资经理：</span>
 					<span class="new_color_black" id="createUname"></span><span class="new_color_gray">(</span><span class="new_color_gray" id="projectCareerline"></span><span class="new_color_gray">)</span></td>
 			</tr>
@@ -111,7 +111,7 @@
 	                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit"></span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" >
+	                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" valType="required" msg="<font color=red>*</font>行业归属不能为空" >
 	                	<option value="">--请选择--</option>
 	                </select></span></td>
 	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
