@@ -137,7 +137,7 @@
 	        <!--融资计划-->
 	        <div class="new_r_compile new_bottom_color">
 	            <span class="new_ico_financing"></span>
-	            <span class="new_color size16"><em class="red">*</em>融资计划</span>
+	            <span class="new_color size16">融资计划</span>
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
