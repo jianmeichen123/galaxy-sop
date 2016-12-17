@@ -121,7 +121,8 @@
 		</div>
 </div>
 
-
+<!--隐藏-->
+<div class="bj_hui_on"></div>
 <script type="text/javascript">
      searchFH();
 	var $sharesTable;
