@@ -39,7 +39,7 @@
         	<div class="tabtable_con_on">
                     <!--融资计划-->
                     <div class="new_r_compile new_bottom_color">
-                        <span class="new_ico_basic"></span>
+                        <span class="new_ico_basic ico_add_project"></span>
                         <span class="new_color size16">基本信息</span>
                     </div>  
                     <form action="" id="add_form" method="post">
