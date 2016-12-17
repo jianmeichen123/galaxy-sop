@@ -185,7 +185,7 @@
 </div>
 
 <div class="tabtable_con_on" >
-	<div class="project_on " style="height:420px;">
+	<div class="project_on" id="updateProjectDescribe" style="height:420px;">
 		<div class="title_bj_tzjl">项目描述</div>
                   <div class="describe1">
 								<span class="basic_span1"><em class="red">*</em>商业模式：</span>

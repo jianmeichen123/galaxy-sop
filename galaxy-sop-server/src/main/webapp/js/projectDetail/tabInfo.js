@@ -518,7 +518,7 @@ $(function(){
 			var projectDescribeFinancing=$("#describe_editor");
 			var textarea=projectDescribeFinancing.val();
 			//var projectDescribeFinancing = describeUm2.getContent();
-			if(pid != ''){
+			if(pid != '' && beforeSubmitById("updateProjectDescribe")){
 				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":textarea}, saveSuccess);
 			}
 		});
