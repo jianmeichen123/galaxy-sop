@@ -125,7 +125,7 @@
            <div class="correlation" style="position:relative;padding-left:20px;"><span class="new_ico_hint" style="position:absolute;left:15px;top:11px;"></span>温馨提示</div>
             <div>
             	<ul class="basic_right_ul">
-            		<li>1、标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）。</li>
+            		<li>1、标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）</li>
                     <li>2、生成项目并完成接触访谈，计1分</li>
                     <li>3、通过CEO评审，投资项目计1分，创建项目计5分</li>
                     <li>4、通过立项会，投资项目计10分，创建项目计20分</li>
