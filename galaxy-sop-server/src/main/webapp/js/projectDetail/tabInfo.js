@@ -445,7 +445,7 @@ $(function(){
 		}
 		$("[data-on='save']").click(function(){
 			var data=getUpdateData();
-			if(beforeSubmit()){
+			if(beforeSubmitById("updateProjectInfo")){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 					layer.msg("修改项目基本信息成功!");
 //					window.location.reload();

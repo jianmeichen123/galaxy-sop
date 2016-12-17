@@ -93,7 +93,7 @@
 	<!-- 编辑页面 -->
 	<div class="basic_on">
 		<div class="title_bj_tzjl">编辑项目基本信息</div>
-		<div class="compile_on_center">
+		<div class="compile_on_center" id="updateProjectInfo">
 	        <div class="compile_on_right">
 	            <span class="pubbtn bluebtn"  data-on="save">保存</span>
 	            <span class="pubbtn fffbtn" data-name="basic" data-on="close">取消</span>
