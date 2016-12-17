@@ -133,11 +133,16 @@ $(function(){
 				$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
-				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)				
+				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)
+				
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
-					$('#faFlagEdit').attr("checked","checked");
+					$('#faFlagEdit').prop("checked","true");
 					$("#faNameEdit").val(projectInfo.faName);
 					$("#faNameEdit").css("display","block");
+				}else{
+					$("#faFlag").prop("checked","true")
+					$("#faNameEdit").val(projectInfo.faName);
+					$("#faNameEdit").css("display","none");
 				}
 				 p=projectInfo.industryOwn;
 				 console.log(p);
