@@ -3,7 +3,7 @@ $(function(){
 		var width_fwb=$('.tabtable_con_on').width();
 		$('.width_fwb').css('width',(width_fwb-20));
 
-		$("#faNameEdit").keydown(function(){
+		/*$("#faNameEdit").keydown(function(){
 				if(this.value=="请输入FA名称"){
 					this.value = "";
 				}
@@ -14,7 +14,7 @@ $(function(){
 					this.value = "请输入FA名称";
 				}
 			
-		})
+		})*/
 		
 		
 		//未上传上传计划书，用于调样式
