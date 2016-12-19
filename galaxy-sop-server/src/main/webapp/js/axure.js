@@ -715,6 +715,13 @@
 						//重新定位
 						_this.postionEve();
 						$("body").css("overflow-y","hidden");
+						//浏览器大小改变，弹窗重新定位
+						$(window).resize(function(){  
+							_this.postionEve();
+							if($("#powindow").length==0){
+								$("#popbg").remove();
+							}
+						})
 					},
 					error:function(){
 					}	
