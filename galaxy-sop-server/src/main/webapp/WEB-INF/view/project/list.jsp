@@ -224,13 +224,14 @@
 	 function projectInfo(value,row,index){
 		    var id=row.id;
 			var str=row.projectName;
+			console.log(str)
 			if(str.length>10){
 				subStr = str.substring(0,10);
-				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+subStr+"</a>";
+				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
 				return options;
 			}
 			else{
-				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+str+"</a>";
+				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
 				return options;
 			}
 		}

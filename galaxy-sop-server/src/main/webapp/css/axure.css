@@ -1548,6 +1548,8 @@ word-break:break-all;
 word-wrap:break-word;
 }
 .new_ul_all p img{width:100%;margin:0 auto;}
+.tabtable_con_on .block_wrap{padding:10px 10px 0;}
+.tabtable_con_on .new_nputr.text,.basic_on .new_nputr.text{width:630px;height:50px;line-height:18px;padding-bottom:26px !important;}
 /*右边*/
 .new_right{ width:24%; float:right; background-color:#fff; margin-top:30px; position:relative;}
 .sj_ico {
