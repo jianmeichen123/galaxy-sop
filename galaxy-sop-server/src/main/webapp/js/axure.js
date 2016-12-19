@@ -162,12 +162,19 @@
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
-					$("#popbg01").remove()
+					if($("#popbg01").length>0){
+						$("#popbg01").remove();
+						 $(document.body).css({
+							   "overflow-x":"hidden",
+							   "overflow-y":"hidden"
+							 });
+					}else{
 						//启用滚动条
 						 $(document.body).css({
 						   "overflow-x":"auto",
 						   "overflow-y":"auto"
 						 });
+					}
 						//关闭对外接口
 						_this.hideback.apply(_this);
 						$(_this.id).remove();
