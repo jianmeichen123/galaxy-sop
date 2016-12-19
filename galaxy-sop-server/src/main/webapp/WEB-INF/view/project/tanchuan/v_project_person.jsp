@@ -91,13 +91,19 @@ radio name="personSex"
             </dl>
             
             <dl class="fmdl fl">
-                <dt><em class="red">*</em>&nbsp;出生日期：</dt>
+                <dt><em class="red">*</em>&nbsp;出生年份：</dt>
                 <dd>
                     <input type="text" class="datepicker-year-text txt time" name="personBirthdayStr"
                     	readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
                 </dd>
             </dl>
-            
+            <dl class="fmdl fl">
+                <dt><em class="red">*</em>&nbsp;是否为联系人：</dt>
+                <dd class="clearfix">
+                    <label><input type="radio" name="isContacts" value="0" checked="checked" />是</label>
+                    <label><input type="radio" name="isContacts" value="1" />否</label>
+                </dd>
+            </dl>
              <dl class="fmdl fl">
                 <dt>手机号码：</dt>
                 <dd>
@@ -109,13 +115,6 @@ radio name="personSex"
 						</div>
 						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 					</div>
-                </dd>
-            </dl>
-            <dl class="fmdl fl">
-                <dt><em class="red">*</em>&nbsp;是否为联系人：</dt>
-                <dd class="clearfix">
-                    <label><input type="radio" name="isContacts" value="0" checked="checked" />是</label>
-                    <label><input type="radio" name="isContacts" value="1" />否</label>
                 </dd>
             </dl>
             <dl class="fmdl fl block">
