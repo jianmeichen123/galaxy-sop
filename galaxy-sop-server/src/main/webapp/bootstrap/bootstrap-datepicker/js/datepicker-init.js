@@ -349,7 +349,7 @@ $(function(){
 	    //minViewMode: 1,  //0,days 1,month 2,years
 	    //maxViewMode: 1, //0,days 1,month 2,years
 	  //  startDate: projectTime,
-	    //endDate: enddata,
+	    endDate: dateLimit,
 	   // startDate : '1900',
 	    defaultDate : new Date(),
 	   // setDate:"Today"
