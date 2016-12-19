@@ -84,7 +84,7 @@
   user-select: none;
 }
 .datepicker table tr td,
-.datepicker table tr th {
+.datepicker table tr th,.datetimepicker table tr th {
   text-align: center;
   width: 20px;
   height: 20px;
@@ -748,7 +748,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
 .datepicker tfoot tr th {
   cursor: pointer;
 }
-.datepicker .prev,.datepicker .next{
+.datepicker .prev,.datepicker .next,.datetimepicker .prev,.datetimepicker .next{
   background-color: #66b1f2;
   border-radius: 50%;
   color:#fff;
@@ -761,8 +761,8 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
 .datepicker tfoot tr th:hover {
   background: #e9ebf2;
 }
-.datepicker .prev:hover,.datepicker .next:hover{
-  background-color: #85c1f5;
+.datepicker .prev:hover,.datepicker .next:hover,.datetimepicker .prev:hover,.datetimepicker .next:hover{
+  background-color: #85c1f5 !important;
 }
 
 .datepicker .cw {
