@@ -108,7 +108,7 @@ radio name="personSex"
                 <dt>手机号码：</dt>
                 <dd>
                 	<input type="text" class="txt" name="personTelephone" 
-                		placeholder="请输入手机号码" valtype1="MOBILE" />
+                		placeholder="请输入手机号码" valtype1="OTHER" regstring="^[-0-9]{1,15}$"/>
                 	<div id="personTelephone_valiate" class="tip-yellowsimple">
 						<div class="tip-inner tip-bg-image">
 							<font color="red">*</font>手机号码格式不正确
