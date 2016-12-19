@@ -1,7 +1,7 @@
 
 
 function getTabPerson(){
-	var html='<table id="tablePerson"  data-id-field="id" data-unique-id="id" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
+	var html='<table id="tablePerson"  data-id-field="id" data-unique-id="id" data-method="post" data-page-list="[10,20,30]" data-show-refresh="false" ></table>';
 	$("#view").html(html);
 	var $table = $('#tablePerson');
     $table.bootstrapTable({
