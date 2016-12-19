@@ -52,6 +52,8 @@ $(function(){
 			$('.'+open+'_on').show();
 			$('.'+open+'_center').hide();
 			$('.bj_hui_on').show();
+			var width_fwb=$('.tabtable_con_on').width();
+			$('.width_fwb').css('width',(width_fwb-40));
 		})
 		//统一关
 		$('[data-on="close"]').on('click',function(){
