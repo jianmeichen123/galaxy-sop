@@ -125,7 +125,7 @@
                              <span class="mar_left">
                              	<div class="mar_left"><input type="radio" name="faFlag" checked="checked"  value="0" onclick="setText('reset')" id="faFlag">否 </div>
                                  <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                 <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
+                                 <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  name="faName" id="faNameEdit" style="display:none" allowNULL="no" valType="OTHER" regString="^[^\s](.{0,19})$" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/></div>
                              </span></td>
                            </tr>
 
