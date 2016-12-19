@@ -452,13 +452,24 @@ $(function(){
 		}
 		$("[data-on='save']").click(function(){
 			var data=getUpdateData();
-			if(beforeSubmitById("updateProjectInfo")){
+			var display=$("#faNameEdit").css("display");
+			if(display=="none"){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 					layer.msg("修改项目基本信息成功!");
 //					window.location.reload();
 					initTabInfo(data.id);
 				});
+			}else{
+				if(beforeSubmitById("updateProjectInfo")){
+					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
+						layer.msg("修改项目基本信息成功!");
+//						window.location.reload();
+						initTabInfo(data.id);
+					});
+				}
 			}
+			//typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0
+			
 		})
 		
 		
