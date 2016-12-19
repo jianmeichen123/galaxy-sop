@@ -3,7 +3,7 @@ $(function(){
 		var width_fwb=$('.tabtable_con_on').width();
 		$('.width_fwb').css('width',(width_fwb-20));
 
-		$("#faNameEdit").keydown(function(){
+		/*$("#faNameEdit").keydown(function(){
 				if(this.value=="请输入FA名称"){
 					this.value = "";
 				}
@@ -14,7 +14,7 @@ $(function(){
 					this.value = "请输入FA名称";
 				}
 			
-		})
+		})*/
 		
 		
 		//未上传上传计划书，用于调样式
@@ -52,6 +52,8 @@ $(function(){
 			$('.'+open+'_on').show();
 			$('.'+open+'_center').hide();
 			$('.bj_hui_on').show();
+			var width_fwb=$('.tabtable_con_on').width();
+			$('.width_fwb').css('width',(width_fwb-40));
 		})
 		//统一关
 		$('[data-on="close"]').on('click',function(){
@@ -133,11 +135,16 @@ $(function(){
 				$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
-				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)				
+				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)
+				
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
-					$('#faFlagEdit').attr("checked","checked");
+					$('#faFlagEdit').prop("checked","true");
 					$("#faNameEdit").val(projectInfo.faName);
 					$("#faNameEdit").css("display","block");
+				}else{
+					$("#faFlag").prop("checked","true")
+					$("#faNameEdit").val(projectInfo.faName);
+					$("#faNameEdit").css("display","none");
 				}
 				 p=projectInfo.industryOwn;
 				 console.log(p);

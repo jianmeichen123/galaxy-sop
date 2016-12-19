@@ -14,7 +14,7 @@
        <dl class="fmdl">
         <dt>股东类型：</dt>
         <dd>
-	        <select name='sharesType'>
+	        <select name='sharesType' valType="required" msg="<font color=red>*</font>股东类型不能为空">
 	           <option>请选择</option>
 	           <option value="自然人">自然人</option>
 	           <option value="法人">法人</option>
@@ -38,7 +38,10 @@
       <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符"></textarea></dd>
     </dl>
   </div>
-      <a href="javascript:;" onclick="savaStock();" class="pubbtn bluebtn">保存</a>
+  <div class="btnbox clearfix">
+    	<a href="javascript:;" onclick="savaStock();"  class="pubbtn bluebtn fl">确定</a>
+    	<a href="javascript:;" class="pubbtn fffbtn fl" data-close="close">取消</a>
+    </div>
   </form>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>

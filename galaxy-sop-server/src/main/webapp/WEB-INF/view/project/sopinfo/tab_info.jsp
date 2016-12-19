@@ -123,14 +123,14 @@
                            <tr>
                              <td><span class="new_color_gray">来源于FA：</span>
                              <span class="mar_left">
-                             	<div class="mar_left"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否 </div>
+                             	<div class="mar_left"><input type="radio" name="faFlag" checked="checked"  value="0" onclick="setText('reset')" id="faFlag">否 </div>
                                  <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                 <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
+                                 <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  name="faName" id="faNameEdit" style="display:none" allowNULL="no" valType="OTHER" regString="^[^\s](.{0,19})$" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/></div>
                              </span></td>
                            </tr>
 
                  <tr>
-                      <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><textarea id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></textarea></span></td>
+                      <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><input id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></input></span></td>
                  </tr>
 	        </table>  
 	        
@@ -187,21 +187,24 @@
 <div class="tabtable_con_on" >
 	<div class="project_on" id="updateProjectDescribe" style="height:420px;">
 		<div class="title_bj_tzjl">项目描述</div>
-                  <div class="describe1">
-								<span class="basic_span1"><em class="red">*</em>商业模式：</span>
-							 	<!-- <div id="describe_editor" type="text/plain" class='width_fwb'></div>   -->
-							 	<textarea rows="" cols="" id="describe_editor" class="new_nputr text" placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></textarea>
-							</div>
-							<div class="describe2">
-								<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
-							 	<div id="describe_editor2" type="text/plain" class='width_fwb'></div>  
-							</div>
-                     <div class="compile_on_center">
-                        <div class="compile_on_right">
-                            <span class="pubbtn bluebtn" id="save_describe">保存</span>
-                            <span class="pubbtn fffbtn" data-name="project" data-on="close">取消</span>
-                        </div>  
-                    </div>
+		<div class="block_wrap">
+			<div class="describe1">
+				<span class="basic_span1"><em class="red">*</em>商业模式：</span>
+				<!-- <div id="describe_editor" type="text/plain" class='width_fwb'></div>   -->
+				<input id="describe_editor" class="new_nputr text" style="border:1px solid #d4d4d4;" placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></input>
+			</div>
+			<div class="describe2">
+				<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
+				<div id="describe_editor2" type="text/plain" class='width_fwb'></div>  
+			</div>
+            <div class="compile_on_center">
+                <div class="compile_on_right">
+                     <span class="pubbtn bluebtn" id="save_describe">保存</span>
+                     <span class="pubbtn fffbtn" data-name="project" data-on="close">取消</span>
+                </div>  
+          </div>
+		</div>
+                  
               </div>
               <div class="project_center">
 		<div class="new_r_compile ">
@@ -238,13 +241,15 @@
 	</div>
 	<div class='company_on'>					
 		<div class="title_bj_tzjl">公司定位</div>
-		<div id="company_editor" type="text/plain" class='width_fwb'></div>  
+		<div class="block_wrap">
+			<div id="company_editor" type="text/plain" class='width_fwb'></div>  
                  <div class="compile_on_center">
                     <div class="compile_on_right">
                         <span class="pubbtn bluebtn" id="save_location">保存</span>
                         <span class="pubbtn fffbtn" data-name='company' data-on="close">取消</span>
                     </div>  
                 </div>
+        </div>
 	</div>
 	
 </div>
@@ -266,13 +271,15 @@
 	</div>
 	<div class='portrayal_on'>
 		<div class="title_bj_tzjl">用户画像</div>
-		<div id="portrait_editor" type="text/plain" class='width_fwb'></div>  
+		<div class="block_wrap">
+			<div id="portrait_editor" type="text/plain" class='width_fwb'></div>  
                  <div class="compile_on_center">
                     <div class="compile_on_right">
                         <span class="pubbtn bluebtn" id="save_portrait">保存</span>
                         <span class="pubbtn fffbtn" data-name='portrayal' data-on="close">取消</span>
                     </div>  
                 </div>
+         </div>
 	</div>
 	
 </div>
@@ -296,13 +303,15 @@
 	</div>
 	<div class='product_on'>
 		<div class="title_bj_tzjl">产品服务</div>
-		<div id="business_editor" type="text/plain" class='width_fwb' ></div>  
+		<div class="block_wrap">
+			<div id="business_editor" type="text/plain" class='width_fwb' ></div>  
                  <div class="compile_on_center">
                     <div class="compile_on_right">
                         <span class="pubbtn bluebtn" id="save_business">保存</span>
                         <span class="pubbtn fffbtn" data-name='product' data-on="close">取消</span>
                     </div>  
                 </div>
+         </div>
 	</div>
 </div>
 
@@ -324,13 +333,15 @@
 	</div>
 	<div class='operation_on'>
 		<div class="title_bj_tzjl">运营数据</div>
-		<div id="operation_editor" type="text/plain" class='width_fwb' ></div>  
+		<div class="block_wrap">
+			<div id="operation_editor" type="text/plain" class='width_fwb' ></div>  
                  <div class="compile_on_center">
                     <div class="compile_on_right">
                         <span class="pubbtn bluebtn" id="save_operation">保存</span>
                         <span class="pubbtn fffbtn" data-name='operation' data-on="close">取消</span>
                     </div>  
                 </div>
+       </div>
 	</div>
 	
 </div>
@@ -354,13 +365,15 @@
 	</div>
 	<div class='industry_on'>
 		<div class="title_bj_tzjl">行业分析</div>
-		<div id="industry_editor" type="text/plain" class='width_fwb' ></div>  
+		<div class="block_wrap">
+			<div id="industry_editor" type="text/plain" class='width_fwb' ></div>  
                  <div class="compile_on_center">
                     <div class="compile_on_right">
                         <span class="pubbtn bluebtn" id="save_industry">保存</span>
                         <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
                     </div>  
                 </div>
+       </div>
 	</div>
 	
 </div>
@@ -382,13 +395,15 @@
 	</div>
 	<div class='analysis_on'>
 		<div class="title_bj_tzjl">竞争分析</div>
-		<div id="analysis_editor" type="text/plain" class='width_fwb'></div>  
+		<div class="block_wrap">
+			<div id="analysis_editor" type="text/plain" class='width_fwb'></div>  
                  <div class="compile_on_center">
                     <div class="compile_on_right">
                         <span class="pubbtn bluebtn" id="save_analysis">保存</span>
                         <span class="pubbtn fffbtn" data-name='analysis' data-on="close">取消</span>
                     </div>  
                 </div>
+           </div>
 	</div>
 </div>
 
@@ -410,13 +425,15 @@
 	</div>
 	<div class='next_financing_on'>
 		<div class="title_bj_tzjl">下一轮融资路径</div>
-		<script id="next_financing_editor" type="text/plain" class='width_fwb'></script>  
+		<div class="block_wrap">
+			<script id="next_financing_editor" type="text/plain" class='width_fwb'></script>  
                  <div class="compile_on_center">
                     <div class="compile_on_right">
                         <span class="pubbtn bluebtn" id="save_next_financing">保存</span>
                         <span class="pubbtn fffbtn" data-name='next_financing' data-on="close">取消</span>
                     </div>  
                 </div>
+        </div>
 	</div>
 	
 </div>

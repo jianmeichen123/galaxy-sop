@@ -1344,7 +1344,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				String fileName = file.getOriginalFilename();
 				int dotPos = fileName.lastIndexOf(".");
 				String prefix = fileName.substring(0, dotPos);
-				String suffix = fileName.substring(dotPos);
+				String suffix = fileName.substring(dotPos+1);
 				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
 				if(result.getResult() != null && Result.Status.OK.equals(result.getResult().getStatus()))

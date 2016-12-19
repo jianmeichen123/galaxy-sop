@@ -91,24 +91,10 @@ radio name="personSex"
             </dl>
             
             <dl class="fmdl fl">
-                <dt><em class="red">*</em>&nbsp;出生日期：</dt>
+                <dt><em class="red">*</em>&nbsp;出生年份：</dt>
                 <dd>
                     <input type="text" class="datepicker-year-text txt time" name="personBirthdayStr"
                     	readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
-                </dd>
-            </dl>
-            
-             <dl class="fmdl fl">
-                <dt>手机号码：</dt>
-                <dd>
-                	<input type="text" class="txt" name="personTelephone" 
-                		placeholder="请输入手机号码" valtype1="MOBILE" />
-                	<div id="personTelephone_valiate" class="tip-yellowsimple">
-						<div class="tip-inner tip-bg-image">
-							<font color="red">*</font>手机号码格式不正确
-						</div>
-						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
-					</div>
                 </dd>
             </dl>
             <dl class="fmdl fl">
@@ -116,6 +102,19 @@ radio name="personSex"
                 <dd class="clearfix">
                     <label><input type="radio" name="isContacts" value="0" checked="checked" />是</label>
                     <label><input type="radio" name="isContacts" value="1" />否</label>
+                </dd>
+            </dl>
+             <dl class="fmdl fl">
+                <dt>手机号码：</dt>
+                <dd>
+                	<input type="text" class="txt" name="personTelephone" 
+                		placeholder="请输入手机号码" valtype1="OTHER" regstring="^[-0-9]{1,15}$"/>
+                	<div id="personTelephone_valiate" class="tip-yellowsimple">
+						<div class="tip-inner tip-bg-image">
+							<font color="red">*</font>手机号码格式不正确
+						</div>
+						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+					</div>
                 </dd>
             </dl>
             <dl class="fmdl fl block">

@@ -1105,8 +1105,10 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .studyxpricetc table{margin-bottom: 20px;}
 .btn_center{position: absolute;left: 50%;margin-left: -40px;}
 /* 股权结构弹窗 */
-#stock_form .form_textarea textarea{width:290px;height:100px;font-size: 12px !important;font-family: '宋体';}
-#stock_form .pubbtn{margin: 20px 0 0 133px;}
+#stock_form .form_textarea textarea,#up_stock_form .form_textarea textarea{width:290px;height:100px;font-size: 12px !important;font-family: '宋体';}
+#stock_form .pubbtn,#up_stock_form .pubbtn{margin: 20px 20px 0 133px;}
+#stock_form .fffbtn,#up_stock_form .fffbtn{margin-left:0px;}
+#stock_form select,#up_stock_form select{width:150px;}
 /* 重置密码 */
 .resettc{ width:330px; padding:40px 0}
 .resettc .tips{ line-height:22px; font-size:14px; color:#1f2128; }
@@ -1546,6 +1548,8 @@ word-break:break-all;
 word-wrap:break-word;
 }
 .new_ul_all p img{width:100%;margin:0 auto;}
+.tabtable_con_on .block_wrap{padding:10px 10px 0;}
+.tabtable_con_on .new_nputr.text,.basic_on .new_nputr.text{width:630px;height:50px;line-height:18px;padding-bottom:26px !important;}
 /*右边*/
 .new_right{ width:24%; float:right; background-color:#fff; margin-top:30px; position:relative;}
 .sj_ico {
@@ -2335,6 +2339,8 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .new_table .basic_span{width:75px;}
  #person_form dl dd,#add_person dl dd,#update_person_form dl dd{position:relative;}
 #person_form dl dd .tip-yellowsimple,#add_person dl dd .tip-yellowsimple,#update_person_form dl dd .tip-yellowsimple{position:absolute;visibility:visible;display:none;left: 146px; top: 0px; opacity: 1;}
+#person_form dl dd #personTelephone_valiate{left:0;top:36px;}
+#personTelephone_valiate .tip-arrow-left{margin-top:-20px;margin-left:57px;width:9px;background:url(../js/validate/lib/tip-yellowsimple/tip-yellowsimple_arrows.gif) no-repeat 0px 0}
  
  #person-pool table.basic_table{margin:0;}
 .basic_table .fixed-table-container thead th .th-inner{padding:5px 8px;}

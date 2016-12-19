@@ -74,8 +74,8 @@
   	<table id="shares-table" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
    	<thead>
 	    <tr>
+	    	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">股东</th>
 	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">股东类型</th>
-        	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">股东</th>
         	<th data-field="sharesRatio" data-align="left" class="data-input">股权占比(%)</th>
 <!--         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th> -->
         	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
@@ -165,7 +165,18 @@
 	 function remarkFormater(value,row,index){
 		    var id=row.id;
 			var str=row.remark;
-			if(str.length>10){
+			if(typeof(str)=="undefined"){
+				var options = "<label>"+"-"+"</label>";
+				return options;
+			}else if(typeof(str)!="undefined" && str.length>10){
+				subStr = str.substring(0,10);
+				var options = "<label title='"+str+"'>"+subStr+"</label>";
+				return options;
+			}else{
+				var options = "<label title='"+str+"'>"+str+"</label>";
+				return options;
+			}
+			/* if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
 				return options;
@@ -173,7 +184,7 @@
 			else{
 				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
-			}
+			} */
 		}
 	 function typeFormatter(value,row,index){
 		    var id=row.id;
