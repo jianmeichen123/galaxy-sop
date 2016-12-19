@@ -381,8 +381,8 @@ $(function(){
 	    //minViewMode: 1,  //0,days 1,month 2,years
 	    //maxViewMode: 1, //0,days 1,month 2,years
 	  //  startDate: projectTime,
-	    //endDate: enddata,
-	   // startDate : '1900',
+	    //endDate: dateLimit,
+	    endDate : dateLimit,
 	    defaultDate : new Date(),
 	   // setDate:"Today"
 	    //endDate: '+3d'
