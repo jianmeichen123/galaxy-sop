@@ -37,13 +37,15 @@ function formatterTable(entity){
 			var obj=entity[i];
 			
 			var financeAmount = "-";
-			if(typeof(obj.financeAmount)!="undefined" && obj.financeAmount.length > 0){
+			if(typeof(obj.financeAmount)!="undefined"){
 				financeAmount = obj.financeAmount;
 			}
 			
 			var financeProportion = "-";
-			if(typeof(obj.financeProportion)!="undefined" && obj.financeProportion.length > 0){
+			
+			if(typeof(obj.financeProportion)!="undefined"){
 				financeProportion = obj.financeProportion;
+				
 			}
 			
 			
