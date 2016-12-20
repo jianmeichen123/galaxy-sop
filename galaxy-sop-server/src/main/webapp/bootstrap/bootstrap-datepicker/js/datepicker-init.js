@@ -354,6 +354,11 @@ $(function(){
 	    defaultDate : new Date(),
 	   // setDate:"Today"
 	    //endDate: '+3d'
+	}).on('changeDate',function(ev){
+		  var startTime = $(this).val();
+		  if(startTime){
+			  return;
+		  }
 	});
 	//日期视图
 	$('.datepicker-month-start-text').datepicker({
