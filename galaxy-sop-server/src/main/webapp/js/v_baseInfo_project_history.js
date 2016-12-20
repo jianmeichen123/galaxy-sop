@@ -37,7 +37,7 @@ function formatterTable(entity){
 			var obj=entity[i];
 			
 			var financeAmount = "-";
-			if(typeof(financeAmount)!="undefined" && financeAmount.length > 0){
+			if(typeof(obj.financeAmount)!="undefined" && obj.financeAmount.length > 0){
 				financeAmount = obj.financeAmount;
 			}
 			
