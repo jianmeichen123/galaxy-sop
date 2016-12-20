@@ -350,7 +350,7 @@ function notesInfoEdit(selectRowId,type){
 		url:_url,
 		data:"",
 		okback:function(){
-			$('.title_bj').html('访谈详情');
+			$('.title_bj').html('访谈纪要');
 			var um=UM.getEditor('viewNotes');
 			um.setContent(interviewSelectRow.viewNotes);
 			if(type == 'v'){
