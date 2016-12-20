@@ -416,6 +416,7 @@ $(function(){
 	  //  startDate: projectTime,
 	    //endDate: enddata,
 	   // startDate : '1900',
+	    endDate : dateLimit,
 	    defaultDate : new Date(),
 	   // setDate:"Today"
 	    //endDate: '+3d'
