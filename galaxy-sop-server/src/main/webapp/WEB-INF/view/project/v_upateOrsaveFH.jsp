@@ -16,14 +16,14 @@
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
                 <dd>
-                    <input type="text" class="datepicker-text txt time" readonly="" id="financeDateStr" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
+                    <input type="text" class="datepicker-text txt time" readonly="" id="financeDateStr" name="financeDateStr" value="" valtype="required" allowNULL="yes" msg="<font color=red>*</font>创建时间不能为空">
                 </dd>
             </dl>
             
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt" id="financeFrom" name="financeFrom" valType="OTHER" allowNULL="no" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"/>
+                    <input type="text" class="txt" id="financeFrom" name="financeFrom" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
