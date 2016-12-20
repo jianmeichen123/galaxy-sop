@@ -17,8 +17,8 @@
         <dd><input type="text" id="personAge" name="formatAgeStr" value="" class="txt" placeholder="年龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>年龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
-        <dt>手机号码：</dt>
-        <dd><input type="text" id="personTelephone" name="personTelephone" value="" class="txt" placeholder="手机号码"  valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"/></dd>
+        <dt>电话号码：</dt>
+        <dd><input type="text" id="personTelephone" name="personTelephone" value="" class="txt" placeholder="电话号码"  valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"/></dd>
       </dl> 
       <dl class="fmdl">
         <dt>最高学历：</dt>
