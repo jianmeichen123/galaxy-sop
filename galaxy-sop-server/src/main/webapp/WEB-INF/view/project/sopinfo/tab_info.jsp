@@ -193,7 +193,7 @@
 			<div class="describe1">
 				<span class="basic_span1"><em class="red">*</em>商业模式：</span>
 				<!-- <div id="describe_editor" type="text/plain" class='width_fwb'></div>   -->
-				<input id="describe_editor" class="new_nputr text" style="border:1px solid #d4d4d4;" placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></input>
+				<input id="describe_editor" class="new_nputr text" style="border:1px solid #d4d4d4;width:100%;" placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"></input>
 			</div>
 			<div class="describe2">
 				<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
