@@ -255,6 +255,22 @@ $.fn.serializeObject = function(){
     return JSON.stringify(obj);
 };
 
+$.fn.serializeObjectIsNotNull = function() {  
+	 var obj = {};
+	    var count = 0;
+	    $.each( this.serializeArray(), function(i,o){
+	    	var n = o.name, v = o.value;
+	    	if(v){
+	    		count++;
+	 	        obj[n] = obj[n] === undefined ? v
+	 	        : $.isArray( obj[n] ) ? obj[n].concat( v )
+	 	        : [ obj[n], v ];
+	    	}
+	    });
+	    obj.nameCounts = count + "";//表单name个数
+	    return JSON.stringify(obj);
+}
+
 /**
  * 使用localstage存储数据 <br/>
  * 注意：IE、Firefox测试的时候需要把文件上传到服务器上（或者localhost），直接点开本地的HTML文件，是不行的。

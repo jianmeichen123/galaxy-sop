@@ -97,9 +97,11 @@ function updateOrsave(){
 	}else{
 		_url=platformUrl.upateFHSave+"/"+fhId;
 	}
-	var nowFormData = $("#updateOrSave_HF").serializeObject();
+	var nowFormData = JSON.parse($("#updateOrSave_HF").serializeObjectIsNotNull());
+	console.log(nowFormData);
 	if(beforeSubmitById("updateOrSave_HF")){
-	     sendPostRequestByJsonStr(_url, nowFormData, function(data){
+		
+		sendPostRequestByJsonObj(_url, nowFormData, function(data){
 	 		fhId="";
 			$.popupOneClose();
 			$.locksCreenOpen();

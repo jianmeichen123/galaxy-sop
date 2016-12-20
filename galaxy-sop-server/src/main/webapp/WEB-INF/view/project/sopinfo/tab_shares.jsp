@@ -427,7 +427,7 @@
 		{
 			sendPostRequestByJsonObj(
 					platformUrl.updateStock, 
-				JSON.parse($("#up_stock_form").serializeObject()), 
+				JSON.parse($("#up_stock_form").serializeObjectIsNotNull()), 
 				function(data){
 					if(data.result.status=="OK")
 					{
@@ -449,7 +449,7 @@
 		{
 			sendPostRequestByJsonObj(
 				platformUrl.addStock, 
-				JSON.parse($("#stock_form").serializeObject()), 
+				JSON.parse($("#stock_form").serializeObjectIsNotNull()), 
 				function(data){
 					if(data.result.status=="OK")
 					{

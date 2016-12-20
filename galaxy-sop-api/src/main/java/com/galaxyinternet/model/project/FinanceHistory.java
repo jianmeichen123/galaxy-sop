@@ -18,11 +18,11 @@ public class FinanceHistory extends BaseEntity {
     
     private String financeFrom;//融资来源
     
-    private double financeAmount;//融资金额
+    private Double financeAmount;//融资金额
     
     private Integer financeUnit;//融资货币
     
-    private double financeProportion;//融资占比
+    private Double financeProportion;//融资占比
     
     private String financeStatus;//融资轮次
     
@@ -55,14 +55,24 @@ public class FinanceHistory extends BaseEntity {
 		this.financeFrom = financeFrom;
 	}
 
-	public double getFinanceAmount() {
+	
+	
+	public Double getFinanceAmount() {
 		return financeAmount;
 	}
 
-	public void setFinanceAmount(double financeAmount) {
+	public void setFinanceAmount(Double financeAmount) {
 		this.financeAmount = financeAmount;
 	}
-	
+
+	public Double getFinanceProportion() {
+		return financeProportion;
+	}
+
+	public void setFinanceProportion(Double financeProportion) {
+		this.financeProportion = financeProportion;
+	}
+
 	public Integer getFinanceUnit() {
 		return financeUnit;
 	}
@@ -71,13 +81,6 @@ public class FinanceHistory extends BaseEntity {
 		this.financeUnit = financeUnit;
 	}
 
-	public double getFinanceProportion() {
-		return financeProportion;
-	}
-
-	public void setFinanceProportion(double financeProportion) {
-		this.financeProportion = financeProportion;
-	}
 
 	public String getFinanceStatus() {
 		return financeStatus;

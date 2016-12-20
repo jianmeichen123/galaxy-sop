@@ -60,7 +60,7 @@ public class ProjectSharesController extends BaseControllerImpl<ProjectShares, P
 		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
 		
 		if(StringUtils.isEmpty(String.valueOf(entity.getProjectId())) || StringUtils.isEmpty(entity.getSharesType())
-				|| StringUtils.isEmpty(entity.getSharesOwner()) ||StringUtils.isEmpty(entity.getSharesRatio().toString())){
+				|| StringUtils.isEmpty(entity.getSharesOwner())){
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}

@@ -29,7 +29,7 @@
             <dl class="fmdl clearfix">
                  <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -46,7 +46,7 @@
             <dl class="fmdl clearfix">
                  <dt>占比：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="financeProportion" id="financeProportion" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;<span>%</span>
+                    <input type="text" class="txt fl" name="financeProportion" id="financeProportion" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;<span>%</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">

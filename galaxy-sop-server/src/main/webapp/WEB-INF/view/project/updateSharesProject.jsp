@@ -26,7 +26,7 @@
       </dl>
       <dl class="fmdl">
         <dt>股权占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="txt fl" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
+        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="txt fl" valType="OTHER" allowNULL="yes" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
       </dl> 
       <%-- <dl class="fmdl">
         <dt>获取方式：</dt>
