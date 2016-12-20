@@ -88,15 +88,15 @@
 </div>
 <!-- 融资历史 -->
 <div class="member financeHistory">
-    <div class="title">
+    <div class="title" >
         <span class="new_ico_stock icon"></span>
-        <span class="new_color size16">融资历史</span> 
+        <span class="new_color size16"  >融资历史</span> 
     </div> 
     <div class="top clearfix">
         <!--按钮-->
        <c:if test="${isEditable}">
           <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="toUpdateOrSave()">添加</a>
+              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
           </div>
         </c:if>
       </div>
