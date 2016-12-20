@@ -489,7 +489,7 @@ $(function(){
 			var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
 			var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
 			var faFlag=$('input:radio[name="faFlag"]:checked').val();
-			var remark=$('#remark').val();
+			var remark=$('#remark').val().trim();
 			console.log(remark);
 			var faName="";
 			if(faFlag=='0'){
