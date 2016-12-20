@@ -36,8 +36,8 @@
                  <dt>币种：</dt>
                 <dd>
                     <select name="financeUnit" id="financeUnit">
-                        <option value="0" select="selected" name="financeUnit" selected="selected" >人民币</option>
-                        <option value="1" name="financeUnit">美元</option>
+                        <option value="0"  name="financeUnit" >人民币</option>
+                        <option value="1" name="financeUnit" selected="selected">美元</option>
                         <!-- <option value="2" name="financeUnit">英镑</option>
                         <option value="3" name="financeUnit">欧元</option> -->
                     </select>
