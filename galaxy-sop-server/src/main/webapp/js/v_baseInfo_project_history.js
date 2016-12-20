@@ -35,13 +35,25 @@ function formatterTable(entity){
 				 };
 		for(var i=0;i<entity.length;i++){
 			var obj=entity[i];
+			
+			var financeAmount = "-";
+			if(typeof(financeAmount)!="undefined" && financeAmount.length > 0){
+				financeAmount = obj.financeAmount;
+			}
+			
+			var financeProportion = "-";
+			if(typeof(obj.financeProportion)!="undefined" && obj.financeProportion.length > 0){
+				financeProportion = obj.financeProportion;
+			}
+			
+			
 			html=
 				"<tr>"+
 					"<td>"+obj.financeDateStr+"</td>"+
 					"<td  title='"+obj.financeFrom+"'>"+obj.financeFrom+"</td>"+
-					"<td>"+obj.financeAmount+"</td>"+
+					"<td>"+financeAmount+"</td>"+
 					"<td>"+data[obj.financeUnit]+"</td>"+
-					"<td>"+obj.financeProportion+"</td>"+
+					"<td>"+financeProportion+"</td>"+
 					"<td>"+obj.financeStatusDs+"</td>";
 			var html_1 =
 					"<td>"+
