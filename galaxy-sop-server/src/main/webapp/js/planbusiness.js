@@ -171,6 +171,36 @@ var initPage = {
 								_localUrl : platformUrl.commonUploadFile
 						};
 						win.init(formData);
+						//浏览器窗口带下改变，弹层重新定位
+						$(window).resize(function(){  
+							var wh = parseInt($("#powindow").outerWidth(true)),
+							ht = parseInt($("#powindow").outerHeight(true));
+							var win_w = $(window).width(),
+							win_h = $(window).height(),
+							win_x = (win_w-wh)/2,
+							win_y = (win_h-ht)/2;
+							//背景设置高度+显示
+							$("#popbg,#popbg iframe").css({"height":win_h});
+							$("#popbg01").css({"height":win_h});
+							$("#popbg").show().animate({
+								opacity:0.5
+							},300);
+							$("#popbg01").show().animate({
+								opacity:0.5
+							},0);
+							//弹出层定位+显示
+							$("#powindow").Fixed({
+								x:win_x,
+								y:win_y
+							});
+							$("#powindow").animate({
+								opacity:1
+							},400);
+							if($("#powindow").length==0){
+								$("#popbg").remove();
+							}
+						});
+					
 					},
 					businessPlanHistory : function(){
 						var historyDialog = {
