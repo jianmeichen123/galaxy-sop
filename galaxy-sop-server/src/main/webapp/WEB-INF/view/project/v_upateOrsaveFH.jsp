@@ -16,7 +16,7 @@
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
                 <dd>
-                    <input type="text" class="datepicker-text txt time" readonly="" id="financeDateStr" name="financeDateStr" value="" valtype="required" allowNULL="yes" msg="<font color=red>*</font>创建时间不能为空">
+                    <input type="text" class="datepicker-text txt time" readonly="" id="financeDateStr" name="financeDateStr" value="">
                 </dd>
             </dl>
             
@@ -29,7 +29,7 @@
             <dl class="fmdl clearfix">
                  <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="yes" valType="LIMIT_10_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
