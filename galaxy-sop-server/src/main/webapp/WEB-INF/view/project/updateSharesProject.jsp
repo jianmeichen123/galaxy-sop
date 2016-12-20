@@ -16,13 +16,13 @@
       <dl class="fmdl">
         <dt>股东类型：</dt>
         <dd>
-          <select name='sharesType'valType="required" allowNULL="yes" msg="<font color=red>*</font>股东类型不能为空" >
-	           <option value="">请选择</option>
-	           <option value="自然人">自然人</option>
-	           <option value="法人">法人</option>
-	           <option value="其他">其他</option>
-	        </select>
-	    </dd>
+					<select name='sharesType'>
+						<option value="">请选择</option>
+						<option value="自然人">自然人</option>
+						<option value="法人">法人</option>
+						<option value="其他">其他</option>
+					</select>
+				</dd>
       </dl>
       <dl class="fmdl">
         <dt>股权占比：</dt>

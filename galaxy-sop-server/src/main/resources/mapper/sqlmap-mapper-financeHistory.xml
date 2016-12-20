@@ -116,12 +116,12 @@
 		update finance_history
 		<set>
 			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
-		     <if test="financeDate != null" > finance_date = #{financeDate,jdbcType=TIMESTAMP}, </if>
-		     <if test="financeFrom != null" > finance_from = #{financeFrom,jdbcType=VARCHAR}, </if>
+		     finance_date = #{financeDate,jdbcType=TIMESTAMP},
+		     finance_from = #{financeFrom,jdbcType=VARCHAR}, 
 		     finance_amount = #{financeAmount,jdbcType=DECIMAL}, 
-		     <if test="financeUnit != null" > finance_unit = #{financeUnit,jdbcType=VARCHAR}, </if>
+		     finance_unit = #{financeUnit,jdbcType=VARCHAR}, 
 		     finance_proportion = #{financeProportion,jdbcType=DECIMAL}, 
-		     <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
+		     finance_status = #{financeStatus,jdbcType=VARCHAR}
 		   
 		</set>
 		where id = #{id}

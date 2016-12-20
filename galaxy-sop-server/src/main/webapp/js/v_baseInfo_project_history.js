@@ -36,27 +36,20 @@ function formatterTable(entity){
 		for(var i=0;i<entity.length;i++){
 			var obj=entity[i];
 			
-			var financeAmount = "-";
-			if(typeof(obj.financeAmount)!="undefined"){
-				financeAmount = obj.financeAmount;
-			}
-			
-			var financeProportion = "-";
-			
-			if(typeof(obj.financeProportion)!="undefined"){
-				financeProportion = obj.financeProportion;
-				
-			}
-			
+			var financeAmount =  typeof(obj.financeAmount)!="undefined"?obj.financeAmount:"-";
+			var financeProportion = typeof(obj.financeProportion)!="undefined"?obj.financeProportion:"-";
+			var financeDateStr = typeof(obj.financeDateStr)!="undefined"?obj.financeDateStr:"-";
+			var financeFrom = typeof(obj.financeFrom)!="undefined"?obj.financeFrom:"-";
+			var financeStatusDs = typeof(obj.financeStatusDs)!="undefined"?obj.financeStatusDs:"-";
 			
 			html=
 				"<tr>"+
-					"<td>"+obj.financeDateStr+"</td>"+
-					"<td  title='"+obj.financeFrom+"'>"+obj.financeFrom+"</td>"+
+					"<td>"+financeDateStr+"</td>"+
+					"<td  title='"+obj.financeFrom+"'>"+financeFrom+"</td>"+
 					"<td>"+financeAmount+"</td>"+
 					"<td>"+data[obj.financeUnit]+"</td>"+
 					"<td>"+financeProportion+"</td>"+
-					"<td>"+obj.financeStatusDs+"</td>";
+					"<td>"+financeStatusDs+"</td>";
 			var html_1 =
 					"<td>"+
 						"<a class='finance_edit blue'   onclick=\"toUpdateOrSave('"+obj.id+"')\" href='javascript:void(0)' data-name='编辑融资历史'>编辑 &nbsp;</a>"+

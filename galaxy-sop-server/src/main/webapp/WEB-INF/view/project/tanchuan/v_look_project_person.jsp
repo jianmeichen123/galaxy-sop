@@ -82,7 +82,7 @@
 					<thead>
 						<tr>
 							<th data-field="BE_time"  data-align="left" data-formatter="work_TimeFormat">时间</th>
-							<th data-field="companyName"  data-align="left" data-formatter="companyName">任职公司名称</th>
+							<th data-field="companyName"  data-align="left" data-formatter="companyName">任职公司</th>
 			                <th data-field="workPosition"  data-align="left" data-formatter="workPosition">职位</th>
 						</tr>
 					</thead>

@@ -29,12 +29,12 @@
             <dl class="fmdl fl">
                 <dt>毕业院校：</dt>
                 <dd class="clearfix">
-                    <input name="school" type="text" class="txt" allowNULL="yes" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>字符长度最大50"/>
+                    <input name="school" type="text" class="txt" maxLength="50"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>专业：</dt>
-                <dd><input name="major" type="text" class="txt" allowNULL="yes" valtype="OTHER" regstring="^[^\s](.{0,49})$" msg="<font color=red>*</font>字符长度最大50"/></dd>
+                <dd><input name="major" type="text" class="txt" maxLength="50"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>学历：</dt>
