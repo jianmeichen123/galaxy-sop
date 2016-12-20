@@ -98,7 +98,7 @@
 			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
 		     <if test="sharesType != null" > shares_type = #{sharesType,jdbcType=VARCHAR}, </if>
 		     <if test="sharesOwner != null" > shares_owner = #{sharesOwner,jdbcType=VARCHAR}, </if>
-		     shares_ratio = #{sharesRatio,jdbcType=DECIMAL}, </if>
+		     shares_ratio = #{sharesRatio,jdbcType=DECIMAL}, 
 		     <if test="gainMode != null" > gain_mode = #{gainMode,jdbcType=VARCHAR}, </if>
 		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR} </if>
 		</set>
