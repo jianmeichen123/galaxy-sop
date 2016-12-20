@@ -94,7 +94,14 @@ radio name="personSex"
                 <dt><em class="red">*</em>&nbsp;出生年份：</dt>
                 <dd>
                     <input type="text" class="datepicker-year-text txt time" name="personBirthdayStr"
-                    	readonly  value=""  valtype="required"  msg="<font color=red>*</font>出生日期不能为空" />
+                    	readonly  value=""  valType1="required"/>
+                    	
+                    <div id="personBirthdayStr_valiate" class="tip-yellowsimple">
+						<div class="tip-inner tip-bg-image">
+							<font color="red">*</font>出生日期不能为空
+						</div>
+						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+					</div>
                 </dd>
             </dl>
             <dl class="fmdl fl">
