@@ -5,7 +5,7 @@ String path = request.getContextPath();
 <script src="<%=path %>/js/echarts_health.js" type="text/javascript"></script>
 <dl class="r_news">
 	<dt>
-		<h3 class="ico t13">项目健康度<span class="Htips"></span></h3>
+		<h3 class="ico t13">项目健康度<span class="Htips" style="font-size:12px;font-family:'宋体';margin-left:5px;">（截止到当前）</span></h3>
 		<span class="more null position" id="platform_health_more" style="cursor: pointer;">more</span>
 	</dt>
 	<dd>
