@@ -112,13 +112,13 @@ radio name="personSex"
                 </dd>
             </dl>
              <dl class="fmdl fl">
-                <dt>手机号码：</dt>
+                <dt>电话号码：</dt>
                 <dd>
                 	<input type="text" class="txt" name="personTelephone" 
-                		placeholder="请输入手机号码" valtype1="OTHER" regstring="^[-0-9]{1,15}$"/>
+                		placeholder="请输入电话号码" valtype1="OTHER" regstring="^[-0-9]{1,15}$"/>
                 	<div id="personTelephone_valiate" class="tip-yellowsimple">
 						<div class="tip-inner tip-bg-image">
-							<font color="red">*</font>手机号码格式不正确
+							<font color="red">*</font>电话号码格式不正确
 						</div>
 						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 					</div>

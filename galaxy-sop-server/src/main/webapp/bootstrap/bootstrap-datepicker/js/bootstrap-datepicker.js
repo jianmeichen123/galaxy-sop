@@ -1184,7 +1184,7 @@
 						}
 						break;
 					case 'td':
-						this.clearDates();
+						//this.clearDates();
 						if (target.hasClass('day') && !target.hasClass('disabled')){
 							day = parseInt(target.text(), 10)||1;
 							year = this.viewDate.getUTCFullYear();

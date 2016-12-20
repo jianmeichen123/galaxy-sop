@@ -189,7 +189,18 @@
 	 function typeFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.sharesType;
-			if(str.length>10){
+			if(typeof(str)=="undefined"){
+				var options = "<label>"+"-"+"</label>";
+				return options;
+			}else if(typeof(str)!="undefined" && str.length>10){
+				subStr = str.substring(0,10);
+				var options = "<label title='"+str+"'>"+subStr+"</label>";
+				return options;
+			}else{
+				var options = "<label title='"+str+"'>"+str+"</label>";
+				return options;
+			}
+		/* 	if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
 				return options;
@@ -197,12 +208,23 @@
 			else{
 				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
-			}
+			} */
 		}
 	 function sharesOwnerFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.sharesOwner;
-			if(str.length>10){
+			if(typeof(str)=="undefined"){
+				var options = "<label>"+"-"+"</label>";
+				return options;
+			}else if(typeof(str)!="undefined" && str.length>10){
+				subStr = str.substring(0,10);
+				var options = "<label title='"+str+"'>"+subStr+"</label>";
+				return options;
+			}else{
+				var options = "<label title='"+str+"'>"+str+"</label>";
+				return options;
+			}
+			/* if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
 				return options;
@@ -210,7 +232,7 @@
 			else{
 				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
-			}
+			} */
 		}
 	 function gainModeFormatter(value,row,index){
 		    var id=row.id;
