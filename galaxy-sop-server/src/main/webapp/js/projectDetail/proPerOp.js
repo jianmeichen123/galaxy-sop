@@ -641,7 +641,7 @@ function learnTableRefresh(newDataRow){
 			newDataRow.isEditOrCreate = 1;
 		}
 		newDataRow.deleteIndex = learnSelectRow.deleteIndex;
-		$('#per_learning_table').bootstrapTable('updateByUniqueId', {id: learnSelectRow.deleteIndex, row: newDataRow});
+		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: newDataRow});
 		//$('#per_learning_table').bootstrapTable('updateByUniqueId', {deleteIndex: learnSelectRow.deleteIndex, row: newDataRow});
 	}else{
 		if(learn_code_index == null){
@@ -885,7 +885,7 @@ function workTableRefresh(newRowData){
 			newRowData.isEditOrCreate = 1;
 		}
 		newRowData.deleteIndex = workSelectRow.deleteIndex;
-		$('#per_work_table').bootstrapTable('updateByUniqueId', {id: workSelectRow.deleteIndex, row: newRowData});
+		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex, row: newRowData});
 	}else{
 		if(work_code_index == null){
 			work_code_index = 0;
