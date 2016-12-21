@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.galaxyinternet</groupId>
 		<artifactId>galaxy-sop</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.0-fz</version>
 	</parent>
 	<artifactId>galaxy-sop-api</artifactId>
 	<packaging>jar</packaging>
@@ -12,7 +12,7 @@
 	<description />
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dependency.project>1.0.2-SNAPSHOT</dependency.project>
+		<dependency.project>1.0.0-fz</dependency.project>
 	</properties>
 
 	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
