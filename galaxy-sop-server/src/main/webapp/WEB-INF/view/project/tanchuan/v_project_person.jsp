@@ -151,10 +151,10 @@ radio name="personSex"
 			<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
 	            <table  id="per_learning_table" class="basic_table learning-table"
 	               	data-url="<%=path %>/galaxy/project/queryProPerLearn" data-method="post" 
-		       		data-toolbar="#learning_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
+		       		data-toolbar="#learning_table_custom_toolbar" data-unique-id="deleteIndex" >
 					<thead>
 						<tr>
-							<th data-field="deleteIndex"  data-align="left" data-formatter="deleteIndex_Format"></th>
+							<!-- <th data-field="deleteIndex"  data-align="left" data-formatter="deleteIndex_Format"></th> -->
 							<th data-field="school"  data-align="left" data-formatter="school" data-width="20%">毕业院校</th>
 			                <th data-field="major"  data-align="left" data-formatter="major" data-width="20%">专业</th>
 		                     
@@ -188,7 +188,7 @@ radio name="personSex"
 			<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
 			<table id="per_work_table" class="basic_table learning-table" 
                	data-url="<%=path %>/galaxy/project/queryProPerWork" data-method="post" 
-	       		data-toolbar="#work_table_custom_toolbar" data-id-field="deleteIndex" data-unique-id="deleteIndex" >
+	       		data-toolbar="#work_table_custom_toolbar" data-unique-id="deleteIndex" >
 				<!-- <colgroup >
 					<col style="width:0;">
 					<col style="width:30%;">
@@ -198,8 +198,8 @@ radio name="personSex"
 				</colgroup> -->
 				<thead>
 					<tr>
-						<th data-field="deleteIndex"  data-align="left" data-formatter="work_deleteIndex_Format" ></th>
-						<!--  beginWork overWork beginWorkStr overWorkStr -->
+						<!-- <th data-field="deleteIndex"  data-align="left" data-formatter="work_deleteIndex_Format" ></th>
+						 --><!--  beginWork overWork beginWorkStr overWorkStr -->
 						<th data-field="BE_time"  data-align="left" data-formatter="work_TimeFormat" data-width="25%">时间</th>
 						
 						<th data-field="companyName"  data-align="left" data-formatter="companyName" data-width="25%">任职公司</th>
