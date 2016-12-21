@@ -993,9 +993,13 @@ var platformUrl = {
 	/**
 	 * 项目详情-删除融资历史信息
 	 */
-	deleteFH : Constants.sopEndpointURL + "/galaxy/financeHistory/deleteFH"
+	deleteFH : Constants.sopEndpointURL + "/galaxy/financeHistory/deleteFH",
+	/**
+	 * 项目详情-删除融资历史信息
+	 */
+	selectEntityShare : Constants.sopEndpointURL + "/galaxy/projectShares/selectEntityShare"
 	
-
+	
 }
 
 /**

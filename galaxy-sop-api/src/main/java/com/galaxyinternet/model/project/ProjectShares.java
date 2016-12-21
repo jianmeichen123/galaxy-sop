@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.project;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.NumberUtils;
 
 public class ProjectShares extends PagableEntity {
 	private static final long serialVersionUID = 1L;

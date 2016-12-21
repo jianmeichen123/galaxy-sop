@@ -105,7 +105,6 @@ function updateOrsave(){
 		_url=platformUrl.upateFHSave+"/"+fhId;
 	}
 	var nowFormData = JSON.parse($("#updateOrSave_HF").serializeObjectIsNotNull());
-	console.log(nowFormData);
 	if(beforeSubmitById("updateOrSave_HF")){
 		
 		sendPostRequestByJsonObj(_url, nowFormData, function(data){

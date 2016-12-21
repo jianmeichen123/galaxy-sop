@@ -6,17 +6,17 @@
 <div class="title_bj">编辑股权结构</div>
   <form action="" id="up_stock_form" method="post" type="validate">
   <input type="hidden" value="" name="projectId" id="projectId">
-  <input type="hidden" name="id" value="${share.id }">
-  <div class="form clearfix">
+  <input type="hidden" name="id" id="id" >
+  <div class="form clearfix" id="edit_share">
     
       <dl class="fmdl fml">
         <dt>股东：</dt>
-        <dd><input type="text" name="sharesOwner" value="${share.sharesOwner }" class="txt" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,19})$"msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
+        <dd><input type="text" id="sharesOwner" name="sharesOwner" value="${share.sharesOwner }" class="txt" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,19})$"msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>股东类型：</dt>
         <dd>
-					<select name='sharesType'>
+					<select name='sharesType' id="sharesType">
 						<option value="">请选择</option>
 						<option value="自然人">自然人</option>
 						<option value="法人">法人</option>
@@ -26,7 +26,7 @@
       </dl>
       <dl class="fmdl">
         <dt>股权占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="txt fl" valType="OTHER" allowNULL="yes" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
+        <dd><input type="text" name="sharesRatio" id="sharesRatio" value="${share.sharesRatio }" class="txt fl" valType="OTHER" allowNULL="yes" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
       </dl> 
       <%-- <dl class="fmdl">
         <dt>获取方式：</dt>
@@ -37,7 +37,7 @@
   <div class="form_textarea">
     <dl class="fmdl">
       <dt>备注：</dt>
-      <dd><textarea name="remark" maxLength="50">${share.remark }</textarea></dd>
+      <dd><textarea name="remark" id="remark" maxLength="50">${share.remark }</textarea></dd>
     </dl>
   </div>
   <div class="btnbox clearfix">
@@ -49,12 +49,6 @@
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script>
-var sharesType='${share.sharesType}';
-var options= $("select[name='sharesType'] option");
-for(var i=0;i<options.length;i++){
-	if(options[i].value==sharesType){
-		options[i].selected='selected';
-	}
-}
+
 
 </script>
