@@ -35,7 +35,7 @@
   <div class="form_textarea">
     <dl class="fmdl">
       <dt>备注：</dt>
-      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符"></textarea></dd>
+      <dd><textarea name="remark" maxLength="50"></textarea></dd>
     </dl>
   </div>
   <div class="btnbox clearfix">
