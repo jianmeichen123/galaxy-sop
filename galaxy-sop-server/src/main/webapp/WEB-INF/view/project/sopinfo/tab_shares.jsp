@@ -433,7 +433,7 @@
 						if(data.result.status=="OK")
 						{
 							layer.msg('删除成功');
-							$sharesTable.bootstrapTable('refresh');
+							$("#shares-table").bootstrapTable('refresh',{url : platformUrl.projectSharesList});	
 						}
 						else
 						{
