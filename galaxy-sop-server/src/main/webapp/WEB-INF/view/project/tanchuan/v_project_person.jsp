@@ -67,18 +67,18 @@ radio name="personSex"
                        <option value="VP">副总裁</option>
                        <option value="Expert Consultant">专家顾问</option>
                        <option value="Others">其他</option> -->
-                       <option value="首席执行官">首席执行官</option>
-                       <option value="首席运营官">首席运营官</option>
-                       <option value="CFO">首席财务官</option>
-                       <option value="首席财务官">首席信息官</option>
-                       <option value="首席技术官">首席技术官</option>
-                       <option value="首席数据官">首席数据官</option>
-                       <option value="首席市场官">首席市场官</option>
-                       <option value="首席商务官">首席商务官</option>
-                       <option value="总经理">总经理</option>
-                       <option value="副总裁">副总裁</option>
-                       <option value="专家顾问">专家顾问</option>
-                       <option value="其他">其他</option>
+                       <option value="CEO首席执行官">CEO首席执行官</option>
+                       <option value="COO首席运营官">COO首席运营官</option>
+                       <option value="CFO首席财务官">CFO首席财务官</option>
+                       <option value="CIO首席信息官">CIO首席信息官</option>
+                       <option value="CTO首席技术官">CTO首席技术官</option>
+                       <option value="CDO首席数据官">CDO首席数据官</option>
+                       <option value="CMO首席市场官">CMO首席市场官</option>
+                       <option value="CBO首席商务官">CBO首席商务官</option>
+                       <option value="GM总经理">GM总经理</option>
+                       <option value="VP副总裁">VP副总裁</option>
+                       <option value="Expert Consultant专家顾问">Expert Consultant专家顾问</option>
+                       <option value="Others其他">Others其他</option>
                    </select>
                    
                 	<div id="personDuties_valiate" class="tip-yellowsimple">
@@ -112,13 +112,13 @@ radio name="personSex"
                 </dd>
             </dl>
              <dl class="fmdl fl">
-                <dt>手机号码：</dt>
+                <dt>电话号码：</dt>
                 <dd>
                 	<input type="text" class="txt" name="personTelephone" 
-                		placeholder="请输入手机号码" valtype1="OTHER" regstring="^[-0-9]{1,15}$"/>
+                		placeholder="请输入电话号码" valtype1="OTHER" regstring="^[-0-9]{1,15}$"/>
                 	<div id="personTelephone_valiate" class="tip-yellowsimple">
 						<div class="tip-inner tip-bg-image">
-							<font color="red">*</font>手机号码格式不正确
+							<font color="red">*</font>电话号码格式不正确
 						</div>
 						<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
 					</div>
@@ -202,7 +202,7 @@ radio name="personSex"
 						<!--  beginWork overWork beginWorkStr overWorkStr -->
 						<th data-field="BE_time"  data-align="left" data-formatter="work_TimeFormat" data-width="25%">时间</th>
 						
-						<th data-field="companyName"  data-align="left" data-formatter="companyName" data-width="25%">任职公司名称</th>
+						<th data-field="companyName"  data-align="left" data-formatter="companyName" data-width="25%">任职公司</th>
 		                <th data-field="workPosition"  data-align="left" data-formatter="workPosition" data-width="25%">职位</th>
 	                    <th data-field="work_op" data-formatter="pro_work_format" data-width="25%">操作</th>
 					</tr>

@@ -9,12 +9,12 @@
   <div class="form clearfix">
       <dl class="fmdl fml">
         <dt>股东：</dt>
-        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^[^\s](.{0,19})$" msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
+        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" allowNULL="yes" regstring="^[^\s](.{0,19})$" msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
       </dl>
        <dl class="fmdl">
         <dt>股东类型：</dt>
         <dd>
-	        <select name='sharesType' valType="required" msg="<font color=red>*</font>股东类型不能为空">
+	        <select name='sharesType'>
 	           <option value="">请选择</option>
 	           <option value="自然人">自然人</option>
 	           <option value="法人">法人</option>
@@ -24,7 +24,7 @@
       </dl> 
       <dl class="fmdl">
         <dt>股权占比：</dt>
-        <dd class="clearfix"><input type="text" name="sharesRatio" value="" class="txt fl" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
+        <dd class="clearfix"><input type="text" name="sharesRatio" value="" class="txt fl" valType="OTHER" allowNULL="yes" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
       </dl> 
       <%-- <dl class="fmdl">
         <dt>获取方式：</dt>
@@ -35,7 +35,7 @@
   <div class="form_textarea">
     <dl class="fmdl">
       <dt>备注：</dt>
-      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符"></textarea></dd>
+      <dd><textarea name="remark" maxLength="50"></textarea></dd>
     </dl>
   </div>
   <div class="btnbox clearfix">

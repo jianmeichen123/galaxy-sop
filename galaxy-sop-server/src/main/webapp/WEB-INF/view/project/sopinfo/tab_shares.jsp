@@ -88,15 +88,15 @@
 </div>
 <!-- 融资历史 -->
 <div class="member financeHistory">
-    <div class="title">
+    <div class="title" >
         <span class="new_ico_stock icon"></span>
-        <span class="new_color size16">融资历史</span> 
+        <span class="new_color size16"  >融资历史</span> 
     </div> 
     <div class="top clearfix">
         <!--按钮-->
        <c:if test="${isEditable}">
           <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="toUpdateOrSave()">添加</a>
+              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
           </div>
         </c:if>
       </div>
@@ -189,7 +189,18 @@
 	 function typeFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.sharesType;
-			if(str.length>10){
+			if(typeof(str)=="undefined"){
+				var options = "<label>"+"-"+"</label>";
+				return options;
+			}else if(typeof(str)!="undefined" && str.length>10){
+				subStr = str.substring(0,10);
+				var options = "<label title='"+str+"'>"+subStr+"</label>";
+				return options;
+			}else{
+				var options = "<label title='"+str+"'>"+str+"</label>";
+				return options;
+			}
+		/* 	if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
 				return options;
@@ -197,12 +208,23 @@
 			else{
 				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
-			}
+			} */
 		}
 	 function sharesOwnerFormatter(value,row,index){
 		    var id=row.id;
 			var str=row.sharesOwner;
-			if(str.length>10){
+			if(typeof(str)=="undefined"){
+				var options = "<label>"+"-"+"</label>";
+				return options;
+			}else if(typeof(str)!="undefined" && str.length>10){
+				subStr = str.substring(0,10);
+				var options = "<label title='"+str+"'>"+subStr+"</label>";
+				return options;
+			}else{
+				var options = "<label title='"+str+"'>"+str+"</label>";
+				return options;
+			}
+			/* if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
 				return options;
@@ -210,7 +232,7 @@
 			else{
 				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
-			}
+			} */
 		}
 	 function gainModeFormatter(value,row,index){
 		    var id=row.id;
@@ -427,7 +449,7 @@
 		{
 			sendPostRequestByJsonObj(
 					platformUrl.updateStock, 
-				JSON.parse($("#up_stock_form").serializeObject()), 
+				JSON.parse($("#up_stock_form").serializeObjectIsNotNull()), 
 				function(data){
 					if(data.result.status=="OK")
 					{
@@ -449,7 +471,7 @@
 		{
 			sendPostRequestByJsonObj(
 				platformUrl.addStock, 
-				JSON.parse($("#stock_form").serializeObject()), 
+				JSON.parse($("#stock_form").serializeObjectIsNotNull()), 
 				function(data){
 					if(data.result.status=="OK")
 					{

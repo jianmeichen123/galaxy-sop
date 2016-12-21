@@ -16,28 +16,28 @@
             <dl class="fmdl clearfix">
                 <dt>融资时间：</dt>
                 <dd>
-                    <input type="text" class="datepicker-text txt time" readonly="" id="financeDateStr" name="financeDateStr" value="" valtype="required" msg="<font color=red>*</font>创建时间不能为空">
+                    <input type="text" class="datepicker-text txt time" readonly="" id="financeDateStr" name="financeDateStr" value="">
                 </dd>
             </dl>
             
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt" id="financeFrom" name="financeFrom" valType="OTHER" allowNULL="no" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"/>
+                    <input type="text" class="txt" id="financeFrom" name="financeFrom" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
                  <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" id="financeAmount" name="financeAmount" allowNULL="yes" valType="LIMIT_10_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
                  <dt>币种：</dt>
                 <dd>
                     <select name="financeUnit" id="financeUnit">
-                        <option value="0" select="selected" name="financeUnit" selected="selected" >人民币</option>
-                        <option value="1" name="financeUnit">美元</option>
+                        <option value="0"  name="financeUnit" >人民币</option>
+                        <option value="1" name="financeUnit" selected="selected">美元</option>
                         <!-- <option value="2" name="financeUnit">英镑</option>
                         <option value="3" name="financeUnit">欧元</option> -->
                     </select>
@@ -46,7 +46,7 @@
             <dl class="fmdl clearfix">
                  <dt>占比：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="financeProportion" id="financeProportion" allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;<span>%</span>
+                    <input type="text" class="txt fl" name="financeProportion" id="financeProportion" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;<span>%</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">

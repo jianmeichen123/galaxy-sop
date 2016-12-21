@@ -35,14 +35,21 @@ function formatterTable(entity){
 				 };
 		for(var i=0;i<entity.length;i++){
 			var obj=entity[i];
+			
+			var financeAmount =  typeof(obj.financeAmount)!="undefined"?obj.financeAmount:"-";
+			var financeProportion = typeof(obj.financeProportion)!="undefined"?obj.financeProportion:"-";
+			var financeDateStr = typeof(obj.financeDateStr)!="undefined"?obj.financeDateStr:"-";
+			var financeFrom = typeof(obj.financeFrom)!="undefined"?obj.financeFrom:"-";
+			var financeStatusDs = typeof(obj.financeStatusDs)!="undefined"?obj.financeStatusDs:"-";
+			
 			html=
 				"<tr>"+
-					"<td>"+obj.financeDateStr+"</td>"+
-					"<td  title='"+obj.financeFrom+"'>"+obj.financeFrom+"</td>"+
-					"<td>"+obj.financeAmount+"</td>"+
+					"<td>"+financeDateStr+"</td>"+
+					"<td  title='"+obj.financeFrom+"'>"+financeFrom+"</td>"+
+					"<td>"+financeAmount+"</td>"+
 					"<td>"+data[obj.financeUnit]+"</td>"+
-					"<td>"+obj.financeProportion+"</td>"+
-					"<td>"+obj.financeStatusDs+"</td>";
+					"<td>"+financeProportion+"</td>"+
+					"<td>"+financeStatusDs+"</td>";
 			var html_1 =
 					"<td>"+
 						"<a class='finance_edit blue'   onclick=\"toUpdateOrSave('"+obj.id+"')\" href='javascript:void(0)' data-name='编辑融资历史'>编辑 &nbsp;</a>"+
@@ -97,9 +104,11 @@ function updateOrsave(){
 	}else{
 		_url=platformUrl.upateFHSave+"/"+fhId;
 	}
-	var nowFormData = $("#updateOrSave_HF").serializeObject();
+	var nowFormData = JSON.parse($("#updateOrSave_HF").serializeObjectIsNotNull());
+	console.log(nowFormData);
 	if(beforeSubmitById("updateOrSave_HF")){
-	     sendPostRequestByJsonStr(_url, nowFormData, function(data){
+		
+		sendPostRequestByJsonObj(_url, nowFormData, function(data){
 	 		fhId="";
 			$.popupOneClose();
 			$.locksCreenOpen();
