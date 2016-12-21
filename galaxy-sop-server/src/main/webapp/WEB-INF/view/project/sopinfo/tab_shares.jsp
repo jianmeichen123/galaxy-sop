@@ -393,6 +393,10 @@
 			url:_url,
 			okback:function(){
 				$("#up_stock_form #projectId").val("${projectId}");
+				sendPostRequest(platformUrl.selectEntityShare+"/"+id,  function(data){
+					setDataShare(data.entity);
+			});
+				
 			},
 			hideback:function(){
 				$sharesTable.bootstrapTable('refresh');
@@ -400,6 +404,21 @@
 		});
 		return false;
     }
+	
+	function setDataShare(data){
+		console.log(data);
+		$("#sharesOwner").val(data.sharesOwner);		
+		$("#sharesRatio").val(data.sharesRatio);
+		var sharesType=data.sharesType;
+		var options= $("select[name='sharesType'] option");
+		for(var i=0;i<options.length;i++){
+			if(options[i].value==sharesType){
+				options[i].selected='selected';
+			}
+		}
+		$("#remark").val(data.remark);
+		$("#id").val(data.id);
+	}
 	function delStock(id)
 	{
 		layer.confirm(

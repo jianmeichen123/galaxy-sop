@@ -191,13 +191,24 @@ public class ProjectSharesController extends BaseControllerImpl<ProjectShares, P
 	@RequestMapping(value = "/updateShare/{id}", method = RequestMethod.GET)
 	public String updateProject(@PathVariable("id") Long id,HttpServletRequest request) {
 		
-		ProjectShares share = projectSharesService.queryById(id);
-		if(share == null ){
-			return "未查找到指定信息!";
-		}
-		request.setAttribute("share", share);
 		return "project/updateSharesProject";
 	}
-	
+	/***
+	 * 股权结构列表
+	 * @param query
+	 * @param pageable
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/selectEntityShare/{id}", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public ResponseData<ProjectShares> selectEntityShare(
+			HttpServletRequest request,@PathVariable("id") Long id) {
+		
+		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		ProjectShares share = projectSharesService.queryById(id);
+		responseBody.setEntity(share);
+		return responseBody;
+		
+	}
 
 }
