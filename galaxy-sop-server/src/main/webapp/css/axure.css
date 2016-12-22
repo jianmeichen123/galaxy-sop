@@ -1787,7 +1787,7 @@ word-wrap:break-word;
 .add_history{border:0;background:none;margin-top:7px;margin-right:20px;cursor:pointer;outline:none;}
 .compile_on_center .compile_on_left{margin-right:38px;}
 .pages{line-height:30px;color:#999;font-size:12px;}
-.page{display:none;}
+/* .page{display:none;} */
 .page.on{display:block;}
 .page[data-btn="page1"]{position:relative}
 .table_interview td{line-height:20px;}
