@@ -306,6 +306,7 @@ function applyCeoMeeting(){
 				}
 				layer.msg("申请CEO评审会成功!");
 				$("#powindow,#popbg").remove();
+				$("#popbg01").remove();
 				info(pid);
 			}else{
 				layer.msg(data.result.message);
