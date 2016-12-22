@@ -255,9 +255,11 @@ function deletePer(id) {
 function radio_isContacts_tel(isContactsV){
 	var phone = $("input[name='personTelephone']");
 	if (isContactsV == 0 || isContactsV == '0') {
+		$("#show1").attr("style","display:block;");
 		$("input[name='personTelephone']").attr({placeholder:"请输入电话号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>电话号码格式不正确"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
 		$("#personTelephone_valiate").attr("style","display:none;");
+		$("#show1").attr("style","display:none;");
 		$("input[name='personTelephone']").attr('allowNULL','yes').removeAttr('placeholder').removeAttr('msg');
 	} 
 }
@@ -641,7 +643,7 @@ function learnTableRefresh(newDataRow){
 			newDataRow.isEditOrCreate = 1;
 		}
 		newDataRow.deleteIndex = learnSelectRow.deleteIndex;
-		$('#per_learning_table').bootstrapTable('updateByUniqueId', {id: learnSelectRow.deleteIndex, row: newDataRow});
+		$('#per_learning_table').bootstrapTable('updateRow', {index: learnSelectRow.deleteIndex, row: newDataRow});
 		//$('#per_learning_table').bootstrapTable('updateByUniqueId', {deleteIndex: learnSelectRow.deleteIndex, row: newDataRow});
 	}else{
 		if(learn_code_index == null){
@@ -885,7 +887,7 @@ function workTableRefresh(newRowData){
 			newRowData.isEditOrCreate = 1;
 		}
 		newRowData.deleteIndex = workSelectRow.deleteIndex;
-		$('#per_work_table').bootstrapTable('updateByUniqueId', {id: workSelectRow.deleteIndex, row: newRowData});
+		$('#per_work_table').bootstrapTable('updateRow', {index: workSelectRow.deleteIndex, row: newRowData});
 	}else{
 		if(work_code_index == null){
 			work_code_index = 0;
