@@ -524,6 +524,8 @@ function learn_TimeFormat(value, row, index) {
 		if(estr == "2002-11"){
 			estr="至今";
 		}
+	}else{
+		estr="-";
 	}
 	
 	//return bstr +" - "+ estr ;
@@ -777,6 +779,8 @@ function work_TimeFormat(value, row, index) {
 		if(estr == "2002-11"){
 			estr="至今";
 		}
+	}else{
+		estr="-";
 	}
 	
 	//return bstr +" - "+ estr ;
