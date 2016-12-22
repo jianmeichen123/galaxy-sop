@@ -615,14 +615,19 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
 					}
 				}
-				if(personLearn.getOverDateStr()!= null){
-					try {
+				
+				try {
+					if(personLearn.getOverDateStr()!= null){
 						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr()+"-01 00:00:00");
 						personLearn.setOverDate(date);
-					} catch (ParseException e) {
-						throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
+					}else{
+						Date date = DateUtil.convertStringToDate("0000-00-00 00:00:00");
+						personLearn.setOverDate(date);
 					}
+				} catch (ParseException e) {
+					throw new Exception(personLearn.getOverDateStr() +" 转  Date 失败" + e);
 				}
+				
 				if(personLearn.getId() == null){
 					personLearn.setPersonId(personId);
 					personLearnDao.insert(personLearn);
@@ -647,14 +652,21 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 						throw new Exception(personWork.getBeginWorkStr() +" 转  Date 失败" + e);
 					}
 				}
-				if(personWork.getOverWorkStr() != null){
-					try {
+				
+				try {
+					if(personWork.getOverWorkStr() != null){
 						Date date = DateUtil.convertStringToDate(personWork.getOverWorkStr()+"-01 00:00:00");
 						personWork.setOverWork(date);
-					} catch (ParseException e) {
-						throw new Exception(personWork.getOverWorkStr() +" 转  Date 失败" + e);
+					}else{
+						Date date = DateUtil.convertStringToDate("0000-00-00 00:00:00");
+						personWork.setOverWork(date);
 					}
+					
+				} catch (ParseException e) {
+					throw new Exception(personWork.getOverWorkStr() +" 转  Date 失败" + e);
 				}
+				
+				
 				if(personWork.getId() == null){
 					personWork.setPersonId(personId);
 					personWorkDao.insert(personWork);

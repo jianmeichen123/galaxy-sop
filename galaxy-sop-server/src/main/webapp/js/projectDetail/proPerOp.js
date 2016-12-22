@@ -521,8 +521,9 @@ function learn_TimeFormat(value, row, index) {
 	}else if(row.overDate){
 		estr = row.overDate;
 		estr = new Date(estr).format("yyyy-MM");
-	}else{
-		estr="至今";
+		if(estr == "2002-11"){
+			estr="至今";
+		}
 	}
 	
 	//return bstr +" - "+ estr ;
@@ -773,8 +774,9 @@ function work_TimeFormat(value, row, index) {
 	}else if(row.overWork){
 		estr = row.overWork;
 		estr = new Date(estr).format("yyyy-MM");
-	}else{
-		estr = "至今";
+		if(estr == "2002-11"){
+			estr="至今";
+		}
 	}
 	
 	//return bstr +" - "+ estr ;
