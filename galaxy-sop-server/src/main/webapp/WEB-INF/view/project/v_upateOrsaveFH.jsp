@@ -46,7 +46,7 @@
             <dl class="fmdl clearfix">
                  <dt>股权占比：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="financeProportion" id="financeProportion" valType="OTHER" allowNULL="yes" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
+                    <input type="text" class="txt fl" name="financeProportion" id="financeProportion" valType="OTHER" allowNULL="yes" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2})|100)$" msg="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
