@@ -478,6 +478,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 									}
 									layer.msg(data.result.message);
 									$("#powindow,#popbg").remove();
+									$("#popbg01").remove();
 									info(pid);
 								}else{
 									layer.msg(data.result.message);

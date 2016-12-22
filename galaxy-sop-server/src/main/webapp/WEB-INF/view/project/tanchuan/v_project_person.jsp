@@ -112,7 +112,7 @@ radio name="personSex"
                 </dd>
             </dl>
              <dl class="fmdl fl">
-                <dt><em style="display: block;" id="show1"  class="red">*</em>电话号码：</dt>
+                <dt><em  id="show1"  class="red">*</em>电话号码：</dt>
                 <dd>
                 	<input type="text" class="txt" name="personTelephone" 
                 		placeholder="请输入电话号码" valtype1="OTHER" regstring="^[-0-9]{1,15}$"/>
