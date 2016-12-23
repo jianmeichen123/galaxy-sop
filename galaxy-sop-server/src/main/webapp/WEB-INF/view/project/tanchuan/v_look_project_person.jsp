@@ -55,7 +55,7 @@
 							<th data-field="school"  data-align="left" data-formatter="school" >毕业院校</th>
 			                <th data-field="major"  data-align="left" data-formatter="major">专业</th>
 		                     <th data-field="BE_time"  data-align="left" data-formatter="learn_TimeFormat">时间</th>
-		                     <th data-field="degree"  data-align="left" >学历</th>
+		                     <th data-field="degree"  data-align="left"  data-formatter="degree_Format">学历</th>
 						</tr>
 					</thead>
 				</table>

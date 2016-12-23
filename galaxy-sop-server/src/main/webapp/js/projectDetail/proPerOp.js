@@ -108,6 +108,14 @@ function telephone_str_format(value,row,index){
 	}
 }
 
+function degree_Format(value,row,index){
+	if(row.degree){
+		return row.degree;
+	}else{
+		return "-";
+	}
+}
+
 
 function highestDegreeFormat(value, row, index) {
 	if (row.highestDegree == 1) {
