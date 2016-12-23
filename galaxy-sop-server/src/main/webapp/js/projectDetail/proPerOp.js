@@ -255,10 +255,10 @@ function deletePer(id) {
 function radio_isContacts_tel(isContactsV){
 	var phone = $("input[name='personTelephone']");
 	if (isContactsV == 0 || isContactsV == '0') {
-		$("#show1").attr("style","display:block;");
+		$("#show1").show();
 		$("input[name='personTelephone']").attr({placeholder:"请输入电话号码",allowNULL:"",valtype:"MOBILE",msg:"<font color=red>*</font>电话号码格式不正确"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
-		$("#personTelephone_valiate").attr("style","display:none;");
+		$("#personTelephone_valiate").hide();
 		$("#show1").attr("style","display:none;");
 		$("input[name='personTelephone']").attr('allowNULL','yes').removeAttr('placeholder').removeAttr('msg');
 	} 
