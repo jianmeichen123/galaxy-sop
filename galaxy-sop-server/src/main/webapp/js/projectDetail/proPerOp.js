@@ -47,8 +47,9 @@ function getTabPerson(){
 				}, {
 					title : '电话号码',
 					field : 'personTelephone',
-	
-					valign : 'middle'
+					
+					valign : 'middle',
+					formatter : 'telephone_str_format'
 				}, {
 					title : '操作',
 					field : 'id',
@@ -99,6 +100,13 @@ function date_str_format(value, row, index) {
 	return "-";
 }
 
+function telephone_str_format(value,row,index){
+	if(row.personTelephone){
+		return row.personTelephone;
+	}else{
+		return "-";
+	}
+}
 
 
 function highestDegreeFormat(value, row, index) {
