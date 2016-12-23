@@ -802,6 +802,11 @@
 							$(_this.id).find(".tabtxt").html(imgDiv);
 						},
 						success:function(html){
+							var flag=$(html).find('form').find('#flagLogin').val();
+							if(typeof(flag)!=="undefined"&&flag=="login"){
+								window.location.href=endpointObj["galaxy.project.platform.endpoint"] +"/galaxy/userlogin/toLogin";
+								return;
+							}
 							$(_this.id).find(".tabtxt").html(html);
 							opts.okback();
 						},

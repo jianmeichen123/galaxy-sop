@@ -160,7 +160,7 @@ radio name="personSex"
 		                     
 		                     <!--  beginDate overDate beginDateStr overDateStr -->
 		                     <th data-field="BE_time"  data-align="left" data-formatter="learn_TimeFormat" data-width="20%">时间</th>
-		                     <th data-field="degree"  data-align="left" data-width="20%">学历</th>
+		                     <th data-field="degree"  data-align="left" data-width="20%" data-formatter="degree_Format">学历</th>
 		                     <th data-field="learn_op" data-formatter="pro_learning_format" data-width="20%">操作</th>
 						</tr>
 					</thead>

@@ -108,6 +108,14 @@ function telephone_str_format(value,row,index){
 	}
 }
 
+function degree_Format(value,row,index){
+	if(row.degree){
+		return row.degree;
+	}else{
+		return "-";
+	}
+}
+
 
 function highestDegreeFormat(value, row, index) {
 	if (row.highestDegree == 1) {
@@ -143,6 +151,10 @@ function personName(value, row, index) {
 
 function personDuties(value, row, index) {
 	var str = row.personDuties;
+	if(typeof(str) !== 'undefined' && str == ''){
+        var options = "<label title='-'>-</label>";
+        return options;
+	}
 	if (str.length > 10) {
 		subStr = str.substring(0, 10);
 		var options = "<label title='"+str+"'>" + subStr + "</label>";
