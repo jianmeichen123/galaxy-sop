@@ -152,7 +152,7 @@ function personName(value, row, index) {
 function personDuties(value, row, index) {
 	var str = row.personDuties;
 	if(typeof(str) !== 'undefined' && str == ''){
-        var options = "<label title='暂无'>暂无</label>";
+        var options = "<label title='-'>-</label>";
         return options;
 	}
 	if (str.length > 10) {
