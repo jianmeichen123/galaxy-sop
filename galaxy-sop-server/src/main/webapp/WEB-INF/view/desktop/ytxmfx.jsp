@@ -11,7 +11,7 @@ String path = request.getContextPath();
 		</h3>
 			<ul class="ytxm_tab position_tab clearfix">
 				<li data-tab="nav">联合创业</li>
-				<li data-tab="nav">融快</li>
+				<li data-tab="nav">成长投资</li>
 				<li data-tab="nav">创保联</li>
 			</ul>
 	</dt>
