@@ -445,7 +445,9 @@
 		    $("#loading-indicator-view").remove();
 		    $("#loading-indicator-view-overlay").remove();
 		    //window.location.reload();
-		    $('#meeting-shedule-list').bootstrapTable('refresh');  
+		    $('#meeting-shedule-list').bootstrapTable('refresh', {url: 'project/queryScheduling/${pageType}'});  
+		
+		    //$('#meeting-shedule-list').bootstrapTable('refresh');  
 		}
 	    
 	}
