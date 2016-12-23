@@ -346,6 +346,10 @@ function savePerson(){
 		var learnList = $('#per_learning_table').bootstrapTable('getData');
 		var workList = $('#per_work_table').bootstrapTable('getData');
 		
+		console.log("save person learnList:"+learnList);
+		console.log("save person workList:"+workList);
+		
+		
 		/*
 		if(!learnList || learnList.length == 0){
 			$("#learn-tip").css("display","block");
@@ -524,6 +528,8 @@ function learn_TimeFormat(value, row, index) {
 		if(estr == "2002-11"){
 			estr="至今";
 		}
+	}else{
+		estr="-";
 	}
 	
 	//return bstr +" - "+ estr ;
@@ -582,9 +588,12 @@ function toAddPersonLearning(selectIndex){
 					$("#add_person_learning [name='overDateStr']").val(learnSelectRow.overDateStr);
 				}else if(learnSelectRow.overDate && learnSelectRow.overDate !=null){
 					var str = new Date(learnSelectRow.overDate).format("yyyy-MM");
-					$("#add_person_learning [name='overDateStr']").val(str);
-				}else{
-					$("#add_person_learning [name='overDateStr']").val("至今");
+					if(str == "2002-11"){
+						$("#add_person_learning [name='overDateStr']").val("至今");
+					}else{
+						$("#add_person_learning [name='overDateStr']").val(str);
+					}
+					
 				}
 				
 			 	if(learnSelectRow.school && typeof(learnSelectRow.school)!='undefined' ) $("#add_person_learning [name='school']").val(learnSelectRow.school);
@@ -633,7 +642,7 @@ function savePersonLearning(){
 		learnTableRefresh(learn);
 	}*/
 	learnTableRefresh(learn);
-	//去除弹层
+	//去除弹层OverDateStr
 	$(".qualificationstc").find("[data-close='close']").click();
 }
 
@@ -777,6 +786,8 @@ function work_TimeFormat(value, row, index) {
 		if(estr == "2002-11"){
 			estr="至今";
 		}
+	}else{
+		estr="-";
 	}
 	
 	//return bstr +" - "+ estr ;
@@ -832,9 +843,12 @@ function toAddPersonWork(selectIndex){
 					$("#add_person_work [name='overWorkStr']").val(workSelectRow.overWorkStr);
 				}else if(workSelectRow.overWork && workSelectRow.overWork !=null){
 					var str = new Date(workSelectRow.overWork).format("yyyy-MM");
-					$("#add_person_work [name='overWorkStr']").val(str);
-				}else{
-					$("#add_person_work [name='overWorkStr']").val("至今");
+					if(str == "2002-11"){
+						$("#add_person_work [name='overWorkStr']").val("至今");
+					}else{
+						$("#add_person_work [name='overWorkStr']").val(str);
+					}
+					
 				}
 				
 			 	if(workSelectRow.companyName && typeof(workSelectRow.companyName)!='undefined' )  $("#add_person_work [name='companyName']").val(workSelectRow.companyName);

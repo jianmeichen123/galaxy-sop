@@ -42,7 +42,7 @@
                         <span class="new_ico_basic ico_add_project"></span>
                         <span class="new_color size16">基本信息</span>
                     </div>  
-                    <form action="" id="add_form" method="post">
+                    <form action="" id="add_form" method="post" autocomplete="off">
                     <ul class="basic_ul">
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
@@ -76,7 +76,7 @@
                             <span class="m_r30" style="with:400px">
                             <span class="m_r30"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否</span>
                              <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-                             <input type="text" class="new_nputr"  placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
+                             <input type="text" class="new_nputr"  placeholder="请输入FA名称" style="display:none" name="faName" allowNULL="no" valType="OTHER" regString="^[^\s](.{0,19})$" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20" id="faName"/>
                         </span>
                         </li>
                     </ul>  
