@@ -150,7 +150,7 @@ $(function(){
 				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
 				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)
-				
+			     radio_faFlag(projectInfo.faFlag);
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').prop("checked","true");
 					$("#faNameEdit").val(projectInfo.faName);
@@ -468,14 +468,7 @@ $(function(){
 		}
 		$("[data-on='save']").click(function(){
 			var data=getUpdateData();
-			var display=$("#faNameEdit").css("display");
-			if(display=="none"){
-				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
-					layer.msg("修改项目基本信息成功!");
-//					window.location.reload();
-					initTabInfo(data.id);
-				});
-			}else{
+		
 				if(beforeSubmitById("updateProjectInfo")){
 					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 						layer.msg("修改项目基本信息成功!");
@@ -483,7 +476,7 @@ $(function(){
 						initTabInfo(data.id);
 					});
 				}
-			}
+			
 			//typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0
 			
 		})
@@ -635,4 +628,23 @@ $(function(){
 			
 		});
 });
+$("input:radio[name='faFlag']").change(function() {
+	// 0 y; 1 n
+	var $selectedvalue = $("input:radio[name='faFlag']:checked").val();
+	radio_faFlag($selectedvalue);
+});
 
+//是否为来源于中介
+function radio_faFlag(isContactsV){
+	console.log(isContactsV);
+	var phone = $("input[name='faName']");
+	if (isContactsV == 0 || isContactsV == '0') {
+		$("input[name='faName']").hide();
+		$("#faName_valiate").attr("style","display:none;");
+		$("input[name='faName']").attr({allowNULL:"yes"}).removeAttr('msg');
+	} else if (isContactsV == 1 || isContactsV == '1') {
+		$("input[name='faName']").attr('allowNULL','no');
+		$("input[name='faName']").show();
+	} 
+}
+	
