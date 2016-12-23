@@ -177,6 +177,7 @@ $(function(){
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel");
 			        _dom.html("");
+			        _dom.append('<option value="">--请选择--</option>');
 			    var childNum = _dom.find("option").length;
 			    if(!childNum || childNum !=0 ){
 			    	$.each(data.entityList,function(){
@@ -198,6 +199,7 @@ $(function(){
 			function CallBackA(data){
 			       var _dom=$("#industry_own_sel");
 			           _dom.html("");
+			           _dom.append('<option value="">--请选择--</option>');
 			       var childNum = _dom.find("option").length;
 				    if(!childNum || childNum !=0 ){
 				    	$.each(data.entityList,function(){
