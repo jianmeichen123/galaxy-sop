@@ -74,9 +74,10 @@
                         <li>
                         <span class="basic_span"><em class="red">*</em>来源于FA：</span>
                             <span class="m_r30" style="with:400px">
-                            <span class="m_r30"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否</span>
-                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-                             <input type="text" class="new_nputr"  placeholder="请输入FA名称" style="display:none" name="faName" allowNULL="no" valType="OTHER" regString="^[^\s](.{0,19})$" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20" id="faName"/>
+                            <span class="m_r30">
+                             <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
+                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是
+                             <input type="text" class="new_nputr"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
                         </span>
                         </li>
                     </ul>  
@@ -152,6 +153,12 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <script type="text/javascript">
+$("input:radio[name='faFlag']").change(function() {
+	// 0 y; 1 n
+	var $selectedvalue = $("input:radio[name='faFlag']:checked").val();
+	radio_faFlag($selectedvalue);
+});
+
 	/**
 	 * @version 2016-06-21
 	 */
@@ -177,6 +184,8 @@
    var TOKEN;
    var formData;
 	$(function(){
+		var $selectedvalue = $("input:radio[name='faFlag']:checked").val();
+		radio_faFlag($selectedvalue);
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
 		createMenus(5);
 		//获取TOKEN 用于验证表单提交
@@ -262,7 +271,7 @@
 		
 	}
 
-	$("#faName").keydown(function(){
+/* 	$("#faName").keydown(function(){
   		if(this.value=="请输入FA名称"){
   			this.value = "";
   		}
@@ -270,8 +279,8 @@
   			$("#faName").attr("style","color:#333;");
   		}
 		
-	})
-	$("#faName").blur(function(){
+	}) */
+/* 	$("#faName").blur(function(){
   		if(this.value==""){
   			this.value = "请输入FA名称";
   		}
@@ -279,9 +288,20 @@
   			$("#faName").attr("style","color:#999;");
   		}
 		
-	})
+	}) */
 	
-
+//是否为来源于中介
+function radio_faFlag(isContactsV){
+	console.log(isContactsV);
+	var phone = $("input[name='faName']");
+	if (isContactsV == 0 || isContactsV == '0') {
+		$("input[name='faName']").hide();
+		$("input[name='faName']").attr({allowNULL:"yes"}).removeAttr('msg');
+	} else if (isContactsV == 1 || isContactsV == '1') {
+		$("input[name='faName']").attr('allowNULL','no');
+		$("input[name='faName']").show();
+	} 
+}
 	
 </script>
 
