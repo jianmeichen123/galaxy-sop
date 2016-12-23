@@ -533,7 +533,7 @@ function learn_TimeFormat(value, row, index) {
 	}else if(row.overDate){
 		estr = row.overDate;
 		estr = new Date(estr).format("yyyy-MM");
-		if(estr == "2002-11"){
+		if(estr == "2002-11" || estr == "NaN-aN" || estr == "2030-11"){
 			estr="至今";
 		}
 	}else{
@@ -596,7 +596,7 @@ function toAddPersonLearning(selectIndex){
 					$("#add_person_learning [name='overDateStr']").val(learnSelectRow.overDateStr);
 				}else if(learnSelectRow.overDate && learnSelectRow.overDate !=null){
 					var str = new Date(learnSelectRow.overDate).format("yyyy-MM");
-					if(str == "2002-11"){
+					if(str == "2002-11" || str == "NaN-aN" || str == "2030-11"){
 						$("#add_person_learning [name='overDateStr']").val("至今");
 					}else{
 						$("#add_person_learning [name='overDateStr']").val(str);
@@ -791,7 +791,7 @@ function work_TimeFormat(value, row, index) {
 	}else if(row.overWork){
 		estr = row.overWork;
 		estr = new Date(estr).format("yyyy-MM");
-		if(estr == "2002-11"){
+		if(estr == "2002-11" || estr == "NaN-aN" || estr == "2030-11"){
 			estr="至今";
 		}
 	}else{
@@ -851,7 +851,7 @@ function toAddPersonWork(selectIndex){
 					$("#add_person_work [name='overWorkStr']").val(workSelectRow.overWorkStr);
 				}else if(workSelectRow.overWork && workSelectRow.overWork !=null){
 					var str = new Date(workSelectRow.overWork).format("yyyy-MM");
-					if(str == "2002-11"){
+					if(str == "2002-11" || str == "NaN-aN" || str == "2030-11"){
 						$("#add_person_work [name='overWorkStr']").val("至今");
 					}else{
 						$("#add_person_work [name='overWorkStr']").val(str);
