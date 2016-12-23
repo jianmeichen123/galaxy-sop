@@ -19,11 +19,11 @@ function createMenus(current){
 	   		 if(typeof(o.nodes) == "undefined"){
 	   			if(selected == o.id){
 		   			/* html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
-		   			html += '<li class="on"><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
+		   			html += '<li class="on"><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   			
 	   			}else{
 		   			/* html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
-		   			html += '<li><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
+		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}
 	   		 }else{
 	   			var innerHtml ="";
@@ -32,10 +32,10 @@ function createMenus(current){
 	   				 if(selected == obj.id){
 	   					isExend = true;
 	   					/* innerHtml += '<li class="on"><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>'; */
-	   					innerHtml += '<li  class="on"><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+obj.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
+	   					innerHtml += '<li  class="on"><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+obj.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
 			   		 }else{
 			   			/* innerHtml += '<li><a href="' + obj.url + '" data-menueid="' + o.id + '">' + obj.menuName + '</a></li>'; */
-			   			innerHtml += '<li><a href="javascript:;"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+obj.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
+			   			innerHtml += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+obj.url+'\',\''+o.menuName+'\')" >' + obj.menuName + '</a></li>';
 			   		 }
 	   			 });
 	   			 
