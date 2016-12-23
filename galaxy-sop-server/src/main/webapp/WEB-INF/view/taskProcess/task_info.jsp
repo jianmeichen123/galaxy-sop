@@ -115,7 +115,7 @@
                   </tr> -->
                 </tbody>
               </table>       <%-- <%=path %>/galaxy/detail/  upp --%>
-            <a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t'  class="pjt_more url_cookie">项目详细信息&gt;</a>
+            <a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t'  class="pjt_more url_cookie" id="taskPinfo">项目详细信息&gt;</a>
           </div>
           <!-- 下半部分 -->
           <!-- 人事尽职调查报告  hrjzdc;-->
@@ -217,7 +217,11 @@ function delHtmlTag(str)
 
 
 }
-
+$("#taskPinfo").click(function(){
+	setCookie("cooki_flag", "yes",24,'/');
+	var url=this.href;
+    window.location.href = url;                           
+})
 
 </script>
 </body>

@@ -177,6 +177,7 @@ $(function(){
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel");
 			        _dom.html("");
+			        _dom.append('<option value="">--请选择--</option>');
 			    var childNum = _dom.find("option").length;
 			    if(!childNum || childNum !=0 ){
 			    	$.each(data.entityList,function(){
@@ -198,6 +199,7 @@ $(function(){
 			function CallBackA(data){
 			       var _dom=$("#industry_own_sel");
 			           _dom.html("");
+			           _dom.append('<option value="">--请选择--</option>');
 			       var childNum = _dom.find("option").length;
 				    if(!childNum || childNum !=0 ){
 				    	$.each(data.entityList,function(){
@@ -641,7 +643,8 @@ function radio_faFlag(isContactsV){
 	if (isContactsV == 0 || isContactsV == '0') {
 		$("input[name='faName']").hide();
 		$("#faName_valiate").attr("style","display:none;");
-		$("input[name='faName']").attr({allowNULL:"yes"}).removeAttr('msg');
+		//$("input[name='faName']").attr({allowNULL:"yes"}).removeAttr('msg');
+		$("input[name='faName']").attr({allowNULL:"yes"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
 		$("input[name='faName']").attr('allowNULL','no');
 		$("input[name='faName']").show();
