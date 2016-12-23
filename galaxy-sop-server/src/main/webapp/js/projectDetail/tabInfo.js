@@ -176,6 +176,7 @@ $(function(){
 			})
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel");
+			        _dom.html("");
 			    var childNum = _dom.find("option").length;
 			    if(!childNum || childNum !=0 ){
 			    	$.each(data.entityList,function(){
@@ -196,6 +197,7 @@ $(function(){
 			}
 			function CallBackA(data){
 			       var _dom=$("#industry_own_sel");
+			           _dom.html("");
 			       var childNum = _dom.find("option").length;
 				    if(!childNum || childNum !=0 ){
 				    	$.each(data.entityList,function(){
