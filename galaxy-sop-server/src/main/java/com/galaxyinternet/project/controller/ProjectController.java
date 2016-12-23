@@ -1394,6 +1394,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				&& p.getCompanyLocation() != null && !"".equals(p.getCompanyLocation().trim())
 				&& p.getUserPortrait() != null && !"".equals(p.getUserPortrait().trim())
 				&& p.getProjectBusinessModel() != null && !"".equals(p.getProjectBusinessModel().trim())
+			    && p.getProjectDescribeFinancing() != null && !"".equals(p.getProjectDescribeFinancing().trim())
 				&& p.getIndustryAnalysis() != null && !"".equals(p.getIndustryAnalysis().trim())
 				&& p.getProspectAnalysis() != null && !"".equals(p.getProspectAnalysis())
 				//融资计划不能为空
