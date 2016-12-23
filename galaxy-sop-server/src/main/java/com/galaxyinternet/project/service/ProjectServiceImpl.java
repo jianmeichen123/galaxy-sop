@@ -617,7 +617,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				}
 				
 				try {
-					if(personLearn.getOverDateStr()!= null){
+					if(personLearn.getOverDate()!= null){
+						personLearn.setOverDate(personLearn.getOverDate());
+					}else if(personLearn.getOverDateStr() != null){
 						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr()+"-01 00:00:00");
 						personLearn.setOverDate(date);
 					}else{
@@ -654,7 +656,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				}
 				
 				try {
-					if(personWork.getOverWorkStr() != null){
+					if(personWork.getOverWork() != null){
+						personWork.setOverWork(personWork.getOverWork());
+					}else if(personWork.getOverWorkStr() != null){
 						Date date = DateUtil.convertStringToDate(personWork.getOverWorkStr()+"-01 00:00:00");
 						personWork.setOverWork(date);
 					}else{
