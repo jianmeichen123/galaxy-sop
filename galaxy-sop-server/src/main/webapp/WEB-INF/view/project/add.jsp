@@ -296,8 +296,6 @@ function radio_faFlag(isContactsV){
 	var phone = $("input[name='faName']");
 	if (isContactsV == 0 || isContactsV == '0') {
 		$("input[name='faName']").hide();
-		
-		$("#faName_valiate").attr("style","display:none;");
 		$("input[name='faName']").attr({allowNULL:"yes"}).removeAttr('msg');
 	} else if (isContactsV == 1 || isContactsV == '1') {
 		$("input[name='faName']").attr('allowNULL','no');

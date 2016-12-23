@@ -669,6 +669,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg .btm ul li{float: left;}
 .pagebox .projectmsg .btm ul li a{/* width:138px; */padding:0 15px;height:28px;border:1px solid #ccd2d7;border-radius: 5px;background-color: #fff;display: inline-block;text-align: center;line-height: 30px;margin-right: 10px;color: #4c97da;text-decoration: none;}
 .pagebox .projectmsg .xmms{color:#525662;text-decoration: none;font-family: "宋体";height: 20px;overflow: hidden;}
+pre{white-space:pre-wrap;margin:0;}
 /* tips框 */
 .pagebox .tips{padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff;line-height: 20px;z-index: 10;}
 .tips_f1,.tips_f2,.tips_f3{position: relative;cursor:pointer;}
