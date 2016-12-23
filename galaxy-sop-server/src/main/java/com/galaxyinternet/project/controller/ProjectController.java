@@ -3482,6 +3482,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			//responseBody.setEntity(pool);
 			ControllerUtils.setRequestParamsForMessageTip(request,p.getProjectName(), p.getId());
 		} catch (Exception e) {
+			e.printStackTrace();
 			_common_logger_.error("添加团队成员异常 ",e.getMessage());
 		}
 		return responseBody;
