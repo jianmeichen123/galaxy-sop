@@ -9,8 +9,11 @@
 	<div class="title_bj" id="popup_name"></div>
 	
     <div class="form clearfix">
-        <div class="conference_all_750 scroll_table">
-        
+            <div class="conference_all_750 scroll_table">
+              <c:if test="${isEditable}">
+            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
+                </c:if>
+            </div>
         
 	     	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
 				<div class="bottom searchall clearfix">
@@ -38,4 +41,70 @@
     
   	
 </div>
+<script type="text/javascript">
+$(function(){
+	show_health_status();
+});
 
+/**
+* 健康记录  添加
+*/
+function show_health_status(){
+	$("[data-btn='health_status']").text("添加健康状况");
+	$("[data-btn='health_status']").on("click",function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
+		var $self = $(this);
+		var _name= $self.attr("data-name");
+		var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
+		$.getHtml({
+			url:_url,
+			data:"",
+			okback:function(){
+				$("#popup_name").html(_name);
+				$("#health_form [name='projectId']").val(proid);
+			}
+		});
+		return false;
+	});
+}
+function save_health(){
+	var content = JSON.parse($("#health_form").serializeObject());
+	var _url =  Constants.sopEndpointURL + '/galaxy/health/addhealth'
+	sendPostRequestByJsonObj(_url, content, function(data){
+		if (data.result.status=="OK") {
+			layer.msg("保存成功");	
+			$.popupTwoClose();
+			//init_bootstrapTable('project_health_table',5);
+			$("#project_health_table").bootstrapTable('refresh');
+			//启用滚动条
+			 $(document.body).css({
+			   "overflow-x":"auto",
+			   "overflow-y":"auto"
+			 });
+			//刷新投后运营简报信息
+			setThyyInfo();
+			
+			$("#project_delivery_table").bootstrapTable('refresh');
+		} else {
+			layer.msg(data.result.message);
+		}
+	});
+	
+}
+$(".datepicker").datepicker({
+   format: 'yyyy-mm-dd',
+   language: "zh-CN",
+   autoclose: true,
+   todayHighlight: false,
+   defaultDate : Date,
+   today: "Today",
+   todayBtn:'linked',
+   leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+   rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+   forceParse:false,
+});
+
+</script>
