@@ -14,7 +14,7 @@
 /* 修改 */
 .pagebox .lft li ul{/* width: 100%; */margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;} 
 /*左侧导航icon*/
-.navbar{width:20px;height:22px;background: url(../img/baricon.png) 0 0 no-repeat;display: block;margin:0 auto;}/* 修改样式 */
+.navbar{width:20px;height:22px;background: url(../img/ctdn.png) 0px -2px no-repeat !important;display: block;margin:0 auto;}/* 修改样式 */
 .nav160{background-position: 0 0;}
 .nav168{background-position: 0 -72px;}
 .nav171{background-position: 0 -144px;}
