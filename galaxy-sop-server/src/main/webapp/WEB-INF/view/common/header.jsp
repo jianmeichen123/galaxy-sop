@@ -65,7 +65,9 @@
         </ul>
       </div>
       <div class="xingmou fr">
-        <a href="http://xm.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a>
+        <a href="http://xm.galaxyinternet.com/user/userlogin/auth?uid=<%=user.getSessionId() %>" data-menueid="" target="_blank">
+			<img alt="" src="<%=path %>/img/xingmou-logo.png"/>
+		</a>
       </div>
     </div>
 </div>
