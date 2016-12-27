@@ -69,7 +69,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	@Override
 	@Transactional
-	public Long insertMeet(MeetingRecord meetingRecord,Project project,SopFile sopFile,boolean equalNowPrograss) {
+	public Long insertMeet(MeetingRecordBo meetingRecord,Project project,SopFile sopFile,boolean equalNowPrograss) {
 		Long fid = null;
 		if(sopFile.getFileKey()!=null){
 			fid = sopFileDao.insert(sopFile);
@@ -97,7 +97,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				}
 			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())) {
 				pqcUpdate(meetingRecord);
-				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
+				if (meetingRecord.getMeetingResult() != null ) {
 					tjh(meetingRecord.getProjectId(), project, meetingRecord.getMeetingResult(), sopFile.getFileUid(), sopFile.getCareerLine());
 				}
 			}
@@ -256,6 +256,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				task2.setTaskType(DictEnum.taskType.协同办公.getCode());				
 				sopTaskDao.insert(task2);
 			}*/
+		}else{
+			projectDao.updateById(pro);
 		}
 	}
 	
