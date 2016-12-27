@@ -10,7 +10,7 @@
 		<thead>
 			<tr>
 				<th data-field=realName  		 class="data-input">	姓名			</th>
-				<th data-field="departmentName"  class="data-input">	投资事业线	</th>
+				<th data-field="departmentName"  class="data-input">	投资事业部	</th>
 				<th data-field="target"  		 class="data-input">	目标数		</th>
 				<th data-field="completed"  	 class="data-input">	项目数		</th>
 				<th data-field="completedAll"    class="data-input">	累计已完成数	</th>

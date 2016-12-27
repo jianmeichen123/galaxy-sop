@@ -104,9 +104,11 @@
 	 function healthStateFormat(value,row,index){
 		 var healthState=row.healthState;
 		 var healthStates={
+				 "0":"初始",
 				 "1":"高于预期",
 				 "2":"正常",
-				 "3":"健康预警"
+				 "3":"健康预警",
+				 "4":"清算"
 		 }
 		 return  healthStates[healthState];
 	 }
