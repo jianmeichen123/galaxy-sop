@@ -7,10 +7,12 @@
     <result column="grant_id" jdbcType="BIGINT" property="grantId" />
     <result column="file_id" jdbcType="BIGINT" property="fileId" />
     <result column="created_time" jdbcType="BIGINT" property="createdTime" />
+    <result column="tid" jdbcType="BIGINT" property="tid" />
+    <result column="target" jdbcType="VARCHAR" property="target" />
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, grant_id, file_id, created_time
+    id, grant_id, file_id, created_time,id,target
   </sql>
   
 	 <sql id="Base_Where_Clause">
@@ -25,6 +27,9 @@
 					</foreach>
 			   </if>
 			      <if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
+			      
+			      <if test="tid != null"> and tid = #{tid,jdbcType=BIGINT} </if>
+			      <if test="target != null"> and target = #{target,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -70,9 +75,9 @@
 	
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.GrantFile">
  		 <![CDATA[
-	 		insert into sop_grant_file (grant_id, file_id
+	 		insert into sop_grant_file (grant_id, file_id,tid,target
 		      )
-		    values (#{grantId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}
+		    values (#{grantId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT}, #{target,jdbcType=VARCHAR}
 		      )
  		 ]]>
  	</insert>
@@ -85,6 +90,8 @@
 			<if test="grantId != null"> and grant_id = #{grantId,jdbcType=BIGINT} </if>
 			<if test="fileId != null"> and file_id = #{fileId,jdbcType=BIGINT} </if>
 			<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
+			<if test="tid != null"> and tid = #{tid,jdbcType=BIGINT} </if>
+			<if test="target != null"> and target = #{target,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>

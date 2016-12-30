@@ -22,9 +22,22 @@ var editApprActualDialog = {
 									}
 									sendPostRequestByJsonObj(platformUrl.initEditApprActual, param, function(data){
 										if(data.result.status=='OK'){
+									
+											var $investors = $("#form_edit_actual_dialog").find("#label_investors") //投资方
+											var $projectCompany = $("#form_edit_actual_dialog").find("#label_projectCompany") //目标公司
+											
+											var $actualTimeDiv = $("#form_edit_actual_dialog").find("#div_label_actualTime") //实际注资日期  -- 123
+											var $actualTime = $("#form_edit_actual_dialog").find("#label_actualTime") //实际注资日期  -- 123
+											
+											var $finalContribution = $("#form_edit_actual_dialog").find("#label_finalContribution") //计划总注资金额
+											var $finalShareRatio = $("#form_edit_actual_dialog").find("#label_finalShareRatio") //股权占比
+											var $serviceCharge = $("#form_edit_actual_dialog").find("#label_serviceCharge") //加速服务费占比
+											var $finalValuations = $("#form_edit_actual_dialog").find("#label_finalValuations") //项目估值
+											
+											
 											var $protocolName = $("#form_edit_actual_dialog").find("#label_protocol_name") //创业服务协议
 											var $planGrantTime = $("#form_edit_actual_dialog").find("#label_plan_grant_time") //计划注资时间
-											var $planGrantMoney = $("#form_edit_actual_dialog").find("#label_plan_grant_money") //计划注资金额
+											//var $planGrantMoney = $("#form_edit_actual_dialog").find("#label_plan_grant_money") //计划注资金额
 											var $labelGrantMoney = $("#form_edit_actual_dialog").find("#label_grant_money"); //实际注资协议上层标签
 											var $formGrantMoney = $("#form_edit_actual_dialog").find("#form_grant_money"); //实际注资金额文本
 											var $surplusGrantMoney = $("#form_edit_actual_dialog").find("#label_surplus_grant_money"); //剩余金额
@@ -42,6 +55,10 @@ var editApprActualDialog = {
 												popName = "查看";
 												$labelGrantMoney.html("<div id='form_grant_money'></div>");
 												$formGrantMoney = $("#form_edit_actual_dialog").find("#form_grant_money");
+												
+												$actualTimeDiv.html("<div id='label_actualTime_r'></div>");
+												$actualTime = $("#form_edit_actual_dialog").find("#label_actualTime_r");
+												
 												$okBtn.hide();
 												$cancelBtn.hide();
 											}else{
@@ -52,38 +69,70 @@ var editApprActualDialog = {
 											$labelPopName.html(popName + "实际注资信息");
 											
 											
-											if(data.entity.protocolName){
+											if(data.entity.protocolName){  //创业服务协议
 												$protocolName.html(data.entity.protocolName);
 											}
-											if(data.entity.planGrantTime){
+											
+											
+											if(data.entity.investors){  //投资方
+												$investors.html(data.entity.investors);
+											}
+											if(data.entity.projectCompany){  //目标公司
+												$projectCompany.html(data.entity.projectCompany);
+											}
+											
+											if(data.entity.planGrantTime){ //计划注资时间
 												$planGrantTime.html(data.entity.planGrantTime)
 											}
-											if(data.entity.planGrantMoney){
-												$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney))) : 0) + "元");
-											}
-											if(data.entity.grantMoney){
+											
+											if(data.entity.actualTime){  //实际注资日期
 												if(formdata.operatorFlag=='3'){
-													$formGrantMoney.html(addCommas(fixSizeDecimal(data.entity.grantMoney)) + "元");
+													$actualTime.html(data.entity.actualTime);
+												}else{
+													$actualTime.val(data.entity.actualTime);
+												}
+											}
+											
+											if(data.entity.finalContribution){ //计划总注资金额
+												$finalContribution.html(addCommas(fixSizeDecimal(data.entity.finalContribution)) + " 万元")
+											}
+											/* 替换 
+											 if(data.entity.planGrantMoney){
+												$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney))) : 0) + "元");
+											}*/
+											
+											if(data.entity.finalShareRatio){ //股权占比
+												$finalShareRatio.html(data.entity.finalShareRatio + "%");
+											}
+											
+											if(data.entity.serviceCharge){ //加速服务费占比
+												$serviceCharge.html(data.entity.serviceCharge + "%");
+											}
+											
+											
+											if(data.entity.grantMoney){ //实际注资金额
+												if(formdata.operatorFlag=='3'){
+													$formGrantMoney.html(addCommas(fixSizeDecimal(data.entity.grantMoney)) + " 万元");
 												}else{
 													$formGrantMoney.val(data.entity.grantMoney);
 												}
 												
 											}
-											if(data.entity.surplusGrantMoney || data.entity.surplusGrantMoney==0){
+											if(data.entity.surplusGrantMoney || data.entity.surplusGrantMoney==0){ //剩余金额
 													var grantMoneyOld=$formGrantMoney.val(); 
 													var remainMoney = data.entity.surplusGrantMoney;
 													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
 													remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); // 剩余+实际注资
-													$surplusGrantMoney.html("剩余金额" + remainMoney + "元");											         
+													$surplusGrantMoney.html("剩余金额" + remainMoney + " 万元");											         
 													$formGrantMoney.blur(function(){
 													var grantMoney=$formGrantMoney.val();
 													if(!beforeSubmitById("form_edit_actual_dialog")){
-														$surplusGrantMoney.html("剩余金额" + addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))) + "元");
+														$surplusGrantMoney.html("剩余金额" + addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))) + " 万元");		
 														return false;
 													}
 													
 													if(grantMoney<0){
-														$surplusGrantMoney.html("剩余金额" + remainMoney + "元");
+														$surplusGrantMoney.html("剩余金额" + remainMoney + " 万元");	
 										 			 }else{
 										 				var remainMoneyNew=fixSizeDecimal(parseFloat(remainMoneyTotal)-parseFloat(grantMoney),2);
 										 				remainMoneyNew = parseFloat(remainMoneyNew);
@@ -91,12 +140,18 @@ var editApprActualDialog = {
 														if(remainMoneyNew<0 || remainMoneyNew==0){
 															$surplusGrantMoney.html("剩余金额0元");
 														}else{
-														    $surplusGrantMoney.html("剩余金额" + remainMoney + "元");
+														    $surplusGrantMoney.html("剩余金额" + remainMoney + " 万元");		
 														}
 										 			 }
 														          
 												  })
 											}
+											
+											if(data.entity.finalValuations){ //项目估值
+												$finalValuations.html(addCommas(fixSizeDecimal(data.entity.finalValuations)) + " 万元");		
+											}
+											
+											
 											$okBtn.click(function(){
 												var saveParam = {
 														preMoney : 	data.entity.grantMoney ? data.entity.grantMoney : 0,

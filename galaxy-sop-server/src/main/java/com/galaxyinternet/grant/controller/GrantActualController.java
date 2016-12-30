@@ -144,6 +144,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	@RequestMapping(value="/initEditApprActual",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantActual> initEditApprActual(@RequestBody GrantActual aQuery,HttpServletRequest request){
 		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
+		GrantPart part = new GrantPart();
+		GrantTotal total = new GrantTotal();
 		try {	
 			GrantActual actual = null;
 			//获取实际注资中实际注资金额
@@ -153,26 +155,35 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			if(aQuery.getPartGrantId()!=null){
 				aQuery.setId(null);
 				List<GrantActual> actualList = grantActualService.queryList(aQuery);
-				GrantPart part = grantPartService.queryById(aQuery.getPartGrantId());
-				GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
+				part = grantPartService.queryById(aQuery.getPartGrantId());
+				total = grantTotalService.queryById(part.getTotalGrantId());
 				if(actual==null){
 					actual = new GrantActual();
 				}
+				
+				//actual.setInvestors(total.getInvestors());  //投资方
 				actual.setProtocolName(total.getGrantName());
 				actual.setPlanGrantTime(part.getGrantDetail());
-				actual.setPlanGrantMoney(part.getGrantMoney());
+				//actual.setPlanGrantMoney(part.getGrantMoney());  //替换为 实际投资
 				Double surplusGrantMoney = part.getGrantMoney();
 				for(GrantActual temp : actualList){
 					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 2));
 				}
-				
 				//剩余金额
 				actual.setSurplusGrantMoney(surplusGrantMoney);
-				responseBody.setEntity(actual);
+				
+				Project pro = projectService.queryById(total.getProjectId());
+				actual.setProjectCompany(pro.getProjectCompany());  //目标公司
+				actual.setFinalContribution(pro.getFinalContribution());  //实际投资
+				actual.setFinalShareRatio(pro.getFinalShareRatio());  //股权占比
+				actual.setServiceCharge(pro.getServiceCharge());  //加速服务费占比
+				actual.setFinalValuations(pro.getFinalValuations());  //实际估值
+				
 			}else{
 				responseBody.setResult(new Result(Status.ERROR, "参数错误(partGrandID)"));
 			}
 			
+			responseBody.setEntity(actual);
 		} catch (DaoException e) {
 			_common_logger_.error("初始化实际注资对话框出现错误", e);
 			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));

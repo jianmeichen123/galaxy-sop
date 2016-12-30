@@ -9,11 +9,12 @@
 		<result column="create_uname" property="createUname" />
 		<result column="updated_time" property="updatedTime" />
 		<result column="created_time" property="createdTime" />
+		<result column="actual_Time" property="actualTime" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
 		id, part_grant_id, grant_money, create_uid, create_uname,
-		updated_time,created_time
+		updated_time,created_time,actual_Time
 	</sql>
 
 
@@ -30,6 +31,7 @@
 						escape '/'
 					</if>
 			  	</if>
+			  	<if test="actualTime != null"> and actual_Time = #{actualTime} </if>
 			</trim>
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="offset != null and limit != null">
@@ -71,6 +73,7 @@
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
 			</if>
+			<if test="actualTime != null">  actual_Time = #{actualTime}, </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -85,6 +88,7 @@
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
 			</if>
+			<if test="actualTime != null">  actual_Time = #{actualTime}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -111,10 +115,10 @@
 	    <![CDATA[
 	     insert into sop_grant_actual(
 	     	id, part_grant_id, grant_money, create_uid, 
-	     	create_uname, updated_time,created_time
+	     	create_uname, updated_time,created_time,actual_Time
 	     )values(
 	     	#{id}, #{partGrantId}, #{grantMoney}, #{createUid}, 
-	     	#{createUname},#{updatedTime}, #{createdTime}
+	     	#{createUname},#{updatedTime}, #{createdTime}, #{actualTime}
 		 )
 	    ]]>
 	</insert>
