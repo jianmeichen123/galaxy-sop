@@ -15,8 +15,8 @@
 <div class="addmentc" id="dialog_actual">
 	<form id="form_edit_actual_dialog">
 		<div class="title_bj popup_name_edit" id="label_pop_name">查看、添加、编辑实际注资信息</div>
-	    <div class="form clearfix">
-	        <div class="edit_actual">
+	    <div class="form clearfix" id="container">
+	        <div class="edit_actual"  style="height:400px;width:600px;overflow:auto;">
 	            
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>协议名称 ：</dt>
@@ -97,12 +97,32 @@
 	                </dd>
 	            </dl>
 	            
-	            <dl class="fmdl fl_l  clearfix">
+	            <dl class="fmdl fl_l  clearfix" id="show_actual_file">
 	                <dt>附件：</dt>
 	                <dd>
-	                	<div>aaaaaa.txt</div> 
-	                	<div>bbbbb.action</div> 
 	                </dd>
+	            </dl>
+	            <!-- <div class="affrim_line"></div> -->
+	            <dl class="fmdl fl_l" id="choose_up_file">
+	                 <dt>上传附件 ：</dt>
+	                 <div class="fmload clearfix">
+			            <dd>
+				        	<input  type="text"  class="txt" name="textarea2" id="textarea2" readonly="readonly"></input>
+				        </dd>
+				        <dd>
+				        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
+			    		</dd>
+			        </div>
+	            </dl>  
+	            <dl class="fmdl fl_l" id="show_up_file" >
+	                 <table style="width:530px;margin: auto; display:block;" id="filelist"  cellspacing="0" cellpadding="0">
+	                    <tr>
+	                      <th style="width:265px;">文件名称</th>
+	                      <th style="width:105px" align="center">文件大小</th>
+	                      <th style="width:80px" align="center">操作</th>
+	                      <th style="width:80px" align="center">进度</th>
+	                    </tr>
+	                 </table> 
 	            </dl>
 	             
 	        </div>
@@ -113,3 +133,9 @@
 	    </div>  
 	</form>	
 </div>
+
+
+
+
+
+

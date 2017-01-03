@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,12 +38,14 @@ import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.MathUtils;
 
 
@@ -62,11 +65,25 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private ProjectService projectService;
 	@Autowired
 	private UserService userService;
-	
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
 		return this.grantActualService;
 	}
+	@Autowired
+	BatchUploadFile batchUpload;
+	
+	private String tempfilePath;
+
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
+	
+
 	/**
 	 * 查看实际注资列表弹出层
 	 */
@@ -150,7 +167,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			GrantActual actual = null;
 			//获取实际注资中实际注资金额
 			if(aQuery.getId()!=null){
-				actual = grantActualService.queryById(aQuery.getId());
+				actual = grantActualService.selectGrantActual(aQuery.getId());
+				//actual = grantActualService.queryById(aQuery.getId());
 			}
 			if(aQuery.getPartGrantId()!=null){
 				aQuery.setId(null);
@@ -216,19 +234,35 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			User blongUser = userService.queryById(project.getCreateUid());
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			
+			if(form.getFileReidsKey() != null){
+				ResponseData<SopFile> result = batchUpload.batchUpload(user.getId()+form.getFileReidsKey());
+				if(Status.OK.equals(result.getResult().getStatus())){
+					List<SopFile> fileList = result.getEntityList();
+					form.setFiles(fileList);
+				}
+			}
+			
 			if(form.getId()==null || form.getId().intValue() == 0){
 				//新增
 				uNum = UrlNumber.one;
 				form.setCreateUid(user.getId());
 				form.setCreateUname(user.getRealName());
-				grantActualService.insert(form);
+				//grantActualService.insert(form);
+				grantActualService.insertGrantActual(form, project);
 			}else{
 				//编辑
 				uNum = UrlNumber.two;
 				GrantActual actual = grantActualService.queryById(form.getId());
+				actual.setFileIds(form.getFileIds());
+				actual.setFileNum(form.getFileNum());
+				actual.setFiles(form.getFiles());
+				actual.setActualTime(form.getActualTime());
 				actual.setGrantMoney(form.getGrantMoney());
 				actual.setUpdatedTime(System.currentTimeMillis());
-				grantActualService.updateById(actual);
+				//grantActualService.updateById(actual);
+				grantActualService.upateGrantActual(actual, project);
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
 			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", uNum);
@@ -253,7 +287,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			Project project = projectService.queryById(total.getProjectId());
 			User blongUser = userService.queryById(project.getCreateUid());
 			
-			grantActualService.deleteById(id);
+			//grantActualService.deleteById(id);
+			grantActualService.deleteGrantActual(id);
 			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (DaoException e) {

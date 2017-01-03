@@ -12,7 +12,7 @@
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, grant_id, file_id, created_time,id,target
+    id, grant_id, file_id, created_time,tid,target
   </sql>
   
 	 <sql id="Base_Where_Clause">
@@ -25,10 +25,16 @@
 					<foreach collection="fileIds" index="item" item="item" open="(" separator="," close=")" >
 						#{item}
 					</foreach>
-			   </if>
+			   	  </if>
 			      <if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			      
 			      <if test="tid != null"> and tid = #{tid,jdbcType=BIGINT} </if>
+			      <if test="tids != null">
+					and tid in
+					<foreach collection="tids" index="item" item="item" open="(" separator="," close=")" >
+						#{item}
+					</foreach>
+			   </if>
 			      <if test="target != null"> and target = #{target,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>

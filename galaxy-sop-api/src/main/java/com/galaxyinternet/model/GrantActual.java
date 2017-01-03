@@ -103,7 +103,9 @@ public class GrantActual extends PagableEntity{
 	//多附件
 	private List<SopFile> files; 
     private List<Long> fileIds;
-	
+    private Byte fileNum;
+    private String fileReidsKey;
+    
     
 	public String getProtocolName() {
 		return protocolName;
@@ -178,6 +180,19 @@ public class GrantActual extends PagableEntity{
 	}
 	public void setFileIds(List<Long> fileIds) {
 		this.fileIds = fileIds;
+	}
+	public Byte getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(Byte fileNum) {
+		this.fileNum = fileNum;
+	}
+	
+	public String getFileReidsKey() {
+		return fileReidsKey;
+	}
+	public void setFileReidsKey(String fileReidsKey) {
+		this.fileReidsKey = fileReidsKey;
 	}
 	@Override
 	public String toString() {
