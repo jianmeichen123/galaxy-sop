@@ -28,7 +28,7 @@
 				<thead>
 				    <tr>
 			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际注资金额（万元）</th>
-			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
+			        	<th data-field="actualTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">注资人<span></span></th>
 			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="25%">操作</th>
  					</tr>	
@@ -42,7 +42,9 @@
 			$('[resource-mark="add_appr_actual"]').css("display","inline-block");
 		}
 	    function createDateFormat(value, row, index){
-	    	return time_zh(value, "年", "月", "日");
+	    	if(value && value != ''){
+	    		return time_zh(value, "年", "月", "日");
+	    	}else return '';
 	    }
 	    function grantMoneyFormat(value, row, index){
 	    	return addCommas(fixSizeDecimal(value));
@@ -66,9 +68,18 @@
 		    return opts;
 		 }
 	    var operatorEvent = {
+	    		'click .downfile' : function(e, value, row, index){
+	    			try {
+	    				var url = Constants.sopEndpointURL + '/galaxy/grant/actual/downActualFile'+"/"+row.id;
+	    				layer.msg('正在下载，请稍后...',{time:2000});
+	    				window.location.href=url+"?sid="+sessionId+"&guid="+userId;
+	    			} catch (e) {
+	    				layer.msg("下载失败");
+	    			}
+	    		},
 	    		'click .editActualLink' : function(e, value, row, index){
 	    			var formdata = {
-	    					parentId　:	${partId},
+	    					parentId :	${partId},
 	    					actualId : row.id,
 	    					operatorFlag : 2,
 	    					callFuc : function(data){

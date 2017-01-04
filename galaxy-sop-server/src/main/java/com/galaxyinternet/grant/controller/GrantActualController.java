@@ -1,10 +1,12 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,12 +40,15 @@ import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.MathUtils;
@@ -65,6 +70,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private ProjectService projectService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SopFileService sopFileService;
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
 		return this.grantActualService;
@@ -144,7 +151,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					new PageRequest(actual.getPageNum(), 
 							actual.getPageSize(), 
 							Direction.fromString("asc"), 
-							"created_time"));
+							"actual_time"));
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
 			_common_logger_.error("查询实际注资列表失败！查询条件：" + actual, e);
@@ -330,5 +337,21 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	}
 	
 	
-	
+	/**
+	 * 文件下载
+	 */
+	@RequestMapping("/downActualFile/{id}")
+	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	{
+		
+		if(id != null){
+			GrantActual grantActual = grantActualService.queryById(id);  //grantActual.getCreatedTime().toString()+
+			List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(id);;
+			try {
+				sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
+			} catch (Exception e) {
+				_common_logger_.error("下载失败.",e);
+			}
+		}
+	}
 }

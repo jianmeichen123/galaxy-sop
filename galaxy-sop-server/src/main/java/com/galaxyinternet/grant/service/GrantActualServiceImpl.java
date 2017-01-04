@@ -26,7 +26,9 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.GrantActual;
 import com.galaxyinternet.model.GrantFile;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.service.GrantActualService;
 
 @Service("com.galaxyinternet.grant.GrantActualService")
@@ -318,6 +320,29 @@ public class GrantActualServiceImpl extends BaseServiceImpl<GrantActual> impleme
 				}
 			});
 		}
+	}
+
+	@Override
+	public List<SopDownLoad> queryActualDownFiles(Long id) {
+		List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
+		List<SopFile> files = new ArrayList<SopFile>();
+		
+		List<Long> fileids = grantActualFileList(id);
+		if(fileids != null && !fileids.isEmpty()){
+			files = getFilesByIds(fileids);
+		}
+
+		if(files != null && files.size() > 0){
+			for(SopFile file:files){
+				SopDownLoad downloadEntity = new SopDownLoad();
+				downloadEntity.setFileName(file.getFileName());
+				downloadEntity.setFileSuffix("." + file.getFileSuffix());
+				downloadEntity.setFileSize(file.getFileLength());
+				downloadEntity.setFileKey(file.getFileKey());
+				sopDownLoadList.add(downloadEntity);
+			}
+		}
+		return sopDownLoadList;
 	}
 	
 	
