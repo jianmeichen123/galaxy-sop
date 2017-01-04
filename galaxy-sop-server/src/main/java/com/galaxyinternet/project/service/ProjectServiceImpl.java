@@ -694,4 +694,16 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		
 		return personId;
 	}
+
+	@Override
+	public Page<Project> selectDeptProject(Project query, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return projectDao.selectDeptProject(query, pageable);
+	}
+
+	@Override
+	public Page<Project> selectProjectTotalTime(Project query, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return projectDao.selectProjectTotalTime(query, pageable);
+	}
 }

@@ -1,21 +1,43 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<jsp:include page="../common/header_report.jsp" flush="true"></jsp:include>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<% 
+	String path = request.getContextPath(); 
+%>
 
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>投后运营</title>
+<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+
+<!-- bootstrap-table -->
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+
+<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+</head>
+<body>
+<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
 <jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<div class="ritmin">
     	<h2>投后项目跟踪</h2>
         <div class="tabtable assessment label_static">
-          <img src="<%=request.getContextPath() %>/img/sy.png" alt="">  <!-- 静态图标识 -->
-          <!-- tab标签 -->
+           <!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">投资金额跟踪分析</a></li>
                 <li data-tab="nav"><a href="javascript:;">项目退出占比</a></li>
+                <li data-tab="nav"><a href="javascript:;">事业部创投项目列表</a></li>
             </ul>
             <!-- tab内容 -->
 
             <!-- 投资金额跟踪分析部分 -->
-            <div class="mask"></div>
             <div class="tabtable_con" data-tab="con" >
               <div class="search_box searchall disabled">
                 <dl class="fmdl fmmr clearfix">
@@ -231,41 +253,31 @@
               </div>            
             </div>
 
-            <!-- 项目退出占比部分 -->
+            <!-- 事业部创投项目列表 -->
             <div class="tabtable_con" data-tab="con" >
-              <div class="search_box searchall disabled">
-                <dl class="fmdl fmmr clearfix">
-                  <dt>投资事业线：</dt>
-                  <dd>
-                    <select class="disabled">
-                      <option>全部</option>
-                      <option>互联网医疗</option>
-                      <option>企业服务</option>
-                    </select>
-                  </dd>
-                </dl>
-                <dl class="fmdl fmmr clearfix">
-                  <dt>项目类型：</dt>
-                  <dd>
-                    <select class="disabled">
-                      <option>全部</option>
-                      <option>创建</option>
-                      <option>投资</option>
-                    </select>
-                  </dd>
-                </dl>
-                <dl class="fmdl fmmr clearfix">
-                  <dt>统计时间：</dt>
-                  <dd>
-                    <input type="text" class="txt time1 disabled" value="2015-11-01"  />
-                    <span>至</span>
-                    <input type="text" class="txt time1 disabled" value="2015-11-06"  />
-                  </dd>
-                  <dd>
-                     <a href="javascript:;" class="bluebtn ico tj">统计</a>
-                  </dd>
-                </dl>
-              </div>
+			<div class="search_box searchall" id="custom-toolbasr-deptkpi">
+					<dl class="fmdl fmmr clearfix">
+						<dt>项目类型：</dt>
+						<dd>
+							<select name="projectType" id="deptkpi_projectType">
+								<option value="">全部</option>
+								<option value="projectType:2">创建</option>
+								<option value="projectType:1">投资</option>
+							</select>
+						</dd>
+					</dl>
+					<dl class="fmdl fmmr clearfix">
+						<dt>项目创建时间：</dt>
+						<dd>
+							<input type="text" class="txt time datepicker" id="deptkpi_sdate" name="sdate" value="" /> 
+							<span>至</span> 
+							<input type="text" class="txt time datepicker" id="deptkpi_edate" name="edate" value="" />
+						</dd>
+						<dd>
+							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_teamkpi">统计</a>  <!-- id="querySearch_deptkpi" -->
+						</dd>
+					</dl>
+				</div>
                <!--柱状图部分-->
               <div id="container_xmtczb"></div>
               <!--表格内容-->
@@ -390,10 +402,223 @@
                   </ul>
               </div>            
             </div>
+                        <!-- 项目退出占比部分 -->
+            <div class="tabtable_con" data-tab="con" >
+              <div class="search_box searchall" id="custom-toolbasr-deptProject">
+                    <dl class="fmdl fmmr clearfix">
+						<dt>投资事业部：</dt>
+						<dd>
+							<select name="deptid" id="userkpi_deptid">
+								<option value="">全部</option>
+							</select>
+						</dd>
+					</dl>
+					<dl class="fmdl fmmr clearfix">
+						<dt>查询时段：</dt>
+						<dd>
+							<input id="week" type="radio" name="week" value="" checked/>全部
+							<input id="defined" type="radio" name="week" value=""/>注资时间
+						</dd>
+						
+					</dl>
+					<dl class="fmdl fmmr clearfix">
+						<dd id="weekType">
+							<input type="text" class="txt time weekStartDatepicker" readonly id="partnerkpi_sdate" name="partnerSdate" value="" /> 
+							<span>至</span> 
+							<input type="text" class="txt time weekEndDatepicker" readonly id="partnerkpi_edate" name="partnerEdate" value="" />
+						</dd>
+						
+					   <dd id="definedType" style="display:none">
+							<input type="text" class="txt time datepicker" name="partnerSdate" readonly id="partnerkpi_sdate" value="" /> 
+							<span>至</span> 
+							<input type="text" class="txt time datepicker" name="partnerEdate" readonly id="partnerkpi_edate" value="" />
+						</dd>
+						
+						<dd>
+							<a href="javascript:;" class="bluebtn ico tj cx_prj" id="querySearch_depetProject">搜索</a>  <!-- id="querySearch_deptkpi" -->
+						</dd>
+					</dl>
+			   
+				</div>
+				 <div>
+				    <a href="javascript:;" class="bluebtn ico tj" id="kpiExport">导出</a>
+				</div>
+              <!--表格内容-->
+              <table id="data-table-deptProject"
+					width="100%" data-url="project/deptProjectList"  cellspacing="0" cellpadding="0" class="table_m">
+					<thead>
+						<tr>
+							<th data-field="projectName"  	class="data-input">项目名称</th>
+							<th data-field="projectCompany"  			class="data-input">公司名称 </th>
+							<th data-field="type"  		class="data-input">项目类型</th>
+							<th data-field="projectCareerline"  		class="data-input">事业部</th>
+							<th data-field="financeStatusDs"  		class="data-input sort" data-sortable="true" >融资状态<span></span></th>
+							<th data-field="ctime"  		class="data-input">注资时间</th>
+							<th data-field="finalContribution"  		class="data-input" >投资金额（万元）</th>
+						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat" >占比（%）</th>
+					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat" >融资历史</th>
+							<th data-field="healthState"  		class="data-input" data-formatter="healthStateFormatter">项目现状</th>
+						    <th data-field="projectDescribe"  		class="data-input" data-formatter="descriptLineFormat">商业模式</th>
+						    <th data-field="projectDescribeFinancing"  		class="data-input" data-formatter="financingFormat" >业务简要概述和项目亮点</th>
+ 						</tr>
+					</thead>
+				</table>           
+            </div> 	
 
           </div>
           </div>
           </div>
     
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+<!-- table分页 -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+<!-- highcharts -->
+<script src="<%=request.getContextPath() %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/highcharts_ext.js" type="text/javascript"></script>
+<!-- time -->
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForWeek.js"></script>
+
 <script src="<%=request.getContextPath() %>/js/report/afterInvestTrack.js" type="text/javascript"></script>
+<script>
+//周报|自定义选择切换
+$("#week").on('click',function(){
+	console.log('555555');
+	$("#weekType").find(':input').attr('data', 'false');
+	$("#weekType").show();
+	$("#definedType").hide();
+	setDateRange(new Date(),"INIT");
+	
+});
+
+$("#defined").on('click',function(){
+	$("#definedType").find(':input').attr('data', 'false');
+	$("#weekType").hide();
+	$("#definedType").show();
+	setDefineDate("definedType");
+	
+	
+});
+
+function setDefineDate(id){
+	//表单日期初始化
+    var currDate = new Date();
+	var sdate = currDate.format("yyyy-01-01");
+	var edate = currDate.format("yyyy-MM-dd");
+	$("#"+id).find("input[name='partnerSdate']").val(sdate);
+	$("#"+id).find("input[name='partnerEdate']").val(edate);
+}
+
+$("#kpiExport").on('click',function(){
+// 	window.location.href = platformUrl.exportKpiGrade;
+	reportChooseSuffix.init();
+});
+	
+createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
+function projectInfo(value,row,index){
+    var id=row.id;
+	var str=row.projectName;
+	console.log(str)
+	if(str.length>10){
+		subStr = str.substring(0,10);
+		var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
+		return options;
+	}
+	else{
+		var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+str+'</a>';
+		return options;
+	}
+}
+function descriptLineFormat(value, row, index){
+//	var id = row.projectId;
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	if(len>5){
+		var subValue1 = str.substring(0,5);
+		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
+					subValue1+'...' +
+				'</div>';
+		return rc;
+	}else{
+		return str;
+	}
+		var str = "<span title='"+value.replace("projectname",row.projectDescribe)+"'>"+row.projectDescribe+"......</span>";
+	return str;
+	
+}
+function financingFormat(value, row, index){
+//	var id = row.projectId;
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	if(len>5){
+		var subValue1 = str.substring(0,5);
+		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
+					subValue1+'...' +
+				'</div>';
+		return rc;
+	}else{
+		return str;
+	}
+		var str = "<span title='"+value.replace("projectname",row.projectDescribe)+"'>"+row.projectDescribeFinancing+"......</span>";
+	return str;
+}
+function finalShareRatioFormat(value, row, index){
+	var val;
+	var finalValuations;
+	var serviceCharge;
+	if(null!=row.finalValuations&&row.finalValuations!=""){
+		finalValuations=row.finalValuations;
+	}else{
+		finalValuations="-";
+	}
+	if(null!=row.serviceCharge&&row.serviceCharge!=""){
+		serviceCharge=row.serviceCharge;
+	}else{
+		serviceCharge="-";
+	}
+	return finalValuations+','+serviceCharge;
+}
+function financeHistoryFormat(value, row, index){
+	
+	var options = '<a href="#" class="blue" data-btn="financeHistory" onclick="financeHistory(' + row.id + ')">查看</a>';
+	return options;
+}
+function healthStateFormatter(value, row, index){
+	var val;
+	var data={
+		'0':'初始',	
+		'1':'高于',
+		'2':'正常',
+		'3':'健康预警',
+		'4':'清算'
+	};
+	if(null!=row.healthState&&row.healthState!=""){
+		val=data[row.healthState];
+	}else{
+		val="-";
+	}
+	return val;
+	
+}
+function financeHistory(id){
+	
+}
+
+</script>

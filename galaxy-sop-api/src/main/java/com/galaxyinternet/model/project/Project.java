@@ -96,6 +96,23 @@ public class Project extends PagableEntity {
 	 *项目备注
 	 */
     private String remark;
+    
+     
+    private List<FinanceHistory> financeList;
+    
+    /**
+     * 投后运营新增字段
+     */
+    
+   private String isNullTime;
+   
+   
+   private String healthState;
+   
+   
+   private String ctime;
+    
+    
 	
 	
     public Long getId() {
@@ -623,6 +640,38 @@ public class Project extends PagableEntity {
 
 	public void setProjectDescribeFinancing(String projectDescribeFinancing) {
 		this.projectDescribeFinancing = projectDescribeFinancing;
+	}
+
+	public List<FinanceHistory> getFinanceList() {
+		return financeList;
+	}
+
+	public void setFinanceList(List<FinanceHistory> financeList) {
+		this.financeList = financeList;
+	}
+
+	public String getIsNullTime() {
+		return isNullTime;
+	}
+
+	public void setIsNullTime(String isNullTime) {
+		this.isNullTime = isNullTime;
+	}
+
+	public String getHealthState() {
+		return healthState;
+	}
+
+	public void setHealthState(String healthState) {
+		this.healthState = healthState;
+	}
+
+	public String getCtime() {
+		return ctime;
+	}
+
+	public void setCtime(String ctime) {
+		this.ctime = ctime;
 	}
    
  

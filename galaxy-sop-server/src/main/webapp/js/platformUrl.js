@@ -997,8 +997,12 @@ var platformUrl = {
 	/**
 	 * 项目详情-删除融资历史信息
 	 */
-	selectEntityShare : Constants.sopEndpointURL + "/galaxy/projectShares/selectEntityShare"
-	
+	selectEntityShare : Constants.sopEndpointURL + "/galaxy/projectShares/selectEntityShare",
+	/**
+	 * 投后运营-头后项目跟踪-事业部创投项目列表
+	 */
+	deptProjectList : Constants.sopEndpointURL + "/galaxy/project/deptProjectList"
+
 	
 }
 

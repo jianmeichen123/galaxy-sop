@@ -3766,7 +3766,57 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
-	
+	/**
+	 * 投后运营-头后项目跟踪-事业部创投项目列表
+	 * @version 2017-01-03
+	 * @author jianmeichen
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deptProjectList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> deptProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		if(null!=project.getProperty()&&!project.getProperty().equals("")){
+			project.setProperty(" p.ctime");
+		}else{
+			project.setProperty(" p.ctime");
+		}
+		Page<Project> pageProject=new Page<Project>(null, null);
+		//如果可以根据时间
+		if(project.getIsNullTime()=="yes"){
+			 pageProject=projectService.selectProjectTotalTime(project, new PageRequest(project.getPageNum(), 
+					project.getPageSize(), 
+					Direction.fromString(project.getDirection()), 
+					project.getProperty()));
+		
+		}else{
+			try {
+				 pageProject=projectService.selectDeptProject(project, new PageRequest(project.getPageNum(), 
+							project.getPageSize(), 
+							Direction.fromString(project.getDirection()), 
+							project.getProperty()));
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return responseBody;
+			}
+		    
+		}
+		List<Project> projectList = new ArrayList<Project>();
+		List<Department> departmentList = departmentService.queryAll();
+		for(Project p : pageProject.getContent()){
+			projectList.add(p);
+			for(Department d : departmentList){
+				if(p.getProjectDepartid().longValue() == d.getId().longValue()){
+					p.setProjectCareerline(d.getName());
+					break;
+				}
+			}
+		}
+		responseBody.setPageList(pageProject);
+		responseBody.setResult(new Result(Status.OK, ""));
+		return responseBody;
+	}
 	
 	
 	
