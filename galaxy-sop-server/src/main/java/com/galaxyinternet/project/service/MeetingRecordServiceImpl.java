@@ -256,9 +256,10 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				task2.setTaskType(DictEnum.taskType.协同办公.getCode());				
 				sopTaskDao.insert(task2);
 			}*/
-		}else{
-			projectDao.updateById(pro);
 		}
+		/*else{
+			projectDao.updateById(pro);
+		}*/
 	}
 	
 	

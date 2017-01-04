@@ -2,11 +2,13 @@
 
 
 //会议类型切换事件
-function meetTypeChangeFun(){
+function meetTypeValChangeFun(){
 	$(".tip-yellowsimple").remove();
+	var meetingResultVal = $('input:radio[name="meetingResult"]:checked').val();
+	
 	var meetingTypeVal = $('input:radio[name="meetingTypeTc"]:checked').val();
 	
-	if(meetingTypeVal =='meetingType:4'){
+	if(meetingTypeVal =='meetingType:4' && meetingResultVal =='meetingResult:1'){
 		$("#finalContribution").attr({allowNULL:"no",valtype:"LIMIT_11_NUMBER",msg:"<font color=red>*</font>不能为空且最大支持四位小数"});
 		$("#finalValuations").attr({allowNULL:"no",valtype:"LIMIT_11_NUMBER",msg:"<font color=red>*</font>不能为空且最大支持四位小数"});
 		$("#finalShareRatio").attr({allowNULL:"no",valtype:"OTHER",msg:"<font color=red>*</font>0到100之间的四位小数"});
@@ -20,16 +22,6 @@ function meetTypeChangeFun(){
 		$("#serviceCharge").removeAttr('allowNULL').removeAttr('valType').removeAttr('msg');
 		
 		$('.toShow_tjh').hide();
-	}
-}
-
-function meetTypeChangeFun_val(meetingTypeVal){
-	$(".tip-yellowsimple").remove();
-	
-	if(meetingTypeVal =='meetingType:4'){
-		$('.toShow_tjh').show().css('display','block');
-	}else{
-		$('.toShow_tjh').remove();
 	}
 }
 

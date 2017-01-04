@@ -509,7 +509,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| meetingRecord.getMeetingResult() == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
-		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) && 
+				meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 			if(meetingRecord.getFinalValuations() == null ||
 					meetingRecord.getFinalContribution() == null ||
 					meetingRecord.getFinalShareRatio() == null ||
@@ -577,7 +578,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) &&
+					meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 				project.setFinalValuations(meetingRecord.getFinalValuations());
 				project.setFinalContribution(meetingRecord.getFinalContribution());
 				project.setFinalShareRatio(meetingRecord.getFinalShareRatio());
@@ -1207,12 +1209,15 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+			
+			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) &&
+					meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 				project.setFinalValuations(meetingRecord.getFinalValuations());
 				project.setFinalContribution(meetingRecord.getFinalContribution());
 				project.setFinalShareRatio(meetingRecord.getFinalShareRatio());
 				project.setServiceCharge(meetingRecord.getServiceCharge());
 			}
+			
 			
 			boolean equalNowPrograss = true;
 			int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段

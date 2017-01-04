@@ -83,12 +83,16 @@ public class SureMeetingHandler implements Handler {
 		mr.setMeetingNotes(q.getContent());
 		mr.setCreatedTime((new Date()).getTime());
 		meetingRecordDao.insert(mr);
+		
 		Project p = new Project();
 		p.setId(q.getPid());
-		p.setFinalValuations(q.getFinalValuations());
-		p.setFinalContribution(q.getFinalContribution());
-		p.setFinalShareRatio(q.getFinalShareRatio());
-		p.setServiceCharge(q.getServiceCharge());
+		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode())){
+			p.setFinalValuations(q.getFinalValuations());
+			p.setFinalContribution(q.getFinalContribution());
+			p.setFinalShareRatio(q.getFinalShareRatio());
+			p.setServiceCharge(q.getServiceCharge());
+		}
+		
 		//修改立项会排期记录:过会次数和状态
 		MeetingScheduling m = new MeetingScheduling();
 		m.setProjectId(q.getPid());
@@ -123,7 +127,7 @@ public class SureMeetingHandler implements Handler {
 		}
 		
 		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
-			projectDao.updateById(p);
+			//projectDao.updateById(p);
 			tm.setReserveTimeStartStr(null);
 			tm.setReserveTimeEndStr(null);
 			tm.setReserveTimeEnd(null);

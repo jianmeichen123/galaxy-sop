@@ -746,7 +746,7 @@ function getMeetCondition(hasProid,projectId,
 		meetNotesId
 		){
 	
-	meetTypeChangeFun();
+	meetTypeValChangeFun();
 	
 	var	condition = {};
 	if(!beforeSubmit("add_meet_tc")){
@@ -810,10 +810,12 @@ function getMeetCondition(hasProid,projectId,
 		}
 	}
 	
-	condition.finalValuations = $.trim($("#finalValuations").val());
-	condition.finalContribution = $.trim($("#finalContribution").val());
-	condition.finalShareRatio = $.trim($("#finalShareRatio").val());
-	condition.serviceCharge = $.trim($("#serviceCharge").val());
+	if(meetingTypeVal =='meetingType:4' && meetingResult =='meetingResult:1'){
+		condition.finalValuations = $.trim($("#finalValuations").val());
+		condition.finalContribution = $.trim($("#finalContribution").val());
+		condition.finalShareRatio = $.trim($("#finalShareRatio").val());
+		condition.serviceCharge = $.trim($("#serviceCharge").val());
+	}
 	
 	condition.projectId = projectIdVal;
 	condition.meetingDateStr = meetingDateStr;

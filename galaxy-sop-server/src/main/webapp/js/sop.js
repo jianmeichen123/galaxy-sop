@@ -416,13 +416,11 @@ function startReview(){
 		url:platformUrl.tomeetAdd,//模版请求地址
 		data:"",//传递参数
 		okback:function(_this){
-			
-			meetTypeChangeFun_val(meetingType);
+			$(".tip-yellowsimple").remove();
 			
 			$("#proselect").remove();
 			$("#meet_type_dl").hide();
 			$("input[name='meetingTypeTc'][value ='"+meetingType+"']").attr("checked","checked");
-			
 			
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
@@ -457,7 +455,6 @@ function startReview(){
 						condition.result = condition.meetingResult;
 						condition.content = condition.meetingNotes;
 						
-						console.log("sop meet condition :" + JSON.stringify(condition));
 						return condition;
 					},
 					num,

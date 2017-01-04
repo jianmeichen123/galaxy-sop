@@ -71,10 +71,13 @@ public class TjMeetingHandler implements Handler {
 		meetingRecordDao.insert(mr);
 		Project p = new Project();
 		p.setId(q.getPid());
-		p.setFinalValuations(q.getFinalValuations());
-		p.setFinalContribution(q.getFinalContribution());
-		p.setFinalShareRatio(q.getFinalShareRatio());
-		p.setServiceCharge(q.getServiceCharge());
+		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode())){
+			p.setFinalValuations(q.getFinalValuations());
+			p.setFinalContribution(q.getFinalContribution());
+			p.setFinalShareRatio(q.getFinalShareRatio());
+			p.setServiceCharge(q.getServiceCharge());
+		}
+		
 		
 		int in = Integer.parseInt(DictEnum.projectProgress.投资决策会.getCode().substring(DictEnum.projectProgress.投资决策会.getCode().length()-1));
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;

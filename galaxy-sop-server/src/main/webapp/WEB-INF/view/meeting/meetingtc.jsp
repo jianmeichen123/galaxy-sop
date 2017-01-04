@@ -76,18 +76,18 @@
     	<dl class="fmdl fml clearfix" id="meet_type_dl">
             <dt>会议类型：</dt>
             <dd class="clearfix" id="meetTypeRadio">
-                <label><input type="radio" name="meetingTypeTc" value="meetingType:1" checked="checked" onchange="meetTypeChangeFun()" />内评会</label>
-                <label><input type="radio" name="meetingTypeTc" value="meetingType:2" onchange="meetTypeChangeFun()"/>CEO评审</label>
-                <label><input type="radio" name="meetingTypeTc" value="meetingType:3" onchange="meetTypeChangeFun()"/>立项会</label>
-                <label><input type="radio" name="meetingTypeTc" value="meetingType:4" onchange="meetTypeChangeFun()"/>投决会</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:1" checked="checked" onchange="meetTypeValChangeFun()" />内评会</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:2" onchange="meetTypeValChangeFun()"/>CEO评审</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:3" onchange="meetTypeValChangeFun()"/>立项会</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:4" onchange="meetTypeValChangeFun()"/>投决会</label>
             </dd>
         </dl>
         <dl class="fmdl clearfix">
             <dt>会议结论：</dt>
             <dd class="clearfix">
-                <label><input type="radio" name="meetingResult" value="meetingResult:1"/>通过</label>
-                <label><input type="radio" name="meetingResult" value="meetingResult:2" checked="checked" />待定</label>
-                <label><input type="radio" name="meetingResult" value="meetingResult:3"/>否决</label>
+                <label><input type="radio" name="meetingResult" value="meetingResult:1" onchange="meetTypeValChangeFun()" />通过</label>
+                <label><input type="radio" name="meetingResult" value="meetingResult:2" checked="checked" onchange="meetTypeValChangeFun()" />待定</label>
+                <label><input type="radio" name="meetingResult" value="meetingResult:3" onchange="meetTypeValChangeFun()" />否决</label>
             </dd>
         </dl>
     </div>
