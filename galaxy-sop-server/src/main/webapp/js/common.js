@@ -745,11 +745,16 @@ function getMeetCondition(hasProid,projectId,
 		meetResultName,
 		meetNotesId
 		){
-	var	condition = {};
 	
-	if(!beforeSubmit()){
+	meetTypeChangeFun();
+	
+	var	condition = {};
+	if(!beforeSubmit("add_meet_tc")){
 		return false;
 	}
+	/*if(!beforeSubmitScroll("add_meet_tc")){
+		return false;
+	}*/
 	
 	var projectIdVal = null;
 	if(hasProid == "y" ){
@@ -804,6 +809,11 @@ function getMeetCondition(hasProid,projectId,
 			return false;
 		}
 	}
+	
+	condition.finalValuations = $.trim($("#finalValuations").val());
+	condition.finalContribution = $.trim($("#finalContribution").val());
+	condition.finalShareRatio = $.trim($("#finalShareRatio").val());
+	condition.serviceCharge = $.trim($("#serviceCharge").val());
 	
 	condition.projectId = projectIdVal;
 	condition.meetingDateStr = meetingDateStr;

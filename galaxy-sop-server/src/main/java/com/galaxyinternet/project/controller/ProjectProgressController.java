@@ -509,6 +509,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| meetingRecord.getMeetingResult() == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
+		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+			if(meetingRecord.getFinalValuations() == null ||
+					meetingRecord.getFinalContribution() == null ||
+					meetingRecord.getFinalShareRatio() == null ||
+					meetingRecord.getServiceCharge() == null ){
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
+				return responseBody;
+			}
 		}
 		
 		MeetingRecord mrQuery = new MeetingRecord();
@@ -563,12 +571,18 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(meetingRecord.getProjectId());
+			
 			String err = errMessage(project,user,prograss);
 			if(err!=null && err.length()>0){
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-			
+			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+				project.setFinalValuations(meetingRecord.getFinalValuations());
+				project.setFinalContribution(meetingRecord.getFinalContribution());
+				project.setFinalShareRatio(meetingRecord.getFinalShareRatio());
+				project.setServiceCharge(meetingRecord.getServiceCharge());
+			}
 			
 			//已有通过的会议，不能再添加会议纪要
 			mrQuery = new MeetingRecord();
@@ -1131,7 +1145,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
+	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecordBo meetingRecord ) {
 		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 		
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -1142,6 +1156,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| meetingRecord.getMeetingResult() == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
+		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+			if(meetingRecord.getFinalValuations() == null ||
+					meetingRecord.getFinalContribution() == null ||
+					meetingRecord.getFinalShareRatio() == null ||
+					meetingRecord.getServiceCharge() == null ){
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
+				return responseBody;
+			}
 		}
 		
 		//已有通过的会议，不能再添加会议纪要
@@ -1185,7 +1207,13 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-		
+			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+				project.setFinalValuations(meetingRecord.getFinalValuations());
+				project.setFinalContribution(meetingRecord.getFinalContribution());
+				project.setFinalShareRatio(meetingRecord.getFinalShareRatio());
+				project.setServiceCharge(meetingRecord.getServiceCharge());
+			}
+			
 			boolean equalNowPrograss = true;
 			int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
 			int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段

@@ -27,7 +27,7 @@
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际注资金额（元）</th>
+			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际注资金额（万元）</th>
 			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">注资人<span></span></th>
 			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="25%">操作</th>
@@ -49,6 +49,9 @@
 	    }
 	    function operatorFormat(value, row, index){
 	    	var opts = '';
+	    	
+	    	opts += '<a class="showActualLink blue" href="javascript:void(0)">查看</a>';
+	    	
 	    	if(isContainResourceByMark('edit_appr_actual') && isTransfering != 'true')
     		{
 	    		opts += '<a class="editActualLink blue"  href="javascript:void(0)">编辑</a>';
@@ -57,7 +60,9 @@
     		{
 	    		opts += '<a class="deleteActualLink blue"  href="javascript:void(0)">删除</a>';
     		}
-	    	opts += '<a class="showActualLink blue" href="javascript:void(0)">查看</a>';
+	    	
+	    	opts += '<a class="downfile blue" href="javascript:void(0)">下载附件</a>';
+	    	
 		    return opts;
 		 }
 	    var operatorEvent = {

@@ -2193,12 +2193,15 @@ margin: 45px auto 30px;}
 .new_tit_b button.save{margin-top: 20px;}
 .deleteCircleBtn{width: 33px;height: 33px;border:1px solid #539be2;border-radius:50%;background-color: #fff;font-size: 20px;font-weight: bold;color: #539be2;}
 .usermsg div.xingmou{width:81px;height:50px;background:#3e8bd9;margin-top:-15px;position: relative;}
+.ctdn{
+	background: url(../img/ctdn.png) 0px -2px no-repeat !important;
+}
 .xingmou{background-position: -37px -1230px;}
-.usermsg div.xingmou a{padding-left: 40px;}
-.usermsg div.xingmou .navbar{left:10px;width:24px;}
+.usermsg div.xingmou a{padding-left: 29px;}
+.usermsg div.xingmou .navbar{left:4px;width:24px;}
 .man_info{position:relative;}
 .man_info .name{position:absoute;}
-.usermsg a,.man_info span{font-size: 14px;font-family: "微软雅黑";line-height: 24px;}
+.usermsg a,.man_info span{font-size: 12px;font-family: "微软雅黑";line-height: 24px;}
 .man_info .avator{width:24px;height:24px;display:inline-block;background:url(../img/defalut_avator.png) 0 0 no-repeat;margin-right: 10px;}
 .header .usermsg .name{line-height: 24px;background:url(../img/xiala.png) right 6px no-repeat;padding:0 15px 0 0px;margin:0 30px 0 0;}
 .usermsg div.xingmou a{line-height: 50px;}
