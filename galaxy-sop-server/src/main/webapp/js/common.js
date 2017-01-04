@@ -465,9 +465,10 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			PostInit: function(up) {
 				$("#" + submitBtnId).click(function(){
 					/**添加验证**/
-					if(beforeSubmit()){
+					
 						var file = $("#" + fileInputId).val();
 						var param = paramsFunction();
+					if(beforeSubmit()){
 						if(up.files.length == 0){
 							sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
 								var result = data.result.status;

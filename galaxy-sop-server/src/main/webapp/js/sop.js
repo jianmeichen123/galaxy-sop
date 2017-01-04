@@ -427,6 +427,7 @@ function startReview(){
 			leicj(meetingType);
 			toinitUpload(platformUrl.stageChange,projectId, "file-select-btn","fileName","savemeet","",
 					function getSaveCondition(){
+						$(".tip-yellowsimple").remove();
 						var	condition = getMeetCondition('y',projectId, "meetingDateStr", 'y',meetingType, "meetingResult","meetingNotes");;
 						/*var pid = projectId;
 						var meetingDateStr = $.trim($("#meeting_date").val());
