@@ -136,7 +136,11 @@
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from finance_history where id = #{id}
 	</delete>
-	
+	<!-- 查询总数 -->
+	<select id="getFHStr" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from finance_history
+		<include refid="Base_Where_Clause" />
+	</select>
 	
   
 </mapper>
