@@ -5,9 +5,9 @@ body{font-size:14px; font-family:"微软雅黑"; background:#E9EBF2;}
 html,body,div,ul,ol,li,dl,dt,dd,p,span,em,strong,b,i,h1,h2,h3,h4,form,input,button,textarea,select,option,img,a{ margin:0; padding:0}
 ul,ol,dl,dt,dd,p,img{ display:block; border:0}
 a{ text-decoration:none; outline:none;font-size:12px; font-family:"宋体"}
-a:hover{ text-decoration:underline}
+a:hover{ text-decoration:none;}
 li{ display:block; list-style:none}
-textarea{resize: none;outline: none}
+textarea{resize: none;outline: none;line-height:18px !important;}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .pointer-events{pointer-events: none;}
 .userinfro select{ margin-left:10px;   padding: 0px 0 !important;}
