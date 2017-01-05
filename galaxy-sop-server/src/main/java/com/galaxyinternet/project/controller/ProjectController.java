@@ -94,6 +94,7 @@ import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.project.service.handler.YwjzdcHandler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.FinanceHistoryService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
@@ -158,6 +159,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private ProjectGradeService reportService;
+	
+	@Autowired
+	private FinanceHistoryService financeHistoryService;
 	@Autowired
 	private SopTaskService sopTaskService;
 	

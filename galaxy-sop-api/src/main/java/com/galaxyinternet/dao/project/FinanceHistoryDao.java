@@ -4,5 +4,9 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.model.project.FinanceHistory;
 
 public interface FinanceHistoryDao extends BaseDao<FinanceHistory, Long> {
-
+	
+	public String getFHStr(Long projectId);
+	
+	
+	
 }
