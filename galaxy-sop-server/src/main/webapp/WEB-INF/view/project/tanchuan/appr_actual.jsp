@@ -62,8 +62,9 @@
     		{
 	    		opts += '<a class="deleteActualLink blue"  href="javascript:void(0)">删除</a>';
     		}
-	    	
-	    	opts += '<a class="downfile blue" href="javascript:void(0)">下载附件</a>';
+	    	if(row.fileNum && row.fileNum > 0){
+	    		opts += '<a class="downfile blue" href="javascript:void(0)">下载附件</a>';
+	    	}
 	    	
 		    return opts;
 		 }
