@@ -450,7 +450,6 @@
 				</div>
 				 <div>
 				    <a href="javascript:;" class="bluebtn ico tj" id="ProjectExport">导出</a>
-				      <a href="javascript:;" class="bluebtn ico tj" onclick="financeHistory(331)">融资历史</a>
 				</div>
               <!--表格内容-->
               <table id="data-table-deptProject"
