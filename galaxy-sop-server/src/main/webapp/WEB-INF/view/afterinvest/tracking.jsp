@@ -456,18 +456,18 @@
 					width="100%" data-url="project/deptProjectList"  cellspacing="0" cellpadding="0" class="table_m">
 					<thead>
 						<tr>
-							<th data-field="projectName"  	class="data-input">项目名称</th>
-							<th data-field="projectCompany"  			class="data-input">公司名称 </th>
-							<th data-field="type"  		class="data-input">项目类型</th>
-							<th data-field="projectCareerline"  		class="data-input">事业部</th>
-							<th data-field="financeStatusDs"  		class="data-input sort" data-sortable="true" >融资状态<span></span></th>
-							<th data-field="ctime"  		class="data-input">注资时间</th>
+							<th data-field="projectName"  	class="data-input" data-formatter="projectNameFormat">项目名称</th>
+							<th data-field="projectCompany"  			class="data-input" data-formatter="projectCompanyFormat">公司名称 </th>
+							<th data-field="type"  		class="data-input" data-width="6%">项目类型</th>
+							<th data-field="projectCareerline"  		class="data-input" data-width="11%">事业部</th>
+							<th data-field="financeStatusDs"  		class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
+							<th data-field="ctime"  		class="data-input"  data-width="6%">注资时间</th>
 							<th data-field="finalContribution"  		class="data-input" >投资金额（万元）</th>
-						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat" >占比（%）</th>
-					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat" >融资历史</th>
-							<th data-field="healthState"  		class="data-input" data-formatter="healthStateFormatter">项目现状</th>
+						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="6%">占比（%）</th>
+					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat"  data-width="6%">融资历史</th>
+							<th data-field="healthState"  		class="data-input" data-formatter="healthStateFormatter"  data-width="6%">项目现状</th>
 						    <th data-field="projectDescribe"  		class="data-input" data-formatter="descriptLineFormat">商业模式</th>
-						    <th data-field="projectDescribeFinancing"  		class="data-input" data-formatter="financingFormat" >业务简要概述和项目亮点</th>
+						    <th data-field="projectDescribeFinancing"  		class="data-input" data-formatter="financingFormat" data-width="12%">业务简要概述和项目亮点</th>
  						</tr>
 					</thead>
 				</table>           
@@ -537,49 +537,44 @@ function projectInfo(value,row,index){
 		return options;
 	}
 }
-function descriptLineFormat(value, row, index){
-//	var id = row.projectId;
-	var len=0;
-	var str= "";
-	if(!(!value)){
-		str=delHtmlTag($.trim(value))
-	}
+function projectNameFormat(value, row, index){
+	var str=row.projectName;
 	if(str!="" && typeof(str)!="undefined"){
-		len = str.length;
-	}
-	if(len>5){
-		var subValue1 = str.substring(0,5);
-		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
-					subValue1+'...' +
-				'</div>';
-		return rc;
+		str=delHtmlTag($.trim(str))
+		var str = "<span title='"+str+"'>"+str+"</span>";
 	}else{
-		return str;
+		str='-'
 	}
-		var str = "<span title='"+value.replace("projectname",row.projectDescribe)+"'>"+row.projectDescribe+"......</span>";
 	return str;
-	
+}
+function projectCompanyFormat(value, row, index){
+	var str=row.projectCompany;
+	if(str!="" && typeof(str)!="undefined"){
+		str=delHtmlTag($.trim(str))
+		var str = "<span title='"+str+"'>"+str+"</span>";
+	}else{
+		str='-'
+	}
+	return str;
+}
+function descriptLineFormat(value, row, index){
+	var str=row.projectDescribe;
+	if(str!="" && typeof(str)!="undefined"){
+		str=delHtmlTag($.trim(str))
+		var str = "<span title='"+str+"'>"+str+"</span>";
+	}else{
+		str='-'
+	}
+	return str;
 }
 function financingFormat(value, row, index){
-//	var id = row.projectId;
-	var len=0;
-	var str= "";
-	if(!(!value)){
-		str=delHtmlTag($.trim(value))
-	}
+	var str=row.projectDescribeFinancing;
 	if(str!="" && typeof(str)!="undefined"){
-		len = str.length;
-	}
-	if(len>5){
-		var subValue1 = str.substring(0,5);
-		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
-					subValue1+'...' +
-				'</div>';
-		return rc;
+		str=delHtmlTag($.trim(str))
+		var str = "<span title='"+str+"'>"+str+"</span>";
 	}else{
-		return str;
+		str='-'
 	}
-		var str = "<span title='"+value.replace("projectname",row.projectDescribe)+"'>"+row.projectDescribeFinancing+"......</span>";
 	return str;
 }
 function finalShareRatioFormat(value, row, index){

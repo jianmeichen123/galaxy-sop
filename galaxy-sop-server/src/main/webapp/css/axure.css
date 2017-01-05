@@ -2356,3 +2356,9 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .prompttc{width:400px;}
 .prompttc .tips{margin:20px auto 0;width:350px;font-size:14px;}
 .prompttc .tipspc{background:url(../img/tips.png) 0 -16px no-repeat;display:inline-block;width:25px;height:25px;position:absolute;top:0;left:0;}
+/* 事业部创投项目列表 */
+#data-table-deptProject th{white-space:nowrap;}
+#data-table-deptProject td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#data-table-deptProject{table-layout:fixed}
+.bootstrap-table #data-table-deptProject > tbody > tr > td{padding:0 5px !important}
+ 
