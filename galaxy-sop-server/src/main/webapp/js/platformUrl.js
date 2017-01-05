@@ -1001,8 +1001,11 @@ var platformUrl = {
 	/**
 	 * 投后运营-头后项目跟踪-事业部创投项目列表
 	 */
-	deptProjectList : Constants.sopEndpointURL + "/galaxy/project/deptProjectList"
-
+	deptProjectList : Constants.sopEndpointURL + "/galaxy/project/deptProjectList",
+	/**
+	 * 投后运营-头后项目跟踪-事业部创投项目列表-导出
+	 */
+	exportProjectGrade : Constants.sopEndpointURL + "/galaxy/project/exportProjectGrade"
 	
 }
 

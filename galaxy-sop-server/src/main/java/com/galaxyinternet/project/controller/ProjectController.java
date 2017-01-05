@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -62,6 +64,7 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
+import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
@@ -76,6 +79,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -104,6 +108,8 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.service.chart.KpiGradeService;
+import com.galaxyinternet.service.chart.ProjectGradeService;
 import com.galaxyinternet.utils.CollectionUtils;
 import com.galaxyinternet.utils.SopConstatnts;
 
@@ -150,7 +156,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private YwjzdcHandler ywjzdcHandler;
 	
-	
+	@Autowired
+	private ProjectGradeService reportService;
 	@Autowired
 	private SopTaskService sopTaskService;
 	
@@ -3823,6 +3830,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		    
 		}
+		request.getSession().setAttribute("projectDataList",pageProject);	
 		List<Project> projectList = new ArrayList<Project>();
 		List<Department> departmentList = departmentService.queryAll();
 		for(Project p : pageProject.getContent()){
@@ -3839,7 +3847,71 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/exportProjectGrade")
+	public void exportProjectGrade(HttpServletRequest request,HttpServletResponse response){
+		@SuppressWarnings("unchecked")
+		List<ProjectData> chartDataList = (List<ProjectData>) request.getSession().getAttribute("projectDataList");	
+		String suffix = request.getParameter("suffix");
+		try {
+			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
+			reportService.download(request, response, modal);
+		} catch (Exception e) {
+			_common_logger_.error("下载失败.",e);
+		}
+	}
 	
+	/**
+	 * 封装数据
+	 * 每个字段的特殊处理
+	 * @param list
+	 * @return
+	 */
+	public List<ProjectData> setData(List<Project> list){
+		List<ProjectData> ProjectDataList=new ArrayList<ProjectData>();
+		
+		for(int i=0;i<list.size();i++){
+			Project p=list.get(i);
+			ProjectData  pd=new ProjectData();
+			pd.setProjectName(p.getProjectName());
+			pd.setProjectCompany(p.getProjectCompany());
+			pd.setType(p.getType());
+			pd.setDepartmentName(p.getDepartmentName());
+			pd.setFinanceStatus(p.getFinanceStatusDs());
+			pd.setCtime(p.getCtime());
+			pd.setFinalContribution(p.getFinalContribution());
+			pd.setRadioStr(setRadioStr(p.getFinalShareRatio(),p.getServiceCharge()));
+		}
+		return ProjectDataList;
+		
+	}
+	
+	/**
+	 * 格式化占比
+	 * @param finalradio
+	 * @param serviceRadio
+	 * @return
+	 */
+	public String setRadioStr(Double finalradio,Double serviceRadio){
+		String finalradioStr="";
+		String serviceRadioStr="";
+		if(null!=finalradio&&!finalradio.equals("")){
+			finalradioStr=finalradio.toString();
+		}
+	    if(null!=serviceRadio&&!serviceRadio.equals("")){
+	    	serviceRadioStr= serviceRadioStr.toString();
+		}
+	     return finalradioStr+","+serviceRadioStr;
+     }
+	/**
+	 * 格式化项目融资历史
+	 * @param projectId
+	 * @return
+	 */
+	   public String financeHistoryStr(Long projectId){
+		   String fhStr="";
+		   return fhStr;
+	   }
 	
 	
 }
