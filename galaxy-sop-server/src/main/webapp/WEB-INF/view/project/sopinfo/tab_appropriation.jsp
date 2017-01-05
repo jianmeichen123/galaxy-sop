@@ -83,6 +83,8 @@ var searchPartMoney;
 					$("#popup_name").html(_name);
 					if(data_on=="edit"){
 						sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+					}else if(data_on=="info"){
+						
 					}else{
 						 $("#totallId").val(0);
 					}

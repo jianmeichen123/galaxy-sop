@@ -16,7 +16,7 @@
 	        <div class="conference_all">
 	           <form id="actual_aging_form">
 		            <dl class="fmdl fl_l  clearfix">
-		                <dt>协议名称 ：</dt>
+		                <dt>协议名称：</dt>
 		                <dd>
 		                	<span id="totalName">创业服务协议</span>
 		                	<input name="totalGrantId" id=totalGrantId type="hidden" value="${totalGrantId}"/>
@@ -26,6 +26,22 @@
 		                	<input type="hidden" name="oldRemainMoney" id="oldRemainMoney" value=""/>
 		                </dd>
 		            </dl>
+		            <dl class="fmdl fl_l  clearfix">
+	                <dt>投资方 ：</dt>
+	                <dd>
+	                	<div>
+	                        ${investors }
+	                    </div>
+	                </dd>
+	                </dl>
+	                <dl class="fmdl fl_l  clearfix">
+	                <dt>目标公司 ：</dt>
+	                <dd>
+	                	<div>
+	                	     ${projectCompany }
+	                    </div>
+	                </dd>
+	                </dl> 
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资时间 ：</dt>
 		                <dd>
