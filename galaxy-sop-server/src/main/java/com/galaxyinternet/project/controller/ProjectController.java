@@ -3776,22 +3776,43 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> deptProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
+		
 		if(null!=project.getProperty()&&!project.getProperty().equals("")){
 			project.setProperty(" p.ctime");
 		}else{
 			project.setProperty(" p.ctime");
 		}
+		if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
+			//project.getProjectDepartid()=null;
+			project.setProjectDepartid(Long.parseLong(project.getDeptId()));
+		}
 		Page<Project> pageProject=new Page<Project>(null, null);
 		//如果可以根据时间
-		if(project.getIsNullTime()=="yes"){
-			 pageProject=projectService.selectProjectTotalTime(project, new PageRequest(project.getPageNum(), 
-					project.getPageSize(), 
-					Direction.fromString(project.getDirection()), 
-					project.getProperty()));
-		
+		if(project.getIsNullTime().equals("yes")){
+			try {
+					 pageProject=projectService.selectDeptProject(project, new PageRequest(project.getPageNum(), 
+						project.getPageSize(), 
+						Direction.fromString(project.getDirection()), 
+						project.getProperty()));
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return responseBody;
+			}
+			
 		}else{
 			try {
-				 pageProject=projectService.selectDeptProject(project, new PageRequest(project.getPageNum(), 
+				project.setsDate(project.getsDate().trim() + " 00:00:00");
+				project.seteDate(project.geteDate().trim() + " 23:59:59");
+				Long startTime = DateUtil.stringToLong(project.getsDate(), "yyyy-MM-dd HH:mm:ss");
+				Long endTime = DateUtil.stringToLong(project.geteDate(), "yyyy-MM-dd HH:mm:ss");
+				if(startTime > endTime){
+					responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
+					return responseBody;
+				}
+			
+			
+				 pageProject=projectService.selectProjectTotalTime(project, new PageRequest(project.getPageNum(), 
 							project.getPageSize(), 
 							Direction.fromString(project.getDirection()), 
 							project.getProperty()));

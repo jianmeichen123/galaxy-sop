@@ -111,7 +111,15 @@ public class Project extends PagableEntity {
    
    
    private String ctime;
+   
+   private Double grantMoney;
     
+   private String deptId;
+   
+   private String sDate;
+   
+   private String eDate;
+   
     
 	
 	
@@ -672,6 +680,38 @@ public class Project extends PagableEntity {
 
 	public void setCtime(String ctime) {
 		this.ctime = ctime;
+	}
+
+	public Double getGrantMoney() {
+		return grantMoney;
+	}
+
+	public void setGrantMoney(Double grantMoney) {
+		this.grantMoney = grantMoney;
+	}
+
+	public String getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
+	}
+
+	public String getsDate() {
+		return sDate;
+	}
+
+	public void setsDate(String sDate) {
+		this.sDate = sDate;
+	}
+
+	public String geteDate() {
+		return eDate;
+	}
+
+	public void seteDate(String eDate) {
+		this.eDate = eDate;
 	}
    
  

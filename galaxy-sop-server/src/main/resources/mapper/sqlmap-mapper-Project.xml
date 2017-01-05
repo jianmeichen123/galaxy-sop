@@ -49,6 +49,7 @@
     <result column="remark" property="remark" jdbcType="LONGVARCHAR"/>
     <result column="health_state" property="healthState" jdbcType="VARCHAR"/>
     <result column="ctime" property="ctime" jdbcType="VARCHAR"/>
+     <result column="grant_money" property="grantMoney" jdbcType="DECIMAL"/>
     
     </resultMap>
   <sql id="Base_Column_List" >
@@ -1025,15 +1026,15 @@
 	<select id="selectProjectTotalTime" resultMap="BaseResultMap" parameterType="java.util.Map">
 			
 		SELECT s.`id`,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
-		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe` FROM sop_project s 
+		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
 		INNER JOIN (
 		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
 		 FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') AS ctime,c.`project_id`
 		 FROM sop_grant_actual a 
 		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
 		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
-		 <if test="startTime != null"> <![CDATA[  and a.a.created_time >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
-		 <if test="endTime != null"> <![CDATA[ and a.created_time <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="sDate != null"> <![CDATA[  and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') >= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="eDate != null"> <![CDATA[  and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s')<= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
 		 GROUP BY c.`project_id` 
 		 ORDER BY a.created_time ASC ) p ON  s.id=p.project_id 
 		 LEFT JOIN (
@@ -1046,8 +1047,11 @@
 			</trim>
 		</where>
 		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 		</select>
-		<select id="projectTotalTimeCount" resultMap="BaseResultMap" parameterType="java.util.Map">
+		<select id="projectTotalTimeCount" resultType="java.lang.Long" parameterType="java.util.Map">
 			
 		SELECT count(*) FROM sop_project s 
 		INNER JOIN (
@@ -1056,8 +1060,8 @@
 		 FROM sop_grant_actual a 
 		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
 		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
-		 <if test="startTime != null"> <![CDATA[  and a.a.created_time >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
-		 <if test="endTime != null"> <![CDATA[ and a.created_time <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="sDate!= null"> <![CDATA[  and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') >= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="eDate!= null"> <![CDATA[ and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') <= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
 		 GROUP BY c.`project_id` 
 		 ORDER BY a.created_time ASC ) p ON  s.id=p.project_id 
 		 LEFT JOIN (
@@ -1066,7 +1070,7 @@
 		 ON p.project_id=k.project_id 
 		 <where>
 			<trim prefixOverrides="and">
-			  <if test="departId != null"> s.project_departId = #{departId}</if>
+			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
 			</trim>
 		</where>
 		<if test="sorting != null"> order by ${sorting} </if>
@@ -1075,7 +1079,7 @@
 	<select id="selectDeptProject" resultMap="BaseResultMap" parameterType="java.util.Map">
 			
 		 SELECT s.`id`,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
-		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe` FROM sop_project s 
+		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
 		  INNER JOIN (
 		  SELECT c.id,a.`grant_name`,c.`grant_money`,FROM_UNIXTIME(c.created_time/1000,'%Y-%m-%d') AS ctime ,a.`project_id`
           FROM sop_grant_total a 
@@ -1089,13 +1093,16 @@
 		 ON p.project_id=k.project_id 
 		 <where>
 			<trim prefixOverrides="and">
-			  <if test="departId != null"> s.project_departId = #{departId}</if>
+			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
 			</trim>
 		 </where>
 		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 		</select>
 		<!-- %Y-%m-%d %H:%i:%s -->
-      <select id="deptProjectCount" resultMap="BaseResultMap" parameterType="java.util.Map">
+      <select id="deptProjectCount" resultType="java.lang.Long" parameterType="java.util.Map">
 			
 		 SELECT count(*) FROM sop_project s 
 		  INNER JOIN (
@@ -1111,7 +1118,7 @@
 		 ON p.project_id=k.project_id 
 		 <where>
 			<trim prefixOverrides="and">
-			  <if test="departId != null"> s.project_departId = #{departId}</if>
+			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
 			</trim>
 		 </where>
 		</select>

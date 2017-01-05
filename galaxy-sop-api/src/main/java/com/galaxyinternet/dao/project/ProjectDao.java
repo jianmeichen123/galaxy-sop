@@ -78,5 +78,6 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 	 * @return
 	 */
 	public Page<Project> selectProjectTotalTime(Project query, Pageable pageable);
-	
+	public Long deptProjectCount(Project query);
+	public Long projectTotalTimeCount(Project query);
 }

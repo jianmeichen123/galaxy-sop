@@ -174,7 +174,7 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 			}
 		}
 		List<Project> selectList = sqlSessionTemplate.selectList(getSqlName("selectDeptProject"),params);
-	  return new  Page<Project>(selectList, pageable, projectTotalTimeCount(query));
+	  return new  Page<Project>(selectList, pageable, deptProjectCount(query));
 	}
 		@Override
 		public Page<Project> selectProjectTotalTime(Project query, Pageable pageable) {
@@ -188,18 +188,21 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 					params.put("sorting", str.replace("---", ":"));
 				}
 			}
-			List<Project> selectList = sqlSessionTemplate.selectList(getSqlName("selectDeptProject"),params);
+			List<Project> selectList = sqlSessionTemplate.selectList(getSqlName("selectProjectTotalTime"),params);
 		
 		  return new  Page<Project>(selectList, pageable, projectTotalTimeCount(query));
 		}
+		@Override
 		public Long deptProjectCount(Project query) {
 			try {
 				Map<String, Object> params = BeanUtils.toMap(query);
-				return sqlSessionTemplate.selectOne(this.getSqlNamespace()+ ".deptProjectCount", params);
+				Long reslut=sqlSessionTemplate.selectOne(this.getSqlNamespace()+ ".deptProjectCount", params);
+				return reslut;
 			} catch (Exception e) {
 				throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("deptProjectCount")), e);
 			}
 		}
+		@Override
 		public Long projectTotalTimeCount(Project query) {
 			try {
 				Map<String, Object> params = BeanUtils.toMap(query);

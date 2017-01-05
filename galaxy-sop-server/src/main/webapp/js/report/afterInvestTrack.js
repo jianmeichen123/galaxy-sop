@@ -40,7 +40,27 @@ function track_depProject_init(){
 		sidePagination: 'server',
 		method : 'post',
 		queryParams:function(params){
-			return json_2_1(params,getToobarQueryParams('custom-toolbasr-userkpi'));
+			var deptid;
+			var dept=$("#userTrack_deptid");
+			for(var i=0;i<dept.length;i++){
+				if(dept[i].selected='selected'){
+					deptid=dept[i].value;
+				}
+			}
+			var $selectedvalue = $("input:radio[name='isNullTime']:checked").val();
+			if($selectedvalue=="yes"){
+				params.sDate=null;
+				params.eDate=null;
+			}else{
+			
+				params.sDate=$("#deptkpi_sdate").val();
+				params.eDate=$("#deptkpi_edate").val();
+				console.log(params.sDate+"______"+params.eDate);
+			}
+			params.deptId=deptid;
+			params.isNullTime=$selectedvalue;
+			
+			return params;
 		},
 		pagination: true,
         search: false,

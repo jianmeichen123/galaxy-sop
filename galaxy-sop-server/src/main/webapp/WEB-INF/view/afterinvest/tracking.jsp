@@ -269,9 +269,9 @@
 					<dl class="fmdl fmmr clearfix">
 						<dt>项目创建时间：</dt>
 						<dd>
-							<input type="text" class="txt time datepicker" id="deptkpi_sdate" name="sdate" value="" /> 
+							<input type="text" class="txt time datepicker" id="deptkpi_sdate1" name="sdate" value="" /> 
 							<span>至</span> 
-							<input type="text" class="txt time datepicker" id="deptkpi_edate" name="edate" value="" />
+							<input type="text" class="txt time datepicker" id="deptkpi_edate1" name="edate" value="" />
 						</dd>
 						<dd>
 							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_teamkpi">统计</a>  <!-- id="querySearch_deptkpi" -->
@@ -408,7 +408,7 @@
                     <dl class="fmdl fmmr clearfix">
 						<dt>投资事业部：</dt>
 						<dd>
-							<select name="deptid" id="userkpi_deptid">
+							<select name="deptid" id="userTrack_deptid">
 								<option value="">全部</option>
 							</select>
 						</dd>
@@ -416,24 +416,18 @@
 					<dl class="fmdl fmmr clearfix">
 						<dt>查询时段：</dt>
 						<dd>
-							<input id="week" type="radio" name="week" value="" checked/>全部
-							<input id="defined" type="radio" name="week" value=""/>注资时间
+							<input id="week" type="radio" name="isNullTime"  value="yes"  checked/>全部
+							<input id="defined" type="radio"  name="isNullTime" value="no" />注资时间
 						</dd>
 						
 					</dl>
 					<dl class="fmdl fmmr clearfix">
 						<dd id="weekType">
-							<input type="text" class="txt time weekStartDatepicker" readonly id="partnerkpi_sdate" name="partnerSdate" value="" /> 
+								<dd>
+							<input type="text" class="txt time datepicker" id="deptkpi_sdate" name="sdate" value="" /> 
 							<span>至</span> 
-							<input type="text" class="txt time weekEndDatepicker" readonly id="partnerkpi_edate" name="partnerEdate" value="" />
+							<input type="text" class="txt time datepicker" id="deptkpi_edate" name="edate" value="" />
 						</dd>
-						
-					   <dd id="definedType" style="display:none">
-							<input type="text" class="txt time datepicker" name="partnerSdate" readonly id="partnerkpi_sdate" value="" /> 
-							<span>至</span> 
-							<input type="text" class="txt time datepicker" name="partnerEdate" readonly id="partnerkpi_edate" value="" />
-						</dd>
-						
 						<dd>
 							<a href="javascript:;" class="bluebtn ico tj cx_prj" id="querySearch_depetProject">搜索</a>  <!-- id="querySearch_deptkpi" -->
 						</dd>
@@ -493,15 +487,6 @@ $("#week").on('click',function(){
 	$("#weekType").show();
 	$("#definedType").hide();
 	setDateRange(new Date(),"INIT");
-	
-});
-
-$("#defined").on('click',function(){
-	$("#definedType").find(':input').attr('data', 'false');
-	$("#weekType").hide();
-	$("#definedType").show();
-	setDefineDate("definedType");
-	
 	
 });
 
