@@ -42,7 +42,7 @@ public class ProjectGradeServiceImpl extends ReportServiceImpl<ProjectData> impl
 	public List<BasicElement> getColumns() {
 		// TODO Auto-generated method stub
 		List<BasicElement> columnList = new ArrayList<BasicElement>();
-		for(int i=0;i<8;i++){
+		for(int i=0;i<12;i++){
 			BasicElement element = new BasicElement();
 			switch (i) {
 			case 0:
@@ -53,62 +53,62 @@ public class ProjectGradeServiceImpl extends ReportServiceImpl<ProjectData> impl
 			case 1:
 				element.setColumn(i);
 				element.setValue("项目名称");
-				element.setGetterMethod("projectName");
+				element.setGetterMethod("getProjectName");
 				break;
 			case 2:
 				element.setColumn(i);
 				element.setValue("公司名称");
-				element.setGetterMethod("departmentName");
+				element.setGetterMethod("getDepartmentName");
 				break;
 			case 3:
 				element.setColumn(i);
 				element.setValue("项目类型");
-				element.setGetterMethod("type");
+				element.setGetterMethod("getType");
 				break;
 			case 4:
 				element.setColumn(i);
 				element.setValue("事业部");
-				element.setGetterMethod("departmentName");
+				element.setGetterMethod("getDepartmentName");
 				break;
 			case 5:
 				element.setColumn(i);
 				element.setValue("融资状态");
-				element.setGetterMethod("financeStatus");
+				element.setGetterMethod("getFinanceStatus");
 				break;
 			case 6:
 				element.setColumn(i);
 				element.setValue("注资时间");
-				element.setGetterMethod("ctime");
+				element.setGetterMethod("getCtime");
 				break;
 			case 7:
 				element.setColumn(i);
 				element.setValue("投资金额（万）");
-				element.setGetterMethod("finalContribution");
+				element.setGetterMethod("getFinalContribution");
 				break;
 			case 8:
 				element.setColumn(i);
 				element.setValue("占比");
-				element.setGetterMethod("radioStr");
+				element.setGetterMethod("getRadioStr");
 				break;
 			case 9:
 				element.setColumn(i);
 				element.setValue("融资历史");
-				element.setGetterMethod("financeHistory");
+				element.setGetterMethod("getFinanceHistory");
 				break;
 			case 10:
 				element.setColumn(i);
 				element.setValue("项目现状");
-				element.setGetterMethod("healthState");
+				element.setGetterMethod("getHealthState");
 				break;
 			case 11:
 				element.setColumn(i);
 				element.setValue("商业模式");
-				element.setGetterMethod("projectDescribeFinancing");
+				element.setGetterMethod("getProjectDescribeFinancing");
 				break;
 			case 12:
 				element.setColumn(i);
 				element.setValue("业务简要概述和项目亮点");
-				element.setGetterMethod("projectDescribe");
+				element.setGetterMethod("getProjectDescribe");
 				break;
 			default:
 				break;

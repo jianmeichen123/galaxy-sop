@@ -14,7 +14,7 @@ public class FinanceHistoryDaoImpl extends BaseDaoImpl<FinanceHistory, Long> imp
 	public String getFHStr(Long projectId) {
 		// TODO Auto-generated method stub
 		try {
-			return sqlSessionTemplate.selectOne(getSqlName("getFHStr"));
+			return sqlSessionTemplate.selectOne(getSqlName("getFHStr"),projectId);
 		} catch (Exception e) {
 			throw new DaoException(String.format("查询对象信息出错！语句：%s", getSqlName(getSqlName("getFHStr"))), e);
 		}

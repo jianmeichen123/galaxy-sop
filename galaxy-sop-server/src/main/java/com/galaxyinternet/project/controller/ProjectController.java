@@ -3834,7 +3834,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		    
 		}
-		request.getSession().setAttribute("projectDataList",pageProject);	
+		request.getSession().setAttribute("projectDataList",pageProject.getContent());	
 		List<Project> projectList = new ArrayList<Project>();
 		List<Department> departmentList = departmentService.queryAll();
 		for(Project p : pageProject.getContent()){
@@ -3855,7 +3855,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value="/exportProjectGrade")
 	public void exportProjectGrade(HttpServletRequest request,HttpServletResponse response){
 		@SuppressWarnings("unchecked")
-		List<ProjectData> chartDataList = (List<ProjectData>) request.getSession().getAttribute("projectDataList");	
+		List<Project> list = (List<Project>) request.getSession().getAttribute("projectDataList");	
+		List<ProjectData> chartDataList = setData(list);
 		String suffix = request.getParameter("suffix");
 		try {
 			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
@@ -3876,22 +3877,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		for(int i=0;i<list.size();i++){
 			Project p=list.get(i);
 			ProjectData  pd=new ProjectData();
-			pd.setProjectName(p.getProjectName());
-			pd.setProjectCompany(p.getProjectCompany());
-			pd.setType(p.getType());
-			pd.setDepartmentName(p.getDepartmentName());
-			pd.setFinanceStatus(p.getFinanceStatusDs());
-			pd.setCtime(p.getCtime());
-			pd.setFinalContribution(p.getFinalContribution());
+			pd.setProjectName(null==p.getProjectName()?"":p.getProjectName());
+			pd.setProjectCompany(null==p.getProjectCompany()?"":p.getProjectCompany());
+			pd.setType(null==p.getType()?"":p.getType());
+			pd.setDepartmentName(null==p.getDepartmentName()?"":p.getDepartmentName());
+			pd.setFinanceStatus(null==p.getFinanceStatusDs()?"":p.getFinanceStatusDs());
+			pd.setCtime(null==p.getCtime()?"":p.getCtime());
+			pd.setFinalContribution(null==p.getFinalContribution()?0:p.getFinalContribution());
 			pd.setRadioStr(setRadioStr(p.getFinalShareRatio(),p.getServiceCharge()));
 			pd.setFinanceHistory(financeHistoryStr(p.getId()));
-			pd.setHealthState(p.getHealthState());
-			pd.setProjectDescribe(p.getProjectDescribe());
-			pd.setProjectDescribe(p.getProjectDescribeFinancing());
+			pd.setHealthState(null==p.getHealthState()?"":p.getHealthState());
+			pd.setProjectDescribe(null==p.getProjectDescribe()?"":p.getProjectDescribe());
+			pd.setProjectDescribeFinancing(null==p.getProjectDescribeFinancing()?"":p.getProjectDescribeFinancing());
 			ProjectDataList.add(pd);
 		}
 		return ProjectDataList;
-		
 	}
 	
 	/**
@@ -3904,10 +3904,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		String finalradioStr="";
 		String serviceRadioStr="";
 		if(null!=finalradio&&!finalradio.equals("")){
-			finalradioStr=finalradio.toString();
+			finalradioStr=finalradio.toString()+"%";
 		}
 	    if(null!=serviceRadio&&!serviceRadio.equals("")){
-	    	serviceRadioStr= serviceRadioStr.toString();
+	    	serviceRadioStr= serviceRadioStr.toString()+"%";
 		}
 	     return finalradioStr+","+serviceRadioStr;
      }
@@ -3918,8 +3918,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	   public String financeHistoryStr(Long projectId){
 		   String fhStr="";
-		   fhStr= financeHistoryService.getFHStr(projectId);
-		   return fhStr;
+		   try {
+			   fhStr= financeHistoryService.getFHStr(projectId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		 if(null!=fhStr){
+			 return fhStr; 
+		 }else{
+			 return "";
+		 }
+		   
 	   }
 	
 	
