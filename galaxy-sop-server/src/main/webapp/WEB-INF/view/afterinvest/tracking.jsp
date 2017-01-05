@@ -496,7 +496,7 @@
 <script>
 //周报|自定义选择切换
 $("#week").on('click',function(){
-	$("#weekType").find(':input').attr('data', 'false');
+	//$("#weekType").find(':input').attr('data', 'false');
 	$("#weekType").show();
 	$("#definedType").hide();
 });
