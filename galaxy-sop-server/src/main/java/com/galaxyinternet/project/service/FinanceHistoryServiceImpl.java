@@ -23,6 +23,6 @@ public class FinanceHistoryServiceImpl extends BaseServiceImpl<FinanceHistory> i
 	@Override
 	public String getFHStr(Long projectId) {
 		// TODO Auto-generated method stub
-		return null;
+		return financeHistoryDao.getFHStr(projectId);
 	}
 }
