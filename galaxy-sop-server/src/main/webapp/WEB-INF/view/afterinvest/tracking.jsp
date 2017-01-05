@@ -615,8 +615,20 @@ function healthStateFormatter(value, row, index){
 	return val;
 	
 }
+//融资历史
 function financeHistory(id){
-	
+	if(!(id && id!=null && typeof(id)!='undefined' )){
+		layer.msg("页面信息获取失败");
+		return;
+	}
+	var _name = "查看融资历史";
+	$.getHtml({
+		url : Constants.sopEndpointURL + "/galaxy/financeHistory/toFinaceHistory/"+id, 
+		data : "",//传递参数
+		okback : function() {
+			$("#popup_name").html(_name);
+		}
+	});
 }
 $("#ProjectExport").on('click',function(){
 // 	window.location.href = platformUrl.exportKpiGrade;

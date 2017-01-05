@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,5 +201,16 @@ public class FinanceHistoryController extends BaseControllerImpl<FinanceHistory,
 			responseBody.setResult(new Result(Status.ERROR, "error", "出现未知异常!"));
 		}
 		return responseBody;
+	}
+	/**
+	 * 查看团队信息弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/toFinaceHistory/{projectId}", method = RequestMethod.GET)
+	public String toProPerView(@PathVariable("projectId") String id,HttpServletRequest request) {
+		if(id != null && !"".equals(id.trim())){
+			request.setAttribute("projectId", Long.valueOf(id));
+		}
+		return "afterinvest/finace_history";
 	}
 }

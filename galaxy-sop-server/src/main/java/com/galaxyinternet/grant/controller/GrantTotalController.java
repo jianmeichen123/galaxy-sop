@@ -91,6 +91,34 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		
 		return "project/tanchuan/appr_actual_all";
 	}
+	
+	
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toActualTotalLook/{id}", method = RequestMethod.GET)
+	public String toActualTotalLook(HttpServletRequest request,@PathVariable("id") Long id) {
+		if(id == null){
+			return "project/tanchuan/appr_actual_total_look";
+		}
+		GrantTotal c = grantTotalService.queryById(id);
+		Long projectId = c.getProjectId();
+		if(projectId != null){
+			Project pro = projectService.queryById(projectId);
+			
+			c.setProjectCompany(pro.getProjectCompany());  //目标公司
+			c.setFinalContribution(pro.getFinalContribution());  //实际投资
+			c.setFinalShareRatio(pro.getFinalShareRatio());  //股权占比
+			c.setServiceCharge(pro.getServiceCharge());  //加速服务费占比
+			c.setFinalValuations(pro.getFinalValuations());  //实际估值
+		}
+		request.setAttribute("actualTotalInfo", c);
+		return "project/tanchuan/appr_actual_toatl_look";
+	}
+	
+	
+	
+	
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
