@@ -9,9 +9,9 @@
 	<div class="title_bj" id="popup_name"></div>
 	
     <div class="form clearfix">
-            <div class="conference_all_750 scroll_table">
+            <div style="margin:45px auto 5px;">
               <c:if test="${isEditable}">
-            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
+            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况' style="width:90px;"></a>
                 </c:if>
             </div>
         
