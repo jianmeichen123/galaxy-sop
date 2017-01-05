@@ -76,23 +76,24 @@ var searchPartMoney;
 		var _name= $self.attr("data-name");
 		var data_on=$self.attr("data-on");
 		var id=$self.attr("data-val");
-			$.getHtml({
-				url:_url,//模版请求地址
-				data:"",//传递参数
-				okback:function(){
-					$("#popup_name").html(_name);
-					if(data_on=="edit"){
-						sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
-					}else if(data_on=="info"){
-						
-					}else{
-						 $("#totallId").val(0);
-					}
-					initDialogVal();
-				}//模版反回成功执行	
-			});
-			return false;
+		if(data_on=="info"){
+			_url=Constants.sopEndpointURL+'galaxy/grant/total/toActualTotalLook/'+id+"?pid=${pid}";
+		}
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("#popup_name").html(_name);
+				if(data_on=="edit"){
+					sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+				}else{
+					 $("#totallId").val(0);
+				}
+				initDialogVal();
+			}//模版反回成功执行	
 		});
+		return false;
+	});
 		
 	    function showGrantPart(tid){
 	    	
@@ -299,6 +300,7 @@ var searchPartMoney;
 		}
   }
 
+   
    $("#search").click( function(){
 	    var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){
