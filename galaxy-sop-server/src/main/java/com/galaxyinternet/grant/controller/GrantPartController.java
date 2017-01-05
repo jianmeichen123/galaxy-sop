@@ -94,6 +94,26 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);
 		return "project/tanchuan/appr_part_aging";
 	}
+	
+	/**
+	 * 查看分期
+	 * @param tid
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/toApprPartAgingInfo/{tid}", method = RequestMethod.GET)
+	public String toApprActualAgingInfo(@PathVariable("tid") Long tid, HttpServletRequest request) {
+		GrantTotal total = grantTotalService.queryById(tid);
+		Project project = projectService.queryById(total.getProjectId());
+		double useMoney = grantPartService.calculateBelongToPartMoney(tid);
+		request.setAttribute("projectCompany", project.getProjectCompany());
+		request.setAttribute("investors", total.getInvestors());
+		request.setAttribute("totalGrantId", total.getId());
+		request.setAttribute("totalMoney", total.getGrantMoney());
+		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);
+		return "project/tanchuan/appr_part_aging_info";
+	}
+	
 	/**
 	 *查询 事项
 	 */
