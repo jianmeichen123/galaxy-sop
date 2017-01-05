@@ -13,16 +13,16 @@
                <div id="pro_per_info_toolbar">
 					<input type="hidden" name="id" id="pool_id" value="" />
 				</div>
-				<div style="border:1px solid #e9ebf2 !important;width:94% !important;margin:20px 20px;border-radius:6px;">
-				   <table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
+				<div>
+				   <table  cellspacing="0" cellpadding="0" class="table financeHistoryTable basic_table">
 		            <thead>
 		               <tr>
 		                  <th>融资时间</th>
 		                  <th>投资方(机构或个人)</th>
 		                  <th>投资金额(万元)</th>
-		                  <th>币种</th>
+		                  <th style="width:10%">币种</th>
 		                  <th>股权占比（%）</th>
-		                  <th>融资轮次</th>
+		                  <th style="width:10%">融资轮次</th>
 		                 </tr>
 		             </thead>
 			         <tbody id="financeHistory_table">

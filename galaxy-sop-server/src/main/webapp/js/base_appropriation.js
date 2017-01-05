@@ -67,13 +67,15 @@ function  assembleHtml(grantTotal,i){
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
 		     +'<h3>'+grantTotal.grantName+'</h3>'
-	         +'<dl><dt>计划总注资金额（元）：</dt><dd>'+addCommas(fixSizeDecimal(grantTotal.grantMoney))+'</dd></dl>'
+	         +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+addCommas(fixSizeDecimal(grantTotal.grantMoney))+'</dd></dl>'
              +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'
           +'</div>'    
          +'<div class="b_agreement_r fr">'
             +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期注资计划" data-total-name="'+grantTotal.grantName+'">添加分期注资计划</button>'
-            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="info" data-val="'+grantTotal.id+'"data-name="查看总注资计划">查看</label><label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总注资计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
+            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="info" data-val="'+grantTotal.id+'"data-name="查看总注资计划">查看</label>'
+            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总注资计划">编辑</label>'
+            +'<label class="blue" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
          +'</div>'
     +'</div>'                      
   //  <!--表格内容-->
@@ -82,8 +84,8 @@ function  assembleHtml(grantTotal,i){
           +'<tr>'
              +'<th>分拨</th>'
               +'<th>计划注资时间</th>'
-              +'<th>计划注资金额（元）</th>'
-               +'<th>实际注资金额（元）</th>'
+              +'<th>计划注资金额（万元）</th>'
+               +'<th>实际注资金额（万元）</th>'
               +'<th>附件数</th>'
               +'<th>操作</th>'
              +'</tr>'
@@ -101,7 +103,7 @@ function  assembleSingleTabHtml(grantPart,grantName,i,k){
 		   +'<td>'+addCommas(fixSizeDecimal(grantPart.grantMoney))+'</td>'
 		   +'<td id="part_'+i+'_'+k+'">'+addCommas(fixSizeDecimal(grantPart.actualMoney))+'</td>'
 		   +'<td>'+grantPart.fileNum+'</td>'                                 
-		   +'<td><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期注资计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
+		   +'<td><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="info" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="查看分期注资计划" data-total-name="'+grantName+'">查看</label><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期注资计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
 		   if(grantPart.fileNum != 0){
 			   value +='<label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label></td>';
 		   }

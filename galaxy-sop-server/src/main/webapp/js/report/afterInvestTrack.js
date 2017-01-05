@@ -28,6 +28,7 @@ $("#querySearch_depetProject").on('click',function(){
 var partnerpi_url = platformUrl.deptProjectList;
 var partnerkpi_pageNum = 1;
 function track_depProject_init(){
+	$("#userTrack_deptid option").not(":first").remove();
 	//表单事业线下拉初始化
 	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
 	
@@ -52,9 +53,11 @@ function track_depProject_init(){
 				params.sDate=null;
 				params.eDate=null;
 			}else{
-			
-				params.sDate=$("#deptkpi_sdate").val();
-				params.eDate=$("#deptkpi_edate").val();
+				params.sDate=$("#deptkpi_sdate[data='false']").val();
+				params.eDate=$("#deptkpi_edate[data='false']").val();
+				if(params.sDate>params.eDate){
+					layer.msg("开始时间不能大于结束时间")
+				}
 				console.log(params.sDate+"______"+params.eDate);
 			}
 			params.deptId=deptid;

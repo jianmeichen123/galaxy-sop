@@ -152,6 +152,15 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 							actual.getPageSize(), 
 							Direction.fromString("asc"), 
 							"actual_time"));
+			List<GrantActual> ga = actualPage.getContent();
+			if(ga!=null && !ga.isEmpty()){
+				for(GrantActual gaa : actualPage.getContent()){
+					List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(gaa.getId());
+					if(sopDownLoadList != null){
+						gaa.setFileNum((byte) sopDownLoadList.size());
+					}
+				}
+			}
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
 			_common_logger_.error("查询实际注资列表失败！查询条件：" + actual, e);
@@ -186,7 +195,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					actual = new GrantActual();
 				}
 				
-				//actual.setInvestors(total.getInvestors());  //投资方
+				actual.setInvestors(total.getInvestors());  //投资方
 				actual.setProtocolName(total.getGrantName());
 				actual.setPlanGrantTime(part.getGrantDetail());
 				//actual.setPlanGrantMoney(part.getGrantMoney());  //替换为 实际投资
@@ -346,7 +355,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		
 		if(id != null){
 			GrantActual grantActual = grantActualService.queryById(id);  //grantActual.getCreatedTime().toString()+
-			List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(id);;
+			List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(id);
 			try {
 				sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
 			} catch (Exception e) {
