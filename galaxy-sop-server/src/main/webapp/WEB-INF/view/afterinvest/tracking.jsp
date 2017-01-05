@@ -39,6 +39,8 @@
 
             <!-- 投资金额跟踪分析部分 -->
             <div class="tabtable_con" data-tab="con" >
+            <div class="mask"></div>
+            <img src="/sop/img/sy.png" alt="">
               <div class="search_box searchall disabled">
                 <dl class="fmdl fmmr clearfix">
                   <dt>投资事业线：</dt>
@@ -255,7 +257,9 @@
 
             <!-- 事业部创投项目列表 -->
             <div class="tabtable_con" data-tab="con" >
-			<div class="search_box searchall" id="custom-toolbasr-deptkpi">
+            <div class="mask"></div>
+            <img src="/sop/img/sy.png" alt="">
+			<div class="search_box searchall disabled" id="custom-toolbasr-deptkpi">
 					<dl class="fmdl fmmr clearfix">
 						<dt>项目类型：</dt>
 						<dd>
@@ -423,11 +427,21 @@
 					</dl>
 					<dl class="fmdl fmmr clearfix">
 						<dd id="weekType">
-								<dd>
+								<input type="text" class="txt time" readonly id="deptkpi_sdate" name="sdate" value="" /> 
+								<span>至</span> 
+								<input type="text" class="txt time" readonly id="deptkpi_edate" name="edate" value="" />
+							</dd>
+							
+						   <dd id="definedType" style="display:none">
+								<input type="text" class="txt time datepicker" name="sdate" readonly id="deptkpi_sdate" value="" /> 
+								<span>至</span> 
+								<input type="text" class="txt time datepicker" name="edate" readonly id="deptkpi_edate" value="" />
+							</dd>
+						<!-- <dd id="weekType">
 							<input type="text" class="txt time datepicker" id="deptkpi_sdate" name="sdate" value="" /> 
 							<span>至</span> 
 							<input type="text" class="txt time datepicker" id="deptkpi_edate" name="edate" value="" />
-						</dd>
+						</dd> -->
 						<dd>
 							<a href="javascript:;" class="bluebtn ico tj cx_prj" id="querySearch_depetProject">搜索</a>  <!-- id="querySearch_deptkpi" -->
 						</dd>
@@ -482,21 +496,25 @@
 <script>
 //周报|自定义选择切换
 $("#week").on('click',function(){
-	console.log('555555');
 	$("#weekType").find(':input').attr('data', 'false');
 	$("#weekType").show();
 	$("#definedType").hide();
-	setDateRange(new Date(),"INIT");
-	
+});
+
+$("#defined").on('click',function(){
+	$("#definedType").find(':input').attr('data', 'false');
+	$("#weekType").hide();
+	$("#definedType").show();
+	setDefineDate("definedType");
 });
 
 function setDefineDate(id){
 	//表单日期初始化
     var currDate = new Date();
-	var sdate = currDate.format("yyyy-01-01");
+	var sdate = currDate.format("yyyy-MM-dd");
 	var edate = currDate.format("yyyy-MM-dd");
-	$("#"+id).find("input[name='partnerSdate']").val(sdate);
-	$("#"+id).find("input[name='partnerEdate']").val(edate);
+	$("#"+id).find("input[name='sdate']").val(sdate);
+	$("#"+id).find("input[name='edate']").val(edate);
 }
 
 $("#kpiExport").on('click',function(){
