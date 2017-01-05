@@ -56,9 +56,7 @@ function formatterTable(entity){
 	if(null==entity||""==entity){
 		var html="<tr><td colspan='7' style='text-align:center !important;color:#bbb;border:0;line-height:32px !important' class='noinfo no_info01'><label class='no_info_icon_xhhl'>没有找到匹配的记录</label></td></tr>";
 		$("#financeHistory_table").append(html);
-		if(isEditable &&( isEditable==false || isEditable=='false' )){
-			$(".noinfo").attr("colspan","6");
-		}
+		$(".noinfo").attr("colspan","6");
 	}else{
 		if(entity.length>=10){
 			$("#add_history").css("display","none");
