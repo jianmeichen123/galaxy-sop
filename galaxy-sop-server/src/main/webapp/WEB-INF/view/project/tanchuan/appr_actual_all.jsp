@@ -9,11 +9,27 @@
 	    <div class="form clearfix">
 	        <div class="edit_actual" id="info">
 	            <dl class="fmdl fl_l  clearfix">
-	                <dt>协议名称 ：</dt>
+	                <dt>协议名称：</dt>
 	                <input type="hidden"  name="id" id="totallId" >
 	                <dd>
 	                	<div>
 	                    	<input class="edittxt" type="text" id="grantName" name="grantName" maxLength="20"  valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个字符"/>
+	                    </div>
+	                </dd>
+	            </dl>
+	             <dl class="fmdl fl_l  clearfix">
+	                <dt>投资方 ：</dt>
+	                <dd>
+	                	<div>
+	                    	<input class="edittxt" type="text" id="investors" name="investors" maxLength="20"  valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个字符"/>
+	                    </div>
+	                </dd>
+	            </dl>
+	             <dl class="fmdl fl_l  clearfix">
+	                <dt>目标公司 ：</dt>
+	                <dd>
+	                	<div>
+	                    	<input class="edittxt" type="text" id="projectCompany" name="projectCompany" value="${projectCompany }" maxLength="20"  valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个字符"/>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -23,8 +39,32 @@
 	                <dd>	
 	                	<div id="setValue">
 	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数">
-	                    	<span class='money'>元</span>
+	                    	<span class='money'>万元</span>
 	                    </div> 
+	                </dd>
+	            </dl>
+	              <dl class="fmdl fl_l  clearfix">
+	                <dt>股权占比 ：</dt>
+	                <dd>
+	                	<div>
+	                    	<input class="txt" type="text" size ="10" id="finalShareRatio" name="finalShareRatio" value="${finalShareRatio}" maxLength="20"  allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+	                    </div>
+	                </dd>
+	            </dl>
+	              <dl class="fmdl fl_l  clearfix">
+	                <dt>加速服务费占比 ：</dt>
+	                <dd>
+	                	<div>
+	                    	<input class="txt" type="text" size ="10" id="serviceCharge" name="serviceCharge" value="${serviceCharge }" maxLength="20"  allowNULL="yes" valType="OTHER" regString="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数"/>
+	                    </div>
+	                </dd>
+	            </dl>
+	              <dl class="fmdl fl_l  clearfix">
+	                <dt>项目估值：</dt>
+	                <dd>
+	                	<div>
+	                    	<input class="txt" type="text" id="finalValuations" name="finalValuations" value="${finalValuations } "maxLength="20"  allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
+	                    </div>
 	                </dd>
 	            </dl>
 	             

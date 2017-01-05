@@ -18,6 +18,16 @@ public class GrantTotal extends PagableEntity {
 	private boolean is_edit;
 	private String updatedUname;
 	
+	private String investors;//投资方
+	private Double finalShareRatio;//实际股权占比
+	private Double serviceCharge; //实际服务费占比
+	private Double finalValuations; //实际项目估值
+	
+	/**扩展字段**/
+	private String projectCompany;//目标公司名称
+	
+	
+	
 	public Long getProjectId() {
 		return projectId;
 	}
@@ -102,8 +112,43 @@ public class GrantTotal extends PagableEntity {
 	public void setFormatUpdatedTime(String formatUpdatedTime) {
 		this.formatUpdatedTime = formatUpdatedTime;
 	}
+	
+	
+	
+	public String getInvestors() {
+		return investors;
+	}
+	public void setInvestors(String investors) {
+		this.investors = investors;
+	}
+	public Double getFinalShareRatio() {
+		return finalShareRatio;
+	}
+	public void setFinalShareRatio(Double finalShareRatio) {
+		this.finalShareRatio = finalShareRatio;
+	}
+	public Double getServiceCharge() {
+		return serviceCharge;
+	}
+	public void setServiceCharge(Double serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+	public Double getFinalValuations() {
+		return finalValuations;
+	}
+	public void setFinalValuations(Double finalValuations) {
+		this.finalValuations = finalValuations;
+	}
+	public String getProjectCompany() {
+		return projectCompany;
+	}
+	public void setProjectCompany(String projectCompany) {
+		this.projectCompany = projectCompany;
+	}
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
 	}
+	
+	
 }
