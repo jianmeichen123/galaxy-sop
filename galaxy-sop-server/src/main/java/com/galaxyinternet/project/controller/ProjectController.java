@@ -3873,7 +3873,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	public List<ProjectData> setData(List<Project> list){
 		List<ProjectData> ProjectDataList=new ArrayList<ProjectData>();
-		
 		for(int i=0;i<list.size();i++){
 			Project p=list.get(i);
 			ProjectData  pd=new ProjectData();
@@ -3885,13 +3884,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			pd.setCtime(p.getCtime());
 			pd.setFinalContribution(p.getFinalContribution());
 			pd.setRadioStr(setRadioStr(p.getFinalShareRatio(),p.getServiceCharge()));
+			pd.setFinanceHistory(financeHistoryStr(p.getId()));
+			pd.setHealthState(p.getHealthState());
+			pd.setProjectDescribe(p.getProjectDescribe());
+			pd.setProjectDescribe(p.getProjectDescribeFinancing());
+			ProjectDataList.add(pd);
 		}
 		return ProjectDataList;
 		
 	}
 	
 	/**
-	 * 格式化占比
+	 * 格式化占比	
 	 * @param finalradio
 	 * @param serviceRadio
 	 * @return
@@ -3914,6 +3918,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	   public String financeHistoryStr(Long projectId){
 		   String fhStr="";
+		   fhStr= financeHistoryService.getFHStr(projectId);
 		   return fhStr;
 	   }
 	
