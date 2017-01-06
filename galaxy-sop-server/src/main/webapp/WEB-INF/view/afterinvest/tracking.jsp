@@ -585,12 +585,12 @@ function finalShareRatioFormat(value, row, index){
 	var finalValuations;
 	var serviceCharge;
 	if(null!=row.finalValuations&&row.finalValuations!=""){
-		finalValuations=row.finalValuations;
+		finalValuations=row.finalValuations+'%';
 	}else{
 		finalValuations="-";
 	}
 	if(null!=row.serviceCharge&&row.serviceCharge!=""){
-		serviceCharge=row.serviceCharge;
+		serviceCharge=row.serviceCharge+'%';
 	}else{
 		serviceCharge="-";
 	}
