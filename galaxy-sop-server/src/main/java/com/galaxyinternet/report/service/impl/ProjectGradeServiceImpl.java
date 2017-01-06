@@ -58,7 +58,7 @@ public class ProjectGradeServiceImpl extends ReportServiceImpl<ProjectData> impl
 			case 2:
 				element.setColumn(i);
 				element.setValue("公司名称");
-				element.setGetterMethod("getDepartmentName");
+				element.setGetterMethod("getProjectCompany");
 				break;
 			case 3:
 				element.setColumn(i);

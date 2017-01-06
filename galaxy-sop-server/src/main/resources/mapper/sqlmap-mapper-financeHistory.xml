@@ -137,7 +137,7 @@
 		delete from finance_history where id = #{id}
 	</delete>
 	<!-- 查询总数 -->
-	<select id="getFHStr" resultType="java.lang.String" parameterType="java.lang.Long">
+	<select id="getFHStr" resultType="java.lang.String" parameterType="java.util.Map">
 			SELECT 
 	GROUP_CONCAT( 
 				'融资时间:',IFNULL(FROM_UNIXTIME(f.finance_date/1000,'%Y-%m-%d'),""),

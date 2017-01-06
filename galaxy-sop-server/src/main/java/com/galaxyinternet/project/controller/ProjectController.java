@@ -3789,9 +3789,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		
 		if(null!=project.getProperty()&&!project.getProperty().equals("")){
-			project.setProperty(" m.mtime");
+			project.setProperty(" m.ctime");
 		}else{
-			project.setProperty(" m.mtime");
+			project.setProperty(" m.ctime");
 		}
 		if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
 			//project.getProjectDepartid()=null;
@@ -3821,8 +3821,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
 					return responseBody;
 				}
-			
-			
 				 pageProject=projectService.selectProjectTotalTime(project, new PageRequest(project.getPageNum(), 
 							project.getPageSize(), 
 							Direction.fromString(project.getDirection()), 
@@ -3888,19 +3886,47 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	public List<ProjectData> setData(List<Project> list){
 		List<ProjectData> ProjectDataList=new ArrayList<ProjectData>();
-		for(int i=0;i<list.size();i++){
+		  Map<Long,String> map=departmentMap();
+		 for(int i=0;i<list.size();i++){
 			Project p=list.get(i);
 			ProjectData  pd=new ProjectData();
 			pd.setProjectName(null==p.getProjectName()?"":p.getProjectName());
 			pd.setProjectCompany(null==p.getProjectCompany()?"":p.getProjectCompany());
 			pd.setType(null==p.getType()?"":p.getType());
-			pd.setDepartmentName(null==p.getDepartmentName()?"":p.getDepartmentName());
+			pd.setDepartmentName(null==map.get(p.getProjectDepartid())?"":map.get(p.getProjectDepartid()));
 			pd.setFinanceStatus(null==p.getFinanceStatusDs()?"":p.getFinanceStatusDs());
 			pd.setCtime(null==p.getCtime()?"":p.getCtime());
 			pd.setFinalContribution(null==p.getFinalContribution()?0:p.getFinalContribution());
 			pd.setRadioStr(setRadioStr(p.getFinalShareRatio(),p.getServiceCharge()));
 			pd.setFinanceHistory(financeHistoryStr(p.getId()));
-			pd.setHealthState(null==p.getHealthState()?"":p.getHealthState());
+			String result="";
+			
+			if(null!=p.getHealthState()&&!"".equals(p.getHealthState())){
+			int k=Integer.parseInt(p.getHealthState());
+			switch(k){
+			case 0:
+				result="初始";
+				break;
+			case 1:
+				result="高于预期";
+				break;
+			case 2:
+				result="正常";
+				break;
+			case 3:
+				result="健康预警";
+				break;
+			case 4:
+				result="清算";
+				break;
+			 default:
+				 result="";
+				break;
+			}
+			}else{
+				 result="";
+			}
+			pd.setHealthState(result);
 			pd.setProjectDescribe(null==p.getProjectDescribe()?"":p.getProjectDescribe());
 			pd.setProjectDescribeFinancing(null==p.getProjectDescribeFinancing()?"":p.getProjectDescribeFinancing());
 			ProjectDataList.add(pd);
@@ -3944,6 +3970,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		 }
 		   
 	   }
+	  public Map<Long,String> departmentMap(){
+		  Map<Long,String> map=new HashMap<Long,String>();
+			List<Department> departmentList = departmentService.queryAll();
+			for(Department p : departmentList){
+				map.put(p.getId(),p.getName());
+				
+			}
+			return map;
+	  }
+	   
+	   
 	
 	
 }
