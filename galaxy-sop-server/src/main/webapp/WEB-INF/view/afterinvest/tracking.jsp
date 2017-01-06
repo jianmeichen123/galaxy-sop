@@ -412,7 +412,7 @@
                     <dl class="fmdl fmmr clearfix">
 						<dt>投资事业部：</dt>
 						<dd>
-							<select name="deptid" id="userTrack_deptid">
+							<select name="projectDepartid" id="userTrack_deptid">
 								<option value="">全部</option>
 							</select>
 						</dd>
@@ -461,7 +461,7 @@
 							<th data-field="type"  		class="data-input" data-width="6%">项目类型</th>
 							<th data-field="projectCareerline"  		class="data-input" data-width="11%">事业部</th>
 							<th data-field="financeStatusDs"  		class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
-							<th data-field="ctime"  		class="data-input"  data-width="6%">注资时间</th>
+							<th data-field="ctime"  		class="data-input" data-sortable="true" data-sort-order="asc" data-width="6%">注资时间</th>
 							<th data-field="finalContribution"  		class="data-input" >投资金额（万元）</th>
 						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="6%">占比（%）</th>
 					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat"  data-width="6%">融资历史</th>
@@ -494,6 +494,9 @@
 
 <script src="<%=request.getContextPath() %>/js/report/afterInvestTrack.js" type="text/javascript"></script>
 <script>
+$(function (){
+	createCareelineOptions(platformUrl.getCareerlineListByRole,"projectDepartid","");
+});
 //周报|自定义选择切换
 $("#week").on('click',function(){
 	//$("#weekType").find(':input').attr('data', 'false');
@@ -522,7 +525,7 @@ $("#kpiExport").on('click',function(){
 	reportChooseSuffix.init();
 });
 	
-createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
+
 function projectInfo(value,row,index){
     var id=row.id;
 	var str=row.projectName;

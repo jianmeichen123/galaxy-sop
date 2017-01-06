@@ -3792,11 +3792,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			project.setProperty(" m.ctime");
 		}else{
 			project.setProperty(" m.ctime");
-		}
-		if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
+             project.setDirection("desc");
+        }
+		/*if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
 			//project.getProjectDepartid()=null;
 			project.setProjectDepartid(Long.parseLong(project.getDeptId()));
-		}
+		}*/
 		//强制 HHR 能看
 		int hhrDeptId = getDepId(request);
 		if(hhrDeptId!=-1){

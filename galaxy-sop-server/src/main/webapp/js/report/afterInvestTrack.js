@@ -19,6 +19,8 @@ function loadDataQuitProject(){
 	
 }
 function loadDeptProject(){
+	$("#userTrack_deptid option").not(":first").remove();
+	createCareelineOptions(platformUrl.getCareerlineListByRole,"projectDepartid","");
 	track_depProject_init();
 }
 $("#querySearch_depetProject").on('click',function(){
@@ -33,6 +35,7 @@ function track_depProject_init(){
 	//表单事业线下拉初始化
 	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
 	
+
 	//绑定querySearch事件
 	$('#data-table-deptProject').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -40,14 +43,12 @@ function track_depProject_init(){
 		pageList : [10, 20, 30 ],
 		showRefresh : false ,
 		sidePagination: 'server',
+		sortOrder : 'asc',
 		method : 'post',
 		queryParams:function(params){
-			var deptid;
-			var dept=$("#userTrack_deptid");
-			for(var i=0;i<dept.length;i++){
-				if(dept[i].selected='selected'){
-					deptid=dept[i].value;
-				}
+			var deptid = null;
+			if($('#userTrack_deptid option:selected').val()){
+				deptid = $('#userTrack_deptid option:selected').val();
 			}
 			var $selectedvalue = $("input:radio[name='isNullTime']:checked").val();
 			if($selectedvalue=="yes"){
@@ -61,7 +62,7 @@ function track_depProject_init(){
 				}
 				console.log(params.sDate+"______"+params.eDate);
 			}
-			params.deptId=deptid;
+			params.projectDepartid=deptid;
 			params.isNullTime=$selectedvalue;
 			
 			return params;
