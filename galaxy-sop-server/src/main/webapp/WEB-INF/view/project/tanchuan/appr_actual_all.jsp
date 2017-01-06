@@ -14,7 +14,7 @@
 	                <dd>
 	                	<div>
 	                    	<input class="edittxt" type="text" id="grantName" name="grantName" maxLength="20"  
-	                    		valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个字符"/>
+	                    		valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -23,7 +23,7 @@
 	                <dd>
 	                	<div>
 	                    	<input class="edittxt" type="text" id="investors" name="investors" maxLength="50"  
-	                    		valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>协议名称只能输入50个字符"/>
+	                    		valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>只能输入50个字符"/>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -32,7 +32,7 @@
 	                <dd>
 	                	<div>
 	                    	<input class="edittxt" type="text" id="projectCompany" name="projectCompany" value="${projectCompany }" 
-	                    		maxLength="50"  valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>协议名称只能输入50个字符"/>
+	                    		maxLength="50"  valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>只能输入50个字符"/>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -41,9 +41,9 @@
 	                <dt>计划总注资金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
-	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
-	                    		allownull="no" valtype="LIMIT_11_NUMBER" 
-	                    		msg="<font color=red>*</font>支持9位长度的四位小数">
+	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  value="${finalContributions}" 
+	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
+	                    		msg="<font color=red>*</font>支持9位长度的四位小数" />
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
@@ -51,30 +51,32 @@
 	              <dl class="fmdl fl_l  clearfix">
 	                <dt>股权占比 ：</dt>
 	                <dd>
-	                	<div>
+	                	<div id="setValue">
 	                    	<input class="txt" type="text" size ="10" id="finalShareRatio" name="finalShareRatio" value="${finalShareRatio}" 
 	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
-	                    		msg="<font color=red>*</font>0到100之间的四位小数"/>
+	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
+	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
 	            </dl>
 	              <dl class="fmdl fl_l  clearfix">
 	                <dt>加速服务费占比 ：</dt>
 	                <dd>
-	                	<div>
+	                	<div id="setValue">
 	                    	<input class="txt" type="text" size ="10" id="serviceCharge" name="serviceCharge" value="${serviceCharge }" 
-	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regString="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" 
-	                    		msg="<font color=red>*</font>0到5之间的四位小数"/>
+	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
+	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
+	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
 	            </dl>
 	              <dl class="fmdl fl_l  clearfix">
 	                <dt>项目估值：</dt>
 	                <dd>
-	                	<div>
-	                    	<input class="txt fl" type="text" id="finalValuations" name="finalValuations" value="${finalValuations }" 
+	                	<div id="setValue">
+	                    	<input class="txt" type="text" id="finalValuations" name="finalValuations" value="${finalValuations }" 
 	                    		maxLength="20"  allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
-	                    	<span class='money'>&nbsp;万元</span>
+	                    	<span class='money'>万元</span>
 	                    </div>
 	                </dd>
 	            </dl>
