@@ -3787,13 +3787,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> deptProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-		
-		if(null!=project.getProperty()&&!project.getProperty().equals("")){
-			project.setProperty(" m.ctime");
-		}else{
-			project.setProperty(" m.ctime");
-             project.setDirection("desc");
-        }
+	
 		/*if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
 			//project.getProjectDepartid()=null;
 			project.setProjectDepartid(Long.parseLong(project.getDeptId()));
@@ -3801,6 +3795,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		Page<Project> pageProject=new Page<Project>(null, null);
 		//如果可以根据时间
 		if(project.getIsNullTime().equals("yes")){
+			
+			if(null!=project.getProperty()&&!project.getProperty().equals("")){
+				project.setProperty(" m.ctime");
+			}else{
+				project.setProperty(" m.ctime");
+	             project.setDirection("desc");
+	        }
 			try {
 					 pageProject=projectService.selectDeptProject(project, new PageRequest(project.getPageNum(), 
 						project.getPageSize(), 
@@ -3813,6 +3814,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 		}else{
+			if(null!=project.getProperty()&&!project.getProperty().equals("")){
+				project.setProperty(" p.ctime");
+			}else{
+				project.setProperty(" p.ctime");
+	             project.setDirection("desc");
+	        }
 			try {
 				project.setsDate(project.getsDate().trim() + " 00:00:00");
 				project.seteDate(project.geteDate().trim() + " 23:59:59");
