@@ -24,6 +24,7 @@ function loadDeptProject(){
 	track_depProject_init();
 }
 $("#querySearch_depetProject").on('click',function(){
+	alert(9);
 	$("#data-table-deptProject").bootstrapTable('destroy');
 	track_depProject_init();
 });
@@ -32,9 +33,6 @@ var partnerkpi_pageNum = 1;
 function track_depProject_init(){
 	$('#data-table-deptProject').bootstrapTable('destroy');
 	$("#userTrack_deptid option").not(":first").remove();
-	//表单事业线下拉初始化
-	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
-	
 
 	//绑定querySearch事件
 	$('#data-table-deptProject').bootstrapTable({

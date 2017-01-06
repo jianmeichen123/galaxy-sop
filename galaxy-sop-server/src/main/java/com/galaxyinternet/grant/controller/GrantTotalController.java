@@ -152,6 +152,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			String projectCompany = grantTotal.getProjectCompany();
 			//更改项目基本信息表
 			project.setProjectCompany(projectCompany);
+			project.setFinalContribution(grantTotal.getGrantMoney());
 			project.setFinalValuations(grantTotal.getFinalValuations());
 			project.setFinalShareRatio(grantTotal.getFinalShareRatio());
 			project.setServiceCharge(grantTotal.getServiceCharge());
@@ -336,6 +337,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			project = projectService.queryById(c.getProjectId());
 			//更改项目基本信息表
 			project.setProjectCompany(grantTotal.getProjectCompany());
+			project.setFinalContribution(grantTotal.getGrantMoney());
 			project.setFinalValuations(grantTotal.getFinalValuations());
 			project.setFinalShareRatio(grantTotal.getFinalShareRatio());
 			project.setServiceCharge(grantTotal.getFinalShareRatio());

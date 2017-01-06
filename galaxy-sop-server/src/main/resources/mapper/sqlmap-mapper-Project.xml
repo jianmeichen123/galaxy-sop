@@ -1104,11 +1104,12 @@
 		 GROUP BY p.project_id ORDER BY p.ctime ASC
         ) m
 		 <where>
-			<trim prefixOverrides="and">
+			<!-- <trim prefixOverrides="and"> -->
 			  <if test="projectDepartid != null"> m.project_departId = #{projectDepartid}</if>
-			</trim>
+			<!-- </trim> -->
 		 </where>
 		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="sorting == ' m.ctime ASC'.toString()"> ,m.project_departId DESC </if>
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
@@ -1142,9 +1143,9 @@
 		 GROUP BY p.project_id ORDER BY p.ctime ASC
         ) m
 		 <where>
-			<trim prefixOverrides="and">
+			<!-- <trim prefixOverrides="and"> -->
 			  <if test="projectDepartid != null"> m.project_departId = #{projectDepartid}</if>
-			</trim>
+			<!-- </trim> -->
 		 </where>
 		</select>
 </mapper>
