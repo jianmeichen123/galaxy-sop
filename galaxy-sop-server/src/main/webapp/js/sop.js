@@ -411,18 +411,25 @@ function startReview(){
 		$("[data-id='popid1']").remove();
 		var pid=projectId;
 		loadJs();
-		var _url=Constants.sopEndpointURL + '/galaxy/mr/';
+		//var _url=Constants.sopEndpointURL + '/galaxy/mr/';
 		$.getHtml({
-		url:_url+pid,//模版请求地址
+		url:platformUrl.tomeetAdd,//模版请求地址
 		data:"",//传递参数
 		okback:function(_this){
+			$(".tip-yellowsimple").remove();
+			
+			$("#proselect").remove();
+			$("#meet_type_dl").hide();
+			$("input[name='meetingTypeTc'][value ='"+meetingType+"']").attr("checked","checked");
+			
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj(meetingType);
-			toinitUpload(platformUrl.stageChange,projectId, "meeting_select_btn","meeting_file_object","save_meeting","",
+			toinitUpload(platformUrl.stageChange,projectId, "file-select-btn","fileName","savemeet","",
 					function getSaveCondition(){
-						var	condition = {};
-						var pid = projectId;
+						$(".tip-yellowsimple").remove();
+						var	condition = getMeetCondition('y',projectId, "meetingDateStr", 'y',meetingType, "meetingResult","meetingNotes");;
+						/*var pid = projectId;
 						var meetingDateStr = $.trim($("#meeting_date").val());
 						var meetingResult = $.trim($("input:radio[name='meetingResult']:checked").val());
 						var um = UM.getEditor("meeting_notes");
@@ -440,12 +447,15 @@ function startReview(){
 							return;
 						}
 						//$.popupTwoClose(); 
+						*/
+							
 						condition.pid = pid;
 						condition.stage = "projectProgress:"+num;
-						condition.createDate = meetingDateStr;
-						condition.meetingType = meetingType;
-						condition.result = meetingResult;
-						condition.content = meetingNotes;
+						condition.createDate = condition.meetingDateStr;
+						condition.meetingType = condition.meetingType;
+						condition.result = condition.meetingResult;
+						condition.content = condition.meetingNotes;
+						
 						return condition;
 					},
 					num,

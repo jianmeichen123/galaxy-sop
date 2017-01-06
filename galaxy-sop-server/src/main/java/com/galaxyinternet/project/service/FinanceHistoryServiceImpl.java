@@ -19,4 +19,10 @@ public class FinanceHistoryServiceImpl extends BaseServiceImpl<FinanceHistory> i
 	protected BaseDao<FinanceHistory, Long> getBaseDao() {
 		return this.financeHistoryDao;
 	}
+
+	@Override
+	public String getFHStr(Long projectId) {
+		// TODO Auto-generated method stub
+		return financeHistoryDao.getFHStr(projectId);
+	}
 }

@@ -1,7 +1,10 @@
 package com.galaxyinternet.model;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 public class GrantActual extends PagableEntity{
 
@@ -12,6 +15,7 @@ public class GrantActual extends PagableEntity{
 	private Long createUid;
 	private String createUname;
 	
+	private String actualTime;
 	
 	public Long getPartGrantId() {
 		return partGrantId;
@@ -39,6 +43,14 @@ public class GrantActual extends PagableEntity{
 	}
 	
 	
+	public String getActualTime() {
+		return actualTime;
+	}
+	public void setActualTime(String actualTime) {
+		this.actualTime = actualTime;
+	}
+
+
 	//以下为显示字段
 	/**
 	 * 协议名称(totalGrant  grantName)
@@ -60,7 +72,41 @@ public class GrantActual extends PagableEntity{
 	 */
 	private Double surplusGrantMoney;
 	
+  	
+
+	/**
+	 * 投资方    总投资计划 granttotal - investors
+	 */
+	private String investors;
+	/**
+	 * 目标公司       project - projectCompany
+	 */
+	private String projectCompany;
 	
+	/**
+	 * 实际投资     
+	 */
+	private Double finalContribution;
+	/**
+	 * 股权占比                   
+	 */
+	private Double finalShareRatio;
+	/**
+	 * 加速服务费占比   
+	 */
+	private Double serviceCharge;
+	/**
+	 * 实际估值
+	 */
+	private Double finalValuations;
+	
+	//多附件
+	private List<SopFile> files; 
+    private List<Long> fileIds;
+    private Byte fileNum;
+    private String fileReidsKey;
+    
+    
 	public String getProtocolName() {
 		return protocolName;
 	}
@@ -84,6 +130,69 @@ public class GrantActual extends PagableEntity{
 	}
 	public void setSurplusGrantMoney(Double surplusGrantMoney) {
 		this.surplusGrantMoney = surplusGrantMoney;
+	}
+	
+	
+	public String getInvestors() {
+		return investors;
+	}
+	public void setInvestors(String investors) {
+		this.investors = investors;
+	}
+	public String getProjectCompany() {
+		return projectCompany;
+	}
+	public void setProjectCompany(String projectCompany) {
+		this.projectCompany = projectCompany;
+	}
+	public Double getFinalContribution() {
+		return finalContribution;
+	}
+	public void setFinalContribution(Double finalContribution) {
+		this.finalContribution = finalContribution;
+	}
+	public Double getFinalShareRatio() {
+		return finalShareRatio;
+	}
+	public void setFinalShareRatio(Double finalShareRatio) {
+		this.finalShareRatio = finalShareRatio;
+	}
+	public Double getServiceCharge() {
+		return serviceCharge;
+	}
+	public void setServiceCharge(Double serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+	public Double getFinalValuations() {
+		return finalValuations;
+	}
+	public void setFinalValuations(Double finalValuations) {
+		this.finalValuations = finalValuations;
+	}
+	public List<SopFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<SopFile> files) {
+		this.files = files;
+	}
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+	public void setFileIds(List<Long> fileIds) {
+		this.fileIds = fileIds;
+	}
+	public Byte getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(Byte fileNum) {
+		this.fileNum = fileNum;
+	}
+	
+	public String getFileReidsKey() {
+		return fileReidsKey;
+	}
+	public void setFileReidsKey(String fileReidsKey) {
+		this.fileReidsKey = fileReidsKey;
 	}
 	@Override
 	public String toString() {

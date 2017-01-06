@@ -12,6 +12,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <style>
 .bars{display:none;}
+.bootstrap-table #actual-table>tbody>tr>td{padding:0 5px !important;}
 </style>
 <div class="addmentc" style="max-height:350px;">
 	<div class="title_bj" id="popup_name">实际注资信息列表</div>
@@ -27,10 +28,10 @@
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际注资金额（元）</th>
-			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
+			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="20%">实际注资金额（万元）</th>
+			        	<th data-field="actualTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">注资人<span></span></th>
-			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="25%">操作</th>
+			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="30%">操作</th>
  					</tr>	
  				</thead>
 			</table>
@@ -42,13 +43,18 @@
 			$('[resource-mark="add_appr_actual"]').css("display","inline-block");
 		}
 	    function createDateFormat(value, row, index){
-	    	return time_zh(value, "年", "月", "日");
+	    	if(value && value != ''){
+	    		return time_zh(value, "年", "月", "日");
+	    	}else return '';
 	    }
 	    function grantMoneyFormat(value, row, index){
 	    	return addCommas(fixSizeDecimal(value));
 	    }
 	    function operatorFormat(value, row, index){
 	    	var opts = '';
+	    	
+	    	opts += '<a class="showActualLink blue" href="javascript:void(0)">查看</a>';
+	    	
 	    	if(isContainResourceByMark('edit_appr_actual') && isTransfering != 'true')
     		{
 	    		opts += '<a class="editActualLink blue"  href="javascript:void(0)">编辑</a>';
@@ -57,13 +63,25 @@
     		{
 	    		opts += '<a class="deleteActualLink blue"  href="javascript:void(0)">删除</a>';
     		}
-	    	opts += '<a class="showActualLink blue" href="javascript:void(0)">查看</a>';
+	    	if(row.fileNum && row.fileNum > 0){
+	    		opts += '<a class="downfile blue" href="javascript:void(0)">下载附件</a>';
+	    	}
+	    	
 		    return opts;
 		 }
 	    var operatorEvent = {
+	    		'click .downfile' : function(e, value, row, index){
+	    			try {
+	    				var url = Constants.sopEndpointURL + '/galaxy/grant/actual/downActualFile'+"/"+row.id;
+	    				layer.msg('正在下载，请稍后...',{time:2000});
+	    				window.location.href=url+"?sid="+sessionId+"&guid="+userId;
+	    			} catch (e) {
+	    				layer.msg("下载失败");
+	    			}
+	    		},
 	    		'click .editActualLink' : function(e, value, row, index){
 	    			var formdata = {
-	    					parentId　:	${partId},
+	    					parentId :	${partId},
 	    					actualId : row.id,
 	    					operatorFlag : 2,
 	    					callFuc : function(data){

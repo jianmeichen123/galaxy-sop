@@ -52,7 +52,11 @@ public class ProjectQuery extends ViewQuery{
 	private long departmentId;
 	
 
-
+	private Double finalValuations;//实际估值
+  	private Double finalContribution;//实际投资
+  	private Double finalShareRatio;//实际所占股份百分比
+  	private Double serviceCharge;
+  	
 
 	public Long getPid() {
 		return pid;
@@ -181,4 +185,30 @@ public class ProjectQuery extends ViewQuery{
 	public void setFile(CommonsMultipartFile file) {
 		this.file = file;
 	}
+	public Double getFinalValuations() {
+		return finalValuations;
+	}
+	public void setFinalValuations(Double finalValuations) {
+		this.finalValuations = finalValuations;
+	}
+	public Double getFinalContribution() {
+		return finalContribution;
+	}
+	public void setFinalContribution(Double finalContribution) {
+		this.finalContribution = finalContribution;
+	}
+	public Double getFinalShareRatio() {
+		return finalShareRatio;
+	}
+	public void setFinalShareRatio(Double finalShareRatio) {
+		this.finalShareRatio = finalShareRatio;
+	}
+	public Double getServiceCharge() {
+		return serviceCharge;
+	}
+	public void setServiceCharge(Double serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+	
+	
 }

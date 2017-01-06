@@ -96,6 +96,31 @@ public class Project extends PagableEntity {
 	 *项目备注
 	 */
     private String remark;
+    
+     
+    private List<FinanceHistory> financeList;
+    
+    /**
+     * 投后运营新增字段
+     */
+    
+   private String isNullTime;
+   
+   
+   private String healthState;
+   
+   
+   private String ctime;
+   
+   private Double grantMoney;
+    
+   private String deptId;
+   
+   private String sDate;
+   
+   private String eDate;
+   
+    
 	
 	
     public Long getId() {
@@ -623,6 +648,70 @@ public class Project extends PagableEntity {
 
 	public void setProjectDescribeFinancing(String projectDescribeFinancing) {
 		this.projectDescribeFinancing = projectDescribeFinancing;
+	}
+
+	public List<FinanceHistory> getFinanceList() {
+		return financeList;
+	}
+
+	public void setFinanceList(List<FinanceHistory> financeList) {
+		this.financeList = financeList;
+	}
+
+	public String getIsNullTime() {
+		return isNullTime;
+	}
+
+	public void setIsNullTime(String isNullTime) {
+		this.isNullTime = isNullTime;
+	}
+
+	public String getHealthState() {
+		return healthState;
+	}
+
+	public void setHealthState(String healthState) {
+		this.healthState = healthState;
+	}
+
+	public String getCtime() {
+		return ctime;
+	}
+
+	public void setCtime(String ctime) {
+		this.ctime = ctime;
+	}
+
+	public Double getGrantMoney() {
+		return grantMoney;
+	}
+
+	public void setGrantMoney(Double grantMoney) {
+		this.grantMoney = grantMoney;
+	}
+
+	public String getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
+	}
+
+	public String getsDate() {
+		return sDate;
+	}
+
+	public void setsDate(String sDate) {
+		this.sDate = sDate;
+	}
+
+	public String geteDate() {
+		return eDate;
+	}
+
+	public void seteDate(String eDate) {
+		this.eDate = eDate;
 	}
    
  

@@ -5,6 +5,7 @@
 		<id column="id" property="id" />
 		<result column="project_id" property="projectId" />
 		<result column="grant_name" property="grantName" />
+		<result column="investors" property="investors" />
 		<result column="grant_money" property="grantMoney" />
 		<result column="create_uid" property="createUid" />
 		<result column="create_uname" property="createUname" />
@@ -14,7 +15,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, project_id, grant_name, grant_money, create_uid, create_uname,
+		id, project_id, grant_name, grant_money, investors,create_uid, create_uname,
 		updated_time,created_time,updated_uname
 	</sql>
 
@@ -74,6 +75,9 @@
 			<if test="grantMoney != null"> 
 				grant_money = #{grantMoney}, 
 			</if>
+			<if test="investors != null"> 
+				investors = #{investors}, 
+			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
 			</if>
@@ -93,6 +97,9 @@
 			</if>
 			<if test="grantMoney != null"> 
 				grant_money = #{grantMoney}, 
+			</if>
+			<if test="investors != null"> 
+				investors = #{investors}, 
 			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
@@ -125,10 +132,10 @@
 		parameterType="com.galaxyinternet.model.GrantTotal">
 	    <![CDATA[
 	     insert into sop_grant_total(
-	     	id, project_id, grant_name, grant_money, create_uid, 
+	     	id, project_id, grant_name, grant_money, investors,create_uid, 
 	     	create_uname, updated_time,created_time,updated_uname
 	     )values(
-	     	#{id}, #{projectId}, #{grantName}, #{grantMoney}, #{createUid}, 
+	     	#{id}, #{projectId}, #{grantName}, #{grantMoney},#{investors},#{createUid}, 
 	     	#{createUname},#{updatedTime}, #{createdTime}, #{updatedUname}
 		 )
 	    ]]>

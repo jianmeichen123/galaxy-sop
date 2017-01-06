@@ -45,8 +45,9 @@
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资时间 ：</dt>
 		                <dd>
-		                	<div>
-		                    	<input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>注资时间只能是汉字或字符，长度为20"/>
+		                	<div id="grantDetail">
+		                    	<%-- <input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>注资时间只能是汉字或字符，长度为20"/>
+		                         --%>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -55,16 +56,18 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" allownull="no" valtype="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
-		                    	<span id="editMoney" class="bj_hui"></span>
-		                    	<span class='money'>万元</span>
+		                	    <span id="grantMoney"></span>
+		                    	<%-- <input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	 --%>
+		                    	<span id="editMoney" class="bj_hui"></span><span>万元</span>
+		                    	
 		                    </div> 
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>万元</div> 
 		                </dd>
 		            </dl>
                  </form>
 	            <div class="affrim_line"></div>
-	             <dl class="fmdl fl_l" id="choose_up_file">
+	             <!-- <dl class="fmdl fl_l" id="choose_up_file">
 		                 <dt>上传附件 ：</dt>
 		                 <div class="fmload clearfix">
 				            <dd>
@@ -74,15 +77,15 @@
 					        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
 				    		</dd>
 				        </div>
-		            </dl>  
+		            </dl>   -->
 		            <dl class="fmdl fl_l" id="show_up_file">
 		                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
 		                 <thead>
 		                    <tr>
 		                      <th style="width:265px;">文件名称</th>
 		                      <th style="width:105px" align="center">文件大小</th>
-		                      <th style="width:80px" align="center">操作</th>
-		                      <th style="width:80px" align="center">进度</th>
+		                      <!-- <th style="width:80px" align="center">操作</th>
+		                      <th style="width:80px" align="center">进度</th> -->
 		                    </tr>
 		                 </thead>
 		                 </table> 

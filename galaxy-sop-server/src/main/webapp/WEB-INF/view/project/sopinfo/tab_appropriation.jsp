@@ -76,21 +76,24 @@ var searchPartMoney;
 		var _name= $self.attr("data-name");
 		var data_on=$self.attr("data-on");
 		var id=$self.attr("data-val");
-			$.getHtml({
-				url:_url,//模版请求地址
-				data:"",//传递参数
-				okback:function(){
-					$("#popup_name").html(_name);
-					if(data_on=="edit"){
-						sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
-					}else{
-						 $("#totallId").val(0);
-					}
-					initDialogVal();
-				}//模版反回成功执行	
-			});
-			return false;
+		if(data_on=="info"){
+			_url=Constants.sopEndpointURL+'galaxy/grant/total/toActualTotalLook/'+id+"?pid=${pid}";
+		}
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("#popup_name").html(_name);
+				if(data_on=="edit"){
+					sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+				}else{
+					 $("#totallId").val(0);
+				}
+				initDialogVal();
+			}//模版反回成功执行	
 		});
+		return false;
+	});
 		
 	    function showGrantPart(tid){
 	    	
@@ -104,6 +107,10 @@ var searchPartMoney;
 		var _url=  Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAging'+"/"+_id;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
+		//查看分期计划
+		if(_data_type == "info"){
+			_url = Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAgingInfo'+"/"+_id;
+		}
 		
 		var isFlag = false;
 		
@@ -126,7 +133,7 @@ var searchPartMoney;
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
 					  
-					if(_data_type == "edit"){
+					if(_data_type == "edit" || _data_type == "info"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
 						_url = Constants.sopEndpointURL + '/galaxy/grant/part/selectGrantPart/'+_part_id;
@@ -136,9 +143,18 @@ var searchPartMoney;
 								var grantPartInfo = data.entity;
 								$("#actual_aging_container [name='id']").val(grantPartInfo.id);
 								$("#actual_aging_container [name='totalGrantId']").val(grantPartInfo.totalGrantId);
-								$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
-								$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
-								$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
+								
+								if(_data_type == "edit"){
+									$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
+									$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
+									$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
+								}else{
+									$("#grantDetail").html(grantPartInfo.grantDetail);
+									$("#grantMoney").html(grantPartInfo.grantMoney);
+									$("#oldRemainMoney").html(grantPartInfo.oldRemainMoney);
+								}
+								
+								
 								if(isFlag)
 								{
 									$("#actual_aging_container [name='grantMoney']").attr("type","hidden");
@@ -151,10 +167,11 @@ var searchPartMoney;
 													"<td>"+this.fileName+"."+this.fileSuffix+
 														"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 													"</td>"+
-													"<td>"+plupload.formatSize(this.fileLength)+"</td>"+
-													"<td>"+ but +"</td>"+
-													"<td>100%</td>"+
-												"</tr>"
+													"<td>"+plupload.formatSize(this.fileLength)+"</td>";
+										if(_data_type == "edit"){
+											htm+=	"<td>"+ but +"</td><td>100%</td>";
+										}			
+										htm+= "</tr>";
 									$("#filelist").append(htm);
 								});
 								toInitBachUpload();
@@ -297,6 +314,7 @@ var searchPartMoney;
 		}
   }
 
+   
    $("#search").click( function(){
 	    var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){

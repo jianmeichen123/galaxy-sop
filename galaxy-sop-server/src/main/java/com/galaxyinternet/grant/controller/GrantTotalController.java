@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,9 +80,46 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	@RequestMapping(value = "/toApprAllAdd", method = RequestMethod.GET)
 	public String toApprActualAll(HttpServletRequest request) {
 		String pid=request.getParameter("pid");
+		if(StringUtils.isNotEmpty(pid)){
+			Project pro = projectService.queryById(Long.valueOf(pid));
+			request.setAttribute("finalShareRatio", pro.getFinalShareRatio());
+			request.setAttribute("serviceCharge", pro.getServiceCharge());
+			request.setAttribute("finalValuations", pro.getFinalValuations());
+			request.setAttribute("projectCompany", pro.getProjectCompany());
+			request.setAttribute("finalContributions", pro.getFinalContribution());
+		}
 		request.setAttribute("projectId", pid);
+		
 		return "project/tanchuan/appr_actual_all";
 	}
+	
+	
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toActualTotalLook/{id}", method = RequestMethod.GET)
+	public String toActualTotalLook(HttpServletRequest request,@PathVariable("id") Long id) {
+		if(id == null){
+			return "project/tanchuan/appr_actual_total_look";
+		}
+		GrantTotal c = grantTotalService.queryById(id);
+		Long projectId = c.getProjectId();
+		if(projectId != null){
+			Project pro = projectService.queryById(projectId);
+			
+			c.setProjectCompany(pro.getProjectCompany());  //目标公司
+			c.setFinalContribution(pro.getFinalContribution());  //实际投资
+			c.setFinalShareRatio(pro.getFinalShareRatio());  //股权占比
+			c.setServiceCharge(pro.getServiceCharge());  //加速服务费占比
+			c.setFinalValuations(pro.getFinalValuations());  //实际估值
+		}
+		request.setAttribute("actualTotalInfo", c);
+		return "project/tanchuan/appr_actual_toatl_look";
+	}
+	
+	
+	
+	
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
@@ -100,7 +138,9 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			HttpServletRequest request) {
 		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
 		if(grantTotal.getGrantName() == null || "".equals(grantTotal.getGrantName().trim())
-				|| grantTotal.getGrantMoney() == null || grantTotal.getProjectId() == null){
+				|| grantTotal.getGrantMoney() == null || grantTotal.getInvestors() == null || "".equals(grantTotal.getInvestors().trim()) 
+				|| grantTotal.getProjectId() == null || grantTotal.getFinalShareRatio() == null 
+				|| grantTotal.getFinalValuations() == null || grantTotal.getServiceCharge() == null){
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
@@ -109,6 +149,14 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			UrlNumber uNum = null;
 			Project project = new Project();
 			project = projectService.queryById(grantTotal.getProjectId());
+			String projectCompany = grantTotal.getProjectCompany();
+			//更改项目基本信息表
+			project.setProjectCompany(projectCompany);
+			project.setFinalContribution(grantTotal.getGrantMoney());
+			project.setFinalValuations(grantTotal.getFinalValuations());
+			project.setFinalShareRatio(grantTotal.getFinalShareRatio());
+			project.setServiceCharge(grantTotal.getServiceCharge());
+			projectService.updateById(project);
 			
 			User user = (User) getUserFromSession(request);
 			grantTotal.setUpdatedUname(user.getRealName());
@@ -200,6 +248,15 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 
 		try {
 			GrantTotal c = grantTotalService.queryById(tid);
+			Long projectId = c.getProjectId();
+			if(projectId != null){
+				Project pro = projectService.queryById(projectId);
+				c.setProjectCompany(pro.getProjectCompany());
+				c.setFinalShareRatio(pro.getFinalShareRatio());
+				c.setFinalValuations(pro.getFinalValuations());
+				c.setServiceCharge(pro.getServiceCharge());
+			}
+			
 			GrantPart p=new GrantPart();
 			p.setTotalGrantId(tid);
 			List<GrantPart> partList = grantPartService.selectHasActualMoney(p);
@@ -278,6 +335,13 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		try {
 			Project project = new Project();
 			project = projectService.queryById(c.getProjectId());
+			//更改项目基本信息表
+			project.setProjectCompany(grantTotal.getProjectCompany());
+			project.setFinalContribution(grantTotal.getGrantMoney());
+			project.setFinalValuations(grantTotal.getFinalValuations());
+			project.setFinalShareRatio(grantTotal.getFinalShareRatio());
+			project.setServiceCharge(grantTotal.getFinalShareRatio());
+			projectService.updateById(project);
 			
 			grantTotalService.updateById(grantTotal);
 			responseBody.setResult(new Result(Status.OK, "ok", "编辑总注资计划失败!"));

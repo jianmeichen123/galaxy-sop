@@ -1,5 +1,45 @@
 
 
+//项目估值
+function set_finalValuations(){
+	var finalValuations_val;
+	var projectShareRatio = $("#finalShareRatio").val(); 
+	var projectContribution = $("#finalContribution").val();
+	if(projectShareRatio > 0 && projectContribution > 0){
+		finalValuations_val =  (projectContribution * (100/projectShareRatio)).toFixed(4);
+	}
+	if(finalValuations_val && finalValuations_val > 0){
+		$("#finalValuations").val(finalValuations_val);
+	}
+}
+
+
+//会议类型切换事件
+function meetTypeValChangeFun(){
+	$(".tip-yellowsimple").remove();
+	var meetingResultVal = $('input:radio[name="meetingResult"]:checked').val();
+	
+	var meetingTypeVal = $('input:radio[name="meetingTypeTc"]:checked').val();
+	
+	if(meetingTypeVal =='meetingType:4' && meetingResultVal =='meetingResult:1'){
+		$("#finalContribution").attr({allowNULL:"no",valtype:"LIMIT_11_NUMBER",msg:"<font color=red>*</font>不能为空且最大支持四位小数"});
+		$("#finalValuations").attr({allowNULL:"no",valtype:"LIMIT_11_NUMBER",msg:"<font color=red>*</font>不能为空且最大支持四位小数"});
+		$("#finalShareRatio").attr({allowNULL:"no",valtype:"OTHER",msg:"<font color=red>*</font>0到100之间的四位小数"});
+		$("#serviceCharge").attr({allowNULL:"no",valtype:"OTHER",msg:"<font color=red>*</font>0到100之间的四位小数"});
+		
+		$('.toShow_tjh').show();
+	}else{
+		$("#finalContribution").removeAttr('allowNULL').removeAttr('valType').removeAttr('msg');
+		$("#finalValuations").removeAttr('allowNULL').removeAttr('valType').removeAttr('msg');
+		$("#finalShareRatio").removeAttr('allowNULL').removeAttr('valType').removeAttr('msg');
+		$("#serviceCharge").removeAttr('allowNULL').removeAttr('valType').removeAttr('msg');
+		
+		$('.toShow_tjh').hide();
+	}
+}
+
+
+
 //查询个人项目
 function queryMeetPerPro(){
 	var condition = {};
@@ -101,6 +141,8 @@ function initMeetUpload() {
 						$("#savemeet").removeClass("disabled");
 						return;
 					}
+					
+					console.log("menue meet condition :" + JSON.stringify(res));
 					
 					var file = $("#fileName").val(); //up.files.length
 					if(file.length > 0){

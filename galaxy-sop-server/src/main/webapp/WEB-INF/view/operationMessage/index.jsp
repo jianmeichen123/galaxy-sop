@@ -124,6 +124,9 @@
 	    			}
 	    		}
 	        	initPageSize=10;
+	        	if($(".new_tit_a a").text()=='工作桌面'){
+	    			$("#menus li").eq(0).addClass("on").siblings().removeClass();
+	    		}
 	        }
 		});
 		

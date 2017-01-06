@@ -465,9 +465,10 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			PostInit: function(up) {
 				$("#" + submitBtnId).click(function(){
 					/**添加验证**/
-					if(beforeSubmit()){
+					
 						var file = $("#" + fileInputId).val();
 						var param = paramsFunction();
+					if(beforeSubmit()){
 						if(up.files.length == 0){
 							sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
 								var result = data.result.status;
@@ -745,11 +746,16 @@ function getMeetCondition(hasProid,projectId,
 		meetResultName,
 		meetNotesId
 		){
-	var	condition = {};
 	
-	if(!beforeSubmit()){
+	meetTypeValChangeFun();
+	
+	var	condition = {};
+	if(!beforeSubmit("add_meet_tc")){
 		return false;
 	}
+	/*if(!beforeSubmitScroll("add_meet_tc")){
+		return false;
+	}*/
 	
 	var projectIdVal = null;
 	if(hasProid == "y" ){
@@ -803,6 +809,13 @@ function getMeetCondition(hasProid,projectId,
 			layer.msg("会议记录长度最大9000字节");
 			return false;
 		}
+	}
+	
+	if(meetingTypeVal =='meetingType:4' && meetingResult =='meetingResult:1'){
+		condition.finalValuations = $.trim($("#finalValuations").val());
+		condition.finalContribution = $.trim($("#finalContribution").val());
+		condition.finalShareRatio = $.trim($("#finalShareRatio").val());
+		condition.serviceCharge = $.trim($("#serviceCharge").val());
 	}
 	
 	condition.projectId = projectIdVal;

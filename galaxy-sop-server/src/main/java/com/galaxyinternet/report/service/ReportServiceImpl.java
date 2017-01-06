@@ -155,8 +155,12 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 		cell.setCellStyle(cellStyle);
 		if(BasicElement.VALUE_DATE.equals(be.getValue())){
 			String time1 = "导出时间:" + DateUtil.longToString(System.currentTimeMillis());
-			String time2 = "   统计时段:" + t.getStartTime() + "~" + t.getEndTime();
-			dateOutPut = time1 + time2;
+			if(null==t.getStartTime()||null==t.getEndTime() ){
+				dateOutPut = time1;
+			}else{
+				String time2 = "   统计时段:" + t.getStartTime() + "~" + t.getEndTime();
+				dateOutPut = time1+time2;
+			}
 		}
 		cell.setCellValue(dateOutPut);
 	}

@@ -985,6 +985,7 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	@ResponseBody
 	@RequestMapping(value="/exportKpiGrade")
 	public void exportKpiGrade(HttpServletRequest request,HttpServletResponse response){
+		@SuppressWarnings("unchecked")
 		List<ChartDataBo> chartDataList = (List<ChartDataBo>) request.getSession().getAttribute("kpiDataList");	
 		String suffix = request.getParameter("suffix");
 		try {

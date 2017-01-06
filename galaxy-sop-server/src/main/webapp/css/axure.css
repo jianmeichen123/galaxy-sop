@@ -5,9 +5,9 @@ body{font-size:14px; font-family:"微软雅黑"; background:#E9EBF2;}
 html,body,div,ul,ol,li,dl,dt,dd,p,span,em,strong,b,i,h1,h2,h3,h4,form,input,button,textarea,select,option,img,a{ margin:0; padding:0}
 ul,ol,dl,dt,dd,p,img{ display:block; border:0}
 a{ text-decoration:none; outline:none;font-size:12px; font-family:"宋体"}
-a:hover{ text-decoration:underline}
+a:hover{ text-decoration:none;}
 li{ display:block; list-style:none}
-textarea{resize: none;outline: none}
+textarea{resize: none;outline: none;line-height:18px !important;}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .pointer-events{pointer-events: none;}
 .userinfro select{ margin-left:10px;   padding: 0px 0 !important;}
@@ -1038,7 +1038,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:430px; }
 .xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:auto;}
 /*新增会议*/
-.meetingtc{ width:680px}
+.meetingtc{ width:685px}
 .meetingtc .top{ margin:0 0 15px}
 .meetingtc .top .searchall{ float:right; margin:0}
 .meetingtc .top .fmdl{ margin:0}
@@ -2134,7 +2134,7 @@ dl{position: relative;}
 .b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
 .b_agreement_l dl{margin-right:5%;margin-top: 12px;}
 .b_agreement_r button{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
-.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 8%;cursor: pointer;}
+.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left:3.6%;cursor: pointer;}
 .money{margin:40px 0 30px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
 .proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
@@ -2193,12 +2193,15 @@ margin: 45px auto 30px;}
 .new_tit_b button.save{margin-top: 20px;}
 .deleteCircleBtn{width: 33px;height: 33px;border:1px solid #539be2;border-radius:50%;background-color: #fff;font-size: 20px;font-weight: bold;color: #539be2;}
 .usermsg div.xingmou{width:81px;height:50px;background:#3e8bd9;margin-top:-15px;position: relative;}
+.ctdn{
+	background: url(../img/ctdn.png) 0px -2px no-repeat !important;
+}
 .xingmou{background-position: -37px -1230px;}
-.usermsg div.xingmou a{padding-left: 40px;}
-.usermsg div.xingmou .navbar{left:10px;width:24px;}
+.usermsg div.xingmou a{padding-left: 29px;}
+.usermsg div.xingmou .navbar{left:4px;width:24px;}
 .man_info{position:relative;}
 .man_info .name{position:absoute;}
-.usermsg a,.man_info span{font-size: 14px;font-family: "微软雅黑";line-height: 24px;}
+.usermsg a,.man_info span{font-size: 12px;font-family: "微软雅黑";line-height: 24px;}
 .man_info .avator{width:24px;height:24px;display:inline-block;background:url(../img/defalut_avator.png) 0 0 no-repeat;margin-right: 10px;}
 .header .usermsg .name{line-height: 24px;background:url(../img/xiala.png) right 6px no-repeat;padding:0 15px 0 0px;margin:0 30px 0 0;}
 .usermsg div.xingmou a{line-height: 50px;}
@@ -2353,3 +2356,10 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .prompttc{width:400px;}
 .prompttc .tips{margin:20px auto 0;width:350px;font-size:14px;}
 .prompttc .tipspc{background:url(../img/tips.png) 0 -16px no-repeat;display:inline-block;width:25px;height:25px;position:absolute;top:0;left:0;}
+/* 事业部创投项目列表 */
+#data-table-deptProject th{white-space:nowrap;}
+#data-table-deptProject td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#data-table-deptProject{table-layout:fixed}
+.bootstrap-table #data-table-deptProject > tbody > tr > td{padding:0 5px !important}
+.toShow_tjh .new_nputr_number{border:1px solid #dadfe3;height:28px;line-height:28px;width:130px;}
+.addmentc .fmdl .fmload  dd .txt{width:240px;}
