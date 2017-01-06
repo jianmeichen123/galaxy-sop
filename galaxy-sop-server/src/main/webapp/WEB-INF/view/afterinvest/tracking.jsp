@@ -413,7 +413,9 @@
 						<dt>投资事业部：</dt>
 						<dd>
 							<select name="projectDepartid" id="userTrack_deptid">
+								<c:if test="${fx:hasRole(2) || fx:hasRole(1)}">
 								<option value="">全部</option>
+								</c:if>
 							</select>
 						</dd>
 					</dl>
@@ -494,9 +496,7 @@
 
 <script src="<%=request.getContextPath() %>/js/report/afterInvestTrack.js" type="text/javascript"></script>
 <script>
-$(function (){
-	createCareelineOptions(platformUrl.getCareerlineListByRole,"projectDepartid","");
-});
+
 //周报|自定义选择切换
 $("#week").on('click',function(){
 	//$("#weekType").find(':input').attr('data', 'false');
