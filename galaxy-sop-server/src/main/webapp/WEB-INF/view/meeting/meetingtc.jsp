@@ -93,8 +93,7 @@
     </div>
 
      
-    <div class="min clearfix">
-	<div class="toShow_tjh" style="display:none;">
+    <div class="min clearfix toShow_tjh" style="display:none;">
 		<dl class="fmdl fml clearfix">
 	        <dt>投资金额：</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
@@ -129,10 +128,8 @@
 	        </dd>
 	    </dl>
 	</div>
-	</div>
 	
-	<div class="min clearfix">
-	<div class="toShow_tjh" style="display:none;">
+	<div class="min clearfix toShow_tjh" style="display:none;">
 		<dl class="fmdl fml clearfix">
 	        <dt>股权占比：</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
@@ -165,7 +162,6 @@
 				 -->
 	        </dd>
 	    </dl>
-	</div>
 	</div>
     
     <dl class="fmdl clearfix">  <!-- class="um_width" -->
