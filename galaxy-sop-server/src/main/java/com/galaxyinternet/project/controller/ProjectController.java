@@ -3900,9 +3900,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			 Project p=list.get(i);
 				ProjectData  pd=new ProjectData();
 			 if(i==0){
-				 if(null!=p.getsDate()&&null!=p.geteDate()){
-					 pd.setStartTime(p.getsDate());
-					 pd.setEndTime(p.geteDate());
+				 if(null!=project.getsDate()&&null!=project.geteDate()){
+					 pd.setStartTime(project.getsDate().substring(0,10));
+					 pd.setEndTime(project.geteDate().substring(0, 10));
 				 }
 			 }
 			pd.setProjectName(null==p.getProjectName()?"":p.getProjectName());
@@ -3994,30 +3994,4 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			return map;
 	  }
-	   
-	   
-		/**
-		 *  获取合伙人管理事业线id
-		    * @Title: getDepId
-		    * @Description: 
-		    * @param @param request
-		    * @param @return    参数
-		    * @return int    返回类型
-		    * @throws
-		 */
-		public int getDepId(HttpServletRequest request){
-			
-			//返回对象
-			User user =  (User) getUserFromSession(request);
-			if(user != null){
-				if(UserConstant.HHR == user.getRoleId()){
-					Long depId = user.getDepartmentId();
-					if(depId != null ){
-						return depId.intValue();
-					}
-				}
-			}
-			return -1;
-		}
-	
 }
