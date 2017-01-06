@@ -3798,14 +3798,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			//project.getProjectDepartid()=null;
 			project.setProjectDepartid(Long.parseLong(project.getDeptId()));
 		}*/
-		//强制 HHR 能看
-		int hhrDeptId = getDepId(request);
-		if(hhrDeptId!=-1){
-			project.setProjectDepartid((long) hhrDeptId);
-		}else{
-			responseBody.setResult(new Result(Status.ERROR,null, "权限错误"));
-			return responseBody;
-		}
 		Page<Project> pageProject=new Page<Project>(null, null);
 		//如果可以根据时间
 		if(project.getIsNullTime().equals("yes")){
