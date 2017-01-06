@@ -1080,8 +1080,8 @@
 			
  
  SELECT m.* FROM (
- SELECT s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
-		 s.`finance_status`,MIN(p.ctime) AS ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
+ SELECT s.id,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
+		 s.`finance_status`,MIN(p.ctime) AS ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`final_contribution`,s.`service_charge` FROM sop_project s 
 	         INNER JOIN (
 	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`
                      FROM sop_grant_total a 
@@ -1118,8 +1118,8 @@
 			
      
  SELECT count(*) FROM (
- SELECT s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
-		 s.`finance_status`,MIN(p.ctime) AS mtime,p.grant_money ,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
+ SELECT s.id,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
+		 s.`finance_status`,MIN(p.ctime) AS time,p.grant_money ,s.`project_describe_financing`,s.`project_describe`,s.`final_contribution`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
 	         INNER JOIN (
 	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`
                      FROM sop_grant_total a 
