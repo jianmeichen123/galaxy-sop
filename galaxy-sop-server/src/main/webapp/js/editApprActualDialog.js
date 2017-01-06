@@ -137,7 +137,7 @@ var editApprActualDialog = {
 										}
 										 */
 										if(data.entity.planGrantMoney){
-											$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney))) : 0) + "万元");
+											$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney),4)) : 0) + "万元");
 										}
 										
 										if(data.entity.finalShareRatio){ //股权占比
@@ -151,7 +151,7 @@ var editApprActualDialog = {
 										
 										if(data.entity.grantMoney){ //实际注资金额
 											if(formdata.operatorFlag=='3'){
-												$formGrantMoney.html(addCommas(fixSizeDecimal(data.entity.grantMoney)) + " 万元");
+												$formGrantMoney.html(addCommas(fixSizeDecimal(data.entity.grantMoney),4) + " 万元");
 											}else{
 												$formGrantMoney.val(data.entity.grantMoney);
 											}
@@ -160,22 +160,22 @@ var editApprActualDialog = {
 										if(data.entity.surplusGrantMoney || data.entity.surplusGrantMoney==0){ //剩余金额
 												var grantMoneyOld=$formGrantMoney.val(); 
 												var remainMoney = data.entity.surplusGrantMoney;
-												remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+												remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)),4);
 												remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); // 剩余+实际注资
 												$surplusGrantMoney.html("剩余金额" + remainMoney + " 万元");											         
 												$formGrantMoney.blur(function(){
 												var grantMoney=$formGrantMoney.val();
 												if(!beforeSubmitById("form_edit_actual_dialog")){
-													$surplusGrantMoney.html("剩余金额" + addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))) + " 万元");		
+													$surplusGrantMoney.html("剩余金额" + addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal)),4) + " 万元");		
 													return false;
 												}
 												
 												if(grantMoney<0){
 													$surplusGrantMoney.html("剩余金额" + remainMoney + " 万元");	
 									 			 }else{
-									 				var remainMoneyNew=fixSizeDecimal(parseFloat(remainMoneyTotal)-parseFloat(grantMoney),2);
+									 				var remainMoneyNew=fixSizeDecimal(parseFloat(remainMoneyTotal)-parseFloat(grantMoney),4);
 									 				remainMoneyNew = parseFloat(remainMoneyNew);
-													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)),4);
 													if(remainMoneyNew<0 || remainMoneyNew==0){
 														$surplusGrantMoney.html("剩余金额0元");
 													}else{
@@ -187,7 +187,7 @@ var editApprActualDialog = {
 										}
 										
 										if(data.entity.finalValuations){ //项目估值
-											$finalValuations.html(addCommas(fixSizeDecimal(data.entity.finalValuations)) + " 万元");		
+											$finalValuations.html(addCommas(fixSizeDecimal(data.entity.finalValuations),4) + " 万元");		
 										}
 										
 										/*$okBtn.click(function(){
@@ -224,9 +224,9 @@ var editApprActualDialog = {
 								}else{
 									//原理: 本次编辑后实际金额 - 本次编辑前 实际金额  应该小于等于 本次添加前剩余金额
 									//修改后金额与初始实际金额差
-									var fallMoney = fixSizeDecimal(parseFloat(grantMoney) - parseFloat(preMoney),2);
+									var fallMoney = fixSizeDecimal(parseFloat(grantMoney) - parseFloat(preMoney),4);
 									fallMoney = parseFloat(fallMoney);
-									surplusGrantMoney = parseFloat(fixSizeDecimal(parseFloat(surplusGrantMoney),2));
+									surplusGrantMoney = parseFloat(fixSizeDecimal(parseFloat(surplusGrantMoney),4));
 //										console.log("修改后金额与修改前的金额差:" + fallMoney);
 //										console.log("初始剩余金额" + saveParam.surplusGrantMoney);
 									console.log(fallMoney>surplusGrantMoney);
