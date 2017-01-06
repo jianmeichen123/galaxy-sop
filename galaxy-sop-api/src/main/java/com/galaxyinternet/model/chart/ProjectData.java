@@ -11,7 +11,7 @@ public class ProjectData extends DataReport {
   	private String departmentName;
  	private String financeStatus;//融资状态
     private String ctime;
-	private Double finalContribution;//实际投资
+	private String finalContribution;//实际投资
 	private String radioStr;
 	private String financeHistory;
 	private String healthState;
@@ -56,13 +56,14 @@ public class ProjectData extends DataReport {
         this.projectDescribe = projectDescribe == null ? null : projectDescribe.trim();
     }
 
-	public Double getFinalContribution() {
+	public String getFinalContribution() {
 		return finalContribution;
 	}
-	public void setFinalContribution(Double finalContribution) {
+
+	public void setFinalContribution(String finalContribution) {
 		this.finalContribution = finalContribution;
 	}
-	
+
 	public String getDepartmentName() {
 		return departmentName;
 	}
