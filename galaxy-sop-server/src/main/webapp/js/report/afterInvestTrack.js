@@ -6,7 +6,7 @@ $(function () {
 			switch(index){
 				case 0: loadDateFinance(); break; //标签0:投资经理绩效
 				case 1: loadDataQuitProject(); break; //标签1:团队绩效
-				case 2: loadDeptProject(); break; //标签1:合伙人绩效考核
+				case 2: loadDeptProject();break; //标签1:合伙人绩效考核
 				default: return false;
 			}
 		}
@@ -28,6 +28,7 @@ $("#querySearch_depetProject").on('click',function(){
 var partnerpi_url = platformUrl.deptProjectList;
 var partnerkpi_pageNum = 1;
 function track_depProject_init(){
+	$('#data-table-deptProject').bootstrapTable('destroy');
 	$("#userTrack_deptid option").not(":first").remove();
 	//表单事业线下拉初始化
 	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
