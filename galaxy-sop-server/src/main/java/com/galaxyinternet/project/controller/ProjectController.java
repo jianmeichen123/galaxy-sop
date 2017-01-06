@@ -3876,7 +3876,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							Direction.fromString(project.getDirection()), 
 							project.getProperty()));
 		}
-		List<ProjectData> chartDataList = setData(pageProject.getContent());
+		List<ProjectData> chartDataList = setData(pageProject.getContent(),project);
 		String suffix = request.getParameter("suffix");
 		try {
 			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
@@ -3892,12 +3892,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param list
 	 * @return
 	 */
-	public List<ProjectData> setData(List<Project> list){
+	public List<ProjectData> setData(List<Project> list,Project project){
 		List<ProjectData> ProjectDataList=new ArrayList<ProjectData>();
 		  Map<Long,String> map=departmentMap();
+			
 		 for(int i=0;i<list.size();i++){
-			Project p=list.get(i);
-			ProjectData  pd=new ProjectData();
+			 Project p=list.get(i);
+				ProjectData  pd=new ProjectData();
+			 if(i==0){
+				 if(null!=p.getsDate()&&null!=p.geteDate()){
+					 pd.setStartTime(p.getsDate());
+					 pd.setEndTime(p.geteDate());
+				 }
+			 }
 			pd.setProjectName(null==p.getProjectName()?"":p.getProjectName());
 			pd.setProjectCompany(null==p.getProjectCompany()?"":p.getProjectCompany());
 			pd.setType(null==p.getType()?"":p.getType());

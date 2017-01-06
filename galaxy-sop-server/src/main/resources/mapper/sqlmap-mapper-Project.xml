@@ -1043,7 +1043,7 @@
 		 ON p.project_id=k.project_id 
 		 <where>
 			<trim prefixOverrides="and">
-			  <if test="departId != null"> s.project_departId = #{departId}</if>
+			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
 			</trim>
 		</where>
 		<if test="sorting != null"> order by ${sorting} </if>
