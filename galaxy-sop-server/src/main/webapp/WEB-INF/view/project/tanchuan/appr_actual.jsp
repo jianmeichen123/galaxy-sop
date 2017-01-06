@@ -12,6 +12,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <style>
 .bars{display:none;}
+.bootstrap-table #actual-table>tbody>tr>td{padding:0 5px !important;}
 </style>
 <div class="addmentc" style="max-height:350px;">
 	<div class="title_bj" id="popup_name">实际注资信息列表</div>
@@ -27,10 +28,10 @@
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际注资金额（万元）</th>
+			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="20%">实际注资金额（万元）</th>
 			        	<th data-field="actualTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">注资人<span></span></th>
-			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="25%">操作</th>
+			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="30%">操作</th>
  					</tr>	
  				</thead>
 			</table>
