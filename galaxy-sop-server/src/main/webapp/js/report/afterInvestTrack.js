@@ -32,8 +32,6 @@ var partnerpi_url = platformUrl.deptProjectList;
 var partnerkpi_pageNum = 1;
 function track_depProject_init(){
 	$('#data-table-deptProject').bootstrapTable('destroy');
-	$("#userTrack_deptid option").not(":first").remove();
-
 	//绑定querySearch事件
 	$('#data-table-deptProject').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
