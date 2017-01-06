@@ -41,7 +41,8 @@
 	                <dt>计划总注资金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
-	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  value="${finalContributions}" 
+	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
+	                    		value="${finalContributions}" onblur="set_finalValuations()"
 	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数" />
 	                    	<span class='money'>万元</span>
@@ -52,7 +53,8 @@
 	                <dt>股权占比 ：</dt>
 	                <dd>
 	                	<div id="setValue">
-	                    	<input class="txt" type="text" size ="10" id="finalShareRatio" name="finalShareRatio" value="${finalShareRatio}" 
+	                    	<input class="txt" type="text" size ="10" id="finalShareRatio" name="finalShareRatio" 
+	                    		value="${finalShareRatio}"  onblur="set_finalValuations()"
 	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
 	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
 	                    	<span class='money'>%</span>
@@ -129,6 +131,20 @@
 				}
 				
 			});
+		}
+	}
+	
+	
+	//项目估值
+	function set_finalValuations(){
+		var finalValuations_val;
+		var projectShareRatio = $("#finalShareRatio").val();
+		var projectContribution = $("#grantMoney").val();
+		if(projectShareRatio > 0 && projectContribution > 0){
+			finalValuations_val =  (projectContribution * (100/projectShareRatio)).toFixed(4);
+		}
+		if(finalValuations_val && finalValuations_val > 0){
+			$("#finalValuations").val(finalValuations_val);
 		}
 	}
 	</script>
