@@ -3797,6 +3797,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			//project.getProjectDepartid()=null;
 			project.setProjectDepartid(Long.parseLong(project.getDeptId()));
 		}
+		//强制 HHR 能看
+		int hhrDeptId = getDepId(request);
+		if(hhrDeptId!=-1){
+			project.setProjectDepartid((long) hhrDeptId);
+		}else{
+			responseBody.setResult(new Result(Status.ERROR,null, "权限错误"));
+			return responseBody;
+		}
 		Page<Project> pageProject=new Page<Project>(null, null);
 		//如果可以根据时间
 		if(project.getIsNullTime().equals("yes")){
@@ -3981,6 +3989,28 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	  }
 	   
 	   
-	
+		/**
+		 *  获取合伙人管理事业线id
+		    * @Title: getDepId
+		    * @Description: 
+		    * @param @param request
+		    * @param @return    参数
+		    * @return int    返回类型
+		    * @throws
+		 */
+		public int getDepId(HttpServletRequest request){
+			
+			//返回对象
+			User user =  (User) getUserFromSession(request);
+			if(user != null){
+				if(UserConstant.HHR == user.getRoleId()){
+					Long depId = user.getDepartmentId();
+					if(depId != null ){
+						return depId.intValue();
+					}
+				}
+			}
+			return -1;
+		}
 	
 }
