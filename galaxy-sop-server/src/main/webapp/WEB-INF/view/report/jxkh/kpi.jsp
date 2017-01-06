@@ -197,7 +197,7 @@
 					width="100%" cellspacing="0" cellpadding="0" class="table_m">
 					<thead>
 						<tr>
-							<th data-field="departmentName"  	class="data-input">投资事业线</th>
+							<th data-field="departmentName"  	class="data-input">投资事业部</th>
 							<th data-field="score1"  			class="data-input">分数/生成项目 </th>
 							<th data-field="score2"  		class="data-input">分数/通过CEO评审</th>
 							<th data-field="score3"  		class="data-input">分数/通过立项会</th>
