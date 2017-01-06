@@ -5,7 +5,7 @@
 
 <div class="statustc status">
 
-	<div class="title_bj" id="popup_name"></div>
+	<div class="title_bj" id="popup_name">添加健康状况</div>
 
 	<div class="status_con">
 		<form id="health_form">

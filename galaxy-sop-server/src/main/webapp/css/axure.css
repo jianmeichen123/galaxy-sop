@@ -1038,7 +1038,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:430px; }
 .xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:auto;}
 /*新增会议*/
-.meetingtc{ width:680px}
+.meetingtc{ width:685px}
 .meetingtc .top{ margin:0 0 15px}
 .meetingtc .top .searchall{ float:right; margin:0}
 .meetingtc .top .fmdl{ margin:0}
@@ -2134,7 +2134,7 @@ dl{position: relative;}
 .b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
 .b_agreement_l dl{margin-right:5%;margin-top: 12px;}
 .b_agreement_r button{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
-.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 8%;cursor: pointer;}
+.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left:3.6%;cursor: pointer;}
 .money{margin:40px 0 30px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
 .proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
@@ -2361,4 +2361,4 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 #data-table-deptProject td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 #data-table-deptProject{table-layout:fixed}
 .bootstrap-table #data-table-deptProject > tbody > tr > td{padding:0 5px !important}
- 
+.toShow_tjh .new_nputr_number{border:1px solid #dadfe3;height:28px;line-height:28px;width:130px;}
