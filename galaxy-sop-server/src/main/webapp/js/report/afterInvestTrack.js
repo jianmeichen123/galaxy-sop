@@ -24,7 +24,6 @@ function loadDeptProject(){
 	track_depProject_init();
 }
 $("#querySearch_depetProject").on('click',function(){
-	alert(9);
 	$("#data-table-deptProject").bootstrapTable('destroy');
 	track_depProject_init();
 });
