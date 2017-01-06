@@ -86,6 +86,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			request.setAttribute("serviceCharge", pro.getServiceCharge());
 			request.setAttribute("finalValuations", pro.getFinalValuations());
 			request.setAttribute("projectCompany", pro.getProjectCompany());
+			request.setAttribute("finalContributions", pro.getFinalContribution());
 		}
 		request.setAttribute("projectId", pid);
 		
