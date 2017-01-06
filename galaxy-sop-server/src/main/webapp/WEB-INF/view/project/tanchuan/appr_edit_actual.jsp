@@ -49,65 +49,66 @@
 	                	<div id="label_plan_grant_time"></div> 
 	                </dd>
 	            </dl>
+	            
 	            <div class="min clearfix">
-		             <dl class="fmdl fml clearfix" style="width:60%">
-		                <dt>实际注资日期 ：</dt>
-		                <dd id="div_label_actualTime">
-		                	<input type="text" class="datepicker txt time" readonly id="label_actualTime" name="actualTime"  style="height:23px;"/>
-		                </dd>
-		            </dl>
-		            
-		             <dl class="fmdl fml  clearfix">
-		                <dt>计划总注资金额：</dt>
-		                <dd>
-		                	<div id="label_finalContribution"></div> 
-		                </dd>
-		            </dl>
-	            </div>
-	           
-	            <!-- 
+	            <dl class="fmdl fml clearfix" style="width:60%">
+	                <dt>实际注资日期 ：</dt>
+	                <dd id="div_label_actualTime">
+	                	<input type="text" class="datepicker txt time" readonly id="label_actualTime" name="actualTime"  style="height:23px;"/>
+	                </dd>
+	            </dl>
+	            
 	            <dl class="fmdl fl_l  clearfix">
-	                <dt>计划注资金额 ：</dt>
+	                <dt>计划总注资金额 ：</dt>
 	                <dd>
 	                	<div id="label_plan_grant_money"></div> 
 	                </dd>
-	            </dl> -->
-	            <div class="min clearfix">
-		            <dl class="fmdl fl_l  clearfix" style="width:60%">
-		                <dt>股权占比：</dt>
-		                <dd>
-		                	<div id="label_finalShareRatio"></div> 
-		                </dd>
-		            </dl>
-		            <dl class="fmdl fl_l  clearfix">
-		                <dt>加速服务费占比：</dt>
-		                <dd>
-		                	<div id="label_serviceCharge"></div> 
-		                </dd>
-		            </dl>
-		         </div>			
-	            <div class="min clearfix">
-	                <dl class="fmdl fl_l  clearfix" style="width:60%">
-		                <dt>实际注资金额 ：</dt>
-		                <dd>
-		                	<div id="label_grant_money">
-		                    	<input class="txt" id="form_grant_money" type="text" 
-		                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
-		                    		msg="<font color=red>*</font>支持9位长度的四位小数">
-		                   		<span class='money'>万元</span>
-		                    </div> 
-	                        <div class="gray" id="label_surplus_grant_money">剩余金额0元</div> 
-		                </dd>
-		            </dl>
-		            
-		            <dl class="fmdl fl_l  clearfix">
-		                <dt>项目估值：</dt>
-		                <dd>
-		                	<div id="label_finalValuations"></div> 
-		                </dd>
-		            </dl>
-		        </div>
+	            </dl>
+	            </div>
+	            <!-- 
+	             <dl class="fmdl fl_l  clearfix">
+	                <dt>计划总注资金额：</dt>
+	                <dd>
+	                	<div id="label_finalContribution"></div> 
+	                </dd>
+	            </dl>
+	             -->
 	            
+	            <div class="min clearfix">
+	            <dl class="fmdl fl_l  clearfix" style="width:60%">
+	                <dt>股权占比：</dt>
+	                <dd>
+	                	<div id="label_finalShareRatio"></div> 
+	                </dd>
+	            </dl>
+	            <dl class="fmdl fl_l  clearfix">
+	                <dt>加速服务费占比：</dt>
+	                <dd>
+	                	<div id="label_serviceCharge"></div> 
+	                </dd>
+	            </dl>
+	            </div>			
+	            <div class="min clearfix">
+                <dl class="fmdl fl_l  clearfix" style="width:60%">
+	                <dt>实际注资金额 ：</dt>
+	                <dd>
+	                	<div id="label_grant_money">
+	                    	<input class="txt" id="form_grant_money" type="text" 
+	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
+	                    		msg="<font color=red>*</font>支持9位长度的四位小数">
+	                   		<span class='money'>万元</span>
+	                    </div> 
+                        <div class="gray" id="label_surplus_grant_money">剩余金额0万元</div> 
+	                </dd>
+	            </dl>
+	            
+	            <dl class="fmdl fl_l  clearfix">
+	                <dt>项目估值：</dt>
+	                <dd>
+	                	<div id="label_finalValuations"></div> 
+	                </dd>
+	            </dl>
+	            </div>
 	            <dl class="fmdl fl_l  clearfix" id="show_actual_file">
 	                <dt>附件：</dt>
 	                <dd>

@@ -195,10 +195,12 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					actual = new GrantActual();
 				}
 				
+				//投资方、目标公司、实际注资日期、股权占比、加速服务费占比、项目估值
+				
 				actual.setInvestors(total.getInvestors());  //投资方
 				actual.setProtocolName(total.getGrantName());
 				actual.setPlanGrantTime(part.getGrantDetail());
-				//actual.setPlanGrantMoney(part.getGrantMoney());  //替换为 实际投资
+				actual.setPlanGrantMoney(part.getGrantMoney());  
 				Double surplusGrantMoney = part.getGrantMoney();
 				for(GrantActual temp : actualList){
 					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 2));
@@ -208,7 +210,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				
 				Project pro = projectService.queryById(total.getProjectId());
 				actual.setProjectCompany(pro.getProjectCompany());  //目标公司
-				actual.setFinalContribution(pro.getFinalContribution());  //实际投资
+				//actual.setFinalContribution(pro.getFinalContribution());  //实际投资
 				actual.setFinalShareRatio(pro.getFinalShareRatio());  //股权占比
 				actual.setServiceCharge(pro.getServiceCharge());  //加速服务费占比
 				actual.setFinalValuations(pro.getFinalValuations());  //实际估值

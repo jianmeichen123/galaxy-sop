@@ -97,7 +97,7 @@
 		<dl class="fmdl fml clearfix">
 	        <dt>投资金额：</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
-	           	<input type="text" class='new_nputr_number' id="finalContribution" name="finalContribution" 
+	           	<input type="text" class='new_nputr_number' id="finalContribution" name="finalContribution"  onblur="set_finalValuations()"
 	           		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>不能为空且最多支持九位整数四位小数"/>
 	            <span class='m_r50'>万元</span>
 	            <!-- 
@@ -114,7 +114,7 @@
 	    <dl class="fmdl clearfix">
 	        <dt>项目估值：</dt>
 	        <dd class="clearfix">
-	           	<input type="text" class='new_nputr_number' id="finalValuations" name="finalValuations" 
+	           	<input type="text" class='new_nputr_number' id="finalValuations" name="finalValuations"  
 	           		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>不能为空且最多支持九位整数四位小数"/>
 	           	<span class='m_r50'>万元</span>
 	           	<!-- 
@@ -133,7 +133,7 @@
 		<dl class="fmdl fml clearfix">
 	        <dt>股权占比：</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
-	           	<input type="text" class='new_nputr_number' id="finalShareRatio" name="finalShareRatio" 
+	           	<input type="text" class='new_nputr_number' id="finalShareRatio" name="finalShareRatio"  onblur="set_finalValuations()" 
 	           		allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
 	           	<span class='m_r50'>% </span>
 	           	<!-- 

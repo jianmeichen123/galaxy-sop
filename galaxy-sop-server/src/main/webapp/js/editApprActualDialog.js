@@ -36,7 +36,7 @@ var editApprActualDialog = {
 										var $actualTimeDiv = $("#form_edit_actual_dialog").find("#div_label_actualTime"); //实际注资日期  -- 123
 										var $actualTime = $("#form_edit_actual_dialog").find("#label_actualTime"); //实际注资日期  -- 123
 										
-										var $finalContribution = $("#form_edit_actual_dialog").find("#label_finalContribution"); //计划总注资金额
+										//var $finalContribution = $("#form_edit_actual_dialog").find("#label_finalContribution"); //项目注资金额
 										var $finalShareRatio = $("#form_edit_actual_dialog").find("#label_finalShareRatio"); //股权占比
 										var $serviceCharge = $("#form_edit_actual_dialog").find("#label_serviceCharge"); //加速服务费占比
 										var $finalValuations = $("#form_edit_actual_dialog").find("#label_finalValuations"); //项目估值
@@ -44,7 +44,7 @@ var editApprActualDialog = {
 										
 										var $protocolName = $("#form_edit_actual_dialog").find("#label_protocol_name"); //创业服务协议
 										var $planGrantTime = $("#form_edit_actual_dialog").find("#label_plan_grant_time"); //计划注资时间
-										//var $planGrantMoney = $("#form_edit_actual_dialog").find("#label_plan_grant_money"); //计划注资金额
+										var $planGrantMoney = $("#form_edit_actual_dialog").find("#label_plan_grant_money"); //计划注资金额
 										var $labelGrantMoney = $("#form_edit_actual_dialog").find("#label_grant_money"); //实际注资协议上层标签
 										var $formGrantMoney = $("#form_edit_actual_dialog").find("#form_grant_money"); //实际注资金额文本
 										var $surplusGrantMoney = $("#form_edit_actual_dialog").find("#label_surplus_grant_money"); //剩余金额
@@ -131,14 +131,14 @@ var editApprActualDialog = {
 												$actualTime.val(data.entity.actualTime);
 											}
 										}
-										
-										if(data.entity.finalContribution){ //计划总注资金额
+										/*
+										if(data.entity.finalContribution){ 
 											$finalContribution.html(addCommas(fixSizeDecimal(data.entity.finalContribution)) + " 万元")
 										}
-										/* 替换 
-										 if(data.entity.planGrantMoney){
-											$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney))) : 0) + "元");
-										}*/
+										 */
+										if(data.entity.planGrantMoney){
+											$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney))) : 0) + "万元");
+										}
 										
 										if(data.entity.finalShareRatio){ //股权占比
 											$finalShareRatio.html(data.entity.finalShareRatio + "%");

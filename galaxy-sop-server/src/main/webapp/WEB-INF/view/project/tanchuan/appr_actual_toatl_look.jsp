@@ -67,7 +67,7 @@
 	                <dt>实际注资金额 ：</dt>
 	                <dd>
 	                	<div>${actualTotalInfo.actualMoney}</div> 
-                        <div class="gray">剩余金额${actualTotalInfo.remainMoney}元</div> 
+                        <div class="gray">剩余金额${actualTotalInfo.remainMoney}万元</div> 
 	                </dd>
 	            </dl> --%>
 	            

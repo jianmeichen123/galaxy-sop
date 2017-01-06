@@ -57,9 +57,9 @@
 		                	<div class='moeny_all'>
 		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" allownull="no" valtype="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
-		                    	<span class='money'>元</span>
+		                    	<span class='money'>万元</span>
 		                    </div> 
-	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
+	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>万元</div> 
 		                </dd>
 		            </dl>
                  </form>

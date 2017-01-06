@@ -1,5 +1,18 @@
 
 
+//项目估值
+function set_finalValuations(){
+	var finalValuations_val;
+	var projectShareRatio = $("#finalShareRatio").val(); 
+	var projectContribution = $("#finalContribution").val();
+	if(projectShareRatio > 0 && projectContribution > 0){
+		finalValuations_val =  (projectContribution * (100/projectShareRatio)).toFixed(4);
+	}
+	if(finalValuations_val && finalValuations_val > 0){
+		$("#finalValuations").val(finalValuations_val);
+	}
+}
+
 
 //会议类型切换事件
 function meetTypeValChangeFun(){
