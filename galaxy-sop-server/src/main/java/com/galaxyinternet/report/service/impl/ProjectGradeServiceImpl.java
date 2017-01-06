@@ -19,21 +19,21 @@ public class ProjectGradeServiceImpl extends ReportServiceImpl<ProjectData> impl
 	public SopReportModal createModal() {
 		// TODO Auto-generated method stub
 		SopReportModal modal = new SopReportModal();
-		modal.setDataStartRow(2);
+		modal.setDataStartRow(1);
 		modal.setSheetPage(0);
 		BasicElement tableHeader = new BasicElement();
-		tableHeader.setRow(1);
+		tableHeader.setRow(0);
 		tableHeader.setColumn(0);
 		tableHeader.setValue("事业部创投项目列表");
 		BasicElement secondHeader = new BasicElement();
-		secondHeader.setRow(1);
-		secondHeader.setColumn(5);
+		secondHeader.setRow(0);
+		secondHeader.setColumn(10);
 		secondHeader.setValue(BasicElement.VALUE_DATE);
 		modal.setTableHeader(tableHeader);
 		modal.setSecondTableHeader(secondHeader);
 		modal.setColumns(getColumns());
 		modal.setTemplateName("template/projectGradeTemplate.xlsx");
-		modal.setDownloadName("合伙人日常业务绩效评分表"+DateUtil.longToString(System.currentTimeMillis(),"yyyyMMdd"));
+		modal.setDownloadName("事业部创投项目列表"+DateUtil.longToString(System.currentTimeMillis(),"yyyyMMdd"));
 		modal.setFileSuffix("xlsx");
 		return modal;
 	}
@@ -42,7 +42,7 @@ public class ProjectGradeServiceImpl extends ReportServiceImpl<ProjectData> impl
 	public List<BasicElement> getColumns() {
 		// TODO Auto-generated method stub
 		List<BasicElement> columnList = new ArrayList<BasicElement>();
-		for(int i=0;i<12;i++){
+		for(int i=0;i<13;i++){
 			BasicElement element = new BasicElement();
 			switch (i) {
 			case 0:

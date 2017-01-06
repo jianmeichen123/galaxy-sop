@@ -1078,22 +1078,34 @@
 		
 	<select id="selectDeptProject" resultMap="BaseResultMap" parameterType="java.util.Map">
 			
-		 SELECT s.`id`,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
-		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
-		  INNER JOIN (
-		  SELECT c.id,a.`grant_name`,c.`grant_money`,FROM_UNIXTIME(c.created_time/1000,'%Y-%m-%d') AS ctime ,a.`project_id`
-          FROM sop_grant_total a 
-          LEFT JOIN sop_grant_part b ON a.`id`=b.`total_grant_id`
-          LEFT JOIN `sop_grant_actual` c ON b.`id`=c.`part_grant_id`
-		 GROUP BY a.`project_id` 
-		 ORDER BY c.created_time ASC ) p ON  s.id=p.project_id 
-		 LEFT JOIN (
+ 
+ SELECT m.* FROM (
+ SELECT s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
+		 s.`finance_status`,MIN(p.ctime) AS mtime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
+	         INNER JOIN (
+	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`
+                     FROM sop_grant_total a 
+	                LEFT JOIN (
+			       SELECT l.ctime,l.total_grant_id,l.grant_money FROM (  
+			             SELECT DISTINCT MIN(FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d %H:%i:%s')) AS ctime,r.id total_grant_id,e.`grant_money`
+			            FROM sop_grant_actual f 
+			            LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
+			            LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
+			  
+			            GROUP BY e.`total_grant_id` ORDER BY f.`created_time` ASC
+			           ) l
+			  ) q ON a.`id`=q.total_grant_id 
+			          	
+                   ) p ON  p.project_id=s.`id` 
+                 LEFT JOIN (
 		 SELECT FROM_UNIXTIME(v.created_time/1000,'%Y-%m-%d %H:%i:%s') ,v.project_id,v.health_state
 		 FROM ( SELECT * FROM sop_project_health q ORDER BY q.`created_time` DESC) v  GROUP BY v.`project_id` ) k
-		 ON p.project_id=k.project_id 
+		 ON p.project_id=k.project_id  
+		 GROUP BY p.project_id ORDER BY p.ctime ASC
+        ) m
 		 <where>
 			<trim prefixOverrides="and">
-			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
+			  <if test="projectDepartid != null"> m.project_departId = #{projectDepartid}</if>
 			</trim>
 		 </where>
 		<if test="sorting != null"> order by ${sorting} </if>
@@ -1104,21 +1116,34 @@
 		<!-- %Y-%m-%d %H:%i:%s -->
       <select id="deptProjectCount" resultType="java.lang.Long" parameterType="java.util.Map">
 			
-		 SELECT count(*) FROM sop_project s 
-		  INNER JOIN (
-		  SELECT c.id,a.`grant_name`,c.`grant_money`,FROM_UNIXTIME(c.created_time/1000,'%Y-%m-%d') AS ctime ,a.`project_id`
-          FROM sop_grant_total a 
-          LEFT JOIN sop_grant_part b ON a.`id`=b.`total_grant_id`
-          LEFT JOIN `sop_grant_actual` c ON b.`id`=c.`part_grant_id`
-		 GROUP BY a.`project_id` 
-		 ORDER BY c.created_time ASC ) p ON  s.id=p.project_id 
-		 LEFT JOIN (
+     
+ SELECT count(*) FROM (
+ SELECT s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
+		 s.`finance_status`,MIN(p.ctime) AS mtime,p.grant_money ,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
+	         INNER JOIN (
+	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`
+                     FROM sop_grant_total a 
+	                LEFT JOIN (
+			       SELECT l.ctime,l.total_grant_id,l.grant_money FROM (  
+			             SELECT DISTINCT MIN(FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d %H:%i:%s')) AS ctime,r.id total_grant_id,e.`grant_money`
+			            FROM sop_grant_actual f 
+			            LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
+			            LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
+			  
+			            GROUP BY e.`total_grant_id` ORDER BY f.`created_time` ASC
+			           ) l
+			  ) q ON a.`id`=q.total_grant_id 
+			          	
+                   ) p ON  p.project_id=s.`id` 
+                 LEFT JOIN (
 		 SELECT FROM_UNIXTIME(v.created_time/1000,'%Y-%m-%d %H:%i:%s') ,v.project_id,v.health_state
 		 FROM ( SELECT * FROM sop_project_health q ORDER BY q.`created_time` DESC) v  GROUP BY v.`project_id` ) k
-		 ON p.project_id=k.project_id 
+		 ON p.project_id=k.project_id  
+		 GROUP BY p.project_id ORDER BY p.ctime ASC
+        ) m
 		 <where>
 			<trim prefixOverrides="and">
-			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
+			  <if test="projectDepartid != null"> m.project_departId = #{projectDepartid}</if>
 			</trim>
 		 </where>
 		</select>

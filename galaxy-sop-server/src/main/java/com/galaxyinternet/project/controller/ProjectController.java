@@ -3789,9 +3789,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		
 		if(null!=project.getProperty()&&!project.getProperty().equals("")){
-			project.setProperty(" p.ctime");
+			project.setProperty(" m.mtime");
 		}else{
-			project.setProperty(" p.ctime");
+			project.setProperty(" m.mtime");
 		}
 		if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
 			//project.getProjectDepartid()=null;
@@ -3834,7 +3834,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		    
 		}
-		request.getSession().setAttribute("projectDataList",pageProject.getContent());	
+		request.getSession().setAttribute("projectDataList",project);	
 		List<Project> projectList = new ArrayList<Project>();
 		List<Department> departmentList = departmentService.queryAll();
 		for(Project p : pageProject.getContent()){
@@ -3855,8 +3855,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value="/exportProjectGrade")
 	public void exportProjectGrade(HttpServletRequest request,HttpServletResponse response){
 		@SuppressWarnings("unchecked")
-		List<Project> list = (List<Project>) request.getSession().getAttribute("projectDataList");	
-		List<ProjectData> chartDataList = setData(list);
+		Page<Project> pageProject=new Page<Project>(null, null);
+		Project project = (Project) request.getSession().getAttribute("projectDataList");	
+		project.setPageNum(0);
+		project.setPageSize(10000);
+		if(project.getIsNullTime().equals("yes")){
+			pageProject=projectService.selectDeptProject(project, new PageRequest(project.getPageNum(), 
+					project.getPageSize(), 
+					Direction.fromString(project.getDirection()), 
+					project.getProperty()));
+		}else{
+				 pageProject=projectService.selectProjectTotalTime(project, new PageRequest(project.getPageNum(), 
+							project.getPageSize(), 
+							Direction.fromString(project.getDirection()), 
+							project.getProperty()));
+		}
+		List<ProjectData> chartDataList = setData(pageProject.getContent());
 		String suffix = request.getParameter("suffix");
 		try {
 			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
