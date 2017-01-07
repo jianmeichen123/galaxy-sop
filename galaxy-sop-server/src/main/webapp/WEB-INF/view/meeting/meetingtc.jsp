@@ -95,7 +95,7 @@
      
     <div class="min clearfix toShow_tjh" style="display:none;">
 		<dl class="fmdl fml clearfix">
-	        <dt>投资金额：</dt>
+	        <dt><em class="red">*</em>投资金额:</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
 	           	<input type="text" class='new_nputr_number' id="finalContribution" name="finalContribution"  onblur="set_finalValuations()"
 	           		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>不能为空且最多支持九位整数四位小数"/>
@@ -112,7 +112,7 @@
 	    </dl>
 	    
 	    <dl class="fmdl clearfix">
-	        <dt>项目估值：</dt>
+	        <dt><em class="red">*</em>项目估值:</dt>
 	        <dd class="clearfix">
 	           	<input type="text" class='new_nputr_number' id="finalValuations" name="finalValuations"  
 	           		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>不能为空且最多支持九位整数四位小数"/>
@@ -131,7 +131,7 @@
 	
 	<div class="min clearfix toShow_tjh" style="display:none;">
 		<dl class="fmdl fml clearfix">
-	        <dt>股权占比：</dt>
+	        <dt><em class="red">*</em>股权占比:</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
 	           	<input type="text" class='new_nputr_number' id="finalShareRatio" name="finalShareRatio"  onblur="set_finalValuations()" 
 	           		allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
@@ -147,10 +147,10 @@
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
-	        <dt>加速服务费占比：</dt>
+	        <dt><em class="red">*</em>加速服务费占比:</dt>
 	        <dd class="clearfix" id="meetTypeRadio">
 	           	<input type="text" class='new_nputr_number' id="serviceCharge" name="serviceCharge" 
-	           		allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+	           		allownull="no" valtype="OTHER" regstring="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数" />
 	           	<span class='m_r50'>% </span>
 	           	<!-- 
 	           	<div id="serviceCharge_valiate" class="tip-yellowsimple" >
