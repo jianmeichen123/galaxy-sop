@@ -605,7 +605,7 @@ function healthStateFormatter(value, row, index){
 	var val;
 	var data={
 		'0':'初始',	
-		'1':'高于',
+		'1':'高于预警',
 		'2':'正常',
 		'3':'健康预警',
 		'4':'清算'

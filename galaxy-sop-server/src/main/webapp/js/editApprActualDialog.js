@@ -137,15 +137,15 @@ var editApprActualDialog = {
 										}
 										 */
 										if(data.entity.planGrantMoney){
-											$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney),4)) : 0) + "万元");
+											$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney),4)) : 0) + " 万元");
 										}
 										
 										if(data.entity.finalShareRatio){ //股权占比
-											$finalShareRatio.html(data.entity.finalShareRatio + "%");
+											$finalShareRatio.html(data.entity.finalShareRatio + " %");
 										}
 										
 										if(data.entity.serviceCharge){ //加速服务费占比
-											$serviceCharge.html(data.entity.serviceCharge + "%");
+											$serviceCharge.html(data.entity.serviceCharge + " %");
 										}
 										
 										
