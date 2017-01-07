@@ -64,10 +64,10 @@
 	              <dl class="fmdl fl_l  clearfix">
 	                <dt>加速服务费占比 ：</dt>
 	                <dd>
-	                	<div id="setValue">
+	                	<div id="setValue"> <!-- regString="^(\d{1,2}(\.\d{1,4})?)$"   -->
 	                    	<input class="txt" type="text" size ="10" id="serviceCharge" name="serviceCharge" value="${serviceCharge }" 
-	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
-	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
+	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regstring="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$"
+	                    		msg="<font color=red>*</font>0到5之间的四位小数" />
 	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
