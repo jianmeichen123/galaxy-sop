@@ -21,7 +21,7 @@
 		                  <th>投资方(机构或个人)</th>
 		                  <th>投资金额(万元)</th>
 		                  <th style="width:10%">币种</th>
-		                  <th>股权占比（%）</th>
+		                  <th>股权占比(%)</th>
 		                  <th style="width:10%">融资轮次</th>
 		                 </tr>
 		             </thead>
