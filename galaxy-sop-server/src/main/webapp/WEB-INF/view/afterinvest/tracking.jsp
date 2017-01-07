@@ -468,8 +468,8 @@
 						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="6%">占比（%）</th>
 					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat"  data-width="6%">融资历史</th>
 							<th data-field="healthState"  		class="data-input" data-formatter="healthStateFormatter"  data-width="6%">项目现状</th>
-						    <th data-field="projectDescribe"  		class="data-input" data-formatter="descriptLineFormat">商业模式</th>
-						    <th data-field="projectDescribeFinancing"  		class="data-input" data-formatter="financingFormat" data-width="12%">业务简要概述和项目亮点</th>
+						    <th data-field="projectDescribeFinancing"  	data-formatter="financingFormat"	class="data-input" >商业模式</th>
+						    <th data-field="projectDescribe"  		class="data-input"  data-formatter="descriptLineFormat" data-width="12%">业务简要概述和项目亮点</th>
  						</tr>
 					</thead>
 				</table>           

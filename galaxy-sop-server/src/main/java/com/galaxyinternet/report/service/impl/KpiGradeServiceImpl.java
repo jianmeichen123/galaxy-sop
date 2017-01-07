@@ -105,7 +105,7 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 		modal.setSecondTableHeader(secondHeader);
 		modal.setColumns(getColumns());
 		modal.setTemplateName("template/kpiGradeTemplate.xlsx");
-		modal.setDownloadName("合伙人日常业务绩效评分表"+DateUtil.longToString(System.currentTimeMillis(),"yyyyMMdd"));
+		modal.setDownloadName("合伙人绩效考核评分表"+DateUtil.longToString(System.currentTimeMillis(),"yyyyMMdd"));
 		modal.setFileSuffix("xlsx");
 		return modal;
 	}

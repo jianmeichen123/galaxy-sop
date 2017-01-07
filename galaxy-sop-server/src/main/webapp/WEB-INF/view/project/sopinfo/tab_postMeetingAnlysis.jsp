@@ -115,7 +115,6 @@ function show_health_case(){
 	$("[data-btn='health_case']").on("click",function(){
 		var $self = $(this);
 		var _name= $self.attr("data-name");
-		alert(${isEditable});
 		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist?hiddenBtn=${isEditable}';
 		$.getHtml({
 			url:_url,
