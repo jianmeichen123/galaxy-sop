@@ -25,6 +25,8 @@ public class BasicElement{
 	 */
 	private String getterMethod;
 	
+	private String type;
+	
 	public int getRow() {
 		return row;
 	}
@@ -49,4 +51,11 @@ public class BasicElement{
 	public void setGetterMethod(String getterMethod) {
 		this.getterMethod = getterMethod;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

@@ -54,21 +54,25 @@ public class ProjectGradeServiceImpl extends ReportServiceImpl<ProjectData> impl
 				element.setColumn(i);
 				element.setValue("项目名称");
 				element.setGetterMethod("getProjectName");
+				element.setType("1");
 				break;
 			case 2:
 				element.setColumn(i);
 				element.setValue("公司名称");
 				element.setGetterMethod("getProjectCompany");
+				element.setType("1");
 				break;
 			case 3:
 				element.setColumn(i);
 				element.setValue("项目类型");
 				element.setGetterMethod("getType");
+				element.setType("1");
 				break;
 			case 4:
 				element.setColumn(i);
 				element.setValue("事业部");
 				element.setGetterMethod("getDepartmentName");
+				element.setType("1");
 				break;
 			case 5:
 				element.setColumn(i);
@@ -79,36 +83,43 @@ public class ProjectGradeServiceImpl extends ReportServiceImpl<ProjectData> impl
 				element.setColumn(i);
 				element.setValue("注资时间");
 				element.setGetterMethod("getCtime");
+				element.setType("1");
 				break;
 			case 7:
 				element.setColumn(i);
 				element.setValue("投资金额（万）");
 				element.setGetterMethod("getFinalContribution");
+				element.setType("2");
 				break;
 			case 8:
 				element.setColumn(i);
 				element.setValue("占比");
 				element.setGetterMethod("getRadioStr");
+				element.setType("1");
 				break;
 			case 9:
 				element.setColumn(i);
 				element.setValue("融资历史");
 				element.setGetterMethod("getFinanceHistory");
+				element.setType("1");
 				break;
 			case 10:
 				element.setColumn(i);
 				element.setValue("项目现状");
 				element.setGetterMethod("getHealthState");
+				element.setType("1");
 				break;
 			case 11:
 				element.setColumn(i);
 				element.setValue("商业模式");
 				element.setGetterMethod("getProjectDescribeFinancing");
+				element.setType("1");
 				break;
 			case 12:
 				element.setColumn(i);
 				element.setValue("业务简要概述和项目亮点");
 				element.setGetterMethod("getProjectDescribe");
+				element.setType("1");
 				break;
 			default:
 				break;
