@@ -68,8 +68,13 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 			if(sheetList!=null && sheetList.size() > modal.getSheetPage()){
 				XSSFSheet reportSheet = sheetList.get(modal.getSheetPage());
 				//写入附表头
-				writeSecondHeader(workbook,reportSheet, modal.getSecondTableHeader(), dataSource.get(0));
-				//获取可写入行数
+				if(null!=dataSource&&!dataSource.isEmpty()){
+					writeSecondHeader(workbook,reportSheet, modal.getSecondTableHeader(), dataSource.get(0));
+					
+				}else{
+					writeSecondHeader(workbook,reportSheet, modal.getSecondTableHeader(), null);
+				}
+					//获取可写入行数
 				int editRowNum = modal.getDataStartRow();
 				//开始写入数据
 				for(int i=0;i<dataSource.size();i++){
@@ -155,7 +160,7 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 		cell.setCellStyle(cellStyle);
 		if(BasicElement.VALUE_DATE.equals(be.getValue())){
 			String time1 = "导出时间:" + DateUtil.longToString(System.currentTimeMillis());
-			if(null==t.getStartTime()||null==t.getEndTime() ){
+			if(null==t||null==t.getStartTime()||null==t.getEndTime()){
 				dateOutPut = time1;
 			}else{
 				String time2 = "   统计时段:" + t.getStartTime() + "~" + t.getEndTime();
