@@ -3882,8 +3882,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		String suffix = request.getParameter("suffix");
 		try {
 			setFormat.setList(chartDataList);
-			setFormat.setStartTime(project.getsDate());
-			setFormat.setEndTime(project.geteDate());
+			setFormat.setStartTime(null==project.getsDate()?null:project.getsDate().substring(0, 10));
+			setFormat.setEndTime(null==project.geteDate()?null:project.geteDate().substring(0, 10));
 			SopReportModal modal = reportService.createReport(setFormat,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
 			reportService.download(request, response, modal);
 		} catch (Exception e) {

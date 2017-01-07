@@ -463,7 +463,7 @@
 							<th data-field="type"  		class="data-input" data-width="6%">项目类型</th>
 							<th data-field="projectCareerline"  		class="data-input" data-width="11%">事业部</th>
 							<th data-field="financeStatusDs"  		class="data-input"  data-width="6%">融资状态<span></span></th>
-							<th data-field="ctime"  		class="data-input sort" data-sortable="true"  data-width="12%">注资时间<span></span></th>
+							<th data-field="ctime"  		class="data-input sort" data-sortable="true" data-formatter="dateFormat" data-width="12%">注资时间<span></span></th>
 							<th data-field="finalContribution"  		class="data-input" >投资金额(万)</th>
 						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="6%">占比(%)</th>
 					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat"  data-width="6%">融资历史</th>
@@ -616,6 +616,15 @@ function healthStateFormatter(value, row, index){
 		val="-";
 	}
 	return val;
+	
+}
+function dateFormat(value, row, index){
+	
+	var ctime;
+		if(row.ctime!=null&& typeof(row.ctime)!="undefined"){
+			ctime=row.ctime.substring(0,10);
+		}
+		return ctime;
 	
 }
 //融资历史
