@@ -1042,7 +1042,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .meetingtc .top{ margin:0 0 15px}
 .meetingtc .top .searchall{ float:right; margin:0}
 .meetingtc .top .fmdl{ margin:0}
-.meetingtc .min{ margin:0 0 15px}
+.meetingtc .min{ margin:0 0 5px}
 .meetingtc .min .fmdl{ margin:0; float:left}
 .meetingtc .min .fml dd{ width:312px}
 .meetingtc .fmdl .edit{ width:588px; height:230px; border:1px solid #ccd2d7}
@@ -2157,7 +2157,7 @@ border: 1px solid #dadfe3;
 background: #ffffff;
 border-radius: 4px;
 padding: 0 4px;}
-.edit_actual{width: 450px;
+.edit_actual{min-width: 450px;
 margin: 45px auto 30px;}
 .actual_all th,.actual_all td{padding:0 5px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
@@ -2363,3 +2363,4 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .bootstrap-table #data-table-deptProject > tbody > tr > td{padding:0 5px !important}
 .toShow_tjh .new_nputr_number{border:1px solid #dadfe3;height:28px;line-height:28px;width:130px;}
 .addmentc .fmdl .fmload  dd .txt{width:240px;}
+.edit_actual dd span{font-size:12px;font-family:'宋体';}
