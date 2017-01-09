@@ -23,7 +23,18 @@
 					<input type="hidden" name="projectId" value=""> 
 				</div>
 			</div>
-			
+		
+		<div class="conference_all_750 scroll_table" style="position:relative;">
+			<table class="health_case table table_health_case">
+				<thead>
+					<tr>
+						<th width="81px">健康状况　</th>
+						<th width="400px">风险点</th>
+						<th width="158px">分析人</th>
+						<th width="89px">分析日期</th>
+					</tr>
+				</thead>
+			</table>
 			<table id="project_health_table" class="health_case"
 				data-page-list="[5, 10, 20]" 
 				data-url="<%=path%>/galaxy/health/queryhealthpage" 
@@ -31,14 +42,14 @@
 				data-toolbar="#health-custom-toolbar">
 				<thead>
 					<tr>
-						<th data-field="healthStateStr" >健康状况　</th>
-						<th data-field="rematk" class='width_36' >风险点</th>
-						<th data-field="userName" >分析人</th>
-						<th data-field="createdTime" data-formatter="longTime_Format" >分析日期</th>
+						<th data-field="healthStateStr" data-width="81px">健康状况　</th>
+						<th data-field="rematk" class='width_36' data-width="400px">风险点</th>
+						<th data-field="userName" data-width="158px">分析人</th>
+						<th data-field="createdTime" data-formatter="longTime_Format" data-width="89px">分析日期</th>
 					</tr>
 				</thead>
 			</table>
-               
+		</div>
         </div>
     
     

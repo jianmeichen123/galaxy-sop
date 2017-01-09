@@ -2005,7 +2005,7 @@ dl{position: relative;}
 .run_digest_ul{ width:100%; overflow:hidden;}
 .run_digest_ul li{ float:left; width:50%;}
 .area_run{ width:420px; max-height:200px; overflow-y:auto;}
-.health_case{ width:100%; border:1px solid #ccd2d7;  margin-top:10px;}
+.health_case{ width:100%; border:1px solid #ccd2d7;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
 .editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
@@ -2350,7 +2350,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .basic_table .fixed-table-container thead th .th-inner{padding:5px 8px;}
 .tip-yellowsimple-wrap{position:relative;}
 .tip-yellowsimple-wrap .tip-yellowsimple{position:absolute;visibility:visible;display:none;left: 75px; top: 0px; opacity: 1;margin-top:0 !important;}
-
+.health_case
 
 .financeHistory{margin-top:10px;}
 .prompttc{width:400px;}
@@ -2364,3 +2364,6 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .toShow_tjh .new_nputr_number{border:1px solid #dadfe3;height:28px;line-height:28px;width:130px;}
 .addmentc .fmdl .fmload  dd .txt{width:240px;}
 .edit_actual dd span{font-size:12px;font-family:'宋体';}
+#project_health_table th{display:none;}
+.table_health_case{width:100%;position:absolute;left:0;top:-36px;border-collapse:collapse;}
+.table_health_case th{padding:0 5px;}
