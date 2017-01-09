@@ -55,7 +55,7 @@
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" size ="10" id="finalShareRatio" name="finalShareRatio" 
 	                    		value="${finalShareRatio}"  onblur="set_finalValuations()"
-	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
+	                    		maxLength="20"  allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
 	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
 	                    	<span class='money'>%</span>
 	                    </div>
@@ -64,10 +64,10 @@
 	              <dl class="fmdl fl_l  clearfix">
 	                <dt>加速服务费占比 ：</dt>
 	                <dd>
-	                	<div id="setValue">
+	                	<div id="setValue"> <!-- regString="^(\d{1,2}(\.\d{1,4})?)$"   -->
 	                    	<input class="txt" type="text" size ="10" id="serviceCharge" name="serviceCharge" value="${serviceCharge }" 
-	                    		maxLength="20"  allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
-	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
+	                    		maxLength="20"  allowNULL="no" valType="OTHER" regstring="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$"
+	                    		msg="<font color=red>*</font>0到5之间的四位小数" />
 	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
@@ -77,7 +77,7 @@
 	                <dd>
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" id="finalValuations" name="finalValuations" value="${finalValuations }" 
-	                    		maxLength="20"  allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
+	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div>
 	                </dd>
@@ -90,14 +90,30 @@
 	        <a href="javascript:;" id="win_ok_btn" onclick="saveAppr()" class="register_all_affrim fl">确定</a>
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div> 
-	    	    </form> 	
+	  </form> 	
 	</div>
 	
 	
 	<script>
+	$(function(){
+		if($("#grantMoney").val() == '0.0'){
+			$("#grantMoney").val(null);
+		}
+		if($("#finalShareRatio").val() == '0.0'){
+			$("#finalShareRatio").val(null);
+		}
+		if($("#serviceCharge").val() == '0.0'){
+			$("#serviceCharge").val(null);
+		}
+		if($("#finalValuations").val() == '0.0'){
+			$("#finalValuations").val(null);
+		}
+	});
+	
 	var 	formData;
 	function saveAppr(){
 		if(beforeSubmitById("add_form")){
+			console.log($("#add_form").serializeObject());
 			sendPostRequestByJsonStr(platformUrl.addGrantTotal, $("#add_form").serializeObject(), function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");

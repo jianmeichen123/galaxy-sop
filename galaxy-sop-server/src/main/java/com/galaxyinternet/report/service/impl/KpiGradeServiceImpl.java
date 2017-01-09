@@ -96,7 +96,7 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 		BasicElement tableHeader = new BasicElement();
 		tableHeader.setRow(1);
 		tableHeader.setColumn(0);
-		tableHeader.setValue("合伙人日常业务绩效评分表");
+		tableHeader.setValue("合伙人绩效考核评分表");
 		BasicElement secondHeader = new BasicElement();
 		secondHeader.setRow(1);
 		secondHeader.setColumn(5);
@@ -105,7 +105,7 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 		modal.setSecondTableHeader(secondHeader);
 		modal.setColumns(getColumns());
 		modal.setTemplateName("template/kpiGradeTemplate.xlsx");
-		modal.setDownloadName("合伙人日常业务绩效评分表"+DateUtil.longToString(System.currentTimeMillis(),"yyyyMMdd"));
+		modal.setDownloadName("合伙人绩效考核评分表"+DateUtil.longToString(System.currentTimeMillis(),"yyyyMMdd"));
 		modal.setFileSuffix("xlsx");
 		return modal;
 	}

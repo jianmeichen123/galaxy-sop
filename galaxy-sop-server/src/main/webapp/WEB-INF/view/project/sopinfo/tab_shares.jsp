@@ -108,7 +108,7 @@
                   <th>投资方(机构或个人)</th>
                   <th>投资金额(万元)</th>
                   <th>币种</th>
-                  <th>股权占比（%）</th>
+                  <th>股权占比(%)</th>
                   <th>融资轮次</th>
                   <c:if test="${isEditable}">
                   <th>操作</th>

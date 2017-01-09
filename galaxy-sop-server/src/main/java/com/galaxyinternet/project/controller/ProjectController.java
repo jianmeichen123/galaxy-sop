@@ -64,6 +64,7 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
+import com.galaxyinternet.model.chart.DataFormat;
 import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
@@ -3877,9 +3878,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							project.getProperty()));
 		}
 		List<ProjectData> chartDataList = setData(pageProject.getContent(),project);
+		DataFormat<ProjectData> setFormat=new DataFormat<ProjectData>();
 		String suffix = request.getParameter("suffix");
 		try {
-			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
+			setFormat.setList(chartDataList);
+			setFormat.setStartTime(null==project.getsDate()?null:project.getsDate().substring(0, 10));
+			setFormat.setEndTime(null==project.geteDate()?null:project.geteDate().substring(0, 10));
+			SopReportModal modal = reportService.createReport(setFormat,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
 			reportService.download(request, response, modal);
 		} catch (Exception e) {
 			_common_logger_.error("下载失败.",e);

@@ -463,13 +463,13 @@
 							<th data-field="type"  		class="data-input" data-width="6%">项目类型</th>
 							<th data-field="projectCareerline"  		class="data-input" data-width="11%">事业部</th>
 							<th data-field="financeStatusDs"  		class="data-input"  data-width="6%">融资状态<span></span></th>
-							<th data-field="ctime"  		class="data-input sort" data-sortable="true"  data-width="12%">注资时间</th>
-							<th data-field="finalContribution"  		class="data-input" >投资金额（万元）</th>
-						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="6%">占比（%）</th>
+							<th data-field="ctime"  		class="data-input sort" data-sortable="true" data-formatter="dateFormat" data-width="12%">注资时间<span></span></th>
+							<th data-field="finalContribution"  		class="data-input" >投资金额(万)</th>
+						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="6%">占比(%)</th>
 					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat"  data-width="6%">融资历史</th>
 							<th data-field="healthState"  		class="data-input" data-formatter="healthStateFormatter"  data-width="6%">项目现状</th>
-						    <th data-field="projectDescribe"  		class="data-input" data-formatter="descriptLineFormat">商业模式</th>
-						    <th data-field="projectDescribeFinancing"  		class="data-input" data-formatter="financingFormat" data-width="12%">业务简要概述和项目亮点</th>
+						    <th data-field="projectDescribeFinancing"  	data-formatter="financingFormat"	class="data-input" >商业模式</th>
+						    <th data-field="projectDescribe"  		class="data-input"  data-formatter="descriptLineFormat" data-width="13%">业务简要概述和项目亮点</th>
  						</tr>
 					</thead>
 				</table>           
@@ -585,12 +585,12 @@ function finalShareRatioFormat(value, row, index){
 	var finalValuations;
 	var serviceCharge;
 	if(null!=row.finalValuations&&row.finalValuations!=""){
-		finalValuations=row.finalValuations+'%';
+		finalValuations=row.finalValuations;
 	}else{
 		finalValuations="-";
 	}
 	if(null!=row.serviceCharge&&row.serviceCharge!=""){
-		serviceCharge=row.serviceCharge+'%';
+		serviceCharge=row.serviceCharge;
 	}else{
 		serviceCharge="-";
 	}
@@ -605,7 +605,7 @@ function healthStateFormatter(value, row, index){
 	var val;
 	var data={
 		'0':'初始',	
-		'1':'高于',
+		'1':'高于预警',
 		'2':'正常',
 		'3':'健康预警',
 		'4':'清算'
@@ -616,6 +616,15 @@ function healthStateFormatter(value, row, index){
 		val="-";
 	}
 	return val;
+	
+}
+function dateFormat(value, row, index){
+	
+	var ctime;
+		if(row.ctime!=null&& typeof(row.ctime)!="undefined"){
+			ctime=row.ctime.substring(0,10);
+		}
+		return ctime;
 	
 }
 //融资历史

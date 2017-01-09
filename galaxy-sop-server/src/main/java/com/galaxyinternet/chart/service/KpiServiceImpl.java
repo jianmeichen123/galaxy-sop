@@ -2165,6 +2165,8 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 					directioin);
 		}
 		session.setAttribute("kpiDataList", kpiDataList);
+		session.setAttribute("partnerSdate", query.getPartnerSdate().substring(0, 10));
+		session.setAttribute("partnerEdate", query.getPartnerEdate().substring(0, 10));
 		List<ChartDataBo> list = getPageList(kpiDataList, query.getPageNum(), pageSize, pageNum);
 		kpiPage.setContent(list);
 		kpiPage.setPageable(new PageRequest(query.getPageNum(), query.getPageSize()));

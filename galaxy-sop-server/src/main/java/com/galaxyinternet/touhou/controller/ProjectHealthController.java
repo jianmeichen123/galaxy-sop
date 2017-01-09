@@ -93,6 +93,8 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	 */
 	@RequestMapping(value = "/tohealthlist", method = RequestMethod.GET)
 	public String toHealthList(HttpServletRequest request) {
+		String btn=request.getParameter("hiddenBtn");
+		request.setAttribute("isEditable", btn);
 		return "project/tanchuan/health_case";
 	}
 	

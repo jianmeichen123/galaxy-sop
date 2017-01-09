@@ -19,6 +19,7 @@
             <!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
             	<c:if test="${isEditable}">
+            	 
                 <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
             	</c:if>
             	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
@@ -114,7 +115,7 @@ function show_health_case(){
 	$("[data-btn='health_case']").on("click",function(){
 		var $self = $(this);
 		var _name= $self.attr("data-name");
-		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist';
+		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist?hiddenBtn=${isEditable}';
 		$.getHtml({
 			url:_url,
 			data:"",
