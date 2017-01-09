@@ -100,8 +100,8 @@ function  assembleSingleTabHtml(grantPart,grantName,i,k){
 	 var value='<tr>'	 
 		   +'<td><a class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
-		   +'<td>'+addCommas(fixSizeDecimal(grantPart.grantMoney))+'</td>'
-		   +'<td id="part_'+i+'_'+k+'">'+addCommas(fixSizeDecimal(grantPart.actualMoney))+'</td>'
+		   +'<td>'+addCommas(fixSizeDecimal(grantPart.grantMoney,4))+'</td>'
+		   +'<td id="part_'+i+'_'+k+'">'+addCommas(fixSizeDecimal(grantPart.actualMoney,4))+'</td>'
 		   +'<td>'+grantPart.fileNum+'</td>'                                 
 		   +'<td><label class="blue show-btn" href="/sop/html/actual_aging.html" data_type="info" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="查看分期注资计划" data-total-name="'+grantName+'">查看</label><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期注资计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
 		   if(grantPart.fileNum != 0){
