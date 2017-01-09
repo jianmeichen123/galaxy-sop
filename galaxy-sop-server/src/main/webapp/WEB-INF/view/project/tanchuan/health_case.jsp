@@ -11,12 +11,14 @@
 <div class="addmentc post_operatetc_750">
 	<div class="title_bj" id="popup_name"></div>
 	
-    <div class="form clearfix">
-            <div style="margin:45px auto 5px;">
-              <c:if test="${isEditable}">
+    <div class="form clearfix"  style="margin:85px auto 5px;">
+     <c:if test="${isEditable}">
+            <div style="margin-top:-40px;margin-left:10px;">
+             
             	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况' style="width:90px;"></a>
-               </c:if>
+               
             </div>
+      </c:if>
         
 	     	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
 				<div class="bottom searchall clearfix">
