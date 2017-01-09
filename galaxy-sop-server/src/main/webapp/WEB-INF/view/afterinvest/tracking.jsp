@@ -461,9 +461,9 @@
 							<th data-field="projectName"  	class="data-input" data-formatter="projectNameFormat">项目名称</th>
 							<th data-field="projectCompany"  			class="data-input" data-formatter="projectCompanyFormat">公司名称 </th>
 							<th data-field="type"  		class="data-input" data-width="6%">项目类型</th>
-							<th data-field="projectCareerline"  		class="data-input" data-width="11%">事业部</th>
+							<th data-field="projectCareerline"  		class="data-input" data-width="15%" data-formatter="departmentFormatter" >事业部</th>
 							<th data-field="financeStatusDs"  		class="data-input"  data-width="6%">融资状态<span></span></th>
-							<th data-field="ctime"  		class="data-input sort" data-sortable="true" data-formatter="dateFormat" data-width="12%">注资时间<span></span></th>
+							<th data-field="ctime"  		class="data-input sort" data-sortable="true" data-formatter="dateFormat" data-width="8%">注资时间<span></span></th>
 							<th data-field="finalContribution"  		class="data-input" >投资金额(万)</th>
 						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="6%">占比(%)</th>
 					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat"  data-width="6%">融资历史</th>
@@ -626,6 +626,16 @@ function dateFormat(value, row, index){
 		}
 		return ctime;
 	
+}
+function departmentFormatter(value, row, index){
+	var str=row.projectCareerline;
+	if(str!="" && typeof(str)!="undefined"){
+		str=delHtmlTag($.trim(str))
+		var str = "<span title='"+str+"'>"+str+"</span>";
+	}else{
+		str='-'
+	}
+	return str;
 }
 //融资历史
 function financeHistory(id){

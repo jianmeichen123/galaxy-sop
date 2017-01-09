@@ -140,9 +140,13 @@
 	<select id="getFHStr" resultType="java.lang.String" parameterType="java.util.Map">
 			SELECT 
 	GROUP_CONCAT( 
-				'融资时间:',IFNULL(FROM_UNIXTIME(f.finance_date/1000,'%Y-%m-%d'),""),
+				'融资时间:',IFNULL(DATE_FORMAT(f.`finance_date`, '%Y-%m-%d'),''),
 				',投资方:',IFNULL(f.finance_from ,''),
-				',投资额:',IFNULL(`finance_amount`,''),
+				',投资额:',IFNULL(f.finance_amount,''),
+				',币种:',IFNULL(CASE WHEN f.`finance_unit`='0' THEN '人民币'
+				                     WHEN f.`finance_unit`='2' THEN '美元'
+				                     WHEN f.`finance_unit`='3' THEN '英镑'
+				                     WHEN f.`finance_unit`='4' THEN '欧元' ELSE '' END,''),
 				',占比:',IFNULL(f.`finance_proportion`,''),
 				',轮次:',IFNULL(d.`name`,'')
 				SEPARATOR ';')
