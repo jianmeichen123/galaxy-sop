@@ -66,7 +66,7 @@ var searchPartMoney;
 	  //只有创建人显示编辑按钮
 	  if(isEditable != 'true')
 	  {
-		  $("#tabApprAllList .b_agreement_r").hide();
+		  $("#tabApprAllList .b_agreement_r .rolehide").hide();
 		  $("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
 	  }
 		//添加，编辑总注资计划弹出页面
