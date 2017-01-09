@@ -60,6 +60,7 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(1);
+		$(".pagebox .lft li ul").hide();
 		var initParams,
 				pageParams=cookieOperator.getDataNoDelete({_paramKey : 'messageList',_path : "/"}),
 				toPageNum = 1,

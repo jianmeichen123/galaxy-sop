@@ -9,7 +9,7 @@
 .pagebox .lft li div{position: relative;}
 .pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; left: 15%;}
 .pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
-.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;}
+.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #1f222d;display: none;overflow: hidden;}
 /*左侧导航icon*/
 .navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22px;}
 .nav160{background-position: 0 0;}
@@ -67,6 +67,6 @@
 .lft li:hover .nav192,.lft li.on .nav192{background-position: -40px -1092px;}
 .lft li:hover .xingmou,.lft li.on .xingmou{background-position: -40px -1230px;}
 .lft .toggle_li ul{background-color: #1f222d !important;}
-.lft .toggle_li li a{color:#eee !important;}
+.lft .toggle_li li a,.pagebox .lft li ul a{color:#eee !important;}
 .lft .toggle_li li ul a{padding-left:30px;}
 .lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;}
