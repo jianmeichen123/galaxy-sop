@@ -95,6 +95,21 @@
 	
 	
 	<script>
+	$(function(){
+		if($("#grantMoney").val() == '0.0'){
+			$("#grantMoney").val(null);
+		}
+		if($("#finalShareRatio").val() == '0.0'){
+			$("#finalShareRatio").val(null);
+		}
+		if($("#serviceCharge").val() == '0.0'){
+			$("#serviceCharge").val(null);
+		}
+		if($("#finalValuations").val() == '0.0'){
+			$("#finalValuations").val(null);
+		}
+	});
+	
 	var 	formData;
 	function saveAppr(){
 		if(beforeSubmitById("add_form")){
