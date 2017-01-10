@@ -146,11 +146,11 @@ var searchPartMoney;
 								
 								if(_data_type == "edit"){
 									$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
-									$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
-									$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
+									$("#actual_aging_container [name='grantMoney']").val(fixSizeDecimal(grantPartInfo.grantMoney,4));
+									$("#actual_aging_container [name='oldRemainMoney']").val(fixSizeDecimal(grantPartInfo.grantMoney,4));
 								}else{
 									$("#grantDetail").html(grantPartInfo.grantDetail);
-									$("#grantMoney").html(grantPartInfo.grantMoney);
+									$("#grantMoney").html(fixSizeDecimal(grantPartInfo.grantMoney,4));
 									$("#oldRemainMoney").html(grantPartInfo.oldRemainMoney);
 								}
 								
@@ -194,14 +194,14 @@ var searchPartMoney;
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
 					 			 if(!beforeSubmitById("actual_aging_container")){
-					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))));
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal),4)));
 					 				return false;
 					 			} 
 					 			 if(grantMoney<0){
-					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal),4)))
 					 			 }else{
 					 				var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
-					 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+					 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew),4));
 					 			      if(remainMoneyNew<0 || remainMoneyNew==0){
 					 			    	  $("#formatRemainMoney").html("0");
 					 			      }else{

@@ -46,7 +46,7 @@
 	             <dl class="fmdl fl_l  clearfix">
 	                <dt>计划总注资金额：</dt>
 	                <dd>
-	                	<div>${actualTotalInfo.finalContribution}<span>万元</span></div> 
+	                	<div>${actualTotalInfo.grantMoney}<span>万元</span></div> 
 	                </dd>
 	            </dl>
                 

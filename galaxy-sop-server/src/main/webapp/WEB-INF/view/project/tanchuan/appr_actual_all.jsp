@@ -41,10 +41,13 @@
 	                <dt>计划总注资金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
-	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
+	                    	<%-- <input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
 	                    		value="${finalContributions}" onblur="set_finalValuations()"
 	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
-	                    		msg="<font color=red>*</font>支持9位长度的四位小数" />
+	                    		msg="<font color=red>*</font>支持9位长度的四位小数" /> --%>
+	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
+	                    		value="${finalContributions}" onblur="set_finalValuations()"
+	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
@@ -120,6 +123,8 @@
 				}else if(data.result.status=="ERROR"){
 					if($("#grantName").val().trim().length<1){
 						layer.msg("协议名称输入错误!");   //协议名称输入内容全为空格时
+					}else if($("#investors").val().trim().length<1){
+						layer.msg("投资方输入错误!");   //协议名称输入内容全为空格时
 					}else{
 						layer.msg(data.result.message);
 					}
