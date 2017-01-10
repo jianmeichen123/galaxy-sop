@@ -200,7 +200,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				actual.setInvestors(total.getInvestors());  //投资方
 				actual.setProtocolName(total.getGrantName());
 				actual.setPlanGrantTime(part.getGrantDetail());
-				actual.setPlanGrantMoney(part.getGrantMoney());  
+				//actual.setPlanGrantMoney(part.getGrantMoney());  
+				actual.setPlanGrantMoney(total.getGrantMoney());  
 				Double surplusGrantMoney = part.getGrantMoney();
 				for(GrantActual temp : actualList){
 					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 2));

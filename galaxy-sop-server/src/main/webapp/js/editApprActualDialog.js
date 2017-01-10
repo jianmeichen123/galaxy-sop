@@ -264,6 +264,7 @@ var editApprActualDialog = {
 									layer.msg("保存成功");
 									editApprActualDialog.close(_this);
 									if(formdata.callFuc){
+										alert('funb');
 										formdata.callFuc(data);
 									}
 								}else{

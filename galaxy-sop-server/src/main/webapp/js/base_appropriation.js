@@ -154,19 +154,20 @@ function flushData(partId){
 		var money = data.userData.moneyAvtual;
 		var moneyTotal = data.userData.moneyAvtualAll;
 		var val=$("#partFlag").val();
-		 $("#"+val).text(fixSizeDecimal(money));
+		 $("#"+val).text(fixSizeDecimal(money,4));
 		 var total=$(".money_total").text();
 		  var oldTotal=$("#planMoney").val();
 		 setData(oldTotal,moneyTotal);
 		 if(typeof(moneyTotal)=="underfined"||null==moneyTotal||moneyTotal==0){
 			 moneyTotal=0;
-			 }else{
-				 var format=fixSizeTwo(moneyTotal/10000);
-				 if(format==0.00){
+		 }else{
+				 //var format=fixSizeTwo(moneyTotal/10000);
+				 if(moneyTotal==0.0000){
 					 moneyTotal=0;
-				 }else{
-					 moneyTotal=format ;
 				 }
+				 /*else{
+					 moneyTotal=format ;
+				 }*/
 			 }
 		 $(".money_complete").text(moneyTotal);
 	});

@@ -22,12 +22,13 @@ public class GrantTotal extends PagableEntity {
 	private Double finalShareRatio;//实际股权占比
 	private Double serviceCharge; //实际服务费占比
 	private Double finalValuations; //实际项目估值
+	private String finalValuationsStr;
 	private Double finalContribution; //	计划总注资金额：基本信息—实际投资中的投资金额
+	private String finalContributionStr;
 	
 	/**扩展字段**/
 	private String projectCompany;//目标公司名称
-	
-	
+    
 	
 	public Long getProjectId() {
 		return projectId;
@@ -151,6 +152,18 @@ public class GrantTotal extends PagableEntity {
 	}
 	public void setFinalContribution(Double finalContribution) {
 		this.finalContribution = finalContribution;
+	}
+	public String getFinalValuationsStr() {
+		return finalValuationsStr;
+	}
+	public void setFinalValuationsStr(String finalValuationsStr) {
+		this.finalValuationsStr = finalValuationsStr;
+	}
+	public String getFinalContributionStr() {
+		return finalContributionStr;
+	}
+	public void setFinalContributionStr(String finalContributionStr) {
+		this.finalContributionStr = finalContributionStr;
 	}
 	@Override
 	public String toString() {

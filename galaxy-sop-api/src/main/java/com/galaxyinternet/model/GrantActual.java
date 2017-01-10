@@ -87,6 +87,7 @@ public class GrantActual extends PagableEntity{
 	 * 实际投资     
 	 */
 	private Double finalContribution;
+	private String finalContributionStr;
 	/**
 	 * 股权占比                   
 	 */
@@ -99,7 +100,9 @@ public class GrantActual extends PagableEntity{
 	 * 实际估值
 	 */
 	private Double finalValuations;
+	private String finalValuationsStr;
 	
+
 	//多附件
 	private List<SopFile> files; 
     private List<Long> fileIds;
@@ -132,7 +135,18 @@ public class GrantActual extends PagableEntity{
 		this.surplusGrantMoney = surplusGrantMoney;
 	}
 	
-	
+	public String getFinalContributionStr() {
+		return finalContributionStr;
+	}
+	public void setFinalContributionStr(String finalContributionStr) {
+		this.finalContributionStr = finalContributionStr;
+	}
+	public String getFinalValuationsStr() {
+		return finalValuationsStr;
+	}
+	public void setFinalValuationsStr(String finalValuationsStr) {
+		this.finalValuationsStr = finalValuationsStr;
+	}
 	public String getInvestors() {
 		return investors;
 	}

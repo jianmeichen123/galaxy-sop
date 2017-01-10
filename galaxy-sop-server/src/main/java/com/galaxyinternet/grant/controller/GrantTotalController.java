@@ -1,7 +1,8 @@
 package com.galaxyinternet.grant.controller;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,14 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.data.domain.Sort.Direction;
 
 import com.galaxyinternet.bo.GrantTotalBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -84,9 +83,25 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			Project pro = projectService.queryById(Long.valueOf(pid));
 			request.setAttribute("finalShareRatio", pro.getFinalShareRatio());
 			request.setAttribute("serviceCharge", pro.getServiceCharge());
-			request.setAttribute("finalValuations", pro.getFinalValuations());
 			request.setAttribute("projectCompany", pro.getProjectCompany());
-			request.setAttribute("finalContributions", pro.getFinalContribution());
+/*			request.setAttribute("finalValuations", pro.getFinalValuations());
+			request.setAttribute("finalContributions", pro.getFinalContribution());*/
+			Double finalValuations = pro.getFinalValuations();
+			if(finalValuations != null){
+				BigDecimal num = new BigDecimal(finalValuations);
+				DecimalFormat df = new DecimalFormat("0.0000");
+			    String res = df.format(num);
+			    request.setAttribute("finalValuations", res);
+			}
+			
+			Double finalContribution = pro.getFinalContribution();
+			if(finalContribution != null){
+				BigDecimal num = new BigDecimal(finalContribution);
+				DecimalFormat df = new DecimalFormat("0.0000");
+			    String res = df.format(num);
+			    request.setAttribute("finalContributions", res);
+			}
+			
 		}
 		request.setAttribute("projectId", pid);
 		

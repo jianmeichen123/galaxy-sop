@@ -28,7 +28,7 @@
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="20%">实际注资金额（万元）</th>
+			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input"  data-width="20%">实际注资金额（万元）</th>
 			        	<th data-field="actualTime" data-formatter="createDateFormat" class="data-input  data-width="25%">实际注资日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">注资人<span></span></th>
 			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="30%">操作</th>
@@ -48,7 +48,7 @@
 	    	}else return '';
 	    }
 	    function grantMoneyFormat(value, row, index){
-	    	return fixSizeDecimal(value);
+	    	return fixSizeDecimal(value,4);
 	    }
 	    function operatorFormat(value, row, index){
 	    	var opts = '';
