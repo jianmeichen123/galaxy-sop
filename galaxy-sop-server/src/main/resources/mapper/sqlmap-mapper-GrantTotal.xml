@@ -6,6 +6,9 @@
 		<result column="project_id" property="projectId" />
 		<result column="grant_name" property="grantName" />
 		<result column="investors" property="investors" />
+		<result column="final_share_ratio" property="finalShareRatio" />
+		<result column="service_charge" property="serviceCharge" />
+		<result column="final_valuations" property="finalValuations" />
 		<result column="grant_money" property="grantMoney" />
 		<result column="create_uid" property="createUid" />
 		<result column="create_uname" property="createUname" />
@@ -15,7 +18,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, project_id, grant_name, grant_money, investors,create_uid, create_uname,
+		id, project_id, grant_name, grant_money, investors,final_share_ratio,service_charge,final_valuations,create_uid, create_uname,
 		updated_time,created_time,updated_uname
 	</sql>
 
@@ -78,6 +81,15 @@
 			<if test="investors != null"> 
 				investors = #{investors}, 
 			</if>
+			<if test="finalShareRatio != null"> 
+				final_share_ratio = #{finalShareRatio}, 
+			</if>
+			<if test="serviceCharge != null"> 
+				service_charge = #{serviceCharge}, 
+			</if>
+			<if test="finalValuations != null"> 
+				final_valuations = #{finalValuations}, 
+			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
 			</if>
@@ -100,6 +112,15 @@
 			</if>
 			<if test="investors != null"> 
 				investors = #{investors}, 
+			</if>
+			<if test="finalShareRatio != null"> 
+				final_share_ratio = #{finalShareRatio}, 
+			</if>
+			<if test="serviceCharge != null"> 
+				service_charge = #{serviceCharge}, 
+			</if>
+			<if test="finalValuations != null"> 
+				final_valuations = #{finalValuations}, 
 			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
@@ -132,10 +153,10 @@
 		parameterType="com.galaxyinternet.model.GrantTotal">
 	    <![CDATA[
 	     insert into sop_grant_total(
-	     	id, project_id, grant_name, grant_money, investors,create_uid, 
+	     	id, project_id, grant_name, grant_money, investors,final_share_ratio,service_charge,final_valuations,create_uid, 
 	     	create_uname, updated_time,created_time,updated_uname
 	     )values(
-	     	#{id}, #{projectId}, #{grantName}, #{grantMoney},#{investors},#{createUid}, 
+	     	#{id}, #{projectId}, #{grantName}, #{grantMoney},#{investors},#{finalShareRatio},#{serviceCharge},#{finalValuations}, #{createUid}, 
 	     	#{createUname},#{updatedTime}, #{createdTime}, #{updatedUname}
 		 )
 	    ]]>

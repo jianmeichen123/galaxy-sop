@@ -108,11 +108,12 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			Project pro = projectService.queryById(projectId);
 			
 			c.setProjectCompany(pro.getProjectCompany());  //目标公司
-			c.setFinalContribution(pro.getFinalContribution());  //实际投资
+			/*c.setFinalContribution(pro.getFinalContribution());  //实际投资
 			c.setFinalShareRatio(pro.getFinalShareRatio());  //股权占比
 			c.setServiceCharge(pro.getServiceCharge());  //加速服务费占比
 			c.setFinalValuations(pro.getFinalValuations());  //实际估值
-		}
+            */		
+			}
 		request.setAttribute("actualTotalInfo", c);
 		return "project/tanchuan/appr_actual_toatl_look";
 	}
@@ -252,9 +253,9 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			if(projectId != null){
 				Project pro = projectService.queryById(projectId);
 				c.setProjectCompany(pro.getProjectCompany());
-				c.setFinalShareRatio(pro.getFinalShareRatio());
+				/*c.setFinalShareRatio(pro.getFinalShareRatio());
 				c.setFinalValuations(pro.getFinalValuations());
-				c.setServiceCharge(pro.getServiceCharge());
+				c.setServiceCharge(pro.getServiceCharge());*/
 			}
 			
 			GrantPart p=new GrantPart();
