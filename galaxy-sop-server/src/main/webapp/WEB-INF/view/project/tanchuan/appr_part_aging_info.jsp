@@ -103,7 +103,7 @@
 	<script>
 	   $(function(){
 		   var remainMoney = '${remainMoney}';
-			  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+			  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney),4));
 	          $("#formatRemainMoney").html(remainMoney);	
 	          var remainMoneyOld=$("#formatRemainMoney").text();
 	         
@@ -118,7 +118,7 @@
 	 			 }else{
 	 				var remainMoney = '${remainMoney}';
 	 				var sremainMoneyNew=remainMoney-Number(grantMoney);
-	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(sremainMoneyNew)));
+	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(sremainMoneyNew),4));
 	 				
 	 				if( sremainMoneyNew < 0 || sremainMoneyNew == 0){
 	 				    $("#formatRemainMoney").html("0");
