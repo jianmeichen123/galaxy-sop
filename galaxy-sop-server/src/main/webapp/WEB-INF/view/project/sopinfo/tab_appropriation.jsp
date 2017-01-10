@@ -194,14 +194,14 @@ var searchPartMoney;
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
 					 			 if(!beforeSubmitById("actual_aging_container")){
-					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal),4)));
+					 				$("#formatRemainMoney").html(fixSizeDecimal(parseFloat(remainMoneyTotal),4));
 					 				return false;
 					 			} 
 					 			 if(grantMoney<0){
-					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal),4)))
+					 				$("#formatRemainMoney").html(fixSizeDecimal(parseFloat(remainMoneyTotal),4))
 					 			 }else{
 					 				var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
-					 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew),4));
+					 			      remainMoney = fixSizeDecimal(parseFloat(remainMoneyNew),4);
 					 			      if(remainMoneyNew<0 || remainMoneyNew==0){
 					 			    	  $("#formatRemainMoney").html("0");
 					 			      }else{

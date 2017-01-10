@@ -67,7 +67,7 @@ function  assembleHtml(grantTotal,i){
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
 		     +'<h3>'+grantTotal.grantName+'</h3>'
-	         +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+addCommas(fixSizeDecimal(grantTotal.grantMoney,4))+'</dd></dl>'
+	         +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+fixSizeDecimal(grantTotal.grantMoney,4)+'</dd></dl>'
              +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'
           +'</div>'    
@@ -100,8 +100,8 @@ function  assembleSingleTabHtml(grantPart,grantName,i,k){
 	 var value='<tr>'	 
 		   +'<td><a class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
-		   +'<td>'+addCommas(fixSizeDecimal(grantPart.grantMoney,4))+'</td>'
-		   +'<td id="part_'+i+'_'+k+'">'+addCommas(fixSizeDecimal(grantPart.actualMoney,4))+'</td>'
+		   +'<td>'+fixSizeDecimal(grantPart.grantMoney,4)+'</td>'
+		   +'<td id="part_'+i+'_'+k+'">'+fixSizeDecimal(grantPart.actualMoney,4)+'</td>'
 		   +'<td>'+grantPart.fileNum+'</td>'                                 
 		   +'<td><label class="blue show-btn" href="/sop/html/actual_aging.html" data_type="info" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="查看分期注资计划" data-total-name="'+grantName+'">查看</label><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期注资计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
 		   if(grantPart.fileNum != 0){
@@ -154,14 +154,14 @@ function flushData(partId){
 		var money = data.userData.moneyAvtual;
 		var moneyTotal = data.userData.moneyAvtualAll;
 		var val=$("#partFlag").val();
-		 $("#"+val).text(addCommas(fixSizeDecimal(money)));
+		 $("#"+val).text(fixSizeDecimal(money));
 		 var total=$(".money_total").text();
 		  var oldTotal=$("#planMoney").val();
 		 setData(oldTotal,moneyTotal);
 		 if(typeof(moneyTotal)=="underfined"||null==moneyTotal||moneyTotal==0){
 			 moneyTotal=0;
 			 }else{
-				 var format=addCommas(fixSizeTwo(moneyTotal/10000));
+				 var format=fixSizeTwo(moneyTotal/10000);
 				 if(format==0.00){
 					 moneyTotal=0;
 				 }else{

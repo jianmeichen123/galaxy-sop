@@ -48,7 +48,7 @@
 	    	}else return '';
 	    }
 	    function grantMoneyFormat(value, row, index){
-	    	return addCommas(fixSizeDecimal(value));
+	    	return fixSizeDecimal(value);
 	    }
 	    function operatorFormat(value, row, index){
 	    	var opts = '';
