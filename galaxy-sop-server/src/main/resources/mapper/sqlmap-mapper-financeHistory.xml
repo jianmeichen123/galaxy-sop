@@ -144,9 +144,9 @@
 				',投资方:',IFNULL(f.finance_from ,''),
 				',投资额:',IFNULL(f.finance_amount,''),
 				',币种:',IFNULL(CASE WHEN f.`finance_unit`='0' THEN '人民币'
-				                     WHEN f.`finance_unit`='2' THEN '美元'
-				                     WHEN f.`finance_unit`='3' THEN '英镑'
-				                     WHEN f.`finance_unit`='4' THEN '欧元' ELSE '' END,''),
+				                     WHEN f.`finance_unit`='1' THEN '美元'
+				                     WHEN f.`finance_unit`='2' THEN '英镑'
+				                     WHEN f.`finance_unit`='3' THEN '欧元' ELSE '' END,''),
 				',占比:',IFNULL(f.`finance_proportion`,''),
 				',轮次:',IFNULL(d.`name`,'')
 				SEPARATOR ';')

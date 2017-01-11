@@ -21,7 +21,7 @@
 	<form id="form_edit_actual_dialog">
 		<div class="title_bj popup_name_edit" id="label_pop_name">查看、添加、编辑实际注资信息</div>
 	    <div class="form clearfix" id="container">
-	        <div class="edit_actual"  style="width:600px;">
+	        <div class="edit_actual"  style="min-width:600px;">
 	            
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>协议名称 ：</dt>
@@ -94,7 +94,7 @@
 	                <dd>
 	                	<div id="label_grant_money">
 	                    	<input class="txt" id="form_grant_money" type="text" 
-	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
+	                    		valType="OTHER" regString="^(0(\.\d{1,4})?|[1-9]\d{0,8}|[1-9]\d{0,8}\.0{1,4}|[1-9]\d{0,4}\.\d{1,4})$" 
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数">
 	                   		<span class='money'>万元</span>
 	                    </div> 

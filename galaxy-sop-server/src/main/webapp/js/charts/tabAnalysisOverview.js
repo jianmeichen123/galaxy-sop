@@ -15,17 +15,18 @@ var searchOverviewPanel = {
 				}else{
 					$("#search_overview_form").find("#search_project_progress").val("all");
 				}
-				
-				//项目总览图表
-				var formdata = {
-				}
-				chartOverviewUtils.init(formdata);
 				//项目总览表格
 				var formdata = {
 						domid : "grid_overview"
 				}
-
 				projectGrid.init(formdata);
+				//项目总览图表
+				var formdata = {
+				}
+				chartOverviewUtils.init(formdata);
+                projectGrid.init(formdata);
+
+				
 
 				
 				$("#search_overview_form").find("#search_btn").click(function(){

@@ -289,7 +289,6 @@ var searchPartMoney;
 			layer.msg(data.result.message);
 			return;
 		}else{
-			 alert("fuzhi ");
 			 var grantTotal = data.entity;
 			 if(null!=grantTotal.id&&typeof(grantTotal.id)=="underfined"){
 				 $("#totallId").val(0);

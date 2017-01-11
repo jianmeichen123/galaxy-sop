@@ -161,8 +161,9 @@ var editApprActualDialog = {
 												var grantMoneyOld=$formGrantMoney.val(); 
 												var remainMoney = data.entity.surplusGrantMoney;
 												remainMoney = fixSizeDecimal(parseFloat(remainMoney),4);
+
 												remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); // 剩余+实际注资
-												$surplusGrantMoney.html("剩余金额" + remainMoney + " 万元");											         
+												$surplusGrantMoney.html("剩余金额" +remainMoney + " 万元");											         
 												$formGrantMoney.blur(function(){
 												var grantMoney=$formGrantMoney.val();
 												if(!beforeSubmitById("form_edit_actual_dialog")){
@@ -171,7 +172,7 @@ var editApprActualDialog = {
 												}
 												
 												if(grantMoney<0){
-													$surplusGrantMoney.html("剩余金额" + remainMoney + " 万元");	
+													$surplusGrantMoney.html("剩余金额" +remainMoney+ " 万元");	
 									 			 }else{
 									 				var remainMoneyNew=fixSizeDecimal(parseFloat(remainMoneyTotal)-parseFloat(grantMoney),4);
 									 				remainMoneyNew = parseFloat(remainMoneyNew);
@@ -264,7 +265,6 @@ var editApprActualDialog = {
 									layer.msg("保存成功");
 									editApprActualDialog.close(_this);
 									if(formdata.callFuc){
-										alert('funb');
 										formdata.callFuc(data);
 									}
 								}else{
