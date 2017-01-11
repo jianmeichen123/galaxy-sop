@@ -12,7 +12,7 @@
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
 	    <div class="form clearfix" id="actual_aging_container">
-	        <div class="conference_all">
+	        <div class="conference_all appr_aging">
 	           <form id="actual_aging_form">
 		            <dl class="fmdl fl_l  clearfix">
 		                <dt>协议名称 ：</dt>
@@ -41,7 +41,7 @@
 		                </dd>
 		            </dl>
                  </form>
-	            <div class="affrim_line"></div>
+	            <!-- <div class="affrim_line"></div> -->
 	             <dl class="fmdl fl_l" id="choose_up_file">
 		                 <dt>上传附件 ：</dt>
 		                 <div class="fmload clearfix">

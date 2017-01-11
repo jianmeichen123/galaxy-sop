@@ -63,7 +63,7 @@
 		                </dd>
 		            </dl>
                  </form>
-	            <div class="affrim_line"></div>
+	           <!--  <div class="affrim_line"></div> -->
 	             <dl class="fmdl fl_l" id="choose_up_file">
 		                 <dt>上传附件 ：</dt>
 		                 <div class="fmload clearfix">
