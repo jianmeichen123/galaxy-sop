@@ -483,7 +483,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			Idea queryIdea = ideaService.queryById(idea.getId());
 			//如果创意已经放弃则返回
 			if(DictEnum.IdeaProgress.CYLGZ.getCode().equals(queryIdea.getIdeaProgress())){
-				responseBody.setResult(new Result(Status.ERROR, null, "创意已经放弃!"));
+				responseBody.setResult(new Result(Status.ERROR, "already", "创意已经放弃!"));
 				return responseBody;
 
 			}

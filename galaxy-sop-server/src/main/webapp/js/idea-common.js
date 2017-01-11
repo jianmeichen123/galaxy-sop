@@ -351,6 +351,12 @@ function dateFormatter(val,row,index)
 							
 								}else{
 									layer.msg(data.result.message);
+									if(data.result.errorCode=="already"){
+										$(".abandon").find("[data-close='close']").click();
+										$(".creativetc").find("[data-close='close']").click();
+										refreshIdeaList();
+									}
+									
 								}
 								
 							});
