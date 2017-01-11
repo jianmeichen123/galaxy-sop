@@ -484,6 +484,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			//如果创意已经放弃则返回
 			if(DictEnum.IdeaProgress.CYLGZ.getCode().equals(queryIdea.getIdeaProgress())){
 				responseBody.setResult(new Result(Status.ERROR, null, "创意已经放弃!"));
+				return responseBody;
+
 			}
 			if(queryIdea !=null && queryIdea.getIdeaProgress()!=null){
 				if(queryIdea.getIdeaProgress().equals(SopConstant.IDEA_PROGRESS_GZ)){
