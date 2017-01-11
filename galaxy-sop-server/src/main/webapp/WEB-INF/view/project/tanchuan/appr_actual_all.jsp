@@ -47,7 +47,7 @@
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数" /> --%>
 	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
 	                    		value="${finalContributions}" onblur="set_finalValuations()"
-	                    		valType="OTHER" regString="^(0(\.\d{1,4})?|[1-9]\d{0,8}|[1-9]\d{0,8}\.0{1,4}|[1-9]\d{0,4}\.\d{1,4})$" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+	                    		allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
@@ -80,7 +80,7 @@
 	                <dd>
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" id="finalValuations" name="finalValuations" value="${finalValuations }" 
-	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
+	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div>
 	                </dd>
