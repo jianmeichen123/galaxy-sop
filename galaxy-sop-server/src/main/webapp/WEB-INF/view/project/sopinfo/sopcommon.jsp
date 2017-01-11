@@ -4,6 +4,9 @@
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <% 
 	String path = request.getContextPath(); 
+	response.setHeader("Cache-Control","no-cache"); //HTTP 1.1    
+	response.setHeader("Pragma","no-cache"); //HTTP 1.0    
+	response.setDateHeader ("Expires", 0); //prevents caching at the proxy server 
 %>
 <!doctype html>
 <html>
@@ -29,14 +32,14 @@ position:absolute;
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
 	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">工作桌面</a>>
-	<c:choose>
-		<c:when test="${empty sessionScope._curr_menu_ }">
+	<%--<c:choose>
+		 <c:when test="${empty sessionScope._curr_menu_ }"> --%>
 			<a href="#" onclick="projectList()">创投项目</a>
-		</c:when>
+	<%-- 	</c:when>
 		<c:otherwise>
 			<a href="#">${sessionScope._curr_menu_ }</a>
-		</c:otherwise>
-	</c:choose>
+		</c:otherwise> 
+	</c:choose>--%>
 	><span id="project_name_title"></span></div>
     	
     	<div class="new_tit_b">
