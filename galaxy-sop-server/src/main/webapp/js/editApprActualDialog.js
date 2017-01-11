@@ -86,16 +86,18 @@ var editApprActualDialog = {
 											$actualTimeDiv.html("<div id='label_actualTime_r'></div>");
 											$actualTime = $("#form_edit_actual_dialog").find("#label_actualTime_r");
 											
-											
-											$.each(data.entity.files,function(){
-												var htm = "<tr id='"+this.id+"tr'>"+
-												"<td>"+this.fileName+"."+this.fileSuffix+
-													"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
-												"</td>"+
-												"<td>"+plupload.formatSize(this.fileLength)+"</td>";
-												$("#filelist").append(htm);
-											});
-											
+											if(data.entity.files ==null || data.entity.files.length == 0 ){
+												$("#filelist").hide();
+											}else{
+												$.each(data.entity.files,function(){
+													var htm = "<tr id='"+this.id+"tr'>"+
+													"<td>"+this.fileName+"."+this.fileSuffix+
+														"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+													"</td>"+
+													"<td>"+plupload.formatSize(this.fileLength)+"</td>";
+													$("#filelist").append(htm);
+												});
+											}
 											$("#choose_up_file").remove();
 											$("#show_up_file").remove();
 											$okBtn.hide();
