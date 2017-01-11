@@ -461,7 +461,7 @@
 							<th data-field="projectName"  	class="data-input" data-formatter="projectNameFormat">项目名称</th>
 							<th data-field="projectCompany"  			class="data-input" data-formatter="projectCompanyFormat">公司名称 </th>
 							<th data-field="type"  		class="data-input" data-width="6%">项目类型</th>
-							<th data-field="projectCareerline"  		class="data-input" data-width="12%" data-formatter="departmentFormatter" >事业部</th>
+							<th data-field="projectCareerline"  		class="data-input" data-width="13%" data-formatter="departmentFormatter" >事业部</th>
 							<th data-field="financeStatusDs"  		class="data-input"  data-width="6%">融资状态<span></span></th>
 							<th data-field="ctime"  		class="data-input sort" data-sortable="true" data-formatter="dateFormat" data-width="8%">注资时间<span></span></th>
 							<th data-field="finalContribution"  		class="data-input" >投资金额(万)</th>
