@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -46,7 +47,7 @@
 	             <dl class="fmdl fl_l  clearfix">
 	                <dt>计划总注资金额：</dt>
 	                <dd>
-	                	<div><span>${actualTotalInfo.grantMoney}万元</span></div> 
+	                	<div><span><fmt:formatNumber value="${actualTotalInfo.grantMoney}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
 	                </dd>
 	            </dl>
                 
@@ -74,7 +75,7 @@
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>项目估值：</dt>
 	                <dd>
-	                	<div><span>${actualTotalInfo.finalValuations}万元</span></div> 
+	                	<div><span><fmt:formatNumber value="${actualTotalInfo.finalValuations}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
 	                </dd>
 	            </dl>
 	            
