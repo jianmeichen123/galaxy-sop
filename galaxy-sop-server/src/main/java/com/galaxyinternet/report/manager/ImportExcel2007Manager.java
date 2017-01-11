@@ -169,48 +169,51 @@ public class ImportExcel2007Manager {
 	 * @param font  设置字体
 	 */
 	public void createCellText(Workbook wb,Row row,int column,Object value,Font font){
-		
-		/*HSSFCellStyle textStyle = workBook.createCellStyle();
-		HSSFDataFormat format = workBook.createDataFormat();
-		textStyle.setDataFormat(format.getFormat("@"));
-		cell.setCellStyle(textStyle);//设置单元格格式为"文本"
-		cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
-		*/
-		
 		Cell cell = row.createCell(column);
-		//新增的四句话，设置CELL格式为文本格式  
 		CellStyle cellStyle2 = wb.createCellStyle();  
         DataFormat format = wb.createDataFormat();  
         cellStyle2.setDataFormat(format.getFormat("@"));  
         cell.setCellStyle(cellStyle2);  
         cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
-        System.out.println("金额："+value.toString());
         cell.setCellValue(value+"");
-	/*	
-		cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-		cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
-		cellStyle.setFont(font);
-		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
-		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
-		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
-		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
-		cell.setCellStyle(cellStyle);*/
-		//String cellValue = cell.toString();
-		
 	}
 	
-	public void createCell(Workbook wb,Row row,int column,Object value,Font font){
+	public void createCell(Workbook wb,Row row,int column,Object value,Font font,int type){
 		Cell cell = row.createCell(column);
-		cell.setCellValue(value.toString());
-		CellStyle cellStyle = wb.createCellStyle();
-		cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-		cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
-		cellStyle.setFont(font);
-		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
-		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
-		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
-		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
-		cell.setCellStyle(cellStyle);
+		CellStyle cellStyle = wb.createCellStyle();  
+		switch(type){
+		case 1 :   
+		        DataFormat format = wb.createDataFormat();  
+		        cellStyle.setDataFormat(format.getFormat("@"));  
+		        cell.setCellStyle(cellStyle);  
+		        cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
+		        cell.setCellValue(value+"");
+			    break;
+	    case 2 :   
+		        cell.setCellValue(value.toString());
+				cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+				cellStyle.setFont(font);
+				cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+				cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+				cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+				cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+				cell.setCellStyle(cellStyle);
+		    break;
+			      
+		default:
+				cell.setCellValue(value.toString());
+				cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+				cellStyle.setFont(font);
+				cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+				cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+				cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+				cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+				cell.setCellStyle(cellStyle);
+				break;
+		}
+		
 		
 	}
 	

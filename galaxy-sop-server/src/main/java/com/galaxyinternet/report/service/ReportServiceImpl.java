@@ -81,17 +81,16 @@ public abstract class ReportServiceImpl<T extends PagableEntity> implements Repo
 					Font font1 = excelManager.createFonts(workbook,Font.BOLDWEIGHT_NORMAL,"宋体",false,(short)200);
 					List<BasicElement> columnList = getColumns();
 					for(BasicElement column : columnList){
-						System.out.println("测试-----------"+column.getGetterMethod());
 						if(column.getGetterMethod().equals("num")){
-							excelManager.createCell(workbook, row, (int)column.getColumn(), Integer.toString(i+1), font1);
+							excelManager.createCell(workbook, row, (int)column.getColumn(), Integer.toString(i+1), font1,2);
 						}else{
 							Method method = report.getClass().getMethod((String) column.getGetterMethod(), null);
 							Object value = (Object)method.invoke(report, null);
-							
+							//业务需要根据某字段设置单独的属性
 							if("getFinalContribution".equals(column.getGetterMethod())){
-								excelManager.createCellText(workbook, row, (int)column.getColumn(),value, font1);
+								excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1,1);
 							}else{
-								excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1);
+								excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1,2);
 							}
 							
 						}
