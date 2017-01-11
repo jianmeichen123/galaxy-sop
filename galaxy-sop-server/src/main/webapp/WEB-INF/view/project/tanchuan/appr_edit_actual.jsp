@@ -21,7 +21,7 @@
 	<form id="form_edit_actual_dialog">
 		<div class="title_bj popup_name_edit" id="label_pop_name">查看、添加、编辑实际注资信息</div>
 	    <div class="form clearfix" id="container">
-	        <div class="edit_actual"  style="width:600px;">
+	        <div class="edit_actual"  style="min-width:600px;">
 	            
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>协议名称 ：</dt>

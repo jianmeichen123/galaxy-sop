@@ -46,20 +46,20 @@
 	             <dl class="fmdl fl_l  clearfix">
 	                <dt>计划总注资金额：</dt>
 	                <dd>
-	                	<div>${actualTotalInfo.grantMoney}<span>万元</span></div> 
+	                	<div><span>${actualTotalInfo.grantMoney}万元</span></div> 
 	                </dd>
 	            </dl>
                 
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>股权占比：</dt>
 	                <dd>
-	                	<div>${actualTotalInfo.finalShareRatio}<span>%</span></div> 
+	                	<div><span>${actualTotalInfo.finalShareRatio}%</span></div> 
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>加速服务费占比：</dt>
 	                <dd>
-	                	<div>${actualTotalInfo.serviceCharge}<span>%</span></div> 
+	                	<div><span>${actualTotalInfo.serviceCharge}%</span></div> 
 	                </dd>
 	            </dl>
 	            
@@ -74,7 +74,7 @@
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>项目估值：</dt>
 	                <dd>
-	                	<div>${actualTotalInfo.finalValuations}<span>万元</span></div> 
+	                	<div><span>${actualTotalInfo.finalValuations}万元</span></div> 
 	                </dd>
 	            </dl>
 	            
