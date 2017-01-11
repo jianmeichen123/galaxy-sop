@@ -94,7 +94,7 @@
 	                <dd>
 	                	<div id="label_grant_money">
 	                    	<input class="txt" id="form_grant_money" type="text" 
-	                    		valType="OTHER" regString="^(0(\.\d{1,4})?|[1-9]\d{0,8}|[1-9]\d{0,8}\.0{1,4}|[1-9]\d{0,4}\.\d{1,4})$" 
+	                    		valType="LIMIT_11_NUMBER" 
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数">
 	                   		<span class='money'>万元</span>
 	                    </div> 

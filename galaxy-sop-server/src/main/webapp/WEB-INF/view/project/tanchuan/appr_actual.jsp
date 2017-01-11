@@ -44,8 +44,7 @@
 		}
 	    function createDateFormat(value, row, index){
 	    	if(value && value != ''){
-	    		return value;
-	    		//return time_zh(value, "年", "月", "日");
+	    		return time_zh(value, "年", "月", "日");
 	    	}else return '';
 	    }
 	    function grantMoneyFormat(value, row, index){
