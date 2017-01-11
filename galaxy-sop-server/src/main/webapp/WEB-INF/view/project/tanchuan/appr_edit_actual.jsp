@@ -110,9 +110,16 @@
 	            </dl>
 	            </div>
 	            <dl class="fmdl fl_l  clearfix" id="show_actual_file">
-	                <dt>附件：</dt>
-	                <dd>
-	                </dd>
+	                <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+		                 <thead>
+		                    <tr>
+		                      <th style="width:265px;">文件名称</th>
+		                      <th style="width:105px" align="center">文件大小</th>
+		                      <!-- <th style="width:80px" align="center">操作</th>
+		                      <th style="width:80px" align="center">进度</th> -->
+		                    </tr>
+		                 </thead>
+		                 </table> 
 	            </dl>
 	            <!-- <div class="affrim_line"></div> -->
 	            <dl class="fmdl fl_l" id="choose_up_file">

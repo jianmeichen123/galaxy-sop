@@ -2013,7 +2013,7 @@ dl{position: relative;}
 #show_up_file table td{height:26px;line-height:26px;}
 .scroll_table .fixed-table-body{max-height:250px; overflow-y:auto;}
 #div_meetingNotes dd{width:490px;margin:0;}
-.conference_all dd{font-size:12px;font-family:'宋体'}
+.conference_all dd,.appr_aging dd{font-size:12px;font-family:'宋体'}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
 .div_meetingNotes_dd{max-height:250px;overflow:auto;word-wrap:break-word}
@@ -2130,7 +2130,7 @@ dl{position: relative;}
 .b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
 .b_agreement_l {width:70%}
 .b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"微软雅黑";}
-.b_agreement_r{width:28%;padding-top: 8px;}
+.b_agreement_r{width:29%;padding-top: 8px;}
 .b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
 .b_agreement_l dl{margin-right:5%;margin-top: 12px;}
 .b_agreement_r button{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
