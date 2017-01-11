@@ -105,4 +105,79 @@
 		UM.getEditor('meetingNotes');
 		//$("#meetingDateStr").val(new Date().format("yyyy-MM-dd"));
 		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd hh:mm"));
+		
+		//验证获取参数
+		function getMeetCondition(hasProid,projectId,
+				meetDateId,
+				hasMeetType,meetTypeName,
+				meetResultName,
+				meetNotesId
+				){
+			
+			var	condition = {};
+			if(!beforeSubmit("add_meet_tc")){
+				return false;
+			}
+			
+			var projectIdVal = null;
+			if(hasProid == "y" ){
+				projectIdVal = $.trim(projectId);
+			}else{
+				projectIdVal = $("#"+projectId).val();
+			}
+			
+			var meetingDateStr = $.trim($("#"+meetDateId).val());
+			
+			var meetingTypeVal = null;
+			if(hasMeetType == "y" ){
+				meetingTypeVal = $.trim(meetTypeName);
+			}else{
+				meetingTypeVal = $.trim($('input:radio[name="'+meetTypeName+'"]:checked').val());
+			}
+			
+			var meetingResult = $.trim($('input:radio[name="'+meetResultName+'"]:checked').val());
+			
+			var um = UM.getEditor(meetNotesId);
+			var meetingNotes = $.trim(um.getContent());
+			
+			if(projectIdVal == null || projectIdVal == ""){
+				layer.msg("项目不能为空");
+				return false;
+			}
+			
+			/*if(meetingDateStr == null ||  meetingDateStr == ""){
+				layer.msg("会议日期不能为空");
+				return false;
+			}else{
+				var clock = getNowDay("-");
+				if((new Date(meetingDateStr)) > (new Date(clock))){
+					layer.msg("会议日期不能超过今天");
+					return false;
+		         }
+			 }*/
+			
+			if(meetingTypeVal == null ||  meetingTypeVal == ""){
+				layer.msg("类型不能为空");
+				return false;
+			}
+			
+			if(meetingResult == null ||  meetingResult == ""){
+				layer.msg("结果不能为空");
+				return false;
+			}
+			
+			if(meetingNotes != null && meetingNotes.length > 0){
+				if(getLength(meetingNotes) > 9000){
+					layer.msg("会议记录长度最大9000字节");
+					return false;
+				}
+			}
+			
+			condition.projectId = projectIdVal;
+			condition.meetingDateStr = meetingDateStr;
+			condition.meetingType = meetingTypeVal;
+			condition.meetingResult = meetingResult;
+			condition.meetingNotes = meetingNotes;
+			return condition;
+		}
 </script>
