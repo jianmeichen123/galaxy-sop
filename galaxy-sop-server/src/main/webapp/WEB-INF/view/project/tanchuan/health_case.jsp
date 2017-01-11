@@ -26,7 +26,7 @@
 				</div>
 			</div>
 		
-		<div class="conference_all_750 scroll_table" style="position:relative;">
+		<div class="conference_all_750 scroll_table" style="position:relative;" id="health_case_scroll">
 			<table class="health_case table table_health_case">
 				<thead>
 					<tr>
