@@ -88,10 +88,12 @@ var editApprActualDialog = {
 											
 											
 											$.each(data.entity.files,function(){
-												var htm = "<div>"+
-																this.fileName+"."+this.fileSuffix+
-															"</div>"
-												$("#show_actual_file").find("dd").append(htm);
+												var htm = "<tr id='"+this.id+"tr'>"+
+												"<td>"+this.fileName+"."+this.fileSuffix+
+													"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+												"</td>"+
+												"<td>"+plupload.formatSize(this.fileLength)+"</td>";
+												$("#filelist").append(htm);
 											});
 											
 											$("#choose_up_file").remove();
