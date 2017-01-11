@@ -3916,7 +3916,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			pd.setDepartmentName(null==map.get(p.getProjectDepartid())?"":map.get(p.getProjectDepartid()));
 			pd.setFinanceStatus(null==p.getFinanceStatusDs()?"":p.getFinanceStatusDs());
 			pd.setCtime(null==p.getCtime()?"":p.getCtime());
-			pd.setFinalContribution(null==p.getFinalContribution()?"":p.getFinalContribution().toString());
+			
+			java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+			nf.setGroupingUsed(false);
+			String  finalContribution = "";
+			if(null != p.getFinalContribution()){
+				finalContribution = nf.format(p.getFinalContribution());
+			}
+			pd.setFinalContribution(finalContribution);
 			pd.setRadioStr(setRadioStr(p.getFinalShareRatio(),p.getServiceCharge()));
 			pd.setFinanceHistory(financeHistoryStr(p.getId()));
 			String result="";

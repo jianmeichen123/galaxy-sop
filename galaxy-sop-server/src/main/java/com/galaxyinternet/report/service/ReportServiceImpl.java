@@ -82,11 +82,17 @@ public abstract class ReportServiceImpl<T extends PagableEntity> implements Repo
 					List<BasicElement> columnList = getColumns();
 					for(BasicElement column : columnList){
 						if(column.getGetterMethod().equals("num")){
-							excelManager.createCell(workbook, row, (int)column.getColumn(), Integer.toString(i+1), font1);
+							excelManager.createCell(workbook, row, (int)column.getColumn(), Integer.toString(i+1), font1,2);
 						}else{
 							Method method = report.getClass().getMethod((String) column.getGetterMethod(), null);
 							Object value = (Object)method.invoke(report, null);
-							excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1);
+							//业务需要根据某字段设置单独的属性
+							if("getFinalContribution".equals(column.getGetterMethod())){
+								excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1,1);
+							}else{
+								excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1,2);
+							}
+							
 						}
 					}	
 				}
