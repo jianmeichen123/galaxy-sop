@@ -54,13 +54,13 @@
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>股权占比：</dt>
 	                <dd>
-	                	<div><span>${actualTotalInfo.finalShareRatio}%</span></div> 
+	                	<div><span><fmt:formatNumber value="${actualTotalInfo.finalShareRatio}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>%</span></div> 
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>加速服务费占比：</dt>
 	                <dd>
-	                	<div><span>${actualTotalInfo.serviceCharge}%</span></div> 
+	                	<div><span><fmt:formatNumber value="${actualTotalInfo.serviceCharge}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>%</span></div> 
 	                </dd>
 	            </dl>
 	            
