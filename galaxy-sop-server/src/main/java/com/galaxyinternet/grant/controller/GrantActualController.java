@@ -204,7 +204,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				actual.setPlanGrantMoney(total.getGrantMoney());  
 				Double surplusGrantMoney = part.getGrantMoney();
 				for(GrantActual temp : actualList){
-					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 2));
+					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 4));
 				}
 				//剩余金额
 				actual.setSurplusGrantMoney(surplusGrantMoney);
