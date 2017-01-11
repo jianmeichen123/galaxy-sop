@@ -47,7 +47,7 @@
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数" /> --%>
 	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
 	                    		value="${finalContributions}" onblur="set_finalValuations()"
-	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+	                    		valType="OTHER" regString="^(0(\.\d{1,4})?|[1-9]\d{0,8}|[1-9]\d{0,8}\.0{1,4}|[1-9]\d{0,4}\.\d{1,4})$" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>

@@ -55,7 +55,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" allownull="no" valtype="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" allownull="no" valtype="OTHER" regString="^(0(\.\d{1,4})?|[1-9]\d{0,8}|[1-9]\d{0,8}\.0{1,4}|[1-9]\d{0,4}\.\d{1,4})$" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
