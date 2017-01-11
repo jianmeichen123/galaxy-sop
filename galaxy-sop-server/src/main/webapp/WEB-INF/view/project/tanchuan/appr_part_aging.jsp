@@ -13,7 +13,7 @@
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
 	    <div class="form clearfix" id="actual_aging_container">
-	        <div class="conference_all">
+	        <div class="appr_aging">
 	           <form id="actual_aging_form">
 		            <dl class="fmdl fl_l  clearfix">
 		                <dt>协议名称：</dt>
