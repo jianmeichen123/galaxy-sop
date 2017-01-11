@@ -2009,7 +2009,7 @@ dl{position: relative;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
 .editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
-#show_up_file{max-height:100px;overflow:auto;}
+#show_up_file,#show_actual_file{max-height:100px;overflow:auto;}
 #show_up_file table td{height:26px;line-height:26px;}
 .scroll_table .fixed-table-body{max-height:250px; overflow-y:auto;}
 #div_meetingNotes dd{width:490px;margin:0;}
