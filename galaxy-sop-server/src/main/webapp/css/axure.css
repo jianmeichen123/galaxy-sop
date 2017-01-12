@@ -1486,12 +1486,12 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     height: 18px;
     line-height: 18px;
     /* float: left; */
-    position:absolute;
 }
 .new_ul_all .ico_dot{
 	 background-position: 5px -200px;
     padding: 0 0 0 22px;
 	margin-top:9px;
+	position:absolute;
 }
 /* .ico {
     background: url(../img/functionico.png) no-repeat;
@@ -1838,7 +1838,7 @@ word-wrap:break-word;
   background-color: #fff;
   width: 100%;
   margin-top: 10px;
-  height: 310px;
+  height: 320px;
 }
 .page .project_on{height:560px}
 .title_bj_tzjl {
