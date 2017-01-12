@@ -72,7 +72,7 @@ function  assembleHtml(grantTotal,i){
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'
           +'</div>'    
          +'<div class="b_agreement_r fr">'
-            +'<button class="pbtn bluebtn rolehide" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期注资计划" data-total-name="'+grantTotal.grantName+'">添加分期注资计划</button>'
+            +'<span class="pbtn bluebtn rolehide" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期注资计划" data-total-name="'+grantTotal.grantName+'">添加分期注资计划</span>'
             +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="info" data-val="'+grantTotal.id+'"data-name="查看总注资计划">查看</label>'
             +'<label class="blue rolehide" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总注资计划">编辑</label>'
             +'<label class="blue rolehide" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
@@ -98,7 +98,7 @@ function  assembleHtml(grantTotal,i){
 
 function  assembleSingleTabHtml(grantPart,grantName,i,k){
 	 var value='<tr>'	 
-		   +'<td><a class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.grantName+'</a></td>'
+		   +'<td><label class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.grantName+'</label></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
 		   +'<td>'+fixSizeDecimal(grantPart.grantMoney,4)+'</td>'
 		   +'<td id="part_'+i+'_'+k+'">'+fixSizeDecimal(grantPart.actualMoney,4)+'</td>'
