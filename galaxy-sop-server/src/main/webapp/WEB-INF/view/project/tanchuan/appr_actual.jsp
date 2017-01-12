@@ -18,7 +18,7 @@
 	<div class="title_bj" id="popup_name">实际注资信息列表</div>
      
     <div class="addbutton btnbox_f1 clearfix margin_45">                        	
-        <a href="javascript:;" id="btn_add_appr_actual" style="display: none"  resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际注资信息</a>        
+        <span id="btn_add_appr_actual" style="display: none"  resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际注资信息</span>        
     </div>
     <div class="form clearfix">
         <div class="actual_all">
@@ -54,18 +54,18 @@
 	    function operatorFormat(value, row, index){
 	    	var opts = '';
 	    	
-	    	opts += '<a class="showActualLink blue" href="javascript:void(0)">查看</a>';
+	    	opts += '<label class="showActualLink blue">查看</label>';
 	    	
 	    	if(isContainResourceByMark('edit_appr_actual') && isTransfering != 'true')
     		{
-	    		opts += '<a class="editActualLink blue"  href="javascript:void(0)">编辑</a>';
+	    		opts += '<label class="editActualLink blue"  href="javascript:void(0)">编辑</label>';
     		}
 	    	if(isContainResourceByMark('delete_appr_actual') && isTransfering != 'true')
     		{
-	    		opts += '<a class="deleteActualLink blue"  href="javascript:void(0)">删除</a>';
+	    		opts += '<label class="deleteActualLink blue"  href="javascript:void(0)">删除</label>';
     		}
 	    	if(row.fileNum && row.fileNum > 0){
-	    		opts += '<a class="downfile blue" href="javascript:void(0)">下载附件</a>';
+	    		opts += '<label class="downfile blue" href="javascript:void(0)">下载附件</label>';
 	    	}
 	    	
 		    return opts;

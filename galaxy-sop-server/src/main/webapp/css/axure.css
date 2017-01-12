@@ -1948,7 +1948,7 @@ dl{position: relative;}
 .status img{display: inline-block;position: absolute; left: 70px;}
 .new_b_bottom ul li{width:33.33%;}
 .h_bluebtn{background:#539be2;border:1px solid #539be2;}
-.pbtn{ display:block; height:28px;text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;padding: 0 10px;}
+.pbtn{cursor:pointer; display:block; height:28px;text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;padding: 0 10px;}
 .ritmin .top .btnbox_f .ca4{background-position: 8px -120px;padding: 0 10px 0 26px;}
 .pro_analysis .fmdll{margin-right: 30px;}
 .proOperation .min_document{margin: 0 30px;width: auto;position: relative;margin-top: 10px;margin-bottom: 20px;}
@@ -2133,7 +2133,7 @@ dl{position: relative;}
 .b_agreement_r{width:29%;padding-top: 8px;}
 .b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
 .b_agreement_l dl{margin-right:5%;margin-top: 12px;}
-.b_agreement_r button{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
+.b_agreement_r button,.b_agreement_r span{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
 .b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left:3.6%;cursor: pointer;}
 .money{margin:40px 0 30px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
@@ -2162,7 +2162,7 @@ margin: 45px auto 30px;}
 .appr_aging{min-width: 590px;margin:45px auto 30px}
 .actual_all th,.actual_all td{padding:0 5px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
-#actual-table td a{margin-right:10px;}
+#actual-table td a,#actual-table td label{margin-right:10px;cursor:pointer;}
 .moeny_all .money ,#setValue .money ,#label_grant_money .money{ position: absolute; top: -39px;  left: 285px;}
 .bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 140px;    border: 1px solid #dadfe3; border-radius: 4px;
     padding: 0 4px;  font-size: 12px;}

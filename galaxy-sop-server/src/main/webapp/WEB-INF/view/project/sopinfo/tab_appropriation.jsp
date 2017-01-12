@@ -18,7 +18,7 @@
                         <!--按钮-->
                         <c:if test="${isEditable}">
                         <div class="btnbox_f btnbox_f1">
-                            <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</a>
+                            <span class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
                         </div>
                         </c:if>
                     </div>
