@@ -2122,7 +2122,7 @@ dl{position: relative;}
     color: #FFF;
     cursor:default;
  }
- .mar_left{ float:left;}
+ .mar_left{ float:left;margin-right:10px;}
   /* 投后运营V2.3.91 */
 .ritmin .fund_list .bottom  dl dd .txt{width:130px;}
 .fund_list .cx{margin-left:10px;}
