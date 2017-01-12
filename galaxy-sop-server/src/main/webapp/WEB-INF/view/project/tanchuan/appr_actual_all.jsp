@@ -47,7 +47,7 @@
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数" /> --%>
 	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
 	                    		value="${finalContributions}" onblur="set_finalValuations()"
-	                    		allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+	                    		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
