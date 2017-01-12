@@ -212,9 +212,9 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				Project pro = projectService.queryById(total.getProjectId());
 				actual.setProjectCompany(pro.getProjectCompany());  //目标公司
 				//actual.setFinalContribution(pro.getFinalContribution());  //实际投资
-				actual.setFinalShareRatio(pro.getFinalShareRatio());  //股权占比
-				actual.setServiceCharge(pro.getServiceCharge());  //加速服务费占比
-				actual.setFinalValuations(pro.getFinalValuations());  //实际估值
+				actual.setFinalShareRatio(total.getFinalShareRatio());  //股权占比
+				actual.setServiceCharge(total.getServiceCharge());  //加速服务费占比
+				actual.setFinalValuations(total.getFinalValuations());  //实际估值
 				
 			}else{
 				responseBody.setResult(new Result(Status.ERROR, "参数错误(partGrandID)"));
