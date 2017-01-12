@@ -99,16 +99,16 @@
 	
 	<script>
 	$(function(){
-		if($("#grantMoney").val() == '0.0'){
+		if($("#grantMoney").val() == '0.0' || $("#grantMoney").val() == '0.00' || $("#grantMoney").val() == '0.0000'){
 			$("#grantMoney").val(null);
 		}
-		if($("#finalShareRatio").val() == '0.0'){
+		if($("#finalShareRatio").val() == '0.0' || $("#finalShareRatio").val() == '0.00' || $("#finalShareRatio").val() == '0.0000'){
 			$("#finalShareRatio").val(null);
 		}
-		if($("#serviceCharge").val() == '0.0'){
+		if($("#serviceCharge").val() == '0.0' || $("#serviceCharge").val() == '0.00' || $("#serviceCharge").val() == '0.0000'){
 			$("#serviceCharge").val(null);
 		}
-		if($("#finalValuations").val() == '0.0'){
+		if($("#finalValuations").val() == '0.0' || $("#finalValuations").val() == '0.00' || $("#finalValuations").val() == '0.0000'){
 			$("#finalValuations").val(null);
 		}
 	});
