@@ -1485,7 +1485,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     background: url(../img/functionico.png) no-repeat;
     height: 18px;
     line-height: 18px;
-    float: left;
+    /* float: left; */
+    position:absolute;
 }
 .new_ul_all .ico_dot{
 	 background-position: 5px -200px;
@@ -1548,6 +1549,7 @@ font-family: "宋体";
 word-break:break-all;
 word-wrap:break-word;
 }
+.new_ul_all>p{padding-left:20px;}
 .new_ul_all p img{width:100%;margin:0 auto;}
 .tabtable_con_on .block_wrap{padding:10px 10px 0;}
 .tabtable_con_on .new_nputr.text,.basic_on .new_nputr.text{width:630px;height:50px;line-height:18px;padding-bottom:26px !important;}
