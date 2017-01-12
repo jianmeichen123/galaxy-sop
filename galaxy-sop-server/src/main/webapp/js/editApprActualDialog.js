@@ -167,7 +167,7 @@ var editApprActualDialog = {
 												remainMoney = fixSizeDecimal(parseFloat(remainMoney),4);
 
 												remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); // 剩余+实际注资
-												$surplusGrantMoney.html("剩余金额" +remainMoney + " 万元");											         
+												$surplusGrantMoney.html("剩余金额" +remainMoney + "万元");											         
 												$formGrantMoney.blur(function(){
 												var grantMoney=$formGrantMoney.val();
 												if(!beforeSubmitById("form_edit_actual_dialog")){

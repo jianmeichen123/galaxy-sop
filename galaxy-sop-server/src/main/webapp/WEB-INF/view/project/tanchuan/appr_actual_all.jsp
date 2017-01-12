@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -46,8 +47,8 @@
 	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数" /> --%>
 	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
-	                    		value="${finalContributions}" onblur="set_finalValuations()"
-	                    		allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+	                    		value="<fmt:formatNumber value="${finalContributions}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
+	                    		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
@@ -57,7 +58,7 @@
 	                <dd>
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" size ="10" id="finalShareRatio" name="finalShareRatio" 
-	                    		value="${finalShareRatio}"  onblur="set_finalValuations()"
+	                    		value="<fmt:formatNumber value="${finalShareRatio}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
 	                    		maxLength="20"  allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
 	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
 	                    	<span class='money'>%</span>
@@ -68,7 +69,7 @@
 	                <dt>加速服务费占比 ：</dt>
 	                <dd>
 	                	<div id="setValue"> <!-- regString="^(\d{1,2}(\.\d{1,4})?)$"   -->
-	                    	<input class="txt" type="text" size ="10" id="serviceCharge" name="serviceCharge" value="${serviceCharge }" 
+	                    	<input class="txt" type="text" size ="10" id="serviceCharge" name="serviceCharge" value="<fmt:formatNumber value="${serviceCharge}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
 	                    		maxLength="20"  allowNULL="no" valType="OTHER" regstring="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$"
 	                    		msg="<font color=red>*</font>0到5之间的四位小数" />
 	                    	<span class='money'>%</span>
@@ -79,7 +80,7 @@
 	                <dt>项目估值：</dt>
 	                <dd>
 	                	<div id="setValue">
-	                    	<input class="txt" type="text" id="finalValuations" name="finalValuations" value="${finalValuations }" 
+	                    	<input class="txt" type="text" id="finalValuations" name="finalValuations" value="<fmt:formatNumber value="${finalValuations}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
 	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div>
@@ -99,16 +100,16 @@
 	
 	<script>
 	$(function(){
-		if($("#grantMoney").val() == '0.0'){
+		if($("#grantMoney").val() == '0.0' || $("#grantMoney").val() == '0.00' || $("#grantMoney").val() == '0.0000'){
 			$("#grantMoney").val(null);
 		}
-		if($("#finalShareRatio").val() == '0.0'){
+		if($("#finalShareRatio").val() == '0.0' || $("#finalShareRatio").val() == '0.00' || $("#finalShareRatio").val() == '0.0000'){
 			$("#finalShareRatio").val(null);
 		}
-		if($("#serviceCharge").val() == '0.0'){
+		if($("#serviceCharge").val() == '0.0' || $("#serviceCharge").val() == '0.00' || $("#serviceCharge").val() == '0.0000'){
 			$("#serviceCharge").val(null);
 		}
-		if($("#finalValuations").val() == '0.0'){
+		if($("#finalValuations").val() == '0.0' || $("#finalValuations").val() == '0.00' || $("#finalValuations").val() == '0.0000'){
 			$("#finalValuations").val(null);
 		}
 	});

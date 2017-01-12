@@ -3919,6 +3919,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			
 			java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
 			nf.setGroupingUsed(false);
+			nf.setMaximumFractionDigits(4);  
 			String  finalContribution = "";
 			if(null != p.getFinalContribution()){
 				finalContribution = nf.format(p.getFinalContribution());

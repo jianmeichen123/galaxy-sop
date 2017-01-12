@@ -18,7 +18,7 @@
                         <!--按钮-->
                         <c:if test="${isEditable}">
                         <div class="btnbox_f btnbox_f1">
-                            <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</a>
+                            <span class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
                         </div>
                         </c:if>
                     </div>
@@ -351,9 +351,9 @@ function paramsContion(){
 	}
 	var remainMoney = $("#remainMoney").val();
 	var grantMoneyOld=$("#oldRemainMoney").val();
-	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(2);
+	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(4);
 	
-	var inputValueMoney = Number(partMoney).toFixed(2);
+	var inputValueMoney = Number(partMoney).toFixed(4);
 	if(parseFloat(inputValueMoney) > parseFloat(newgrant)){
 		layer.msg("分期注资金额之和大于总注资金额");
 		return false;
