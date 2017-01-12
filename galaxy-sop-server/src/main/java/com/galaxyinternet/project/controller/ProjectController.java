@@ -3924,6 +3924,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(null != p.getFinalContribution()){
 				finalContribution = nf.format(p.getFinalContribution());
 			}
+			
+			
 			pd.setFinalContribution(finalContribution);
 			pd.setRadioStr(setRadioStr(p.getFinalShareRatio(),p.getServiceCharge()));
 			pd.setFinanceHistory(financeHistoryStr(p.getId()));
@@ -3971,13 +3973,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String setRadioStr(Double finalradio,Double serviceRadio){
 		String finalradioStr="";
 		String serviceRadioStr="";
+		java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+		nf.setGroupingUsed(false);
+		nf.setMaximumFractionDigits(4);  
+		
 		if(null!=finalradio&&!finalradio.equals("")){
-			finalradioStr=finalradio.toString()+"%";
+			finalradioStr = nf.format(finalradio)+"%";
 		}
 	    if(null!=serviceRadio&&!serviceRadio.equals("")){
-	    	serviceRadioStr= serviceRadio.toString()+"%";
+	    	serviceRadioStr= nf.format(serviceRadio)+"%";
 		}
-	     return finalradioStr+","+serviceRadioStr;
+	    return finalradioStr+","+serviceRadioStr;
      }
 	/**
 	 * 格式化项目融资历史
