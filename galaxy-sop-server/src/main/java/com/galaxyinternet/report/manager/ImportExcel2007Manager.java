@@ -185,6 +185,13 @@ public class ImportExcel2007Manager {
 		case 1 :   
 		        DataFormat format = wb.createDataFormat();  
 		        cellStyle.setDataFormat(format.getFormat("@"));  
+		        cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+				cellStyle.setFont(font);
+				cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+				cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+				cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+				cellStyle.setBorderRight(CellStyle.BORDER_THIN);
 		        cell.setCellStyle(cellStyle);  
 		        cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
 		        cell.setCellValue(value+"");
