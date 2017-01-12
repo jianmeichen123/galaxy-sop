@@ -19,12 +19,13 @@
             <!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
             	<c:if test="${isEditable}">
+            	 
                 <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
             	</c:if>
             	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
-                <c:if test="${isEditable}">
+                <%-- <c:if test="${isEditable}">
             	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
-                </c:if>
+                </c:if> --%>
             </div>
         </div>
         <!-- 搜索条件 -->
@@ -96,7 +97,6 @@
 	
 $(function(){
 	show_health_case();
-	show_health_status();
 });
 
 function hide_health_case(){
@@ -115,7 +115,7 @@ function show_health_case(){
 	$("[data-btn='health_case']").on("click",function(){
 		var $self = $(this);
 		var _name= $self.attr("data-name");
-		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist';
+		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist?hiddenBtn=${isEditable}';
 		$.getHtml({
 			url:_url,
 			data:"",
@@ -129,51 +129,8 @@ function show_health_case(){
 		return false;
 	});
 }
-/**
- * 健康记录  添加
- */
-function show_health_status(){
-	$("[data-btn='health_status']").text("健康状况");
-	$("[data-btn='health_status']").on("click",function(){
-		if($(this).hasClass('limits_gray'))
-		{
-			return;
-		}
-		var $self = $(this);
-		var _name= $self.attr("data-name");
-		var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
-		$.getHtml({
-			url:_url,
-			data:"",
-			okback:function(){
-				$("#popup_name").html(_name);
-				$("#health_form [name='projectId']").val(proid);
-			}
-		});
-		return false;
-	});
-}
-function save_health(){
-	var content = JSON.parse($("#health_form").serializeObject());
-	var _url =  Constants.sopEndpointURL + '/galaxy/health/addhealth'
-	sendPostRequestByJsonObj(_url, content, function(data){
-		if (data.result.status=="OK") {
-			layer.msg("保存成功");
-			removePop1();
-			//启用滚动条
-			 $(document.body).css({
-			   "overflow-x":"auto",
-			   "overflow-y":"auto"
-			 });
-			//刷新投后运营简报信息
-			setThyyInfo();
-			$("#project_delivery_table").bootstrapTable('refresh');
-		} else {
-			layer.msg(data.result.message);
-		}
-	});
-	
-}
+
+
 $(".datepicker").datepicker({
     format: 'yyyy-mm-dd',
     language: "zh-CN",

@@ -125,9 +125,9 @@ function paramsContion(){
 	}
 	var remainMoney = $("#remainMoney").val();
 	var grantMoneyOld=$("#oldRemainMoney").val();
-	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(2);
+	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(4);
 	
-	var inputValueMoney = Number(partMoney).toFixed(2);
+	var inputValueMoney = Number(partMoney).toFixed(4);
 	if(parseFloat(inputValueMoney) > parseFloat(newgrant)){
 		layer.msg("分期注资金额之和大于总注资金额");
 		return false;

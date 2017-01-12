@@ -7,13 +7,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.Project;
 
 
@@ -157,4 +160,55 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	public List<Long> selectProIdsForPrivilege(Map<String, Object> params) {
 		return sqlSessionTemplate.selectList(getSqlName("selectProIdsForPrivilege"),params);
 	}
+	
+	@Override
+	public Page<Project> selectDeptProject(Project query, Pageable pageable) {
+		
+		Map<String, Object> params = BeanUtils.toMap(query, getRowBounds(pageable));
+		if (pageable != null && pageable.getSort() != null) {
+			String sorting = pageable.getSort().toString();
+			params.put("sorting", sorting.replace(":", ""));
+			String str=(String)params.get("sorting");
+			if(str.contains("---")){
+				params.put("sorting", str.replace("---", ":"));
+			}
+		}
+		List<Project> selectList = sqlSessionTemplate.selectList(getSqlName("selectDeptProject"),params);
+	  return new  Page<Project>(selectList, pageable, deptProjectCount(query));
+	}
+		@Override
+		public Page<Project> selectProjectTotalTime(Project query, Pageable pageable) {
+			
+			Map<String, Object> params = BeanUtils.toMap(query, getRowBounds(pageable));
+			if (pageable != null && pageable.getSort() != null) {
+				String sorting = pageable.getSort().toString();
+				params.put("sorting", sorting.replace(":", ""));
+				String str=(String)params.get("sorting");
+				if(str.contains("---")){
+					params.put("sorting", str.replace("---", ":"));
+				}
+			}
+			List<Project> selectList = sqlSessionTemplate.selectList(getSqlName("selectProjectTotalTime"),params);
+		
+		  return new  Page<Project>(selectList, pageable, projectTotalTimeCount(query));
+		}
+		@Override
+		public Long deptProjectCount(Project query) {
+			try {
+				Map<String, Object> params = BeanUtils.toMap(query);
+				Long reslut=sqlSessionTemplate.selectOne(this.getSqlNamespace()+ ".deptProjectCount", params);
+				return reslut;
+			} catch (Exception e) {
+				throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("deptProjectCount")), e);
+			}
+		}
+		@Override
+		public Long projectTotalTimeCount(Project query) {
+			try {
+				Map<String, Object> params = BeanUtils.toMap(query);
+				return sqlSessionTemplate.selectOne(this.getSqlNamespace()+ ".projectTotalTimeCount", params);
+			} catch (Exception e) {
+				throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("projectTotalTimeCount")), e);
+			}
+		}
 	}

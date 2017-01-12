@@ -60,6 +60,7 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(1);
+		$(".pagebox .lft li ul").hide();
 		var initParams,
 				pageParams=cookieOperator.getDataNoDelete({_paramKey : 'messageList',_path : "/"}),
 				toPageNum = 1,
@@ -124,6 +125,9 @@
 	    			}
 	    		}
 	        	initPageSize=10;
+	        	if($(".new_tit_a a").text()=='工作桌面'){
+	    			$("#menus li").eq(0).addClass("on").siblings().removeClass();
+	    		}
 	        }
 		});
 		

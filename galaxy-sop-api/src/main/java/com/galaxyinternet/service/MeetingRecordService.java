@@ -13,7 +13,7 @@ import com.galaxyinternet.model.sopfile.SopFile;
 
 public interface MeetingRecordService extends BaseService<MeetingRecord> {
 
-	Long insertMeet(MeetingRecord meetingRecord, Project project, SopFile sopFile, boolean equalNowPrograss);
+	Long insertMeet(MeetingRecordBo meetingRecord, Project project, SopFile sopFile, boolean equalNowPrograss);
 	
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable);
 
@@ -39,6 +39,6 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	public Long insertMeeting(MeetingRecord query);
 	
 	public boolean saveMeeting(MeetingRecord query,Long userId);
-	
+
 
 }

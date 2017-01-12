@@ -32,6 +32,8 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.model.chart.DataFormat;
+import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
@@ -985,10 +987,19 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	@ResponseBody
 	@RequestMapping(value="/exportKpiGrade")
 	public void exportKpiGrade(HttpServletRequest request,HttpServletResponse response){
+		@SuppressWarnings("unchecked")
 		List<ChartDataBo> chartDataList = (List<ChartDataBo>) request.getSession().getAttribute("kpiDataList");	
+		String partnerSdate = (String) request.getSession().getAttribute("partnerSdate");	
+		String  partnerEdate = (String) request.getSession().getAttribute("partnerEdate");	
+		
+		
 		String suffix = request.getParameter("suffix");
+		DataFormat<ChartDataBo> setFormat=new DataFormat<ChartDataBo>();
 		try {
-			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
+			setFormat.setList(chartDataList);
+			setFormat.setStartTime(partnerSdate);
+			setFormat.setEndTime(partnerEdate);
+			SopReportModal modal = reportService.createReport(setFormat,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
 			reportService.download(request, response, modal);
 		} catch (Exception e) {
 			logger.error("下载失败.",e);

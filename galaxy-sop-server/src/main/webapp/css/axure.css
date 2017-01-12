@@ -5,9 +5,9 @@ body{font-size:14px; font-family:"微软雅黑"; background:#E9EBF2;}
 html,body,div,ul,ol,li,dl,dt,dd,p,span,em,strong,b,i,h1,h2,h3,h4,form,input,button,textarea,select,option,img,a{ margin:0; padding:0}
 ul,ol,dl,dt,dd,p,img{ display:block; border:0}
 a{ text-decoration:none; outline:none;font-size:12px; font-family:"宋体"}
-a:hover{ text-decoration:underline}
+a:hover{ text-decoration:none;}
 li{ display:block; list-style:none}
-textarea{resize: none;outline: none}
+textarea{resize: none;outline: none;line-height:18px !important;}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .pointer-events{pointer-events: none;}
 .userinfro select{ margin-left:10px;   padding: 0px 0 !important;}
@@ -1038,11 +1038,11 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:430px; }
 .xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:auto;}
 /*新增会议*/
-.meetingtc{ width:680px}
+.meetingtc{ width:685px}
 .meetingtc .top{ margin:0 0 15px}
 .meetingtc .top .searchall{ float:right; margin:0}
 .meetingtc .top .fmdl{ margin:0}
-.meetingtc .min{ margin:0 0 15px}
+.meetingtc .min{ margin:0 0 5px}
 .meetingtc .min .fmdl{ margin:0; float:left}
 .meetingtc .min .fml dd{ width:312px}
 .meetingtc .fmdl .edit{ width:588px; height:230px; border:1px solid #ccd2d7}
@@ -1948,7 +1948,7 @@ dl{position: relative;}
 .status img{display: inline-block;position: absolute; left: 70px;}
 .new_b_bottom ul li{width:33.33%;}
 .h_bluebtn{background:#539be2;border:1px solid #539be2;}
-.pbtn{ display:block; height:28px;text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;padding: 0 10px;}
+.pbtn{cursor:pointer; display:block; height:28px;text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;padding: 0 10px;}
 .ritmin .top .btnbox_f .ca4{background-position: 8px -120px;padding: 0 10px 0 26px;}
 .pro_analysis .fmdll{margin-right: 30px;}
 .proOperation .min_document{margin: 0 30px;width: auto;position: relative;margin-top: 10px;margin-bottom: 20px;}
@@ -1986,7 +1986,7 @@ dl{position: relative;}
 .post_operatetc_750{ width:750px;}
 #post-meeting-dialog{position:static !important;}
 .conference_all{ width:590px; margin:45px auto 30px;}
-.conference_all_750{ width:730px; margin:45px auto 30px;}
+.conference_all_750{ width:730px; margin:45px auto 0px;}
 .area{ width:420px; min-height:80px; overflow-y: auto}
 .button_affrim{ width:202px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
 .area_input{ width:328px; height: 28px !important;}
@@ -2005,15 +2005,15 @@ dl{position: relative;}
 .run_digest_ul{ width:100%; overflow:hidden;}
 .run_digest_ul li{ float:left; width:50%;}
 .area_run{ width:420px; max-height:200px; overflow-y:auto;}
-.health_case{ width:100%; border:1px solid #ccd2d7;  margin-top:10px;}
+.health_case{ width:100%; border:1px solid #ccd2d7;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
 .editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
-#show_up_file{max-height:100px;overflow:auto;}
+#show_up_file,#show_actual_file{max-height:100px;overflow:auto;}
 #show_up_file table td{height:26px;line-height:26px;}
 .scroll_table .fixed-table-body{max-height:250px; overflow-y:auto;}
 #div_meetingNotes dd{width:490px;margin:0;}
-.conference_all dd{font-size:12px;font-family:'宋体'}
+.conference_all dd,.appr_aging dd{font-size:12px;font-family:'宋体'}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
 .div_meetingNotes_dd{max-height:250px;overflow:auto;word-wrap:break-word}
@@ -2130,11 +2130,11 @@ dl{position: relative;}
 .b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
 .b_agreement_l {width:70%}
 .b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"微软雅黑";}
-.b_agreement_r{width:28%;padding-top: 8px;}
+.b_agreement_r{width:29%;padding-top: 8px;}
 .b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
 .b_agreement_l dl{margin-right:5%;margin-top: 12px;}
-.b_agreement_r button{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
-.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 8%;cursor: pointer;}
+.b_agreement_r button,.b_agreement_r span{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
+.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left:3.6%;cursor: pointer;}
 .money{margin:40px 0 30px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
 .proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
@@ -2157,11 +2157,12 @@ border: 1px solid #dadfe3;
 background: #ffffff;
 border-radius: 4px;
 padding: 0 4px;}
-.edit_actual{width: 450px;
+.edit_actual{min-width: 450px;
 margin: 45px auto 30px;}
+.appr_aging{min-width: 590px;margin:45px auto 30px}
 .actual_all th,.actual_all td{padding:0 5px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
-#actual-table td a{margin-right:10px;}
+#actual-table td a,#actual-table td label{margin-right:10px;cursor:pointer;}
 .moeny_all .money ,#setValue .money ,#label_grant_money .money{ position: absolute; top: -39px;  left: 285px;}
 .bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 140px;    border: 1px solid #dadfe3; border-radius: 4px;
     padding: 0 4px;  font-size: 12px;}
@@ -2193,12 +2194,15 @@ margin: 45px auto 30px;}
 .new_tit_b button.save{margin-top: 20px;}
 .deleteCircleBtn{width: 33px;height: 33px;border:1px solid #539be2;border-radius:50%;background-color: #fff;font-size: 20px;font-weight: bold;color: #539be2;}
 .usermsg div.xingmou{width:81px;height:50px;background:#3e8bd9;margin-top:-15px;position: relative;}
+.ctdn{
+	background: url(../img/ctdn.png) 0px -2px no-repeat !important;
+}
 .xingmou{background-position: -37px -1230px;}
-.usermsg div.xingmou a{padding-left: 40px;}
-.usermsg div.xingmou .navbar{left:10px;width:24px;}
+.usermsg div.xingmou a{padding-left: 29px;}
+.usermsg div.xingmou .navbar{left:4px;width:24px;}
 .man_info{position:relative;}
 .man_info .name{position:absoute;}
-.usermsg a,.man_info span{font-size: 14px;font-family: "微软雅黑";line-height: 24px;}
+.usermsg a,.man_info span{font-size: 12px;font-family: "微软雅黑";line-height: 24px;}
 .man_info .avator{width:24px;height:24px;display:inline-block;background:url(../img/defalut_avator.png) 0 0 no-repeat;margin-right: 10px;}
 .header .usermsg .name{line-height: 24px;background:url(../img/xiala.png) right 6px no-repeat;padding:0 15px 0 0px;margin:0 30px 0 0;}
 .usermsg div.xingmou a{line-height: 50px;}
@@ -2347,9 +2351,22 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .basic_table .fixed-table-container thead th .th-inner{padding:5px 8px;}
 .tip-yellowsimple-wrap{position:relative;}
 .tip-yellowsimple-wrap .tip-yellowsimple{position:absolute;visibility:visible;display:none;left: 75px; top: 0px; opacity: 1;margin-top:0 !important;}
-
+.health_case
 
 .financeHistory{margin-top:10px;}
 .prompttc{width:400px;}
 .prompttc .tips{margin:20px auto 0;width:350px;font-size:14px;}
 .prompttc .tipspc{background:url(../img/tips.png) 0 -16px no-repeat;display:inline-block;width:25px;height:25px;position:absolute;top:0;left:0;}
+/* 事业部创投项目列表 */
+#data-table-deptProject th,.approp_table th{white-space:nowrap;}
+#data-table-deptProject td,.approp_table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#data-table-deptProject{table-layout:fixed}
+.bootstrap-table #data-table-deptProject > tbody > tr > td{padding:0 5px !important}
+.toShow_tjh .new_nputr_number{border:1px solid #dadfe3;height:28px;line-height:28px;width:130px;}
+.addmentc .fmdl .fmload  dd .txt{width:240px;}
+.edit_actual dd span{font-size:12px;font-family:'宋体';}
+#project_health_table th{display:none;}
+.table_health_case{width:100%;position:absolute;left:0;top:-36px;border-collapse:collapse;}
+.table_health_case th{padding:0 5px;}
+#health_case_scroll .fixed-table-body{height:155px; overflow-y:auto;}
+.approp_table td label{margin-right: 13px;cursor: pointer;}

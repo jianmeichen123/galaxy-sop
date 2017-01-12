@@ -54,5 +54,24 @@ public interface ProjectService extends BaseService<Project> {
 	List<Long> getProIdsForPrivilege(Map<String, Object> params);
 	
 	public Long addProPersonAndPerInfo(PersonPool pool) throws Exception;
+	
+	/**
+	 * @author chenjianmei
+	 * @serialData  2017-01-03
+	 * 投后运营-头后项目跟踪-事业部创投项目列表（查询条件不包括融资时间）
+	 * @param query
+	 * @param pageable
+	 * @return
+	 */
+	public Page<Project> selectDeptProject(Project query, Pageable pageable);
+	/**
+	 * @author chenjianmei
+	 * 投后运营-头后项目跟踪-事业部创投项目列表（查询条件包括融资时间）
+	 * @serialData  2017-01-03
+	 * @param query
+	 * @param pageable
+	 * @return
+	 */
+	public Page<Project> selectProjectTotalTime(Project query, Pageable pageable);
 
 }

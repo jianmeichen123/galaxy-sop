@@ -12,7 +12,7 @@
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
 	    <div class="form clearfix" id="actual_aging_container">
-	        <div class="conference_all">
+	        <div class="conference_all appr_aging">
 	           <form id="actual_aging_form">
 		            <dl class="fmdl fl_l  clearfix">
 		                <dt>协议名称 ：</dt>
@@ -35,13 +35,13 @@
 		                <dd>
 		                	
 		                	<div>
-		                    	<input class=" txt " name="grantMoney" type="text" value="" valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	<input class=" txt " name="grantMoney" type="text" value="" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    </div> 
-	                        <div class="gray">剩余金额${remainMoney }元</div> 
+	                        <div class="gray">剩余金额${remainMoney }万元</div> 
 		                </dd>
 		            </dl>
                  </form>
-	            <div class="affrim_line"></div>
+	            <!-- <div class="affrim_line"></div> -->
 	             <dl class="fmdl fl_l" id="choose_up_file">
 		                 <dt>上传附件 ：</dt>
 		                 <div class="fmload clearfix">

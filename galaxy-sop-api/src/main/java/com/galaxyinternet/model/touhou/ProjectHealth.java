@@ -49,12 +49,16 @@ public class ProjectHealth extends PagableEntity {
 
     public void setHealthState(Byte healthState) {
     	if(healthState!=null){
-			if(healthState == 1){
+    		if(healthState == 0){
+    			healthStateStr = "初始";
+    		}if(healthState == 1){
 				healthStateStr = "高于预期";
 			}else if(healthState == 2){
 				healthStateStr = "正常";
 			}else if(healthState == 3){
 				healthStateStr = "健康预警";
+			}else if(healthState == 4){
+				healthStateStr = "清算";
 			}
 		}
         this.healthState = healthState;

@@ -28,9 +28,13 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String direction;// asc,desc
 	private String property;// 排序的字段名称
 	
+    
 	
-	
-	
+    private Double finalValuations;//实际估值
+  	private Double finalContribution;//实际投资
+  	private Double finalShareRatio;//实际所占股份百分比
+  	private Double serviceCharge;
+  	
 	private String projectType;
 	private List<Long> userIdList;
 	private List<Long> deptIdList;
@@ -178,6 +182,30 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setDeptIdList(List<Long> deptIdList) {
 		this.deptIdList = deptIdList;
+	}
+	public Double getFinalValuations() {
+		return finalValuations;
+	}
+	public void setFinalValuations(Double finalValuations) {
+		this.finalValuations = finalValuations;
+	}
+	public Double getFinalContribution() {
+		return finalContribution;
+	}
+	public void setFinalContribution(Double finalContribution) {
+		this.finalContribution = finalContribution;
+	}
+	public Double getFinalShareRatio() {
+		return finalShareRatio;
+	}
+	public void setFinalShareRatio(Double finalShareRatio) {
+		this.finalShareRatio = finalShareRatio;
+	}
+	public Double getServiceCharge() {
+		return serviceCharge;
+	}
+	public void setServiceCharge(Double serviceCharge) {
+		this.serviceCharge = serviceCharge;
 	}
 	
 	

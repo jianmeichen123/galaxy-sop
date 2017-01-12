@@ -1,14 +1,17 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,12 +40,17 @@ import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
+import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.MathUtils;
 
 
@@ -62,11 +70,27 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private ProjectService projectService;
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private SopFileService sopFileService;
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
 		return this.grantActualService;
 	}
+	@Autowired
+	BatchUploadFile batchUpload;
+	
+	private String tempfilePath;
+
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
+	
+
 	/**
 	 * 查看实际注资列表弹出层
 	 */
@@ -126,8 +150,17 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			Page<GrantActual> actualPage = grantActualService.queryPageList(actual,
 					new PageRequest(actual.getPageNum(), 
 							actual.getPageSize(), 
-							Direction.fromString("asc"), 
-							"created_time"));
+							Direction.fromString("desc"), 
+							"actual_time"));
+			List<GrantActual> ga = actualPage.getContent();
+			if(ga!=null && !ga.isEmpty()){
+				for(GrantActual gaa : actualPage.getContent()){
+					List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(gaa.getId());
+					if(sopDownLoadList != null){
+						gaa.setFileNum((byte) sopDownLoadList.size());
+					}
+				}
+			}
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
 			_common_logger_.error("查询实际注资列表失败！查询条件：" + actual, e);
@@ -144,35 +177,50 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	@RequestMapping(value="/initEditApprActual",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantActual> initEditApprActual(@RequestBody GrantActual aQuery,HttpServletRequest request){
 		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
+		GrantPart part = new GrantPart();
+		GrantTotal total = new GrantTotal();
 		try {	
 			GrantActual actual = null;
 			//获取实际注资中实际注资金额
 			if(aQuery.getId()!=null){
-				actual = grantActualService.queryById(aQuery.getId());
+				actual = grantActualService.selectGrantActual(aQuery.getId());
+				//actual = grantActualService.queryById(aQuery.getId());
 			}
 			if(aQuery.getPartGrantId()!=null){
 				aQuery.setId(null);
 				List<GrantActual> actualList = grantActualService.queryList(aQuery);
-				GrantPart part = grantPartService.queryById(aQuery.getPartGrantId());
-				GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
+				part = grantPartService.queryById(aQuery.getPartGrantId());
+				total = grantTotalService.queryById(part.getTotalGrantId());
 				if(actual==null){
 					actual = new GrantActual();
 				}
+				
+				//投资方、目标公司、实际注资日期、股权占比、加速服务费占比、项目估值
+				
+				actual.setInvestors(total.getInvestors());  //投资方
 				actual.setProtocolName(total.getGrantName());
 				actual.setPlanGrantTime(part.getGrantDetail());
-				actual.setPlanGrantMoney(part.getGrantMoney());
+				//actual.setPlanGrantMoney(part.getGrantMoney());  
+				actual.setPlanGrantMoney(total.getGrantMoney());  
 				Double surplusGrantMoney = part.getGrantMoney();
 				for(GrantActual temp : actualList){
-					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 2));
+					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 4));
 				}
-				
 				//剩余金额
 				actual.setSurplusGrantMoney(surplusGrantMoney);
-				responseBody.setEntity(actual);
+				
+				Project pro = projectService.queryById(total.getProjectId());
+				actual.setProjectCompany(pro.getProjectCompany());  //目标公司
+				//actual.setFinalContribution(pro.getFinalContribution());  //实际投资
+				actual.setFinalShareRatio(total.getFinalShareRatio());  //股权占比
+				actual.setServiceCharge(total.getServiceCharge());  //加速服务费占比
+				actual.setFinalValuations(total.getFinalValuations());  //实际估值
+				
 			}else{
 				responseBody.setResult(new Result(Status.ERROR, "参数错误(partGrandID)"));
 			}
 			
+			responseBody.setEntity(actual);
 		} catch (DaoException e) {
 			_common_logger_.error("初始化实际注资对话框出现错误", e);
 			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
@@ -205,19 +253,35 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			User blongUser = userService.queryById(project.getCreateUid());
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			
+			if(form.getFileReidsKey() != null){
+				ResponseData<SopFile> result = batchUpload.batchUpload(user.getId()+form.getFileReidsKey());
+				if(Status.OK.equals(result.getResult().getStatus())){
+					List<SopFile> fileList = result.getEntityList();
+					form.setFiles(fileList);
+				}
+			}
+			
 			if(form.getId()==null || form.getId().intValue() == 0){
 				//新增
 				uNum = UrlNumber.one;
 				form.setCreateUid(user.getId());
 				form.setCreateUname(user.getRealName());
-				grantActualService.insert(form);
+				//grantActualService.insert(form);
+				grantActualService.insertGrantActual(form, project);
 			}else{
 				//编辑
 				uNum = UrlNumber.two;
 				GrantActual actual = grantActualService.queryById(form.getId());
+				actual.setFileIds(form.getFileIds());
+				actual.setFileNum(form.getFileNum());
+				actual.setFiles(form.getFiles());
+				actual.setActualTime(form.getActualTime());
 				actual.setGrantMoney(form.getGrantMoney());
 				actual.setUpdatedTime(System.currentTimeMillis());
-				grantActualService.updateById(actual);
+				//grantActualService.updateById(actual);
+				grantActualService.upateGrantActual(actual, project);
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
 			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", uNum);
@@ -242,7 +306,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			Project project = projectService.queryById(total.getProjectId());
 			User blongUser = userService.queryById(project.getCreateUid());
 			
-			grantActualService.deleteById(id);
+			//grantActualService.deleteById(id);
+			grantActualService.deleteGrantActual(id);
 			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (DaoException e) {
@@ -284,5 +349,21 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	}
 	
 	
-	
+	/**
+	 * 文件下载
+	 */
+	@RequestMapping("/downActualFile/{id}")
+	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	{
+		
+		if(id != null){
+			GrantActual grantActual = grantActualService.queryById(id);  //grantActual.getCreatedTime().toString()+
+			List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(id);
+			try {
+				sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
+			} catch (Exception e) {
+				_common_logger_.error("下载失败.",e);
+			}
+		}
+	}
 }

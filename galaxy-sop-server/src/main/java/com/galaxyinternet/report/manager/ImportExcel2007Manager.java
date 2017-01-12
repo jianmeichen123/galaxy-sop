@@ -16,9 +16,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
@@ -164,18 +168,60 @@ public class ImportExcel2007Manager {
 	 * @param value 设置值
 	 * @param font  设置字体
 	 */
-	public void createCell(Workbook wb,Row row,int column,Object value,Font font){
+	public void createCellText(Workbook wb,Row row,int column,Object value,Font font){
 		Cell cell = row.createCell(column);
-		cell.setCellValue(value.toString());
-		CellStyle cellStyle = wb.createCellStyle();
-		cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
-		cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
-		cellStyle.setFont(font);
-		cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
-		cellStyle.setBorderTop(CellStyle.BORDER_THIN);
-		cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
-		cellStyle.setBorderRight(CellStyle.BORDER_THIN);
-		cell.setCellStyle(cellStyle);
+		CellStyle cellStyle2 = wb.createCellStyle();  
+        DataFormat format = wb.createDataFormat();  
+        cellStyle2.setDataFormat(format.getFormat("@"));  
+        cell.setCellStyle(cellStyle2);  
+        cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
+        cell.setCellValue(value+"");
+	}
+	
+	public void createCell(Workbook wb,Row row,int column,Object value,Font font,int type){
+		Cell cell = row.createCell(column);
+		CellStyle cellStyle = wb.createCellStyle();  
+		switch(type){
+		case 1 :   
+		        DataFormat format = wb.createDataFormat();  
+		        cellStyle.setDataFormat(format.getFormat("@"));  
+		        cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+				cellStyle.setFont(font);
+				cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+				cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+				cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+				cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+		        cell.setCellStyle(cellStyle);  
+		        cell.setCellType(HSSFCell.CELL_TYPE_STRING); 
+		        cell.setCellValue(value+"");
+			    break;
+	    case 2 :   
+		        cell.setCellValue(value.toString());
+				cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+				cellStyle.setFont(font);
+				cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+				cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+				cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+				cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+				cell.setCellStyle(cellStyle);
+		    break;
+			      
+		default:
+				cell.setCellValue(value.toString());
+				cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+				cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+				cellStyle.setFont(font);
+				cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+				cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+				cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+				cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+				cell.setCellStyle(cellStyle);
+				break;
+		}
+		
+		
 	}
 	
 	/**
