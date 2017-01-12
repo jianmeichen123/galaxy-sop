@@ -99,9 +99,10 @@ var chartPostAnalysisUtils = {
 		    yAxis : [
 		             {
 		            //name样式
-		             name:'项目数（个）\n',
+		             name:'项目数（个）',
 		             position:'left',
 		             nameLocation:'middle',
+		             nameGap:30,
 		             nameTextStyle:{
 		             color:"#7a8798",
 		            	fontFamily:'宋体'
