@@ -8,13 +8,16 @@ var userkpi_pageNum = 1;
 
 $("#querySearch_perkpi").on('click',function(){
 	$("#data-table-userkpi").bootstrapTable('destroy');
-	per_kpi_init();
+	loadDataKpi();
 });
 
 function per_kpi_init(){
+	$("#userkpi_deptid option").not(":first").remove();
 	//表单事业线下拉初始化
 	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
-	
+	loadDataKpi();
+}
+function loadDataKpi(){
 	//绑定querySearch事件
 	$('#data-table-userkpi').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -57,7 +60,6 @@ function per_kpi_init(){
         }
 	});
 }
-
 //===========
 
 
