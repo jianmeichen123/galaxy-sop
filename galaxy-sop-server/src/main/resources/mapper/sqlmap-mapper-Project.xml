@@ -1026,7 +1026,7 @@
 	<select id="selectProjectTotalTime" resultMap="BaseResultMap" parameterType="java.util.Map">
 			
 		SELECT s.`id`,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
-		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
+		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`final_contribution`,s.`service_charge` FROM sop_project s 
 		INNER JOIN (
 		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
 		a.actual_time AS ctime,c.`project_id`
