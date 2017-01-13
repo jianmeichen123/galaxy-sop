@@ -1029,12 +1029,12 @@
 		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
 		INNER JOIN (
 		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
-		 FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d') AS ctime,c.`project_id`
+		a.actual_time AS ctime,c.`project_id`
 		 FROM sop_grant_actual a 
 		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
 		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
-		 <if test="sDate != null"> <![CDATA[  and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') >= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
-		 <if test="eDate != null"> <![CDATA[  and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s')<= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="sDate != null"> <![CDATA[  and a.actual_time>= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="eDate != null"> <![CDATA[  and a.actual_time<= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
 		 GROUP BY c.`project_id` 
 		 ORDER BY a.created_time ASC ) p ON  s.id=p.project_id 
 		 LEFT JOIN (
@@ -1056,12 +1056,12 @@
 		SELECT count(*) FROM sop_project s 
 		INNER JOIN (
 		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
-		 FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d') AS ctime,c.`project_id`
+		 a.actual_time AS ctime,c.`project_id`
 		 FROM sop_grant_actual a 
 		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
 		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
-		 <if test="sDate!= null"> <![CDATA[  and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') >= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
-		 <if test="eDate!= null"> <![CDATA[ and FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') <= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="sDate!= null"> <![CDATA[ and a.actual_time >= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="eDate!= null"> <![CDATA[ and a.actual_time <= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
 		 GROUP BY c.`project_id` 
 		 ORDER BY a.created_time ASC ) p ON  s.id=p.project_id 
 		 LEFT JOIN (
