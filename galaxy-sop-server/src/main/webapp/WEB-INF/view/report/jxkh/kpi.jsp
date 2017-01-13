@@ -39,8 +39,8 @@
 		<div class="tabtable assessment">
             <ul class="tablink tablinks">
             	<li data-tab="nav"><a href="javascript:;">个人绩效考核</a></li>
-            	<li data-tab="nav" id="team_kpi_li" style="display:none;"><a href="javascript:;">团队绩效考核</a></li>
-            	<li data-tab="nav"><a href="javascript:;">合伙人日常业务绩效评分表</a></li>
+            	<li data-tab="nav" id="team_kpi_li" style="display:none;"><a href="javascript:;">事业部绩效考核</a></li>
+            	<li data-tab="nav"><a href="javascript:;">合伙人绩效考核</a></li>
             	
             </ul>
 
@@ -48,7 +48,7 @@
 			<div class="tabtable_con" data-tab="con">
 				<div class="search_box searchall" id="custom-toolbasr-userkpi">
 					<dl class="fmdl fmmr clearfix">
-						<dt>投资事业线：</dt>
+						<dt>投资事业部：</dt>
 						<dd>
 							<select name="deptid" id="userkpi_deptid">
 								<option value="">全部</option>
@@ -89,7 +89,7 @@
 					<thead>
 						<tr>
 							<th data-field=realName  		 class="data-input">	姓名			</th>
-							<th data-field="departmentName"  class="data-input">	投资事业线	</th>
+							<th data-field="departmentName"  class="data-input">	投资事业部</th>
 							<th data-field="target"  		 class="data-input">	目标数		</th>
 							<th data-field="completed"  	 class="data-input">	项目数		</th>
 							<th data-field="completedAll"    class="data-input">	累计已完成数	</th>
@@ -144,7 +144,7 @@
 					<thead>
 						<tr>
 							<th data-field="realName"  			class="data-input">合伙人</th>
-							<th data-field="departmentName"  	class="data-input">投资事业线</th>
+							<th data-field="departmentName"  	class="data-input">投资事业部</th>
 							<th data-field="target"  			class="data-input">目标数</th>
 							<th data-field="completed"  		class="data-input" data-formatter="cat_deptkpi">项目数</th>
 							<th data-field="completedAll"  		class="data-input">累计已完成数</th>
@@ -197,7 +197,7 @@
 					width="100%" cellspacing="0" cellpadding="0" class="table_m">
 					<thead>
 						<tr>
-							<th data-field="departmentName"  	class="data-input">投资事业线</th>
+							<th data-field="departmentName"  	class="data-input">投资事业部</th>
 							<th data-field="score1"  			class="data-input">分数/生成项目 </th>
 							<th data-field="score2"  		class="data-input">分数/通过CEO评审</th>
 							<th data-field="score3"  		class="data-input">分数/通过立项会</th>

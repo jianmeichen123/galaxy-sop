@@ -42,7 +42,7 @@
       <input type="hidden" name="id" value="${projectId }">
       <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
           <tr>
-              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="30"></td>
+              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50"></td>
               <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td>
           </tr>
           <tr>
@@ -108,7 +108,7 @@
                   <th>投资方(机构或个人)</th>
                   <th>投资金额(万元)</th>
                   <th>币种</th>
-                  <th>股权占比（%）</th>
+                  <th>股权占比(%)</th>
                   <th>融资轮次</th>
                   <c:if test="${isEditable}">
                   <th>操作</th>

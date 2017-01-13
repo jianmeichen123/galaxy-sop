@@ -295,8 +295,13 @@ function radio_faFlag(isContactsV){
 	console.log(isContactsV);
 	var phone = $("input[name='faName']");
 	if (isContactsV == 0 || isContactsV == '0') {
+		$(".tip-yellowsimple").each(function(){  //隐藏提示  
+            if($(this).children(".tip-inner").text()=="*不能以空格开头，字符最大长度为20"){
+            	$(this).remove();
+            }
+        }); 
 		$("input[name='faName']").hide();
-		$("input[name='faName']").attr({allowNULL:"yes"}).removeAttr('msg');
+		$("input[name='faName']").attr({allowNULL:"yes"});
 	} else if (isContactsV == 1 || isContactsV == '1') {
 		$("input[name='faName']").attr('allowNULL','no');
 		$("input[name='faName']").show();

@@ -136,7 +136,25 @@
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from finance_history where id = #{id}
 	</delete>
+	<!-- 查询总数 -->
+	<select id="getFHStr" resultType="java.lang.String" parameterType="java.util.Map">
+			SELECT 
+	GROUP_CONCAT( 
+				'融资时间:',IFNULL(DATE_FORMAT(f.`finance_date`, '%Y-%m-%d'),''),
+				',投资方:',IFNULL(f.finance_from ,''),
+				',投资额:',IFNULL(f.finance_amount,''),
+				',币种:',IFNULL(CASE WHEN f.`finance_unit`='0' THEN '人民币'
+				                     WHEN f.`finance_unit`='1' THEN '美元'
+				                     WHEN f.`finance_unit`='2' THEN '英镑'
+				                     WHEN f.`finance_unit`='3' THEN '欧元' ELSE '' END,''),
+				',占比:',IFNULL(f.`finance_proportion`,''),
+				',轮次:',IFNULL(d.`name`,'')
+				SEPARATOR ';')
 	
+	FROM `finance_history` f LEFT JOIN 
+	dict d
+	ON f.`finance_status`=d.`dict_code` AND d.`parent_code`='financeStatus' WHERE f.`project_id`=#{projectId}
+	</select>
 	
   
 </mapper>

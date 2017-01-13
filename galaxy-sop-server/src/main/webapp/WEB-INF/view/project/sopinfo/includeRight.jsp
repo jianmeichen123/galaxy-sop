@@ -220,22 +220,24 @@ $(function(){
 	 		 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
 	 			sumActualMoney=0;
 	 		 }else{
-	 			 var format=addCommas(fixSizeTwo(sumActualMoney/10000));
-	 			 if(format==0.00){
+	 			 //var format=addCommas(fixSizeTwo(sumActualMoney/10000));
+	 			 if(sumActualMoney==0.0000){
 	 				sumActualMoney=0;
-	 			 }else{
-	 				sumActualMoney=format ;
 	 			 }
+	 			 /* else{
+	 				sumActualMoney=format ;
+	 			 } */
 	 		 }
 	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
 	 			    sumPlanMoney=0;
 		 		 }else{
-		 			 var format=addCommas(fixSizeTwo(sumPlanMoney/10000));
-		 			 if(format==0.00){
+		 			 //var format=addCommas(fixSizeTwo(sumPlanMoney/10000));
+		 			 if(sumPlanMoney==0.00){
 		 				sumPlanMoney=0;
-		 			 }else{
-		 				sumPlanMoney=format ;
 		 			 }
+		 			 /* else{
+		 				sumPlanMoney=format ;
+		 			 } */
 		 			
 		 		 }
 	 		$(".money_complete").text(sumActualMoney);

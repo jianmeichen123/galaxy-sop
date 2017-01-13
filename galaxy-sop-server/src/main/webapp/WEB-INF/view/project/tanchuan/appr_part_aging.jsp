@@ -13,10 +13,10 @@
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
 	    <div class="form clearfix" id="actual_aging_container">
-	        <div class="conference_all">
+	        <div class="appr_aging">
 	           <form id="actual_aging_form">
 		            <dl class="fmdl fl_l  clearfix">
-		                <dt>协议名称 ：</dt>
+		                <dt>协议名称：</dt>
 		                <dd>
 		                	<span id="totalName">创业服务协议</span>
 		                	<input name="totalGrantId" id=totalGrantId type="hidden" value="${totalGrantId}"/>
@@ -26,11 +26,27 @@
 		                	<input type="hidden" name="oldRemainMoney" id="oldRemainMoney" value=""/>
 		                </dd>
 		            </dl>
+		            <dl class="fmdl fl_l  clearfix">
+	                <dt>投资方 ：</dt>
+	                <dd>
+	                	<div>
+	                        ${investors }
+	                    </div>
+	                </dd>
+	                </dl>
+	                <dl class="fmdl fl_l  clearfix">
+	                <dt>目标公司 ：</dt>
+	                <dd>
+	                	<div>
+	                	     ${projectCompany }
+	                    </div>
+	                </dd>
+	                </dl> 
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>注资时间只能是汉字或字符，长度为20"/>
+		                    	<input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -39,15 +55,15 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
-		                    	<span class='money'>元</span>
+		                    	<span class='money'>万元</span>
 		                    </div> 
-	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
+	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>万元</div> 
 		                </dd>
 		            </dl>
                  </form>
-	            <div class="affrim_line"></div>
+	           <!--  <div class="affrim_line"></div> -->
 	             <dl class="fmdl fl_l" id="choose_up_file">
 		                 <dt>上传附件 ：</dt>
 		                 <div class="fmload clearfix">
@@ -84,7 +100,7 @@
 	<script>
 	   $(function(){
 		   var remainMoney = '${remainMoney}';
-			  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+			  remainMoney = fixSizeDecimal(parseFloat(remainMoney),4);
 	          $("#formatRemainMoney").html(remainMoney);	
 	          var remainMoneyOld=$("#formatRemainMoney").text();
 	         
@@ -99,7 +115,7 @@
 	 			 }else{
 	 				var remainMoney = '${remainMoney}';
 	 				var sremainMoneyNew=remainMoney-Number(grantMoney);
-	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(sremainMoneyNew)));
+	 				remainMoneyNew = fixSizeDecimal(parseFloat(sremainMoneyNew),4);
 	 				
 	 				if( sremainMoneyNew < 0 || sremainMoneyNew == 0){
 	 				    $("#formatRemainMoney").html("0");

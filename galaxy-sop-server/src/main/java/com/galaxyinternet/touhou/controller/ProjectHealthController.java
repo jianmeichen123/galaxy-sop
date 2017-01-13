@@ -93,6 +93,8 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	 */
 	@RequestMapping(value = "/tohealthlist", method = RequestMethod.GET)
 	public String toHealthList(HttpServletRequest request) {
+		String btn=request.getParameter("hiddenBtn");
+		request.setAttribute("isEditable", btn);
 		return "project/tanchuan/health_case";
 	}
 	
@@ -127,6 +129,10 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 				messageType = "13.2";
 			}else if(projectHealth.getHealthState() == 3){
 				messageType = "13.3";
+			}else if(projectHealth.getHealthState() == 0){
+				messageType = "13.4";
+			}else if(projectHealth.getHealthState() == 4){
+				messageType = "13.5";
 			}
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
 		} catch (Exception e) {

@@ -47,10 +47,11 @@
     <result column="fa_name" property="faName" jdbcType="VARCHAR"/>
     <result column="grean_channel" property="greanChannel" jdbcType="VARCHAR"/>
     <result column="remark" property="remark" jdbcType="LONGVARCHAR"/>
-   
+    <result column="health_state" property="healthState" jdbcType="VARCHAR"/>
+    <result column="ctime" property="ctime" jdbcType="VARCHAR"/>
+     <result column="grant_money" property="grantMoney" jdbcType="DECIMAL"/>
     
-  </resultMap>
-  
+    </resultMap>
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
     project_valuations,industry_own, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
@@ -58,10 +59,7 @@
     project_describe,project_describe_financing, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
     industry_analysis,operational_data, idea_id,fa_flag,fa_name,grean_channel,remark
   </sql>
-  
-  
-  
-  <sql id="Base_Where_Clause">
+    <sql id="Base_Where_Clause">
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
@@ -1024,4 +1022,128 @@
 			limit #{offset}, #{limit}
 		</if> -->
 	</select>
+	
+	<select id="selectProjectTotalTime" resultMap="BaseResultMap" parameterType="java.util.Map">
+			
+		SELECT s.`id`,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
+		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
+		INNER JOIN (
+		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
+		a.actual_time AS ctime,c.`project_id`
+		 FROM sop_grant_actual a 
+		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
+		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
+		 <if test="sDate != null"> <![CDATA[  and a.actual_time>= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="eDate != null"> <![CDATA[  and a.actual_time<= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
+		 GROUP BY c.`project_id` 
+		 ORDER BY a.created_time ASC ) p ON  s.id=p.project_id 
+		 LEFT JOIN (
+		 SELECT FROM_UNIXTIME(v.created_time/1000,'%Y-%m-%d %H:%i:%s') ,v.project_id,v.health_state
+		 FROM ( SELECT * FROM sop_project_health q ORDER BY q.`created_time` DESC) v  GROUP BY v.`project_id` ) k
+		 ON p.project_id=k.project_id 
+		 <where>
+			<trim prefixOverrides="and">
+			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
+			</trim>
+		</where>
+		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+		</select>
+		<select id="projectTotalTimeCount" resultType="java.lang.Long" parameterType="java.util.Map">
+			
+		SELECT count(*) FROM sop_project s 
+		INNER JOIN (
+		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
+		 a.actual_time AS ctime,c.`project_id`
+		 FROM sop_grant_actual a 
+		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
+		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
+		 <if test="sDate!= null"> <![CDATA[ and a.actual_time >= #{sDate,jdbcType=TIMESTAMP} ]]> </if>
+		 <if test="eDate!= null"> <![CDATA[ and a.actual_time <= #{eDate,jdbcType=TIMESTAMP} ]]> </if>
+		 GROUP BY c.`project_id` 
+		 ORDER BY a.created_time ASC ) p ON  s.id=p.project_id 
+		 LEFT JOIN (
+		 SELECT FROM_UNIXTIME(v.created_time/1000,'%Y-%m-%d %H:%i:%s') ,v.project_id,v.health_state
+		 FROM ( SELECT * FROM sop_project_health q ORDER BY q.`created_time` DESC) v  GROUP BY v.`project_id` ) k
+		 ON p.project_id=k.project_id 
+		 <where>
+			<trim prefixOverrides="and">
+			  <if test="projectDepartid != null"> s.project_departId = #{projectDepartid}</if>
+			</trim>
+		</where>
+		<if test="sorting != null"> order by ${sorting} </if>
+		</select>
+		
+	<select id="selectDeptProject" resultMap="BaseResultMap" parameterType="java.util.Map">
+			
+ 
+ SELECT m.* FROM (
+ SELECT s.id,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
+		 s.`finance_status`,MIN(p.ctime) AS ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`final_contribution`,s.`service_charge` FROM sop_project s 
+	         INNER JOIN (
+	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`,q.xtime
+                              FROM sop_grant_total a 
+	                           LEFT JOIN (
+			           SELECT l.ctime,l.total_grant_id,l.grant_money,l.xtime FROM (  
+			             SELECT DISTINCT f.`actual_time` AS ctime,FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d') xtime,r.`project_id`,e.`grant_money`,e.`total_grant_id`
+			             FROM sop_grant_actual f 
+			             LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
+			             LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
+			             ORDER BY r.`project_id`,f.`created_time` ASC 
+			               ) l GROUP BY l.project_id
+			     ) q ON a.`id`=q.total_grant_id
+			          	
+                   ) p ON  p.project_id=s.`id` 
+                 LEFT JOIN (
+		 SELECT FROM_UNIXTIME(v.created_time/1000,'%Y-%m-%d %H:%i:%s') ,v.project_id,v.health_state
+		 FROM ( SELECT * FROM sop_project_health q ORDER BY q.`created_time` DESC) v  GROUP BY v.`project_id` ) k
+		 ON p.project_id=k.project_id  
+		 GROUP BY p.project_id ORDER BY p.ctime ASC
+        ) m
+		 <where>
+			<!-- <trim prefixOverrides="and"> -->
+			  <if test="projectDepartid != null"> m.project_departId = #{projectDepartid}</if>
+			<!-- </trim> -->
+		 </where>
+		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="sorting == ' m.ctime ASC'.toString()"> ,m.project_departId DESC </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+		</select>
+		<!-- %Y-%m-%d %H:%i:%s -->
+      <select id="deptProjectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+			
+     
+ SELECT count(*) FROM (
+ SELECT s.id,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
+		 s.`finance_status`,MIN(p.ctime) AS time,p.grant_money ,s.`project_describe_financing`,s.`project_describe`,s.`final_contribution`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
+	         INNER JOIN (
+	           SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`,q.xtime
+                              FROM sop_grant_total a 
+	                           LEFT JOIN (
+			           SELECT l.ctime,l.total_grant_id,l.grant_money,l.xtime FROM (  
+			             SELECT DISTINCT f.`actual_time` AS ctime,FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d') xtime,r.`project_id`,e.`grant_money`,e.`total_grant_id`
+			             FROM sop_grant_actual f 
+			             LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
+			             LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
+			             ORDER BY r.`project_id`,f.`created_time` ASC 
+			               ) l GROUP BY l.project_id
+			     ) q ON a.`id`=q.total_grant_id
+			          	
+                   ) p ON  p.project_id=s.`id` 
+                 LEFT JOIN (
+		 SELECT FROM_UNIXTIME(v.created_time/1000,'%Y-%m-%d %H:%i:%s') ,v.project_id,v.health_state
+		 FROM ( SELECT * FROM sop_project_health q ORDER BY q.`created_time` DESC) v  GROUP BY v.`project_id` ) k
+		 ON p.project_id=k.project_id  
+		 GROUP BY p.project_id ORDER BY p.ctime ASC
+        ) m
+		 <where>
+			<!-- <trim prefixOverrides="and"> -->
+			  <if test="projectDepartid != null"> m.project_departId = #{projectDepartid}</if>
+			<!-- </trim> -->
+		 </where>
+		</select>
 </mapper>

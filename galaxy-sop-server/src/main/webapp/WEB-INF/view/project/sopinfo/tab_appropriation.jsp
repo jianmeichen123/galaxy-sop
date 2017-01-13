@@ -18,7 +18,7 @@
                         <!--按钮-->
                         <c:if test="${isEditable}">
                         <div class="btnbox_f btnbox_f1">
-                            <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</a>
+                            <span class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
                         </div>
                         </c:if>
                     </div>
@@ -66,7 +66,7 @@ var searchPartMoney;
 	  //只有创建人显示编辑按钮
 	  if(isEditable != 'true')
 	  {
-		  $("#tabApprAllList .b_agreement_r").hide();
+		  $("#tabApprAllList .b_agreement_r .rolehide").hide();
 		  $("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
 	  }
 		//添加，编辑总注资计划弹出页面
@@ -76,21 +76,24 @@ var searchPartMoney;
 		var _name= $self.attr("data-name");
 		var data_on=$self.attr("data-on");
 		var id=$self.attr("data-val");
-			$.getHtml({
-				url:_url,//模版请求地址
-				data:"",//传递参数
-				okback:function(){
-					$("#popup_name").html(_name);
-					if(data_on=="edit"){
-						sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
-					}else{
-						 $("#totallId").val(0);
-					}
-					initDialogVal();
-				}//模版反回成功执行	
-			});
-			return false;
+		if(data_on=="info"){
+			_url=Constants.sopEndpointURL+'galaxy/grant/total/toActualTotalLook/'+id+"?pid=${pid}";
+		}
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("#popup_name").html(_name);
+				if(data_on=="edit"){
+					sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+				}else{
+					 $("#totallId").val(0);
+				}
+				initDialogVal();
+			}//模版反回成功执行	
 		});
+		return false;
+	});
 		
 	    function showGrantPart(tid){
 	    	
@@ -104,6 +107,10 @@ var searchPartMoney;
 		var _url=  Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAging'+"/"+_id;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
+		//查看分期计划
+		if(_data_type == "info"){
+			_url = Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAgingInfo'+"/"+_id;
+		}
 		
 		var isFlag = false;
 		
@@ -126,7 +133,7 @@ var searchPartMoney;
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
 					  
-					if(_data_type == "edit"){
+					if(_data_type == "edit" || _data_type == "info"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
 						_url = Constants.sopEndpointURL + '/galaxy/grant/part/selectGrantPart/'+_part_id;
@@ -136,9 +143,18 @@ var searchPartMoney;
 								var grantPartInfo = data.entity;
 								$("#actual_aging_container [name='id']").val(grantPartInfo.id);
 								$("#actual_aging_container [name='totalGrantId']").val(grantPartInfo.totalGrantId);
-								$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
-								$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
-								$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
+								
+								if(_data_type == "edit"){
+									$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
+									$("#actual_aging_container [name='grantMoney']").val(fixSizeDecimal(grantPartInfo.grantMoney,4));
+									$("#actual_aging_container [name='oldRemainMoney']").val(fixSizeDecimal(grantPartInfo.grantMoney,4));
+								}else{
+									$("#grantDetail").html(grantPartInfo.grantDetail);
+									$("#grantMoney").html(fixSizeDecimal(grantPartInfo.grantMoney,4));
+									$("#oldRemainMoney").html(grantPartInfo.oldRemainMoney);
+								}
+								
+								
 								if(isFlag)
 								{
 									$("#actual_aging_container [name='grantMoney']").attr("type","hidden");
@@ -151,10 +167,11 @@ var searchPartMoney;
 													"<td>"+this.fileName+"."+this.fileSuffix+
 														"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 													"</td>"+
-													"<td>"+plupload.formatSize(this.fileLength)+"</td>"+
-													"<td>"+ but +"</td>"+
-													"<td>100%</td>"+
-												"</tr>"
+													"<td>"+plupload.formatSize(this.fileLength)+"</td>";
+										if(_data_type == "edit"){
+											htm+=	"<td>"+ but +"</td><td>100%</td>";
+										}			
+										htm+= "</tr>";
 									$("#filelist").append(htm);
 								});
 								toInitBachUpload();
@@ -177,14 +194,14 @@ var searchPartMoney;
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
 					 			 if(!beforeSubmitById("actual_aging_container")){
-					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))));
+					 				$("#formatRemainMoney").html(fixSizeDecimal(parseFloat(remainMoneyTotal),4));
 					 				return false;
 					 			} 
 					 			 if(grantMoney<0){
-					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
+					 				$("#formatRemainMoney").html(fixSizeDecimal(parseFloat(remainMoneyTotal),4))
 					 			 }else{
 					 				var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
-					 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+					 			      remainMoney = fixSizeDecimal(parseFloat(remainMoneyNew),4);
 					 			      if(remainMoneyNew<0 || remainMoneyNew==0){
 					 			    	  $("#formatRemainMoney").html("0");
 					 			      }else{
@@ -297,6 +314,7 @@ var searchPartMoney;
 		}
   }
 
+   
    $("#search").click( function(){
 	    var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){
@@ -333,9 +351,9 @@ function paramsContion(){
 	}
 	var remainMoney = $("#remainMoney").val();
 	var grantMoneyOld=$("#oldRemainMoney").val();
-	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(2);
+	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(4);
 	
-	var inputValueMoney = Number(partMoney).toFixed(2);
+	var inputValueMoney = Number(partMoney).toFixed(4);
 	if(parseFloat(inputValueMoney) > parseFloat(newgrant)){
 		layer.msg("分期注资金额之和大于总注资金额");
 		return false;

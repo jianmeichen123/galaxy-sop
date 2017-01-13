@@ -389,12 +389,13 @@ public class HomePageSearchController
 	public ResponseData<User> updatePwd(@RequestBody User user) {
 		
 		ResponseData<User> responseBody = new ResponseData<User>();
-		if (user == null || user.getId() == null || user.getPassword() == null) {
+		if (user == null || user.getIdstr()==0 || user.getPassword() == null) {
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
 		
 		try {
+			user.setId(user.getIdstr());
 			userService.updatePwd(user);
 			responseBody.setResult(new Result(Status.OK, null, "密码已修改!"));
 		} catch (Exception e) {

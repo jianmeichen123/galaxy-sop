@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -62,6 +64,8 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
+import com.galaxyinternet.model.chart.DataFormat;
+import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
@@ -76,6 +80,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -90,6 +95,7 @@ import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.project.service.handler.YwjzdcHandler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.FinanceHistoryService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
@@ -104,6 +110,8 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.service.chart.KpiGradeService;
+import com.galaxyinternet.service.chart.ProjectGradeService;
 import com.galaxyinternet.utils.CollectionUtils;
 import com.galaxyinternet.utils.SopConstatnts;
 
@@ -150,7 +158,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private YwjzdcHandler ywjzdcHandler;
 	
+	@Autowired
+	private ProjectGradeService reportService;
 	
+	@Autowired
+	private FinanceHistoryService financeHistoryService;
 	@Autowired
 	private SopTaskService sopTaskService;
 	
@@ -3766,9 +3778,239 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
+	/**
+	 * 投后运营-头后项目跟踪-事业部创投项目列表
+	 * @version 2017-01-03
+	 * @author jianmeichen
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deptProjectList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> deptProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
 	
+		/*if(null!=project.getDeptId()&&!project.getDeptId().equals("")){
+			//project.getProjectDepartid()=null;
+			project.setProjectDepartid(Long.parseLong(project.getDeptId()));
+		}*/
+		Page<Project> pageProject=new Page<Project>(null, null);
+		//如果可以根据时间
+		if(project.getIsNullTime().equals("yes")){
+			
+			if(null!=project.getProperty()&&!project.getProperty().equals("")){
+				project.setProperty(" m.ctime");
+			}else{
+				project.setProperty(" m.ctime");
+	             project.setDirection("desc");
+	        }
+			try {
+					 pageProject=projectService.selectDeptProject(project, new PageRequest(project.getPageNum(), 
+						project.getPageSize(), 
+						Direction.fromString(project.getDirection()), 
+						project.getProperty()));
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return responseBody;
+			}
+			
+		}else{
+			if(null!=project.getProperty()&&!project.getProperty().equals("")){
+				project.setProperty(" p.ctime");
+			}else{
+				project.setProperty(" p.ctime");
+	             project.setDirection("desc");
+	        }
+			try {
+				project.setsDate(project.getsDate().trim() + " 00:00:00");
+				project.seteDate(project.geteDate().trim() + " 23:59:59");
+				Long startTime = DateUtil.stringToLong(project.getsDate(), "yyyy-MM-dd HH:mm:ss");
+				Long endTime = DateUtil.stringToLong(project.geteDate(), "yyyy-MM-dd HH:mm:ss");
+				if(startTime > endTime){
+					responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
+					return responseBody;
+				}
+				 pageProject=projectService.selectProjectTotalTime(project, new PageRequest(project.getPageNum(), 
+							project.getPageSize(), 
+							Direction.fromString(project.getDirection()), 
+							project.getProperty()));
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return responseBody;
+			}
+		    
+		}
+		request.getSession().setAttribute("projectDataList",project);	
+		List<Project> projectList = new ArrayList<Project>();
+		List<Department> departmentList = departmentService.queryAll();
+		for(Project p : pageProject.getContent()){
+			projectList.add(p);
+			for(Department d : departmentList){
+				if(p.getProjectDepartid().longValue() == d.getId().longValue()){
+					p.setProjectCareerline(d.getName());
+					break;
+				}
+			}
+		}
+		responseBody.setPageList(pageProject);
+		responseBody.setResult(new Result(Status.OK, ""));
+		return responseBody;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="/exportProjectGrade")
+	public void exportProjectGrade(HttpServletRequest request,HttpServletResponse response){
+		@SuppressWarnings("unchecked")
+		Page<Project> pageProject=new Page<Project>(null, null);
+		Project project = (Project) request.getSession().getAttribute("projectDataList");	
+		project.setPageNum(0);
+		project.setPageSize(10000);
+		if(project.getIsNullTime().equals("yes")){
+			pageProject=projectService.selectDeptProject(project, new PageRequest(project.getPageNum(), 
+					project.getPageSize(), 
+					Direction.fromString(project.getDirection()), 
+					project.getProperty()));
+		}else{
+				 pageProject=projectService.selectProjectTotalTime(project, new PageRequest(project.getPageNum(), 
+							project.getPageSize(), 
+							Direction.fromString(project.getDirection()), 
+							project.getProperty()));
+		}
+		List<ProjectData> chartDataList = setData(pageProject.getContent(),project);
+		DataFormat<ProjectData> setFormat=new DataFormat<ProjectData>();
+		String suffix = request.getParameter("suffix");
+		try {
+			setFormat.setList(chartDataList);
+			setFormat.setStartTime(null==project.getsDate()?null:project.getsDate().substring(0, 10));
+			setFormat.setEndTime(null==project.geteDate()?null:project.geteDate().substring(0, 10));
+			SopReportModal modal = reportService.createReport(setFormat,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
+			reportService.download(request, response, modal);
+		} catch (Exception e) {
+			_common_logger_.error("下载失败.",e);
+		}
+	}
 	
+	/**
+	 * 封装数据
+	 * 每个字段的特殊处理
+	 * @param list
+	 * @return
+	 */
+	public List<ProjectData> setData(List<Project> list,Project project){
+		List<ProjectData> ProjectDataList=new ArrayList<ProjectData>();
+		  Map<Long,String> map=departmentMap();
+			
+		 for(int i=0;i<list.size();i++){
+			 Project p=list.get(i);
+				ProjectData  pd=new ProjectData();
+			 if(i==0){
+				 if(null!=project.getsDate()&&null!=project.geteDate()){
+					 pd.setStartTime(project.getsDate().substring(0,10));
+					 pd.setEndTime(project.geteDate().substring(0, 10));
+				 }
+			 }
+			pd.setProjectName(null==p.getProjectName()?"":p.getProjectName());
+			pd.setProjectCompany(null==p.getProjectCompany()?"":p.getProjectCompany());
+			pd.setType(null==p.getType()?"":p.getType());
+			pd.setDepartmentName(null==map.get(p.getProjectDepartid())?"":map.get(p.getProjectDepartid()));
+			pd.setFinanceStatus(null==p.getFinanceStatusDs()?"":p.getFinanceStatusDs());
+			pd.setCtime(null==p.getCtime()?"":p.getCtime());
+			
+			java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+			nf.setGroupingUsed(false);
+			nf.setMaximumFractionDigits(4);  
+			String  finalContribution = "";
+			if(null != p.getFinalContribution()){
+				finalContribution = nf.format(p.getFinalContribution());
+			}
+			
+			
+			pd.setFinalContribution(finalContribution);
+			pd.setRadioStr(setRadioStr(p.getFinalShareRatio(),p.getServiceCharge()));
+			pd.setFinanceHistory(financeHistoryStr(p.getId()));
+			String result="";
+			
+			if(null!=p.getHealthState()&&!"".equals(p.getHealthState())){
+			int k=Integer.parseInt(p.getHealthState());
+			switch(k){
+			case 0:
+				result="初始";
+				break;
+			case 1:
+				result="高于预期";
+				break;
+			case 2:
+				result="正常";
+				break;
+			case 3:
+				result="健康预警";
+				break;
+			case 4:
+				result="清算";
+				break;
+			 default:
+				 result="";
+				break;
+			}
+			}else{
+				 result="";
+			}
+			pd.setHealthState(result);
+			pd.setProjectDescribe(null==p.getProjectDescribe()?"":p.getProjectDescribe());
+			pd.setProjectDescribeFinancing(null==p.getProjectDescribeFinancing()?"":p.getProjectDescribeFinancing());
+			ProjectDataList.add(pd);
+		}
+		return ProjectDataList;
+	}
 	
-	
+	/**
+	 * 格式化占比	
+	 * @param finalradio
+	 * @param serviceRadio
+	 * @return
+	 */
+	public String setRadioStr(Double finalradio,Double serviceRadio){
+		String finalradioStr="";
+		String serviceRadioStr="";
+		java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+		nf.setGroupingUsed(false);
+		nf.setMaximumFractionDigits(4);  
+		
+		if(null!=finalradio&&!finalradio.equals("")){
+			finalradioStr = nf.format(finalradio)+"%";
+		}
+	    if(null!=serviceRadio&&!serviceRadio.equals("")){
+	    	serviceRadioStr= nf.format(serviceRadio)+"%";
+		}
+	    return finalradioStr+","+serviceRadioStr;
+     }
+	/**
+	 * 格式化项目融资历史
+	 * @param projectId
+	 * @return
+	 */
+	   public String financeHistoryStr(Long projectId){
+		   String fhStr="";
+		   try {
+			   fhStr= financeHistoryService.getFHStr(projectId);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		 if(null!=fhStr){
+			 return fhStr; 
+		 }else{
+			 return "";
+		 }
+		   
+	   }
+	  public Map<Long,String> departmentMap(){
+		  Map<Long,String> map=new HashMap<Long,String>();
+			List<Department> departmentList = departmentService.queryAll();
+			for(Department p : departmentList){
+				map.put(p.getId(),p.getName());
+				
+			}
+			return map;
+	  }
 }

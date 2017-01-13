@@ -26,6 +26,7 @@ function time_zh(s_time, yearName, monthName, dayName){
  * 保留指定位数的小数
  * 若为0，则为0
  * 若不为0，则按照四舍五入保留指定位数的小数
+ * 去掉小数后面多余的0.1000
  */
 function fixSizeDecimal(number, size){
 	if(typeof(size) == "undefined"){
@@ -34,7 +35,9 @@ function fixSizeDecimal(number, size){
 	if(number != 0){
 		var n = number.toFixed(size);
 		
-		return number.toFixed(size);
+		var retu = parseFloat(n);
+		
+		return retu;
 	}
 	return 0;
 }

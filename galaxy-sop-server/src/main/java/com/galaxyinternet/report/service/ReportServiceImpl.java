@@ -28,9 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.galaxyinternet.common.utils.StrUtils;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.chart.DataFormat;
 import com.galaxyinternet.model.report.BasicElement;
-import com.galaxyinternet.model.report.DataReport;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.report.manager.ImportExcel2007Manager;
@@ -38,12 +39,12 @@ import com.galaxyinternet.report.manager.Xlsx2CsvManager;
 import com.galaxyinternet.service.ReportService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 
-public abstract class ReportServiceImpl<T extends DataReport> implements ReportService<T> {
+public abstract class ReportServiceImpl<T extends PagableEntity> implements ReportService<T> {
 	
 	private ImportExcel2007Manager excelManager = new ImportExcel2007Manager();
 	final Logger logger = LoggerFactory.getLogger(SopFileController.class);
 	
-	public SopReportModal createReport(List<T> dataSource,String templatePath,String tempFilePath,String suffix) throws Exception{
+	public SopReportModal createReport(DataFormat<T> dataSource,String templatePath,String tempFilePath,String suffix) throws Exception{
 		String path = "";
 		InputStream is = null;
 		OutputStream out = null;
@@ -68,23 +69,30 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 			if(sheetList!=null && sheetList.size() > modal.getSheetPage()){
 				XSSFSheet reportSheet = sheetList.get(modal.getSheetPage());
 				//写入附表头
-				writeSecondHeader(workbook,reportSheet, modal.getSecondTableHeader(), dataSource.get(0));
-				//获取可写入行数
+				writeSecondHeader(workbook,reportSheet, modal.getSecondTableHeader(), dataSource.getStartTime(),dataSource.getEndTime());
+					//获取可写入行数
 				int editRowNum = modal.getDataStartRow();
+				List<T> data=dataSource.getList();
 				//开始写入数据
-				for(int i=0;i<dataSource.size();i++){
+				for(int i=0;i<dataSource.getList().size();i++){
 					editRowNum++;
-					T report = dataSource.get(i);
+					T report = data.get(i);
 					Row row = reportSheet.createRow(editRowNum);
 					Font font1 = excelManager.createFonts(workbook,Font.BOLDWEIGHT_NORMAL,"宋体",false,(short)200);
 					List<BasicElement> columnList = getColumns();
 					for(BasicElement column : columnList){
 						if(column.getGetterMethod().equals("num")){
-							excelManager.createCell(workbook, row, (int)column.getColumn(), Integer.toString(i+1), font1);
+							excelManager.createCell(workbook, row, (int)column.getColumn(), Integer.toString(i+1), font1,2);
 						}else{
 							Method method = report.getClass().getMethod((String) column.getGetterMethod(), null);
 							Object value = (Object)method.invoke(report, null);
-							excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1);
+							//业务需要根据某字段设置单独的属性
+							if("getFinalContribution".equals(column.getGetterMethod())){
+								excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1,1);
+							}else{
+								excelManager.createCell(workbook, row, (int)column.getColumn(),value, font1,2);
+							}
+							
 						}
 					}	
 				}
@@ -143,7 +151,7 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 		cell.setCellValue(be.getValue());
 	}
 	
-	public void writeSecondHeader(XSSFWorkbook workBook,XSSFSheet sheet,BasicElement be,T t){
+	public void writeSecondHeader(XSSFWorkbook workBook,XSSFSheet sheet,BasicElement be,String startTime,String endTime){
 		Row row = sheet.getRow(be.getRow());
 		Cell cell = row.getCell(be.getColumn());
 		String dateOutPut = "";
@@ -155,8 +163,12 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 		cell.setCellStyle(cellStyle);
 		if(BasicElement.VALUE_DATE.equals(be.getValue())){
 			String time1 = "导出时间:" + DateUtil.longToString(System.currentTimeMillis());
-			String time2 = "   统计时段:" + t.getStartTime() + "~" + t.getEndTime();
-			dateOutPut = time1 + time2;
+			if(null==startTime||startTime.equals("")||null==endTime||endTime.equals("")){
+				dateOutPut = time1;
+			}else{
+				String time2 = "   统计时段:" + startTime + "~" + endTime;
+				dateOutPut = time1+time2;
+			}
 		}
 		cell.setCellValue(dateOutPut);
 	}
