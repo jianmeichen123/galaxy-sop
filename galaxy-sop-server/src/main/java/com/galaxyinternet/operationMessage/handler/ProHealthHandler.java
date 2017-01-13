@@ -21,6 +21,8 @@ public class ProHealthHandler implements MessageHandler
 	public static final String high_health = "13.1";
 	public static final String normal_health = "13.2";
 	public static final String warn_health = "13.3";
+	public static final String start_health = "13.4";
+	public static final String end_health = "13.5";
 	
 	@Override
 	public int getOrder()
@@ -49,6 +51,10 @@ public class ProHealthHandler implements MessageHandler
 			content.append("正常");
 		}else if(message.getMessageType().equals(warn_health)){
 			content.append("预警");
+		}else if(message.getMessageType().equals(start_health)){
+			content.append("初始");
+		}else if(message.getMessageType().equals(end_health)){
+			content.append("清算");
 		}
 		message.setContent(content.toString());
 		return message;
