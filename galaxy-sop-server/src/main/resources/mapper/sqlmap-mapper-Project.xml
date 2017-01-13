@@ -1029,7 +1029,7 @@
 		 s.`finance_status`,p.ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
 		INNER JOIN (
 		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
-		 FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') AS ctime,c.`project_id`
+		 FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d') AS ctime,c.`project_id`
 		 FROM sop_grant_actual a 
 		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
 		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
@@ -1056,7 +1056,7 @@
 		SELECT count(*) FROM sop_project s 
 		INNER JOIN (
 		 SELECT a.id,a.`part_grant_id`,a.`grant_money`,
-		 FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d %H:%i:%s') AS ctime,c.`project_id`
+		 FROM_UNIXTIME(a.created_time/1000,'%Y-%m-%d') AS ctime,c.`project_id`
 		 FROM sop_grant_actual a 
 		 LEFT JOIN sop_grant_part b ON a.`part_grant_id`=b.`id`
 		 LEFT JOIN `sop_grant_total` c ON b.`total_grant_id`=c.`id`
@@ -1083,18 +1083,17 @@
  SELECT s.id,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
 		 s.`finance_status`,MIN(p.ctime) AS ctime,p.grant_money ,k.health_state,s.`project_describe_financing`,s.`project_describe`,s.`final_share_ratio`,s.`final_contribution`,s.`service_charge` FROM sop_project s 
 	         INNER JOIN (
-	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`
-                     FROM sop_grant_total a 
-	                LEFT JOIN (
-			       SELECT l.ctime,l.total_grant_id,l.grant_money FROM (  
-			             SELECT DISTINCT MIN(FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d %H:%i:%s')) AS ctime,r.id total_grant_id,e.`grant_money`
-			            FROM sop_grant_actual f 
-			            LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
-			            LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
-			  
-			            GROUP BY e.`total_grant_id` ORDER BY f.`created_time` ASC
-			           ) l
-			  ) q ON a.`id`=q.total_grant_id 
+	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`,q.xtime
+                              FROM sop_grant_total a 
+	                           LEFT JOIN (
+			           SELECT l.ctime,l.total_grant_id,l.grant_money,l.xtime FROM (  
+			             SELECT DISTINCT f.`actual_time` AS ctime,FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d') xtime,r.`project_id`,e.`grant_money`,e.`total_grant_id`
+			             FROM sop_grant_actual f 
+			             LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
+			             LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
+			             ORDER BY r.`project_id`,f.`created_time` ASC 
+			               ) l GROUP BY l.project_id
+			     ) q ON a.`id`=q.total_grant_id
 			          	
                    ) p ON  p.project_id=s.`id` 
                  LEFT JOIN (
@@ -1122,18 +1121,17 @@
  SELECT s.id,s.`project_name`,s.project_company,s.`project_type`,s.`project_careerline`,s.`project_departId`,
 		 s.`finance_status`,MIN(p.ctime) AS time,p.grant_money ,s.`project_describe_financing`,s.`project_describe`,s.`final_contribution`,s.`final_share_ratio`,s.`service_charge` FROM sop_project s 
 	         INNER JOIN (
-	            SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`
-                     FROM sop_grant_total a 
-	                LEFT JOIN (
-			       SELECT l.ctime,l.total_grant_id,l.grant_money FROM (  
-			             SELECT DISTINCT MIN(FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d %H:%i:%s')) AS ctime,r.id total_grant_id,e.`grant_money`
-			            FROM sop_grant_actual f 
-			            LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
-			            LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
-			  
-			            GROUP BY e.`total_grant_id` ORDER BY f.`created_time` ASC
-			           ) l
-			  ) q ON a.`id`=q.total_grant_id 
+	           SELECT  DISTINCT a.`grant_name`,q.`grant_money`,q.ctime ,a.`project_id`,a.`id`,q.xtime
+                              FROM sop_grant_total a 
+	                           LEFT JOIN (
+			           SELECT l.ctime,l.total_grant_id,l.grant_money,l.xtime FROM (  
+			             SELECT DISTINCT f.`actual_time` AS ctime,FROM_UNIXTIME(f.created_time/1000,'%Y-%m-%d') xtime,r.`project_id`,e.`grant_money`,e.`total_grant_id`
+			             FROM sop_grant_actual f 
+			             LEFT JOIN sop_grant_part e ON f.`part_grant_id`=e.id
+			             LEFT JOIN sop_grant_total r ON r.`id`=e.`total_grant_id`
+			             ORDER BY r.`project_id`,f.`created_time` ASC 
+			               ) l GROUP BY l.project_id
+			     ) q ON a.`id`=q.total_grant_id
 			          	
                    ) p ON  p.project_id=s.`id` 
                  LEFT JOIN (

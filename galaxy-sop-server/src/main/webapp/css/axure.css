@@ -1485,12 +1485,13 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     background: url(../img/functionico.png) no-repeat;
     height: 18px;
     line-height: 18px;
-    float: left;
+    /* float: left; */
 }
 .new_ul_all .ico_dot{
 	 background-position: 5px -200px;
     padding: 0 0 0 22px;
 	margin-top:9px;
+	position:absolute;
 }
 /* .ico {
     background: url(../img/functionico.png) no-repeat;
@@ -1548,6 +1549,7 @@ font-family: "宋体";
 word-break:break-all;
 word-wrap:break-word;
 }
+.new_ul_all>p{padding-left:20px;}
 .new_ul_all p img{width:100%;margin:0 auto;}
 .tabtable_con_on .block_wrap{padding:10px 10px 0;}
 .tabtable_con_on .new_nputr.text,.basic_on .new_nputr.text{width:630px;height:50px;line-height:18px;padding-bottom:26px !important;}
@@ -1836,7 +1838,7 @@ word-wrap:break-word;
   background-color: #fff;
   width: 100%;
   margin-top: 10px;
-  height: 310px;
+  height: 320px;
 }
 .page .project_on{height:560px}
 .title_bj_tzjl {
@@ -2122,7 +2124,7 @@ dl{position: relative;}
     color: #FFF;
     cursor:default;
  }
- .mar_left{ float:left;}
+ .mar_left{ float:left;margin-right:10px;}
   /* 投后运营V2.3.91 */
 .ritmin .fund_list .bottom  dl dd .txt{width:130px;}
 .fund_list .cx{margin-left:10px;}
@@ -2370,3 +2372,6 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .table_health_case th{padding:0 5px;}
 #health_case_scroll .fixed-table-body{height:155px; overflow-y:auto;}
 .approp_table td label{margin-right: 13px;cursor: pointer;}
+/* 修复富文本回删内容，光标跑偏 */
+.edui-editor-body .edui-body-container{padding-top:10px !important;}
+.edui-editor-body .edui-body-container p{margin:0 !important;}

@@ -129,6 +129,10 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 				messageType = "13.2";
 			}else if(projectHealth.getHealthState() == 3){
 				messageType = "13.3";
+			}else if(projectHealth.getHealthState() == 0){
+				messageType = "13.4";
+			}else if(projectHealth.getHealthState() == 4){
+				messageType = "13.5";
 			}
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
 		} catch (Exception e) {
