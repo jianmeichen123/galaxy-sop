@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.idea.ZixunFinance">
+
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.idea.ZixunFinance">
+		<result column="id" jdbcType="BIGINT" property="id" />
+		<result column="zixun_id" jdbcType="BIGINT" property="zixunId" />
+		<result column="finance_date" property="financeDate" />
+		<result column="finance_amount" jdbcType="BIGINT" property="financeAmount" />
+		<result column="finance_unit" jdbcType="VARCHAR" property="financeUnit" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="create_uid" jdbcType="BIGINT" property="createUid" />
+		<result column="created_time" jdbcType="BIGINT" property="createdTime" />
+		<result column="updated_uid" jdbcType="BIGINT" property="updatedUid" />
+		<result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id,
+		zixun_id,
+		finance_date,
+		finance_amount,
+		finance_unit,
+		status,
+		create_uid,
+		created_time,
+		updated_uid,
+		updated_time
+	</sql>
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+
+				<if test="zixunId != null"> and zixun_id =#{zixunId,jdbcType=BIGINT} </if>
+				<if test="financeDate != null"> and finance_date =#{financeDate} </if>
+				<if test="financeAmount != null"> and finance_amount =#{financeAmount,jdbcType=BIGINT} </if>
+				<if test="financeUnit != null"> and finance_unit =#{financeUnit,jdbcType=VARCHAR} </if>
+				<if test="status != null"> and status =#{status,jdbcType=TINYINT} </if>
+				<if test="createUid != null"> and create_uid =#{createUid,jdbcType=BIGINT} </if>
+				<if test="createdTime != null"> and created_time =#{createdTime,jdbcType=BIGINT} </if>
+				<if test="updatedUid != null"> and updated_uid =#{updatedUid,jdbcType=BIGINT} </if>
+				<if test="updatedTime != null"> and updated_time =#{updatedTime,jdbcType=BIGINT} </if>
+
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+
+	<insert id="insert" parameterType="com.galaxyinternet.model.idea.ZixunFinance">
+		insert into sop_zixun_finance
+		(
+		id,
+		zixun_id,
+		finance_date,
+		finance_amount,
+		finance_unit,
+		status,
+		create_uid,
+		created_time,
+		updated_uid,
+		updated_time)
+		values (
+		#{id,jdbcType=BIGINT},
+		#{zixunId,jdbcType=BIGINT},
+		#{financeDate,jdbcType=DATE},
+		#{financeAmount,jdbcType=BIGINT},
+		#{financeUnit,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT},
+		#{createUid,jdbcType=BIGINT},
+		#{createdTime,jdbcType=BIGINT},
+		#{updatedUid,jdbcType=BIGINT},
+		#{updatedTime,jdbcType=BIGINT})
+	</insert>
+
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sop_zixun_finance
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_zixun_finance
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from sop_zixun_finance
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_zixun_finance
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		sop_zixun_finance
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+
+	<update id="updateById" parameterType="com.galaxyinternet.model.idea.ZixunFinance">
+		update sop_zixun_finance
+		<set>
+			<if test="zixunId != null"> zixun_id =#{zixunId,jdbcType=BIGINT}, </if>
+			<if test="financeDate != null"> finance_date =#{financeDate}, </if>
+			<if test="financeAmount != null"> finance_amount =#{financeAmount,jdbcType=BIGINT}, </if>
+			<if test="financeUnit != null"> finance_unit =#{financeUnit,jdbcType=VARCHAR}, </if>
+			<if test="status != null"> status =#{status,jdbcType=TINYINT}, </if>
+			<if test="createUid != null"> create_uid =#{createUid,jdbcType=BIGINT}, </if>
+			<if test="createdTime != null"> created_time =#{createdTime,jdbcType=BIGINT}, </if>
+			<if test="updatedUid != null"> updated_uid =#{updatedUid,jdbcType=BIGINT}, </if>
+			<if test="updatedTime != null"> updated_time =#{updatedTime,jdbcType=BIGINT} </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+
+
+
+
+
+</mapper>
