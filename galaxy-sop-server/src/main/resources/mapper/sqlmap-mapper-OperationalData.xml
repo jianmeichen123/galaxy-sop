@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.touhou.OperationalData" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.touhou.OperationalData" >
+   
+    <id column="id" property="id"/>
+    <result column="employ_num" property="employNum"/>
+    <result column="branch_num" property="branchNum"/>
+    <result column="product_process" property="productProcess"/>
+    <result column="salary" property="salary"/>
+    <result column="other_coat" property="otherCoat"/>
+    <result column="pay_type" property="payType"/>
+    <result column="manage_cost" property="manageCost"/>
+    <result column="market_cost" property="marketCost"/>
+    <result column="operating_cost" property="operatingCost"/>
+    <result column="production_cost" property="productionCost"/>
+    <result column="trade_cost" property="tradeCost"/>
+    <result column="income_cost" property="incomeCost"/>
+    <result column="profit_cost" property="profitCost"/>
+    <result column="account_balance" property="accountBalance"/>
+    <result column="user_num" property="userNum"/>
+    <result column="user_new" property="userNew"/>
+    <result column="user_active_month" property="userActiveMonth"/>
+    <result column="user_active_day" property="userActiveDay"/>
+    <result column="user_buy" property="userBuy"/>
+    <result column="user_online" property="userOnline"/>
+    <result column="business_new" property="businessNew"/>
+    <result column="business_buy" property="businessBuy"/>
+    <result column="trade_orders" property="tradeOrders"/>
+    <result column="trade_order_blance" property="tradeOrderBlance"/>
+    <result column="trade_user_blance" property="tradeUserBlance"/>
+    <result column="project_Id" property="projectId"/>
+    <result column="is_delete" property="isDelete"/>
+    <result column="create_uid" property="createUid"/>
+    <result column="create_time" property="createTime"/>
+    <result column="updated_uid" property="updatedUid"/>
+    <result column="updated_time" property="updatedTime"/>
+  </resultMap>
+  
+   <sql id="Base_Column_List" >
+    id, employ_num, branch_num, product_process, salary, other_coat, pay_type, manage_cost, 
+    market_cost, operating_cost, production_cost, trade_cost, income_cost, profit_cost, 
+    account_balance, user_num, user_new, user_active_month, user_active_day, user_buy, 
+    user_online, business_new, business_buy, trade_orders, trade_order_blance, trade_user_blance, 
+    project_Id, is_delete, create_uid, create_time, updated_uid, updated_time
+  </sql>
+  
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id} </if>
+				<if test="projectId != null"> and project_id = #{projectId} </if>
+				<if test="createUid != null"> and create_uid = #{createUid} </if>
+				<if test="keyword != null">
+			  		and grant_name like CONCAT("%",#{keyword},"%")
+					<if test="escapeChar ">
+						escape '/'
+					</if>
+			  	</if>
+			</trim>
+			<if test="sorting != null">order by ${sorting}</if>
+			<if test="property != null">order by ${property} ${direction}</if>
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>
+		</where>
+	</sql>
+  
+   <select id="selectCount" parameterType="java.util.Map" resultType="java.lang.Long" >
+    select count(*) from operational_data
+    <include refid="Base_Where_Clause" />
+  </select>
+  
+  <!-- 查询 -->
+  <select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from operational_data
+		<include refid="Base_Where_Clause" />
+  </select>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <include refid="Base_Column_List" />
+    from operational_data
+    where id = #{id}
+  </select>
+  
+  <update id="updateById" parameterType="com.galaxyinternet.model.touhou.OperationalData" >
+    update operational_data
+    <set >
+      <if test="employNum != null" >
+        employ_num = #{employNum},
+      </if>
+      <if test="branchNum != null" >
+        branch_num = #{branchNum},
+      </if>
+      <if test="productProcess != null" >
+        product_process = #{productProcess},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary},
+      </if>
+      <if test="otherCoat != null" >
+        other_coat = #{otherCoat},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType},
+      </if>
+      <if test="manageCost != null" >
+        manage_cost = #{manageCost},
+      </if>
+      <if test="marketCost != null" >
+        market_cost = #{marketCost},
+      </if>
+      <if test="operatingCost != null" >
+        operating_cost = #{operatingCost},
+      </if>
+      <if test="productionCost != null" >
+        production_cost = #{productionCost},
+      </if>
+      <if test="tradeCost != null" >
+        trade_cost = #{tradeCost},
+      </if>
+      <if test="incomeCost != null" >
+        income_cost = #{incomeCost},
+      </if>
+      <if test="profitCost != null" >
+        profit_cost = #{profitCost},
+      </if>
+      <if test="accountBalance != null" >
+        account_balance = #{accountBalance},
+      </if>
+      <if test="userNum != null" >
+        user_num = #{userNum},
+      </if>
+      <if test="userNew != null" >
+        user_new = #{userNew},
+      </if>
+      <if test="userActiveMonth != null" >
+        user_active_month = #{userActiveMonth},
+      </if>
+      <if test="userActiveDay != null" >
+        user_active_day = #{userActiveDay},
+      </if>
+      <if test="userBuy != null" >
+        user_buy = #{userBuy},
+      </if>
+      <if test="userOnline != null" >
+        user_online = #{userOnline},
+      </if>
+      <if test="businessNew != null" >
+        business_new = #{businessNew},
+      </if>
+      <if test="businessBuy != null" >
+        business_buy = #{businessBuy},
+      </if>
+      <if test="tradeOrders != null" >
+        trade_orders = #{tradeOrders},
+      </if>
+      <if test="tradeOrderBlance != null" >
+        trade_order_blance = #{tradeOrderBlance},
+      </if>
+      <if test="tradeUserBlance != null" >
+        trade_user_blance = #{tradeUserBlance},
+      </if>
+      <if test="projectId != null" >
+        project_Id = #{projectId},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete},
+      </if>
+      <if test="createUid != null" >
+        create_uid = #{createUid},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+      <if test="updatedUid != null" >
+        updated_uid = #{updatedUid},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from operational_data
+    where id = #{id}
+  </delete>
+ 
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.galaxyinternet.model.touhou.OperationalData">
+	<![CDATA[
+    insert into operational_data (id, employ_num, branch_num, 
+      product_process, salary, other_coat, 
+      pay_type, manage_cost, market_cost, 
+      operating_cost, production_cost, trade_cost, 
+      income_cost, profit_cost, account_balance, 
+      user_num, user_new, user_active_month, 
+      user_active_day, user_buy, user_online, 
+      business_new, business_buy, trade_orders, 
+      trade_order_blance, trade_user_blance, project_Id, 
+      is_delete, create_uid, create_time, 
+      updated_uid, updated_time)
+    values (#{id}, #{employNum}, #{branchNum}, 
+      #{productProcess}, #{salary}, #{otherCoat}, 
+      #{payType}, #{manageCost}, #{marketCost}, 
+      #{operatingCost}, #{productionCost}, #{tradeCost}, 
+      #{incomeCost}, #{profitCost}, #{accountBalance}, 
+      #{userNum}, #{userNew}, #{userActiveMonth}, 
+      #{userActiveDay}, #{userBuy}, #{userOnline}, 
+      #{businessNew}, #{businessBuy}, #{tradeOrders}, 
+      #{tradeOrderBlance}, #{tradeUserBlance}, #{projectId}, 
+      #{isDelete}, #{createUid}, #{createTime}, 
+      #{updatedUid}, #{updatedTime})
+       ]]>
+  </insert>
+ 
+  <update id="updateByIdSelective" parameterType="com.galaxyinternet.model.touhou.OperationalData" >
+    update operational_data
+    set employ_num = #{employNum},
+      branch_num = #{branchNum},
+      product_process = #{productProcess},
+      salary = #{salary},
+      other_coat = #{otherCoat},
+      pay_type = #{payType},
+      manage_cost = #{manageCost},
+      market_cost = #{marketCost},
+      operating_cost = #{operatingCost},
+      production_cost = #{productionCost},
+      trade_cost = #{tradeCost},
+      income_cost = #{incomeCost},
+      profit_cost = #{profitCost},
+      account_balance = #{accountBalance},
+      user_num = #{userNum},
+      user_new = #{userNew},
+      user_active_month = #{userActiveMonth},
+      user_active_day = #{userActiveDay},
+      user_buy = #{userBuy},
+      user_online = #{userOnline},
+      business_new = #{businessNew},
+      business_buy = #{businessBuy},
+      trade_orders = #{tradeOrders},
+      trade_order_blance = #{tradeOrderBlance},
+      trade_user_blance = #{tradeUserBlance},
+      project_Id = #{projectId},
+      is_delete = #{isDelete},
+      create_uid = #{createUid},
+      create_time = #{createTime},
+      updated_uid = #{updatedUid},
+      updated_time = #{updatedTime}
+    where id = #{id}
+  </update>
+</mapper>

@@ -1,4 +1,4 @@
-﻿package com.galaxyinternet.ideaZixun.dao;
+package com.galaxyinternet.ideaZixun.dao;
 
 
 import org.springframework.stereotype.Repository;
