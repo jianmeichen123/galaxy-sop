@@ -7,7 +7,7 @@ import com.galaxyinternet.framework.core.model.PagableEntity;
 public class ZixunFinance extends PagableEntity {
 
 	private static final long serialVersionUID = 1L;
-
+ 
     private Long zixunId;
 
     private String financeDate;

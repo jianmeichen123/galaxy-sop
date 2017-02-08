@@ -60,7 +60,7 @@ import com.galaxyinternet.service.ZixunFinanceService;
 @Controller
 @RequestMapping("/galaxy/zixunFinance")
 public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, ZixunFinanceBo> {
-	
+	 
 	final Logger logger = LoggerFactory.getLogger(ZixunFinanceController.class);
 	
 	@Autowired

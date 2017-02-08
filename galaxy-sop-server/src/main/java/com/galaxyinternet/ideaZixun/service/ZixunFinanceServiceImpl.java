@@ -16,7 +16,7 @@ public class ZixunFinanceServiceImpl extends BaseServiceImpl<ZixunFinance> imple
 	@Autowired
 	private ZixunFinanceDao zixunFinanceDao;
 
-	
+	 
 	@Override
 	protected BaseDao<ZixunFinance, Long> getBaseDao() {
 		return this.zixunFinanceDao;
