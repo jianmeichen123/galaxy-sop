@@ -43,7 +43,7 @@ public class GrantActualDaoImpl extends BaseDaoImpl<GrantActual, Long> implement
 			return sqlSessionTemplate.selectList(getSqlName("selectSumActualByPid"), projctId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException(String.format("查询实际注资信息出错！语句：%s", getSqlName("lookActualDetail")), e);
+			throw new DaoException(String.format("查询实际注资信息出错！语句：%s", getSqlName("selectSumActualByPid")), e);
 		}
 	}
 
