@@ -23,6 +23,7 @@
                 <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
             	</c:if>
             	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
+            	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" >运营数据记录</a>
                 <%-- <c:if test="${isEditable}">
             	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
                 </c:if> --%>
