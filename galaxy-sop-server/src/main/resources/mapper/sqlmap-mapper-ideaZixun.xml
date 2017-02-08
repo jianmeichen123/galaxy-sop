@@ -63,8 +63,8 @@
 				<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				<if test="createUid != null"> and create_uid = #{createUid,jdbcType=BIGINT} </if>
 				
-				<if test="beginUpdatedTime != null"> and updated_time <![CDATA[>=]]> #{beginUpdatedTime,jdbcType=BIGINT}</if>
-				<if test="endUpdatedTime != null"> and updated_time <![CDATA[<=]]> #{endUpdatedTime,jdbcType=BIGINT}</if>
+				<if test="beginTimeLong != null"> and updated_time <![CDATA[>=]]> #{beginTimeLong,jdbcType=BIGINT}</if>
+				<if test="endTimeLong != null"> and updated_time <![CDATA[<=]]> #{endTimeLong,jdbcType=BIGINT}</if>
 				
 				<if test="keyword != null">
 					and (

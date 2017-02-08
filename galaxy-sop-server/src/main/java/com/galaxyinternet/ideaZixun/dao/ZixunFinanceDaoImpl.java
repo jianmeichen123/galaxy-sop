@@ -12,7 +12,7 @@ import com.galaxyinternet.model.idea.ZixunFinance;
 public class ZixunFinanceDaoImpl extends BaseDaoImpl<ZixunFinance, Long> implements ZixunFinanceDao{
 
 	
-	
+ 	
 	
 	
 }

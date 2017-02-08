@@ -10,7 +10,7 @@ import com.galaxyinternet.model.idea.IdeaZixun;
 @Repository("ideaZixunDao")
 public class IdeaZixunDaoImpl extends BaseDaoImpl<IdeaZixun, Long> implements IdeaZixunDao{
 
-
+ 
 	
 
 }
