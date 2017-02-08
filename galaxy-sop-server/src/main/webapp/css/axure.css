@@ -2388,3 +2388,16 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .edit_operation{margin-right: 10px;}
 .operation_look{margin:0;}
 .rowtds{border-right:1px solid #f6f7fa;text-align: center;font-weight: bold;}
+.zixuntc,.zx_looktc{padding-top: 40px;width: 780px;}
+.zixuntc dl dt,.zx_looktc dl dt{width: 80px;}
+.zx_name{color:#999;}
+.zx_name span{margin-left: 5px;}
+.zixuntc h3,.zx_looktc h3{font-size: 16px;font-weight:normal;color:#6b799f;border-bottom: 1px solid #dadfe3;line-height: 24px;margin-top: 5px;}
+.zixuntc .rz_info{position: relative;}
+.zixuntc .rz_info .add{position: absolute;top: 5px;right: 5px;}
+.zx_looktc .block,.zixuntc .block{max-height: 450px;overflow-y:auto; }
+.zx_looktc dl{margin:0;}
+.zx_looktc dl dd,.zx_looktc .j p{font-family: "宋体";font-size: 12px;}
+.zx_looktc .j p{color:#2d3342;}
+.zx_looktc .j{margin: 10px 0;}
+.zx_looktc .left{width:390px;}
