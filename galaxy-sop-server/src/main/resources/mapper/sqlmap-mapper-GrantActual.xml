@@ -141,4 +141,14 @@
 		select ifnull(sum(grant_money), 0) from sop_grant_actual where part_grant_id = #{partId}
 	</select>
 	
+	<!-- 根据项目id查询该项目下面的所有实际注资信息 -->
+	<select id="selectSumActualByPid" resultType="BaseResultMap" parameterType="java.lang.Long">
+		SELECT a.*,c.`project_id` FROM `sop_grant_actual`  a
+            INNER JOIN `sop_grant_part` b ON a.`part_grant_id`=b.`id`
+            INNER JOIN `sop_grant_total`c ON c.`id`=b.`total_grant_id`
+             WHERE c.`project_id`=#{projectId}
+	</select>
+	
+	
+	
 </mapper>

@@ -270,6 +270,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				form.setCreateUname(user.getRealName());
 				//grantActualService.insert(form);
 				grantActualService.insertGrantActual(form, project);
+				
 			}else{
 				//编辑
 				uNum = UrlNumber.two;
@@ -283,6 +284,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				//grantActualService.updateById(actual);
 				grantActualService.upateGrantActual(actual, project);
 			}
+			//根据项目id查询本次添加实际金额是否为该项目的第一条实际注资信息
 			responseBody.setResult(new Result(Status.OK, ""));
 			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", uNum);
 		} catch (DaoException e) {
