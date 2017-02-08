@@ -2,8 +2,11 @@ package com.galaxyinternet.touhou.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.OperationalDataBo;
 import com.galaxyinternet.dao.touhou.OperationalDataDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.touhou.OperationalData;
 import com.galaxyinternet.service.OperationalDataService;
@@ -37,6 +40,13 @@ public class OperationalDataServiceImpl extends BaseServiceImpl<OperationalData>
 	public void deleteOperationalDataById(Long operationalDataId) {
 		// TODO Auto-generated method stub
 		operationalDataDao.deleteById(operationalDataId);
+	}
+
+	@Override
+	public Page<OperationalDataBo> queryOperationalDataPageList(
+			OperationalDataBo query, PageRequest pageRequest) {
+		// TODO Auto-generated method stub
+		return operationalDataDao.selectOperationalDataPageList(query, pageRequest);
 	}
 
 }

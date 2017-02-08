@@ -2375,3 +2375,16 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 /* 修复富文本回删内容，光标跑偏 */
 .edui-editor-body .edui-body-container{padding-top:10px !important;}
 .edui-editor-body .edui-body-container p{margin:0 !important;}
+/* 201702版本 */
+.fmmt{margin-top: 16px;float: left;}
+.operationalInfo table td{border:0;}
+.operationalInfo table td .new_nputr{margin-right: 5px;}
+.operationalInfo table td select.new_nputr{width:90px;}
+.operationalInfo table tr>td:first-child{text-align: right;width: 110px;}
+.operationalInfo table tr>td:nth-child(2){width: 320px;}
+.operationalInfo table tr>td:nth-child(3){color:#999;}
+.operationalInfo .new_color{margin-left: 0;}
+.operationalInfo button{margin-bottom: 30px;margin-left:137px;}
+.edit_operation{margin-right: 10px;}
+.operation_look{margin:0;}
+.rowtds{border-right:1px solid #f6f7fa;text-align: center;font-weight: bold;}

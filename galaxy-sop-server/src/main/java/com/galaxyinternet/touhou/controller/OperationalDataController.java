@@ -1,0 +1,173 @@
+package com.galaxyinternet.touhou.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.galaxyinternet.bo.OperationalDataBo;
+import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.touhou.OperationalData;
+import com.galaxyinternet.service.OperationalDataService;
+import com.galaxyinternet.service.ProjectService;
+
+@Controller
+@RequestMapping("/galaxy/operationalData")
+public class OperationalDataController extends BaseControllerImpl<OperationalData, OperationalDataBo> {
+ 
+	private final static Logger logger = LoggerFactory.getLogger(OperationalDataController.class);
+
+	@Autowired
+	private OperationalDataService operationalDataService;
+	
+	@Autowired
+	private ProjectService projectService;
+	
+	@Override
+	protected BaseService<OperationalData> getBaseService() {
+		// TODO Auto-generated method stub
+		return operationalDataService;
+	}
+	
+	/**
+	 * 运营记录入口
+	 * @return
+	 */
+	@RequestMapping(value="/toOperationalDataList",method = RequestMethod.GET)
+	public String toOperationalDataList(){
+		return "project/operationalDataList";
+	}
+	
+	/**
+	 * 运营记录列表
+	 * @param request
+	 * @param operationalData
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/operationalDataList", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationalDataBo> searchOperationalDataList(HttpServletRequest request,
+			@RequestBody OperationalDataBo operationalData) {
+		
+        ResponseData<OperationalDataBo> responseBody = new ResponseData<OperationalDataBo>();
+		try {
+			operationalData.setCreateUid(104l);
+			Page<OperationalDataBo> pageList = operationalDataService.queryOperationalDataPageList(operationalData,new PageRequest(operationalData.getPageNum(),operationalData.getPageSize()));
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询运营记录失败"));
+			if(logger.isErrorEnabled()){
+				logger.error("查询运营记录失败  ",e);
+			}
+			return responseBody;
+		}
+		
+	}
+	
+	
+	/**
+	 * 查看运营记录
+	 * @param operationalDataId
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/selectOperationalData/{operationalDataId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationalData> selectOperationalData(@PathVariable("operationalDataId") Long operationalDataId,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<OperationalData> responseBody = new ResponseData<OperationalData>();
+		try {
+			OperationalData operationalData = operationalDataService.selectOperationalDataById(operationalDataId);
+			responseBody.setEntity(operationalData);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
+			logger.error("operationalData 查询失败",e);
+		}
+		return responseBody;
+	}
+	
+	/***
+	 * 新增|修改运营记录
+	 * @param operationalData
+	 * @param request
+	 * @return
+	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@ResponseBody
+	@RequestMapping(value = "/addOperationalData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationalData> addOperationalData(@RequestBody OperationalData operationalData,
+			HttpServletRequest request) {
+		ResponseData<OperationalData> responseBody = new ResponseData<OperationalData>();
+		
+		try {
+			if(operationalData == null){
+				responseBody.setResult(new Result(Status.ERROR, "error", "添加运营记录失败!"));
+			}
+			Project project = projectService.queryById(operationalData.getProjectId());
+			if(operationalData.getId() != null){
+				operationalDataService.updateById(operationalData);
+			}else{
+				operationalDataService.insert(operationalData);
+			}
+			responseBody.setResult(new Result(Status.OK, "success", "添加运营记录成功!"));
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "", null);
+			logger.info("添加运营记录成功!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseBody.setResult(new Result(Status.ERROR, "error", "添加运营记录失败!"));
+			logger.error("添加运营记录失败！", e);
+		}
+		return responseBody;
+	}
+	
+	/**
+	 *删除
+	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@ResponseBody
+	@RequestMapping(value = "/delOperationalData/{operationalDataId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationalData> delOperationalData(@PathVariable("operationalDataId") Long operationalDataId,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<OperationalData> responseBody = new ResponseData<OperationalData>();
+		if(StringUtils.isEmpty(operationalDataId)){
+			responseBody.setResult(new Result(Status.ERROR,null, "参数丢失!"));
+			return responseBody;
+		}
+		try {
+			OperationalData od = operationalDataService.selectOperationalDataById(operationalDataId);
+			Project project = projectService.queryById(od.getProjectId());
+			operationalDataService.deleteById(operationalDataId);
+			responseBody.setResult(new Result(Status.OK, ""));
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "", UrlNumber.three);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "删除失败"));
+			logger.error("delGrantPart 删除失败",e);
+		}
+		return responseBody;
+	}
+	
+
+}
