@@ -310,6 +310,13 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				message.setBelongDepartmentId(user.getDepartmentId());
 				message.setSingleMark((byte) 1);
 			    operationMessageService.insert(message);
+			}else if(message.getAssistColumn().equals("1")){
+				content.append("项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("需要于每月1日开始填写上月的运营数据。");
+				message.setContent(content.toString());
+				message.setMessageType("16.2");
+				operationMessageService.insert(message);
 			}
 		} catch (Exception e1) {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
