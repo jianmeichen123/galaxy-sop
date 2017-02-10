@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.IdeaZixunBo;
 import com.galaxyinternet.bo.ZixunFinanceBo;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
@@ -46,6 +47,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.idea.IdeaZixun;
 import com.galaxyinternet.model.idea.ZixunFinance;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -76,6 +78,107 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 	protected BaseService<ZixunFinance> getBaseService() {
 		return this.zixunFinanceService;
 	}
+	
+	
+	
+	/**
+	 * 资讯融资  添加   页面
+	 */
+	@RequestMapping(value = "/add")
+	public String rzAdd() {
+		return "idea/zixun/rz_add";
+	}
+	
+	/**
+	 * 资讯融资  编辑   页面
+	 */
+	@RequestMapping(value = "/edit")
+	public String rzEdit() {
+		return "idea/zixun/rz_edit";
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/addRz",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ZixunFinance> addRz(HttpServletRequest request,@RequestBody ZixunFinance rz){
+		ResponseData<ZixunFinance> responseBody = new ResponseData<ZixunFinance>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try{
+			rz.setId(null);
+			rz.setCreateUid(user.getId());
+			rz.setCreatedTime(System.currentTimeMillis());
+			rz.setUpdatedUid(user.getId());
+			rz.setUpdatedTime(System.currentTimeMillis());
+			Long id = zixunFinanceService.insert(rz);
+			
+			responseBody.setId(id);
+			responseBody.setResult(new Result(Status.OK,null,"添加成功"));
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR,null,"添加失败!"));
+			logger.error("addRz 添加失败",e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/editRz",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ZixunFinance> editRz(HttpServletRequest request,@RequestBody ZixunFinance rz){
+		ResponseData<ZixunFinance> responseBody = new ResponseData<ZixunFinance>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try{
+			rz.setUpdatedUid(user.getId());
+			rz.setUpdatedTime(System.currentTimeMillis());
+			zixunFinanceService.updateById(rz);
+			
+			responseBody.setResult(new Result(Status.OK,null,"修改成功"));
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR,null,"修改失败!"));
+			logger.error("editRz 修改失败",e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/delRz/{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ZixunFinance> delRz(@PathVariable("id") Long id,HttpServletRequest request){
+		ResponseData<ZixunFinance> responseBody = new ResponseData<ZixunFinance>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try{
+			
+			ZixunFinance rz = new ZixunFinance();
+			rz.setId(id);
+			rz.setStatus((byte) 1);
+			zixunFinanceService.updateById(rz);
+			
+			//zixunFinanceService.deleteById(id);
+			responseBody.setResult(new Result(Status.OK,null,"删除成功"));
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR,null,"删除失败!"));
+			logger.error("delRz 删除失败",e);
+		}
+		
+		return responseBody;
+	}
+	
+	
 	
 	
 	

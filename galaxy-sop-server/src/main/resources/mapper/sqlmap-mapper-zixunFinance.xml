@@ -6,7 +6,7 @@
 		<result column="id" jdbcType="BIGINT" property="id" />
 		<result column="zixun_id" jdbcType="BIGINT" property="zixunId" />
 		<result column="finance_date" property="financeDate" />
-		<result column="finance_amount" jdbcType="BIGINT" property="financeAmount" />
+		<result column="finance_amount" jdbcType="VARCHAR" property="financeAmount" />
 		<result column="finance_unit" jdbcType="VARCHAR" property="financeUnit" />
 		<result column="status" jdbcType="TINYINT" property="status" />
 		<result column="create_uid" jdbcType="BIGINT" property="createUid" />
@@ -37,7 +37,7 @@
 
 				<if test="zixunId != null"> and zixun_id =#{zixunId,jdbcType=BIGINT} </if>
 				<if test="financeDate != null"> and finance_date =#{financeDate} </if>
-				<if test="financeAmount != null"> and finance_amount =#{financeAmount,jdbcType=BIGINT} </if>
+				<if test="financeAmount != null"> and finance_amount =#{financeAmount,jdbcType=VARCHAR} </if>
 				<if test="financeUnit != null"> and finance_unit =#{financeUnit,jdbcType=VARCHAR} </if>
 				<if test="status != null"> and status =#{status,jdbcType=TINYINT} </if>
 				<if test="createUid != null"> and create_uid =#{createUid,jdbcType=BIGINT} </if>
@@ -53,7 +53,7 @@
 		</if>
 	</sql>
 
-	<insert id="insert" parameterType="com.galaxyinternet.model.idea.ZixunFinance">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.idea.ZixunFinance">
 		insert into sop_zixun_finance
 		(
 		id,
@@ -70,7 +70,7 @@
 		#{id,jdbcType=BIGINT},
 		#{zixunId,jdbcType=BIGINT},
 		#{financeDate,jdbcType=DATE},
-		#{financeAmount,jdbcType=BIGINT},
+		#{financeAmount,jdbcType=VARCHAR},
 		#{financeUnit,jdbcType=VARCHAR},
 		#{status,jdbcType=TINYINT},
 		#{createUid,jdbcType=BIGINT},
@@ -123,7 +123,7 @@
 		<set>
 			<if test="zixunId != null"> zixun_id =#{zixunId,jdbcType=BIGINT}, </if>
 			<if test="financeDate != null"> finance_date =#{financeDate}, </if>
-			<if test="financeAmount != null"> finance_amount =#{financeAmount,jdbcType=BIGINT}, </if>
+			<if test="financeAmount != null"> finance_amount =#{financeAmount,jdbcType=VARCHAR}, </if>
 			<if test="financeUnit != null"> finance_unit =#{financeUnit,jdbcType=VARCHAR}, </if>
 			<if test="status != null"> status =#{status,jdbcType=TINYINT}, </if>
 			<if test="createUid != null"> create_uid =#{createUid,jdbcType=BIGINT}, </if>

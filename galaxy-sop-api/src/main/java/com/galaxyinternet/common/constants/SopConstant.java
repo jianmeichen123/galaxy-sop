@@ -57,6 +57,7 @@ public interface SopConstant {
 	
 	
 	public static final String CONFIG_KEY_IDEA_CODE = "idea_code";
+	public static final String CONFIG_KEY_ZIXUN_CODE = "zixun_code";
 	
 	/**创意阶段 - 待认领**/
 	public static final String IDEA_PROGRESS_DRL 			= "ideaProgress:1";

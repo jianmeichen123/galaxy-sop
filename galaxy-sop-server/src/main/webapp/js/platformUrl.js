@@ -442,6 +442,12 @@ var platformUrl = {
 	 * 获取创意的事业线信息
 	 */
 	getIdeaDepartment : Constants.sopEndpointURL + "/galaxy/idea/getDepartment",
+	
+	/**
+	 * 项目创意 列表页
+	 */
+	ideaList : Constants.sopEndpointURL + "/galaxy/idea/idealist",
+	
 	/**
 	 * 获取创意-立项会、投决会
 	 */

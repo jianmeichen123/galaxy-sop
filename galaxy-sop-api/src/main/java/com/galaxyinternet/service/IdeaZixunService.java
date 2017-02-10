@@ -9,6 +9,10 @@ import com.galaxyinternet.model.idea.IdeaZixun;
 public interface IdeaZixunService extends BaseService<IdeaZixun> {
 
 	Page<IdeaZixunBo> queryZixunPage(IdeaZixunBo query, PageRequest pageable);
+
+	void insertZixun(IdeaZixun zixun, IdeaZixunBo zixunbo);
+
+	void editZixun(IdeaZixun zixun, IdeaZixunBo zixunbo);
 	
 	
 }

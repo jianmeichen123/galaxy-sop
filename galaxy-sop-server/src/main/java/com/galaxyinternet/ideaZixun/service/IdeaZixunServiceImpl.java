@@ -8,16 +8,20 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.IdeaZixunBo;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.dao.idea.IdeaZixunDao;
+import com.galaxyinternet.dao.idea.ZixunFinanceDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.IdeaZixun;
+import com.galaxyinternet.model.idea.ZixunFinance;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -34,6 +38,8 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 
 	@Autowired
 	private IdeaZixunDao ideaZixunDao;
+	@Autowired
+	private ZixunFinanceDao zixunFinanceDao;
 	
 	@Autowired
 	private UserService userService;
@@ -116,6 +122,40 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 		}
 		
 		return new Page<IdeaZixunBo>(viewBoList, pageable, total);
+	}
+
+
+
+
+	@Transactional
+	@Override
+	public void insertZixun(IdeaZixun zixun, IdeaZixunBo zixunbo) {
+		Long zixunId = ideaZixunDao.insert(zixun);
+		if(zixunId != null){
+			List<ZixunFinance> rzs  = zixunbo.getFinaceList()==null?new ArrayList<ZixunFinance>():zixunbo.getFinaceList();
+			for(ZixunFinance zf : rzs){
+				zf.setZixunId(zixunId);
+				
+				zf.setCreateUid(zixun.getCreateUid());
+				zf.setUpdatedUid(zixun.getCreateUid());
+				zf.setCreatedTime(System.currentTimeMillis());
+				zf.setUpdatedTime(System.currentTimeMillis());
+				
+				zixunFinanceDao.insert(zf);
+			}
+		}else{
+			throw new DaoException("添加资讯入库返回Id失败");
+		}
+	}
+
+
+
+
+
+	@Override
+	public void editZixun(IdeaZixun zixun, IdeaZixunBo zixunbo) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

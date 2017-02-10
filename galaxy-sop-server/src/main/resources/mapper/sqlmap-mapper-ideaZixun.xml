@@ -89,7 +89,7 @@
 
 
 
-	<insert id="insert" parameterType="com.galaxyinternet.model.idea.IdeaZixun">
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.idea.IdeaZixun">
 		insert into sop_idea_zixun (
 		id,
 		code,

@@ -1,12 +1,15 @@
 package com.galaxyinternet.bo;
 
+import java.util.List;
+
 import com.galaxyinternet.model.idea.IdeaZixun;
+import com.galaxyinternet.model.idea.ZixunFinance;
 
 public class IdeaZixunBo extends IdeaZixun {
 
 	private static final long serialVersionUID = 1L;
 
-	private String beginTime;
+	private String startTime;
 	private String endTime;
 	
 	private Long beginTimeLong;
@@ -17,12 +20,9 @@ public class IdeaZixunBo extends IdeaZixun {
 	private String userName;
 	
 	
-	public String getBeginTime() {
-		return beginTime;
-	}
-	public void setBeginTime(String beginTime) {
-		this.beginTime = beginTime;
-	}
+	private List<ZixunFinance> finaceList;
+	
+	
 	public String getEndTime() {
 		return endTime;
 	}
@@ -52,6 +52,18 @@ public class IdeaZixunBo extends IdeaZixun {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public List<ZixunFinance> getFinaceList() {
+		return finaceList;
+	}
+	public void setFinaceList(List<ZixunFinance> finaceList) {
+		this.finaceList = finaceList;
 	}
 	
 	
