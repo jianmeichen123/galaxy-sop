@@ -72,10 +72,10 @@ public class PushMessageOperation extends BaseGalaxyTask {
 							om.setRole("投资经理");
 							om.setOperatorDepartmentId(project.getProjectDepartid());
 							om.setOperatorId(project.getCreateUid());
-							om.setOperator(userMap.get(project.getId()).getRealName());
+							om.setOperator(userMap.get(project.getCreateUid()).getRealName());
 							om.setBelongDepartmentId(project.getProjectDepartid());
 							om.setBelongUid(project.getCreateUid());
-							om.setBelongUname(userMap.get(project.getId()).getRealName());
+							om.setBelongUname(userMap.get(project.getCreateUid()).getRealName());
 							om.setType("项目");
 							om.setProjectName(project.getProjectName());
 							om.setProjectId(project.getId());

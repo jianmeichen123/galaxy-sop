@@ -31,8 +31,8 @@ public class InitMethodCall extends HttpServlet {
 		pushMessageTask.execute();
 		
 		//每月1号给已经有注资信息的项目推送添加运营数据的消息
-		PushMessageOperation pushMessageOperation = SpringContextManager.getBean("pushMessageOperation",PushMessageOperation.class);
-		pushMessageOperation.execute();
+	//	PushMessageOperation pushMessageOperation = SpringContextManager.getBean("pushMessageOperation",PushMessageOperation.class);
+	//	pushMessageOperation.execute();
 	}
 
 }
