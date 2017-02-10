@@ -211,4 +211,15 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 				throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("projectTotalTimeCount")), e);
 			}
 		}
+		
+		@Override
+		public List<Project>  selectProjectForPushMessage() {
+			try {
+						return sqlSessionTemplate.selectList("selectProjectForPushMessage");
+			} catch (Exception e) {
+				throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("projectTotalTimeCount")), e);
+			}
+		}
+		
+		
 	}

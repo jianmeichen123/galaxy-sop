@@ -1146,4 +1146,30 @@
 			<!-- </trim> -->
 		 </where>
 		</select>
+	<select id="selectProjectForPushMessage" resultMap="BaseResultMap" >
+		
+		SELECT 
+		  s.`id`,
+		  s.`project_name`,
+		  s.`create_uid`,
+		  s.project_company,
+		  s.`project_type`,
+		  s.`project_careerline`,
+		  s.`project_departId`,
+		  s.`finance_status`,
+		  s.`project_describe_financing`,
+		  s.`project_describe`,
+		  s.`final_share_ratio`,
+		  s.`final_contribution`,
+		  s.`service_charge` 
+   FROM
+  sop_project s 
+  INNER JOIN 
+    (SELECT a.id,a.`part_grant_id`, a.`grant_money`,a.actual_time AS ctime,
+      c.`project_id` FROM  sop_grant_actual a LEFT JOIN sop_grant_part b 
+      ON a.`part_grant_id` = b.`id`  LEFT JOIN `sop_grant_total` c 
+     ON b.`total_grant_id` = c.`id` GROUP BY c.`project_id` 
+      ORDER BY a.created_time ASC) p ON s.id = p.project_id
+ 
+    </select>
 </mapper>
