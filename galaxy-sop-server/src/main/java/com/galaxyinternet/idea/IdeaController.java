@@ -162,9 +162,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return null;
 	}
 	
-	
+	/**
+	 * 创意
+	*/
 	@RequestMapping(method = RequestMethod.GET)
-	public String list(HttpServletRequest request)
+	public String showIdea(HttpServletRequest request)
 	{
 		String id = request.getParameter("indextoid");
 		if(StringUtils.isNotBlank(id)){
@@ -172,8 +174,25 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			request.setAttribute("indextoid", id);
 			request.setAttribute("name", idea.getIdeaName());
 		}
-		return "idea/idea_list";
+		return "idea/idea_tag";
 	}
+	
+	/**
+	 * 项目创意列表  tab 页
+	*/
+	@RequestMapping(value="/idealist", method = RequestMethod.GET)
+	public String idealist(HttpServletRequest request)
+	{
+		String id = request.getParameter("indextoid");
+		if(StringUtils.isNotBlank(id)){
+			Idea idea = ideaService.queryById(Long.parseLong(id));
+			request.setAttribute("indextoid", id);
+			request.setAttribute("name", idea.getIdeaName());
+		}
+		return "idea/idea_list2";
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping("/search")
 	public ResponseData<Idea> search(@RequestBody Idea query, HttpServletRequest request)

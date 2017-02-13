@@ -12,11 +12,11 @@ public class ZixunFinance extends PagableEntity {
 
     private String financeDate;
 
-    private Long financeAmount;
+    private String financeAmount;
 
     private String financeUnit;
 
-    private Byte status;
+    private byte status;
 
     private Long createUid;
 
@@ -39,11 +39,11 @@ public class ZixunFinance extends PagableEntity {
         this.financeDate = financeDate;
     }
 
-    public Long getFinanceAmount() {
+    public String getFinanceAmount() {
         return financeAmount;
     }
 
-    public void setFinanceAmount(Long financeAmount) {
+    public void setFinanceAmount(String financeAmount) {
         this.financeAmount = financeAmount;
     }
 
@@ -55,15 +55,16 @@ public class ZixunFinance extends PagableEntity {
         this.financeUnit = financeUnit == null ? null : financeUnit.trim();
     }
 
-    public Byte getStatus() {
-        return status;
-    }
 
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
+    public byte getStatus() {
+		return status;
+	}
 
-    public Long getCreateUid() {
+	public void setStatus(byte status) {
+		this.status = status;
+	}
+
+	public Long getCreateUid() {
         return createUid;
     }
 

@@ -28,7 +28,7 @@ public class IdeaZixun extends PagableEntity {
 
     private String detailInfo;
 
-    private Byte status;
+    private byte status;
 
     private Long updatedUid;
 
