@@ -80,7 +80,7 @@ function getAddCondition(){
 //添加访问后台
 function saveAdd(){
 	var condition = getAddCondition();
-	sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixun/addzixun",condition,saveAddBack);
+	sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixun/addzixun",condition,saveBack);
 }
 function saveBack(data){
 	layer.msg(data.result.message);
@@ -191,7 +191,6 @@ function updateRzSave(){
 }
 
 
-
 //删除 融资
 function delRZ(obj,rzId){
 	layer.confirm('是否删除该融资信息?', {
@@ -203,16 +202,15 @@ function delRZ(obj,rzId){
 		if(rzId){
 			sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixunFinance/delRz/"+rzId, null,
 					function(data){
-						layer.msg(data.result.message);
-						
 						var result = data.result.status;
 						if(result == "ERROR"){ //OK, ERROR
+							layer.msg(data.result.message);
 							return;
 						}
 					}
 			);
 		}
-		
+		layer.msg("删除成功！");
 		thisTr.remove();
 	}, function(index) {
 	});
@@ -227,9 +225,9 @@ function delRZ(obj,rzId){
  * 查看  编辑   删除   
  */
 function operateFormatter(value,row,index){  
-	var look = "<label class=\"blue\" onclick=\"to_look('"+row.id+"')\">查看</label>";
-	var edit = "&nbsp;<label class=\"blue\" onclick=\"to_edit('"+row.id+"')\" >编辑</label>";
-	var del = "&nbsp;<label class=\"blue\" onclick=\"to_del('"+row.id+"')\" >删除</label>";
+	var look = "<a href='javascript:;'  class=\"blue\" onclick=\"to_look('"+row.id+"')\">查看</a>";
+	var edit = "&nbsp;<a href='javascript:;'  class=\"blue\" onclick=\"to_edit('"+row.id+"')\" >编辑</a>";
+	var del = "&nbsp;<a href='javascript:;'  class=\"blue\" onclick=\"to_del('"+row.id+"')\" >删除</a>";
 	
 	var content = look;
 	content += edit;
@@ -242,7 +240,7 @@ function operateFormatter(value,row,index){
 
 //弹框   编辑创意资讯
 function to_edit(zixunId){
-	var _name = "编辑资讯";
+	var _name = "编辑创意资讯";
 	$.getHtml({
 		url:Constants.sopEndpointURL + "/galaxy/zixun/edit",
 		data:"",
@@ -267,7 +265,6 @@ function to_edit(zixunId){
 	});
 	return false;
 }
-
 
 function preEdit(zixunId){
 	
@@ -329,7 +326,6 @@ function preEdit(zixunId){
 	
 }
 
-
 //资讯  编辑后   信息获取
 function getEditCondition(){
 	var condition = JSON.parse($("#zixunForm").serializeObject());
@@ -346,6 +342,80 @@ function editAdd(){
 
 
 
+/**
+ * 查看 资讯
+ */
+function to_look(zixunId){
+	var _name = "查看创意资讯";
+	$.getHtml({
+		url:Constants.sopEndpointURL + "/galaxy/zixun/look",
+		data:"",
+		okback:function(){
+			$("#popup_name").text(_name);
+			
+			zixunInfo(zixunId);
+			
+			
+		}
+	});
+	return false;
+}
+function zixunInfo(zixunId){
+	
+	sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/zixunInfo/"+zixunId, null,
+			function(data){
+				if(data.result.status == 'OK') {
+					var entity = data.entity;
+					
+					$("#zixun_info #code").html(entity.code);
+					$("#zixun_info #companyName").html(entity.companyName);
+					$("#zixun_info #companyField").html(entity.companyField);
+					$("#zixun_info #companyCuser").html(entity.companyCuser);
+					$("#zixun_info #companyUrl").html(entity.companyUrl);
+					$("#zixun_info #companyBtime").html(entity.companyBtime);
+					$("#zixun_info #companyAddress").html(entity.companyAddress);
+					$("#zixun_info #remark").html(entity.remark);
+					$("#zixun_info #detailInfo").html(entity.detailInfo);
+					$("#zixun_info #departmentId").html(entity.departName);
+					
+					/*sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/getDepartment", null,
+							function(data){
+								if(data.result.status = 'OK') {
+									$("#zixun_info #departmentId").empty();
+									if(data.entityList.length >1) {
+										$("#zixun_info #departmentId").append('<option value="">请选择</option>');
+									}
+									$.each(data.entityList,function(){
+										if(entity.departmentId && this.id == entity.departmentId){
+											$("#zixun_info #departmentId").append('<option selected="selected" value="'+this.id+'">'+this.name+'</option>');
+										}else
+											$("#zixun_info #departmentId").append('<option value="'+this.id+'">'+this.name+'</option>');
+									});
+								}
+							}
+					);*/
+					
+					if(entity.finaceList && entity.finaceList.length > 0){
+						$.each(entity.finaceList,function(){
+							var htm = 
+									"<tr>" +
+										"<td data-name='financeDate'>"+this.financeDate+"</td>" +
+										"<td data-name='financeAmount'>"+this.financeAmount+"</td>" +
+									"tr>";
+							$("#zixun_info #rzBody").append(htm);
+						});
+					}else{
+						$("#zixun_info #rz_info").remove();
+					}
+					
+				}
+			}
+	);
+	
+}
+
+
+
 
 /**
  * 删除资讯
@@ -354,7 +424,7 @@ function to_del(id) {
 	layer.confirm('是否删除该项目资讯?', {
 		btn : [ '确定', '取消' ]
 	}, function(index, layero) {
-		sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/delzixun/"+rzId, null,
+		sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/delzixun/"+id, null,
 				function(data){
 					layer.msg(data.result.message);
 					var result = data.result.status;

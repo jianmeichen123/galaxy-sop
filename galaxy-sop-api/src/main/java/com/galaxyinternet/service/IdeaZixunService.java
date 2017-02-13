@@ -13,6 +13,8 @@ public interface IdeaZixunService extends BaseService<IdeaZixun> {
 	void insertZixun(IdeaZixun zixun, IdeaZixunBo zixunbo);
 
 	void editZixun(IdeaZixun zixun, IdeaZixunBo zixunbo);
+
+	void deleteZixun(IdeaZixun zx);
 	
 	
 }

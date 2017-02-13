@@ -54,9 +54,6 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 	protected BaseDao<IdeaZixun, Long> getBaseDao() {
 		return this.ideaZixunDao;
 	}
-
-	
-		
 		
 	
 	@Override
@@ -150,11 +147,25 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 
 
 
-
-
 	@Override
 	public void editZixun(IdeaZixun zixun, IdeaZixunBo zixunbo) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Transactional
+	@Override
+	public void deleteZixun(IdeaZixun zx) {
+		ideaZixunDao.updateById(zx);
+		
+		ZixunFinance zixunFinance = new ZixunFinance();
+		zixunFinance.setZixunId(zx.getId());
+		zixunFinance.setStatus((byte) 1);
+		zixunFinance.setUpdatedUid(zx.getUpdatedUid());
+		zixunFinanceDao.updateByIdSelective(zixunFinance);
 		
 	}
 

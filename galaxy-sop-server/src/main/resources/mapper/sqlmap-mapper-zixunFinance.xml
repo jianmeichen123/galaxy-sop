@@ -135,6 +135,25 @@
 	</update>
 
 
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.idea.ZixunFinance">
+		update sop_zixun_finance
+		<set>
+			<if test="financeDate != null"> finance_date =#{financeDate}, </if>
+			<if test="financeAmount != null"> finance_amount =#{financeAmount,jdbcType=VARCHAR}, </if>
+			<if test="financeUnit != null"> finance_unit =#{financeUnit,jdbcType=VARCHAR}, </if>
+			<if test="status != null"> status =#{status,jdbcType=TINYINT}, </if>
+			<if test="updatedUid != null"> updated_uid =#{updatedUid,jdbcType=BIGINT}, </if>
+			<if test="updatedTime != null"> updated_time =#{updatedTime,jdbcType=BIGINT} </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="zixunId != null"> and zixun_id =#{zixunId,jdbcType=BIGINT} </if>
+				<if test="createUid != null"> and create_uid =#{createUid,jdbcType=BIGINT} </if>
+				<if test="createdTime != null"> and created_time =#{createdTime,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
+	</update>
 
 
 
