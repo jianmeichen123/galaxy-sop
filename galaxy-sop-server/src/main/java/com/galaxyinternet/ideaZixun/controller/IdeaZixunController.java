@@ -47,6 +47,9 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.chart.DataFormat;
+import com.galaxyinternet.model.chart.ProjectData;
+import com.galaxyinternet.model.chart.ZixunData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
@@ -54,12 +57,14 @@ import com.galaxyinternet.model.idea.IdeaZixun;
 import com.galaxyinternet.model.idea.ZixunFinance;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaZixunService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.ZixunFinanceService;
+import com.galaxyinternet.service.chart.ZixunGradeService;
 import com.galaxyinternet.utils.RoleUtils;
 
 @Controller
@@ -70,6 +75,9 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 
 	@Autowired
 	private IdeaZixunService ideaZixunService;
+	
+	@Autowired
+	private ZixunGradeService zixunGradeService;
 	
 	@Autowired
 	private ZixunFinanceService zixunFinanceService;
@@ -93,6 +101,17 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	}
 	
 	private static final String ZIXUN_CODE_PREFIX = "CYZX";
+	
+	private String tempfilePath;
+
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
 	
 	/**
 	 * 部门列表
@@ -306,7 +325,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			}
 			
 			Page<IdeaZixunBo> pageList = ideaZixunService.queryZixunPage(query, pageable );
-			
+			request.setAttribute("zixunQuery", query);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
@@ -432,7 +451,44 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 		
 		return responseBody;
 	}
+	/**
+	 * 创意咨询导出
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	@ResponseBody
+	@RequestMapping(value="/exportZixunGrade")
+	public void exportZixunGrade(HttpServletRequest request,HttpServletResponse response){
+		@SuppressWarnings("unchecked")
+		IdeaZixunBo ideaZixun = (IdeaZixunBo) request.getSession().getAttribute("zixunQuery");	
+		ideaZixun.setPageNum(0);
+		ideaZixun.setPageSize(100000000);
+	     Page<IdeaZixunBo> queryZixunPage = 
+	    		 ideaZixunService.queryZixunPage(ideaZixun, 
+				new PageRequest(ideaZixun.getPageNum(), 
+						ideaZixun.getPageSize(), 
+				Direction.fromString(ideaZixun.getDirection()), 
+				ideaZixun.getProperty()));
+		List<ZixunData> chartDataList = setData(queryZixunPage.getContent(),ideaZixun);
+		DataFormat<ZixunData> setFormat=new DataFormat<ZixunData>();
+		String suffix = request.getParameter("suffix");
+		try {
+			setFormat.setList(chartDataList);
+			setFormat.setStartTime(null==ideaZixun.getStartTime()?null:ideaZixun.getStartTime());
+			setFormat.setEndTime(null==ideaZixun.getEndTime()?null:ideaZixun.getEndTime());
+			SopReportModal modal = zixunGradeService.createReport(setFormat,request.getSession().getServletContext().getRealPath(""),tempfilePath,suffix);
+			zixunGradeService.download(request, response, modal);
+		} catch (Exception e) {
+			logger.error("下载失败.",e);
+		}
+	     
+	}
+	
+	public List<ZixunData> setData(List<IdeaZixunBo>list,IdeaZixunBo zixun){
+		   return null;
+				   }
+	    }
 	
 	
-	
-}
+

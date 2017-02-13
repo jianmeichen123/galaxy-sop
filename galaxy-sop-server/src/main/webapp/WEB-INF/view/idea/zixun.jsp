@@ -85,6 +85,10 @@
 		</div>
 		
 		<div class="tab-pane active" id="view">	
+		     <div>
+				    <a href="javascript:;" class="bluebtn ico tj" id="zizunExport">导出</a>
+				</div>
+				
 			<table id="data-table-zixun" data-url="<%=path %>/galaxy/zixun/showlist" class="idea_list_table"
 				data-page-list="[10, 20, 30]" data-toolbar="#zixun-custom-toolbar" data-show-refresh="true">
 				<thead>
@@ -100,10 +104,6 @@
 			</table>
         </div>
     </div>
-    
-
-
-
 <script type="text/javascript">
 	$('.ideadatepicker').datepicker({
 		format: 'yyyy-mm-dd',
@@ -146,6 +146,45 @@
 		});
 		
 		
+	});
+	//初始化导出方法
+	var reportChooseSuffix = {
+			init : function(){
+				$.getHtml({
+					url:platformUrl.toChooseReportSuffix,//模版请求地址
+					data:"",//传递参数
+					okback:function(_this){
+						$("#button_confirm").click(function(){
+							var suffix = $("#chooseForm").find("input[name='suffix']:checked").val();
+							window.location.href = platformUrl.exportProjectGrade + "?suffix=" + suffix;
+							reportChooseSuffix.close(_this);
+						})
+						$("#button_close").click(function(){
+							reportChooseSuffix.close(_this);
+						})
+					}
+				});
+			},
+			close : function(_this){
+				//启用滚动条
+				 $(document.body).css({
+				   "overflow-x":"auto",
+				   "overflow-y":"auto"
+				 });
+				//关闭对外接口
+				_this.hideback.apply(_this);
+				$(_this.id).remove();
+				$('.tip-yellowsimple').hide();
+				//判断是否关闭背景
+				if($(".pop").length==0){
+					$("#popbg").hide();	
+				}
+			}
+	}
+	//咨询导出
+	$("#zizunExport").on('click',function(){
+//	 	window.location.href = platformUrl.exportKpiGrade;
+		reportChooseSuffix.init();
 	});
 
 	
