@@ -1,6 +1,5 @@
 package com.galaxyinternet.model.idea;
 
-import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -34,13 +33,6 @@ public class IdeaZixun extends PagableEntity {
 
     private Long createUid;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
@@ -63,7 +55,7 @@ public class IdeaZixun extends PagableEntity {
     }
 
     public void setCompanyBtime(String companyBtime) {
-        this.companyBtime = companyBtime;
+    	this.companyBtime = companyBtime == null ? null : companyBtime.trim();
     }
 
     public String getCompanyField() {

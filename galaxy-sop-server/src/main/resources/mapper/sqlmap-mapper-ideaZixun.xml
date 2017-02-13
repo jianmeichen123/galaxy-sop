@@ -67,16 +67,12 @@
 				<if test="endTimeLong != null"> and updated_time <![CDATA[<=]]> #{endTimeLong,jdbcType=BIGINT}</if>
 				
 				<if test="keyword != null">
-					and (
-			 			idea_name  LIKE replace('%${keyword}%',' ','') 
+					and 
+			 			company_field  LIKE replace('%${keyword}%',' ','') 
 			 		<if test="escapeChar ">
 			 		  	escape '/' 
 			 		</if>
-			 		or idea_code LIKE replace('%${keyword}%',' ','') 
-			 		<if test="escapeChar ">
-			 		  	escape '/' 
-			 		</if>
-			 		)
+			 		
 				</if>
 			</trim>
 		</where>

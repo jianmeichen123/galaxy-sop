@@ -27,25 +27,26 @@
 				<dl class="fmdl fml">
 					<dt>公司名称：</dt>
 					<dd>
-						<input type="text" class="txt" name="companyName" />
+						<input type="text" class="txt" name="companyName" maxlength="100"  
+							valType="required" msg="<font color=red>*</font>公司名称不能为空" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
 					<dt>细分领域：</dt>
 					<dd>
-						<input type="text" class="txt" name="companyField" />
+						<input type="text" class="txt" name="companyField" maxlength="50" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
 					<dt>创始人：</dt>
 					<dd>
-						<input type="text" class="txt" name="companyCuser" />
+						<input type="text" class="txt" name="companyCuser" maxlength="100" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
 					<dt>网址：</dt>
 					<dd>
-						<input type="text" value="" class="txt" name="companyUrl" />
+						<input type="text" value="" class="txt" name="companyUrl" maxlength="200"/>
 					</dd>
 				</dl>
 			</div>
@@ -53,7 +54,7 @@
 				<dl class="fmdl">
 					<dt>成立日期：</dt>
 					<dd>
-						<input type="text" class="txt"  name="companyBtime" />
+						<input type="text" class="txt"  name="companyBtime"  maxlength="50" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
@@ -66,7 +67,7 @@
 				<dl class="fmdl">
 					<dt>所在地：</dt>
 					<dd>
-						<input type="text" value="" class="txt"  name="companyAddress" />
+						<input type="text" value="" class="txt"  name="companyAddress" maxlength="100" />
 					</dd>
 				</dl>
 			</div>
@@ -90,7 +91,7 @@
 		
 		<div class="rz_info">
 			<h3>融资信息</h3>
-			<label class="blue add" href="tchtml/add_rzzx.html" data-btn="add_rzzx" data-name="添加融资信息">添加</label>
+			<label class="blue add" data-btn="add_rzzx" data-name="添加融资信息">添加</label>
 			<table class="health_case table" style="width: 630px; margin: 10px auto 0;">
 				<thead>
 					<tr>

@@ -1,6 +1,5 @@
 package com.galaxyinternet.model.idea;
 
-import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -36,7 +35,7 @@ public class ZixunFinance extends PagableEntity {
     }
 
     public void setFinanceDate(String financeDate) {
-        this.financeDate = financeDate;
+    	this.financeDate = financeDate == null ? null : financeDate.trim();
     }
 
     public String getFinanceAmount() {
@@ -44,7 +43,7 @@ public class ZixunFinance extends PagableEntity {
     }
 
     public void setFinanceAmount(String financeAmount) {
-        this.financeAmount = financeAmount;
+    	this.financeAmount = financeAmount == null ? null : financeAmount.trim();
     }
 
     public String getFinanceUnit() {

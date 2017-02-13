@@ -225,6 +225,11 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			}
 			BeanUtils.copyProperties(bo, zixun);
 			
+			if(zixun.getDepartmentId() != null){
+				Department ad = departmentService.queryById(zixun.getDepartmentId());
+				bo.setDepartName(ad.getName());
+			}
+			
 			ZixunFinance zf = new ZixunFinance();
 			zf.setZixunId(id);
 			List<ZixunFinance> rzs = zixunFinanceService.queryList(zf);
@@ -275,9 +280,9 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	/**
 	 * 资讯  查看  页面
 	 */
-	@RequestMapping(value = "/info")
+	@RequestMapping(value = "/look")
 	public String zixunInfo() {
-		return "idea/zixun/";
+		return "idea/zixun/zixun_look";
 	}
 	
 	
@@ -309,9 +314,14 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			if(StringUtils.isNotEmpty(query.getDirection())){
 				direction = Direction.fromString(query.getDirection());
 			}
-			//pageable = new PageRequest(pageNum, pageSize, new Sort(direction,query.getProperty()));
-			//pageable = new PageRequest(pageNum, pageSize,direction,"created_time");
-			pageable = new PageRequest(pageNum,pageSize);
+			String property = "updated_time";
+			if(StringUtils.isNotEmpty(query.getProperty())){
+				property = query.getProperty();
+			}
+			
+			//pageable = new PageRequest(pageNum, pageSize, new Sort(direction,property));
+			pageable = new PageRequest(pageNum, pageSize,direction,property);
+			//pageable = new PageRequest(pageNum,pageSize);
 			
 			
 			//时间
@@ -436,13 +446,13 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			return responseBody;
 		}
 		try{
-			
+			//ideaZixunService.deleteById(id);
 			IdeaZixun zx = new IdeaZixun();
+			zx.setUpdatedUid(user.getId());
 			zx.setId(id);
 			zx.setStatus((byte) 1);
-			ideaZixunService.updateById(zx);
 			
-			//ideaZixunService.deleteById(id);
+			ideaZixunService.deleteZixun(zx);
 			responseBody.setResult(new Result(Status.OK,null,"删除成功"));
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR,null,"删除失败!"));
@@ -451,6 +461,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 		
 		return responseBody;
 	}
+	
 	/**
 	 * 创意咨询导出
 	 * 
@@ -488,7 +499,5 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	public List<ZixunData> setData(List<IdeaZixunBo>list,IdeaZixunBo zixun){
 		   return null;
 				   }
-	    }
 	
-	
-
+}

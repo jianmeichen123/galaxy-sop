@@ -10,7 +10,7 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 
-<div class="addmentc creative_edit1 zixuntc">
+<div class="addmentc creative_edit1 zixuntc" id="add_rz">
 	<div class="title_bj" id="popup_name1"></div>
 	
 	<form id="rzForm">
@@ -19,7 +19,7 @@
 			<dl class="fmdl fml">
 				<dt>融资时间：</dt>
 				<dd>
-					<input type="text" class="txt" name="financeDate" />
+					<input type="text" class="txt" name="financeDate"  maxlength="50"  />
 				</dd>
 			</dl>
 		</div>
@@ -27,7 +27,7 @@
 			<dl class="fmdl">
 				<dt>融资金额：</dt>
 				<dd>
-					<input type="text" class="txt" name="financeAmount" />
+					<input type="text" class="txt" name="financeAmount"  maxlength="50" />
 				</dd>
 			</dl>
 		</div>

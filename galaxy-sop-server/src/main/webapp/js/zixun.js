@@ -1,5 +1,22 @@
 
 
+
+function getSearchDepartment($depField) {
+	sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/getDepartment", null,
+			function(data){
+				if(data.result.status = 'OK') {
+					$depField.empty();
+					if(data.entityList.length >1) {
+						$depField.append('<option value="">全部</option>');
+					}
+					$.each(data.entityList,function(){
+						$depField.append('<option value="'+this.id+'">'+this.name+'</option>');
+					});
+				}
+			}
+	);
+}
+
 function getZixunDepartment($depField) {
 	sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/getDepartment", null,
 			function(data){
@@ -64,7 +81,9 @@ function toAdd(){
 //资讯 信息获取
 function getAddCondition(){
 	var condition = JSON.parse($("#zixunForm").serializeObject());
-	
+	if(!condition.departmentId || condition.departmentId ==''){
+		condition.departmentId = null;
+	}
 	var rz = [];
 	var rzTr = $("#rzBody tr");
 	$.each(rzTr,function(){
@@ -79,10 +98,20 @@ function getAddCondition(){
 }
 //添加访问后台
 function saveAdd(){
+	if(!beforeSubmit("zixuntc")){
+		return false;
+	}
+	
+	$("div .zixuntc").showLoading(
+		 {
+		    'addClass': 'loading-indicator'						
+		 });
+	
 	var condition = getAddCondition();
 	sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixun/addzixun",condition,saveBack);
 }
 function saveBack(data){
+	$("div .zixuntc").hideLoading();
 	layer.msg(data.result.message);
 	
 	var result = data.result.status;
@@ -104,6 +133,10 @@ function addRz(){
 	var zxId = $("#zixunForm [name='id']").val();
 	var condition = JSON.parse($("#rzForm").serializeObject());
 	
+	$("#add_rz").showLoading(
+		 {
+		    'addClass': 'loading-indicator'						
+		 });
 	if(zxId){
 		condition.zixunId = zxId;
 		sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixunFinance/addRz",condition,
@@ -112,6 +145,7 @@ function addRz(){
 					
 					var result = data.result.status;
 					if(result == "ERROR"){ //OK, ERROR
+						$("#add_rz").hideLoading();
 						return;
 					}else{
 						rzId = data.id;
@@ -132,6 +166,11 @@ function addRz(){
 			"tr>";
 	$("#rzBody").append(htm);
 	
+	if($("#rzBody").children().length >= 10){
+		$("[data-btn='add_rzzx']").remove();	
+	}
+	
+	$("#add_rz").hideLoading();
 	$("#rzForm").parent().find("[data-close='close']").click();
 }
 
@@ -163,6 +202,12 @@ function editRZ(obj,rzId){
 
 //保存    融资编辑信息
 function updateRzSave(){
+	
+	$("#edit_rz").showLoading(
+			 {
+			    'addClass': 'loading-indicator'						
+			 });
+	
 	var condition = JSON.parse($("#rzForm").serializeObject());
 	var op_td = $("#rzBody").find("[data-check='y']");
 	var tr = $(op_td).parent();
@@ -178,6 +223,7 @@ function updateRzSave(){
 					
 					var result = data.result.status;
 					if(result == "ERROR"){ //OK, ERROR
+						$("#edit_rz").hideLoading();
 						return;
 					}
 				}
@@ -187,6 +233,7 @@ function updateRzSave(){
 	$(tr).find("[data-name='financeDate']").html(condition.financeDate);
 	$(tr).find("[data-name='financeAmount']").html(condition.financeAmount);
 	
+	$("#edit_rz").hideLoading();
 	$("#rzForm").parent().find("[data-close='close']").click();
 }
 
@@ -305,6 +352,10 @@ function preEdit(zixunId){
 							}
 					);
 					
+					if(entity.finaceList && entity.finaceList.length >= 10){
+						("[data-btn='add_rzzx']").remove();
+					}
+					
 					$.each(entity.finaceList,function(){
 						var id = this.id;
 						var edit = "<a href='javascript:;'  class=\"blue\" onclick=\"editRZ(this,'"+id+"')\" >编辑</a>";
@@ -329,11 +380,23 @@ function preEdit(zixunId){
 //资讯  编辑后   信息获取
 function getEditCondition(){
 	var condition = JSON.parse($("#zixunForm").serializeObject());
+	if(!condition.departmentId || condition.departmentId ==''){
+		condition.departmentId = null;
+	}
 	console.log(condition);
 	return condition;
 }
 //添加访问后台
 function editAdd(){
+	if(!beforeSubmit("zixuntc")){
+		return false;
+	}
+	
+	$("div .zixuntc").showLoading(
+		 {
+		    'addClass': 'loading-indicator'						
+		 });
+	
 	var condition = getEditCondition();
 	sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixun/editzixun",condition,saveBack);
 }
@@ -378,22 +441,6 @@ function zixunInfo(zixunId){
 					$("#zixun_info #detailInfo").html(entity.detailInfo);
 					$("#zixun_info #departmentId").html(entity.departName);
 					
-					/*sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/getDepartment", null,
-							function(data){
-								if(data.result.status = 'OK') {
-									$("#zixun_info #departmentId").empty();
-									if(data.entityList.length >1) {
-										$("#zixun_info #departmentId").append('<option value="">请选择</option>');
-									}
-									$.each(data.entityList,function(){
-										if(entity.departmentId && this.id == entity.departmentId){
-											$("#zixun_info #departmentId").append('<option selected="selected" value="'+this.id+'">'+this.name+'</option>');
-										}else
-											$("#zixun_info #departmentId").append('<option value="'+this.id+'">'+this.name+'</option>');
-									});
-								}
-							}
-					);*/
 					
 					if(entity.finaceList && entity.finaceList.length > 0){
 						$.each(entity.finaceList,function(){

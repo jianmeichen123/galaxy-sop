@@ -28,25 +28,26 @@
 				<dl class="fmdl fml">
 					<dt>公司名称：</dt>
 					<dd>
-						<input type="text" class="txt" name="companyName" />
+						<input type="text" class="txt" name="companyName"  maxlength="100"  
+							valType="required" msg="<font color=red>*</font>公司名称不能为空" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
 					<dt>细分领域：</dt>
 					<dd>
-						<input type="text" class="txt" name="companyField" />
+						<input type="text" class="txt" name="companyField" maxlength="50" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
 					<dt>创始人：</dt>
 					<dd>
-						<input type="text" class="txt" name="companyCuser" />
+						<input type="text" class="txt" name="companyCuser"  maxlength="100" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
 					<dt>网址：</dt>
 					<dd>
-						<input type="text" value="" class="txt" name="companyUrl" />
+						<input type="text" value="" class="txt" name="companyUrl" maxlength="200"/>
 					</dd>
 				</dl>
 			</div>
@@ -54,7 +55,7 @@
 				<dl class="fmdl">
 					<dt>成立日期：</dt>
 					<dd>
-						<input type="text" class="txt"  name="companyBtime" />
+						<input type="text" class="txt"  name="companyBtime"  maxlength="50" />
 					</dd>
 				</dl>
 				<dl class="fmdl">
@@ -67,7 +68,7 @@
 				<dl class="fmdl">
 					<dt>所在地：</dt>
 					<dd>
-						<input type="text" value="" class="txt"  name="companyAddress" />
+						<input type="text" value="" class="txt"  name="companyAddress" maxlength="100" />
 					</dd>
 				</dl>
 			</div>

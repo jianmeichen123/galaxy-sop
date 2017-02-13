@@ -10,7 +10,7 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 
-<div class="addmentc creative_edit1 zixuntc">
+<div class="addmentc creative_edit1 zixuntc" id="edit_rz">
 	<div class="title_bj" id="popup_name1"></div>
 	
 	<form id="rzForm">

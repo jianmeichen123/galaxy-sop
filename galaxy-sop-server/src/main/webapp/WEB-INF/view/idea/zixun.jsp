@@ -41,8 +41,8 @@
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="zixun-custom-toolbar">
 		
-			<!-- <input type="hidden" name="property" value="created_time">
-			<input type="hidden" name="direction" value="DESC"> -->
+			<input type="hidden" name="property" value="updated_time">
+			<input type="hidden" name="direction" value="DESC">
 			
 			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 				<dl class="fmdl fmdll clearfix">
@@ -85,9 +85,10 @@
 		</div>
 		
 		<div class="tab-pane active" id="view">	
-		     <div>
-				    <a href="javascript:;" class="bluebtn ico tj" id="zizunExport">导出</a>
-				</div>
+		
+			<div>
+			    <a href="javascript:;" class="bluebtn ico tj" id="zizunExport">导出</a>
+			</div>
 				
 			<table id="data-table-zixun" data-url="<%=path %>/galaxy/zixun/showlist" class="idea_list_table"
 				data-page-list="[10, 20, 30]" data-toolbar="#zixun-custom-toolbar" data-show-refresh="true">
@@ -104,6 +105,8 @@
 			</table>
         </div>
     </div>
+    
+
 <script type="text/javascript">
 	$('.ideadatepicker').datepicker({
 		format: 'yyyy-mm-dd',
@@ -120,7 +123,8 @@
 
 	
 	$(function(){
-		getZixunDepartment($("#zixun-custom-toolbar [name='departmentId']"));
+		getSearchDepartment($("#zixun-custom-toolbar [name='departmentId']"));
+		
 		var options=$("[name='departmentId'] option");
 		var len=options.length;
 		if(len<=2){
@@ -147,6 +151,7 @@
 		
 		
 	});
+
 	//初始化导出方法
 	var reportChooseSuffix = {
 			init : function(){
@@ -186,15 +191,7 @@
 //	 	window.location.href = platformUrl.exportKpiGrade;
 		reportChooseSuffix.init();
 	});
-
-	
-	
-	
-	
-	
 	
 	
 </script>
 
-
-</html>

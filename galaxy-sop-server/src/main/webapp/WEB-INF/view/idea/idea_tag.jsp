@@ -56,6 +56,9 @@
 <!-- 多文本 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
+<!-- 圈圈 -->
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 
 <script src="<%=path %>/js/zixun.js"></script>
 </head>
