@@ -1011,7 +1011,11 @@ var platformUrl = {
 	/**
 	 * 投后运营-头后项目跟踪-事业部创投项目列表-导出
 	 */
-	exportProjectGrade : Constants.sopEndpointURL + "/galaxy/project/exportProjectGrade"
+	exportProjectGrade : Constants.sopEndpointURL + "/galaxy/project/exportProjectGrade",
+	/**
+	 * 创意咨询列表-导出
+	 */
+	exportZixunGrade : Constants.sopEndpointURL + "/galaxy/zixun/exportZixunGrade"
 	
 }
 

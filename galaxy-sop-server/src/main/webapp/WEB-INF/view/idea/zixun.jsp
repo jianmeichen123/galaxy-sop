@@ -161,7 +161,7 @@
 					okback:function(_this){
 						$("#button_confirm").click(function(){
 							var suffix = $("#chooseForm").find("input[name='suffix']:checked").val();
-							window.location.href = platformUrl.exportProjectGrade + "?suffix=" + suffix;
+							window.location.href = platformUrl.exportZixunGrade + "?suffix=" + suffix;
 							reportChooseSuffix.close(_this);
 						})
 						$("#button_close").click(function(){
