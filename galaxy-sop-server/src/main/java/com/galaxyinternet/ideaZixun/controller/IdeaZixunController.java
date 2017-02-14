@@ -300,6 +300,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	public ResponseData<IdeaZixunBo> showPageList(HttpServletRequest request,@RequestBody IdeaZixunBo query ) {
 		
 		ResponseData<IdeaZixunBo> responseBody = new ResponseData<IdeaZixunBo>();
+		Page<IdeaZixunBo> pageList = new Page<IdeaZixunBo>(new ArrayList<IdeaZixunBo>(), 0L);
 		
 		try {
 			//User user = (User)getUserFromSession(request);
@@ -307,7 +308,14 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());  //UserConstant.DSZ
 			
-			
+			//无权限查看，返回null
+			if(roleIdList == null || (!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)
+					&& !roleIdList.contains(UserConstant.YJY) )){
+				responseBody.setPageList(pageList);
+				responseBody.setResult(new Result(Status.OK, ""));
+				return responseBody;
+			}
 			
 			PageRequest pageable = new PageRequest();
 
@@ -338,7 +346,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 				query.setEndTimeLong(DateUtil.getSearchToDate(date).getTime());
 			}
 			
-			Page<IdeaZixunBo> pageList = ideaZixunService.queryZixunPage(query, pageable );
+			pageList = ideaZixunService.queryZixunPage(query, pageable );
 			request.setAttribute("zixunQuery", query);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -357,9 +365,9 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	
 	
 
-	//@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	@ResponseBody
 	@RequestMapping(value="/addzixun",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<IdeaZixun> addZixun(HttpServletRequest request,@RequestBody IdeaZixunBo zixunbo){
 		ResponseData<IdeaZixun> responseBody = new ResponseData<IdeaZixun>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -389,6 +397,8 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			ideaZixunService.insertZixun(zixun,zixunbo);
 			
 			responseBody.setResult(new Result(Status.OK,null,"添加成功"));
+			
+			ControllerUtils.setRequestParamsForMessageTip(request, zixunbo.getCode(),zixun.getId(),"18");
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR,null,"添加失败!"));
 			logger.error("addZixun 添加失败",e);
