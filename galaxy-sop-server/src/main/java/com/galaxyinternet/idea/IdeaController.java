@@ -260,7 +260,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			//无权限查看，返回null
 			if(roleIdList == null || (!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ))){
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)&& !roleIdList.contains(UserConstant.YJY))){
 				resp.setPageList(new Page<Idea>(new ArrayList<Idea>() , pageable, 0l));
 				return resp;
 			}

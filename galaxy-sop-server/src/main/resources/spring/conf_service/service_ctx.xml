@@ -164,7 +164,9 @@
 				<entry key="4">  <!-- 投资经理 -->
 					<map>
 						<entry key="inAll">
-								<null/>
+							<list>
+								<value>18</value>
+							</list>
 						</entry>
 
 						<entry key="inPer">
@@ -384,6 +386,17 @@
 						<entry key="inPat">
 								<null/>
 						</entry>
+					</map>
+				</entry>
+				
+				<entry key="21">   <!-- 研究院 -->
+					<map>
+						<entry key="inAll">
+							<list>
+								<value>18</value>
+							</list>
+						</entry>
+
 					</map>
 				</entry>
 			</map>

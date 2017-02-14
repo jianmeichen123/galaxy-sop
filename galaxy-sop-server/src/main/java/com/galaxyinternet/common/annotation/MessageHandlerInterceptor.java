@@ -123,13 +123,20 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
 										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE) != null){
-											    insertMessageTip(populateOperationMessage(type, user, map));
+											
+											if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE).equals("18")){
+												insertMessageTip(populateOperationMessage(type, user, map));
+											}else{
+												insertMessageTip(populateOperationMessage(type, user, map));
+											}
+											
+											    
 									     }
 									} else if (ltype == LogType.LOG) {
 										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
 									} else if (ltype == LogType.IDEANEWS) {
 										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
-									}else if (ltype == LogType.IOSPUSHMESS) {
+									} else if (ltype == LogType.IOSPUSHMESS) {
 										if(method.getName().contains("updateReserveTime")){
 											if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
 												List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);

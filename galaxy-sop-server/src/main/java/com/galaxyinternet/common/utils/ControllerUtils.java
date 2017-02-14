@@ -19,6 +19,9 @@ public class ControllerUtils {
 		return "projectname";
 	}
 
+	public static String getIdeaZixunCodeLink(OperationMessage message) {
+		return "ideazixuncode";
+	}
 	/**
 	 * 
 	 * @Description:消息提醒临时传参方法
