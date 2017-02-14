@@ -29,6 +29,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.touhou.OperationalData;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationalDataService;
 import com.galaxyinternet.service.ProjectService;
 
@@ -54,9 +55,54 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	 * 运营记录入口
 	 * @return
 	 */
-	@RequestMapping(value="/toOperationalDataList",method = RequestMethod.GET)
-	public String toOperationalDataList(){
+	@RequestMapping(value="/toOperationalDataList/{projectId}",method = RequestMethod.GET)
+	public String toOperationalDataList(@PathVariable("projectId") Long projectId,HttpServletRequest request,HttpServletResponse response){
+		if(projectId !=null){
+			request.setAttribute("projectId", projectId);
+		}
 		return "project/operationalDataList";
+	}
+	
+	/**
+	 * 添加运营记录入口
+	 * @return
+	 */
+	@RequestMapping(value="/addOperationalDataList/{projectId}",method = RequestMethod.GET)
+	public String addOperationalDataList(@PathVariable("projectId") Long projectId,HttpServletRequest request){
+		if(projectId !=null ){
+			Project pro = projectService.queryById(projectId);
+			request.setAttribute("projectId", pro);
+		}
+		return "project/addOperationalDataList";
+	}
+	
+	
+	/**
+	 * 编辑运营记录入口
+	 * @return
+	 */
+	@RequestMapping(value="/editOperationalDataList/{operationId}",method = RequestMethod.GET)
+	public String editOperationalDataList(@PathVariable("operationId") Long operationId,HttpServletRequest request){
+		if(operationId !=null ){
+			OperationalData operationalData = operationalDataService.selectOperationalDataById(operationId);
+			request.setAttribute("projectId", operationalData.getProjectId());
+			request.setAttribute("operationalData", operationalData);
+		}
+		return "project/addOperationalDataList";
+	}
+	
+	
+	/**
+	 * 查看运营记录入口
+	 * @return
+	 */
+	@RequestMapping(value="/infoOperationalDataList/{operationId}",method = RequestMethod.GET)
+	public String infoOperationalDataList(@PathVariable("operationId") Long operationId,HttpServletRequest request){
+		if(operationId !=null ){
+			OperationalData operationalData = operationalDataService.selectOperationalDataById(operationId);
+			request.setAttribute("operationalData", operationalData);
+		}
+		return "project/infoOperationalDataList";
 	}
 	
 	/**
@@ -66,14 +112,16 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/operationalDataList", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<OperationalDataBo> searchOperationalDataList(HttpServletRequest request,
-			@RequestBody OperationalDataBo operationalData) {
+	@RequestMapping(value = "/operationalDataList",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationalData> searchOperationalDataList(
+			@RequestBody OperationalData operationalData,HttpServletRequest request) {
 		
-        ResponseData<OperationalDataBo> responseBody = new ResponseData<OperationalDataBo>();
+        ResponseData<OperationalData> responseBody = new ResponseData<OperationalData>();
 		try {
-			operationalData.setCreateUid(104l);
-			Page<OperationalDataBo> pageList = operationalDataService.queryOperationalDataPageList(operationalData,new PageRequest(operationalData.getPageNum(),operationalData.getPageSize()));
+			if(operationalData != null){
+				operationalData.setProperty("operation_interval_date");
+			}
+			Page<OperationalData> pageList = operationalDataService.queryOperationalDataPageList(operationalData, new PageRequest(operationalData.getPageNum(),operationalData.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -116,21 +164,26 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	
+	@RequestMapping(value = "/formAddOperationalData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@RequestMapping(value = "/addOperationalData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<OperationalData> addOperationalData(@RequestBody OperationalData operationalData,
-			HttpServletRequest request) {
-		ResponseData<OperationalData> responseBody = new ResponseData<OperationalData>();
-		
+	public ResponseData<OperationalDataBo> addOperationalData(@RequestBody OperationalDataBo operationalData,HttpServletRequest request) {
+		ResponseData<OperationalDataBo> responseBody = new ResponseData<OperationalDataBo>();
+		User user = (User) getUserFromSession(request);
 		try {
 			if(operationalData == null){
 				responseBody.setResult(new Result(Status.ERROR, "error", "添加运营记录失败!"));
 			}
 			Project project = projectService.queryById(operationalData.getProjectId());
 			if(operationalData.getId() != null){
+				operationalData.setUpdatedUid(user.getId());
+				operationalData.setUpdatedTime(System.currentTimeMillis());
 				operationalDataService.updateById(operationalData);
 			}else{
+				operationalData.setCreateUid(user.getId());
+				operationalData.setCreateTime(System.currentTimeMillis());
+				operationalData.setUpdatedUid(user.getId());
+				operationalData.setUpdatedTime(System.currentTimeMillis());
 				operationalDataService.insert(operationalData);
 			}
 			responseBody.setResult(new Result(Status.OK, "success", "添加运营记录成功!"));
