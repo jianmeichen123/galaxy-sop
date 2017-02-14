@@ -1,10 +1,14 @@
 package com.galaxyinternet.ideaZixun.controller;
 
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -496,8 +500,175 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	     
 	}
 	
-	public List<ZixunData> setData(List<IdeaZixunBo>list,IdeaZixunBo zixun){
-		   return null;
-				   }
-	
+	public List<ZixunData> setData(List<IdeaZixunBo>list,IdeaZixunBo zixunBo){
+		List<ZixunData> zixunList=new ArrayList<ZixunData>();
+		  Map<Long,String> map=departmentMap();
+		if(null!=list&&!list.isEmpty()){
+			for(IdeaZixunBo ideaZixunBo:list){
+				ZixunData zixun=new ZixunData();
+				zixun.setUpdateDate(DateUtil.longToString(ideaZixunBo.getUpdatedTime()));
+				zixun.setCompanyAddress(ideaZixunBo.getCompanyName());
+				zixun.setCompanyBtime(ideaZixunBo.getCompanyBtime());
+				zixun.setCompanyField(ideaZixunBo.getCompanyField());
+				zixun.setDepartmentName(map.get(ideaZixunBo.getDepartmentId()));
+				
+			}
+		}
+		   return zixunList;
+	}
+	  public Map<Long,String> departmentMap(){
+		  Map<Long,String> map=new HashMap<Long,String>();
+			List<Department> departmentList = departmentService.queryAll();
+			for(Department p : departmentList){
+				map.put(p.getId(),p.getName());
+				
+			}
+			return map;
+	  }
+	  
+	  
+	  public List<ZixunFinance> xixunFinance(Long id)  {
+		  ZixunFinance zf = new ZixunFinance();
+			ZixunData zixun=new ZixunData();
+			zf.setZixunId(id);
+			List<ZixunFinance> rzs = zixunFinanceService.queryList(zf);
+				    switch(rzs.size()){
+				    case 1:
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
+				    	break;
+				    case 2:
+				    	zixun.setTime1(rzs.get(1).getFinanceDate());
+				    	zixun.setMoney1(rzs.get(1).getFinanceAmount());
+				    	zixun.setTime2(rzs.get(1).getFinanceDate());
+				    	zixun.setMoney2(rzs.get(1).getFinanceAmount());
+				    	break;
+				    case 3:
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
+				    	zixun.setTime2(rzs.get(1).getFinanceDate());
+				    	zixun.setMoney2(rzs.get(1).getFinanceAmount());
+				    	zixun.setTime3(rzs.get(2).getFinanceDate());
+				    	zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	break;
+				    case 4:    	
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
+			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
+			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
+			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
+			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	zixun.setTime4(rzs.get(3).getFinanceDate());
+				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
+				    	break;
+				    case 5:
+				      	zixun.setTime1(rzs.get(0).getFinanceDate());
+			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
+			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
+			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
+			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
+			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	zixun.setTime4(rzs.get(3).getFinanceDate());
+				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
+				    	zixun.setTime5(rzs.get(4).getFinanceDate());
+				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
+				    	break;
+				    case 6:
+				     	zixun.setTime1(rzs.get(0).getFinanceDate());
+			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
+			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
+			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
+			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
+			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	zixun.setTime4(rzs.get(3).getFinanceDate());
+				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
+				    	zixun.setTime5(rzs.get(4).getFinanceDate());
+				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
+				    	zixun.setTime6(rzs.get(5).getFinanceDate());
+				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
+				    	break;
+				    case 7:
+				     	zixun.setTime1(rzs.get(0).getFinanceDate());
+			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
+			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
+			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
+			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
+			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	zixun.setTime4(rzs.get(3).getFinanceDate());
+				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
+				    	zixun.setTime5(rzs.get(4).getFinanceDate());
+				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
+				    	zixun.setTime6(rzs.get(5).getFinanceDate());
+				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
+				    	zixun.setTime7(rzs.get(6).getFinanceDate());
+				    	zixun.setMoney7(rzs.get(6).getFinanceAmount());
+				    	break;
+				    case 8:
+				     	zixun.setTime1(rzs.get(0).getFinanceDate());
+			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
+			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
+			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
+			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
+			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	zixun.setTime4(rzs.get(3).getFinanceDate());
+				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
+				    	zixun.setTime5(rzs.get(4).getFinanceDate());
+				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
+				    	break;
+				    case 9:
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
+			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
+			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
+			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
+			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	zixun.setTime4(rzs.get(3).getFinanceDate());
+				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
+				    	zixun.setTime5(rzs.get(4).getFinanceDate());
+				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
+				    	zixun.setTime6(rzs.get(5).getFinanceDate());
+				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
+				    	zixun.setTime7(rzs.get(6).getFinanceDate());
+				    	zixun.setMoney7(rzs.get(6).getFinanceAmount());
+				    	zixun.setTime8(rzs.get(7).getFinanceDate());
+				    	zixun.setMoney8(rzs.get(7).getFinanceAmount());
+				    	zixun.setTime9(rzs.get(8).getFinanceDate());
+				    	zixun.setMoney9(rzs.get(8).getFinanceAmount());
+				    	break;
+				    case 10:
+				    	zixun.setTime1(rzs.get(0).getFinanceDate());
+			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
+			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
+			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
+			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
+			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
+				    	zixun.setTime4(rzs.get(3).getFinanceDate());
+				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
+				    	zixun.setTime5(rzs.get(4).getFinanceDate());
+				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
+				    	zixun.setTime6(rzs.get(5).getFinanceDate());
+				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
+				    	zixun.setTime7(rzs.get(6).getFinanceDate());
+				    	zixun.setMoney7(rzs.get(6).getFinanceAmount());
+				    	zixun.setTime8(rzs.get(7).getFinanceDate());
+				    	zixun.setMoney8(rzs.get(7).getFinanceAmount());
+				    	zixun.setTime9(rzs.get(8).getFinanceDate());
+				    	zixun.setMoney9(rzs.get(8).getFinanceAmount());
+				    	zixun.setTime10(rzs.get(9).getFinanceDate());
+				    	zixun.setMoney10(rzs.get(9).getFinanceAmount());
+				    	break;
+				    	
+				    }
+				
+				
+			
+			return rzs;
+	  }
+	  
 }
