@@ -26,7 +26,7 @@ public class OperationalData extends PagableEntity{
     private Double otherCoat;
     private String formatOtherCoat;
 
-    private Integer payType;
+    private String payType;
 
     private Double manageCost;
     private String formatManageCost;
@@ -152,13 +152,6 @@ public class OperationalData extends PagableEntity{
 		this.otherCoat = otherCoat;
 	}
 
-	public Integer getPayType() {
-		return payType;
-	}
-
-	public void setPayType(Integer payType) {
-		this.payType = payType;
-	}
 
 	public Double getManageCost() {
 		if(this.formatManageCost != null && !"".equals(this.formatManageCost.trim())){
@@ -581,6 +574,14 @@ public class OperationalData extends PagableEntity{
 
 	public void setOperateDateEnd(String operateDateEnd) {
 		this.operateDateEnd = operateDateEnd;
+	}
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
 	}
 
 	

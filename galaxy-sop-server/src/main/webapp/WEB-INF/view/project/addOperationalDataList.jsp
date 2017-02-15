@@ -47,6 +47,7 @@
     	<div class="new_tit_a"><a href="#">工作桌面</a><a href="#">>创投项目</a><a href="#">>少时诵书会</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>>添加运营数据</div>
     	<form id="operationData_form" action="" method="post" onsubmit="return false">
     	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
+    	<input type="hidden" name="id" value="${operationalData.id }"/>
     	<div class="new_tit_b">
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>
@@ -119,10 +120,10 @@
                 <input type="text" name="formatOtherCoat" class="txt new_nputr" value="${operationalData.otherCoat }">元
                 <select name="payType" id="" class="new_nputr">
                   <option value="">无</option>
-                  <option value="">月付</option>
-                  <option value="">季付</option>
-                  <option value="">半年付</option>
-                  <option value="">年付</option>
+                  <option value="月付">月付</option>
+                  <option value="季付">季付</option>
+                  <option value="半年付">半年付</option>
+                  <option value="年付">年付</option>
                 </select>
               </td>
               <td>房租、水电、网络需要支出的金额，如按年或季度付，请标注</td>
@@ -261,8 +262,9 @@ var transferingIds = "${fx:getTransferingPids()}".split(",");
 <script>
 var projectId = $("#projectId").val();
 var dataTypeValue = '${operationalData.dataTypeValue}';
+var payType = '${operationalData.payType}';
 $(" select option[value='"+dataTypeValue+"']").attr("selected",true);
-
+$(" select option[value='"+payType+"']").attr("selected",true);
 $(function(){
     $("#quarterData").hide();
     $("#quarter").click(function(){

@@ -89,7 +89,7 @@
                  </tr>
                  <tr>
                    <td>房租水电网(元)</td>
-                   <td>${operationalData.otherCoat } 月付</td>
+                   <td>${operationalData.otherCoat } ${payType }</td>
                    <td>房租、水电、网络需要支出的金额，如按年或季度付，请标注</td>
                  </tr>  
                  <tr>
