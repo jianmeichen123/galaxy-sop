@@ -346,7 +346,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 				query.setEndTimeLong(DateUtil.getSearchToDate(date).getTime());
 			}
 			pageList = ideaZixunService.queryZixunPage(query, pageable,user.getId() );
-			request.setAttribute("zixunQuery", query);
+			 request.getSession().setAttribute("zixunQuery", query);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
