@@ -56,6 +56,10 @@
 				<if test="id != null"> and id =#{id} </if>
 				<if test="projectId != null"> and project_id = #{projectId} </if>
 				<if test="createUid != null"> and create_uid = #{createUid} </if>
+				<if test="operateDateStart != null"> and operation_interval_date &gt;= #{operateDateStart} </if>
+				<if test="operateDateEnd != null"> and operation_interval_date &lt;= #{operateDateEnd} </if>
+				<if test="dataType != null"> and data_type = #{dataType} </if>
+				<if test="dataTypeValue != null"> and data_type_value = #{dataTypeValue} </if>
 			</trim>
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="property != null">order by ${property} ${direction}</if>

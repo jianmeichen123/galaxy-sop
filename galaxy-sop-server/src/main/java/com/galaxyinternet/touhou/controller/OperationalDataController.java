@@ -1,5 +1,9 @@
 package com.galaxyinternet.touhou.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,6 +36,7 @@ import com.galaxyinternet.model.touhou.OperationalData;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationalDataService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.UserService;
 
 @Controller
 @RequestMapping("/galaxy/operationalData")
@@ -44,6 +49,9 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	protected BaseService<OperationalData> getBaseService() {
@@ -121,7 +129,19 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 			if(operationalData != null){
 				operationalData.setProperty("operation_interval_date");
 			}
+			List<User> userList = userService.queryAll();
+			Map<String,String> mapUser = new HashMap<String,String>();
+			for(User user : userList){
+				mapUser.put(user.getId()+"", user.getRealName());
+			}
 			Page<OperationalData> pageList = operationalDataService.queryOperationalDataPageList(operationalData, new PageRequest(operationalData.getPageNum(),operationalData.getPageSize()));
+			
+			List<OperationalData> contentList = pageList.getContent();
+			for(OperationalData op: contentList){
+				String name = mapUser.get(op.getUpdatedUid()+"");
+				op.setUpdateUserName(name);
+			}
+			pageList.setContent(contentList);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;

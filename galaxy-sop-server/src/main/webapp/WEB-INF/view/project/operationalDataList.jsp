@@ -21,8 +21,7 @@
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
-<%-- <script type="text/javascript" src="<%=path %>/js/operationData.js"></script> --%>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
 </head>
 
@@ -49,18 +48,18 @@
                 <label><input type="radio" name="dataType" value="1" id="quarter">季数据</label>
                 <select name="dataTypeValue" id="monthData">
                   <option value="">--请选择--</option>
-                  <option value="">1月</option>
-                  <option value="">2月</option>
-                  <option value="">3月</option>
-                  <option value="">4月</option>
-                  <option value="">5月</option>
+                  <option value="1月">1月</option>
+                  <option value="2月">2月</option>
+                  <option value="3月">3月</option>
+                  <option value="4月">4月</option>
+                  <option value="5月">5月</option>
                 </select>
                 <select name="dataTypeValue" id="quarterData">
                   <option value="">--请选择--</option>
-                  <option value="">第一季度</option>
-                  <option value="">第二季度</option>
-                  <option value="">第三季度</option>
-                  <option value="">第四季度</option>
+                  <option value="第一季度">第一季度</option>
+                  <option value="第二季度">第二季度</option>
+                  <option value="第三季度">第三季度</option>
+                  <option value="第四季度">第四季度</option>
                 </select>
               </dd>
             </dl>
@@ -68,13 +67,13 @@
           <dl class="fmdl fmdll clearfix"">
              <dt>会议日期：</dt>
               <dd>
-	         <input type="text" class="datepicker txt time" name="operationIntervalDateStr"  /> 
+	         <input type="text" class="datepicker txt time" name="operateDateStart"  /> 
 	          </dd>
           </dl>     
          <dl>
             <dd>
              <span>至</span>
-	<input type="text" class="datepicker txt time" name="operationIntervalDateStr"  /> 
+	<input type="text" class="datepicker txt time" name="operateDateEnd"  /> 
             </dd>
              <dd>
            <button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
@@ -89,9 +88,9 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-field="operationIntervalDate"  class="data-input">运营数据统计区间</th>
-			        	<th data-field="updatedTime"  class="data-input">编辑时间</th>
-			        	<th data-field="updatedUid"  class="data-input">编辑人</th>
+				    	<th data-field="operateDate"  class="data-input">运营数据统计区间</th>
+			        	<th data-field="updateDate"  class="data-input">编辑时间</th>
+			        	<th data-field="updateUserName"  class="data-input">编辑人</th>
 			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
 				    	
  					</tr>	
@@ -143,7 +142,7 @@ $(function(){
         search: false,
         //返回附带参数功能代码
         queryParams:function(params){
-	    	return json_2_1(params,getPartnerToobarQueryParams('custom-toolbar-operate'));
+	    	return json_2_1(params,getToobarQueryParams('custom-toolbar-operate'));
 		},
         onLoadSuccess: function(data){
 
@@ -217,11 +216,16 @@ function del_operate(id){
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
+			$("#fileGridOperation").bootstrapTable('refresh');
 		} else {
 			layer.msg(data.result.message);
 		}
 	});
 }
+
+$("button[action='querySearch']").click(function(){
+	$("#fileGridOperation").bootstrapTable('refresh');
+});
 </script>
 
 

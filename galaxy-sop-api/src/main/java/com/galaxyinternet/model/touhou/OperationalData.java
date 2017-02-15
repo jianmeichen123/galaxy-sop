@@ -93,6 +93,14 @@ public class OperationalData extends PagableEntity{
     private String operationIntervalDateStr;
     private Integer dataType;
     private String dataTypeValue;
+    
+    private String operateDate;
+    private String updateDate;
+    private String updateUserName;
+    
+    private String operateDateStart;
+    private String operateDateEnd;
+    
 
 
     public Integer getEmployNum() {
@@ -382,6 +390,10 @@ public class OperationalData extends PagableEntity{
 
 	public void setUpdatedTime(Long updatedTime) {
 		this.updatedTime = updatedTime;
+    	if(updatedTime != null){
+    		this.updateDate = DateUtil.longToString(updatedTime);
+    	}
+	
 	}
 
 	public static long getSerialversionuid() {
@@ -518,6 +530,9 @@ public class OperationalData extends PagableEntity{
 
 	public void setOperationIntervalDate(Date operationIntervalDate) {
 		this.operationIntervalDate = operationIntervalDate;
+    	if(operationIntervalDate != null){
+    		this.operateDate = DateUtil.convertDateToString(operationIntervalDate);
+    	}
 	}
 
 	public String getOperationIntervalDateStr() {
@@ -526,6 +541,46 @@ public class OperationalData extends PagableEntity{
 
 	public void setOperationIntervalDateStr(String operationIntervalDateStr) {
 		this.operationIntervalDateStr = operationIntervalDateStr;
+	}
+
+	public String getOperateDate() {
+		return operateDate;
+	}
+
+	public void setOperateDate(String operateDate) {
+		this.operateDate = operateDate;
+	}
+
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
+	public String getOperateDateStart() {
+		return operateDateStart;
+	}
+
+	public void setOperateDateStart(String operateDateStart) {
+		this.operateDateStart = operateDateStart;
+	}
+
+	public String getOperateDateEnd() {
+		return operateDateEnd;
+	}
+
+	public void setOperateDateEnd(String operateDateEnd) {
+		this.operateDateEnd = operateDateEnd;
 	}
 
 	
