@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -37,7 +38,9 @@
     	<h2>运营数据记录</h2>
         <!--页眉-->
         <div class="top clearfix">
+          <c:if test="${fx:hasRole(4)}">
             <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" class="pbtn bluebtn h_bluebtn" >添加运营数据记录</a>
+          </c:if>
         </div>	
         <!-- 搜索条件 -->
         <div class="min_document clearfix min_document_da"  id="custom-toolbar-operate">
@@ -93,7 +96,6 @@
 			        	<th data-field="updateDate"  class="data-input">编辑时间</th>
 			        	<th data-field="updateUserName"  class="data-input">编辑人</th>
 			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
-				    	
  					</tr>	
  				</thead>
 			</table>
@@ -110,6 +112,7 @@
 <script src="<%=path %>/js/init.js"></script>
 <script type="text/javascript">
 var transferingIds = "${fx:getTransferingPids()}".split(",");
+var isflag= "${fx:hasRole(4)}";
 createMenus(14);
 var projectId = '${projectId}';
   
@@ -170,10 +173,14 @@ $(function(){
 function editor(value,row,index){
 	var info = "<span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
 	var edit = "";
+	var deletes = "";
+	if(isflag == "true"){
 		edit = " <span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
-	var deletes = " <span  class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+		deletes = " <span  class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+	}
 	return info + edit + deletes;
 }
+
 
 function operateOperationalData(id,i){
 	var _url='<%=path %>/galaxy/operationalData/editOperationalDataList/'+id;

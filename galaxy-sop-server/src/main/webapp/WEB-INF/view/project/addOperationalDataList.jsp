@@ -9,20 +9,14 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
-	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-	<!-- jsp文件头和头部 -->
-	<%@ include file="../common/taglib.jsp"%>
-<%-- 	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
-	<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<%-- 	<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css"> --%>
-
-	
-	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-    <script src="<%=path %>/js/init.js"></script>
-<%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
+<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<!-- jsp文件头和头部 -->
+<%@ include file="../common/taglib.jsp"%>
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/init.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
@@ -34,7 +28,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<%-- <script type="text/javascript" src="<%=path %>/js/jquery-1.11.1.js"></script> --%>
 </head>
 
 <body>
@@ -248,18 +241,6 @@
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
-<script type="text/javascript">
-var transferingIds = "${fx:getTransferingPids()}".split(",");
-</script>
-
-
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
- <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
- <script src="<%=path %>/js/teamSheetNew.js" type="text/javascript"></script>
-<%--  <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script> --%>
- <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
- 
 <script>
 var projectId = $("#projectId").val();
 var dataTypeValue = '${operationalData.dataTypeValue}';
