@@ -112,8 +112,6 @@
 var transferingIds = "${fx:getTransferingPids()}".split(",");
 createMenus(14);
 var projectId = '${projectId}';
-//operationData_init();
- 
   
 $(function(){
     $("#quarterData").hide();
@@ -174,7 +172,6 @@ function editor(value,row,index){
 	var edit = "";
 		edit = " <span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
 	var deletes = " <span  class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
-	
 	return info + edit + deletes;
 }
 
@@ -184,21 +181,9 @@ function operateOperationalData(id,i){
 		_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
 	}
 	window.location.href=_url;
-	/*  $.getHtml({
-		url:_url,//模版请求地址
-		data:"",//传递参数
-		okback:function(_this){
-			
-		}
-	});  */
-	//return false;
 }
-
 function deleteOperationalData(selectRowId){
-	
 	layer.confirm('是否删除运营数据?',
-			
-			
 		{
 		  btn: ['确定', '取消'] ,
 		  title :'提示',

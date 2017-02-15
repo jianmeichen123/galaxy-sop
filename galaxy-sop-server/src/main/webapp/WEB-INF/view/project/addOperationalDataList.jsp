@@ -233,8 +233,8 @@
             </tr>
           </table>
         </div>
-        <span class="pubbtn bluebtn" onclick="saveOperationData();">保存</span>
-       
+       <!--  <span class="pubbtn bluebtn" onclick="saveOperationData();">保存</span> -->
+        <button class="pubbtn bluebtn" onclick="saveOperationData();">保存</button>
         </form>
       </div>     
     </div>
