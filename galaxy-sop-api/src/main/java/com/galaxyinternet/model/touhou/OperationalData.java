@@ -100,6 +100,7 @@ public class OperationalData extends PagableEntity{
     
     private String operateDateStart;
     private String operateDateEnd;
+    private String operationalDataId;
     
 
 
@@ -582,6 +583,14 @@ public class OperationalData extends PagableEntity{
 
 	public void setPayType(String payType) {
 		this.payType = payType;
+	}
+
+	public String getOperationalDataId() {
+		return operationalDataId;
+	}
+
+	public void setOperationalDataId(String operationalDataId) {
+		this.operationalDataId = operationalDataId;
 	}
 
 	

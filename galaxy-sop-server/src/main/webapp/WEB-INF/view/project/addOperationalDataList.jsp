@@ -30,6 +30,7 @@
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <!-- time -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
@@ -47,7 +48,7 @@
     	<div class="new_tit_a"><a href="#">工作桌面</a><a href="#">>创投项目</a><a href="#">>少时诵书会</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>>添加运营数据</div>
     	<form id="operationData_form" action="" method="post" onsubmit="return false">
     	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
-    	<input type="hidden" name="id" value="${operationalData.id }"/>
+    	<input type="hidden" name="operationalDataId" value="${operationalData.id }"/>
     	<div class="new_tit_b">
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>

@@ -195,7 +195,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				responseBody.setResult(new Result(Status.ERROR, "error", "添加运营记录失败!"));
 			}
 			Project project = projectService.queryById(operationalData.getProjectId());
-			if(operationalData.getId() != null){
+			if(operationalData.getOperationalDataId() != null){
+				operationalData.setId(Long.valueOf(operationalData.getOperationalDataId()));
 				operationalData.setUpdatedUid(user.getId());
 				operationalData.setUpdatedTime(System.currentTimeMillis());
 				operationalDataService.updateById(operationalData);
