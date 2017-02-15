@@ -184,12 +184,13 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	 * @param request
 	 * @return
 	 */
-	
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@RequestMapping(value = "/formAddOperationalData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<OperationalDataBo> addOperationalData(@RequestBody OperationalDataBo operationalData,HttpServletRequest request) {
 		ResponseData<OperationalDataBo> responseBody = new ResponseData<OperationalDataBo>();
 		User user = (User) getUserFromSession(request);
+		String urlNum = "19.1";
 		try {
 			if(operationalData == null){
 				responseBody.setResult(new Result(Status.ERROR, "error", "添加运营记录失败!"));
@@ -200,6 +201,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				operationalData.setUpdatedUid(user.getId());
 				operationalData.setUpdatedTime(System.currentTimeMillis());
 				operationalDataService.updateById(operationalData);
+				urlNum = "19.2";
 			}else{
 				operationalData.setCreateUid(user.getId());
 				operationalData.setCreateTime(System.currentTimeMillis());
@@ -208,7 +210,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				operationalDataService.insert(operationalData);
 			}
 			responseBody.setResult(new Result(Status.OK, "success", "添加运营记录成功!"));
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "", null);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),urlNum);
 			logger.info("添加运营记录成功!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -235,7 +237,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 			Project project = projectService.queryById(od.getProjectId());
 			operationalDataService.deleteById(operationalDataId);
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "", UrlNumber.three);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),"19.3");
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "删除失败"));
 			logger.error("delGrantPart 删除失败",e);

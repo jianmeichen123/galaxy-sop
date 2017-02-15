@@ -207,7 +207,11 @@ public enum OperationLogType {
 	/**上传尽调总结报告**/
 	JDZJ_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.five, OperType.UPLOAD.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	/**更新尽调总结报告**/
-	JDZJREPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName());
+	JDZJREPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+
+	_19_1("/galaxy/operationalData/formAddOperationalData", OperType.ADD.getOperationType(), "运营数据","运营记录"),
+	_19_2("/galaxy/operationalData/formAddOperationalData", OperType.UPDATE.getOperationType(), "运营数据","运营记录"),
+	_19_3("/galaxy/operationalData/delOperationalData", OperType.DELETE.getOperationType(), "运营数据","运营记录");
 
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
