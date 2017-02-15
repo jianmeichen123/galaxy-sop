@@ -207,6 +207,7 @@ $(function(){
       $("#monthData").show();
       $("#quarterData").hide();
     })
+    createMenus(14);
   })
 </script>
 
