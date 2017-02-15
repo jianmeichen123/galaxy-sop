@@ -57,7 +57,7 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 		
 	
 	@Override
-	public Page<IdeaZixunBo> queryZixunPage(IdeaZixunBo query, PageRequest pageable) {
+	public Page<IdeaZixunBo> queryZixunPage(IdeaZixunBo query, PageRequest pageable,Long uid) {
 		
 		Long total = 0l;
 		Page<IdeaZixun> viewPage = null;
@@ -107,6 +107,10 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 		for(IdeaZixun zix : viewList){
 			
 			IdeaZixunBo ab = new IdeaZixunBo();
+			
+			if(zix.getCreateUid().longValue() != uid.longValue()){
+				ab.setCanEdit(1);
+			}
 			
 			ab.setId(zix.getId());
 			ab.setCode(zix.getCode());

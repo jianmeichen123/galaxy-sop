@@ -759,7 +759,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					
 					List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 					if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-							&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+							&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)&& !roleIdList.contains(UserConstant.YJY)){
 						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 						return responseBody;
 					}
@@ -1258,7 +1258,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 				List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 				if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-						&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+						&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ) && !roleIdList.contains(UserConstant.YJY)){
 					responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 					return responseBody;
 				}

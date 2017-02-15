@@ -155,8 +155,6 @@
 	}*/
 	
 	function SopTaskCallback(data){
-		//组装数据
-		
 		var list =  data.pageList.content;
 		if(list.length<4){
 			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	

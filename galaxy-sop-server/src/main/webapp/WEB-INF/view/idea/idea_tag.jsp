@@ -78,8 +78,8 @@
        	<div class="tabtable assessment label_static1"  data-id='tab-block'>
           	<!-- tab标签 -->
             <ul class="tablink tablinks projectDetail">
-				<li data-tab="nav">创意资讯</li>
-				<li data-tab="nav">项目创意</li>
+				<li data-tab="nav" data-name="tag_zixun">创意资讯</li>
+				<li data-tab="nav" data-name="tag_cy">项目创意</li>
 				<%-- <c:choose>
 					<c:when test="${isThyy }">
 							<li data-tab="nav" class="no" disabled="disabled">团队成员</li>
@@ -106,33 +106,49 @@
 </body>
 
 <script type="text/javascript">
+
+var indextoid = "${indextoid}";
+var defaultnum = 0;
+if(indextoid){
+	defaultnum = 1;
+}
+
+
 $(function(){
 	
 	createMenus(21);
 	
 	$('.projectDetail').tabLazyChange({
-		onchangeSuccess:function(index){	
+		defaultnum:defaultnum,
+		onchangeSuccess:function(index){
 			switch(index){
-				case 0: initTabZixun();  break;  //标签0:基本信息
-				case 1: initTabIdea(); break;  //标签1:团队成员
+				case 0: initTabZixun();  break;  
+				case 1: initTabIdea();   break;  
 				default: return false;
 			}
 		}
 	});
 	
+	/* if(indextoid){
+		$("[data-name='tag_cy']").click();
+		$(".projectDetail li").removeClass();
+		$("[data-name='tag_cy']").addClass("on");
+		initTabIdea();
+	} */
+	
 })
 
-//基本信息
 function initTabZixun(){
+	defaultnum = 0;
 	$.getTabHtml({
 		url : Constants.sopEndpointURL + "/galaxy/zixun/index"
 	});
 }
 
-//团队成员
 function initTabIdea(){
+	defaultnum = 0;
 	$.getTabHtml({
-		url : platformUrl.ideaList
+		url : platformUrl.ideaList,
 	});
 }
 
