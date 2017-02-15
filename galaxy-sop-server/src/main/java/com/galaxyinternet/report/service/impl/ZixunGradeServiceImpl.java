@@ -44,18 +44,19 @@ public class ZixunGradeServiceImpl extends ReportServiceImpl<ZixunData> implemen
 	public List<BasicElement> getColumns() {
 		// TODO Auto-generated method stub
 		List<BasicElement> columnList = new ArrayList<BasicElement>();
-		for(int i=0;i<13;i++){
+		for(int i=0;i<30;i++){
 			BasicElement element = new BasicElement();
 			switch (i) {
 			case 0:
 				element.setColumn(i);
-				element.setValue("序号");
-				element.setGetterMethod(BasicElement.GETTERMETHOD_NUM);
+				element.setValue("更新日期");
+				element.setGetterMethod("getUpdateDate");
+				element.setType("1");
 				break;
 			case 1:
 				element.setColumn(i);
-				element.setValue("更新日期");
-				element.setGetterMethod("getUpdateDate");
+				element.setValue("公司名称");
+				element.setGetterMethod("getCompanyName");
 				element.setType("1");
 				break;
 			case 2:
@@ -163,7 +164,7 @@ public class ZixunGradeServiceImpl extends ReportServiceImpl<ZixunData> implemen
 				element.setColumn(i);
 				element.setValue("时间7");
 				element.setGetterMethod("getTime7");
-				element.setType("2");
+				element.setType("1");
 				break;
 			case 20:
 				element.setColumn(i);

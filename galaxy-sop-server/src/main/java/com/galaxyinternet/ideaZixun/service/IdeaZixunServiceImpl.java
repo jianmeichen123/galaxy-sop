@@ -114,7 +114,13 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 			ab.setDepartName(dptIdNameMap.get(zix.getDepartmentId()));
 			ab.setUserName(userIdNameMap.get(zix.getUpdatedUid()));
 			ab.setUpdatedTime(zix.getUpdatedTime());
-
+			ab.setCompanyName(zix.getCompanyName());
+			ab.setCompanyUrl(zix.getCompanyUrl());
+			ab.setCompanyAddress(zix.getCompanyAddress());
+			ab.setCompanyBtime(zix.getCompanyBtime());
+			ab.setRemark(zix.getRemark());
+			ab.setDetailInfo(zix.getDetailInfo());
+			ab.setCompanyCuser(zix.getCompanyCuser());
 			viewBoList.add(ab);
 		}
 		

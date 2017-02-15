@@ -347,7 +347,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			}
 			
 			pageList = ideaZixunService.queryZixunPage(query, pageable );
-			request.setAttribute("zixunQuery", query);
+			request.getSession().setAttribute("zixunQuery", query);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
@@ -516,12 +516,24 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 		if(null!=list&&!list.isEmpty()){
 			for(IdeaZixunBo ideaZixunBo:list){
 				ZixunData zixun=new ZixunData();
-				zixun.setUpdateDate(DateUtil.longToString(ideaZixunBo.getUpdatedTime()));
-				zixun.setCompanyAddress(ideaZixunBo.getCompanyName());
-				zixun.setCompanyBtime(ideaZixunBo.getCompanyBtime());
-				zixun.setCompanyField(ideaZixunBo.getCompanyField());
-				zixun.setDepartmentName(map.get(ideaZixunBo.getDepartmentId()));
-				
+				zixun.setUpdateDate(DateUtil.longToString(ideaZixunBo.getUpdatedTime()).replaceAll("-", "/"));
+				zixun.setCompanyAddress(ideaZixunBo.getCompanyName()==null?"":ideaZixunBo.getCompanyAddress());
+				zixun.setCompanyBtime(ideaZixunBo.getCompanyBtime()==null?"":ideaZixunBo.getCompanyBtime());
+				zixun.setCompanyField(ideaZixunBo.getCompanyField()==null?"":ideaZixunBo.getCompanyField());
+				zixun.setDepartmentName(ideaZixunBo.getDepartName()==null?"":ideaZixunBo.getDepartName());
+				zixun.setCompanyName(ideaZixunBo.getCompanyName()==null?"":ideaZixunBo.getCompanyName());
+				zixun.setRemark(ideaZixunBo.getRemark()==null?"":ideaZixunBo.getRemark());
+				zixun.setDetailInfo(ideaZixunBo.getDetailInfo()==null?"":ideaZixunBo.getDetailInfo());
+				try {
+				zixun=zixunFinance(ideaZixunBo.getId(),zixun);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				zixun.setCompanyCuser(ideaZixunBo.getCompanyCuser()==null?"":ideaZixunBo.getCompanyCuser());
+				zixun.setCompanyAddress(ideaZixunBo.getCompanyAddress()==null?"":ideaZixunBo.getCompanyAddress());
+				zixun.setCompanyUrl(ideaZixunBo.getCompanyUrl()==null?"":ideaZixunBo.getCompanyUrl());
+				zixunList.add(zixun);
 			}
 		}
 		   return zixunList;
@@ -537,148 +549,45 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	  }
 	  
 	  
-	  public List<ZixunFinance> xixunFinance(Long id)  {
+	  public ZixunData zixunFinance(Long id,ZixunData zixun) throws Exception  {
 		  ZixunFinance zf = new ZixunFinance();
-			ZixunData zixun=new ZixunData();
+		  zixun=notNull(zixun);
 			zf.setZixunId(id);
 			List<ZixunFinance> rzs = zixunFinanceService.queryList(zf);
-				    switch(rzs.size()){
-				    case 1:
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
-				    	break;
-				    case 2:
-				    	zixun.setTime1(rzs.get(1).getFinanceDate());
-				    	zixun.setMoney1(rzs.get(1).getFinanceAmount());
-				    	zixun.setTime2(rzs.get(1).getFinanceDate());
-				    	zixun.setMoney2(rzs.get(1).getFinanceAmount());
-				    	break;
-				    case 3:
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
-				    	zixun.setTime2(rzs.get(1).getFinanceDate());
-				    	zixun.setMoney2(rzs.get(1).getFinanceAmount());
-				    	zixun.setTime3(rzs.get(2).getFinanceDate());
-				    	zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	break;
-				    case 4:    	
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
-			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
-			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
-			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
-			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	zixun.setTime4(rzs.get(3).getFinanceDate());
-				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
-				    	break;
-				    case 5:
-				      	zixun.setTime1(rzs.get(0).getFinanceDate());
-			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
-			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
-			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
-			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
-			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	zixun.setTime4(rzs.get(3).getFinanceDate());
-				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
-				    	zixun.setTime5(rzs.get(4).getFinanceDate());
-				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
-				    	break;
-				    case 6:
-				     	zixun.setTime1(rzs.get(0).getFinanceDate());
-			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
-			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
-			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
-			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
-			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	zixun.setTime4(rzs.get(3).getFinanceDate());
-				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
-				    	zixun.setTime5(rzs.get(4).getFinanceDate());
-				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
-				    	zixun.setTime6(rzs.get(5).getFinanceDate());
-				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
-				    	break;
-				    case 7:
-				     	zixun.setTime1(rzs.get(0).getFinanceDate());
-			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
-			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
-			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
-			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
-			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	zixun.setTime4(rzs.get(3).getFinanceDate());
-				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
-				    	zixun.setTime5(rzs.get(4).getFinanceDate());
-				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
-				    	zixun.setTime6(rzs.get(5).getFinanceDate());
-				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
-				    	zixun.setTime7(rzs.get(6).getFinanceDate());
-				    	zixun.setMoney7(rzs.get(6).getFinanceAmount());
-				    	break;
-				    case 8:
-				     	zixun.setTime1(rzs.get(0).getFinanceDate());
-			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
-			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
-			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
-			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
-			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	zixun.setTime4(rzs.get(3).getFinanceDate());
-				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
-				    	zixun.setTime5(rzs.get(4).getFinanceDate());
-				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-				    	zixun.setMoney1(rzs.get(0).getFinanceAmount());
-				    	break;
-				    case 9:
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
-			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
-			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
-			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
-			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	zixun.setTime4(rzs.get(3).getFinanceDate());
-				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
-				    	zixun.setTime5(rzs.get(4).getFinanceDate());
-				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
-				    	zixun.setTime6(rzs.get(5).getFinanceDate());
-				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
-				    	zixun.setTime7(rzs.get(6).getFinanceDate());
-				    	zixun.setMoney7(rzs.get(6).getFinanceAmount());
-				    	zixun.setTime8(rzs.get(7).getFinanceDate());
-				    	zixun.setMoney8(rzs.get(7).getFinanceAmount());
-				    	zixun.setTime9(rzs.get(8).getFinanceDate());
-				    	zixun.setMoney9(rzs.get(8).getFinanceAmount());
-				    	break;
-				    case 10:
-				    	zixun.setTime1(rzs.get(0).getFinanceDate());
-			    	    zixun.setMoney1(rzs.get(0).getFinanceAmount());
-			    	    zixun.setTime2(rzs.get(1).getFinanceDate());
-			    	    zixun.setMoney2(rzs.get(1).getFinanceAmount());
-			    	    zixun.setTime3(rzs.get(2).getFinanceDate());
-			    	    zixun.setMoney3(rzs.get(2).getFinanceAmount());
-				    	zixun.setTime4(rzs.get(3).getFinanceDate());
-				    	zixun.setMoney4(rzs.get(3).getFinanceAmount());
-				    	zixun.setTime5(rzs.get(4).getFinanceDate());
-				    	zixun.setMoney5(rzs.get(4).getFinanceAmount());
-				    	zixun.setTime6(rzs.get(5).getFinanceDate());
-				    	zixun.setMoney6(rzs.get(5).getFinanceAmount());
-				    	zixun.setTime7(rzs.get(6).getFinanceDate());
-				    	zixun.setMoney7(rzs.get(6).getFinanceAmount());
-				    	zixun.setTime8(rzs.get(7).getFinanceDate());
-				    	zixun.setMoney8(rzs.get(7).getFinanceAmount());
-				    	zixun.setTime9(rzs.get(8).getFinanceDate());
-				    	zixun.setMoney9(rzs.get(8).getFinanceAmount());
-				    	zixun.setTime10(rzs.get(9).getFinanceDate());
-				    	zixun.setMoney10(rzs.get(9).getFinanceAmount());
-				    	break;
-				    	
-				    }
-				
-				
-			
-			return rzs;
+			if(null!=rzs&&!rzs.isEmpty()){
+				for(int i=0;i<rzs.size();i++){
+					ZixunFinance zf1=rzs.get(i);
+					int k=i+1;
+					zixun.getClass().getMethod("setTime"+k, String.class).invoke(zixun, zf1.getFinanceDate()==null?"":zf1.getFinanceDate());
+					zixun.getClass().getMethod("setMoney"+k, String.class).invoke(zixun, zf1.getFinanceAmount()==null?"":zf1.getFinanceAmount());
+				}
+			}
+			return zixun;
+	  }
+	  
+	  public ZixunData notNull(ZixunData zixun){
+		  
+		  zixun.setTime1("");
+		  zixun.setMoney1("");
+		  zixun.setTime2("");
+		  zixun.setMoney2("");
+		  zixun.setTime3("");
+		  zixun.setMoney3("");
+		  zixun.setTime4("");
+		  zixun.setMoney4("");
+		  zixun.setTime5("");
+		  zixun.setMoney5("");
+		  zixun.setTime6("");
+		  zixun.setMoney6("");
+		  zixun.setTime7("");
+		  zixun.setMoney7("");
+		  zixun.setTime8("");
+		  zixun.setMoney8("");
+		  zixun.setTime9("");
+		  zixun.setMoney9("");
+		  zixun.setTime10("");
+		  zixun.setMoney10("");
+		  return zixun;
 	  }
 	  
 }
