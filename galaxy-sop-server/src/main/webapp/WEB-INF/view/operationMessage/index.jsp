@@ -133,12 +133,28 @@
 		
 	});
 	function projectNameFormat(value, row, index){
+		var content = value;
 		var id = row.projectId;
-		var aa = "<a href='#' onclick='viewDetail(" + id + ")' class='blue project_name'>"+row.projectName+"</a>";
-		var content =value.replace("projectname",aa);
+		
+		var aa = "<a href='#' onclick=\"viewDetail(\'pro\',\'" + id + "\')\" class='blue project_name'>"+row.projectName+"</a>";
+		var bb = "<a href='javascript:;' onclick=\"viewDetail(\'zx\',\'" + id + "\')\" class='blue project_name'>"+row.projectName+"</a>";
+		
+		if(value.indexOf("projectname") != -1){
+			 content =value.replace("projectname",aa);
+		}else if(value.indexOf("ideazixuncode") != -1){
+			 content =value.replace("ideazixuncode",bb);
+		}
+		
 		return content;
 	}
-	function viewDetail(id){
+	function viewDetail(mark,id){
+		var url = '';
+		if(mark == 'pro'){
+			url = Constants.sopEndpointURL + "/galaxy/project/detail/" +id;
+		}else if(mark =='zx'){
+			url = Constants.sopEndpointURL + "/galaxy/idea?zixunid="+id;
+		}
+				
 		//项目详情页返回地址
 		setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/operationMessage/index',6,'/');
 		var options = $("#message-table").bootstrapTable('getOptions');
@@ -146,7 +162,7 @@
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
 		var formdata = {
 				_paramKey : 'messageList',
-				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" +id,
+				_url : url,
 				_path : "/",
 				_param : {
 					pageNum : tempPageNum,

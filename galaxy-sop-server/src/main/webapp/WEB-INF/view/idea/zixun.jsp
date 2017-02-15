@@ -70,7 +70,7 @@
 			
 			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 	            <dl class="fmdl fmdll clearfix">
-	            	<dt>　编辑时间：</dt>
+	            	<dt>　    编辑时间：</dt>
 	            	<dd>
 	            		<input type="text" class="ideadatepicker txt time" name="startTime"  style="height:23px;"/>
 	            		&nbsp;&nbsp;至&nbsp;&nbsp;
@@ -150,6 +150,13 @@
 	        search: false
 		});
 		
+		
+		if(zixunid){
+			if(checkHasZx(zixunid)){
+				to_look(zixunid);
+			}
+			zixunid = null;
+		}
 		
 	});
 

@@ -174,6 +174,12 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			request.setAttribute("indextoid", id);
 			request.setAttribute("name", idea.getIdeaName());
 		}
+
+		String zixunid = request.getParameter("zixunid");
+		if(StringUtils.isNotBlank(zixunid)){
+			request.setAttribute("zixunid", zixunid);
+		}
+		
 		return "idea/idea_tag";
 	}
 	
@@ -189,6 +195,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			request.setAttribute("indextoid", id);
 			request.setAttribute("name", idea.getIdeaName());
 		}
+		
 		return "idea/idea_list2";
 	}
 	

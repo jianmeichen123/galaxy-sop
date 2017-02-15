@@ -57,6 +57,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.IdeaZixunService;
 import com.galaxyinternet.service.ZixunFinanceService;
 
 @Controller
@@ -67,6 +68,9 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 	
 	@Autowired
 	private ZixunFinanceService zixunFinanceService;
+	
+	@Autowired
+	private IdeaZixunService ideaZixunService;
 	
 	@Autowired
 	private DepartmentService departmentService;
@@ -101,6 +105,7 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 	
 	@ResponseBody
 	@RequestMapping(value="/addRz",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<ZixunFinance> addRz(HttpServletRequest request,@RequestBody ZixunFinance rz){
 		ResponseData<ZixunFinance> responseBody = new ResponseData<ZixunFinance>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -118,6 +123,9 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK,null,"添加成功"));
+			
+			IdeaZixun zxQ = ideaZixunService.queryById(rz.getZixunId());
+			ControllerUtils.setRequestParamsForMessageTip(request, zxQ.getCode(),zxQ.getId(),"18");
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR,null,"添加失败!"));
 			logger.error("addRz 添加失败",e);
@@ -130,6 +138,7 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 	
 	@ResponseBody
 	@RequestMapping(value="/editRz",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<ZixunFinance> editRz(HttpServletRequest request,@RequestBody ZixunFinance rz){
 		ResponseData<ZixunFinance> responseBody = new ResponseData<ZixunFinance>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -143,6 +152,9 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 			zixunFinanceService.updateById(rz);
 			
 			responseBody.setResult(new Result(Status.OK,null,"修改成功"));
+			
+			IdeaZixun zxQ = ideaZixunService.queryById(rz.getZixunId());
+			ControllerUtils.setRequestParamsForMessageTip(request, zxQ.getCode(),zxQ.getId(),"18");
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR,null,"修改失败!"));
 			logger.error("editRz 修改失败",e);
@@ -154,6 +166,7 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 	
 	@ResponseBody
 	@RequestMapping(value="/delRz/{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<ZixunFinance> delRz(@PathVariable("id") Long id,HttpServletRequest request){
 		ResponseData<ZixunFinance> responseBody = new ResponseData<ZixunFinance>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -170,6 +183,11 @@ public class ZixunFinanceController extends BaseControllerImpl<ZixunFinance, Zix
 			
 			//zixunFinanceService.deleteById(id);
 			responseBody.setResult(new Result(Status.OK,null,"删除成功"));
+			
+			
+			ZixunFinance rzq = zixunFinanceService.queryById(id);
+			IdeaZixun zxQ = ideaZixunService.queryById(rzq.getZixunId());
+			ControllerUtils.setRequestParamsForMessageTip(request, zxQ.getCode(),zxQ.getId(),"18");
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR,null,"删除失败!"));
 			logger.error("delRz 删除失败",e);

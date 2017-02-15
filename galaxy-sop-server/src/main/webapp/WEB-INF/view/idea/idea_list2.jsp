@@ -208,6 +208,7 @@
 		//var indextoid = "${indextoid}";
 		if(!(!indextoid)){
 			showIdeaDetail(indextoid);
+			indextoid = null;
 		}
 		var options=$("[name='departmentId'] option");
 		var len=options.length;
