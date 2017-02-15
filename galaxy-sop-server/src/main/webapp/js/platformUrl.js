@@ -1015,7 +1015,15 @@ var platformUrl = {
 	/**
 	 * 创意咨询列表-导出
 	 */
-	exportZixunGrade : Constants.sopEndpointURL + "/galaxy/zixun/exportZixunGrade"
+	exportZixunGrade : Constants.sopEndpointURL + "/galaxy/zixun/exportZixunGrade",
+	/**
+	 * 添加运营数据
+	 */
+	addOperationData : Constants.sopEndpointURL + "galaxy/operationalData/formAddOperationalData",
+	/**
+	 * 运营数据列表
+	 */
+	operationalDataList :   Constants.sopEndpointURL + "galaxy/operationalData/operationalDataList" 
 	
 }
 

@@ -272,13 +272,16 @@ function delRZ(obj,rzId){
  * 查看  编辑   删除   
  */
 function operateFormatter(value,row,index){  
+	
 	var look = "<a href='javascript:;'  class=\"blue\" onclick=\"to_look('"+row.id+"')\">查看</a>";
 	var edit = "&nbsp;<a href='javascript:;'  class=\"blue\" onclick=\"to_edit('"+row.id+"')\" >编辑</a>";
 	var del = "&nbsp;<a href='javascript:;'  class=\"blue\" onclick=\"to_del('"+row.id+"')\" >删除</a>";
 	
 	var content = look;
-	content += edit;
-	content += del;
+	if(row.canEdit == 0 || row.canEdit == '0' ){
+		content += edit;
+		content += del;
+	}
 	
 	return content;
 }

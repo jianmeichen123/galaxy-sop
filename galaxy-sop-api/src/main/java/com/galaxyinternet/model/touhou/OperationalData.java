@@ -1,42 +1,56 @@
 package com.galaxyinternet.model.touhou;
 
-import java.math.BigDecimal;
+
+import java.text.ParseException;
+import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.NumberUtils;
 
 public class OperationalData extends PagableEntity{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
 
     private Integer employNum;
 
     private Integer branchNum;
 
-    private BigDecimal productProcess;
+    private Double productProcess;
+    private String formatProductProcess;
 
-    private BigDecimal salary;
+    private Double salary;
+    private String formatSalary;
 
-    private BigDecimal otherCoat;
+    private Double otherCoat;
+    private String formatOtherCoat;
 
-    private Integer payType;
+    private String payType;
 
-    private BigDecimal manageCost;
+    private Double manageCost;
+    private String formatManageCost;
 
-    private BigDecimal marketCost;
+    private Double marketCost;
+    private String formatMarketCost;
 
-    private BigDecimal operatingCost;
+    private Double operatingCost;
+    private String formatOperatingCost;
 
-    private BigDecimal productionCost;
+    private Double productionCost;
+    private String formatProductionCost;
 
-    private BigDecimal tradeCost;
+    private Double tradeCost;
+    private String formatTradeCost;
 
-    private BigDecimal incomeCost;
+    private Double incomeCost;
+    private String formatIncomeCost;
 
-    private BigDecimal profitCost;
+    private Double profitCost;
+    private String formatProfitCost;
 
-    private BigDecimal accountBalance;
+    private Double accountBalance;
+    private String formatAccountBalance;
 
     private Integer userNum;
 
@@ -56,9 +70,11 @@ public class OperationalData extends PagableEntity{
 
     private Integer tradeOrders;
 
-    private BigDecimal tradeOrderBlance;
+    private Double tradeOrderBlance;
+    private String formatTradeOrderBlance;
 
-    private BigDecimal tradeUserBlance;
+    private Double tradeUserBlance;
+    private String formatTradeUserBlance;
 
     private Long projectId;
 
@@ -71,18 +87,24 @@ public class OperationalData extends PagableEntity{
     private Long updatedUid;
 
     private Long updatedTime;
+    
+    
+    private Date operationIntervalDate;
+    private String operationIntervalDateStr;
+    private Integer dataType;
+    private String dataTypeValue;
+    
+    private String operateDate;
+    private String updateDate;
+    private String updateUserName;
+    
+    private String operateDateStart;
+    private String operateDateEnd;
+    private String operationalDataId;
+    
 
-	
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getEmployNum() {
+    public Integer getEmployNum() {
 		return employNum;
 	}
 
@@ -98,99 +120,125 @@ public class OperationalData extends PagableEntity{
 		this.branchNum = branchNum;
 	}
 
-	public BigDecimal getProductProcess() {
+	public Double getProductProcess() {
+		if(this.formatProductProcess != null && !"".equals(this.formatProductProcess.trim())){
+			this.productProcess = NumberUtils.toFormatNoSplitFour(this.formatProductProcess.trim());
+		}
 		return productProcess;
 	}
 
-	public void setProductProcess(BigDecimal productProcess) {
+	public void setProductProcess(Double productProcess) {
 		this.productProcess = productProcess;
 	}
 
-	public BigDecimal getSalary() {
+	public Double getSalary() {
+		if(this.formatSalary != null && !"".equals(this.formatSalary.trim())){
+			this.salary = NumberUtils.toFormatNoSplitFour(this.formatSalary.trim());
+		}
 		return salary;
 	}
 
-	public void setSalary(BigDecimal salary) {
+	public void setSalary(Double salary) {
 		this.salary = salary;
 	}
 
-	public BigDecimal getOtherCoat() {
+	public Double getOtherCoat() {
+		if(this.formatOtherCoat != null && !"".equals(this.formatOtherCoat.trim())){
+			this.otherCoat = NumberUtils.toFormatNoSplitFour(this.formatOtherCoat.trim());
+		}
 		return otherCoat;
 	}
 
-	public void setOtherCoat(BigDecimal otherCoat) {
+	public void setOtherCoat(Double otherCoat) {
 		this.otherCoat = otherCoat;
 	}
 
-	public Integer getPayType() {
-		return payType;
-	}
 
-	public void setPayType(Integer payType) {
-		this.payType = payType;
-	}
-
-	public BigDecimal getManageCost() {
+	public Double getManageCost() {
+		if(this.formatManageCost != null && !"".equals(this.formatManageCost.trim())){
+			this.manageCost = NumberUtils.toFormatNoSplitFour(this.formatManageCost.trim());
+		}
 		return manageCost;
 	}
 
-	public void setManageCost(BigDecimal manageCost) {
+	public void setManageCost(Double manageCost) {
 		this.manageCost = manageCost;
 	}
 
-	public BigDecimal getMarketCost() {
+	public Double getMarketCost() {
+		if(this.formatMarketCost != null && !"".equals(this.formatMarketCost.trim())){
+			this.marketCost = NumberUtils.toFormatNoSplitFour(this.formatMarketCost.trim());
+		}
 		return marketCost;
 	}
 
-	public void setMarketCost(BigDecimal marketCost) {
+	public void setMarketCost(Double marketCost) {
 		this.marketCost = marketCost;
 	}
 
-	public BigDecimal getOperatingCost() {
+	public Double getOperatingCost() {
+		if(this.formatOperatingCost != null && !"".equals(this.formatOperatingCost.trim())){
+			this.operatingCost = NumberUtils.toFormatNoSplitFour(this.formatOperatingCost.trim());
+		}
 		return operatingCost;
 	}
 
-	public void setOperatingCost(BigDecimal operatingCost) {
+	public void setOperatingCost(Double operatingCost) {
 		this.operatingCost = operatingCost;
 	}
 
-	public BigDecimal getProductionCost() {
+	public Double getProductionCost() {
+		if(this.formatProductionCost != null && !"".equals(this.formatProductionCost.trim())){
+			this.productionCost = NumberUtils.toFormatNoSplitFour(this.formatProductionCost.trim());
+		}
 		return productionCost;
 	}
 
-	public void setProductionCost(BigDecimal productionCost) {
+	public void setProductionCost(Double productionCost) {
 		this.productionCost = productionCost;
 	}
 
-	public BigDecimal getTradeCost() {
+	public Double getTradeCost() {
+		if(this.formatTradeCost != null && !"".equals(this.formatTradeCost.trim())){
+			this.tradeCost = NumberUtils.toFormatNoSplitFour(this.formatTradeCost.trim());
+		}
 		return tradeCost;
 	}
 
-	public void setTradeCost(BigDecimal tradeCost) {
+	public void setTradeCost(Double tradeCost) {
 		this.tradeCost = tradeCost;
 	}
 
-	public BigDecimal getIncomeCost() {
+	public Double getIncomeCost() {
+		if(this.formatIncomeCost != null && !"".equals(this.formatIncomeCost.trim())){
+			this.incomeCost = NumberUtils.toFormatNoSplitFour(this.formatIncomeCost.trim());
+		}
 		return incomeCost;
 	}
 
-	public void setIncomeCost(BigDecimal incomeCost) {
+	public void setIncomeCost(Double incomeCost) {
 		this.incomeCost = incomeCost;
 	}
 
-	public BigDecimal getProfitCost() {
+	public Double getProfitCost() {
+		if(this.formatProfitCost != null && !"".equals(this.formatProfitCost.trim())){
+			this.profitCost = NumberUtils.toFormatNoSplitFour(this.formatProfitCost.trim());
+		}
 		return profitCost;
 	}
 
-	public void setProfitCost(BigDecimal profitCost) {
+	public void setProfitCost(Double profitCost) {
 		this.profitCost = profitCost;
 	}
 
-	public BigDecimal getAccountBalance() {
+	public Double getAccountBalance() {
+		if(this.formatAccountBalance != null && !"".equals(this.formatAccountBalance.trim())){
+			this.accountBalance = NumberUtils.toFormatNoSplitFour(this.formatAccountBalance.trim());
+		}
 		return accountBalance;
 	}
 
-	public void setAccountBalance(BigDecimal accountBalance) {
+	public void setAccountBalance(Double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
 
@@ -266,19 +314,25 @@ public class OperationalData extends PagableEntity{
 		this.tradeOrders = tradeOrders;
 	}
 
-	public BigDecimal getTradeOrderBlance() {
+	public Double getTradeOrderBlance() {
+		if(this.formatTradeOrderBlance != null && !"".equals(this.formatTradeOrderBlance.trim())){
+			this.tradeOrderBlance = NumberUtils.toFormatNoSplitFour(this.formatTradeOrderBlance.trim());
+		}
 		return tradeOrderBlance;
 	}
 
-	public void setTradeOrderBlance(BigDecimal tradeOrderBlance) {
+	public void setTradeOrderBlance(Double tradeOrderBlance) {
 		this.tradeOrderBlance = tradeOrderBlance;
 	}
 
-	public BigDecimal getTradeUserBlance() {
+	public Double getTradeUserBlance() {
+		if(this.formatTradeUserBlance != null && !"".equals(this.formatTradeUserBlance.trim())){
+			this.tradeUserBlance = NumberUtils.toFormatNoSplitFour(this.formatTradeUserBlance.trim());
+		}
 		return tradeUserBlance;
 	}
 
-	public void setTradeUserBlance(BigDecimal tradeUserBlance) {
+	public void setTradeUserBlance(Double tradeUserBlance) {
 		this.tradeUserBlance = tradeUserBlance;
 	}
 
@@ -330,11 +384,215 @@ public class OperationalData extends PagableEntity{
 
 	public void setUpdatedTime(Long updatedTime) {
 		this.updatedTime = updatedTime;
+    	if(updatedTime != null){
+    		this.updateDate = DateUtil.longToString(updatedTime);
+    	}
+	
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getFormatProductProcess() {
+		return formatProductProcess;
+	}
+
+	public void setFormatProductProcess(String formatProductProcess) {
+		this.formatProductProcess = formatProductProcess;
+	}
+
+	public String getFormatSalary() {
+		return formatSalary;
+	}
+
+	public void setFormatSalary(String formatSalary) {
+		this.formatSalary = formatSalary;
+	}
+
+	public String getFormatOtherCoat() {
+		return formatOtherCoat;
+	}
+
+	public void setFormatOtherCoat(String formatOtherCoat) {
+		this.formatOtherCoat = formatOtherCoat;
+	}
+
+	public String getFormatManageCost() {
+		return formatManageCost;
+	}
+
+	public void setFormatManageCost(String formatManageCost) {
+		this.formatManageCost = formatManageCost;
+	}
+
+	public String getFormatMarketCost() {
+		return formatMarketCost;
+	}
+
+	public void setFormatMarketCost(String formatMarketCost) {
+		this.formatMarketCost = formatMarketCost;
+	}
+
+	public String getFormatOperatingCost() {
+		return formatOperatingCost;
+	}
+
+	public void setFormatOperatingCost(String formatOperatingCost) {
+		this.formatOperatingCost = formatOperatingCost;
+	}
+
+	public String getFormatProductionCost() {
+		return formatProductionCost;
+	}
+
+	public void setFormatProductionCost(String formatProductionCost) {
+		this.formatProductionCost = formatProductionCost;
+	}
+
+	public String getFormatTradeCost() {
+		return formatTradeCost;
+	}
+
+	public void setFormatTradeCost(String formatTradeCost) {
+		this.formatTradeCost = formatTradeCost;
+	}
+
+	public String getFormatIncomeCost() {
+		return formatIncomeCost;
+	}
+
+	public void setFormatIncomeCost(String formatIncomeCost) {
+		this.formatIncomeCost = formatIncomeCost;
+	}
+
+	public String getFormatProfitCost() {
+		return formatProfitCost;
+	}
+
+	public void setFormatProfitCost(String formatProfitCost) {
+		this.formatProfitCost = formatProfitCost;
+	}
+
+	public String getFormatAccountBalance() {
+		return formatAccountBalance;
+	}
+
+	public void setFormatAccountBalance(String formatAccountBalance) {
+		this.formatAccountBalance = formatAccountBalance;
+	}
+
+	public String getFormatTradeOrderBlance() {
+		return formatTradeOrderBlance;
+	}
+
+	public void setFormatTradeOrderBlance(String formatTradeOrderBlance) {
+		this.formatTradeOrderBlance = formatTradeOrderBlance;
+	}
+
+	public String getFormatTradeUserBlance() {
+		return formatTradeUserBlance;
+	}
+
+	public void setFormatTradeUserBlance(String formatTradeUserBlance) {
+		this.formatTradeUserBlance = formatTradeUserBlance;
+	}
+
+
+	public String getDataTypeValue() {
+		return dataTypeValue;
+	}
+
+	public void setDataTypeValue(String dataTypeValue) {
+		this.dataTypeValue = dataTypeValue;
+	}
+
+	public Integer getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(Integer dataType) {
+		this.dataType = dataType;
+	}
+
+	public Date getOperationIntervalDate() throws ParseException {
+		if(this.operationIntervalDateStr != null && !"".equals(this.operationIntervalDateStr.trim())){
+			this.operationIntervalDate = DateUtil.stringToDate(this.operationIntervalDateStr.trim(), "yyyy-MM-dd");
+		}
+		return operationIntervalDate;
+	}
+
+	public void setOperationIntervalDate(Date operationIntervalDate) {
+		this.operationIntervalDate = operationIntervalDate;
+    	if(operationIntervalDate != null){
+    		this.operateDate = DateUtil.convertDateToString(operationIntervalDate);
+    	}
+	}
+
+	public String getOperationIntervalDateStr() {
+		return operationIntervalDateStr;
+	}
+
+	public void setOperationIntervalDateStr(String operationIntervalDateStr) {
+		this.operationIntervalDateStr = operationIntervalDateStr;
+	}
+
+	public String getOperateDate() {
+		return operateDate;
+	}
+
+	public void setOperateDate(String operateDate) {
+		this.operateDate = operateDate;
+	}
+
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUserName() {
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName) {
+		this.updateUserName = updateUserName;
+	}
+
+	public String getOperateDateStart() {
+		return operateDateStart;
+	}
+
+	public void setOperateDateStart(String operateDateStart) {
+		this.operateDateStart = operateDateStart;
+	}
+
+	public String getOperateDateEnd() {
+		return operateDateEnd;
+	}
+
+	public void setOperateDateEnd(String operateDateEnd) {
+		this.operateDateEnd = operateDateEnd;
+	}
+
+	public String getPayType() {
+		return payType;
+	}
+
+	public void setPayType(String payType) {
+		this.payType = payType;
+	}
+
+	public String getOperationalDataId() {
+		return operationalDataId;
+	}
+
+	public void setOperationalDataId(String operationalDataId) {
+		this.operationalDataId = operationalDataId;
+	}
+
 	
 	
 	

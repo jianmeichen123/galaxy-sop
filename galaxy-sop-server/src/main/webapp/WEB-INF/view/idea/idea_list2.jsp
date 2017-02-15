@@ -205,7 +205,7 @@
 	});
 	
 	$(function(){
-		var indextoid = "${indextoid}";
+		//var indextoid = "${indextoid}";
 		if(!(!indextoid)){
 			showIdeaDetail(indextoid);
 		}

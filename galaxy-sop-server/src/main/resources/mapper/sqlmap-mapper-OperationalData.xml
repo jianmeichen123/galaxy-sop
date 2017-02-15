@@ -35,6 +35,10 @@
     <result column="create_time" property="createTime"/>
     <result column="updated_uid" property="updatedUid"/>
     <result column="updated_time" property="updatedTime"/>
+    <result column="operation_interval_date" property="operationIntervalDate"/>
+    <result column="data_type" property="dataType"/>
+    <result column="data_type_value" property="dataTypeValue"/>
+    
   </resultMap>
   
    <sql id="Base_Column_List" >
@@ -42,7 +46,8 @@
     market_cost, operating_cost, production_cost, trade_cost, income_cost, profit_cost, 
     account_balance, user_num, user_new, user_active_month, user_active_day, user_buy, 
     user_online, business_new, business_buy, trade_orders, trade_order_blance, trade_user_blance, 
-    project_Id, is_delete, create_uid, create_time, updated_uid, updated_time
+    project_Id, is_delete, create_uid, create_time, updated_uid, updated_time, operation_interval_date, 
+    data_type, data_type_value
   </sql>
   
   <sql id="Base_Where_Clause">
@@ -51,12 +56,10 @@
 				<if test="id != null"> and id =#{id} </if>
 				<if test="projectId != null"> and project_id = #{projectId} </if>
 				<if test="createUid != null"> and create_uid = #{createUid} </if>
-				<if test="keyword != null">
-			  		and grant_name like CONCAT("%",#{keyword},"%")
-					<if test="escapeChar ">
-						escape '/'
-					</if>
-			  	</if>
+				<if test="operateDateStart != null"> and operation_interval_date &gt;= #{operateDateStart} </if>
+				<if test="operateDateEnd != null"> and operation_interval_date &lt;= #{operateDateEnd} </if>
+				<if test="dataType != null"> and data_type = #{dataType} </if>
+				<if test="dataTypeValue != null"> and data_type_value = #{dataTypeValue} </if>
 			</trim>
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="property != null">order by ${property} ${direction}</if>
@@ -80,6 +83,7 @@
   </select>
   
   <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select 
     <include refid="Base_Column_List" />
     from operational_data
     where id = #{id}
@@ -181,6 +185,16 @@
       <if test="updatedTime != null" >
         updated_time = #{updatedTime},
       </if>
+       <if test="operationIntervalDate != null" >
+        operation_interval_date = #{operationIntervalDate},
+      </if>
+       <if test="dataType != null" >
+        data_type = #{dataType},
+      </if>
+       <if test="dataTypeValue != null" >
+        data_type_value = #{dataTypeValue},
+      </if>
+      
     </set>
     where id = #{id}
   </update>
@@ -203,7 +217,7 @@
       business_new, business_buy, trade_orders, 
       trade_order_blance, trade_user_blance, project_Id, 
       is_delete, create_uid, create_time, 
-      updated_uid, updated_time)
+      updated_uid, updated_time,operation_interval_date,data_type,data_type_value)
     values (#{id}, #{employNum}, #{branchNum}, 
       #{productProcess}, #{salary}, #{otherCoat}, 
       #{payType}, #{manageCost}, #{marketCost}, 
@@ -214,7 +228,7 @@
       #{businessNew}, #{businessBuy}, #{tradeOrders}, 
       #{tradeOrderBlance}, #{tradeUserBlance}, #{projectId}, 
       #{isDelete}, #{createUid}, #{createTime}, 
-      #{updatedUid}, #{updatedTime})
+      #{updatedUid}, #{updatedTime}, #{operationIntervalDate}, #{dataType}, #{dataTypeValue})
        ]]>
   </insert>
  
@@ -250,7 +264,10 @@
       create_uid = #{createUid},
       create_time = #{createTime},
       updated_uid = #{updatedUid},
-      updated_time = #{updatedTime}
+      updated_time = #{updatedTime},
+      operation_interval_date = #{operationIntervalDate},
+      data_type = #{dataType},
+      data_type_value = #{dataTypeValue}
     where id = #{id}
   </update>
 </mapper>

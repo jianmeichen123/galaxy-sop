@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -8,20 +9,10 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
-	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-	<!-- jsp文件头和头部 -->
-	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-<%-- 	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
-	<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<%-- 	<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css"> --%>
+<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<!-- jsp文件头和头部 -->
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
-	
-	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-    <script src="<%=path %>/js/init.js"></script>
-<%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
@@ -29,9 +20,11 @@
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <!-- time -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
 </head>
 
 <body>
@@ -45,140 +38,83 @@
     	<h2>运营数据记录</h2>
         <!--页眉-->
         <div class="top clearfix">
-            
+          <c:if test="${fx:hasRole(4)}">
+            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" class="pbtn bluebtn h_bluebtn" >添加运营数据记录</a>
+          </c:if>
         </div>	
         <!-- 搜索条件 -->
-        <div class="min_document clearfix min_document_da"  id="custom-toolbar">
+        <div class="min_document clearfix min_document_da"  id="custom-toolbar-operate">
           <div class="top clearfix search_adjust1 searchall">
-            
+            <input type="hidden" name="projectId" value="${projectId}">
            <dl class="fmdl fmmt clearfix">
               <dd class="clearfix">
-                <label><input type="radio" checked="checked" name="typeData" id="month">月数据</label>
-                <label><input type="radio" name="typeData" id="quarter">季数据</label>
-                <select name="" id="monthData">
+                <label><input type="radio" checked="checked" name="dataType" value="0" id="month">月数据</label>
+                <label><input type="radio" name="dataType" value="1" id="quarter">季数据</label>
+                <select name="dataTypeValue" id="monthData">
                   <option value="">--请选择--</option>
-                  <option value="">1月</option>
-                  <option value="">2月</option>
-                  <option value="">3月</option>
-                  <option value="">4月</option>
-                  <option value="">5月</option>
+                  <option value="1月">1月</option>
+                  <option value="2月">2月</option>
+                  <option value="3月">3月</option>
+                  <option value="4月">4月</option>
+                  <option value="5月">5月</option>
                 </select>
-                <select name="" id="quarterData">
+                <select name="dataTypeValue" id="quarterData">
                   <option value="">--请选择--</option>
-                  <option value="">第一季度</option>
-                  <option value="">第二季度</option>
-                  <option value="">第三季度</option>
-                  <option value="">第四季度</option>
+                  <option value="第一季度">第一季度</option>
+                  <option value="第二季度">第二季度</option>
+                  <option value="第三季度">第三季度</option>
+                  <option value="第四季度">第四季度</option>
                 </select>
               </dd>
             </dl>
          
           <dl class="fmdl fmdll clearfix"">
              <dt>会议日期：</dt>
-                  <dd>
-	<input type="text" class="datepicker txt time" name="meet_startDate"  /> 
-	    </dd>
+              <dd>
+	         <input type="text" class="datepicker txt time" name="operateDateStart"  /> 
+	          </dd>
           </dl>     
          <dl>
             <dd>
              <span>至</span>
-	<input type="text" class="datepicker txt time" name="meet_endDate"  /> 
+	<input type="text" class="datepicker txt time" name="operateDateEnd"  /> 
             </dd>
              <dd>
-            <button type="button" class="bluebtn ico cx"   id="searchBtn">搜索</button>
+           <button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
             </dd>
          </dl>   
         </div>
         </div>
        <div class="tab-pane active" id="view">		
-			<table id="fileGrid22"></table>
+       	  <!--  <table id="fileGridOperation">
+			</table> --> 
+			<table id="fileGridOperation" data-url="<%=path %>/galaxy/operationalData/operationalDataList" data-height="555" 
+				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
+				<thead>
+				    <tr>
+				    	<th data-field="operateDate"  class="data-input">运营数据统计区间</th>
+			        	<th data-field="updateDate"  class="data-input">编辑时间</th>
+			        	<th data-field="updateUserName"  class="data-input">编辑人</th>
+			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
+ 					</tr>	
+ 				</thead>
+			</table>
            </div>      
     </div>
 </div>
-
-<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
-<jsp:include page="../sopFile/projectDialog.jsp" flush="true"></jsp:include>
-<jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
-
-
-
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
+<!-- 分页二css+四js -->
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/plugins/daterangepicker/css/font-awesome.min.css"  type="text/css">
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/init.js"></script>
 <script type="text/javascript">
 var transferingIds = "${fx:getTransferingPids()}".split(",");
-</script>
-
-
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
- <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
- <script src="<%=path %>/js/teamSheetNew.js" type="text/javascript"></script>
-<%--  <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script> --%>
- <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
- 
-<script>
-$('#fileGrid22').bootstrapTable({
-    url : '<%=path%>/galaxy/operationalData/operationalDataList',     //请求后台的URL（*）
-    queryParamsType: 'size|page', // undefined
-    showRefresh : false ,
-    search: false,
-    method : 'post',           //请求方式（*）
-//    toolbar: '#toolbar',        //工具按钮用哪个容器
-//    striped: true,           //是否显示行间隔色
-    cache: false,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-    pagination: true,          //是否显示分页（*）
-    sortable: false,           //是否启用排序
-    sortOrder: "asc",          //排序方式
-    //queryParams: fileGrid.queryParams,//传递参数（*）
-    sidePagination: "server",      //分页方式：client客户端分页，server服务端分页（*）
-    pageNumber:1,            //初始化加载第一页，默认第一页
-    pageSize: 10,            //每页的记录行数（*）
-    pageList: [10, 20],    //可供选择的每页的行数（*）
-    strictSearch: true,
-    clickToSelect: false,        //是否启用点击选中行
-//    height: 460,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-    uniqueId: "id",           //每一行的唯一标识，一般为主键列
-    cardView: false,          //是否显示详细视图
-    detailView: false,          //是否显示父子表
-    columns: [
-		{
-      field: 'employNum',
-      title: '职工个数'
-    }/* , {
-      field: 'projectName',
-      title: '所属项目',
-      formatter: fileGrid.projectNameFormatter	
-    }, {
-      field: 'fSource',
-      title: '档案来源'
-    }, {
-      field: 'fileUName',
-      title: '起草者'
-    }, {
-      field: 'fType',
-      title: '存储类型'
-    }, {
-      field: 'fWorktype',
-      title: '业务分类'
-    }, {
-	    field: 'voucherFile',
-	    title: '签署凭证',
-	    events : fileGrid.operateEvents,
-	    formatter: fileGrid.operateVFormatter 	
-	  }, {
-      field: 'updatedDate',
-      title: '更新日期'
-    }, {
-      field: 'fileStatusDesc',
-      title: '档案状态'
-    },{
-  	  field: 'operate', 
-  	  title: '操作', 
-  	  events: fileGrid.operateEvents, 
-  	  formatter: fileGrid.operateFormatter 
-
-    } */]
-  });
+var isflag= "${fx:hasRole(4)}";
+createMenus(14);
+var projectId = '${projectId}';
   
 $(function(){
     $("#quarterData").hide();
@@ -187,14 +123,102 @@ $(function(){
       $("#month").removeAttr('checked');
       $("#quarterData").show();
       $("#monthData").hide();
-    })
+    });
     $("#month").click(function(){
       $(this).attr("checked","checked");
       $("#quarter").removeAttr('checked');
       $("#monthData").show();
       $("#quarterData").hide();
-    })
+    });
+    
+    
+    $("#fileGridOperation").bootstrapTable({
+		queryParamsType: 'size|page',
+	    pageNumber:1,            //初始化加载第一页，默认第一页
+	    pageSize: 10,            //每页的记录行数（*）
+	    pageList: [10, 20],    //可供选择的每页的行数（*）
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+        search: false,
+        //返回附带参数功能代码
+        queryParams:function(params){
+	    	return json_2_1(params,getToobarQueryParams('custom-toolbar-operate'));
+		},
+        onLoadSuccess: function(data){
+
+        	
+		}
+	});
   })
+//根据toobar id 获取表单参数
+ function getPartnerToobarQueryParams(ToolbarId){
+ 	$("#"+ToolbarId).find('dd:hidden').find(':input').attr('data', 'true');
+ 	var toolbar = $("#"+ToolbarId);
+ 	var query = {};
+ 	toolbar.find("input[name][type!='radio'][ data!='true']").each(function(){
+ 		
+ 			var input = $(this);
+ 			var name = input.attr("name");
+ 			var val = input.val();
+ 			if(val!=''){
+ 				query[name]=val;
+ 			}
+ 		
+ 	});
+ 	return query;
+ }  
+  //查看 or 编辑 会议纪要
+function editor(value,row,index){
+	var info = "<span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
+	var edit = "";
+	var deletes = "";
+	if(isflag == "true"){
+		edit = " <span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
+		deletes = " <span  class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+	}
+	return info + edit + deletes;
+}
+
+
+function operateOperationalData(id,i){
+	var _url='<%=path %>/galaxy/operationalData/editOperationalDataList/'+id;
+	if(i == "info"){
+		_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
+	}
+	window.location.href=_url;
+}
+function deleteOperationalData(selectRowId){
+	layer.confirm('是否删除运营数据?',
+		{
+		  btn: ['确定', '取消'] ,
+		  title :'提示',
+		}, 
+		
+		function(index, layero){
+			del_operate(selectRowId);
+		}, 
+		function(index){
+		}
+	);
+}
+
+function del_operate(id){  
+	var _url =  '<%=path %>/galaxy/operationalData/delOperationalData/'+id;
+	sendPostRequestByJsonObj(_url, {}, function(data){
+		if (data.result.status=="OK") {
+			layer.msg("删除成功");
+			$("#fileGridOperation").bootstrapTable('refresh');
+		} else {
+			layer.msg(data.result.message);
+		}
+	});
+}
+
+$("button[action='querySearch']").click(function(){
+	$("#fileGridOperation").bootstrapTable('refresh');
+});
 </script>
 
 

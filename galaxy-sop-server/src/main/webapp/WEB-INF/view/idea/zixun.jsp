@@ -29,8 +29,7 @@
  	<div class="tabtxt tabblock" style="background:#fff;padding-top:10px;">
     	
         <!--页眉-->
-        <!-- <div class="top clearfix" resource-mark="zixun_add" style="display:none;"> -->
-        <div class="top clearfix">
+        <div class="top clearfix" resource-mark="zixun_add" style="display:none;">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix" >
                 <a id="addZixunBtn" href="javascript:;" class="pubbtn bluebtn ico c4" onclick="toAdd()" >添加创意资讯</a>
@@ -86,7 +85,7 @@
 		
 		<div class="tab-pane active" id="view">	
 		
-			<div>
+			<div resource-mark="zixun_import" style="display:none;">
 			    <a href="javascript:;" class="bluebtn ico tj" id="zizunExport">导出</a>
 			</div>
 				
@@ -134,7 +133,9 @@
 		if(isContainResourceByMark("zixun_add")){
 	       $('div[resource-mark="zixun_add"]').css("display","block");
 		}
-		
+		if(isContainResourceByMark("zixun_import")){
+	       $('div[resource-mark="zixun_import"]').css("display","block");
+		}
 		
 		$('#data-table-zixun').bootstrapTable({
 			queryParamsType: 'size|page', // undefined

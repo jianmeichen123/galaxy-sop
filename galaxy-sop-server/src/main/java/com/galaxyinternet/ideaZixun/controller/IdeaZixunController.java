@@ -345,9 +345,8 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 				Date date = DateUtil.convertStringToDate(query.getEndTime());
 				query.setEndTimeLong(DateUtil.getSearchToDate(date).getTime());
 			}
-			
-			pageList = ideaZixunService.queryZixunPage(query, pageable );
-			request.getSession().setAttribute("zixunQuery", query);
+			pageList = ideaZixunService.queryZixunPage(query, pageable,user.getId() );
+			request.setAttribute("zixunQuery", query);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
@@ -485,6 +484,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	@ResponseBody
 	@RequestMapping(value="/exportZixunGrade")
 	public void exportZixunGrade(HttpServletRequest request,HttpServletResponse response){
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		@SuppressWarnings("unchecked")
 		IdeaZixunBo ideaZixun = (IdeaZixunBo) request.getSession().getAttribute("zixunQuery");	
 		ideaZixun.setPageNum(0);
@@ -494,7 +494,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 				new PageRequest(ideaZixun.getPageNum(), 
 						ideaZixun.getPageSize(), 
 				Direction.fromString(ideaZixun.getDirection()), 
-				ideaZixun.getProperty()));
+				ideaZixun.getProperty()),user.getId());
 		List<ZixunData> chartDataList = setData(queryZixunPage.getContent(),ideaZixun);
 		DataFormat<ZixunData> setFormat=new DataFormat<ZixunData>();
 		String suffix = request.getParameter("suffix");

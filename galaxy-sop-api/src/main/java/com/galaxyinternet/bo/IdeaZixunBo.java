@@ -19,6 +19,7 @@ public class IdeaZixunBo extends IdeaZixun {
 	private String departName;
 	private String userName;
 	
+	private int canEdit;
 	
 	private List<ZixunFinance> finaceList;
 	
@@ -64,6 +65,12 @@ public class IdeaZixunBo extends IdeaZixun {
 	}
 	public void setFinaceList(List<ZixunFinance> finaceList) {
 		this.finaceList = finaceList;
+	}
+	public int getCanEdit() {
+		return canEdit;
+	}
+	public void setCanEdit(int canEdit) {
+		this.canEdit = canEdit;
 	}
 	
 	

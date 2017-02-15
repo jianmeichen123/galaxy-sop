@@ -43,8 +43,8 @@ public class OperationalDataServiceImpl extends BaseServiceImpl<OperationalData>
 	}
 
 	@Override
-	public Page<OperationalDataBo> queryOperationalDataPageList(
-			OperationalDataBo query, PageRequest pageRequest) {
+	public Page<OperationalData> queryOperationalDataPageList(
+			OperationalData query, PageRequest pageRequest) {
 		// TODO Auto-generated method stub
 		return operationalDataDao.selectOperationalDataPageList(query, pageRequest);
 	}
