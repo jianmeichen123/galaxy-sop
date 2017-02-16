@@ -18,6 +18,8 @@
     <result column="meet_valid" jdbcType="TINYINT" property="meetValid" />
     <result column="meeting_name" jdbcType="BIGINT" property="meetingName" />
     
+    <result column="update_time" property="updatedTime" jdbcType="BIGINT" />
+   
     <result column="departId"  property="departId" />
     <result column="passMeetNum"  property="passMeetNum" />
     <result column="sumProNum"  property="sumProNum" />
@@ -136,7 +138,9 @@
 		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		    <if test="createUid != null" > create_uid = #{createUid,jdbcType=BIGINT}, </if>
 		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT}, </if>
-		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT} </if>
+		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT}, </if>
+		    <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT} </if>
+		   
 		</set>
 		where id = #{id}
 	</update>
@@ -156,7 +160,9 @@
 		    <if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
 		    <if test="participant != null" > meeting_result = #{participant,jdbcType=VARCHAR}, </if>
 		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT}, </if>
-		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT} </if>
+		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT}, </if>
+		     <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT} </if>
+		    
 		</set>
 		where id = #{id}
 	</update>
