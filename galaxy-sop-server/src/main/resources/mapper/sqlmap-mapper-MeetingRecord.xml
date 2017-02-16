@@ -116,11 +116,11 @@
 	    <![CDATA[
 	    insert into sop_meeting_record (id, project_id, file_id, 
 	      meeting_date, meeting_type, meeting_result, 
-	      meeting_notes, meeting_notes_text,created_time,record_type,create_uid,participant,meet_valid,meeting_name)
+	      meeting_notes, meeting_notes_text,created_time,record_type,create_uid,participant,meet_valid,meeting_name,update_time)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, 
 	      #{meetingDate,jdbcType=TIMESTAMP}, #{meetingType,jdbcType=VARCHAR}, #{meetingResult,jdbcType=VARCHAR}, 
 	      #{meetingNotes,jdbcType=VARCHAR}, #{meetingNotesText,jdbcType=VARCHAR},#{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, 
-	     #{createUid,jdbcType=BIGINT}, #{participant,jdbcType=VARCHAR},#{meetValid,jdbcType=TINYINT},#{meetingName,jdbcType=BIGINT})
+	     #{createUid,jdbcType=BIGINT}, #{participant,jdbcType=VARCHAR},#{meetValid,jdbcType=TINYINT},#{meetingName,jdbcType=BIGINT},#{createdTime,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
@@ -161,8 +161,7 @@
 		    <if test="participant != null" > meeting_result = #{participant,jdbcType=VARCHAR}, </if>
 		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT}, </if>
 		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT}, </if>
-		     <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT} </if>
-		    
+		    <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
 	</update>
