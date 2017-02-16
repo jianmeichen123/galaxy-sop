@@ -94,7 +94,7 @@
 				<thead>
 				    <tr>
 				    	<th data-field="code"  class="data-input">创意资讯编码</th>
-			        	<th data-field="companyField"  class="data-input">细分领域</th>
+			        	<th data-field="companyField"  class="data-input" data-formatter="zixun_length_Format">细分领域</th>
 			        	<th data-field="departName"  class="data-input">归属部门</th>
 			        	<th data-field="userName"  class="data-input">编辑人</th>
 			        	<th data-field="updatedTime"  class="data-input" data-formatter="longTime_Format">编辑时间</th>

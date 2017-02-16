@@ -21,7 +21,8 @@
 			<dl class="fmdl fml">
 				<dt>融资时间：</dt>
 				<dd>
-					<input type="text" class="txt" name="financeDate" />
+					<input type="text" class="txt" name="financeDate" maxlength="50"
+						valType="MAXBYTE_VAL" regString="100" msg="<font color=red>*</font>不能超过50字符" />
 				</dd>
 			</dl>
 		</div>
@@ -29,7 +30,8 @@
 			<dl class="fmdl">
 				<dt>融资金额：</dt>
 				<dd>
-					<input type="text" class="txt" name="financeAmount" />
+					<input type="text" class="txt" name="financeAmount" maxlength="50"
+						valType="MAXBYTE_VAL" regString="100" msg="<font color=red>*</font>不能超过50字符" />
 				</dd>
 			</dl>
 		</div>

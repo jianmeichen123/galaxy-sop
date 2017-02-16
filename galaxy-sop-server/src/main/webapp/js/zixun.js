@@ -1,4 +1,67 @@
 
+
+/**
+ * 截取、格式化
+ */
+function zixun_length_Format(value){  
+	var old = value;
+	var cut = zixun_cutStr(25,old,'...');
+	var hasCut = getLength(value) > 25;
+	//var info = "<spance class=\"blue\"  >"+cut+"</spance>";
+	if(hasCut && hasCut == true){
+		cut = "<spance  title='"+old+"' >"+cut+"</spance>";
+	}
+	return cut;
+}
+
+
+/**
+ *  字符阶段处理
+ *  theNum : 要显示的字节数（字符*2）
+ *  theOldStr : 需要长度处理的字符
+ *  theEndStr ：截断后附加的字符（ '...'）
+ */
+function zixun_cutStr(theNum,theOldStr,theEndStr){
+	if( theOldStr == null || typeof(theOldStr) == 'undefined' || theOldStr ==''){
+		return '-';
+	}
+	var leaveStr = "";
+	var leng = getLength(theOldStr);
+	if(theNum < leng){
+		var cont = 0;
+		for (var i = 0; i < theOldStr.length; i++) {
+			if (theOldStr.charCodeAt(i) >= 0x4e00 && theOldStr.charCodeAt(i) <= 0x9fa5){ 
+				cont += 2;
+			}else {
+				cont++;
+			}
+			if(cont > theNum){
+				break;
+			}
+			leaveStr += theOldStr.charAt(i);
+		}
+		return leaveStr + theEndStr;
+	}
+	return theOldStr;
+}
+
+//检查录入数据 字节 长度
+function getLength(val){
+	var len = 0;
+	for (var i = 0; i < val.length; i++) {
+		if (val.charCodeAt(i) >= 0x4e00 && val.charCodeAt(i) <= 0x9fa5){ 
+			len += 2;
+		}else {
+			len++;
+		}
+	}
+	return len;
+}
+
+
+
+
+
 function checkHasZx(id){
 	var check = true;
 	sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/checkHasZx/"+id, null,
@@ -51,6 +114,13 @@ function getZixunDepartment($depField) {
 
 
 
+
+
+
+
+
+
+
 // 添加创意资讯
 function toAdd(){
 	var $self = $(this);
@@ -82,7 +152,8 @@ function toAdd(){
 					url:Constants.sopEndpointURL + "/galaxy/zixunFinance/add",
 					data:"",
 					okback:function(){
-						$("#popup_name1").text(_name);							
+						$("#popup_name1").text(_name);	
+						initDialogValstr("rzForm");
 					}	
 				});
 				return false;
@@ -104,8 +175,11 @@ function getAddCondition(){
 	var rzTr = $("#rzBody tr");
 	$.each(rzTr,function(){
 		var arz = {};
-		arz.financeDate = $(this).find("[data-name='financeDate']").html();
-		arz.financeAmount = $(this).find("[data-name='financeAmount']").html();
+		/*arz.financeDate = $(this).find("[data-name='financeDate']").html();
+		arz.financeAmount = $(this).find("[data-name='financeAmount']").html();*/
+		
+		arz.financeDate = $(this).find("[data-name='financeDate']").attr("data-val");
+		arz.financeAmount = $(this).find("[data-name='financeAmount']").attr("data-val");
 		rz.push(arz);
 	});
 	condition.finaceList = rz;
@@ -145,19 +219,26 @@ function saveBack(data){
 
 //融资信息添加
 function addRz(){
+	if(!beforeSubmitById("rzForm")){
+		return false;
+	}
 	$("#add_rz").showLoading(
 			 {
 			    'addClass': 'loading-indicator'						
 			 });
 	
+	var save_result = true;
+	
 	var rzId = '';
 	var zxId = $("#zixunForm [name='id']").val();
 	var condition = JSON.parse($("#rzForm").serializeObject());
 	
-	if(condition.financeDate==null && condition.financeAmount==null){
+	if((condition.financeDate==null && condition.financeAmount==null)
+		|| (condition.financeDate=='' && condition.financeAmount==''))
+		{
 		$("#add_rz").hideLoading();
 		$("#rzForm").parent().find("[data-close='close']").click();
-		return false;
+		return;
 	}
 	
 	if(zxId){
@@ -169,7 +250,7 @@ function addRz(){
 					var result = data.result.status;
 					if(result == "ERROR"){ //OK, ERROR
 						$("#add_rz").hideLoading();
-						return;
+						save_result = false;
 					}else{
 						rzId = data.id;
 					}
@@ -177,24 +258,28 @@ function addRz(){
 		);
 	}
 	
-	var edit = "<a href='javascript:;'  class=\"blue\" onclick=\"editRZ(this,'"+rzId+"')\" >编辑</a>";
-	var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"delRZ(this,'"+rzId+"')\" >删除</a>";
-	var ope = edit + del;
-	
-	var htm = 
-			"<tr data-id="+rzId+">" +
-				"<td data-name='financeDate'>"+condition.financeDate+"</td>" +
-				"<td data-name='financeAmount'>"+condition.financeAmount+"</td>" +
-				"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
-			"tr>";
-	$("#rzBody").append(htm);
-	
-	if($("#rzBody").children().length >= 10){
-		$("[data-btn='add_rzzx']").remove();	
+
+	if(save_result){
+		var edit = "<a href='javascript:;'  class=\"blue\" onclick=\"editRZ(this,'"+rzId+"')\" >编辑</a>";
+		var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"delRZ(this,'"+rzId+"')\" >删除</a>";
+		var ope = edit + del;
+		
+		var htm = 
+				"<tr data-id="+rzId+">" +
+					"<td data-name='financeDate' data-val='"+condition.financeDate+"'>"+zixun_length_Format(condition.financeDate)+"</td>" +
+					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
+					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
+				"tr>";
+		$("#rzBody").append(htm);
+		
+		if($("#rzBody").children().length >= 10){
+			$("[data-btn='add_rzzx']").hide();	
+		}
+		
+		$("#add_rz").hideLoading();
+		$("#rzForm").parent().find("[data-close='close']").click();
 	}
 	
-	$("#add_rz").hideLoading();
-	$("#rzForm").parent().find("[data-close='close']").click();
 }
 
 
@@ -214,10 +299,13 @@ function editRZ(obj,rzId){
 		url:Constants.sopEndpointURL + "/galaxy/zixunFinance/edit",
 		data:"",
 		okback:function(){
+			initDialogValstr("rzForm");
 			$("#popup_name1").text("编辑融资信息");		
 			$("#rzForm [name='id']").val(rzId);
-			$("#rzForm [name='financeDate']").val(thisTr.find("[data-name='financeDate']").html());
-			$("#rzForm [name='financeAmount']").val(thisTr.find("[data-name='financeAmount']").html());
+			/*$("#rzForm [name='financeDate']").val(thisTr.find("[data-name='financeDate']").html());
+			$("#rzForm [name='financeAmount']").val(thisTr.find("[data-name='financeAmount']").html());*/
+			$("#rzForm [name='financeDate']").val(thisTr.find("[data-name='financeDate']").attr("data-val"));
+			$("#rzForm [name='financeAmount']").val(thisTr.find("[data-name='financeAmount']").attr("data-val"));
 		}	
 	});
 	return false;
@@ -225,11 +313,15 @@ function editRZ(obj,rzId){
 
 //保存    融资编辑信息
 function updateRzSave(){
-	
 	$("#edit_rz").showLoading(
 			 {
 			    'addClass': 'loading-indicator'						
 			 });
+	if(!beforeSubmitById("rzForm")){
+		return false;
+	}
+	
+	var save_result = true;
 	
 	var condition = JSON.parse($("#rzForm").serializeObject());
 	var op_td = $("#rzBody").find("[data-check='y']");
@@ -247,17 +339,23 @@ function updateRzSave(){
 					var result = data.result.status;
 					if(result == "ERROR"){ //OK, ERROR
 						$("#edit_rz").hideLoading();
-						return;
+						save_result = false;
 					}
 				}
 		);
 	}
 	
-	$(tr).find("[data-name='financeDate']").html(condition.financeDate);
-	$(tr).find("[data-name='financeAmount']").html(condition.financeAmount);
+	if(save_result){
+		$(tr).find("[data-name='financeDate']").attr("data-val",condition.financeDate);
+		$(tr).find("[data-name='financeAmount']").attr("data-val",condition.financeAmount);
+		
+		$(tr).find("[data-name='financeDate']").html(zixun_length_Format(condition.financeDate));
+		$(tr).find("[data-name='financeAmount']").html(zixun_length_Format(condition.financeAmount));
+			
+		$("#edit_rz").hideLoading();
+		$("#rzForm").parent().find("[data-close='close']").click();
+	}
 	
-	$("#edit_rz").hideLoading();
-	$("#rzForm").parent().find("[data-close='close']").click();
 }
 
 
@@ -269,19 +367,29 @@ function delRZ(obj,rzId){
 		var _this = $(obj);
 		var thisTr = _this.parent().parent();
 		
+		var save_result = true;
 		if(rzId){
 			sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixunFinance/delRz/"+rzId, null,
 					function(data){
 						var result = data.result.status;
 						if(result == "ERROR"){ //OK, ERROR
 							layer.msg(data.result.message);
-							return;
+							save_result = false;
 						}
 					}
 			);
 		}
-		layer.msg("删除成功！");
-		thisTr.remove();
+		
+		if(save_result){
+			layer.msg("删除成功！");
+			thisTr.remove();
+			
+			if($("#rzBody").children().length < 10){
+				$("[data-btn='add_rzzx']").show();	
+			}
+		}
+		
+		
 	}, function(index) {
 	});
 }
@@ -379,7 +487,7 @@ function preEdit(zixunId){
 					);
 					
 					if(entity.finaceList && entity.finaceList.length >= 10){
-						$("[data-btn='add_rzzx']").remove();
+						$("[data-btn='add_rzzx']").hide();
 					}
 					
 					$.each(entity.finaceList,function(){
@@ -390,8 +498,8 @@ function preEdit(zixunId){
 						
 						var htm = 
 								"<tr data-id="+id+">" +
-									"<td data-name='financeDate'>"+this.financeDate+"</td>" +
-									"<td data-name='financeAmount'>"+this.financeAmount+"</td>" +
+									"<td data-name='financeDate' data-val='"+this.financeDate+"'>"+zixun_length_Format(this.financeDate)+"</td>" +
+									"<td data-name='financeAmount' data-val='"+this.financeAmount+"'>"+zixun_length_Format(this.financeAmount)+"</td>" +
 									"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
 								"tr>";
 						$("#rzBody").append(htm);
@@ -472,8 +580,8 @@ function zixunInfo(zixunId){
 						$.each(entity.finaceList,function(){
 							var htm = 
 									"<tr>" +
-										"<td data-name='financeDate'>"+this.financeDate+"</td>" +
-										"<td data-name='financeAmount'>"+this.financeAmount+"</td>" +
+										"<td data-name='financeDate'>"+zixun_length_Format(this.financeDate)+"</td>" +
+										"<td data-name='financeAmount'>"+zixun_length_Format(this.financeAmount)+"</td>" +
 									"tr>";
 							$("#zixun_info #rzBody").append(htm);
 						});

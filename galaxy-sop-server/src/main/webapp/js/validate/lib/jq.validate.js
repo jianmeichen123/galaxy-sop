@@ -77,7 +77,19 @@
 					len++;
 				}
 			}
-			if(len<parseInt(para.regString)){
+			if(len<=parseInt(para.regString)){
+				flag = true;
+			}
+		}else if(para.rule=='MAXBYTE_VAL'){
+			var len = 0;
+			for (var i = 0; i < para.data.length; i++) {
+				if (para.data.charCodeAt(i) >= 0x4e00 && para.data.charCodeAt(i) <= 0x9fa5){ 
+					len += 2;
+				}else {
+					len++;
+				}
+			}
+			if(len<=parseInt(para.regString)){
 				flag = true;
 			}
 		}else {
@@ -128,6 +140,17 @@ function validateBefore() {
 		if($.trim($(this).html())!='') {
 			if (!($(this).html()!=''&&$.Validator.match({
 				data : $.trim($(this).html()),
+				rule : $(this).attr('valType'),
+				regString : $(this).attr('regString')
+			}))) {
+				$(this).poshytip('show');
+				flag = false;
+			}
+		}
+	} else if(valType=='MAXBYTE_VAL') {
+		if($.trim($(this).val())!='') {
+			if (!($(this).val()!=''&&$.Validator.match({
+				data : $.trim($(this).val()),
 				rule : $(this).attr('valType'),
 				regString : $(this).attr('regString')
 			}))) {
@@ -189,7 +212,19 @@ function validateBeforeScroll() {  //团队成员验证，单独加了一个表�
 				flag = false;
 			}
 		}
-	} else{
+	} else if(valType=='MAXBYTE_VAL') {
+		if($.trim($(this).val())!='') {
+			if (!($(this).val()!=''&&$.Validator.match({
+				data : $.trim($(this).val()),
+				rule : $(this).attr('valType'),
+				regString : $(this).attr('regString')
+			}))) {
+				//$(this).poshytip('show');
+				//$("#"+id).show();
+				flag = false;
+			}
+		}
+	}  else{
 		if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
 			//允许为空且未输入值,放行
 		}else{
@@ -243,7 +278,18 @@ function beforeSubmit() {
 					flag = false;
 				}
 			}
-		} else{
+		} else if($(n).attr("valType")=='MAXBYTE_VAL') {//对自定义的文本框进行验证
+			if($.trim($(n).val())!='') {
+				if (!($(n).val()!=''&&$.Validator.match({
+					data : $.trim($(n).val()),
+					rule : $(n).attr('valType'),
+					regString : $(n).attr('regString')
+				}))) {
+					$(n).poshytip('show');
+					flag = false;
+				}
+			}
+		}  else{
 			if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
 				//允许为空且未输入值,放行
 			}else{
@@ -295,7 +341,18 @@ function beforeSubmitById(id) {
 					flag = false;
 				}
 			}
-		} else{
+		} else if($(n).attr("valType")=='MAXBYTE_VAL') {//对自定义的文本框进行验证
+			if($.trim($(n).val())!='') {
+				if (!($(n).val()!=''&&$.Validator.match({
+					data : $.trim($(n).val()),
+					rule : $(n).attr('valType'),
+					regString : $(n).attr('regString')
+				}))) {
+					$(n).poshytip('show');
+					flag = false;
+				}
+			}
+		}  else{
 			if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
 				//允许为空且未输入值,放行
 			}else{
@@ -346,7 +403,18 @@ function beforeSubmitByIdNext(id) {
 					flag = false;
 				}
 			}
-		} else{
+		} else if($(n).attr("valType")=='MAXBYTE_VAL') {//对自定义的文本框进行验证
+			if($.trim($(n).val())!='') {
+				if (!($(n).val()!=''&&$.Validator.match({
+					data : $.trim($(n).val()),
+					rule : $(n).attr('valType'),
+					regString : $(n).attr('regString')
+				}))) {
+					//$(n).poshytip('show');
+					flag = false;
+				}
+			}
+		}  else{
 			if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
 				//允许为空且未输入值,放行
 			}else{

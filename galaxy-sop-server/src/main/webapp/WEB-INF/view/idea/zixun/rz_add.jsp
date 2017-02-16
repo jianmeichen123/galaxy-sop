@@ -8,7 +8,9 @@
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+<script>
 
+</script>
 
 <div class="addmentc creative_edit1 zixuntc" id="add_rz">
 	<div class="title_bj" id="popup_name1"></div>
@@ -19,7 +21,8 @@
 			<dl class="fmdl fml">
 				<dt>融资时间：</dt>
 				<dd>
-					<input type="text" class="txt" name="financeDate"  maxlength="50"  />
+					<input type="text" class="txt" name="financeDate"  maxlength="50"
+						valType="MAXBYTE_VAL" regString="100" msg="<font color=red>*</font>不能超过50字符" />
 				</dd>
 			</dl>
 		</div>
@@ -27,7 +30,8 @@
 			<dl class="fmdl">
 				<dt>融资金额：</dt>
 				<dd>
-					<input type="text" class="txt" name="financeAmount"  maxlength="50" />
+					<input type="text" class="txt" name="financeAmount"  maxlength="50" 
+						valType="MAXBYTE_VAL" regString="100" msg="<font color=red>*</font>不能超过50字符" />
 				</dd>
 			</dl>
 		</div>
