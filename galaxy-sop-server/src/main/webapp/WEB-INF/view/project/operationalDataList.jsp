@@ -24,6 +24,14 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
+<!-- 分页二css+四js -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/plugins/daterangepicker/css/font-awesome.min.css"  type="text/css">
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/init.js"></script>
+
 </head>
 
 <body>
@@ -88,12 +96,6 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
-<!-- 分页二css+四js -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<link rel="stylesheet" href="<%=path %>/plugins/daterangepicker/css/font-awesome.min.css"  type="text/css">
-<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=path %>/js/init.js"></script>
 
 
 <script type="text/javascript">
@@ -121,14 +123,14 @@ $(function(){
 	    })
 	
     $("#fileGridOperation").bootstrapTable({
-		queryParamsType: 'size|page',
-	    pageNumber:1,            //初始化加载第一页，默认第一页
-	    pageSize: 10,            //每页的记录行数（*）
-	    pageList: [10, 20, 30],    //可供选择的每页的行数（*）
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
 		pagination: true,
+		queryParamsType: 'size|page',
+	    pageNumber:1,            //初始化加载第一页，默认第一页
+	    pageSize: 10,            //每页的记录行数（*）
+	    pageList: [10, 20, 30],    //可供选择的每页的行数（*）
         search: false,
         //返回附带参数功能代码
         queryParams:function(params){
