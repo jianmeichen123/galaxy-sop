@@ -42,7 +42,7 @@
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>
               <dd>
-                ${operationalData.operateDate }
+                ${operationalData.operationIntervalDate }年${operationalData.dataTypeValue }
               </dd>
           </dl>
           <span class="b_span"> 

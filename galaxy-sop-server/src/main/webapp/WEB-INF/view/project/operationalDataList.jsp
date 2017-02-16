@@ -46,43 +46,28 @@
         <div class="min_document clearfix min_document_da"  id="custom-toolbar-operate">
           <div class="top clearfix search_adjust1 searchall">
             <input type="hidden" name="projectId" value="${projectId}">
-           <dl class="fmdl fmmt clearfix">
-              <dd class="clearfix">
-                <label><input type="radio" checked="checked" name="dataType" value="0" id="month">月数据</label>
-                <label><input type="radio" name="dataType" value="1" id="quarter">季数据</label>
-                <select name="dataTypeValue" id="monthData">
-                  <option value="">--请选择--</option>
-                  <option value="1月">1月</option>
-                  <option value="2月">2月</option>
-                  <option value="3月">3月</option>
-                  <option value="4月">4月</option>
-                  <option value="5月">5月</option>
-                </select>
-                <select name="dataTypeValue" id="quarterData">
-                  <option value="">--请选择--</option>
-                  <option value="第一季度">第一季度</option>
-                  <option value="第二季度">第二季度</option>
-                  <option value="第三季度">第三季度</option>
-                  <option value="第四季度">第四季度</option>
-                </select>
-              </dd>
-            </dl>
-         
           <dl class="fmdl fmdll clearfix"">
              <dt>会议日期：</dt>
               <dd>
-	         <input type="text" class="datepicker txt time" name="operateDateStart"  /> 
+	         <input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
 	          </dd>
           </dl>     
          <dl>
             <dd>
              <span>至</span>
-	<input type="text" class="datepicker txt time" name="operateDateEnd"  /> 
+	<input type="text" class="datepicker-year-text txt time" name="operateDateEnd"  /> 
             </dd>
-             <dd>
-           <button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
-            </dd>
-         </dl>   
+         </dl>
+          <dl class="fmdl fmmt clearfix">
+              <dd class="clearfix">
+                <label><input type="radio" checked="checked" name="dataTypeMonth" value="0" id="month">月数据</label>
+                <label><input type="radio" checked="checked" name="dataTypeQuarter" value="1" id="quarter">季数据</label>
+              </dd>
+              <dd>
+                 <button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
+              </dd>
+            </dl>   
+            
         </div>
         </div>
        <div class="tab-pane active" id="view">		
@@ -92,7 +77,7 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-field="operateDate"  class="data-input">运营数据统计区间</th>
+				    	<th data-field="operationIntervalDate"  data-formatter="dataRange" class="data-input">运营数据统计区间</th>
 			        	<th data-field="updateDate"  class="data-input">编辑时间</th>
 			        	<th data-field="updateUserName"  class="data-input">编辑人</th>
 			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
@@ -111,27 +96,29 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 <script type="text/javascript">
+$('input[name="operateDateStart"], input[name="operateDateEnd"]').val(new Date().format("yyyy"));
+
 var transferingIds = "${fx:getTransferingPids()}".split(",");
 var isflag= "${fx:hasRole(4)}";
 createMenus(14);
 var projectId = '${projectId}';
   
 $(function(){
-    $("#quarterData").hide();
-    $("#quarter").click(function(){
-      $(this).attr("checked","checked");
-      $("#month").removeAttr('checked');
-      $("#quarterData").show();
-      $("#monthData").hide();
-    });
-    $("#month").click(function(){
-      $(this).attr("checked","checked");
-      $("#quarter").removeAttr('checked');
-      $("#monthData").show();
-      $("#quarterData").hide();
-    });
-    
-    
+	 $("#quarter").click(function(){
+	      if($(this).attr("checked") == "checked"){
+	    	  $(this).removeAttr('checked');
+	      }else{
+	    	  $(this).attr("checked","checked");
+	      }
+	    })
+	    $("#month").click(function(){
+	    	 if($(this).attr("checked") == "checked"){
+		    	  $(this).removeAttr('checked');
+		      }else{
+		    	  $(this).attr("checked","checked");
+		      }
+	    })
+	
     $("#fileGridOperation").bootstrapTable({
 		queryParamsType: 'size|page',
 	    pageNumber:1,            //初始化加载第一页，默认第一页
@@ -147,8 +134,6 @@ $(function(){
 	    	return json_2_1(params,getToobarQueryParams('custom-toolbar-operate'));
 		},
         onLoadSuccess: function(data){
-
-        	
 		}
 	});
   })
@@ -180,7 +165,9 @@ function editor(value,row,index){
 	}
 	return info + edit + deletes;
 }
-
+function dataRange(value,row,index){
+	return value+"年"+row.dataTypeValue;
+}
 
 function operateOperationalData(id,i){
 	var _url='<%=path %>/galaxy/operationalData/editOperationalDataList/'+id;

@@ -1,5 +1,6 @@
 package com.galaxyinternet.touhou.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,14 +129,27 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 		try {
 			if(operationalData != null){
 				operationalData.setProperty("operation_interval_date");
+				operationalData.setDirection("DESC");
 			}
 			List<User> userList = userService.queryAll();
 			Map<String,String> mapUser = new HashMap<String,String>();
 			for(User user : userList){
 				mapUser.put(user.getId()+"", user.getRealName());
 			}
-			Page<OperationalData> pageList = operationalDataService.queryOperationalDataPageList(operationalData, new PageRequest(operationalData.getPageNum(),operationalData.getPageSize()));
-			
+			List<Long> dataTypeList = new ArrayList<Long>();
+			if(!StringUtils.isEmpty(operationalData.getDataTypeMonth())){
+				dataTypeList.add(Long.valueOf(operationalData.getDataTypeMonth()));
+			}
+			if(!StringUtils.isEmpty(operationalData.getDataTypeQuarter())){
+				dataTypeList.add(Long.valueOf(operationalData.getDataTypeQuarter()));
+			}
+			if(dataTypeList != null && dataTypeList.size() > 0){
+				operationalData.setDataTypeList(dataTypeList);
+			}else{
+				dataTypeList.add(3l);
+				operationalData.setDataTypeList(dataTypeList);
+			}	
+		    Page<OperationalData> pageList = operationalDataService.queryOperationalDataPageList(operationalData, new PageRequest(operationalData.getPageNum(),operationalData.getPageSize()));
 			List<OperationalData> contentList = pageList.getContent();
 			for(OperationalData op: contentList){
 				String name = mapUser.get(op.getUpdatedUid()+"");

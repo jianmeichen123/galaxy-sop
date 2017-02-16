@@ -46,7 +46,7 @@
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>
               <dd>
-               <input type="text" class="datepicker txt time" readonly="" id="startTime" name="operationIntervalDateStr" style="height:23px;" value="${operationalData.operateDate }">
+               <input type="text" class="datepicker-year-text txt time" readonly="" id="startTime" name="operationIntervalDate" style="height:23px;" value="${operationalData.operationIntervalDate }">
               </dd>
           </dl>
           <dl class="fmdl fmmt clearfix">
@@ -60,6 +60,13 @@
                   <option value="3月">3月</option>
                   <option value="4月">4月</option>
                   <option value="5月">5月</option>
+                  <option value="6月">6月</option>
+                  <option value="7月">7月</option>
+                  <option value="8月">8月</option>
+                  <option value="9月">9月</option>
+                  <option value="10月">10月</option>
+                  <option value="11月">11月</option>
+                  <option value="12月">12月</option>
                 </select>
                 <select name="dataTypeValue" id="quarterData">
                   <option value="">--请选择--</option>
@@ -242,6 +249,10 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
 <script>
+if(!'${operationalData.operationIntervalDate}'){
+	$('input[name="operationIntervalDate"]').val(new Date().format("yyyy"));
+}
+
 var projectId = $("#projectId").val();
 var dataTypeValue = '${operationalData.dataTypeValue}';
 var payType = '${operationalData.payType}';

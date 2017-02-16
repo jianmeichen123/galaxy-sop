@@ -1,8 +1,7 @@
 package com.galaxyinternet.model.touhou;
 
 
-import java.text.ParseException;
-import java.util.Date;
+import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
@@ -88,9 +87,10 @@ public class OperationalData extends PagableEntity{
 
     private Long updatedTime;
     
-    
-    private Date operationIntervalDate;
-    private String operationIntervalDateStr;
+    /**
+     * 辅助字段
+     */
+    private Integer operationIntervalDate;
     private Integer dataType;
     private String dataTypeValue;
     
@@ -101,6 +101,10 @@ public class OperationalData extends PagableEntity{
     private String operateDateStart;
     private String operateDateEnd;
     private String operationalDataId;
+    private String dataTypeMonth;
+    private String dataTypeQuarter;
+    /**辅助in查询**/
+    private List<Long> dataTypeList;
     
 
 
@@ -515,28 +519,6 @@ public class OperationalData extends PagableEntity{
 		this.dataType = dataType;
 	}
 
-	public Date getOperationIntervalDate() throws ParseException {
-		if(this.operationIntervalDateStr != null && !"".equals(this.operationIntervalDateStr.trim())){
-			this.operationIntervalDate = DateUtil.stringToDate(this.operationIntervalDateStr.trim(), "yyyy-MM-dd");
-		}
-		return operationIntervalDate;
-	}
-
-	public void setOperationIntervalDate(Date operationIntervalDate) {
-		this.operationIntervalDate = operationIntervalDate;
-    	if(operationIntervalDate != null){
-    		this.operateDate = DateUtil.convertDateToString(operationIntervalDate);
-    	}
-	}
-
-	public String getOperationIntervalDateStr() {
-		return operationIntervalDateStr;
-	}
-
-	public void setOperationIntervalDateStr(String operationIntervalDateStr) {
-		this.operationIntervalDateStr = operationIntervalDateStr;
-	}
-
 	public String getOperateDate() {
 		return operateDate;
 	}
@@ -591,6 +573,38 @@ public class OperationalData extends PagableEntity{
 
 	public void setOperationalDataId(String operationalDataId) {
 		this.operationalDataId = operationalDataId;
+	}
+
+	public String getDataTypeMonth() {
+		return dataTypeMonth;
+	}
+
+	public void setDataTypeMonth(String dataTypeMonth) {
+		this.dataTypeMonth = dataTypeMonth;
+	}
+
+	public String getDataTypeQuarter() {
+		return dataTypeQuarter;
+	}
+
+	public void setDataTypeQuarter(String dataTypeQuarter) {
+		this.dataTypeQuarter = dataTypeQuarter;
+	}
+
+	public List<Long> getDataTypeList() {
+		return dataTypeList;
+	}
+
+	public void setDataTypeList(List<Long> dataTypeList) {
+		this.dataTypeList = dataTypeList;
+	}
+
+	public Integer getOperationIntervalDate() {
+		return operationIntervalDate;
+	}
+
+	public void setOperationIntervalDate(Integer operationIntervalDate) {
+		this.operationIntervalDate = operationIntervalDate;
 	}
 
 	

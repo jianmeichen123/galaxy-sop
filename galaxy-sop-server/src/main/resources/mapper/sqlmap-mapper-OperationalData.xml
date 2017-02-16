@@ -58,11 +58,20 @@
 				<if test="createUid != null"> and create_uid = #{createUid} </if>
 				<if test="operateDateStart != null"> and operation_interval_date &gt;= #{operateDateStart} </if>
 				<if test="operateDateEnd != null"> and operation_interval_date &lt;= #{operateDateEnd} </if>
-				<if test="dataType != null"> and data_type = #{dataType} </if>
+				<if test="dataTypeList != null">
+					AND data_type IN
+					<foreach collection="dataTypeList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			    </if>
 				<if test="dataTypeValue != null"> and data_type_value = #{dataTypeValue} </if>
 			</trim>
-			<if test="sorting != null">order by ${sorting}</if>
-			<if test="property != null">order by ${property} ${direction}</if>
+			
+			<!-- <if test="sorting != null">order by ${sorting}</if>
+			<if test="property != null">order by ${property} ${direction} , data_type_value DESC</if>
+			 -->
+			order by data_type ASC ,operation_interval_date DESC,data_type_value DESC
 			<if test="offset != null and limit != null">
 				limit #{offset}, #{limit}
 			</if>
