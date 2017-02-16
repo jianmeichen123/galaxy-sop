@@ -1,5 +1,21 @@
 
-
+function checkHasZx(id){
+	var check = true;
+	sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/checkHasZx/"+id, null,
+			function(data){
+				var result = data.result.status;
+				if(result == "ERROR"){ //OK, ERROR
+					check = false;
+				}else{
+					var count = data.id;
+					if( count == 0 || count == '0'){
+						check = false;
+					}
+				}
+			}
+	);
+	return check;
+}
 
 function getSearchDepartment($depField) {
 	sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/getDepartment", null,
@@ -129,14 +145,21 @@ function saveBack(data){
 
 //融资信息添加
 function addRz(){
+	$("#add_rz").showLoading(
+			 {
+			    'addClass': 'loading-indicator'						
+			 });
+	
 	var rzId = '';
 	var zxId = $("#zixunForm [name='id']").val();
 	var condition = JSON.parse($("#rzForm").serializeObject());
 	
-	$("#add_rz").showLoading(
-		 {
-		    'addClass': 'loading-indicator'						
-		 });
+	if(condition.financeDate==null && condition.financeAmount==null){
+		$("#add_rz").hideLoading();
+		$("#rzForm").parent().find("[data-close='close']").click();
+		return false;
+	}
+	
 	if(zxId){
 		condition.zixunId = zxId;
 		sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixunFinance/addRz",condition,
@@ -356,7 +379,7 @@ function preEdit(zixunId){
 					);
 					
 					if(entity.finaceList && entity.finaceList.length >= 10){
-						("[data-btn='add_rzzx']").remove();
+						$("[data-btn='add_rzzx']").remove();
 					}
 					
 					$.each(entity.finaceList,function(){

@@ -209,6 +209,33 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	
 	
 	
+	@ResponseBody
+	@RequestMapping(value="/checkHasZx/{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<IdeaZixun> checkHasZx(@PathVariable("id") Long id,HttpServletRequest request){
+		ResponseData<IdeaZixun> responseBody = new ResponseData<IdeaZixun>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try{
+			
+			//ideaZixunService.deleteById(id);
+			IdeaZixun zx = new IdeaZixun();
+			zx.setId(id);
+			Long count = ideaZixunService.queryCount(zx);
+			responseBody.setId(count);
+
+			responseBody.setResult(new Result(Status.OK,null));
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR,null));
+			logger.error("checkHasZx id 失败",e);
+		}
+		
+		return responseBody;
+	}
+	
+	
 	/**
 	 * 添加咨询 展示初始信息  ：  code
 	 */
@@ -345,8 +372,9 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 				Date date = DateUtil.convertStringToDate(query.getEndTime());
 				query.setEndTimeLong(DateUtil.getSearchToDate(date).getTime());
 			}
+			
 			pageList = ideaZixunService.queryZixunPage(query, pageable,user.getId() );
-			 request.getSession().setAttribute("zixunQuery", query);
+			request.getSession().setAttribute("zixunQuery", query);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
@@ -406,12 +434,12 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 		return responseBody;
 	}
 	
-	//@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	
 	@ResponseBody
 	@RequestMapping(value="/editzixun",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<IdeaZixun> editZixun(HttpServletRequest request,@RequestBody IdeaZixunBo zixunbo){
 		ResponseData<IdeaZixun> responseBody = new ResponseData<IdeaZixun>();
-		
 		
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (user == null) {
@@ -439,6 +467,8 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			
 			ideaZixunService.updateById(zixun);
 			responseBody.setResult(new Result(Status.OK,null,"修改成功"));
+			
+			ControllerUtils.setRequestParamsForMessageTip(request, zixunbo.getCode(),zixun.getId(),"18");
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR,null,"修改失败!"));
 			logger.error("editZixun 修改失败",e);
@@ -451,6 +481,7 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 	
 	@ResponseBody
 	@RequestMapping(value="/delzixun/{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAZIXUN)
 	public ResponseData<IdeaZixun> delZixun(@PathVariable("id") Long id,HttpServletRequest request){
 		ResponseData<IdeaZixun> responseBody = new ResponseData<IdeaZixun>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -459,14 +490,19 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			return responseBody;
 		}
 		try{
-			//ideaZixunService.deleteById(id);
-			IdeaZixun zx = new IdeaZixun();
-			zx.setUpdatedUid(user.getId());
-			zx.setId(id);
-			zx.setStatus((byte) 1);
+			IdeaZixun zxQ = ideaZixunService.queryById(id);
+			if(zxQ != null){
+				//ideaZixunService.deleteById(id);
+				IdeaZixun zx = new IdeaZixun();
+				zx.setUpdatedUid(user.getId());
+				zx.setId(id);
+				zx.setStatus((byte) 1);
+				
+				ideaZixunService.deleteZixun(zx);
+			}
 			
-			ideaZixunService.deleteZixun(zx);
 			responseBody.setResult(new Result(Status.OK,null,"删除成功"));
+			ControllerUtils.setRequestParamsForMessageTip(request, zxQ.getCode(),id,"18");
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR,null,"删除失败!"));
 			logger.error("delZixun 删除失败",e);

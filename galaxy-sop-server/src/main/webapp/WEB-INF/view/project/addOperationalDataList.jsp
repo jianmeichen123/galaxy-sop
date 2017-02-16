@@ -261,6 +261,7 @@ $(function(){
       $("#monthData").show();
       $("#quarterData").hide();
     })
+    createMenus(14);
   })
   
 function saveOperationData(){

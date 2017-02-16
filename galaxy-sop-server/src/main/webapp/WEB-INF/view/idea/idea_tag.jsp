@@ -113,6 +113,8 @@ if(indextoid){
 	defaultnum = 1;
 }
 
+var zixunid = "${zixunid}";
+
 
 $(function(){
 	
