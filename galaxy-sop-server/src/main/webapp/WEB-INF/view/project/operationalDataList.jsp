@@ -12,7 +12,6 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!-- jsp文件头和头部 -->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
@@ -74,7 +73,7 @@
        	  <!--  <table id="fileGridOperation">
 			</table> --> 
 			<table id="fileGridOperation" data-url="<%=path %>/galaxy/operationalData/operationalDataList" data-height="555" 
-				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
+				data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 				    	<th data-field="operationIntervalDate"  data-formatter="dataRange" class="data-input">运营数据统计区间</th>
@@ -95,6 +94,8 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
+
+
 <script type="text/javascript">
 $('input[name="operateDateStart"], input[name="operateDateEnd"]').val(new Date().format("yyyy"));
 
@@ -123,7 +124,7 @@ $(function(){
 		queryParamsType: 'size|page',
 	    pageNumber:1,            //初始化加载第一页，默认第一页
 	    pageSize: 10,            //每页的记录行数（*）
-	    pageList: [10, 20],    //可供选择的每页的行数（*）
+	    pageList: [10, 20, 30],    //可供选择的每页的行数（*）
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
