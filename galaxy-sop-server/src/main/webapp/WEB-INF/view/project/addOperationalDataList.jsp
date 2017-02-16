@@ -278,6 +278,14 @@ $(function(){
 function saveOperationData(){
 	var projectId = $("#projectId").val();
 	
+	var dataMonth = $("#monthData").val();
+	var dataQuarter = $("#quarterData").val();
+	
+	if(dataMonth == '' && dataQuarter == ''){
+		layer.msg("请选择数据类型!");
+		return;
+	}
+	
 	if(projectId != ''){
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(platformUrl.addOperationData, JSON.parse($("#operationData_form").serializeObjectIsNotNull()), function(data){if(data.result.status == "OK"){

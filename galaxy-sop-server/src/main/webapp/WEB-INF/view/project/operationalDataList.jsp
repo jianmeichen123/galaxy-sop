@@ -207,6 +207,12 @@ function del_operate(id){
 }
 
 $("button[action='querySearch']").click(function(){
+	var start = $('input[name="operateDateStart"]').val();
+	var end = $('input[name="operateDateEnd"]').val();
+	if(start > end){
+		layer.msg("开始时间不能大于结束时间!");
+		return;
+	}
 	$("#fileGridOperation").bootstrapTable('refresh');
 });
 </script>
