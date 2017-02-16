@@ -252,25 +252,40 @@
 if(!'${operationalData.operationIntervalDate}'){
 	$('input[name="operationIntervalDate"]').val(new Date().format("yyyy"));
 }
-
 var projectId = $("#projectId").val();
 var dataTypeValue = '${operationalData.dataTypeValue}';
 var payType = '${operationalData.payType}';
-$(" select option[value='"+dataTypeValue+"']").attr("selected",true);
+var dataType = '${operationalData.dataType}';
+
+if(dataType){
+	if(dataType == "0"){
+		$("#monthData").show();
+		$("#monthData option[value='"+dataTypeValue+"']").attr("selected","selected");
+	    $("#quarterData").hide();
+	}else{
+		$("#quarterData").show();
+		$("#quarterData option[value='"+dataTypeValue+"']").attr("selected","selected");
+	    $("#monthData").hide();
+	}
+}
 $(" select option[value='"+payType+"']").attr("selected",true);
 $(function(){
-    $("#quarterData").hide();
+	if(!dataType){
+		$("#quarterData").hide();
+	}
     $("#quarter").click(function(){
       $(this).attr("checked","checked");
       $("#month").removeAttr('checked');
       $("#quarterData").show();
       $("#monthData").hide();
+      $("#monthData").val("");
     })
     $("#month").click(function(){
       $(this).attr("checked","checked");
       $("#quarter").removeAttr('checked');
       $("#monthData").show();
       $("#quarterData").hide();
+      $("#quarterData").val("");
     })
     createMenus(14);
   })
