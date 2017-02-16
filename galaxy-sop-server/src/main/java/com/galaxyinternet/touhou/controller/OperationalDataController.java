@@ -80,7 +80,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	public String addOperationalDataList(@PathVariable("projectId") Long projectId,HttpServletRequest request){
 		if(projectId !=null ){
 			Project pro = projectService.queryById(projectId);
-			request.setAttribute("projectId", pro);
+			request.setAttribute("projectName", pro.getProjectName());
+			request.setAttribute("projectId", pro.getId());
 		}
 		return "project/addOperationalDataList";
 	}
@@ -95,6 +96,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 		if(operationId !=null ){
 			OperationalData operationalData = operationalDataService.selectOperationalDataById(operationId);
 			request.setAttribute("projectId", operationalData.getProjectId());
+			Project pro = projectService.queryById(operationalData.getProjectId());
+			request.setAttribute("projectName", pro.getProjectName());
 			request.setAttribute("operationalData", operationalData);
 		}
 		return "project/addOperationalDataList";
@@ -109,6 +112,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	public String infoOperationalDataList(@PathVariable("operationId") Long operationId,HttpServletRequest request){
 		if(operationId !=null ){
 			OperationalData operationalData = operationalDataService.selectOperationalDataById(operationId);
+			Project pro = projectService.queryById(operationalData.getProjectId());
+			request.setAttribute("projectName", pro.getProjectName());
 			request.setAttribute("operationalData", operationalData);
 		}
 		return "project/infoOperationalDataList";
