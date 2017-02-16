@@ -279,7 +279,7 @@ function saveOperationData(){
 	var projectId = $("#projectId").val();
 	
 	if(projectId != ''){
-		if(beforeSubmitScroll("operationData_form")){
+		if(beforeSubmit()){
 			sendPostRequestByJsonObj(platformUrl.addOperationData, JSON.parse($("#operationData_form").serializeObjectIsNotNull()), function(data){if(data.result.status == "OK"){
 	               window.location.href='<%=path %>/galaxy/operationalData/toOperationalDataList/'+projectId;
 			}});
