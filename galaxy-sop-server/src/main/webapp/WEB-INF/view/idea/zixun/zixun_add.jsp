@@ -101,6 +101,7 @@
 					</tr>
 				</thead>
 				<tbody id="rzBody">
+					<tr><td colspan="3" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>
 				</tbody>
 			</table>
 		</div>

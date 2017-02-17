@@ -70,7 +70,7 @@
 		<div class="rz_info" id="rz_info">
 			<h3>融资信息</h3>
 			<table class="health_case table"
-				style="width: 630px; margin: 10px auto 0;">
+				style="width: 700px; margin: 10px auto 0;">
 				<thead>
 					<tr>
 						<th>融资时间</th>

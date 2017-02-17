@@ -5,8 +5,8 @@
  */
 function zixun_length_Format(value){  
 	var old = value;
-	var cut = zixun_cutStr(25,old,'...');
-	var hasCut = getLength(value) > 25;
+	var cut = zixun_cutStr(35,old,'...');
+	var hasCut = getLength(value) > 35;
 	//var info = "<spance class=\"blue\"  >"+cut+"</spance>";
 	if(hasCut && hasCut == true){
 		cut = "<spance  title='"+old+"' >"+cut+"</spance>";
@@ -270,6 +270,7 @@ function addRz(){
 					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
 					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
 				"tr>";
+		$("#rzBody .noinfo").parent('tr').remove();
 		$("#rzBody").append(htm);
 		
 		if($("#rzBody").children().length >= 10){
@@ -362,7 +363,8 @@ function updateRzSave(){
 //删除 融资
 function delRZ(obj,rzId){
 	layer.confirm('是否删除该融资信息?', {
-		btn : [ '确定', '取消' ]
+		btn : [ '确定', '取消' ],
+		title:'提示'
 	}, function(index, layero) {
 		var _this = $(obj);
 		var thisTr = _this.parent().parent();
@@ -383,7 +385,10 @@ function delRZ(obj,rzId){
 		if(save_result){
 			layer.msg("删除成功！");
 			thisTr.remove();
-			
+			if($("#rzBody").children().length==0){  //无数据
+				var tr='<tr><td colspan="3" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+				$("#rzBody").append(tr);
+			}
 			if($("#rzBody").children().length < 10){
 				$("[data-btn='add_rzzx']").show();	
 			}
@@ -429,6 +434,10 @@ function to_edit(zixunId){
 			$("#popup_name").text(_name);
 			
 			preEdit(zixunId);
+			if($("#rzBody").children().length==0){  //无数据
+				var tr='<tr><td colspan="3" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+				$("#rzBody").append(tr);
+			}
 			
 			$("[data-btn='add_rzzx']").on("click",function(){ 
 				var $self = $(this);
@@ -574,6 +583,15 @@ function zixunInfo(zixunId){
 					$("#zixun_info #remark").html(entity.remark);
 					$("#zixun_info #detailInfo").html(entity.detailInfo);
 					$("#zixun_info #departmentId").html(entity.departName);
+					/*添加title属性*/
+					$("#zixun_info #code").attr("title",entity.code);
+					$("#zixun_info #companyName").attr("title",entity.companyName);
+					$("#zixun_info #companyField").attr("title",entity.companyField);
+					$("#zixun_info #companyCuser").attr("title",entity.companyCuser);
+					$("#zixun_info #companyUrl").attr("title",entity.companyUrl);
+					$("#zixun_info #companyBtime").attr("title",entity.companyBtime);
+					$("#zixun_info #companyAddress").attr("title",entity.companyAddress);
+					$("#zixun_info #departmentId").attr("title",entity.departName);
 					
 					
 					if(entity.finaceList && entity.finaceList.length > 0){
