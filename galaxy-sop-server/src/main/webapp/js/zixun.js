@@ -47,15 +47,18 @@ function zixun_cutStr(theNum,theOldStr,theEndStr){
 
 //检查录入数据 字节 长度
 function getLength(val){
-	var len = 0;
-	for (var i = 0; i < val.length; i++) {
-		if (val.charCodeAt(i) >= 0x4e00 && val.charCodeAt(i) <= 0x9fa5){ 
-			len += 2;
-		}else {
-			len++;
+	if(val!=null){
+		var len = 0;
+		for (var i = 0; i < val.length; i++) {
+			if (val.charCodeAt(i) >= 0x4e00 && val.charCodeAt(i) <= 0x9fa5){ 
+				len += 2;
+			}else {
+				len++;
+			}
 		}
+		return len;
 	}
-	return len;
+	
 }
 
 
@@ -188,7 +191,7 @@ function getAddCondition(){
 }
 //添加访问后台
 function saveAdd(){
-	if(!beforeSubmit("zixuntc")){
+	if(!beforeSubmitScroll("zixuntc")){
 		return false;
 	}
 	
@@ -531,7 +534,7 @@ function getEditCondition(){
 }
 //添加访问后台
 function editAdd(){
-	if(!beforeSubmit("zixuntc")){
+	if(!beforeSubmitScroll("zixuntc")){
 		return false;
 	}
 	

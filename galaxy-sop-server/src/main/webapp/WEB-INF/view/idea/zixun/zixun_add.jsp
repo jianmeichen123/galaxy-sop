@@ -10,7 +10,7 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 
-<div class="addmentc creative_edit1 zixuntc">
+<div class="addmentc creative_edit1 zixuntc" id="zixuntc">
 
 	<div class="title_bj" id="popup_name"></div>
 	
@@ -24,26 +24,32 @@
 		<div class="form clearfix">
 			<h3>公司信息</h3>
 			<div class="left">
-				<dl class="fmdl fml">
+				<dl class="fmdl fml clearfix">
 					<dt><em class="red">*</em>公司名称：</dt>
 					<dd>
 						<input type="text" class="txt" name="companyName" maxlength="100"  
-							valType="required" msg="<font color=red>*</font>公司名称不能为空" />
+							valType1="required"/>
+						<div class="tip-yellowsimple" id="companyName_valiate">
+							<div class="tip-inner tip-bg-image">
+								<font color="red">*</font>公司名称不能为空
+							</div>
+							<div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div>
+						</div>
 					</dd>
 				</dl>
-				<dl class="fmdl">
+				<dl class="fmdl clearfix">
 					<dt>细分领域：</dt>
 					<dd>
 						<input type="text" class="txt" name="companyField" maxlength="50" />
 					</dd>
 				</dl>
-				<dl class="fmdl">
+				<dl class="fmdl clearfix">
 					<dt>创始人：</dt>
 					<dd>
 						<input type="text" class="txt" name="companyCuser" maxlength="100" />
 					</dd>
 				</dl>
-				<dl class="fmdl">
+				<dl class="fmdl clearfix">
 					<dt>网址：</dt>
 					<dd>
 						<input type="text" value="" class="txt" name="companyUrl" maxlength="200"/>
@@ -51,20 +57,20 @@
 				</dl>
 			</div>
 			<div class="right">
-				<dl class="fmdl">
+				<dl class="fmdl clearfix">
 					<dt>成立日期：</dt>
 					<dd>
 						<input type="text" class="txt"  name="companyBtime"  maxlength="50" />
 					</dd>
 				</dl>
-				<dl class="fmdl">
+				<dl class="fmdl clearfix">
 					<dt>归属部门：</dt>
 					<dd>
 						<select name="departmentId" >
 						</select>
 					</dd>
 				</dl>
-				<dl class="fmdl">
+				<dl class="fmdl clearfix">
 					<dt>所在地：</dt>
 					<dd>
 						<input type="text" value="" class="txt"  name="companyAddress" maxlength="100" />
@@ -74,13 +80,13 @@
 		</div>
 		<div>
 			<h3>创意信息</h3>
-			<dl class="fmdl">
+			<dl class="fmdl clearfix">
 				<dt>简介：</dt>
 				<dd>
 					<textarea maxlength="500" name="remark"></textarea>
 				</dd>
 			</dl>
-			<dl class="fmdl">
+			<dl class="fmdl clearfix">
 				<dt>详细描述：</dt>
 				<dd>
 					<textarea maxlength="1000" name="detailInfo"></textarea>
@@ -113,6 +119,7 @@
 		<a href="javascript:;" class="pubbtn bluebtn" onclick="saveAdd()">确定</a>
 		<a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
 	</div>
+	
 </div>
 
 

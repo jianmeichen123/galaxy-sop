@@ -2428,3 +2428,6 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .zixuntc .fmdl dd .txt{width:150px;}
 .zx_looktc .form dd{width:260px;height:30px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .rz_info .health_case{border-collapse:collapse !important;}
+#zixuntc dl dd .tip-yellowsimple{position:absolute;visibility:visible;display:none;left: 265px; top: 0px; opacity: 1;}
+.tip-arrow-left{position:absolute;left:0px;top:0px;}
+.zixuntc dl{width:100%;overflow:visible;}
