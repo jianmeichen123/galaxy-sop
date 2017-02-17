@@ -29,6 +29,8 @@ public interface GrantActualService extends BaseService<GrantActual>{
 
 
 	void deleteGrantActual(Long grantActualId);
+	
+	List<GrantActual> selectSumActualByPid(Long projctId);
 
 
 	GrantActual selectGrantActual(Long ActualId);

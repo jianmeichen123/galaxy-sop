@@ -1,5 +1,6 @@
 package com.galaxyinternet.grant.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,16 @@ public class GrantActualDaoImpl extends BaseDaoImpl<GrantActual, Long> implement
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DaoException(String.format("计算实际注资总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);
+		}
+	}
+	
+	public List<GrantActual> selectSumActualByPid(Long projctId){
+		Assert.notNull(projctId);
+		try {
+			return sqlSessionTemplate.selectList(getSqlName("selectSumActualByPid"), projctId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException(String.format("查询实际注资信息出错！语句：%s", getSqlName("selectSumActualByPid")), e);
 		}
 	}
 

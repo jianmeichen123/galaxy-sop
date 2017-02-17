@@ -43,6 +43,9 @@
 								<value>4.4</value>
 								<value>6.10</value>
 								<value>13.3</value>
+								<value>19.1</value>
+								<value>19.2</value>
+								<value>19.3</value>
 							</list>
 						</entry>
 
@@ -64,6 +67,9 @@
 								<value>4.4</value>
 								<value>6.10</value>
 								<value>13.3</value>
+								<value>19.1</value>
+								<value>19.2</value>
+								<value>19.3</value>
 							</list>
 						</entry>
 
@@ -155,6 +161,9 @@
 								<value>15.2</value>
 								<value>15.3</value>
 								<value>15.4</value>
+								<value>19.1</value>
+								<value>19.2</value>
+								<value>19.3</value>
 							</list>
 						</entry>
 					</map>
@@ -164,7 +173,9 @@
 				<entry key="4">  <!-- 投资经理 -->
 					<map>
 						<entry key="inAll">
-								<null/>
+							<list>
+								<value>18</value>
+							</list>
 						</entry>
 
 						<entry key="inPer">
@@ -195,6 +206,9 @@
 								<value>15.2</value>
 								<value>15.3</value>
 								<value>15.4</value>
+								<value>19.1</value>
+								<value>19.2</value>
+								<value>19.3</value>
 							</list>
 						</entry>
 
@@ -384,6 +398,17 @@
 						<entry key="inPat">
 								<null/>
 						</entry>
+					</map>
+				</entry>
+				
+				<entry key="21">   <!-- 研究院 -->
+					<map>
+						<entry key="inAll">
+							<list>
+								<value>18</value>
+							</list>
+						</entry>
+
 					</map>
 				</entry>
 			</map>

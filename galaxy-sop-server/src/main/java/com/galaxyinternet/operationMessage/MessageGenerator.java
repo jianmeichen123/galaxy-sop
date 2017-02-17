@@ -92,7 +92,11 @@ public class MessageGenerator implements InitializingBean,ApplicationContextAwar
 			boolean flag=(boolean)obj;
 			entity.setFlag(flag);
 		}
-		
+		Object obj2 =map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_ASSISRCOLUMN);
+		if(null!=obj2){
+			String  assistColumn=(String)obj2;
+			entity.setAssistColumn(assistColumn);
+		}
 		Integer module = type.getModule();
 		entity.setModule(module == null ? OperationType.getModule(user.getRoleId()) : module);
 		if(StringUtils.isNoneBlank(entity.getMessageType()) && entity.getMessageType().trim().length() >= 2 && "11".equals(entity.getMessageType().substring(0,2))){

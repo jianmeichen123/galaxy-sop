@@ -12,6 +12,7 @@
     <result column="view_notes_text" property="viewNotesText" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
     <result column="created_id" property="createdId" jdbcType="BIGINT" />
+     <result column="update_time" property="updatedTime" jdbcType="BIGINT" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -86,11 +87,11 @@
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.InterviewRecord" >
 	    <![CDATA[
 		insert into sop_interview_record (id, project_id, file_id,view_date, 
-		  view_target, view_notes,view_notes_text, created_time,created_id
+		  view_target, view_notes,view_notes_text, created_time,created_id,update_time
       	)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{viewDate,jdbcType=TIMESTAMP}, 
 	      #{viewTarget,jdbcType=VARCHAR}, #{viewNotes,jdbcType=VARCHAR}, #{viewNotesText,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{createdId,jdbcType=BIGINT}
-		)
+		,#{createdTime,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
@@ -106,6 +107,9 @@
 	      <if test="viewNotesText != null" > view_notes_text = #{viewNotesText,jdbcType=VARCHAR}, </if>
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 	       <if test="createdId != null" > created_id = #{createdId,jdbcType=BIGINT}, </if>
+	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT} </if>
+	   
+	       
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -133,6 +137,8 @@
 	       <if test="viewNotesText != null" > view_notes_text = #{viewNotesText,jdbcType=VARCHAR}, </if>
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 	      <if test="createdId != null" > created_id= #{createdId,jdbcType=BIGINT}, </if>
+	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT}</if>
+	   
 		</set>
 		where id = #{id}
 	</update>

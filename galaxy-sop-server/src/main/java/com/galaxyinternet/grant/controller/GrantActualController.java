@@ -262,7 +262,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					form.setFiles(fileList);
 				}
 			}
-			
+			boolean flag=false;
 			if(form.getId()==null || form.getId().intValue() == 0){
 				//新增
 				uNum = UrlNumber.one;
@@ -270,6 +270,11 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				form.setCreateUname(user.getRealName());
 				//grantActualService.insert(form);
 				grantActualService.insertGrantActual(form, project);
+				List<GrantActual> selectSumActualByPid = grantActualService.selectSumActualByPid(
+						total.getProjectId());
+				if(null!=selectSumActualByPid&&selectSumActualByPid.size()==1){
+					flag=true;
+				}
 			}else{
 				//编辑
 				uNum = UrlNumber.two;
@@ -284,7 +289,13 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 				grantActualService.upateGrantActual(actual, project);
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", uNum);
+			//根据项目id查询本次添加实际金额是否为该项目的第一条实际注资信息
+			if(flag==true){
+				ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", "1",uNum);
+			}else{
+				ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", uNum);
+			}
+			
 		} catch (DaoException e) {
 			// TODO: handle exception
 			_common_logger_.error("添加或编辑出现错误", e);

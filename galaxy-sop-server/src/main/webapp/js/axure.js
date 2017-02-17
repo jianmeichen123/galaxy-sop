@@ -820,8 +820,12 @@
 		
 		$.fn.tabLazyChange = function(options){
 			if($(this).length==0) return false;
+			var defaultnum = options.defaultnum;
+			if(!defaultnum){
+				defaultnum = 0;
+			}
 			var opts = $.extend({
-				defaultnum:0,
+				defaultnum:defaultnum,
 				onClass:"on",
 				eventType:"click",
 				movetime:300,

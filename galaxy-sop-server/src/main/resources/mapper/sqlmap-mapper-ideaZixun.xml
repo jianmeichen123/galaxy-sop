@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.idea.IdeaZixun">
+
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.idea.IdeaZixun">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="company_btime" property="companyBtime" />
+    <result column="company_field" jdbcType="VARCHAR" property="companyField" />
+    <result column="company_cuser" jdbcType="VARCHAR" property="companyCuser" />
+    <result column="company_address" jdbcType="VARCHAR" property="companyAddress" />
+    <result column="company_url" jdbcType="VARCHAR" property="companyUrl" />
+    <result column="department_id" jdbcType="BIGINT" property="departmentId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="detail_info" jdbcType="VARCHAR" property="detailInfo" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
+    <result column="updated_uid" jdbcType="BIGINT" property="updatedUid" />
+    <result column="created_time" jdbcType="BIGINT" property="createdTime" />
+    <result column="create_uid" jdbcType="BIGINT" property="createUid" />
+  </resultMap>
+  
+  
+  
+  <sql id="Base_Column_List">
+	  id, 
+	  code, 
+	  company_name, 
+      company_btime, 
+      company_field, 
+      company_cuser, 
+      company_address, 
+      company_url, 
+      department_id, 
+      remark, 
+      detail_info, 
+      status, 
+      updated_time, 
+      updated_uid, 
+      created_time, 
+      create_uid
+	</sql>
+	
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="code != null"> and code = #{code,jdbcType=VARCHAR} </if>
+				<if test="companyName != null"> and company_name = #{companyName,jdbcType=VARCHAR} </if>
+				<if test="companyBtime != null"> and company_btime = #{companyBtime} </if>
+				<if test="companyField != null"> and company_field = #{companyField,jdbcType=VARCHAR} </if>
+				<if test="companyCuser != null"> and company_cuser = #{companyCuser,jdbcType=VARCHAR} </if>
+				<if test="companyAddress != null"> and company_address = #{companyAddress,jdbcType=VARCHAR} </if>
+				<if test="companyUrl != null"> and company_url = #{companyUrl,jdbcType=VARCHAR} </if>
+				<if test="departmentId != null"> and department_id = #{departmentId,jdbcType=BIGINT} </if>
+				<if test="remark != null"> and remark = #{remark,jdbcType=VARCHAR} </if>
+				<if test="detailInfo != null"> and detail_info = #{detailInfo,jdbcType=VARCHAR} </if>
+				<if test="status != null"> and status = #{status,jdbcType=TINYINT} </if>
+				<if test="updatedTime != null"> and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+				<if test="updatedUid != null"> and updated_uid = #{updatedUid,jdbcType=BIGINT} </if>
+				<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="createUid != null"> and create_uid = #{createUid,jdbcType=BIGINT} </if>
+				
+				<if test="beginTimeLong != null"> and updated_time <![CDATA[>=]]> #{beginTimeLong,jdbcType=BIGINT}</if>
+				<if test="endTimeLong != null"> and updated_time <![CDATA[<=]]> #{endTimeLong,jdbcType=BIGINT}</if>
+				
+				<if test="keyword != null">
+					and 
+			 			company_field  LIKE replace('%${keyword}%',' ','') 
+			 		<if test="escapeChar ">
+			 		  	escape '/' 
+			 		</if>
+			 		
+				</if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+
+
+
+
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.idea.IdeaZixun">
+		insert into sop_idea_zixun (
+		id,
+		code,
+		company_name,
+		company_btime,
+		company_field,
+		company_cuser,
+		company_address,
+		company_url,
+		department_id,
+		remark,
+		detail_info,
+		status,
+		updated_time,
+		updated_uid,
+		created_time,
+		create_uid)
+		values (
+		#{id,jdbcType=BIGINT},
+		#{code,jdbcType=VARCHAR},
+		#{companyName,jdbcType=VARCHAR},
+		#{companyBtime},
+		#{companyField,jdbcType=VARCHAR},
+		#{companyCuser,jdbcType=VARCHAR},
+		#{companyAddress,jdbcType=VARCHAR},
+		#{companyUrl,jdbcType=VARCHAR},
+		#{departmentId,jdbcType=BIGINT},
+		#{remark,jdbcType=VARCHAR},
+		#{detailInfo,jdbcType=VARCHAR},
+		#{status,jdbcType=TINYINT},
+		#{updatedTime,jdbcType=BIGINT},
+		#{updatedUid,jdbcType=BIGINT},
+		#{createdTime,jdbcType=BIGINT},
+		#{createUid,jdbcType=BIGINT})
+	</insert>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sop_idea_zixun
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_idea_zixun
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_idea_zixun
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_idea_zixun
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_idea_zixun
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+
+	<update id="updateById" parameterType="com.galaxyinternet.model.idea.IdeaZixun">
+		update sop_idea_zixun
+		<set>
+			<if test="code != null"> code = #{code,jdbcType=VARCHAR}, </if>
+			<if test="companyName != null"> company_name = #{companyName,jdbcType=VARCHAR}, </if>
+			<if test="companyBtime != null"> company_btime = #{companyBtime}, </if>
+			<if test="companyField != null"> company_field = #{companyField,jdbcType=VARCHAR}, </if>
+			<if test="companyCuser != null"> company_cuser = #{companyCuser,jdbcType=VARCHAR}, </if>
+			<if test="companyAddress != null"> company_address = #{companyAddress,jdbcType=VARCHAR}, </if>
+			<if test="companyUrl != null"> company_url = #{companyUrl,jdbcType=VARCHAR}, </if>
+			<if test="departmentId != null"> department_id = #{departmentId,jdbcType=BIGINT}, </if>
+			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="detailInfo != null"> detail_info = #{detailInfo,jdbcType=VARCHAR}, </if>
+			<if test="status != null"> status = #{status,jdbcType=TINYINT}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="updatedUid != null"> updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
+			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
+			<if test="createUid != null"> create_uid = #{createUid,jdbcType=BIGINT} </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+ 
+ 
+ 
+ 
+</mapper>
+

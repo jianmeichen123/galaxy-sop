@@ -344,6 +344,13 @@ public class GrantActualServiceImpl extends BaseServiceImpl<GrantActual> impleme
 		}
 		return sopDownLoadList;
 	}
+
+	@Override
+	public List<GrantActual> selectSumActualByPid(Long projctId) {
+		
+		// TODO Auto-generated method stub
+		return grantActualDao.selectSumActualByPid(projctId);
+	}
 	
 	
 	
