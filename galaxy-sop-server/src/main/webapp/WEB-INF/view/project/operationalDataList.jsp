@@ -80,7 +80,7 @@
        <div class="tab-pane active" id="view">		
        	  <!--  <table id="fileGridOperation">
 			</table> --> 
-			<table id="fileGridOperation" data-url="<%=path %>/galaxy/operationalData/operationalDataList" data-height="555" 
+			<table id="fileGridOperation" data-url="<%=path %>/galaxy/operationalData/operationalDataList"  
 				data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>

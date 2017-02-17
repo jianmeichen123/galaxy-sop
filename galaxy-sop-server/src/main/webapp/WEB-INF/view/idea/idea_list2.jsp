@@ -26,7 +26,7 @@
 
 
 	<!--右中部内容-->
- 	<div class="tabtxt tabblock" style="background:#fff;padding-top:10px;">
+ 	<div class="tabtxt tabblock idea_add">
     	
     	<a  data-btn="creative"></a>
     	

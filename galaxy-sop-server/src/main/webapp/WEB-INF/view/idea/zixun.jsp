@@ -26,7 +26,7 @@
 
 
 	<!--右中部内容-->
- 	<div class="tabtxt tabblock" style="background:#fff;padding-top:10px;">
+ 	<div class="tabtxt tabblock zixun">
     	
         <!--页眉-->
         <div class="top clearfix" resource-mark="zixun_add" style="display:none;">
@@ -47,7 +47,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt>创意资讯编号：</dt>
 					<dd>
-						<input type="text" class="txt" name="code"  />
+						<input type="text" class="txt" name="code" style="width:130px;" />
 					</dd>
 				</dl>
 				
@@ -70,7 +70,7 @@
 			
 			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 	            <dl class="fmdl fmdll clearfix">
-	            	<dt>　    编辑时间：</dt>
+	            	<dt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编辑时间：</dt>
 	            	<dd>
 	            		<input type="text" class="ideadatepicker txt time" name="startTime"  style="height:23px;"/>
 	            		&nbsp;&nbsp;至&nbsp;&nbsp;
@@ -85,7 +85,7 @@
 		
 		<div class="tab-pane active" id="view">	
 		
-			<div resource-mark="zixun_import" style="display:none;">
+			<div resource-mark="zixun_import" style="display:none;" class="clearfix">
 			    <a href="javascript:;" class="bluebtn ico tj" id="zizunExport">导出</a>
 			</div>
 				
@@ -135,6 +135,7 @@
 		}
 		if(isContainResourceByMark("zixun_import")){
 	       $('div[resource-mark="zixun_import"]').css("display","block");
+	       $('.ritmin .zixun .min_document').css("margin-bottom","40px");
 		}
 		
 		$('#data-table-zixun').bootstrapTable({
