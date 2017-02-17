@@ -26,7 +26,7 @@
 			<h3>公司信息</h3>
 			<div class="left">
 				<dl class="fmdl fml">
-					<dt>公司名称：</dt>
+					<dt><em class="red">*</em>公司名称：</dt>
 					<dd>
 						<input type="text" class="txt" name="companyName"  maxlength="100"  
 							valType="required" msg="<font color=red>*</font>公司名称不能为空" />

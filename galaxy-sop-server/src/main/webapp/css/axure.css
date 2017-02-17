@@ -1481,17 +1481,20 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     float: left;
     margin-top: 3px;
 }
-.new_ul_all .ico {
+.new_ul_all .ico,.j .ico {
     background: url(../img/functionico.png) no-repeat;
     height: 18px;
     line-height: 18px;
     /* float: left; */
 }
-.new_ul_all .ico_dot{
+.new_ul_all .ico_dot,.j .ico_dot{
 	 background-position: 5px -200px;
     padding: 0 0 0 22px;
 	margin-top:9px;
 	position:absolute;
+}
+.j .ico_dot{
+	margin-top:0px;
 }
 /* .ico {
     background: url(../img/functionico.png) no-repeat;

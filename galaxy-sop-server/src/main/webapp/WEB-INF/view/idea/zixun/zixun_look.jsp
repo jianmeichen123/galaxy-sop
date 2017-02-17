@@ -24,7 +24,7 @@
 			<h3>公司信息</h3>
 			<div class="left">
 				<dl class="fmdl fml">
-					<dt>公司名称：</dt>
+					<dt><em class="red">*</em>公司名称：</dt>
 					<dd id="companyName"></dd>
 				</dl>
 				<dl class="fmdl">
@@ -58,11 +58,11 @@
 		<div>
 			<h3>创意信息</h3>
 			<div class="j">
-				<span class="ico_dot ico"></span> <span>简介</span>
+				<span class="ico_dot ico"></span> <span style="padding-left:20px;">简介</span>
 				<p id="remark"></p>
 			</div>
 			<div class="j">
-				<span class="ico_dot ico"></span> <span>详细描述</span>
+				<span class="ico_dot ico"></span> <span style="padding-left:20px;">详细描述</span>
 				<p id="detailInfo"></p>
 			</div>
 		</div>
