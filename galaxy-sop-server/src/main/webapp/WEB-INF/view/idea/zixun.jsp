@@ -45,7 +45,7 @@
 			
 			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 				<dl class="fmdl fmdll clearfix">
-					<dt>创意资讯编号：</dt>
+					<dt>创意资讯编码：</dt>
 					<dd>
 						<input type="text" class="txt" name="code" style="width:130px;" />
 					</dd>
