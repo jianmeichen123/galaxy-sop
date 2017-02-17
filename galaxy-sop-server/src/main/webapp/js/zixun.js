@@ -603,7 +603,8 @@ function zixunInfo(zixunId){
  */
 function to_del(id) {
 	layer.confirm('是否删除该项目资讯?', {
-		btn : [ '确定', '取消' ]
+		btn : [ '确定', '取消' ],
+		title :'提示'
 	}, function(index, layero) {
 		sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixun/delzixun/"+id, null,
 				function(data){
