@@ -42,7 +42,9 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>运营数据记录</h2>
+    	<!-- <h2>运营数据记录</h2> -->
+    	<div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a>>运营数据记录</div>
+    	
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:hasRole(4)}">

@@ -67,6 +67,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	@RequestMapping(value="/toOperationalDataList/{projectId}",method = RequestMethod.GET)
 	public String toOperationalDataList(@PathVariable("projectId") Long projectId,HttpServletRequest request,HttpServletResponse response){
 		if(projectId !=null){
+			Project pro = projectService.queryById(projectId);
+			request.setAttribute("projectName", pro.getProjectName());
 			request.setAttribute("projectId", projectId);
 		}
 		return "project/operationalDataList";

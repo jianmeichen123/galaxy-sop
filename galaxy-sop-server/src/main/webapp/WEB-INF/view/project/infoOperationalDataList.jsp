@@ -37,7 +37,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	    <div class="new_tit_a"><a href="#">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>>查看运营数据</div>
+    	    <div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>>查看运营数据</div>
     	<div class="new_tit_b">
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>
