@@ -155,11 +155,53 @@ public class IdeaZixunServiceImpl extends BaseServiceImpl<IdeaZixun> implements 
 		}
 	}
 
-
-
+	
+	/**
+	1.编辑资讯
+	2.添加 、编辑融资
+	3.删除融资
+	*/
+	@Transactional
 	@Override
 	public void editZixun(IdeaZixun zixun, IdeaZixunBo zixunbo) {
-		// TODO Auto-generated method stub
+		// 1.编辑资讯
+		ideaZixunDao.updateById(zixun);
+		
+		// 2.添加 、编辑融资
+		List<ZixunFinance> rzList = zixunbo.getFinaceList();
+		List<ZixunFinance> toSavaList = new ArrayList<ZixunFinance>();
+		List<ZixunFinance> toEditList = new ArrayList<ZixunFinance>();
+		
+		if(rzList != null && !rzList.isEmpty()){
+			for(ZixunFinance ac : rzList ){
+				ac.setUpdatedUid(zixun.getUpdatedUid());
+				ac.setUpdatedTime(System.currentTimeMillis());
+				
+				if(ac.getId()!=null && ac.getId().longValue() != 0){
+					toEditList.add(ac);
+				}else{
+					ac.setZixunId(zixun.getId());
+					ac.setCreateUid(zixun.getUpdatedUid());
+					ac.setCreatedTime(System.currentTimeMillis());
+					
+					toSavaList.add(ac);
+				}
+			}
+		}
+		
+		if(toSavaList != null && !toSavaList.isEmpty()){
+			zixunFinanceDao.insertInBatch(toSavaList);
+		}
+		if(toEditList != null && !toEditList.isEmpty()){
+			zixunFinanceDao.updateInBatch(toEditList);
+		}
+
+		
+		// 3.删除融资
+		List<Long> rzDelIdList = zixunbo.getRzIdList();
+		if(rzDelIdList != null && !rzDelIdList.isEmpty()){
+			zixunFinanceDao.deleteByIdInBatch(rzDelIdList);
+		}
 		
 	}
 

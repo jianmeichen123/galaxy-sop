@@ -463,9 +463,9 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			
 			zixun.setUpdatedTime(System.currentTimeMillis());
 			zixun.setUpdatedUid(user.getId());
-			//ideaZixunService.editZixun(zixun,zixunbo);
+			ideaZixunService.editZixun(zixun,zixunbo);
 			
-			ideaZixunService.updateById(zixun);
+			//ideaZixunService.updateById(zixun);
 			responseBody.setResult(new Result(Status.OK,null,"修改成功"));
 			
 			ControllerUtils.setRequestParamsForMessageTip(request, zixunbo.getCode(),zixun.getId(),"18");
