@@ -42,11 +42,13 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>运营数据记录</h2>
+    	<!-- <h2>运营数据记录</h2> -->
+    	<div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a>>运营数据记录</div>
+    	
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:hasRole(4)}">
-            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" class="pbtn bluebtn h_bluebtn" >添加运营数据记录</a>
+            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
@@ -54,7 +56,7 @@
           <div class="top clearfix search_adjust1 searchall">
             <input type="hidden" name="projectId" value="${projectId}">
           <dl class="fmdl fmdll clearfix"">
-             <dt>会议日期：</dt>
+             <dt>运营数据统计区间：</dt>
               <dd>
 	         <input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
 	          </dd>
@@ -139,6 +141,11 @@ $(function(){
         onLoadSuccess: function(data){
 		}
 	});
+	 if('${fx:isTransfering(projectId)}' == 'true')
+	 {
+	 	$("#addOperate").hide();
+	 	
+	 }
   })
 //根据toobar id 获取表单参数
  function getPartnerToobarQueryParams(ToolbarId){
@@ -159,12 +166,14 @@ $(function(){
  }  
   //查看 or 编辑 会议纪要
 function editor(value,row,index){
-	var info = "<span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
+	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
 	var edit = "";
 	var deletes = "";
-	if(isflag == "true"){
-		edit = " <span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
-		deletes = " <span  class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+	if('${fx:isTransfering(projectId)}' == 'false'){
+		if(isflag == "true"){
+			edit = " <span  id=\"editOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
+			deletes = " <span  id=\"delOperate\" class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+		}
 	}
 	return info + edit + deletes;
 }
