@@ -444,6 +444,11 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 	var projectInfo = ${proinfo};
+	//运营数据分析返回
+	if(document.referrer.indexOf("toOperationalDataList")>0){
+		initTabPostMeeting();
+		$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
+	}
 </script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>

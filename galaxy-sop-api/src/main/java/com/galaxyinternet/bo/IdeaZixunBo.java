@@ -22,6 +22,7 @@ public class IdeaZixunBo extends IdeaZixun {
 	private int canEdit;
 	
 	private List<ZixunFinance> finaceList;
+	private List<Long> rzIdList;
 	
 	
 	public String getEndTime() {
@@ -71,6 +72,12 @@ public class IdeaZixunBo extends IdeaZixun {
 	}
 	public void setCanEdit(int canEdit) {
 		this.canEdit = canEdit;
+	}
+	public List<Long> getRzIdList() {
+		return rzIdList;
+	}
+	public void setRzIdList(List<Long> rzIdList) {
+		this.rzIdList = rzIdList;
 	}
 	
 	

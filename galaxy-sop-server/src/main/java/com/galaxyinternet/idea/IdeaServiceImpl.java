@@ -1,5 +1,6 @@
 package com.galaxyinternet.idea;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -210,7 +211,16 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		Project project = new Project();
 		project.setIdeaId(id);
 		project.setProjectName(projectName);
-		project.setCreatedTime(new Date().getTime());
+		Date date=new Date();
+		String str= DateUtil.convertDateToString(date);
+		try {
+			project.setCreatedTime(DateUtil.stringToLong(str,"yyyy-MM-dd"));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		project.setUpdatedTime(new Date().getTime());
+		project.setProjectTime(new Date().getTime());
 		project.setCreateUid(idea.getClaimantUid());
 		project.setCurrencyUnit(0);
 		project.setFinanceStatus(DictEnum.financeStatus.尚未获投.getCode());

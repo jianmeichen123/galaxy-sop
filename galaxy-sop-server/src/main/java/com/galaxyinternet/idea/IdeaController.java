@@ -360,7 +360,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					Department department = departmentService.queryById(user.getDepartmentId());
 					departments.add(department);
 				}
-				else if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ))
+				else if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.YJY))
 				{
 					Department depQuery = new Department();
 					depQuery.setType(1);
@@ -1401,7 +1401,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				}else {
 					List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 					if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-							&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+							&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ) && !roleIdList.contains(UserConstant.YJY)){
 						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 						return responseBody;
 					}

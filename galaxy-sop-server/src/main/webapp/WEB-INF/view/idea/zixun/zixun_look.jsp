@@ -24,7 +24,7 @@
 			<h3>公司信息</h3>
 			<div class="left">
 				<dl class="fmdl fml">
-					<dt><em class="red">*</em>公司名称：</dt>
+					<dt><!-- <em class="red">*</em> -->公司名称：</dt>
 					<dd id="companyName"></dd>
 				</dl>
 				<dl class="fmdl">

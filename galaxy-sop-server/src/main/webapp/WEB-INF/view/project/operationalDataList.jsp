@@ -31,7 +31,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
-
 </head>
 
 <body>
@@ -42,11 +41,19 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>运营数据记录</h2>
+    	<!-- <h2>运营数据记录</h2> -->
+    	<div class="new_tit_a">
+    	  <a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a>>运营数据记录
+    	  <span class="b_span" style="float:right;"> 
+            <a href="javascript:void(0);" onclick="backInitTabPostMeeting()" class="blue">返回&gt;</a>
+          </span>
+    	  
+    	  </div>
+    	
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:hasRole(4)}">
-            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" class="pbtn bluebtn h_bluebtn" >添加运营数据记录</a>
+            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
@@ -54,7 +61,7 @@
           <div class="top clearfix search_adjust1 searchall">
             <input type="hidden" name="projectId" value="${projectId}">
           <dl class="fmdl fmdll clearfix"">
-             <dt>会议日期：</dt>
+             <dt>运营数据统计区间：</dt>
               <dd>
 	         <input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
 	          </dd>
@@ -67,8 +74,8 @@
          </dl>
           <dl class="fmdl fmmt clearfix">
               <dd class="clearfix">
-                <label><input type="radio" checked="checked" name="dataTypeMonth" value="0" id="month">月数据</label>
-                <label><input type="radio" checked="checked" name="dataTypeQuarter" value="1" id="quarter">季数据</label>
+                <label><input type="checkbox" checked="checked" name="dataTypeMonth" value="0" id="month">月数据</label>
+                <label><input type="checkbox" checked="checked" name="dataTypeQuarter" value="1" id="quarter">季数据</label>
               </dd>
               <dd>
                  <button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
@@ -122,6 +129,8 @@ $(function(){
 		      }
 	    })
 	
+
+	    
     $("#fileGridOperation").bootstrapTable({
 		showRefresh : false ,
 		sidePagination: 'server',
@@ -134,37 +143,72 @@ $(function(){
         search: false,
         //返回附带参数功能代码
         queryParams:function(params){
-	    	return json_2_1(params,getToobarQueryParams('custom-toolbar-operate'));
+	    	return json_2_1(params,getToobarQueryOperationParams('custom-toolbar-operate'));
 		},
         onLoadSuccess: function(data){
 		}
 	});
+	 if('${fx:isTransfering(projectId)}' == 'true')
+	 {
+	 	$("#addOperate").hide();
+	 	
+	 }
   })
+  
 //根据toobar id 获取表单参数
- function getPartnerToobarQueryParams(ToolbarId){
- 	$("#"+ToolbarId).find('dd:hidden').find(':input').attr('data', 'true');
- 	var toolbar = $("#"+ToolbarId);
- 	var query = {};
- 	toolbar.find("input[name][type!='radio'][ data!='true']").each(function(){
- 		
- 			var input = $(this);
- 			var name = input.attr("name");
- 			var val = input.val();
- 			if(val!=''){
- 				query[name]=val;
- 			}
- 		
- 	});
- 	return query;
- }  
+function getToobarQueryOperationParams(ToolbarId){
+	var toolbar = $("#"+ToolbarId);
+	var query = {};
+	toolbar.find("input[name][type!='checkbox']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		var val = input.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	toolbar.find("input[type='radio']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("input[type='checkbox']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("select[name]").each(function(){
+		var select = $(this);
+		var name = select.attr("name");
+		var val = select.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	console.log(query);
+	return query;
+}
+ 
   //查看 or 编辑 会议纪要
 function editor(value,row,index){
-	var info = "<span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
+	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
 	var edit = "";
 	var deletes = "";
-	if(isflag == "true"){
-		edit = " <span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
-		deletes = " <span  class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+	if('${fx:isTransfering(projectId)}' == 'false'){
+		if(isflag == "true"){
+			edit = " <span  id=\"editOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
+			deletes = " <span  id=\"delOperate\" class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+		}
 	}
 	return info + edit + deletes;
 }
@@ -215,6 +259,12 @@ $("button[action='querySearch']").click(function(){
 	}
 	$("#fileGridOperation").bootstrapTable('refresh');
 });
+
+//运营分析
+function backInitTabPostMeeting(){
+	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId;
+	 forwardWithHeader(url);
+}
 </script>
 
 

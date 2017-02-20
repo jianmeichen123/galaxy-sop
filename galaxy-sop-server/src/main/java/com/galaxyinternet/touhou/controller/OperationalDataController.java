@@ -67,6 +67,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	@RequestMapping(value="/toOperationalDataList/{projectId}",method = RequestMethod.GET)
 	public String toOperationalDataList(@PathVariable("projectId") Long projectId,HttpServletRequest request,HttpServletResponse response){
 		if(projectId !=null){
+			Project pro = projectService.queryById(projectId);
+			request.setAttribute("projectName", pro.getProjectName());
 			request.setAttribute("projectId", projectId);
 		}
 		return "project/operationalDataList";
@@ -209,7 +211,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	public ResponseData<OperationalDataBo> addOperationalData(@RequestBody OperationalDataBo operationalData,HttpServletRequest request) {
 		ResponseData<OperationalDataBo> responseBody = new ResponseData<OperationalDataBo>();
 		User user = (User) getUserFromSession(request);
-		String urlNum = "19.1";
+		String messageType = "19.1";
+		UrlNumber number = UrlNumber.one;
 		try {
 			if(operationalData == null){
 				responseBody.setResult(new Result(Status.ERROR, "error", "添加运营记录失败!"));
@@ -220,7 +223,8 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				operationalData.setUpdatedUid(user.getId());
 				operationalData.setUpdatedTime(System.currentTimeMillis());
 				operationalDataService.updateById(operationalData);
-				urlNum = "19.2";
+				messageType = "19.2";
+				number = UrlNumber.two;
 			}else{
 				operationalData.setCreateUid(user.getId());
 				operationalData.setCreateTime(System.currentTimeMillis());
@@ -229,7 +233,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				operationalDataService.insert(operationalData);
 			}
 			responseBody.setResult(new Result(Status.OK, "success", "添加运营记录成功!"));
-			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),urlNum);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),messageType,number);
 			logger.info("添加运营记录成功!");
 		} catch (Exception e) {
 			e.printStackTrace();

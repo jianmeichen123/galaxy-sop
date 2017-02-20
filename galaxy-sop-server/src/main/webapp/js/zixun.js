@@ -128,7 +128,7 @@ function getZixunDepartment($depField) {
 function toAdd(){
 	var $self = $(this);
 	var _url = Constants.sopEndpointURL + "/galaxy/zixun/add";
-	var _name = "添加资讯";
+	var _name = "添加创意资讯";
 	$.getHtml({
 		url:_url,
 		data:"",
@@ -174,6 +174,12 @@ function getAddCondition(){
 	if(!condition.departmentId || condition.departmentId ==''){
 		condition.departmentId = null;
 	}
+	
+	var rzTrNoinfo = $("#rzBody tr .noinfo");
+	if(rzTrNoinfo && rzTrNoinfo.length == 1){
+		return condition;
+	}
+	
 	var rz = [];
 	var rzTr = $("#rzBody tr");
 	$.each(rzTr,function(){
@@ -186,7 +192,6 @@ function getAddCondition(){
 		rz.push(arz);
 	});
 	condition.finaceList = rz;
-	console.log(condition);
 	return condition;
 }
 //添加访问后台
@@ -236,15 +241,15 @@ function addRz(){
 	var zxId = $("#zixunForm [name='id']").val();
 	var condition = JSON.parse($("#rzForm").serializeObject());
 	
-	if((condition.financeDate==null && condition.financeAmount==null)
+	/*if((condition.financeDate==null && condition.financeAmount==null)
 		|| (condition.financeDate=='' && condition.financeAmount==''))
 		{
 		$("#add_rz").hideLoading();
 		$("#rzForm").parent().find("[data-close='close']").click();
 		return;
-	}
+	}*/
 	
-	if(zxId){
+	/*if(zxId){
 		condition.zixunId = zxId;
 		sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixunFinance/addRz",condition,
 				function(data){
@@ -259,7 +264,7 @@ function addRz(){
 					}
 				}
 		);
-	}
+	}*/
 	
 
 	if(save_result){
@@ -267,12 +272,29 @@ function addRz(){
 		var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"delRZ(this,'"+rzId+"')\" >删除</a>";
 		var ope = edit + del;
 		
-		var htm = 
-				"<tr data-id="+rzId+">" +
+		var htm = '';
+				/*"<tr data-id="+rzId+">" +
+					"<td data-name='financeDate' data-val='"+condition.financeDate+"'>"+zixun_length_Format(condition.financeDate)+"</td>" +
+					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
+					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
+				"tr>";*/
+		
+		if(zxId){
+			 htm = 
+				"<tr data-opt='add'>" +
 					"<td data-name='financeDate' data-val='"+condition.financeDate+"'>"+zixun_length_Format(condition.financeDate)+"</td>" +
 					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
 					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
 				"tr>";
+		}else{
+			htm = 
+				"<tr>" +
+					"<td data-name='financeDate' data-val='"+condition.financeDate+"'>"+zixun_length_Format(condition.financeDate)+"</td>" +
+					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
+					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
+				"tr>";
+		}
+		
 		$("#rzBody .noinfo").parent('tr').remove();
 		$("#rzBody").append(htm);
 		
@@ -304,7 +326,7 @@ function editRZ(obj,rzId){
 		data:"",
 		okback:function(){
 			initDialogValstr("rzForm");
-			$("#popup_name1").text("编辑融资信息");		
+			$("#popup_name1").text("编辑融资信息");	
 			$("#rzForm [name='id']").val(rzId);
 			/*$("#rzForm [name='financeDate']").val(thisTr.find("[data-name='financeDate']").html());
 			$("#rzForm [name='financeAmount']").val(thisTr.find("[data-name='financeAmount']").html());*/
@@ -334,7 +356,7 @@ function updateRzSave(){
 	var zxId = $("#zixunForm [name='id']").val();
 	var rzId = $("#rzForm [name='id']").val();
 	
-	if(zxId && rzId){
+	/*if(zxId && rzId){
 		condition.zixunId = zxId;
 		sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/zixunFinance/editRz",condition,
 				function(data){
@@ -347,15 +369,19 @@ function updateRzSave(){
 					}
 				}
 		);
-	}
+	}*/
 	
 	if(save_result){
+		if(zxId && rzId){
+			$(tr).attr("data-opt","edit");
+		}
+		
 		$(tr).find("[data-name='financeDate']").attr("data-val",condition.financeDate);
 		$(tr).find("[data-name='financeAmount']").attr("data-val",condition.financeAmount);
 		
 		$(tr).find("[data-name='financeDate']").html(zixun_length_Format(condition.financeDate));
 		$(tr).find("[data-name='financeAmount']").html(zixun_length_Format(condition.financeAmount));
-			
+		
 		$("#edit_rz").hideLoading();
 		$("#rzForm").parent().find("[data-close='close']").click();
 	}
@@ -364,6 +390,7 @@ function updateRzSave(){
 
 
 //删除 融资
+var delRzArr=[];
 function delRZ(obj,rzId){
 	layer.confirm('是否删除该融资信息?', {
 		btn : [ '确定', '取消' ],
@@ -374,7 +401,7 @@ function delRZ(obj,rzId){
 		
 		var save_result = true;
 		if(rzId){
-			sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixunFinance/delRz/"+rzId, null,
+			/*sendGetRequest( Constants.sopEndpointURL + "/galaxy/zixunFinance/delRz/"+rzId, null,
 					function(data){
 						var result = data.result.status;
 						if(result == "ERROR"){ //OK, ERROR
@@ -382,11 +409,12 @@ function delRZ(obj,rzId){
 							save_result = false;
 						}
 					}
-			);
+			);*/
+			delRzArr.push(rzId);
 		}
 		
 		if(save_result){
-			layer.msg("删除成功！");
+			$(".layui-layer-close1").click();			//layer.msg("删除成功！");
 			thisTr.remove();
 			if($("#rzBody").children().length==0){  //无数据
 				var tr='<tr><td colspan="3" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
@@ -435,7 +463,7 @@ function to_edit(zixunId){
 		data:"",
 		okback:function(){
 			$("#popup_name").text(_name);
-			
+			delRzArr=[];
 			preEdit(zixunId);
 			if($("#rzBody").children().length==0){  //无数据
 				var tr='<tr><td colspan="3" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
@@ -529,6 +557,33 @@ function getEditCondition(){
 	if(!condition.departmentId || condition.departmentId ==''){
 		condition.departmentId = null;
 	}
+	
+	condition.rzIdList = delRzArr;
+	
+	var rzTrNoinfo = $("#rzBody tr .noinfo");
+	if(rzTrNoinfo && rzTrNoinfo.length == 1){
+		return condition;
+	}
+	
+	
+	var rz = [];
+	var rzTr = $("#rzBody tr");
+	$.each(rzTr,function(){
+		var arz = {};
+		
+		var opt = $(this).attr("data-opt");
+		if(opt){
+			if(opt == 'edit'){
+				arz.id = $(this).attr("data-id");
+			}
+			arz.financeDate = $(this).find("[data-name='financeDate']").attr("data-val");
+			arz.financeAmount = $(this).find("[data-name='financeAmount']").attr("data-val");
+			rz.push(arz);
+		}
+	});
+	condition.finaceList = rz;
+	
+	
 	console.log(condition);
 	return condition;
 }
