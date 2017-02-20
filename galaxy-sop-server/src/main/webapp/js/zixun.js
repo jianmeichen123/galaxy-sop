@@ -174,6 +174,12 @@ function getAddCondition(){
 	if(!condition.departmentId || condition.departmentId ==''){
 		condition.departmentId = null;
 	}
+	
+	var rzTrNoinfo = $("#rzBody tr .noinfo");
+	if(rzTrNoinfo && rzTrNoinfo.length == 1){
+		return condition;
+	}
+	
 	var rz = [];
 	var rzTr = $("#rzBody tr");
 	$.each(rzTr,function(){
@@ -186,7 +192,6 @@ function getAddCondition(){
 		rz.push(arz);
 	});
 	condition.finaceList = rz;
-	console.log(condition);
 	return condition;
 }
 //添加访问后台
@@ -236,13 +241,13 @@ function addRz(){
 	var zxId = $("#zixunForm [name='id']").val();
 	var condition = JSON.parse($("#rzForm").serializeObject());
 	
-	if((condition.financeDate==null && condition.financeAmount==null)
+	/*if((condition.financeDate==null && condition.financeAmount==null)
 		|| (condition.financeDate=='' && condition.financeAmount==''))
 		{
 		$("#add_rz").hideLoading();
 		$("#rzForm").parent().find("[data-close='close']").click();
 		return;
-	}
+	}*/
 	
 	if(zxId){
 		condition.zixunId = zxId;

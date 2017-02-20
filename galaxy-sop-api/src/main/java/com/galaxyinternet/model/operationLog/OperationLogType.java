@@ -209,8 +209,8 @@ public enum OperationLogType {
 	/**更新尽调总结报告**/
 	JDZJREPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 
-	_19_1("/galaxy/operationalData/formAddOperationalData", OperType.ADD.getOperationType(), "运营数据","运营记录"),
-	_19_2("/galaxy/operationalData/formAddOperationalData", OperType.UPDATE.getOperationType(), "运营数据","运营记录"),
+	_19_1("/galaxy/operationalData/formAddOperationalData/"+UrlNumber.one, OperType.ADD.getOperationType(), "运营数据","运营记录"),
+	_19_2("/galaxy/operationalData/formAddOperationalData/"+UrlNumber.two, "编辑", "运营数据","运营记录"),
 	_19_3("/galaxy/operationalData/delOperationalData", OperType.DELETE.getOperationType(), "运营数据","运营记录");
 
 
