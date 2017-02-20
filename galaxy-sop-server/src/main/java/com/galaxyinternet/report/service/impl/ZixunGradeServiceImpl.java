@@ -29,7 +29,7 @@ public class ZixunGradeServiceImpl extends ReportServiceImpl<ZixunData> implemen
 		tableHeader.setValue("创情资讯");
 		BasicElement secondHeader = new BasicElement();
 		secondHeader.setRow(0);
-		secondHeader.setColumn(10);
+		secondHeader.setColumn(28);
 		secondHeader.setValue(BasicElement.VALUE_DATE);
 		modal.setTableHeader(tableHeader);
 		modal.setSecondTableHeader(secondHeader);
