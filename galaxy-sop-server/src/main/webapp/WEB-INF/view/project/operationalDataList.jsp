@@ -69,8 +69,8 @@
          </dl>
           <dl class="fmdl fmmt clearfix">
               <dd class="clearfix">
-                <label><input type="radio" checked="checked" name="dataTypeMonth" value="0" id="month">月数据</label>
-                <label><input type="radio" checked="checked" name="dataTypeQuarter" value="1" id="quarter">季数据</label>
+                <label><input type="checkbox" checked="checked" name="dataTypeMonth" value="0" id="month">月数据</label>
+                <label><input type="checkbox" checked="checked" name="dataTypeQuarter" value="1" id="quarter">季数据</label>
               </dd>
               <dd>
                  <button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
