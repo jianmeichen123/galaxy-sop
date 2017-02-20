@@ -46,7 +46,7 @@
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:hasRole(4)}">
-            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" class="pbtn bluebtn h_bluebtn" >添加运营数据记录</a>
+            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
@@ -54,7 +54,7 @@
           <div class="top clearfix search_adjust1 searchall">
             <input type="hidden" name="projectId" value="${projectId}">
           <dl class="fmdl fmdll clearfix"">
-             <dt>会议日期：</dt>
+             <dt>运营数据统计区间：</dt>
               <dd>
 	         <input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
 	          </dd>
