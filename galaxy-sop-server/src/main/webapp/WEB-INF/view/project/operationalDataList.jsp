@@ -48,7 +48,7 @@
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:hasRole(4)}">
-            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
+            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
@@ -141,6 +141,11 @@ $(function(){
         onLoadSuccess: function(data){
 		}
 	});
+	 if('${fx:isTransfering(projectId)}' == 'true')
+	 {
+	 	$("#addOperate").hide();
+	 	
+	 }
   })
 //根据toobar id 获取表单参数
  function getPartnerToobarQueryParams(ToolbarId){
@@ -161,12 +166,14 @@ $(function(){
  }  
   //查看 or 编辑 会议纪要
 function editor(value,row,index){
-	var info = "<span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
+	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
 	var edit = "";
 	var deletes = "";
-	if(isflag == "true"){
-		edit = " <span  class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
-		deletes = " <span  class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+	if('${fx:isTransfering(projectId)}' == 'false'){
+		if(isflag == "true"){
+			edit = " <span  id=\"editOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','edit')\" >编辑</span>";
+			deletes = " <span  id=\"delOperate\" class=\"edit blue\"  onclick=\"deleteOperationalData('"+row.id+"','e')\" >删除</span>";
+		}
 	}
 	return info + edit + deletes;
 }
