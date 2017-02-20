@@ -98,7 +98,7 @@
 		
 		<div class="rz_info">
 			<h3>融资信息</h3>
-			<label class="blue add" data-btn="add_rzzx" data-name="添加融资信息">添加</label>
+			<a class="blue add" style="cursor:pointer" data-btn="add_rzzx" data-name="添加融资信息">添加</a>
 			<table class="health_case table" style="width: 700px; margin: 10px auto 0;">
 				<thead>
 					<tr>
