@@ -143,7 +143,7 @@ $(function(){
         search: false,
         //返回附带参数功能代码
         queryParams:function(params){
-	    	return json_2_1(params,getToobarQueryParams('custom-toolbar-operate'));
+	    	return json_2_1(params,getToobarQueryOperationParams('custom-toolbar-operate'));
 		},
         onLoadSuccess: function(data){
 		}
@@ -154,23 +154,51 @@ $(function(){
 	 	
 	 }
   })
+  
 //根据toobar id 获取表单参数
- function getPartnerToobarQueryParams(ToolbarId){
- 	$("#"+ToolbarId).find('dd:hidden').find(':input').attr('data', 'true');
- 	var toolbar = $("#"+ToolbarId);
- 	var query = {};
- 	toolbar.find("input[name][type!='radio'][ data!='true']").each(function(){
- 		
- 			var input = $(this);
- 			var name = input.attr("name");
- 			var val = input.val();
- 			if(val!=''){
- 				query[name]=val;
- 			}
- 		
- 	});
- 	return query;
- }  
+function getToobarQueryOperationParams(ToolbarId){
+	var toolbar = $("#"+ToolbarId);
+	var query = {};
+	toolbar.find("input[name][type!='checkbox']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		var val = input.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	toolbar.find("input[type='radio']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("input[type='checkbox']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("select[name]").each(function(){
+		var select = $(this);
+		var name = select.attr("name");
+		var val = select.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	console.log(query);
+	return query;
+}
+ 
   //查看 or 编辑 会议纪要
 function editor(value,row,index){
 	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
