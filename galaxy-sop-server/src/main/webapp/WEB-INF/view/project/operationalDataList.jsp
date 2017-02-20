@@ -31,7 +31,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
-
 </head>
 
 <body>
@@ -43,7 +42,13 @@
 	<!--右中部内容-->
  	<div class="ritmin">
     	<!-- <h2>运营数据记录</h2> -->
-    	<div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a>>运营数据记录</div>
+    	<div class="new_tit_a">
+    	  <a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a>>运营数据记录
+    	  <span class="b_span" style="float:right;"> 
+            <a href="javascript:void(0);" onclick="backInitTabPostMeeting()" class="blue">返回&gt;</a>
+          </span>
+    	  
+    	  </div>
     	
         <!--页眉-->
         <div class="top clearfix">
@@ -124,6 +129,8 @@ $(function(){
 		      }
 	    })
 	
+
+	    
     $("#fileGridOperation").bootstrapTable({
 		showRefresh : false ,
 		sidePagination: 'server',
@@ -136,7 +143,7 @@ $(function(){
         search: false,
         //返回附带参数功能代码
         queryParams:function(params){
-	    	return json_2_1(params,getToobarQueryParams('custom-toolbar-operate'));
+	    	return json_2_1(params,getToobarQueryOperationParams('custom-toolbar-operate'));
 		},
         onLoadSuccess: function(data){
 		}
@@ -147,23 +154,51 @@ $(function(){
 	 	
 	 }
   })
+  
 //根据toobar id 获取表单参数
- function getPartnerToobarQueryParams(ToolbarId){
- 	$("#"+ToolbarId).find('dd:hidden').find(':input').attr('data', 'true');
- 	var toolbar = $("#"+ToolbarId);
- 	var query = {};
- 	toolbar.find("input[name][type!='radio'][ data!='true']").each(function(){
- 		
- 			var input = $(this);
- 			var name = input.attr("name");
- 			var val = input.val();
- 			if(val!=''){
- 				query[name]=val;
- 			}
- 		
- 	});
- 	return query;
- }  
+function getToobarQueryOperationParams(ToolbarId){
+	var toolbar = $("#"+ToolbarId);
+	var query = {};
+	toolbar.find("input[name][type!='checkbox']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		var val = input.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	toolbar.find("input[type='radio']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("input[type='checkbox']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("select[name]").each(function(){
+		var select = $(this);
+		var name = select.attr("name");
+		var val = select.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	console.log(query);
+	return query;
+}
+ 
   //查看 or 编辑 会议纪要
 function editor(value,row,index){
 	var info = "<span id=\"infoOperate\" class=\"edit blue\"  onclick=\"operateOperationalData('"+row.id+"','info')\" >查看</span>";
@@ -224,6 +259,12 @@ $("button[action='querySearch']").click(function(){
 	}
 	$("#fileGridOperation").bootstrapTable('refresh');
 });
+
+//运营分析
+function backInitTabPostMeeting(){
+	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId;
+	 forwardWithHeader(url);
+}
 </script>
 
 
