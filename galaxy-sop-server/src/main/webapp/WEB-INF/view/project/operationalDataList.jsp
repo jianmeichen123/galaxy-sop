@@ -31,7 +31,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
-
 </head>
 
 <body>
@@ -43,7 +42,13 @@
 	<!--右中部内容-->
  	<div class="ritmin">
     	<!-- <h2>运营数据记录</h2> -->
-    	<div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a>>运营数据记录</div>
+    	<div class="new_tit_a">
+    	  <a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a>>运营数据记录
+    	  <span class="b_span" style="float:right;"> 
+            <a href="javascript:void(0);" onclick="backInitTabPostMeeting()" class="blue">返回&gt;</a>
+          </span>
+    	  
+    	  </div>
     	
         <!--页眉-->
         <div class="top clearfix">
@@ -124,6 +129,8 @@ $(function(){
 		      }
 	    })
 	
+
+	    
     $("#fileGridOperation").bootstrapTable({
 		showRefresh : false ,
 		sidePagination: 'server',
@@ -224,6 +231,12 @@ $("button[action='querySearch']").click(function(){
 	}
 	$("#fileGridOperation").bootstrapTable('refresh');
 });
+
+//运营分析
+function backInitTabPostMeeting(){
+	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId;
+	 forwardWithHeader(url);
+}
 </script>
 
 
