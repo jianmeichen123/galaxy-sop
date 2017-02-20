@@ -128,7 +128,7 @@ function getZixunDepartment($depField) {
 function toAdd(){
 	var $self = $(this);
 	var _url = Constants.sopEndpointURL + "/galaxy/zixun/add";
-	var _name = "添加资讯";
+	var _name = "添加创意资讯";
 	$.getHtml({
 		url:_url,
 		data:"",
