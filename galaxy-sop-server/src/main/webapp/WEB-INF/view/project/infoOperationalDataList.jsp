@@ -46,7 +46,8 @@
               </dd>
           </dl>
           <span class="b_span"> 
-            <c:if test="${fx:hasRole(4)}"><a href="<%=path %>/galaxy/operationalData/editOperationalDataList/${operationalData.id}" class="blue edit_operation">编辑</a></c:if>
+            <%-- <c:if test="${fx:hasRole(4)}"><a href="<%=path %>/galaxy/operationalData/editOperationalDataList/${operationalData.id}" class="blue edit_operation">编辑</a></c:if>
+             --%>
             <a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${operationalData.projectId}" class="blue">返回&gt;</a>
           </span>
       </div>
@@ -84,7 +85,7 @@
                  </tr>
                  <tr>
                    <td>房租水电网(元)</td>
-                   <td>${operationalData.otherCoat } ${payType }</td>
+                   <td>${operationalData.otherCoat } ${operationalData.payType }</td>
                    <td>房租、水电、网络需要支出的金额，如按年或季度付，请标注</td>
                  </tr>  
                  <tr>
