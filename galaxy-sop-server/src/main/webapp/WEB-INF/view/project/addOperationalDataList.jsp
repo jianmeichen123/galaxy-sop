@@ -121,7 +121,7 @@
               <td>房租水电网：</td>
               <td>
                 <input type="text" name="formatOtherCoat" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.otherCoat}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,8}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元
-                <select name="payType" id="" class="new_nputr">
+                <select name="payType" id="payType" class="new_nputr">
                   <option value="">无</option>
                   <option value="月付">月付</option>
                   <option value="季付">季付</option>
@@ -263,12 +263,13 @@ var productProcess = '${operationalData.productProcess }';
 if(dataType){
 	if(dataType == "0"){
 		$("#monthData").show();
-		$("#monthData option[value='"+dataTypeValue+"']").attr("selected","selected");
+		$("#monthData option[value='"+dataTypeValue+"']").prop("selected","selected");
 	    $("#quarterData").hide();
 	}else{
 		$("#quarterData").show();
-		$("#quarterData option[value='"+dataTypeValue+"']").attr("selected","selected");
-	    $("#monthData").hide();
+		$("#monthData").hide();
+		$("#quarterData option[value='"+dataTypeValue+"']").prop("selected", "selected"); 
+	   
 	}
 }
 if(productProcess){
@@ -279,7 +280,7 @@ if(productProcess){
 	}
 }
 
-$(" select option[value='"+payType+"']").attr("selected",true);
+$("#payType option[value='"+payType+"']").prop("selected",true);
 $(function(){
 	if(!dataType){
 		$("#quarterData").hide();

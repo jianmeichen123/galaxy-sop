@@ -129,6 +129,7 @@ $(function(){
 		      }
 	    })
 	
+    $('input[name="operateDateStart"], input[name="operateDateEnd"]').val('');
 
 	    
     $("#fileGridOperation").bootstrapTable({
