@@ -315,6 +315,7 @@ function saveOperationData(){
 	
 	if(projectId != ''){
 		if(beforeSubmit()){
+			//serializeObject serializeObjectIsNotNull
 			sendPostRequestByJsonObj(platformUrl.addOperationData, JSON.parse($("#operationData_form").serializeObjectIsNotNull()), function(data){if(data.result.status == "OK"){
 	               window.location.href='<%=path %>/galaxy/operationalData/toOperationalDataList/'+projectId;
 			}});
