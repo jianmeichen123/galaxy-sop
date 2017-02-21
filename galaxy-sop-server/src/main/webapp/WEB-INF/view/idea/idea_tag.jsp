@@ -108,8 +108,9 @@
 <script type="text/javascript">
 
 var indextoid = "${indextoid}";
+var toIdea = "${toIdea}";
 var defaultnum = 0;
-if(indextoid){
+if(indextoid || toIdea){
 	defaultnum = 1;
 }
 

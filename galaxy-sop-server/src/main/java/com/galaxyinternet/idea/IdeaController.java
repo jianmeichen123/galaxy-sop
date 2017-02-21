@@ -170,15 +170,20 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	{
 		String id = request.getParameter("indextoid");
 		if(StringUtils.isNotBlank(id)){
-			Idea idea = ideaService.queryById(Long.parseLong(id));
-			request.setAttribute("indextoid", id);
-			request.setAttribute("name", idea.getIdeaName());
+			if(id.equals("idea")){
+				request.setAttribute("toIdea", "idea");
+			}else{
+				Idea idea = ideaService.queryById(Long.parseLong(id));
+				request.setAttribute("indextoid", id);
+				request.setAttribute("name", idea.getIdeaName());
+			}
 		}
 
 		String zixunid = request.getParameter("zixunid");
 		if(StringUtils.isNotBlank(zixunid)){
 			request.setAttribute("zixunid", zixunid);
 		}
+		
 		
 		return "idea/idea_tag";
 	}

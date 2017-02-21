@@ -225,6 +225,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 				operationalData.setUpdatedTime(System.currentTimeMillis());
 				operationalData.setCreateUid(op.getCreateUid());
 				operationalData.setCreateTime(op.getCreateTime());
+				operationalData.setDataType(operationalData.getDataType());
 				operationalDataService.updateByIdSelective(operationalData);
 				messageType = "19.2";
 				number = UrlNumber.two;

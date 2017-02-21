@@ -88,7 +88,7 @@
                  </tr>
                  <tr>
                    <td>房租水电网(元)</td>
-                   <td><fmt:formatNumber value="${operationalData.otherCoat }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber> ${operationalData.payType }</td>
+                   <td><fmt:formatNumber value="${operationalData.otherCoat }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber> <c:if test="${not empty operationalData.payType}">${operationalData.payType }</c:if><c:if test="${empty operationalData.payType}">无</c:if></td>
                    <td>房租、水电、网络需要支出的金额，如按年或季度付，请标注</td>
                  </tr>  
                  <tr>
@@ -145,12 +145,12 @@
                 <tr>
                   <td>月活跃用户数(个)</td>
                   <td>${operationalData.userActiveMonth }</td>
-                  <td>当月登陆用户数</td>
+                  <td>当月登录用户数</td>
                 </tr>
                 <tr>
                   <td>月均日活跃用户数(个)</td>
                   <td>${operationalData.userActiveDay }</td>
-                  <td>日登陆用户数的月平均数</td>
+                  <td>日登录用户数的月平均数</td>
                 </tr>
                 <tr>
                   <td>购买用户数(个)</td>

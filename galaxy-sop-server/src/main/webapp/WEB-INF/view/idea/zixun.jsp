@@ -141,6 +141,7 @@
 		$('#data-table-zixun').bootstrapTable({
 			queryParamsType: 'size|page', // undefined
 			pageSize:10,
+			pageList: [10, 20],
 			showRefresh : false ,
 			sidePagination: 'server',
 			method : 'post',

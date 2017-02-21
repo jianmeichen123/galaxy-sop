@@ -196,12 +196,12 @@
             <tr>
               <td>月活跃用户数：</td>
               <td><input type="text" name="userActiveMonth" class="txt new_nputr" value="${operationalData.userActiveMonth }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月登陆用户数</td>
+              <td>当月登录用户数</td>
             </tr>
             <tr>
               <td>月均日活跃用户数：</td>
               <td><input type="text" name="userActiveDay" class="txt new_nputr" value="${operationalData.userActiveDay }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>日登陆用户数的月平均数</td>
+              <td>日登录用户数的月平均数</td>
             </tr>
             <tr>
               <td>购买用户数：</td>
@@ -211,17 +211,17 @@
             <tr>
               <td>在线商户数：</td>
               <td><input type="text" name="userOnline" class="txt new_nputr" value="${operationalData.userOnline }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月共有多少提供服务的商户在线、共有多少个SKU，C2C模式填提供服务方</td>
+              <td>当月共有多少提供服务的商户在线、共有多少个SKU，C2C模式提供服务方</td>
             </tr>
              <tr>
               <td>新增商户数：</td>
               <td><input type="text" name="businessNew" class="txt new_nputr" value="${operationalData.businessNew }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月新增商户数量、新增SKU数量，C2C模式填提供服务方</td>
+              <td>当月新增商户数量、新增SKU数量，C2C模式提供服务方</td>
             </tr>
              <tr>
               <td>购买商户数：</td>
               <td><input type="text" name="businessBuy" class="txt new_nputr" value="${operationalData.businessBuy }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>有多少商户产生了购买，C2C模式填提供服务方</td>
+              <td>有多少商户产生了购买，C2C模式提供服务方</td>
             </tr>
              <tr>
               <td>成交订单数：</td>
@@ -256,6 +256,30 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
 <script>
+//禁止回车提交表单
+document.onkeydown = function(event) {  
+    var target, code, tag;  
+    if (!event) {  
+        event = window.event; //针对ie浏览器  
+        target = event.srcElement;  
+        code = event.keyCode;  
+        if (code == 13) {  
+            tag = target.tagName;  
+            if (tag == "TEXTAREA") { return true; }  
+            else { return false; }  
+        }  
+    }  
+    else {  
+        target = event.target; //针对遵循w3c标准的浏览器，如Firefox  
+        code = event.keyCode;  
+        if (code == 13) {  
+            tag = target.tagName;  
+            if (tag == "INPUT") { return false; }  
+            else { return true; }  
+        }  
+    }  
+};  
+
 if(!'${operationalData.operationIntervalDate}'){
 	$('input[name="operationIntervalDate"]').val(new Date().format("yyyy"));
 }
@@ -284,8 +308,12 @@ if(productProcess){
 		$("#productProcess").val(Math.round(productProcess));
 	}
 }
+if(payType){
+	$("#payType option[value='"+payType+"']").prop("selected",true);
+}else{
+	$("#payType option[value='无']").prop("selected",true);
+}
 
-$("#payType option[value='"+payType+"']").prop("selected",true);
 $(function(){
 	if(!dataType){
 		$("#quarterData").hide();
