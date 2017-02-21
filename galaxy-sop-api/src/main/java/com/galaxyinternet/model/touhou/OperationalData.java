@@ -12,9 +12,9 @@ public class OperationalData extends PagableEntity{
 	private static final long serialVersionUID = 1L;
 	
 
-    private Integer employNum;
+    private Long employNum;
 
-    private Integer branchNum;
+    private Long branchNum;
 
     private Double productProcess;
     private String formatProductProcess;
@@ -51,23 +51,23 @@ public class OperationalData extends PagableEntity{
     private Double accountBalance;
     private String formatAccountBalance;
 
-    private Integer userNum;
+    private Long userNum;
 
-    private Integer userNew;
+    private Long userNew;
 
-    private Integer userActiveMonth;
+    private Long userActiveMonth;
 
-    private Integer userActiveDay;
+    private Long userActiveDay;
 
-    private Integer userBuy;
+    private Long userBuy;
 
-    private Integer userOnline;
+    private Long userOnline;
 
-    private Integer businessNew;
+    private Long businessNew;
 
-    private Integer businessBuy;
+    private Long businessBuy;
 
-    private Integer tradeOrders;
+    private Long tradeOrders;
 
     private Double tradeOrderBlance;
     private String formatTradeOrderBlance;
@@ -90,8 +90,8 @@ public class OperationalData extends PagableEntity{
     /**
      * 辅助字段
      */
-    private Integer operationIntervalDate;
-    private Integer dataType;
+    private Long operationIntervalDate;
+    private Long dataType;
     private String dataTypeValue;
     
     private String operateDate;
@@ -108,19 +108,19 @@ public class OperationalData extends PagableEntity{
     
 
 
-    public Integer getEmployNum() {
+    public Long getEmployNum() {
 		return employNum;
 	}
 
-	public void setEmployNum(Integer employNum) {
+	public void setEmployNum(Long employNum) {
 		this.employNum = employNum;
 	}
 
-	public Integer getBranchNum() {
+	public Long getBranchNum() {
 		return branchNum;
 	}
 
-	public void setBranchNum(Integer branchNum) {
+	public void setBranchNum(Long branchNum) {
 		this.branchNum = branchNum;
 	}
 
@@ -246,75 +246,75 @@ public class OperationalData extends PagableEntity{
 		this.accountBalance = accountBalance;
 	}
 
-	public Integer getUserNum() {
+	public Long getUserNum() {
 		return userNum;
 	}
 
-	public void setUserNum(Integer userNum) {
+	public void setUserNum(Long userNum) {
 		this.userNum = userNum;
 	}
 
-	public Integer getUserNew() {
+	public Long getUserNew() {
 		return userNew;
 	}
 
-	public void setUserNew(Integer userNew) {
+	public void setUserNew(Long userNew) {
 		this.userNew = userNew;
 	}
 
-	public Integer getUserActiveMonth() {
+	public Long getUserActiveMonth() {
 		return userActiveMonth;
 	}
 
-	public void setUserActiveMonth(Integer userActiveMonth) {
+	public void setUserActiveMonth(Long userActiveMonth) {
 		this.userActiveMonth = userActiveMonth;
 	}
 
-	public Integer getUserActiveDay() {
+	public Long getUserActiveDay() {
 		return userActiveDay;
 	}
 
-	public void setUserActiveDay(Integer userActiveDay) {
+	public void setUserActiveDay(Long userActiveDay) {
 		this.userActiveDay = userActiveDay;
 	}
 
-	public Integer getUserBuy() {
+	public Long getUserBuy() {
 		return userBuy;
 	}
 
-	public void setUserBuy(Integer userBuy) {
+	public void setUserBuy(Long userBuy) {
 		this.userBuy = userBuy;
 	}
 
-	public Integer getUserOnline() {
+	public Long getUserOnline() {
 		return userOnline;
 	}
 
-	public void setUserOnline(Integer userOnline) {
+	public void setUserOnline(Long userOnline) {
 		this.userOnline = userOnline;
 	}
 
-	public Integer getBusinessNew() {
+	public Long getBusinessNew() {
 		return businessNew;
 	}
 
-	public void setBusinessNew(Integer businessNew) {
+	public void setBusinessNew(Long businessNew) {
 		this.businessNew = businessNew;
 	}
 
-	public Integer getBusinessBuy() {
+	public Long getBusinessBuy() {
 		return businessBuy;
 	}
 
-	public void setBusinessBuy(Integer businessBuy) {
+	public void setBusinessBuy(Long businessBuy) {
 		this.businessBuy = businessBuy;
 	}
 
-	public Integer getTradeOrders() {
+	public Long getTradeOrders() {
 		return tradeOrders;
 	}
 
-	public void setTradeOrders(Integer tradeOrders) {
+	public void setTradeOrders(Long tradeOrders) {
 		this.tradeOrders = tradeOrders;
 	}
 
@@ -511,11 +511,11 @@ public class OperationalData extends PagableEntity{
 		this.dataTypeValue = dataTypeValue;
 	}
 
-	public Integer getDataType() {
+	public Long getDataType() {
 		return dataType;
 	}
 
-	public void setDataType(Integer dataType) {
+	public void setDataType(Long dataType) {
 		this.dataType = dataType;
 	}
 
@@ -599,11 +599,11 @@ public class OperationalData extends PagableEntity{
 		this.dataTypeList = dataTypeList;
 	}
 
-	public Integer getOperationIntervalDate() {
+	public Long getOperationIntervalDate() {
 		return operationIntervalDate;
 	}
 
-	public void setOperationIntervalDate(Integer operationIntervalDate) {
+	public void setOperationIntervalDate(Long operationIntervalDate) {
 		this.operationIntervalDate = operationIntervalDate;
 	}
 
