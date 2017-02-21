@@ -219,10 +219,14 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 			}
 			Project project = projectService.queryById(operationalData.getProjectId());
 			if(operationalData.getOperationalDataId() != null){
+				OperationalData op = operationalDataService.selectOperationalDataById(Long.valueOf(operationalData.getOperationalDataId()));
 				operationalData.setId(Long.valueOf(operationalData.getOperationalDataId()));
 				operationalData.setUpdatedUid(user.getId());
 				operationalData.setUpdatedTime(System.currentTimeMillis());
-				operationalDataService.updateById(operationalData);
+				operationalData.setCreateUid(op.getCreateUid());
+				operationalData.setCreateTime(op.getCreateTime());
+				operationalData.setDataType(operationalData.getDataType());
+				operationalDataService.updateByIdSelective(operationalData);
 				messageType = "19.2";
 				number = UrlNumber.two;
 			}else{

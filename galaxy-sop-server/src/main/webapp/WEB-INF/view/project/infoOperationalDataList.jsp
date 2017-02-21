@@ -74,58 +74,58 @@
                  </tr>  
                  <tr>
                    <td>产品进度(%)</td>
-                   <td>${operationalData.productProcess }</td>
+                   <td id="productProcess"><fmt:formatNumber value="${operationalData.productProcess}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                    <td>产品的开发进度，以正式上线为100%</td>
                  </tr>
                  <tr>
                    <td rowspan="10" class="rowtds">财务情况</td>
                    <td>员工工资(元)</td>
-                   <td>${operationalData.salary }</td>
+                   <td><fmt:formatNumber value="${operationalData.salary }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                    <td>当月需要支出的员工工资金额，如9月提交的是8月的工资金额</td>
                  </tr>
                  <tr>
                    <td>房租水电网(元)</td>
-                   <td>${operationalData.otherCoat } ${operationalData.payType }</td>
+                   <td><fmt:formatNumber value="${operationalData.otherCoat }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber> <c:if test="${not empty operationalData.payType}">${operationalData.payType }</c:if><c:if test="${empty operationalData.payType}">无</c:if></td>
                    <td>房租、水电、网络需要支出的金额，如按年或季度付，请标注</td>
                  </tr>  
                  <tr>
                    <td>管理费用(元)</td>
-                   <td>${operationalData.manageCost }</td>
+                   <td><fmt:formatNumber value="${operationalData.manageCost }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                    <td>差旅、办公用品、应酬、快递等费用</td>
                  </tr> 
                 <tr>
                   <td>市场费用(元)</td>
-                  <td>${operationalData.marketCost }</td>
+                  <td><fmt:formatNumber value="${operationalData.marketCost }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>用于产品宣传推广的支出金额</td>
                 </tr>
                  <tr>
                   <td>业务运营费用(元)</td>
-                  <td>${operationalData.operatingCost }</td>
+                  <td><fmt:formatNumber value="${operationalData.operatingCost }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>用于产品运营的支出费用，如活动、用户激励、促销成本等</td>
                 </tr>
                  <tr>
                   <td>生产成本(元)</td>
-                  <td>${operationalData.productionCost }</td>
+                  <td><fmt:formatNumber value="${operationalData.productionCost }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>用于产生产品或服务的“制造”费用，如食材、原料、货价、上游采购等</td>
                 </tr>
                  <tr>
                   <td>交易额(元)</td>
-                  <td>${operationalData.tradeCost }</td>
+                  <td><fmt:formatNumber value="${operationalData.tradeCost }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>当月产生的交易额</td>
                 </tr>
                  <tr>
                   <td>收入(元)</td>
-                  <td>${operationalData.incomeCost }</td>
+                  <td><fmt:formatNumber value="${operationalData.incomeCost }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>当月产生的收入额</td>
                 </tr>
                  <tr>
                   <td>净利润(元)</td>
-                  <td>${operationalData.profitCost }</td>
+                  <td><fmt:formatNumber value="${operationalData.profitCost }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>当月进账金额减所有应支付金额</td>
                 </tr>
                  <tr>
                   <td>账面余额(元)</td>
-                  <td>${operationalData.accountBalance }</td>
+                  <td><fmt:formatNumber value="${operationalData.accountBalance }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>还剩多少钱</td>
                 </tr> 
                 <tr>
@@ -142,12 +142,12 @@
                 <tr>
                   <td>月活跃用户数(个)</td>
                   <td>${operationalData.userActiveMonth }</td>
-                  <td>当月登陆用户数</td>
+                  <td>当月登录用户数</td>
                 </tr>
                 <tr>
                   <td>月均日活跃用户数(个)</td>
                   <td>${operationalData.userActiveDay }</td>
-                  <td>日登陆用户数的月平均数</td>
+                  <td>日登录用户数的月平均数</td>
                 </tr>
                 <tr>
                   <td>购买用户数(个)</td>
@@ -176,12 +176,12 @@
                 </tr>
                  <tr>
                   <td>平均成交单价(元)</td>
-                  <td>${operationalData.tradeOrderBlance }</td>
+                  <td><fmt:formatNumber value="${operationalData.tradeOrderBlance }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>成交额／成交单量</td>
                 </tr>
                  <tr>
                   <td>平均成交客单价(元)</td>
-                  <td>${operationalData.tradeUserBlance }</td>
+                  <td><fmt:formatNumber value="${operationalData.tradeUserBlance }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber></td>
                   <td>成交额／成交人数（商户数）</td>
                 </tr>                   
               </tbody>
@@ -194,6 +194,14 @@
 var transferingIds = "${fx:getTransferingPids()}".split(",");
 </script>
 <script>
+var productProcess = '${operationalData.productProcess }';
+if(productProcess){
+	var math = Math.round(productProcess)+".0";
+	if(math == productProcess){
+		//整数
+		$("#productProcess").text(Math.round(productProcess));
+	}
+}
 $(function(){
     $("#quarterData").hide();
     $("#quarter").click(function(){

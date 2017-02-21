@@ -35,7 +35,7 @@ public class IdeaZixun extends PagableEntity {
 
 
     public String getCode() {
-        return code;
+        return this.code == null ? null : code.trim();
     }
 
     public void setCode(String code) {

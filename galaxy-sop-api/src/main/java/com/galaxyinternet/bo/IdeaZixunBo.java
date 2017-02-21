@@ -2,6 +2,10 @@ package com.galaxyinternet.bo;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.data.annotation.Transient;
+
+import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.idea.IdeaZixun;
 import com.galaxyinternet.model.idea.ZixunFinance;
 
@@ -9,6 +13,16 @@ public class IdeaZixunBo extends IdeaZixun {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 是否包含转义字符
+	 */
+	@Transient
+	protected Boolean codeQueryEscapeChar;
+	
+	private String codeQuery;
+	//private String companyFieldQuery; //key
+	
+	
 	private String startTime;
 	private String endTime;
 	
@@ -79,8 +93,33 @@ public class IdeaZixunBo extends IdeaZixun {
 	public void setRzIdList(List<Long> rzIdList) {
 		this.rzIdList = rzIdList;
 	}
+	public String getCodeQuery() {
+		return codeQuery == null ? null : codeQuery.trim();
+	}
+	public void setCodeQuery(String codeQuery) {
+		this.codeQuery = codeQuery == null ? null : codeQuery.trim();
+	}
 	
+	public Boolean getCodeQueryEscapeChar() {
+		this.getNewCodeQuery();
+		return codeQueryEscapeChar;
+	}
+	public void setCodeQueryEscapeChar(Boolean codeQueryEscapeChar) {
+		this.codeQueryEscapeChar = codeQueryEscapeChar;
+	}
 	
+	private void getNewCodeQuery(){
+		if(codeQueryEscapeChar == null){
+			codeQueryEscapeChar = false;
+		}
+		if(StringUtils.isNotEmpty(codeQuery)&&!codeQueryEscapeChar){
+			String newCodeQuery = StringEx.checkSql(codeQuery);
+			if(!codeQuery.equals(newCodeQuery)){
+				this.setEscapeChar(true);
+				this.setCodeQuery(newCodeQuery);
+			}
+		}
+	}
 	
 	
 	

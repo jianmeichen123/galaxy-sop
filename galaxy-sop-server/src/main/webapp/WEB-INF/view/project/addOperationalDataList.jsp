@@ -38,7 +38,9 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>>添加运营数据</div>
+    	<div class="new_tit_a">
+    	<a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>><c:if test="${not empty operationalData }">编辑</c:if><c:if test="${empty operationalData }">添加</c:if>运营数据
+    	</div>
     	<form id="operationData_form" action="" method="post" onsubmit="return false">
     	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
     	<input type="hidden" name="operationalDataId" value="${operationalData.id }"/>
@@ -100,7 +102,7 @@
             </tr>
             <tr>
               <td>产品进度：</td>
-              <td><input type="text" name="formatProductProcess" class="txt new_nputr" value="${operationalData.productProcess }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,2}\.\d{0,2}))|([1-9](\d{0,1}))|100)$" msg="<font color=red>*</font>0到100之间的两位小数">%</td>
+              <td><input type="text" id="productProcess" name="formatProductProcess" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.productProcess}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,1}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,1}))|100)$" msg="<font color=red>*</font>0到100之间的两位小数">%</td>
               <td>产品的开发进度，以正式上线为100%</td>
             </tr>
           </table>
@@ -112,14 +114,14 @@
           <table>
             <tr>
               <td>员工工资：</td>
-              <td><input type="text" name="formatSalary" class="txt new_nputr" value="${operationalData.salary }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatSalary" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.salary }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>当月需要支出的员工工资金额，如9月提交的是8月的工资金额</td>
             </tr>
             <tr>
               <td>房租水电网：</td>
               <td>
-                <input type="text" name="formatOtherCoat" class="txt new_nputr" value="${operationalData.otherCoat }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元
-                <select name="payType" id="" class="new_nputr">
+                <input type="text" name="formatOtherCoat" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.otherCoat}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元
+                <select name="payType" id="payType" class="new_nputr">
                   <option value="">无</option>
                   <option value="月付">月付</option>
                   <option value="季付">季付</option>
@@ -131,42 +133,42 @@
             </tr>
             <tr>
               <td>管理费用：</td>
-              <td><input type="text" name="formatManageCost" class="txt new_nputr" value="${operationalData.manageCost }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatManageCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.manageCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>差旅、办公用品、应酬、快递等费用</td>
             </tr>
              <tr>
               <td>市场费用：</td>
-              <td><input type="text" name="formatMarketCost" class="txt new_nputr" value="${operationalData.marketCost }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatMarketCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.marketCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>用于产品宣传推广的支出金额</td>
             </tr>
              <tr>
               <td>业务运营费用：</td>
-              <td><input type="text" name="formatOperatingCost" class="txt new_nputr" value="${operationalData.operatingCost }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatOperatingCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.operatingCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>用于产品运营的支出费用，如活动、用户激励、促销成本等</td>
             </tr>
              <tr>
               <td>生产成本：</td>
-              <td><input type="text" name="formatProductionCost" class="txt new_nputr" value="${operationalData.productionCost }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatProductionCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.productionCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>用于产生产品或服务的“制造”费用，如食材、原料、货价、上游采购等</td>
             </tr>
              <tr>
               <td>交易额：</td>
-              <td><input type="text" name="formatTradeCost" class="txt new_nputr" value="${operationalData.tradeCost }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatTradeCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.tradeCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>当月产生的交易额</td>
             </tr>
              <tr>
               <td>收入：</td>
-              <td><input type="text" name="formatIncomeCost" class="txt new_nputr" value="${operationalData.incomeCost }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatIncomeCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.incomeCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>当月产生的收入额</td>
             </tr>
              <tr>
               <td>净利润：</td>
-              <td><input type="text" name="formatProfitCost" class="txt new_nputr" value="${operationalData.profitCost }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatProfitCost" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.profitCost}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>当月进账金额减所有应支付金额</td>
             </tr>
              <tr>
               <td>账面余额：</td>
-              <td><input type="text" name="formatAccountBalance" class="txt new_nputr" value="${operationalData.accountBalance }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatAccountBalance" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.accountBalance}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>还剩多少钱</td>
             </tr>
           </table>
@@ -189,12 +191,12 @@
             <tr>
               <td>月活跃用户数：</td>
               <td><input type="text" name="userActiveMonth" class="txt new_nputr" value="${operationalData.userActiveMonth }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月登陆用户数</td>
+              <td>当月登录用户数</td>
             </tr>
             <tr>
               <td>月均日活跃用户数：</td>
               <td><input type="text" name="userActiveDay" class="txt new_nputr" value="${operationalData.userActiveDay }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>日登陆用户数的月平均数</td>
+              <td>日登录用户数的月平均数</td>
             </tr>
             <tr>
               <td>购买用户数：</td>
@@ -204,17 +206,17 @@
             <tr>
               <td>在线商户数：</td>
               <td><input type="text" name="userOnline" class="txt new_nputr" value="${operationalData.userOnline }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月共有多少提供服务的商户在线、共有多少个SKU，C2C模式填提供服务方</td>
+              <td>当月共有多少提供服务的商户在线、共有多少个SKU，C2C模式提供服务方</td>
             </tr>
              <tr>
               <td>新增商户数：</td>
               <td><input type="text" name="businessNew" class="txt new_nputr" value="${operationalData.businessNew }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月新增商户数量、新增SKU数量，C2C模式填提供服务方</td>
+              <td>当月新增商户数量、新增SKU数量，C2C模式提供服务方</td>
             </tr>
              <tr>
               <td>购买商户数：</td>
               <td><input type="text" name="businessBuy" class="txt new_nputr" value="${operationalData.businessBuy }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>有多少商户产生了购买，C2C模式填提供服务方</td>
+              <td>有多少商户产生了购买，C2C模式提供服务方</td>
             </tr>
              <tr>
               <td>成交订单数：</td>
@@ -223,12 +225,12 @@
             </tr>
              <tr>
               <td>平均成交单价：</td>
-              <td><input type="text" name="formatTradeOrderBlance" class="txt new_nputr" value="${operationalData.tradeOrderBlance }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatTradeOrderBlance" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.tradeOrderBlance}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>成交额／成交单量</td>
             </tr>
              <tr>
               <td>平均成交客单价：</td>
-              <td><input type="text" name="formatTradeUserBlance" class="txt new_nputr" value="${operationalData.tradeUserBlance }" allowNULL="yes" valType="OTHER" regString="^(([0-9](?:\d{0,9}\.\d{0,2}))|([1-9](\d{0,9})))$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
+              <td><input type="text" name="formatTradeUserBlance" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.tradeUserBlance}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,8}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,9}))|0)$" msg="<font color=red>*</font>0到9999999999.99之间的两位小数">元</td>
               <td>成交额／成交人数（商户数）</td>
             </tr>
           </table>
@@ -249,6 +251,30 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
 <script>
+//禁止回车提交表单
+document.onkeydown = function(event) {  
+    var target, code, tag;  
+    if (!event) {  
+        event = window.event; //针对ie浏览器  
+        target = event.srcElement;  
+        code = event.keyCode;  
+        if (code == 13) {  
+            tag = target.tagName;  
+            if (tag == "TEXTAREA") { return true; }  
+            else { return false; }  
+        }  
+    }  
+    else {  
+        target = event.target; //针对遵循w3c标准的浏览器，如Firefox  
+        code = event.keyCode;  
+        if (code == 13) {  
+            tag = target.tagName;  
+            if (tag == "INPUT") { return false; }  
+            else { return true; }  
+        }  
+    }  
+};  
+
 if(!'${operationalData.operationIntervalDate}'){
 	$('input[name="operationIntervalDate"]').val(new Date().format("yyyy"));
 }
@@ -256,19 +282,33 @@ var projectId = $("#projectId").val();
 var dataTypeValue = '${operationalData.dataTypeValue}';
 var payType = '${operationalData.payType}';
 var dataType = '${operationalData.dataType}';
-
+var productProcess = '${operationalData.productProcess }';
+//数据类型月or季
 if(dataType){
 	if(dataType == "0"){
 		$("#monthData").show();
-		$("#monthData option[value='"+dataTypeValue+"']").attr("selected","selected");
+		$("#monthData option[value='"+dataTypeValue+"']").prop("selected","selected");
 	    $("#quarterData").hide();
 	}else{
 		$("#quarterData").show();
-		$("#quarterData option[value='"+dataTypeValue+"']").attr("selected","selected");
-	    $("#monthData").hide();
+		$("#monthData").hide();
+		$("#quarterData option[value='"+dataTypeValue+"']").prop("selected", "selected"); 
+	   
 	}
 }
-$(" select option[value='"+payType+"']").attr("selected",true);
+if(productProcess){
+	var math = Math.round(productProcess)+".0";
+	if(math == productProcess){
+		//整数
+		$("#productProcess").val(Math.round(productProcess));
+	}
+}
+if(payType){
+	$("#payType option[value='"+payType+"']").prop("selected",true);
+}else{
+	$("#payType option[value='无']").prop("selected",true);
+}
+
 $(function(){
 	if(!dataType){
 		$("#quarterData").hide();
@@ -303,6 +343,7 @@ function saveOperationData(){
 	
 	if(projectId != ''){
 		if(beforeSubmit()){
+			//serializeObject serializeObjectIsNotNull
 			sendPostRequestByJsonObj(platformUrl.addOperationData, JSON.parse($("#operationData_form").serializeObjectIsNotNull()), function(data){if(data.result.status == "OK"){
 	               window.location.href='<%=path %>/galaxy/operationalData/toOperationalDataList/'+projectId;
 			}});
