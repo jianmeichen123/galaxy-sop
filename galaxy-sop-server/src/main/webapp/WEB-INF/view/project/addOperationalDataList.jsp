@@ -191,12 +191,12 @@
             <tr>
               <td>月活跃用户数：</td>
               <td><input type="text" name="userActiveMonth" class="txt new_nputr" value="${operationalData.userActiveMonth }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月登陆用户数</td>
+              <td>当月登录用户数</td>
             </tr>
             <tr>
               <td>月均日活跃用户数：</td>
               <td><input type="text" name="userActiveDay" class="txt new_nputr" value="${operationalData.userActiveDay }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>日登陆用户数的月平均数</td>
+              <td>日登录用户数的月平均数</td>
             </tr>
             <tr>
               <td>购买用户数：</td>
