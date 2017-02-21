@@ -366,6 +366,9 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			/*if(StringUtils.isNotEmpty(query.getCodeQuery())){
 				query.setCodeQuery((query.getCodeQuery()).toUpperCase());
 			}*/
+			if(StringUtils.isBlank(query.getCode())){
+				query.setCode(null);
+			}
 			if(StringUtils.isNotEmpty(query.getKeyword())){
 				query.setKeyword((query.getKeyword()).trim());
 				//query.setKeyword((query.getKeyword()).toUpperCase());
