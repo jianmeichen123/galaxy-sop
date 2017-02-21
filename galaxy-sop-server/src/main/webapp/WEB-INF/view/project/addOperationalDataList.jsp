@@ -279,8 +279,12 @@ if(productProcess){
 		$("#productProcess").val(Math.round(productProcess));
 	}
 }
+if(payType){
+	$("#payType option[value='"+payType+"']").prop("selected",true);
+}else{
+	$("#payType option[value='无']").prop("selected",true);
+}
 
-$("#payType option[value='"+payType+"']").prop("selected",true);
 $(function(){
 	if(!dataType){
 		$("#quarterData").hide();
