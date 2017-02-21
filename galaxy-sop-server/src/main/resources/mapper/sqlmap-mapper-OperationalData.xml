@@ -71,7 +71,7 @@
 			<!-- <if test="sorting != null">order by ${sorting}</if>
 			<if test="property != null">order by ${property} ${direction} , data_type_value DESC</if>
 			 -->
-			order by data_type ASC ,operation_interval_date DESC,data_type_value DESC
+			order by data_type ASC ,operation_interval_date DESC,(data_type_value+0) DESC
 			<if test="offset != null and limit != null">
 				limit #{offset}, #{limit}
 			</if>
