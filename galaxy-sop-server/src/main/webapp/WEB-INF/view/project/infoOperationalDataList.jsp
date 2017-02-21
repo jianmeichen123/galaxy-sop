@@ -85,7 +85,7 @@
                  </tr>
                  <tr>
                    <td>房租水电网(元)</td>
-                   <td><fmt:formatNumber value="${operationalData.otherCoat }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber> ${operationalData.payType }</td>
+                   <td><fmt:formatNumber value="${operationalData.otherCoat }" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber> <c:if test="${not empty operationalData.payType}">${operationalData.payType }</c:if><c:if test="${empty operationalData.payType}">无</c:if></td>
                    <td>房租、水电、网络需要支出的金额，如按年或季度付，请标注</td>
                  </tr>  
                  <tr>

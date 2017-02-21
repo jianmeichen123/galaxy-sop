@@ -563,7 +563,7 @@ function dealtTask(){
 }
 
 function toCyPage(){
-	window.location.href=$("#menus").find("[data-menueid='137']").attr("href");
+	window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid=idea";
 }
 
 function toCyOper(ideaid){
