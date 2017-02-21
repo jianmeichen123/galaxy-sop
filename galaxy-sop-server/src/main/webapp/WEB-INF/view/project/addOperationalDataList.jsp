@@ -40,6 +40,9 @@
  	<div class="ritmin">
     	<div class="new_tit_a">
     	<a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>><c:if test="${not empty operationalData }">编辑</c:if><c:if test="${empty operationalData }">添加</c:if>运营数据
+    		<span class="b_span" style="float:right;"> 
+            <a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${projectId}" class="blue">返回&gt;</a>
+          </span>
     	</div>
     	<form id="operationData_form" action="" method="post" onsubmit="return false">
     	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
@@ -55,7 +58,12 @@
               <dd class="clearfix">
                 <label><input type="radio" checked="checked" name="dataType" value="0" id="month" <c:if test="${operationalData.dataType == '0'}">checked="checked"</c:if>>月数据</label>
                 <label><input type="radio" name="dataType" value="1" id="quarter" <c:if test="${operationalData.dataType == '1'}">checked="checked"</c:if>>季数据</label>
-                <select name="dataTypeValue" id="monthData">
+                
+              </dd>
+            </dl>
+         	<dl class="fmdl fmmt clearfix">
+         		<dd>
+         			<select name="dataTypeValue" id="monthData">
                   <option value="">--请选择--</option>
                   <option value="1月">1月</option>
                   <option value="2月">2月</option>
@@ -77,12 +85,9 @@
                   <option value="第三季度">第三季度</option>
                   <option value="第四季度">第四季度</option>
                 </select>
-              </dd>
-            </dl>
-         
-          <span class="b_span"> 
-            <a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${projectId}" class="blue">返回&gt;</a>
-          </span>
+         		</dd>
+         	</dl>
+          
       </div>
       <div class="tabtable_con_on operationalInfo">
         <div class="new_r_compile ">

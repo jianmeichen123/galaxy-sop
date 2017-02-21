@@ -53,7 +53,7 @@
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:hasRole(4)}">
-            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
+            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
