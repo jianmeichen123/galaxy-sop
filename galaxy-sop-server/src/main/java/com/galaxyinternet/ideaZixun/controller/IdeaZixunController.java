@@ -363,6 +363,14 @@ public class IdeaZixunController extends BaseControllerImpl<IdeaZixun, IdeaZixun
 			//pageable = new PageRequest(pageNum,pageSize);
 			
 			
+			/*if(StringUtils.isNotEmpty(query.getCodeQuery())){
+				query.setCodeQuery((query.getCodeQuery()).toUpperCase());
+			}*/
+			if(StringUtils.isNotEmpty(query.getKeyword())){
+				query.setKeyword((query.getKeyword()).trim());
+				//query.setKeyword((query.getKeyword()).toUpperCase());
+			}
+			
 			//时间
 			if(query.getStartTime() != null){
 				Date date = DateUtil.convertStringToDate(query.getStartTime());
