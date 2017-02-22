@@ -241,7 +241,7 @@
           </table>
         </div>
        <!--  <span class="pubbtn bluebtn" onclick="saveOperationData();">保存</span> -->
-        <button class="pubbtn bluebtn" onclick="saveOperationData();">保存</button>
+        <span class="pubbtn bluebtn button_span" onclick="saveOperationData();">保存</span>
         </form>
       </div>     
     </div>
@@ -336,24 +336,32 @@ $(function(){
   })
   
 function saveOperationData(){
-	var projectId = $("#projectId").val();
-	
-	var dataMonth = $("#monthData").val();
-	var dataQuarter = $("#quarterData").val();
-	
-	if(dataMonth == '' && dataQuarter == ''){
-		layer.msg("请选择数据类型!");
-		return;
-	}
-	
-	if(projectId != ''){
-		if(beforeSubmit()){
-			//serializeObject serializeObjectIsNotNull
-			sendPostRequestByJsonObj(platformUrl.addOperationData, JSON.parse($("#operationData_form").serializeObjectIsNotNull()), function(data){if(data.result.status == "OK"){
-	               window.location.href='<%=path %>/galaxy/operationalData/toOperationalDataList/'+projectId;
-			}});
+	//$('#button_span').click(function(){console.log('0')})
+	setTimeout(function () { 
+		if($(".tip-yellowsimple").length>0){
+			layer.msg("填写有误!");
+			return;
 		}
-	}
+		var projectId = $("#projectId").val();
+		
+		var dataMonth = $("#monthData").val();
+		var dataQuarter = $("#quarterData").val();
+		
+		if(dataMonth == '' && dataQuarter == ''){
+			layer.msg("请选择数据类型!");
+			return;
+		}
+		
+		if(projectId != ''){
+			
+				//serializeObject serializeObjectIsNotNull
+				sendPostRequestByJsonObj(platformUrl.addOperationData, JSON.parse($("#operationData_form").serializeObjectIsNotNull()), function(data){if(data.result.status == "OK"){
+		               window.location.href='<%=path %>/galaxy/operationalData/toOperationalDataList/'+projectId;
+				}});
+			
+		}
+    }, 300);
+	
 	
 }
 //保存成功回调

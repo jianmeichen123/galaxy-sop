@@ -2414,6 +2414,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .operationalInfo table tr>td:nth-child(3){color:#999;}
 .operationalInfo .new_color{margin-left: 0;}
 .operationalInfo button{margin-bottom: 30px;margin-left:137px;}
+.button_span{margin-bottom: 30px;margin-left:137px; cursor:pointer;}
 .edit_operation{margin-right: 10px;}
 .operation_look{margin:0;}
 .rowtds{border-right:1px solid #f6f7fa;text-align: center;font-weight: bold;}
