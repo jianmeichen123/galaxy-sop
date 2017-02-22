@@ -17,7 +17,7 @@
 <div class="addmentc creative_edit1 zx_looktc" id="zixun_info">
 	<div class="title_bj" id="popup_name"></div>
 	<div class="zx_name">
-		创意资讯编码<span id="code">16251627</span>
+		创意资讯编码11<span id="code">16251627</span>
 	</div>
 	<div class="block">
 		<div class="form clearfix">
@@ -59,17 +59,17 @@
 			<h3>创意信息</h3>
 			<div class="j">
 				<span class="ico_dot ico"></span> <span style="padding-left:20px;">简介</span>
-				<p id="remark"></p>
+				<p id="remark" style="margin-top:5px; " class="financing_t"></p>
 			</div>
 			<div class="j">
 				<span class="ico_dot ico"></span> <span style="padding-left:20px;">详细描述</span>
-				<p id="detailInfo"></p>
+				<p id="detailInfo" class="financing_t" style="margin-top:5px; "></p>
 			</div>
 		</div>
 		
 		<div class="rz_info" id="rz_info">
 			<h3>融资信息</h3>
-			<table class="health_case table"
+			<table class="health_case table financing_t"
 				style="width: 700px; margin: 10px auto 0;">
 				<thead>
 					<tr>

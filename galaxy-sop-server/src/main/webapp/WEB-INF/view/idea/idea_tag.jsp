@@ -32,13 +32,6 @@
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 
 
-<!-- bootstrap-table  -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=path %>/js/init.js"></script>
-
 
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>

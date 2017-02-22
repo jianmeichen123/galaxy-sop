@@ -57,6 +57,8 @@ function dateFormatter(val,row,index)
 		showIdeaDetail(ideaid);
 	}
 	function infoPro(pid){
+		var href_url=Constants.sopEndpointURL+ "/galaxy/idea?indextoid=idea";
+		setCookie("href_url", href_url,24,'/');
 		window.location.href=platformUrl.projectDetail+pid;
 	}
 	

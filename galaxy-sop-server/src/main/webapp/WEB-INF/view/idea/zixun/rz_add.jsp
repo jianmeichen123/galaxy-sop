@@ -12,11 +12,11 @@
 
 </script>
 
-<div class="addmentc creative_edit1 zixuntc" id="add_rz">
+<div class="addmentc creative_edit1 zixuntc" id="add_rz" style=" width:400px;">
 	<div class="title_bj" id="popup_name1"></div>
 	
 	<form id="rzForm">
-	<div class="form clearfix">
+	<div class="form clearfix" >
 		<div class="left">
 			<dl class="fmdl fml">
 				<dt>融资时间：</dt>
@@ -38,7 +38,7 @@
 	</div>
 	</form>
 	
-	<div class="btnbox">
+	<div class="btnbox" style="margin-top:40px;">
 		<a href="javascript:;" class="pubbtn bluebtn" onclick="addRz()">确定</a>
 		<a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
 	</div>
