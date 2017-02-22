@@ -114,8 +114,9 @@ $(function(){
  * @version 2016-06-21
  */
 function backIndex(){
-    var url=Constants.sopEndpointURL+"/galaxy/redirect";
-    forwardWithHeader(url);
+	  var url=Constants.sopEndpointURL+"/galaxy/index";
+	  window.location.href = url+"?sid="+sessionId+"&guid="+userId+"&_is_menu_=true";
+	
 }
 function projectList(){
 	var url=Constants.sopEndpointURL+"/galaxy/mpl";
