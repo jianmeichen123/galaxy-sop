@@ -5,6 +5,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<script src="<%=path %>/js/jquery-1.12.2.min.js" type="text/javascript"></script>
 <!-- 富文本编辑器 -->
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
