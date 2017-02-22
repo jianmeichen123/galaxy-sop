@@ -44,7 +44,7 @@
             <a href="<%=path %>/galaxy/operationalData/toOperationalDataList/${projectId}" class="blue">返回&gt;</a>
           </span>
     	</div>
-    	<form id="operationData_form" action="" method="post" onsubmit="return false">
+    	<form id="operationData_form" action="" method="post" autocomplete="off" onsubmit="return false">
     	<input id="projectId" type="hidden" name="projectId" value="${projectId }"/>
     	<input type="hidden" name="operationalDataId" value="${operationalData.id }"/>
     	<div class="new_tit_b">
