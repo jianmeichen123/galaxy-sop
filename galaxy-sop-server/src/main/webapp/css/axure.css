@@ -462,7 +462,7 @@ table .width_gd{width:12%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:9;}
+.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:1219;}
 .header .rit{float:right !important; margin:15px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
 .header .logo{ float:left; width:171px; height:49px; margin:0 0 0 25px; cursor: default;  background:url(../img/logo.png) no-repeat}
@@ -2203,7 +2203,7 @@ margin: 45px auto 30px;}
 	background: url(../img/ctdn.png) 0px -2px no-repeat !important;
 }
 .xingmou{background-position: -37px -1230px;}
-.usermsg div.xingmou a{padding-left: 29px;}
+.usermsg div.xingmou a{padding-left: 27px;}
 .usermsg div.xingmou .navbar{left:4px;width:24px;}
 .man_info{position:relative;}
 .man_info .name{position:absoute;}
