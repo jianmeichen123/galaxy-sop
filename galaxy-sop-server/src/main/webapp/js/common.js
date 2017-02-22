@@ -619,6 +619,10 @@ function filedown(fileid , filekey, type){
 function removePop1(){
 	$(".pop").remove();
 	$("#popbg ").remove();
+	$(document.body).css({
+	   "overflow-x":"auto",
+	   "overflow-y":"auto"
+	 });
 }
 
 
