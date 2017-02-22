@@ -21,7 +21,7 @@ public class ZixunGradeServiceImpl extends ReportServiceImpl<ZixunData> implemen
 	public SopReportModal createModal() {
 		// TODO Auto-generated method stub
 		SopReportModal modal = new SopReportModal();
-		modal.setDataStartRow(1);
+		modal.setDataStartRow(2);
 		modal.setSheetPage(0);
 		BasicElement tableHeader = new BasicElement();
 		tableHeader.setRow(0);
@@ -61,8 +61,8 @@ public class ZixunGradeServiceImpl extends ReportServiceImpl<ZixunData> implemen
 				break;
 			case 2:
 				element.setColumn(i);
-				element.setValue("公司名称");
-				element.setGetterMethod("getCompanyName");
+				element.setValue("成立日期");
+				element.setGetterMethod("getCompanyBtime");
 				element.setType("1");
 				break;
 			case 3:
@@ -81,12 +81,13 @@ public class ZixunGradeServiceImpl extends ReportServiceImpl<ZixunData> implemen
 				element.setColumn(i);
 				element.setValue("简介");
 				element.setGetterMethod("getRemark");
+				element.setType("3");
 				break;
 			case 6:
 				element.setColumn(i);
 				element.setValue("详细介绍");
 				element.setGetterMethod("getDetailInfo");
-				element.setType("1");
+				element.setType("3");
 				break;
 			case 7:
 				element.setColumn(i);
@@ -212,19 +213,19 @@ public class ZixunGradeServiceImpl extends ReportServiceImpl<ZixunData> implemen
 				element.setColumn(i);
 				element.setValue("创始人");
 				element.setGetterMethod("getCompanyCuser");
-				element.setType("1");
+				element.setType("3");
 				break;
 			case 28:
 				element.setColumn(i);
 				element.setValue("所在地");
 				element.setGetterMethod("getCompanyAddress");
-				element.setType("1");
+				element.setType("3");
 				break;
 			case 29:
 				element.setColumn(i);
 				element.setValue("网址");
 				element.setGetterMethod("getCompanyUrl");
-				element.setType("1");
+				element.setType("3");
 				break;
 			default:
 				break;
