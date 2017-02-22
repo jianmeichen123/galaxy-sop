@@ -2401,7 +2401,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .zx_looktc .block,.zixuntc .block{max-height: 450px;overflow-y:auto; }
 .zx_looktc dl{margin:0;}
 .zx_looktc dl dd,.zx_looktc .j p{font-family: "宋体";font-size: 12px;}
-.zx_looktc .j p{color:#2d3342;}
+.zx_looktc .j p{color:#536379;}
 .zx_looktc .j{margin: 10px 0;}
 .zx_looktc .left{width:380px;}
 /* 201702版本 */
@@ -2431,3 +2431,5 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 #zixuntc dl dd .tip-yellowsimple{position:absolute;visibility:visible;display:none;left: 265px; top: 0px; opacity: 1;}
 .tip-arrow-left{position:absolute;left:0px;top:0px;}
 .zixuntc dl{width:100%;overflow:visible;}
+.j .financing_t{ line-height:}
+.financing_t,.financing_t th,.financing_t td{ padding-left:5px; padding-right:5px; line-height:25px;}
