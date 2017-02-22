@@ -107,7 +107,7 @@
             </tr>
             <tr>
               <td>产品进度：</td>
-              <td><input type="text" id="productProcess" name="formatProductProcess" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.productProcess}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,1}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,1}))|100)$" msg="<font color=red>*</font>0到100之间的两位小数">%</td>
+              <td><input type="text" id="productProcess" name="formatProductProcess" class="txt new_nputr" value="<fmt:formatNumber value="${operationalData.productProcess}" pattern="#.##" minFractionDigits="2" > </fmt:formatNumber>" allowNULL="yes" valType="OTHER" regString="^(([1-9](?:\d{0,1}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,1}))|100|0)$" msg="<font color=red>*</font>0到100之间的两位小数">%</td>
               <td>产品的开发进度，以正式上线为100%</td>
             </tr>
           </table>
