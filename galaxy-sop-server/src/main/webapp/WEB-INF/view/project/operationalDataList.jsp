@@ -63,15 +63,11 @@
           <dl class="fmdl fmdll clearfix"">
              <dt>运营数据统计区间：</dt>
               <dd>
-	         <input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
+	         <dd><input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
+	          </dd><dd><span>至</span></dd><dd>
+	<input type="text" class="datepicker-year-text txt time" name="operateDateEnd"  /> 
 	          </dd>
           </dl>     
-         <dl>
-            <dd>
-             <span>至</span>
-	<input type="text" class="datepicker-year-text txt time" name="operateDateEnd"  /> 
-            </dd>
-         </dl>
           <dl class="fmdl fmmt clearfix">
               <dd class="clearfix">
                 <label><input type="checkbox" checked="checked" name="dataTypeMonth" value="0" id="month">月数据</label>
