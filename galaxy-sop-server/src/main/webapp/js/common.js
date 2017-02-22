@@ -1065,12 +1065,15 @@ function projectNameLineFormat(value, row, index){
 	var aa = "<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class='blue project_name'>"+row.projectName+"</a>";
 	var bb = "<a href=\'" + Constants.sopEndpointURL + "/galaxy/idea?mark=m&zixunid=" +id + "\' class='blue project_name'>"+row.projectName+"</a>";
 	
+	var str = "";
 	if(value.indexOf("projectname") != -1){
 		 content =value.replace("projectname",aa);
+		 str = "<span title='"+value.replace("projectname",row.projectName)+"'>"+content+"</span>";
 	}else if(value.indexOf("ideazixuncode") != -1){
 		 content =value.replace("ideazixuncode",bb);
+		 str = "<span title='"+value.replace("ideazixuncode",row.projectName)+"'>"+content+"</span>";
 	}
-	var str = "<span title='"+value.replace("projectname",row.projectName)+"'>"+content+"</span>";
+	
 	return str;
 }
 
