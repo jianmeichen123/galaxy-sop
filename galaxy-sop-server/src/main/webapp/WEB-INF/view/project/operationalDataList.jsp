@@ -53,7 +53,7 @@
         <!--页眉-->
         <div class="top clearfix">
           <c:if test="${fx:hasRole(4)}">
-            <a href="<%=path %>/galaxy/operationalData/addOperationalDataList/${projectId}"  style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
+            <a href="javascript:void(0);"  onclick="operateOperationalData('${projectId}','add')" style="width:130px; margin-top:5px;" id="addOperate" class="pbtn bluebtn h_bluebtn" >添加运营数据</a>
           </c:if>
         </div>	
         <!-- 搜索条件 -->
@@ -272,10 +272,10 @@ function operateOperationalData(id,i){
 		_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
 	}
 	
-	var _url='<%=path %>/galaxy/operationalData/editOperationalDataList/'+id;
-	if(i == "info"){
-		_url='<%=path %>/galaxy/operationalData/infoOperationalDataList/'+id;
+	if(i == "add"){
+		_url='<%=path %>/galaxy/operationalData/addOperationalDataList/'+id;
 	}
+	
 	//详情页返回地址
 	var options = $("#fileGridOperation").bootstrapTable('getOptions');
 	var tempPageSize = options.pageSize ? options.pageSize : 10;
