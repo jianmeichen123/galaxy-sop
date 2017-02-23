@@ -59,7 +59,7 @@
                   <tr>
                       <th></th>
                       <th>项目</th>
-                      <th>数据</th>
+                      <th style="min-width:150px">数据</th>
                       <th>说明</th>
                   </tr>
               </thead>                                                                                                                                    

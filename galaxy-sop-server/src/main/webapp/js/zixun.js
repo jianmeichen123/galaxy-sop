@@ -277,7 +277,7 @@ function addRz(){
 					"<td data-name='financeDate' data-val='"+condition.financeDate+"'>"+zixun_length_Format(condition.financeDate)+"</td>" +
 					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
 					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
-				"tr>";*/
+				"<tr>";*/
 		
 		if(zxId){
 			 htm = 
@@ -285,14 +285,14 @@ function addRz(){
 					"<td data-name='financeDate' data-val='"+condition.financeDate+"'>"+zixun_length_Format(condition.financeDate)+"</td>" +
 					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
 					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
-				"tr>";
+				"</tr>";
 		}else{
 			htm = 
 				"<tr>" +
 					"<td data-name='financeDate' data-val='"+condition.financeDate+"'>"+zixun_length_Format(condition.financeDate)+"</td>" +
 					"<td data-name='financeAmount' data-val='"+condition.financeAmount+"'>"+zixun_length_Format(condition.financeAmount)+"</td>" +
 					"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
-				"tr>";
+				"</tr>";
 		}
 		
 		$("#rzBody .noinfo").parent('tr').remove();
@@ -541,7 +541,7 @@ function preEdit(zixunId){
 									"<td data-name='financeDate' data-val='"+this.financeDate+"'>"+zixun_length_Format(this.financeDate)+"</td>" +
 									"<td data-name='financeAmount' data-val='"+this.financeAmount+"'>"+zixun_length_Format(this.financeAmount)+"</td>" +
 									"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
-								"tr>";
+								"<tr>";
 						$("#rzBody").append(htm);
 					});
 					
@@ -658,7 +658,7 @@ function zixunInfo(zixunId){
 									"<tr>" +
 										"<td data-name='financeDate'>"+zixun_length_Format(this.financeDate)+"</td>" +
 										"<td data-name='financeAmount'>"+zixun_length_Format(this.financeAmount)+"</td>" +
-									"tr>";
+									"</tr>";
 							$("#zixun_info #rzBody").append(htm);
 						});
 					}else{
