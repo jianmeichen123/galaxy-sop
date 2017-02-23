@@ -1302,6 +1302,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 车辆限行 */
 em{font-style: normal;}
 .weather{margin-top: -10px !important;}
+.new_top_color_new  em ,.edui-editor-body em{    font-style: italic;}
 /* 帮助说明页面 */
 .installation .cn1,.installation .cn2,.installation .cn3,.installation .cn4,.installation .cn5,.installation .cn6{width: 100%;}
 .installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
@@ -1539,6 +1540,13 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 	 margin-right:30px;
 	 margin-top:10px;
 }
+.new_ul_all p ul li ,.new_ul_all p ol li { margin-top:0;    float: none;}
+/* .new_ul_all p ul ,.new_ul_all p ol{    padding-left: 20px;}
+.new_ul_all p ul li,.edui-editor-body ul li{display: list-item;
+    text-align: -webkit-match-parent; list-style:  disc;}
+.new_ul_all p ol li,.edui-editor-body ol li{        display: list-item;
+    text-align: -webkit-match-parent; list-style: decimal;} */
+.edui-btn-removeformat{display:none !important}
 .new_ul_all .new_ul_right{
 	float:right; 
 	line-height:40px;
