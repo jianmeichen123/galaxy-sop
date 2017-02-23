@@ -108,7 +108,8 @@ var transferingIds = "${fx:getTransferingPids()}".split(",");
 var isflag= "${fx:hasRole(4)}";
 createMenus(14);
 var projectId = '${projectId}';
-
+var currentNum;
+var currentPageSize;
   
 $(function(){
 	 $("#quarter").click(function(){
@@ -126,22 +127,32 @@ $(function(){
 		      }
 	    })
 	
-    $('input[name="operateDateStart"], input[name="operateDateEnd"]').val('');
+     $('input[name="operateDateStart"], input[name="operateDateEnd"]').val('');
 	 var initParams;
+	 var options = $("#operationList").bootstrapTable('getOptions');
+	 
+	 var initParams,toPageNum = 1,
+		pageParams=cookieOperator.getDataNoDelete({_paramKey : 'operationList',_path : "/"}),
+		initPageSize = 10;
+	 if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+		initPageSize = pageParams.pageSize;
+		
+		if(pageParams.pageNum && typeof(pageParams.pageNum) != "undefined"){
+			toPageNum = pageParams.pageNum;
+		}
+	 }
 	 $("#fileGridOperation").bootstrapTable({
 			showRefresh : false ,
 			sidePagination: 'server',
 			method : 'post',
 			pagination: true,
 			queryParamsType: 'size|page',
-		    pageNumber:1,            //初始化加载第一页，默认第一页
-		    pageSize: 10,            //每页的记录行数（*）
+		    pageNumber:toPageNum,            //初始化加载第一页，默认第一页
+		    pageSize: initPageSize,            //每页的记录行数（*）
 		    pageList: [10, 20, 30],    //可供选择的每页的行数（*）
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams:function(params){
-	        	//if(getCookieValue("operationList")!=''){
-	    		var ll = getCookieValue("operationList");
 		    	if(getCookieValue("operationList")){	
 		    		initParams = cookieOperator.pullCookie({_paramKey : 'operationList',_path : "/"});
 		    		deleteCookie("operationList","/");
@@ -163,33 +174,14 @@ $(function(){
 		        	}else{
 		        		$("input[name='dataTypeQuarter']").removeAttr("checked");
 		        	}
+		        	options.pageNum = initParams.pageNum - 1;
+		        	options.pageSize = initParams.pageSize;
 		        	params.pageNum = initParams.pageNum - 1;
 		        	params.pageSize = initParams.pageSize;
 		    	}
-		    	console.log(json_2_1(params,getToobarQueryOperationParams('custom-toolbar-operate')));
 		    	return json_2_1(params,getToobarQueryOperationParams('custom-toolbar-operate'));
 			},
 	        onLoadSuccess: function(data){
-	        	
-	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-		    		if(initParams.pageNum==1){
-		    			return;
-		    		}else{
-		    			$('.pagination li').removeClass('active');
-		    			if($('.pagination .page-number').length< initParams.pageNum){
-		    				for(var i=$('.pagination .page-number').length; i>0; i--){
-		    					$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
-		    				}
-		    			}
-
-		    			$('.pagination li').each(function(){
-		    	    		if($(this).text()==initParams.pageNum){
-		    	    			$(this).click();
-		    	    		}
-		    			})
-		    		}
-		    	}
-		        initPageSize=10;
 			
 			}
 		});
@@ -321,11 +313,9 @@ function del_operate(id){
  	        var le = $("#fileGridOperation tbody tr").length;
  	        if(le <= 1){
  	        	var options = $("#operationList").bootstrapTable('getOptions');
- 				var tempPageSize = options.pageSize ? options.pageSize : 10;
  				var tempPageNum = options.pageNumber ? options.pageNumber : 1;
  	 	        options.pageNum = tempPageNum - 1;
  	 	        var params = {};
- 	 	        params.pageSize = tempPageSize;
  	        	params.pageNum = tempPageNum - 1;
  	        	$("#fileGridOperation").bootstrapTable('refresh', {query: json_2_1(params,getToobarQueryOperationParams('custom-toolbar-operate'))});
  	        }else{
