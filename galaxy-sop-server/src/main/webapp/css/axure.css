@@ -462,7 +462,7 @@ table .width_gd{width:12%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:1219;}
+.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:998;}
 .header .rit{float:right !important; margin:15px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
 .header .logo{ float:left; width:171px; height:49px; margin:0 0 0 25px; cursor: default;  background:url(../img/logo.png) no-repeat}
@@ -2391,7 +2391,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .edit_operation{margin-right: 10px;}
 .operation_look{margin:0;}
 .rowtds{border-right:1px solid #f6f7fa;text-align: center;font-weight: bold;}
-.zixuntc,.zx_looktc{padding-top: 40px;width: 780px;}
+.zixuntc,.zx_looktc{padding-top: 40px;width: 790px;}
 .zixuntc dl dt,.zx_looktc dl dt{width: 80px;}
 .zx_name{color:#999;}
 .zx_name span{margin-left: 5px;}
@@ -2414,6 +2414,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .operationalInfo table tr>td:nth-child(3){color:#999;}
 .operationalInfo .new_color{margin-left: 0;}
 .operationalInfo button{margin-bottom: 30px;margin-left:137px;}
+.button_span{margin-bottom: 30px;margin-left:137px; cursor:pointer;}
 .edit_operation{margin-right: 10px;}
 .operation_look{margin:0;}
 .rowtds{border-right:1px solid #f6f7fa;text-align: center;font-weight: bold;}

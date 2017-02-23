@@ -10,7 +10,7 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 
-<div class="addmentc creative_edit1 zixuntc" id="edit_rz">
+<div class="addmentc creative_edit1 zixuntc" id="edit_rz" style=" width:400px;">
 	<div class="title_bj" id="popup_name1"></div>
 	
 	<form id="rzForm">
@@ -38,7 +38,7 @@
 	</div>
 	</form>
 	
-	<div class="btnbox">
+	<div class="btnbox" style="margin-top:40px;">
 		<a href="javascript:;" class="pubbtn bluebtn" onclick="updateRzSave()">确定</a>
 		<a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
 	</div>

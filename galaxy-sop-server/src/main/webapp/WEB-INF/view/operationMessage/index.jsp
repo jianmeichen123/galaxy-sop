@@ -152,7 +152,7 @@
 		if(mark == 'pro'){
 			url = Constants.sopEndpointURL + "/galaxy/project/detail/" +id;
 		}else if(mark =='zx'){
-			url = Constants.sopEndpointURL + "/galaxy/idea?zixunid="+id;
+			url = Constants.sopEndpointURL + "/galaxy/idea?zixunid="+id+"&_is_menu_=true";
 		}
 				
 		//项目详情页返回地址
