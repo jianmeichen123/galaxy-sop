@@ -73,7 +73,7 @@
 				style="width: 700px; margin: 10px auto 0;">
 				<thead>
 					<tr>
-						<th>融资w时间</th>
+						<th>融资时间</th>
 						<th>金额</th>
 					</tr>
 				</thead>
