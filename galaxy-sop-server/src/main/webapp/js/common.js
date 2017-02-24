@@ -1072,6 +1072,8 @@ function projectNameLineFormat(value, row, index){
 	}else if(value.indexOf("ideazixuncode") != -1){
 		 content =value.replace("ideazixuncode",bb);
 		 str = "<span title='"+value.replace("ideazixuncode",row.projectName)+"'>"+content+"</span>";
+	}else{
+		str =content;
 	}
 	
 	return str;
