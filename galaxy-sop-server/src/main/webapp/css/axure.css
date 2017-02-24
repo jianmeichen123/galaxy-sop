@@ -1546,6 +1546,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     text-align: -webkit-match-parent; list-style:  disc;}
 .new_ul_all p ol li,.edui-editor-body ol li{        display: list-item;
     text-align: -webkit-match-parent; list-style: decimal;} 
+.edui-editor-body ul,.edui-editor-body ol,.edui-editor-body li{ padding-left: 20px;}
 .new_ul_all .new_ul_right{
 	float:right; 
 	line-height:40px;
