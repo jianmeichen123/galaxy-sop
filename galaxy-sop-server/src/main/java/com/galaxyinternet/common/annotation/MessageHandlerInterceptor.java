@@ -123,13 +123,20 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
 										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE) != null){
-											    insertMessageTip(populateOperationMessage(type, user, map));
+											
+											if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE).equals("18")){
+												insertMessageTip(populateOperationMessage(type, user, map));
+											}else{
+												insertMessageTip(populateOperationMessage(type, user, map));
+											}
+											
+											    
 									     }
 									} else if (ltype == LogType.LOG) {
 										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
 									} else if (ltype == LogType.IDEANEWS) {
 										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
-									}else if (ltype == LogType.IOSPUSHMESS) {
+									} else if (ltype == LogType.IOSPUSHMESS) {
 										if(method.getName().contains("updateReserveTime")){
 											if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
 												List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);
@@ -310,6 +317,13 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				message.setBelongDepartmentId(user.getDepartmentId());
 				message.setSingleMark((byte) 1);
 			    operationMessageService.insert(message);
+			}else if(message.getAssistColumn().equals("1")){
+				content.append("项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("需要于每月1日开始填写上月的运营数据。");
+				message.setContent(content.toString());
+				message.setMessageType("16.2");
+				operationMessageService.insert(message);
 			}
 		} catch (Exception e1) {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);

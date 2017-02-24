@@ -19,6 +19,9 @@ public class ControllerUtils {
 		return "projectname";
 	}
 
+	public static String getIdeaZixunCodeLink(OperationMessage message) {
+		return "ideazixuncode";
+	}
 	/**
 	 * 
 	 * @Description:消息提醒临时传参方法
@@ -75,6 +78,30 @@ public class ControllerUtils {
 		}
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
+	/**
+	 * 
+	 * 项目添加第一条实际注资的发出消息通知以后每月一号添加运营数据
+	 * @param request
+	 * @param projectName
+	 * @param projectId
+	 * @param messageType
+	 * @param assistColumn    辅助字段用于特殊消息标记
+	 * @param number
+	 */
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, User user, Project priject, String messageType,String assistColumn, UrlNumber number) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, priject.getProjectName());
+		params.put(PlatformConst.REQUEST_SCOPE_USER, user);
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, priject.getId());
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_PROGRESS, priject.getProgress());
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_ASSISRCOLUMN, assistColumn);
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+		if(number != null){
+			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		}
+		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
+	}
+	
 	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId, String messageType,UrlNumber number,Object userData) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);

@@ -1,5 +1,6 @@
 package com.galaxyinternet.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.galaxyinternet.framework.core.dao.BaseDao;
@@ -13,4 +14,6 @@ public interface GrantActualDao extends BaseDao<GrantActual, Long>{
 	Map<String, Object> lookActualDetail(Long actualId);
 	
 	double sumBelongToActualMoney(Long partId);
+	
+	List<GrantActual> selectSumActualByPid(Long projctId);
 }

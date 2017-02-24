@@ -120,6 +120,8 @@ public class Project extends PagableEntity {
    
    private String eDate;
    
+   private Long projectTime;
+   
     
 	
 	
@@ -712,6 +714,14 @@ public class Project extends PagableEntity {
 
 	public void seteDate(String eDate) {
 		this.eDate = eDate;
+	}
+
+	public Long getProjectTime() {
+		return projectTime;
+	}
+
+	public void setProjectTime(Long projectTime) {
+		this.projectTime = projectTime;
 	}
    
  

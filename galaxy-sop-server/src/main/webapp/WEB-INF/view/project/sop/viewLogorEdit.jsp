@@ -18,7 +18,7 @@
 
 
 <!-- 添加访谈记录弹出层 -->
-<div class="meetingtc margin_45">
+<div class="meetingtc margin_45" style="width:785px;height:450px;">
 <div class="title_bj">访谈纪要</div>
 
 	<input type="hidden" id="vid">
@@ -36,7 +36,7 @@
     
     <dl class="fmdl clearfix">
         <dd style='position: relative'>
-			<script id="viewNotes" name="content" type="text/plain" style="width:680px"></script>
+			<script id="viewNotes" name="content" type="text/plain" style="width:780px;height:320px;"></script>
 			<div class="tip-yellowsimple" id='hint_all' style="visibility: inherit; display: none; left: 678px; top: 60.472px; opacity: 1; width: 169.778px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>访谈纪要不能超过9000字节</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
         </dd>
     </dl>

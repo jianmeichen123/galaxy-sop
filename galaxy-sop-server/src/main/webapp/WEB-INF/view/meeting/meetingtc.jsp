@@ -198,5 +198,11 @@
  <script type="text/javascript">
 	var meetEditor = UM.getEditor('meetingNotes');
 		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd hh:mm"));
+		$('#meetingDateStr').datetimepicker({
+		    format: 'yyyy-mm-dd hh:ii:ss',
+		    autoclose: true,
+		    minView: 0,
+		    minuteStep:1
+		});
 </script>
 

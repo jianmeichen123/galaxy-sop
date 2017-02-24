@@ -207,7 +207,21 @@ public class ImportExcel2007Manager {
 				cellStyle.setBorderRight(CellStyle.BORDER_THIN);
 				cell.setCellStyle(cellStyle);
 		    break;
-			      
+	    case 3 :   
+	        cell.setCellValue(value.toString());
+			cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+			cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_BOTTOM);
+			font.setFontHeightInPoints((short)11);
+			cellStyle.setFont(font);
+			cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+			cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+			cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+			cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+			cell.setCellStyle(cellStyle);
+			cellStyle.setWrapText(true);       
+		    cell.setCellStyle(cellStyle);   
+	    break;
+		    
 		default:
 				cell.setCellValue(value.toString());
 				cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
@@ -238,7 +252,7 @@ public class ImportExcel2007Manager {
 		font.setFontName(fontName);
 		font.setBoldweight(bold);
 		font.setItalic(isItalic);
-		font.setFontHeight(hight);
+		//font.setFontHeight(hight);
 		return font;
 	}
 	
@@ -315,7 +329,6 @@ public class ImportExcel2007Manager {
 			}	
 		}
 	}
-	
 	
 	
 	

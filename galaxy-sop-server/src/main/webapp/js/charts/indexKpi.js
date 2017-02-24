@@ -2,7 +2,7 @@
  * 绩效考核
  */
 //项目历时
-load_data_chart_kpi();
+//load_data_chart_kpi();
 var isGG = true;
 if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 	isGG = true;

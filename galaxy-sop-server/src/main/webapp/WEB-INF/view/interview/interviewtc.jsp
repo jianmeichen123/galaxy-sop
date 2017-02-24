@@ -49,6 +49,12 @@
         </dl>
 		<script type="text/javascript">
 			$("#viewDate").val(new Date().format("yyyy-MM-dd hh:mm"));
+			$('#viewDate').datetimepicker({
+			    format: 'yyyy-mm-dd hh:ii:ss',
+			    autoclose: true,
+			    minView: 0,
+			    minuteStep:1
+			});
 		</script>
     </div>
     <div class="min clearfix">
