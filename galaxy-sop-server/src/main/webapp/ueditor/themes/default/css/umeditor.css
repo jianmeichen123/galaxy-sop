@@ -3,9 +3,6 @@
  * version: 1.2.2
  * build: Wed Mar 19 2014 17:14:25 GMT+0800 (中国标准时间)
  */
-/*修改*/
-.edui-btn-insertunorderedlist,.edui-btn-insertorderedlist{display: none !important}
-
 
 .edui-container {
 	position: relative;
