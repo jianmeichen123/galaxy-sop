@@ -211,17 +211,17 @@
             <tr>
               <td>在线商户数：</td>
               <td><input type="text" name="userOnline" class="txt new_nputr" value="${operationalData.userOnline }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月共有多少提供服务的商户在线、共有多少个SKU，C2C模式提供服务方</td>
+              <td>当月共有多少提供服务的商户在线、共有多少个SKU，C2C模式填提供服务方</td>
             </tr>
              <tr>
               <td>新增商户数：</td>
               <td><input type="text" name="businessNew" class="txt new_nputr" value="${operationalData.businessNew }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>当月新增商户数量、新增SKU数量，C2C模式提供服务方</td>
+              <td>当月新增商户数量、新增SKU数量，C2C模式填提供服务方</td>
             </tr>
              <tr>
               <td>购买商户数：</td>
               <td><input type="text" name="businessBuy" class="txt new_nputr" value="${operationalData.businessBuy }" allowNULL="yes" valType="OTHER" regString="^([1-9](\d{0,9})|0)$" msg="<font color=red>*</font>0到9999999999之间的整数">个</td>
-              <td>有多少商户产生了购买，C2C模式提供服务方</td>
+              <td>有多少商户产生了购买，C2C模式填提供服务方</td>
             </tr>
              <tr>
               <td>成交订单数：</td>
