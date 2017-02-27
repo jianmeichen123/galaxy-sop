@@ -152,9 +152,6 @@
 <!-- 校验 -->
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
-<style>
-.datepicker {    z-index: 101212 !important}
-</style>
 <script type="text/javascript">
 $("input:radio[name='faFlag']").change(function() {
 	// 0 y; 1 n
