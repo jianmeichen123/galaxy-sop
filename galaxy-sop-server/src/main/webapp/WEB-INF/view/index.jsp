@@ -364,8 +364,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			        	</c:when>
 			        	<c:otherwise>
 			        	
-                        <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
-                    	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a>
+                        <a href="javascript:;" onclick="interViewAdd();" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
+                    	<a href="javascript:;" onclick="meetAddView();" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a>
 			        	</c:otherwise>
 		        	</c:choose>
                     	
@@ -609,7 +609,31 @@ function paiqidate(type){
 }
 $("#platform_health_more").click(function(){
 	forwardWithHeader(platformUrl.toHealthChartDetail+"?urlFlag=null");
-})
+});
+
+function interViewAdd(){
+	
+	$.getHtml({
+		url: '<%=path %>/galaxy/project/progress/interViewAdd', 
+		data:"",//传递参数
+		okback:function(){
+		}//模版反回成功执行	
+	}); 
+	
+}
+
+function meetAddView(){
+	
+	$.getHtml({
+		url: '<%=path %>/galaxy/project/progress/meetAddView', 
+		data:"",//传递参数
+		okback:function(){
+		}//模版反回成功执行	
+	}); 
+}
+
+
+
 
 
 </script>
