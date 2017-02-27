@@ -60,7 +60,7 @@
 		<!-- 每30秒钟就行IOS消息数据 -->
 		<task:scheduled ref="pushMessageTask" method="execute" cron="*/30 * * * * ?"/>
 		<!-- 每月1号为有实际注资信息的项目发添加运营数据的消息 -->
-		<task:scheduled ref="pushMessageOperation" method="execute" cron="0 1 0 * * ?"/>
+		<task:scheduled ref="pushMessageOperation" method="execute" cron="0 0 0 1 * ?"/>
 		<!-- 每4小时，重新设置缓存的值
 		<task:scheduled ref="utilsService" method="execute" cron="0 0 0/4 * * ? "/>
 		 -->
