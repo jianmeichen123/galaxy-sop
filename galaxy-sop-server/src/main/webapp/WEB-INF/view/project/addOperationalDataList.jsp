@@ -240,6 +240,7 @@
             </tr>
           </table>
         </div>
+        <div style="position: absolute; top: 599px; left:-999px"><input type="text" id="textid" > </div>
        <!--  <span class="pubbtn bluebtn" onclick="saveOperationData();">保存</span> -->
         <span class="pubbtn bluebtn button_span" onclick="saveOperationData();">保存</span>
         </form>
@@ -259,6 +260,10 @@
 </style>
 </body>
 <script>
+$(window).scroll(function () {
+	$("#textid").focus();
+	
+})
 //禁止回车提交表单
 document.onkeydown = function(event) {  
     var target, code, tag;  
