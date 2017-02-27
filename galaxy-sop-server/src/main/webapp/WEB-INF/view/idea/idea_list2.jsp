@@ -18,6 +18,7 @@
 
 
 <!-- bootstrap-table  -->
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
