@@ -54,7 +54,7 @@
 			    format: 'yyyy-mm-dd hh:mm',
 			    autoclose: true,
 			    minView: 0,
-			    minuteStep:1
+			    minuteStep:5
 			}); 
 		</script>
     </div>
