@@ -239,6 +239,7 @@
 <script src="<%=path%>/js/kpi/kpi_tag.js"></script>
 <script src="<%=path%>/js/kpi/tabChooseSuffix.js"></script>
 <script>
+$(function (){createMenus(147);});
 
 //周报|自定义选择切换
 $("#week").on('click',function(){
