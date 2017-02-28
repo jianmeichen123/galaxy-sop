@@ -17,7 +17,7 @@
 <div class="addmentc creative_edit1 zx_looktc" id="zixun_info">
 	<div class="title_bj" id="popup_name"></div>
 	<div class="zx_name">
-		创意资讯编码11<span id="code">16251627</span>
+		创意资讯编码<span id="code">16251627</span>
 	</div>
 	<div class="block">
 		<div class="form clearfix">
