@@ -710,4 +710,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		// TODO Auto-generated method stub
 		return projectDao.selectProjectTotalTime(query, pageable);
 	}
+
+	@Override
+	public List<Project> selectProjectForPushMessage() {
+		// TODO Auto-generated method stub
+		return projectDao.selectProjectForPushMessage();
+	}
 }

@@ -442,6 +442,12 @@ var platformUrl = {
 	 * 获取创意的事业线信息
 	 */
 	getIdeaDepartment : Constants.sopEndpointURL + "/galaxy/idea/getDepartment",
+	
+	/**
+	 * 项目创意 列表页
+	 */
+	ideaList : Constants.sopEndpointURL + "/galaxy/idea/idealist",
+	
 	/**
 	 * 获取创意-立项会、投决会
 	 */
@@ -1005,7 +1011,19 @@ var platformUrl = {
 	/**
 	 * 投后运营-头后项目跟踪-事业部创投项目列表-导出
 	 */
-	exportProjectGrade : Constants.sopEndpointURL + "/galaxy/project/exportProjectGrade"
+	exportProjectGrade : Constants.sopEndpointURL + "/galaxy/project/exportProjectGrade",
+	/**
+	 * 创意咨询列表-导出
+	 */
+	exportZixunGrade : Constants.sopEndpointURL + "/galaxy/zixun/exportZixunGrade",
+	/**
+	 * 添加运营数据
+	 */
+	addOperationData : Constants.sopEndpointURL + "galaxy/operationalData/formAddOperationalData",
+	/**
+	 * 运营数据列表
+	 */
+	operationalDataList :   Constants.sopEndpointURL + "galaxy/operationalData/operationalDataList" 
 	
 }
 

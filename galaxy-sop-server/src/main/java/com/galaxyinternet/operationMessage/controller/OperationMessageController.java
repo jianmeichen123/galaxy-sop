@@ -160,6 +160,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 				|| roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.CWZJ)
 				|| roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.CWJL)
 				|| roleIdList.contains(UserConstant.YYFZR) || roleIdList.contains(UserConstant.THYY)
+				|| roleIdList.contains(UserConstant.YJY)
 				){     
 			operationMessageBo.setBelongDepartmentId(user.getDepartmentId());
 			operationMessageBo.setBelongUid(user.getId());

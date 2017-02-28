@@ -5,6 +5,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
 <!-- 富文本编辑器 -->
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
@@ -198,5 +199,11 @@
  <script type="text/javascript">
 	var meetEditor = UM.getEditor('meetingNotes');
 		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd hh:mm"));
+		$('#meetingDateStr').datetimepicker({
+		    format: 'yyyy-mm-dd hh:mm',
+		    autoclose: true,
+		    minView: 0,
+		    minuteStep:5
+		}); 
 </script>
 

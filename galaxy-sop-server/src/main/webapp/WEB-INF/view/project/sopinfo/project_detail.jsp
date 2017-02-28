@@ -48,7 +48,8 @@ var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
 var isTransfering = "${fx:isTransfering(projectId) }";
 var projectInfo;
 $(function(){
-	createMenus(4);
+	//createMenus(4);
+	createMenus(171);//菜单高亮
 });
 /**
 *项目信息

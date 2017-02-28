@@ -117,7 +117,7 @@
 	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
 	            </tr>
 	            <tr>
-                             <td><span class="new_color_gray">本轮融资轮次：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
+                             <td><span class="new_color_gray">本轮融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" valType="required" msg="<font color=red>*</font>本轮融资轮次不能为空" ></select></span></td>
                               <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                          </tr>
                            <tr>
@@ -444,6 +444,11 @@
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
 	var projectInfo = ${proinfo};
+	//运营数据分析返回
+	if(document.referrer.indexOf("toOperationalDataList")>0){
+		initTabPostMeeting();
+		$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
+	}
 </script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>

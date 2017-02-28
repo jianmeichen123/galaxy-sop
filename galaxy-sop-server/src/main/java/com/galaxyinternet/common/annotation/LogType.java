@@ -7,6 +7,8 @@ public enum LogType {
 	LOG(),
 	// 创意动态
 	IDEANEWS(),
+	// 创意资讯
+	//IDEAZIXUN(),
 	// 项目动态
 	PROJECTNEWS(),
 	// IOS 消息推送

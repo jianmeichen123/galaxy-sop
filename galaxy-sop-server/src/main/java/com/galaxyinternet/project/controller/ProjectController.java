@@ -314,7 +314,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setProjectDepartid(did);
 				project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
-				project.setUpdatedTime(new Date().getTime());
+				Date date=new Date();
+				project.setUpdatedTime(date.getTime());
+				project.setProjectTime(date.getTime());
 				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 				long id = projectService.newProject(project, file);
 				if (id > 0) {

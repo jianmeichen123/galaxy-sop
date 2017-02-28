@@ -57,7 +57,9 @@ function dateFormatter(val,row,index)
 		showIdeaDetail(ideaid);
 	}
 	function infoPro(pid){
-		window.location.href=platformUrl.projectDetail+pid;
+		var href_url=Constants.sopEndpointURL+ "/galaxy/idea?indextoid=idea&_is_menu_=true";
+		setCookie("href_url", href_url,24,'/');
+		window.location.href=platformUrl.projectDetail+pid+"?_is_menu_=true";
 	}
 	
 	function refreshIdeaList()
@@ -164,11 +166,17 @@ function dateFormatter(val,row,index)
 				bindTcEvents(index);  //按钮 bind 弹窗
 				//cyToProShow();  //创建项目  阶段，点击项目列表 - <a>项目名称</a> 弹出事件
 				
-				//显示当前阶段
-				if(index == '2' || index == '3' || index== '5')
-				{
-					$("#" + progress ).click();
+				
+				if (roleId == 21) {
+					$("#ideaProgress_1").click();
+				}else{
+					//显示当前阶段
+					if(index == '2' || index == '3' || index== '5')
+					{
+						$("#" + progress ).click();
+					}
 				}
+				
 				
 				var id=$("#IdeaId").val();
 				$("#editBtn").click(function(){
@@ -221,6 +229,19 @@ function dateFormatter(val,row,index)
 	
 	// tab 选项卡绑定 click 事件    用于重新刷新
 	function bindTabClickEvents(index){
+		
+		if (roleId == 21) {
+			for(var i = 2; i<6; i++){
+				$("#ideaProgress_" + i).addClass("disabled");
+				$("#ideaProgress_" + i).attr("disabled",'disabled');
+			}
+			
+			$("#ideaOperateLog").addClass("disabled");
+			$("#ideaOperateLog").attr("disabled",'disabled');
+			return;
+		}
+		
+		
 		// == begin  tab 选项卡绑定 click 事件    用于重新刷新
 		for(var i = 1; i<6; i++){
 			

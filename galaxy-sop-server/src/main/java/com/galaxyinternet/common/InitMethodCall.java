@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import com.galaxyinternet.common.utils.SpringContextManager;
 import com.galaxyinternet.scheduling.MeetingPassStageTask;
 import com.galaxyinternet.scheduling.PullMessageTask;
+import com.galaxyinternet.scheduling.PushMessageOperation;
 import com.galaxyinternet.scheduling.PushMessageTask;
 import com.galaxyinternet.scheduling.UserInfoCache;
 
@@ -28,6 +29,10 @@ public class InitMethodCall extends HttpServlet {
 		//推送排期时间
 		PushMessageTask pushMessageTask = SpringContextManager.getBean("pushMessageTask",PushMessageTask.class);
 		pushMessageTask.execute();
+		
+		//每月1号给已经有注资信息的项目推送添加运营数据的消息
+	//	PushMessageOperation pushMessageOperation = SpringContextManager.getBean("pushMessageOperation",PushMessageOperation.class);
+	//	pushMessageOperation.execute();
 	}
 
 }
