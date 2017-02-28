@@ -51,7 +51,7 @@
         	<dl class="fmdl fmmt clearfix">
               <dt>运营数据统计区间：</dt>
               <dd>
-               <input type="text" class="datepicker-year-text txt time" readonly="" id="startTime" name="operationIntervalDate" style="height:23px;" value="${operationalData.operationIntervalDate }">
+               <input type="text" class="datepicker-year-text txt time" readonly id="startTime" name="operationIntervalDate" style="height:23px;" value="${operationalData.operationIntervalDate }">
               </dd>
           </dl>
           <dl class="fmdl fmmt clearfix">

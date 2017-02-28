@@ -63,9 +63,9 @@
           <dl class="fmdl fmdll clearfix"">
              <dt>运营数据统计区间：</dt>
               <dd>
-	         <dd><input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
+	         <dd><input type="text" class="datepicker-year-text txt time" readonly name="operateDateStart"  /> 
 	          </dd><dd><span>至</span></dd><dd>
-	<input type="text" class="datepicker-year-text txt time" name="operateDateEnd"  /> 
+	<input type="text" class="datepicker-year-text txt time" readonly name="operateDateEnd"  /> 
 	          </dd>
           </dl>     
           <dl class="fmdl fmmt clearfix">
