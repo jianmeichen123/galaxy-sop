@@ -192,6 +192,9 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+<style>
+.tip-yellowsimple{z-index: 8 !important;}
+</style>
 </body>
 <script type="text/javascript">
 var transferingIds = "${fx:getTransferingPids()}".split(",");
