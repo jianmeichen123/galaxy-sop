@@ -544,13 +544,13 @@ function preEdit(zixunId){
 								"<tr>";
 						$("#rzBody").append(htm);*/
 						
-						var htm = 
+						var ehtm = 
 							"<tr data-id="+id+">" +
 								"<td data-name='financeDate' data-val='"+this.financeDate+"'>"+zixun_length_Format(this.financeDate)+"</td>" +
 								"<td data-name='financeAmount' data-val='"+this.financeAmount+"'>"+zixun_length_Format(this.financeAmount)+"</td>" +
 								"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
 							"</tr>";
-						$("#rzBody").append(htm);
+						$("#rzBody").append(ehtm);
 					});
 					
 					
