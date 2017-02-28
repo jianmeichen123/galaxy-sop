@@ -7,9 +7,9 @@ function zixun_length_Format(value){
 	var old = value;
 	var cut = zixun_cutStr(35,old,'...');
 	var hasCut = getLength(value) > 35;
-	//var info = "<spance class=\"blue\"  >"+cut+"</spance>";
+	//var info = "<span class=\"blue\"  >"+cut+"</span>";
 	if(hasCut && hasCut == true){
-		cut = "<spance  title='"+old+"' >"+cut+"</spance>";
+		cut = "<span  title='"+old+"' >"+cut+"</span>";
 	}
 	return cut;
 }
@@ -536,14 +536,24 @@ function preEdit(zixunId){
 						var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"delRZ(this,'"+id+"')\" >删除</a>";
 						var ope = edit + del;
 						
-						var htm = 
+						/*var htm = 
 								"<tr data-id="+id+">" +
 									"<td data-name='financeDate' data-val='"+this.financeDate+"'>"+zixun_length_Format(this.financeDate)+"</td>" +
 									"<td data-name='financeAmount' data-val='"+this.financeAmount+"'>"+zixun_length_Format(this.financeAmount)+"</td>" +
 									"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
 								"<tr>";
+						$("#rzBody").append(htm);*/
+						
+						var htm = 
+							"<tr data-id="+id+">" +
+								"<td data-name='financeDate' data-val='"+this.financeDate+"'>"+zixun_length_Format(this.financeDate)+"</td>" +
+								"<td data-name='financeAmount' data-val='"+this.financeAmount+"'>"+zixun_length_Format(this.financeAmount)+"</td>" +
+								"<td data-name='opetate' data-check='n'>"+ope+"</td>" +
+							"</tr>";
 						$("#rzBody").append(htm);
 					});
+					
+					
 					
 				}
 			}

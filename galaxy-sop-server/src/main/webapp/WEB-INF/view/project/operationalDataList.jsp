@@ -340,9 +340,27 @@ $("button[action='querySearch']").click(function(){
 
 //运营分析
 function backInitTabPostMeeting(){
-	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId;
+	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId+"?back=operateList";
 	 forwardWithHeader(url);
+	 //Redirect(url);
 }
+
+function Redirect(url) {
+    var userAgent = navigator.userAgent.toLowerCase();
+    var is_opera = userAgent.indexOf('opera') != -1 && opera.version();
+    var is_ie = (userAgent.indexOf('msie') != -1 && !is_opera) && userAgent.substr(userAgent.indexOf('msie') + 5, 3);
+    if (is_ie) 
+    {
+        var referLink = document.createElement('a');
+        referLink.href = url;
+        document.body.appendChild(referLink);
+        referLink.click();
+    }
+    else 
+    {
+        location.href = url;
+    }
+  }
 </script>
 
 

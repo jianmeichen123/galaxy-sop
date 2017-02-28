@@ -445,7 +445,7 @@
 <script type="text/javascript">
 	var projectInfo = ${proinfo};
 	//运营数据分析返回
-	if(document.referrer.indexOf("toOperationalDataList")>0){
+	if(document.URL.indexOf("back=operateList")>0){
 		initTabPostMeeting();
 		$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
 	}

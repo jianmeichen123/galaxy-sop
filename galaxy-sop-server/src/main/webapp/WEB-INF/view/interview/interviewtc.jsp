@@ -52,9 +52,25 @@
 			$("#viewDate").val(new Date().format("yyyy-MM-dd hh:mm"));
 			 $('#viewDate').datetimepicker({
 			    format: 'yyyy-mm-dd hh:mm',
+			    language: "zh-CN",
 			    autoclose: true,
 			    minView: 0,
-			    minuteStep:5
+			    minuteStep:5,
+			    inline: true,
+		       sideBySide: true,
+		       language: "zh-CN",
+		       autoclose: true,
+		       todayHighlight: false,
+			    today: "Today",
+			    todayBtn:'linked',
+			    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+			    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+			    forceParse:false,
+			    currentText: 'Now',
+		       startDate: projectTime,
+			   endDate: dateLimit,
+			   defaultDate : new Date(),
+			   todayBtn:  1
 			}); 
 		</script>
     </div>
