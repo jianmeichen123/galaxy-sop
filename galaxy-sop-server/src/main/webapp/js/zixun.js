@@ -7,9 +7,9 @@ function zixun_length_Format(value){
 	var old = value;
 	var cut = zixun_cutStr(35,old,'...');
 	var hasCut = getLength(value) > 35;
-	//var info = "<spance class=\"blue\"  >"+cut+"</spance>";
+	//var info = "<span class=\"blue\"  >"+cut+"</span>";
 	if(hasCut && hasCut == true){
-		cut = "<spance  title='"+old+"' >"+cut+"</spance>";
+		cut = "<span  title='"+old+"' >"+cut+"</span>";
 	}
 	return cut;
 }
