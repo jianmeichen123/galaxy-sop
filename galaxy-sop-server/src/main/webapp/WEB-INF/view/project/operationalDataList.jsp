@@ -63,9 +63,9 @@
           <dl class="fmdl fmdll clearfix"">
              <dt>运营数据统计区间：</dt>
               <dd>
-	         <dd><input type="text" class="datepicker-year-text txt time" name="operateDateStart"  /> 
+	         <dd><input type="text" class="datepicker-year-text txt time" readonly name="operateDateStart"  /> 
 	          </dd><dd><span>至</span></dd><dd>
-	<input type="text" class="datepicker-year-text txt time" name="operateDateEnd"  /> 
+	<input type="text" class="datepicker-year-text txt time" readonly name="operateDateEnd"  /> 
 	          </dd>
           </dl>     
           <dl class="fmdl fmmt clearfix">
@@ -340,9 +340,27 @@ $("button[action='querySearch']").click(function(){
 
 //运营分析
 function backInitTabPostMeeting(){
-	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId;
+	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId+"?back=operateList";
 	 forwardWithHeader(url);
+	 //Redirect(url);
 }
+
+function Redirect(url) {
+    var userAgent = navigator.userAgent.toLowerCase();
+    var is_opera = userAgent.indexOf('opera') != -1 && opera.version();
+    var is_ie = (userAgent.indexOf('msie') != -1 && !is_opera) && userAgent.substr(userAgent.indexOf('msie') + 5, 3);
+    if (is_ie) 
+    {
+        var referLink = document.createElement('a');
+        referLink.href = url;
+        document.body.appendChild(referLink);
+        referLink.click();
+    }
+    else 
+    {
+        location.href = url;
+    }
+  }
 </script>
 
 
