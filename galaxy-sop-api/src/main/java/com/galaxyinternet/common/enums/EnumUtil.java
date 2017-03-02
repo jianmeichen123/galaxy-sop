@@ -8,25 +8,25 @@ public class EnumUtil {
 			return CodeEnum.o2oDS.getCode();
 		}else if(id == CodeEnum.bigdata.getId()){
 			return CodeEnum.bigdata.getCode();
-		}else if(id == CodeEnum.internetEducation.getId()){
+		}/*else if(id == CodeEnum.internetEducation.getId()){
 			return CodeEnum.internetEducation.getCode();
 		}else if(id == CodeEnum.internetEducation2.getId()){
 			return CodeEnum.internetEducation2.getCode();
 		}else if(id == CodeEnum.internetSteel.getId()){
 			return CodeEnum.internetSteel.getCode();
-		}else if(id == CodeEnum.socialMedia.getId()){
+		}*/else if(id == CodeEnum.socialMedia.getId()){
 			return CodeEnum.socialMedia.getCode();
 		}else if(id == CodeEnum.internetAgriculture.getId()){
 			return CodeEnum.internetAgriculture.getCode();
-		}else if(id == CodeEnum.internetChemical.getId()){
+		}/*else if(id == CodeEnum.internetChemical.getId()){
 			return CodeEnum.internetChemical.getCode();
-		}else if(id == CodeEnum.internetDigital.getId()){
+		}*/else if(id == CodeEnum.internetDigital.getId()){
 			return CodeEnum.internetDigital.getCode();
-		}else if(id == CodeEnum.internetCatering.getId()){
+		}/*else if(id == CodeEnum.internetCatering.getId()){
 			return CodeEnum.internetCatering.getCode();
 		}else if(id == CodeEnum.internetClothing.getId()){
 			return CodeEnum.internetClothing.getCode();
-		}else if(id == CodeEnum.internetLand.getId()){
+		}*/else if(id == CodeEnum.internetLand.getId()){
 			return CodeEnum.internetLand.getCode();
 		/*}else if(id == CodeEnum.intelligentDevices.getId()){
 			return CodeEnum.intelligentDevices.getCode();*/
@@ -38,9 +38,9 @@ public class EnumUtil {
 			return CodeEnum.internetOfThings.getCode();*/
 		}else if(id == CodeEnum.internetMedical.getId()){
 			return CodeEnum.internetMedical.getCode();
-		}else if(id == CodeEnum.internetMedical2.getId()){
+		}/*else if(id == CodeEnum.internetMedical2.getId()){
 			return CodeEnum.internetMedical2.getCode();
-		}else if(id == CodeEnum.internetTourism.getId()){
+		}*/else if(id == CodeEnum.internetTourism.getId()){
 			return CodeEnum.internetTourism.getCode();
 		}else if(id == CodeEnum.artificialIntelligence.getId()){
 			return CodeEnum.artificialIntelligence.getCode();
@@ -48,7 +48,7 @@ public class EnumUtil {
 			return CodeEnum.rongKuai.getCode();
 		}else if(id == CodeEnum.virtualReality.getId()){
 			return CodeEnum.virtualReality.getCode();
-		}else if(id == CodeEnum.RKo2o.getId()){
+		}/*else if(id == CodeEnum.RKo2o.getId()){
 			return CodeEnum.RKo2o.getCode();
 		}else if(id == CodeEnum.RKjr.getId()){
 			return CodeEnum.RKjr.getCode();
@@ -114,35 +114,58 @@ public class EnumUtil {
 			return CodeEnum.CBLjk.getCode();
 		}else if(id == CodeEnum.CBLqc.getId()){
 			return CodeEnum.CBLqc.getCode();
-		}else{
+		}*/
+		else if(id == CodeEnum.RKzt.getId()){
+			return CodeEnum.RKzt.getCode();
+		}else if(id == CodeEnum.CBLjy.getId()){
+			return CodeEnum.CBLjy.getCode();
+		}
+		
+		
+		else if(id == CodeEnum.bigSJ.getId()){
+			return CodeEnum.bigSJ.getCode();
+		}else if(id == CodeEnum.tecJR.getId()){
+			return CodeEnum.tecJR.getCode();
+		}else if(id == CodeEnum.interWL.getId()){
+			return CodeEnum.interWL.getCode();
+		}else if(id == CodeEnum.interGY.getId()){
+			return CodeEnum.interGY.getCode();
+		}else if(id == CodeEnum.netWL.getId()){
+			return CodeEnum.netWL.getCode();
+		}else if(id == CodeEnum.tecQY.getId()){
+			return CodeEnum.tecQY.getCode();
+		}
+		else{
 			return 99;
 		}
 	}
+	
+	
 	
 	public static String getCareerline(long id){
 		if(id == CodeEnum.o2oDS.getId()){
 			return CodeEnum.o2oDS.getCareerLine();
 		}else if(id == CodeEnum.bigdata.getId()){
 			return CodeEnum.bigdata.getCareerLine();
-		}else if(id == CodeEnum.internetEducation.getId()){
+		}/*else if(id == CodeEnum.internetEducation.getId()){
 			return CodeEnum.internetEducation.getCareerLine();
 		}else if(id == CodeEnum.internetEducation2.getId()){
 			return CodeEnum.internetEducation2.getCareerLine();
 		}else if(id == CodeEnum.internetSteel.getId()){
 			return CodeEnum.internetSteel.getCareerLine();
-		}else if(id == CodeEnum.socialMedia.getId()){
+		}*/else if(id == CodeEnum.socialMedia.getId()){
 			return CodeEnum.socialMedia.getCareerLine();
 		}else if(id == CodeEnum.internetAgriculture.getId()){
 			return CodeEnum.internetAgriculture.getCareerLine();
-		}else if(id == CodeEnum.internetChemical.getId()){
+		}/*else if(id == CodeEnum.internetChemical.getId()){
 			return CodeEnum.internetChemical.getCareerLine();
-		}else if(id == CodeEnum.internetDigital.getId()){
+		}*/else if(id == CodeEnum.internetDigital.getId()){
 			return CodeEnum.internetDigital.getCareerLine();
-		}else if(id == CodeEnum.internetCatering.getId()){
+		}/*else if(id == CodeEnum.internetCatering.getId()){
 			return CodeEnum.internetCatering.getCareerLine();
 		}else if(id == CodeEnum.internetClothing.getId()){
 			return CodeEnum.internetClothing.getCareerLine();
-		}else if(id == CodeEnum.internetLand.getId()){
+		}*/else if(id == CodeEnum.internetLand.getId()){
 			return CodeEnum.internetLand.getCareerLine();
 		/*}else if(id == CodeEnum.intelligentDevices.getId()){
 			return CodeEnum.intelligentDevices.getCode();*/
@@ -154,9 +177,9 @@ public class EnumUtil {
 			return CodeEnum.internetOfThings.getCode();*/
 		}else if(id == CodeEnum.internetMedical.getId()){
 			return CodeEnum.internetMedical.getCareerLine();
-		}else if(id == CodeEnum.internetMedical2.getId()){
+		}/*else if(id == CodeEnum.internetMedical2.getId()){
 			return CodeEnum.internetMedical2.getCareerLine();
-		}else if(id == CodeEnum.internetTourism.getId()){
+		}*/else if(id == CodeEnum.internetTourism.getId()){
 			return CodeEnum.internetTourism.getCareerLine();
 		}else if(id == CodeEnum.artificialIntelligence.getId()){
 			return CodeEnum.artificialIntelligence.getCareerLine();
@@ -164,7 +187,7 @@ public class EnumUtil {
 			return CodeEnum.rongKuai.getCareerLine();
 		}else if(id == CodeEnum.virtualReality.getId()){
 			return CodeEnum.virtualReality.getCareerLine();
-		}else if(id == CodeEnum.RKo2o.getId()){
+		}/*else if(id == CodeEnum.RKo2o.getId()){
 			return CodeEnum.RKo2o.getCareerLine();
 		}else if(id == CodeEnum.RKjr.getId()){
 			return CodeEnum.RKjr.getCareerLine();
@@ -230,7 +253,28 @@ public class EnumUtil {
 			return CodeEnum.CBLjk.getCareerLine();
 		}else if(id == CodeEnum.CBLqc.getId()){
 			return CodeEnum.CBLqc.getCareerLine();
-		}else{
+		}*/
+		else if(id == CodeEnum.RKzt.getId()){
+			return CodeEnum.RKzt.getCareerLine();
+		}else if(id == CodeEnum.CBLjy.getId()){
+			return CodeEnum.CBLjy.getCareerLine();
+		}
+		
+		
+		else if(id == CodeEnum.bigSJ.getId()){
+			return CodeEnum.bigSJ.getCareerLine();
+		}else if(id == CodeEnum.tecJR.getId()){
+			return CodeEnum.tecJR.getCareerLine();
+		}else if(id == CodeEnum.interWL.getId()){
+			return CodeEnum.interWL.getCareerLine();
+		}else if(id == CodeEnum.interGY.getId()){
+			return CodeEnum.interGY.getCareerLine();
+		}else if(id == CodeEnum.netWL.getId()){
+			return CodeEnum.netWL.getCareerLine();
+		}else if(id == CodeEnum.tecQY.getId()){
+			return CodeEnum.tecQY.getCareerLine();
+		}
+		else{
 			return "";
 		}
 	}
