@@ -238,7 +238,7 @@
 		</div>
 		<div class="new_ul_all new_top_color new_top_color_new location_show">
 			<span class="ico_dot ico"></span>
-			<p id="location_show"></p>
+			<p id="location_show" class="clearfix"></p>
 		</div>
 	</div>
 	<div class='company_on'>					
@@ -268,7 +268,7 @@
 		</div>
 		<div class="new_ul_all new_top_color new_top_color_new portrait_show">
 			<span class="ico_dot ico"></span>
-			<p id="portrait_show"></p>
+			<p id="portrait_show" class="clearfix"></p>
 		</div>
 	</div>
 	<div class='portrayal_on'>
@@ -300,7 +300,7 @@
 		</div>
 		<div class="new_ul_all new_top_color new_top_color_new business_model_show">
 			<span class="ico_dot ico"></span>
-			<p id="business_model_show"></p>
+			<p id="business_model_show" class="clearfix"></p>
 		</div>
 	</div>
 	<div class='product_on'>
@@ -330,7 +330,7 @@
 		</div>
 		<div class="new_ul_all new_top_color new_top_color_new operational_data_show">
 			<span class="ico_dot ico"></span>
-			<p id="operational_data_show"></p>
+			<p id="operational_data_show" class="clearfix"></p>
 		</div>
 	</div>
 	<div class='operation_on'>
@@ -362,7 +362,7 @@
 		</div>
 		<div class="new_ul_all new_top_color new_top_color_new industry_analysis_show">
 			<span class="ico_dot ico"></span>
-			<p id="industry_analysis_show"></p>
+			<p id="industry_analysis_show" class="clearfix"></p>
 		</div>
 	</div>
 	<div class='industry_on'>
@@ -392,7 +392,7 @@
 		</div>
 		<div class="new_ul_all new_top_color new_top_color_new analysis_show">
 			<span class="ico_dot ico"></span>
-			<p id="analysis_show"></p>
+			<p id="analysis_show" class="clearfix"></p>
 		</div>
 	</div>
 	<div class='analysis_on'>
@@ -422,7 +422,7 @@
 		</div>
 		<div class="new_ul_all new_top_color new_top_color_new next_financing_source_show">
 			<span class="ico_dot ico"></span>
-			<p id="next_financing_source_show"></p>
+			<p id="next_financing_source_show" class="clearfix"></p>
 		</div>
 	</div>
 	<div class='next_financing_on'>
