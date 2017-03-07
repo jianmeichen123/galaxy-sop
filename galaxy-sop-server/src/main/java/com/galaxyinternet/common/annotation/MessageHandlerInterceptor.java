@@ -196,6 +196,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				if(messageList != null){
 					for(String temp : messageList){
 						message.setContent(temp);
+						if(temp.indexOf("商业计划书")!=-1){
+							message.setMessageType("5.1");
+						}
 						operationMessageService.insert(message);
 					}
 				}
