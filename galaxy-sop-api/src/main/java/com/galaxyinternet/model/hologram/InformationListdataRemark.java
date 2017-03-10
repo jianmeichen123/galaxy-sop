@@ -1,9 +1,12 @@
 package com.galaxyinternet.model.hologram;
 
-public class InformationListdataRemark {
-    private String id;
+import com.galaxyinternet.framework.core.model.BaseEntity;
 
-    private String titleId;
+public class InformationListdataRemark extends BaseEntity{
+
+	private static final long serialVersionUID = 1L;
+
+	private String titleId;
 
     private String code;
 
@@ -31,13 +34,7 @@ public class InformationListdataRemark {
 
     private String value10;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+  
 
     public String getTitleId() {
         return titleId;

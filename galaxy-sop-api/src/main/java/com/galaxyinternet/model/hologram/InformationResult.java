@@ -1,9 +1,12 @@
 package com.galaxyinternet.model.hologram;
 
-public class InformationResult {
-    private String id;
+import com.galaxyinternet.framework.core.model.BaseEntity;
 
-    private String titleId;
+public class InformationResult extends BaseEntity{
+
+	private static final long serialVersionUID = 1L;
+
+	private String titleId;
 
     private String contentChoose;
 
@@ -20,14 +23,6 @@ public class InformationResult {
     private String updateTime;
 
     private String updateId;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
 
     public String getTitleId() {
         return titleId;

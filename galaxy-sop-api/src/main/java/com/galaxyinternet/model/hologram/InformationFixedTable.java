@@ -1,9 +1,12 @@
 package com.galaxyinternet.model.hologram;
 
-public class InformationFixedTable {
-    private String id;
+import com.galaxyinternet.framework.core.model.BaseEntity;
 
-    private String projectId;
+public class InformationFixedTable extends BaseEntity{
+
+	private static final long serialVersionUID = 1L;
+
+	private String projectId;
 
     private String titleId;
 
@@ -25,13 +28,6 @@ public class InformationFixedTable {
 
     private String updateId;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
 
     public String getProjectId() {
         return projectId;
