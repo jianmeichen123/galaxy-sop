@@ -1,0 +1,127 @@
+package com.galaxyinternet.model.hologram;
+
+import com.galaxyinternet.framework.core.model.PagableEntity;
+
+public class InformationDictionary extends PagableEntity {
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
+
+	private Long parentId;
+
+	private Long titleId;
+
+	private String code;
+
+	private String name;
+
+	private String value;
+
+	private Integer sort;
+
+	private Integer isValid;
+
+	private Long createTime;
+
+	private Long createId;
+
+	private Long updateTime;
+
+	private Long updateId;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
+	public Long getTitleId() {
+		return titleId;
+	}
+
+	public void setTitleId(Long titleId) {
+		this.titleId = titleId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code == null ? null : code.trim();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value == null ? null : value.trim();
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public Integer getIsValid() {
+		return isValid;
+	}
+
+	public void setIsValid(Integer isValid) {
+		this.isValid = isValid;
+	}
+
+	public Long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
+	}
+
+	public Long getCreateId() {
+		return createId;
+	}
+
+	public void setCreateId(Long createId) {
+		this.createId = createId;
+	}
+
+	public Long getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Long updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public Long getUpdateId() {
+		return updateId;
+	}
+
+	public void setUpdateId(Long updateId) {
+		this.updateId = updateId;
+	}
+}
