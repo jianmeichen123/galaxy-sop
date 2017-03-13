@@ -9,6 +9,8 @@ public class InformationData extends PagableEntity {
 	
 	private String projectId;
 	
+	private int flag;//0:正常数据编辑;1:表格数据处理;2:固定表格处理
+	
 	private List<InformationModel> infoModeList;
 	
 	private List<FixedTableModel> infoFixedTableList;
@@ -46,6 +48,15 @@ public class InformationData extends PagableEntity {
 	public void setInfoTableModelList(List<TableModel> infoTableModelList) {
 		this.infoTableModelList = infoTableModelList;
 	}
+
+	public int getFlag() {
+		return flag;
+	}
+
+	public void setFlag(int flag) {
+		this.flag = flag;
+	}
+	
 	
 	
 
