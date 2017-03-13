@@ -17,12 +17,6 @@ public class InformationModel extends PagableEntity {
 
 	private String titleCode;//题干code
 	
-	private String valueCode;//值code（如果只文本框，该code为空）
-	
-	private String subCode;//如果是表格，则有一个表格编号
-	
-	private String subName;//如果是表格，则有一个表格描述
-
 	public String getProjectId() {
 		return projectId;
 	}
@@ -71,29 +65,6 @@ public class InformationModel extends PagableEntity {
 		this.titleCode = titleCode;
 	}
 
-	public String getValueCode() {
-		return valueCode;
-	}
-
-	public void setValueCode(String valueCode) {
-		this.valueCode = valueCode;
-	}
-
-	public String getSubCode() {
-		return subCode;
-	}
-
-	public void setSubCode(String subCode) {
-		this.subCode = subCode;
-	}
-
-	public String getSubName() {
-		return subName;
-	}
-
-	public void setSubName(String subName) {
-		this.subName = subName;
-	}
 	
 	
 	
