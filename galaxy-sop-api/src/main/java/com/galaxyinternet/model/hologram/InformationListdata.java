@@ -2,17 +2,19 @@ package com.galaxyinternet.model.hologram;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
-public class InformationListdataRemark extends BaseEntity{
+public class InformationListdata extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+    private Long id;
+
+    private Long projectId;
 
     private Long titleId;
 
-    private String code;
+    private Long parentId;
 
-    private String subCode;
+    private String code;
 
     private String name;
 
@@ -46,12 +48,21 @@ public class InformationListdataRemark extends BaseEntity{
 
     private Long updateId;
 
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public Long getTitleId() {
@@ -62,20 +73,20 @@ public class InformationListdataRemark extends BaseEntity{
         this.titleId = titleId;
     }
 
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getSubCode() {
-        return subCode;
-    }
-
-    public void setSubCode(String subCode) {
-        this.subCode = subCode;
     }
 
     public String getName() {
