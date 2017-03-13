@@ -24,4 +24,10 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	 */
 	InformationTitle selectTitlesValues(String pinfoKey);
 
+	
+	/**
+	 * 根据  title的id  递归查询 该 title下的各 title value
+	 */
+	List<InformationTitle> selectTitlesValues(Long id);
+
 }

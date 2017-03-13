@@ -37,7 +37,9 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Override
 	@Transactional
 	public List<InformationTitle> selectFirstTitle() {
-		return informationTitleDao.selectFirstTitle();
+		List<InformationTitle> ptitleList = informationTitleDao.selectFirstTitle();
+		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
+		return ptitleList;
 	}
 	
 	
@@ -117,10 +119,13 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	public List<InformationTitle> selectByTlist(List<InformationTitle> tList) {
 		for(InformationTitle title : tList){
 			List<InformationTitle> ptitleList = selectChildsByPid(title.getId());
-			if(ptitleList !=null && !ptitleList.isEmpty()) selectByTlist(ptitleList);
-			title.setChildList(tList);
+			if(ptitleList !=null && !ptitleList.isEmpty()){
+				selectByTlist(ptitleList);
+				title.setChildList(ptitleList);
+			}
 		}
 		return tList;
+
 	}
 	
 
