@@ -1,12 +1,12 @@
 package com.galaxyinternet.model.hologram;
 
+import java.util.List;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class InformationDictionary extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
-
 	private Long parentId;
 
 	private Long titleId;
@@ -21,21 +21,15 @@ public class InformationDictionary extends PagableEntity {
 
 	private Integer isValid;
 
-	private Long createTime;
-
 	private Long createId;
-
-	private Long updateTime;
 
 	private Long updateId;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
+	
+	private List<InformationDictionary> valueList;
+	
+	
 
 	public Long getParentId() {
 		return parentId;
@@ -93,28 +87,12 @@ public class InformationDictionary extends PagableEntity {
 		this.isValid = isValid;
 	}
 
-	public Long getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
-	}
-
 	public Long getCreateId() {
 		return createId;
 	}
 
 	public void setCreateId(Long createId) {
 		this.createId = createId;
-	}
-
-	public Long getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Long updateTime) {
-		this.updateTime = updateTime;
 	}
 
 	public Long getUpdateId() {
@@ -124,4 +102,14 @@ public class InformationDictionary extends PagableEntity {
 	public void setUpdateId(Long updateId) {
 		this.updateId = updateId;
 	}
+
+	public List<InformationDictionary> getValueList() {
+		return valueList;
+	}
+
+	public void setValueList(List<InformationDictionary> valueList) {
+		this.valueList = valueList;
+	}
+	
+	
 }

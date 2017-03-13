@@ -29,7 +29,7 @@ public class InformationTitle extends PagableEntity {
 
 	
 	private List<InformationTitle> childList;
-	
+	private List<InformationDictionary> valueList;
 	
 	public String getParentId() {
 		return parentId;
@@ -117,6 +117,14 @@ public class InformationTitle extends PagableEntity {
 
 	public void setChildList(List<InformationTitle> childList) {
 		this.childList = childList;
+	}
+
+	public List<InformationDictionary> getValueList() {
+		return valueList;
+	}
+
+	public void setValueList(List<InformationDictionary> valueList) {
+		this.valueList = valueList;
 	}
 
 	

@@ -30,6 +30,7 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	 * 根据 code 、 id 父信息递归查询其下所有子集合
 	 */
 	InformationTitle selectPchildsByPinfo(String pinfoKey);
+	//List<InformationTitle> selectByTlist(List<InformationTitle> tList);
 
 
 

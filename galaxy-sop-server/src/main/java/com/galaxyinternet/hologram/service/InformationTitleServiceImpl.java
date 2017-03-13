@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -13,11 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
-import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
@@ -86,9 +82,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 */
 	@Override
 	public InformationTitle selectPchildsByPinfo(String pinfoKey) {
-		InformationTitleBo pquery = new InformationTitleBo();
-		pquery.setIdcodekey(pinfoKey);
-		InformationTitle title = informationTitleDao.selectOne(pquery);
+		InformationTitle title = selectTitleByPinfo(pinfoKey);
 		List<InformationTitle> childList = selectByTlist(selectChildsByPid(title.getId()));
 		title.setChildList(childList);
 		return title;
@@ -96,13 +90,17 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	public List<InformationTitle> selectByTlist(List<InformationTitle> tList) {
 		for(InformationTitle title : tList){
 			List<InformationTitle> ptitleList = selectChildsByPid(title.getId());
-			selectByTlist(ptitleList);
+			if(ptitleList !=null && !ptitleList.isEmpty()) selectByTlist(ptitleList);
 			title.setChildList(tList);
 		}
 		return tList;
 	}
 	
 
+	
+	
+	
+	
 	
 	
 }
