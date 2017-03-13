@@ -48,6 +48,14 @@
 			
 			<if test="idcodekey != null">
 				and (
+					id = #{idcodekey,jdbcType=BIGINT}
+					or 
+					code = #{idcodekey,jdbcType=VARCHAR}
+				)
+			</if>
+			
+			<!-- <if test="idcodekey != null">
+				and (
 					id  LIKE '%${idcodekey}%'
 			 		<if test="escapeChar ">
 			 		  	escape '/' 
@@ -58,7 +66,7 @@
 			 		  	escape '/' 
 			 		</if>
 				)
-			</if>
+			</if> -->
 			
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="property != null">order by ${property} ${direction}</if>
