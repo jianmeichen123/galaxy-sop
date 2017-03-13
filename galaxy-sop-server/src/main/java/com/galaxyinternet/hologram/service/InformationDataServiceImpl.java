@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
+import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
@@ -16,8 +17,10 @@ import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.hologram.FixedTableModel;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationModel;
 import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.hologram.TableModel;
 import com.galaxyinternet.service.hologram.InformationDataService;
 
 @Service
@@ -28,6 +31,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	private InformationResultDao resultDao;
 	@Autowired
 	private InformationFixedTableDao fixdTableDao;
+	@Autowired
+	private InformationListdataDao listdataDao;
 
 	@Override
 	public void save(InformationData data)
@@ -114,7 +119,46 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	}
 	private void saveListData(InformationData data)
 	{
+		String projectId = data.getProjectId();
+		List<TableModel> list = data.getInfoTableModelList();
+		if(projectId == null || list == null || list.size() ==0)
+		{
+			return;
+		}
+		String titleId = null;
+		InformationListdata entity = null;
+		List<InformationListdata> entityList = new ArrayList<>();
+		Set<String> titleIds = new HashSet<>();
 		
+		for(TableModel model : list)
+		{
+			titleIds.add(model.getTitleId()+"");
+			entity = new InformationListdata();
+			entity.setProjectId(Long.valueOf(projectId));
+			entity.setTitleId(Long.valueOf(titleId));
+			entity.setCode(model.getCode());
+			entity.setParentId(model.getParentId());
+			entity.setField1(model.getField1());
+			entity.setField2(model.getField2());
+			entity.setField3(model.getField3());
+			entity.setField4(model.getField4());
+			entity.setField5(model.getField5());
+			entity.setField6(model.getField6());
+			entity.setField7(model.getField7());
+			entity.setField8(model.getField8());
+			entity.setField9(model.getField9());
+			entity.setField10(model.getField10());
+			entityList.add(entity);
+		}
+		InformationListdata query = new InformationListdata();
+		query.setProjectId(Long.valueOf(projectId));
+		query.setTitleIds(titleIds);
+		listdataDao.delete(query);
+		//插入数据
+		if(entityList.size() > 0)
+		{
+			listdataDao.insertInBatch(entityList);
+		}
 	}
 
 	@Override
