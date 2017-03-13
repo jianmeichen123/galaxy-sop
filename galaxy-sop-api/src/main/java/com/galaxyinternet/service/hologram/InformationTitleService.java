@@ -32,6 +32,12 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	InformationTitle selectPchildsByPinfo(String pinfoKey);
 	//List<InformationTitle> selectByTlist(List<InformationTitle> tList);
 
+	
+	/**
+	 * 查询 parentid 为空的 题， 即顶级目录
+	 */
+	List<InformationTitle> selectFirstTitle();
+
 
 
 }

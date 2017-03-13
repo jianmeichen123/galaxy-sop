@@ -34,4 +34,19 @@ public class InformationTitleDaoImpl extends BaseDaoImpl<InformationTitle, Long>
 	}
 
 	
+	/**
+	 * 查询 parentid 为空的 题， 即顶级目录
+	 */
+	@Override
+	public List<InformationTitle> selectFirstTitle() {
+		try {
+			List<InformationTitle> contentList = sqlSessionTemplate.selectList(getSqlName("selectFirstTitle"));
+			//System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
+			return contentList;
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据titile查询子code出错！语句:%s", getSqlName("selectFirstTitle")), e);
+		}
+	}
+
+	
 }

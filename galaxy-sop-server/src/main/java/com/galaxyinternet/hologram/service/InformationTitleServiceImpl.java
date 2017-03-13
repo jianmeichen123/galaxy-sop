@@ -30,6 +30,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 
 	
 	
+	
+	/**
+	 * 查询 parentid 为空的 题， 即顶级目录
+	 */
+	@Override
+	@Transactional
+	public List<InformationTitle> selectFirstTitle() {
+		return informationTitleDao.selectFirstTitle();
+	}
+	
+	
+	
+	
 	/**
 	 * 根据 code 、 id 模糊查询 title
 	 */
@@ -38,7 +51,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	public InformationTitle selectTitleByPinfo(String pinfoKey) {
 		InformationTitleBo pquery = new InformationTitleBo();
 		pquery.setIdcodekey(pinfoKey);
-		return informationTitleDao.selectOne(pquery);
+		
+		InformationTitle title = informationTitleDao.selectOne(pquery);
+		if(title.getSign() != null && title.getSign().intValue() == 2){
+			title.setName(title.getName()+":");
+		}
+		return title;
 	}
 	
 	
@@ -58,7 +76,15 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
 		List<InformationTitle> ptitleList = informationTitleDao.selectChildsByPid(params);
 		
-		return ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
+		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
+		
+		for(InformationTitle title : ptitleList){
+			if(title.getSign() != null && title.getSign().intValue() == 2){
+				title.setName(title.getName()+":");
+			}
+		}
+		
+		return ptitleList;
 	}
 	
 	

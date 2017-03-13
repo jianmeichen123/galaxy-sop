@@ -152,8 +152,8 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setEntity(title);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
-			logger.error("queryAllTitle 题下的子集信息获取失败 ",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "题字典获取失败"));
+			logger.error("queryTitleAndValues 题下的子集信息获取失败 ",e);
 		}
 		
 		return responseBody;
@@ -176,7 +176,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
-			logger.error("queryAllTitle 题下的子集信息获取失败 ",e);
+			logger.error("queryAllTitleValues 题及所有子集及value信息获取失败 ",e);
 		}
 		
 		return responseBody;
