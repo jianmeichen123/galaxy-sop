@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.hologram.InformationDictionary">
+
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationDictionary">
+	
+		<id column="id" 			jdbcType="BIGINT" 		property="id" />
+		<result column="parent_id" 	jdbcType="BIGINT" 		property="parentId" />
+		<result column="title_id" 	jdbcType="BIGINT" 		property="titleId" />
+		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
+		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
+		<result column="value" 		jdbcType="VARCHAR" 		property="value" />
+		<result column="sort" 		jdbcType="INTEGER" 		property="sort" />
+		<result column="is_valid" 	jdbcType="INTEGER" 		property="isValid" />
+		<result column="created_time" jdbcType="BIGINT" 	property="createdTime" />
+		<result column="create_id" 	jdbcType="BIGINT" 		property="createId" />
+		<result column="updated_time" jdbcType="BIGINT" 	property="updatedTime" />
+		<result column="update_id" 	jdbcType="BIGINT" 		property="updateId" />
+	</resultMap>
+
+
+
+	<sql id="Base_Column_List">
+		id, parent_id, title_id, code, name, value, sort, is_valid, created_time, create_id, updated_time, update_id
+	</sql>
+
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="parentId != null"> and parent_id = #{parentId,jdbcType=VARCHAR} </if>
+				<if test="titleId != null"> and title_id = #{titleId,jdbcType=VARCHAR} </if>
+				<if test="code != null"> and code = #{code,jdbcType=VARCHAR} </if>
+				<if test="name != null"> and name = #{name,jdbcType=VARCHAR} </if>
+				<if test="value != null"> and value = #{value,jdbcType=VARCHAR} </if>
+				<if test="sort != null"> and sort = #{sort,jdbcType=VARCHAR} </if>
+				<if test="isValid != null"> and is_valid = #{isValid,jdbcType=VARCHAR} </if>
+				<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=VARCHAR} </if>
+				<if test="createId != null"> and create_id = #{createId,jdbcType=VARCHAR} </if>
+				<if test="updatedTime != null"> and updated_time = #{updatedTime,jdbcType=VARCHAR} </if>
+				<if test="updateId != null"> and update_id = #{updateId,jdbcType=VARCHAR} </if>
+				
+			</trim>
+			
+			<if test="sorting != null">order by ${sorting}</if>
+			<if test="property != null">order by ${property} ${direction}</if>
+			
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>
+		</where>
+	</sql>
+
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationDictionary">
+	    <![CDATA[
+	     insert into information_dictionary (
+	     	id, 
+			parent_id, 
+			title_id,
+			code, 
+			name, 
+			value, 
+			sort, 
+			is_valid, 
+			created_time, 
+			create_id, 
+			updated_time, 
+			update_id
+		)
+		values (
+			#{id,jdbcType=BIGINT}, 
+			#{parentId,jdbcType=BIGINT}, 
+			#{titleId,jdbcType=BIGINT}, 
+			#{code,jdbcType=VARCHAR}, 
+			#{name,jdbcType=VARCHAR}, 
+			#{value,jdbcType=VARCHAR}, 
+			#{sort,jdbcType=INTEGER}, 
+			#{isValid,jdbcType=INTEGER}, 
+			#{createdTime,jdbcType=BIGINT}, 
+			#{createId,jdbcType=BIGINT}, 
+			#{updatedTime,jdbcType=BIGINT}, 
+			#{updateId,jdbcType=BIGINT}
+		)
+	    ]]>
+	</insert>
+	
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from information_dictionary
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from information_dictionary
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from information_dictionary 
+		where id = #{id}
+	</select>
+	
+	
+	<!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.hologram.InformationDictionary">
+		update information_dictionary
+		<set>
+			<if test="parentId != null">  parent_id = #{parentId,jdbcType=VARCHAR}, </if>
+			<if test="titleId != null">  title_id = #{titleId,jdbcType=VARCHAR}, </if>
+			<if test="code != null">  code = #{code,jdbcType=VARCHAR}, </if>
+			<if test="name != null">  name = #{name,jdbcType=VARCHAR}, </if>
+			<if test="value != null">  value = #{value,jdbcType=VARCHAR}, </if>
+			<if test="sort != null">  sort = #{sort,jdbcType=VARCHAR}, </if>
+			<if test="isValid != null">  is_valid = #{isValid,jdbcType=VARCHAR}, </if>
+			<if test="createdTime != null">  created_time = #{createdTime,jdbcType=VARCHAR}, </if>
+			<if test="createId != null">  create_id = #{createId,jdbcType=VARCHAR}, </if>
+			<if test="updatedTime != null">  updated_time = #{updatedTime,jdbcType=VARCHAR}, </if>
+			<if test="updateId != null">  update_id = #{updateId,jdbcType=VARCHAR}, </if>
+				
+		</set>
+		where id = #{id}
+	</update>
+	
+	
+	<!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hologram.InformationDictionary">
+		update information_dictionary
+		<set>
+			<if test="parentId != null">  parent_id = #{parentId,jdbcType=VARCHAR}, </if>
+			<if test="name != null">  name = #{name,jdbcType=VARCHAR}, </if>
+			<if test="value != null">  value = #{value,jdbcType=VARCHAR}, </if>
+			<if test="sort != null">  sort = #{sort,jdbcType=VARCHAR}, </if>
+			<if test="isValid != null">  is_valid = #{isValid,jdbcType=VARCHAR}, </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="titleId != null"> and title_id = #{titleId,jdbcType=VARCHAR} </if>
+				<if test="code != null"> and code = #{code,jdbcType=VARCHAR} </if>
+				<if test="name != null"> and name = #{name,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+	</update>
+	
+	
+	
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from information_dictionary
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+	
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from information_dictionary
+		where id = #{id}
+	</delete>
+
+	
+	
+	
+	
+	
+	<select id="selectValues" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		id, parent_id, title_id, code, name, value, sort, is_valid
+		from information_dictionary 
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="parentId != null"> and parent_id = #{parentId,jdbcType=VARCHAR} </if>
+				<if test="titleId != null"> and title_id = #{titleId,jdbcType=VARCHAR} </if>
+				<if test="code != null"> and code = #{code,jdbcType=VARCHAR} </if>
+				<if test="isValid != null"> and is_valid = #{isValid,jdbcType=VARCHAR} </if>
+				<if test="createId != null"> and create_id = #{createId,jdbcType=VARCHAR} </if>
+				<if test="updateId != null"> and update_id = #{updateId,jdbcType=VARCHAR} </if>
+			</trim>
+			
+			<if test="sorting != null">order by ${sorting}</if>
+		</where>
+	</select>
+	
+	
+	
+</mapper>
+	
