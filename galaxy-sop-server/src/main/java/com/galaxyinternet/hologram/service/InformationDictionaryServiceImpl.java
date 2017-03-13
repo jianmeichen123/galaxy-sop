@@ -90,15 +90,28 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
 			title.setValueList(valueList);
 			List<InformationTitle> ptitleList = informationTitleService.selectChildsByPid(title.getId());
-			if(ptitleList !=null && !ptitleList.isEmpty()) selectByTlist(ptitleList);
-			title.setChildList(tList);
+			if(ptitleList !=null && !ptitleList.isEmpty()){
+				selectByTlist(ptitleList);
+				title.setChildList(ptitleList);
+			} 
 		}
 		return tList;
+
 	}
 	
 	
 	
 	
+	
+	/**
+	 * 根据  title的id  递归查询 该 title下的各 title value
+	 */
+	@Override
+	@Transactional
+	public List<InformationTitle> selectTitlesValues(Long titleId) {
+		List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(titleId));
+		return childList;
+	}
 	
 }
 
