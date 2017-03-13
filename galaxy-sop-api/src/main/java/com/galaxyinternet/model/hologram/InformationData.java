@@ -15,8 +15,6 @@ public class InformationData extends PagableEntity {
 	
 	private List<TableModel>     infoTableModelList;
 	
-	
-
 	public String getProjectId() {
 		return projectId;
 	}
