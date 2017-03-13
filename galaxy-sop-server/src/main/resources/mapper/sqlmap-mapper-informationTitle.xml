@@ -225,5 +225,14 @@
 	</select>
 	
 
+
+	<select id="selectFirstTitle" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		id, parent_id, code, name, index_no, type, sign, is_valid
+		from information_title 
+		where parentId is null
+	</select>
+	
+	
 </mapper>
 	

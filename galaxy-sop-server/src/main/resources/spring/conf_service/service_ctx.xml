@@ -423,4 +423,27 @@
 	
 	
 	
+	
+	
+	<bean id="com.galaxyinternet.hologram.util.CodeCachUtil" class="com.galaxyinternet.hologram.util.CodeCachUtil">
+		<property name="pagesAreacode">
+			<map>
+				<entry key="page1">
+					<list>
+						<value>code1</value>
+					</list>
+				</entry>
+				
+				<entry key="page2">
+					<null/>
+				</entry>
+				
+			</map>
+
+		</property>
+	</bean>
+	
+	
+	
+	
 </beans>
