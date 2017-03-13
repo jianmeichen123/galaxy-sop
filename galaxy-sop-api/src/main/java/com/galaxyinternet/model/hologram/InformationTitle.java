@@ -17,7 +17,7 @@ public class InformationTitle extends PagableEntity {
 
 	private Integer type;
 
-	private String sign;
+	private Integer sign;
 
 	private String content;
 
@@ -71,12 +71,12 @@ public class InformationTitle extends PagableEntity {
 		this.type = type;
 	}
 
-	public String getSign() {
+	public Integer getSign() {
 		return sign;
 	}
 
-	public void setSign(String sign) {
-		this.sign = sign == null ? null : sign.trim();
+	public void setSign(Integer sign) {
+		this.sign = sign;
 	}
 
 	public String getContent() {
