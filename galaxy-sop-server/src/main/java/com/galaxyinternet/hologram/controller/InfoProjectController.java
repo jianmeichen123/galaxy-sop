@@ -86,6 +86,24 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping("/save")
+	public ResponseData<InformationData> save(@RequestBody InformationData data)
+	{
+		ResponseData<InformationData> rtn = new ResponseData<>();
+		
+		try
+		{
+			infoDataService.save(data);
+		} catch (Exception e)
+		{
+			logger.error("保存失败，信息:"+data,e);
+			rtn.getResult().addError("保存失败");
+		}
+		
+		return rtn;
+	}
+	
 }
 
 
