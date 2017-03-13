@@ -19,7 +19,7 @@ public class InformationDictionary extends PagableEntity {
 
 	private Integer sort;
 
-	private Integer isValid;
+	private int isValid;
 
 	private Long createId;
 
@@ -79,11 +79,11 @@ public class InformationDictionary extends PagableEntity {
 		this.sort = sort;
 	}
 
-	public Integer getIsValid() {
+	public int getIsValid() {
 		return isValid;
 	}
 
-	public void setIsValid(Integer isValid) {
+	public void setIsValid(int isValid) {
 		this.isValid = isValid;
 	}
 
