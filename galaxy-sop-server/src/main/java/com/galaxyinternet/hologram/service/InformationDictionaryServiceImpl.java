@@ -47,6 +47,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		
 		Map<String, Object> params = new HashMap<String,Object>();
 		params.put("titleId",tid);
+		params.put("isValid",0);
 		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
 		List<InformationDictionary> ptitleList = informationDictionaryDao.selectValues(params);
 		
