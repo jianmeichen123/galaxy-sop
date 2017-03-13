@@ -37,7 +37,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	
 	/**
-	 * 根据 title.id  查询 value 集合
+	 * 根据 title.id  查询其  value 集合
 	 */
 	@Override
 	@Transactional
@@ -59,7 +59,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	
 	/**
-	 * 根据 code 、 id  的 title 信息查询 title value 信息集合
+	 * 根据title 的  id 或 code ，查询 title及其value集合信息
 	 */
 	@Override
 	@Transactional
@@ -73,9 +73,20 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	
 	
+	/**
+	 * 根据  title的id  递归查询 该 title下的各 title - value
+	 */
+	@Override
+	@Transactional
+	public List<InformationTitle> selectTitlesValues(Long titleId) {
+		List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(titleId));
+		return childList;
+	}
+	
+	
 	
 	/**
-	 * 根据 code 、 id  的 title 信息  递归查询 各 title下的 value
+	 * 根据title 的  id 或 code ，  递归查询  title 及其下的所有 title - value
 	 */
 	@Override
 	@Transactional
@@ -103,15 +114,6 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	
 	
-	/**
-	 * 根据  title的id  递归查询 该 title下的各 title value
-	 */
-	@Override
-	@Transactional
-	public List<InformationTitle> selectTitlesValues(Long titleId) {
-		List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(titleId));
-		return childList;
-	}
 	
 }
 
