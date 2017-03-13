@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
-import com.galaxyinternet.project.controller.ProjectProgressController;
 import com.galaxyinternet.service.hologram.InformationDataService;
 
 
 @Controller
-@RequestMapping("/galaxy/infomation")
+@RequestMapping("/galaxy/infoProject")
 public class InfoProjectController  extends BaseControllerImpl<InformationData, InformationData> {
 
 	final Logger logger = LoggerFactory.getLogger(InfoProjectController.class);
