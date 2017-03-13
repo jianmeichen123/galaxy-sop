@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.hologram;
 
+import java.util.List;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class InformationTitle extends PagableEntity {
@@ -25,6 +27,10 @@ public class InformationTitle extends PagableEntity {
 
 	private Long updateId;
 
+	
+	private List<InformationTitle> childList;
+	
+	
 	public String getParentId() {
 		return parentId;
 	}
@@ -105,4 +111,14 @@ public class InformationTitle extends PagableEntity {
 		this.updateId = updateId;
 	}
 
+	public List<InformationTitle> getChildList() {
+		return childList;
+	}
+
+	public void setChildList(List<InformationTitle> childList) {
+		this.childList = childList;
+	}
+
+	
+	
 }

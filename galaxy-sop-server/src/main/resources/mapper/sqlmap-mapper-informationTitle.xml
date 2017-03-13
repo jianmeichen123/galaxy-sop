@@ -46,6 +46,20 @@
 				
 			</trim>
 			
+			<if test="idcodekey != null">
+				and (
+					id  LIKE '%${idcodekey}%'
+			 		<if test="escapeChar ">
+			 		  	escape '/' 
+			 		</if>
+					or 
+					code  LIKE '%${idcodekey}%'
+			 		<if test="escapeChar ">
+			 		  	escape '/' 
+			 		</if>
+				)
+			</if>
+			
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="property != null">order by ${property} ${direction}</if>
 			
@@ -177,6 +191,31 @@
 		where id = #{id}
 	</delete>
 
+	
+	
+	
+	<!-- 根据ID查询 -->
+	<select id="selectChildsByPid" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		id, parent_id, code, name, index_no, type, sign, is_valid
+		from information_title 
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="parentId != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
+				<if test="code != null"> and  code = #{code,jdbcType=VARCHAR} </if>
+				<if test="name != null"> and  name = #{name,jdbcType=VARCHAR} </if>
+				<if test="indexNo != null"> and  index_no = #{indexNo,jdbcType=VARCHAR} </if>
+				<if test="type != null"> and  type = #{type,jdbcType=INTEGER} </if>
+				<if test="sign != null"> and  sign = #{sign,jdbcType=VARCHAR} </if>
+				<if test="isValid != null"> and  is_valid = #{isValid,jdbcType=INTEGER} </if>
+				<if test="createId != null"> and  create_id = #{createId,jdbcType=BIGINT} </if>
+				<if test="updateId != null"> and  update_id = #{updateId,jdbcType=BIGINT} </if>
+			</trim>
+			
+			<if test="sorting != null">order by ${sorting}</if>
+		</where>
+	</select>
 	
 
 </mapper>
