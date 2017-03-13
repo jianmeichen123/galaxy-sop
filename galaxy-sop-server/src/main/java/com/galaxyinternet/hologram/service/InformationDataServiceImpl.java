@@ -37,9 +37,20 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	@Override
 	public void save(InformationData data)
 	{
-		saveResult(data);
-		saveFixedTable(data);
-		saveListData(data);
+		int flag=data.getFlag();
+		switch(flag){
+			case 0:
+				saveResult(data);
+				break;
+			case 1:	
+				saveListData(data);
+				break;
+			case 2:	
+				saveFixedTable(data);
+				break;
+		   default:
+			   break;
+		}
 	}
 	private void saveResult(InformationData data)
 	{
