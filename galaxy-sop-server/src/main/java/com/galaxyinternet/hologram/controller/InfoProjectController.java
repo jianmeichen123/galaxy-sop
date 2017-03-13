@@ -16,9 +16,9 @@ import com.galaxyinternet.service.hologram.InformationDataService;
 
 @Controller
 @RequestMapping("/galaxy/infomation")
-public class InfoDateController  extends BaseControllerImpl<InformationData, InformationData> {
+public class InfoProjectController  extends BaseControllerImpl<InformationData, InformationData> {
 
-	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
+	final Logger logger = LoggerFactory.getLogger(InfoProjectController.class);
 	
 	
 	@Autowired
