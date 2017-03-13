@@ -16,8 +16,6 @@ public class InformationListdata extends BaseEntity{
 
     private String code;
 
-    private String name;
-
     private String field1;
 
     private String field2;
@@ -87,14 +85,6 @@ public class InformationListdata extends BaseEntity{
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getField1() {
