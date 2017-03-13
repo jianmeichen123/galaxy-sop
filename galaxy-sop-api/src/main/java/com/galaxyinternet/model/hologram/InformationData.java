@@ -41,4 +41,14 @@ public class InformationData extends PagableEntity {
 		this.infoFixedTableList = infoFixedTableList;
 	}
 
+	public List<TableModel> getInfoTableModelList() {
+		return infoTableModelList;
+	}
+
+	public void setInfoTableModelList(List<TableModel> infoTableModelList) {
+		this.infoTableModelList = infoTableModelList;
+	}
+	
+	
+
 }
