@@ -13,7 +13,7 @@ public class InformationTitle extends PagableEntity {
 
 	private String name;
 
-	private String indexNo;
+	private Integer indexNo;
 
 	private Integer type;
 
@@ -21,7 +21,7 @@ public class InformationTitle extends PagableEntity {
 
 	private String content;
 
-	private Integer isValid;
+	private int isValid;
 
 	private Long createId;
 
@@ -55,12 +55,12 @@ public class InformationTitle extends PagableEntity {
 		this.name = name == null ? null : name.trim();
 	}
 
-	public String getIndexNo() {
+	public Integer getIndexNo() {
 		return indexNo;
 	}
 
-	public void setIndexNo(String indexNo) {
-		this.indexNo = indexNo == null ? null : indexNo.trim();
+	public void setIndexNo(Integer indexNo) {
+		this.indexNo = indexNo;
 	}
 
 	public Integer getType() {
@@ -87,11 +87,11 @@ public class InformationTitle extends PagableEntity {
 		this.content = content == null ? null : content.trim();
 	}
 
-	public Integer getIsValid() {
+	public int getIsValid() {
 		return isValid;
 	}
 
-	public void setIsValid(Integer isValid) {
+	public void setIsValid(int isValid) {
 		this.isValid = isValid;
 	}
 

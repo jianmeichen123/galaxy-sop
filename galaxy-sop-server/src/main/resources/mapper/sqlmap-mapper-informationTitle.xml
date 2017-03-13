@@ -8,7 +8,7 @@
 		<result column="parent_id"  jdbcType="VARCHAR" 		property="parentId" />
 		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
 		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
-		<result column="index_no" 	jdbcType="VARCHAR" 		property="indexNo" />
+		<result column="index_no" 	jdbcType="INTEGER" 		property="indexNo" />
 		<result column="type" 		jdbcType="INTEGER" 		property="type" />
 		<result column="sign" 		jdbcType="VARCHAR" 		property="sign" />
 		<result column="content" 	jdbcType="VARCHAR" 		property="content" />
@@ -34,7 +34,7 @@
 				<if test="parentId != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
 				<if test="code != null"> and  code = #{code,jdbcType=VARCHAR} </if>
 				<if test="name != null"> and  name = #{name,jdbcType=VARCHAR} </if>
-				<if test="indexNo != null"> and  index_no = #{indexNo,jdbcType=VARCHAR} </if>
+				<if test="indexNo != null"> and  index_no = #{indexNo,jdbcType=INTEGER} </if>
 				<if test="type != null"> and  type = #{type,jdbcType=INTEGER} </if>
 				<if test="sign != null"> and  sign = #{sign,jdbcType=VARCHAR} </if>
 				<if test="content != null"> and  content = #{content,jdbcType=VARCHAR} </if>
@@ -92,7 +92,7 @@
 			#{parentId,jdbcType=VARCHAR}, 
 			#{code,jdbcType=VARCHAR}, 
 			#{name,jdbcType=VARCHAR}, 
-			#{indexNo,jdbcType=VARCHAR}, 
+			#{indexNo,jdbcType=INTEGER}, 
 			#{type,jdbcType=INTEGER}, 
 			#{sign,jdbcType=VARCHAR}, 
 			#{content,jdbcType=VARCHAR}, 
@@ -139,7 +139,7 @@
 			<if test="parentId != null"> parent_id = #{parentId,jdbcType=VARCHAR}, </if>
 			<if test="code != null"> code = #{code,jdbcType=VARCHAR}, </if>
 			<if test="name != null"> name = #{name,jdbcType=VARCHAR}, </if>
-			<if test="indexNo != null"> index_no = #{indexNo,jdbcType=VARCHAR}, </if>
+			<if test="indexNo != null"> index_no = #{indexNo,jdbcType=INTEGER}, </if>
 			<if test="type != null"> type = #{type,jdbcType=INTEGER}, </if>
 			<if test="sign != null"> sign = #{sign,jdbcType=VARCHAR}, </if>
 			<if test="content != null"> content = #{content,jdbcType=VARCHAR}, </if>
@@ -159,7 +159,7 @@
 		<set>
 			<if test="parentId != null"> parent_id = #{parentId,jdbcType=VARCHAR}, </if>
 			<if test="name != null"> name = #{name,jdbcType=VARCHAR}, </if>
-			<if test="indexNo != null"> index_no = #{indexNo,jdbcType=VARCHAR}, </if>
+			<if test="indexNo != null"> index_no = #{indexNo,jdbcType=INTEGER}, </if>
 			<if test="type != null"> type = #{type,jdbcType=INTEGER}, </if>
 			<if test="sign != null"> sign = #{sign,jdbcType=VARCHAR}, </if>
 			<if test="content != null"> content = #{content,jdbcType=VARCHAR}, </if>
@@ -204,7 +204,7 @@
 				<if test="parentId != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
 				<if test="code != null"> and  code = #{code,jdbcType=VARCHAR} </if>
 				<if test="name != null"> and  name = #{name,jdbcType=VARCHAR} </if>
-				<if test="indexNo != null"> and  index_no = #{indexNo,jdbcType=VARCHAR} </if>
+				<if test="indexNo != null"> and  index_no = #{indexNo,jdbcType=INTEGER} </if>
 				<if test="type != null"> and  type = #{type,jdbcType=INTEGER} </if>
 				<if test="sign != null"> and  sign = #{sign,jdbcType=VARCHAR} </if>
 				<if test="isValid != null"> and  is_valid = #{isValid,jdbcType=INTEGER} </if>
