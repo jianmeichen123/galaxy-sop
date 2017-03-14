@@ -1067,7 +1067,14 @@ var platformUrl = {
 	/**
 	 * 全息图-融资及估值
 	 */
-	toValuationInfo : Constants.sopEndpointURL + "/galaxy/infomation/toValuationInfo"
+	toValuationInfo : Constants.sopEndpointURL + "/galaxy/infomation/toValuationInfo",
+	
+	
+	
+	/**
+	 * 本地静态页面测试
+	 */
+	tempDownload : Constants.sopEndpointURL + "/galaxy/template/demo"
 }
 
 /**
