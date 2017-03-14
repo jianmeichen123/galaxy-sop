@@ -2,6 +2,7 @@ package com.galaxyinternet.hologram.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +28,7 @@ import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project.controller.ProjectProgressController;
+import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
@@ -41,6 +43,9 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	private Cache cache;
 	
 	@Autowired
+	private CacheOperationService cacheOperationService;
+	
+	@Autowired
 	private InformationTitleService informationTitleService;
 	
 	@Autowired
@@ -50,6 +55,36 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	protected BaseService<InformationTitle> getBaseService() {
 		return this.informationTitleService;
 	}
+	
+	
+	
+	/**
+	 * 传入题 id 或 code， 返回 题 信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> test(HttpServletRequest request) {
+		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+		try{
+			List<String>  sa = cacheOperationService.getCacheAreascode();
+			Map<String, List<InformationTitle>>  we = cacheOperationService.getPagesAreacode();
+			Map<Long, String> bb = cacheOperationService.getTitleIdName();
+			Map<Long, String> cc = cacheOperationService.getValueIdName();
+			
+			Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
+			Object getK1 = cache.get(CacheOperationServiceImpl.CACHE_KEY_TITLE_ID_NAME);
+			Object getK2 = cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
+			
+			
+			System.out.println("====");
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
+			logger.error("queryTitleInfo 题信息获取失败 : ",e);
+		}
+		
+		return responseBody;
+	}
+	
 	
 
 	
