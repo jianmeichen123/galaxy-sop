@@ -3,14 +3,13 @@ package com.galaxyinternet.model.hologram;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
 public class InformationFile extends BaseEntity{
-	
-	private static final long serialVersionUID = 1L;
+    private Long id;
 
-	private String titleId;
+    private Long projectId;
 
-    private String projectId;
+    private Long titleId;
 
-    private String fileType;
+    private Integer fileType;
 
     private String fileLength;
 
@@ -30,39 +29,46 @@ public class InformationFile extends BaseEntity{
 
     private String high;
 
-    private String isValid;
+    private Integer isValid;
 
-    private String createTime;
+    private Long createdTime;
 
-    private String createId;
+    private Long createId;
 
-    private String updateTime;
+    private Long updatedTime;
 
-    private String updateId;
+    private Long updateId;
 
-   
-    public String getTitleId() {
-        return titleId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTitleId(String titleId) {
-        this.titleId = titleId == null ? null : titleId.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId == null ? null : projectId.trim();
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public String getFileType() {
+    public Long getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(Long titleId) {
+        this.titleId = titleId;
+    }
+
+    public Integer getFileType() {
         return fileType;
     }
 
-    public void setFileType(String fileType) {
-        this.fileType = fileType == null ? null : fileType.trim();
+    public void setFileType(Integer fileType) {
+        this.fileType = fileType;
     }
 
     public String getFileLength() {
@@ -137,43 +143,43 @@ public class InformationFile extends BaseEntity{
         this.high = high == null ? null : high.trim();
     }
 
-    public String getIsValid() {
+    public Integer getIsValid() {
         return isValid;
     }
 
-    public void setIsValid(String isValid) {
-        this.isValid = isValid == null ? null : isValid.trim();
+    public void setIsValid(Integer isValid) {
+        this.isValid = isValid;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public Long getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? null : createTime.trim();
+    public void setCreatedTime(Long createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public String getCreateId() {
+    public Long getCreateId() {
         return createId;
     }
 
-    public void setCreateId(String createId) {
-        this.createId = createId == null ? null : createId.trim();
+    public void setCreateId(Long createId) {
+        this.createId = createId;
     }
 
-    public String getUpdateTime() {
-        return updateTime;
+    public Long getUpdatedTime() {
+        return updatedTime;
     }
 
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime == null ? null : updateTime.trim();
+    public void setUpdatedTime(Long updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
-    public String getUpdateId() {
+    public Long getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(String updateId) {
-        this.updateId = updateId == null ? null : updateId.trim();
+    public void setUpdateId(Long updateId) {
+        this.updateId = updateId;
     }
 }

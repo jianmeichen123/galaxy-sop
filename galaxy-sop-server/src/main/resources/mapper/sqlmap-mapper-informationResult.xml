@@ -8,7 +8,8 @@
 		<result column="project_id" 		jdbcType="BIGINT" 		property="projectId" />
 		<result column="title_id" 			jdbcType="BIGINT" 		property="titleId" />
 		<result column="content_choose" 	jdbcType="VARCHAR" 		property="contentChoose" />
-		<result column="content_describe" 	jdbcType="VARCHAR" 		property="contentDescribe" />
+		<result column="content_describe1" 	jdbcType="VARCHAR" 		property="contentDescribe1" />
+		<result column="content_describe2" 	jdbcType="VARCHAR" 		property="contentDescribe2" />
 		<result column="is_valid" 			jdbcType="INTEGER" 		property="isValid" />
 		<result column="created_time" 		jdbcType="BIGINT" 		property="createdTime" />
 		<result column="create_id" 			jdbcType="BIGINT" 		property="createId" />
@@ -19,7 +20,7 @@
 
 
 	<sql id="Base_Column_List">
-		id, project_id, title_id, content_choose, content_describe, is_valid, created_time, create_id, updated_time, update_id
+		id, project_id, title_id, content_choose, content_describe1, content_describe2, is_valid, created_time, create_id, updated_time, update_id
 	</sql>
 
 
@@ -55,14 +56,16 @@
 			project_id, 
 			title_id,
 			content_choose, 
-			content_describe
+			content_describe1,
+			content_describe2
 		)
 		values (
 			#{id,jdbcType=BIGINT}, 
 			#{projectId,jdbcType=BIGINT}, 
 			#{titleId,jdbcType=BIGINT}, 
 			#{contentChoose,jdbcType=VARCHAR}, 
-			#{contentDescribe,jdbcType=VARCHAR}
+			#{contentDescribe1,jdbcType=VARCHAR},
+			#{contentDescribe2,jdbcType=VARCHAR}
 	    ]]>
 	</insert>
 	
@@ -71,7 +74,8 @@
 			project_id, 
 			title_id,
 			content_choose, 
-			content_describe
+			content_describe1,
+			content_describe2
 		)
 		values 
 		<foreach collection="list" item="item" separator=",">
@@ -79,7 +83,8 @@
 				#{item.projectId,jdbcType=BIGINT}, 
 				#{item.titleId,jdbcType=BIGINT}, 
 				#{item.contentChoose,jdbcType=VARCHAR}, 
-				#{item.contentDescribe,jdbcType=VARCHAR}
+				#{item.contentDescribe1,jdbcType=VARCHAR},
+				#{item.contentDescribe2,jdbcType=VARCHAR}
 			)
 		</foreach>
 		

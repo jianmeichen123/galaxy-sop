@@ -31,7 +31,8 @@ public class ResultServiceTest
 			entity.setProjectId("1");
 			entity.setTitleId("2");
 			entity.setContentChoose("3");
-			entity.setContentDescribe("33333");
+			entity.setContentDescribe1("33333");
+			entity.setContentDescribe2("44444");
 			list.add(entity);
 		}
 		service.insertInBatch(list);

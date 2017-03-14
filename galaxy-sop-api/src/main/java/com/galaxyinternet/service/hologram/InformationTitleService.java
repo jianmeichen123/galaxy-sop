@@ -7,21 +7,25 @@ import com.galaxyinternet.model.hologram.InformationTitle;
 
 public interface InformationTitleService extends BaseService<InformationTitle>{
 
+	/**
+	 * 查询 parentid 为空的 题， 即顶级目录
+	 */
+	List<InformationTitle> selectFirstTitle();
+	
 	
 	/**
-	 * 根据 code 、 id 模糊查询 title
+	 * 根据 code 或 id 查询 本 title
 	 */
 	InformationTitle selectTitleByPinfo(String pinfoKey);
 	
 	/**
-	 * 根据父id 查询子集
+	 * 根据父id 查询其子集
 	 */
 	List<InformationTitle> selectChildsByPid(Long pid);
 	
 	
 	/**
-	 * 根据 code 、 id 父信息查询子集
-	 * 
+	 * 根据 code 或   id 查询其子集
 	 */
 	List<InformationTitle> selectChildsByPinfo(String pinfo);
 
@@ -33,10 +37,7 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	//List<InformationTitle> selectByTlist(List<InformationTitle> tList);
 
 	
-	/**
-	 * 查询 parentid 为空的 题， 即顶级目录
-	 */
-	List<InformationTitle> selectFirstTitle();
+	
 
 
 

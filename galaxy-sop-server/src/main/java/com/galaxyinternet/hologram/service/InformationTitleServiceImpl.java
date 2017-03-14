@@ -46,7 +46,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 	/**
-	 * 根据 code 、 id 模糊查询 title
+	 * 根据 code 或 id 查询 本 title
 	 */
 	@Override
 	@Transactional
@@ -64,7 +64,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 	/**
-	 * 根据父id 查询子集
+	 * 根据父id 查询其子集
 	 */
 	@Override
 	@Transactional
@@ -92,7 +92,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 	/**
-	 * 根据 code 、 id 父信息查询子code集合
+	 * 根据 code 或   id 查询其子集
 	 */
 	@Override
 	@Transactional

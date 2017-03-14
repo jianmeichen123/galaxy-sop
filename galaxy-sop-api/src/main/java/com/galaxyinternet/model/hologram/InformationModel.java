@@ -11,7 +11,9 @@ public class InformationModel extends PagableEntity {
 	
 	private String value;//所对应的值（数据字典id）
 	
-	private String remark;//所对应的值（备注或者描述）
+	private String remark1;//所对应的值（备注或者描述）
+	
+	private String remark2;
 	
 	private String type;//题型（1:文本、2:单选、3:复选、4:级联选择、5:单选带备注、6:复选带备注、7:附件）
 
@@ -41,12 +43,20 @@ public class InformationModel extends PagableEntity {
 		this.value = value;
 	}
 
-	public String getRemark() {
-		return remark;
+	public String getRemark1() {
+		return remark1;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setRemark1(String remark1) {
+		this.remark1 = remark1;
+	}
+	
+	public String getRemark2() {
+		return remark2;
+	}
+
+	public void setRemark2(String remark2) {
+		this.remark2 = remark2;
 	}
 
 	public String getType() {

@@ -31,7 +31,7 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
-				<if test="parentId != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
+				<if test="parent_id != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
 				<if test="code != null"> and  code = #{code,jdbcType=VARCHAR} </if>
 				<if test="name != null"> and  name = #{name,jdbcType=VARCHAR} </if>
 				<if test="indexNo != null"> and  index_no = #{indexNo,jdbcType=INTEGER} </if>
@@ -226,11 +226,12 @@
 	
 
 
-	<select id="selectFirstTitle" resultMap="BaseResultMap" parameterType="java.util.Map">
+	<select id="selectFirstTitle" resultMap="BaseResultMap">
 		select
-		id, parent_id, code, name, index_no, type, sign, is_valid
+			id, parent_id, code, name, index_no, type, sign, is_valid
 		from information_title 
-		where parentId is null
+		where parent_id is null
+		<!-- order by index_no -->
 	</select>
 	
 	
