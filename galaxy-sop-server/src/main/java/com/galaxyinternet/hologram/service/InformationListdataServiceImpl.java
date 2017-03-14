@@ -19,8 +19,9 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 	
 	@Override
 	protected BaseDao<InformationListdata, Long> getBaseDao() {
-
 		return this.informationListdataDao;
 	}
+
+
 
 }
