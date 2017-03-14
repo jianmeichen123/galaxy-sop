@@ -84,7 +84,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	/**
-	 * 传入题 id 或 code， 返回该题 的下一级 题 信息
+	 * 传入题 id 或 code， 返回该题 的下一级所有 题 信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryTsTitles/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -106,7 +106,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	/**
-	 * 传入题 id 或 code， 返回该题及其下的所有级的 题  信息
+	 * 传入题 id 或 code， 返回该题信息及其下的所有子级的 题 信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryAllTitle/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -198,7 +198,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	/**
-	 * 传入题 id 或 code， 返回该题及其下的所有级的 题和value  信息
+	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryAllTitleValues/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)

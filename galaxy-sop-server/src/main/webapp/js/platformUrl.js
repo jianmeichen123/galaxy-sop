@@ -1067,7 +1067,44 @@ var platformUrl = {
 	/**
 	 * 全息图-融资及估值
 	 */
-	toValuationInfo : Constants.sopEndpointURL + "/galaxy/infomation/toValuationInfo"
+	toValuationInfo : Constants.sopEndpointURL + "/galaxy/infomation/toValuationInfo",
+	
+	
+	
+	
+	
+	
+	
+	//eg： platformUrl.queryTitleInfo+"code"
+	/**
+	 * 传入题 id 或 code， 返回 题 信息
+	 */
+	queryTitleInfo : Constants.sopEndpointURL + "/galaxy/tvalue/queryTitleInfo/",
+	/**
+	 * 传入题 id 或 code， 返回该题 的下一级所有 题 信息
+	 */
+	queryTsTitles : Constants.sopEndpointURL + "/galaxy/tvalue/queryTsTitles/",
+	/**
+	 * 传入题 id 或 code， 返回该题信息及其下的所有子级的 题 信息
+	 */
+	queryAllTitle : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitle/",
+	
+	/**
+	 * 传入题 id ， 返回 题对应的 value 信息
+	 */
+	queryValuesByTid : Constants.sopEndpointURL + "/galaxy/tvalue/queryValuesByTid/",
+	/**
+	 * 传入题 id 或 code， 返回 题信息及其对应的 values 信息
+	 */
+	queryTitleAndValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryTitleAndValues/",
+	/**
+	 * 传入题 id 或 code， 返回该题的下一级的 题及value 信息
+	 */
+	queryTsTvalues : Constants.sopEndpointURL + "/galaxy/tvalue/queryTsTvalues/",
+	/**
+	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
+	 */
+	queryAllTitleValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitleValues/"
 	
 	
 	
