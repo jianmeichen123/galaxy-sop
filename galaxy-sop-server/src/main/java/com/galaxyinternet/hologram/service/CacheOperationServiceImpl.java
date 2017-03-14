@@ -26,11 +26,11 @@ import com.galaxyinternet.utils.SopConstatnts;
 
 @Service("com.galaxyinternet.service.CacheOperationService")
 public class CacheOperationServiceImpl implements CacheOperationService{
-	public static final String CACHE_KEY_PAGE_AREA = "QXT_PAGE_AREA"; //各区域块下的   题：value
+	public static final String CACHE_KEY_PAGE_AREA = "QXT_PAGE_AREA_"; //各区域块下的   题：value   ==  List<InformationTitle>
 	
-	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value
+	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
-	public static final String CACHE_KEY_VALUE_ID_NAME = "QXT_VALUE_ID_NAME"; //各区域块下的   题：value
+	public static final String CACHE_KEY_VALUE_ID_NAME = "QXT_VALUE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 
 	/*
 	public static final Map<String,List<String>> PAGE_AREA;
@@ -94,49 +94,74 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	*/
 	@PostConstruct  
     public void  init(){ 
+		
+		initTitleIdName();
+		initValueIdName();
+		initAreaTitleValue();
+		
+	}
+	
+
+
+	
+	public void initTitleIdName() {
+		//title 表  id - name
+		//cache.remove(CacheOperationServiceImpl.CACHE_KEY_TITLE_ID_NAME);
+		List<InformationTitle> allTitle = informationTitleService.queryAll();
+		for(InformationTitle atitle : allTitle){
+			titleIdName.put(atitle.getId(), atitle.getName());
+		}
+		cache.set(CacheOperationServiceImpl.CACHE_KEY_TITLE_ID_NAME , titleIdName);
+
+	}
+	
+	
+	
+
+	public void initValueIdName() {
+		//title 表  id - name
+		//cache.remove(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
+		List<InformationDictionary> allValue = informationDictionaryService.queryAll();
+		for(InformationDictionary avalue : allValue){
+			valueIdName.put(avalue.getId(), avalue.getName());
+		}
+		cache.set(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME , valueIdName);
+
+	}
+	
+	
+	
+	/*
+	public void initAreaTitleValue() {
 		cache.remove(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA);
-		//第一页：基本信息 ……
+		//顶级：基本信息 ……
 		List<InformationTitle> title_0_List = informationTitleService.selectFirstTitle();
 		
 		for(InformationTitle title_0 : title_0_List){
 			//第一页下的各区域：基础信息 、事业部……
 			List<InformationTitle> title_List =  informationTitleService.selectChildsByPid(title_0.getId());
 			for(InformationTitle title_1 : title_List){
-				List<InformationTitle> title_title_value =  informationDictionaryService.selectTitlesValues(title_0.getId());
+				List<InformationTitle> title_title_value =  informationDictionaryService.selectTsTvalueInfo(title_0.getId());
 				pagesAreacode.put(title_1.getCode(), title_title_value);
 			}
 		}
 		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA , pagesAreacode);
+	}
+	*/
+	public void initAreaTitleValue() {
+		//顶级：基本信息 ……
+		List<InformationTitle> title_0_List = informationTitleService.selectFirstTitle();
 		
-		
-		//title 表  id - name
-		cache.remove(CacheOperationServiceImpl.CACHE_KEY_TITLE_ID_NAME);
-		List<InformationTitle> allTitle = informationTitleService.queryAll();
-		for(InformationTitle atitle : allTitle){
-			titleIdName.put(atitle.getId(), atitle.getName());
+		for(InformationTitle title_0 : title_0_List){
+			List<InformationTitle> title_List =  informationTitleService.selectChildsByPid(title_0.getId()); //第一页下的各区域：基础信息 、事业部……
+			for(InformationTitle title_1 : title_List){
+				List<InformationTitle> title_title_value =  informationDictionaryService.selectTsTvalueInfo(title_1.getId());
+				pagesAreacode.put(title_1.getCode(), title_title_value);
+				cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +title_1.getCode(), title_title_value);
+			}
 		}
-		cache.set(CacheOperationServiceImpl.CACHE_KEY_TITLE_ID_NAME , titleIdName);
-	
-		
-		
-		//title 表  id - name
-		cache.remove(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
-		List<InformationDictionary> allValue = informationDictionaryService.queryAll();
-		for(InformationDictionary avalue : allValue){
-			valueIdName.put(avalue.getId(), avalue.getName());
-		}
-		cache.set(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME , valueIdName);
-		
 	}
 	
 	
 	
-	
-
-	
-
-
-	
-	
-
 }

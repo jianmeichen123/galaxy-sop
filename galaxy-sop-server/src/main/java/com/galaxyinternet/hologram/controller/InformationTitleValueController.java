@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.hologram.service.CacheOperationServiceImpl;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
@@ -35,14 +37,14 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
 	
+	@Autowired
+	private Cache cache;
 	
 	@Autowired
 	private InformationTitleService informationTitleService;
 	
-	
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
-	
 	
 	@Override
 	protected BaseService<InformationTitle> getBaseService() {
@@ -50,6 +52,9 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	}
 	
 
+	
+	//=============== TODO  title + value
+	
 	
 	/**
 	 * 传入题 id 或 code， 返回 题 信息
@@ -65,7 +70,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
-			logger.error("queryTitleInfo 题信息获取失败 ",e);
+			logger.error("queryTitleInfo 题信息获取失败 : "+pinfoKey,e);
 		}
 		
 		return responseBody;
@@ -86,7 +91,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
-			logger.error("queryTsTitles 题下的子集信息获取失败 ",e);
+			logger.error("queryTsTitles 题的子集信息获取失败: "+pinfoKey,e);
 		}
 		
 		return responseBody;
@@ -108,7 +113,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
-			logger.error("queryAllTitle 题下的子集信息获取失败 ",e);
+			logger.error("queryAllTitle 题及其所有子集信息获取失败 ："+pinfoKey,e);
 		}
 		
 		return responseBody;
@@ -117,6 +122,8 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 
 	
+	
+	//=============== TODO  title + value
 	
 	/**
 	 * 传入题 id ， 返回 题对应的 value 信息
@@ -131,7 +138,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "字典获取失败"));
-			logger.error("queryValuesByTid 题信息获取values失败 ",e);
+			logger.error("queryValuesByTid 题的values信息获取失败： "+tid,e);
 		}
 		
 		return responseBody;
@@ -153,12 +160,43 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题字典获取失败"));
-			logger.error("queryTitleAndValues 题下的子集信息获取失败 ",e);
+			logger.error("queryTitleAndValues 题及其values信息获取失败： "+pinfoKey,e);
 		}
 		
 		return responseBody;
 	}
 	
+	
+	
+	
+	/**
+	 * 传入题 id 或  code， 返回该题 的下一级的 题及value 信息
+	 */
+	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@RequestMapping(value = "/queryTsTvalues/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> queryTsTvalues(HttpServletRequest request,@PathVariable("pinfoKey") String pinfoKey ) {
+		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+		
+		try{
+			List<InformationTitle> titles = null;
+			Object getC = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey);
+			if(getC == null){
+				titles = informationDictionaryService.selectTsTvalueInfo(pinfoKey);
+				cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey, titles);
+			}else{
+				titles = (List<InformationTitle>) getC;
+			}
+			
+			responseBody.setEntityList(titles);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "信息获取失败"));
+			logger.error("queryTsTvalues 题下的子集题value信息获取失败 ："+pinfoKey,e);
+		}
+		
+		return responseBody;
+	}
 	
 	
 	
@@ -176,7 +214,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
-			logger.error("queryAllTitleValues 题及所有子集及value信息获取失败 ",e);
+			logger.error("queryAllTitleValues 题及所有子集及value信息获取失败："+pinfoKey,e);
 		}
 		
 		return responseBody;
