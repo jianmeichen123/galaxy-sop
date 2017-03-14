@@ -21,6 +21,7 @@ $(function(){
 				case 7: initTabPostMeeting();   break;  //标签7:运营分析
 				case 8: initTabSopFile(projectId);   break;  //标签8:项目文档
 				case 9: initTabOperLog();   break;  //标签9:操作日志
+				case 10: initTabOperLog();   break;  //标签10:全息图
 				default: return false;
 			}
 			
@@ -103,7 +104,13 @@ function initTabOperLog(){
 		url : url
 	});
 }
-
+//全息图
+function initTabOperLog(){
+	var url = platformUrl.tabInfomation +'/'+ projectId;
+	$.getTabHtml({
+		url : url
+	});
+}
 
 function reference(projectId){
 	//右侧刷新	
