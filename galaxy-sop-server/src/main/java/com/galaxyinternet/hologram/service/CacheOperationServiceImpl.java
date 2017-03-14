@@ -148,7 +148,18 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA , pagesAreacode);
 	}
 	*/
+	
+	
+	@SuppressWarnings("unchecked")
 	public void initAreaTitleValue() {
+		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
+		if(getK != null){
+			List<String> cacheKey = (List<String>) getK;
+			for(String ak : cacheKey){
+				cache.remove(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +ak);
+			}
+		}
+		
 		//顶级：基本信息 ……
 		List<InformationTitle> title_0_List = informationTitleService.selectFirstTitle();
 		
