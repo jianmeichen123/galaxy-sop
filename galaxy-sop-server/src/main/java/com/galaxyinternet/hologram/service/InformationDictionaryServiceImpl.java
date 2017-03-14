@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationDictionary;
@@ -23,6 +24,9 @@ import com.galaxyinternet.service.hologram.InformationTitleService;
 @Service("com.galaxyinternet.service.hologram.InformationDictionaryService")
 public class InformationDictionaryServiceImpl extends BaseServiceImpl<InformationDictionary> implements InformationDictionaryService{
 
+	@Autowired
+	private Cache cache;
+	
 	@Autowired
 	private InformationDictionaryDao informationDictionaryDao;
 	
@@ -92,6 +96,46 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		}
 		return ts;
 	}
+	
+	
+	/**
+	 * 运用cache ,根据title的 id或 code ，查询 该title下一级的 title-value
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<InformationTitle> selectTsTvalueInfoByCache(Object pinfoKey) {
+		
+		boolean useC = false;
+		List<InformationTitle> titles = new ArrayList<InformationTitle>();
+		Object getR = null;
+		List<String> cacheKey = new ArrayList<String>();
+				
+		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
+		if(getK != null){
+			cacheKey = (List<String>) getK;
+			if(cacheKey.contains(pinfoKey)){
+				useC = true;
+				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey);
+				if(getR!=null){
+					titles = (List<InformationTitle>) getR;
+				}
+			}
+		}
+		
+		if(!useC){
+			titles = selectTsTvalueInfo(pinfoKey);
+			cacheKey.add(pinfoKey.toString());
+			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY, cacheKey);
+			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey, titles);
+		}
+		
+		
+		return titles;
+	}
+	
+	
+	
 	
 	
 	

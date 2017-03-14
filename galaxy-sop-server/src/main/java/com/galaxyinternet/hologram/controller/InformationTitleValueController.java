@@ -172,22 +172,13 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	/**
 	 * 传入题 id 或  code， 返回该题 的下一级的 题及value 信息
 	 */
-	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value = "/queryTsTvalues/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InformationTitle> queryTsTvalues(HttpServletRequest request,@PathVariable("pinfoKey") String pinfoKey ) {
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		
 		try{
-			List<InformationTitle> titles = null;
-			Object getC = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey);
-			if(getC == null){
-				titles = informationDictionaryService.selectTsTvalueInfo(pinfoKey);
-				cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey, titles);
-			}else{
-				titles = (List<InformationTitle>) getC;
-			}
-			
+			List<InformationTitle> titles = informationDictionaryService.selectTsTvalueInfoByCache(pinfoKey);
 			responseBody.setEntityList(titles);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
