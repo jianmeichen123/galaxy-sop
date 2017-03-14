@@ -21,6 +21,8 @@ public class InformationTitle extends PagableEntity {
 
 	private String content;
 
+	private String isShow;
+	
 	private int isValid;
 
 	private Long createId;
@@ -85,6 +87,14 @@ public class InformationTitle extends PagableEntity {
 
 	public void setContent(String content) {
 		this.content = content == null ? null : content.trim();
+	}
+
+	public String getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(String isShow) {
+		this.isShow = isShow;
 	}
 
 	public int getIsValid() {

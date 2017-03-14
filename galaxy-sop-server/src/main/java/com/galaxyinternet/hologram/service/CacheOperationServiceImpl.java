@@ -26,7 +26,8 @@ import com.galaxyinternet.utils.SopConstatnts;
 
 @Service("com.galaxyinternet.service.CacheOperationService")
 public class CacheOperationServiceImpl implements CacheOperationService{
-	public static final String CACHE_KEY_PAGE_AREA = "QXT_PAGE_AREA_"; //各区域块下的   题：value   ==  List<InformationTitle>
+	public static final String CACHE_KEY_PAGE_AREA = "QXT_PAGE_AREA_";               //各区域块下的   题：value   ==  List<InformationTitle>
+	public static final String CACHE_KEY_PAGE_AREA_HASKEY = "QXT_PAGE_AREA_KEYLIST"; //各区域块下的   题：code   ==  List<String>
 	
 	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
@@ -44,6 +45,7 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	
 	
 	private Map<String,List<InformationTitle>> pagesAreacode = new HashMap<String,List<InformationTitle>>();
+	private List<String> cacheAreascode = new ArrayList<String>();
 	
 	private Map<Long,String> titleIdName = new HashMap<Long,String>();
 	
@@ -56,7 +58,12 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	public void setPagesAreacode(Map<String, List<InformationTitle>> pagesAreacode) {
 		this.pagesAreacode = pagesAreacode;
 	}
-	
+	public List<String> getCacheAreascode() {
+		return cacheAreascode;
+	}
+	public void setCacheAreascode(List<String> cacheAreascode) {
+		this.cacheAreascode = cacheAreascode;
+	}
 	public Map<Long, String> getTitleIdName() {
 		return titleIdName;
 	}
@@ -157,9 +164,12 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 			for(InformationTitle title_1 : title_List){
 				List<InformationTitle> title_title_value =  informationDictionaryService.selectTsTvalueInfo(title_1.getId());
 				pagesAreacode.put(title_1.getCode(), title_title_value);
+				cacheAreascode.add(title_1.getCode());
 				cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +title_1.getCode(), title_title_value);
 			}
 		}
+		
+		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY, cacheAreascode);
 	}
 	
 	

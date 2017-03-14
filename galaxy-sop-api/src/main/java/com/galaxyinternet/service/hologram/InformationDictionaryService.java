@@ -37,6 +37,12 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	InformationTitle selectTitlesValues(String pinfoKey);
 
 	
+	/**
+	 * 运用cache ,根据title的 id或 code ，查询 该title下一级的 title-value
+	 */
+	List<InformationTitle> selectTsTvalueInfoByCache(Object pinfoKey);
+
+	
 	
 
 	
