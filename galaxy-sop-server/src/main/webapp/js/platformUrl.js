@@ -1023,8 +1023,51 @@ var platformUrl = {
 	/**
 	 * 运营数据列表
 	 */
-	operationalDataList :   Constants.sopEndpointURL + "galaxy/operationalData/operationalDataList" 
+	operationalDataList :   Constants.sopEndpointURL + "galaxy/operationalData/operationalDataList",
 	
+	
+	
+	/*************以下为全息图 url**************/
+	/**
+	 * 基本信息全息图-tab页跳转
+	 */
+	tabInfomation : Constants.sopEndpointURL + "/galaxy/infomation/tabInfomation",
+	/**
+	 * 全息图-基本信息模块
+	 */
+	toBaseInfo : Constants.sopEndpointURL + "/galaxy/infomation/toBaseInfo",
+	/**
+	 * 全息图-项目模块
+	 */
+	toProjectInfo : Constants.sopEndpointURL + "/galaxy/infomation/toProjectInfo",
+	/**
+	 * 全息图-团队成员
+	 */
+	toTeamInfo : Constants.sopEndpointURL + "/galaxy/infomation/toTeamInfo",
+	/**
+	 * 全息图-运营数据
+	 */
+	toOperateInfo : Constants.sopEndpointURL + "/galaxy/infomation/toOperateInfo",
+	/**
+	 * 全息图-竞争
+	 */
+	toCompeteInfo : Constants.sopEndpointURL + "/galaxy/infomation/toCompeteInfo",
+	/**
+	 * 全息图-战略以及策略
+	 */
+	toPlanInfo : Constants.sopEndpointURL + "/galaxy/infomation/toPlanInfo",
+	/**
+	 *  全息图-财务
+	 */
+	toFinanceInfo : Constants.sopEndpointURL + "/galaxy/infomation/toFinanceInfo",
+	/**
+	 * 全息图-法务
+	 */
+	toJusticeInfo : Constants.sopEndpointURL + "/galaxy/infomation/toJusticeInfo",
+	/**
+	 * 全息图-融资及估值
+	 */
+	toValuationInfo : Constants.sopEndpointURL + "/galaxy/infomation/toValuationInfo"
 }
 
 /**
