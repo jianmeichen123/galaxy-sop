@@ -315,13 +315,5 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	
 	
 	
-	
-	/**
-	 * 本地静态页面路径
-	 */
-	@RequestMapping(method = RequestMethod.GET,value="/demo")
-	public String demo()
-	{
-		return "test/template_demo";
-	}
+
 }
