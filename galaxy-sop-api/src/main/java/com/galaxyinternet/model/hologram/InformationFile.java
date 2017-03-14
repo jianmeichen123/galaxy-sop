@@ -1,6 +1,8 @@
 package com.galaxyinternet.model.hologram;
 
-public class InformationFile {
+import com.galaxyinternet.framework.core.model.BaseEntity;
+
+public class InformationFile extends BaseEntity{
     private Long id;
 
     private Long projectId;

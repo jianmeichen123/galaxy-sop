@@ -75,9 +75,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			{
 				entity.setContentChoose(model.getValue());
 			}
-			if(!StringEx.isNullOrEmpty(model.getRemark()))
+			if(!StringEx.isNullOrEmpty(model.getRemark1()))
 			{
-				entity.setContentDescribe(model.getRemark());
+				entity.setContentDescribe1(model.getRemark1());
+			}
+			if(!StringEx.isNullOrEmpty(model.getRemark2()))
+			{
+				entity.setContentDescribe2(model.getRemark2());
 			}
 			entityList.add(entity);
 		}

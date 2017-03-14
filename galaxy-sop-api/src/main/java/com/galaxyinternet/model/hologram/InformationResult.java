@@ -12,7 +12,9 @@ public class InformationResult extends BaseEntity{
 
     private String contentChoose;
 
-    private String contentDescribe;
+    private String contentDescribe1;
+    
+    private String contentDescribe2;
 
     private String projectId;
 
@@ -54,12 +56,20 @@ public class InformationResult extends BaseEntity{
         this.contentChoose = contentChoose == null ? null : contentChoose.trim();
     }
 
-    public String getContentDescribe() {
-        return contentDescribe;
+    public String getContentDescribe1() {
+        return contentDescribe1;
     }
 
-    public void setContentDescribe(String contentDescribe) {
-        this.contentDescribe = contentDescribe == null ? null : contentDescribe.trim();
+    public void setContentDescribe1(String contentDescribe1) {
+        this.contentDescribe1 = contentDescribe1 == null ? null : contentDescribe1.trim();
+    }
+    
+    public String getContentDescribe2() {
+        return contentDescribe2;
+    }
+
+    public void setContentDescribe2(String contentDescribe2) {
+        this.contentDescribe2 = contentDescribe2 == null ? null : contentDescribe2.trim();
     }
 
     public String getProjectId() {
