@@ -57,38 +57,9 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	}
 	
 	
-	
-	/**
-	 * 传入题 id 或 code， 返回 题 信息
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InformationTitle> test(HttpServletRequest request) {
-		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
-		try{
-			List<String>  sa = cacheOperationService.getCacheAreascode();
-			Map<String, List<InformationTitle>>  we = cacheOperationService.getPagesAreacode();
-			Map<Long, String> bb = cacheOperationService.getTitleIdName();
-			Map<Long, String> cc = cacheOperationService.getValueIdName();
-			
-			Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
-			Object getK1 = cache.get(CacheOperationServiceImpl.CACHE_KEY_TITLE_ID_NAME);
-			Object getK2 = cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
-			
-			
-			System.out.println("====");
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
-			logger.error("queryTitleInfo 题信息获取失败 : ",e);
-		}
-		
-		return responseBody;
-	}
-	
-	
 
 	
-	//=============== TODO  title + value
+	//=============== TODO  title 
 	
 	
 	/**
