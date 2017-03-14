@@ -20,6 +20,12 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 
 
 	/**
+	 * 根据title的 id或 code ，查询 该title下一级的 title-value
+	 */
+	List<InformationTitle> selectTsTvalueInfo(Object pinfoKey);
+	
+	
+	/**
 	 * 根据  title的id  递归查询 该 title下的各 title - value
 	 */
 	List<InformationTitle> selectTitlesValues(Long id);
@@ -29,6 +35,9 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	 * 根据title 的  id 或 code ，  递归查询  title 及其下的所有 title - value
 	 */
 	InformationTitle selectTitlesValues(String pinfoKey);
+
+	
+	
 
 	
 	

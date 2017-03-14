@@ -74,6 +74,29 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	
 	/**
+	 * 根据title的 id或 code ，查询 该title下一级的 title-value
+	 */
+	@Override
+	@Transactional
+	public List<InformationTitle> selectTsTvalueInfo(Object pinfoKey) {
+		List<InformationTitle> ts = null;
+		if(pinfoKey instanceof Long){
+			ts = informationTitleService.selectChildsByPid((long)pinfoKey);
+		}else{
+			InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey.toString());
+			ts = informationTitleService.selectChildsByPid(ptitle.getId());
+		}
+		for(InformationTitle title : ts){
+			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
+			title.setValueList(valueList);
+		}
+		return ts;
+	}
+	
+	
+	
+	
+	/**
 	 * 根据  title的id  递归查询 该 title下的各 title - value
 	 */
 	@Override
