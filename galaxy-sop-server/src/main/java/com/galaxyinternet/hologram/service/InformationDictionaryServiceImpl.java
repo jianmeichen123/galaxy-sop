@@ -69,8 +69,10 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	@Transactional
 	public InformationTitle selectValuesByTinfo(String pinfoKey) {
 		InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey);
-		List<InformationDictionary> valueList = selectValuesByTid(ptitle.getId());
-		ptitle.setValueList(valueList);
+		if(ptitle!=null){
+			List<InformationDictionary> valueList = selectValuesByTid(ptitle.getId());
+			ptitle.setValueList(valueList);
+		}
 		return ptitle;
 	}
 	
@@ -159,8 +161,10 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	@Transactional
 	public InformationTitle selectTitlesValues(String pinfoKey) {
 		InformationTitle ptitle = selectValuesByTinfo(pinfoKey);
-		List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(ptitle.getId()));
-		ptitle.setChildList(childList);
+		if(ptitle!=null){
+			List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(ptitle.getId()));
+			ptitle.setChildList(childList);
+		}
 		return ptitle;
 	}
 	public List<InformationTitle> selectByTlist(List<InformationTitle> tList) {

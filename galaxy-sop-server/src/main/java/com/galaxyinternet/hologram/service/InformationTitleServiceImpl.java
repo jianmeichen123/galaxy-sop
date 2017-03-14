@@ -97,9 +97,11 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Override
 	@Transactional
 	public List<InformationTitle> selectChildsByPinfo(String pinfoKey) {
+		List<InformationTitle> ptitleList = null;
 		InformationTitle ptitle = selectTitleByPinfo(pinfoKey);
-		
-		List<InformationTitle> ptitleList = selectChildsByPid(ptitle.getId());
+		if(ptitle != null){
+			ptitleList = selectChildsByPid(ptitle.getId());
+		}
 		return ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
 	}
 	
@@ -112,8 +114,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Override
 	public InformationTitle selectPchildsByPinfo(String pinfoKey) {
 		InformationTitle title = selectTitleByPinfo(pinfoKey);
-		List<InformationTitle> childList = selectByTlist(selectChildsByPid(title.getId()));
-		title.setChildList(childList);
+		if(title != null){
+			List<InformationTitle> childList = selectByTlist(selectChildsByPid(title.getId()));
+			title.setChildList(childList);
+		}
 		return title;
 	}
 	public List<InformationTitle> selectByTlist(List<InformationTitle> tList) {
