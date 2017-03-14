@@ -26,6 +26,7 @@ import com.galaxyinternet.utils.SopConstatnts;
 
 @Service("com.galaxyinternet.service.CacheOperationService")
 public class CacheOperationServiceImpl implements CacheOperationService{
+	
 	public static final String CACHE_KEY_PAGE_AREA = "QXT_PAGE_AREA_";               //各区域块下的   题：value   ==  List<InformationTitle>
 	public static final String CACHE_KEY_PAGE_AREA_HASKEY = "QXT_PAGE_AREA_KEYLIST"; //各区域块下的   题：code   ==  List<String>
 	
@@ -42,7 +43,6 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		PAGE_AREA.put("page1", page1);
 	}
 	*/
-	
 	
 	private Map<String,List<InformationTitle>> pagesAreacode = new HashMap<String,List<InformationTitle>>();
 	private List<String> cacheAreascode = new ArrayList<String>();
@@ -88,10 +88,8 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	private InformationDictionaryService informationDictionaryService;
 	
 	
-	
 	//阻塞判断
 	private static boolean hasLock = false;
-	
 	
 	
 	/**
@@ -108,8 +106,6 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		
 	}
 	
-
-
 	
 	public void initTitleIdName() {
 		//title 表  id - name
@@ -122,8 +118,6 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 
 	}
 	
-	
-	
 
 	public void initValueIdName() {
 		//title 表  id - name
@@ -135,7 +129,6 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		cache.set(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME , valueIdName);
 
 	}
-	
 	
 	
 	/*
