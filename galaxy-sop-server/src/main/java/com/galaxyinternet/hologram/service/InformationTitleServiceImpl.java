@@ -55,7 +55,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		pquery.setIdcodekey(pinfoKey);
 		
 		InformationTitle title = informationTitleDao.selectOne(pquery);
-		if(title.getSign() != null && title.getSign().intValue() == 2){
+		if(title!=null && title.getSign() != null && title.getSign().intValue() == 2){
 			title.setName(title.getName()+":");
 		}
 		return title;
