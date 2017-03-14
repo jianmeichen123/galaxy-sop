@@ -97,6 +97,7 @@
 				<property name="mappings">
 					<map>
 						<entry key="galaxy/mpl" value="创投项目"/>
+						<entry key="galaxy/project" value="创投项目"/>
 						<entry key="galaxy/lxh" value="立项会"/>
 						<entry key="galaxy/tjh" value="投决会"/>
 						<entry key="galaxy/psh" value="CEO评审会"/>
