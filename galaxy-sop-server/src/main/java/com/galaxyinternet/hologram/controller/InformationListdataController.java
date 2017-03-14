@@ -8,17 +8,16 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -47,9 +46,9 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     /**
      * 成员简历保存
      */
-    @RequestMapping("/save")
+    @RequestMapping(value = "/saveorUpdate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseData<InformationData> save(@RequestBody InformationData data){
+    public ResponseData<InformationData> saveOrupdate(@RequestBody InformationData data){
         ResponseData<InformationData> responseBody = new ResponseData<>();
         try{
             infoDataService.save(data);
@@ -75,7 +74,7 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             return resp;
         }
         try{
-            data.setCode("team");
+            data.setCode("team-members");
             List<InformationListdata> list = informationListdataService.queryList(data);
             resp.setEntityList(list);
         }catch(Exception e){
@@ -102,6 +101,26 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         }catch (Exception e){
             resp.setResult(new Result(Result.Status.ERROR,null, "查询团队成员失败"));
             logger.error("queryOneMember 失败 ",e);
+        }
+        return resp;
+    }
+
+    /**
+     *  通过 projectId ,titleId ,parentId(人员id) 删除成员简历
+     */
+    @RequestMapping("/deleteOneMember")
+    @ResponseBody
+    public ResponseData deleteOneMember(@RequestBody InformationListdata data){
+        ResponseData<InformationListdata> resp = new ResponseData<>();
+        if(null == data.getProjectId() || null == data.getTitleId() || null == data.getParentId()){
+            resp.setResult(new Result(Result.Status.ERROR,null, "projectId 或 titleId缺失"));
+            logger.error("deleteOneMember 失败 : projectId或titleId或parentId缺失");
+        }
+        try{
+            informationListdataService.delete(data);
+        }catch(Exception e){
+            resp.setResult(new Result(Result.Status.ERROR,null, "deleteOneMember 失败"));
+            logger.error("deleteOneMember 失败 ",e);
         }
         return resp;
     }
