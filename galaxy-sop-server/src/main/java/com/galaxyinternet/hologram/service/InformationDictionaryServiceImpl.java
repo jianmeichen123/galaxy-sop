@@ -44,6 +44,25 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	}
 
 	
+	/**
+	 * 根据 value.pid  查询其下级  value 集合
+	 */
+	@Override
+	@Transactional
+	public List<InformationDictionary> selectValuesByVpid(Long pid) {
+		Direction direction = Direction.DESC;
+		String property = "sort";
+		
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("parentId",pid);
+		params.put("isValid",0);
+		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
+		List<InformationDictionary> ptitleList = informationDictionaryDao.selectValues(params);
+		
+		return ptitleList == null ? new ArrayList<InformationDictionary>() : ptitleList;
+	}
+	
+	
 	
 	/**
 	 * 根据 title.id  查询其  value 集合
@@ -63,30 +82,6 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		return ptitleList == null ? new ArrayList<InformationDictionary>() : ptitleList;
 	}
 	
-	
-	
-	/**
-	 * 根据 value.pid  查询其下级  value 集合
-	 */
-	@Override
-	@Transactional
-	public List<InformationDictionary> selectValuesByVpid(Long pid) {
-		Direction direction = Direction.DESC;
-		String property = "sort";
-		
-		Map<String, Object> params = new HashMap<String,Object>();
-		params.put("titleId",pid);
-		params.put("isValid",0);
-		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
-		List<InformationDictionary> ptitleList = informationDictionaryDao.selectValues(params);
-		
-		return ptitleList == null ? new ArrayList<InformationDictionary>() : ptitleList;
-	}
-	
-	
-	
-	
-	
 	/**
 	 * 根据title 的  id 或 code ，查询 title及其value集合信息
 	 */
@@ -100,6 +95,10 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		}
 		return ptitle;
 	}
+	
+	
+	
+	
 	
 	
 	
@@ -134,32 +133,34 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	public List<InformationTitle> selectTsTvalueInfoByCache(Object pinfoKey) {
 		
 		boolean useC = false;
+		InformationTitle ptitles = new InformationTitle();
 		List<InformationTitle> titles = new ArrayList<InformationTitle>();
 		Object getR = null;
 		List<String> cacheKey = new ArrayList<String>();
 				
-		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
+		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
 		if(getK != null){
 			cacheKey = (List<String>) getK;
 			if(cacheKey.contains(pinfoKey)){
 				useC = true;
-				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey.toString());
+				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +pinfoKey.toString());
 				if(getR!=null){
-					titles = (List<InformationTitle>) getR;
+					ptitles = (InformationTitle) getR;
+					titles = ptitles.getChildList();
 				}
 			}
 		}
 		
 		if(!useC){
-			titles = selectTsTvalueInfo(pinfoKey);
+			ptitles = selectTitleAndTsTvalues(pinfoKey);
 			
 			final String k1 = pinfoKey.toString();
-			final List<InformationTitle> ts = titles;
+			final InformationTitle ts = ptitles;
 			
 			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 				@Override
 				public void run() {
-					cacheOperationService.saveAreaKeyListByRedies(k1, ts);
+					cacheOperationService.saveAreaInfoByRedies(k1, ts);
 				}
 			});
 		}
@@ -172,17 +173,80 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	
 	
+	/**
+	 * 传入题 id 或  code， 返回该题信息，及该题的下一级的 题及value 信息
+	 */
+	@Override
+	@Transactional
+	public InformationTitle selectTitleAndTsTvalues(Object pinfoKey) {
+		
+		InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey.toString());
+		List<InformationDictionary> pvalueList = selectValuesByTid(ptitle.getId());
+		ptitle.setValueList(pvalueList);
+		
+		List<InformationTitle> ts = informationTitleService.selectChildsByPid(ptitle.getId());
+		for(InformationTitle title : ts){
+			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
+			title.setValueList(valueList);
+		}
+		ptitle.setChildList(ts);
+		return ptitle;
+	}
+	/**
+	 * 运用cache , 传入题 id 或  code， 返回该题信息，及该题的下一级的 题及value 信息
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public InformationTitle selectTitleAndTsTvaluesByCache(Object pinfoKey) {
+
+		boolean useC = false;
+		InformationTitle ptitles = new InformationTitle();
+		Object getR = null;
+		List<String> cacheKey = new ArrayList<String>();
+				
+		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
+		if(getK != null){
+			cacheKey = (List<String>) getK;
+			if(cacheKey.contains(pinfoKey)){
+				useC = true;
+				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +pinfoKey.toString());
+				if(getR!=null){
+					ptitles = (InformationTitle) getR;
+				}
+			}
+		}
+		
+		if(!useC){
+			ptitles = selectTitleAndTsTvalues(pinfoKey);
+			
+			final String k1 = pinfoKey.toString();
+			final InformationTitle ts = ptitles;
+			
+			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
+				@Override
+				public void run() {
+					cacheOperationService.saveAreaInfoByRedies(k1, ts);
+				}
+			});
+		}
+		
+		return ptitles;
+	}
+	
+	
+	
 	
 	
 	/**
-	 * 根据  title的id  递归查询 该 title下的各 title - value
+	 * 根据  title的id  递归查询 该 title下的各级的 title - value
 	 */
-	@Override
+	/*@Override
 	@Transactional
 	public List<InformationTitle> selectTitlesValues(Long titleId) {
 		List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(titleId));
 		return childList;
-	}
+	}*/
 	
 	
 	
@@ -212,10 +276,6 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		return tList;
 
 	}
-	
-	
-	
-	
 	
 	
 	

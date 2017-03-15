@@ -22,8 +22,8 @@ import com.galaxyinternet.service.hologram.InformationTitleService;
 @Service("com.galaxyinternet.service.CacheOperationService")
 public class CacheOperationServiceImpl implements CacheOperationService{
 	
-	public static final String CACHE_KEY_PAGE_AREA = "QXT_PAGE_AREA_";               //各区域块下的   题：value   ==  List<InformationTitle>
-	public static final String CACHE_KEY_PAGE_AREA_HASKEY = "QXT_PAGE_AREA_KEYLIST"; //各区域块下的   题：code   ==  List<String>
+	public static final String CACHE_KEY_PAGE_AREA_TITLE = "QXT_PAGE_AREA_TITLE_";               //各区域块下的   题：value   ==  InformationTitle
+	public static final String CACHE_KEY_PAGE_AREA_TITLE_HASKEY = "QXT_PAGE_AREA_TITLE_KEYLIST"; //各区域块下的   题：code   ==  List<String>
 	
 	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
@@ -50,27 +50,30 @@ public class CacheOperationServiceImpl implements CacheOperationService{
     public void  init(){ 
 		initTitleIdName();
 		initValueIdName();
-		initAreaTitleValue();
+		initAreaTitleAndTValue();
 		
 	}
 	
 	
 	
 	
+	/**
+	 * CACHE_KEY_PAGE_AREA_TITLE 中没有的数据 存入缓存中
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public synchronized void saveAreaKeyListByRedies(String hasKey_toAddkey, List<InformationTitle> area_tvalues){
+	public synchronized void saveAreaInfoByRedies(String hasKey_toAddkey, InformationTitle area_tinfo){
 		
 		List<String> cacheKey = new ArrayList<String>();
-		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
+		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
 		if(getK != null){
 			cacheKey = (List<String>) getK;
 		}
 		if(!cacheKey.contains(hasKey_toAddkey)){
 			cacheKey.add(hasKey_toAddkey);
 			
-			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY, cacheKey);
-			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +hasKey_toAddkey, area_tvalues);
+			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY, cacheKey);
+			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +hasKey_toAddkey, area_tinfo);
 		}
 	}
 	
@@ -79,6 +82,13 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	
 	
 	
+	/**
+	 * CACHE_KEY_PAGE_AREA 中没有的数据 存入缓存中
+	 */
+	@Override
+	public synchronized void refreshCache(){
+		init();
+	}
 	
 	
 	
@@ -114,16 +124,18 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	
 	
 	
+	
+	
 	@SuppressWarnings("unchecked")
-	public void initAreaTitleValue() {
+	public void initAreaTitleAndTValue() {
 		//Map<String,List<InformationTitle>> pagesAreacode = new HashMap<String,List<InformationTitle>>();
 		List<String> cacheAreascode = new ArrayList<String>();
 		
-		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
+		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY);
 		if(getK != null){
 			List<String> cacheKey = (List<String>) getK;
 			for(String ak : cacheKey){
-				cache.remove(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +ak);
+				cache.remove(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +ak);
 			}
 		}
 		
@@ -134,17 +146,15 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 			List<InformationTitle> title_List =  informationTitleService.selectChildsByPid(title_0.getId()); //第一页下的各区域：基础信息 、事业部……
 			for(InformationTitle title_1 : title_List){
 				List<InformationTitle> title_title_value =  informationDictionaryService.selectTsTvalueInfo(title_1.getId());
+				title_1.setChildList(title_title_value);
 				//pagesAreacode.put(title_1.getCode(), title_title_value);
 				cacheAreascode.add(title_1.getCode());
-				cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +title_1.getCode(), title_title_value);
+				cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +title_1.getCode(), title_1);
 			}
 		}
 		
-		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY, cacheAreascode);
+		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY, cacheAreascode);
 	}
-	
-	
-	
 	
 	
 }

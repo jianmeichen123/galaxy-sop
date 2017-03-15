@@ -7,7 +7,11 @@ import com.galaxyinternet.model.hologram.InformationTitle;
 
 public interface CacheOperationService {
 
-	void saveAreaKeyListByRedies(String hasKey_toAddkey, List<InformationTitle> area_tvalues);
+	//void saveAreaKeyListByRedies(String hasKey_toAddkey, List<InformationTitle> area_tvalues);
+
+	void refreshCache();
+
+	void saveAreaInfoByRedies(String hasKey_toAddkey, InformationTitle area_tinfo);
 	
 /*	public Map<String, List<InformationTitle>> getPagesAreacode();
 	public void setPagesAreacode(Map<String, List<InformationTitle>> pagesAreacode);
