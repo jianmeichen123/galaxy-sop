@@ -40,9 +40,6 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	private InformationDictionaryService informationDictionaryService;
 	
 	
-	//阻塞判断
-	private static boolean hasLock = false;
-	
 	
 	/**
 	 * 启动时：
@@ -56,6 +53,35 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		initAreaTitleValue();
 		
 	}
+	
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public synchronized void saveAreaKeyListByRedies(String hasKey_toAddkey, List<InformationTitle> area_tvalues){
+		
+		List<String> cacheKey = new ArrayList<String>();
+		Object getK = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY);
+		if(getK != null){
+			cacheKey = (List<String>) getK;
+		}
+		if(!cacheKey.contains(hasKey_toAddkey)){
+			cacheKey.add(hasKey_toAddkey);
+			
+			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY, cacheKey);
+			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +hasKey_toAddkey, area_tvalues);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	//title 表  id - name
@@ -116,6 +142,8 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		
 		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY, cacheAreascode);
 	}
+	
+	
 	
 	
 	

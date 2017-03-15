@@ -15,8 +15,10 @@ import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
@@ -26,6 +28,9 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 
 	@Autowired
 	private Cache cache;
+	
+	@Autowired
+	private CacheOperationService cacheOperationService;
 	
 	@Autowired
 	private InformationDictionaryDao informationDictionaryDao;
@@ -51,6 +56,26 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		
 		Map<String, Object> params = new HashMap<String,Object>();
 		params.put("titleId",tid);
+		params.put("isValid",0);
+		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
+		List<InformationDictionary> ptitleList = informationDictionaryDao.selectValues(params);
+		
+		return ptitleList == null ? new ArrayList<InformationDictionary>() : ptitleList;
+	}
+	
+	
+	
+	/**
+	 * 根据 value.pid  查询其下级  value 集合
+	 */
+	@Override
+	@Transactional
+	public List<InformationDictionary> selectValuesByVpid(Long pid) {
+		Direction direction = Direction.DESC;
+		String property = "sort";
+		
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("titleId",pid);
 		params.put("isValid",0);
 		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
 		List<InformationDictionary> ptitleList = informationDictionaryDao.selectValues(params);
@@ -118,7 +143,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 			cacheKey = (List<String>) getK;
 			if(cacheKey.contains(pinfoKey)){
 				useC = true;
-				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey);
+				getR = cache.get(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey.toString());
 				if(getR!=null){
 					titles = (List<InformationTitle>) getR;
 				}
@@ -127,9 +152,16 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		
 		if(!useC){
 			titles = selectTsTvalueInfo(pinfoKey);
-			cacheKey.add(pinfoKey.toString());
-			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_HASKEY, cacheKey);
-			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA +pinfoKey, titles);
+			
+			final String k1 = pinfoKey.toString();
+			final List<InformationTitle> ts = titles;
+			
+			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
+				@Override
+				public void run() {
+					cacheOperationService.saveAreaKeyListByRedies(k1, ts);
+				}
+			});
 		}
 		
 		
@@ -180,6 +212,11 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		return tList;
 
 	}
+	
+	
+	
+	
+	
 	
 	
 	

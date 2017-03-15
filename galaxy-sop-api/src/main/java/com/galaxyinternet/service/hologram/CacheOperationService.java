@@ -6,6 +6,8 @@ import java.util.Map;
 import com.galaxyinternet.model.hologram.InformationTitle;
 
 public interface CacheOperationService {
+
+	void saveAreaKeyListByRedies(String hasKey_toAddkey, List<InformationTitle> area_tvalues);
 	
 /*	public Map<String, List<InformationTitle>> getPagesAreacode();
 	public void setPagesAreacode(Map<String, List<InformationTitle>> pagesAreacode);

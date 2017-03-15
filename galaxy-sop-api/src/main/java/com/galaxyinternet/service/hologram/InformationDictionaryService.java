@@ -43,6 +43,12 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	List<InformationTitle> selectTsTvalueInfoByCache(Object pinfoKey);
 
 	
+	/**
+	 * 根据 value.pid  查询其下级  value 集合
+	 */
+	List<InformationDictionary> selectValuesByVpid(Long pid);
+
+	
 	
 
 	

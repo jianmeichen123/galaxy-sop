@@ -2,7 +2,6 @@ package com.galaxyinternet.hologram.controller;
 
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,18 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.constants.Constants;
+
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.hologram.service.CacheOperationServiceImpl;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.model.user.User;
+
 import com.galaxyinternet.project.controller.ProjectProgressController;
-import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
@@ -39,11 +35,6 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
 	
-	@Autowired
-	private Cache cache;
-	
-	@Autowired
-	private CacheOperationService cacheOperationService;
 	
 	@Autowired
 	private InformationTitleService informationTitleService;
@@ -70,7 +61,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	public ResponseData<InformationTitle> queryTitleInfo(HttpServletRequest request,@PathVariable("pinfoKey") String pinfoKey ) {
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		try{
-			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			InformationTitle title = informationTitleService.selectTitleByPinfo(pinfoKey);
 			responseBody.setEntity(title);
 			responseBody.setResult(new Result(Status.OK, ""));
