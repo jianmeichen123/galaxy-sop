@@ -12,6 +12,19 @@
 <title>项目详情</title>
 </head>
 <body>
+<ul class="h_navbar clearfix">
+                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
+                  <li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('2')">团队</li>
+                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br/>数据</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('4')">竞争</li>
+                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br/>策略</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('6')">财务</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
+                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
+                </ul>
+
+
  <div class="h radius">
                   <div class="h_look h_team_look clearfix">
                     <div class="h_btnbox"><span class="h_edit_btn">编辑</span></div>
@@ -52,6 +65,4 @@
                
 </body>
 <script src="<%=path %>/js/hologram/teamInfo.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
-
 </html>

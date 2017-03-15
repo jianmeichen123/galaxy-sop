@@ -107,7 +107,7 @@ function initTabOperLog(){
 //全息图
 function initTabInfomation(){
 	$.getTabHtml({
-		url : platformUrl.tabInfomation,
+		url : platformUrl.toBaseInfo,
 		/*okback:function(){
 			 $('.h_navbar').tabLazyChange({
          		onchangeSuccess:function(index){

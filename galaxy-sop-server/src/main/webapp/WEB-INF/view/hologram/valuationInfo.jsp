@@ -13,17 +13,17 @@
 </head>
 <body>
 <ul class="h_navbar clearfix">
-                  <li class="fl h_nav1 active">基本<br/>信息</li>
-                  <li class="fl h_nav2">项目</li>
-                  <li class="fl h_nav2">团队</li>
-                  <li class="fl h_nav1">运营<br/>数据</li>
-                  <li class="fl h_nav2">竞争</li>
-                  <li class="fl h_nav1">战略及<br/>策略</li>
-                  <li class="fl h_nav2">财务</li>
-                  <li class="fl h_nav2">法务</li>
-                  <li class="fl h_nav1">融资及<br/>估值</li>
+                     <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
+                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br/>数据</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('4')">竞争</li>
+                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br/>策略</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('6')">财务</li>
+                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
+                  <li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('8')">融资及<br/>估值</li>
+           
                 </ul>
-               
 </body>
 
 
