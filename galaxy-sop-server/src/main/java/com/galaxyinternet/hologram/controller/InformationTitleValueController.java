@@ -75,7 +75,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	/**
-	 * 传入题 id 或 code， 返回该题 的下一级所有 题 信息
+	 * 传入题 id 或 code， 返回该题 及其下一级的 题 信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryTsTitles/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,8 +83,8 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		
 		try{
-			List<InformationTitle> titles = informationTitleService.selectChildsByPinfo(pinfoKey);
-			responseBody.setEntityList(titles);
+			InformationTitle titles = informationTitleService.selectTChildsByPinfo(pinfoKey);
+			responseBody.setEntity(titles);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
@@ -144,6 +144,27 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	/**
+	 * 传入value的 id ， 返回 该value下级的 values
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryValuesByVpid/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationDictionary> queryValuesByVpid(HttpServletRequest request,@PathVariable("pid") Long pid ) {
+		ResponseData<InformationDictionary> responseBody = new ResponseData<InformationDictionary>();
+		try{
+			List<InformationDictionary> values = informationDictionaryService.selectValuesByVpid(pid);
+			responseBody.setEntityList(values);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "字典获取失败"));
+			logger.error("queryValuesByVpid 的下级 values信息获取失败： "+pid,e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	
+	/**
 	 * 传入题 id 或 code， 返回 题信息 及 其对应的 value 信息
 	 */
 	@ResponseBody
@@ -185,6 +206,34 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		
 		return responseBody;
 	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * 传入题 id 或  code， 返回该题信息，及该题的下一级的 题及value 信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryTitleAndTsTvalues/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> queryTitleAndTsTvalues(HttpServletRequest request,@PathVariable("pinfoKey") String pinfoKey ) {
+		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+		
+		try{
+			InformationTitle title = informationDictionaryService.selectTitleAndTsTvaluesByCache(pinfoKey);
+			responseBody.setEntity(title);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "信息获取失败"));
+			logger.error("queryTsTvalues 题及该题的下一级题value信息获取失败 ："+pinfoKey,e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	
 	
 	
 	

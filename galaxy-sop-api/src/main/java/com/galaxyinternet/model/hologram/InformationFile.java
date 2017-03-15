@@ -1,9 +1,14 @@
 package com.galaxyinternet.model.hologram;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
 public class InformationFile extends BaseEntity{
-    private Long id;
+	
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     private Long projectId;
 
@@ -38,6 +43,39 @@ public class InformationFile extends BaseEntity{
     private Long updatedTime;
 
     private Long updateId;
+    
+    private String fileReidsKey;
+    
+    private String tempPath;
+    
+	public String getTempPath() {
+		return tempPath;
+	}
+
+	public void setTempPath(String tempPath) {
+		this.tempPath = tempPath;
+	}
+    
+	private MultipartFile multipartFile;
+
+	  
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
+	}
+    
+
+    public String getFileReidsKey() {
+		return fileReidsKey;
+	}
+
+	public void setFileReidsKey(String fileReidsKey) {
+		this.fileReidsKey = fileReidsKey;
+	}
+
 
     public Long getId() {
         return id;

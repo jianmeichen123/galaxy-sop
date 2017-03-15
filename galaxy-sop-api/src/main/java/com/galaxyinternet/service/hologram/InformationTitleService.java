@@ -23,6 +23,11 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	 */
 	List<InformationTitle> selectChildsByPid(Long pid);
 	
+	/**
+	 * 根据 code 或   id ， 查询 该题 及其下一级的 题 信息
+	 */
+	InformationTitle selectTChildsByPinfo(String pinfoKey);
+	
 	
 	/**
 	 * 根据 code 或   id 查询其子集
@@ -35,6 +40,8 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	 */
 	InformationTitle selectPchildsByPinfo(String pinfoKey);
 	//List<InformationTitle> selectByTlist(List<InformationTitle> tList);
+
+
 
 	
 	
