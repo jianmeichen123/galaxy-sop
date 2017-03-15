@@ -42,8 +42,12 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	//List<InformationTitle> selectByTlist(List<InformationTitle> tList);
 
 
-
-	
+	/**
+	 * 
+	 * @param titleId 标题ID
+	 * @return 返回子标题及标题的结果值
+	 */
+	List<InformationTitle> searchWithData(String titleId);
 	
 
 

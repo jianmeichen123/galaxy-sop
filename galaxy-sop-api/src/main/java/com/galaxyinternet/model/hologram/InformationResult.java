@@ -2,9 +2,9 @@ package com.galaxyinternet.model.hologram;
 
 import java.util.Set;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 
-public class InformationResult extends BaseEntity{
+public class InformationResult extends PagableEntity{
 
 	private static final long serialVersionUID = 1L;
 

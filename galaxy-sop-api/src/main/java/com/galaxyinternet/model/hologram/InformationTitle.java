@@ -32,6 +32,9 @@ public class InformationTitle extends PagableEntity {
 	
 	private List<InformationTitle> childList;
 	private List<InformationDictionary> valueList;
+	private List<InformationResult> resultList;
+	private List<InformationFixedTable> fixedTableList;
+	private List<InformationListdata> dataList;
 	
 	public String getParentId() {
 		return parentId;
@@ -137,6 +140,31 @@ public class InformationTitle extends PagableEntity {
 		this.valueList = valueList;
 	}
 
+	public List<InformationResult> getResultList() {
+		return resultList;
+	}
+
+	public void setResultList(List<InformationResult> resultList) {
+		this.resultList = resultList;
+	}
+
+	public List<InformationFixedTable> getFixedTableList() {
+		return fixedTableList;
+	}
+
+	public void setFixedTableList(List<InformationFixedTable> fixedTableList) {
+		this.fixedTableList = fixedTableList;
+	}
+
+	public List<InformationListdata> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<InformationListdata> dataList) {
+		this.dataList = dataList;
+	}
+
+	
 	
 	
 }

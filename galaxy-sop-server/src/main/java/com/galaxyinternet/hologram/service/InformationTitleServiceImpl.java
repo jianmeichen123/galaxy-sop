@@ -1,8 +1,10 @@
 package com.galaxyinternet.hologram.service;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -11,9 +13,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
+import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
+import com.galaxyinternet.dao.hologram.InformationListdataDao;
+import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.hologram.InformationFixedTable;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
@@ -22,6 +30,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 
 	@Autowired
 	private InformationTitleDao informationTitleDao;
+	@Autowired
+	private InformationResultDao resultDao;
+	@Autowired
+	private InformationFixedTableDao fixedTableDao;
+	@Autowired
+	private InformationListdataDao listDataDao;
 	
 	@Override
 	protected BaseDao<InformationTitle, Long> getBaseDao() {
@@ -151,12 +165,115 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		return tList;
 
 	}
-	
 
-	
-	
-	
-	
-	
+
+
+
+	@Override
+	public List<InformationTitle> searchWithData(String titleId) 
+	{
+		//查询子标题
+		InformationTitle query = new InformationTitle();
+		query.setParentId(titleId);
+		List<InformationTitle> list = getBaseDao().selectList(query);
+		if(list == null || list.size()==0)
+		{
+			return null;
+		}
+		Set<String> titleIds = new HashSet<>();
+		Map<String,InformationTitle> titleMap = new HashMap<>();
+		for(InformationTitle item : list)
+		{
+			titleIds.add(item.getId()+"");
+			titleMap.put(item.getId()+"", item);
+		}
+		//查询result
+		InformationResult resultQuery = new InformationResult();
+		resultQuery.setTitleIds(titleIds);
+		resultQuery.setProperty("title_id");
+		resultQuery.setDirection(Direction.ASC.toString());
+		List<InformationResult> resultList = resultDao.selectList(resultQuery);
+		if(resultList != null && resultList.size() > 0)
+		{
+			InformationTitle title = null;
+			List<InformationResult> tempList = null;
+			for(InformationResult item : resultList)
+			{
+				title = titleMap.get(item.getTitleId());
+				if(title != null)
+				{
+					if(title.getResultList() == null)
+					{
+						tempList = new ArrayList<>();
+						title.setResultList(tempList);
+					}
+					else
+					{
+						tempList = title.getResultList();
+					}
+					tempList.add(item);
+				}
+			}
+		}
+		//查询FixedTable
+		InformationFixedTable fixedTableQuery = new InformationFixedTable();
+		fixedTableQuery.setTitleIds(titleIds);
+		fixedTableQuery.setProperty("title_id");
+		fixedTableQuery.setDirection(Direction.ASC.toString());
+		List<InformationFixedTable> fixedTableList = fixedTableDao.selectList(fixedTableQuery);
+		if(fixedTableList != null && fixedTableList.size() > 0)
+		{
+			InformationTitle title = null;
+			List<InformationFixedTable> tempList = null;
+			for(InformationFixedTable item : fixedTableList)
+			{
+				title = titleMap.get(item.getTitleId());
+				if(title != null)
+				{
+					if(title.getFixedTableList() == null)
+					{
+						tempList = new ArrayList<>();
+						title.setFixedTableList(tempList);
+					}
+					else
+					{
+						tempList = title.getFixedTableList();
+					}
+					tempList.add(item);
+				}
+			}
+		}
+		
+		//查询FixedTable
+		InformationListdata listdataQuery = new InformationListdata();
+		listdataQuery.setTitleIds(titleIds);
+		listdataQuery.setProperty("title_id");
+		listdataQuery.setDirection(Direction.ASC.toString());
+		List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
+		if(listdataList != null && listdataList.size() > 0)
+		{
+			InformationTitle title = null;
+			List<InformationListdata> tempList = null;
+			for(InformationListdata item : listdataList)
+			{
+				title = titleMap.get(item.getTitleId()+"");
+				if(title != null)
+				{
+					if(title.getDataList() == null)
+					{
+						tempList = new ArrayList<>();
+						title.setDataList(tempList);;
+					}
+					else
+					{
+						tempList = title.getDataList();
+					}
+					tempList.add(item);
+				}
+			}
+		}
+		
+		return list;
+	}
 	
 }

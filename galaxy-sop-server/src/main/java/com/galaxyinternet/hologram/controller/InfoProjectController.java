@@ -1,6 +1,8 @@
 package com.galaxyinternet.hologram.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -8,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,10 +24,12 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
+import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.hologram.InformationDataService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
 
 
 @Controller
@@ -36,6 +41,8 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	
 	@Autowired
 	private InformationDataService infoDataService;
+	@Autowired
+	private InformationTitleService titleService;
 
 	@Override
 	protected BaseService<InformationData> getBaseService() {
@@ -87,21 +94,23 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	
 	
 	@ResponseBody
-	@RequestMapping("/save")
-	public ResponseData<InformationData> save(@RequestBody InformationData data)
+	@RequestMapping("/getTitleResults/{titleId}")
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId)
 	{
-		ResponseData<InformationData> rtn = new ResponseData<>();
+		ResponseData<InformationTitle> data = new ResponseData<>();
 		
 		try
 		{
-			infoDataService.save(data);
+			List<InformationTitle> list = titleService.searchWithData(titleId);
+			data.setEntityList(list);
+			
 		} catch (Exception e)
 		{
-			logger.error("保存失败，信息:"+data,e);
-			rtn.getResult().addError("保存失败");
+			logger.error("获取标题失败，信息:titleId="+titleId,e);
+			data.getResult().addError("获取标题失败");
 		}
 		
-		return rtn;
+		return data;
 	}
 	
 }

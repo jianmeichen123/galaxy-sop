@@ -32,7 +32,7 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
-				<if test="parent_id != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
+				<if test="parentId != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
 				<if test="code != null"> and  code = #{code,jdbcType=VARCHAR} </if>
 				<if test="name != null"> and  name = #{name,jdbcType=VARCHAR} </if>
 				<if test="indexNo != null"> and  index_no = #{indexNo,jdbcType=INTEGER} </if>
