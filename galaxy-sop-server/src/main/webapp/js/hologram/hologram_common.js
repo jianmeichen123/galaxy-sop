@@ -1,0 +1,14 @@
+$(function(){
+	/*编辑*/
+	$(".h_edit_btn").click(function(){
+	    $(this).parent().parent(".h_look").hide();
+	    $(this).parent().parent(".h_look").siblings(".h_edit").show();
+	    $(this).parent().parent().parent(".h").css("background","#fbfbfb")
+	  })
+	/*取消*/
+	$('span[data-on="h_cancel"]').click(function(){
+	  $(this).parent().parent(".h_edit").hide();
+	  $(this).parent().parent(".h_edit").siblings(".h_look").show();
+	  $(this).parent().parent().parent(".h").css("background","#fff");
+	})
+})
