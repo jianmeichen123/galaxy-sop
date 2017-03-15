@@ -153,7 +153,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		
 		if(!useC){
 			ptitles = selectTitleAndTsTvalues(pinfoKey);
-			
+			titles = ptitles.getChildList();
 			final String k1 = pinfoKey.toString();
 			final InformationTitle ts = ptitles;
 			
