@@ -1089,18 +1089,30 @@ var platformUrl = {
 	 */
 	queryAllTitle : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitle/",
 	
+	
+	
 	/**
 	 * 传入题 id ， 返回 题对应的 value 信息
 	 */
 	queryValuesByTid : Constants.sopEndpointURL + "/galaxy/tvalue/queryValuesByTid/",
 	/**
+	 * 传入value的 id ， 返回 该value下级的 values
+	 */
+	queryValuesByVpid : Constants.sopEndpointURL + "/galaxy/tvalue/queryValuesByVpid/",
+	/**
 	 * 传入题 id 或 code， 返回 题信息及其对应的 values 信息
 	 */
 	queryTitleAndValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryTitleAndValues/",
+	
 	/**
 	 * 传入题 id 或 code， 返回该题的下一级的 题及value 信息
 	 */
 	queryTsTvalues : Constants.sopEndpointURL + "/galaxy/tvalue/queryTsTvalues/",
+	/**
+	 * 传入题 id 或 code， 返回该题信息，及该题的下一级的 题及value 信息
+	 */
+	queryTitleAndTsTvalues : Constants.sopEndpointURL + "/galaxy/tvalue/queryTitleAndTsTvalues/",
+	
 	/**
 	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
 	 */

@@ -106,6 +106,26 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	}
 	
 	
+	/**
+	 * 根据 code 或   id ， 查询 该题 及其下一级的 题 信息
+	 */
+	@Override
+	@Transactional
+	public InformationTitle selectTChildsByPinfo(String pinfoKey) {
+		
+		InformationTitle ptitle = selectTitleByPinfo(pinfoKey);
+		
+		List<InformationTitle> ptitleList = null;
+		if(ptitle != null){
+			ptitleList = selectChildsByPid(ptitle.getId());
+		}
+		ptitle.setChildList(ptitleList);
+		
+		return ptitle;
+	}
+	
+	
+	
 	
 	
 	/**

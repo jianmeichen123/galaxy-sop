@@ -75,7 +75,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	/**
-	 * 传入题 id 或 code， 返回该题 的下一级所有 题 信息
+	 * 传入题 id 或 code， 返回该题 及其下一级的 题 信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryTsTitles/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -83,8 +83,8 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		
 		try{
-			List<InformationTitle> titles = informationTitleService.selectChildsByPinfo(pinfoKey);
-			responseBody.setEntityList(titles);
+			InformationTitle titles = informationTitleService.selectTChildsByPinfo(pinfoKey);
+			responseBody.setEntity(titles);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
