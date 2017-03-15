@@ -2516,7 +2516,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit_textarea select{display: block;}
 .h_edit_textarea textarea{margin-top: 8px;}
 .h_title{height:20px;border-left:4px solid #72a7ff;padding-left:10px;line-height: 20px;font-size: 12px;color:#333;margin-bottom:24px;}
-.h_team_look dt,.h_team_look dd{float: none;}
+/* .h_team_look dt,.h_team_look dd{float: none;} */
 .h_look table td,.h_look table th,.h_edit table td,.h_edit table th{height:40px;text-align: center;padding:0 30px;}
 .h_look table th,.h_edit table th{background-color: #accbff;color:#fff;}
 .h_look table td,.h_edit table td{background-color: #f6f6f6;color:#999;}
