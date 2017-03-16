@@ -235,8 +235,6 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	
-	
-	
 	/**
 	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
 	 */
@@ -260,7 +258,36 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	
+	
+	/**
+	 * 查看题和保存的结果信息
+	 * 传入项目 id， 区域  code， 返回 该区域下 题和保存的结果信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/showBaseInfo/{pid}/{tcode}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> initBaseInfo(HttpServletRequest request,@PathVariable("pid") String pid,@PathVariable("tcode") String tcode ) {
+		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+		try{
+
+			InformationTitle title = informationTitleService.selectAreaTitleResutl(pid, tcode);
+			
+			responseBody.setEntity(title);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "题和保存的结果信息获取失败"));
+			logger.error("queryTitleInfo 题和保存的结果信息 : "+tcode,e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
-
-
-

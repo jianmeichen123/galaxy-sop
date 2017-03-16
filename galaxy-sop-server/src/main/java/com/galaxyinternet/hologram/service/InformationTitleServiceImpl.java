@@ -17,6 +17,7 @@ import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
@@ -28,6 +29,8 @@ import com.galaxyinternet.service.hologram.InformationTitleService;
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
 
+	@Autowired
+	private Cache cache;
 	@Autowired
 	private InformationTitleDao informationTitleDao;
 	@Autowired
@@ -45,11 +48,13 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 	
+	// ===  TODO 字典功能
+	
+	
 	/**
 	 * 查询 parentid 为空的 题， 即顶级目录
 	 */
 	@Override
-	@Transactional
 	public List<InformationTitle> selectFirstTitle() {
 		List<InformationTitle> ptitleList = informationTitleDao.selectFirstTitle();
 		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
@@ -63,7 +68,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 * 根据 code 或 id 查询 本 title
 	 */
 	@Override
-	@Transactional
 	public InformationTitle selectTitleByPinfo(String pinfoKey) {
 		InformationTitleBo pquery = new InformationTitleBo();
 		pquery.setIdcodekey(pinfoKey);
@@ -81,7 +85,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 * 根据父id 查询其子集
 	 */
 	@Override
-	@Transactional
 	public List<InformationTitle> selectChildsByPid(Long pid) {
 		Direction direction = Direction.DESC;
 		String property = "index_no";
@@ -109,7 +112,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 * 根据 code 或   id 查询其子集
 	 */
 	@Override
-	@Transactional
 	public List<InformationTitle> selectChildsByPinfo(String pinfoKey) {
 		List<InformationTitle> ptitleList = null;
 		InformationTitle ptitle = selectTitleByPinfo(pinfoKey);
@@ -124,7 +126,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 * 根据 code 或   id ， 查询 该题 及其下一级的 题 信息
 	 */
 	@Override
-	@Transactional
 	public InformationTitle selectTChildsByPinfo(String pinfoKey) {
 		
 		InformationTitle ptitle = selectTitleByPinfo(pinfoKey);
@@ -168,6 +169,107 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 
 
 
+	
+	
+	
+	
+	// ===  TODO 页面功能
+	
+	
+	
+	
+	/**
+	 * 查看题和保存的结果信息
+	 * 传入项目 id， 区域  code， 返回 该区域下 题和保存的结果信息
+	 */
+	@Override
+	public InformationTitle selectAreaTitleResutl(String pid, String pinfoKey) {
+		List<InformationTitle> tchilds = null;
+		List<InformationResult> results = null;
+		
+		
+		InformationTitle title = selectTChildsByPinfo(pinfoKey);
+		
+		if(title != null) tchilds = title.getChildList();
+		
+		if( tchilds != null ){
+			Set<String> tids = new HashSet<String>();
+			
+			for(InformationTitle at : tchilds ){
+				tids.add(at.getId()+"");
+			}
+			
+			InformationResult rq = new InformationResult();
+			rq.setProjectId(pid);
+			rq.setTitleIds(tids);
+			results = resultDao.selectList(rq);
+		}
+		
+		if(results!=null && !results.isEmpty()){
+			
+			for(InformationTitle atitle : tchilds ){
+				
+				List<InformationResult> t_resultList = new ArrayList<InformationResult>();
+				
+				//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注、6:复选带备注、7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据
+				
+				//Type ： 1 2 5 8
+				if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 5 || atitle.getType().intValue() == 8 ){
+					t_resultList = findResultByArecord(atitle, results);
+				}
+				
+				atitle.setResultList(t_resultList);
+			}
+			
+		}
+		
+		return title;
+	}
+	/**
+	 * 题的值只能有一条记录的
+	 * Type ： 1 2 5 8
+	 */
+	@SuppressWarnings("unchecked")
+	public List<InformationResult>  findResultByArecord(InformationTitle atitle, List<InformationResult> results){
+		
+		
+		List<InformationResult> t_resultList = new ArrayList<InformationResult>();
+		
+		for(InformationResult aresult : results){
+			
+			InformationResult isr = new InformationResult();
+			
+			if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
+				
+				isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+				isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(aresult.getValueId()));
+				isr.setContentDescribe1(aresult.getContentDescribe1());
+				isr.setContentDescribe2(aresult.getContentDescribe2());
+				
+				t_resultList.add(isr);
+				
+				break;
+			}
+		}
+		
+		return t_resultList;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public List<InformationTitle> searchWithData(String titleId) 
