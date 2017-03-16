@@ -25,6 +25,8 @@ public class InformationTitle extends PagableEntity {
 	
 	private int isValid;
 
+	private String placeholder;
+	
 	private Long createId;
 
 	private Long updateId;
@@ -106,6 +108,15 @@ public class InformationTitle extends PagableEntity {
 
 	public void setIsValid(int isValid) {
 		this.isValid = isValid;
+	}
+
+	
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
 	}
 
 	public Long getCreateId() {
