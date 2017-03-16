@@ -38,6 +38,12 @@ public class InformationTitle extends PagableEntity {
 	private List<InformationFixedTable> fixedTableList;
 	private List<InformationListdata> dataList;
 	
+	
+	private Long resultId;
+	private String resultIds;
+	private String resultContent1;
+	private String resultContent2;
+	
 	public String getParentId() {
 		return parentId;
 	}
@@ -173,6 +179,38 @@ public class InformationTitle extends PagableEntity {
 
 	public void setDataList(List<InformationListdata> dataList) {
 		this.dataList = dataList;
+	}
+
+	public Long getResultId() {
+		return resultId;
+	}
+
+	public void setResultId(Long resultId) {
+		this.resultId = resultId;
+	}
+
+	public String getResultIds() {
+		return resultIds;
+	}
+
+	public void setResultIds(String resultIds) {
+		this.resultIds = resultIds;
+	}
+
+	public String getResultContent1() {
+		return resultContent1;
+	}
+
+	public void setResultContent1(String resultContent1) {
+		this.resultContent1 = resultContent1;
+	}
+
+	public String getResultContent2() {
+		return resultContent2;
+	}
+
+	public void setResultContent2(String resultContent2) {
+		this.resultContent2 = resultContent2;
 	}
 
 	

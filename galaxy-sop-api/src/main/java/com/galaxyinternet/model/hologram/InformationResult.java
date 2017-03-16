@@ -30,7 +30,28 @@ public class InformationResult extends PagableEntity{
     
     private Set<String> titleIds;
 
-    public Set<String> getTitleIds()
+    
+    private Long valueId;
+    private String valueName;
+    
+    
+    public Long getValueId() {
+		return valueId;
+	}
+
+	public void setValueId(Long valueId) {
+		this.valueId = valueId;
+	}
+
+	public String getValueName() {
+		return valueName;
+	}
+
+	public void setValueName(String valueName) {
+		this.valueName = valueName;
+	}
+
+	public Set<String> getTitleIds()
 	{
 		return titleIds;
 	}

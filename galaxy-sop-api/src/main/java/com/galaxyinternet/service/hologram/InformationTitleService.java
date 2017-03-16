@@ -42,12 +42,26 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	//List<InformationTitle> selectByTlist(List<InformationTitle> tList);
 
 
+	
 	/**
-	 * 
+	 * 查看题和保存的结果信息
+	 * 传入项目 id， 区域  code， 返回 该区域下 题和保存的结果信息
+	 */
+	InformationTitle selectAreaTitleResutl(String pid, String pinfoKey);
+	
+	
+	
+	
+	
+	/**
 	 * @param titleId 标题ID
 	 * @return 返回子标题及标题的结果值
 	 */
 	List<InformationTitle> searchWithData(String titleId);
+
+
+	
+
 	
 
 
