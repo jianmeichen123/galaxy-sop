@@ -5,6 +5,7 @@ import com.galaxyinternet.framework.core.model.PagableEntity;
 public class TableModel extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 	
+		private Long id;
 	 private Long titleId;
 
 	    private Long parentId;
@@ -32,6 +33,15 @@ public class TableModel extends PagableEntity {
 	    private String field9;
 
 	    private String field10;
+
+	    
+		public Long getId() {
+			return id;
+		}
+
+		public void setId(Long id) {
+			this.id = id;
+		}
 
 		public Long getTitleId() {
 			return titleId;
