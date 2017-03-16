@@ -1,6 +1,7 @@
 package com.galaxyinternet.hologram.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
@@ -21,6 +23,7 @@ import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationModel;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.TableModel;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationDataService;
 
 @Service
@@ -106,9 +109,12 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		String titleId = null;
 		InformationFixedTable entity = null;
-		List<InformationFixedTable> entityList = new ArrayList<>();
+		List<InformationFixedTable> insertEntityList = new ArrayList<>();
+		List<InformationFixedTable> updateEntityList = new ArrayList<>();
 		Set<String> titleIds = new HashSet<>();
-		
+		User user = WebUtils.getUserFromSession();
+		Long userId = user != null ? user.getId() : null;
+		Long now = new Date().getTime();
 		for(FixedTableModel model : list)
 		{
 			titleIds.add(model.getTitleId());
@@ -119,16 +125,25 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			entity.setColNo(model.getColNo());
 			entity.setType(model.getType());
 			entity.setContent(model.getValue());
-			entityList.add(entity);
+			if(model.getId() == null)
+			{
+				entity.setCreatedTime(now);
+				entity.setCreateId(userId+"");
+				insertEntityList.add(entity);
+			}
+			else
+			{
+				entity.setId(model.getId());
+				entity.setUpdatedTime(now);
+				entity.setUpdateId(userId+"");
+				updateEntityList.add(entity);
+				fixdTableDao.updateById(entity);
+			}
 		}
-		InformationFixedTable query = new InformationFixedTable();
-		query.setProjectId(projectId);
-		query.setTitleIds(titleIds);
-		fixdTableDao.delete(query);
 		//插入数据
-		if(entityList.size() > 0)
+		if(insertEntityList.size() > 0)
 		{
-			fixdTableDao.insertInBatch(entityList);
+			fixdTableDao.insertInBatch(insertEntityList);
 		}
 		
 	}
@@ -142,7 +157,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		String titleId = null;
 		InformationListdata entity = null;
-		List<InformationListdata> entityList = new ArrayList<>();
+		List<InformationListdata> insertEntityList = new ArrayList<>();
+		List<InformationListdata> updateEntityList = new ArrayList<>();
 		Set<String> titleIds = new HashSet<>();
 		
 		for(TableModel model : list)
@@ -163,16 +179,29 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			entity.setField8(model.getField8());
 			entity.setField9(model.getField9());
 			entity.setField10(model.getField10());
-			entityList.add(entity);
+			
+			User user = WebUtils.getUserFromSession();
+			Long userId = user != null ? user.getId() : null;
+			Long now = new Date().getTime();
+			if(model.getId() == null)
+			{
+				entity.setCreatedTime(now);
+				entity.setCreateId(userId);
+				insertEntityList.add(entity);
+			}
+			else
+			{
+				entity.setId(model.getId());
+				entity.setUpdatedTime(now);
+				entity.setUpdateId(userId);
+				updateEntityList.add(entity);
+				listdataDao.updateById(entity);
+			}
 		}
-		InformationListdata query = new InformationListdata();
-		query.setProjectId(Long.valueOf(projectId));
-		query.setTitleIds(titleIds);
-		listdataDao.delete(query);
 		//插入数据
-		if(entityList.size() > 0)
+		if(insertEntityList.size() > 0)
 		{
-			listdataDao.insertInBatch(entityList);
+			listdataDao.insertInBatch(insertEntityList);
 		}
 	}
 

@@ -7,6 +7,8 @@ import com.galaxyinternet.framework.core.model.PagableEntity;
 public class InformationFixedTable extends PagableEntity{
 
 	private static final long serialVersionUID = 1L;
+	
+	private Long id;
 
 	private String projectId;
 
@@ -33,7 +35,15 @@ public class InformationFixedTable extends PagableEntity{
     private Set<String> titleIds;
 
 
-    public Set<String> getTitleIds()
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Set<String> getTitleIds()
 	{
 		return titleIds;
 	}
