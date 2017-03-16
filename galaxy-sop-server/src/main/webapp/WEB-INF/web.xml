@@ -14,7 +14,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 <servlet-mapping>    
     <servlet-name>default</servlet-name> 
     <url-pattern>*.js</url-pattern>    
@@ -22,8 +22,8 @@
     <url-pattern>*.gif</url-pattern>
     <url-pattern>*.jpg</url-pattern>
     <url-pattern>*.png</url-pattern>
-    <url-pattern>/js/*</url-pattern> 
-    <url-pattern>/img/*</url-pattern>   
+<!--     <url-pattern>/js/*</url-pattern> 
+    <url-pattern>/img/*</url-pattern>  -->  
 </servlet-mapping>
 
 
