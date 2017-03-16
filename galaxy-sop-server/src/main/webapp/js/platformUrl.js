@@ -1081,7 +1081,7 @@ var platformUrl = {
 	 */
 	queryTitleInfo : Constants.sopEndpointURL + "/galaxy/tvalue/queryTitleInfo/",
 	/**
-	 * 传入题 id 或 code， 返回该题 的下一级所有 题 信息
+	 * 传入题 id 或 code，  返回该题 及其下一级的 题 信息
 	 */
 	queryTsTitles : Constants.sopEndpointURL + "/galaxy/tvalue/queryTsTitles/",
 	/**
@@ -1096,13 +1096,14 @@ var platformUrl = {
 	 */
 	queryValuesByTid : Constants.sopEndpointURL + "/galaxy/tvalue/queryValuesByTid/",
 	/**
-	 * 传入value的 id ， 返回 该value下级的 values
-	 */
-	queryValuesByVpid : Constants.sopEndpointURL + "/galaxy/tvalue/queryValuesByVpid/",
-	/**
 	 * 传入题 id 或 code， 返回 题信息及其对应的 values 信息
 	 */
 	queryTitleAndValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryTitleAndValues/",
+	/**
+	 * 传入value的 id ， 返回 该value下级的 values
+	 */
+	queryValuesByVpid : Constants.sopEndpointURL + "/galaxy/tvalue/queryValuesByVpid/",
+	
 	
 	/**
 	 * 传入题 id 或 code， 返回该题的下一级的 题及value 信息
