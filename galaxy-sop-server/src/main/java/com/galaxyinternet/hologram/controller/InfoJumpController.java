@@ -48,7 +48,7 @@ public class InfoJumpController{
 	@RequestMapping(value = "/toProjectInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String projects(HttpServletRequest request) {
 	
-		return "hologram/";
+		return "hologram/operateInfo";
 	}
 	/**
 	 * 全息图-团队成员

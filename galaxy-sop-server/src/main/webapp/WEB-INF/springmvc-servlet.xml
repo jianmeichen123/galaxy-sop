@@ -35,10 +35,8 @@
 	</bean>
 
 	<!-- 定义扫描Controller的base-package -->
-	<context:component-scan base-package="com.galaxyinternet.*">
-		<!-- 不扫描Controller注解的类   -->
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Service" />
+	<context:component-scan base-package="com.galaxyinternet.*" use-default-filters="false">
+	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	<!-- springmvc的关键配置 -->
 	<mvc:annotation-driven>
@@ -50,16 +48,8 @@
 	</mvc:annotation-driven>
 	
 	<!-- 这个default-servlet-handler 可以使用DispatcherServlet的url-pattern 是/*, 如果springmvc找不到handler来处理请求, 
-		会自动放过,让serlvet container处理
+		会自动放过,让serlvet container处理 -->
 	<mvc:default-servlet-handler />
-	 -->
-	<!-- 
-	<mvc:resources location="/image/" mapping="/img/**"/> 
-	<mvc:resources location="/css/" mapping="/css/**"/> 
-	<mvc:resources location="/js/" mapping="/js/**"/>
-	 -->
-	
-	
 	<!-- 这个tag是方便匹配请求跟view, 这个view一般是静态的 -->
 	<mvc:view-controller path="/about" view-name="about" />
 	<!-- 这个tag是方便重定向路径 -->
@@ -109,7 +99,6 @@
 				<property name="mappings">
 					<map>
 						<entry key="galaxy/mpl" value="创投项目"/>
-						<entry key="galaxy/project" value="创投项目"/>
 						<entry key="galaxy/lxh" value="立项会"/>
 						<entry key="galaxy/tjh" value="投决会"/>
 						<entry key="galaxy/psh" value="CEO评审会"/>
