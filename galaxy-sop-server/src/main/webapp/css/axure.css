@@ -2500,13 +2500,15 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit_txt dt,.h_edit_checkbox dt{line-height: 36px;}
 .h .h_edit .mb_16{margin-bottom: 16px;}
 /* .h .h_edit dl{margin-bottom: 16px;} */
-.h_edit_checkbox dd.check_label{height: 28px;padding:0 20px;border-radius: 50px;background-color: #b2b2b2;color:#fff;line-height: 28px;margin-right: 10px;margin-top: 
+.h_edit_checkbox li.check_label,.h_edit .check_label{height: 28px;padding:0 20px;border-radius: 50px;background-color: #b2b2b2;color:#fff;line-height: 28px;margin-right: 10px;margin-top: 
   4px;}
-.h_edit_checkbox dd.active{background-color: #84b2ff;}
-.h_edit_checkbox dd .others{margin:0 10px;}
+.h_edit_checkbox .check_label{float:left;}
+.h_edit_checkbox li.active{background-color: #84b2ff;}
+.h_edit_checkbox li.others{margin:0 10px;}
 .h_edit dt{width:92px;}
 .h_edit_btnbox{margin-left: 92px;margin-top: 60px;}
 .h_edit_btnbox span{margin-right: 20px;}
+.h_edit_txt dt{width:auto;line-height:16px;}
 /* .h_edit{display: none;} */
 .h_remarks{color:#999;font-size: 12px;margin-top: 5px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}

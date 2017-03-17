@@ -1,6 +1,8 @@
-$(function(){
-	/*编辑*/
+function editOpen(){
 	$(".h_edit_btn").click(function(){
+		/*var part=$(this).parent().parent(".h_look").parent(".radius").attr("id").split('_');
+		var edit_id='h_edit_'+part[1];
+		$(this).attr("id",edit_id)*/
 	    $(this).parent().parent(".h_look").hide();
 	    $(this).parent().parent(".h_look").siblings(".h_edit").show();
 	    $(this).parent().parent().parent(".h").css("background","#fbfbfb")
@@ -11,9 +13,8 @@ $(function(){
 	  $(this).parent().parent(".h_edit").siblings(".h_look").show();
 	  $(this).parent().parent().parent(".h").css("background","#fff");
 	})
-	
-	
-})
+}
+
 /*$(function(){
 	 $('.h_navbar').tabInfoChange({		
 		onchangeSuccess:function(index){
