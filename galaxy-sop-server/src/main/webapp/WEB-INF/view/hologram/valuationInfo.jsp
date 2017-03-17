@@ -34,8 +34,6 @@
 	</div>
 
 <!--点击编辑例子 -->
-<div class="h radius" id="div_ifelse"></div>
-<!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
 <div class="h_edit" id="b_\${code}">
 	<div class="h_btnbox">
