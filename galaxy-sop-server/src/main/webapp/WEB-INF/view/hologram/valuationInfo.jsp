@@ -43,22 +43,26 @@
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
 	</div>
 	<div class="h_title">\${name}</div>
-	{{each(i,childList) childList}}
-		<div class="mb_16">
-			<dl class="h_edit_txt clearfix">
-			{{if type=="1"}}
-				<dt class="" data-type="\${type}">\${name}</dt>
-                <dd class=""><input type="text" name="\${titleId}" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}"></dd>
-			{{else type=="2"}}
-				<dt class="fl_none" data-type="\${type}">\${name}</dt>
-				<dd class="fl_none">
-					<ul class="h_radios clearfix">
-						{{each(i,valueList) valueList}}
-                    	<li><input type="radio" name="\${titleId}" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}">\${name}</li>
-						{{/each}}
-                 	</ul>
-				</dd>
-			{{else type=="3"}}
+	{{each(i,childList) childList}}  
+ 
+                 	{{if sign=="3"}}
+						{{each(i,childList) childList}}
+						<div class="mb_16">
+                       <dl class="h_edit_txt clearfix">
+						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						{{if type=="1"}}
+                        <dd><input type="text"></dd>
+
+						{{else type=="2"}}
+						<dd>
+						<ul class="h_radios clearfix">
+							{{each(i,valueList) valueList}}
+                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+							{{/each}}
+                          </ul>
+						</dd>
+
+						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
@@ -68,65 +72,196 @@
                           </ul>
 						</dd>
 
-			{{else type=="5" }}
-				<dl class="h_edit_checkbox clearfix">
-                   	<dt data-type="\${type}">\${name}</dt>
-					<dd>
-                   		<ul class="h_radios clearfix">
-                            {{each(i,valueList) valueList}}
-                    		<li><input type="radio" name="\${titleId}" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}">\${name}</li>
+						{{else type=="4"}}
+						{{each(i,valueList) valueList}}
+                        <dd>
+                          <select name="" id="">
+                            <option value="">\${name}</option>
+                          </select>
+                        </dd>
+						{{/each}}
+
+						{{else type=="5"}}
+						<dd>
+						<ul class="h_radios clearfix">
+							{{each(i,valueList) valueList}}
+                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 							{{/each}}
                           </ul>
-                          <textarea name="" class="textarea_h" id="textarea_h" placeholder="备注信息" style="resize: none; height: 70px;"></textarea>
-                          <p class="num_tj"><label for="">0</label>/500</p>
-                 	</dd>
-                </dl>
-			{{else type=="6" }}
-				<dl class="h_edit_checkbox clearfix">
-                   	<dt data-type="\${type}">\${name}</dt>
-					<dd>
-                   		<ul class="h_radios clearfix">
-                            {{each(i,valueList) valueList}}
-                    		<li><input type="radio" name="\${titleId}" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}">\${name}</li>
-							{{/each}}
-                          </ul>
-                          <textarea name="" class="textarea_h" id="textarea_h" placeholder="备注信息" style="resize: none; height: 70px;"></textarea>
-                          <p class="num_tj"><label for="">0</label>/500</p>
-                 	</dd>
-                </dl>
-			{{else type=="7"}}
-				<dl>
-                 	<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-                     <dd class="fl_none clearfix">
-                     <ul class="h_imgs">
+						</dd>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<p class="num_tj">
+								<label for="">500</label>/500
+							</p>
+						</dd>
+						
+						
+						{{else type=="6"}}
+						{{each(i,valueList) valueList}}
+                        <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
+						{{/each}}
+						
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		<dd class="fl_none clearfix">
+                    		 <ul class="h_imgs">
                              
-                     </ul>
-                     <ul class="h_imgs">
-                      	<li class="h_imgs_add"><input type="file"></li>
-                      </ul>
-                    </dd>
-                  	<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
-             	</dl>
-			{{else type=="8"}}
-				<dt class="fl_none" data-type="\${type}">\${name}</dt>
-				<dd class="fl_none">
-					<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
-					<p class="num_tj">
-						<label for="">0</label>/2000
-					</p>
-				</dd>
-			{{else}}
-			<dd class="fl_none">
-				<textarea class="textarea_h">eee</textarea>
-				<p class="num_tj">
-					<label for="">0</label>/2000
-				</p>
-			</dd>
-			{{/if}}
-			</dl>
-			
-		</div>
-	{{/each}}
+                    		 </ul>
+                    		 <ul class="h_imgs">
+                      			<li class="h_imgs_add"><input type="file"></li>
+                      		</ul>
+                    		</dd>
+                  			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<p class="num_tj">
+								<label for="">0</label>/2000
+							</p>
+						</dd>
+
+						{{else type=="10"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th>姓名</th>
+                                <th>职位</th>
+                                <th>性别</th>
+                                <th>最高学历</th>
+                                <th>操作</th>
+                              </tr>
+                              <tr>
+                                <th>罗振宇</th>
+                                <td>CEO</td>
+                                <td>男</td>
+                                <td>博士</td>
+                                <td>
+                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
+                                </td>
+                              </tr>
+                            </table>
+							<span class="pubbtn bluebtn">新增</span>
+                          </dd>
+
+						{{else type=="11"}}
+						<dd>项目带过来的数据</dd>
+
+						{{/if}}
+                      </dl>
+                    </div>
+
+						{{/each}}
+					{{else}}
+					<div class="mb_16">
+                       <dl class="h_edit_txt clearfix">
+						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						{{if type=="1"}}
+                        <dd><input type="text"></dd>
+
+						{{else type=="2"}}
+						<dd>
+						<ul class="h_radios clearfix">
+							{{each(i,valueList) valueList}}
+                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+							{{/each}}
+                          </ul>
+						</dd>
+
+						{{else type=="3"}}
+						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
+                        <dd class="fl_none">
+						<ul class="h_edit_checkbox clearfix">
+							{{each(i,valueList) valueList}}
+                            <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
+							{{/each}}
+                          </ul>
+						</dd>
+
+						{{else type=="4"}}
+						{{each(i,valueList) valueList}}
+                        <dd>
+                          <select name="" id="">
+                            <option value="">\${name}</option>
+                          </select>
+                        </dd>
+						{{/each}}
+
+						{{else type=="5"}}
+						<dd>
+						<ul class="h_radios clearfix">
+							{{each(i,valueList) valueList}}
+                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}"/>\${name}</li>
+							{{/each}}
+                          </ul>
+						</dd>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<p class="num_tj">
+								<label for="">500</label>/500
+							</p>
+						</dd>
+
+						{{else type=="6"}}
+						{{each(i,valueList) valueList}}
+                        <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
+						{{/each}}
+
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		<dd class="fl_none clearfix">
+                    		 <ul class="h_imgs">
+                             
+                    		 </ul>
+                    		 <ul class="h_imgs">
+                      			<li class="h_imgs_add"><input type="file"></li>
+                      		</ul>
+                    		</dd>
+                  			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<p class="num_tj">
+								<label for="">0</label>/2000
+							</p>
+						</dd>
+
+						{{else type=="10"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th>姓名</th>
+                                <th>职位</th>
+                                <th>性别</th>
+                                <th>最高学历</th>
+                                <th>操作</th>
+                              </tr>
+                              <tr>
+                                <th>罗振宇</th>
+                                <td>CEO</td>
+                                <td>男</td>
+                                <td>博士</td>
+                                <td>
+                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
+                                </td>
+                              </tr>
+                            </table>
+							<span class="pubbtn bluebtn">新增</span>
+                          </dd>
+
+						{{else type=="11"}}
+						<dd>项目带过来的数据</dd>
+
+						{{/if}}
+                      </dl>
+                    </div>
+				
+
+					{{/if}}
+					
+					{{/each}}
 	
 	<div class="h_edit_btnbox clearfix">
 		<span class="pubbtn bluebtn fl" data-on="save" data-code="\${code}">保存</span> <span
@@ -144,18 +279,103 @@
   <div class="h_look h_team_look clearfix" id="\${code}">
 	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<div class="h_title">\${name}</div>
-	<div class="mb_24 clearfix">
-	  <dl class="clearfix">
-		<dt>商业模式：</dt>
-		<dd>该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。</dd>
-	  </dl>
-	</div>
-	 <div class="mb_24 clearfix">
-	  <dl class="clearfix">
-		<dt>商业模式进化：</dt>
-		<dd>尚未验证</dd>
-	  </dl>
-	</div>
+	{{each(i,childList) childList}}                    
+                    {{if sign=="3"}}
+						{{each(i,childList) childList}}
+							<div class="mb_24 clearfix">
+                      <dl class="clearfix">
+                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						{{if type=="5"}}                        
+						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						<dd>备注</dd>
+
+						{{else type=="2"}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+
+						{{else type=="3"}}
+                        {{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
+
+						{{else type=="6"}}
+						{{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
+
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		 <dd class="fl_none">
+                            	<img src="img/loginbg.gif" alt="">
+                            	<img src="img/loginbg.gif" alt="">
+                          	</dd>
+
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">未填写</dd>
+
+						{{else type=="4"}}
+						{{each(i,valueList) valueList}}
+                        <dd>未选择</dd>
+						{{/each}}
+
+						{{else type=="11"}}
+                        <dd>项目带过来的数据</dd>
+
+						{{else type=="1"}}
+                        <dd>未填写</dd>
+						{{/if}}                      
+						</dl>		
+                    </div>
+						{{/each}}
+
+					{{else}}
+					<div class="mb_24 clearfix">
+                      <dl class="clearfix">
+                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						{{if type=="5"}}                        
+						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						<dd>备注</dd>
+
+						{{else type=="2"}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+
+						{{else type=="3"}}
+                        {{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
+
+						{{else type=="6"}}
+						{{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
+
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		 <dd class="fl_none">
+                            	<img src="img/loginbg.gif" alt="">
+                            	<img src="img/loginbg.gif" alt="">
+                          	</dd>
+
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">未填写</dd>
+
+						{{else type=="4"}}
+						{{each(i,valueList) valueList}}
+                        <dd>未选择</dd>
+						{{/each}}
+
+						{{else type=="11"}}
+                        <dd>项目带过来的数据</dd>
+
+						{{else type=="1"}}
+                        <dd>未填写</dd>
+						{{/if}}                      
+						</dl>		
+                    </div>
+
+					{{/if}}
+					{{/each}}
   </div>
 </div>
 {{/each}}
@@ -163,7 +383,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO4", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
