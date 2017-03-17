@@ -25,7 +25,7 @@ public class InformationDictionary extends PagableEntity {
 
 	private Long updateId;
 
-	private boolean checked = false;
+	private Boolean checked;
 	
 	private List<InformationDictionary> valueList;
 	

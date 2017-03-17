@@ -91,7 +91,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 */
 	@Override
 	public List<InformationTitle> selectChildsByPid(Long pid) {
-		Direction direction = Direction.DESC;
+		Direction direction = Direction.ASC;
 		String property = "index_no";
 		
 		Map<String, Object> params = new HashMap<String,Object>();
@@ -257,8 +257,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				
 				isr = new InformationResult();
 				
-				isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-				isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
+				if(aresult.getContentChoose() != null){
+					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+					isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
+				}
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
 				
@@ -273,7 +275,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				}
 				
 				//结果对应 value list 中的数据，设置选中状态
-				if(values != null && !values.isEmpty()){
+				if(values != null && !values.isEmpty() && isr.getValueId()!=null){
 					for(InformationDictionary avalue : values){
 						if(avalue.getId().longValue() == isr.getValueId().longValue()){
 							avalue.setChecked(true);
@@ -305,8 +307,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
 				isr = new InformationResult();
 				
-				isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-				isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
+				if(aresult.getContentChoose() != null){
+					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+					isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
+				}
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
 				
@@ -321,7 +325,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				}
 				
 				//结果对应 value list 中的数据，设置选中状态
-				if(values != null && !values.isEmpty()){
+				if(values != null && !values.isEmpty() && isr.getValueId()!=null){
 					for(InformationDictionary avalue : values){
 						if(avalue.getId().longValue() == isr.getValueId().longValue()){
 							avalue.setChecked(true);

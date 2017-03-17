@@ -176,10 +176,10 @@
 	
 	
 	
-	
+	<!-- id, parent_id, title_id, code, name, value, sort, is_valid -->
 	<select id="selectValues" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
-		id, parent_id, title_id, code, name, value, sort, is_valid
+		id,  title_id, code, name  
 		from information_dictionary 
 		<where>
 			<trim prefixOverrides="and">

@@ -50,7 +50,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	@Override
 	@Transactional
 	public List<InformationDictionary> selectValuesByVpid(Long pid) {
-		Direction direction = Direction.DESC;
+		Direction direction = Direction.ASC;
 		String property = "sort";
 		
 		Map<String, Object> params = new HashMap<String,Object>();
@@ -70,7 +70,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	@Override
 	@Transactional
 	public List<InformationDictionary> selectValuesByTid(Long tid) {
-		Direction direction = Direction.DESC;
+		Direction direction = Direction.ASC;
 		String property = "sort";
 		
 		Map<String, Object> params = new HashMap<String,Object>();
