@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.hologram;
 
+import java.util.List;
 import java.util.Set;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
@@ -49,6 +50,17 @@ public class InformationListdata extends PagableEntity{
     private Long updateId;
     
     private Set<String> titleIds;
+
+    private List<InformationListdata> workList;
+
+    private List<InformationListdata> studyList;
+
+    private List<InformationListdata> startupList;
+
+    private List<String> codes;
+
+
+
     
 
 
@@ -220,5 +232,37 @@ public class InformationListdata extends PagableEntity{
 
     public void setUpdateId(Long updateId) {
         this.updateId = updateId;
+    }
+
+    public List<InformationListdata> getWorkList() {
+        return workList;
+    }
+
+    public void setWorkList(List<InformationListdata> workList) {
+        this.workList = workList;
+    }
+
+    public List<InformationListdata> getStudyList() {
+        return studyList;
+    }
+
+    public void setStudyList(List<InformationListdata> studyList) {
+        this.studyList = studyList;
+    }
+
+    public List<InformationListdata> getStartupList() {
+        return startupList;
+    }
+
+    public void setStartupList(List<InformationListdata> startupList) {
+        this.startupList = startupList;
+    }
+
+    public void setCodes(List<String> codes) {
+        this.codes = codes;
+    }
+
+    public List<String> getCodes() {
+        return codes;
     }
 }

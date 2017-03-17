@@ -166,7 +166,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			titleIds.add(model.getTitleId()+"");
 			entity = new InformationListdata();
 			entity.setProjectId(Long.valueOf(projectId));
-			entity.setTitleId(Long.valueOf(titleId));
+			entity.setTitleId(Long.valueOf(model.getTitleId()));
 			entity.setCode(model.getCode());
 			entity.setParentId(model.getParentId());
 			entity.setField1(model.getField1());

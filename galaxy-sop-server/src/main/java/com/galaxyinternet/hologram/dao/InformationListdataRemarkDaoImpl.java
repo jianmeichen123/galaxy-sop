@@ -9,4 +9,9 @@ import com.galaxyinternet.model.hologram.InformationListdataRemark;
 @Repository("informationListdataRemarkDao")
 public class InformationListdataRemarkDaoImpl extends BaseDaoImpl<InformationListdataRemark, Long> implements InformationListdataRemarkDao{
 
+    @Override
+    public InformationListdataRemark selectByTitleId(Long titleId) {
+        InformationListdataRemark  remark = sqlSessionTemplate.selectOne(getSqlName("selectByTitleId"), titleId);
+        return remark;
+    }
 }

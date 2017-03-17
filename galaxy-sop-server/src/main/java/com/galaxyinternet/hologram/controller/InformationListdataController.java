@@ -7,19 +7,20 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.hologram.InformationDataService;
-import com.galaxyinternet.service.hologram.InformationListdataService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
+import com.galaxyinternet.service.hologram.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,9 +39,28 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     @Autowired
     private InformationDataService infoDataService;
 
+
+    @Autowired
+    private InformationResultService informationResultService;
+
+    @Autowired
+    private InformationListdataRemarkService informationListdataRemarkService;
+
+
     @Override
     protected BaseService<InformationListdata> getBaseService() {
         return this.informationListdataService;
+    }
+
+
+
+
+    /**
+     * 团队成员页面跳转
+     */
+    @RequestMapping(value = "/toTeamPage", method = RequestMethod.GET)
+    public String toTeamPage(HttpServletRequest request) {
+        return "project/tanchuan/v_person_learning";
     }
 
     /**
@@ -60,64 +80,79 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     }
 
     /*
-     *根据projectId 和 titleId查询成员基本信息列表
+     *根据projectId 和 titleId查询表格列表
      */
-    @RequestMapping("/queryMemberList")
+    @RequestMapping("/queryRowsList")
     @ResponseBody
     public ResponseData<InformationListdata> queryList(@RequestBody InformationListdata data){
         ResponseData<InformationListdata> resp = new ResponseData<>();
         Long projectId  = data.getProjectId();
-        Long titleId = data.getTitleId();
+        Long titleId  = data.getTitleId();
         if(null == projectId || null == titleId){
             resp.setResult(new Result(Result.Status.ERROR,null, "projectId或titleId缺失"));
-            logger.error("queryMemberList 失败 :projectId或titleId缺失");
+            logger.error("queryRowsList 失败 :projectId或titleId缺失");
             return resp;
         }
         try{
-            data.setCode("team-members");
+            InformationListdataRemark remark = informationListdataRemarkService.queryByTitleId(data.getTitleId());
+            if(remark == null){
+                resp.setResult(new Result(Result.Status.ERROR,null, "titleId错误"));
+                logger.error("queryRowsList 失败 :titleId错误");
+                return resp;
+            }
+            String code = remark.getCode();
+            data.setCode(code);
+            data.setProjectId(projectId);
             List<InformationListdata> list = informationListdataService.queryList(data);
             resp.setEntityList(list);
         }catch(Exception e){
-            resp.setResult(new Result(Result.Status.ERROR,null, "查询团队成员列表失败"));
-            logger.error("queryMemberList 失败 ",e);
+            resp.setResult(new Result(Result.Status.ERROR,null, "查询表格列表失败"));
+            logger.error("queryRowsList 失败 ",e);
         }
         return resp;
     }
 
     /**
-     * 通过 projectId ,titleId ,parentId(人员id) 查询成员简历
+     * 根据id
+     * 查看表格中的一条记录
      */
-    @RequestMapping("/queryOneMember")
+    @RequestMapping("/queryOneRow/{id}")
     @ResponseBody
-    public ResponseData<InformationListdata> query(@RequestBody InformationListdata data ) {
+    public ResponseData<InformationListdata> query(@PathVariable("id") Long id) {
         ResponseData<InformationListdata> resp = new ResponseData<>();
-        if(null == data.getProjectId() || null == data.getTitleId() || null == data.getParentId()){
-            resp.setResult(new Result(Result.Status.ERROR,null, "projectId 或 titleId缺失"));
-            logger.error("queryOneMember 失败 : projectId或titleId或parentId缺失");
+        if(null == id){
+            resp.setResult(new Result(Result.Status.ERROR,null, "成员id缺失"));
+            logger.error("queryOneRow 失败 : 成员id缺失");
+            return resp;
         }
         try {
-            data = informationListdataService.queryOne(data);
+            InformationListdata data = informationListdataService.queryMemberById(id);
+            if(data ==null){
+                resp.setResult(new Result(Result.Status.ERROR,null, "id错误"));
+                logger.error("queryOneRow 失败 : id错误");
+                return resp;
+            }
             resp.setEntity(data);
         }catch (Exception e){
             resp.setResult(new Result(Result.Status.ERROR,null, "查询团队成员失败"));
-            logger.error("queryOneMember 失败 ",e);
+            logger.error("queryOneRow 失败 ",e);
         }
         return resp;
     }
 
     /**
-     *  通过 projectId ,titleId ,parentId(人员id) 删除成员简历
+     *  通过 id 删除一条记录
      */
-    @RequestMapping("/deleteOneMember")
+    @RequestMapping("/deleteOneRow/{id}")
     @ResponseBody
-    public ResponseData deleteOneMember(@RequestBody InformationListdata data){
+    public ResponseData deleteOneMember(@PathVariable("id") Long id){
         ResponseData<InformationListdata> resp = new ResponseData<>();
-        if(null == data.getProjectId() || null == data.getTitleId() || null == data.getParentId()){
+        if(null == id){
             resp.setResult(new Result(Result.Status.ERROR,null, "projectId 或 titleId缺失"));
             logger.error("deleteOneMember 失败 : projectId或titleId或parentId缺失");
         }
         try{
-            informationListdataService.delete(data);
+            informationListdataService.deleteOneMember(id);
         }catch(Exception e){
             resp.setResult(new Result(Result.Status.ERROR,null, "deleteOneMember 失败"));
             logger.error("deleteOneMember 失败 ",e);
@@ -125,14 +160,14 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         return resp;
     }
 
-    /**
-     *根据id查询学习经历,工作经历,创业经历
+    /**C
+ F    *根据id查询一条工作经历或创业经历等
      */
-    @RequestMapping("/queryOneRow/{id}")
+    @RequestMapping("/queryOneInnerRow/{id}")
     @ResponseBody
     public ResponseData<InformationListdata> queryOneRow(@PathVariable("id") Long id){
         ResponseData<InformationListdata> resp = new ResponseData<>();
-        if(id != null){
+        if(id == null){
             resp.setResult(new Result(Result.Status.ERROR,null, "id缺失"));
             logger.error("queryOneRow 失败 : id缺失");
         }
@@ -142,26 +177,6 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         }catch(Exception e){
             resp.setResult(new Result(Result.Status.ERROR,null, "queryOneRow失败"));
             logger.error("queryOneRow 失败 ",e);
-        }
-        return resp;
-    }
-
-    /**
-     * 删除学习经历,工作经历,创业经历
-     */
-    @RequestMapping("/deleteOneRow/{id}")
-    @ResponseBody
-    public ResponseData deleteOneRow(@PathVariable("id") Long id){
-        ResponseData<InformationListdata> resp = new ResponseData<>();
-        if(id != null){
-            resp.setResult(new Result(Result.Status.ERROR,null, "id缺失"));
-            logger.error("deleteOneRow 失败 : id缺失");
-        }
-        try{
-            informationListdataService.deleteById(id);
-        }catch(Exception e){
-            resp.setResult(new Result(Result.Status.ERROR,null, "deleteOneRow 失败"));
-            logger.error("deleteOneRow 失败 ",e);
         }
         return resp;
     }

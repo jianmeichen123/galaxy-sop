@@ -147,7 +147,16 @@
 		from information_listdata_remark
 		where id = #{id}
 	</select>
-	
+
+	<!-- 根据ID查询 -->
+	<select id="selectByTitleId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from information_listdata_remark
+		where title_id = #{titleId}
+		and sub_code is null
+	</select>
+
 	
 	<!-- 通过ID更新 -->
 	<update id="updateById" parameterType="com.galaxyinternet.model.hologram.InformationListdataRemark">

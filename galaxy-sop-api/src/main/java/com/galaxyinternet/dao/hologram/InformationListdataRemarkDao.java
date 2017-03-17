@@ -5,4 +5,5 @@ import com.galaxyinternet.model.hologram.InformationListdataRemark;
 
 public interface InformationListdataRemarkDao extends BaseDao<InformationListdataRemark, Long>{
 
+    InformationListdataRemark selectByTitleId(Long titleId);
 }

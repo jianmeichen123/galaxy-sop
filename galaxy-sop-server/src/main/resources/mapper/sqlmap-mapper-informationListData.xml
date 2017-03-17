@@ -63,6 +63,12 @@
 					#{item}
 					</foreach>
 				</if>
+				<if test="codes != null">
+					and code in
+					<foreach collection="codes" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 			</trim>
 			
 			<if test="sorting != null">order by ${sorting}</if>
