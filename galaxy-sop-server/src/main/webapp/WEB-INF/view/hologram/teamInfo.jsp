@@ -57,6 +57,17 @@
                         <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		 <dd class="fl_none">
+                            	<img src="img/loginbg.gif" alt="">
+                            	<img src="img/loginbg.gif" alt="">
+                          	</dd>
+
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">未填写</dd>
+
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
                         <dd>未选择</dd>
@@ -93,6 +104,17 @@
                         <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		 <dd class="fl_none">
+                            	<img src="img/loginbg.gif" alt="">
+                            	<img src="img/loginbg.gif" alt="">
+                          	</dd>
+
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">未填写</dd>
+
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
                         <dd>未选择</dd>
@@ -124,21 +146,6 @@
 						{{if type=="1"}}
                         <dd><input type="text"></dd>
 
-						{{else type=="5"}}
-						<dd>
-						<ul class="h_radios clearfix">
-							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
-							<p class="num_tj">
-								<label for="">500</label>/500
-							</p>
-						</dd>
-
 						{{else type=="2"}}
 						<dd>
 						<ul class="h_radios clearfix">
@@ -167,10 +174,46 @@
                         </dd>
 						{{/each}}
 
+						{{else type=="5"}}
+						<dd>
+						<ul class="h_radios clearfix">
+							{{each(i,valueList) valueList}}
+                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+							{{/each}}
+                          </ul>
+						</dd>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<p class="num_tj">
+								<label for="">500</label>/500
+							</p>
+						</dd>
+						
+						
 						{{else type=="6"}}
 						{{each(i,valueList) valueList}}
                         <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 						{{/each}}
+						
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		<dd class="fl_none clearfix">
+                    		 <ul class="h_imgs">
+                             
+                    		 </ul>
+                    		 <ul class="h_imgs">
+                      			<li class="h_imgs_add"><input type="file"></li>
+                      		</ul>
+                    		</dd>
+                  			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<p class="num_tj">
+								<label for="">0</label>/2000
+							</p>
+						</dd>
 
 						{{else type=="10"}}
 						<dd class="fl_none">
@@ -210,21 +253,6 @@
 						{{if type=="1"}}
                         <dd><input type="text"></dd>
 
-						{{else type=="5"}}
-						<dd>
-						<ul class="h_radios clearfix">
-							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
-							<p class="num_tj">
-								<label for="">500</label>/500
-							</p>
-						</dd>
-
 						{{else type=="2"}}
 						<dd>
 						<ul class="h_radios clearfix">
@@ -253,10 +281,45 @@
                         </dd>
 						{{/each}}
 
+						{{else type=="5"}}
+						<dd>
+						<ul class="h_radios clearfix">
+							{{each(i,valueList) valueList}}
+                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}"/>\${name}</li>
+							{{/each}}
+                          </ul>
+						</dd>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<p class="num_tj">
+								<label for="">500</label>/500
+							</p>
+						</dd>
+
 						{{else type=="6"}}
 						{{each(i,valueList) valueList}}
                         <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 						{{/each}}
+
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		<dd class="fl_none clearfix">
+                    		 <ul class="h_imgs">
+                             
+                    		 </ul>
+                    		 <ul class="h_imgs">
+                      			<li class="h_imgs_add"><input type="file"></li>
+                      		</ul>
+                    		</dd>
+                  			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none">
+							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<p class="num_tj">
+								<label for="">0</label>/2000
+							</p>
+						</dd>
 
 						{{else type=="10"}}
 						<dd class="fl_none">
