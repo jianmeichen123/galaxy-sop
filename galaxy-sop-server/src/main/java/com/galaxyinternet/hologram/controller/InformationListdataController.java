@@ -160,10 +160,10 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         return resp;
     }
 
-    /**C
- F    *根据id查询一条工作经历或创业经历等
+    /**
+    *根据id查询一条工作经历或创业经历等
      */
-    @RequestMapping("/queryOneInnerRow/{id}")
+  /*  @RequestMapping("/queryOneInnerRow/{id}")
     @ResponseBody
     public ResponseData<InformationListdata> queryOneRow(@PathVariable("id") Long id){
         ResponseData<InformationListdata> resp = new ResponseData<>();
@@ -179,5 +179,5 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             logger.error("queryOneRow 失败 ",e);
         }
         return resp;
-    }
+    }*/
 }
