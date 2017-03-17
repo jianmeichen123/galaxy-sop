@@ -181,12 +181,16 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	/**
 	 * 查看题和保存的结果信息
 	 * 传入项目 id， 区域  code， 返回 该区域下 题和保存的结果信息
+	 * return : 
+	 *       title  - title
+	 *                  - resultList
+	 *              - title  
+	 *                  - resultList   
 	 */
 	@Override
 	public InformationTitle selectAreaTitleResutl(String pid, String pinfoKey) {
 		List<InformationTitle> tchilds = null;
 		List<InformationResult> results = null;
-		
 		
 		InformationTitle title = selectTChildsByPinfo(pinfoKey);
 		
@@ -202,23 +206,39 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			InformationResult rq = new InformationResult();
 			rq.setProjectId(pid);
 			rq.setTitleIds(tids);
+			//rq.setProperty("title_id sort");
+			rq.setProperty("title_id");
+			rq.setDirection(Direction.ASC.toString());
 			results = resultDao.selectList(rq);
 		}
 		
 		if(results!=null && !results.isEmpty()){
 			
 			for(InformationTitle atitle : tchilds ){
-				
-				List<InformationResult> t_resultList = new ArrayList<InformationResult>();
-				
-				//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注、6:复选带备注、7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据
-				
-				//Type ： 1 2 5 8
-				if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 5 || atitle.getType().intValue() == 8 ){
-					t_resultList = findResultByArecord(atitle, results);
+				if(atitle.getType() != null){
+					List<InformationResult> t_resultList = null;
+					
+					//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注、6:复选带备注、7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据
+					
+					//Type ： 1 2 5 8 11
+					if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 5 || atitle.getType().intValue() == 8 || atitle.getType().intValue() == 11 ){
+						t_resultList = findResultByArecord(atitle, results);
+					}//Type ： 3 4 6
+					else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 6 ){
+						t_resultList = findResultByNrecord(atitle, results);  //findResultByNcontact
+					}//Type ： 7 
+					else if(atitle.getType().intValue() == 7){
+						t_resultList = null;
+					}//Type ： 9
+					else if(atitle.getType().intValue() == 9){
+						t_resultList = null;
+					}//Type ： 10
+					else if(atitle.getType().intValue() == 10){
+						t_resultList = null;
+					}
+					
+					atitle.setResultList(t_resultList);
 				}
-				
-				atitle.setResultList(t_resultList);
 			}
 			
 		}
@@ -227,7 +247,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	}
 	/**
 	 * 题的值只能有一条记录的
-	 * Type ： 1 2 5 8
+	 * Type ： 1 2 5 8 11
 	 */
 	@SuppressWarnings("unchecked")
 	public List<InformationResult>  findResultByArecord(InformationTitle atitle, List<InformationResult> results){
@@ -235,27 +255,83 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		
 		List<InformationResult> t_resultList = new ArrayList<InformationResult>();
 		
+		InformationResult isr = null;
 		for(InformationResult aresult : results){
 			
-			InformationResult isr = new InformationResult();
+			isr = new InformationResult();
 			
 			if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
 				
 				isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-				isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(aresult.getValueId()));
+				isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
 				
 				t_resultList.add(isr);
 				
+				results.remove(aresult);
 				break;
 			}
 		}
 		
 		return t_resultList;
 	}
+	/**
+	 * 题的值可能有多条记录的
+	 * Type ： 3 6
+	 */
+	@SuppressWarnings("unchecked")
+	public List<InformationResult>  findResultByNrecord(InformationTitle atitle, List<InformationResult> results){
+		
+		List<InformationResult> t_resultList = new ArrayList<InformationResult>();
+		
+		List<InformationResult> resultList_toremove = new ArrayList<InformationResult>();
+		
+		InformationResult isr = null;
+		for(InformationResult aresult : results){
+			
+			isr = new InformationResult();
+			
+			if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
+				
+				isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+				isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
+				isr.setContentDescribe1(aresult.getContentDescribe1());
+				isr.setContentDescribe2(aresult.getContentDescribe2());
+				
+				t_resultList.add(isr);
+				
+				resultList_toremove.add(aresult);
+			}
+		}
+		
+		for(InformationResult ar : resultList_toremove){
+			results.remove(ar);
+		}
+		
+		return t_resultList;
+	}
 
 	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 编辑区域查看题和保存的结果信息
+	 * 传入项目 id， 区域  code， 返回 该区域下 题和保存的结果信息
+	 * return : 
+	 *       title  - title
+	 *                  - resultList
+	 *              - title  
+	 *                  - resultList   
+	 */
+	@Override
+	public InformationTitle editAreaTitleResutl(String pid, String pinfoKey) {
+		return null;
+	}
 	
 	
 	

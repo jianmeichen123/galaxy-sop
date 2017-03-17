@@ -16,6 +16,8 @@ public class InformationResult extends PagableEntity{
     
     private String contentDescribe2;
 
+    private Integer sort;
+    
     private String projectId;
 
     private String isValid;
@@ -93,7 +95,15 @@ public class InformationResult extends PagableEntity{
         this.contentDescribe2 = contentDescribe2 == null ? null : contentDescribe2.trim();
     }
 
-    public String getProjectId() {
+    public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public String getProjectId() {
         return projectId;
     }
 

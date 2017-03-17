@@ -44,13 +44,19 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 
 	
 	/**
+	 * 页面查看功能
 	 * 查看题和保存的结果信息
 	 * 传入项目 id， 区域  code， 返回 该区域下 题和保存的结果信息
 	 */
 	InformationTitle selectAreaTitleResutl(String pid, String pinfoKey);
 	
 	
-	
+	/**
+	 * 页面编辑功能
+	 * 查看题和values 及 保存的结果信息
+	 * 传入项目 id， 区域  code， 返回 该区域下 题和values 及 保存的结果信息
+	 */
+	InformationTitle editAreaTitleResutl(String pid, String tcode);
 	
 	
 	/**
@@ -58,6 +64,9 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	 * @return 返回子标题及标题的结果值
 	 */
 	List<InformationTitle> searchWithData(String titleId);
+
+
+
 
 
 	
