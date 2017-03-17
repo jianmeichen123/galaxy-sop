@@ -257,6 +257,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				
 				isr = new InformationResult();
 				
+				isr.setId(aresult.getId());
 				if(aresult.getContentChoose() != null){
 					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
 					isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
@@ -307,6 +308,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			if(Long.parseLong(aresult.getTitleId()) == atitle.getId().longValue() ){
 				isr = new InformationResult();
 				
+				isr.setId(aresult.getId());
 				if(aresult.getContentChoose() != null){
 					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
 					isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));

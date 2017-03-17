@@ -1073,6 +1073,14 @@ var platformUrl = {
 	
 	
 	
+	/**
+	 * 传入项目 id，区域 code， 返回 该区域下 题和保存的结果信息
+	 */
+	queryProjectAreaInfo : Constants.sopEndpointURL + "/galaxy/tvalue/queryProjectAreaInfo/",
+	/**
+	 * 传入项目 id，区域 code， 返回 该区域下 题和values 及 保存的结果信息
+	 */
+	editProjectAreaInfo : Constants.sopEndpointURL + "/galaxy/tvalue/editProjectAreaInfo/",
 	
 	
 	//eg： platformUrl.queryTitleInfo+"code"
