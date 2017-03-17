@@ -25,7 +25,7 @@ public class InformationDictionary extends PagableEntity {
 
 	private Long updateId;
 
-	
+	private boolean checked = false;
 	
 	private List<InformationDictionary> valueList;
 	
@@ -109,6 +109,14 @@ public class InformationDictionary extends PagableEntity {
 
 	public void setValueList(List<InformationDictionary> valueList) {
 		this.valueList = valueList;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 	
 	
