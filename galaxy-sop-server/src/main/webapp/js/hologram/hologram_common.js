@@ -129,7 +129,7 @@ $(function(){
 							}
 							if(title.type == 2)
 							{
-								$("input[data-title-id='"+title.id+"'][data-id='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+								$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
 							}
 							else(title.type == 8)
 							{
@@ -139,9 +139,6 @@ $(function(){
 						
 					});
 				}
-				
-				
-				
 			} 
 		})
 	}

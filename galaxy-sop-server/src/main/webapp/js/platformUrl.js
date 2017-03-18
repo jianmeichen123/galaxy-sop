@@ -1130,7 +1130,14 @@ var platformUrl = {
 	/**
 	 * 传入题 id,返回子标题的结果
 	 */
-	getTitleResults : Constants.sopEndpointURL + "galaxy/infoProject/getTitleResults/"
+	getTitleResults : Constants.sopEndpointURL + "galaxy/infoProject/getTitleResults/",
+	
+	/**
+	 * 保存result
+	 */
+	saveOrUpdateInfo : Constants.sopEndpointURL + "galaxy/infoProject/saveOrUpdateInfo"
+	
+	
 	
 	
 	

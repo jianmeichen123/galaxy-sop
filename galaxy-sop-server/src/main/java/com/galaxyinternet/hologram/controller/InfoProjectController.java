@@ -67,7 +67,6 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	 * @version 2017-03-13
 	 * @author jianmeichen
 	 */
-	@Token
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdateInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

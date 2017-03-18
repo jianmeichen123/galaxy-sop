@@ -49,13 +49,13 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
 
 						{{else type=="2"}}
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-title-id="\${titleId}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" value="\${id}" data-title-id="\${titleId}" data-type="\${type}" name="\${titleId}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -83,12 +83,12 @@
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" value="\${id}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-value="\${value}" data-parentId="\${parentId}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}""></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
@@ -114,7 +114,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-value="\${value}" data-parentId="\${parentId}"></textarea>
+							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -162,7 +162,7 @@
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-title-id="\${titleId}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" name="\${titleId}" value="\${id}" data-title-id="\${titleId}" data-type="\${type}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -190,12 +190,12 @@
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}"/>\${name}</li>
+                            <li><input type="radio" data-value="\${value}" data-type="\${type}" placeholder="\${placeholder}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-titleId="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
@@ -220,7 +220,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -421,6 +421,46 @@
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		event.stopPropagation();
+	});
+	//通用保存
+	$('div').delegate(".h_save_btn","click",function(event){
+		event.stopPropagation();
+		var sec = $(this).closest('.h_edit');
+		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var data = {
+			projectId : projectInfo.id
+		};
+		
+		var infoModeList = new Array();
+		$.each(fields,function(){
+			var field = $(this);
+			var type = field.data('type');
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				type : type
+			};
+			if(type==2 || type==3 || type==4)
+			{
+				infoMode.value = field.val()
+			}
+			else if(type==1 || type==8)
+			{
+				infoMode.remark1 = field.val()
+			}
+			infoModeList.push(infoMode);
+		});
+		data.infoModeList = infoModeList;
+		sendPostRequestByJsonObj(
+			platformUrl.saveOrUpdateInfo , 
+			data,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					layer.msg('保存成功');
+				} else {
+
+				}
+		}) 
 	});
 	
 </script>
