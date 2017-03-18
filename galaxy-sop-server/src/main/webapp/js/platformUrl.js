@@ -1125,7 +1125,12 @@ var platformUrl = {
 	/**
 	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
 	 */
-	queryAllTitleValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitleValues/"
+	queryAllTitleValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitleValues/",
+	
+	/**
+	 * 传入题 id,返回子标题的结果
+	 */
+	getTitleResults : Constants.sopEndpointURL + "galaxy/infoProject/getTitleResults/"
 	
 	
 	

@@ -94,14 +94,14 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	
 	
 	@ResponseBody
-	@RequestMapping("/getTitleResults/{titleId}")
-	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId)
+	@RequestMapping("/getTitleResults/{titleId}/{projectId}")
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId,@PathVariable String projectId)
 	{
 		ResponseData<InformationTitle> data = new ResponseData<>();
 		
 		try
 		{
-			List<InformationTitle> list = titleService.searchWithData(titleId);
+			List<InformationTitle> list = titleService.searchWithData(titleId, projectId);
 			data.setEntityList(list);
 			
 		} catch (Exception e)

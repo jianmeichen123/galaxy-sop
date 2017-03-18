@@ -107,4 +107,42 @@ function tabInfoChange(index){
 			});
 		}
 
-
+$(function(){
+	$.fn.showResults = function(){
+		var pid = $(this).data('sectionId');
+		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
+				function(data) {
+			
+			var result = data.result.status;
+			if (result == 'OK') 
+			{
+				var entityList = data.entityList;
+				if(entityList && entityList.length >0)
+				{
+					$.each(entityList,function(){
+						var title = this;
+						if(title.resultList)
+						{
+							if(title.type == 1)
+							{
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+							}
+							if(title.type == 2)
+							{
+								$("input[data-title-id='"+title.id+"'][data-id='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+							}
+							else(title.type == 8)
+							{
+								$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+							}
+						}
+						
+					});
+				}
+				
+				
+				
+			} 
+		})
+	}
+});

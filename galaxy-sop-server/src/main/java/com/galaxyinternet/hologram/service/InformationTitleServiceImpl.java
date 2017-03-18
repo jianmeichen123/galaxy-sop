@@ -436,25 +436,21 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 
 	@Override
-	public List<InformationTitle> searchWithData(String titleId) 
+	public List<InformationTitle> searchWithData(String titleId,String projectId) 
 	{
 		//查询子标题
-		InformationTitle query = new InformationTitle();
-		query.setParentId(titleId);
-		List<InformationTitle> list = getBaseDao().selectList(query);
-		if(list == null || list.size()==0)
+		List<InformationTitle> treeList = selectByTlist(selectChildsByPid(Long.valueOf(titleId)));
+		if(treeList == null || treeList.size()==0)
 		{
 			return null;
 		}
 		Set<String> titleIds = new HashSet<>();
 		Map<String,InformationTitle> titleMap = new HashMap<>();
-		for(InformationTitle item : list)
-		{
-			titleIds.add(item.getId()+"");
-			titleMap.put(item.getId()+"", item);
-		}
+		populateTitleIds(treeList,titleIds,titleMap);
+		List<InformationTitle> list = new ArrayList<>(titleMap.values());
 		//查询result
 		InformationResult resultQuery = new InformationResult();
+		resultQuery.setProjectId(projectId);
 		resultQuery.setTitleIds(titleIds);
 		resultQuery.setProperty("title_id");
 		resultQuery.setDirection(Direction.ASC.toString());
@@ -483,6 +479,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		}
 		//查询FixedTable
 		InformationFixedTable fixedTableQuery = new InformationFixedTable();
+		fixedTableQuery.setProjectId(projectId);
 		fixedTableQuery.setTitleIds(titleIds);
 		fixedTableQuery.setProperty("title_id");
 		fixedTableQuery.setDirection(Direction.ASC.toString());
@@ -512,6 +509,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		
 		//查询FixedTable
 		InformationListdata listdataQuery = new InformationListdata();
+		listdataQuery.setParentId(Long.valueOf(projectId));
 		listdataQuery.setTitleIds(titleIds);
 		listdataQuery.setProperty("title_id");
 		listdataQuery.setDirection(Direction.ASC.toString());
@@ -540,6 +538,22 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		}
 		
 		return list;
+	}
+	
+	private void populateTitleIds(List<InformationTitle> list, Set<String> ids, Map<String,InformationTitle> map)
+	{
+		if(list != null && list.size() >0)
+		{
+			for(InformationTitle item : list)
+			{
+				ids.add(item.getId()+"");
+				map.put(item.getId()+"", item);
+				if(item.getChildList() != null)
+				{
+					populateTitleIds(item.getChildList(),ids,map);
+				}
+			}
+		}
 	}
 	
 }

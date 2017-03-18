@@ -47,15 +47,15 @@
 						{{each(i,childList) childList}}
 						<div class="mb_16">
                        <dl class="h_edit_txt clearfix">
-						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text"></dd>
+                        <dd><input type="text" data-title-id="\${id}"></dd>
 
 						{{else type=="2"}}
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" data-title-id="\${titleId}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -88,7 +88,7 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<textarea class="textarea_h" data-titleId="\${id}" data-value="\${value}" data-parentId="\${parentId}"></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
@@ -114,7 +114,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<textarea class="textarea_h" data-titleId="\${id}" data-value="\${value}" data-parentId="\${parentId}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -156,13 +156,13 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text"></dd>
+                        <dd><input type="text" data-title-id="\${id}"></dd>
 
 						{{else type=="2"}}
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" data-title-id="\${titleId}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -220,7 +220,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -273,7 +273,7 @@
 <!--页面例子 -->
 <script id="page_list" type="text/x-jquery-tmpl">
 {{each(i,childList) childList}}
-<div class="h radius" id="a_\${code}">
+<div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
 	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<div class="h_title">\${name}</div>
@@ -381,7 +381,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
@@ -396,6 +396,7 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		alert(id_code)
+		var sec = $(this).closest('.section');
 		
 		event.stopPropagation();
 		$("#"+id_code).hide();
@@ -407,6 +408,7 @@
 					var entity = data.entity;
 					console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					sec.showResults();
 				} else {
 
 				}
