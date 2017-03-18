@@ -156,7 +156,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -261,10 +261,6 @@
 					
 					{{/each}}
 	
-	<div class="h_edit_btnbox clearfix">
-		<span class="pubbtn bluebtn fl" data-on="save" data-code="\${code}">保存</span> <span
-			class="pubbtn h_cancel_btn fffbtn fl" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
-	</div>
 </div>										
 </script>
 
@@ -283,6 +279,7 @@
 							<div class="mb_24 clearfix">
                       <dl class="clearfix">
                         <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+
 						{{if type=="5"}}                        
 						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						<dd>备注</dd>
@@ -309,7 +306,7 @@
 
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none">未填写</dd>
+						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -320,7 +317,7 @@
                         <dd>项目带过来的数据</dd>
 
 						{{else type=="1"}}
-                        <dd>未填写</dd>
+                        <dd class="field" data-title-id="\${id}">未填写</dd>
 						{{/if}}                      
 						</dl>		
                     </div>
@@ -356,7 +353,7 @@
 
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none">未填写</dd>
+						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -367,7 +364,7 @@
                         <dd>项目带过来的数据</dd>
 
 						{{else type=="1"}}
-                        <dd>未填写</dd>
+                        <dd class="field" data-title-id="\${id}">未填写</dd>
 						{{/if}}                      
 						</dl>		
                     </div>
@@ -388,6 +385,9 @@
 				var entity = data.entity;
 				console.log(entity);
 				$("#page_list").tmpl(entity).appendTo('#page_all');
+				$(".section").each(function(){
+					$(this).showResults(true);
+				});
 			} else {
 
 			}
@@ -395,7 +395,6 @@
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
-		alert(id_code)
 		var sec = $(this).closest('.section');
 		
 		event.stopPropagation();
@@ -417,7 +416,6 @@
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
 		var id_code = $(this).attr('attr-hide');
-		alert(id_code);
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		event.stopPropagation();

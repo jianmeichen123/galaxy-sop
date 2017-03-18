@@ -108,7 +108,7 @@ function tabInfoChange(index){
 		}
 
 $(function(){
-	$.fn.showResults = function(){
+	$.fn.showResults = function(readonly){
 		var pid = $(this).data('sectionId');
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
 				function(data) {
@@ -129,11 +129,25 @@ $(function(){
 							}
 							if(title.type == 2)
 							{
-								$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+								if(readonly == true)
+								{
+									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+								}
+								else
+								{
+									$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+								}
 							}
 							else(title.type == 8)
 							{
-								$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+								if(readonly == true)
+								{
+									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+								}
+								else
+								{
+									$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+								}
 							}
 						}
 						
