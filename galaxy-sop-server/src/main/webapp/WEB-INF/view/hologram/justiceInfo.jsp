@@ -260,7 +260,7 @@
 					
 					{{/each}}
  <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
+                      <span class="pubbtn bluebtn h_save_btn fl" data-on="save">保存</span>
                       <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
                     </div>
 	

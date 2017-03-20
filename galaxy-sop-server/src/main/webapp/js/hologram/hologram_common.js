@@ -14,6 +14,11 @@ function editOpen(){
 	  $(this).parent().parent().parent(".h").css("background","#fff");
 	})
 }
+/*多选标签*/
+$("div").delegate(".check_label","click",function(event){
+	  $(this).toggleClass('active');
+	  event.stopPropagation();
+});
 
 /*$(function(){
 	 $('.h_navbar').tabInfoChange({		
