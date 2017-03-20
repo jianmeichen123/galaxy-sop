@@ -63,7 +63,7 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	 * @param titleId 标题ID
 	 * @return 返回子标题及标题的结果值
 	 */
-	List<InformationTitle> searchWithData(String titleId);
+	List<InformationTitle> searchWithData(String titleId, String projectId);
 
 
 

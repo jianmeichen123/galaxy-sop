@@ -1073,6 +1073,14 @@ var platformUrl = {
 	
 	
 	
+	/**
+	 * 传入项目 id，区域 code， 返回 该区域下 题和保存的结果信息
+	 */
+	queryProjectAreaInfo : Constants.sopEndpointURL + "/galaxy/tvalue/queryProjectAreaInfo/",
+	/**
+	 * 传入项目 id，区域 code， 返回 该区域下 题和values 及 保存的结果信息
+	 */
+	editProjectAreaInfo : Constants.sopEndpointURL + "/galaxy/tvalue/editProjectAreaInfo/",
 	
 	
 	//eg： platformUrl.queryTitleInfo+"code"
@@ -1117,7 +1125,19 @@ var platformUrl = {
 	/**
 	 * 传入题 id 或 code， 返回该题信息及其下的所有级的 题和value信息
 	 */
-	queryAllTitleValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitleValues/"
+	queryAllTitleValues : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitleValues/",
+	
+	/**
+	 * 传入题 id,返回子标题的结果
+	 */
+	getTitleResults : Constants.sopEndpointURL + "galaxy/infoProject/getTitleResults/",
+	
+	/**
+	 * 保存result
+	 */
+	saveOrUpdateInfo : Constants.sopEndpointURL + "galaxy/infoProject/saveOrUpdateInfo"
+	
+	
 	
 	
 	

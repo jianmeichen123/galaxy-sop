@@ -22,7 +22,7 @@ public class TitleServiceTest {
 	public void searchWithDataTest()
 	{
 		String id = "1";
-		List<InformationTitle> list = service.searchWithData(id);
+		List<InformationTitle> list = service.searchWithData(id,"1");
 		Assert.notEmpty(list,"No title found");
 		InformationTitle title = list.iterator().next();
 		Assert.notEmpty(title.getResultList(),"No results found");

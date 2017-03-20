@@ -40,20 +40,9 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	@Override
 	public void save(InformationData data)
 	{
-		int flag=data.getFlag();
-		switch(flag){
-			case 0:
-				saveResult(data);
-				break;
-			case 1:	
-				saveListData(data);
-				break;
-			case 2:	
-				saveFixedTable(data);
-				break;
-		   default:
-			   break;
-		}
+		saveResult(data);
+		saveListData(data);
+		saveFixedTable(data);
 	}
 	private void saveResult(InformationData data)
 	{
@@ -64,7 +53,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			return;
 		}
 		
-		String titleId = null;
 		InformationResult entity = null;
 		List<InformationResult> entityList = new ArrayList<>();
 		Set<String> titleIds = new HashSet<>();
@@ -73,7 +61,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			titleIds.add(model.getTitleId());
 			entity = new InformationResult();
 			entity.setProjectId(projectId);
-			entity.setTitleId(titleId);
+			entity.setTitleId(model.getTitleId());
 			if(!StringEx.isNullOrEmpty(model.getValue()))
 			{
 				entity.setContentChoose(model.getValue());

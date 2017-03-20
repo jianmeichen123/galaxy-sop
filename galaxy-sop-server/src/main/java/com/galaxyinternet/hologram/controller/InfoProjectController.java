@@ -67,7 +67,6 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	 * @version 2017-03-13
 	 * @author jianmeichen
 	 */
-	@Token
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdateInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -94,14 +93,14 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	
 	
 	@ResponseBody
-	@RequestMapping("/getTitleResults/{titleId}")
-	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId)
+	@RequestMapping("/getTitleResults/{titleId}/{projectId}")
+	public ResponseData<InformationTitle> getTitleResults(@PathVariable String titleId,@PathVariable String projectId)
 	{
 		ResponseData<InformationTitle> data = new ResponseData<>();
 		
 		try
 		{
-			List<InformationTitle> list = titleService.searchWithData(titleId);
+			List<InformationTitle> list = titleService.searchWithData(titleId, projectId);
 			data.setEntityList(list);
 			
 		} catch (Exception e)
