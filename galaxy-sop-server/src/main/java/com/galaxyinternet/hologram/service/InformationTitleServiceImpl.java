@@ -449,6 +449,16 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		Map<String,InformationTitle> titleMap = new HashMap<>();
 		populateTitleIds(treeList,titleIds,titleMap);
 		List<InformationTitle> list = new ArrayList<>(titleMap.values());
+		if(list != null)
+		{
+			for(InformationTitle item : list)
+			{
+				if(item.getChildList() != null)
+				{
+					item.getChildList().clear();
+				}
+			}
+		}
 		//查询result
 		InformationResult resultQuery = new InformationResult();
 		resultQuery.setProjectId(projectId);
