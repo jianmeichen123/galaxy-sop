@@ -211,23 +211,8 @@
 
 						{{else type=="10"}}
 						<dd class="fl_none">
-                            <table>
-                              <tr>
-                                <th>姓名</th>
-                                <th>职位</th>
-                                <th>性别</th>
-                                <th>最高学历</th>
-                                <th>操作</th>
-                              </tr>
-                              <tr>
-                                <th>罗振宇</th>
-                                <td>CEO</td>
-                                <td>男</td>
-                                <td>博士</td>
-                                <td>
-                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
-                                </td>
-                              </tr>
+                            <table data-title-id="\${id}">
+                             
                             </table>
 							<span class="pubbtn bluebtn">新增</span>
                           </dd>
@@ -295,6 +280,9 @@
 						{{each(i,valueList) valueList}}
                         <dd>未选择</dd>
 						{{/each}}
+						
+						{{else type=="10"}}
+                        <dd><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>
@@ -342,6 +330,9 @@
 						{{each(i,valueList) valueList}}
                         <dd>未选择</dd>
 						{{/each}}
+
+						{{else type=="10"}}
+                        <dd><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>

@@ -10,6 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path%>/js/hologram/hologram_common.js"></script>
 </head>
 <body>
 <ul class="h_navbar clearfix">
@@ -29,6 +31,7 @@
 			
 			<!--tab end-->
 		</div>
+
 		<!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
 <div class="h_edit" id="b_\${code}">

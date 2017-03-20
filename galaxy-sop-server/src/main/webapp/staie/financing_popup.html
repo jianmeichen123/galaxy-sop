@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>繁星test</title>
+<link rel="stylesheet" type="text/css" href="../css/axure.css"  />
+<script src="../js/jquery-1.12.2.min.js" ></script>
+<script src="axure.js" ></script>
+</head>
+
+<body>
+ 	<p>融资及估值</p>
+	<div class="">
+	<a class="blue" href="../html/funcing_add_gd.html" data-btn="fincing_add_gd">添加股东</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="../html/funcing_add_tz.html" data-btn="fincing_add_tz">添加投资人</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="../html/fincing_add_yx.html" data-btn="fincing_add_yx">添加运营指标</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="../html/fincing_add_tl.html" data-btn="fincing_add_tl">添加同类</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="../html/fincing_add_jd.html" data-btn="fincing_add_jd">添加里程碑和时间节点</a>&nbsp;&nbsp;&nbsp;
+ 	</div>
+</body>
+<script>
+//添加股东
+$("[data-btn='fincing_add_gd']").on("click",function(){
+	var $self = $(this);
+	var _url = $self.attr("href");
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$('#team_learn').html('添加股东')
+		}//模版反回成功执行	
+	});
+	return false;
+});
+//添加投资人
+$("[data-btn='fincing_add_tz']").on("click",function(){
+	var $self = $(this);
+	var _url = $self.attr("href");
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$('#team_learn').html('添加投资人')
+		}//模版反回成功执行	
+	});
+	return false;
+});
+//添加运营指标
+$("[data-btn='fincing_add_yx']").on("click",function(){
+	var $self = $(this);
+	var _url = $self.attr("href");
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$('#team_learn').html('添加投资人')
+		}//模版反回成功执行	
+	});
+	return false;
+});
+
+//添加同类公司
+$("[data-btn='fincing_add_tl']").on("click",function(){
+	var $self = $(this);
+	var _url = $self.attr("href");
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$('#team_learn').html('添加同类公司')
+		}//模版反回成功执行	
+	});
+	return false;
+});
+
+//添加里程碑和时间节点
+$("[data-btn='fincing_add_jd']").on("click",function(){
+	var $self = $(this);
+	var _url = $self.attr("href");
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$('#team_learn').html('添加里程碑和时间节点')
+		}//模版反回成功执行	
+	});
+	return false;
+});
+</script>
+</html>
