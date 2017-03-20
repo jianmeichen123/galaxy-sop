@@ -138,7 +138,7 @@ $(function(){
 							{
 								if(readonly == true)
 								{
-									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
+									$(".field[data-value-id='"+title.id+"']").text(title.resultList[0].valueName);
 								}
 								else
 								{
