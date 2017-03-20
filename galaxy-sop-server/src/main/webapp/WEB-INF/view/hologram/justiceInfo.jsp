@@ -286,7 +286,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd   data-value="\${value}" data-title-id="\${titleId}" data-code="\${code}">未选择</dd>
+                        <dd   data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
@@ -333,7 +333,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd class="field" data-value="\${value}" data-title-id="\${titleId}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
@@ -423,6 +423,7 @@
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
