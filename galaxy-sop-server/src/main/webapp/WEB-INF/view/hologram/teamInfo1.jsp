@@ -5,6 +5,7 @@
 	String path = request.getContextPath();
 %>
 
+
 <!doctype html>
 <html>
 <head>
@@ -12,8 +13,6 @@
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
-<script src="<%=path%>/js/axure_ext.js"></script>
-<script src="<%=path%>/js/hologram/team.js"></script>
 </head>
 <body>
 <ul class="h_navbar clearfix">
@@ -237,7 +236,7 @@
                                 </td>
                               </tr>
                             </table>
-							<span class="pubbtn bluebtn" id="test">新增</span>
+							<span class="pubbtn bluebtn">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -343,9 +342,7 @@
                                 </td>
                               </tr>
                             </table>
-                            <a href="<%=path%>/html/team_compile.html" data-btn="addmen" onclick="addmen_fun()" data-name="添加工作经历"><span class="pubbtn bluebtn" id="add_member">新增</span></a>
-
-
+							<span class="pubbtn bluebtn">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -475,18 +472,7 @@
      				}); 
                 	 
      				 editOpen();   //编辑按钮点击时间
-                })
-
-                function addmen_fun(){
-                    	var $self = $(this);
-                    		var _url = $self.attr("href");
-                    		$.getHtml({
-                    			url:_url,//模版请求地址
-                    			data:"",//传递参数
-                    			okback:function(){}//模版反回成功执行
-                    		});
-                    		return false;
-                }
+                })               
        			</script>
                
 </body>
