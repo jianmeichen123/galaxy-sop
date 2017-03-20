@@ -381,7 +381,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
