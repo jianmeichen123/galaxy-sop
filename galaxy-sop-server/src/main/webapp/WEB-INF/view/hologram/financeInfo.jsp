@@ -258,12 +258,7 @@
 					{{/if}}
 					
 					{{/each}}
- <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl h_save_btn" data-on="save">保存</span>
-                      <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
-                    </div>
-	
-</div>										
+										
 </script>
 
 
@@ -378,7 +373,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
