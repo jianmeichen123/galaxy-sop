@@ -129,13 +129,13 @@ $(function(){
 						var title = this;
 						buildResults(sec,title,readonly);
 						buildTable(sec,title);
-						
 					});
 				}
 			} 
 		})
 	}
 });
+
 function buildResults(sec,title,readonly)
 {
 	//普通字段
@@ -181,7 +181,6 @@ function buildResults(sec,title,readonly)
 		}
 	}
 }
-
 function buildTable(sec,title)
 {
 	//列表Header
@@ -239,4 +238,94 @@ function buildTable(sec,title)
 			});
 		});
 	}
+}
+
+function setDate(pid,readonly){
+	sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
+			function(data) {
+		
+		var result = data.result.status;
+		if (result == 'OK') 
+		{
+			var entityList = data.entityList;
+			if(entityList && entityList.length >0)
+			{
+				$.each(entityList,function(){
+					var title = this;
+					//普通字段
+					if(title.resultList)
+					{
+						if(title.type == 1)
+						{
+							if(readonly == true)
+							{
+								$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+							}
+							else
+							{
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+							}
+						}
+						if(title.type == 2)
+						{
+							if(readonly == true)
+							{
+								$(".field[data-value-id='"+title.id+"']").text(title.resultList[0].valueName);
+							}
+							else
+							{
+								$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+							}
+						}
+						else(title.type == 8)
+						{
+							if(readonly == true)
+							{
+								$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+							}
+							else
+							{
+								$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+							}
+						}
+					}
+					//列表Header
+					if(title.tableHeader)
+					{
+						var header = title.tableHeader;
+						var table = $("table[data-title-id='"+header.titleId+"']");
+						var tr="<tr>";
+						for(var key in header)
+						{
+							if(key.indexOf('field')>-1)
+							{
+								tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+							}
+						}
+						tr+="</tr>";
+						table.append(tr);
+					}
+					//列表Row
+					if(title.dataList)
+					{
+						$.each(title.dataList,function(){
+							var row = this;
+							var table = $("table[data-title-id='"+row.titleId+"']");
+							var tr="<tr>";
+							for(var key in row)
+							{
+								if(key.indexOf('field')>-1)
+								{
+									tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
+								}
+							}
+							tr+="</tr>";
+							table.append(tr);
+						});
+					}
+				});
+			}
+		} 
+	})
+	
 }
