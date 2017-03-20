@@ -288,7 +288,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
@@ -335,7 +335,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd class="field" data-value="\${value}" data-value-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}

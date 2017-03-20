@@ -270,7 +270,7 @@ function setDate(pid,readonly){
 						{
 							if(readonly == true)
 							{
-								$(".field[data-value-id='"+title.id+"']").text(title.resultList[0].valueName);
+								$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 							}
 							else
 							{
