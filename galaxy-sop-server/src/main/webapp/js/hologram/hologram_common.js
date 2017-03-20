@@ -153,6 +153,11 @@ $(function(){
 									$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
 								}
 							}
+							else if(title.type == 3){
+								$.each(title.resultList,function(i,n){
+									$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+								});
+							}
 							else(title.type == 8)
 							{
 								if(readonly == true)

@@ -35,7 +35,7 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit" id="b_\${code}">
+<div class="h_edit section" id="b_\${code}">
 	<div class="h_btnbox">
 		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
@@ -121,8 +121,8 @@
 						</dd>
 
 						{{else type=="10"}}
-						<dd class="fl_none">
-							<table data-title-id="\{id}" data-type="\${type}"></table>
+						<dd class="">
+							<table data-title-id="\{id}" class="editable"></table>
 							<span class="pubbtn bluebtn">新增</span>
                         </dd>
 
@@ -211,7 +211,7 @@
 
 						{{else type=="10"}}
 						<dd class="fl_none">
-                            <table data-title-id="\${id}">
+                            <table data-title-id="\${id}"  class="editable">
                              
                             </table>
 							<span class="pubbtn bluebtn">新增</span>
@@ -357,7 +357,6 @@
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
-				console.log(entity);
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
@@ -379,7 +378,6 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
 				} else {
