@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
+import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
@@ -23,6 +23,7 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
@@ -41,6 +42,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	private InformationFixedTableDao fixedTableDao;
 	@Autowired
 	private InformationListdataDao listDataDao;
+	@Autowired
+	private InformationListdataRemarkDao headerDao;
 	
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
@@ -525,10 +528,25 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				}
 			}
 		}
-		
-		//查询FixedTable
+		//查询表格头
+		InformationListdataRemark headerQuery = new InformationListdataRemark();
+		headerQuery.setTitleIds(titleIds);
+		List<InformationListdataRemark> headerList = headerDao.selectList(headerQuery);
+		if(headerList != null && headerList.size() > 0)
+		{
+			InformationTitle title = null;
+			for(InformationListdataRemark item : headerList)
+			{
+				title = titleMap.get(item.getTitleId()+"");
+				if(title != null)
+				{
+					title.setTableHeader(item);
+				}
+			}
+		}
+		//查询表格
 		InformationListdata listdataQuery = new InformationListdata();
-		listdataQuery.setParentId(Long.valueOf(projectId));
+		listdataQuery.setProjectId(Long.valueOf(projectId));
 		listdataQuery.setTitleIds(titleIds);
 		listdataQuery.setProperty("title_id");
 		listdataQuery.setDirection(Direction.ASC.toString());

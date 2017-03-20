@@ -121,6 +121,7 @@ $(function(){
 				{
 					$.each(entityList,function(){
 						var title = this;
+						//普通字段
 						if(title.resultList)
 						{
 							if(title.type == 1)
@@ -157,7 +158,40 @@ $(function(){
 								}
 							}
 						}
-						
+						//列表Header
+						if(title.tableHeader)
+						{
+							var header = title.tableHeader;
+							var table = $("table[data-title-id='"+header.titleId+"']");
+							var tr="<tr>";
+							for(var key in header)
+							{
+								if(key.indexOf('field')>-1)
+								{
+									tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+								}
+							}
+							tr+="</tr>";
+							table.append(tr);
+						}
+						//列表Row
+						if(title.dataList)
+						{
+							$.each(title.dataList,function(){
+								var row = this;
+								var table = $("table[data-title-id='"+row.titleId+"']");
+								var tr="<tr>";
+								for(var key in row)
+								{
+									if(key.indexOf('field')>-1)
+									{
+										tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
+									}
+								}
+								tr+="</tr>";
+								table.append(tr);
+							});
+						}
 					});
 				}
 			} 
