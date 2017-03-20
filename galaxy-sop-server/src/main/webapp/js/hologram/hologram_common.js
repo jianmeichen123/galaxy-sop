@@ -167,34 +167,55 @@ $(function(){
 						if(title.tableHeader)
 						{
 							var header = title.tableHeader;
-							var table = $("table[data-title-id='"+header.titleId+"']");
-							var tr="<tr>";
-							for(var key in header)
-							{
-								if(key.indexOf('field')>-1)
+							var tables = $("table[data-title-id='"+header.titleId+"']");
+							$.each(tables,function(){
+								var table = $(this);
+								table.empty();
+								var tr="<tr>";
+								for(var key in header)
 								{
-									tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+									if(key.indexOf('field')>-1)
+									{
+										tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+									}
 								}
-							}
-							tr+="</tr>";
-							table.append(tr);
+								var editable = table.hasClass('editable');
+								if(editable == true)
+								{
+									tr +='<th data-field-name="opt">操作</th>';
+								}
+								tr+="</tr>";
+								table.append(tr);
+							});
 						}
 						//列表Row
 						if(title.dataList)
 						{
 							$.each(title.dataList,function(){
 								var row = this;
-								var table = $("table[data-title-id='"+row.titleId+"']");
-								var tr="<tr>";
-								for(var key in row)
-								{
-									if(key.indexOf('field')>-1)
+								var tables = $("table[data-title-id='"+row.titleId+"']");
+								$.each(tables,function(){
+									var table = $(this);
+									var tr="<tr>";
+									for(var key in row)
 									{
-										tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
+										if(key.indexOf('field')>-1)
+										{
+											tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
+										}
 									}
-								}
-								tr+="</tr>";
-								table.append(tr);
+									var editable = table.hasClass('editable');
+									if(editable == true)
+									{
+										tr += '<td data-field-name="opt">';
+										tr += '<span class="blue" data-btn="btn">查看</span>';
+										tr += '<span class="blue" data-btn="btn">编辑</span>';
+										tr += '<span class="blue" data-btn="btn">删除</span>';
+										tr += '</td>';
+									}
+									tr+="</tr>";
+									table.append(tr);
+								});
 							});
 						}
 					});
