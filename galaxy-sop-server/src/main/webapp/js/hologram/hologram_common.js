@@ -125,13 +125,20 @@ $(function(){
 						{
 							if(title.type == 1)
 							{
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+								if(readonly == true)
+								{
+									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+								}
+								else
+								{
+									$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+								}
 							}
 							if(title.type == 2)
 							{
 								if(readonly == true)
 								{
-									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 								}
 								else
 								{

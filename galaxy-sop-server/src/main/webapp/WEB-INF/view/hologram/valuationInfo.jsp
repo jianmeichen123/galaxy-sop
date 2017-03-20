@@ -122,26 +122,9 @@
 
 						{{else type=="10"}}
 						<dd class="fl_none">
-                            <table>
-                              <tr>
-                                <th>姓名</th>
-                                <th>职位</th>
-                                <th>性别</th>
-                                <th>最高学历</th>
-                                <th>操作</th>
-                              </tr>
-                              <tr>
-                                <th>罗振宇</th>
-                                <td>CEO</td>
-                                <td>男</td>
-                                <td>博士</td>
-                                <td>
-                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
-                                </td>
-                              </tr>
-                            </table>
+							<table data-title-id="\{id}" data-type="\${type}"></table>
 							<span class="pubbtn bluebtn">新增</span>
-                          </dd>
+                        </dd>
 
 						{{else type=="11"}}
 						<dd>项目带过来的数据</dd>
@@ -285,7 +268,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
@@ -332,7 +315,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}

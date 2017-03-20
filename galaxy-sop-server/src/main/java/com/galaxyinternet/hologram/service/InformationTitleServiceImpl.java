@@ -435,6 +435,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<InformationTitle> searchWithData(String titleId,String projectId) 
 	{
@@ -459,8 +460,16 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		{
 			InformationTitle title = null;
 			List<InformationResult> tempList = null;
+			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 			for(InformationResult item : resultList)
 			{
+				if(item.getContentChoose() != null)
+				{
+					if(dict != null)
+					{
+						item.setValueName(dict.get(Long.valueOf(item.getContentChoose())));
+					}
+				}
 				title = titleMap.get(item.getTitleId());
 				if(title != null)
 				{
