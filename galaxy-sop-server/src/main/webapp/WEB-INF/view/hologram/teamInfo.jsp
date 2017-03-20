@@ -5,6 +5,7 @@
 	String path = request.getContextPath();
 %>
 
+
 <!doctype html>
 <html>
 <head>
@@ -12,8 +13,6 @@
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
-<script src="<%=path%>/js/axure_ext.js"></script>
-<script src="<%=path%>/js/hologram/team.js"></script>
 </head>
 <body>
 <ul class="h_navbar clearfix">
@@ -28,7 +27,7 @@
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
                 </ul>
 
-
+<span class="pubbtn bluebtn" href="<%=path %>/html/team_xk.html" data-btn="addmenaaaa">新3增</span>
  <div class="h_tab_con"></div>
 			
 			<script id="ifelse" type="text/x-jquery-tmpl">
@@ -237,7 +236,7 @@
                                 </td>
                               </tr>
                             </table>
-							<span class="pubbtn bluebtn" id="test">新增</span>
+							<span class="pubbtn bluebtn" href="../sop/html/team_xk.html" data-btn="addmen">新3增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -343,9 +342,7 @@
                                 </td>
                               </tr>
                             </table>
-                            <a href="<%=path%>/html/team_compile.html" data-btn="addmen" onclick="addmen_fun()" data-name="添加工作经历"><span class="pubbtn bluebtn" id="add_member">新增</span></a>
-
-
+							<span class="pubbtn bluebtn" href="html/team_xk.html" data-btn="addmen">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -475,18 +472,20 @@
      				}); 
                 	 
      				 editOpen();   //编辑按钮点击时间
-                })
-
-                function addmen_fun(){
-                    	var $self = $(this);
-                    		var _url = $self.attr("href");
-                    		$.getHtml({
-                    			url:_url,//模版请求地址
-                    			data:"",//传递参数
-                    			okback:function(){}//模版反回成功执行
-                    		});
-                    		return false;
-                }
+                })      
+                //本页面相关  查看
+	$("[data-btn='addmenaaaa']").on("click",function(){
+		var $self = $(this);
+		var _url = $self.attr("href");
+		var _name= $self.attr("data-name");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){}//模版反回成功执行	
+		});
+		return false;
+		
+	});
        			</script>
                
 </body>

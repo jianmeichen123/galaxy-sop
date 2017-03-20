@@ -12,6 +12,7 @@
 <title>项目详情</title>
 </head>
 <body>
+
 <ul class="h_navbar clearfix">
                      <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>

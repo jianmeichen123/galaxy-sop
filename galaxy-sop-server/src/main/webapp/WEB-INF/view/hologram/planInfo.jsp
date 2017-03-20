@@ -12,6 +12,7 @@
 <title>项目详情</title>
 </head>
 <body>
+
 <ul class="h_navbar clearfix">
                      <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
@@ -259,7 +260,7 @@
 					
 					{{/each}}
  <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
+                      <span class="pubbtn bluebtn fl h_save_btn" data-on="save">保存</span>
                       <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
                     </div>
 	
@@ -461,6 +462,7 @@
 
 				}
 		}) 
+
 	});
 	
 </script>
