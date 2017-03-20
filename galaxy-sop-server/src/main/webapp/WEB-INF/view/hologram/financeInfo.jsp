@@ -258,12 +258,12 @@
 					{{/if}}
 					
 					{{/each}}
- <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl h_save_btn" data-on="save">保存</span>
+			 <div class="h_edit_btnbox clearfix">
+                      <span class="pubbtn bluebtn h_save_btn fl" data-on="save">保存</span>
                       <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
                     </div>
 	
-</div>										
+</div>									
 </script>
 
 
@@ -333,7 +333,7 @@
 		<dd>备注</dd>
 
 		{{else type=="2"}}
-		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		<dd data-value="\${value}" class="field" data-value-id="\${id}" data-code="\${code}">未选择</dd>
 
 		{{else type=="3"}}
 		{{each(i,valueList) valueList}}
@@ -378,7 +378,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {

@@ -261,7 +261,7 @@
 					
 					{{/each}}
  <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
+                      <span class="pubbtn bluebtn h_save_btn fl" data-on="save">保存</span>
                       <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
                     </div>
 	
@@ -336,7 +336,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-value-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}

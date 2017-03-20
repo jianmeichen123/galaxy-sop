@@ -144,12 +144,17 @@ $(function(){
 							{
 								if(readonly == true)
 								{
-									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
+									$(".field[data-value-id='"+title.id+"']").text(title.resultList[0].valueName);
 								}
 								else
 								{
 									$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
 								}
+							}
+							else if(title.type == 3){
+								$.each(title.resultList,function(i,n){
+									$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+								});
 							}
 							else(title.type == 8)
 							{
@@ -167,55 +172,34 @@ $(function(){
 						if(title.tableHeader)
 						{
 							var header = title.tableHeader;
-							var tables = $("table[data-title-id='"+header.titleId+"']");
-							$.each(tables,function(){
-								var table = $(this);
-								table.empty();
-								var tr="<tr>";
-								for(var key in header)
+							var table = $("table[data-title-id='"+header.titleId+"']");
+							var tr="<tr>";
+							for(var key in header)
+							{
+								if(key.indexOf('field')>-1)
 								{
-									if(key.indexOf('field')>-1)
-									{
-										tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
-									}
+									tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 								}
-								var editable = table.hasClass('editable');
-								if(editable == true)
-								{
-									tr +='<th data-field-name="opt">操作</th>';
-								}
-								tr+="</tr>";
-								table.append(tr);
-							});
+							}
+							tr+="</tr>";
+							table.append(tr);
 						}
 						//列表Row
 						if(title.dataList)
 						{
 							$.each(title.dataList,function(){
 								var row = this;
-								var tables = $("table[data-title-id='"+row.titleId+"']");
-								$.each(tables,function(){
-									var table = $(this);
-									var tr="<tr>";
-									for(var key in row)
+								var table = $("table[data-title-id='"+row.titleId+"']");
+								var tr="<tr>";
+								for(var key in row)
+								{
+									if(key.indexOf('field')>-1)
 									{
-										if(key.indexOf('field')>-1)
-										{
-											tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
-										}
+										tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
 									}
-									var editable = table.hasClass('editable');
-									if(editable == true)
-									{
-										tr += '<td data-field-name="opt">';
-										tr += '<span class="blue" data-btn="btn">查看</span>';
-										tr += '<span class="blue" data-btn="btn">编辑</span>';
-										tr += '<span class="blue" data-btn="btn">删除</span>';
-										tr += '</td>';
-									}
-									tr+="</tr>";
-									table.append(tr);
-								});
+								}
+								tr+="</tr>";
+								table.append(tr);
 							});
 						}
 					});
