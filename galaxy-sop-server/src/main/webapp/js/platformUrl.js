@@ -1138,7 +1138,12 @@ var platformUrl = {
 	/**
 	 * 保存result
 	 */
-	saveOrUpdateInfo : Constants.sopEndpointURL + "galaxy/infoProject/saveOrUpdateInfo"
+	saveOrUpdateInfo : Constants.sopEndpointURL + "galaxy/infoProject/saveOrUpdateInfo",
+	
+	/**
+	 * 保存result
+	 */
+	saveRow : Constants.sopEndpointURL + "galaxy/team/saveRow"
 	
 	
 	

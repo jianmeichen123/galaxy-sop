@@ -163,49 +163,9 @@ function buildResults(sec,title,readonly)
 				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
 			}
 		}
-		else if(title.type == 3)
-		{
-			//console.log('3:title.resultList : ' , title.resultList);
+		else if(title.type == 3){
 			$.each(title.resultList,function(i,n){
-				if(readonly == true){
-					$(".field[data-id='"+n.contentChoose+"']").text(n.valueName);
-				}else{					
-					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
-				}
-			});
-			
-			if (readonly == true){
-				var dds = $("dt[data-type='3'][data-id='"+ title.id +"']").siblings();
-				$.each(dds,function(i,n){
-					//console.log('3:dd : ' , $(this).text());
-					if ($(this).text() == '未选择'){
-						$(this).remove();
-					}
-				});
-			}
-			
-			
-		}
-		else if(title.type == 5)
-		{
-			console.log('5:title.resultList : ' , title.resultList);
-			$.each(title.resultList,function(i,n){
-				if (n.contentDescribe1){
-					if(readonly == true){
-						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
-					}else{						
-						console.log(n.contentDescribe1);
-						console.log($("textarea[class='textarea_h'][data-title-id='"+title.id+"']"));
-						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1) ;
-					}
-				}
-				if(n.contentChoose){
-					if(readonly == true){
-						$(".field[data-id='"+ title.id +"']").text(n.valueName);
-					}else{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
-					}
-				}
+				$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 			});
 		}
 		else(title.type == 8)
@@ -257,27 +217,32 @@ function buildTable(sec,title)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			$.each(tables,function(){
 				var table = $(this);
-				var tr="<tr data-row-id='"+row.id+"'>";
-				for(var key in row)
-				{
-					if(key.indexOf('field')>-1)
-					{
-						tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
-					}
-				}
-				var editable = table.hasClass('editable');
-				if(editable == true)
-				{
-					tr += '<td data-field-name="opt">';
-					tr += '<span class="blue" data-btn="btn">编辑</span>';
-					tr += '<span class="blue" data-btn="btn">删除</span>';
-					tr += '</td>';
-				}
-				tr+="</tr>";
+				var tr = buildRow(row,table.hasClass('editable'));
 				table.append(tr);
 			});
 		});
 	}
+}
+function buildRow(row,showOpts)
+{
+	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
+	for(var key in row)
+	{
+		//设置data
+		tr.data(key,row[key]);
+		if(key.indexOf('field')>-1)
+		{
+			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+		}
+	}
+	if(showOpts == true)
+	{
+		var td = $('<td data-field-name="opt"></td>');
+		td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">编辑</span>');
+		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+		tr.append(td);
+	}
+	return tr;
 }
 
 function setDate(pid,readonly){

@@ -87,7 +87,7 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" id="textarea_\${id}" data-title-id="\${id}" data-type="\${type}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}"></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
