@@ -31,7 +31,80 @@ $(function(){
 		}) 
 	});
 	
+	
+	
+	
+	
+	//通用保存
+	$('div').delegate(".h_save_btn","click",function(event){
+		alert("to save");
+		event.stopPropagation();
+		
+		var id_code = $(this).attr('attr-save');
+		
+		var fields_value = $("#b_"+id_code).find("input:checked,option:selected");
+		var fields_remark1 = $("#b_"+id_code).find("input[type='text'],textarea");
+		
+		console.log(fields_value);
+		console.log(fields_remark1);
+		
+		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
+		
+		var data = {
+			projectId : projectInfo.id
+		};
+		var infoModeList = new Array();
+		$.each(fields_value,function(){
+			var field = $(this);
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				type : field.data('type'),
+				value : field.val()
+			};
+			infoModeList.push(infoMode);
+		});
+		$.each(fields_remark1,function(){
+			var field = $(this);
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				type : field.data('type'),
+				remark1 : field.val()
+			};
+			infoModeList.push(infoMode);
+		});
+		data.infoModeList = infoModeList;
+		
+		
+		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo , data, function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					layer.msg('保存成功');
+					showArea(id_code);
+				} else {
+					layer.msg('保存失败');
+				}
+		}); 
+	});
+	
+	
+	
 });
+
+
+//区域显示
+function showArea(code){
+	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/" + code, null, function(data) {
+		var result = data.result.status;
+		if (result == 'OK') {
+			var entity = data.entity;
+			var html = toGetHtmlByMark(entity,'s');
+			var s_div = toShowTitleHtml(entity, html);
+			$("#"+code).html(s_div);
+		}
+	});
+}
+
 
 
 function toShowTitleHtml(title,html){
@@ -51,17 +124,16 @@ function toEditTitleHtml(title,html){
 	var s_div = 
 		"<div class=\"h_edit h_team_look clearfix\" id=\"b_"+title.code+"\" >" +
 			"<div class=\"h_btnbox\">" +
-		    	"<span class=\"h_save_btn\" >保存</span>" +
+		    	"<span class=\"h_save_btn\" data-on=\"save\" attr-save=\""+title.code+"\">保存</span>" +
 		    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
 		    "</div>" +
 			"<div class=\"h_title\">" + title.name + "</div>" +
 			html +
 			"<div class=\"h_edit_btnbox clearfix\">" +
-		    	"<span class=\"pubbtn bluebtn fl\" >保存</span>" +
-		    	"<span class=\"pubbtn h_cancel_btn fffbtn fl\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
+		    	"<span class=\"pubbtn bluebtn h_save_btn fl\" data-on=\"save\" attr-save=\""+title.code+"\" >保存</span>" +
+		    	"<span class=\"pubbtn fffbtn fl h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
 		    "</div>" +
 		"</div>";
-		
 	return s_div;
 }
 
@@ -152,10 +224,10 @@ function type_1_html(title,mark){
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = "<input type=\"text\" class=\"txt\" " +
-						"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+						"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 		if(results && results[0] && results[0].contentDescribe1){
 			eresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' " +
-						"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+						"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
@@ -171,9 +243,9 @@ function one_select_edit(title){
 		var li = "";
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name  + "</li>";
 			}else
-				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' />" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name  + "</li>";
 		});
 		eresult = 
 			"<dd>" +
@@ -182,12 +254,12 @@ function one_select_edit(title){
 				"</ul>" +
 			"</dd>";	
 	}else{
-		var li = "<option data-name='"+title.id+"' data-type='"+title.type+"' >请选择</option>";
+		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' >请选择</option>";
     	$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<option value='"+this.id+ "' data-name='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
+				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
 			}else
-				li +=  "<option value='"+this.id+ "' data-name='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";
+				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";
 		});
     	eresult = 
     		"<dd>" +
@@ -242,9 +314,9 @@ function type_3_html(title,mark){
 		var values = title.valueList;
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
+				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 			}else
-				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
+				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		var eresult = 
 			"<dd class=\"fl_none\">" +
@@ -275,15 +347,15 @@ function nselectHtml(values,title,cid){
 	var results = title.resultList;
 	
 	var has_checked = false;
-	var li = "<option data-name='"+title.id+"' data-type='"+title.type+"' >请选择</option>";
+	var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' >请选择</option>";
 	
 	$.each(values,function(i,o){
 		if(this.checked){
 			has_checked = true;
 			cid = this.id;
-			li +=  "<option value='"+this.id+ "' data-name='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
+			li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
 		}else{
-			li +=  "<option value='"+this.id+ "' data-name='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";
+			li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";
 		}
 	});
 	if(!has_checked){
@@ -328,7 +400,7 @@ function type_4_html(title,mark){
 				}else{
 					eresult += 
 						"<select onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" >" +
-							"<option data-name='"+title.id+"' data-type='"+title.type+"' >请选择</option>" +
+							"<option data-title-id='"+title.id+"' data-type='"+title.type+"' >请选择</option>" +
 						"</select>" ;
 				}
 			}
@@ -344,7 +416,7 @@ function showConstarct(thisSelect,tid,type){
 		var nextSelect = _this.next();
 		if(nextSelect && nextSelect.length == 1){
 			
-			var li = "<option data-name='"+tid+"' data-type='"+type+"' >请选择</option>";
+			var li = "<option data-title-id='"+tid+"' data-type='"+type+"' >请选择</option>";
 			var li_htm = li;
 			sendGetRequest(platformUrl.queryValuesByVpid + vid, null, function(data) {
 	    		var result = data.result.status;
@@ -352,7 +424,7 @@ function showConstarct(thisSelect,tid,type){
 	    			var entitys = data.entityList;
 	    			
 	    			$.each(entitys,function(i,o){
-	    				li_htm +=  "<option value='"+this.id+ "' data-name='"+tid+"' data-type='"+type+"' >"  + this.name + "</option>";
+	    				li_htm +=  "<option value='"+this.id+ "' data-title-id='"+tid+"' data-type='"+type+"' >"  + this.name + "</option>";
 	    			});
 	    		}
 	    		
@@ -401,7 +473,7 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
 				"<p class=\"num_tj\"><label>0</label>/2000</p>" +
 			"</dd>";	
 		var results = title.resultList;
@@ -411,7 +483,7 @@ function type_5_html(title,mark){
 					eresult_2 = 
 						"<dd class=\"fl_none\">" +
 							"<textarea class=\"textarea_h\" value='"+results[i].contentDescribe1+"' " +
-								"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
+								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
 							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
 						"</dd>";	
 					break;
@@ -465,9 +537,9 @@ function type_6_html(title,mark){
 		var values = title.valueList;
 		$.each(results,function(i,o){
 			if(this.checked){
-				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
+				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 			}else{
-				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
+				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 			}
 		});
 		eresult_1 = 
@@ -480,7 +552,7 @@ function type_6_html(title,mark){
 		
 		eresult_2 = 
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
 				"<p class=\"num_tj\"><label>500</label>/2000</p>" +
 			"</dd>";
 		var results = title.resultList;
@@ -489,7 +561,7 @@ function type_6_html(title,mark){
 				if(results[i].contentDescribe1){
 					eresult2 = 
 						"<dd class=\"fl_none\">" +
-							"<textarea class=\"textarea_h\" value='"+results[i].contentDescribe1+"' data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
+							"<textarea class=\"textarea_h\" value='"+results[i].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
 							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
 						"</dd>";	
 					break;
@@ -535,13 +607,13 @@ function type_8_html(title,mark){
 		var results = title.resultList;
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\"  data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
+				"<textarea class=\"textarea_h\"  data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
 				"<p class=\"num_tj\"><label>0</label>/2000</p>" +
 			"</dd>";
 		if(results && results[0] && results[0].contentDescribe1){
 			eresult =
 				"<dd class=\"fl_none\">" +
-					"<textarea class=\"textarea_h\" value='"+results[0].contentDescribe1+"' data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
+					"<textarea class=\"textarea_h\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
 					"<p class=\"num_tj\"><label>0</label>/2000</p>" +
 				"</dd>";
 		}
@@ -570,9 +642,9 @@ function type_11_html(title,mark){
         		}
         	}else{
         		if(results && results[0] && results[0].contentDescribe1){
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-name='"+title.id+"' data-type='"+title.type+"' />";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />";
         		}else{
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-name='"+title.id+"' data-type='"+title.type+"' />";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />";
         		}
         	}
             break;
@@ -621,19 +693,19 @@ function type_12_html(title,mark){
 		var values = title.valueList;
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name + "</li>";
+				li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name + "</li>";
 			}else
-				li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
+				li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
 		});
 		
 		var toadd_li = "<input type=\"text\" class=\"txt\" " +
-							"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 		var results = title.resultList;
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
 					toadd_li = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' " +
-									"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 					break;
 				}
 			}
@@ -679,19 +751,19 @@ function type_13_html(title,mark){
 		var values = title.valueList;
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' checked=\"checked\" />" + this.name ;
+				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"checked\" />" + this.name ;
 			}else
-				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
+				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
 		});
 		
 		var toadd_li = "<input type=\"text\" class=\"txt\" " +
-							"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 		var results = title.resultList;
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
 					toadd_li = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' " +
-									"data-name='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 					break;
 				}
 			}
