@@ -281,7 +281,7 @@
 
 						{{else type=="9"}}
 						<dd class="fl_none">
-                            <table>
+                            <table data-type="\${type}" data-test="\${id}">
                               <tr>
                                 <th></th>
                                  <th colspan="2">\${$data.childList[4].childList[0].name}</th>
@@ -291,24 +291,24 @@
                              	 <th>上游</th>
                              	 <td>供应商</td>
 								{{each(i,childList) childList}}
-                             	 <td>
+                             	 <td  data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
 								</td>
 								{{/each}} 
                            	 </tr>
-							<tr>
+									<tr>
                              	 <th rowspan="2">下游</th>
                              	 <td>主要渠道</td>
 								{{each(i,childList) childList}}
-                             	 <td>
+                             	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}"  name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
@@ -318,16 +318,17 @@
 							<tr>
                              	 <td>主要客户</td>
 								{{each(i,childList) childList}}
-                             	 <td>
+                             	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
 								</td>
 								{{/each}} 
                            	 </tr>
+               
 							
 
                             </table>
@@ -507,23 +508,22 @@
                                <tr>
                              	 <th>上游</th>
                              	 <td>供应商</td>
-                             	 <td>高于100</td>
-                             	 <td>稳定</td>
+                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
+                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
                               <td>供应商</td>
-                              <td>高于100</td>
-                              <td>稳定</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
                             </tr>
                             <tr>
                               <td>供应商</td>
-                              <td>高于100</td>
-                              <td>稳定</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
                             </tr>
 
                             </table>
-							<span class="pubbtn bluebtn">新增</span>
                           </dd>
 
 						{{else type=="4"}}
@@ -603,6 +603,7 @@
 		};
 		
 		var infoModeList = new Array();
+		var infoModeFixedList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
@@ -610,9 +611,27 @@
 				titleId	: field.data('titleId'),
 				type : type
 			};
+			var infoModeFixed = {
+					titleId	: field.data('titleId'),
+					type : type,
+					rowNo:"",
+					colNo:""
+				};
 			if(type==2 || type==3 || type==4)
 			{
 				infoMode.value = field.val()
+			}
+			else if(type==9){
+				var name=field.attr("name");
+				var rowNo=name.split("_")[0].substring("3");
+				var input=$("input[name="+name+"]");
+				var colNo=field.parent().parent().parent().attr("data-flag");
+				var titleid=$("table[data-type]").attr("data-test");
+				infoModeFixed.rowNo=rowNo;
+				infoModeFixed.colNo=colNo;
+				infoModeFixed.titleId=titleid;
+				infoModeFixed.value=field.val();
+				infoModeFixedList.push(infoModeFixed);
 			}
 			else if(type==1 || type==8)
 			{
@@ -621,6 +640,7 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		data.infoFixedTableList=infoModeFixedList;
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
 			data,
