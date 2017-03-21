@@ -108,7 +108,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			titleIds.add(model.getTitleId());
 			entity = new InformationFixedTable();
 			entity.setProjectId(projectId);
-			entity.setTitleId(titleId);
+			entity.setTitleId(model.getTitleId());
 			entity.setRowNo(model.getRowNo());
 			entity.setColNo(model.getColNo());
 			entity.setType(model.getType());

@@ -539,12 +539,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		resultQuery.setTitleIds(titleIds);
 		resultQuery.setProperty("title_id");
 		resultQuery.setDirection(Direction.ASC.toString());
+		Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 		List<InformationResult> resultList = resultDao.selectList(resultQuery);
 		if(resultList != null && resultList.size() > 0)
 		{
 			InformationTitle title = null;
 			List<InformationResult> tempList = null;
-			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 			for(InformationResult item : resultList)
 			{
 				if(item.getContentChoose() != null)
@@ -583,6 +583,13 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			List<InformationFixedTable> tempList = null;
 			for(InformationFixedTable item : fixedTableList)
 			{
+				if(item.getContent() != null)
+				{
+					if(dict != null)
+					{
+						item.setValueName(dict.get(Long.valueOf(item.getContent())));
+					}
+				}
 				title = titleMap.get(item.getTitleId());
 				if(title != null)
 				{
