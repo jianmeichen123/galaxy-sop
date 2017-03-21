@@ -217,27 +217,32 @@ function buildTable(sec,title)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			$.each(tables,function(){
 				var table = $(this);
-				var tr="<tr data-row-id='"+row.id+"'>";
-				for(var key in row)
-				{
-					if(key.indexOf('field')>-1)
-					{
-						tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
-					}
-				}
-				var editable = table.hasClass('editable');
-				if(editable == true)
-				{
-					tr += '<td data-field-name="opt">';
-					tr += '<span class="blue" data-btn="btn">编辑</span>';
-					tr += '<span class="blue" data-btn="btn">删除</span>';
-					tr += '</td>';
-				}
-				tr+="</tr>";
+				var tr = buildRow(row,table.hasClass('editable'));
 				table.append(tr);
 			});
 		});
 	}
+}
+function buildRow(row,showOpts)
+{
+	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
+	for(var key in row)
+	{
+		//设置data
+		tr.data(key,row[key]);
+		if(key.indexOf('field')>-1)
+		{
+			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+		}
+	}
+	if(showOpts == true)
+	{
+		var td = $('<td data-field-name="opt"></td>');
+		td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">编辑</span>');
+		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+		tr.append(td);
+	}
+	return tr;
 }
 
 function setDate(pid,readonly){

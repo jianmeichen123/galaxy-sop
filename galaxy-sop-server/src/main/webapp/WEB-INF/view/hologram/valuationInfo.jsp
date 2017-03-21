@@ -123,7 +123,7 @@
 						{{else type=="10"}}
 						<dd class="">
 							<table data-title-id="\{id}" class="editable"></table>
-							<span class="pubbtn bluebtn">新增</span>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                         </dd>
 
 						{{else type=="11"}}
@@ -214,7 +214,7 @@
                             <table data-title-id="\${id}"  class="editable">
                              
                             </table>
-							<span class="pubbtn bluebtn">新增</span>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -432,7 +432,86 @@
 				}
 		}) 
 	});
+function editRow(ele)	
+{
+	var code = $(ele).closest('table').data('code');
+	if(code == 'equity-structure')
+	{
+		editGD($(ele).closest('tr'));
+	}
+}
+function delRow(ele)
+{
+	if(confirm('确定要删除？'))
+	{
+		$(ele).closest('tr').remove();
+	}
 	
+}
+function addRow(ele)
+{
+	var code = $(ele).prev().data('code')
+	if(code == 'equity-structure')
+	{
+		addGD(ele);
+	}
+}
+//编辑股东
+function editGD(row)
+{
+	$.getHtml({
+		url:'<%=path%>/html/funcing_add_gd.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$.each($("#detail-form").find("input, select"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.val(row.data(name));
+			});
+			$("#detail-form input[name='index']").val(row.index());
+		}//模版反回成功执行	
+	});
+}
+//添加股东
+function addGD(ele)
+{
+	$.getHtml({
+		url:'<%=path%>/html/funcing_add_gd.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$("#detail-form input[name='projectId']").val(projectInfo.id);
+			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+		}//模版反回成功执行	
+	});
+}
+
+/**
+ * 保存至到tr标签data属性
+ */
+function saveRow(data)
+{
+	data = JSON.parse(data);
+	var titleId = data.titleId;
+	var index = data.index;
+	if(typeof index == 'undefined' || index == null || index == '')
+	{
+		var tr = buildRow(data,true);
+		$('table[data-title-id="'+titleId+'"].editable').append(tr);
+	}
+	else
+	{
+		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+		for(var key in data)
+		{
+			if(key.indexOf('field')>-1)
+			{
+				tr.data(key,data[key]);
+				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+			}
+		}
+	}
+	$("a[data-close='close']").click();
+}
 </script>
 </body>
 
