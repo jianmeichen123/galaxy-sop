@@ -400,7 +400,7 @@
 		var data = {
 			projectId : projectInfo.id
 		};
-		
+		//普通结果
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
@@ -420,6 +420,20 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		//表格
+		var infoTableModelList = new Array();
+		$.each(sec.find("table.editable"),function(){
+			$.each($(this).find('tr:gt(0)'),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				infoTableModelList.push($(this).data());
+			});
+		});
+		data.infoTableModelList = infoTableModelList;
+		
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
 			data,
@@ -432,13 +446,42 @@
 				}
 		}) 
 	});
+function getDetailUrl(code)
+{
+	if(code == 'equity-structure')
+	{
+		return '<%=path%>/html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return '<%=path%>/html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return '<%=path%>/html/fincing_add_yx.html';
+	}
+	return "";
+}
 function editRow(ele)	
 {
 	var code = $(ele).closest('table').data('code');
-	if(code == 'equity-structure')
-	{
-		editGD($(ele).closest('tr'));
-	}
+	var row = $(ele).closest('tr');
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$.each($("#detail-form").find("input, select, textarea"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.val(row.data(name));
+			});
+			$("#detail-form input[name='index']").val(row.index());
+			$("#save-detail-btn").click(function(){
+				var data = $("#detail-form").serializeObject();
+				saveRow(data);
+			});
+		}//模版反回成功执行	
+	});
 }
 function delRow(ele)
 {
@@ -451,39 +494,20 @@ function delRow(ele)
 function addRow(ele)
 {
 	var code = $(ele).prev().data('code')
-	if(code == 'equity-structure')
-	{
-		addGD(ele);
-	}
-}
-//编辑股东
-function editGD(row)
-{
 	$.getHtml({
-		url:'<%=path%>/html/funcing_add_gd.html',//模版请求地址
-		data:"",//传递参数
-		okback:function(){
-			$.each($("#detail-form").find("input, select"),function(){
-				var ele = $(this);
-				var name = ele.attr('name');
-				ele.val(row.data(name));
-			});
-			$("#detail-form input[name='index']").val(row.index());
-		}//模版反回成功执行	
-	});
-}
-//添加股东
-function addGD(ele)
-{
-	$.getHtml({
-		url:'<%=path%>/html/funcing_add_gd.html',//模版请求地址
+		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
 			$("#detail-form input[name='projectId']").val(projectInfo.id);
 			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+			$("#save-detail-btn").click(function(){
+				var data = $("#detail-form").serializeObject();
+				saveRow(data);
+			});
 		}//模版反回成功执行	
 	});
 }
+
 
 /**
  * 保存至到tr标签data属性
