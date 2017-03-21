@@ -98,13 +98,13 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 */
 	@Override
 	public List<InformationTitle> selectChildsByPid(Long pid) {
-		Direction direction = Direction.ASC;
-		String property = "index_no";
+		/*Direction direction = Direction.ASC;
+		String property = "index_no";*/
 		
 		Map<String, Object> params = new HashMap<String,Object>();
 		params.put("parentId",pid);
 		params.put("isValid",0);
-		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
+		//params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
 		List<InformationTitle> ptitleList = informationTitleDao.selectChildsByPid(params);
 		
 		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
