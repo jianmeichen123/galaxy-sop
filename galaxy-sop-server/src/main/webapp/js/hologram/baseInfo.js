@@ -51,17 +51,17 @@
 		var values = title.valueList;
 		
 		if(values.length < 6){
-			var li = "<li>";
+			var li = "";
 			$.each(values,function(i,o){
 				if(this.checked){
-					li +=  "<input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name ;
+					li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name  + "</li>";
 				}else
-					li +=  "<input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
+					li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' />" + this.name  + "</li>";
 			});
 			eresult = 
 				"<dd>" +
 					"<ul class=\"h_radios clearfix\">" +
-						li + "</li>"
+						li + 
 					"</ul>" +
 				"</dd>";	
 		}else{
