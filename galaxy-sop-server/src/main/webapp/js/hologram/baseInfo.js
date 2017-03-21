@@ -1,5 +1,22 @@
 
 
+	$(function(){
+		//通用取消编辑
+		$('div').delegate(".h_cancel_btn","click",function(event){
+			var id_code = $(this).attr('attr-hide');
+			console.log(id_code)
+			$('#a_'+id_code).show();
+			$('#b_'+id_code).remove();
+			event.stopPropagation();
+		});
+		
+		
+		
+	})
+	
+	
+	
+
 
 //1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 //7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
@@ -34,17 +51,17 @@
 		var values = title.valueList;
 		
 		if(values.length < 6){
-			var li = "";
+			var li = "<li>";
 			$.each(values,function(i,o){
 				if(this.checked){
-					li +=  "<li> <input type=\"radio\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name + "</li>";
+					li +=  "<input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name ;
 				}else
-					li +=  "<li> <input type=\"radio\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
+					li +=  "<input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
 			});
 			eresult = 
 				"<dd>" +
 					"<ul class=\"h_radios clearfix\">" +
-						li +
+						li + "</li>"
 					"</ul>" +
 				"</dd>";	
 		}else{
@@ -487,9 +504,9 @@
 			var values = title.valueList;
 			$.each(values,function(i,o){
 				if(this.checked){
-					li +=  "<li> <input type=\"radio\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name + "</li>";
+					li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name + "</li>";
 				}else
-					li +=  "<li> <input type=\"radio\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
+					li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
 			});
 			
 			var toadd_li = "<input type=\"text\" class=\"txt\" " +
@@ -541,13 +558,13 @@
 
 			return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
 		}else{
-			var li = "";
+			var li = "<li> ";
 			var values = title.valueList;
 			$.each(values,function(i,o){
 				if(this.checked){
-					li +=  "<li> <input type=\"checkbox\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' checked=\"checked\" />" + this.name + "</li>";
+					li +=  "<input type=\"checkbox\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' checked=\"checked\" />" + this.name ;
 				}else
-					li +=  "<li> <input type=\"checkbox\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
+					li +=  "<input type=\"checkbox\" value='"+this.id+"' data-name='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
 			});
 			
 			var toadd_li = "<input type=\"text\" class=\"txt\" " +
@@ -566,7 +583,7 @@
 			var eresult = 
 				"<dd>" +
 					"<ul class=\"h_radios clearfix\">" +
-						li + toadd_li +
+						li + toadd_li + "</li>"
 					"</ul>" +
 				"</dd>";	
 				

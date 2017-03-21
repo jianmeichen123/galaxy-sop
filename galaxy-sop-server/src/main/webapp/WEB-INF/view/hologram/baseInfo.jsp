@@ -106,21 +106,19 @@
 		}
 	});
 	
-	
-	
-	
+
 	function toEditTitleHtml(title,html){
 		var s_div = 
-			"<div class=\"h_look h_team_look clearfix\" id=\"b_"+title.code+"\" >" +
+			"<div class=\"h_edit h_team_look clearfix\" id=\"b_"+title.code+"\" >" +
 				"<div class=\"h_btnbox\">" +
 			    	"<span class=\"h_save_btn\" >保存</span>" +
-			    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\"a_"+title.code+"\" >取消</span>" +
+			    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
 			    "</div>" +
 				"<div class=\"h_title\">" + title.name + "</div>" +
 				html +
 				"<div class=\"h_edit_btnbox clearfix\">" +
 			    	"<span class=\"pubbtn bluebtn fl\" >保存</span>" +
-			    	"<span class=\"pubbtn h_cancel_btn fffbtn fl\" data-on=\"h_cancel\" attr-hide=\"a_"+title.code+"\" >取消</span>" +
+			    	"<span class=\"pubbtn h_cancel_btn fffbtn fl\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
 			    "</div>" +
 			"</div>";
 			
