@@ -460,6 +460,14 @@ function getDetailUrl(code)
 	{
 		return '<%=path%>/html/fincing_add_yx.html';
 	}
+	else if(code == 'valuation-reference')
+	{
+		return '<%=path%>/html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return '<%=path%>/html/fincing_add_jd.html';
+	}
 	return "";
 }
 function editRow(ele)	
