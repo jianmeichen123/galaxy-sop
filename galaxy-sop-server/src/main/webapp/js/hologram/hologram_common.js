@@ -165,7 +165,6 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
-			//console.log('3:title.resultList : ' , title.resultList);
 			$.each(title.resultList,function(i,n){
 				if(readonly == true){
 					$(".field[data-id='"+n.contentChoose+"']").text(n.valueName);
@@ -177,7 +176,6 @@ function buildResults(sec,title,readonly)
 			if (readonly == true){
 				var dds = $("dt[data-type='3'][data-id='"+ title.id +"']").siblings();
 				$.each(dds,function(i,n){
-					//console.log('3:dd : ' , $(this).text());
 					if ($(this).text() == '未选择'){
 						$(this).remove();
 					}
@@ -188,14 +186,11 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 5)
 		{
-			console.log('5:title.resultList : ' , title.resultList);
 			$.each(title.resultList,function(i,n){
 				if (n.contentDescribe1){
 					if(readonly == true){
 						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
 					}else{						
-						console.log(n.contentDescribe1);
-						console.log($("textarea[class='textarea_h'][data-title-id='"+title.id+"']"));
 						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1) ;
 					}
 				}
@@ -208,7 +203,7 @@ function buildResults(sec,title,readonly)
 				}
 			});
 		}
-		else(title.type == 8)
+		else if(title.type == 8)
 		{
 			if(readonly == true)
 			{
