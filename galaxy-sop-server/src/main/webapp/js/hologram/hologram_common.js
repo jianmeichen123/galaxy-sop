@@ -163,9 +163,49 @@ function buildResults(sec,title,readonly)
 				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
 			}
 		}
-		else if(title.type == 3){
+		else if(title.type == 3)
+		{
+			//console.log('3:title.resultList : ' , title.resultList);
 			$.each(title.resultList,function(i,n){
-				$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+				if(readonly == true){
+					$(".field[data-id='"+n.contentChoose+"']").text(n.valueName);
+				}else{					
+					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+				}
+			});
+			
+			if (readonly == true){
+				var dds = $("dt[data-type='3'][data-id='"+ title.id +"']").siblings();
+				$.each(dds,function(i,n){
+					//console.log('3:dd : ' , $(this).text());
+					if ($(this).text() == '未选择'){
+						$(this).remove();
+					}
+				});
+			}
+			
+			
+		}
+		else if(title.type == 5)
+		{
+			console.log('5:title.resultList : ' , title.resultList);
+			$.each(title.resultList,function(i,n){
+				if (n.contentDescribe1){
+					if(readonly == true){
+						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
+					}else{						
+						console.log(n.contentDescribe1);
+						console.log($("textarea[class='textarea_h'][data-title-id='"+title.id+"']"));
+						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1) ;
+					}
+				}
+				if(n.contentChoose){
+					if(readonly == true){
+						$(".field[data-id='"+ title.id +"']").text(n.valueName);
+					}else{
+						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+					}
+				}
 			});
 		}
 		else(title.type == 8)
