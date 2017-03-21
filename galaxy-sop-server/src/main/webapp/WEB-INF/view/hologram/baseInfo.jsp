@@ -49,39 +49,6 @@
 
 <script type="text/javascript">
 
-	
-	function toGetHtmlByMark(title,mark){
-		var tilelist = title.childList;
-		var html = "";
-		$.each(tilelist,function(i,o){
-			if(this.sign  && this.sign == 3){
-				html += "<div class=\"mb_24 clearfix\">" + this.name + "</div>";
-				sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/" + this.code, null, function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						var sign_title = data.entity;
-						html += switchTypeByMark(sign_title,mark);
-					}
-				});
-			}else{
-				html += switchTypeByMark(this,mark);
-			}
-		});
-		return html;
-	}
-	
-	function toShowTitleHtml(title,html){
-		var s_div = 
-			"<div class=\"h_look h_team_look clearfix\" id=\"a_"+title.code+"\" >" +
-				"<div class=\"h_btnbox\">" +
-			    	"<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>" +
-			    "</div>" +
-				"<div class=\"h_title\">" + title.name + "</div>" +
-				html +
-			"</div>";
-			
-		return s_div;
-	}
 
 
 	//页面显示
@@ -107,42 +74,7 @@
 	});
 	
 
-	function toEditTitleHtml(title,html){
-		var s_div = 
-			"<div class=\"h_edit h_team_look clearfix\" id=\"b_"+title.code+"\" >" +
-				"<div class=\"h_btnbox\">" +
-			    	"<span class=\"h_save_btn\" >保存</span>" +
-			    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
-			    "</div>" +
-				"<div class=\"h_title\">" + title.name + "</div>" +
-				html +
-				"<div class=\"h_edit_btnbox clearfix\">" +
-			    	"<span class=\"pubbtn bluebtn fl\" >保存</span>" +
-			    	"<span class=\"pubbtn h_cancel_btn fffbtn fl\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
-			    "</div>" +
-			"</div>";
-			
-		return s_div;
-	}
-	//通用编辑显示
-	$('div').delegate(".h_edit_btn","click",function(event){
-		var id_code = $(this).attr('attr-id');
-		
-		event.stopPropagation();
-		
-		$("#a_"+id_code).hide();
-		 sendGetRequest(platformUrl.editProjectAreaInfo + pid +"/"+id_code, null,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity,'e');
-					var s_div = toEditTitleHtml(entity, html);
-					
-					$("#"+id_code).append(s_div);
-				}
-		}) 
-	});
+	
 	
 </script>
 
