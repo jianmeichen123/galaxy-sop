@@ -221,13 +221,15 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			for(InformationTitle atitle : tchilds ){
 				if(atitle.getType() != null){
 					
-					//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注、6:复选带备注、7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据
+					//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+					//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 					
-					//Type ： 1 2 5 8 11
-					if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 5 || atitle.getType().intValue() == 8 || atitle.getType().intValue() == 11 ){
+					//Type ： 1 2 8 11
+					if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 8  || atitle.getType().intValue() == 11 ){
 						findResultByArecord(atitle, results);
-					}//Type ： 3 4 6
-					else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 6 ){
+					}//Type ： 3 4 5 6 12 13
+					else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
+							atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13){
 						findResultByNrecord(atitle, results);  //findResultByNcontact
 					}//Type ： 7 
 					else if(atitle.getType().intValue() == 7){
@@ -393,9 +395,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				for(InformationTitle atitle : tchilds ){
 					if(atitle.getType() != null){
 						
-						//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注、6:复选带备注、7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据
+						//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+						//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 						
-						
+						//Type ： 1 2 8 11
+						if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 8  || atitle.getType().intValue() == 11 ){
+							findResultByArecord(atitle, results);
+						}//Type ： 3 4 5 6 12 13
+						else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
+								atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13){
+							findResultByNrecord(atitle, results);  //findResultByNcontact
+						}
+						/*
 						//Type ：1  2 5 8 11
 						if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 5 || atitle.getType().intValue() == 8 || atitle.getType().intValue() == 11 ){
 							findResultByArecord(atitle, results);
@@ -403,7 +414,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 6 ){
 							findResultByNrecord(atitle, results);  //findResultByNcontact
 						}//Type ： 7 
-						else if(atitle.getType().intValue() == 7){
+*/						else if(atitle.getType().intValue() == 7){
 							
 						}//Type ： 9
 						else if(atitle.getType().intValue() == 9){
