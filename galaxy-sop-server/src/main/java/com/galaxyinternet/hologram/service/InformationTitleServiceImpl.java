@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
@@ -36,6 +38,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	private Cache cache;
 	@Autowired
 	private InformationTitleDao informationTitleDao;
+	@Autowired
+	private InformationDictionaryDao informationDictionaryDao;
 	@Autowired
 	private InformationResultDao resultDao;
 	@Autowired
@@ -429,6 +433,53 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		rq.setProperty("title_id");
 		rq.setDirection(Direction.ASC.toString());
 		return resultDao.selectList(rq);
+	}
+	
+	
+	
+	/**
+	 * 页面级联功能
+	 * 传入项目 id，    title id，    级联 value的 pid，  
+	 * 返回 value 的 pid 下的 values
+	 */
+	@Override
+	@Transactional
+	public List<InformationDictionary> selectProNvaluesInfo(String pid, String tid, String vpid) {
+		
+		InformationResult rq = new InformationResult();
+		rq.setProjectId(pid);
+		rq.setTitleId(tid);
+		//rq.setProperty("title_id sort");
+		//rq.setProperty("title_id");
+		//rq.setDirection(Direction.ASC.toString());
+		List<InformationResult> results = resultDao.selectList(rq);
+		
+		List<String> Vds = new ArrayList<String>();
+		if(results != null){
+			for(InformationResult ar : results ){
+				if( ar.getContentChoose() != null ){
+					Vds.add(ar.getContentChoose());
+				}
+			}
+		}
+		
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("parentId",vpid);
+		params.put("isValid",0);
+		
+		Direction direction = Direction.ASC;
+		String property = "sort";
+		params.put("sorting", new Sort(direction, property).toString().replace(":", ""));
+		
+		List<InformationDictionary> ptitleList = informationDictionaryDao.selectValues(params);
+		
+		for(InformationDictionary ad : ptitleList){
+			if(Vds.contains(ad.getId()+"")){
+				ad.setChecked(true);
+			}
+		}
+		
+		return ptitleList == null ? new ArrayList<InformationDictionary>() : ptitleList;
 	}
 	
 	
