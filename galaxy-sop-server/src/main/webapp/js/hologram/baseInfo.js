@@ -44,9 +44,8 @@ $(function(){
 		
 		var fields_value = $("#b_"+id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_"+id_code).find("input[type='text'],textarea");
+		var fields_value1 = $("#b_"+id_code).find(".active");
 		
-		console.log(fields_value);
-		console.log(fields_remark1);
 		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
@@ -57,10 +56,21 @@ $(function(){
 		var infoModeList = new Array();
 		$.each(fields_value,function(){
 			var field = $(this);
+			if(field.val() && field.val().length > 0){
+				var infoMode = {
+						titleId	: field.data('titleId'),
+						type : field.data('type'),
+						value : field.val()
+					};
+					infoModeList.push(infoMode);
+			}
+		});
+		$.each(fields_value1,function(){
+			var field = $(this);
 			var infoMode = {
 				titleId	: field.data('titleId'),
 				type : field.data('type'),
-				value : field.val()
+				value : field.data('value')
 			};
 			infoModeList.push(infoMode);
 		});
@@ -254,7 +264,7 @@ function one_select_edit(title){
 				"</ul>" +
 			"</dd>";	
 	}else{
-		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' >请选择</option>";
+		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
     	$.each(values,function(i,o){
 			if(this.checked){
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
@@ -303,7 +313,7 @@ function type_3_html(title,mark){
 		if(results && results[0] && results[0].valueName){
 			hresult = "";
 			$.each(results,function(i,o){
-				hresult +=  "<dd>"+this.valueName+"</dd> &nbsp;&nbsp;";
+				hresult +=  "<dd>"+this.valueName+" &nbsp;&nbsp;</dd>";
 			});
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
@@ -333,7 +343,7 @@ function type_3_html(title,mark){
  
 
 function getNextSelect(title,cid){
-	var rselect = "";
+	var rselect = {};
 	sendGetRequest(platformUrl.queryProNvaluesInfo + pid + "/"+ title.id  +"/"+cid ,null, function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
@@ -347,7 +357,7 @@ function nselectHtml(values,title,cid){
 	var results = title.resultList;
 	
 	var has_checked = false;
-	var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' >请选择</option>";
+	var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
 	
 	$.each(values,function(i,o){
 		if(this.checked){
@@ -366,7 +376,11 @@ function nselectHtml(values,title,cid){
 			"<select onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" >" +
 				li +
 			"</select>" ;
-	return relu_ht;
+	var return_re = {
+			htm : relu_ht,
+			vpid : cid
+	}
+	return return_re;
     	
 }
 // 4:级联选择
@@ -378,10 +392,12 @@ function type_4_html(title,mark){
 		var hresult = "<dd>未选择</dd>";
 		
 		var results = title.resultList;
-		if(results && results[0] && results[0].valueName){
+		if(results && results.length > 0 ){
 			hresult = "";
 			$.each(results,function(i,o){
-				hresult +=  "<dd>"+this.valueName+"</dd> &nbsp;&nbsp;";
+				if(this.valueName){
+					hresult +=  "<dd>"+this.valueName+" &nbsp;&nbsp;</dd>";
+				}
 			});
 		}
 		
@@ -393,14 +409,18 @@ function type_4_html(title,mark){
 		for(var i = 1; i <5; i++){
 			if(i == 1){
 				var values = title.valueList;
-				eresult += nselectHtml(values,title,checked_cid);
+				var return_j = nselectHtml(values,title,checked_cid);
+				checked_cid = return_j.vpid;
+				eresult += return_j.htm;
 			}else{
 				if(checked_cid){
-					eresult += getNextSelect(title,checked_cid);
+					var return_j = getNextSelect(title,checked_cid);
+					checked_cid = return_j.vpid;
+					eresult += return_j.htm;
 				}else{
 					eresult += 
 						"<select onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" >" +
-							"<option data-title-id='"+title.id+"' data-type='"+title.type+"' >请选择</option>" +
+							"<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>" +
 						"</select>" ;
 				}
 			}
@@ -416,7 +436,7 @@ function showConstarct(thisSelect,tid,type){
 		var nextSelect = _this.next();
 		if(nextSelect && nextSelect.length == 1){
 			
-			var li = "<option data-title-id='"+tid+"' data-type='"+type+"' >请选择</option>";
+			var li = "<option data-title-id='"+tid+"' data-type='"+type+"' value='' >请选择</option>";
 			var li_htm = li;
 			sendGetRequest(platformUrl.queryValuesByVpid + vid, null, function(data) {
 	    		var result = data.result.status;
@@ -459,9 +479,9 @@ function type_5_html(title,mark){
 		if(results && results[0] && results[0].id){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					hresult_2 =  "<dd>"+results[0].contentDescribe1+"</dd>";
+					hresult_2 =  "<dd>"+results[i].contentDescribe1+"</dd>";
 				}else if(results[i].valueName){
-					hresult_1 =  "<dd>"+results[0].valueName+"</dd>";
+					hresult_1 =  "<dd>"+results[i].valueName+"</dd>";
 				}
 			}
 		}
@@ -482,8 +502,10 @@ function type_5_html(title,mark){
 				if(results[i].contentDescribe1){
 					eresult_2 = 
 						"<dd class=\"fl_none\">" +
-							"<textarea class=\"textarea_h\" value='"+results[i].contentDescribe1+"' " +
-								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
+							"<textarea class=\"textarea_h\" " +
+								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' >" +
+								results[i].contentDescribe1 +
+							"</textarea>" +
 							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
 						"</dd>";	
 					break;
@@ -561,7 +583,9 @@ function type_6_html(title,mark){
 				if(results[i].contentDescribe1){
 					eresult2 = 
 						"<dd class=\"fl_none\">" +
-							"<textarea class=\"textarea_h\" value='"+results[i].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
+							"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'>" +
+								results[i].contentDescribe1 +
+							"</textarea>" +
 							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
 						"</dd>";	
 					break;
@@ -613,7 +637,9 @@ function type_8_html(title,mark){
 		if(results && results[0] && results[0].contentDescribe1){
 			eresult =
 				"<dd class=\"fl_none\">" +
-					"<textarea class=\"textarea_h\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
+					"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'>" +
+						results[0].contentDescribe1 +
+					"</textarea>" +
 					"<p class=\"num_tj\"><label>0</label>/2000</p>" +
 				"</dd>";
 		}
@@ -738,9 +764,9 @@ function type_13_html(title,mark){
 			
 			$.each(results,function(i,o){
 				if(this.valueName){
-					hresult +=  "<dd >"+this.valueName+"</dd> &nbsp;&nbsp;";
+					hresult +=  "<dd >"+this.valueName+"&nbsp;&nbsp;</dd>";
 				}else if(this.contentDescribe1){
-					hresult +=  "<dd >"+this.contentDescribe1+"</dd> &nbsp;&nbsp;";
+					hresult +=  "<dd >"+this.contentDescribe1+"&nbsp;&nbsp;</dd>";
 				}
 			});
 		}
@@ -762,7 +788,7 @@ function type_13_html(title,mark){
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					toadd_li = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' " +
+					toadd_li = "<input type=\"text\" class=\"txt\" value='"+results[i].contentDescribe1+"' " +
 									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 					break;
 				}
