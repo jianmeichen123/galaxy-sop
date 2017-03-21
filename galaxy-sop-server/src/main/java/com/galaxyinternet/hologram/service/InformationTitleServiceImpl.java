@@ -145,8 +145,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		List<InformationTitle> ptitleList = null;
 		if(ptitle != null){
 			ptitleList = selectChildsByPid(ptitle.getId());
+			ptitle.setChildList(ptitleList);
 		}
-		ptitle.setChildList(ptitleList);
 		
 		return ptitle;
 	}
@@ -203,16 +203,20 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		List<InformationResult> results = null;
 		
 		InformationTitle title = selectTChildsByPinfo(pinfoKey); //得到父title
+		if(title != null && title.getSign().intValue() == 2){
+			List<InformationResult> title_r =  selectResultByPidTids(pid ,null,title.getId());
+			title.setResultList(title_r);
+		}
 		
 		if(title != null) tchilds = title.getChildList();  //得到子title
 		
 		//得到子title 所有  result 集合
-		if( tchilds != null ){
+		if( tchilds != null && !tchilds.isEmpty()){
 			Set<String> tids = new HashSet<String>();
 			for(InformationTitle at : tchilds ){
 				tids.add(at.getId()+"");
 			}
-			results = selectResultByPidTids(pid , tids);   
+			results = selectResultByPidTids(pid , tids, null);   
 		}
 		
 		//各 title result 对应封装
@@ -374,6 +378,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	public InformationTitle editAreaTitleResutl(String pid, String pinfoKey) {
 		
 		InformationTitle title = informationDictionaryService.selectTitleAndTsTvaluesByCache(pinfoKey);  //得到 父 title
+		if(title.getSign().intValue() == 2){
+			List<InformationResult> title_r =  selectResultByPidTids(pid ,null,title.getId());
+			title.setResultList(title_r);
+		}
 		
 		List<InformationTitle> tchilds = null;
 		List<InformationResult> results = null;
@@ -386,7 +394,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			for(InformationTitle at : tchilds ){
 				tids.add(at.getId()+"");
 			}
-			results = selectResultByPidTids(pid , tids);  
+			results = selectResultByPidTids(pid , tids ,null);  
 			
 			
 			//各 title result 对应封装，value 选中标记
@@ -436,10 +444,11 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 	
-	public List<InformationResult> selectResultByPidTids(String pid,Set<String> tids){
+	public List<InformationResult> selectResultByPidTids(String pid,Set<String> tids,Long tid){
 		InformationResult rq = new InformationResult();
 		rq.setProjectId(pid);
-		rq.setTitleIds(tids);
+		if(tids != null) rq.setTitleIds(tids);
+		if(tid != null) rq.setTitleId(tid+"");
 		//rq.setProperty("title_id sort");
 		rq.setProperty("title_id");
 		rq.setDirection(Direction.ASC.toString());
