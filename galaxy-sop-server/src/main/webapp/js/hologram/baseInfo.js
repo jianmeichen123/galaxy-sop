@@ -148,8 +148,13 @@ function toEditTitleHtml(title,html){
 }
 
 function toGetHtmlByMark(title,mark){
-	var tilelist = title.childList;
 	var html = "";
+	if(title.type){
+		html += switchTypeByMark(title,mark);
+	}
+	
+	var tilelist = title.childList;
+	
 	$.each(tilelist,function(i,o){
 		if(this.sign  && this.sign == 3){
 			html += "<div class=\"mb_24 clearfix\">" + this.name + "</div>";
