@@ -1,8 +1,8 @@
 package com.galaxyinternet.model.hologram;
 
-import java.util.Set;
-
 import com.galaxyinternet.framework.core.model.BaseEntity;
+
+import java.util.List;
 
 public class InformationListdataRemark extends BaseEntity{
 
@@ -47,8 +47,8 @@ public class InformationListdataRemark extends BaseEntity{
     private Long updateTime;
 
     private Long updateId;
-    
-    private Set<String> titleIds;
+
+    private List<InformationListdataRemark> childList;
 
     public Long getId() {
         return id;
@@ -210,13 +210,11 @@ public class InformationListdataRemark extends BaseEntity{
         this.updateId = updateId;
     }
 
-	public Set<String> getTitleIds() {
-		return titleIds;
-	}
+    public void setChildList(List<InformationListdataRemark> childList) {
+        this.childList = childList;
+    }
 
-	public void setTitleIds(Set<String> titleIds) {
-		this.titleIds = titleIds;
-	}
-    
-    
+    public List<InformationListdataRemark> getChildList() {
+        return childList;
+    }
 }

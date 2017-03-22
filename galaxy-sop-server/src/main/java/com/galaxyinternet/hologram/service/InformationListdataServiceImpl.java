@@ -105,10 +105,12 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 		query.setSubCode(code);
 		List<InformationListdataRemark> remarkList = informationListdataRemarkService.queryList(query);
 		List<String> codes = new ArrayList<>();
-		if(remarkList != null && remarkList.size()>0)
-		for(InformationListdataRemark remark :remarkList){
-			codes.add(remark.getCode());
+		if(remarkList != null && remarkList.size()>0){
+			for(InformationListdataRemark remark :remarkList){
+				codes.add(remark.getCode());
+			}
 		}
 		return codes;
 	}
+
 }

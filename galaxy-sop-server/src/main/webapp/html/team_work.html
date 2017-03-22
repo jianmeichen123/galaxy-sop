@@ -1,41 +1,77 @@
 <div class="qualificationstc">
-	<div class="title_bj" id="team_learn"></div>
+
 	
 	
     <div class="qualifications_all" id="learning">
-    	
-        <div class="info clearfix">
+        <form action="" id="work_form" method="post">
+            <input name="id" style="display:none;">
+            <input name="myid" style="display:none;">
+           <div class="info clearfix">
             <dl class="fmdl fl">
                 <dt>&nbsp;任职时间：</dt>
-                <dd class="clearfix">
-                	<input name="beginDateStr" type="text" class="datepicker-month-start-text fl txt time" />
+                <dd class="clearfix"/>
+                	<input name="field1" type="text" class="datepicker-month-start-text fl txt time" />
                 	<span class="fl">&nbsp;至&nbsp;</span>
-                	<input name="overDateStr" type="text" class="datepicker-month-text fl txt time" />
+                	<input name="field2" type="text" class="datepicker-month-text fl txt time" />
                 </dd>
             </dl>  
             <dl class="fmdl fl">
                 <dt>任职公司：</dt>
                 <dd class="clearfix">
-                    <input name="school" type="text" class="txt" maxLength="50"/>
+                    <input name="field3" type="text" class="txt" maxLength="50"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>任职职位：</dt>
-                <dd><input name="major" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field4" type="text" class="txt" maxLength="50"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>工作内容简述：</dt>
                 <dd>
-                   <textarea class="team_textarea"></textarea>
+                   <textarea name ="field5" class="team_textarea"></textarea>
                 </dd>
             </dl>
         </div>
-        
         </form>
     </div>
     
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" >确定</a>
-        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+        <a href="javascript:;"  class="register_all_affrim fl add_team_work" >确定</a>
+        <a href="javascript:;"  class="register_all_input fr" id="close_work" data-close="close">取消</a>
     </div>
 </div>
+<script>
+
+    $(".add_team_work").on("click",function(){
+        var json =  getData($("#work_form"));
+        alert(json["myid"])
+        if(!json["myid"]){
+            //如果id为空,新增一条记录
+            var myID = "static" + guid();
+            var str="<div id='"+myID+"' data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'></span><span name='field1'>"+json['field1']+"年</span><span>～</span><span name='field2'>"+json['field2']+"年</span></div>"+
+            "<div class='team_p_two'>"+
+                "<ul>"+
+                    "<li><span>公司：</span><span name='field3'>"+json['field3']+"</span></li>"+
+                    "<li><span>职位：</span><span name='field4'>"+json['field4']+"</span></li>"+
+                "</ul>"+
+                "<div class='team_click'>"+
+                    "<span class='blue team_work_add'  href='/sop/html/team_work.html' data-id='"+myID+"' >编辑</span>"+
+                    "<span class='blue' onclick='delete_row(this)' data-id='"+myID+"'>删除</span>"+
+                "</div>"+
+            "</div>"+
+            "<div class='team_p_two'><span  name='field5'>"+json['field5']+"</span></div></div>";
+            $("#team_work").append(str);
+        }else{
+            if($('#'+json["myid"]).length>0){
+                var list = $('#'+json["myid"]).find("*[name]");
+                $(list).each(function(){
+                      var key = "";
+                      key = $(this).attr("name");
+                      alert(key+":"+json[key])
+                      $(this).html(json[key]);
+                })
+            }
+        }
+        $("#close_work").click();
+    })
+</script>
