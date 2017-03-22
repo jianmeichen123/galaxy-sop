@@ -87,9 +87,9 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}""></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">500</label>/500
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 						
@@ -113,9 +113,9 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">0</label>/2000
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -248,9 +248,9 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">500</label>/500
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -273,9 +273,9 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">0</label>/2000
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -567,7 +567,6 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -576,9 +575,16 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					console.log(entity);
+					//console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					//文本域剩余字符数
+					for(var i=0;i<$(".textarea_h").length;i++){
+						var len=$(".textarea_h").eq(i).val().length;
+						var initNum=$(".num_tj").eq(i).find("label").text();
+						$(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					
 				} else {
 
 				}

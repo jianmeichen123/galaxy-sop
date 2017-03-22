@@ -19,6 +19,18 @@ $("div").delegate(".check_label","click",function(event){
 	  $(this).toggleClass('active');
 	  event.stopPropagation();
 });
+/*文本域字数统计*/
+function countChar(textareaName,spanName,maxLimit){
+	//var maxLimit=10;
+	var textArea=document.getElementById(textareaName);
+	var spanCount=document.getElementById(spanName);
+	if (textArea.value.length>maxLimit){
+		spanCount.innerHTML='0';
+		textArea.value = textArea.value.substring(0, maxLimit);
+	}else{
+		spanCount.innerHTML =maxLimit-textArea.value.length;
+	}
+}
 function tabInfoChange(index){
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
