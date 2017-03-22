@@ -14,7 +14,7 @@ public class InformationFile extends BaseEntity{
 
     private Long titleId;
 
-    private Integer fileType;
+    private String fileType;
 
     private String fileLength;
 
@@ -101,15 +101,16 @@ public class InformationFile extends BaseEntity{
         this.titleId = titleId;
     }
 
-    public Integer getFileType() {
-        return fileType;
-    }
+    
+    public String getFileType() {
+		return fileType;
+	}
 
-    public void setFileType(Integer fileType) {
-        this.fileType = fileType;
-    }
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
 
-    public String getFileLength() {
+	public String getFileLength() {
         return fileLength;
     }
 

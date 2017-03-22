@@ -19,12 +19,17 @@
 		<result column="create_id" 	jdbcType="BIGINT" 		property="createId" />
 		<result column="updated_time" jdbcType="BIGINT" 	property="updatedTime" />
 		<result column="update_id" 	jdbcType="BIGINT" 		property="updateId" />
+		
+		<result column="is_must" 		jdbcType="INTEGER" 		property="isMust" />
+		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
+		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
 	</resultMap>
 
 
 
 	<sql id="Base_Column_List">
-		id, parent_id, code, name, index_no, type, sign, content, is_show, is_valid, placeholder, created_time, create_id, updated_time, update_id
+		id, parent_id, code, name, index_no, type, sign, content, is_show, is_valid, placeholder, created_time, create_id, updated_time, update_id,
+		is_must,val_rule,val_rule_mark
 	</sql>
 
 
@@ -217,7 +222,7 @@
 	<!-- id, parent_id, code, name, index_no, type, sign, content,is_show, is_valid, placeholder -->
 	<select id="selectChildsByPid" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
-		id,  code, name,  type, sign, content,is_show, placeholder
+		id,  code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark
 		from information_title 
 		<where>
 			<trim prefixOverrides="and">
