@@ -129,6 +129,7 @@ $(function(){
 						var title = this;
 						buildResults(sec,title,readonly);
 						buildTable(sec,title);
+						buildfinxedTable(sec,title,readonly);
 					});
 				}
 			} 
@@ -252,7 +253,20 @@ function buildRow(row,showOpts)
 	}
 	return tr;
 }
-
+function buildfinxedTable(sec,title,readonly){
+	if(title.fixedTableList){
+	  if(readonly == true)
+		{
+			$(".field[data-title-id='"+title.id+"']").text(title.fixedTableList[0].valueName);
+		}else
+		{
+			$.each(title.fixedTableList,function(i,n){
+				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"'][value="+n.content+"]").attr('checked','true');
+				
+			});
+		}
+	}
+}
 function setDate(pid,readonly){
 	sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
 			function(data) {

@@ -99,11 +99,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		InformationFixedTable entity = null;
 		List<InformationFixedTable> insertEntityList = new ArrayList<>();
 		List<InformationFixedTable> updateEntityList = new ArrayList<>();
+		Set<String> titleIds = new HashSet<>();
 		User user = WebUtils.getUserFromSession();
 		Long userId = user != null ? user.getId() : null;
 		Long now = new Date().getTime();
 		for(FixedTableModel model : list)
 		{
+			titleIds.add(model.getTitleId());
 			entity = new InformationFixedTable();
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
@@ -111,25 +113,19 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			entity.setColNo(model.getColNo());
 			entity.setType(model.getType());
 			entity.setContent(model.getValue());
-			if(model.getId() == null)
-			{
-				entity.setCreatedTime(now);
-				entity.setCreateId(userId+"");
-				insertEntityList.add(entity);
-			}
-			else
-			{
-				entity.setId(model.getId());
-				entity.setUpdatedTime(now);
-				entity.setUpdateId(userId+"");
-				updateEntityList.add(entity);
-				fixdTableDao.updateById(entity);
-			}
+			entity.setCreatedTime(now);
+			entity.setCreateId(userId+"");
+			insertEntityList.add(entity);
 		}
+		InformationFixedTable infoFixedTable=new InformationFixedTable();
+		infoFixedTable.setTitleId(titleId);
 		//插入数据
 		if(insertEntityList.size() > 0)
 		{
-			fixdTableDao.insertInBatch(insertEntityList);
+			int delete = fixdTableDao.delete(infoFixedTable);
+			if(delete>=0){
+				fixdTableDao.insertInBatch(insertEntityList);
+			}
 		}
 		
 	}

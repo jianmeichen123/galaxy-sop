@@ -294,7 +294,7 @@
                              	 <td  data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio" data-title-id="\${id}" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row1" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
@@ -308,7 +308,7 @@
                              	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio" data-title-id="\${id}"  name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row2" name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
@@ -321,7 +321,7 @@
                              	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio" data-title-id="\${id}" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row3" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
