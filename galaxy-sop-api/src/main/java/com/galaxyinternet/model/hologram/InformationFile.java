@@ -1,5 +1,8 @@
 package com.galaxyinternet.model.hologram;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
@@ -48,6 +51,39 @@ public class InformationFile extends BaseEntity{
     
     private String tempPath;
     
+    private String deleteids;
+    private String infoFileids;
+    private Map<String,List<InformationFile>> commonFileList;
+    
+    
+    
+    
+	
+
+	public Map<String, List<InformationFile>> getCommonFileList() {
+		return commonFileList;
+	}
+
+	public void setCommonFileList(Map<String, List<InformationFile>> commonFileList) {
+		this.commonFileList = commonFileList;
+	}
+
+	public String getInfoFileids() {
+		return infoFileids;
+	}
+
+	public void setInfoFileids(String infoFileids) {
+		this.infoFileids = infoFileids;
+	}
+
+	public String getDeleteids() {
+		return deleteids;
+	}
+
+	public void setDeleteids(String deleteids) {
+		this.deleteids = deleteids;
+	}
+
 	public String getTempPath() {
 		return tempPath;
 	}
