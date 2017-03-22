@@ -107,7 +107,7 @@ function tabInfoChange(index){
 			});
 		}
 
-$(function(){
+
 	$.fn.showResults = function(readonly){
 		var pid = $(this).data('sectionId');
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
@@ -163,4 +163,4 @@ $(function(){
 			} 
 		})
 	}
-});
+
