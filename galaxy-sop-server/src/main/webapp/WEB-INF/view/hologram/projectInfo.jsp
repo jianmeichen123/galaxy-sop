@@ -431,19 +431,19 @@
                                <tr>
                              	 <th>上游</th>
                              	 <td>供应商</td>
-                             	 <td>高于100</td>
-                             	 <td>稳定</td>
+                             	 <td data-format='1_1'>高于100</td>
+                             	 <td data-format='1_2'>稳定</td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
                               <td>供应商</td>
-                              <td>高于100</td>
-                              <td>稳定</td>
+                              <td data-format='2_1'>高于100</td>
+                              <td data-format='2_2'>稳定</td>
                             </tr>
                             <tr>
                               <td>供应商</td>
-                              <td>高于100</td>
-                              <td>稳定</td>
+                              <td data-format='3_1'>高于100</td>
+                              <td data-format='3_2'>稳定</td>
                             </tr>
 
                             </table>
@@ -505,22 +505,22 @@
                                 <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
 								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
                               </tr>
-                               <tr>
+                              <tr>
                              	 <th>上游</th>
                              	 <td>供应商</td>
-                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
-                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                             	 <td data-format='1_1'></td>
+                             	 <td data-format='1_2'></td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
-                              <td>供应商</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                              <td>主要渠道</td>
+                              <td data-format='2_1'></td>
+                              <td data-format='2_2'></td>
                             </tr>
                             <tr>
-                              <td>供应商</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                              <td>主要客户</td>
+                              <td data-format='3_1'></td>
+                              <td data-format='3_2'></td>
                             </tr>
 
                             </table>
