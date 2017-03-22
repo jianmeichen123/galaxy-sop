@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -98,17 +100,13 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			}
 			String redisKey = user.getId()+fileKey;
 			List<Object> fileList = cache.getRedisQuenOBJ(redisKey);
-			List<Object> delFileList = new ArrayList<Object>();
 			if(fileList != null && fileList.size() > 0){
 				for(Object file : fileList){
 			    	 InformationFile fileObject = (InformationFile) file;
 			    	 if(fileId.equals(fileObject.getNewFileName())){
-			    		 delFileList.add(file);
+			    		 cache.removeRedisSetOBJ(redisKey, file);
 			    	 }
 			    }
-				fileList.removeAll(delFileList);
-				cache.removeRedisKeyOBJ(redisKey);
-				cache.set(redisKey,fileList);
 			}
 			return new Result(Status.OK, "");
 		} catch (Exception e) {
@@ -187,7 +185,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			if(StringUtils.isNotEmpty(deleteids) && deleteids.contains(",")){
 				String [] fileids = deleteids.split(",");
 				for(int i=0;i < fileids.length; i++){
-					if(StringUtils.isNotEmpty(fileids[i])){
+					if(StringUtils.isNotEmpty(fileids[i]) && isNumeric(fileids[i])){
 						//删除历史文件
 						InformationFile file = informationFileService.queryById(Long.valueOf(fileids[i]));
 						if(file != null){
@@ -231,6 +229,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			}
 			responseBody.setResult(new Result(Status.OK,null));
 		} catch (Exception e) {
+			e.printStackTrace();
 			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			logger.error("operInformationFile 操作失败",e);
 		}
@@ -349,5 +348,19 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 		}
 		return result;
 	}
+	
+	/**
+     * 利用正则表达式判断字符串是否是数字
+     * @param str
+     * @return
+     */
+    public boolean isNumeric(String str){
+           Pattern pattern = Pattern.compile("[0-9]*");
+           Matcher isNum = pattern.matcher(str);
+           if( !isNum.matches() ){
+               return false;
+           }
+           return true;
+    }
 
 }
