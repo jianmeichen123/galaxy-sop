@@ -36,7 +36,7 @@
 <script id="ifelse" type="text/x-jquery-tmpl">
 <div class="h_edit" id="b_\${code}">
 	<div class="h_btnbox">
-		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
+		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
 	</div>
 	<div class="h_title">\${name}</div>
@@ -118,6 +118,60 @@
 								<label for="">0</label>/2000
 							</p>
 						</dd>
+
+						{{else type=="9"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th></th>
+                                 <th colspan="2">\${$data.childList[4].childList[0].name}</th>
+								<th>\${$data.childList[4].childList[1].name}</th>
+                              </tr>
+                               <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+								{{each(i,childList) childList}}
+                             	 <td>
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							<tr>
+                             	 <th rowspan="2">下游</th>
+                             	 <td>主要渠道</td>
+								{{each(i,childList) childList}}
+                             	 <td>
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							<tr>
+                             	 <td>主要客户</td>
+								{{each(i,childList) childList}}
+                             	 <td>
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							
+
+                            </table>
+                          </dd>
 
 						{{else type=="10"}}
 						<dd class="fl_none">
@@ -225,6 +279,61 @@
 							</p>
 						</dd>
 
+						{{else type=="9"}}
+						<dd class="fl_none">
+                            <table data-type="\${type}" data-test="\${id}">
+                              <tr>
+                                <th></th>
+                                 <th colspan="2">\${$data.childList[4].childList[0].name}</th>
+								<th>\${$data.childList[4].childList[1].name}</th>
+                              </tr>
+                               <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+								{{each(i,childList) childList}}
+                             	 <td  data-flag="\${i+1}">
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio" data-title-id="\${id}" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+									<tr>
+                             	 <th rowspan="2">下游</th>
+                             	 <td>主要渠道</td>
+								{{each(i,childList) childList}}
+                             	 <td data-flag="\${i+1}">
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio" data-title-id="\${id}"  name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							<tr>
+                             	 <td>主要客户</td>
+								{{each(i,childList) childList}}
+                             	 <td data-flag="\${i+1}">
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio" data-title-id="\${id}" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+               
+							
+
+                            </table>
+                          </dd>
+
 						{{else type=="10"}}
 						<dd class="fl_none">
                             <table>
@@ -260,11 +369,10 @@
 					{{/if}}
 					
 					{{/each}}
- <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
-                      <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
+                    <div class="h_edit_btnbox clearfix">
+                      <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
+                      <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
                     </div>
-	
 </div>										
 </script>
 
@@ -289,7 +397,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
@@ -311,6 +419,36 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+
+						{{else type=="9"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th></th>
+                                <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
+								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
+                              </tr>
+                               <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+                             	 <td>高于100</td>
+                             	 <td>稳定</td>
+                           	 </tr>
+							<tr>
+                              <th rowspan='2'>下游</th>
+                              <td>供应商</td>
+                              <td>高于100</td>
+                              <td>稳定</td>
+                            </tr>
+                            <tr>
+                              <td>供应商</td>
+                              <td>高于100</td>
+                              <td>稳定</td>
+                            </tr>
+
+                            </table>
+							<span class="pubbtn bluebtn">新增</span>
+                          </dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -336,7 +474,7 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
@@ -358,6 +496,35 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+
+						{{else type=="9"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th></th>
+                                <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
+								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
+                              </tr>
+                               <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
+                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                           	 </tr>
+							<tr>
+                              <th rowspan='2'>下游</th>
+                              <td>供应商</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                            </tr>
+                            <tr>
+                              <td>供应商</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
+                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                            </tr>
+
+                            </table>
+                          </dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -426,6 +593,8 @@
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var id_code = $(this).attr('attr-save');
+		//var sec = $(this).closest('.section');
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
@@ -434,6 +603,7 @@
 		};
 		
 		var infoModeList = new Array();
+		var infoModeFixedList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
@@ -441,9 +611,27 @@
 				titleId	: field.data('titleId'),
 				type : type
 			};
+			var infoModeFixed = {
+					titleId	: field.data('titleId'),
+					type : type,
+					rowNo:"",
+					colNo:""
+				};
 			if(type==2 || type==3 || type==4)
 			{
 				infoMode.value = field.val()
+			}
+			else if(type==9){
+				var name=field.attr("name");
+				var rowNo=name.split("_")[0].substring("3");
+				var input=$("input[name="+name+"]");
+				var colNo=field.parent().parent().parent().attr("data-flag");
+				var titleid=$("table[data-type]").attr("data-test");
+				infoModeFixed.rowNo=rowNo;
+				infoModeFixed.colNo=colNo;
+				infoModeFixed.titleId=titleid;
+				infoModeFixed.value=field.val();
+				infoModeFixedList.push(infoModeFixed);
 			}
 			else if(type==1 || type==8)
 			{
@@ -452,6 +640,7 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		data.infoFixedTableList=infoModeFixedList;
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
 			data,
@@ -459,11 +648,18 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					
+					var pid=$('#a_'+id_code).attr("data-section-id");
+					setDate(pid,true);					
 				} else {
 
 				}
 		}) 
 	});
-	
+	$('div').delegate(".h_save_btn","click",function(event){
+		var id_code = $(this).attr('attr-save');
+		$('#'+id_code).show();
+		$('#b_'+id_code).remove();
+	});
 </script>
 </html>

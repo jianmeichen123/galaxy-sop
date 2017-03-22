@@ -99,16 +99,14 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		InformationFixedTable entity = null;
 		List<InformationFixedTable> insertEntityList = new ArrayList<>();
 		List<InformationFixedTable> updateEntityList = new ArrayList<>();
-		Set<String> titleIds = new HashSet<>();
 		User user = WebUtils.getUserFromSession();
 		Long userId = user != null ? user.getId() : null;
 		Long now = new Date().getTime();
 		for(FixedTableModel model : list)
 		{
-			titleIds.add(model.getTitleId());
 			entity = new InformationFixedTable();
 			entity.setProjectId(projectId);
-			entity.setTitleId(titleId);
+			entity.setTitleId(model.getTitleId());
 			entity.setRowNo(model.getRowNo());
 			entity.setColNo(model.getColNo());
 			entity.setType(model.getType());
@@ -143,7 +141,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			return;
 		}
-		String titleId = null;
 		InformationListdata entity = null;
 		List<InformationListdata> insertEntityList = new ArrayList<>();
 		List<InformationListdata> updateEntityList = new ArrayList<>();
@@ -190,6 +187,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		if(insertEntityList.size() > 0)
 		{
 			listdataDao.insertInBatch(insertEntityList);
+		}
+		//删除数据
+		if(data.getDeletedRowIds() != null && data.getDeletedRowIds().size() > 0)
+		{
+			InformationListdata query = new InformationListdata();
+			query.setIds(data.getDeletedRowIds());
+			listdataDao.delete(query);
 		}
 	}
 

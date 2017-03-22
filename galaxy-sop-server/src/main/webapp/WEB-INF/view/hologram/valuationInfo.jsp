@@ -35,7 +35,7 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit" id="b_\${code}">
+<div class="h_edit section" id="b_\${code}">
 	<div class="h_btnbox">
 		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
@@ -121,9 +121,9 @@
 						</dd>
 
 						{{else type=="10"}}
-						<dd class="fl_none">
-							<table data-title-id="\{id}" data-type="\${type}"></table>
-							<span class="pubbtn bluebtn">新增</span>
+						<dd class="">
+							<table data-title-id="\{id}" class="editable"></table>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                         </dd>
 
 						{{else type=="11"}}
@@ -211,25 +211,10 @@
 
 						{{else type=="10"}}
 						<dd class="fl_none">
-                            <table>
-                              <tr>
-                                <th>姓名</th>
-                                <th>职位</th>
-                                <th>性别</th>
-                                <th>最高学历</th>
-                                <th>操作</th>
-                              </tr>
-                              <tr>
-                                <th>罗振宇</th>
-                                <td>CEO</td>
-                                <td>男</td>
-                                <td>博士</td>
-                                <td>
-                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
-                                </td>
-                              </tr>
+                            <table data-title-id="\${id}"  class="editable">
+                             
                             </table>
-							<span class="pubbtn bluebtn">新增</span>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -295,6 +280,9 @@
 						{{each(i,valueList) valueList}}
                         <dd>未选择</dd>
 						{{/each}}
+						
+						{{else type=="10"}}
+                        <dd><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>
@@ -343,6 +331,9 @@
                         <dd>未选择</dd>
 						{{/each}}
 
+						{{else type=="10"}}
+                        <dd><table data-title-id="\${id}"></table></dd>
+
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>
 
@@ -367,7 +358,6 @@
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
-				console.log(entity);
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
@@ -389,7 +379,6 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
 				} else {
@@ -403,16 +392,18 @@
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		event.stopPropagation();
+		deletedRowIds = new Array();
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var btn = this;
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
 		};
-		
+		//普通结果
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
@@ -432,6 +423,21 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		//表格
+		var infoTableModelList = new Array();
+		$.each(sec.find("table.editable"),function(){
+			$.each($(this).find('tr:gt(0)'),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				infoTableModelList.push($(this).data());
+			});
+		});
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds;
+		
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
 			data,
@@ -439,12 +445,130 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					
+					deletedRowIds = new Array();
+					var parent = $(sec).parent();
+					console.log(parent[0]);
+					var id = parent.data('sectionId');
+					console.log(id);
+					$(btn).next().click();
+					refreshSection(id)
 				} else {
 
 				}
 		}) 
 	});
+function refreshSection(id)
+{
+	var sec = $(".section[data-section-id='"+id+"']");
+	sec.showResults(true);
+}
+function getDetailUrl(code)
+{
+	if(code == 'equity-structure')
+	{
+		return '<%=path%>/html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return '<%=path%>/html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return '<%=path%>/html/fincing_add_yx.html';
+	}
+	else if(code == 'valuation-reference')
+	{
+		return '<%=path%>/html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return '<%=path%>/html/fincing_add_jd.html';
+	}
+	return "";
+}
+function editRow(ele)	
+{
+	var code = $(ele).closest('table').data('code');
+	var row = $(ele).closest('tr');
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$.each($("#detail-form").find("input, select, textarea"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.val(row.data(name));
+			});
+			$("#detail-form input[name='index']").val(row.index());
+			$("#save-detail-btn").click(function(){
+				var data = $("#detail-form").serializeObject();
+				saveRow(data);
+			});
+		}//模版反回成功执行	
+	});
+}
+var deletedRowIds = new Array();
+function delRow(ele)
+{
+	if(confirm('确定要删除？'))
+	{
+		var tr = $(ele).closest('tr');
+		var id = tr.data('id');
+		
+		if(typeof id != 'undefined' && id>0)
+		{
+			deletedRowIds.push(id);
+		}
+		tr.remove();
+	}
 	
+}
+function addRow(ele)
+{
+	var code = $(ele).prev().data('code')
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$("#detail-form input[name='projectId']").val(projectInfo.id);
+			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+			$("#save-detail-btn").click(function(){
+				var data = $("#detail-form").serializeObject();
+				saveRow(data);
+			});
+		}//模版反回成功执行	
+	});
+}
+
+
+/**
+ * 保存至到tr标签data属性
+ */
+function saveRow(data)
+{
+	data = JSON.parse(data);
+	var titleId = data.titleId;
+	var index = data.index;
+	if(typeof index == 'undefined' || index == null || index == '')
+	{
+		var tr = buildRow(data,true);
+		$('table[data-title-id="'+titleId+'"].editable').append(tr);
+	}
+	else
+	{
+		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+		for(var key in data)
+		{
+			if(key.indexOf('field')>-1)
+			{
+				tr.data(key,data[key]);
+				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+			}
+		}
+	}
+	$("a[data-close='close']").click();
+}
 </script>
 </body>
 

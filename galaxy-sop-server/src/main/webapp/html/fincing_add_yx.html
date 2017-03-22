@@ -4,22 +4,25 @@
 	
     <div class="qualifications_all" id="learning">
     
-    	<form action="" id="add_person_learning" method="post">
+    	<form action="" id="detail-form">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
     	
         <div class="info clearfix"> 
             <dl class="fmdl fl">
                 <dt>指标名称：</dt>
                 <dd class="clearfix">
-                    <input name="school" type="text" class="txt" maxLength="50"/>
+                    <input name="field1" type="text" class="txt" maxLength="50"/>
                 </dd>
             </dl>
             <div class="team_wid">
             	<p>融资时指标值：</p>
-            	<textarea class="team_textarea"></textarea>
+            	<textarea class="team_textarea" name="field2"></textarea>
             </div>
             <div class="team_wid">
             	<p>目前时指标值：</p>
-            	<textarea class="team_textarea"></textarea>
+            	<textarea class="team_textarea" name="field3"></textarea>
             </div>
                         
         </div>
@@ -28,18 +31,7 @@
     </div>
     
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl">确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
-<script>
-$('.team_stock').change( function(){
-	var attr_name=$(this).attr('attr-name');
-	if(attr_name=="yes"){
-		$('.team_stock_on').show()
-	}else{
-		$('.team_stock_on').hide()
-	}
-
-})
-</script>

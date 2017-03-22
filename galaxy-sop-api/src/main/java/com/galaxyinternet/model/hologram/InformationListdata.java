@@ -59,7 +59,7 @@ public class InformationListdata extends PagableEntity{
 
     private List<String> codes;
 
-
+    private Set<String> ids;
 
     
 
@@ -265,4 +265,13 @@ public class InformationListdata extends PagableEntity{
     public List<String> getCodes() {
         return codes;
     }
+
+	public Set<String> getIds() {
+		return ids;
+	}
+
+	public void setIds(Set<String> ids) {
+		this.ids = ids;
+	}
+    
 }

@@ -34,6 +34,7 @@ public class InformationFixedTable extends PagableEntity{
     
     private Set<String> titleIds;
 
+    private String valueName;
 
     public Long getId() {
 		return id;
@@ -140,4 +141,14 @@ public class InformationFixedTable extends PagableEntity{
     public void setUpdateId(String updateId) {
         this.updateId = updateId == null ? null : updateId.trim();
     }
+
+	public String getValueName() {
+		return valueName;
+	}
+
+	public void setValueName(String valueName) {
+		this.valueName = valueName;
+	}
+    
+    
 }

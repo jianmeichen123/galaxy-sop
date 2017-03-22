@@ -4,41 +4,38 @@
 	
     <div class="qualifications_all" id="learning">
     
-    	<form action="" id="add_person_learning" method="post">
-    	
+    	<form action="" id="detail-form" method="post">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
         <div class="info clearfix"> 
         	<dl class="fmdl fl">
                 <dt>投资人类型：</dt>
                 <dd>
-                   <select name="degree">
+                   <select name="field1">
                        <option value="">请选择</option>
-                       <option value="高中">高中</option>
-                       <option value="大专">大专</option>
-                       <option value="本科">本科</option>
-                       <option value="硕士">硕士</option>
-                       <option value="MBA">MBA</option>
-                       <option value="博士">博士</option>
-                       <option value="其他">其他</option>
+                       <option>战略投资人</option>
+                       <option>财务投资人</option>
                    </select>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>投资人名称：</dt>
                 <dd class="clearfix">
-                    <input name="school" type="text" class="txt" maxLength="50"/>
+                    <input name="field2" type="text" class="txt" maxLength="50"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>投资金额：</dt>
-                <dd><input name="major" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field3" type="text" class="txt" maxLength="50"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>股权占比：</dt>
-                <dd><input name="major" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field4" type="text" class="txt" maxLength="50"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>投后估值：</dt>
-                <dd><input name="major" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field5" type="text" class="txt" maxLength="50"/></dd>
             </dl>
             
         </div>
@@ -47,7 +44,7 @@
     </div>
     
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" >确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>

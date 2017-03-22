@@ -37,6 +37,7 @@ public class InformationTitle extends PagableEntity {
 	private List<InformationResult> resultList;
 	private List<InformationFixedTable> fixedTableList;
 	private List<InformationListdata> dataList;
+	private InformationListdataRemark tableHeader;
 	
 	
 	private Long resultId;
@@ -211,6 +212,14 @@ public class InformationTitle extends PagableEntity {
 
 	public void setResultContent2(String resultContent2) {
 		this.resultContent2 = resultContent2;
+	}
+
+	public InformationListdataRemark getTableHeader() {
+		return tableHeader;
+	}
+
+	public void setTableHeader(InformationListdataRemark tableHeader) {
+		this.tableHeader = tableHeader;
 	}
 
 	

@@ -14,6 +14,11 @@ function editOpen(){
 	  $(this).parent().parent().parent(".h").css("background","#fff");
 	})
 }
+/*多选标签*/
+$("div").delegate(".check_label","click",function(event){
+	  $(this).toggleClass('active');
+	  event.stopPropagation();
+});
 
 /*$(function(){
 	 $('.h_navbar').tabInfoChange({		
@@ -109,6 +114,7 @@ function tabInfoChange(index){
 
 
 	$.fn.showResults = function(readonly){
+		var sec = $(this);
 		var pid = $(this).data('sectionId');
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
 				function(data) {
@@ -121,46 +127,211 @@ function tabInfoChange(index){
 				{
 					$.each(entityList,function(){
 						var title = this;
-						if(title.resultList)
-						{
-							if(title.type == 1)
-							{
-								if(readonly == true)
-								{
-									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
-								}
-								else
-								{
-									$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
-								}
-							}
-							if(title.type == 2)
-							{
-								if(readonly == true)
-								{
-									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
-								}
-								else
-								{
-									$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
-								}
-							}
-							else(title.type == 8)
-							{
-								if(readonly == true)
-								{
-									$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
-								}
-								else
-								{
-									$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
-								}
-							}
-						}
-						
+						buildResults(sec,title,readonly);
+						buildTable(sec,title);
 					});
 				}
 			} 
 		})
 	}
 
+});
+
+function buildResults(sec,title,readonly)
+{
+	//普通字段
+	if(title.resultList)
+	{
+		if(title.type == 1)
+		{
+			if(readonly == true)
+			{
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+			}
+			else
+			{
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+			}
+		}
+		if(title.type == 2)
+		{
+			if(readonly == true)
+			{
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
+			}
+			else
+			{
+				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+			}
+		}
+		else if(title.type == 3){
+			$.each(title.resultList,function(i,n){
+				$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+			});
+		}
+		else(title.type == 8)
+		{
+			if(readonly == true)
+			{
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+			}
+			else
+			{
+				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+			}
+		}
+	}
+}
+function buildTable(sec,title)
+{
+	//列表Header
+	if(title.tableHeader)
+	{
+		var header = title.tableHeader;
+		var tables = $("table[data-title-id='"+header.titleId+"']");
+		$.each(tables,function(){
+			var table = $(this);
+			table.attr('data-code',header.code);
+			table.empty();
+			var tr="<tr>";
+			for(var key in header)
+			{
+				if(key.indexOf('field')>-1)
+				{
+					tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+				}
+			}
+			var editable = table.hasClass('editable');
+			if(editable == true)
+			{
+				tr +='<th data-field-name="opt">操作</th>';
+			}
+			tr+="</tr>";
+			table.append(tr);
+		});
+	}
+	//列表Row
+	if(title.dataList)
+	{
+		$.each(title.dataList,function(){
+			var row = this;
+			var tables = $("table[data-title-id='"+row.titleId+"']");
+			$.each(tables,function(){
+				var table = $(this);
+				var tr = buildRow(row,table.hasClass('editable'));
+				table.append(tr);
+			});
+		});
+	}
+}
+function buildRow(row,showOpts)
+{
+	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
+	for(var key in row)
+	{
+		//设置data
+		tr.data(key,row[key]);
+		if(key.indexOf('field')>-1)
+		{
+			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+		}
+	}
+	if(showOpts == true)
+	{
+		var td = $('<td data-field-name="opt"></td>');
+		td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">编辑</span>');
+		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+		tr.append(td);
+	}
+	return tr;
+}
+
+function setDate(pid,readonly){
+	sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
+			function(data) {
+		
+		var result = data.result.status;
+		if (result == 'OK') 
+		{
+			var entityList = data.entityList;
+			if(entityList && entityList.length >0)
+			{
+				$.each(entityList,function(){
+					var title = this;
+					//普通字段
+					if(title.resultList)
+					{
+						if(title.type == 1)
+						{
+							if(readonly == true)
+							{
+								$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+							}
+							else
+							{
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+							}
+						}
+						if(title.type == 2)
+						{
+							if(readonly == true)
+							{
+								$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
+							}
+							else
+							{
+								$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+							}
+						}
+						else(title.type == 8)
+						{
+							if(readonly == true)
+							{
+								$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+							}
+							else
+							{
+								$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+							}
+						}
+					}
+					//列表Header
+					if(title.tableHeader)
+					{
+						var header = title.tableHeader;
+						var table = $("table[data-title-id='"+header.titleId+"']");
+						var tr="<tr>";
+						for(var key in header)
+						{
+							if(key.indexOf('field')>-1)
+							{
+								tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+							}
+						}
+						tr+="</tr>";
+						table.append(tr);
+					}
+					//列表Row
+					if(title.dataList)
+					{
+						$.each(title.dataList,function(){
+							var row = this;
+							var table = $("table[data-title-id='"+row.titleId+"']");
+							var tr="<tr>";
+							for(var key in row)
+							{
+								if(key.indexOf('field')>-1)
+								{
+									tr +='<td data-field-name="'+key+'">'+row[key]+'</td>';
+								}
+							}
+							tr+="</tr>";
+							table.append(tr);
+						});
+					}
+				});
+			}
+		} 
+	})
+	
+}

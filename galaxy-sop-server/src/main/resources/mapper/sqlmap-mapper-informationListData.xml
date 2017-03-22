@@ -69,6 +69,12 @@
 						#{item}
 					</foreach>
 				</if>
+				<if test="ids != null">
+					and id in 
+					<foreach collection="ids" item="item" open="(" separator="," close=")">
+					#{item}
+					</foreach>
+				</if>
 			</trim>
 			
 			<if test="sorting != null">order by ${sorting}</if>
@@ -161,24 +167,24 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.hologram.InformationDictionary">
 		update information_listdata
 		<set>
-			<if test="titleId != null"> and title_id = #{titleId,jdbcType=BIGINT} </if>
-			<if test="parentId != null"> and parent_id = #{parentId,jdbcType=BIGINT} </if>
-			<if test="code != null"> and code = #{code,jdbcType=VARCHAR} </if>
-			<if test="field1 != null"> and field_1 = #{field1,jdbcType=VARCHAR} </if>
-			<if test="field2 != null"> and field_2 = #{field2,jdbcType=VARCHAR} </if>
-			<if test="field3 != null"> and field_3 = #{field3,jdbcType=VARCHAR} </if>
-			<if test="field4 != null"> and field_4 = #{field4,jdbcType=VARCHAR} </if>
-			<if test="field5 != null"> and field_5 = #{field5,jdbcType=VARCHAR} </if>
-			<if test="field6 != null"> and field_6 = #{field6,jdbcType=VARCHAR} </if>
-			<if test="field7 != null"> and field_7 = #{field7,jdbcType=VARCHAR} </if>
-			<if test="field8 != null"> and field_8 = #{field8,jdbcType=VARCHAR} </if>
-			<if test="field9 != null"> and field_9 = #{field9,jdbcType=VARCHAR} </if>
-			<if test="field10 != null"> and field_10 = #{field10,jdbcType=VARCHAR} </if>
-			<if test="isValid != null"> and is_valid = #{isValid,jdbcType=VARCHAR} </if>
-			<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=VARCHAR} </if>
-			<if test="createId != null"> and create_id = #{createId,jdbcType=VARCHAR} </if>
-			<if test="updatedTime != null"> and updated_time = #{updatedTime,jdbcType=VARCHAR} </if>
-			<if test="updateId != null"> and update_id = #{updateId,jdbcType=VARCHAR} </if>
+			<if test="titleId != null"> title_id = #{titleId,jdbcType=BIGINT}, </if>
+			<if test="parentId != null"> parent_id = #{parentId,jdbcType=BIGINT}, </if>
+			<if test="code != null"> code = #{code,jdbcType=VARCHAR}, </if>
+			<if test="field1 != null"> field_1 = #{field1,jdbcType=VARCHAR}, </if>
+			<if test="field2 != null"> field_2 = #{field2,jdbcType=VARCHAR}, </if>
+			<if test="field3 != null"> field_3 = #{field3,jdbcType=VARCHAR}, </if>
+			<if test="field4 != null"> field_4 = #{field4,jdbcType=VARCHAR}, </if>
+			<if test="field5 != null"> field_5 = #{field5,jdbcType=VARCHAR}, </if>
+			<if test="field6 != null"> field_6 = #{field6,jdbcType=VARCHAR}, </if>
+			<if test="field7 != null"> field_7 = #{field7,jdbcType=VARCHAR}, </if>
+			<if test="field8 != null"> field_8 = #{field8,jdbcType=VARCHAR}, </if>
+			<if test="field9 != null"> field_9 = #{field9,jdbcType=VARCHAR}, </if>
+			<if test="field10 != null"> field_10 = #{field10,jdbcType=VARCHAR}, </if>
+			<if test="isValid != null"> is_valid = #{isValid,jdbcType=VARCHAR}, </if>
+			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=VARCHAR}, </if>
+			<if test="createId != null"> create_id = #{createId,jdbcType=VARCHAR}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=VARCHAR}, </if>
+			<if test="updateId != null"> update_id = #{updateId,jdbcType=VARCHAR} </if>
 		</set>
 		where id = #{id}
 	</update>

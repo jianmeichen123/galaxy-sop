@@ -48,9 +48,9 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	*/
 	@PostConstruct  
     public void  init(){ 
-		initTitleIdName();
-		initValueIdName();
-		initAreaTitleAndTValue();
+		//initTitleIdName();
+		//initValueIdName();
+		//initAreaTitleAndTValue();
 	}
 	
 	

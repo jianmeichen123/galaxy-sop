@@ -36,7 +36,7 @@
 <script id="ifelse" type="text/x-jquery-tmpl">
 <div class="h_edit" id="b_\${code}">
 	<div class="h_btnbox">
-		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
+		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
 	</div>
 	<div class="h_title">\${name}</div>
@@ -60,7 +60,6 @@
 						</dd>
 
 						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -167,7 +166,7 @@
 						</dd>
 
 						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
+						
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -259,12 +258,11 @@
 					{{/if}}
 					
 					{{/each}}
- <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
-                      <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
+			<div class="h_edit_btnbox clearfix">
+                      <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
+                      <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
                     </div>
-	
-</div>										
+</div>									
 </script>
 
 
@@ -276,104 +274,102 @@
   <div class="h_look h_team_look clearfix" id="\${code}">
 	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<div class="h_title">\${name}</div>
-	{{each(i,childList) childList}}                    
-                    {{if sign=="3"}}
-						{{each(i,childList) childList}}
-							<div class="mb_24 clearfix">
-                      <dl class="clearfix">
-                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+{{each(i,childList) childList}}                    
+	{{if sign=="3"}}
+		{{each(i,childList) childList}}
+			<div class="mb_24 clearfix">
+	  <dl class="clearfix">
+		<dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
-						{{if type=="5"}}                        
-						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						<dd>备注</dd>
+		{{if type=="5"}}                        
+		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		<dd>备注</dd>
 
-						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		{{else type=="2"}}
+		<dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
-						{{else type=="3"}}
-                        {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
+		{{else type=="3"}}
+		{{each(i,valueList) valueList}}
+		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		{{/each}}
 
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
+		{{else type=="6"}}
+		{{each(i,valueList) valueList}}
+		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		{{/each}}
 
-						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-                    		 <dd class="fl_none">
-                            	<img src="img/loginbg.gif" alt="">
-                            	<img src="img/loginbg.gif" alt="">
-                          	</dd>
+		{{else type=="7"}}
+			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+			 <dd class="fl_none">
+				<img src="img/loginbg.gif" alt="">
+				<img src="img/loginbg.gif" alt="">
+			</dd>
 
-						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+		{{else type=="8"}}
+		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
 
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>未选择</dd>
-						{{/each}}
+		{{else type=="4"}}
+		{{each(i,valueList) valueList}}
+		<dd>未选择</dd>
+		{{/each}}
 
-						{{else type=="11"}}
-                        <dd>项目带过来的数据</dd>
+		{{else type=="11"}}
+		<dd>项目带过来的数据</dd>
 
-						{{else type=="1"}}
-                        <dd class="field" data-title-id="\${id}">未填写</dd>
-						{{/if}}                      
-						</dl>		
-                    </div>
-						{{/each}}
+		{{else type=="1"}}
+		<dd class="field" data-title-id="\${id}">未填写</dd>
+		{{/if}}                      
+		</dl>		
+	</div>
+		{{/each}}
 
-					{{else}}
-					<div class="mb_24 clearfix">
-                      <dl class="clearfix">
-                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-						{{if type=="5"}}                        
-						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						<dd>备注</dd>
+	{{else}}
+	<div class="mb_24 clearfix">
+	  <dl class="clearfix">
+		<dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+		{{if type=="5"}}                        
+		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		<dd>备注</dd>
 
-						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		{{else type=="2"}}
+		<dd data-value="\${value}" class="field" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
-						{{else type=="3"}}
-                        {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
+		{{else type=="3"}}
+		{{each(i,valueList) valueList}}
+		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		{{/each}}
 
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
+		{{else type=="6"}}
+		{{each(i,valueList) valueList}}
+		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		{{/each}}
 
-						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-                    		 <dd class="fl_none">
-                            	<img src="img/loginbg.gif" alt="">
-                            	<img src="img/loginbg.gif" alt="">
-                          	</dd>
+		{{else type=="7"}}
+			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+			 <dd class="fl_none">
+				<img src="img/loginbg.gif" alt="">
+				<img src="img/loginbg.gif" alt="">
+			</dd>
 
-						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+		{{else type=="8"}}
+		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
 
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>未选择</dd>
-						{{/each}}
+		{{else type=="4"}}
+		{{each(i,valueList) valueList}}
+		<dd>未选择</dd>
+		{{/each}}
 
-						{{else type=="11"}}
-                        <dd>项目带过来的数据</dd>
+		{{else type=="11"}}
+		<dd>项目带过来的数据</dd>
 
-						{{else type=="1"}}
-                        <dd class="field" data-title-id="\${id}">未填写</dd>
-						{{/if}}                      
-						</dl>		
-                    </div>
+		{{else type=="1"}}
+		<dd class="field" data-title-id="\${id}">未填写</dd>
+		{{/if}}                      
+		</dl>		
+	</div>
 
-					{{/if}}
-					{{/each}}
+	{{/if}}
+{{/each}}
   </div>
 </div>
 {{/each}}
@@ -425,6 +421,7 @@
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
@@ -458,12 +455,18 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					var pid=$('#a_'+id_code).attr("data-section-id");
+					 setDate(pid,true);	
 				} else {
 
 				}
 		}) 
 	});
-	
+	$('div').delegate(".h_save_btn","click",function(event){
+		var id_code = $(this).attr('attr-save');
+		$('#'+id_code).show();
+		$('#b_'+id_code).remove();
+	});
 </script>
 </body>
 

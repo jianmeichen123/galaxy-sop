@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.hologram;
 
 import java.util.List;
+import java.util.Set;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -14,6 +15,8 @@ public class InformationData extends PagableEntity {
 	private List<InformationModel> infoModeList;
 	
 	private List<FixedTableModel> infoFixedTableList;
+	
+	private Set<String> deletedRowIds;
 	
 	private List<TableModel>     infoTableModelList;
 	
@@ -55,6 +58,14 @@ public class InformationData extends PagableEntity {
 
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+
+	public Set<String> getDeletedRowIds() {
+		return deletedRowIds;
+	}
+
+	public void setDeletedRowIds(Set<String> deletedRowIds) {
+		this.deletedRowIds = deletedRowIds;
 	}
 	
 	

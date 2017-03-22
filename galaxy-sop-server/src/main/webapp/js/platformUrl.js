@@ -1111,7 +1111,10 @@ var platformUrl = {
 	 * 传入value的 id ， 返回 该value下级的 values
 	 */
 	queryValuesByVpid : Constants.sopEndpointURL + "/galaxy/tvalue/queryValuesByVpid/",
-	
+	/**
+	 * 传入项目 id，title id，级联 value的 pid，， 返回 该value下级的 values,
+	 */
+	queryProNvaluesInfo : Constants.sopEndpointURL + "/galaxy/tvalue/queryProNvaluesInfo/",
 	
 	/**
 	 * 传入题 id 或 code， 返回该题的下一级的 题及value 信息
@@ -1135,7 +1138,12 @@ var platformUrl = {
 	/**
 	 * 保存result
 	 */
-	saveOrUpdateInfo : Constants.sopEndpointURL + "galaxy/infoProject/saveOrUpdateInfo"
+	saveOrUpdateInfo : Constants.sopEndpointURL + "galaxy/infoProject/saveOrUpdateInfo",
+	
+	/**
+	 * 保存result
+	 */
+	saveRow : Constants.sopEndpointURL + "galaxy/team/saveRow"
 	
 	
 	

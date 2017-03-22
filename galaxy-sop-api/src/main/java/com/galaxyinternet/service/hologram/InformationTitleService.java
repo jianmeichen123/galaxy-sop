@@ -3,6 +3,7 @@ package com.galaxyinternet.service.hologram;
 import java.util.List;
 
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
 
 public interface InformationTitleService extends BaseService<InformationTitle>{
@@ -64,6 +65,15 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	 * @return 返回子标题及标题的结果值
 	 */
 	List<InformationTitle> searchWithData(String titleId, String projectId);
+
+
+	
+	/**
+	 * 页面级联功能
+	 * 传入项目 id，    title id，    级联 value的 pid，  
+	 * 返回 value 的 pid 下的 values
+	 */
+	List<InformationDictionary> selectProNvaluesInfo(String pid, String tid, String vpid);
 
 
 

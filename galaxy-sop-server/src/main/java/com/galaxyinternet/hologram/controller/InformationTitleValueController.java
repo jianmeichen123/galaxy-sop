@@ -314,5 +314,31 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	
 	
+	/**
+	 * 页面级联功能
+	 * 传入项目 id，    title id，    级联 value的 pid，  
+	 * 返回 value 的 pid 下的 values
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProNvaluesInfo/{pid}/{tid}/{vpid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationDictionary> queryProNvaluesInfo(HttpServletRequest request,
+			@PathVariable("pid") String pid,@PathVariable("tid") String tid,@PathVariable("vpid") String vpid  ) {
+		ResponseData<InformationDictionary> responseBody = new ResponseData<InformationDictionary>();
+		try{
+
+			List<InformationDictionary> vs = informationTitleService.selectProNvaluesInfo(pid, tid, vpid);
+			
+			responseBody.setEntityList(vs);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "题和保存的结果信息获取失败"));
+			logger.error("queryTitleInfo 题和保存的结果信息 : ",e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	
 	
 }
