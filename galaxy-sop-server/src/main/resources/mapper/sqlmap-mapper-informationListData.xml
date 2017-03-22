@@ -69,6 +69,12 @@
 						#{item}
 					</foreach>
 				</if>
+				<if test="ids != null">
+					and id in 
+					<foreach collection="ids" item="item" open="(" separator="," close=")">
+					#{item}
+					</foreach>
+				</if>
 			</trim>
 			
 			<if test="sorting != null">order by ${sorting}</if>

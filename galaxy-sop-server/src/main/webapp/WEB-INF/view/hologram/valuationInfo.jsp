@@ -391,9 +391,11 @@
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		event.stopPropagation();
+		deletedRowIds = new Array();
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var btn = this;
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
@@ -433,6 +435,7 @@
 			});
 		});
 		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds;
 		
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
@@ -441,11 +444,24 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					
+					deletedRowIds = new Array();
+					var parent = $(sec).parent();
+					console.log(parent[0]);
+					var id = parent.data('sectionId');
+					console.log(id);
+					$(btn).next().click();
+					refreshSection(id)
 				} else {
 
 				}
 		}) 
 	});
+function refreshSection(id)
+{
+	var sec = $(".section[data-section-id='"+id+"']");
+	sec.showResults(true);
+}
 function getDetailUrl(code)
 {
 	if(code == 'equity-structure')
@@ -491,11 +507,19 @@ function editRow(ele)
 		}//模版反回成功执行	
 	});
 }
+var deletedRowIds = new Array();
 function delRow(ele)
 {
 	if(confirm('确定要删除？'))
 	{
-		$(ele).closest('tr').remove();
+		var tr = $(ele).closest('tr');
+		var id = tr.data('id');
+		
+		if(typeof id != 'undefined' && id>0)
+		{
+			deletedRowIds.push(id);
+		}
+		tr.remove();
 	}
 	
 }
