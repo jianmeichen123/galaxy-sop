@@ -16,12 +16,16 @@ function showArea(code){
 
 
 function toShowTitleHtml(title,html){
+	var titleDiv = "" ;
+	if(title.name){
+		titleDiv = "<div class=\"h_title\">" + title.name + "</div>" ;
+	}
 	var s_div = 
 		"<div class=\"h_look h_team_look clearfix\" id=\"a_"+title.code+"\" >" +
 			"<div class=\"h_btnbox\">" +
 		    	"<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>" +
 		    "</div>" +
-			"<div class=\"h_title\">" + title.name + "</div>" +
+		    titleDiv +
 			html +
 		"</div>";
 		
@@ -29,13 +33,17 @@ function toShowTitleHtml(title,html){
 }
 
 function toEditTitleHtml(title,html){
+	var titleDiv = "" ;
+	if(title.name){
+		titleDiv = "<div class=\"h_title\">" + title.name + "</div>" ;
+	}
 	var s_div = 
 		"<div class=\"h_edit h_team_look clearfix\" id=\"b_"+title.code+"\" >" +
 			"<div class=\"h_btnbox\">" +
 		    	"<span class=\"h_save_btn\" data-on=\"save\" attr-save=\""+title.code+"\">保存</span>" +
 		    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
 		    "</div>" +
-			"<div class=\"h_title\">" + title.name + "</div>" +
+		    titleDiv +
 			html +
 			"<div class=\"h_edit_btnbox clearfix\">" +
 		    	"<span class=\"pubbtn bluebtn h_save_btn fl\" data-on=\"save\" attr-save=\""+title.code+"\" >保存</span>" +
@@ -60,7 +68,7 @@ function toGetHtmlByMark(title,mark){
 				var result = data.result.status;
 				if (result == 'OK') {
 					var sign_title = data.entity;
-					html += switchTypeByMark(sign_title,mark);
+					html += toGetHtmlByMark(sign_title,mark);
 				}
 			});
 		}else{
