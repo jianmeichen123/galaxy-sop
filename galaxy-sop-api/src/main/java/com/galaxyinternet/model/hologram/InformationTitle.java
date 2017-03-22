@@ -31,6 +31,9 @@ public class InformationTitle extends PagableEntity {
 
 	private Long updateId;
 
+	private Integer isMust;
+	private String valRule; 
+	private String valRuleMark;
 	
 	private List<InformationTitle> childList;
 	private List<InformationDictionary> valueList;
@@ -222,7 +225,29 @@ public class InformationTitle extends PagableEntity {
 		this.tableHeader = tableHeader;
 	}
 
-	
-	
+	public Integer getIsMust() {
+		return isMust;
+	}
+
+	public void setIsMust(Integer isMust) {
+		this.isMust = isMust;
+	}
+
+	public String getValRule() {
+		return valRule;
+	}
+
+	public void setValRule(String valRule) {
+		this.valRule = valRule;
+	}
+
+	public String getValRuleMark() {
+		return valRuleMark;
+	}
+
+	public void setValRuleMark(String valRuleMark) {
+		this.valRuleMark = valRuleMark;
+	}
+
 	
 }
