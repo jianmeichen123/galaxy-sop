@@ -163,10 +163,18 @@ function buildResults(sec,title,readonly)
 				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
 			}
 		}
-		else if(title.type == 3){
-			$.each(title.resultList,function(i,n){
-				$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
-			});
+		if(title.type == 3){
+			if(readonly == true)
+			{
+				$.each(title.resultList,function(i,n){
+					$("dd[data-title-id='"+ n.contentChoose +"']").text(n.valueName);
+				});
+			}else{
+				$.each(title.resultList,function(i,n){
+					$("li[data-id='"+ n.contentChoose +"']").addClass('active');
+				});
+			}
+			
 		}
 		else(title.type == 8)
 		{

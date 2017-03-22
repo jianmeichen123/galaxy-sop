@@ -43,6 +43,7 @@
 	{{each(i,childList) childList}}  
  
                  	{{if sign=="3"}}
+					<h2>\${name}</h2>
 						{{each(i,childList) childList}}
 						<div class="mb_16">
                        <dl class="h_edit_txt clearfix">
@@ -62,9 +63,9 @@
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
                         <dd class="fl_none">
-						<ul class="h_edit_checkbox clearfix">
+						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 							{{each(i,valueList) valueList}}
-                            <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
+                            <li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -100,7 +101,6 @@
 						{{/each}}
 						
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs mgedit" id="edit-\${id}">
                              
@@ -113,7 +113,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -171,9 +171,9 @@
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
                         <dd class="fl_none">
-						<ul class="h_edit_checkbox clearfix">
+						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 							{{each(i,valueList) valueList}}
-                            <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
+                            <li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -208,7 +208,6 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs mgedit"  id="edit-\${id}">
                               
@@ -263,8 +262,8 @@
 					
 					{{/each}}
  <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
-                      <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
+                      <span class="pubbtn bluebtn fl h_save_btn" data-on="save">保存</span>
+                      <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel">取消</span>
                     </div>
 	
 </div>										
@@ -290,11 +289,11 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -303,14 +302,12 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">22除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		 <dd class="fl_none mglook" id="look-\${id}">
                             	
                           	</dd>
 
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+						<dd class="fl_none field" data-title-id="\${id}" data-type="\${type}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -336,11 +333,11 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -349,13 +346,11 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		 <dd class="fl_none mglook" id="look-\${id}">
                           	</dd>
 
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+						<dd class="fl_none field" data-title-id="\${id}" data-type="\${type}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -486,6 +481,7 @@ var key = Date.parse(new Date());
 			};
 			if(type==2 || type==3 || type==4)
 			{
+				console.log(field.val());
 				infoMode.value = field.val()
 			}
 			else if(type==1 || type==8)
@@ -515,7 +511,7 @@ var key = Date.parse(new Date());
 	$('div').delegate(".h_save_btn","click",function(event){
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var fields = sec.find("input[type='text'],input:checked,textarea,li.active");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -530,10 +526,11 @@ var key = Date.parse(new Date());
 			};
 			if(type==2 || type==3 || type==4)
 			{
+				console.log(field.val());
 				infoMode.value = field.val()
 			}
 			else if(type==1 || type==8)
-			{
+			{	
 				infoMode.remark1 = field.val()
 			}
 			infoModeList.push(infoMode);
