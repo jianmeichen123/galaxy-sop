@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.file.FileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -44,7 +46,8 @@ import com.galaxyinternet.service.hologram.InformationFileService;
 import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.FileUtils;
 
-@Controller("/galaxy/informationFile")
+@Controller
+@RequestMapping("/galaxy/informationFile")
 public class InformationFileController extends BaseControllerImpl<InformationFile, InformationFile>{
 	
 	final Logger logger = LoggerFactory.getLogger(InformationFileController.class);
@@ -76,39 +79,97 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 		return this.informationFileService;
 	}
 	
+	
+	/**
+	 * 删除文件
+	 * @param informationFile
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteRedisFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)  
+    public Result deleteRedisFile(@RequestBody InformationFile informationFile,HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+			String fileKey = informationFile.getFileReidsKey();
+			String fileId = informationFile.getNewFileName();
+			if(StringUtils.isEmpty(fileKey) || StringUtils.isEmpty(fileId)){
+				return new Result(Status.ERROR, "参数丢失!");
+			}
+			String redisKey = user.getId()+fileKey;
+			List<Object> fileList = cache.getRedisQuenOBJ(redisKey);
+			List<Object> delFileList = new ArrayList<Object>();
+			if(fileList != null && fileList.size() > 0){
+				for(Object file : fileList){
+			    	 InformationFile fileObject = (InformationFile) file;
+			    	 if(fileId.equals(fileObject.getNewFileName())){
+			    		 delFileList.add(file);
+			    	 }
+			    	
+			    }
+				fileList.removeAll(delFileList);
+				cache.removeRedisKeyOBJ(redisKey);
+				cache.set(redisKey,fileList);
+			}
+			InformationFile file = informationFileService.queryById(Long.valueOf(fileId));
+			if(file != null){
+				 FileResult result = OSSHelper.deleteFile(file.getBucketName(), file.getFileKey());
+				 if(Status.OK.equals(result.getResult().getStatus())){
+					 informationFileService.deleteById(Long.valueOf(fileId));
+					 logger.info("删除文件名:{},项目id:{}",file.getFileName(),file.getProjectId());
+				 }
+			}
+			return new Result(Status.OK, "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("删除文件操作失败!");
+			// TODO: handle exception
+			return new Result(Status.ERROR, "系统出现异常");
+		}
+		
+	}
+	
+	
 	/**
 	 * 将文件上传到redis中
 	 * @param request
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/sendUploadByRedis", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)  
+	@RequestMapping(value = "/sendInformationByRedis", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)  
     public Result batchUpload(HttpServletRequest request){
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
 			MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
-			SopFile form = new SopFile();
+			InformationFile form = new InformationFile();
 			form.setBucketName(OSSFactory.getDefaultBucketName());
 			form.setFileKey(String
 						.valueOf(IdGenerator.generateId(OSSHelper.class)));
 			Map<String, String> nameMap = FileUtils.transFileNames(multipartFile.getOriginalFilename());
 			String fileKey = request.getParameter("fileReidsKey");
+			String newFileName = request.getParameter("newFileName");
+			String projectId = request.getParameter("projectId") == null ? "" :request.getParameter("projectId");
+			String titleId = request.getParameter("titleId") == null ? "":request.getParameter("titleId");
+			
+			if(StringUtils.isEmpty(projectId) || StringUtils.isEmpty(fileKey) || StringUtils.isEmpty(titleId)){
+				return new Result(Status.ERROR, "上传redis失败!");
+			}
 			form.setFileName(request.getParameter("fileName").substring(0, request.getParameter("fileName").lastIndexOf(".")));
 			form.setFileSuffix(nameMap.get("fileSuffix"));
 			form.setFileType(FileUtils.getFileType(form.getFileSuffix()));
-			form.setFileLength(multipartFile.getSize());
-			form.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-			form.setFileUid(user.getId());
-			form.setRecordType((byte)0);
-			form.setCareerLine(user.getDepartmentId());
+			form.setFileLength(String.valueOf(multipartFile.getSize()));
+			form.setCreateId(user.getId());
 			form.setCreatedTime(System.currentTimeMillis());
 			form.setMultipartFile(multipartFile);
+			form.setProjectId(Long.valueOf(projectId));
+			form.setTitleId(Long.valueOf(titleId));
+			form.setNewFileName(newFileName);
 			form.setTempPath(tempfilePath);
 			cache.setRedisSetOBJ(user.getId()+fileKey,form);
 			return new Result(Status.OK, "");
 		} catch (Exception e) {
-			cache.removeRedisKeyOBJ(user.getTelephone()+request.getParameter("fileReidsKey"));
+			cache.removeRedisKeyOBJ(user.getId()+request.getParameter("fileReidsKey"));
 			// TODO: handle exception
 			return new Result(Status.ERROR, "系统出现异常");
 		}
@@ -142,8 +203,12 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 								public void run() {
 									 UploadFileResult res = uploadFileToOSS(fileObject, fileObject.getFileKey());
 								     if(Status.ERROR.equals(res.getResult().getStatus())){
-								    	 cache.getByMemc(redisKey);
+								    	 cache.removeRedisKeyOBJ(redisKey);
 								    	 logger.error("文件上次失败:",fileObject.getFileName());
+								     }else{
+								    	 String url = OSSHelper.getUrl(fileObject.getBucketName(),fileObject.getFileKey());
+								    	 fileObject.setFileUrl(url);
+								    	 informationFileService.insert(fileObject);
 								     }
 									startSignal.countDown();
 								}
@@ -156,11 +221,36 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			responseBody.setResult(new Result(Status.OK,null));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
-			logger.error("operInformation 操作失败",e);
+			logger.error("operInformationFile 操作失败",e);
 		}
 		
 		return responseBody;
 	}
+	
+	/**
+	 * 根据项目id来获取全息图上传的图片
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getFileByProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationFile> getFileByProject(@RequestBody InformationFile informationFile,HttpServletRequest request) {
+		
+		ResponseData<InformationFile> responseBody = new ResponseData<InformationFile>();
+		if(informationFile.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR,null, "项目ID为空!"));
+			return responseBody;
+		}
+		try {
+			List<InformationFile> files = informationFileService.queryList(informationFile);
+			responseBody.setEntityList(files);
+			responseBody.setResult(new Result(Status.OK,null));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			logger.error("getFileByProject 操作失败",e);
+		}
+		
+		return responseBody;
+	}
+	
 	
 	
 	/**
