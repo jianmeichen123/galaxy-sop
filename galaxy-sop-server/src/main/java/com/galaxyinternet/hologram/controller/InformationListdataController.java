@@ -2,6 +2,7 @@ package com.galaxyinternet.hologram.controller;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.BaseService;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
@@ -161,39 +163,33 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         return resp;
     }
 
-    /**
-     * 通过titleId 查询code(表格上面的列表)
-     * @param titleId
-     * @return
-     */
-    @RequestMapping("/queryCodeByTitle/{titleId}")
+
     @ResponseBody
-    public ResponseData<InformationListdataRemark> queryCodeByTitle(@PathVariable("titleId") Long titleId){
-        ResponseData<InformationListdataRemark> resp = new ResponseData<>();
-        InformationListdataRemark remark = informationListdataRemarkService.queryByTitleId(titleId);
-        resp.setEntity(remark);
-        return resp;
+    @RequestMapping("/saveRow")
+    public ResponseData<InformationListdata> saveRow(@RequestBody InformationListdata row)
+    {
+        ResponseData<InformationListdata> data = new ResponseData<InformationListdata>();
+        User user = WebUtils.getUserFromSession();
+        if(row.getProjectId() == null || row.getTitleId() == null)
+        {
+            data.getResult().addError("信息不完整");
+            return data;
+        }
+        Long now = new Date().getTime();
+        Long uId = user.getId();
+        if(row.getId() == null)
+        {
+            row.setCreatedTime(now);
+            row.setCreateId(uId);
+            informationListdataService.insert(row);
+        }
+        else
+        {
+            row.setUpdatedTime(now);
+            row.setUpdateId(uId);
+            informationListdataService.updateById(row);
+        }
+        return data;
     }
 
-
-    /**
-    *根据id查询一条工作经历或创业经历等
-     */
-  /*  @RequestMapping("/queryOneInnerRow/{id}")
-    @ResponseBody
-    public ResponseData<InformationListdata> queryOneRow(@PathVariable("id") Long id){
-        ResponseData<InformationListdata> resp = new ResponseData<>();
-        if(id == null){
-            resp.setResult(new Result(Result.Status.ERROR,null, "id缺失"));
-            logger.error("queryOneRow 失败 : id缺失");
-        }
-        try{
-            InformationListdata data  = informationListdataService.queryById(id);
-            resp.setEntity(data);
-        }catch(Exception e){
-            resp.setResult(new Result(Result.Status.ERROR,null, "queryOneRow失败"));
-            logger.error("queryOneRow 失败 ",e);
-        }
-        return resp;
-    }*/
 }
