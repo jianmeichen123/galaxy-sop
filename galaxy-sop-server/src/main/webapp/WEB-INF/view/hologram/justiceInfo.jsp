@@ -426,6 +426,10 @@
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+
+		if($('.tip-yellowsimple').length > 0){
+			return false;
+		}
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');

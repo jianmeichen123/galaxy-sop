@@ -34,6 +34,7 @@ function countChar(textareaName,spanName,maxLimit){
 function tabInfoChange(index){
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
+	$(".tip-yellowsimple").remove();
 		switch(index){
 	case '0':initBaseInfo(); break;  //标签0:基本信息
 	case '1':initProjectInfo(); break;  //标签1:项目

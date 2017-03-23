@@ -16,9 +16,21 @@
  	<a class="blue" href="javascript:team_learn(11)">学习经历</a>&nbsp;&nbsp;&nbsp;
  	<a class="blue" href="javascript:team_education(11)">教育经历</a>&nbsp;&nbsp;&nbsp;
  	<a class="blue" href="javascript:team_work(11)">学习经历</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="javascript:team_add_cgr(11)">添加持股人</a>&nbsp;&nbsp;&nbsp;
  	</div>
 </body>
 <script>
+//添加持股人
+function team_add_cgr(id){
+	$.getHtml({
+		url:'../html/team_add_cgr.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(date){
+			$('#qualifications_popup_name').html('添加持股人')
+		}
+			
+	});
+}
 //本页面相关  查看
 function team_fun(id){
 	$.getHtml({
