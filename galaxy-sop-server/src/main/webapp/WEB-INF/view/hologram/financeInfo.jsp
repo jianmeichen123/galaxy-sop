@@ -419,6 +419,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".tip-yellowsimple").hide();
 		event.stopPropagation();
 	});
 	//通用保存
