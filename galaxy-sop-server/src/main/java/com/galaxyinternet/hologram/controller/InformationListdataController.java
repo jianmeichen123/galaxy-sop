@@ -123,7 +123,7 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
                 InformationTitle title = tvList.get(0);
                 List<InformationListdata> dataList = title.getDataList();
 
-                if(data!=null && dataList.size()>0){
+                if(dataList!=null && dataList.size()>0){
                     for(InformationListdata data :dataList){
                         if(data.getParentId()==null){
                             resultList.add(data);
