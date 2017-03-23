@@ -193,7 +193,6 @@ function buildResults(sec,title,readonly)
 		else if(title.type == 5)
 		{
 			$.each(title.resultList,function(i,n){
-				console.log(111)
 				if (n.contentDescribe1){
 					if(readonly == true){
 						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
