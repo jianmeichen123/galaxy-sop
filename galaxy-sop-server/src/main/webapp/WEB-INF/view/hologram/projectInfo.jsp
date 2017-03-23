@@ -584,7 +584,11 @@
 						var initNum=$(".num_tj").eq(i).find("label").text();
 						$(".num_tj").eq(i).find("label").text(initNum-len);
 					}
-					
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 				} else {
 
 				}
@@ -641,7 +645,7 @@
 			}
 			else if(type==1 || type==8)
 			{
-				infoMode.remark1 = field.val()
+				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
 			}
 			infoModeList.push(infoMode);
 		});
