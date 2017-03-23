@@ -184,7 +184,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").html(title.resultList[0].contentDescribe1);
 			}
 			else
 			{

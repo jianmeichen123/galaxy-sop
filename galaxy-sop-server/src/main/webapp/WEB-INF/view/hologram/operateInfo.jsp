@@ -527,7 +527,6 @@ var deleteids = "";
 		
 		
 	}); 
-
 	
 	function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
 		var params = {};
@@ -535,6 +534,7 @@ var deleteids = "";
 			runtimes : 'html5,flash,silverlight,html4,jpg',
 			browse_button : selectBtnId, // you can pass an id...
 			//container: containerId, // ... or DOM Element itself
+			multi_selection:false,
 			url : fileurl,
 			rename : true,
 			unique_names:true,

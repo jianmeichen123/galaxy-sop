@@ -447,7 +447,7 @@
 			}
 			else if(type==1 || type==8)
 			{
-				infoMode.remark1 = field.val()
+				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
 			}
 			infoModeList.push(infoMode);
 		});
