@@ -47,7 +47,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -154,7 +154,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -397,7 +397,8 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		
+		 $.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
+		 $.getScript("<%=path %>/js/validate/lib/jq.validate.js"); 
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -409,6 +410,7 @@
 					console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					validate();
 				} else {
 
 				}
@@ -419,6 +421,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".tip-yellowsimple").hide();
 		event.stopPropagation();
 	});
 	//通用保存
@@ -450,24 +453,24 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		sendPostRequestByJsonObj(
-			platformUrl.saveOrUpdateInfo , 
-			data,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					layer.msg('保存成功');
-					var pid=$('#a_'+id_code).attr("data-section-id");
-					setDate(pid,true);
-				} else {
+		if(beforeSubmit()){
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					data,
+					function(data) {
+						var result = data.result.status;
+						if (result == 'OK') {
+							layer.msg('保存成功');
+							$('#'+id_code).show();
+							$('#b_'+id_code).remove();
+							var pid=$('#a_'+id_code).attr("data-section-id");
+							setDate(pid,true);
+						} else {
 
-				}
-		}) 
-	});
-	$('div').delegate(".h_save_btn","click",function(event){
-		var id_code = $(this).attr('attr-save');
-		$('#'+id_code).show();
-		$('#b_'+id_code).remove();
+						}
+				}) 
+		}
+	
 	});
 </script>
 </body>
