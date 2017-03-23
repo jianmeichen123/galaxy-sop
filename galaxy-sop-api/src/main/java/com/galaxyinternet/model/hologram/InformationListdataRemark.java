@@ -6,9 +6,9 @@ import com.galaxyinternet.framework.core.model.BaseEntity;
 
 public class InformationListdataRemark extends BaseEntity{
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Long id;
+    private Long id;
 
     private Long titleId;
 
@@ -47,7 +47,7 @@ public class InformationListdataRemark extends BaseEntity{
     private Long updateTime;
 
     private Long updateId;
-    
+
     private Set<String> titleIds;
 
     public Long getId() {
@@ -210,13 +210,13 @@ public class InformationListdataRemark extends BaseEntity{
         this.updateId = updateId;
     }
 
-	public Set<String> getTitleIds() {
-		return titleIds;
-	}
+    public Set<String> getTitleIds() {
+        return titleIds;
+    }
 
-	public void setTitleIds(Set<String> titleIds) {
-		this.titleIds = titleIds;
-	}
-    
-    
+    public void setTitleIds(Set<String> titleIds) {
+        this.titleIds = titleIds;
+    }
+
+
 }

@@ -1,21 +1,6 @@
 package com.galaxyinternet.hologram.controller;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -24,11 +9,22 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.hologram.InformationDataService;
-import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
-import com.galaxyinternet.service.hologram.InformationListdataService;
-import com.galaxyinternet.service.hologram.InformationResultService;
+import com.galaxyinternet.service.hologram.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by zcy on 17-3-13.
@@ -67,7 +63,7 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
      */
     @RequestMapping(value = "/toTeamPage", method = RequestMethod.GET)
     public String toTeamPage(HttpServletRequest request) {
-        return "project/tanchuan/v_person_learning";
+        return "hologram/teamInfo";
     }
 
     /**
@@ -167,52 +163,33 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         return resp;
     }
 
-    /**
-    *根据id查询一条工作经历或创业经历等
-     */
-  /*  @RequestMapping("/queryOneInnerRow/{id}")
-    @ResponseBody
-    public ResponseData<InformationListdata> queryOneRow(@PathVariable("id") Long id){
-        ResponseData<InformationListdata> resp = new ResponseData<>();
-        if(id == null){
-            resp.setResult(new Result(Result.Status.ERROR,null, "id缺失"));
-            logger.error("queryOneRow 失败 : id缺失");
-        }
-        try{
-            InformationListdata data  = informationListdataService.queryById(id);
-            resp.setEntity(data);
-        }catch(Exception e){
-            resp.setResult(new Result(Result.Status.ERROR,null, "queryOneRow失败"));
-            logger.error("queryOneRow 失败 ",e);
-        }
-        return resp;
-    }*/
-    
+
     @ResponseBody
     @RequestMapping("/saveRow")
     public ResponseData<InformationListdata> saveRow(@RequestBody InformationListdata row)
     {
-    	ResponseData<InformationListdata> data = new ResponseData<InformationListdata>();
-    	User user = WebUtils.getUserFromSession();
-    	if(row.getProjectId() == null || row.getTitleId() == null)
-    	{
-    		data.getResult().addError("信息不完整");
-    		return data;
-    	}
-    	Long now = new Date().getTime();
-    	Long uId = user.getId();
-    	if(row.getId() == null)
-    	{
-    		row.setCreatedTime(now);
-    		row.setCreateId(uId);
-    		informationListdataService.insert(row);
-    	}
-    	else
-    	{
-    		row.setUpdatedTime(now);
-    		row.setUpdateId(uId);
-    		informationListdataService.updateById(row);
-    	}
-    	return data;
+        ResponseData<InformationListdata> data = new ResponseData<InformationListdata>();
+        User user = WebUtils.getUserFromSession();
+        if(row.getProjectId() == null || row.getTitleId() == null)
+        {
+            data.getResult().addError("信息不完整");
+            return data;
+        }
+        Long now = new Date().getTime();
+        Long uId = user.getId();
+        if(row.getId() == null)
+        {
+            row.setCreatedTime(now);
+            row.setCreateId(uId);
+            informationListdataService.insert(row);
+        }
+        else
+        {
+            row.setUpdatedTime(now);
+            row.setUpdateId(uId);
+            informationListdataService.updateById(row);
+        }
+        return data;
     }
+
 }

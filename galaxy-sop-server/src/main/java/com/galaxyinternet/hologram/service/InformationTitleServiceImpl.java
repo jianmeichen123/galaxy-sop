@@ -615,10 +615,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			InformationTitle title = null;
 			for(InformationListdataRemark item : headerList)
 			{
-				title = titleMap.get(item.getTitleId()+"");
-				if(title != null)
-				{
-					title.setTableHeader(item);
+				if(item.getSubCode() == null){
+					title = titleMap.get(item.getTitleId()+"");
+					if(title != null)
+					{
+						title.setTableHeader(item);
+					}
 				}
 			}
 		}

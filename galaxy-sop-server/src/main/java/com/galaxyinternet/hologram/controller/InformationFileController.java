@@ -2,11 +2,14 @@ package com.galaxyinternet.hologram.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -39,7 +42,6 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationFile;
-import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationFileService;
@@ -98,26 +100,13 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			}
 			String redisKey = user.getId()+fileKey;
 			List<Object> fileList = cache.getRedisQuenOBJ(redisKey);
-			List<Object> delFileList = new ArrayList<Object>();
 			if(fileList != null && fileList.size() > 0){
 				for(Object file : fileList){
 			    	 InformationFile fileObject = (InformationFile) file;
 			    	 if(fileId.equals(fileObject.getNewFileName())){
-			    		 delFileList.add(file);
+			    		 cache.removeRedisSetOBJ(redisKey, file);
 			    	 }
-			    	
 			    }
-				fileList.removeAll(delFileList);
-				cache.removeRedisKeyOBJ(redisKey);
-				cache.set(redisKey,fileList);
-			}
-			InformationFile file = informationFileService.queryById(Long.valueOf(fileId));
-			if(file != null){
-				 FileResult result = OSSHelper.deleteFile(file.getBucketName(), file.getFileKey());
-				 if(Status.OK.equals(result.getResult().getStatus())){
-					 informationFileService.deleteById(Long.valueOf(fileId));
-					 logger.info("删除文件名:{},项目id:{}",file.getFileName(),file.getProjectId());
-				 }
 			}
 			return new Result(Status.OK, "");
 		} catch (Exception e) {
@@ -191,6 +180,26 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			return responseBody;
 		}
 		try {
+			//如有历史上传文件进行删除
+			String deleteids = informationFile.getDeleteids();
+			if(StringUtils.isNotEmpty(deleteids) && deleteids.contains(",")){
+				String [] fileids = deleteids.split(",");
+				for(int i=0;i < fileids.length; i++){
+					if(StringUtils.isNotEmpty(fileids[i]) && isNumeric(fileids[i])){
+						//删除历史文件
+						InformationFile file = informationFileService.queryById(Long.valueOf(fileids[i]));
+						if(file != null){
+							 FileResult result = OSSHelper.deleteFile(file.getBucketName(), file.getFileKey());
+							 if(Status.OK.equals(result.getResult().getStatus())){
+								 informationFileService.deleteById(Long.valueOf(fileids[i]));
+								 logger.info("删除文件名:{},项目id:{}",file.getFileName(),file.getProjectId());
+							 }
+						}
+					}
+				}
+				
+			}
+			//进行上传文件
 			if(informationFile.getFileReidsKey() != null){
 				    final String redisKey = user.getId()+informationFile.getFileReidsKey();
 					final List<Object> fileList = cache.getRedisQuenOBJ(redisKey);
@@ -204,7 +213,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 									 UploadFileResult res = uploadFileToOSS(fileObject, fileObject.getFileKey());
 								     if(Status.ERROR.equals(res.getResult().getStatus())){
 								    	 cache.removeRedisKeyOBJ(redisKey);
-								    	 logger.error("文件上次失败:",fileObject.getFileName());
+								    	 logger.error("文件上次失败！文件名{}",fileObject.getFileName());
 								     }else{
 								    	 String url = OSSHelper.getUrl(fileObject.getBucketName(),fileObject.getFileKey());
 								    	 fileObject.setFileUrl(url);
@@ -220,8 +229,51 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			}
 			responseBody.setResult(new Result(Status.OK,null));
 		} catch (Exception e) {
+			e.printStackTrace();
 			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			logger.error("operInformationFile 操作失败",e);
+		}
+		
+		return responseBody;
+	}
+	
+	/**
+	 * 根据项目ids来获取全息图上传的图片
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getFileByProjectByType", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationFile> getFileByProjectByType(@RequestBody InformationFile informationFile,HttpServletRequest request) {
+		
+		ResponseData<InformationFile> responseBody = new ResponseData<InformationFile>();
+		if(informationFile.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR,null, "项目ID为空!"));
+			return responseBody;
+		}
+		try {
+			InformationFile fileslist = new InformationFile();
+			String infoFileids = informationFile.getInfoFileids();
+			if(StringUtils.isNotEmpty(infoFileids) && infoFileids.contains(",")){
+				String [] typeFiles = infoFileids.split(",");
+				Map<String,List<InformationFile>> mapfile = new HashMap<String,List<InformationFile>>();
+				for(int i=0; i < typeFiles.length; i++){
+					if(StringUtils.isNotEmpty(typeFiles[i])){
+							informationFile.setTitleId(Long.valueOf(typeFiles[i]));
+							List<InformationFile> files = informationFileService.queryList(informationFile);
+							if(files != null && files.size() > 0){
+								mapfile.put(typeFiles[i], files);
+							}
+						
+					}
+				}
+				if(mapfile != null){
+					fileslist.setCommonFileList(mapfile);
+				}
+			}
+			responseBody.setEntity(fileslist);
+			responseBody.setResult(new Result(Status.OK,null));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			logger.error("getFileByProject 操作失败",e);
 		}
 		
 		return responseBody;
@@ -235,8 +287,8 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 	public ResponseData<InformationFile> getFileByProject(@RequestBody InformationFile informationFile,HttpServletRequest request) {
 		
 		ResponseData<InformationFile> responseBody = new ResponseData<InformationFile>();
-		if(informationFile.getProjectId() == null){
-			responseBody.setResult(new Result(Status.ERROR,null, "项目ID为空!"));
+		if(informationFile.getProjectId() == null && informationFile.getTitleId() == null){
+			responseBody.setResult(new Result(Status.ERROR,null, "参数不全!"));
 			return responseBody;
 		}
 		try {
@@ -250,7 +302,6 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 		
 		return responseBody;
 	}
-	
 	
 	
 	/**
@@ -297,5 +348,19 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 		}
 		return result;
 	}
+	
+	/**
+     * 利用正则表达式判断字符串是否是数字
+     * @param str
+     * @return
+     */
+    public boolean isNumeric(String str){
+           Pattern pattern = Pattern.compile("[0-9]*");
+           Matcher isNum = pattern.matcher(str);
+           if( !isNum.matches() ){
+               return false;
+           }
+           return true;
+    }
 
 }

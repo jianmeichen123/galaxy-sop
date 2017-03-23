@@ -1,32 +1,33 @@
 <div class="qualificationstc">
-	<div class="title_bj" id="team_learn"></div>
+
 	
 	
     <div class="qualifications_all" id="learning">
     
-    	<form action="" id="add_person_learning" method="post">
-    	
+    	<form action="" id="learn_form" method="post">
+            <input name="id" style="display:none;">
+            <input name="myid" style="display:none;">
         <div class="info clearfix">
             <dl class="fmdl fl">
                 <dt>&nbsp;毕业时间：</dt>
                 <dd class="clearfix">
-                	<input name="overDateStr" type="text" class="datepicker-month-text fl txt time"/>
+                	<input name="field1" type="text" class="datepicker-month-text fl txt time"/>
                 </dd>
             </dl>  
             <dl class="fmdl fl">
                 <dt>毕业院校：</dt>
                 <dd class="clearfix">
-                    <input name="school" type="text" class="txt" maxLength="50"/>
+                    <input name="field2" type="text" class="txt" maxLength="50"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>学习专业：</dt>
-                <dd><input name="major" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field3" type="text" class="txt" maxLength="50"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>学历：</dt>
                 <dd>
-                   <select name="degree">
+                   <select name="field4">
                        <option value="">请选择</option>
                        <option value="高中">高中</option>
                        <option value="大专">大专</option>
@@ -39,12 +40,45 @@
                 </dd>
             </dl>
         </div>
-        
         </form>
     </div>
-    
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" >确定</a>
-        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+        <a href="javascript:;"  class="register_all_affrim fl add_team_learn" >确定</a>
+        <a href="javascript:;" id="close_learn" class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
+<script>
+
+    $(".add_team_learn").on("click",function(){
+        var eduJson = getData($("#learn_form"));
+        if(!eduJson["myid"]){
+              //如果id为空,新增一条记录
+              var myID = "static" + guid();
+              var str = "<div id='"+myID+"' data-flag><span name='id' style='display:none'></span>"+
+               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+eduJson['field1']+"</span></div>"+
+                "<div class='team_p_two'>"+
+                    "<ul>"+
+                        "<li><span>学校：</span><span name='field2'>"+eduJson['field2']+"</span></li>"+
+                        "<li><span>学位：</span><span name='field3'>"+eduJson['field3']+"</span></li>"+
+                        "<li><span>所学专业：</span><span name='field4'>"+eduJson['field4']+"</span></li>"+
+                    "</ul>"+
+                    "<div class='team_click'>"+
+                    "<span class='blue team_learn_add'  href='/sop/html/team_learn.html' data-id='"+myID+"' >编辑</span>"+
+                    "<span class='blue' onclick='delete_row(this)' data-id='"+myID+"'>删除</span>"+
+                    "</div>"+
+                "</div>"+
+                "</div>"
+              $("#team_learn").append(str);
+        }else{
+            //修改操作,根据id修改dom元素的值
+            if($('#'+eduJson["myid"]).length>0){
+                var list = $('#'+eduJson["myid"]).find("*[name]");
+                $(list).each(function(){
+                      var key = $(this).attr("name");
+                      $(this).html(eduJson[key]);
+                })
+            }
+        }
+        $("#close_learn").click();
+    })
+</script>

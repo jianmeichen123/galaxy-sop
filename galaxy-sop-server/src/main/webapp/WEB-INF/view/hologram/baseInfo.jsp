@@ -49,8 +49,6 @@
 
 <script type="text/javascript">
 
-
-
 	//页面显示
 	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/NO1_1", null, function(data) {
 		var result = data.result.status;
@@ -74,6 +72,91 @@
 	});
 	
 
+	$(function(){
+		//通用取消编辑
+		$('div').delegate(".h_cancel_btn","click",function(event){
+			var id_code = $(this).attr('attr-hide');
+			$('#a_'+id_code).show();
+			$('#b_'+id_code).remove();
+			event.stopPropagation();
+		});
+		
+		//通用编辑显示
+		$('div').delegate(".h_edit_btn","click",function(event){
+			var id_code = $(this).attr('attr-id');
+			event.stopPropagation();
+			 sendGetRequest(platformUrl.editProjectAreaInfo + pid +"/"+id_code, null,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						var entity = data.entity;
+						var html = toGetHtmlByMark(entity,'e');
+						var s_div = toEditTitleHtml(entity, html);
+						
+						$("#a_"+id_code).hide();
+						$("#"+id_code).append(s_div);
+					}
+			}) 
+		});
+		
+		//通用保存
+		$('div').delegate(".h_save_btn","click",function(event){
+			event.stopPropagation();
+			var id_code = $(this).attr('attr-save');
+			
+			var fields_value = $("#b_"+id_code).find("input:checked,option:selected");
+			var fields_remark1 = $("#b_"+id_code).find("input[type='text'],textarea");
+			var fields_value1 = $("#b_"+id_code).find(".active");
+			
+			//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+			//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
+			
+			var data = {
+				projectId : projectInfo.id
+			};
+			var infoModeList = new Array();
+			$.each(fields_value,function(){
+				var field = $(this);
+				if(field.val() && field.val().length > 0){
+					var infoMode = {
+							titleId	: field.data('titleId'),
+							type : field.data('type'),
+							value : field.val()
+						};
+						infoModeList.push(infoMode);
+				}
+			});
+			$.each(fields_value1,function(){
+				var field = $(this);
+				var infoMode = {
+					titleId	: field.data('titleId'),
+					type : field.data('type'),
+					value : field.data('value')
+				};
+				infoModeList.push(infoMode);
+			});
+			$.each(fields_remark1,function(){
+				var field = $(this);
+				var infoMode = {
+					titleId	: field.data('titleId'),
+					type : field.data('type'),
+					remark1 : field.val()
+				};
+				infoModeList.push(infoMode);
+			});
+			data.infoModeList = infoModeList;
+			
+			sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo , data, function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						layer.msg('保存成功');
+						showArea(id_code);
+					} else {
+						layer.msg('保存失败');
+					}
+			}); 
+		});
+	});
 	
 	
 </script>

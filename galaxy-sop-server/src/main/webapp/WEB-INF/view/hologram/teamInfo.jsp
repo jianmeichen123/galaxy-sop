@@ -13,6 +13,9 @@
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
+<script src="<%=path%>/js/axure_ext.js"></script>
+<script src="<%=path%>/js/common.js"></script>
+<script src="<%=path%>/js/hologram/team.js"></script>
 </head>
 <body>
 <ul class="h_navbar clearfix">
@@ -27,7 +30,7 @@
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
                 </ul>
 
-<span class="pubbtn bluebtn" href="<%=path %>/html/team_xk.html" data-btn="addmenaaaa">新3增</span>
+<span class="pubbtn bluebtn" href="/sop/html/team_xk.html" data-btn="addmenaaaa">新3增</span>
  <div class="h_tab_con"></div>
 			
 			<script id="ifelse" type="text/x-jquery-tmpl">
@@ -217,7 +220,7 @@
 						</dd>
 
 						{{else type=="10"}}
-						<dd class="fl_none">
+						 <dd class="fl_none">
                             <table>
                               <tr>
                                 <th>姓名</th>
@@ -241,7 +244,6 @@
 
 						{{else type=="11"}}
 						<dd>项目带过来的数据</dd>
-
 						{{/if}}
                       </dl>
                     </div>
@@ -324,7 +326,7 @@
 
 						{{else type=="10"}}
 						<dd class="fl_none">
-                            <table>
+                            <table id="team">
                               <tr>
                                 <th>姓名</th>
                                 <th>职位</th>
@@ -342,7 +344,7 @@
                                 </td>
                               </tr>
                             </table>
-							<span class="pubbtn bluebtn" href="html/team_xk.html" data-btn="addmen">新增</span>
+							<span class="pubbtn bluebtn" href="/sop/html/team_compile.html" data-btn="addmen">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -474,18 +476,19 @@
      				 editOpen();   //编辑按钮点击时间
                 })      
                 //本页面相关  查看
-	$("[data-btn='addmenaaaa']").on("click",function(){
-		var $self = $(this);
-		var _url = $self.attr("href");
-		var _name= $self.attr("data-name");
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){}//模版反回成功执行	
-		});
-		return false;
-		
-	});
+                $("[data-btn='addmen']").on("click",function(){
+
+                    var $self = $(this);
+                    var _url = $self.attr("href");
+                    var _name= $self.attr("data-name");
+                    $.getHtml({
+                        url:_url,//模版请求地址
+                        data:"",//传递参数
+                        okback:function(){}//模版反回成功执行
+                    });
+                    return false;
+
+                });
        			</script>
                
 </body>

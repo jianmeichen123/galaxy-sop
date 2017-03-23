@@ -87,9 +87,9 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}""></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">500</label>/500
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 						
@@ -113,9 +113,9 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">0</label>/2000
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -248,9 +248,9 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">500</label>/500
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -273,9 +273,9 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">0</label>/2000
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -294,7 +294,7 @@
                              	 <td  data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio" data-title-id="\${id}" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row1" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
@@ -308,7 +308,7 @@
                              	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio" data-title-id="\${id}"  name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row2" name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
@@ -321,7 +321,7 @@
                              	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-                                  		<li><input type="radio" data-title-id="\${id}" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row3" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
                                		 </ul>
@@ -431,19 +431,19 @@
                                <tr>
                              	 <th>上游</th>
                              	 <td>供应商</td>
-                             	 <td>高于100</td>
-                             	 <td>稳定</td>
+                             	 <td data-format='1_1'>高于100</td>
+                             	 <td data-format='1_2'>稳定</td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
                               <td>供应商</td>
-                              <td>高于100</td>
-                              <td>稳定</td>
+                              <td data-format='2_1'>高于100</td>
+                              <td data-format='2_2'>稳定</td>
                             </tr>
                             <tr>
                               <td>供应商</td>
-                              <td>高于100</td>
-                              <td>稳定</td>
+                              <td data-format='3_1'>高于100</td>
+                              <td data-format='3_2'>稳定</td>
                             </tr>
 
                             </table>
@@ -505,22 +505,22 @@
                                 <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
 								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
                               </tr>
-                               <tr>
+                              <tr>
                              	 <th>上游</th>
                              	 <td>供应商</td>
-                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
-                             	 <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                             	 <td data-format='1_1'></td>
+                             	 <td data-format='1_2'></td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
-                              <td>供应商</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                              <td>主要渠道</td>
+                              <td data-format='2_1'></td>
+                              <td data-format='2_2'></td>
                             </tr>
                             <tr>
-                              <td>供应商</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">高于100</td>
-                              <td class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">稳定</td>
+                              <td>主要客户</td>
+                              <td data-format='3_1'></td>
+                              <td data-format='3_2'></td>
                             </tr>
 
                             </table>
@@ -567,7 +567,6 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -576,9 +575,16 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					console.log(entity);
+					//console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					//文本域剩余字符数
+					for(var i=0;i<$(".textarea_h").length;i++){
+						var len=$(".textarea_h").eq(i).val().length;
+						var initNum=$(".num_tj").eq(i).find("label").text();
+						$(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					
 				} else {
 
 				}

@@ -43,6 +43,7 @@
 	{{each(i,childList) childList}}  
  
                  	{{if sign=="3"}}
+					<h2>\${name}</h2>
 						{{each(i,childList) childList}}
 						<div class="mb_16">
                        <dl class="h_edit_txt clearfix">
@@ -62,9 +63,9 @@
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
                         <dd class="fl_none">
-						<ul class="h_edit_checkbox clearfix">
+						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 							{{each(i,valueList) valueList}}
-                            <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
+                            <li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -100,7 +101,6 @@
 						{{/each}}
 						
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs mgedit" id="edit-\${id}">
                              
@@ -113,7 +113,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -171,9 +171,9 @@
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
                         <dd class="fl_none">
-						<ul class="h_edit_checkbox clearfix">
+						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 							{{each(i,valueList) valueList}}
-                            <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
+                            <li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
@@ -208,7 +208,6 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs mgedit"  id="edit-\${id}">
                               
@@ -263,8 +262,8 @@
 					
 					{{/each}}
  <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
-                      <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
+                      <span class="pubbtn bluebtn fl h_save_btn" data-on="save">保存</span>
+                      <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel">取消</span>
                     </div>
 	
 </div>										
@@ -290,11 +289,11 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -303,14 +302,12 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">22除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		 <dd class="fl_none mglook" id="look-\${id}">
                             	
                           	</dd>
 
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+						<dd class="fl_none field" data-title-id="\${id}" data-type="\${type}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -336,11 +333,11 @@
 						<dd>备注</dd>
 
 						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -349,13 +346,11 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		 <dd class="fl_none mglook" id="look-\${id}">
                           	</dd>
 
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+						<dd class="fl_none field" data-title-id="\${id}" data-type="\${type}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -380,6 +375,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 var key = Date.parse(new Date());
+var deleteids = "";
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO4", null,
 		function(data) {
@@ -413,11 +409,9 @@ var key = Date.parse(new Date());
 					sec.showResults();
 					
 					var files = $("#"+id_code).nextAll().find("input[type='file']");
-					console.log('文件input个数:'+files);
 					var selectids = [];
 					
 					for(var i = 0;i < files.length; i++) {
-						  console.log(files.eq(i).attr("id"));
 						  var select_id = files.eq(i).attr("id");
 						  var title_id = $("#"+select_id).attr("file-title-id");
 							
@@ -431,26 +425,28 @@ var key = Date.parse(new Date());
 							data.projectId = projectInfo.id;
 							data.titleId = title_id;
 							//打开显示历史图片记录
-						    sendPostRequestByJsonObj(
-										Constants.sopEndpointURL+'galaxy/informationFile/getFileByProject' , 
-										data,
-										function(data) {
-											var result = data.result.status;
-											if (result == 'OK') {
-												var files = data.entityList;
-												var html = $('#'+'edit-'+title_id).html();
-												if(files.length > 0){
-													for(var i = 0;i < files.length; i++){
-														html +=  '<li class="pic_list fl" id="' + files[i].id + '">'
-											              +'<a href="#" class="h_img_del" data-val=' + files[i].id +
-											              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
-													}
-												}
-												$('#'+'edit-'+title_id).html(html);
-											} else {
+							sendPostRequestByJsonObj(
+							Constants.sopEndpointURL+'galaxy/informationFile/getFileByProject' , 
+							data,
+							function(data) {
+								var result = data.result.status;
+								if (result == 'OK') {
+									var files = data.entityList;
+									var html = $('#'+'edit-'+title_id).html();
+									if(files.length > 0){
+										for(var i = 0;i < files.length; i++){
+											html +=  '<li class="pic_list fl" id="' + files[i].id + '">'
+								              +'<a href="#" class="h_img_del" data-val=' + files[i].id +
+								              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
+										}
+									}
+									$('#'+'edit-'+title_id).html(html);
+								} else {
 
-											}
-							});
+								}
+				          }); 
+							
+							
 					}
 					 
 				}else{
@@ -469,53 +465,11 @@ var key = Date.parse(new Date());
 		event.stopPropagation();
 	});
 	
-	//保存表单数据
-	function saveForm(){
-		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
-		var data = {
-			projectId : projectInfo.id
-		};
-		var infoModeList = new Array();
-		$.each(fields,function(){
-			var field = $(this);
-			var type = field.data('type');
-			var infoMode = {
-				titleId	: field.data('titleId'),
-				type : type
-			};
-			if(type==2 || type==3 || type==4)
-			{
-				infoMode.value = field.val()
-			}
-			else if(type==1 || type==8)
-			{
-				infoMode.remark1 = field.val()
-			}
-			infoModeList.push(infoMode);
-		});
-		data.infoModeList = infoModeList;
-		
-		sendPostRequestByJsonObj(
-			platformUrl.saveOrUpdateInfo , 
-			data,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					layer.msg('保存成功');
-					tabInfoChange('3');
-				} else {
-
-				}
-		}) 
-	}
-	
-	
  	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var fields = sec.find("input[type='text'],input:checked,textarea,li.active");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -530,10 +484,11 @@ var key = Date.parse(new Date());
 			};
 			if(type==2 || type==3 || type==4)
 			{
+				console.log(field.val());
 				infoMode.value = field.val()
 			}
 			else if(type==1 || type==8)
-			{
+			{	
 				infoMode.remark1 = field.val()
 			}
 			infoModeList.push(infoMode);
@@ -544,6 +499,7 @@ var key = Date.parse(new Date());
 		var params = {};
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
+		params.deleteids = deleteids;
 		
 		sendPostRequestByJsonObj(
 				platformUrl.saveOrUpdateInfo , 
@@ -633,6 +589,8 @@ var key = Date.parse(new Date());
           var toremove = '';
           var id = $(this).attr("data-val");
           
+          deleteids += ","+id;
+          
       	  var params = {};
 		  params.projectId =  projectInfo.id;
 		  params.fileReidsKey = key;
@@ -640,7 +598,7 @@ var key = Date.parse(new Date());
           //文件id
           sendPostRequestByJsonObj(Constants.sopEndpointURL+'galaxy/informationFile/deleteRedisFile',params,function(data){
 				//进行上传
-				var result = data.result.status;
+				var result = data.status;
 				if(result == "OK"){
 					
 				}else{
@@ -648,12 +606,12 @@ var key = Date.parse(new Date());
 				}
 		  });
           
-          for (var i in uploader.files) {
+        /*   for (var i in uploader.files) {
               if (uploader.files[i].id === id) {
                   toremove = i;
               }
           }
-          uploader.files.splice(toremove, 1);
+          uploader.files.splice(toremove, 1); */
       });
 	  
 function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
@@ -680,32 +638,36 @@ function previewImage(file,callback){//file为plupload事件监听函数参数�
 	
 }
 var fileids = $(".mglook");
+var infoFileids = "";
+var data={};
 for(var i = 0;i < fileids.length; i++) {
-	  console.log(fileids.eq(i).attr("id"));
-	  var titleTypeId = fileids.eq(i).attr("id");
-	  var data={};
-	  data.projectId = projectInfo.id;
-	  data.titleId = fileids.eq(i).attr("id").replace("look-","");
-	  sendPostRequestByJsonObj(
-				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProject' , 
-				data,
-				function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						var files = data.entityList;
-						var html = "";
-						if(files.length > 0){
-							for(var i = 0;i < files.length; i++){
-								html +='<img src="'+files[i].fileUrl+'" alt="">';
-							}
-						}
-						$('#'+titleTypeId).html(html);
-					} else {
-
-					}
-		});
-	
+	  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 }
+data.projectId = projectInfo.id;
+data.infoFileids = infoFileids;
+sendPostRequestByJsonObj(
+			Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
+			data,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					var files = data.entity.commonFileList;
+					if(files != null && files != ""){
+						$.each(files, function (key, value) { 
+							var fl = value;
+							var html="";
+							for(var i = 0;i < fl.length; i++){
+								html +='<img src="'+fl[i].fileUrl+'" alt="">';
+							}
+							$('#'+"look-"+key).html(html);
+							
+						});
+					}
+					
+				} else {
+
+				}
+});
 </script>
 </body>
 </html>
