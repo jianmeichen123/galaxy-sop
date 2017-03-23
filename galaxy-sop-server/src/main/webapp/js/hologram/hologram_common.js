@@ -365,3 +365,44 @@ var autoTextarea = function(elem, extra, maxHeight) {
     addEvent('focus', change);  
     change();  
 };
+/* 通用验证 */
+function validate(){
+	 var inputs=$("input[type='text']");
+	 for(var i=0;i<inputs.length;i++){
+		 	var inputValRule=inputs.eq(i).attr("data-valrule");
+			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
+			console.log(inputValRuleMark);
+			if(inputValRuleMark=="10,2"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"msg":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+				}
+			}else if(inputValRuleMark=="3"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^[0-9]{1,3}$",
+						"msg":"<font color=red>*</font>支持0～999的整数"			
+				}
+			}else if(inputValRuleMark=="3,2"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^(([1-9][0-9]{0,2})|([0-9]{1,3}\.[1-9]{1,2})|([0-9]{1,3}\.[0][1-9]{1})|([0-9]{1,3}\.[1-9]{1}[0])|([1-9][0-9]{0,2}\.[0][0]))$",
+						"msg":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+			}else if(inputValRuleMark=="5,2"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"msg":"<font color=red>*</font>支持0～99999的整数和两位小数"			
+				}
+			}
+			inputs.eq(i).attr(validate);
+	 }
+	
+	
+}
