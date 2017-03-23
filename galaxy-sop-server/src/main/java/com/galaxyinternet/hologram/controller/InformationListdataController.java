@@ -6,10 +6,7 @@ import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hologram.InformationData;
-import com.galaxyinternet.model.hologram.InformationListdata;
-import com.galaxyinternet.model.hologram.InformationListdataRemark;
-import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.hologram.*;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.*;
 import org.slf4j.Logger;
@@ -42,6 +39,8 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     @Autowired
     private InformationDataService infoDataService;
 
+    @Autowired
+    private InformationTitleService informationTitleService;
 
     @Autowired
     private InformationResultService informationResultService;
@@ -74,7 +73,29 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     public ResponseData<InformationData> saveOrupdate(@RequestBody InformationData data){
         ResponseData<InformationData> responseBody = new ResponseData<>();
         try{
-            infoDataService.save(data);
+            List<TableModel> tableModelList = data.getInfoTableModelList();
+            if(tableModelList.size() >0) {
+                TableModel baseInfoEntity = tableModelList.get(0);
+                if (baseInfoEntity.getCode().equals("team-members")) {
+                    InformationListdata entity = new InformationListdata();
+                    entity.setProjectId(Long.valueOf(data.getProjectId()));
+                    entity.setTitleId(Long.valueOf(baseInfoEntity.getTitleId()));
+                    entity.setCode(baseInfoEntity.getCode());
+                    entity.setField1(baseInfoEntity.getField1());
+                    entity.setField2(baseInfoEntity.getField2());
+                    entity.setField3(baseInfoEntity.getField3());
+                    entity.setField4(baseInfoEntity.getField4());
+                    informationListdataService.insert(entity);
+                    Long id = entity.getId();
+                    for (TableModel model : tableModelList) {
+                        if (model.getCode().equals("team-members")) {
+                            continue;
+                        }
+                        model.setParentId(id);
+                    }
+                }
+                infoDataService.save(data);
+            }
         }catch(Exception e ){
             responseBody.setResult(new Result(Result.Status.ERROR,null, "保存失败"));
             logger.error("save 保存失败 ",e);
@@ -85,29 +106,33 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     /*
      *根据projectId 和 titleId查询表格列表
      */
-    @RequestMapping("/queryRowsList")
+    @RequestMapping("/queryRowsList/{titleId}/{projectId}")
     @ResponseBody
-    public ResponseData<InformationListdata> queryList(@RequestBody InformationListdata data){
-        ResponseData<InformationListdata> resp = new ResponseData<>();
-        Long projectId  = data.getProjectId();
-        Long titleId  = data.getTitleId();
+    public ResponseData<InformationTitle> queryList(@PathVariable("titleId") String titleId, @PathVariable("projectId") String projectId ){
+        ResponseData<InformationTitle> resp = new ResponseData<>();
         if(null == projectId || null == titleId){
             resp.setResult(new Result(Result.Status.ERROR,null, "projectId或titleId缺失"));
             logger.error("queryRowsList 失败 :projectId或titleId缺失");
             return resp;
         }
         try{
-            InformationListdataRemark remark = informationListdataRemarkService.queryByTitleId(data.getTitleId());
-            if(remark == null){
-                resp.setResult(new Result(Result.Status.ERROR,null, "titleId错误"));
-                logger.error("queryRowsList 失败 :titleId错误");
-                return resp;
+            List<InformationTitle> tvList = informationTitleService.searchWithData(titleId,projectId);
+            List<InformationListdata> resultList = new ArrayList<InformationListdata>();
+            if(tvList.size()>0){
+                //获取核心成员
+                InformationTitle title = tvList.get(0);
+                List<InformationListdata> dataList = title.getDataList();
+
+                if(dataList!=null && dataList.size()>0){
+                    for(InformationListdata data :dataList){
+                        if(data.getParentId()==null){
+                            resultList.add(data);
+                        }
+                    }
+                }
+                title.setDataList(resultList);
             }
-            String code = remark.getCode();
-            data.setCode(code);
-            data.setProjectId(projectId);
-            List<InformationListdata> list = informationListdataService.queryList(data);
-            resp.setEntityList(list);
+            resp.setEntityList(tvList);
         }catch(Exception e){
             resp.setResult(new Result(Result.Status.ERROR,null, "查询表格列表失败"));
             logger.error("queryRowsList 失败 ",e);

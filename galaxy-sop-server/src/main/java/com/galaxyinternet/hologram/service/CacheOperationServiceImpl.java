@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import com.galaxyinternet.service.hologram.InformationTitleService;
 
 
 @Service("com.galaxyinternet.service.CacheOperationService")
-public class CacheOperationServiceImpl implements CacheOperationService{
+public class CacheOperationServiceImpl implements CacheOperationService,InitializingBean{
 	
 	public static final String CACHE_KEY_PAGE_AREA_TITLE = "QXT_PAGE_AREA_TITLE_";               //各区域块下的   题：value   ==  InformationTitle
 	public static final String CACHE_KEY_PAGE_AREA_TITLE_HASKEY = "QXT_PAGE_AREA_TITLE_KEYLIST"; //各区域块下的   题：code   ==  List<String>
@@ -46,7 +47,6 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	 * 1、清空缓存
 	 * 2、写入缓存
 	*/
-	@PostConstruct  
     public void  init(){ 
 		initTitleIdName();
 		initValueIdName();
@@ -56,6 +56,15 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	
 	
 	
+	@Override
+	public void afterPropertiesSet() throws Exception 
+	{
+		init();
+	}
+
+
+
+
 	/**
 	 * CACHE_KEY_PAGE_AREA_TITLE 中没有的数据 存入缓存中
 	 */

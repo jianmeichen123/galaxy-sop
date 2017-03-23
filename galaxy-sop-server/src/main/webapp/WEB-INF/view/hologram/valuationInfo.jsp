@@ -350,6 +350,7 @@
 {{/each}}
 </script>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path%>/js/hologram/hologram_common.js"></script>
 <script type="text/javascript">
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,

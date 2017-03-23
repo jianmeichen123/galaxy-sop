@@ -13,8 +13,6 @@
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
-<script src="<%=path%>/js/axure_ext.js"></script>
-<script src="<%=path%>/js/common.js"></script>
 <script src="<%=path%>/js/hologram/team.js"></script>
 </head>
 <body>
@@ -29,138 +27,44 @@
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
                 </ul>
+ <div id="tab-content">
+		<div class="tabtxt" id="page_all">
+		<!--tab-->
 
-<span class="pubbtn bluebtn" href="/sop/html/team_xk.html" data-btn="addmenaaaa">新3增</span>
- <div class="h_tab_con"></div>
-			
-			<script id="ifelse" type="text/x-jquery-tmpl">
-			<div class="h radius"">
-				<div class="h_look clearfix">
-                    <div class="h_btnbox"><span class="h_edit_btn" id="\${code}">编辑</span></div>
-					<div class="h_title">\${name}</div>
-					{{each(i,childList) childList}}                    
-                    {{if sign=="3"}}
-						{{each(i,childList) childList}}
-							<div class="mb_24 clearfix">
-                      <dl class="clearfix">
-                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-						{{if type=="5"}}                        
-						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						<dd>备注</dd>
 
-						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+			<!--tab end-->
+		</div>
+	</div>
 
-						{{else type=="3"}}
-                        {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
+<!--点击编辑例子 -->
+<script id="ifelse" type="text/x-jquery-tmpl">
+<div class="h_edit section" id="b_\${code}">
+	<div class="h_btnbox">
+		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
+			data-on="h_cancel" attr-hide="\${code}">取消</span>
+	</div>
+	<div class="h_title">\${name}</div>
+	{{each(i,childList) childList}}
 
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
-
-						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-                    		 <dd class="fl_none">
-                            	<img src="img/loginbg.gif" alt="">
-                            	<img src="img/loginbg.gif" alt="">
-                          	</dd>
-
-						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none">未填写</dd>
-
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>未选择</dd>
-						{{/each}}
-
-						{{else type=="11"}}
-                        <dd>项目带过来的数据</dd>
-
-						{{else type=="1"}}
-                        <dd>未填写</dd>
-						{{/if}}                      
-						</dl>		
-                    </div>
-						{{/each}}
-
-					{{else}}
-					<div class="mb_24 clearfix">
-                      <dl class="clearfix">
-                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-						{{if type=="5"}}                        
-						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						<dd>备注</dd>
-
-						{{else type=="2"}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-
-						{{else type=="3"}}
-                        {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
-
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
-
-						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-                    		 <dd class="fl_none">
-                            	<img src="img/loginbg.gif" alt="">
-                            	<img src="img/loginbg.gif" alt="">
-                          	</dd>
-
-						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none">未填写</dd>
-
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>未选择</dd>
-						{{/each}}
-
-						{{else type=="11"}}
-                        <dd>项目带过来的数据</dd>
-
-						{{else type=="1"}}
-                        <dd>未填写</dd>
-						{{/if}}                      
-						</dl>		
-                    </div>
-
-					{{/if}}
-					{{/each}}
-                  </div>
-
-				<div class="h_edit">
-                    <div class="h_btnbox"><span class="h_save_btn">保存</span><span class="h_cancel_btn" data-on="h_cancel">取消</span></div>
-					<div class="h_title">\${name}</div>					
-					{{each(i,childList) childList}}  
- 
                  	{{if sign=="3"}}
 						{{each(i,childList) childList}}
 						<div class="mb_16">
                        <dl class="h_edit_txt clearfix">
-						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
 
 						{{else type=="2"}}
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" value="\${id}" data-title-id="\${titleId}" data-type="\${type}" name="\${titleId}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
 
 						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
+						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -182,28 +86,28 @@
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" value="\${id}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}""></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
 						</dd>
-						
-						
+
+
 						{{else type=="6"}}
 						{{each(i,valueList) valueList}}
                         <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 						{{/each}}
-						
+
 						{{else type=="7"}}
                  			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs">
-                             
+
                     		 </ul>
                     		 <ul class="h_imgs">
                       			<li class="h_imgs_add"><input type="file"></li>
@@ -213,37 +117,21 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}"data-value="\${value}"data-parentId="\${parentId}"></textarea>
+							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
 						</dd>
 
 						{{else type=="10"}}
-						 <dd class="fl_none">
-                            <table>
-                              <tr>
-                                <th>姓名</th>
-                                <th>职位</th>
-                                <th>性别</th>
-                                <th>最高学历</th>
-                                <th>操作</th>
-                              </tr>
-                              <tr>
-                                <th>罗振宇</th>
-                                <td>CEO</td>
-                                <td>男</td>
-                                <td>博士</td>
-                                <td>
-                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
-                                </td>
-                              </tr>
-                            </table>
-							<span class="pubbtn bluebtn" href="../sop/html/team_xk.html" data-btn="addmen">新3增</span>
-                          </dd>
+						<dd class="">
+							<table data-title-id="\{id}" class="editable" ></table>
+							<span class="pubbtn bluebtn"  data-btn="showPerson" href="/sop/html/team_compile.html" row-id >新增</span>
+                        </dd>
 
 						{{else type=="11"}}
 						<dd>项目带过来的数据</dd>
+
 						{{/if}}
                       </dl>
                     </div>
@@ -254,19 +142,19 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
 
 						{{else type=="2"}}
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" name="\${titleId}" value="\${id}" data-title-id="\${titleId}" data-type="\${type}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
 
 						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
+						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -288,12 +176,12 @@
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}"/>\${name}</li>
+                            <li><input type="radio" data-value="\${value}" data-type="\${type}" placeholder="\${placeholder}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-titleId="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
@@ -308,7 +196,7 @@
                  			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs">
-                             
+
                     		 </ul>
                     		 <ul class="h_imgs">
                       			<li class="h_imgs_add"><input type="file"></li>
@@ -318,7 +206,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-value="\${value}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -326,25 +214,10 @@
 
 						{{else type=="10"}}
 						<dd class="fl_none">
-                            <table id="team">
-                              <tr>
-                                <th>姓名</th>
-                                <th>职位</th>
-                                <th>性别</th>
-                                <th>最高学历</th>
-                                <th>操作</th>
-                              </tr>
-                              <tr>
-                                <th>罗振宇</th>
-                                <td>CEO</td>
-                                <td>男</td>
-                                <td>博士</td>
-                                <td>
-                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
-                                </td>
-                              </tr>
+                            <table data-title-id="\${id}"  class="editable">
+
                             </table>
-							<span class="pubbtn bluebtn" href="/sop/html/team_compile.html" data-btn="addmen">新增</span>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -353,143 +226,356 @@
 						{{/if}}
                       </dl>
                     </div>
-				
+
 
 					{{/if}}
-					
+
 					{{/each}}
-                    <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl" data-on="save">保存</span>
-                      <span class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
-                    </div>
-                  </div>
 
 </div>
-			</script>
-			
-			
-                <script>
-                $(function(){
-                	  sendGetRequest(platformUrl.queryAllTitleValues + "NO3_1", null,function(data) {
-      					console.log(data);
-      					var result = data.result.status;
-      					if (result == 'OK') {
-      						var entity = data.entity;
-      						//$("#ifelse_look").tmpl(entity).appendTo('#div_block1');
-      						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-      					} else {
+</script>
 
-      					}
-      				});
-                	  sendGetRequest(platformUrl.queryAllTitleValues + "NO3_2", null,function(data) {
-             					console.log(data);
-             					var result = data.result.status;
-             					if (result == 'OK') {
-             						var entity = data.entity;
-             						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-             					} else {
 
-             					}
-             				});
-                	 sendGetRequest(platformUrl.queryAllTitleValues + "NO3_3", null,function(data) {
-      					console.log(data);
-      					var result = data.result.status;
-      					if (result == 'OK') {
-      						var entity = data.entity;
-      						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-      					} else {
 
-      					}
-      				});
-                	 sendGetRequest(platformUrl.queryAllTitleValues + "NO3_4", null,function(data) {
-       					console.log(data);
-       					var result = data.result.status;
-       					if (result == 'OK') {
-       						var entity = data.entity;
-       						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-       					} else {
+<!--页面例子 -->
+<script id="page_list" type="text/x-jquery-tmpl">
+{{each(i,childList) childList}}
+<div class="h radius section" id="a_\${code}" data-section-id="\${id}">
+  <div class="h_look h_team_look clearfix" id="\${code}">
+	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
+	<div class="h_title">\${name}</div>
+	{{each(i,childList) childList}}
+                    {{if sign=="3"}}
+						{{each(i,childList) childList}}
+							<div class="mb_24 clearfix">
+                      <dl class="clearfix">
+                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
-       					}
-       				});
-                	 sendGetRequest(platformUrl.queryAllTitleValues + "NO3_5", null,function(data) {
-        					console.log(data);
-        					var result = data.result.status;
-        					if (result == 'OK') {
-        						var entity = data.entity;
-        						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-        					} else {
+						{{if type=="5"}}
+						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						<dd>备注</dd>
 
-        					}
-        				});
-                	  sendGetRequest(platformUrl.queryAllTitleValues + "NO3_6", null,function(data) {
-        					console.log(data);
-        					var result = data.result.status;
-        					if (result == 'OK') {
-        						var entity = data.entity;
-        						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-        					} else {
+						{{else type=="2"}}
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
-        					}
-        				});
-                	     sendGetRequest(platformUrl.queryAllTitleValues + "NO3_7", null,function(data) {
-     					console.log(data);
-     					var result = data.result.status;
-     					if (result == 'OK') {
-     						var entity = data.entity;
-     						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-     					} else {
+						{{else type=="3"}}
+                        {{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
 
-     					}
-     				});
-                	   sendGetRequest(platformUrl.queryAllTitleValues + "NO3_8", null,function(data) {
-     					console.log(data);
-     					var result = data.result.status;
-     					if (result == 'OK') {
-     						var entity = data.entity;
-     						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-     					} else {
+						{{else type=="6"}}
+						{{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
 
-     					}
-     				}); 
-                	  sendGetRequest(platformUrl.queryAllTitleValues + "NO3_9", null,function(data) {
-                	    	console.log("11")
-     					console.log(data);
-     					var result = data.result.status;
-     					if (result == 'OK') {
-     						var entity = data.entity;
-     						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-     					} else {
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		 <dd class="fl_none">
+                            	<img src="img/loginbg.gif" alt="">
+                            	<img src="img/loginbg.gif" alt="">
+                          	</dd>
 
-     					}
-     				}); 
-                	    sendGetRequest(platformUrl.queryAllTitleValues + "NO3_10", null,function(data) {
-     					console.log(data);
-     					var result = data.result.status;
-     					if (result == 'OK') {
-     						var entity = data.entity;
-     						$("#ifelse").tmpl(entity).appendTo('.h_tab_con');
-     					} else {
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
 
-     					}
-     				}); 
-                	 
-     				 editOpen();   //编辑按钮点击时间
-                })      
-                //本页面相关  查看
-                $("[data-btn='addmen']").on("click",function(){
+						{{else type=="4"}}
+						{{each(i,valueList) valueList}}
+                        <dd>未选择</dd>
+						{{/each}}
 
-                    var $self = $(this);
-                    var _url = $self.attr("href");
-                    var _name= $self.attr("data-name");
-                    $.getHtml({
-                        url:_url,//模版请求地址
-                        data:"",//传递参数
-                        okback:function(){}//模版反回成功执行
-                    });
-                    return false;
+						{{else type=="10"}}
+                        <dd><table data-title-id="\${id}"></table></dd>
 
-                });
-       			</script>
-               
+						{{else type=="11"}}
+                        <dd>项目带过来的数据</dd>
+
+						{{else type=="1"}}
+                        <dd class="field" data-title-id="\${id}">未填写</dd>
+						{{/if}}
+						</dl>
+                    </div>
+						{{/each}}
+
+					{{else}}
+					<div class="mb_24 clearfix">
+                      <dl class="clearfix">
+                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						{{if type=="5"}}
+						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						<dd>备注</dd>
+
+						{{else type=="2"}}
+                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
+
+						{{else type=="3"}}
+                        {{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
+
+						{{else type=="6"}}
+						{{each(i,valueList) valueList}}
+                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+						{{/each}}
+
+						{{else type=="7"}}
+                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
+                    		 <dd class="fl_none">
+                            	<img src="img/loginbg.gif" alt="">
+                            	<img src="img/loginbg.gif" alt="">
+                          	</dd>
+
+						{{else type=="8"}}
+						<dt class="fl_none" data-type="\${type}">\${name}</dt>
+						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+
+						{{else type=="4"}}
+						{{each(i,valueList) valueList}}
+                        <dd>未选择</dd>
+						{{/each}}
+
+						{{else type=="10"}}
+                        <dd><table data-title-id="\${id}"></table></dd>
+
+						{{else type=="11"}}
+                        <dd>项目带过来的数据</dd>
+
+						{{else type=="1"}}
+                        <dd class="field" data-title-id="\${id}">未填写</dd>
+						{{/if}}
+						</dl>
+                    </div>
+
+					{{/if}}
+					{{/each}}
+  </div>
+</div>
+{{/each}}
+</script>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script type="text/javascript">
+	//整体页面显示
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				var entity = data.entity;
+				$("#page_list").tmpl(entity).appendTo('#page_all');
+				$(".section").each(function(){
+					$(this).showResults(true);
+				});
+			} else {
+
+			}
+		})
+	//通用编辑显示
+	$('div').delegate(".h_edit_btn","click",function(event){
+		var id_code = $(this).attr('attr-id');
+		var sec = $(this).closest('.section');
+
+		event.stopPropagation();
+		$("#"+id_code).hide();
+		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
+			function(data) {
+
+				var result = data.result.status;
+				if (result == 'OK') {
+					var entity = data.entity;
+					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					sec.showResults();
+				} else {
+
+				}
+		})
+	});
+	//通用取消编辑
+	$('div').delegate(".h_cancel_btn","click",function(event){
+		var id_code = $(this).attr('attr-hide');
+		$('#'+id_code).show();
+		$('#b_'+id_code).remove();
+		event.stopPropagation();
+		deletedRowIds = new Array();
+	});
+	//通用保存
+	$('div').delegate(".h_save_btn","click",function(event){
+		var btn = this;
+		event.stopPropagation();
+		var sec = $(this).closest('.h_edit');
+		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var data = {
+			projectId : projectInfo.id
+		};
+		//普通结果
+		var infoModeList = new Array();
+		$.each(fields,function(){
+			var field = $(this);
+			var type = field.data('type');
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				type : type
+			};
+			if(type==2 || type==3 || type==4)
+			{
+				infoMode.value = field.val()
+			}
+			else if(type==1 || type==8)
+			{
+				infoMode.remark1 = field.val()
+			}
+			infoModeList.push(infoMode);
+		});
+		data.infoModeList = infoModeList;
+		//表格
+		var infoTableModelList = new Array();
+		/*$.each(sec.find("table.editable"),function(){
+			$.each($(this).find('tr:gt(0)'),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				infoTableModelList.push($(this).data());
+			});
+		});*/
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds;
+
+		sendPostRequestByJsonObj(
+			platformUrl.saveOrUpdateInfo ,
+			data,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					layer.msg('保存成功');
+
+					deletedRowIds = new Array();
+					var parent = $(sec).parent();
+					console.log(parent[0]);
+					var id = parent.data('sectionId');
+					console.log(id);
+					$(btn).next().click();
+					refreshSection(id)
+				} else {
+
+				}
+		})
+	});
+function refreshSection(id)
+{
+	var sec = $(".section[data-section-id='"+id+"']");
+	sec.showResults(true);
+}
+function getDetailUrl(code)
+{
+	if(code == 'equity-structure')
+	{
+		return '<%=path%>/html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return '<%=path%>/html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return '<%=path%>/html/fincing_add_yx.html';
+	}
+	else if(code == 'valuation-reference')
+	{
+		return '<%=path%>/html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return '<%=path%>/html/fincing_add_jd.html';
+	}else if (code =='team-members'){
+
+	    return '<%=path%>/html/team_compile.html';
+	}
+	return "";
+}
+function editRow(ele)
+{
+	var code = $(ele).closest('table').data('code');
+	var row = $(ele).closest('tr');
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$.each($("#detail-form").find("input, select, textarea"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.val(row.data(name));
+			});
+			$("#detail-form input[name='index']").val(row.index());
+			$("#save-detail-btn").click(function(){
+				var data = $("#detail-form").serializeObject();
+				saveRow(data);
+			});
+		}//模版反回成功执行
+	});
+}
+var deletedRowIds = new Array();
+function delRow(ele)
+{
+	if(confirm('确定要删除？'))
+	{
+		var tr = $(ele).closest('tr');
+		var id = tr.data('id');
+
+		if(typeof id != 'undefined' && id>0)
+		{
+			deletedRowIds.push(id);
+		}
+		tr.remove();
+	}
+
+}
+function addRow(ele)
+{
+	var code = $(ele).prev().data('code')
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$("#detail-form input[name='projectId']").val(projectInfo.id);
+			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+			$("#save-detail-btn").click(function(){
+				var data = $("#detail-form").serializeObject();
+				saveRow(data);
+			});
+		}//模版反回成功执行
+	});
+}
+
+
+/**
+ * 保存至到tr标签data属性
+ */
+function saveRow(data)
+{
+	data = JSON.parse(data);
+	var titleId = data.titleId;
+	var index = data.index;
+	if(typeof index == 'undefined' || index == null || index == '')
+	{
+		var tr = buildRow(data,true);
+		$('table[data-title-id="'+titleId+'"].editable').append(tr);
+	}
+	else
+	{
+		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+		for(var key in data)
+		{
+			if(key.indexOf('field')>-1)
+			{
+				tr.data(key,data[key]);
+				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+			}
+		}
+	}
+	$("a[data-close='close']").click();
+}
+</script>
 </body>
+
+
 </html>

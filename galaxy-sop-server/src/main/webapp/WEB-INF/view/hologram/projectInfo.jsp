@@ -48,7 +48,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -87,9 +87,9 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}""></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">500</label>/500
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 						
@@ -113,9 +113,9 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">0</label>/2000
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -209,7 +209,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -248,9 +248,9 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">500</label>/500
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -273,9 +273,9 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="">0</label>/2000
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
@@ -567,7 +567,8 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		
+		$.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
+		$.getScript("<%=path %>/js/validate/lib/jq.validate.js");
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -576,9 +577,21 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					console.log(entity);
+					//console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					validate();
+					//文本域剩余字符数
+					for(var i=0;i<$(".textarea_h").length;i++){
+						var len=$(".textarea_h").eq(i).val().length;
+						var initNum=$(".num_tj").eq(i).find("label").text();
+						$(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 				} else {
 
 				}
@@ -589,6 +602,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".tip-yellowsimple").hide();
 		event.stopPropagation();
 	});
 	//通用保存
@@ -635,31 +649,30 @@
 			}
 			else if(type==1 || type==8)
 			{
-				infoMode.remark1 = field.val()
+				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
 			}
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
 		data.infoFixedTableList=infoModeFixedList;
-		sendPostRequestByJsonObj(
-			platformUrl.saveOrUpdateInfo , 
-			data,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					layer.msg('保存成功');
-					
-					var pid=$('#a_'+id_code).attr("data-section-id");
-					setDate(pid,true);					
-				} else {
+		if(beforeSubmit()){
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					data,
+					function(data) {
+						var result = data.result.status;
+						if (result == 'OK') {
+							layer.msg('保存成功');
+							$('#'+id_code).show();
+							$('#b_'+id_code).remove();
+							var pid=$('#a_'+id_code).attr("data-section-id");
+							setDate(pid,true);					
+						} else {
 
-				}
-		}) 
-	});
-	$('div').delegate(".h_save_btn","click",function(event){
-		var id_code = $(this).attr('attr-save');
-		$('#'+id_code).show();
-		$('#b_'+id_code).remove();
+						}
+				}) 
+		}
+		
 	});
 </script>
 </html>

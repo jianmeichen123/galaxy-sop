@@ -165,15 +165,15 @@
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
-				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
+				<dubbo.registry.address>zookeeper://10.9.210.22:12181?client=zkclient</dubbo.registry.address>
 				<dubbo.protocol.port>8082</dubbo.protocol.port>
 
 				<xinge.enviroment>2</xinge.enviroment>
 
-				<project.server.url>http://fx.local.galaxyinternet.com/</project.server.url>
-				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
-				<galaxy.project.report.endpoint>http://fx.local.galaxyinternet.com/report/</galaxy.project.report.endpoint>
-				<galaxy.project.sop.endpoint>http://fx.local.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
+				<project.server.url>http://fx.dev.galaxyinternet.com/</project.server.url>
+				<galaxy.project.platform.endpoint>http://fx.dev.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
+				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
+				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
 					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
 					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
@@ -206,7 +206,7 @@
 				<!-- dubbo -->
 				<dubbo.application.name>galaxyDubboprovider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
-				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
+				<dubbo.registry.address>zookeeper://10.9.210.22:12182?client=zkclient</dubbo.registry.address>
 				<dubbo.protocol.port>8085</dubbo.protocol.port>
 				
 				<xinge.enviroment>2</xinge.enviroment>
