@@ -122,7 +122,8 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
                 //获取核心成员
                 InformationTitle title = tvList.get(0);
                 List<InformationListdata> dataList = title.getDataList();
-                if(dataList.size()>0){
+
+                if(data!=null && dataList.size()>0){
                     for(InformationListdata data :dataList){
                         if(data.getParentId()==null){
                             resultList.add(data);
