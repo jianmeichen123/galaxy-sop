@@ -43,36 +43,27 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 	public InformationListdata queryMemberById(Long id) {
 		InformationListdata data = queryById(id);
 		if(data != null){
-			//根据subcode查询code
-			String code  = data.getCode();
-			List<String> codes = getSubCodes(code);
-			if(codes.size()>0){
-				//根据code查询listdata表记录
-				InformationListdata querydata = new InformationListdata();
-				querydata.setCodes(codes);
-				querydata.setProjectId(data.getProjectId());
-				List<InformationListdata> dataList = informationListdataDao.selectList(querydata);
-				//给list字段赋值
-				List<InformationListdata> workList = new ArrayList<InformationListdata>();
-				List<InformationListdata> studyList = new ArrayList<InformationListdata>();
-				List<InformationListdata> startupList = new ArrayList<InformationListdata>();
-				if(null != dataList && dataList.size()>0){
-					for(InformationListdata info : dataList){
-						if(info.getCode().equals(STUDYEXPERIENCE)){
-							studyList.add(info);
-						}else if(info.getCode().equals(WORKEXPERIENCE)){
-							workList.add(info);
-						}else if(info.getCode().equals(STARTUPEXPERIENCE)){
-							startupList.add(info);
-						}
+			InformationListdata query = new InformationListdata();
+			query.setParentId(data.getId());
+			List<InformationListdata> dataList = informationListdataDao.selectList(query);
+			//给list字段赋值
+			List<InformationListdata> workList = new ArrayList<InformationListdata>();
+			List<InformationListdata> studyList = new ArrayList<InformationListdata>();
+			List<InformationListdata> startupList = new ArrayList<InformationListdata>();
+			if(null != dataList && dataList.size()>0){
+				for(InformationListdata info : dataList){
+					if(info.getCode().equals(STUDYEXPERIENCE)){
+						studyList.add(info);
+					}else if(info.getCode().equals(WORKEXPERIENCE)){
+						workList.add(info);
+					}else if(info.getCode().equals(STARTUPEXPERIENCE)){
+						startupList.add(info);
 					}
 				}
-				data.setWorkList(workList);
-				data.setStudyList(studyList);
-				data.setStartupList(startupList);
-			}else{
-				return data;
 			}
+			data.setWorkList(workList);
+			data.setStudyList(studyList);
+			data.setStartupList(startupList);
 		}
 		return data;
 	}

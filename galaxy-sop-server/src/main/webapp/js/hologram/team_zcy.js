@@ -1,4 +1,7 @@
+/* sendGetRequest("http://fx.local.galaxyinternet.com/sop/galaxy/team/queryRowsList/1302/1",null,function(data){
 
+        alert(222)
+ })*/
     //添加成员简历保存
     $("#save_person_learning").on("click",function(){
         var infoTableModelList=[];
@@ -71,12 +74,31 @@
          })
         var json={"projectId":1,"infoTableModelList":infoTableModelList}
         sendPostRequestByJsonObj("http://fx.local.galaxyinternet.com/sop/galaxy/team/saveorUpdate",json,function(data){
-            alert("添加成功!");
+               //查询列表
+               sendGetRequest("http://fx.local.galaxyinternet.com/sop/galaxy/team/queryRowsList/1303/1",null,function(data){
+                   var entityList = data.entityList;
+                   if(entityList.length>0){
+                     /*  var tmp = "";
+                       var table = $("table[data-title-id='1303'].editable");
+                       table.find("tbody").remove();
+                       $(entityList).each(function(i,e){
+                           tmp  +=  "<tr>"+
+                                       "<td>"+e.field1+"</td>"+
+                                       "<td>"+e.field2+"</td>"+
+                                       "<td>"+e.field3+"</td>"+
+                                       "<td>"+e.field4+"</td>"+
+                                       "<td>"+e.field5+"</td>"+
+                                       "<td><span class='blue show'  onclick='editRow1(this,"+e.id+")' data-id='"+e.id+"'>查看</span>"+
+                                       "<span class='blue edit' onclick='editRow1(this,"+e.id+")' data-id='"+e.id+"'>编辑</span>"+
+                                       "<span class='blue' data-btn='btn' onclick='delRow(this)'>删除</span>"+
+                                       "</td>"+
+                                     "</tr>"
+                      })
+                      table.append(tmp);*/
 
+                   }
+               })
         })
-
-
-
     })
 
 
@@ -88,10 +110,7 @@
 	function guid() {
 	   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 	}
-	function delete_row(obj){
-		var id = obj.attributes["data-id"].nodeValue;
-		$('#'+id).remove();
-	}
+
 	function getData(div){
 		var json={};
 	    var list = div.find("*[name]");
@@ -222,3 +241,4 @@
 		});
 		return false;
 	});
+

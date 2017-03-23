@@ -7,6 +7,7 @@
     	<form action="" id="learn_form" method="post">
             <input name="id" style="display:none;">
             <input name="myid" style="display:none;">
+            <input name="index" style="display:none;">
         <div class="info clearfix">
             <dl class="fmdl fl">
                 <dt>&nbsp;毕业时间：</dt>
@@ -47,14 +48,13 @@
         <a href="javascript:;" id="close_learn" class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
-<script>
-
+<!--<script>
     $(".add_team_learn").on("click",function(){
         var eduJson = getData($("#learn_form"));
-        if(!eduJson["myid"]){
+        if(!eduJson["myid"] && !edu["id"]){
               //如果id为空,新增一条记录
               var myID = "static" + guid();
-              var str = "<div id='"+myID+"' data-flag><span name='id' style='display:none'></span>"+
+              var str = "<div id='"+myID+"' data-flag><span name='id' style='display:none'>"+eduJson['id']+"</span>"+
                "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+eduJson['field1']+"</span></div>"+
                 "<div class='team_p_two'>"+
                     "<ul>"+
@@ -81,4 +81,69 @@
         }
         $("#close_learn").click();
     })
+</script>-->
+<script>
+  $(".add_team_learn").on("click",function(){
+        var eduJson = getData($("#learn_form"));
+        var tmp = "<tr row-id><td>"+eduJson['field1']+"</td><td>"+eduJson['field2']+"</td>";
+        tmp += "<td>"+eduJson['field3']+"</td><td>"+eduJson['field4']+"</td><td>";
+        tmp += "<span class='blue' data-btn='btn' onclick='editRow(this)'>编辑</span>";
+        tmp += "<span class='blue' data-btn='btn' onclick='delRow(this)'>删除</span>";
+        tmp += "</td></tr>";
+        $("#team_learn").append(tmp);
+        $("#close_learn").click();
+    })
+
+    function delRow(ele)
+    {
+        if(confirm('确定要删除？'))
+        {
+            var tr = $(ele).closest('tr');
+            tr.remove();
+        }
+    }
+    function editRow(ele)
+    {
+        var row = $(ele).closest('tr');
+        $.getHtml({
+            url:"/sop/html/team_learn.html",//模版请求地址
+            data:"",//传递参数
+            okback:function(){
+                $.each($("#learn_form").find("input, select, textarea"),function(){
+                    var ele = $(this);
+                    var name = ele.attr('name');
+                    ele.val(row.data(name));
+                });
+                $("#learn_form input[name='index']").val(row.index());
+
+            }//模版反回成功执行
+        });
+    }
+    /**
+     * 保存至到tr标签data属性
+     */
+    function saveRow(data)
+    {
+        data = JSON.parse(data);
+        var titleId = data.titleId;
+        var index = data.index;
+        if(typeof index == 'undefined' || index == null || index == '')
+        {
+            var tr = buildRow(data,true);
+            $('table[data-title-id="'+titleId+'"].editable').append(tr);
+        }
+        else
+        {
+            var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+            for(var key in data)
+            {
+                if(key.indexOf('field')>-1)
+                {
+                    tr.data(key,data[key]);
+                    tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+                }
+            }
+        }
+        $("a[data-close='close']").click();
+    }
 </script>

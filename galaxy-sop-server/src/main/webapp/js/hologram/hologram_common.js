@@ -106,6 +106,20 @@ function tabInfoChange(index){
 	$.fn.showResults = function(readonly){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
+
+		if(pid == 1302){
+		     sendGetRequest("http://fx.local.galaxyinternet.com/sop/galaxy/team/queryRowsList/1302/1",null,function(data){
+		        var result = data.result.status;
+                if (result == 'OK')
+                {
+                    var entityList = data.entityList;
+                    var data = entityList[0]
+
+                    buildResults(sec,data,readonly);
+                    buildTable(sec,data);
+                }
+		     })
+		}
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
 				function(data) {
 			
@@ -192,7 +206,7 @@ function buildTable(sec,title)
 			var table = $(this);
 			table.attr('data-code',header.code);
 			table.empty();
-			var tr="<tr>";
+			var tr="<thead><tr>";
 			for(var key in header)
 			{
 				if(key.indexOf('field')>-1)
@@ -205,7 +219,7 @@ function buildTable(sec,title)
 			{
 				tr +='<th data-field-name="opt">操作</th>';
 			}
-			tr+="</tr>";
+			tr+="</tr></thead>";
 			table.append(tr);
 		});
 	}
@@ -214,11 +228,13 @@ function buildTable(sec,title)
 	{
 		$.each(title.dataList,function(){
 			var row = this;
+			alert(row.titleId)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			$.each(tables,function(){
 				var table = $(this);
 				var tr = buildRow(row,table.hasClass('editable'));
 				table.append(tr);
+				console.log(table.html())
 			});
 		});
 	}
@@ -243,6 +259,7 @@ function buildRow(row,showOpts)
 		tr.append(td);
 	}
 	return tr;
+
 }
 function buildfinxedTable(sec,title,readonly){
 	if(title.fixedTableList){
