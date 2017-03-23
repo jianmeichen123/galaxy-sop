@@ -29,8 +29,8 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	@Autowired
 	private Cache cache;
 	
-	@Autowired
-	private CacheOperationService cacheOperationService;
+	//@Autowired
+	//private CacheOperationService cacheOperationService;
 	
 	@Autowired
 	private InformationDictionaryDao informationDictionaryDao;
@@ -160,7 +160,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 				@Override
 				public void run() {
-					cacheOperationService.saveAreaInfoByRedies(k1, ts);
+			//		cacheOperationService.saveAreaInfoByRedies(k1, ts);
 				}
 			});
 		}
@@ -226,7 +226,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 				@Override
 				public void run() {
-					cacheOperationService.saveAreaInfoByRedies(k1, ts);
+			//		cacheOperationService.saveAreaInfoByRedies(k1, ts);
 				}
 			});
 		}
