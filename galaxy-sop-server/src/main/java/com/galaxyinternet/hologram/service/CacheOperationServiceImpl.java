@@ -36,8 +36,8 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	@Autowired
 	private InformationTitleService informationTitleService;
 	
-	@Autowired
-	private InformationDictionaryService informationDictionaryService;
+	//@Autowired
+	//private InformationDictionaryService informationDictionaryService;
 	
 	
 	
@@ -48,9 +48,9 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 	*/
 	@PostConstruct  
     public void  init(){ 
-		//initTitleIdName();
-		//initValueIdName();
-		//initAreaTitleAndTValue();
+		initTitleIdName();
+		initValueIdName();
+		initAreaTitleAndTValue();
 	}
 	
 	
@@ -112,7 +112,8 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		Map<Long,String> valueIdName = new HashMap<Long,String>();
 		
 		//cache.remove(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
-		List<InformationDictionary> allValue = informationDictionaryService.queryAll();
+		List<InformationDictionary> allValue = new ArrayList<InformationDictionary>();
+				//informationDictionaryService.queryAll();
 		for(InformationDictionary avalue : allValue){
 			valueIdName.put(avalue.getId(), avalue.getName());
 		}
@@ -144,7 +145,8 @@ public class CacheOperationServiceImpl implements CacheOperationService{
 		for(InformationTitle title_0 : title_0_List){
 			List<InformationTitle> title_List =  informationTitleService.selectChildsByPid(title_0.getId()); //第一页下的各区域：基础信息 、事业部……
 			for(InformationTitle title_1 : title_List){
-				List<InformationTitle> title_title_value =  informationDictionaryService.selectTsTvalueInfo(title_1.getId());
+				List<InformationTitle> title_title_value = new ArrayList<InformationTitle>();
+						//informationDictionaryService.selectTsTvalueInfo(title_1.getId());
 				title_1.setChildList(title_title_value);
 				//pagesAreacode.put(title_1.getCode(), title_title_value);
 				cacheAreascode.add(title_1.getCode());
