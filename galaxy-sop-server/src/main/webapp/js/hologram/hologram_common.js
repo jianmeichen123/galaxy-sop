@@ -138,9 +138,7 @@ function tabInfoChange(index){
 				}
 			} 
 		})
-	}
-
-});
+};
 
 function buildResults(sec,title,readonly)
 {
