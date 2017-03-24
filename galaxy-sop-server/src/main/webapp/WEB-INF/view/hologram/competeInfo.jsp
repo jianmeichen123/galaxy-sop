@@ -30,6 +30,29 @@
 
 			<div class="h radius" id="NO5_2">
 
+
+
+				<div class="mb_24 clearfix">
+					<dl class="clearfix">
+						<dt data-type="10" data-id="1906" data-code="NO9_1_4"
+							data-parentid="">股权结构:</dt>
+						<dd>
+							<table data-title-id="1906" data-code="equity-structure">
+								<tbody>
+									<tr>
+										<th data-field-name="field1">股东名称</th>
+										<th data-field-name="field2">占股比例</th>
+										<th data-field-name="field3">股东类型</th>
+									</tr>
+								</tbody>
+							</table>
+						</dd>
+					</dl>
+				</div>
+
+
+
+
 				<div class="h_edit">
 					<div class="h_btnbox">
 						<span class="h_save_btn">保存</span>
@@ -92,19 +115,16 @@
 				
 
 <script type="text/javascript">
-	//页面显示
-	/* sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/NO5_1", null, function(data) {
-		var result = data.result.status;
-		if (result == 'OK') {
-			var entity = data.entity;
-			console.log(entity);
-			var html = toGetHtmlByMark(entity,'s');
-			var s_div = toShowTitleHtml(entity, html);
-			$("#NO5_1").html(s_div);
-		}
-	}); */
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_1",
-			null, function(data) {
+
+table_Value = {};
+table_filed = {};
+
+delComArr=[];
+table_toedit_Value = {};
+table_tosave_Value = {};
+
+
+ 	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_1", null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -113,8 +133,7 @@
 					$("#NO5_1").html(s_div);
 				}
 			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_3",
-			null, function(data) {
+	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_3", null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -123,8 +142,7 @@
 					$("#NO5_3").html(s_div);
 				}
 			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_4",
-			null, function(data) {
+	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_4", null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -133,8 +151,7 @@
 					$("#NO5_4").html(s_div);
 				}
 			});
-	sendGetRequest(platformUrl.queryProjectAreaInfo + pid + "/NO5_5", null,
-			function(data) {
+	sendGetRequest(platformUrl.queryProjectAreaInfo + pid + "/NO5_5", null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -143,8 +160,7 @@
 					$("#NO5_5").html(s_div);
 				}
 			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_6",
-			null, function(data) {
+	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_6", null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -153,8 +169,7 @@
 					$("#NO5_6").html(s_div);
 				}
 			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_7",
-			null, function(data) {
+	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_7", null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -163,8 +178,7 @@
 					$("#NO5_7").html(s_div);
 				}
 			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_8",
-			null, function(data) {
+	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_8", null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -173,101 +187,115 @@
 					$("#NO5_8").html(s_div);
 				}
 			});
+	
+	
+	
+	
+ $(function() {
+	//通用取消编辑
+	$('div').delegate(".h_cancel_btn", "click", function(event) {
+		var id_code = $(this).attr('attr-hide');
+		$('#a_' + id_code).show();
+		$('#b_' + id_code).remove();
+		event.stopPropagation();
+	});
 
-	$(function() {
-		//通用取消编辑
-		$('div').delegate(".h_cancel_btn", "click", function(event) {
-			var id_code = $(this).attr('attr-hide');
-			$('#a_' + id_code).show();
-			$('#b_' + id_code).remove();
-			event.stopPropagation();
+	//通用编辑显示
+	$('div').delegate(".h_edit_btn", "click", function(event) {
+		var id_code = $(this).attr('attr-id');
+		event.stopPropagation();
+		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/"
+				+ id_code, null, function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				var entity = data.entity;
+				var html = toGetHtmlByMark(entity, 'e');
+				var s_div = toEditTitleHtml(entity, html);
+
+				$("#a_" + id_code).hide();
+				$("#" + id_code).append(s_div);
+			}
+		})
+	});
+
+	//通用保存
+	$('div').delegate(".h_save_btn", "click", function(event) {
+		event.stopPropagation();
+		var id_code = $(this).attr('attr-save');
+
+		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
+		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
+		var fields_value1 = $("#b_" + id_code).find(".active");
+
+		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
+
+		var data = {
+			projectId : projectInfo.id
+		};
+		var infoModeList = new Array();
+		$.each(fields_value, function() {
+			var field = $(this);
+			if (field.val() && field.val().length > 0) {
+				var infoMode = {
+					titleId : field.data('titleId'),
+					type : field.data('type'),
+					value : field.val()
+				};
+				infoModeList.push(infoMode);
+			}
 		});
+		$.each(fields_value1, function() {
+			var field = $(this);
+			var infoMode = {
+				titleId : field.data('titleId'),
+				type : field.data('type'),
+				value : field.data('value')
+			};
+			infoModeList.push(infoMode);
+		});
+		$.each(fields_remark1, function() {
+			var field = $(this);
+			var infoMode = {
+				titleId : field.data('titleId'),
+				type : field.data('type'),
+				remark1 : field.val()
+			};
+			infoModeList.push(infoMode);
+		});
+		data.infoModeList = infoModeList;
 
-		//通用编辑显示
-		$('div').delegate(
-				".h_edit_btn",
-				"click",
-				function(event) {
-					var id_code = $(this).attr('attr-id');
-					event.stopPropagation();
-					sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/"
-							+ id_code, null, function(data) {
-						var result = data.result.status;
-						if (result == 'OK') {
-							var entity = data.entity;
-							var html = toGetHtmlByMark(entity, 'e');
-							var s_div = toEditTitleHtml(entity, html);
-
-							$("#a_" + id_code).hide();
-							$("#" + id_code).append(s_div);
-						}
-					})
-				});
-
-		//通用保存
-		$('div').delegate(
-				".h_save_btn",
-				"click",
-				function(event) {
-					event.stopPropagation();
-					var id_code = $(this).attr('attr-save');
-
-					var fields_value = $("#b_" + id_code).find(
-							"input:checked,option:selected");
-					var fields_remark1 = $("#b_" + id_code).find(
-							"input[type='text'],textarea");
-					var fields_value1 = $("#b_" + id_code).find(".active");
-
-					//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
-					//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
-
-					var data = {
-						projectId : projectInfo.id
-					};
-					var infoModeList = new Array();
-					$.each(fields_value, function() {
-						var field = $(this);
-						if (field.val() && field.val().length > 0) {
-							var infoMode = {
-								titleId : field.data('titleId'),
-								type : field.data('type'),
-								value : field.val()
-							};
-							infoModeList.push(infoMode);
-						}
-					});
-					$.each(fields_value1, function() {
-						var field = $(this);
-						var infoMode = {
-							titleId : field.data('titleId'),
-							type : field.data('type'),
-							value : field.data('value')
-						};
-						infoModeList.push(infoMode);
-					});
-					$.each(fields_remark1, function() {
-						var field = $(this);
-						var infoMode = {
-							titleId : field.data('titleId'),
-							type : field.data('type'),
-							remark1 : field.val()
-						};
-						infoModeList.push(infoMode);
-					});
-					data.infoModeList = infoModeList;
-
-					sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo,
-							data, function(data) {
-								var result = data.result.status;
-								if (result == 'OK') {
-									layer.msg('保存成功');
-									showArea(id_code);
-								} else {
-									layer.msg('保存失败');
-								}
-							});
+		
+		//表格
+		var infoTableModelList = new Array();
+		for(var key in table_toedit_Value){
+			for(var key2 in table_toedit_Value[key]){
+				infoTableModelList.push(table_toedit_Value[key][key2]);
+			}
+		}
+		for(var key in table_tosave_Value){
+			for(var key2 in table_tosave_Value[key]){
+				infoTableModelList.push(table_tosave_Value[key][key2]);
+			}
+		}
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = delComArr;
+		
+		
+		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo,
+				data, function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						layer.msg('保存成功');
+						showArea(id_code);
+					} else {
+						layer.msg('保存失败');
+					}
 				});
 	});
+});
+
+
 </script>
 
 </body>

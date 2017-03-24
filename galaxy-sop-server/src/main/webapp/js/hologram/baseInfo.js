@@ -18,6 +18,8 @@ function textarea_h(data){
 		data.style.height= height+'px';
 	}
 }
+
+
 //区域显示
 function showArea(code){
 	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/" + code, null, function(data) {
@@ -126,7 +128,7 @@ function switchTypeByMark(title,mark){
         	//html += type_9_html(title);
             break;
         case 10:  
-        	//html += type_10_html(title);
+        	html += type_10_html(title,mark);
             break;
         case 11:   
         	html += type_11_html(title,mark);
@@ -334,7 +336,7 @@ function type_4_html(title,mark){
 		var eresult = "";
 		
 		var checked_cid;
-		for(var i = 1; i <5; i++){
+		for(var i = 1; i <6; i++){
 			if(i == 1){
 				var values = title.valueList;
 				var return_j = nselectHtml(values,title,checked_cid);
@@ -421,8 +423,8 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'  oninput=textarea_h(this)> </textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
+				"<p class=\"num_tj\"><label>0</label>/2000</p>" +
 			"</dd>";	
 		var results = title.resultList;
 		if(results && results.length > 0){
@@ -431,9 +433,10 @@ function type_5_html(title,mark){
 					eresult_2 = 
 						"<dd class=\"fl_none\">" +
 							"<textarea class=\"textarea_h\" " +
-								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' oninput=textarea_h(this) >" +results[i].contentDescribe1 +
+								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' >" +
+								results[i].contentDescribe1 +
 							"</textarea>" +
-							"<p class=\"num_tj\"><label>2000</label><span>/2000</span></p>" +
+							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
 						"</dd>";	
 					break;
 				}
@@ -575,6 +578,91 @@ function type_8_html(title,mark){
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
 	}
 }
+
+
+
+//10:表格
+function type_10_html(title,mark){
+	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	
+	var tableHeader = title.tableHeader;
+	var dataList = title.dataList;
+	
+	if(mark == 's'){
+		
+		var filed_sort = [];
+		if(title.code == 'NO5_7_1'){   //综合竞争比较
+			filed_sort = ['field1','field2','field3','field4','field5'];
+			table_filed[title.id] = filed_sort;
+		}
+		
+		var hresult = "<dd>未填写</dd>";
+		if(dataList != null && dataList.length != 0){
+			
+			table_value(title.id,dataList);
+			console.log(table_Value);
+			
+			hresult = "<dd><table data-talbe-tid='"+title.id+"' ><thead><tr>"
+			
+			var th = "";
+			for(var i = 0 ; i < filed_sort.length; i++){
+				th +='<th>'+tableHeader[filed_sort[i]]+'</th>';
+			}
+			
+			hresult += th + "</tr></thead><tbody>";
+			
+			var tr = "";
+			$.each(dataList,function(){
+				tr += '<tr>';
+				for(var i = 0 ; i < filed_sort.length; i++){
+					tr +='<td>'+this[filed_sort[i]]+'</td>';
+				}
+				tr += "</tr>";
+			});
+			hresult += (tr + "</tbody></table></dd>");
+		}
+		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + "<br/>" + hresult + "</dl></div>";
+	}else{
+		var to_add = "<a href='javascript:;' class=\"blue\" onclick=\"add_"+title.code+"('"+title.id+"','"+title.code+"')\" >新增</a>";
+		
+		var filed_sort = table_filed[title.id];
+		
+		var eresult = "<dd><table><thead>";
+		
+		var th = "<tr>";
+		for(var i = 0 ; i < filed_sort.length; i++){
+			var filed  = filed_sort[i];
+			th +='<th>'+tableHeader[filed]+'</th>';
+		}
+		th +='<th>操作</th>';
+		
+		eresult += th + "</tr></thead><tbody data-tbody-tid='"+title.id+"' data-tbody-tcode='"+title.code+"' >";
+		
+		if(dataList != null && dataList.length != 0){
+			var tr = "";
+			$.each(dataList,function(i,o){
+				tr += '<tr data-opt="old" data-result-id="'+o.id+'" >';
+				for(var i = 0 ; i < filed_sort.length; i++){
+					tr +='<td>'+o[filed_sort[i]]+'</td>';
+				}
+				
+				var edit = "<a href='javascript:;' class=\"blue\" onclick=\"edit_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >编辑</a>";
+				var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"del_"+title.code+"(this,'"+title.id+"','"+o.id+"')\" >删除</a>";
+				tr += ('<td>' + edit + del + '</td>');
+				
+				tr += "</tr>";
+			});
+			eresult += tr ;
+		}
+		
+		eresult += "</tbody></table></dd>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle + to_add + "<br/>" + eresult + "</div>";
+	}
+}
+
+
+
+
 
 
 // 11:静态数据
@@ -732,23 +820,6 @@ function type_13_html(title,mark){
 		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult + "</div>";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

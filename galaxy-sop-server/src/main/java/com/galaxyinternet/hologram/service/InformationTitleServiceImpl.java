@@ -220,14 +220,25 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		}
 		
 		//各 title result 对应封装
-		if(results!=null && !results.isEmpty()){
-			
-			for(InformationTitle atitle : tchilds ){
-				if(atitle.getType() != null){
-					
-					//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
-					//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
-					
+		titleSwitchByType( pid, tchilds, results);
+		/*if(results!=null && !results.isEmpty()){
+		}*/
+		
+		return title;
+	}
+	
+	/**
+	 * 根据题的各 type 分类，分别封装 题：结果
+	 * 
+	 * //1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+	   //7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
+	 */
+	public void titleSwitchByType(String pid,List<InformationTitle> titles,List<InformationResult> results){
+		Set<String> title_tableids = new HashSet<String>();
+		for(InformationTitle atitle : titles ){
+			if(atitle.getType() != null){
+				
+				if(results != null && !results.isEmpty()){
 					//Type ： 1 2 8 11
 					if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 8  || atitle.getType().intValue() == 11 ){
 						findResultByArecord(atitle, results);
@@ -235,24 +246,27 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
 							atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13){
 						findResultByNrecord(atitle, results);  //findResultByNcontact
-					}//Type ： 7 
-					else if(atitle.getType().intValue() == 7){
-						
-					}//Type ： 9
-					else if(atitle.getType().intValue() == 9){
-						
-					}//Type ： 10
-					else if(atitle.getType().intValue() == 10){
-						
 					}
+				}
+				
+				//Type ： 7 
+				if(atitle.getType().intValue() == 7){
 					
+				}//Type ： 9
+				else if(atitle.getType().intValue() == 9){
+					
+				}//Type ： 10
+				else if(atitle.getType().intValue() == 10){
+					title_tableids.add(atitle.getId()+"");
 				}
 			}
-			
 		}
 		
-		return title;
+		if(!title_tableids.isEmpty()){
+			findResultByTable(titles,title_tableids,pid); 
+		}
 	}
+	
 	
 	/**
 	 * 题的值只能有一条记录的
@@ -260,7 +274,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 */
 	@SuppressWarnings("unchecked")
 	public void findResultByArecord(InformationTitle atitle, List<InformationResult> results){
-		
+		Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 		List<InformationDictionary> values = atitle.getValueList();
 		
 		InformationResult isr = null;
@@ -273,7 +287,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				isr.setId(aresult.getId());
 				if(aresult.getContentChoose() != null){
 					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-					isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
+					isr.setValueName(dict.get(isr.getValueId()));
 				}
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
@@ -310,7 +324,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 */
 	@SuppressWarnings("unchecked")
 	public void findResultByNrecord(InformationTitle atitle, List<InformationResult> results){
-		
+		Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 		List<InformationResult> resultList_toremove = new ArrayList<InformationResult>();
 		
 		List<InformationDictionary> values = atitle.getValueList();
@@ -324,7 +338,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				isr.setId(aresult.getId());
 				if(aresult.getContentChoose() != null){
 					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-					isr.setValueName(((Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME)).get(isr.getValueId()));
+					isr.setValueName(dict.get(isr.getValueId()));
 				}
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
@@ -360,6 +374,52 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		
 	}
 	
+	/**
+	 * 拼装 table head body
+	 * Type ：10
+	 */
+	public void findResultByTable(List<InformationTitle> titles, Set<String> title_tableids, String pid ){
+		//查询表格头
+		InformationListdataRemark headerQuery = new InformationListdataRemark();
+		headerQuery.setTitleIds(title_tableids);
+		List<InformationListdataRemark> headerList = headerDao.selectList(headerQuery);
+		if(headerList != null && headerList.size() > 0){
+			for(InformationListdataRemark item : headerList){
+				if(item.getSubCode() == null){
+					for(InformationTitle at : titles){
+						if(at.getId().longValue() == item.getTitleId().longValue()){
+							at.setTableHeader(item);
+							break;
+						}
+					}
+				}
+				
+			}
+		}
+		//查询表格
+		InformationListdata listdataQuery = new InformationListdata();
+		listdataQuery.setProjectId(Long.valueOf(pid));
+		listdataQuery.setTitleIds(title_tableids);
+		listdataQuery.setProperty("title_id");
+		listdataQuery.setDirection(Direction.ASC.toString());
+		List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
+		if(listdataList != null && listdataList.size() > 0){
+			for(InformationListdata item : listdataList){
+				for(InformationTitle at : titles){
+					if(at.getId().longValue() == item.getTitleId().longValue()){
+						if(at.getDataList() == null){
+							List<InformationListdata> tempList = new ArrayList<InformationListdata>();
+							tempList.add(item);
+							at.setDataList(tempList);
+						}else{
+							at.getDataList().add(item);
+						}
+						break;
+					}
+				}
+			}
+		}
+	}
 	
 	
 	
@@ -396,45 +456,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			}
 			results = selectResultByPidTids(pid , tids ,null);  
 			
-			
 			//各 title result 对应封装，value 选中标记
-			if(results != null && !results.isEmpty()){
-				
-				for(InformationTitle atitle : tchilds ){
-					if(atitle.getType() != null){
-						
-						//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
-						//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
-						
-						//Type ： 1 2 8 11
-						if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 8  || atitle.getType().intValue() == 11 ){
-							findResultByArecord(atitle, results);
-						}//Type ： 3 4 5 6 12 13
-						else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
-								atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13){
-							findResultByNrecord(atitle, results);  //findResultByNcontact
-						}
-						/*
-						//Type ：1  2 5 8 11
-						if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 5 || atitle.getType().intValue() == 8 || atitle.getType().intValue() == 11 ){
-							findResultByArecord(atitle, results);
-						}//Type ： 3 4 6
-						else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 6 ){
-							findResultByNrecord(atitle, results);  //findResultByNcontact
-						}//Type ： 7 
-*/						else if(atitle.getType().intValue() == 7){
-							
-						}//Type ： 9
-						else if(atitle.getType().intValue() == 9){
-							
-						}//Type ： 10
-						else if(atitle.getType().intValue() == 10){
-							
-						}
-						
-					}
-				}
-			}
+			titleSwitchByType( pid, tchilds, results);
+			/*if(results != null && !results.isEmpty()){
+			}*/
 		}
 		
 		return title;

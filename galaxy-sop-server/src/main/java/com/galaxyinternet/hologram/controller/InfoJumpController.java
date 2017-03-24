@@ -72,6 +72,17 @@ public class InfoJumpController{
 		return "hologram/operateInfo";
 	}
 	
+	
+	/**
+	 * 全息图-竞争
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/toSaveCompeteTable", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toSaveCompeteTable(HttpServletRequest request) {
+	
+		return "hologram/gethtml/compete_save";
+	}
 	/**
 	 * 全息图-竞争
 	 * @param request
