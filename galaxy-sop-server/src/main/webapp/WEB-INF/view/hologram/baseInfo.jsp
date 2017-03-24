@@ -92,10 +92,19 @@ $(function() {
 				var entity = data.entity;
 				var html = toGetHtmlByMark(entity, 'e');
 				var s_div = toEditTitleHtml(entity, html);
-
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 			}
+			//字数限制显示
+			
+			$.each($('.textarea_h'),function(i,data){
+				$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+				var font_num = 2000 - $(this).val().length;
+				$(this).siblings('p').find('label').html(font_num);
+				var height = data.scrollHeight;
+				$(this).css("height",height) ;
+				 
+			})
 		})
 	});
 

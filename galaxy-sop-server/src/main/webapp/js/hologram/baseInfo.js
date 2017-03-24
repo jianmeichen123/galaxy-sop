@@ -433,10 +433,10 @@ function type_5_html(title,mark){
 					eresult_2 = 
 						"<dd class=\"fl_none\">" +
 							"<textarea class=\"textarea_h\" " +
-								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' >" +
+								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' oninput=textarea_h(this) >" +
 								results[i].contentDescribe1 +
 							"</textarea>" +
-							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
+							"<p class=\"num_tj\"><label>2000</label>/2000</p>" +
 						"</dd>";	
 					break;
 				}
