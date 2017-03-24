@@ -99,7 +99,6 @@
 					//字数限制显示
 					
 					$.each($('.textarea_h'),function(i,data){
-						$(this).css("height",$(this).attr("scrollHeight"));
 						$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 						var font_num = 2000 - $(this).val().length;
 						$(this).siblings('p').find('label').html(font_num);

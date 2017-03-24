@@ -10,7 +10,6 @@ function textarea_h(data){
 	var parent= data.parentNode;
 	var p_node = parent.childNodes[1];
 	var font_num = p_node.childNodes[0];
-	var lable = document.createElement("lable");
 	$(font_num).html(2000 - taxt_length);
 }
 
@@ -421,8 +420,8 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' > ></textarea>" +
-				"<p class=\"num_tj\"><label>0</label>/2000</p>" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'  oninput=textarea_h(this) > </textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
 			"</dd>";	
 		var results = title.resultList;
 		if(results && results.length > 0){
@@ -431,8 +430,7 @@ function type_5_html(title,mark){
 					eresult_2 = 
 						"<dd class=\"fl_none\">" +
 							"<textarea class=\"textarea_h\" " +
-								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' oninput=textarea_h(this) >" +
-								results[i].contentDescribe1 +
+								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' oninput=textarea_h(this) >" +results[i].contentDescribe1 +
 							"</textarea>" +
 							"<p class=\"num_tj\"><label>2000</label><span>/2000</span></p>" +
 						"</dd>";	
