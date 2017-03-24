@@ -37,7 +37,7 @@ function showArea(code){
 function toShowTitleHtml(title,html){
 	var titleDiv = "" ;
 	if(title.name){
-		titleDiv = "<div class=\"h_title\">" + title.name + "</div>" ;
+		titleDiv = "<div class=\"h_title sec_box\">" + title.name + "</div>" ;
 	}
 	var s_div = 
 		"<div class=\"h_look h_team_look clearfix\" id=\"a_"+title.code+"\" >" +
@@ -221,7 +221,7 @@ function type_2_html(title,mark){
 		if(results && results[0] && results[0].valueName){
 			hresult = "<dd>"+results[0].valueName+"</dd>";
 		}
-		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title);
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
@@ -243,7 +243,7 @@ function type_3_html(title,mark){
 		if(results && results[0] && results[0].valueName){
 			hresult = "";
 			$.each(results,function(i,o){
-				hresult +=  "<dd>"+this.valueName+" &nbsp;&nbsp;</dd>";
+				hresult +=  "<dd class=\"border_dd\">"+this.valueName+"</dd>";
 			});
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
@@ -409,14 +409,14 @@ function type_5_html(title,mark){
 		if(results && results[0] && results[0].id){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					hresult_2 =  "<dd>"+results[i].contentDescribe1+"</dd>";
+					hresult_2 =  "<dd class=\"division_dd\">"+results[i].contentDescribe1+"</dd>";
 				}else if(results[i].valueName){
 					hresult_1 =  "<dd>"+results[i].valueName+"</dd>";
 				}
 			}
 		}
 		
-		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
+		return  "<div class=\"mb_24  clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
 		var eresult_1 = one_select_edit(title);
 					
@@ -469,7 +469,7 @@ function type_6_html(title,mark){
 					hasC = true;
 					cr +=  "<dd >"+this.valueName+"</dd> &nbsp;&nbsp;";
 				}else if(this.contentDescribe1){
-					hresult_2 = "<dd >"+this.contentDescribe1+"</dd>";
+					hresult_2 = "<dd class=\"division_dd\">"+this.contentDescribe1+"</dd>";
 				}
 			});
 			
@@ -584,7 +584,6 @@ function type_8_html(title,mark){
 //10:表格
 function type_10_html(title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
-	
 	var tableHeader = title.tableHeader;
 	var dataList = title.dataList;
 	
@@ -671,7 +670,7 @@ function type_11_html(title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
 	var hresult = "<dd></dd>";
 	
-	console.log("projectInfo: " + projectInfo);
+	console.log(projectInfo);
 	switch (title.code) {
         case "NO1_1_1":  //项目编号
         	var results = title.resultList;
@@ -702,7 +701,7 @@ function type_11_html(title,mark){
             break;
     }
 	
-	return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
+	return  "<div class=\"mb_24 base_half clearfix\">" + htitle + hresult + "</div>";
 }
 
 
@@ -778,11 +777,11 @@ function type_13_html(title,mark){
 			hresult = "";
 			
 			$.each(results,function(i,o){
-				if(this.valueName){
-					hresult +=  "<dd >"+this.valueName+"&nbsp;&nbsp;</dd>";
-				}else if(this.contentDescribe1){
-					hresult +=  "<dd >"+this.contentDescribe1+"&nbsp;&nbsp;</dd>";
-				}
+					if(this.valueName && this.valueName != '其他'){
+						hresult +=  "<dd  class=\"border_dd\">"+this.valueName+"</dd>";
+					}else if(this.contentDescribe1){
+						hresult +=  "<dd  class=\"border_dd\">"+this.contentDescribe1+"</dd>";
+					}
 			});
 		}
 

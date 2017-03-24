@@ -65,6 +65,7 @@
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
+			console.log(entity);
 			var html = toGetHtmlByMark(entity,'s');
 			var s_div = toShowTitleHtml(entity, html);
 			$("#NO1_2").html(s_div);
@@ -80,7 +81,7 @@ $(function() {
 		$('#b_' + id_code).remove();
 		event.stopPropagation();
 	});
-
+	
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var id_code = $(this).attr('attr-id');
@@ -95,8 +96,9 @@ $(function() {
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 			}
-			//字数限制显示
+			//判断项目创新类型其他是否选中
 			
+			//字数限制显示
 			$.each($('.textarea_h'),function(i,data){
 				$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 				var font_num = 2000 - $(this).val().length;
