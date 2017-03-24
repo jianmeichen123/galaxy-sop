@@ -408,6 +408,7 @@ function validate(){
 						"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"msg":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3"){
 				var validate={
 						"allowNULL":"yes",
@@ -415,6 +416,7 @@ function validate(){
 						"regString":"^[0-9]{1,3}$",
 						"msg":"<font color=red>*</font>支持0～999的整数"			
 				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
 				var validate={
 						"allowNULL":"yes",
@@ -422,6 +424,7 @@ function validate(){
 						"regString":"^(([1-9][0-9]{0,2})|([0-9]{1,3}\.[1-9]{1,2})|([0-9]{1,3}\.[0][1-9]{1})|([0-9]{1,3}\.[1-9]{1}[0])|([1-9][0-9]{0,2}\.[0][0]))$",
 						"msg":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
 				var validate={
 						"allowNULL":"yes",
@@ -429,8 +432,8 @@ function validate(){
 						"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
 						"msg":"<font color=red>*</font>支持0～99999的整数和两位小数"			
 				}
+				inputs.eq(i).attr(validate);
 			}
-			inputs.eq(i).attr(validate);
 	 }
 	
 	
