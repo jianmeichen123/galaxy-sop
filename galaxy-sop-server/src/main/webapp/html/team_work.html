@@ -5,7 +5,7 @@
     <div class="qualifications_all" id="learning">
         <form action="" id="work_form" method="post">
             <input name="id" style="display:none;">
-            <input name="myid" style="display:none;">
+            <input name="index" style="display:none;">
            <div class="info clearfix">
             <dl class="fmdl fl">
                 <dt>&nbsp;任职时间：</dt>
@@ -44,34 +44,35 @@
 
     $(".add_team_work").on("click",function(){
         var json =  getData($("#work_form"));
-        alert(json["myid"])
-        if(!json["myid"]){
-            //如果id为空,新增一条记录
-            var myID = "static" + guid();
-            var str="<div id='"+myID+"' data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'></span><span name='field1'>"+json['field1']+"年</span><span>～</span><span name='field2'>"+json['field2']+"年</span></div>"+
+        var index = json["index"];
+        if(!index){
+            //新增一条记录
+            var str="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span><span name='field1'>"+json['field1']+"年</span><span>～</span><span name='field2'>"+json['field2']+"年</span></div>"+
             "<div class='team_p_two'>"+
                 "<ul>"+
                     "<li><span>公司：</span><span name='field3'>"+json['field3']+"</span></li>"+
                     "<li><span>职位：</span><span name='field4'>"+json['field4']+"</span></li>"+
                 "</ul>"+
                 "<div class='team_click'>"+
-                    "<span class='blue team_work_add'  href='/sop/html/team_work.html' data-id='"+myID+"' >编辑</span>"+
-                    "<span class='blue' onclick='delete_row(this)' data-id='"+myID+"'>删除</span>"+
+                    "<span class='blue '  onclick='editWork(this)'   >编辑</span>"+
+                    "<span class='blue' onclick='delete_row(this)' >删除</span>"+
                 "</div>"+
             "</div>"+
             "<div class='team_p_two'><span  name='field5'>"+json['field5']+"</span></div></div>";
             $("#team_work").append(str);
         }else{
-            if($('#'+json["myid"]).length>0){
-                var list = $('#'+json["myid"]).find("*[name]");
+                var div = $("#team_work").find("div[data-flag]:eq("+index+")");
+
+                var list = div.find("*[name]");
                 $(list).each(function(){
-                      var key = "";
-                      key = $(this).attr("name");
-                      alert(key+":"+json[key])
+                      var key = $(this).attr("name");
                       $(this).html(json[key]);
                 })
-            }
         }
         $("#close_work").click();
     })
+</script>
+
+<script>
+
 </script>

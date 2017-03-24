@@ -405,6 +405,39 @@
 		var data = {
 			projectId : projectInfo.id
 		};
+
+		if(sec.attr("id") =="b_NO3_1"){
+        		//表格
+        		var dataList = new Array();
+        		$.each(sec.find("table.editable"),function(){
+        			$.each($(this).find('tr:gt(0)'),function(){
+        				var row = $(this).data("obj");
+        				if(row.id=="")
+        				{
+        					row.id=null;
+        				}
+        				row.projectId=projectInfo.id
+        				dataList.push(row);
+        			});
+        		});
+
+                sendPostRequestByJsonObj(
+                platformUrl.saveTeamMember,
+                {"dataList":dataList},
+                function(data) {
+                    var result = data.result.status;
+                    if (result == 'OK') {
+                        layer.msg('保存成功');
+                        var parent = $(sec).parent();
+                        var id = parent.data('sectionId')
+                        $(btn).next().click();
+                        refreshSection(id)
+                    } else {
+
+                    }
+            })
+            return;
+        }
 		//普通结果
 		var infoModeList = new Array();
 		$.each(fields,function(){
@@ -427,38 +460,42 @@
 		data.infoModeList = infoModeList;
 		//表格
 		var infoTableModelList = new Array();
-		/*$.each(sec.find("table.editable"),function(){
+		$.each(sec.find("table.editable"),function(){
 			$.each($(this).find('tr:gt(0)'),function(){
 				var row = $(this).data();
 				if(row.id=="")
 				{
 					row.id=null;
 				}
+				console.log("data")
+				console.log(data)
 				infoTableModelList.push($(this).data());
 			});
-		});*/
+		});
+
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
+        sendPostRequestByJsonObj(
+        			platformUrl.saveOrUpdateInfo ,
+        			data,
+        			function(data) {
+        				var result = data.result.status;
+        				if (result == 'OK') {
+        					layer.msg('保存成功');
 
-		sendPostRequestByJsonObj(
-			platformUrl.saveOrUpdateInfo ,
-			data,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					layer.msg('保存成功');
+        					deletedRowIds = new Array();
+        					var parent = $(sec).parent();
+        					//console.log(parent[0]);
+        					var id = parent.data('sectionId');
+        					//console.log(id);
+        					$(btn).next().click();
+        					refreshSection(id)
+        				} else {
 
-					deletedRowIds = new Array();
-					var parent = $(sec).parent();
-					console.log(parent[0]);
-					var id = parent.data('sectionId');
-					console.log(id);
-					$(btn).next().click();
-					refreshSection(id)
-				} else {
+        				}
+        		})
 
-				}
-		})
+
 	});
 function refreshSection(id)
 {
@@ -536,8 +573,10 @@ function addRow(ele)
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+
 			$("#detail-form input[name='projectId']").val(projectInfo.id);
 			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+			$("#detail-form input[name='code']").val($(ele).prev().data('code'));
 			$("#save-detail-btn").click(function(){
 				var data = $("#detail-form").serializeObject();
 				saveRow(data);

@@ -1143,11 +1143,19 @@ var platformUrl = {
 	/**
 	 * 保存result
 	 */
-	saveRow : Constants.sopEndpointURL + "galaxy/team/saveRow"
-	
-	
-	
-	
+	saveRow : Constants.sopEndpointURL + "galaxy/team/saveRow",
+
+	/**
+	 *保存团队成员
+	 */
+	saveTeamMember: Constants.sopEndpointURL + "/galaxy/team/saveorUpdate",
+
+	/**
+	 *查询成员列表
+	 */
+	 queryMemberList: Constants.sopEndpointURL + "/galaxy/team/queryRowsList/"
+
+
 	
 }
 

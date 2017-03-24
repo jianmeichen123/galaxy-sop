@@ -51,6 +51,8 @@ public class InformationListdata extends PagableEntity{
     
     private Set<String> titleIds;
 
+    private List<InformationListdata> dataList;
+
     private List<InformationListdata> workList;
 
     private List<InformationListdata> studyList;
@@ -273,5 +275,12 @@ public class InformationListdata extends PagableEntity{
 	public void setIds(Set<String> ids) {
 		this.ids = ids;
 	}
-    
+
+    public void setDataList(List<InformationListdata> dataList) {
+        this.dataList = dataList;
+    }
+
+    public List<InformationListdata> getDataList() {
+        return dataList;
+    }
 }

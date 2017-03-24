@@ -108,36 +108,36 @@ function tabInfoChange(index){
 		var pid = $(this).data('sectionId');
 
 		if(pid == 1302){
-		     sendGetRequest("http://fx.local.galaxyinternet.com/sop/galaxy/team/queryRowsList/1302/1",null,function(data){
+		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {
                     var entityList = data.entityList;
                     var data = entityList[0]
-
-                    buildResults(sec,data,readonly);
-                    buildTable(sec,data);
+                    buildMemberTable(sec,data);
                 }
 		     })
-		}
+		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
-				function(data) {
-			
-			var result = data.result.status;
-			if (result == 'OK') 
-			{
-				var entityList = data.entityList;
-				if(entityList && entityList.length >0)
-				{
-					$.each(entityList,function(){
-						var title = this;
-						buildResults(sec,title,readonly);
-						buildTable(sec,title);
-						buildfinxedTable(sec,title,readonly);
-					});
-				}
-			} 
-		})
+        				function(data) {
+
+        			var result = data.result.status;
+        			if (result == 'OK')
+        			{
+        				var entityList = data.entityList;
+        				if(entityList && entityList.length >0)
+        				{
+        					$.each(entityList,function(){
+        						var title = this;
+        						buildResults(sec,title,readonly);
+        						buildTable(sec,title);
+        						buildfinxedTable(sec,title,readonly);
+        					});
+        				}
+        			}
+        		})
+		}
+
 };
 
 function buildResults(sec,title,readonly)
@@ -193,6 +193,71 @@ function buildResults(sec,title,readonly)
 		}
 	}
 }
+function buildMemberTable(sec,title){
+    //列表Header
+    	if(title.tableHeader)
+    	{
+    		var header = title.tableHeader;
+    		var tables = $("table[data-title-id='"+header.titleId+"']");
+    		$.each(tables,function(){
+    			var table = $(this);
+    			table.attr('data-code',header.code);
+    			table.empty();
+    			var tr="<thead><tr>";
+    			for(var key in header)
+    			{
+    				if(key.indexOf('field')>-1)
+    				{
+    					tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+    				}
+    			}
+    			var editable = table.hasClass('editable');
+    			if(editable == true)
+    			{
+    				tr +='<th data-field-name="opt">操作</th>';
+    			}
+    			tr+="</tr></thead>";
+    			table.append(tr);
+    		});
+    	}
+    	//列表Row
+    	if(title.dataList)
+    	{
+    		$.each(title.dataList,function(){
+    			var row = this;
+    			var tables = $("table[data-title-id='"+row.titleId+"']");
+    			$.each(tables,function(){
+    				var table = $(this);
+    				var tr = buildMemberRow(row,table.hasClass('editable'));
+    				table.append(tr);
+    			});
+    		});
+    	}
+}
+function buildMemberRow(row,showOpts)
+{
+	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
+	tr.data("obj",row);
+	for(var key in row)
+	{
+		//设置data
+		tr.data(key,row[key]);
+		if(key.indexOf('field')>-1)
+		{
+			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+		}
+	}
+	if(showOpts == true)
+	{
+		var td = $('<td data-field-name="opt"></td>');
+		td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
+		td.append('<span class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</span>');
+		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+		tr.append(td);
+	}
+	return tr;
+}
+
 function buildTable(sec,title)
 {
 	//列表Header
@@ -226,13 +291,11 @@ function buildTable(sec,title)
 	{
 		$.each(title.dataList,function(){
 			var row = this;
-			alert(row.titleId)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			$.each(tables,function(){
 				var table = $(this);
 				var tr = buildRow(row,table.hasClass('editable'));
 				table.append(tr);
-				console.log(table.html())
 			});
 		});
 	}

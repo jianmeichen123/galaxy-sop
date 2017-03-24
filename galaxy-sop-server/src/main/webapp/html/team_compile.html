@@ -2,8 +2,12 @@
 	<div class="title_bj" id="qualifications_popup_name"></div>
     <div class="qualifications_all">
     	<div class="team_tit"><span class="team_ico team_ico_jb"></span>基本信息</div>
-    	<ul class="team_compile_ul" id="teamInfo">
+    	<ul class="team_compile_ul" id="detail-form">
 			<input name="id" type="text" style="display:none">
+			<input name="index" type="text" style="display:none">
+			<input name="code"  type="text" style="display:none">
+			<input name="projectId" type="text" style="display:none">
+			<input name="titleId"  type="text" style="display:none">
    			<li>
    				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;姓名：</span>
 	            <input name="field1" type="text" class="txt ">
@@ -42,21 +46,9 @@
    			</li>
    		</ul>
     	<div class="team_tit"><span class="team_ico team_ico_study"></span>学习经历<span class="team_ico team_ico_add team_learn_add"  href="/sop/html/team_learn.html"  ></span></div>
-		<div class="team_p" >
+		<div class="team_p" id="team_learn">
 
 		</div>
-		<table id="team_learn">
-			<thead>
-				<tr>
-					<th>毕业时间</th>
-					<th>学校</th>
-					<th>学位</th>
-					<th>所学专业</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-
-		</table>
 
 		<div class="team_tit"><span class="team_ico team_ico_work"></span>工作经历<span class="team_ico team_ico_add team_work_add"  href="/sop/html/team_work.html" ></span></div>
     	<div class="team_p" id="team_work">

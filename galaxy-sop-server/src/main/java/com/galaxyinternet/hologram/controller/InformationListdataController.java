@@ -70,31 +70,45 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
      */
     @RequestMapping(value = "/saveorUpdate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseData<InformationData> saveOrupdate(@RequestBody InformationData data){
-        ResponseData<InformationData> responseBody = new ResponseData<>();
+    public ResponseData<InformationListdata> saveOrupdate(@RequestBody InformationListdata data){
+        ResponseData<InformationListdata> responseBody = new ResponseData<>();
         try{
-            List<TableModel> tableModelList = data.getInfoTableModelList();
-            if(tableModelList.size() >0) {
-                TableModel baseInfoEntity = tableModelList.get(0);
-                if (baseInfoEntity.getCode().equals("team-members")) {
-                    InformationListdata entity = new InformationListdata();
-                    entity.setProjectId(Long.valueOf(data.getProjectId()));
-                    entity.setTitleId(Long.valueOf(baseInfoEntity.getTitleId()));
-                    entity.setCode(baseInfoEntity.getCode());
-                    entity.setField1(baseInfoEntity.getField1());
-                    entity.setField2(baseInfoEntity.getField2());
-                    entity.setField3(baseInfoEntity.getField3());
-                    entity.setField4(baseInfoEntity.getField4());
-                    informationListdataService.insert(entity);
-                    Long id = entity.getId();
-                    for (TableModel model : tableModelList) {
-                        if (model.getCode().equals("team-members")) {
-                            continue;
+            List<InformationListdata> listdataList = data.getDataList();
+            if(listdataList != null && !listdataList.isEmpty()){
+                //先删除之前的成员列表
+                InformationListdata query = new InformationListdata();
+                query.setTitleId(listdataList.get(0).getTitleId());
+                query.setProjectId(listdataList.get(0).getProjectId());
+                informationListdataService.delete(query);
+
+                for (InformationListdata entity : listdataList){
+                    if(entity.getCode().equals("team-members")){
+                        informationListdataService.insert(entity);
+                        Long id = entity.getId();
+                        List<InformationListdata> studyList = entity.getStudyList();
+                        List<InformationListdata> workList = entity.getWorkList();
+                        List<InformationListdata> startupList = entity.getStartupList();
+                        if(studyList!=null &&!studyList.isEmpty()){
+                            for(InformationListdata study:studyList){
+                                study.setParentId(id);
+                            }
+                            informationListdataService.insertInBatch(studyList);
                         }
-                        model.setParentId(id);
+                        if(workList!=null &&!workList.isEmpty()){
+                            for(InformationListdata work:workList){
+                                work.setParentId(id);
+                            }
+                            informationListdataService.insertInBatch(workList);
+                        }
+                        if(startupList!=null &&!startupList.isEmpty()){
+                            for(InformationListdata startup:startupList){
+                                startup.setParentId(id);
+                            }
+                            informationListdataService.insertInBatch(startupList);
+                        }
+
                     }
                 }
-                infoDataService.save(data);
             }
         }catch(Exception e ){
             responseBody.setResult(new Result(Result.Status.ERROR,null, "保存失败"));
@@ -126,7 +140,9 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
                 if(dataList!=null && dataList.size()>0){
                     for(InformationListdata data :dataList){
                         if(data.getParentId()==null){
-                            resultList.add(data);
+                            //查询成员的工作学习创业经历
+                            InformationListdata info = informationListdataService.queryMemberById(data.getId());
+                            resultList.add(info);
                         }
                     }
                 }

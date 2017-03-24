@@ -6,7 +6,7 @@
 
         <form action="" id="startup_form" method="post">
             <input name="id" style="display:none;">
-            <input name="myid" style="display:none;">
+            <input name="index" style="display:none;">
             <div class="info clearfix">
                 <dl class="fmdl fl">
                     <dt>创业时间：</dt>
@@ -73,38 +73,48 @@
 	}
      $(".add_team_startup").on("click",function(){
         var json = getData1($("#startup_form"));
-        if(!json["myid"]){
-              //如果id为空,新增一条记录
-              var myID = "static" + guid();
-              var str = "<div id='"+myID+"' data-flag data-a='"+json["field3"]+"' data-b='"+json["field4"]+"' data-c='"+json["field5"]+"' data-d='"+json["field6"]+"' >"+
-              "<span name='id' style='display:none'></span>"+
+        var index = json["index"];
+
+        if(!index){
+
+              //新增一条记录
+              var str = "<div  data-flag data-a='"+json["field3"]+"' data-b='"+json["field4"]+"' data-c='"+json["field5"]+"' data-d='"+json["field6"]+"' >"+
+              "<span name='id' style='display:none'>"+json["id"]+"</span>"+
               "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+json["field1"]+"</span><span>～</span><span name='field2'>"+json["field2"]+"</span></div>"+
 			  "<div class='team_p_two'>"+
 				"<ul>"+
 					"<li data-mix >"+json["field3"]+"/"+json["field4"]+"/"+json["field5"]+"</li>"+
 				"</ul>"+
 				"<div class='team_click'>"+
-					 "<span class='blue team_startup_add'  href='/sop/html/team_startup.html' data-id='"+myID+"' >编辑</span>"+
-                     "<span class='blue' onclick='delete_row(this)' data-id='"+myID+"'>删除</span>"+
+					 "<span class='blue '  onclick='editStartup(this)' >编辑</span>"+
+                     "<span class='blue' onclick='delete_row(this)' >删除</span>"+
  				"</div>"+
 			   "</div>"+
 			   "<div class='team_p_two' name='field7'>"+json["field7"]+"</div></div>"
             $("#team_startup").append(str);
         }else{
-            //修改操作,根据id修改dom元素的值
-            if($('#'+json["myid"]).length>0){
-                    var div = $('#'+json["myid"]);
-                    var list = div.find("*[name]");
-                    $(list).each(function(){
-                          var key = $(this).attr("name");
-                          $(this).html(json[key]);
-                    })
-                    div.attr("data-a",json["field3"]);
-                    div.attr("data-b",json["field4"]);
-                    div.attr("data-c",json["field5"]);
-                    div.attr("data-d",json["field6"]);
-                    div.find("ul li[data-mix]").html(json["field3"]+"/"+json["field4"]+"/"+json["field5"]);
+            //修改操作
+            var div = $("#team_startup").find("div[data-flag]:eq("+index+")");
+            var list = div.find("*[name]");
+            $(list).each(function(){
+                  var key = $(this).attr("name");
+                  $(this).html(json[key]);
+            })
+            div.attr("data-a",json["field3"]);
+            div.attr("data-b",json["field4"]);
+            div.attr("data-c",json["field5"]);
+            div.attr("data-d",json["field6"]);
+            var str = "";
+            if(json["field3"]){
+                str+= json["field3"] ;
             }
+            if(json["field4"]){
+                str+= json["field4"] ;
+            }
+            if(json["field5"]){
+                str+= json["field5"] ;
+            }
+            div.find("ul li[data-mix]").html(str);
         }
         $("#close_startup").click();
     })

@@ -1,42 +1,242 @@
 
+function delete_row(ele){
+    var div=$(ele).closest('div[data-flag]');
+    div.remove();
+}
+function showMemberRow(ele){
+    var row = $(ele).closest('tr');
+     $.getHtml({
+    		url:"/sop/html/team_xk.html",//模版请求地址
+    		data:"",//传递参数
+    		okback:function(){
+    			$.each($("#detail-form").find("span"),function(){
+    				var ele = $(this);
+    				var name = ele.attr('name');
+    				ele.text(row.data(name));
+    			});
+    			//填充学习经历
+                var obj = row.data("obj")
+                var studyList = obj.studyList;
+                if(studyList.length>0){
+                    var study = getStudyList("add",studyList)
+                    $("#team_learn").append(study);
+                }
+                var startupList = obj.startupList;
+                if(startupList.length>0){
+                    var startup = getStartupList("add",startupList);
+                    $("#team_startup").append(startup);
+                }
+                var workList = obj.workList;
+                if(workList.length>0){
+                   var work = getWorkList("add",workList);
+                   $("#team_work").append(work);
+                }
+    		}
+     })
 
-function editRow1(ele,rowId)
-{
-	var code = $(ele).closest('table').data('code');
-	var row = $(ele).closest('tr');
-
-	alert(rowId)
-	$.getHtml({
-		url:getDetailUrl(code),//模版请求地址
+}
+function editMemberRow(ele){
+    var row = $(ele).closest('tr');
+    var index = row.index();
+    row.data("index",index);
+    $.getHtml({
+		url:"/sop/html/team_compile.html",//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			 if(rowId){
-                alert(rowId);
-                sendGetRequest("http://fx.local.galaxyinternet.com/sop/galaxy/team/queryOneRow/"+rowId,null,function(data){
+			$.each($("#detail-form").find("input, select, textarea"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.val(row.data(name));
+			});
+            //填充学习经历
+            var obj = row.data("obj")
+            console.log(obj)
+            var studyList = obj.studyList;
+            if(studyList.length>0){
+                var study = getStudyList("edit",studyList)
+                $("#team_learn").append(study);
+            }
 
-                    var baseEntity = data.entity;
-                    var studyList = data.studyList;
-                    var  startupList = data.startupList;
-                    var workList = data.workList;
-                    //填充基本信息
-                    $.each($("#teamInfo").find("input, select, textarea"),function(){
-                        var ele = $(this);
-                        var name = ele.attr('name');
-                        ele.val(baseEntity[name]);
-                    });
-                    //填充学习经历
-
-                    //填充工作经历
-
-                    //填充创业经历
-
-
-                })
+            var startupList = obj.startupList;
+            if(startupList.length>0){
+                var startup = getStartupList("edit",startupList);
+                $("#team_startup").append(startup);
+            }
+            var workList = obj.workList;
+            if(workList.length>0){
+               var work = getWorkList("edit",workList);
+               $("#team_work").append(work);
             }
 		}//模版反回成功执行
 	});
 }
-function delete_row(obj){
-		var id = obj.attributes["data-id"].nodeValue;
-		$('#'+id).remove();
+
+function getStudyList(flag,studyList){
+        var study = "";
+        $(studyList).each(function(){
+               var o = $(this)[0];
+               var tmp = "<div  data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span></div>"+
+                        "<div class='team_p_two'>"+
+                            "<ul>"+
+                                "<li><span>学校：</span><span name='field2'>"+o.field2+"</span></li>"+
+                                "<li><span>学位：</span><span name='field3'>"+o.field3+"</span></li>"+
+                                "<li><span>所学专业：</span><span name='field4'>"+o.field4+"</span></li>"+
+                            "</ul>";
+                            if(flag=="edit"){
+                                var str ="<div class='team_click'>"+
+                                         "<span class='blue'  onclick='editStudy(this)' >编辑</span>"+
+                                         "<span class='blue' onclick='delete_row(this)'>删除</span>"+
+                                         "</div>"
+                                tmp += str;
+                            }
+
+          tmp +="</div></div>"
+          study += tmp;
+        })
+        return study;
 }
+function getStartupList(flag,startupList){
+
+        var startup ="";
+        $(startupList).each(function(){
+             var o = $(this)[0];
+             var str = "<div  data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
+                           "<span name='id' style='display:none'>"+o.id+"</span>"+
+                           "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span></div>"+
+                          "<div class='team_p_two'>"+
+                         "<ul><li data-mix >";
+            if(o.field3){
+                str+= o.field3 +" ";
+            }
+            if(o.field4){
+                str+= o.field4 +" ";
+            }
+            if(o.filed5){
+                str+= o.field5 +" ";
+            }
+
+            str+="</li></ul>";
+            if(flag=="edit"){
+                str+="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span>";
+                str+="<span class='blue' onclick='delete_row(this)'>删除</span></div>";
+            }
+            str+="</div><div class='team_p_two' name='field7'>"+o.field7+"</div></div>"
+            startup += str;
+        })
+        return startup;
+
+}
+function getWorkList(flag,workList){
+       var work ="";
+       $(workList).each(function(){
+         var o =$(this)[0];
+         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span><span name='field1'>"+o.field1+"年</span><span>～</span><span name='field2'>"+o.field2+"年</span></div>"+
+                                    "<div class='team_p_two'>"+
+                                        "<ul>"+
+                                            "<li><span>公司：</span><span name='field3'>"+o.field3+"</span></li>"+
+                                            "<li><span>职位：</span><span name='field4'>"+o.field4+"</span></li>"+
+                                        "</ul>"
+                                        if(flag=="edit"){
+                                            var str =  "<div class='team_click'>"+
+                                                          "<span class='blue '  onclick='editWork(this)'  >编辑</span>"+
+                                                          "<span class='blue' onclick='delete_row(this)' >删除</span>"+
+                                                      "</div>"
+                                            tmp += str;
+                                        }
+          tmp += "</div><div class='team_p_two'><span  name='field5'>"+o.field5+"</span></div></div>";
+          work += tmp;
+       })
+       return work;
+}
+ function editStudy(ele){
+          var div=$(ele).closest('div[data-flag]');
+           var index = div.index();
+	      $.getHtml({
+        		url:"/sop/html/team_learn.html",//模版请求地址
+        		data:"",//传递参数
+        		okback:function(){
+                    var json = getData(div);
+        			var list = div.find("*[name]");
+                    $(list).each(function(){
+                          var key = "";
+                          var value = "";
+                          key = $(this).attr("name");
+                          value = $(this).text();
+                          json[key]=value;
+                          json["index"]=index;
+                    })
+
+                    $.each($("#learn_form").find("input, select, textarea"),function(){
+                        var ele = $(this);
+                        var name = ele.attr('name');
+                        ele.val(json[name]);
+                    });
+        		}
+          })
+
+ }
+ function editWork(ele){
+          var div=$(ele).closest('div[data-flag]');
+          var index = div.index();
+
+	      $.getHtml({
+        		url:"/sop/html/team_work.html",//模版请求地址
+        		data:"",//传递参数
+        		okback:function(){
+                    var json = getData(div);
+        			var list = div.find("*[name]");
+                    $(list).each(function(){
+                          var key = "";
+                          var value = "";
+                          key = $(this).attr("name");
+                          value = $(this).text();
+                          json[key]=value;
+                          json["index"]=index;
+                    })
+
+                    $.each($("#work_form").find("input, select, textarea"),function(){
+                        var ele = $(this);
+                        var name = ele.attr('name');
+                        ele.val(json[name]);
+                    });
+        		}
+          })
+          return false;
+ }
+  function editStartup(ele){
+           var div=$(ele).closest('div[data-flag]');
+           var index =div.index();
+
+ 	       $.getHtml({
+         		url:"/sop/html/team_startup.html",//模版请求地址
+         		data:"",//传递参数
+         		okback:function(){
+                    var json = getData(div);
+         			var list = div.find("*[name]");
+                     $(list).each(function(){
+                           var key = "";
+                           var value = "";
+                           key = $(this).attr("name");
+                           value = $(this).text();
+                           json[key]=value;
+                           json["index"]=index;
+                     })
+                     $.each($("#startup_form").find("input, select, textarea"),function(){
+                         var ele = $(this);
+                         var name = ele.attr('name');
+                         ele.val(json[name]);
+                     });
+                    $("#startup_form").find("[name='field1']").val(json["field1"]);
+                    $("#startup_form").find("[name='field2']").val(json["field2"]);
+                    $("#startup_form").find("[name='field3']").val(div.attr("data-a"));
+                    $("#startup_form").find("[name='field4'][value='" + div.attr("data-b") + "']").prop("checked", "checked");
+                    $("#startup_form").find("[name='field5']").val(div.attr("data-c"));
+                    $("#startup_form").find("[name='field6']").val(div.attr("data-d"));
+                    $("#startup_form").find("[name='field7']").text(json["field7"]);
+         		}
+           })
+           return false;
+  }
+
+
