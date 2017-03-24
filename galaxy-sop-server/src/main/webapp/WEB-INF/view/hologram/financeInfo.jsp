@@ -415,18 +415,7 @@
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
 					validate();
-					$("#b_"+id_code).validate({
-						submitHandler: function() {
-							//验证通过后 的js代码写在这里
-						}
-					})
-					jQuery.validator.addMethod("age", function(value, element) {   
-						var age = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
-						return this.optional(element) || (age.test(value));
-					}, "不能超过120岁"); 
-					$.validator.setDefaults({
-						errorElement:'span'
-					});
+					$("#b_"+id_code).validate();
 				} else {
 
 				}
@@ -469,13 +458,15 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		var validate = false;
 		//验证插件调用
 		$("#b_"+id_code).validate({
 			submitHandler: function() {
 				//验证通过后 的js代码写在这里
+				validate = true;
 			}
 		})
-		if(beforeSubmit()){
+		if(validate == true && beforeSubmit()){
 			///validate();
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 

@@ -9,6 +9,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 <title>项目详情</title>
 </head>
 <body>
@@ -35,7 +38,8 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit section" id="b_\${code}">
+<form id="b_\${code}">
+<div class="h_edit section" >
 	<div class="h_btnbox">
 		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
@@ -49,7 +53,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -139,7 +143,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -229,7 +233,8 @@
 					
 					{{/each}}
 	
-</div>										
+</div>	
+</form>								
 </script>
 
 
@@ -381,6 +386,8 @@
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					validate();
+					$("#b_"+id_code).validate();
 				} else {
 
 				}
@@ -437,6 +444,19 @@
 		});
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
+		
+		var validate = false;
+		//验证插件调用
+		$("#b_"+id_code).validate({
+			submitHandler: function() {
+				//验证通过后 的js代码写在这里
+				validate = true;
+			}
+		});
+		if(validate == false)
+		{
+			return;
+		}
 		
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 

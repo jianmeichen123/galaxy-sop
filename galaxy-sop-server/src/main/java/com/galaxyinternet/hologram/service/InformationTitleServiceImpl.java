@@ -20,6 +20,7 @@ import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationDictionary;
@@ -51,6 +52,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
+	@Autowired
+	private LocalCache localCache;
 	
 	@Override
 	protected BaseDao<InformationTitle, Long> getBaseDao() {
@@ -538,8 +541,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Override
 	public List<InformationTitle> searchWithData(String titleId,String projectId) 
 	{
+		String key = "titles:"+titleId;
 		//查询子标题
-		List<InformationTitle> treeList = selectByTlist(selectChildsByPid(Long.valueOf(titleId)));
+		List<InformationTitle> treeList;
+		if(localCache.containsKey(key))
+		{
+			treeList = (List<InformationTitle>)localCache.get(key);
+		}
+		else
+		{
+			treeList = selectByTlist(selectChildsByPid(Long.valueOf(titleId)));
+			localCache.put(key, treeList);
+		}
 		if(treeList == null || treeList.size()==0)
 		{
 			return null;
