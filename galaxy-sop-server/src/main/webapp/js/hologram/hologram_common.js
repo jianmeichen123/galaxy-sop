@@ -221,7 +221,12 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
-				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1.replace(/<br>/g,'\n'));
+				var str=title.resultList[0].contentDescribe1;
+				if(str){
+					str=str.replace(/<br>/g,'\n');
+					str=str.replace(/&nbsp;/g," ");
+				}
+				$("textarea[data-title-id='"+title.id+"']").val(str);
 			}
 		}
 	}
