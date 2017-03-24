@@ -114,7 +114,11 @@ function tabInfoChange(index){
                 if (result == 'OK')
                 {
                     var entityList = data.entityList;
-                    var data = entityList[0]
+                    $(entityList).each(function(){
+                        if($(this)[0]["tableHeader"]){
+                            data = $(this)[0]
+                        }
+                    })
                     buildMemberTable(sec,data);
                 }
 		     })
