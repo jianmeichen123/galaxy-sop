@@ -1,3 +1,20 @@
+//textarea_h自适应高度
+function textarea_h(data){
+	var height = data.scrollHeight ;
+	if(data.scrollHeight>data.offsetHeight){
+		data.style.height= height+'px';
+	}
+//	字数
+	data.value=data.value.replace(/\<br \/\>/g,'\n');
+	var taxt_length = data.value.length;
+	var parent= data.parentNode;
+	var p_node = parent.childNodes[1];
+	var font_num = p_node.childNodes[0];
+	var lable = document.createElement("lable");
+	$(font_num).html(2000 - taxt_length);
+}
+
+
 
 
 
@@ -404,7 +421,7 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' > ></textarea>" +
 				"<p class=\"num_tj\"><label>0</label>/2000</p>" +
 			"</dd>";	
 		var results = title.resultList;
@@ -414,10 +431,10 @@ function type_5_html(title,mark){
 					eresult_2 = 
 						"<dd class=\"fl_none\">" +
 							"<textarea class=\"textarea_h\" " +
-								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' >" +
+								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' oninput=textarea_h(this) >" +
 								results[i].contentDescribe1 +
 							"</textarea>" +
-							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
+							"<p class=\"num_tj\"><label>2000</label><span>/2000</span></p>" +
 						"</dd>";	
 					break;
 				}
