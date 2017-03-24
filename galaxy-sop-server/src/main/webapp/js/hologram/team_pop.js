@@ -3,6 +3,7 @@ function delete_row(ele){
     var div=$(ele).closest('div[data-flag]');
     div.remove();
 }
+//查看团队成员弹窗
 function showMemberRow(ele){
     var row = $(ele).closest('tr');
      $.getHtml({
@@ -35,6 +36,7 @@ function showMemberRow(ele){
      })
 
 }
+ //编辑成员简历弹窗
 function editMemberRow(ele){
     var row = $(ele).closest('tr');
     var index = row.index();
@@ -48,9 +50,10 @@ function editMemberRow(ele){
 				var name = ele.attr('name');
 				ele.val(row.data(name));
 			});
+			$("input:radio[name='field2'][data-value='" + row.data("field2") + "']").prop("checked", "checked");
             //填充学习经历
             var obj = row.data("obj")
-            console.log(obj)
+
             var studyList = obj.studyList;
             if(studyList.length>0){
                 var study = getStudyList("edit",studyList)
@@ -149,6 +152,7 @@ function getWorkList(flag,workList){
        })
        return work;
 }
+ //编辑学习经历弹窗
  function editStudy(ele){
           var div=$(ele).closest('div[data-flag]');
            var index = div.index();
@@ -172,10 +176,13 @@ function getWorkList(flag,workList){
                         var name = ele.attr('name');
                         ele.val(json[name]);
                     });
+                    $("input:radio[name='field2'][value='" + json["field2"] + "']").prop("checked", "checked");
+
         		}
           })
 
  }
+ //编辑工作经历弹窗
  function editWork(ele){
           var div=$(ele).closest('div[data-flag]');
           var index = div.index();
@@ -204,6 +211,7 @@ function getWorkList(flag,workList){
           })
           return false;
  }
+ //编辑创业经历弹窗
   function editStartup(ele){
            var div=$(ele).closest('div[data-flag]');
            var index =div.index();
@@ -227,13 +235,16 @@ function getWorkList(flag,workList){
                          var name = ele.attr('name');
                          ele.val(json[name]);
                      });
+
                     $("#startup_form").find("[name='field1']").val(json["field1"]);
                     $("#startup_form").find("[name='field2']").val(json["field2"]);
                     $("#startup_form").find("[name='field3']").val(div.attr("data-a"));
-                    $("#startup_form").find("[name='field4'][value='" + div.attr("data-b") + "']").prop("checked", "checked");
+                    $("#startup_form").find("[name='field4'][data-value='" + div.attr("data-b") + "']").prop("checked", "checked");
                     $("#startup_form").find("[name='field5']").val(div.attr("data-c"));
                     $("#startup_form").find("[name='field6']").val(div.attr("data-d"));
                     $("#startup_form").find("[name='field7']").text(json["field7"]);
+
+
          		}
            })
            return false;

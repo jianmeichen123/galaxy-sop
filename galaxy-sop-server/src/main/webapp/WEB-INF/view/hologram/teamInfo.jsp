@@ -13,7 +13,7 @@
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
-<script src="<%=path%>/js/hologram/team.js"></script>
+<script src="<%=path%>/js/hologram/team_pop.js"></script>
 </head>
 <body>
 <ul class="h_navbar clearfix">

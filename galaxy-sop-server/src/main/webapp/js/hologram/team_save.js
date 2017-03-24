@@ -9,12 +9,14 @@
             var ele = $(this);
             var name = ele.attr('name');
             row[name]= ele.val();
+            row["field2"] = $("#detail-form").find("input:radio[name='field2']:checked").attr("data-value");
         });
 
         $.each($("#detail-form").find("input, select"),function(){
             var ele = $(this);
             var name = ele.attr('name');
             data[name]= ele.val();
+            data["field2"] = $("#detail-form").find("input:radio[name='field2']:checked").attr("data-value");
         });
         var titleId = data["titleId"]
         var projectId = data["projectId"]
@@ -82,32 +84,38 @@
          })
         data["startupList"]=startupList;
 
-
-
         var index = data["index"]
+        //获取表头,
+        var headerList =   $('table[data-title-id="'+titleId+'"].editable').find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
         if(typeof index == 'undefined' || index == null || index == '')
         {
-            var tr = buildMemberRow(row,true);
+            var tr = buildMemberRow(headerList,row,true);
             tr.data("obj",data);
             $('table[data-title-id="'+titleId+'"].editable').append(tr);
         }
         else
         {
             var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
-
-            console.log(data);
             tr.data("obj",data);
             var i = tr.data("obj");
-
-            console.log(i);
+            //解决字段无值列错位的问题
             for(var key in row)
             {
+                tr.data(key,row[key]);
+            }
+            $(headerList).each(function(){
+                var key = $(this).attr("data-field-name");
                 if(key.indexOf('field')>-1)
                 {
-                    tr.data(key,row[key]);
-                    tr.find('td[data-field-name="'+key+'"]').text(row[key]);
+                    if(row[key]){
+                        tr.find('td[data-field-name="'+key+'"]').text(row[key]);
+                    }else{
+                        tr.data(key,"未知");
+                        tr.find('td[data-field-name="'+key+'"]').text("未知");
+                    }
                 }
-            }
+             })
+             //解决字段无值列错位的问题
         }
         $("a[data-close='close']").click();
     })
@@ -171,7 +179,6 @@
 	  	var $self = $(this);
 		var _url = $self.attr("href");
 		var _name= $self.attr("data-name");
-
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数

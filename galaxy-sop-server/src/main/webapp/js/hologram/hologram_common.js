@@ -113,7 +113,7 @@ function tabInfoChange(index){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {
-                    var entityList = data.entityList;
+                   var entityList = data.entityList;
                     $(entityList).each(function(){
                         if($(this)[0]["tableHeader"]){
                             data = $(this)[0]
@@ -227,7 +227,7 @@ function buildResults(sec,title,readonly)
 	}
 }
 function buildMemberTable(sec,title){
-    //列表Header
+        //列表Header
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -236,7 +236,7 @@ function buildMemberTable(sec,title){
     			var table = $(this);
     			table.attr('data-code',header.code);
     			table.empty();
-    			var tr="<thead><tr>";
+    			var tr="<tr>";
     			for(var key in header)
     			{
     				if(key.indexOf('field')>-1)
@@ -249,7 +249,7 @@ function buildMemberTable(sec,title){
     			{
     				tr +='<th data-field-name="opt">操作</th>';
     			}
-    			tr+="</tr></thead>";
+    			tr+="</tr>";
     			table.append(tr);
     		});
     	}
@@ -259,27 +259,40 @@ function buildMemberTable(sec,title){
     		$.each(title.dataList,function(){
     			var row = this;
     			var tables = $("table[data-title-id='"+row.titleId+"']");
+
     			$.each(tables,function(){
     				var table = $(this);
-    				var tr = buildMemberRow(row,table.hasClass('editable'));
+    				var headerList = table.find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
+    				var tr = buildMemberRow(headerList,row,table.hasClass('editable'));
     				table.append(tr);
     			});
     		});
     	}
 }
-function buildMemberRow(row,showOpts)
+function buildMemberRow(headerList,row,showOpts)
 {
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	tr.data("obj",row);
-	for(var key in row)
-	{
-		//设置data
-		tr.data(key,row[key]);
-		if(key.indexOf('field')>-1)
-		{
-			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
-		}
-	}
+    for(var key in row)
+   	{
+    	//设置data
+   		tr.data(key,row[key]);
+   	}
+    $(headerList).each(function(){
+        var key = $(this).attr("data-field-name");
+        tr.data(key,row[key]);
+        if(key.indexOf('field')>-1)
+        {
+            if(row[key]){
+                tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+            }else{
+                tr.data(key,"未知");
+                tr.append('<td data-field-name="'+key+'">未知</td>');
+            }
+        }
+
+    })
+
 	if(showOpts == true)
 	{
 		var td = $('<td data-field-name="opt"></td>');
@@ -290,7 +303,6 @@ function buildMemberRow(row,showOpts)
 	}
 	return tr;
 }
-
 function buildTable(sec,title)
 {
 	//列表Header
@@ -302,7 +314,7 @@ function buildTable(sec,title)
 			var table = $(this);
 			table.attr('data-code',header.code);
 			table.empty();
-			var tr="<thead><tr>";
+			var tr="<tr>";
 			for(var key in header)
 			{
 				if(key.indexOf('field')>-1)
@@ -315,7 +327,7 @@ function buildTable(sec,title)
 			{
 				tr +='<th data-field-name="opt">操作</th>';
 			}
-			tr+="</tr></thead>";
+			tr+="</tr>";
 			table.append(tr);
 		});
 	}
