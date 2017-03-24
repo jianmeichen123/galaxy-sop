@@ -28,75 +28,7 @@
 	<div id="tab-content">
 		<div class="tabtxt" id="page_all">
 
-			<div class="h radius" id="NO5_2">
-
-
-
-				<div class="mb_24 clearfix">
-					<dl class="clearfix">
-						<dt data-type="10" data-id="1906" data-code="NO9_1_4"
-							data-parentid="">股权结构:</dt>
-						<dd>
-							<table data-title-id="1906" data-code="equity-structure">
-								<tbody>
-									<tr>
-										<th data-field-name="field1">股东名称</th>
-										<th data-field-name="field2">占股比例</th>
-										<th data-field-name="field3">股东类型</th>
-									</tr>
-								</tbody>
-							</table>
-						</dd>
-					</dl>
-				</div>
-
-
-
-
-				<div class="h_edit">
-					<div class="h_btnbox">
-						<span class="h_save_btn">保存</span>
-						<span class="h_cancel_btn" data-on="h_cancel">取消</span>
-					</div>
-					
-					<div class="h_title">股权结构合理性</div>
-					
-					<div class="mb_16">
-						<dl class="h_edit_txt clearfix">
-							<dt data-type="10" data-id="1325" data-code="NO3_8_1" data-parentid="1301">团队重要成员是否拥有足够、合理的股权:</dt>
-							<dd class="fl_none">
-								<table>
-									<tbody>
-										<tr>
-											<th>姓名</th>
-											<th>职位</th>
-											<th>性别</th>
-											<th>最高学历</th>
-											<th>操作</th>
-										</tr>
-										<tr>
-											<th>罗振宇</th>
-											<td>CEO</td>
-											<td>男</td>
-											<td>博士</td>
-											<td><span class="blue" data-btn="btn">查看</span><span
-												class="blue" data-btn="btn">编辑</span><span class="blue"
-												data-btn="btn">删除</span></td>
-										</tr>
-									</tbody>
-								</table>
-								<span class="pubbtn bluebtn" href="html/team_xk.html"
-									data-btn="addmen">新增</span>
-							</dd>
-						</dl>
-					</div>
-					
-					<div class="h_edit_btnbox clearfix">
-						<span class="pubbtn bluebtn fl" data-on="save">保存</span> <span
-							class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
-					</div>
-				</div>
-			</div>
+			<!-- <div class="h radius" id="NO5_2"> </div> -->
 
 			<div class="h radius" id="NO5_1"> </div>
 			<div class="h radius" id="NO5_3"> </div>
