@@ -11,6 +11,12 @@ function textarea_h(data){
 	var p_node = parent.childNodes[1];
 	var font_num = p_node.childNodes[0];
 	$(font_num).html(2000 - taxt_length);
+//	超出2000截取字符串
+	if(taxt_length>2000){
+		data.value = data.value.substr(0,2000);
+		$(font_num).html(0);
+		data.style.height= height+'px';
+	} 
 }
 
 
@@ -420,7 +426,7 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'  oninput=textarea_h(this) > </textarea>" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'  oninput=textarea_h(this)> </textarea>" +
 				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
 			"</dd>";	
 		var results = title.resultList;
