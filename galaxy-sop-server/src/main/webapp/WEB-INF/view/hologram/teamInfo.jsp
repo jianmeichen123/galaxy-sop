@@ -86,12 +86,12 @@
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-                            <li><input type="radio" value="\${id}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+                            <li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 							{{/each}}
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}""></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}"></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
@@ -117,7 +117,7 @@
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${id}" data-type="\${type}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}"></textarea>
 							<p class="num_tj">
 								<label for="">0</label>/2000
 							</p>
@@ -125,8 +125,8 @@
 
 						{{else type=="10"}}
 						<dd class="">
-							<table data-title-id="\{id}" class="editable" ></table>
-							<span class="pubbtn bluebtn"  data-btn="showPerson" href="/sop/html/team_compile.html" row-id >新增</span>
+							<table data-title-id="\{id}" class="editable"></table>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                         </dd>
 
 						{{else type=="11"}}
@@ -140,7 +140,7 @@
 					{{else}}
 					<div class="mb_16">
                        <dl class="h_edit_txt clearfix">
-						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
                         <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
 
@@ -181,7 +181,7 @@
                           </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
@@ -244,23 +244,23 @@
   <div class="h_look h_team_look clearfix" id="\${code}">
 	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<div class="h_title">\${name}</div>
-	{{each(i,childList) childList}}
-                    {{if sign=="3"}}
-						{{each(i,childList) childList}}
-							<div class="mb_24 clearfix">
-                      <dl class="clearfix">
-                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+{{each(i,childList) childList}}
+	{{if sign=="3"}}
+		{{each(i,childList) childList}}
+			<div class="mb_24 clearfix">
+	  <dl class="clearfix">
+		<dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
-						{{if type=="5"}}
-						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						<dd>备注</dd>
+		{{if type=="5"}}
+		<dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		<dd class="field-remark" data-id="\${id}">备注</dd>
 
 						{{else type=="2"}}
                         <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -310,7 +310,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -401,7 +401,7 @@
 		var btn = this;
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active']");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -442,14 +442,26 @@
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
-			var type = field.data('type');
+			var type = field.data('type') || field.closest('.h_edit_txt').find(':first-child').data('type');
 			var infoMode = {
-				titleId	: field.data('titleId'),
+				titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
 				type : type
 			};
-			if(type==2 || type==3 || type==4)
+			if(type==2 || type==4)
 			{
 				infoMode.value = field.val()
+			}
+			else if (type==3)
+			{
+				infoMode.value = field.data('id')
+			}
+			else if(type==5)
+			{
+				if (field.is('textarea')){
+					infoMode.remark1 = field.val()
+				}else{
+					infoMode.value = field.val()
+				}
 			}
 			else if(type==1 || type==8)
 			{
@@ -526,7 +538,10 @@ function getDetailUrl(code)
 	}else if (code =='team-members'){
 
 	    return '<%=path%>/html/team_compile.html';
-	}
+	}else if(code == 'share-holding')
+    {
+        return '<%=path%>/html/team_add_cgr.html';
+    }
 	return "";
 }
 function editRow(ele)
