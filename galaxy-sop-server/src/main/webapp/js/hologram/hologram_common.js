@@ -217,7 +217,7 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
-				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1.replace(/<br>/g,'\n'));
 			}
 		}
 	}
