@@ -48,6 +48,12 @@
 				
 
 <script type="text/javascript">
+table_Value = {};
+table_filed = {};
+
+delComArr=[];
+table_toedit_Value = {};
+table_tosave_Value = {};
 
 	//页面显示
 	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/NO1_1", null, function(data) {
@@ -95,6 +101,17 @@ $(function() {
 
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				
+				$.each($('.textarea_h'),function(i,data){
+					  //$(this).css("height",$(this).attr("scrollHeight"));
+					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+					  var font_num = 2000 - $(this).val().length;
+					  $(this).siblings('p').find('label').html(font_num);
+					  var height = data.scrollHeight;
+					  $(this).css("height",height) ;
+				});
+					 
+
 			}
 		})
 	});
@@ -137,10 +154,11 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			var value = field.val().replace(/\n/g,'<br />');
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : field.data('type'),
-				remark1 : field.val()
+				remark1 : value
 			};
 			infoModeList.push(infoMode);
 		});

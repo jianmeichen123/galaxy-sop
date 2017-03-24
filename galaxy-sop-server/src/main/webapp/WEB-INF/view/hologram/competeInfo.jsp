@@ -123,7 +123,8 @@ table_tosave_Value = {};
 	
 	
 	
- $(function() {
+
+$(function() {
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
 		var id_code = $(this).attr('attr-hide');
@@ -136,8 +137,7 @@ table_tosave_Value = {};
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var id_code = $(this).attr('attr-id');
 		event.stopPropagation();
-		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/"
-				+ id_code, null, function(data) {
+		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
@@ -146,6 +146,17 @@ table_tosave_Value = {};
 
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				
+				$.each($('.textarea_h'),function(i,data){
+					  $(this).css("height",$(this).attr("scrollHeight"));
+					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+					  var font_num = 2000 - $(this).val().length;
+					  $(this).siblings('p').find('label').html(font_num);
+					  var height = data.scrollHeight;
+					  $(this).css("height",height) ;
+				});
+					 
+
 			}
 		})
 	});
@@ -188,10 +199,11 @@ table_tosave_Value = {};
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			var value = field.val().replace(/\n/g,'<br />');
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : field.data('type'),
-				remark1 : field.val()
+				remark1 : value
 			};
 			infoModeList.push(infoMode);
 		});
@@ -214,18 +226,18 @@ table_tosave_Value = {};
 		data.deletedRowIds = delComArr;
 		
 		
-		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo,
-				data, function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						layer.msg('保存成功');
-						showArea(id_code);
-					} else {
-						layer.msg('保存失败');
-					}
-				});
+		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				layer.msg('保存成功');
+				showArea(id_code);
+			} else {
+				layer.msg('保存失败');
+			}
+		});
 	});
 });
+
 
 
 </script>
