@@ -41,7 +41,7 @@
 <form id="b_\${code}">
 <div class="h_edit section" >
 	<div class="h_btnbox">
-		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
+		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
 	</div>
 	<div class="h_title">\${name}</div>
@@ -404,6 +404,7 @@
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
 		var btn = this;
+		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
@@ -445,15 +446,8 @@
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
 		
-		var validate = false;
-		//验证插件调用
-		$("#b_"+id_code).validate({
-			submitHandler: function() {
-				//验证通过后 的js代码写在这里
-				validate = true;
-			}
-		});
-		if(validate == false)
+		
+		if(!$("#b_"+id_code).validate().form())
 		{
 			return;
 		}

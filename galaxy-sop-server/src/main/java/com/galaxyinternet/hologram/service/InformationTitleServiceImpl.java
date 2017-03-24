@@ -535,32 +535,39 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	// ===  TODO 页面功能
 	
-	
+	@SuppressWarnings({ "unchecked" })
+	private List<InformationTitle> getTitleStructure(String titleId)
+	{
+		List<InformationTitle> list = null;
+		String key = "titles:"+titleId;
+		if(localCache.containsKey(key))
+		{
+			list = (List<InformationTitle>)localCache.get(key);
+		}
+		else
+		{
+			list = selectByTlist(selectChildsByPid(Long.valueOf(titleId)));
+			localCache.put(key, list);
+		}
+		return list;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<InformationTitle> searchWithData(String titleId,String projectId) 
 	{
-		String key = "titles:"+titleId;
+		List<InformationTitle> list = null;
+		Set<String> titleIds = new HashSet<>();
+		Map<String,InformationTitle> titleMap = new HashMap<>();
 		//查询子标题
-		List<InformationTitle> treeList;
-		if(localCache.containsKey(key))
-		{
-			treeList = (List<InformationTitle>)localCache.get(key);
-		}
-		else
-		{
-			treeList = selectByTlist(selectChildsByPid(Long.valueOf(titleId)));
-			localCache.put(key, treeList);
-		}
+		List<InformationTitle> treeList = getTitleStructure(titleId);
 		if(treeList == null || treeList.size()==0)
 		{
 			return null;
 		}
-		Set<String> titleIds = new HashSet<>();
-		Map<String,InformationTitle> titleMap = new HashMap<>();
 		populateTitleIds(treeList,titleIds,titleMap);
-		List<InformationTitle> list = new ArrayList<>(titleMap.values());
+		list = new ArrayList<>(titleMap.values());
+		//reset info
 		if(list != null)
 		{
 			for(InformationTitle item : list)
@@ -568,6 +575,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				if(item.getChildList() != null)
 				{
 					item.getChildList().clear();
+				}
+				if(item.getResultList() != null)
+				{
+					item.getResultList().clear();
+				}
+				if(item.getDataList() != null)
+				{
+					item.getDataList().clear();
+				}
+				if(item.getFixedTableList() != null)
+				{
+					item.getFixedTableList().clear();
 				}
 			}
 		}
