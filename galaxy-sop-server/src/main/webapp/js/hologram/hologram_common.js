@@ -482,34 +482,47 @@ function validate(){
 			console.log(inputValRuleMark);
 			if(inputValRuleMark=="10,2"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"msg":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+						"data-rule-verify_102":"true",
+						"name":i,
+						"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^[0-9]{1,3}$",
-						"msg":"<font color=red>*</font>支持0～999的整数"			
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-verify_3":"true",
+						"required":"required",
+						"name":i,
+						"data-msg-verify_3":"<font color=red>*</font>支持0～999的整数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^(([1-9][0-9]{0,2})|([0-9]{1,3}\.[1-9]{1,2})|([0-9]{1,3}\.[0][1-9]{1})|([0-9]{1,3}\.[1-9]{1}[0])|([1-9][0-9]{0,2}\.[0][0]))$",
-						"msg":"<font color=red>*</font>支持0～100的整数和两位小数"			
+						"data-rule-verify_32":"true",
+						"required":"required",	
+						"name":i,
+						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
+						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"msg":"<font color=red>*</font>支持0～99999的整数和两位小数"			
+						"data-rule-verify_52":"true",
+						"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="4"){
+				var validate={
+						"data-rule-vinputValRule_4":"true",
+						"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			
 				}
 				inputs.eq(i).attr(validate);
 			}
@@ -517,3 +530,32 @@ function validate(){
 	
 	
 }
+//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
+$.validator.setDefaults({
+	errorElement:'span'
+});
+//inputValRuleMark=="10,2"
+jQuery.validator.addMethod("verify_102", function(value, element) {   
+	var verify_102 = /^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$/;
+	return this.optional(element) || (verify_102.test(value));
+}, "不能超过9999999999"); 
+//inputValRuleMark=="3"
+jQuery.validator.addMethod("verify_3", function(value, element) {   
+	var verify_3 = /^[0-9]{1,3}$/;
+	return this.optional(element) || (verify_3.test(value));
+}, "不能超过99"); 
+//inputValRuleMark=="3,2"
+jQuery.validator.addMethod("verify_32", function(value, element) {   
+	var verify_32 = /^(?:[1-9][0-9]?|1[01][0-9]|100)$/;
+	return this.optional(element) || (verify_32.test(value));
+}, "不能超过100"); 
+//inputValRuleMark=="5,2"
+jQuery.validator.addMethod("verify_52", function(value, element) {   
+	var verify_52 = /^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$/;
+	return this.optional(element) || (verify_52.test(value));
+}, "不能超过99999"); 
+//inputValRule=="4"
+jQuery.validator.addMethod("vinputValRule_4", function(value, element) {   
+	var vinputValRule_4 = /^(?:[1-9][0-9]?|1[06][0-8]|168)$/;
+	return this.optional(element) || (vinputValRule_4.test(value));
+}, "不能超过168"); 
