@@ -34,6 +34,7 @@ function countChar(textareaName,spanName,maxLimit){
 function tabInfoChange(index){
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
+	$(".tip-yellowsimple").remove();
 		switch(index){
 	case '0':initBaseInfo(); break;  //标签0:基本信息
 	case '1':initProjectInfo(); break;  //标签1:项目
@@ -167,28 +168,56 @@ function buildResults(sec,title,readonly)
 				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
 			}
 		}
-		if(title.type == 3){
-			if(readonly == true)
-			{
-				$.each(title.resultList,function(i,n){
-					$("dd[data-title-id='"+ n.contentChoose +"']").text(n.valueName);
-				});
-			}else{
-				$.each(title.resultList,function(i,n){
-					$("li[data-id='"+ n.contentChoose +"']").addClass('active');
+		else if(title.type == 3)
+		{
+			//console.log('3:title.resultList : ' , title.resultList);
+			$.each(title.resultList,function(i,n){
+				if(readonly == true){
+					$(".field[data-id='"+n.contentChoose+"']").text(n.valueName);
+				}else{
+					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+				}
+			});
+
+			if (readonly == true){
+				var dds = $("dt[data-type='3'][data-id='"+ title.id +"']").siblings();
+				$.each(dds,function(i,n){
+					if ($(this).text() == '未选择'){
+						$(this).remove();
+					}
 				});
 			}
-			
+
+
 		}
-		else(title.type == 8)
+		else if(title.type == 5)
+		{
+			$.each(title.resultList,function(i,n){
+				if (n.contentDescribe1){
+					if(readonly == true){
+						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
+					}else{
+						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1) ;
+					}
+				}
+				if(n.contentChoose){
+					if(readonly == true){
+						$(".field[data-id='"+ title.id +"']").text(n.valueName);
+					}else{
+						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+					}
+				}
+			});
+		}
+		else if(title.type == 8)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").html(title.resultList[0].contentDescribe1);
 			}
 			else
 			{
-				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1.replace(/<br>/g,'\n'));
 			}
 		}
 	}
@@ -354,4 +383,121 @@ function setDate(pid, readonly) {
 				}
 			})
 
+}
+/*文本域字数统计*/
+function countChar(textareaName,spanName,maxLimit){
+	//var maxLimit=10;
+	var textArea=document.getElementById(textareaName);
+	var spanCount=document.getElementById(spanName);
+	if (textArea.value.length>maxLimit){
+		spanCount.innerHTML='0';
+		textArea.value = textArea.value.substring(0, maxLimit);
+	}else{
+		spanCount.innerHTML =maxLimit-textArea.value.length;
+	}
+}
+/**  
+ * 文本框根据输入内容自适应高度  
+ * @param                {HTMLElement}        输入框元素  
+ * @param                {Number}                设置光标与输入框保持的距离(默认0)  
+ * @param                {Number}                设置最大高度(可选)  
+ */  
+var autoTextarea = function(elem, extra, maxHeight) {  
+    extra = extra || 0;  
+    var elem=document.getElementById(elem);
+    var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,  
+        isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),  
+        addEvent = function(type, callback) {  
+            elem.addEventListener ?  
+                elem.addEventListener(type, callback, false) :  
+                elem.attachEvent('on' + type, callback);  
+        },  
+        getStyle = elem.currentStyle ? function(name) {  
+            var val = elem.currentStyle[name];  
+            if (name === 'height' && val.search(/px/i) !== 1) {  
+                var rect = elem.getBoundingClientRect();  
+                return rect.bottom - rect.top -  
+                    parseFloat(getStyle('paddingTop')) -  
+                    parseFloat(getStyle('paddingBottom')) + 'px';  
+            };  
+            return val;  
+        } : function(name) {  
+            return getComputedStyle(elem, null)[name];  
+        },  
+        minHeight = parseFloat(getStyle('height'));  
+    elem.style.resize = 'none';  
+    var change = function() {  
+        var scrollTop, height,  
+            padding = 0,  
+            style = elem.style;  
+        if (elem._length === elem.value.length) return;  
+        elem._length = elem.value.length;  
+        if (!isFirefox && !isOpera) {  
+            padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));  
+        };  
+        scrollTop = document.body.scrollTop || document.documentElement.scrollTop;  
+        elem.style.height = minHeight + 'px';  
+        if (elem.scrollHeight > minHeight) {  
+            if (maxHeight && elem.scrollHeight > maxHeight) {  
+                height = maxHeight - padding;  
+                style.overflowY = 'auto';  
+            } else {  
+                height = elem.scrollHeight - padding;  
+                style.overflowY = 'hidden';  
+            };  
+            style.height = height + extra + 'px';  
+            scrollTop += parseInt(style.height) - elem.currHeight;  
+            document.body.scrollTop = scrollTop;  
+            document.documentElement.scrollTop = scrollTop;  
+            elem.currHeight = parseInt(style.height);  
+        };  
+    };  
+    addEvent('propertychange', change);  
+    addEvent('input', change);  
+    addEvent('focus', change);  
+    change();  
+};
+/* 通用验证 */
+function validate(){
+	 var inputs=$("input[type='text']");
+	 for(var i=0;i<inputs.length;i++){
+		 	var inputValRule=inputs.eq(i).attr("data-valrule");
+			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
+			console.log(inputValRuleMark);
+			if(inputValRuleMark=="10,2"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"msg":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="3"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^[0-9]{1,3}$",
+						"msg":"<font color=red>*</font>支持0～999的整数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="3,2"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^(([1-9][0-9]{0,2})|([0-9]{1,3}\.[1-9]{1,2})|([0-9]{1,3}\.[0][1-9]{1})|([0-9]{1,3}\.[1-9]{1}[0])|([1-9][0-9]{0,2}\.[0][0]))$",
+						"msg":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="5,2"){
+				var validate={
+						"allowNULL":"yes",
+						"valType":"OTHER",
+						"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"msg":"<font color=red>*</font>支持0～99999的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}
+	 }
+	
+	
 }

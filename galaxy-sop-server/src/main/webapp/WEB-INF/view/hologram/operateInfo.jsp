@@ -49,7 +49,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -157,7 +157,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -395,7 +395,8 @@ var deleteids = "";
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		
+		$.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
+		$.getScript("<%=path %>/js/validate/lib/jq.validate.js");
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -407,7 +408,7 @@ var deleteids = "";
 					console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
-					
+					validate();
 					var files = $("#"+id_code).nextAll().find("input[type='file']");
 					var selectids = [];
 					
@@ -462,11 +463,13 @@ var deleteids = "";
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".tip-yellowsimple").hide();
 		event.stopPropagation();
 	});
 	
  	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea,li.active");
@@ -489,7 +492,7 @@ var deleteids = "";
 			}
 			else if(type==1 || type==8)
 			{	
-				infoMode.remark1 = field.val()
+				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
 			}
 			infoModeList.push(infoMode);
 		});
@@ -500,34 +503,37 @@ var deleteids = "";
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
-		
-		sendPostRequestByJsonObj(
-				platformUrl.saveOrUpdateInfo , 
-				data,
-				function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						layer.msg('保存成功');
-						sendPostRequestByJsonObj(sendFileUrl,params,function(data){
-							//进行上传
-							var result = data.result.status;
-							if(result == "OK"){
-								tabInfoChange('3');
-							}else{
-							}
+		if(beforeSubmit()){
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					data,
+					function(data) {
+						var result = data.result.status;
+						if (result == 'OK') {
+							layer.msg('保存成功');
+							$('#'+id_code).show();
+							$('#b_'+id_code).remove();
+							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
+								//进行上传
+								var result = data.result.status;
+								if(result == "OK"){
+									tabInfoChange('3');
+								}else{
+								}
+								
+							});
 							
-						});
-						
-					} else {
+						} else {
 
-					}
-			});
+						}
+				});
+		}
+		
 		
 		
 		
 		
 	}); 
-
 	
 	function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
 		var params = {};
@@ -535,6 +541,7 @@ var deleteids = "";
 			runtimes : 'html5,flash,silverlight,html4,jpg',
 			browse_button : selectBtnId, // you can pass an id...
 			//container: containerId, // ... or DOM Element itself
+			multi_selection:false,
 			url : fileurl,
 			rename : true,
 			unique_names:true,
