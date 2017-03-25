@@ -568,7 +568,11 @@ function type_8_html(title,mark){
 
 //10:表格
 function type_10_html(title,mark){
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	table_delComArr[title.id] = [];
+	table_toedit_Value[title.id] = {};
+	table_tosave_Value[title.id] = {};
+	
+	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
 	
 	var tableHeader = title.tableHeader;
 	var dataList = title.dataList;

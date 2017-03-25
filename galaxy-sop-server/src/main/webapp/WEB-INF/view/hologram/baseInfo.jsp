@@ -91,8 +91,7 @@ $(function() {
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var id_code = $(this).attr('attr-id');
 		event.stopPropagation();
-		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/"
-				+ id_code, null, function(data) {
+		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
@@ -103,7 +102,7 @@ $(function() {
 				$("#" + id_code).append(s_div);
 				
 				$.each($('.textarea_h'),function(i,data){
-					  //$(this).css("height",$(this).attr("scrollHeight"));
+					  $(this).css("height",$(this).attr("scrollHeight"));
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
@@ -163,34 +162,54 @@ $(function() {
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-
 		
 		//表格
-		var infoTableModelList = new Array();
-		for(var key in table_toedit_Value){
-			for(var key2 in table_toedit_Value[key]){
-				infoTableModelList.push(table_toedit_Value[key][key2]);
-			}
-		}
-		for(var key in table_tosave_Value){
-			for(var key2 in table_tosave_Value[key]){
-				infoTableModelList.push(table_tosave_Value[key][key2]);
-			}
-		}
-		data.infoTableModelList = infoTableModelList;
-		data.deletedRowIds = delComArr;
-		
-		
-		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo,
-				data, function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						layer.msg('保存成功');
-						showArea(id_code);
-					} else {
-						layer.msg('保存失败');
+		var talbes = $("#b_"+id_code).find("[data-type='10']");
+		if(talbes){
+			var infoTableModelList = new Array();
+			var deletedRowIds = new Array();
+			
+			for(var i=0; i<talbes.length; i++){
+				var tid = $(talbes[0]).data("tid");
+				
+				var toAdds = table_tosave_Value[tid];
+				if(toAdds){
+					for(var key2 in toAdds){
+						if(toAdds[key2]!=null) infoTableModelList.push(toAdds[key2]);
 					}
-				});
+					table_tosave_Value[tid] = {};
+				}
+				
+				var toEdits = table_toedit_Value[tid];
+				if(toEdits){
+					for(var key2 in toEdits){
+						if(toEdits[key2]!=null) infoTableModelList.push(toEdits[key2]);
+					}
+					table_toedit_Value[tid] = {};
+				}
+				
+				var todels = table_delComArr[tid];
+				if(todels && todels.length>0){
+					for(var j=0; j<todels.length; j++){
+						deletedRowIds.push(todels[j]);
+					}
+					table_delComArr[tid] = [];
+				}
+			}
+			
+			data.infoTableModelList = infoTableModelList;
+			data.deletedRowIds = deletedRowIds;
+		}
+		
+		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				layer.msg('保存成功');
+				showArea(id_code);
+			} else {
+				layer.msg('保存失败');
+			}
+		});
 	});
 });
 

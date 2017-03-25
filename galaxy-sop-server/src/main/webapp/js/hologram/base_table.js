@@ -23,19 +23,32 @@ function table_value(tid,listdatas){
  */
 var table_filed = {};
 
+//删除 table-result
+
+var table_delComArr = {};
 var table_toedit_Value = {};
 var table_tosave_Value = {};
 
 function tosave_table_value(op_mark,tid,listdata){
 	var id_listdata = {};
 	var id = listdata.id;
-	if(op_mark == "old"){
+	/*if(op_mark == "old"){
+		if(table_Value[tid]){
+			id_listdata = table_Value[tid];
+		}
 		id_listdata[id] = listdata;
 		table_Value[tid] = id_listdata;
-	}else if(op_mark == "edit"){
+	}else */
+	if(op_mark == "edit"){
+		if(table_toedit_Value[tid]){
+			id_listdata = table_toedit_Value[tid];
+		}
 		id_listdata[id] = listdata;
 		table_toedit_Value[tid] = id_listdata;
 	}else{
+		if(table_tosave_Value[tid]){
+			id_listdata = table_tosave_Value[tid];
+		}
 		var data = listdata;
 		data.id = null;
 		id_listdata[id] = data;
@@ -55,11 +68,41 @@ function getTableRowData(op_mark,tid,dataid){
 	var data = id_listdata[dataid];
 	return data;
 }
+function pushTableDelRowId(op_mark,tid,rid){
+	if(op_mark == "new"){
+		var toAdds = table_tosave_Value[tid];
+		if(toAdds){
+			for(var key in toAdds){
+				if(key == rid){
+					table_tosave_Value[tid][key] = null;
+					break;
+				}
+			}
+		}
+	}else{
+		if(op_mark == "edit"){
+			var toEdits = table_toedit_Value[tid];
+			if(toEdits){
+				for(var key in toEdits){
+					if(key == rid){
+						table_toedit_Value[tid][key] = null;
+						break;
+					}
+				}
+			}
+		}
+		
+		if(table_delComArr[tid]){
+			table_delComArr[tid].push(rid);
+		}else{
+			var delComArr=[];
+			delComArr.push(rid);
+			table_delComArr[tid] = delComArr;
+		}
+	}
+}
 
 
-
-//删除 table-result
-var delComArr=[];
 /**
 obj_a: <a>点击元素
 tid : 总标题id
@@ -73,9 +116,7 @@ function del_NO5_7_1(obj_a,tid,rid){
 		btn : [ '确定', '取消' ],
 		title:'提示'
 	}, function(index, layero) {
-		if(op_mark == "old"){
-			delComArr.push(rid);
-		}
+		pushTableDelRowId(op_mark,tid,rid);
 		$(tr).remove();
 		$(".layui-layer-close1").click();
 	}, function(index) {
