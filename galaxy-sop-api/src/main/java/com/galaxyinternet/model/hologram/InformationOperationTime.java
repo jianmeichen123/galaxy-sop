@@ -47,6 +47,7 @@ public class InformationOperationTime extends PagableEntity{
 
     private Date time10;
 
+    private String reflect;
 
     public Long getProjectId() {
         return projectId;
@@ -207,4 +208,14 @@ public class InformationOperationTime extends PagableEntity{
     public void setTime10(Date time10) {
         this.time10 = time10;
     }
+
+	public String getReflect() {
+		return reflect;
+	}
+
+	public void setReflect(String reflect) {
+		this.reflect = reflect;
+	}
+    
+    
 }
