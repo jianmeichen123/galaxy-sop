@@ -20,6 +20,20 @@ function textarea_h(data){
 }
 
 
+
+
+function backFun(data){
+	var result = data.result.status;
+	if (result == 'OK') {
+		var entity = data.entity;
+		console.log(entity);
+		var html = toGetHtmlByMark(entity,'s');
+		var s_div = toShowTitleHtml(entity, html);
+		$("#"+entity.code).html(s_div);
+	}
+}
+
+
 //区域显示
 function showArea(code){
 	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/" + code, null, function(data) {
