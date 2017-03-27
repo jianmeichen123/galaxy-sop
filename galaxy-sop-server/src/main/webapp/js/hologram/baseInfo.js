@@ -424,18 +424,7 @@ function type_5_html(title,mark){
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-<<<<<<< HEAD
-					eresult_2 = 
-						"<dd class=\"fl_none\">" +
-							"<textarea class=\"textarea_h\" " +
-								"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' oninput=textarea_h(this) >" +
-								results[i].contentDescribe1 +
-							"</textarea>" +
-							"<p class=\"num_tj\"><label>2000</label>/2000</p>" +
-						"</dd>";	
-=======
 					r_value = results[i].contentDescribe1;
->>>>>>> branch 'dev_161128' of http://git.gi.com/galaxy-star/galaxy-sop.git
 					break;
 				}
 			}
