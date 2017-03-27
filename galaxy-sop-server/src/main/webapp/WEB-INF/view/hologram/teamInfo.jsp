@@ -68,7 +68,7 @@
 						</dd>
 
 						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+						<!--<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>-->
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -128,9 +128,9 @@
 						</dd>
 
 						{{else type=="10"}}
-						<dd class="">
-							<table data-title-id="\{id}" class="editable"></table>
-							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
+						<dd class="fl_none">
+							< data-title-id="\{id}" class="editable"></table>
+							<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
                         </dd>
 
 						{{else type=="11"}}
@@ -159,7 +159,7 @@
 
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-                        <dd class="fl_none">
+                        <dd class="fl_none border_dd">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
                             <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
@@ -221,7 +221,7 @@
                             <table data-title-id="\${id}"  class="editable">
 
                             </table>
-							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
+							<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -235,6 +235,10 @@
 					{{/if}}
 
 					{{/each}}
+					<div class="h_edit_btnbox clearfix">
+                      <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
+                      <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
+                    </div>
 
 </div>
 </script>
@@ -259,14 +263,14 @@
 
 		{{if type=="5"}}
 		<dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-		<dd class="field-remark" data-id="\${id}">备注</dd>
+		<dd class="field-remark field" data-id="\${id}">备注</dd>
 
 						{{else type=="2"}}
                         <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -291,7 +295,7 @@
 						{{/each}}
 
 						{{else type=="10"}}
-                        <dd><table data-title-id="\${id}"></table></dd>
+                        <dd class="fl_none"><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>
@@ -316,7 +320,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -341,7 +345,7 @@
 						{{/each}}
 
 						{{else type=="10"}}
-                        <dd><table data-title-id="\${id}"></table></dd>
+                        <dd class="fl_none"><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>

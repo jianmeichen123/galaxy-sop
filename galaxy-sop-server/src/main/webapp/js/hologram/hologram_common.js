@@ -148,7 +148,7 @@ function tabInfoChange(index){
 function buildResults(sec,title,readonly)
 {
 	//普通字段
-	if(title.resultList)
+	if(null!=title.resultList&&title.resultList.length>0)
 	{
 		if(title.type == 1)
 		{
@@ -165,6 +165,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
+				console.log(title);
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 			}
 			else
@@ -373,7 +374,7 @@ function buildRow(row,showOpts)
 
 }
 function buildfinxedTable(sec,title,readonly){
-	if(title.fixedTableList){
+	if(null!=title.fixedTableList&&title.fixedTableList.length>0){
 	  if(readonly == true)
 		{
 		  $.each(title.fixedTableList,function(i,n){

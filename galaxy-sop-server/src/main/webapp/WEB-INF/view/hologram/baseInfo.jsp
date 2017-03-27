@@ -12,6 +12,9 @@
 <title>项目详情</title>
 </head>
 
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+
 
 <body>
 	<ul class="h_navbar clearfix">
@@ -27,7 +30,7 @@
 	</ul>
 
 
-	<div id="tab-content">
+	<div id="tab-content base" class="base_tab-content">
 		<div class="tabtxt" id="page_all"> 
 		
 			<div class="h radius" id="NO1_1"> </div>
@@ -43,13 +46,14 @@
 				
 
 <script type="text/javascript">
+var isEditable = "${isEditable}";
+
 table_Value = {};
 table_filed = {};
 
 delComArr=[];
 table_toedit_Value = {};
 table_tosave_Value = {};
-
 var codeArr = ['NO1_1','NO1_2'];
 sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);
 	
@@ -62,7 +66,7 @@ $(function() {
 		$('#b_' + id_code).remove();
 		event.stopPropagation();
 	});
-
+	
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var id_code = $(this).attr('attr-id');
@@ -73,7 +77,6 @@ $(function() {
 				var entity = data.entity;
 				var html = toGetHtmlByMark(entity, 'e');
 				var s_div = toEditTitleHtml(entity, html);
-
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 				
@@ -82,15 +85,42 @@ $(function() {
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
-					  var height = data.scrollHeight;
-					  $(this).css("height",height) ;
+					  var text_height = data.scrollHeight-20;
+					  $(this).css("height",text_height) ;
 				});
 					 
 
 			}
+			//判断项目创新类型其他是否选中
+			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
+			console.log(other_classname);
+			if(!other_classname){
+				$(".pro_innovation .txt").attr("readonly","readonly");
+			}else{
+				$(".pro_innovation .txt").removeAttr("readonly");
+			}
+			//其他点击事件
+			 $(".pro_innovation .check_label:last").click(function(){
+				 var $txt = $(".pro_innovation .txt");
+				 if ($txt.attr('readonly')) {
+					 $txt.removeAttr('readonly');
+				    } else {
+				    	$txt.attr('readonly',true);
+				    }
+			 })
+			
+			//字数限制显示
+			$.each($('.textarea_h'),function(i,data){
+				$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+				var font_num = 2000 - $(this).val().length;
+				$(this).siblings('p').find('label').html(font_num);
+				var height = data.scrollHeight;
+				$(this).css("height",height) ;
+				 
+			})
 		})
 	});
-
+	
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();
