@@ -104,7 +104,6 @@
 		{{/each}}
 
 		{{else type=="7"}}
-			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
 			<dd class="fl_none clearfix">
 			 <ul class="h_imgs">
 
@@ -221,16 +220,14 @@
 		{{/each}}
 
 		{{else type=="7"}}
-			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-			<dd class="fl_none clearfix">
-			 <ul class="h_imgs">
+        <dd class="fl_none clearfix">
+        <ul class="h_imgs mgedit"  id="edit-\${id}"></ul>
+        <ul class="h_imgs">
+        <li class="h_imgs_add"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
+        </ul>
+        </dd>
+        <dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 
-			 </ul>
-			 <ul class="h_imgs">
-				<li class="h_imgs_add"><input type="file"></li>
-			</ul>
-			</dd>
-			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 		{{else type=="8"}}
 		<dt class="fl_none" data-type="\${type}">\${name}</dt>
 		<dd class="fl_none">
@@ -334,10 +331,7 @@
 		{{/each}}
 
 		{{else type=="7"}}
-			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-			 <dd class="fl_none">
-				<img src="img/loginbg.gif" alt="">
-				<img src="img/loginbg.gif" alt="">
+		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">
 			</dd>
 
 		{{else type=="8"}}
@@ -393,10 +387,7 @@
 		{{/each}}
 
 		{{else type=="7"}}
-			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
-			 <dd class="fl_none">
-				<img src="img/loginbg.gif" alt="">
-				<img src="img/loginbg.gif" alt="">
+		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">
 			</dd>
 
 		{{else type=="8"}}
