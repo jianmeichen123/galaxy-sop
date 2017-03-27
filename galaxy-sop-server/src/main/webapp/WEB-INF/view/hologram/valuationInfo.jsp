@@ -517,8 +517,7 @@ function editRow(ele)
 			});
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-				var data = $("#detail-form").serializeObject();
-				saveRow(data);
+				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	
 	});
@@ -549,13 +548,19 @@ function addRow(ele)
 			$("#detail-form input[name='projectId']").val(projectInfo.id);
 			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 			$("#save-detail-btn").click(function(){
-				var data = $("#detail-form").serializeObject();
-				saveRow(data);
+				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	
 	});
 }
-
+function saveForm(form)
+{
+	if($(form).validate().form())
+	{
+		var data = $(form).serializeObject();
+		saveRow(data);
+	}
+}
 
 /**
  * 保存至到tr标签data属性

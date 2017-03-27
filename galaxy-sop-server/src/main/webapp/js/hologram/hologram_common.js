@@ -564,3 +564,8 @@ jQuery.validator.addMethod("vinputValRule_4", function(value, element) {
 	var vinputValRule_4 = /^(?:[1-9][0-9]?|1[06][0-8]|168)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
+//百分数
+jQuery.validator.addMethod("percentage", function(value, element) {   
+	var percentage = /^\d+(\.\d{2})?$/;
+	return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
+}, "只能是0～100的整数和两位小数"); 
