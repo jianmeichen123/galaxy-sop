@@ -11,6 +11,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 </head>
+
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+
+
 <body>
 	<ul class="h_navbar clearfix">
 		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')">基本<br />信息 </li>
@@ -47,74 +52,14 @@
 				
 
 <script type="text/javascript">
+var isEditable = "${isEditable}";
 
 table_Value = {};
 table_filed = {};
 
- 	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_1", null, function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity, 's');
-					var s_div = toShowTitleHtml(entity, html);
-					$("#NO5_1").html(s_div);
-				}
-			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_3", null, function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity, 's');
-					var s_div = toShowTitleHtml(entity, html);
-					$("#NO5_3").html(s_div);
-				}
-			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_4", null, function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity, 's');
-					var s_div = toShowTitleHtml(entity, html);
-					$("#NO5_4").html(s_div);
-				}
-			});
-	sendGetRequest(platformUrl.queryProjectAreaInfo + pid + "/NO5_5", null, function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity, 's');
-					var s_div = toShowTitleHtml(entity, html);
-					$("#NO5_5").html(s_div);
-				}
-			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_6", null, function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity, 's');
-					var s_div = toShowTitleHtml(entity, html);
-					$("#NO5_6").html(s_div);
-				}
-			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_7", null, function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity, 's');
-					var s_div = toShowTitleHtml(entity, html);
-					$("#NO5_7").html(s_div);
-				}
-			});
-	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_8", null, function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var entity = data.entity;
-					var html = toGetHtmlByMark(entity, 's');
-					var s_div = toShowTitleHtml(entity, html);
-					$("#NO5_8").html(s_div);
-				}
-			});
-	
+var codeArr = ['NO5_1','NO5_3','NO5_4','NO5_5','NO5_6','NO5_7','NO5_8'];
+sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);
+
 	
 
 $(function() {

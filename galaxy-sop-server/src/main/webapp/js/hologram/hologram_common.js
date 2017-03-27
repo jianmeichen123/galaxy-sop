@@ -107,8 +107,8 @@ function tabInfoChange(index){
 	$.fn.showResults = function(readonly){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
-
-		if(pid == 1302){
+        var id = $(this).attr('id');
+		if(id == "a_NO3_1"){
 		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
@@ -123,7 +123,6 @@ function tabInfoChange(index){
                 }
 		     })
 		}else{
-			console.log('titleId = '+pid);
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
         				function(data) {
 
@@ -149,7 +148,7 @@ function tabInfoChange(index){
 function buildResults(sec,title,readonly)
 {
 	//普通字段
-	if(title.resultList)
+	if(null!=title.resultList&&title.resultList.length>0)
 	{
 		if(title.type == 1)
 		{
@@ -166,6 +165,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
+				console.log(title);
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 			}
 			else
@@ -244,12 +244,12 @@ function buildMemberTable(sec,title){
     			table.empty();
     			var tr="<tr>";
     			for(var key in header)
-    			{
-    				if(key.indexOf('field')>-1)
-    				{
-    					tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
-    				}
-    			}
+    			{   //过滤掉电话字段
+                    if(key.indexOf('field')>-1 && key != "field4")
+                    {
+                        tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+                    }
+                }
     			var editable = table.hasClass('editable');
     			if(editable == true)
     			{
@@ -374,7 +374,7 @@ function buildRow(row,showOpts)
 
 }
 function buildfinxedTable(sec,title,readonly){
-	if(title.fixedTableList){
+	if(null!=title.fixedTableList&&title.fixedTableList.length>0){
 	  if(readonly == true)
 		{
 		  $.each(title.fixedTableList,function(i,n){
@@ -565,20 +565,8 @@ jQuery.validator.addMethod("vinputValRule_4", function(value, element) {
 	var vinputValRule_4 = /^(?:[1-9][0-9]?|1[06][0-8]|168)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
-//更新时间
-function updateInforTime(projectId,type){
-	var data={};
-	data.projectId = projectId;
-	data.reflect = type;
-	sendPostRequestByJsonObj(
-				Constants.sopEndpointURL+'/galaxy/InformationOperationTime/updateOperateTime' , 
-				data,
-				function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						
-					} else {
-                        layer.msg("更新时间失败!");
-					}
-	});
-}
+//百分数
+jQuery.validator.addMethod("percentage", function(value, element) {   
+	var percentage = /^\d+(\.\d{2})?$/;
+	return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
+}, "只能是0～100的整数和两位小数"); 

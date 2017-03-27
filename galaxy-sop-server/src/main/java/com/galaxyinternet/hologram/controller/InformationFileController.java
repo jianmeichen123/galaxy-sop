@@ -363,4 +363,31 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
            return true;
     }
 
+    
+    /**
+	 * 根据项目id来获取全息图上传的图片
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getFileAppByProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationFile> getFileAppByProject(@RequestBody InformationFile informationFile,HttpServletRequest request) {
+		
+		ResponseData<InformationFile> responseBody = new ResponseData<InformationFile>();
+		if(informationFile.getProjectId() == null ){
+			responseBody.setResult(new Result(Status.ERROR,null, "参数不全!"));
+			return responseBody;
+		}
+		try {
+			List<InformationFile> files = informationFileService.queryList(informationFile);
+			responseBody.setEntityList(files);
+			responseBody.setResult(new Result(Status.OK,null));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			logger.error("getFileByProject 操作失败",e);
+		}
+		
+		return responseBody;
+	}
+    
+    
+    
 }

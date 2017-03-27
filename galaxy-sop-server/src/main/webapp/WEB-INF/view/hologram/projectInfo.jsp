@@ -10,10 +10,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
-<script src="<%=path%>/js/validate/jquery.validate.min.js"></script>
 </head>
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <body>
 <ul class="h_navbar clearfix">
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
@@ -35,7 +37,8 @@
 
 		<!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit" id="b_\${code}">
+<form id="b_\${code}">
+<div class="h_edit" >
 	<div class="h_btnbox">
 		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
@@ -370,7 +373,8 @@
                       <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
                       <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
                     </div>
-</div>										
+</div>	
+</form>									
 </script>
 
 
@@ -380,8 +384,10 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
-	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
-	<div class="h_title">\${name}</div>
+	<c:if test="${isEditable}">
+         <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
+	</c:if>
+    <div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
                     {{if sign=="3"}}
 						{{each(i,childList) childList}}
@@ -571,7 +577,9 @@
 					//console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+
 					validate();
+					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
@@ -600,7 +608,11 @@
 		var id_code = $(this).attr('attr-save');
 		//var sec = $(this).closest('.section');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id

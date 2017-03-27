@@ -10,6 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
 <title>项目详情</title>
 </head>
@@ -243,7 +245,9 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
+	<c:if test="${isEditable}">
 	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
+	</c:if>
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
                     {{if sign=="3"}}
@@ -472,7 +476,6 @@
 function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
-	console.log('count='+sec.length);
 	sec.showResults(true);
 }
 function getDetailUrl(code)
@@ -514,8 +517,7 @@ function editRow(ele)
 			});
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-				var data = $("#detail-form").serializeObject();
-				saveRow(data);
+				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	
 	});
@@ -546,13 +548,19 @@ function addRow(ele)
 			$("#detail-form input[name='projectId']").val(projectInfo.id);
 			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 			$("#save-detail-btn").click(function(){
-				var data = $("#detail-form").serializeObject();
-				saveRow(data);
+				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	
 	});
 }
-
+function saveForm(form)
+{
+	if($(form).validate().form())
+	{
+		var data = $(form).serializeObject();
+		saveRow(data);
+	}
+}
 
 /**
  * 保存至到tr标签data属性

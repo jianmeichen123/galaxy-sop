@@ -11,18 +11,18 @@
         <div class="info clearfix"> 
             <dl class="fmdl fl">
                 <dt>股东名称：</dt>
-                <dd class="clearfix">
-                    <input name="field1" type="text" class="txt" maxLength="50"/>
+                <dd class="clearfix" required="true">
+                    <input name="field1" type="text" class="txt" maxLength="200" required="true"//>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>占股比例：</dt>
-                <dd><input name="field2" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field2" type="text" class="txt" percentage="true" required="true"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>股东类型：</dt>
                 <dd>
-                   <select name="field3">
+                   <select name="field3" required="true">
                        <option value="">请选择</option>
                        <option>战略投资人</option>
                        <option>财务投资人</option>
