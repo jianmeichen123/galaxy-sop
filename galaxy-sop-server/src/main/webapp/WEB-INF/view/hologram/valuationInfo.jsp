@@ -406,7 +406,7 @@
 		var btn = this;
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
@@ -473,6 +473,7 @@
 function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
+	console.log('count='+sec.length);
 	sec.showResults(true);
 }
 function getDetailUrl(code)

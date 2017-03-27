@@ -132,8 +132,19 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	private void saveListData(InformationData data)
 	{
 		String projectId = data.getProjectId();
+		if(projectId == null)
+		{
+			return;
+		}
+		//删除数据
+		if(data.getDeletedRowIds() != null && data.getDeletedRowIds().size() > 0)
+		{
+			InformationListdata query = new InformationListdata();
+			query.setIds(data.getDeletedRowIds());
+			listdataDao.delete(query);
+		}
 		List<TableModel> list = data.getInfoTableModelList();
-		if(projectId == null || list == null || list.size() ==0)
+		if(list == null || list.size() ==0)
 		{
 			return;
 		}
@@ -184,13 +195,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			listdataDao.insertInBatch(insertEntityList);
 		}
-		//删除数据
-		if(data.getDeletedRowIds() != null && data.getDeletedRowIds().size() > 0)
-		{
-			InformationListdata query = new InformationListdata();
-			query.setIds(data.getDeletedRowIds());
-			listdataDao.delete(query);
-		}
+		
 	}
 
 	@Override
