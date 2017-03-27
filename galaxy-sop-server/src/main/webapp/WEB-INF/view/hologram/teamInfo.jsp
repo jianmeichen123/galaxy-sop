@@ -68,7 +68,7 @@
 						</dd>
 
 						{{else type=="3"}}
-						<!--<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>-->
+						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -159,7 +159,7 @@
 
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-                        <dd class="fl_none border_dd">
+                        <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
                             <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
@@ -253,6 +253,7 @@
 	<c:if test="${isEditable}">
 	   <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	</c:if>
+<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<div class="h_title">\${name}</div>
 {{each(i,childList) childList}}
 	{{if sign=="3"}}
@@ -270,7 +271,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -320,7 +321,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
