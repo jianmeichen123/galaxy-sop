@@ -107,8 +107,8 @@ function tabInfoChange(index){
 	$.fn.showResults = function(readonly){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
-
-		if(pid == 1302){
+        var id = $(this).attr('id');
+		if(id == "a_NO3_1"){
 		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
@@ -243,12 +243,12 @@ function buildMemberTable(sec,title){
     			table.empty();
     			var tr="<tr>";
     			for(var key in header)
-    			{
-    				if(key.indexOf('field')>-1)
-    				{
-    					tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
-    				}
-    			}
+    			{   //过滤掉电话字段
+                    if(key.indexOf('field')>-1 && key != "field4")
+                    {
+                        tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+                    }
+                }
     			var editable = table.hasClass('editable');
     			if(editable == true)
     			{

@@ -12,7 +12,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path%>/js/hologram/hologram_common.js"></script>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
 </head>
 <body>
@@ -420,7 +421,13 @@
         				dataList.push(row);
         			});
         		});
+                if(dataList.length==0){
 
+                    var titleId = sec.find("table.editable").attr("data-title-id");
+                    alert(titleId)
+                    var json = {"projectId":projectInfo.id,"titleId":titleId}
+                    dataList.push(json);
+                }
                 sendPostRequestByJsonObj(
                 platformUrl.saveTeamMember,
                 {"dataList":dataList},
