@@ -67,7 +67,7 @@
 						</dd>
 
 						{{else type=="3"}}
-						<!--<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>-->
+						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -183,7 +183,7 @@
 
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-                        <dd class="fl_none border_dd">
+                        <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
                             <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
@@ -275,7 +275,6 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
- <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<c:if test="${isEditable}">
 	   <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	</c:if>
@@ -296,7 +295,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -346,7 +345,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
