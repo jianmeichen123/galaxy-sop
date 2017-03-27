@@ -36,7 +36,8 @@
 		</div>
 		<!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit" id="b_\${code}">
+<form id="b_\${code}">
+<div class="h_edit" >
 	<div class="h_btnbox">
 		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
@@ -50,7 +51,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -62,7 +63,6 @@
 						</dd>
 
 						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -157,7 +157,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" /></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -169,7 +169,7 @@
 						</dd>
 
 						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
+						
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -255,19 +255,18 @@
 
 						{{/if}}
                       </dl>
-
                     </div>
 				
 
 					{{/if}}
 					
 					{{/each}}
-   <div class="h_edit_btnbox clearfix">
+			<div class="h_edit_btnbox clearfix">
                       <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
                       <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
                     </div>
-	
-</div>										
+</div>	
+</form>								
 </script>
 
 
@@ -416,6 +415,8 @@
 					console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					validate();
+					$("#b_"+id_code).validate();
 				} else {
 
 				}
@@ -432,7 +433,7 @@
 	$('div').delegate(".h_save_btn","click",function(event){
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
@@ -457,6 +458,12 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		//验证插件调用
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return ;
+		}
+		if( beforeSubmit()){
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
 			data,
@@ -464,19 +471,18 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					$('#'+id_code).show();
+					$('#b_'+id_code).remove();
 					var pid=$('#a_'+id_code).attr("data-section-id");
 					 setDate(pid,true);	
 				} else {
 
 				}
 		}) 
+		}
 
 	});
-	$('div').delegate(".h_save_btn","click",function(event){
-		var id_code = $(this).attr('attr-save');
-		$('#'+id_code).show();
-		$('#b_'+id_code).remove();
-	});
+
 </script>
                
 </body>
