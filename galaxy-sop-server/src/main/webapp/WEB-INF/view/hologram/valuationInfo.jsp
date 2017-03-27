@@ -10,8 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+
 <title>项目详情</title>
 </head>
 <body>
@@ -406,7 +405,7 @@
 		var btn = this;
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
@@ -462,9 +461,7 @@
 					
 					deletedRowIds = new Array();
 					var parent = $(sec).parent();
-					console.log(parent[0]);
 					var id = parent.data('sectionId');
-					console.log(id);
 					$(btn).next().click();
 					refreshSection(id)
 				} else {
@@ -475,6 +472,7 @@
 function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
+	console.log('count='+sec.length);
 	sec.showResults(true);
 }
 function getDetailUrl(code)
