@@ -570,3 +570,20 @@ jQuery.validator.addMethod("percentage", function(value, element) {
 	var percentage = /^\d+(\.\d{2})?$/;
 	return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
 }, "只能是0～100的整数和两位小数"); 
+//更新时间
+function updateInforTime(projectId,type){
+	var test={};
+	test.projectId = projectId;
+	test.reflect = type;
+	sendPostRequestByJsonObj(
+				Constants.sopEndpointURL+'/galaxy/InformationOperationTime/updateOperateTime' , 
+				test,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						
+					} else {
+                        layer.msg("更新时间失败!");
+					}
+	});
+}
