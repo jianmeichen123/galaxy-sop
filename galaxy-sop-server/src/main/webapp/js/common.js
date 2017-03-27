@@ -167,7 +167,6 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 function sendGetRequestTasync(reqUrl, codeArr, callbackFun) {
 	
 	$.each(codeArr,function(){
-		alert(this);
 		$.ajax({
 			url : reqUrl+this,
 			type : "GET",
