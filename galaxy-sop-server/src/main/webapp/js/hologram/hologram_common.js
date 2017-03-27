@@ -490,7 +490,7 @@ function validate(){
 				var validate={
 						"data-rule-verify_102":"true",
 						"name":i,
-						"required":"required",
+						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
@@ -499,7 +499,7 @@ function validate(){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-verify_3":"true",
-						"required":"required",
+						//"required":"required",
 						"name":i,
 						"data-msg-verify_3":"<font color=red>*</font>支持0～999的整数"			
 				}
@@ -507,7 +507,7 @@ function validate(){
 			}else if(inputValRuleMark=="3,2"){
 				var validate={
 						"data-rule-verify_32":"true",
-						"required":"required",	
+						//"required":"required",	
 						"name":i,
 						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
 						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"			
@@ -516,7 +516,7 @@ function validate(){
 			}else if(inputValRuleMark=="5,2"){
 				var validate={
 						"data-rule-verify_52":"true",
-						"required":"required",
+						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
 						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"			
@@ -525,7 +525,7 @@ function validate(){
 			}else if(inputValRule=="4"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
-						"required":"required",
+						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
 						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			
