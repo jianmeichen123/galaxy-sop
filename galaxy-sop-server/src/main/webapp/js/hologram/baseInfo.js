@@ -49,14 +49,22 @@ function showArea(code){
 
 
 function toShowTitleHtml(title,html){
+	
+	var isEditable = "${isEditable}";
+	var editHtm = "";
+	if(isEditable && isEditable == 'true') {
+		"<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>"
+	}
+		
 	var titleDiv = "" ;
 	if(title.name){
 		titleDiv = "<div class=\"h_title\">" + title.name + "</div>" ;
 	}
+	
 	var s_div = 
 		"<div class=\"h_look h_team_look clearfix\" id=\"a_"+title.code+"\" >" +
 			"<div class=\"h_btnbox\">" +
-		    	"<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>" +
+				editHtm +
 		    "</div>" +
 		    titleDiv +
 			html +
