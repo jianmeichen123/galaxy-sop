@@ -11,6 +11,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 </head>
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+
 <body>
 
 <ul class="h_navbar clearfix">
@@ -274,8 +277,10 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
-	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
-	<div class="h_title">\${name}</div>
+	<c:if test="${isEditable}">
+       <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
+	</c:if>
+    <div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
                     {{if sign=="3"}}
 						{{each(i,childList) childList}}
