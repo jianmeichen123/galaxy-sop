@@ -774,12 +774,6 @@ function type_13_html(title,mark){
 	}else{
 		var li = "<li> ";
 		var values = title.valueList;
-//		$.each(values,function(i,o){
-//			if(this.checked){
-//				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"checked\" />" + this.name ;
-//			}else
-//				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
-//		});
 		$.each(values,function(i,o){
 			if(this.checked){
 				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + this.name + "</li>";

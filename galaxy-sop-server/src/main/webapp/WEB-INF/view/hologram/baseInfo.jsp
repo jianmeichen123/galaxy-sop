@@ -116,11 +116,9 @@ $(function() {
 			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
 			console.log(other_classname);
 			if(!other_classname){
-				console.log("只读");
 				$(".pro_innovation .txt").attr("readonly","readonly");
 			}else{
 				$(".pro_innovation .txt").removeAttr("readonly");
-				console.log("可写");
 			}
 			//其他点击事件
 			 $(".pro_innovation .check_label:last").click(function(){
