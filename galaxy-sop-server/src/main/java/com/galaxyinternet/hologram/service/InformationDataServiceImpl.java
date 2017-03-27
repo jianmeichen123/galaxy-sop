@@ -98,7 +98,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		String titleId = null;
 		InformationFixedTable entity = null;
 		List<InformationFixedTable> insertEntityList = new ArrayList<>();
-		List<InformationFixedTable> updateEntityList = new ArrayList<>();
 		Set<String> titleIds = new HashSet<>();
 		User user = WebUtils.getUserFromSession();
 		Long userId = user != null ? user.getId() : null;
