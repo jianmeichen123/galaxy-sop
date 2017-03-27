@@ -11,9 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 </head>
-<!-- 提示 -->
-<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 
 <body>
 <ul class="h_navbar clearfix">
@@ -52,7 +49,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -433,7 +430,7 @@
 	$('div').delegate(".h_save_btn","click",function(event){
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
@@ -458,15 +455,12 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		var validate = false;
 		//验证插件调用
-		$("#b_"+id_code).validate({
-			submitHandler: function() {
-				//验证通过后 的js代码写在这里
-				validate = true;
-			}
-		})
-		if(validate == true && beforeSubmit()){
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
+		if( beforeSubmit()){
 			///validate();
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 

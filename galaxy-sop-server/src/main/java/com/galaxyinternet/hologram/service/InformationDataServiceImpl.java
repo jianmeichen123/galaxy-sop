@@ -118,6 +118,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		InformationFixedTable infoFixedTable=new InformationFixedTable();
 		infoFixedTable.setTitleId(titleId);
+		infoFixedTable.setProjectId(projectId);
 		//插入数据
 		if(insertEntityList.size() > 0)
 		{
