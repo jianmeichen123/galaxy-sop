@@ -147,7 +147,7 @@ public class InformationFixedTable extends PagableEntity{
 	}
 
 	public void setValueName(String valueName) {
-		this.valueName = valueName;
+		this.valueName  = valueName == null ? null : valueName.trim();;
 	}
     
     
