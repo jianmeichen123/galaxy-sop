@@ -462,9 +462,7 @@
 					
 					deletedRowIds = new Array();
 					var parent = $(sec).parent();
-					console.log(parent[0]);
 					var id = parent.data('sectionId');
-					console.log(id);
 					$(btn).next().click();
 					refreshSection(id)
 				} else {

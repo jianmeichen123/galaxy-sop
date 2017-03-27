@@ -534,38 +534,33 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 	// ===  TODO 页面功能
-	
 	@SuppressWarnings({ "unchecked" })
-	private List<InformationTitle> getTitleStructure(String titleId)
+	private Map<String,InformationTitle> getChildTitleMap(String parentId)
 	{
-		List<InformationTitle> list = null;
-		String key = "titles:"+titleId;
+		Map<String,InformationTitle> titleMap = null;
+		String key = "title:map:pid="+parentId;
 		if(localCache.containsKey(key))
 		{
-			list = (List<InformationTitle>)localCache.get(key);
+			titleMap = (Map<String,InformationTitle>)localCache.get(key);
 		}
 		else
 		{
-			list = selectByTlist(selectChildsByPid(Long.valueOf(titleId)));
-			localCache.put(key, list);
+			List<InformationTitle> list = selectByTlist(selectChildsByPid(Long.valueOf(parentId)));
+			titleMap = new HashMap<>();
+			popTitleMap(list, titleMap);
+			localCache.put(key, titleMap);
 		}
-		return list;
+		return titleMap;
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<InformationTitle> searchWithData(String titleId,String projectId) 
 	{
 		List<InformationTitle> list = null;
-		Set<String> titleIds = new HashSet<>();
-		Map<String,InformationTitle> titleMap = new HashMap<>();
-		//查询子标题
-		List<InformationTitle> treeList = getTitleStructure(titleId);
-		if(treeList == null || treeList.size()==0)
-		{
-			return null;
-		}
-		populateTitleIds(treeList,titleIds,titleMap);
+		Map<String,InformationTitle> titleMap = getChildTitleMap(titleId);
+		Set<String> titleIds = titleMap.keySet();
 		list = new ArrayList<>(titleMap.values());
 		//reset info
 		if(list != null)
@@ -713,21 +708,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		
 		return list;
 	}
-	
-	private void populateTitleIds(List<InformationTitle> list, Set<String> ids, Map<String,InformationTitle> map)
+	private void popTitleMap(List<InformationTitle> list, Map<String,InformationTitle> map)
 	{
 		if(list != null && list.size() >0)
 		{
 			for(InformationTitle item : list)
 			{
-				ids.add(item.getId()+"");
 				map.put(item.getId()+"", item);
 				if(item.getChildList() != null)
 				{
-					populateTitleIds(item.getChildList(),ids,map);
+					popTitleMap(item.getChildList(),map);
 				}
 			}
 		}
 	}
-	
 }

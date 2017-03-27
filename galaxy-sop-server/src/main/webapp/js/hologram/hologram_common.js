@@ -123,6 +123,7 @@ function tabInfoChange(index){
                 }
 		     })
 		}else{
+			console.log('titleId = '+pid);
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
         				function(data) {
 
