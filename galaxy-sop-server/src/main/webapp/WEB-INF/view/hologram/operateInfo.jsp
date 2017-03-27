@@ -313,7 +313,9 @@
 	  <dl class="clearfix">
 		<dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
-		{{if type=="5"}}                        
+		{{if type=="1"}} 
+         <dd class="field" data-title-id="\${id}">未填写</dd>
+		{{else type=="5"}}                             
 		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		<dd>备注</dd>
 
