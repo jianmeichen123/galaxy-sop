@@ -565,3 +565,20 @@ jQuery.validator.addMethod("vinputValRule_4", function(value, element) {
 	var vinputValRule_4 = /^(?:[1-9][0-9]?|1[06][0-8]|168)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
+//更新时间
+function updateInforTime(projectId,type){
+	var data={};
+	data.projectId = projectId;
+	data.reflect = type;
+	sendPostRequestByJsonObj(
+				Constants.sopEndpointURL+'/galaxy/InformationOperationTime/updateOperateTime' , 
+				data,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						
+					} else {
+                        layer.msg("更新时间失败!");
+					}
+	});
+}
