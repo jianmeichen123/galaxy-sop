@@ -37,7 +37,8 @@
 
 		<!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit" id="b_\${code}">
+<form id="b_\${code}">
+<div class="h_edit" >
 	<div class="h_btnbox">
 		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
@@ -372,7 +373,8 @@
                       <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
                       <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
                     </div>
-</div>										
+</div>	
+</form>									
 </script>
 
 
@@ -382,6 +384,7 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
+         <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<c:if test="${isEditable}">
          <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	</c:if>
@@ -575,7 +578,9 @@
 					//console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+
 					validate();
+					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
@@ -604,7 +609,11 @@
 		var id_code = $(this).attr('attr-save');
 		//var sec = $(this).closest('.section');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
 		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
