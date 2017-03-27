@@ -11,9 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
 </head>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
@@ -277,7 +275,6 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
-<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<c:if test="${isEditable}">
 	   <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	</c:if>
