@@ -83,7 +83,11 @@
     select 
     <include refid="Base_Column_List" />
     from information_file
-    where project_id = #{projectId} and title_id = #{titleId}
+    where 
+    <trim prefixOverrides="and">  
+	    <if test="projectId != null"> and project_id = #{projectId}</if> 
+	    <if test="titleId != null"> and title_id = #{titleId}</if>
+    </trim>
   </select>
   
  <!-- 根据ID查询 -->
