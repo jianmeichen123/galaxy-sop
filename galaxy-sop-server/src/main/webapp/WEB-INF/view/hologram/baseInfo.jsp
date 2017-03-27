@@ -97,6 +97,24 @@ $(function() {
 				$("#" + id_code).append(s_div);
 			}
 			//判断项目创新类型其他是否选中
+			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
+			console.log(other_classname);
+			if(!other_classname){
+				console.log("只读");
+				$(".pro_innovation .txt").attr("readonly","readonly");
+			}else{
+				$(".pro_innovation .txt").removeAttr("readonly");
+				console.log("可写");
+			}
+			//其他点击事件
+			 $(".pro_innovation .check_label:last").click(function(){
+				 var $txt = $(".pro_innovation .txt");
+				 if ($txt.attr('readonly')) {
+					 $txt.removeAttr('readonly');
+				    } else {
+				    	$txt.attr('readonly',true);
+				    }
+			 })
 			
 			//字数限制显示
 			$.each($('.textarea_h'),function(i,data){
@@ -109,7 +127,7 @@ $(function() {
 			})
 		})
 	});
-
+	
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();

@@ -19,7 +19,6 @@ function textarea_h(data){
 	}
 }
 
-
 //区域显示
 function showArea(code){
 	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/" + code, null, function(data) {
@@ -57,7 +56,7 @@ function toEditTitleHtml(title,html){
 		titleDiv = "<div class=\"h_title\">" + title.name + "</div>" ;
 	}
 	var s_div = 
-		"<div class=\"h_edit h_team_look clearfix\" id=\"b_"+title.code+"\" >" +
+		"<div class=\"h_edit h_team_look base_team_look clearfix\" id=\"b_"+title.code+"\" >" +
 			"<div class=\"h_btnbox\">" +
 		    	"<span class=\"h_save_btn\" data-on=\"save\" attr-save=\""+title.code+"\">保存</span>" +
 		    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
@@ -260,7 +259,7 @@ function type_3_html(title,mark){
 		});
 		var eresult = 
 			"<dd class=\"fl_none\">" +
-				"<ul class=\"h_edit_checkbox clearfix\">" +
+				"<ul class=\"h_edit_checkbox select_strategy clearfix\">" +
 					li +
 				"</ul>" +
 			"</dd>";
@@ -356,7 +355,7 @@ function type_4_html(title,mark){
 			}
 		}
 		
-		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+		return  "<div class=\"mb_24 select_box clearfix\">" + htitle + eresult + "</div>";
 	}
 }
 function showConstarct(thisSelect,tid,type){
@@ -669,8 +668,6 @@ function type_11_html(title,mark){
 	
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
 	var hresult = "<dd></dd>";
-	
-	console.log(projectInfo);
 	switch (title.code) {
         case "NO1_1_1":  //项目编号
         	var results = title.resultList;
@@ -780,7 +777,7 @@ function type_13_html(title,mark){
 					if(this.valueName && this.valueName != '其他'){
 						hresult +=  "<dd  class=\"border_dd\">"+this.valueName+"</dd>";
 					}else if(this.contentDescribe1){
-						hresult +=  "<dd  class=\"border_dd\">"+this.contentDescribe1+"</dd>";
+						hresult +=  "<dd class=\"border_dd\">"+this.contentDescribe1+"</dd>";
 					}
 			});
 		}
@@ -789,11 +786,17 @@ function type_13_html(title,mark){
 	}else{
 		var li = "<li> ";
 		var values = title.valueList;
+//		$.each(values,function(i,o){
+//			if(this.checked){
+//				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"checked\" />" + this.name ;
+//			}else
+//				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
+//		});
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"checked\" />" + this.name ;
+				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + this.name + "</li>";
 			}else
-				li +=  "<input type=\"checkbox\" value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name ;
+				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		
 		var toadd_li = "<input type=\"text\" class=\"txt\" " +
@@ -811,7 +814,7 @@ function type_13_html(title,mark){
 		
 		var eresult = 
 			"<dd>" +
-				"<ul class=\"h_radios clearfix\">" +
+				"<ul class=\"h_radios h_edit_checkbox pro_innovation clearfix\">" +
 					li + toadd_li + "</li>"
 				"</ul>" +
 			"</dd>";	
