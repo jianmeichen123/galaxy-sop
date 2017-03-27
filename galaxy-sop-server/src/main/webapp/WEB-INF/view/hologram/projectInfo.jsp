@@ -384,7 +384,6 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
-         <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<c:if test="${isEditable}">
          <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	</c:if>
