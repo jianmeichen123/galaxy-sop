@@ -2,10 +2,12 @@ package com.galaxyinternet.model.hologram;
 
 import java.util.Date;
 
-public class InformationOperationTime {
-    private Long id;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 
-    private Long projectId;
+public class InformationOperationTime extends PagableEntity{
+	private static final long serialVersionUID = 1L;
+
+	private Long projectId;
 
     private Date informationTime;
 
@@ -45,13 +47,6 @@ public class InformationOperationTime {
 
     private Date time10;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getProjectId() {
         return projectId;
