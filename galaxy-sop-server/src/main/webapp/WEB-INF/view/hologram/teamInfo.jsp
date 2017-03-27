@@ -11,9 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
 </head>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
@@ -42,21 +40,22 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit section" id="b_\${code}">
+<form id="b_\${code}">
+<div class="h_edit section" >
 	<div class="h_btnbox">
-		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
+		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
 	</div>
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}
-
+		
                  	{{if sign=="3"}}
 						{{each(i,childList) childList}}
 						<div class="mb_16">
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -68,7 +67,7 @@
 						</dd>
 
 						{{else type=="3"}}
-						<!--<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>-->
+						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
                         <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
@@ -135,6 +134,31 @@
 
 						{{else type=="11"}}
 						<dd>项目带过来的数据</dd>
+						
+						{{else type=="12"}}
+						<dd>
+						<ul class="h_radios clearfix">
+							{{each(i,valueList) valueList}}
+                            <li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
+							{{/each}}
+                          </ul>
+						</dd>
+						<dd><span class="others">其他</span><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
+
+
+						{{else type=="13"}}
+						{{each(i,valueList) valueList}}
+                        <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
+						{{/each}}
+						<dd><span class="others">其他</span><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"></dd>
+						
+						{{else type=="14"}}
+						<select data-id="\${id}">
+						{{each(i,valueList) valueList}}
+                        <option data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</option>
+						{{/each}}
+						</select>
+
 
 						{{/if}}
                       </dl>
@@ -146,7 +170,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" /></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -159,7 +183,7 @@
 
 						{{else type=="3"}}
 						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-                        <dd class="fl_none border_dd">
+                        <dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix">
 							{{each(i,valueList) valueList}}
                             <li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
@@ -241,6 +265,7 @@
                     </div>
 
 </div>
+</form>
 </script>
 
 
@@ -270,7 +295,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -320,7 +345,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field border_dd" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -393,6 +418,9 @@
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+
+					validate();
+					$("#b_"+id_code).validate();
 				} else {
 
 				}
@@ -408,14 +436,20 @@
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var id_code = $(this).attr('attr-save');
 		var btn = this;
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active']");
 		var data = {
 			projectId : projectInfo.id
 		};
 
+		//验证插件调用
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
 		if(sec.attr("id") =="b_NO3_1"){
         		//表格
         		var dataList = new Array();
