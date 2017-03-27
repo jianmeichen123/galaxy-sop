@@ -49,10 +49,9 @@ function showArea(code){
 
 function toShowTitleHtml(title,html){
 	
-	var isEditable = "${isEditable}";
 	var editHtm = "";
 	if(isEditable && isEditable == 'true') {
-		"<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>"
+		editHtm = "<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>"
 	}
 		
 	var titleDiv = "" ;

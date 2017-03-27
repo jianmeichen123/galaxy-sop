@@ -12,6 +12,9 @@
 <title>项目详情</title>
 </head>
 
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+
 
 <body>
 	<ul class="h_navbar clearfix">
@@ -43,6 +46,8 @@
 				
 
 <script type="text/javascript">
+var isEditable = "${isEditable}";
+
 table_Value = {};
 table_filed = {};
 
