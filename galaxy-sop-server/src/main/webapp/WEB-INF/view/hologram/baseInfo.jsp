@@ -27,7 +27,7 @@
 	</ul>
 
 
-	<div id="tab-content">
+	<div id="tab-content base" class="base_tab-content">
 		<div class="tabtxt" id="page_all"> 
 		
 			<div class="h radius" id="NO1_1">
@@ -106,8 +106,8 @@ $(function() {
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
-					  var height = data.scrollHeight;
-					  $(this).css("height",height) ;
+					  var text_height = data.scrollHeight-20;
+					  $(this).css("height",text_height) ;
 				});
 					 
 

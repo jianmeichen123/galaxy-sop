@@ -13,9 +13,9 @@ function textarea_h(data){
 		var font_num = p_node.childNodes[0];
 		$(font_num).html(2000 - taxt_length);
 	}
-	var height = data.scrollHeight ;
-	if(data.scrollHeight>data.offsetHeight){
-		data.style.height= height+'px';
+	 $(data).css("height","auto");
+	if(data.scrollHeight> $(data).height()){
+		 $(data).height(data.scrollHeight);
 	}
 }
 
@@ -432,7 +432,7 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)' placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'   placeholder='"+title.placeholder+"' >" +
 					 	r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
@@ -506,7 +506,7 @@ function type_6_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)' placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"' >" +
 					 	r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
@@ -553,7 +553,7 @@ function type_8_html(title,mark){
 		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)' placeholder='"+title.placeholder+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
 					r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
