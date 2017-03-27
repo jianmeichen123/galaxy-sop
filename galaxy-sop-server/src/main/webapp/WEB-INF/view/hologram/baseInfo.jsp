@@ -30,14 +30,9 @@
 	<div id="tab-content base" class="base_tab-content">
 		<div class="tabtxt" id="page_all"> 
 		
-			<div class="h radius" id="NO1_1">
-				
+			<div class="h radius" id="NO1_1"> </div>
 			
-			</div>
-			
-			<div class="h radius" id="NO1_2">
-			
-			</div>
+			<div class="h radius" id="NO1_2"> </div>
 			
 		</div>
 	</div>
@@ -54,29 +49,8 @@ table_filed = {};
 delComArr=[];
 table_toedit_Value = {};
 table_tosave_Value = {};
-
-	//页面显示
-	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/NO1_1", null, function(data) {
-		var result = data.result.status;
-		if (result == 'OK') {
-			var entity = data.entity;
-			console.log(entity);
-			var html = toGetHtmlByMark(entity,'s');
-			var s_div = toShowTitleHtml(entity, html);
-			$("#NO1_1").html(s_div);
-		}
-	});
-	//页面显示
-	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/NO1_2", null, function(data) {
-		var result = data.result.status;
-		if (result == 'OK') {
-			var entity = data.entity;
-			console.log(entity);
-			var html = toGetHtmlByMark(entity,'s');
-			var s_div = toShowTitleHtml(entity, html);
-			$("#NO1_2").html(s_div);
-		}
-	});
+var codeArr = ['NO1_1','NO1_2'];
+sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);
 	
 
 $(function() {

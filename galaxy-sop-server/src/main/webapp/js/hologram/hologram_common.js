@@ -107,8 +107,8 @@ function tabInfoChange(index){
 	$.fn.showResults = function(readonly){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
-
-		if(pid == 1302){
+        var id = $(this).attr('id');
+		if(id == "a_NO3_1"){
 		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
@@ -123,7 +123,6 @@ function tabInfoChange(index){
                 }
 		     })
 		}else{
-			console.log('titleId = '+pid);
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
         				function(data) {
 
@@ -149,7 +148,7 @@ function tabInfoChange(index){
 function buildResults(sec,title,readonly)
 {
 	//普通字段
-	if(title.resultList)
+	if(null!=title.resultList&&title.resultList.length>0)
 	{
 		if(title.type == 1)
 		{
@@ -166,6 +165,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
+				console.log(title);
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 			}
 			else
@@ -244,12 +244,12 @@ function buildMemberTable(sec,title){
     			table.empty();
     			var tr="<tr>";
     			for(var key in header)
-    			{
-    				if(key.indexOf('field')>-1)
-    				{
-    					tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
-    				}
-    			}
+    			{   //过滤掉电话字段
+                    if(key.indexOf('field')>-1 && key != "field4")
+                    {
+                        tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+                    }
+                }
     			var editable = table.hasClass('editable');
     			if(editable == true)
     			{
@@ -374,7 +374,7 @@ function buildRow(row,showOpts)
 
 }
 function buildfinxedTable(sec,title,readonly){
-	if(title.fixedTableList){
+	if(null!=title.fixedTableList&&title.fixedTableList.length>0){
 	  if(readonly == true)
 		{
 		  $.each(title.fixedTableList,function(i,n){
@@ -490,7 +490,7 @@ function validate(){
 				var validate={
 						"data-rule-verify_102":"true",
 						"name":i,
-						"required":"required",
+						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
@@ -499,7 +499,7 @@ function validate(){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-verify_3":"true",
-						"required":"required",
+						//"required":"required",
 						"name":i,
 						"data-msg-verify_3":"<font color=red>*</font>支持0～999的整数"			
 				}
@@ -507,7 +507,7 @@ function validate(){
 			}else if(inputValRuleMark=="3,2"){
 				var validate={
 						"data-rule-verify_32":"true",
-						"required":"required",	
+						//"required":"required",	
 						"name":i,
 						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
 						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"			
@@ -516,7 +516,7 @@ function validate(){
 			}else if(inputValRuleMark=="5,2"){
 				var validate={
 						"data-rule-verify_52":"true",
-						"required":"required",
+						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
 						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"			
@@ -525,7 +525,7 @@ function validate(){
 			}else if(inputValRule=="4"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
-						"required":"required",
+						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
 						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			

@@ -49,6 +49,10 @@ function editMemberRow(ele){
 				var ele = $(this);
 				var name = ele.attr('name');
 				ele.val(row.data(name));
+				var tagName = $(this).get(0).tagName;
+                if(tagName=="SELECT" && (ele.val()==null)){
+                    ele.find("option:eq(0)").attr("selected",true);
+                }
 			});
 			$("input:radio[name='field2'][data-value='" + row.data("field2") + "']").prop("checked", "checked");
             //填充学习经历
@@ -134,7 +138,7 @@ function getWorkList(flag,workList){
        var work ="";
        $(workList).each(function(){
          var o =$(this)[0];
-         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span><span name='field1'>"+o.field1+"年</span><span>～</span><span name='field2'>"+o.field2+"年</span></div>"+
+         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span></div>"+
                                     "<div class='team_p_two'>"+
                                         "<ul>"+
                                             "<li><span>公司：</span><span name='field3'>"+o.field3+"</span></li>"+
@@ -243,8 +247,6 @@ function getWorkList(flag,workList){
                     $("#startup_form").find("[name='field5']").val(div.attr("data-c"));
                     $("#startup_form").find("[name='field6']").val(div.attr("data-d"));
                     $("#startup_form").find("[name='field7']").text(json["field7"]);
-
-
          		}
            })
            return false;

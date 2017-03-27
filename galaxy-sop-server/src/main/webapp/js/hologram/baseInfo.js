@@ -19,6 +19,20 @@ function textarea_h(data){
 	}
 }
 
+
+
+function backFun(data){
+	var result = data.result.status;
+	if (result == 'OK') {
+		var entity = data.entity;
+		console.log(entity);
+		var html = toGetHtmlByMark(entity,'s');
+		var s_div = toShowTitleHtml(entity, html);
+		$("#"+entity.code).html(s_div);
+	}
+}
+
+
 //区域显示
 function showArea(code){
 	sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/" + code, null, function(data) {
@@ -34,14 +48,22 @@ function showArea(code){
 
 
 function toShowTitleHtml(title,html){
+	
+	var isEditable = "${isEditable}";
+	var editHtm = "";
+	if(isEditable && isEditable == 'true') {
+		"<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>"
+	}
+		
 	var titleDiv = "" ;
 	if(title.name){
 		titleDiv = "<div class=\"h_title sec_box\">" + title.name + "</div>" ;
 	}
+	
 	var s_div = 
 		"<div class=\"h_look h_team_look clearfix\" id=\"a_"+title.code+"\" >" +
 			"<div class=\"h_btnbox\">" +
-		    	"<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>" +
+				editHtm +
 		    "</div>" +
 		    titleDiv +
 			html +
