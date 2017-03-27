@@ -13,7 +13,7 @@ function textarea_h(data){
 		var font_num = p_node.childNodes[0];
 		$(font_num).html(2000 - taxt_length);
 	}
-	 $(data).css("height","auto");
+	$(data).css("height","auto");
 	if(data.scrollHeight> $(data).height()){
 		 $(data).height(data.scrollHeight);
 	}
@@ -678,7 +678,9 @@ function type_10_html(title,mark){
 function type_11_html(title,mark){
 	
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
-	var hresult = "<dd></dd>";
+	var hresult = "<dd> - </dd>";
+	
+	console.log(projectInfo);
 	switch (title.code) {
         case "NO1_1_1":  //项目编号
         	var results = title.resultList;
@@ -700,7 +702,9 @@ function type_11_html(title,mark){
         	hresult = "<dd>"+ projectInfo.createUname +"</dd>";
             break;
         case "NO1_1_3":   //项目合伙人
-        	hresult = "<dd>"+ projectInfo.projectDepartid +"</dd>";
+        	if(projectInfo.hhrName){
+        		hresult = "<dd>"+ projectInfo.hhrName +"</dd>";
+        	}
             break;
         case "NO1_1_4":   //隶属事业部
         	hresult = "<dd>"+ projectInfo.projectCareerline +"</dd>";
