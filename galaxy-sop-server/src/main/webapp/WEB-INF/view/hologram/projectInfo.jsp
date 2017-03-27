@@ -12,6 +12,7 @@
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
+<script src="<%=path%>/js/validate/jquery.validate.min.js"></script>
 </head>
 <body>
 <ul class="h_navbar clearfix">
@@ -100,7 +101,6 @@
 						{{/each}}
 						
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs">
                              
@@ -111,7 +111,6 @@
                     		</dd>
                   			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
 							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
@@ -260,7 +259,6 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		<dd class="fl_none clearfix">
                     		 <ul class="h_imgs">
                              
@@ -271,7 +269,6 @@
                     		</dd>
                   			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
 							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
@@ -410,14 +407,12 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		 <dd class="fl_none">
                             	<img src="img/loginbg.gif" alt="">
                             	<img src="img/loginbg.gif" alt="">
                           	</dd>
 
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
 
 						{{else type=="9"}}
@@ -487,14 +482,12 @@
 						{{/each}}
 
 						{{else type=="7"}}
-                 			<dt class="fl_none">除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>
                     		 <dd class="fl_none">
                             	<img src="img/loginbg.gif" alt="">
                             	<img src="img/loginbg.gif" alt="">
                           	</dd>
 
 						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
 						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
 
 						{{else type=="9"}}
@@ -567,8 +560,6 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		$.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
-		$.getScript("<%=path %>/js/validate/lib/jq.validate.js");
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -602,7 +593,6 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
-		$(".tip-yellowsimple").hide();
 		event.stopPropagation();
 	});
 	//通用保存
@@ -647,31 +637,36 @@
 				infoModeFixed.value=field.val();
 				infoModeFixedList.push(infoModeFixed);
 			}
-			else if(type==1 || type==8)
+			else if(type==1)
 			{
-				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
+				infoMode.remark1 = field.val();
+			}
+			else if(type==8)
+			{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+				infoMode.remark1 = str;
 			}
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
 		data.infoFixedTableList=infoModeFixedList;
-		if(beforeSubmit()){
-			sendPostRequestByJsonObj(
-					platformUrl.saveOrUpdateInfo , 
-					data,
-					function(data) {
-						var result = data.result.status;
-						if (result == 'OK') {
-							layer.msg('保存成功');
-							$('#'+id_code).show();
-							$('#b_'+id_code).remove();
-							var pid=$('#a_'+id_code).attr("data-section-id");
-							setDate(pid,true);					
-						} else {
+		sendPostRequestByJsonObj(
+				platformUrl.saveOrUpdateInfo , 
+				data,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						layer.msg('保存成功');
+						$('#'+id_code).show();
+						$('#b_'+id_code).remove();
+						var pid=$('#a_'+id_code).attr("data-section-id");
+						setDate(pid,true);					
+					} else {
 
-						}
-				}) 
-		}
+					}
+			}) 
 		
 	});
 </script>

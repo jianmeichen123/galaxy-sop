@@ -28,75 +28,7 @@
 	<div id="tab-content">
 		<div class="tabtxt" id="page_all">
 
-			<div class="h radius" id="NO5_2">
-
-
-
-				<div class="mb_24 clearfix">
-					<dl class="clearfix">
-						<dt data-type="10" data-id="1906" data-code="NO9_1_4"
-							data-parentid="">股权结构:</dt>
-						<dd>
-							<table data-title-id="1906" data-code="equity-structure">
-								<tbody>
-									<tr>
-										<th data-field-name="field1">股东名称</th>
-										<th data-field-name="field2">占股比例</th>
-										<th data-field-name="field3">股东类型</th>
-									</tr>
-								</tbody>
-							</table>
-						</dd>
-					</dl>
-				</div>
-
-
-
-
-				<div class="h_edit">
-					<div class="h_btnbox">
-						<span class="h_save_btn">保存</span>
-						<span class="h_cancel_btn" data-on="h_cancel">取消</span>
-					</div>
-					
-					<div class="h_title">股权结构合理性</div>
-					
-					<div class="mb_16">
-						<dl class="h_edit_txt clearfix">
-							<dt data-type="10" data-id="1325" data-code="NO3_8_1" data-parentid="1301">团队重要成员是否拥有足够、合理的股权:</dt>
-							<dd class="fl_none">
-								<table>
-									<tbody>
-										<tr>
-											<th>姓名</th>
-											<th>职位</th>
-											<th>性别</th>
-											<th>最高学历</th>
-											<th>操作</th>
-										</tr>
-										<tr>
-											<th>罗振宇</th>
-											<td>CEO</td>
-											<td>男</td>
-											<td>博士</td>
-											<td><span class="blue" data-btn="btn">查看</span><span
-												class="blue" data-btn="btn">编辑</span><span class="blue"
-												data-btn="btn">删除</span></td>
-										</tr>
-									</tbody>
-								</table>
-								<span class="pubbtn bluebtn" href="html/team_xk.html"
-									data-btn="addmen">新增</span>
-							</dd>
-						</dl>
-					</div>
-					
-					<div class="h_edit_btnbox clearfix">
-						<span class="pubbtn bluebtn fl" data-on="save">保存</span> <span
-							class="pubbtn fffbtn fl" data-name="basic" data-on="h_cancel">取消</span>
-					</div>
-				</div>
-			</div>
+			<!-- <div class="h radius" id="NO5_2"> </div> -->
 
 			<div class="h radius" id="NO5_1"> </div>
 			<div class="h radius" id="NO5_3"> </div>
@@ -118,11 +50,6 @@
 
 table_Value = {};
 table_filed = {};
-
-delComArr=[];
-table_toedit_Value = {};
-table_tosave_Value = {};
-
 
  	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid + "/NO5_1", null, function(data) {
 				var result = data.result.status;
@@ -189,9 +116,8 @@ table_tosave_Value = {};
 			});
 	
 	
-	
-	
- $(function() {
+
+$(function() {
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
 		var id_code = $(this).attr('attr-hide');
@@ -204,8 +130,7 @@ table_tosave_Value = {};
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var id_code = $(this).attr('attr-id');
 		event.stopPropagation();
-		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/"
-				+ id_code, null, function(data) {
+		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
@@ -214,6 +139,17 @@ table_tosave_Value = {};
 
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				
+				$.each($('.textarea_h'),function(i,data){
+					  $(this).css("height",$(this).attr("scrollHeight"));
+					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+					  var font_num = 2000 - $(this).val().length;
+					  $(this).siblings('p').find('label').html(font_num);
+					  var height = data.scrollHeight;
+					  $(this).css("height",height) ;
+				});
+					 
+
 			}
 		})
 	});
@@ -256,44 +192,66 @@ table_tosave_Value = {};
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			var value = field.val().replace(/\n/g,'<br />');
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : field.data('type'),
-				remark1 : field.val()
+				remark1 : value
 			};
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-
 		
 		//表格
-		var infoTableModelList = new Array();
-		for(var key in table_toedit_Value){
-			for(var key2 in table_toedit_Value[key]){
-				infoTableModelList.push(table_toedit_Value[key][key2]);
-			}
-		}
-		for(var key in table_tosave_Value){
-			for(var key2 in table_tosave_Value[key]){
-				infoTableModelList.push(table_tosave_Value[key][key2]);
-			}
-		}
-		data.infoTableModelList = infoTableModelList;
-		data.deletedRowIds = delComArr;
-		
-		
-		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo,
-				data, function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						layer.msg('保存成功');
-						showArea(id_code);
-					} else {
-						layer.msg('保存失败');
+		var talbes = $("#b_"+id_code).find("[data-type='10']");
+		if(talbes){
+			var infoTableModelList = new Array();
+			var deletedRowIds = new Array();
+			
+			for(var i=0; i<talbes.length; i++){
+				var tid = $(talbes[0]).data("tid");
+				
+				var toAdds = table_tosave_Value[tid];
+				if(toAdds){
+					for(var key2 in toAdds){
+						if(toAdds[key2]!=null) infoTableModelList.push(toAdds[key2]);
 					}
-				});
+					table_tosave_Value[tid] = {};
+				}
+				
+				var toEdits = table_toedit_Value[tid];
+				if(toEdits){
+					for(var key2 in toEdits){
+						if(toEdits[key2]!=null) infoTableModelList.push(toEdits[key2]);
+					}
+					table_toedit_Value[tid] = {};
+				}
+				
+				var todels = table_delComArr[tid];
+				if(todels && todels.length>0){
+					for(var j=0; j<todels.length; j++){
+						deletedRowIds.push(todels[j]);
+					}
+					table_delComArr[tid] = [];
+				}
+			}
+			
+			data.infoTableModelList = infoTableModelList;
+			data.deletedRowIds = deletedRowIds;
+		}
+		
+		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				layer.msg('保存成功');
+				showArea(id_code);
+			} else {
+				layer.msg('保存失败');
+			}
+		});
 	});
 });
+
 
 
 </script>

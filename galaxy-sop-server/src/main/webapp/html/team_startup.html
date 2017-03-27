@@ -23,7 +23,7 @@
                     </dd>
                 </dl>
                 <div class="team_wid">
-                    <p class="team_wid_p"><span>是否是核心创始人：（5%以上创始股权）</span><span><input type="radio" class="team_stock" attr-name="yes" value="核心创始人" name="field4">是</span><span><input type="radio" class="team_stock" attr-name="no" value="非核心创始人"  name="field4">否</span></p>
+                    <p class="team_wid_p"><span>是否是核心创始人：（5%以上创始股权）</span><span><input type="radio" class="team_stock" attr-name="yes" data-value="核心创始人" name="field4">是</span><span><input type="radio" class="team_stock" attr-name="no" data-value="非核心创始人"  name="field4">否</span></p>
                     <p class="team_wid_p  team_stock_on"><span>创立时股权比：</span><span><input name="field5" type="text" class="input" maxlength="50"></span></p>
                 </div>
                 <div class="team_wid">
@@ -67,14 +67,13 @@
                  value = $(this).find("option:selected").val();
               }
               json[key]=value;
-              json["field4"]=$("input[name='field4']:checked").val();
+              json["field4"]=$("input[name='field4']:checked").attr("data-value");
         })
         return json;
 	}
      $(".add_team_startup").on("click",function(){
         var json = getData1($("#startup_form"));
         var index = json["index"];
-
         if(!index){
 
               //新增一条记录

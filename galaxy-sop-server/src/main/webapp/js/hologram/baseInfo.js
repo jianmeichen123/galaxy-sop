@@ -146,6 +146,7 @@ function switchTypeByMark(title,mark){
 
 
 
+
 //1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 //7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 
@@ -162,12 +163,13 @@ function type_1_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = "<input type=\"text\" class=\"txt\" " +
-						"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
-		if(results && results[0] && results[0].contentDescribe1){
-			eresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' " +
-						"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
-		}
+		var value = '';
+		if(results && results[0] && results[0].contentDescribe1) value = results[0].contentDescribe1;
+		var placeholder = '';
+		if(title.placeholder) placeholder = title.placeholder;
+		
+		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' />";
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
@@ -283,7 +285,7 @@ function getNextSelect(title,cid){
 	return rselect;
 }
 function nselectHtml(values,title,cid){
-	var results = title.resultList;
+	//var results = title.resultList;
 	
 	var has_checked = false;
 	var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
@@ -347,10 +349,8 @@ function type_4_html(title,mark){
 					checked_cid = return_j.vpid;
 					eresult += return_j.htm;
 				}else{
-					eresult += 
-						"<select onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" >" +
-							"<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>" +
-						"</select>" ;
+					var return_j = nselectHtml({},title,checked_cid);
+					eresult += return_j.htm;
 				}
 			}
 		}
@@ -379,7 +379,7 @@ function showConstarct(thisSelect,tid,type){
 	    		
 	    		$(nextSelect).html(li_htm);
 	    		
-	    		for(var i = 0; i<4; i ++){
+	    		for(var i = 0; i<5; i ++){
 	    			nextSelect = $(nextSelect).next();
     				if(nextSelect && nextSelect.length == 1){
     					$(nextSelect).html(li);
@@ -400,11 +400,12 @@ function type_5_html(title,mark){
 	
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
 	
+	var results = title.resultList;
+	
 	if(mark == 's'){
 		var hresult_1 = "<dd>未选择</dd>";
 		var hresult_2 = "<dd>未填写</dd>";
 		
-		var results = title.resultList;
 		if(results && results[0] && results[0].id){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
@@ -418,17 +419,12 @@ function type_5_html(title,mark){
 		return  "<div class=\"mb_24  clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
 		var eresult_1 = one_select_edit(title);
-					
-		var eresult_2 = 
-			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' ></textarea>" +
-				"<p class=\"num_tj\"><label>0</label>/2000</p>" +
-			"</dd>";	
-		var results = title.resultList;
+		
+		var r_value = '';
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
+<<<<<<< HEAD
 					eresult_2 = 
 						"<dd class=\"fl_none\">" +
 							"<textarea class=\"textarea_h\" " +
@@ -437,11 +433,21 @@ function type_5_html(title,mark){
 							"</textarea>" +
 							"<p class=\"num_tj\"><label>2000</label>/2000</p>" +
 						"</dd>";	
+=======
+					r_value = results[i].contentDescribe1;
+>>>>>>> branch 'dev_161128' of http://git.gi.com/galaxy-star/galaxy-sop.git
 					break;
 				}
 			}
 		}
-		
+		var eresult_2 = 
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" " +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)' placeholder='"+title.placeholder+"' >" +
+					 	r_value +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>";	
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult_1 + "<br/>" + eresult_2 + "</div>";
 	}
@@ -454,11 +460,12 @@ function type_6_html(title,mark){
 	
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
 	
+	var results = title.resultList;
+	
 	if(mark == 's'){
 		var hresult_1 = "<dd>未选择</dd>";
 		var hresult_2 = "<dd>未填写</dd>";
 		
-		var results = title.resultList;
 		if(results && results[0] && results[0].id){
 			
 			var hasC = false;
@@ -479,9 +486,6 @@ function type_6_html(title,mark){
 
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
-		var eresult_1 = "";
-		var eresult_2 = "";
-		
 		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
 		
 		var li = "";
@@ -493,7 +497,7 @@ function type_6_html(title,mark){
 				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 			}
 		});
-		eresult_1 = 
+		var eresult_1 = 
 			"<dd class=\"fl_none\">" +
 				"<ul class=\"h_edit_checkbox clearfix\">" +
 					li +
@@ -501,26 +505,23 @@ function type_6_html(title,mark){
 			"</dd>";	
 		
 		
-		eresult_2 = 
-			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
-				"<p class=\"num_tj\"><label>500</label>/2000</p>" +
-			"</dd>";
-		var results = title.resultList;
+		var r_value = '';
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					eresult2 = 
-						"<dd class=\"fl_none\">" +
-							"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'>" +
-								results[i].contentDescribe1 +
-							"</textarea>" +
-							"<p class=\"num_tj\"><label>500</label>/2000</p>" +
-						"</dd>";	
+					r_value = results[i].contentDescribe1;
 					break;
 				}
 			}
 		}
+		var eresult_2 = 
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" " +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)' placeholder='"+title.placeholder+"' >" +
+					 	r_value +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>";	
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult_1 + "<br/>" + eresult_2 + "</div>";
 	}
@@ -544,12 +545,12 @@ function type_7_html(title){
 
 // 8:文本域
 function type_8_html(title,mark){
-	
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	
+	var results = title.resultList;
+	
 	if(mark == 's'){
 		var hresult = "<dd>未填写</dd>";
-		
-		var results = title.resultList;
 		if(results && results[0] && results[0].contentDescribe1){
 			hresult = "<dd class=\"fl_none\" >"+results[0].contentDescribe1+"</dd>";
 		}
@@ -557,23 +558,18 @@ function type_8_html(title,mark){
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + hresult + "</div>";
 	}else{
 		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
-		var results = title.resultList;
+
+		var r_value = '';
+		if(results && results[0] && results[0].contentDescribe1) r_value = results[0].contentDescribe1;
+		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\"  data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'></textarea>" +
-				"<p class=\"num_tj\"><label>0</label>/2000</p>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)' placeholder='"+title.placeholder+"'>" +
+					r_value +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
 			"</dd>";
-		if(results && results[0] && results[0].contentDescribe1){
-			eresult =
-				"<dd class=\"fl_none\">" +
-					"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"'>" +
-						results[0].contentDescribe1 +
-					"</textarea>" +
-					"<p class=\"num_tj\"><label>0</label>/2000</p>" +
-				"</dd>";
-		}
 		
-			
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
 	}
 }
@@ -582,7 +578,12 @@ function type_8_html(title,mark){
 
 //10:表格
 function type_10_html(title,mark){
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	table_delComArr[title.id] = [];
+	table_toedit_Value[title.id] = {};
+	table_tosave_Value[title.id] = {};
+	
+	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
+	 
 	var tableHeader = title.tableHeader;
 	var dataList = title.dataList;
 	
@@ -662,7 +663,6 @@ function type_10_html(title,mark){
 
 
 
-
 // 11:静态数据
 function type_11_html(title,mark){
 	
@@ -735,18 +735,17 @@ function type_12_html(title,mark){
 				li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
 		});
 		
-		var toadd_li = "<input type=\"text\" class=\"txt\" " +
-							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
-		var results = title.resultList;
+		var r_value = '';
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					toadd_li = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' " +
-									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+					r_value = results[i].contentDescribe1;
 					break;
 				}
 			}
 		}
+		var toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
+									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 		
 		var eresult = 
 			"<dd>" +
@@ -766,13 +765,13 @@ function type_13_html(title,mark){
 	
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
 	
+	var results = title.resultList;
+	
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		
-		var results = title.resultList;
 		if(results && results[0] && results[0].id){
 			hresult = "";
-			
 			$.each(results,function(i,o){
 					if(this.valueName && this.valueName != '其他'){
 						hresult +=  "<dd  class=\"border_dd\">"+this.valueName+"</dd>";
@@ -799,18 +798,17 @@ function type_13_html(title,mark){
 				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		
-		var toadd_li = "<input type=\"text\" class=\"txt\" " +
-							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
-		var results = title.resultList;
+		var r_value = '';
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					toadd_li = "<input type=\"text\" class=\"txt\" value='"+results[i].contentDescribe1+"' " +
-									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+					r_value = results[i].contentDescribe1;
 					break;
 				}
 			}
 		}
+		var toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
+									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 		
 		var eresult = 
 			"<dd>" +

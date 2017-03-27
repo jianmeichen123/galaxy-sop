@@ -20,6 +20,7 @@ import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationDictionary;
@@ -51,6 +52,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
+	@Autowired
+	private LocalCache localCache;
 	
 	@Override
 	protected BaseDao<InformationTitle, Long> getBaseDao() {
@@ -531,23 +534,35 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	
 	// ===  TODO 页面功能
-	
+	@SuppressWarnings({ "unchecked" })
+	private Map<String,InformationTitle> getChildTitleMap(String parentId)
+	{
+		Map<String,InformationTitle> titleMap = null;
+		String key = "title:map:pid="+parentId;
+		if(localCache.containsKey(key))
+		{
+			titleMap = (Map<String,InformationTitle>)localCache.get(key);
+		}
+		else
+		{
+			List<InformationTitle> list = selectByTlist(selectChildsByPid(Long.valueOf(parentId)));
+			titleMap = new HashMap<>();
+			popTitleMap(list, titleMap);
+			localCache.put(key, titleMap);
+		}
+		return titleMap;
+	}
 	
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<InformationTitle> searchWithData(String titleId,String projectId) 
 	{
-		//查询子标题
-		List<InformationTitle> treeList = selectByTlist(selectChildsByPid(Long.valueOf(titleId)));
-		if(treeList == null || treeList.size()==0)
-		{
-			return null;
-		}
-		Set<String> titleIds = new HashSet<>();
-		Map<String,InformationTitle> titleMap = new HashMap<>();
-		populateTitleIds(treeList,titleIds,titleMap);
-		List<InformationTitle> list = new ArrayList<>(titleMap.values());
+		List<InformationTitle> list = null;
+		Map<String,InformationTitle> titleMap = getChildTitleMap(titleId);
+		Set<String> titleIds = titleMap.keySet();
+		list = new ArrayList<>(titleMap.values());
+		//reset info
 		if(list != null)
 		{
 			for(InformationTitle item : list)
@@ -555,6 +570,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				if(item.getChildList() != null)
 				{
 					item.getChildList().clear();
+				}
+				if(item.getResultList() != null)
+				{
+					item.getResultList().clear();
+				}
+				if(item.getDataList() != null)
+				{
+					item.getDataList().clear();
+				}
+				if(item.getFixedTableList() != null)
+				{
+					item.getFixedTableList().clear();
 				}
 			}
 		}
@@ -681,21 +708,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		
 		return list;
 	}
-	
-	private void populateTitleIds(List<InformationTitle> list, Set<String> ids, Map<String,InformationTitle> map)
+	private void popTitleMap(List<InformationTitle> list, Map<String,InformationTitle> map)
 	{
 		if(list != null && list.size() >0)
 		{
 			for(InformationTitle item : list)
 			{
-				ids.add(item.getId()+"");
 				map.put(item.getId()+"", item);
 				if(item.getChildList() != null)
 				{
-					populateTitleIds(item.getChildList(),ids,map);
+					popTitleMap(item.getChildList(),map);
 				}
 			}
 		}
 	}
-	
 }

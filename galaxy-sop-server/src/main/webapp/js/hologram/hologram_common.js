@@ -113,12 +113,17 @@ function tabInfoChange(index){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {
-                    var entityList = data.entityList;
-                    var data = entityList[0]
+                   var entityList = data.entityList;
+                    $(entityList).each(function(){
+                        if($(this)[0]["tableHeader"]){
+                            data = $(this)[0]
+                        }
+                    })
                     buildMemberTable(sec,data);
                 }
 		     })
 		}else{
+			console.log('titleId = '+pid);
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
         				function(data) {
 
@@ -217,13 +222,18 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
-				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1.replace(/<br>/g,'\n'));
+				var str=title.resultList[0].contentDescribe1;
+				if(str){
+					str=str.replace(/<br>/g,'\n');
+					str=str.replace(/&nbsp;/g," ");
+				}
+				$("textarea[data-title-id='"+title.id+"']").val(str);
 			}
 		}
 	}
 }
 function buildMemberTable(sec,title){
-    //列表Header
+        //列表Header
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -232,7 +242,7 @@ function buildMemberTable(sec,title){
     			var table = $(this);
     			table.attr('data-code',header.code);
     			table.empty();
-    			var tr="<thead><tr>";
+    			var tr="<tr>";
     			for(var key in header)
     			{
     				if(key.indexOf('field')>-1)
@@ -245,7 +255,7 @@ function buildMemberTable(sec,title){
     			{
     				tr +='<th data-field-name="opt">操作</th>';
     			}
-    			tr+="</tr></thead>";
+    			tr+="</tr>";
     			table.append(tr);
     		});
     	}
@@ -255,27 +265,40 @@ function buildMemberTable(sec,title){
     		$.each(title.dataList,function(){
     			var row = this;
     			var tables = $("table[data-title-id='"+row.titleId+"']");
+
     			$.each(tables,function(){
     				var table = $(this);
-    				var tr = buildMemberRow(row,table.hasClass('editable'));
+    				var headerList = table.find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
+    				var tr = buildMemberRow(headerList,row,table.hasClass('editable'));
     				table.append(tr);
     			});
     		});
     	}
 }
-function buildMemberRow(row,showOpts)
+function buildMemberRow(headerList,row,showOpts)
 {
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	tr.data("obj",row);
-	for(var key in row)
-	{
-		//设置data
-		tr.data(key,row[key]);
-		if(key.indexOf('field')>-1)
-		{
-			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
-		}
-	}
+    for(var key in row)
+   	{
+    	//设置data
+   		tr.data(key,row[key]);
+   	}
+    $(headerList).each(function(){
+        var key = $(this).attr("data-field-name");
+        tr.data(key,row[key]);
+        if(key.indexOf('field')>-1)
+        {
+            if(row[key]){
+                tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+            }else{
+                tr.data(key,"未知");
+                tr.append('<td data-field-name="'+key+'">未知</td>');
+            }
+        }
+
+    })
+
 	if(showOpts == true)
 	{
 		var td = $('<td data-field-name="opt"></td>');
@@ -286,7 +309,6 @@ function buildMemberRow(row,showOpts)
 	}
 	return tr;
 }
-
 function buildTable(sec,title)
 {
 	//列表Header
@@ -298,7 +320,7 @@ function buildTable(sec,title)
 			var table = $(this);
 			table.attr('data-code',header.code);
 			table.empty();
-			var tr="<thead><tr>";
+			var tr="<tr>";
 			for(var key in header)
 			{
 				if(key.indexOf('field')>-1)
@@ -311,7 +333,7 @@ function buildTable(sec,title)
 			{
 				tr +='<th data-field-name="opt">操作</th>';
 			}
-			tr+="</tr></thead>";
+			tr+="</tr>";
 			table.append(tr);
 		});
 	}
@@ -466,34 +488,47 @@ function validate(){
 			console.log(inputValRuleMark);
 			if(inputValRuleMark=="10,2"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"msg":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+						"data-rule-verify_102":"true",
+						"name":i,
+						"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^[0-9]{1,3}$",
-						"msg":"<font color=red>*</font>支持0～999的整数"			
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-verify_3":"true",
+						"required":"required",
+						"name":i,
+						"data-msg-verify_3":"<font color=red>*</font>支持0～999的整数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^(([1-9][0-9]{0,2})|([0-9]{1,3}\.[1-9]{1,2})|([0-9]{1,3}\.[0][1-9]{1})|([0-9]{1,3}\.[1-9]{1}[0])|([1-9][0-9]{0,2}\.[0][0]))$",
-						"msg":"<font color=red>*</font>支持0～100的整数和两位小数"			
+						"data-rule-verify_32":"true",
+						"required":"required",	
+						"name":i,
+						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
+						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
 				var validate={
-						"allowNULL":"yes",
-						"valType":"OTHER",
-						"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"msg":"<font color=red>*</font>支持0～99999的整数和两位小数"			
+						"data-rule-verify_52":"true",
+						"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="4"){
+				var validate={
+						"data-rule-vinputValRule_4":"true",
+						"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			
 				}
 				inputs.eq(i).attr(validate);
 			}
@@ -501,3 +536,32 @@ function validate(){
 	
 	
 }
+//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
+$.validator.setDefaults({
+	errorElement:'span'
+});
+//inputValRuleMark=="10,2"
+jQuery.validator.addMethod("verify_102", function(value, element) {   
+	var verify_102 = /^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$/;
+	return this.optional(element) || (verify_102.test(value));
+}, "不能超过9999999999"); 
+//inputValRuleMark=="3"
+jQuery.validator.addMethod("verify_3", function(value, element) {   
+	var verify_3 = /^[0-9]{1,3}$/;
+	return this.optional(element) || (verify_3.test(value));
+}, "不能超过99"); 
+//inputValRuleMark=="3,2"
+jQuery.validator.addMethod("verify_32", function(value, element) {   
+	var verify_32 = /^(?:[1-9][0-9]?|1[01][0-9]|100)$/;
+	return this.optional(element) || (verify_32.test(value));
+}, "不能超过100"); 
+//inputValRuleMark=="5,2"
+jQuery.validator.addMethod("verify_52", function(value, element) {   
+	var verify_52 = /^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$/;
+	return this.optional(element) || (verify_52.test(value));
+}, "不能超过99999"); 
+//inputValRule=="4"
+jQuery.validator.addMethod("vinputValRule_4", function(value, element) {   
+	var vinputValRule_4 = /^(?:[1-9][0-9]?|1[06][0-8]|168)$/;
+	return this.optional(element) || (vinputValRule_4.test(value));
+}, "不能超过168"); 

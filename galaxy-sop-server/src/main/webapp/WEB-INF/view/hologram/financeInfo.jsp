@@ -11,21 +11,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 </head>
+<!-- 提示 -->
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 
 <body>
 <ul class="h_navbar clearfix">
-                     <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
-                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
-                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
-                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br/>数据</li>
-                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('4')">竞争</li>
-                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br/>策略</li>
-                  <li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('6')">财务</li>
-                  <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
-                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
-           
-                </ul>
+      <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
+   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
+   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
+   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br/>数据</li>
+   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('4')">竞争</li>
+   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br/>策略</li>
+   <li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('6')">财务</li>
+   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
+   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
+
+ </ul>
+                
                   <div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -34,7 +37,8 @@
 		</div>
 		<!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit" id="b_\${code}">
+<form id="b_\${code}">
+<div class="h_edit" >
 	<div class="h_btnbox">
 		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
@@ -262,7 +266,8 @@
                       <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
                       <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
                     </div>
-</div>									
+</div>	
+</form>								
 </script>
 
 
@@ -395,10 +400,11 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		 $.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
-		 $.getScript("<%=path %>/js/validate/lib/jq.validate.js");
+		
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		
+		
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -409,6 +415,7 @@
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
 					validate();
+					$("#b_"+id_code).validate();
 				} else {
 
 				}
@@ -451,7 +458,15 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		if(beforeSubmit()){
+		var validate = false;
+		//验证插件调用
+		$("#b_"+id_code).validate({
+			submitHandler: function() {
+				//验证通过后 的js代码写在这里
+				validate = true;
+			}
+		})
+		if(validate == true && beforeSubmit()){
 			///validate();
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 
@@ -476,6 +491,8 @@
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 	}); */
+	
+	
 </script>
 </body>
 

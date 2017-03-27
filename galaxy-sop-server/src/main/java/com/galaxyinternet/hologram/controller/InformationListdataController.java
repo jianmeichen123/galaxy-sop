@@ -134,7 +134,12 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             List<InformationListdata> resultList = new ArrayList<InformationListdata>();
             if(tvList.size()>0){
                 //获取核心成员
-                InformationTitle title = tvList.get(0);
+                InformationTitle title = null;
+                for(InformationTitle t:tvList){
+                    if(t.getCode().equals("NO3_1_1")){
+                        title = t;
+                    }
+                }
                 List<InformationListdata> dataList = title.getDataList();
 
                 if(dataList!=null && dataList.size()>0){
