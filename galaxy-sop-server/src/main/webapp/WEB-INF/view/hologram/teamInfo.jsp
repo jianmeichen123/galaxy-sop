@@ -11,12 +11,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
 </head>
-<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
-<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
-
 <body>
 <ul class="h_navbar clearfix">
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
@@ -40,22 +40,21 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<form id="b_\${code}">
-<div class="h_edit section" >
+<div class="h_edit section" id="b_\${code}">
 	<div class="h_btnbox">
-		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
+		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
 			data-on="h_cancel" attr-hide="\${code}">取消</span>
 	</div>
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}
-		
+
                  	{{if sign=="3"}}
 						{{each(i,childList) childList}}
 						<div class="mb_16">
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -127,38 +126,13 @@
 						</dd>
 
 						{{else type=="10"}}
-						<dd class="fl_none">
-							< data-title-id="\{id}" class="editable"></table>
-							<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
+						<dd class="">
+							<table data-title-id="\{id}" class="editable"></table>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                         </dd>
 
 						{{else type=="11"}}
 						<dd>项目带过来的数据</dd>
-						
-						{{else type=="12"}}
-						<dd>
-						<ul class="h_radios clearfix">
-							{{each(i,valueList) valueList}}
-                            <li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-						<dd><span class="others">其他</span><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
-
-
-						{{else type=="13"}}
-						{{each(i,valueList) valueList}}
-                        <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
-						{{/each}}
-						<dd><span class="others">其他</span><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"></dd>
-						
-						{{else type=="14"}}
-						<select data-id="\${id}">
-						{{each(i,valueList) valueList}}
-                        <option data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</option>
-						{{/each}}
-						</select>
-
 
 						{{/if}}
                       </dl>
@@ -170,7 +144,7 @@
                        <dl class="h_edit_txt clearfix">
 						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" /></dd>
+                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}"></dd>
 
 						{{else type=="2"}}
 						<dd>
@@ -245,7 +219,7 @@
                             <table data-title-id="\${id}"  class="editable">
 
                             </table>
-							<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
+							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -259,13 +233,8 @@
 					{{/if}}
 
 					{{/each}}
-					<div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${code}">保存</span>
-                      <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${code}">取消</span>
-                    </div>
 
 </div>
-</form>
 </script>
 
 
@@ -275,9 +244,7 @@
 {{each(i,childList) childList}}
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
-	<c:if test="${isEditable}">
-	   <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
-	</c:if>
+	<div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<div class="h_title">\${name}</div>
 {{each(i,childList) childList}}
 	{{if sign=="3"}}
@@ -288,14 +255,14 @@
 
 		{{if type=="5"}}
 		<dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-		<dd class="field-remark field" data-id="\${id}">备注</dd>
+		<dd class="field-remark" data-id="\${id}">备注</dd>
 
 						{{else type=="2"}}
                         <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -320,7 +287,7 @@
 						{{/each}}
 
 						{{else type=="10"}}
-                        <dd class="fl_none"><table data-title-id="\${id}"></table></dd>
+                        <dd><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>
@@ -345,7 +312,7 @@
 
 						{{else type=="3"}}
                         {{each(i,valueList) valueList}}
-                        <dd class="field " data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+                        <dd class="field" data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 						{{/each}}
 
 						{{else type=="6"}}
@@ -370,7 +337,7 @@
 						{{/each}}
 
 						{{else type=="10"}}
-                        <dd class="fl_none"><table data-title-id="\${id}"></table></dd>
+                        <dd><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>
@@ -418,9 +385,6 @@
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
-
-					validate();
-					$("#b_"+id_code).validate();
 				} else {
 
 				}
@@ -436,20 +400,14 @@
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
-		var id_code = $(this).attr('attr-save');
 		var btn = this;
 		event.stopPropagation();
-		var sec = $(this).closest('form');
+		var sec = $(this).closest('.h_edit');
 		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active']");
 		var data = {
 			projectId : projectInfo.id
 		};
 
-		//验证插件调用
-		if(!$("#b_"+id_code).validate().form())
-		{
-			return;
-		}
 		if(sec.attr("id") =="b_NO3_1"){
         		//表格
         		var dataList = new Array();
@@ -465,11 +423,13 @@
         			});
         		});
                 if(dataList.length==0){
-
                     var titleId = sec.find("table.editable").attr("data-title-id");
                     alert(titleId)
                     var json = {"projectId":projectInfo.id,"titleId":titleId}
                     dataList.push(json);
+                }else if(dataList.length>10){
+                    alert("最多只能添加10条记录!")
+                    return false;
                 }
                 sendPostRequestByJsonObj(
                 platformUrl.saveTeamMember,

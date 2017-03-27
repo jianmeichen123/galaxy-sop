@@ -10,25 +10,25 @@
             <dl class="fmdl fl">
                 <dt>&nbsp;任职时间：</dt>
                 <dd class="clearfix"/>
-                	<input name="field1" type="text" class="datepicker-month-start-text fl txt time" />
+                <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="startWorkDate" type="text" data-date-format="yyyy-mm">
                 	<span class="fl">&nbsp;至&nbsp;</span>
-                	<input name="field2" type="text" class="datepicker-month-text fl txt time" />
+                <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="endWorkDate" type="text" data-date-format="yyyy-mm">
                 </dd>
             </dl>  
             <dl class="fmdl fl">
                 <dt>任职公司：</dt>
                 <dd class="clearfix">
-                    <input name="field3" type="text" class="txt" maxLength="50"/>
+                    <input name="field3" type="text" class="txt" maxlength="100"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>任职职位：</dt>
-                <dd><input name="field4" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field4" type="text" class="txt" maxlength="100"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>工作内容简述：</dt>
                 <dd>
-                   <textarea name ="field5" class="team_textarea"></textarea>
+                   <textarea name ="field5" class="team_textarea"  maxlength="100" ></textarea>
                 </dd>
             </dl>
         </div>
@@ -41,13 +41,28 @@
     </div>
 </div>
 <script>
-
-    $(".add_team_work").on("click",function(){
-        var json =  getData($("#work_form"));
+    $(function(){
+        $("#work_form").validate({
+             submitHandler:function(form){
+                 save_work();
+             }
+        });
+    })
+    function save_work(){
+         var json ={};
+        $.each($("#work_form").find("input, select"),function(){
+            var ele = $(this);
+            var name = ele.attr('name');
+           if(ele.val()){
+                json[name]= ele.val();
+           }else{
+                json[name]="未知"
+           }
+        });
         var index = json["index"];
         if(!index){
             //新增一条记录
-            var str="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span><span name='field1'>"+json['field1']+"年</span><span>～</span><span name='field2'>"+json['field2']+"年</span></div>"+
+            var str="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span><span name='field1'>"+json['field1']+"</span><span class='choose'>年</span><span>～</span><span name='field2'>"+json['field2']+"</span><span class='choose'>年</span></div>"+
             "<div class='team_p_two'>"+
                 "<ul>"+
                     "<li><span>公司：</span><span name='field3'>"+json['field3']+"</span></li>"+
@@ -70,9 +85,34 @@
                 })
         }
         $("#close_work").click();
+    }
+     //日期
+     var currDate = new Date();
+     var currYear=currDate.getFullYear();
+     $("#startWorkDate").datetimepicker({
+    	minView: 'month',
+    	startView:3,
+        minView:3,
+    	endDate:currYear,//结束时间，在这时间之后都不可选
+    	language: 'zh-CN',
+    	autoclose:true
+    }).on('changeDate' , function(ev){
+    	var starttime = $("#startWorkDate").val();
+    	$('#endWorkDate').datetimepicker('setStartDate',starttime);
+    });
+    $("#endWorkDate").datetimepicker({
+    	minView: 'year',
+    	startView:3,
+        minView:3,
+    	endDate:currYear,//结束时间，在这时间之后都不可选
+    	language: 'zh-CN',
+    	autoclose:true
+    }).on('changeDate' , function(ev){
+    	var endtime = $('#endWorkDate').val();
+    	$('#startWorkDate').datetimepicker('setEndDate',endtime);
+    });
+
+    $(".add_team_work").on("click",function(){
+            $("#work_form").submit();
     })
-</script>
-
-<script>
-
 </script>

@@ -82,8 +82,17 @@ function getStudyList(flag,studyList){
         var study = "";
         $(studyList).each(function(){
                var o = $(this)[0];
+               for(var item in o){
+
+                           if(item.indexOf("field")>-1){
+
+                               if(!o[item]){
+                                   o[item]="未知"
+                               }
+                           }
+                         }
                var tmp = "<div  data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span></div>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span>年</div>"+
                         "<div class='team_p_two'>"+
                             "<ul>"+
                                 "<li><span>学校：</span><span name='field2'>"+o.field2+"</span></li>"+
@@ -108,22 +117,43 @@ function getStartupList(flag,startupList){
         var startup ="";
         $(startupList).each(function(){
              var o = $(this)[0];
+             for(var item in o){
+
+             if(item.indexOf("field")>-1){
+                 if(!o[item]){
+                     o[item]="未知"
+                 }
+             }
+           }
              var str = "<div  data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
-                           "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span></div>"+
+                           "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span class='choose'>年</span><span>～</span><span name='field2'>"+o.field2+"</span><span class='choose'>年</span></div>"+
                           "<div class='team_p_two'>"+
                          "<ul><li data-mix >";
-            if(o.field3){
-                str+= o.field3 +" ";
-            }
-            if(o.field4){
-                str+= o.field4 +" ";
-            }
-            if(o.filed5){
-                str+= o.field5 +" ";
-            }
+            	var ls = [];
+                if(o.field3){
+                    ls.push(o.field3)
+                }
+                if(o.field4){
+                    ls.push(o.field4)
+                }
+                if(o.field5){
+                    ls.push(o.field5)
+                }
+                if(o.field6){
+                    ls.push(o.field6)
+                }
+                var temp = "";
+                $(ls).each(function(i,e){
+                    if(i!= (ls.length-1)){
+                        temp += e+","
+                    }else{
+                        temp += e;
+                    }
+                })
 
-            str+="</li></ul>";
+
+            str=str +temp+"</li></ul>";
             if(flag=="edit"){
                 str+="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span>";
                 str+="<span class='blue' onclick='delete_row(this)'>删除</span></div>";
@@ -138,7 +168,17 @@ function getWorkList(flag,workList){
        var work ="";
        $(workList).each(function(){
          var o =$(this)[0];
-         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span></div>"+
+         for(var item in o){
+
+            if(item.indexOf("field")>-1){
+
+                if(!o[item]){
+                    o[item]="未知"
+                }
+            }
+          }
+
+         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span><span name='field1'>"+o.field1+"</span><span class='choose'>年</span><span>～</span><span name='field2'>"+o.field2+"</span><span class='choose'>年</span></div>"+
                                     "<div class='team_p_two'>"+
                                         "<ul>"+
                                             "<li><span>公司：</span><span name='field3'>"+o.field3+"</span></li>"+
@@ -178,7 +218,13 @@ function getWorkList(flag,workList){
                     $.each($("#learn_form").find("input, select, textarea"),function(){
                         var ele = $(this);
                         var name = ele.attr('name');
-                        ele.val(json[name]);
+                        if(name.indexOf("field")>-1){
+                            if(json[name] && json[name] != "未知"){
+                                ele.val(json[name]);
+                            }
+                        }else{
+                            ele.val(json[name]);
+                        }
                     });
                     $("input:radio[name='field2'][value='" + json["field2"] + "']").prop("checked", "checked");
 
@@ -209,7 +255,14 @@ function getWorkList(flag,workList){
                     $.each($("#work_form").find("input, select, textarea"),function(){
                         var ele = $(this);
                         var name = ele.attr('name');
-                        ele.val(json[name]);
+                        if(name.indexOf("field")>-1){
+                            if(json[name] && json[name] != "未知"){
+                                ele.val(json[name]);
+                            }
+                        }else{
+                            ele.val(json[name]);
+                        }
+
                     });
         		}
           })
@@ -237,7 +290,13 @@ function getWorkList(flag,workList){
                      $.each($("#startup_form").find("input, select, textarea"),function(){
                          var ele = $(this);
                          var name = ele.attr('name');
-                         ele.val(json[name]);
+                         if(name.indexOf("field")>-1){
+                             if(json[name] && json[name] != "未知"){
+                                 ele.val(json[name]);
+                             }
+                         }else{
+                             ele.val(json[name]);
+                         }
                      });
 
                     $("#startup_form").find("[name='field1']").val(json["field1"]);
