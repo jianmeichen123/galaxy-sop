@@ -49,7 +49,6 @@
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}
 		
-	<div >\${name}</div>
                  	{{if sign=="3"}}
 						{{each(i,childList) childList}}
 						<div class="mb_16">
@@ -282,7 +281,6 @@
 	</c:if>
 	<div class="h_title">\${name}</div>
 {{each(i,childList) childList}}
-<div>\${name}</div>
 	{{if sign=="3"}}
 		{{each(i,childList) childList}}
 			<div class="mb_24 clearfix">
