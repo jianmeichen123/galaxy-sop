@@ -65,6 +65,7 @@
 
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 
@@ -83,6 +84,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 		deletedRowIds = new Array();
 	});
@@ -125,6 +127,7 @@
                     var result = data.result.status;
                     if (result == 'OK') {
                         layer.msg('保存成功');
+                    	$(".h#a_"+id_code).css("background","#fff");
                         var parent = $(sec).parent();
                         var id = parent.data('sectionId')
                         $(btn).next().click();
