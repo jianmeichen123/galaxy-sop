@@ -12,7 +12,7 @@
                 <dd class="clearfix"/>
                 <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="startWorkDate" type="text" data-date-format="yyyy-mm">
                 	<span class="fl">&nbsp;至&nbsp;</span>
-                <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="endWorkDate" type="text" data-date-format="yyyy-mm">
+                <input readonly="" name="field2" class="datepicker-month-text fl txt time" id="endWorkDate" type="text" data-date-format="yyyy-mm">
                 </dd>
             </dl>  
             <dl class="fmdl fl">
@@ -50,20 +50,30 @@
     })
     function save_work(){
          var json ={};
-        $.each($("#work_form").find("input, select"),function(){
+        $.each($("#work_form").find("input, select,textarea"),function(){
             var ele = $(this);
             var name = ele.attr('name');
-           if(ele.val()){
-                json[name]= ele.val();
-           }else{
-                json[name]="未知"
-           }
+            json[name]= ele.val();
+            if(name.indexOf("field")>-1 && name != "field5"){
+               if(ele.val()){
+                    json[name]= ele.val();
+               }else{
+                    json[name]="未知"
+               }
+            }
         });
+
         var index = json["index"];
         if(!index){
             //新增一条记录
-            var str="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span><span name='field1'>"+json['field1']+"</span><span class='choose'>年</span><span>～</span><span name='field2'>"+json['field2']+"</span><span class='choose'>年</span></div>"+
-            "<div class='team_p_two'>"+
+            var str="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span>";
+            if(json["field1"]){
+              str = str+"<span name='field1'>"+json["field1"]+"</span><span>～</span>";
+            }
+            if(json["field2"]){
+                str = str+"<span name='field2'>"+json["field2"]+"</span>"
+            }
+            str = str+ "</div><div class='team_p_two'>"+
                 "<ul>"+
                     "<li><span>公司：</span><span name='field3'>"+json['field3']+"</span></li>"+
                     "<li><span>职位：</span><span name='field4'>"+json['field4']+"</span></li>"+

@@ -82,6 +82,7 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             if(listdataList != null && !listdataList.isEmpty()){
                 for (InformationListdata entity : listdataList){
                     if(null != entity.getCode() && entity.getCode().equals("team-members")){
+                        entity.setCreateTime(System.currentTimeMillis());
                         informationListdataService.insert(entity);
                         Long id = entity.getId();
                         List<InformationListdata> studyList = entity.getStudyList();

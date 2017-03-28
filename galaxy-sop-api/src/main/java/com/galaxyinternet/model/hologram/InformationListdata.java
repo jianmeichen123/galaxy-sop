@@ -63,6 +63,10 @@ public class InformationListdata extends PagableEntity{
 
     private Set<String> ids;
 
+    private String property;
+
+    private  String direction;
+
     
 
 
@@ -282,5 +286,21 @@ public class InformationListdata extends PagableEntity{
 
     public List<InformationListdata> getDataList() {
         return dataList;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 }

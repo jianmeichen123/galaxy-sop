@@ -73,7 +73,8 @@
                var field7 = div.find("[name='field7']").text();
                var code = "entrepreneurial-experience";
                var id = div.find("[name='id']").text();
-               if(!id){
+
+               if(!id || id ==""){
                  json["id"]=null
                }
                json["field1"]=field1;
@@ -127,10 +128,7 @@
         $("a[data-close='close']").click();
     }
     $("#save_person_learning").on("click",function(){
-
         $("#detail-form").submit();
-
-
     })
 
 	function getData(div){
@@ -209,11 +207,4 @@
  	return this.optional(element) || (mobile.test(value));
   }, "手机格式不对");
 
-  //手机验证规则
-  jQuery.validator.addMethod("textarea", function (value, element) {
-      if(!value || (value == element.defaultValue))
-      {
-          return   false;
-      }
-      return   true;
-  }, "不能输入空值");
+

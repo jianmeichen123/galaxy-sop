@@ -25,7 +25,7 @@
                 <div class="team_wid">
                     <p class="team_wid_p"><span>是否是核心创始人：（5%以上创始股权）</span>
                         <span><input type="radio" class="team_stock" attr-name="yes" data-value="核心创始人" name="field4">是</span><span><input type="radio" class="team_stock" attr-name="no" data-value="非核心创始人"  name="field4">否</span></p>
-                    <p class="team_wid_p  team_stock_on"><span>创立时股权比：</span><span><input name="field5" type="text" class="input" data-rule-verify_32="true" ></span></p>
+                    <p class="team_wid_p  team_stock_on"><span>创立时股权比：</span><span><input name="field5" type="text" class="input" data-rule-percentage="true" ></span></p>
                 </div>
                 <div class="team_wid">
                     <p>融资机构及金额、成功或失败或离职原因：</p>
@@ -89,13 +89,25 @@
     function save_startup(){
         var json =getData1($("#startup_form"));
         var index = json["index"];
+        if(!json["field1"]){
+            json["field1"]="未知"
+        }
+         if(!json["field2"]){
+            json["field2"]="未知"
+        }
         if(!index){
               //新增一条记录
               var str = "<div  data-flag data-a='"+json["field3"]+"' data-b='"+json["field4"]+"' data-c='"+json["field5"]+"' data-d='"+json["field6"]+"' >"+
               "<span name='id' style='display:none'>"+json["id"]+"</span>"+
-              "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+json["field1"]+"</span><span class='choose'>～</span><span name='field2'>"+json["field2"]+"</span></div>"+
-			  "<div class='team_p_two'>"+
-				"<ul><li data-mix >";
+              "<div class='team_p_one'><span class='team_ico team_ico_dot'></span>";
+               if(json["field1"]){
+                  str = str+"<span name='field1'>"+json["field1"]+"</span><span>～</span>";
+                }
+                if(json["field2"]){
+                    str = str+"<span name='field2'>"+json["field2"]+"</span>"
+                }
+			    str =str +"</div><div class='team_p_two'><ul><li data-mix >"
+
 				var ls = [];
 				if(json["field3"]){
 				    ls.push(json["field3"])

@@ -45,22 +45,21 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 		if(data != null){
 			InformationListdata query = new InformationListdata();
 			query.setParentId(data.getId());
-			List<InformationListdata> dataList = informationListdataDao.selectList(query);
-			//给list字段赋值
-			List<InformationListdata> workList = new ArrayList<InformationListdata>();
-			List<InformationListdata> studyList = new ArrayList<InformationListdata>();
-			List<InformationListdata> startupList = new ArrayList<InformationListdata>();
-			if(null != dataList && dataList.size()>0){
-				for(InformationListdata info : dataList){
-					if(info.getCode().equals(STUDYEXPERIENCE)){
-						studyList.add(info);
-					}else if(info.getCode().equals(WORKEXPERIENCE)){
-						workList.add(info);
-					}else if(info.getCode().equals(STARTUPEXPERIENCE)){
-						startupList.add(info);
-					}
-				}
-			}
+			//按毕业时间倒序查询学习经历
+			query.setCode(STUDYEXPERIENCE);
+			query.setProperty("field_1");
+			query.setDirection("desc");
+			List<InformationListdata> studyList = informationListdataDao.selectList(query);
+			//按结束时间倒序查询创业经历
+			query.setCode(WORKEXPERIENCE);
+			query.setProperty("field_2");
+			query.setDirection("desc");
+			List<InformationListdata> workList = informationListdataDao.selectList(query);
+			//按结束时间倒序查询创业经历
+			query.setCode(STARTUPEXPERIENCE);
+			query.setProperty("field_2");
+			query.setDirection("desc");
+			List<InformationListdata> startupList = informationListdataDao.selectList(query);
 			data.setWorkList(workList);
 			data.setStudyList(studyList);
 			data.setStartupList(startupList);
