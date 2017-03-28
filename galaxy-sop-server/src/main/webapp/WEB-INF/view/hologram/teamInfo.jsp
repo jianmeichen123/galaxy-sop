@@ -90,7 +90,7 @@
 	$('div').delegate(".h_save_btn","click",function(event){
 		var btn = this;
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+        var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active'],select");
 		var data = {
 			projectId : projectInfo.id
@@ -256,8 +256,7 @@ function editRow(ele)
 			});
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-				var data = $("#detail-form").serializeObject();
-				saveRow(data);
+                saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行
 	});
@@ -296,7 +295,15 @@ function addRow(ele)
 		}//模版反回成功执行
 	});
 }
-
+function saveForm(form)
+{
+    console.log($(form).validate().form())
+    if($(form).validate().form())
+    {
+        var data = $(form).serializeObject();
+        saveRow(data);
+    }
+}
 
 /**
  * 保存至到tr标签data属性

@@ -184,7 +184,7 @@ function buildResults(sec,title,readonly)
 			});
 
 			if (readonly == true){
-				var dds = $("dt[data-type='3'][title-id='"+ title.id +"']").siblings();
+				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
 				$.each(dds,function(i,n){
 					if ($(this).text() == '未选择'){
 						$(this).remove();
