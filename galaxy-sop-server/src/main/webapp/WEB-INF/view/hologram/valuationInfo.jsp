@@ -53,6 +53,8 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				//调整表格
+				$("table").css({"width":"80%","table-layout":"fixed"})
 			} else {
 
 			}
@@ -98,6 +100,8 @@
 					sec.showResults();
 					validate();
 					$("#b_"+id_code).validate();
+					//调整表格
+					$("table").css({"width":"90%","table-layout":"fixed"})
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
