@@ -154,9 +154,9 @@
 			{
 				infoMode.value = field.data('id')
 			}
-			else if(type==5)
+			else if(type==5 || type==12 || type==13)
 			{
-				if (field.is('textarea')){
+				if (field.is('textarea') || field.is('input')){
 					infoMode.remark1 = field.val()
 				}else{
 					infoMode.value = field.val()
