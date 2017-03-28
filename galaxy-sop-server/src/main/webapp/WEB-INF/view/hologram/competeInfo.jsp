@@ -68,6 +68,7 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 
@@ -83,6 +84,7 @@ $(function() {
 				var s_div = toEditTitleHtml(entity, html);
 
 				$("#a_" + id_code).hide();
+				$(".h#"+id_code).css("background","#fafafa");
 				$("#" + id_code).append(s_div);
 				
 				$.each($('.textarea_h'),function(i,data){
@@ -188,6 +190,7 @@ $(function() {
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
+				$(".h#"+id_code).css("background","#fff");
 				layer.msg('保存成功');
 				showArea(id_code);
 			} else {
