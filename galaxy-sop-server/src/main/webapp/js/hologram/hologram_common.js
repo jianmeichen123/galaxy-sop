@@ -315,7 +315,8 @@ function buildMemberTable(sec,title){
     	//列表Row
     	if(title.dataList)
     	{
-    		$.each(title.dataList,function(){
+    	    var list = title.dataList.reverse();
+    		$.each(list,function(){
     			var row = this;
     			var tables = $("table[data-title-id='"+row.titleId+"']");
 
