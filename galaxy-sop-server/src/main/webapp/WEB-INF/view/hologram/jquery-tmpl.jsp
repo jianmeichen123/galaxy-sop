@@ -80,12 +80,12 @@
 			</dd>
 			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 		{{else type=="8"}}
-		<dd class="fl_none">
-			<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
-			<p class="num_tj">
-				<label for="">0</label>/2000
-			</p>
-		</dd>
+		              <dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
 {{else type=="9"}}
 						<dd class="fl_none">
                             <table>
@@ -250,11 +250,11 @@
 		{{else type=="8"}}
 		<dt class="fl_none" data-type="\${type}">\${name}</dt>
 		<dd class="fl_none">
-			<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
-			<p class="num_tj">
-				<label for="">0</label>/2000
-			</p>
-		</dd>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
         {{else type=="9"}}
 						<dd class="fl_none">
                             <table data-type="\${type}" data-test="\${id}">
@@ -343,6 +343,7 @@
 		{{else type=="14"}}
 		<dt class="fl_none" data-type="\${type}">\${name}</dt>
 		<select data-id="\${id}">
+       <option data-value="" data-type="" data-id="" data-title-id="" value="" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}

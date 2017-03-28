@@ -93,7 +93,7 @@
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -106,7 +106,7 @@
 				titleId	: field.data('titleId'),
 				type : type
 			};
-			if(type==2 || type==3 || type==4)
+			if(type==2 || type==3 || type==4|| type==14)
 			{
 				infoMode.value = field.val()
 			}
@@ -114,6 +114,7 @@
 			{
 				infoMode.remark1 = field.val()
 			}
+
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
