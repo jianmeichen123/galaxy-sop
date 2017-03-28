@@ -249,6 +249,7 @@
 function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
+    sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
 }
 function getDetailUrl(code)

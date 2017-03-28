@@ -177,7 +177,7 @@ function buildResults(sec,title,readonly)
 		{
 			$.each(title.resultList,function(i,n){
 				if(readonly == true){
-					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName);
+					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
 				}else{
 					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 				}
@@ -187,11 +187,10 @@ function buildResults(sec,title,readonly)
 				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
 				$.each(dds,function(i,n){
 					if ($(this).text() == '未选择'){
-						$(this).remove();
+						$(this).hide();
 					}
 				});
 			}
-
 		}
 		/*else if(title.type == 5)
 		{
