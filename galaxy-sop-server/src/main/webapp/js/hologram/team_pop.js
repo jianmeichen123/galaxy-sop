@@ -127,31 +127,30 @@ function getStartupList(flag,startupList){
            }
              var str = "<div  data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
-                           "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span class='choose'>年</span><span>～</span><span name='field2'>"+o.field2+"</span><span class='choose'>年</span></div>"+
-                          "<div class='team_p_two'>"+
-                         "<ul><li data-mix >";
-            	var ls = [];
-                if(o.field3){
-                    ls.push(o.field3)
-                }
-                if(o.field4){
-                    ls.push(o.field4)
-                }
-                if(o.field5){
-                    ls.push(o.field5)
-                }
-                if(o.field6){
-                    ls.push(o.field6)
-                }
-                var temp = "";
-                $(ls).each(function(i,e){
-                    if(i!= (ls.length-1)){
-                        temp += e+","
-                    }else{
-                        temp += e;
-                    }
-                })
+                           "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span>";
 
+                         str +=  "</div><div class='team_p_two'><ul><li data-mix >";
+                        var ls = [];
+                        if(o.field3){
+                            ls.push(o.field3)
+                        }
+                        if(o.field4){
+                            ls.push(o.field4)
+                        }
+                        if(o.field5){
+                            ls.push(o.field5)
+                        }
+                        if(o.field6){
+                            ls.push(o.field6)
+                        }
+                        var temp = "";
+                        $(ls).each(function(i,e){
+                            if(i!= (ls.length-1)){
+                                temp += e+","
+                            }else{
+                                temp += e;
+                            }
+                        })
 
             str=str +temp+"</li></ul>";
             if(flag=="edit"){
@@ -178,19 +177,27 @@ function getWorkList(flag,workList){
             }
           }
 
-         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span><span name='field1'>"+o.field1+"</span><span class='choose'>年</span><span>～</span><span name='field2'>"+o.field2+"</span><span class='choose'>年</span></div>"+
-                                    "<div class='team_p_two'>"+
-                                        "<ul>"+
-                                            "<li><span>公司：</span><span name='field3'>"+o.field3+"</span></li>"+
-                                            "<li><span>职位：</span><span name='field4'>"+o.field4+"</span></li>"+
-                                        "</ul>"
-                                        if(flag=="edit"){
-                                            var str =  "<div class='team_click'>"+
-                                                          "<span class='blue '  onclick='editWork(this)'  >编辑</span>"+
-                                                          "<span class='blue' onclick='delete_row(this)' >删除</span>"+
-                                                      "</div>"
-                                            tmp += str;
-                                        }
+         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span>";
+                if(o.field1){
+                   tmp = tmp+"<span name='field1'>"+o.field1+"</span><span>～</span>";
+                }
+
+                if(o.field2){
+                     tmp = tmp+"<span name='field2'>"+o.field2+"</span>"
+                }
+
+                tmp = tmp+ "</div><div class='team_p_two'>"+
+                    "<ul>"+
+                        "<li><span>公司：</span><span name='field3'>"+o.field3+"</span></li>"+
+                        "<li><span>职位：</span><span name='field4'>"+o.field4+"</span></li>"+
+                    "</ul>"
+                    if(flag=="edit"){
+                        var str =  "<div class='team_click'>"+
+                                      "<span class='blue '  onclick='editWork(this)'  >编辑</span>"+
+                                      "<span class='blue' onclick='delete_row(this)' >删除</span>"+
+                                  "</div>"
+                        tmp += str;
+                    }
           tmp += "</div><div class='team_p_two'><span  name='field5'>"+o.field5+"</span></div></div>";
           work += tmp;
        })

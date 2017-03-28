@@ -54,7 +54,7 @@
             var ele = $(this);
             var name = ele.attr('name');
             json[name]= ele.val();
-            if(name.indexOf("field")>-1){
+            if(name.indexOf("field")>-1 && name != "field5"){
                if(ele.val()){
                     json[name]= ele.val();
                }else{
@@ -66,8 +66,14 @@
         var index = json["index"];
         if(!index){
             //新增一条记录
-            var str="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span><span name='field1'>"+json['field1']+"</span><span class='choose'>年</span><span>～</span><span name='field2'>"+json['field2']+"</span><span class='choose'>年</span></div>"+
-            "<div class='team_p_two'>"+
+            var str="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span>";
+            if(json["field1"]){
+              str = str+"<span name='field1'>"+json["field1"]+"</span><span>～</span>";
+            }
+            if(json["field2"]){
+                str = str+"<span name='field2'>"+json["field2"]+"</span>"
+            }
+            str = str+ "</div><div class='team_p_two'>"+
                 "<ul>"+
                     "<li><span>公司：</span><span name='field3'>"+json['field3']+"</span></li>"+
                     "<li><span>职位：</span><span name='field4'>"+json['field4']+"</span></li>"+

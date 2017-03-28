@@ -207,11 +207,4 @@
  	return this.optional(element) || (mobile.test(value));
   }, "手机格式不对");
 
-  //手机验证规则
-  jQuery.validator.addMethod("textarea", function (value, element) {
-      if(!value || (value == element.defaultValue))
-      {
-          return   false;
-      }
-      return   true;
-  }, "不能输入空值");
+
