@@ -421,19 +421,19 @@
                                <tr>
                              	 <th>上游</th>
                              	 <td>供应商</td>
-                             	 <td data-format='1_1'>高于100</td>
-                             	 <td data-format='1_2'>稳定</td>
+                             	 <td data-format='1_1'></td>
+                             	 <td data-format='1_2'></td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
                               <td>供应商</td>
-                              <td data-format='2_1'>高于100</td>
-                              <td data-format='2_2'>稳定</td>
+                              <td data-format='2_1'></td>
+                              <td data-format='2_2'></td>
                             </tr>
                             <tr>
                               <td>供应商</td>
-                              <td data-format='3_1'>高于100</td>
-                              <td data-format='3_2'>稳定</td>
+                              <td data-format='3_1'></td>
+                              <td data-format='3_2'></td>
                             </tr>
 
                             </table>
