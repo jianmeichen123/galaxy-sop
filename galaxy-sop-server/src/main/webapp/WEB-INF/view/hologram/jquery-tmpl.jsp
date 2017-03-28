@@ -13,7 +13,7 @@
 	{{each(i,childList) childList}}
 		
 	{{if sign=="3"}}
-		<div>\${name}</div>
+		<div class="sign_title">\${name}</div>
 		{{each(i,childList) childList}}
 		<div class="mb_16">
 	   <dl class="h_edit_txt clearfix">
@@ -22,7 +22,7 @@
 		<dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></dd>
 
 		{{else type=="2"}}
-		<dd>
+		<dd class="fl_none">
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
 			<li><input type="radio" value="\${id}" data-title-id="\${titleId}" data-type="\${type}" name="\${titleId}"/>\${name}</li>
@@ -149,14 +149,14 @@
 		<dd>项目带过来的数据</dd>
 		
 		{{else type=="12"}}
-		<dd>
+		<dd class="fl_none">
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
 			<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 			{{/each}}
+			<li class="text_li"><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></li>
 		  </ul>
 		</dd>
-		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></dd>
 
 
 		{{else type=="13"}}
@@ -187,7 +187,7 @@
 
 		{{else type=="2"}}
 		<dt data-type="\${type}">\${name}</dt>
-		<dd>
+		<dd class="fl_none">
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
 			<li><input type="radio" name="\${titleId}" value="\${id}" data-title-id="\${titleId}" data-type="\${type}"/>\${name}</li>
@@ -323,7 +323,7 @@
 
 		{{else type=="12"}}
 		<dt data-type="\${type}">\${name}</dt>
-		<dd>
+		<dd class="fl_none">
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
 			<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
@@ -380,7 +380,7 @@
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
 	{{if sign=="3"}}
-	<div>\${name}</div>
+	<div class="sign_title">\${name}</div>
 		{{each(i,childList) childList}}
 			<div class="mb_24 clearfix">
 	  <dl class="clearfix">

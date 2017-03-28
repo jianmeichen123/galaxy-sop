@@ -1,7 +1,11 @@
+<!-- 日历插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script><div class="qualificationstc">
 <div class="qualificationstc">
-
-	
-	
     <div class="qualifications_all" id="learning">
         <form action="" id="work_form" method="post">
             <input name="id" style="display:none;">
@@ -10,9 +14,9 @@
             <dl class="fmdl fl">
                 <dt>&nbsp;任职时间：</dt>
                 <dd class="clearfix"/>
-                <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="startWorkDate" type="text" data-date-format="yyyy-mm">
+                <input  name="field1" class="datepicker-month-start-text  fl txt time" type="text" readonly>
                 	<span class="fl">&nbsp;至&nbsp;</span>
-                <input readonly="" name="field2" class="datepicker-month-text fl txt time" id="endWorkDate" type="text" data-date-format="yyyy-mm">
+                <input  name="field2" class="datepicker-month-text fl txt time" type="text" readonly>
                 </dd>
             </dl>  
             <dl class="fmdl fl">
@@ -96,37 +100,6 @@
         }
         $("#close_work").click();
     }
-          //日期
-     var currDate = new Date();
-     var currYear=currDate.getFullYear();
-     $("#startWorkDate").datepicker({
-    	language:  'zh-CN',
-        format: 'yyyy-mm',
-        autoclose: true,
-        startView: 'year',
-        minView:'year',
-		minViewMode: 1,
-		maxView:'decade',
-		todayHighlight: false
-    }).on('changeDate' , function(ev){
-    	var starttime = $("#startWorkDate").val();
-    	$('#endWorkUpDate').datepicker('setStartDate',starttime);
-    });
-
-	$("#endWorkDate").datepicker({
-		language:  'zh-CN',
-        format: 'yyyy-mm',
-        autoclose: true,
-        upToNowBtn: true,
-        startView: 'year',
-        minView:'year',
-		minViewMode: 1,
-		maxView:'decade',
-		todayHighlight: false
-     }).on('changeDate' , function(ev){
-    	var endtime = $('#endWorkUpDate').val();
-    	$('#startWorkDate').datepicker('setEndDate',parseInt(endtime));
-    });
 
     $(".add_team_work").on("click",function(){
             $("#work_form").submit();
