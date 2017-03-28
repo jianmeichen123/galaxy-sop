@@ -175,24 +175,22 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
-			//console.log('3:title.resultList : ' , title.resultList);
 			$.each(title.resultList,function(i,n){
 				if(readonly == true){
 					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName);
 				}else{
-					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 				}
 			});
 
 			if (readonly == true){
-				var dds = $("dt[data-type='3'][data-id='"+ title.id +"']").siblings();
+				var dds = $("dt[data-type='3'][title-id='"+ title.id +"']").siblings();
 				$.each(dds,function(i,n){
 					if ($(this).text() == '未选择'){
 						$(this).remove();
 					}
 				});
 			}
-
 
 		}
 		else if(title.type == 5)
@@ -202,7 +200,7 @@ function buildResults(sec,title,readonly)
 					if(readonly == true){
 						$(".field-remark[data-id='"+ title.id +"']").text(n.contentDescribe1);
 					}else{
-						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1) ;
+						$("textarea[class='textarea_h'][data-title-id='"+title.id+"']").val(n.contentDescribe1);
 					}
 				}
 				if(n.contentChoose){
@@ -213,6 +211,50 @@ function buildResults(sec,title,readonly)
 					}
 				}
 			});
+		}
+		else if(title.type == 12) {
+			$.each(title.resultList,function(i,n){
+				if (n.contentDescribe1){
+					if(readonly == true){
+						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1);
+					}else{
+						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
+					}
+				}
+				if(n.contentChoose){
+					if(readonly == true){
+						$(".field[data-id='"+ title.id +"']").text(n.valueName);
+					}else{
+						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+					}
+				}
+			});
+		}
+		else if(title.type == 13) {
+			$.each(title.resultList,function(i,n){
+				if (n.contentDescribe1){
+					if(readonly == true){
+						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1);
+					}else{
+						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
+					}
+				}
+				if(n.contentChoose){
+					if(readonly == true){
+						$(".field[data-id='"+ title.id +"']").text(n.valueName);
+					}else{
+						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+					}
+				}
+			});
+		}
+		else if(title.type == 14)
+		{
+			if(readonly == true){
+				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName);
+			}else{
+				$("select[data-id='"+title.id+"']").val(title.resultList[0].contentChoose) ;
+			}
 		}
 		else if(title.type == 8)
 		{

@@ -21,7 +21,7 @@ import com.galaxyinternet.service.hologram.CacheOperationService;
 
 
 
-@Service("com.galaxyinternet.service.CacheOperationService")
+@Service("com.galaxyinternet.service.hologram.CacheOperationService")
 public class CacheOperationServiceImpl implements CacheOperationService,InitializingBean{
 	
 	public static final String CACHE_KEY_PAGE_AREA_TITLE = "QXT_PAGE_AREA_TITLE_";               //各区域块下的   题：value   ==  InformationTitle

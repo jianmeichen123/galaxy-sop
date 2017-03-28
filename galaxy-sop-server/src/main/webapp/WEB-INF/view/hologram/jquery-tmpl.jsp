@@ -80,12 +80,12 @@
 			</dd>
 			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 		{{else type=="8"}}
-		<dd class="fl_none">
-			<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
-			<p class="num_tj">
-				<label for="">0</label>/2000
-			</p>
-		</dd>
+		              <dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
 {{else type=="9"}}
 						<dd class="fl_none">
                             <table>
@@ -250,11 +250,11 @@
 		{{else type=="8"}}
 		<dt data-type="\${type}">\${name}</dt>
 		<dd class="fl_none">
-			<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
-			<p class="num_tj">
-				<label for="">0</label>/2000
-			</p>
-		</dd>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onKeyDown='countChar("\${id}","label_\${id}","\${valRuleMark}");' onKeyUp='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
         {{else type=="9"}}
 						<dd class="fl_none">
                             <table data-type="\${type}" data-test="\${id}">
@@ -343,6 +343,7 @@
 		{{else type=="14"}}
 		<dt data-type="\${type}">\${name}</dt>
 		<select data-id="\${id}">
+       <option data-value="" data-type="" data-id="" data-title-id="" value="" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}
@@ -383,7 +384,7 @@
 		{{each(i,childList) childList}}
 			<div class="mb_24 clearfix">
 	  <dl class="clearfix">
-		<dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+		<dt data-type="\${type}" data-id="\${id}" data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
 		{{if type=="1"}} 
          <dd class="field" data-title-id="\${id}">未填写</dd>
@@ -421,19 +422,19 @@
                                <tr>
                              	 <th>上游</th>
                              	 <td>供应商</td>
-                             	 <td data-format='1_1'>高于100</td>
-                             	 <td data-format='1_2'>稳定</td>
+                             	 <td data-format='1_1'></td>
+                             	 <td data-format='1_2'></td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
                               <td>供应商</td>
-                              <td data-format='2_1'>高于100</td>
-                              <td data-format='2_2'>稳定</td>
+                              <td data-format='2_1'></td>
+                              <td data-format='2_2'></td>
                             </tr>
                             <tr>
                               <td>供应商</td>
-                              <td data-format='3_1'>高于100</td>
-                              <td data-format='3_2'>稳定</td>
+                              <td data-format='3_1'></td>
+                              <td data-format='3_2'></td>
                             </tr>
 
                             </table>
@@ -465,7 +466,7 @@
 	<div class="mb_24 clearfix">
 	  <dl class="clearfix">
 		{{if type=="1"}}
-		<dt  data-type="\${type}">\${name}</dt>  
+		<dt  data-type="\${type}" >\${name}</dt>  
          <dd class="field" data-title-id="\${id}">未填写</dd>
 		{{else type=="5"}}       
 		<dt  data-type="\${type}">\${name}</dt>                 
@@ -477,13 +478,13 @@
 		<dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 		{{else type=="3"}}
-		<dt  data-type="\${type}">\${name}</dt>
+		<dt  data-type="\${type}" data-title-id="\${id}" >\${name}</dt>
 		{{each(i,valueList) valueList}}
 		 <dd class="border_dd"  data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
 
 		{{else type=="6"}}
-		<dt  data-type="\${type}">\${name}</dt>
+		<dt  data-type="\${type}" title-id="\${id}">\${name}</dt>
 		{{each(i,valueList) valueList}}
 		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}

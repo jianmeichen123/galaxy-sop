@@ -68,6 +68,7 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 
@@ -83,6 +84,7 @@ $(function() {
 				var s_div = toEditTitleHtml(entity, html);
 
 				$("#a_" + id_code).hide();
+				$(".h#"+id_code).css("background","#fafafa");
 				$("#" + id_code).append(s_div);
 				
 				$.each($('.textarea_h'),function(i,data){
@@ -107,6 +109,7 @@ $(function() {
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
 
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
@@ -146,6 +149,21 @@ $(function() {
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		
+		
+		//多选不选择的时候：
+		console.log(dt_type_3);
+		var deletedResultTids = new Array();
+		$.each(dt_type_3, function() {
+			var _this = $(this);
+			var active = _this.find('.active');
+			if(!(active && active.length > 0)){
+				var tid = _this.data('titleId');
+				deletedResultTids.push(tid);
+			}
+		});
+		data.deletedResultTids = deletedResultTids;
+		
 		
 		//表格
 		var talbes = $("#b_"+id_code).find("[data-type='10']");
@@ -188,6 +206,7 @@ $(function() {
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
+				$(".h#"+id_code).css("background","#fff");
 				layer.msg('保存成功');
 				showArea(id_code);
 			} else {

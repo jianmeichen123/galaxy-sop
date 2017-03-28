@@ -63,6 +63,7 @@
 		
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -74,6 +75,17 @@
 					sec.showResults();
 					validate();
 					$("#b_"+id_code).validate();
+					//文本域剩余字符数
+					for(var i=0;i<$(".textarea_h").length;i++){
+						var len=$(".textarea_h").eq(i).val().length;
+						var initNum=$(".num_tj").eq(i).find("label").text();
+						$(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 				} else {
 
 				}
@@ -84,6 +96,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 		deletedRowIds = new Array();
 	});
@@ -110,9 +123,16 @@
 			{
 				infoMode.value = field.val()
 			}
-			else if(type==1 || type==8)
+			else if(type==1)
 			{
 				infoMode.remark1 = field.val()
+			}
+			else if(type==8)
+			{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+				infoMode.remark1 = str;
 			}
 			infoModeList.push(infoMode);
 		});
@@ -145,7 +165,7 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
-					
+					$(".h#a_"+id_code).css("background","#fff");
 					deletedRowIds = new Array();
 					var parent = $(sec).parent();
 					var id = parent.data('sectionId');

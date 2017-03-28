@@ -59,6 +59,7 @@
 		var sec = $(this).closest('.section');
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -92,6 +93,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 	//通用保存
@@ -164,6 +166,7 @@
 						layer.msg('保存成功');
 						$('#'+id_code).show();
 						$('#b_'+id_code).remove();
+						$(".h#a_"+id_code).css("background","#fff");
 						var pid=$('#a_'+id_code).attr("data-section-id");
 						setDate(pid,true);					
 					} else {

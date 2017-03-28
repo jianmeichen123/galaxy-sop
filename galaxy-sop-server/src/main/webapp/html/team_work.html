@@ -110,7 +110,7 @@
 		todayHighlight: false
     }).on('changeDate' , function(ev){
     	var starttime = $("#startWorkDate").val();
-    	$('#endWorkUpDate').datetimepicker('setStartDate',parseInt(starttime));
+    	$('#endWorkUpDate').datepicker('setStartDate',starttime);
     });
 
 	$("#endWorkDate").datepicker({
@@ -125,7 +125,7 @@
 		todayHighlight: false
      }).on('changeDate' , function(ev){
     	var endtime = $('#endWorkUpDate').val();
-    	$('#startWorkDate').datetimepicker('setEndDate',parseInt(endtime));
+    	$('#startWorkDate').datepicker('setEndDate',parseInt(endtime));
     });
 
     $(".add_team_work").on("click",function(){

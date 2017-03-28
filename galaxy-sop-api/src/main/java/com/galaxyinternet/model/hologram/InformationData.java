@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.hologram;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,9 +17,12 @@ public class InformationData extends PagableEntity {
 	
 	private List<FixedTableModel> infoFixedTableList;
 	
-	private Set<String> deletedRowIds;
+	private Set<String> deletedRowIds;  //适用table表
 	
 	private List<TableModel>     infoTableModelList;
+	
+	private Set<String> deletedResultTids;  //适用result表
+	
 	
 	public String getProjectId() {
 		return projectId;
@@ -29,7 +33,7 @@ public class InformationData extends PagableEntity {
 	}
 
 	public List<InformationModel> getInfoModeList() {
-		return infoModeList;
+		return infoModeList == null? new ArrayList<InformationModel>():infoModeList;
 	}
 
 	public void setInfoModeList(List<InformationModel> infoModeList) {
@@ -67,6 +71,15 @@ public class InformationData extends PagableEntity {
 	public void setDeletedRowIds(Set<String> deletedRowIds) {
 		this.deletedRowIds = deletedRowIds;
 	}
+
+	public Set<String> getDeletedResultTids() {
+		return deletedResultTids;
+	}
+
+	public void setDeletedResultTids(Set<String> deletedResultTids) {
+		this.deletedResultTids = deletedResultTids;
+	}
+
 	
 	
 	

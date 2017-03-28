@@ -91,12 +91,12 @@
 		var btn = this;
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active']");
+		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active'],select");
 		var data = {
 			projectId : projectInfo.id
 		};
 
-		if(sec.attr("id") =="b_NO3_1"){
+		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var dataList = new Array();
         		$.each(sec.find("table.editable"),function(){
@@ -112,7 +112,6 @@
         		});
                 if(dataList.length==0){
                     var titleId = sec.find("table.editable").attr("data-title-id");
-                    alert(titleId)
                     var json = {"projectId":projectInfo.id,"titleId":titleId}
                     dataList.push(json);
                 }else if(dataList.length>10){
@@ -145,7 +144,7 @@
 				titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
 				type : type
 			};
-			if(type==2 || type==4)
+			if(type==2 || type==4 || type==14)
 			{
 				infoMode.value = field.val()
 			}
@@ -153,9 +152,9 @@
 			{
 				infoMode.value = field.data('id')
 			}
-			else if(type==5)
+			else if(type==5 || type==12 || type==13)
 			{
-				if (field.is('textarea')){
+				if (field.is('textarea') || field.is('input[type="text"]')){
 					infoMode.remark1 = field.val()
 				}else{
 					infoMode.value = field.val()

@@ -61,6 +61,7 @@
 		 $.getScript("<%=path %>/js/validate/lib/jq.validate.js"); 
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -72,6 +73,17 @@
 					sec.showResults();
 					validate();
 					$("#b_"+id_code).validate();
+					//文本域剩余字符数
+					for(var i=0;i<$(".textarea_h").length;i++){
+						var len=$(".textarea_h").eq(i).val().length;
+						var initNum=$(".num_tj").eq(i).find("label").text();
+						$(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 				} else {
 
 				}
@@ -82,7 +94,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
-		$(".tip-yellowsimple").hide();
+		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 	//通用保存
@@ -94,7 +106,7 @@
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -107,13 +119,20 @@
 				titleId	: field.data('titleId'),
 				type : type
 			};
-			if(type==2 || type==3 || type==4)
+			if(type==2 || type==3 || type==4|| type==14)
 			{
 				infoMode.value = field.val()
 			}
-			else if(type==1 || type==8)
+			else if(type==1)
 			{
 				infoMode.remark1 = field.val()
+			}
+			else if(type==8)
+			{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+				infoMode.remark1 = str;
 			}
 			infoModeList.push(infoMode);
 		});
@@ -133,6 +152,7 @@
 							layer.msg('保存成功');
 							$('#'+id_code).show();
 							$('#b_'+id_code).remove();
+							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");
 							setDate(pid,true);
 						} else {
