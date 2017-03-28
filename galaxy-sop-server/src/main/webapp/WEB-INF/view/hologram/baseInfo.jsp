@@ -126,7 +126,7 @@ $(function() {
 				var font_num = 2000 - $(this).val().length;
 				$(this).siblings('p').find('label').html(font_num);
 				var height = data.scrollHeight;
-				$(this).css("height",height) ;
+				$(this).css("height",height+10) ;
 				 
 			})
 		})

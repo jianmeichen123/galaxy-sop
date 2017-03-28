@@ -450,7 +450,7 @@ function type_5_html(title,mark){
 			}
 		}
 		var eresult_2 = 
-			"<dd class=\"fl_none\">" +
+			"<dd class=\"fl_none fl_none_box\">" +
 				"<textarea class=\"textarea_h\" " +
 					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'   placeholder='"+title.placeholder+"' >" +
 					 	r_value +

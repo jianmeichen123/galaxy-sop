@@ -514,10 +514,10 @@ var autoTextarea = function(elem, extra, maxHeight) {
         elem.style.height = minHeight + 'px';  
         if (elem.scrollHeight > minHeight) {  
             if (maxHeight && elem.scrollHeight > maxHeight) {  
-                height = maxHeight - padding;  
+                height = maxHeight+10;  
                 style.overflowY = 'auto';  
             } else {  
-                height = elem.scrollHeight - padding;  
+                height = elem.scrollHeight+10;  
                 style.overflowY = 'hidden';  
             };  
             style.height = height + extra + 'px';  
