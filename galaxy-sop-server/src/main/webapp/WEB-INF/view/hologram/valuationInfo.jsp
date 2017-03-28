@@ -101,7 +101,8 @@
 					validate();
 					$("#b_"+id_code).validate();
 					//调整表格
-					$("table").css({"width":"90%","table-layout":"fixed"})
+					$("table").css({"width":"90%","table-layout":"fixed"});
+					$(".h_edit .sign_title").css("margin-bottom","20px")
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
