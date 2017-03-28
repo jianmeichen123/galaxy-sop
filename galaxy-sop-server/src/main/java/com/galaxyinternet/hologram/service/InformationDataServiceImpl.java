@@ -48,14 +48,19 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	{
 		String projectId = data.getProjectId();
 		List<InformationModel> list = data.getInfoModeList();
-		if(projectId == null || list == null || list.size() ==0)
+		if(projectId == null || ((list ==null||list.size()==0) && (data.getDeletedResultTids()==null||data.getDeletedResultTids().size()==0)) )
 		{
 			return;
 		}
 		
 		InformationResult entity = null;
 		List<InformationResult> entityList = new ArrayList<>();
+		
 		Set<String> titleIds = new HashSet<>();
+		if(data.getDeletedResultTids() != null && !data.getDeletedResultTids().isEmpty()){
+			titleIds = data.getDeletedResultTids();
+		}
+		
 		for(InformationModel model : list)
 		{
 			titleIds.add(model.getTitleId());
