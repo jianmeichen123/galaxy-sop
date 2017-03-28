@@ -12,7 +12,7 @@
                 <dd class="clearfix"/>
                 <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="startWorkDate" type="text" data-date-format="yyyy-mm">
                 	<span class="fl">&nbsp;至&nbsp;</span>
-                <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="endWorkDate" type="text" data-date-format="yyyy-mm">
+                <input readonly="" name="field2" class="datepicker-month-text fl txt time" id="endWorkDate" type="text" data-date-format="yyyy-mm">
                 </dd>
             </dl>  
             <dl class="fmdl fl">
@@ -50,15 +50,19 @@
     })
     function save_work(){
          var json ={};
-        $.each($("#work_form").find("input, select"),function(){
+        $.each($("#work_form").find("input, select,textarea"),function(){
             var ele = $(this);
             var name = ele.attr('name');
-           if(ele.val()){
-                json[name]= ele.val();
-           }else{
-                json[name]="未知"
-           }
+            json[name]= ele.val();
+            if(name.indexOf("field")>-1){
+               if(ele.val()){
+                    json[name]= ele.val();
+               }else{
+                    json[name]="未知"
+               }
+            }
         });
+
         var index = json["index"];
         if(!index){
             //新增一条记录
