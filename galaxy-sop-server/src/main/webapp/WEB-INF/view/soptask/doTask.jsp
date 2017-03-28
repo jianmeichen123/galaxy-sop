@@ -8,7 +8,7 @@ String projectId=(String)request.getAttribute("projectId");
 <html>
 <head>
 <meta charset="utf-8">
-<title>繁星</title>
+<title>星河投</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->

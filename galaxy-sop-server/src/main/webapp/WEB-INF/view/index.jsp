@@ -18,7 +18,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>繁星</title>
+<title>星河投</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
