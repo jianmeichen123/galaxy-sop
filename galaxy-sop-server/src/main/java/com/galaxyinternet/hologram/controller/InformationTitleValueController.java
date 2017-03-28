@@ -12,11 +12,12 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-
+import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -25,6 +26,7 @@ import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
 
 import com.galaxyinternet.project.controller.ProjectProgressController;
+import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
@@ -35,6 +37,8 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
 	
+	@Autowired
+	private CacheOperationService cacheOperationService;
 	
 	@Autowired
 	private InformationTitleService informationTitleService;
@@ -48,7 +52,23 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	}
 	
 	
-
+	@ResponseBody
+	@RequestMapping(value = "/refersh", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> refersh() {
+		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+		Result result = new Result();
+		try {
+			cacheOperationService.refreshCache();
+			result.setStatus(Status.OK);
+		} catch (PlatformException e){
+			result.addError(e.getMessage(), e.getCode()+"");
+		} catch (Exception e) {
+			result.addError("系统错误");
+			logger.error("CacheOperationService.refresh error",e);
+		}
+		responseBody.setResult(result);
+		return responseBody;
+	}
 	
 	//=============== TODO  title 
 	
