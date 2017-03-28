@@ -229,7 +229,11 @@ var deleteids = "";
 	             }, 
 				FilesAdded: function(up, files) {
 					params = paramsFunction;
-					
+					var imglength = $('#'+fieInputId).children("li").length;
+					if(imglength >= 5){
+						layer.msg("不能超过5张照片!");
+						return;
+					}
 					console.log(uploader.browse_button);
 					for(var i = 0, len = files.length; i<len; i++){
 						var file_name = files[i].name; //文件名
