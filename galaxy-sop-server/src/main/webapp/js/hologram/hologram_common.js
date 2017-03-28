@@ -193,7 +193,7 @@ function buildResults(sec,title,readonly)
 			}
 
 		}
-		else if(title.type == 5)
+		/*else if(title.type == 5)
 		{
 			$.each(title.resultList,function(i,n){
 				if (n.contentDescribe1){
@@ -211,26 +211,27 @@ function buildResults(sec,title,readonly)
 					}
 				}
 			});
-		}
+		}*/
 		else if(title.type == 12) {
 			$.each(title.resultList,function(i,n){
 				if (n.contentDescribe1){
 					if(readonly == true){
-						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1);
+						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1).addClass('hasdesc');
 					}else{
 						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
 					}
-				}
-				if(n.contentChoose){
+				} else if(n.contentChoose){
 					if(readonly == true){
-						$(".field[data-id='"+ title.id +"']").text(n.valueName);
+						if ( !$("dd[class='field'][data-title-id='"+ title.id +"']").hasClass('hasdesc') ) {
+							$("dd[class='field'][data-title-id='" + title.id + "']").text(n.valueName);
+						}
 					}else{
 						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
 					}
 				}
 			});
 		}
-		else if(title.type == 13) {
+		/*else if(title.type == 13) {
 			$.each(title.resultList,function(i,n){
 				if (n.contentDescribe1){
 					if(readonly == true){
@@ -247,7 +248,7 @@ function buildResults(sec,title,readonly)
 					}
 				}
 			});
-		}
+		}*/
 		else if(title.type == 14)
 		{
 			if(readonly == true){
