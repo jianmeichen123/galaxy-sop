@@ -384,7 +384,7 @@
 		{{each(i,childList) childList}}
 			<div class="mb_24 clearfix">
 	  <dl class="clearfix">
-		<dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+		<dt data-type="\${type}" data-id="\${id}" data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
 		{{if type=="1"}} 
          <dd class="field" data-title-id="\${id}">未填写</dd>
@@ -478,7 +478,7 @@
 		<dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 		{{else type=="3"}}
-		<dt  data-type="\${type}" title-id="\${id}">\${name}</dt>
+		<dt  data-type="\${type}" data-title-id="\${id}" >\${name}</dt>
 		{{each(i,valueList) valueList}}
 		 <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
