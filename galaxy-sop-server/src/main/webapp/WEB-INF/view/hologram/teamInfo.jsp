@@ -97,7 +97,7 @@
 			projectId : projectInfo.id
 		};
 
-		if(sec.attr("id") =="b_NO3_1"){
+		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var dataList = new Array();
         		$.each(sec.find("table.editable"),function(){
@@ -113,7 +113,6 @@
         		});
                 if(dataList.length==0){
                     var titleId = sec.find("table.editable").attr("data-title-id");
-                    alert(titleId)
                     var json = {"projectId":projectInfo.id,"titleId":titleId}
                     dataList.push(json);
                 }else if(dataList.length>10){
