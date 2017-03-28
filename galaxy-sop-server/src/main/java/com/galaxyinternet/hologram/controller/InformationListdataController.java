@@ -12,6 +12,7 @@ import com.galaxyinternet.service.hologram.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -267,6 +268,8 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             String code = remark.getCode();
             data.setCode(code);
             data.setProjectId(projectId);
+            data.setProperty("created_time");
+            data.setDirection(Direction.DESC.toString());
             List<InformationListdata> list = informationListdataService.queryList(data);
             resp.setEntityList(list);
         }catch(Exception e){
