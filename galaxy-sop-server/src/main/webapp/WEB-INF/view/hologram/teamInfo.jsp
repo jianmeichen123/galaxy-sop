@@ -92,7 +92,7 @@
 		var btn = this;
 		event.stopPropagation();
 		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active']");
+		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active'],select");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -145,7 +145,7 @@
 				titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
 				type : type
 			};
-			if(type==2 || type==4)
+			if(type==2 || type==4 || type==14)
 			{
 				infoMode.value = field.val()
 			}
@@ -155,7 +155,7 @@
 			}
 			else if(type==5 || type==12 || type==13)
 			{
-				if (field.is('textarea') || field.is('input')){
+				if (field.is('textarea') || field.is('input[type="text"]')){
 					infoMode.remark1 = field.val()
 				}else{
 					infoMode.value = field.val()
