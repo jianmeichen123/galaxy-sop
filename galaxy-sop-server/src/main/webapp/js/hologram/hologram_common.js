@@ -179,19 +179,18 @@ function buildResults(sec,title,readonly)
 				if(readonly == true){
 					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName);
 				}else{
-					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 				}
 			});
 
 			if (readonly == true){
-				var dds = $("dt[data-type='3'][data-id='"+ title.id +"']").siblings();
+				var dds = $("dt[data-type='3'][title-id='"+ title.id +"']").siblings();
 				$.each(dds,function(i,n){
 					if ($(this).text() == '未选择'){
 						$(this).remove();
 					}
 				});
 			}
-
 
 		}
 		else if(title.type == 5)
