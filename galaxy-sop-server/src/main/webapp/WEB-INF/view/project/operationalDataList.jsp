@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>繁星</title>
+<title>星河投</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!-- jsp文件头和头部 -->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>

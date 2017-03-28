@@ -155,6 +155,9 @@ function switchTypeByMark(title,mark){
         case 13:   
         	html += type_13_html(title,mark);
             break;
+        case 14:   
+        	html += type_14_html(title,mark);
+            break;
         default:
             break;
     }
@@ -163,9 +166,8 @@ function switchTypeByMark(title,mark){
 
 
 
-
-//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
-//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
+//1:文本、2:单选（Radio）、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
+//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)、14单选（select）
 
 // 1:文本 
 function type_1_html(title,mark){
@@ -193,11 +195,12 @@ function type_1_html(title,mark){
 
 
 
-function one_select_edit(title){
+function one_select_edit(title,inputtype){
 	var eresult = "";
 	var values = title.valueList;
 	
-	if(values.length < 6){
+	//if(values.length < 6){
+	if(inputtype == 'radio'){
 		var li = "";
 		$.each(values,function(i,o){
 			if(this.checked){
@@ -223,7 +226,7 @@ function one_select_edit(title){
     		"<dd>" +
 		    	"<select>" +
 					li +
-				"</select>" ;
+				"</select>" +
 	    	"</dd>";
 	}
 	
@@ -241,7 +244,7 @@ function type_2_html(title,mark){
 		}
 		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = one_select_edit(title);
+		var eresult = one_select_edit(title,'radio');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
@@ -435,7 +438,7 @@ function type_5_html(title,mark){
 		
 		return  "<div class=\"mb_24  clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
-		var eresult_1 = one_select_edit(title);
+		var eresult_1 = one_select_edit(title,'radio');
 		
 		var r_value = '';
 		if(results && results.length > 0){
@@ -828,5 +831,21 @@ function type_13_html(title,mark){
 
 
 
+//14:单选
+function type_14_html(title,mark){
+	
+	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	if(mark == 's'){
+		var hresult = "<dd>未选择</dd>";
+		var results = title.resultList;
+		if(results && results[0] && results[0].valueName){
+			hresult = "<dd>"+results[0].valueName+"</dd>";
+		}
+		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
+	}else{
+		var eresult = one_select_edit(title,'select');
+		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+	}
+}
 
 

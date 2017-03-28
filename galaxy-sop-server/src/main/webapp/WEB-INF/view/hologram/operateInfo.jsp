@@ -29,354 +29,13 @@
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
            
                 </ul>
+<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include> 
                  <div class="tabtxt" id="page_all">
 		<!--tab-->
 
 			
 			<!--tab end-->
 		</div>
-		<!--点击编辑例子 -->
-<script id="ifelse" type="text/x-jquery-tmpl">
-<div class="h_edit" id="b_\${code}">
-	<div class="h_btnbox">
-		<span class="h_save_btn">保存</span><span class="h_cancel_btn"
-			data-on="h_cancel" attr-hide="\${code}">取消</span>
-	</div>
-	<div class="h_title">\${name}</div>
-	{{each(i,childList) childList}}  
- 
-                 	{{if sign=="3"}}
-					<h2>\${name}</h2>
-						{{each(i,childList) childList}}
-						<div class="mb_16">
-                       <dl class="h_edit_txt clearfix">
-						<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
-
-						{{else type=="2"}}
-						<dd>
-						<ul class="h_radios clearfix">
-							{{each(i,valueList) valueList}}
-                            <li><input type="radio" value="\${id}" data-title-id="\${titleId}" data-type="\${type}" name="\${titleId}"/>\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-
-						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
-                        <dd class="fl_none">
-						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
-							{{each(i,valueList) valueList}}
-                            <li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>
-                          <select name="" id="">
-                            <option value="">\${name}</option>
-                          </select>
-                        </dd>
-						{{/each}}
-
-						{{else type=="5"}}
-						<dd>
-						<ul class="h_radios clearfix">
-							{{each(i,valueList) valueList}}
-                            <li><input type="radio" value="\${id}" data-value="\${value}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}""></textarea>
-							<p class="num_tj">
-								<label for="">500</label>/500
-							</p>
-						</dd>
-						
-						
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
-						{{/each}}
-						
-						{{else type=="7"}}
-                    		<dd class="fl_none clearfix">
-                    		 <ul class="h_imgs mgedit" id="edit-\${id}">
-                             
-                    		 </ul>
-                    		 <ul class="h_imgs">
-                      			<li class="h_imgs_add"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
-                      		</ul>
-                    		</dd>
-                  			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
-						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
-							<p class="num_tj">
-								<label for="">0</label>/2000
-							</p>
-						</dd>
-
-						{{else type=="10"}}
-						<dd class="fl_none">
-                            <table>
-                              <tr>
-                                <th>姓名</th>
-                                <th>职位</th>
-                                <th>性别</th>
-                                <th>最高学历</th>
-                                <th>操作</th>
-                              </tr>
-                              <tr>
-                                <th>罗振宇</th>
-                                <td>CEO</td>
-                                <td>男</td>
-                                <td>博士</td>
-                                <td>
-                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
-                                </td>
-                              </tr>
-                            </table>
-							<span class="pubbtn bluebtn">新增</span>
-                          </dd>
-
-						{{else type=="11"}}
-						<dd>项目带过来的数据</dd>
-
-						{{/if}}
-                      </dl>
-
-                    </div>
- 
-
-						{{/each}}
-					{{else}}
-					<div class="mb_16">
-                       <dl class="h_edit_txt clearfix">
-						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-						{{if type=="1"}}
-                        <dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"></dd>
-
-						{{else type=="2"}}
-						<dd>
-						<ul class="h_radios clearfix">
-							{{each(i,valueList) valueList}}
-                            <li><input type="radio" name="\${titleId}" value="\${id}" data-title-id="\${titleId}" data-type="\${type}"/>\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-
-						{{else type=="3"}}
-						<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>	
-                        <dd class="fl_none">
-						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
-							{{each(i,valueList) valueList}}
-                            <li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>
-                          <select name="" id="">
-                            <option value="">\${name}</option>
-                          </select>
-                        </dd>
-						{{/each}}
-
-						{{else type=="5"}}
-						<dd>
-						<ul class="h_radios clearfix">
-							{{each(i,valueList) valueList}}
-                            <li><input type="radio" data-value="\${value}" data-type="\${type}" placeholder="\${placeholder}"/>\${name}</li>
-							{{/each}}
-                          </ul>
-						</dd>
-						<dd class="fl_none">
-							<textarea class="textarea_h" data-titleId="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
-							<p class="num_tj">
-								<label for="">500</label>/500
-							</p>
-						</dd>
-
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
-						{{/each}}
-
-						{{else type=="7"}}
-                    		<dd class="fl_none clearfix">
-                    		 <ul class="h_imgs mgedit"  id="edit-\${id}">
-                              
-                    		 </ul>
-                    		 <ul class="h_imgs">
-                      			<li class="h_imgs_add"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
-                      		</ul>
-                    		</dd>
-                  			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
-						{{else type=="8"}}
-						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
-							<p class="num_tj">
-								<label for="">0</label>/2000
-							</p>
-						</dd>
-
-						{{else type=="10"}}
-						<dd class="fl_none">
-                            <table>
-                              <tr>
-                                <th>姓名</th>
-                                <th>职位</th>
-                                <th>性别</th>
-                                <th>最高学历</th>
-                                <th>操作</th>
-                              </tr>
-                              <tr>
-                                <th>罗振宇</th>
-                                <td>CEO</td>
-                                <td>男</td>
-                                <td>博士</td>
-                                <td>
-                                  <span class="blue" data-btn='btn'>查看</span><span class="blue" data-btn='btn'>编辑</span><span class="blue" data-btn='btn'>删除</span>
-                                </td>
-                              </tr>
-                            </table>
-							<span class="pubbtn bluebtn">新增</span>
-                          </dd>
-
-						{{else type=="11"}}
-						<dd>项目带过来的数据</dd>
-
-						{{/if}}
-                      </dl>
-
-                    </div>
-				
-
-					{{/if}}
-					
-					{{/each}}
- <div class="h_edit_btnbox clearfix">
-                      <span class="pubbtn bluebtn fl h_save_btn" data-on="save">保存</span>
-                      <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel">取消</span>
-                    </div>
-	
-</div>										
-</script>
-
-
-<!--页面例子 -->
-<script id="page_list" type="text/x-jquery-tmpl">
-{{each(i,childList) childList}}
-<div class="h radius section" id="a_\${code}" data-section-id="\${id}">
-  <div class="h_look h_team_look clearfix" id="\${code}">
-	<c:if test="${isEditable}">
-    <div class="h_btnbox"><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
-	</c:if>
-   <div class="h_title">\${name}</div>
-	{{each(i,childList) childList}}                    
-                    {{if sign=="3"}}
-						{{each(i,childList) childList}}
-							<div class="mb_24 clearfix">
-                      <dl class="clearfix">
-                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-
-						{{if type=="5"}}                        
-						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						<dd>备注</dd>
-
-						{{else type=="2"}}
-                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
-
-						{{else type=="3"}}
-                        {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
-
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
-
-						{{else type=="7"}}
-                    		 <dd class="fl_none mglook" id="look-\${id}">
-                            	
-                          	</dd>
-
-						{{else type=="8"}}
-						<dd class="fl_none field division_dd" data-title-id="\${id}" data-type="\${type}">未填写</dd>
-
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>未选择</dd>
-						{{/each}}
-
-						{{else type=="11"}}
-                        <dd>项目带过来的数据</dd>
-
-						{{else type=="1"}}
-                        <dd class="field" data-title-id="\${id}">未填写</dd>
-						{{/if}}                      
-						</dl>		
-                    </div>
-						{{/each}}
-
-					{{else}}
-					<div class="mb_24 clearfix">
-                      <dl class="clearfix">
-                        <dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
-						{{if type=="5"}}                        
-						<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						<dd>备注</dd>
-
-						{{else type=="2"}}
-                        <dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
-
-						{{else type=="3"}}
-                        {{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
-
-						{{else type=="6"}}
-						{{each(i,valueList) valueList}}
-                        <dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
-						{{/each}}
-
-						{{else type=="7"}}
-                    		 <dd class="fl_none mglook" id="look-\${id}">
-                          	</dd>
-
-						{{else type=="8"}}
-						<dd class="fl_none field division_dd" data-title-id="\${id}" data-type="\${type}">未填写</dd>
-
-						{{else type=="4"}}
-						{{each(i,valueList) valueList}}
-                        <dd>未选择</dd>
-						{{/each}}
-
-						{{else type=="11"}}
-                        <dd>项目带过来的数据</dd>
-
-						{{else type=="1"}}
-                        <dd class="field" data-title-id="\${id}">未填写</dd>
-						{{/if}}                      
-						</dl>		
-                    </div>
-
-					{{/if}}
-					{{/each}}
-  </div>
-</div>
-{{/each}}
-</script>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 var key = Date.parse(new Date());
@@ -400,8 +59,6 @@ var deleteids = "";
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		$.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
-		$.getScript("<%=path %>/js/validate/lib/jq.validate.js");
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -414,6 +71,7 @@ var deleteids = "";
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
 					validate();
+					$("#b_"+id_code).validate();
 					var files = $("#"+id_code).nextAll().find("input[type='file']");
 					var selectids = [];
 					
@@ -476,8 +134,8 @@ var deleteids = "";
 	$('div').delegate(".h_save_btn","click",function(event){
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea,li.active");
+		var sec = $(this).closest('form');
+		var fields = sec.find("input[type='text'],input:checked,textarea,li.active,option:selected");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -490,11 +148,11 @@ var deleteids = "";
 				titleId	: field.data('titleId'),
 				type : type
 			};
-			if(type==2 || type==3 || type==4)
+			if(type==2 || type==3 || type==4 || type==14)
 			{
 				console.log(field.val());
 				infoMode.value = field.val()
-			}
+			}		
 			else if(type==1 || type==8)
 			{	
 				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
@@ -508,6 +166,11 @@ var deleteids = "";
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
+		
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 
@@ -565,7 +228,11 @@ var deleteids = "";
 	             }, 
 				FilesAdded: function(up, files) {
 					params = paramsFunction;
-					
+					var imglength = $('#'+fieInputId).children("li").length;
+					if(imglength >= 5){
+						layer.msg("不能超过5张照片!");
+						return;
+					}
 					console.log(uploader.browse_button);
 					for(var i = 0, len = files.length; i<len; i++){
 						var file_name = files[i].name; //文件名

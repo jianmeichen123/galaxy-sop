@@ -1,6 +1,13 @@
 
     //添加成员简历保存
-    $("#save_person_learning").on("click",function(){
+    $(function(){
+        $("#detail-form").validate({
+             submitHandler:function(form){
+                 save_person();
+             }
+        });
+    })
+    function save_person (){
         //row 为列表显示json
         //data为列表的tr data属性值
         var row={};
@@ -66,7 +73,8 @@
                var field7 = div.find("[name='field7']").text();
                var code = "entrepreneurial-experience";
                var id = div.find("[name='id']").text();
-               if(!id){
+
+               if(!id || id ==""){
                  json["id"]=null
                }
                json["field1"]=field1;
@@ -118,6 +126,9 @@
              //解决字段无值列错位的问题
         }
         $("a[data-close='close']").click();
+    }
+    $("#save_person_learning").on("click",function(){
+        $("#detail-form").submit();
     })
 
 	function getData(div){
@@ -127,6 +138,7 @@
               var key = "";
               var value = "";
               var tagName = $(this).get(0).tagName;
+
               if(tagName == "INPUT"|| tagName == "TEXTAREA"){
 				 key = $(this).attr("name");
 				 value = $(this).val();
@@ -188,4 +200,11 @@
 		});
 		return false;
 	});
+
+  //弹窗验证
+  jQuery.validator.addMethod("phone", function (value, element) {
+    var mobile = /^1[3|4|5|7|8]\d{9}$/;
+ 	return this.optional(element) || (mobile.test(value));
+  }, "手机格式不对");
+
 

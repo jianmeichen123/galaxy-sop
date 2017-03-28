@@ -11,18 +11,19 @@
             <dl class="fmdl fl">
                 <dt>&nbsp;毕业时间：</dt>
                 <dd class="clearfix">
-                	<input name="field1" type="text" class="datepicker-month-text fl txt time"/>
+                    <input readonly="" name="field1" class="datepicker-month-text fl txt time" id="graduationDate" type="text" data-date-format="yyyy">
+
                 </dd>
             </dl>  
             <dl class="fmdl fl">
                 <dt>毕业院校：</dt>
                 <dd class="clearfix">
-                    <input name="field2" type="text" class="txt" maxLength="50"/>
+                    <input name="field2" type="text" class="txt" maxlength="100"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>学习专业：</dt>
-                <dd><input name="field3" type="text" class="txt" maxLength="50"/></dd>
+                <dd><input name="field3" type="text" class="txt" maxlength="100"/></dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>学历：</dt>
@@ -48,15 +49,47 @@
     </div>
 </div>
 
+
 <script>
-   $(".add_team_learn").on("click",function(){
-        var eduJson = getData($("#learn_form"));
+
+    //日期
+     var currDate = new Date();
+     var currYear=currDate.getFullYear();
+    $("#graduationDate").datetimepicker({
+        minView: 'year',
+    	startView:4,
+        minView:4,
+    	endDate:currYear,//结束时间，在这时间之后都不可选
+    	language: 'zh-CN',
+    	autoclose:true
+    })
+     $(function(){
+        $("#learn_form").validate({
+             submitHandler:function(form){
+                 save_learn();
+             }
+        });
+    })
+   function save_learn(){
+        var eduJson ={};
+        $.each($("#learn_form").find("input, select"),function(){
+            var ele = $(this);
+            var name = ele.attr('name');
+            eduJson[name]= ele.val();
+            if(name.indexOf("field")>-1){
+                 if(ele.val()){
+                        eduJson[name]= ele.val();
+                   }else{
+                        eduJson[name]="未知"
+                   }
+            }
+        });
+
         var index = eduJson["index"];
         if(!index){
               //新增一条记录
-
               var str = "<div  data-flag><span name='id' style='display:none'>"+eduJson["id"]+"</span>"+
-               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+eduJson['field1']+"</span></div>"+
+               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+eduJson['field1']+"</span>年</div>"+
                 "<div class='team_p_two'>"+
                     "<ul>"+
                         "<li><span>学校：</span><span name='field2'>"+eduJson['field2']+"</span></li>"+
@@ -79,5 +112,8 @@
             })
         }
         $("#close_learn").click();
-    })
+   }
+   $(".add_team_learn").on("click",function(){
+        $("#learn_form").submit();
+   })
 </script>

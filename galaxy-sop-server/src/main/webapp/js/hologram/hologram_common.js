@@ -178,7 +178,7 @@ function buildResults(sec,title,readonly)
 			//console.log('3:title.resultList : ' , title.resultList);
 			$.each(title.resultList,function(i,n){
 				if(readonly == true){
-					$(".field[data-id='"+n.contentChoose+"']").text(n.valueName);
+					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName);
 				}else{
 					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 				}
@@ -228,6 +228,17 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/&nbsp;/g," ");
 				}
 				$("textarea[data-title-id='"+title.id+"']").val(str);
+			}
+		}
+		else if(title.type == 14)
+		{
+			if(readonly == true)
+			{
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
+			}
+			else
+			{
+				$("option[value='"+title.resultList[0].contentChoose+"']").attr("selected",true);
 			}
 		}
 	}
@@ -531,6 +542,24 @@ function validate(){
 						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="5"){
+				var add_time =i+"_time";
+				var validate={
+						"class":"time",	
+						"data-time":add_time
+				}
+				inputs.eq(i).attr(validate);
+				$("[data-time="+add_time+"]").datepicker({
+					language:  'zh-CN',
+			        format: 'yyyy-mm',
+			        autoclose: true,
+			        todayBtn: false,
+			        startView: 'year',
+			        minView:'year',
+	                minViewMode: 1,
+	                maxView:'decade',
+	                todayHighlight: false
+		    	});
 			}
 	 }
 	
@@ -570,3 +599,20 @@ jQuery.validator.addMethod("percentage", function(value, element) {
 	var percentage = /^\d+(\.\d{2})?$/;
 	return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
 }, "只能是0～100的整数和两位小数"); 
+//更新时间
+function updateInforTime(projectId,type){
+	var test={};
+	test.projectId = projectId;
+	test.reflect = type;
+	sendPostRequestByJsonObj(
+				Constants.sopEndpointURL+'/galaxy/InformationOperationTime/updateOperateTime' , 
+				test,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						
+					} else {
+                        layer.msg("更新时间失败!");
+					}
+	});
+}
