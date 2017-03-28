@@ -35,7 +35,7 @@
 		
 			<div class="h radius" id="NO1_1"> </div>
 			
-			<div class="h radius" id="NO1_2"> </div>
+			<div class="h radius base_con2" id="NO1_2"> </div>
 			
 		</div>
 	</div>
@@ -61,14 +61,20 @@ sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backF
 $(function() {
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
+		var _this = $(this);
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
 		event.stopPropagation();
+		if(_this.is(':visible')){
+			console.log("编辑隐藏");
+			$('.base_half').css('width','50%');
+		}
 	});
 	
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn", "click", function(event) {
+		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
@@ -88,8 +94,6 @@ $(function() {
 					  var text_height = data.scrollHeight-20;
 					  $(this).css("height",text_height) ;
 				});
-					 
-
 			}
 			//判断项目创新类型其他是否选中
 			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
@@ -108,6 +112,11 @@ $(function() {
 				    	$txt.attr('readonly',true);
 				    }
 			 })
+			//去除base_half 类名
+			if(base_editbtn.is(':hidden')){
+				console.log("编辑隐藏");
+				$('.base_half').css('width','100%');
+			}
 			
 			//字数限制显示
 			$.each($('.textarea_h'),function(i,data){
@@ -124,6 +133,7 @@ $(function() {
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();
+		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
 
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
@@ -216,6 +226,11 @@ $(function() {
 				layer.msg('保存失败');
 			}
 		});
+		//base_half
+		if(_this.is(':visible')){
+			console.log("编辑隐藏");
+			$('.base_half').css('width','50%');
+		}
 	});
 });
 

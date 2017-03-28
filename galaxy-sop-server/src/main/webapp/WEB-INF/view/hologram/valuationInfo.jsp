@@ -128,7 +128,7 @@
 						{{else type=="10"}}
 						<dd class="">
 							<table data-title-id="\{id}" class="editable"></table>
-							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
+							<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
                         </dd>
 
 						{{else type=="11"}}
@@ -219,7 +219,7 @@
                             <table data-title-id="\${id}"  class="editable">
                              
                             </table>
-							<span class="pubbtn bluebtn" onclick="addRow(this)">新增</span>
+							<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -290,7 +290,7 @@
 						{{/each}}
 						
 						{{else type=="10"}}
-                        <dd><table data-title-id="\${id}"></table></dd>
+                        <dd class="fl_none"><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>
@@ -340,7 +340,7 @@
 						{{/each}}
 
 						{{else type=="10"}}
-                        <dd><table data-title-id="\${id}"></table></dd>
+                        <dd class="fl_none"><table data-title-id="\${id}"></table></dd>
 
 						{{else type=="11"}}
                         <dd>项目带过来的数据</dd>

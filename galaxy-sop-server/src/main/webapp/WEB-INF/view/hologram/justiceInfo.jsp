@@ -314,7 +314,7 @@
 
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+						<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}
@@ -361,7 +361,7 @@
 
 						{{else type=="8"}}
 						<dt class="fl_none" data-type="\${type}">\${name}</dt>
-						<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+						<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 						{{else type=="4"}}
 						{{each(i,valueList) valueList}}

@@ -141,7 +141,7 @@
                                 </td>
                               </tr>
                             </table>
-							<span class="pubbtn bluebtn">新增</span>
+							<span class="pubbtn bluebtn margin_btn">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -247,7 +247,7 @@
                                 </td>
                               </tr>
                             </table>
-							<span class="pubbtn bluebtn">新增</span>
+							<span class="pubbtn bluebtn margin_btn">新增</span>
                           </dd>
 
 						{{else type=="11"}}
@@ -312,7 +312,7 @@
 			</dd>
 
 		{{else type=="8"}}
-		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 		{{else type=="4"}}
 		{{each(i,valueList) valueList}}
@@ -358,7 +358,7 @@
 			</dd>
 
 		{{else type=="8"}}
-		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 		{{else type=="4"}}
 		{{each(i,valueList) valueList}}
