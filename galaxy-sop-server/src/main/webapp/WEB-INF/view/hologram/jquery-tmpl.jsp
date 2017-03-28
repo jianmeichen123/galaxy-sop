@@ -182,11 +182,11 @@
 	<div class="mb_16">
 	   <dl class="h_edit_txt clearfix">		
 		{{if type=="1"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		<dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></dd>
 
 		{{else type=="2"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		<dd>
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
@@ -196,7 +196,7 @@
 		</dd>
 
 		{{else type=="3"}}
-		<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+		<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 		<dd class="fl_none">
 		<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 			{{each(i,valueList) valueList}}
@@ -206,7 +206,7 @@
 		</dd>
 
 		{{else type=="4"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		{{each(i,valueList) valueList}}
 		<dd>
 		  <select name="" id="">
@@ -216,7 +216,7 @@
 		{{/each}}
 
 		{{else type=="5"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt  data-type="\${type}">\${name}</dt>
 		<dd>
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
@@ -232,13 +232,13 @@
 		</dd>
 
 		{{else type=="6"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		{{each(i,valueList) valueList}}
 		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 		{{/each}}
 
 		{{else type=="7"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
         <dd class="fl_none clearfix">
         <ul class="h_imgs mgedit"  id="edit-\${id}"></ul>
         <ul class="h_imgs" id="edit-\${id}">
@@ -248,7 +248,7 @@
         <dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 
 		{{else type=="8"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		<dd class="fl_none">
 			<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
 			<p class="num_tj">
@@ -310,7 +310,7 @@
                             </table>
                           </dd>
 		{{else type=="10"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		<dd class="fl_none">
 			<table data-title-id="\${id}"  class="editable">
 
@@ -322,7 +322,7 @@
 		<dd>项目带过来的数据</dd>
 
 		{{else type=="12"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		<dd>
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
@@ -334,14 +334,14 @@
 
 
 		{{else type=="13"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		{{each(i,valueList) valueList}}
 		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 		{{/each}}
 		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}"/></dd>
 		
 		{{else type=="14"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		<select data-id="\${id}">
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
@@ -396,7 +396,7 @@
 
 		{{else type=="3"}}
 		{{each(i,valueList) valueList}}
-		<dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		<dd class="border_dd" data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
 
 		{{else type=="6"}}
@@ -409,7 +409,7 @@
 			</dd>
 
 		{{else type=="8"}}
-		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
          {{else type=="9"}}
 						<dd class="fl_none">
                             <table>
@@ -445,7 +445,7 @@
 		{{/each}}
 		
 		{{else type=="10"}}
-		<dd><table data-title-id="\${id}"></table></dd>
+		<dd class="fl_none"><table data-title-id="\${id}"></table></dd>
 
 		{{else type=="11"}}
 		<dd>项目带过来的数据</dd>
@@ -479,7 +479,7 @@
 		{{else type=="3"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		{{each(i,valueList) valueList}}
-		 <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		 <dd class="border_dd"  data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
 
 		{{else type=="6"}}
@@ -489,13 +489,13 @@
 		{{/each}}
 
 		{{else type=="7"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
+		<dt data-type="\${type}">\${name}</dt>
 		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">
 			</dd>
 
 		{{else type=="8"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
-		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+		<dt data-type="\${type}">\${name}</dt>
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
          {{else type=="9"}}
 						<dd class="fl_none">
                             <table>
@@ -532,8 +532,8 @@
 		{{/each}}
 
 		{{else type=="10"}}
-		<dt class="fl_none" data-type="\${type}">\${name}</dt>
-		<dd><table data-title-id="\${id}"></table></dd>
+		<dt data-type="\${type}">\${name}</dt>
+		<dd class="fl_none"><table data-title-id="\${id}"></table></dd>
 
 		{{else type=="11"}}
 		<dd>项目带过来的数据</dd>
