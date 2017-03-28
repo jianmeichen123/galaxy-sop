@@ -178,7 +178,7 @@ function buildResults(sec,title,readonly)
 			//console.log('3:title.resultList : ' , title.resultList);
 			$.each(title.resultList,function(i,n){
 				if(readonly == true){
-					$(".field[data-id='"+n.contentChoose+"']").text(n.valueName);
+					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName);
 				}else{
 					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 				}
@@ -228,6 +228,17 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/&nbsp;/g," ");
 				}
 				$("textarea[data-title-id='"+title.id+"']").val(str);
+			}
+		}
+		else if(title.type == 14)
+		{
+			if(readonly == true)
+			{
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
+			}
+			else
+			{
+				$("option[value='"+title.resultList[0].contentChoose+"']").attr("selected",true);
 			}
 		}
 	}

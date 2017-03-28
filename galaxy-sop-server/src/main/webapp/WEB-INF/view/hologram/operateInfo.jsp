@@ -51,7 +51,7 @@
 		{{each(i,childList) childList}}
 		<div class="mb_16">
 	   <dl class="h_edit_txt clearfix">
-		<dt data-type="\${type}"  data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+		<dt data-type="\${type}"  data-title-id="\${id}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 		{{if type=="1"}}
 		<dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></dd>
 
@@ -66,9 +66,9 @@
 
 		{{else type=="3"}}
 		<dd class="fl_none">
-		<ul class="h_edit_checkbox clearfix">
+		<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 			{{each(i,valueList) valueList}}
-			<li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
+			<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
 			{{/each}}
 		  </ul>
 		</dd>
@@ -150,7 +150,7 @@
 		{{else type=="14"}}
 		<select data-id="\${id}">
 		{{each(i,valueList) valueList}}
-		<option data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</option>
+		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}
 		</select>
 
@@ -180,9 +180,9 @@
 		{{else type=="3"}}
 		<dt class="fl_none" data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 		<dd class="fl_none">
-		<ul class="h_edit_checkbox clearfix">
+		<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 			{{each(i,valueList) valueList}}
-			<li class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</li>
+			<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
 			{{/each}}
 		  </ul>
 		</dd>
@@ -273,7 +273,7 @@
 		<dt class="fl_none" data-type="\${type}">\${name}</dt>
 		<select data-id="\${id}">
 		{{each(i,valueList) valueList}}
-		<option data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</option>
+		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}
 		</select>
 
@@ -325,7 +325,7 @@
 
 		{{else type=="3"}}
 		{{each(i,valueList) valueList}}
-		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		<dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
 
 		{{else type=="6"}}
@@ -380,7 +380,7 @@
 		{{else type=="3"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		{{each(i,valueList) valueList}}
-		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		 <dd data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
 
 		{{else type=="6"}}
@@ -529,7 +529,7 @@ var deleteids = "";
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea,li.active");
+		var fields = sec.find("input[type='text'],input:checked,textarea,li.active,option:selected");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -542,11 +542,11 @@ var deleteids = "";
 				titleId	: field.data('titleId'),
 				type : type
 			};
-			if(type==2 || type==3 || type==4)
+			if(type==2 || type==3 || type==4 || type==14)
 			{
 				console.log(field.val());
 				infoMode.value = field.val()
-			}
+			}		
 			else if(type==1 || type==8)
 			{	
 				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
