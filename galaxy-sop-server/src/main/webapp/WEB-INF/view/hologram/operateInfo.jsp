@@ -528,7 +528,7 @@ var deleteids = "";
 	$('div').delegate(".h_save_btn","click",function(event){
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
+		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea,li.active");
 		var data = {
 			projectId : projectInfo.id
