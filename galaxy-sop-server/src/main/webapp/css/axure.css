@@ -2518,9 +2518,10 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}
 .h_edit .h_radios input[type="radio"]{position: absolute;top:2px;left: 0;}
 .h_edit .h_radios input[type="text"]{margin:0;}
-.textarea_h{width: 800px;min-height: 70px;border:1px solid #dadada; padding:10px;}
-.base_tab-content .base_team_look .textarea_h{max-width: 680px;margin: 10px 0 0 122px;}
-.num_tj{color:#dadada;font-size: 12px;text-align: right;margin: -23px 36px 0 0;}
+.textarea_h{width: 750px;min-height: 70px;border:1px solid #dadada; padding:10px;backgrouind:none;}
+.base_tab-content .base_team_look .textarea_h{max-width: 680px;margin: 0px 0 0 122px;}
+.base_tab-content .base_team_look .num_tj{margin-right:38px;}
+.num_tj{color:#dadada;font-size: 12px;text-align: right;margin: -23px 88px 0 0;}
 .h_edit_textarea select{display: block;}
 .h_edit_textarea textarea{margin-top: 8px;}
 .h_title{height:20px;border-left:4px solid #72a7ff;padding-left:10px;line-height: 20px;font-size: 14px;color:#333;margin-bottom:24px;}
