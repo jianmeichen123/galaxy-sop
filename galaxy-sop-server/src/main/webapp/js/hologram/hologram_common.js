@@ -531,6 +531,24 @@ function validate(){
 						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="5"){
+				var add_time =i+"_time";
+				var validate={
+						"class":"time",	
+						"data-time":add_time
+				}
+				inputs.eq(i).attr(validate);
+				$("[data-time="+add_time+"]").datepicker({
+					language:  'zh-CN',
+			        format: 'yyyy-mm',
+			        autoclose: true,
+			        todayBtn: false,
+			        startView: 'year',
+			        minView:'year',
+	                minViewMode: 1,
+	                maxView:'decade',
+	                todayHighlight: false
+		    	});
 			}
 	 }
 	
