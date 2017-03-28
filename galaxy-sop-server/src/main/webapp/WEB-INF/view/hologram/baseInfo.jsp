@@ -64,6 +64,7 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 	
@@ -79,6 +80,7 @@ $(function() {
 				var s_div = toEditTitleHtml(entity, html);
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				$(".h#"+id_code).css("background","#fafafa");
 				
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).css("height",$(this).attr("scrollHeight"));
@@ -129,7 +131,7 @@ $(function() {
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
-
+		$(".h#"+id_code).css("background","#fff");
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 
