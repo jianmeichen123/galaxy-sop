@@ -2554,6 +2554,8 @@ dd.division_dd {max-width: 800px;padding:10px; margin:10px 0px 0 0;  box-sizing:
 .fl_none.field{box-sizing:border-box;-moz-box-sizing:border-box;padding-right:18px;line-height:22px;}
 .margin_btn{margin-top:20px;}
 .btn_compet{display: inline-block; margin-bottom: 10px; margin-top: -6px;}
+.h_edit .h_radios li.text_li{padding:0;margin-top:-8px;margin-left:-10px;}
+.sign_title{font-size:12px;margin-bottom:5px;}
 
 
 
