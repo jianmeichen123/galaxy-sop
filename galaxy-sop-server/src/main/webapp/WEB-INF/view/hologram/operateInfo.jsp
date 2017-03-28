@@ -220,6 +220,7 @@
 		{{/each}}
 
 		{{else type=="7"}}
+		<dt class="fl_none" data-type="\${type}">\${name}</dt>
         <dd class="fl_none clearfix">
         <ul class="h_imgs mgedit"  id="edit-\${id}"></ul>
         <ul class="h_imgs">
@@ -389,6 +390,7 @@
 		{{/each}}
 
 		{{else type=="7"}}
+		<dt class="fl_none" data-type="\${type}">\${name}</dt>
 		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">
 			</dd>
 
@@ -451,8 +453,6 @@ var deleteids = "";
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		$.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
-		$.getScript("<%=path %>/js/validate/lib/jq.validate.js");
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
@@ -465,6 +465,7 @@ var deleteids = "";
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
 					validate();
+					$("#b_"+id_code).validate();
 					var files = $("#"+id_code).nextAll().find("input[type='file']");
 					var selectids = [];
 					
@@ -559,6 +560,11 @@ var deleteids = "";
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
+		
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 
