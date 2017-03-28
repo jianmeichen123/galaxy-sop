@@ -270,10 +270,35 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             resp.setEntityList(list);
         }catch(Exception e){
             resp.setResult(new Result(Result.Status.ERROR,null, "查询表格列表失败"));
-            logger.error("queryRowsList 失败 ",e);
+            logger.error("querySelectList 失败 ",e);
         }
         return resp;
     }
-    
+    /**
+     * app端获取更多2017/3/28
+     * @param data
+     * @return
+     */
+    @RequestMapping("/queryResultList")
+    @ResponseBody
+    public ResponseData<InformationListdata> queryResultList(@RequestBody InformationListdata data){
+        ResponseData<InformationListdata> resp = new ResponseData<>();
+        Long projectId  = data.getProjectId();
+        Long titleId  = data.getTitleId();
+        if(null == projectId || null == titleId){
+            resp.setResult(new Result(Result.Status.ERROR,null, "projectId或titleId缺失"));
+            logger.error("queryRowsList 失败 :projectId或titleId缺失");
+            return resp;
+        }
+        try{
+           
+            List<InformationListdata> list = informationListdataService.queryList(data);
+            resp.setEntityList(list);
+        }catch(Exception e){
+            resp.setResult(new Result(Result.Status.ERROR,null, "查询表格列表失败"));
+            logger.error("queryResultList 失败 ",e);
+        }
+        return resp;
+    }
 
 }
