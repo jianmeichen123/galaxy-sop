@@ -54,27 +54,33 @@
      //日期
      var currDate = new Date();
      var currYear=currDate.getFullYear();
-     $("#startStartUpDate").datetimepicker({
-    	minView: 'month',
-    	startView:3,
-        minView:3,
-    	endDate:currYear,//结束时间，在这时间之后都不可选
-    	language: 'zh-CN',
-    	autoclose:true
+     $("#startStartUpDate").datepicker({
+    	language:  'zh-CN',
+        format: 'yyyy-mm',
+        autoclose: true,
+        startView: 'year',
+        minView:'year',
+		minViewMode: 1,
+		maxView:'decade',
+		todayHighlight: false
     }).on('changeDate' , function(ev){
     	var starttime = $("#startStartUpDate").val();
-    	$('#endStartUpDate').datetimepicker('setStartDate',starttime);
+    	$('#endStartUpDate').datetimepicker('setStartDate',parseInt(starttime));
     });
-    $("#endStartUpDate").datetimepicker({
-    	minView: 'year',
-    	startView:3,
-        minView:3,
-    	endDate:currYear,//结束时间，在这时间之后都不可选
-    	language: 'zh-CN',
-    	autoclose:true
-    }).on('changeDate' , function(ev){
+
+	$("#endStartUpDate").datepicker({
+		language:  'zh-CN',
+        format: 'yyyy-mm',
+        autoclose: true,
+        upToNowBtn: true,
+        startView: 'year',
+        minView:'year',
+		minViewMode: 1,
+		maxView:'decade',
+		todayHighlight: false
+     }).on('changeDate' , function(ev){
     	var endtime = $('#endStartUpDate').val();
-    	$('#startStartUpDate').datetimepicker('setEndDate',endtime);
+    	$('#startStartUpDate').datetimepicker('setEndDate',parseInt(endtime));
     });
 
     $('.team_stock').change( function(){

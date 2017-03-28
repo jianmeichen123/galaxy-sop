@@ -86,7 +86,59 @@
 				<label for="">0</label>/2000
 			</p>
 		</dd>
+{{else type=="9"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th></th>
+                                 <th colspan="2">\${$data.childList[4].childList[0].name}</th>
+								<th>\${$data.childList[4].childList[1].name}</th>
+                              </tr>
+                               <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+								{{each(i,childList) childList}}
+                             	 <td>
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio"/>\${name}</li>
+										{{/each}}
 
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							<tr>
+                             	 <th rowspan="2">下游</th>
+                             	 <td>主要渠道</td>
+								{{each(i,childList) childList}}
+                             	 <td>
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							<tr>
+                             	 <td>主要客户</td>
+								{{each(i,childList) childList}}
+                             	 <td>
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							
+
+                            </table>
+                          </dd>
 		{{else type=="10"}}
 		<dd class="fl_none">
 			< data-title-id="\{id}" class="editable"></table>
@@ -203,7 +255,60 @@
 				<label for="">0</label>/2000
 			</p>
 		</dd>
+        {{else type=="9"}}
+						<dd class="fl_none">
+                            <table data-type="\${type}" data-test="\${id}">
+                              <tr>
+                                <th></th>
+                                 <th colspan="2">\${$data.childList[4].childList[0].name}</th>
+								<th>\${$data.childList[4].childList[1].name}</th>
+                              </tr>
+                               <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+								{{each(i,childList) childList}}
+                             	 <td  data-flag="\${i+1}">
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row1" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+										{{/each}}
 
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+									<tr>
+                             	 <th rowspan="2">下游</th>
+                             	 <td>主要渠道</td>
+								{{each(i,childList) childList}}
+                             	 <td data-flag="\${i+1}">
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row2" name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+							<tr>
+                             	 <td>主要客户</td>
+								{{each(i,childList) childList}}
+                             	 <td data-flag="\${i+1}">
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+                                  		<li><input type="radio" data-title-id="\${id}" data-row="row3" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
+										{{/each}}
+
+                               		 </ul>
+								</td>
+								{{/each}} 
+                           	 </tr>
+               
+							
+
+                            </table>
+                          </dd>
 		{{else type=="10"}}
 		<dt class="fl_none" data-type="\${type}">\${name}</dt>
 		<dd class="fl_none">
@@ -305,7 +410,35 @@
 
 		{{else type=="8"}}
 		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+         {{else type=="9"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th></th>
+                                <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
+								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
+                              </tr>
+                               <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+                             	 <td data-format='1_1'>高于100</td>
+                             	 <td data-format='1_2'>稳定</td>
+                           	 </tr>
+							<tr>
+                              <th rowspan='2'>下游</th>
+                              <td>供应商</td>
+                              <td data-format='2_1'>高于100</td>
+                              <td data-format='2_2'>稳定</td>
+                            </tr>
+                            <tr>
+                              <td>供应商</td>
+                              <td data-format='3_1'>高于100</td>
+                              <td data-format='3_2'>稳定</td>
+                            </tr>
 
+                            </table>
+							<span class="pubbtn bluebtn">新增</span>
+                          </dd>
 		{{else type=="4"}}
 		{{each(i,valueList) valueList}}
 		<dd>未选择</dd>
@@ -363,6 +496,34 @@
 		{{else type=="8"}}
 		<dt class="fl_none" data-type="\${type}">\${name}</dt>
 		<dd class="fl_none field" data-title-id="\${id}">未填写</dd>
+         {{else type=="9"}}
+						<dd class="fl_none">
+                            <table>
+                              <tr>
+                                <th></th>
+                                <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
+								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
+                              </tr>
+                              <tr>
+                             	 <th>上游</th>
+                             	 <td>供应商</td>
+                             	 <td data-format='1_1'></td>
+                             	 <td data-format='1_2'></td>
+                           	 </tr>
+							<tr>
+                              <th rowspan='2'>下游</th>
+                              <td>主要渠道</td>
+                              <td data-format='2_1'></td>
+                              <td data-format='2_2'></td>
+                            </tr>
+                            <tr>
+                              <td>主要客户</td>
+                              <td data-format='3_1'></td>
+                              <td data-format='3_2'></td>
+                            </tr>
+
+                            </table>
+                          </dd>
 
 		{{else type=="4"}}
 		<dt data-type="\${type}">\${name}</dt>
