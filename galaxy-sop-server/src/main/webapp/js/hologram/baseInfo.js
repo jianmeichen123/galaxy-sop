@@ -273,7 +273,7 @@ function type_3_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		htitle = "<dt class=\"fl_none\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
 		
 		var li = "";
 		var values = title.valueList;
