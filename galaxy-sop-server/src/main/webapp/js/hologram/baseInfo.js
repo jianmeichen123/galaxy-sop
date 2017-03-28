@@ -269,7 +269,7 @@ function type_3_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		htitle = "<dt class=\"fl_none\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
+		htitle = "<dt data-title-id='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
 		
 		var li = "";
 		var values = title.valueList;
@@ -280,8 +280,8 @@ function type_3_html(title,mark){
 				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		var eresult = 
-			"<dd " +
-				"<ul class=\"h_edit_checkbox select_strategy clearfix\">" +
+			"<dd >" +
+				"<ul class=\"h_edit_checkbox pro_innovation  select_strategy clearfix\">" +
 					li +
 				"</ul>" +
 			"</dd>";
@@ -631,7 +631,7 @@ function type_10_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + "<br/>" + hresult + "</dl></div>";
 	}else{
-		var to_add = "<a href='javascript:;' class=\"blue\" onclick=\"add_"+title.code+"('"+title.id+"','"+title.code+"')\" >新增</a>";
+		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"('"+title.id+"','"+title.code+"')\" >新增</a>";
 		
 		var filed_sort = table_filed[title.id];
 		
