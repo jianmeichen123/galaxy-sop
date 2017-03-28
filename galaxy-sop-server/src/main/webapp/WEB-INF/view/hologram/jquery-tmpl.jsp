@@ -379,10 +379,10 @@
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
 	{{if sign=="3"}}
-	<div>\${name}</div>
+	<div  data-title-id="\${id}" data-code="\${code}">\${name}</div>
 		{{each(i,childList) childList}}
-			<div class="mb_24 clearfix">
-	  <dl class="clearfix">
+			<div class="mb_24 clearfix"">
+	  <dl class="clearfix" data-parent-id="\${parentId}">
 		<dt data-type="\${type}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
 		{{if type=="1"}} 

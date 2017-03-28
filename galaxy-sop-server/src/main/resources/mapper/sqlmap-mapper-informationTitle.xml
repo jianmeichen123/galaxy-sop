@@ -222,7 +222,7 @@
 	<!-- id, parent_id, code, name, index_no, type, sign, content,is_show, is_valid, placeholder -->
 	<select id="selectChildsByPid" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
-		id,  code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark
+		id, parent_id, code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark
 		from information_title 
 		<where>
 			<trim prefixOverrides="and">

@@ -48,6 +48,7 @@
 				var entity = data.entity;
 				console.log(entity)
 				$("#page_list").tmpl(entity).appendTo('#page_all');
+				customBuilder();
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
@@ -55,6 +56,28 @@
 
 			}
 		})
+	function customBuilder()
+	{
+		var div = $("div[data-code='NO9_3_12']");
+		var titleId = div.data('titleId');
+		var table = $("<table data-title-id='"+titleId+"'></table>")
+		var header = $("<tr></tr>");
+		var row = $("<tr></tr>");
+		
+		var dls = $("dl[data-parent-id='"+titleId+"']");
+		$.each(dls,function(){
+			var dl = $(this);
+			var name = dl.find('dt').text();
+			var dd = dl.find('dd');
+			header.append("<th>"+name+"</th>");
+			row.append("<td class='field' data-title-id='"+dd.data('titleId')+"'>未填写</td>")
+		});
+		dls.remove();
+		table.append(header);
+		table.append(row);
+		div.after(table);
+		
+	}
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
