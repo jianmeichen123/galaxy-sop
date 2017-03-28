@@ -13,7 +13,7 @@ public class InformationTitle extends PagableEntity {
 
 	private String name;
 
-	private Integer indexNo;
+	private Double indexNo;
 
 	private Integer type;
 
@@ -72,11 +72,11 @@ public class InformationTitle extends PagableEntity {
 		this.name = name == null ? null : name.trim();
 	}
 
-	public Integer getIndexNo() {
+	public Double getIndexNo() {
 		return indexNo;
 	}
 
-	public void setIndexNo(Integer indexNo) {
+	public void setIndexNo(Double indexNo) {
 		this.indexNo = indexNo;
 	}
 
