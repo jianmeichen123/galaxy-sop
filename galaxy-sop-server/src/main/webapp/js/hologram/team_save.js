@@ -201,10 +201,10 @@
 		return false;
 	});
 
-  //弹窗验证
-  jQuery.validator.addMethod("phone", function (value, element) {
-    var mobile = /^1[3|4|5|7|8]\d{9}$/;
- 	return this.optional(element) || (mobile.test(value));
-  }, "手机格式不对");
+    //验证手机号
+    jQuery.validator.addMethod("phone", function (value, element) {
+      var mobile = /^[\+\-\(\)0-9]{0,40}$/;
+   	return this.optional(element) || (mobile.test(value));
+    }, "手机格式不对");
 
 

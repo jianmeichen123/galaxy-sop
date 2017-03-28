@@ -243,11 +243,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				
 				if(results != null && !results.isEmpty()){
 					//Type ： 1 2 8 11
-					if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 8  || atitle.getType().intValue() == 11 ){
+					if(atitle.getType().intValue() == 1 ||  atitle.getType().intValue() == 2 || atitle.getType().intValue() == 8  || 
+							atitle.getType().intValue() == 11 || atitle.getType().intValue() == 14){
 						findResultByArecord(atitle, results);
 					}//Type ： 3 4 5 6 12 13
 					else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
-							atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13){
+							atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13 ){
 						findResultByNrecord(atitle, results);  //findResultByNcontact
 					}
 				}

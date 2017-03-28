@@ -18,9 +18,6 @@ function textarea_h(data){
 		 $(data).height(data.scrollHeight);
 	}
 }
-
-
-
 function backFun(data){
 	var result = data.result.status;
 	if (result == 'OK') {
@@ -53,7 +50,6 @@ function toShowTitleHtml(title,html){
 	if(isEditable && isEditable == 'true') {
 		editHtm = "<span class=\"h_edit_btn\" attr-id='" + title.code + "'>编辑</span>"
 	}
-		
 	var titleDiv = "" ;
 	if(title.name){
 		titleDiv = "<div class=\"h_title sec_box\">" + title.name + "</div>" ;
@@ -273,7 +269,7 @@ function type_3_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		htitle = "<dt data-title-id='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
 		
 		var li = "";
 		var values = title.valueList;
@@ -284,8 +280,8 @@ function type_3_html(title,mark){
 				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		var eresult = 
-			"<dd class=\"fl_none\">" +
-				"<ul class=\"h_edit_checkbox select_strategy clearfix\">" +
+			"<dd >" +
+				"<ul class=\"h_edit_checkbox pro_innovation  select_strategy clearfix\">" +
 					li +
 				"</ul>" +
 			"</dd>";
@@ -379,7 +375,7 @@ function type_4_html(title,mark){
 			}
 		}
 		
-		return  "<div class=\"mb_24 select_box clearfix\">" + htitle + eresult + "</div>";
+		return  "<div class=\"mb_24 select_box clearfix\">" + htitle +eresult +"</div>";
 	}
 }
 function showConstarct(thisSelect,tid,type){
@@ -428,12 +424,12 @@ function type_5_html(title,mark){
 	
 	if(mark == 's'){
 		var hresult_1 = "<dd>未选择</dd>";
-		var hresult_2 = "<dd>未填写</dd>";
+		var hresult_2 = "<dd class=\"fl_none division_dd\">未填写</dd>";
 		
 		if(results && results[0] && results[0].id){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
-					hresult_2 =  "<dd class=\"division_dd\">"+results[i].contentDescribe1+"</dd>";
+					hresult_2 =  "<dd class=\"fl_none division_dd\">"+results[i].contentDescribe1+"</dd>";
 				}else if(results[i].valueName){
 					hresult_1 =  "<dd>"+results[i].valueName+"</dd>";
 				}
@@ -454,7 +450,7 @@ function type_5_html(title,mark){
 			}
 		}
 		var eresult_2 = 
-			"<dd class=\"fl_none\">" +
+			"<dd class=\"fl_none fl_none_box\">" +
 				"<textarea class=\"textarea_h\" " +
 					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'   placeholder='"+title.placeholder+"' >" +
 					 	r_value +
@@ -477,7 +473,7 @@ function type_6_html(title,mark){
 	
 	if(mark == 's'){
 		var hresult_1 = "<dd>未选择</dd>";
-		var hresult_2 = "<dd>未填写</dd>";
+		var hresult_2 = "<dd class=\"fl_none division_dd\">未填写</dd>";
 		
 		if(results && results[0] && results[0].id){
 			
@@ -488,7 +484,7 @@ function type_6_html(title,mark){
 					hasC = true;
 					cr +=  "<dd >"+this.valueName+"</dd> &nbsp;&nbsp;";
 				}else if(this.contentDescribe1){
-					hresult_2 = "<dd class=\"division_dd\">"+this.contentDescribe1+"</dd>";
+					hresult_2 = "<dd class=\"fl_none division_dd\">"+this.contentDescribe1+"</dd>";
 				}
 			});
 			
@@ -563,7 +559,7 @@ function type_8_html(title,mark){
 	var results = title.resultList;
 	
 	if(mark == 's'){
-		var hresult = "<dd>未填写</dd>";
+		var hresult = "<dd class=\"fl_none division_dd\">未填写</dd>";
 		if(results && results[0] && results[0].contentDescribe1){
 			hresult = "<dd class=\"fl_none\" >"+results[0].contentDescribe1+"</dd>";
 		}
@@ -635,7 +631,7 @@ function type_10_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + "<br/>" + hresult + "</dl></div>";
 	}else{
-		var to_add = "<a href='javascript:;' class=\"blue\" onclick=\"add_"+title.code+"('"+title.id+"','"+title.code+"')\" >新增</a>";
+		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"('"+title.id+"','"+title.code+"')\" >新增</a>";
 		
 		var filed_sort = table_filed[title.id];
 		

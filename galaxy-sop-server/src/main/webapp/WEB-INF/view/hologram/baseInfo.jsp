@@ -35,7 +35,7 @@
 		
 			<div class="h radius" id="NO1_1"> </div>
 			
-			<div class="h radius" id="NO1_2"> </div>
+			<div class="h radius base_con2" id="NO1_2"> </div>
 			
 		</div>
 	</div>
@@ -61,15 +61,21 @@ sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backF
 $(function() {
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
+		var _this = $(this);
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
 		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
+		if(_this.is(':visible')){
+			console.log("编辑隐藏");
+			$('.base_half').css('width','50%');
+		}
 	});
 	
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn", "click", function(event) {
+		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
@@ -90,8 +96,6 @@ $(function() {
 					  var text_height = data.scrollHeight-20;
 					  $(this).css("height",text_height) ;
 				});
-					 
-
 			}
 			//判断项目创新类型其他是否选中
 			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
@@ -110,6 +114,11 @@ $(function() {
 				    	$txt.attr('readonly',true);
 				    }
 			 })
+			//去除base_half 类名
+			if(base_editbtn.is(':hidden')){
+				console.log("编辑隐藏");
+				$('.base_half').css('width','100%');
+			}
 			
 			//字数限制显示
 			$.each($('.textarea_h'),function(i,data){
@@ -117,7 +126,7 @@ $(function() {
 				var font_num = 2000 - $(this).val().length;
 				$(this).siblings('p').find('label').html(font_num);
 				var height = data.scrollHeight;
-				$(this).css("height",height) ;
+				$(this).css("height",height+10) ;
 				 
 			})
 		})
@@ -126,12 +135,16 @@ $(function() {
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();
+		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
 
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
+		
 		$(".h#"+id_code).css("background","#fff");
+		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 
@@ -170,6 +183,21 @@ $(function() {
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		
+		
+		//多选不选择的时候：
+		console.log(dt_type_3);
+		var deletedResultTids = new Array();
+		$.each(dt_type_3, function() {
+			var _this = $(this);
+			var active = _this.find('.active');
+			if(!(active && active.length > 0)){
+				var tid = _this.data('titleId');
+				deletedResultTids.push(tid);
+			}
+		});
+		data.deletedResultTids = deletedResultTids;
+		
 		
 		//表格
 		var talbes = $("#b_"+id_code).find("[data-type='10']");
@@ -218,8 +246,20 @@ $(function() {
 				layer.msg('保存失败');
 			}
 		});
+		//base_half
+		if(_this.is(':visible')){
+			console.log("编辑隐藏");
+			$('.base_half').css('width','50%');
+		}
 	});
 });
+
+
+
+
+
+
+
 
 </script>
 

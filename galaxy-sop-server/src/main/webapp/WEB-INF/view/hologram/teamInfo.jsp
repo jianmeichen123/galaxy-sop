@@ -16,6 +16,9 @@
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+
 </head>
 <body>
 <ul class="h_navbar clearfix">
@@ -38,7 +41,6 @@
 			<!--tab end-->
 		</div>
 	</div>
-
 
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
@@ -88,13 +90,13 @@
 	$('div').delegate(".h_save_btn","click",function(event){
 		var btn = this;
 		event.stopPropagation();
-		var sec = $(this).closest('.h_edit');
-		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active']");
+        var sec = $(this).closest('form');
+		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active'],select");
 		var data = {
 			projectId : projectInfo.id
 		};
 
-		if(sec.attr("id") =="b_NO3_1"){
+		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var dataList = new Array();
         		$.each(sec.find("table.editable"),function(){
@@ -110,7 +112,6 @@
         		});
                 if(dataList.length==0){
                     var titleId = sec.find("table.editable").attr("data-title-id");
-                    alert(titleId)
                     var json = {"projectId":projectInfo.id,"titleId":titleId}
                     dataList.push(json);
                 }else if(dataList.length>10){
@@ -143,7 +144,7 @@
 				titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
 				type : type
 			};
-			if(type==2 || type==4)
+			if(type==2 || type==4 || type==14)
 			{
 				infoMode.value = field.val()
 			}
@@ -151,9 +152,9 @@
 			{
 				infoMode.value = field.data('id')
 			}
-			else if(type==5)
+			else if(type==5 || type==12 || type==13)
 			{
-				if (field.is('textarea')){
+				if (field.is('textarea') || field.is('input[type="text"]')){
 					infoMode.remark1 = field.val()
 				}else{
 					infoMode.value = field.val()
@@ -255,8 +256,7 @@ function editRow(ele)
 			});
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-				var data = $("#detail-form").serializeObject();
-				saveRow(data);
+                saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行
 	});
@@ -295,7 +295,15 @@ function addRow(ele)
 		}//模版反回成功执行
 	});
 }
-
+function saveForm(form)
+{
+    console.log($(form).validate().form())
+    if($(form).validate().form())
+    {
+        var data = $(form).serializeObject();
+        saveRow(data);
+    }
+}
 
 /**
  * 保存至到tr标签data属性

@@ -36,7 +36,6 @@
 			
 			<!--tab end-->
 		</div>
-
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 var key = Date.parse(new Date());
@@ -62,6 +61,7 @@ var deleteids = "";
 		var sec = $(this).closest('.section');
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -73,6 +73,17 @@ var deleteids = "";
 					sec.showResults();
 					validate();
 					$("#b_"+id_code).validate();
+					//文本域剩余字符数
+					for(var i=0;i<$(".textarea_h").length;i++){
+						var len=$(".textarea_h").eq(i).val().length;
+						var initNum=$(".num_tj").eq(i).find("label").text();
+						$(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
 					var files = $("#"+id_code).nextAll().find("input[type='file']");
 					var selectids = [];
 					
@@ -127,7 +138,7 @@ var deleteids = "";
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
-		$(".tip-yellowsimple").hide();
+		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 	
@@ -154,9 +165,16 @@ var deleteids = "";
 				console.log(field.val());
 				infoMode.value = field.val()
 			}		
-			else if(type==1 || type==8)
+			else if(type==1)
 			{	
-				infoMode.remark1 = field.val().replace(/\n|\r\n/g,"<br>");
+				infoMode.remark1 = field.val();
+			}
+			else if(type==8)
+			{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+				infoMode.remark1 = str;
 			}
 			infoModeList.push(infoMode);
 		});
@@ -182,6 +200,7 @@ var deleteids = "";
 							layer.msg('保存成功');
 							$('#'+id_code).show();
 							$('#b_'+id_code).remove();
+							$(".h#a_"+id_code).css("background","#fff");
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 								//进行上传
 								var result = data.result.status;
