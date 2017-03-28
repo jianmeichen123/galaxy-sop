@@ -62,6 +62,7 @@ var deleteids = "";
 		var sec = $(this).closest('.section');
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -138,7 +139,7 @@ var deleteids = "";
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
-		$(".tip-yellowsimple").hide();
+		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 	
@@ -200,6 +201,7 @@ var deleteids = "";
 							layer.msg('保存成功');
 							$('#'+id_code).show();
 							$('#b_'+id_code).remove();
+							$(".h#a_"+id_code).css("background","#fff");
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 								//进行上传
 								var result = data.result.status;
