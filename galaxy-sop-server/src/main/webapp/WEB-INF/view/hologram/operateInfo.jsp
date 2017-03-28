@@ -105,11 +105,11 @@
 
 		{{else type=="7"}}
 			<dd class="fl_none clearfix">
-			 <ul class="h_imgs">
+			 <ul class="h_imgs" id="edit-\${id}">
 
 			 </ul>
 			 <ul class="h_imgs">
-				<li class="h_imgs_add"><input type="file"></li>
+				<li class="h_imgs_add"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
 			</ul>
 			</dd>
 			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
@@ -223,7 +223,7 @@
 		<dt class="fl_none" data-type="\${type}">\${name}</dt>
         <dd class="fl_none clearfix">
         <ul class="h_imgs mgedit"  id="edit-\${id}"></ul>
-        <ul class="h_imgs">
+        <ul class="h_imgs" id="edit-\${id}">
         <li class="h_imgs_add"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
         </ul>
         </dd>
