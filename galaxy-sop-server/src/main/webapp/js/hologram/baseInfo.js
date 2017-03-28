@@ -561,7 +561,7 @@ function type_8_html(title,mark){
 	if(mark == 's'){
 		var hresult = "<dd class=\"fl_none division_dd\">未填写</dd>";
 		if(results && results[0] && results[0].contentDescribe1){
-			hresult = "<dd class=\"fl_none\" >"+results[0].contentDescribe1+"</dd>";
+			hresult = "<dd class=\"fl_none division_dd \" >"+results[0].contentDescribe1+"</dd>";
 		}
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + hresult + "</div>";
