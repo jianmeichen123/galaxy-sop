@@ -344,7 +344,7 @@
 		{{else type=="14"}}
 		<dt data-type="\${type}">\${name}</dt>
 		<select data-id="\${id}">
-       <option data-value="" data-type="" data-id="" data-title-id="" value="" data-code="">请选择</option>
+       <option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="1" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}
