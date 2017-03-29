@@ -855,3 +855,54 @@ function type_14_html(title,mark){
 }
 
 
+
+//15:一个标题带两个文本域
+function type_15_html(title,mark){
+	var r_value1 = '';
+	var r_value2 = '';
+	var results = title.resultList;
+	
+	if(results && results[0] && results[0].id){
+		hresult = "";
+		$.each(results,function(i,o){
+			if(this.contentDescribe1){
+				r_value1 = this.contentDescribe1;
+			}
+			if(this.contentDescribe2){
+				r_value2 = this.contentDescribe2;
+			}
+		});
+	}
+	
+	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	
+	if(mark == 's'){
+		if(!r_value1) r_value1 = '未填写';
+		if(!r_value2) r_value2 = '未填写';
+		
+		var hresult1 = "<dd class=\"fl_none division_dd\">"+r_value1+"</dd>";
+		var hresult2 = "<dd class=\"fl_none division_dd\">"+r_value2+"</dd>";
+		
+		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + hresult1 + hresult2 + "</div>";
+	}else{
+		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		
+		var eresult =
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark1' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
+					r_value1 +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>" +
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark2' oninput='textarea_h(this)'  placeholder='"+title.content+"'>" +
+					r_value2 +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>";
+		
+		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
+	}
+}
+
+

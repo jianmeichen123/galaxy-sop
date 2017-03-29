@@ -179,12 +179,21 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			var typ = field.data('type');
+			var name = field.data('name');
 			var value = field.val().replace(/\n/g,'<br />');
+			
 			var infoMode = {
 				titleId : field.data('titleId'),
-				type : field.data('type'),
-				remark1 : value
+				type : typ
 			};
+			
+			if(typ == '15' && name == 'remark2'){
+				infoMode.remark2 = value;
+			}else{
+				infoMode.remark1 = value;
+			}
+			
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
