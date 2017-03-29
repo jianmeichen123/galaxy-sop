@@ -187,7 +187,7 @@ function type_1_html(title,mark){
 		if(title.placeholder) placeholder = title.placeholder;
 		
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' />";
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"'/>";
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
@@ -821,7 +821,7 @@ function type_13_html(title,mark){
 			}
 		}
 		var toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
-									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='40' />";
+									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' />";
 		
 		var eresult = 
 			"<dd>" +
