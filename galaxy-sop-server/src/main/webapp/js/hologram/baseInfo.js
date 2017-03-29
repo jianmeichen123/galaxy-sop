@@ -28,6 +28,19 @@ function backFun(data){
 	}
 }
 
+//其它 +备注 
+function other_beizhu(obj,typ){
+	var _this = $(obj);
+	var nextText = _this.next();
+	var disabled = $(nextText).attr("disabled");
+	
+	if(disabled && (disabled == true || disabled == "disabled")){
+		$(nextText).removeAttr("disabled"); 
+		$(nextText).removeClass("disabled");
+	}else{
+		$(nextText).attr("disabled","disabled").addClass("disabled");
+	}
+}
 
 //区域显示
 function showArea(code){
@@ -167,6 +180,7 @@ function switchTypeByMark(title,mark){
 
 //1:文本、2:单选（Radio）、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 //7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)、14单选（select）
+//15:一个标题带两个文本域
 
 // 1:文本 
 function type_1_html(title,mark){
@@ -187,17 +201,16 @@ function type_1_html(title,mark){
 		if(title.placeholder) placeholder = title.placeholder;
 		
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' />";
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"'/>";
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
 
 
 
-function one_select_edit(title,inputtype){
+function one_select_edit(title,inputtype,type){
 	var eresult = "";
 	var values = title.valueList;
-	
 	//if(values.length < 6){
 	if(inputtype == 'radio'){
 		var li = "";
@@ -207,12 +220,22 @@ function one_select_edit(title,inputtype){
 			}else
 				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name  + "</li>";
 		});
-		eresult = 
-			"<dd>" +
-				"<ul class=\"h_radios clearfix\">" +
-					li + 
-				"</ul>" +
-			"</dd>";	
+		if(type=='2'){
+			eresult = 
+				"<dd class='fl_none'>" +
+					"<ul class=\"h_radios clearfix\">" +
+						li + 
+					"</ul>" +
+				"</dd>";	
+		}else if(type=='5'){
+			eresult = 
+				"<dd>" +
+					"<ul class=\"h_radios clearfix\">" +
+						li + 
+					"</ul>" +
+				"</dd>";
+		}
+		
 	}else{
 		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
     	$.each(values,function(i,o){
@@ -243,7 +266,7 @@ function type_2_html(title,mark){
 		}
 		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = one_select_edit(title,'radio');
+		var eresult = one_select_edit(title,'radio','2');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
@@ -437,7 +460,7 @@ function type_5_html(title,mark){
 		
 		return  "<div class=\"mb_24  clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
-		var eresult_1 = one_select_edit(title,'radio');
+		var eresult_1 = one_select_edit(title,'radio','5');
 		
 		var r_value = '';
 		if(results && results.length > 0){
@@ -738,24 +761,42 @@ function type_12_html(title,mark){
 	}else{
 		var li = "";
 		var values = title.valueList;
-		$.each(values,function(i,o){
-			if(this.checked){
-				li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name + "</li>";
-			}else
-				li +=  "<li> <input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name + "</li>";
-		});
-		
-		var r_value = '';
-		if(results && results.length > 0){
-			for(var i = 0;  i < results.length; i++ ){
-				if(results[i].contentDescribe1){
-					r_value = results[i].contentDescribe1;
-					break;
+		var has_beizhu = false;
+		for(var i = 0;  i < values.length; i++ ){
+			if(i+1 == values.length){
+				if(values[i].checked){
+					has_beizhu = true;
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' onclick=\"other_beizhu(this,'radio')\" data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + values[i].name + "</li>";
+				}else{
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' onclick=\"other_beizhu(this,'radio')\" data-title-id='"+title.id+"' data-type='"+title.type+"' />" + values[i].name + "</li>";
+				}
+			}else{
+				if(values[i].checked){
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + values[i].name + "</li>";
+				}else{
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + values[i].name + "</li>";
 				}
 			}
 		}
-		var toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
-									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+		
+		var toadd_li = "";
+		var r_value = '';
+		if(has_beizhu == true){
+			if(results && results.length > 0){
+				for(var i = 0;  i < results.length; i++ ){
+					if(results[i].contentDescribe1){
+						r_value = results[i].contentDescribe1;
+						break;
+					}
+				}
+			}
+			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
+										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+			
+		}else{
+			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' " +
+							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+		}
 		
 		var eresult = 
 			"<dd>" +
@@ -770,6 +811,7 @@ function type_12_html(title,mark){
 
 
 
+
 //13:复选带备注（input）
 function type_13_html(title,mark){
 	
@@ -781,38 +823,65 @@ function type_13_html(title,mark){
 		var hresult = "<dd>未选择</dd>";
 		
 		if(results && results[0] && results[0].id){
-			hresult = "";
+			var hasC = false;
+			var cr = "";
+			var cr1 = "";
+			
 			$.each(results,function(i,o){
-					if(this.valueName && this.valueName != '其他'){
-						hresult +=  "<dd  class=\"border_dd\">"+this.valueName+"</dd>";
-					}else if(this.contentDescribe1){
-						hresult +=  "<dd class=\"border_dd\">"+this.contentDescribe1+"</dd>";
-					}
+				if(this.valueName && this.valueName != '其他'){
+					hasC = true;
+					cr +=  "<dd  class=\"border_dd\">"+this.valueName+"</dd>";
+				}else if(this.contentDescribe1){
+					hasC = true;
+					cr1 =  "<dd class=\"border_dd\">"+this.contentDescribe1+"</dd>";
+				}
 			});
+			
+			if(hasC == true){
+				hresult = cr + cr1;
+			}
 		}
 
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var li = "<li> ";
 		var values = title.valueList;
-		$.each(values,function(i,o){
-			if(this.checked){
-				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + this.name + "</li>";
-			}else
-				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
-		});
 		
-		var r_value = '';
-		if(results && results.length > 0){
-			for(var i = 0;  i < results.length; i++ ){
-				if(results[i].contentDescribe1){
-					r_value = results[i].contentDescribe1;
-					break;
+		var has_beizhu = false;
+		for(var i = 0;  i < values.length; i++ ){
+			if(i+1 == values.length){
+				if(values[i].checked){
+					has_beizhu = true;
+					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+				}else{
+					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
+				}
+			}else{
+				if(values[i].checked){
+					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+				}else{
+					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
 			}
 		}
-		var toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
-									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='40' />";
+		
+		var toadd_li = "";
+		var r_value = '';
+		if(has_beizhu == true){
+			if(results && results.length > 0){
+				for(var i = 0;  i < results.length; i++ ){
+					if(results[i].contentDescribe1){
+						r_value = results[i].contentDescribe1;
+						break;
+					}
+				}
+			}
+			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
+										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' />";
+		}else{
+			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' " +
+							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' />";
+		}
 		
 		var eresult = 
 			"<dd>" +
@@ -842,6 +911,57 @@ function type_14_html(title,mark){
 	}else{
 		var eresult = one_select_edit(title,'select');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+	}
+}
+
+
+
+//15:一个标题带两个文本域
+function type_15_html(title,mark){
+	var r_value1 = '';
+	var r_value2 = '';
+	var results = title.resultList;
+	
+	if(results && results[0] && results[0].id){
+		hresult = "";
+		$.each(results,function(i,o){
+			if(this.contentDescribe1){
+				r_value1 = this.contentDescribe1;
+			}
+			if(this.contentDescribe2){
+				r_value2 = this.contentDescribe2;
+			}
+		});
+	}
+	
+	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	
+	if(mark == 's'){
+		if(!r_value1) r_value1 = '未填写';
+		if(!r_value2) r_value2 = '未填写';
+		
+		var hresult1 = "<dd class=\"fl_none division_dd\">"+r_value1+"</dd>";
+		var hresult2 = "<dd class=\"fl_none division_dd\">"+r_value2+"</dd>";
+		
+		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + hresult1 + hresult2 + "</div>";
+	}else{
+		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		
+		var eresult =
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark1' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
+					r_value1 +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>" +
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark2' oninput='textarea_h(this)'  placeholder='"+title.content+"'>" +
+					r_value2 +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>";
+		
+		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
 	}
 }
 

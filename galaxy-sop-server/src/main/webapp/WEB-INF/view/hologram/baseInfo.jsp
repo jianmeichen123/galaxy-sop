@@ -97,23 +97,7 @@ $(function() {
 					  $(this).css("height",text_height) ;
 				});
 			}
-			//判断项目创新类型其他是否选中
-			var other_classname = $(".h_radios.pro_innovation .check_label:last").hasClass('active');
-			console.log(other_classname);
-			if(!other_classname){
-				$(".pro_innovation .txt").attr("readonly","readonly");
-			}else{
-				$(".pro_innovation .txt").removeAttr("readonly");
-			}
-			//其他点击事件
-			 $(".h_radios.pro_innovation .check_label:last").click(function(){
-				 var $txt = $(".pro_innovation .txt");
-				 if ($txt.attr('readonly')) {
-					 $txt.removeAttr('readonly');
-				    } else {
-				    	$txt.attr('readonly',true);
-				    }
-			 })
+			
 			//去除base_half 类名
 			if(base_editbtn.is(':hidden')){
 				console.log("编辑隐藏");
@@ -175,12 +159,28 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			var typ = field.data('type');
+			var name = field.data('name');
 			var value = field.val().replace(/\n/g,'<br />');
+			
 			var infoMode = {
 				titleId : field.data('titleId'),
-				type : field.data('type'),
-				remark1 : value
+				type : typ
 			};
+			
+			if(typ == '12' || typ == '13' ){
+				var disabled = field.attr("disabled");
+				if(disabled && (disabled == true || disabled == "disabled")){
+					infoMode.remark1 = null;
+				}else{
+					infoMode.remark1 = value;
+				}
+			}else if(typ == '15' && name == 'remark2'){
+				infoMode.remark2 = value;
+			}else{
+				infoMode.remark1 = value;
+			}
+		
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
@@ -253,8 +253,6 @@ $(function() {
 		}
 	});
 });
-
-
 
 
 

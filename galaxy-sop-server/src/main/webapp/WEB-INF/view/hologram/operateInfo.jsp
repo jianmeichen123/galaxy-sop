@@ -12,6 +12,8 @@
 <title>项目详情</title>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 </head>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
@@ -75,12 +77,7 @@ var deleteids = "";
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
 						var initNum=$(".num_tj").eq(i).find("label").text();
-						if(initNum-len<0){
-							$(".num_tj").eq(i).find("label").text(0);
-						}else{
-							$(".num_tj").eq(i).find("label").text(initNum-len);
-						}
-						
+						$(".num_tj").eq(i).find("label").text(initNum-len);
 					}
 					/* 文本域自适应高度 */
 					for(var i=0;i<$("textarea").length;i++){
@@ -151,9 +148,21 @@ var deleteids = "";
 		event.stopPropagation();
 		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea,li.active,option:selected");
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
 		var data = {
 			projectId : projectInfo.id
 		};
+		//多选不选择的时候：
+		var deletedResultTids = new Array();
+		$.each(dt_type_3, function() {
+			var _this = $(this);
+			var active = _this.parent().find('dd .active');
+			if(!(active && active.length > 0)){
+				var tid = _this.data('titleId');
+				deletedResultTids.push(tid);
+			}
+		});
+		data.deletedResultTids = deletedResultTids;
 		
 		var infoModeList = new Array();
 		$.each(fields,function(){
@@ -165,8 +174,7 @@ var deleteids = "";
 			};
 			if(type==2 || type==3 || type==4 || type==14)
 			{
-				console.log(field.val());
-				infoMode.value = field.val()
+				infoMode.value = field.val();
 			}		
 			else if(type==1)
 			{	
@@ -176,7 +184,7 @@ var deleteids = "";
 			{
 				var str=field.val();
 				var str=str.replace(/\n|\r\n/g,"<br>")
-				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
 			infoModeList.push(infoMode);
@@ -194,30 +202,39 @@ var deleteids = "";
 		}
 		
 		if(beforeSubmit()){
-			sendPostRequestByJsonObj(
-					platformUrl.saveOrUpdateInfo , 
-					data,
-					function(data) {
-						var result = data.result.status;
-						if (result == 'OK') {
-							layer.msg('保存成功');
-							$('#'+id_code).show();
-							$('#b_'+id_code).remove();
-							$(".h#a_"+id_code).css("background","#fff");
-							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
-								//进行上传
+			$("#b_" + id_code).showLoading(
+					 {
+					    'addClass': 'loading-indicator'						
+					 });
+			sendPostRequestByJsonObj(sendFileUrl,params,function(dataParam){
+				//进行上传
+				var result = dataParam.result.status;
+				if(result == "OK"){
+					
+					sendPostRequestByJsonObj(
+							platformUrl.saveOrUpdateInfo , 
+							data,
+							function(data) {
 								var result = data.result.status;
-								if(result == "OK"){
+								if (result == 'OK') {
+									layer.msg('保存成功');
 									tabInfoChange('3');
-								}else{
+									$('#'+id_code).show();
+									$('#b_'+id_code).remove();
+									$(".h#a_"+id_code).css("background","#fff");
+									$(".loading-indicator-overlay").remove();
+									$(".loading-indicator").remove();
+									
+								} else {
+									layer.msg("操作失败!");
 								}
-								
-							});
-							
-						} else {
-
-						}
-				});
+						});
+				}else{
+					layer.msg("操作失败!");
+				}
+				
+			});
+		
 		}
 		
 		
@@ -307,13 +324,7 @@ var deleteids = "";
 					layer.msg("删除失败!");
 				}
 		  });
-          
-        /*   for (var i in uploader.files) {
-              if (uploader.files[i].id === id) {
-                  toremove = i;
-              }
-          }
-          uploader.files.splice(toremove, 1); */
+       
       });
 	  
 function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
@@ -371,5 +382,6 @@ sendPostRequestByJsonObj(
 				}
 });
 </script>
+
 </body>
 </html>

@@ -48,6 +48,7 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				$("table").css({"width":"500px"});
 			} else {
 
 			}
@@ -70,16 +71,12 @@
 
 					validate();
 					$("#b_"+id_code).validate();
+					//$("table").css({"width":"80%"});
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
 						var initNum=$(".num_tj").eq(i).find("label").text();
-						if(initNum-len<0){
-							$(".num_tj").eq(i).find("label").text(0);
-						}else{
-							$(".num_tj").eq(i).find("label").text(initNum-len);
-						}
-						
+						$(".num_tj").eq(i).find("label").text(initNum-len);
 					}
 					/* 文本域自适应高度 */
 					for(var i=0;i<$("textarea").length;i++){
@@ -153,7 +150,7 @@
 			{
 				var str=field.val();
 				var str=str.replace(/\n|\r\n/g,"<br>")
-				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
 			infoModeList.push(infoMode);

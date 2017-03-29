@@ -80,11 +80,7 @@
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
 						var initNum=$(".num_tj").eq(i).find("label").text();
-						if(initNum-len<0){
-							$(".num_tj").eq(i).find("label").text(0);
-						}else{
-							$(".num_tj").eq(i).find("label").text(initNum-len);
-						}
+						$(".num_tj").eq(i).find("label").text(initNum-len);
 						
 					}
 					/* 文本域自适应高度 */
@@ -204,6 +200,26 @@
 
 				}
 			}
+			else if(type == 15)
+			{
+                var _has = false;
+                $.each(infoModeList,function(i,n){
+                    if(infoModeList[i].type == 15 && infoModeList[i].titleId == infoMode.titleId) {
+                        _has = true;
+                        if(!infoModeList[i].hasOwnProperty('remark1')){
+                            infoModeList[i].remark1 = field.val();
+                        }else{
+                            infoModeList[i].remark2 = field.val();
+                        }
+                    }
+                });
+
+                if( !_has ) {
+                    infoMode.remark1 = field.val();
+                }else {
+                    infoMode = null;
+                }
+            }
 			else if(type==1)
 			{
 				infoMode.remark1 = field.val();
@@ -212,10 +228,14 @@
 			{
 				var str=field.val();
 				var str=str.replace(/\n|\r\n/g,"<br>");
-				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
+				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
-			infoModeList.push(infoMode);
+
+			if (infoMode != null) {
+                infoModeList.push(infoMode);
+            }
+
 		});
  		data.infoModeList = infoModeList;
 		//表格
