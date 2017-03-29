@@ -98,7 +98,7 @@ $(function() {
 				});
 			}
 			//判断项目创新类型其他是否选中
-			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
+			var other_classname = $(".h_radios.pro_innovation .check_label:last").hasClass('active');
 			console.log(other_classname);
 			if(!other_classname){
 				$(".pro_innovation .txt").attr("readonly","readonly");
@@ -106,7 +106,7 @@ $(function() {
 				$(".pro_innovation .txt").removeAttr("readonly");
 			}
 			//其他点击事件
-			 $(".pro_innovation .check_label:last").click(function(){
+			 $(".h_radios.pro_innovation .check_label:last").click(function(){
 				 var $txt = $(".pro_innovation .txt");
 				 if ($txt.attr('readonly')) {
 					 $txt.removeAttr('readonly');

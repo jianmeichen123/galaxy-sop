@@ -812,7 +812,7 @@ function type_13_html(title,mark){
 			}
 		}
 		var toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
-									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+									"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='40' />";
 		
 		var eresult = 
 			"<dd>" +
