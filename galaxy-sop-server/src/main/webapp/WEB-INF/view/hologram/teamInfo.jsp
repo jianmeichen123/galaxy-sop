@@ -104,6 +104,8 @@
 		var btn = this;
 		event.stopPropagation();
         var sec = $(this).closest('form');
+        var id_code = $(this).attr('attr-save');
+        var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
 		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active'],select");
 		var data = {
 			projectId : projectInfo.id
@@ -160,11 +162,11 @@
 			};
 			if(type==2 || type==4 || type==14)
 			{
-				infoMode.value = field.val()
+				infoMode.value = field.val();
 			}
 			else if (type==3)
 			{
-				infoMode.value = field.data('id')
+				infoMode.value = field.data('id');
 			}
 			else if(type==5 || type==12)
 			{
@@ -173,12 +175,12 @@
                     //infoMode.remark1 = field.val()
 
 				}else{
-					infoMode.value = field.val()
+					infoMode.value = field.val();
                     var field_v = field.val();
-                    var last_id = field.closest('ul').find('input:last').attr('data-id')
+                    var last_id = field.closest('ul').find('input:last').attr('data-id');
                     var infoMode_remark = {
                         titleId : infoMode.titleId,
-                        type : infoMode.type,
+                        type : infoMode.type
                     };
 
                     if ( field_v == last_id)
@@ -195,12 +197,12 @@
 			}
 			else if(type==1)
 			{
-				infoMode.remark1 = field.val()
+				infoMode.remark1 = field.val();
 			}
 			else if(type==8)
 			{
 				var str=field.val();
-				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\n|\r\n/g,"<br>");
 				var str=str.replace(/\s+/g,"&nbsp;&nbsp;&nbsp;&nbsp;");
 				infoMode.remark1 = str;
 			}
@@ -216,14 +218,28 @@
 				{
 					row.id=null;
 				}
-				console.log("data")
-				console.log(data)
+				console.log("data");
+				console.log(data);
 				infoTableModelList.push($(this).data());
 			});
 		});
 
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
+
+        //多选不选择的时候：
+        console.log('dt_type_3 : ' , dt_type_3)
+        var deletedResultTids = new Array();
+        $.each(dt_type_3, function() {
+            var _this = $(this);
+            var active = _this.parent().find('dd .active');
+            if(!(active && active.length > 0)){
+                var tid = _this.data('id');
+                deletedResultTids.push(tid);
+            }
+        });
+        data.deletedResultTids = deletedResultTids;
+
         sendPostRequestByJsonObj(
         			platformUrl.saveOrUpdateInfo ,
         			data,

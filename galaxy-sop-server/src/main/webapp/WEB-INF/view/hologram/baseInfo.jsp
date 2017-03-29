@@ -190,7 +190,7 @@ $(function() {
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
 			var _this = $(this);
-			var active = _this.find('.active');
+			var active = _this.parent().find('dd .active');
 			if(!(active && active.length > 0)){
 				var tid = _this.data('titleId');
 				deletedResultTids.push(tid);
