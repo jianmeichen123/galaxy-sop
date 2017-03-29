@@ -165,7 +165,6 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				console.log(title);
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 			}
 			else
@@ -251,7 +250,7 @@ function buildResults(sec,title,readonly)
 		else if(title.type == 14)
 		{
 			if(readonly == true){
-				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName);
+				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName);
 			}else{
 				$("select[data-id='"+title.id+"']").val(title.resultList[0].contentChoose) ;
 			}
@@ -539,7 +538,6 @@ function validate(){
 	 for(var i=0;i<inputs.length;i++){
 		 	var inputValRule=inputs.eq(i).attr("data-valrule");
 			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
-			console.log(inputValRuleMark);
 			if(inputValRuleMark=="10,2"){
 				var validate={
 						"data-rule-verify_102":"true",

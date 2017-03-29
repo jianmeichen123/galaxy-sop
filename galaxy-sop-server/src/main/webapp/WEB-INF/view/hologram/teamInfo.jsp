@@ -78,7 +78,12 @@
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
 						var initNum=$(".num_tj").eq(i).find("label").text();
-						$(".num_tj").eq(i).find("label").text(initNum-len);
+						if(initNum-len<0){
+							$(".num_tj").eq(i).find("label").text(0);
+						}else{
+							$(".num_tj").eq(i).find("label").text(initNum-len);
+						}
+						
 					}
 					/* 文本域自适应高度 */
 					for(var i=0;i<$("textarea").length;i++){
