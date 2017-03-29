@@ -2489,7 +2489,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h{padding:30px 40px 6px 40px;background-color: #fff;margin-bottom: 10px;box-shadow:0px 2px 3px rgba(0,0,0,0.1);}
 .h .mb_24{margin-bottom: 24px;}
 .h .w_half{width:50%;}
-.h dt,.h dd{float: left;font-size: 12px;font-family: '微软雅黑';}
+.h dt,.h dd{float: left;font-size: 12px;font-family: '微软雅黑';word-break:break-all;}
 .h dt{color:#999;}
 .h dd{color:#333;vertical-align: middle;}
 .h dl.h_label_look{margin-top: 6px;margin-bottom: 0;}
