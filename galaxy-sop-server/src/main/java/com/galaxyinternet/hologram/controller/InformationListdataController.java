@@ -137,7 +137,7 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
                 //获取核心成员
                 InformationTitle title = null;
                 for(InformationTitle t:tvList){
-                    if(t.getCode().equals("NO3_1_1")){
+                    if(t.getType()==10){
                         title = t;
                     }
                 }
