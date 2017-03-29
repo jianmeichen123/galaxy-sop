@@ -44,7 +44,6 @@
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
-				console.log(entity);
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
@@ -66,7 +65,6 @@
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
-					//console.log(entity);
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
 
