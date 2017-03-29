@@ -74,6 +74,8 @@
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					validate();
+					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
@@ -115,7 +117,10 @@
 		var data = {
 			projectId : projectInfo.id
 		};
-
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
 		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var titleId = sec.find("table.editable").attr("data-title-id");
