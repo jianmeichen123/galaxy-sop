@@ -256,6 +256,7 @@
 							</p>
 						</dd>
         {{else type=="9"}}
+		<dt data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
                             <table data-type="\${type}" data-test="\${id}">
                               <tr>
@@ -498,6 +499,7 @@
 		<dt data-type="\${type}">\${name}</dt>
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
          {{else type=="9"}}
+		<dt data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
                             <table>
                               <tr>
