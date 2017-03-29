@@ -584,13 +584,22 @@ function validate(){
 						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRuleMark=="3"){
+			}else if(inputValRule=="2"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
-						"data-rule-verify_3":"true",
+						"data-rule-vinputValRule_2":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-verify_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
+						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="3"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_3":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
@@ -651,12 +660,17 @@ $.validator.setDefaults({
 jQuery.validator.addMethod("verify_102", function(value, element) {   
 	var verify_102 = /^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$/;
 	return this.optional(element) || (verify_102.test(value));
-}, "不能超过9999999999"); 
-//inputValRuleMark=="3"
-jQuery.validator.addMethod("verify_3", function(value, element) {   
+}, "不能超过9999999999");
+//vinputValRule=="2"
+jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
+	var vinputValRule_2 = /^[0-9]{1,3}$/;
+	return this.optional(element) || (vinputValRule_2.test(value));
+}, "不能超过100"); 
+//vinputValRule=="3"
+jQuery.validator.addMethod("vinputValRule_3", function(value, element) {   
 	//var verify_3 = /^[0-9]{1,3}$/;
-	var verify_3 = /^(?:[1-9][0-9]?|1[01][0-9]|100)$/;
-	return this.optional(element) || (verify_3.test(value));
+	var vinputValRule_3 = /^(?:[1-9][0-9]?|1[01][0-9]|100)$/;
+	return this.optional(element) || (vinputValRule_3.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
