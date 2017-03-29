@@ -48,6 +48,7 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				$("table").css({"width":"500px"});
 			} else {
 
 			}
@@ -70,6 +71,7 @@
 
 					validate();
 					$("#b_"+id_code).validate();
+					//$("table").css({"width":"80%"});
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
