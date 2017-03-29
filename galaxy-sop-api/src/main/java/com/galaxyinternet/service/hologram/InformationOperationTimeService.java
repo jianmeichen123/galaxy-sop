@@ -7,4 +7,7 @@ import com.galaxyinternet.model.hologram.InformationOperationTime;
 public interface InformationOperationTimeService extends BaseService<InformationOperationTime>{
 
 	public void updateInformationTime(InformationOperationTime infromation) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	public InformationOperationTime getInformationTime(InformationOperationTime infromation) throws Exception;
+
+
 }
