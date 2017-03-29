@@ -234,7 +234,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 * 根据题的各 type 分类，分别封装 题：结果
 	 * 
 	 * //1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
-	   //7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
+	   //7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)  14select 15:2_textarea
 	 */
 	public void titleSwitchByType(String pid,List<InformationTitle> titles,List<InformationResult> results){
 		Set<String> title_tableids = new HashSet<String>();
@@ -248,7 +248,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						findResultByArecord(atitle, results);
 					}//Type ： 3 4 5 6 12 13
 					else if(atitle.getType().intValue() == 3 || atitle.getType().intValue() == 4 || atitle.getType().intValue() == 5 || 
-							atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13 ){
+							atitle.getType().intValue() == 6 || atitle.getType().intValue() == 12 || atitle.getType().intValue() == 13 || 
+							atitle.getType().intValue() == 15 ){
 						findResultByNrecord(atitle, results);  //findResultByNcontact
 					}
 				}

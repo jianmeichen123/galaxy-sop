@@ -194,10 +194,9 @@ function type_1_html(title,mark){
 
 
 
-function one_select_edit(title,inputtype){
+function one_select_edit(title,inputtype,type){
 	var eresult = "";
 	var values = title.valueList;
-	
 	//if(values.length < 6){
 	if(inputtype == 'radio'){
 		var li = "";
@@ -207,12 +206,22 @@ function one_select_edit(title,inputtype){
 			}else
 				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name  + "</li>";
 		});
-		eresult = 
-			"<dd>" +
-				"<ul class=\"h_radios clearfix\">" +
-					li + 
-				"</ul>" +
-			"</dd>";	
+		if(type=='2'){
+			eresult = 
+				"<dd class='fl_none'>" +
+					"<ul class=\"h_radios clearfix\">" +
+						li + 
+					"</ul>" +
+				"</dd>";	
+		}else if(type=='5'){
+			eresult = 
+				"<dd>" +
+					"<ul class=\"h_radios clearfix\">" +
+						li + 
+					"</ul>" +
+				"</dd>";
+		}
+		
 	}else{
 		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
     	$.each(values,function(i,o){
@@ -243,7 +252,7 @@ function type_2_html(title,mark){
 		}
 		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = one_select_edit(title,'radio');
+		var eresult = one_select_edit(title,'radio','2');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
@@ -437,7 +446,7 @@ function type_5_html(title,mark){
 		
 		return  "<div class=\"mb_24  clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
-		var eresult_1 = one_select_edit(title,'radio');
+		var eresult_1 = one_select_edit(title,'radio','5');
 		
 		var r_value = '';
 		if(results && results.length > 0){
@@ -842,6 +851,57 @@ function type_14_html(title,mark){
 	}else{
 		var eresult = one_select_edit(title,'select');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+	}
+}
+
+
+
+//15:一个标题带两个文本域
+function type_15_html(title,mark){
+	var r_value1 = '';
+	var r_value2 = '';
+	var results = title.resultList;
+	
+	if(results && results[0] && results[0].id){
+		hresult = "";
+		$.each(results,function(i,o){
+			if(this.contentDescribe1){
+				r_value1 = this.contentDescribe1;
+			}
+			if(this.contentDescribe2){
+				r_value2 = this.contentDescribe2;
+			}
+		});
+	}
+	
+	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	
+	if(mark == 's'){
+		if(!r_value1) r_value1 = '未填写';
+		if(!r_value2) r_value2 = '未填写';
+		
+		var hresult1 = "<dd class=\"fl_none division_dd\">"+r_value1+"</dd>";
+		var hresult2 = "<dd class=\"fl_none division_dd\">"+r_value2+"</dd>";
+		
+		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + hresult1 + hresult2 + "</div>";
+	}else{
+		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		
+		var eresult =
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark1' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
+					r_value1 +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>" +
+			"<dd class=\"fl_none\">" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark2' oninput='textarea_h(this)'  placeholder='"+title.content+"'>" +
+					r_value2 +
+				"</textarea>" +
+				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+			"</dd>";
+		
+		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
 	}
 }
 
