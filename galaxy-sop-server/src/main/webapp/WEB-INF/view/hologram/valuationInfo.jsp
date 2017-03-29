@@ -71,7 +71,7 @@
 			var dl = $(this);
 			var name = dl.find('dt').text();
 			var dd = dl.find('dd');
-			header.append("<th>"+name+"</th>");
+			header.append("<th>"+name.replace(':','')+"</th>");
 			row.append("<td class='field' data-title-id='"+dd.data('titleId')+"'>未填写</td>")
 		});
 		dls.remove();
