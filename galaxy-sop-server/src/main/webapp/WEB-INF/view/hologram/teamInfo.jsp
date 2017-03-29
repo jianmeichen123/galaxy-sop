@@ -156,6 +156,14 @@
             })
             return;
         }
+
+        //股权结构合理性不能超过10条记录
+        if($(this).closest('form').attr("id") =="b_NO3_8"){
+            if ( !validateCGR() ){
+                return false;
+            }
+        }
+
 		//普通结果
 		var infoModeList = new Array();
 		$.each(fields,function(){
@@ -257,7 +265,6 @@
 		data.deletedRowIds = deletedRowIds;
 
         //多选不选择的时候：
-        console.log('dt_type_3 : ' , dt_type_3)
         var deletedResultTids = new Array();
         $.each(dt_type_3, function() {
             var _this = $(this);
@@ -365,22 +372,34 @@ function delRow(ele)
 }
 function addRow(ele)
 {
-	var code = $(ele).prev().data('code')
-	$.getHtml({
-		url:getDetailUrl(code),//模版请求地址
-		data:"",//传递参数
-		okback:function(){
+    if ( validateCGR() ) {
+        var code = $(ele).prev().data('code');
+        $.getHtml({
+            url:getDetailUrl(code),//模版请求地址
+            data:"",//传递参数
+            okback:function(){
 
-			$("#detail-form input[name='projectId']").val(projectInfo.id);
-			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-			$("#detail-form input[name='code']").val($(ele).prev().data('code'));
-			$("#save-detail-btn").click(function(){
-				var data = $("#detail-form").serializeObject();
-				saveRow(data);
-			});
-		}//模版反回成功执行
-	});
+                $("#detail-form input[name='projectId']").val(projectInfo.id);
+                $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+                $("#detail-form input[name='code']").val($(ele).prev().data('code'));
+                $("#save-detail-btn").click(function(){
+                    saveForm($("#detail-form"));
+                });
+            }//模版反回成功执行
+        });
+    }
 }
+
+function validateCGR(){
+    var flag = true;
+    var trsNum = $("form[id='b_NO3_8']").find('table').find('tr').length-1;
+    if(trsNum>=10){
+        layer.msg('最多只能添加10条记录!');
+        flag = false;
+    }
+    return flag;
+}
+
 function saveForm(form)
 {
     console.log($(form).validate().form())
