@@ -37,7 +37,7 @@
 <html>
 <head>
 <meta name="renderer" content="webkit">
-	<title>繁星</title>
+	<title>星河投</title>
 </head>
 <link rel="shortcut icon" href="<%=request.getContextPath() %>/img/favicon.ico" />
 <link href="<%=path %>/css/more1280.css" type="text/css" rel="stylesheet" id="mainCss"/>
@@ -76,16 +76,16 @@ var isDSZ = "<%=isDSZ%>";
 
 <body>
 <div class="erwms erwm">
-	<p>繁星APP</p>
+	<p>星河投APP</p>
    	<img src="<%=path %>/img/ewms.gif" alt="">
 </div>
 <div class="erwmb erwm">
    	<img src="<%=path %>/img/ewmb.gif" alt="">
-   	<p>繁星APP客户端</p>
+   	<p>星河投APP客户端</p>
    	<p><a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a></p>
 </div>
 <div class="header clearfix">
-	<a href="javascript:;" class="logo null">繁星</a>
+	<a href="javascript:;" class="logo null">星河投</a>
      <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
        <!--用户信息-->

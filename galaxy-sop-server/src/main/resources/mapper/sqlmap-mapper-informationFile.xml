@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.galaxyinternet.model.hologram.InformationFile">
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationFile">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="title_id" jdbcType="BIGINT" property="titleId" />
+    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+    <result column="file_length" jdbcType="VARCHAR" property="fileLength" />
+    <result column="file_key" jdbcType="VARCHAR" property="fileKey" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
+    <result column="bucket_name" jdbcType="VARCHAR" property="bucketName" />
+    <result column="new_file_name" jdbcType="VARCHAR" property="newFileName" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="wide" jdbcType="VARCHAR" property="wide" />
+    <result column="high" jdbcType="VARCHAR" property="high" />
+    <result column="is_valid" jdbcType="INTEGER" property="isValid" />
+    <result column="created_time" jdbcType="BIGINT" property="createdTime" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
+  </resultMap>
+  <sql id="Base_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List">
+    id, project_id, title_id, file_type, file_length, file_key, file_name, file_suffix, 
+    bucket_name, new_file_name, file_url, wide, high, is_valid, created_time, create_id, 
+    updated_time, update_id
+  </sql>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from information_file
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.galaxyinternet.model.hologram.InformationFile">
+    insert into information_file (id, project_id, title_id, 
+      file_type, file_length, file_key, 
+      file_name, file_suffix, bucket_name, 
+      new_file_name, file_url, wide, 
+      high, is_valid, created_time, 
+      create_id, updated_time, update_id
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{titleId,jdbcType=BIGINT}, 
+      #{fileType,jdbcType=INTEGER}, #{fileLength,jdbcType=VARCHAR}, #{fileKey,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{fileSuffix,jdbcType=VARCHAR}, #{bucketName,jdbcType=VARCHAR}, 
+      #{newFileName,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, #{wide,jdbcType=VARCHAR}, 
+      #{high,jdbcType=VARCHAR}, #{isValid,jdbcType=INTEGER}, #{createdTime,jdbcType=BIGINT}, 
+      #{createId,jdbcType=BIGINT}, #{updatedTime,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}
+      )
+  </insert>
+  
+  <select id="select" parameterType="com.galaxyinternet.model.hologram.InformationFile" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from information_file
+    where 
+    <trim prefixOverrides="and">  
+	    <if test="projectId != null"> and project_id = #{projectId}</if> 
+	    <if test="titleId != null"> and title_id = #{titleId}</if>
+    </trim>
+  </select>
+  
+ <!-- 根据ID查询 -->
+<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select
+	<include refid="Base_Column_List" />
+	from information_file where id = #{id}
+</select>
+	
+ 
+  
+</mapper>

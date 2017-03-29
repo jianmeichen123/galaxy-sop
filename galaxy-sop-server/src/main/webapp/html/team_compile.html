@@ -1,0 +1,89 @@
+<div class="team_porp team_compile">
+	<div class="title_bj" id="qualifications_popup_name"></div>
+    <div class="qualifications_all">
+    	<div class="team_tit"><span class="team_ico team_ico_jb"></span>基本信息</div>
+		<form id = "detail-form" >
+    	<ul class="team_compile_ul">
+			<input name="id" type="text" style="display:none">
+			<input name="index" type="text" style="display:none">
+			<input name="code"  type="text" style="display:none">
+			<input name="projectId" type="text" style="display:none">
+			<input name="titleId"  type="text" style="display:none">
+   			<li>
+   				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;姓名：</span>
+	            <input name="field1" type="text" class="txt " required data-msg-required="<font color=red>*</font>请输入姓名" >
+   			</li>
+   			<li>
+   				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;性别：</span>
+   				<dl class="fmdl">
+	                <dd class="clearfix">
+	                	<input type="radio" name="field2" data-value="男" required data-msg-required="<font color=red>*</font>请选择性别">男
+	                </dd>
+	                <dd class="clearfix">
+	                	<input type="radio" name="field2" data-value="女" required data-msg-required="<font color=red>*</font>请选择性别">女
+	                </dd>
+	            </dl>
+   			</li>
+   			<li>
+   				<span class="team_compile_ul_l">&nbsp;职位：</span>
+				<select name="field3" class="txt_select txt">
+					<option value="">请选择</option>
+					<option value="CEO首席执行官">CEO首席执行官</option>
+					<option value="COO首席运营官">COO首席运营官</option>
+					<option value="CFO首席财务官">CFO首席财务官</option>
+					<option value="CIO首席信息官">CIO首席信息官</option>
+					<option value="CTO首席技术官">CTO首席技术官</option>
+					<option value="CDO首席数据官">CDO首席数据官</option>
+					<option value="CMO首席市场官">CMO首席市场官</option>
+					<option value="CBO首席商务官">CBO首席商务官</option>
+					<option value="GM总经理">GM总经理</option>
+					<option value="VP副总裁">VP副总裁</option>
+					<option value="Other其他">Other其他</option>
+				</select>
+   			</li>
+   			<li>
+   				<span class="team_compile_ul_l">&nbsp;联系电话：</span>
+	            <input  type="text" class="txt " name="field4" data-rule-phone="true"  data-msg-phone="<font color=red>*</font>请输入正确格式">
+   			</li>
+   			<li>
+   				<span class="team_compile_ul_l">&nbsp;最高学历：</span>
+   				<select name="field5" class="txt_select txt">
+	                <option value="">请选择</option>
+	                <option value="高中">高中</option>
+	                <option value="大专">大专</option>
+	                <option value="本科">本科</option>
+	                <option value="硕士">硕士</option>
+	                <option value="MBA">MBA</option>
+	                <option value="博士">博士</option>
+	                <option value="其他">其他</option>
+                   </select>
+   			</li>
+   		</ul>
+		</form>
+    	<div class="team_tit"><span class="team_ico team_ico_study"></span>学习经历<span class="team_ico team_ico_add team_learn_add"  href="/sop/html/team_learn.html"  ></span></div>
+		<div class="team_p" id="team_learn">
+
+		</div>
+
+		<div class="team_tit"><span class="team_ico team_ico_work"></span>工作经历<span class="team_ico team_ico_add team_work_add"  href="/sop/html/team_work.html" ></span></div>
+    	<div class="team_p" id="team_work">
+
+		</div>
+
+		
+		<div class="team_tit"><span class="team_ico team_ico_carve"></span>创业经历 <span class="team_ico team_ico_add team_startup_add" href="/sop/html/team_startup.html" ></span></div>
+    	<div class="team_p" id="team_startup">
+
+		</div>
+		
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl" id="save_person_learning" >确定</a>
+        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+    </div>
+</div>
+
+
+<script src="/sop/js/hologram/team_save.js"></script>
+

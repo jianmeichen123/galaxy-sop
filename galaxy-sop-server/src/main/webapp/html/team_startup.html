@@ -1,0 +1,184 @@
+
+<!-- 日历插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script><div class="qualificationstc">
+    <div class="title_bj" id="team_learn">创业经历</div>
+
+
+    <div class="qualifications_all" >
+
+        <form action="" id="startup_form" method="post">
+            <input name="id" style="display:none;">
+            <input name="index" style="display:none;">
+            <div class="info clearfix">
+                <dl class="fmdl fl">
+                    <dt>创业时间：</dt>
+                    <dd class="clearfix">
+                        <input name="field1" type="text" class="datepicker-month-start-text fl txt time" readonly />
+                        <span class="fl">&nbsp;至&nbsp;</span>
+                        <input name="field2" type="text" class="datepicker-month-text fl txt time" readonly/>
+                    </dd>
+                </dl>
+                <dl class="fmdl fl">
+                    <dt>担任职务：</dt>
+                    <dd class="clearfix">
+                        <input name="field3" type="text" class="txt" maxlength="100"/>
+                    </dd>
+                </dl>
+                <div class="team_wid">
+                    <p class="team_wid_p"><span>是否是核心创始人：（5%以上创始股权）</span>
+                        <span><input type="radio" class="team_stock" attr-name="yes" data-value="核心创始人" name="field4">是</span><span><input type="radio" class="team_stock" attr-name="no" data-value="非核心创始人"  name="field4">否</span></p>
+                    <p class="team_wid_p  team_stock_on"><span>创立时股权比：</span><span><input name="field5" type="text" class="input" data-rule-percentage="true" ></span></p>
+                </div>
+                <div class="team_wid">
+                    <p>融资机构及金额、成功或失败或离职原因：</p>
+                    <textarea name="field6" class="team_textarea" maxlength="=1000"></textarea>
+                </div>
+                <div class="team_wid">
+                    <p>项目概述：</p>
+                    <textarea name="field7" class="team_textarea" maxlength="1000"></textarea>
+                </div>
+            </div>
+         </form>
+    </div>
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl add_team_startup">确定</a>
+        <a href="javascript:;"  class="fr register_all_input" id="close_startup"  data-close="close">取消</a>
+    </div>
+</div>
+<script>
+     $(function(){
+        $("#startup_form").validate({
+             submitHandler:function(form){
+                 save_startup();
+             }
+        });
+    })
+
+
+    $('.team_stock').change( function(){
+        var attr_name=$(this).attr('attr-name');
+        if(attr_name=="yes"){
+            $('.team_stock_on').show()
+        }else{
+            $('.team_stock_on').hide()
+        }
+    })
+    //验证成功,保存
+    function save_startup(){
+        var json =getData1($("#startup_form"));
+        var index = json["index"];
+        if(!json["field1"]){
+            json["field1"]="未知"
+        }
+         if(!json["field2"]){
+            json["field2"]="未知"
+        }
+        if(!index){
+              //新增一条记录
+              var str = "<div  data-flag data-a='"+json["field3"]+"' data-b='"+json["field4"]+"' data-c='"+json["field5"]+"' data-d='"+json["field6"]+"' >"+
+              "<span name='id' style='display:none'>"+json["id"]+"</span>"+
+              "<div class='team_p_one'><span class='team_ico team_ico_dot'></span>";
+               if(json["field1"]){
+                  str = str+"<span name='field1'>"+json["field1"]+"</span><span>～</span>";
+                }
+                if(json["field2"]){
+                    str = str+"<span name='field2'>"+json["field2"]+"</span>"
+                }
+			    str =str +"</div><div class='team_p_two'><ul><li data-mix >"
+
+				var ls = [];
+				if(json["field3"]){
+				    ls.push(json["field3"])
+				}
+				if(json["field4"]){
+				    ls.push(json["field4"])
+				}
+				if(json["field5"]){
+				    ls.push(json["field5"])
+				}
+				if(json["field6"]){
+				    ls.push(json["field6"])
+				}
+				var temp = "";
+				$(ls).each(function(i,e){
+                    if(i!= (ls.length-1)){
+                        temp += e+","
+                    }else{
+                        temp += e;
+                    }
+                })
+
+				str = str + temp + "</li></ul>";
+				str +="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span><span class='blue' onclick='delete_row(this)' >删除</span>";
+				str +="</div></div><div class='team_p_two' name='field7'>"+json["field7"]+"</div></div>";
+            $("#team_startup").append(str);
+        }else{
+            //修改操作
+            var div = $("#team_startup").find("div[data-flag]:eq("+index+")");
+            var list = div.find("*[name]");
+
+
+            $(list).each(function(){
+                  var key = $(this).attr("name");
+                  $(this).html(json[key]);
+            })
+
+            div.attr("data-a",json["field3"]);
+            div.attr("data-b",json["field4"]);
+            div.attr("data-c",json["field5"]);
+            div.attr("data-d",json["field6"]);
+            var ls = [];
+				if(json["field3"]){
+				    ls.push(json["field3"])
+				}
+				if(json["field4"]){
+				    ls.push(json["field4"])
+				}
+				if(json["field5"]){
+				    ls.push(json["field5"])
+				}
+				if(json["field6"]){
+				    ls.push(json["field6"])
+				}
+				var temp = "";
+				$(ls).each(function(i,e){
+                    if(i!= (ls.length-1)){
+                        temp += e+","
+                    }else{
+                        temp += e;
+                    }
+                })
+            div.find("ul li[data-mix]").html(temp);
+        }
+        $("#close_startup").click();
+    }
+
+    function getData1(div){
+		var json={};
+	    var list = div.find("*[name]");
+        $(list).each(function(){
+              var key = "";
+              var value = "";
+              var tagName = $(this).get(0).tagName;
+              if(tagName == "INPUT"|| tagName == "TEXTAREA"){
+                key = $(this).attr("name");
+				 value = $(this).val();
+              }
+              if(tagName=="SELECT"){
+                 key = $(this).attr("name");
+                 value = $(this).find("option:selected").val();
+              }
+              json[key]=value;
+              json["field4"]=$("input[name='field4']:checked").attr("data-value");
+        })
+        return json;
+	}
+     $(".add_team_startup").on("click",function(){
+        $("#startup_form").submit();
+    })
+</script>
