@@ -251,7 +251,7 @@ function buildResults(sec,title,readonly)
 		else if(title.type == 14)
 		{
 			if(readonly == true){
-				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName);
+				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName);
 			}else{
 				$("select[data-id='"+title.id+"']").val(title.resultList[0].contentChoose) ;
 			}
