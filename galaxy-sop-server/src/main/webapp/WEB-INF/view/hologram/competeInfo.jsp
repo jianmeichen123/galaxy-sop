@@ -65,15 +65,21 @@ sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backF
 $(function() {
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
+		var _this = $(this);
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
 		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
+		if(_this.is(':visible')){
+			console.log("编辑隐藏");
+			$('.base_half').css('width','50%');
+		}
 	});
-
+	
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn", "click", function(event) {
+		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
@@ -82,52 +88,85 @@ $(function() {
 				var entity = data.entity;
 				var html = toGetHtmlByMark(entity, 'e');
 				var s_div = toEditTitleHtml(entity, html);
-
 				$("#a_" + id_code).hide();
-				$(".h#"+id_code).css("background","#fafafa");
 				$("#" + id_code).append(s_div);
+				$(".h#"+id_code).css("background","#fafafa");
 				
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).css("height",$(this).attr("scrollHeight"));
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
-					  var height = data.scrollHeight;
-					  $(this).css("height",height) ;
+					  var text_height = data.scrollHeight-20;
+					  $(this).css("height",text_height) ;
 				});
-					 
-
 			}
+			//判断项目创新类型其他是否选中
+			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
+			console.log(other_classname);
+			if(!other_classname){
+				$(".pro_innovation .txt").attr("readonly","readonly");
+			}else{
+				$(".pro_innovation .txt").removeAttr("readonly");
+			}
+			//其他点击事件
+			 $(".pro_innovation .check_label:last").click(function(){
+				 var $txt = $(".pro_innovation .txt");
+				 if ($txt.attr('readonly')) {
+					 $txt.removeAttr('readonly');
+				    } else {
+				    	$txt.attr('readonly',true);
+				    }
+			 })
+			//去除base_half 类名
+			if(base_editbtn.is(':hidden')){
+				console.log("编辑隐藏");
+				$('.base_half').css('width','100%');
+			}
+			
+			//字数限制显示
+			$.each($('.textarea_h'),function(i,data){
+				$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+				var font_num = 2000 - $(this).val().length;
+				$(this).siblings('p').find('label').html(font_num);
+				var height = data.scrollHeight;
+				$(this).css("height",height+10) ;
+				 
+			})
 		})
 	});
-
+	
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();
+		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
 
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
 		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
-
+		
+		$(".h#"+id_code).css("background","#fff");
+		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
-
 		var data = {
 			projectId : projectInfo.id
 		};
 		var infoModeList = new Array();
 		$.each(fields_value, function() {
 			var field = $(this);
+			var valu = null;
 			if (field.val() && field.val().length > 0) {
-				var infoMode = {
-					titleId : field.data('titleId'),
-					type : field.data('type'),
-					value : field.val()
-				};
-				infoModeList.push(infoMode);
+				valu = field.val();
 			}
+			var infoMode = {
+				titleId : field.data('titleId'),
+				type : field.data('type'),
+				value : valu
+			};
+			infoModeList.push(infoMode);
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
@@ -152,11 +191,10 @@ $(function() {
 		
 		
 		//多选不选择的时候：
-		console.log(dt_type_3);
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
 			var _this = $(this);
-			var active = _this.find('.active');
+			var active = _this.parent().find('dd .active');
 			if(!(active && active.length > 0)){
 				var tid = _this.data('titleId');
 				deletedResultTids.push(tid);
@@ -206,13 +244,17 @@ $(function() {
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
-				$(".h#"+id_code).css("background","#fff");
 				layer.msg('保存成功');
 				showArea(id_code);
 			} else {
 				layer.msg('保存失败');
 			}
 		});
+		//base_half
+		if(_this.is(':visible')){
+			console.log("编辑隐藏");
+			$('.base_half').css('width','50%');
+		}
 	});
 });
 

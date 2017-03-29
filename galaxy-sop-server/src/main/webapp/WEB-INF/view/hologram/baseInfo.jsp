@@ -147,21 +147,22 @@ $(function() {
 		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
-
 		var data = {
 			projectId : projectInfo.id
 		};
 		var infoModeList = new Array();
 		$.each(fields_value, function() {
 			var field = $(this);
+			var valu = null;
 			if (field.val() && field.val().length > 0) {
-				var infoMode = {
-					titleId : field.data('titleId'),
-					type : field.data('type'),
-					value : field.val()
-				};
-				infoModeList.push(infoMode);
+				valu = field.val();
 			}
+			var infoMode = {
+				titleId : field.data('titleId'),
+				type : field.data('type'),
+				value : valu
+			};
+			infoModeList.push(infoMode);
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
@@ -186,7 +187,6 @@ $(function() {
 		
 		
 		//多选不选择的时候：
-		console.log(dt_type_3);
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
 			var _this = $(this);
@@ -253,9 +253,6 @@ $(function() {
 		}
 	});
 });
-
-
-
 
 
 
