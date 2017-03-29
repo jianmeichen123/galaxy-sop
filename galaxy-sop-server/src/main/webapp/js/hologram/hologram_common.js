@@ -553,7 +553,7 @@ function validate(){
 						"data-rule-verify_3":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-verify_3":"<font color=red>*</font>支持0～999的整数"			
+						"data-msg-verify_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
@@ -617,9 +617,10 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 }, "不能超过9999999999"); 
 //inputValRuleMark=="3"
 jQuery.validator.addMethod("verify_3", function(value, element) {   
-	var verify_3 = /^[0-9]{1,3}$/;
+	//var verify_3 = /^[0-9]{1,3}$/;
+	var verify_3 = /^(?:[1-9][0-9]?|1[01][0-9]|100)$/;
 	return this.optional(element) || (verify_3.test(value));
-}, "不能超过99"); 
+}, "不能超过100"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
 	var verify_32 = /^(?:[1-9][0-9]?|1[01][0-9]|100)$/;
