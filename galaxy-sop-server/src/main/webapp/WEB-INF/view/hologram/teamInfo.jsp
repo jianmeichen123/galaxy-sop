@@ -200,6 +200,26 @@
 
 				}
 			}
+			else if(type == 15)
+			{
+                var _has = false;
+                $.each(infoModeList,function(i,n){
+                    if(infoModeList[i].type == 15 && infoModeList[i].titleId == infoMode.titleId) {
+                        _has = true;
+                        if(!infoModeList[i].hasOwnProperty('remark1')){
+                            infoModeList[i].remark1 = field.val();
+                        }else{
+                            infoModeList[i].remark2 = field.val();
+                        }
+                    }
+                });
+
+                if( !_has ) {
+                    infoMode.remark1 = field.val();
+                }else {
+                    infoMode = null;
+                }
+            }
 			else if(type==1)
 			{
 				infoMode.remark1 = field.val();
@@ -211,7 +231,11 @@
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
-			infoModeList.push(infoMode);
+
+			if (infoMode != null) {
+                infoModeList.push(infoMode);
+            }
+
 		});
  		data.infoModeList = infoModeList;
 		//表格
