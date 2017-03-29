@@ -170,6 +170,9 @@ function switchTypeByMark(title,mark){
         case 14:   
         	html += type_14_html(title,mark);
             break;
+        case 15:   
+        	html += type_15_html(title,mark);
+            break;
         default:
             break;
     }
