@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
 <form id="b_\${code}">
@@ -370,7 +371,7 @@
 		{{else type=="14"}}
 		<dt data-type="\${type}">\${name}</dt>
 		<select data-id="\${id}">
-       <option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="1" data-code="">请选择</option>
+       <option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}
