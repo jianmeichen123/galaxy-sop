@@ -255,6 +255,16 @@ function buildResults(sec,title,readonly)
 				$("select[data-id='"+title.id+"']").val(title.resultList[0].contentChoose) ;
 			}
 		}
+		else if(title.type == 15)
+		{
+			if(readonly == true){
+				$("dd[data-title-id='" + title.id + "']").eq(0).html(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$("dd[data-title-id='" + title.id + "']").eq(1).html(title.resultList[0].contentDescribe2==undefined ?"未填写":title.resultList[0].contentDescribe2);
+			}else{
+				$("textarea[data-title-id='" + title.id + "'][data-type='15']").eq(0).html(title.resultList[0].contentDescribe1);
+				$("textarea[data-title-id='" + title.id + "'][data-type='15']").eq(1).html(title.resultList[0].contentDescribe2);
+			}
+		}
 		else if(title.type == 8)
 		{
 			if(readonly == true)

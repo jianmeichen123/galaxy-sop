@@ -2449,11 +2449,12 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_p,.team_p_jb {padding-left:23px; color:#999999; margin-top:20px; overflow:hidden;  position: relative;
 }
 .team_p_jb span{ display:block; float:left; margin-right:20px;}
-.team_ico_dot{ width:9px; height:9px; background-position:-125px 0px; margin-top:7px; display:block; float:left;}
+.team_div{     position: relative; margin-top:15px;}
+.team_ico_dot{ width:9px; height:14px; background-position:-125px 0px; margin-top:4px; display:block; float:left;}
 .team_p_one{ width:100%; overflow:hidden;}
 .team_p_one span{margin-right:5px;}
-.team_p_two{ margin-left:14px; overflow:hidden; margin-top:10px;position: relative;}
-.team_p_two ul li{ float:left; margin-right:30px;}
+.team_p_two{ margin-left:14px; overflow:hidden; margin-top:5px;}
+.team_p_two ul li{ float:left; margin-right:30px; margin-bottom: 7px;}
 .team_ico_study {width:23px; height:19px;background-position:-51px 0px;  display:block; float:left;}
 .team_ico_work {width:23px; height:19px;background-position:-77px 0px;  display:block; float:left;}
 .team_ico_carve{width:23px; height:19px;background-position:-99px 0px;  display:block; float:left;}
@@ -2466,6 +2467,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_compile_ul li .txt_select{ width:187px; font-size:12px;}
 .team_ico_add{width:20px; height:20px;background-position:0 0px;margin-right:5px; cursor:pointer;  display:block; float:right;}
 .team_click{ position: absolute; right:5px; top:0px;}
+.team_click span{ margin-right:10px; cursor:pointer;}
 .team_click a{margin-right:5px;}
 .team_textarea{ width:310px; height:75px !important; overflow-y:scroll;    border: 1px solid #dadfe3;
     background: #ffffff;}
