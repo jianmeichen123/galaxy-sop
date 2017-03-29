@@ -464,19 +464,19 @@
                               </tr>
                                <tr>
                              	 <th>上游</th>
-                             	 <td>供应商</td>
-                             	 <td data-format='1_1'></td>
+                             	 <td style="width:100px">供应商</td>
+                             	 <td data-format='1_1' style="width:100px"></td>
                              	 <td data-format='1_2'></td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
-                              <td>供应商</td>
-                              <td data-format='2_1'></td>
+                              <td style="width:100px">供应商</td>
+                              <td data-format='2_1' style="width:100px"></td>
                               <td data-format='2_2'></td>
                             </tr>
                             <tr>
-                              <td>供应商</td>
-                              <td data-format='3_1'></td>
+                              <td style="width:100px">供应商</td>
+                              <td data-format='3_1' style="width:100px"></td>
                               <td data-format='3_2'></td>
                             </tr>
 
@@ -555,19 +555,19 @@
                               </tr>
                               <tr>
                              	 <th>上游</th>
-                             	 <td>供应商</td>
-                             	 <td data-format='1_1'></td>
+                             	 <td style="width:100px">供应商</td>
+                             	 <td data-format='1_1' style="width:100px"></td>
                              	 <td data-format='1_2'></td>
                            	 </tr>
 							<tr>
                               <th rowspan='2'>下游</th>
-                              <td>主要渠道</td>
-                              <td data-format='2_1'></td>
+                              <td style="width:100px">主要渠道</td>
+                              <td data-format='2_1' style="width:100px"></td>
                               <td data-format='2_2'></td>
                             </tr>
                             <tr>
-                              <td>主要客户</td>
-                              <td data-format='3_1'></td>
+                              <td style="width:100px">主要客户</td>
+                              <td data-format='3_1' style="width:100px"></td>
                               <td data-format='3_2'></td>
                             </tr>
 
