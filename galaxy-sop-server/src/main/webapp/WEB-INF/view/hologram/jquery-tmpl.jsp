@@ -68,7 +68,12 @@
 		{{each(i,valueList) valueList}}
 		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 		{{/each}}
-
+		<dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
 		{{else type=="7"}}
 			<dd class="fl_none clearfix">
 			 <ul class="h_imgs" id="edit-\${id}">
@@ -173,6 +178,20 @@
 		{{/each}}
 		</select>
 
+		{{else type=="15"}}
+<dt data-type="\${type}">\${name}</dt>
+		              <dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
+ 						<dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
 
 		{{/if}}
 	  </dl>
@@ -237,6 +256,12 @@
 		{{each(i,valueList) valueList}}
 		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 		{{/each}}
+		<dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
 
 		{{else type=="7"}}
 		<dt data-type="\${type}">\${name}</dt>
@@ -351,6 +376,20 @@
 		{{/each}}
 		</select>
 
+		{{else type=="15"}}
+		<dt data-type="\${type}">\${name}</dt>
+		              <dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
+ 						<dd class="fl_none">
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<p class="num_tj">
+								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+							</p>
+						</dd>
 
 		{{/if}}
 	  </dl>
@@ -406,6 +445,7 @@
 		{{each(i,valueList) valueList}}
 		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 		{{else type=="7"}}
 		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">
@@ -459,6 +499,9 @@
 		<dd class="field" data-title-id="\${id}">未填写</dd>
 		{{else type=="14"}}
 		<dd class="field" data-title-id="\${id}">未填写</dd>
+		{{else type=="15"}}
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 		{{/if}}                      
 		</dl>		
 	</div>
@@ -490,6 +533,7 @@
 		{{each(i,valueList) valueList}}
 		<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 		{{else type=="7"}}
 		<dt data-type="\${type}">\${name}</dt>
@@ -551,6 +595,10 @@
 		{{else type=="14"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="field" data-title-id="\${id}">未填写</dd>
+		{{else type=="15"}}
+		<dt  data-type="\${type}">\${name}</dt>
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
+		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 		{{/if}}                      
 		</dl>		
 	</div>
