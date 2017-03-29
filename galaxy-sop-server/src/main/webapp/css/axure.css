@@ -2459,8 +2459,8 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_ico_carve{width:23px; height:19px;background-position:-99px 0px;  display:block; float:left;}
 .team_compile .team_tit{ border-bottom:1px solid #f6f6f6; height:25px; margin-right:10px;}
 .team_compile_ul{overflow:hidden;}
-.team_compile_ul li{ width:48%; float:left; margin-left:1%; margin-top:10px; overflow:hidden;}
-.team_compile_ul li .txt{ width:176px;border: 1px solid #dadfe3;   background: #ffffff;  height: 28px; overflow:hidden;  line-height: 28px; border-radius: 4px;  padding: 0 4px;
+.team_compile_ul li{ width:48%; float:left; margin-left:1%; margin-top:10px; overflow:hidden; height: 33px;}
+.team_compile_ul li .txt{ width:176px;border: 1px solid #dadfe3;   background: #ffffff;  height: 30px; overflow:hidden;  line-height: 27px; border-radius: 4px;  padding: 0 4px;
     font-size: 12px; color: #525662;}
 .team_compile_ul_l{ display:block; float:left; width:82px; text-align: right;line-height: 28px;}
 .team_compile_ul li .txt_select{ width:187px; font-size:12px;}
