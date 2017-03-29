@@ -61,7 +61,6 @@ var codeArr = ['NO5_1','NO5_3','NO5_4','NO5_5','NO5_6','NO5_7','NO5_8'];
 sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);
 
 	
-
 $(function() {
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
@@ -101,23 +100,7 @@ $(function() {
 					  $(this).css("height",text_height) ;
 				});
 			}
-			//判断项目创新类型其他是否选中
-			var other_classname = $(".pro_innovation .check_label:last").hasClass('active');
-			console.log(other_classname);
-			if(!other_classname){
-				$(".pro_innovation .txt").attr("readonly","readonly");
-			}else{
-				$(".pro_innovation .txt").removeAttr("readonly");
-			}
-			//其他点击事件
-			 $(".pro_innovation .check_label:last").click(function(){
-				 var $txt = $(".pro_innovation .txt");
-				 if ($txt.attr('readonly')) {
-					 $txt.removeAttr('readonly');
-				    } else {
-				    	$txt.attr('readonly',true);
-				    }
-			 })
+			
 			//去除base_half 类名
 			if(base_editbtn.is(':hidden')){
 				console.log("编辑隐藏");
@@ -188,12 +171,19 @@ $(function() {
 				type : typ
 			};
 			
-			if(typ == '15' && name == 'remark2'){
+			if(typ == '12' || typ == '13' ){
+				var disabled = field.attr("disabled");
+				if(disabled && (disabled == true || disabled == "disabled")){
+					infoMode.remark1 = null;
+				}else{
+					infoMode.remark1 = value;
+				}
+			}else if(typ == '15' && name == 'remark2'){
 				infoMode.remark2 = value;
 			}else{
 				infoMode.remark1 = value;
 			}
-			
+		
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
