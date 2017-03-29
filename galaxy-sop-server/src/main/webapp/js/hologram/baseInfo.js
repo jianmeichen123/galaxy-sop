@@ -194,10 +194,9 @@ function type_1_html(title,mark){
 
 
 
-function one_select_edit(title,inputtype){
+function one_select_edit(title,inputtype,type){
 	var eresult = "";
 	var values = title.valueList;
-	
 	//if(values.length < 6){
 	if(inputtype == 'radio'){
 		var li = "";
@@ -207,12 +206,22 @@ function one_select_edit(title,inputtype){
 			}else
 				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name  + "</li>";
 		});
-		eresult = 
-			"<dd>" +
-				"<ul class=\"h_radios clearfix\">" +
-					li + 
-				"</ul>" +
-			"</dd>";	
+		if(type=='2'){
+			eresult = 
+				"<dd class='fl_none'>" +
+					"<ul class=\"h_radios clearfix\">" +
+						li + 
+					"</ul>" +
+				"</dd>";	
+		}else if(type=='5'){
+			eresult = 
+				"<dd>" +
+					"<ul class=\"h_radios clearfix\">" +
+						li + 
+					"</ul>" +
+				"</dd>";
+		}
+		
 	}else{
 		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
     	$.each(values,function(i,o){
@@ -243,7 +252,7 @@ function type_2_html(title,mark){
 		}
 		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = one_select_edit(title,'radio');
+		var eresult = one_select_edit(title,'radio','2');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
@@ -437,7 +446,7 @@ function type_5_html(title,mark){
 		
 		return  "<div class=\"mb_24  clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
-		var eresult_1 = one_select_edit(title,'radio');
+		var eresult_1 = one_select_edit(title,'radio','5');
 		
 		var r_value = '';
 		if(results && results.length > 0){
