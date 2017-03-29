@@ -45,6 +45,7 @@ function editMemberRow(ele){
 		url:"/sop/html/team_compile.html",//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			$("#qualifications_popup_name").text("编辑简历");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
