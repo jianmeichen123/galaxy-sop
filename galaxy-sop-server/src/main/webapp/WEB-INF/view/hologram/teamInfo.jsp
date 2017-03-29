@@ -78,7 +78,12 @@
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
 						var initNum=$(".num_tj").eq(i).find("label").text();
-						$(".num_tj").eq(i).find("label").text(initNum-len);
+						if(initNum-len<0){
+							$(".num_tj").eq(i).find("label").text(0);
+						}else{
+							$(".num_tj").eq(i).find("label").text(initNum-len);
+						}
+						
 					}
 					/* 文本域自适应高度 */
 					for(var i=0;i<$("textarea").length;i++){
@@ -113,6 +118,8 @@
 
 		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
+        		var titleId = sec.find("table.editable").attr("data-title-id");
+                var json = {"projectId":projectInfo.id,"titleId":titleId};
         		var dataList = new Array();
         		$.each(sec.find("table.editable"),function(){
         			$.each($(this).find('tr:gt(0)'),function(){
@@ -125,17 +132,14 @@
         				dataList.push(row);
         			});
         		});
-                if(dataList.length==0){
-                    var titleId = sec.find("table.editable").attr("data-title-id");
-                    var json = {"projectId":projectInfo.id,"titleId":titleId}
-                    dataList.push(json);
-                }else if(dataList.length>10){
+                json["dataList"]=dataList;
+                if(dataList.length>10){
                     alert("最多只能添加10条记录!")
                     return false;
                 }
                 sendPostRequestByJsonObj(
                 platformUrl.saveTeamMember,
-                {"dataList":dataList},
+                json,
                 function(data) {
                     var result = data.result.status;
                     if (result == 'OK') {

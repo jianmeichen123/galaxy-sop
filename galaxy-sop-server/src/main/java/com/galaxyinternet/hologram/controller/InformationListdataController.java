@@ -77,13 +77,12 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             List<InformationListdata> listdataList = data.getDataList();
             //先删除之前的成员列表
             InformationListdata query = new InformationListdata();
-            query.setTitleId(listdataList.get(0).getTitleId());
-            query.setProjectId(listdataList.get(0).getProjectId());
+            query.setTitleId(data.getTitleId());
+            query.setProjectId(data.getProjectId());
             informationListdataService.delete(query);
             if(listdataList != null && !listdataList.isEmpty()){
                 for (InformationListdata entity : listdataList){
                     if(null != entity.getCode() && entity.getCode().equals("team-members")){
-                        entity.setCreateTime(System.currentTimeMillis());
                         informationListdataService.insert(entity);
                         Long id = entity.getId();
                         List<InformationListdata> studyList = entity.getStudyList();
