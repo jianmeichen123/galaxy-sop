@@ -174,18 +174,25 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
-			$.each(title.resultList,function(i,n){
-				if(readonly == true){
+			$.each(title.resultList,function(i,n)
+			{
+				if(readonly == true)
+				{
 					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
-				}else{
+				}
+				else
+				{
 					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 				}
 			});
 
-			if (readonly == true){
+			if (readonly == true)
+			{
 				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
-				$.each(dds,function(i,n){
-					if ($(this).text() == '未选择'){
+				$.each(dds,function(i,n)
+				{
+					if ($(this).text() == '未选择')
+					{
 						$(this).hide();
 					}
 				});
@@ -210,20 +217,32 @@ function buildResults(sec,title,readonly)
 				}
 			});
 		}*/
-		else if(title.type == 12) {
-			$.each(title.resultList,function(i,n){
-				if (n.contentDescribe1){
-					if(readonly == true){
+		else if(title.type == 12)
+		{
+			$.each(title.resultList,function(i,n)
+			{
+				if (n.contentDescribe1)
+				{
+					if(readonly == true)
+					{
 						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1).addClass('hasdesc');
-					}else{
+					}
+					else
+					{
 						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
 					}
-				} else if(n.contentChoose){
-					if(readonly == true){
-						if ( !$("dd[class='field'][data-title-id='"+ title.id +"']").hasClass('hasdesc') ) {
+				}
+				else if(n.contentChoose)
+				{
+					if(readonly == true)
+					{
+						if ( !$("dd[class='field'][data-title-id='"+ title.id +"']").hasClass('hasdesc') )
+						{
 							$("dd[class='field'][data-title-id='" + title.id + "']").text(n.valueName);
 						}
-					}else{
+					}
+					else
+					{
 						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
 					}
 				}
@@ -249,20 +268,28 @@ function buildResults(sec,title,readonly)
 		}*/
 		else if(title.type == 14)
 		{
-			if(readonly == true){
+			if(readonly == true)
+			{
 				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName);
-			}else{
+			}
+			else
+			{
 				$("select[data-id='"+title.id+"']").val(title.resultList[0].contentChoose) ;
 			}
 		}
 		else if(title.type == 15)
 		{
-			if(readonly == true){
-				$("dd[data-title-id='" + title.id + "']").eq(0).html(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
-				$("dd[data-title-id='" + title.id + "']").eq(1).html(title.resultList[0].contentDescribe2==undefined ?"未填写":title.resultList[0].contentDescribe2);
-			}else{
-				$("textarea[data-title-id='" + title.id + "'][data-type='15']").eq(0).html(title.resultList[0].contentDescribe1);
-				$("textarea[data-title-id='" + title.id + "'][data-type='15']").eq(1).html(title.resultList[0].contentDescribe2);
+			if(readonly == true)
+			{
+				var dds = $("dd[data-title-id='" + title.id + "']");
+				dds.eq(0).html(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				dds.eq(1).html(title.resultList[0].contentDescribe2==undefined ?"未填写":title.resultList[0].contentDescribe2);
+			}
+			else
+			{
+				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
+				textareas.eq(0).html(title.resultList[0].contentDescribe1);
+				textareas.eq(1).html(title.resultList[0].contentDescribe2);
 			}
 		}
 		else if(title.type == 8)
