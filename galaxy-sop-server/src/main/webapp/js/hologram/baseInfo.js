@@ -22,7 +22,6 @@ function backFun(data){
 	var result = data.result.status;
 	if (result == 'OK') {
 		var entity = data.entity;
-		console.log(entity);
 		var html = toGetHtmlByMark(entity,'s');
 		var s_div = toShowTitleHtml(entity, html);
 		$("#"+entity.code).html(s_div);
@@ -608,7 +607,6 @@ function type_10_html(title,mark){
 		if(dataList != null && dataList.length != 0){
 			
 			table_value(title.id,dataList);
-			console.log(table_Value);
 			
 			hresult = "<dd><table data-talbe-tid='"+title.id+"' ><thead><tr>"
 			
@@ -678,7 +676,6 @@ function type_11_html(title,mark){
 	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
 	var hresult = "<dd> - </dd>";
 	
-	console.log(projectInfo);
 	switch (title.code) {
         case "NO1_1_1":  //项目编号
         	var results = title.resultList;
