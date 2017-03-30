@@ -268,7 +268,7 @@ function type_2_html(title,mark){
 		if(results && results[0] && results[0].valueName){
 			hresult = "<dd>"+results[0].valueName+"</dd>";
 		}
-		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'radio','2');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
@@ -911,10 +911,10 @@ function type_14_html(title,mark){
 		if(results && results[0] && results[0].valueName){
 			hresult = "<dd>"+results[0].valueName+"</dd>";
 		}
-		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select');
-		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
 	}
 }
 
