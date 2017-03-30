@@ -199,14 +199,16 @@ var deleteids = "";
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
-		/* if(!$("#b_"+id_code).validate().form())
+		if(!$("#b_"+id_code).validate().form())
 		{
 			return;
-		} */
-		$("body").showLoading(
-				 {
-				    'addClass': 'loading-indicator'						
-				 });
+		}
+		
+		if(beforeSubmit()){
+			$("#b_" + id_code).showLoading(
+					 {
+					    'addClass': 'loading-indicator'						
+					 });
 			sendPostRequestByJsonObj(sendFileUrl,params,function(dataParam){
 				//进行上传
 				var result = dataParam.result.status;
@@ -237,6 +239,7 @@ var deleteids = "";
 				
 			});
 		
+		}
 		
 		
 		
