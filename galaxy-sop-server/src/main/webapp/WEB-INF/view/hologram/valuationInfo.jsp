@@ -44,6 +44,7 @@
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
 		function(data) {
+		console.log(data);
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
@@ -53,10 +54,20 @@
 					$(this).showResults(true);
 				});
 				//调整表格
-				$("table").css({"width":"80%","table-layout":"fixed"})
+				$("table").css({"width":"80%","table-layout":"fixed"});
+				$.each($('.mb_24 table'),function(){
+					if($(this).find('tr').length<=1){
+						$(this).hide();
+						$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+						}
+					else{
+						$(this).show();
+					}
+				})
 			} else {
 
 			}
+			
 		})
 	function customBuilder()
 	{
@@ -178,9 +189,24 @@
 				infoTableModelList.push($(this).data());
 			});
 		});
+	
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
-		
+//估值表格显示隐藏
+		$.each($('table.editable'),function(){
+			var table_id = $(this).attr('data-title-id');
+			if($(this).find('tr').length<=1){
+				$('table[data-title-id='+table_id+']').hide();
+				if($(this).parents('dl').find('dd') <= 1){
+					$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				}
+			}
+			else{
+				$('table[data-title-id='+table_id+']').show();
+				$(this).parents('dl').find('.no_enter').remove();
+				
+			}
+		})
 		
 		if(!$("#b_"+id_code).validate().form())
 		{
