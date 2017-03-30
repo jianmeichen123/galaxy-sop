@@ -91,7 +91,8 @@ $(function() {
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
-					  var font_num = 2000 - $(this).val().length;
+					  var oldnum= $(this).siblings('p').find('label').html();
+					  var font_num = oldnum - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				/* 文本域自适应高度 */
