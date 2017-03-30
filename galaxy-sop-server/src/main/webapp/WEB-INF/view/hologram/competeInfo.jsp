@@ -94,11 +94,15 @@ $(function() {
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).css("height",$(this).attr("scrollHeight"));
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+					  $(this).val($(this).val().replace(/&nbsp;/g," "));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
-					  var text_height = data.scrollHeight-20;
-					  $(this).css("height",text_height) ;
 				});
+				/* 文本域自适应高度 */
+				for(var i=0;i<$("textarea").length;i++){
+					var textareaId=$("textarea").eq(i).attr("id");
+					autoTextarea(textareaId);
+				}
 			}
 			
 			//去除base_half 类名

@@ -94,9 +94,12 @@ $(function() {
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
-					  var text_height = data.scrollHeight-20;
-					  $(this).css("height",text_height) ;
 				});
+				/* 文本域自适应高度 */
+				for(var i=0;i<$("textarea").length;i++){
+					var textareaId=$("textarea").eq(i).attr("id");
+					autoTextarea(textareaId);
+				}
 			}
 			
 			//去除base_half 类名
