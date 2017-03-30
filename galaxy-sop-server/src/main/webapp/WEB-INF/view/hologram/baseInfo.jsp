@@ -104,16 +104,10 @@ $(function() {
 				console.log("编辑隐藏");
 				$('.base_half').css('width','100%');
 			}
-			
-			//字数限制显示
-			$.each($('.textarea_h'),function(i,data){
-				$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
-				var font_num = 2000 - $(this).val().length;
-				$(this).siblings('p').find('label').html(font_num);
-				var height = data.scrollHeight;
-				$(this).css("height",height+10) ;
-				 
-			})
+			for(var i=0;i<$("textarea").length;i++){
+				var textareaId=$("textarea").eq(i).attr("id");
+				autoTextarea(textareaId);
+			}
 		})
 	});
 	
