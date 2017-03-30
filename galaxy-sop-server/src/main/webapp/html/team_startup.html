@@ -15,7 +15,7 @@
             <input name="id" style="display:none;">
             <input name="index" style="display:none;">
             <div class="info clearfix">
-                <dl class="fmdl fl">
+                <dl class="fmdl">
                     <dt>创业时间：</dt>
                     <dd class="clearfix">
                         <input name="field1" type="text" class="datepicker-month-start-text fl txt time" readonly />
@@ -23,7 +23,7 @@
                         <input name="field2" type="text" class="datepicker-month-text fl txt time" readonly/>
                     </dd>
                 </dl>
-                <dl class="fmdl fl">
+                <dl class="fmdl">
                     <dt>担任职务：</dt>
                     <dd class="clearfix">
                         <input name="field3" type="text" class="txt" maxlength="100"/>
@@ -32,7 +32,7 @@
                 <div class="team_wid">
                     <p class="team_wid_p"><span>是否是核心创始人：（5%以上创始股权）</span>
                         <span><input type="radio" class="team_stock" attr-name="yes" data-value="核心创始人" name="field4">是</span><span><input type="radio" class="team_stock" attr-name="no" data-value="非核心创始人"  name="field4">否</span></p>
-                    <p class="team_wid_p  team_stock_on"><span>创立时股权比例%：</span><span><input name="field5" type="text" class="input" placeholder="创立时股权比例" required data-rule-verify_32="true" data-msg-required="创立时股权比例" data-msg-verify_32="<font color=red>*</font>0～100的整数和两位小数" /></span></p>
+                    <p class="team_wid_p  team_stock_on"><span>创立时股权比例%：</span><span><input name="field5" type="text" class="input" placeholder="创立时股权比例"  data-rule-verify_32="true"  data-msg-verify_32="<font color=red>*</font>0～100的整数和两位小数" /></span></p>
                 </div>
                 <div class="team_wid">
                     <p>融资机构及金额、成功或失败或离职原因：</p>
@@ -46,11 +46,10 @@
          </form>
     </div>
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl add_team_startup">确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl add_team_startup" onclick="save_startup()">确定</a>
         <a href="javascript:;"  class="fr register_all_input" id="close_startup"  data-close="close">取消</a>
     </div>
 </div>
-<script src="/sop/js/validate/jquery.validate.min.js"></script>
 <script>
      $(function(){
         $("#startup_form").validate({});

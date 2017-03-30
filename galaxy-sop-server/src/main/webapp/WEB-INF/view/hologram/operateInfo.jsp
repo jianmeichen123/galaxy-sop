@@ -114,6 +114,7 @@ var deleteids = "";
 										for(var i = 0;i < files.length; i++){
 											html +=  '<li class="pic_list fl" id="' + files[i].id + '">'
 								              +'<a href="#" class="h_img_del" data-val=' + files[i].id +
+								              ' data-title-val=' + title_id +
 								              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
 										}
 									}
@@ -272,9 +273,12 @@ var deleteids = "";
 				FilesAdded: function(up, files) {
 					params = paramsFunction;
 					var imglength = $('#'+fieInputId).children("li").length;
-					if(imglength >= 5){
-						layer.msg("不能超过5张照片!");
-						return;
+					
+					if(imglength == 4){
+						//layer.msg("不能超过5张照片!");
+						var typeid = fieInputId.replace("edit-","");
+						$("#h_imgs_add_"+typeid).hide();
+						//return;
 					}
 					console.log(uploader.browse_button);
 					for(var i = 0, len = files.length; i<len; i++){
@@ -285,7 +289,8 @@ var deleteids = "";
 			                                $('#'+fieInputId).html($('#'+fieInputId).html() +
 			                                    '<li class="pic_list fl" id="' + files[i].id + '">'
 			                                    +'<a href="#" class="h_img_del" data-val=' + files[i].id +
-			                                    '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
+								              ' data-title-val=' + fieInputId.replace("edit-","") +
+								              '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
 			                            })
 					    }(i);
 					    params.newFileName = files[i].id;
@@ -322,11 +327,17 @@ var deleteids = "";
 				//进行上传
 				var result = data.status;
 				if(result == "OK"){
-					
+                   
 				}else{
 					layer.msg("删除失败!");
 				}
 		  });
+           //删除
+		   var titleId = $(this).attr("data-title-val");
+           var imglength = $('#edit-'+titleId).children("li").length;
+           if(imglength == 4){
+             $("#h_imgs_add_"+titleId).show();
+           }
        
       });
 	  

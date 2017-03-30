@@ -532,10 +532,10 @@ function type_6_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable','2000')  placeholder='"+title.placeholder+"' >" +
 					 	r_value +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>0</label><span>/2000</span></p>" +
 			"</dd>";	
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult_1 + "<br/>" + eresult_2 + "</div>";
@@ -579,10 +579,10 @@ function type_8_html(title,mark){
 		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable','2000')  placeholder='"+title.placeholder+"'>" +
 					r_value +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>0</label><span>/2000</span></p>" +
 			"</dd>";
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
@@ -933,16 +933,16 @@ function type_15_html(title,mark){
 		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark1' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' data-name='remark1' oninput=countChar('"+title.id+"','"+title.id+"_lable','2000')  placeholder='"+title.placeholder+"'>" +
 					r_value1 +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>0</label><span>/2000</span></p>" +
 			"</dd>" +
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark2' oninput='textarea_h(this)'  placeholder='"+title.content+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"_2' data-name='remark2' oninput=countChar('"+title.id+"_2','"+title.id+"_lable2','2000')  placeholder='"+title.content+"'>" +
 					r_value2 +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable2>0</label><span>/2000</span></p>" +
 			"</dd>";
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";

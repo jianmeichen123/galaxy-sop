@@ -81,7 +81,7 @@
 
 			 </ul>
 			 <ul class="h_imgs">
-				<li class="h_imgs_add"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
+				<li class="h_imgs_add" id="h_imgs_add_\${id}"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
 			</ul>
 			</dd>
 			<dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
@@ -188,7 +188,7 @@
 							</p>
 						</dd>
  						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${content}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
 								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
@@ -269,7 +269,7 @@
         <dd class="fl_none clearfix">
         <ul class="h_imgs mgedit"  id="edit-\${id}"></ul>
         <ul class="h_imgs" id="edit-\${id}">
-        <li class="h_imgs_add"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
+        <li class="h_imgs_add" id="h_imgs_add_\${id}"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
         </ul>
         </dd>
         <dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
@@ -386,9 +386,9 @@
 							</p>
 						</dd>
  						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${content}" id="\${id}_2" onInput='countChar("\${id}_2","label2_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+								<label for="" id="label2_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
