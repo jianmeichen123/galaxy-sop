@@ -385,13 +385,16 @@ function type_4_html(title,mark){
 	}
 }
 function showConstarct(thisSelect,tid,type){
+	var li = "<option data-title-id='"+tid+"' data-type='"+type+"' value='' >请选择</option>";
+	
 	var _this = $(thisSelect);
-	var vid = _this.find("option:selected").val();
-	if(vid){
-		var nextSelect = _this.next();
-		if(nextSelect && nextSelect.length == 1){
-			
-			var li = "<option data-title-id='"+tid+"' data-type='"+type+"' value='' >请选择</option>";
+	var nextSelect = _this.next();
+	
+	if(nextSelect && nextSelect.length == 1){
+		
+		var vid = _this.find("option:selected").val();
+		
+		if(vid){
 			var li_htm = li;
 			sendGetRequest(platformUrl.queryValuesByVpid + vid, null, function(data) {
 	    		var result = data.result.status;
@@ -404,16 +407,18 @@ function showConstarct(thisSelect,tid,type){
 	    		}
 	    		
 	    		$(nextSelect).html(li_htm);
-	    		
-	    		for(var i = 0; i<5; i ++){
-	    			nextSelect = $(nextSelect).next();
-    				if(nextSelect && nextSelect.length == 1){
-    					$(nextSelect).html(li);
-    				}else{
-    					break;
-    				}
-    			}
 	    	});
+		}else{
+			$(nextSelect).html(li);
+		}
+		
+		for(var i = 0; i<5; i ++){
+			nextSelect = $(nextSelect).next();
+			if(nextSelect && nextSelect.length == 1){
+				$(nextSelect).html(li);
+			}else{
+				break;
+			}
 		}
 	}
 } 
@@ -636,7 +641,7 @@ function type_10_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + "<br/>" + hresult + "</dl></div>";
 	}else{
-		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"('"+title.id+"','"+title.code+"')\" >新增</a>";
+		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
 		
 		var filed_sort = table_filed[title.id];
 		
@@ -652,6 +657,9 @@ function type_10_html(title,mark){
 		eresult += th + "</tr></thead><tbody data-tbody-tid='"+title.id+"' data-tbody-tcode='"+title.code+"' >";
 		
 		if(dataList != null && dataList.length != 0){
+			if(dataList.length >= 10){
+				to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" style=\"display:none;\" >新增</a>";
+			}
 			var tr = "";
 			$.each(dataList,function(i,o){
 				tr += '<tr data-opt="old" data-result-id="'+o.id+'" >';
@@ -669,7 +677,7 @@ function type_10_html(title,mark){
 		}
 		
 		eresult += "</tbody></table></dd>";
-		return  "<div class=\"mb_24 clearfix\">" + htitle + to_add + "<br/>" + eresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle  + "<br/>" + eresult + to_add + "</div>";
 	}
 }
 
