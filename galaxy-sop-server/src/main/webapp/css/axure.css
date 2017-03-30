@@ -2562,6 +2562,8 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 .sign_title{font-size:12px;margin-bottom:5px;}
 #compete{width:550px;}
 #compete dt{width:160px;text-align:right;}
+.h_look table{width:90%;table-layout:fixed;}
+.h_edit table{width:95%;table-layout:fixed;}
 
 
 
