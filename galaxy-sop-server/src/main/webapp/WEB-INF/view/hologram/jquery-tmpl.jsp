@@ -188,7 +188,7 @@
 							</p>
 						</dd>
  						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${content}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
 								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
@@ -386,9 +386,9 @@
 							</p>
 						</dd>
  						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${content}" id="\${id}_2" onInput='countChar("\${id}_2","label2_\${id}","\${valRuleMark}");'></textarea>
 							<p class="num_tj">
-								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+								<label for="" id="label2_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
 
