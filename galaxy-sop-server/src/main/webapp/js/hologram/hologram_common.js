@@ -319,6 +319,22 @@ function buildResults(sec,title,readonly)
 				$("option[value='"+title.resultList[0].contentChoose+"']").attr("selected",true);
 			}
 		}
+	}else{
+		if(title.type == 3){
+			if (readonly == true)
+			{
+				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
+				$.each(dds,function(i,n)
+				{
+					if ($(this).text() == '未选择')
+					{
+						$(this).hide();
+					}
+				});
+				var dd='<dd>未选择</dd>';
+				$("dt[data-type='3'][data-title-id='"+ title.id +"']").after(dd);
+			}
+		}
 	}
 }
 function buildMemberTable(sec,title){

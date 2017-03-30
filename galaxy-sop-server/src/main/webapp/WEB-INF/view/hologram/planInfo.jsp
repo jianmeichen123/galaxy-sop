@@ -59,6 +59,7 @@
 		$(".h#a_"+id_code).css("background","#fafafa");
 		event.stopPropagation();
 		$("#"+id_code).hide();
+		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -84,6 +85,7 @@
 
 				}
 		}) 
+		$('body,html').scrollTop(sTop);  //定位
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
