@@ -714,9 +714,9 @@ function type_11_html(title,mark){
         		}
         	}else{
         		if(results && results[0] && results[0].contentDescribe1){
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"'/>";
         		}else{
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"'/>";
         		}
         	}
             break;
