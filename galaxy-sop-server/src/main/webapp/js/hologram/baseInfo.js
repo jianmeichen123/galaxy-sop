@@ -1,23 +1,4 @@
-//textarea_h自适应高度
-function textarea_h(data){
-//	超出2000截取字符串
-	data.value=data.value.replace(/\<br \/\>/g,'\n');
-	var taxt_length = data.value.length;
-	if(taxt_length>2000){
-		data.value = data.value.substr(0,2000);
-		$(font_num).html(0);
-	}else{
-//		字数
-		var parent= data.parentNode;
-		var p_node = parent.childNodes[1];
-		var font_num = p_node.childNodes[0];
-		$(font_num).html(2000 - taxt_length);
-	}
-	$(data).css("height","auto");
-	if(data.scrollHeight> $(data).height()){
-		 $(data).height(data.scrollHeight);
-	}
-}
+
 function backFun(data){
 	var result = data.result.status;
 	if (result == 'OK') {
@@ -267,7 +248,7 @@ function type_2_html(title,mark){
 		if(results && results[0] && results[0].valueName){
 			hresult = "<dd>"+results[0].valueName+"</dd>";
 		}
-		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'radio','2');
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
@@ -305,7 +286,7 @@ function type_3_html(title,mark){
 				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		var eresult = 
-			"<dd >" +
+			"<dd class=\"fl_none\">" +
 				"<ul class=\"h_edit_checkbox pro_innovation  select_strategy clearfix\">" +
 					li +
 				"</ul>" +
@@ -367,14 +348,17 @@ function type_4_html(title,mark){
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		
+		var r_value1 = '';
 		var results = title.resultList;
-		if(results && results.length > 0 ){
-			hresult = "";
+		if(results && results[0] && results[0].id){
 			$.each(results,function(i,o){
 				if(this.valueName){
-					hresult +=  "<dd>"+this.valueName+" &nbsp;&nbsp;</dd>";
+					r_value1 += "<dd>"+this.valueName+" &nbsp;&nbsp;</dd>";
 				}
 			});
+		}
+		if(r_value1){
+			hresult = r_value1;
 		}
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
@@ -404,13 +388,16 @@ function type_4_html(title,mark){
 	}
 }
 function showConstarct(thisSelect,tid,type){
+	var li = "<option data-title-id='"+tid+"' data-type='"+type+"' value='' >请选择</option>";
+	
 	var _this = $(thisSelect);
-	var vid = _this.find("option:selected").val();
-	if(vid){
-		var nextSelect = _this.next();
-		if(nextSelect && nextSelect.length == 1){
-			
-			var li = "<option data-title-id='"+tid+"' data-type='"+type+"' value='' >请选择</option>";
+	var nextSelect = _this.next();
+	
+	if(nextSelect && nextSelect.length == 1){
+		
+		var vid = _this.find("option:selected").val();
+		
+		if(vid){
 			var li_htm = li;
 			sendGetRequest(platformUrl.queryValuesByVpid + vid, null, function(data) {
 	    		var result = data.result.status;
@@ -423,16 +410,18 @@ function showConstarct(thisSelect,tid,type){
 	    		}
 	    		
 	    		$(nextSelect).html(li_htm);
-	    		
-	    		for(var i = 0; i<5; i ++){
-	    			nextSelect = $(nextSelect).next();
-    				if(nextSelect && nextSelect.length == 1){
-    					$(nextSelect).html(li);
-    				}else{
-    					break;
-    				}
-    			}
 	    	});
+		}else{
+			$(nextSelect).html(li);
+		}
+		
+		for(var i = 0; i<5; i ++){
+			nextSelect = $(nextSelect).next();
+			if(nextSelect && nextSelect.length == 1){
+				$(nextSelect).html(li);
+			}else{
+				break;
+			}
 		}
 	}
 } 
@@ -477,10 +466,10 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none fl_none_box\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'   placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' id ='"+title.id+"' data-type='"+title.type+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' >" +
 					 	r_value +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
 			"</dd>";	
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult_1 + "<br/>" + eresult_2 + "</div>";
@@ -551,10 +540,10 @@ function type_6_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' >" +
 					 	r_value +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
 			"</dd>";	
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult_1 + "<br/>" + eresult_2 + "</div>";
@@ -598,10 +587,10 @@ function type_8_html(title,mark){
 		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"'>" +
 					r_value +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
 			"</dd>";
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
@@ -655,7 +644,7 @@ function type_10_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + "<br/>" + hresult + "</dl></div>";
 	}else{
-		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"('"+title.id+"','"+title.code+"')\" >新增</a>";
+		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
 		
 		var filed_sort = table_filed[title.id];
 		
@@ -671,6 +660,9 @@ function type_10_html(title,mark){
 		eresult += th + "</tr></thead><tbody data-tbody-tid='"+title.id+"' data-tbody-tcode='"+title.code+"' >";
 		
 		if(dataList != null && dataList.length != 0){
+			if(dataList.length >= 10){
+				to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" style=\"display:none;\" >新增</a>";
+			}
 			var tr = "";
 			$.each(dataList,function(i,o){
 				tr += '<tr data-opt="old" data-result-id="'+o.id+'" >';
@@ -688,7 +680,7 @@ function type_10_html(title,mark){
 		}
 		
 		eresult += "</tbody></table></dd>";
-		return  "<div class=\"mb_24 clearfix\">" + htitle + to_add + "<br/>" + eresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle  + "<br/>" + eresult + to_add + "</div>";
 	}
 }
 
@@ -713,9 +705,9 @@ function type_11_html(title,mark){
         		}
         	}else{
         		if(results && results[0] && results[0].contentDescribe1){
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"'/>";
         		}else{
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"'/>";
         		}
         	}
             break;
@@ -910,10 +902,10 @@ function type_14_html(title,mark){
 		if(results && results[0] && results[0].valueName){
 			hresult = "<dd>"+results[0].valueName+"</dd>";
 		}
-		return  "<div class=\"mb_24 division_dd base_half clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select');
-		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
 	}
 }
 
@@ -926,7 +918,6 @@ function type_15_html(title,mark){
 	var results = title.resultList;
 	
 	if(results && results[0] && results[0].id){
-		hresult = "";
 		$.each(results,function(i,o){
 			if(this.contentDescribe1){
 				r_value1 = this.contentDescribe1;
@@ -952,16 +943,17 @@ function type_15_html(title,mark){
 		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark1' oninput='textarea_h(this)'  placeholder='"+title.placeholder+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' data-name='remark1' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"'>" +
 					r_value1 +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
 			"</dd>" +
+			
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-name='remark2' oninput='textarea_h(this)'  placeholder='"+title.content+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"_2' data-name='remark2' oninput=countChar('"+title.id+"_2','"+title.id+"_lable2',"+title.valRuleMark+")  placeholder='"+title.content+"'>" +
 					r_value2 +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable2>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
 			"</dd>";
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";

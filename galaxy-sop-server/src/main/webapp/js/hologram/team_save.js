@@ -6,6 +6,9 @@
                  save_person();
              }
         });
+        $.validator.setDefaults({
+        	errorElement:'span'
+        });
     })
     function save_person (){
         //row 为列表显示json
@@ -201,10 +204,6 @@
 		return false;
 	});
 
-    //验证手机号
-    jQuery.validator.addMethod("phone", function (value, element) {
-      var mobile = /^[\+\-\(\)0-9]{0,40}$/;
-   	return this.optional(element) || (mobile.test(value));
-    }, "手机格式不对");
+
 
 

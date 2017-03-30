@@ -28,13 +28,13 @@
             <dl class="fmdl fl">
                 <dt>胜算度：</dt>
                 <dd class="clearfix">
-                    <input name="field2" type="text" class="txt" maxLength="50"/>
+                    <input name="field2" type="text" class="txt" maxLength="50" allowNULL="yes" valType="OTHER" regString="^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$" msg="<font color=red>*</font>0到10之间的一位小数"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>威胁度：</dt>
                 <dd class="clearfix">
-                    <input name="field3" type="text" class="txt" maxLength="50"/>
+                    <input name="field3" type="text" class="txt" maxLength="50" allowNULL="yes" valType="OTHER" regString="^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$" msg="<font color=red>*</font>0到10之间的一位小数"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">

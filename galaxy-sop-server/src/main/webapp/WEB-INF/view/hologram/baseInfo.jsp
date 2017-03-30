@@ -77,6 +77,7 @@ $(function() {
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -89,13 +90,17 @@ $(function() {
 				$(".h#"+id_code).css("background","#fafafa");
 				
 				$.each($('.textarea_h'),function(i,data){
-					  $(this).css("height",$(this).attr("scrollHeight"));
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
-					  var font_num = 2000 - $(this).val().length;
+					  $(this).val($(this).val().replace(/&nbsp;/g," "));
+					  var oldnum= $(this).siblings('p').find('label').html();
+					  var font_num = oldnum - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
-					  var text_height = data.scrollHeight-20;
-					  $(this).css("height",text_height) ;
 				});
+				/* 文本域自适应高度 */
+				for(var i=0;i<$("textarea").length;i++){
+					var textareaId=$("textarea").eq(i).attr("id");
+					autoTextarea(textareaId);
+				}
 			}
 			
 			//去除base_half 类名
@@ -103,17 +108,8 @@ $(function() {
 				console.log("编辑隐藏");
 				$('.base_half').css('width','100%');
 			}
-			
-			//字数限制显示
-			$.each($('.textarea_h'),function(i,data){
-				$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
-				var font_num = 2000 - $(this).val().length;
-				$(this).siblings('p').find('label').html(font_num);
-				var height = data.scrollHeight;
-				$(this).css("height",height+10) ;
-				 
-			})
 		})
+		$('body,html').scrollTop(sTop);  //定位
 	});
 	
 	//通用保存
@@ -159,10 +155,10 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			field.val(field.val().replace(/ /g,"&nbsp;"));
 			var typ = field.data('type');
 			var name = field.data('name');
 			var value = field.val().replace(/\n/g,'<br />');
-			
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : typ
@@ -240,6 +236,7 @@ $(function() {
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
+				updateInforTime(projectInfo.id,"informationTime");
 				layer.msg('保存成功');
 				showArea(id_code);
 			} else {

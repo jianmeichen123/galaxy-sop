@@ -1,5 +1,5 @@
 <div class="qualificationstc">
-	<div class="title_bj" id="team_learn"></div>
+	<div class="title_bj" id="team_learn">添加投资人</div>
 	
 	
     <div class="qualifications_all" id="learning">
@@ -9,33 +9,33 @@
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
         <div class="info clearfix"> 
-        	<dl class="fmdl fl">
+        	<dl class="fmdl">
                 <dt>投资人类型：</dt>
                 <dd>
-                   <select name="field1" required="true">
+                   <select name="field1">
                        <option value="">请选择</option>
                        <option>战略投资人</option>
                        <option>财务投资人</option>
                    </select>
                 </dd>
             </dl>
-            <dl class="fmdl fl">
+            <dl class="fmdl">
                 <dt>投资人名称：</dt>
                 <dd class="clearfix">
-                    <input name="field2" type="text" class="txt" required="true" maxLength="200"/>
+                    <input name="field2" type="text" class="txt"  maxLength="200"/>
                 </dd>
             </dl>
-            <dl class="fmdl fl">
+            <dl class="fmdl">
                 <dt>投资金额：</dt>
-                <dd><input name="field3" type="text" class="txt" required="true" verify_102="true"/></dd>
+                <dd class="team_wid_p"><input name="field3" type="text" class="input" laceholder="投资金额"  data-rule-verify_102="true"  data-msg-verify_102="<font color=red>*</font>支持0～9999999999的整数和两位小数"/></dd>
             </dl>
-            <dl class="fmdl fl">
+            <dl class="fmdl">
                 <dt>股权占比：</dt>
-                <dd><input name="field4" type="text" class="txt" percentage="true" required="true"/></dd>
+                <dd class="team_wid_p"><input name="field4" type="text" class="input" placeholder="股权占比"  data-rule-verify_32="true"  data-msg-verify_32="<font color=red>*</font>0～100的整数和两位小数" /></dd>
             </dl>
-            <dl class="fmdl fl">
+            <dl class="fmdl">
                 <dt>投后估值：</dt>
-                <dd><input name="field5" type="text" class="txt" required="true" verify_102="true"/></dd>
+                <dd class="team_wid_p"><input name="field5" type="text" class="input" placeholder="投后估值"  data-rule-verify_102="true"  data-msg-verify_102="<font color=red>*</font>支持0～9999999999的整数和两位小数"/></dd>
             </dl>
             
         </div>
@@ -48,3 +48,20 @@
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        
+    })
+    $.validator.setDefaults({
+        	errorElement:'span'
+        });
+    jQuery.validator.addMethod("verify_32", function(value, element) {   
+	var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
+	return this.optional(element) || (verify_32.test(value));
+}, "不能超过100"); 
+     jQuery.validator.addMethod("verify_102", function(value, element) {   
+    		var verify_102 = /^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$/;
+    		return this.optional(element) || (verify_102.test(value));
+    	}, "不能超过9999999999");
+</script>

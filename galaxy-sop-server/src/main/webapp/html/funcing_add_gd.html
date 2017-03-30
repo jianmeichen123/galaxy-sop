@@ -9,20 +9,20 @@
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
         <div class="info clearfix"> 
-            <dl class="fmdl fl">
+            <dl class="fmdl">
                 <dt>股东名称：</dt>
                 <dd class="clearfix" required="true">
-                    <input name="field1" type="text" class="txt" maxLength="200" required="true"//>
+                    <input name="field1" type="text" class="txt" maxLength="200" />
                 </dd>
             </dl>
-            <dl class="fmdl fl">
+            <dl class="fmdl">
                 <dt>占股比例：</dt>
-                <dd><input name="field2" type="text" class="txt" percentage="true" required="true"/></dd>
+                <dd class="team_wid_p"><input name="field2" type="text" class="input" placeholder="占股比例"  data-rule-verify_32="true"  data-msg-verify_32="<font color=red>*</font>0～100的整数和两位小数" /></dd>
             </dl>
-            <dl class="fmdl fl">
+            <dl class="fmdl">
                 <dt>股东类型：</dt>
                 <dd>
-                   <select name="field3" required="true">
+                   <select name="field3" >
                        <option value="">请选择</option>
                        <option>战略投资人</option>
                        <option>财务投资人</option>
@@ -39,3 +39,15 @@
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        $.validator.setDefaults({
+        	errorElement:'span'
+        });
+    })
+    jQuery.validator.addMethod("verify_32", function(value, element) {   
+	var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
+	return this.optional(element) || (verify_32.test(value));
+}, "不能超过100"); 
+</script>

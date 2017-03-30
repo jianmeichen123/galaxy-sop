@@ -63,6 +63,7 @@ var deleteids = "";
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
+		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -113,7 +114,11 @@ var deleteids = "";
 										for(var i = 0;i < files.length; i++){
 											html +=  '<li class="pic_list fl" id="' + files[i].id + '">'
 								              +'<a href="#" class="h_img_del" data-val=' + files[i].id +
+								              ' data-title-val=' + title_id +
 								              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
+										       if(i == 4){
+								            	  $("#h_imgs_add_"+title_id).hide();
+								              }
 										}
 									}
 									$('#'+'edit-'+title_id).html(html);
@@ -128,10 +133,8 @@ var deleteids = "";
 				}else{
 					
 				}
-					
-				
-				 
 		}) 
+		$('body,html').scrollTop(sTop);  //定位
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -217,6 +220,7 @@ var deleteids = "";
 							function(data) {
 								var result = data.result.status;
 								if (result == 'OK') {
+									updateInforTime(projectInfo.id,"operationDataTime");
 									layer.msg('保存成功');
 									tabInfoChange('3');
 									$('#'+id_code).show();
@@ -246,7 +250,7 @@ var deleteids = "";
 	function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
 		var params = {};
 		var uploader = new plupload.Uploader({
-			runtimes : 'html5,flash,silverlight,html4,jpg',
+			runtimes : 'html5,flash,silverlight,html4',
 			browse_button : selectBtnId, // you can pass an id...
 			//container: containerId, // ... or DOM Element itself
 			multi_selection:false,
@@ -254,7 +258,10 @@ var deleteids = "";
 			rename : true,
 			unique_names:true,
 			filters : {
-				max_file_size : '25mb'
+				max_file_size : '2mb',
+				mime_types: [
+						{title : "Image files", extensions : "jpg,png,gif,bmp"}
+				]
 			},
 			init: {
 				PostInit: function(up) {
@@ -269,9 +276,12 @@ var deleteids = "";
 				FilesAdded: function(up, files) {
 					params = paramsFunction;
 					var imglength = $('#'+fieInputId).children("li").length;
-					if(imglength >= 5){
-						layer.msg("不能超过5张照片!");
-						return;
+					
+					if(imglength == 4){
+						//layer.msg("不能超过5张照片!");
+						var typeid = fieInputId.replace("edit-","");
+						$("#h_imgs_add_"+typeid).hide();
+						//return;
 					}
 					console.log(uploader.browse_button);
 					for(var i = 0, len = files.length; i<len; i++){
@@ -282,7 +292,8 @@ var deleteids = "";
 			                                $('#'+fieInputId).html($('#'+fieInputId).html() +
 			                                    '<li class="pic_list fl" id="' + files[i].id + '">'
 			                                    +'<a href="#" class="h_img_del" data-val=' + files[i].id +
-			                                    '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
+								              ' data-title-val=' + fieInputId.replace("edit-","") +
+								              '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
 			                            })
 					    }(i);
 					    params.newFileName = files[i].id;
@@ -319,11 +330,17 @@ var deleteids = "";
 				//进行上传
 				var result = data.status;
 				if(result == "OK"){
-					
+                   
 				}else{
 					layer.msg("删除失败!");
 				}
 		  });
+           //删除
+		   var titleId = $(this).attr("data-title-val");
+           var imglength = $('#edit-'+titleId).children("li").length;
+           if(imglength == 4){
+             $("#h_imgs_add_"+titleId).show();
+           }
        
       });
 	  

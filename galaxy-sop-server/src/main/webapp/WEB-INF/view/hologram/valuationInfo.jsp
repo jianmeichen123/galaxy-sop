@@ -44,6 +44,7 @@
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
 		function(data) {
+		console.log(data);
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
@@ -53,10 +54,21 @@
 					$(this).showResults(true);
 				});
 				//调整表格
-				$("table").css({"width":"80%","table-layout":"fixed"})
+				$("table").css({"width":"80%","table-layout":"fixed"});
+				//页面显示表格现实与隐藏
+				$.each($('.mb_24 table'),function(){
+					if($(this).find('tr').length<=1){
+						$(this).hide();
+						$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+						}
+					else{
+						$(this).show();
+					}
+				})
 			} else {
 
 			}
+			
 		})
 	function customBuilder()
 	{
@@ -71,7 +83,7 @@
 			var dl = $(this);
 			var name = dl.find('dt').text();
 			var dd = dl.find('dd');
-			header.append("<th>"+name+"</th>");
+			header.append("<th>"+name.replace(':','')+"</th>");
 			row.append("<td class='field' data-title-id='"+dd.data('titleId')+"'>未填写</td>")
 		});
 		dls.remove();
@@ -88,6 +100,7 @@
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
+		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -117,6 +130,9 @@
 
 				}
 		}) 
+		$('body,html').scrollTop(sTop);  //定位
+		//编辑表格显示隐藏
+		 check_table();
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -176,9 +192,25 @@
 				infoTableModelList.push($(this).data());
 			});
 		});
+	
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
-		
+//估值表格显示隐藏
+		$.each($('table.editable'),function(){
+			var table_id = $(this).attr('data-title-id');
+			var noedi_table = $('table[data-title-id='+table_id+']')
+			if($(this).find('tr').length<=1){
+				if(noedi_table.parents('dl').find('dd').length<= 2){
+					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				}
+				noedi_table.hide();
+			}
+			else{
+				noedi_table.show();
+				noedi_table.parents('dl').find('.no_enter').remove();
+				
+			}
+		})
 		
 		if(!$("#b_"+id_code).validate().form())
 		{
@@ -191,6 +223,7 @@
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
+					updateInforTime(projectInfo.id,"financingTime");
 					layer.msg('保存成功');
 					$(".h#a_"+id_code).css("background","#fff");
 					deletedRowIds = new Array();
@@ -248,6 +281,7 @@ function editRow(ele)
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
+				
 			});
 		}//模版反回成功执行	
 	});
@@ -265,6 +299,7 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
+		check_table();
 	}
 	
 }
@@ -279,6 +314,7 @@ function addRow(ele)
 			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
+				check_table();
 			});
 		}//模版反回成功执行	
 	});

@@ -60,6 +60,7 @@
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
+		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -71,7 +72,7 @@
 
 					validate();
 					$("#b_"+id_code).validate();
-					//$("table").css({"width":"80%"});
+					//$('body,html').animate({scrollTop:sTop},1000);
 					//文本域剩余字符数
 					for(var i=0;i<$(".textarea_h").length;i++){
 						var len=$(".textarea_h").eq(i).val().length;
@@ -87,6 +88,8 @@
 
 				}
 		}) 
+		
+		$('body,html').scrollTop(sTop);  //定位
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -163,6 +166,7 @@
 				function(data) {
 					var result = data.result.status;
 					if (result == 'OK') {
+						updateInforTime(projectInfo.id,"projectTime");
 						layer.msg('保存成功');
 						$('#'+id_code).show();
 						$('#b_'+id_code).remove();

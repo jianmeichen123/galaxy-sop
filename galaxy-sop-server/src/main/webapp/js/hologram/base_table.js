@@ -103,12 +103,32 @@ function pushTableDelRowId(op_mark,tid,rid){
 }
 
 
+
+//检查是否10条tr
+function has_len_tr(tid,trleagtn){
+	var length = 10;
+	if(trleagtn){
+		length = trleagtn;
+	}
+	
+	var isHas = false;
+	var trs = $("tbody[data-tbody-tid='"+tid+"']").children();
+	if(trs && trs.length >= length){
+		isHas = true;
+	}
+	return isHas;
+}
+
+
+
+
 /**
 obj_a: <a>点击元素
 tid : 总标题id
 rid ：一条结果集的id
  */
 function del_NO5_7_1(obj_a,tid,rid){
+	var _div = $(obj_a).closest('div');
 	var tr = $(obj_a).closest('tr');
 	var op_mark = $(tr).data("opt");
 	
@@ -118,6 +138,11 @@ function del_NO5_7_1(obj_a,tid,rid){
 	}, function(index, layero) {
 		pushTableDelRowId(op_mark,tid,rid);
 		$(tr).remove();
+		
+		if(!has_len_tr(tid,10)){
+			$(_div).find(".bluebtn").show();
+		} 
+		
 		$(".layui-layer-close1").click();
 	}, function(index) {
 	});
@@ -142,8 +167,8 @@ function table_td_html(data,tid,tcode,rid){
 tid : 总标题id
 tcode ：code
 */
-function add_NO5_7_1(tid, tcode){
-	
+function add_NO5_7_1(but_a,tid, tcode){
+	var _this = $(but_a);
 	var rid = mathRandomNum(6);
 	var op_mark = "new";
 	
@@ -167,6 +192,10 @@ function add_NO5_7_1(tid, tcode){
 				tr += (td_html + "</tr>");
 				
 				$("tbody[data-tbody-tid='"+tid+"']").append(tr);
+				
+				if(has_len_tr(tid,10)){
+					_this.hide();
+				}
 				
 				$("a[data-close='close']").click();
 			});
