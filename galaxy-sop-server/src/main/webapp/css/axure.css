@@ -2326,6 +2326,7 @@ margin: 45px auto 30px;}
 .addPersontc{width:780px;}
 .addPerson_all{margin:50px auto 30px;height:380px;overflow-y:auto; }
 .qualifications_all{margin:50px auto 30px;}
+.qualifications_all .fmdl{ width:100%; overflow:hidden;}
 .addPerson_all h3{font-size: 14px;line-height:28px;margin-bottom:10px;font-family: "微软雅黑";border-bottom:1px solid #dadfe3;font-weight: normal;color:#2d3342;}
 .addPersontc dt,.qualificationstc dt,.stocktc dt{width:110px;text-align: right;}
 .addPersontc dl{width:50%;margin-bottom: 10px;}
