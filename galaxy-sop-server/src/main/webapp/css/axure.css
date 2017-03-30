@@ -2553,7 +2553,7 @@ dd.border_dd{border:1px solid #5192ff;border-radius:100px;color:#72a7ff; text-al
 .base_tab-content .base_half{display:inline-block;width:50%;}
 dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color:#999;line-height:20px; border:1px dashed #e1e1e1;background:#fbfbfc;word-wrap: break-word; word-break: normal;}
 .pro_innovation{margin-top:-10px;}
-.select_box select{width:130px;margin-bottom:20px;}
+.select_box select{width:125px;margin-bottom:20px;}
 .fl_none.field{box-sizing:border-box;-moz-box-sizing:border-box;padding-right:18px;line-height:22px;}
 .margin_btn{margin-top:20px;}
 .btn_compet{display: inline-block; margin-bottom: 10px; margin-top: -6px;}

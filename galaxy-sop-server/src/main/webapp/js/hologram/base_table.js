@@ -176,7 +176,7 @@ function add_NO5_7_1(but_a,tid, tcode){
 		url:Constants.sopEndpointURL + "/galaxy/infomation/toSaveCompeteTable", 
 		data:"",
 		okback:function(){
-			$("#complete_title").text("添加");
+			$("#complete_title").text("添加主要竞争对手");
 			
 			$("#compete-form input[name='projectId']").val(projectInfo.id);
 			$("#compete-form input[name='titleId']").val(tid);
@@ -224,7 +224,7 @@ function edit_NO5_7_1(obj_a,tid,rid){
 		url:Constants.sopEndpointURL + "/galaxy/infomation/toSaveCompeteTable", //toEditCompeteTable
 		data:"",
 		okback:function(){
-			$("#complete_title").text("编辑");
+			$("#complete_title").text("编辑主要竞争对手");
 			
 			$("#compete-form input[name='projectId']").val(projectInfo.id);
 			$("#compete-form input[name='titleId']").val(tid);
