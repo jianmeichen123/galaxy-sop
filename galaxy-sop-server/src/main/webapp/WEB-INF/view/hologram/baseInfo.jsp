@@ -89,7 +89,6 @@ $(function() {
 				$(".h#"+id_code).css("background","#fafafa");
 				
 				$.each($('.textarea_h'),function(i,data){
-					  $(this).css("height",$(this).attr("scrollHeight"));
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
 					  var font_num = 2000 - $(this).val().length;
@@ -106,10 +105,6 @@ $(function() {
 			if(base_editbtn.is(':hidden')){
 				console.log("编辑隐藏");
 				$('.base_half').css('width','100%');
-			}
-			for(var i=0;i<$("textarea").length;i++){
-				var textareaId=$("textarea").eq(i).attr("id");
-				autoTextarea(textareaId);
 			}
 		})
 	});

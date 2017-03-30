@@ -92,7 +92,6 @@ $(function() {
 				$(".h#"+id_code).css("background","#fafafa");
 				
 				$.each($('.textarea_h'),function(i,data){
-					  $(this).css("height",$(this).attr("scrollHeight"));
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
 					  var font_num = 2000 - $(this).val().length;
@@ -110,16 +109,6 @@ $(function() {
 				console.log("编辑隐藏");
 				$('.base_half').css('width','100%');
 			}
-			
-			//字数限制显示
-			$.each($('.textarea_h'),function(i,data){
-				$(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
-				var font_num = 2000 - $(this).val().length;
-				$(this).siblings('p').find('label').html(font_num);
-				var height = data.scrollHeight;
-				$(this).css("height",height+10) ;
-				 
-			})
 		})
 	});
 	
@@ -166,9 +155,11 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			field.val(field.val().replace(/ /g,"&nbsp;"));
 			var typ = field.data('type');
 			var name = field.data('name');
 			var value = field.val().replace(/\n/g,'<br />');
+			
 			
 			var infoMode = {
 				titleId : field.data('titleId'),
