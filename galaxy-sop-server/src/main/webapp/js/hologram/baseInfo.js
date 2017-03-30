@@ -1,7 +1,8 @@
 //textarea_h自适应高度
 function textarea_h(data){
 //	超出2000截取字符串
-	data.value=data.value.replace(/\<br \/\>/g,'\n');
+	var value=data.value.replace(/\<br \/\>/g,'\n');
+	data.value=value;
 	var taxt_length = data.value.length;
 	if(taxt_length>2000){
 		data.value = data.value.substr(0,2000);
@@ -305,7 +306,7 @@ function type_3_html(title,mark){
 				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		var eresult = 
-			"<dd >" +
+			"<dd class=\"fl_none\">" +
 				"<ul class=\"h_edit_checkbox pro_innovation  select_strategy clearfix\">" +
 					li +
 				"</ul>" +
