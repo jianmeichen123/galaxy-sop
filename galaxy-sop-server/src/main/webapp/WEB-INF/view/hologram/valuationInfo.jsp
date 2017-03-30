@@ -55,6 +55,7 @@
 				});
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
+				//页面显示表格现实与隐藏
 				$.each($('.mb_24 table'),function(){
 					if($(this).find('tr').length<=1){
 						$(this).hide();
@@ -131,15 +132,7 @@
 		}) 
 		$('body,html').scrollTop(sTop);  //定位
 		//编辑表格显示隐藏
-		$.each($('table.editable'),function(){
-			//var table_id = $(this).attr('data-title-id');
-			if($(this).find('tr').length<=1){
-				$(this).hide();
-			}
-			else{
-				$(this).show();
-			}
-		})
+		 check_table();
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -305,15 +298,7 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
-		$.each($('table.editable'),function(){
-			//var table_id = $(this).attr('data-title-id');
-			if($(this).find('tr').length<=1){
-				$(this).hide();
-			}
-			else{
-				$(this).show();
-			}
-		})
+		check_table();
 	}
 	
 }
@@ -328,15 +313,7 @@ function addRow(ele)
 			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
-				$.each($('table.editable'),function(){
-					//var table_id = $(this).attr('data-title-id');
-					if($(this).find('tr').length<=1){
-						$(this).hide();
-					}
-					else{
-						$(this).show();
-					}
-				})
+				check_table();
 			});
 		}//模版反回成功执行	
 	});

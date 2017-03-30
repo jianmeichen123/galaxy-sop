@@ -54,6 +54,15 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				$.each($('.mb_24 table'),function(){
+					if($(this).find('tr').length<=1){
+						$(this).hide();
+						$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+						}
+					else{
+						$(this).show();
+					}
+				})
 			} else {
 
 			}
@@ -94,6 +103,8 @@
 				}
 		})
 		$('body,html').scrollTop(sTop);  //定位
+		//编辑表格显示隐藏
+		 check_table();
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -265,7 +276,21 @@
 
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
-
+ 		//团队表格显示隐藏
+		$.each($('table.editable'),function(){
+			var table_id = $(this).attr('data-title-id');
+			if($(this).find('tr').length<=1){
+				$('table[data-title-id='+table_id+']').hide();
+				if($(this).parents('dl').find('dd') <= 1){
+					$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				}
+			}
+			else{
+				$('table[data-title-id='+table_id+']').show();
+				$(this).parents('dl').find('.no_enter').remove();
+				
+			}
+		})
         //多选不选择的时候：
         var deletedResultTids = new Array();
         $.each(dt_type_3, function() {
@@ -370,6 +395,7 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
+		check_table();
 	}
 
 }
@@ -387,6 +413,10 @@ function addRow(ele)
                 $("#detail-form input[name='code']").val($(ele).prev().data('code'));
                 $("#save-detail-btn").click(function(){
                     saveForm($("#detail-form"));
+                    check_table();
+                });
+                $("#save_person_learning").click(function(){
+                	check_table();
                 });
             }//模版反回成功执行
         });
