@@ -245,7 +245,7 @@ var deleteids = "";
 	function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
 		var params = {};
 		var uploader = new plupload.Uploader({
-			runtimes : 'html5,flash,silverlight,html4,jpg',
+			runtimes : 'jpg,png,gif,bmp',
 			browse_button : selectBtnId, // you can pass an id...
 			//container: containerId, // ... or DOM Element itself
 			multi_selection:false,
@@ -253,7 +253,7 @@ var deleteids = "";
 			rename : true,
 			unique_names:true,
 			filters : {
-				max_file_size : '25mb'
+				max_file_size : '2mb'
 			},
 			init: {
 				PostInit: function(up) {
