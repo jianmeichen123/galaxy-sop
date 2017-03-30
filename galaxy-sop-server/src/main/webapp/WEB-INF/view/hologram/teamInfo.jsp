@@ -279,15 +279,16 @@
  		//团队表格显示隐藏
 		$.each($('table.editable'),function(){
 			var table_id = $(this).attr('data-title-id');
+			var noedi_table = $('table[data-title-id='+table_id+']')
 			if($(this).find('tr').length<=1){
-				$('table[data-title-id='+table_id+']').hide();
-				if($(this).parents('dl').find('dd') <= 1){
-					$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				if(noedi_table.parents('dl').find('dd').length<= 2){
+					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
 				}
+				noedi_table.hide();
 			}
 			else{
-				$('table[data-title-id='+table_id+']').show();
-				$(this).parents('dl').find('.no_enter').remove();
+				noedi_table.show();
+				noedi_table.parents('dl').find('.no_enter').remove();
 				
 			}
 		})
