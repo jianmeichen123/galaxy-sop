@@ -130,6 +130,16 @@
 				}
 		}) 
 		$('body,html').scrollTop(sTop);  //定位
+		//编辑表格显示隐藏
+		$.each($('table.editable'),function(){
+			//var table_id = $(this).attr('data-title-id');
+			if($(this).find('tr').length<=1){
+				$(this).hide();
+			}
+			else{
+				$(this).show();
+			}
+		})
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -277,6 +287,7 @@ function editRow(ele)
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
+				
 			});
 		}//模版反回成功执行	
 	});
@@ -294,6 +305,15 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
+		$.each($('table.editable'),function(){
+			//var table_id = $(this).attr('data-title-id');
+			if($(this).find('tr').length<=1){
+				$(this).hide();
+			}
+			else{
+				$(this).show();
+			}
+		})
 	}
 	
 }
@@ -308,6 +328,15 @@ function addRow(ele)
 			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
+				$.each($('table.editable'),function(){
+					//var table_id = $(this).attr('data-title-id');
+					if($(this).find('tr').length<=1){
+						$(this).hide();
+					}
+					else{
+						$(this).show();
+					}
+				})
 			});
 		}//模版反回成功执行	
 	});
