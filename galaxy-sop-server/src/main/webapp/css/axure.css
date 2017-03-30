@@ -2521,7 +2521,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}
 .h_edit .h_radios input[type="radio"]{position: absolute;top:2px;left: 0;}
 .h_edit .h_radios input[type="text"]{margin:0;font-size:12px;font-family:"微软雅黑";}
-.textarea_h{width: 100%;min-height: 70px;border:1px solid #dadada; padding:10px;box-sizing:border-box; backgrouind:none;}
+.textarea_h{width: 100%;min-height: 70px;border:1px solid #dadada; padding:10px;box-sizing:border-box; background:none;overflow:auto;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
 .num_tj{color:#dadada;font-size: 12px;text-align: right;margin: -23px 10px 4px 0;}
 .h_edit_textarea select{display: block;}
