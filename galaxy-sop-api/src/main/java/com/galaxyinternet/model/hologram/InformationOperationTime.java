@@ -49,15 +49,17 @@ public class InformationOperationTime extends PagableEntity{
 
     private String reflect;
     
-    private Date updateDate;
+    private Long updateDate;
 
     
 
-	public Date getUpdateDate() {
+	
+
+	public Long getUpdateDate() {
 		return updateDate;
 	}
 
-	public void setUpdateDate(Date updateDate) {
+	public void setUpdateDate(Long updateDate) {
 		this.updateDate = updateDate;
 	}
 
