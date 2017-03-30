@@ -2334,7 +2334,7 @@ margin: 45px auto 30px;}
 .addPersontc .block{width:100%;}
 .qualifications{position: relative;min-height: 125px;}
 .qualifications .add{position: absolute;top: 8px;right: 10px;cursor:pointer;font-size: 12px;font-family: "宋体"}
-.qualificationstc,.stocktc{width:500px;}
+.qualificationstc,.stocktc{width:560px;}
 .qualificationstc dl,.stocktc dl{margin-bottom: 10px;}
 .stocktc dd textarea{width:300px;height:50px;}
 /* 添加项目第二页提示框 */
@@ -2521,7 +2521,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}
 .h_edit .h_radios input[type="radio"]{position: absolute;top:2px;left: 0;}
 .h_edit .h_radios input[type="text"]{margin:0;font-size:12px;font-family:"微软雅黑";}
-.textarea_h{width: 100%;min-height: 70px;border:1px solid #dadada; padding:10px;box-sizing:border-box; backgrouind:none;}
+.textarea_h{width: 100%;min-height: 70px;border:1px solid #dadada; padding:10px;box-sizing:border-box;overflow:auto;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
 .num_tj{color:#dadada;font-size: 12px;text-align: right;margin: -23px 10px 4px 0;}
 .h_edit_textarea select{display: block;}
@@ -2550,7 +2550,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 dd.border_dd{border:1px solid #5192ff;border-radius:100px;color:#72a7ff; text-align:center; padding:0 18px;line-height:24px;margin:-4px 10px 10px 0;}
 .mb_24 dt{padding-right:10px}
 .base_tab-content .base_half{display:inline-block;width:50%;}
-dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color:#999;line-height:20px; border:1px dashed #e1e1e1;background:#fbfbfc;word-break: break-all;}
+dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color:#999;line-height:20px; border:1px dashed #e1e1e1;background:#fbfbfc;word-wrap: break-word; word-break: normal;}
 .pro_innovation{margin-top:-10px;}
 .select_box select{width:130px;margin-bottom:20px;}
 .fl_none.field{box-sizing:border-box;-moz-box-sizing:border-box;padding-right:18px;line-height:22px;}

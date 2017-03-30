@@ -284,6 +284,7 @@
         			function(data) {
         				var result = data.result.status;
         				if (result == 'OK') {
+        					updateInforTime(projectInfo.id,"teamTime");
         					layer.msg('保存成功');
 
         					deletedRowIds = new Array();
