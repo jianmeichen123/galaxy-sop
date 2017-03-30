@@ -334,7 +334,8 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 					return result;
 				}
 			}else{
-				result = OSSHelper.simpleUploadByOSS(tempFile, fileKey, OSSHelper.setRequestHeader(fileName, multipartFile.getSize())); //上传至阿里云
+				result = OSSHelper.simpleUploadByOSSTO(tempFile, fileKey, OSSHelper.setRequestHeaderForContentType(fileName, multipartFile.getSize(),multipartFile.getContentType())); //上传至阿里云
+				
 				//若文件上传成功
 				if(result.getResult().getStatus()==null || result.getResult().getStatus().equals(Status.ERROR)){
 					return result;

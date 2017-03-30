@@ -55,7 +55,10 @@ public class InformationOperationTimeServiceImpl extends BaseServiceImpl<Informa
 				 //Method method = (Method) oldInformation.getClass().getMethod("get"+oldInformation.getReflect().toUpperCase().substring(0, 1)+oldInformation.getReflect().substring(1),Date.class);
 				 Method method = oldInformation.getClass().getMethod("get" + infromation.getReflect().toUpperCase().substring(0, 1)+infromation.getReflect().substring(1));
 				Date value = (Date) method.invoke(oldInformation);
-				infromation.setUpdateDate(value);
+				if(value != null){
+					infromation.setUpdateDate(value.getTime());
+				}
+				
 			}
 		}catch (Exception e) {
 			// TODO Auto-generated catch block

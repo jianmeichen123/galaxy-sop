@@ -91,6 +91,7 @@ $(function() {
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).css("height",$(this).attr("scrollHeight"));
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+					  $(this).val($(this).val().replace(/&nbsp;/g," "));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
 					  var text_height = data.scrollHeight-20;
@@ -159,10 +160,10 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
+			field.val(field.val().replace(/ /g,"&nbsp;"));
 			var typ = field.data('type');
 			var name = field.data('name');
 			var value = field.val().replace(/\n/g,'<br />');
-			
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : typ
