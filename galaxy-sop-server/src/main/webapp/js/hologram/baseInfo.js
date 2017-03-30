@@ -348,14 +348,17 @@ function type_4_html(title,mark){
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		
+		var r_value1 = '';
 		var results = title.resultList;
-		if(results && results.length > 0 ){
-			hresult = "";
+		if(results && results[0] && results[0].id){
 			$.each(results,function(i,o){
 				if(this.valueName){
-					hresult +=  "<dd>"+this.valueName+" &nbsp;&nbsp;</dd>";
+					r_value1 += "<dd>"+this.valueName+" &nbsp;&nbsp;</dd>";
 				}
 			});
+		}
+		if(r_value1){
+			hresult = r_value1;
 		}
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
@@ -915,7 +918,6 @@ function type_15_html(title,mark){
 	var results = title.resultList;
 	
 	if(results && results[0] && results[0].id){
-		hresult = "";
 		$.each(results,function(i,o){
 			if(this.contentDescribe1){
 				r_value1 = this.contentDescribe1;
@@ -946,6 +948,7 @@ function type_15_html(title,mark){
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable>0</label><span>/2000</span></p>" +
 			"</dd>" +
+			
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"_2' data-name='remark2' oninput=countChar('"+title.id+"_2','"+title.id+"_lable2','2000')  placeholder='"+title.content+"'>" +
 					r_value2 +
