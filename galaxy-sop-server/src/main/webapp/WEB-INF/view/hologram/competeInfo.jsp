@@ -243,6 +243,7 @@ $(function() {
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
+				updateInforTime(projectInfo.id,"competeTime");
 				layer.msg('保存成功');
 				showArea(id_code);
 			} else {

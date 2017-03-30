@@ -716,12 +716,5 @@ function updateInforTime(projectId,type){
 	sendPostRequestByJsonObj(
 				Constants.sopEndpointURL+'/galaxy/InformationOperationTime/updateOperateTime' , 
 				test,
-				function(data) {
-					var result = data.result.status;
-					if (result == 'OK') {
-						
-					} else {
-                        layer.msg("更新时间失败!");
-					}
-	});
+				null);
 }

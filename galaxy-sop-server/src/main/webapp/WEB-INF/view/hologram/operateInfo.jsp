@@ -216,6 +216,7 @@ var deleteids = "";
 							function(data) {
 								var result = data.result.status;
 								if (result == 'OK') {
+									updateInforTime(projectInfo.id,"operationDataTime");
 									layer.msg('保存成功');
 									tabInfoChange('3');
 									$('#'+id_code).show();

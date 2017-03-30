@@ -166,6 +166,7 @@
 				function(data) {
 					var result = data.result.status;
 					if (result == 'OK') {
+						updateInforTime(projectInfo.id,"projectTime");
 						layer.msg('保存成功');
 						$('#'+id_code).show();
 						$('#b_'+id_code).remove();
