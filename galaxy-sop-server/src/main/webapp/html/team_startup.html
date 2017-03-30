@@ -53,11 +53,7 @@
 <script src="/sop/js/validate/jquery.validate.min.js"></script>
 <script>
      $(function(){
-        $("#startup_form").validate({
-             submitHandler:function(form){
-                 save_startup();
-             }
-        });
+        $("#startup_form").validate({});
         $.validator.setDefaults({
         	errorElement:'span'
         });
