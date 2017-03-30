@@ -77,6 +77,7 @@ $(function() {
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -108,6 +109,7 @@ $(function() {
 				$('.base_half').css('width','100%');
 			}
 		})
+		$('body,html').scrollTop(sTop);  //定位
 	});
 	
 	//通用保存

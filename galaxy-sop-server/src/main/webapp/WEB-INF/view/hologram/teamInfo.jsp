@@ -54,6 +54,15 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				$.each($('.mb_24 table'),function(){
+					if($(this).find('tr').length<=1){
+						$(this).hide();
+						$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+						}
+					else{
+						$(this).show();
+					}
+				})
 			} else {
 
 			}
@@ -94,6 +103,8 @@
 				}
 		})
 		$('body,html').scrollTop(sTop);  //定位
+		//编辑表格显示隐藏
+		 check_table();
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -265,7 +276,22 @@
 
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
-
+ 		//团队表格显示隐藏
+		$.each($('table.editable'),function(){
+			var table_id = $(this).attr('data-title-id');
+			var noedi_table = $('table[data-title-id='+table_id+']')
+			if($(this).find('tr').length<=1){
+				if(noedi_table.parents('dl').find('dd').length<= 2){
+					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				}
+				noedi_table.hide();
+			}
+			else{
+				noedi_table.show();
+				noedi_table.parents('dl').find('.no_enter').remove();
+				
+			}
+		})
         //多选不选择的时候：
         var deletedResultTids = new Array();
         $.each(dt_type_3, function() {
@@ -370,6 +396,7 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
+		check_table();
 	}
 
 }
@@ -381,12 +408,16 @@ function addRow(ele)
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
             okback:function(){
-
+				$('#qualifications_popup_name').html('新增成员')
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='code']").val($(ele).prev().data('code'));
                 $("#save-detail-btn").click(function(){
                     saveForm($("#detail-form"));
+                    check_table();
+                });
+                $("#save_person_learning").click(function(){
+                	check_table();
                 });
             }//模版反回成功执行
         });

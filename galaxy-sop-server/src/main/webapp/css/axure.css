@@ -2486,7 +2486,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_navbar li.active{background:url(../img/qxt/h_navbarbg.png) 0 0px no-repeat;;}
 .radius{border-radius:6px;}
 .h_look,.h_edit{position: relative;}
-.h_look .h_btnbox,.h_edit .h_btnbox{position: absolute;top: 0;right: -20px;z-index: 10;}
+.h_look .h_btnbox,.h_edit .h_btnbox{position: absolute;top: 0;right: -20px;z-index: 8;}
 .h_look .h_btnbox span,.h_edit .h_btnbox span{margin-left: 20px;cursor: pointer;color:#999;}
 .h_edit .h_btnbox .h_save_btn,.h_look .h_btnbox .h_edit_btn{font-size: 14px;color:#72a7ff;}
 .h{padding:30px 40px 6px 40px;background-color: #fff;margin-bottom: 10px;box-shadow:0px 2px 3px rgba(0,0,0,0.1);}

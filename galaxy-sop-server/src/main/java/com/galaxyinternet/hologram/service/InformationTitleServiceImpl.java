@@ -114,7 +114,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		
 		for(InformationTitle title : ptitleList){
 			if(title.getSign() != null && title.getSign().intValue() == 2){
-				title.setName(title.getName()+":");
+				title.setName(title.getName()+"：");
 			}
 		}
 		

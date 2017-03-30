@@ -719,3 +719,21 @@ function updateInforTime(projectId,type){
 				test,
 				null);
 }
+//检查table表格是否有数据
+function check_table(){
+	$.each($('table.editable'),function(){
+		if($(this).find('tr').length<=1){
+			$(this).hide();
+		}
+		else{
+			$(this).show();
+		}
+	})
+}	
+	
+	
+	
+	
+	
+	
+	
