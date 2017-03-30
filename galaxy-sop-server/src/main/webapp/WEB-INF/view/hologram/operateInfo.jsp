@@ -116,6 +116,9 @@ var deleteids = "";
 								              +'<a href="#" class="h_img_del" data-val=' + files[i].id +
 								              ' data-title-val=' + title_id +
 								              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
+										       if(i == 4){
+								            	  $("#h_imgs_add_"+title_id).hide();
+								              }
 										}
 									}
 									$('#'+'edit-'+title_id).html(html);
