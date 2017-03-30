@@ -92,7 +92,7 @@
 								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
-{{else type=="9"}}
+		{{else type=="9"}}
 						<dd class="fl_none">
                             <table>
                               <tr>
@@ -490,6 +490,7 @@
 		
 		{{else type=="10"}}
 		<dd class="fl_none"><table data-title-id="\${id}"></table></dd>
+
 		{{else type=="11"}}
 		<dd>项目带过来的数据</dd>
 
@@ -581,7 +582,12 @@
 
 		{{else type=="10"}}
 		<dt data-type="\${type}">\${name}</dt>
-		<dd class="fl_none"><table data-title-id="\${id}"></table></dd>
+
+ 
+			<dd class="fl_none"><table data-title-id="\${id}"></table></dd>
+		 
+		
+
 		{{else type=="11"}}
 		<dd>项目带过来的数据</dd>
 

@@ -1,24 +1,4 @@
-//textarea_h自适应高度
-function textarea_h(data){
-//	超出2000截取字符串
-	var value=data.value.replace(/\<br \/\>/g,'\n');
-	data.value=value;
-	var taxt_length = data.value.length;
-	if(taxt_length>2000){
-		data.value = data.value.substr(0,2000);
-		$(font_num).html(0);
-	}else{
-//		字数
-		var parent= data.parentNode;
-		var p_node = parent.childNodes[1];
-		var font_num = p_node.childNodes[0];
-		$(font_num).html(2000 - taxt_length);
-	}
-	$(data).css("height","auto");
-	if(data.scrollHeight> $(data).height()){
-		 $(data).height(data.scrollHeight);
-	}
-}
+
 function backFun(data){
 	var result = data.result.status;
 	if (result == 'OK') {
@@ -478,10 +458,10 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none fl_none_box\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' oninput='textarea_h(this)'   placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' id ='"+title.id+"' data-type='"+title.type+"' oninput=countChar('"+title.id+"','"+title.id+"_lable','2000')  placeholder='"+title.placeholder+"' >" +
 					 	r_value +
 				"</textarea>" +
-				"<p class=\"num_tj\"><label>0</label><span>/2000</span></p>" +
+				"<p class=\"num_tj\"><label id="+title.id+"_lable>0</label><span>/2000</span></p>" +
 			"</dd>";	
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult_1 + "<br/>" + eresult_2 + "</div>";
