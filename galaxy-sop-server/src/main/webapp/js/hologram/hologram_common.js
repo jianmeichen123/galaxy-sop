@@ -639,15 +639,6 @@ function validate(){
 						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="2"){
-				var validate={
-						//"regString":"^[0-9]{1,3}$",
-						"data-rule-vinputValRule_2":"true",
-						//"required":"required",
-						"name":i,
-						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
-				}
-				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
