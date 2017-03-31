@@ -102,6 +102,13 @@ $(function() {
 					var textareaId=$("textarea").eq(i).attr("id");
 					autoTextarea(textareaId);
 				}
+				$.each($("table"),function(i,data){
+					var len=$(this).find("tr:gt(0)").length;
+					if(len==0){
+						$(this).hide();
+					}
+					
+				});
 			}
 			
 			//去除base_half 类名
