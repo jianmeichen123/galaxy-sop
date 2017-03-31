@@ -93,7 +93,7 @@ function getStudyList(flag,studyList){
                            }
                          }
                var tmp = "<div  data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span>年</div>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span></div>"+
                         "<div class='team_p_two'>"+
                             "<ul>"+
                                 "<li><span>学校：</span><span name='field2'>"+o.field2+"</span></li>"+
