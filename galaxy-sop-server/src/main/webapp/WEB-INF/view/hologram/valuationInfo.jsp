@@ -292,8 +292,6 @@ function editRow(ele)
 var deletedRowIds = new Array();
 function delRow(ele)
 {
-	var _div=$(ele).closest("div");
-	var tableId=$(ele).closest("table").data('titleId');
 	layer.confirm('是否删除?', {
 		btn : [ '确定', '取消' ],
 		title:'提示'
@@ -307,9 +305,7 @@ function delRow(ele)
 		}
 		tr.remove();
 		check_table();   
-		if(!has_len_tr(tableId,10)){   //检查是否10条tr
-			$(_div).find(".bluebtn").show();
-		}
+		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 	}, function(index) {
 	});
@@ -318,8 +314,6 @@ function delRow(ele)
 function addRow(ele)
 {
 	var code = $(ele).prev().data('code');
-	var _this = $(ele);
-	var tableId=$(ele).prev().data('titleId');
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
@@ -329,9 +323,7 @@ function addRow(ele)
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
 				check_table();
-				if(has_len_tr(tableId,10)){   //检查是否10条tr
-					_this.hide();
-				} 
+				check_table_tr_edit();
 			});
 		}//模版反回成功执行	
 	});
