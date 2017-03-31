@@ -743,8 +743,15 @@ function has_len_tr(id,trlength){
 		isHas = true;
 	}
 	return isHas;
-}	
-	
+}
+function check_table_tr_edit(){
+	$.each($("table.editable"),function(){
+		var trs=$(this).find("tr").length;
+		if(trs>=11){
+			$(this).siblings(".bluebtn").hide();
+		}
+	})
+}
 	
 	
 	
