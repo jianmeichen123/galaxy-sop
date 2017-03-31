@@ -142,7 +142,13 @@ function del_NO5_7_1(obj_a,tid,rid){
 		if(!has_len_tr(tid,10)){
 			$(_div).find(".bluebtn").show();
 		} 
-		
+		$.each($("table"),function(i,data){
+			var len=$(this).find("tr:gt(0)").length;
+			if(len==0){
+				$(this).hide();
+			}
+			
+		});
 		$(".layui-layer-close1").click();
 	}, function(index) {
 	});
@@ -196,7 +202,13 @@ function add_NO5_7_1(but_a,tid, tcode){
 				if(has_len_tr(tid,10)){
 					_this.hide();
 				}
-				
+				$.each($("table"),function(i,data){
+					var len=$(this).find("tr:gt(0)").length;
+					console.log(len)
+					if(len>0){
+						$(this).show();
+					}
+				});
 				$("a[data-close='close']").click();
 			});
 		}	
