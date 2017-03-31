@@ -131,7 +131,11 @@
         $("a[data-close='close']").click();
     }
     $("#save_person_learning").on("click",function(){
-        $("#detail-form").submit();
+    	$("#detail-form").submit();
+    	if($("span.error").length>0){
+    		$(".team_porp").scrollTop(0);
+    	}
+        
     })
 
 	function getData(div){
