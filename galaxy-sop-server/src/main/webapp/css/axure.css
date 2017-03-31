@@ -2564,7 +2564,43 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 #compete dt{width:160px;text-align:right;}
 .h_look table{width:90%;table-layout:fixed;}
 .h_edit table{width:95%;table-layout:fixed;}
-
+/*输入框placeholder 颜色及大小 */
+.textarea_h::-webkit-input-placeholder { 
+    color:#b3b3b3;
+    font-size:12px!important;
+    line-height:22px;
+}
+.textarea_h:-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+    line-height:22px;
+}
+.textarea_h::-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+    line-height:22px;
+}
+.textarea_h:-ms-input-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+      line-height:22px;
+}
+input::-webkit-input-placeholder{
+	 color:#b3b3b3;
+     font-size:12px;
+}
+input:-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+}
+input::-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+}
+input:-ms-input-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
 
 
 

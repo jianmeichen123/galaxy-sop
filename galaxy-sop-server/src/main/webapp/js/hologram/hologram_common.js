@@ -31,6 +31,7 @@ function countChar(textareaName,spanName,maxLimit){
 		spanCount.innerHTML =maxLimit-textArea.value.length;
 	}
 }
+
 function tabInfoChange(index){
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
