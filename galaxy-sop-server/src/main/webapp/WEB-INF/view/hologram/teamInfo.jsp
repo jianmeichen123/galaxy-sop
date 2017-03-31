@@ -97,6 +97,8 @@
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					//检查表格tr是否10行
+					check_table_tr_edit();
 				} else {
 
 				}
@@ -387,6 +389,8 @@ function editRow(ele)
 var deletedRowIds = new Array();
 function delRow(ele)
 {
+	var _div=$(ele).closest("div");
+	var tableId=$(ele).closest("table").data('titleId');
 	if(confirm('确定要删除？'))
 	{
 		var tr = $(ele).closest('tr');
@@ -398,6 +402,8 @@ function delRow(ele)
 		}
 		tr.remove();
 		check_table();
+		var _div=$(ele).closest("div");
+		var tableId=$(ele).closest("table").data('titleId');
 	}
 
 }
@@ -405,6 +411,8 @@ function addRow(ele)
 {
     if ( validateCGR() ) {
         var code = $(ele).prev().data('code');
+        var _this = $(ele);
+    	var tableId=$(ele).prev().data('titleId');
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
@@ -419,6 +427,9 @@ function addRow(ele)
                 });
                 $("#save_person_learning").click(function(){
                 	check_table();
+                	if(has_len_tr(tableId,10)){   //检查是否10条tr
+    					_this.hide();
+    				} 
                 });
             }//模版反回成功执行
         });
