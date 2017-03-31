@@ -22,7 +22,7 @@
             <dl class="fmdl fl">
                 <dt>竞争对手名称：</dt>
                 <dd class="clearfix">
-                    <input name="field1" type="text" class="txt" maxLength="50"/>
+                    <input name="field1" type="text" class="txt" maxLength="200"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
