@@ -643,7 +643,7 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			
+						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="5"){
@@ -692,7 +692,8 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 }, "不能超过100"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
+	//var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
+	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100)$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
@@ -702,7 +703,9 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 }, "不能超过99999"); 
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) {   
-	var vinputValRule_4 = /^(?:[1-9][0-9]?|1[06][0-8]|168)$/;
+	//var vinputValRule_4 = /^(?:[1-9][0-9]?|1[6][0-8]|168)$/;
+	var vinputValRule_4 =/^(?:[0-9]\d(\.\d{1,1})?|1[0-6][0-7](\.\d{1,1})|168)$/;
+	//var vinputValRule_4 =/^([0-9]+([.]{1}[0-9]+){0,1}|168)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
 //百分数
