@@ -154,20 +154,16 @@
                     return false;
                 }
               //团队表格显示隐藏
-         		alert('到了');
         		$.each($('table.editable'),function(){
-        			alert('开始循环了');
         			var table_id = $(this).attr('data-title-id');
         			var noedi_table = $('table[data-title-id='+table_id+']')
         			if($(this).find('tr:gt(0)').length<=0){
-        				alert('为空了');
         				if(noedi_table.parents('dl').find('dd').length<= 2){
         					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
         				}
         				noedi_table.hide();
         			}
         			else{
-        				alert('不为空了');
         				noedi_table.show();
         				noedi_table.parents('dl').find('.no_enter').remove();
         				
@@ -398,8 +394,6 @@ function editRow(ele)
 var deletedRowIds = new Array();
 function delRow(ele)
 {
-	var _div=$(ele).closest("div");
-	var tableId=$(ele).closest("table").data('titleId');
 	if(confirm('确定要删除？'))
 	{
 		var tr = $(ele).closest('tr');
@@ -411,9 +405,7 @@ function delRow(ele)
 		}
 		tr.remove();
 		check_table();
-		if(!has_len_tr(tableId,10)){   //检查是否10条tr
-			$(_div).find(".bluebtn").show();
-		}
+		check_table_tr_edit();
 	}
 
 }
@@ -421,8 +413,6 @@ function addRow(ele)
 {
    /*  if ( validateCGR() ) { */
         var code = $(ele).prev().data('code');
-        var _this = $(ele);
-    	var tableId=$(ele).prev().data('titleId');
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
@@ -434,9 +424,7 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                     saveForm($("#detail-form"));
                     check_table();
-                    if(has_len_tr(tableId,10)){   //检查是否10条tr
-    					_this.hide();
-    				} 
+                    check_table_tr_edit();
                 });
                 $("#save_person_learning").click(function(){
                 	check_table();

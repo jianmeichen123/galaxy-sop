@@ -771,17 +771,6 @@ function check_table(){
 	})
 }	
 //检查是否10条tr
-function has_len_tr(id,trlength){
-	if(trlength){
-		length = trlength;
-	}
-	var isHas = false;
-	var trs=$("table[data-title-id='"+id+"'].editable tbody").children('tr');
-	if(trs && trs.length >= (length+1)){
-		isHas = true;
-	}
-	return isHas;
-}
 function check_table_tr_edit(){
 	$.each($("table.editable"),function(){
 		var code = $(this).data('code');
@@ -789,6 +778,8 @@ function check_table_tr_edit(){
 		var trs=$(this).find("tr").length-1;
 		if(trs>=limit){
 			$(this).siblings(".bluebtn").hide();
+		}else{
+			$(this).siblings(".bluebtn").show();
 		}
 	})
 }
