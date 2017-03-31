@@ -499,7 +499,7 @@
 		{{else type=="13"}}
 		<dd class="field" data-title-id="\${id}">未填写</dd>
 		{{else type=="14"}}
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="15"}}
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
@@ -593,13 +593,13 @@
 
 		{{else type=="12"}}
 		<dt  data-type="\${type}">\${name}</dt>
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="13"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="field" data-title-id="\${id}">未填写</dd>
 		{{else type=="14"}}
 		<dt  data-type="\${type}">\${name}</dt>
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="15"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
