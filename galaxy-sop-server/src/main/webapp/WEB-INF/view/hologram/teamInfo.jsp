@@ -158,7 +158,6 @@
                 }
               //团队表格显示隐藏
         		$.each($('table.editable'),function(){
-        			alert('开始玄幻');
         			var table_id = $(this).attr('data-title-id');
         			var noedi_table = $('table[data-title-id='+table_id+']')
         			if($(this).find('tr:gt(0)').length<=0){
