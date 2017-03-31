@@ -287,7 +287,8 @@ function getWorkList(flag,workList){
          		url:"/sop/html/team_startup.html",//模版请求地址
          		data:"",//传递参数
          		okback:function(){
-         			$("#team_startup_name").html('编辑创业经历')
+         			$("#team_startup_name").html('编辑创业经历');
+
                     var json = getData(div);
          			var list = div.find("*[name]");
                      $(list).each(function(){
@@ -317,6 +318,12 @@ function getWorkList(flag,workList){
                     $("#startup_form").find("[name='field5']").val(div.attr("data-c"));
                     $("#startup_form").find("[name='field6']").val(div.attr("data-d"));
                     $("#startup_form").find("[name='field7']").text(json["field7"]);
+//         			判断是否选择否
+         			if($('input[name=field4]:checked').attr('attr-name') == "no"){
+         				$('.team_stock_on').hide();
+         			}else{
+         				$('.team_stock_on').show();
+         			}
          		}
            })
            return false;
