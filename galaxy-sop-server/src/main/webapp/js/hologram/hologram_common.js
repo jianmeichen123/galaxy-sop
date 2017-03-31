@@ -31,6 +31,7 @@ function countChar(textareaName,spanName,maxLimit){
 		spanCount.innerHTML =maxLimit-textArea.value.length;
 	}
 }
+
 function tabInfoChange(index){
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
@@ -219,34 +220,70 @@ function buildResults(sec,title,readonly)
 		}*/
 		else if(title.type == 12)
 		{
-			$.each(title.resultList,function(i,n)
+			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
+			var n = title.resultList[0];
+
+			if (n.contentDescribe1)
 			{
-				if (n.contentDescribe1)
+				if(readonly == true)
 				{
-					if(readonly == true)
+					dd.text(n.contentDescribe1);
+				}
+				else
+				{
+					$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
+				}
+			}
+
+			if(n.contentChoose)
+			{
+				if(readonly == true)
+				{
+					if ( n.contentDescribe1 == undefined )
 					{
-						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1).addClass('hasdesc');
-					}
-					else
-					{
-						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
+						dd.text(n.valueName);
 					}
 				}
-				else if(n.contentChoose)
+				else
 				{
-					if(readonly == true)
-					{
-						if ( !$("dd[class='field'][data-title-id='"+ title.id +"']").hasClass('hasdesc') )
+					$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+				}
+			}
+
+			if(readonly != true)
+			{
+				var dt = $("dt[data-type='12'][data-title-id='"+ title.id +"']");
+				var dl = dt.parent();
+				var radios = dl.find('input[type="radio"]');
+				var last_id = dl.find('input[type="radio"]:last').attr('data-id');
+				var inputText = dl.find('input[type="text"]:last');
+				if ( n.contentChoose == last_id ){
+					inputText.attr('disabled',false);
+				}
+				$.each(radios , function ( i ,n )
+				{
+					$(this).bind('change',function(){
+						if ( $(this).attr('data-id') == last_id )
 						{
-							$("dd[class='field'][data-title-id='" + title.id + "']").text(n.valueName);
+							inputText.attr('disabled',false);
+							inputText.attr('required' , true);
+							/*inputText.bind('blur',function () {
+								var inputTextVlue = $.trim(inputText.val())
+								if(inputTextVlue=='')
+								{
+									layer.msg('不能为空!');
+									inputText.focus();
+								}
+							});*/
 						}
-					}
-					else
-					{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
-					}
-				}
-			});
+						else
+						{
+							inputText.attr('disabled',true);
+							inputText.attr('required' , false);
+						}
+					});
+				});
+			}
 		}
 		/*else if(title.type == 13) {
 			$.each(title.resultList,function(i,n){
@@ -355,12 +392,9 @@ function buildMemberTable(sec,title){
                         tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
                     }
                 }
-    			var editable = table.hasClass('editable');
-    			if(editable == true)
-    			{
-    				tr +='<th data-field-name="opt">操作</th>';
-    			}
-    			tr+="</tr>";
+    			//var editable = table.hasClass('editable');
+                tr +='<th data-field-name="opt">操作</th>';
+                tr+="</tr>";
     			table.append(tr);
     		});
     	}
@@ -405,14 +439,17 @@ function buildMemberRow(headerList,row,showOpts)
 
     })
 
-	if(showOpts == true)
-	{
-		var td = $('<td data-field-name="opt"></td>');
-		td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
-		td.append('<span class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</span>');
-		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
-		tr.append(td);
-	}
+	var td = $('<td data-field-name="opt"></td>');
+    if(showOpts == true)
+    {
+        td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
+        td.append('<span class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</span>');
+        td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+        tr.append(td);
+    }else{
+        td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
+        tr.append(td);
+    }
 	return tr;
 }
 function buildTable(sec,title)
@@ -574,9 +611,11 @@ var autoTextarea = function(elem, extra, maxHeight) {
                 style.overflowY = 'hidden';  
             };  
             style.height = height + extra + 'px';  
-            scrollTop += parseInt(style.height) - elem.currHeight;  
-            document.body.scrollTop = scrollTop;  
-            document.documentElement.scrollTop = scrollTop;  
+            scrollTop += parseInt(style.height) - elem.currHeight;
+//            输入时不让body跳动
+            
+//            document.body.scrollTop = scrollTop;  
+//            document.documentElement.scrollTop = scrollTop;  
             elem.currHeight = parseInt(style.height);  
         };  
     };  
@@ -598,15 +637,6 @@ function validate(){
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
-				}
-				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="2"){
-				var validate={
-						//"regString":"^[0-9]{1,3}$",
-						"data-rule-vinputValRule_2":"true",
-						//"required":"required",
-						"name":i,
-						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3"){
@@ -642,7 +672,7 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数"			
+						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="5"){
@@ -674,12 +704,12 @@ $.validator.setDefaults({
 });
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {   
-	var verify_102 = /^(0|1.0|1.00|([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$/;
+	var verify_102 = /^(0|1.0|1.00|0.0|0.00|([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0])|([1-9][0-9]{0,9}\.[0]))$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
-	var vinputValRule_2 = /^[0-9]{1,3}$/;
+	var vinputValRule_2 = /^(?:[1-9][0-9]?|1[0-9][0-9]|999)$/;
 	return this.optional(element) || (vinputValRule_2.test(value));
 }, "不能超过100"); 
 //vinputValRule=="3"
@@ -691,7 +721,8 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 }, "不能超过100"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
+	//var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
+	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100)$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
@@ -700,8 +731,8 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 	return this.optional(element) || (verify_52.test(value));
 }, "不能超过99999"); 
 //inputValRule=="4"
-jQuery.validator.addMethod("vinputValRule_4", function(value, element) {   
-	var vinputValRule_4 = /^(?:[1-9][0-9]?|1[06][0-8]|168)$/;
+jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
+	var vinputValRule_4 =/^(?:[1-9]|[0-9](\.\d{1,1})|[1-9][0-9]|[1-9][0-9](\.\d{1,1})?|1[0-6][0-7]|1[0-6][0-7](\.\d{1,1})|168)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
 //百分数
@@ -730,8 +761,23 @@ function check_table(){
 		}
 	})
 }	
-	
-	
+//检查是否10条tr
+function check_table_tr_edit(){
+	$.each($("table.editable"),function(){
+		var code = $(this).data('code');
+		var limit = getTableRowLimit(code);
+		var trs=$(this).find("tr").length-1;
+		if(trs>=limit){
+			$(this).siblings(".bluebtn").hide();
+		}else{
+			$(this).siblings(".bluebtn").show();
+		}
+	})
+}
+function getTableRowLimit(code)
+{
+	return 10;
+}
 	
 	
 	

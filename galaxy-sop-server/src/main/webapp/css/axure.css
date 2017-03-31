@@ -2464,7 +2464,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_compile_ul li{ width:48%; float:left; margin-left:1%; margin-top:10px; overflow:hidden; height: 33px;}
 .team_compile_ul li .txt{ width:176px;border: 1px solid #dadfe3;   background: #ffffff;  height: 30px; overflow:hidden;  line-height: 27px; border-radius: 4px;  padding: 0 4px;
     font-size: 12px; color: #525662;}
-.team_compile_ul_l{ display:block; float:left; width:82px; text-align: right;line-height: 28px;}
+.team_compile_ul_l{ display:block; float:left; width:70px; text-align: right;line-height: 28px;}
 .team_compile_ul li .txt_select{ width:187px; font-size:12px;}
 .team_ico_add{width:20px; height:20px;background-position:0 0px;margin-right:5px; cursor:pointer;  display:block; float:right;}
 .team_click{ position: absolute; right:5px; top:0px;}
@@ -2475,8 +2475,8 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_wid{ width:100%; overflow:hidden; margin-left:40px;}
 .team_wid p{margin-bottom:10px;color: #2d3342;font-size: 14px; overflow:hidden;  line-height: 28px;}
 .team_wid_p span{ display:block; float:left; margin-right:10px;}
-.team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
-.team_wid .team_textarea{ width:390px; margin-bottom:10px; margin-top:-5px;}
+.team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px; height:28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
+.team_wid .team_textarea{ width:390px; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; margin-bottom:10px; margin-top:-5px;}
 .no_bl{ display:none;}
 /* V201703全息图 */
 .h_navbar{padding: 30px 0 30px 40px;background-color: #fff;border-radius:6px;border-top-left-radius: 0;margin-bottom: 10px;}
@@ -2522,7 +2522,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}
 .h_edit .h_radios input[type="radio"]{position: absolute;top:2px;left: 0;}
 .h_edit .h_radios input[type="text"]{margin:0;font-size:12px;font-family:"微软雅黑";}
-.textarea_h{width: 100%;min-height: 70px;border:1px solid #dadada; padding:10px;box-sizing:border-box;overflow:auto;}
+.textarea_h{width: 100%;overflow-x: hidden;min-height: 70px;border:1px solid #dadada; padding:10px;box-sizing:border-box;overflow:auto;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
 .num_tj{color:#dadada;font-size: 12px;text-align: right;margin: -23px 10px 4px 0;}
 .h_edit_textarea select{display: block;}
@@ -2556,7 +2556,7 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 .select_box select{width:125px;margin-bottom:20px;}
 .fl_none.field{box-sizing:border-box;-moz-box-sizing:border-box;padding-right:18px;line-height:22px;}
 .margin_btn{margin-top:20px;}
-.btn_compet{display: inline-block; margin-bottom: 10px; margin-top: -6px;}
+.btn_compet{display: inline-block; margin-bottom: 10px; margin-top: 20px;}
 .fl_none_box{box-sizing:border-box;padding-left:122px;}
 .h_edit .h_radios li.text_li{padding:0;margin-top:-8px;margin-left:-10px;}
 .sign_title{font-size:12px;margin-bottom:5px;}
@@ -2564,11 +2564,46 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 #compete dt{width:160px;text-align:right;}
 .h_look table{width:90%;table-layout:fixed;}
 .h_edit table{width:95%;table-layout:fixed;}
-
-
-
-
-
+/*输入框placeholder 颜色及大小 */
+.textarea_h::-webkit-input-placeholder { 
+    color:#b3b3b3;
+    font-size:12px!important;
+    line-height:22px;
+}
+.textarea_h:-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+    line-height:22px;
+}
+.textarea_h::-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+    line-height:22px;
+}
+.textarea_h:-ms-input-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+      line-height:22px;
+}
+input::-webkit-input-placeholder{
+	 color:#b3b3b3;
+     font-size:12px;
+}
+input:-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+}
+input::-moz-placeholder { 
+    color:#666;
+     font-size:12px;
+}
+input:-ms-input-placeholder { 
+    color:#b3b3b3;
+     font-size:12px;
+}
+.finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
+.mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
+.font_num_m{width:320px;margin: -2px 10px 0px 0;}
 
 
 

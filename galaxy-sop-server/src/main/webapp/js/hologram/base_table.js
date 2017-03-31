@@ -142,7 +142,13 @@ function del_NO5_7_1(obj_a,tid,rid){
 		if(!has_len_tr(tid,10)){
 			$(_div).find(".bluebtn").show();
 		} 
-		
+		$.each($("table"),function(i,data){
+			var len=$(this).find("tr:gt(0)").length;
+			if(len==0){
+				$(this).hide();
+			}
+			
+		});
 		$(".layui-layer-close1").click();
 	}, function(index) {
 	});
@@ -183,21 +189,31 @@ function add_NO5_7_1(but_a,tid, tcode){
 			$("#compete-form input[name='id']").val(rid);
 			
 			$("#compete #save-btn").click(function(){
-				var data = $("#compete-form").serializeObject();
-				var dataJ  = JSON.parse(data);
-				tosave_table_value(op_mark,tid,dataJ);
+				
+				if(beforeSubmitById("compete-form")){
+					var data = $("#compete-form").serializeObject();
+					var dataJ  = JSON.parse(data);
+					tosave_table_value(op_mark,tid,dataJ);
 
-				var tr = '<tr data-opt="new" data-result-id="'+rid+'" >';
-				var td_html = table_td_html(dataJ,tid,tcode,rid);
-				tr += (td_html + "</tr>");
-				
-				$("tbody[data-tbody-tid='"+tid+"']").append(tr);
-				
-				if(has_len_tr(tid,10)){
-					_this.hide();
+					var tr = '<tr data-opt="new" data-result-id="'+rid+'" >';
+					var td_html = table_td_html(dataJ,tid,tcode,rid);
+					tr += (td_html + "</tr>");
+					
+					$("tbody[data-tbody-tid='"+tid+"']").append(tr);
+					
+					if(has_len_tr(tid,10)){
+						_this.hide();
+					}
+					$.each($("table"),function(i,data){
+						var len=$(this).find("tr:gt(0)").length;
+						console.log(len)
+						if(len>0){
+							$(this).show();
+						}
+					});
+					$("a[data-close='close']").click();
 				}
 				
-				$("a[data-close='close']").click();
 			});
 		}	
 	});

@@ -4,7 +4,7 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<form id="b_\${code}">
+<form id="b_\${code}" onsubmit="return false;">
 <div class="h_edit section" >
 	<div class="h_btnbox">
 		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
@@ -160,7 +160,7 @@
 			{{each(i,valueList) valueList}}
 			<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 			{{/each}}
-			<li class="text_li"><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></li>
+			<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></li>
 		  </ul>
 		</dd>
 
@@ -358,7 +358,7 @@
 			{{/each}}
 		  </ul>
 		</dd>
-		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></dd>
+		<dd><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"/></dd>
 
 
 		{{else type=="13"}}
@@ -499,7 +499,7 @@
 		{{else type=="13"}}
 		<dd class="field" data-title-id="\${id}">未填写</dd>
 		{{else type=="14"}}
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="15"}}
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
@@ -593,13 +593,13 @@
 
 		{{else type=="12"}}
 		<dt  data-type="\${type}">\${name}</dt>
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="13"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="field" data-title-id="\${id}">未填写</dd>
 		{{else type=="14"}}
 		<dt  data-type="\${type}">\${name}</dt>
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="15"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>

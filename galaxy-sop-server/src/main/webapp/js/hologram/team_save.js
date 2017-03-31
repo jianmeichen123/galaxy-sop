@@ -7,7 +7,7 @@
              }
         });
         $.validator.setDefaults({
-        	errorElement:'span'
+            errorElement:'span'
         });
     })
     function save_person (){
@@ -131,7 +131,11 @@
         $("a[data-close='close']").click();
     }
     $("#save_person_learning").on("click",function(){
-        $("#detail-form").submit();
+    	$("#detail-form").submit();
+    	if($("span.error").length>0){
+    		$(".team_porp").scrollTop(0);
+    	}
+        
     })
 
 	function getData(div){
@@ -204,6 +208,10 @@
 		return false;
 	});
 
-
+    //验证手机号
+    jQuery.validator.addMethod("phone", function (value, element) {
+      var mobile = /^[\+\-\(\)0-9]{0,40}$/;
+   	return this.optional(element) || (mobile.test(value));
+    }, "手机格式不对");
 
 

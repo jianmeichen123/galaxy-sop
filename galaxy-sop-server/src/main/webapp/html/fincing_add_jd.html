@@ -1,5 +1,5 @@
 <div class="qualificationstc">
-	<div class="title_bj" id="team_learn">里程碑和时间节点</div>
+	<div class="title_bj" id="pop-title">添加里程碑和时间节点</div>
 	
 	
     <div class="qualifications_all" id="learning">
@@ -19,7 +19,8 @@
             <dl class="fmdl">
                 <dt>里程碑：</dt>
                 <dd>
-                   <textarea class="team_textarea" name="field2"  maxLength="1000"></textarea>
+                   <textarea class="team_textarea" name="field2"  maxLength="1000" id='milestone' oninput='countChar("milestone","label_mstone","1000")'></textarea>
+                   <div class="mstone_fnum num_tj"><span for="" id="label_mstone">1000</span>/1000</div>
                 </dd>
             </dl>
             <dl class="fmdl">
@@ -48,8 +49,4 @@
     $.validator.setDefaults({
         	errorElement:'span'
         });
-     jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
-    		var vinputValRule_2 = /^[0-9]{1,3}$/;
-    		return this.optional(element) || (vinputValRule_2.test(value));
-    	}, "不能超过100"); 
 </script>

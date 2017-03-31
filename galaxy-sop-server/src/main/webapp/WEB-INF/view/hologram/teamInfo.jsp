@@ -71,11 +71,10 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
-		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 
@@ -98,9 +97,12 @@
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					//检查表格tr是否10行
+					check_table_tr_edit();
 				} else {
 
 				}
+				
 		})
 		$('body,html').scrollTop(sTop);  //定位
 		//编辑表格显示隐藏
@@ -130,6 +132,7 @@
 		{
 			return;
 		}
+		console.log($(this).closest('form'));
 		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var titleId = sec.find("table.editable").attr("data-title-id");
@@ -138,6 +141,8 @@
         		$.each(sec.find("table.editable"),function(){
         			$.each($(this).find('tr:gt(0)'),function(){
         				var row = $(this).data("obj");
+        				console.log($(this).data());
+        				console.log(row)
         				if(row.id=="")
         				{
         					row.id=null;
@@ -151,6 +156,22 @@
                     alert("最多只能添加10条记录!")
                     return false;
                 }
+              //团队表格显示隐藏
+        		$.each($('table.editable'),function(){
+        			var table_id = $(this).attr('data-title-id');
+        			var noedi_table = $('table[data-title-id='+table_id+']')
+        			if($(this).find('tr:gt(0)').length<=0){
+        				if(noedi_table.parents('dl').find('dd').length<= 2){
+        					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+        				}
+        				noedi_table.hide();
+        			}
+        			else{
+        				noedi_table.show();
+        				noedi_table.parents('dl').find('.no_enter').remove();
+        				
+        			}
+        		})
                 sendPostRequestByJsonObj(
                 platformUrl.saveTeamMember,
                 json,
@@ -170,15 +191,32 @@
             })
             return;
         }
+          //团队表格显示隐藏
+    		$.each($('table.editable'),function(){
+    			var table_id = $(this).attr('data-title-id');
+    			var noedi_table = $('table[data-title-id='+table_id+']')
+    			if($(this).find('tr:gt(0)').length<=0){
+    				if(noedi_table.parents('dl').find('dd').length<= 2){
+    					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+    				}
+    				noedi_table.hide();
+    			}
+    			else{
+    				noedi_table.show();
+    				noedi_table.parents('dl').find('.no_enter').remove();
+    				
+    			}
+    		})
 
         //股权结构合理性不能超过10条记录
-        if($(this).closest('form').attr("id") =="b_NO3_8"){
+      /*   if($(this).closest('form').attr("id") =="b_NO3_8"){
             if ( !validateCGR() ){
                 return false;
             }
-        }
+        } */
 
 		//普通结果
+        var fieldsValidate = true;
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
@@ -195,33 +233,33 @@
 			{
 				infoMode.value = field.data('id');
 			}
-			else if(type==5 || type==12)
-			{
-				if (field.is('textarea') || field.is('input[type="text"]')){
+            else if(type==12)
+            {
+                if (field.is('textarea') || field.is('input[type="text"]')){
 
                     //infoMode.remark1 = field.val()
 
-				}else{
-					infoMode.value = field.val();
+                }else{
+                    infoMode.value = field.val();
                     var field_v = field.val();
-                    var last_id = field.closest('ul').find('input:last').attr('data-id');
-                    var infoMode_remark = {
-                        titleId : infoMode.titleId,
-                        type : infoMode.type
-                    };
+                    var last_id = field.closest('ul').find('input[type="radio"]:last').attr('data-id');
+                    var dt = field.closest('dt[data-type="12"]');
 
                     if ( field_v == last_id)
                     {
-                        infoMode_remark.remark1 = field.closest('.h_edit_txt').find('textarea').eq(0).val() || field.closest('.h_edit_txt').find('input:last').eq(0).val();
-
-                    }else{
-                        infoMode_remark.remark1 = '' ;
+                        infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
+                        /*if(infoMode.remark1 == null || infoMode.remark1 == undefined || $.trim(infoMode.remark1) == '') {
+                            layer.msg('不能为空!');
+                            field.closest('.h_edit_txt').find('input:last').focus();
+                            fieldsValidate = false;
+                        }*/
                     }
-
-                    infoModeList.push(infoMode_remark);
-
-				}
-			}
+                    else
+                    {
+                        infoMode.remark1 = '' ;
+                    }
+                }
+            }
 			else if(type == 15)
 			{
                 var _has = false;
@@ -260,6 +298,11 @@
 
 		});
  		data.infoModeList = infoModeList;
+        if ( fieldsValidate == false )
+        {
+            return false;
+        }
+
 		//表格
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){
@@ -269,30 +312,13 @@
 				{
 					row.id=null;
 				}
-				console.log("data");
-				console.log(data);
 				infoTableModelList.push($(this).data());
 			});
 		});
 
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
- 		//团队表格显示隐藏
-		$.each($('table.editable'),function(){
-			var table_id = $(this).attr('data-title-id');
-			var noedi_table = $('table[data-title-id='+table_id+']')
-			if($(this).find('tr').length<=1){
-				if(noedi_table.parents('dl').find('dd').length<= 2){
-					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-				}
-				noedi_table.hide();
-			}
-			else{
-				noedi_table.show();
-				noedi_table.parents('dl').find('.no_enter').remove();
-				
-			}
-		})
+ 		
         //多选不选择的时候：
         var deletedResultTids = new Array();
         $.each(dt_type_3, function() {
@@ -398,12 +424,13 @@ function delRow(ele)
 		}
 		tr.remove();
 		check_table();
+		check_table_tr_edit();
 	}
 
 }
 function addRow(ele)
 {
-    if ( validateCGR() ) {
+   /*  if ( validateCGR() ) { */
         var code = $(ele).prev().data('code');
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
@@ -416,16 +443,18 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                     saveForm($("#detail-form"));
                     check_table();
+                    check_table_tr_edit();
                 });
                 $("#save_person_learning").click(function(){
                 	check_table();
+                	check_table_tr_edit();
                 });
             }//模版反回成功执行
         });
-    }
+    /* } */
 }
 
-function validateCGR(){
+/* function validateCGR(){
     var flag = true;
     var trsNum = $("form[id='b_NO3_8']").find('table').find('tr').length-1;
     if(trsNum>=10){
@@ -433,11 +462,10 @@ function validateCGR(){
         flag = false;
     }
     return flag;
-}
+} */
 
 function saveForm(form)
 {
-    console.log($(form).validate().form())
     if($(form).validate().form())
     {
         var data = $(form).serializeObject();

@@ -83,7 +83,7 @@
 			var dl = $(this);
 			var name = dl.find('dt').text();
 			var dd = dl.find('dd');
-			header.append("<th>"+name.replace(':','')+"</th>");
+			header.append("<th>"+name.replace('：','')+"</th>");
 			row.append("<td class='field' data-title-id='"+dd.data('titleId')+"'>未填写</td>")
 		});
 		dls.remove();
@@ -96,11 +96,10 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-		
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
-		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -126,6 +125,8 @@
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					//检查表格tr是否10行
+					check_table_tr_edit();
 				} else {
 
 				}
@@ -273,6 +274,8 @@ function editRow(ele)
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			var title = $("#pop-title");
+			title.text(title.text().replace('添加','编辑'));
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
@@ -289,8 +292,10 @@ function editRow(ele)
 var deletedRowIds = new Array();
 function delRow(ele)
 {
-	if(confirm('确定要删除？'))
-	{
+	layer.confirm('是否删除?', {
+		btn : [ '确定', '取消' ],
+		title:'提示'
+	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
 		
@@ -299,13 +304,16 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
-		check_table();
-	}
+		check_table();   
+		check_table_tr_edit();
+		$(".layui-layer-close1").click();
+	}, function(index) {
+	});
 	
 }
 function addRow(ele)
 {
-	var code = $(ele).prev().data('code')
+	var code = $(ele).prev().data('code');
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
@@ -315,6 +323,7 @@ function addRow(ele)
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
 				check_table();
+				check_table_tr_edit();
 			});
 		}//模版反回成功执行	
 	});
@@ -354,6 +363,15 @@ function saveRow(data)
 		}
 	}
 	$("a[data-close='close']").click();
+}
+
+function getTableRowLimit(code)
+{
+	if(code == 'investor-situation' || code =='operation-indices')
+	{
+		return 20;
+	}
+	return 10;
 }
 </script>
 </body>
