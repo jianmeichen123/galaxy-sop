@@ -100,9 +100,9 @@
 				} else {
 
 				}
-				$('body,html').scrollTop(sTop);  //定位
+				
 		})
-		
+		$('body,html').scrollTop(sTop);  //定位
 		//编辑表格显示隐藏
 		 check_table();
 	});
