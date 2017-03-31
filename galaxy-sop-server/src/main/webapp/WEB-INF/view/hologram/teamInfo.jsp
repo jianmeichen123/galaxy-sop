@@ -197,33 +197,26 @@
 			{
 				infoMode.value = field.data('id');
 			}
-			else if(type==5 || type==12)
-			{
-				if (field.is('textarea') || field.is('input[type="text"]')){
+            else if(type==12)
+            {
+                if (field.is('textarea') || field.is('input[type="text"]')){
 
                     //infoMode.remark1 = field.val()
 
-				}else{
-					infoMode.value = field.val();
+                }else{
+                    infoMode.value = field.val();
                     var field_v = field.val();
-                    var last_id = field.closest('ul').find('input:last').attr('data-id');
-                    var infoMode_remark = {
-                        titleId : infoMode.titleId,
-                        type : infoMode.type
-                    };
+                    var last_id = field.closest('ul').find('input[type="radio"]:last').attr('data-id');
+
 
                     if ( field_v == last_id)
                     {
-                        infoMode_remark.remark1 = field.closest('.h_edit_txt').find('textarea').eq(0).val() || field.closest('.h_edit_txt').find('input:last').eq(0).val();
-
+                        infoMode.remark1 = field.closest('.h_edit_txt').find('textarea').eq(0).val() || field.closest('.h_edit_txt').find('input:last').eq(0).val();
                     }else{
-                        infoMode_remark.remark1 = '' ;
+                        infoMode.remark1 = '' ;
                     }
-
-                    infoModeList.push(infoMode_remark);
-
-				}
-			}
+                }
+            }
 			else if(type == 15)
 			{
                 var _has = false;
