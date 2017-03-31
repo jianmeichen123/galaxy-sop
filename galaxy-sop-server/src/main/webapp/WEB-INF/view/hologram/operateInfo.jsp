@@ -337,7 +337,7 @@ var deleteids = "";
 	  
 function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
 	if(!file || !/image\//.test(file.type)) return; //确保文件是图片
-	if(file.type=='image/gif'){//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+	if(file.type=='image/gif' || file.type=='image/bmp'){//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
 		var fr = new mOxie.FileReader();
 		fr.onload = function(){
 			callback(fr.result);
