@@ -321,17 +321,17 @@ var deleteids = "";
 				//进行上传
 				var result = data.status;
 				if(result == "OK"){
-                   
+				   //删除
+				   var titleId = $(this).attr("data-title-val");
+		           var imglength = $('#edit-'+titleId).children("li").length;
+		           if(imglength == 4){
+		             $("#h_imgs_add_"+titleId).show();
+		           }
 				}else{
 					layer.msg("删除失败!");
 				}
 		  });
-           //删除
-		   var titleId = $(this).attr("data-title-val");
-           var imglength = $('#edit-'+titleId).children("li").length;
-           if(imglength == 4){
-             $("#h_imgs_add_"+titleId).show();
-           }
+          
        
       });
 	  
