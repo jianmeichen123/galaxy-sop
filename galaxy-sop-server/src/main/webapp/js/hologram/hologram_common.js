@@ -380,12 +380,9 @@ function buildMemberTable(sec,title){
                         tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
                     }
                 }
-    			var editable = table.hasClass('editable');
-    			if(editable == true)
-    			{
-    				tr +='<th data-field-name="opt">操作</th>';
-    			}
-    			tr+="</tr>";
+    			//var editable = table.hasClass('editable');
+                tr +='<th data-field-name="opt">操作</th>';
+                tr+="</tr>";
     			table.append(tr);
     		});
     	}
@@ -430,14 +427,17 @@ function buildMemberRow(headerList,row,showOpts)
 
     })
 
-	if(showOpts == true)
-	{
-		var td = $('<td data-field-name="opt"></td>');
-		td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
-		td.append('<span class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</span>');
-		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
-		tr.append(td);
-	}
+	var td = $('<td data-field-name="opt"></td>');
+    if(showOpts == true)
+    {
+        td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
+        td.append('<span class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</span>');
+        td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+        tr.append(td);
+    }else{
+        td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
+        tr.append(td);
+    }
 	return tr;
 }
 function buildTable(sec,title)
