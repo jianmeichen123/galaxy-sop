@@ -291,8 +291,10 @@ function editRow(ele)
 var deletedRowIds = new Array();
 function delRow(ele)
 {
-	if(confirm('确定要删除？'))
-	{
+	layer.confirm('是否删除?', {
+		btn : [ '确定', '取消' ],
+		title:'提示'
+	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
 		
@@ -302,7 +304,9 @@ function delRow(ele)
 		}
 		tr.remove();
 		check_table();
-	}
+		$(".layui-layer-close1").click();
+	}, function(index) {
+	});
 	
 }
 function addRow(ele)
