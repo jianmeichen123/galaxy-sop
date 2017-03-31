@@ -222,24 +222,31 @@ function buildResults(sec,title,readonly)
 		{
 			$.each(title.resultList,function(i,n)
 			{
+				var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
+
 				if (n.contentDescribe1)
 				{
 					if(readonly == true)
 					{
-						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1).addClass('hasdesc');
+						dd.text(n.contentDescribe1);
 					}
 					else
 					{
 						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
 					}
 				}
-				else if(n.contentChoose)
+
+				if(n.contentChoose)
 				{
 					if(readonly == true)
 					{
-						if ( !$("dd[class='field'][data-title-id='"+ title.id +"']").hasClass('hasdesc') )
+						if (title.id == 1334) {
+							console.log('title_id : ' , title.id , 'contentDescribe1 :' , n.contentDescribe1);
+						}
+
+						if ( n.contentDescribe1 == undefined )
 						{
-							$("dd[class='field'][data-title-id='" + title.id + "']").text(n.valueName);
+							dd.text(n.valueName);
 						}
 					}
 					else
