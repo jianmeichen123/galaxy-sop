@@ -102,14 +102,14 @@ $(function() {
 					autoTextarea(textareaId);
 				}
 			}
-			
+			$('body,html').scrollTop(sTop);  //定位
 			//去除base_half 类名
 			if(base_editbtn.is(':hidden')){
 				console.log("编辑隐藏");
 				$('.base_half').css('width','100%');
 			}
 		})
-		$('body,html').scrollTop(sTop);  //定位
+		
 	});
 	
 	//通用保存

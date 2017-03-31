@@ -133,8 +133,9 @@ var deleteids = "";
 				}else{
 					
 				}
+				$('body,html').scrollTop(sTop);  //定位
 		}) 
-		$('body,html').scrollTop(sTop);  //定位
+		
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
