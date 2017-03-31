@@ -753,11 +753,17 @@ function has_len_tr(id,trlength){
 }
 function check_table_tr_edit(){
 	$.each($("table.editable"),function(){
-		var trs=$(this).find("tr").length;
-		if(trs>=11){
+		var code = $(this).data('code');
+		var limit = getTableRowLimit(code);
+		var trs=$(this).find("tr").length-1;
+		if(trs>=limit){
 			$(this).siblings(".bluebtn").hide();
 		}
 	})
+}
+function getTableRowLimit(code)
+{
+	return 10;
 }
 	
 	

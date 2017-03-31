@@ -373,6 +373,15 @@ function saveRow(data)
 	}
 	$("a[data-close='close']").click();
 }
+
+function getTableRowLimit(code)
+{
+	if(code == 'investor-situation' || code =='operation-indices')
+	{
+		return 20;
+	}
+	return 10;
+}
 </script>
 </body>
 
