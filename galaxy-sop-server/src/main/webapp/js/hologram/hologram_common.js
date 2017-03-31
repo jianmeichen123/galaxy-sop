@@ -732,7 +732,18 @@ function check_table(){
 		}
 	})
 }	
-	
+//检查是否10条tr
+function has_len_tr(id,trlength){
+	if(trlength){
+		length = trlength;
+	}
+	var isHas = false;
+	var trs=$("table[data-title-id='"+id+"'].editable tbody").children('tr');
+	if(trs && trs.length >= (length+1)){
+		isHas = true;
+	}
+	return isHas;
+}	
 	
 	
 	
