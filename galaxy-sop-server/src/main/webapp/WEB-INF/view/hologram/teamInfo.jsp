@@ -181,6 +181,7 @@
         } */
 
 		//普通结果
+        var fieldsValidate = true;
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
@@ -207,12 +208,19 @@
                     infoMode.value = field.val();
                     var field_v = field.val();
                     var last_id = field.closest('ul').find('input[type="radio"]:last').attr('data-id');
-
+                    var dt = field.closest('dt[data-type="12"]');
 
                     if ( field_v == last_id)
                     {
-                        infoMode.remark1 = field.closest('.h_edit_txt').find('textarea').eq(0).val() || field.closest('.h_edit_txt').find('input:last').eq(0).val();
-                    }else{
+                        infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
+                        if(infoMode.remark1 == null || infoMode.remark1 == undefined || $.trim(infoMode.remark1) == '') {
+                            layer.msg('不能为空!');
+                            field.closest('.h_edit_txt').find('input:last').focus();
+                            fieldsValidate = false;
+                        }
+                    }
+                    else
+                    {
                         infoMode.remark1 = '' ;
                     }
                 }
@@ -255,6 +263,11 @@
 
 		});
  		data.infoModeList = infoModeList;
+        if ( fieldsValidate == false )
+        {
+            return false;
+        }
+
 		//表格
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){
