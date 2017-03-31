@@ -50,7 +50,9 @@
     $(function(){
         $("#work_form").validate({
              submitHandler:function(form){
-                 save_work();
+            	 if(beTimeCompare($("#work_form [name='field1']").val(),$("#work_form [name='field2']").val())){
+            		 save_work();
+            	 }
              }
         });
     })
