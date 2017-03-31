@@ -174,11 +174,11 @@
         }
 
         //股权结构合理性不能超过10条记录
-        if($(this).closest('form').attr("id") =="b_NO3_8"){
+      /*   if($(this).closest('form').attr("id") =="b_NO3_8"){
             if ( !validateCGR() ){
                 return false;
             }
-        }
+        } */
 
 		//普通结果
 		var infoModeList = new Array();
@@ -395,14 +395,15 @@ function delRow(ele)
 		}
 		tr.remove();
 		check_table();
-		var _div=$(ele).closest("div");
-		var tableId=$(ele).closest("table").data('titleId');
+		if(!has_len_tr(tableId,10)){   //检查是否10条tr
+			$(_div).find(".bluebtn").show();
+		}
 	}
 
 }
 function addRow(ele)
 {
-    if ( validateCGR() ) {
+   /*  if ( validateCGR() ) { */
         var code = $(ele).prev().data('code');
         var _this = $(ele);
     	var tableId=$(ele).prev().data('titleId');
@@ -417,19 +418,20 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                     saveForm($("#detail-form"));
                     check_table();
-                });
-                $("#save_person_learning").click(function(){
-                	check_table();
-                	if(has_len_tr(tableId,10)){   //检查是否10条tr
+                    if(has_len_tr(tableId,10)){   //检查是否10条tr
     					_this.hide();
     				} 
                 });
+                $("#save_person_learning").click(function(){
+                	check_table();
+                	
+                });
             }//模版反回成功执行
         });
-    }
+    /* } */
 }
 
-function validateCGR(){
+/* function validateCGR(){
     var flag = true;
     var trsNum = $("form[id='b_NO3_8']").find('table').find('tr').length-1;
     if(trsNum>=10){
@@ -437,7 +439,7 @@ function validateCGR(){
         flag = false;
     }
     return flag;
-}
+} */
 
 function saveForm(form)
 {
