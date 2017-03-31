@@ -4,7 +4,7 @@
 
 <!--点击编辑例子 -->
 <script id="ifelse" type="text/x-jquery-tmpl">
-<form id="b_\${code}">
+<form id="b_\${code}" onsubmit="return false;">
 <div class="h_edit section" >
 	<div class="h_btnbox">
 		<span class="h_save_btn" attr-save="\${code}">保存</span><span class="h_cancel_btn"
