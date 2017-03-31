@@ -680,7 +680,7 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 }, "不能超过9999999999");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
-	var vinputValRule_2 = /^[0-9]{1,3}$/;
+	var vinputValRule_2 = /^(?:[1-9][0-9]?|1[0-9][0-9]|999)$/;
 	return this.optional(element) || (vinputValRule_2.test(value));
 }, "不能超过100"); 
 //vinputValRule=="3"
@@ -702,10 +702,8 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 	return this.optional(element) || (verify_52.test(value));
 }, "不能超过99999"); 
 //inputValRule=="4"
-jQuery.validator.addMethod("vinputValRule_4", function(value, element) {   
-	//var vinputValRule_4 = /^(?:[1-9][0-9]?|1[6][0-8]|168)$/;
-	var vinputValRule_4 =/^(?:[0-9]\d(\.\d{1,1})?|1[0-6][0-7](\.\d{1,1})|168)$/;
-	//var vinputValRule_4 =/^([0-9]+([.]{1}[0-9]+){0,1}|168)$/;
+jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
+	var vinputValRule_4 =/^(?:[1-9]|[0-9](\.\d{1,1})|[1-9][0-9]|[1-9][0-9](\.\d{1,1})?|1[0-6][0-7]|1[0-6][0-7](\.\d{1,1})|168)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
 //百分数
