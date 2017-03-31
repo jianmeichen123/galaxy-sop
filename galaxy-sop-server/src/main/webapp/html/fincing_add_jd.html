@@ -48,8 +48,4 @@
     $.validator.setDefaults({
         	errorElement:'span'
         });
-     jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
-    		var vinputValRule_2 = /^[0-9]{1,3}$/;
-    		return this.optional(element) || (vinputValRule_2.test(value));
-    	}, "不能超过100"); 
 </script>
