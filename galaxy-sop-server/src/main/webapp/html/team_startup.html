@@ -52,16 +52,15 @@
 </div>
 <script>
      $(function(){
-        $("#startup_form").validate({});
-        $.validator.setDefaults({
-        	errorElement:'span'
+        $("#startup_form").validate({
+             submitHandler:function(form){
+                 save_startup();
+             }
         });
     })
 
-jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
-	return this.optional(element) || (verify_32.test(value));
-}, "不能超过100"); 
+
+
     $('.team_stock').change( function(){
         var attr_name=$(this).attr('attr-name');
         if(attr_name=="yes"){
@@ -82,7 +81,7 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
         }
         if(!index){
               //新增一条记录
-              var str = "<div  data-flag class='team_div' data-a='"+json["field3"]+"' data-b='"+json["field4"]+"' data-c='"+json["field5"]+"' data-d='"+json["field6"]+"' >"+
+              var str = "<div  data-flag data-a='"+json["field3"]+"' data-b='"+json["field4"]+"' data-c='"+json["field5"]+"' data-d='"+json["field6"]+"' >"+
               "<span name='id' style='display:none'>"+json["id"]+"</span>"+
               "<div class='team_p_one'><span class='team_ico team_ico_dot'></span>";
                if(json["field1"]){
@@ -99,12 +98,13 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 				}
 				if(json["field4"]){
 				    ls.push(json["field4"])
-				}
-				if(json["field5"]){
-				    ls.push(json["field5"])
+				    var attr_name=$('.team_stock').attr('attr-name');
+                    if(attr_name=="yes"){
+                         ls.push(json["field5"])
+                    }
 				}
 				if(json["field6"]){
-				    ls.push(json["field6"])
+                    ls.push(json["field6"])
 				}
 				var temp = "";
 				$(ls).each(function(i,e){
@@ -140,10 +140,16 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 				}
 				if(json["field4"]){
 				    ls.push(json["field4"])
+                    var attr_name=$('.team_stock').attr('attr-name');
+
+                    if(attr_name=="no"){
+                        json["field5"]=""
+                        ls.push(json["field5"])
+                    }else{
+                         ls.push(json["field5"])
+                    }
 				}
-				if(json["field5"]){
-				    ls.push(json["field5"])
-				}
+
 				if(json["field6"]){
 				    ls.push(json["field6"])
 				}
