@@ -257,12 +257,23 @@ function buildResults(sec,title,readonly)
 				var radios = dl.find('input[type="radio"]');
 				var last_id = dl.find('input[type="radio"]:last').attr('data-id');
 				var inputText = dl.find('input[type="text"]:last');
+				if ( n.contentChoose == last_id ){
+					inputText.attr('disabled',false);
+				}
 				$.each(radios , function ( i ,n )
 				{
 					$(this).bind('change',function(){
 						if ( $(this).attr('data-id') == last_id )
 						{
 							inputText.attr('disabled',false);
+							inputText.bind('blur',function () {
+								var inputTextVlue = $.trim(inputText.val())
+								if(inputTextVlue=='')
+								{
+									layer.msg('不能为空!');
+									inputText.focus();
+								}
+							});
 						}
 						else
 						{
@@ -270,7 +281,6 @@ function buildResults(sec,title,readonly)
 						}
 					});
 				});
-
 			}
 		}
 		/*else if(title.type == 13) {
