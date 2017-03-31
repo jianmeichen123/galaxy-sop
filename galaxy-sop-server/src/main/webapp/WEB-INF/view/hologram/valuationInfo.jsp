@@ -273,6 +273,8 @@ function editRow(ele)
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			var title = $("#pop-title");
+			title.text(title.text().replace('添加','编辑'));
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
