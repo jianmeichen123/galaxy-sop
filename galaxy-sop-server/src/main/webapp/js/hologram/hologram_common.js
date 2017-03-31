@@ -266,18 +266,20 @@ function buildResults(sec,title,readonly)
 						if ( $(this).attr('data-id') == last_id )
 						{
 							inputText.attr('disabled',false);
-							inputText.bind('blur',function () {
+							inputText.attr('required' , true);
+							/*inputText.bind('blur',function () {
 								var inputTextVlue = $.trim(inputText.val())
 								if(inputTextVlue=='')
 								{
 									layer.msg('不能为空!');
 									inputText.focus();
 								}
-							});
+							});*/
 						}
 						else
 						{
 							inputText.attr('disabled',true);
+							inputText.attr('required' , false);
 						}
 					});
 				});

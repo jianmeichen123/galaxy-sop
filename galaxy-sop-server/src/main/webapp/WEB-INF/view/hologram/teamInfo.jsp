@@ -213,11 +213,11 @@
                     if ( field_v == last_id)
                     {
                         infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
-                        if(infoMode.remark1 == null || infoMode.remark1 == undefined || $.trim(infoMode.remark1) == '') {
+                        /*if(infoMode.remark1 == null || infoMode.remark1 == undefined || $.trim(infoMode.remark1) == '') {
                             layer.msg('不能为空!');
                             field.closest('.h_edit_txt').find('input:last').focus();
                             fieldsValidate = false;
-                        }
+                        }*/
                     }
                     else
                     {
