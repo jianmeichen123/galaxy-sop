@@ -40,7 +40,8 @@
             <dl class="fmdl fl">
                 <dt>应对竞争的最有效措施：</dt>
                 <dd>
-                   <textarea class="team_textarea" name="field4"></textarea>
+                   <textarea class="team_textarea" name="field4" id="com_save_field4" oninput='countChar("com_save_field4","label_com_save_field4","200")'></textarea>
+                   <div class="font_num_m num_tj"><span for="" id="label_com_save_field4">200</span>/200</div>
                 </dd>
             </dl>
             <dl class="fmdl fl">

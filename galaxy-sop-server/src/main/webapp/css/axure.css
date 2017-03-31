@@ -2476,7 +2476,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_wid p{margin-bottom:10px;color: #2d3342;font-size: 14px; overflow:hidden;  line-height: 28px;}
 .team_wid_p span{ display:block; float:left; margin-right:10px;}
 .team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px; height:28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
-.team_wid .team_textarea{ width:390px; margin-bottom:10px; margin-top:-5px;}
+.team_wid .team_textarea{ width:390px; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; margin-bottom:10px; margin-top:-5px;}
 .no_bl{ display:none;}
 /* V201703全息图 */
 .h_navbar{padding: 30px 0 30px 40px;background-color: #fff;border-radius:6px;border-top-left-radius: 0;margin-bottom: 10px;}
@@ -2601,9 +2601,9 @@ input:-ms-input-placeholder {
     color:#b3b3b3;
      font-size:12px;
 }
-
-
-
+.finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
+.mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
+.font_num_m{width:320px;margin: -2px 10px 0px 0;}
 
 
 
