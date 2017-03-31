@@ -264,8 +264,6 @@
 				{
 					row.id=null;
 				}
-				console.log("data");
-				console.log(data);
 				infoTableModelList.push($(this).data());
 			});
 		});
@@ -443,7 +441,6 @@ function addRow(ele)
 
 function saveForm(form)
 {
-    console.log($(form).validate().form())
     if($(form).validate().form())
     {
         var data = $(form).serializeObject();

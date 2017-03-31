@@ -15,7 +15,7 @@
 			<input name="titleId"  type="text" style="display:none">
    			<li>
    				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;姓名：</span>
-	            <input name="field1" type="text" class="txt " required data-msg-required="<font color=red>*</font>请输入姓名" >
+	            <input name="field1" type="text" class="txt " maxlength="50" required data-msg-required="<font color=red>*</font>请输入姓名" >
    			</li>
    			<li>
    				
@@ -48,7 +48,7 @@
    			</li>
    			<li>
    				<span class="team_compile_ul_l">&nbsp;联系电话：</span>
-	            <input  type="text" class="txt " name="3" class="fn-tinput" placeholder="手机号"  data-rule-mobile="true"  data-msg-mobile="<font color=red>*</font>格式不对" />
+	            <input  type="text" class="txt " name="3" class="fn-tinput" placeholder="手机号"  data-rule-phone="true"  data-msg-phone="<font color=red>*</font>格式不对" />
    			</li>
    			<li>
    				<span class="team_compile_ul_l">&nbsp;最高学历：</span>
@@ -91,19 +91,10 @@
 
 <script src="/sop/js/hologram/team_save.js"></script>
 <script>
-/* $(function(){
-    //jquery.validate
-	$("#detail-form").validate({
-		submitHandler: function() {
-			//验证通过后 的js代码写在这里
-		}
-	})
-		
-}) */
-//手机验证规则  
-jQuery.validator.addMethod("mobile", function (value, element) {
-    var mobile = /(^1[3|4|5|7|8]\d{9}$)|(^\d{3,4}-\d{7,8}$)|(^\d{7,8}$)|(^\d{3,4}-\d{7,8}-\d{1,4}$)|(^\d{7,8}-\d{1,4}$)/;
-	return this.optional(element) || (mobile.test(value));
-}, "手机格式不对");
+   //验证手机号
+    jQuery.validator.addMethod("mobile", function (value, element) {
+      var mobile = /^[\+\-\(\)0-9]{0,40}$/;
+   	return this.optional(element) || (mobile.test(value));
+    }, "手机格式不对");
 </script>
 

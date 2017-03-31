@@ -220,41 +220,58 @@ function buildResults(sec,title,readonly)
 		}*/
 		else if(title.type == 12)
 		{
-			$.each(title.resultList,function(i,n)
+			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
+			var n = title.resultList[0];
+
+			if (n.contentDescribe1)
 			{
-				var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
-
-				if (n.contentDescribe1)
+				if(readonly == true)
 				{
-					if(readonly == true)
+					dd.text(n.contentDescribe1);
+				}
+				else
+				{
+					$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
+				}
+			}
+
+			if(n.contentChoose)
+			{
+				if(readonly == true)
+				{
+					if ( n.contentDescribe1 == undefined )
 					{
-						dd.text(n.contentDescribe1);
-					}
-					else
-					{
-						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
+						dd.text(n.valueName);
 					}
 				}
-
-				if(n.contentChoose)
+				else
 				{
-					if(readonly == true)
-					{
-						if (title.id == 1334) {
-							console.log('title_id : ' , title.id , 'contentDescribe1 :' , n.contentDescribe1);
-						}
+					$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+				}
+			}
 
-						if ( n.contentDescribe1 == undefined )
+			if(readonly != true)
+			{
+				var dt = $("dt[data-type='12'][data-title-id='"+ title.id +"']");
+				var dl = dt.parent();
+				var radios = dl.find('input[type="radio"]');
+				var last_id = dl.find('input[type="radio"]:last').attr('data-id');
+				var inputText = dl.find('input[type="text"]:last');
+				$.each(radios , function ( i ,n )
+				{
+					$(this).bind('change',function(){
+						if ( $(this).attr('data-id') == last_id )
 						{
-							dd.text(n.valueName);
+							inputText.attr('disabled',false);
 						}
-					}
-					else
-					{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
-					}
-				}
-			});
+						else
+						{
+							inputText.attr('disabled',true);
+						}
+					});
+				});
+
+			}
 		}
 		/*else if(title.type == 13) {
 			$.each(title.resultList,function(i,n){
@@ -363,12 +380,9 @@ function buildMemberTable(sec,title){
                         tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
                     }
                 }
-    			var editable = table.hasClass('editable');
-    			if(editable == true)
-    			{
-    				tr +='<th data-field-name="opt">操作</th>';
-    			}
-    			tr+="</tr>";
+    			//var editable = table.hasClass('editable');
+                tr +='<th data-field-name="opt">操作</th>';
+                tr+="</tr>";
     			table.append(tr);
     		});
     	}
@@ -413,14 +427,17 @@ function buildMemberRow(headerList,row,showOpts)
 
     })
 
-	if(showOpts == true)
-	{
-		var td = $('<td data-field-name="opt"></td>');
-		td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
-		td.append('<span class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</span>');
-		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
-		tr.append(td);
-	}
+	var td = $('<td data-field-name="opt"></td>');
+    if(showOpts == true)
+    {
+        td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
+        td.append('<span class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</span>');
+        td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+        tr.append(td);
+    }else{
+        td.append('<span class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</span>');
+        tr.append(td);
+    }
 	return tr;
 }
 function buildTable(sec,title)
@@ -582,9 +599,11 @@ var autoTextarea = function(elem, extra, maxHeight) {
                 style.overflowY = 'hidden';  
             };  
             style.height = height + extra + 'px';  
-            scrollTop += parseInt(style.height) - elem.currHeight;  
-            document.body.scrollTop = scrollTop;  
-            document.documentElement.scrollTop = scrollTop;  
+            scrollTop += parseInt(style.height) - elem.currHeight;
+//            输入时不让body跳动
+            
+//            document.body.scrollTop = scrollTop;  
+//            document.documentElement.scrollTop = scrollTop;  
             elem.currHeight = parseInt(style.height);  
         };  
     };  
