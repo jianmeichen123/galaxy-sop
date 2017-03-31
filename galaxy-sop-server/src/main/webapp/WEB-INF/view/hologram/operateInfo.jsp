@@ -204,46 +204,36 @@ var deleteids = "";
 			return;
 		}
 		
-		if(beforeSubmit()){
-			$("#b_" + id_code).showLoading(
-					 {
-					    'addClass': 'loading-indicator'						
-					 });
-			sendPostRequestByJsonObj(sendFileUrl,params,function(dataParam){
-				//进行上传
-				var result = dataParam.result.status;
-				if(result == "OK"){
-					
-					sendPostRequestByJsonObj(
-							platformUrl.saveOrUpdateInfo , 
-							data,
-							function(data) {
-								var result = data.result.status;
-								if (result == 'OK') {
-									updateInforTime(projectInfo.id,"operationDataTime");
-									layer.msg('保存成功');
-									tabInfoChange('3');
-									$('#'+id_code).show();
-									$('#b_'+id_code).remove();
-									$(".h#a_"+id_code).css("background","#fff");
-									$(".loading-indicator-overlay").remove();
-									$(".loading-indicator").remove();
-									
-								} else {
-									layer.msg("操作失败!");
-								}
-						});
-				}else{
-					layer.msg("操作失败!");
-				}
-				
-			});
-		
-		}
-		
-		
-		
-		
+		$("body").showLoading();
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,function(dataParam){
+			//进行上传
+			var result = dataParam.result.status;
+			if(result == "OK"){
+				sendPostRequestByJsonObj(
+						platformUrl.saveOrUpdateInfo , 
+						data,
+						function(data) {
+							var result = data.result.status;
+							if (result == 'OK') {
+								updateInforTime(projectInfo.id,"operationDataTime");
+								layer.msg('保存成功');
+								tabInfoChange('3');
+								$('#'+id_code).show();
+								$('#b_'+id_code).remove();
+								$(".h#a_"+id_code).css("background","#fff");
+								$(".loading-indicator-overlay").remove();
+								$(".loading-indicator").remove();
+								
+							} else {
+								layer.msg("操作失败!");
+							}
+					});
+			}else{
+				layer.msg("操作失败!");
+			}
+			
+		});
+	
 		
 	}); 
 	

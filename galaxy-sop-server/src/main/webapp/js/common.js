@@ -88,7 +88,43 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 		}
 	});
 }
+function sendPostRequestByJsonObjNoCache(reqUrl, jsonObj, callbackFun) {
+	$.ajax({
+		url : reqUrl,
+		type : "POST",
+		data : JSON.stringify(jsonObj),
+		dataType : "json",
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		beforeSend : function(xhr) {
+			/**清楚浏览器缓存**/
+			xhr.setRequestHeader("If-Modified-Since","0"); 
+			xhr.setRequestHeader("Cache-Control","no-cache");
 
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
+		async : true,
+		error : function(request) {},
+		success : function(data) {
+			if(data){
+				var type =typeof(data);
+				if(type=='string'){
+					if(data.indexOf("<!DOCTYPE html>")){
+						location.href = platformUrl.toLoginPage;
+					}
+				}
+			}
+			if (callbackFun) {
+				callbackFun(data);
+			}
+		}
+	});
+}
 
 /**
  * 加密Ajax请求
