@@ -153,6 +153,26 @@
                     alert("最多只能添加10条记录!")
                     return false;
                 }
+              //团队表格显示隐藏
+         		alert('到了');
+        		$.each($('table.editable'),function(){
+        			alert('开始循环了');
+        			var table_id = $(this).attr('data-title-id');
+        			var noedi_table = $('table[data-title-id='+table_id+']')
+        			if($(this).find('tr:gt(0)').length<=0){
+        				alert('为空了');
+        				if(noedi_table.parents('dl').find('dd').length<= 2){
+        					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+        				}
+        				noedi_table.hide();
+        			}
+        			else{
+        				alert('不为空了');
+        				noedi_table.show();
+        				noedi_table.parents('dl').find('.no_enter').remove();
+        				
+        			}
+        		})
                 sendPostRequestByJsonObj(
                 platformUrl.saveTeamMember,
                 json,
@@ -283,22 +303,7 @@
 
 		data.infoTableModelList = infoTableModelList;
 		data.deletedRowIds = deletedRowIds;
- 		//团队表格显示隐藏
-		$.each($('table.editable'),function(){
-			var table_id = $(this).attr('data-title-id');
-			var noedi_table = $('table[data-title-id='+table_id+']')
-			if($(this).find('tr').length<=1){
-				if(noedi_table.parents('dl').find('dd').length<= 2){
-					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-				}
-				noedi_table.hide();
-			}
-			else{
-				noedi_table.show();
-				noedi_table.parents('dl').find('.no_enter').remove();
-				
-			}
-		})
+ 		
         //多选不选择的时候：
         var deletedResultTids = new Array();
         $.each(dt_type_3, function() {
@@ -435,7 +440,7 @@ function addRow(ele)
                 });
                 $("#save_person_learning").click(function(){
                 	check_table();
-                	
+                	check_table_tr_edit();
                 });
             }//模版反回成功执行
         });
