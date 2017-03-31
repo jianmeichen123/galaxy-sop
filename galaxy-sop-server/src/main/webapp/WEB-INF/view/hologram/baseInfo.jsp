@@ -117,6 +117,7 @@ $(function() {
 	
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
+		var beroreCheck = false;
 		event.stopPropagation();
 		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
@@ -169,10 +170,15 @@ $(function() {
 			
 			if(typ == '12' || typ == '13' ){
 				var disabled = field.attr("disabled");
-				if(disabled && (disabled == true || disabled == "disabled")){
+				if(disabled && (disabled == true || disabled == "disabled")){  //其它未选中
 					infoMode.remark1 = null;
 				}else{
-					infoMode.remark1 = value;
+					if(value && value.length > 0){
+						infoMode.remark1 = value;
+					}else{
+						$(field.next()).show();
+						beroreCheck = true;
+					}
 				}
 			}else if(typ == '15' && name == 'remark2'){
 				infoMode.remark2 = value;
@@ -184,6 +190,11 @@ $(function() {
 		});
 		data.infoModeList = infoModeList;
 		
+		
+		if(beroreCheck){
+			event.stopPropagation();
+			return;
+		}
 		
 		//多选不选择的时候：
 		var deletedResultTids = new Array();

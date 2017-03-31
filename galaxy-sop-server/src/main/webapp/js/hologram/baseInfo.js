@@ -785,14 +785,14 @@ function type_12_html(title,mark){
 					}
 				}
 			}
-			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
+			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
 										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 			
 		}else{
-			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' " +
+			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
 							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
 		}
-		
+		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>其他项内容不能为空</span>";
 		var eresult = 
 			"<dd>" +
 				"<ul class=\"h_radios clearfix\">" +
@@ -800,7 +800,7 @@ function type_12_html(title,mark){
 				"</ul>" +
 			"</dd>";	
 		
-		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + err + "</div>";
 	}
 }
 
@@ -871,13 +871,13 @@ function type_13_html(title,mark){
 					}
 				}
 			}
-			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"' " +
+			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
 										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' />";
 		}else{
-			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' " +
+			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
 							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' />";
 		}
-		
+		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>其他项内容不能为空</span>";
 		var eresult = 
 			"<dd>" +
 				"<ul class=\"h_radios h_edit_checkbox pro_innovation clearfix\">" +
@@ -885,7 +885,7 @@ function type_13_html(title,mark){
 				"</ul>" +
 			"</dd>";	
 			
-		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult + err + "</div>";
 	}
 }
 
