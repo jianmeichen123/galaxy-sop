@@ -110,7 +110,6 @@ $(function() {
 					
 				});
 			}
-			
 			//去除base_half 类名
 			if(base_editbtn.is(':hidden')){
 				console.log("编辑隐藏");

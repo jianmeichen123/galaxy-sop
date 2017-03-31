@@ -71,11 +71,10 @@
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
-
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
-		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 
@@ -98,9 +97,12 @@
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					//检查表格tr是否10行
+					check_table_tr_edit();
 				} else {
 
 				}
+				
 		})
 		$('body,html').scrollTop(sTop);  //定位
 		//编辑表格显示隐藏
@@ -172,11 +174,11 @@
         }
 
         //股权结构合理性不能超过10条记录
-        if($(this).closest('form').attr("id") =="b_NO3_8"){
+      /*   if($(this).closest('form').attr("id") =="b_NO3_8"){
             if ( !validateCGR() ){
                 return false;
             }
-        }
+        } */
 
 		//普通结果
 		var infoModeList = new Array();
@@ -195,33 +197,26 @@
 			{
 				infoMode.value = field.data('id');
 			}
-			else if(type==5 || type==12)
-			{
-				if (field.is('textarea') || field.is('input[type="text"]')){
+            else if(type==12)
+            {
+                if (field.is('textarea') || field.is('input[type="text"]')){
 
                     //infoMode.remark1 = field.val()
 
-				}else{
-					infoMode.value = field.val();
+                }else{
+                    infoMode.value = field.val();
                     var field_v = field.val();
-                    var last_id = field.closest('ul').find('input:last').attr('data-id');
-                    var infoMode_remark = {
-                        titleId : infoMode.titleId,
-                        type : infoMode.type
-                    };
+                    var last_id = field.closest('ul').find('input[type="radio"]:last').attr('data-id');
+
 
                     if ( field_v == last_id)
                     {
-                        infoMode_remark.remark1 = field.closest('.h_edit_txt').find('textarea').eq(0).val() || field.closest('.h_edit_txt').find('input:last').eq(0).val();
-
+                        infoMode.remark1 = field.closest('.h_edit_txt').find('textarea').eq(0).val() || field.closest('.h_edit_txt').find('input:last').eq(0).val();
                     }else{
-                        infoMode_remark.remark1 = '' ;
+                        infoMode.remark1 = '' ;
                     }
-
-                    infoModeList.push(infoMode_remark);
-
-				}
-			}
+                }
+            }
 			else if(type == 15)
 			{
                 var _has = false;
@@ -269,8 +264,6 @@
 				{
 					row.id=null;
 				}
-				console.log("data");
-				console.log(data);
 				infoTableModelList.push($(this).data());
 			});
 		});
@@ -387,6 +380,8 @@ function editRow(ele)
 var deletedRowIds = new Array();
 function delRow(ele)
 {
+	var _div=$(ele).closest("div");
+	var tableId=$(ele).closest("table").data('titleId');
 	if(confirm('确定要删除？'))
 	{
 		var tr = $(ele).closest('tr');
@@ -398,13 +393,18 @@ function delRow(ele)
 		}
 		tr.remove();
 		check_table();
+		if(!has_len_tr(tableId,10)){   //检查是否10条tr
+			$(_div).find(".bluebtn").show();
+		}
 	}
 
 }
 function addRow(ele)
 {
-    if ( validateCGR() ) {
+   /*  if ( validateCGR() ) { */
         var code = $(ele).prev().data('code');
+        var _this = $(ele);
+    	var tableId=$(ele).prev().data('titleId');
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
@@ -416,16 +416,20 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                     saveForm($("#detail-form"));
                     check_table();
+                    if(has_len_tr(tableId,10)){   //检查是否10条tr
+    					_this.hide();
+    				} 
                 });
                 $("#save_person_learning").click(function(){
                 	check_table();
+                	
                 });
             }//模版反回成功执行
         });
-    }
+    /* } */
 }
 
-function validateCGR(){
+/* function validateCGR(){
     var flag = true;
     var trsNum = $("form[id='b_NO3_8']").find('table').find('tr').length-1;
     if(trsNum>=10){
@@ -433,11 +437,10 @@ function validateCGR(){
         flag = false;
     }
     return flag;
-}
+} */
 
 function saveForm(form)
 {
-    console.log($(form).validate().form())
     if($(form).validate().form())
     {
         var data = $(form).serializeObject();

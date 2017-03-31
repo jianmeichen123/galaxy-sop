@@ -1,5 +1,10 @@
-<link href="/sop/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script src="/sop/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<!-- 日历插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <div class="qualificationstc">
 	<div class="title_bj" id="team_learn">学习经历</div>
 	
@@ -13,7 +18,7 @@
             <dl class="fmdl">
                 <dt>&nbsp;毕业时间：</dt>
                 <dd class="clearfix">
-                    <input readonly name="field1" class="datepicker-month-text fl txt time" id="graduationDate" type="text" data-date-format="yyyy">
+                    <input readonly name="field1" class="datepicker-month-text fl txt time" id="graduationDate" type="text" data-date-format="yyyy-mm">
 
                 </dd>
             </dl>  
@@ -58,10 +63,10 @@
      var currDate = new Date();
      var currYear=currDate.getFullYear();
     $("#graduationDate").datetimepicker({
-        minView: 'year',
-    	startView:4,
-        minView:4,
-    	endDate:currYear,//结束时间，在这时间之后都不可选
+        minView: 'yyyy-mm',
+    	startView:3,
+        minView:3,
+    	
     	language: 'zh-CN',
     	autoclose:true
     })
@@ -91,7 +96,7 @@
         if(!index){
               //新增一条记录
               var str = "<div  data-flag class='team_div'><span name='id' style='display:none'>"+eduJson["id"]+"</span>"+
-               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+eduJson['field1']+"</span>年</div>"+
+               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+eduJson['field1']+"</span></div>"+
                 "<div class='team_p_two'>"+
                     "<ul>"+
                         "<li><span>学校：</span><span name='field2'>"+eduJson['field2']+"</span></li>"+

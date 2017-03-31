@@ -84,6 +84,7 @@
 				} else {
 
 				}
+				
 		}) 
 		$('body,html').scrollTop(sTop);  //定位
 	});

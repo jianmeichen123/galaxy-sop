@@ -60,10 +60,10 @@ var deleteids = "";
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
-		var sTop=$(window).scrollTop();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				
@@ -133,8 +133,9 @@ var deleteids = "";
 				}else{
 					
 				}
+				$('body,html').scrollTop(sTop);  //定位
 		}) 
-		$('body,html').scrollTop(sTop);  //定位
+		
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
@@ -320,23 +321,23 @@ var deleteids = "";
 				//进行上传
 				var result = data.status;
 				if(result == "OK"){
-                   
+				   //删除
+				   var titleId = $(this).attr("data-title-val");
+		           var imglength = $('#edit-'+titleId).children("li").length;
+		           if(imglength == 4){
+		             $("#h_imgs_add_"+titleId).show();
+		           }
 				}else{
 					layer.msg("删除失败!");
 				}
 		  });
-           //删除
-		   var titleId = $(this).attr("data-title-val");
-           var imglength = $('#edit-'+titleId).children("li").length;
-           if(imglength == 4){
-             $("#h_imgs_add_"+titleId).show();
-           }
+          
        
       });
 	  
 function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
 	if(!file || !/image\//.test(file.type)) return; //确保文件是图片
-	if(file.type=='image/gif'){//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+	if(file.type=='image/gif' || file.type=='image/bmp'){//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
 		var fr = new mOxie.FileReader();
 		fr.onload = function(){
 			callback(fr.result);

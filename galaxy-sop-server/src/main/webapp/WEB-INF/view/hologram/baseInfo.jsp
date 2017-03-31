@@ -67,14 +67,16 @@ $(function() {
 		$('#b_' + id_code).remove();
 		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
+		//base_half
 		if(_this.is(':visible')){
-			console.log("编辑隐藏");
-			$('.base_half').css('width','50%');
+			console.log("12344555");
+			_this.siblings('.base_half').css('width','50%');
 		}
 	});
 	
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn", "click", function(event) {
+		var _this = $(this);
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
 		var sTop=$(window).scrollTop();
@@ -102,14 +104,15 @@ $(function() {
 					autoTextarea(textareaId);
 				}
 			}
-			
+			$('body,html').scrollTop(sTop);  //定位
 			//去除base_half 类名
-			if(base_editbtn.is(':hidden')){
+			if(_this.is(':hidden')){
 				console.log("编辑隐藏");
-				$('.base_half').css('width','100%');
+				_this.parents('.h_look').siblings('.h_edit').find('.base_half').css('width','100%');
+				
 			}
 		})
-		$('body,html').scrollTop(sTop);  //定位
+		
 	});
 	
 	//通用保存
@@ -245,8 +248,8 @@ $(function() {
 		});
 		//base_half
 		if(_this.is(':visible')){
-			console.log("编辑隐藏");
-			$('.base_half').css('width','50%');
+			console.log("12344555");
+			_this.siblings('.base_half').css('width','50%');
 		}
 	});
 });
