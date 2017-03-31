@@ -212,6 +212,7 @@ function getWorkList(flag,workList){
         		url:"/sop/html/team_learn.html",//模版请求地址
         		data:"",//传递参数
         		okback:function(){
+        			$("#team_learn_name").html('编辑学习经历');
                     var json = getData(div);
         			var list = div.find("*[name]");
                     $(list).each(function(){
@@ -249,6 +250,7 @@ function getWorkList(flag,workList){
         		url:"/sop/html/team_work.html",//模版请求地址
         		data:"",//传递参数
         		okback:function(){
+        			$("#team_work_name").html('编辑工作经历')
                     var json = getData(div);
         			var list = div.find("*[name]");
                     $(list).each(function(){
@@ -285,6 +287,7 @@ function getWorkList(flag,workList){
          		url:"/sop/html/team_startup.html",//模版请求地址
          		data:"",//传递参数
          		okback:function(){
+         			$("#team_startup_name").html('编辑创业经历')
                     var json = getData(div);
          			var list = div.find("*[name]");
                      $(list).each(function(){
