@@ -113,7 +113,7 @@ var deleteids = "";
 									if(files.length > 0){
 										for(var i = 0;i < files.length; i++){
 											html +=  '<li class="pic_list fl" id="' + files[i].id + '">'
-								              +'<a href="#" class="h_img_del" data-val=' + files[i].id +
+								              +'<a href="javascript:;" class="h_img_del" data-val=' + files[i].id +
 								              ' data-title-val=' + title_id +
 								              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
 										       if(i == 4){
@@ -282,7 +282,7 @@ var deleteids = "";
 							 previewImage(files[i], function (imgsrc) {
 			                                $('#'+fieInputId).html($('#'+fieInputId).html() +
 			                                    '<li class="pic_list fl" id="' + files[i].id + '">'
-			                                    +'<a href="#" class="h_img_del" data-val=' + files[i].id +
+			                                    +'<a href="javascript:;" class="h_img_del" data-val=' + files[i].id +
 								              ' data-title-val=' + fieInputId.replace("edit-","") +
 								              '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
 			                            })
