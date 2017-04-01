@@ -165,7 +165,7 @@ function getStartupList(flag,startupList){
                 str+="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span>";
                 str+="<span class='blue' onclick='delete_row(this)'>删除</span></div>";
             }
-            str+="</div><div class='team_p_two' name='field7' style='margin-top:0px;'><span>项目概述:</span>"+o.field7+"</div></div>"
+            str+="</div><div class='team_p_two' style='margin-top:0px;'><span>项目概述:</span><span name='field7'>"+o.field7+"</span></div></div>"
             startup += str;
         })
         return startup;
@@ -216,7 +216,6 @@ function getWorkList(flag,workList){
  function editStudy(ele){
           var div=$(ele).closest('div[data-flag]');
            var index = div.index();
-           alert('编辑学习经历弹窗');
 	      $.getHtml({
         		url:"/sop/html/team_learn.html",//模版请求地址
         		data:"",//传递参数
