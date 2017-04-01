@@ -133,23 +133,23 @@ function getStartupList(flag,startupList){
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
                            "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span>";
 
-                         str +=  "</div><div class='team_p_two'><ul><li data-mix >";
+                         str +=  "</div><div class='team_p_two'><ul><li data-mix style='margin-bottom:0px;'>";
                         var ls = [];
                         if(o.field3){
-                            ls.push(o.field3)
+                            ls.push("担任职务为"+o.field3)
                         }
                         if(o.field4){
                             if(o.field4 == 'undefined'){
                             	ls.push("未知")
                             }else{
-                            	ls.push(o.field4)
+                            	ls.push(o.field4+"核心创始人")
                             }
                         }
                         if(o.field5){
-                            ls.push(o.field5)
+                            ls.push("创立时股权比例为"+o.field5+"%")
                         }
                         if(o.field6){
-                            ls.push(o.field6)
+                            ls.push("成功或失败或离职的原因为"+o.field6)
                         }
                         var temp = "";
                         $(ls).each(function(i,e){
@@ -165,7 +165,7 @@ function getStartupList(flag,startupList){
                 str+="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span>";
                 str+="<span class='blue' onclick='delete_row(this)'>删除</span></div>";
             }
-            str+="</div><div class='team_p_two' name='field7'>"+o.field7+"</div></div>"
+            str+="</div><div class='team_p_two' name='field7' style='margin-top:0px;'><span>项目概述:</span>"+o.field7+"</div></div>"
             startup += str;
         })
         return startup;
