@@ -92,7 +92,7 @@ function getStudyList(flag,studyList){
                            if(item.indexOf("field")>-1){
 
                                if(!o[item]){
-                                   o[item]="未知"
+                                   o[item]=""
                                }
                            }
                          }
@@ -126,7 +126,7 @@ function getStartupList(flag,startupList){
 
              if(item.indexOf("field")>-1){
                  if(!o[item]){
-                     o[item]="未知"
+                     o[item]=""
                  }
              }
            }
@@ -140,7 +140,11 @@ function getStartupList(flag,startupList){
                             ls.push(o.field3)
                         }
                         if(o.field4){
-                            ls.push(o.field4)
+                            if(o.field4 == 'undefined'){
+                            	ls.push("未知")
+                            }else{
+                            	ls.push(o.field4)
+                            }
                         }
                         if(o.field5){
                             ls.push(o.field5)
@@ -177,7 +181,7 @@ function getWorkList(flag,workList){
             if(item.indexOf("field")>-1){
 
                 if(!o[item]){
-                    o[item]="未知"
+                    o[item]=""
                 }
             }
           }
@@ -298,7 +302,7 @@ function getWorkList(flag,workList){
          		url:"/sop/html/team_startup.html",//模版请求地址
          		data:"",//传递参数
          		okback:function(){
-         			$("#team_startup_name").html('编辑创业经历1111');
+         			$("#team_startup_name").html('编辑创业经历');
 
                     var json = getData(div);
          			var list = div.find("*[name]");
@@ -316,6 +320,8 @@ function getWorkList(flag,workList){
                          if(name.indexOf("field")>-1){
                              if(json[name] && json[name] != "未知"){
                                  ele.val(json[name]);
+                             }else{
+                            	 json[name]='';
                              }
                          }else{
                              ele.val(json[name]);
