@@ -96,7 +96,7 @@ function getStudyList(flag,studyList){
                                }
                            }
                          }
-               var tmp = "<div  data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
+               var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
                         "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span></div>"+
                         "<div class='team_p_two'>"+
                             "<ul>"+
@@ -130,7 +130,7 @@ function getStartupList(flag,startupList){
                  }
              }
            }
-             var str = "<div  data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
+             var str = "<div class=\"team_div\" data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
                            "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span>";
 
@@ -186,7 +186,7 @@ function getWorkList(flag,workList){
             }
           }
 
-         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span>";
+         var tmp="<div data-flag class=\"team_div\"><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span>";
                 if(o.field1){
                    tmp = tmp+"<span name='field1'>"+o.field1+"</span><span>～</span>";
                 }
