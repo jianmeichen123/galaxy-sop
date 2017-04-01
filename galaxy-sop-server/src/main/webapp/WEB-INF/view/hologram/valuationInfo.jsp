@@ -304,7 +304,7 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
-		check_table();   
+		check_table();
 		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 	}, function(index) {

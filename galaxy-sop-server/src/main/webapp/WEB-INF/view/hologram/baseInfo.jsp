@@ -79,7 +79,6 @@ $(function() {
 		var _this = $(this);
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
-		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -104,7 +103,6 @@ $(function() {
 					autoTextarea(textareaId);
 				}
 			}
-			$('body,html').scrollTop(sTop);  //定位
 			//去除base_half 类名
 			if(_this.is(':hidden')){
 				console.log("编辑隐藏");
