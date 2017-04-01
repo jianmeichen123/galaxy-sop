@@ -721,6 +721,10 @@ jQuery.validator.addMethod("vinputValRule_2", function(value, element) {
 	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2})$/;;
 	return this.optional(element) || (vinputValRule_2.test(value));
 }, "不能超过100"); 
+jQuery.validator.addMethod("vinputValRule_1", function(value, element) {   
+	var vinputValRule_1 = /^([1-9]{1}[0-9]{0,1}|0)$/;;
+	return this.optional(element) || (vinputValRule_1.test(value));
+}, "不能超过100")
 //vinputValRule=="3"
 jQuery.validator.addMethod("vinputValRule_3", function(value, element) {   
 	//var verify_3 = /^[0-9]{1,3}$/;
