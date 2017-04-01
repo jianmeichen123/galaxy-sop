@@ -639,6 +639,15 @@ function validate(){
 						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="2"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_2":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
@@ -722,7 +731,7 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
 	//var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
-	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100)$/;
+	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100|100.0|100.00)$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
@@ -732,7 +741,7 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 }, "不能超过99999"); 
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
-	var vinputValRule_4 =/^(?:[1-9]|[0-9](\.\d{1,1})|[1-9][0-9]|[1-9][0-9](\.\d{1,1})?|1[0-6][0-7]|1[0-6][0-7](\.\d{1,1})|168)$/;
+	var vinputValRule_4 =/^(?:[1-9]|[0-9](\.\d{1,1})|[1-9][0-9]|[1-9][0-9](\.\d{1,1})?|1[0-6][0-7]|1[0-6][0-7](\.\d{1,1})|168|168.0)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
 //百分数
