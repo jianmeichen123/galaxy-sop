@@ -89,6 +89,7 @@
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+                    bindChange();
 					sec.showResults();
 					validate();
 					$("#b_"+id_code).validate();
@@ -527,6 +528,37 @@ function saveRow(data)
 		}
 	}
 	$("a[data-close='close']").click();
+}
+
+/**
+* 页面加载时，给类型12的题目，绑定change方法，用于第一次没有返回结果的情况
+*/
+function bindChange(){
+    var dts = $("dt[data-type='12']");
+    $.each(dts, function (i,n) {
+        var dl = $(this).parent();
+        var radios = dl.find('input[type="radio"]');
+        var last_id = dl.find('input[type="radio"]:last').attr('data-id');
+        var inputText = dl.find('input[type="text"]:last');
+
+        $.each(radios , function ( i ,n )
+        {
+            $(this).unbind('change').bind('change',function(){
+                if ( $(this).attr('data-id') == last_id )
+                {
+                    inputText.attr('disabled',false);
+                    inputText.attr('required' , true);
+                }
+                else
+                {
+                    inputText.attr('disabled',true);
+                    inputText.attr('required' , false);
+                }
+            });
+        });
+
+
+    });
 }
 </script>
 </body>
