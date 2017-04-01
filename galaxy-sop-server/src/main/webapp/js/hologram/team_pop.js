@@ -320,6 +320,8 @@ function getWorkList(flag,workList){
                          if(name.indexOf("field")>-1){
                              if(json[name] && json[name] != "未知"){
                                  ele.val(json[name]);
+                             }else{
+                            	 json[name]='';
                              }
                          }else{
                              ele.val(json[name]);
