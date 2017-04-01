@@ -82,10 +82,10 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 	        var json =getData1($("#startup_form"));
 	        var index = json["index"];
 	        if(!json["field1"]){
-	            json["field1"]=""
+	            json["field1"]="未知"
 	        }
 	         if(!json["field2"]){
-	            json["field2"]=""
+	            json["field2"]="未知"
 	        }
 	        if(!index){
 	              //新增一条记录

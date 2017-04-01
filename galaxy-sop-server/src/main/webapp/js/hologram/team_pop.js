@@ -140,7 +140,11 @@ function getStartupList(flag,startupList){
                             ls.push(o.field3)
                         }
                         if(o.field4){
-                            ls.push(o.field4)
+                            if(o.field4 == 'undefined'){
+                            	ls.push("未知")
+                            }else{
+                            	ls.push(o.field4)
+                            }
                         }
                         if(o.field5){
                             ls.push(o.field5)
