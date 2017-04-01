@@ -495,7 +495,7 @@
 		<dd>项目带过来的数据</dd>
 
 		{{else type=="12"}}
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="13"}}
 		<dd class="field" data-title-id="\${id}">未填写</dd>
 		{{else type=="14"}}
