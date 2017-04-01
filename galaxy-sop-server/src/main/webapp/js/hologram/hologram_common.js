@@ -639,6 +639,15 @@ function validate(){
 						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="2" && inputValRuleMark=="2"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_1":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_1":"<font color=red>*</font>支持0～99的整数"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3" && inputValRuleMark=="3"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
