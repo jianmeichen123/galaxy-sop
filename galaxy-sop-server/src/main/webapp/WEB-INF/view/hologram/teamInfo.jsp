@@ -44,6 +44,11 @@
 
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
+    // 核心创始团队 表格删除行使用
+    var deletedRowIds = new Array();
+    // 股权结构合理性 表格删除行使用
+    var deletedRowIdsGq = new Array();
+
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
 		function(data) {
@@ -117,7 +122,14 @@
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
-		deletedRowIds = new Array();
+        if (id_code =='NO3_1')
+        {
+            deletedRowIds = new Array();
+        }
+        else if (id_code=='NO3_8')
+        {
+            deletedRowIdsGq = new Array();
+        }
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
@@ -134,7 +146,6 @@
 		{
 			return;
 		}
-		console.log($(this).closest('form'));
 		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var titleId = sec.find("table.editable").attr("data-title-id");
@@ -143,13 +154,11 @@
         		$.each(sec.find("table.editable"),function(){
         			$.each($(this).find('tr:gt(0)'),function(){
         				var row = $(this).data("obj");
-        				console.log($(this).data());
-        				console.log(row)
         				if(row.id=="")
         				{
         					row.id=null;
         				}
-        				row.projectId=projectInfo.id
+        				row.projectId=projectInfo.id;
         				dataList.push(row);
         			});
         		});
@@ -161,7 +170,7 @@
               //团队表格显示隐藏
         		$.each($('table.editable'),function(){
         			var table_id = $(this).attr('data-title-id');
-        			var noedi_table = $('table[data-title-id='+table_id+']')
+        			var noedi_table = $('table[data-title-id='+table_id+']');
         			if($(this).find('tr:gt(0)').length<=0){
         				if(noedi_table.parents('dl').find('dd').length<= 2){
         					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
@@ -319,7 +328,14 @@
 		});
 
 		data.infoTableModelList = infoTableModelList;
-		data.deletedRowIds = deletedRowIds;
+
+        var h_cancel_btn_code = $(btn).next().attr('attr-hide');
+
+        if (h_cancel_btn_code=='NO3_1'){
+            data.deletedRowIds = deletedRowIds;
+        }else if (h_cancel_btn_code=='NO3_8'){
+            data.deletedRowIds = deletedRowIdsGq;
+        }
  		
         //多选不选择的时候：
         var deletedResultTids = new Array();
@@ -341,8 +357,11 @@
         				if (result == 'OK') {
         					updateInforTime(projectInfo.id,"teamTime");
         					layer.msg('保存成功');
-
-        					deletedRowIds = new Array();
+                            if (h_cancel_btn_code=='NO3_1'){
+                                deletedRowIds = new Array();
+                            }else if (h_cancel_btn_code=='NO3_8'){
+                                deletedRowIdsGq = new Array();
+                            }
         					var parent = $(sec).parent();
         					//console.log(parent[0]);
         					var id = parent.data('sectionId');
@@ -353,8 +372,6 @@
 
         				}
         		})
-
-
 	});
 function refreshSection(id)
 {
@@ -412,7 +429,7 @@ function editRow(ele)
 		}//模版反回成功执行
 	});
 }
-var deletedRowIds = new Array();
+
 function delRow(ele)
 {
 	layer.confirm('是否删除?', {
@@ -421,10 +438,14 @@ function delRow(ele)
 	}, function(index, layero){
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-
+        var formId = $(ele).closest('form').attr('id');
 		if(typeof id != 'undefined' && id>0)
 		{
-			deletedRowIds.push(id);
+            if( formId =='b_NO3_1') {
+                deletedRowIds.push(id);
+            }else if (formId =='b_NO3_8'){
+                deletedRowIdsGq.push(id);
+            }
 		}
 		tr.remove();
 		check_table();   
