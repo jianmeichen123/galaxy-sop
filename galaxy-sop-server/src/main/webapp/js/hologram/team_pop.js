@@ -96,12 +96,13 @@ function getStudyList(flag,studyList){
                                }
                            }
                          }
-               var tmp = "<div  data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
+               var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
                         "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+o.field1+"</span></div>"+
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
                                 "<li><span name='field4'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field3'>"+o.field4+"</span></li>"+
+
                             "</ul>";
                             if(flag=="edit"){
                                 var str ="<div class='team_click'>"+
@@ -129,7 +130,7 @@ function getStartupList(flag,startupList){
                  }
              }
            }
-             var str = "<div  data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
+             var str = "<div class=\"team_div\" data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
                            "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span>";
 
@@ -165,7 +166,7 @@ function getStartupList(flag,startupList){
                 str+="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span>";
                 str+="<span class='blue' onclick='delete_row(this)'>删除</span></div>";
             }
-            str+="</div><div class='team_p_two' name='field7' style='margin-top:0px;'><span>项目概述:</span>"+o.field7+"</div></div>"
+            str+="</div><div class='team_p_two' style='margin-top:0px;'><span>项目概述:</span><span name='field7'>"+o.field7+"</span></div></div>"
             startup += str;
         })
         return startup;
@@ -185,7 +186,7 @@ function getWorkList(flag,workList){
             }
           }
 
-         var tmp="<div data-flag><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span>";
+         var tmp="<div data-flag class=\"team_div\"><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span>";
                 if(o.field1){
                    tmp = tmp+"<span name='field1'>"+o.field1+"</span><span>～</span>";
                 }
@@ -216,7 +217,6 @@ function getWorkList(flag,workList){
  function editStudy(ele){
           var div=$(ele).closest('div[data-flag]');
            var index = div.index();
-           alert('编辑学习经历弹窗');
 	      $.getHtml({
         		url:"/sop/html/team_learn.html",//模版请求地址
         		data:"",//传递参数
