@@ -2444,6 +2444,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .financing_t,.financing_t th,.financing_t td{ padding-left:5px; padding-right:5px; line-height:25px;}
 /*全息图 团队*/
 .team_porp{ width:700px; font-size:12px; max-height:460px; overflow-y:scroll; color:#666666;}
+.team_porp .fmdl{color:#666;font-size:12px;}
 .team_ico{background-image:url(../img/team_ico.png);}
 .team_tit{ overflow:hidden; margin-top:30px;}
 .team_ico_jb{ width:23px; height:19px; background-position:-27px 0px; display:block; float:left;}
@@ -2541,6 +2542,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit .fl_none dl dt{line-height: 30px;}
 .h_edit .fl_none dl input{height:30px;width:100px;}
 .h_edit .fl_none span[data-btn='btn']{margin:0 5px; cursor:pointer}
+.fl_none span[data-btn='btn']{cursor:pointer}
 .h_imgs li{width:148px;height:118px;border:1px dashed #d9d9d9;margin-right: 20px;float: left;background-color: #fff;position: relative;}
 .h_imgs img{width:100px;height:100px;position: absolute;top:12px;left:20px;box-shadow: 0px 3px 10px #5191f2;}
 .h_img_del{position: absolute;top:5px;right:5px;font-size: 0;background:url(../img/qxt/h_img_del.png);width: 16px;height: 16px;cursor: pointer;}

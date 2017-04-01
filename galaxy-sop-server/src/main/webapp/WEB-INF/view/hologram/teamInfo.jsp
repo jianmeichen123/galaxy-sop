@@ -413,8 +413,10 @@ function editRow(ele)
 var deletedRowIds = new Array();
 function delRow(ele)
 {
-	if(confirm('确定要删除？'))
-	{
+	layer.confirm('是否删除?', {
+		btn : [ '确定', '取消' ],
+		title:'提示'
+	}, function(index, layero){
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
 
@@ -423,9 +425,12 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
-		check_table();
+		check_table();   
 		check_table_tr_edit();
-	}
+		$(".layui-layer-close1").click();
+	},function(index) {
+	});
+ 
 
 }
 function addRow(ele)
@@ -436,7 +441,7 @@ function addRow(ele)
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
             okback:function(){
-				$('#qualifications_popup_name').html('新增成员')
+				$('#qualifications_popup_name').html('添加持股人')
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='code']").val($(ele).prev().data('code'));

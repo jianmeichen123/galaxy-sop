@@ -642,7 +642,7 @@ function type_10_html(title,mark){
 			});
 			hresult += (tr + "</tbody></table></dd>");
 		}
-		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + "<br/>" + hresult + "</dl></div>";
+		return  "<div class=\"mb_24 clearfix\"><dl class=\"clearfix\">" + htitle + hresult + "</dl></div>";
 	}else{
 		var to_add = "<a href='javascript:;' class=\"blue pubbtn bluebtn btn_compet\" onclick=\"add_"+title.code+"(this,'"+title.id+"','"+title.code+"')\" >新增</a>";
 		
