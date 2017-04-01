@@ -630,16 +630,7 @@ function validate(){
 	 for(var i=0;i<inputs.length;i++){
 		 	var inputValRule=inputs.eq(i).attr("data-valrule");
 			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
-			if(inputValRuleMark=="10,2"){
-				var validate={
-						"data-rule-verify_102":"true",
-						"name":i,
-						//"required":"required",
-						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
-				}
-				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="2"){
+			if(inputValRule=="2" && inputValRuleMark=="3"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-vinputValRule_2":"true",
@@ -648,13 +639,22 @@ function validate(){
 						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="3"){
+			}else if(inputValRule=="3" && inputValRuleMark=="3"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-vinputValRule_3":"true",
 						//"required":"required",
 						"name":i,
 						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="10,2"){
+				var validate={
+						"data-rule-verify_102":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
@@ -718,7 +718,7 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 }, "不能超过9999999999");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
-	var vinputValRule_2 = /^(?:[1-9][0-9]?|1[0-9][0-9]|999)$/;
+	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2})$/;;
 	return this.optional(element) || (vinputValRule_2.test(value));
 }, "不能超过100"); 
 //vinputValRule=="3"
