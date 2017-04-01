@@ -5,16 +5,19 @@ function delete_row(ele){
 }
 //查看团队成员弹窗
 function showMemberRow(ele){
+	
     var row = $(ele).closest('tr');
      $.getHtml({
     		url:"/sop/html/team_xk.html",//模版请求地址
     		data:"",//传递参数
     		okback:function(){
+    			var pop=$("#qualifications_popup_name");
     			$.each($("#detail-form").find("span"),function(){
     				var ele = $(this);
     				var name = ele.attr('name');
     				ele.text(row.data(name));
     			});
+    			pop.text(row.data(pop.attr("name")));
     			//填充学习经历
                 var obj = row.data("obj")
                 var studyList = obj.studyList;
