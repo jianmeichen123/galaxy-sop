@@ -97,12 +97,11 @@ function getStudyList(flag,studyList){
                            }
                          }
                var tmp = "<div  data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span></div>"+
-                        "<div class='team_p_two'>"+
-                            "<ul>"+
-                                "<li><span>学校：</span><span name='field2'>"+o.field2+"</span></li>"+
-                                "<li><span>学位：</span><span name='field3'>"+o.field3+"</span></li>"+
-                                "<li><span>所学专业：</span><span name='field4'>"+o.field4+"</span></li>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+o.field1+"</span></div>"+
+                        "<div>"+
+                            "<ul style='margin-left:14px;'>"+
+                                "<li><span name='field2'>"+o.field2+"</span></li>"+
+                                "<li><span name='field4'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field3'>"+o.field4+"</span></li>"+
                             "</ul>";
                             if(flag=="edit"){
                                 var str ="<div class='team_click'>"+
@@ -195,10 +194,9 @@ function getWorkList(flag,workList){
                      tmp = tmp+"<span name='field2'>"+o.field2+"</span>"
                 }
 
-                tmp = tmp+ "</div><div class='team_p_two'>"+
-                    "<ul>"+
-                        "<li><span>公司：</span><span name='field3'>"+o.field3+"</span></li>"+
-                        "<li><span>职位：</span><span name='field4'>"+o.field4+"</span></li>"+
+                tmp = tmp+ "</div>"+
+                    "<ul style='margin-left:14px;'>"+
+                        "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4'>"+o.field4+"</span></li>"+
                     "</ul>"
                     if(flag=="edit"){
                         var str =  "<div class='team_click'>"+
@@ -207,7 +205,9 @@ function getWorkList(flag,workList){
                                   "</div>"
                         tmp += str;
                     }
-          tmp += "</div><div class='team_p_two'><span  name='field5'>"+o.field5+"</span></div></div>";
+          tmp += "<ul style='margin-left:14px;'>"+
+          "<li><span  name='field5'>"+o.field5+"</span></li>"+
+          "</ul></div>"
           work += tmp;
        })
        return work;
