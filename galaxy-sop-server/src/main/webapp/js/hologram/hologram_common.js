@@ -339,6 +339,7 @@ function buildResults(sec,title,readonly)
 			{
 				var str=title.resultList[0].contentDescribe1;
 				if(str){
+					str=str.replace(/<br\/>/g,'\n');
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
