@@ -722,7 +722,7 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
 	//var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
-	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100)$/;
+	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100(\.\d{0,2})?)$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
