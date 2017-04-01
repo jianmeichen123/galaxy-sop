@@ -307,9 +307,9 @@ var deleteids = "";
 	}
 	  $(document).on('click', '.pic_list a.h_img_del', function () {
           $(this).parent().remove();
+          var _this = $(this);
           var toremove = '';
           var id = $(this).attr("data-val");
-          
           deleteids += ","+id;
           
       	  var params = {};
@@ -322,7 +322,7 @@ var deleteids = "";
 				var result = data.status;
 				if(result == "OK"){
 				   //删除
-				   var titleId = $(this).attr("data-title-val");
+				   var titleId = _this.attr("data-title-val");
 		           var imglength = $('#edit-'+titleId).children("li").length;
 		           if(imglength == 4){
 		             $("#h_imgs_add_"+titleId).show();
