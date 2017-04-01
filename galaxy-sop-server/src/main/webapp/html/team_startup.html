@@ -31,7 +31,7 @@
                 </dl>
                 <div class="team_wid">
                     <p class="team_wid_p"><span>是否是核心创始人：（5%以上创始股权）</span>
-                        <span><input type="radio" class="team_stock" attr-name="yes" data-value="核心创始人" name="field4">是</span><span><input type="radio" class="team_stock" attr-name="no" data-value="非核心创始人"  name="field4">否</span></p>
+                        <span><input type="radio" class="team_stock" attr-name="yes" data-value="核心创始人" name="field4" >是</span><span><input type="radio" class="team_stock" attr-name="no" data-value="非核心创始人"  name="field4">否</span></p>
                     <p class="team_wid_p  team_stock_on"><span>创立时股权比例%：</span><span><input name="field5" type="text" class="input" placeholder="创立时股权比例"  data-rule-verify_32="true"  data-msg-verify_32="<font color=red>*</font>0～100的整数和两位小数" /></span></p>
                 </div>
                 <div class="team_wid">
@@ -74,14 +74,18 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
     })
     //验证成功,保存
     function save_startup(){
+    	if(!$("#startup_form").validate().form())
+		{
+			return;
+		}
     	if(beTimeCompare($("#startup_form [name='field1']").val(),$("#startup_form [name='field2']").val())){
 	        var json =getData1($("#startup_form"));
 	        var index = json["index"];
 	        if(!json["field1"]){
-	            json["field1"]="未知"
+	            json["field1"]=""
 	        }
 	         if(!json["field2"]){
-	            json["field2"]="未知"
+	            json["field2"]=""
 	        }
 	        if(!index){
 	              //新增一条记录
