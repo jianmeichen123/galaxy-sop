@@ -262,7 +262,7 @@ function buildResults(sec,title,readonly)
 				}
 				$.each(radios , function ( i ,n )
 				{
-					$(this).bind('change',function(){
+					$(this).unbind('change').bind('change',function(){
 						if ( $(this).attr('data-id') == last_id )
 						{
 							inputText.attr('disabled',false);
