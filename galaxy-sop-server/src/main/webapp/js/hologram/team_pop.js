@@ -32,6 +32,7 @@ function showMemberRow(ele){
                    var work = getWorkList("add",workList);
                    $("#team_work").append(work);
                 }
+              
     		}
      })
 
@@ -208,6 +209,7 @@ function getWorkList(flag,workList){
  function editStudy(ele){
           var div=$(ele).closest('div[data-flag]');
            var index = div.index();
+           alert('编辑学习经历弹窗');
 	      $.getHtml({
         		url:"/sop/html/team_learn.html",//模版请求地址
         		data:"",//传递参数
@@ -245,7 +247,6 @@ function getWorkList(flag,workList){
  function editWork(ele){
           var div=$(ele).closest('div[data-flag]');
           var index = div.index();
-
 	      $.getHtml({
         		url:"/sop/html/team_work.html",//模版请求地址
         		data:"",//传递参数
@@ -274,8 +275,15 @@ function getWorkList(flag,workList){
                         }
 
                     });
+                    //文本框剩余字数
+        			$.each($(".team_textarea"),function(){
+        				var len=$(this).val().length;
+        				var initNum=$(this).siblings('.num_tj').find("span").text();
+        				$(this).siblings('.num_tj').find("span").text(initNum-len);
+        			})
         		}
           })
+
           return false;
  }
  //编辑创业经历弹窗
@@ -287,7 +295,7 @@ function getWorkList(flag,workList){
          		url:"/sop/html/team_startup.html",//模版请求地址
          		data:"",//传递参数
          		okback:function(){
-         			$("#team_startup_name").html('编辑创业经历');
+         			$("#team_startup_name").html('编辑创业经历1111');
 
                     var json = getData(div);
          			var list = div.find("*[name]");
@@ -310,7 +318,7 @@ function getWorkList(flag,workList){
                              ele.val(json[name]);
                          }
                      });
-
+                   
                     $("#startup_form").find("[name='field1']").val(json["field1"]);
                     $("#startup_form").find("[name='field2']").val(json["field2"]);
                     $("#startup_form").find("[name='field3']").val(div.attr("data-a"));
@@ -324,8 +332,17 @@ function getWorkList(flag,workList){
          			}else{
          				$('.team_stock_on').show();
          			}
+         			console.log($(".team_textarea").length);
+         			//文本框剩余字数
+                    $.each($(".team_textarea"),function(){
+        				var len=$(this).val().length;
+        				var initNum=$(this).siblings('.num_tj').find("span").text();
+        				$(this).siblings('.num_tj').find("span").text(initNum-len);
+        			})
          		}
+ 	
            })
+          
            return false;
   }
 

@@ -284,10 +284,15 @@ function editRow(ele)
 				var name = ele.attr('name');
 				ele.val(row.data(name));
 			});
+			//文本框剩余字数
+			$.each($(".team_textarea"),function(){
+				var len=$(this).val().length;
+				var initNum=$(this).siblings('.num_tj').find("span").text();
+				$(this).siblings('.num_tj').find("span").text(initNum-len);
+			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
-				
 			});
 		}//模版反回成功执行	
 	});
