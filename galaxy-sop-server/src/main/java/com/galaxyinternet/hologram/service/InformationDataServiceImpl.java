@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.StringEx;
+import com.galaxyinternet.hologram.util.RegexUtil;
 import com.galaxyinternet.model.hologram.FixedTableModel;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
@@ -73,11 +76,22 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			}
 			if(!StringEx.isNullOrEmpty(model.getRemark1()))
 			{
-				entity.setContentDescribe1(model.getRemark1());
+				if(model.getType().equals("5")||model.getType().equals("6")||
+						model.getType().equals("8")||model.getType().equals("15")
+					){
+					entity.setContentDescribe1(RegexUtil.getTextFromHtml(model.getRemark1()));
+				}else{
+					entity.setContentDescribe1(model.getRemark1());
+				}
+				
 			}
 			if(!StringEx.isNullOrEmpty(model.getRemark2()))
 			{
-				entity.setContentDescribe2(model.getRemark2());
+				if(model.getType().equals("15")){
+					entity.setContentDescribe2(RegexUtil.getTextFromHtml(model.getRemark2()));
+				}else{
+					entity.setContentDescribe2(model.getRemark2());
+				}
 			}
 			entityList.add(entity);
 		}
