@@ -52,19 +52,22 @@
 				customBuilder();
 				$(".section").each(function(){
 					$(this).showResults(true);
+					$.each($('.mb_24 table'),function(){
+						if($(this).find('tr').length<=1){
+							$(this).hide();
+							if($(this).parents('dl').find('dd:gt(0)').length<=0){
+							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+							}
+							}
+						else{
+							$(this).show();
+						}
+					})
 				});
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
 				//页面显示表格现实与隐藏
-				$.each($('.mb_24 table'),function(){
-					if($(this).find('tr').length<=1){
-						$(this).hide();
-						$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-						}
-					else{
-						$(this).show();
-					}
-				})
+				
 			} else {
 
 			}
@@ -281,10 +284,15 @@ function editRow(ele)
 				var name = ele.attr('name');
 				ele.val(row.data(name));
 			});
+			//文本框剩余字数
+			$.each($(".team_textarea"),function(){
+				var len=$(this).val().length;
+				var initNum=$(this).siblings('.num_tj').find("span").text();
+				$(this).siblings('.num_tj').find("span").text(initNum-len);
+			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
-				
 			});
 		}//模版反回成功执行	
 	});
@@ -304,7 +312,7 @@ function delRow(ele)
 			deletedRowIds.push(id);
 		}
 		tr.remove();
-		check_table();   
+		check_table();
 		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 	}, function(index) {

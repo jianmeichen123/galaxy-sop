@@ -79,7 +79,6 @@ $(function() {
 		var _this = $(this);
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
-		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -90,6 +89,7 @@ $(function() {
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
+				var sTop=$(window).scrollTop();
 				
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
@@ -103,11 +103,11 @@ $(function() {
 					var textareaId=$("textarea").eq(i).attr("id");
 					autoTextarea(textareaId);
 				}
+				$('html,body').scrollTop(sTop);  //定位
 			}
-			$('body,html').scrollTop(sTop);  //定位
+			
 			//去除base_half 类名
 			if(_this.is(':hidden')){
-				console.log("编辑隐藏");
 				_this.parents('.h_look').siblings('.h_edit').find('.base_half').css('width','100%');
 				
 			}
@@ -118,6 +118,7 @@ $(function() {
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		var beroreCheck = false;
+		
 		event.stopPropagation();
 		var _this = $(this);
 		var id_code = $(this).attr('attr-save');

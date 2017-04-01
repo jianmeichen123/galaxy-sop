@@ -44,6 +44,11 @@
 
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
+    // 核心创始团队 表格删除行使用
+    var deletedRowIds = new Array();
+    // 股权结构合理性 表格删除行使用
+    var deletedRowIdsGq = new Array();
+
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
 		function(data) {
@@ -53,16 +58,18 @@
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
-				});
-				$.each($('.mb_24 table'),function(){
-					if($(this).find('tr').length<=1){
-						$(this).hide();
-						$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+					$.each($('.mb_24 table'),function(){
+						if($(this).find('tr').length<=1){
+							$(this).hide();
+							if($(this).parents('dl').find('dd:gt(0)').length<=0){
+							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+							}
+							}
+						else{
+							$(this).show();
 						}
-					else{
-						$(this).show();
-					}
-				})
+					})
+				});
 			} else {
 
 			}
@@ -82,6 +89,7 @@
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+                    bindChange();
 					sec.showResults();
 					validate();
 					$("#b_"+id_code).validate();
@@ -115,7 +123,14 @@
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
-		deletedRowIds = new Array();
+        if (id_code =='NO3_1')
+        {
+            deletedRowIds = new Array();
+        }
+        else if (id_code=='NO3_8')
+        {
+            deletedRowIdsGq = new Array();
+        }
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
@@ -132,7 +147,6 @@
 		{
 			return;
 		}
-		console.log($(this).closest('form'));
 		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var titleId = sec.find("table.editable").attr("data-title-id");
@@ -141,13 +155,11 @@
         		$.each(sec.find("table.editable"),function(){
         			$.each($(this).find('tr:gt(0)'),function(){
         				var row = $(this).data("obj");
-        				console.log($(this).data());
-        				console.log(row)
         				if(row.id=="")
         				{
         					row.id=null;
         				}
-        				row.projectId=projectInfo.id
+        				row.projectId=projectInfo.id;
         				dataList.push(row);
         			});
         		});
@@ -159,7 +171,7 @@
               //团队表格显示隐藏
         		$.each($('table.editable'),function(){
         			var table_id = $(this).attr('data-title-id');
-        			var noedi_table = $('table[data-title-id='+table_id+']')
+        			var noedi_table = $('table[data-title-id='+table_id+']');
         			if($(this).find('tr:gt(0)').length<=0){
         				if(noedi_table.parents('dl').find('dd').length<= 2){
         					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
@@ -317,7 +329,14 @@
 		});
 
 		data.infoTableModelList = infoTableModelList;
-		data.deletedRowIds = deletedRowIds;
+
+        var h_cancel_btn_code = $(btn).next().attr('attr-hide');
+
+        if (h_cancel_btn_code=='NO3_1'){
+            data.deletedRowIds = deletedRowIds;
+        }else if (h_cancel_btn_code=='NO3_8'){
+            data.deletedRowIds = deletedRowIdsGq;
+        }
  		
         //多选不选择的时候：
         var deletedResultTids = new Array();
@@ -339,8 +358,11 @@
         				if (result == 'OK') {
         					updateInforTime(projectInfo.id,"teamTime");
         					layer.msg('保存成功');
-
-        					deletedRowIds = new Array();
+                            if (h_cancel_btn_code=='NO3_1'){
+                                deletedRowIds = new Array();
+                            }else if (h_cancel_btn_code=='NO3_8'){
+                                deletedRowIdsGq = new Array();
+                            }
         					var parent = $(sec).parent();
         					//console.log(parent[0]);
         					var id = parent.data('sectionId');
@@ -351,8 +373,6 @@
 
         				}
         		})
-
-
 	});
 function refreshSection(id)
 {
@@ -410,22 +430,31 @@ function editRow(ele)
 		}//模版反回成功执行
 	});
 }
-var deletedRowIds = new Array();
+
 function delRow(ele)
 {
-	if(confirm('确定要删除？'))
-	{
+	layer.confirm('是否删除?', {
+		btn : [ '确定', '取消' ],
+		title:'提示'
+	}, function(index, layero){
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-
+        var formId = $(ele).closest('form').attr('id');
 		if(typeof id != 'undefined' && id>0)
 		{
-			deletedRowIds.push(id);
+            if( formId =='b_NO3_1') {
+                deletedRowIds.push(id);
+            }else if (formId =='b_NO3_8'){
+                deletedRowIdsGq.push(id);
+            }
 		}
 		tr.remove();
-		check_table();
+		check_table();   
 		check_table_tr_edit();
-	}
+		$(".layui-layer-close1").click();
+	},function(index) {
+	});
+ 
 
 }
 function addRow(ele)
@@ -436,7 +465,7 @@ function addRow(ele)
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
             okback:function(){
-				$('#qualifications_popup_name').html('新增成员')
+				$('#qualifications_popup_name').html('添加持股人')
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='code']").val($(ele).prev().data('code'));
@@ -499,6 +528,37 @@ function saveRow(data)
 		}
 	}
 	$("a[data-close='close']").click();
+}
+
+/**
+* 页面加载时，给类型12的题目，绑定change方法，用于第一次没有返回结果的情况
+*/
+function bindChange(){
+    var dts = $("dt[data-type='12']");
+    $.each(dts, function (i,n) {
+        var dl = $(this).parent();
+        var radios = dl.find('input[type="radio"]');
+        var last_id = dl.find('input[type="radio"]:last').attr('data-id');
+        var inputText = dl.find('input[type="text"]:last');
+
+        $.each(radios , function ( i ,n )
+        {
+            $(this).unbind('change').bind('change',function(){
+                if ( $(this).attr('data-id') == last_id )
+                {
+                    inputText.attr('disabled',false);
+                    inputText.attr('required' , true);
+                }
+                else
+                {
+                    inputText.attr('disabled',true);
+                    inputText.attr('required' , false);
+                }
+            });
+        });
+
+
+    });
 }
 </script>
 </body>

@@ -71,7 +71,6 @@ $(function() {
 		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
 		if(_this.is(':visible')){
-			console.log("编辑隐藏");
 			$('.base_half').css('width','50%');
 		}
 	});
@@ -84,13 +83,13 @@ $(function() {
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
+				var sTop=$(window).scrollTop();
 				var entity = data.entity;
 				var html = toGetHtmlByMark(entity, 'e');
 				var s_div = toEditTitleHtml(entity, html);
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
-				
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
@@ -110,9 +109,9 @@ $(function() {
 					
 				});
 			}
+			$('html,body').scrollTop(sTop);  //定位
 			//去除base_half 类名
 			if(base_editbtn.is(':hidden')){
-				console.log("编辑隐藏");
 				$('.base_half').css('width','100%');
 			}
 		})

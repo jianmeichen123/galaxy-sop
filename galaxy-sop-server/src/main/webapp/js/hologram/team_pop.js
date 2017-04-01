@@ -5,16 +5,19 @@ function delete_row(ele){
 }
 //查看团队成员弹窗
 function showMemberRow(ele){
+	
     var row = $(ele).closest('tr');
      $.getHtml({
     		url:"/sop/html/team_xk.html",//模版请求地址
     		data:"",//传递参数
     		okback:function(){
+    			var pop=$("#qualifications_popup_name");
     			$.each($("#detail-form").find("span"),function(){
     				var ele = $(this);
     				var name = ele.attr('name');
     				ele.text(row.data(name));
     			});
+    			pop.text(row.data(pop.attr("name")));
     			//填充学习经历
                 var obj = row.data("obj")
                 var studyList = obj.studyList;
@@ -32,6 +35,7 @@ function showMemberRow(ele){
                    var work = getWorkList("add",workList);
                    $("#team_work").append(work);
                 }
+              
     		}
      })
 
@@ -88,17 +92,16 @@ function getStudyList(flag,studyList){
                            if(item.indexOf("field")>-1){
 
                                if(!o[item]){
-                                   o[item]="未知"
+                                   o[item]=""
                                }
                            }
                          }
                var tmp = "<div  data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+o.field1+"</span></div>"+
-                        "<div class='team_p_two'>"+
-                            "<ul>"+
-                                "<li><span>学校：</span><span name='field2'>"+o.field2+"</span></li>"+
-                                "<li><span>学位：</span><span name='field3'>"+o.field3+"</span></li>"+
-                                "<li><span>所学专业：</span><span name='field4'>"+o.field4+"</span></li>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+o.field1+"</span></div>"+
+                        "<div>"+
+                            "<ul style='margin-left:14px;'>"+
+                                "<li><span name='field2'>"+o.field2+"</span></li>"+
+                                "<li><span name='field4'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field3'>"+o.field4+"</span></li>"+
                             "</ul>";
                             if(flag=="edit"){
                                 var str ="<div class='team_click'>"+
@@ -122,7 +125,7 @@ function getStartupList(flag,startupList){
 
              if(item.indexOf("field")>-1){
                  if(!o[item]){
-                     o[item]="未知"
+                     o[item]=""
                  }
              }
            }
@@ -130,19 +133,23 @@ function getStartupList(flag,startupList){
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
                            "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span>";
 
-                         str +=  "</div><div class='team_p_two'><ul><li data-mix >";
+                         str +=  "</div><div class='team_p_two'><ul><li data-mix style='margin-bottom:0px;'>";
                         var ls = [];
                         if(o.field3){
-                            ls.push(o.field3)
+                            ls.push("担任职务为"+o.field3)
                         }
                         if(o.field4){
-                            ls.push(o.field4)
+                            if(o.field4 == 'undefined'){
+                            	ls.push("未知")
+                            }else{
+                            	ls.push(o.field4+"核心创始人")
+                            }
                         }
                         if(o.field5){
-                            ls.push(o.field5)
+                            ls.push("创立时股权比例为"+o.field5+"%")
                         }
                         if(o.field6){
-                            ls.push(o.field6)
+                            ls.push("成功或失败或离职的原因为"+o.field6)
                         }
                         var temp = "";
                         $(ls).each(function(i,e){
@@ -158,7 +165,7 @@ function getStartupList(flag,startupList){
                 str+="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span>";
                 str+="<span class='blue' onclick='delete_row(this)'>删除</span></div>";
             }
-            str+="</div><div class='team_p_two' name='field7'>"+o.field7+"</div></div>"
+            str+="</div><div class='team_p_two' name='field7' style='margin-top:0px;'><span>项目概述:</span>"+o.field7+"</div></div>"
             startup += str;
         })
         return startup;
@@ -173,7 +180,7 @@ function getWorkList(flag,workList){
             if(item.indexOf("field")>-1){
 
                 if(!o[item]){
-                    o[item]="未知"
+                    o[item]=""
                 }
             }
           }
@@ -187,10 +194,9 @@ function getWorkList(flag,workList){
                      tmp = tmp+"<span name='field2'>"+o.field2+"</span>"
                 }
 
-                tmp = tmp+ "</div><div class='team_p_two'>"+
-                    "<ul>"+
-                        "<li><span>公司：</span><span name='field3'>"+o.field3+"</span></li>"+
-                        "<li><span>职位：</span><span name='field4'>"+o.field4+"</span></li>"+
+                tmp = tmp+ "</div>"+
+                    "<ul style='margin-left:14px;'>"+
+                        "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4'>"+o.field4+"</span></li>"+
                     "</ul>"
                     if(flag=="edit"){
                         var str =  "<div class='team_click'>"+
@@ -199,7 +205,9 @@ function getWorkList(flag,workList){
                                   "</div>"
                         tmp += str;
                     }
-          tmp += "</div><div class='team_p_two'><span  name='field5'>"+o.field5+"</span></div></div>";
+          tmp += "<ul style='margin-left:14px;'>"+
+          "<li><span  name='field5'>"+o.field5+"</span></li>"+
+          "</ul></div>"
           work += tmp;
        })
        return work;
@@ -208,6 +216,7 @@ function getWorkList(flag,workList){
  function editStudy(ele){
           var div=$(ele).closest('div[data-flag]');
            var index = div.index();
+           alert('编辑学习经历弹窗');
 	      $.getHtml({
         		url:"/sop/html/team_learn.html",//模版请求地址
         		data:"",//传递参数
@@ -245,7 +254,6 @@ function getWorkList(flag,workList){
  function editWork(ele){
           var div=$(ele).closest('div[data-flag]');
           var index = div.index();
-
 	      $.getHtml({
         		url:"/sop/html/team_work.html",//模版请求地址
         		data:"",//传递参数
@@ -274,8 +282,15 @@ function getWorkList(flag,workList){
                         }
 
                     });
+                    //文本框剩余字数
+        			$.each($(".team_textarea"),function(){
+        				var len=$(this).val().length;
+        				var initNum=$(this).siblings('.num_tj').find("span").text();
+        				$(this).siblings('.num_tj').find("span").text(initNum-len);
+        			})
         		}
           })
+
           return false;
  }
  //编辑创业经历弹窗
@@ -305,12 +320,14 @@ function getWorkList(flag,workList){
                          if(name.indexOf("field")>-1){
                              if(json[name] && json[name] != "未知"){
                                  ele.val(json[name]);
+                             }else{
+                            	 json[name]='';
                              }
                          }else{
                              ele.val(json[name]);
                          }
                      });
-
+                   
                     $("#startup_form").find("[name='field1']").val(json["field1"]);
                     $("#startup_form").find("[name='field2']").val(json["field2"]);
                     $("#startup_form").find("[name='field3']").val(div.attr("data-a"));
@@ -324,8 +341,17 @@ function getWorkList(flag,workList){
          			}else{
          				$('.team_stock_on').show();
          			}
+         			console.log($(".team_textarea").length);
+         			//文本框剩余字数
+                    $.each($(".team_textarea"),function(){
+        				var len=$(this).val().length;
+        				var initNum=$(this).siblings('.num_tj').find("span").text();
+        				$(this).siblings('.num_tj').find("span").text(initNum-len);
+        			})
          		}
+ 	
            })
+          
            return false;
   }
 

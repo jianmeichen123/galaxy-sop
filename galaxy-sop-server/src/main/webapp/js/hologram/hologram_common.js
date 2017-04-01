@@ -262,7 +262,7 @@ function buildResults(sec,title,readonly)
 				}
 				$.each(radios , function ( i ,n )
 				{
-					$(this).bind('change',function(){
+					$(this).unbind('change').bind('change',function(){
 						if ( $(this).attr('data-id') == last_id )
 						{
 							inputText.attr('disabled',false);
@@ -339,6 +339,7 @@ function buildResults(sec,title,readonly)
 			{
 				var str=title.resultList[0].contentDescribe1;
 				if(str){
+					str=str.replace(/<br\/>/g,'\n');
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
@@ -630,22 +631,40 @@ function validate(){
 	 for(var i=0;i<inputs.length;i++){
 		 	var inputValRule=inputs.eq(i).attr("data-valrule");
 			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
-			if(inputValRuleMark=="10,2"){
+			if(inputValRule=="2" && inputValRuleMark=="3"){
 				var validate={
-						"data-rule-verify_102":"true",
-						"name":i,
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_2":"true",
 						//"required":"required",
-						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+						"name":i,
+						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="3"){
+			}else if(inputValRule=="2" && inputValRuleMark=="2"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_1":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_1":"<font color=red>*</font>支持0～99的整数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="3" && inputValRuleMark=="3"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-vinputValRule_3":"true",
 						//"required":"required",
 						"name":i,
 						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="10,2"){
+				var validate={
+						"data-rule-verify_102":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
@@ -709,9 +728,13 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 }, "不能超过9999999999");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
-	var vinputValRule_2 = /^(?:[1-9][0-9]?|1[0-9][0-9]|999)$/;
+	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2})$/;;
 	return this.optional(element) || (vinputValRule_2.test(value));
 }, "不能超过100"); 
+jQuery.validator.addMethod("vinputValRule_1", function(value, element) {   
+	var vinputValRule_1 = /^([1-9]{1}[0-9]{0,1}|0)$/;;
+	return this.optional(element) || (vinputValRule_1.test(value));
+}, "不能超过100")
 //vinputValRule=="3"
 jQuery.validator.addMethod("vinputValRule_3", function(value, element) {   
 	//var verify_3 = /^[0-9]{1,3}$/;
@@ -722,17 +745,18 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
 	//var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
-	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100)$/;
+	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100|100.0|100.00)$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
 jQuery.validator.addMethod("verify_52", function(value, element) {   
 	var verify_52 = /^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$/;
+	//var verify_52 =  /^(([1-9][0-9]{0,4})|([0]\.[1-9][0-9])|([0]\.[0-9][1-9])|([1-9][0-9]{1,3}\.[0-9]{1,2})|([1-9][0-9]{0,4}\.[0]{1,2}))$/;
 	return this.optional(element) || (verify_52.test(value));
 }, "不能超过99999"); 
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
-	var vinputValRule_4 =/^(?:[1-9]|[0-9](\.\d{1,1})|[1-9][0-9]|[1-9][0-9](\.\d{1,1})?|1[0-6][0-7]|1[0-6][0-7](\.\d{1,1})|168)$/;
+	var vinputValRule_4 = /^(?:[1-9]\d|[1-9]\d(\.\d{1,1})?|1[0-5][0-9]|1[0-5][0-9](\.\d{1,1})|16[0-7]|16[0-7](\.\d{1,1})|168|168.0)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
 //百分数
