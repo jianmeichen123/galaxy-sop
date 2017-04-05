@@ -97,11 +97,10 @@
               //新增一条记录
               var str = "<div  data-flag class='team_div'><span name='id' style='display:none'>"+eduJson["id"]+"</span>"+
                "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span>毕业时间：</span><span name='field1'>"+eduJson['field1']+"</span></div>"+
-                "<div class='team_p_two'>"+
-                    "<ul>"+
-                        "<li><span>学校：</span><span name='field2'>"+eduJson['field2']+"</span></li>"+
-                        "<li><span>学位：</span><span name='field4'>"+eduJson['field4']+"</span></li>"+
-                        "<li><span>所学专业：</span><span name='field3'>"+eduJson['field3']+"</span></li>"+
+                "<div>"+
+                    "<ul style='margin-left:16px;'>"+
+                        "<li><span name='field2'>"+eduJson['field2']+"</span></li>"+
+                        "<li><span name='field3'>"+eduJson['field3']+"</span>&nbsp;·&nbsp;<span name='field4'>"+eduJson['field4']+"</span></li>"+
                     "</ul>"+
                     "<div class='team_click'>"+
                     "<span class='blue ' onclick='editStudy(this)' >编辑</span>"+
