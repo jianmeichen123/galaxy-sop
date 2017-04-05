@@ -226,10 +226,12 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 					    }
 					    startSignal.await();
 					}
+					cache.removeRedisKeyOBJ(redisKey);
 			}
 			responseBody.setResult(new Result(Status.OK,null));
 		} catch (Exception e) {
 			e.printStackTrace();
+			cache.removeRedisKeyOBJ(user.getId()+informationFile.getFileReidsKey());
 			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			logger.error("operInformationFile 操作失败",e);
 		}

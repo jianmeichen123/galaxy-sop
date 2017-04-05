@@ -301,7 +301,7 @@ function buildResults(sec,title,readonly)
 					}
 				}
 			});
-		}*/
+		}
 		else if(title.type == 14)
 		{
 			if(readonly == true)
@@ -312,7 +312,7 @@ function buildResults(sec,title,readonly)
 			{
 				$("select[data-id='"+title.id+"']").val(title.resultList[0].contentChoose) ;
 			}
-		}
+		}*/
 		else if(title.type == 15)
 		{
 			if(readonly == true)
@@ -361,7 +361,8 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
+				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未选择":title.resultList[0].valueName);
+				//$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 			}
 			else
 			{
@@ -560,6 +561,40 @@ function setDate(pid, readonly) {
 				}
 			})
 
+}
+/*文件刷新*/
+function picData(pid){
+	var fileids = $(".mglook");
+	var infoFileids = "";
+	var data={};
+	for(var i = 0;i < fileids.length; i++) {
+		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
+	}
+	data.projectId = pid;
+	data.infoFileids = infoFileids;
+	sendPostRequestByJsonObjNoCache(
+				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
+				data,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						var files = data.entity.commonFileList;
+						if(files != null && files != ""){
+							$.each(files, function (key, value) { 
+								var fl = value;
+								var html="";
+								for(var i = 0;i < fl.length; i++){
+									html +='<img src="'+fl[i].fileUrl+'" alt="">';
+								}
+								$('#'+"look-"+key).html(html);
+								
+							});
+						}
+						
+					} else {
+
+					}
+	});
 }
 /*文本域字数统计*/
 function countChar(textareaName,spanName,maxLimit){

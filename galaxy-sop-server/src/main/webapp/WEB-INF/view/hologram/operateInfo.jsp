@@ -42,20 +42,7 @@
 <script type="text/javascript">
 var key = Date.parse(new Date());
 var deleteids = "";
-	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO4", null,
-		function(data) {
-			var result = data.result.status;
-			if (result == 'OK') {
-				var entity = data.entity;
-				$("#page_list").tmpl(entity).appendTo('#page_all');
-				$(".section").each(function(){
-					$(this).showResults(true);
-				});
-			} else {
-
-			}
-		})
+getData();
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
 		var section = $(this).parents('.section');
@@ -206,13 +193,12 @@ var deleteids = "";
 		{
 			return;
 		}
-		
 		$("body").showLoading();
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,function(dataParam){
 			//进行上传
 			var result = dataParam.result.status;
 			if(result == "OK"){
-				sendPostRequestByJsonObj(
+				sendPostRequestByJsonObjNoCache(
 						platformUrl.saveOrUpdateInfo , 
 						data,
 						function(data) {
@@ -220,13 +206,15 @@ var deleteids = "";
 							if (result == 'OK') {
 								updateInforTime(projectInfo.id,"operationDataTime");
 								layer.msg('保存成功');
-								tabInfoChange('3');
+								//tabInfoChange('3');
 								$('#'+id_code).show();
 								$('#b_'+id_code).remove();
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".loading-indicator-overlay").remove();
 								$(".loading-indicator").remove();
-								
+								$(".section").remove();
+								getData();
+								picData(projectInfo.id);
 							} else {
 								layer.msg("操作失败!");
 							}
@@ -360,37 +348,24 @@ function previewImage(file,callback){//file为plupload事件监听函数参数�
 	}	
 	
 }
-var fileids = $(".mglook");
-var infoFileids = "";
-var data={};
-for(var i = 0;i < fileids.length; i++) {
-	  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
-}
-data.projectId = projectInfo.id;
-data.infoFileids = infoFileids;
-sendPostRequestByJsonObj(
-			Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
-			data,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK') {
-					var files = data.entity.commonFileList;
-					if(files != null && files != ""){
-						$.each(files, function (key, value) { 
-							var fl = value;
-							var html="";
-							for(var i = 0;i < fl.length; i++){
-								html +='<img src="'+fl[i].fileUrl+'" alt="">';
-							}
-							$('#'+"look-"+key).html(html);
-							
-						});
-					}
-					
-				} else {
+picData(projectInfo.id);
 
-				}
-});
+function getData(){
+	//整体页面显示
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO4", null,
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				var entity = data.entity;
+				$("#page_list").tmpl(entity).appendTo('#page_all');
+				$(".section").each(function(){
+					$(this).showResults(true);
+				});
+			} else {
+
+			}
+		})
+}
 </script>
 
 </body>
