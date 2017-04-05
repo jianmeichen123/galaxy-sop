@@ -213,7 +213,7 @@ function one_select_edit(title,inputtype,type){
 				"</dd>";	
 		}else if(type=='5'){
 			eresult = 
-				"<dd>" +
+				"<dd  class='fl_none'>" +
 					"<ul class=\"h_radios clearfix\">" +
 						li + 
 					"</ul>" +
@@ -464,7 +464,7 @@ function type_5_html(title,mark){
 			}
 		}
 		var eresult_2 = 
-			"<dd class=\"fl_none fl_none_box\">" +
+			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
 					"data-title-id='"+title.id+"' id ='"+title.id+"' data-type='"+title.type+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' >" +
 					 	r_value +
