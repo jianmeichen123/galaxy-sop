@@ -160,6 +160,7 @@
 		var data = {
 			projectId : projectInfo.id
 		};
+
 		//普通结果
 		var infoModeList = new Array();
 		$.each(fields,function(){
@@ -242,6 +243,7 @@
 
 				}
 		}) 
+
 	});
 function refreshSection(id)
 {
@@ -384,6 +386,7 @@ function getTableRowLimit(code)
 	}
 	return 10;
 }
+
 </script>
 </body>
 
