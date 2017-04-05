@@ -52,17 +52,19 @@
 				customBuilder();
 				$(".section").each(function(){
 					$(this).showResults(true);
-					$.each($('.mb_24 table'),function(){
+					var table = $(this).find('.mb_24 table');
+					table.each(function(){
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
-							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-							}
-							}
+								$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+							} 
+						}
 						else{
 							$(this).show();
 						}
 					})
+					
 				});
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
@@ -97,6 +99,7 @@
 	}
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
+		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
@@ -117,11 +120,11 @@
 					$("table").css({"width":"90%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					//文本域剩余字符数
-					for(var i=0;i<$(".textarea_h").length;i++){
-						var len=$(".textarea_h").eq(i).val().length;
-						var initNum=$(".num_tj").eq(i).find("label").text();
-						$(".num_tj").eq(i).find("label").text(initNum-len);
-						
+					var textarea_h = section.find('.textarea_h');
+					for(var i=0;i<textarea_h.length;i++){
+						var len=textarea_h.eq(i).val().length;
+						var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+						textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
 					}
 					/* 文本域自适应高度 */
 					for(var i=0;i<$("textarea").length;i++){

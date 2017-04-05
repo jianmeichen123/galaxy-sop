@@ -60,18 +60,15 @@
         });
     })
 
-jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
-	return this.optional(element) || (verify_32.test(value));
-}, "不能超过100"); 
-    $('.team_stock').change( function(){
+
+   /*  $('.team_stock').change( function(){
         var attr_name=$(this).attr('attr-name');
         if(attr_name=="yes"){
             $('.team_stock_on').show()
         }else{
             $('.team_stock_on').hide()
         }
-    })
+    }) */
     //验证成功,保存
     function save_startup(){
     	if(!$("#startup_form").validate().form())
@@ -80,6 +77,7 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 		}
     	if(beTimeCompare($("#startup_form [name='field1']").val(),$("#startup_form [name='field2']").val())){
 	        var json =getData1($("#startup_form"));
+	        console.log(json)
 	        var index = json["index"];
 	        if(!json["field1"]){
 	            json["field1"]="未知"
@@ -102,16 +100,16 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 	
 					var ls = [];
 					if(json["field3"]){
-					    ls.push(json["field3"])
+					    ls.push("担任职务为"+json["field3"])
 					}
 					if(json["field4"]){
 					    ls.push(json["field4"])
 					}
 					if(json["field5"]){
-					    ls.push(json["field5"])
+					    ls.push("创立时股权比例为"+json["field5"]+"%")
 					}
 					if(json["field6"]){
-					    ls.push(json["field6"])
+					    ls.push("成功或失败或离职的原因为"+json["field6"])
 					}
 					var temp = "";
 					$(ls).each(function(i,e){
@@ -124,7 +122,7 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 	
 					str = str + temp + "</li></ul>";
 					str +="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span><span class='blue' onclick='delete_row(this)' >删除</span>";
-					str +="</div></div><div class='team_p_two' name='field7'>"+json["field7"]+"</div></div>";
+					str +="</div></div><div class='team_p_two' style='margin-top:0px;'><span>项目概述:</span><span name='field7'>"+json["field7"]+"</span></div></div>";
 	            $("#team_startup").append(str);
 	        }else{
 	            //修改操作
@@ -143,16 +141,16 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 	            div.attr("data-d",json["field6"]);
 	            var ls = [];
 					if(json["field3"]){
-					    ls.push(json["field3"])
+					    ls.push("担任职务为"+json["field3"])
 					}
 					if(json["field4"]){
 					    ls.push(json["field4"])
 					}
 					if(json["field5"]){
-					    ls.push(json["field5"])
+					    ls.push("创立时股权比例为"+json["field5"]+"%")
 					}
 					if(json["field6"]){
-					    ls.push(json["field6"])
+					    ls.push("成功或失败或离职的原因为"+json["field6"])
 					}
 					var temp = "";
 					$(ls).each(function(i,e){

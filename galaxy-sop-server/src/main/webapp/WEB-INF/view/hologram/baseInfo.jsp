@@ -92,7 +92,7 @@ $(function() {
 				var sTop=$(window).scrollTop();
 				
 				$.each($('.textarea_h'),function(i,data){
-					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
 					  var oldnum= $(this).siblings('p').find('label').html();
 					  var font_num = oldnum - $(this).val().length;
@@ -163,7 +163,7 @@ $(function() {
 			field.val(field.val().replace(/ /g,"&nbsp;"));
 			var typ = field.data('type');
 			var name = field.data('name');
-			var value = field.val().replace(/\n/g,'<br />');
+			var value = field.val().replace(/\n/g,'<br/>');
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : typ

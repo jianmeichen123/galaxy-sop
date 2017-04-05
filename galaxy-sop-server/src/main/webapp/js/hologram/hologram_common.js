@@ -126,7 +126,8 @@ function tabInfoChange(index){
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
         				function(data) {
-
+			console.log("!!!!!!!!!!!!!");
+			console.log(data);
         			var result = data.result.status;
         			if (result == 'OK')
         			{
@@ -307,7 +308,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName);
+				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未选择":title.resultList[0].valueName);
 			}
 			else
 			{
@@ -324,9 +325,21 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
+				var str=title.resultList[0].contentDescribe1;
+				if(str){
+					str=str.replace(/<br\/>/g,'\n');
+					str=str.replace(/<br>/g,'\n');
+					str=str.replace(/&nbsp;/g," ");
+				}
+				var str2=title.resultList[0].contentDescribe2;
+				if(str2){
+					str2=str2.replace(/<br\/>/g,'\n');
+					str2=str2.replace(/<br>/g,'\n');
+					str2=str2.replace(/&nbsp;/g," ");
+				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
-				textareas.eq(0).html(title.resultList[0].contentDescribe1);
-				textareas.eq(1).html(title.resultList[0].contentDescribe2);
+				textareas.eq(0).html(str);
+				textareas.eq(1).html(str2);
 			}
 		}
 		else if(title.type == 8)
@@ -723,7 +736,8 @@ $.validator.setDefaults({
 });
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {   
-	var verify_102 = /^(0|1.0|1.00|0.0|0.00|([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0])|([1-9][0-9]{0,9}\.[0]))$/;
+	//var verify_102 = /^(0|1.0|1.00|0.0|0.00|([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0])|([1-9][0-9]{0,9}\.[0]))$/;
+	var verify_102 = /^([0]{1}(\.\d{1,2})|0|[1-9]{1}(\.\d{1,2})|[1-9]|[1-9]{1}[0-9]{2,10}(\.\d{1,2})|^[1-9]\d{1,9}|[1-9]{1}[0-9](\.\d{1,2}))$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
 //vinputValRule=="2"

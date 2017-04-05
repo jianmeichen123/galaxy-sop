@@ -49,22 +49,22 @@
 	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask" p:disabled="false"/>
 	
 	<bean id="galaxyTaskScheduler" class="com.galaxyinternet.scheduling.GalaxyTaskScheduler"/>
-	<!--<task:scheduled-tasks scheduler="galaxyTaskScheduler">
-		&lt;!&ndash;
+	<task:scheduled-tasks scheduler="galaxyTaskScheduler">
+		<!-- 
 		<task:scheduled ref="testTask" method="execute" cron="*/5 * * * * MON-FRI"/>
 		<task:scheduled ref="testAnnotaionTask" method="execute" cron="*/5 * * * * MON-FRI"/>
-		 &ndash;&gt;
+		 -->
 		<task:scheduled ref="meetingPassStageTask" method="execute" cron="0 0 1,4,7 1 * ?"/>
-		&lt;!&ndash; 每天凌晨2点开始拉取更新会议排期缓存数据 &ndash;&gt;
+		<!-- 每天凌晨2点开始拉取更新会议排期缓存数据 -->
 		<task:scheduled ref="pullMessageTask" method="execute" cron="0 0 2 * * ?"/>
-		&lt;!&ndash; 每30秒钟就行IOS消息数据 &ndash;&gt;
+		<!-- 每30秒钟就行IOS消息数据 -->
 		<task:scheduled ref="pushMessageTask" method="execute" cron="*/30 * * * * ?"/>
-		&lt;!&ndash; 每月1号为有实际注资信息的项目发添加运营数据的消息 &ndash;&gt;
+		<!-- 每月1号为有实际注资信息的项目发添加运营数据的消息 -->
 		<task:scheduled ref="pushMessageOperation" method="execute" cron="0 0 0 1 * ?"/>
-		&lt;!&ndash; 每4小时，重新设置缓存的值
+		<!-- 每4小时，重新设置缓存的值
 		<task:scheduled ref="utilsService" method="execute" cron="0 0 0/4 * * ? "/>
-		 &ndash;&gt;
-	</task:scheduled-tasks>  -->
+		 -->
+	</task:scheduled-tasks>  
 	<!--  0 0 1,4,7 1 * ?		
 	2016/7/1 1:00:00
 	2016/7/1 4:00:00

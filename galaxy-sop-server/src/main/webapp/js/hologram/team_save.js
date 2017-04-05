@@ -19,14 +19,14 @@
             var ele = $(this);
             var name = ele.attr('name');
             row[name]= ele.val();
-            row["field2"] = $("#detail-form").find("input:radio[name='field2']:checked").attr("data-value");
+            row["field3"] = $("#detail-form").find("input:radio[name='field3']:checked").attr("data-value");
         });
 
         $.each($("#detail-form").find("input, select"),function(){
             var ele = $(this);
             var name = ele.attr('name');
             data[name]= ele.val();
-            data["field2"] = $("#detail-form").find("input:radio[name='field2']:checked").attr("data-value");
+            data["field3"] = $("#detail-form").find("input:radio[name='field3']:checked").attr("data-value");
         });
         var titleId = data["titleId"]
         var projectId = data["projectId"]

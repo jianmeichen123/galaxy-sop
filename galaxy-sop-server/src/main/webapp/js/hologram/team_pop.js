@@ -59,7 +59,7 @@ function editMemberRow(ele){
                     ele.find("option:eq(0)").attr("selected",true);
                 }
 			});
-			$("input:radio[name='field2'][data-value='" + row.data("field2") + "']").prop("checked", "checked");
+			$("input:radio[name='field3'][data-value='" + row.data("field3") + "']").prop("checked", "checked");
             //填充学习经历
             var obj = row.data("obj")
 
@@ -101,7 +101,7 @@ function getStudyList(flag,studyList){
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
-                                "<li><span name='field4'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field3'>"+o.field4+"</span></li>"+
+                                "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4'>"+o.field4+"</span></li>"+
 
                             "</ul>";
                             if(flag=="edit"){
@@ -143,7 +143,7 @@ function getStartupList(flag,startupList){
                             if(o.field4 == 'undefined'){
                             	ls.push("未知")
                             }else{
-                            	ls.push(o.field4+"核心创始人")
+                            	ls.push(o.field4)
                             }
                         }
                         if(o.field5){
@@ -336,11 +336,11 @@ function getWorkList(flag,workList){
                     $("#startup_form").find("[name='field6']").val(div.attr("data-d"));
                     $("#startup_form").find("[name='field7']").text(json["field7"]);
 //         			判断是否选择否
-         			if($('input[name=field4]:checked').attr('attr-name') == "no"){
+         			/*if($('input[name=field4]:checked').attr('attr-name') == "no"){
          				$('.team_stock_on').hide();
          			}else{
          				$('.team_stock_on').show();
-         			}
+         			}*/
          			console.log($(".team_textarea").length);
          			//文本框剩余字数
                     $.each($(".team_textarea"),function(){
