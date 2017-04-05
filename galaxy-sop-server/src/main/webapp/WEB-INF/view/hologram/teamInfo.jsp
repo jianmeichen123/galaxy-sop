@@ -543,7 +543,9 @@ function bindChange(){
         var radios = dl.find('input[type="radio"]');
         var last_id = dl.find('input[type="radio"]:last').attr('data-id');
         var inputText = dl.find('input[type="text"]:last');
-
+		if(dl.find('input[type="radio"]:last:checked')){
+			 inputText.attr('required' , true);
+		}
         $.each(radios , function ( i ,n )
         {
             $(this).unbind('change').bind('change',function(){
