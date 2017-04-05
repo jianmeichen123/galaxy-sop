@@ -58,6 +58,7 @@ var deleteids = "";
 		})
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
+		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
@@ -75,10 +76,11 @@ var deleteids = "";
 					validate();
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
-					for(var i=0;i<$(".textarea_h").length;i++){
-						var len=$(".textarea_h").eq(i).val().length;
-						var initNum=$(".num_tj").eq(i).find("label").text();
-						$(".num_tj").eq(i).find("label").text(initNum-len);
+					var textarea_h = section.find('.textarea_h');
+					for(var i=0;i<textarea_h.length;i++){
+						var len=textarea_h.eq(i).val().length;
+						var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+						textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
 					}
 					/* 文本域自适应高度 */
 					for(var i=0;i<$("textarea").length;i++){

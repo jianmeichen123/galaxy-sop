@@ -76,6 +76,7 @@
 		})
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
+		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
@@ -84,7 +85,6 @@
 		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
-
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -94,11 +94,11 @@
 					validate();
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
-					for(var i=0;i<$(".textarea_h").length;i++){
-						var len=$(".textarea_h").eq(i).val().length;
-						var initNum=$(".num_tj").eq(i).find("label").text();
-						$(".num_tj").eq(i).find("label").text(initNum-len);
-						
+					var textarea_h = section.find('.textarea_h');
+					for(var i=0;i<textarea_h.length;i++){
+						var len=textarea_h.eq(i).val().length;
+						var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+						textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
 					}
 					/* 文本域自适应高度 */
 					for(var i=0;i<$("textarea").length;i++){
@@ -275,19 +275,22 @@
 			else if(type == 15)
 			{
                 var _has = false;
+                var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>");
+				var str=str.replace(/\s/g,"&nbsp;");
                 $.each(infoModeList,function(i,n){
                     if(infoModeList[i].type == 15 && infoModeList[i].titleId == infoMode.titleId) {
                         _has = true;
                         if(!infoModeList[i].hasOwnProperty('remark1')){
-                            infoModeList[i].remark1 = field.val();
+                            infoModeList[i].remark1 = str;
                         }else{
-                            infoModeList[i].remark2 = field.val();
+                            infoModeList[i].remark2 = str;
                         }
                     }
                 });
 
                 if( !_has ) {
-                    infoMode.remark1 = field.val();
+                    infoMode.remark1 = str;
                 }else {
                     infoMode = null;
                 }
