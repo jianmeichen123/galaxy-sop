@@ -143,7 +143,7 @@ function getStartupList(flag,startupList){
                             if(o.field4 == 'undefined'){
                             	ls.push("未知")
                             }else{
-                            	ls.push(o.field4+"核心创始人")
+                            	ls.push(o.field4)
                             }
                         }
                         if(o.field5){
