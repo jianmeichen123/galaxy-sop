@@ -91,7 +91,7 @@ $(function() {
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
 				$.each($('.textarea_h'),function(i,data){
-					  $(this).val($(this).val().replace(/\<br \/\>/g,'\n'));
+					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
@@ -163,7 +163,7 @@ $(function() {
 			field.val(field.val().replace(/ /g,"&nbsp;"));
 			var typ = field.data('type');
 			var name = field.data('name');
-			var value = field.val().replace(/\n/g,'<br />');
+			var value = field.val().replace(/\n/g,'<br/>');
 			
 			
 			var infoMode = {
