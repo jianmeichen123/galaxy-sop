@@ -324,9 +324,21 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
+				var str=title.resultList[0].contentDescribe1;
+				if(str){
+					str=str.replace(/<br\/>/g,'\n');
+					str=str.replace(/<br>/g,'\n');
+					str=str.replace(/&nbsp;/g," ");
+				}
+				var str2=title.resultList[0].contentDescribe2;
+				if(str2){
+					str2=str2.replace(/<br\/>/g,'\n');
+					str2=str2.replace(/<br>/g,'\n');
+					str2=str2.replace(/&nbsp;/g," ");
+				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
-				textareas.eq(0).html(title.resultList[0].contentDescribe1);
-				textareas.eq(1).html(title.resultList[0].contentDescribe2);
+				textareas.eq(0).html(str);
+				textareas.eq(1).html(str2);
 			}
 		}
 		else if(title.type == 8)
