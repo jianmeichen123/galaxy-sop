@@ -959,5 +959,6 @@ function type_15_html(title,mark){
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
 	}
 }
+//下方保存按钮点击
 
 
