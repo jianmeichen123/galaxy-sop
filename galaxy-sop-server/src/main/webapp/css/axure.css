@@ -2606,7 +2606,7 @@ input:-ms-input-placeholder {
 .finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
 .mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
 .font_num_m{width:320px;margin: -2px 10px 0px 0;}
-
+.valuation table tr td:first-child{background-color: #accbff;color:#fff;}
 
 
 

@@ -29,7 +29,7 @@
   </ul>
   <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
-		<div class="tabtxt" id="page_all">
+		<div class="tabtxt valuation" id="page_all">
 		<!--tab-->
 
 			
