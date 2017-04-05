@@ -336,11 +336,11 @@ function getWorkList(flag,workList){
                     $("#startup_form").find("[name='field6']").val(div.attr("data-d"));
                     $("#startup_form").find("[name='field7']").text(json["field7"]);
 //         			判断是否选择否
-         			if($('input[name=field4]:checked').attr('attr-name') == "no"){
+         			/*if($('input[name=field4]:checked').attr('attr-name') == "no"){
          				$('.team_stock_on').hide();
          			}else{
          				$('.team_stock_on').show();
-         			}
+         			}*/
          			console.log($(".team_textarea").length);
          			//文本框剩余字数
                     $.each($(".team_textarea"),function(){

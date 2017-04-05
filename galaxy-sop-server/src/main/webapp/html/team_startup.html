@@ -61,14 +61,14 @@
     })
 
 
-    $('.team_stock').change( function(){
+   /*  $('.team_stock').change( function(){
         var attr_name=$(this).attr('attr-name');
         if(attr_name=="yes"){
             $('.team_stock_on').show()
         }else{
             $('.team_stock_on').hide()
         }
-    })
+    }) */
     //验证成功,保存
     function save_startup(){
     	if(!$("#startup_form").validate().form())
@@ -77,6 +77,7 @@
 		}
     	if(beTimeCompare($("#startup_form [name='field1']").val(),$("#startup_form [name='field2']").val())){
 	        var json =getData1($("#startup_form"));
+	        console.log(json)
 	        var index = json["index"];
 	        if(!json["field1"]){
 	            json["field1"]="未知"
