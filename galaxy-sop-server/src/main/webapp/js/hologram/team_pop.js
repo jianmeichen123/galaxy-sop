@@ -59,7 +59,7 @@ function editMemberRow(ele){
                     ele.find("option:eq(0)").attr("selected",true);
                 }
 			});
-			$("input:radio[name='field2'][data-value='" + row.data("field2") + "']").prop("checked", "checked");
+			$("input:radio[name='field3'][data-value='" + row.data("field3") + "']").prop("checked", "checked");
             //填充学习经历
             var obj = row.data("obj")
 
