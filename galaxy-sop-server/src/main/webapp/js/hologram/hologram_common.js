@@ -126,7 +126,8 @@ function tabInfoChange(index){
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
         				function(data) {
-
+			console.log("!!!!!!!!!!!!!");
+			console.log(data);
         			var result = data.result.status;
         			if (result == 'OK')
         			{
@@ -307,7 +308,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName);
+				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未选择":title.resultList[0].valueName);
 			}
 			else
 			{
