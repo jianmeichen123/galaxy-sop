@@ -81,10 +81,9 @@
             if(json["field2"]){
                 str = str+"<span name='field2'>"+json["field2"]+"</span>"
             }
-            str = str+ "</div><div class='team_p_two'>"+
-                "<ul>"+
-                    "<li><span>公司：</span><span name='field3'>"+json['field3']+"</span></li>"+
-                    "<li><span>职位：</span><span name='field4'>"+json['field4']+"</span></li>"+
+            str = str+ "</div><div>"+
+                "<ul style='margin-left:16px'>"+
+                    "<li><span name='field3'>"+json['field3']+"</span>&nbsp;·&nbsp;<span name='field4'>"+json['field4']+"</span></li>"+
                 "</ul>"+
                 "<div class='team_click'>"+
                     "<span class='blue '  onclick='editWork(this)'   >编辑</span>"+

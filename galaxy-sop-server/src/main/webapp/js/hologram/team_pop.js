@@ -101,7 +101,7 @@ function getStudyList(flag,studyList){
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
-                                "<li><span name='field4'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field3'>"+o.field4+"</span></li>"+
+                                "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4'>"+o.field4+"</span></li>"+
 
                             "</ul>";
                             if(flag=="edit"){
