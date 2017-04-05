@@ -52,17 +52,19 @@
 				customBuilder();
 				$(".section").each(function(){
 					$(this).showResults(true);
-					$.each($('.mb_24 table'),function(){
+					var table = $(this).find('.mb_24 table');
+					table.each(function(){
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
-							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-							}
-							}
+								$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+							} 
+						}
 						else{
 							$(this).show();
 						}
 					})
+					
 				});
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
