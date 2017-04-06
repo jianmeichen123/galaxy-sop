@@ -13,7 +13,7 @@
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}
 		
-	{{if sign=="3"}}
+	{{if sign=="3" && isShow=="t"}}
 		<div class="sign_title">\${name}</div>
 		{{each(i,childList) childList}}
 		<div class="mb_16">
@@ -200,6 +200,7 @@
 
 		{{/each}}
 	{{else}}
+{{if isShow=="t"}}
 	<div class="mb_16">
 	   <dl class="h_edit_txt clearfix">		
 		{{if type=="1"}}
@@ -396,7 +397,7 @@
 	  </dl>
 	</div>
 
-
+{{/if}}
 	{{/if}}
 
 	{{/each}}
@@ -421,7 +422,7 @@
 	</c:if>
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
-	{{if sign=="3"}}
+	{{if sign=="3" && isShow=="t"}}
 	<div class="sign_title" data-title-id="\${id}" data-code="\${code}">\${name}</div>
 		{{each(i,childList) childList}}
 			<div class="mb_24 clearfix">
@@ -511,6 +512,7 @@
 		{{/each}}
 
 	{{else}}
+{{if isShow=="t"}}
 	<div class="mb_24 clearfix">
 	  <dl class="clearfix">
 		{{if type=="1"}}
@@ -611,7 +613,7 @@
 		{{/if}}                      
 		</dl>		
 	</div>
-
+{{/if}}
 	{{/if}}
 	{{/each}}
   </div>
