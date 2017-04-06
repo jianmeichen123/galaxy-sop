@@ -83,20 +83,35 @@
             var ele = $(this);
             var name = ele.attr('name');
             eduJson[name]= ele.val();
-            if(name.indexOf("field")>-1){
-                 if(ele.val()){
-                        eduJson[name]= ele.val();
-                   }else{
-                        eduJson[name]="未知"
-                   }
+            if(name=="field1"){
+            	 if(ele.val()){
+                     eduJson[name]= ele.val()+"毕业";
+                }else{
+                     eduJson[name]="未知"
+                }
+            }else{
+            	 if(name.indexOf("field")>-1){
+                     if(ele.val()){
+                            eduJson[name]= ele.val();
+                       }else{
+                            eduJson[name]="未知"
+                       }
+                }
             }
+           
         });
 
         var index = eduJson["index"];
         if(!index){
               //新增一条记录
+        	 var strField1=eduJson['field1'];
+             if(strField1=="未知"){
+	           	  strField1=strField1;
+	             }else{
+	           	  strField1=strField1+"毕业";
+	             }
               var str = "<div  data-flag class='team_div'><span name='id' style='display:none'>"+eduJson["id"]+"</span>"+
-               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+eduJson['field1']+"</span></div>"+
+               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+strField1+"</span></div>"+
                 "<div>"+
                     "<ul style='margin-left:16px;'>"+
                         "<li><span name='field2'>"+eduJson['field2']+"</span></li>"+
