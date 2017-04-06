@@ -137,14 +137,20 @@ function tabInfoChange(index){
         						buildResults(sec,title,readonly);
         						buildTable(sec,title);
         						buildfinxedTable(sec,title,readonly);
+        						dtWidth();
         					});
         				}
         			}
         		})
 		}
-
 };
-
+function dtWidth(){
+	//获取类型为3、13时题干的宽度
+	$.each($(".checked_div"),function(){
+		var dt_w=$(this).siblings("dt").width();
+		$(this).css("margin-left",dt_w+10);
+	})
+}
 function buildResults(sec,title,readonly)
 {
 	//普通字段
@@ -188,7 +194,7 @@ function buildResults(sec,title,readonly)
 
 			if (readonly == true)
 			{
-				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
+				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().children();
 				$.each(dds,function(i,n)
 				{
 					if ($(this).text() == '未选择')
@@ -366,14 +372,14 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
-				$("option[value='"+title.resultList[0].contentChoose+"']").attr("selected",true);
+				$('select[data-id="' + title.id + '"]').val( title.resultList[0].contentChoose );
 			}
 		}
 	}else{
 		if(title.type == 3){
 			if (readonly == true)
 			{
-				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
+				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().children();
 				$.each(dds,function(i,n)
 				{
 					if ($(this).text() == '未选择')
@@ -382,7 +388,7 @@ function buildResults(sec,title,readonly)
 					}
 				});
 				var dd='<dd>未选择</dd>';
-				$("dt[data-type='3'][data-title-id='"+ title.id +"']").after(dd);
+				$("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().append(dd);
 			}
 		}
 	}
@@ -568,6 +574,7 @@ function picData(pid){
 	var infoFileids = "";
 	var data={};
 	for(var i = 0;i < fileids.length; i++) {
+		  fileids.html("");
 		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 	}
 	data.projectId = pid;
@@ -770,7 +777,8 @@ $.validator.setDefaults({
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {   
 	//var verify_102 = /^(0|1.0|1.00|0.0|0.00|([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0])|([1-9][0-9]{0,9}\.[0]))$/;
-	var verify_102 = /^([0]{1}(\.\d{1,2})|0|[1-9]{1}(\.\d{1,2})|[1-9]|[1-9]{1}[0-9]{2,10}(\.\d{1,2})|^[1-9]\d{1,9}|[1-9]{1}[0-9](\.\d{1,2}))$/;
+	var verify_102 = /^([0]{1}(\.\d{1,2})|0|[1-9]{1}(\.\d{1,2})|[1-9]|[1-9]{1}[0-9]{2,9}(\.\d{1,2})|^[1-9]\d{1,9}|[1-9]{1}[0-9](\.\d{1,2}))$/;
+	
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
 //vinputValRule=="2"
@@ -791,8 +799,7 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 }, "不能超过100"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
-	//var verify_32 = /^(\d|[1-9]\d|100)(\.\d{1,2})?$/;
-	var verify_32 = /^((\d|[123456789]\d)(\.\d{1,2})?|100|100.0|100.00)$/;
+	var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.\d{1,2})$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
@@ -803,7 +810,7 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 }, "不能超过99999"); 
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
-	var vinputValRule_4 = /^(?:[1-9]\d|[1-9]\d(\.\d{1,1})?|1[0-5][0-9]|1[0-5][0-9](\.\d{1,1})|16[0-7]|16[0-7](\.\d{1,1})|168|168.0)$/;
+	var vinputValRule_4 = /^((\d|[1-9]\d?|[1][0-6][0-7])(\.\d{1})?|0\.\d|168|168.0)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
 //百分数

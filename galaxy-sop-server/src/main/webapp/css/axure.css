@@ -2549,7 +2549,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_img_del:hover{background:url(../img/qxt/h_img_del.png) 0 -25px no-repeat;}
 .h_imgs_add{cursor:pointer;background:url(../img/qxt/h_imgs_add.png) 0 0 no-repeat;font-size: 0;display: inline-block;}
 .h_imgs input[type='file']{width:148px;height:118px;opacity: 0;}
-.h_look img{width:60%;margin-bottom: 10px;}
+.h_look img{width:60%;margin-top: 10px;margin-right: 1000px;}
 dd.border_dd{border:1px solid #5192ff;border-radius:100px;color:#72a7ff; text-align:center; padding:0 18px;line-height:24px;margin:-4px 10px 10px 0;}
 .mb_24 dt{padding-right:10px}
 .base_tab-content .base_half{display:inline-block;width:50%;}
@@ -2606,7 +2606,8 @@ input:-ms-input-placeholder {
 .finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
 .mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
 .font_num_m{width:320px;margin: -2px 10px 0px 0;}
-.valuation table tr td:first-child{background-color: #accbff;color:#fff;}
+.valuation .mb_24 table tr td:first-child{background-color: #accbff;color:#fff;}
+.valuation .mb_16 table tr td:first-child{background-color: #accbff;color:#fff;}
 
 
 

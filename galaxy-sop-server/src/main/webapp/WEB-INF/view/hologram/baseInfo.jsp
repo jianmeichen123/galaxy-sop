@@ -66,6 +66,7 @@ $(function() {
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
 		$(".h#"+id_code).css("background","#fff");
+		dtWidth();
 		event.stopPropagation();
 		//base_half
 		if(_this.is(':visible')){
@@ -263,6 +264,7 @@ $(function() {
 			console.log("12344555");
 			_this.siblings('.base_half').css('width','50%');
 		}
+		dtWidth();
 	});
 });
 

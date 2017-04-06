@@ -6,6 +6,7 @@ function backFun(data){
 		var html = toGetHtmlByMark(entity,'s');
 		var s_div = toShowTitleHtml(entity, html);
 		$("#"+entity.code).html(s_div);
+		dtWidth();
 	}
 }
 
@@ -273,7 +274,7 @@ function type_3_html(title,mark){
 				hresult +=  "<dd class=\"border_dd\">"+this.valueName+"</dd>";
 			});
 		}
-		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle +"<div class=\"checked_div clearfix\">"+ hresult + "</div></div>";
 	}else{
 		htitle = "<dt data-title-id='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
 		
@@ -810,7 +811,7 @@ function type_12_html(title,mark){
 //13:复选带备注（input）
 function type_13_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"'>"+title.name+"</dt>";
 	
 	var results = title.resultList;
 	
@@ -837,7 +838,7 @@ function type_13_html(title,mark){
 			}
 		}
 
-		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle +"<div class=\"checked_div clearfix\">"+ hresult + "</div></div>";
 	}else{
 		var li = "<li> ";
 		var values = title.valueList;

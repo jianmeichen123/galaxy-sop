@@ -39,8 +39,8 @@
             t1["code"]="study-experience";
             t1["titleId"]=data["titleId"];
             t1["projectId"]=data["projectId"];
-            if(!t1["id"]){
-                t1["id"]=null
+            if(!t1["id"] || t1["id"] == 'null' || t1["id"] == "undefined"){
+            	delete t1.id;
             }
             studyList.push(t1);
         })
@@ -54,8 +54,8 @@
               t2["code"]="work-experience";
               t2["titleId"]=titleId;
               t2["projectId"]=projectId;
-              if(!t2["id"]){
-                  t2["id"]=null
+              if(!t2["id"] || t2["id"] == 'null' || t2["id"] == "undefined"){
+              	delete t2.id;
               }
               workList.push(t2);
          })
@@ -77,9 +77,12 @@
                var code = "entrepreneurial-experience";
                var id = div.find("[name='id']").text();
 
-               if(!id || id ==""){
+               if(!id || id =="" ||id == 'null' || id == "undefined"){
+            	   delete json.id;
+                 }
+               /*if(!id || id ==""){
                  json["id"]=null
-               }
+               }*/
                json["field1"]=field1;
                json["field2"]=field2;
                json["field3"]=field3;
@@ -213,5 +216,4 @@
       var mobile = /^[\+\-\(\)0-9]{0,40}$/;
    	return this.optional(element) || (mobile.test(value));
     }, "手机格式不对");
-
 

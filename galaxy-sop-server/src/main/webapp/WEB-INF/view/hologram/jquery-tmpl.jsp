@@ -13,7 +13,7 @@
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}
 		
-	{{if sign=="3"}}
+	{{if sign=="3" && isShow=="t"}}
 		<div class="sign_title">\${name}</div>
 		{{each(i,childList) childList}}
 		<div class="mb_16">
@@ -160,7 +160,7 @@
 			{{each(i,valueList) valueList}}
 			<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 			{{/each}}
-			<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
+			<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
 		  </ul>
 		</dd>
 
@@ -200,6 +200,7 @@
 
 		{{/each}}
 	{{else}}
+{{if isShow=="t"}}
 	<div class="mb_16">
 	   <dl class="h_edit_txt clearfix">		
 		{{if type=="1"}}
@@ -356,9 +357,9 @@
 			{{each(i,valueList) valueList}}
 			<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}"/>\${name}</li>
 			{{/each}}
+			<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
 		  </ul>
 		</dd>
-		<dd><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></dd>
 
 
 		{{else type=="13"}}
@@ -396,7 +397,7 @@
 	  </dl>
 	</div>
 
-
+{{/if}}
 	{{/if}}
 
 	{{/each}}
@@ -421,7 +422,7 @@
 	</c:if>
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
-	{{if sign=="3"}}
+	{{if sign=="3" && isShow=="t"}}
 	<div class="sign_title" data-title-id="\${id}" data-code="\${code}">\${name}</div>
 		{{each(i,childList) childList}}
 			<div class="mb_24 clearfix">
@@ -438,9 +439,11 @@
 		<dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 		{{else type=="3"}}
+<div class="checked_div clearfix">
 		{{each(i,valueList) valueList}}
 		<dd class="border_dd" data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
+</div>
 
 		{{else type=="6"}}
 		{{each(i,valueList) valueList}}
@@ -449,7 +452,7 @@
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 		{{else type=="7"}}
-		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">
+		<dd class="mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">未添加
 			</dd>
 
 		{{else type=="8"}}
@@ -509,6 +512,7 @@
 		{{/each}}
 
 	{{else}}
+{{if isShow=="t"}}
 	<div class="mb_24 clearfix">
 	  <dl class="clearfix">
 		{{if type=="1"}}
@@ -525,9 +529,11 @@
 
 		{{else type=="3"}}
 		<dt  data-type="\${type}" data-title-id="\${id}" >\${name}</dt>
+<div class="checked_div clearfix">
 		{{each(i,valueList) valueList}}
 		 <dd class="border_dd"  data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
+</div>
 
 		{{else type=="6"}}
 		<dt  data-type="\${type}" title-id="\${id}">\${name}</dt>
@@ -538,7 +544,7 @@
 
 		{{else type=="7"}}
 		<dt data-type="\${type}">\${name}</dt>
-		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">
+		<dd class="mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">未添加
 			</dd>
 
 		{{else type=="8"}}
@@ -607,7 +613,7 @@
 		{{/if}}                      
 		</dl>		
 	</div>
-
+{{/if}}
 	{{/if}}
 	{{/each}}
   </div>

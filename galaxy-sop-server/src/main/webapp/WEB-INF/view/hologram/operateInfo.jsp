@@ -42,6 +42,7 @@
 <script type="text/javascript">
 var key = Date.parse(new Date());
 var deleteids = "";
+
 getData();
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
@@ -132,6 +133,7 @@ getData();
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
+		dtWidth();
 		event.stopPropagation();
 	});
 	
@@ -212,9 +214,12 @@ getData();
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".loading-indicator-overlay").remove();
 								$(".loading-indicator").remove();
-								$(".section").remove();
-								getData();
+								//$(".section").remove();
+								//getData();
+								var pid=$('#a_'+id_code).attr("data-section-id");
+								setDate(pid,true);	
 								picData(projectInfo.id);
+								
 							} else {
 								layer.msg("操作失败!");
 							}

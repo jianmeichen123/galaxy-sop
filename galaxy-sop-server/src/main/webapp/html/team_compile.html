@@ -21,7 +21,7 @@
    				
    				<dl class="fmdl">
    				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;性别：</span>
-	                <dd class="clearfix">
+	                <dd class="clearfix team_compile_ul_l_dd">
 	                	<input type="radio" name="field3" data-value="男" required data-msg-required="<font color=red>*</font>请选择性别"/>男
 	                </dd>
 	                <dd class="clearfix">
@@ -98,4 +98,8 @@
    	return this.optional(element) || (mobile.test(value));
     }, "手机格式不对");
 </script>
+<style>
+.team_compile_ul_l_dd{position:relative;}
+#field3-error{position:absolute;left:65px;width:100px;;}
+</style>
 
