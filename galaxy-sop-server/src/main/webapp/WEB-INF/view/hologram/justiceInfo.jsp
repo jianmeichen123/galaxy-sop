@@ -16,7 +16,6 @@
 
 <body>
 <ul class="h_navbar clearfix">
-                     <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br/>数据</li>
