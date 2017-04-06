@@ -77,9 +77,12 @@
                var code = "entrepreneurial-experience";
                var id = div.find("[name='id']").text();
 
-               if(!id || id ==""){
+               if(!id || id =="" ||id == 'null' || id == "undefined"){
+            	   delete json.id;
+                 }
+               /*if(!id || id ==""){
                  json["id"]=null
-               }
+               }*/
                json["field1"]=field1;
                json["field2"]=field2;
                json["field3"]=field3;
