@@ -238,8 +238,12 @@ function getWorkList(flag,workList){
                         var name = ele.attr('name');
                         if(name=="field1"){
                         	if(json[name] && json[name] != "未知"){
-                        		var len=json[name].length;
-                                ele.val(json[name].substring(0,len-2));
+                        		if(json[name].indexOf("毕业")>0){
+                        			var len=json[name].length;
+                                    ele.val(json[name].substring(0,len-2));
+                        		}else{
+                        			ele.val(json[name]);
+                        		}
                             }
                         }else{
                         	if(name.indexOf("field")>-1){
