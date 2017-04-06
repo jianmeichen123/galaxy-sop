@@ -221,6 +221,7 @@ getData();
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".loading-indicator-overlay").remove();
 								$(".loading-indicator").remove();
+								dtWidth();
 								//$(".section").remove();
 								//getData();
 								var pid=$('#a_'+id_code).attr("data-section-id");
