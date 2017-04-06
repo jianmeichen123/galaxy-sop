@@ -10,7 +10,7 @@ String path = request.getContextPath();
 <html>
 <head>
 <meta charset="utf-8">
-<title>繁星</title>
+<title>星河投</title>
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!--  shedule start -->
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>

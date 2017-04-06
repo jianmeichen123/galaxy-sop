@@ -1,0 +1,50 @@
+<div class="qualificationstc">
+	<div class="title_bj" id="pop-title">添加股东</div>
+	
+	
+    <div class="qualifications_all" id="learning">
+    
+    	<form action="" id="detail-form">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
+        <div class="info clearfix"> 
+            <dl class="fmdl">
+                <dt>股东名称：</dt>
+                <dd class="clearfix" required="true">
+                    <input name="field1" type="text" class="txt" maxLength="200" />
+                </dd>
+            </dl>
+            <dl class="fmdl">
+                <dt>占股比例：</dt>
+                <dd class="team_wid_p"><input name="field2" type="text" class="input" placeholder="占股比例"  data-rule-verify_32="true"  data-msg-verify_32="<font color=red>*</font>0～100的整数和两位小数" /></dd>
+            </dl>
+            <dl class="fmdl">
+                <dt>股东类型：</dt>
+                <dd>
+                   <select name="field3" >
+                       <option value="">请选择</option>
+                       <option>战略投资人</option>
+                       <option>财务投资人</option>
+                       <option>创始团队</option>
+                   </select>
+                </dd>
+            </dl>
+        </div>
+        </form>
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn" >确定</a>
+        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+    </div>
+</div>
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        $.validator.setDefaults({
+        	errorElement:'span'
+        });
+    })
+    
+</script>

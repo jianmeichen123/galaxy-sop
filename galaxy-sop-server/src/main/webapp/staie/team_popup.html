@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>繁星test</title>
+<link rel="stylesheet" type="text/css" href="../css/axure.css"  />
+<script src="../js/jquery-1.12.2.min.js" ></script>
+<script src="axure.js" ></script>
+</head>
+
+<body>
+	<p>团队</p>
+	<div class="">
+	<a class="blue" href="javascript:team_fun(11)">团队查看</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="javascript:team_compile(11)">团队编辑</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="javascript:team_learn(11)">学习经历</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="javascript:team_education(11)">教育经历</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="javascript:team_work(11)">学习经历</a>&nbsp;&nbsp;&nbsp;
+ 	<a class="blue" href="javascript:team_add_cgr(11)">添加持股人</a>&nbsp;&nbsp;&nbsp;
+ 	</div>
+</body>
+<script>
+//添加持股人
+function team_add_cgr(id){
+	$.getHtml({
+		url:'../html/team_add_cgr.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(date){
+			$('#qualifications_popup_name').html('添加持股人')
+		}
+			
+	});
+}
+//本页面相关  查看
+function team_fun(id){
+	$.getHtml({
+		url:'../html/team_xk.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(date){
+			$('#qualifications_popup_name').html('名字')
+		}
+			
+	});
+}
+//编辑
+function team_compile(id){
+	$.getHtml({
+		url:'../html/team_compile.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(date){
+			$('#qualifications_popup_name').html('编辑简历')
+		}
+			
+	});
+}
+//学习经历
+function team_learn(id){
+	$.getHtml({
+		url:'../html/team_learn.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(date){
+			$('#team_learn').html('添加学习经历')
+		}
+			
+	});
+}
+//工作经历
+function team_work(id){
+	$.getHtml({
+		url:'../html/team_work.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(date){
+			$('#team_learn').html('添加工作经历')
+		}
+			
+	});
+}
+//教育经历
+function team_education(id){
+	$.getHtml({
+		url:'../html/team_education.html',//模版请求地址
+		data:"",//传递参数
+		okback:function(date){
+			$('#team_learn').html('添加教育经历')
+		}
+			
+	});
+}
+</script>
+</html>

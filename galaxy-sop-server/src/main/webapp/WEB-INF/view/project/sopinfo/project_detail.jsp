@@ -126,7 +126,13 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/proPerOp.js"></script>
 <script src="<%=path %>/js/v_baseInfo_project_history.js" type="text/javascript"></script>
+ 
+<!--提示验证  -->
+<script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js"></script>
 
+<script src="<%=path %>/js/hologram/base_table.js"></script>
+<script src="<%=path %>/js/hologram/baseInfo.js"></script>
 
 <%-- <script src="<%=path %>/js/person.js"></script> --%>
 <script>

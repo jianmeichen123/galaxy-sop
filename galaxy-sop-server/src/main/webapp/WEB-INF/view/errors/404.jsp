@@ -40,7 +40,7 @@
 <head>
 <meta name="renderer" content="webkit">
 <meta charset="utf-8">
-<title>繁星404</title>
+<title>星河投404</title>
 <!-- 校验样式 -->
 <!-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" /> -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
@@ -63,7 +63,7 @@
 
 <div class="header clearfix">
  <div class="warning" id="warning"><i></i>建议使用IE10以上浏览器，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
-	<a href="javascript:;" class="logo null">繁星</a>
+	<a href="javascript:;" class="logo null">星河投</a>
     <!--头部中间-->
     <div class="min clearfix">
         <!--用户信息-->

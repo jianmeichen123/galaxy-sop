@@ -1,0 +1,75 @@
+<div class="qualificationstc">
+	<div class="title_bj" id="team_learn"></div>
+	
+	
+    <div class="qualifications_all" id="learning">
+    
+    	<form action="" id="add_person_learning" method="post">
+    	
+        <div class="info clearfix">
+            <dl class="fmdl">
+                <dt>创业时间：</dt>
+                <dd class="clearfix">
+                	<input name="beginDateStr" type="text" class="datepicker-month-start-text fl txt time"/>
+                	<span class="fl">&nbsp;至&nbsp;</span>
+                	<input name="overDateStr" type="text" class="datepicker-month-text fl txt time"/>
+                </dd>
+            </dl>  
+            <dl class="fmdl">
+                <dt>担任职务：</dt>
+                <dd class="clearfix">
+                    <input name="school" type="text" class="txt" maxLength="50"/>
+                </dd>
+            </dl>
+            <div class="team_wid">
+            	<p class="team_wid_p"><span>是否是核心创始人：（5%以上创始股权）</span><span><input type="radio" class="team_stock" attr-name="yes" name="stock">是</span><span><input type="radio" class="team_stock" attr-name="no" name="stock">否</span></p>
+            	<p class="team_wid_p  team_stock_on"><span>创立时股权比：</span><span><input name="school" type="text" class="input" maxlength="50"></span></p>
+            </div>
+            <div class="team_wid">
+            	<p>融资机构及金额、成功或失败或离职原因：</p>
+            	<textarea class="team_textarea"></textarea>
+            </div>
+            <div class="team_wid">
+            	<p>项目概述：</p>
+            	<textarea class="team_textarea"></textarea>
+            </div>
+                        
+        </div>
+        
+        </form>
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl add_education">确定</a>
+        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+    </div>
+</div>
+<script>
+$('.team_stock').change( function(){
+	var attr_name=$(this).attr('attr-name');
+	if(attr_name=="yes"){
+		$('.team_stock_on').show()
+	}else{
+		$('.team_stock_on').hide()
+	}
+
+})
+$(".add_education").onclick(function(){
+    var list = $("#add_person_learning").find(*[name]);
+    var eduJson = {};
+    $(list).each(function(){
+          var key = "";
+          var value = "";
+          var tagName = $(this).get(0).tagName;
+          if(tagName == "INPUT"){
+             key = $(this).attr("name");
+             value = $(this).val();
+          }
+          if(tagName=="SELECT"){
+             key = $(this).attr("name");
+             value = $(this).find("option:selected").attr(key);
+          }
+          eduJson[key]=value;
+    })
+})
+</script>

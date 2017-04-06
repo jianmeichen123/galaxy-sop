@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.hologram.InformationResult">
+
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationResult">
+	
+		<id column="id" 					jdbcType="BIGINT" 		property="id" />
+		<result column="project_id" 		jdbcType="BIGINT" 		property="projectId" />
+		<result column="title_id" 			jdbcType="BIGINT" 		property="titleId" />
+		<result column="content_choose" 	jdbcType="VARCHAR" 		property="contentChoose" />
+		<result column="content_describe1" 	jdbcType="VARCHAR" 		property="contentDescribe1" />
+		<result column="content_describe2" 	jdbcType="VARCHAR" 		property="contentDescribe2" />
+		<result column="sort" 		        jdbcType="INTEGER" 		property="sort" />
+		<result column="is_valid" 			jdbcType="INTEGER" 		property="isValid" />
+		<result column="created_time" 		jdbcType="BIGINT" 		property="createdTime" />
+		<result column="create_id" 			jdbcType="BIGINT" 		property="createId" />
+		<result column="updated_time" 		jdbcType="BIGINT" 		property="updatedTime" />
+		<result column="update_id" 			jdbcType="BIGINT" 		property="updateId" />
+	</resultMap>
+
+
+
+	<sql id="Base_Column_List">
+		id, project_id, title_id, content_choose, content_describe1, content_describe2, sort, is_valid, created_time, create_id, updated_time, update_id
+	</sql>
+
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="titleId != null"> and title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title_id in 
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+					#{item}
+					</foreach>
+				</if>
+			</trim>
+			
+			<if test="sorting != null">order by ${sorting}</if>
+			<if test="property != null">order by ${property} ${direction}</if>
+			
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>
+		</where>
+	</sql>
+
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationResult">
+	    <![CDATA[
+	     insert into information_result (
+	     	id, 
+			project_id, 
+			title_id,
+			content_choose, 
+			content_describe1,
+			content_describe2,
+			sort
+		)
+		values (
+			#{id,jdbcType=BIGINT}, 
+			#{projectId,jdbcType=BIGINT}, 
+			#{titleId,jdbcType=BIGINT}, 
+			#{contentChoose,jdbcType=VARCHAR}, 
+			#{contentDescribe1,jdbcType=VARCHAR},
+			#{contentDescribe2,jdbcType=VARCHAR},
+			#{sort}
+	    ]]>
+	</insert>
+	
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into information_result (
+			project_id, 
+			title_id,
+			content_choose, 
+			content_describe1,
+			content_describe2,
+			sort
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.projectId,jdbcType=BIGINT}, 
+				#{item.titleId,jdbcType=BIGINT}, 
+				#{item.contentChoose,jdbcType=VARCHAR}, 
+				#{item.contentDescribe1,jdbcType=VARCHAR},
+				#{item.contentDescribe2,jdbcType=VARCHAR},
+				#{item.sort,jdbcType=INTEGER}
+			)
+		</foreach>
+		
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from information_result
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from information_result 
+		where id = #{id}
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from information_result
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+</mapper>
+	

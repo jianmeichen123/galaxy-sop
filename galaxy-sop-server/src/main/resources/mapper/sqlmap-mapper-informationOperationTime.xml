@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.galaxyinternet.model.hologram.InformationOperationTime">
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationOperationTime">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="information_time" property="informationTime" jdbcType="TIMESTAMP" />
+    <result column="project_time" property="projectTime" jdbcType="TIMESTAMP" />
+    <result column="team_time" property="teamTime" jdbcType="TIMESTAMP" />
+    <result column="operation_data_time" property="operationDataTime" jdbcType="TIMESTAMP" />
+    <result column="compete_time" property="competeTime" jdbcType="TIMESTAMP" />
+    <result column="stratagem_time" property="stratagemTime" jdbcType="TIMESTAMP" />
+    <result column="finance_time" property="financeTime" jdbcType="TIMESTAMP" />
+    <result column="law_time" property="lawTime" jdbcType="TIMESTAMP" />
+    <result column="financing_time" property="financingTime" jdbcType="TIMESTAMP" />
+    <result column="time1" property="time1" jdbcType="TIMESTAMP" />
+    <result column="time2" property="time2" jdbcType="TIMESTAMP" />
+    <result column="time3" property="time3" jdbcType="TIMESTAMP" />
+    <result column="time4" property="time4" jdbcType="TIMESTAMP" />
+    <result column="time5" property="time5" jdbcType="TIMESTAMP" />
+    <result column="time6" property="time6" jdbcType="TIMESTAMP" />
+    <result column="time7" property="time7" jdbcType="TIMESTAMP" />
+    <result column="time8" property="time8" jdbcType="TIMESTAMP" />
+    <result column="time9" property="time9" jdbcType="TIMESTAMP" />
+    <result column="time10" property="time10" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+ 
+  <sql id="Base_Column_List">
+    id, project_id, information_time, project_time, team_time, operation_data_time, compete_time, 
+    stratagem_time, finance_time, law_time, financing_time, time1, time2, time3, time4, 
+    time5, time6, time7, time8, time9, time10
+  </sql>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from information_operation_time
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationOperationTime">
+    insert into information_operation_time (id, project_id, information_time, 
+      project_time, team_time, operation_data_time, 
+      compete_time, stratagem_time, finance_time, 
+      law_time, financing_time, time1, 
+      time2, time3, time4, 
+      time5, time6, time7, 
+      time8, time9, time10
+      )
+    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{informationTime,jdbcType=TIMESTAMP}, 
+      #{projectTime,jdbcType=TIMESTAMP}, #{teamTime,jdbcType=TIMESTAMP}, #{operationDataTime,jdbcType=TIMESTAMP}, 
+      #{competeTime,jdbcType=TIMESTAMP}, #{stratagemTime,jdbcType=TIMESTAMP}, #{financeTime,jdbcType=TIMESTAMP}, 
+      #{lawTime,jdbcType=TIMESTAMP}, #{financingTime,jdbcType=TIMESTAMP}, #{time1,jdbcType=TIMESTAMP}, 
+      #{time2,jdbcType=TIMESTAMP}, #{time3,jdbcType=TIMESTAMP}, #{time4,jdbcType=TIMESTAMP}, 
+      #{time5,jdbcType=TIMESTAMP}, #{time6,jdbcType=TIMESTAMP}, #{time7,jdbcType=TIMESTAMP}, 
+      #{time8,jdbcType=TIMESTAMP}, #{time9,jdbcType=TIMESTAMP}, #{time10,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+  <select id="select" parameterType="com.galaxyinternet.model.hologram.InformationOperationTime" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from information_operation_time
+    where project_id = #{projectId}
+  </select>
+  
+ <!-- 根据ID查询 -->
+<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select
+	<include refid="Base_Column_List" />
+	from information_operation_time where id = #{id}
+</select>
+
+ <update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hologram.InformationOperationTime" >
+    update information_operation_time
+    <set >
+      <if test="informationTime != null" >
+        information_time = #{informationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectTime != null" >
+        project_time = #{projectTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teamTime != null" >
+        team_time = #{teamTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationDataTime != null" >
+        operation_data_time = #{operationDataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="competeTime != null" >
+        compete_time = #{competeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stratagemTime != null" >
+        stratagem_time = #{stratagemTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="financeTime != null" >
+        finance_time = #{financeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lawTime != null" >
+        law_time = #{lawTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="financingTime != null" >
+        financing_time = #{financingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time1 != null" >
+        time1 = #{time1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time2 != null" >
+        time2 = #{time2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time3 != null" >
+        time3 = #{time3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time4 != null" >
+        time4 = #{time4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time5 != null" >
+        time5 = #{time5,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time6 != null" >
+        time6 = #{time6,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time7 != null" >
+        time7 = #{time7,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time8 != null" >
+        time8 = #{time8,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time9 != null" >
+        time9 = #{time9,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time10 != null" >
+        time10 = #{time10,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+   <where>
+		<trim prefixOverrides="and">
+		       <if test="id != null" >
+		        id = #{id,jdbcType=BIGINT}
+		      </if>
+		</trim>
+	</where>
+  </update>
+ 
+  
+</mapper>

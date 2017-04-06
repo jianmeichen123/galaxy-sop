@@ -1,0 +1,39 @@
+<div class="qualificationstc">
+	<div class="title_bj" id="pop-title">添加运营指标</div>
+	
+	
+    <div class="qualifications_all" id="learning">
+    
+    	<form action="" id="detail-form">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
+    	
+        <div class="info clearfix"> 
+            <dl class="fmdl">
+                <dt>指标名称：</dt>
+                <dd class="clearfix">
+                    <input name="field1" type="text" class="txt"  maxLength="200"/>
+                </dd>
+            </dl>
+            <div class="team_wid">
+            	<p>融资时指标值：</p>
+            	<textarea class="team_textarea" name="field2"  maxLength="1000" id="finace_area" oninput='countChar("finace_area","label_financ","1000")'></textarea>
+            	<div class="finace_fnum num_tj"><label for="" id="label_financ">1000</label>/1000</div>
+            </div>
+            <div class="team_wid">
+            	<p>目前指标值：</p>
+            	<textarea class="team_textarea" name="field3"  maxLength="1000" id="now_area" oninput='countChar("now_area","label_now","1000")'></textarea>
+            	<div class="finace_fnum num_tj"><label for="" id="label_now">1000</label>/1000</div>
+            </div>
+                        
+        </div>
+        
+        </form>
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
+        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+    </div>
+</div>

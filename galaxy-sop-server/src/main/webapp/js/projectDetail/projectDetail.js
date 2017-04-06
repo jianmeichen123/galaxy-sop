@@ -21,6 +21,7 @@ $(function(){
 				case 7: initTabPostMeeting();   break;  //标签7:运营分析
 				case 8: initTabSopFile(projectId);   break;  //标签8:项目文档
 				case 9: initTabOperLog();   break;  //标签9:操作日志
+				case 10:initTabInfomation();   break;  //标签10:全息图
 				default: return false;
 			}
 			
@@ -103,8 +104,87 @@ function initTabOperLog(){
 		url : url
 	});
 }
-
-
+//全息图
+function initTabInfomation(){
+	$.getTabHtml({
+		url : platformUrl.toBaseInfo,
+		/*okback:function(){
+			 $('.h_navbar').tabLazyChange({
+         		onchangeSuccess:function(index){
+         			switch(index){
+         				case 0: initBaseInfo();  break;  //标签0:基本信息
+         				case 1: initProjectInfo(); break;  //标签1:项目
+         				case 2: alert("11");initTeamInfo(); break;  //标签2: 团队
+         				case 3: initOperateInfo();   break;  //标签3:运营数据
+         				case 4: initCompeteInfo();   break;  //标签4:竞争
+         				case 5: initPlanInfo();   break;  //标签5:战略及策略
+         				case 6: initFinanceInfo();   break;  //标签6:财务
+         				case 7: initJusticeInfo();   break;  //标签7:法务
+         				case 8: initValuationInfo();   break;  //标签8:融资及估值
+         				default: return false;
+         			}
+         			
+         		}
+         });
+		}*/
+	});
+}
+/*//基本信息
+function initBaseInfo(){
+	$.getTabHtml({
+		url : platformUrl.toBaseInfo
+	});
+}
+   //项目
+	function initProjectInfo(){
+		alert("11")
+		$.getTabHtml({
+			url : platformUrl.toProjectInfo 
+		});
+	}
+	 //团队
+	function initTeamInfo(){
+		$.getTabHtml({
+			url : platformUrl.toTeamInfo 
+		});
+	}
+	 //运营数据
+	function initOperateInfo(){
+		$.getTabHtml({
+			url : platformUrl.toOperateInfo 
+		});
+	}
+	//竞争
+	function initCompeteInfo(){
+		$.getTabHtml({
+			url : platformUrl.toCompeteInfo 
+		});
+	}
+	//战略以及策略
+	function initPlanInfo(){
+		$.getTabHtml({
+			url : platformUrl.toPlanInfo 
+		});
+	}
+	//财务
+	function initFinanceInfo(){
+		$.getTabHtml({
+			url : platformUrl.toFinanceInfo 
+		});
+	}
+	//法务
+	function initJusticeInfo(){
+		$.getTabHtml({
+			url : platformUrl.toJusticeInfo 
+		});
+	}
+	//融资及估值
+	function initValuationInfo(){
+		$.getTabHtml({
+			url : platformUrl.toValuationInfo 
+		});
+	}*/
+	
 function reference(projectId){
 	//右侧刷新	
 	$.getDivHtml({
