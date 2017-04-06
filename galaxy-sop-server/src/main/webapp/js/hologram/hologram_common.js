@@ -366,7 +366,7 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
-				$("option[value='"+title.resultList[0].contentChoose+"']").attr("selected",true);
+				$('select[data-id="' + title.id + '"]').val( title.resultList[0].contentChoose );
 			}
 		}
 	}else{
