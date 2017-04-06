@@ -452,7 +452,7 @@
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 
 		{{else type=="7"}}
-		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">未添加
+		<dd class="mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">未添加
 			</dd>
 
 		{{else type=="8"}}
@@ -544,7 +544,7 @@
 
 		{{else type=="7"}}
 		<dt data-type="\${type}">\${name}</dt>
-		<dd class="fl_none mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">未添加
+		<dd class="mglook" id="look-\${id}" ata-value="\${value}" data-id="\${id}" data-code="\${code}">未添加
 			</dd>
 
 		{{else type=="8"}}
