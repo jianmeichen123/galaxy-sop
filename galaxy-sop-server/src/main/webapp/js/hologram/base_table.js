@@ -253,20 +253,21 @@ function edit_NO5_7_1(obj_a,tid,rid){
 			$("#compete-form input[name='field5'][value='"+entity.field5+"']").attr('checked','checked');
 			
 			$("#compete #save-btn").click(function(){
-				
-				var data = $("#compete-form").serializeObject();
-				var dataJ  = JSON.parse(data);
-				
-				if(op_mark == "old"){
-					op_mark = "edit";
-					$(tr).data("opt","edit");
+				if(beforeSubmitById("compete-form")){
+					var data = $("#compete-form").serializeObject();
+					var dataJ  = JSON.parse(data);
+					
+					if(op_mark == "old"){
+						op_mark = "edit";
+						$(tr).data("opt","edit");
+					}
+					tosave_table_value(op_mark,tid,dataJ);
+					
+					var td_html = table_td_html(dataJ,tid,tcode,rid);
+					$(tr).html(td_html);
+					
+					$("a[data-close='close']").click();
 				}
-				tosave_table_value(op_mark,tid,dataJ);
-				
-				var td_html = table_td_html(dataJ,tid,tcode,rid);
-				$(tr).html(td_html);
-				
-				$("a[data-close='close']").click();
 			});
 		}	
 	});
