@@ -274,7 +274,7 @@ function type_3_html(title,mark){
 				hresult +=  "<dd class=\"border_dd\">"+this.valueName+"</dd>";
 			});
 		}
-		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle +"<div class=\"checked_div clearfix\">"+ hresult + "</div></div>";
 	}else{
 		htitle = "<dt data-title-id='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
 		

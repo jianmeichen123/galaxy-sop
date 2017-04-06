@@ -264,6 +264,7 @@ $(function() {
 			console.log("12344555");
 			_this.siblings('.base_half').css('width','50%');
 		}
+		dtWidth();
 	});
 });
 

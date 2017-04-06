@@ -145,7 +145,7 @@ function tabInfoChange(index){
 		}
 };
 function dtWidth(){
-	//获取类型为3时题干的宽度
+	//获取类型为3、13时题干的宽度
 	$.each($(".checked_div"),function(){
 		var dt_w=$(this).siblings("dt").width();
 		$(this).css("margin-left",dt_w+10);
