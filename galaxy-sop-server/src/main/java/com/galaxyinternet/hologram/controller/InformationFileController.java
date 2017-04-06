@@ -181,7 +181,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 		}
 		try {
 			//如有历史上传文件进行删除
-			String deleteids = informationFile.getDeleteids();
+			String deleteids = informationFile.getDeleteids() == null ? "" : informationFile.getDeleteids() ;
 			if(StringUtils.isNotEmpty(deleteids) || deleteids.contains(",")){
 				String [] fileids = deleteids.split(",");
 				for(int i=0;i < fileids.length; i++){
