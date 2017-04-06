@@ -438,9 +438,11 @@
 		<dd class="field" data-value="\${value}" data-title-id="\${id}" data-code="\${code}">未选择</dd>
 
 		{{else type=="3"}}
+<div class="checked_div clearfix">
 		{{each(i,valueList) valueList}}
 		<dd class="border_dd" data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
+</div>
 
 		{{else type=="6"}}
 		{{each(i,valueList) valueList}}
@@ -525,9 +527,11 @@
 
 		{{else type=="3"}}
 		<dt  data-type="\${type}" data-title-id="\${id}" >\${name}</dt>
+<div class="checked_div clearfix">
 		{{each(i,valueList) valueList}}
 		 <dd class="border_dd"  data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
+</div>
 
 		{{else type=="6"}}
 		<dt  data-type="\${type}" title-id="\${id}">\${name}</dt>

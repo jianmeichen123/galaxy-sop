@@ -132,6 +132,7 @@ getData();
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
+		dtWidth();
 		event.stopPropagation();
 	});
 	

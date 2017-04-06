@@ -123,6 +123,7 @@
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
+		dtWidth();
 		event.stopPropagation();
         if (id_code =='NO3_1')
         {

@@ -137,14 +137,20 @@ function tabInfoChange(index){
         						buildResults(sec,title,readonly);
         						buildTable(sec,title);
         						buildfinxedTable(sec,title,readonly);
+        						dtWidth();
         					});
         				}
         			}
         		})
 		}
-
 };
-
+function dtWidth(){
+	//获取类型为3时题干的宽度
+	$.each($(".checked_div"),function(){
+		var dt_w=$(this).siblings("dt").width();
+		$(this).css("margin-left",dt_w+10);
+	})
+}
 function buildResults(sec,title,readonly)
 {
 	//普通字段
@@ -188,7 +194,7 @@ function buildResults(sec,title,readonly)
 
 			if (readonly == true)
 			{
-				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
+				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().children();
 				$.each(dds,function(i,n)
 				{
 					if ($(this).text() == '未选择')
@@ -373,7 +379,7 @@ function buildResults(sec,title,readonly)
 		if(title.type == 3){
 			if (readonly == true)
 			{
-				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings();
+				var dds = $("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().children();
 				$.each(dds,function(i,n)
 				{
 					if ($(this).text() == '未选择')
@@ -382,7 +388,7 @@ function buildResults(sec,title,readonly)
 					}
 				});
 				var dd='<dd>未选择</dd>';
-				$("dt[data-type='3'][data-title-id='"+ title.id +"']").after(dd);
+				$("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().append(dd);
 			}
 		}
 	}
