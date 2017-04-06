@@ -469,7 +469,7 @@ function addRow(ele)
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
             okback:function(){
-				$('#qualifications_popup_name').html('添加持股人')
+				$('#qualifications_popup_name').html('添加简历')
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='code']").val($(ele).prev().data('code'));
