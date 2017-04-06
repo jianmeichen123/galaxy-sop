@@ -236,13 +236,25 @@ function getWorkList(flag,workList){
                     $.each($("#learn_form").find("input, select, textarea"),function(){
                         var ele = $(this);
                         var name = ele.attr('name');
-                        if(name.indexOf("field")>-1){
-                            if(json[name] && json[name] != "未知"){
-                                ele.val(json[name]);
+                        if(name=="field1"){
+                        	if(json[name] && json[name] != "未知"){
+                        		if(json[name].indexOf("毕业")>0){
+                        			var len=json[name].length;
+                                    ele.val(json[name].substring(0,len-2));
+                        		}else{
+                        			ele.val(json[name]);
+                        		}
                             }
                         }else{
-                            ele.val(json[name]);
+                        	if(name.indexOf("field")>-1){
+                                if(json[name] && json[name] != "未知"){
+                                    ele.val(json[name]);
+                                }
+                            }else{
+                                ele.val(json[name]);
+                            }
                         }
+                        
                     });
                     $("input:radio[name='field2'][value='" + json["field2"] + "']").prop("checked", "checked");
 

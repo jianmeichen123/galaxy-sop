@@ -574,7 +574,7 @@ function picData(pid){
 	var infoFileids = "";
 	var data={};
 	for(var i = 0;i < fileids.length; i++) {
-		  fileids.html("");
+		  fileids.html("未添加");
 		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 	}
 	data.projectId = pid;
@@ -799,7 +799,7 @@ jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 }, "不能超过100"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.\d{1,2})$/;
+	var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"

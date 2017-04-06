@@ -41,13 +41,16 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 var key = Date.parse(new Date());
-var deleteids = "";
+var keyJSON={};
+var deleteJSON={};
 
 getData();
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
+	    key = Date.parse(new Date());
 		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
+		keyJSON["b_"+id_code]=key;
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
 		event.stopPropagation();
@@ -86,7 +89,7 @@ getData();
 							params.fileReidsKey = key;
 							params.projectId =  projectInfo.id;
 							params.titleId = title_id;
-							toBachUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile','edit-'+title_id,select_id,"h_save_btn","",null,params,null,null);
+							toBachUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile','edit-'+title_id,select_id,"h_save_btn","",null,params,null,null,id_code);
 							
 							var data={};
 							data.projectId = projectInfo.id;
@@ -103,7 +106,7 @@ getData();
 									if(files.length > 0){
 										for(var i = 0;i < files.length; i++){
 											html +=  '<li class="pic_list fl" id="' + files[i].id + '">'
-								              +'<a href="javascript:;" class="h_img_del" data-val=' + files[i].id +
+								              +'<a href="javascript:;" class="h_img_del" code="'+"delete_"+id_code+'" data-val=' + files[i].id +
 								              ' data-title-val=' + title_id +
 								              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
 										       if(i == 4){
@@ -187,6 +190,10 @@ getData();
 		data.infoModeList = infoModeList;
 		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
 		
+		
+		var key = keyJSON["b_"+id_code];
+		var deleteids = deleteJSON["delete_"+id_code];
+		
 		var params = {};
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
@@ -233,7 +240,7 @@ getData();
 		
 	}); 
 	
-	function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
+	function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
 		var params = {};
 		var uploader = new plupload.Uploader({
 			runtimes : 'html5,flash,silverlight,html4',
@@ -277,7 +284,7 @@ getData();
 							 previewImage(files[i], function (imgsrc) {
 			                                $('#'+fieInputId).html($('#'+fieInputId).html() +
 			                                    '<li class="pic_list fl" id="' + files[i].id + '">'
-			                                    +'<a href="javascript:;" class="h_img_del" data-val=' + files[i].id +
+			                                    +'<a href="javascript:;" class="h_img_del"  code="'+"delete_"+id_code+'" data-val=' + files[i].id +
 								              ' data-title-val=' + fieInputId.replace("edit-","") +
 								              '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
 			                            })
@@ -305,8 +312,12 @@ getData();
           var _this = $(this);
           var toremove = '';
           var id = $(this).attr("data-val");
-          deleteids += ","+id;
-          
+          var deleteCode = $(this).attr("code");
+          if(deleteJSON[deleteCode]){
+              deleteJSON[deleteCode] = deleteJSON[deleteCode] +","+id;
+          }else{
+              deleteJSON[deleteCode] = id;
+          }
       	  var params = {};
 		  params.projectId =  projectInfo.id;
 		  params.fileReidsKey = key;
