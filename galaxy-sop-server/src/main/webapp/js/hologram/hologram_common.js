@@ -574,7 +574,9 @@ function picData(pid){
 	var infoFileids = "";
 	var data={};
 	for(var i = 0;i < fileids.length; i++) {
-		  fileids.html("");
+		  if(fileids.text().indexOf("未添加") <= -1){
+			  fileids.html("");
+		  }
 		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 	}
 	data.projectId = pid;
