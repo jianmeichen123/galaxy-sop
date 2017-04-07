@@ -36,7 +36,6 @@
 			<!--tab end-->
 		</div>
 
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO2", null,
