@@ -574,7 +574,7 @@ function picData(pid){
 	var infoFileids = "";
 	var data={};
 	for(var i = 0;i < fileids.length; i++) {
-		  fileids.html("未添加");
+		  fileids.find('dt').html("未添加");
 		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 	}
 	data.projectId = pid;
@@ -777,8 +777,8 @@ $.validator.setDefaults({
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {   
 	//var verify_102 = /^(0|1.0|1.00|0.0|0.00|([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0])|([1-9][0-9]{0,9}\.[0]))$/;
-	var verify_102 = /^([0]{1}(\.\d{1,2})|0|[1-9]{1}(\.\d{1,2})|[1-9]|[1-9]{1}[0-9]{2,9}(\.\d{1,2})|^[1-9]\d{1,9}|[1-9]{1}[0-9](\.\d{1,2}))$/;
-	
+	//var verify_102 = /^([0]{1}(\.\d{1,2})|0|[1-9]{1}(\.\d{1,2})|[1-9]|[1-9]{1}[0-9]{2,9}(\.\d{1,2})|^[1-9]\d{1,9}|[1-9]{1}[0-9](\.\d{1,2}))$/;
+	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})?(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
 //vinputValRule=="2"
@@ -804,8 +804,9 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
 jQuery.validator.addMethod("verify_52", function(value, element) {   
-	var verify_52 = /^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$/;
+	//var verify_52 = /^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$/;
 	//var verify_52 =  /^(([1-9][0-9]{0,4})|([0]\.[1-9][0-9])|([0]\.[0-9][1-9])|([1-9][0-9]{1,3}\.[0-9]{1,2})|([1-9][0-9]{0,4}\.[0]{1,2}))$/;
+	var verify_52 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,4})?(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_52.test(value));
 }, "不能超过99999"); 
 //inputValRule=="4"

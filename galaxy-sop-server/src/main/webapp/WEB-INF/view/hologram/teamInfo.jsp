@@ -22,7 +22,7 @@
 </head>
 <body>
 <ul class="h_navbar clearfix">
-                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基本<br/>信息</li>
+                  <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基础<br/>信息</li>
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
                   <li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('2')">团队</li>
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br/>数据</li>
@@ -470,7 +470,8 @@ function addRow(ele)
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
             okback:function(){
-				$('#qualifications_popup_name').html('添加简历')
+				$('#qualifications_popup_name').html('添加简历');
+				$('#qualifications_popup_name1').html('添加持股人');
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='code']").val($(ele).prev().data('code'));
