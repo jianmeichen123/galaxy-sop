@@ -160,7 +160,11 @@ function table_td_html(data,tid,tcode,rid){
 	var filed_sort = table_filed[tid];
 	for(var i = 0 ; i < filed_sort.length; i++){
 		var filed = filed_sort[i];
+		if(data[filed]==undefined){
+			data[filed]="";
+		}
 		td +='<td>'+data[filed]+'</td>';
+		
 	}
 	var edit = "<a href='javascript:;' class=\"blue\" onclick=\"edit_"+tcode+"(this,'"+tid+"','"+rid+"')\" >编辑</a>";
 	var del = "&nbsp;<a href='javascript:;' class=\"blue\" onclick=\"del_"+tcode+"(this,'"+tid+"','"+rid+"')\" >删除</a>";

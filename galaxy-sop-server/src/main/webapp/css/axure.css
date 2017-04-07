@@ -2518,7 +2518,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit_checkbox li.others{margin:0 10px;}
 /* .h_edit dt{width:92px;} */
 .base_tab-content .base_team_look.h_edit dt{width:90px;}
-.base_tab-content .base_con2 .base_team_look.h_edit dt{width:112px;}
+.base_tab-content .base_con2 .base_team_look.h_edit dt{width:initial;margin-right:5px; }
 .h_edit_btnbox{margin-left: 0px;margin-top: 60px; margin-bottom:24px;}
 .base_tab-content .base_team_look .h_edit_btnbox{margin-left: 122px;}
 .h_edit_btnbox span{margin-right: 20px;}
@@ -2616,8 +2616,6 @@ input:-ms-input-placeholder {
 .finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
 .mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
 .font_num_m{width:320px;margin: -2px 10px 0px 0;}
-.valuation .mb_24 table tr td:first-child{background-color: #accbff;color:#fff;}
-.valuation .mb_16 table tr td:first-child{background-color: #accbff;color:#fff;}
 dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .qualifications_all li input[type="radio"]{margin-right:10px;vertical-align: middle;}
 .qualifications_all .team_p{color:#666;}
