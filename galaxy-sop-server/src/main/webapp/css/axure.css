@@ -2615,6 +2615,7 @@ input:-ms-input-placeholder {
 .valuation .mb_24 table tr td:first-child{background-color: #accbff;color:#fff;}
 .valuation .mb_16 table tr td:first-child{background-color: #accbff;color:#fff;}
 dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
+.qualifications_all li input[type="radio"]{margin-right:10px;vertical-align: middle;}
 .qualifications_all .team_p{color:#666;}
 .qualifications_all .team_div .team_p_one,.qualifications_all .team_div li{margin-bottom:5px;}
 .qualifications_all .team_tit{color:#333;}
