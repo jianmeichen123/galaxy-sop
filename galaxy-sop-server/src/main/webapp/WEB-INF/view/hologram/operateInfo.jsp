@@ -10,6 +10,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
@@ -38,7 +40,7 @@
 			
 			<!--tab end-->
 		</div>
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+
 <script type="text/javascript">
 var key = Date.parse(new Date());
 var keyJSON={};
@@ -225,6 +227,7 @@ getData();
 								//$(".section").remove();
 								//getData();
 								var pid=$('#a_'+id_code).attr("data-section-id");
+								$('#a_'+id_code).find('dd[data-type="3"]').hide();
 								setDate(pid,true);	
 								picData(projectInfo.id);
 								
