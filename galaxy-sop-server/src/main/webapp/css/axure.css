@@ -2517,7 +2517,8 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit_checkbox li.active{background-color: #84b2ff;}
 .h_edit_checkbox li.others{margin:0 10px;}
 /* .h_edit dt{width:92px;} */
-.base_tab-content .base_team_look.h_edit dt{width:112px;}
+.base_tab-content .base_team_look.h_edit dt{width:90px;}
+.base_tab-content .base_con2 .base_team_look.h_edit dt{width:112px;}
 .h_edit_btnbox{margin-left: 0px;margin-top: 60px; margin-bottom:24px;}
 .base_tab-content .base_team_look .h_edit_btnbox{margin-left: 122px;}
 .h_edit_btnbox span{margin-right: 20px;}
