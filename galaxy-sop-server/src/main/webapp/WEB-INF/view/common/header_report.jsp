@@ -242,7 +242,6 @@ $(function(){
 //浏览器窗口该变，自适应
 $(window).resize(function(){
 	var w_win=$(window).width();
-   disposedWidth();
    //getScript();
    if(w_win<=1280){
        $("#mainCss").attr("href","<%=path%>/css/less1280.css");
@@ -252,6 +251,7 @@ $(window).resize(function(){
        $(".pagebox .lft").css("width","9.375%");
 
     }
+   disposedWidth();
  })
     /*二维码*/
  var ewm_w=$(".erwms").width();
