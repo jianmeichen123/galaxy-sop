@@ -682,7 +682,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		InformationListdata listdataQuery = new InformationListdata();
 		listdataQuery.setProjectId(Long.valueOf(projectId));
 		listdataQuery.setTitleIds(titleIds);
-		listdataQuery.setProperty("title_id");
+		listdataQuery.setProperty("created_time");
 		listdataQuery.setDirection(Direction.ASC.toString());
 		List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
 		if(listdataList != null && listdataList.size() > 0)

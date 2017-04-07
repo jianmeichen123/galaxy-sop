@@ -420,7 +420,7 @@ function buildMemberTable(sec,title){
     	//列表Row
     	if(title.dataList)
     	{
-    	    var list = title.dataList.reverse();
+    	    var list = title.dataList;
     		$.each(list,function(){
     			var row = this;
     			var tables = $("table[data-title-id='"+row.titleId+"']");
@@ -776,9 +776,7 @@ $.validator.setDefaults({
 });
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {   
-	//var verify_102 = /^(0|1.0|1.00|0.0|0.00|([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0])|([1-9][0-9]{0,9}\.[0]))$/;
-	//var verify_102 = /^([0]{1}(\.\d{1,2})|0|[1-9]{1}(\.\d{1,2})|[1-9]|[1-9]{1}[0-9]{2,9}(\.\d{1,2})|^[1-9]\d{1,9}|[1-9]{1}[0-9](\.\d{1,2}))$/;
-	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})?(\.\d{1,2})?)$/;
+	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
 //vinputValRule=="2"
@@ -792,9 +790,7 @@ jQuery.validator.addMethod("vinputValRule_1", function(value, element) {
 }, "不能超过100")
 //vinputValRule=="3"
 jQuery.validator.addMethod("vinputValRule_3", function(value, element) {   
-	//var verify_3 = /^[0-9]{1,3}$/;
-	//var vinputValRule_3 = /^(?:[1-9][0-9]?|1[01][0-9]|100)$/;
-	var vinputValRule_3 = /^(([1-9](?:\d{0,1}\.\d{0,2}))|([0](?:\d{0}\.\d{0,2}))|([1-9](\d{0,1}))|100|100.0|100.00|0)$/;
+	var vinputValRule_3 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (vinputValRule_3.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="3,2"
@@ -804,8 +800,6 @@ jQuery.validator.addMethod("verify_32", function(value, element) {
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
 jQuery.validator.addMethod("verify_52", function(value, element) {   
-	//var verify_52 = /^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$/;
-	//var verify_52 =  /^(([1-9][0-9]{0,4})|([0]\.[1-9][0-9])|([0]\.[0-9][1-9])|([1-9][0-9]{1,3}\.[0-9]{1,2})|([1-9][0-9]{0,4}\.[0]{1,2}))$/;
 	var verify_52 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,4})?(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_52.test(value));
 }, "不能超过99999"); 
