@@ -420,7 +420,7 @@ function buildMemberTable(sec,title){
     	//列表Row
     	if(title.dataList)
     	{
-    	    var list = title.dataList.reverse();
+    	    var list = title.dataList;
     		$.each(list,function(){
     			var row = this;
     			var tables = $("table[data-title-id='"+row.titleId+"']");
