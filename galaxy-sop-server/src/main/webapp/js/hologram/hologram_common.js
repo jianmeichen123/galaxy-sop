@@ -811,7 +811,7 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 }, "不能超过99999"); 
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
-	var vinputValRule_4 = /^((\d|[1-9]\d?|[1][0-6][0-7])(\.\d{1})?|0\.\d|168|168.0)$/;
+	var vinputValRule_4 = /^(((([1-9]{1}[0-9]{0,1}|0)|([1][0-5][0-9])|([1][6][0-7]))(\.\d{1})?)|168|168.0)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
 //百分数
