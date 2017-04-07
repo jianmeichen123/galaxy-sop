@@ -668,8 +668,8 @@ var autoTextarea = function(elem, extra, maxHeight) {
             scrollTop += parseInt(style.height) - elem.currHeight;
 //            输入时不让body跳动
             
-//            document.body.scrollTop = scrollTop;  
-//            document.documentElement.scrollTop = scrollTop;  
+            document.body.scrollTop = scrollTop;  
+            document.documentElement.scrollTop = scrollTop;  
             elem.currHeight = parseInt(style.height);  
         };  
     };  
