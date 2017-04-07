@@ -85,7 +85,11 @@
             eduJson[name]= ele.val();
             if(name=="field1"){
             	 if(ele.val()){
-                     eduJson[name]= ele.val()+"毕业";
+            		 if(ele.val()=="至今"){
+            			 eduJson[name]= ele.val();
+            		 }else{
+            			 eduJson[name]= ele.val()+"毕业";
+            		 }
                 }else{
                      eduJson[name]="未知"
                 }
