@@ -48,7 +48,7 @@
                 <dt>措施的有效性是否验证：</dt>
                 <dd class="clearfix">
                 	<label><input type="radio" name="field5" value="是" />是</label>
-                	<label><input type="radio" name="field5" value="否" checked="checked" />否</label>
+                	<label><input type="radio" name="field5" value="否" />否</label>
                 </dd>
             </dl>
                         
