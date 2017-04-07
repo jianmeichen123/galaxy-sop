@@ -2616,8 +2616,6 @@ input:-ms-input-placeholder {
 .finace_fnum{width:390px;margin:-10px 10px 0px 0; position:relative;z-index:100;}
 .mstone_fnum{width:320px;margin: -5px 10px 0px 0;}
 .font_num_m{width:320px;margin: -2px 10px 0px 0;}
-.valuation .mb_24 table tr td:first-child{background-color: #accbff;color:#fff;}
-.valuation .mb_16 table tr td:first-child{background-color: #accbff;color:#fff;}
 dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .qualifications_all li input[type="radio"]{margin-right:10px;vertical-align: middle;}
 .qualifications_all .team_p{color:#666;}
