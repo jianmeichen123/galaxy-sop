@@ -13,6 +13,9 @@
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
 <title>项目详情</title>
+
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path%>/js/hologram/hologram_common.js"></script>
 </head>
 <body>
 <ul class="h_navbar clearfix">
@@ -38,8 +41,6 @@
 	</div>
 
 
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path%>/js/hologram/hologram_common.js"></script>
 <script type="text/javascript">
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
