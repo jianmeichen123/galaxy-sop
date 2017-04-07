@@ -2574,7 +2574,7 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 #compete dt{width:160px;text-align:right;}
 .h_look table{width:90%;table-layout:fixed;}
 .h_edit table{width:95%;table-layout:fixed;}
-.h_edit .fixed_table{table-layout:auto;width:80%;}
+.h_edit .fixed_table{table-layout:auto;width:698px;}
 .h_edit .fixed_table .fixed_table_td{width:15%;}
 /*输入框placeholder 颜色及大小 */
 .textarea_h::-webkit-input-placeholder { 
@@ -2627,6 +2627,8 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .qualifications_all .team_p,.qualifications_all .team_p_jb {color:#666;}
 .h_edit .pubbtn{width:auto;height:auto;display:inline-block;padding:8px 20px;line-height: 1;}
 .h_edit_txt .img_prompt{color:#d9d9d9;}
+.fixed_table .h_radios li{margin:0 10px;}
+.fixed_table .h_radios{margin-left:25px;}
 
 
 
