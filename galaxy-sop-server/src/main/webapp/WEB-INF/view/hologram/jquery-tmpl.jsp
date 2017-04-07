@@ -101,8 +101,8 @@
 								<th>\${$data.childList[4].childList[1].name}</th>
                               </tr>
                                <tr>
-                             	 <th>上游</th>
-                             	 <td>供应商</td>
+                             	 <th class="fixed_table_td">上游</th>
+                             	 <td class="fixed_table_td">供应商</td>
 								{{each(i,childList) childList}}
                              	 <td>
 									<ul class="h_radios clearfix">
@@ -115,8 +115,8 @@
 								{{/each}} 
                            	 </tr>
 							<tr>
-                             	 <th rowspan="2">下游</th>
-                             	 <td>主要渠道</td>
+                             	 <th rowspan="2" class="fixed_table_td">下游</th>
+                             	 <td class="fixed_table_td">主要渠道</td>
 								{{each(i,childList) childList}}
                              	 <td>
 									<ul class="h_radios clearfix">
@@ -129,7 +129,7 @@
 								{{/each}} 
                            	 </tr>
 							<tr>
-                             	 <td>主要客户</td>
+                             	 <td class="fixed_table_td">主要客户</td>
 								{{each(i,childList) childList}}
                              	 <td>
 									<ul class="h_radios clearfix">
@@ -286,15 +286,15 @@
         {{else type=="9"}}
 		<dt data-type="\${type}">\${name}</dt>
 						<dd class="fl_none">
-                            <table data-type="\${type}" data-test="\${id}">
+                            <table data-type="\${type}" data-test="\${id}" class="fixed_table">
                               <tr>
                                 <th></th>
                                  <th colspan="2">\${$data.childList[4].childList[0].name}</th>
 								<th>\${$data.childList[4].childList[1].name}</th>
                               </tr>
                                <tr>
-                             	 <th>上游</th>
-                             	 <td>供应商</td>
+                             	 <th class="fixed_table_td">上游</th>
+                             	 <td class="fixed_table_td">供应商</td>
 								{{each(i,childList) childList}}
                              	 <td  data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
@@ -307,8 +307,8 @@
 								{{/each}} 
                            	 </tr>
 									<tr>
-                             	 <th rowspan="2">下游</th>
-                             	 <td>主要渠道</td>
+                             	 <th rowspan="2" class="fixed_table_td">下游</th>
+                             	 <td class="fixed_table_td">主要渠道</td>
 								{{each(i,childList) childList}}
                              	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
@@ -321,7 +321,7 @@
 								{{/each}} 
                            	 </tr>
 							<tr>
-                             	 <td>主要客户</td>
+                             	 <td class="fixed_table_td">主要客户</td>
 								{{each(i,childList) childList}}
                              	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
