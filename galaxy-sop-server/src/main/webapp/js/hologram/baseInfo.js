@@ -169,8 +169,8 @@ function switchTypeByMark(title,mark){
 
 // 1:文本 
 function type_1_html(title,mark){
-	var htitle = "<dt>"+title.name+"</dt>";
-	
+	var htitle = "<dt style='margin-bottom:10px;'>"+title.name+"</dt>";
+		
 	var results = title.resultList;
 	
 	if(mark == 's'){
@@ -178,7 +178,7 @@ function type_1_html(title,mark){
 		if(results && results[0] && results[0].contentDescribe1){
 			hresult = "<dd>"+results[0].contentDescribe1+"</dd>";
 		}
-		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\" style='margin-bottom:14px;'>" + htitle + hresult + "</div>";
 	}else{
 		var value = '';
 		if(results && results[0] && results[0].contentDescribe1) value = results[0].contentDescribe1;
@@ -187,8 +187,9 @@ function type_1_html(title,mark){
 		
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
 					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"'/>";
-		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
+		return  "<div class=\"mb_24 clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
 	}
+	
 }
 
 
