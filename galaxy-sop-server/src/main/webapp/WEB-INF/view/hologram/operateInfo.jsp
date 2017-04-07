@@ -227,6 +227,7 @@ getData();
 								//$(".section").remove();
 								//getData();
 								var pid=$('#a_'+id_code).attr("data-section-id");
+								$('#a_'+id_code).find('dd[data-type="3"]').hide();
 								setDate(pid,true);	
 								picData(projectInfo.id);
 								
