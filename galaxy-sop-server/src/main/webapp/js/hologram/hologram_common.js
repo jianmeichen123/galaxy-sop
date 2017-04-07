@@ -776,7 +776,7 @@ $.validator.setDefaults({
 });
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {   
-	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})?(\.\d{1,2})?)$/;
+	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
 //vinputValRule=="2"
