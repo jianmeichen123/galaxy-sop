@@ -574,7 +574,7 @@ function picData(pid){
 	var infoFileids = "";
 	var data={};
 	for(var i = 0;i < fileids.length; i++) {
-		  fileids.find('dt').html("未添加");
+		  fileids.html("未添加");
 		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 	}
 	data.projectId = pid;
@@ -668,8 +668,8 @@ var autoTextarea = function(elem, extra, maxHeight) {
             scrollTop += parseInt(style.height) - elem.currHeight;
 //            输入时不让body跳动
             
-//            document.body.scrollTop = scrollTop;  
-//            document.documentElement.scrollTop = scrollTop;  
+            document.body.scrollTop = scrollTop;  
+            document.documentElement.scrollTop = scrollTop;  
             elem.currHeight = parseInt(style.height);  
         };  
     };  

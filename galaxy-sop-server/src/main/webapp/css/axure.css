@@ -1307,8 +1307,9 @@ em{font-style: normal;}
 .installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
 /* 添加二维码 */
 .erwm{position: fixed;z-index: 13;cursor:pointer;}
-.erwms{width:50px;height:70px;margin-left:-55px;bottom: 10px;}
-.erwmb{width:90px;height:145px;margin-left:-45px;bottom: 10px;display:none;left:4.6875%;}
+.erwms{width:auto;height:70px;margin-left:-55px;bottom: 10px;}
+.erwmb{width:auto;height:145px;margin-left:-45px;bottom: 10px;display:none;left:4.6875%;}
+.erwms img{margin-left:5px;}
 .erwmb img{margin-bottom:10px;}
 .erwm p,.erwm a{font-size:12px;font-family:"微软雅黑";color:#7a8798;text-align:center;margin-bottom:6px;}
  /*登录信息与密码*/
@@ -2465,7 +2466,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_compile_ul li span{color:#999;}
 .team_compile_ul li{ width:48%; float:left; margin-left:1%; margin-top:10px; overflow:hidden; height: 33px;}
 .team_compile_ul li .txt{ width:176px;border: 1px solid #dadfe3;   background: #ffffff;  height: 30px; overflow:hidden;  line-height: 27px; border-radius: 4px;  padding: 0 4px;
-    font-size: 12px; color: #525662; -webkit-appearance:none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+    font-size: 12px; color: #525662; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
 .team_compile_ul_l{ display:block; float:left; width:70px; text-align: left;line-height: 28px;}
 .team_compile_ul li .txt_select{ width:187px; font-size:12px;}
 .team_ico_add{width:20px; height:20px;background-position:0 0px;margin-right:5px; cursor:pointer;  display:block; float:right;}
@@ -2491,7 +2492,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_look .h_btnbox,.h_edit .h_btnbox{position: absolute;top: 0;right: -20px;z-index: 8;}
 .h_look .h_btnbox span,.h_edit .h_btnbox span{margin-left: 20px;cursor: pointer;color:#999;}
 .h_edit .h_btnbox .h_save_btn,.h_look .h_btnbox .h_edit_btn{font-size: 14px;color:#72a7ff;}
-.h{padding:30px 40px 6px 40px;background-color: #fff;margin-bottom: 10px;box-shadow:0px 2px 3px rgba(0,0,0,0.1);}
+.h{padding:30px 40px 6px 40px;background-color: #fff;margin-bottom: 10px;}
 .h .mb_24{margin-bottom: 24px;}
 .h .w_half{width:50%;}
 .h dt,.h dd{float: left;font-size: 12px;font-family: '微软雅黑';word-break:break-all;}
@@ -2516,7 +2517,8 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit_checkbox li.active{background-color: #84b2ff;}
 .h_edit_checkbox li.others{margin:0 10px;}
 /* .h_edit dt{width:92px;} */
-.base_tab-content .base_team_look.h_edit dt{width:112px;}
+.base_tab-content .base_team_look.h_edit dt{width:90px;}
+.base_tab-content .base_con2 .base_team_look.h_edit dt{width:112px;}
 .h_edit_btnbox{margin-left: 0px;margin-top: 60px; margin-bottom:24px;}
 .base_tab-content .base_team_look .h_edit_btnbox{margin-left: 122px;}
 .h_edit_btnbox span{margin-right: 20px;}
@@ -2526,14 +2528,14 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}
 .h_edit .h_radios input[type="radio"]{position: absolute;top:2px;left: 0;}
 .h_edit .h_radios input[type="text"]{margin:0;font-size:12px;font-family:"微软雅黑";}
-.textarea_h{color:#666;width: 100%;overflow-x: hidden;min-height: 70px;border:1px solid #dadada; padding:8px 10px;box-sizing:border-box;overflow:auto;}
+.textarea_h{color:#666;width: 100%;min-height: 70px;border:1px solid #dadada; padding:8px 10px;box-sizing:border-box;overflow:hidden;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
-.num_tj{color:#dadada;font-size: 12px;text-align: right;margin: -23px 10px 4px 0;}
+.num_tj{color:#dadada;font-size: 12px;text-align: right;}
 .h_edit_textarea select{display: block;}
 .h_edit_textarea textarea{margin-top: 8px;}
 .h_title{height:20px;border-left:4px solid #72a7ff;padding-left:10px;line-height: 20px;font-size: 14px;color:#333;margin-bottom:30px;}
 /* .h_team_look dt,.h_team_look dd{float: none;} */
-.h_look table,.h_look table{ border-collapse: collapse; border-spacing: 0;}
+.h_edit table,.h_look table{ border-collapse: collapse; border-spacing: 0;}
 .h_look table td,.h_look table th,.h_edit table td,.h_edit table th{height:40px;text-align: center;padding:0 10px;}
 .h_look table th,.h_edit table th{background-color: #accbff;color:#fff;border-bottom: 1px solid #fff;border-right: 1px solid #fff;}
 .h_look table td,.h_edit table td{background-color: #f6f6f6;color:#999;border-bottom: 1px solid #fff;border-right: 1px solid #fff;}
@@ -2549,7 +2551,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit .fl_none span[data-btn='btn']{margin:0 5px; cursor:pointer}
 .fl_none span[data-btn='btn']{cursor:pointer}
 .h_imgs li{width:148px;height:118px;border:1px dashed #d9d9d9;margin-right: 20px;float: left;background-color: #fff;position: relative;}
-.h_imgs img{width:100px;height:100px;position: absolute;top:12px;left:20px;box-shadow: 0px 3px 10px #5191f2;}
+.h_imgs img{width:100px;height:100px;position: absolute;top:12px;left:20px;/* box-shadow: 0px 3px 10px #5191f2; */}
 .h_img_del{position: absolute;top:5px;right:5px;font-size: 0;background:url(../img/qxt/h_img_del.png);width: 16px;height: 16px;cursor: pointer;}
 .h_img_del:hover{background:url(../img/qxt/h_img_del.png) 0 -25px no-repeat;}
 .h_imgs_add{cursor:pointer;background:url(../img/qxt/h_imgs_add.png) 0 0 no-repeat;font-size: 0;display: inline-block;}
@@ -2615,6 +2617,7 @@ input:-ms-input-placeholder {
 .valuation .mb_24 table tr td:first-child{background-color: #accbff;color:#fff;}
 .valuation .mb_16 table tr td:first-child{background-color: #accbff;color:#fff;}
 dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
+.qualifications_all li input[type="radio"]{margin-right:10px;vertical-align: middle;}
 .qualifications_all .team_p{color:#666;}
 .qualifications_all .team_div .team_p_one,.qualifications_all .team_div li{margin-bottom:5px;}
 .qualifications_all .team_tit{color:#333;}
