@@ -15,7 +15,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <html>
 <head>
 <meta charset="utf-8">
-<title>繁星</title>
+<title>星河投</title>
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->

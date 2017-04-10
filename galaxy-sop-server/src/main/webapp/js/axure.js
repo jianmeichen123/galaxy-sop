@@ -778,6 +778,46 @@
 			var obj = new popEve();
 			obj.init();
 		};
+		$.tabup1 = function(options){
+			var opts = $.extend({
+				txt:"",
+				showback:function(){},
+				hideback:function(){}
+			},options);
+			function popEve(){
+				this.strpopTab="<div id=\"tab-content1\" data-id=\"tab-content1\"><div class=\"tabtxt\"></div></div>"
+				this.txt = opts.txt;//弹层添加数据
+				//显示出来之后执行
+				this.showback = opts.showback;
+				//隐藏后执行
+				this.hideback = opts.hideback;
+				this.id = "[data-id='tab-content1']";
+			}
+			popEve.prototype = {
+				init:function(){
+					var _this = this;
+					$("#tab-content1").remove();
+					_this.inserttxt();
+		//			$("#tab-content").hide();
+		//			$("#tab-content").animate({left: '0px'}, 1000);  	
+		
+				},
+				//内容插入
+				inserttxt:function(){
+					var _this = this;
+					//插入弹窗外部皮肤
+					$("[data-id='tab-block']").append(_this.strpopTab);
+					//插入内容
+					$(_this.id).children(".tabtxt").html(_this.txt);
+					//对外接口
+					_this.showback.apply(_this);
+					return _this;	
+				},
+			};
+			var obj = new popEve();
+			obj.init();
+		};
+		
 		
 		
 		/*获取html模版弹窗*/
@@ -816,6 +856,42 @@
 				}	
 			});
 		};	
+		/*获取html模版弹窗*/
+		$.getTabHtmlInfo = function(options){
+			var opts = $.extend({
+				url:"",//模版请求地址
+				data:"",//传递参数
+				okback:function(){}//模版反回成功执行	
+			},options);
+			//拉取静态模版
+			$.tabup1({
+				showback:function(){
+					var _this = this;
+					$.ajax({
+						type:"GET",
+						data:opts.data,
+						dataType:"html",
+						url:opts.url,
+						cache:false,
+						beforeSend: function () {
+							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.gif">'+'</img></center></div>';
+							$(_this.id).find(".tabtxt").html(imgDiv);
+						},
+						success:function(html){
+							var flag=$(html).find('form').find('#flagLogin').val();
+							if(typeof(flag)!=="undefined"&&flag=="login"){
+								window.location.href=endpointObj["galaxy.project.platform.endpoint"] +"/galaxy/userlogin/toLogin";
+								return;
+							}
+							$(_this.id).find(".tabtxt").html(html);
+							opts.okback();
+						},
+						error:function(){
+						}	
+					})
+				}	
+			});
+		};
 		
 		
 		$.fn.tabLazyChange = function(options){
@@ -862,6 +938,7 @@
 				//事件执行
 				obj.nav.on(opts.eventType,function(){
 					$("#tab-content").remove();
+					$("#tab-content1").remove();
 					
 					
 				/*	$("#tab-content").animate({opacity: 'hide'}, 2000,
@@ -876,6 +953,63 @@
 		    });
 		};
 		
+		$.fn.tabInfoChange = function(options){
+			if($(this).length==0) return false;
+			var defaultnum = options.defaultnum;
+			if(!defaultnum){
+				defaultnum = 0;
+			}
+			var opts = $.extend({
+				defaultnum:defaultnum,
+				onClass:"on",
+				eventType:"click",
+				movetime:300,
+				onchangeSuccess:function(data){}
+			},options);
+			function tab(t){
+				this.nav = t.find("[data-tab='navInfo']");
+				this.onclass = opts.onClass;
+				this.suffix = t.find("[data-tab='suffix']");
+				this.num = opts.defaultnum;
+				this.time = opts.movetime;
+			};
+			tab.prototype = {
+				seton : function(){
+					var _this = this;
+					_this.nav.removeClass(_this.onclass);
+					_this.nav.eq(_this.num).addClass(_this.onclass);
+					_this.setsuffix();
+				},
+				setsuffix : function(n){
+					if(this.suffix.length==0) return false;
+					var _this = this,
+						_width = _this.suffix.width();;
+					_this.suffix.stop(true).animate({
+						"left" : _width*this.num	
+					},_this.time);
+				}
+			};
+			return $(this).each(function() {
+		        var $this = $(this);
+				var obj = new tab($this);
+				obj.seton();
+				opts.onchangeSuccess(opts.defaultnum);
+				//事件执行
+				obj.nav.on(opts.eventType,function(){
+					$("#tab-content").remove();
+					
+					
+				/*	$("#tab-content").animate({opacity: 'hide'}, 2000,
+							function(){ 
+								$("#tab-content").remove();
+								});  	
+					*/
+					obj.num = $(this).index();
+					obj.seton();
+					opts.onchangeSuccess.apply(this,[obj.num]);
+				});
+		    });
+		};
 		
 		
 		/*

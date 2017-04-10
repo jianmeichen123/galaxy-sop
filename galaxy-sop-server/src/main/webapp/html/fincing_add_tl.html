@@ -1,0 +1,48 @@
+<div class="qualificationstc">
+	<div class="title_bj" id="pop-title">添加同类公司</div>
+	
+	
+    <div class="qualifications_all" id="learning">
+    
+    	<form action="" id="detail-form">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
+    	
+        <div class="info clearfix"> 
+            <dl class="fmdl">
+                <dt>同类公司名称：</dt>
+                <dd class="clearfix">
+                    <input name="field1" type="text" class="txt"  maxLength="200"/>
+                </dd>
+            </dl>
+            <dl class="fmdl">
+                <dt>估值：</dt>
+                <dd class="team_wid_p">
+                    <input name="field2" type="text" class="input" placeholder="估值"  data-rule-verify_102="true" data-msg-verify_102="<font color=red>*</font>支持0～9999999999的整数和两位小数"/>
+                </dd>
+            </dl>
+                        
+        </div>
+        
+        </form>
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
+        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+    </div>
+</div>
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        
+    })
+    $.validator.setDefaults({
+        	errorElement:'span'
+        });
+jQuery.validator.addMethod("verify_102", function(value, element) {   
+    		var verify_102 = /^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$/;
+    		return this.optional(element) || (verify_102.test(value));
+    	}, "不能超过9999999999");
+</script>

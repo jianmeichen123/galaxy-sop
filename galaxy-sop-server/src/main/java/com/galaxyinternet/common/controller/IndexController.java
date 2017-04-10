@@ -37,7 +37,7 @@ import com.galaxyinternet.template.controller.SopTemplateController;
 
 @Controller
 @RequestMapping("/galaxy")
-public class IndexController extends BaseControllerImpl<User, UserBo> {
+public class IndexController extends BaseControllerImpl<User, UserBo>{
 	final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	@Autowired
 	private UserRoleService userRoleService;
@@ -54,6 +54,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	private ProjectService projectService;
 	
 	private String serverUrl;
+	
 	
 	
 	/**
@@ -392,5 +393,6 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	{
 		return "desktop/"+moudle;
 	}
+
 	
 }

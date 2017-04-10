@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -30,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -44,6 +44,7 @@ import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.taglib.FXFunctionTags;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.UtilsService;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -110,7 +111,6 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
-import com.galaxyinternet.service.chart.KpiGradeService;
 import com.galaxyinternet.service.chart.ProjectGradeService;
 import com.galaxyinternet.utils.CollectionUtils;
 import com.galaxyinternet.utils.SopConstatnts;
@@ -3030,6 +3030,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		mv.setViewName("/project/sopinfo/project_detail");
 		mv.addObject("projectId", id);
 		mv.addObject("pid", id);
+		HttpSession session = WebUtils.getSession();
+		session.setAttribute("curr_project_id", id);
 		return mv;
 	}
 	/**

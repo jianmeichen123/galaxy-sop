@@ -1,0 +1,52 @@
+<div class="qualificationstc">
+	<div class="title_bj" id="pop-title">添加里程碑和时间节点</div>
+	
+	
+    <div class="qualifications_all" id="learning">
+    
+    	<form action="" id="detail-form">
+    	<input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
+    	
+        <div class="info clearfix"> 
+            <dl class="fmdl">
+                <dt>次数：</dt>
+                <dd class="team_wid_p">
+                    <input name="field1" type="text" class="input" placeholder="次数"  data-rule-vinputValRule_1="true" data-msg-vinputValRule_1="<font color=red>*</font>支持0～99的整数"/>
+                </dd>
+            </dl>
+            <dl class="fmdl">
+                <dt>里程碑：</dt>
+                <dd>
+                   <textarea class="team_textarea" name="field2"  maxLength="1000" id='milestone' oninput='countChar("milestone","label_mstone","1000")'></textarea>
+                   <div class="mstone_fnum num_tj"><span for="" id="label_mstone">1000</span>/1000</div>
+                </dd>
+            </dl>
+            <dl class="fmdl">
+                <dt>&nbsp;时间：</dt>
+                <dd class="clearfix">
+                	<input name="field3" type="text" class="datepicker-month-start-text fl txt time" />
+                </dd>
+            </dl>
+                        
+        </div>
+        
+        </form>
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
+        <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
+    </div>
+</div>
+<script type="text/javascript" src="../../../bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        
+    })
+    $.validator.setDefaults({
+        	errorElement:'span'
+        });
+</script>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>繁星</title>
+<title>星河投</title>
 
 
 <%-- <link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
