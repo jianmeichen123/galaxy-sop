@@ -80,6 +80,7 @@ $(function() {
 	$('div').delegate(".h_edit_btn", "click", function(event) {
 		var base_editbtn = $(this);
 		var id_code = $(this).attr('attr-id');
+		var section = $(this).parents('.section');
 		event.stopPropagation();
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
@@ -110,7 +111,7 @@ $(function() {
 					
 				});
 			}
-			$('html,body').scrollTop(sTop);  //定位
+			/* $('html,body').scrollTop(sTop);  //定位 */
 			//去除base_half 类名
 			if(base_editbtn.is(':hidden')){
 				$('.base_half').css('width','100%');

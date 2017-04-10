@@ -58,7 +58,6 @@
 		var sec = $(this).closest('.section');
 		$(".h#a_"+id_code).css("background","#fafafa");
 		event.stopPropagation();
-		$("#"+id_code).hide();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				var result = data.result.status;
@@ -66,6 +65,7 @@
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					$("#"+id_code).hide();
 					validate();
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
