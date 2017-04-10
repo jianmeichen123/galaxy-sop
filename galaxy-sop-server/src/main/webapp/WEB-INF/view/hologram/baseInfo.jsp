@@ -91,7 +91,6 @@ $(function() {
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
 				var sTop=$(window).scrollTop();
-				
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
@@ -104,7 +103,7 @@ $(function() {
 					var textareaId=$("textarea").eq(i).attr("id");
 					autoTextarea(textareaId);
 				}
-				$('html,body').scrollTop(sTop);  //定位
+				/* $('html,body').scrollTop(sTop);  //定位 */
 			}
 			
 			//去除base_half 类名
