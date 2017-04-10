@@ -56,7 +56,6 @@ getData();
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
 		event.stopPropagation();
-		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
 				var result = data.result.status;
@@ -64,6 +63,7 @@ getData();
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
 					$("#b_"+id_code).validate();
