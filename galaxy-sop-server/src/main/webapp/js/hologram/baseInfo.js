@@ -625,7 +625,7 @@ function type_10_html(title,mark){
 			
 			table_value(title.id,dataList);
 			
-			hresult = "<dd><table data-talbe-tid='"+title.id+"' ><thead><tr>"
+			hresult = "<dd class=\"fl_none\"><table data-talbe-tid='"+title.id+"' ><thead><tr>"
 			
 			var th = "";
 			for(var i = 0 ; i < filed_sort.length; i++){
@@ -650,7 +650,7 @@ function type_10_html(title,mark){
 		
 		var filed_sort = table_filed[title.id];
 		
-		var eresult = "<dd><table><thead>";
+		var eresult = "<dd class=\"fl_none\"><table><thead>";
 		
 		var th = "<tr>";
 		for(var i = 0 ; i < filed_sort.length; i++){
