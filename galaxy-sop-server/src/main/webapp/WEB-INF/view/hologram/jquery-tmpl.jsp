@@ -273,7 +273,7 @@
         <li class="h_imgs_add" id="h_imgs_add_\${id}"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
         </ul>
         </dd>
-        <dd class="fl_none red">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
+        <dd class="fl_none red img_prompt">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 
 		{{else type=="8"}}
 		<dt data-type="\${type}">\${name}</dt>
