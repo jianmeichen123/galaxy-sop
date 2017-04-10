@@ -32,7 +32,7 @@
 
 
 	<div id="tab-content">
-		<div class="tabtxt" id="page_all">
+		<div class="tabtxt compete_tab-content" id="page_all">
 
 			<!-- <div class="h radius" id="NO5_2"> </div> -->
 
