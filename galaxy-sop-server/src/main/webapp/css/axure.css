@@ -2569,12 +2569,12 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 .btn_compet{display: inline-block; margin-bottom: 10px; margin-top: 20px;}
 .fl_none_box{box-sizing:border-box;padding-left:122px;}
 .h_edit .h_radios li.text_li{padding:0;margin-top:-8px;margin-left:-10px;}
-.sign_title{font-size:12px;margin-bottom:5px;}
+.sign_title{font-size:14px;margin-bottom:5px;}
 #compete{width:550px;}
 #compete dt{width:160px;text-align:right;}
 .h_look table{width:90%;table-layout:fixed;}
 .h_edit table{width:95%;table-layout:fixed;}
-.h_edit .fixed_table{table-layout:auto;width:80%;}
+.h_edit .fixed_table{table-layout:auto;width:698px;}
 .h_edit .fixed_table .fixed_table_td{width:15%;}
 /*输入框placeholder 颜色及大小 */
 .textarea_h::-webkit-input-placeholder { 
@@ -2627,6 +2627,8 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .qualifications_all .team_p,.qualifications_all .team_p_jb {color:#666;}
 .h_edit .pubbtn{width:auto;height:auto;display:inline-block;padding:8px 20px;line-height: 1;}
 .h_edit_txt .img_prompt{color:#d9d9d9;}
+.fixed_table .h_radios li{margin:0 10px;}
+.fixed_table .h_radios{margin-left:25px;}
 
 
 
