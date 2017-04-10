@@ -665,12 +665,13 @@ var autoTextarea = function(elem, extra, maxHeight) {
                 style.overflowY = 'hidden';  
             };  
             style.height = height + extra + 'px';  
-            scrollTop += parseInt(style.height) - elem.currHeight;
-//            输入时不让body跳动
-            
-            document.body.scrollTop = scrollTop;  
-            document.documentElement.scrollTop = scrollTop;  
-            elem.currHeight = parseInt(style.height);  
+           if(elem.currHeight!=undefined){
+        	   scrollTop += parseInt(style.height) - elem.currHeight;
+//             输入时不让body跳动
+             document.body.scrollTop = scrollTop;  
+             document.documentElement.scrollTop = scrollTop;  
+             elem.currHeight = parseInt(style.height);
+           }
         };  
     };  
     addEvent('propertychange', change);  
