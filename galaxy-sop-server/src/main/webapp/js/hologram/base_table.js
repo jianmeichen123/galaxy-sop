@@ -363,7 +363,7 @@ function mathRandomNum(sixe){
 	for(var i = 0 ; i < sizenum; i++){
 		num += Math.floor(Math.random()*10);
 	}
-	return num;
+	return 'key'+num;
 }
 
 
