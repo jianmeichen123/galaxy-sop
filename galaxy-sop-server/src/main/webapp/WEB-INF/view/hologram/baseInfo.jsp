@@ -71,7 +71,6 @@ $(function() {
 		event.stopPropagation();
 		//base_half
 		if(_this.is(':visible')){
-			console.log("12344555");
 			_this.siblings('.base_half').css('width','50%');
 		}
 	});
