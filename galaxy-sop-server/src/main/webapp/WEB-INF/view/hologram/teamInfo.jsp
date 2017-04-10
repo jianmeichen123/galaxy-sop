@@ -82,7 +82,7 @@
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
 		event.stopPropagation();
-		$("#"+id_code).hide();
+		
 		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
@@ -92,6 +92,7 @@
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
                     bindChange();
 					sec.showResults();
+					$("#"+id_code).hide();
 					validate();
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
