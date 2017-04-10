@@ -62,7 +62,6 @@
 		 $.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
 		 $.getScript("<%=path %>/js/validate/lib/jq.validate.js"); 
 		event.stopPropagation();
-		$("#"+id_code).hide();
 		$(".h#a_"+id_code).css("background","#fafafa");
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
@@ -71,6 +70,7 @@
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					$("#"+id_code).hide();
 					validate();
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
