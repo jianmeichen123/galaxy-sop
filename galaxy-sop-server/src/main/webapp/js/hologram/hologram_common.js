@@ -916,7 +916,9 @@ function btn_disable(data){
 }
 //显示隐藏
 function toggle_btn(data){
-	
+	$('dd').show();
+	$('dd').parents('.mb_24').show();
+	$('.sign_title').show();
 	if(data.hasClass('invisible')){
 		$('.radius dd').each(function(){
 			if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'){
@@ -938,9 +940,17 @@ function toggle_btn(data){
 				$('nav .'+nav_class+'').hide();
 				i=0;
 			}
+			//小标题
 		})
+		$('.sign_title').each(function(){
+			if($(this).next().is(':hidden')){
+				$(this).hide();
+			}
+		})
+		
 	}else{
 		$('.radius').show();
+		$('.sign_title').show();
 		$('dd').show();
 		$('dd').parents('.mb_24').show();
 		$('nav li').show();
