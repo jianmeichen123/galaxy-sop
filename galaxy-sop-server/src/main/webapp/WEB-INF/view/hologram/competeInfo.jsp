@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
 </head>
 
@@ -69,6 +70,7 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		btn_disable(0);
 		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
 		if(_this.is(':visible')){
@@ -98,6 +100,7 @@ $(function() {
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
 				});
+				btn_disable(1);
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -248,6 +251,7 @@ $(function() {
 				updateInforTime(projectInfo.id,"competeTime");
 				layer.msg('保存成功');
 				showArea(id_code);
+				btn_disable(0);
 			} else {
 				layer.msg('保存失败');
 			}

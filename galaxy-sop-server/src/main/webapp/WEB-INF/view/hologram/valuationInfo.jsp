@@ -120,6 +120,7 @@
 					//调整表格
 					$("table").css({"width":"90%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
+					btn_disable(1);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -147,6 +148,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 		deletedRowIds = new Array();
@@ -239,7 +241,8 @@
 					var parent = $(sec).parent();
 					var id = parent.data('sectionId');
 					$(btn).next().click();
-					refreshSection(id)
+					refreshSection(id);
+					btn_disable(0);
 				} else {
 
 				}

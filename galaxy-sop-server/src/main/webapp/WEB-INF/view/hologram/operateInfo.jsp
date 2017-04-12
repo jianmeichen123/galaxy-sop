@@ -67,6 +67,8 @@ getData();
 					$("#"+id_code).hide();
 					validate();
 					$("#b_"+id_code).validate();
+					//编辑显示隐藏按钮不可用
+					btn_disable(1);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -138,6 +140,7 @@ getData();
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
 		dtWidth();
+		btn_disable(0);
 		event.stopPropagation();
 	});
 	
@@ -219,6 +222,8 @@ getData();
 								//tabInfoChange('3');
 								$('#'+id_code).show();
 								$('#b_'+id_code).remove();
+								//右侧按钮显示隐藏
+								btn_disable(0);
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".loading-indicator-overlay").remove();
 								$(".loading-indicator").remove();

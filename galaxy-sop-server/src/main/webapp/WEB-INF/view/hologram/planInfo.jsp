@@ -71,6 +71,7 @@
 					$("#"+id_code).hide();
 					validate();
 					$("#b_"+id_code).validate();
+					btn_disable(1);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -95,6 +96,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
@@ -150,6 +152,7 @@
 					layer.msg('保存成功');
 					$('#'+id_code).show();
 					$('#b_'+id_code).remove();
+					btn_disable(0);
 					$(".h#a_"+id_code).css("background","#fff");
 					var pid=$('#a_'+id_code).attr("data-section-id");
 					 setDate(pid,true);	
