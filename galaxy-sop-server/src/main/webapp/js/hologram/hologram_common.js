@@ -924,6 +924,9 @@ function toggle_btn(data){
 			if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'){
 				$(this).hide();
 				$(this).parents('.mb_24').hide();
+			}else{
+				$(this).show();
+				$(this).parents('.mb_24').show();
 			}
 		});
 		$('.radius').each(function(){

@@ -238,8 +238,6 @@ function right_anchor(i){
 									}
 								});
 								//滑动到底部
-								console.log(scrollTop + windowHeight);
-								console.log(scrollHeight);
 								if(scrollTop + windowHeight >= scrollHeight){
 									console.log('花到最底部啦啦啦啦啦');
 									for(i=$('.anchor_nav li').length;i>=0;i--){
