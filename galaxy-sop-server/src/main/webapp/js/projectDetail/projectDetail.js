@@ -234,16 +234,16 @@ function right_anchor(i){
 									var id = $(this).attr("href");
 									var top= $(id).offset().top - scrollTop;
 									if(top<=100){
-										_this.parent().addClass('invisible');
-										_this.parent().siblings().removeClass('invisible');
+										_this.parent().addClass('active');
+										_this.parent().siblings().removeClass('active');
 									}
 									}
 								});
 								//滑动到底部
 								if(scrollTop + windowHeight == scrollHeight){
 									console.log('花到最底部啦啦啦啦啦');
-								 　　　$('.anchor_nav li').eq(-1).addClass('invisible');
-								　	$('.anchor_nav li').eq(-1).siblings().removeClass('invisible');
+								 　　　$('.anchor_nav li').eq(-1).addClass('active');
+								　	$('.anchor_nav li').eq(-1).siblings().removeClass('active');
 
 								}
 							});
