@@ -33,6 +33,7 @@ function countChar(textareaName,spanName,maxLimit){
 }
 
 function tabInfoChange(index){
+	$('.anchor_nav').remove();
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
 	$(".tip-yellowsimple").remove();
@@ -52,55 +53,82 @@ function tabInfoChange(index){
 //基本信息
 	function initBaseInfo(){
 		$.getTabHtmlInfo({
-			url : platformUrl.toBaseInfo
+			url : platformUrl.toBaseInfo,
+			okback:function(){
+				right_anchor(1);
+			}
 		}); 
 	   }
 	   //项目
 		function initProjectInfo(){
 		 $.getTabHtmlInfo({
-				url : platformUrl.toProjectInfo 
+				url : platformUrl.toProjectInfo ,
+				okback:function(){
+					right_anchor(2);
+				}
 			}); 
 		}
 		 //团队
 		function initTeamInfo(){
 			$.getTabHtmlInfo({
-				url : platformUrl.toTeamInfo 
+				url : platformUrl.toTeamInfo ,
+				okback:function(){
+					right_anchor(3);
+				}
 			});
 		}
 		 //运营数据
 		function initOperateInfo(){
 			$.getTabHtml({
-				url : platformUrl.toOperateInfo 
+				url : platformUrl.toOperateInfo ,
+				okback:function(){
+					right_anchor(4);
+				}
 			});
 		}
 		//竞争
 		function initCompeteInfo(){
 			$.getTabHtml({
-				url : platformUrl.toCompeteInfo 
+				url : platformUrl.toCompeteInfo ,
+				okback:function(){
+					right_anchor(5);
+				}
 			});
 		}
 		//战略以及策略
 		function initPlanInfo(){
 			$.getTabHtml({
-				url : platformUrl.toPlanInfo 
+				url : platformUrl.toPlanInfo ,
+				okback:function(){
+					right_anchor(6);
+				}
 			});
 		}
 		//财务
 		function initFinanceInfo(){
 			$.getTabHtml({
-				url : platformUrl.toFinanceInfo 
+				url : platformUrl.toFinanceInfo ,
+				okback:function(){
+					right_anchor(7);
+				}
 			});
 		}
 		//法务
 		function initJusticeInfo(){
 			$.getTabHtml({
-				url : platformUrl.toJusticeInfo 
+				url : platformUrl.toJusticeInfo ,
+				okback:function(){
+					right_anchor(8);
+				}
 			});
 		}
 		//融资及估值
 		function initValuationInfo(){
 			$.getTabHtml({
-				url : platformUrl.toValuationInfo 
+				url : platformUrl.toValuationInfo ,
+				okback:function(){
+					right_anchor(9);
+				}
 			});
 		}
 
@@ -858,6 +886,34 @@ function setMustIds(mustids){
 		$("[data-title-id="+result[i]+"]").attr("must","1");
 	}
 }
-	
+//编辑的时候右侧导航隐藏不可用
+//data==1的时候为编辑否则为取消、保存
+function btn_disable(data){
+	if (data == 1){
+	$('.anchor_btn span').addClass('unabled');
+	$('.anchor_btn p').css({
+		'z-index':'101',
+		'cursor':'not-allowed'
+	});
+	}else{
+		console.log($('.h_save_btn.bluebtn').length);
+		if($('.h_save_btn.bluebtn').length>0){
+			console.log('NONONONON');
+			$('.anchor_btn span').addClass('unabled');
+			$('.anchor_btn p').css({
+				'z-index':'101',
+				'cursor':'not-allowed'
+			});
+		}else{
+			console.log('YYYYYYYYY');
+			$('.anchor_btn span').removeClass('unabled');
+			$('.anchor_btn p').css({
+				'z-index':'99',
+				'cursor':'auto'
+			});
+		}
+	}
+	 
+}
 	
 	

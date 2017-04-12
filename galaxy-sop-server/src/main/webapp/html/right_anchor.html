@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<nav class='anchor_nav'>
+	<div class="anchor_btn">
+		<p>隐藏未填写项</p><span></span>
+	</div>
+		<ul id="nav_ul">
+			
+ 		</ul>
+	</nav>
+	 <script id="nav_tmpl" type="text/x-jquery-tmpl">
+	{{if name == '基础信息' || name == '竞争'}}
+		{{each(i,childList) childList}}
+			{{if i==0}}
+			<li class='${code} active'><a href="#${code}">${name}</a></li>
+			{{else}}
+			<li class='${code}'><a href="#${code}">${name}</a></li>
+			{{/if}}	
+		{{/each}}
+{{else}}
+{{each(i,childList) childList}}
+			{{if i==0}}
+			<li class='a_${code} active'><a href="#a_${code}">${name}</a></li>
+			{{else}}
+			<li class='a_${code}'><a href="#a_${code}">${name}</a></li>
+			{{/if}}	
+		{{/each}}
+{{/if}}
+    </script>
+</body>
+</html>

@@ -26,15 +26,15 @@ $(function(){
 			}
 			
 			//右侧刷新	
+			if(index == 10){
+				return;
+			}else{
 			$.getDivHtml({
 				domid : "new_right",
 				url : platformUrl.toRight + "/" + projectId,//模版请求地址
-				data:"",//传递参数
-				okback:function(){
-					
-				}
+				data:"",//传递参数				
 			})
-			
+			}
 			
 		}
 });
@@ -108,6 +108,9 @@ function initTabOperLog(){
 function initTabInfomation(){
 	$.getTabHtml({
 		url : platformUrl.toBaseInfo,
+		okback:function(data){
+			right_anchor(1);
+		}
 		/*okback:function(){
 			 $('.h_navbar').tabLazyChange({
          		onchangeSuccess:function(index){
@@ -197,4 +200,92 @@ function reference(projectId){
 	})
 }
 
+function right_anchor(i){
+	//右侧刷新	
+	$.getDivHtml({
+		domid : "new_right",
+		url :'/sop/html/right_anchor.html' ,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			sendGetRequest(platformUrl.queryAllTitleValues + "NO"+i, null,
+					function(data) {
+						console.log(data);
+						var result = data.result.status;
+						if (result == 'OK') {
+							var entity = data.entity;
+							 $('#nav_tmpl').tmpl(entity).appendTo('#nav_ul');
+							 //点击锚点
+							$('.anchor_nav a[href^="#"]').click(function(event) {
+								var id = $(this).attr("href");
+								var target = $(id).offset().top-50;
+								//$('html, body').animate({scrollTop:target}, 500);
+								$('html, body').scrollTop(target);
+								event.preventDefault();
+							});
+							//滑动高亮
+							$(window).scroll(function(event) {
+								console.log('1234345456');
+								var scrollTop = $(this).scrollTop();
+								var scrollHeight = $(document).height();
+								var windowHeight = $(this).height();
+								$('.anchor_nav a[href^="#"]').each(function() {
+									var _this =$(this);
+									if(_this.is(":hidden")){}else{
+									var id = $(this).attr("href");
+									var top= $(id).offset().top - scrollTop;
+									if(top<=100){
+										_this.parent().addClass('active');
+										_this.parent().siblings().removeClass('active');
+									}
+									}
+								});
+								//滑动到底部
+								if(scrollTop + windowHeight == scrollHeight){
+									console.log('花到最底部啦啦啦啦啦');
+								 　　　$('.anchor_nav li').eq(-1).addClass('active');
+								　	$('.anchor_nav li').eq(-1).siblings().removeClass('active');
+
+								}
+							});
+							
+						} else {
+
+						}
+						//右侧隐藏显示
+						$('.anchor_btn span').click(function(){
+							var _this = $(this);
+							_this.toggleClass('active');
+							if(_this.hasClass('active')){
+								$('.radius dd').each(function(){
+									if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'){
+										$(this).hide();
+										$(this).parents('.mb_24').hide();
+									}
+								});
+								$('.radius').each(function(){
+									var sec_this = $(this);
+									var i = 0;
+									sec_this.find('dd').each(function(){
+										if($(this).is(':hidden')){
+											i++;
+										}
+									})
+									if(i>=sec_this.find('dd').length){
+										sec_this.hide();
+										var nav_class =sec_this.attr('id');
+										$('nav .'+nav_class+'').hide();
+										i=0;
+									}
+								})
+							}else{
+								$('.radius').show();
+								$('dd').show();
+								$('dd').parents('.mb_24').show();
+								$('nav li').show();
+							}
+						})
+					})
+		}
+	})
+}
 
