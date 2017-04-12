@@ -229,12 +229,12 @@ function right_anchor(i){
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
 									if(_this.is(":hidden")){}else{
-									var id = $(this).attr("href");
-									var top= $(id).offset().top - scrollTop;
-									if(top<=100){
-										_this.parent().addClass('active');
-										_this.parent().siblings().removeClass('active');
-									}
+										var id = $(this).attr("href");
+										var top= $(id).offset().top - scrollTop;
+										if(top<=100){
+											_this.parent().addClass('active');
+											_this.parent().siblings().removeClass('active');
+										}
 									}
 								});
 								//滑动到底部
@@ -242,8 +242,15 @@ function right_anchor(i){
 								console.log(scrollHeight);
 								if(scrollTop + windowHeight >= scrollHeight){
 									console.log('花到最底部啦啦啦啦啦');
-								 　　　$('.anchor_nav li').eq(-1).addClass('active');
-								　	$('.anchor_nav li').eq(-1).siblings().removeClass('active');
+									for(i=$('.anchor_nav li').length;i>=0;i--){
+											if($('.anchor_nav li').eq(i-1).is(':hidden')){ }else{
+												$('.anchor_nav li').eq(i-1).addClass('active');
+											　	$('.anchor_nav li').eq(i-1).siblings().removeClass('active');
+											　	return;
+											}
+									}
+									
+								 　　
 
 								}
 							});
