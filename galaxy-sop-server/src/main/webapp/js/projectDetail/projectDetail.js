@@ -234,16 +234,16 @@ function right_anchor(i){
 									var id = $(this).attr("href");
 									var top= $(id).offset().top - scrollTop;
 									if(top<=100){
-										_this.parent().addClass('active');
-										_this.parent().siblings().removeClass('active');
+										_this.parent().addClass('invisible');
+										_this.parent().siblings().removeClass('invisible');
 									}
 									}
 								});
 								//滑动到底部
 								if(scrollTop + windowHeight == scrollHeight){
 									console.log('花到最底部啦啦啦啦啦');
-								 　　　$('.anchor_nav li').eq(-1).addClass('active');
-								　	$('.anchor_nav li').eq(-1).siblings().removeClass('active');
+								 　　　$('.anchor_nav li').eq(-1).addClass('invisible');
+								　	$('.anchor_nav li').eq(-1).siblings().removeClass('invisible');
 
 								}
 							});
@@ -254,35 +254,8 @@ function right_anchor(i){
 						//右侧隐藏显示
 						$('.anchor_btn span').click(function(){
 							var _this = $(this);
-							_this.toggleClass('active');
-							if(_this.hasClass('active')){
-								$('.radius dd').each(function(){
-									if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'){
-										$(this).hide();
-										$(this).parents('.mb_24').hide();
-									}
-								});
-								$('.radius').each(function(){
-									var sec_this = $(this);
-									var i = 0;
-									sec_this.find('dd').each(function(){
-										if($(this).is(':hidden')){
-											i++;
-										}
-									})
-									if(i>=sec_this.find('dd').length){
-										sec_this.hide();
-										var nav_class =sec_this.attr('id');
-										$('nav .'+nav_class+'').hide();
-										i=0;
-									}
-								})
-							}else{
-								$('.radius').show();
-								$('dd').show();
-								$('dd').parents('.mb_24').show();
-								$('nav li').show();
-							}
+							_this.toggleClass('invisible');
+							 toggle_btn(_this);
 						})
 					})
 		}

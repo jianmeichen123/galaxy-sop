@@ -913,7 +913,38 @@ function btn_disable(data){
 			});
 		}
 	}
-	 
+}
+//显示隐藏
+function toggle_btn(data){
+	
+	if(data.hasClass('invisible')){
+		$('.radius dd').each(function(){
+			if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'){
+				$(this).hide();
+				$(this).parents('.mb_24').hide();
+			}
+		});
+		$('.radius').each(function(){
+			var sec_this = $(this);
+			var i = 0;
+			sec_this.find('dd').each(function(){
+				if($(this).is(':hidden')){
+					i++;
+				}
+			})
+			if(i>=sec_this.find('dd').length){
+				sec_this.hide();
+				var nav_class =sec_this.attr('id');
+				$('nav .'+nav_class+'').hide();
+				i=0;
+			}
+		})
+	}else{
+		$('.radius').show();
+		$('dd').show();
+		$('dd').parents('.mb_24').show();
+		$('nav li').show();
+	}
 }
 	
 	

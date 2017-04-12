@@ -151,6 +151,7 @@
 							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");
 							 setDate(pid,true);	
+							 toggle_btn($('.anchor_btn span'));
 						} else {
 
 						}

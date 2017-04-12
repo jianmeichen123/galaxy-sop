@@ -202,6 +202,7 @@
                         $(btn).next().click();
                         refreshSection(id)
                         btn_disable(0);
+                        toggle_btn($('.anchor_btn span'));
                     } else {
 
                     }
