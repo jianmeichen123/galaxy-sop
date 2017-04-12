@@ -49,6 +49,8 @@
 <script type="text/javascript">
 var isEditable = "${isEditable}";
 
+
+
 table_Value = {};
 table_filed = {};
 

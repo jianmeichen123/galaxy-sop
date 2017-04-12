@@ -852,7 +852,12 @@ function getTableRowLimit(code)
 	return 10;
 }
 	
-	
+function setMustIds(mustids){
+	var result=mustids.split(",");
+	for(var i=0;i<result.length;i++){
+		$("[data-title-id="+result[i]+"]").attr("must","1");
+	}
+}
 	
 	
 	

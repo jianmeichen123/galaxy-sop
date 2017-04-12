@@ -36,6 +36,7 @@
 		</div>
 
 <script type="text/javascript">
+var mustids = "${mustids}";
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO2", null,
 		function(data) {
@@ -82,6 +83,7 @@
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					setMustIds(mustids);
 				} else {
 
 				}
@@ -176,5 +178,6 @@
 			}) 
 		
 	});
+
 </script>
 </html>

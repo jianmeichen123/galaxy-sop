@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+   
+        
+     <util:map id="map" map-class="java.util.HashMap" >
+        <!-- key影响到某选项的title,value为title所选中值的title -->
+		<entry key="1106" value-ref="1106-ref-key"/>
+		<entry key="1109" value-ref="1109-ref-key"/>
+		<entry key="1107" value-ref="1107-ref-key"/>
+		
+		<!-- key影响到某选项的title所选中的值的title,value为所涉及某个模块验证的title-->
+		<entry key="1102-ref" value-ref="1102-list"/>
+		<entry key="1215-ref" value-ref="1215-list"/>
+		<entry key="1218-ref" value-ref="1218-list"/>
+		
+	  </util:map>
+	 
+	 
+	  <!-- 题目所影响涉及的value值 -->
+	  <util:list id="1106-ref-key">
+		<value>1102</value>
+	  </util:list>
+	 
+	  <util:list id="1109-ref-key">
+		<value>1215</value>
+	  </util:list>
+	 
+	  <util:list id="1107-ref-key">
+		<value>1218</value>
+	  </util:list>
+	  
+	  
+	  
+	  <!-- 题的答案所涉及影响的id -->
+	  <util:list id="1102-list">
+		<value>1231</value>
+	  </util:list>
+	 
+	  <util:list id="1215-list">
+		<value>1215</value>
+	  </util:list>
+	 
+	  <util:list id="1218-list">
+		<value>1218</value>
+	  </util:list>
+	 
+	 
+</beans>
