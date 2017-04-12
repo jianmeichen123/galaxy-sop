@@ -218,15 +218,13 @@ function right_anchor(i){
 							$('.anchor_nav a[href^="#"]').click(function(event) {
 								var id = $(this).attr("href");
 								var target = $(id).offset().top-50;
-								//$('html, body').animate({scrollTop:target}, 500);
 								$('html, body').scrollTop(target);
 								event.preventDefault();
 							});
 							//滑动高亮
 							$(window).scroll(function(event) {
-								console.log('1234345456');
 								var scrollTop = $(this).scrollTop();
-								var scrollHeight = $(document).height();
+								var scrollHeight = $(document).height()-2;
 								var windowHeight = $(this).height();
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
@@ -240,7 +238,9 @@ function right_anchor(i){
 									}
 								});
 								//滑动到底部
-								if(scrollTop + windowHeight == scrollHeight){
+								console.log(scrollTop + windowHeight);
+								console.log(scrollHeight);
+								if(scrollTop + windowHeight >= scrollHeight){
 									console.log('花到最底部啦啦啦啦啦');
 								 　　　$('.anchor_nav li').eq(-1).addClass('active');
 								　	$('.anchor_nav li').eq(-1).siblings().removeClass('active');
