@@ -92,7 +92,7 @@ function toGetHtmlByMark(title,mark){
 	
 	$.each(tilelist,function(i,o){
 		if(this.sign  && this.sign == 3){
-			html += "<div class=\"mb_24 clearfix\">" + this.name + "</div>";
+			html += "<div class=\"mb_24 clearfix sign_title\">" + this.name + "</div>";
 			sendGetRequest(platformUrl.queryProjectAreaInfo + pid +"/" + this.code, null, function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
