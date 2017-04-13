@@ -51,6 +51,7 @@
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				customBuilder();
+				
 				$(".section").each(function(){
 					$(this).showResults(true);
 					var table = $(this).find('.mb_24 table');
@@ -107,7 +108,7 @@
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
-				
+				console.log(data.entity)
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -121,6 +122,7 @@
 					$("table").css({"width":"90%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					btn_disable(1);
+					setMustIds(mustids);
 					setReqiured();
 					isMust("#b_"+id_code);
 					//文本域剩余字符数

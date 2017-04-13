@@ -37,6 +37,8 @@
 			<!--tab end-->
 		</div>
 <script type="text/javascript">
+var mustids = "${mustids}";
+console.log(mustids);
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
 		function(data) {

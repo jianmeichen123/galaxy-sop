@@ -880,12 +880,6 @@ function getTableRowLimit(code)
 	return 10;
 }
 	
-function setMustIds(mustids){
-	var result=mustids.split(",");
-	for(var i=0;i<result.length;i++){
-		$("[data-title-id="+result[i]+"]").attr("required","required");
-	}
-}
 //编辑的时候右侧导航隐藏不可用
 //data==1的时候为编辑否则为取消、保存
 function btn_disable(data){
@@ -964,38 +958,57 @@ function setReqiured(){  //必填添加required
 	$("*[data-must]").each(function(){
 		var data=$(this).attr("data-must");
 		if(data==0){
-			console.log(data)
 			$(this).attr("required","required");
-			$(this).attr("data-msg-required"," ");
 		}
 	})
 }
-function isMust(id){  //必填添加必填提示
+function isMust(id){  //去除选填题必填提示
 	$(id).find("dt[data-type]").each(function(){
-		var type=$(this).attr("data-type");
 		var musts=$(this).attr("data-must");
-		var spantips="<span>(必填)</span>";
-		if(musts==0){
-			if(type==1 || type==12 || type==11){
-				var inputs=$(this).closest("div").find("input[type='text']");
-				inputs.after(spantips);
-			}else if(type==2 || type==9 || type==3 || type==10 || type==15){
-				var dts=$(this).closest("div").find("dt[data-type]")
-				$(this).after(spantips);
-			}else if(type==8){
-				var textareas=$(this).closest("div").find("textarea");
-				textareas.after(spantips);
-			}else if(type==14){
-				var selects=$(this).closest("div").find("select");
-				selects.after(spantips);
-			}else if(type==4){
-				var selectLast=$(this).closest("div").find("select:last");
-				selectLast.after(spantips);
-			}
+		if(musts==1){
+			$(this).siblings("span.ismust").hide();
 		}
 		
 	})
+	$(id).find("*[data-title-id]").each(function(){
+		var musts=$(this).attr("data-must");
+		var required=$(this).attr("required");
+		var type=$(this).attr("data-type");
+		if(required=="required" && musts==1){
+			$(this).closest("div").find("span.ismust").show();
+		}
+				
+	})
 	
 }
+
+function mustData(projectId){
+	if(projectId){
+		sendGetRequest(Constants.sopEndpointURL+'/galaxy/infomation/queryMustInfo/' + projectId, null,
+				function(data) {
+				    var result = data.result.status;
+				    if (result == 'OK') {
+				    	if(data.entity.resultIds){
+				    		setMustIds(data.entity.resultIds);
+				    	}				    	
+				    }
+					
+				});
+	}
 	
+}
+function setMustIds(mustids){
+	var result=mustids.split(",");
+	for(var i=0;i<result.length;i++){
+		if(result[i].indexOf("a_")>-1){
+			$("#"+result[i]).hide();
+			$("#nav_ul").find("li."+result[i]).hide();
+		}else if(result[i].indexOf("b_")>-1){
+			console.log("模块必填")
+		}else{
+			$("[data-title-id="+result[i]+"]").attr("required","required");
+		}
+		
+	}
+}
 	
