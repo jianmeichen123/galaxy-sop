@@ -250,17 +250,46 @@ public class InfoJumpController{
     	ir.setProjectId(String.valueOf(projectId));
     	ir.setTitleIds(titleids);
     	List<InformationResult> list = informationResultService.queryList(ir);
-    	if(list != null && list.size() > 0){
-    		for(InformationResult in : list){
-    			String choose = in.getContentChoose();
-    			List<String> type = map.get(in.getTitleId());
-    			if(choose != null && type.contains(choose)){
-    				List<String> title = map.get(choose+"-ref");
-    				ids.addAll(title);
-    			}
-    			
-    		}
+    	if(list == null || list.size() == 0){
+    		return null;
     	}
+    	Map<String,String> max = new HashMap<String,String>();
+		for(InformationResult in : list){
+			//所选值id
+			String choose = in.getContentChoose();
+			//值ids集合
+			List<String> type = map.get(in.getTitleId());
+			if(choose != null && type.contains(choose)){
+				List<String> title = map.get(choose+"-ref");
+				if(!ids.containsAll(title)){
+					ids.addAll(title);
+				}
+			}
+			max.put(in.getTitleId(), choose);
+		}
+		if(ids != null && ids.size() > 0){
+			if(!max.isEmpty()){
+				for(Map.Entry<String, String> m : max.entrySet()){
+					//获取项目模式id
+					List<String> unnio = map.get(m.getKey()+"-union-ref");
+					//如果出现交集
+					if(unnio != null && unnio.size() > 0){
+						//项目阶段id
+						String key = unnio.get(0);
+						//项目阶段选择
+						String choose = max.get(key);
+						if(!map.get(key).contains(choose)){
+							List<String> removeids = map.get(m.getKey());
+							if(removeids != null && removeids.size() > 0){
+								List<String> refRemoves = map.get(removeids.get(0)+"-ref");
+								ids.removeAll(refRemoves);
+							}
+						}
+					}
+					
+				}
+			}
+		}
 	    return ids;
 	}
 	/***
