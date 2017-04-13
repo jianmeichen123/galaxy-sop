@@ -69,6 +69,8 @@ getData();
 					$("#b_"+id_code).validate();
 					//编辑显示隐藏按钮不可用
 					btn_disable(1);
+					setReqiured();
+					isMust("#b_"+id_code);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){

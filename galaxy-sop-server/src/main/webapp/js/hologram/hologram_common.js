@@ -883,7 +883,7 @@ function getTableRowLimit(code)
 function setMustIds(mustids){
 	var result=mustids.split(",");
 	for(var i=0;i<result.length;i++){
-		$("[data-title-id="+result[i]+"]").attr("must","1");
+		$("[data-title-id="+result[i]+"]").attr("required","required");
 	}
 }
 //编辑的时候右侧导航隐藏不可用
@@ -958,6 +958,40 @@ function toggle_btn(data){
 		$('dd').parents('.mb_24').show();
 		$('nav li').show();
 	}
+}
+//必填项添加必填字段
+function setReqiured(){  //必填添加required
+	$("*[data-must]").each(function(){
+		var data=$(this).attr("data-must");
+		if(data==0){
+			console.log(data)
+			$(this).attr("required","required");
+		}
+	})
+}
+function isMust(id){  //必填添加必填提示
+	$(id).find("dt[data-type]").each(function(){
+		var type=$(this).attr("data-type");
+		var musts=$(this).attr("data-must");
+		var spantips="<span>(必填)</span>";
+		if(musts==0){
+			if(type==1 || type==12){
+				var inputs=$(this).closest("dl").find("input[type='text']");
+				inputs.after(spantips);
+			}else if(type==2 || type==9 || type==3 || type==10 || type==15){
+				var dts=$(this).closest("dl").find("dt[data-type]")
+				$(this).append(spantips);
+			}else if(type==8){
+				var textareas=$(this).closest("dl").find("textarea");
+				textareas.after(spantips);
+			}else if(type==14){
+				var selects=$(this).closest("dl").find("select");
+				selects.after(spantips);
+			}
+		}
+		
+	})
+	
 }
 	
 	

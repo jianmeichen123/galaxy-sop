@@ -2668,8 +2668,10 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_btn span{z-index:100;cursor:pointer;position:absolute;right:28px;top:28px;width:50px;height:28px;background:url('../img/navshow_btn.png') no-repeat center;}
 .anchor_btn span.invisible{background-image:url('../img/navhide_btn.png');}
 .anchor_btn span.unabled{background-image:url('../img/navhide_btn.png');cursor:not-allowed;background-color:#fff;}
-
-
+/* 验证红框 */
+.textarea_h.error,input[type="text"].error{border:1px solid #ff7979}
+.textarea_h.valid,input[type="text"].valid{border:1px solid #dadada}
+span.pink{color:#ff7979}
 
 
 
