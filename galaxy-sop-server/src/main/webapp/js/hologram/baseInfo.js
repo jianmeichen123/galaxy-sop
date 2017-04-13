@@ -8,6 +8,7 @@ function backFun(data){
 		$("#"+entity.code).html(s_div);
 		dtWidth();
 		$(".h_look .ismust").hide();
+		mustData(projectInfo.id);
 	}
 }
 

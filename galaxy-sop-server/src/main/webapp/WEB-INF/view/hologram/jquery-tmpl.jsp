@@ -172,7 +172,7 @@
 		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
 		
 		{{else type=="14"}}
-		<select data-id="\${id}" data-must="\${isMust}">
+		<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
 		<option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="1" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
@@ -266,7 +266,7 @@
 						</dd>
 
 		{{else type=="7"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
+		<dt data-type="\${type}" data-must="\${isMust}" data-title-id="\${id}">\${name}</dt><span class='ismust'>(必填)</span>
         <dd class="fl_none clearfix">
         <ul class="h_imgs mgedit"  id="edit-\${id}"></ul>
         <ul class="h_imgs" id="edit-\${id}">
@@ -370,13 +370,14 @@
 		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
 		
 		{{else type=="14"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
-		<select data-id="\${id}" data-must="\${isMust}">
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
        <option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}
 		</select>
+		<span class='ismust'>(必填)</span>
 
 		{{else type=="15"}}
 		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>

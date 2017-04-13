@@ -101,6 +101,7 @@ $(function() {
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				btn_disable(1);
+				mustData(projectInfo.id);
 				setReqiured();
 				isMust("#b_"+id_code);
 				/* 文本域自适应高度 */
@@ -255,6 +256,8 @@ $(function() {
 				showArea(id_code);
 				btn_disable(0);
 				toggle_btn($('.anchor_btn span'));
+				$(".h_look .ismust").hide();
+				mustData(projectInfo.id);
 			} else {
 				layer.msg('保存失败');
 			}

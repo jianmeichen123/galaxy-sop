@@ -263,6 +263,7 @@ $(function() {
 				showArea(id_code);
 				btn_disable(0);
 				toggle_btn($('.anchor_btn span'));
+				$(".h_look .ismust").hide();
 			} else {
 				layer.msg('保存失败');
 			}

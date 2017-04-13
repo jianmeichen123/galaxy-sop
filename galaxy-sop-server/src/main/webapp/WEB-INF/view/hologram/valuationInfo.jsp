@@ -117,14 +117,14 @@
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
-					$("#b_"+id_code).validate();
 					//调整表格
 					$("table").css({"width":"90%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					btn_disable(1);
-					setMustIds(mustids);
+					mustData(projectInfo.id);
 					setReqiured();
 					isMust("#b_"+id_code);
+					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){

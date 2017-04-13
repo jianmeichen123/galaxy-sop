@@ -998,13 +998,20 @@ function mustData(projectId){
 	
 }
 function setMustIds(mustids){
+	console.log(mustids)
 	var result=mustids.split(",");
 	for(var i=0;i<result.length;i++){
 		if(result[i].indexOf("a_")>-1){
 			$("#"+result[i]).hide();
+			var id=result[i].substring(2,result[i].length);
+			$("#"+id).hide();
 			$("#nav_ul").find("li."+result[i]).hide();
 		}else if(result[i].indexOf("b_")>-1){
-			console.log("模块必填")
+			$("#"+result[i]).find("[data-title-id]").each(function(){
+				$(this).attr("required","required");
+			})
+			var id=result[i].substring(2,result[i].length);
+			$("#a_"+id).show();
 		}else{
 			$("[data-title-id="+result[i]+"]").attr("required","required");
 		}
