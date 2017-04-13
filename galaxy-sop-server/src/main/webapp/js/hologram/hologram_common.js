@@ -981,7 +981,7 @@ function isMust(id){  //必填添加必填提示
 				inputs.after(spantips);
 			}else if(type==2 || type==9 || type==3 || type==10 || type==15){
 				var dts=$(this).closest("div").find("dt[data-type]")
-				$(this).siblings('dd').eq(-1).find('li').eq(-1).after(spantips);
+				$(this).after(spantips);
 			}else if(type==8){
 				var textareas=$(this).closest("div").find("textarea");
 				textareas.after(spantips);
