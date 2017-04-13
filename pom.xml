@@ -5,7 +5,7 @@
 	<artifactId>galaxy-sop</artifactId>
 	<packaging>pom</packaging>
 	<name />
-	<version>1.0.2.Q-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<eclipse.useProjectReferences>false</eclipse.useProjectReferences>
