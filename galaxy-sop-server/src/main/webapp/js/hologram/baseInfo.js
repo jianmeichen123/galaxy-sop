@@ -70,6 +70,7 @@ function toEditTitleHtml(title,html){
 	}
 	var s_div = 
 		"<div class=\"h_edit h_team_look base_team_look clearfix\" id=\"b_"+title.code+"\" >" +
+		"<form id=\"c_"+title.code+"\">"+
 			"<div class=\"h_btnbox\">" +
 		    	"<span class=\"h_save_btn\" data-on=\"save\" attr-save=\""+title.code+"\">保存</span>" +
 		    	"<span class=\"h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
@@ -80,6 +81,7 @@ function toEditTitleHtml(title,html){
 		    	"<span class=\"pubbtn bluebtn h_save_btn fl\" data-on=\"save\" attr-save=\""+title.code+"\" >保存</span>" +
 		    	"<span class=\"pubbtn fffbtn fl h_cancel_btn\" data-on=\"h_cancel\" attr-hide=\""+title.code+"\" >取消</span>" +
 		    "</div>" +
+		    "</form>"+
 		"</div>";
 	return s_div;
 }

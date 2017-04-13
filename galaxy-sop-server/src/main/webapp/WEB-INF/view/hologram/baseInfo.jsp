@@ -105,6 +105,7 @@ $(function() {
 				btn_disable(1);
 				setReqiured();
 				isMust("#b_"+id_code);
+				$("#c_"+id_code).validate();
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -133,10 +134,7 @@ $(function() {
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
-		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
-		
-		$(".h#"+id_code).css("background","#fff");
-		
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 		var data = {
@@ -203,7 +201,6 @@ $(function() {
 			event.stopPropagation();
 			return;
 		}
-		
 		//多选不选择的时候：
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
@@ -254,7 +251,10 @@ $(function() {
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 		}
-		
+		if(!$("#c_"+id_code).validate().form())
+		{
+			return;
+		}
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
@@ -264,6 +264,7 @@ $(function() {
 				btn_disable(0);
 				toggle_btn($('.anchor_btn span'));
 				$(".h_look .ismust").hide();
+				$(".h#"+id_code).css("background","#fff");
 			} else {
 				layer.msg('保存失败');
 			}
