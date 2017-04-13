@@ -622,7 +622,7 @@ function picData(pid){
 									html +='<img src="'+fl[i].fileUrl+'" alt="">';
 								}
 								$('#'+"look-"+key).html(html);
-								
+								toggle_btn($('.anchor_btn span'));
 							});
 						}
 						
@@ -921,7 +921,7 @@ function toggle_btn(data){
 	$('.sign_title').show();
 	if(data.hasClass('invisible')){
 		$('.radius dd').each(function(){
-			if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'){
+			if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'||$(this).is(":hidden")){
 				$(this).hide();
 				$(this).parents('.mb_24').hide();
 			}else{
@@ -966,6 +966,7 @@ function setReqiured(){  //必填添加required
 		if(data==0){
 			console.log(data)
 			$(this).attr("required","required");
+			$(this).attr("data-msg-required"," ");
 		}
 	})
 }
@@ -980,7 +981,7 @@ function isMust(id){  //必填添加必填提示
 				inputs.after(spantips);
 			}else if(type==2 || type==9 || type==3 || type==10 || type==15){
 				var dts=$(this).closest("div").find("dt[data-type]")
-				$(this).after(spantips);
+				$(this).siblings('dd').eq(-1).find('li').eq(-1).after(spantips);
 			}else if(type==8){
 				var textareas=$(this).closest("div").find("textarea");
 				textareas.after(spantips);
