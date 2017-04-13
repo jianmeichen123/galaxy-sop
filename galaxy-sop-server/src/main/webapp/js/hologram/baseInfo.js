@@ -169,7 +169,7 @@ function switchTypeByMark(title,mark){
 
 // 1:文本 
 function type_1_html(title,mark){
-	var htitle = "<dt style='margin-bottom:10px;'>"+title.name+"</dt>";
+	var htitle = "<dt style='margin-bottom:10px;'  data-must='"+title.isMust+"' data-type='"+title.type+"'>"+title.name+"</dt>";
 		
 	var results = title.resultList;
 	
@@ -186,7 +186,7 @@ function type_1_html(title,mark){
 		if(title.placeholder) placeholder = title.placeholder;
 		
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"'/>";
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		return  "<div class=\"mb_24 clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
 	}
 	
@@ -202,9 +202,9 @@ function one_select_edit(title,inputtype,type){
 		var li = "";
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
 			}else
-				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' />" + this.name  + "</li>";
 		});
 		if(type=='2'){
 			eresult = 
@@ -232,7 +232,7 @@ function one_select_edit(title,inputtype,type){
 		});
     	eresult = 
     		"<dd>" +
-		    	"<select>" +
+		    	"<select data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					li +
 				"</select>" +
 	    	"</dd>";
@@ -243,7 +243,7 @@ function one_select_edit(title,inputtype,type){
 // 2:单选
 function type_2_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
@@ -263,7 +263,7 @@ function type_2_html(title,mark){
 // 3:复选
 function type_3_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"'>"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
@@ -277,7 +277,7 @@ function type_3_html(title,mark){
 		}
 		return  "<div class=\"mb_24 clearfix\">" + htitle +"<div class=\"checked_div clearfix\">"+ hresult + "</div></div>";
 	}else{
-		htitle = "<dt data-title-id='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
+		htitle = "<dt data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 		
 		var li = "";
 		var values = title.valueList;
@@ -332,7 +332,7 @@ function nselectHtml(values,title,cid){
 	}
 	
 	var relu_ht =
-			"<select onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" >" +
+			"<select onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
 				li +
 			"</select>" ;
 	var return_re = {
@@ -345,7 +345,7 @@ function nselectHtml(values,title,cid){
 // 4:级联选择
 function type_4_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"'>"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
@@ -434,7 +434,7 @@ function showConstarct(thisSelect,tid,type){
 //5:单选带备注 (textarea)
 function type_5_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	
 	var results = title.resultList;
 	
@@ -468,7 +468,7 @@ function type_5_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' id ='"+title.id+"' data-type='"+title.type+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' id ='"+title.id+"' data-type='"+title.type+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					 	r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
@@ -483,7 +483,7 @@ function type_5_html(title,mark){
 //6:复选带备注(textarea)
 function type_6_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	
 	var results = title.resultList;
 	
@@ -511,7 +511,7 @@ function type_6_html(title,mark){
 
 		return  "<div class=\"mb_24 clearfix\">" + htitle + hresult_1 + "<br/>" + hresult_2 + "</div>";
 	}else{
-		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		htitle = "<dt class=\"fl_none\" data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 		
 		var li = "";
 		var values = title.valueList;
@@ -542,7 +542,7 @@ function type_6_html(title,mark){
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
 				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' >" +
+					"data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					 	r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
@@ -559,7 +559,7 @@ function type_6_html(title,mark){
 // 7:附件
 function type_7_html(title){
 	
-	return  "<dt class=\"fl_none\"> 除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>" +
+	return  "<dt class=\"fl_none\" data-must='"+title.isMust+"'  data-type='"+title.type+"'> 除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</dt>" +
 			"<dd class=\"fl_none\">" +
 				"<img src=\"img/loginbg.gif\" alt=''>" +
 				"<img src=\"img/loginbg.gif\" alt=''>" +
@@ -570,7 +570,7 @@ function type_7_html(title){
 
 // 8:文本域
 function type_8_html(title,mark){
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	
 	var results = title.resultList;
 	
@@ -582,14 +582,14 @@ function type_8_html(title,mark){
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + hresult + "</div>";
 	}else{
-		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		htitle = "<dt class=\"fl_none\" data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 
 		var r_value = '';
 		if(results && results[0] && results[0].contentDescribe1) r_value = results[0].contentDescribe1;
 		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
@@ -607,7 +607,7 @@ function type_10_html(title,mark){
 	table_toedit_Value[title.id] = {};
 	table_tosave_Value[title.id] = {};
 	
-	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
 	 
 	var tableHeader = title.tableHeader;
 	var dataList = title.dataList;
@@ -693,7 +693,7 @@ function type_10_html(title,mark){
 // 11:静态数据
 function type_11_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	var hresult = "<dd> - </dd>";
 	
 	switch (title.code) {
@@ -707,9 +707,9 @@ function type_11_html(title,mark){
         		}
         	}else{
         		if(results && results[0] && results[0].contentDescribe1){
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"'/>";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+results[0].contentDescribe1+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
         		}else{
-        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"'/>";
+        			hresult = "<input type=\"text\" class=\"txt\" value='"+projectInfo.projectCode+"' data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
         		}
         	}
             break;
@@ -738,7 +738,7 @@ function type_11_html(title,mark){
 //12:单选带备注（input）
 function type_12_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	
 	var results = title.resultList;
 	if(mark == 's'){
@@ -763,15 +763,15 @@ function type_12_html(title,mark){
 			if(i+1 == values.length){
 				if(values[i].checked){
 					has_beizhu = true;
-					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' onclick=\"other_beizhu(this,'radio')\" data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + values[i].name + "</li>";
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' onclick=\"other_beizhu(this,'radio')\" data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"' name='"+title.id+"'/>" + values[i].name + "</li>";
 				}else{
-					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' onclick=\"other_beizhu(this,'radio')\" data-title-id='"+title.id+"' data-type='"+title.type+"' />" + values[i].name + "</li>";
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' onclick=\"other_beizhu(this,'radio')\" data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' name='"+title.id+"'/>" + values[i].name + "</li>";
 				}
 			}else{
 				if(values[i].checked){
-					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" />" + values[i].name + "</li>";
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"' name='"+title.id+"'/>" + values[i].name + "</li>";
 				}else{
-					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' />" + values[i].name + "</li>";
+					li +=  "<li> <input type=\"radio\" value='"+values[i].id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' name='"+title.id+"'/>" + values[i].name + "</li>";
 				}
 			}
 		}
@@ -788,11 +788,11 @@ function type_12_html(title,mark){
 				}
 			}
 			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
-										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 			
 		}else{
 			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
-							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' />";
+							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}
 		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>其他项内容不能为空</span>";
 		var eresult = 
@@ -812,7 +812,7 @@ function type_12_html(title,mark){
 //13:复选带备注（input）
 function type_13_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"'>"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	
 	var results = title.resultList;
 	
@@ -874,10 +874,10 @@ function type_13_html(title,mark){
 				}
 			}
 			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
-										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' />";
+										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}else{
 			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
-							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' />";
+							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}
 		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>其他项内容不能为空</span>";
 		var eresult = 
@@ -897,7 +897,7 @@ function type_13_html(title,mark){
 //14:单选
 function type_14_html(title,mark){
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
@@ -930,7 +930,7 @@ function type_15_html(title,mark){
 		});
 	}
 	
-	var htitle = "<dt data-tid='"+title.id+"' >"+title.name+"</dt>";
+	var htitle = "<dt data-tid='"+title.id+"' data-must='"+title.isMust+"'>"+title.name+"</dt>";
 	
 	if(mark == 's'){
 		if(!r_value1) r_value1 = '未填写';
@@ -941,18 +941,18 @@ function type_15_html(title,mark){
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + hresult1 + hresult2 + "</div>";
 	}else{
-		htitle = "<dt class=\"fl_none\">"+title.name+"</dt>";
+		htitle = "<dt class=\"fl_none\" data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 		
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' data-name='remark1' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' data-name='remark1' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					r_value1 +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
 			"</dd>" +
 			
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"_2' data-name='remark2' oninput=countChar('"+title.id+"_2','"+title.id+"_lable2',"+title.valRuleMark+")  placeholder='"+title.content+"'>" +
+				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"_2' data-name='remark2' oninput=countChar('"+title.id+"_2','"+title.id+"_lable2',"+title.valRuleMark+")  placeholder='"+title.content+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					r_value2 +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable2>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +

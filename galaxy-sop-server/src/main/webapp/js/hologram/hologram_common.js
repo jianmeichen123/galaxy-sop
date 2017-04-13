@@ -975,18 +975,21 @@ function isMust(id){  //必填添加必填提示
 		var musts=$(this).attr("data-must");
 		var spantips="<span>(必填)</span>";
 		if(musts==0){
-			if(type==1 || type==12){
-				var inputs=$(this).closest("dl").find("input[type='text']");
+			if(type==1 || type==12 || type==11){
+				var inputs=$(this).closest("div").find("input[type='text']");
 				inputs.after(spantips);
 			}else if(type==2 || type==9 || type==3 || type==10 || type==15){
-				var dts=$(this).closest("dl").find("dt[data-type]")
-				$(this).append(spantips);
+				var dts=$(this).closest("div").find("dt[data-type]")
+				$(this).after(spantips);
 			}else if(type==8){
-				var textareas=$(this).closest("dl").find("textarea");
+				var textareas=$(this).closest("div").find("textarea");
 				textareas.after(spantips);
 			}else if(type==14){
-				var selects=$(this).closest("dl").find("select");
+				var selects=$(this).closest("div").find("select");
 				selects.after(spantips);
+			}else if(type==4){
+				var selectLast=$(this).closest("div").find("select:last");
+				selectLast.after(spantips);
 			}
 		}
 		
