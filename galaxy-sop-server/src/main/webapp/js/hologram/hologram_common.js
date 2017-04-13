@@ -965,8 +965,14 @@ function setReqiured(){  //必填添加required
 function isMust(id){  //去除选填题必填提示
 	$(id).find("dt[data-type]").each(function(){
 		var musts=$(this).attr("data-must");
+		var type=$(this).attr("data-type");
+		var required=$(this).attr("required");
 		if(musts==1){
 			$(this).siblings("span.ismust").hide();
+		}
+		if(type==4 && required=="required"){  //针对基础信息隐藏type=4多余的必填
+			$(this).siblings("span.ismust").hide();
+			$(this).closest(".select_box").children("span.ismust:last-child").show();
 		}
 		
 	})
@@ -976,8 +982,7 @@ function isMust(id){  //去除选填题必填提示
 		var type=$(this).attr("data-type");
 		if(required=="required" && musts==1){
 			$(this).closest("div").find("span.ismust").show();
-		}
-				
+		}				
 	})
 	
 }
