@@ -1024,3 +1024,27 @@ function setMustIds(mustids){
 	}
 }
 	
+//必填变红开始
+function  validate_pink(data){
+	$(data).parents('form').find('dl').each(function(){
+		var type = $(this).find('dt').attr('data-type');
+		var ismust = $(this).find('dt').attr('data-must');
+		if (ismust == 0){
+			//必填写
+			if (type == 8 && $(this).find('textarea').val()==''){
+				$(this).find('span').addClass('pink');
+				
+			}else if (type == 1 && $(this).find("input[type='text']").val()==''){
+				$(this).find('span').addClass('pink');
+				
+			}else if (type == 2 && $(this).find("input[type='radio']:checked").val() == undefined){
+				$(this).find('span').addClass('pink');			
+			}else if (type == 10 && $(this).find("table").is(":hidden")){
+				$(this).find('span').addClass('pink');				
+			}else if (type == 7 && $(this).find(".h_imgs").length<=1){
+				$(this).find('span').addClass('pink');				
+			}
+		}
+	})
+}
+//必填变红结束h_imgs
