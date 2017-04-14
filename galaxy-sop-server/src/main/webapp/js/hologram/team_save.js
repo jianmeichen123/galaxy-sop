@@ -42,7 +42,21 @@
             if(!t1["id"] || t1["id"] == 'null' || t1["id"] == "undefined"){
             	delete t1.id;
             }
-            studyList.push(t1);
+               var field1 = div.find("[name='field1']").text();
+               var field2 = div.find("[name='field2']").text();
+               var field3 = div.find("[name='field3']").text();
+               var field4 = div.find("[name='field4']").text();
+               if(field1.indexOf("毕业")>0){
+            	   t1["field1"]=field1.substring(0,field1.length-2);
+            	  
+               }else{
+            	   t1["field1"]=field1;
+               }
+               t1["field2"]=field2;
+               t1["field3"]=field3;
+               t1["field4"]=field4;
+               studyList.push(t1);
+            //studyList.push(t1);
         })
         data["studyList"]=studyList;
         //工作经历
