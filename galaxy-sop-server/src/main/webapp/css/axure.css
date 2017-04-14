@@ -2674,7 +2674,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .textarea_h.error,input[type="text"].error{border:1px solid #ff7979}
 .textarea_h.valid,input[type="text"].valid{border:1px solid #dadada}
 .pink{color:#ff7979 !important;}
-.h_edit_txt  span,.base_team_look .mb_24  span{font-size:12px;color:#cccccc; display:inline-block;vertical-align:bottom;}
+.h_edit_txt  span.ismust,.base_team_look .mb_24  span.ismust{font-size:12px;color:#cccccc; display:inline-block;vertical-align:bottom;}
 
 
 
