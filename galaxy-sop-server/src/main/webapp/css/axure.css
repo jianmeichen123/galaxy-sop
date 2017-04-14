@@ -2565,7 +2565,7 @@ dd.border_dd{border:1px solid #5192ff;border-radius:100px;color:#72a7ff; text-al
 dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color:#999;line-height:20px; border:1px dashed #e1e1e1;background:#fbfbfc;word-wrap: break-word; word-break: normal;}
 .pro_innovation{margin-top:-10px;}
 .select_box select{width:125px;margin-bottom:20px;}
-.base_tab-content .select_box select{width:125px;margin-bottom:20px;}
+.base_tab-content .select_box select{width:125px;margin-bottom:0px;}
 .fl_none.field{box-sizing:border-box;-moz-box-sizing:border-box;padding-right:18px;line-height:22px;}
 .margin_btn{margin-top:20px;}
 .btn_compet{display: inline-block; margin-bottom: 10px; margin-top: 20px;}
@@ -2674,8 +2674,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .textarea_h.error,input[type="text"].error{border:1px solid #ff7979}
 .textarea_h.valid,input[type="text"].valid{border:1px solid #dadada}
 span.pink{color:#ff7979}
-.h_edit_txt  span{font-size:12px;color:#cccccc; display:inline-block;vertical-align:bottom;}
-
+.h_edit_txt  span,.base_team_look .mb_24  span{font-size:12px;color:#cccccc; display:inline-block;vertical-align:bottom;}
 
 
 
