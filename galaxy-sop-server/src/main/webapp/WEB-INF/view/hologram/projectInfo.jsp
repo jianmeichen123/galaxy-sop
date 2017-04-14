@@ -36,7 +36,6 @@
 		</div>
 
 <script type="text/javascript">
-var mustids = "${mustids}";
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO2", null,
 		function(data) {
@@ -70,8 +69,7 @@ var mustids = "${mustids}";
 					$("#"+id_code).hide();
 					validate();					
 					$("#b_"+id_code).validate();
-					btn_disable(1);
-					isMust("#b_"+id_code);
+					btn_disable(1);					
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -84,8 +82,9 @@ var mustids = "${mustids}";
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					setMustIds(mustids);
+					mustData(projectInfo.id);
 					setReqiured();
+					isMust("#b_"+id_code);
 				} else {
 
 				}

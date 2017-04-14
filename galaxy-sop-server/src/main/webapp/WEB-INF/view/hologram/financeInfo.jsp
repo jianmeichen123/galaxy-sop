@@ -37,6 +37,8 @@
 			<!--tab end-->
 		</div>
 <script type="text/javascript">
+var mustids = "${mustids}";
+console.log(mustids);
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
 		function(data) {
@@ -67,10 +69,11 @@
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
-					$("#b_"+id_code).validate();
 					btn_disable(1);
+					mustData(projectInfo.id);
 					setReqiured();
 					isMust("#b_"+id_code);
+					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){

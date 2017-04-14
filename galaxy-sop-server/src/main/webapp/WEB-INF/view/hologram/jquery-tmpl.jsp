@@ -18,7 +18,7 @@
 		{{each(i,childList) childList}}
 		<div class="mb_16">
 	   <dl class="h_edit_txt clearfix">
-		<dt data-type="\${type}"  data-title-id="\${id}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}"  data-title-id="\${id}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		{{if type=="1"}}
 		<dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
 
@@ -172,7 +172,7 @@
 		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
 		
 		{{else type=="14"}}
-		<select data-id="\${id}" data-must="\${isMust}">
+		<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
 		<option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="1" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
@@ -180,7 +180,7 @@
 		</select>
 
 		{{else type=="15"}}
-<dt data-type="\${type}">\${name}</dt>
+<dt data-type="\${type}">\${name}</dt><span class='ismust'>(必填)</span>
 		              <dd class="fl_none">
 							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");' data-must="\${isMust}" name="\${id}"></textarea>
 							<p class="num_tj">
@@ -204,11 +204,11 @@
 	<div class="mb_16">
 	   <dl class="h_edit_txt clearfix">		
 		{{if type=="1"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		<dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
 
 		{{else type=="2"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		<dd class="fl_none">
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
@@ -218,7 +218,7 @@
 		</dd>
 
 		{{else type=="3"}}
-		<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		<dd class="fl_none">
 		<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 			{{each(i,valueList) valueList}}
@@ -228,7 +228,7 @@
 		</dd>
 
 		{{else type=="4"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		{{each(i,valueList) valueList}}
 		<dd>
 		  <select name="" id="" data-must="\${isMust}">
@@ -238,7 +238,7 @@
 		{{/each}}
 
 		{{else type=="5"}}
-		<dt  data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt  data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		<dd>
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
@@ -254,7 +254,7 @@
 		</dd>
 
 		{{else type=="6"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		{{each(i,valueList) valueList}}
 		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 		{{/each}}
@@ -266,7 +266,7 @@
 						</dd>
 
 		{{else type=="7"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}" data-title-id="\${id}">\${name}</dt><span class='ismust'>(必填)</span>
         <dd class="fl_none clearfix">
         <ul class="h_imgs mgedit"  id="edit-\${id}"></ul>
         <ul class="h_imgs" id="edit-\${id}">
@@ -276,7 +276,7 @@
         <dd class="fl_none red img_prompt">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
 
 		{{else type=="8"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		<dd class="fl_none">
 							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'  data-must="\${isMust}" name="\${id}"></textarea>
 							<p class="num_tj">
@@ -284,7 +284,7 @@
 							</p>
 						</dd>
         {{else type=="9"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 						<dd class="fl_none">
                             <table data-type="\${type}" data-test="\${id}" class="fixed_table">
                               <tr>
@@ -339,7 +339,7 @@
                             </table>
                           </dd>
 		{{else type=="10"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		<dd class="fl_none">
 			<table data-title-id="\${id}"  class="editable">
 
@@ -351,7 +351,7 @@
 		<dd>项目带过来的数据</dd>
 
 		{{else type=="12"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		<dd class="fl_none">
 		<ul class="h_radios clearfix">
 			{{each(i,valueList) valueList}}
@@ -363,7 +363,7 @@
 
 
 		{{else type=="13"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		{{each(i,valueList) valueList}}
 		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
 		{{/each}}
@@ -371,15 +371,16 @@
 		
 		{{else type=="14"}}
 		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
-		<select data-id="\${id}" data-must="\${isMust}">
+		<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
        <option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="" data-code="">请选择</option>
 		{{each(i,valueList) valueList}}
 		<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
 		{{/each}}
 		</select>
+		<span class='ismust'>(必填)</span>
 
 		{{else type=="15"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt><span class='ismust'>(必填)</span>
 		              <dd class="fl_none">
 							<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'  data-must="\${isMust}" name="\${id}"></textarea>
 							<p class="num_tj">

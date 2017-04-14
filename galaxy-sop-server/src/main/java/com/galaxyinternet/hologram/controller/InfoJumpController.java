@@ -52,13 +52,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/tabInfomation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String platform(HttpServletRequest request) {
-	   Object projectId = request.getSession().getAttribute("curr_project_id");
-	   if(projectId != null){
-		   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-		   if(titleList != null && titleList.size() > 0){
-			   request.setAttribute("mustids", listToString(titleList));
-		   }
-	   }
 		return "hologram/tabInfomation";
 	}
      /**
@@ -69,13 +62,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toBaseInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String message(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/baseInfo";
 	}
 	
@@ -86,13 +72,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toProjectInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String projects(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/projectInfo";
 	}
 	/**
@@ -102,13 +81,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toTeamInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String dataBriefing(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/teamInfo";
 	}
 	
@@ -119,13 +91,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toOperateInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String projectAnalysis(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/operateInfo";
 	}
 	
@@ -137,13 +102,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toSaveCompeteTable", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toSaveCompeteTable(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/gethtml/compete_save";
 	}
 	/**
@@ -153,13 +111,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toCompeteInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String pfmAppraisal(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/competeInfo";
 	}
 	
@@ -170,13 +121,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toPlanInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String operation(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/planInfo";
 	}
 
@@ -187,13 +131,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toFinanceInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String paprojectlist(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/financeInfo";
 	}
 	
@@ -204,13 +141,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toJusticeInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String ghlprojectlist(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/justiceInfo";
 	}
 	
@@ -221,13 +151,6 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toValuationInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String tjlprojectlist(HttpServletRequest request) {
-		 Object projectId = request.getSession().getAttribute("curr_project_id");
-		   if(projectId != null){
-			   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
-			   if(titleList != null && titleList.size() > 0){
-				   request.setAttribute("mustids", listToString(titleList));
-			   }
-		   }
 		return "hologram/valuationInfo";
 	}
 
@@ -313,5 +236,32 @@ public class InfoJumpController{
 	        }
 	        return result.toString();
 	    }
+	
+	/**
+	 * 获取必填数据
+	 * @param request
+	 * @param projectId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryMustInfo/{projectId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> queryTitleInfo(HttpServletRequest request,@PathVariable("projectId") String projectId ) {
+		  ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+		  InformationTitle it = new InformationTitle();
+			try{
+			   if(StringUtils.isNotEmpty(projectId)){
+				   List<String> titleList = getMustTitleIds(String.valueOf(projectId));
+				   if(titleList != null && titleList.size() > 0){
+					   it.setResultIds(listToString(titleList));
+				   }
+			   }
+			   responseBody.setEntity(it);
+			   responseBody.setResult(new Result(Status.OK, ""));
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "必填选项获取失败"));
+				logger.error("queryMustInfo 必填选项获取失败：",e);
+			}
+	       return responseBody;
+	}
 	
 }
