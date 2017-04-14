@@ -85,11 +85,7 @@
             eduJson[name]= ele.val();
             if(name=="field1"){
             	 if(ele.val()){
-            		 if(ele.val()=="至今"){
-            			 eduJson[name]= ele.val();
-            		 }else{
-            			 eduJson[name]= ele.val()+"毕业";
-            		 }
+            		 eduJson[name]= ele.val();
                 }else{
                      eduJson[name]="未知"
                 }
@@ -108,8 +104,14 @@
         var index = eduJson["index"];
         if(!index){
               //新增一条记录
+              var filed1=eduJson['field1'];
+              if(filed1=="未知" || filed1=="毕业"){
+            	  filed1=filed1;
+              }else{
+            	  filed1=filed1+"毕业";
+              }
               var str = "<div  data-flag class='team_div'><span name='id' style='display:none'>"+eduJson["id"]+"</span>"+
-               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+eduJson['field1']+"</span></div>"+
+               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+filed1+"</span></div>"+
                 "<div>"+
                     "<ul style='margin-left:16px;'>"+
                         "<li><span name='field2'>"+eduJson['field2']+"</span></li>"+
@@ -134,5 +136,6 @@
    }
    $(".add_team_learn").on("click",function(){
         $("#learn_form").submit();
-   })
+       
+   }) 
 </script>
