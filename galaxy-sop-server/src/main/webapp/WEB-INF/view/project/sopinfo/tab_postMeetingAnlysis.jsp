@@ -68,7 +68,6 @@
 		return ${proinfo};
 	}
 </script>
-<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/common.js" type="text/javascript"></script>
 <!-- 富文本编辑器 -->

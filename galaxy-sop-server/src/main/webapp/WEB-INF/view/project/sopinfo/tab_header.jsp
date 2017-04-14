@@ -15,7 +15,7 @@
 				<li data-tab="nav">运营分析</li>
 				<li data-tab="nav">项目文档</li>
 				<li data-tab="nav">操作日志</li>
-				<li data-tab="nav">全息图</li>
+				<li data-tab="nav">全息报告</li>
 		</c:when>
 		<c:when test="${aclViewProject==true }">
 				<li data-tab="nav">团队成员</li>
@@ -27,7 +27,7 @@
 				<li data-tab="nav">运营分析</li>
 				<li data-tab="nav">项目文档</li>
 				<li data-tab="nav">操作日志</li>
-				<li data-tab="nav">全息图</li>
+				<li data-tab="nav">全息报告</li>
 		</c:when>
 		<c:otherwise>
 				<li data-tab="nav" class="no" disabled="disabled">团队成员</li>
@@ -39,7 +39,7 @@
 				<li data-tab="nav" class="no" disabled="disabled">运营分析</li>
 				<li data-tab="nav" class="no" disabled="disabled">项目文档</li>
 				<li data-tab="nav" class="no" disabled="disabled">操作日志</li>
-				<li data-tab="nav" class="no" disabled="disabled">全息图</li>
+				<li data-tab="nav" class="no" disabled="disabled">全息报告</li>
 		</c:otherwise>
 	</c:choose>
 </ul>
