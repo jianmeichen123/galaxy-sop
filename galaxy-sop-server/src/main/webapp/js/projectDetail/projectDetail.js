@@ -239,7 +239,6 @@ function right_anchor(i){
 								});
 								//滑动到底部
 								if(scrollTop + windowHeight >= scrollHeight){
-									console.log('花到最底部啦啦啦啦啦');
 									for(i=$('.anchor_nav li').length;i>=0;i--){
 											if($('.anchor_nav li').eq(i-1).is(':hidden')){ }else{
 												$('.anchor_nav li').eq(i-1).addClass('active');
