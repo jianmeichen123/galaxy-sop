@@ -82,6 +82,7 @@
 	{
 		var div = $("div[data-code='NO9_3_12']");
 		var titleId = div.data('titleId');
+		var dd_box =$("<dd class='dd_field'></dd>")
 		var table = $("<table data-title-id='"+titleId+"'></table>")
 		var header = $("<tr></tr>");
 		var row = $("<tr></tr>");
@@ -97,7 +98,8 @@
 		dls.remove();
 		table.append(header);
 		table.append(row);
-		div.after(table);
+		dd_box.append(table);
+		div.after(dd_box);
 		
 	}
 	//通用编辑显示

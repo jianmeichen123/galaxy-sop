@@ -916,6 +916,7 @@ function toggle_btn(data){
 			}else{
 				$(this).parents('.mb_24').show();
 			}
+			//固定表格1
 			if($(this).siblings('dt').attr('data-type') == '9'){
 				var i = 0;
 				 $(this).find("td[data-format]").each(function(){
@@ -928,7 +929,12 @@ function toggle_btn(data){
 				 }else{
 					 $(this).parents('.mb_24').show();
 				 }
-				
+			}
+			//固定表格2
+			if($(this).hasClass('dd_field')&& $(this).find('td').eq(0).html()=='未填写'&& $(this).find('td').eq(1).html()=='未填写'){
+				 $(this).parents('.sign_box').hide();
+			}else{
+				 $(this).parents('.sign_box').show();
 			}
 		});
 		//多选
