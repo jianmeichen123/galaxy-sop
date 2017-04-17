@@ -2641,7 +2641,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	top: 170px;
 	width: 22%;
 	box-sizing:border-box;
-	-moz-box-sizing:border-box;
+	-moz-box-sizing:border-box;padding-bottom:10px;
 }
 
 .anchor_nav a{color:#999;}
@@ -2670,7 +2670,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_btn span{z-index:100;cursor:pointer;position:absolute;right:28px;top:28px;width:50px;height:28px;background:url('../img/navshow_btn.png') no-repeat center;}
 .anchor_btn span.invisible{background-image:url('../img/navhide_btn.png');}
 .anchor_btn span.unabled{background-image:url('../img/navhide_btn.png');cursor:not-allowed;background-color:#fff;}
-
+@media(max-width:1300px){.anchor_nav li{height: 33px;}}
 
 
 
