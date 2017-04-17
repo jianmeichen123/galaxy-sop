@@ -424,6 +424,7 @@
 	<div class="h_title">\${name}</div>
 	{{each(i,childList) childList}}                    
 	{{if sign=="3" && isShow=="t"}}
+<div class="sign_box">
 	<div class="sign_title" data-title-id="\${id}" data-code="\${code}">\${name}</div>
 		{{each(i,childList) childList}}
 			<div class="mb_24 clearfix">
@@ -511,7 +512,7 @@
 		</dl>		
 	</div>
 		{{/each}}
-
+	</div>
 	{{else}}
 {{if isShow=="t"}}
 	<div class="mb_24 clearfix">

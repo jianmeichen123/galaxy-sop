@@ -200,11 +200,9 @@
                         layer.msg('保存成功');
                     	$(".h#a_"+id_code).css("background","#fff");
                         var parent = $(sec).parent();
-                        var id = parent.data('sectionId')
+                        var id = parent.data('sectionId');
                         $(btn).next().click();
-                        refreshSection(id)
-                        btn_disable(0);
-                        toggle_btn($('.anchor_btn span'));
+                        refreshSection(id);
                     } else {
 
                     }
@@ -390,6 +388,8 @@ function refreshSection(id)
 	var sec = $(".section[data-section-id='"+id+"']");
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
+	 btn_disable(0);
+     toggle_btn($('.anchor_btn span'));
 }
 function getDetailUrl(code)
 {

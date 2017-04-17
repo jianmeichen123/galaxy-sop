@@ -907,19 +907,51 @@ function btn_disable(data){
 }
 //显示隐藏
 function toggle_btn(data){
-	$('dd').show();
 	$('dd').parents('.mb_24').show();
 	$('.sign_title').show();
 	if(data.hasClass('invisible')){
 		$('.radius dd').each(function(){
 			if($(this).html() == '未选择'||$(this).html() == '未填写'||$(this).html() == '未添加'||$(this).is(":hidden")){
-				$(this).hide();
 				$(this).parents('.mb_24').hide();
 			}else{
-				$(this).show();
 				$(this).parents('.mb_24').show();
 			}
 		});
+		//多选
+		$('.radius .checked_div').each(function(){
+			$(this).find('dd').each(function(){
+				if($(this).html()!= '未选择' && $(this).hasClass('border_dd')){
+					$(this).parents('.mb_24').show();
+					 return false;
+				}else{
+					$(this).parents('.mb_24').hide();
+				}
+				
+			})
+		})
+		//小标题
+		$('.sign_box').each(function(){
+			var _this = $(this);
+			var len = _this.find('.mb_24').length
+			var l = 0;
+			$(this).find('.mb_24').each(function(){
+				if($(this).is(':visible')){
+					_this.show();
+					return false;
+				}else{
+					l++;
+				}
+				if(l>=len){
+					_this.hide();
+				}
+			})
+		})
+		//竞争小标题
+		$('.mb_24.sign_title').each(function(){
+			if($(this).next().is(':hidden')){
+				$(this).hide();
+			}
+		})
 		$('.radius').each(function(){
 			var sec_this = $(this);
 			var i = 0;
@@ -934,18 +966,11 @@ function toggle_btn(data){
 				$('nav .'+nav_class+'').hide();
 				i=0;
 			}
-			//小标题
 		})
-		$('.sign_title').each(function(){
-			if($(this).next().is(':hidden')){
-				$(this).hide();
-			}
-		})
-		
 	}else{
 		$('.radius').show();
 		$('.sign_title').show();
-		$('dd').show();
+		$('.sign_box').show();
 		$('dd').parents('.mb_24').show();
 		$('nav li').show();
 	}
