@@ -267,6 +267,7 @@ function right_anchor(i){
 								//滑动到底部
 								
 							});
+							hideNav();
 							
 						} else {
 

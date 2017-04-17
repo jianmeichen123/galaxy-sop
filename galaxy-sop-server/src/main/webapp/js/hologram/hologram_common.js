@@ -1021,7 +1021,7 @@ function setMustIds(mustids){
 			$("#"+result[i]).hide();
 			var id=result[i].substring(2,result[i].length);
 			$("#"+id).hide();
-			$("#nav_ul").find("li."+result[i]).hide();
+			hideNav();
 		}else if(result[i].indexOf("b_")>-1){
 			$("#"+result[i]).find("[data-title-id]").each(function(){
 				$(this).attr("required","required");
@@ -1033,5 +1033,22 @@ function setMustIds(mustids){
 		}
 		
 	}
+}
+function hideNav(){
+	$('#page_all .radius').each(function(){
+		if($(this).is(':hidden')){
+			var id=$(this).attr("id");
+			$("#nav_ul a[href='#"+id+"']").parent().hide();
+		}
+		$('#nav_ul li').each(function(){
+			if($(this).is(':hidden')){
+				var index=$(this).index();
+				if(index==0){
+					$(this).next().addClass('active');
+				}
+			}
+		})
+		
+	})
 }
 

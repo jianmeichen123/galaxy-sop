@@ -70,7 +70,8 @@
 				});
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
-				//页面显示表格现实与隐藏
+				mustData(projectInfo.id);
+				hideNav();
 				
 			} else {
 
@@ -122,8 +123,6 @@
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					btn_disable(1);
 					mustData(projectInfo.id);
-					setReqiured();
-					isMust("#b_"+id_code);
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');

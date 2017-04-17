@@ -102,9 +102,6 @@ $(function() {
 				});
 				btn_disable(1);
 				mustData(projectInfo.id);
-				setReqiured();
-				isMust("#b_"+id_code);
-				$("#c_"+id_code).validate();
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -131,7 +128,6 @@ $(function() {
 		event.stopPropagation();
 		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
-
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
@@ -255,7 +251,6 @@ $(function() {
 				showArea(id_code);
 				btn_disable(0);
 				toggle_btn($('.anchor_btn span'));
-				$(".h_look .ismust").hide();
 				mustData(projectInfo.id);
 				$(".h#"+id_code).css("background","#fff");
 			} else {
