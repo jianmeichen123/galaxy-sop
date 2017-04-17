@@ -890,16 +890,13 @@ function btn_disable(data){
 		'cursor':'not-allowed'
 	});
 	}else{
-		console.log($('.h_save_btn.bluebtn').length);
 		if($('.h_save_btn.bluebtn').length>0){
-			console.log('NONONONON');
 			$('.anchor_btn span').addClass('unabled');
 			$('.anchor_btn p').css({
 				'z-index':'101',
 				'cursor':'not-allowed'
 			});
 		}else{
-			console.log('YYYYYYYYY');
 			$('.anchor_btn span').removeClass('unabled');
 			$('.anchor_btn p').css({
 				'z-index':'99',
