@@ -916,6 +916,20 @@ function toggle_btn(data){
 			}else{
 				$(this).parents('.mb_24').show();
 			}
+			if($(this).siblings('dt').attr('data-type') == '9'){
+				var i = 0;
+				 $(this).find("td[data-format]").each(function(){
+					 if($(this).html() == ''){
+						 i++
+					 }
+				 })
+				 if(i>=6){
+					 $(this).parents('.mb_24').hide();
+				 }else{
+					 $(this).parents('.mb_24').show();
+				 }
+				
+			}
 		});
 		//多选
 		$('.radius .checked_div').each(function(){
