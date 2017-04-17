@@ -908,6 +908,7 @@ function btn_disable(data){
 //显示隐藏
 function toggle_btn(data){
 	$('dd').parents('.mb_24').show();
+	$("dt[data-type=5]").siblings('dd').show();
 	$('.sign_title').show();
 	if(data.hasClass('invisible')){
 		$('.radius dd').each(function(){
@@ -929,6 +930,16 @@ function toggle_btn(data){
 				 }else{
 					 $(this).parents('.mb_24').show();
 				 }
+			}
+			if($(this).siblings('dt').attr('data-type') == '5'){
+				if($(this).html()=="未选择"||$(this).html()=="未填写"){
+					$(this).hide();
+				}
+				if(($(this).html()=="未选择"||$(this).html()=="未填写")&&($(this).siblings("dd").html()=="未选择"||$(this).siblings("dd").html()=="未填写")){
+					 $(this).parents('.mb_24').hide();
+				}else{
+					 $(this).parents('.mb_24').show();
+				}
 			}
 			//固定表格2
 			if($(this).hasClass('dd_field')&& $(this).find('td').eq(0).html()=='未填写'&& $(this).find('td').eq(1).html()=='未填写'){
@@ -1004,6 +1015,7 @@ function toggle_btn(data){
 		$('.sign_title').show();
 		$('.sign_box').show();
 		$('dd').parents('.mb_24').show();
+		$("dt[data-type=5]").siblings('dd').show();
 		$('nav li').show();
 		if($(".nocon")){
 			$(".nocon").remove();
