@@ -216,6 +216,8 @@ function right_anchor(i){
 							 $('#nav_tmpl').tmpl(entity).appendTo('#nav_ul');
 							 //点击锚点
 							$('.anchor_nav a[href^="#"]').click(function(event) {
+								$(this).parents('li').addClass('active');
+								$(this).parents('li').siblings().removeClass('active');
 								var id = $(this).attr("href");
 								var target = $(id).offset().top-50;
 								$('html, body').scrollTop(target);
@@ -226,6 +228,30 @@ function right_anchor(i){
 								var scrollTop = $(this).scrollTop();
 								var scrollHeight = $(document).height()-2;
 								var windowHeight = $(this).height();
+								if(scrollTop + windowHeight >= scrollHeight){
+									console.log('划到底不了');
+									for(i=0;i<$('.anchor_nav li').length;i++){
+										if($('.anchor_nav li').eq(i).is(':hidden')){ }else{
+											var id =$('.anchor_nav li').eq(i).find('a').attr("href")
+											var top= $(id).offset().top - scrollTop;
+											console.log(i);
+											console.log(top);
+											if(top>100){
+												$('.anchor_nav li').eq(i).addClass('active');
+											　	$('.anchor_nav li').eq(i).siblings().removeClass('active');
+											　	return;
+											}
+										}
+									}
+
+									/*for(i=$('.anchor_nav li').length;i>=0;i--){
+											if($('.anchor_nav li').eq(i-1).is(':hidden')){ }else{											
+												$('.anchor_nav li').eq(i-1).addClass('active');
+											　	$('.anchor_nav li').eq(i-1).siblings().removeClass('ative');
+											　	return;
+											}
+									}*/
+								}else{
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
 									if(_this.is(":hidden")){}else{
@@ -237,19 +263,9 @@ function right_anchor(i){
 										}
 									}
 								});
-								//滑动到底部
-								if(scrollTop + windowHeight >= scrollHeight){
-									for(i=$('.anchor_nav li').length;i>=0;i--){
-											if($('.anchor_nav li').eq(i-1).is(':hidden')){ }else{
-												$('.anchor_nav li').eq(i-1).addClass('active');
-											　	$('.anchor_nav li').eq(i-1).siblings().removeClass('active');
-											　	return;
-											}
-									}
-									
-								 　　
-
 								}
+								//滑动到底部
+								
 							});
 							
 						} else {
