@@ -103,9 +103,9 @@ $(function() {
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				btn_disable(1);
-				setReqiured();
+				/* setReqiured();
 				isMust("#b_"+id_code);
-				$("#c_"+id_code).validate();
+				$("#c_"+id_code).validate(); */
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");

@@ -68,9 +68,9 @@ getData();
 					validate();
 					//编辑显示隐藏按钮不可用
 					btn_disable(1);
-					setReqiured();
+					//setReqiured();
 					mustData(projectInfo.id);
-					isMust("#b_"+id_code);	
+					//isMust("#b_"+id_code);	
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');

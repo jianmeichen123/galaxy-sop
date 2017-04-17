@@ -83,8 +83,6 @@
 						autoTextarea(textareaId);
 					}
 					mustData(projectInfo.id);
-					setReqiured();
-					isMust("#b_"+id_code);
 				} else {
 
 				}

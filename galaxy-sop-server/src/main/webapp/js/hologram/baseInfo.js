@@ -7,7 +7,6 @@ function backFun(data){
 		var s_div = toShowTitleHtml(entity, html);
 		$("#"+entity.code).html(s_div);
 		dtWidth();
-		$(".h_look .ismust").hide();
 		mustData(projectInfo.id);
 	}
 }
