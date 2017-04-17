@@ -987,12 +987,27 @@ function toggle_btn(data){
 				i=0;
 			}
 		})
+		//全部隐藏状态
+		var num=$("#page_all .radius").length;
+		var n=0;
+		$('#page_all .radius').each(function(){
+				if($(this).is(':hidden')){
+					n++;
+				}
+				if(n>=num){
+					var html="<div class='nocon'>空白页面</div>";
+					$("#page_all").append(html)
+				}
+			})		
 	}else{
 		$('.radius').show();
 		$('.sign_title').show();
 		$('.sign_box').show();
 		$('dd').parents('.mb_24').show();
 		$('nav li').show();
+		if($(".nocon")){
+			$(".nocon").remove();
+		}
 	}
 }
 //必填项添加必填字段

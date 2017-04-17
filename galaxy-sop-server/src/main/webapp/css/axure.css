@@ -2671,6 +2671,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_btn span.invisible{background-image:url('../img/navhide_btn.png');}
 .anchor_btn span.unabled{background-image:url('../img/navhide_btn.png');cursor:not-allowed;background-color:#fff;}
 @media(max-width:1300px){.anchor_nav li{height: 33px;}}
+.nocon{width:300px;height:376px;margin:80px auto 0;background:url('../img/nocon.png');font-size:0;}
 
 
 
