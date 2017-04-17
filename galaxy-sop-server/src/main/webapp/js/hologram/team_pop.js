@@ -96,8 +96,15 @@ function getStudyList(flag,studyList){
                                }
                            }
                          }
+               var field1=o.field1;
+               if(field1=="未知" || field1=="至今"){
+            	   field1=field1;
+               }else{
+            	   field1=field1+"毕业";
+               }
+            	   
                var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+o.field1+"</span></div>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+field1+"</span></div>"+
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
