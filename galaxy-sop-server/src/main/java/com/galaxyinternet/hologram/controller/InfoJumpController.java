@@ -176,7 +176,7 @@ public class InfoJumpController{
     	if(list == null || list.size() == 0){
     		return null;
     	}
-    	Map<String,String> max = new HashMap<String,String>();
+    	/*Map<String,String> max = new HashMap<String,String>();*/
 		for(InformationResult in : list){
 			//所选值id
 			String choose = in.getContentChoose();
@@ -188,9 +188,9 @@ public class InfoJumpController{
 					ids.addAll(title);
 				}
 			}
-			max.put(in.getTitleId(), choose);
+			/*max.put(in.getTitleId(), choose);*/
 		}
-		if(ids != null && ids.size() > 0){
+		/*if(ids != null && ids.size() > 0){
 			if(!max.isEmpty()){
 				for(Map.Entry<String, String> m : max.entrySet()){
 					//获取项目模式id
@@ -212,7 +212,7 @@ public class InfoJumpController{
 					
 				}
 			}
-		}
+		}*/
 	    return ids;
 	}
 	/***

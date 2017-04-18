@@ -24,7 +24,8 @@
 		     value为所涉及某个模块验证的title
 		-->
 		<!--1. 项目创新类型选中技术创新所影响到的答案title start-->
-		<entry key="1102-ref" value-ref="1102-list"/>
+		<entry key="1103-ref" value-ref="1106-list"/>
+		<entry key="1104-ref" value-ref="1106-list"/>
 		<!--1. 项目创新类型选中技术创新所影响到的答案title end-->
 		
 		<!--2. 项目阶段选中所影响到的答案title start-->
@@ -32,23 +33,12 @@
 		<entry key="1122-ref" value-ref="stop-list"/>
 		<!-- 天使 -->
 		<entry key="1123-ref" value-ref="safe-list"/>
-		<!-- Pre-A轮 -->
-		<entry key="1124-ref" value-ref="pre-list"/>
-		<!-- A轮 -->
-		<entry key="1125-ref" value-ref="pre-list"/>
-		<!-- B轮 -->
-		<entry key="1126-ref" value-ref="pre-list"/>
-		<!-- C轮 -->
-		<entry key="1127-ref" value-ref="pre-list"/>
-		<!-- Pre-IPO -->
-		<entry key="1128-ref" value-ref="pre-list"/>
 		<!--2. 项目阶段选中所影响到的答案title end-->
 		
 		<!--3. 项目模式选中所影响到的答案title start-->
-		<entry key="1132-ref" value-ref="model-list"/>
-		<entry key="1133-ref" value-ref="model-list"/>
-		<entry key="1134-ref" value-ref="model-list"/>
-		<entry key="1137-ref" value-ref="model-list"/>
+		<entry key="1135-ref" value-ref="model-list"/>
+		<entry key="1136-ref" value-ref="model-list"/>
+		<entry key="1138-ref" value-ref="model-list"/>
 		<!--3. 项目模式选中所影响到的答案title end-->
 		
 		<!--4. 行业竞争  start-->
@@ -59,15 +49,14 @@
 		<entry key="1846-ref" value-ref="compete-1846-list"/>
 		<!--4. 行业竞争  end-->
 		
-		<!-- 并且处理 -->
-		<entry key="1109-union-ref" value-ref="1101-unnion-list"/>
 	  </util:map>
 	 
 	 
 	  <!-- 题目所影响涉及的value值 -->
 	  <!-- 项目创新类型选中了技术创新 -->
 	  <util:list id="1106-ref-key">
-		<value>1102</value>
+		<value>1103</value>
+		<value>1104</value>
 	  </util:list>
 	 
 	  <!-- 项目阶段选中了Pre-A、A、B、C、Pre-IPO -->
@@ -76,24 +65,13 @@
 	    <value>1122</value>
 	    <!-- 天使 -->
 		<value>1123</value>
-	    <!-- Pre-A -->
-		<value>1124</value>
-		<!-- A轮 -->
-		<value>1125</value>
-		<!-- B轮 -->
-		<value>1126</value>
-		<!-- C轮 -->
-		<value>1127</value>
-		<!-- Pre-IPO -->
-		<value>1128</value>
 	  </util:list>
 	  
 	  <!-- 项目模式 -->
 	  <util:list id="1109-ref-key">
-		  <value>1132</value>
-		  <value>1133</value>
-		  <value>1134</value>
-		  <value>1137</value>
+		  <value>1135</value>
+		  <value>1136</value>
+		  <value>1138</value>
 	  </util:list>
 	  
 	  <!-- 行业竞争格局 -->
@@ -106,70 +84,56 @@
 	  </util:list>
 	  
 	  <!-- 题的答案所涉及影响的id eg:项目创新类型选中技术创新所影响的题id -->
-	  <util:list id="1102-list">
-	    <value>1230</value>
-		<value>1231</value>
-		<value>1232</value>
-		<value>1233</value>
-		<value>1234</value>
-		<value>1235</value>
+	  <util:list id="1106-list">
+	    <value>display-a_NO2_7</value>
 	  </util:list>
 	 
 	 <!-- 项目阶段选中了Pre-A、A、B、C、Pre-IPO所影响value的title -->
 	  <util:list id="safe-list">
-	    <value>b_NO7_1</value>
-		<value>b_NO7_2</value>
-		<value>b_NO8_1</value>
-	  </util:list>
-	 
-	  <util:list id="pre-list">
-	    <value>b_NO4_1</value>
-		<value>b_NO4_3</value>
-		<value>b_NO4_4</value>
-		<value>b_NO7_1</value>
-		<value>b_NO7_2</value>
-		<value>b_NO8_1</value>
-		<value>b_NO9_1</value>
+		<value>display-a_NO4_1</value>
+		<value>display-a_NO4_2</value>
+		<value>display-a_NO4_3</value>
+		<value>display-a_NO4_4</value>
+		<value>display-a_NO9_1</value>
 	  </util:list>
 	 
 	 <!-- 项目模式所影响的valueid -->
 	  <util:list id="model-list">
-		<value>b_NO4_2</value>
+		<value>display-a_NO4_2</value>
 	  </util:list>
 	  
-	  <!-- 项目模式与项目阶段并存关联 -->
-	  <util:list id="1101-unnion-list">
-	     <value>1108</value>
-	  </util:list>
 	  
 	  <!-- 竞争 是否有机会在进入红海以前在规模上构建竞争壁垒-->
 	  <util:list id="compete-list">
-	     <value>1509</value>
-	     <value>1550</value>
+	     <value>1510</value>
 	     <value>a_NO5_4</value>
 	  </util:list>
 	  
 	  <util:list id="compete-1846-list">
+	     <value>1509</value>
+	     <value>1510</value>
 	     <value>a_NO5_4</value>
+	     <value>a_NO5_8</value>
 	  </util:list>
 	  <!-- 竞争 是否能摆脱其他巨头形成寡头垄断-->
 	  <util:list id="compete-1843-list">
-	     <value>1509</value>
-	     <value>b_NO5_4</value>
-		 <value>1550</value>
+	     <value>1510</value>
 	  </util:list>
 	  
 	  <!-- 竞争 是否能摆脱其他巨头形成寡头垄断-->
 	  <util:list id="compete1-list">
-	     <value>1510</value>
-	     <value>b_NO5_4</value>
-		 <value>1550</value>
+		 <value>1509</value>
 	  </util:list>
 	  
 	  <util:list id="stop-list">
 	      <value>a_NO9_1</value>
+	      <value>display-a_NO4_1</value>
+	      <value>display-a_NO4_2</value>
+	      <value>display-a_NO4_3</value>
+	      <value>display-a_NO4_4</value>
+	      <value>display-a_NO7_1</value>
+	      <value>display-a_NO7_2</value>
+	      <value>display-a_NO8_1</value>
 	  </util:list>
-	  
-	  
 	 
 </beans>
