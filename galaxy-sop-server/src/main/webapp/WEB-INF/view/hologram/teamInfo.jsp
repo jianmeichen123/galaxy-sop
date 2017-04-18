@@ -388,8 +388,8 @@ function refreshSection(id)
 	var sec = $(".section[data-section-id='"+id+"']");
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
-	 btn_disable(0);
-     toggle_btn($('.anchor_btn span'));
+	btn_disable(0);
+	toggle_btn($('.anchor_btn span'));
 }
 function getDetailUrl(code)
 {

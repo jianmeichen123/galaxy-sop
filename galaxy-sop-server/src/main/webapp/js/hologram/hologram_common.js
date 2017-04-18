@@ -909,6 +909,7 @@ function btn_disable(data){
 function toggle_btn(data){
 	$('dd').parents('.mb_24').show();
 	$("dt[data-type=5]").siblings('dd').show();
+	$("dt[data-type=15]").siblings('dd').show();
 	$('.sign_title').show();
 	if(data.hasClass('invisible')){
 		$('.radius dd').each(function(){
@@ -931,7 +932,7 @@ function toggle_btn(data){
 					 $(this).parents('.mb_24').show();
 				 }
 			}
-			if($(this).siblings('dt').attr('data-type') == '5'){
+			if($(this).siblings('dt').attr('data-type') == '5'||$(this).siblings('dt').attr('data-type') == '15'){
 				if($(this).html()=="未选择"||$(this).html()=="未填写"){
 					$(this).hide();
 				}
@@ -1016,6 +1017,7 @@ function toggle_btn(data){
 		$('.sign_box').show();
 		$('dd').parents('.mb_24').show();
 		$("dt[data-type=5]").siblings('dd').show();
+		$("dt[data-type=15]").siblings('dd').show();
 		$('nav li').show();
 		if($(".nocon")){
 			$(".nocon").remove();
