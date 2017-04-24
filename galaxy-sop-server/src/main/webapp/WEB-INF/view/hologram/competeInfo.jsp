@@ -251,6 +251,7 @@ $(function() {
 				layer.msg('保存成功');
 				showArea(id_code);
 				btn_disable(0);
+				mustData(projectInfo.id,0);
 				toggle_btn($('.anchor_btn span'),1);
 				mustData(projectInfo.id,0);
 				$(".h#"+id_code).css("background","#fff");
