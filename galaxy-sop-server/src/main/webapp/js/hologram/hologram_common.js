@@ -1142,7 +1142,8 @@ function dd_type(_this){
 		_this.parents('.sign_box').show();
 	}
 }
-//status 1有红字，0无红字
+//status 1有红字，0无红字（都是局部）
+//target为1是展示，0是保存事件
 function save_cancel_show(data,status){
 	var _this = data;
 	_this.find('dd').each(function(){
@@ -1156,13 +1157,15 @@ function save_cancel_show(data,status){
 			i++;
 		}
 	})
-	//全局
+	//1有红字
 	if(status==1){
+		console.log("@@@@@@@@@@@@@@@");
+		console.log(i);
+		console.log(_this.find('.mb_24').length);
 		if(i>=_this.find('.mb_24').length){	
 			_this.find('.put_box').hide();
 			_this.find('.out_box').show();
 			_this.find('.sign_box').hide();
-			i=0;
 		}else{
 			_this.find('.put_box').show();
 			_this.find('.put_box .put_away').show();
@@ -1170,7 +1173,7 @@ function save_cancel_show(data,status){
 			_this.find('.mb_24').show();
 			_this.find('.sign_box').show();
 		}
-		//局部
+		//无红字
 	}else{
 		if(i>=_this.find('.mb_24').length){	
 			/*_this.find('.put_box').hide();
@@ -1191,7 +1194,7 @@ function setReqiured(){  //必填添加required
 	$("*[data-must]").each(function(){
 		var data=$(this).attr("data-must");
 		if(data==0){
-			$(this).attr("required","required");
+			//$(this).attr("required","required");
 		}
 	})
 }
@@ -1215,13 +1218,12 @@ function mustData(projectId,status){
 		//当前模块 projectId  
 		console.log('进入局部');
 		var id =projectId.attr('id');
-		console.log(id);
 		//如果有红字
-		console.log(id);
 		if($('#'+id).find('.h_title').find('span').is(":visible")){
-			/*save_cancel_show($('#'+id),1);*/
-			save_cancel_show($('#'+id),0);
-		}else{save_cancel_show($('#'+id),0);}
+			console.log("sdmcvbsdhjgbsfhdjgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbg");
+			save_cancel_show($('#'+id),1);
+		}
+		/*else{save_cancel_show($('#'+id),1);}*/
 		
 	}
 }

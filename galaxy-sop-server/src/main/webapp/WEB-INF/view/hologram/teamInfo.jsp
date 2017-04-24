@@ -377,7 +377,7 @@
         					var id = parent.data('sectionId');
         					//console.log(id);
         					$(btn).next().click();
-        					refreshSection(id)
+        					refreshSection(id);
         				} else {
 
         				}
@@ -389,7 +389,6 @@ function refreshSection(id)
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
 	btn_disable(0);
-	toggle_btn($('.anchor_btn span'),1);
 }
 function getDetailUrl(code)
 {

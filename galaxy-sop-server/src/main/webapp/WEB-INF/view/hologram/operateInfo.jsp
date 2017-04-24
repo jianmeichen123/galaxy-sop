@@ -245,7 +245,6 @@ getData();
 								$('#a_'+id_code).find('dd[data-type="3"]').hide();
 								setDate(pid,true);	
 								picData(projectInfo.id);
-								mustData(save_this,1);
 								toggle_btn($('.anchor_btn span'),0,save_this);
 							} else {
 								layer.msg("操作失败!");
