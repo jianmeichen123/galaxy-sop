@@ -141,7 +141,7 @@
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
 		var btn = this;
-		var save_this = $(this).parents('.radius');
+		var save_this = $(btn).parents('.radius');
 		event.stopPropagation();
         var sec = $(this).closest('form');
         var id_code = $(this).attr('attr-save');
@@ -204,6 +204,7 @@
                         var id = parent.data('sectionId');
                         $(btn).next().click();
                         refreshSection(id);
+                        toggle_btn($('.anchor_btn span'),0,save_this);
                     } else {
 
                     }
@@ -391,6 +392,7 @@ function refreshSection(id)
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
 	btn_disable(0);
+	
 }
 function getDetailUrl(code)
 {

@@ -919,7 +919,7 @@ function toggle_btn(data,status,dom_this){
 		$("dt[data-type=15]").siblings('dd').show();
 		$('.sign_box').show();
 	}else{};
-	//判断右侧是否点击了隐藏，是就走下面代码 不是走10003行
+	//判断右侧是否点击了隐藏，是就走下面代码 不是走1003行
 	if(data.hasClass('invisible')){ 
 		//全局      否969
 		if(status==1){
@@ -1054,7 +1054,7 @@ function toggle_btn(data,status,dom_this){
 		}else{
 			//局部
 			$(dom_this).find('.mb_24').show();	
-			
+			$(dom_this).find('.sign_box').show();
 		}	
 	}
 }
@@ -1063,7 +1063,7 @@ function toggle_btn(data,status,dom_this){
 //小标题
 function second_title(status,dom_this){
 	if(status==0){
-		dom_this.find('.sign_box').each(function(){
+		$(dom_this).find('.sign_box').each(function(){
 			var _this = $(this);
 			var len = _this.find('.mb_24').length
 			var l = 0;
@@ -1106,8 +1106,9 @@ function second_title(status,dom_this){
 }
 //dd_type
 function dd_type(_this){
-	//_this.find("table").is(":hidden") 团队动态表格
-	if(_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").is(":hidden")){
+	//动态表格
+	if(_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none"){
+		
 		_this.parents('.mb_24').hide();
 	}else{
 		_this.parents('.mb_24').show();
@@ -1309,7 +1310,7 @@ function fun_click(){
 			$(this).parent().siblings('.put_box').find('.put_away').show();
 			$(this).parents('.limit_sec').find('dd').each(function(){
 				var _this =$(this);
-				if((_this.html() == '未选择'||_this.html().trim() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").is(":hidden"))&&_this.css("display")=="block"){
+				if((_this.html() == '未选择'||_this.html().trim() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none")&&_this.css("display")=="block"){
 					_this.parents('.mb_24').hide();
 				}else{
 					//小标题右侧隐藏的情况下展示
