@@ -931,34 +931,11 @@ function toggle_btn(data,status,dom_this){
 				}
 			});
 			//多选
-			$('.radius .checked_div').each(function(){
-				$(this).find('dd').each(function(){
-					if($(this).html()!= '未选择' && $(this).hasClass('border_dd')){
-						$(this).parents('.mb_24').show();
-						 return false;
-					}else{
-						//alert("aha,多选没有")
-						$(this).parents('.mb_24').hide();
-					}
-				})
-			})
+			check_labels($('.radius .checked_div'));
 			//小标题
 			second_title(status);
-			$('.radius').each(function(){
-				var sec_this = $(this);
-				var i = 0;
-				sec_this.find('dd').each(function(){
-					if($(this).is(':hidden')){
-						i++;
-					}
-				})
-				if(i>=sec_this.find('dd').length){
-					sec_this.hide();
-					var nav_class =sec_this.attr('id');
-					$('nav .'+nav_class+'').hide();
-					i=0;
-				}
-			})
+			//全局判断显示隐藏$('.radius')
+			check_radius($('.radius'));
 			//局部
 		}else{
 			$(dom_this).find('dd').each(function(){
@@ -969,32 +946,11 @@ function toggle_btn(data,status,dom_this){
 				}
 			});
 			//多选
-			$(dom_this).find('.checked_div').each(function(){
-				$(this).find('dd').each(function(){
-					if($(this).html()!= '未选择' && $(this).hasClass('border_dd')&&$(this).css('display')=="block"){
-						$(this).parents('.mb_24').show();
-						 return false;
-					}else{
-						$(this).parents('.mb_24').hide();
-					}
-				})
-			})
+			check_labels($(dom_this).find('.checked_div'));
 			//小标题
 			second_title(status,dom_this);
-
-			var sec_this = $(dom_this);
-			var i = 0;
-			sec_this.find('dd').each(function(){
-				if($(this).is(':hidden')){
-					i++;
-				}
-			})
-			if(i>=sec_this.find('dd').length){
-				sec_this.hide();
-				var nav_class =sec_this.attr('id');
-				$('nav .'+nav_class+'').hide();
-				i=0;
-			}
+			//判断显示隐藏整个模块
+			check_radius($(dom_this));
 		}
 		//循环使   展开的模块进行子元素dd隐藏
 		$('.radius').each(function(){
@@ -1004,18 +960,8 @@ function toggle_btn(data,status,dom_this){
 			}
 		});
 		//全部隐藏状态
-		var num=$("#page_all .radius").length;
-		var n=0;
-		$('#page_all .radius').each(function(){
-			if($(this).is(':hidden')){
-				n++;
-			}
-			if(n>=num){
-				var html="<div class='nocon'>空白页面</div>";
-				$("#page_all").append(html)
-			}
-		})
-		 hideNav();
+		hideAll()
+		hideNav();
 	//右侧锚点按钮是展示
 	}else{
 		//全局
@@ -1058,8 +1004,55 @@ function toggle_btn(data,status,dom_this){
 		}	
 	}
 }
+//全部隐藏状态
+function hideAll(){
+	var num=$("#page_all .radius").length;
+	var n=0;
+	$('#page_all .radius').each(function(){
+		if($(this).is(':hidden')){
+			n++;
+		}
+		if(n>=num){
+			var html="<div class='nocon'>空白页面</div>";
+			$("#page_all").append(html)
+		}
+	})
+}
+//多选判断显示隐藏
+function check_labels(data){
+	data.each(function(){
+		$(this).find('dd').each(function(){
+			if($(this).html()!= '未选择' && $(this).hasClass('border_dd')&&$(this).css('display')=="block"){
+				$(this).parents('.mb_24').show();
+				 return false;
+			}else{
+				//alert("aha,多选没有")
+				$(this).parents('.mb_24').hide();
+			}
+		})
+	})
+}
 
-
+//radius模块判断 _锚点刷新
+function check_radius(data){
+	data.each(function(){
+		var sec_this = $(this);
+		var i = 0;
+		sec_this.find('dd').each(function(){
+			if($(this).is(':hidden')){
+				i++;
+			}
+		})
+		if(i>=sec_this.find('dd').length){
+			sec_this.hide();
+			var nav_class =sec_this.attr('id');
+			$('nav .'+nav_class+'').hide();
+		}else{
+			var nav_class =sec_this.attr('id');
+			$('nav .'+nav_class+'').show();
+		}
+	})
+}
 //小标题
 function second_title(status,dom_this){
 	if(status==0){
@@ -1144,6 +1137,18 @@ function dd_type(_this){
 		_this.parents('.sign_box').show();
 	}
 }
+//展开显示按钮显示
+//status 1是展示显示，0是收起显示
+function show_btn(_this,status){
+	if(status == 0){
+		_this.find('.put_box').show();
+		_this.find('.put_box .put_away').show();
+		_this.find('.out_box').hide();
+	}else{
+		_this.find('.put_box').hide();
+		_this.find('.out_box').show();
+	}
+}
 //status 1有红字，0无红字（都是局部）
 //target为1是展示，0是保存事件
 function save_cancel_show(data,status){
@@ -1173,27 +1178,19 @@ function save_cancel_show(data,status){
 	//1有红字
 	if(status==1){
 		if(i>=_this.find('.mb_24').length){	
-			_this.find('.put_box').hide();
-			_this.find('.out_box').show();
+			show_btn(_this,1)
 			_this.find('.sign_box').hide();
 		}else{
-			_this.find('.put_box').show();
-			_this.find('.put_box .put_away').show();
-			_this.find('.out_box').hide();
+			show_btn(_this,0)
 			_this.find('.mb_24').show();
 			_this.find('.sign_box').show();
 		}
 		//无红字
 	}else{
 		if(i>=_this.find('.mb_24').length){	
-			/*_this.find('.put_box').hide();
-			_this.find('.out_box').show();*/
 			$('.sign_box').hide();
 			i=0;
 		}else{
-			/*_this.find('.put_box').show();
-			_this.find('.put_box .put_away').show();
-			_this.find('.out_box').hide();*/
 			_this.find('.mb_24').show();
 			_this.find('.sign_box').show();
 		}
@@ -1303,11 +1300,10 @@ function hideNav(){
 
 function fun_click(){
 	//展开
+	//0收起展示
 	$('.spread_out').click(function(){
 		if($('.anchor_btn span').hasClass('invisible')){
-			$(this).parent().hide();
-			$(this).parent().siblings('.put_box').show();
-			$(this).parent().siblings('.put_box').find('.put_away').show();
+			show_btn($(this).parents(".radius"),0);
 			$(this).parents('.limit_sec').find('dd').each(function(){
 				var _this =$(this);
 				if((_this.html() == '未选择'||_this.html().trim() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none")&&_this.css("display")=="block"){
@@ -1323,9 +1319,7 @@ function fun_click(){
 			})
 			event.stopPropagation();
 		}else{
-			$(this).parent().hide();
-			$(this).parent().siblings('.put_box').show();
-			$(this).parent().siblings('.put_box').find('.put_away').show();
+			show_btn($(this).parents(".radius"),0);
 			$(this).parents('.limit_sec').find('.mb_24').show();
 			$(this).parent().siblings('.sign_box').show();
 			event.stopPropagation();
@@ -1333,8 +1327,7 @@ function fun_click(){
 	})
 	//收起
 	$('.put_away').click(function(){
-		$(this).parent().hide();
-		$(this).parent().siblings('.out_box').show();
+		show_btn($(this).parents(".radius"),1);
 		$(this).parents('.limit_sec').find('.mb_24').hide();
 		$(this).parent().siblings('.sign_box').hide();
 		event.stopPropagation();
