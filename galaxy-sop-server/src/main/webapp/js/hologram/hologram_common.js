@@ -1301,8 +1301,6 @@ function hideNav(){
 }
 
 function fun_click(){
-	console.log("!!!!!!)_______________");
-	console.log($('.anchor_btn span').hasClass('invisible'));
 	//展开
 	$('.spread_out').click(function(){
 		if($('.anchor_btn span').hasClass('invisible')){
@@ -1311,7 +1309,7 @@ function fun_click(){
 			$(this).parent().siblings('.put_box').find('.put_away').show();
 			$(this).parents('.limit_sec').find('dd').each(function(){
 				var _this =$(this);
-				if((_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加')&&_this.css("display")=="block"){
+				if((_this.html() == '未选择'||_this.html().trim() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").is(":hidden"))&&_this.css("display")=="block"){
 					_this.parents('.mb_24').hide();
 				}else{
 					//小标题右侧隐藏的情况下展示
