@@ -8,6 +8,7 @@ function backFun(data){
 		$("#"+entity.code).html(s_div);
 		dtWidth();
 		mustData(projectInfo.id,0);
+		toggle_btn($('.anchor_btn span'),1);
 	}
 }
 
