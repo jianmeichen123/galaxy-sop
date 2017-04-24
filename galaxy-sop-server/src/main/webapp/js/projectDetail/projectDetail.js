@@ -229,27 +229,16 @@ function right_anchor(i){
 								var scrollHeight = $(document).height()-2;
 								var windowHeight = $(this).height();
 								if(scrollTop + windowHeight >= scrollHeight){
-									console.log('划到底不了');
-									for(i=0;i<$('.anchor_nav li').length;i++){
+									/*for(i=0;i<$('.anchor_nav li').length;i++){
 										if($('.anchor_nav li').eq(i).is(':hidden')){ }else{
 											var id =$('.anchor_nav li').eq(i).find('a').attr("href")
 											var top= $(id).offset().top - scrollTop;
-											console.log(i);
-											console.log(top);
 											if(top>100){
 												$('.anchor_nav li').eq(i).addClass('active');
 											　	$('.anchor_nav li').eq(i).siblings().removeClass('active');
 											　	return;
 											}
 										}
-									}
-
-									/*for(i=$('.anchor_nav li').length;i>=0;i--){
-											if($('.anchor_nav li').eq(i-1).is(':hidden')){ }else{											
-												$('.anchor_nav li').eq(i-1).addClass('active');
-											　	$('.anchor_nav li').eq(i-1).siblings().removeClass('ative');
-											　	return;
-											}
 									}*/
 								}else{
 								$('.anchor_nav a[href^="#"]').each(function() {
@@ -276,7 +265,7 @@ function right_anchor(i){
 						$('.anchor_btn span').click(function(){
 							var _this = $(this);
 							_this.toggleClass('invisible');
-							 toggle_btn(_this);
+							 toggle_btn(_this,1);
 						})
 					})
 		}

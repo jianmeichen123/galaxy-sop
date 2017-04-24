@@ -50,6 +50,8 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				mustData(projectInfo.id,0);
+				fun_click();
 			} else {
 
 			}
@@ -59,6 +61,14 @@
 		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
+		//
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
+		//
 		 $.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
 		 $.getScript("<%=path %>/js/validate/lib/jq.validate.js"); 
 		event.stopPropagation();
@@ -73,9 +83,10 @@
 					$("#"+id_code).hide();
 					validate();
 					btn_disable(1);
-					mustData(projectInfo.id);
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
 						var len=textarea_h.eq(i).val().length;
@@ -94,16 +105,19 @@
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
+		mustData(_this,1);
+		toggle_btn($('.anchor_btn span'),0,_this);
 		event.stopPropagation();
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
-
+		var save_this = $(this).parents('.radius');
 		if($('.tip-yellowsimple').length > 0){
 			return false;
 		}
@@ -161,7 +175,8 @@
 							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");
 							setDate(pid,true);
-							toggle_btn($('.anchor_btn span'));
+							mustData(save_this,1);
+						    toggle_btn($('.anchor_btn span'),0,save_this);
 						} else {
 
 						}

@@ -2536,6 +2536,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit_textarea select{display: block;}
 .h_edit_textarea textarea{margin-top: 8px;}
 .h_title{height:20px;border-left:4px solid #72a7ff;padding-left:10px;line-height: 20px;font-size: 14px;color:#333;margin-bottom:30px;}
+.h_title span{display:none; color:#ff8181;}
 /* .h_team_look dt,.h_team_look dd{float: none;} */
 .h_edit table,.h_look table{ border-collapse: collapse; border-spacing: 0;}
 .h_look table td,.h_look table th,.h_edit table td,.h_edit table th{height:40px;text-align: center;padding:0 10px;}
@@ -2672,8 +2673,8 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_btn span.unabled{background-image:url('../img/navhide_btn.png');cursor:not-allowed;background-color:#fff;}
 @media(max-width:1300px){.anchor_nav li{height: 33px;}}
 .nocon{width:300px;height:376px;margin:80px auto 0;background:url('../img/nocon.png');font-size:0;}
-
-
+.h_edit_btn.put_away,.out_box{display:none;}
+.h_edit .h_btnbox .spread_out{color: #72a7ff;}
 
 
 

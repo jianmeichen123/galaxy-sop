@@ -7,7 +7,7 @@ function backFun(data){
 		var s_div = toShowTitleHtml(entity, html);
 		$("#"+entity.code).html(s_div);
 		dtWidth();
-		mustData(projectInfo.id);
+		mustData(projectInfo.id,0);
 	}
 }
 

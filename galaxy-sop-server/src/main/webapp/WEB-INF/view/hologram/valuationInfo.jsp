@@ -70,7 +70,8 @@
 				});
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
-				mustData(projectInfo.id);
+				mustData(projectInfo.id,0);
+				fun_click();
 				hideNav();
 				
 			} else {
@@ -124,7 +125,6 @@
 					$("table").css({"width":"90%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					btn_disable(1);
-					mustData(projectInfo.id);
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
@@ -150,6 +150,7 @@
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
@@ -157,9 +158,12 @@
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 		deletedRowIds = new Array();
+		mustData(_this,1);
+		toggle_btn($('.anchor_btn span'),0,_this);
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents('.radius');
 		var btn = this;
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
@@ -248,7 +252,8 @@
 					$(btn).next().click();
 					refreshSection(id);
 					btn_disable(0);
-					toggle_btn($('.anchor_btn span'));
+					mustData(save_this,1);
+				    toggle_btn($('.anchor_btn span'),0,save_this);
 				} else {
 
 				}

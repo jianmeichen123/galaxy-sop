@@ -95,7 +95,7 @@
 					validate();
 					btn_disable(1);
 					setReqiured();
-					isMust("#b_"+id_code);
+					/* isMust("#b_"+id_code); */
 					$("#b_"+id_code).validate();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
@@ -389,7 +389,7 @@ function refreshSection(id)
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
 	btn_disable(0);
-	toggle_btn($('.anchor_btn span'));
+	toggle_btn($('.anchor_btn span'),1);
 }
 function getDetailUrl(code)
 {

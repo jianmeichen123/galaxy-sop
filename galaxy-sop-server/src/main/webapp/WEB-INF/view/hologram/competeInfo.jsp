@@ -101,7 +101,7 @@ $(function() {
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				btn_disable(1);
-				mustData(projectInfo.id);
+				mustData(projectInfo.id,0);
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -127,6 +127,7 @@ $(function() {
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();
 		var _this = $(this);
+		var save_this = $(this).parents('.radius');
 		var id_code = $(this).attr('attr-save');
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
@@ -250,8 +251,8 @@ $(function() {
 				layer.msg('保存成功');
 				showArea(id_code);
 				btn_disable(0);
-				toggle_btn($('.anchor_btn span'));
-				mustData(projectInfo.id);
+				mustData(projectInfo.id,0);
+				toggle_btn($('.anchor_btn span'),1);
 				$(".h#"+id_code).css("background","#fff");
 			} else {
 				layer.msg('保存失败');

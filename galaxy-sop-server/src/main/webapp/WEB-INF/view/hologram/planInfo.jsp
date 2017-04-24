@@ -102,6 +102,7 @@
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents('.radius');
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
@@ -156,7 +157,7 @@
 					$(".h#a_"+id_code).css("background","#fff");
 					var pid=$('#a_'+id_code).attr("data-section-id");
 					 setDate(pid,true);	
-					 toggle_btn($('.anchor_btn span'));
+					 toggle_btn($('.anchor_btn span'),0,save_this);
 				} else {
 
 				}

@@ -52,6 +52,14 @@ getData();
 	    key = Date.parse(new Date());
 		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
+		//
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
+		//
 		keyJSON["b_"+id_code]=key;
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
@@ -68,10 +76,10 @@ getData();
 					validate();
 					//编辑显示隐藏按钮不可用
 					btn_disable(1);
-					//setReqiured();
-					mustData(projectInfo.id);
 					//isMust("#b_"+id_code);	
 					$("#b_"+id_code).validate();
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -138,6 +146,7 @@ getData();
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
@@ -145,10 +154,12 @@ getData();
 		dtWidth();
 		btn_disable(0);
 		event.stopPropagation();
+		//mustData(_this,1);
+		toggle_btn($('.anchor_btn span'),0,_this);
 	});
-	
  	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
@@ -168,7 +179,6 @@ getData();
 			}
 		});
 		data.deletedResultTids = deletedResultTids;
-		
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
@@ -231,13 +241,12 @@ getData();
 								$(".loading-indicator-overlay").remove();
 								$(".loading-indicator").remove();
 								dtWidth();
-								//$(".section").remove();
-								//getData();
 								var pid=$('#a_'+id_code).attr("data-section-id");
 								$('#a_'+id_code).find('dd[data-type="3"]').hide();
 								setDate(pid,true);	
 								picData(projectInfo.id);
-								toggle_btn($('.anchor_btn span'));
+								mustData(save_this,1);
+								toggle_btn($('.anchor_btn span'),0,save_this);
 							} else {
 								layer.msg("操作失败!");
 							}
@@ -387,7 +396,9 @@ function getData(){
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
-				});
+				}); 
+				mustData(projectInfo.id,0);
+				fun_click();
 			} else {
 
 			}
