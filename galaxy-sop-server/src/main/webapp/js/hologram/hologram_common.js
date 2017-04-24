@@ -1225,11 +1225,9 @@ function mustData(projectId,status){
 		}
 	}else{
 		//当前模块 projectId  
-		console.log('进入局部');
 		var id =projectId.attr('id');
 		//如果有红字
 		if($('#'+id).find('.h_title').find('span').is(":visible")){
-			console.log("sdmcvbsdhjgbsfhdjgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbgbg");
 			save_cancel_show($('#'+id),1);
 		}
 		/*else{save_cancel_show($('#'+id),1);}*/
@@ -1251,9 +1249,11 @@ function setMustIds(mustids){
 			}else{$("#"+id).hide();$("#"+id).addClass("unable");}		
 		}else if(result[i].indexOf("display")==0){
 			var id=result[i].substring(10,result[i].length);
+			if(roleId != '1' && roleId != 1 && roleId != '2' && roleId != 2){
 			$("#"+id ).addClass('limit_sec');
 			$("#"+id ).find('.h_title span').show();
 			save_cancel_show($("#"+id),1); 
+			}
 		}else{
 			var str =" <span style='color:#ff8181'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
 			$('.h_edit').find("dt[data-tid='"+result[i]+"']").append(str);
