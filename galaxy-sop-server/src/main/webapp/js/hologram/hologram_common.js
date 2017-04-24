@@ -937,6 +937,7 @@ function toggle_btn(data,status,dom_this){
 						$(this).parents('.mb_24').show();
 						 return false;
 					}else{
+						//alert("aha,多选没有")
 						$(this).parents('.mb_24').hide();
 					}
 				})
@@ -970,7 +971,7 @@ function toggle_btn(data,status,dom_this){
 			//多选
 			$(dom_this).find('.checked_div').each(function(){
 				$(this).find('dd').each(function(){
-					if($(this).html()!= '未选择' && $(this).hasClass('border_dd')){
+					if($(this).html()!= '未选择' && $(this).hasClass('border_dd')&&$(this).css('display')=="block"){
 						$(this).parents('.mb_24').show();
 						 return false;
 					}else{
@@ -1149,6 +1150,17 @@ function save_cancel_show(data,status){
 	_this.find('dd').each(function(){
 		var d_this = $(this);
 		dd_type(d_this);
+		//多选
+		_this.find('.checked_div').each(function(){
+			$(this).find('dd').each(function(){
+				if($(this).html()!= '未选择' && $(this).hasClass('border_dd')){
+					$(this).parents('.mb_24').show();
+					 return false;
+				}else{
+					$(this).parents('.mb_24').hide();
+				}
+			})
+		})
 	});
 	//判断是否有数据
 	var i = 0;
@@ -1159,9 +1171,6 @@ function save_cancel_show(data,status){
 	})
 	//1有红字
 	if(status==1){
-		console.log("@@@@@@@@@@@@@@@");
-		console.log(i);
-		console.log(_this.find('.mb_24').length);
 		if(i>=_this.find('.mb_24').length){	
 			_this.find('.put_box').hide();
 			_this.find('.out_box').show();
@@ -1302,7 +1311,7 @@ function fun_click(){
 			$(this).parent().siblings('.put_box').find('.put_away').show();
 			$(this).parents('.limit_sec').find('dd').each(function(){
 				var _this =$(this);
-				if(_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'){
+				if((_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加')&&_this.css("display")=="block"){
 					_this.parents('.mb_24').hide();
 				}else{
 					//小标题右侧隐藏的情况下展示

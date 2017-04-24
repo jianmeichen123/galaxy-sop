@@ -175,7 +175,6 @@
 							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");
 							setDate(pid,true);
-							mustData(save_this,1);
 						    toggle_btn($('.anchor_btn span'),0,save_this);
 						} else {
 
