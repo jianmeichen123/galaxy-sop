@@ -408,7 +408,7 @@
 		{{each(i,childList) childList}}
 		<dt class="title_dt" data-type="\${type}" data-must="\${isMust}">\${name}</dt>
 		{{each placeholder.split('&')}}
-		<dd class="fl_none"><input data-title-id="\${id}" data-index="\${id}_\${$index+1}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" maxlength="\${valRuleMark}"/></dd>
+		<dd class="fl_none"><input class="big_input" data-title-id="\${id}" data-index="\${id}_\${$index+1}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" maxlength="\${valRuleMark}"/></dd>
 		{{/each}}
 {{/each}}
 	{{/if}}

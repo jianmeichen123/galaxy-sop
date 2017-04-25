@@ -2675,6 +2675,8 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .nocon{width:300px;height:376px;margin:80px auto 0;background:url('../img/nocon.png');font-size:0;}
 .h_edit_btn.put_away,.out_box{display:none;}
 .radius .h_btnbox .spread_out{color: #72a7ff;}
+.h_edit_txt .title_dt{color:#333;margin-top:16px;}
+.h_edit_txt .big_input{width:750px;height:30px;border:1px solid #dadada;padding-left:10px;line-height:30px;font-size:12px;font-family:"微软雅黑"}
 
 
 
