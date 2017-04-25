@@ -970,6 +970,7 @@ function toggle_btn(data,status,dom_this){
 			if($(this).find('.spread_out').is(":visible")){
 				$(this).find('.mb_24').hide();
 				$(this).find('.sign_box').hide();
+				 
 			}
 		});
 	//右侧锚点按钮是展示
