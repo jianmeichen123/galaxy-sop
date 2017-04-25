@@ -597,7 +597,7 @@ function setDate(pid, readonly) {
 
 }
 /*文件刷新*/
-function picData(pid,status){
+function picData(pid){
 	
 	console.log("开始执行哈哈哈")
 	
@@ -608,13 +608,14 @@ function picData(pid,status){
 		  fileids.html("未添加");
 		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 	}
-	
 	data.projectId = pid;
 	data.infoFileids = infoFileids;
 	sendPostRequestByJsonObjNoCache(
 				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
 				data,
+				false,
 				function(data) {
+					console.log("asdasd");
 					console.log(data);
 					var result = data.result.status;
 					if (result == 'OK') {
@@ -634,11 +635,11 @@ function picData(pid,status){
 									$('#'+"look-"+key).parents(".sign_box").show();
 								}
 							});
-							if(status == 1){
-								mustData(pid,0);
-							}else if(status==2){
-								toggle_btn($('.anchor_btn span'),0,fileids.parents(".radius"));
-							}
+//							if(status == 1){
+//								//mustData(pid,0);
+//							}else if(status==2){
+//								toggle_btn($('.anchor_btn span'),0,save_this);
+//							}
 						}
 						
 					} else {

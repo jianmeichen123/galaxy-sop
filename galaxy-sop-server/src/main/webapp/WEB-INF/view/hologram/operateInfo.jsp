@@ -220,13 +220,14 @@ getData();
 			return;
 		}
 		$("body").showLoading();
-		sendPostRequestByJsonObjNoCache(sendFileUrl,params,function(dataParam){
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传
 			var result = dataParam.result.status;
 			if(result == "OK"){
 				sendPostRequestByJsonObjNoCache(
 						platformUrl.saveOrUpdateInfo , 
 						data,
+						true,
 						function(data) {
 							var result = data.result.status;
 							if (result == 'OK') {
@@ -244,7 +245,8 @@ getData();
 								var pid=$('#a_'+id_code).attr("data-section-id");
 								$('#a_'+id_code).find('dd[data-type="3"]').hide();
 								setDate(pid,true);	
-								picData(projectInfo.id,2);
+								picData(projectInfo.id);
+								toggle_btn($('.anchor_btn span'),0,save_this);
 								
 							} else {
 								layer.msg("操作失败!");
@@ -395,8 +397,7 @@ function getData(){
 				$(".section").each(function(){
 					$(this).showResults(true);
 				}); 
-				console.log("edfsdfsdfsdf");
-				//mustData(projectInfo.id,0);
+				mustData(projectInfo.id,0);
 				fun_click();
 				
 			} else {
