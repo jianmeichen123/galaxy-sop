@@ -597,7 +597,10 @@ function setDate(pid, readonly) {
 
 }
 /*文件刷新*/
-function picData(pid){
+function picData(pid,status){
+	
+	console.log("开始执行哈哈哈")
+	
 	var fileids = $(".mglook");
 	var infoFileids = "";
 	var data={};
@@ -605,12 +608,14 @@ function picData(pid){
 		  fileids.html("未添加");
 		  infoFileids += ","+fileids.eq(i).attr("id").replace("look-","");
 	}
+	
 	data.projectId = pid;
 	data.infoFileids = infoFileids;
 	sendPostRequestByJsonObjNoCache(
 				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
 				data,
 				function(data) {
+					console.log(data);
 					var result = data.result.status;
 					if (result == 'OK') {
 						var files = data.entity.commonFileList;
@@ -621,12 +626,19 @@ function picData(pid){
 								for(var i = 0;i < fl.length; i++){
 									html +='<img src="'+fl[i].fileUrl+'" alt="">';
 								}
+								console.log("执行完了哈哈哈");
+								console.log(html);
 								$('#'+"look-"+key).html(html);
 								if($('#'+"look-"+key).parents(".radius").find('.h_edit_btn').is(":visible")){
 									$('#'+"look-"+key).parents(".mb_24").show();
+									$('#'+"look-"+key).parents(".sign_box").show();
 								}
-								//toggle_btn($('.anchor_btn span'),0,$('#'+"look-"+key).parents('.radius'));
 							});
+							if(status == 1){
+								mustData(pid,0);
+							}else if(status==2){
+								toggle_btn($('.anchor_btn span'),0,fileids.parents(".radius"));
+							}
 						}
 						
 					} else {
@@ -887,11 +899,11 @@ function getTableRowLimit(code)
 //data==1的时候为编辑否则为取消、保存
 function btn_disable(data){
 	if (data == 1){
-	$('.anchor_btn span').addClass('unabled');
-	$('.anchor_btn p').css({
-		'z-index':'101',
-		'cursor':'not-allowed'
-	});
+		$('.anchor_btn span').addClass('unabled');
+		$('.anchor_btn p').css({
+			'z-index':'101',
+			'cursor':'not-allowed'
+		});
 	}else{
 		if($('.h_save_btn.bluebtn').length>0){
 			$('.anchor_btn span').addClass('unabled');
@@ -959,9 +971,6 @@ function toggle_btn(data,status,dom_this){
 				$(this).find('.sign_box').hide();
 			}
 		});
-		//全部隐藏状态
-		hideAll()
-		hideNav();
 	//右侧锚点按钮是展示
 	}else{
 		//全局
@@ -1003,6 +1012,9 @@ function toggle_btn(data,status,dom_this){
 			$(dom_this).find('.sign_box').show();
 		}	
 	}
+	//全部隐藏状态
+	hideAll();
+	hideNav();
 }
 //全部隐藏状态
 function hideAll(){
@@ -1038,22 +1050,23 @@ function check_radius(data){
 	data.each(function(){
 		var sec_this = $(this);
 		var i = 0;
-		sec_this.find('dd').each(function(){
-			if($(this).is(':hidden')){
+		sec_this.find('.mb_24').each(function(){
+			if($(this).is(":hidden")){
 				i++;
 			}
 		})
-		if(i>=sec_this.find('dd').length){
+		if(i>=sec_this.find('.mb_24').length){
 			sec_this.hide();
 			var nav_class =sec_this.attr('id');
 			$('nav .'+nav_class+'').hide();
 		}else{
 			var nav_class =sec_this.attr('id');
 			$('nav .'+nav_class+'').show();
+			//处理图片
 		}
 	})
 }
-//小标题
+//小标题 0全局
 function second_title(status,dom_this){
 	if(status==0){
 		$(dom_this).find('.sign_box').each(function(){
@@ -1101,10 +1114,15 @@ function second_title(status,dom_this){
 function dd_type(_this){
 	//动态表格
 	if(_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none"){
-		
 		_this.parents('.mb_24').hide();
 	}else{
 		_this.parents('.mb_24').show();
+	}
+	//图片
+	if(_this.hasClass("mglook")){
+		console.log("!!!!!!!!!!")
+		console.log(_this.siblings("dt").html());
+		console.log(_this.html())
 	}
 	//固定表格1
 	if(_this.siblings('dt').attr('data-type') == '9'){
@@ -1150,7 +1168,6 @@ function show_btn(_this,status){
 	}
 }
 //status 1有红字，0无红字（都是局部）
-//target为1是展示，0是保存事件
 function save_cancel_show(data,status){
 	var _this = data;
 	_this.find('dd').each(function(){
