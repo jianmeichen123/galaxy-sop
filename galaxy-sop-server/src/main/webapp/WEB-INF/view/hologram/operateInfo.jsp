@@ -220,13 +220,14 @@ getData();
 			return;
 		}
 		$("body").showLoading();
-		sendPostRequestByJsonObjNoCache(sendFileUrl,params,function(dataParam){
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传
 			var result = dataParam.result.status;
 			if(result == "OK"){
 				sendPostRequestByJsonObjNoCache(
 						platformUrl.saveOrUpdateInfo , 
 						data,
+						true,
 						function(data) {
 							var result = data.result.status;
 							if (result == 'OK') {
@@ -246,6 +247,7 @@ getData();
 								setDate(pid,true);	
 								picData(projectInfo.id);
 								toggle_btn($('.anchor_btn span'),0,save_this);
+								
 							} else {
 								layer.msg("操作失败!");
 							}
@@ -383,8 +385,6 @@ function previewImage(file,callback){//file为plupload事件监听函数参数�
 	}	
 	
 }
-picData(projectInfo.id);
-
 function getData(){
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO4", null,
@@ -393,11 +393,13 @@ function getData(){
 			if (result == 'OK') {
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
+				picData(projectInfo.id,1);
 				$(".section").each(function(){
 					$(this).showResults(true);
 				}); 
 				mustData(projectInfo.id,0);
 				fun_click();
+				
 			} else {
 
 			}

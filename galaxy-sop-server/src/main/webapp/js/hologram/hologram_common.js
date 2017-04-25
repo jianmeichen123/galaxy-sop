@@ -598,6 +598,9 @@ function setDate(pid, readonly) {
 }
 /*文件刷新*/
 function picData(pid){
+	
+	console.log("开始执行哈哈哈")
+	
 	var fileids = $(".mglook");
 	var infoFileids = "";
 	var data={};
@@ -610,7 +613,10 @@ function picData(pid){
 	sendPostRequestByJsonObjNoCache(
 				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
 				data,
+				false,
 				function(data) {
+					console.log("asdasd");
+					console.log(data);
 					var result = data.result.status;
 					if (result == 'OK') {
 						var files = data.entity.commonFileList;
@@ -621,12 +627,19 @@ function picData(pid){
 								for(var i = 0;i < fl.length; i++){
 									html +='<img src="'+fl[i].fileUrl+'" alt="">';
 								}
+								console.log("执行完了哈哈哈");
+								console.log(html);
 								$('#'+"look-"+key).html(html);
 								if($('#'+"look-"+key).parents(".radius").find('.h_edit_btn').is(":visible")){
 									$('#'+"look-"+key).parents(".mb_24").show();
+									$('#'+"look-"+key).parents(".sign_box").show();
 								}
-								//toggle_btn($('.anchor_btn span'),0,$('#'+"look-"+key).parents('.radius'));
 							});
+//							if(status == 1){
+//								//mustData(pid,0);
+//							}else if(status==2){
+//								toggle_btn($('.anchor_btn span'),0,save_this);
+//							}
 						}
 						
 					} else {
@@ -887,11 +900,11 @@ function getTableRowLimit(code)
 //data==1的时候为编辑否则为取消、保存
 function btn_disable(data){
 	if (data == 1){
-	$('.anchor_btn span').addClass('unabled');
-	$('.anchor_btn p').css({
-		'z-index':'101',
-		'cursor':'not-allowed'
-	});
+		$('.anchor_btn span').addClass('unabled');
+		$('.anchor_btn p').css({
+			'z-index':'101',
+			'cursor':'not-allowed'
+		});
 	}else{
 		if($('.h_save_btn.bluebtn').length>0){
 			$('.anchor_btn span').addClass('unabled');
@@ -919,7 +932,7 @@ function toggle_btn(data,status,dom_this){
 		$("dt[data-type=15]").siblings('dd').show();
 		$('.sign_box').show();
 	}else{};
-	//判断右侧是否点击了隐藏，是就走下面代码 不是走10003行
+	//判断右侧是否点击了隐藏，是就走下面代码 不是走1003行
 	if(data.hasClass('invisible')){ 
 		//全局      否969
 		if(status==1){
@@ -931,34 +944,11 @@ function toggle_btn(data,status,dom_this){
 				}
 			});
 			//多选
-			$('.radius .checked_div').each(function(){
-				$(this).find('dd').each(function(){
-					if($(this).html()!= '未选择' && $(this).hasClass('border_dd')){
-						$(this).parents('.mb_24').show();
-						 return false;
-					}else{
-						//alert("aha,多选没有")
-						$(this).parents('.mb_24').hide();
-					}
-				})
-			})
+			check_labels($('.radius .checked_div'));
 			//小标题
 			second_title(status);
-			$('.radius').each(function(){
-				var sec_this = $(this);
-				var i = 0;
-				sec_this.find('dd').each(function(){
-					if($(this).is(':hidden')){
-						i++;
-					}
-				})
-				if(i>=sec_this.find('dd').length){
-					sec_this.hide();
-					var nav_class =sec_this.attr('id');
-					$('nav .'+nav_class+'').hide();
-					i=0;
-				}
-			})
+			//全局判断显示隐藏$('.radius')
+			check_radius($('.radius'));
 			//局部
 		}else{
 			$(dom_this).find('dd').each(function(){
@@ -969,53 +959,20 @@ function toggle_btn(data,status,dom_this){
 				}
 			});
 			//多选
-			$(dom_this).find('.checked_div').each(function(){
-				$(this).find('dd').each(function(){
-					if($(this).html()!= '未选择' && $(this).hasClass('border_dd')&&$(this).css('display')=="block"){
-						$(this).parents('.mb_24').show();
-						 return false;
-					}else{
-						$(this).parents('.mb_24').hide();
-					}
-				})
-			})
+			check_labels($(dom_this).find('.checked_div'));
 			//小标题
 			second_title(status,dom_this);
-
-			var sec_this = $(dom_this);
-			var i = 0;
-			sec_this.find('dd').each(function(){
-				if($(this).is(':hidden')){
-					i++;
-				}
-			})
-			if(i>=sec_this.find('dd').length){
-				sec_this.hide();
-				var nav_class =sec_this.attr('id');
-				$('nav .'+nav_class+'').hide();
-				i=0;
-			}
+			//判断显示隐藏整个模块
+			check_radius($(dom_this));
 		}
 		//循环使   展开的模块进行子元素dd隐藏
 		$('.radius').each(function(){
 			if($(this).find('.spread_out').is(":visible")){
 				$(this).find('.mb_24').hide();
 				$(this).find('.sign_box').hide();
+				 
 			}
 		});
-		//全部隐藏状态
-		var num=$("#page_all .radius").length;
-		var n=0;
-		$('#page_all .radius').each(function(){
-			if($(this).is(':hidden')){
-				n++;
-			}
-			if(n>=num){
-				var html="<div class='nocon'>空白页面</div>";
-				$("#page_all").append(html)
-			}
-		})
-		 hideNav();
 	//右侧锚点按钮是展示
 	}else{
 		//全局
@@ -1054,16 +1011,67 @@ function toggle_btn(data,status,dom_this){
 		}else{
 			//局部
 			$(dom_this).find('.mb_24').show();	
-			
+			$(dom_this).find('.sign_box').show();
 		}	
 	}
+	//全部隐藏状态
+	hideAll();
+	hideNav();
+}
+//全部隐藏状态
+function hideAll(){
+	var num=$("#page_all .radius").length;
+	var n=0;
+	$('#page_all .radius').each(function(){
+		if($(this).is(':hidden')){
+			n++;
+		}
+		if(n>=num){
+			var html="<div class='nocon'>空白页面</div>";
+			$("#page_all").append(html)
+		}
+	})
+}
+//多选判断显示隐藏
+function check_labels(data){
+	data.each(function(){
+		$(this).find('dd').each(function(){
+			if($(this).html()!= '未选择' && $(this).hasClass('border_dd')&&$(this).css('display')=="block"){
+				$(this).parents('.mb_24').show();
+				 return false;
+			}else{
+				//alert("aha,多选没有")
+				$(this).parents('.mb_24').hide();
+			}
+		})
+	})
 }
 
-
-//小标题
+//radius模块判断 _锚点刷新
+function check_radius(data){
+	data.each(function(){
+		var sec_this = $(this);
+		var i = 0;
+		sec_this.find('.mb_24').each(function(){
+			if($(this).is(":hidden")){
+				i++;
+			}
+		})
+		if(i>=sec_this.find('.mb_24').length){
+			sec_this.hide();
+			var nav_class =sec_this.attr('id');
+			$('nav .'+nav_class+'').hide();
+		}else{
+			var nav_class =sec_this.attr('id');
+			$('nav .'+nav_class+'').show();
+			//处理图片
+		}
+	})
+}
+//小标题 0全局
 function second_title(status,dom_this){
 	if(status==0){
-		dom_this.find('.sign_box').each(function(){
+		$(dom_this).find('.sign_box').each(function(){
 			var _this = $(this);
 			var len = _this.find('.mb_24').length
 			var l = 0;
@@ -1106,11 +1114,17 @@ function second_title(status,dom_this){
 }
 //dd_type
 function dd_type(_this){
-	//_this.find("table").is(":hidden") 团队动态表格
-	if(_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").is(":hidden")){
+	//动态表格
+	if(_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none"){
 		_this.parents('.mb_24').hide();
 	}else{
 		_this.parents('.mb_24').show();
+	}
+	//图片
+	if(_this.hasClass("mglook")){
+		console.log("!!!!!!!!!!")
+		console.log(_this.siblings("dt").html());
+		console.log(_this.html())
 	}
 	//固定表格1
 	if(_this.siblings('dt').attr('data-type') == '9'){
@@ -1143,8 +1157,19 @@ function dd_type(_this){
 		_this.parents('.sign_box').show();
 	}
 }
+//展开显示按钮显示
+//status 1是展示显示，0是收起显示
+function show_btn(_this,status){
+	if(status == 0){
+		_this.find('.put_box').show();
+		_this.find('.put_box .put_away').show();
+		_this.find('.out_box').hide();
+	}else{
+		_this.find('.put_box').hide();
+		_this.find('.out_box').show();
+	}
+}
 //status 1有红字，0无红字（都是局部）
-//target为1是展示，0是保存事件
 function save_cancel_show(data,status){
 	var _this = data;
 	_this.find('dd').each(function(){
@@ -1172,27 +1197,19 @@ function save_cancel_show(data,status){
 	//1有红字
 	if(status==1){
 		if(i>=_this.find('.mb_24').length){	
-			_this.find('.put_box').hide();
-			_this.find('.out_box').show();
+			show_btn(_this,1)
 			_this.find('.sign_box').hide();
 		}else{
-			_this.find('.put_box').show();
-			_this.find('.put_box .put_away').show();
-			_this.find('.out_box').hide();
+			show_btn(_this,0)
 			_this.find('.mb_24').show();
 			_this.find('.sign_box').show();
 		}
 		//无红字
 	}else{
 		if(i>=_this.find('.mb_24').length){	
-			/*_this.find('.put_box').hide();
-			_this.find('.out_box').show();*/
 			$('.sign_box').hide();
 			i=0;
 		}else{
-			/*_this.find('.put_box').show();
-			_this.find('.put_box .put_away').show();
-			_this.find('.out_box').hide();*/
 			_this.find('.mb_24').show();
 			_this.find('.sign_box').show();
 		}
@@ -1301,17 +1318,14 @@ function hideNav(){
 }
 
 function fun_click(){
-	console.log("!!!!!!)_______________");
-	console.log($('.anchor_btn span').hasClass('invisible'));
 	//展开
+	//0收起展示
 	$('.spread_out').click(function(){
 		if($('.anchor_btn span').hasClass('invisible')){
-			$(this).parent().hide();
-			$(this).parent().siblings('.put_box').show();
-			$(this).parent().siblings('.put_box').find('.put_away').show();
+			show_btn($(this).parents(".radius"),0);
 			$(this).parents('.limit_sec').find('dd').each(function(){
 				var _this =$(this);
-				if((_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加')&&_this.css("display")=="block"){
+				if((_this.html() == '未选择'||_this.html().trim() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none")&&_this.css("display")=="block"){
 					_this.parents('.mb_24').hide();
 				}else{
 					//小标题右侧隐藏的情况下展示
@@ -1324,9 +1338,7 @@ function fun_click(){
 			})
 			event.stopPropagation();
 		}else{
-			$(this).parent().hide();
-			$(this).parent().siblings('.put_box').show();
-			$(this).parent().siblings('.put_box').find('.put_away').show();
+			show_btn($(this).parents(".radius"),0);
 			$(this).parents('.limit_sec').find('.mb_24').show();
 			$(this).parent().siblings('.sign_box').show();
 			event.stopPropagation();
@@ -1334,8 +1346,7 @@ function fun_click(){
 	})
 	//收起
 	$('.put_away').click(function(){
-		$(this).parent().hide();
-		$(this).parent().siblings('.out_box').show();
+		show_btn($(this).parents(".radius"),1);
 		$(this).parents('.limit_sec').find('.mb_24').hide();
 		$(this).parent().siblings('.sign_box').hide();
 		event.stopPropagation();

@@ -51,7 +51,6 @@
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				customBuilder();
-				
 				$(".section").each(function(){
 					$(this).showResults(true);
 					var table = $(this).find('.mb_24 table');
@@ -71,6 +70,7 @@
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
 				mustData(projectInfo.id,0);
+				toggle_btn($('.anchor_btn span'),1);
 				fun_click();
 				hideNav();
 				
@@ -158,7 +158,6 @@
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 		deletedRowIds = new Array();
-		mustData(_this,1);
 		toggle_btn($('.anchor_btn span'),0,_this);
 	});
 	//通用保存
@@ -252,7 +251,6 @@
 					$(btn).next().click();
 					refreshSection(id);
 					btn_disable(0);
-					mustData(save_this,1);
 				    toggle_btn($('.anchor_btn span'),0,save_this);
 				} else {
 
