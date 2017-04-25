@@ -388,7 +388,7 @@ function buildResults(sec,title,readonly)
 			}
 	        else{
 				var str=title.resultList[0].contentDescribe1;
-				if(str !=undefined){
+				if(str !=undefined && str.indexOf("<sitg>")>-1){
 					var str=str.split("<sitg>");
 					var inputsValueList=[];
 				   for(var i=0;i<str.length;i++){
