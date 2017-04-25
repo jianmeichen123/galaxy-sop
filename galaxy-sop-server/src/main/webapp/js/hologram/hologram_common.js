@@ -374,6 +374,36 @@ function buildResults(sec,title,readonly)
 				textareas.eq(1).html(str2);
 			}
 		}
+		else if(title.type == 16)
+		{
+			if(readonly == true)
+			{
+				var dds = $("dd[data-title-id='" + title.id + "']");
+				var str=title.resultList[0].contentDescribe1;
+				if(str){
+					str=str.replace(/<sitg>/g,'（');
+					str=str.replace(/<\/sitg>/g,'）');
+				}
+				dds.html(title.resultList[0].contentDescribe1==undefined ?"未填写":str);
+			}
+	        else{
+				var str=title.resultList[0].contentDescribe1;
+				if(str !=undefined){
+					var str=str.split("<sitg>");
+					var inputsValueList=[];
+				   for(var i=0;i<str.length;i++){
+						if(str[i].indexOf("</sitg>")>-1){
+							var inputsValue=str[i].substring(0,str[i].indexOf("</sitg>"));
+							inputsValueList.push(inputsValue);
+						}
+					}
+				   var div=$(".inputs_block").closest(".h_edit_txt");
+				   for(var j=0;j<div.children("dd").length;j++){
+					   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
+				   }
+				}
+			}
+		}
 		else if(title.type == 8)
 		{
 			if(readonly == true)

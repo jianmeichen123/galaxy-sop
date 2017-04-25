@@ -124,12 +124,13 @@
 
 		var infoModeList = new Array();
 		var infoModeFixedList = new Array();
+		var infoModeInputs=new Array();
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
 			var infoMode = {
 				titleId	: field.data('titleId'),
-				type : type
+				type : type,
 			};
 			var infoModeFixed = {
 					titleId	: field.data('titleId'),
@@ -164,10 +165,31 @@
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
+			else if(type == 16)
+			{
+                var list =  $(".inputs_block").closest(".h_edit_txt");
+                $(list).each(function(){
+                      var div = $(this);
+                      var content="";
+                      var field1 = div.find("[data-index='1238_1']").val();
+                      var field2 = div.find("[data-index='1238_2']").val();
+                      var field3 = div.find("[data-index='1238_3']").val();
+                      var field4 = div.find("[data-index='1239_1']").val();
+                      var field5 = div.find("[data-index='1239_2']").val();
+                      var field6 = div.find("[data-index='1240_1']").val();
+                      var field7 = div.find("[data-index='1240_2']").val();
+                      var field8 = div.find("[data-index='1241_1']").val();
+                      var field9 = div.find("[data-index='1241_2']").val();
+                      content='该项目是一个通过或基于<sitg>'+field1+'</sitg>的<sitg>'+field2+'</sitg> 的<sitg>'+field3+'</sitg>，连接<sitg>'+field4+'</sitg>和<sitg>'+field5+'</sitg>，为<sitg>'+field6+'</sitg>提供<sitg>'+field7+'</sitg>的产品或服务，满足了<sitg>'+field8+'</sitg>的刚需或解决了<sitg>'+field9+'</sitg>。'
+                      infoMode.remark1 = content;
+                      infoModeInputs.push(infoMode);
+                })
+            }
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
 		data.infoFixedTableList=infoModeFixedList;
+		data.infoModeInputs=infoModeInputs;
 		if(!$("#b_"+id_code).validate().form())
 		{
 			return;

@@ -193,6 +193,14 @@
 								<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
+	{{else type=="16"}}
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		{{each(i,childList) childList}}
+		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		{{each placeholder.split('&')}}
+		<dd class="fl_none"><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" /></dd>
+		{{/each}}
+		{{/each}}
 
 		{{/if}}
 	  </dl>
@@ -393,8 +401,17 @@
 								<label for="" id="label2_\${id}">\${valRuleMark}</label>/\${valRuleMark}
 							</p>
 						</dd>
-
-		{{/if}}
+		{{else type=="16"}}
+		<dt data-type="\${type}" data-must="\${isMust}" class="inputs_block">\${name}</dt>
+		<br/>
+		<input data-type="\${type}" data-must="\${isMust}" class="hidden" data-title-id="\${id}" type="text"/>
+		{{each(i,childList) childList}}
+		<dt class="title_dt" data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+		{{each placeholder.split('&')}}
+		<dd class="fl_none"><input data-title-id="\${id}" data-index="\${id}_\${$index+1}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" maxlength="\${valRuleMark}"/></dd>
+		{{/each}}
+{{/each}}
+	{{/if}}
 	  </dl>
 	</div>
 
@@ -613,6 +630,9 @@
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 		<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
+		{{else type=="16"}}
+		<dt  data-type="\${type}">\${name}</dt>
+		<dd class="fl_none field division_dd" data-title-id="\${id}" data-content="\${content}">未填写</dd>
 		{{/if}}                      
 		</dl>		
 	</div>
