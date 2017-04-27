@@ -29,6 +29,8 @@
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
            
                 </ul>
+     <!--隐藏-->
+<div class="bj_hui_on"></div>
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
                  <div class="tabtxt" id="page_all">
 		<!--tab-->
@@ -84,6 +86,7 @@
 					validate();
 					btn_disable(1);
 					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
 					//文本域剩余字符数
 					section.find(".h_title span").remove();
 					section.find(".h_title").append(str);
@@ -109,6 +112,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		mustData(_this,1);
@@ -171,6 +175,7 @@
 							layer.msg('保存成功');
 							$('#'+id_code).show();
 							$('#b_'+id_code).remove();
+							$(".bj_hui_on").hide();
 							btn_disable(0);
 							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");

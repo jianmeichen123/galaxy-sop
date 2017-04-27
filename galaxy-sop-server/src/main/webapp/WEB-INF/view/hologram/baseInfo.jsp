@@ -31,7 +31,8 @@
 		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br />估值 </li>
 	</ul>
 
-
+       <!--隐藏-->
+<div class="bj_hui_on"></div>
 	<div id="tab-content base" class="base_tab-content">
 		<div class="tabtxt" id="page_all"> 
 		
@@ -69,6 +70,7 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		$(".bj_hui_on").hide();
 		$(".h#"+id_code).css("background","#fff");
 		dtWidth();
 		btn_disable(0);
@@ -94,6 +96,7 @@ $(function() {
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
+				$(".bj_hui_on").show();
 				var sTop=$(window).scrollTop();
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
@@ -261,6 +264,7 @@ $(function() {
 				updateInforTime(projectInfo.id,"informationTime");
 				layer.msg('保存成功');
 				showArea(id_code);
+				$(".bj_hui_on").hide();
 				btn_disable(0);
 				toggle_btn($('.anchor_btn span'),1);
 				$(".h_look .ismust").hide();

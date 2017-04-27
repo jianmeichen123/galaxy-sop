@@ -30,6 +30,8 @@
     <li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('8')">融资及<br/>估值</li>
 
   </ul>
+   <!--隐藏-->
+<div class="bj_hui_on"></div>
   <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
@@ -126,6 +128,7 @@
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					btn_disable(1);
 					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -154,6 +157,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
@@ -245,6 +249,7 @@
 					updateInforTime(projectInfo.id,"financingTime");
 					layer.msg('保存成功');
 					$(".h#a_"+id_code).css("background","#fff");
+					$(".bj_hui_on").hide();
 					deletedRowIds = new Array();
 					var parent = $(sec).parent();
 					var id = parent.data('sectionId');
