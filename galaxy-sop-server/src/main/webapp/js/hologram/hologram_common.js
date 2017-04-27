@@ -643,7 +643,7 @@ function picData(pid){
 	sendPostRequestByJsonObjNoCache(
 				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
 				data,
-				false,
+				true,
 				function(data) {
 					console.log("asdasd");
 					console.log(data);
@@ -959,7 +959,7 @@ function toggle_btn(data,status,dom_this){
 		$('.radius').show();	
 		$('dd').parents('.mb_24').show();
 		$("dt[data-type=5]").siblings('dd').show();
-		$("dt[data-type=15]").siblings('dd').show();
+		//$("dt[data-type=15]").siblings('dd').show();
 		$('.sign_box').show();
 	}else{};
 	//判断右侧是否点击了隐藏，是就走下面代码 不是走1003行
@@ -976,6 +976,7 @@ function toggle_btn(data,status,dom_this){
 			//全局判断显示隐藏$('.radius')
 			check_radius($('.radius'));
 			//局部
+			hideAll();
 		}else{
 			$(dom_this).find('dd').each(function(){
 				if($(this).parents('.radius').hasClass('unable')){
@@ -1023,7 +1024,7 @@ function toggle_btn(data,status,dom_this){
 						_this.find('.sign_box').show();
 						_this.find('dd').parents('.mb_24').show();
 						_this.find("dt[data-type=5]").siblings('dd').show();
-						_this.find("dt[data-type=15]").siblings('dd').show();
+						//_this.find("dt[data-type=15]").siblings('dd').show();
 						if($(".nocon")){
 							$(".nocon").remove();
 						}
@@ -1042,7 +1043,7 @@ function toggle_btn(data,status,dom_this){
 		}	
 	}
 	//全部隐藏状态
-	hideAll();
+	//hideAll();
 	hideNav();
 }
 //全部隐藏状态
