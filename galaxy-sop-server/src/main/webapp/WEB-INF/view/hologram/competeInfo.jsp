@@ -101,7 +101,7 @@ $(function() {
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				btn_disable(1);
-				mustData(projectInfo.id,0);
+				//mustData(projectInfo.id,0);
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -250,19 +250,18 @@ $(function() {
 				updateInforTime(projectInfo.id,"competeTime");
 				layer.msg('保存成功');
 				showArea(id_code);
-				btn_disable(0);
-				//这个是写死的ID 数据变化的话需要改变ID
-				toggle_btn($('.anchor_btn span'),0,$("#NO5_1"));
-				toggle_btn($('.anchor_btn span'),0,$("#NO5_3"));
+				
+				toggle_btn($('.anchor_btn span'),0,save_this);
 				mustData(projectInfo.id,0);
+				check_radius($(".radius"))
 				$(".h#"+id_code).css("background","#fff");
+				btn_disable(0);
 			} else {
 				layer.msg('保存失败');
 			}
 		});
 		//base_half
 		if(_this.is(':visible')){
-			console.log("编辑隐藏");
 			$('.base_half').css('width','50%');
 		}
 	});
