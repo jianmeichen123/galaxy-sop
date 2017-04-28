@@ -436,7 +436,7 @@
 <div class="h radius section" id="a_\${code}" data-section-id="\${id}">
   <div class="h_look h_team_look clearfix" id="\${code}">
 	<c:if test="${isEditable}">
-	<div class="h_btnbox put_box"><span class="h_edit_btn put_away">收起</span><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
+	<div class="h_btnbox put_box"><span class="blue_btn put_away">收起</span><span class="h_edit_btn" attr-id="\${code}">编辑</span></div>
 	<div class="h_btnbox out_box"><span class="spread_out">展开</span></div>
 	</c:if>
 	<div class="h_title">\${name}<span>（如果该项目涉及此项内容，请进行填写，反之可略过）</span></div>

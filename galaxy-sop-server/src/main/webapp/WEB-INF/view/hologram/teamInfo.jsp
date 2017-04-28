@@ -32,6 +32,8 @@
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
                 </ul>
+  <!--隐藏-->
+<div class="bj_hui_on"></div>
  <div id="tab-content">
  <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
 		<div class="tabtxt" id="page_all">
@@ -97,6 +99,7 @@
 					setReqiured();
 					/* isMust("#b_"+id_code); */
 					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -125,6 +128,7 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		dtWidth();
@@ -369,6 +373,7 @@
         				if (result == 'OK') {
         					updateInforTime(projectInfo.id,"teamTime");
         					layer.msg('保存成功');
+        					$(".bj_hui_on").hide();
                             if (h_cancel_btn_code=='NO3_1'){
                                 deletedRowIds = new Array();
                             }else if (h_cancel_btn_code=='NO3_8'){

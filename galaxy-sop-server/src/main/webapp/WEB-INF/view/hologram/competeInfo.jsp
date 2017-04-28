@@ -30,7 +30,8 @@
 		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
 		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br />估值 </li>
 	</ul>
-
+<!--隐藏-->
+<div class="bj_hui_on"></div>
 
 	<div id="tab-content">
 		<div class="tabtxt compete_tab-content" id="page_all">
@@ -70,6 +71,7 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		$(".bj_hui_on").hide();
 		btn_disable(0);
 		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
@@ -93,6 +95,7 @@ $(function() {
 				var s_div = toEditTitleHtml(entity, html);
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				$(".bj_hui_on").show();
 				$(".h#"+id_code).css("background","#fafafa");
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
@@ -101,7 +104,7 @@ $(function() {
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				btn_disable(1);
-				mustData(projectInfo.id,0);
+				//mustData(projectInfo.id,0);
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -250,18 +253,18 @@ $(function() {
 				updateInforTime(projectInfo.id,"competeTime");
 				layer.msg('保存成功');
 				showArea(id_code);
-				btn_disable(0);
+				$(".bj_hui_on").hide();
+				toggle_btn($('.anchor_btn span'),0,save_this);
 				mustData(projectInfo.id,0);
-				toggle_btn($('.anchor_btn span'),1);
-				mustData(projectInfo.id,0);
+				check_radius($(".radius"))
 				$(".h#"+id_code).css("background","#fff");
+				btn_disable(0);
 			} else {
 				layer.msg('保存失败');
 			}
 		});
 		//base_half
 		if(_this.is(':visible')){
-			console.log("编辑隐藏");
 			$('.base_half').css('width','50%');
 		}
 	});

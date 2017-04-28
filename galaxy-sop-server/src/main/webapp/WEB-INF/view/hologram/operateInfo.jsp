@@ -33,6 +33,8 @@
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
            
                 </ul>
+   <!--隐藏-->
+<div class="bj_hui_on"></div>
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include> 
                  <div class="tabtxt" id="page_all">
 		<!--tab-->
@@ -73,6 +75,7 @@ getData();
 					sec.showResults();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
+					$(".bj_hui_on").show();
 					validate();
 					//编辑显示隐藏按钮不可用
 					btn_disable(1);
@@ -151,6 +154,7 @@ getData();
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
+		$(".bj_hui_on").hide();
 		dtWidth();
 		btn_disable(0);
 		event.stopPropagation();
@@ -236,6 +240,7 @@ getData();
 								//tabInfoChange('3');
 								$('#'+id_code).show();
 								$('#b_'+id_code).remove();
+								$(".bj_hui_on").hide();
 								//右侧按钮显示隐藏
 								btn_disable(0);
 								$(".h#a_"+id_code).css("background","#fff");
