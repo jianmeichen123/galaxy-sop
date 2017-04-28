@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.galaxyinternet</groupId>
 		<artifactId>galaxy-sop</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.2.Q-SNAPSHOT</version>
 	</parent>
 	<artifactId>galaxy-sop-server</artifactId>
 	<packaging>war</packaging>
@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.1.RELEASE</spring.version>
-		<dependency.project>1.0.2-SNAPSHOT</dependency.project>
+		<dependency.project>1.0.2.Q-SNAPSHOT</dependency.project>
 	</properties>
 
 	<repositories>
@@ -53,7 +53,7 @@
 					<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>9393</port>
+							<port>8888</port>
 						</connector>
 					</connectors>
 					<contextPath>/sop</contextPath>
@@ -80,7 +80,7 @@
 		<profile>
 			<id>local</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->
@@ -90,13 +90,13 @@
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 				<!-- 本地项目地址 -->
-				<log4j.path>/home/zcy/tmp</log4j.path>
+				<log4j.path>d:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8086</dubbo.protocol.port>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
 				
 				<xinge.enviroment>2</xinge.enviroment>
 				
@@ -110,7 +110,7 @@
 		<profile>
 			<id>nginx</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->
