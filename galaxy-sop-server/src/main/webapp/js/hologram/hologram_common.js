@@ -628,9 +628,6 @@ function setDate(pid, readonly) {
 }
 /*文件刷新*/
 function picData(pid){
-	
-	console.log("开始执行哈哈哈")
-	
 	var fileids = $(".mglook");
 	var infoFileids = "";
 	var data={};
@@ -645,8 +642,6 @@ function picData(pid){
 				data,
 				true,
 				function(data) {
-					console.log("asdasd");
-					console.log(data);
 					var result = data.result.status;
 					if (result == 'OK') {
 						var files = data.entity.commonFileList;
@@ -656,9 +651,6 @@ function picData(pid){
 								var html="";
 								for(var i = 0;i < fl.length; i++){
 									html +='<img src="'+fl[i].fileUrl+'" alt="">';
-								}
-								console.log("执行完了哈哈哈");
-								console.log(html);
 								$('#'+"look-"+key).html(html);
 								if($('#'+"look-"+key).parents(".radius").find('.h_edit_btn').is(":visible")){
 									$('#'+"look-"+key).parents(".mb_24").show();
@@ -1150,9 +1142,7 @@ function dd_type(_this){
 	}
 	//图片
 	if(_this.hasClass("mglook")){
-		console.log("!!!!!!!!!!")
-		console.log(_this.siblings("dt").html());
-		console.log(_this.html())
+
 	}
 	//固定表格1
 	if(_this.siblings('dt').attr('data-type') == '9'){
@@ -1255,7 +1245,6 @@ function setReqiured(){  //必填添加required
 //status==0整体 ==1局部
 function mustData(projectId,status){
 	if(status==0){
-		console.log('进入全部');
 		if(projectId){
 			sendGetRequest(Constants.sopEndpointURL+'/galaxy/infomation/queryMustInfo/' + projectId, null,
 				function(data) {
@@ -1280,7 +1269,6 @@ function mustData(projectId,status){
 	}
 }
 function setMustIds(mustids){
-	console.log(mustids);
 	$(".unable").show();
 	$(".unable").removeClass('unable');
 	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
@@ -1353,7 +1341,6 @@ function hideNav(){
 					l=$(this).index();  
 				}
 			})			 
-			console.log(l);
 			$('#nav_ul li').eq(l).addClass('active');
 		}
 	})

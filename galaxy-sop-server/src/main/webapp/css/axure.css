@@ -2650,6 +2650,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_nav li a{
 	display: inline-block;
 	font-size: 12px;
+	    font-family: '微软雅黑';
 }
 .anchor_nav li{
 	list-style: none;
