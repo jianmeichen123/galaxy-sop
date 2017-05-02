@@ -24,8 +24,8 @@
 		     value为所涉及某个模块验证的title
 		-->
 		<!--1. 项目创新类型选中技术创新所影响到的答案title start-->
-		<entry key="1103-ref" value-ref="1106-list"/>
-		<entry key="1104-ref" value-ref="1106-list"/>
+		<entry key="1102-ref" value-ref="1106-list"/>
+		<!-- <entry key="1104-ref" value-ref="1106-list"/> -->
 		<!--1. 项目创新类型选中技术创新所影响到的答案title end-->
 		
 		<!--2. 项目阶段选中所影响到的答案title start-->
