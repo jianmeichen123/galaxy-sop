@@ -996,6 +996,7 @@ function toggle_btn(data,status,dom_this){
 		});
 	//右侧锚点按钮是展示
 	}else{
+		
 		//全局
 		if(status ==1){
 			$('.radius').each(function(){
@@ -1037,11 +1038,12 @@ function toggle_btn(data,status,dom_this){
 		}	
 	}
 	//全部隐藏状态
-	//hideAll();
+	hideAll();
 	hideNav();
 }
 //全部隐藏状态
 function hideAll(){
+	$("#page_all .nocon").remove();
 	var num=$("#page_all .radius").length;
 	var n=0;
 	$('#page_all .radius').each(function(){
@@ -1275,11 +1277,8 @@ function setMustIds(mustids){
 	$(".unable").removeClass('unable');
 	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
 	var result=mustids.split(",");
-	console.log(result);
 	for(var i=0;i<result.length;i++){
 		//禁用
-		console.log(result[i]);
-		
 		if(result[i].indexOf("a_")==0){
 			var a_id=result[i];
 			var id= result[i].substring(2,result[i].length);
