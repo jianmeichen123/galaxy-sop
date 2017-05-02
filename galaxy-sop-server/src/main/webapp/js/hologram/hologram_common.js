@@ -1143,7 +1143,7 @@ function second_title(status,dom_this){
 //dd_type
 function dd_type(_this){
 	//动态表格
-	if(_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none"){
+	if(_this.html() == '未验证'||_this.html() == '未选择'||_this.html() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none"){
 		_this.parents('.mb_24').hide();
 	}else{
 		_this.parents('.mb_24').show();
@@ -1172,7 +1172,7 @@ function dd_type(_this){
 		if(_this.html()=="未选择"||_this.html()=="未填写"){
 			_this.hide();
 		}
-		if((_this.html()=="未选择"||_this.html()=="未填写")&&(_this.siblings("dd").html()=="未选择"||_this.siblings("dd").html()=="未填写")){
+		if((_this.html()=="未验证"||_this.html()=="未选择"||_this.html()=="未填写")&&(_this.siblings("dd").html()=="未选择"||_this.siblings("dd").html()=="未填写")){
 			 _this.parents('.mb_24').hide();
 		}else{
 			 _this.parents('.mb_24').show();
@@ -1367,7 +1367,7 @@ function fun_click(){
 			show_btn($(this).parents(".radius"),0);
 			$(this).parents('.limit_sec').find('dd').each(function(){
 				var _this =$(this);
-				if((_this.html() == '未选择'||_this.html().trim() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none")&&_this.css("display")=="block"){
+				if((_this.html() == '未验证'||_this.html() == '未选择'||_this.html().trim() == '未填写'||_this.html().trim() == '未添加'||_this.find("table").css("display")=="none")&&_this.css("display")=="block"){
 					_this.parents('.mb_24').hide();
 				}else{
 					//小标题右侧隐藏的情况下展示
