@@ -1275,8 +1275,11 @@ function setMustIds(mustids){
 	$(".unable").removeClass('unable');
 	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
 	var result=mustids.split(",");
+	console.log(result);
 	for(var i=0;i<result.length;i++){
 		//禁用
+		console.log(result[i]);
+		
 		if(result[i].indexOf("a_")==0){
 			var a_id=result[i];
 			var id= result[i].substring(2,result[i].length);
@@ -1304,7 +1307,8 @@ function setMustIds(mustids){
 			save_cancel_show($("#"+id),1); 
 			}
 		}else{
-			var str =" <span style='color:#ff8181'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+			console.log("############");
+			var str ="<span style='color:#ff8181'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
 			$('.h_edit').find("dt[data-tid='"+result[i]+"']").append(str);
 		}
 		/*else if(result[i].indexOf("b_")>-1){
