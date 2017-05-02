@@ -370,8 +370,8 @@ function buildResults(sec,title,readonly)
 					str2=str2.replace(/&nbsp;/g," ");
 				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
-				textareas.eq(0).html(str);
-				textareas.eq(1).html(str2);
+				textareas.eq(0).val(str);
+				textareas.eq(1).val(str2);
 			}
 		}
 		else if(title.type == 16)
