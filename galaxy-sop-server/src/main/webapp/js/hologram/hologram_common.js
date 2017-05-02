@@ -642,6 +642,7 @@ function picData(pid){
 				data,
 				true,
 				function(data) {
+
 					var result = data.result.status;
 					if (result == 'OK') {
 						var files = data.entity.commonFileList;
@@ -651,6 +652,7 @@ function picData(pid){
 								var html="";
 								for(var i = 0;i < fl.length; i++){
 									html +='<img src="'+fl[i].fileUrl+'" alt="">';
+								}
 								$('#'+"look-"+key).html(html);
 								if($('#'+"look-"+key).parents(".radius").find('.h_edit_btn').is(":visible")){
 									$('#'+"look-"+key).parents(".mb_24").show();
