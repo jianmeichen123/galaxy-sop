@@ -1277,6 +1277,7 @@ function setMustIds(mustids){
 	$(".unable").removeClass('unable');
 	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
 	var result=mustids.split(",");
+	console.log(result);
 	for(var i=0;i<result.length;i++){
 		//禁用
 		if(result[i].indexOf("a_")==0){
