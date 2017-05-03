@@ -6,7 +6,7 @@
 %>
 
 <!doctype html>
-<html>
+<html class="scroll">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
@@ -18,7 +18,7 @@
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
 
-<body>
+<body >
 	<ul class="h_navbar clearfix">
 		<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('0')">基础<br />信息 </li>
 		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
@@ -281,9 +281,6 @@ $(function() {
 		dtWidth();
 	});
 });
-
-
-
 </script>
 
 </body>

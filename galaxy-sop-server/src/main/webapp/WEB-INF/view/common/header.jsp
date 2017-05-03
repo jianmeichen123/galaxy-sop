@@ -151,19 +151,23 @@ $(function(){
     //首页获取ritmin的宽度
     disposedWidth();
     function disposedWidth(){
-      var w_win=$(window).width();
+      var w_win=$("body").css("width").replace("px","");
           display =$('.small').css('display');
           if(display == 'none'){
-            w_rit=$(".big").outerWidth()+20;
+            w_rit=$(".big").outerWidth()+15;
           }else{
-            w_rit=$(".small").outerWidth()+20;
+            w_rit=$(".small").outerWidth()+15;
           }
-        w_lft=$(".lft").width();
-        w_ritmin=w_win-w_rit-w_lft;
+        w_lft=$("#menus").css("width").replace("px","");
+        console.log("!!!!!!!!!!2!!!!!!!!!!!!");
+        w_ritmin=Number(w_win)-Number(w_lft)-w_rit;
         $(".floatBox").css("width",w_ritmin/2-20);
-        $(".pagebox .ritmin").css("margin","60px 0 0 9.375%");
+        $(".pagebox .ritmin").css({
+        	"marginLeft":w_lft+"px", 
+        	"width":w_ritmin-10,
+        });
         $(".pagebox .ritmin-index").css("margin","70px 0 0 9.375%");
-        $(".pagebox .ritmin").css("width",w_ritmin-10);
+        
         $(".pagebox .ritmin-index").css("width",w_ritmin);
         $(".pagebox .ritmin").css("margin-left",w_lft);
     }

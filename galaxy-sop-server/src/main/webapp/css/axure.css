@@ -629,7 +629,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .rit dd{ padding:0 10px 7px}
 .pagebox .rit dd .more{ float:right}
 /*右中部分*/
-.pagebox .ritmin{ float:left; width:88.5%;margin:60px 0 0 10.505%;padding-left:10px;}
+.pagebox .ritmin{ float:left; width:93.5%;margin:60px 0 0 10.505%;padding-left:10px;}
 .pagebox .ritmin-index{padding-left:0;}
 .pagebox .ritmin h2{ line-height:46px; height:46px; font-size:22px; font-weight:normal; color:#808e9b}
 .pagebox .ritmin .breadcrumb{height: 48px;line-height: 44px;font-size:14px; font-weight:normal;}
@@ -1405,7 +1405,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .project_center,.company_center,.portrayal_center,.product_center,.operation_center,.industry_center,.analysis_center,.next_financing_center{line-height:24px;}
 .label_static1{position:relative;}
 .new_tit_a{ width:100%; overflow:hidden; height:auto; color:#8895a2;}
-.new_tit_b{ width:74%; overflow:hidden; height:60px;  color:#8895a2;}
+.new_tit_b{ width:75%; overflow:hidden; height:60px;  color:#8895a2;}
 .new_tit_a a ,.new_tit_b a{ text-decoration:none; color:#60a1e3;}
 .new_tit_a a{font-family: "微软雅黑";line-height: 20px;}
 .new_color{ color:#6b799f; margin-left: 10px;}
@@ -1416,7 +1416,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .size14{ font-size:14px}
 .new_tit_b span{ display:block; margin-right:10px; float:left; line-height:60px; height:60px;}
 .new_tit_b .b_span{ float:right;}
-.new_left{ width:74%; float:left; }
+.new_left{ width:75%; float:left;}
 .tablinks li {
     float: left;
     padding: 0 7px;
