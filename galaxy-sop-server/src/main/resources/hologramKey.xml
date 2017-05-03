@@ -25,6 +25,8 @@
 		-->
 		<!--1. 项目创新类型选中技术创新所影响到的答案title start-->
 		<entry key="1102-ref" value-ref="1106-list"/>
+		<entry key="1103-ref" value-ref="1106-list"/>
+		<entry key="1104-ref" value-ref="1106-list"/>
 		<!--1. 项目创新类型选中技术创新所影响到的答案title end-->
 		
 		<!--2. 项目阶段选中所影响到的答案title start-->
@@ -47,14 +49,24 @@
 		<entry key="1845-ref" value-ref="compete1-list"/>
 		<entry key="1846-ref" value-ref="compete-1846-list"/>
 		<!--4. 行业竞争  end-->
-		
+		<!-- 并且处理 -->
+		<entry key="1109-union-ref" value-ref="1109-unnion-list"/>
+		<!-- 交集移除处理 -->
+		<entry key="1106-union-remove-ref" value-ref="1106-unnion-list"/>
 	  </util:map>
-	 
+	   <!-- 项目模式与项目阶段并存关联 -->
+	  <util:list id="1109-unnion-list">
+	     <value>1135</value>
+	  </util:list>
+	  <util:list id="1106-unnion-list">
+	     <value>1102</value>
+	  </util:list>
 	 
 	  <!-- 题目所影响涉及的value值 -->
 	  <!-- 项目创新类型选中了技术创新 -->
 	  <util:list id="1106-ref-key">
-		<value>1102</value>
+		<value>1103</value>
+		<value>1104</value>
 	  </util:list>
 	 
 	  <!-- 项目阶段选中了Pre-A、A、B、C、Pre-IPO -->
@@ -70,6 +82,7 @@
 		  <value>1135</value>
 		  <value>1136</value>
 		  <value>1138</value>
+		  <value></value>
 	  </util:list>
 	  
 	  <!-- 行业竞争格局 -->

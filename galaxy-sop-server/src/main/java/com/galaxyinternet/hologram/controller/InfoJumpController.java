@@ -176,24 +176,33 @@ public class InfoJumpController{
     	if(list == null || list.size() == 0){
     		return null;
     	}
-    	/*Map<String,String> max = new HashMap<String,String>();*/
+    	Map<String,String> max = new HashMap<String,String>();
 		for(InformationResult in : list){
 			//所选值id
 			String choose = in.getContentChoose();
 			//值ids集合
 			List<String> type = map.get(in.getTitleId());
+			List<String> unnio = map.get(in.getTitleId()+"-union-ref");
+			if(choose == null && unnio != null && unnio.size() > 0){
+				choose = unnio.get(0);
+			}
 			if(choose != null && type.contains(choose)){
 				List<String> title = map.get(choose+"-ref");
 				if(!ids.containsAll(title)){
 					ids.addAll(title);
 				}
 			}
-			/*max.put(in.getTitleId(), choose);*/
+			if(max.containsKey(in.getTitleId())){
+			    max.put(in.getTitleId(), max.get(in.getTitleId())+","+choose);
+			}else{
+				max.put(in.getTitleId(), choose);
+			}
 		}
-		/*if(ids != null && ids.size() > 0){
+		
+		if(ids != null && ids.size() > 0){
 			if(!max.isEmpty()){
 				for(Map.Entry<String, String> m : max.entrySet()){
-					//获取项目模式id
+					/*//获取项目模式id
 					List<String> unnio = map.get(m.getKey()+"-union-ref");
 					//如果出现交集
 					if(unnio != null && unnio.size() > 0){
@@ -208,11 +217,17 @@ public class InfoJumpController{
 								ids.removeAll(refRemoves);
 							}
 						}
+					}*/
+					if(m.getValue().contains(",")){
+						List<String> unnio = map.get(m.getKey()+"-union-remove-ref");
+						if(m.getValue().contains(unnio.get(0))){
+							List<String> refRemoves = map.get(unnio.get(0)+"-ref");
+							ids.removeAll(refRemoves);
+						}
 					}
-					
 				}
 			}
-		}*/
+		}
 	    return ids;
 	}
 	/***
