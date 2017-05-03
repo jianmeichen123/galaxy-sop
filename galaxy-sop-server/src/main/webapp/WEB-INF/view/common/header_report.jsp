@@ -53,8 +53,6 @@ var isDSZ = "<%=isDSZ%>";
 <!-- jsp文件头和头部 -->
 <jsp:include page="taglib.jsp" flush="true"></jsp:include>
 <!--[if lt IE 9]><link href="<%=request.getContextPath() %>/css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
-
 <!-- report start -->
 <link href="<%=request.getContextPath() %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=request.getContextPath() %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>

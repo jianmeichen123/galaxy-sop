@@ -110,8 +110,6 @@ console.log(mustids);
 		$(".bj_hui_on").hide();
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
-		mustData(_this,1);
-		toggle_btn($('.anchor_btn span'),0,_this);
 		event.stopPropagation();
 	});
 	//通用保存
