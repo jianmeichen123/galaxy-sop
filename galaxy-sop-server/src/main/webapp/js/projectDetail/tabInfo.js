@@ -161,7 +161,6 @@ $(function(){
 					$("#faNameEdit").css("display","none");
 				}
 				 p=projectInfo.industryOwn;
-				 console.log(p);
 			    fs=projectInfo.financeStatus;
 			    var sectionName = $(this).data('name');
 			    if('basic' == sectionName)
@@ -472,10 +471,17 @@ $(function(){
 			var data=getUpdateData();
 		
 				if(beforeSubmitById("updateProjectInfo")){
-					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
-						layer.msg("修改项目基本信息成功!");
+					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
+						//console.log(data1);
+						if(data2.result.status=="OK"){
+							layer.msg(data2.result.message);
+							initTabInfo(data.id);
+						}else {
+								layer.msg(data2.result.message);
+						}
+						
 //						window.location.reload();
-						initTabInfo(data.id);
+						
 					});
 				}
 			
@@ -501,7 +507,6 @@ $(function(){
 			var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
 			var faFlag=$('input:radio[name="faFlag"]:checked').val();
 			var remark=$('#remark').val().trim();
-			console.log(remark);
 			var faName="";
 			if(faFlag=='0'){
 				faName="";

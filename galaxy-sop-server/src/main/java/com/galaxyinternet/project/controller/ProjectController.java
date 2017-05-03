@@ -408,7 +408,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		int num = projectService.updateById(project);
 		if (num > 0) {
-			responseBody.setResult(new Result(Status.OK, null, "项目修改成功!"));
+			responseBody.setResult(new Result(Status.OK, null, "修改项目基本信息成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
 					projectName, project.getId(),"2");
 		}
