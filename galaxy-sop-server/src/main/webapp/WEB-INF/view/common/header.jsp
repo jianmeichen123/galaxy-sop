@@ -2,6 +2,7 @@
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!--[if lt IE 9]><link href="<%=request.getContextPath() %>/css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <% 
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -151,25 +152,45 @@ $(function(){
     //首页获取ritmin的宽度
     disposedWidth();
     function disposedWidth(){
-      var w_win=$("body").css("width").replace("px","");
+      var w_win=$(window).width();
           display =$('.small').css('display');
           if(display == 'none'){
-            w_rit=$(".big").outerWidth()+15;
+            w_rit=$(".big").outerWidth()+20;
           }else{
-            w_rit=$(".small").outerWidth()+15;
+            w_rit=$(".small").outerWidth()+20;
           }
-        w_lft=$("#menus").css("width").replace("px","");
-        console.log("!!!!!!!!!!2!!!!!!!!!!!!");
-        w_ritmin=Number(w_win)-Number(w_lft)-w_rit;
+        w_lft=$(".lft").width();
+        w_ritmin=w_win-w_rit-w_lft;
+        /* if(window.addEventListener){ 
+　			w_ritmin=w_ritmin-10;
+ 			alert("NOT IE");
+		}else if(window.attachEvent){ 
+			 w_ritmin=w_ritmin-40;
+			 alert("哈哈我是IE");
+		} */
+		var Sys = {};
+		var ua = navigator.userAgent.toLowerCase();
+		var s;
+		(s = ua.match(/rv:([\d.]+)\) like gecko/)) ? Sys.ie = s[1] :
+		(s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+		 0;
+		if(Sys.ie!=undefined){
+			w_ritmin=w_ritmin-25;
+		}else{
+			w_ritmin=w_ritmin-10;
+		}
+
+		
+		
         $(".floatBox").css("width",w_ritmin/2-20);
-        $(".pagebox .ritmin").css({
-        	"marginLeft":w_lft+"px", 
-        	"width":w_ritmin-10,
-        });
+        $(".pagebox .ritmin").css("margin","60px 0 0 9.375%");
         $(".pagebox .ritmin-index").css("margin","70px 0 0 9.375%");
-        
+        $(".pagebox .ritmin").css("width",w_ritmin);
         $(".pagebox .ritmin-index").css("width",w_ritmin);
         $(".pagebox .ritmin").css("margin-left",w_lft);
+        var anchor_width=$("#new_right").css("width").replace("px","");
+		 var  anchor_nav=$("#div-content").contents().find(".anchor_nav");
+		 anchor_nav.css("width",Number(anchor_width)+5);
     }
     //右侧展开收起
     $(".sico").click(function(){

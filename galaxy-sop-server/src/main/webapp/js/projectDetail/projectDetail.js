@@ -214,6 +214,9 @@ function right_anchor(i){
 						if (result == 'OK') {
 							var entity = data.entity;
 							 $('#nav_tmpl').tmpl(entity).appendTo('#nav_ul');
+							 var anchor_width=$("#new_right").css("width").replace("px","");
+							 var  anchor_nav=$("#div-content").contents().find(".anchor_nav");
+							 anchor_nav.css("width",Number(anchor_width)+5);
 							 //点击锚点
 							$('.anchor_nav a[href^="#"]').click(function(event) {
 								$(this).parents('li').addClass('active');
