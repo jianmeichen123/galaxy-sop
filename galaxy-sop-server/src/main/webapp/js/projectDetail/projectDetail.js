@@ -257,6 +257,10 @@ function right_anchor(i){
 								});
 								}
 								//滑动到底部
+								if(scrollTop ==0){
+									$('.anchor_nav li').eq(0).addClass('active');
+								　	$('.anchor_nav li').eq(0).siblings().removeClass('active');
+								}
 								
 							});
 							hideNav();
