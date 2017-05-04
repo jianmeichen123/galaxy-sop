@@ -91,7 +91,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId(),user.getCompanyId());
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("roleIds", roleIdList);
 		List<IndexConfigBo> models = indexConfigService.queryUserIndexModel(params);
