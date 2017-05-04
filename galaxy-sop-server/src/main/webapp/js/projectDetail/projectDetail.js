@@ -231,8 +231,8 @@ function right_anchor(i){
 								var scrollTop = $(this).scrollTop();
 								var scrollHeight = $(document).height()-2;
 								var windowHeight = $(this).height();
-								if(scrollTop + windowHeight >= scrollHeight){
-									/*for(i=0;i<$('.anchor_nav li').length;i++){
+								/*if(scrollTop + windowHeight >= scrollHeight){
+									for(i=0;i<$('.anchor_nav li').length;i++){
 										if($('.anchor_nav li').eq(i).is(':hidden')){ }else{
 											var id =$('.anchor_nav li').eq(i).find('a').attr("href")
 											var top= $(id).offset().top - scrollTop;
@@ -242,7 +242,7 @@ function right_anchor(i){
 											　	return;
 											}
 										}
-									}*/
+									}
 								}else{
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
@@ -255,8 +255,19 @@ function right_anchor(i){
 										}
 									}
 								});
-								}
-								//滑动到底部
+								}*/
+								$('.anchor_nav a[href^="#"]').each(function() {
+									var _this =$(this);
+									if(_this.is(":hidden")){}else{
+										var id = $(this).attr("href");
+										var top= $(id).offset().top - scrollTop;
+										if(top<=100){
+											_this.parent().addClass('active');
+											_this.parent().siblings().removeClass('active');
+										}
+									}
+								});
+								//滑动到顶部
 								if(scrollTop ==0){
 									$('.anchor_nav li').eq(0).addClass('active');
 								　	$('.anchor_nav li').eq(0).siblings().removeClass('active');
