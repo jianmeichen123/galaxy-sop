@@ -2,6 +2,7 @@
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!--[if lt IE 9]><link href="<%=request.getContextPath() %>/css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <% 
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -160,12 +161,29 @@ $(function(){
           }
         w_lft=$(".lft").width();
         w_ritmin=w_win-w_rit-w_lft;
+		var Sys = {};
+		var ua = navigator.userAgent.toLowerCase();
+		var s;
+		(s = ua.match(/rv:([\d.]+)\) like gecko/)) ? Sys.ie = s[1] :
+		(s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+		 0;
+		if(Sys.ie!=undefined){
+			w_ritmin=w_ritmin-25;
+		}else{
+			w_ritmin=w_ritmin-10;
+		}
         $(".floatBox").css("width",w_ritmin/2-20);
         $(".pagebox .ritmin").css("margin","60px 0 0 9.375%");
         $(".pagebox .ritmin-index").css("margin","70px 0 0 9.375%");
-        $(".pagebox .ritmin").css("width",w_ritmin-10);
+        $(".pagebox .ritmin").css("width",w_ritmin);
         $(".pagebox .ritmin-index").css("width",w_ritmin);
         $(".pagebox .ritmin").css("margin-left",w_lft);
+        console.log($("#new_right"));
+        if($("#new_right").css("width")!=undefined){
+        	var anchor_width=$("#new_right").css("width").replace("px","");
+        	var  anchor_nav=$("#div-content").contents().find(".anchor_nav");
+        	anchor_nav.css("width",Number(anchor_width)+5);
+        }
     }
     //右侧展开收起
     $(".sico").click(function(){
