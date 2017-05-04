@@ -269,8 +269,16 @@ function right_anchor(i){
 								});
 								//滑动到顶部
 								if(scrollTop ==0){
-									$('.anchor_nav li').eq(0).addClass('active');
-								　	$('.anchor_nav li').eq(0).siblings().removeClass('active');
+									$('.anchor_nav a[href^="#"]').each(function() {
+										var _this =$(this);
+										if(_this.is(":hidden")){}else{
+											_this.addClass('active');
+											_this.siblings().removeClass('active');
+											return false;
+										}
+									});
+
+									
 								}
 								
 							});
