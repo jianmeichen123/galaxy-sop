@@ -192,6 +192,9 @@ public class InfoJumpController{
 					ids.addAll(title);
 				}
 			}
+			if(choose == null){
+				continue;
+			}
 			if(max.containsKey(in.getTitleId())){
 			    max.put(in.getTitleId(), max.get(in.getTitleId())+","+choose);
 			}else{
