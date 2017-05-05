@@ -2635,7 +2635,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .fixed_table .h_radios{margin-left:25px;}
 .compete_tab-content table{table-layout: auto;}
 .compete_tab-content table th,.compete_tab-content table td{width:auto;max-width:110px; }
-.anchor_nav{
+.anchor_nav,.anchor_navs{
 	position: fixed;
 	padding: 36px 28px 22px;
 	background: #fff;
@@ -2646,13 +2646,13 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	-moz-box-sizing:border-box;padding-bottom:10px;
 }
 
-.anchor_nav a{color:#999;}
-.anchor_nav li a{
+.anchor_nav a,.anchor_navs a{color:#999;}
+.anchor_nav li a,.anchor_navs li a{
 	display: inline-block;
 	font-size: 12px;
 	    font-family: '微软雅黑';
 }
-.anchor_nav li{
+.anchor_nav li,.anchor_navs li{
 	list-style: none;
 	height: 40px;
 	background: url('../img/anchor.png') no-repeat top left;
@@ -2661,10 +2661,10 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	color: #999;
 }
 
-.anchor_nav li.active a{
+.anchor_nav li.active a,.anchor_navs li.active a{
 	color: #333;
 }
-.anchor_nav li.active{background-image:url('../img/anchora.png'); background-position: 0 6px;}
+.anchor_nav li.active,.anchor_navs li.active{background-image:url('../img/anchora.png'); background-position: 0 6px;}
 .anchor_btn{
 	
 }
@@ -2673,7 +2673,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_btn span{z-index:100;cursor:pointer;position:absolute;right:28px;top:28px;width:50px;height:28px;background:url('../img/navhide_btn.png') no-repeat center;}
 .anchor_btn span.invisible{background-image:url('../img/navshow_btn.png');}
 .anchor_btn span.unabled{cursor:not-allowed;background-color:#fff;}
-@media(max-width:1300px){.anchor_nav li{height: 33px;}}
+@media(max-width:1300px){.anchor_nav li{height: 33px;}.anchor_navs li{height: 33px;}}
 .nocon{width:300px;height:376px;margin:80px auto 0;background:url('../img/nocon.png');font-size:0;}
 .h_edit_btn.put_away,.out_box{display:none;}
 .radius .h_btnbox .spread_out{color: #72a7ff;}
