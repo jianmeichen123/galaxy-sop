@@ -219,11 +219,15 @@ function right_anchor(i){
 							 anchor_nav.css("width",Number(anchor_width)+5);
 							 //点击锚点
 							$('.anchor_nav a[href^="#"]').click(function(event) {
-								$(this).parents('li').addClass('active');
-								$(this).parents('li').siblings().removeClass('active');
+								var _this=$(this);
 								var id = $(this).attr("href");
 								var target = $(id).offset().top-50;
-								$('html, body').scrollTop(target);
+								//$(window).scrollTop(target);
+								$(".anchor_navs").removeClass("anchor_nav");
+								$('html, body').animate({scrollTop:target}, 0);
+								//alert("hahaha");
+								setTimeout(function (){$(".anchor_navs").addClass("anchor_nav");$('.anchor_nav li').removeClass('active');
+								_this.parents('li').addClass('active')},3);
 								event.preventDefault();
 							});
 							//滑动高亮
@@ -231,31 +235,6 @@ function right_anchor(i){
 								var scrollTop = $(this).scrollTop();
 								var scrollHeight = $(document).height()-2;
 								var windowHeight = $(this).height();
-								/*if(scrollTop + windowHeight >= scrollHeight){
-									for(i=0;i<$('.anchor_nav li').length;i++){
-										if($('.anchor_nav li').eq(i).is(':hidden')){ }else{
-											var id =$('.anchor_nav li').eq(i).find('a').attr("href")
-											var top= $(id).offset().top - scrollTop;
-											if(top>100){
-												$('.anchor_nav li').eq(i).addClass('active');
-											　	$('.anchor_nav li').eq(i).siblings().removeClass('active');
-											　	return;
-											}
-										}
-									}
-								}else{
-								$('.anchor_nav a[href^="#"]').each(function() {
-									var _this =$(this);
-									if(_this.is(":hidden")){}else{
-										var id = $(this).attr("href");
-										var top= $(id).offset().top - scrollTop;
-										if(top<=100){
-											_this.parent().addClass('active');
-											_this.parent().siblings().removeClass('active');
-										}
-									}
-								});
-								}*/
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
 									if(_this.is(":hidden")){}else{
@@ -269,7 +248,7 @@ function right_anchor(i){
 								});
 								//滑动到顶部
 								if(scrollTop ==0){
-									$('.anchor_nav a[href^="#"]').each(function() {
+									$('.anchor_nav li').each(function() {
 										var _this =$(this);
 										if(_this.is(":hidden")){}else{
 											_this.addClass('active');
@@ -277,8 +256,6 @@ function right_anchor(i){
 											return false;
 										}
 									});
-
-									
 								}
 								
 							});
