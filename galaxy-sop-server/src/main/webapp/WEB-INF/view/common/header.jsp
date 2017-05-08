@@ -37,21 +37,32 @@
  
 %>
 <link href="<%=path %>/css/more1280.css" type="text/css" rel="stylesheet" id="mainCss"/>
-<div class="erwms erwm">
-	<p>星河投APP</p>
-   	<img src="<%=path %>/img/ewms.gif" alt="">
-</div>
-<div class="erwmb erwm">
-   	<img src="<%=path %>/img/ewmb.gif" alt="">
-   	<p>星河投APP客户端</p>
-   	<p><a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a></p>
-</div>
 <div class="header clearfix">
 
   <a href="javascript:;" class="logo null">星河投</a>
     
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
+    	<div class="erwm fl">
+    		<span class="erwmfont">APP客户端</span>
+    		<div class="erwm_show">
+    		<span class="triangle">三角形</span>
+    			<ul class="clearfix">
+    				<li class="fl">
+    					<img alt="" src="<%=path %>/img/Android.png">
+    					<span>Android</span>
+    				</li>
+    				<li class="fr">
+    					<img alt="" src="<%=path %>/img/ios.png">
+    					<span>iOS</span>
+    				</li>    				
+    			</ul>
+    			<p>
+    				<a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看iOS安装说明></a>
+    			</p>
+    		</div>
+    	</div>
+    	
        <!--用户信息-->
         <div class="usermsg fl">
               <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办<em class="totalUrgent"></em></a>
@@ -252,16 +263,8 @@ $(window).resize(function(){
     disposedWidth();
   })
    /*关闭二维码*/
- var ewm_w=$(".erwms").width();
-     w_lft=$(".lft").width();
-     $(".erwms").css("margin-left",(w_lft-ewm_w)/2);
- $(".erwms").on("mouseover",function(){
-	 $(this).hide();
-     $(".erwmb").show();
- })
-  $(".erwmb").on("mouseout",function(){
-	 $(".erwms").show();
-     $(this).hide();
+ $(".erwm").hover(function(){
+	 $(".erwm_show").toggle();
  })
   })			
  
