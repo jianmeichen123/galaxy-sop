@@ -48,11 +48,11 @@
     		<span class="triangle">三角形</span>
     			<ul class="clearfix">
     				<li class="fl">
-    					<img alt="" src="<%=path %>/img/Android.png">
+    					<img alt="" src="<%=path %>/img/Android.png?version=1.0">
     					<span>Android</span>
     				</li>
     				<li class="fr">
-    					<img alt="" src="<%=path %>/img/ios.png">
+    					<img alt="" src="<%=path %>/img/ios.png?version=1.0">
     					<span>iOS</span>
     				</li>    				
     			</ul>
