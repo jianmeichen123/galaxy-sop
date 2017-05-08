@@ -43,7 +43,7 @@
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
     	<div class="erwm fl">
-    		<span class="erwmfont">二维码</span>
+    		<span class="erwmfont">APP客户端</span>
     		<div class="erwm_show">
     		<span class="triangle">三角形</span>
     			<ul class="clearfix">
@@ -57,7 +57,7 @@
     				</li>    				
     			</ul>
     			<p>
-    				<a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明></a>
+    				<a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看iOS安装说明></a>
     			</p>
     		</div>
     	</div>
