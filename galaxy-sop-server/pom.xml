@@ -15,7 +15,6 @@
 		<spring.version>4.2.1.RELEASE</spring.version>
 		<dependency.project>1.0.1</dependency.project>
 	</properties>
-
 	<repositories>
 		<repository>
 			<id>nexus</id>
