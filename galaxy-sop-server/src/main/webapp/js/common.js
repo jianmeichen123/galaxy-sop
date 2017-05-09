@@ -88,7 +88,7 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 		}
 	});
 }
-function sendPostRequestByJsonObjNoCache(reqUrl, jsonObj, callbackFun) {
+function sendPostRequestByJsonObjNoCache(reqUrl, jsonObj,async_status,callbackFun) {
 	$.ajax({
 		url : reqUrl,
 		type : "POST",
@@ -108,7 +108,7 @@ function sendPostRequestByJsonObjNoCache(reqUrl, jsonObj, callbackFun) {
 				xhr.setRequestHeader("guserId", userId);
 			}
 		},
-		async : true,
+		async : async_status,
 		error : function(request) {},
 		success : function(data) {
 			if(data){

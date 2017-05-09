@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
 </head>
 
@@ -29,7 +30,8 @@
 		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
 		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br />估值 </li>
 	</ul>
-
+<!--隐藏-->
+<div class="bj_hui_on"></div>
 
 	<div id="tab-content">
 		<div class="tabtxt compete_tab-content" id="page_all">
@@ -69,6 +71,8 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		$(".bj_hui_on").hide();
+		btn_disable(0);
 		$(".h#"+id_code).css("background","#fff");
 		event.stopPropagation();
 		if(_this.is(':visible')){
@@ -91,6 +95,7 @@ $(function() {
 				var s_div = toEditTitleHtml(entity, html);
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
+				$(".bj_hui_on").show();
 				$(".h#"+id_code).css("background","#fafafa");
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
@@ -98,6 +103,8 @@ $(function() {
 					  var font_num = 2000 - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
 				});
+				btn_disable(1);
+				mustData(projectInfo.id,0);
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -123,15 +130,12 @@ $(function() {
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();
 		var _this = $(this);
+		var save_this = $(this).parents('.radius');
 		var id_code = $(this).attr('attr-save');
-
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
 		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
-		
-		$(".h#"+id_code).css("background","#fff");
-		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 		var data = {
@@ -189,8 +193,6 @@ $(function() {
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		
-		
 		//多选不选择的时候：
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
@@ -241,20 +243,28 @@ $(function() {
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 		}
-		
+		if(!$("#c_"+id_code).validate().form())
+		{
+			return;
+		}
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"competeTime");
 				layer.msg('保存成功');
 				showArea(id_code);
+				$(".bj_hui_on").hide();
+				toggle_btn($('.anchor_btn span'),0,save_this);
+				mustData(projectInfo.id,0);
+				check_radius($(".radius"))
+				$(".h#"+id_code).css("background","#fff");
+				btn_disable(0);
 			} else {
 				layer.msg('保存失败');
 			}
 		});
 		//base_half
 		if(_this.is(':visible')){
-			console.log("编辑隐藏");
 			$('.base_half').css('width','50%');
 		}
 	});

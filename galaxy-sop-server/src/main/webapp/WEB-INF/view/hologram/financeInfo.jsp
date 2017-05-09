@@ -29,6 +29,8 @@
    <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
 
  </ul>
+ <!--隐藏-->
+<div class="bj_hui_on"></div>
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>               
                   <div class="tabtxt" id="page_all">
 		<!--tab-->
@@ -37,6 +39,8 @@
 			<!--tab end-->
 		</div>
 <script type="text/javascript">
+var mustids = "${mustids}";
+console.log(mustids);
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
 		function(data) {
@@ -47,6 +51,8 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				mustData(projectInfo.id,0);
+				fun_click();
 			} else {
 
 			}
@@ -56,6 +62,12 @@
 		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
@@ -67,7 +79,11 @@
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
+					btn_disable(1);
 					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -87,14 +103,18 @@
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
+		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents('.radius');
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
@@ -145,9 +165,12 @@
 							layer.msg('保存成功');
 							$('#'+id_code).show();
 							$('#b_'+id_code).remove();
+							$(".bj_hui_on").hide();
+							btn_disable(0);
 							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");
-							 setDate(pid,true);	
+						    setDate(pid,true);	
+						    toggle_btn($('.anchor_btn span'),0,save_this);
 						} else {
 
 						}

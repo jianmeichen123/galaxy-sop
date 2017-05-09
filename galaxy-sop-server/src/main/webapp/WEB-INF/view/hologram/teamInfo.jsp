@@ -32,6 +32,8 @@
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
                 </ul>
+  <!--隐藏-->
+<div class="bj_hui_on"></div>
  <div id="tab-content">
  <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
 		<div class="tabtxt" id="page_all">
@@ -93,7 +95,11 @@
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
+					btn_disable(1);
+					setReqiured();
+					/* isMust("#b_"+id_code); */
 					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -122,6 +128,8 @@
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
+		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		dtWidth();
 		event.stopPropagation();
@@ -137,6 +145,7 @@
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
 		var btn = this;
+		var save_this = $(btn).parents('.radius');
 		event.stopPropagation();
         var sec = $(this).closest('form');
         var id_code = $(this).attr('attr-save');
@@ -196,9 +205,10 @@
                         layer.msg('保存成功');
                     	$(".h#a_"+id_code).css("background","#fff");
                         var parent = $(sec).parent();
-                        var id = parent.data('sectionId')
+                        var id = parent.data('sectionId');
                         $(btn).next().click();
-                        refreshSection(id)
+                        refreshSection(id);
+                        toggle_btn($('.anchor_btn span'),0,save_this);
                     } else {
 
                     }
@@ -363,6 +373,7 @@
         				if (result == 'OK') {
         					updateInforTime(projectInfo.id,"teamTime");
         					layer.msg('保存成功');
+        					$(".bj_hui_on").hide();
                             if (h_cancel_btn_code=='NO3_1'){
                                 deletedRowIds = new Array();
                             }else if (h_cancel_btn_code=='NO3_8'){
@@ -373,7 +384,8 @@
         					var id = parent.data('sectionId');
         					//console.log(id);
         					$(btn).next().click();
-        					refreshSection(id)
+        					refreshSection(id);
+        					toggle_btn($('.anchor_btn span'),0,save_this);
         				} else {
 
         				}
@@ -384,6 +396,8 @@ function refreshSection(id)
 	var sec = $(".section[data-section-id='"+id+"']");
     sec.find("dd[data-type='3']").text('未选择');
 	sec.showResults(true);
+	btn_disable(0);
+	
 }
 function getDetailUrl(code)
 {
