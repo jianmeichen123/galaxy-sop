@@ -111,6 +111,12 @@
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
@@ -129,6 +135,8 @@
 					btn_disable(1);
 					$("#b_"+id_code).validate();
 					$(".bj_hui_on").show();
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
