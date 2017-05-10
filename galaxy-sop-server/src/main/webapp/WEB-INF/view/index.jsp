@@ -27,6 +27,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 表格插件 -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<script type="text/javascript">
+var pageId = "index";
+console.log('script');
+</script>
 <jsp:include page="./common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>

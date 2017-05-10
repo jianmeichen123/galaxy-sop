@@ -53,6 +53,27 @@ public class StrUtils {
 		return retMap;
 	}
 	
+	public static String join(String delimiter, Object... objs )
+	{
+		if(objs == null || objs.length==0)
+		{
+			return null;
+		}
+		StringBuilder str = new StringBuilder();
+		int index = 0;
+		for(Object obj : objs)
+		{
+			str.append(obj);
+			if(index<objs.length-1)
+			{
+				str.append(delimiter);
+			}
+			index++;
+		}
+		
+		return str.toString();
+	}
+	
 
 	
 }

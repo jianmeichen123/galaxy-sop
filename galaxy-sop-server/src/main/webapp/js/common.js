@@ -1,7 +1,13 @@
+$(document).ajaxSend(function(event, xhr, settings) {
+	console.log("ajaxSend");
+	if(typeof(pageId) != 'undefined')
+	{
+		console.log("pageId="+pageId);
+		xhr.setRequestHeader("pageId",pageId);
+	}
+});
 /**
- * 加密Ajax请求
- * jsonStr:json字符串
- * jsonObj:json对象
+ * 加密Ajax请求 jsonStr:json字符串 jsonObj:json对象
  */
 function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
 	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun, TOKEN);
