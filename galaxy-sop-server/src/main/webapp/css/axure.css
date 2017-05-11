@@ -461,7 +461,7 @@ table .width_gd{width:12%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:9;}
+.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0;z-index:100;}
 .header .rit{float:right !important; margin:15px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
 .header .logo{ float:left; width:171px; height:49px; margin:0 0 0 25px; cursor: default;  background:url(../img/logo.png) no-repeat}
@@ -2691,7 +2691,6 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .h_edit_txt .big_input{width:750px;height:30px;border:1px solid #dadada;padding-left:10px;line-height:30px;font-size:12px;font-family:"微软雅黑"}
 .radius.unable{display:none!important;}
 .h_look .h_btnbox span.blue_btn{color:#72a7ff;display:none;}
-
 
 
 
