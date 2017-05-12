@@ -9,4 +9,6 @@ ADD COLUMN `schedule_id` BIGINT(20) NULL DEFAULT 0 COMMENT '关联拜访计划ID
 UPDATE `fx_db`.`schedule_info` SET `project_type`='0' WHERE project_type is null;
 
 UPDATE `fx_db`.`schedule_info` SET `project_id`='0' WHERE project_id is null;
+ALTER TABLE `fx_db`.`schedule_info` 
+ADD COLUMN `callonAddress` VARCHAR(200) NULL ;
 
