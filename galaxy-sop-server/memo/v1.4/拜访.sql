@@ -13,7 +13,7 @@ ALTER TABLE `fx_db`.`schedule_info`
 ADD COLUMN `callonAddress` VARCHAR(200) NULL COMMENT '拜访地址';
 
 ALTER TABLE `fx_db`.`schedule_info` 
-ADD COLUMN `is_del` TINYINT(4) NULL DEFAULT '0' COMMENT '是否删除字段0:未删除,1:已删除' 
+ADD COLUMN `is_del` TINYINT(4) NULL DEFAULT '0' COMMENT '是否删除字段0:未删除,1:已删除' ;
 
 
 ALTER TABLE `fx_db`.`schedule_contacts` 
