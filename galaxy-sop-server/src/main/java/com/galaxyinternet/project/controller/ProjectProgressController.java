@@ -414,7 +414,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)){  //无限制，根据传参查询
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){  //无限制，根据传参查询
 				//query.setUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
 				query.setDepartId(user.getDepartmentId());
@@ -766,7 +766,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			//角色校验
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)){  //无限制，根据传参查询
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){  //无限制，根据传参查询
 				//query.setUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
 				query.setDepartId(user.getDepartmentId());
