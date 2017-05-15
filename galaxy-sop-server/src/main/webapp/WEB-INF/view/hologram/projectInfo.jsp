@@ -27,6 +27,8 @@
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
                 </ul>
+       <!--隐藏-->
+<div class="bj_hui_on"></div>
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
       <div class="tabtxt" id="page_all">
 		<!--tab-->
@@ -46,6 +48,8 @@
 				$(".section").each(function(){
 					$(this).showResults(true);
 				});
+				mustData(projectInfo.id,0);
+				fun_click();
 				$("table").css({"width":"500px"});
 			} else {
 
@@ -57,6 +61,12 @@
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
@@ -69,8 +79,11 @@
 					$("#"+id_code).hide();
 					validate();					
 					$("#b_"+id_code).validate();
-					//$('body,html').animate({scrollTop:sTop},1000);
+					$(".bj_hui_on").show();
+					btn_disable(1);					
 					//文本域剩余字符数
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
 						var len=textarea_h.eq(i).val().length;
@@ -90,14 +103,20 @@
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
+		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
+		mustData(_this,1);
+		toggle_btn($('.anchor_btn span'),0,_this);
 		event.stopPropagation();
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents('.radius');
 		var id_code = $(this).attr('attr-save');
 		//var sec = $(this).closest('.section');
 		event.stopPropagation();
@@ -109,12 +128,13 @@
 
 		var infoModeList = new Array();
 		var infoModeFixedList = new Array();
+		var infoModeInputs=new Array();
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
 			var infoMode = {
 				titleId	: field.data('titleId'),
-				type : type
+				type : type,
 			};
 			var infoModeFixed = {
 					titleId	: field.data('titleId'),
@@ -149,10 +169,24 @@
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
+			else if(type == 16)
+			{
+                var div =  $(".inputs_block").closest(".h_edit_txt");
+                var dds=div.find('dd');
+                var inputsValueList=[];
+                for(var i=0;i<dds.length;i++){
+                	var field=dds.eq(i).children("input").val();
+                	inputsValueList.push(field);
+                }
+                var content='该项目是一个通过或基于<sitg>'+inputsValueList[0]+'</sitg>的<sitg>'+inputsValueList[1]+'</sitg>的<sitg>'+inputsValueList[2]+'</sitg>，连接<sitg>'+inputsValueList[3]+'</sitg>和<sitg>'+inputsValueList[4]+'</sitg>，为<sitg>'+inputsValueList[5]+'</sitg>提供<sitg>'+inputsValueList[6]+'</sitg>的产品或服务，满足了<sitg>'+inputsValueList[7]+'</sitg>的刚需或解决了<sitg>'+inputsValueList[8]+'</sitg>。'
+                infoMode.remark1 = content;
+                infoModeInputs.push(infoMode);
+            }
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
 		data.infoFixedTableList=infoModeFixedList;
+		data.infoModeInputs=infoModeInputs;
 		if(!$("#b_"+id_code).validate().form())
 		{
 			return;
@@ -167,14 +201,18 @@
 						layer.msg('保存成功');
 						$('#'+id_code).show();
 						$('#b_'+id_code).remove();
+						$(".bj_hui_on").hide();
+						btn_disable(0);
 						$(".h#a_"+id_code).css("background","#fff");
 						var pid=$('#a_'+id_code).attr("data-section-id");
-						setDate(pid,true);					
+						setDate(pid,true);			
+					    toggle_btn($('.anchor_btn span'),0,save_this);
 					} else {
 
 					}
 			}) 
 		
 	});
+
 </script>
 </html>

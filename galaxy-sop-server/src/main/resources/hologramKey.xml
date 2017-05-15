@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+   
+        
+     <util:map id="map" map-class="java.util.HashMap" >
+        <!-- key影响到某选项的title,
+             value为title所选中值的title 
+        -->
+        <!-- 项目创新类型-->
+		<entry key="1106" value-ref="1106-ref-key"/>
+		<!-- 项目阶段 -->
+		<entry key="1108" value-ref="1108-ref-key"/>
+		<!-- 项目模式 -->
+		<entry key="1109" value-ref="1109-ref-key"/>
+		<!-- 行业竞争格局 -->
+		<entry key="1502" value-ref="1502-ref-key"/>
+		
+		<!-- key影响到某选项的title所选中的值的title,
+		     value为所涉及某个模块验证的title
+		-->
+		<!--1. 项目创新类型选中技术创新所影响到的答案title start-->
+		<entry key="1102-ref" value-ref="1106-list"/>
+		<entry key="1103-ref" value-ref="1106-list"/>
+		<entry key="1104-ref" value-ref="1106-list"/>
+		<!--1. 项目创新类型选中技术创新所影响到的答案title end-->
+		
+		<!--2. 项目阶段选中所影响到的答案title start-->
+		<!-- 种子-->
+		<entry key="1122-ref" value-ref="stop-list"/>
+		<!-- 天使 -->
+		<entry key="1123-ref" value-ref="safe-list"/>
+		<!--2. 项目阶段选中所影响到的答案title end-->
+		
+		<!--3. 项目模式选中所影响到的答案title start-->
+		<entry key="1135-ref" value-ref="model-list"/>
+		<entry key="1136-ref" value-ref="model-list"/>
+		<entry key="1138-ref" value-ref="model-list"/>
+		<!--3. 项目模式选中所影响到的答案title end-->
+		
+		<!--4. 行业竞争  start-->
+		<entry key="1842-ref" value-ref="compete-list"/>
+		<entry key="1843-ref" value-ref="compete-1843-list"/>
+		<entry key="1844-ref" value-ref="compete1-list"/>
+		<entry key="1845-ref" value-ref="compete1-list"/>
+		<entry key="1846-ref" value-ref="compete-1846-list"/>
+		<!--4. 行业竞争  end-->
+		<!-- 并且处理 -->
+		<entry key="1109-union-ref" value-ref="1109-unnion-list"/>
+		<!-- 交集移除处理 -->
+		<entry key="1106-union-remove-ref" value-ref="1106-unnion-list"/>
+	  </util:map>
+	   <!-- 项目模式与项目阶段并存关联 -->
+	  <util:list id="1109-unnion-list">
+	     <value>1135</value>
+	  </util:list>
+	  <util:list id="1106-unnion-list">
+	     <value>1102</value>
+	  </util:list>
+	 
+	  <!-- 题目所影响涉及的value值 -->
+	  <!-- 项目创新类型选中了技术创新 -->
+	  <util:list id="1106-ref-key">
+		<value>1103</value>
+		<value>1104</value>
+	  </util:list>
+	 
+	  <!-- 项目阶段选中了Pre-A、A、B、C、Pre-IPO -->
+	  <util:list id="1108-ref-key">
+	    <!-- 种子-->
+	    <value>1122</value>
+	    <!-- 天使 -->
+		<value>1123</value>
+	  </util:list>
+	  
+	  <!-- 项目模式 -->
+	  <util:list id="1109-ref-key">
+		  <value>1135</value>
+		  <value>1136</value>
+		  <value>1138</value>
+		  <value></value>
+	  </util:list>
+	  
+	  <!-- 行业竞争格局 -->
+	  <util:list id="1502-ref-key">
+		  <value>1842</value>
+		  <value>1843</value>
+		  <value>1844</value>
+		  <value>1845</value>
+		  <value>1846</value>
+	  </util:list>
+	  
+	  <!-- 题的答案所涉及影响的id eg:项目创新类型选中技术创新所影响的题id -->
+	  <util:list id="1106-list">
+	    <value>display-a_NO2_7</value>
+	  </util:list>
+	 
+	 <!-- 项目阶段选中了Pre-A、A、B、C、Pre-IPO所影响value的title -->
+	  <util:list id="safe-list">
+		<value>display-a_NO4_1</value>
+		<value>display-a_NO4_2</value>
+		<value>display-a_NO4_3</value>
+		<value>display-a_NO4_4</value>
+		<value>display-a_NO9_1</value>
+	  </util:list>
+	 
+	 <!-- 项目模式所影响的valueid -->
+	  <util:list id="model-list">
+		<value>display-a_NO4_2</value>
+	  </util:list>
+	  
+	  
+	  <!-- 竞争 是否有机会在进入红海以前在规模上构建竞争壁垒-->
+	  <util:list id="compete-list">
+	     <value>1510</value>
+	     <value>a_NO5_4</value>
+	  </util:list>
+	  
+	  <util:list id="compete-1846-list">
+	     <value>1509</value>
+	     <value>1510</value>
+	     <value>a_NO5_4</value>
+	     <value>a_NO5_8</value>
+	  </util:list>
+	  <!-- 竞争 是否能摆脱其他巨头形成寡头垄断-->
+	  <util:list id="compete-1843-list">
+	     <value>1510</value>
+	  </util:list>
+	  
+	  <!-- 竞争 是否能摆脱其他巨头形成寡头垄断-->
+	  <util:list id="compete1-list">
+		 <value>1509</value>
+	  </util:list>
+	  
+	  <util:list id="stop-list">
+	      <value>a_NO9_1</value>
+	      <value>display-a_NO4_1</value>
+	      <value>display-a_NO4_2</value>
+	      <value>display-a_NO4_3</value>
+	      <value>display-a_NO4_4</value>
+	      <value>display-a_NO7_1</value>
+	      <value>display-a_NO7_2</value>
+	      <value>display-a_NO8_1</value>
+	  </util:list>
+	 
+</beans>

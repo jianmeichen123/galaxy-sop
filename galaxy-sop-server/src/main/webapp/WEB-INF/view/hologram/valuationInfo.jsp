@@ -30,6 +30,8 @@
     <li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('8')">融资及<br/>估值</li>
 
   </ul>
+   <!--隐藏-->
+<div class="bj_hui_on"></div>
   <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
@@ -69,7 +71,10 @@
 				});
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
-				//页面显示表格现实与隐藏
+				mustData(projectInfo.id,0);
+				toggle_btn($('.anchor_btn span'),1);
+				fun_click();
+				hideNav();
 				
 			} else {
 
@@ -80,6 +85,7 @@
 	{
 		var div = $("div[data-code='NO9_3_12']");
 		var titleId = div.data('titleId');
+		var dd_box =$("<dd class='dd_field'></dd>")
 		var table = $("<table data-title-id='"+titleId+"'></table>")
 		var header = $("<tr></tr>");
 		var row = $("<tr></tr>");
@@ -95,7 +101,8 @@
 		dls.remove();
 		table.append(header);
 		table.append(row);
-		div.after(table);
+		dd_box.append(table);
+		div.after(dd_box);
 		
 	}
 	//通用编辑显示
@@ -104,10 +111,16 @@
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
-				
+				console.log(data.entity)
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -116,10 +129,14 @@
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
-					$("#b_"+id_code).validate();
 					//调整表格
 					$("table").css({"width":"90%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
+					btn_disable(1);
+					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -144,15 +161,20 @@
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
+		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
 		deletedRowIds = new Array();
+		toggle_btn($('.anchor_btn span'),0,_this);
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents('.radius');
 		var btn = this;
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
@@ -235,11 +257,14 @@
 					updateInforTime(projectInfo.id,"financingTime");
 					layer.msg('保存成功');
 					$(".h#a_"+id_code).css("background","#fff");
+					$(".bj_hui_on").hide();
 					deletedRowIds = new Array();
 					var parent = $(sec).parent();
 					var id = parent.data('sectionId');
 					$(btn).next().click();
-					refreshSection(id)
+					refreshSection(id);
+					btn_disable(0);
+				    toggle_btn($('.anchor_btn span'),0,save_this);
 				} else {
 
 				}

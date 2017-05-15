@@ -3501,7 +3501,6 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
 
             cont.contentEditable = true;
             document.body.spellcheck = false;
-
             me.document = document;
             me.window = document.defaultView || document.parentWindow;
             me.body = cont;

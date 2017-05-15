@@ -33,6 +33,7 @@ function countChar(textareaName,spanName,maxLimit){
 }
 
 function tabInfoChange(index){
+	$('.anchor_nav').remove();
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
 	$(".tip-yellowsimple").remove();
@@ -52,55 +53,82 @@ function tabInfoChange(index){
 //基本信息
 	function initBaseInfo(){
 		$.getTabHtmlInfo({
-			url : platformUrl.toBaseInfo
+			url : platformUrl.toBaseInfo,
+			okback:function(){
+				right_anchor(1);
+			}
 		}); 
 	   }
 	   //项目
 		function initProjectInfo(){
 		 $.getTabHtmlInfo({
-				url : platformUrl.toProjectInfo 
+				url : platformUrl.toProjectInfo ,
+				okback:function(){
+					right_anchor(2);
+				}
 			}); 
 		}
 		 //团队
 		function initTeamInfo(){
 			$.getTabHtmlInfo({
-				url : platformUrl.toTeamInfo 
+				url : platformUrl.toTeamInfo ,
+				okback:function(){
+					right_anchor(3);
+				}
 			});
 		}
 		 //运营数据
 		function initOperateInfo(){
 			$.getTabHtml({
-				url : platformUrl.toOperateInfo 
+				url : platformUrl.toOperateInfo ,
+				okback:function(){
+					right_anchor(4);
+				}
 			});
 		}
 		//竞争
 		function initCompeteInfo(){
 			$.getTabHtml({
-				url : platformUrl.toCompeteInfo 
+				url : platformUrl.toCompeteInfo ,
+				okback:function(){
+					right_anchor(5);
+				}
 			});
 		}
 		//战略以及策略
 		function initPlanInfo(){
 			$.getTabHtml({
-				url : platformUrl.toPlanInfo 
+				url : platformUrl.toPlanInfo ,
+				okback:function(){
+					right_anchor(6);
+				}
 			});
 		}
 		//财务
 		function initFinanceInfo(){
 			$.getTabHtml({
-				url : platformUrl.toFinanceInfo 
+				url : platformUrl.toFinanceInfo ,
+				okback:function(){
+					right_anchor(7);
+				}
 			});
 		}
 		//法务
 		function initJusticeInfo(){
 			$.getTabHtml({
-				url : platformUrl.toJusticeInfo 
+				url : platformUrl.toJusticeInfo ,
+				okback:function(){
+					right_anchor(8);
+				}
 			});
 		}
 		//融资及估值
 		function initValuationInfo(){
 			$.getTabHtml({
-				url : platformUrl.toValuationInfo 
+				url : platformUrl.toValuationInfo ,
+				okback:function(){
+					right_anchor(9);
+				}
 			});
 		}
 
@@ -342,8 +370,38 @@ function buildResults(sec,title,readonly)
 					str2=str2.replace(/&nbsp;/g," ");
 				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
-				textareas.eq(0).html(str);
-				textareas.eq(1).html(str2);
+				textareas.eq(0).val(str);
+				textareas.eq(1).val(str2);
+			}
+		}
+		else if(title.type == 16)
+		{
+			if(readonly == true)
+			{
+				var dds = $("dd[data-title-id='" + title.id + "']");
+				var str=title.resultList[0].contentDescribe1;
+				if(str){
+					str=str.replace(/<sitg>/g,'（');
+					str=str.replace(/<\/sitg>/g,'）');
+				}
+				dds.html(title.resultList[0].contentDescribe1==undefined ?"未填写":str);
+			}
+	        else{
+				var str=title.resultList[0].contentDescribe1;
+				if(str !=undefined && str.indexOf("<sitg>")>-1){
+					var str=str.split("<sitg>");
+					var inputsValueList=[];
+				   for(var i=0;i<str.length;i++){
+						if(str[i].indexOf("</sitg>")>-1){
+							var inputsValue=str[i].substring(0,str[i].indexOf("</sitg>"));
+							inputsValueList.push(inputsValue);
+						}
+					}
+				   var div=$(".inputs_block").closest(".h_edit_txt");
+				   for(var j=0;j<div.children("dd").length;j++){
+					   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
+				   }
+				}
 			}
 		}
 		else if(title.type == 8)
@@ -582,7 +640,9 @@ function picData(pid){
 	sendPostRequestByJsonObjNoCache(
 				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
 				data,
+				false,
 				function(data) {
+
 					var result = data.result.status;
 					if (result == 'OK') {
 						var files = data.entity.commonFileList;
@@ -594,8 +654,16 @@ function picData(pid){
 									html +='<img src="'+fl[i].fileUrl+'" alt="">';
 								}
 								$('#'+"look-"+key).html(html);
-								
+								if($('#'+"look-"+key).parents(".radius").find('.h_edit_btn').is(":visible")){
+									$('#'+"look-"+key).parents(".mb_24").show();
+									$('#'+"look-"+key).parents(".sign_box").show();
+								}
 							});
+//							if(status == 1){
+//								//mustData(pid,0);
+//							}else if(status==2){
+//								toggle_btn($('.anchor_btn span'),0,save_this);
+//							}
 						}
 						
 					} else {
@@ -852,7 +920,470 @@ function getTableRowLimit(code)
 	return 10;
 }
 	
-	
-	
-	
-	
+//编辑的时候右侧导航隐藏不可用
+//data==1的时候为编辑否则为取消、保存
+function btn_disable(data){
+	if (data == 1){
+		$('.anchor_btn span').addClass('unabled');
+		$('.anchor_btn p').css({
+			'z-index':'101',
+			'cursor':'not-allowed'
+		});
+	}else{
+		if($('.h_save_btn.bluebtn').length>0){
+			$('.anchor_btn span').addClass('unabled');
+			$('.anchor_btn p').css({
+				'z-index':'101',
+				'cursor':'not-allowed'
+			});
+		}else{
+			$('.anchor_btn span').removeClass('unabled');
+			$('.anchor_btn p').css({
+				'z-index':'99',
+				'cursor':'auto'
+			});
+		}
+	}
+}
+//显示隐藏
+///status==1全部        ==0局部
+function toggle_btn(data,status,dom_this){
+	//初始化下全部显示dd
+	if(status==1){
+		$('.radius').show();	
+		$('dd').parents('.mb_24').show();
+		$("dt[data-type=5]").siblings('dd').show();
+		$("dt[data-type=15]").siblings('dd').show();
+		$('.sign_box').show();
+	}else{};
+	//判断右侧是否点击了隐藏，是就走下面代码 不是走1003行
+	if(data.hasClass('invisible')){ 
+		//全局      否969
+		if(status==1){
+			$('.radius dd').each(function(){
+				dd_type($(this));
+			});
+			//多选
+			check_labels($('.radius .checked_div'));
+			//小标题
+			second_title(status);
+			//全局判断显示隐藏$('.radius')
+			check_radius($('.radius'));
+			//局部
+			hideAll();
+		}else{
+			$(dom_this).find('dd').each(function(){
+				if($(this).parents('.radius').hasClass('unable')){
+					$(this).parents('.radius').hide();
+				}else{
+					dd_type($(this));
+				}
+			});
+			//多选
+			check_labels($(dom_this).find('.checked_div'));
+			//小标题
+			second_title(status,dom_this);
+			//判断显示隐藏整个模块
+			check_radius($(dom_this));
+		}
+		//循环使   展开的模块进行子元素dd隐藏
+		$('.radius').each(function(){
+			if($(this).find('.spread_out').is(":visible")){
+				$(this).find('.mb_24').hide();
+				$(this).find('.sign_box').hide();
+				 
+			}
+		});
+	//右侧锚点按钮是展示
+	}else{
+		
+		//全局
+		if(status ==1){
+			$('.radius').each(function(){
+				var _this = $(this);
+				//禁用
+				if(_this.hasClass('unable')){
+					var _thisid = _this.attr('id');
+					$("#nav_ul li."+_thisid).hide();
+					_this.hide();
+				}else{
+					var _thisid = _this.attr('id');
+					$("#nav_ul li."+_thisid).show();
+					//判断是否试展开按钮在显示
+					if(_this.find('.spread_out').is(":visible")){
+						_this.show();
+						_this.find('.mb_24').hide();
+						_this.find('.sign_box').hide();
+					}else{
+						_this.show();
+						_this.find('.sign_box').show();
+						_this.find('dd').parents('.mb_24').show();
+						_this.find("dt[data-type=5]").siblings('dd').show();
+						_this.find("dt[data-type=15]").siblings('dd').show();
+						if($(".nocon")){
+							$(".nocon").remove();
+						}
+					}
+				}
+			});
+			//$(dom_this).find('.mb_24').show();		
+			$('.anchor_nav li').removeClass("active");
+			$('.anchor_nav li').eq(0).addClass("active");
+			$('html, body').scrollTop(0);
+			
+		}else{
+			//局部
+			$(dom_this).find('.mb_24').show();	
+			$(dom_this).find('.sign_box').show();
+		}	
+	}
+	//全部隐藏状态
+	hideAll();
+	hideNav();
+}
+//全部隐藏状态
+function hideAll(){
+	$("#page_all .nocon").remove();
+	var num=$("#page_all .radius").length;
+	var n=0;
+	$('#page_all .radius').each(function(){
+		if($(this).is(':hidden')){
+			n++;
+		}
+		if(n>=num){
+			var html="<div class='nocon'>空白页面</div>";
+			$("#page_all").append(html)
+		}
+	})
+}
+//多选判断显示隐藏
+function check_labels(data){
+	data.each(function(){
+		$(this).find('dd').each(function(){
+			if($(this).html()!= '未选择' && $(this).hasClass('border_dd')&&$(this).css('display')=="block"){
+				$(this).parents('.mb_24').show();
+				 return false;
+			}else{
+				//alert("aha,多选没有")
+				$(this).parents('.mb_24').hide();
+			}
+		})
+	})
+}
+
+//radius模块判断 _锚点刷新
+function check_radius(data){
+	data.each(function(){
+		var sec_this = $(this);
+		var i = 0;
+		sec_this.find('.mb_24').each(function(){
+			if($(this).is(":hidden")){
+				i++;
+			}
+		})
+		if(i>=sec_this.find('.mb_24').length || sec_this.hasClass("unable")){
+			sec_this.hide();
+			var nav_class =sec_this.attr('id');
+			$('nav .'+nav_class+'').hide();
+		}else{
+			var nav_class =sec_this.attr('id');
+			$('nav .'+nav_class+'').show();
+			//处理图片
+		}
+	})
+}
+//小标题 0全局
+function second_title(status,dom_this){
+	if(status==0){
+		$(dom_this).find('.sign_box').each(function(){
+			var _this = $(this);
+			var len = _this.find('.mb_24').length
+			var l = 0;
+			$(this).find('.mb_24').each(function(){
+				if($(this).is(':visible')){
+					_this.show();
+					return false;
+				}else{
+					l++;
+				}
+				if(l>=len){
+					_this.hide();
+				}
+			})
+		})
+	}else{
+	$('.sign_box').each(function(){
+		var _this = $(this);
+		var len = _this.find('.mb_24').length
+		var l = 0;
+		$(this).find('.mb_24').each(function(){
+			if($(this).is(':visible')){
+				_this.show();
+				return false;
+			}else{
+				l++;
+			}
+			if(l>=len){
+				_this.hide();
+			}
+		})
+	})
+	}
+	//竞争小标题
+		$('.mb_24.sign_title').each(function(){
+			if($(this).next().is(':hidden')){
+				$(this).hide();
+			}
+		})
+}
+//dd_type
+function dd_type(_this){
+	//动态表格
+	if(_this.html() == '未验证'||_this.html() == '未选择'||_this.html() == '未填写'||$.trim(_this.html()) == '未添加'||_this.find("table").css("display")=="none"){
+		_this.parents('.mb_24').hide();
+	}else{
+		_this.parents('.mb_24').show();
+	}
+	//图片
+	if(_this.hasClass("mglook")){
+
+	}
+	//固定表格1
+	if(_this.siblings('dt').attr('data-type') == '9'){
+		var i = 0;
+		 _this.find("td[data-format]").each(function(){
+			 if($(this).html() == ''){
+				 i++
+			 }
+		 })
+		 if(i>=6){
+			 _this.parents('.mb_24').hide();
+		 }else{
+			 _this.parents('.mb_24').show();
+		 }
+	}
+	if(_this.siblings('dt').attr('data-type') == '5'||_this.siblings('dt').attr('data-type') == '15'){
+		if(_this.html()=="未选择"||_this.html()=="未填写"){
+			_this.hide();
+		}
+		if((_this.html()=="未验证"||_this.html()=="未选择"||_this.html()=="未填写")&&(_this.siblings("dd").html()=="未选择"||_this.siblings("dd").html()=="未填写")){
+			 _this.parents('.mb_24').hide();
+		}else{
+			 _this.parents('.mb_24').show();
+		}
+	}
+	//固定表格2
+	if(_this.hasClass('dd_field')&& _this.find('td').eq(0).html()=='未填写'&&_this.find('td').eq(1).html()=='未填写'){
+		_this.parents('.sign_box').hide();
+	}else{
+		_this.parents('.sign_box').show();
+	}
+}
+//展开显示按钮显示
+//status 1是展示显示，0是收起显示
+function show_btn(_this,status){
+	if(status == 0){
+		_this.find('.put_box').show();
+		_this.find('.put_box .put_away').show();
+		_this.find('.out_box').hide();
+	}else{
+		_this.find('.put_box').hide();
+		_this.find('.out_box').show();
+	}
+}
+//status 1有红字，0无红字（都是局部）
+function save_cancel_show(data,status){
+	var _this = data;
+	_this.find('dd').each(function(){
+		var d_this = $(this);
+		dd_type(d_this);
+		//多选
+		_this.find('.checked_div').each(function(){
+			$(this).find('dd').each(function(){
+				if($(this).html()!= '未选择' && $(this).hasClass('border_dd')){
+					$(this).parents('.mb_24').show();
+					 return false;
+				}else{
+					$(this).parents('.mb_24').hide();
+				}
+			})
+		})
+	});
+	//判断是否有数据
+	var i = 0;
+	_this.find('.mb_24').each(function(){
+		if($(this).is(':hidden')){
+			i++;
+		}
+	})
+	//1有红字
+	if(status==1){
+		if(i>=_this.find('.mb_24').length){	
+			show_btn(_this,1)
+			_this.find('.sign_box').hide();
+		}else{
+			show_btn(_this,0)
+			_this.find('.mb_24').show();
+			_this.find('.sign_box').show();
+		}
+		//无红字
+	}else{
+		if(i>=_this.find('.mb_24').length){	
+			$('.sign_box').hide();
+			i=0;
+		}else{
+			_this.find('.mb_24').show();
+			_this.find('.sign_box').show();
+		}
+	}
+} 
+//必填项添加必填字段
+function setReqiured(){  //必填添加required
+	$("*[data-must]").each(function(){
+		var data=$(this).attr("data-must");
+		if(data==0){
+			//$(this).attr("required","required");
+		}
+	})
+}
+//status==0整体 ==1局部
+function mustData(projectId,status){
+	if(status==0){
+		if(projectId){
+			sendGetRequest(Constants.sopEndpointURL+'/galaxy/infomation/queryMustInfo/' + projectId, null,
+				function(data) {
+				    var result = data.result.status;
+				    if (result == 'OK') {
+				    	if(data.entity.resultIds){
+				    		setMustIds(data.entity.resultIds);
+				    	}				    	
+				    }
+					
+				});
+		}
+	}else{
+		//当前模块 projectId  
+		var id =projectId.attr('id');
+		//如果有红字
+		if($('#'+id).find('.h_title').find('span').is(":visible")){
+			save_cancel_show($('#'+id),1);
+		}
+		/*else{save_cancel_show($('#'+id),1);}*/
+		
+	}
+}
+function setMustIds(mustids){
+	$(".unable").show();
+	$(".unable").removeClass('unable');
+	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
+	var result=mustids.split(",");
+	console.log(result);
+	for(var i=0;i<result.length;i++){
+		//禁用
+		if(result[i].indexOf("a_")==0){
+			var a_id=result[i];
+			var id= result[i].substring(2,result[i].length);
+			//普通页面
+			if($("#"+a_id).hasClass("radius")){
+				$("#"+a_id).addClass("unable");
+				$("#"+a_id).find(".h_edit").remove();
+				$("#"+a_id).find(".h_look").show();
+				$("#"+a_id).css("background","#fff");
+				$("#"+id).hide();
+				//竞争页面
+			}else{
+				$("#"+id).addClass("unable");
+				$("#"+id).find(".h_edit").remove();
+				$("#"+id).find(".h_look").show();
+				$("#"+id).css("background","#fff");
+				$("#"+id).hide();
+				}
+		//展开收起
+		}else if(result[i].indexOf("display")==0){
+			var id=result[i].substring(10,result[i].length);
+			if(roleId != '1' && roleId != 1 && roleId != '2' && roleId != 2){
+			$("#"+id ).addClass('limit_sec');
+			$("#"+id ).find('.h_title span').show();
+			save_cancel_show($("#"+id),1); 
+			}
+		}else{
+			console.log("############");
+			var str ="<span style='color:#ff8181'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+			$('.h_edit').find("dt[data-tid='"+result[i]+"']").append(str);
+		}
+		/*else if(result[i].indexOf("b_")>-1){
+			$("#"+result[i]).find("[data-title-id]").each(function(){
+				$(this).attr("required","required");
+			})
+			var id=result[i].substring(2,result[i].length);
+			$("#a_"+id).show();
+		}else{
+			$("[data-title-id="+result[i]+"]").attr("required","required");
+		}*/
+		
+	}
+}
+function hideNav(){
+	$('#page_all .radius').each(function(){
+		if($(this).is(':hidden')){
+			var id=$(this).attr("id");
+			$("#nav_ul a[href='#"+id+"']").parent().hide();
+		}
+		var i = 0;
+		$('#nav_ul li').each(function(){
+			if($(this).is(':hidden')&&$(this).hasClass('active')){
+				$(this).removeClass('active');
+				$(this).next().addClass('active');
+			}
+			if($(this).hasClass('active')){
+				i++;
+			}
+		})
+		////如果next全是隐藏，则往上查找显示  变蓝目前显示的最后一个
+		if(i==0){
+			var l = 0;
+			$('#nav_ul li').each(function(){
+				if($(this).is(':visible')){
+					l=$(this).index();  
+				}
+			})			 
+			$('#nav_ul li').eq(l).addClass('active');
+		}
+	})
+}
+
+function fun_click(){
+	//展开
+	//0收起展示
+	$('.spread_out').click(function(){
+		if($('.anchor_btn span').hasClass('invisible')){
+			show_btn($(this).parents(".radius"),0);
+			$(this).parents('.limit_sec').find('dd').each(function(){
+				var _this =$(this);
+				if((_this.html() == '未验证'||_this.html() == '未选择'||$.trim(_this.html()) == '未填写'||$.trim(_this.html()) == '未添加'||_this.find("table").css("display")=="none")&&_this.css("display")=="block"){
+					_this.parents('.mb_24').hide();
+				}else{
+					//小标题右侧隐藏的情况下展示
+					_this.parents('.mb_24').show();
+					if(_this.parents('.sign_box').find('.sign_title').html()!=undefined){
+						_this.parents('.sign_box').show();
+						_this.parents('.sign_box').find('.sign_title').show();
+					}
+				}
+			})
+			event.stopPropagation();
+		}else{
+			show_btn($(this).parents(".radius"),0);
+			$(this).parents('.limit_sec').find('.mb_24').show();
+			$(this).parent().siblings('.sign_box').show();
+			event.stopPropagation();
+		}	
+	})
+	//收起
+	$('.put_away').click(function(){
+		show_btn($(this).parents(".radius"),1);
+		$(this).parents('.limit_sec').find('.mb_24').hide();
+		$(this).parent().siblings('.sign_box').hide();
+		event.stopPropagation();
+	}) 
+}

@@ -33,6 +33,8 @@
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
            
                 </ul>
+   <!--隐藏-->
+<div class="bj_hui_on"></div>
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include> 
                  <div class="tabtxt" id="page_all">
 		<!--tab-->
@@ -52,6 +54,14 @@ getData();
 	    key = Date.parse(new Date());
 		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
+		//
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
+		//
 		keyJSON["b_"+id_code]=key;
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
@@ -65,8 +75,14 @@ getData();
 					sec.showResults();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
+					$(".bj_hui_on").show();
 					validate();
+					//编辑显示隐藏按钮不可用
+					btn_disable(1);
+					//isMust("#b_"+id_code);	
 					$("#b_"+id_code).validate();
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -133,16 +149,21 @@ getData();
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".h#a_"+id_code).css("background","#fff");
+		$(".bj_hui_on").hide();
 		dtWidth();
+		btn_disable(0);
 		event.stopPropagation();
+		//mustData(_this,1);
+		toggle_btn($('.anchor_btn span'),0,_this);
 	});
-	
  	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
@@ -162,7 +183,6 @@ getData();
 			}
 		});
 		data.deletedResultTids = deletedResultTids;
-		
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
@@ -204,13 +224,14 @@ getData();
 			return;
 		}
 		$("body").showLoading();
-		sendPostRequestByJsonObjNoCache(sendFileUrl,params,function(dataParam){
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传
 			var result = dataParam.result.status;
 			if(result == "OK"){
 				sendPostRequestByJsonObjNoCache(
 						platformUrl.saveOrUpdateInfo , 
 						data,
+						true,
 						function(data) {
 							var result = data.result.status;
 							if (result == 'OK') {
@@ -219,16 +240,18 @@ getData();
 								//tabInfoChange('3');
 								$('#'+id_code).show();
 								$('#b_'+id_code).remove();
+								$(".bj_hui_on").hide();
+								//右侧按钮显示隐藏
+								btn_disable(0);
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".loading-indicator-overlay").remove();
 								$(".loading-indicator").remove();
 								dtWidth();
-								//$(".section").remove();
-								//getData();
 								var pid=$('#a_'+id_code).attr("data-section-id");
 								$('#a_'+id_code).find('dd[data-type="3"]').hide();
 								setDate(pid,true);	
 								picData(projectInfo.id);
+								toggle_btn($('.anchor_btn span'),0,save_this);
 								
 							} else {
 								layer.msg("操作失败!");
@@ -367,8 +390,6 @@ function previewImage(file,callback){//file为plupload事件监听函数参数�
 	}	
 	
 }
-picData(projectInfo.id);
-
 function getData(){
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO4", null,
@@ -377,9 +398,13 @@ function getData(){
 			if (result == 'OK') {
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
+				picData(projectInfo.id,1);
 				$(".section").each(function(){
 					$(this).showResults(true);
-				});
+				}); 
+				mustData(projectInfo.id,0);
+				fun_click();
+				
 			} else {
 
 			}

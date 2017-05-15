@@ -53,8 +53,6 @@ var isDSZ = "<%=isDSZ%>";
 <!-- jsp文件头和头部 -->
 <jsp:include page="taglib.jsp" flush="true"></jsp:include>
 <!--[if lt IE 9]><link href="<%=request.getContextPath() %>/css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
-
 <!-- report start -->
 <link href="<%=request.getContextPath() %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=request.getContextPath() %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
@@ -75,19 +73,29 @@ var isDSZ = "<%=isDSZ%>";
 
 
 <body>
-<div class="erwms erwm">
-	<p>星河投APP</p>
-   	<img src="<%=path %>/img/ewms.gif" alt="">
-</div>
-<div class="erwmb erwm">
-   	<img src="<%=path %>/img/ewmb.gif" alt="">
-   	<p>星河投APP客户端</p>
-   	<p><a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a></p>
-</div>
 <div class="header clearfix">
 	<a href="javascript:;" class="logo null">星河投</a>
      <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
+    <div class="erwm fl">
+    		<span class="erwmfont">APP客户端</span>
+    		<div class="erwm_show">
+    		<span class="triangle">三角形</span>
+    			<ul class="clearfix">
+    				<li class="fl">
+    					<img alt="" src="<%=path %>/img/Android.png?version=1.0">
+    					<span>Android</span>
+    				</li>
+    				<li class="fr">
+    					<img alt="" src="<%=path %>/img/ios.png?version=1.0">
+    					<span>iOS</span>
+    				</li>    				
+    			</ul>
+    			<p>
+    				<a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看iOS安装说明></a>
+    			</p>
+    		</div>
+    	</div>
        <!--用户信息-->
         <div class="usermsg fl">
               <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办<em class="totalUrgent"></em></a>
@@ -119,7 +127,12 @@ function reloadMessage(){
 
 function remindcbf(data){
 	if(data.result.status == "OK"){
-		 $(".work em[action='remind']").html(data.entity.count);
+		var remindCount=data.entity.count;
+		if(remindCount>99){
+			$(".work em[action='remind']").html('<span style="line-height:12px;">99<sup>+</sup></span>')
+		}else{
+			$(".work em[action='remind']").html(remindCount);
+		}
 	}
 }
 function logout(){
@@ -254,16 +267,8 @@ $(window).resize(function(){
    disposedWidth();
  })
     /*二维码*/
- var ewm_w=$(".erwms").width();
-     w_lft=$(".lft").width();
-     $(".erwms").css("margin-left",(w_lft-ewm_w)/2);
- $(".erwms").on("mouseover",function(){
-	 $(this).hide();
-     $(".erwmb").show();
- })
-  $(".erwmb").on("mouseout",function(){
-	 $(".erwms").show();
-     $(this).hide();
+ $(".erwm").hover(function(){
+	 $(".erwm_show").toggle();
  })
  
  })	

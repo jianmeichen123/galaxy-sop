@@ -6,10 +6,11 @@
 %>
 
 <!doctype html>
-<html>
+<html class="scroll">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>
 </head>
 
@@ -17,7 +18,7 @@
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
 
-<body>
+<body >
 	<ul class="h_navbar clearfix">
 		<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('0')">基础<br />信息 </li>
 		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
@@ -30,7 +31,8 @@
 		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br />估值 </li>
 	</ul>
 
-
+       <!--隐藏-->
+<div class="bj_hui_on"></div>
 	<div id="tab-content base" class="base_tab-content">
 		<div class="tabtxt" id="page_all"> 
 		
@@ -49,6 +51,8 @@
 <script type="text/javascript">
 var isEditable = "${isEditable}";
 
+
+
 table_Value = {};
 table_filed = {};
 
@@ -66,8 +70,10 @@ $(function() {
 		var id_code = $(this).attr('attr-hide');
 		$('#a_' + id_code).show();
 		$('#b_' + id_code).remove();
+		$(".bj_hui_on").hide();
 		$(".h#"+id_code).css("background","#fff");
 		dtWidth();
+		btn_disable(0);
 		event.stopPropagation();
 		//base_half
 		if(_this.is(':visible')){
@@ -90,6 +96,7 @@ $(function() {
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
 				$(".h#"+id_code).css("background","#fafafa");
+				$(".bj_hui_on").show();
 				var sTop=$(window).scrollTop();
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
@@ -98,6 +105,10 @@ $(function() {
 					  var font_num = oldnum - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
 				});
+				btn_disable(1);
+				/* setReqiured();
+				isMust("#b_"+id_code);
+				$("#c_"+id_code).validate(); */
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -126,10 +137,7 @@ $(function() {
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
-		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
-		
-		$(".h#"+id_code).css("background","#fff");
-		
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
 		var data = {
@@ -196,7 +204,6 @@ $(function() {
 			event.stopPropagation();
 			return;
 		}
-		
 		//多选不选择的时候：
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
@@ -247,13 +254,21 @@ $(function() {
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 		}
-		
+		if(!$("#c_"+id_code).validate().form())
+		{
+			return;
+		}
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"informationTime");
 				layer.msg('保存成功');
 				showArea(id_code);
+				$(".bj_hui_on").hide();
+				btn_disable(0);
+				toggle_btn($('.anchor_btn span'),1);
+				$(".h_look .ismust").hide();
+				$(".h#"+id_code).css("background","#fff");
 			} else {
 				layer.msg('保存失败');
 			}
@@ -266,9 +281,6 @@ $(function() {
 		dtWidth();
 	});
 });
-
-
-
 </script>
 
 </body>
