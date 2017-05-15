@@ -19,3 +19,6 @@ ADD COLUMN `is_del` TINYINT(4) NULL DEFAULT '0' COMMENT '是否删除字段0:未
 ALTER TABLE `fx_db`.`schedule_contacts` 
 ADD COLUMN `firstpinyin` VARCHAR(20) NULL COMMENT '用来进行首字母排序' ,
 ADD COLUMN `is_del` TINYINT(4) NULL DEFAULT '0' COMMENT '是否删除字段0:未删除,1:已删除' ;
+
+ALTER TABLE `fx_db`.`schedule_info` 
+ADD COLUMN `callon_person` BIGINT(20) NULL COMMENT '拜访对象，关联schedule_contacts表ID';
