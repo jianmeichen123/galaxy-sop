@@ -8,7 +8,6 @@ public class ScheduleInfo extends PagableEntity{
 	
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
 
     private Long parentId;
 
@@ -47,16 +46,41 @@ public class ScheduleInfo extends PagableEntity{
     private Byte isDel;
 
     private Long callonPerson;
+    
+    private int isProject;
+    
+    private long countVisit;
+    
+    private String fanceStatus;
+    
+    private double fanceRate;
 
-    public Long getId() {
-        return id;
-    }
+    
+    public double getFanceRate() {
+		return fanceRate;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setFanceRate(double fanceRate) {
+		this.fanceRate = fanceRate;
+	}
 
-    public Long getParentId() {
+	public long getCountVisit() {
+		return countVisit;
+	}
+
+	public void setCountVisit(long countVisit) {
+		this.countVisit = countVisit;
+	}
+
+	public String getFanceStatus() {
+		return fanceStatus;
+	}
+
+	public void setFanceStatus(String fanceStatus) {
+		this.fanceStatus = fanceStatus;
+	}
+
+	public Long getParentId() {
         return parentId;
     }
 
@@ -207,4 +231,14 @@ public class ScheduleInfo extends PagableEntity{
     public void setCallonPerson(Long callonPerson) {
         this.callonPerson = callonPerson;
     }
+
+	public int getIsProject() {
+		return isProject;
+	}
+
+	public void setIsProject(int isProject) {
+		this.isProject = isProject;
+	}
+    
+    
 }
