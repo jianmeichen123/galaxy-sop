@@ -212,4 +212,13 @@ public class JumpController{
 	}
 	
 	
+	/**
+	 * 日程跳转页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/visitChart", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String visitChart(HttpServletRequest request) {
+		return "report/visit/visitChart";
+	}
 }
