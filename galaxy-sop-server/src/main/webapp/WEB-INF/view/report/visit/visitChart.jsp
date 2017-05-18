@@ -239,11 +239,7 @@
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-selecter.js"></script>
-
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
-
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
 <script type="text/javascript">

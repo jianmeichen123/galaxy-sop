@@ -101,9 +101,26 @@ $(function(){
 	    //endDate: '+3d'
 	});
 	$('.datepicker').datepicker("setDate",new Date());
+	//年视图
+	$( "#quarterly_start_data" ).datepicker({
+		autoclose: true,
+	    defaultDate : new Date(),
+	    language: 'zh-CN',
+	    startView: 2, 
+	    maxViewMode: 2,
+	    minViewMode:2,
+	    format: "yyyy年",
+	    defaultDate: new Date(),
+	    currentText: 'Now',
+	})
+	var myyear = new Date().getFullYear();
+    var mymonth = new Date().getMonth()+1;
+    $("#quarterly_start_data").val(myyear+"年");
+   
 	//月份视图
 	$('.change_month').datepicker({
 		format: "yyyy-mm",
+		language: "zh-CN",
 		minViewMode: 1,
 		autoclose: true,
 		endDate: dateLimit
