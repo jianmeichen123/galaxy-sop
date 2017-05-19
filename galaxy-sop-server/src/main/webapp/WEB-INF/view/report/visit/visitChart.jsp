@@ -85,12 +85,12 @@
                     <dd class="visitdata_quarterly">
                         <input type="text" class="txt time" id="quarterly_start_data" name="" readonly style="height:23px;">
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <select name="departmentId" style="display:inline-block ">
+                        <select name="s_quarterly" style="display:inline-block ">
                             <option value="">请选择</option>
-                            <option>第一季度</option>
-                            <option>第二季度</option>
-                            <option>第三季度</option>
-                            <option>第四季度</option>
+                            <option value='1'>第一季度</option>
+                            <option value='2'>第二季度</option>
+                            <option value='3'>第三季度</option>
+                            <option value='4'>第四季度</option>
                         </select>
                     </dd>
                     <!-- change_week -->

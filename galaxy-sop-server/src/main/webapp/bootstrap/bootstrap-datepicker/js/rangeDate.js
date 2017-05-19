@@ -116,8 +116,9 @@ $(function(){
 	var myyear = new Date().getFullYear();
     var mymonth = new Date().getMonth()+1;
     $("#quarterly_start_data").val(myyear+"年");
-   
+    $("select[name='s_quarterly']").val(Math.round(mymonth/3))
 	//月份视图
+    $(".change_month").val(myyear+"年"+mymonth+"月");
 	$('.change_month').datepicker({
 		format: "yyyy-mm",
 		language: "zh-CN",
