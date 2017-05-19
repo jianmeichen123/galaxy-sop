@@ -87,11 +87,38 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 	    	isNoProRate = Math.round(isNoVisit/isAllProVisit)/100.0;
 	    }
 	    Map<String,Object> map = new HashMap<String,Object>();
-	    map.put("isAllProVisit", isAllProVisit);
-	    map.put("isProVisit", isProVisit);
-	    map.put("isProVisitRate", isProRate);
-	    map.put("isNoVisit", isNoVisit);
-	    map.put("isNoProRate", isNoProRate);
+		    map.put("isAllProVisit", isAllProVisit);
+		    map.put("isProVisit", isProVisit);
+		    map.put("isProVisitRate", isProRate);
+		    map.put("isNoVisit", isNoVisit);
+		    map.put("isNoProRate", isNoProRate);
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> getRecordVisit(ScheduleInfo info) {
+		// TODO Auto-generated method stub
+		//拜访记录
+		long all = scheduleInfoDao.getAllRecordVisitCount(info);
+		//未缺失的拜访记录
+	    long part = scheduleInfoDao.getRecordVisitCount(info);
+	    
+	    double nopartRate = 0;
+	    double partRate = 0;
+	    
+	    if(all != 0){
+	    	partRate = Math.round(part/all)/100.0;
+	    }
+	    //已缺失的拜访
+	    long nopart = all - part;
+	    if(all != 0){
+	    	nopartRate = Math.round(nopart/all)/100.0;
+	    }
+	    Map<String,Object> map = new HashMap<String,Object>();
+		    map.put("part", part);
+		    map.put("partRate", partRate);
+		    map.put("nopart", nopart);
+		    map.put("nopartRate", nopartRate);
 		return map;
 	}
 

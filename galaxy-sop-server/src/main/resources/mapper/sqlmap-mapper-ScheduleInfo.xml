@@ -217,6 +217,52 @@
 
 	</select> 
 	
+	<!-- 访谈记录 -->
+	<select id="selectAllVisitCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from schedule_info
+		 <where>
+			<trim prefixOverrides="and">
+			     <if test="createdId != null" >
+			        created_id = #{createdId,jdbcType=BIGINT},
+			     </if>
+			        type = 2,
+			     <if test="isProject != null" >
+			        project_id != '',
+			     </if>
+			     <if test="startTime != null" >
+			        <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>,
+			     </if>
+			     <if test="endTime != null" >
+			        <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>,
+			     </if>
+			     <![CDATA[end_time >= NOW()]]>,
+			</trim>
+		</where>
+	</select>
+	
+	<!-- 访谈记录 未缺失-->
+	<select id="selectInterviewRecordCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select COUNT(si.id) from schedule_info si,sop_interview_record sr
+		 <where>
+			<trim prefixOverrides="and">
+			     <if test="createdId != null" >
+			        si.created_id = #{createdId,jdbcType=BIGINT},
+			     </if>
+			        si.type = 2,
+			     <if test="isProject != null" >
+			        si.project_id != '',
+			     </if>
+			     <if test="startTime != null" >
+			        <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>,
+			     </if>
+			     <if test="endTime != null" >
+			        <![CDATA[si.end_time <= #{endTime,jdbcType=TIMESTAMP}]]>,
+			     </if>
+			     <![CDATA[si.end_time >= NOW()]]>,
+			     sr.schedule_id = si.id,
+			</trim>
+		</where>
+	</select>
 	
 
 </mapper>

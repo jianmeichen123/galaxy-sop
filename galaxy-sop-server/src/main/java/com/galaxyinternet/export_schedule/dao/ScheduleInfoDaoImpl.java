@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.galaxyinternet.export_schedule.model.ScheduleInfo;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.query.Query;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
 
 @Repository("scheduleInfoDao")
@@ -52,6 +54,26 @@ public class ScheduleInfoDaoImpl extends BaseDaoImpl<ScheduleInfo, Long> impleme
 		    return list;
 		} catch (Exception e) {
 			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectVisitFanceStatusCount")), e);
+		}
+	}
+
+	@Override
+	public Long getAllRecordVisitCount(ScheduleInfo info) {
+		try {
+			Map<String, Object> params = BeanUtils.toMap(info);
+			return sqlSessionTemplate.selectOne(getSqlName("selectAllVisitCount"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectAllVisitCount")), e);
+		}
+	}
+
+	@Override
+	public Long getRecordVisitCount(ScheduleInfo info) {
+		try {
+			Map<String, Object> params = BeanUtils.toMap(info);
+			return sqlSessionTemplate.selectOne(getSqlName("selectInterviewRecordCount"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectInterviewRecordCount")), e);
 		}
 	}
 

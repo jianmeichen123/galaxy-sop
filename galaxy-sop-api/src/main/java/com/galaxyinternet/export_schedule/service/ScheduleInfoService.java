@@ -11,4 +11,5 @@ public interface ScheduleInfoService extends BaseService<ScheduleInfo>{
 	public Map<String,Object> getVisitStatistics(ScheduleInfo info);
 	public List<ScheduleInfo> getVisitFanceStatus(ScheduleInfo info);
 	public Map<String,Object> getProjectVisit(ScheduleInfo info);
+	public Map<String,Object> getRecordVisit(ScheduleInfo info);
 }

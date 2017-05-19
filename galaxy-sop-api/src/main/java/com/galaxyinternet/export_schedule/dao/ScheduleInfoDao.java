@@ -13,5 +13,7 @@ public interface ScheduleInfoDao extends BaseDao<ScheduleInfo, Long>{
 	
 	public List<ScheduleInfo> getVisitFanceStatus(ScheduleInfo info);
 	
+	public Long getAllRecordVisitCount(ScheduleInfo info);
 
+	public Long getRecordVisitCount(ScheduleInfo info);
 }
