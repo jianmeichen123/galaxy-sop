@@ -28,64 +28,64 @@
     <where>
 			<trim prefixOverrides="and">
 			     <if test="id != null" >
-			        id = #{id,jdbcType=BIGINT},
+			        and id = #{id,jdbcType=BIGINT}
 			      </if>
 			      <if test="parentId != null" >
-			        parent_id = #{parentId,jdbcType=BIGINT},
+			        and parent_id = #{parentId,jdbcType=BIGINT}
 			      </if>
 			      <if test="type != null" >
-			        type = #{type,jdbcType=TINYINT},
+			        and type = #{type,jdbcType=TINYINT}
 			      </if>
 			      <if test="nameId != null" >
-			        name_id = #{nameId,jdbcType=BIGINT},
+			        and name_id = #{nameId,jdbcType=BIGINT}
 			      </if>
 			      <if test="name != null" >
-			        name = #{name,jdbcType=VARCHAR},
+			        and name = #{name,jdbcType=VARCHAR}
 			      </if>
 			      <if test="projectType != null" >
-			        project_type = #{projectType,jdbcType=TINYINT},
+			        and project_type = #{projectType,jdbcType=TINYINT}
 			      </if>
 			      <if test="projectId != null" >
-			        project_id = #{projectId,jdbcType=BIGINT},
+			        and project_id = #{projectId,jdbcType=BIGINT}
 			      </if>
 			      <if test="startTime != null" >
-			        start_time = #{startTime,jdbcType=TIMESTAMP},
+			        and start_time = #{startTime,jdbcType=TIMESTAMP}
 			      </if>
 			      <if test="endTime != null" >
-			        end_time = #{endTime,jdbcType=TIMESTAMP},
+			        and end_time = #{endTime,jdbcType=TIMESTAMP}
 			      </if>
 			      <if test="isAllday != null" >
-			        is_allday = #{isAllday,jdbcType=TINYINT},
+			        and is_allday = #{isAllday,jdbcType=TINYINT}
 			      </if>
 			      <if test="wakeupId != null" >
-			        wakeup_id = #{wakeupId,jdbcType=BIGINT},
+			        and wakeup_id = #{wakeupId,jdbcType=BIGINT}
 			      </if>
 			      <if test="remark != null" >
-			        remark = #{remark,jdbcType=VARCHAR},
+			        and remark = #{remark,jdbcType=VARCHAR}
 			      </if>
 			      <if test="createdId != null" >
-			        created_id = #{createdId,jdbcType=BIGINT},
+			        and created_id = #{createdId,jdbcType=BIGINT}
 			      </if>
 			      <if test="updatedId != null" >
-			        updated_id = #{updatedId,jdbcType=BIGINT},
+			        and updated_id = #{updatedId,jdbcType=BIGINT}
 			      </if>
 			      <if test="createdTime != null" >
-			        created_time = #{createdTime,jdbcType=BIGINT},
+			        and created_time = #{createdTime,jdbcType=BIGINT}
 			      </if>
 			      <if test="updatedTime != null" >
-			        updated_time = #{updatedTime,jdbcType=BIGINT},
+			        and updated_time = #{updatedTime,jdbcType=BIGINT}
 			      </if>
 			      <if test="significance != null" >
-			        significance = #{significance,jdbcType=TINYINT},
+			        and significance = #{significance,jdbcType=TINYINT}
 			      </if>
 			      <if test="callonAddress != null" >
-			        callon_address = #{callonAddress,jdbcType=VARCHAR},
+			        and callon_address = #{callonAddress,jdbcType=VARCHAR}
 			      </if>
 			      <if test="isDel != null" >
-			        is_del = #{isDel,jdbcType=TINYINT},
+			        and is_del = #{isDel,jdbcType=TINYINT}
 			      </if>
 			      <if test="callonPerson != null" >
-			        callon_person = #{callonPerson,jdbcType=BIGINT},
+			        and callon_person = #{callonPerson,jdbcType=BIGINT}
 			      </if>
 			</trim>
 	</where>
@@ -152,17 +152,17 @@
 		 <where>
 			<trim prefixOverrides="and">
 			     <if test="createdId != null" >
-			        created_id = #{createdId,jdbcType=BIGINT},
+			        and created_id = #{createdId,jdbcType=BIGINT}
 			     </if>
-			        type = 2,
+			        and type = 2
 			     <if test="isProject != null" >
-			        project_id != '',
+			        and project_id != ''
 			     </if>
 			     <if test="startTime != null" >
-			        <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
 		</where>
@@ -176,17 +176,17 @@
 		 <where>
 			<trim prefixOverrides="and">
 			     <if test="createdId != null" >
-			        created_id = #{createdId,jdbcType=BIGINT},
+			        and created_id = #{createdId,jdbcType=BIGINT
 			     </if>
-			        type = 2,
+			        and type = 2
 			     <if test="isProject != null" >
-			        project_id != '',
+			        and project_id != ''
 			     </if>
 			      <if test="startTime != null" >
-			        <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
 		</where>
@@ -200,17 +200,17 @@
          <where>
 			<trim prefixOverrides="and">
 			     <if test="createdId != null" >
-			        created_id = #{createdId,jdbcType=BIGINT},
+			        and created_id = #{createdId,jdbcType=BIGINT}
 			     </if>
-			        type = 2,
-			        project_id != '',
+			        and type = 2
+			        and project_id != ''
 			      <if test="startTime != null" >
-			        <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     si.project_id = sp.id,
+			     and si.project_id = sp.id
 			</trim>
 		</where>
          GROUP BY sp.finance_status
@@ -223,19 +223,19 @@
 		 <where>
 			<trim prefixOverrides="and">
 			     <if test="createdId != null" >
-			        created_id = #{createdId,jdbcType=BIGINT},
+			        and created_id = #{createdId,jdbcType=BIGINT}
 			     </if>
-			        type = 2,
+			        and type = 2
 			     <if test="isProject != null" >
-			        project_id != '',
+			        and project_id != ''
 			     </if>
 			     <if test="startTime != null" >
-			        <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <![CDATA[end_time >= NOW()]]>,
+			     and <![CDATA[end_time >= NOW()]]>
 			</trim>
 		</where>
 	</select>
@@ -246,20 +246,20 @@
 		 <where>
 			<trim prefixOverrides="and">
 			     <if test="createdId != null" >
-			        si.created_id = #{createdId,jdbcType=BIGINT},
+			        and si.created_id = #{createdId,jdbcType=BIGINT}
 			     </if>
-			        si.type = 2,
+			        and si.type = 2
 			     <if test="isProject != null" >
-			        si.project_id != '',
+			        and si.project_id != ''
 			     </if>
 			     <if test="startTime != null" >
-			        <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        <![CDATA[si.end_time <= #{endTime,jdbcType=TIMESTAMP}]]>,
+			        and <![CDATA[si.end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <![CDATA[si.end_time >= NOW()]]>,
-			     sr.schedule_id = si.id,
+			     and <![CDATA[si.end_time >= NOW()]]>
+			     and sr.schedule_id = si.id
 			</trim>
 		</where>
 	</select>
