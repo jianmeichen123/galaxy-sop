@@ -5,14 +5,171 @@ $(function(){
 	});
    var trend = {};
    loadTrendData();
+   function getDatePeriod()
+   {
+	   var periodType = $("input[name='periodType']:checked").val();
+	   console.log("periodType="+periodType);
+	   if(periodType == 3)
+	   {
+		   return getWeeklyPeriod();
+	   }
+	   else if(periodType == 2)
+	   {
+		   return getMonthlyPeriod();
+	   }
+	   return getQuarterlyPeriod();
+   }
+   /**
+    * 获取季度起止时间
+    * @returns
+    */
+   function getQuarterlyPeriod()
+   {
+	   console.log('getQuarterlyPeriod');
+	   var endYear = $("#quarterly_start_data").val().replace('年','');
+	   var startYear = endYear-3;
+	   
+	   var quarterly = $("select[name='s_quarterly']").val();
+	   console.log("quarterly="+quarterly);
+	   var startTime = new Date();
+	   var endTime = new Date();
+	   
+	   startTime.setFullYear(startYear);
+	   startTime.setDate(1);
+	   
+	   endTime.setFullYear(endYear);
+	   
+	   if(quarterly == 1)
+	   {
+		   startTime.setMonth(0);
+		   
+		   endTime.setMonth(2);
+		   endTime.setDate(31);
+	   }
+	   else if(quarterly == 2)
+	   {
+		   startTime.setMonth(3);
+		   
+		   endTime.setMonth(5);
+		   endTime.setDate(30);
+	   }
+	   else if(quarterly == 3)
+	   {
+		   startTime.setMonth(6);
+		   
+		   endTime.setMonth(8);
+		   endTime.setDate(30);
+	   }
+	   else if(quarterly == 4)
+	   {
+		   startTime.setMonth(9);
+		   
+		   endTime.setMonth(11);
+		   endTime.setDate(31);
+	   }
+	   startTime.setHours(0);
+	   startTime.setMinutes(0);
+	   startTime.setSeconds(0);
+	   startTime.setMilliseconds(0)
+	   
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999)
+	   
+	   return {startTime:startTime, endTime:endTime};
+   }
+   /**
+    * 获取月度起止时间
+    * @returns
+    */
+   function getMonthlyPeriod()
+   {
+	   console.log('getMonthlyPeriod');
+	   var selected = $("#month_start_data").val().replace('月','');
+	   var endYear = selected.split('年')[0];
+	   var startYear = endYear-1;
+	   
+	   var month = selected.split('年')[1];
+	   
+	   var startTime = new Date();
+	   var endTime = new Date();
+	   
+	   startTime.setFullYear(startYear);
+	   startTime.setMonth(month-1);
+	   startTime.setDate(1);
+	  
+	   endTime.setFullYear(endYear);
+	   endTime.setMonth(month-1);
+	   
+	   if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+	   {
+		   endTime.setDate(31);
+	   }
+	   else if(month == 2)
+	   {
+		   if(endYear%400 ==0 || endYear%4 == 0)
+		   {
+			   endTime.setDate(29);
+		   }
+		   else
+		   {
+			   endTime.setDate(28);
+		   }
+	   }
+	   else 
+	   {
+		   endTime.setDate(30);
+	   }
+	   
+	   startTime.setHours(0);
+	   startTime.setMinutes(0);
+	   startTime.setSeconds(0);
+	   startTime.setMilliseconds(0)
+	   
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999)
+	   
+	   return {startTime:startTime, endTime:endTime};
+   }
+   
+   /**
+    * 获取周起止时间
+    * @returns
+    */
+   function getWeeklyPeriod()
+   {
+	   console.log('getWeeklyPeriod');
+	   var endDate = $('.visitweekEndDatepicker').val();
+	   var endTime = new Date();
+	   endTime.setFullYear(endDate.split('-')[0]);
+	   endTime.setMonth(endDate.split('-')[1]-1);
+	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999)
+	   
+	   var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
+	   
+	   return {startTime:new Date(startTime), endTime:endTime};
+   }
+   
+   
    function loadTrendData()
    {
+	   var datePeriod = getDatePeriod();
+	   console.log(datePeriod);
 	   trend = {
 			periods:new Array(),
 			plan : new Array(),
 			complete : new Array()
 	   };
 	   var query = {
+			startTimeFrom:datePeriod.startTime.toLocaleString(),
+			startTimeThrough:datePeriod.endTime.toLocaleString(),
 			departmentId: null,//$("select[name='departmentId']").val(),
 			createdId: null,//$("select[name='createdId']").val(),
 			isProject: $("input[name='isProject']:checked").val(),

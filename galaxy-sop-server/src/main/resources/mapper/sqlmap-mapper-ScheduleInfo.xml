@@ -306,11 +306,11 @@
 		</if>
 		from schedule_info
 		<include refid="Base_Where_Clause" />
-		<if test="startTime != null" >
-			and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+		<if test="startTimeFrom != null" >
+			and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 		</if>
-		<if test="endTime != null" >
-			and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+		<if test="startTimeThrough != null" >
+			and <![CDATA[start_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 		</if>
 		<if test="complete == 1" >
 			and exists (select id from sop_interview_record where schedule_id = id)

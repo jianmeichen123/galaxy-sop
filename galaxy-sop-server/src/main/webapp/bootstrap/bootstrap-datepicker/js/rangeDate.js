@@ -120,7 +120,7 @@ $(function(){
 	//月份视图
     $(".change_month_visit").val(myyear+"年"+mymonth+"月");
     $('.change_month_visit').datepicker({
-		format: "yyyy-mm",
+		format: "yyyy年mm月",
 		language: "zh-CN",
 		minViewMode: 1,
 		autoclose: true

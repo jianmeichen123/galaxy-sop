@@ -69,7 +69,10 @@ public class ScheduleInfo extends PagableEntity{
      * 查询条件-状态：1-已完成
      */
     private Byte complete;
-
+    
+    private Date startTimeFrom;
+    
+    private Date startTimeThrough;
     
     
     public Long getDepartmentId() {
@@ -286,6 +289,22 @@ public class ScheduleInfo extends PagableEntity{
 
 	public void setComplete(Byte complete) {
 		this.complete = complete;
+	}
+
+	public Date getStartTimeFrom() {
+		return startTimeFrom;
+	}
+
+	public void setStartTimeFrom(Date startTimeFrom) {
+		this.startTimeFrom = startTimeFrom;
+	}
+
+	public Date getStartTimeThrough() {
+		return startTimeThrough;
+	}
+
+	public void setStartTimeThrough(Date startTimeThrough) {
+		this.startTimeThrough = startTimeThrough;
 	}
     
     
