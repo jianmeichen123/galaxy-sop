@@ -264,5 +264,44 @@
 		</where>
 	</select>
 	
-
+	<!-- 拜访趋势-季度 -->
+	<sql id="tendencyQuarterlySelect">
+		select CONCAT(year(start_time),'年Q',QUARTER(start_time)) as period, count(1) as count
+	</sql>
+	<!-- 拜访趋势-月度 -->
+	<sql id="tendencyMonthlySelect">
+		select concat(year(start_time),'-',month(start_time)) as period, count(1) as count
+	</sql>
+	<!-- 拜访趋势-周 -->
+	<sql id="tendencyWeeklySelect">
+		select concat(year(week_start),'/',month(week_start),'/',DAYOFMONTH(week_start),'-',year(week_end),'/',month(week_end),'/',DAYOFMONTH(week_end)) as period, count(1) as count
+	</sql>
+	
+	<sql id="tendencySubQuery">
+		select start_time
+		<if test="periodType == 3">
+		,
+		DATE_SUB(start_time,INTERVAL WEEKDAY(start_time) DAY ) week_start,
+		DATE_ADD(start_time,INTERVAL 6-WEEKDAY(start_time) DAY ) week_end
+		</if>
+		from schedule_info
+		<include refid="Base_Where_Clause" />
+	</sql>
+	<select id="selectTendency" resultType="hashmap" parameterType="java.util.Map">
+		<choose>
+			<when test="periodType == 1">
+				<include refid="tendencyQuarterlySelect"/>
+			</when>
+			<when test="periodType == 2">
+				<include refid="tendencyMonthlySelect"/>
+			</when>
+			<otherwise>
+				<include refid="tendencyWeeklySelect"/>
+			</otherwise>
+		</choose>
+		from (
+			<include refid="tendencySubQuery"/>
+		) t
+		group by period;
+	</select>
 </mapper>

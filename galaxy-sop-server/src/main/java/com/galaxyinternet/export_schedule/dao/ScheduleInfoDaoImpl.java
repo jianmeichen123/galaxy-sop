@@ -77,5 +77,17 @@ public class ScheduleInfoDaoImpl extends BaseDaoImpl<ScheduleInfo, Long> impleme
 		}
 	}
 
+	@Override
+	public List<Map<String,Object>> selectTendency(ScheduleInfo info) {
+		try {
+			Map<String, Object> params = BeanUtils.toMap(info);
+			return sqlSessionTemplate.selectList(getSqlName("selectTendency"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectTendency")), e);
+		}
+	}
+	
+	
+
 	
 }

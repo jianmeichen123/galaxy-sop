@@ -122,5 +122,12 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 		return map;
 	}
 
+	@Override
+	public List<Map<String,Object>> selectTendency(ScheduleInfo info) {
+		return scheduleInfoDao.selectTendency(info);
+	}
+	
+	
+
 	
 }
