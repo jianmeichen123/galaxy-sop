@@ -58,13 +58,24 @@ public class ScheduleInfo extends PagableEntity{
     
     private List<Long> createtUids;
     
+    private Long departmentId;
+    
     /**
      * 查询条件-时间类型：1-季度；2-月；3-周
      */
     private Byte periodType;
 
     
-    public double getFanceRate() {
+    
+    public Long getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public double getFanceRate() {
 		return fanceRate;
 	}
 

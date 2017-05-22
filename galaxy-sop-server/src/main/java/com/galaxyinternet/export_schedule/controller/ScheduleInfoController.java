@@ -1,5 +1,7 @@
 package com.galaxyinternet.export_schedule.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,8 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.UserService;
 
 @Controller
 @RequestMapping("/galaxy/visit")
@@ -28,6 +32,9 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 
 	@Autowired
 	private ScheduleInfoService scheduleInfoService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	protected BaseService<ScheduleInfo> getBaseService() {
@@ -49,6 +56,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			return responseBody;
 		}
 		try{
+			setDataUser(sheduleInfo);
 			Map<String,Object> map = scheduleInfoService.getVisitStatistics(sheduleInfo);
 			responseBody.setUserData(map);
 		}catch(Exception e){
@@ -72,6 +80,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			return responseBody;
 		}
 		try{
+			setDataUser(sheduleInfo);
 			Map<String,Object> map = scheduleInfoService.getProjectVisit(sheduleInfo);
 			responseBody.setUserData(map);
 		}catch(Exception e){
@@ -96,6 +105,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			return responseBody;
 		}
 		try{
+			setDataUser(sheduleInfo);
 			List<ScheduleInfo> list= scheduleInfoService.getVisitFanceStatus(sheduleInfo);
 			responseBody.setEntityList(list);
 		}catch(Exception e){
@@ -120,6 +130,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			return responseBody;
 		}
 		try{
+			setDataUser(sheduleInfo);
 			Map<String,Object> map = scheduleInfoService.getRecordVisit(sheduleInfo);
 			responseBody.setUserData(map);
 		}catch(Exception e){
@@ -127,5 +138,29 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			logger.error("访谈缺失统计失败!", e);
 		}
 		return responseBody;
+	}
+	
+	/**
+	 * 组装用户数据
+	 * @param sheduleInfo
+	 */
+	public void setDataUser(ScheduleInfo sheduleInfo){
+		List<Long> userids = new ArrayList<Long>();
+		if(sheduleInfo.getCreatedId() == null && sheduleInfo.getDepartmentId() != null){
+			Map<String,Object> params = new HashMap<String,Object>();
+			params.put("departmentId", sheduleInfo.getDepartmentId());
+			List<User> users = userService.querytUserByParams(params);
+			if(users != null && users.size() >= 0){
+				for(User u : users){
+					userids.add(u.getId());
+				}
+				
+			}
+		}
+		if(sheduleInfo.getCreatedId() != null){
+			userids.clear();
+			userids.add(sheduleInfo.getCreatedId());
+		}
+		sheduleInfo.setCreatetUids(userids);
 	}
 }
