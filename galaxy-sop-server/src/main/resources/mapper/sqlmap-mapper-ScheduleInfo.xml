@@ -151,8 +151,12 @@
 		select count(id) from schedule_info
 		 <where>
 			<trim prefixOverrides="and">
-			     <if test="createdId != null" >
-			        and created_id = #{createdId,jdbcType=BIGINT}
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 			     </if>
 			        and type = 2
 			     <if test="isProject != null" >
@@ -175,8 +179,12 @@
 		 select id from schedule_info
 		 <where>
 			<trim prefixOverrides="and">
-			     <if test="createdId != null" >
-			        and created_id = #{createdId,jdbcType=BIGINT
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 			     </if>
 			        and type = 2
 			     <if test="isProject != null" >
@@ -199,8 +207,12 @@
         SELECT sp.finance_status as financeStatus,COUNT(si.id) as countVisit FROM schedule_info si,sop_project sp 
          <where>
 			<trim prefixOverrides="and">
-			     <if test="createdId != null" >
-			        and created_id = #{createdId,jdbcType=BIGINT}
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 			     </if>
 			        and type = 2
 			        and project_id != ''
@@ -222,8 +234,12 @@
 		select count(id) from schedule_info
 		 <where>
 			<trim prefixOverrides="and">
-			     <if test="createdId != null" >
-			        and created_id = #{createdId,jdbcType=BIGINT}
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 			     </if>
 			        and type = 2
 			     <if test="isProject != null" >
@@ -245,8 +261,12 @@
 		select COUNT(si.id) from schedule_info si,sop_interview_record sr
 		 <where>
 			<trim prefixOverrides="and">
-			     <if test="createdId != null" >
-			        and si.created_id = #{createdId,jdbcType=BIGINT}
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 			     </if>
 			        and si.type = 2
 			     <if test="isProject != null" >

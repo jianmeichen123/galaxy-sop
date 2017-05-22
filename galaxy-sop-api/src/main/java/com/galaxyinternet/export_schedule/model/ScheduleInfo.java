@@ -1,6 +1,7 @@
 package com.galaxyinternet.export_schedule.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -54,6 +55,8 @@ public class ScheduleInfo extends PagableEntity{
     private String fanceStatus;
     
     private double fanceRate;
+    
+    private List<Long> createtUids;
     
     /**
      * 查询条件-时间类型：1-季度；2-月；3-周
@@ -251,6 +254,14 @@ public class ScheduleInfo extends PagableEntity{
 
 	public void setPeriodType(Byte periodType) {
 		this.periodType = periodType;
+	}
+
+	public List<Long> getCreatetUids() {
+		return createtUids;
+	}
+
+	public void setCreatetUids(List<Long> createtUids) {
+		this.createtUids = createtUids;
 	}
     
     
