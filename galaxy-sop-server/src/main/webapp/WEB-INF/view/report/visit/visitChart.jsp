@@ -95,11 +95,11 @@
                     </dd>
                     <!-- change_week -->
                     <dd class="visitdata_month">
-                        <input type="text" class=" change_month txt time" id="month_start_data" name="" readonly style="height:23px;">                    </dd>
+                        <input type="text" class=" change_month_visit txt time" id="month_start_data" name="" readonly style="height:23px;">                    </dd>
                     <dd class="visitdata_week">
-                        <input type="text" class="weekStartDatepicker txt time" name="" readonly style="height:23px;">
+                        <input type="text" class="visitweekStartDatepicker txt time" name="" readonly style="height:23px;">
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="text" class="weekEndDatepicker txt time" name="" readonly style="height:23px;">
+                        <input type="text" class="visitweekEndDatepicker txt time" name="" readonly style="height:23px;">
                     </dd>
                 </dl>
                 <dl class="fmdl fmdll clearfix" style="width:150px;">
@@ -240,6 +240,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/visit_dataforweek.js"></script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
 <script type="text/javascript">
