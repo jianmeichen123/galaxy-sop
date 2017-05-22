@@ -23,9 +23,18 @@ public class ScheduleInfoTest {
 	{
 		ScheduleInfo info = new ScheduleInfo();
 		info.setProperty("start_time");
-		info.setPeriodType(Byte.valueOf("1"));
+		info.setType(Byte.valueOf("2"));
 		
+		info.setPeriodType(Byte.valueOf("1"));
 		List<Map<String,Object>> data = service.selectTendency(info);
+		System.out.println(data);
+		
+		info.setPeriodType(Byte.valueOf("2"));
+		data = service.selectTendency(info);
+		System.out.println(data);
+		
+		info.setPeriodType(Byte.valueOf("3"));
+		data = service.selectTendency(info);
 		System.out.println(data);
 		
 	}

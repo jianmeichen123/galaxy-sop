@@ -1,5 +1,61 @@
 $(function(){
-   visitTrend(1);
+	$("button[action='querySearch']").click(function(){
+		loadTrendData();
+		$(".period_desc").text('('+$("input[name='periodType']:checked").next().text()+')');
+	});
+   var trend = {};
+   loadTrendData();
+   function loadTrendData()
+   {
+	   trend = {
+			periods:new Array(),
+			plan : new Array(),
+			complete : new Array()
+	   };
+	   var query = {
+			departmentId: null,//$("select[name='departmentId']").val(),
+			createdId: null,//$("select[name='createdId']").val(),
+			isProject: $("input[name='isProject']:checked").val(),
+			periodType: $("input[name='periodType']:checked").val()
+	   };
+	   
+	   sendPostRequestByJsonObj(platformUrl.visitTrend,query,function(data){
+		   if(data.userData.tendency)
+		   {
+			   $.each(data.userData.tendency,function(){
+				   trend.periods.push(this.period);
+				   trend.plan.push(this.count);
+				   trend.complete.push(0);
+			   });
+			   
+			   
+			   query.complete = 1;
+			   
+			   sendPostRequestByJsonObj(platformUrl.visitTrend,query,function(data){
+				   if(data.userData.tendency)
+				   {
+					   var yData2 = new Array();
+					   $.each(data.userData.tendency,function(){
+						   var period = this.period;
+						   var count = this.count;
+						   var len = trend.periods.length;
+						   for(var i=0;i<len;i++)
+						   {
+							   if(trend.periods[i] == period)
+							   {
+								   trend.complete[i] = count;
+							   }
+						   }
+					   });
+					   visitTrend(1);
+				   }
+				   
+			   });
+		   }
+	   });
+	   
+	   
+   }
   function visitTrend(mark){
     var myChart = echarts.init(document.getElementById('visitTrend')); 
     var flag=1; 
@@ -60,13 +116,23 @@ $(function(){
       xAxis : [
           {
               type : 'category',
-              data : ['2014年Q4','2015年Q1','2015年Q2','2015年Q3','2015年Q4','2016年Q1','2016年Q2','2016年Q3','2016年Q4','2017年Q1','2017年Q2','2017年Q3','2017年Q4'],
+              data: trend.periods,
               axisLabel: {
                             show: true,
                             textStyle: {
                                 color: '#666',
                                 fontFamily:'微软雅黑',
                                 align:'center'
+                            },
+                            formatter:function(item){
+                            	var periodType = $("input[name='periodType']:checked").val();
+                            	if(periodType==3 && item.indexOf('-')>=0)
+                        		{
+                            		var from = item.split('-')[0].substr(5);
+                            		var through = item.split('-')[1].substr(5);
+                            		return from+"-"+through;
+                        		}
+                            	return item;
                             }
                         },
                         axisLine:{
@@ -124,7 +190,7 @@ $(function(){
               name:'已完成拜访量',
               type:'bar',
               barWidth:"10",//柱图宽度
-              data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3,55],
+              data: trend.complete,
               itemStyle: {
                           normal: {
                               color: function(params) {
@@ -150,7 +216,7 @@ $(function(){
               name:'计划拜访量',
               type:'bar',
               barWidth:"10",//柱图宽度
-              data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,33],
+              data:trend.plan,
               itemStyle: {
                           normal: {
                               color: function(params) {
@@ -392,7 +458,7 @@ $(function(){
 
 
   $(window).resize(function(event) {
-    visitTrend(1);
+    //visitTrend(1);
   });
 // 圆饼图 方法
 //data_id  id

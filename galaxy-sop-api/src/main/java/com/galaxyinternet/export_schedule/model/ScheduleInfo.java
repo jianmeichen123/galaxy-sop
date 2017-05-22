@@ -48,7 +48,7 @@ public class ScheduleInfo extends PagableEntity{
 
     private Long callonPerson;
     
-    private int isProject;
+    private Integer isProject;
     
     private long countVisit;
     
@@ -64,6 +64,11 @@ public class ScheduleInfo extends PagableEntity{
      * 查询条件-时间类型：1-季度；2-月；3-周
      */
     private Byte periodType;
+    
+    /**
+     * 查询条件-状态：1-已完成
+     */
+    private Byte complete;
 
     
     
@@ -251,11 +256,11 @@ public class ScheduleInfo extends PagableEntity{
         this.callonPerson = callonPerson;
     }
 
-	public int getIsProject() {
+	public Integer getIsProject() {
 		return isProject;
 	}
 
-	public void setIsProject(int isProject) {
+	public void setIsProject(Integer isProject) {
 		this.isProject = isProject;
 	}
 
@@ -273,6 +278,14 @@ public class ScheduleInfo extends PagableEntity{
 
 	public void setCreatetUids(List<Long> createtUids) {
 		this.createtUids = createtUids;
+	}
+
+	public Byte getComplete() {
+		return complete;
+	}
+
+	public void setComplete(Byte complete) {
+		this.complete = complete;
 	}
     
     

@@ -49,14 +49,14 @@
                 <dl class="fmdl fmdll clearfix">
                     <dt>投资事业线：</dt>
                     <dd>
-                    <select name=""><option value="">全部</option></select>
+                    <select name="departmentId"><option value="">全部</option></select>
                     </dd>
                 </dl>
                 
                 <dl class="fmdl fmdll clearfix">
                     <dt>投资经理：</dt>
                     <dd>
-                    <select name=""><option value="">全部</option></select>
+                    <select name="createdId"><option value="">全部</option></select>
                     </dd>
                 </dl>
                 
@@ -65,8 +65,8 @@
                   <dd>
                    <ul class="radios clearfix">
                         <li><input type="radio" checked="">全部</li>
-                        <li><input type="radio" >是</li>
-                        <li><input type="radio" >否</li></ul>
+                        <li><input type="radio" name="isProject" value="1">是</li>
+                        <li><input type="radio" name="isProject" value="0">否</li></ul>
                   </dd>
                 </dl>
                 
@@ -77,9 +77,9 @@
                     <dt>&nbsp;&nbsp;&nbsp;统计时间：</dt>
                     <dt>
                        <ul class="radios clearfix">
-                           <li class="quarterly_btn"><input type="radio" checked>季度</li>
-                           <li class="month_btn"><input type="radio">月</li>
-                           <li class="week_btn"><input type="radio">周</li>
+                           <li class="quarterly_btn"><input type="radio" name="periodType" value="1" checked><span>季度</span></li>
+                           <li class="month_btn"><input type="radio" name="periodType" value="2"><span>月</span></li>
+                           <li class="week_btn"><input type="radio" name="periodType" value="3"><span>周</span></li>
                        </ul>
                     </dt>
                     <dd class="visitdata_quarterly">
@@ -202,7 +202,7 @@
             <h2>
                 <img src="<%=path %>/img/section_2.png" alt="">
                 <p>拜访趋势图</p>
-                <span>(季度)</span>
+                <span class="period_desc">(季度)</span>
             </h2>
             <div class="vertical" id="visitTrend" style="height: 370px;"></div>
         </div>

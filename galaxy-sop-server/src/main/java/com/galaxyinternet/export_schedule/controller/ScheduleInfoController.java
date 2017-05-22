@@ -163,4 +163,30 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 		}
 		sheduleInfo.setCreatetUids(userids);
 	}
+	
+	/**
+	 * 拜访趋势
+	 * @param sheduleInfo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getTendency", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ScheduleInfo> getTendency(@RequestBody ScheduleInfo sheduleInfo){
+		ResponseData<ScheduleInfo> responseBody = new ResponseData<ScheduleInfo>();
+		if(sheduleInfo == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+			return responseBody;
+		}
+		try{
+			setDataUser(sheduleInfo);
+			sheduleInfo.setType(Byte.valueOf("2"));
+			sheduleInfo.setIsDel(Byte.valueOf("0"));
+			List<Map<String,Object>> entityList = scheduleInfoService.selectTendency(sheduleInfo);
+			responseBody.getUserData().put("tendency", entityList);
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR, null, "拜访趋势统计失败!"));
+			logger.error("拜访趋势统计失败!", e);
+		}
+		return responseBody;
+	}
 }
