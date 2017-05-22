@@ -54,6 +54,11 @@ public class ScheduleInfo extends PagableEntity{
     private String fanceStatus;
     
     private double fanceRate;
+    
+    /**
+     * 查询条件-时间类型：1-季度；2-月；3-周
+     */
+    private Byte periodType;
 
     
     public double getFanceRate() {
@@ -238,6 +243,14 @@ public class ScheduleInfo extends PagableEntity{
 
 	public void setIsProject(int isProject) {
 		this.isProject = isProject;
+	}
+
+	public Byte getPeriodType() {
+		return periodType;
+	}
+
+	public void setPeriodType(Byte periodType) {
+		this.periodType = periodType;
 	}
     
     
