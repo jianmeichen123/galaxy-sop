@@ -118,7 +118,20 @@ $(function(){
     $("#quarterly_start_data").val(myyear+"年");
     $("select[name='s_quarterly']").val(Math.round(mymonth/3))
 	//月份视图
-    $(".change_month").val(myyear+"年"+mymonth+"月");
+    $(".change_month_visit").val(myyear+"年"+mymonth+"月");
+    $('.change_month_visit').datepicker({
+		format: "yyyy-mm",
+		language: "zh-CN",
+		minViewMode: 1,
+		autoclose: true
+	}).on('changeDate', function(ev){
+		var today = new Date();
+		var time = ev.date.valueOf();
+		if (today.valueOf() > time+86400000){
+			var date = new Date(time).format("yyyy-MM");
+			$(this).val(ev.date);
+		}
+	});
 	$('.change_month').datepicker({
 		format: "yyyy-mm",
 		language: "zh-CN",
