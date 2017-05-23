@@ -245,6 +245,24 @@
 <script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(6);
+/**
+ * 查询事业线
+ * @version 2016-06-21
+ */
+createCareelineOptions(platformUrl.getCareerlineList,"departmentId");
+/**
+ * 根据事业线查询相应的投资经理
+ * @version 2016-06-21
+ */
+createUserOptions_All(platformUrl.getUserList+$('select[name="departmentId"]').val(), "createdId", 0);
+/**
+ * 改变事业线时获取该事业线下的投资经理
+ * @version 2016-06-21
+ */
+$('select[name="departmentId"]').change(function(){
+	var did = $('select[name="departmentId"]').val();
+    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+});
 </script>
 </html>
 

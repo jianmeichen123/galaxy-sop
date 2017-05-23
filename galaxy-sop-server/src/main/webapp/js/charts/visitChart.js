@@ -1,4 +1,6 @@
 $(function(){
+
+	
 	$("button[action='querySearch']").click(function(){
 		loadTrendData();
 		$(".period_desc").text('('+$("input[name='periodType']:checked").next().text()+')');
