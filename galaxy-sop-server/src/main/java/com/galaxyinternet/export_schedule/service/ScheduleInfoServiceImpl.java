@@ -1,5 +1,8 @@
 package com.galaxyinternet.export_schedule.service;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +14,7 @@ import com.galaxyinternet.export_schedule.dao.ScheduleInfoDao;
 import com.galaxyinternet.export_schedule.model.ScheduleInfo;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 @Service("scheduleInfoService")
 public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> implements ScheduleInfoService{
@@ -94,9 +98,118 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 
 	@Override
 	public List<Map<String,Object>> selectTendency(ScheduleInfo info) {
-		return scheduleInfoDao.selectTendency(info);
+		List<Map<String,Object>> result = getEmptyResult(info.getPeriodType(), info.getStartTimeFrom(), info.getStartTimeThrough());
+		
+		List<Map<String,Object>> actualList = scheduleInfoDao.selectTendency(info);
+		for(Map<String,Object> actItem : actualList)
+		{
+			Object actKey = actItem.get("period");
+			for(Map<String,Object> item : result)
+			{
+				Object key = item.get("period");
+				if(key.equals(actKey))
+				{
+					item.put("count", actItem.get("count"));
+				}
+			}
+		}
+		return result;
+	}
+	/**
+	 * 生成日期区间
+	 * @param periodType
+	 * @param from
+	 * @param through
+	 * @return
+	 */
+	private List<Map<String,Object>> getEmptyResult(Byte periodType, Date from, Date through)
+	{
+		if(3 == periodType.intValue())
+		{
+			return getWeeklyResult(from, through);
+		}
+		else if(2==periodType.intValue())
+		{
+			return getMonthlyResult(from, through);
+		}
+		return getQuarterlyResult(from, through);
+	}
+	private List<Map<String,Object>> getQuarterlyResult(Date from, Date through)
+	{
+		List<Map<String,Object>> list = new ArrayList<>();
+		
+		Calendar fromCal = Calendar.getInstance();
+		fromCal.setTime(from);
+		Calendar throughCal = Calendar.getInstance();
+		throughCal.setTime(through);
+		
+		int quarter = DateUtil.getQuarterly(from);
+		int preQuarter = 0;
+		
+		while(fromCal.before(throughCal))
+		{
+			if(quarter != preQuarter)
+			{
+				String period = fromCal.get(Calendar.YEAR)+"年Q"+quarter;
+				Map<String,Object> item = new HashMap<>();
+				item.put("period", period);
+				item.put("count", 0);
+				list.add(item);
+			}
+			preQuarter = quarter;
+			fromCal.add(Calendar.MONTH, 1);
+			quarter = DateUtil.getQuarterly(fromCal.getTime());
+		}
+		
+		return list;
 	}
 	
+	private List<Map<String,Object>> getMonthlyResult(Date from, Date through)
+	{
+		List<Map<String,Object>> list = new ArrayList<>();
+		
+		Calendar fromCal = Calendar.getInstance();
+		fromCal.setTime(from);
+		Calendar throughCal = Calendar.getInstance();
+		throughCal.setTime(through);
+		
+		
+		while(fromCal.before(throughCal))
+		{
+			String period = fromCal.get(Calendar.YEAR)+"-"+(fromCal.get(Calendar.MONTH)+1);
+			Map<String,Object> item = new HashMap<>();
+			item.put("period", period);
+			item.put("count", 0);
+			list.add(item);
+			fromCal.add(Calendar.MONTH, 1);
+		}
+		
+		return list;
+	}
+	
+	private List<Map<String,Object>> getWeeklyResult(Date from, Date through)
+	{
+		List<Map<String,Object>> list = new ArrayList<>();
+		
+		Calendar fromCal = Calendar.getInstance();
+		fromCal.setTime(from);
+		Calendar throughCal = Calendar.getInstance();
+		throughCal.setTime(through);
+		
+		while(fromCal.before(throughCal))
+		{
+			String period = fromCal.get(Calendar.YEAR)+"/"+(fromCal.get(Calendar.MONTH)+1)+"/"+fromCal.get(Calendar.DAY_OF_MONTH);
+			fromCal.add(Calendar.DAY_OF_YEAR, 6);
+			period += "-"+fromCal.get(Calendar.YEAR)+"/"+(fromCal.get(Calendar.MONTH)+1)+"/"+fromCal.get(Calendar.DAY_OF_MONTH);
+			Map<String,Object> item = new HashMap<>();
+			item.put("period", period);
+			item.put("count", 0);
+			list.add(item);
+			fromCal.add(Calendar.DAY_OF_YEAR, 1);
+		}
+		
+		return list;
+	}
 	
 
 	
