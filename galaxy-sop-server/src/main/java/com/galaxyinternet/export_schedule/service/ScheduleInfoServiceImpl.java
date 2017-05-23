@@ -30,14 +30,16 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 	@Override
 	public Map<String, Object> getVisitStatistics(ScheduleInfo info) {
 		// TODO Auto-generated method stub
-		double visitRate = 0;
+		String visitRate = "0.00%";
 		//计划拜访量
 		long visitCount = scheduleInfoDao.getVisitCount(info);
 		//已完成拜访量
 		long completedVisitCount = scheduleInfoDao.getCompletedVisit(info);
 		//访谈完成率
 		if(visitCount != 0 && completedVisitCount != 0 ){
-			visitRate = Math.round(completedVisitCount/visitCount)/100.0;
+			double k = (double)completedVisitCount/visitCount*100;
+			java.math.BigDecimal   big   =   new   java.math.BigDecimal(k);  
+			visitRate = big.setScale(2,java.math.BigDecimal.ROUND_HALF_UP).doubleValue() +"%";
 		}
 		Map<String,Object> visitMap = new HashMap<String,Object>();
 		visitMap.put("visitCount", visitCount);
