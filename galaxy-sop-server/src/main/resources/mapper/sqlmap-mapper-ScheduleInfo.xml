@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.galaxyinternet.model.project.ScheduleInfo" >
-  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.ScheduleInfo" >
+<mapper namespace="com.galaxyinternet.export_schedule.model.ScheduleInfo" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.export_schedule.model.ScheduleInfo" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="type" property="type" jdbcType="TINYINT" />
@@ -25,33 +25,74 @@
   </resultMap>
   
   <sql id="Base_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+    <where>
+			<trim prefixOverrides="and">
+			     <if test="id != null" >
+			        and id = #{id,jdbcType=BIGINT}
+			      </if>
+			      <if test="parentId != null" >
+			        and parent_id = #{parentId,jdbcType=BIGINT}
+			      </if>
+			      <if test="type != null" >
+			        and type = #{type,jdbcType=TINYINT}
+			      </if>
+			      <if test="nameId != null" >
+			        and name_id = #{nameId,jdbcType=BIGINT}
+			      </if>
+			      <if test="name != null" >
+			        and name = #{name,jdbcType=VARCHAR}
+			      </if>
+			      <if test="projectType != null" >
+			        and project_type = #{projectType,jdbcType=TINYINT}
+			      </if>
+			      <if test="projectId != null" >
+			        and project_id = #{projectId,jdbcType=BIGINT}
+			      </if>
+			      <if test="startTime != null" >
+			        and start_time = #{startTime,jdbcType=TIMESTAMP}
+			      </if>
+			      <if test="endTime != null" >
+			        and end_time = #{endTime,jdbcType=TIMESTAMP}
+			      </if>
+			      <if test="isAllday != null" >
+			        and is_allday = #{isAllday,jdbcType=TINYINT}
+			      </if>
+			      <if test="wakeupId != null" >
+			        and wakeup_id = #{wakeupId,jdbcType=BIGINT}
+			      </if>
+			      <if test="remark != null" >
+			        and remark = #{remark,jdbcType=VARCHAR}
+			      </if>
+			      <if test="createdId != null" >
+			        and created_id = #{createdId,jdbcType=BIGINT}
+			      </if>
+			      <if test="updatedId != null" >
+			        and updated_id = #{updatedId,jdbcType=BIGINT}
+			      </if>
+			      <if test="createdTime != null" >
+			        and created_time = #{createdTime,jdbcType=BIGINT}
+			      </if>
+			      <if test="updatedTime != null" >
+			        and updated_time = #{updatedTime,jdbcType=BIGINT}
+			      </if>
+			      <if test="significance != null" >
+			        and significance = #{significance,jdbcType=TINYINT}
+			      </if>
+			      <if test="callonAddress != null" >
+			        and callon_address = #{callonAddress,jdbcType=VARCHAR}
+			      </if>
+			      <if test="isDel != null" >
+			        and is_del = #{isDel,jdbcType=TINYINT}
+			      </if>
+			      <if test="callonPerson != null" >
+			        and callon_person = #{callonPerson,jdbcType=BIGINT}
+			      </if>
+			</trim>
+	</where>
+	<if test="sorting != null">order by ${sorting}</if>
+	<if test="offset != null and limit != null">
+		limit #{offset}, #{limit}
+	</if>
   </sql>
   
   <sql id="Base_Column_List" >
@@ -81,7 +122,7 @@
   </delete>
   
  
-  <insert id="insert" parameterType="com.galaxyinternet.model.project.ScheduleInfo" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.galaxyinternet.export_schedule.model.ScheduleInfo" >
     insert into schedule_info (id, parent_id, type, 
       name_id, name, project_type, 
       project_id, start_time, end_time, 
@@ -104,5 +145,199 @@
 		<include refid="Base_Where_Clause" />
 	</select>
 	
+	
+	<!-- 计划拜访量 -->
+	<select id="selectVisitCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from schedule_info
+		 <where>
+			<trim prefixOverrides="and">
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			     </if>
+			        and type = 2
+			     <if test="isProject != null" >
+			        and project_id != ''
+			     </if>
+			     <if test="startTime != null" >
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     <if test="endTime != null" >
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			</trim>
+		</where>
+	</select>
+	
+	<!-- 已完成拜访量 -->
+	<select id="selectVisitCompletedCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_interview_record
+		 where schedule_id in (
+		 select id from schedule_info
+		 <where>
+			<trim prefixOverrides="and">
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			     </if>
+			        and type = 2
+			     <if test="isProject != null" >
+			        and project_id != ''
+			     </if>
+			      <if test="startTime != null" >
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     <if test="endTime != null" >
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			</trim>
+		</where>
+		)
+	</select>
+	
+ 	<!-- 拜访轮次 -->
+	<select id="selectVisitFanceStatusCount" resultMap="BaseResultMap" parameterType="java.util.Map">
+	
+        SELECT sp.finance_status as financeStatus,COUNT(si.id) as countVisit FROM schedule_info si,sop_project sp 
+         <where>
+			<trim prefixOverrides="and">
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			     </if>
+			        and type = 2
+			        and project_id != ''
+			      <if test="startTime != null" >
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     <if test="endTime != null" >
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     and si.project_id = sp.id
+			</trim>
+		</where>
+         GROUP BY sp.finance_status
 
+	</select> 
+	
+	<!-- 访谈记录 -->
+	<select id="selectAllVisitCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from schedule_info
+		 <where>
+			<trim prefixOverrides="and">
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			     </if>
+			        and type = 2
+			     <if test="isProject != null" >
+			        and project_id != ''
+			     </if>
+			     <if test="startTime != null" >
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     <if test="endTime != null" >
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     and <![CDATA[end_time >= NOW()]]>
+			</trim>
+		</where>
+	</select>
+	
+	<!-- 访谈记录 未缺失-->
+	<select id="selectInterviewRecordCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select COUNT(si.id) from schedule_info si,sop_interview_record sr
+		 <where>
+			<trim prefixOverrides="and">
+			    <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			     </if>
+			        and si.type = 2
+			     <if test="isProject != null" >
+			        and si.project_id != ''
+			     </if>
+			     <if test="startTime != null" >
+			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     <if test="endTime != null" >
+			        and <![CDATA[si.end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     </if>
+			     and <![CDATA[si.end_time >= NOW()]]>
+			     and sr.schedule_id = si.id
+			</trim>
+		</where>
+	</select>
+	
+	<!-- 拜访趋势-季度 -->
+	<sql id="tendencyQuarterlySelect">
+		select CONCAT(year(start_time),'年Q',QUARTER(start_time)) as period, count(1) as count
+	</sql>
+	<!-- 拜访趋势-月度 -->
+	<sql id="tendencyMonthlySelect">
+		select concat(year(start_time),'-',month(start_time)) as period, count(1) as count
+	</sql>
+	<!-- 拜访趋势-周 -->
+	<sql id="tendencyWeeklySelect">
+		select concat(year(week_start),'/',month(week_start),'/',DAYOFMONTH(week_start),'-',year(week_end),'/',month(week_end),'/',DAYOFMONTH(week_end)) as period, count(1) as count
+	</sql>
+	
+	<sql id="tendencySubQuery">
+		select start_time
+		<if test="periodType == 3">
+		,
+		DATE_SUB(start_time,INTERVAL WEEKDAY(start_time) DAY ) week_start,
+		DATE_ADD(start_time,INTERVAL 6-WEEKDAY(start_time) DAY ) week_end
+		</if>
+		from schedule_info
+		<include refid="Base_Where_Clause" />
+		<if test="startTimeFrom != null" >
+			and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
+		</if>
+		<if test="startTimeThrough != null" >
+			and <![CDATA[start_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
+		</if>
+		<if test="complete == 1" >
+			and exists (select id from sop_interview_record where schedule_id = schedule_info.id)
+		</if>
+		<if test="isProject == 0" >
+	        and project_id is null
+	     </if>
+	     <if test="isProject == 1" >
+	        and project_id is not null
+	     </if>
+	</sql>
+	<select id="selectTendency" resultType="hashmap" parameterType="java.util.Map">
+		<choose>
+			<when test="periodType == 1">
+				<include refid="tendencyQuarterlySelect"/>
+			</when>
+			<when test="periodType == 2">
+				<include refid="tendencyMonthlySelect"/>
+			</when>
+			<otherwise>
+				<include refid="tendencyWeeklySelect"/>
+			</otherwise>
+		</choose>
+		from (
+			<include refid="tendencySubQuery"/>
+			order by start_time
+		) t
+		group by period;
+	</select>
 </mapper>

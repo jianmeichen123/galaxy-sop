@@ -1159,7 +1159,12 @@ var platformUrl = {
 	/**
 	 * 高管报表----拜访管理
 	 */
-	 visitChart: Constants.sopEndpointURL + "/galaxy/report/visitChart/"
+	 visitChart: Constants.sopEndpointURL + "/galaxy/report/visitChart/",
+	 
+	 /**
+	 * 高管报表----拜访管理
+	 */
+	 visitTrend: Constants.sopEndpointURL + "/galaxy/visit/getTendency"
 }
 
 /**

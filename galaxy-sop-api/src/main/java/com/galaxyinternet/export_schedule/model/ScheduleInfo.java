@@ -1,6 +1,7 @@
-package com.galaxyinternet.model.project;
+package com.galaxyinternet.export_schedule.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -8,7 +9,6 @@ public class ScheduleInfo extends PagableEntity{
 	
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
 
     private Long parentId;
 
@@ -47,16 +47,67 @@ public class ScheduleInfo extends PagableEntity{
     private Byte isDel;
 
     private Long callonPerson;
+    
+    private Integer isProject;
+    
+    private long countVisit;
+    
+    private String fanceStatus;
+    
+    private double fanceRate;
+    
+    private List<Long> createtUids;
+    
+    private Long departmentId;
+    
+    /**
+     * 查询条件-时间类型：1-季度；2-月；3-周
+     */
+    private Byte periodType;
+    
+    /**
+     * 查询条件-状态：1-已完成
+     */
+    private Byte complete;
+    
+    private Date startTimeFrom;
+    
+    private Date startTimeThrough;
+    
+    
+    public Long getDepartmentId() {
+		return departmentId;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public double getFanceRate() {
+		return fanceRate;
+	}
 
-    public Long getParentId() {
+	public void setFanceRate(double fanceRate) {
+		this.fanceRate = fanceRate;
+	}
+
+	public long getCountVisit() {
+		return countVisit;
+	}
+
+	public void setCountVisit(long countVisit) {
+		this.countVisit = countVisit;
+	}
+
+	public String getFanceStatus() {
+		return fanceStatus;
+	}
+
+	public void setFanceStatus(String fanceStatus) {
+		this.fanceStatus = fanceStatus;
+	}
+
+	public Long getParentId() {
         return parentId;
     }
 
@@ -207,4 +258,54 @@ public class ScheduleInfo extends PagableEntity{
     public void setCallonPerson(Long callonPerson) {
         this.callonPerson = callonPerson;
     }
+
+	public Integer getIsProject() {
+		return isProject;
+	}
+
+	public void setIsProject(Integer isProject) {
+		this.isProject = isProject;
+	}
+
+	public Byte getPeriodType() {
+		return periodType;
+	}
+
+	public void setPeriodType(Byte periodType) {
+		this.periodType = periodType;
+	}
+
+	public List<Long> getCreatetUids() {
+		return createtUids;
+	}
+
+	public void setCreatetUids(List<Long> createtUids) {
+		this.createtUids = createtUids;
+	}
+
+	public Byte getComplete() {
+		return complete;
+	}
+
+	public void setComplete(Byte complete) {
+		this.complete = complete;
+	}
+
+	public Date getStartTimeFrom() {
+		return startTimeFrom;
+	}
+
+	public void setStartTimeFrom(Date startTimeFrom) {
+		this.startTimeFrom = startTimeFrom;
+	}
+
+	public Date getStartTimeThrough() {
+		return startTimeThrough;
+	}
+
+	public void setStartTimeThrough(Date startTimeThrough) {
+		this.startTimeThrough = startTimeThrough;
+	}
+    
+    
 }
