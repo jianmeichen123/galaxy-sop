@@ -77,7 +77,7 @@ $(function(){
 	   endTime.setSeconds(59);
 	   endTime.setMilliseconds(999)
 	   
-	   return {startTime:startTime, endTime:endTime};
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
    /**
     * 获取月度起止时间
@@ -132,7 +132,7 @@ $(function(){
 	   endTime.setSeconds(59);
 	   endTime.setMilliseconds(999)
 	   
-	   return {startTime:startTime, endTime:endTime};
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
    
    /**
@@ -154,7 +154,7 @@ $(function(){
 	   
 	   var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
 	   
-	   return {startTime:new Date(startTime), endTime:endTime};
+	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
    
    
@@ -168,8 +168,8 @@ $(function(){
 			complete : new Array()
 	   };
 	   var query = {
-			startTimeFrom:datePeriod.startTime.toLocaleString(),
-			startTimeThrough:datePeriod.endTime.toLocaleString(),
+			startTimeFrom:datePeriod.startTime,
+			startTimeThrough:datePeriod.endTime,
 			departmentId: null,//$("select[name='departmentId']").val(),
 			createdId: null,//$("select[name='createdId']").val(),
 			isProject: $("input[name='isProject']:checked").val(),
