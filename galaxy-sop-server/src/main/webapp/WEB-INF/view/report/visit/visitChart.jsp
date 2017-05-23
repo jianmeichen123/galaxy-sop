@@ -38,7 +38,7 @@
      
     <!--右中部内容-->
  	<div class="ritmin">
- 	<h2>拜访统计</h2>
+ 	<h3>拜访统计</h3>
 		 <div class="tabtable visitChartCon">
         <div class="bars visit_bars"><div class="min_document clearfix" id="zixun-custom-toolbar">
         
@@ -111,11 +111,11 @@
 
         <!-- section1 -->
         <div class="visit_box visit_one">
-            <h2>
+            <h3>
                 <img src="<%=path %>/img/section_1.png" alt="">
                 <p>拜访量统计</p>
                 <span>(2017年第2季度)</span>
-            </h2>
+            </h3>
             <ul class="fl_three clearfix">
                 <li>
                     <div>
@@ -199,19 +199,19 @@
         </div>
         <!-- section3 -->
         <div class="visit_box visit_three">
-            <h2>
+            <h3>
                 <img src="<%=path %>/img/section_2.png" alt="">
                 <p>拜访趋势图</p>
                 <span class="period_desc">(季度)</span>
-            </h2>
+            </h3>
             <div class="vertical" id="visitTrend" style="height: 370px;"></div>
         </div>
         <div class="visit_box visit_four">
-            <h2>
+            <h3>
                 <img src="<%=path %>/img/section_3.png" alt="">
                 <p>拜访统计图</p>
                 <span>(2017年第2季度)</span>
-            </h2>
+            </h3>
             <ul class="vertical_tab clearfix">
                 <li class="active">已完成拜访量</li>
                 <li class="last">计划拜访量</li>
