@@ -49,7 +49,7 @@
                 <dl class="fmdl fmdll clearfix">
                     <dt>投资事业线：</dt>
                     <dd>
-                    <select name="departmentId"><option value="">全部</option></select>
+                    <select name="departmentId"><option value="0">全部</option></select>
                     </dd>
                 </dl>
                 
@@ -66,7 +66,7 @@
                    <ul class="radios clearfix">
                         <li><input type="radio" checked="">全部</li>
                         <li><input type="radio" name="isProject" value="1">是</li>
-                        <li><input type="radio" name="isProject" value="">否</li></ul>
+                        <li><input type="radio" name="isProject" value="0">否</li></ul>
                   </dd>
                 </dl>
                 

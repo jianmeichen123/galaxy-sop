@@ -171,7 +171,7 @@ $(function(){
 	   var query = {
 			startTimeFrom:datePeriod.startTime,
 			startTimeThrough:datePeriod.endTime,
-			departmentId: null,//$("select[name='departmentId']").val(),
+			departmentId: $("select[name='departmentId']").val(),
 			createdId: null,//$("select[name='createdId']").val(),
 			isProject: $("input[name='isProject']:checked").val(),
 			periodType: $("input[name='periodType']:checked").val()
