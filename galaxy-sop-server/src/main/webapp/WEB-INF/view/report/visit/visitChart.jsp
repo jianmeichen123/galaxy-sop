@@ -38,7 +38,7 @@
      
     <!--右中部内容-->
  	<div class="ritmin">
- 	<h3>拜访统计</h3>
+ 	<h2>拜访统计</h2>
 		 <div class="tabtable visitChartCon">
         <div class="bars visit_bars"><div class="min_document clearfix" id="zixun-custom-toolbar">
         
