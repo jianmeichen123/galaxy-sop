@@ -3,6 +3,7 @@ package com.galaxyinternet.export_schedule.model;
 import java.util.Date;
 import java.util.List;
 
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class ScheduleInfo extends PagableEntity{
@@ -104,7 +105,12 @@ public class ScheduleInfo extends PagableEntity{
 	}
 
 	public void setFanceStatus(String fanceStatus) {
-		this.fanceStatus = fanceStatus;
+		this.fanceStatus = fanceStatus == null ? null: fanceStatus.trim();
+        if(fanceStatus != null){
+			this.fanceStatus = DictEnum.financeStatus.getNameByCode(fanceStatus);
+		}else{
+			this.fanceStatus ="不明确";
+		}
 	}
 
 	public Long getParentId() {

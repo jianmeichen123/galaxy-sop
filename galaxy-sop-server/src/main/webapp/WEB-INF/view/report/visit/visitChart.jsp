@@ -66,7 +66,7 @@
                    <ul class="radios clearfix">
                         <li><input type="radio" checked="">全部</li>
                         <li><input type="radio" name="isProject" value="1">是</li>
-                        <li><input type="radio" name="isProject" value="0">否</li></ul>
+                        <li><input type="radio" name="isProject" value="">否</li></ul>
                   </dd>
                 </dl>
                 
@@ -111,17 +111,17 @@
 
         <!-- section1 -->
         <div class="visit_box visit_one">
-            <h2>
+            <h3>
                 <img src="<%=path %>/img/section_1.png" alt="">
                 <p>拜访量统计</p>
                 <span>(2017年第2季度)</span>
-            </h2>
-            <ul class="fl_three clearfix">
+            </h3>
+      <ul class="fl_three clearfix">
                 <li>
                     <div>
                         <img src="<%=path %>/img/visit_one.png" alt="">
                         <section>
-                            <p>5000</p>
+                            <p id="planVisit">5000</p>
                             <span>计划拜访量</span>
                         </section>
                     </div>
@@ -130,7 +130,7 @@
                     <div>
                         <img src="<%=path %>/img/visit_two.png" alt="">
                         <section>
-                            <p>3500</p>
+                            <p id="completeVisit">3500</p>
                             <span>已完成拜访量</span>
                         </section>
                     </div>
@@ -139,7 +139,7 @@
                     <div>
                         <img src="<%=path %>/img/visit_three.png" alt="">
                         <section>
-                            <p>70%</p>
+                            <p id="interviewRate">70%</p>
                             <span>访谈完成率</span>
                         </section>
                     </div>
@@ -199,19 +199,19 @@
         </div>
         <!-- section3 -->
         <div class="visit_box visit_three">
-            <h2>
+            <h3>
                 <img src="<%=path %>/img/section_2.png" alt="">
                 <p>拜访趋势图</p>
                 <span class="period_desc">(季度)</span>
-            </h2>
+            </h3>
             <div class="vertical" id="visitTrend" style="height: 370px;"></div>
         </div>
         <div class="visit_box visit_four">
-            <h2>
+            <h3>
                 <img src="<%=path %>/img/section_3.png" alt="">
                 <p>拜访统计图</p>
                 <span>(2017年第2季度)</span>
-            </h2>
+            </h3>
             <ul class="vertical_tab clearfix">
                 <li class="active">已完成拜访量</li>
                 <li class="last">计划拜访量</li>
@@ -245,6 +245,24 @@
 <script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(6);
+/**
+ * 查询事业线
+ * @version 2016-06-21
+ */
+createCareelineOptions(platformUrl.getCareerlineList,"departmentId");
+/**
+ * 根据事业线查询相应的投资经理
+ * @version 2016-06-21
+ */
+createUserOptions_All(platformUrl.getUserList+$('select[name="departmentId"]').val(), "createdId", 0);
+/**
+ * 改变事业线时获取该事业线下的投资经理
+ * @version 2016-06-21
+ */
+$('select[name="departmentId"]').change(function(){
+	var did = $('select[name="departmentId"]').val();
+    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+});
 </script>
 </html>
 

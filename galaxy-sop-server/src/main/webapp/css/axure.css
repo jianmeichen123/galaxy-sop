@@ -2708,21 +2708,22 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         margin-top: 10px;
         padding: 30px;
     }
-    .visit_box h2{
+    .visit_box h3{
         font-weight: normal;
         font-size:18px;
         color:#4b5880;
         text-align:left;
         display: inline-block;
+        line-height:1;
     }
     .visit_box p{display: inline-block;vertical-align: middle;}
-    .visit_box h2 span{
+    .visit_box h3 span{
         font-size:12px;
         color:#666666;
         text-align:left;
         vertical-align: bottom;
     }
-    .visit_box h2 img{
+    .visit_box h3 img{
         width: 20px;
         display: inline-block;
         vertical-align: middle;
@@ -2737,6 +2738,9 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         text-align: center;
+    }
+    .visit_two .fl_three li{
+    height: 380px;
     }
     .fl_two li{
         float: left;
@@ -2811,7 +2815,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         width: 350px;
         height: 330px;
         margin: 0 auto;
-        margin-top: 20px;
+        margin-top: 15px;
         overflow: visible;
         text-align: center;
     }
@@ -2828,6 +2832,9 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     }
     .vertical_tab li.active{
     color: #53b1fd;
+    }
+    .vertical{
+    margin-bottom:20px;
     }
     .last{
         padding-left: 20px;
