@@ -56,7 +56,7 @@
                 <dl class="fmdl fmdll clearfix">
                     <dt>投资经理：</dt>
                     <dd>
-                    <select name="createdId"><option value="">全部</option></select>
+                    <select name="createdId"><option value="0">全部</option></select>
                     </dd>
                 </dl>
                 

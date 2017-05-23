@@ -172,7 +172,7 @@ $(function(){
 			startTimeFrom:datePeriod.startTime,
 			startTimeThrough:datePeriod.endTime,
 			departmentId: $("select[name='departmentId']").val(),
-			createdId: null,//$("select[name='createdId']").val(),
+			//createdId: $("select[name='createdId']").val(),
 			isProject: $("input[name='isProject']:checked").val(),
 			periodType: $("input[name='periodType']:checked").val()
 	   };
