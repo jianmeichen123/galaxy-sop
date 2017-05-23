@@ -66,7 +66,7 @@
                    <ul class="radios clearfix">
                         <li><input type="radio" checked="">全部</li>
                         <li><input type="radio" name="isProject" value="1">是</li>
-                        <li><input type="radio" name="isProject" value="0">否</li></ul>
+                        <li><input type="radio" name="isProject" value="">否</li></ul>
                   </dd>
                 </dl>
                 
