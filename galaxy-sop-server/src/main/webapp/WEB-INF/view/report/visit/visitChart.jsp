@@ -261,7 +261,7 @@ createUserOptions_All(platformUrl.getUserList+$('select[name="departmentId"]').v
  */
 $('select[name="departmentId"]').change(function(){
 	var did = $('select[name="departmentId"]').val();
-    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+    createUserOptions_All(platformUrl.getUserList+did, "createdId", 1);
 });
 </script>
 </html>

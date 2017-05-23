@@ -146,7 +146,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 	 */
 	public void setDataUser(ScheduleInfo sheduleInfo){
 		List<Long> userids = new ArrayList<Long>();
-		if(sheduleInfo.getCreatedId() == 0 && sheduleInfo.getDepartmentId() != 0){
+		if((sheduleInfo.getCreatedId() == 0 || sheduleInfo.getCreatedId() == null) && sheduleInfo.getDepartmentId() != 0){
 			Map<String,Object> params = new HashMap<String,Object>();
 			params.put("departmentId", sheduleInfo.getDepartmentId());
 			List<User> users = userService.querytUserByParams(params);
@@ -157,7 +157,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 				sheduleInfo.setCreatetUids(userids);
 			}
 		}
-		if(sheduleInfo.getCreatedId() != 0){
+		if(sheduleInfo.getCreatedId() != 0 && sheduleInfo.getCreatedId() != null){
 			userids.clear();
 			userids.add(sheduleInfo.getCreatedId());
 			sheduleInfo.setCreatetUids(userids);
