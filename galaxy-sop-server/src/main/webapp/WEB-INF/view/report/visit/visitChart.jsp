@@ -116,12 +116,12 @@
                 <p>拜访量统计</p>
                 <span>(2017年第2季度)</span>
             </h3>
-            <ul class="fl_three clearfix">
+      <ul class="fl_three clearfix">
                 <li>
                     <div>
                         <img src="<%=path %>/img/visit_one.png" alt="">
                         <section>
-                            <p>5000</p>
+                            <p id="planVisit">5000</p>
                             <span>计划拜访量</span>
                         </section>
                     </div>
@@ -130,7 +130,7 @@
                     <div>
                         <img src="<%=path %>/img/visit_two.png" alt="">
                         <section>
-                            <p>3500</p>
+                            <p id="completeVisit">3500</p>
                             <span>已完成拜访量</span>
                         </section>
                     </div>
@@ -139,7 +139,7 @@
                     <div>
                         <img src="<%=path %>/img/visit_three.png" alt="">
                         <section>
-                            <p>70%</p>
+                            <p id="interviewRate">70%</p>
                             <span>访谈完成率</span>
                         </section>
                     </div>

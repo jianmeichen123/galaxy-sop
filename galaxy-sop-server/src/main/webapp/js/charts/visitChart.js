@@ -157,7 +157,6 @@ $(function(){
 	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
    
-   
    function loadTrendData()
    {
 	   var datePeriod = getDatePeriod();
@@ -176,7 +175,7 @@ $(function(){
 			periodType: $("input[name='periodType']:checked").val()
 	   };
 	   
-	   sendPostRequestByJsonObj(platformUrl.visitTrend,query,function(data){
+	sendPostRequestByJsonObj(platformUrl.visitTrend,query,function(data){
 		   if(data.userData.tendency)
 		   {
 			   $.each(data.userData.tendency,function(){
@@ -210,9 +209,84 @@ $(function(){
 			   });
 		   }
 	   });
-	   
-	   
+	   visit(query);
+	   projectVisit(query);
+	   visitFanceStatus(query);
+	   recordVisit(query);
    }
+   //拜访计划
+   function visit(query){
+	    var url = Constants.sopEndpointURL+"galaxy/visit/getVisitStatistics";
+	    sendPostRequestByJsonObj(url,query,function(data){
+					    var json = eval(data);
+						 var map = json.userData;
+						 $("#planVisit").html(map.visitCount);
+						 $("#completeVisit").html(map.completedVisitCount);
+						 $("#interviewRate").html(map.visitRate);
+					   
+				   });
+	  
+	  
+	  } 
+   //项目拜访
+   function projectVisit(query){
+	    var url = Constants.sopEndpointURL+"galaxy/visit/getProjectVisit";
+	    sendPostRequestByJsonObj(url,query,function(data){
+					    var json = eval(data);
+						 var map = json.userData;
+						 //  sec1
+						 var sec1_radius=[0,"60%"];
+						 var sec1_data=[
+						         {value:map.isProVisit, name:'项目拜访'},
+						         {value:map.isNoVisit, name:'非项目拜访访'},
+						  ]
+						// sec1
+						 data_pie("project_visit","#5ceaf0",['#90e6fb','#ff94b1'],sec1_data,sec1_radius,false);
+
+					   
+				   });
+	  
+	  
+	  } 
+   //融资轮次
+   function visitFanceStatus(query){
+	    var url = Constants.sopEndpointURL+"galaxy/visit/getVisitFanceStatus";
+	    sendPostRequestByJsonObj(url,query,function(data){
+					     var json = eval(data);
+						 var arr = json.entityList;
+						 // sec2
+						 var sec2_radius=["20%","60%"];
+						 var sec2_data=[];
+						 for(var item in arr){
+							 var str = {};
+							 str.value = arr[item].countVisit;
+							 str.name = arr[item].fanceStatus;
+							 sec2_data.push(str);
+						 }
+						 console.log(sec2_data);
+						 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
+						 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area");
+				   });
+	  
+	  
+	  } 
+   //访谈记录是否缺失
+   function recordVisit(query){
+	    var url = Constants.sopEndpointURL+"galaxy/visit/getRecordVisit";
+	    sendPostRequestByJsonObj(url,query,function(data){
+					     var json = eval(data);
+						 var map = json.userData;
+						// sec3
+						 var sec3_radius=["28%","60%"];
+						 var sec3_data=[
+						                 {value:map.part, name:'记录未缺失'},
+						                 {value:map.nopart, name:'记录缺失'}
+						               ]
+						 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false);
+				   });
+	  
+	  
+	  } 
   function visitTrend(mark){
     var myChart = echarts.init(document.getElementById('visitTrend')); 
     var flag=1; 
@@ -678,50 +752,13 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
         }
     ],
     color:data_color
-};
+
+    };
 var sdata_id = echarts.init(document.getElementById(data_id));
 sdata_id.setOption(option, true);
 }
-//  sec1
-var sec1_radius=[0,"60%"];
-var sec1_data=[
-        {value:335, name:'项目拜访'},
-        {value:679, name:'非项目拜访访'},
-      ]
-data_pie("project_visit","#5ceaf0",['#90e6fb','#ff94b1'],sec1_data,sec1_radius,false);
 
-// sec2
-var sec2_radius=["20%","60%"];
-var sec2_data=[
-                {value:335, name:'尚未融资1'},
-                {value:310, name:'已被收购3'},
-                {value:234, name:'preBsdfd'},
-                {value:135, name:'不明确'},
-                {value:200, name:'preIPO'},
-                {value:50, name:'新三板ff'},
-                {value:335, name:'尚未融资f'},
-                {value:310, name:'已被收购g'},
-                {value:234, name:'preBc'},
-                {value:135, name:'不明确q'},
-                {value:200, name:'preIPO'},
-                {value:50, name:'新三板d'},
-                {value:335, name:'尚未融资b'},
-                {value:310, name:'已被收购v'},
-                {value:234, name:'preB'},
-                {value:135, name:'不明确s'},
-                {value:200, name:'preIPObb'},
-                {value:50, name:'新三板'}
-              ]
-var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
-data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area");
 
-// sec3
-var sec3_radius=["28%","60%"];
-var sec3_data=[
-                {value:335, name:'记录未缺失'},
-                {value:100, name:'记录缺失'}
-              ]
-data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false);
 // tab点击事件
   $(".vertical_tab li").click(function(event) {
     $(".vertical_tab li").removeClass("active");

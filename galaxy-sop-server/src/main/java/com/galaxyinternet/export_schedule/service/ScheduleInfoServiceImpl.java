@@ -52,17 +52,8 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 	@Override
 	public List<ScheduleInfo> getVisitFanceStatus(ScheduleInfo info) {
 		//计划拜访量
-		long visitCount = scheduleInfoDao.getVisitCount(info);
 		// TODO Auto-generated method stub
 		List<ScheduleInfo> list = scheduleInfoDao.getVisitFanceStatus(info);
-		if(list != null && list.size() > 0){
-			for(ScheduleInfo sf : list){
-				double count = sf.getCountVisit();
-				if(visitCount != 0){
-					sf.setFanceRate(Math.round(count/visitCount)/100.0);
-				}
-			}
-		}
 		return list;
 	}
     /**
@@ -76,22 +67,11 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 		//项目拜访
 	    info.setIsProject(1);
 	    long isProVisit = scheduleInfoDao.getVisitCount(info);
-	    double isProRate = 0;
-	    double isNoProRate = 0;
-	    if(isAllProVisit != 0){
-	    	isProRate = Math.round(isProVisit/isAllProVisit)/100.0;
-	    }
 	    //非项目拜访
 	    long isNoVisit = isAllProVisit - isProVisit;
-	    if(isAllProVisit != 0){
-	    	isNoProRate = Math.round(isNoVisit/isAllProVisit)/100.0;
-	    }
 	    Map<String,Object> map = new HashMap<String,Object>();
-		    map.put("isAllProVisit", isAllProVisit);
 		    map.put("isProVisit", isProVisit);
-		    map.put("isProVisitRate", isProRate);
 		    map.put("isNoVisit", isNoVisit);
-		    map.put("isNoProRate", isNoProRate);
 		return map;
 	}
 
@@ -102,23 +82,11 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 		long all = scheduleInfoDao.getAllRecordVisitCount(info);
 		//未缺失的拜访记录
 	    long part = scheduleInfoDao.getRecordVisitCount(info);
-	    
-	    double nopartRate = 0;
-	    double partRate = 0;
-	    
-	    if(all != 0){
-	    	partRate = Math.round(part/all)/100.0;
-	    }
 	    //已缺失的拜访
 	    long nopart = all - part;
-	    if(all != 0){
-	    	nopartRate = Math.round(nopart/all)/100.0;
-	    }
 	    Map<String,Object> map = new HashMap<String,Object>();
 		    map.put("part", part);
-		    map.put("partRate", partRate);
 		    map.put("nopart", nopart);
-		    map.put("nopartRate", nopartRate);
 		return map;
 	}
 

@@ -162,11 +162,11 @@
 			     <if test="isProject != null" >
 			        and project_id != ''
 			     </if>
-			     <if test="startTime != null" >
-			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeFrom != null" >
+			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="endTime != null" >
-			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeThrough != null" >
+			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
 		</where>
@@ -190,11 +190,11 @@
 			     <if test="isProject != null" >
 			        and project_id != ''
 			     </if>
-			      <if test="startTime != null" >
-			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			      <if test="startTimeFrom != null" >
+			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="endTime != null" >
-			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeThrough != null" >
+			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
 		</where>
@@ -204,7 +204,7 @@
  	<!-- 拜访轮次 -->
 	<select id="selectVisitFanceStatusCount" resultMap="BaseResultMap" parameterType="java.util.Map">
 	
-        SELECT sp.finance_status as financeStatus,COUNT(si.id) as countVisit FROM schedule_info si,sop_project sp 
+        SELECT sp.finance_status as fanceStatus,COUNT(si.id) as countVisit FROM schedule_info si,sop_project sp 
          <where>
 			<trim prefixOverrides="and">
 			    <if test="createtUids != null">
@@ -216,11 +216,11 @@
 			     </if>
 			        and type = 2
 			        and project_id != ''
-			      <if test="startTime != null" >
-			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeFrom != null" >
+			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="endTime != null" >
-			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeThrough != null" >
+			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and si.project_id = sp.id
 			</trim>
@@ -245,11 +245,11 @@
 			     <if test="isProject != null" >
 			        and project_id != ''
 			     </if>
-			     <if test="startTime != null" >
-			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeFrom != null" >
+			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="endTime != null" >
-			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeThrough != null" >
+			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and <![CDATA[end_time >= NOW()]]>
 			</trim>
@@ -272,11 +272,11 @@
 			     <if test="isProject != null" >
 			        and si.project_id != ''
 			     </if>
-			     <if test="startTime != null" >
-			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeFrom != null" >
+			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="endTime != null" >
-			        and <![CDATA[si.end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			     <if test="startTimeThrough != null" >
+			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and <![CDATA[si.end_time >= NOW()]]>
 			     and sr.schedule_id = si.id
