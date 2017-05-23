@@ -22,3 +22,5 @@ ADD COLUMN `is_del` TINYINT(4) NULL DEFAULT '0' COMMENT '是否删除字段0:未
 
 ALTER TABLE `fx_db`.`schedule_info` 
 ADD COLUMN `callon_person` BIGINT(20) NULL COMMENT '拜访对象，关联schedule_contacts表ID';
+/*删除拜访-联系人表，表没有用，用日程表里的拜访对象字段*/
+DROP TABLE `fx_db`.`schedule_person_plan`; 
