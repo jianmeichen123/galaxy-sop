@@ -352,6 +352,7 @@ $(function(){
               data: trend.periods,
               axisLabel: {
                             show: true,
+                            interval:0,
                             textStyle: {
                                 color: '#666',
                                 fontFamily:'微软雅黑',
