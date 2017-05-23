@@ -2847,7 +2847,25 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         display: none;
     }
     .ritmin .visitChartCon .min_document{background:#f3f4f9}
-
-
+.round_data.empty_data1{
+	background:url('../img/nodata1.png') no-repeat center;
+	background-size:75%;
+}
+.round_data.empty_data2{
+	background:url('../img/nodata2.png') no-repeat center;
+	background-size:75%;
+}
+.round_data.empty_data3{
+	background:url('../img/nodata3.png') no-repeat center;
+	background-size:75%;
+}
+.round_data.empty_data4{
+	background:url('../img/nodata4.png') no-repeat center;
+	background-size:75%;
+}
+.round_data.empty_data5{
+	background:url('../img/nodata5.png') no-repeat center;
+	background-size:75%;
+}
 
 
