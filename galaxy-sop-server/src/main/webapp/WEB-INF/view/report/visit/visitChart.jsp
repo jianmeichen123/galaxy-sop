@@ -374,6 +374,15 @@ var bftjt = {
 				bftjt.completedOption.xAxis[0].data = bftjt.dataComName;
 				bftjt.completedOption.series[0].data = bftjt.dataComSum;
 				completedChart.setOption(bftjt.completedOption, true);
+				if(bftjt.dataComSum.length==0){
+					$("#visitCompleted").children().hide();
+					 $("#visitCompleted").addClass(".empty_data6");
+					 $("#visitCompleted").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
+				}else{
+					$("#visitCompleted").children().show();
+					 $("#visitCompleted").removeClass(".empty_data6");
+					 $("#visitCompleted").find(".visit_nocon").remove();
+				}
 
 				//计划拜访量
 				var planChart = echarts.init(document.getElementById('visitPlan'));
@@ -381,6 +390,16 @@ var bftjt = {
 				bftjt.planOption.series[0].data = bftjt.dataAllSum;
 				planChart.setOption(bftjt.planOption, true);
 				$("#visitPlan").hide();
+				if(bftjt.dataAllSum.length==0){
+					$("#visitPlan").children().hide();
+					 $("#visitPlan").addClass(".empty_data7");
+					 $("#visitPlan").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
+				}else{
+					$("#visitPlan").children().show();
+					 $("#visitPlan").removeClass(".empty_data7");
+					 $("#visitCompleted").find(".visit_nocon").remove();
+				}
+
 			}
 		});
 

@@ -209,6 +209,13 @@ $(function(){
 				   trend.plan.push(this.count);
 				   trend.complete.push(0);
 			   });
+
+			   //计算计划拜访量总和  
+			  			   var i=0;
+			  			   var sumPlan=0;
+			  			   for(var i=0;i<data.userData.tendency.length;i++){
+			  				   sumPlan+=data.userData.tendency[i].count;
+			  			   }
 			   
 			   
 			   query.complete = 1;
@@ -221,13 +228,25 @@ $(function(){
 						   var period = this.period;
 						   var count = this.count;
 						   var len = trend.periods.length;
+						   var sum=0;
 						   for(var i=0;i<len;i++)
 						   {
 							   if(trend.periods[i] == period)
 							   {
 								   trend.complete[i] = count;
 							   }
+							   sum+=trend.complete[i];
 						   }
+						   if(sum+sumPlan==0){
+							   $("#visitTrend").hide();
+							   $(".visit_three").find("p.visit_nocon").remove();
+							   $(".visit_three").addClass(".empty_data5");
+							   $(".visit_three").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
+						   }else{
+							   $("#visitTrend").show();
+							   $(".visit_three").removeClass(".empty_data5");
+							   $(".visit_three").find("p.visit_nocon").remove();
+							   }
 					   });
 					   visitTrend(1);
 				   }
