@@ -268,7 +268,7 @@ $('select[name="departmentId"]').change(function(){
 
 
 //拜访统计图
-var bftjt = {
+/* var bftjt = {
 		
 	dataAllSum : [],
 	dataAllName : [],
@@ -638,7 +638,7 @@ var bftjt = {
 			},
 		} ]
 	}
-};
+}; */
 </script>
 <script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
 
