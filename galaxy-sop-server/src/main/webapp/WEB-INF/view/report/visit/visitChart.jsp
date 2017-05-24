@@ -245,6 +245,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/visit_dataforweek.js"></script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(6);
 /**
@@ -265,6 +266,7 @@ $('select[name="departmentId"]').change(function(){
 	var did = $('select[name="departmentId"]').val();
     createUserOptions_All(platformUrl.getUserList+did, "createdId", 1);
 });
+
 
 //拜访统计图
 var bftjt = {
@@ -301,9 +303,7 @@ var bftjt = {
 			method : 'post',                //请求方式（*）
 			//toolbar: '#toolbar',          //工具按钮用哪个容器
 			//striped: true,                //是否显示行间隔色
-			cache : false,                  //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性
-
-（*）
+			cache : false,                  //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 			pagination : true,              //是否显示分页（*）
 			sidePagination : "client",      //分页方式：client客户端分页，server服务端分页（*）
 			sortable : true,                //是否启用排序
@@ -314,9 +314,7 @@ var bftjt = {
 			pageList : [ 10, 20 ],               //可供选择的每页的行数（*）
 			strictSearch : true,
 			clickToSelect : false,               //是否启用点击选中行
-			//height: 460,                       //行高，如果没有设置height属性，表格自动根据记录条数觉得
-
-表格高度
+			//height: 460,                       //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 			uniqueId : "id",                     //每一行的唯一标识，一般为主键列
 			cardView : false,                    //是否显示详细视图
 			detailView : false,                  //是否显示父子表
@@ -410,9 +408,7 @@ var bftjt = {
 		var startTimeThrough = datePeriod.endTime;   //开始结束时间
 		var departmentId = $("select[name='departmentId']").val();    //dept id
 		var createdId = $("select[name='createdId']").val();          //选择到人
-		var isProject = $("input[name='isProject']:checked").val();   //是否为关联项目    null:全部   1：是   
-
-0:否
+		var isProject = $("input[name='isProject']:checked").val();   //是否为关联项目    null:全部   1：是   0:否
 		var periodType = $("input[name='periodType']:checked").val(); //统计   1:季   2:月   3:周
 		
 		params.startTimeFrom = startTimeFrom;
@@ -643,10 +639,7 @@ var bftjt = {
 			},
 		} ]
 	}
-}; 
-
+};
 </script>
-<script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
-
 </html>
 
