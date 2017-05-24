@@ -245,7 +245,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/visit_dataforweek.js"></script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
-<script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(6);
 /**
@@ -641,5 +640,7 @@ var bftjt = {
 	}
 };
 </script>
+<script src="<%=path %>/js/charts/visitChart.js" type="text/javascript"></script>
+
 </html>
 

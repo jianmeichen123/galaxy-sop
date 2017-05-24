@@ -22,7 +22,7 @@ $(function(){
    function getDatePeriod()
    {
 	   var periodType = $("input[name='periodType']:checked").val();
-	   console.log("periodType="+periodType);
+	   //console.log("periodType="+periodType);
 	   if(periodType == 3)
 	   {
 		   return getWeeklyPeriod();
@@ -39,7 +39,7 @@ $(function(){
     */
    function getQuarterlyPeriod()
    {
-	   console.log('getQuarterlyPeriod');
+	   //console.log('getQuarterlyPeriod');
 	   var endYear = $("#quarterly_start_data").val().replace('年','');
 	   var startYear = endYear-3;
 	   
