@@ -150,7 +150,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			Map<String,Object> params = new HashMap<String,Object>();
 			params.put("departmentId", sheduleInfo.getDepartmentId());
 			List<User> users = userService.querytUserByParams(params);
-			if(users != null && users.size() >= 0){
+			if(users != null && users.size() > 0){
 				for(User u : users){
 					userids.add(u.getId());
 				}
