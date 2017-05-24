@@ -162,6 +162,10 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			userids.add(sheduleInfo.getCreatedId());
 			sheduleInfo.setCreatetUids(userids);
 		}
+		else
+		{
+			sheduleInfo.setCreatedId(null);
+		}
 		
 	}
 	
