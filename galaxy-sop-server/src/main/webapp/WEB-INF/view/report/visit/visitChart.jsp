@@ -286,7 +286,13 @@ var bftjt = {
 			$("#bftjt").show();
 			
 			$("#visitCompleted").show();
-		    $("#visitPlan").hide();
+		}
+		
+		var nameFormat = "";
+		if (bftjt.queryParams.departmentId != null) {
+			nameFormat = "投资经理";
+		} else {
+			nameFormat = "投资事业线";
 		}
 		
 		$('#data-table-bftjt').bootstrapTable({
@@ -301,7 +307,7 @@ var bftjt = {
 			pagination : true,              //是否显示分页（*）
 			sidePagination : "client",      //分页方式：client客户端分页，server服务端分页（*）
 			sortable : true,                //是否启用排序
-			sortOrder : "desc",             //排序方式
+			sortOrder : "desc",              //排序方式
 			queryParams : bftjt.queryParams,     //传递参数（*）
 			pageNumber : 1,                      //初始化加载第一页，默认第一页
 			pageSize : 10,                       //每页的记录行数（*）
@@ -322,23 +328,16 @@ var bftjt = {
 			}, {
 				field : 'name',
 				sortable : false,
-				title : function() {
-					if (bftjt.queryParams.departmentId != null) {
-						return "投资经理";
-					} else {
-						return "投资事业线";
-					}
-				}
+				title : nameFormat
+				
 			}, {
 				field : 'allSum',
 				title : '计划拜访量',
-				sortable : true,
-				class : "data-input sort"
+				sortable : true
 			}, {
 				field : 'completeSum',
 				title : '已完成拜访量',
-				sortable : true,
-				class : "data-input sort"
+				sortable : true
 			} ],
 			onLoadSuccess: function(backdata){
 
@@ -348,19 +347,18 @@ var bftjt = {
 					var dataList = backdata.entityList;
 					
 					if(dataList !=null && dataList.length >0){
-						//dataList.sort(allCompare);
+						//dataList.sort(bftjt.compare);
+						$.each(dataList,function(){
+							if(this.completeSum != 0){
+								bftjt.dataComName.push(this.name);
+								bftjt.dataComSum.push(this.completeSum);
+							}
+						});
+						
+						dataList.sort(bftjt.allCompare);
 						$.each(dataList,function(){
 							bftjt.dataAllName.push(this.name);
 							bftjt.dataAllSum.push(this.allSum);
-						});
-						
-						dataList.sort(compare);
-						$.each(dataList,function(){
-							if(this.completeSum == 0){
-								break;
-							}
-							bftjt.dataComName.push(this.name);
-							bftjt.dataComSum.push(this.completeSum);
 						});
 					}
 				}
@@ -371,19 +369,21 @@ var bftjt = {
 
 				//已完成拜访量
 				var completedChart = echarts.init(document.getElementById('visitCompleted'));
-				bftjt.completedOption.xAxis[0].data = bftjt.dataName;
+				bftjt.completedOption.xAxis[0].data = bftjt.dataComName;
 				bftjt.completedOption.series[0].data = bftjt.dataComSum;
 				completedChart.setOption(bftjt.completedOption, true);
 
 				//计划拜访量
 				var planChart = echarts.init(document.getElementById('visitPlan'));
-				bftjt.planOption.xAxis[0].data = bftjt.dataName;
+				bftjt.planOption.xAxis[0].data = bftjt.dataAllName;
 				bftjt.planOption.series[0].data = bftjt.dataAllSum;
 				planChart.setOption(bftjt.planOption, true);
+				$("#visitPlan").hide();
 			}
 		});
 
 	},
+	
 	lengthFormatter : function(value, row, index) {
 		if (row.projectName.length > 12) {
 			var str = row.projectName.substring(0, 12);
@@ -394,8 +394,16 @@ var bftjt = {
 		return options;
 	},
 	queryParams : function(params) {
-		var startTimeFrom = datePeriod.startTime.toLocaleString();    //开始起始时间
-		var startTimeThrough = datePeriod.endTime.toLocaleString();   //开始结束时间
+		/* startTimeFrom:datePeriod.startTime.toLocaleString,
+		startTimeThrough:datePeriod.endTime,
+		departmentId: $("select[name='departmentId']").val(),
+		createdId: $("select[name='createdId']").val(),
+		isProject: $("input[name='isProject']:checked").val(),
+		periodType: $("input[name='periodType']:checked").val()
+		 */
+		var datePeriod = getDatePeriod();
+		var startTimeFrom = datePeriod.startTime;    //开始起始时间
+		var startTimeThrough = datePeriod.endTime;   //开始结束时间
 		var departmentId = $("select[name='departmentId']").val();    //dept id
 		var createdId = $("select[name='createdId']").val();          //选择到人
 		var isProject = $("input[name='isProject']:checked").val();   //是否为关联项目    null:全部   1：是   0:否
@@ -426,9 +434,9 @@ var bftjt = {
 	    var val1 = obj1.allSum;
 	    var val2 = obj2.allSum;
 	    if (val1 < val2) {
-	        return -1;
-	    } else if (val1 > val2) {
 	        return 1;
+	    } else if (val1 > val2) {
+	        return -1;
 	    } else {
 	        return 0;
 	    }            
@@ -465,7 +473,8 @@ var bftjt = {
 					align : 'center'
 				},
 				formatter : function(value) {
-					return value.split("").join("\n");
+					//return value.split("").join("\n");
+					return value;
 				}
 			},
 			axisLine : {
@@ -562,7 +571,8 @@ var bftjt = {
 					align : 'center'
 				},
 				formatter : function(value) {
-					return value.split("").join("\n");
+					//return value.split("").join("\n");
+					return value;
 				}
 			},
 			axisLine : {

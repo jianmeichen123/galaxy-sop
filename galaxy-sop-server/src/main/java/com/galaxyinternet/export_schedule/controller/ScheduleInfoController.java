@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.export_schedule.model.BaiFanTj;
 import com.galaxyinternet.export_schedule.model.ScheduleInfo;
+import com.galaxyinternet.export_schedule.service.BaiFanTjService;
 import com.galaxyinternet.export_schedule.service.ScheduleInfoService;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -35,11 +37,32 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BaiFanTjService baiFanTjService;
 	
 	@Override
 	protected BaseService<ScheduleInfo> getBaseService() {
 		// TODO Auto-generated method stub
 		return this.scheduleInfoService;
+	}
+	
+	@RequestMapping(value = "/bftjt", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<BaiFanTj> getBftjt(@RequestBody ScheduleInfo sheduleInfo){
+		ResponseData<BaiFanTj> responseBody = new ResponseData<BaiFanTj>();
+		if(sheduleInfo == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+			return responseBody;
+		}
+		try{
+			if(sheduleInfo.getCreatedId() == 0) sheduleInfo.setCreatedId(null);
+			if(sheduleInfo.getDepartmentId() == 0) sheduleInfo.setDepartmentId(null);
+			List<BaiFanTj> results = baiFanTjService.exportBaiFanSum(sheduleInfo);
+			responseBody.setEntityList(results);
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR, null, "未知异常"));
+			logger.error("拜访统计图统计失败  getBftjt", e);
+		}
+		return responseBody;
 	}
 	
     /**
