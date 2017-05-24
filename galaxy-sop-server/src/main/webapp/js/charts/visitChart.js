@@ -323,7 +323,6 @@ $(function(){
 						                 {value:map.part, name:'记录未缺失'},
 						                 {value:map.nopart, name:'记录缺失'}
 						               ]
-						 console.log("hahahah");
 						 if(map.part==0&&map.nopart==0){
 							 $("#project_visit_miss div").remove();
 							 $("#project_visit_miss").addClass("empty_data3");
@@ -541,7 +540,7 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
     var option = {
     tooltip: {
         trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)",
+        formatter: "{b}:<br/> {c} ({d}%)",
         backgroundColor:"rgba(255,255,255,0.9)",
         borderColor:too_color,
         borderWidth:"1px",
