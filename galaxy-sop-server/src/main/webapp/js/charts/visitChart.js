@@ -1,6 +1,6 @@
 $(function(){
 
-	
+	var datePeriod;
 	$("button[action='querySearch']").click(function(){
 		loadTrendData();
 		var str;
@@ -12,18 +12,10 @@ $(function(){
 			str = $("#month_start_data").val();		
 		}
 		if(val == "周"){
-			str = $("#visitweekStartDatepicker").val()+$("#visitweekEndDatepicker").val();
+			str = datePeriod.startTime.split(" ")[0]+"至"+datePeriod.endTime.split(" ")[0];
 		}
 		$(".period_desc").text('('+str+')');
 	
-		
-		/*
-		quarterly_start_data
-		s_quarterly  select
-		month_start_data
-		visitweekStartDatepicker
-		visitweekEndDatepicker
-	*/
 	});
    var trend = {};
    loadTrendData();
@@ -172,18 +164,28 @@ $(function(){
 	   endTime.setHours(23);
 	   endTime.setMinutes(59);
 	   endTime.setSeconds(59);
-	   endTime.setMilliseconds(999)
+	   endTime.setMilliseconds(999);
 	   
-	   var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
+	   var startDate = $('.visitweekStartDatepicker').val();
+	   var startTime = new Date();
+	   startTime.setFullYear(startDate.split('-')[0]);
+	   startTime.setMonth(startDate.split('-')[1]-1);
+	   startTime.setDate(startDate.split('-')[2]);
+	   startTime.setHours(00);
+	   startTime.setMinutes(00);
+	   startTime.setSeconds(00);
+	   startTime.setMilliseconds(00);
 	   
-	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+	   //var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
+	   
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
    
    function loadTrendData()
    {
 	   bftjt.initTable();
 	   
-	   var datePeriod = getDatePeriod();
+	   datePeriod = getDatePeriod();
 	   console.log(datePeriod);
 	   trend = {
 			periods:new Array(),
