@@ -267,8 +267,14 @@ $(function(){
 						         {value:map.isNoVisit, name:'非项目拜访访'},
 						  ]
 						// sec1
-						 data_pie("project_visit","#5ceaf0",['#90e6fb','#ff94b1'],sec1_data,sec1_radius,false);
-
+						 if(map.isProVisit==0&&map.isNoVisit==0){
+							 $("#project_visit div").remove();
+							 $("#project_visit").addClass("empty_data1");
+							 $("#project_visit").append("<p>没有找到匹配的记录</p>")
+						 }else{
+							 $("#project_visit").removeClass("empty_data1");
+							 data_pie("project_visit","#5ceaf0",['#90e6fb','#ff94b1'],sec1_data,sec1_radius,false);
+						 }
 					   
 				   });
 	  
@@ -287,11 +293,20 @@ $(function(){
 							 var str = {};
 							 str.value = arr[item].countVisit;
 							 str.name = arr[item].fanceStatus;
-							 sec2_data.push(str);
+							 if(str.name!=undefined){
+								 sec2_data.push(str);
+								 }
+							  
 						 }
-						 console.log(sec2_data);
-						 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
-						 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area");
+						 if(arr.length<=0){
+							 $("#project_visit_round div").remove();
+							 $("#project_visit_round").addClass("empty_data2");
+							 $("#project_visit_round").append("<p>没有找到匹配的记录</p>")
+						 }else{
+							 $("#project_visit_round").removeClass("empty_data2");
+							 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
+							 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area");
+						 }
 				   });
 	  
 	  
@@ -308,8 +323,16 @@ $(function(){
 						                 {value:map.part, name:'记录未缺失'},
 						                 {value:map.nopart, name:'记录缺失'}
 						               ]
-						 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false);
-				   });
+						 console.log("hahahah");
+						 if(map.part==0&&map.nopart==0){
+							 $("#project_visit_miss div").remove();
+							 $("#project_visit_miss").addClass("empty_data3");
+							 $("#project_visit_miss").append("<p>没有找到匹配的记录</p>")
+						 }else{
+							 $("#project_visit_miss").removeClass("empty_data3");
+							 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false);
+						 }
+						 });
 	  
 	  
 	  } 
