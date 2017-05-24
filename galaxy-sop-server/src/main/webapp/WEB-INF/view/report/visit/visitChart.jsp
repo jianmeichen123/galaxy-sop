@@ -318,6 +318,7 @@ var bftjt = {
 			uniqueId : "id",                     //每一行的唯一标识，一般为主键列
 			cardView : false,                    //是否显示详细视图
 			detailView : false,                  //是否显示父子表
+			
 			columns : [ {
 				field : 'index',
 				title : '排名',
@@ -344,6 +345,7 @@ var bftjt = {
 				if (backdata.result.status == "ERROR") {
 					layer.msg(backdata.result.message);
 				} else {
+					//var dataList = backdata.pageList.content;
 					var dataList = backdata.entityList;
 					
 					if(dataList !=null && dataList.length >0){

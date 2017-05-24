@@ -60,9 +60,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			if(sheduleInfo.getDepartmentId() == 0) sheduleInfo.setDepartmentId(null);
 			List<BaiFanTj> results = baiFanTjService.exportBaiFanSum(sheduleInfo);
 			
-			Page<BaiFanTj> page = new Page<BaiFanTj>(new ArrayList<BaiFanTj>(), (long) results.size());
-			responseBody.setPageList(page);
-			//responseBody.setEntityList(results);
+			responseBody.setEntityList(results);
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR, null, "未知异常"));
 			logger.error("拜访统计图统计失败  getBftjt", e);

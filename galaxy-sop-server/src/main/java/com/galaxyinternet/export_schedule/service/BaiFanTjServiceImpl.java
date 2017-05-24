@@ -119,6 +119,7 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 		
 		Map<String, Object> params = new HashMap<String,Object>();
 		params.put("type", ScheduleUtil.BAI_FAN_TYPE);
+		params.put("isProject", info.getIsProject());
 		/*params.put("bqStartTime", info.getStartTime());
 		params.put("bqEndTime", info.getEndTime());*/
 		params.put("bqStartTime", info.getStartTimeFrom());
@@ -180,6 +181,7 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 		
 		Map<String, Object> params = new HashMap<String,Object>();
 		params.put("type", ScheduleUtil.BAI_FAN_TYPE);
+		params.put("isProject", info.getIsProject());
 		params.put("bqStartTime", info.getStartTimeFrom());
 		params.put("bqEndTime", info.getStartTimeThrough());
 		

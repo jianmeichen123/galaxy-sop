@@ -19,6 +19,15 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="type != null" > and type = #{type,jdbcType=TINYINT} </if>
+				
+				<!-- 是否为关联项目    null:全部   1：是   0:否 -->
+				<if test="isProject == 0" >
+			        and project_id is null
+			     </if>
+			     <if test="isProject == 1" >
+			        and project_id is not null
+			     </if>
+			     
 				<if test="bqStartTime != null"> <![CDATA[  and start_time >= #{bqStartTime,jdbcType=TIMESTAMP} ]]> </if>
 			    <if test="bqEndTime != null"> <![CDATA[ and start_time <= #{bqEndTime,jdbcType=TIMESTAMP} ]]> </if>
 			    <if test="createtUids != null">
@@ -45,6 +54,15 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="type != null" > and type = #{type,jdbcType=TINYINT} </if>
+				
+				<!-- 是否为关联项目    null:全部   1：是   0:否 -->
+				<if test="isProject == 0" >
+			        and project_id is null
+			     </if>
+			     <if test="isProject == 1" >
+			        and project_id is not null
+			     </if>
+			     
 				<if test="bqStartTime != null"> <![CDATA[  and start_time >= #{bqStartTime,jdbcType=TIMESTAMP} ]]> </if>
 			    <if test="bqEndTime != null"> <![CDATA[ and start_time <= #{bqEndTime,jdbcType=TIMESTAMP} ]]> </if>
 			    <if test="createtUids != null">
