@@ -3,7 +3,27 @@ $(function(){
 	
 	$("button[action='querySearch']").click(function(){
 		loadTrendData();
-		$(".period_desc").text('('+$("input[name='periodType']:checked").next().text()+')');
+		var str;
+		var val = $("input[name='periodType']:checked").next().text();
+		if(val == "季度"){
+			str = $("#quarterly_start_data").val()+$('#s_quarterly option:selected').text();
+		}
+		if(val == "月"){
+			str = $("#month_start_data").val();		
+		}
+		if(val == "周"){
+			str = $("#visitweekStartDatepicker").val()+$("#visitweekEndDatepicker").val();
+		}
+		$(".period_desc").text('('+str+')');
+	
+		
+		/*
+		quarterly_start_data
+		s_quarterly  select
+		month_start_data
+		visitweekStartDatepicker
+		visitweekEndDatepicker
+	*/
 	});
    var trend = {};
    loadTrendData();
