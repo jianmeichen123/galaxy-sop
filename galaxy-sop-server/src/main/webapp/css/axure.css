@@ -2849,21 +2849,28 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     .ritmin .visitChartCon .min_document{background:#f3f4f9}
 .round_data.empty_data1{
 	background:url('../img/nodata1.png') no-repeat center;
-	background-size:55%;
+	background-size:160px;
+	background-position:center 50px;
 }
 .round_data.empty_data2{
 	background:url('../img/nodata2.png') no-repeat center;
-	background-size:55%;
+	background-size:160px;
+	background-position:center 27px;
 }
 .round_data.empty_data3{
 	background:url('../img/nodata3.png') no-repeat center;
-	background-size:55%;
+	background-size:160px;
+	background-position:center 27px;
 }
 .vertical.empty_data4{
 	background:url('../img/nodata4.png') no-repeat center;
-	background-size:55%;
+	background-size:160px;
+	background-position:center 50px;
 }
 .vertical.empty_data5{
 	background:url('../img/nodata5.png') no-repeat center;
-	background-size:55%;
+	background-size:160px;
+	background-position:center 50px;
 }
+.visit_box .round_data p{margin-top:210px;font-size:14px;
+color:#999999;}
