@@ -2846,6 +2846,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     .visitdata_month,.visitdata_week{
         display: none;
     }
+    #visitPlan{display:none;}
     .ritmin .visitChartCon .min_document{background:#f3f4f9}
 .round_data.empty_data1{
 	background:url('../img/nodata1.png') no-repeat center;
