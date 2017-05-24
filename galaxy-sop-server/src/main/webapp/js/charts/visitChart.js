@@ -541,7 +541,7 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
     var option = {
     tooltip: {
         trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)",
+        formatter: "{b}:<br/> {c} ({d}%)",
         backgroundColor:"rgba(255,255,255,0.9)",
         borderColor:too_color,
         borderWidth:"1px",
