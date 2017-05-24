@@ -183,7 +183,7 @@ $(function(){
    
    function loadTrendData()
    {
-	   //bftjt.initTable();
+	   bftjt.initTable();
 	   
 	   datePeriod = getDatePeriod();
 	   console.log(datePeriod);
