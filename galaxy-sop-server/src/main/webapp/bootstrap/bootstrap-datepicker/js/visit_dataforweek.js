@@ -113,11 +113,18 @@ function setDateRange(ev,startOrEnd){
 	var nowDayOfWeek = now.getDay();//今天本周的第几天
 	
 	//获得本周的开始日期
-    var getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek +1);
-    var getWeekStartDate =  formatDate(getWeekStartDate);
+    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek +1);
+    getWeekStartDate =  formatDate(getWeekStartDate);
     //获得本周的结束日期
-    var getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek+1));
-    var getWeekEndDate =  formatDate(getWeekEndDate);
+    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (7 - nowDayOfWeek));
+    getWeekEndDate =  formatDate(getWeekEndDate);
+     if(nowDayOfWeek == 0){
+    	 getWeekStartDate = new Date(nowYear, nowMonth, nowDay-nowDayOfWeek-6);
+		 getWeekStartDate =  formatDate(getWeekStartDate);
+		 //获取本周结束时间
+		 getWeekEndDate = new Date(nowYear, nowMonth, nowDay- nowDayOfWeek);
+		 getWeekEndDate =  formatDate(getWeekEndDate);
+     }
 
     var current;
     if(startOrEnd != "INIT"){
@@ -131,97 +138,19 @@ function setDateRange(ev,startOrEnd){
 		nowDayOfWeek = now.getDay();//今天本周的第几天
 
 		//获得本周的开始日期
-		getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek +7  -1);
-		getWeekStartDate =  formatDate(getWeekStartDate);
-		//获得本周的结束日期
-		getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek + 7-1));
-		getWeekEndDate =  formatDate(getWeekEndDate);
-    }
-    
-	if(startOrEnd == "INIT"){
-		current = new Date().getTime();
-	}
-	var start = new Date(getWeekStartDate).getTime();
-	var end = new Date(getWeekEndDate).getTime();
-    if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
-	{ 
-		 start = new Date(getWeekStartDate.replace(/-/g,"/")).getTime();
-		 end = new Date(getWeekEndDate.replace(/-/g,"/")).getTime();
-	} 
-	
-    if(current > end){
-    	//获得上周的开始日期
-	    getUpWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 +1);
-	    getUpWeekStartDate =  formatDate(getUpWeekStartDate);
-	    //获得上周的结束日期
-	    getUpWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 7 +1));
-	    getUpWeekEndDate =  formatDate(getUpWeekEndDate);
-	    endTime = getUpWeekEndDate;
-	    $(".visitweekStartDatepicker").val(getUpWeekStartDate);
-   	    $(".visitweekEndDatepicker").val(getUpWeekEndDate);
-    }else{
-		//获得本周的开始日期
 	    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek +1);
 	    getWeekStartDate =  formatDate(getWeekStartDate);
 	    //获得本周的结束日期
-	    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek+1));
+	    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (7- nowDayOfWeek));
 	    getWeekEndDate =  formatDate(getWeekEndDate);
-	     endTime = getWeekEndDate;
-	     
-	     if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
-	 	{ 
-	 		 start = new Date(getWeekStartDate.replace(/-/g,"/")).getTime();
-	 		 end = new Date(getWeekEndDate.replace(/-/g,"/")).getTime();
-	 	} 
-	     if(nowDayOfWeek == 6){
-	    	
-	    	 
-		    	if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
-		    	{ 
-		    		 if(startOrEnd == "INIT"){
-		    			 
-		    			//获得本周的开始日期
-						    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek  +1);
-						    getWeekStartDate =  formatDate(getWeekStartDate);
-						    //获得本周的结束日期
-						    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek  +1));
-						    getWeekEndDate =  formatDate(getWeekEndDate);
-		    			
-			    		}else{
-			    			//获得本周的开始日期
-						    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek +7 +1);
-						    getWeekStartDate =  formatDate(getWeekStartDate);
-						    //获得本周的结束日期
-						    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek +7 +1));
-						    getWeekEndDate =  formatDate(getWeekEndDate);
-			    		}
-		    	
-		    	}else{
-		    		
-		    		 if(startOrEnd == "INIT"){
-		    			 
-	    			   //获得本周的开始日期
-					    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek  +1);
-					    getWeekStartDate =  formatDate(getWeekStartDate);
-					    //获得本周的结束日期
-					    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek  +1));
-					    getWeekEndDate =  formatDate(getWeekEndDate);
-	    			
-		    		}else{
-		    			//获得本周的开始日期
-					    getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek +7 +1);
-					    getWeekStartDate =  formatDate(getWeekStartDate);
-					    //获得本周的结束日期
-					    getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek +7 +1));
-					    getWeekEndDate =  formatDate(getWeekEndDate);
-		    		}
-		    		 
-		    	
-		    	}
-		    	
-		}
-	    
-	    $(".visitweekStartDatepicker").val(getWeekStartDate);
-	    $(".visitweekEndDatepicker").val(getWeekEndDate);
+	     if(nowDayOfWeek == 0){
+	    	 getWeekStartDate = new Date(nowYear, nowMonth, nowDay-nowDayOfWeek-6);
+			 getWeekStartDate =  formatDate(getWeekStartDate);
+			 //获取本周结束时间
+			 getWeekEndDate = new Date(nowYear, nowMonth, nowDay- nowDayOfWeek);
+			 getWeekEndDate =  formatDate(getWeekEndDate);
+	     }
     }
+    $(".visitweekStartDatepicker").val(getWeekStartDate);
+    $(".visitweekEndDatepicker").val(getWeekEndDate);
 }
