@@ -353,12 +353,13 @@ var bftjt = {
 					completedChart.setOption(bftjt.completedOption, true);
 					 window.onresize = completedChart.resize; 
 					if(bftjt.dataComSum.length==0){
+						console.log("12")
 						$("#visitCompleted").children().hide();
-						 $("#visitCompleted").addClass(".empty_data6");
+						 $("#visitCompleted").addClass("empty_data6");
 						 $("#visitCompleted").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
 					}else{
 						$("#visitCompleted").children().show();
-						 $("#visitCompleted").removeClass(".empty_data6");
+						 $("#visitCompleted").removeClass("empty_data6");
 						 $("#visitCompleted").find(".visit_nocon").remove();
 					}
 				}
@@ -375,12 +376,12 @@ var bftjt = {
 					//$("#visitPlan").hide();
 					if(bftjt.dataAllSum.length==0){
 						$("#visitPlan").children().hide();
-						 $("#visitPlan").addClass(".empty_data7");
+						 $("#visitPlan").addClass("empty_data6");
 						 $("#visitPlan").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
 					}else{
 						$("#visitPlan").children().show();
-						 $("#visitPlan").removeClass(".empty_data7");
-						 $("#visitCompleted").find(".visit_nocon").remove();
+						 $("#visitPlan").removeClass("empty_data6");
+						 $("#visitPla").find(".visit_nocon").remove();
 					}
 				}
 				

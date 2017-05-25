@@ -2853,19 +2853,31 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	background-size:160px;
 	background-position:center 27px;
 }
-.vertical.empty_data4{
-	background:url('../img/nodata4.png') no-repeat center;
-	background-size:160px;
-	background-position:center 50px;
-}
 .vertical.empty_data5{
+	height:370px;
+	background:url('../img/nodata4.png') no-repeat center;
+	background-size:220px;
+	background-position:center 110px;
+	position:relative;
+}
+.empty_data5 .visit_nocon{
+	position:absolute;
+	top:260px;
+	left:50%;
+	transform:translateX(-50%);
+	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
+	font-size:14px;
+	color:#999999;
+}
+#visitCompleted.empty_data6,#visitPlan.empty_data6{
 	height:370px;
 	background:url('../img/nodata5.png') no-repeat center;
 	background-size:220px;
 	background-position:center 110px;
 	position:relative;
 }
-.empty_data5 .visit_nocon{
+.empty_data6 .visit_nocon{
 	position:absolute;
 	top:260px;
 	left:50%;
