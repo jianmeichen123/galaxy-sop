@@ -2790,6 +2790,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         line-height: 1;
         margin-bottom: 4px;
     }
+    .round_title{text-align:center;}
     .round_title p{
         font-size:18px;
         color:#666666;
