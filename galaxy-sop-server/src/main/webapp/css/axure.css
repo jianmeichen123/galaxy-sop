@@ -2711,7 +2711,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     .visit_box h3{
         font-weight: normal;
         font-size:18px;
-        color:#4b5880;
+        color:#333;
         text-align:left;
         display: inline-block;
         line-height:1;
@@ -2769,11 +2769,12 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     }
     .visit_one li p{
         font-size:36px;
-        color:#666666;
+        color:#333;
+        font-weight:lighter;
     }
     .visit_one li span{
         font-size:12px;
-        color:#999999;
+        color:#666;
         display: block;
     }
     .visit_one li img{
@@ -2793,7 +2794,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     .round_title{text-align:center;}
     .round_title p{
         font-size:18px;
-        color:#666666;
+        color:#333;
         margin-bottom: 9px;
     }
     .round_title span{

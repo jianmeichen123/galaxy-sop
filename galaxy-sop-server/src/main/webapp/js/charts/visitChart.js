@@ -19,9 +19,6 @@ $(function(){
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
 		console.log(input_radio);
 		$.each(input_radio,function(){
-			console.log("#######################");
-			console.log($(this).attr("checked"));
-			console.log($(this).val());
 			if($(this).attr("checked")!=undefined&&$(this).val()=="on"){
 				$('.visit_two ul').attr("class","fl_three clearfix");
 				console.log()
@@ -228,6 +225,7 @@ $(function(){
 	sendPostRequestByJsonObj(platformUrl.visitTrend,query,function(data){
 		   if(data.userData.tendency)
 		   {
+			   console.log(data.userData.tendency)
 			   $.each(data.userData.tendency,function(){
 				   trend.periods.push(this.period);
 				   trend.plan.push(this.count);
@@ -266,8 +264,6 @@ $(function(){
 							   j++;
 						   }
 					   });
-					   console.log(j)
-					   console.log(trend.periods.length)
 					   if(j>=trend.periods.length){
 						   $(".visit_three .empty_data5").remove();
 						   $("#visitTrend").hide();
