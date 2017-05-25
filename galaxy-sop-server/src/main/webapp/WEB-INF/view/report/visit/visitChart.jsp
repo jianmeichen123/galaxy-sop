@@ -353,7 +353,6 @@ var bftjt = {
 					completedChart.setOption(bftjt.completedOption, true);
 					 window.onresize = completedChart.resize; 
 					if(bftjt.dataComSum.length==0){
-						console.log("12")
 						$("#visitCompleted").children().hide();
 						 $("#visitCompleted").addClass("empty_data6");
 						 $("#visitCompleted").append("<p class='visit_nocon'>没有找到匹配的记录</p>")

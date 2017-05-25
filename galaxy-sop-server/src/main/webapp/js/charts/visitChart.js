@@ -32,6 +32,14 @@ $(function(){
 				$('.visit_two ul li:first-child').hide();
 			}
 		})
+		//判断是否查看投资经理
+		var createdIdVal=$("select[name=createdId] option:selected").val();
+		if(createdIdVal!="0"){
+			$(".visit_four").hide();
+		}else{
+			$(".visit_four").show();
+		}
+		
 	});
    var trend = {};
    loadTrendData();
