@@ -304,10 +304,10 @@ $(function(){
 						 var sec1_radius=[0,"60%"];
 						 var sec1_data=[
 						         {value:map.isProVisit, name:'项目拜访'},
-						         {value:map.isNoVisit, name:'非项目拜访访'},
+						         {value:map.isNoVisit, name:'非项目拜访访'}
 						  ]
 						 console.log("!@@#$@$#%");
-						 console.log(map);
+						 console.log(sec1_data);
 						// sec1
 						 if(map.isProVisit==0&&map.isNoVisit==0){
 							 $("#project_visit p").remove();
@@ -317,7 +317,8 @@ $(function(){
 						 }else{
 							 $("#project_visit p").remove();
 							 $("#project_visit").removeClass("empty_data1");
-							 data_pie("project_visit","#5ceaf0",['#90e6fb','#ff94b1'],sec1_data,sec1_radius,false);
+							 var color_array1 = ['#90e6fb','#ff94b1']
+							 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false);
 						 }
 					   
 				   });
