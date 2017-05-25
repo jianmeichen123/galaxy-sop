@@ -118,30 +118,30 @@
             </h3>
       <ul class="fl_three clearfix">
                 <li>
-                    <div>
+                    <div class="fl_three_son">
                         <img src="<%=path %>/img/visit_one.png" alt="">
-                        <section>
+                        <div class="_section">
                             <p id="planVisit">5000</p>
                             <span>计划拜访量</span>
-                        </section>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <div>
+                    <div class="fl_three_son">
                         <img src="<%=path %>/img/visit_two.png" alt="">
-                        <section>
+                        <div class="_section">
                             <p id="completeVisit">3500</p>
                             <span>已完成拜访量</span>
-                        </section>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <div>
+                    <div class="fl_three_son">
                         <img src="<%=path %>/img/visit_three.png" alt="">
-                        <section>
+                        <div class="_section">
                             <p id="interviewRate">70%</p>
                             <span>访谈完成率</span>
-                        </section>
+                        </div>
                     </div>
                 </li>
             </ul>

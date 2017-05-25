@@ -2761,7 +2761,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         margin-left: -10px;
         margin-top: 20px;
     }
-    .visit_one li div{
+    .visit_one li .fl_three_son{
         border:1px solid #ececec;
         padding: 13px 0px;
         margin: 0px 10px;
@@ -2783,7 +2783,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
        display: inline-block;
        margin-right: 30px;
     }
-    .visit_one li section{
+    .visit_one li ._section{
        vertical-align: middle;
        display: inline-block;
     }
