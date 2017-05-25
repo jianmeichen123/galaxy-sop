@@ -345,35 +345,60 @@ var bftjt = {
 				var chart = new Highcharts.Chart(containerUserKpiOptions); */
 
 				//已完成拜访量
-				var completedChart = echarts.init(document.getElementById('visitCompleted'));
-				bftjt.completedOption.xAxis[0].data = bftjt.dataComName;
-				bftjt.completedOption.series[0].data = bftjt.dataComSum;
-				completedChart.setOption(bftjt.completedOption, true);
-				if(bftjt.dataComSum.length==0){
-					$("#visitCompleted").children().hide();
-					 $("#visitCompleted").addClass(".empty_data6");
-					 $("#visitCompleted").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
-				}else{
-					$("#visitCompleted").children().show();
-					 $("#visitCompleted").removeClass(".empty_data6");
-					 $("#visitCompleted").find(".visit_nocon").remove();
+				completedChart();
+				function completedChart(){
+					var completedChart = echarts.init(document.getElementById('visitCompleted'));
+					bftjt.completedOption.xAxis[0].data = bftjt.dataComName;
+					bftjt.completedOption.series[0].data = bftjt.dataComSum;
+					completedChart.setOption(bftjt.completedOption, true);
+					 window.onresize = completedChart.resize; 
+					if(bftjt.dataComSum.length==0){
+						$("#visitCompleted").children().hide();
+						 $("#visitCompleted").addClass(".empty_data6");
+						 $("#visitCompleted").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
+					}else{
+						$("#visitCompleted").children().show();
+						 $("#visitCompleted").removeClass(".empty_data6");
+						 $("#visitCompleted").find(".visit_nocon").remove();
+					}
 				}
+				
 
 				//计划拜访量
-				var planChart = echarts.init(document.getElementById('visitPlan'));
-				bftjt.planOption.xAxis[0].data = bftjt.dataAllName;
-				bftjt.planOption.series[0].data = bftjt.dataAllSum;
-				planChart.setOption(bftjt.planOption, true);
-				$("#visitPlan").hide();
-				if(bftjt.dataAllSum.length==0){
-					$("#visitPlan").children().hide();
-					 $("#visitPlan").addClass(".empty_data7");
-					 $("#visitPlan").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
-				}else{
-					$("#visitPlan").children().show();
-					 $("#visitPlan").removeClass(".empty_data7");
-					 $("#visitCompleted").find(".visit_nocon").remove();
+				planChart();
+				function planChart(){
+					var planChart = echarts.init(document.getElementById('visitPlan'));
+					bftjt.planOption.xAxis[0].data = bftjt.dataAllName;
+					bftjt.planOption.series[0].data = bftjt.dataAllSum;
+					planChart.setOption(bftjt.planOption, true);
+					window.onresize = planChart.resize; 
+					//$("#visitPlan").hide();
+					if(bftjt.dataAllSum.length==0){
+						$("#visitPlan").children().hide();
+						 $("#visitPlan").addClass(".empty_data7");
+						 $("#visitPlan").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
+					}else{
+						$("#visitPlan").children().show();
+						 $("#visitPlan").removeClass(".empty_data7");
+						 $("#visitCompleted").find(".visit_nocon").remove();
+					}
 				}
+				
+				
+				//tab点击事件
+				$(".vertical_tab li").click(function(event) {
+				  $(".vertical_tab li").removeClass("active");
+				  $(this).addClass("active");
+				    if ($(this).hasClass("last")) {
+				    $("#visitCompleted").hide();
+				    $("#visitPlan").show();
+				    planChart();
+				  }else{
+				    $("#visitCompleted").show();
+				    $("#visitPlan").hide();
+				    completedChart();
+				  }
+				});
 
 			}
 		});

@@ -644,20 +644,6 @@ var sdata_id = echarts.init(document.getElementById(data_id));
 sdata_id.setOption(option, true);
 }
 
-
-// tab点击事件
-  $(".vertical_tab li").click(function(event) {
-    $(".vertical_tab li").removeClass("active");
-    $(this).addClass("active");
-      if ($(this).hasClass("last")) {
-      $("#visitCompleted").hide();
-      $("#visitPlan").show();
-    }else{
-      $("#visitCompleted").show();
-      $("#visitPlan").hide();
-    }
-  });
-
   //导航 日期切换
   $("input[type='radio']").click(function(event) {
 	  $(this).attr("checked",true);
