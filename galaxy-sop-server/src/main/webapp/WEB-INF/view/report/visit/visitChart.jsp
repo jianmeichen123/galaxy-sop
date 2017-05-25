@@ -171,31 +171,6 @@
                     <div class="round_data" id="project_visit_miss"></div>
                 </li>
             </ul>
-           <!--  <ul class="fl_two clearfix">
-                <li>
-                    <div class="round_title">
-                        <p>项目拜访轮次占比</p>
-                        <span>(2017年第2季度)</span>
-                    </div>
-                    <div class="round_data" id="project_visit_round"></div>
-                </li>
-                <li>
-                    <div class="round_title">
-                        <p>访谈记录缺失占比</p>
-                        <span>(2017年第2季度)</span>
-                    </div>
-                    <div class="round_data" id="project_visit_miss"></div>
-                </li>
-            </ul>
-            <ul class="fl_one clearfix">
-                <li>
-                    <div class="round_title">
-                        <p>访谈记录缺失占比</p>
-                        <span>(2017年第2季度)</span>
-                    </div>
-                    <div class="round_data" id="project_visit_miss"></div>
-                </li>
-            </ul> -->
         </div>
         <!-- section3 -->
         <div class="visit_box visit_three">

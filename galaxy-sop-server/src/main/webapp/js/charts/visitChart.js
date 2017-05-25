@@ -15,7 +15,23 @@ $(function(){
 			str = datePeriod.startTime.split(" ")[0]+"至"+datePeriod.endTime.split(" ")[0];
 		}
 		$(".period_desc").text('('+str+')');
-	
+//		判断 是否为项目拜访
+		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
+		console.log(input_radio);
+		$.each(input_radio,function(){
+			console.log("#######################");
+			console.log($(this).attr("checked"));
+			console.log($(this).val());
+			if($(this).attr("checked")!=undefined&&$(this).val()=="on"){
+				$('.visit_two ul').attr("class","fl_three clearfix");
+				console.log()
+				$('.visit_two ul li:first-child').show();
+				return false;
+			}else{
+				$('.visit_two ul').attr("class","fl_two clearfix");
+				$('.visit_two ul li:first-child').hide();
+			}
+		})
 	});
    var trend = {};
    loadTrendData();
@@ -224,6 +240,7 @@ $(function(){
 				   if(data.userData.tendency)
 				   {
 					   var yData2 = new Array();
+					   var j=0;
 					   $.each(data.userData.tendency,function(){
 						   var period = this.period;
 						   var count = this.count;
@@ -238,16 +255,20 @@ $(function(){
 							   sum+=trend.complete[i];
 						   }
 						   if(sum+sumPlan==0){
-							   $("#visitTrend").hide();
-							   $(".visit_three").find("p.visit_nocon").remove();
-							   $(".visit_three").addClass(".empty_data5");
-							   $(".visit_three").append("<p class='visit_nocon'>没有找到匹配的记录</p>")
-						   }else{
-							   $("#visitTrend").show();
-							   $(".visit_three").removeClass(".empty_data5");
-							   $(".visit_three").find("p.visit_nocon").remove();
-							   }
+							   j++;
+						   }
 					   });
+					   console.log(j)
+					   console.log(trend.periods.length)
+					   if(j>=trend.periods.length){
+						   $(".visit_three .empty_data5").remove();
+						   $("#visitTrend").hide();
+						   $(".visit_three").append("<div class='vertical empty_data5'><p class='visit_nocon'>没有找到匹配的记录</p></div>")
+						    
+					   }else{
+						   $(".visit_three .empty_data5").remove();
+						   $("#visitTrend").show();
+					   }
 					   visitTrend(1);
 				   }
 				   
@@ -285,12 +306,16 @@ $(function(){
 						         {value:map.isProVisit, name:'项目拜访'},
 						         {value:map.isNoVisit, name:'非项目拜访访'},
 						  ]
+						 console.log("!@@#$@$#%");
+						 console.log(map);
 						// sec1
 						 if(map.isProVisit==0&&map.isNoVisit==0){
+							 $("#project_visit p").remove();
 							 $("#project_visit div").remove();
 							 $("#project_visit").addClass("empty_data1");
 							 $("#project_visit").append("<p>没有找到匹配的记录</p>")
 						 }else{
+							 $("#project_visit p").remove();
 							 $("#project_visit").removeClass("empty_data1");
 							 data_pie("project_visit","#5ceaf0",['#90e6fb','#ff94b1'],sec1_data,sec1_radius,false);
 						 }
@@ -318,10 +343,12 @@ $(function(){
 							  
 						 }
 						 if(arr.length<=0){
+							 $("#project_visit_round p").remove();
 							 $("#project_visit_round div").remove();
 							 $("#project_visit_round").addClass("empty_data2");
 							 $("#project_visit_round").append("<p>没有找到匹配的记录</p>")
 						 }else{
+							 $("#project_visit_round p").remove();
 							 $("#project_visit_round").removeClass("empty_data2");
 							 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
 							 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area");
@@ -343,10 +370,12 @@ $(function(){
 						                 {value:map.nopart, name:'记录缺失'}
 						               ]
 						 if(map.part==0&&map.nopart==0){
+							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss div").remove();
 							 $("#project_visit_miss").addClass("empty_data3");
 							 $("#project_visit_miss").append("<p>没有找到匹配的记录</p>")
 						 }else{
+							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss").removeClass("empty_data3");
 							 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false);
 						 }
@@ -630,7 +659,8 @@ sdata_id.setOption(option, true);
 
   //导航 日期切换
   $("input[type='radio']").click(function(event) {
-  $(this).parent().siblings().find("input").removeAttr("checked");
+	  $(this).attr("checked",true);
+	  $(this).parent().siblings().find("input").removeAttr("checked");
   });
 $('.quarterly_btn input').click(function(event) {
   $('.visitdata_quarterly ').show();
