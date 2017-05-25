@@ -19,6 +19,9 @@ $(function(){
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
 		console.log(input_radio);
 		$.each(input_radio,function(){
+			console.log("#######################");
+			console.log($(this).attr("checked"));
+			console.log($(this).val());
 			if($(this).attr("checked")!=undefined&&$(this).val()=="on"){
 				$('.visit_two ul').attr("class","fl_three clearfix");
 				console.log()
@@ -225,7 +228,6 @@ $(function(){
 	sendPostRequestByJsonObj(platformUrl.visitTrend,query,function(data){
 		   if(data.userData.tendency)
 		   {
-			   console.log(data.userData.tendency)
 			   $.each(data.userData.tendency,function(){
 				   trend.periods.push(this.period);
 				   trend.plan.push(this.count);
@@ -264,6 +266,8 @@ $(function(){
 							   j++;
 						   }
 					   });
+					   console.log(j)
+					   console.log(trend.periods.length)
 					   if(j>=trend.periods.length){
 						   $(".visit_three .empty_data5").remove();
 						   $("#visitTrend").hide();
@@ -401,7 +405,7 @@ $(function(){
           backgroundColor:'rgba(255,255,255,0.9)',
           borderColor:'#d0d7fb',
           borderWidth:1,
-          borderRadius:1,
+          borderRadius:2,
           shadowColor:'rgba(0,0,0,0.9)',
           textStyle:{
               color:'#555',
@@ -596,12 +600,14 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
         formatter: "{b}:<br/> {c} ({d}%)",
         backgroundColor:"rgba(255,255,255,0.9)",
         borderColor:too_color,
-        borderWidth:"1px",
+        borderWidth:1,
+        borderRadius:2,
+        shadowColor:'rgba(0,0,0,0.9)',
         padding:8,
         minAngle:10,
         textStyle :{
-            color :"#666",
-            fontSize:"10px",
+            color :"#333333",
+            fontSize:"12",
         },
         extraCssText :'box-shadow:0 2px 4px 0 rgba(0,0,0,0.10);',
         extraCssText :'text-align:left;'
