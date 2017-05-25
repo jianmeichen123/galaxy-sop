@@ -2694,6 +2694,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 /* 拜访统计 */
 .visit_bars{
     padding:10px;background: #fff;
+    border-radius:4px;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -2707,6 +2708,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         background: #fff;
         margin-top: 10px;
         padding: 30px;
+        border-radius:4px;
     }
     .visit_box h3{
         font-weight: normal;
