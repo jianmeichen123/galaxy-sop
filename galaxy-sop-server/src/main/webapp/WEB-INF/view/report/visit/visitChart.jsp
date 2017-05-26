@@ -326,7 +326,6 @@ var bftjt = {
 				} else {
 					//var dataList = backdata.pageList.content;
 					var dataList = backdata.entityList;
-					
 					if(dataList !=null && dataList.length >0){
 						//dataList.sort(bftjt.compare);
 						$.each(dataList,function(){
@@ -335,20 +334,20 @@ var bftjt = {
 								bftjt.dataComSum.push(this.completeSum);
 							}
 						});
-						
 						dataList.sort(bftjt.allCompare);
 						$.each(dataList,function(){
 							bftjt.dataAllName.push(this.name);
 							bftjt.dataAllSum.push(this.allSum);
 						});
+					}else{
+						bftjt.dataAllSum=[];
+						bftjt.dataAllName=[];
+						bftjt.dataComSum=[];
+						bftjt.dataComName=[];
 					}
 				}
 				$(".th-inner.sortable").append("<span></span>")
 				
-				/* containerUserKpiOptions.series[0].data = re;
-				containerUserKpiOptions.xAxis.categories = categories;
-				var chart = new Highcharts.Chart(containerUserKpiOptions); */
-
 				//已完成拜访量
 				completedChart();
 				function completedChart(){
