@@ -154,21 +154,21 @@
                         <p>项目拜访占比</p>
                         <span class="period_desc">(2017年第2季度)</span>
                     </div>
-                    <div class="round_data" id="project_visit"></div>
+                    <div class="round_data" id="project_visit"  style="z-index:0;"></div>
                 </li>
                 <li>
                     <div class="round_title">
                         <p>项目拜访轮次占比</p>
                         <span class="period_desc">(2017年第2季度)</span>
                     </div>
-                    <div class="round_data" id="project_visit_round"></div>
+                    <div class="round_data" id="project_visit_round"  style="z-index:0;"></div>
                 </li>
                 <li>
                     <div class="round_title">
                         <p>访谈记录缺失占比</p>
                         <span class="period_desc">(2017年第2季度)</span>
                     </div>
-                    <div class="round_data" id="project_visit_miss"></div>
+                    <div class="round_data" id="project_visit_miss"  style="z-index:0;"></div>
                 </li>
             </ul>
         </div>
@@ -179,7 +179,7 @@
                 <p>拜访趋势图</p>
                 <span class="period_desc">(季度)</span>
             </h3>
-            <div class="vertical" id="visitTrend" style="height: 370px;"></div>
+            <div class="vertical" id="visitTrend" style="height: 370px;z-index:0;"></div>
         </div>
         <div class="visit_box visit_four" id="bftjt">
             <h3>
@@ -191,8 +191,8 @@
                 <li class="active">已完成拜访量</li>
                 <li class="last">计划拜访量</li>
             </ul>
-            <div class="vertical" id="visitCompleted" style="height: 370px;"></div>
-            <div class="vertical" id="visitPlan" style="height: 370px;"></div>
+            <div class="vertical" id="visitCompleted" style="height: 370px;z-index:0;"></div>
+            <div class="vertical" id="visitPlan" style="height: 370px;z-index:0;"></div>
             <!-- 排名列表 -->
             <!--表格内容-->
 			<table id="data-table-bftjt" width="100%" cellspacing="0" cellpadding="0"  >
