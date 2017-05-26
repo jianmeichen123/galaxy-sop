@@ -283,6 +283,10 @@ $(function(){
 			   });
 		   }
 	   });
+	  //拜访统计图在计划拜访tab查询,隐藏已完成拜访量图
+	if($(".vertical_tab li.last").is(".active")){
+		          $("#visitCompleted").hide();
+				}
 	//IE8兼容
 	 if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
 	  { 
