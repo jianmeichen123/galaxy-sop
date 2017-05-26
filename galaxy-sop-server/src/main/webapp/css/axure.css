@@ -2854,25 +2854,29 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .vertical.empty_data5{
 	height:370px;
 	background:url('../img/nodata4.png') no-repeat center;
-	background-position:center 110px;
+	background-position:center 80px;
 	position:relative;
 }
 .empty_data5 .visit_nocon,.empty_data6 .visit_nocon{
 	position:absolute;
-	top:280px;
+	top:250px;
 	left:50%;
 	margin-left:-63px;
 	font-size:14px;
 	color:#999999;
 }
 .empty_data6 .visit_nocon{
-	top:270px;
+	top:240px;
+}
+#visitCompleted{
+	margin-bottom:30px;
 }
 #visitCompleted.empty_data6,#visitPlan.empty_data6{
 	height:370px;
 	background:url('../img/nodata5.png') no-repeat center;
-	background-position:center 110px;
+	background-position:center 80px;
 	position:relative;
+	margin-bottom:30px;
 }
 .visit_box .round_data p{margin-top:170px;font-size:14px;
 color:#999999;}
