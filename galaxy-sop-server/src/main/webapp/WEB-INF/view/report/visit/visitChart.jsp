@@ -394,7 +394,7 @@ var bftjt = {
 					}else{
 						$("#visitPlan").children().show();
 						 $("#visitPlan").removeClass("empty_data6");
-						 $("#visitPla").find(".visit_nocon").remove();
+						 $("#visitPlan").find(".visit_nocon").remove();
 					}
 				}
 				
