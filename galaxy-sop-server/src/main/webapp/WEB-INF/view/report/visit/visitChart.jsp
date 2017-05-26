@@ -253,18 +253,20 @@ var bftjt = {
 	dataComName : [],
 	
 	initTable : function() {
-	      
-		if(bftjt.queryParams.createdId != null){
+		$('#data-table-bftjt').bootstrapTable('destroy');
+		
+		
+	    var toolbarQ = bftjt.queryParams({});  
+		if(toolbarQ.createdId != null && toolbarQ.createdId != '0'){
 			$("#bftjt").hide();
 			return;
 		}else{
 			$("#bftjt").show();
-			
 			$("#visitCompleted").show();
 		}
 		
 		var nameFormat = "";
-		if (bftjt.queryParams.departmentId != null) {
+		if (toolbarQ.departmentId != null && toolbarQ.departmentId != '0'){
 			nameFormat = "投资经理";
 		} else {
 			nameFormat = "投资事业线";
@@ -283,7 +285,7 @@ var bftjt = {
 			sidePagination : "client",      //分页方式：client客户端分页，server服务端分页（*）
 			sortable : true,                //是否启用排序
 			sortName : "completeSum",
-			sortOrder : "desc",              //排序方式
+			sortOrder : "asc",              //排序方式
 			queryParams : bftjt.queryParams,     //传递参数（*）
 			pageNumber : 1,                      //初始化加载第一页，默认第一页
 			pageSize : 10,                       //每页的记录行数（*）
