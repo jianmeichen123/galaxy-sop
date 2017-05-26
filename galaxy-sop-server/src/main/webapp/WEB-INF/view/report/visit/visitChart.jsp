@@ -300,10 +300,10 @@ var bftjt = {
 			columns : [ {
 				field : 'indexNo',
 				title : '排名',
-				sortable : false
-				/* formatter : function(value, row, index) {
+				sortable : false,
+				formatter : function(value, row, index) {
 					return index + 1;
-				} */
+				}
 			}, {
 				field : 'name',
 				title : nameFormat,
@@ -343,7 +343,6 @@ var bftjt = {
 							bftjt.dataAllName.push(this.name);
 							bftjt.dataAllSum.push(this.allSum);
 						});
-						console.log(bftjt.dataComName);
 					}else{
 						bftjt.dataAllSum=[];
 						bftjt.dataAllName=[];
