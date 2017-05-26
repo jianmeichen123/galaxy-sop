@@ -2803,7 +2803,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         display: block;
     }
     .visit_two .round_data{
-        /* width: 368px; */
+        width: 368px; 
         height: 300px;
         margin: 0 auto;
         margin-top: 15px;
