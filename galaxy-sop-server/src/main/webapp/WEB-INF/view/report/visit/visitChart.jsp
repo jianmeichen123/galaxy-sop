@@ -517,6 +517,7 @@ var bftjt = {
 					fontFamily : '微软雅黑',
 					align : 'center'
 				},
+				interval:0,
 				formatter : function(value) {
 					//return value.split("").join("\n");
 					return value;
@@ -615,6 +616,7 @@ var bftjt = {
 					fontFamily : '微软雅黑',
 					align : 'center'
 				},
+				interval:0,
 				formatter : function(value) {
 					//return value.split("").join("\n");
 					return value;
