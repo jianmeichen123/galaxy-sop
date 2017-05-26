@@ -2699,7 +2699,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     -moz-box-sizing: border-box;
 }
 .visit_bars .min_document{margin:0;}
-    .radios li{
+   .radios li{
         display:inline-block;
         margin-right: 15px;
     }
@@ -2735,7 +2735,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         display: inline-block;
     }
     .visit_two .fl_three li{
-    height: 380px;
+    height: 320px;
     }
     .fl_two li{
         float: left;
@@ -2803,8 +2803,8 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         display: block;
     }
     .visit_two .round_data{
-        width: 368px;
-        height: 330px;
+        /* width: 368px; */
+        height: 300px;
         margin: 0 auto;
         margin-top: 15px;
         overflow: visible;
@@ -2841,36 +2841,35 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     .ritmin .visitChartCon .min_document{background:#f3f4f9}
 .round_data.empty_data1{
 	background:url('../img/nodata1.png') no-repeat center;
-	background-size:160px;
-	background-position:center 50px;
+	background-position:center 45px;
 }
 .round_data.empty_data2{
 	background:url('../img/nodata2.png') no-repeat center;
-	background-size:160px;
-	background-position:center 27px;
+	background-position:center 45px;
 }
 .round_data.empty_data3{
 	background:url('../img/nodata3.png') no-repeat center;
-	background-size:160px;
-	background-position:center 27px;
+	background-position:center 45px;
 }
 .vertical.empty_data5{
 	height:370px;
 	background:url('../img/nodata4.png') no-repeat center;
+	background-position:center 110px;
 	position:relative;
 }
 .empty_data5 .visit_nocon{
 	position:absolute;
-	top:270px;
+	top:280px;
 	left:50%;
-	margin-left:-58px;
+	transform:translateX(-50%);
+	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
 	font-size:14px;
 	color:#999999;
 }
 #visitCompleted.empty_data6,#visitPlan.empty_data6{
 	height:370px;
 	background:url('../img/nodata5.png') no-repeat center;
-	background-size:220px;
 	background-position:center 110px;
 	position:relative;
 }
@@ -2884,5 +2883,5 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	font-size:14px;
 	color:#999999;
 }
-.visit_box .round_data p{margin-top:210px;font-size:14px;
+.visit_box .round_data p{margin-top:170px;font-size:14px;
 color:#999999;}

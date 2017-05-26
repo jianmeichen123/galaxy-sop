@@ -179,7 +179,7 @@
                 <p>拜访趋势图</p>
                 <span class="period_desc">(季度)</span>
             </h3>
-            <div class="vertical" id="visitTrend" style="height: 370px;z-index:0;"></div>
+            <div class="vertical" id="visitTrend" style="height: 310px;z-index:0;"></div>
         </div>
         <div class="visit_box visit_four" id="bftjt">
             <h3>
@@ -191,8 +191,8 @@
                 <li class="active">已完成拜访量</li>
                 <li class="last">计划拜访量</li>
             </ul>
-            <div class="vertical" id="visitCompleted" style="height: 370px;z-index:0;"></div>
-            <div class="vertical" id="visitPlan" style="height: 370px;z-index:0;"></div>
+            <div class="vertical" id="visitCompleted" style="height: 310px;z-index:0;"></div>
+            <div class="vertical" id="visitPlan" style="height: 310px;z-index:0;"></div>
             <!-- 排名列表 -->
             <!--表格内容-->
 			<table id="data-table-bftjt" width="100%" cellspacing="0" cellpadding="0"  >
