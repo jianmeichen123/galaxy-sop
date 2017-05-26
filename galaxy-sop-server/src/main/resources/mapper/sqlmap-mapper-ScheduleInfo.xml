@@ -255,10 +255,10 @@
 			        and project_id is not null
 			     </if>
 			     <if test="startTime != null" >
-			        and <![CDATA[startTime >= #{startTime,jdbcType=TIMESTAMP}]]>
+			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        and <![CDATA[endTime <= #{endTime,jdbcType=TIMESTAMP}]]>
+			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and <![CDATA[end_time >= NOW()]]>
 			</trim>
