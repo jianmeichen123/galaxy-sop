@@ -403,12 +403,12 @@ var bftjt = {
 				});
 				
 				//IE8兼容
-				 if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+				  if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
 				  { 
 					 $("#visitCompleted>div").remove();
 					 $("#visitPlan>div").remove();
-					 visitTrend(1);
-				  }
+					 completedChart();
+				  } 
 
 			}
 		});
