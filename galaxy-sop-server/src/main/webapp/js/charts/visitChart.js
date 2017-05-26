@@ -20,17 +20,20 @@ $(function(){
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
 		console.log(input_radio);
 		$.each(input_radio,function(){
-			console.log("#######################");
-			console.log($(this).attr("checked"));
-			console.log($(this).val());
 			if($(this).attr("checked")!=undefined&&$(this).val()=="on"){
 				$('.visit_two ul').attr("class","fl_three clearfix");
-				console.log()
-				$('.visit_two ul li:first-child').show();
+				$('.visit_two ul li').show();
 				return false;
-			}else{
+			}else if($(this).attr("checked")=="checked"&&$(this).val()==1){
 				$('.visit_two ul').attr("class","fl_two clearfix");
+				$('.visit_two ul li').show();
 				$('.visit_two ul li:first-child').hide();
+				return false;
+			}else if($(this).attr("checked")=="checked"&&$(this).val()==0){
+				$('.visit_two ul').attr("class","fl_one clearfix");
+				$('.visit_two ul li').hide();
+				$('.visit_two ul li:last-child').show();
+				return false;
 			}
 		})
 		//判断是否查看投资经理
