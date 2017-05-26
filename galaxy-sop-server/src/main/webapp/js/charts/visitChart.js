@@ -283,6 +283,15 @@ $(function(){
 			   });
 		   }
 	   });
+	//IE8兼容
+	 if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+	  { 
+		 $("#project_visit>div").remove();
+		 $("#project_visit_round>div").remove();
+		 $("#project_visit_miss>div").remove();
+		 $("#visitTrend>div").remove();
+		 visitTrend(1);
+	  }
 	   visit(query);
 	   projectVisit(query);
 	   visitFanceStatus(query);

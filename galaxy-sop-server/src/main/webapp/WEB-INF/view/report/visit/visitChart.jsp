@@ -395,13 +395,23 @@ var bftjt = {
 				    if ($(this).hasClass("last")) {
 				    $("#visitCompleted").hide();
 				    $("#visitPlan").show();
+					 $("#visitPlan>div").remove();
 				    planChart();
 				  }else{
 				    $("#visitCompleted").show();
 				    $("#visitPlan").hide();
+				    $("#visitCompleted>div").remove();
 				    completedChart();
 				  }
 				});
+				
+				//IE8兼容
+				  if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+				  { 
+					 $("#visitCompleted>div").remove();
+					 $("#visitPlan>div").remove();
+					 completedChart();
+				  } 
 
 			}
 		});
