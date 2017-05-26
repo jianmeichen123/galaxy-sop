@@ -343,6 +343,9 @@ var bftjt = {
 						});
 					}
 				}
+				console.log("@@@@@@@@@@@@@@@@@@");
+				console.log($(".th-inner.sortable").html());
+				$(".th-inner.sortable").append("<span></span>")
 				
 				/* containerUserKpiOptions.series[0].data = re;
 				containerUserKpiOptions.xAxis.categories = categories;
