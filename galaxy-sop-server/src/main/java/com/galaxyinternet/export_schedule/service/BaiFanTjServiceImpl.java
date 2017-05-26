@@ -93,7 +93,11 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 					return (arg1.getCompleteSum().intValue() - arg0.getCompleteSum().intValue());
 				}
 			});
+			for(int i = 0 ; i<results.size();i++){
+				results.get(i).setIndexNo(i+1);
+			}
 		}
+		
 		long time5 = System.currentTimeMillis();
 		
 		if(logger.isDebugEnabled()){
