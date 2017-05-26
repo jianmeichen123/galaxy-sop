@@ -1,6 +1,7 @@
 $(function(){
 
 	var datePeriod;
+	var dateVisitPeriod;
 	$("button[action='querySearch']").click(function(){
 		loadTrendData();
 		var str;
@@ -12,7 +13,7 @@ $(function(){
 			str = $("#month_start_data").val();		
 		}
 		if(val == "周"){
-			str = datePeriod.startTime.split(" ")[0]+"至"+datePeriod.endTime.split(" ")[0];
+			str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 		}
 		$(".period_desc").text('('+str+')');
 //		判断 是否为项目拜访
@@ -56,6 +57,20 @@ $(function(){
 		   return getMonthlyPeriod();
 	   }
 	   return getQuarterlyPeriod();
+   }
+   function getVisitDatePeriod()
+   {
+	   var periodType = $("input[name='periodType']:checked").val();
+	   //console.log("periodType="+periodType);
+	   if(periodType == 3)
+	   {
+		   return getWeeklyPeriod();
+	   }
+	   else if(periodType == 2)
+	   {
+		   return getVisitMonthlyPeriod();
+	   }
+	   return getVisitQuarterlyPeriod();
    }
    /**
     * 获取季度起止时间
@@ -105,6 +120,122 @@ $(function(){
 		   endTime.setMonth(11);
 		   endTime.setDate(31);
 	   }
+	   startTime.setHours(0);
+	   startTime.setMinutes(0);
+	   startTime.setSeconds(0);
+	   startTime.setMilliseconds(0)
+	   
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999)
+	   
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+   }
+   /**
+    * 获取季度起止时间
+    * @returns
+    */
+   function getVisitQuarterlyPeriod()
+   {
+	   //console.log('getQuarterlyPeriod');
+	   var endYear = $("#quarterly_start_data").val().replace('年','');
+	   var startYear = endYear;
+	   
+	   var quarterly = $("select[name='s_quarterly']").val();
+	   console.log("quarterly="+quarterly);
+	   var startTime = new Date();
+	   var endTime = new Date();
+	   
+	   startTime.setFullYear(startYear);
+	   startTime.setDate(1);
+	   
+	   endTime.setFullYear(endYear);
+	   
+	   if(quarterly == 1)
+	   {
+		   startTime.setMonth(0);
+		   
+		   endTime.setMonth(2);
+		   endTime.setDate(31);
+	   }
+	   else if(quarterly == 2)
+	   {
+		   startTime.setMonth(3);
+		   
+		   endTime.setMonth(5);
+		   endTime.setDate(30);
+	   }
+	   else if(quarterly == 3)
+	   {
+		   startTime.setMonth(6);
+		   
+		   endTime.setMonth(8);
+		   endTime.setDate(30);
+	   }
+	   else if(quarterly == 4)
+	   {
+		   startTime.setMonth(9);
+		   
+		   endTime.setMonth(11);
+		   endTime.setDate(31);
+	   }
+	   startTime.setHours(0);
+	   startTime.setMinutes(0);
+	   startTime.setSeconds(0);
+	   startTime.setMilliseconds(0)
+	   
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999)
+	   
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+   }
+   
+   /**
+    * 获取月度起止时间
+    * @returns
+    */
+   function getVisitMonthlyPeriod()
+   {
+	   console.log('getMonthlyPeriod');
+	   var selected = $("#month_start_data").val().replace('月','');
+	   var endYear = selected.split('年')[0];
+	   var startYear = endYear;
+	   
+	   var month = selected.split('年')[1];
+	   
+	   var startTime = new Date();
+	   var endTime = new Date();
+	   
+	   startTime.setFullYear(startYear);
+	   startTime.setMonth(month-1);
+	   startTime.setDate(1);
+	  
+	   endTime.setFullYear(endYear);
+	   endTime.setMonth(month-1);
+	   
+	   if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+	   {
+		   endTime.setDate(31);
+	   }
+	   else if(month == 2)
+	   {
+		   if(endYear%400 ==0 || endYear%4 == 0)
+		   {
+			   endTime.setDate(29);
+		   }
+		   else
+		   {
+			   endTime.setDate(28);
+		   }
+	   }
+	   else 
+	   {
+		   endTime.setDate(30);
+	   }
+	   
 	   startTime.setHours(0);
 	   startTime.setMinutes(0);
 	   startTime.setSeconds(0);
@@ -210,7 +341,9 @@ $(function(){
 	   bftjt.initTable();
 	   
 	   datePeriod = getDatePeriod();
+	   dateVisitPeriod = getVisitDatePeriod();
 	   console.log(datePeriod);
+	   console.log(dateVisitPeriod);
 	   trend = {
 			periods:new Array(),
 			plan : new Array(),
@@ -219,6 +352,8 @@ $(function(){
 	   var query = {
 			startTimeFrom:datePeriod.startTime,
 			startTimeThrough:datePeriod.endTime,
+			startTime:dateVisitPeriod.startTime,
+			endTime:dateVisitPeriod.endTime,
 			departmentId: $("select[name='departmentId']").val(),
 			createdId: $("select[name='createdId']").val(),
 			isProject: $("input[name='isProject']:checked").val(),
