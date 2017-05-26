@@ -34,16 +34,20 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 	@Override
 	public Map<String, Object> getVisitStatistics(ScheduleInfo info) {
 		// TODO Auto-generated method stub
+		//访谈完成率
 		String visitRate = "0.00%";
 		//计划拜访量
-		long visitCount = scheduleInfoDao.getVisitCount(info);
+		long visitCount = 0;
 		//已完成拜访量
-		long completedVisitCount = scheduleInfoDao.getCompletedVisit(info);
-		//访谈完成率
-		if(visitCount != 0 && completedVisitCount != 0 ){
-			double k = (double)completedVisitCount/visitCount*100;
-			java.math.BigDecimal   big   =   new   java.math.BigDecimal(k);  
-			visitRate = big.setScale(2,java.math.BigDecimal.ROUND_HALF_UP).doubleValue() +"%";
+		long completedVisitCount = 0;
+		if((info.getDepartmentId() != 0 && info.getCreatetUids() != null && info.getCreatetUids().size() > 0) || info.getDepartmentId() == 0){
+			visitCount = scheduleInfoDao.getVisitCount(info);
+			completedVisitCount = scheduleInfoDao.getCompletedVisit(info);
+			if(visitCount != 0 && completedVisitCount != 0 ){
+				double k = (double)completedVisitCount/visitCount*100;
+				java.math.BigDecimal   big   =   new   java.math.BigDecimal(k);  
+				visitRate = big.setScale(2,java.math.BigDecimal.ROUND_HALF_UP).doubleValue() +"%";
+			}
 		}
 		Map<String,Object> visitMap = new HashMap<String,Object>();
 		visitMap.put("visitCount", visitCount);
@@ -57,9 +61,12 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 	 */
 	@Override
 	public List<ScheduleInfo> getVisitFanceStatus(ScheduleInfo info) {
-		//计划拜访量
 		// TODO Auto-generated method stub
-		List<ScheduleInfo> list = scheduleInfoDao.getVisitFanceStatus(info);
+		//计划拜访量
+		List<ScheduleInfo> list = null;
+		if((info.getDepartmentId() != 0 && info.getCreatetUids() != null && info.getCreatetUids().size() > 0) || info.getDepartmentId() == 0){
+			list = scheduleInfoDao.getVisitFanceStatus(info);
+		}
 		return list;
 	}
     /**
@@ -69,10 +76,14 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 	public Map<String, Object> getProjectVisit(ScheduleInfo info) {
 		// TODO Auto-generated method stub
 		//项目拜访
-		long isAllProVisit = scheduleInfoDao.getVisitCount(info);
-		//项目拜访
-	    info.setIsProject(1);
-	    long isProVisit = scheduleInfoDao.getVisitCount(info);
+		long isAllProVisit = 0;
+		long isProVisit = 0;
+		if((info.getDepartmentId() != 0 && info.getCreatetUids() != null && info.getCreatetUids().size() > 0) || info.getDepartmentId() == 0){
+			isAllProVisit = scheduleInfoDao.getVisitCount(info);
+			//项目拜访
+		    info.setIsProject(1);
+		    isProVisit = scheduleInfoDao.getVisitCount(info);
+		}
 	    //非项目拜访
 	    long isNoVisit = isAllProVisit - isProVisit;
 	    Map<String,Object> map = new HashMap<String,Object>();
@@ -85,9 +96,13 @@ public class ScheduleInfoServiceImpl extends BaseServiceImpl<ScheduleInfo> imple
 	public Map<String, Object> getRecordVisit(ScheduleInfo info) {
 		// TODO Auto-generated method stub
 		//拜访记录
-		long all = scheduleInfoDao.getAllRecordVisitCount(info);
+		long all = 0;
 		//未缺失的拜访记录
-	    long part = scheduleInfoDao.getRecordVisitCount(info);
+	    long part = 0;
+		if((info.getDepartmentId() != 0 && info.getCreatetUids() != null && info.getCreatetUids().size() > 0) || info.getDepartmentId() == 0){
+		     all = scheduleInfoDao.getAllRecordVisitCount(info);
+		     part = scheduleInfoDao.getRecordVisitCount(info);
+		}
 	    //已缺失的拜访
 	    long nopart = all - part;
 	    Map<String,Object> map = new HashMap<String,Object>();
