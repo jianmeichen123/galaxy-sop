@@ -411,7 +411,7 @@ table .width_gd{width:12%;}
 /* 查询公用按钮 */
 .cx{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -180px;padding:0 8px 0 30px;}
 .pq{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -248px;padding:0 8px 0 30px;}
-.tj{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -212px;padding:0 8px 0 30px;}
+.tj{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -212px;padding:0 8px 0 30px;cursor:pointer;}
 
 /*公用表单*/
 .fmdl{ /* margin:0 0 15px; */ display:block; font-size:14px; color:#2d3342;line-height:30px;}
