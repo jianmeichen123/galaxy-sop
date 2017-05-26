@@ -165,10 +165,10 @@
 			     <if test="isProject == 1" >
 			        and project_id is not null
 			     </if>
-			     <if test="startTimeFrom != null" >
+			     <if test="startTime != null" >
 			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="startTimeThrough != null" >
+			     <if test="endTime != null" >
 			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
@@ -196,10 +196,10 @@
 			     <if test="isProject == 1" >
 			        and project_id is not null
 			     </if>
-			      <if test="startTimeFrom != null" >
+			      <if test="startTime != null" >
 			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="startTimeThrough != null" >
+			     <if test="endTime != null" >
 			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
@@ -222,10 +222,10 @@
 			     </if>
 			        and si.type = 2
 			        and si.project_id != ''
-			     <if test="startTimeFrom != null" >
+			     <if test="startTime != null" >
 			        and <![CDATA[si.start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="startTimeThrough != null" >
+			     <if test="endTime != null" >
 			        and <![CDATA[si.end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and si.project_id = sp.id
@@ -254,10 +254,10 @@
 			     <if test="isProject == 1" >
 			        and project_id is not null
 			     </if>
-			     <if test="startTimeFrom != null" >
+			     <if test="startTime != null" >
 			        and <![CDATA[start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="startTimeThrough != null" >
+			     <if test="endTime != null" >
 			        and <![CDATA[end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and <![CDATA[end_time >= NOW()]]>
@@ -284,10 +284,10 @@
 			     <if test="isProject == 1" >
 			        and si.project_id is not null
 			     </if>
-			     <if test="startTimeFrom != null" >
+			     <if test="startTime != null" >
 			        and <![CDATA[si.start_time >= #{startTimeFrom,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     <if test="startTimeThrough != null" >
+			     <if test="endTime != null" >
 			        and <![CDATA[si.end_time <= #{startTimeThrough,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and <![CDATA[si.end_time >= NOW()]]>

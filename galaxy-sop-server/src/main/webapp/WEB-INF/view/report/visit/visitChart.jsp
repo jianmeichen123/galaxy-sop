@@ -354,6 +354,10 @@ var bftjt = {
 					var completedChart = echarts.init(document.getElementById('visitCompleted'));
 					bftjt.completedOption.xAxis[0].data = bftjt.dataComName;
 					bftjt.completedOption.series[0].data = bftjt.dataComSum;
+					if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+					  { 
+						bftjt.completedOption.tooltip.backgroundColor="#fff";
+					  }
 					completedChart.setOption(bftjt.completedOption, true);
 					
 					window.onresize = completedChart.resize; 
@@ -375,6 +379,10 @@ var bftjt = {
 					var planChart = echarts.init(document.getElementById('visitPlan'));
 					bftjt.planOption.xAxis[0].data = bftjt.dataAllName;
 					bftjt.planOption.series[0].data = bftjt.dataAllSum;
+					if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+					  { 
+						bftjt.planOption.tooltip.backgroundColor="#fff";
+					  }
 					planChart.setOption(bftjt.planOption, true);
 					
 					window.onresize = planChart.resize; 
