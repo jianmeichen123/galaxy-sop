@@ -100,27 +100,22 @@ $(function(){
 	    setDate:"Today"
 	    //endDate: '+3d'
 	});
-	$('.datepicker').datepicker("setDate",new Date());
-	//年视图
-	$( "#quarterly_start_data" ).datepicker({
-		autoclose: true,
-	    defaultDate : new Date(),
-	    language: 'zh-CN',
-	    startView: 2, 
-	    maxViewMode: 2,
-	    minViewMode:2,
-	    format: "yyyy年",
-	    defaultDate: new Date(),
-	    currentText: 'Now',
-	})
 	var myyear = new Date().getFullYear();
     var mymonth = new Date().getMonth()+1;
     $("#quarterly_start_data").val(myyear+"年");
     $("select[name='s_quarterly']").val(Math.round(mymonth/3))
+	$('.datepicker').datepicker("setDate",new Date());
+	//年视图
+	  $('#quarterly_start_data').datepicker({
+			format: "yyyy年",
+			language: "zh-CN",
+			minViewMode: 2,
+			autoclose: true
+		})
 	//月份视图
     $(".change_month_visit").val(myyear+"年"+mymonth+"月");
     $('.change_month_visit').datepicker({
-		format: "yyyy年mm月",
+		format: "yyyy年m月",
 		language: "zh-CN",
 		minViewMode: 1,
 		autoclose: true
