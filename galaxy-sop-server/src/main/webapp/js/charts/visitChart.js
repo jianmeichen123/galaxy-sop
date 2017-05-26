@@ -725,6 +725,10 @@ $(function(){
           }
       ]
     };
+    if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+	  { 
+		option.tooltip.backgroundColor="#fff";
+	  }
     myChart.setOption(option, true);
   }
  
@@ -798,6 +802,10 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
     color:data_color
 
     };
+if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+	  { 
+		option.tooltip.backgroundColor="#fff";
+	  }
 var sdata_id = echarts.init(document.getElementById(data_id));
 sdata_id.setOption(option, true);
 }
