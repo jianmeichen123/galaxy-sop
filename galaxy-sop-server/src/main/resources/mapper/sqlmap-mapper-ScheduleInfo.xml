@@ -48,12 +48,12 @@
 			      <if test="projectId != null" >
 			        and project_id = #{projectId,jdbcType=BIGINT}
 			      </if>
-			      <if test="startTime != null" >
+			      <!-- <if test="startTime != null" >
 			        and start_time = #{startTime,jdbcType=TIMESTAMP}
 			      </if>
 			      <if test="endTime != null" >
 			        and end_time = #{endTime,jdbcType=TIMESTAMP}
-			      </if>
+			      </if> -->
 			      <if test="isAllday != null" >
 			        and is_allday = #{isAllday,jdbcType=TINYINT}
 			      </if>
