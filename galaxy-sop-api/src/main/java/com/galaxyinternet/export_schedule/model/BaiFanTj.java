@@ -7,7 +7,8 @@ public class BaiFanTj extends PagableEntity{
 	
 	private static final long serialVersionUID = 1L;
 
-
+	private Integer indexNo;
+	
 	private Long uid;
 	private Long did;
 	
@@ -21,6 +22,15 @@ public class BaiFanTj extends PagableEntity{
 	private Integer completeSum;
 	private Integer allSum;
 	
+	
+	
+	public Integer getIndexNo() {
+		return indexNo;
+	}
+	
+	public void setIndexNo(Integer indexNo) {
+		this.indexNo = indexNo;
+	}
 	public Long getUid() {
 		return uid;
 	}

@@ -282,6 +282,7 @@ var bftjt = {
 			pagination : true,              //是否显示分页（*）
 			sidePagination : "client",      //分页方式：client客户端分页，server服务端分页（*）
 			sortable : true,                //是否启用排序
+			sortName : "allSum",
 			sortOrder : "desc",              //排序方式
 			queryParams : bftjt.queryParams,     //传递参数（*）
 			pageNumber : 1,                      //初始化加载第一页，默认第一页
@@ -295,16 +296,16 @@ var bftjt = {
 			detailView : false,                  //是否显示父子表
 			
 			columns : [ {
-				field : 'index',
+				field : 'indexNo',
 				title : '排名',
-				sortable : false,
-				formatter : function(value, row, index) {
+				sortable : false
+				/* formatter : function(value, row, index) {
 					return index + 1;
-				}
+				} */
 			}, {
 				field : 'name',
-				sortable : false,
-				title : nameFormat
+				title : nameFormat,
+				sortable : false
 				
 			}, {
 				field : 'allSum',
@@ -351,7 +352,8 @@ var bftjt = {
 					bftjt.completedOption.xAxis[0].data = bftjt.dataComName;
 					bftjt.completedOption.series[0].data = bftjt.dataComSum;
 					completedChart.setOption(bftjt.completedOption, true);
-					 window.onresize = completedChart.resize; 
+					
+					window.onresize = completedChart.resize; 
 					if(bftjt.dataComSum.length==0){
 						$("#visitCompleted").children().hide();
 						 $("#visitCompleted").addClass("empty_data6");
@@ -371,6 +373,7 @@ var bftjt = {
 					bftjt.planOption.xAxis[0].data = bftjt.dataAllName;
 					bftjt.planOption.series[0].data = bftjt.dataAllSum;
 					planChart.setOption(bftjt.planOption, true);
+					
 					window.onresize = planChart.resize; 
 					//$("#visitPlan").hide();
 					if(bftjt.dataAllSum.length==0){
@@ -383,7 +386,6 @@ var bftjt = {
 						 $("#visitPla").find(".visit_nocon").remove();
 					}
 				}
-				
 				
 				//tab点击事件
 				$(".vertical_tab li").click(function(event) {
