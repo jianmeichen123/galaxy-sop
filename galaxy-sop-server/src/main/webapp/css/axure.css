@@ -2857,17 +2857,13 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .vertical.empty_data5{
 	height:370px;
 	background:url('../img/nodata4.png') no-repeat center;
-	background-size:220px;
-	background-position:center 110px;
 	position:relative;
 }
 .empty_data5 .visit_nocon{
 	position:absolute;
-	top:260px;
+	top:270px;
 	left:50%;
-	transform:translateX(-50%);
-	-webkit-transform:translateX(-50%);
-	-moz-transform:translateX(-50%);
+	margin-left:-58px;
 	font-size:14px;
 	color:#999999;
 }
