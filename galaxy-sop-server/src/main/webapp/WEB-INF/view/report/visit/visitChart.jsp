@@ -326,6 +326,10 @@ var bftjt = {
 				} else {
 					//var dataList = backdata.pageList.content;
 					var dataList = backdata.entityList;
+					bftjt.dataAllSum=[];
+					bftjt.dataAllName=[];
+					bftjt.dataComSum=[];
+					bftjt.dataComName=[];
 					if(dataList !=null && dataList.length >0){
 						//dataList.sort(bftjt.compare);
 						$.each(dataList,function(){
@@ -339,6 +343,7 @@ var bftjt = {
 							bftjt.dataAllName.push(this.name);
 							bftjt.dataAllSum.push(this.allSum);
 						});
+						console.log(bftjt.dataComName);
 					}else{
 						bftjt.dataAllSum=[];
 						bftjt.dataAllName=[];
