@@ -2861,9 +2861,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	position:absolute;
 	top:280px;
 	left:50%;
-	transform:translateX(-50%);
-	-webkit-transform:translateX(-50%);
-	-moz-transform:translateX(-50%);
+	margin-left:-63px;
 	font-size:14px;
 	color:#999999;
 }
