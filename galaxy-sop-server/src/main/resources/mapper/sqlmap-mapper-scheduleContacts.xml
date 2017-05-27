@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.export_schedule.model.ScheduleContacts">
+
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.export_schedule.model.ScheduleContacts">
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone1" property="phone1" jdbcType="VARCHAR" />
+    <result column="phone2" property="phone2" jdbcType="VARCHAR" />
+    <result column="phone3" property="phone3" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="post" property="post" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+    <result column="created_id" property="createdId" jdbcType="BIGINT" />
+    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
+    <result column="updated_id" property="updatedId" jdbcType="BIGINT" />
+    <result column="firstpinyin" property="firstpinyin" jdbcType="VARCHAR" />
+    <result column="is_del" 		property="isDel" 		jdbcType="TINYINT" />
+  </resultMap>
+  
+  
+  
+  <sql id="Base_Column_List" >
+    id, name, phone1, phone2, phone3, email, post, company, address, created_time, created_id, 
+    updated_time, updated_id, firstpinyin, is_del
+  </sql>
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="name != null"> and name = #{name,jdbcType=VARCHAR} </if>
+				<if test="phone1 != null"> and phone1 = #{phone1,jdbcType=VARCHAR} </if>			
+				<if test="phone2 != null"> and phone2 = #{phone2,jdbcType=VARCHAR} </if>
+				<if test="phone3 != null"> and phone3 = #{phone3,jdbcType=VARCHAR} </if>
+				<if test="email != null"> and email = #{email,jdbcType=VARCHAR} </if>
+				<if test="post != null"> and post = #{post,jdbcType=VARCHAR} </if>		
+				<if test="company != null"> and company = #{company,jdbcType=VARCHAR} </if>	
+				<if test="address != null"> and address = #{address,jdbcType=VARCHAR} </if>
+				<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="createdId != null"> and created_id = #{createdId,jdbcType=BIGINT} </if>
+				<if test="updatedTime != null"> and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+				<if test="updatedId != null"> and updated_id = #{updatedId,jdbcType=BIGINT} </if>
+				<if test="firstpinyin != null"> and firstpinyin = #{firstpinyin,jdbcType=VARCHAR} </if>
+				<if test="isDel != null" > and is_del = #{isDel ,jdbcType=TINYINT}  </if>
+				
+				<if test="keyword != null">
+					and upper(name) like CONCAT("%",upper(#{keyword}),"%")
+						 		
+				</if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+
+
+
+
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.export_schedule.model.ScheduleContacts">
+		insert into schedule_contacts (id, name, phone1, 
+		      phone2, phone3, email, 
+		      post, company, address, 
+		      created_time, created_id, updated_time, 
+		      updated_id, firstpinyin, is_del)
+	    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{phone1,jdbcType=VARCHAR}, 
+	      #{phone2,jdbcType=VARCHAR}, #{phone3,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+	      #{post,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+	      #{createdTime,jdbcType=BIGINT}, #{createdId,jdbcType=BIGINT}, #{updatedTime,jdbcType=BIGINT}, 
+	      #{updatedId,jdbcType=BIGINT}, #{firstpinyin,jdbcType=VARCHAR}, #{isDel,jdbcType=TINYINT})
+	</insert>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from schedule_contacts
+		where id = #{id,jdbcType=BIGINT}
+		and is_del= 0
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from schedule_contacts
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from schedule_contacts
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from schedule_contacts
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from schedule_contacts
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+
+	<update id="updateById" parameterType="com.galaxyinternet.export_schedule.model.ScheduleContacts">
+		update schedule_contacts
+		<set>
+			<if test="name != null">  name = #{name,jdbcType=VARCHAR}, </if>
+			<if test="phone1 != null">  phone1 = #{phone1,jdbcType=VARCHAR}, </if>
+			<if test="phone2 != null"> phone2 = #{phone2,jdbcType=VARCHAR}, </if>
+			<if test="phone3 != null"> phone3 = #{phone3,jdbcType=VARCHAR}, </if>
+			 email = #{email,jdbcType=VARCHAR},
+			 post = #{post,jdbcType=VARCHAR}, 
+			 company = #{company,jdbcType=VARCHAR}, 
+			 address = #{address,jdbcType=VARCHAR},
+			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
+			<if test="createdId != null"> created_id = #{createdId,jdbcType=BIGINT}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="updatedId != null">  updated_id = #{updatedId,jdbcType=BIGINT}, </if>
+			<if test="firstpinyin != null">  firstpinyin = #{firstpinyin,jdbcType=VARCHAR}, </if>
+			<if test="isDel != null" > is_del = #{isDel,jdbcType=TINYINT} </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+ 
+  <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.export_schedule.model.ScheduleContacts">
+		update schedule_contacts
+		<set>
+			 <if test="name != null">  name = #{name,jdbcType=VARCHAR}, </if>
+			<if test="phone1 != null">  phone1 = #{phone1,jdbcType=VARCHAR}, </if>
+			<if test="phone2 != null"> phone2 = #{phone2,jdbcType=VARCHAR}, </if>
+			<if test="phone3 != null"> phone3 = #{phone3,jdbcType=VARCHAR}, </if>
+			<if test="email != null"> email = #{email,jdbcType=VARCHAR}, </if>
+			<if test="post != null"> post = #{post,jdbcType=VARCHAR}, </if>
+			<if test="company != null"> company = #{company,jdbcType=VARCHAR}, </if>
+			<if test="address != null"> address = #{address,jdbcType=VARCHAR}, </if>
+			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
+			<if test="createdId != null"> created_id = #{createdId,jdbcType=BIGINT}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="updatedId != null">  updated_id = #{updatedId,jdbcType=BIGINT}, </if>
+			<if test="firstpinyin != null">  firstpinyin = #{firstpinyin,jdbcType=VARCHAR}, </if>
+			<if test="isDel != null" > is_del = #{isDel,jdbcType=TINYINT} </if>		  
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="id != null"> and id =#{id}</if>
+				<if test="name != null"> and name = #{name,jdbcType=VARCHAR} </if>
+				<if test="phone1 != null"> and phone1 = #{phone1,jdbcType=VARCHAR} </if>			
+				<if test="phone2 != null"> and phone2 = #{phone2,jdbcType=VARCHAR} </if>
+				<if test="phone3 != null"> and phone3 = #{phone3,jdbcType=VARCHAR} </if>
+				<if test="email != null"> and email = #{email,jdbcType=VARCHAR} </if>
+				<if test="post != null"> and post = #{post,jdbcType=VARCHAR} </if>		
+				<if test="company != null"> and company = #{company,jdbcType=VARCHAR} </if>	
+				<if test="address != null"> and address = #{address,jdbcType=VARCHAR} </if>
+				<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="createdId != null"> and created_id = #{createdId,jdbcType=BIGINT} </if>
+				<if test="updatedTime != null"> and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+				<if test="updatedId != null"> and updated_id = #{updatedId,jdbcType=BIGINT} </if>
+				<if test="firstpinyin != null">and firstpinyin = #{firstpinyin,jdbcType=VARCHAR} </if>		
+			</trim>
+		</where>
+	</update>
+ 
+ 
+ 
+</mapper>
+

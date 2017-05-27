@@ -27,6 +27,8 @@ public class InterviewRecord extends BaseEntity{
     
     private Long createdId;
     
+    private Long scheduleId;
+    
     
     
     public Long getProjectId() {
@@ -159,9 +161,20 @@ public class InterviewRecord extends BaseEntity{
 		return dateStr;
 	}
 	
+	
+	
+	public Long getScheduleId() {
+		return scheduleId;
+	}
+
+	public void setScheduleId(Long scheduleId) {
+		this.scheduleId = scheduleId;
+	}
+
 	@Override
 	public String toString() {
 		return GSONUtil.toJson(this);
 	}
+	
 
 }
