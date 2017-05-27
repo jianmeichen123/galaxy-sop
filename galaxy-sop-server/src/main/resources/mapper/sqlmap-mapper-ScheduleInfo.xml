@@ -159,6 +159,7 @@
 					</foreach>
 			     </if>
 			        and type = 2
+			        and is_del = 0
 			     <if test="isProject == 0" >
 			        and project_id is null
 			     </if>
@@ -190,6 +191,7 @@
 					</foreach>
 			     </if>
 			        and type = 2
+			        and is_del = 0
 			    <if test="isProject == 0" >
 			        and project_id is null
 			     </if>
@@ -221,6 +223,7 @@
 					</foreach>
 			     </if>
 			        and si.type = 2
+			        and is_del = 0
 			        and si.project_id != ''
 			     <if test="startTime != null" >
 			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
@@ -231,7 +234,7 @@
 			     and si.project_id = sp.id
 			</trim>
 		</where>
-         GROUP BY sp.finance_status
+         GROUP BY sp.finance_status order by sp.finance_status asc
 
 	</select> 
 	
@@ -248,6 +251,7 @@
 					</foreach>
 			     </if>
 			        and type = 2
+			        and is_del = 0
 			    <if test="isProject == 0" >
 			        and project_id is null
 			     </if>
@@ -278,6 +282,7 @@
 					</foreach>
 			     </if>
 			        and si.type = 2
+			        and is_del = 0
 			     <if test="isProject == 0" >
 			        and si.project_id is null
 			     </if>

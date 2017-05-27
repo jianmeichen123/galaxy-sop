@@ -21,12 +21,15 @@ import com.galaxyinternet.export_schedule.model.BaiFanTj;
 import com.galaxyinternet.export_schedule.model.ScheduleInfo;
 import com.galaxyinternet.export_schedule.service.BaiFanTjService;
 import com.galaxyinternet.export_schedule.service.ScheduleInfoService;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.UserService;
 
 @Controller
@@ -41,7 +44,8 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 	private UserService userService;
 	@Autowired
 	private BaiFanTjService baiFanTjService;
-	
+	@Autowired
+	private DepartmentService departmentService;
 	@Override
 	protected BaseService<ScheduleInfo> getBaseService() {
 		// TODO Auto-generated method stub
@@ -190,7 +194,24 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 		}
 		else
 		{
-			sheduleInfo.setCreatedId(null);
+			Department query = new Department();
+			query.setType(1);
+			List<Department> careerlineList = departmentService.queryList(query);
+			List<Long> departmentIds = new ArrayList<Long>();
+			for(Department d : careerlineList){
+					departmentIds.add(d.getId());
+			}
+			User user = new User();
+			user.setDepartmentIds(departmentIds);
+			user.setStatus("0");
+			List<User> userList = userService.queryList(user);
+			List<Long> uids = new ArrayList<Long>();
+			for(User u : userList){
+				if(!uids.contains(u.getId())){
+					uids.add(u.getId());
+				}
+			}
+			sheduleInfo.setCreatetUids(uids);
 		}
 		
 	}
