@@ -185,7 +185,7 @@
 	
 	<!-- 已完成拜访量 -->
 	<select id="selectVisitCompletedCount" resultType="java.lang.Long" parameterType="java.util.Map">
-		select count(id) from sop_interview_record
+		select count(distinct schedule_id) from sop_interview_record
 		 where schedule_id in (
 		 select id from schedule_info
 		 <where>
