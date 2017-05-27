@@ -231,6 +231,10 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 		}
 		try{
 			setDataUser(sheduleInfo);
+			if(sheduleInfo.getCreatedId() == null || sheduleInfo.getCreatedId().intValue() == 0)
+			{
+				sheduleInfo.setCreatedId(null);
+			}
 			sheduleInfo.setType(Byte.valueOf("2"));
 			sheduleInfo.setIsDel(Byte.valueOf("0"));
 			List<Map<String,Object>> entityList = scheduleInfoService.selectTendency(sheduleInfo);

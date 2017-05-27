@@ -87,6 +87,13 @@
 			      <if test="callonPerson != null" >
 			        and callon_person = #{callonPerson,jdbcType=BIGINT}
 			      </if>
+			      <if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			     </if>
 			</trim>
 	</where>
 	<if test="sorting != null">order by ${sorting}</if>
