@@ -324,19 +324,9 @@ $(function(){
 	   endTime.setSeconds(59);
 	   endTime.setMilliseconds(999);
 	   
-	   var startDate = $('.visitweekStartDatepicker').val();
-	   var startTime = new Date();
-	   startTime.setFullYear(startDate.split('-')[0]);
-	   startTime.setMonth(startDate.split('-')[1]-1);
-	   startTime.setDate(startDate.split('-')[2]);
-	   startTime.setHours(00);
-	   startTime.setMinutes(00);
-	   startTime.setSeconds(00);
-	   startTime.setMilliseconds(00);
+	   var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
 	   
-	   //var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
-	   
-	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
    
    function loadTrendData()
