@@ -331,7 +331,7 @@ var bftjt = {
 					bftjt.dataComSum=[];
 					bftjt.dataComName=[];
 					if(dataList !=null && dataList.length >0){
-						//dataList.sort(bftjt.compare);
+						dataList.sort(bftjt.compare).reverse();
 						$.each(dataList,function(){
 							if(this.completeSum != 0){
 								bftjt.dataComName.push(this.name);
