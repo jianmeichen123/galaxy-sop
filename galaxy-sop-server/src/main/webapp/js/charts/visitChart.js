@@ -25,6 +25,7 @@ $(function(){
 			three_str="周";
 		}
 		$(".visit_period_desc").text('('+str+')');
+		$(".period_desc").text('('+v_str+')');
 		$(".visit_three .period_desc").text('('+three_str+')');
 //		判断 是否为项目拜访
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
