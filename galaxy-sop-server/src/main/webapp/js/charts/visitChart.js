@@ -5,18 +5,23 @@ $(function(){
 	$("button[action='querySearch']").click(function(){
 		loadTrendData();
 		var str;
+		var v_str;
 		var three_str;
 		var val = $("input[name='periodType']:checked").next().text();
 		if(val == "季度"){
 			str = $("#quarterly_start_data").val()+$('#s_quarterly option:selected').text();
 			three_str="季度";
+			v_str = str;
 		}
 		if(val == "月"){
 			str = $("#month_start_data").val();
 			three_str="月";
+			v_str = str;
 		}
 		if(val == "周"){
 			str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
+			v_str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
+			
 			three_str="周";
 		}
 		$(".visit_period_desc").text('('+str+')');
