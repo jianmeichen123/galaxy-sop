@@ -71,20 +71,7 @@ $(function(){
 	   }
 	   return getQuarterlyPeriod();
    }
-   function getVisitDatePeriod()
-   {
-	   var periodType = $("input[name='periodType']:checked").val();
-	   //console.log("periodType="+periodType);
-	   if(periodType == 3)
-	   {
-		   return getVisitWeeklyPeriod();
-	   }
-	   else if(periodType == 2)
-	   {
-		   return getVisitMonthlyPeriod();
-	   }
-	   return getVisitQuarterlyPeriod();
-   }
+  
    /**
     * 获取季度起止时间
     * @returns
@@ -145,122 +132,7 @@ $(function(){
 	   
 	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
-   /**
-    * 获取季度起止时间
-    * @returns
-    */
-   function getVisitQuarterlyPeriod()
-   {
-	   //console.log('getQuarterlyPeriod');
-	   var endYear = $("#quarterly_start_data").val().replace('年','');
-	   var startYear = endYear;
-	   
-	   var quarterly = $("select[name='s_quarterly']").val();
-	   console.log("quarterly="+quarterly);
-	   var startTime = new Date();
-	   var endTime = new Date();
-	   
-	   startTime.setFullYear(startYear);
-	   startTime.setDate(1);
-	   
-	   endTime.setFullYear(endYear);
-	   
-	   if(quarterly == 1)
-	   {
-		   startTime.setMonth(0);
-		   
-		   endTime.setMonth(2);
-		   endTime.setDate(31);
-	   }
-	   else if(quarterly == 2)
-	   {
-		   startTime.setMonth(3);
-		   
-		   endTime.setMonth(5);
-		   endTime.setDate(30);
-	   }
-	   else if(quarterly == 3)
-	   {
-		   startTime.setMonth(6);
-		   
-		   endTime.setMonth(8);
-		   endTime.setDate(30);
-	   }
-	   else if(quarterly == 4)
-	   {
-		   startTime.setMonth(9);
-		   
-		   endTime.setMonth(11);
-		   endTime.setDate(31);
-	   }
-	   startTime.setHours(0);
-	   startTime.setMinutes(0);
-	   startTime.setSeconds(0);
-	   startTime.setMilliseconds(0)
-	   
-	   endTime.setHours(23);
-	   endTime.setMinutes(59);
-	   endTime.setSeconds(59);
-	   endTime.setMilliseconds(999)
-	   
-	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
-   }
-   
-   /**
-    * 获取月度起止时间
-    * @returns
-    */
-   function getVisitMonthlyPeriod()
-   {
-	   console.log('getMonthlyPeriod');
-	   var selected = $("#month_start_data").val().replace('月','');
-	   var endYear = selected.split('年')[0];
-	   var startYear = endYear;
-	   
-	   var month = selected.split('年')[1];
-	   
-	   var startTime = new Date();
-	   var endTime = new Date();
-	   
-	   startTime.setFullYear(startYear);
-	   startTime.setMonth(month-1);
-	   startTime.setDate(1);
-	  
-	   endTime.setFullYear(endYear);
-	   endTime.setMonth(month-1);
-	   
-	   if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-	   {
-		   endTime.setDate(31);
-	   }
-	   else if(month == 2)
-	   {
-		   if(endYear%400 ==0 || endYear%4 == 0)
-		   {
-			   endTime.setDate(29);
-		   }
-		   else
-		   {
-			   endTime.setDate(28);
-		   }
-	   }
-	   else 
-	   {
-		   endTime.setDate(30);
-	   }
-	   
-	   startTime.setHours(0);
-	   startTime.setMinutes(0);
-	   startTime.setSeconds(0);
-	   startTime.setMilliseconds(0)
-	   
-	   endTime.setHours(23);
-	   endTime.setMinutes(59);
-	   endTime.setSeconds(59);
-	   endTime.setMilliseconds(999)
-	   
-	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
-   }
+ 
    /**
     * 获取月度起止时间
     * @returns
@@ -338,37 +210,7 @@ $(function(){
 	   
 	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
-   /**
-    * 获取周起止时间
-    * @returns
-    */
-   function getVisitWeeklyPeriod(){
-	   console.log('getWeeklyPeriod');
-	   var endDate = $('.visitweekEndDatepicker').val();
-	   var endTime = new Date();
-	   endTime.setFullYear(endDate.split('-')[0]);
-	   endTime.setMonth(endDate.split('-')[1]-1);
-	   endTime.setDate(endDate.split('-')[2]);
-	   endTime.setHours(23);
-	   endTime.setMinutes(59);
-	   endTime.setSeconds(59);
-	   endTime.setMilliseconds(999);
-	   
-	   var startDate = $('.visitweekStartDatepicker').val();
-	   var startTime = new Date();
-	   startTime.setFullYear(startDate.split('-')[0]);
-	   startTime.setMonth(startDate.split('-')[1]-1);
-	   startTime.setDate(startDate.split('-')[2]);
-	   startTime.setHours(00);
-	   startTime.setMinutes(00);
-	   startTime.setSeconds(00);
-	   startTime.setMilliseconds(00);
-	   
-	   //var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
-	   
-	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
-   }
-   
+  
    function loadTrendData()
    {
 	   bftjt.initTable();
@@ -1028,6 +870,164 @@ function getWeeklyPeriod()
 	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
 }
 
+function getVisitDatePeriod()
+{
+	   var periodType = $("input[name='periodType']:checked").val();
+	   //console.log("periodType="+periodType);
+	   if(periodType == 3)
+	   {
+		   return getVisitWeeklyPeriod();
+	   }
+	   else if(periodType == 2)
+	   {
+		   return getVisitMonthlyPeriod();
+	   }
+	   return getVisitQuarterlyPeriod();
+}
+/**
+ * 获取季度起止时间
+ * @returns
+ */
+function getVisitQuarterlyPeriod()
+{
+	   //console.log('getQuarterlyPeriod');
+	   var endYear = $("#quarterly_start_data").val().replace('年','');
+	   var startYear = endYear;
+	   
+	   var quarterly = $("select[name='s_quarterly']").val();
+	   console.log("quarterly="+quarterly);
+	   var startTime = new Date();
+	   var endTime = new Date();
+	   
+	   startTime.setFullYear(startYear);
+	   startTime.setDate(1);
+	   
+	   endTime.setFullYear(endYear);
+	   
+	   if(quarterly == 1)
+	   {
+		   startTime.setMonth(0);
+		   
+		   endTime.setMonth(2);
+		   endTime.setDate(31);
+	   }
+	   else if(quarterly == 2)
+	   {
+		   startTime.setMonth(3);
+		   
+		   endTime.setMonth(5);
+		   endTime.setDate(30);
+	   }
+	   else if(quarterly == 3)
+	   {
+		   startTime.setMonth(6);
+		   
+		   endTime.setMonth(8);
+		   endTime.setDate(30);
+	   }
+	   else if(quarterly == 4)
+	   {
+		   startTime.setMonth(9);
+		   
+		   endTime.setMonth(11);
+		   endTime.setDate(31);
+	   }
+	   startTime.setHours(0);
+	   startTime.setMinutes(0);
+	   startTime.setSeconds(0);
+	   startTime.setMilliseconds(0)
+	   
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999)
+	   
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+}
 
-
+/**
+ * 获取月度起止时间
+ * @returns
+ */
+function getVisitMonthlyPeriod()
+{
+	   console.log('getMonthlyPeriod');
+	   var selected = $("#month_start_data").val().replace('月','');
+	   var endYear = selected.split('年')[0];
+	   var startYear = endYear;
+	   
+	   var month = selected.split('年')[1];
+	   
+	   var startTime = new Date();
+	   var endTime = new Date();
+	   
+	   startTime.setFullYear(startYear);
+	   startTime.setMonth(month-1);
+	   startTime.setDate(1);
+	  
+	   endTime.setFullYear(endYear);
+	   endTime.setMonth(month-1);
+	   
+	   if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+	   {
+		   endTime.setDate(31);
+	   }
+	   else if(month == 2)
+	   {
+		   if(endYear%400 ==0 || endYear%4 == 0)
+		   {
+			   endTime.setDate(29);
+		   }
+		   else
+		   {
+			   endTime.setDate(28);
+		   }
+	   }
+	   else 
+	   {
+		   endTime.setDate(30);
+	   }
+	   
+	   startTime.setHours(0);
+	   startTime.setMinutes(0);
+	   startTime.setSeconds(0);
+	   startTime.setMilliseconds(0)
+	   
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999)
+	   
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+}
+/**
+ * 获取周起止时间
+ * @returns
+ */
+function getVisitWeeklyPeriod(){
+	   console.log('getWeeklyPeriod');
+	   var endDate = $('.visitweekEndDatepicker').val();
+	   var endTime = new Date();
+	   endTime.setFullYear(endDate.split('-')[0]);
+	   endTime.setMonth(endDate.split('-')[1]-1);
+	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999);
+	   
+	   var startDate = $('.visitweekStartDatepicker').val();
+	   var startTime = new Date();
+	   startTime.setFullYear(startDate.split('-')[0]);
+	   startTime.setMonth(startDate.split('-')[1]-1);
+	   startTime.setDate(startDate.split('-')[2]);
+	   startTime.setHours(00);
+	   startTime.setMinutes(00);
+	   startTime.setSeconds(00);
+	   startTime.setMilliseconds(00);
+	   
+	   //var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
+	   
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+}
 
