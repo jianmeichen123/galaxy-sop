@@ -461,7 +461,7 @@ $(function(){
 						 var sec1_radius=[0,"60%"];
 						 var sec1_data=[
 						         {value:map.isProVisit, name:'项目拜访'},
-						         {value:map.isNoVisit, name:'非项目拜访访'}
+						         {value:map.isNoVisit, name:'非项目拜访'}
 						  ]
 						// sec1
 						 if(map.isProVisit==0&&map.isNoVisit==0){
@@ -519,11 +519,8 @@ $(function(){
 	    sendPostRequestByJsonObj(url,query,function(data){
 					     var json = eval(data);
 						 var map = json.userData;
-						 console.log(json);
 						// sec3
 						 var sec3_radius=["28%","60%"];
-						 console.log("!@###############");
-						 console.log(map.part);
 							 var sec3_data=[
 				                 {value:map.part, name:'记录未缺失'},
 				                 {value:map.nopart, name:'记录缺失'}
