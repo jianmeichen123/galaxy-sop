@@ -580,7 +580,7 @@ $(function(){
               itemStyle: {
                           normal: {
                               color: function(params) {
-                                  if(flag==1){
+                                  if(flag==mark){
                                       var colorList = [
                                       '#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#67d8ef'
                                   ];
