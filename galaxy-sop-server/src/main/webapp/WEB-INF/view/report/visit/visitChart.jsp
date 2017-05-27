@@ -282,7 +282,7 @@ var bftjt = {
 			//striped: true,                //是否显示行间隔色
 			cache : false,                  //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 			pagination : true,              //是否显示分页（*）
-			sidePagination : "client",      //分页方式：client客户端分页，server服务端分页（*）
+			sidePagination : "client",      //分页方式：client客户端分页，server 服务端分页（*）
 			sortable : true,                //是否启用排序
 			sortName : "allSum",
 			sortOrder : "desc",              //排序方式
@@ -298,7 +298,7 @@ var bftjt = {
 			detailView : false,                  //是否显示父子表
 			
 			columns : [ {
-				field : 'indexNo',
+				field : 'index',
 				title : '排名',
 				sortable : false,
 				formatter : function(value, row, index) {
@@ -331,7 +331,7 @@ var bftjt = {
 					bftjt.dataComSum=[];
 					bftjt.dataComName=[];
 					if(dataList !=null && dataList.length >0){
-						dataList.sort(bftjt.compare).reverse();
+						dataList.sort(bftjt.compare);
 						$.each(dataList,function(){
 							if(this.completeSum != 0){
 								bftjt.dataComName.push(this.name);
@@ -472,9 +472,9 @@ var bftjt = {
 	    var val1 = obj1.completeSum;
 	    var val2 = obj2.completeSum;
 	    if (val1 < val2) {
-	        return -1;
-	    } else if (val1 > val2) {
 	        return 1;
+	    } else if (val1 > val2) {
+	        return -1;
 	    } else {
 	        return 0;
 	    }            

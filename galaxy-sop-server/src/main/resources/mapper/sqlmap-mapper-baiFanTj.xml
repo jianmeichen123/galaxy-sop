@@ -34,6 +34,9 @@
 						#{item}
 					</foreach>
 				</if>
+				
+				
+				and is_del = 0
 			</trim>
 		</where>
 	</sql>
@@ -42,7 +45,7 @@
 		select
 			created_id uid, COUNT(id) usum
 		from 
-			schedule_info info
+			schedule_info
 		<include refid="BaiFanTj_Where_Clause" />
 		GROUP BY
 			created_id
