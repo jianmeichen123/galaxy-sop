@@ -121,7 +121,7 @@
                     <div class="fl_three_son">
                         <img src="<%=path %>/img/visit_one.png" alt="">
                         <div class="_section">
-                            <p id="planVisit">5000</p>
+                            <p id="planVisit"></p>
                             <span>计划拜访量</span>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                     <div class="fl_three_son">
                         <img src="<%=path %>/img/visit_two.png" alt="">
                         <div class="_section">
-                            <p id="completeVisit">3500</p>
+                            <p id="completeVisit"></p>
                             <span>已完成拜访量</span>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                     <div class="fl_three_son">
                         <img src="<%=path %>/img/visit_three.png" alt="">
                         <div class="_section">
-                            <p id="interviewRate">70%</p>
+                            <p id="interviewRate"></p>
                             <span>访谈完成率</span>
                         </div>
                     </div>
