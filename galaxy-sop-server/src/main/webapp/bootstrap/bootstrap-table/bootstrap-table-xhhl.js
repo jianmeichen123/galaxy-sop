@@ -1129,6 +1129,7 @@
 
         if (this.options.sidePagination !== 'server') {
             this.options.totalRows = data.length;
+        	
         }
 
         this.totalPages = 0;
@@ -2116,7 +2117,9 @@
             data = data.pageList.content;
         } else if (!$.isArray(data)) { // support fixedScroll
             fixedScroll = data.fixedScroll;
-            data = data.data;
+            // client
+            //data = data.data;
+            data = data.entityList;
         }
         this.initData(data);
         this.initSearch();

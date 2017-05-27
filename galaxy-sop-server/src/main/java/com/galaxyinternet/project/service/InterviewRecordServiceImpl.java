@@ -14,6 +14,8 @@ import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
+import com.galaxyinternet.export_schedule.dao.ScheduleContactsDao;
+import com.galaxyinternet.export_schedule.model.ScheduleContacts;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
@@ -35,6 +37,11 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	
 	@Autowired
 	private ProjectDao projectDao;
+	
+	@Autowired
+	private ScheduleContactsDao scheduleContactsDao;
+	
+	
 	
 	
 	@Override
@@ -125,15 +132,22 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 			}
 		}
 		
+		 Map<Long,ScheduleContacts> map=getMapScheduleContacts();
 		if(viewList!=null&&!viewList.isEmpty()){
 			viewBoList = new ArrayList<InterviewRecordBo>();
 			for(InterviewRecord ib : viewList){
 				InterviewRecordBo bo = new InterviewRecordBo();
 				bo.setId(ib.getId());
+				if(ib.getScheduleId()!=0){
+					Long s=Long.parseLong(ib.getViewTarget());
+					ScheduleContacts sc=(ScheduleContacts)map.get(s);
+					bo.setViewTarget(sc!=null?sc.getName():"");
+				}else{
+					bo.setViewTarget(ib.getViewTarget());
+				}
 				bo.setProjectId(ib.getProjectId());
 				bo.setProName(proIdNameMap.get(ib.getProjectId()));
 				bo.setViewDateStr(ib.getViewDateStr());
-				bo.setViewTarget(ib.getViewTarget());
 				bo.setViewNotes(ib.getViewNotes());
 				bo.setCreatedId(ib.getCreatedId());
 				if(ib.getFileId()!=null){
@@ -157,9 +171,17 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 
 	@Override
 	public int updateCreateUid(InterviewRecord ir) {
+		
 		return interviewRecordDao.updateCreateUid(ir);
 	}
-
-
 	
+	public Map<Long,ScheduleContacts> getMapScheduleContacts(){
+		List<ScheduleContacts> list = scheduleContactsDao.selectAll();
+		Map<Long,ScheduleContacts> map=new HashMap<Long,ScheduleContacts>();
+		for(int i=0;i<list.size();i++){
+			ScheduleContacts scheduleContacts=list.get(i);
+			map.put(scheduleContacts.getId(), scheduleContacts);
+		}
+		return map;
+	}
 }

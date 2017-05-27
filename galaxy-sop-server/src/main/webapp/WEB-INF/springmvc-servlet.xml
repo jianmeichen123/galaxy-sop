@@ -109,8 +109,12 @@
 			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	<bean id="gsonBuilder" class="com.galaxyinternet.common.utils.CustomGsonBuilder"></bean>
 	<bean id="gsonHttpMessageConverter"
 		class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+		<property name="gson">
+			<bean class="com.google.gson.Gson" factory-bean="gsonBuilder" factory-method="create" ></bean>
+		</property>
 		<property name="supportedMediaTypes">
 			<list>
 				<value>text/html;charset=UTF-8</value>

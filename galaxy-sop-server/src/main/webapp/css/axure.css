@@ -411,7 +411,7 @@ table .width_gd{width:12%;}
 /* 查询公用按钮 */
 .cx{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -180px;padding:0 8px 0 30px;}
 .pq{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -248px;padding:0 8px 0 30px;}
-.tj{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -212px;padding:0 8px 0 30px;}
+.tj{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -212px;padding:0 8px 0 30px;cursor:pointer;}
 
 /*公用表单*/
 .fmdl{ /* margin:0 0 15px; */ display:block; font-size:14px; color:#2d3342;line-height:30px;}
@@ -1723,9 +1723,9 @@ word-wrap:break-word;
 .prj_all table td span,.member table td span{display:inline-block;font-size: 0px;width:22px;height: 22px;background:url(../img/functionico.png) 0 0 no-repeat;cursor:pointer;vertical-align:middle;}
 .prj_all table td .prc{background-position:0 -225px;margin-right: 15px;vertical-align:middle;}
 .prj_all table td .see{background-position:0 -253px;}
-.sort .sortable span{width:8px;height:12px;margin-left:5px;display:inline-block;background:url(../img/sort.png) 0 0 no-repeat;}
-.sort .desc span{background:url(../img/sort.png) 0 -16px no-repeat;}
-.sort .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
+.sortable span{width:8px;height:12px;margin-left:5px;display:inline-block;background:url(../img/sort.png) 0 0 no-repeat;}
+.desc span{background:url(../img/sort.png) 0 -16px no-repeat;}
+.asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
 #tablePerson th,#project_delivery_table th,#meetGrid th{padding-left:25px;}
@@ -2691,7 +2691,192 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .h_edit_txt .big_input{width:750px;height:30px;border:1px solid #dadada;padding-left:10px;line-height:30px;font-size:12px;font-family:"微软雅黑"}
 .radius.unable{display:none!important;}
 .h_look .h_btnbox span.blue_btn{color:#72a7ff;display:none;}
+/* 拜访统计 */
+.visit_bars{
+    padding:10px;background: #fff;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+.visit_bars .min_document{margin:0;}
+   .radios li{
+        display:inline-block;
+        margin-right: 15px;
+    }
+    .visit_box{
+        background: #fff;
+        margin-top: 10px;
+        padding: 30px;
+    }
+    .visit_box h3{
+        font-weight: normal;
+        font-size:18px;
+        color:#333;
+        text-align:left;
+        display: inline-block;
+        line-height:1;
+    }
+    .visit_box p{display: inline-block;vertical-align: middle;}
+    .visit_box h3 span{
+        font-size:12px;
+        color:#666666;
+        text-align:left;
+        /* vertical-align: bottom; */
+    }
+    .visit_box h3 img{
+        width: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .fl_three li{
+        float: left;
+        width: 33.333%;
+        display: inline-block;
+    }
+    .visit_two .fl_three li{
+    height: 320px;
+    }
+    .fl_two li{
+        float: left;
+        width: 50%;
+        display: inline-block;
+    }
+    .fl_one li{
+        float: left;
+        width: 100%;
+        display: inline-block;
+        padding: 10px;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        text-align: center;
+    }
 
-
-
-
+    .visit_box_title{
+        border-bottom: 1px solid #ddd;
+    }
+    .visit_one{padding-right:20px;padding-bottom:20px;}
+    .visit_one ul{
+        margin-left: -10px;
+        margin-top: 20px;
+    }
+    .visit_one li .fl_three_son{
+        border:1px solid #ececec;
+        padding: 13px 0px;
+        margin: 0px 10px;
+        text-align: center;
+    }
+    .visit_one li p{
+        font-size:36px;
+        color:#333;
+        font-weight:lighter;
+    }
+    .visit_one li span{
+        font-size:12px;
+        color:#666;
+        display: block;
+    }
+    .visit_one li img{
+       width: 38px;
+       vertical-align: middle;
+       display: inline-block;
+       margin-right: 30px;
+    }
+    .visit_one li ._section{
+       vertical-align: middle;
+       display: inline-block;
+    }
+    .visit_one li p{
+        line-height: 1;
+        margin-bottom: 4px;
+    }
+    .round_title{text-align:center;}
+    .round_title p{
+        font-size:18px;
+        color:#333;
+        margin-bottom: 9px;
+    }
+    .round_title span{
+        font-size:12px;
+        color:#666666;
+        display: block;
+    }
+    .visit_two .round_data{
+        width: 368px; 
+        height: 300px;
+        margin: 0 auto;
+        margin-top: 15px;
+        overflow: visible;
+        text-align: center;
+    }
+    .vertical_tab{
+        margin-top: 20px;
+    }
+    .vertical_tab li{
+        float: left;
+        font-size:12px;
+        color:#666666;
+        margin-right: 20px;
+        line-height: 1;
+        cursor: pointer;
+    }
+    .vertical_tab li.active{
+    color: #53b1fd;
+    }
+    .vertical{
+    margin-bottom:20px;
+    }
+    .last{
+        padding-left: 20px;
+        border-left: 1px solid #999;
+    }
+    .vertical div{
+        margin: 0 auto;
+    }
+    .visitdata_month,.visitdata_week{
+        display: none;
+    }
+    #visitPlan{display:none;}
+    .ritmin .visitChartCon .min_document{background:#f3f4f9}
+.round_data.empty_data1{
+	background:url('../img/nodata1.png') no-repeat center;
+	background-position:center 45px;
+}
+.round_data.empty_data2{
+	background:url('../img/nodata2.png') no-repeat center;
+	background-position:center 45px;
+}
+.round_data.empty_data3{
+	background:url('../img/nodata3.png') no-repeat center;
+	background-position:center 45px;
+}
+.vertical.empty_data5{
+	height:370px;
+	background:url('../img/nodata4.png') no-repeat center;
+	background-position:center 80px;
+	position:relative;
+}
+.empty_data5 .visit_nocon,.empty_data6 .visit_nocon{
+	position:absolute;
+	top:250px;
+	left:50%;
+	margin-left:-63px;
+	font-size:14px;
+	color:#999999;
+}
+.empty_data6 .visit_nocon{
+	top:240px;
+}
+#visitCompleted{
+	margin-bottom:30px;
+}
+#visitCompleted.empty_data6,#visitPlan.empty_data6{
+	height:370px;
+	background:url('../img/nodata5.png') no-repeat center;
+	background-position:center 80px;
+	position:relative;
+	margin-bottom:30px;
+}
+.visit_box .round_data p{margin-top:170px;font-size:14px;
+color:#999999;}

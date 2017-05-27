@@ -1153,10 +1153,18 @@ var platformUrl = {
 	/**
 	 *查询成员列表
 	 */
-	 queryMemberList: Constants.sopEndpointURL + "/galaxy/team/queryRowsList/"
+	 queryMemberList: Constants.sopEndpointURL + "/galaxy/team/queryRowsList/",
 
 
-	
+	/**
+	 * 高管报表----拜访管理
+	 */
+	 visitChart: Constants.sopEndpointURL + "/galaxy/report/visitChart/",
+	 
+	 /**
+	 * 高管报表----拜访管理
+	 */
+	 visitTrend: Constants.sopEndpointURL + "/galaxy/visit/getTendency"
 }
 
 /**
