@@ -680,7 +680,7 @@ var bftjt = {
 			data : [ 2.0, 4.9, 7.0, 23.2, 25.6, 76.7 ],
 			itemStyle : {
 				normal : {
-					color : '#b0f2f9'
+					color : '#67d8ef'
 				},
 				emphasis : {
 					color : '#56e3f2'
