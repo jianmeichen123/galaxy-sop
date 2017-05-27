@@ -450,7 +450,7 @@ var bftjt = {
 		isProject: $("input[name='isProject']:checked").val(),
 		periodType: $("input[name='periodType']:checked").val()
 		 */
-		var datePeriod = getDatePeriod();
+		var dateVisitPeriod = getVisitDatePeriod();
 		var startTimeFrom = dateVisitPeriod.startTime;    //开始起始时间
 		var startTimeThrough = dateVisitPeriod.endTime;   //开始结束时间
 		var departmentId = $("select[name='departmentId']").val();    //dept id
