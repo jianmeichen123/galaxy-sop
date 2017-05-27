@@ -284,7 +284,7 @@ var bftjt = {
 			pagination : true,              //是否显示分页（*）
 			sidePagination : "client",      //分页方式：client客户端分页，server服务端分页（*）
 			sortable : true,                //是否启用排序
-			sortName : "completeSum",
+			sortName : "allSum",
 			sortOrder : "desc",              //排序方式
 			queryParams : bftjt.queryParams,     //传递参数（*）
 			pageNumber : 1,                      //初始化加载第一页，默认第一页
