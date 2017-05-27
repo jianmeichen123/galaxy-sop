@@ -19,7 +19,7 @@ $(function(){
 			str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 			three_str="周";
 		}
-		$(".period_desc").text('('+str+')');
+		$(".visit_period_desc").text('('+str+')');
 		$(".visit_three .period_desc").text('('+three_str+')');
 //		判断 是否为项目拜访
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
@@ -72,7 +72,7 @@ $(function(){
 	   //console.log("periodType="+periodType);
 	   if(periodType == 3)
 	   {
-		   return getWeeklyPeriod();
+		   return getVisitWeeklyPeriod();
 	   }
 	   else if(periodType == 2)
 	   {
@@ -332,6 +332,36 @@ $(function(){
 	   var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
 	   
 	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
+   }
+   /**
+    * 获取周起止时间
+    * @returns
+    */
+   function getVisitWeeklyPeriod(){
+	   console.log('getWeeklyPeriod');
+	   var endDate = $('.visitweekEndDatepicker').val();
+	   var endTime = new Date();
+	   endTime.setFullYear(endDate.split('-')[0]);
+	   endTime.setMonth(endDate.split('-')[1]-1);
+	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setHours(23);
+	   endTime.setMinutes(59);
+	   endTime.setSeconds(59);
+	   endTime.setMilliseconds(999);
+	   
+	   var startDate = $('.visitweekStartDatepicker').val();
+	   var startTime = new Date();
+	   startTime.setFullYear(startDate.split('-')[0]);
+	   startTime.setMonth(startDate.split('-')[1]-1);
+	   startTime.setDate(startDate.split('-')[2]);
+	   startTime.setHours(00);
+	   startTime.setMinutes(00);
+	   startTime.setSeconds(00);
+	   startTime.setMilliseconds(00);
+	   
+	   //var startTime = endTime.getTime()- (9*7*24*3600*1000) +1;
+	   
+	   return {startTime:startTime.format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
    
    function loadTrendData()
