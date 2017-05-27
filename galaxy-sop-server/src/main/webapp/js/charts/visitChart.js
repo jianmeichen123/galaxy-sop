@@ -404,8 +404,6 @@ $(function(){
 							   j++;
 						   }
 					   });
-					   console.log(j)
-					   console.log(trend.periods.length)
 					   if(j>=trend.periods.length){
 						   $(".visit_three .empty_data5").remove();
 						   $("#visitTrend").hide();
@@ -465,8 +463,6 @@ $(function(){
 						         {value:map.isProVisit, name:'项目拜访'},
 						         {value:map.isNoVisit, name:'非项目拜访访'}
 						  ]
-						 console.log("!@@#$@$#%");
-						 console.log(sec1_data);
 						// sec1
 						 if(map.isProVisit==0&&map.isNoVisit==0){
 							 $("#project_visit p").remove();
@@ -523,13 +519,16 @@ $(function(){
 	    sendPostRequestByJsonObj(url,query,function(data){
 					     var json = eval(data);
 						 var map = json.userData;
+						 console.log(json);
 						// sec3
 						 var sec3_radius=["28%","60%"];
-						 var sec3_data=[
-						                 {value:map.part, name:'记录未缺失'},
-						                 {value:map.nopart, name:'记录缺失'}
-						               ]
-						 if(map.part==0&&map.nopart==0){
+						 console.log("!@###############");
+						 console.log(map.part);
+							 var sec3_data=[
+				                 {value:map.part, name:'记录未缺失'},
+				                 {value:map.nopart, name:'记录缺失'}
+				               ]						
+						 if((map.part==0&&map.nopart==0)||map.part==undefined||map.nopart==undefined){
 							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss div").remove();
 							 $("#project_visit_miss").addClass("empty_data3");
