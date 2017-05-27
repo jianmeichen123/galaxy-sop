@@ -316,6 +316,7 @@ var bftjt = {
 			}, {
 				field : 'completeSum',
 				title : '已完成拜访量',
+				
 				sortable : true
 			} ],
 			onLoadSuccess: function(backdata){
