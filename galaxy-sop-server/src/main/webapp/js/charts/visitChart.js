@@ -5,17 +5,22 @@ $(function(){
 	$("button[action='querySearch']").click(function(){
 		loadTrendData();
 		var str;
+		var three_str;
 		var val = $("input[name='periodType']:checked").next().text();
 		if(val == "季度"){
 			str = $("#quarterly_start_data").val()+$('#s_quarterly option:selected').text();
+			three_str="季度";
 		}
 		if(val == "月"){
-			str = $("#month_start_data").val();		
+			str = $("#month_start_data").val();
+			three_str="月";
 		}
 		if(val == "周"){
 			str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
+			three_str="周";
 		}
 		$(".period_desc").text('('+str+')');
+		$(".visit_three .period_desc").text('('+three_str+')');
 //		判断 是否为项目拜访
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
 		console.log(input_radio);
