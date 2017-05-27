@@ -14,7 +14,6 @@
 		<module>galaxy-sop-api</module>
 		<module>galaxy-sop-server</module>
 	</modules>
-
 	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
 	<repositories>
 		<repository>

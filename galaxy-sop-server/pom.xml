@@ -23,7 +23,6 @@
 			<url>http://nexus.gi.com/content/groups/public/</url>
 		</repository>
 	</repositories>
-
 	<build>
 		<plugins>
 			<!-- war插件, 设定war名称不带版本号 -->
