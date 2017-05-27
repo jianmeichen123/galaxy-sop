@@ -202,7 +202,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 					departmentIds.add(d.getId());
 			}
 			Map<String,Object> userMap = new HashMap<String,Object>();
-			userMap.put("departmentId", sheduleInfo.getDepartmentId());
+			userMap.put("departmentIds", departmentIds);
 			userMap.put("status", "0");
 			userMap.put("roleId", 4);
 			List<User> users = userService.querytUserByParams(userMap);
