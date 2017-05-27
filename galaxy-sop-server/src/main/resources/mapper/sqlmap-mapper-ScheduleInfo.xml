@@ -170,7 +170,7 @@
 			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			        and <![CDATA[start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
 		</where>
@@ -202,7 +202,7 @@
 			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			        and <![CDATA[start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			</trim>
 		</where>
@@ -223,13 +223,13 @@
 					</foreach>
 			     </if>
 			        and si.type = 2
-			        and is_del = 0
+			        and si.is_del = 0
 			        and si.project_id != ''
 			     <if test="startTime != null" >
 			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        and <![CDATA[si.end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			        and <![CDATA[si.start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     and si.project_id = sp.id
 			</trim>
@@ -262,9 +262,9 @@
 			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        and <![CDATA[end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			        and <![CDATA[start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     and <![CDATA[end_time >= NOW()]]>
+			     and <![CDATA[start_time >= NOW()]]>
 			</trim>
 		</where>
 	</select>
@@ -282,7 +282,7 @@
 					</foreach>
 			     </if>
 			        and si.type = 2
-			        and is_del = 0
+			        and si.is_del = 0
 			     <if test="isProject == 0" >
 			        and si.project_id is null
 			     </if>
@@ -293,9 +293,9 @@
 			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
 			     <if test="endTime != null" >
-			        and <![CDATA[si.end_time <= #{endTime,jdbcType=TIMESTAMP}]]>
+			        and <![CDATA[si.start_time <= #{endTime,jdbcType=TIMESTAMP}]]>
 			     </if>
-			     and <![CDATA[si.end_time >= NOW()]]>
+			     and <![CDATA[si.start_time >= NOW()]]>
 			     and sr.schedule_id = si.id
 			</trim>
 		</where>
