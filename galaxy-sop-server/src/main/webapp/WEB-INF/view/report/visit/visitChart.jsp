@@ -185,7 +185,7 @@
             <h3>
                 <img src="<%=path %>/img/section_3.png" alt="">
                 <p>拜访统计图</p>
-                <span class="period_desc">(2017年第2季度)</span>
+                <span class="visit_period_desc">(2017年第2季度)</span>
             </h3>
             <ul class="vertical_tab clearfix">
                 <li class="active">已完成拜访量</li>
