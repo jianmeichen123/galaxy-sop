@@ -19,10 +19,10 @@
 				
 				<!-- 是否为关联项目    null:全部   1：是   0:否 -->
 				<if test="isProject == 0" >
-				       and project_id is null
+				    and project_type=#{isProject}
 			    </if>
 			    <if test="isProject == 1" >
-			       and project_id is not null
+			       and project_type=#{isProject}
 			    </if>
 				    
 				<if test="bqStartTime != null"> <![CDATA[  and start_time >= #{bqStartTime,jdbcType=TIMESTAMP} ]]> </if>
