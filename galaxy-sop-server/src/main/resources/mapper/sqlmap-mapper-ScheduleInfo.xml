@@ -241,7 +241,7 @@
 			     and si.project_id = sp.id
 			</trim>
 		</where>
-         GROUP BY sp.finance_status order by sp.finance_status asc
+         GROUP BY sp.finance_status ORDER BY SUBSTR(sp.finance_status,15)+0 ASC
 
 	</select> 
 	

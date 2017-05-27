@@ -3,7 +3,7 @@ $(function(){
 	var datePeriod;
 	var dateVisitPeriod;
 	$("button[action='querySearch']").click(function(){
-		loadTrendData();
+		
 		var str;
 		var v_str;
 		var three_str;
@@ -12,17 +12,20 @@ $(function(){
 			str = $("#quarterly_start_data").val()+$('#s_quarterly option:selected').text();
 			three_str="季度";
 			v_str = str;
+			loadTrendData(1);
 		}
 		if(val == "月"){
 			str = $("#month_start_data").val();
 			three_str="月";
 			v_str = str;
+			loadTrendData(1);
 		}
 		if(val == "周"){
 			str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 			v_str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 			
 			three_str="周";
+			loadTrendData(0);
 		}
 		$(".visit_period_desc").text('('+str+')');
 		$(".period_desc").text('('+v_str+')');
@@ -57,7 +60,7 @@ $(function(){
 		
 	});
    var trend = {};
-   loadTrendData();
+   loadTrendData(1);
    function getDatePeriod()
    {
 	   var periodType = $("input[name='periodType']:checked").val();
@@ -212,8 +215,8 @@ $(function(){
 	   return {startTime:new Date(startTime).format('yyyy-MM-dd hh:mm:ss'), endTime:endTime.format('yyyy-MM-dd hh:mm:ss')};
    }
   
-   function loadTrendData()
-   {
+   function loadTrendData(status)
+   {   //status=1,为季/月  ；0为周
 	   bftjt.initTable();
 	   
 	   datePeriod = getDatePeriod();
@@ -286,7 +289,7 @@ $(function(){
 						   $(".visit_three .empty_data5").remove();
 						   $("#visitTrend").show();
 					   }
-					   visitTrend(1);
+					   visitTrend(status);
 				   }
 				   
 			   });
@@ -303,7 +306,7 @@ $(function(){
 		 $("#project_visit_round>div").remove();
 		 $("#project_visit_miss>div").remove();
 		 $("#visitTrend>div").remove();
-		 visitTrend(1);
+		 visitTrend(status);
 	  }
 	   visit(query);
 	   projectVisit(query);
@@ -577,7 +580,7 @@ $(function(){
               itemStyle: {
                           normal: {
                               color: function(params) {
-                                  if(flag==1){
+                                  if(flag==mark){
                                       var colorList = [
                                       '#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#b0f2f9','#67d8ef'
                                   ];
