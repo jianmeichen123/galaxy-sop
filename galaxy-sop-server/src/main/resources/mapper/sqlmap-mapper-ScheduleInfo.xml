@@ -168,10 +168,10 @@
 			        and type = 2
 			        and is_del = 0
 			     <if test="isProject == 0" >
-			        and project_id is null
+		         and project_type = #{isProject}
 			     </if>
 			     <if test="isProject == 1" >
-			        and project_id is not null
+			        and project_type = #{isProject}
 			     </if>
 			     <if test="startTime != null" >
 			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
@@ -199,11 +199,11 @@
 			     </if>
 			        and type = 2
 			        and is_del = 0
-			    <if test="isProject == 0" >
-			        and project_id is null
+			     <if test="isProject == 0" >
+		         and project_type = #{isProject}
 			     </if>
 			     <if test="isProject == 1" >
-			        and project_id is not null
+			        and project_type = #{isProject}
 			     </if>
 			      <if test="startTime != null" >
 			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
@@ -232,6 +232,7 @@
 			        and si.type = 2
 			        and si.is_del = 0
 			        and si.project_id != ''
+			        and si.project_type = 1
 			     <if test="startTime != null" >
 			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
 			     </if>
@@ -260,10 +261,10 @@
 			        and type = 2
 			        and is_del = 0
 			    <if test="isProject == 0" >
-			        and project_id is null
+		         and project_type = #{isProject}
 			     </if>
 			     <if test="isProject == 1" >
-			        and project_id is not null
+			        and project_type = #{isProject}
 			     </if>
 			     <if test="startTime != null" >
 			        and <![CDATA[start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
@@ -290,11 +291,11 @@
 			     </if>
 			        and si.type = 2
 			        and si.is_del = 0
-			     <if test="isProject == 0" >
-			        and si.project_id is null
+			    <if test="isProject == 0" >
+			        and project_type = #{isProject}
 			     </if>
 			     <if test="isProject == 1" >
-			        and si.project_id is not null
+			        and project_type = #{isProject}
 			     </if>
 			     <if test="startTime != null" >
 			        and <![CDATA[si.start_time >= #{startTime,jdbcType=TIMESTAMP}]]>
@@ -340,10 +341,10 @@
 			and exists (select id from sop_interview_record where schedule_id = schedule_info.id)
 		</if>
 		<if test="isProject == 0" >
-	        and project_id is null
+	        and project_type = #{isProject}
 	     </if>
 	     <if test="isProject == 1" >
-	        and project_id is not null
+	        and project_type = #{isProject}
 	     </if>
 	</sql>
 	<select id="selectTendency" resultType="hashmap" parameterType="java.util.Map">

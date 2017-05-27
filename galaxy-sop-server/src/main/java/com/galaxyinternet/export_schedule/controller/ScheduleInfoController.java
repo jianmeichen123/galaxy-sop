@@ -201,17 +201,21 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			for(Department d : careerlineList){
 					departmentIds.add(d.getId());
 			}
-			User user = new User();
-			user.setDepartmentIds(departmentIds);
-			user.setStatus("0");
-			List<User> userList = userService.queryList(user);
-			List<Long> uids = new ArrayList<Long>();
-			for(User u : userList){
-				if(!uids.contains(u.getId())){
-					uids.add(u.getId());
+			Map<String,Object> userMap = new HashMap<String,Object>();
+			userMap.put("departmentIds", departmentIds);
+			userMap.put("status", "0");
+			userMap.put("roleId", 4);
+			List<User> users = userService.querytUserByParams(userMap);
+			if(users != null && users.size() > 0){
+				List<Long> uids = new ArrayList<Long>();
+				for(User u : users){
+					if(!uids.contains(u.getId())){
+						uids.add(u.getId());
+					}
 				}
+				sheduleInfo.setCreatetUids(uids);
 			}
-			sheduleInfo.setCreatetUids(uids);
+			
 		}
 		
 	}
