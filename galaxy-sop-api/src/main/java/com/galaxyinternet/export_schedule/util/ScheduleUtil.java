@@ -28,6 +28,12 @@ public interface ScheduleUtil {
 	 * @return uId - deptid Map
 	 */
 	public Map<Long, Long> queryAllTzjlDeptMap(List<Long> uids);
+	/**
+	 * 获取投资经理  uid-deptid   map 
+	 * @param   uids  根据用户 ids 过滤出 tzjl ids
+	 * @return  
+	 */
+	public Map<Long, Long> queryTzjlUidsAndDeptIds(List<Long> uids);
 	
 	
 	/**

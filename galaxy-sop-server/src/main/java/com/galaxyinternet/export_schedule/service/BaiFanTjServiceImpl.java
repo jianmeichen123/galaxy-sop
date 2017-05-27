@@ -155,18 +155,19 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 				}
 				
 				//获取投资经理   uid-deptid map 
-				Map<Long, Long> uId_deptidMap = scheduleUtil.queryAllTzjlDeptMap(uids);
+				Map<Long, Long> uId_deptidMap = scheduleUtil.queryTzjlUidsAndDeptIds(uids);
 				
 				Long dptId = null;
 				for(BaiFanTj bf : bflist){ // uid, usum
-					dptId = uId_deptidMap.get(bf.getUid());
-					if(id_sum_map.containsKey(dptId)){
-						id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
-					}else{
-						id_sum_map.put(dptId, bf.getUsum());
+					if(uId_deptidMap.containsKey(bf.getUid())){
+						dptId = uId_deptidMap.get(bf.getUid());
+						if(id_sum_map.containsKey(dptId)){
+							id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
+						}else{
+							id_sum_map.put(dptId, bf.getUsum());
+						}
 					}
 				}
-				
 			}
 		}
 
@@ -226,15 +227,17 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 					}
 					
 					//获取投资经理   uid-deptid map 
-					Map<Long, Long> uId_deptidMap = scheduleUtil.queryAllTzjlDeptMap(uids);
+					Map<Long, Long> uId_deptidMap = scheduleUtil.queryTzjlUidsAndDeptIds(uids);
 					
 					Long dptId = null;
 					for(BaiFanTj bf : bflist){ // uid, usum
-						dptId = uId_deptidMap.get(bf.getUid());
-						if(id_sum_map.containsKey(dptId)){
-							id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
-						}else{
-							id_sum_map.put(dptId, bf.getUsum());
+						if(uId_deptidMap.containsKey(bf.getUid())){
+							dptId = uId_deptidMap.get(bf.getUid());
+							if(id_sum_map.containsKey(dptId)){
+								id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
+							}else{
+								id_sum_map.put(dptId, bf.getUsum());
+							}
 						}
 					}
 				}

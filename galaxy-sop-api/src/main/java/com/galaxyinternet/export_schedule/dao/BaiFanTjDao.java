@@ -60,6 +60,20 @@ public interface BaiFanTjDao extends BaseDao<BaiFanTj, Long>{
 	 */
 	List<Long> selectScheduleIds(Map<String,Object> params);
 	
+	/**
+	 * schedule_info 表条件下的  created_id 集合
+	 * @param params
+	 *            <br>params.type = 2                拜访类别
+	 *            <br>params.bqStartTime   拜访开始的 起始 时间
+	 *            <br>params.bqEndTime     拜访开始的 截至 时间
+	 *            
+	 * @return 
+	 * @see
+	 * 			<code>
+				</code>
+	 *@version 1.0.0
+	 */
+	List<Long> selectScheduleCuids(Map<String, Object> params);
 	
 	/**
 	 * sop_interview_record 表 :  用户 已完成的拜访统计数据

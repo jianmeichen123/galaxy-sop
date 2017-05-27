@@ -79,6 +79,27 @@ public class BaiFanTjDaoImpl extends BaseDaoImpl<BaiFanTj, Long> implements BaiF
 	}
 
 	/**
+	 * schedule_info 表条件下的  created_id 集合
+	 * @param params
+	 *            <br>params.type = 2                拜访类别
+	 *            <br>params.bqStartTime   拜访开始的 起始 时间
+	 *            <br>params.bqEndTime     拜访开始的 截至 时间
+	 *            
+	 * @return 
+	 * @see
+	 * 			<code>
+				</code>
+	 *@version 1.0.0
+	 */
+	public List<Long> selectScheduleCuids(Map<String, Object> params) {
+		try {
+			return sqlSessionTemplate.selectList(getSqlName("selectScheduleCuids"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询出错！语句：%s", getSqlName("selectScheduleCuids")), e);
+		}
+	}
+	
+	/**
 	 * sop_interview_record 表 :  用户 已完成的拜访统计数据
 	 * @param params
 	 *            <br>params.scheduleIds   schedule_info 表条件下的id 集合

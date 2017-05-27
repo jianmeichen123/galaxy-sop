@@ -37,10 +37,9 @@ public class ScheduleUtilImpl implements ScheduleUtil {
 	public Map<Long, String> queryAllSYX(List<Long> departmentIdList) {
 		Department query = new Department();
 		
+		query.setType(1);
 		if (departmentIdList != null && !departmentIdList.isEmpty()) {
 			query.setIds(departmentIdList);
-		}else{
-			query.setType(1);
 		}
 		
 		List<Department> dpts = departmentService.queryList(query);
@@ -77,7 +76,26 @@ public class ScheduleUtilImpl implements ScheduleUtil {
 		return uId_deptidMap;
 		
 	}
-	
+	/**
+	 * 获取投资经理  uid-deptid   map 
+	 * @param   uids  根据用户 ids 过滤出 tzjl ids
+	 * @return  
+	 */
+	public Map<Long, Long> queryTzjlUidsAndDeptIds(List<Long> uids){
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("ids", uids);
+		params.put("roleId", 4);
+		List<User> users = userService.querytUserByParams(params);
+		
+		Map<Long, Long> uIdNameMap = new HashMap<Long, Long>();
+		if (users != null && !users.isEmpty()) {
+			for (User aUser : users) {
+				uIdNameMap.put(aUser.getId(), aUser.getDepartmentId());
+			}
+		}
+		
+		return uIdNameMap;
+	}
 	
 	
 	/**
@@ -88,6 +106,7 @@ public class ScheduleUtilImpl implements ScheduleUtil {
 	public Map<Long, String> queryUidNameByDept(Long deptId){
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("departmentId", deptId);
+		params.put("roleId", 4);
 		List<User> users = userService.querytUserByParams(params);
 		
 		Map<Long, String> uIdNameMap = new HashMap<Long, String>();
@@ -99,6 +118,9 @@ public class ScheduleUtilImpl implements ScheduleUtil {
 		
 		return uIdNameMap;
 	}
+	
+	
+	
 	
 	
 	/**
@@ -127,7 +149,7 @@ public class ScheduleUtilImpl implements ScheduleUtil {
 
 		if (depts != null && !depts.isEmpty()) {
 			Department query = new Department();
-			// query.setType(1);
+			query.setType(1);
 			query.setIds(depts);
 			List<Department> deptList = departmentService.queryList(query);
 
