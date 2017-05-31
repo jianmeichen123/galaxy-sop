@@ -100,29 +100,29 @@ $(function(){
 	   {
 		   startTime.setMonth(0);
 		   
-		   endTime.setMonth(2);
-		   endTime.setDate(31);
+		   endTime.setMonth(2,31);
+		  // endTime.setDate(31);
 	   }
 	   else if(quarterly == 2)
 	   {
 		   startTime.setMonth(3);
 		   
-		   endTime.setMonth(5);
-		   endTime.setDate(30);
+		   endTime.setMonth(5,30);
+		  // endTime.setDate(30);
 	   }
 	   else if(quarterly == 3)
 	   {
 		   startTime.setMonth(6);
 		   
-		   endTime.setMonth(8);
-		   endTime.setDate(30);
+		   endTime.setMonth(8,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 4)
 	   {
 		   startTime.setMonth(9);
 		   
-		   endTime.setMonth(11);
-		   endTime.setDate(31);
+		   endTime.setMonth(11,31);
+		   //endTime.setDate(31);
 	   }
 	   startTime.setHours(0);
 	   startTime.setMinutes(0);
@@ -781,29 +781,29 @@ function getQuarterlyPeriod()
 	   {
 		   startTime.setMonth(0);
 		   
-		   endTime.setMonth(2);
-		   endTime.setDate(31);
+		   endTime.setMonth(2,31);
+		   //endTime.setDate(31);
 	   }
 	   else if(quarterly == 2)
 	   {
 		   startTime.setMonth(3);
 		   
-		   endTime.setMonth(5);
-		   endTime.setDate(30);
+		   endTime.setMonth(5,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 3)
 	   {
 		   startTime.setMonth(6);
 		   
-		   endTime.setMonth(8);
-		   endTime.setDate(30);
+		   endTime.setMonth(8,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 4)
 	   {
 		   startTime.setMonth(9);
 		   
-		   endTime.setMonth(11);
-		   endTime.setDate(31);
+		   endTime.setMonth(11,31);
+		   //endTime.setDate(31);
 	   }
 	   startTime.setHours(0);
 	   startTime.setMinutes(0);
@@ -933,29 +933,29 @@ function getVisitQuarterlyPeriod()
 	   {
 		   startTime.setMonth(0);
 		   
-		   endTime.setMonth(2);
-		   endTime.setDate(31);
+		   endTime.setMonth(2,31);
+		   //endTime.setDate(31);
 	   }
 	   else if(quarterly == 2)
 	   {
 		   startTime.setMonth(3);
 		   
-		   endTime.setMonth(5);
-		   endTime.setDate(30);
+		   endTime.setMonth(5,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 3)
 	   {
 		   startTime.setMonth(6);
 		   
-		   endTime.setMonth(8);
-		   endTime.setDate(30);
+		   endTime.setMonth(8,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 4)
 	   {
 		   startTime.setMonth(9);
 		   
-		   endTime.setMonth(11);
-		   endTime.setDate(31);
+		   endTime.setMonth(11,31);
+		   //endTime.setDate(31);
 	   }
 	   startTime.setHours(0);
 	   startTime.setMinutes(0);
