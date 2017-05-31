@@ -2,8 +2,8 @@ $(function(){
 
 	var datePeriod;
 	var dateVisitPeriod;
-	$("button[action='querySearch']").click(function(){
-		
+//	季度展示
+	function time_show(){
 		var str;
 		var v_str;
 		var three_str;
@@ -30,6 +30,10 @@ $(function(){
 		$(".visit_period_desc").text('('+str+')');
 		$(".period_desc").text('('+v_str+')');
 		$(".visit_three .period_desc").text('('+three_str+')');
+	}
+	time_show()
+	$("button[action='querySearch']").click(function(){
+		time_show();
 //		判断 是否为项目拜访
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
 		console.log(input_radio);
