@@ -279,7 +279,7 @@
 	
 	<!-- 访谈记录 未缺失-->
 	<select id="selectInterviewRecordCount" resultType="java.lang.Long" parameterType="java.util.Map">
-		select COUNT(si.id) from schedule_info si,sop_interview_record sr
+		select COUNT(distinct si.id) from schedule_info si,sop_interview_record sr
 		 <where>
 			<trim prefixOverrides="and">
 			    <if test="createtUids != null">
