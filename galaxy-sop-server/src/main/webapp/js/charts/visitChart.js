@@ -338,7 +338,16 @@ $(function(){
 						 var sec1_data=[
 						         {value:map.isProVisit, name:'项目拜访'},
 						         {value:map.isNoVisit, name:'非项目拜访'}
-						  ]
+						  ];
+						 if(map.isProVisit == 0){
+							 sec1_data=[
+						         {value:map.isNoVisit, name:'非项目拜访'}
+							  ]
+						 }else if(map.isNoVisit == 0){
+							 sec1_data=[
+						         {value:map.isProVisit, name:'项目拜访'}
+							  ]
+						 }
 						// sec1
 						 if(map.isProVisit==0&&map.isNoVisit==0){
 							 $("#project_visit p").remove();
@@ -369,7 +378,7 @@ $(function(){
 							 var str = {};
 							 str.value = arr[item].countVisit;
 							 str.name = arr[item].fanceStatus;
-							 if(str.name!=undefined){
+							 if(str.name!=undefined&&str.value!=0){
 								 sec2_data.push(str);
 								 }
 							  
@@ -400,7 +409,16 @@ $(function(){
 							 var sec3_data=[
 				                 {value:map.part, name:'记录未缺失'},
 				                 {value:map.nopart, name:'记录缺失'}
-				               ]						
+				               ]		
+							 if(map.part == 0){
+								 sec3_data=[
+							         {value:map.nopart, name:'记录缺失'}
+								  ]
+							 }else if(map.nopart == 0){
+								 sec3_data=[
+							         {value:map.part, name:'记录未缺失'}
+								  ]
+							 }
 						 if((map.part == 0 && map.nopart == 0)||map.part==undefined||map.nopart==undefined){
 							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss div").remove();
