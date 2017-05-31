@@ -21,11 +21,12 @@ $(function(){
 			loadTrendData(1);
 		}
 		if(val == "周"){
+			loadTrendData(0);
 			str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 			v_str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 			
 			three_str="周";
-			loadTrendData(0);
+			
 		}
 		$(".visit_period_desc").text('('+str+')');
 		$(".period_desc").text('('+v_str+')');
@@ -207,8 +208,8 @@ $(function(){
 	   var endDate = $('.visitweekEndDatepicker').val();
 	   var endTime = new Date();
 	   endTime.setFullYear(endDate.split('-')[0]);
-	   endTime.setMonth(endDate.split('-')[1]-1);
-	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setMonth(endDate.split('-')[1]-1,endDate.split('-')[2]);
+	  // endTime.setDate(endDate.split('-')[2]);
 	   endTime.setHours(23);
 	   endTime.setMinutes(59);
 	   endTime.setSeconds(59);
@@ -887,8 +888,8 @@ function getWeeklyPeriod()
 	   var endDate = $('.visitweekEndDatepicker').val();
 	   var endTime = new Date();
 	   endTime.setFullYear(endDate.split('-')[0]);
-	   endTime.setMonth(endDate.split('-')[1]-1);
-	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setMonth(endDate.split('-')[1]-1,endDate.split('-')[2]);
+	   //endTime.setDate(endDate.split('-')[2]);
 	   endTime.setHours(23);
 	   endTime.setMinutes(59);
 	   endTime.setSeconds(59);
@@ -1038,8 +1039,8 @@ function getVisitWeeklyPeriod(){
 	   var endDate = $('.visitweekEndDatepicker').val();
 	   var endTime = new Date();
 	   endTime.setFullYear(endDate.split('-')[0]);
-	   endTime.setMonth(endDate.split('-')[1]-1);
-	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setMonth(endDate.split('-')[1]-1,endDate.split('-')[2]);
+	   //endTime.setDate(endDate.split('-')[2]);
 	   endTime.setHours(23);
 	   endTime.setMinutes(59);
 	   endTime.setSeconds(59);
