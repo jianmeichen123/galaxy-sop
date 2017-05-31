@@ -186,6 +186,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 				}
 				sheduleInfo.setCreatetUids(userids);
 			}
+			return;
 		}
 		if(sheduleInfo.getCreatedId() != 0 && sheduleInfo.getCreatedId() != null){
 			userids.clear();
@@ -204,7 +205,7 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			Map<String,Object> userMap = new HashMap<String,Object>();
 			userMap.put("departmentIds", departmentIds);
 			userMap.put("status", "0");
-			userMap.put("roleId", 4);
+			userMap.put("roleId", UserConstant.TZJL);
 			List<User> users = userService.querytUserByParams(userMap);
 			if(users != null && users.size() > 0){
 				List<Long> uids = new ArrayList<Long>();
