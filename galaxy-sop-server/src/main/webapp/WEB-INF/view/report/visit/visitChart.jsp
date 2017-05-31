@@ -349,8 +349,10 @@ var bftjt = {
 						bftjt.dataComSum=[];
 						bftjt.dataComName=[];
 					}
+					$(".th-inner.sortable span").remove();
+					$(".th-inner.sortable").append("<span></span>")
 				}
-				$(".th-inner.sortable").append("<span></span>")
+				
 				
 				//已完成拜访量
 				completedChart();
