@@ -100,29 +100,29 @@ $(function(){
 	   {
 		   startTime.setMonth(0);
 		   
-		   endTime.setMonth(2);
-		   endTime.setDate(31);
+		   endTime.setMonth(2,31);
+		  // endTime.setDate(31);
 	   }
 	   else if(quarterly == 2)
 	   {
 		   startTime.setMonth(3);
 		   
-		   endTime.setMonth(5);
-		   endTime.setDate(30);
+		   endTime.setMonth(5,30);
+		  // endTime.setDate(30);
 	   }
 	   else if(quarterly == 3)
 	   {
 		   startTime.setMonth(6);
 		   
-		   endTime.setMonth(8);
-		   endTime.setDate(30);
+		   endTime.setMonth(8,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 4)
 	   {
 		   startTime.setMonth(9);
 		   
-		   endTime.setMonth(11);
-		   endTime.setDate(31);
+		   endTime.setMonth(11,31);
+		   //endTime.setDate(31);
 	   }
 	   startTime.setHours(0);
 	   startTime.setMinutes(0);
@@ -321,6 +321,10 @@ $(function(){
 						 var map = json.userData;
 						 $("#planVisit").html(map.visitCount);
 						 $("#completeVisit").html(map.completedVisitCount);
+						 console.log(map.visitRate);
+						 if(map.visitRate=="0.00%"){
+							 map.visitRate=0;
+						 }
 						 $("#interviewRate").html(map.visitRate);
 					   
 				   });
@@ -338,7 +342,16 @@ $(function(){
 						 var sec1_data=[
 						         {value:map.isProVisit, name:'项目拜访'},
 						         {value:map.isNoVisit, name:'非项目拜访'}
-						  ]
+						  ];
+						 if(map.isProVisit == 0){
+							 sec1_data=[
+						         {value:map.isNoVisit, name:'非项目拜访'}
+							  ]
+						 }else if(map.isNoVisit == 0){
+							 sec1_data=[
+						         {value:map.isProVisit, name:'项目拜访'}
+							  ]
+						 }
 						// sec1
 						 if(map.isProVisit==0&&map.isNoVisit==0){
 							 $("#project_visit p").remove();
@@ -369,12 +382,11 @@ $(function(){
 							 var str = {};
 							 str.value = arr[item].countVisit;
 							 str.name = arr[item].fanceStatus;
-							 if(str.name!=undefined){
+							 if(str.name!=undefined&&str.value!=0){
 								 sec2_data.push(str);
 								 }
-							  
 						 }
-						 if(!arr){
+						 if(sec2_data.length<=0){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round div").remove();
 							 $("#project_visit_round").addClass("empty_data2");
@@ -400,7 +412,16 @@ $(function(){
 							 var sec3_data=[
 				                 {value:map.part, name:'记录未缺失'},
 				                 {value:map.nopart, name:'记录缺失'}
-				               ]						
+				               ]		
+							 if(map.part == 0){
+								 sec3_data=[
+							         {value:map.nopart, name:'记录缺失'}
+								  ]
+							 }else if(map.nopart == 0){
+								 sec3_data=[
+							         {value:map.part, name:'记录未缺失'}
+								  ]
+							 }
 						 if((map.part == 0 && map.nopart == 0)||map.part==undefined||map.nopart==undefined){
 							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss div").remove();
@@ -760,29 +781,29 @@ function getQuarterlyPeriod()
 	   {
 		   startTime.setMonth(0);
 		   
-		   endTime.setMonth(2);
-		   endTime.setDate(31);
+		   endTime.setMonth(2,31);
+		   //endTime.setDate(31);
 	   }
 	   else if(quarterly == 2)
 	   {
 		   startTime.setMonth(3);
 		   
-		   endTime.setMonth(5);
-		   endTime.setDate(30);
+		   endTime.setMonth(5,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 3)
 	   {
 		   startTime.setMonth(6);
 		   
-		   endTime.setMonth(8);
-		   endTime.setDate(30);
+		   endTime.setMonth(8,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 4)
 	   {
 		   startTime.setMonth(9);
 		   
-		   endTime.setMonth(11);
-		   endTime.setDate(31);
+		   endTime.setMonth(11,31);
+		   //endTime.setDate(31);
 	   }
 	   startTime.setHours(0);
 	   startTime.setMinutes(0);
@@ -912,29 +933,29 @@ function getVisitQuarterlyPeriod()
 	   {
 		   startTime.setMonth(0);
 		   
-		   endTime.setMonth(2);
-		   endTime.setDate(31);
+		   endTime.setMonth(2,31);
+		   //endTime.setDate(31);
 	   }
 	   else if(quarterly == 2)
 	   {
 		   startTime.setMonth(3);
 		   
-		   endTime.setMonth(5);
-		   endTime.setDate(30);
+		   endTime.setMonth(5,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 3)
 	   {
 		   startTime.setMonth(6);
 		   
-		   endTime.setMonth(8);
-		   endTime.setDate(30);
+		   endTime.setMonth(8,30);
+		   //endTime.setDate(30);
 	   }
 	   else if(quarterly == 4)
 	   {
 		   startTime.setMonth(9);
 		   
-		   endTime.setMonth(11);
-		   endTime.setDate(31);
+		   endTime.setMonth(11,31);
+		   //endTime.setDate(31);
 	   }
 	   startTime.setHours(0);
 	   startTime.setMinutes(0);
