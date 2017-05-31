@@ -321,6 +321,10 @@ $(function(){
 						 var map = json.userData;
 						 $("#planVisit").html(map.visitCount);
 						 $("#completeVisit").html(map.completedVisitCount);
+						 console.log(map.visitRate);
+						 if(map.visitRate=="0.00%"){
+							 map.visitRate=0;
+						 }
 						 $("#interviewRate").html(map.visitRate);
 					   
 				   });
@@ -381,9 +385,8 @@ $(function(){
 							 if(str.name!=undefined&&str.value!=0){
 								 sec2_data.push(str);
 								 }
-							  
 						 }
-						 if(!arr){
+						 if(sec2_data.length<=0){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round div").remove();
 							 $("#project_visit_round").addClass("empty_data2");
