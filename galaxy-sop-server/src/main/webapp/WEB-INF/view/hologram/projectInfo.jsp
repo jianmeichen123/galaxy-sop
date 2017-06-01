@@ -32,7 +32,6 @@
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
       <div class="tabtxt" id="page_all">
 		<!--tab-->
-
 			
 			<!--tab end-->
 		</div>
