@@ -326,9 +326,12 @@ $(function(){
 						 var map = json.userData;
 						 $("#planVisit").html(map.visitCount);
 						 $("#completeVisit").html(map.completedVisitCount);
-						 console.log(map.visitRate);
+						 console.log()
 						 if(map.visitRate=="0.00%"){
 							 map.visitRate=0;
+						 }else if(map.visitRate.split('.')[1]=="0%"){
+							 var  persend =map.visitRate.split('.');
+							 map.visitRate=persend[0]+'.'+"00%";
 						 }
 						 $("#interviewRate").html(map.visitRate);
 					   
