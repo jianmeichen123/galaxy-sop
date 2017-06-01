@@ -179,6 +179,8 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 		if((sheduleInfo.getCreatedId() == 0 || sheduleInfo.getCreatedId() == null) && sheduleInfo.getDepartmentId() != 0){
 			Map<String,Object> params = new HashMap<String,Object>();
 			params.put("departmentId", sheduleInfo.getDepartmentId());
+			params.put("status", "0");
+			params.put("roleId", UserConstant.TZJL);
 			List<User> users = userService.querytUserByParams(params);
 			if(users != null && users.size() > 0){
 				for(User u : users){
