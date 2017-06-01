@@ -86,7 +86,6 @@
                         <input type="text" class="txt time" id="quarterly_start_data" name="" readonly style="height:23px;">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <select id="s_quarterly" name="s_quarterly" style="display:inline-block ">
-                            <option value="">请选择</option>
                             <option value='1'>第一季度</option>
                             <option value='2'>第二季度</option>
                             <option value='3'>第三季度</option>
@@ -114,7 +113,7 @@
             <h3>
                 <img src="<%=path %>/img/section_1.png" alt="">
                 <p>拜访量统计</p>
-                <span class="visit_period_desc">(2017年第2季度)</span>
+                <span class="visit_period_desc"></span>
             </h3>
       <ul class="fl_three clearfix">
                 <li>
@@ -152,21 +151,21 @@
                 <li>
                     <div class="round_title">
                         <p>项目拜访占比</p>
-                        <span class="visit_period_desc">(2017年第2季度)</span>
+                        <span class="visit_period_desc"></span>
                     </div>
                     <div class="round_data" id="project_visit"  style="z-index:0;"></div>
                 </li>
                 <li>
                     <div class="round_title">
                         <p>项目拜访轮次占比</p>
-                        <span class="visit_period_desc">(2017年第2季度)</span>
+                        <span class="visit_period_desc"></span>
                     </div>
                     <div class="round_data" id="project_visit_round"  style="z-index:0;"></div>
                 </li>
                 <li>
                     <div class="round_title">
                         <p>访谈记录缺失占比</p>
-                        <span class="visit_period_desc">(2017年第2季度)</span>
+                        <span class="visit_period_desc"></span>
                     </div>
                     <div class="round_data" id="project_visit_miss"  style="z-index:0;"></div>
                 </li>
@@ -185,7 +184,7 @@
             <h3>
                 <img src="<%=path %>/img/section_3.png" alt="">
                 <p>拜访统计图</p>
-                <span class="visit_period_desc">(2017年第2季度)</span>
+                <span class="visit_period_desc"></span>
             </h3>
             <ul class="vertical_tab clearfix">
                 <li class="active">已完成拜访量</li>
@@ -349,8 +348,10 @@ var bftjt = {
 						bftjt.dataComSum=[];
 						bftjt.dataComName=[];
 					}
+					$(".th-inner.sortable span").remove();
+					$(".th-inner.sortable").append("<span></span>")
 				}
-				$(".th-inner.sortable").append("<span></span>")
+				
 				
 				//已完成拜访量
 				completedChart();

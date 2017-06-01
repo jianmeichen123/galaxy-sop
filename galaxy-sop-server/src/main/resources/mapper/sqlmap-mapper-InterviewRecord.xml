@@ -147,7 +147,7 @@
 	
 	<update id="updateCreateUid" parameterType="com.galaxyinternet.model.project.InterviewRecord">
 		update sop_interview_record set created_id = #{createdId,jdbcType=BIGINT} 
-		where project_id = #{projectId,jdbcType=BIGINT}
+		where project_id = #{projectId,jdbcType=BIGINT} and schedule_id=0
 	</update>
     
     <!-- 删除 -->

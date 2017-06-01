@@ -2,8 +2,8 @@ $(function(){
 
 	var datePeriod;
 	var dateVisitPeriod;
-	$("button[action='querySearch']").click(function(){
-		
+//	季度展示
+	function time_show(){
 		var str;
 		var v_str;
 		var three_str;
@@ -21,15 +21,20 @@ $(function(){
 			loadTrendData(1);
 		}
 		if(val == "周"){
+			loadTrendData(0);
 			str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 			v_str = dateVisitPeriod.startTime.split(" ")[0]+"至"+dateVisitPeriod.endTime.split(" ")[0];
 			
 			three_str="周";
-			loadTrendData(0);
+			
 		}
 		$(".visit_period_desc").text('('+str+')');
 		$(".period_desc").text('('+v_str+')');
 		$(".visit_three .period_desc").text('('+three_str+')');
+	}
+	time_show()
+	$("button[action='querySearch']").click(function(){
+		time_show();
 //		判断 是否为项目拜访
 		var input_radio = $(this).parents(".search_adjust").siblings(".search_adjust").find("input[type='radio']")
 		console.log(input_radio);
@@ -203,8 +208,8 @@ $(function(){
 	   var endDate = $('.visitweekEndDatepicker').val();
 	   var endTime = new Date();
 	   endTime.setFullYear(endDate.split('-')[0]);
-	   endTime.setMonth(endDate.split('-')[1]-1);
-	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setMonth(endDate.split('-')[1]-1,endDate.split('-')[2]);
+	  // endTime.setDate(endDate.split('-')[2]);
 	   endTime.setHours(23);
 	   endTime.setMinutes(59);
 	   endTime.setSeconds(59);
@@ -321,9 +326,12 @@ $(function(){
 						 var map = json.userData;
 						 $("#planVisit").html(map.visitCount);
 						 $("#completeVisit").html(map.completedVisitCount);
-						 console.log(map.visitRate);
+						 console.log()
 						 if(map.visitRate=="0.00%"){
 							 map.visitRate=0;
+						 }else if(map.visitRate.split('.')[1]=="0%"){
+							 var  persend =map.visitRate.split('.');
+							 map.visitRate=persend[0]+'.'+"00%";
 						 }
 						 $("#interviewRate").html(map.visitRate);
 					   
@@ -883,8 +891,8 @@ function getWeeklyPeriod()
 	   var endDate = $('.visitweekEndDatepicker').val();
 	   var endTime = new Date();
 	   endTime.setFullYear(endDate.split('-')[0]);
-	   endTime.setMonth(endDate.split('-')[1]-1);
-	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setMonth(endDate.split('-')[1]-1,endDate.split('-')[2]);
+	   //endTime.setDate(endDate.split('-')[2]);
 	   endTime.setHours(23);
 	   endTime.setMinutes(59);
 	   endTime.setSeconds(59);
@@ -1034,8 +1042,8 @@ function getVisitWeeklyPeriod(){
 	   var endDate = $('.visitweekEndDatepicker').val();
 	   var endTime = new Date();
 	   endTime.setFullYear(endDate.split('-')[0]);
-	   endTime.setMonth(endDate.split('-')[1]-1);
-	   endTime.setDate(endDate.split('-')[2]);
+	   endTime.setMonth(endDate.split('-')[1]-1,endDate.split('-')[2]);
+	   //endTime.setDate(endDate.split('-')[2]);
 	   endTime.setHours(23);
 	   endTime.setMinutes(59);
 	   endTime.setSeconds(59);
