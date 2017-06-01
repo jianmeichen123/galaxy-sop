@@ -6,6 +6,13 @@
 	Long projectId = (Long)request.getAttribute("projectId");
 %>
 <!-- 富文本编辑器 -->
+<style>
+.institution {padding:0 20px 10px}
+.institution input{border:1px solid #d6d8e1;width:148px;height:22px;margin-right:10px;padding:0 0 0 10px;}
+.institution input.name{width:228px;}
+.institution .del{color:#4a97da;font-family:"宋体";font-size:12px;cursor:pointer;}
+.institution .block_inputs{margin-bottom:10px;}
+</style>
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
@@ -88,6 +95,21 @@
 				<td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black" id="serviceCharge"></span><span class="new_color_black">&nbsp;%</span></td>
 	
 			</tr>
+			<tr>
+				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">合投</span></td>
+			</tr>
+		</table>
+		<table width="100%" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>投资人/投资机构</th>
+				<th>投资金额（万元）</th>
+				<th>占股比例（%）</th>
+			</tr>
+			<tr>
+				<td>阿里巴巴</td>
+				<td>2000</td>
+				<td>20</td>
+			</tr>
 		</table>
 	</div>
 	<!-- 编辑页面 -->
@@ -165,7 +187,22 @@
 	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" allowNULL="yes" valType="OTHER" regString="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数"/>&nbsp;　%</span></td>
 	     	
 	     		</tr>
+	     		<tr>
+	                <td><span class="new_color_gray">投资形式：</span>
+	                <span class="mar_left">
+                        <div class="mar_left"><input type="radio" name="investForm" >独投 </div>
+                        <div class="mar_left"><input type="radio" name="investForm" >领投</div>
+                        <div class="mar_left"><input type="radio" name="investForm" >合投</div>
+                     </span>
+	                </td>
+	     		</tr>
 	        </table>
+	        <div class="institution clearfix" >
+	        	<div class="fl"><span class='new_color_gray'>合投机构：</span></div>
+	        	<div class="fl">
+	        		<div class="institutionBtn"><span class="pubbtn bluebtn">新增</span></div>
+	        	</div>
+	        </div>
 	    </div>
 	</div>
 </div>
@@ -449,6 +486,44 @@
 		initTabPostMeeting();
 		$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
 	}
+	//新增添加合投机构
+	function addInputsRow(){
+	     var inputsRow='<div class="block_inputs">'
+	          +'<input placeholder="填写机构名称" class="name"/><input placeholder="填写投资金额（万元）"/><input placeholder="填写占股比例（%）"/>'
+	            +'<span class="del">删除</span>'
+	            +'</div>';
+	  	$(".institutionBtn").before(inputsRow);
+	  };
+	  //新增
+	$(".institutionBtn span").click(function(){
+		addInputsRow();
+		var inputsLength=$(".block_inputs").length;
+		if(inputsLength>0){
+			$(this).css("margin-top","50px");
+		}else{
+			$(this).css("margin-top","0");
+		}
+		if(inputsLength==10){
+			$(this).hide()
+		}else{
+			$(this).show()
+		}
+	})
+	//删除
+	$(document).on('click','.block_inputs .del',function(){
+		$(this).closest(".block_inputs").remove();
+		var inputsLength=$(".block_inputs").length;
+		if(inputsLength !=10){
+			$(".institutionBtn span").show()
+		}else{
+			$(".institutionBtn span").hide()
+		}
+		if(inputsLength>0){
+			$(".institutionBtn span").css("margin-top","50px")
+		}else{
+			$(".institutionBtn span").css("margin-top","0")
+		}
+	})
 </script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
