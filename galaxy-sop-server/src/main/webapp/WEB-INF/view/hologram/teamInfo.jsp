@@ -92,6 +92,7 @@
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
                     bindChange();
 					sec.showResults();
+					 bindChangeType13();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
@@ -284,6 +285,21 @@
                     }
                 }
             }
+            else if(type==13)
+            {
+                    infoMode.value = field.data('id');
+                    var field_v = field.data('id');
+                    var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
+                    var dt = field.closest('dt[data-type="13"]');
+                    if ( field_v == last_id)
+                    {
+                        infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
+                    }
+                    else
+                    {
+                        infoMode.remark1 = '' ;
+                    }
+            }
 			else if(type == 15)
 			{
                 var _has = false;
@@ -386,6 +402,7 @@
         					$(btn).next().click();
         					refreshSection(id);
         					toggle_btn($('.anchor_btn span'),0,save_this);
+        					
         				} else {
 
         				}
@@ -577,6 +594,35 @@ function bindChange(){
                     inputText.attr('required' , false);
                 }
             });
+        });
+
+
+    });
+}
+
+function bindChangeType13(){
+    var dts = $("dt[data-type='13']");
+    $.each(dts, function (i,n) {
+        var dl = $(this).parent();
+        var lis = dl.find('li.check_label');
+        var last_id = dl.find('li.check_label:last').attr('data-id');
+        var inputText = dl.find('input[type="text"]:last');
+		if(dl.find('li.check_label:last').hasClass("active")){
+			 inputText.attr('required' , true);
+		}
+        $.each(lis, function ( i ,n )
+        {
+        	$(this).click(function(){
+        		if ( $(this).attr('data-id') == last_id ){
+        			if(inputText.attr("disabled")=="disabled"){
+        				 inputText.attr('disabled',false);
+                         inputText.attr('required' , true);
+        			}else{
+        				inputText.attr('disabled',true);
+                        inputText.attr('required' , false);
+        			}
+        		}        		 
+        	})
         });
 
 
