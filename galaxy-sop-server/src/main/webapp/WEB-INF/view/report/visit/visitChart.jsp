@@ -512,6 +512,12 @@ var bftjt = {
 			}
 		},
 		calculable : true,
+		grid:{
+			x:80,
+			y:30,
+			x2:50,
+			y2:50
+		},
 		xAxis : [ {
 			type : 'category',
 			data : [ '电子商务', '电子商务', '电子商务', '电子商务', '电子商务', '电子商务' ],
@@ -522,6 +528,8 @@ var bftjt = {
 					fontFamily : '微软雅黑',
 					align : 'center'
 				},
+				rotate:15,
+				margin:25,
 				interval:0,
 				formatter : function(value) {
 					//return value.split("").join("\n");
@@ -547,7 +555,7 @@ var bftjt = {
 			name : '拜访数量（个）',
 			position : 'left',
 			nameLocation : 'middle',
-			nameGap : 40,
+			nameGap : 45,
 			nameRotate : 90,
 			nameTextStyle : {
 				color : "#666",
@@ -611,6 +619,12 @@ var bftjt = {
 			}
 		},
 		calculable : true,
+		grid:{
+			x:80,
+			y:30,
+			x2:50,
+			y2:50
+		},
 		xAxis : [ {
 			type : 'category',
 			data : [ '电子商务', '电子商务', '电子商务', '电子商务', '电子商务', '电子商务'],
@@ -621,6 +635,8 @@ var bftjt = {
 					fontFamily : '微软雅黑',
 					align : 'center'
 				},
+				rotate:15,
+				margin:25,
 				interval:0,
 				formatter : function(value) {
 					//return value.split("").join("\n");
@@ -646,7 +662,7 @@ var bftjt = {
 			name : '拜访数量（个）',
 			position : 'left',
 			nameLocation : 'middle',
-			nameGap : 40,
+			nameGap : 45,
 			nameRotate : 90,
 			nameTextStyle : {
 				color : "#666",
