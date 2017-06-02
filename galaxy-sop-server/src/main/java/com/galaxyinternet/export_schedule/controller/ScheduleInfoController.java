@@ -186,8 +186,13 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 				for(User u : users){
 					userids.add(u.getId());
 				}
-				sheduleInfo.setCreatetUids(userids);
 			}
+			else
+			{
+				//所选部门无投资经理时不需要显示数据
+				userids.add(0L);
+			}
+			sheduleInfo.setCreatetUids(userids);
 			return;
 		}
 		if(sheduleInfo.getCreatedId() != 0 && sheduleInfo.getCreatedId() != null){
