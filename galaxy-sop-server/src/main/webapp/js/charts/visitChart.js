@@ -226,8 +226,6 @@ $(function(){
 	   
 	   datePeriod = getDatePeriod();
 	   dateVisitPeriod = getVisitDatePeriod();
-	   console.log(datePeriod);
-	   console.log(dateVisitPeriod);
 	   trend = {
 			periods:new Array(),
 			plan : new Array(),
@@ -370,7 +368,15 @@ $(function(){
 							 $("#project_visit p").remove();
 							 $("#project_visit").removeClass("empty_data1");
 							 var color_array1 = ['#90e6fb','#ff94b1']
-							 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false);
+							 console.log(sec1_data.length)
+							 if(sec1_data.length==1&&sec1_data[0].value!=0){
+								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,0);
+							 }else{
+								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,3);
+							 }
+							 
+							 
+							 
 						 }
 					   
 				   });
@@ -394,7 +400,7 @@ $(function(){
 								 sec2_data.push(str);
 								 }
 						 }
-						 if(sec2_data.length<=0){
+						 if(sec2_data.length<=0&&sec2_data[0].value!=0){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round div").remove();
 							 $("#project_visit_round").addClass("empty_data2");
@@ -403,7 +409,12 @@ $(function(){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round").removeClass("empty_data2");
 							 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
-							 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area");
+							 if(sec2_data.length==1){
+								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",0);
+							 }else{
+								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",3);
+							 }
+							 
 						 }
 				   });
 	  
@@ -438,7 +449,12 @@ $(function(){
 						 }else{
 							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss").removeClass("empty_data3");
-							 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false);
+							 if(sec3_data.length==1&&sec3_data[0].value!=0){
+								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,0);
+							 }else{
+								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,3);
+							 }
+							 
 						 }
 						 });
 	  
@@ -649,7 +665,7 @@ $(function(){
 //pie_data 显示数据 data
 //data_radius 圆环圆饼类型
 // rose  是否为玫瑰图
-function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
+function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose,borderWidth){
     var option = {
     tooltip: {
         trigger: 'item',
@@ -679,7 +695,7 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
             startAngle:0,
             "itemStyle":{
                 "normal":{
-                    "borderWidth":3,
+                    "borderWidth":borderWidth,
                     "borderColor":"#fff",
                 }
             },
@@ -690,7 +706,7 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
                     formatter:"{b}",
                     position:"outside",
                     textStyle: {
-                        color: 'rgba(0, 0, 0, 1)'
+                        color: '#666'
                     }
                 },
             },
@@ -698,7 +714,7 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
                 normal: {
                     smooth: 0.2,
                     length: 10,
-                    length2: 15
+                    length2: 15,
                 }
             },
         }
@@ -926,9 +942,7 @@ function getVisitQuarterlyPeriod()
 	   //console.log('getQuarterlyPeriod');
 	   var endYear = $("#quarterly_start_data").val().replace('年','');
 	   var startYear = endYear;
-	   
 	   var quarterly = $("select[name='s_quarterly']").val();
-	   console.log("quarterly="+quarterly);
 	   var startTime = new Date();
 	   var endTime = new Date();
 	   
