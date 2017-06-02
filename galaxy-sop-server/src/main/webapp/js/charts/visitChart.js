@@ -498,29 +498,30 @@ $(function(){
               orient:'horizontal',
               y:'bottom',
               data:[
-                  {
-                      name:'已完成拜访量',
-                      textStyle:{
-                          color:'#666'
-                      },
-                      icon:'stack'
-                  },
-                  {
-                      name:'计划拜访量',
-                      textStyle:{
-                          color:'#666'
-                      },
-                      icon:'stack'
-                  }
-              ]
-          },
-      calculable : true,
-      grid:{
-			x:80,
-			y:30,
-			x2:50,
-			y2:50
-		},
+                    {
+                        name:'已完成拜访量',
+                        textStyle:{
+                            color:'#666'
+                        },
+                        icon:'image:///sop/img/legend01.png'
+                    },
+                    {
+                        name:'计划拜访量',
+                        textStyle:{
+                            color:'#666'
+                        },
+                        //icon:'stack'
+                        icon:'image:///sop/img/legend02.png'
+                    }
+                ]
+            },
+        calculable : true,
+        grid:{
+  			x:80,
+  			y:30,
+  			x2:50,
+  			y2:70
+  		},
       xAxis : [
           {
               type : 'category',
