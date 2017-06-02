@@ -324,12 +324,10 @@ $(function(){
 						 var map = json.userData;
 						 $("#planVisit").html(map.visitCount);
 						 $("#completeVisit").html(map.completedVisitCount);
-						 console.log()
-						 if(map.visitRate=="0.00%"){
-							 map.visitRate=0;
-						 }else if(map.visitRate.split('.')[1]=="0%"){
+						 if(map.visitRate.split('.')[1].length==2){
 							 var  persend =map.visitRate.split('.');
-							 map.visitRate=persend[0]+'.'+"00%";
+							 persend[1].split('');
+ 							 map.visitRate=persend[0]+'.'+persend[1].split('')[0]+"0%";
 						 }
 						 $("#interviewRate").html(map.visitRate);
 					   
@@ -400,7 +398,7 @@ $(function(){
 								 sec2_data.push(str);
 								 }
 						 }
-						 if(sec2_data.length<=0&&sec2_data[0].value!=0){
+						 if(sec2_data.length<=0){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round div").remove();
 							 $("#project_visit_round").addClass("empty_data2");
@@ -409,7 +407,7 @@ $(function(){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round").removeClass("empty_data2");
 							 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
-							 if(sec2_data.length==1){
+							 if(sec2_data.length==1&&sec2_data[0].value!=0){
 								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",0);
 							 }else{
 								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",3);
