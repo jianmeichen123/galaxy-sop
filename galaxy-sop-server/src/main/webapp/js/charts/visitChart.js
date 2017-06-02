@@ -517,6 +517,12 @@ $(function(){
               ]
           },
       calculable : true,
+      grid:{
+			x:80,
+			y:30,
+			x2:50,
+			y2:50
+		},
       xAxis : [
           {
               type : 'category',
@@ -561,7 +567,7 @@ $(function(){
                         name:'拜访数量（个）',
                         position:'left',
                         nameLocation:'middle',
-                        nameGap:40,
+                        nameGap:45,
                         nameRotate:90,
                         nameTextStyle:{
                           color:"#666",
