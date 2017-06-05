@@ -26,4 +26,27 @@ VIEW `fx_db`.`v_user` AS
 		`power`.`user`.`address` AS `address`,
 		`power`.`user`.`is_admin` AS `is_admin`
     FROM
-        `power`.`user`)
+        `power`.`user`);
+        
+        
+        
+        
+        
+        CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `fxuser`@`10.%.%.%` 
+    SQL SECURITY DEFINER
+VIEW `v_rel_dep_user` AS
+    (SELECT 
+        `power`.`rel_dep_user`.`id` AS `id`,
+        `power`.`rel_dep_user`.`dep_id` AS `dep_id`,
+        `power`.`rel_dep_user`.`user_id` AS `user_id`,
+        `power`.`rel_dep_user`.`is_del` AS `is_del`,
+        `power`.`rel_dep_user`.`is_outtage` AS `is_outtage`,
+        `power`.`rel_dep_user`.`create_time` AS `create_time`,
+        `power`.`rel_dep_user`.`create_id` AS `create_id`,
+        `power`.`rel_dep_user`.`update_time` AS `update_time`,
+        `power`.`rel_dep_user`.`update_id` AS `update_id`,
+        `power`.`rel_dep_user`.`company_id` AS `company_id`
+    FROM
+        `power`.`rel_dep_user`);
