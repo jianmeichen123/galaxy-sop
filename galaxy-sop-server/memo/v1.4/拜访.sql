@@ -25,4 +25,4 @@ ADD COLUMN `callon_person` BIGINT(20) NULL COMMENT '拜访对象，关联schedul
 /*删除拜访-联系人表，表没有用，用日程表里的拜访对象字段*/
 DROP TABLE `fx_db`.`schedule_person_plan`; 
 
-INSERT INTO `platform_resource` (`id`, `parent_id`, `resource_mark`, `resource_name`, `resource_url`, `resource_type`, `resource_order`, `resource_desc`, `resource_status`, `product_mark`, `created_uid`, `created_time`, `updated_uid`, `updated_time`, `application_platform`, `style`, `index_div_config`) VALUES('223','0','visit','拜访计划','galaxy/report/visitChart/','1','23','菜单项-拜访计划','1','sop',NULL,NULL,NULL,NULL,'1','',NULL);
+INSERT INTO `platform_resource` (`id`, `parent_id`, `resource_mark`, `resource_name`, `resource_url`, `resource_type`, `resource_order`, `resource_desc`, `resource_status`, `product_mark`, `created_uid`, `created_time`, `updated_uid`, `updated_time`, `application_platform`, `style`, `index_div_config`) VALUES('223','0','visit','拜访统计','galaxy/report/visitChart/','1','23','菜单项-拜访统计','1','sop',NULL,NULL,NULL,NULL,'1','',NULL);

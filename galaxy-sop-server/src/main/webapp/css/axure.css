@@ -2812,6 +2812,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     }
     .vertical_tab{
         margin-top: 20px;
+        margin-left:30px;
     }
     .vertical_tab li{
         float: left;

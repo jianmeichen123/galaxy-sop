@@ -21,3 +21,6 @@ UPDATE `fx_db`.`dict` SET `dict_sort`='8' WHERE `id`='34';
 UPDATE `fx_db`.`dict` SET `dict_sort`='9' WHERE `id`='35';
 UPDATE `fx_db`.`dict` SET `dict_sort`='10' WHERE `id`='36';
 UPDATE `fx_db`.`dict` SET `dict_sort`='11' WHERE `id`='37';
+
+UPDATE `fx_db`.`dict` SET `name`='投资估值未达成一致' WHERE `id`='196';
+UPDATE `fx_db`.`dict` SET `name`='投资方式未达成一致（如并购、财务投资，服务费等）' WHERE `id`='197';
