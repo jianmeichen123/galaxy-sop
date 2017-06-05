@@ -32,7 +32,7 @@ $(function(){
 		$(".period_desc").text('('+v_str+')');
 		$(".visit_three .period_desc").text('('+three_str+')');
 	}
-	time_show()
+	time_show();
 	$("button[action='querySearch']").click(function(){
 		time_show();
 //		判断 是否为项目拜访
@@ -92,7 +92,6 @@ $(function(){
 	   var startYear = endYear-3;
 	   
 	   var quarterly = $("select[name='s_quarterly']").val();
-	   console.log("quarterly="+quarterly);
 	   var startTime = new Date();
 	   var endTime = new Date();
 	   
@@ -366,20 +365,13 @@ $(function(){
 							 $("#project_visit p").remove();
 							 $("#project_visit").removeClass("empty_data1");
 							 var color_array1 = ['#90e6fb','#ff94b1']
-							 console.log(sec1_data.length)
 							 if(sec1_data.length==1&&sec1_data[0].value!=0){
 								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,0);
 							 }else{
 								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,3);
 							 }
-							 
-							 
-							 
-						 }
-					   
-				   });
-	  
-	  
+						 }					   
+				   });	  
 	  } 
    //融资轮次
    function visitFanceStatus(query){
@@ -737,9 +729,21 @@ sdata_id.setOption(option, true);
 
   //导航 日期切换
   $("input[type='radio']").click(function(event) {
-	  $(this).attr("checked",true);
-	  $(this).parent().siblings().find("input").removeAttr("checked");
+	  var sib_text= $(this).siblings("span").html()
+	  if(sib_text=="季度"||sib_text=="月"||sib_text=="周"){
+	    var myyear = new Date().getFullYear();
+		var mymonth = new Date().getMonth()+1;
+		$("#quarterly_start_data").val(myyear+"年");
+		$("select[name='s_quarterly']").val(Math.ceil(mymonth/3));
+		$(".change_month_visit").val(myyear+"年"+mymonth+"月");
+		setDateRange(new Date(),"INIT");
+	  }
+	
+	    
+	$(this).attr("checked",true);
+	$(this).parent().siblings().find("input").removeAttr("checked");
   });
+  
 $('.quarterly_btn input').click(function(event) {
   $('.visitdata_quarterly ').show();
   $('.visitdata_quarterly').siblings("dd").hide();
