@@ -226,7 +226,8 @@ createMenus(6);
  * 查询事业线
  * @version 2016-06-21
  */
-createCareelineOptions(platformUrl.getCareerlineList,"departmentId");
+createCareelineOptions(platformUrl.getCareerlineListByRole,"departmentId");
+//createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
 /**
  * 根据事业线查询相应的投资经理
  * @version 2016-06-21
