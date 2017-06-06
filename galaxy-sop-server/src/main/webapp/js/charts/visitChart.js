@@ -493,17 +493,20 @@ $(function(){
                     {
                         name:'已完成拜访量',
                         textStyle:{
-                            color:'#666'
+                            color:'#666',
+                            fontFamily:"宋体"
                         },
-                        icon:'image:///sop/img/legend01.png'
+                        icon:'stack'
+                        //icon:'image:///sop/img/legend01.png'
                     },
                     {
                         name:'计划拜访量',
                         textStyle:{
-                            color:'#666'
+                            color:'#666',
+                            fontFamily:"宋体"
                         },
-                        //icon:'stack'
-                        icon:'image:///sop/img/legend02.png'
+                        icon:'stack'
+                        //icon:'image:///sop/img/legend02.png'
                     }
                 ]
             },
