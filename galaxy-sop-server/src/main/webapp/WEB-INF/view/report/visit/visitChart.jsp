@@ -517,7 +517,7 @@ var bftjt = {
 			x:80,
 			y:30,
 			x2:50,
-			y2:50
+			y2:75
 		},
 		xAxis : [ {
 			type : 'category',
@@ -527,10 +527,10 @@ var bftjt = {
 				textStyle : {
 					color : '#666',
 					fontFamily : '微软雅黑',
-					align : 'center'
+					align : 'right'
 				},
-				rotate:15,
-				margin:25,
+				rotate:30,
+				margin:12,
 				interval:0,
 				formatter : function(value) {
 					//return value.split("").join("\n");
