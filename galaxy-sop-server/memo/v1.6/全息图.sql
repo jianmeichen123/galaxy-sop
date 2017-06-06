@@ -18,3 +18,7 @@ UPDATE `fx_db`.`information_title` SET `val_rule_mark`='8,2' WHERE `id`='1422';
 
 /*删除重复题 潜在竞争对手的核心资源*/
 DELETE FROM `fx_db`.`information_title` WHERE `id`='1535';
+
+/*融资及估值模块中，现金流量表更改题型，将填写变成上传图片
+*/
+UPDATE `fx_db`.`information_title` SET `type`='7' WHERE `id`='1933';
