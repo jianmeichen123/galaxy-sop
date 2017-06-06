@@ -491,6 +491,13 @@ function buildResults(sec,title,readonly)
 				var dd='<dd>未选择</dd>';
 				$("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().append(dd);
 			}
+		}else if(title.type == 13){
+			if (readonly == true)
+			{
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
+			}
 		}
 	}
 }
