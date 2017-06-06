@@ -8,3 +8,6 @@ ADD COLUMN `reason_other` VARCHAR(32) NULL COMMENT '其他原因' AFTER `result_
 ADD COLUMN `result_reason` VARCHAR(32) NULL COMMENT '原因' AFTER `update_time`;
   ALTER TABLE `fx_db`.`sop_meeting_record` 
 ADD COLUMN `reason_other` VARCHAR(32) NULL COMMENT '其他原因' AFTER `result_reason`;
+
+ALTER TABLE `fx_db`.`sop_project` 
+ADD COLUMN `finance_mode` VARCHAR(45) NULL COMMENT '投资形式' AFTER `project_time`;
