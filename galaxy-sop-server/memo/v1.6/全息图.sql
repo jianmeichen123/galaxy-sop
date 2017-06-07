@@ -16,8 +16,10 @@ UPDATE `fx_db`.`information_title` SET `type`='13' WHERE `id`='1427';
 /*客单价 位数调整 */
 UPDATE `fx_db`.`information_title` SET `val_rule_mark`='8,2' WHERE `id`='1422';
 
+
 /*删除重复题 潜在竞争对手的核心资源*/
-DELETE FROM `fx_db`.`information_title` WHERE `id`='1535';
+UPDATE `fx_db`.`information_title` SET `is_valid`='1' WHERE `id`='1535';
+
 
 /*融资及估值模块中，现金流量表更改题型，将填写变成上传图片
 */
