@@ -364,11 +364,15 @@ $(function(){
 						 }else{
 							 $("#project_visit p").remove();
 							 $("#project_visit").removeClass("empty_data1");
-							 var color_array1 = ['#90e6fb','#ff94b1']
+							 var color_array1 = ['#90e6fb','#ff94b1'];
+							 var normal=new Object();
+							 normal.borderWidth=3;
+							 normal.borderColor="#fff";
+			                 var border_none =new Object();
 							 if(sec1_data.length==1&&sec1_data[0].value!=0){
-								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,0);
+								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,border_none);
 							 }else{
-								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,3);
+								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,normal);
 							 }
 						 }					   
 				   });	  
@@ -399,10 +403,14 @@ $(function(){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round").removeClass("empty_data2");
 							 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
+							 var normal=new Object();
+							 normal.borderWidth=3;
+							 normal.borderColor="#fff";
+			                 var border_none =new Object();
 							 if(sec2_data.length==1&&sec2_data[0].value!=0){
-								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",0);
+								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",border_none);
 							 }else{
-								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",3);
+								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",normal);
 							 }
 							 
 						 }
@@ -439,10 +447,14 @@ $(function(){
 						 }else{
 							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss").removeClass("empty_data3");
+							 var normal=new Object();
+							 normal.borderWidth=3;
+							 normal.borderColor="#fff";
+			                 var border_none =new Object();
 							 if(sec3_data.length==1&&sec3_data[0].value!=0){
-								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,0);
+								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,border_none);
 							 }else{
-								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,3);
+								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,normal);
 							 }
 							 
 						 }
@@ -665,7 +677,7 @@ $(function(){
 //pie_data 显示数据 data
 //data_radius 圆环圆饼类型
 // rose  是否为玫瑰图
-function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose,borderWidth){
+function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose,border){
     var option = {
     tooltip: {
         trigger: 'item',
@@ -693,11 +705,8 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose,borderW
             selectedOffset :0,
             radius: data_radius,
             startAngle:0,
-            "itemStyle":{
-                "normal":{
-                    "borderWidth":borderWidth,
-                    "borderColor":"#fff",
-                }
+            itemStyle:{
+            	"normal":border
             },
             data:pie_data,
             roseType:rose,
