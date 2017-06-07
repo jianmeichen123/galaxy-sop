@@ -484,8 +484,8 @@ $(function(){
       },
       legend:{
               show:true,
-              itemWidth:10,
-              itemHeight:10,
+              /*itemWidth:10,
+              itemHeight:10,*/
               itemGap:40,
               orient:'horizontal',
               y:'bottom',
