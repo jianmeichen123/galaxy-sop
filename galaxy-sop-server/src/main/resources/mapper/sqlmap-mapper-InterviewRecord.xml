@@ -13,10 +13,12 @@
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
     <result column="created_id" property="createdId" jdbcType="BIGINT" />
      <result column="update_time" property="updatedTime" jdbcType="BIGINT" />
+     <result column="schedule_id" property="scheduleId" jdbcType="BIGINT" />
+     
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, project_id,file_id, view_date, view_target, view_notes, view_notes_text,created_time,created_id
+    id, project_id,file_id, view_date, view_target, view_notes, view_notes_text,schedule_id,created_time,created_id
   </sql>
   
   <sql id="Base_Where_Clause">
@@ -145,7 +147,7 @@
 	
 	<update id="updateCreateUid" parameterType="com.galaxyinternet.model.project.InterviewRecord">
 		update sop_interview_record set created_id = #{createdId,jdbcType=BIGINT} 
-		where project_id = #{projectId,jdbcType=BIGINT}
+		where project_id = #{projectId,jdbcType=BIGINT} and schedule_id=0
 	</update>
     
     <!-- 删除 -->

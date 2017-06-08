@@ -1285,9 +1285,12 @@ function createCareelineOptions(url, name, selectStatus){
 		if(!selectStatus){
 			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
 		}
+		var op=$('select[name="'+name+'"] option');
+		if(op.length<=2){
+			$('select[name="'+name+'"]').find(":first").remove();
+		}
 	});
 }
-
 /**
  * 根据事业线查询相应的投资经理
  * @param url   请求地址

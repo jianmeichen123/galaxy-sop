@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.export_schedule.model.BaiFanTj" >
+
+
+	<resultMap id="BaiFanTj_BaseResultMap" type="com.galaxyinternet.export_schedule.model.BaiFanTj" >
+		<result column="uid" 			property="uid" 		jdbcType="BIGINT"  />
+		<result column="did" 			property="did" 		jdbcType="BIGINT"  />
+		<result column="usum" 			property="usum" 	jdbcType="INTEGER" />
+		<result column="dsum" 			property="dsum" 	jdbcType="INTEGER" />
+	</resultMap>
+
+
+
+	<sql id="BaiFanTj_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="type != null" > and type = #{type,jdbcType=TINYINT} </if>
+				
+				<!-- 是否为关联项目    null:全部   1：是   0:否 -->
+				<if test="isProject == 0" >
+				    and project_type=#{isProject}
+			    </if>
+			    <if test="isProject == 1" >
+			       and project_type=#{isProject}
+			    </if>
+				    
+				<if test="bqStartTime != null"> <![CDATA[  and start_time >= #{bqStartTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="bqEndTime != null"> <![CDATA[ and start_time <= #{bqEndTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="createtUids != null">
+					AND created_id IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				
+				
+				and is_del = 0
+			</trim>
+		</where>
+	</sql>
+
+	<select id="selectAllUserSchedule" resultMap="BaiFanTj_BaseResultMap" parameterType="java.util.Map">
+		select
+			created_id uid, COUNT(id) usum
+		from 
+			schedule_info
+		<include refid="BaiFanTj_Where_Clause" />
+		GROUP BY
+			created_id
+		<!-- <if test="property != null">order by ${property} ${direction}</if> -->
+		order by usum
+	</select>
+
+
+	<select id="selectScheduleIds" resultType="java.lang.Long" parameterType="java.util.Map">
+		select
+			id
+		from 
+			schedule_info
+		<include refid="BaiFanTj_Where_Clause" />
+	</select>
+
+	<select id="selectScheduleCuids" resultType="java.lang.Long" parameterType="java.util.Map">
+		select
+			distinct created_id
+		from 
+			schedule_info
+		<include refid="BaiFanTj_Where_Clause" />
+		<!-- GROUP BY
+			created_id -->
+	</select>
+	
+
+	<select id="selectCompleteUserSchedule" resultMap="BaiFanTj_BaseResultMap" parameterType="java.util.Map">
+		select
+			created_id uid, COUNT(schedule_id) usum
+		from 
+			(
+				SELECT 
+					created_id, schedule_id
+				FROM
+					sop_interview_record
+					<where>
+						<trim prefixOverrides="and">
+							<if test="scheduleIds != null" >  
+								and schedule_id IN
+								<foreach collection="scheduleIds" index="item" item="item" open="("
+									separator="," close=")">
+									#{item}
+								</foreach>
+							</if>
+						</trim>
+					</where>
+				GROUP BY
+					created_id , schedule_id 
+			
+			) a
+		GROUP BY
+			created_id
+		order by usum
+	</select>
+
+
+</mapper>

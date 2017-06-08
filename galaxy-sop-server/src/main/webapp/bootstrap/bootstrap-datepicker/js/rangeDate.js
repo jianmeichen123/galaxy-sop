@@ -100,10 +100,36 @@ $(function(){
 	    setDate:"Today"
 	    //endDate: '+3d'
 	});
+	var myyear = new Date().getFullYear();
+    var mymonth = new Date().getMonth()+1;
+    $("#quarterly_start_data").val(myyear+"年");
+    $("select[name='s_quarterly']").val(Math.ceil(mymonth/3))
 	$('.datepicker').datepicker("setDate",new Date());
+	//年视图
+	  $('#quarterly_start_data').datepicker({
+			format: "yyyy年",
+			language: "zh-CN",
+			minViewMode: 2,
+			autoclose: true
+		})
 	//月份视图
+    $(".change_month_visit").val(myyear+"年"+mymonth+"月");
+    $('.change_month_visit').datepicker({
+		format: "yyyy年m月",
+		language: "zh-CN",
+		minViewMode: 1,
+		autoclose: true
+	}).on('changeDate', function(ev){
+		var today = new Date();
+		var time = ev.date.valueOf();
+		if (today.valueOf() > time+86400000){
+			var date = new Date(time).format("yyyy-MM");
+			$(this).val(ev.date);
+		}
+	});
 	$('.change_month').datepicker({
 		format: "yyyy-mm",
+		language: "zh-CN",
 		minViewMode: 1,
 		autoclose: true,
 		endDate: dateLimit
