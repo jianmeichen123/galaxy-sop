@@ -122,8 +122,7 @@ public class Project extends PagableEntity {
    
    private Long projectTime;
    
-    
-	
+   private String financeMode;//投资形式
 	
     public Long getId() {
         return id;
@@ -722,6 +721,14 @@ public class Project extends PagableEntity {
 
 	public void setProjectTime(Long projectTime) {
 		this.projectTime = projectTime;
+	}
+
+	public String getFinanceMode() {
+		return financeMode;
+	}
+
+	public void setFinanceMode(String financeMode) {
+		this.financeMode = financeMode;
 	}
    
  
