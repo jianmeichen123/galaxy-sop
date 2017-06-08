@@ -96,10 +96,10 @@
 	
 			</tr>
 			<tr>
-				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">合投</span></td>
+				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="financeMode"></span><span class="new_color_black"></span></td>
 			</tr>
 		</table>
-		<table width="100%" cellspacing="0" cellpadding="0">
+		<table width="100%" cellspacing="0" cellpadding="0" >
 			<tr>
 				<th>投资人/投资机构</th>
 				<th>投资金额（万元）</th>

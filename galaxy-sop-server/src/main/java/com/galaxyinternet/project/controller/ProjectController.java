@@ -96,6 +96,7 @@ import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.project.service.handler.YwjzdcHandler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.FinanceHistoryService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -166,6 +167,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private SopTaskService sopTaskService;
 	
+	@Autowired
+	private DictService dictService;
+	 
 	@Resource(name ="utilsService")
 	private UtilsService utilsService;
 	
@@ -428,6 +432,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
+		 Map<String,String> dictMap=new HashMap<String,String>();
+		 dictMap=dictMap("financeMode");
 		if (project != null) {
 			List<Department> departments = departmentService.queryAll();
 			Department queryOne = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
@@ -452,7 +458,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}else{
 					project.setIndustryOwnDs(null);
 				}
-			}						
+			}	
+			String 
 			
 		} else {
 			responseBody
@@ -4017,4 +4024,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			return map;
 	  }
+	  public Map<String,String> dictMap(String parentCode){
+		  Map<String,String> map=new HashMap<String,String>();
+			List<Dict> dictList = dictService.selectByParentCode(parentCode);
+			for(Dict d : dictList){
+				map.put(d.getCode(),d.getName());
+			}
+			return map;
+	  }
+	  
 }
