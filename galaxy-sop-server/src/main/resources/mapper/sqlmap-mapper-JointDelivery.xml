@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.project.JointDelivery" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.JointDelivery" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="delivery_type" property="deliveryType" jdbcType="BIT" />
+    <result column="delivery_name" property="deliveryName" jdbcType="VARCHAR" />
+    <result column="delivery_amount" property="deliveryAmount" jdbcType="DECIMAL" />
+    <result column="delivery_share_ratio" property="deliveryShareRatio" jdbcType="DECIMAL" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="create_uid" property="createUid" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, delivery_type, delivery_name, delivery_amount, delivery_share_ratio, project_id, 
+    create_uid, create_time, update_time
+  </sql>
+  <!-- 根据ID查询 -->
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	select
+	<include refid="Base_Column_List" />
+	from joint_delivery where id = #{id}
+  </select>
+  <!-- 查询 -->
+  <select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select
+	<include refid="Base_Column_List" />
+	from joint_delivery
+	<include refid="Example_Where_Clause" />
+  </select>
+ 
+  <insert id="insert" parameterType="com.galaxyinternet.model.project.JointDelivery" >
+    insert into joint_delivery (id, delivery_type, delivery_name, 
+      delivery_amount, delivery_share_ratio, project_id, 
+      create_uid, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{deliveryType,jdbcType=BIT}, #{deliveryName,jdbcType=VARCHAR}, 
+      #{deliveryAmount,jdbcType=DECIMAL}, #{deliveryShareRatio,jdbcType=DECIMAL}, #{projectId,jdbcType=BIGINT}, 
+      #{createUid,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}
+      )
+  </insert>
+  
+  <update id="updateById" parameterType="com.galaxyinternet.model.project.JointDelivery" >
+    update joint_delivery
+    <set >
+      <if test="deliveryType != null" >
+        delivery_type = #{deliveryType,jdbcType=BIT},
+      </if>
+      <if test="deliveryName != null" >
+        delivery_name = #{deliveryName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryAmount != null" >
+        delivery_amount = #{deliveryAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryShareRatio != null" >
+        delivery_share_ratio = #{deliveryShareRatio,jdbcType=DECIMAL},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="createUid != null" >
+        create_uid = #{createUid,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete from joint_delivery
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+</mapper>
