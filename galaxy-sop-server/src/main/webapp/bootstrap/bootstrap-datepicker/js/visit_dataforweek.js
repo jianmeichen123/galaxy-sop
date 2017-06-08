@@ -22,7 +22,7 @@ if(createTime !='' || createTime !=null || typeof(createTime) != "undefined"){
 var browser=navigator.appName 
 var b_version=navigator.appVersion 
 var version=b_version.split(";"); 
-var trim_Version=version[1].replace(/[ ]/g,""); 
+//var trim_Version=version[1].replace(/[ ]/g,""); 
 $(function(){
 	setDateRange(new Date(),"INIT");
 	//日期视图

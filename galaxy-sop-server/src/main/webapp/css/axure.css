@@ -2708,6 +2708,9 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
         margin-top: 10px;
         padding: 30px;
     }
+    .visit_three{
+    padding-bottom:1px;
+    }
     .visit_box h3{
         font-weight: normal;
         font-size:18px;
@@ -2812,6 +2815,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     }
     .vertical_tab{
         margin-top: 20px;
+        margin-left:30px;
     }
     .vertical_tab li{
         float: left;
@@ -2837,7 +2841,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
     .visitdata_month,.visitdata_week{
         display: none;
     }
-    #visitPlan{display:none;}
+    #visitPlan{display:none;margin-bottom:40px;}
     .ritmin .visitChartCon .min_document{background:#f3f4f9}
 .round_data.empty_data1{
 	background:url('../img/nodata1.png') no-repeat center;
@@ -2869,7 +2873,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	top:240px;
 }
 #visitCompleted{
-	margin-bottom:30px;
+	margin-bottom:40px;
 }
 #visitCompleted.empty_data6,#visitPlan.empty_data6{
 	height:370px;

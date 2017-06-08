@@ -32,7 +32,7 @@ $(function(){
 		$(".period_desc").text('('+v_str+')');
 		$(".visit_three .period_desc").text('('+three_str+')');
 	}
-	time_show()
+	time_show();
 	$("button[action='querySearch']").click(function(){
 		time_show();
 //		判断 是否为项目拜访
@@ -92,7 +92,6 @@ $(function(){
 	   var startYear = endYear-3;
 	   
 	   var quarterly = $("select[name='s_quarterly']").val();
-	   console.log("quarterly="+quarterly);
 	   var startTime = new Date();
 	   var endTime = new Date();
 	   
@@ -226,8 +225,6 @@ $(function(){
 	   
 	   datePeriod = getDatePeriod();
 	   dateVisitPeriod = getVisitDatePeriod();
-	   console.log(datePeriod);
-	   console.log(dateVisitPeriod);
 	   trend = {
 			periods:new Array(),
 			plan : new Array(),
@@ -326,12 +323,10 @@ $(function(){
 						 var map = json.userData;
 						 $("#planVisit").html(map.visitCount);
 						 $("#completeVisit").html(map.completedVisitCount);
-						 console.log()
-						 if(map.visitRate=="0.00%"){
-							 map.visitRate=0;
-						 }else if(map.visitRate.split('.')[1]=="0%"){
+						 if(map.visitRate.split('.')[1].length==2){
 							 var  persend =map.visitRate.split('.');
-							 map.visitRate=persend[0]+'.'+"00%";
+							 persend[1].split('');
+ 							 map.visitRate=persend[0]+'.'+persend[1].split('')[0]+"0%";
 						 }
 						 $("#interviewRate").html(map.visitRate);
 					   
@@ -369,13 +364,18 @@ $(function(){
 						 }else{
 							 $("#project_visit p").remove();
 							 $("#project_visit").removeClass("empty_data1");
-							 var color_array1 = ['#90e6fb','#ff94b1']
-							 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false);
-						 }
-					   
-				   });
-	  
-	  
+							 var color_array1 = ['#90e6fb','#ff94b1'];
+							 var normal=new Object();
+							 normal.borderWidth=3;
+							 normal.borderColor="#fff";
+			                 var border_none =new Object();
+							 if(sec1_data.length==1&&sec1_data[0].value!=0){
+								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,border_none);
+							 }else{
+								 data_pie("project_visit","#5ceaf0",color_array1,sec1_data,sec1_radius,false,normal);
+							 }
+						 }					   
+				   });	  
 	  } 
    //融资轮次
    function visitFanceStatus(query){
@@ -403,7 +403,16 @@ $(function(){
 							 $("#project_visit_round p").remove();
 							 $("#project_visit_round").removeClass("empty_data2");
 							 var color_array = ['#8cecf8','#f9a4cf','#60dcff','#9ea7ff','#4fc3f9','#fcaccb','#91a9ff','#ffb4b3'];
-							 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area");
+							 var normal=new Object();
+							 normal.borderWidth=3;
+							 normal.borderColor="#fff";
+			                 var border_none =new Object();
+							 if(sec2_data.length==1&&sec2_data[0].value!=0){
+								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",border_none);
+							 }else{
+								 data_pie("project_visit_round","#5ceaf0",color_array,sec2_data,sec2_radius,"area",normal);
+							 }
+							 
 						 }
 				   });
 	  
@@ -438,7 +447,16 @@ $(function(){
 						 }else{
 							 $("#project_visit_miss p").remove();
 							 $("#project_visit_miss").removeClass("empty_data3");
-							 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false);
+							 var normal=new Object();
+							 normal.borderWidth=3;
+							 normal.borderColor="#fff";
+			                 var border_none =new Object();
+							 if(sec3_data.length==1&&sec3_data[0].value!=0){
+								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,border_none);
+							 }else{
+								 data_pie("project_visit_miss","#aaa9fe",['#afabff','#ddd'],sec3_data,sec3_radius,false,normal);
+							 }
+							 
 						 }
 						 });
 	  
@@ -478,29 +496,39 @@ $(function(){
       },
       legend:{
               show:true,
-              itemWidth:10,
-              itemHeight:10,
+              /*itemWidth:10,
+              itemHeight:10,*/
               itemGap:40,
               orient:'horizontal',
               y:'bottom',
               data:[
-                  {
-                      name:'已完成拜访量',
-                      textStyle:{
-                          color:'#666'
-                      },
-                      icon:'stack'
-                  },
-                  {
-                      name:'计划拜访量',
-                      textStyle:{
-                          color:'#666'
-                      },
-                      icon:'stack'
-                  }
-              ]
-          },
-      calculable : true,
+                    {
+                        name:'已完成拜访量',
+                        textStyle:{
+                            color:'#666',
+                            fontFamily:"宋体"
+                        },
+                        icon:'stack'
+                        //icon:'image:///sop/img/legend01.png'
+                    },
+                    {
+                        name:'计划拜访量',
+                        textStyle:{
+                            color:'#666',
+                            fontFamily:"宋体"
+                        },
+                        icon:'stack'
+                        //icon:'image:///sop/img/legend02.png'
+                    }
+                ]
+            },
+        calculable : true,
+        grid:{
+  			x:80,
+  			y:30,
+  			x2:50,
+  			y2:60
+  		},
       xAxis : [
           {
               type : 'category',
@@ -545,7 +573,7 @@ $(function(){
                         name:'拜访数量（个）',
                         position:'left',
                         nameLocation:'middle',
-                        nameGap:40,
+                        nameGap:45,
                         nameRotate:90,
                         nameTextStyle:{
                           color:"#666",
@@ -649,7 +677,7 @@ $(function(){
 //pie_data 显示数据 data
 //data_radius 圆环圆饼类型
 // rose  是否为玫瑰图
-function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
+function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose,border){
     var option = {
     tooltip: {
         trigger: 'item',
@@ -677,11 +705,8 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
             selectedOffset :0,
             radius: data_radius,
             startAngle:0,
-            "itemStyle":{
-                "normal":{
-                    "borderWidth":3,
-                    "borderColor":"#fff",
-                }
+            itemStyle:{
+            	"normal":border
             },
             data:pie_data,
             roseType:rose,
@@ -690,7 +715,7 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
                     formatter:"{b}",
                     position:"outside",
                     textStyle: {
-                        color: 'rgba(0, 0, 0, 1)'
+                        color: '#666'
                     }
                 },
             },
@@ -698,7 +723,7 @@ function data_pie(data_id,too_color,data_color,pie_data,data_radius,rose){
                 normal: {
                     smooth: 0.2,
                     length: 10,
-                    length2: 15
+                    length2: 15,
                 }
             },
         }
@@ -716,9 +741,21 @@ sdata_id.setOption(option, true);
 
   //导航 日期切换
   $("input[type='radio']").click(function(event) {
-	  $(this).attr("checked",true);
-	  $(this).parent().siblings().find("input").removeAttr("checked");
+	  var sib_text= $(this).siblings("span").html()
+	  if(sib_text=="季度"||sib_text=="月"||sib_text=="周"){
+	    var myyear = new Date().getFullYear();
+		var mymonth = new Date().getMonth()+1;
+		$("#quarterly_start_data").val(myyear+"年");
+		$("select[name='s_quarterly']").val(Math.ceil(mymonth/3));
+		$(".change_month_visit").val(myyear+"年"+mymonth+"月");
+		setDateRange(new Date(),"INIT");
+	  }
+	
+	    
+	$(this).attr("checked",true);
+	$(this).parent().siblings().find("input").removeAttr("checked");
   });
+  
 $('.quarterly_btn input').click(function(event) {
   $('.visitdata_quarterly ').show();
   $('.visitdata_quarterly').siblings("dd").hide();
@@ -926,9 +963,7 @@ function getVisitQuarterlyPeriod()
 	   //console.log('getQuarterlyPeriod');
 	   var endYear = $("#quarterly_start_data").val().replace('年','');
 	   var startYear = endYear;
-	   
 	   var quarterly = $("select[name='s_quarterly']").val();
-	   console.log("quarterly="+quarterly);
 	   var startTime = new Date();
 	   var endTime = new Date();
 	   
