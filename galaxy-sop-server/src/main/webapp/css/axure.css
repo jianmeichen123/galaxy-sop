@@ -2583,6 +2583,8 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 .btn_compet{display: inline-block; margin-bottom: 10px; margin-top: 20px;}
 .fl_none_box{box-sizing:border-box;padding-left:122px;}
 .h_edit .h_radios li.text_li{padding:0;margin-top:-8px;margin-left:-10px;}
+.h_edit .h_radios li.text_li_13{margin-top:4px}
+.h_edit .h_radios li.text_li_13 input{height:28px;}
 .sign_title{font-size:14px;margin-bottom:5px;}
 #compete{width:550px;}
 #compete dt{width:160px;text-align:right;}
