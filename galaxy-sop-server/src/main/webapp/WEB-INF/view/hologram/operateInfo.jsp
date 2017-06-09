@@ -73,6 +73,7 @@ getData();
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 					sec.showResults();
+					bindChangeType13();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					$(".bj_hui_on").show();
@@ -167,8 +168,8 @@ getData();
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea,li.active,option:selected");
-		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
+		var fields = sec.find("input[type='text'],input:checked,textarea,li[class='check_label active'],li.active,option:selected");
+		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -206,6 +207,22 @@ getData();
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
+			 else if(type==13)
+	            {
+	                    infoMode.value = field.data('id');
+	                    var field_v = field.data('id');
+	                    var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
+	                    var dt = field.closest('dt[data-type="13"]');
+	                    if ( field_v == last_id)
+	                    {
+	                        infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
+	                    }
+	                    else
+	                    {
+	                        infoMode.remark1 = '' ;
+	                    }
+	               
+	            }
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
@@ -409,6 +426,34 @@ function getData(){
 
 			}
 		})
+}
+function bindChangeType13(){
+    var dts = $("dt[data-type='13']");
+    $.each(dts, function (i,n) {
+        var dl = $(this).parent();
+        var lis = dl.find('li.check_label');
+        var last_id = dl.find('li.check_label:last').attr('data-id');
+        var inputText = dl.find('input[type="text"]:last');
+		if(dl.find('li.check_label:last').hasClass("active")){
+			 inputText.attr('required' , true);
+		}
+        $.each(lis, function ( i ,n )
+        {
+        	$(this).click(function(){
+        		if ( $(this).attr('data-id') == last_id ){
+        			if(inputText.attr("disabled")=="disabled"){
+        				 inputText.attr('disabled',false);
+                         inputText.attr('required' , true);
+        			}else{
+        				inputText.attr('disabled',true);
+                        inputText.attr('required' , false);
+        			}
+        		}        		 
+        	})
+        });
+
+
+    });
 }
 </script>
 
