@@ -333,10 +333,10 @@ var bftjt = {
 					if(dataList !=null && dataList.length >0){
 						dataList.sort(bftjt.compare);
 						$.each(dataList,function(){
-							if(this.completeSum != 0){
+							//if(this.completeSum != 0){
 								bftjt.dataComName.push(this.name);
 								bftjt.dataComSum.push(this.completeSum);
-							}
+							//}
 						});
 						dataList.sort(bftjt.allCompare);
 						$.each(dataList,function(){

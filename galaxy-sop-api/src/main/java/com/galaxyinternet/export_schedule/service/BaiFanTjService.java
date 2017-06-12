@@ -23,7 +23,7 @@ public interface BaiFanTjService extends BaseService<BaiFanTj>{
 	 * @param info   封装的查询条件
 	 * @return 
 	 */
-	Map<Long,Integer> queryAllUserSchedule(ScheduleInfo info);
+	Map<Long,Integer> queryAllUserSchedule(ScheduleInfo info, Map<Long, String> id_nameMap);
 	
 	
 	/**
@@ -31,7 +31,7 @@ public interface BaiFanTjService extends BaseService<BaiFanTj>{
 	 * @param info   封装的查询条件
 	 * @return 
 	 */
-	Map<Long,Integer> queryCompleteUserSchedule(ScheduleInfo info);
+	Map<Long,Integer> queryCompleteUserSchedule(ScheduleInfo info, Map<Long, String> id_nameMap);
 	
 	
 	

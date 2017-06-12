@@ -49,10 +49,27 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 		List<BaiFanTj> results = new ArrayList<BaiFanTj>();
 		
 		long time1 = System.currentTimeMillis();
-		Map<Long,Integer> allSchedule = this.queryAllUserSchedule(info);
+		
+		Map<Long, String> id_nameMap =  new HashMap<Long, String>();
+		Long departmentId = info.getDepartmentId();
+		if(departmentId != null){
+			Map<Long, String> uid_nameMap =  scheduleUtil.queryUidNameByDept(departmentId);
+			id_nameMap = uid_nameMap;
+			
+		}else{
+			Map<Long, String> deptid_nameMap = scheduleUtil.queryAllSYX(null);
+			id_nameMap = deptid_nameMap;
+			
+		}
 		
 		long time2 = System.currentTimeMillis();
-		List<Long> ids = new ArrayList<>(allSchedule.keySet());
+		
+		
+		
+		Map<Long,Integer> allSchedule = this.queryAllUserSchedule(info,id_nameMap);
+		
+		long time3 = System.currentTimeMillis();
+		/*List<Long> ids = new ArrayList<>(allSchedule.keySet());
 		
 		Map<Long, String> id_nameMap =  new HashMap<Long, String>();
 		Long departmentId = info.getDepartmentId();
@@ -60,13 +77,13 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 			id_nameMap =  scheduleUtil.queryUidNameMap(ids);
 		}else{
 			id_nameMap = scheduleUtil.queryDeptIdNameMap(ids);
-		}
+		}*/
 		
-		
-		long time3 = System.currentTimeMillis();
-		Map<Long,Integer> completeSchedule = this.queryCompleteUserSchedule(info);
 		
 		long time4 = System.currentTimeMillis();
+		Map<Long,Integer> completeSchedule = this.queryCompleteUserSchedule(info,id_nameMap);
+		
+		long time5 = System.currentTimeMillis();
 		
 		if(allSchedule != null && !allSchedule.isEmpty()){
 				
@@ -98,10 +115,10 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 			}
 		}
 		
-		long time5 = System.currentTimeMillis();
+		long time6 = System.currentTimeMillis();
 		
 		if(logger.isDebugEnabled()){
-			if(time5-time4 > 1000 ||time4-time3 > 1000 || time3-time2 > 1000 || time2-time1 > 1000 || time5-time1 > 1000  ){
+			if(time6-time5 > 1000 ||time5-time4 > 1000 ||time4-time3 > 1000 || time3-time2 > 1000 || time2-time1 > 1000 || time6-time1 > 1000  ){
 				logger.error( (time4-time3) + ":" + (time3-time2) +":" + (time2-time1) +":" + (time4-time1) );
 			}
 		}
@@ -118,7 +135,7 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 	 * 		id_nameMap  :返回数据
 	 * @return 
 	 */
-	public Map<Long,Integer> queryAllUserSchedule(ScheduleInfo info) {
+	public Map<Long,Integer> queryAllUserSchedule(ScheduleInfo info , Map<Long, String> id_nameMap) {
 		Map<Long,Integer> id_sum_map = new HashMap<Long,Integer>();
 		
 		Map<String, Object> params = new HashMap<String,Object>();
@@ -133,9 +150,15 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 		
 		Long departmentId = info.getDepartmentId();
 		if(departmentId != null){
-			Map<Long, String> id_nameMap =  scheduleUtil.queryUidNameByDept(departmentId);
-			if(id_nameMap!=null && !id_nameMap.isEmpty()){
-				params.put("createtUids", id_nameMap.keySet());
+			//Map<Long, String> uid_nameMap =  scheduleUtil.queryUidNameByDept(departmentId);
+			Map<Long, String> uid_nameMap =  id_nameMap;
+			if(uid_nameMap!=null && !uid_nameMap.isEmpty()){
+				
+				for(Entry<Long,String> emtMap : uid_nameMap.entrySet()){
+					id_sum_map.put(emtMap.getKey(), 0);
+				}
+				
+				params.put("createtUids", uid_nameMap.keySet());
 				
 				bflist = baiFanTjDao.selectAllUserSchedule(params);
 				
@@ -148,12 +171,17 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 		}else{
 			bflist = baiFanTjDao.selectAllUserSchedule(params);
 			
+			//Map<Long, String> deptid_nameMap = scheduleUtil.queryAllSYX(null);
+			Map<Long, String> deptid_nameMap = id_nameMap;
+			for(Entry<Long,String> emtMap : deptid_nameMap.entrySet()){
+				id_sum_map.put(emtMap.getKey(), 0);
+			}
+			
 			if(bflist !=null && !bflist.isEmpty()){
 				List<Long> uids = new ArrayList<Long>();
-				for(BaiFanTj bf : bflist){ // uid, usum
+				for(BaiFanTj bf : bflist){
 					uids.add(bf.getUid());
 				}
-				
 				//获取投资经理   uid-deptid map 
 				Map<Long, Long> uId_deptidMap = scheduleUtil.queryTzjlUidsAndDeptIds(uids);
 				
@@ -161,11 +189,12 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 				for(BaiFanTj bf : bflist){ // uid, usum
 					if(uId_deptidMap.containsKey(bf.getUid())){
 						dptId = uId_deptidMap.get(bf.getUid());
-						if(id_sum_map.containsKey(dptId)){
+						id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
+						/*if(id_sum_map.containsKey(dptId)){
 							id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
 						}else{
 							id_sum_map.put(dptId, bf.getUsum());
-						}
+						}*/
 					}
 				}
 			}
@@ -181,7 +210,7 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 	 * @param info   封装的查询条件
 	 * @return 
 	 */
-	public Map<Long,Integer> queryCompleteUserSchedule(ScheduleInfo info) {
+	public Map<Long,Integer> queryCompleteUserSchedule(ScheduleInfo info , Map<Long, String> id_nameMap) {
 		Map<Long,Integer> id_sum_map = new HashMap<Long,Integer>();
 		
 		Map<String, Object> params = new HashMap<String,Object>();
@@ -194,8 +223,13 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 		
 		Long departmentId = info.getDepartmentId();
 		if(departmentId != null){
-			Map<Long, String> uid_nameMap =  scheduleUtil.queryUidNameByDept(departmentId);
+			//Map<Long, String> uid_nameMap =  scheduleUtil.queryUidNameByDept(departmentId);
+			Map<Long, String> uid_nameMap =  id_nameMap;
 			if(uid_nameMap!=null && !uid_nameMap.isEmpty()){
+				for(Entry<Long,String> emtMap : uid_nameMap.entrySet()){
+					id_sum_map.put(emtMap.getKey(), 0);
+				}
+				
 				params.put("createtUids", uid_nameMap.keySet());
 				List<Long> ids = baiFanTjDao.selectScheduleIds(params);
 				
@@ -214,6 +248,12 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 		}else{
 			List<Long> ids = baiFanTjDao.selectScheduleIds(params);
 			
+			//Map<Long, String> deptid_nameMap = scheduleUtil.queryAllSYX(null);
+			Map<Long, String> deptid_nameMap = id_nameMap;
+			for(Entry<Long,String> emtMap : deptid_nameMap.entrySet()){
+				id_sum_map.put(emtMap.getKey(), 0);
+			}
+			
 			if(ids!=null && !ids.isEmpty()){
 				params = new HashMap<String,Object>();
 				params.put("scheduleIds", ids);
@@ -225,7 +265,6 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 					for(BaiFanTj bf : bflist){ // uid, usum
 						uids.add(bf.getUid());
 					}
-					
 					//获取投资经理   uid-deptid map 
 					Map<Long, Long> uId_deptidMap = scheduleUtil.queryTzjlUidsAndDeptIds(uids);
 					
@@ -233,11 +272,12 @@ public class BaiFanTjServiceImpl extends BaseServiceImpl<BaiFanTj> implements Ba
 					for(BaiFanTj bf : bflist){ // uid, usum
 						if(uId_deptidMap.containsKey(bf.getUid())){
 							dptId = uId_deptidMap.get(bf.getUid());
-							if(id_sum_map.containsKey(dptId)){
+							id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
+							/*if(id_sum_map.containsKey(dptId)){
 								id_sum_map.put(dptId, id_sum_map.get(dptId)+bf.getUsum());
 							}else{
 								id_sum_map.put(dptId, bf.getUsum());
-							}
+							}*/
 						}
 					}
 				}
