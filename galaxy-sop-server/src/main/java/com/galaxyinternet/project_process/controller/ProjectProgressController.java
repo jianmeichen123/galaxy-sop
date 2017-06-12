@@ -42,7 +42,7 @@ import com.galaxyinternet.service.UserRoleService;
  * 投后运营
  */
 @Controller
-@RequestMapping("/galaxy/project/progress")
+@RequestMapping("/galaxy/progress")
 public class ProjectProgressController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
