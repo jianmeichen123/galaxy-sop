@@ -127,6 +127,8 @@ public class Project extends PagableEntity {
    private String fModeRemark;//投资形式备注
    
    private List<JointDelivery> jointDeliveryList;
+   
+   private Long updateUid;
 	
     public Long getId() {
         return id;
@@ -749,6 +751,14 @@ public class Project extends PagableEntity {
 
 	public void setJointDeliveryList(List<JointDelivery> jointDeliveryList) {
 		this.jointDeliveryList = jointDeliveryList;
+	}
+
+	public Long getUpdateUid() {
+		return updateUid;
+	}
+
+	public void setUpdateUid(Long updateUid) {
+		this.updateUid = updateUid;
 	}
    
     

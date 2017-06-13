@@ -34,6 +34,7 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
@@ -736,6 +737,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public int updateBaseById(Project project) {
 		if(null!=project.getJointDeliveryList()&&!project.getJointDeliveryList().isEmpty()){
 			List<JointDelivery> jointDeliverylist=project.getJointDeliveryList();
+			for(int i=0;i<jointDeliverylist.size();i++){
+				JointDelivery jointDelivery=jointDeliverylist.get(i);
+				jointDelivery.setProjectId(project.getId());
+				jointDelivery.setDeliveryType(project.getFinanceMode());
+				jointDelivery.setCreateUid(project.getUpdateUid());
+				jointDelivery.setUpdatedTime(System.currentTimeMillis());
+			}
 			jointDeliveryDao.insertInBatch(jointDeliverylist);
 		 }
 		int result = projectDao.updateById(project);

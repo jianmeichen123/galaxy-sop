@@ -96,7 +96,7 @@
 	
 			</tr>
 			<tr>
-				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="financeMode"></span><span class="new_color_black"></span></td>
+				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="financeMode"></span></td>
 			</tr>
 		</table>
 		<table width="100%" cellspacing="0" cellpadding="" >
@@ -108,6 +108,7 @@
 				</tr>
 			</thead>
 			<tbody id='jointDelivery'>
+			
 			</tbody>
 		</table>
 	</div>

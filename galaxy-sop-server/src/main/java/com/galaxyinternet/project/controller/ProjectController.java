@@ -414,6 +414,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(!StringUtils.isBlank(project.getProjectName())){
 			projectName = project.getProjectName();
 		}
+		project.setUpdateUid(user.getId());
 		
 		int num = projectService.updateBaseById(project);
 		if (num > 0) {
@@ -469,7 +470,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				List<JointDelivery> queryList=new ArrayList<JointDelivery>();
 				JointDelivery jointDelivery=new JointDelivery();
 				jointDelivery.setProjectId(project.getId());
-				if(financeMode.equals("financeMode:1")||financeMode.equals("financeMode:2")){
+				jointDelivery.setDeliveryType(project.getFinanceMode());
+				if(project.getFinanceMode().equals("financeMode:1")||project.getFinanceMode().equals("financeMode:2")){
 					jointDelivery.setDeliveryType(financeMode);
 					queryList = jointDeliveryService.queryList(jointDelivery);
 				}
@@ -3406,7 +3408,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						}					
 										
 			}
-			
+			 Map<String,String> dictMap=new HashMap<String,String>();
+			 dictMap=dictMap("financeMode");
+			if(null!=project.getFinanceMode()&&!"".equals(project.getFinanceMode())){
+				String financeMode=dictMap.get(project.getFinanceMode());
+				project.setfModeRemark(financeMode);
+				List<JointDelivery> queryList=new ArrayList<JointDelivery>();
+				JointDelivery jointDelivery=new JointDelivery();
+				jointDelivery.setProjectId(project.getId());
+				jointDelivery.setDeliveryType(project.getFinanceMode());
+				if(financeMode.equals("financeMode:1")||financeMode.equals("financeMode:2")){
+					jointDelivery.setDeliveryType(financeMode);
+					queryList = jointDeliveryService.queryList(jointDelivery);
+				}
+				project.setJointDeliveryList(queryList);
+			}
 			request.setAttribute("proinfo", GSONUtil.toJson(project));
 			request.setAttribute("projectId", projectId);
 		}
