@@ -189,9 +189,9 @@
 	     		<tr>
 	                <td><span class="new_color_gray">投资形式：</span>
 	                <span class="mar_left">
-                        <div class="mar_left"><input type="radio" name="investForm" value="">独投 </div>
-                        <div class="mar_left"><input type="radio" name="investForm" value="">领投</div>
-                        <div class="mar_left"><input type="radio" name="investForm" value="">合投</div>
+                        <div class="mar_left"><input type="radio" name="investForm" value="financeMode:0">独投 </div>
+                        <div class="mar_left"><input type="radio" name="investForm" value="financeMode:1">领投</div>
+                        <div class="mar_left"><input type="radio" name="investForm" value="financeMode:2">合投</div>
                      </span>
 	                </td>
 	     		</tr>

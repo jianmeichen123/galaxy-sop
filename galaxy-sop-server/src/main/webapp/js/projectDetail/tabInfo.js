@@ -516,20 +516,20 @@ $(function(){
 				faName=$("#faNameEdit").val();
 			}
 			//处理投资形式
-			var investForm= $("input[name='investForm'] checked").val();
+			var investForm= $("input[name='investForm']:checked").val();
 			var arr=[];
 			if(investForm=="financeMode:1"||investForm=="financeMode:2"){
 				var jointDeliverys= $(".block_inputs");
-				var arr=[];
 				var obj={"deliveryName":"",
 						 "deliveryAmount":"",
-						 "deliveryShareRatio":""
+						 "deliveryShareRatio":"",
+						 
 					    };
 				for(var i=0;i<jointDeliverys.length;i++){
 					jointDelivery=jointDeliverys[i];
-				    obj.deliveryName=jointDelivery.attr("name":"deliveryName")
-				    obj.deliveryAmount=jointDelivery.attr("name":"deliveryAmount")
-				    obj.deliveryShareRatio=jointDelivery.attr("name":"deliveryShareRatio")
+				    obj.deliveryName=jointDelivery.childNodes[0].value;
+				    obj.deliveryAmount=jointDelivery.childNodes[1].value;
+				    obj.deliveryShareRatio=jointDelivery.childNodes[2].value;
 				    arr[i]=obj;
 				}
 			}

@@ -8,9 +8,9 @@
     <result column="delivery_amount" property="deliveryAmount" jdbcType="DECIMAL" />
     <result column="delivery_share_ratio" property="deliveryShareRatio" jdbcType="DECIMAL" />
     <result column="project_id" property="projectId" jdbcType="BIGINT" />
-    <result column="create_uid" property="createUid" jdbcType="BIGINT" />
-    <result column="create_time" property="createTime" jdbcType="BIGINT" />
-    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="create_uid" property="createdUid" jdbcType="BIGINT" />
+    <result column="create_time" property="createdTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updatedTime" jdbcType="BIGINT" />
   </resultMap>
   
   <sql id="Example_Where_Clause" >
@@ -68,7 +68,7 @@
       )
     values (#{id,jdbcType=BIGINT}, #{deliveryType,jdbcType=BIT}, #{deliveryName,jdbcType=VARCHAR}, 
       #{deliveryAmount,jdbcType=DECIMAL}, #{deliveryShareRatio,jdbcType=DECIMAL}, #{projectId,jdbcType=BIGINT}, 
-      #{createUid,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}
+      #{createdUid,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, #{updatedTime,jdbcType=BIGINT}
       )
   </insert>
   
@@ -91,13 +91,13 @@
         project_id = #{projectId,jdbcType=BIGINT},
       </if>
       <if test="createUid != null" >
-        create_uid = #{createUid,jdbcType=BIGINT},
+        create_uid = #{createdUid,jdbcType=BIGINT},
       </if>
       <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
+        create_time = #{createdTime,jdbcType=BIGINT},
       </if>
       <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=BIGINT},
+        update_time = #{updatedTime,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}

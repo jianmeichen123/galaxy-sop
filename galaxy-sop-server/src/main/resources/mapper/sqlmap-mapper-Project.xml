@@ -459,7 +459,7 @@
 		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR},</if>
 		      <if test="remark != null" >  remark = #{remark,jdbcType=LONGVARCHAR}, </if>
 		      <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT} </if>
-		      <if test="financeMode != null" > and finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
+		      <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
 		</set>
 		where id = #{id}
 	</update>
