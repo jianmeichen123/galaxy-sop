@@ -149,7 +149,10 @@ $(function(){
 				$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
-				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)
+				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
+				//添加投资形式字段
+				$("#financeMode").text(projectInfo.fModeRemark);
+				//projectInfo.jointDeliveryList
 			     radio_faFlag(projectInfo.faFlag);
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').prop("checked","true");
@@ -497,7 +500,6 @@ $(function(){
 			var pname=$("#project_name_edit").val().trim();
 			var industry_own=$("#industry_own_sel").val().trim();
 			var finance_status=$("#finance_status_sel").val().trim();
-			
 			var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val().trim();
 			var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val().trim();
 			var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val().trim();
@@ -513,7 +515,25 @@ $(function(){
 			}else{
 				faName=$("#faNameEdit").val();
 			}
-			
+			//处理投资形式
+			var investForm= $("input[name='investForm'] checked").val();
+			var arr=[];
+			if(investForm=="financeMode:1"||investForm=="financeMode:2"){
+				var jointDeliverys= $(".block_inputs");
+				var arr=[];
+				var obj={"deliveryName":"",
+						 "deliveryAmount":"",
+						 "deliveryShareRatio":""
+					    };
+				for(var i=0;i<jointDeliverys.length;i++){
+					jointDelivery=jointDeliverys[i];
+				    obj.deliveryName=jointDelivery.attr("name":"deliveryName")
+				    obj.deliveryAmount=jointDelivery.attr("name":"deliveryAmount")
+				    obj.deliveryShareRatio=jointDelivery.attr("name":"deliveryShareRatio")
+				    arr[i]=obj;
+				}
+			}
+			console.log(arr);
 			var formatData={"id":id,
 					       "projectName":pname,
 					        "industryOwn":industry_own,
@@ -527,12 +547,12 @@ $(function(){
 		  	               "serviceCharge":serviceCharge,
 		  	               "faFlag":faFlag,
 		  	               "faName":faName,
-		  	               "remark":remark
-		  	               
+		  	               "remark":remark,
+		  	               "financeMode":investForm,
+                           "jointDeliveryList":arr
 			};
 			return formatData;
 		}
-
 		function saveSuccess(){
 			sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 				projectInfo = data.entity;

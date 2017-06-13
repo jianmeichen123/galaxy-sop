@@ -76,6 +76,7 @@ import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
+import com.galaxyinternet.model.project.JointDelivery;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
@@ -99,6 +100,7 @@ import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.FinanceHistoryService;
 import com.galaxyinternet.service.InterviewRecordService;
+import com.galaxyinternet.service.JointDeliveryService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.PassRateService;
@@ -169,6 +171,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private DictService dictService;
+	
+	@Autowired
+	private JointDeliveryService jointDeliveryService;
 	 
 	@Resource(name ="utilsService")
 	private UtilsService utilsService;
@@ -410,7 +415,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			projectName = project.getProjectName();
 		}
 		
-		int num = projectService.updateById(project);
+		int num = projectService.updateBaseById(project);
 		if (num > 0) {
 			responseBody.setResult(new Result(Status.OK, null, "修改项目基本信息成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
@@ -449,7 +454,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 				}
 			}
-			
 			if(project.getIndustryOwn()!=null){
                 String name=DictEnum.industryOwn.getNameByCode(
         		 project.getIndustryOwn().toString());
@@ -459,8 +463,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					project.setIndustryOwnDs(null);
 				}
 			}	
-			String 
-			
+			if(null!=project.getFinanceMode()&&!"".equals(project.getFinanceMode())){
+				String financeMode=dictMap.get(project.getFinanceMode());
+				project.setfModeRemark(financeMode);
+				List<JointDelivery> queryList=new ArrayList<JointDelivery>();
+				JointDelivery jointDelivery=new JointDelivery();
+				jointDelivery.setProjectId(project.getId());
+				if(financeMode.equals("financeMode:1")||financeMode.equals("financeMode:2")){
+					jointDelivery.setDeliveryType(financeMode);
+					queryList = jointDeliveryService.queryList(jointDelivery);
+				}
+				project.setJointDeliveryList(queryList);
+			}
 		} else {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));

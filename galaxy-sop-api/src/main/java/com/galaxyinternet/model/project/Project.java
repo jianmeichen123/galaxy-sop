@@ -123,6 +123,10 @@ public class Project extends PagableEntity {
    private Long projectTime;
    
    private String financeMode;//投资形式
+   
+   private String fModeRemark;//投资形式备注
+   
+   private List<JointDelivery> jointDeliveryList;
 	
     public Long getId() {
         return id;
@@ -730,8 +734,24 @@ public class Project extends PagableEntity {
 	public void setFinanceMode(String financeMode) {
 		this.financeMode = financeMode;
 	}
+
+	public String getfModeRemark() {
+		return fModeRemark;
+	}
+
+	public void setfModeRemark(String fModeRemark) {
+		this.fModeRemark = fModeRemark;
+	}
+
+	public List<JointDelivery> getJointDeliveryList() {
+		return jointDeliveryList;
+	}
+
+	public void setJointDeliveryList(List<JointDelivery> jointDeliveryList) {
+		this.jointDeliveryList = jointDeliveryList;
+	}
    
- 
+    
 
 
 

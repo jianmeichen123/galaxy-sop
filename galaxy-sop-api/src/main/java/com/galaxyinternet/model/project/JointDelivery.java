@@ -8,7 +8,7 @@ public class JointDelivery extends PagableEntity{
 	private static final long serialVersionUID = 1L;
 
 
-    private Boolean deliveryType;
+    private String  deliveryType;
 
     private String deliveryName;
 
@@ -23,17 +23,16 @@ public class JointDelivery extends PagableEntity{
     private Long createTime;
 
     private Long updateTime;
+   
+    public String getDeliveryType() {
+		return deliveryType;
+	}
 
+	public void setDeliveryType(String deliveryType) {
+		this.deliveryType = deliveryType;
+	}
 
-    public Boolean getDeliveryType() {
-        return deliveryType;
-    }
-
-    public void setDeliveryType(Boolean deliveryType) {
-        this.deliveryType = deliveryType;
-    }
-
-    public String getDeliveryName() {
+	public String getDeliveryName() {
         return deliveryName;
     }
 

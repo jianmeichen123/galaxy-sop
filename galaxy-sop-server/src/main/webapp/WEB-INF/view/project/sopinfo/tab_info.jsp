@@ -99,17 +99,16 @@
 				<td><span class="new_color_gray">投资形式：</span><span class="new_color_black" id="financeMode"></span><span class="new_color_black"></span></td>
 			</tr>
 		</table>
-		<table width="100%" cellspacing="0" cellpadding="0" >
-			<tr>
-				<th>投资人/投资机构</th>
-				<th>投资金额（万元）</th>
-				<th>占股比例（%）</th>
-			</tr>
-			<tr>
-				<td>阿里巴巴</td>
-				<td>2000</td>
-				<td>20</td>
-			</tr>
+		<table width="100%" cellspacing="0" cellpadding="" >
+			<thead>
+				<tr>
+					<th>投资人/投资机构</th>
+					<th>投资金额（万元）</th>
+					<th>占股比例（%）</th>
+				</tr>
+			</thead>
+			<tbody id='jointDelivery'>
+			</tbody>
 		</table>
 	</div>
 	<!-- 编辑页面 -->
@@ -190,9 +189,9 @@
 	     		<tr>
 	                <td><span class="new_color_gray">投资形式：</span>
 	                <span class="mar_left">
-                        <div class="mar_left"><input type="radio" name="investForm" >独投 </div>
-                        <div class="mar_left"><input type="radio" name="investForm" >领投</div>
-                        <div class="mar_left"><input type="radio" name="investForm" >合投</div>
+                        <div class="mar_left"><input type="radio" name="investForm" value="">独投 </div>
+                        <div class="mar_left"><input type="radio" name="investForm" value="">领投</div>
+                        <div class="mar_left"><input type="radio" name="investForm" value="">合投</div>
                      </span>
 	                </td>
 	     		</tr>
@@ -489,7 +488,7 @@
 	//新增添加合投机构
 	function addInputsRow(){
 	     var inputsRow='<div class="block_inputs">'
-	          +'<input placeholder="填写机构名称" class="name"/><input placeholder="填写投资金额（万元）"/><input placeholder="填写占股比例（%）"/>'
+	          +'<input placeholder="填写机构名称" class="name" name="deliveryName"/><input placeholder="填写投资金额（万元）" name="deliveryAmount"/><input placeholder="填写占股比例（%）" name="deliveryShareRatio"/>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
 	  	$(".institutionBtn").before(inputsRow);
