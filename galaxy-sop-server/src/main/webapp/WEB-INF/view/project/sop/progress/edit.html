@@ -1,0 +1,79 @@
+
+
+
+    <!-- 添加访谈记录 /编辑访谈记录 -->
+    <div class="myprojecttc new_poptxt myproject_add">
+        <div class="tabtitle edit">
+            <!--编辑状态显示  编辑访谈记录  -->
+            <h3>添加访谈记录</h3>
+        </div>
+        <div class="tab_con">
+        <!-- time+interviewee-->
+         <!-- 编辑状态下 title改成 编辑访谈记录  移除INPUT  dd填入内容-->
+            <div class="clearfix ">
+                <dl class="fmdl clearfix intw_time">
+                    <dt>访谈时间：</dt>
+                    <dd>
+                        <input type="text" class="datetimepickerHour txt time">
+                        <!-- <dd>2017-06-05 12:00</dd> -->
+                    </dd>
+                </dl>   
+                <dl class="fmdl fml clearfix interviewee">
+                    <dt>访谈对象：</dt>
+                    <dd class="clearfix">
+                        <input type="text" class="txt">
+                        <!-- <dd>刘丽君琉璃苣</dd> -->
+                    </dd>
+                </dl>
+            </div>
+           <!-- Interview summary -->
+            <div class="intw_summary">
+                <dl class="fmdl clearfix">
+                    <dt>访谈纪要：</dt>
+                    <dd>
+                        <textarea></textarea> 
+                    </dd>
+                </dl>           
+            </div>
+            <dl class="fmdl clearfix">
+                <dt>访谈录音：</dt>
+                <dd>
+                
+                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">选择文件</a>
+                    <!-- 添加文件后或者有文件的状态下改为 -->
+
+                	<p class="audio_name">访谈录音名字.mp3</p>
+                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">更新</a>
+                </dd>
+            </dl>  
+            <dl class="fmdl clearfix check_result">
+                <dt>访谈结论：</dt>
+                <dd>
+                    <div>
+                        <label><input name="Fruit" type="radio" value="" />待定</label> 
+                        <select name="" id="">
+                            <option value="">请选择原因</option>
+                        </select>
+                        <input type="text" class="txt" placeholder="请填写其它原因">
+                    </div>
+                    <div>
+                        <label><input name="Fruit" type="radio" value="" />否决</label> 
+                        <select name="" id="">
+                            <option value="">请选择原因</option>
+                        </select>
+                        <input type="text" class="txt" placeholder="请填写其它原因">
+                    </div>
+                    <div>
+                        <label><input name="Fruit" type="radio" value="" />通过</label> 
+                    </div>
+                </dd>
+            </dl>  
+            <!-- bottom button -->
+            <div class="save_button">
+                <a href="javascript:;" class="pubbtn bluebtn">保存</a>
+                <a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
+            </div>
+        </div>                
+    </div>
+>
+
