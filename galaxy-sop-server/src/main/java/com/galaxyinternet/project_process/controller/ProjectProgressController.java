@@ -10,15 +10,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -368,6 +377,31 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		
 		return responseBody;
+	}
+	
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
+	@ResponseBody
+	@RequestMapping(value = "/reject", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> reject(@RequestBody OperationLogs param, HttpServletRequest request)
+	{
+		ResponseData<Project> data = new ResponseData<Project>();
+		try
+		{
+			Project project = projectService.queryById(param.getProjectId());
+			//TODO - 是否有否决记录
+			
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
+		} catch (Exception e)
+		{
+			data.setResult(new Result(Status.ERROR, null,"否决项目失败"));
+
+			if (logger.isErrorEnabled()) 
+			{
+				logger.error("否决项目失败 ", e);
+			}
+		}
+
+		return data;
 	}
 	
 	
