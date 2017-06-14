@@ -52,9 +52,9 @@ import com.galaxyinternet.service.UserRoleService;
  */
 @Controller
 @RequestMapping("/galaxy/progress")
-public class ProjectProgressController extends BaseControllerImpl<Project, ProjectBo> {
+public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo> {
 	
-	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
+	final Logger logger = LoggerFactory.getLogger(ProjectFlowController.class);
 	
 	private String tempfilePath;
 	public String getTempfilePath() { return tempfilePath; }
