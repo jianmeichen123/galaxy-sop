@@ -14,19 +14,17 @@ import java.util.Map;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.ProjectBo;
-import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
-import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
-import com.galaxyinternet.dao.project.InterviewRecordDao;
-import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
@@ -35,7 +33,6 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
@@ -43,8 +40,6 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
-import com.galaxyinternet.model.project.InterviewRecord;
-import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
@@ -55,6 +50,8 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.project_process.event.ProgressChangeEvent;
+import com.galaxyinternet.project_process.event.RejectEvent;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
@@ -63,7 +60,7 @@ import com.galaxyinternet.service.UserService;
 
 
 @Service("com.galaxyinternet.service.ProjectService")
-public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService {
+public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService,ApplicationEventPublisherAware  {
 
 	@Autowired
 	private ProjectDao projectDao;
@@ -89,11 +86,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private DepartmentService departmentService;
 	@Autowired
 	private PersonPoolDao personPoolDao;
-	@Autowired
-	private InterviewRecordDao interViewDao;
-	@Autowired
-	private MeetingRecordDao meetingDao;
-
 	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -725,69 +717,29 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectDao.selectProjectForPushMessage();
 	}
 
+	ApplicationEventPublisher eventPublisher;
+	@Override
+	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher)
+	{
+		this.eventPublisher = applicationEventPublisher;
+		
+	}
+
 	@Override
 	public void reject(Long id)
 	{
 		Project project = queryById(id);
-		projectProgress progress = projectProgress.valueOf(project.getProgress());
-		switch(progress)
-		{
-			case 接触访谈 :
-				if(!hasRejectedInterview(project))
-				{
-					throw new BusinessException("没有否决的访谈记录");
-				}
-				break;
-			case 内部评审:
-			case CEO评审:
-			case 立项会:
-			case 投资决策会:
-				if(!hasRejectedMeeting(project))
-				{
-					throw new BusinessException("没有否决的会议记录");
-				}
-				break;
-			case 尽职调查:
-				break;
-			//case 会后商务谈判:
-			
-			default:
-				break;
-		}
-		
-		
+		RejectEvent event = new RejectEvent(project);
+		eventPublisher.publishEvent(event);
 	}
-	private boolean hasRejectedInterview(Project project)
+
+	@Override
+	public void updateProgress(Long id, String next)
 	{
-		InterviewRecord query = new InterviewRecord();
-		query.setProjectId(project.getId());
-		return interViewDao.selectCount(query) > 0l;
+		Project project = queryById(id);
+		ProgressChangeEvent event = new ProgressChangeEvent(project,projectProgress.valueOf(next));
+		eventPublisher.publishEvent(event);
 	}
 	
-	private boolean hasRejectedMeeting(Project project)
-	{
-		String type = null;
-		if(projectProgress.内部评审.getClass().equals(project.getProgress()))
-		{
-			type = meetingType.内评会.getCode();
-		}
-		else if(projectProgress.CEO评审.getClass().equals(project.getProgress()))
-		{
-			type = meetingType.CEO评审.getCode();
-		}
-		else if(projectProgress.立项会.getClass().equals(project.getProgress()))
-		{
-			type = meetingType.立项会.getCode();
-		}
-		else if(projectProgress.投资决策会.getClass().equals(project.getProgress()))
-		{
-			type = meetingType.投决会.getCode();
-		}
-		MeetingRecord query = new MeetingRecord();
-		query.setProjectId(project.getId());
-		query.setMeetingResult(meetingResult.否决.getCode());
-		query.setMeetingType(type);
-		return meetingDao.selectCount(query) > 0l;
-	}
 	
 }

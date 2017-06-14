@@ -22,5 +22,7 @@ public interface InterviewRecordService extends BaseService<InterviewRecord> {
 	 * 项目移交修改create_uid
 	 */
 	public int updateCreateUid(InterviewRecord ir);
+	
+	Long selectCount(InterviewRecordBo query);
 
 }
