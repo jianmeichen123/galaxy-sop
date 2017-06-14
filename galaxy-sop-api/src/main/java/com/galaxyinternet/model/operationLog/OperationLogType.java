@@ -95,7 +95,7 @@ public enum OperationLogType {
 	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	
 	//否决项目日志
-	BREAK_PROJECT("/galaxy/project/breakpro", OperType.BREAK.getOperationType(), null,"否决项目"),
+	BREAK_PROJECT("/galaxy/progress/reject", OperType.BREAK.getOperationType(), null,"否决项目"),
 	
 	 /**
      * 人，法，财操作项目日志添加开始

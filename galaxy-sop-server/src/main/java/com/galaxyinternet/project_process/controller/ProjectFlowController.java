@@ -388,13 +388,11 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try
 		{
 			Project project = projectService.queryById(param.getProjectId());
-			//TODO - 是否有否决记录
-			
+			projectService.reject(param.getProjectId());
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e)
 		{
 			data.setResult(new Result(Status.ERROR, null,"否决项目失败"));
-
 			if (logger.isErrorEnabled()) 
 			{
 				logger.error("否决项目失败 ", e);

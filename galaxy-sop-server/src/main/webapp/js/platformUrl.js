@@ -33,7 +33,7 @@ var platformUrl = {
 	/**
 	 * 关闭项目
 	 */
-	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro",
+	closeProject : Constants.sopEndpointURL + "/galaxy/progress/reject",
 	/**
 	 * 获取事业部——高管查询select
 	 */
