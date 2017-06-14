@@ -279,10 +279,10 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		return responseBody;
 	}
 	
-	private List<Menus> getUserMenus(Long userId, Long parentId, String params)
+	private List<Menus> getUserMenus(Long userId, Long parentId, String companyId, String params)
 	{
 		List<Menus> menus = new ArrayList<Menus>();
-		List<PlatformResource> list = resourceService.queryUserMenus(userId, parentId);
+		List<PlatformResource> list = resourceService.queryUserMenus(userId, parentId,companyId);
 		if(list != null && list.size() >0)
 		{
 			for(PlatformResource res : list)
@@ -303,7 +303,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				Integer navNum = NumberUtils.isNumber(res.getStyle()) ? Integer.valueOf(res.getStyle()) : null;
 				Menus menu = new Menus(res.getId(), level, navNum, res.getResourceName(), url);
 				
-				List<Menus> subMenus = getUserMenus(userId,res.getId(),params);
+				List<Menus> subMenus = getUserMenus(userId,res.getId(),companyId,params);
 				if(subMenus != null && subMenus.size()>0 )
 				{
 					for(Menus node : subMenus)
@@ -337,7 +337,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			else
 			{
 				String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request)+ "&"+SopConstant.REQUEST_SCOPE_ATTR_IS_MENU +"=true";
-				tabs = getUserMenus(user.getId(), 0L, params);
+				tabs = getUserMenus(user.getId(), 0L, user.getCompanyId(), params);
 				session.setAttribute(key, tabs);
 			}
 		}

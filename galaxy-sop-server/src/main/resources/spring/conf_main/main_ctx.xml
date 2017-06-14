@@ -77,6 +77,17 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:db/mybatis-config.xml" />
 		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+		<property name="plugins">
+			<bean class="com.galaxyinternet.common.interceptor.StatementInterceptor">
+				<property name="tableMap">
+					<map>
+						<entry key="sop_idea" value="created_uid"/>
+						<entry key="sop_idea_zixun" value="create_uid"/>
+						<entry key="sop_project" value="create_uid"/>
+					</map>
+				</property>
+			</bean>
+		</property>
 	</bean>
 
 	<!-- 配置SQLSession模板 -->
