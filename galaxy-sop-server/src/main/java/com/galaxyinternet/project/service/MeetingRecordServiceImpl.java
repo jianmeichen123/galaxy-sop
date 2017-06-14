@@ -657,6 +657,13 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		saveFiles(sopFileList, fileIds, query.getId(), query.getProjectId());
 		return true;
 	}
+
+
+	@Override
+	public Long selectCount(MeetingRecordBo query)
+	{
+		return meetingRecordDao.selectCount(query);
+	}
 	
 	
 	
