@@ -11,17 +11,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
@@ -44,13 +44,14 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
-import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.project_process.event.ProgressChangeEvent;
+import com.galaxyinternet.project_process.event.RejectEvent;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
@@ -59,7 +60,7 @@ import com.galaxyinternet.service.UserService;
 
 
 @Service("com.galaxyinternet.service.ProjectService")
-public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService {
+public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService,ApplicationEventPublisherAware  {
 
 	@Autowired
 	private ProjectDao projectDao;
@@ -85,7 +86,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private DepartmentService departmentService;
 	@Autowired
 	private PersonPoolDao personPoolDao;
-
 	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -716,4 +716,30 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		// TODO Auto-generated method stub
 		return projectDao.selectProjectForPushMessage();
 	}
+
+	ApplicationEventPublisher eventPublisher;
+	@Override
+	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher)
+	{
+		this.eventPublisher = applicationEventPublisher;
+		
+	}
+
+	@Override
+	public void reject(Long id)
+	{
+		Project project = queryById(id);
+		RejectEvent event = new RejectEvent(project);
+		eventPublisher.publishEvent(event);
+	}
+
+	@Override
+	public void updateProgress(Long id, String next)
+	{
+		Project project = queryById(id);
+		ProgressChangeEvent event = new ProgressChangeEvent(project,projectProgress.valueOf(next));
+		eventPublisher.publishEvent(event);
+	}
+	
+	
 }

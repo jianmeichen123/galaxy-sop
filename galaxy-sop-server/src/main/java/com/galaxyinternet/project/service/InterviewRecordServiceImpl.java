@@ -184,4 +184,13 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		}
 		return map;
 	}
+
+
+	@Override
+	public Long selectCount(InterviewRecordBo query)
+	{
+		return interviewRecordDao.selectCount(query);
+	}
+	
+	
 }

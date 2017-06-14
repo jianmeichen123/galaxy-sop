@@ -2884,3 +2884,376 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 }
 .visit_box .round_data p{margin-top:170px;font-size:14px;
 color:#999999;}
+
+/* 项目流程progress */
+
+	.new_poptxt{
+    	background: #fff;
+    	position: relative;
+    	 width: 670px;
+        height: auto;
+        padding: 0 0 30px 0;
+    }
+    .tabtitle{
+        text-align: center;
+        background: ;
+        height: 40px;
+        background:#f9fafc;
+		border-radius:4px 4px 0 0;
+		margin-bottom: 30px;
+		position: relative;
+    }
+    .tabtitle i{
+		position: absolute;
+		top: 8px;
+		background-position:0 0 ;
+		height: 18px;
+		width: 18px;
+		cursor: pointer;
+    }
+   	.tabtitle .pre_box{
+   		background-image: url('../img/progress/pre_box.png');
+   		left: 13px;
+   	}
+   		.tabtitle .next_box{
+   		background-image: url('../img/progress/next_box.png');
+   		right: 13px;
+   	}
+    .tabtitle .edit{
+        margin-bottom: 20px;
+    }
+    .tab_con{
+    	padding: 0 20px;
+    }
+    .tabtitle h3{
+        display: inline-block;
+        font-size:16px;
+        color:#3e4351;
+        line-height: 40px;
+        font-weight: normal;
+        margin: 0 auto;
+    }
+    .tabtitle span{
+        font-size:12px;
+        color:#ff5a5a;
+        line-height: 40px;
+        padding-left: 5px;
+    }
+    .new_poptxt .tablink li{
+		line-height: 1;
+		padding: 9px 26px;
+		height: auto;
+    }
+    .new_poptxt .tablink{
+		border-bottom:2px solid #f1f2f5 ;
+		position: relative;
+    }
+     .new_poptxt .tablink .icon{
+		position: absolute;
+		right: 0;
+		top: 5px;
+		margin: 0;
+		font-size:12px;
+		color:#7a8798;
+		line-height: 1;
+		width: 56px;
+    }
+    .new_poptxt .tablink img{
+    	display: inline-block;
+		margin: -2px 10px 0 0;
+		vertical-align: middle;
+    }
+    .add_list{
+    	padding: 8px 12px 8px 30px;
+    	border-radius:4px;
+    	display: inline-block;
+    	font-size:14px;
+		margin: 20px 0 20px 20px;
+		background: #539be2 url("../img/progress/btnico2.png") 8px -119px no-repeat;
+    }
+    .pop_table{
+    	border:1px solid #ccd2d7;
+		border-radius:4px;
+		width:588px;
+		margin: 0 auto;
+		display: table;
+		table-layout: fixed;
+		overflow: hidden;
+    }
+    .pop_table thead{
+    	background:#f9fafc;
+    }
+	.myprojecttc .pop_table td{
+		padding-left: 20px;
+		text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+	}
+	.myprojecttc .pop_table th{
+		padding:0 20px;
+		text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+	}
+	.myprojecttc .pop_table .tab_time{
+		width: 80px;
+	}
+	.myprojecttc .pop_table .conclusion{
+		width: 40px;
+	}
+	.myprojecttc .pop_table .reason{
+		width: 210px;
+	}
+	.myprojecttc .pop_table .action{
+		width: 80px;
+	}
+	.pop_table td a{
+		margin-right: 15px;
+		color:#66b1f2;
+	}
+	.popbtm_btn{margin-top: 60px;padding:0 20px;}
+	.popbtm_btn a{
+		display: inline-block;
+		line-height: 30px;
+		padding: 0 12px;
+		border-radius:4px;
+		font-size:14px;
+	}
+	.popbtm_btn .fffbtn{
+		background:#f9fbfc;
+		border:1px solid #ccd2d7;
+		color:#4a97da;
+	}
+	.popbtm_btn .bluebtn{
+		float: right;
+		margin-left: 15px;
+	}
+    /* 添加访谈记录表单 */
+    .intw_time input{
+        width: 220px!important;
+        background-position: 200px -150px !important;
+    }
+    .intw_time{
+        float: left;
+    }
+    .interviewee{
+        float: right;
+    }
+    .interviewee input{
+        width: 160px!important;
+    }
+    .new_poptxt .fmdl{
+        margin: 0 0 20px; 
+    }
+    .new_poptxt .pubbtn{display: inline-block;}
+    .fmdl.check_result select{
+        display: inline-block;
+        margin: 0 20px 0 10px;
+        width: 170px;
+    }
+     .fmdl.check_result input[type='text']{
+        width: 270px;
+    }
+    .check_result div{
+        margin-bottom: 37px;
+	    margin-left: 77px;
+	    margin-top: -29px;
+	}
+    .check_detail{
+    	margin-bottom: -10px;
+    }
+    .save_button{
+        text-align: center;
+        margin-top: 40px;
+    }
+    .save_button a{
+        display: inline-block;
+    }
+    .save_button .bluebtn{
+        margin-right: 18px;
+    }
+    .audio_name{
+    	display: inline-block;
+    	padding-right:8px;
+    	padding-left: 25px;
+    	background: url("../img/progress/audio_icon.png") no-repeat center left;
+    }
+    .download_name{
+    	color:#4a97da;
+    	cursor: pointer;
+    }
+	.new_poptxt blockquote {
+		margin: 0;
+	    max-width: 540px;
+	}
+	.empty_warning,.not_stage{
+		display: none;
+		background: url("../img/progress/tableno_data.png") no-repeat;
+		height: 210px;
+		background-position:center 10px; 
+	}
+	.not_stage{
+		background-image:  url("../img/progress/not_stage.png");
+	    background-position: center 45px;
+	    position: relative;
+	}
+	.not_stage .stage_cover{
+		position: absolute;
+		top: -34px;
+		left:0;
+		right:0;
+		height: 35px;
+		background: rgba(255, 255, 255, .7);
+	}
+	.file_list{
+		display: none;
+		margin-top: 30px;
+	}
+	.file_list li{
+		position: relative;
+		display: inline-block;
+		height:150px;
+		width:90px;
+		float: left;
+		margin-right:12px;
+	}
+	.file_list input{
+		width:90px;
+		height:120px;
+		opacity: 0;
+		position: relative;
+		z-index: 10;
+		position: absolute;
+	}
+	.file_list span{
+		display: block;
+		margin-top: 130px;
+		font-size:12px;
+		color:#3e4351;
+		line-height: 1;
+		text-align: center;
+	}
+	.file_list .file_box{
+		background:#f1f2f5;
+		width:90px;
+		height:120px;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+	.file_list .file_box .cover_box{
+		display: none;
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		top: 0px;
+		left: 0px;
+		z-index: 10;
+		width: auto;
+		height: auto;
+		background: rgba(0,0,0,.6);
+	}
+	.file_list .file_box .cover_box span{
+		height: 24px;
+		width: 24px;
+		padding-top:28px;
+		background-repeat: no-repeat;
+		background-position: top center;
+		margin-left: 12px;
+		font-size:12px;
+		color:#ffffff;
+		margin-top: 40px;
+		cursor: pointer
+	}
+	.file_list .file_box .cover_box p{
+		display: none;
+		color: #fff;
+		line-height: 120px;
+		text-align: center;
+
+	}
+	.file_box .cover_box .cancel{
+	background-image: url('../img/progress/cancel.png');
+	margin-right: 3px;
+	}
+	.file_box .cover_box .up_load{
+	background-image: url('../img/progress/up_load.png');
+	}
+	.file_box .cover_box .up_load:hover{
+	background-image: url('../img/progress/up_load_h.png');
+	}
+	.file_box .cover_box .cancel:hover{
+	background-image: url('../img/progress/cancel_h.png');
+	}
+	.file_list .file_box span{
+		display: inline-block;
+		cursor: pointer;
+		width: 18px;
+		height: 18px;
+		background-repeat: no-repeat;
+		background-position: center;
+		margin: 2px 0 0 0;
+	}
+	.file_list .file_box .add_img,.file_list .file_box .center_text{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin:-14px 0 0 -14px;
+	}
+	.file_list .file_box .center_text{
+		width: 46px;
+		color:#b2b2b2;
+		text-align: center;
+		margin:-9px 0 0 -23px;
+	}
+	.file_btn{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 26px;
+		background:rgba(0,0,0,.2);
+		text-align: right;
+		padding-right: 4px;
+	    padding-top: 2px;
+	}
+	.downlond_pdf{
+		background-image: url('../img/progress/downlond_pdf.png')
+	}
+	.reupload_pdf{
+		background-image: url('../img/progress/reupload_pdf.png')
+	}
+	.downlond_jpg{
+		background-image: url('../img/progress/downlond_jpg.png')
+	}
+	.reupload_jpg{
+		background-image: url('../img/progress/reupload_jpg.png')
+	}
+	.downlond_pdf:hover,.downlond_jpg:hover{
+		background-image: url('../img/progress/downlond_heightl.png')
+	}
+	.reupload_pdf:hover,.reupload_jpg:hover{
+		background-image: url('../img/progress/reupload_heightl.png')
+	}
+	.operation_warning{
+		text-align: center;
+	}
+	.operation_warning img{
+		margin: 80px auto 20px;
+	}
+	.operation_warning span{
+		display: block;
+		text-align: center;
+		font-size:12px;
+		color:#999999;
+	}
+	.intw_name{
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .powindow_close{
+  	width: 32px;
+  	height: 32px;
+  	position: absolute;
+  	right: -30px;
+  	top: -29px;
+  	cursor: pointer;
+  }

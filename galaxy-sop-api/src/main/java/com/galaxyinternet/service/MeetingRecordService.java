@@ -39,6 +39,7 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	public Long insertMeeting(MeetingRecord query);
 	
 	public boolean saveMeeting(MeetingRecord query,Long userId);
+	Long selectCount(MeetingRecordBo query);
 
 
 }

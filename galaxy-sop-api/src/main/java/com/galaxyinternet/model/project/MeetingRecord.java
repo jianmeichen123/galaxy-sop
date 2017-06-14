@@ -74,12 +74,32 @@ public class MeetingRecord  extends PagableRecordEntity{
     private Long firstCreatedTime;
     private Long lastCreatedTime;
     
+    private String resultReason;
+    private String reasonOther;
+    
+    
     public String getParticipant() {
 		return participant;
 	}
 
 	public void setParticipant(String participant) {
 		this.participant = participant;
+	}
+
+	public String getResultReason() {
+		return resultReason;
+	}
+
+	public void setResultReason(String resultReason) {
+		this.resultReason = resultReason;
+	}
+
+	public String getReasonOther() {
+		return reasonOther;
+	}
+
+	public void setReasonOther(String reasonOther) {
+		this.reasonOther = reasonOther;
 	}
 
 	public Long getProjectId() {
