@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -401,11 +402,33 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 
 		return data;
 	}
-	
-	
-	
-	
-	
+	/**
+	 * 项目推进统一接口
+	 * @param p
+	 * @param request
+	 * @return
+	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@ResponseBody
+	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> stageChange(ProjectQuery p,HttpServletRequest request) 
+	{
+		ResponseData<Project> data = new ResponseData<Project>();
+		try
+		{
+			projectService.updateProgress(p.getId(), p.getStage());
+			
+		} catch (Exception e)
+		{
+			data.setResult(new Result(Status.ERROR, null,"项目推进失败"));
+			if (logger.isErrorEnabled()) 
+			{
+				logger.error("项目推进失败 ", e);
+			}
+		}
 
+		return data;
+	}
+	
 	
 }
