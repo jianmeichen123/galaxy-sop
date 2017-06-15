@@ -200,6 +200,7 @@
 	        <div class="institution clearfix" >
 	        	<div class="fl"><span class='new_color_gray'>合投机构：</span></div>
 	        	<div class="fl">
+	        		<div class="inputsForm"></div>
 	        		<div class="institutionBtn"><span class="pubbtn bluebtn">新增</span></div>
 	        	</div>
 	        </div>
@@ -492,18 +493,19 @@
 	          +'<input placeholder="填写机构名称" class="name" name="deliveryName"/><input placeholder="填写投资金额（万元）" name="deliveryAmount"/><input placeholder="填写占股比例（%）" name="deliveryShareRatio"/>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
-	  	$(".institutionBtn").before(inputsRow);
+	  	$(".inputsForm").append(inputsRow);
 	  };
 	  //新增
 	$(".institutionBtn span").click(function(){
 		addInputsRow();
 		var inputsLength=$(".block_inputs").length;
+		alert(inputsLength);
 		if(inputsLength>0){
 			$(this).css("margin-top","50px");
 		}else{
 			$(this).css("margin-top","0");
 		}
-		if(inputsLength==10){
+		if(inputsLength>=10){
 			$(this).hide()
 		}else{
 			$(this).show()
@@ -513,7 +515,7 @@
 	$(document).on('click','.block_inputs .del',function(){
 		$(this).closest(".block_inputs").remove();
 		var inputsLength=$(".block_inputs").length;
-		if(inputsLength !=10){
+		if(inputsLength <10){
 			$(".institutionBtn span").show()
 		}else{
 			$(".institutionBtn span").hide()

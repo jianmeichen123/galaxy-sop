@@ -697,19 +697,23 @@ function jointDeliveryList(list){
 	for(var i=0;i<list.length;i++){
 	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
 	   temp.append(html);
-	}
-	
-	
+	}	
 }
 function jointDeliveryEdit(list){
-	$(".institutionBtn").children("div").remove(); 
+	$(".inputsForm").children(".block_inputs").remove(); 
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
 	        +'<input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName"/><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount"/><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio"/>'
 	          +'<span class="del">删除</span>'
 	          +'</div>';
-		$(".institutionBtn").before(inputsRow);
+		$(".inputsForm").append(inputsRow);
 	}
-	
+	//新增按钮显示隐藏
+	var inputsLength=$(".block_inputs").length;
+	if(inputsLength <10){
+		$(".institutionBtn span").show()
+	}else{
+		$(".institutionBtn span").hide()
+	}
 }
 	
