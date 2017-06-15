@@ -127,6 +127,7 @@ $(function(){
 			//详情展示投资形式处理
 			$("#financeMode").text(projectInfo.fModeRemark);
 			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
+				console.log(projectInfo.financeMode);
 				jointDeliveryList(projectInfo.jointDeliveryList);
 			}
 			var p;
@@ -538,8 +539,6 @@ $(function(){
 			var arr=[];
 			if(investForm=="financeMode:1"||investForm=="financeMode:2"){
 				var jointDeliverys= $(".block_inputs");
-			
-				console.log(1111111);
 				for(var i=0;i<jointDeliverys.length;i++){
 					var obj={"deliveryName":"",
 							 "deliveryAmount":"",
@@ -695,7 +694,10 @@ function radio_faFlag(isContactsV){
 	} 
 }
 function jointDeliveryList(list){
+	$("#jointDelivery").children().remove(); 
+	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>占股比例（%）</th></tr>";
 	var temp=$("#jointDelivery");
+	temp.append(html);
 	for(var i=0;i<list.length;i++){
 	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
 	   temp.append(html);
