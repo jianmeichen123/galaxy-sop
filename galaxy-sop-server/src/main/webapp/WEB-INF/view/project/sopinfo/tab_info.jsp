@@ -499,7 +499,6 @@
 	$(".institutionBtn span").click(function(){
 		addInputsRow();
 		var inputsLength=$(".block_inputs").length;
-		alert(inputsLength);
 		if(inputsLength>0){
 			$(this).css("margin-top","50px");
 		}else{

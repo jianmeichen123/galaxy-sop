@@ -125,7 +125,6 @@ $(function(){
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			//详情展示投资形式处理
-			alert(projectInfo.financeMode)
 			$("#financeMode").text(projectInfo.fModeRemark);
 			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 				jointDeliveryList(projectInfo.jointDeliveryList);
@@ -539,18 +538,21 @@ $(function(){
 			var arr=[];
 			if(investForm=="financeMode:1"||investForm=="financeMode:2"){
 				var jointDeliverys= $(".block_inputs");
-				var obj={"deliveryName":"",
-						 "deliveryAmount":"",
-						 "deliveryShareRatio":"",
-					    };
+			
+				console.log(1111111);
 				for(var i=0;i<jointDeliverys.length;i++){
-					jointDelivery=jointDeliverys[i];
-				    obj.deliveryName=jointDelivery.childNodes[0].value;
-				    obj.deliveryAmount=jointDelivery.childNodes[1].value;
-				    obj.deliveryShareRatio=jointDelivery.childNodes[2].value;
-				    arr[i]=obj;
+					var obj={"deliveryName":"",
+							 "deliveryAmount":"",
+							 "deliveryShareRatio":"",
+						    };
+					var jointDelivery=jointDeliverys[i];
+				        obj.deliveryName=jointDelivery.childNodes[0].value;
+				        obj.deliveryAmount=jointDelivery.childNodes[1].value;
+				        obj.deliveryShareRatio=jointDelivery.childNodes[2].value;
+				        arr[i]=obj;
 				}
 			}
+			console.log(arr);
 			var formatData={"id":id,
 					       "projectName":pname,
 					        "industryOwn":industry_own,
