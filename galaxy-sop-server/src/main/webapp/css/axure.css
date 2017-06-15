@@ -2912,11 +2912,11 @@ color:#999999;}
 		cursor: pointer;
     }
    	.tabtitle .pre_box{
-   		background-image: url('../img/progress/pre_box.png');
+   		background-image: url('../img/sop_progress/pre_box.png');
    		left: 13px;
    	}
    		.tabtitle .next_box{
-   		background-image: url('../img/progress/next_box.png');
+   		background-image: url('../img/sop_progress/next_box.png');
    		right: 13px;
    	}
     .tabtitle .edit{
@@ -2957,6 +2957,7 @@ color:#999999;}
 		color:#7a8798;
 		line-height: 1;
 		width: 56px;
+		background:none;
     }
     .new_poptxt .tablink img{
     	display: inline-block;
@@ -2969,7 +2970,7 @@ color:#999999;}
     	display: inline-block;
     	font-size:14px;
 		margin: 20px 0 20px 20px;
-		background: #539be2 url("../img/progress/btnico2.png") 8px -119px no-repeat;
+		background: #539be2 url("../img/sop_progress/btnico2.png") 8px -119px no-repeat;
     }
     .pop_table{
     	border:1px solid #ccd2d7;
@@ -3072,7 +3073,7 @@ color:#999999;}
     	display: inline-block;
     	padding-right:8px;
     	padding-left: 25px;
-    	background: url("../img/progress/audio_icon.png") no-repeat center left;
+    	background: url("../img/sop_progress/audio_icon.png") no-repeat center left;
     }
     .download_name{
     	color:#4a97da;
@@ -3084,12 +3085,12 @@ color:#999999;}
 	}
 	.empty_warning,.not_stage{
 		display: none;
-		background: url("../img/progress/tableno_data.png") no-repeat;
+		background: url("../img/sop_progress/tableno_data.png") no-repeat;
 		height: 210px;
 		background-position:center 10px; 
 	}
 	.not_stage{
-		background-image:  url("../img/progress/not_stage.png");
+		background-image:  url("../img/sop_progress/not_stage.png");
 	    background-position: center 45px;
 	    position: relative;
 	}
@@ -3169,17 +3170,17 @@ color:#999999;}
 
 	}
 	.file_box .cover_box .cancel{
-	background-image: url('../img/progress/cancel.png');
+	background-image: url('../img/sop_progress/cancel.png');
 	margin-right: 3px;
 	}
 	.file_box .cover_box .up_load{
-	background-image: url('../img/progress/up_load.png');
+	background-image: url('../img/sop_progress/up_load.png');
 	}
 	.file_box .cover_box .up_load:hover{
-	background-image: url('../img/progress/up_load_h.png');
+	background-image: url('../img/sop_progress/up_load_h.png');
 	}
 	.file_box .cover_box .cancel:hover{
-	background-image: url('../img/progress/cancel_h.png');
+	background-image: url('../img/sop_progress/cancel_h.png');
 	}
 	.file_list .file_box span{
 		display: inline-block;
@@ -3214,22 +3215,22 @@ color:#999999;}
 	    padding-top: 2px;
 	}
 	.downlond_pdf{
-		background-image: url('../img/progress/downlond_pdf.png')
+		background-image: url('../img/sop_progress/downlond_pdf.png')
 	}
 	.reupload_pdf{
-		background-image: url('../img/progress/reupload_pdf.png')
+		background-image: url('../img/sop_progress/reupload_pdf.png')
 	}
 	.downlond_jpg{
-		background-image: url('../img/progress/downlond_jpg.png')
+		background-image: url('../img/sop_progress/downlond_jpg.png')
 	}
 	.reupload_jpg{
-		background-image: url('../img/progress/reupload_jpg.png')
+		background-image: url('../img/sop_progress/reupload_jpg.png')
 	}
 	.downlond_pdf:hover,.downlond_jpg:hover{
-		background-image: url('../img/progress/downlond_heightl.png')
+		background-image: url('../img/sop_progress/downlond_heightl.png')
 	}
 	.reupload_pdf:hover,.reupload_jpg:hover{
-		background-image: url('../img/progress/reupload_heightl.png')
+		background-image: url('../img/sop_progress/reupload_heightl.png')
 	}
 	.operation_warning{
 		text-align: center;
