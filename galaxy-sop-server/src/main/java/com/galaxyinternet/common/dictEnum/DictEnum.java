@@ -1,5 +1,7 @@
 package com.galaxyinternet.common.dictEnum;
 
+import com.galaxyinternet.common.enums.DictEnum.meetingResult;
+
 public enum DictEnum {
 	
 	项目类型("项目类型","projectType"),
@@ -108,7 +110,8 @@ public enum DictEnum {
 		投资决策会("投资决策会","projectProgress:7"),
 		投资协议("投资协议","projectProgress:8"),
 		股权交割("股权交割","projectProgress:9"),
-		投后运营("投后运营","projectProgress:10");
+		投后运营("投后运营","projectProgress:10"),
+		会后商务谈判("会后商务谈判","projectProgress:11");
 		private String name;
 
 		private String code;
@@ -229,7 +232,51 @@ public enum DictEnum {
 	        }
 	        return null;
 	    }
-	}		
+	}
+	//立项会结果
+		public enum LXHResult {
+			BCCL("补充材料","meeting3Result:1"),
+			ST("闪投","meeting3Result:2"),
+			TZ("投资","meeting3Result:3"),
+			GW("观望","meeting3Result:4"),
+			ZX("转向","meeting3Result:5"),
+			FJ("否决","meeting3Result:6");
+			private String name;
+
+			private String code;
+
+			private LXHResult(String name, String code) {
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+			
+			/**
+		     * 根据code get name
+		     * @param reslut
+		     * @return
+		     */
+		    public static String getNameByCode(String code) {
+		        
+		        if (code != null && !code.trim().equals("")) {
+		            
+		        	meetingResult[] values = meetingResult.values();
+		            for (int i = 0;i < values.length;i++) {
+		                if (code.equals(values[i].getCode())) {
+		                    return values[i].getName();
+		                }                
+		            }
+		        }
+		        return null;
+		    }
+		}
 	
 	//任务类型
 	public enum taskType {

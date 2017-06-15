@@ -1423,7 +1423,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	/**
 	 * 接触访谈阶段: 启动内部评审
+ 	 * @deprecated Use {@link com.galaxyinternet.project_process.controller.ProjectFlowController#stageChange}instead.
 	 */
+	@Deprecated 
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -1480,6 +1482,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * CEO评审阶段申请CEO评审排期
 	 * 
 	 * @author yangshuhua
+	 *  @deprecated Use {@link com.galaxyinternet.project_process.controller.ProjectFlowController#stageChange}instead.
 	 */
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
@@ -1532,6 +1535,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * CEO评审阶段申请立项会排期
 	 * 
 	 * @author yangshuhua
+	 *  @deprecated Use {@link com.galaxyinternet.project_process.controller.ProjectFlowController#stageChange}instead.
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody

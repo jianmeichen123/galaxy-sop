@@ -16,7 +16,7 @@ public enum OperationLogType {
 	ADD_INTERVIEW_RECORD("/galaxy/project/progress/addInterview", OperType.ADD.getOperationType(), "访谈记录",SopStage.TOUCH_INTERVIEW.getStageName()), 
 	
 	//点击‘启动内部评审’
-	SUBMIT_INNER_REVIEW_SCHEDULE("/galaxy/project/startReview", OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	SUBMIT_INNER_REVIEW_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.one, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
 	
 	//内部评审阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -24,6 +24,9 @@ public enum OperationLogType {
 	ADD_MEETING_FILE_ONE("/galaxy/project/progress/addfilemeet/"+UrlNumber.one, OperType.ADD.getOperationType(), "会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()),
 	ADD_MEETING_ONE("/galaxy/project/progress/addmeet/"+UrlNumber.one, OperType.ADD.getOperationType(), "会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
 
+	//点击‘申请CEO评审排期’
+	SUBMIT_CEO_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.two, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
+		
 	
 	//CEO评审阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -32,7 +35,7 @@ public enum OperationLogType {
 	ADD_MEETING_TWO("/galaxy/project/progress/addmeet/"+UrlNumber.two, OperType.ADD.getOperationType(), "会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
 
 	//点击申请立项会排期
-	ADD_PROJECT_SCHEDULE("/galaxy/project/ges", OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	ADD_PROJECT_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.three, OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
 	
 	//立项会阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -42,6 +45,10 @@ public enum OperationLogType {
 
 	//点击申请立项会排期
 	//APPALY_PROJECT_SCHEDULE("", OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
+	//进入会后商务谈判
+	TO_SWTP("/galaxy/project/progress/stageChange/"+UrlNumber.four, OperType.SUBMIT.getOperationType(), "会后商务谈判",SopStage.PROJECT_SCHEDULE.getStageName()), 
+		
 
 	//投资意向书阶段
 	//下载投资意向书模版	
