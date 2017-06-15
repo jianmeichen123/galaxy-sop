@@ -2,7 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-		<!-- <p class='popwait'>数据加载中，请稍候...</p> -->
+	<!-- <p class='popwait'>数据加载中，请稍候...</p> -->
 	<div class="myprojecttc new_poptxt">
         <div class="tabtitle">
             <i class="pre_box"></i>
@@ -135,12 +135,11 @@
 				<a href="javascript:;" class="bluebtn ">启动内部评审</a>
 				<!-- 会后商务谈判按钮不同  直接添加相应按钮 -->
 				<!-- <a href="javascript:;" class="bluebtn">闪投</a> -->
-
 			</div>
 			<!--empty data -->
 			<!-- 当列表长度为0时隐藏table显示empty_warning -->
 			<div class="empty_warning"></div>
-			<!-- 未到此阶段时隐藏table和 add button not_stage -->
+			<!-- 未到此阶段时隐藏table和 add button 然后显示not_stage -->
 			<div class="not_stage">
 				<span class="stage_cover"></span>
 			</div>
