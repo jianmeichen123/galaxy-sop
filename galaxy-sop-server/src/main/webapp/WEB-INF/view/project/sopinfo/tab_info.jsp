@@ -485,6 +485,7 @@
 	            +'<span class="del">删除</span>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
+	  	 $.getScript("<%=path %>/js/validate/lib/jq.validate.js");  //动态添加表单验证插件
 	  };
 	  //新增
 	$(".institutionBtn span").click(function(){
