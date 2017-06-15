@@ -87,4 +87,9 @@
     delete from joint_delivery
     where id = #{id,jdbcType=BIGINT}
   </delete>
+      <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from joint_delivery
+		<include refid="Base_Where_Clause" />
+	</delete>
 </mapper>

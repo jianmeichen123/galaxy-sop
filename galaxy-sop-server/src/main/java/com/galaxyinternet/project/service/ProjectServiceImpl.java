@@ -744,6 +744,10 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 				jointDelivery.setCreateUid(project.getUpdateUid());
 				jointDelivery.setUpdatedTime(System.currentTimeMillis());
 			}
+			JointDelivery jointDelivery=new JointDelivery();
+			jointDelivery.setProjectId(project.getId());
+			jointDelivery.setDeliveryType(project.getFinanceMode());
+			jointDeliveryDao.delete(jointDelivery);
 			jointDeliveryDao.insertInBatch(jointDeliverylist);
 		 }
 		int result = projectDao.updateById(project);
