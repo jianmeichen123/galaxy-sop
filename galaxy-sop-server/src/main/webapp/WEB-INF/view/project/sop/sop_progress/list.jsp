@@ -7,7 +7,7 @@
         <div class="tabtitle">
             <i class="pre_box"></i>
             <h3>接触访谈</h3><span>(当前阶段)</span>
-            <i class="next_box"></i>
+            <i class="next_box" data-progress="1"></i>
         </div>
         <div class="tab_con">
         	<!-- tab nav -->
@@ -146,4 +146,4 @@
         </div>  
 		   
     </div>
-
+<script type="text/javascript" src="<%=path %>/js/sop_progress_list.js"></script>
