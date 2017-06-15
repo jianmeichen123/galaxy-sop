@@ -55,6 +55,19 @@ $(function(){
 			var width_fwb=$('.tabtable_con_on').width();
 			$('.width_fwb').css('width',(width_fwb-40));
 			responseData();   //反显数据
+			//投资形式切换
+						$(".new_table .mar_left>input").change(function(){
+							var val=$(this).val();
+							if(val=="financeMode:0"){
+								$(".institution").hide();
+							}else if(val=="financeMode:1"){
+								$(".institution").show();
+								$(".institution .new_color_gray").text("领投机构：");
+							}else{
+								$(".institution").show();
+								$(".institution .new_color_gray").text("合投机构：");
+							}
+						});
 		})
 		//统一关
 		$('[data-on="close"]').on('click',function(){
@@ -165,6 +178,18 @@ $(function(){
 						}
 				
 				}
+					//机构显示
+					var investForm= $("input[name='investForm']:checked").val();
+					if(investForm=="financeMode:1"){
+						$(".institution .new_color_gray").text("领投机构：");
+						$(".institution").show();
+					}else if(investForm=="financeMode:2"){
+						$(".institution .new_color_gray").text("合投机构：");
+						$(".institution").show();
+					}else{
+						$(".institution").hide();
+					}
+					
 					if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 						jointDeliveryEdit(projectInfo.jointDeliveryList);
 					}
