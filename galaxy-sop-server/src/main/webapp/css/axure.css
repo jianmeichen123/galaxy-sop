@@ -3250,11 +3250,12 @@ color:#999999;}
     text-overflow:ellipsis;
     white-space: nowrap;
   }
-  .powindow_close{
+  .close.progress_close{
   	width: 32px;
   	height: 32px;
   	position: absolute;
   	right: -30px;
   	top: -29px;
   	cursor: pointer;
+  	    background: url(../img/sop_progress/X_close.png) no-repeat;
   }

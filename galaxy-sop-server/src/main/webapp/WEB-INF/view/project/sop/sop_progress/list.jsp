@@ -145,9 +145,6 @@
 				<span class="stage_cover"></span>
 			</div>
         </div>  
-		<!-- 关闭按钮 -->
-		<span class="powindow_close">
-			<img src="<%=path%>/img/sop_progress/X_close.png" alt="">
-		</span>       
+		   
     </div>
 
