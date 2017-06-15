@@ -732,7 +732,7 @@ function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
-	        +'<input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName"/><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount"/><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio"/>'
+	        +'<input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName" maxLength="50"/><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\\d?(\\.\\d{1,2})?|0\\.[1-9]0?|0\\.\\d[1-9]|100|100.0|100.00)$" msg="<font color=red>*</font>0到100之间的两位小数"/>'
 	          +'<span class="del">删除</span>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow);
