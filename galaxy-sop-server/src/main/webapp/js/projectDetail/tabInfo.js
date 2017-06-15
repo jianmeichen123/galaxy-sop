@@ -125,9 +125,9 @@ $(function(){
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			//详情展示投资形式处理
+			alert(projectInfo.financeMode)
 			$("#financeMode").text(projectInfo.fModeRemark);
-			console.log(projectInfo);
-			if(projectInfo.financeMode!="financeMode:0"){
+			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 				jointDeliveryList(projectInfo.jointDeliveryList);
 			}
 			var p;
@@ -157,15 +157,21 @@ $(function(){
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
 				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
 				//添加投资形式字段
-				if(projectInfo.financeMode!="underfined"&&projectInfo.financeMode!=""){
+				if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!=""){
 					var financeForms=$("input[name='investForm']");
 					for(var i=0;i<financeForms.length;i++){
 						if(financeForms[i].value==projectInfo.financeMode){
 							financeForms[i].checked=true;
 						}
+				
+				}
+					if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
+						jointDeliveryEdit(projectInfo.jointDeliveryList);
 					}
 				}
-				//投资形式合投，领头投资列表处理
+				//投资形式合投，领头编辑页面投资列表处理
+				
+				
 			     radio_faFlag(projectInfo.faFlag);
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').prop("checked","true");
@@ -687,13 +693,23 @@ function radio_faFlag(isContactsV){
 	} 
 }
 function jointDeliveryList(list){
-	alert(list)
 	var temp=$("#jointDelivery");
 	for(var i=0;i<list.length;i++){
 	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
 	   temp.append(html);
 	}
 	
+	
+}
+function jointDeliveryEdit(list){
+	$(".institutionBtn").children("div").remove(); 
+	for(var i=0;i<list.length;i++){
+		var inputsRow='<div class="block_inputs">'
+	        +'<input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName"/><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount"/><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio"/>'
+	          +'<span class="del">删除</span>'
+	          +'</div>';
+		$(".institutionBtn").before(inputsRow);
+	}
 	
 }
 	
