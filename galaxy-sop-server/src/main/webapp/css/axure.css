@@ -2889,19 +2889,17 @@ color:#999999;}
 
 	.new_poptxt{
     	background: #fff;
-    	position: relative;
     	 width: 670px;
         height: auto;
-        padding: 0 0 30px 0;
+        padding: 60px 0 30px 0;
     }
     .tabtitle{
         text-align: center;
-        background: ;
         height: 40px;
         background:#f9fafc;
 		border-radius:4px 4px 0 0;
 		margin-bottom: 30px;
-		position: relative;
+		width:100%; line-height:40px; position:absolute; top:0; left:0; z-index: 9;
     }
     .tabtitle i{
 		position: absolute;
@@ -2970,7 +2968,7 @@ color:#999999;}
     	display: inline-block;
     	font-size:14px;
 		margin: 20px 0 20px 20px;
-		background: #539be2 url("../img/sop_progress/btnico2.png") 8px -119px no-repeat;
+		background: #539be2 url("../img/btnico2.png") 8px -119px no-repeat;
     }
     .pop_table{
     	border:1px solid #ccd2d7;
