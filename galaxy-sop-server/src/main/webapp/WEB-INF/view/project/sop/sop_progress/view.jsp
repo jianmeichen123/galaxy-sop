@@ -1,4 +1,7 @@
-
+<%@ page language="java" pageEncoding="UTF-8"%>
+<% 
+	String path = request.getContextPath(); 
+%>
     <!-- 查看详情 -->
     <div class="myprojecttc new_poptxt myproject_detail">
         <div class="tabtitle edit">
