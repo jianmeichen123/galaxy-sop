@@ -15,32 +15,13 @@
   
   <sql id="Example_Where_Clause" >
     <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="deliveryType != null" >and delivery_type = #{deliveryType,jdbcType=VARCHAR} </if>
+				<if test="deliveryName != null" > and delivery_name = #{deliveryName,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
   </sql>
   
   <sql id="Base_Column_List" >

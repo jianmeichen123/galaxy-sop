@@ -126,6 +126,7 @@ $(function(){
 			$("#insertImg").html(ht);
 			//详情展示投资形式处理
 			$("#financeMode").text(projectInfo.fModeRemark);
+			console.log(projectInfo);
 			if(projectInfo.financeMode!="financeMode:0"){
 				jointDeliveryList(projectInfo.jointDeliveryList);
 			}
@@ -164,8 +165,7 @@ $(function(){
 						}
 					}
 				}
-			
-				//
+				//投资形式合投，领头投资列表处理
 			     radio_faFlag(projectInfo.faFlag);
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').prop("checked","true");

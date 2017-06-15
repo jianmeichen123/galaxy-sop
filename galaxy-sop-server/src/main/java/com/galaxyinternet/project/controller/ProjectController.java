@@ -472,7 +472,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				jointDelivery.setProjectId(project.getId());
 				jointDelivery.setDeliveryType(project.getFinanceMode());
 				if(project.getFinanceMode().equals("financeMode:1")||project.getFinanceMode().equals("financeMode:2")){
-					jointDelivery.setDeliveryType(financeMode);
+					jointDelivery.setDeliveryType(project.getFinanceMode());
 					queryList = jointDeliveryService.queryList(jointDelivery);
 				}
 				project.setJointDeliveryList(queryList);
@@ -3417,8 +3417,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				JointDelivery jointDelivery=new JointDelivery();
 				jointDelivery.setProjectId(project.getId());
 				jointDelivery.setDeliveryType(project.getFinanceMode());
-				if(financeMode.equals("financeMode:1")||financeMode.equals("financeMode:2")){
-					jointDelivery.setDeliveryType(financeMode);
+				if(null!=project.getFinanceMode()&&(project.getFinanceMode().equals("financeMode:1")||project.getFinanceMode().equals("financeMode:2"))){
+					jointDelivery.setDeliveryType(project.getFinanceMode());
 					queryList = jointDeliveryService.queryList(jointDelivery);
 				}
 				project.setJointDeliveryList(queryList);
