@@ -234,6 +234,50 @@ public enum DictEnum {
 	        return null;
 	    }
 	}
+	//立项会结果
+	public enum LXHResult {
+		BCCL("补充材料","meeting3Result:1"),
+		ST("闪投","meeting3Result:2"),
+		TZ("投资","meeting3Result:3"),
+		GW("观望","meeting3Result:4"),
+		ZX("转向","meeting3Result:5"),
+		FJ("否决","meeting3Result:6");
+		private String name;
+
+		private String code;
+
+		private LXHResult(String name, String code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getCode() {
+			return code;
+		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	meetingResult[] values = meetingResult.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
+	}
 	
 	//会议状态
 	public enum meetingSheduleResult {
