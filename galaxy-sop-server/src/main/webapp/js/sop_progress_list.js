@@ -12,7 +12,7 @@
 		}
 	}
 	//阶段加载
-	function progress(){
+	function goToProgress(){
 		progressBtnToggle()					
 		if(i==1){
 			$(".tabtitle h3").text("接触访谈");
@@ -50,13 +50,13 @@
 	$(".next_box").click(function(){
 		i++;
 		$(".next_box").attr("data-progress",i);
-		progress();
+		goToProgress();
 		
 	})
 	//点击上一步
 	$(".pre_box").click(function(){
 		i--;
-		progress();
+		goToProgress();
 
 	})
 function selectFile(input){
