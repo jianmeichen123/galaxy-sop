@@ -19,7 +19,7 @@
           </ul>
          <!-- add button -->
 			<div>
-				<a href="../demo/edit.html" class="bluebtn add_list new_poppage">添加访谈记录</a>
+				<a href="<%=path%>/galaxy/progress/p1"  class="bluebtn add_list new_poppage">添加访谈记录</a>
 			</div>
 			<!-- table -->
 			<table width="100%" cellspacing="0" cellpadding="0" class="pop_table">
@@ -147,3 +147,4 @@
 		   
     </div>
 <script type="text/javascript" src="<%=path %>/js/sop_progress_list.js"></script>
+

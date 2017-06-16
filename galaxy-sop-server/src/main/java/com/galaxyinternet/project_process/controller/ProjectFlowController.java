@@ -122,7 +122,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	
 	// TODO : 流程总页面
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
+	public String index(HttpServletRequest request) {
 		return "project/sop/sop_progress/list";
 	}
 
@@ -133,7 +133,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 */
 	@RequestMapping(value = "/p1", method = RequestMethod.GET)
 	public String p1() {
-		return "view";
+		return "project/sop/sop_progress/edit";
 	}
 	
 	
