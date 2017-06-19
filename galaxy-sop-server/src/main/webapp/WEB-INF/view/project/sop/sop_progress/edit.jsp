@@ -87,6 +87,8 @@
 <script>
 //ckeditor实例化
 var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
+//viewNotes.getData();   //ckeditor获取值
+//viewNotes.setData("哈哈");   //ckeditor赋予值
 //初始化文件上传
 toinitUpload(Constants.sopEndpointURL + "/galaxy/progress/p1/add", projectId,"select_btn","file_object","save_interview","",
 		function getSaveCondition(){
