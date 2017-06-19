@@ -15,6 +15,13 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.project_process.event.handlers.ProgressChangeHandler;
+/**
+ * 项目流程：<br>
+ * 接触访谈 -> 内部评审 -> CEO评审 -> 立项会 -> 会后商务谈判 -> 投资意向书（投资） -> 尽职调查 -> 投决会 -> 投资协议 -> 股权交割<br>
+ * 接触访谈 -> 内部评审 -> CEO评审 -> 立项会 -> 会后商务谈判 -> 投资协议（闪投） -> 尽职调查 -> 投决会 -> 股权交割
+ * @author wangsong
+ *
+ */
 @Component
 public class ProgressChangeEventListener implements ApplicationListener<ProgressChangeEvent>, InitializingBean, ApplicationContextAware
 {

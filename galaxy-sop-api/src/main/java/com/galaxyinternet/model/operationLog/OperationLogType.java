@@ -48,8 +48,7 @@ public enum OperationLogType {
 	
 	//进入会后商务谈判
 	TO_SWTP("/galaxy/project/progress/stageChange/"+UrlNumber.four, OperType.SUBMIT.getOperationType(), "会后商务谈判",SopStage.PROJECT_SCHEDULE.getStageName()), 
-		
-
+	
 	//投资意向书阶段
 	//下载投资意向书模版	
 	DOWNLOAD_INVESTMENT_TEMPLATE("/galaxy/template/download/"+UrlNumber.five, OperType.DOWNLOAD.getOperationType(), "投资意向书模版",SopStage.INVESTMENT_INTENT.getStageName()),
@@ -64,7 +63,7 @@ public enum OperationLogType {
 	//上传业务尽职调查报告	  
 	UPLOAD_DUE_DILIGENCE_INVESTIGATION("/galaxy/project/stageChange/"+UrlNumber.seven, OperType.UPLOAD.getOperationType(), "业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//点击申请投决会排期	
-	APPLY_VOTE_SCHEDULE("/galaxy/project/smp", OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	APPLY_VOTE_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.nine, OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//尽职调查报告催办
 	REMIND_VOTE_SCHEDULE("", OperType.REMINDER.getOperationType(), "法务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	
@@ -218,7 +217,25 @@ public enum OperationLogType {
 
 	_19_1("/galaxy/operationalData/formAddOperationalData/"+UrlNumber.one, OperType.ADD.getOperationType(), "运营数据","运营记录"),
 	_19_2("/galaxy/operationalData/formAddOperationalData/"+UrlNumber.two, "编辑", "运营数据","运营记录"),
-	_19_3("/galaxy/operationalData/delOperationalData", OperType.DELETE.getOperationType(), "运营数据","运营记录");
+	_19_3("/galaxy/operationalData/delOperationalData", OperType.DELETE.getOperationType(), "运营数据","运营记录"),
+	
+	//签订投资意向书（投资）
+	TO_TZ("/galaxy/project/progress/stageChange/"+UrlNumber.five, OperType.SUBMIT.getOperationType(), "签订投资意向书（投资）",SopStage.SWTP.getStageName()),	
+	//签订投资协议书（闪投）
+	TO_ST("/galaxy/project/progress/stageChange/"+UrlNumber.six, OperType.SUBMIT.getOperationType(), "签订投资协议书（闪投）",SopStage.SWTP.getStageName()),	
+	//签订投资意向书（投资）-> 尽职调查
+	TZ2JADC("/galaxy/project/progress/stageChange/"+UrlNumber.seven, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_INTENT.getStageName()),	
+	//签订投资协议书（闪投）-> 尽职调查
+	ST2JADC("/galaxy/project/progress/stageChange/"+UrlNumber.eight, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_AGREEMENT.getStageName()),	
+	//投决会->投资协议
+	TJH2JADC("/galaxy/project/progress/stageChange/"+UrlNumber.ten, OperType.SUBMIT.getOperationType(), "签订投资协议书",SopStage.VOTE_DECISION_MEETING.getStageName()),
+	//投资协议 -> 股权交割
+	TZXY2GQJG("/galaxy/project/progress/stageChange/"+UrlNumber.eleven, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	//投决会 -> 股权交割 
+	TJH2GQJG("/galaxy/project/progress/stageChange/"+UrlNumber.twelve, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.VOTE_DECISION_MEETING.getStageName()),
+	//投后运营
+	THYY("/galaxy/project/progress/stageChange/"+UrlNumber.thirteen, OperType.SUBMIT.getOperationType(), "投后运营",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	;
 
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/

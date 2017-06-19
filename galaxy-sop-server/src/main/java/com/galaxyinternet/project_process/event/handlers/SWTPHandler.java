@@ -1,9 +1,5 @@
 package com.galaxyinternet.project_process.event.handlers;
 
-import com.galaxyinternet.project_process.event.ProgressChangeEvent;
-import com.galaxyinternet.service.MeetingRecordService;
-import com.galaxyinternet.service.ProjectService;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,9 @@ import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
+import com.galaxyinternet.project_process.event.ProgressChangeEvent;
+import com.galaxyinternet.service.MeetingRecordService;
+import com.galaxyinternet.service.ProjectService;
 /**
  * 进入会后商务谈判：前置条件判定，必须一条“闪投”或“投资”或“转向”结果的会议记录。然后进入会后商务谈判阶段。
  * @author wangsong

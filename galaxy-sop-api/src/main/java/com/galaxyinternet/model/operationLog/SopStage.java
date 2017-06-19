@@ -24,7 +24,8 @@ public enum SopStage {
 	VOTE_DECISION_MEETING("投决会"),
 	INVESTMENT_AGREEMENT("投资协议"),
 	EQUITY_DELIVERY_STAGE("股权交割"),
-	EQUITY_DELIVERY_END("投后运营");
+	EQUITY_DELIVERY_END("投后运营"),
+	SWTP("会后商务谈判");
 	
 	private SopStage(String stageName) {
 		this.stageName = stageName;
