@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.SopResult;
@@ -33,9 +34,12 @@ import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -136,6 +140,74 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		return "project/sop/sop_progress/edit";
 	}
 	
+	/**
+	 * 访谈查询,
+	 * 			投资经理： 查询个人项目下		的访谈记录  
+	 * 			合伙人：	    查询个人事业线下	的访谈记录  
+	 * 			高管： 	    查询所有			的访谈记录  
+	 * @param   interviewRecord 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/p1/queryInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ) {
+		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
+		
+		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){  //无限制，根据传参查询
+				//query.setUid(null);
+			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
+				query.setDepartId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){  //固定为其创建
+				query.setUid(user.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+				return responseBody;
+			}
+
+			if(query.getProjectId()!=null){
+				List<Project> proList = null;
+				boolean checked = false;
+				if(roleIdList.contains(UserConstant.HHR)){   //部门下项目校验
+					Project  proQ = new Project();
+					proQ.setId(query.getProjectId());
+					proQ.setProjectDepartid(user.getDepartmentId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}else if(roleIdList.contains(UserConstant.TZJL)){  //个人下项目校验
+					Project  proQ = new Project();
+					proQ.setCreateUid(user.getId());
+					proQ.setId(query.getProjectId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}
+				if(checked){
+					if(proList==null || proList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+						return responseBody;
+					}
+				}
+			}
+			
+			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPage(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+			return responseBody;
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("queryInterview 查询失败",e);
+			}
+		}
+		
+		return responseBody;
+	}
 	
 	/**
 	 * 接触访谈阶段: 附件添加 -访谈添加

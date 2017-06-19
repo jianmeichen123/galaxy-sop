@@ -18,11 +18,29 @@
           	<span class="icon"><img src="<%=path%>/img/sop_progress/remind__icon.png" title="提示提示提示提示提示提示提示"><font>提示</font></span>
           </ul>
          <!-- add button -->
-			<div>
+			 <div>
 				<a href="<%=path%>/galaxy/progress/p1"  class="bluebtn add_list new_poppage">添加访谈记录</a>
 			</div>
+			<!-- 接触访谈信息 -->
+			<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" style="display:none; " >
+			<div class="bottom searchall clearfix">
+				<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
+			</div>
+			</div>
 			<!-- table -->
-			<table width="100%" cellspacing="0" cellpadding="0" class="pop_table">
+			<table id="projectProgress_1_table" class="commonsize"
+							data-url="<%=path%>/galaxy/progress/p1/queryInterview" 
+							data-id-field="id" 
+							data-toolbar="#projectProgress_1_table_custom-toolbar">
+							<thead>
+								<tr>
+									<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1 th_no1">访谈概况</th>
+									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈纪要</th>
+									<!-- <th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th> -->
+								</tr>
+							</thead>
+			</table>
+			<!-- <table width="100%" cellspacing="0" cellpadding="0" class="pop_table">
 				<thead>
 					<tr class="">
 						<th class="tab_time">时间</th>
@@ -78,7 +96,7 @@
 					</td>
 				</tr>
 				</tbody>
-			</table>
+			</table> -->
 			<!-- 文档没有就移除 -->			
 			<ul class="file_list clearfix">
             		<!-- 文件上传以及本地选择文件后的状态 -->
@@ -147,4 +165,8 @@
 		   
     </div>
 <script type="text/javascript" src="<%=path %>/js/sop_progress_list.js"></script>
+<script>
+$("#projectId").val(projectId);
+interviewList();
+</script>
 

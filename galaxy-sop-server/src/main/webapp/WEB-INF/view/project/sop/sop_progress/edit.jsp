@@ -87,35 +87,125 @@
 <script>
 //ckeditor实例化
 var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
-//viewNotes.getData();   //ckeditor获取值
-//viewNotes.setData("哈哈");   //ckeditor赋予值
+var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
+
+var _this={};
+_this.id="interviewAdd";
 //初始化文件上传
-toinitUpload(Constants.sopEndpointURL + "/galaxy/progress/p1/add", projectId,"select_btn","file_object","save_interview","",
-		function getSaveCondition(){
-			var	condition = {};
-			var pid = projectId;
-			var viewDateStr = $("#viewDate").val();
-			var viewTarget = $.trim($("#viewTarget").val());
-			var viewNotes = $("#viewNotes").val();
-			var interviewResult = $('input:radio[name="interviewResult"]:checked').val();
-			if(pid == null || pid == ""){
-				alert(1);
-				return;
-			}
-			if(viewDateStr == null ||  viewDateStr == ""){
-				return false;
-			}
-			if(viewTarget == null ||  viewTarget == ""){
-			$("#viewTarget").focus();
-				return false;
-			}
-			condition.pid = pid;
-			condition.stage = "projectProgress:1";
-			condition.createDate = viewDateStr;
-			condition.target = viewTarget;
-			condition.content = viewNotes;
+//plupload 上传对象初始化, 绑定保存saveViewFile
+initViewUpload();
+function initViewUpload() {
+	var viewuploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : $("#select_btn")[0], 
+		url : Constants.sopEndpointURL + "/galaxy/progress/p1/add",
+		multipart:true,
+		multi_selection:false,
+		filters : {
+			max_file_size : '25mb',
+			mime_types: paramsFilter(1)
+		},
+
+		init: {
+			//上传按钮点击事件 - 开始上传
+			PostInit: function(up) {
+				$("#save_interview").click(function(){
+					$("#save_interview").addClass("disabled");
+					var res = getInterViewCondition('y',projectId, "viewDate", "viewTarget", "viewNotes");
+					if(res == false || res == "false"){
+						up.stop();
+						$("#save_interview").removeClass("disabled");
+						return;
+					}
+					res.stage = "projectProgress:1";
+					res.pid = proid;
+					res.createDate = res.viewDateStr;
+					res.content = res.viewNotes;
+					res.target = res.viewTarget;
+					if(up.files.length > 0){
+						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
+						viewuploader.start();
+					}else{
+						sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/add",function(data){
+							var result = data.result.status;
+							if(result == "ERROR"){ //OK, ERROR
+								$("#save_interview").removeClass("disabled");
+								layer.msg(data.result.message);
+								return;
+							}else{
+								layer.msg("保存成功", {time : 500});
+								//启用滚动条
+								 $(document.body).css({
+								   "overflow-x":"auto",
+								   "overflow-y":"auto"
+								 });
+								toFormatNearNotes();
+								var _this = $("#projectProgress_1_table");
+								if(_this == null || _this.length == 0 || _this == undefined){
+									removePop1();
+								}else{
+									$("#projectProgress_1_table").bootstrapTable('refresh');
+									removePop1();
+								}
+							}
+						});
+					}
+					return false;
+				});
+			},
 			
-			return condition;
-		},null,null,null);
+			FilesAdded: function(up, files) {
+				if(viewuploader.files.length >= 2){
+					viewuploader.splice(0, viewuploader.files.length-1)
+				}
+				plupload.each(files, function(file) {
+					$("#file_object").val(file.name);
+				});
+			},
+			
+			UploadProgress: function(up, file) { 
+			},
+			
+			FileUploaded: function(up, files, rtn) {  //上传回调
+				$("#powindow").hideLoading();
+				var response = $.parseJSON(rtn.response);
+				var rs = response.result.status;
+				if(rs == "ERROR"){ //OK, ERROR
+					$("#save_interview").removeClass("disabled");
+					$("#file_object").val("");
+					viewuploader.splice(0, meetuploader.files.length)
+					layer.msg(response.result.message);
+					return false;
+				}else{
+					layer.msg("保存成功", {time : 500});
+					toFormatNearNotes();
+					var _this = $("#projectProgress_1_table");
+					if(_this == null || _this.length == 0 || _this == undefined){
+						removePop1();
+					}else{
+						$("#projectProgress_1_table").bootstrapTable('refresh');
+						removePop1();
+					}
+				}
+			},
+			
+			BeforeUpload:function(up){
+				$("#powindow").showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
+			},
+			
+			Error: function(up, err) {
+				$("#powindow").hideLoading();
+				$("#save_interview").removeClass("disabled");
+				$("#file_object").val("");
+				layer.msg(err.message);
+			}
+		}
+	});
+
+	viewuploader.init();
+}
 </script>
 
