@@ -43,9 +43,9 @@ function viewOperFormat(value,row,index){
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
-	if(userId==row.createdId && isTransfering == 'false'){
+	//if(userId==row.createdId && isTransfering == 'false'){
 		edit = " <span class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
-	}
+	//}
 	return info + edit;
 }
 

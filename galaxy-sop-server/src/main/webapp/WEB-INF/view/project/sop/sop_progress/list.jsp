@@ -32,71 +32,14 @@
 							data-url="<%=path%>/galaxy/progress/p1/queryInterview" 
 							data-id-field="id" 
 							data-toolbar="#projectProgress_1_table_custom-toolbar">
-							<thead>
-								<tr>
-									<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1 th_no1">访谈概况</th>
-									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈纪要</th>
-									<!-- <th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th> -->
-								</tr>
-							</thead>
-			</table>
-			<!-- <table width="100%" cellspacing="0" cellpadding="0" class="pop_table">
 				<thead>
-					<tr class="">
-						<th class="tab_time">时间</th>
-						<th class="conclusion">结论</th>
-						<th class="reason">结论原因</th>
-						<th class="action">操作</th>
+					<tr>
+						<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1 th_no1">访谈概况</th>
+						<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈纪要</th>
+						<th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th>
 					</tr>
 				</thead>
-				<tbody id="fileList">
-				<tr class="">
-					<td>2017-05-08</td>
-					<td>通过</td>
-					<td>-</td>
-					<td>
-						<a class="new_poppage" href="../demo/view.html">查看</a>
-						<a  class="new_poppage" href="../demo/edit.html">编辑</a>
-					</td>
-				</tr>
-				<tr class="">
-					<td>2017-05-08</td>
-					<td>待定</td>
-					<td>信息不充分,还需要继续了解情况...</td>
-					<td>
-						<a href="javascript:;">查看</a>
-						<a href="javascript:;">编辑</a>
-					</td>
-				</tr>
-				<tr class="">
-					<td>2017-05-08</td>
-					<td>否决</td>
-					<td>信息不充分</td>
-					<td>
-						<a href="javascript:;">查看</a>
-						<a href="javascript:;">编辑</a>
-					</td>
-				</tr>
-				<tr class="">
-					<td>2017-05-08</td>
-					<td>否决</td>
-					<td>信息不充分</td>
-					<td>
-						<a href="javascript:;">查看</a>
-						<a href="javascript:;">编辑</a>
-					</td>
-				</tr>
-				<tr class="">
-					<td>2017-05-08</td>
-					<td>否决</td>
-					<td>信息不充分</td>
-					<td>
-						<a href="javascript:;">查看</a>
-						<a href="javascript:;">编辑</a>
-					</td>
-				</tr>
-				</tbody>
-			</table> -->
+			</table>
 			<!-- 文档没有就移除 -->			
 			<ul class="file_list clearfix">
             		<!-- 文件上传以及本地选择文件后的状态 -->
@@ -165,6 +108,8 @@
 		   
     </div>
 <script type="text/javascript" src="<%=path %>/js/sop_progress_list.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress.js"></script>
+
 <script>
 $("#projectId").val(projectId);
 interviewList();
