@@ -1164,7 +1164,9 @@ var platformUrl = {
 	 /**
 	 * 高管报表----拜访管理
 	 */
-	 visitTrend: Constants.sopEndpointURL + "/galaxy/visit/getTendency"
+	 visitTrend: Constants.sopEndpointURL + "/galaxy/visit/getTendency",
+	 
+	 projectStageChange : Constants.sopEndpointURL + "/galaxy/progress/stageChange"
 }
 
 /**

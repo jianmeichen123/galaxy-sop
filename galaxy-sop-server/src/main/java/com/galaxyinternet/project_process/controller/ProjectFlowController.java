@@ -783,10 +783,10 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG })
 	@ResponseBody
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> stageChange(ProjectQuery p,HttpServletRequest request) 
+	public ResponseData<Project> stageChange(@RequestBody ProjectQuery p,HttpServletRequest request) 
 	{
 		ResponseData<Project> data = new ResponseData<Project>();
 		try

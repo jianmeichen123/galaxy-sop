@@ -93,7 +93,7 @@
 			<!-- 非此阶段的话就是 popbtm_btn全部隐藏-->
 			<div class="popbtm_btn clearfix">
 				<a href="javascript:;" class="fffbtn">否决项目</a>
-				<a href="javascript:;" class="bluebtn ">启动内部评审</a>
+				<a href="javascript:nextProgress('projectProgress:2');" class="bluebtn ">启动内部评审</a>
 				<!-- 会后商务谈判按钮不同  直接添加相应按钮 -->
 				<!-- <a href="javascript:;" class="bluebtn">闪投</a> -->
 			</div>

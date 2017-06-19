@@ -147,6 +147,20 @@ public enum DictEnum {
 	        }
 	        return null;
 	    }
+	    
+	    public static projectProgress getByCode(String code)
+	    {
+	    	if (code != null && !code.trim().equals("")) 
+	    	{
+	        	projectProgress[] values = projectProgress.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i];
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 		
 	//会议类型

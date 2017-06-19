@@ -737,7 +737,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public void updateProgress(Long id, String next)
 	{
 		Project project = queryById(id);
-		ProgressChangeEvent event = new ProgressChangeEvent(project,projectProgress.valueOf(next));
+		ProgressChangeEvent event = new ProgressChangeEvent(project,projectProgress.getByCode(next));
 		eventPublisher.publishEvent(event);
 	}
 	

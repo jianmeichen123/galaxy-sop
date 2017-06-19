@@ -43,6 +43,7 @@
 				</if>
 				<if test="startTime != null"> <![CDATA[  and view_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 				<if test="endTime != null"> <![CDATA[ and view_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="interviewResult != null" > and interview_result = #{interviewResult,jdbcType=VARCHAR} </if>
 				
 			</trim>
 		</where>

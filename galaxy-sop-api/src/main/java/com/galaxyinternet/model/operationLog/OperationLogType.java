@@ -16,7 +16,7 @@ public enum OperationLogType {
 	ADD_INTERVIEW_RECORD("/galaxy/project/progress/addInterview", OperType.ADD.getOperationType(), "访谈记录",SopStage.TOUCH_INTERVIEW.getStageName()), 
 	
 	//点击‘启动内部评审’
-	SUBMIT_INNER_REVIEW_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.one, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	SUBMIT_INNER_REVIEW_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.one, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
 	
 	//内部评审阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -25,7 +25,7 @@ public enum OperationLogType {
 	ADD_MEETING_ONE("/galaxy/project/progress/addmeet/"+UrlNumber.one, OperType.ADD.getOperationType(), "会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
 
 	//点击‘申请CEO评审排期’
-	SUBMIT_CEO_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.two, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	SUBMIT_CEO_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.two, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
 		
 	
 	//CEO评审阶段
@@ -35,7 +35,7 @@ public enum OperationLogType {
 	ADD_MEETING_TWO("/galaxy/project/progress/addmeet/"+UrlNumber.two, OperType.ADD.getOperationType(), "会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
 
 	//点击申请立项会排期
-	ADD_PROJECT_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.three, OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	ADD_PROJECT_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.three, OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
 	
 	//立项会阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -47,7 +47,7 @@ public enum OperationLogType {
 	//APPALY_PROJECT_SCHEDULE("", OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.PROJECT_SCHEDULE.getStageName()), 
 	
 	//进入会后商务谈判
-	TO_SWTP("/galaxy/project/progress/stageChange/"+UrlNumber.four, OperType.SUBMIT.getOperationType(), "会后商务谈判",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	TO_SWTP("/galaxy/progress/stageChange/"+UrlNumber.four, OperType.SUBMIT.getOperationType(), "会后商务谈判",SopStage.PROJECT_SCHEDULE.getStageName()), 
 	
 	//投资意向书阶段
 	//下载投资意向书模版	
@@ -63,7 +63,7 @@ public enum OperationLogType {
 	//上传业务尽职调查报告	  
 	UPLOAD_DUE_DILIGENCE_INVESTIGATION("/galaxy/project/stageChange/"+UrlNumber.seven, OperType.UPLOAD.getOperationType(), "业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//点击申请投决会排期	
-	APPLY_VOTE_SCHEDULE("/galaxy/project/progress/stageChange/"+UrlNumber.nine, OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	APPLY_VOTE_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.nine, OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//尽职调查报告催办
 	REMIND_VOTE_SCHEDULE("", OperType.REMINDER.getOperationType(), "法务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	
@@ -220,21 +220,21 @@ public enum OperationLogType {
 	_19_3("/galaxy/operationalData/delOperationalData", OperType.DELETE.getOperationType(), "运营数据","运营记录"),
 	
 	//签订投资意向书（投资）
-	TO_TZ("/galaxy/project/progress/stageChange/"+UrlNumber.five, OperType.SUBMIT.getOperationType(), "签订投资意向书（投资）",SopStage.SWTP.getStageName()),	
+	TO_TZ("/galaxy/progress/stageChange/"+UrlNumber.five, OperType.SUBMIT.getOperationType(), "签订投资意向书（投资）",SopStage.SWTP.getStageName()),	
 	//签订投资协议书（闪投）
-	TO_ST("/galaxy/project/progress/stageChange/"+UrlNumber.six, OperType.SUBMIT.getOperationType(), "签订投资协议书（闪投）",SopStage.SWTP.getStageName()),	
+	TO_ST("/galaxy/progress/stageChange/"+UrlNumber.six, OperType.SUBMIT.getOperationType(), "签订投资协议书（闪投）",SopStage.SWTP.getStageName()),	
 	//签订投资意向书（投资）-> 尽职调查
-	TZ2JADC("/galaxy/project/progress/stageChange/"+UrlNumber.seven, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_INTENT.getStageName()),	
+	TZ2JADC("/galaxy/progress/stageChange/"+UrlNumber.seven, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_INTENT.getStageName()),	
 	//签订投资协议书（闪投）-> 尽职调查
-	ST2JADC("/galaxy/project/progress/stageChange/"+UrlNumber.eight, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_AGREEMENT.getStageName()),	
+	ST2JADC("/galaxy/progress/stageChange/"+UrlNumber.eight, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_AGREEMENT.getStageName()),	
 	//投决会->投资协议
-	TJH2JADC("/galaxy/project/progress/stageChange/"+UrlNumber.ten, OperType.SUBMIT.getOperationType(), "签订投资协议书",SopStage.VOTE_DECISION_MEETING.getStageName()),
+	TJH2JADC("/galaxy/progress/stageChange/"+UrlNumber.ten, OperType.SUBMIT.getOperationType(), "签订投资协议书",SopStage.VOTE_DECISION_MEETING.getStageName()),
 	//投资协议 -> 股权交割
-	TZXY2GQJG("/galaxy/project/progress/stageChange/"+UrlNumber.eleven, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	TZXY2GQJG("/galaxy/progress/stageChange/"+UrlNumber.eleven, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投决会 -> 股权交割 
-	TJH2GQJG("/galaxy/project/progress/stageChange/"+UrlNumber.twelve, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.VOTE_DECISION_MEETING.getStageName()),
+	TJH2GQJG("/galaxy/progress/stageChange/"+UrlNumber.twelve, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.VOTE_DECISION_MEETING.getStageName()),
 	//投后运营
-	THYY("/galaxy/project/progress/stageChange/"+UrlNumber.thirteen, OperType.SUBMIT.getOperationType(), "投后运营",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	THYY("/galaxy/progress/stageChange/"+UrlNumber.thirteen, OperType.SUBMIT.getOperationType(), "投后运营",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	;
 
 
