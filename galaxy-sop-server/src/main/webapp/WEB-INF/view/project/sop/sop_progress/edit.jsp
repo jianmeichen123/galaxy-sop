@@ -22,7 +22,7 @@
                 <dl class="fmdl clearfix intw_time">
                     <dt>访谈时间：</dt>
                     <dd>
-                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate"  value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
@@ -87,7 +87,6 @@
 <script>
 //ckeditor实例化
 var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
-var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 
 var _this={};
 _this.id="interviewAdd";
@@ -118,7 +117,7 @@ function initViewUpload() {
 						return;
 					}
 					res.stage = "projectProgress:1";
-					res.pid = proid;
+					res.pid = projectId;
 					res.createDate = res.viewDateStr;
 					res.content = res.viewNotes;
 					res.target = res.viewTarget;
@@ -139,13 +138,13 @@ function initViewUpload() {
 								   "overflow-x":"auto",
 								   "overflow-y":"auto"
 								 });
-								toFormatNearNotes();
+								/* toFormatNearNotes(); */
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
-									removePop1();
+									$("#powindow").remove();
 								}else{
 									$("#projectProgress_1_table").bootstrapTable('refresh');
-									removePop1();
+									$("#powindow").remove();
 								}
 							}
 						});
@@ -178,13 +177,13 @@ function initViewUpload() {
 					return false;
 				}else{
 					layer.msg("保存成功", {time : 500});
-					toFormatNearNotes();
+					/* toFormatNearNotes(); */
 					var _this = $("#projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
-						removePop1();
+						$("#powindow").remove();
 					}else{
 						$("#projectProgress_1_table").bootstrapTable('refresh');
-						removePop1();
+						$("#powindow").remove();
 					}
 				}
 			},
