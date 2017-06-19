@@ -2,6 +2,13 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<!--ck富文本编辑器 -->
+<link  href="<%=path %>/ckeditor/samples/css/samples.css" type="text/css" rel="stylesheet">
+<link  href="<%=path %>/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/adapters/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/config.js"></script>
+<script type="text/javascript" src="<%=path %>/ckeditor/lang/zh-cn.js"></script>
     <!-- 添加访谈记录 /编辑访谈记录 -->
     <div class="myprojecttc new_poptxt myproject_add">
         <div class="tabtitle edit">
@@ -78,7 +85,8 @@
         </div>                
     </div>
 <script>
-
+//ckeditor实例化
+var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 //初始化文件上传
 toinitUpload(Constants.sopEndpointURL + "/galaxy/progress/p1/add", projectId,"select_btn","file_object","save_interview","",
 		function getSaveCondition(){
