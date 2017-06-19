@@ -308,6 +308,13 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		return responseBody;
 	}
 	
+	/**
+	 * 访谈页面查看
+	 */
+	@RequestMapping(value = "/p1/view", method = RequestMethod.GET)
+	public String p1_view() {
+		return "project/sop/sop_progress/view";
+	}
 	
 	// TODO : 内部评审
 	/**
