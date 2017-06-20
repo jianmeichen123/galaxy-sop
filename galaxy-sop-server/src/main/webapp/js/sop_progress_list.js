@@ -100,14 +100,16 @@ $(".tab_2").click(function(event) {
 	$(this).addClass('on');
 	$(this).siblings().removeClass('on');
 	$('.file_list').show();
-	$(".tab_con table").hide();
+	$(".bootstrap-table").next().hide();
+	$(".bootstrap-table").hide();
 	$(".add_list").hide();
 });
 $(".tab_1").click(function(event) {
 	$(this).addClass('on');
 	$(this).siblings().removeClass('on');
 	$('.file_list').hide();
-	$(".tab_con table").show();
+	$(".bootstrap-table").show();
+	$(".bootstrap-table").next().show()
 	$(".add_list").show();
 });
 // 添加访谈记录
