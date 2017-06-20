@@ -111,8 +111,8 @@
         </div>  
 		   
     </div>
-<script type="text/javascript" src="<%=path %>/js/sop_progress_list.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress_list.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
 
 <script>
 $("#projectId").val(projectId);

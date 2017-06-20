@@ -55,12 +55,12 @@
                 <dt>访谈录音：</dt>
                 <dd>
                 
-			        <input type="text" name="fileName" id="file_object" class="txt" readonly="readonly"/>
-                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">选择文件</a>
+			        <!-- <input type="text" name="fileName" id="file_object" class="txt" readonly="readonly"/>
+                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">选择文件</a> -->
                     <!-- 添加文件后或者有文件的状态下改为 -->
 
-                	<p class="audio_name">访谈录音名字.mp3</p>
-                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">更新</a>
+                	<p id="file_object"></p>
+                    <a href="javascript:;" class="pubbtn fffbtn" id="select_btn" style="position: relative; z-index: 1;">选择文件</a>
                 </dd>
             </dl>  
             <dl class="fmdl clearfix check_result">
@@ -174,7 +174,9 @@ function initViewUpload() {
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
-					$("#file_object").val(file.name);
+					$("#file_object").text(file.name);
+					$("#select_btn").text("更新");
+					$("#file_object").addClass("audio_name")
 				});
 			},
 			
@@ -187,7 +189,9 @@ function initViewUpload() {
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
 					$("#save_interview").removeClass("disabled");
-					$("#file_object").val("");
+					$("#file_object").text("");
+					$("#select_btn").text("选择文件");
+					$("#file_object").removeClass("audio_name")
 					viewuploader.splice(0, meetuploader.files.length)
 					layer.msg(response.result.message);
 					return false;
@@ -214,7 +218,9 @@ function initViewUpload() {
 			Error: function(up, err) {
 				$("#powindow").hideLoading();
 				$("#save_interview").removeClass("disabled");
-				$("#file_object").val("");
+				$("#file_object").text("");
+				$("#select_btn").text("选择文件");
+				$("#file_object").removeClass("audio_name")
 				layer.msg(err.message);
 			}
 		}

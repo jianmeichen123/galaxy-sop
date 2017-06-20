@@ -199,7 +199,7 @@ var pageId = "project";
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
 <script type="text/javascript">
 	createMenus(5);
 	/**权限点**/
