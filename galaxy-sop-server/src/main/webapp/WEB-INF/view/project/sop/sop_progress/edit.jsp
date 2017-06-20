@@ -142,10 +142,10 @@ function initViewUpload() {
 								/* toFormatNearNotes(); */
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
-									popupTwoClose();
+									$.popupTwoClose();
 								}else{
 									$("#projectProgress_1_table").bootstrapTable('refresh');
-									popupTwoClose();
+									$.popupTwoClose();
 								}
 							}
 						});
@@ -181,10 +181,10 @@ function initViewUpload() {
 					/* toFormatNearNotes(); */
 					var _this = $("#projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
-						popupTwoClose();
+						$.popupTwoClose();
 					}else{
 						$("#projectProgress_1_table").bootstrapTable('refresh');
-						popupTwoClose();
+						$.popupTwoClose();
 					}
 				}
 			},
