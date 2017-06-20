@@ -151,7 +151,7 @@
         var sec = $(this).closest('form');
         var id_code = $(this).attr('attr-save');
         var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
-		var fields = sec.find("input[type='text'],input:checked,textarea,radio,li[class='check_label active'],select");
+		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,li[class='check_label active'],select");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -287,6 +287,7 @@
             }
             else if(type==13)
             {
+            	console.log(type);
                     infoMode.value = field.data('id');
                     var field_v = field.data('id');
                     var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
