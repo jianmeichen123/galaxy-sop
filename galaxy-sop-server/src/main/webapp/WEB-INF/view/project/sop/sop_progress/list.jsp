@@ -17,6 +17,8 @@
           	<li class="tab_2">文档</li>
           	<span class="icon"><img src="<%=path%>/img/sop_progress/remind__icon.png" title="提示提示提示提示提示提示提示"><font>提示</font></span>
           </ul>
+          <div class="tabcon">
+          
          <!-- add button -->
 			 <div>
 				<a href="<%=path%>/galaxy/progress/p1"  class="bluebtn add_list new_poppage">添加访谈记录</a>
@@ -104,6 +106,8 @@
 			<div class="not_stage">
 				<span class="stage_cover"></span>
 			</div>
+			
+          </div>
         </div>  
 		   
     </div>
