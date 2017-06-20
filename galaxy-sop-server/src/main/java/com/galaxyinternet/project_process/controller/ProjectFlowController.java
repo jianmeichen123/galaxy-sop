@@ -317,7 +317,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 * 访谈页面查看
 	 */
 	@RequestMapping(value = "/p1/view/{type}", method = RequestMethod.GET)
-	public String p1_view(@PathVariable String id,@PathVariable String type) {
+	public String p1_view(@PathVariable String type) {
 		if(StringUtils.isNotBlank(type)){
 			if("e".equals(type)){
 				return "project/sop/sop_progress/edit";
