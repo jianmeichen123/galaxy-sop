@@ -3,12 +3,20 @@
 	String path = request.getContextPath(); 
 %>
 <!--ck富文本编辑器 -->
-<link  href="<%=path %>/ckeditor/samples/css/samples.css" type="text/css" rel="stylesheet">
-<link  href="<%=path %>/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css" type="text/css" rel="stylesheet">
+<%-- <link  href="<%=path %>/ckeditor/samples/css/samples.css" type="text/css" rel="stylesheet">
+<link  href="<%=path %>/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css" type="text/css" rel="stylesheet"> --%>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/adapters/jquery.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ckeditor/config.js"></script>
 <script type="text/javascript" src="<%=path %>/ckeditor/lang/zh-cn.js"></script>
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
+
     <!-- 添加访谈记录 /编辑访谈记录 -->
     <div class="myprojecttc new_poptxt myproject_add">
         <div class="tabtitle edit">
