@@ -124,11 +124,18 @@ function initViewUpload() {
 						$("#save_interview").removeClass("disabled");
 						return;
 					}
+					var inResult = $("input[name='interviewResult']:checked").val();
+					var resultReason=$("#resultReason").find("option:selected").text();
+					
 					res.stage = "projectProgress:1";
 					res.pid = projectId;
 					res.createDate = res.viewDateStr;
 					res.content = res.viewNotes;
 					res.target = res.viewTarget;
+					res.interviewResult = inResult;
+					res.reasonOther = $("#reasonOther").val();
+					res.resultReason = resultReason;
+					res.otherReason = $("input[name='reasonOther']").val();
 					
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };

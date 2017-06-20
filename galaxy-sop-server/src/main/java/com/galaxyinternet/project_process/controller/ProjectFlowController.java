@@ -291,6 +291,9 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			ir.setViewDate(p.getParseDate() == null ? new Date() : p.getParseDate());
 			ir.setViewTarget(p.getTarget());
 			ir.setViewNotes(p.getContent());
+			ir.setInterviewResult(p.getInterViewResult());
+			ir.setResultReason(p.getResultReason());
+			ir.setReasonOther(p.getOtherReason());
 			ir.setCreatedId(project.getCreateUid());
 			ir.setCreatedTime((new Date()).getTime());
 			interviewRecordService.insert(ir);

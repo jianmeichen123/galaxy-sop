@@ -114,6 +114,7 @@ function getInterViewParams(hasProid,projectId,
 	var viewDateStr = $("#"+viewDateId).val();
 	var viewTarget = $.trim($("#"+viewTargetId).val());
 	var viewNotes = $.trim($("#"+viewNotesId).val());
+	$('#con_id input[name=interviewResult]:checked').val()
 	
 	if(projectId == null || projectId == ""){
 		layer.msg("项目不能为空");
