@@ -51,12 +51,16 @@ function viewOperFormat(value,row,index){
 function notesInfoEdit(selectRowId,type){
 	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view"+"/"+type;
+	var res = {};
+	res.projectId = selectRowId;
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(){
-			
-			
+			sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/queryInterview",res,function(data){
+				var result = data.result.status;
+				//渲染数据|待后续加
+			});
 		}
 	});
 	return false;
