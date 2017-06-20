@@ -24,3 +24,12 @@ UPDATE `fx_db`.`information_title` SET `is_valid`='1' WHERE `id`='1535';
 /*融资及估值模块中，现金流量表更改题型，将填写变成上传图片
 */
 UPDATE `fx_db`.`information_title` SET `type`='7' WHERE `id`='1933';
+
+
+
+/* 团队-CEO情况-背景-是否是本领域接触人才 */
+UPDATE `fx_db`.`information_title` SET `type`='12' WHERE `id`='1329';
+/* 团队-CEO情况-背景-是否毕业于一流名校 */
+UPDATE `fx_db`.`information_title` SET `type`='12' WHERE `id`='1330';
+
+
