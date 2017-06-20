@@ -2954,7 +2954,7 @@ color:#999999;}
 		font-size:12px;
 		color:#7a8798;
 		line-height: 1;
-		width: 56px;
+		width: 65px;
 		background:none;
     }
     .new_poptxt .tablink img{
@@ -3257,4 +3257,4 @@ color:#999999;}
   	cursor: pointer;
   	    background: url(../img/sop_progress/X_close.png) no-repeat;
   }
-  .new_poptxt .tabcon{height:400px;overflow-y:auto;}
+  .new_poptxt .tabcon{height:400px;overflow-y:auto;width:100%;}
