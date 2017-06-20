@@ -100,20 +100,20 @@ $(".tab_2").click(function(event) {
 	$(this).addClass('on');
 	$(this).siblings().removeClass('on');
 	$('.file_list').show();
-	$(".bootstrap-table").next().hide();
-	$(".bootstrap-table").hide();
+	$(".new_poptxt .bootstrap-table").next().hide();
+	$(".new_poptxt .bootstrap-table").hide();
 	$(".add_list").hide();
 });
 $(".tab_1").click(function(event) {
 	$(this).addClass('on');
 	$(this).siblings().removeClass('on');
 	$('.file_list').hide();
-	$(".bootstrap-table").show();
-	$(".bootstrap-table").next().show()
+	$(".new_poptxt .bootstrap-table").show();
+	$(".new_poptxt .bootstrap-table").next().show()
 	$(".add_list").show();
 });
 // 添加访谈记录
-
+ 
 $(".new_poppage").on("click",function(){ 
 	var $self = $(this);
 	var _url = $self.attr("href");
