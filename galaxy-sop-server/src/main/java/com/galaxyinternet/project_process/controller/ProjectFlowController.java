@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -314,8 +316,13 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	/**
 	 * 访谈页面查看
 	 */
-	@RequestMapping(value = "/p1/view", method = RequestMethod.GET)
-	public String p1_view() {
+	@RequestMapping(value = "/p1/view/{type}", method = RequestMethod.GET)
+	public String p1_view(@PathVariable String type) {
+		if(StringUtils.isNotBlank(type)){
+			if("e".equals(type)){
+				return "project/sop/sop_progress/edit";
+			}
+		}
 		return "project/sop/sop_progress/view";
 	}
 	

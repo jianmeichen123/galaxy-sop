@@ -67,21 +67,21 @@
                 <dt>访谈结论：</dt>
                 <dd>
                     <div>
-                        <label><input name="interviewResult" type="radio" value="" />待定</label> 
-                        <select name="resultReason" id="">
+                        <label><input name="interviewResult" type="radio" value="0" />待定</label> 
+                        <select name="resultReason" id="resultReason">
                             <option value="">请选择原因</option>
                         </select>
                         <input type="text" name="reasonOther" class="txt" placeholder="请填写其它原因">
                     </div>
                     <div>
-                        <label><input name="interviewResult" type="radio" value="" />否决</label> 
-                        <select name="resultReason" id="">
+                        <label><input name="interviewResult" type="radio" value="1" />否决</label> 
+                        <select name="resultReason" id="resultReason">
                             <option value="">请选择原因</option>
                         </select>
                         <input type="text" name="reasonOther" class="txt" placeholder="请填写其它原因">
                     </div>
                     <div>
-                        <label><input name="interviewResult" type="radio" value="" />通过</label> 
+                        <label><input name="interviewResult" type="radio" value="2" />通过</label> 
                     </div>
                 </dd>
             </dl>  
@@ -136,6 +136,8 @@ function initViewUpload() {
 					res.reasonOther = $("#reasonOther").val();
 					res.resultReason = resultReason;
 					res.otherReason = $("input[name='reasonOther']").val();
+					
+					console.log("@@@@@@@@@@@"+JSON.stringify(res));
 					
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };

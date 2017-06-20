@@ -73,7 +73,7 @@ public class MeetingRecord  extends PagableRecordEntity{
     private Date passMeetTime;
     private Long firstCreatedTime;
     private Long lastCreatedTime;
-    
+    private String interviewResult;
     private String resultReason;
     private String reasonOther;
     
@@ -436,7 +436,15 @@ public class MeetingRecord  extends PagableRecordEntity{
 	public void setLastCreatedTime(Long lastCreatedTime) {
 		this.lastCreatedTime = lastCreatedTime;
 	}
-    
+	
+	public String getInterviewResult() {
+		return interviewResult;
+	}
+
+	public void setInterviewResult(String interviewResult) {
+		this.interviewResult = interviewResult;
+	}
+
 	@Override
 	public String toString() {
 		return GSONUtil.toJson(this);

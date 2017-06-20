@@ -50,21 +50,17 @@ function viewOperFormat(value,row,index){
 }
 function notesInfoEdit(selectRowId,type){
 	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
-	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view";
-	if(type == 'e'){
-		_url = Constants.sopEndpointURL+"/galaxy/progress/p1";
-	}
+	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view"+"/"+type;
+	var res = {};
+	res.projectId = selectRowId;
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(){
-			/*$('.title_bj').html('访谈纪要');
-			var um=UM.getEditor('viewNotes');
-			um.setContent(interviewSelectRow.viewNotes);
-			if(type == 'v'){
-				$("#interviewsave").remove();
-				um.setDisabled();
-			}*/
+			sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/queryInterview",res,function(data){
+				var result = data.result.status;
+				//渲染数据|待后续加
+			});
 		}
 	});
 	return false;
