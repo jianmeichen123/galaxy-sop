@@ -44,13 +44,16 @@ function viewOperFormat(value,row,index){
 	var edit = "";
 	
 	//if(userId==row.createdId && isTransfering == 'false'){
-		edit = " <span class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
+		edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
 	//}
 	return info + edit;
 }
 function notesInfoEdit(selectRowId,type){
 	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view";
+	if(type == 'e'){
+		_url = Constants.sopEndpointURL+"/galaxy/progress/p1";
+	}
 	$.getHtml({
 		url:_url,
 		data:"",
@@ -79,6 +82,68 @@ function  p1(id){
 		}
 	});
 }
+
+/**
+ * 获取 访谈表格数据，返回 jsonObj 对象
+ * 
+ * @param hasProid
+ *            是否传入项目id值，'y':是
+ * @param projectId
+ *            传入项目id值， 或选择器id
+ * @param viewDateId
+ *            时间id
+ * @param viewTargetId
+ *            目标id
+ * @param viewNotesId
+ *            记录id
+ */
+function getInterViewParams(hasProid,projectId,
+		viewDateId,
+		viewTargetId,
+		viewNotesId){
+	var	condition = {};
+	
+	if(!beforeSubmit()){
+		return false;
+	}
+	if(hasProid == "y" ){
+		var projectId = $.trim(projectId);
+	}else{
+		var projectId = $("#"+projectId).val();
+	}
+	var viewDateStr = $("#"+viewDateId).val();
+	var viewTarget = $.trim($("#"+viewTargetId).val());
+	var viewNotes = $.trim($("#"+viewNotesId).val());
+	
+	if(projectId == null || projectId == ""){
+		layer.msg("项目不能为空");
+		return false;
+	}
+	if(viewTarget == null ||  viewTarget == ""){
+		layer.msg("对象不能为空");
+		return false;
+	}else{
+		if(getLength(viewTarget) > 100){
+			layer.msg("对象长度最大100字节");
+			return false;
+		}
+	}
+	
+	if(viewNotes != null && viewNotes.length > 0){
+		if(getLength(viewNotes) > 9000){
+			layer.msg("访谈记录长度最大9000字符");
+			return false;
+		}
+	}
+	
+	condition.projectId = projectId;
+	condition.viewDateStr = viewDateStr;
+	condition.viewTarget = viewTarget;
+	condition.viewNotes = viewNotes;
+	
+	return condition;
+}
+
 /**
  * 项目阶段推进
  * @param nextProgress 下一阶段编码。 e.g. projectProgress:2

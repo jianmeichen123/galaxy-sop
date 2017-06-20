@@ -110,7 +110,7 @@ function initViewUpload() {
 			PostInit: function(up) {
 				$("#save_interview").click(function(){
 					$("#save_interview").addClass("disabled");
-					var res = getInterViewCondition('y',projectId, "viewDate", "viewTarget", "viewNotes");
+					var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
 					if(res == false || res == "false"){
 						up.stop();
 						$("#save_interview").removeClass("disabled");
@@ -121,11 +121,12 @@ function initViewUpload() {
 					res.createDate = res.viewDateStr;
 					res.content = res.viewNotes;
 					res.target = res.viewTarget;
+					
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
-						sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/add",function(data){
+						sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/add",res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#save_interview").removeClass("disabled");
@@ -141,10 +142,10 @@ function initViewUpload() {
 								/* toFormatNearNotes(); */
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
-									$("#powindow").remove();
+									popupTwoClose();
 								}else{
 									$("#projectProgress_1_table").bootstrapTable('refresh');
-									$("#powindow").remove();
+									popupTwoClose();
 								}
 							}
 						});
@@ -180,10 +181,10 @@ function initViewUpload() {
 					/* toFormatNearNotes(); */
 					var _this = $("#projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
-						$("#powindow").remove();
+						popupTwoClose();
 					}else{
 						$("#projectProgress_1_table").bootstrapTable('refresh');
-						$("#powindow").remove();
+						popupTwoClose();
 					}
 				}
 			},
