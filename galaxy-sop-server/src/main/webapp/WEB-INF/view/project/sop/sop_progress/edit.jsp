@@ -71,14 +71,14 @@
                         <select name="resultReason" id="resultReason">
                             <option value="">请选择原因</option>
                         </select>
-                        <input type="text" name="reasonOther" class="txt" placeholder="请填写其它原因">
+                        <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
                     </div>
                     <div>
                         <label><input name="interviewResult" type="radio" value="1" />否决</label> 
                         <select name="resultReason" id="resultReason">
                             <option value="">请选择原因</option>
                         </select>
-                        <input type="text" name="reasonOther" class="txt" placeholder="请填写其它原因">
+                        <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
                     </div>
                     <div>
                         <label><input name="interviewResult" type="radio" value="2" />通过</label> 

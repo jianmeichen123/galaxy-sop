@@ -52,7 +52,8 @@ function notesInfoEdit(selectRowId,type){
 	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view"+"/"+type;
 	var res = {};
-	res.projectId = selectRowId;
+	res.projectId = projectId;
+	res.id = selectRowId;
 	$.getHtml({
 		url:_url,
 		data:"",
@@ -60,6 +61,12 @@ function notesInfoEdit(selectRowId,type){
 			sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/queryInterview",res,function(data){
 				var result = data.result.status;
 				//渲染数据|待后续加
+				if(result == "OK"){
+					var res = data.pageList.content;
+					type=="e" ? $("#viewDate").val(res[0].viewDateStr) : $("#viewDate").text(res[0].viewDateStr);
+					type=="e" ? $("#viewTarget").val(res[0].viewTarget) : $("#viewTarget").text(res[0].viewTarget);
+					type=="e" ? $("#reasonOther").val(res[0].reasonOther) : $("#reasonOther").text(res[0].reasonOther);
+				}
 			});
 		}
 	});

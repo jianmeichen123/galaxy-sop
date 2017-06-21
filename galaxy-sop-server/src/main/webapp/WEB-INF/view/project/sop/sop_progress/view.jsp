@@ -12,13 +12,13 @@
             <div class="clearfix ">
                  <dl class="fmdl clearfix intw_time">
                     <dt>访谈时间：</dt>
-                    <dd>
+                    <dd id="viewDate">
                         2017-09-22 10:28
                     </dd>
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee">
                     <dt>访谈对象：</dt>
-                    <dd class="clearfix intw_name">
+                    <dd class="clearfix intw_name" id="viewTarget">
                        达康书记、老张
                     </dd>
                 </dl>
