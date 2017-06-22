@@ -33,18 +33,19 @@ public class ProjectQuery extends ViewQuery{
 	//针对访谈对象
 	private String target;
 	//访谈结果
-	private String interViewResult;
+	private String interviewResult;
+	public String getInterviewResult() {
+		return interviewResult;
+	}
+	public void setInterviewResult(String interviewResult) {
+		this.interviewResult = interviewResult;
+	}
 	//结果原因
 	private String resultReason;
 	//其他原因
 	private String otherReason;
 	
-	public String getInterViewResult() {
-		return interViewResult;
-	}
-	public void setInterViewResult(String interViewResult) {
-		this.interViewResult = interViewResult;
-	}
+	
 	public String getResultReason() {
 		return resultReason;
 	}

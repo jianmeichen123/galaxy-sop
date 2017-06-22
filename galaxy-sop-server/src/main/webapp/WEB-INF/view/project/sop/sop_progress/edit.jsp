@@ -67,21 +67,21 @@
                 <dt>访谈结论：</dt>
                 <dd>
                     <div>
-                        <label><input name="interviewResult" type="radio" value="0" />待定</label> 
+                        <label><input name="interviewResult" type="radio" value="meetingResult:2" />待定</label> 
                         <select name="resultReason" id="resultReason">
                             <option value="">请选择原因</option>
                         </select>
                         <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
                     </div>
                     <div>
-                        <label><input name="interviewResult" type="radio" value="1" />否决</label> 
+                        <label><input name="interviewResult" type="radio" value="meetingResult:3" />否决</label> 
                         <select name="resultReason" id="resultReason">
                             <option value="">请选择原因</option>
                         </select>
                         <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
                     </div>
                     <div>
-                        <label><input name="interviewResult" type="radio" value="2" />通过</label> 
+                        <label><input name="interviewResult" type="radio" value="meetingResult:1" />通过</label> 
                     </div>
                 </dd>
             </dl>  
