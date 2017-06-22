@@ -7,7 +7,7 @@
 %>
 <!-- 富文本编辑器 -->
 <style>
-.institution {padding:0 20px 10px}
+.institution {padding:0 20px 10px;display:none;}
 .institution input{border:1px solid #d6d8e1;width:148px;height:22px;margin-right:10px;padding:0 0 0 10px;}
 .institution input.name{width:228px;}
 .institution .del{color:#4a97da;font-family:"宋体";font-size:12px;cursor:pointer;}
