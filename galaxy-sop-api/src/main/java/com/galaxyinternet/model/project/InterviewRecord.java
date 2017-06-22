@@ -3,6 +3,9 @@ package com.galaxyinternet.model.project;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
@@ -177,6 +180,9 @@ public class InterviewRecord extends BaseEntity{
 	
 
 	public String getInterviewResult() {
+		if(interviewResult != null){
+			interviewResult = DictEnum.meetingResult.getNameByCode(interviewResult);
+		}
 		return interviewResult;
 	}
 

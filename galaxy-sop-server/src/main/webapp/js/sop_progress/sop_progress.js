@@ -67,6 +67,8 @@ function notesInfoEdit(selectRowId,type){
 					type=="e" ? $("#viewTarget").val(res[0].viewTarget) : $("#viewTarget").text(res[0].viewTarget);
 					type=="e" ? $("#reasonOther").val(res[0].reasonOther) : $("#reasonOther").text(res[0].reasonOther);
 					type=="e" ? $("#viewNotes").val(res[0].viewNotes) : $("#viewNotes").html(res[0].viewNotes);
+					type=="e" ? '' : $("#interviewResult").html(res[0].interviewResult);
+					type=="e" ? '' : $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 					
 				}
 			});

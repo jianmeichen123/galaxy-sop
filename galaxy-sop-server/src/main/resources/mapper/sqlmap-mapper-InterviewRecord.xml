@@ -183,6 +183,7 @@
 	    <result column="view_date" property="viewDate" jdbcType="TIMESTAMP" />
 	    <result column="view_target" property="viewTarget" jdbcType="VARCHAR" />
 	    <result column="view_notes" property="viewNotes" jdbcType="VARCHAR" />
+	    <result column="interview_result" property="interviewResult" jdbcType="VARCHAR" />
 	    <result column="view_notes_text" property="viewNotesText" jdbcType="VARCHAR" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
 	    <result column="created_id" property="createdId" jdbcType="BIGINT" />
@@ -192,7 +193,7 @@
 	<select id="selectInterviewPage" resultMap="PageResultMap" parameterType="java.util.Map">
 		select
 			ir.id, ir.project_id, p.project_name, ir.file_id, ir.view_date, ir.view_target, 
-			ir.view_notes,ir.view_notes_text, ir.created_time
+			ir.view_notes,ir.interview_result,ir.view_notes_text, ir.created_time
 		from sop_interview_record ir , sop_project p 
 		where ir.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>

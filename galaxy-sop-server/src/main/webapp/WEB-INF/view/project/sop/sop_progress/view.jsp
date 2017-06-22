@@ -37,14 +37,14 @@
             <dl class="fmdl clearfix">
                 <dt>访谈录音：</dt>
                 <dd>
-                	<p class="audio_name download_name">访谈录音.mp3</p>
+                	<p class="audio_name download_name" id="file">访谈录音.mp3</p>
                 </dd>
             </dl>  
             <dl class="fmdl clearfix check_detail">
                 <dt>访谈结论：</dt>
                 <dd>
                     <div>
-                       <span>否决 &nbsp;</span>
+                       <span id="interviewResult">否决 &nbsp;</span>
                        <span>原因：投资方式未达成一致（如并购、财务投资，服务费等）</span>
                     </div>
                    
