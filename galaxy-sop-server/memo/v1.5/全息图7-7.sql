@@ -1,4 +1,4 @@
-/*团队-CEO情况-个人的核心能力是  */
+﻿/*团队-CEO情况-个人的核心能力是  */
 UPDATE `fx_db`.`information_title` SET `type`='13' WHERE `id`='1332';
 
 /*团队-核心团队能力匹配结论-该项目需要核心团队具有的能力  */
@@ -31,5 +31,22 @@ UPDATE `fx_db`.`information_title` SET `type`='7' WHERE `id`='1933';
 UPDATE `fx_db`.`information_title` SET `type`='12' WHERE `id`='1329';
 /* 团队-CEO情况-背景-是否毕业于一流名校 */
 UPDATE `fx_db`.`information_title` SET `type`='12' WHERE `id`='1330';
+
+/* 所有加其他内容的题 添加校验条件 */
+UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1332';
+
+UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1364';
+
+UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1365';
+UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1366';
+
+UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1427';
+
+
+UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1329';
+
+
+UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1330';
+
 
 
