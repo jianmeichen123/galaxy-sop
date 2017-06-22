@@ -29,3 +29,16 @@ CREATE TABLE `joint_delivery` (
   `update_time` bigint(30) DEFAULT NULL COMMENT '修改日期',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+ALTER TABLE `fx_db`.`platform_index_config`   
+  ADD COLUMN `resource_code` VARCHAR(100) NULL  COMMENT '资源标识' AFTER `created_time`;
+
+UPDATE platform_index_config,platform_resource SET platform_index_config.resource_code = platform_resource.resource_mark 
+WHERE platform_resource.id = platform_index_config.resource_id;
+
+ALTER TABLE `power`.`resource`   
+  CHANGE `resource_type` `resource_type` INT(11) NULL  COMMENT '资源类型1-菜单;2-页面;3-操作;4-其他(div等);5-桌面模块';
+  
+ 
+
