@@ -206,7 +206,7 @@ console.log('script');
     <!--内容显示区域-->
  	<div class="ritmin clearfix ritmin-index">
  	<c:forEach var="module" items="${modules }">
- 		<div class="floatBox fl" data-url="${module.resourceUrl }"></div>
+ 		<div class="floatBox fl" data-url="${module.contentUrl }"></div>
  	</c:forEach>
   </div>
   
