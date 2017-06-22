@@ -193,6 +193,9 @@ $(function(){
 					if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 						jointDeliveryEdit(projectInfo.jointDeliveryList);
 					}
+				}else{
+					$("input[name='investForm']").removeAttr("checked");
+					$(".institution").hide();
 				}
 				//投资形式合投，领头编辑页面投资列表处理
 				
