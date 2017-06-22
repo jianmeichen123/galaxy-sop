@@ -58,13 +58,16 @@ $(function(){
 			//投资形式切换
 						$(".new_table .mar_left>input").change(function(){
 							var val=$(this).val();
+							$(".institutionBtn span").css('margin-top','0');
 							if(val=="financeMode:0"){
 								$(".institution").hide();
 							}else if(val=="financeMode:1"){
 								$(".institution").show();
+								$(".institution .empty_block_inputs").hide();
 								$(".institution .new_color_gray").text("领投机构：");
 							}else{
 								$(".institution").show();
+								$(".institution .empty_block_inputs").hide();
 								$(".institution .new_color_gray").text("合投机构：");
 							}
 						});
@@ -735,7 +738,7 @@ function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
-	        +'<input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName" maxLength="50"/><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\\d?(\\.\\d{1,2})?|0\\.[1-9]0?|0\\.\\d[1-9])$" msg="<font color=red>*</font>0到100之间的两位小数"/>'
+	        +'<input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName" maxLength="50"/><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount" allowNULL="yes" valType="LIMIT_6_NUMBER" msg="<font color=red>*</font>支持0-1000000的四位小数"/><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\\d?(\\.\\d{1,2})?|0\\.[1-9]0?|0\\.\\d[1-9])$" msg="<font color=red>*</font>0到100之间的两位小数"/>'
 	          +'<span class="del">删除</span>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow);

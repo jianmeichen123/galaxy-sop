@@ -480,8 +480,8 @@
 	}
 	//新增添加合投机构
 	function addInputsRow(){
-	     var inputsRow='<div class="block_inputs">'
-	          +'<input placeholder="填写机构名称" class="name" name="deliveryName" maxLength="50"/><input placeholder="填写投资金额（万元）" name="deliveryAmount" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/><input placeholder="填写占股比例（%）" name="deliveryShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\\d?(\\.\\d{1,2})?|0\\.[1-9]0?|0\\.\\d[1-9])$" msg="<font color=red>*</font>0到100之间的两位小数"/>'
+	     var inputsRow='<div class="block_inputs empty_block_inputs">'
+	          +'<input placeholder="填写机构名称" class="name" name="deliveryName" maxLength="50"/><input placeholder="填写投资金额（万元）" name="deliveryAmount" allowNULL="yes" valType="LIMIT_6_NUMBER" msg="<font color=red>*</font>支持0-1000000的四位小数"/><input placeholder="填写占股比例（%）" name="deliveryShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\\d?(\\.\\d{1,2})?|0\\.[1-9]0?|0\\.\\d[1-9])$" msg="<font color=red>*</font>0到100之间的两位小数"/>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
