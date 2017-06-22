@@ -66,6 +66,8 @@ function notesInfoEdit(selectRowId,type){
 					type=="e" ? $("#viewDate").val(res[0].viewDateStr) : $("#viewDate").text(res[0].viewDateStr);
 					type=="e" ? $("#viewTarget").val(res[0].viewTarget) : $("#viewTarget").text(res[0].viewTarget);
 					type=="e" ? $("#reasonOther").val(res[0].reasonOther) : $("#reasonOther").text(res[0].reasonOther);
+					type=="e" ? $("#viewNotes").val(res[0].viewNotes) : $("#viewNotes").html(res[0].viewNotes);
+					
 				}
 			});
 		}
@@ -116,7 +118,7 @@ function getInterViewParams(hasProid,projectId,
 	}
 	var viewDateStr = $("#"+viewDateId).val();
 	var viewTarget = $.trim($("#"+viewTargetId).val());
-	var viewNotes = $.trim($("#"+viewNotesId).val());
+	var viewNotes = $.trim(CKEDITOR.instances.viewNotes.getData());
 	$('#con_id input[name=interviewResult]:checked').val()
 	
 	if(projectId == null || projectId == ""){

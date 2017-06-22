@@ -28,7 +28,7 @@
                 <dl class="fmdl clearfix">
                     <dt>访谈纪要：</dt>
                     <dd>
-                        <blockquote>
+                        <blockquote id="viewNotes">
                         	Harvey说他跟着乐队巡演过几百次，这次是最特别的一次。“我们在沙漠里！我可以感受到沙子。”说着，他光着脚扬起了脚边的沙子。他说他在成都生活，这是第一次来到怀来这个中国北方城市。“你看周围还有起伏的山脉。”他感觉这里非常棒，舞台体验也非常棒。“他是乐队的VJ（Visual Jockey），负责播放和制作Visual，“18:30有我们的演出，一会儿过来听音乐吧！”
                         </blockquote> 
                     </dd>
