@@ -138,7 +138,7 @@ $(function(){
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
 			//详情展示投资形式处理
-			$("#financeMode").text(projectInfo.fModeRemark);
+			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"--":(projectInfo.fModeRemark==0?"--":projectInfo.fModeRemark));
 			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 				console.log(projectInfo.financeMode);
 				jointDeliveryList(projectInfo.jointDeliveryList);
