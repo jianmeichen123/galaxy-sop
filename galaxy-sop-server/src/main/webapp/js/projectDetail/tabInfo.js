@@ -145,6 +145,13 @@ $(function(){
 			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 				console.log(projectInfo.financeMode);
 				jointDeliveryList(projectInfo.jointDeliveryList);
+				//列表无数据时不显示表格
+				var trLen=$("#jointDelivery").find("tr:gt(0)").length;
+				if(trLen==0){
+					$("#jointDelivery").hide();
+				}else{
+					$("#jointDelivery").show();
+				}
 			}
 			var p;
 			var fs;
