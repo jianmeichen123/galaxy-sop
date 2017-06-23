@@ -63,11 +63,11 @@ $(function(){
 								$(".institution").hide();
 							}else if(val=="financeMode:1"){
 								$(".institution").show();
-								$(".institution .empty_block_inputs").hide();
+								$(".institution .empty_block_inputs").remove();
 								$(".institution .new_color_gray").text("领投机构：");
 							}else{
 								$(".institution").show();
-								$(".institution .empty_block_inputs").hide();
+								$(".institution .empty_block_inputs").remove();
 								$(".institution .new_color_gray").text("合投机构：");
 							}
 						});
