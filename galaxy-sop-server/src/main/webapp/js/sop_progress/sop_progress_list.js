@@ -13,18 +13,23 @@
 	}
 	//阶段加载
 	function goToProgress(){
-		progressBtnToggle()					
+		progressBtnToggle()		
 		if(i==1){
+			interviewList();
 			$(".tabtitle h3").text("接触访谈");
-			//interviewList();
+			$("#add_button a").text("添加访谈记录");
 		}else if(i==2){
+			meetList("meetingType:1");
 			$(".tabtitle h3").text("内部评审");
-			//CEOlist();
+			$("#add_button a").text("添加内部评审");
 		}else if(i==3){
+			meetList("meetingType:2");
 			$(".tabtitle h3").text("CEO评审");
+			$("#add_button a").text("添加CEO评审");
 		}else if(i==4){
+			meetList("meetingType:3");
 			$(".tabtitle h3").text("立项会");
-			//含tab切换
+			$("#add_button a").text("添加立项会");
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
 		}else if(i==6){
@@ -33,7 +38,9 @@
 			$(".tabtitle h3").text("尽职调查");
 			//尽职调查  上传附件
 		}else if(i==8){
+			meetList("meetingType:4");
 			$(".tabtitle h3").text("投决会");
+			$("#add_button a").text("添加投决会");
 		}else if(i==9){
 			$(".tabtitle h3").text("投资协议");
 			//投资协议  上传附件

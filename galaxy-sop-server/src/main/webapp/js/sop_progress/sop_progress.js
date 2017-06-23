@@ -12,6 +12,7 @@ function  progress(id){
 }
 
 function interviewList(){
+	$('#projectProgress_1_table').bootstrapTable('destroy');
 	$('#projectProgress_1_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
@@ -24,6 +25,79 @@ function interviewList(){
 		idField : "id",
 		clickToSelect: true,
 	    search: false,
+	    columns: [
+                  {
+                      title: '访谈概要',
+                      field: 'viewinfo',
+                      valign: 'left',
+                      formatter:'intervierInfoFormat'
+                  },
+                  {
+                      title: '访谈纪要',
+                      field: 'viewNotes',
+                      valign: 'left',
+                      formatter:'tc_viewNotesFormat_noinfo'
+                  },
+                    {
+                        title: '操作',
+                        field: 'oper',
+                        valign: 'left',
+                        formatter:'viewOperFormat'
+                     }
+              ],
+	    onLoadSuccess:function(data){
+	    	if(data.pageList.total>0)
+	   		{
+	    		$.each($('#projectProgress_1_table tr'),function(){
+	    			var $this = $(this);
+	    			$this.find('td:last').addClass('limits_gray');
+	    			$this.find('td:last .edit').removeAttr('onclick');
+	    		});
+	   		}
+	    }
+	});
+}
+function meetList(type){
+	$('#projectProgress_1_table').bootstrapTable('destroy');
+	$("#meetingType").val(type);
+	$('#projectProgress_1_table').bootstrapTable({
+		url:Constants.sopEndpointURL+'/galaxy/progress/p/queryMeet',
+		queryParamsType: 'size|page', // undefined
+		pageSize:5,
+		pageList : [5, 10, 20 ],
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+		uniqueId: "id", 
+		idField : "id",
+		clickToSelect: true,
+	    search: false,
+	    columns: [
+                  {
+                      title: '会议概况',
+                      field: 'meetinfo',
+                      valign: 'left',
+                      formatter:'metcolumnFormat'
+                  },
+                  {
+                      title: '会议类型',
+                      field: 'meetingTypeStr',
+                      valign: 'left'
+                  },
+                  {
+                      title: '会议纪要',
+                      field: 'meetingNotes',
+                      valign: 'left',
+                      formatter:'tc_viewNotesFormat_noinfo'
+                  },
+                    {
+                        title: '操作',
+                        field: 'oper',
+                        valign: 'left',
+                        formatter:'viewOperFormat'
+                     }
+              ],
 	    onLoadSuccess:function(data){
 	    	if(data.pageList.total>0)
 	   		{

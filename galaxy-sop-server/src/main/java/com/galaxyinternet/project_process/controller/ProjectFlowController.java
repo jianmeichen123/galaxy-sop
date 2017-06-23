@@ -537,7 +537,73 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	
 	
 	
-	
+	/**
+	 * 内部评审、 CEO评审 、 立项会、投决会  阶段
+	 * 			查询个人项目下的会议记录
+	 * @param    
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/p/queryMeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecordBo> queryMeet(HttpServletRequest request,@RequestBody MeetingRecordBo query ) {
+		
+		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
+		
+		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			//角色校验
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){  //无限制，根据传参查询
+				//query.setUid(null);
+			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
+				query.setDepartId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){  //固定为其创建
+				query.setUid(user.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+				return responseBody;
+			}
+			
+			if(query.getProjectId()!=null){
+				List<Project> proList = null;
+				boolean checked = false;
+				if(roleIdList.contains(UserConstant.HHR)){   //部门下项目校验
+					Project  proQ = new Project();
+					proQ.setId(query.getProjectId());
+					proQ.setProjectDepartid(user.getDepartmentId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}else if(roleIdList.contains(UserConstant.TZJL)){  //个人下项目校验
+					Project  proQ = new Project();
+					proQ.setCreateUid(user.getId());
+					proQ.setId(query.getProjectId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}
+				if(checked){
+					if(proList==null || proList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+						return responseBody;
+					}
+				}
+			}
+			
+			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("queryInterviewPageList ",e);
+			}
+		}
+		
+		return responseBody;
+	}
 	
 
 	
