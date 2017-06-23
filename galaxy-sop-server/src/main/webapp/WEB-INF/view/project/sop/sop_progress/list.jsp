@@ -20,13 +20,15 @@
           <div class="tabcon">
           
          <!-- add button -->
-			 <div>
+			<div id="add_button">
 				<a href="<%=path%>/galaxy/progress/p1"  class="bluebtn add_list new_poppage">添加访谈记录</a>
 			</div>
 			<!-- 接触访谈信息 -->
 			<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" style="display:none; " >
 			<div class="bottom searchall clearfix">
-				<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
+				<input type="hidden" id="projectId" name="projectId" value=""> <!-- 项目id -->
+				<input type="hidden" id="meetingType" name="meetingType" value="">
+			 
 			</div>
 			</div>
 			<!-- table -->
@@ -34,13 +36,6 @@
 							data-url="<%=path%>/galaxy/progress/p1/queryInterview" 
 							data-id-field="id" 
 							data-toolbar="#projectProgress_1_table_custom-toolbar">
-				<thead>
-					<tr>
-						<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1 th_no1">访谈概况</th>
-						<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈纪要</th>
-						<th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th>
-					</tr>
-				</thead>
 			</table>
 			<!-- 文档没有就移除 -->			
 			<ul class="file_list clearfix">
