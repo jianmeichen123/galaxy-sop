@@ -504,6 +504,7 @@
 	})
 	//删除
 	$(document).on('click','.block_inputs .del',function(){
+		$(this).siblings("input").poshytip('hide');
 		$(this).closest(".block_inputs").remove();
 		var inputsLength=$(".block_inputs").length;
 		if(inputsLength <10){
