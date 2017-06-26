@@ -735,6 +735,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	@Transactional
 	public int updateBaseById(Project project) {
+		JointDelivery jointNull=new JointDelivery();
+		jointNull.setProjectId(project.getId());
+		jointDeliveryDao.delete(jointNull);
 		if(null!=project.getJointDeliveryList()&&!project.getJointDeliveryList().isEmpty()){
 			List<JointDelivery> jointDeliverylist=project.getJointDeliveryList();
 			for(int i=0;i<jointDeliverylist.size();i++){
