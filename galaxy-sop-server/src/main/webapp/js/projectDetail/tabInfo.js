@@ -204,6 +204,7 @@ $(function(){
 					}
 				}else{
 					$("input[name='investForm']").removeAttr("checked");
+					$(".inputsForm").find(".block_inputs").remove();
 					$(".institution").hide();
 				}
 				//投资形式合投，领头编辑页面投资列表处理
