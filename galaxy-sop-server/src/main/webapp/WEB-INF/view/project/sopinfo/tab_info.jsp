@@ -12,7 +12,7 @@
 .institution input.name{width:228px;}
 .institution .del{color:#4a97da;font-family:"宋体";font-size:12px;cursor:pointer;}
 .institution .block_inputs{margin-bottom:10px;}
-label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#333}
+label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#333;display:inline-block !important}
 </style>
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
