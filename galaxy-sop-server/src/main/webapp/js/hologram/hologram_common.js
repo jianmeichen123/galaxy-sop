@@ -255,7 +255,6 @@ function buildResults(sec,title,readonly)
 		{
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
 			var n = title.resultList[0];
-
 			if (n.contentDescribe1)
 			{
 				if(readonly == true)
@@ -267,7 +266,6 @@ function buildResults(sec,title,readonly)
 					$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
 				}
 			}
-
 			if(n.contentChoose)
 			{
 				if(readonly == true)
@@ -346,6 +344,13 @@ function buildResults(sec,title,readonly)
 					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
 				}
 			}else{
+				var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
+				var dd = dt.siblings();
+				var last_id = dd.find('li.check_label:last').attr('data-id');
+				var inputText = dd.find('input[type="text"]:last');
+				if ( title.resultList[0].contentChoose == last_id ){
+					inputText.attr('disabled',false);
+				}
 				$.each(title.resultList,function(i,n){
 					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 					if(n.contentDescribe1){  
