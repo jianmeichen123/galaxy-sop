@@ -21,7 +21,7 @@
           
          <!-- add button -->
 			<div id="add_button">
-				<a href="<%=path%>/galaxy/progress/p1"  class="bluebtn add_list new_poppage">添加访谈记录</a>
+				<a href="<%=path%>/galaxy/progress/p1" id="pop_button" data-type="" data-name="添加访谈记录" class="bluebtn add_list new_poppage">添加访谈记录</a>
 			</div>
 			<!-- 接触访谈信息 -->
 			<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" style="display:none; " >

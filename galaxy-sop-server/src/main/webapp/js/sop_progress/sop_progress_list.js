@@ -18,18 +18,29 @@
 			interviewList();
 			$(".tabtitle h3").text("接触访谈");
 			$("#add_button a").text("添加访谈记录");
+			$("#pop_button").attr("data-name","添加访谈记录");
+			$("#pop_button").attr("data-type","");
 		}else if(i==2){
 			meetList("meetingType:1");
 			$(".tabtitle h3").text("内部评审");
 			$("#add_button a").text("添加内部评审");
+			$("#meetingType").val("meetingType:1");
+			$("#pop_button").attr("data-name","添加内部评审");
+			$("#pop_button").attr("data-type","meetingType:1");
 		}else if(i==3){
 			meetList("meetingType:2");
 			$(".tabtitle h3").text("CEO评审");
 			$("#add_button a").text("添加CEO评审");
+			$("#meetingType").val("meetingType:2");
+			$("#pop_button").attr("data-name","添加CEO评审");
+			$("#pop_button").attr("data-type","meetingType:2");
 		}else if(i==4){
 			meetList("meetingType:3");
 			$(".tabtitle h3").text("立项会");
 			$("#add_button a").text("添加立项会");
+			$("#meetingType").val("meetingType:3");
+			$("#pop_button").attr("data-name","添加立项会");
+			$("#pop_button").attr("data-type","meetingType:3");
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
 		}else if(i==6){
@@ -41,6 +52,9 @@
 			meetList("meetingType:4");
 			$(".tabtitle h3").text("投决会");
 			$("#add_button a").text("添加投决会");
+			$("#meetingType").val("meetingType:4");
+			$("#pop_button").attr("data-name","添加投决会");
+			$("#pop_button").attr("data-type","meetingType:4");
 		}else if(i==9){
 			$(".tabtitle h3").text("投资协议");
 			//投资协议  上传附件
@@ -124,12 +138,15 @@ $(".tab_1").click(function(event) {
 $(".new_poppage").on("click",function(){ 
 	var $self = $(this);
 	var _url = $self.attr("href");
-	var _name=$self.attr("data-name")
+	var _name=$self.attr("data-name");
+	var _type = $self.attr("data-type");
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
 			$("#popup_name").text(_name);
+			alert(_type);
+			/*
 			$("[data-btn='add_rzzx']").on("click",function(){ 
 				var $self = $(this);
 				var _url = $self.attr("href");
@@ -142,7 +159,7 @@ $(".new_poppage").on("click",function(){
 					}//模版反回成功执行	
 				});
 				return false;
-			});
+			});*/
 			
 		}//模版反回成功执行	
 	});

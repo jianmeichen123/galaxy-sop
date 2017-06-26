@@ -21,7 +21,8 @@
     <div class="myprojecttc new_poptxt myproject_add">
         <div class="tabtitle edit">
             <!--编辑状态显示  编辑访谈记录  -->
-            <h3>添加访谈记录</h3>
+            <h3 id="popup_name">添加访谈记录</h3>
+            <input type="text" name="meetingType" id="meetingType"/>
         </div>
         <div class="tab_con">
         <!-- time+interviewee-->
@@ -100,12 +101,17 @@ var _this={};
 _this.id="interviewAdd";
 //初始化文件上传
 //plupload 上传对象初始化, 绑定保存saveViewFile
+var meetingType = $("#meetingType").val();
+var url = Constants.sopEndpointURL + "/galaxy/progress/p1/add";
+if(meetingType != ""){
+	url = Constants.sopEndpointURL + "/galaxy/progress/p2/add";
+}
 initViewUpload();
 function initViewUpload() {
 	var viewuploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#select_btn")[0], 
-		url : Constants.sopEndpointURL + "/galaxy/progress/p1/add",
+		url : url,
 		multipart:true,
 		multi_selection:false,
 		filters : {
@@ -118,26 +124,43 @@ function initViewUpload() {
 			PostInit: function(up) {
 				$("#save_interview").click(function(){
 					$("#save_interview").addClass("disabled");
+					
 					var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
-					if(res == false || res == "false"){
-						up.stop();
-						$("#save_interview").removeClass("disabled");
-						return;
-					}
+						if(res == false || res == "false"){
+							up.stop();
+							$("#save_interview").removeClass("disabled");
+							return;
+						}
 					var inResult = $("input[name='interviewResult']:checked").val();
 					var resultReason=$("#resultReason").find("option:selected").text();
-					
-					res.stage = "projectProgress:1";
-					res.pid = projectId;
-					res.createDate = res.viewDateStr;
-					res.content = res.viewNotes;
-					res.target = res.viewTarget;
-					res.interviewResult = inResult;
+					switch (meetingType) {
+					   
+					   case  "":
+							res.stage = "projectProgress:1";
+							res.pid = projectId;
+							res.createDate = res.viewDateStr;
+							res.content = res.viewNotes;
+							res.target = res.viewTarget;
+							res.interviewResult = inResult;
+					   default:
+							if(meetingType == 'meetingType:1'){
+								res.stage = "projectProgress:2";
+							}else if(meetingType == 'meetingType:2'){
+								res.stage = "projectProgress:3";
+							}else if(meetingType == 'meetingType:3'){
+								res.stage = "projectProgress:4";
+							}else if(meetingType == 'meetingType:4'){
+								res.stage = "projectProgress:7";
+							}
+							res.pid = projectId;
+							res.createDate = res.viewDateStr;
+							res.result=inResult;
+							res.content = res.viewsNotes;
+							res.meetingType = meetingType;
+					}
 					res.reasonOther = $("#reasonOther").val();
 					res.resultReason = resultReason;
 					res.otherReason = $("input[name='reasonOther']").val();
-					
-					console.log("@@@@@@@@@@@"+JSON.stringify(res));
 					
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
