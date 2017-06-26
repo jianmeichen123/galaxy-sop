@@ -2892,5 +2892,5 @@ color:#999999;}
 .institution input.name{width:228px;}
 .institution .del{color:#4a97da;font-family:"宋体";font-size:12px;cursor:pointer;}
 .institution .block_inputs{margin-bottom:10px;}
-label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#999060;background:#fff9c9;border:1px solid #c7bf93;padding:3px 8px;border-radius:4px;display:inline-block !important}
+label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#999060;background:#fff9c9;border-radius:4px;display:inline-block !important}
 label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;background:url(../img/error_bg.png) 0 0 no-repeat}
