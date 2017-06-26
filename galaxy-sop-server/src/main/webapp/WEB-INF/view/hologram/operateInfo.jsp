@@ -11,6 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
@@ -173,6 +175,10 @@ getData();
 		var data = {
 			projectId : projectInfo.id
 		};
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
 		//多选不选择的时候：
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
@@ -236,10 +242,6 @@ getData();
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
-		if(!$("#b_"+id_code).validate().form())
-		{
-			return;
-		}
 		$("body").showLoading();
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传
