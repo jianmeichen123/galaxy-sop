@@ -77,7 +77,7 @@ $(function(){
 			$('.'+close+'_center').show();
 			$('.bj_hui_on').hide();
 			$('.tip-yellowsimple').hide();
-			$("label.error").hide();
+			$("label.error").remove();
 		})
 		
 		//项目名称截断
