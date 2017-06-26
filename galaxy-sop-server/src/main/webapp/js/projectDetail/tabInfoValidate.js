@@ -70,8 +70,9 @@
 				var prevEleWid=$(prevEle).width();
 				$(this).parent().css("position","relative");
 				$(this).css({"position":"absolute","left":prevEleWid+15,"white-space":"nowrap","background":"#fff9c9","border":"1px solid #c7bf93","padding":"3px 6px","border-radius":"4px","z-index":"2"})
+			}else{
+				$(this).css({"padding":"0","border":"0"})
 			}
-			
 		})
 	}
 	

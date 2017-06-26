@@ -585,9 +585,9 @@ $(function(){
 							 "deliveryShareRatio":"",
 						    };
 					var jointDelivery=jointDeliverys[i];
-				        obj.deliveryName=jointDelivery.childNodes[0].value;
-				        obj.deliveryAmount=jointDelivery.childNodes[1].value;
-				        obj.deliveryShareRatio=jointDelivery.childNodes[2].value;
+				        obj.deliveryName=jointDelivery.childNodes[0].childNodes[0].value;
+				        obj.deliveryAmount=jointDelivery.childNodes[1].childNodes[0].value;
+				        obj.deliveryShareRatio=jointDelivery.childNodes[2].childNodes[0].value;
 				        arr[i]=obj;
 				}
 			}
