@@ -168,9 +168,11 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
-			field.val(field.val().replace(/ /g,"&nbsp;"));
 			var typ = field.data('type');
 			var name = field.data('name');
+			if(typ == '5'){
+				field.val(field.val().replace(/ /g,"&nbsp;"));
+			}
 			var value = field.val().replace(/\n/g,'<br/>');
 			var infoMode = {
 				titleId : field.data('titleId'),
@@ -178,6 +180,8 @@ $(function() {
 			};
 			
 			if(typ == '12' || typ == '13' ){
+				var value = field.val();
+				console.log("值"+value)
 				var disabled = field.attr("disabled");
 				if(disabled && (disabled == true || disabled == "disabled")){  //其它未选中
 					infoMode.remark1 = null;
