@@ -27,16 +27,18 @@ function interviewList(){
 	    search: false,
 	    columns: [
                   {
-                      title: '访谈概要',
-                      field: 'viewinfo',
+                      title: '时间',
+                      field: 'viewDateStr',
                       valign: 'left',
-                      formatter:'intervierInfoFormat'
                   },
                   {
-                      title: '访谈纪要',
-                      field: 'viewNotes',
+                      title: '结论',
+                      field: 'interviewResult',
                       valign: 'left',
-                      formatter:'tc_viewNotesFormat_noinfo'
+                  }, {
+                      title: '结论原因',
+                      field: 'resultReason',
+                      valign: 'left',
                   },
                     {
                         title: '操作',
