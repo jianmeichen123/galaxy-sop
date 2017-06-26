@@ -12,6 +12,7 @@
 .institution input.name{width:228px;}
 .institution .del{color:#4a97da;font-family:"宋体";font-size:12px;cursor:pointer;}
 .institution .block_inputs{margin-bottom:10px;}
+label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#333}
 </style>
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
@@ -106,6 +107,7 @@
 	<!-- 编辑页面 -->
 	<div class="basic_on">
 		<div class="title_bj_tzjl">编辑项目基本信息</div>
+		<form id="basicForm" onsubmit="return false;">
 		<div class="compile_on_center" id="updateProjectInfo">
 	        <div class="compile_on_right">
 	            <span class="pubbtn bluebtn"  data-on="save">保存</span>
@@ -116,7 +118,7 @@
 			</div>  -->
 	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" maxlength="24"  id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
+	                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" maxlength="24"  id="project_name_edit" name="projectName" required data-msg-required="<font color=red>*</font>项目名称不能为空"></input></span></td>
 	                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
 	            </tr>
 	            <tr>
@@ -124,13 +126,13 @@
 	                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit"></span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" valType="required" msg="<font color=red>*</font>行业归属不能为空" >
+	                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font>行业归属不能为空">
 	                	<option value="">--请选择--</option>
 	                </select></span></td>
 	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
 	            </tr>
 	            <tr>
-                             <td><span class="new_color_gray">本轮融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" valType="required" msg="<font color=red>*</font>本轮融资轮次不能为空" ></select></span></td>
+                             <td><span class="new_color_gray">本轮融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font>本轮融资轮次不能为空" ></select></span></td>
                               <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                          </tr>
                            <tr>
@@ -138,7 +140,7 @@
                              <span class="mar_left">
                              	<div class="mar_left"><input type="radio" name="faFlag" checked="checked"  value="0" onclick="setText('reset')" id="faFlag">否 </div>
                                  <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                 <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  name="faName" id="faNameEdit" style="display:none" allowNULL="no" valType="OTHER" regString="^[^\s](.{0,19})$" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/></div>
+                                 <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  name="faName" id="faNameEdit" style="display:none" required data-rule-faname="true" data-msg-required="<font color=red>*</font>不能以空格开头，字符最大长度为20" data-msg-faname="<font color=red>*</font>不能以空格开头，字符最大长度为20"/></div>
                              </span></td>
                            </tr>
 
@@ -156,11 +158,11 @@
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>　&nbsp;万元</span></td>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font>支持四位小数"/>　&nbsp;万元</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
+	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
 	            </tr>
 	              </table>
 	        <!--实际投资-->
@@ -170,12 +172,12 @@
 	        </div>  
 	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-finalValuations="true" data-msg-finalValuations="<font color=red>*</font>支持四位小数"/>&nbsp;　万元</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;　%</span></td>
-	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" allowNULL="yes" valType="OTHER" regString="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font>0到5之间的四位小数"/>&nbsp;　%</span></td>
 	     	
 	     		</tr>
 	     		<tr>
@@ -196,6 +198,7 @@
 	        	</div>
 	        </div>
 	    </div>
+	    </form>
 	</div>
 </div>
 <!--商业计划书-->
@@ -479,17 +482,18 @@
 		$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
 	}
 	//新增添加合投机构
-	function addInputsRow(){
+	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs">'
-	          +'<input placeholder="填写机构名称" class="name" name="deliveryName" valType="required" maxLength="50" msg="<font color=red>*</font>必填，且不超过50字"/><input placeholder="填写投资金额（万元）" name="deliveryAmount" allowNULL="no" valType="LIMIT_6_NUMBER" msg="<font color=red>*</font>支持0-1000000的四位小数"/><input placeholder="填写占股比例（%）" name="deliveryShareRatio" allowNULL="no" valType="OTHER" regString="^([1-9]\\d?(\\.\\d{1,2})?|0\\.[1-9]0?|0\\.\\d[1-9])$" msg="<font color=red>*</font>0到100之间的两位小数"/>'
+	          +'<span><input placeholder="填写机构名称" class="name" name="deliveryName_'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字"/></span><span><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0到100之间的两位小数" data-msg-share="<font color=red>*</font>0到100之间的两位小数"/></span>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
-	  	 $.getScript("<%=path %>/js/validate/lib/jq.validate.js");  //动态添加表单验证插件
 	  };
 	  //新增
+	  var i=0;
 	$(".institutionBtn span").click(function(){
-		addInputsRow();
+		i++;
+		addInputsRow(i-1);
 		var inputsLength=$(".block_inputs").length;
 		if(inputsLength>0){
 			$(this).css("margin-top","50px");
@@ -501,6 +505,12 @@
 		}else{
 			$(this).show()
 		}
+		//新增验证样式调整
+		$.each($("#basicForm input"),function(){
+			$(this).on("blur",function(){
+				labelPosition();
+			})
+		})
 	})
 	//删除
 	$(document).on('click','.block_inputs .del',function(){
@@ -520,4 +530,6 @@
 	})
 </script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/jquery.validate.min.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/projectDetail/tabInfoValidate.js'></script>

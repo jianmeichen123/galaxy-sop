@@ -227,7 +227,7 @@ $(function(){
 			    	sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
 			    	
-			    	initDialogVal();
+			    	//initDialogVal();
 		    	}
 			
 			})
@@ -528,7 +528,11 @@ $(function(){
 		$("[data-on='save']").click(function(){
 			var data=getUpdateData();
 		
-				if(beforeSubmitById("updateProjectInfo")){
+			if(!$("#basicForm").validate().form())
+			{
+				labelPosition();
+				return;
+			}
 					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 						//console.log(data1);
 						if(data2.result.status=="OK"){
@@ -541,7 +545,7 @@ $(function(){
 //						window.location.reload();
 						
 					});
-				}
+				
 			
 			//typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0
 			
@@ -743,7 +747,7 @@ function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
-	        +'<input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName" maxLength="50"/><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount" allowNULL="yes" valType="LIMIT_6_NUMBER" msg="<font color=red>*</font>支持0-1000000的四位小数"/><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9]\\d?(\\.\\d{1,2})?|0\\.[1-9]0?|0\\.\\d[1-9])$" msg="<font color=red>*</font>0到100之间的两位小数"/>'
+	        +'<span><input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font>必填，且不超过50字"/></span><span><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font>0到100之间的两位小数" data-msg-share="<font color=red>*</font>0到100之间的两位小数"/></span>'
 	          +'<span class="del">删除</span>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow);
@@ -755,5 +759,11 @@ function jointDeliveryEdit(list){
 	}else{
 		$(".institutionBtn span").hide()
 	}
+	//编辑验证样式调整
+	$.each($("#basicForm input"),function(){
+		$(this).on("blur",function(){
+			labelPosition();
+		})
+	})
 }
 	
