@@ -207,6 +207,10 @@ $(function(){
 					$(".inputsForm").find(".block_inputs").remove();
 					$(".institution").hide();
 				}
+				//详情页无列表，取消再编辑，取消上一步操作
+				if($("#jointDelivery").is(":hidden")){
+					$(".institutionBtn span").css("margin-top","0")
+				}
 				//投资形式合投，领头编辑页面投资列表处理
 				
 				
