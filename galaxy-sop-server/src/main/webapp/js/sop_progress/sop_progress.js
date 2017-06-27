@@ -172,7 +172,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].meetingResult+"']").attr("checked",true) : $("#interviewResult").html(result);
 					}else{
-						alert(res[0].interviewResult);
 						time = res[0].viewDateStr;
 						target = res[0].viewTarget;
 						content = res[0].viewNotes;
@@ -188,7 +187,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
-					var other=reasonOther==null?"":"("+reasonOther+")";
+					var other=reasonOther==null||reasonOther==""?"":"("+reasonOther+")";
 					type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					$("#recordId").val(recordId);
 					if(res[0].fileId){
