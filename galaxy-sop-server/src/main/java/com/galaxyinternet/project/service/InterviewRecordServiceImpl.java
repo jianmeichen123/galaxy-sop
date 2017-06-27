@@ -25,6 +25,7 @@ import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.InterviewRecordService;
 
 
@@ -44,8 +45,10 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	@Autowired
 	private ScheduleContactsDao scheduleContactsDao;
 	
+
+	
 	@Autowired
-	private Cache cache;
+	private DictService dictService;
 	
 	
 	@Override
@@ -109,7 +112,7 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		List<InterviewRecord> viewList = null;
 		Long total = null;
 		Map<Long,String> proIdNameMap = new HashMap<Long,String>();
-		
+
 		if(query.getProjectId()!=null){   // 项目tab查询
 			Project po = projectDao.selectById(query.getProjectId());
 			proIdNameMap.put(query.getProjectId(), po.getProjectName());
@@ -155,8 +158,22 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				bo.setViewNotes(ib.getViewNotes());
 				bo.setCreatedId(ib.getCreatedId());
 				bo.setInterviewResult(DictEnum.meetingResult.getNameByCode(ib.getInterviewResult()));
-				bo.setResultReason();
+				
 				bo.setReasonOther(ib.getReasonOther());
+				Map<String,Dict> dictMap = new HashMap<String,Dict>();
+				String resultReson="";
+				if(null!=ib.getInterviewResult()&&ib.getInterviewResult().equals("meetingResult:2")){
+					dictMap=dictMap("meetingUndeterminedReason");
+				}else if(null!=ib.getInterviewResult()&&ib.getInterviewResult().equals("meetingResult:3")){
+					dictMap=dictMap("meetingVetoReason");
+				}
+				if(null!=dictMap&&null!=ib.getResultReason()&&!"".equals(ib.getResultReason())){
+					Dict dict=dictMap.get(ib.getResultReason());
+					if(null!=dict){
+						resultReson=dict.getName();	
+					}
+				}
+				bo.setResultReason(resultReson);
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){
@@ -199,5 +216,13 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		return interviewRecordDao.selectCount(query);
 	}
 	
+	public Map<String,Dict> dictMap(String parentCOde){
+		Map<String,Dict> map=new HashMap<String,Dict>();
+		List<Dict> selectByParentCode = dictService.selectByParentCode(parentCOde);
+		for(Dict dict:selectByParentCode){
+			map.put(dict.getCode(), dict);
+		}
+		return map;
+	}
 	
 }

@@ -34,6 +34,8 @@ public class ProjectQuery extends ViewQuery{
 	private String target;
 	//访谈结果
 	private String interviewResult;
+	
+	private Long recordId;
 	public String getInterviewResult() {
 		return interviewResult;
 	}
@@ -236,6 +238,14 @@ public class ProjectQuery extends ViewQuery{
 	public void setServiceCharge(Double serviceCharge) {
 		this.serviceCharge = serviceCharge;
 	}
+	public Long getRecordId() {
+		return recordId;
+	}
+	public void setRecordId(Long recordId) {
+		this.recordId = recordId;
+	}
+	
+	
 	
 	
 }

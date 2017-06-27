@@ -28,6 +28,7 @@
         <!-- time+interviewee-->
          <!-- 编辑状态下 title改成 编辑访谈记录  移除INPUT  dd填入内容-->
             <div class="clearfix ">
+            <input type="hidden" id="recordId">
                 <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd>
@@ -175,7 +176,11 @@ function initViewUpload() {
 					}
 					res.resultReason = resultReason;
 					res.reasonOther = resultReasonOther;
-	
+					//该字段判断是新增还是编辑的保存操作
+	                var recordId=$("#recordId").val();
+					if(null!=recordId&&recordId!="undefined"){
+						res.recordId=recordId;
+					}
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();

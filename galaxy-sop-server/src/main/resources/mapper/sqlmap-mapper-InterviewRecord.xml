@@ -115,7 +115,7 @@
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 	       <if test="createdId != null" > created_id = #{createdId,jdbcType=BIGINT}, </if>
 	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT}, </if>
-	    <if test="interviewResult != null" > interview_result = #{updatedTime,jdbcType=BIGINT}, </if>
+	       <if test="interviewResult != null" > interview_result = #{updatedTime,jdbcType=BIGINT}, </if>
 		    <if test="resultReason != null" > result_reason = #{updatedTime,jdbcType=BIGINT}, </if>
 		    <if test="reasonOther != null" > reason_other = #{updatedTime,jdbcType=BIGINT} </if>
 	       
@@ -150,9 +150,9 @@
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 	      <if test="createdId != null" > created_id= #{createdId,jdbcType=BIGINT}, </if>
 	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT},</if>
-	       <if test="interviewResult != null" > interview_result = #{updatedTime,jdbcType=BIGINT}, </if>
-		    <if test="resultReason != null" > result_reason = #{updatedTime,jdbcType=BIGINT}, </if>
-		    <if test="reasonOther != null" > reason_other = #{updatedTime,jdbcType=BIGINT} </if>
+	       <if test="interviewResult != null" > interview_result = #{interviewResult,jdbcType=BIGINT}, </if>
+		    <if test="resultReason != null" > result_reason = #{resultReason,jdbcType=BIGINT}, </if>
+		    <if test="reasonOther != null" > reason_other = #{reasonOther,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
 	</update>

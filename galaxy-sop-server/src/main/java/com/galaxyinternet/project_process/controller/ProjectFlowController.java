@@ -298,8 +298,19 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			ir.setReasonOther(p.getReasonOther());
 			ir.setCreatedId(project.getCreateUid());
 			ir.setCreatedTime((new Date()).getTime());
-			interviewRecordService.insert(ir);
-			SopResult r = new SopResult(Status.OK,null,"添加访谈纪要成功!",UrlNumber.one,MessageHandlerInterceptor.add_interview_type);
+			String message="";
+			if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
+				ir.setId(p.getRecordId());
+				int updateByIdSelective = interviewRecordService.updateById(ir);
+				if(updateByIdSelective>0){
+					message="编辑访谈记录成功";
+				}
+				
+			}else{
+				interviewRecordService.insert(ir);	
+				message="添加访谈记录成功";
+			}
+			SopResult r = new SopResult(Status.OK,null,message,UrlNumber.one,MessageHandlerInterceptor.add_interview_type);
 			// 记录操作日志
 			ControllerUtils.setRequestParamsForMessageTip(request,
 					project.getProjectName(), project.getId(),

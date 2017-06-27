@@ -163,6 +163,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					var result;
 					var resultReason;
 					var reasonOther;
+					var recordId;
 					if(meetingType){
 						time = res[0].meetingDateStr;
 						content = res[0].meetingNotes;
@@ -177,11 +178,13 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						resultReason = res[0].resultReason;
 						reasonOther = res[0].reasonOther;
 					}
+					recordId= res[0].id;
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
 					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
+					$("#recordId").val(recordId);
 				    if(res[0].fileId){
 						type=="e" ? '' : $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 					}
