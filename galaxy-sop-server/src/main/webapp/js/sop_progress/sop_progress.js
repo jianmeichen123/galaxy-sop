@@ -37,7 +37,7 @@ function interviewList(){
                       valign: 'left',
                   }, {
                       title: '结论原因',
-                      field: 'resultReason',
+                      field: 'resultReasonStr',
                       valign: 'left',
                   },
                     {
@@ -164,11 +164,12 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					var resultReason;
 					var reasonOther;
 					var recordId;
+					recordId= res[0].id;
 					if(meetingType){
 						time = res[0].meetingDateStr;
 						content = res[0].meetingNotes;
 						result = res[0].meetingResultStr;
-						resultReason = res[0].resultReason;
+						resultReason = res[0].resultReasonStr;
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].meetingResult+"']").attr("checked",true) : $("#interviewResult").html(result);
 					}else{
@@ -176,23 +177,36 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						target = res[0].viewTarget;
 						content = res[0].viewNotes;
 						result = res[0].interviewResultStr;
-						resultReason = res[0].resultReason;
+						resultReason = res[0].resultReasonStr;
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].interviewResult+"']").attr("checked",true) : $("#interviewResult").html(result);
 						
 					}
-					   recordId= res[0].id;
+					$("#recordId").val(recordId);
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
 					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
+					var reason=res[0].resultReason;
+					//结论原因回显
+	                 switch(res[0].interviewResult){
+	                 case "meetingResult:1":
+	                	 break;
+	                 case "meetingResult:2":
+	                	 $("select[name='meetingUndeterminedReason']").find("option[value='"+reason+"']").attr("selected",true)
+	                	 break;
+	                 case "meetingResult:3":
+	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
+	                	 break;
+	                 default:
+	                 }
 					var other=reasonOther==null||reasonOther==""?"":"("+reasonOther+")";
 					type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
-					$("#recordId").val(recordId);
 					if(res[0].fileId){
 						type=="e" ? '' : $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 					}
+					
 				}
 			});
 		}

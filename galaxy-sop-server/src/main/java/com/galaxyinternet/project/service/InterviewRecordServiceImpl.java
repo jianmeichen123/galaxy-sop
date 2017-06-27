@@ -173,7 +173,8 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 						resultReson=dict.getName();	
 					}
 				}
-				bo.setResultReason(resultReson);
+				bo.setResultReason(ib.getResultReason());
+				bo.setResultReasonStr(resultReson);
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){

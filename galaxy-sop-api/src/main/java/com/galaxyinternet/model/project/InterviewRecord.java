@@ -46,6 +46,8 @@ public class InterviewRecord extends BaseEntity{
 	private String resultReason;
     private String reasonOther;
     
+    private String resultReasonStr;
+    
     
     public Long getProjectId() {
         return projectId;
@@ -211,6 +213,14 @@ public class InterviewRecord extends BaseEntity{
 
 	public void setReasonOther(String reasonOther) {
 		this.reasonOther = reasonOther;
+	}
+	
+	public String getResultReasonStr() {
+		return resultReasonStr;
+	}
+
+	public void setResultReasonStr(String resultReasonStr) {
+		this.resultReasonStr = resultReasonStr;
 	}
 
 	@Override
