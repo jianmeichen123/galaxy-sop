@@ -62,7 +62,7 @@
 		<task:scheduled ref="pushMessageTask" method="execute" cron="*/30 * * * * ?"/>
 		<!-- 每月1号为有实际注资信息的项目发添加运营数据的消息 -->
 		<task:scheduled ref="pushMessageOperation" method="execute" cron="0 0 0 1 * ?"/>
-		<task:scheduled ref="dictCacheUtils" method="execute" cron="0 0/3 * * * ?"/>
+		<!-- <task:scheduled ref="dictCacheUtils" method="execute" cron="0 0/3 * * * ?"/> -->
 		<!-- 每4小时，重新设置缓存的值
 		<task:scheduled ref="utilsService" method="execute" cron="0 0 0/4 * * ? "/>
 		 -->

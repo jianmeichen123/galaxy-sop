@@ -183,8 +183,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						
 					}
 					   recordId= res[0].id;
-						
-					
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
 					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
