@@ -22,7 +22,7 @@
         <div class="tabtitle edit">
             <!--编辑状态显示  编辑访谈记录  -->
             <h3 id="popup_name">添加访谈记录</h3>
-            <input type="text" name="meetingType" id="meetingType"/>
+            <input type="hidden" name="meetingType" id="meetingType"/>
         </div>
         <div class="tab_con">
         <!-- time+interviewee-->
@@ -35,10 +35,10 @@
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
-                <dl class="fmdl fml clearfix interviewee">
+                <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt>访谈对象：</dt>
                     <dd class="clearfix">
-                        <input type="text" class="txt" id="viewTarget" name="viewTarget" regString="^.{1,50}$" placeholder="访谈对象" class="txt" valType="OTHER" msg="<font color=red>*</font>访谈对象不能为空且不能超过50字符"/>
+                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
                 </dl>
@@ -135,27 +135,27 @@ function initViewUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#save_interview").click(function(){
-					$("#save_interview").addClass("disabled");
-					
-					var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
-						if(res == false || res == "false"){
-							up.stop();
-							$("#save_interview").removeClass("disabled");
-							return;
-						}
+				   $("#save_interview").addClass("disabled");
+				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
+					if(res == false || res == "false"){
+						up.stop();
+						$("#save_interview").removeClass("disabled");
+						return;
+					}
 					var radionResult=$("input[name='interviewResult']:checked");
 					var inResult =radionResult.val();
 				    var resultReason=radionResult.parent().siblings("select").val();
 				    var resultReasonOther=radionResult.parent().siblings("input").val();
+
 					switch (meetingType) {
-					   
 					   case  "":
 							res.stage = "projectProgress:1";
 							res.pid = projectId;
 							res.createDate = res.viewDateStr;
 							res.content = res.viewNotes;
-							res.target = res.viewTarget;
+							res.target = $.trim($("#viewTarget").val());
 							res.interviewResult = inResult;
+							break;
 					   default:
 							if(meetingType == 'meetingType:1'){
 								res.stage = "projectProgress:2";
@@ -166,16 +166,15 @@ function initViewUpload() {
 							}else if(meetingType == 'meetingType:4'){
 								res.stage = "projectProgress:7";
 							}
-							res.pid = projectId;
-							res.createDate = res.viewDateStr;
-							res.result=inResult;
+							res.projectId = projectId;
+							res.meetingDateStr = res.viewDateStr;
+							res.meetingResult=inResult;
 							res.content = res.viewsNotes;
 							res.meetingType = meetingType;
 					}
-					
 					res.resultReason = resultReason;
 					res.reasonOther = resultReasonOther;
-					
+	
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
@@ -231,7 +230,7 @@ function initViewUpload() {
 					$("#file_object").text("");
 					$("#select_btn").text("选择文件");
 					$("#file_object").removeClass("audio_name")
-					viewuploader.splice(0, meetuploader.files.length)
+					viewuploader.splice(0, viewuploader.files.length)
 					layer.msg(response.result.message);
 					return false;
 				}else{

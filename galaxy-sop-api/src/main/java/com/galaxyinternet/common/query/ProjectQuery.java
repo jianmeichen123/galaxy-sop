@@ -43,7 +43,7 @@ public class ProjectQuery extends ViewQuery{
 	//结果原因
 	private String resultReason;
 	//其他原因
-	private String otherReason;
+	private String reasonOther;
 	
 	
 	public String getResultReason() {
@@ -52,11 +52,12 @@ public class ProjectQuery extends ViewQuery{
 	public void setResultReason(String resultReason) {
 		this.resultReason = resultReason;
 	}
-	public String getOtherReason() {
-		return otherReason;
+	
+	public String getReasonOther() {
+		return reasonOther;
 	}
-	public void setOtherReason(String otherReason) {
-		this.otherReason = otherReason;
+	public void setReasonOther(String reasonOther) {
+		this.reasonOther = reasonOther;
 	}
 	//附加内容
 	private String content;

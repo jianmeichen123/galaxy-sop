@@ -295,7 +295,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			ir.setViewNotes(p.getContent());
 			ir.setInterviewResult(p.getInterviewResult());
 			ir.setResultReason(p.getResultReason());
-			ir.setReasonOther(p.getOtherReason());
+			ir.setReasonOther(p.getReasonOther());
 			ir.setCreatedId(project.getCreateUid());
 			ir.setCreatedTime((new Date()).getTime());
 			interviewRecordService.insert(ir);
@@ -344,7 +344,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
-	@RequestMapping(value = "/p2/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/p2/add",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> p2_add(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
 		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -407,11 +407,11 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			Project project = new Project();
 			project = projectService.queryById(meetingRecord.getProjectId());
 			
-			String err = errMessage(project,user,prograss);
+			/*String err = errMessage(project,user,prograss);
 			if(err!=null && err.length()>0){
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
-			}
+			}*/
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) &&
 					meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 				project.setFinalValuations(meetingRecord.getFinalValuations());

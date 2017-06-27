@@ -39,6 +39,7 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private List<Long> userIdList;
 	private List<Long> deptIdList;
 	
+	
 	public String getProName() {
 		return proName;
 	}

@@ -20,6 +20,7 @@
 			$("#add_button a").text("添加访谈记录");
 			$("#pop_button").attr("data-name","添加访谈记录");
 			$("#pop_button").attr("data-type","");
+			$("#meetingType").val("");
 		}else if(i==2){
 			meetList("meetingType:1");
 			$(".tabtitle h3").text("内部评审");
@@ -145,6 +146,13 @@ $(".new_poppage").on("click",function(){
 		data:"",//传递参数
 		okback:function(){
 			$("#popup_name").text(_name);
+			switch(_type){
+			  case "":
+				  $("#targetView").attr("style","display:block");
+				  break;
+			  default:
+				  $("#targetView").attr("style","display:none");
+			}
 			/*
 			$("[data-btn='add_rzzx']").on("click",function(){ 
 				var $self = $(this);

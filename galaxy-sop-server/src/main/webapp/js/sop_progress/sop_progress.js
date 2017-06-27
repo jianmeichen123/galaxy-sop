@@ -184,8 +184,8 @@ function  p1(id){
  */
 function getInterViewParams(hasProid,projectId,
 		viewDateId,
-		viewTargetId,
 		viewNotesId){
+	
 	var	condition = {};
 	
 	if(!beforeSubmit()){
@@ -197,34 +197,21 @@ function getInterViewParams(hasProid,projectId,
 		var projectId = $("#"+projectId).val();
 	}
 	var viewDateStr = $("#"+viewDateId).val();
-	var viewTarget = $.trim($("#"+viewTargetId).val());
 	var viewNotes = $.trim(CKEDITOR.instances.viewNotes.getData());
-	$('#con_id input[name=interviewResult]:checked').val()
+	/*$('#con_id input[name=interviewResult]:checked').val()*/
 	
 	if(projectId == null || projectId == ""){
 		layer.msg("项目不能为空");
 		return false;
 	}
-	if(viewTarget == null ||  viewTarget == ""){
-		layer.msg("对象不能为空");
-		return false;
-	}else{
-		if(getLength(viewTarget) > 100){
-			layer.msg("对象长度最大100字节");
-			return false;
-		}
-	}
-	
 	if(viewNotes != null && viewNotes.length > 0){
 		if(getLength(viewNotes) > 9000){
 			layer.msg("访谈记录长度最大9000字符");
 			return false;
 		}
 	}
-	
 	condition.projectId = projectId;
 	condition.viewDateStr = viewDateStr;
-	condition.viewTarget = viewTarget;
 	condition.viewNotes = viewNotes;
 	
 	return condition;
