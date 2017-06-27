@@ -96,10 +96,14 @@
 <script>
 
 /**
- * 获取项目状态下拉项
+ * 获取会议待定原因下拉项
  * @version 2016-06-21
  */
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingUndeterminedReason","meetingUndeterminedReason");
+/**
+ * 获取会议否决原因下拉项
+ * @version 2016-06-21
+ */
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
 
 //ckeditor实例化
