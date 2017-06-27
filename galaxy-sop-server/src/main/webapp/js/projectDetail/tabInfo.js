@@ -123,7 +123,7 @@ $(function(){
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
 			var ht=projectProgress(data)
-			$("#insertImg").html(ht);
+			//$("#insertImg").html(ht);
 			var p;
 			var fs;
 			$("[data-on='data-open']").click(function (){

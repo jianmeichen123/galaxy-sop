@@ -152,10 +152,10 @@ var pageId = "project";
 				    <tr>
 			        	<th data-field="projectName"  class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
-			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="5%">融资状态<span></span></th>
-			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="15%">项目进度<span></span></th>
-			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="5%">项目状态<span></span></th>
-			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="6%">来源于FA<span></span></th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">来源于FA<span></span></th>
 			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
 			        	<th data-field="createUname"  class="data-input" data-width="17%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
@@ -537,11 +537,12 @@ var pageId = "project";
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		var proStatus = row.projectStatus;
 		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
-		if(pronum == 0 || pronum == 1){
+		<%-- if(pronum == 0 || pronum == 1){
 			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
 		}else{
 			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
-		}
+		} --%>
+		return row.progress;
 	}
 	/**
 	 * 融资状态格式化
