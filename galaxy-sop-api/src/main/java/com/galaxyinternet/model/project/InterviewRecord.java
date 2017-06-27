@@ -33,7 +33,17 @@ public class InterviewRecord extends BaseEntity{
     private Long scheduleId;
     
     private String interviewResult;
-    private String resultReason;
+    private String interviewResultStr;
+    
+    public String getInterviewResultStr() {
+       return interviewResultStr;
+	}
+
+	public void setInterviewResultStr(String interviewResultStr) {
+		this.interviewResultStr = interviewResultStr;
+	}
+
+	private String resultReason;
     private String reasonOther;
     
     
@@ -180,9 +190,6 @@ public class InterviewRecord extends BaseEntity{
 	
 
 	public String getInterviewResult() {
-		/*if(interviewResult != null){
-			interviewResult = DictEnum.meetingResult.getNameByCode(interviewResult);
-		}*/
 		return interviewResult;
 	}
 

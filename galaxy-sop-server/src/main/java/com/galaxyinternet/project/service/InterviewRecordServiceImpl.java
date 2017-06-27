@@ -157,8 +157,8 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				bo.setViewDateStr(ib.getViewDateStr());
 				bo.setViewNotes(ib.getViewNotes());
 				bo.setCreatedId(ib.getCreatedId());
-				bo.setInterviewResult(DictEnum.meetingResult.getNameByCode(ib.getInterviewResult()));
-				
+				bo.setInterviewResult(ib.getInterviewResult());
+				bo.setInterviewResultStr(DictEnum.meetingResult.getNameByCode(ib.getInterviewResult()));
 				bo.setReasonOther(ib.getReasonOther());
 				Map<String,Dict> dictMap = new HashMap<String,Dict>();
 				String resultReson="";

@@ -353,6 +353,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				bo.setMeetingResult(ib.getMeetingResult());
 				bo.setMeetingResultStr(ib.getMeetingResultStr());
 				bo.setMeetingNotes(ib.getMeetingNotes());
+				bo.setResultReason(ib.getResultReason());
+				bo.setReasonOther(ib.getReasonOther());
 				bo.setUid(proIdUidMap.get(ib.getProjectId()));
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
