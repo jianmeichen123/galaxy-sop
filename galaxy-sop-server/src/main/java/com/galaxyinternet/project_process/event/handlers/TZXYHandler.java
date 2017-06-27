@@ -6,17 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopTaskService;
 /**
  * 投决会->投资协议，前置条件判定，需要一条“通过”的会议记录，同时判定该项目在“会后商务谈判”阶段的结论是“投资”，然后进入“投资协议”阶段
  * @author wangsong
@@ -29,6 +33,8 @@ public class TZXYHandler implements ProgressChangeHandler
 	private ProjectService projectService;
 	@Autowired
 	private MeetingRecordService meetingService;
+	@Autowired
+	private SopTaskService taskService;
 	@Override
 	public boolean support(ProgressChangeEvent event)
 	{
@@ -52,6 +58,32 @@ public class TZXYHandler implements ProgressChangeHandler
 			throw new BusinessException("没有通过的会议记录");
 		}
 		//TODO - 判定该项目在“会后商务谈判”阶段的结论是“投资”
+		
+		//待办任务 - 上传投资协议、股权转让协议
+		SopTask task = new SopTask();
+		task.setProjectId(project.getId());
+		task.setTaskName(SopConstant.TASK_NAME_TZXY);
+		task.setTaskType(DictEnum.taskType.协同办公.getCode());
+		task.setTaskFlag(SopConstant.TASK_FLAG_TZXY);
+		task.setTaskOrder(SopConstant.NORMAL_STATUS);
+		task.setDepartmentId(project.getProjectDepartid());
+		task.setAssignUid(project.getCreateUid());
+		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
+		task.setCreatedTime(System.currentTimeMillis());
+		taskService.insert(task);
+		
+		task = new SopTask();
+		task.setProjectId(project.getId());
+		task.setTaskName(SopConstant.TASK_NAME_GQZR);
+		task.setTaskType(DictEnum.taskType.协同办公.getCode());
+		task.setTaskFlag(SopConstant.TASK_FLAG_GQZR);
+		task.setTaskOrder(SopConstant.NORMAL_STATUS);
+		task.setDepartmentId(project.getProjectDepartid());
+		task.setAssignUid(project.getCreateUid());
+		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
+		task.setCreatedTime(System.currentTimeMillis());
+		taskService.insert(task);
+		
 		
 		Project po = new Project();
 		po.setId(project.getId());

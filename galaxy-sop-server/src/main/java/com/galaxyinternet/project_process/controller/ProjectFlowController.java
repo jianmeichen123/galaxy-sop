@@ -878,7 +878,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			
 		} catch (Exception e)
 		{
-			data.setResult(new Result(Status.ERROR, null,"项目推进失败"));
+			data.setResult(new Result(Status.ERROR, null,e.getMessage()));
 			if (logger.isErrorEnabled()) 
 			{
 				logger.error("项目推进失败 ", e);
