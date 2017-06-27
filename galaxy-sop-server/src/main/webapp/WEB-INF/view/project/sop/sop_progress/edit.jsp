@@ -169,13 +169,14 @@ function initViewUpload() {
 							res.projectId = projectId;
 							res.meetingDateStr = res.viewDateStr;
 							res.meetingResult=inResult;
-							res.content = res.viewsNotes;
+							res.meetingNotes = res.viewsNotes;
 							res.meetingType = meetingType;
 					}
 					res.resultReason = resultReason;
 					res.reasonOther = resultReasonOther;
 	
 					if(up.files.length > 0){
+						console.log("@@@@@@@@@"+JSON.stringify(res));
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
