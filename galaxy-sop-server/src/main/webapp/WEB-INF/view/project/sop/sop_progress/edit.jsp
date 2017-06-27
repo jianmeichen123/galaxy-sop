@@ -169,14 +169,14 @@ function initViewUpload() {
 							res.projectId = projectId;
 							res.meetingDateStr = res.viewDateStr;
 							res.meetingResult=inResult;
-							res.meetingNotes = res.viewsNotes;
+							res.meetingNotes = $.trim(CKEDITOR.instances.viewNotes.getData());
 							res.meetingType = meetingType;
+							delete res.viewNotes;
 					}
 					res.resultReason = resultReason;
 					res.reasonOther = resultReasonOther;
 	
 					if(up.files.length > 0){
-						console.log("@@@@@@@@@"+JSON.stringify(res));
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
