@@ -12,7 +12,7 @@
 //验证
 //投资形式-投资金额
 	jQuery.validator.addMethod("amount", function (value, element) {
-		var amount = /^(([0-9]{1,6})|([0-9]{1,6}\\.[0-9]{1,4}))$/;
+		var amount = /^(([0-9]{1,6})|([0-9]{1,6}\.[0-9]{1,4}))$/;
 		return this.optional(element) || (amount.test(value));
 	}, "支持0-1000000的四位小数");
 //占股比例
