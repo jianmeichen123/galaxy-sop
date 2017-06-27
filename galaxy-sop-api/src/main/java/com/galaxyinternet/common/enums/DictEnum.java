@@ -20,7 +20,7 @@ public enum DictEnum {
 	融资状态("融资状态","financeStatus"),
 	项目状态("项目状态","projectStatus"),
 	//行业归属
-行业归属("行业归属","industryOwn");
+   行业归属("行业归属","industryOwn");
 	
 	private String name;
 

@@ -10,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.dubbo.cache.Cache;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
@@ -19,6 +21,7 @@ import com.galaxyinternet.export_schedule.model.ScheduleContacts;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -41,7 +44,8 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	@Autowired
 	private ScheduleContactsDao scheduleContactsDao;
 	
-	
+	@Autowired
+	private Cache cache;
 	
 	
 	@Override
@@ -131,7 +135,6 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				total = interviewRecordDao.selectCount(query);
 			}
 		}
-		
 		 Map<Long,ScheduleContacts> map=getMapScheduleContacts();
 		if(viewList!=null&&!viewList.isEmpty()){
 			viewBoList = new ArrayList<InterviewRecordBo>();
@@ -145,12 +148,15 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				}else{
 					bo.setViewTarget(ib.getViewTarget());
 				}
+				
 				bo.setProjectId(ib.getProjectId());
 				bo.setProName(proIdNameMap.get(ib.getProjectId()));
 				bo.setViewDateStr(ib.getViewDateStr());
 				bo.setViewNotes(ib.getViewNotes());
 				bo.setCreatedId(ib.getCreatedId());
-				bo.setInterviewResult(ib.getInterviewResult());
+				bo.setInterviewResult(DictEnum.meetingResult.getNameByCode(ib.getInterviewResult()));
+				bo.setResultReason();
+				bo.setReasonOther(ib.getReasonOther());
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){

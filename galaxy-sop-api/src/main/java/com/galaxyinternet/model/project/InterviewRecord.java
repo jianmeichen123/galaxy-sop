@@ -180,9 +180,9 @@ public class InterviewRecord extends BaseEntity{
 	
 
 	public String getInterviewResult() {
-		if(interviewResult != null){
+		/*if(interviewResult != null){
 			interviewResult = DictEnum.meetingResult.getNameByCode(interviewResult);
-		}
+		}*/
 		return interviewResult;
 	}
 
