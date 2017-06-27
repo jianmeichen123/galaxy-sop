@@ -870,6 +870,20 @@ function validate(){
 						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="40"){
+				var validate={
+						"data-rule-verify_40":"true",
+						"name":i,
+						"data-msg-verify_40":"<font color=red>*</font>不能为空"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="100"){
+				var validate={
+						"data-rule-verify_100":"true",
+						"name":i,
+						"data-msg-verify_100":"<font color=red>*</font>不能为空"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="4"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
@@ -940,6 +954,16 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 	var verify_52 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,4})?(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_52.test(value));
 }, "不能超过99999"); 
+//inputValRuleMark=="40"
+jQuery.validator.addMethod("verify_40", function(value, element) {   
+	var verify_40 = /^(?!.{41}|^\s*$)/;
+	return this.optional(element) || (verify_40.test(value));
+}, "不能全为空格"); 
+//inputValRuleMark=="100"
+jQuery.validator.addMethod("verify_100", function(value, element) {   
+	var verify_100 = /^(?!.{101}|^\s*$)/;
+	return this.optional(element) || (verify_100.test(value));
+}, "不能全为空格");
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
 	var vinputValRule_4 = /^(((([1-9]{1}[0-9]{0,1}|0)|([1][0-5][0-9])|([1][6][0-7]))(\.\d{1})?)|168|168.0)$/;

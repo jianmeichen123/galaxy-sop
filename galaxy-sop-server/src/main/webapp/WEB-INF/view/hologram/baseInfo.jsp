@@ -181,12 +181,11 @@ $(function() {
 			
 			if(typ == '12' || typ == '13' ){
 				var value = field.val();
-				console.log("值"+value)
 				var disabled = field.attr("disabled");
 				if(disabled && (disabled == true || disabled == "disabled")){  //其它未选中
 					infoMode.remark1 = null;
 				}else{
-					if(value && value.length > 0){
+					if(value.trim() && value.trim().length > 0){
 						infoMode.remark1 = value;
 					}else{
 						$(field.next()).show();
