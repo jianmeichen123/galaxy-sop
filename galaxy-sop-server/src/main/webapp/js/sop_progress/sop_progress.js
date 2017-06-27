@@ -172,7 +172,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].meetingResult+"']").attr("checked",true) : $("#interviewResult").html(result);
 					}else{
-						alert(res[0].interviewResult);
 						time = res[0].viewDateStr;
 						target = res[0].viewTarget;
 						content = res[0].viewNotes;
