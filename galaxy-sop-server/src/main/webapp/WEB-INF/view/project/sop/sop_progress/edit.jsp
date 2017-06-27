@@ -69,14 +69,14 @@
                 <dd>
                     <div>
                         <label><input name="interviewResult" type="radio" value="meetingResult:2" />待定</label> 
-                        <select name="resultReason" id="resultReason">
+                        <select name="meetingUndeterminedReason" id="meetingUndeterminedReason">
                             <option value="">请选择原因</option>
                         </select>
                         <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
                     </div>
                     <div>
                         <label><input name="interviewResult" type="radio" value="meetingResult:3" />否决</label> 
-                        <select name="resultReason" id="resultReason">
+                        <select name="meetingVetoReason" id="meetingVetoReason">
                             <option value="">请选择原因</option>
                         </select>
                         <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
@@ -94,6 +94,14 @@
         </div>                
     </div>
 <script>
+
+/**
+ * 获取项目状态下拉项
+ * @version 2016-06-21
+ */
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingUndeterminedReason","meetingUndeterminedReason");
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
+
 //ckeditor实例化
 var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 
