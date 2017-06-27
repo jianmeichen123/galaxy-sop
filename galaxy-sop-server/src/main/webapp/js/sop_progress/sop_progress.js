@@ -33,7 +33,7 @@ function interviewList(){
                   },
                   {
                       title: '结论',
-                      field: 'interviewResult',
+                      field: 'interviewResultStr',
                       valign: 'left',
                   }, {
                       title: '结论原因',
@@ -170,22 +170,28 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						result = res[0].meetingResultStr;
 						resultReason = res[0].resultReason;
 						reasonOther = res[0].reasonOther;
+						type=="e" ? $("input[name='interviewResult'][value='"+res[0].meetingResult+"']").attr("checked",true) : $("#interviewResult").html(result);
 					}else{
+						alert(res[0].interviewResult);
 						time = res[0].viewDateStr;
 						target = res[0].viewTarget;
 						content = res[0].viewNotes;
-						result = res[0].interviewResult;
+						result = res[0].interviewResultStr;
 						resultReason = res[0].resultReason;
 						reasonOther = res[0].reasonOther;
+						type=="e" ? $("input[name='interviewResult'][value='"+res[0].interviewResult+"']").attr("checked",true) : $("#interviewResult").html(result);
+						
 					}
-					recordId= res[0].id;
+					   recordId= res[0].id;
+						
+					
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
 					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
 					$("#recordId").val(recordId);
-				    if(res[0].fileId){
+					if(res[0].fileId){
 						type=="e" ? '' : $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 					}
 				}
