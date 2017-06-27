@@ -16,32 +16,16 @@
 		progressBtnToggle()		
 		if(i==1){
 			interviewList();
-			$(".tabtitle h3").text("接触访谈");
-			$("#add_button a").text("添加访谈记录");
-			$("#pop_button").attr("data-name","添加访谈记录");
-			$("#pop_button").attr("data-type","");
-			$("#meetingType").val("");
+			toobarData("接触访谈","添加访谈记录","");
 		}else if(i==2){
 			meetList("meetingType:1");
-			$(".tabtitle h3").text("内部评审");
-			$("#add_button a").text("添加内部评审");
-			$("#meetingType").val("meetingType:1");
-			$("#pop_button").attr("data-name","添加内部评审");
-			$("#pop_button").attr("data-type","meetingType:1");
+			toobarData("内部评审","添加内部评审","meetingType:1");
 		}else if(i==3){
 			meetList("meetingType:2");
-			$(".tabtitle h3").text("CEO评审");
-			$("#add_button a").text("添加CEO评审");
-			$("#meetingType").val("meetingType:2");
-			$("#pop_button").attr("data-name","添加CEO评审");
-			$("#pop_button").attr("data-type","meetingType:2");
+			toobarData("CEO评审","添加CEO评审","meetingType:2");
 		}else if(i==4){
 			meetList("meetingType:3");
-			$(".tabtitle h3").text("立项会");
-			$("#add_button a").text("添加立项会");
-			$("#meetingType").val("meetingType:3");
-			$("#pop_button").attr("data-name","添加立项会");
-			$("#pop_button").attr("data-type","meetingType:3");
+			toobarData("立项会","添加立项会","meetingType:3");
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
 		}else if(i==6){
@@ -51,11 +35,7 @@
 			//尽职调查  上传附件
 		}else if(i==8){
 			meetList("meetingType:4");
-			$(".tabtitle h3").text("投决会");
-			$("#add_button a").text("添加投决会");
-			$("#meetingType").val("meetingType:4");
-			$("#pop_button").attr("data-name","添加投决会");
-			$("#pop_button").attr("data-type","meetingType:4");
+			toobarData("投决会","添加投决会","meetingType:4");
 		}else if(i==9){
 			$(".tabtitle h3").text("投资协议");
 			//投资协议  上传附件
@@ -151,24 +131,26 @@ $(".new_poppage").on("click",function(){
 				  $("#targetView").attr("style","display:block");
 				  break;
 			  default:
+				  $("#toobar_time").text("会议时间");
+				  $("#toobar_content").text("会议纪要");
+				  $("#toobar_voice").text("会议录音");
+				  $("#toobar_result").text("会议结论");
 				  $("#targetView").attr("style","display:none");
 			}
-			/*
-			$("[data-btn='add_rzzx']").on("click",function(){ 
-				var $self = $(this);
-				var _url = $self.attr("href");
-				var _name=$self.attr("data-name")
-				$.getHtml({
-					url:_url,//模版请求地址
-					data:"",//传递参数
-					okback:function(){
-						$("#popup_name1").text(_name);							
-					}//模版反回成功执行	
-				});
-				return false;
-			});*/
-			
 		}//模版反回成功执行	
 	});
 	return false;
 });
+/**
+ * 填充会议信息数据
+ * @param title
+ * @param add_title
+ * @param meetingType
+ */
+function toobarData(title,add_title,meetingType){
+	$(".tabtitle h3").text(title);
+	$("#add_button a").text(add_title);
+	$("#meetingType").val(meetingType);
+	$("#pop_button").attr("data-name",add_title);
+	$("#pop_button").attr("data-type",meetingType);
+}

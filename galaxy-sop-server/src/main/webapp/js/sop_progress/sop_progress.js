@@ -116,15 +116,21 @@ function meetList(type){
  *  查看  or 编辑  
  */
 function viewOperFormat(value,row,index){  
-	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
+	var meetingType = "";
+	var title = $(".tabtitle h3").text();
+    if(row.meetingType){
+    	meetingType = row.meetingType;
+	}
+	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
 	var edit = "";
 	
 	//if(userId==row.createdId && isTransfering == 'false'){
-		edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
+		edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
 	//}
+	
 	return info + edit;
 }
-function notesInfoEdit(selectRowId,type){
+function notesInfoEdit(selectRowId,type,meetingType,title){
 	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view"+"/"+type;
 	var res = {};
@@ -134,20 +140,51 @@ function notesInfoEdit(selectRowId,type){
 		url:_url,
 		data:"",
 		okback:function(){
-			sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/queryInterview",res,function(data){
+			var url = Constants.sopEndpointURL + "/galaxy/progress/p1/queryInterview";
+			$("#tabtitle").text(title);
+			if(meetingType){
+				$("#toobar_time").text("会议时间");
+				$("#toobar_content").text("会议纪要");
+				$("#toobar_voice").text("会议录音");
+				$("#toobar_result").text("会议结论");
+				$("#targetView").attr("style","display:none");
+				res.meetingType = meetingType;
+				url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+			}
+			//渲染数据|待后续加
+			sendPostRequestByJsonObj(url,res,function(data){
 				var result = data.result.status;
-				//渲染数据|待后续加
 				if(result == "OK"){
+					debugger;
 					var res = data.pageList.content;
-					type=="e" ? $("#viewDate").val(res[0].viewDateStr) : $("#viewDate").text(res[0].viewDateStr);
-					type=="e" ? $("#viewTarget").val(res[0].viewTarget) : $("#viewTarget").text(res[0].viewTarget);
-					type=="e" ? $("#reasonOther").val(res[0].reasonOther) : $("#reasonOther").text(res[0].reasonOther);
-					type=="e" ? $("#viewNotes").val(res[0].viewNotes) : $("#viewNotes").html(res[0].viewNotes);
-					type=="e" ? '' : $("#interviewResult").html(res[0].interviewResult);
-					if(res[0].fileId){
+					var time;
+					var target;
+					var content;
+					var result;
+					var resultReason;
+					var reasonOther;
+					if(meetingType){
+						time = res[0].meetingDateStr;
+						content = res[0].meetingNotes;
+						result = res[0].meetingResultStr;
+						resultReason = res[0].resultReason;
+						reasonOther = res[0].reasonOther;
+					}else{
+						time = res[0].viewDateStr;
+						target = res[0].viewTarget;
+						content = res[0].viewNotes;
+						result = res[0].interviewResult;
+						resultReason = res[0].resultReason;
+						reasonOther = res[0].reasonOther;
+					}
+					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
+					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
+					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
+					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
+					type=="e" ? '' : $("#interviewResult").html(result);
+				    if(res[0].fileId){
 						type=="e" ? '' : $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 					}
-					
 				}
 			});
 		}

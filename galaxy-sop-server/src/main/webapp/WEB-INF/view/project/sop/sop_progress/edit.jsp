@@ -19,7 +19,7 @@
 
     <!-- 添加访谈记录 /编辑访谈记录 -->
     <div class="myprojecttc new_poptxt myproject_add">
-        <div class="tabtitle edit">
+        <div id="tabtitle" class="tabtitle edit">
             <!--编辑状态显示  编辑访谈记录  -->
             <h3 id="popup_name">添加访谈记录</h3>
             <input type="hidden" name="meetingType" id="meetingType"/>
@@ -29,14 +29,14 @@
          <!-- 编辑状态下 title改成 编辑访谈记录  移除INPUT  dd填入内容-->
             <div class="clearfix ">
                 <dl class="fmdl clearfix intw_time">
-                    <dt>访谈时间：</dt>
+                    <dt id="toobar_time">访谈时间：</dt>
                     <dd>
                          <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate"  value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
-                    <dt>访谈对象：</dt>
+                    <dt id="toobar_notes">访谈对象：</dt>
                     <dd class="clearfix">
                         <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
@@ -46,14 +46,14 @@
            <!-- Interview summary -->
             <div class="intw_summary">
                 <dl class="fmdl clearfix">
-                    <dt>访谈纪要：</dt>
+                    <dt id="toobar_content">访谈纪要：</dt>
                     <dd>
                         <textarea id="viewNotes"></textarea> 
                     </dd>
                 </dl>           
             </div>
             <dl class="fmdl clearfix">
-                <dt>访谈录音：</dt>
+                <dt id="toobar_voice">访谈录音：</dt>
                 <dd>
                 
 			        <!-- <input type="text" name="fileName" id="file_object" class="txt" readonly="readonly"/>
@@ -65,7 +65,7 @@
                 </dd>
             </dl>  
             <dl class="fmdl clearfix check_result">
-                <dt>访谈结论：</dt>
+                <dt id="toobar_result">访谈结论：</dt>
                 <dd>
                     <div>
                         <label><input name="interviewResult" type="radio" value="meetingResult:2" />待定</label> 
