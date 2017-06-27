@@ -184,6 +184,8 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
+					var other=reasonOther==null?"":"("+reasonOther+")";
+					type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					$("#recordId").val(recordId);
 				    if(res[0].fileId){
 						type=="e" ? '' : $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");

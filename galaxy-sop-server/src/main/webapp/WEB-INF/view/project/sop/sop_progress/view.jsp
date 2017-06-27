@@ -13,13 +13,12 @@
                  <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd id="viewDate">
-                        2017-09-22 10:28
+                       
                     </dd>
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt>访谈对象：</dt>
                     <dd class="clearfix intw_name" id="viewTarget">
-                       达康书记、老张
                     </dd>
                 </dl>
             </div>
@@ -29,7 +28,6 @@
                     <dt id="toobar_content">访谈纪要：</dt>
                     <dd>
                         <blockquote id="viewNotes">
-                        	Harvey说他跟着乐队巡演过几百次，这次是最特别的一次。“我们在沙漠里！我可以感受到沙子。”说着，他光着脚扬起了脚边的沙子。他说他在成都生活，这是第一次来到怀来这个中国北方城市。“你看周围还有起伏的山脉。”他感觉这里非常棒，舞台体验也非常棒。“他是乐队的VJ（Visual Jockey），负责播放和制作Visual，“18:30有我们的演出，一会儿过来听音乐吧！”
                         </blockquote> 
                     </dd>
                 </dl>           
@@ -45,7 +43,7 @@
                 <dd>
                     <div>
                        <span id="interviewResult">否决 &nbsp;</span>
-                       <span>原因：投资方式未达成一致（如并购、财务投资，服务费等）</span>
+                       <span id="resultReason"></span>
                     </div>
                    
                 </dd>
