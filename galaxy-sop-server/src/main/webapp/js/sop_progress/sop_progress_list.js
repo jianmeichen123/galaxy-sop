@@ -145,7 +145,6 @@ $(".new_poppage").on("click",function(){
 		data:"",//传递参数
 		okback:function(){
 			$("#popup_name").text(_name);
-			alert(_type);
 			/*
 			$("[data-btn='add_rzzx']").on("click",function(){ 
 				var $self = $(this);

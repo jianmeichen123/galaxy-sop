@@ -143,8 +143,10 @@ function initViewUpload() {
 							$("#save_interview").removeClass("disabled");
 							return;
 						}
-					var inResult = $("input[name='interviewResult']:checked").val();
-					var resultReason=$("#resultReason").find("option:selected").text();
+					var radionResult=$("input[name='interviewResult']:checked");
+					var inResult =radionResult.val();
+				    var resultReason=radionResult.parent().siblings("select").val();
+				    var resultReasonOther=radionResult.parent().siblings("input").val();
 					switch (meetingType) {
 					   
 					   case  "":
@@ -170,9 +172,9 @@ function initViewUpload() {
 							res.content = res.viewsNotes;
 							res.meetingType = meetingType;
 					}
-					res.reasonOther = $("#reasonOther").val();
+					
 					res.resultReason = resultReason;
-					res.otherReason = $("input[name='reasonOther']").val();
+					res.reasonOther = resultReasonOther;
 					
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
