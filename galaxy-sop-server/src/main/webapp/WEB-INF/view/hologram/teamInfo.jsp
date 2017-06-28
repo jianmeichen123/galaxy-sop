@@ -115,13 +115,7 @@
 					}
 					//检查表格tr是否10行
 					check_table_tr_edit();
-					$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
-						 var par_ul = $(this).parents("ul");
-						 if(!par_ul.find('li').eq(par_ul.find("li").length-2).find("input").checked){
-								// 没有选择了其他
-							  par_ul.find("span.error").remove();
-						  }
-					})
+					check_12();
 				} else {
 
 				}

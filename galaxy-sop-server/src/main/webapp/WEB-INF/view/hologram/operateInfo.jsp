@@ -142,7 +142,7 @@ getData();
 							
 							
 					}
-					 
+					check_12()
 				}else{
 					
 				}

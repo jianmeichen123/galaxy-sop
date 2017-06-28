@@ -116,7 +116,7 @@ $(function() {
 				}
 				/* $('html,body').scrollTop(sTop);  //定位 */
 			}
-			
+			check_12()
 			//去除base_half 类名
 			if(_this.is(':hidden')){
 				_this.parents('.h_look').siblings('.h_edit').find('.base_half').css('width','100%');

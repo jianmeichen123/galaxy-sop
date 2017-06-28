@@ -96,6 +96,7 @@ console.log(mustids);
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					check_12()
 				} else {
 
 				}

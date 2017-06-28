@@ -123,6 +123,7 @@ $(function() {
 			if(base_editbtn.is(':hidden')){
 				$('.base_half').css('width','100%');
 			}
+			check_12()
 		})
 	});
 	

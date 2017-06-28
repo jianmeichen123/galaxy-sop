@@ -24,7 +24,15 @@ $("div").delegate(".check_label","click",function(event){
 	  }
 	  event.stopPropagation();
 });
-
+function check_12(){
+	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
+		 var par_ul = $(this).parents("ul");
+		 if(!par_ul.find('li').eq(par_ul.find("li").length-2).find("input").checked){
+				// 没有选择了其他
+			  par_ul.find("span.error").remove();
+		  }
+	})
+}
 /*文本域字数统计*/
 function countChar(textareaName,spanName,maxLimit){
 	//var maxLimit=10;
