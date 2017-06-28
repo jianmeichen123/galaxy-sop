@@ -178,7 +178,7 @@ function initViewUpload() {
 					res.reasonOther = resultReasonOther;
 					//该字段判断是新增还是编辑的保存操作
 	                var recordId=$("#recordId").val();
-					if(null!=recordId&&recordId!="undefined"){
+					if(recordId){
 						res.recordId=recordId;
 					}
 					if(up.files.length > 0){

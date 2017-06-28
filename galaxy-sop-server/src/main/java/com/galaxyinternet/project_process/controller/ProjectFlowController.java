@@ -484,11 +484,13 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
 					if(meetingRecord.getId() != null){
 						MeetingRecord meeting = meetingRecordService.queryById(meetingRecord.getId());
-				        SopFile sop = sopFileService.queryById(meeting.getFileId());
-				        if(sop != null){
-				        	OSSHelper.deleteFile(sop.getBucketName(), sop.getFileKey());
-				        	sopFileService.deleteById(sop.getId());
-				        }
+						if(meeting.getFileId() != null){
+							SopFile sop = sopFileService.queryById(meeting.getFileId());
+					        if(sop != null){
+					        	OSSHelper.deleteFile(sop.getBucketName(), sop.getFileKey());
+					        	sopFileService.deleteById(sop.getId());
+					        }
+						}
 					}
 					meetingRecordService.operateFlowMeeting(sopFile,meetingRecord);
 				}
