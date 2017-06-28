@@ -53,10 +53,6 @@
     </div>
 
 <script type="text/javascript">
-<!--
-
-//-->
-var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});
 </script>
 
 
