@@ -17,8 +17,14 @@ function editOpen(){
 /*多选标签*/
 $("div").delegate(".check_label","click",function(event){
 	  $(this).toggleClass('active');
+	  var par_ul = $(this).parent("ul");
+	  if(!par_ul.find('li').eq(par_ul.find("li").length-2).hasClass("active")){
+//		  没有选择了其他
+		  par_ul.find("span.error").remove();
+	  }
 	  event.stopPropagation();
 });
+
 /*文本域字数统计*/
 function countChar(textareaName,spanName,maxLimit){
 	//var maxLimit=10;
