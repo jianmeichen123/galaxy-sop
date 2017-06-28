@@ -3257,4 +3257,10 @@ color:#999999;}
   	cursor: pointer;
   	    background: url(../img/sop_progress/X_close.png) no-repeat;
   }
-  .new_poptxt .tabcon{height:400px;overflow-y:auto;width:100%;}
+  .new_poptxt .tabcon{width:100%;}
+  .new_poptxt .tabcon .fixed-table-body {max-height:200px;overflow-y:auto;width:100%; display:block;}
+
+  
+  
+  
+  
