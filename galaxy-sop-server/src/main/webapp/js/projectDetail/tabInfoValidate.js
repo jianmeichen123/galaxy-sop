@@ -68,8 +68,10 @@
 			if($(this).is(":visible")){
 				var prevEle=$(this).prev();
 				var prevEleWid=$(prevEle).width();
+				var top=$(prevEle).offset().top;
+				console.log(top);
 				$(this).parent().css("position","relative");
-				$(this).css({"position":"absolute","left":prevEleWid+15,"white-space":"nowrap","z-index":"2","border":"1px solid #c7bf93","padding":"3px 8px"})
+				$(this).css({"position":"absolute","left":prevEleWid+15,"top":"-2px","white-space":"nowrap","z-index":"2","border":"1px solid #c7bf93","padding":"3px 8px"})
 			}else{
 				$(this).css({"padding":"0","border":"0"})
 			}
