@@ -16,12 +16,21 @@ function editOpen(){
 }
 /*多选标签*/
 $("div").delegate(".check_label","click",function(event){
+	debugger;
 	  $(this).toggleClass('active');
 	  var par_ul = $(this).parent("ul");
-	  if(!par_ul.find('li').eq(par_ul.find("li").length-2).hasClass("active")){
-//		  没有选择了其他
-		  par_ul.find("span.error").remove();
+	  if(par_ul.hasClass("pro_innovation")){
+		  // 基本信息页面
+		  if(!par_ul.children().eq(par_ul.children().length-3).hasClass("active")){
+			  par_ul.find("span.error").hide();
+		  }
+	  }else{
+		  if(!par_ul.children().eq(par_ul.children().length-2).hasClass("active")){
+			  // 没有选择了其他
+			  par_ul.find("span.error").remove();
+		  }
 	  }
+	  
 	  event.stopPropagation();
 });
 function check_12(){
