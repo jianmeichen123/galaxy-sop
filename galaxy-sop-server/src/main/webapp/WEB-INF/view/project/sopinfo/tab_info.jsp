@@ -475,7 +475,7 @@
 	//新增添加合投机构
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs">'
-	          +'<span><input placeholder="填写机构名称" class="name" name="deliveryName_'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字"/></span><span><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	          +'<span><input placeholder="填写机构名称" class="name" name="deliveryName_'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span><span><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
