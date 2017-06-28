@@ -46,7 +46,8 @@
 			//静态页
 			$(".tabtitle h3").text("投后运营");
 			
-		}								
+		}
+		buttonData(i);
 	}
 	//点击下一步
 	$(".next_box").click(function(){
@@ -154,3 +155,105 @@ function toobarData(title,add_title,meetingType){
 	$("#pop_button").attr("data-name",add_title);
 	$("#pop_button").attr("data-type",meetingType);
 }
+/**
+ * 填充会议信息数据
+ * @param title
+ * @param add_title
+ * @param meetingType
+ */
+function buttonData(i){
+	var btnTitle="";
+	var btnHref="";
+	var btnTitle5="";
+	var btnHref5="";
+	var btn1=$("#btn1");
+	var btn2=$("#btn2");
+	var isShow=false;
+	switch(i){
+	case 1:
+		btnTitle="启动内部评审";
+		btnHref="javascript:nextProgress('projectProgress:2');";
+		isShow=false;
+		break;
+	case 2:
+		btnTitle="申请CEO评审";
+		btnHref="javascript:nextProgress('projectProgress:2');";
+		isShow=false;
+		break;
+	case 3:
+		btnTitle="申请立项会排期";
+		btnHref="javascript:nextProgress('projectProgress:2');";
+		isShow=false;
+		break;
+	case 4:
+		btnTitle="进入会后商务谈判";
+		btnHref="javascript:nextProgress('projectProgress:2');";
+		isShow=false;
+		break;
+	case 5:
+		btnTitle="签订投资协议书（闪投）";
+		btnHref="javascript:nextProgress('projectProgress:2')";
+		var btnTitle5="签订投资意向书（投资）";
+		var btnHref5="javascript:nextProgress('projectProgress:2')";
+		isShow=true;
+		break;
+	case 6:
+		btnTitle="进入尽职调查";
+		btnHref="javascript:nextProgress('projectProgress:2')";
+		isShow=false;
+		break;
+	case 7:
+		btnTitle="申请投决会排期";
+		btnHref="javascript:nextProgress('projectProgress:2')";
+		isShow=false;
+		break;
+	case 8:
+		 var result=whichOne();
+		 if(result=="tzxy"){
+			 btnTitle="签订投资协议";
+				btnHref="javascript:nextProgress('projectProgress:2')";
+		 }else{
+			 btnTitle="进入股权交割";
+				btnHref="javascript:nextProgress('projectProgress:2')"; 
+		 }
+		 isShow=false;
+		break;
+	case 9:
+		 var result=whichOne();
+		 if(result=="jzdc"){
+			 btnTitle="进入尽职调查";
+				btnHref="javascript:nextProgress('projectProgress:2')";
+		 }else{
+			 btnTitle="进入股权交割";
+				btnHref="javascript:nextProgress('projectProgress:2')"; 
+		 }
+		 isShow=false;
+		break;
+	case 10:
+		btnTitle="进入投后运营";
+		btnHref="javascript:nextProgress('projectProgress:2')";
+		isShow=false;
+		break;
+    case 11:
+		break;
+	default:
+	
+	}
+	btn1.text(btnTitle);
+	btn1.attr("href",btnHref);
+	if(isShow){
+		btn2.show();
+		btn2.text(btnTitle5);
+		btn2.attr("href",btnHref5);
+	}else{
+		btn2.hide();
+	}
+}
+function whichOne(index){
+	if(index=="8"){
+		return 'tzxy';
+	}else{
+		return 'jzdc';
+	}
+}
+
