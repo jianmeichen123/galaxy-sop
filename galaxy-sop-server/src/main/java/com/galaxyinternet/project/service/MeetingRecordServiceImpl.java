@@ -666,6 +666,29 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	{
 		return meetingRecordDao.selectCount(query);
 	}
+
+
+	@Override
+	@Transactional
+	public void operateFlowMeeting(SopFile file, MeetingRecord meet) {
+		// TODO Auto-generated method stub
+		Long fid = null;
+		if(file != null){
+			if(file.getId() != null)
+				sopFileDao.updateById(file);
+			else
+				fid = sopFileDao.insert(file);
+			meet.setFileId(fid);
+		}
+		if(meet != null){
+			if(meet.getId() != null)
+				meetingRecordDao.updateById(meet);
+			else
+				meetingRecordDao.insert(meet);
+		}
+	}
+
+
 	
 	
 	

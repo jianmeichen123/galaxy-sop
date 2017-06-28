@@ -185,7 +185,7 @@ function initViewUpload() {
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
-						sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progress/p1/add",res,function(data){
+						sendPostRequestByJsonObj(url,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#save_interview").removeClass("disabled");

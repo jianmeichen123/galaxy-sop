@@ -40,6 +40,8 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	
 	public boolean saveMeeting(MeetingRecord query,Long userId);
 	Long selectCount(MeetingRecordBo query);
+	
+	public void operateFlowMeeting(SopFile file,MeetingRecord meet);
 
 
 }

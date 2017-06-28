@@ -204,7 +204,10 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					var other=reasonOther==null||reasonOther==""?"":"("+reasonOther+")";
 					type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					if(res[0].fileId){
-						type=="e" ? '' : $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
+						type=="e" ? $("#file_object").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>"): $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
+						$("#file_object").text(res[0].fname);
+						$("#select_btn").text("更新");
+						$("#file_object").addClass("audio_name")
 					}
 					
 				}

@@ -379,7 +379,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				return responseBody;
 			}
 		}
-		
 		MeetingRecord mrQuery = new MeetingRecord();
 		try {
 			String prograss = "";
@@ -454,88 +453,47 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					return responseBody;
 				}
 			}
-			//保存
-			Long id = null;
-			boolean equalNowPrograss = true; //判断当前阶段、之后阶段
-			int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
-			int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
-			if(projectPro > operationPro){
-				equalNowPrograss = false;
+			if(meetingRecord.getRecordId() != null){
+				meetingRecord.setId(meetingRecord.getRecordId());
 			}
-			if(meetingRecord.getFkey()!=null){
-				if( meetingRecord.getFileLength()==null||meetingRecord.getFname()==null){
-					responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
-					return responseBody;
-				}
-				if(meetingRecord.getBucketName()==null){
-					meetingRecord.setBucketName(OSSFactory.getDefaultBucketName());
-				}		
-						
-				Map<String,String> nameMap = transFileNames(meetingRecord.getFname());
-				SopFile sopFile = new SopFile();
-				sopFile.setBucketName(meetingRecord.getBucketName());
-				sopFile.setFileKey(meetingRecord.getFkey());
-				sopFile.setFileLength(meetingRecord.getFileLength());
-				sopFile.setFileName(nameMap.get("fileName"));
-				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
-				
-				sopFile.setProjectId(project.getId());
-				sopFile.setProjectProgress(project.getProjectProgress());
-				sopFile.setFileUid(user.getId());	 //上传人
-				sopFile.setCareerLine(user.getDepartmentId());
-				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
-				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
-				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-				id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
-			}else if(!ServletFileUpload.isMultipartContent(request)){
-				SopFile file = new SopFile();
-				file.setCareerLine(user.getDepartmentId());
-				file.setFileUid(user.getId());
-				id = meetingRecordService.insertMeet(meetingRecord,project,file,equalNowPrograss);
-			}else if(ServletFileUpload.isMultipartContent(request)){
-				//调接口上传
-				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
-				//上传成功后
-				if(result!=null){
-					Map<String,String> nameMap = new HashMap<String,String>();
-					String fileName = "";
-					if(meetingRecord.getFname()!=null && meetingRecord.getFname().trim().length()>0){
-						fileName = meetingRecord.getFname().trim();
-						nameMap = transFileNames(fileName);
-					}else{
-					    nameMap.put("fileName",result.getFileName());
-					    nameMap.put("fileSuffix", result.getFileSuffix());
-					}
-					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
-						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
-						return responseBody;
-					}//end get file name 
-					
+			//没有上传文件的
+			if(!ServletFileUpload.isMultipartContent(request)){
+				meetingRecordService.operateFlowMeeting(null,meetingRecord);
+			}else{
+				/**
+				 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
+				 */
+				String fileKey = String
+						.valueOf(IdGenerator.generateId(OSSHelper.class));
+				UploadFileResult result = uploadFileToOSS(request, fileKey,
+						tempfilePath);
+				if (result != null
+						&& result.getResult().getStatus().equals(Result.Status.OK)) {
 					SopFile sopFile = new SopFile();
+					sopFile.setBucketName(result.getBucketName());
+					sopFile.setFileKey(fileKey);
+					sopFile.setFileLength(result.getContentLength());
+					sopFile.setFileName(result.getFileName());
+					sopFile.setFileSuffix(result.getFileSuffix());
 					sopFile.setProjectId(project.getId());
 					sopFile.setProjectProgress(project.getProjectProgress());
-					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
-					sopFile.setFileKey(fileKey);  
-					sopFile.setFileLength(result.getContentLength());  //文件大小
-					sopFile.setFileName(nameMap.get("fileName"));
-					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
 					sopFile.setCareerLine(user.getDepartmentId());
 					sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
 					sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
 					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-					
-					id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
-				}else{
-					responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
-					return responseBody;
+					if(meetingRecord.getId() != null){
+						MeetingRecord meeting = meetingRecordService.queryById(meetingRecord.getId());
+				        SopFile sop = sopFileService.queryById(meeting.getFileId());
+				        if(sop != null){
+				        	OSSHelper.deleteFile(sop.getBucketName(), sop.getFileKey());
+				        	sopFileService.deleteById(sop.getId());
+				        }
+					}
+					meetingRecordService.operateFlowMeeting(sopFile,meetingRecord);
 				}
 			}
-			
-			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
-			
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, uNum);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
