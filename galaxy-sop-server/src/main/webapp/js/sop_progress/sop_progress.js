@@ -6,7 +6,8 @@ function  progress(id){
 		url:Constants.sopEndpointURL + "/galaxy/progress/index",//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$(".close").addClass("progress_close")
+			$(".close").addClass("progress_close");
+			goToProgress();
 		}
 	});
 }
@@ -54,7 +55,7 @@ function interviewList(){
 	    			var $this = $(this);
 	    			$this.find('td:last').addClass('limits_gray');
 	    			$this.find('td:last .edit').removeAttr('onclick');
-	    		});
+	    		});	
 	   		}
 	    }
 	});
