@@ -142,7 +142,6 @@ $(function(){
 			//详情展示投资形式处理
 			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"--":(projectInfo.fModeRemark==0?"--":projectInfo.fModeRemark));
 			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
-				console.log(projectInfo.financeMode);
 				jointDeliveryList(projectInfo.jointDeliveryList);
 				//列表无数据时不显示表格
 				var trLen=$("#jointDelivery").find("tr:gt(0)").length;
@@ -154,7 +153,10 @@ $(function(){
 			}
 			var p;
 			var fs;
-			$("[data-on='data-open']").click(function (){
+			
+        $("[data-on='data-open']").click(function (){
+        	    isDelete=[];
+        	 
 				if($(this).hasClass('limits_gray'))
 				{
 					return;
@@ -591,13 +593,17 @@ $(function(){
 							 "deliveryShareRatio":"",
 						    };
 					var jointDelivery=jointDeliverys[i];
+					    var isUpdate=jointDelivery.childNodes[0].childNodes[0].getAttribute("data-id");
+					    if(isUpdate!=null){
+					    	obj.id=isUpdate;
+					    }
 				        obj.deliveryName=jointDelivery.childNodes[0].childNodes[0].value;
 				        obj.deliveryAmount=jointDelivery.childNodes[1].childNodes[0].value;
 				        obj.deliveryShareRatio=jointDelivery.childNodes[2].childNodes[0].value;
 				        arr[i]=obj;
 				}
 			}
-			console.log(arr);
+			   console.log(isDelete);
 			var formatData={"id":id,
 					       "projectName":pname,
 					        "industryOwn":industry_own,
@@ -613,7 +619,8 @@ $(function(){
 		  	               "faName":faName,
 		  	               "remark":remark,
 		  	               "financeMode":investForm,
-                           "jointDeliveryList":arr
+                           "jointDeliveryList":arr,
+                           "isDelete":isDelete
 			};
 			return formatData;
 		}
@@ -750,7 +757,7 @@ function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
-	        +'<span><input placeholder="填写机构名称" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span><span><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	        +'<span><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span><span><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	          +'<span class="del">删除</span>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow);

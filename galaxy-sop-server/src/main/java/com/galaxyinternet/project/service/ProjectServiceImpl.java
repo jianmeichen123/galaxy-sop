@@ -736,23 +736,32 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Transactional
 	public int updateBaseById(Project project) {
 		JointDelivery jointNull=new JointDelivery();
-		jointNull.setProjectId(project.getId());
-		jointDeliveryDao.delete(jointNull);
-		if(null!=project.getJointDeliveryList()&&!project.getJointDeliveryList().isEmpty()){
-			List<JointDelivery> jointDeliverylist=project.getJointDeliveryList();
-			for(int i=0;i<jointDeliverylist.size();i++){
-				JointDelivery jointDelivery=jointDeliverylist.get(i);
-				jointDelivery.setProjectId(project.getId());
-				jointDelivery.setDeliveryType(project.getFinanceMode());
-				jointDelivery.setCreateUid(project.getUpdateUid());
-				jointDelivery.setUpdatedTime(System.currentTimeMillis());
+		if(null!=project.getFinanceMode()&&project.getFinanceMode().equals("financeMode:0")){
+			jointNull.setProjectId(project.getId());
+			jointDeliveryDao.delete(jointNull);
+		}else{
+			if(null!=project.getIsDelete()&&!project.getIsDelete().isEmpty()){
+				for( Long Id:project.getIsDelete()){
+					jointNull.setId(Id);
+					jointDeliveryDao.delete(jointNull);
+				}
 			}
-			JointDelivery jointDelivery=new JointDelivery();
-			jointDelivery.setProjectId(project.getId());
-			jointDelivery.setDeliveryType(project.getFinanceMode());
-			jointDeliveryDao.delete(jointDelivery);
-			jointDeliveryDao.insertInBatch(jointDeliverylist);
-		 }
+			if(null!=project.getJointDeliveryList()&&!project.getJointDeliveryList().isEmpty()){
+				List<JointDelivery> jointDeliverylist=project.getJointDeliveryList();
+				for(int i=0;i<jointDeliverylist.size();i++){
+					JointDelivery jointDelivery=jointDeliverylist.get(i);
+					jointDelivery.setProjectId(project.getId());
+					jointDelivery.setDeliveryType(project.getFinanceMode());
+					jointDelivery.setCreateUid(project.getUpdateUid());
+					jointDelivery.setUpdatedTime(System.currentTimeMillis());
+					if(null!=jointDelivery.getId()){
+						jointDeliveryDao.updateById(jointDelivery);
+					}else{
+						jointDeliveryDao.insert(jointDelivery);
+					}
+				}
+			 }
+		}
 		int result = projectDao.updateById(project);
 	  return result;
 	}

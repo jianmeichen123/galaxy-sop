@@ -466,6 +466,8 @@
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
+     //投资机构是否删除字段标示
+     var isDelete=[];
 	var projectInfo = ${proinfo};
 	//运营数据分析返回
 	if(document.URL.indexOf("back=operateList")>0){
@@ -505,7 +507,10 @@
 	})
 	//删除
 	$(document).on('click','.block_inputs .del',function(){
-		$(this).siblings("input").poshytip('hide');
+		var input1=$(this).siblings("span:first").children("input:first").attr("data-id");
+		if(null!=input1){
+			isDelete.push(input1);
+		}
 		$(this).closest(".block_inputs").remove();
 		var inputsLength=$(".block_inputs").length;
 		if(inputsLength <10){

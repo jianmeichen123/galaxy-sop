@@ -128,6 +128,8 @@ public class Project extends PagableEntity {
    
    private List<JointDelivery> jointDeliveryList;
    
+   private List<Long> isDelete;
+   
    private Long updateUid;
 	
     public Long getId() {
@@ -759,6 +761,14 @@ public class Project extends PagableEntity {
 
 	public void setUpdateUid(Long updateUid) {
 		this.updateUid = updateUid;
+	}
+
+	public List<Long> getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(List<Long> isDelete) {
+		this.isDelete = isDelete;
 	}
    
     
