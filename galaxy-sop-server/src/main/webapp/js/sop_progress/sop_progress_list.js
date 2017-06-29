@@ -1,3 +1,7 @@
+	var _project_;
+	sendGetRequest(platformUrl.detailProject + id, {}, function(data){
+		_project_ = data.entity;
+	});
 	var i=$(".next_box").attr("data-progress")  //获取阶段值
 	progressBtnToggle();
 	//上一步、下一步显示隐藏
@@ -208,7 +212,7 @@ function toobarData(title,add_title,meetingType){
  */
 function buttonData(i){
 	var btnTitle="";
-	var btnHref="";
+	var nextProgress="";
 	var btnTitle5="";
 	var btnHref5="";
 	var btn1=$("#btn1");
@@ -217,52 +221,52 @@ function buttonData(i){
 	switch(i){
 	case 1:
 		btnTitle="启动内部评审";
-		btnHref="javascript:nextProgress('projectProgress:2');";
+		nextProgress='projectProgress:2';
 		isShow=false;
 		break;
 	case 2:
 		btnTitle="申请CEO评审";
-		btnHref="javascript:nextProgress('projectProgress:3');";
+		nextProgress='projectProgress:3';
 		isShow=false;
 		break;
 	case 3:
 		btnTitle="申请立项会排期";
-		btnHref="javascript:nextProgress('projectProgress:4');";
+		nextProgress='projectProgress:4';
 		isShow=false;
 		break;
 	case 4:
 		btnTitle="进入会后商务谈判";
-		btnHref="javascript:nextProgress('projectProgress:11');";
+		nextProgress='projectProgress:11';
 		isShow=false;
 		break;
 	case 5:
 		btnTitle="签订投资协议书（闪投）";
-		btnHref="javascript:nextProgress('projectProgress:2')";
+		nextProgress='projectProgress:2';
 		 var result=whichOne(5);
 		 if("st"){
 			 var btnTitle="签订投资意向书（投资）";
-			 var btnHref="javascript:nextProgress('projectProgress:2')";
+			 var nextProgress='projectProgress:2';
 		 }
 		isShow=true;
 		break;
 	case 6:
 		btnTitle="进入尽职调查";
-		btnHref="javascript:nextProgress('projectProgress:6')";
+		nextProgress='projectProgress:6';
 		isShow=false;
 		break;
 	case 7:
 		btnTitle="申请投决会排期";
-		btnHref="javascript:nextProgress('projectProgress:7')";
+		nextProgress='projectProgress:7';
 		isShow=false;
 		break;
 	case 8:
 		 var result=whichOne();
 		 if(result=="tzxy"){
 			 btnTitle="签订投资协议";
-				btnHref="javascript:nextProgress('projectProgress:8')";
+				nextProgress='projectProgress:8';
 		 }else{
 			 btnTitle="进入股权交割";
-				btnHref="javascript:nextProgress('projectProgress:9')"; 
+				nextProgress='projectProgress:9'; 
 		 }
 		 isShow=false;
 		break;
@@ -270,16 +274,16 @@ function buttonData(i){
 		 var result=whichOne();
 		 if(result=="jzdc"){
 			 btnTitle="进入尽职调查";
-				btnHref="javascript:nextProgress('projectProgress:6')";
+				nextProgress='projectProgress:6';
 		 }else{
 			 btnTitle="进入股权交割";
-				btnHref="javascript:nextProgress('projectProgress:9')"; 
+				nextProgress='projectProgress:9'; 
 		 }
 		 isShow=false;
 		break;
 	case 10:
 		btnTitle="进入投后运营";
-		btnHref="javascript:nextProgress('projectProgress:10')";
+		nextProgress='projectProgress:10';
 		isShow=false;
 		break;
     case 11:
@@ -288,8 +292,9 @@ function buttonData(i){
 	
 	}
 	btn1.text(btnTitle);
-	btn1.attr("href",btnHref);
+	btn1.data("next-progress",nextProgress);
 }
+
 function whichOne(index){
 	if(index=="8"){
 		return 'tzxy';
@@ -299,4 +304,37 @@ function whichOne(index){
 		return 'st';
 	}
 }
-
+$("#btn1").click(function(){
+	if($(this).hasClass('disabled'))
+	{
+		return;
+	}
+	var next = $(this).data('next-progress');
+	console.log(next);
+	nextProgress(this,next);
+});
+/**
+ * 项目阶段推进
+ * @param nextProgress 下一阶段编码。 e.g. projectProgress:2
+ * @returns
+ */
+function nextProgress(btn,nextProgress)
+{
+	$(btn).addClass('disabled');
+	sendPostRequestByJsonObj(
+		platformUrl.projectStageChange,
+		{id:projectId, stage:nextProgress},
+		function(data){
+			if(data.result.status == 'OK')
+			{
+				layer.msg('提交成功');
+				_project_=data.entity;
+			}
+			else if(data.result.message != null)
+			{
+				$(btn).removeClass('disabled');
+				layer.msg(data.result.message);
+			}
+		}
+	);
+}

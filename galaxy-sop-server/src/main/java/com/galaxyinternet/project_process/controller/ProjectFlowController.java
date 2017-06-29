@@ -888,6 +888,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try
 		{
 			projectService.updateProgress(p.getId(), p.getStage());
+			Project entity = projectService.queryById(p.getId());
+			data.setEntity(entity);
 			
 		} catch (Exception e)
 		{

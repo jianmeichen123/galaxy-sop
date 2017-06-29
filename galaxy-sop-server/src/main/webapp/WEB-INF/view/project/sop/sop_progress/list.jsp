@@ -90,7 +90,7 @@
 			<!-- 非此阶段的话就是 popbtm_btn全部隐藏-->
 			<div class="popbtm_btn clearfix">
 				<a href="javascript:;" class="fffbtn">否决项目</a>
-				<a  id="btn1" href="javascript:nextProgress('projectProgress:2');" class="bluebtn ">22222</a>
+				<a  id="btn1" href="javascript:;" class="bluebtn ">22222</a>
 				<a  id="btn2" style="display:none;" href="" class="bluebtn "></a>
 				<!-- 会后商务谈判按钮不同  直接添加相应按钮 -->
 				<!-- <a href="javascript:;" class="bluebtn">闪投</a> -->

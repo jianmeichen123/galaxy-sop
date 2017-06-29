@@ -278,26 +278,3 @@ function getInterViewParams(hasProid,projectId,
 	
 	return condition;
 }
-
-/**
- * 项目阶段推进
- * @param nextProgress 下一阶段编码。 e.g. projectProgress:2
- * @returns
- */
-function nextProgress(nextProgress)
-{
-	sendPostRequestByJsonObj(
-		platformUrl.projectStageChange,
-		{id:projectId, stage:nextProgress},
-		function(data){
-			if(data.result.status == 'OK')
-			{
-				layer.msg('提交成功');
-			}
-			else if(data.result.message != null)
-			{
-				layer.msg(data.result.message);
-			}
-		}
-	);
-}
