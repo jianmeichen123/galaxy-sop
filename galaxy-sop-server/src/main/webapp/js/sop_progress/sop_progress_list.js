@@ -177,17 +177,17 @@ function buttonData(i){
 		break;
 	case 2:
 		btnTitle="申请CEO评审";
-		btnHref="javascript:nextProgress('projectProgress:2');";
+		btnHref="javascript:nextProgress('projectProgress:3');";
 		isShow=false;
 		break;
 	case 3:
 		btnTitle="申请立项会排期";
-		btnHref="javascript:nextProgress('projectProgress:2');";
+		btnHref="javascript:nextProgress('projectProgress:4');";
 		isShow=false;
 		break;
 	case 4:
 		btnTitle="进入会后商务谈判";
-		btnHref="javascript:nextProgress('projectProgress:2');";
+		btnHref="javascript:nextProgress('projectProgress:11');";
 		isShow=false;
 		break;
 	case 5:
@@ -202,22 +202,22 @@ function buttonData(i){
 		break;
 	case 6:
 		btnTitle="进入尽职调查";
-		btnHref="javascript:nextProgress('projectProgress:2')";
+		btnHref="javascript:nextProgress('projectProgress:6')";
 		isShow=false;
 		break;
 	case 7:
 		btnTitle="申请投决会排期";
-		btnHref="javascript:nextProgress('projectProgress:2')";
+		btnHref="javascript:nextProgress('projectProgress:7')";
 		isShow=false;
 		break;
 	case 8:
 		 var result=whichOne();
 		 if(result=="tzxy"){
 			 btnTitle="签订投资协议";
-				btnHref="javascript:nextProgress('projectProgress:2')";
+				btnHref="javascript:nextProgress('projectProgress:8')";
 		 }else{
 			 btnTitle="进入股权交割";
-				btnHref="javascript:nextProgress('projectProgress:2')"; 
+				btnHref="javascript:nextProgress('projectProgress:9')"; 
 		 }
 		 isShow=false;
 		break;
@@ -225,16 +225,16 @@ function buttonData(i){
 		 var result=whichOne();
 		 if(result=="jzdc"){
 			 btnTitle="进入尽职调查";
-				btnHref="javascript:nextProgress('projectProgress:2')";
+				btnHref="javascript:nextProgress('projectProgress:6')";
 		 }else{
 			 btnTitle="进入股权交割";
-				btnHref="javascript:nextProgress('projectProgress:2')"; 
+				btnHref="javascript:nextProgress('projectProgress:9')"; 
 		 }
 		 isShow=false;
 		break;
 	case 10:
 		btnTitle="进入投后运营";
-		btnHref="javascript:nextProgress('projectProgress:2')";
+		btnHref="javascript:nextProgress('projectProgress:10')";
 		isShow=false;
 		break;
     case 11:
