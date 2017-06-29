@@ -424,4 +424,6 @@ function showProgress(progress){
 	        break;
 	
 	}
+	
+	initFileShow(); //file about
 }
