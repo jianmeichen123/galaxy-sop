@@ -193,8 +193,11 @@ function buttonData(i){
 	case 5:
 		btnTitle="签订投资协议书（闪投）";
 		btnHref="javascript:nextProgress('projectProgress:2')";
-		var btnTitle5="签订投资意向书（投资）";
-		var btnHref5="javascript:nextProgress('projectProgress:2')";
+		 var result=whichOne(5);
+		 if("st"){
+			 var btnTitle="签订投资意向书（投资）";
+			 var btnHref="javascript:nextProgress('projectProgress:2')";
+		 }
 		isShow=true;
 		break;
 	case 6:
@@ -241,19 +244,14 @@ function buttonData(i){
 	}
 	btn1.text(btnTitle);
 	btn1.attr("href",btnHref);
-	if(isShow){
-		btn2.show();
-		btn2.text(btnTitle5);
-		btn2.attr("href",btnHref5);
-	}else{
-		btn2.hide();
-	}
 }
 function whichOne(index){
 	if(index=="8"){
 		return 'tzxy';
-	}else{
+	}else if(index=="9"){
 		return 'jzdc';
+	}else{
+		return 'st';
 	}
 }
 
