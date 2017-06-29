@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.dubbo.cache.Cache;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
@@ -45,7 +45,8 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	@Autowired
 	private ScheduleContactsDao scheduleContactsDao;
 	
-
+	@Autowired
+	private Cache cache;
 	
 	@Autowired
 	private DictService dictService;
@@ -217,12 +218,15 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		return interviewRecordDao.selectCount(query);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Map<String,Dict> dictMap(String parentCOde){
 		Map<String,Dict> map=new HashMap<String,Dict>();
-		List<Dict> selectByParentCode = dictService.selectByParentCode(parentCOde);
-		for(Dict dict:selectByParentCode){
-			map.put(dict.getCode(), dict);
-		}
+           Object object = cache.get(parentCOde);
+           if(null==object){
+        	   object=new HashMap<String,Dict>();
+           }else{
+        	   map=(Map<String,Dict>)object;
+           }
 		return map;
 	}
 	
