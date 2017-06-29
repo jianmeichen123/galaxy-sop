@@ -11,13 +11,13 @@ function  progress(id){
 		}
 	});
 }
-
+//因为太长放不下所以页码pageList改成不可选  如果产品需要就再改过来。
 function interviewList(){
 	$('#projectProgress_1_table').bootstrapTable('destroy');
 	$('#projectProgress_1_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
-		pageList : [5, 10, 20 ],
+		pageList : [5],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
@@ -67,7 +67,7 @@ function meetList(type){
 		url:Constants.sopEndpointURL+'/galaxy/progress/p/queryMeet',
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
-		pageList : [5, 10, 20 ],
+		pageList : [5],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',

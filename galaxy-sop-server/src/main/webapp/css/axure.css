@@ -3260,7 +3260,7 @@ color:#999999;}
 .new_poptxt .tabcon{width:100%;}
 .new_poptxt .tabcon .fixed-table-body {border:1px solid #ccd2d7;border-radius:4px;	max-height:160px;overflow-y:auto;width:100%; display:block;}
 .new_poptxt .tabcon .fixed-table-body table thead th{border:0!important;background:#f9fafc;}
-  
+.new_poptxt .fixed-table-body .fixed-table-loading{left:1px;right:1px;bottom:1px}
   
   
   
