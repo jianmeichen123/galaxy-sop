@@ -3077,9 +3077,12 @@ color:#999999;}
     	color:#4a97da;
     	cursor: pointer;
     }
-	.new_poptxt blockquote {
+	#sop_progress_view  blockquote {
 		margin: 0;
-	    max-width: 540px;
+	    width: 540px;
+	   	height:auto;
+	    max-height: 150px!important;
+	    overflow-y: auto!important;
 	}
 	.empty_warning,.not_stage{
 		display: none;

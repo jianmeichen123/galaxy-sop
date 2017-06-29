@@ -23,7 +23,7 @@ function initFileShow(){
 function fileTabToggle(mark){
 	if(mark == true){
 		$(".tab_2").show();
-		$(".file_list").show();
+		$(".file_list").hide();
 	}else{
 		$(".tab_2").css("display","none");
 		$(".file_list").css("display","none");

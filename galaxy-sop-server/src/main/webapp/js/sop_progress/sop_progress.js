@@ -156,7 +156,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 			sendPostRequestByJsonObj(url,res,function(data){
 				var result = data.result.status;
 				if(result == "OK"){
-					debugger;
 					var res = data.pageList.content;
 					var time;
 					var target;

@@ -7,7 +7,7 @@
         <div id="tabtitle" class="tabtitle edit">
             <h3>访谈记录</h3>
         </div>
-        <div class="tab_con">
+        <div class="tab_con" id="sop_progress_view">
         <!-- time+interviewee-->
             <div class="clearfix ">
                  <dl class="fmdl clearfix intw_time">
