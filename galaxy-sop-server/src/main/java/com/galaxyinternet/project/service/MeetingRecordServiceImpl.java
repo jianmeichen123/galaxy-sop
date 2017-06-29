@@ -674,10 +674,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		// TODO Auto-generated method stub
 		Long fid = null;
 		if(file != null){
-			if(file.getId() != null)
-				sopFileDao.updateById(file);
-			else
-				fid = sopFileDao.insert(file);
+			fid = sopFileDao.insert(file);
 			meet.setFileId(fid);
 		}
 		if(meet != null){
