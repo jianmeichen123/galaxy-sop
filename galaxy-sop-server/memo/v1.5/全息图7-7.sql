@@ -47,6 +47,7 @@ UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `v
 
 
 UPDATE `fx_db`.`information_title` SET `placeholder`='请填写其他内容', `val_rule`='1', `val_rule_mark`='40' WHERE `id`='1330';
+
 CREATE 
     ALGORITHM = UNDEFINED 
     DEFINER = `fxuser`@`10.%.%.%` 
