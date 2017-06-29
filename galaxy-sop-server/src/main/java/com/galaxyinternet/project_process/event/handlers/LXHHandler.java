@@ -60,9 +60,10 @@ public class LXHHandler implements ProgressChangeHandler
 			po.setId(project.getId());
 			po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 			projectService.toEstablishStage(po);
-		} catch (Exception e)
+		} 
+		catch (Exception e)
 		{
-			throw new BusinessException(e);
+			throw new BusinessException(e.getMessage(),e);
 		}
 		
 		HttpServletRequest request = WebUtils.getRequest();

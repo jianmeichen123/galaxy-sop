@@ -72,9 +72,10 @@ public class TJHHandler implements ProgressChangeHandler
 			projectService.toSureMeetingStage(po);
 			
 			
-		} catch (Exception e)
+		} 
+		catch (Exception e)
 		{
-			throw new BusinessException(e);
+			throw new BusinessException(e.getMessage(),e);
 		}
 		HttpServletRequest request = WebUtils.getRequest();
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_,UrlNumber.nine);
