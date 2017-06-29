@@ -106,15 +106,18 @@
 	}
 	//点击下一步
 	$(".next_box").click(function(){
-		i++;
+		var pi = $(".next_box").attr("data-progress");
+		i = parseInt(pi)+parseInt(1); 
 		$(".next_box").attr("data-progress",i);
 		goToProgress();
 		
 	})
 	//点击上一步
 	$(".pre_box").click(function(){
-		i--;
+		var pi = $(".next_box").attr("data-progress");
+		i = parseInt(pi)-parseInt(1); 
 		goToProgress();
+		$(".next_box").attr("data-progress",i);
 
 	})
 function selectFile(input){
@@ -362,49 +365,60 @@ function showProgress(progress){
 		    interviewList();
 			toobarData("接触访谈","添加访谈记录","");
 			tab_show(1);
+			 $(".next_box").attr("data-progress",1);
 			break;
 	   case "2":
 		    meetList("meetingType:1");
 			toobarData("内部评审","添加内部评审","meetingType:1");
 			tab_show(1);
+			 $(".next_box").attr("data-progress",2);
 			break;
 	   case "3":
 		    meetList("meetingType:2");
 			toobarData("CEO评审","添加CEO评审","meetingType:2");
 			tab_show(1);
+			 $(".next_box").attr("data-progress",3);
 			break;
 	   case "4":
 		    meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
 			tab_show(3);
+			 $(".next_box").attr("data-progress",4);
 			break;
 	   case "5":
 		    $(".tabtitle h3").text("投资意向书");
 		    tab_show(2);
+		    $(".next_box").attr("data-progress",6);
 		    break;
 	   case "6":
 		    $(".tabtitle h3").text("尽职调查");
 		    tab_show(2);
+		    $(".next_box").attr("data-progress",7);
 		    break;
 	   case "7":
 		    toobarData("投决会","添加投决会","meetingType:4");
 		    tab_show(1);
+		    $(".next_box").attr("data-progress",8);
 		    break;
 	   case "8":
 		    $(".tabtitle h3").text("投资协议");
 		    tab_show(2);
+		    $(".next_box").attr("data-progress",9);
 		    break;
 	   case "9":
 		    $(".tabtitle h3").text("股权交割");
 		    tab_show(2);
+		    $(".next_box").attr("data-progress",10);
 		    break;
 	   case "10":
 		    $(".tabtitle h3").text("投后运营");
 		    tab_show(4);
+		    $(".next_box").attr("data-progress",11);
 		    break;
 	   case "11":
 		    $(".tabtitle h3").text("会后商务谈判");
 		    tab_show(1);
+		    $(".next_box").attr("data-progress",5);
 		    break;
 	   default :
 	        break;
