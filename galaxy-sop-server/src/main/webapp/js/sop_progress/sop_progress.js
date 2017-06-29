@@ -4,10 +4,10 @@ function  progress(id){
 	projectId = id;
 	$.getHtml({
 		url:Constants.sopEndpointURL + "/galaxy/progress/index",//模版请求地址
-		data:"",//传递参数
+		data:{"projectId":projectId},//传递参数
 		okback:function(){
 			$(".close").addClass("progress_close");
-			goToProgress();
+			/*goToProgress();*/
 		}
 	});
 }
@@ -277,27 +277,4 @@ function getInterViewParams(hasProid,projectId,
 	condition.viewNotes = viewNotes;
 	
 	return condition;
-}
-
-/**
- * 项目阶段推进
- * @param nextProgress 下一阶段编码。 e.g. projectProgress:2
- * @returns
- */
-function nextProgress(nextProgress)
-{
-	sendPostRequestByJsonObj(
-		platformUrl.projectStageChange,
-		{id:projectId, stage:nextProgress},
-		function(data){
-			if(data.result.status == 'OK')
-			{
-				layer.msg('提交成功');
-			}
-			else if(data.result.message != null)
-			{
-				layer.msg(data.result.message);
-			}
-		}
-	);
 }

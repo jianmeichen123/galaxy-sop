@@ -1,5 +1,13 @@
-	var i=$(".next_box").attr("data-progress")  //获取阶段值
-	progressBtnToggle();
+	var _project_;
+	sendGetRequest(platformUrl.detailProject + projectId, {}, function(data){
+		_project_ = data.entity;
+	});
+	
+	var i = $(".next_box").attr("data-progress"); //获取阶段值
+	var progress = $(".next_box").attr("data-project-progress"); 
+	//显示当前阶段
+	showProgress(progress);
+	
 	//上一步、下一步显示隐藏
 	function progressBtnToggle(){
 		if(i==1){
@@ -48,7 +56,7 @@
 	}
 	//阶段加载
 	function goToProgress(){
-		progressBtnToggle()		
+		progressBtnToggle();
 		if(i==1){
 			interviewList();
 			toobarData("接触访谈","添加访谈记录","");
@@ -93,18 +101,23 @@
 			tab_show(4);
 		}
 		buttonData(i);
+		
+		initFileShow(); //file about
 	}
 	//点击下一步
 	$(".next_box").click(function(){
-		i++;
+		var pi = $(".next_box").attr("data-progress");
+		i = parseInt(pi)+parseInt(1); 
 		$(".next_box").attr("data-progress",i);
 		goToProgress();
 		
 	})
 	//点击上一步
 	$(".pre_box").click(function(){
-		i--;
+		var pi = $(".next_box").attr("data-progress");
+		i = parseInt(pi)-parseInt(1); 
 		goToProgress();
+		$(".next_box").attr("data-progress",i);
 
 	})
 function selectFile(input){
@@ -208,7 +221,7 @@ function toobarData(title,add_title,meetingType){
  */
 function buttonData(i){
 	var btnTitle="";
-	var btnHref="";
+	var nextProgress="";
 	var btnTitle5="";
 	var btnHref5="";
 	var btn1=$("#btn1");
@@ -217,52 +230,52 @@ function buttonData(i){
 	switch(i){
 	case 1:
 		btnTitle="启动内部评审";
-		btnHref="javascript:nextProgress('projectProgress:2');";
+		nextProgress='projectProgress:2';
 		isShow=false;
 		break;
 	case 2:
 		btnTitle="申请CEO评审";
-		btnHref="javascript:nextProgress('projectProgress:3');";
+		nextProgress='projectProgress:3';
 		isShow=false;
 		break;
 	case 3:
 		btnTitle="申请立项会排期";
-		btnHref="javascript:nextProgress('projectProgress:4');";
+		nextProgress='projectProgress:4';
 		isShow=false;
 		break;
 	case 4:
 		btnTitle="进入会后商务谈判";
-		btnHref="javascript:nextProgress('projectProgress:11');";
+		nextProgress='projectProgress:11';
 		isShow=false;
 		break;
 	case 5:
 		btnTitle="签订投资协议书（闪投）";
-		btnHref="javascript:nextProgress('projectProgress:2')";
+		nextProgress='projectProgress:2';
 		 var result=whichOne(5);
 		 if("st"){
 			 var btnTitle="签订投资意向书（投资）";
-			 var btnHref="javascript:nextProgress('projectProgress:2')";
+			 var nextProgress='projectProgress:2';
 		 }
 		isShow=true;
 		break;
 	case 6:
 		btnTitle="进入尽职调查";
-		btnHref="javascript:nextProgress('projectProgress:6')";
+		nextProgress='projectProgress:6';
 		isShow=false;
 		break;
 	case 7:
 		btnTitle="申请投决会排期";
-		btnHref="javascript:nextProgress('projectProgress:7')";
+		nextProgress='projectProgress:7';
 		isShow=false;
 		break;
 	case 8:
 		 var result=whichOne();
 		 if(result=="tzxy"){
 			 btnTitle="签订投资协议";
-				btnHref="javascript:nextProgress('projectProgress:8')";
+				nextProgress='projectProgress:8';
 		 }else{
 			 btnTitle="进入股权交割";
-				btnHref="javascript:nextProgress('projectProgress:9')"; 
+				nextProgress='projectProgress:9'; 
 		 }
 		 isShow=false;
 		break;
@@ -270,16 +283,16 @@ function buttonData(i){
 		 var result=whichOne();
 		 if(result=="jzdc"){
 			 btnTitle="进入尽职调查";
-				btnHref="javascript:nextProgress('projectProgress:6')";
+				nextProgress='projectProgress:6';
 		 }else{
 			 btnTitle="进入股权交割";
-				btnHref="javascript:nextProgress('projectProgress:9')"; 
+				nextProgress='projectProgress:9'; 
 		 }
 		 isShow=false;
 		break;
 	case 10:
 		btnTitle="进入投后运营";
-		btnHref="javascript:nextProgress('projectProgress:10')";
+		nextProgress='projectProgress:10';
 		isShow=false;
 		break;
     case 11:
@@ -288,7 +301,7 @@ function buttonData(i){
 	
 	}
 	btn1.text(btnTitle);
-	btn1.attr("href",btnHref);
+	btn1.data("next-progress",nextProgress);
 }
 function whichOne(index){
 	if(index=="8"){
@@ -299,4 +312,118 @@ function whichOne(index){
 		return 'st';
 	}
 }
-
+$("#btn1").click(function(){
+	if($(this).hasClass('disabled'))
+	{
+		return;
+	}
+	var next = $(this).data('next-progress');
+	nextProgress(this,next);
+});
+/**
+ * 项目阶段推进
+ * @param nextProgress 下一阶段编码。 e.g. projectProgress:2
+ * @returns
+ */
+function nextProgress(btn,nextProgress)
+{
+	$(btn).addClass('disabled');
+	sendPostRequestByJsonObj(
+		platformUrl.projectStageChange,
+		{id:projectId, stage:nextProgress},
+		function(data){
+			if(data.result.status == 'OK')
+			{
+				layer.msg('提交成功');
+				_project_=data.entity;
+			}
+			else if(data.result.message != null)
+			{
+				$(btn).removeClass('disabled');
+				layer.msg(data.result.message);
+			}
+		}
+	);
+}	
+/***
+ * 因为之前项目阶段是按照顺序进行来处理,现增加商务谈判阶段数据库为11
+ * 而页面是在5阶段
+ * 所以单独处理渲染,不走下一步方法
+ * @param progress
+ */
+function showProgress(progress){
+	var i = 1;
+	var strs= new Array();
+	if(progress.indexOf(":") > 0){
+		istr = progress.split(":");
+		if(istr[1]){
+			i = istr[1];
+		}
+	}
+	switch(i){
+	   case "1":
+		    interviewList();
+			toobarData("接触访谈","添加访谈记录","");
+			tab_show(1);
+			 $(".next_box").attr("data-progress",1);
+			break;
+	   case "2":
+		    meetList("meetingType:1");
+			toobarData("内部评审","添加内部评审","meetingType:1");
+			tab_show(1);
+			 $(".next_box").attr("data-progress",2);
+			break;
+	   case "3":
+		    meetList("meetingType:2");
+			toobarData("CEO评审","添加CEO评审","meetingType:2");
+			tab_show(1);
+			 $(".next_box").attr("data-progress",3);
+			break;
+	   case "4":
+		    meetList("meetingType:3");
+			toobarData("立项会","添加立项会","meetingType:3");
+			tab_show(3);
+			 $(".next_box").attr("data-progress",4);
+			break;
+	   case "5":
+		    $(".tabtitle h3").text("投资意向书");
+		    tab_show(2);
+		    $(".next_box").attr("data-progress",6);
+		    break;
+	   case "6":
+		    $(".tabtitle h3").text("尽职调查");
+		    tab_show(2);
+		    $(".next_box").attr("data-progress",7);
+		    break;
+	   case "7":
+		    toobarData("投决会","添加投决会","meetingType:4");
+		    tab_show(1);
+		    $(".next_box").attr("data-progress",8);
+		    break;
+	   case "8":
+		    $(".tabtitle h3").text("投资协议");
+		    tab_show(2);
+		    $(".next_box").attr("data-progress",9);
+		    break;
+	   case "9":
+		    $(".tabtitle h3").text("股权交割");
+		    tab_show(2);
+		    $(".next_box").attr("data-progress",10);
+		    break;
+	   case "10":
+		    $(".tabtitle h3").text("投后运营");
+		    tab_show(4);
+		    $(".next_box").attr("data-progress",11);
+		    break;
+	   case "11":
+		    $(".tabtitle h3").text("会后商务谈判");
+		    tab_show(1);
+		    $(".next_box").attr("data-progress",5);
+		    break;
+	   default :
+	        break;
+	
+	}
+	
+	initFileShow(); //file about
+}

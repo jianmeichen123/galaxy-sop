@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.project_process.event.handlers.ProgressChangeHandler;
 /**
  * 项目流程：<br>
@@ -43,13 +44,19 @@ public class ProgressChangeEventListener implements ApplicationListener<Progress
 		}
 		if(handlers != null && handlers.size() > 0)
 		{
+			boolean hadHandler = false;
 			for(ProgressChangeHandler handler : handlers)
 			{
 				if(handler.support(event))
 				{
 					handler.handler(event);
+					hadHandler = true;
 					break;
 				}
+			}
+			if(!hadHandler)
+			{
+				throw new BusinessException("操作有误");
 			}
 		}
 		

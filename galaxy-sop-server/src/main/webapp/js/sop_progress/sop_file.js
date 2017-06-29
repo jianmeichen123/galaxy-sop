@@ -1,0 +1,309 @@
+
+
+//fileWorktype
+var filesCondition = {};
+
+var tagProgress = 'projectProgress:6'; // projectId
+
+function initFileShow(){
+	var toShowFlows = ['projectProgress:4','projectProgress:5','projectProgress:6','projectProgress:8','projectProgress:9'];
+	if($.inArray(tagProgress, toShowFlows)){
+		fileTabToggle(true);
+		
+		var condition = {};
+		condition.id = projectId;
+		condition.projectProgress = tagProgress;
+		sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progressT/showProFlowFiles",condition,backForShowFiles);
+	}else{
+		fileTabToggle(false);
+	}
+}
+
+
+function fileTabToggle(mark){
+	if(mark == true){
+		$(".tab_2").show();
+		$(".file_list").show();
+	}else{
+		$(".tab_2").css("display","none");
+		$(".file_list").css("display","none");
+	}
+}
+
+function backForShowFiles(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg(data.result.message);
+		return;
+	}
+	
+	$(".file_list").empty();
+	
+	filesCondition = data.userData;
+	var str = "";
+	for(var filetype in filesCondition){
+		str = '<li>' + getFileShowStr(filesCondition[filetype]) + '</li>';
+		
+		$(".file_list").append(str);
+		
+		if(filesCondition[filetype].canOpt){
+			fileUpBuild(
+					Constants.sopEndpointURL + "/galaxy/progressT/optProFlowFiles",
+					null,
+					filesCondition[filetype].fileWorktype.replace(":","_") + '_up',
+					null,
+					filesCondition[filetype].fileWorktype.replace(":","_") + '_save');
+		}
+	}
+}
+
+
+
+/**
+ * @param addFileUrl
+ *            上传文件调用后台的url      eg:"/interconnect/inFile.htm"
+ * @param paramsCondition
+ *            上传文件时传到后台的数据         eg:{'code':'hulian_2'}
+ * @param selectId
+ *            页面上传按钮，选择文件的图标   eg:$("#selectId")
+ * @param showFileId
+ *            选择文件后，页面回显选择的文件名的  id
+ * @param saveFileId
+ *            页面提交保存按钮的id
+ */
+function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){ 
+	var fileUploader = new plupload.Uploader({
+		runtimes : 'html5,html4,flash,silverlight',
+	    browse_button : selectId,
+	    url : addFileUrl,
+	    multipart:true,//true：multipart/form-data； false：以二进制的格式来上传文件
+		multi_selection:false,
+		filters : {   //只支持PDF和jpeg、png格式，大小限定为25M。
+			mime_types : [
+	           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
+	           { title : "PDF files", extensions : "pdf,PDF" }
+	        ],
+			max_file_size : '25mb',
+			prevent_duplicates : true //不允许选取重复文件
+		},
+	});
+	
+	fileUploader.init();  
+	
+	fileUploader.bind('FilesAdded',function(uploader,files){
+		//解决多次文件选择后，文件都存入upload
+		if(uploader.files.length >= 1){
+			uploader.splice(0, uploader.files.length-1);
+		}
+		
+		if(showFileId != null){
+			plupload.each(files, function(file) {
+				$("#"+showFileId).text(file.name);
+			});
+		}
+		
+		var fileWorktype = $("#"+selectId).attr("data-type");
+		paramsCondition = filesCondition[fileWorktype];
+		var fileType = getFileTypeByName(files[0].name);
+		paramsCondition.fileType = fileType;
+		
+		uploader.settings.multipart_params = paramsCondition;
+		
+		if(saveFileId == null){
+			uploader.start();
+		}
+	});
+	
+	fileUploader.bind('UploadProgress',function(uploader,files){
+		
+	});
+	
+	fileUploader.bind('PostInit',function(uploader){
+		if(saveFileId != null){
+			$("#"+saveFileId).click(function(){
+				uploader.start();
+			});
+		}
+	});
+	
+	fileUploader.bind('BeforeUpload',function(uploader){
+		
+	});
+	
+	fileUploader.bind('FileUploaded',function(uploader,files,rtn){
+		var response = $.parseJSON(rtn.response);
+		var result = response.status;
+		if(result == "OK"){
+			var fileWorktype = $("#"+saveFileId).attr("data-type");
+			var fi = response.entity;
+			filesCondition[fileWorktype] = fi;
+			
+			var liObj = $("#"+selectId).closest("li");
+			var filestr = getFileShowStr(fi);
+			
+			liObj.empty();
+			liObj.append(filestr);
+		}else{
+			layer.msg(response.message);
+		}
+	});
+	
+	fileUploader.bind('Error',function(uploader,err){
+		layer.msg(err.message);
+	});
+}
+
+
+
+
+function getFileShowStr(file){
+	var str = '';
+	if(file.taskStatusStr && file.taskStatusStr !=null){
+		if(file.filekey == null){
+			str += create_task_nofile_area(file);  // data-areatype="task_nofile"
+		}else{
+			str += create_task_file_area(file);   // data-areatype="task_file"
+		}
+	}else{
+		if(file.filekey == null){
+			str += create_blank_area(file);  //  data-areatype="blank"
+		}else{
+			str += create_file_area(file);  //  data-areatype="file"
+		}
+	}
+	return str;
+}
+
+
+
+//创建空白可上传区域
+//filekey=null taskStatusStr == null canopt=true 
+function create_blank_area(file){
+	var selectopt = "";
+	if(file.canOpt){
+		selectopt = '<input type="file" title="" id="'+ file.fileWorktype.replace(":","_") +'_up" data-type="' + file.fileWorktype + '">';
+	}
+	var str = 
+		//'<li>' +
+			selectopt +
+			'<div class="file_box">' +
+				'<img src="' + Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png" class="add_img" alt="">' +
+				'<div class="cover_box">' +
+					'<span class="cancel">取消</span>'  +
+					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+					'<p>loading…</p>' +
+				'</div>' +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
+}
+
+
+//filekey=null taskStatusStr == null 
+function create_file_area(file){
+	var imgstr = getImageOrPdf(file);
+	var optStr = getOptionStr(file);
+	var str = 
+		//'<li>' +
+			'<input type="hidden" data-areatype="file">' +
+			'<div class="file_box file_img">' +
+				'<img class="bg_img" src="' + imgstr + '" alt="" />'
+				optStr +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
+}
+
+//创建任务显示区域  fWorktype
+//taskStatusStr!=null    filekey=null
+function create_task_nofile_area(file){
+	var lin = file.taskStatusStr;
+	if(file.taskUname != null && file.taskUname.length > 0){
+		lin += '<br/>(' + file.taskUname + ')';
+	}
+	
+	var str = 
+		//'<li>' +
+			'<div class="file_box">' +
+				'<input type="hidden" data-areatype="task_nofile">' +
+				'<p class="center_text" style="margin-top: -18px;">' +
+					lin +
+				'</p>' +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
+}
+
+//taskStatusStr!=null    filekey!=null
+function create_task_file_area(file){
+	
+	var imgstr = getImageOrPdf(file);
+	var optStr = getOptionStr(file);
+	
+	var lin = taskStatusStr;
+	if(taskUname != null && taskUname.length > 0){
+		lin += '<br/>(' + taskUname + ')';
+	}
+		
+	var str = 
+		//'<li>' +
+			'<div class="file_box file_img">' +
+				'<input type="hidden" data-areatype="task_file">' +
+				'<img class="bg_img" src="' + imgstr + '" alt="" />'
+				'<p class="center_text" style="margin-top: -18px;">' +
+					lin +
+				'</p>' +
+				optStr +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
+}
+
+
+
+function getImageOrPdf(file){
+	// fileType:1  文档    // fileType:4  图片
+	var fileType = file.fileType;
+	if(fileType == null){
+		fileType = getFileTypeByExt(file.fileSuffix);
+	}
+	var imgstr = "";
+	if(fileType == "fileType:1"){
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/pdf.png";   //pdf
+	}else if(fileType == "fileType:4"){
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/image.png"; //图片
+	}
+	return imgstr;
+}
+
+
+function getOptionStr(file){
+	var optStr = "";
+	var optOption = "";
+	if(file.canOpt){
+		optOption += '<span class="reupload_jpg" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
+	}
+	if(file.canDown){
+		optOption += '<span class="downlond_jpg" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown("'+file.id+'")"></span>';
+	}
+	if(optOption != '' && optOption.length > 0){
+		optStr = 
+			'<div class="file_btn">' +
+				optOption +
+			'</div>' ;
+	}
+		
+	return optStr;
+}
+
+
+
+

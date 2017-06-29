@@ -7,7 +7,8 @@
         <div class="tabtitle">
             <i class="pre_box"></i>
             <h3>接触访谈</h3><span>(当前阶段)</span>
-            <i class="next_box" data-progress="1"></i>
+            <i class="next_box" data-progress="1" data-project-progress="${progress }"></i>
+            
         </div>
         <div class="tab_con">
         	<!-- tab nav -->
@@ -90,7 +91,7 @@
 			<!-- 非此阶段的话就是 popbtm_btn全部隐藏-->
 			<div class="popbtm_btn clearfix">
 				<a href="javascript:;" class="fffbtn">否决项目</a>
-				<a  id="btn1" href="javascript:nextProgress('projectProgress:2');" class="bluebtn ">22222</a>
+				<a  id="btn1" href="javascript:;" class="bluebtn ">22222</a>
 				<a  id="btn2" style="display:none;" href="" class="bluebtn "></a>
 				<!-- 会后商务谈判按钮不同  直接添加相应按钮 -->
 				<!-- <a href="javascript:;" class="bluebtn">闪投</a> -->

@@ -129,6 +129,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	// TODO : 流程总页面
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
+		String projectId = request.getParameter("projectId");
+		if(StringUtils.isNotBlank(projectId)){
+			Project pro = projectService.queryById(Long.valueOf(projectId));
+			String progress = pro.getProjectProgress();
+			request.setAttribute("progress", progress);
+		}
 		return "project/sop/sop_progress/list";
 	}
 
@@ -888,6 +894,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try
 		{
 			projectService.updateProgress(p.getId(), p.getStage());
+			Project entity = projectService.queryById(p.getId());
+			data.setEntity(entity);
 			
 		} catch (Exception e)
 		{
