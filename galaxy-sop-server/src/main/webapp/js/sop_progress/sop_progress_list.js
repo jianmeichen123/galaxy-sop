@@ -11,36 +11,74 @@
 			$(".pre_box").show();
 		}
 	}
+	//会议文档tab显示
+	function tab_show(status){
+		if(status==1){
+//			1的时候是只有会议
+			$(".new_poptxt .tab_1").show();
+			$(".new_poptxt .bootstrap-table").show();
+			$(".new_poptxt .tab_2").hide();
+			$(".new_poptxt .file_list").hide();
+			$(".new_poptxt .tab_1").addClass("on");
+			$(".new_poptxt .tab_2").removeClass("on");
+		}else if(status==2){
+//			2的时候是只有文档
+			$(".new_poptxt .tab_1").hide();
+			$(".new_poptxt .bootstrap-table").hide();
+			$(".new_poptxt .tab_2").show();
+			$(".new_poptxt .file_list").show();
+			$(".new_poptxt .tab_2").addClass("on");
+			$(".new_poptxt .tab_1").removeClass("on");
+		}else if(status ==3){
+//			3的时候是都有
+			$(".new_poptxt .tab_1").show();
+			$(".new_poptxt .bootstrap-table").show();
+			$(".new_poptxt .tab_2").show();
+			$(".new_poptxt .file_list").hide();
+			$(".new_poptxt .tab_1").addClass("on");
+			$(".new_poptxt .tab_2").removeClass("on");
+		}
+	}
 	//阶段加载
 	function goToProgress(){
 		progressBtnToggle()		
 		if(i==1){
 			interviewList();
 			toobarData("接触访谈","添加访谈记录","");
+			tab_show(1);
 		}else if(i==2){
 			meetList("meetingType:1");
 			toobarData("内部评审","添加内部评审","meetingType:1");
+			tab_show(1);
 		}else if(i==3){
 			meetList("meetingType:2");
 			toobarData("CEO评审","添加CEO评审","meetingType:2");
+			tab_show(1);
 		}else if(i==4){
 			meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
+			tab_show(3);
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
+			tab_show(1);
 		}else if(i==6){
 			$(".tabtitle h3").text("投资意向书");
+			tab_show(2);
 		}else if(i==7){
 			$(".tabtitle h3").text("尽职调查");
+			tab_show(2);
 			//尽职调查  上传附件
 		}else if(i==8){
 			meetList("meetingType:4");
 			toobarData("投决会","添加投决会","meetingType:4");
+			tab_show(1);
 		}else if(i==9){
 			$(".tabtitle h3").text("投资协议");
+			tab_show(2);
 			//投资协议  上传附件
 		}else if(i==10){
 			$(".tabtitle h3").text("股权交割");
+			tab_show(2);
 			//股权交割   上传附件
 		}else if(i==11){
 			//静态页
