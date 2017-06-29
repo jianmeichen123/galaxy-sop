@@ -15,6 +15,7 @@
 	function tab_show(status){
 		if(status==1){
 //			1的时候是只有会议
+			$(".tab_con").show();
 			$(".new_poptxt .tab_1").show();
 			$(".new_poptxt .bootstrap-table").show();
 			$(".new_poptxt .tab_2").hide();
@@ -23,6 +24,7 @@
 			$(".new_poptxt .tab_2").removeClass("on");
 		}else if(status==2){
 //			2的时候是只有文档
+			$(".tab_con").show();
 			$(".new_poptxt .tab_1").hide();
 			$(".new_poptxt .bootstrap-table").hide();
 			$(".new_poptxt .tab_2").show();
@@ -31,12 +33,17 @@
 			$(".new_poptxt .tab_1").removeClass("on");
 		}else if(status ==3){
 //			3的时候是都有
+			$(".tab_con").show();
 			$(".new_poptxt .tab_1").show();
 			$(".new_poptxt .bootstrap-table").show();
 			$(".new_poptxt .tab_2").show();
 			$(".new_poptxt .file_list").hide();
 			$(".new_poptxt .tab_1").addClass("on");
 			$(".new_poptxt .tab_2").removeClass("on");
+		}else if(status==4){
+			//投后运营
+			$(".tab_con").hide();
+			$(".operation_warning").show();
 		}
 	}
 	//阶段加载
@@ -83,7 +90,7 @@
 		}else if(i==11){
 			//静态页
 			$(".tabtitle h3").text("投后运营");
-			
+			tab_show(4);
 		}
 		buttonData(i);
 	}

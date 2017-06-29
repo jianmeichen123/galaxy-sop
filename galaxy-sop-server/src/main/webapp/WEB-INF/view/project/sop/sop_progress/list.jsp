@@ -106,6 +106,11 @@
           </div>
         </div>  
 		   
+	    <div class="operation_warning">
+			<img src="<%=path %>/img/sop_progress/operation_empty.png" alt="">	
+			<span>本页面暂无操作内容</span>
+			<span>请跳转到项目详情页面继续填写～</span>
+		</div>
     </div>
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress_list.js"></script>
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
