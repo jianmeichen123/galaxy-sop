@@ -20,7 +20,7 @@ insert into `dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dic
 CREATE TABLE `joint_delivery` (
   `id` bigint(100) NOT NULL AUTO_INCREMENT,
   `delivery_type` varchar(20) DEFAULT NULL COMMENT '0-独投;1-领投;2-合投',
-  `delivery_name` varchar(20) DEFAULT NULL COMMENT '合投机构名称',
+  `delivery_name` varchar(100) DEFAULT NULL COMMENT '合投机构名称',
   `delivery_amount` decimal(15,4) DEFAULT NULL COMMENT '投资金额',
   `delivery_share_ratio` decimal(6,4) DEFAULT NULL COMMENT '股权占比',
   `project_id` bigint(50) DEFAULT NULL COMMENT '项目ID',
