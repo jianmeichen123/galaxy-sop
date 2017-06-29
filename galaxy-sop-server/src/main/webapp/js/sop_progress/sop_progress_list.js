@@ -101,6 +101,8 @@
 			tab_show(4);
 		}
 		buttonData(i);
+		
+		initFileShow(); //file about
 	}
 	//点击下一步
 	$(".next_box").click(function(){

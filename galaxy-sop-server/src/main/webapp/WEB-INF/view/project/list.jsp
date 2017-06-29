@@ -200,6 +200,7 @@ var pageId = "project";
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
 <script type="text/javascript">
 	createMenus(5);
 	/**权限点**/
@@ -215,7 +216,7 @@ var pageId = "project";
 		var transferingIds = "${fx:getTransferingPids()}".split(",");
 		if(uid == row.createUid)
 		{
-			/* var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>"; */
+			//var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>";
 			var options = "<span class=\"prc\" data-btn='myproject' onclick='progress(" + id + ")'>项目流程</span>";
 			if(transferingIds.contains(id))
 			{
