@@ -280,7 +280,7 @@
 	      project_describe,project_describe_financing, project_business_model, 
 	      company_location, user_portrait, 
 	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark,project_time,
-	      progress_hisotry,business_type_code)
+	      progress_history,business_type_code)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
@@ -306,7 +306,7 @@
 	      project_describe,project_describe_financing, project_business_model, 
 	      company_location, user_portrait, 
 	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark,project_time,
-	      progress_hisotry,business_type_code)
+	      progress_history,business_type_code)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT},  #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
