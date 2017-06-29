@@ -50,6 +50,7 @@ public class NBPSHandler implements ProgressChangeHandler
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.内部评审.getCode());
 		po.setProjectStatus(projectStatus.GJZ.getCode());
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		
 		HttpServletRequest request = WebUtils.getRequest();

@@ -119,6 +119,7 @@ public class JZDCHandler implements ProgressChangeHandler
 		Project po = new Project();
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.尽职调查.getCode());
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		HttpServletRequest request = WebUtils.getRequest();
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), num);

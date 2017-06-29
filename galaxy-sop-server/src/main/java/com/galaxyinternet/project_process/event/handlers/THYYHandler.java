@@ -54,6 +54,7 @@ public class THYYHandler implements ProgressChangeHandler
 		Project po = new Project();
 		po.setId(po.getId());
 		po.setProjectProgress(projectProgress.投后运营.getCode());
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		
 		HttpServletRequest request = WebUtils.getRequest();

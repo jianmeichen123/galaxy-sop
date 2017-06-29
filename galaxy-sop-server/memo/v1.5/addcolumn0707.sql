@@ -40,5 +40,10 @@ WHERE platform_resource.id = platform_index_config.resource_id;
 ALTER TABLE `power`.`resource`   
   CHANGE `resource_type` `resource_type` INT(11) NULL  COMMENT '资源类型1-菜单;2-页面;3-操作;4-其他(div等);5-桌面模块';
   
+ALTER TABLE `fx_db`.`sop_project`   
+  ADD COLUMN `progress_history` VARCHAR(255) NULL  COMMENT '流程历史记录(逗号分割)';
+ALTER TABLE `fx_db`.`sop_project`  
+  ADD COLUMN `business_type_code` VARCHAR(20) NULL  COMMENT '业务类型编码：TZ-投资，ST-闪投'; 
+  
  
 

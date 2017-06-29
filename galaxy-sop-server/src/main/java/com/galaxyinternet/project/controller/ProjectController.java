@@ -318,6 +318,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setUpdatedTime(date.getTime());
 				project.setProjectTime(date.getTime());
 				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+				project.setProgressHistory(DictEnum.projectProgress.接触访谈.getCode());
 				long id = projectService.newProject(project, file);
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));

@@ -47,6 +47,7 @@ public class SWTPHandler implements ProgressChangeHandler
 		Project po = new Project();
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.会后商务谈判.getCode());
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		
 		HttpServletRequest request = WebUtils.getRequest();

@@ -82,6 +82,8 @@ public class STHandler implements ProgressChangeHandler
 		Project po = new Project();
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.投资协议.getCode());
+		po.setBusinessTypeCode(SopConstant.BUSINESS_TYPE_ST);
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		HttpServletRequest request = WebUtils.getRequest();
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.six);

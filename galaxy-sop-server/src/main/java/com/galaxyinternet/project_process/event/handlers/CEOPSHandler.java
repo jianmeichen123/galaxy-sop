@@ -76,6 +76,7 @@ public class CEOPSHandler implements ProgressChangeHandler
 		Project po = new Project();
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.CEO评审.getCode());
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		
 		HttpServletRequest request = WebUtils.getRequest();

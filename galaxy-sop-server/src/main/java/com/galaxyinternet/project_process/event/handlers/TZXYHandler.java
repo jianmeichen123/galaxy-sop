@@ -72,22 +72,11 @@ public class TZXYHandler implements ProgressChangeHandler
 		task.setCreatedTime(System.currentTimeMillis());
 		taskService.insert(task);
 		
-		task = new SopTask();
-		task.setProjectId(project.getId());
-		task.setTaskName(SopConstant.TASK_NAME_GQZR);
-		task.setTaskType(DictEnum.taskType.协同办公.getCode());
-		task.setTaskFlag(SopConstant.TASK_FLAG_GQZR);
-		task.setTaskOrder(SopConstant.NORMAL_STATUS);
-		task.setDepartmentId(project.getProjectDepartid());
-		task.setAssignUid(project.getCreateUid());
-		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
-		task.setCreatedTime(System.currentTimeMillis());
-		taskService.insert(task);
-		
 		
 		Project po = new Project();
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.投资协议.getCode());
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		
 		HttpServletRequest request = WebUtils.getRequest();

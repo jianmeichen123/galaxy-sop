@@ -77,6 +77,11 @@ public interface SopConstant {
 	public static final String REQUEST_SCOPE_ATTR_IS_MENU 	= "_is_menu_";
 	public static final String SESSION_SCOPE_ATTR_CUR_MENU 	= "_curr_menu_";
 	
+	/**投资**/
+	public static final String BUSINESS_TYPE_TZ = "TZ"; 
+	/**闪投**/
+	public static final String BUSINESS_TYPE_ST = "ST"; 
+	
 	
 	
 	

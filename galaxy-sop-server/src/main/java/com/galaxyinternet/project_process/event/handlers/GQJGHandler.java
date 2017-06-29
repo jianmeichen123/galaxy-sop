@@ -112,6 +112,7 @@ public class GQJGHandler implements ProgressChangeHandler
 		Project po = new Project();
 		po.setId(project.getId());
 		po.setProjectProgress(projectProgress.股权交割.getCode());
+		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
 		
 		HttpServletRequest request = WebUtils.getRequest();

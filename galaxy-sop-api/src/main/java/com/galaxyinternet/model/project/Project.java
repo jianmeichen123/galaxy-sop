@@ -122,6 +122,9 @@ public class Project extends PagableEntity {
    
    private Long projectTime;
    
+   private String progressHistory;
+   private String businessTypeCode;
+   
     
 	
 	
@@ -722,6 +725,26 @@ public class Project extends PagableEntity {
 
 	public void setProjectTime(Long projectTime) {
 		this.projectTime = projectTime;
+	}
+
+	public String getProgressHistory()
+	{
+		return progressHistory;
+	}
+
+	public void setProgressHistory(String progressHistory)
+	{
+		this.progressHistory = progressHistory;
+	}
+
+	public String getBusinessTypeCode()
+	{
+		return businessTypeCode;
+	}
+
+	public void setBusinessTypeCode(String businessTypeCode)
+	{
+		this.businessTypeCode = businessTypeCode;
 	}
    
  
