@@ -298,41 +298,48 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					p.setFileSize(result.getContentLength());
 				}
 				if(p.getFileKey() != null){
-					SopFile file = new SopFile();
-					file.setProjectId(p.getPid());
-					file.setProjectProgress(p.getStage());
-					file.setCareerLine(p.getDepartmentId());
-					file.setFileType(DictEnum.fileType.音频文件.getCode());
-					file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-					file.setFileUid(p.getCreatedUid());
-					file.setCreatedTime((new Date()).getTime());
-					file.setFileLength(p.getFileSize());
-					file.setFileKey(p.getFileKey());
-					file.setBucketName(p.getBucketName());
-					file.setFileName(p.getFileName());
-					file.setFileSuffix(p.getSuffix());
-					fid = sopFileDao.insert(file);
-					if(fid != null){
-						ir.setFileId(fid);
-						if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
-							InterviewRecord record = interviewRecordService.queryById(p.getRecordId());
-							if(record.getFileId() != null){
-								SopFile sop = sopFileService.queryById(record.getFileId());
-						        if(sop != null){
-						        	OSSHelper.deleteFile(sop.getBucketName(), sop.getFileKey());
-						        	sopFileService.deleteById(sop.getId());
-						        }
-							}
-							ir.setId(p.getRecordId());
-							int updateByIdSelective = interviewRecordService.updateById(ir);
-							if(updateByIdSelective>0){
-								message="编辑访谈记录成功";
-							}
-							
-						}else{
-							interviewRecordService.insert(ir);	
-							message="添加访谈记录成功";
+					if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
+						InterviewRecord record = interviewRecordService.queryById(p.getRecordId());
+						if(record.getFileId() != null){
+							SopFile sop = sopFileService.queryById(record.getFileId());
+					        if(sop != null){
+					        	OSSHelper.deleteFile(sop.getBucketName(), sop.getFileKey());
+					        	sop.setUpdatedTime((new Date()).getTime());
+					        	sop.setFileLength(p.getFileSize());
+					        	sop.setFileKey(p.getFileKey());
+					        	sop.setBucketName(p.getBucketName());
+					        	sop.setFileName(p.getFileName());
+					        	sop.setFileSuffix(p.getSuffix());
+					        	sop.setFileUid(p.getCreatedUid());
+					        	sopFileService.updateById(sop);
+					        }
 						}
+						ir.setId(p.getRecordId());
+						int updateByIdSelective = interviewRecordService.updateById(ir);
+						if(updateByIdSelective>0){
+							message="编辑访谈记录成功";
+						}
+						
+					}else{
+						SopFile file = new SopFile();
+						file.setProjectId(p.getPid());
+						file.setProjectProgress(p.getStage());
+						file.setCareerLine(p.getDepartmentId());
+						file.setFileType(DictEnum.fileType.音频文件.getCode());
+						file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+						file.setFileUid(p.getCreatedUid());
+						file.setCreatedTime((new Date()).getTime());
+						file.setFileLength(p.getFileSize());
+						file.setFileKey(p.getFileKey());
+						file.setBucketName(p.getBucketName());
+						file.setFileName(p.getFileName());
+						file.setFileSuffix(p.getSuffix());
+						fid = sopFileDao.insert(file);
+						if(fid != null){
+							ir.setFileId(fid);
+						}
+						interviewRecordService.insert(ir);	
+						message="添加访谈记录成功";
 					}
 					
 				}
@@ -509,13 +516,21 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
 					sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
 					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+					sopFile.setCreatedTime(new Date().getTime());
 					if(meetingRecord.getId() != null){
 						MeetingRecord meeting = meetingRecordService.queryById(meetingRecord.getId());
 						if(meeting.getFileId() != null){
 							SopFile sop = sopFileService.queryById(meeting.getFileId());
 					        if(sop != null){
 					        	OSSHelper.deleteFile(sop.getBucketName(), sop.getFileKey());
-					        	sopFileService.deleteById(sop.getId());
+					        	sopFile = sop;
+					           	sop.setUpdatedTime((new Date()).getTime());
+					        	sop.setFileLength(result.getContentLength());
+					        	sop.setFileKey(result.getFileKey());
+					        	sop.setBucketName(result.getBucketName());
+					        	sop.setFileName(result.getFileName());
+					        	sop.setFileSuffix(result.getFileSuffix());
+					        	sop.setFileUid(user.getId());
 					        }
 						}
 					}
@@ -918,22 +933,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		
 		return null;
 	}
-	
-	private Map<String, String> transFileNames(String fileName) {
-		Map<String, String> retMap = new HashMap<String, String>();
-		int dotPos = fileName.lastIndexOf(".");
-		if(dotPos == -1){
-			retMap.put("fileName", fileName);
-			retMap.put("fileSuffix", "");
-		}else{
-			retMap.put("fileName", fileName.substring(0, dotPos));
-			retMap.put("fileSuffix", fileName.substring(dotPos+1));
-		}
-		return retMap;
-	}
 
-
-	
-	
 	
 }
