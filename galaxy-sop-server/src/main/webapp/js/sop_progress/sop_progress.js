@@ -7,7 +7,7 @@ function  progress(id){
 		data:{"projectId":projectId},//传递参数
 		okback:function(){
 			$(".close").addClass("progress_close");
-			goToProgress();
+			/*goToProgress();*/
 		}
 	});
 }
