@@ -1,5 +1,8 @@
-	var i=$(".next_box").attr("data-progress")  //获取阶段值
-	progressBtnToggle();
+	var i = $(".next_box").attr("data-progress"); //获取阶段值
+	var progress = $(".next_box").attr("data-project-progress"); 
+	//显示当前阶段
+	showProgress(progress);
+	
 	//上一步、下一步显示隐藏
 	function progressBtnToggle(){
 		if(i==1){
@@ -48,7 +51,7 @@
 	}
 	//阶段加载
 	function goToProgress(){
-		progressBtnToggle()		
+		progressBtnToggle();
 		if(i==1){
 			interviewList();
 			toobarData("接触访谈","添加访谈记录","");
@@ -299,4 +302,61 @@ function whichOne(index){
 		return 'st';
 	}
 }
-
+/***
+ * 因为之前项目阶段是按照顺序进行来处理,现增加商务谈判阶段数据库为11
+ * 而页面是在5阶段
+ * 所以单独处理渲染,不走下一步方法
+ * @param progress
+ */
+function showProgress(progress){
+	var i = 1;
+	var strs= new Array();
+	if(progress.indexOf(":") > 0){
+		istr = progress.split(":");
+		if(istr[1]){
+			i = istr[1];
+		}
+	}
+	switch(i){
+	   case "1":
+		    interviewList();
+			toobarData("接触访谈","添加访谈记录","");
+			break;
+	   case "2":
+		    meetList("meetingType:1");
+			toobarData("内部评审","添加内部评审","meetingType:1");
+			break;
+	   case "3":
+		    meetList("meetingType:2");
+			toobarData("CEO评审","添加CEO评审","meetingType:2");
+			break;
+	   case "4":
+		    meetList("meetingType:3");
+			toobarData("立项会","添加立项会","meetingType:3");
+			break;
+	   case "5":
+		    $(".tabtitle h3").text("投资意向书");
+		    break;
+	   case "6":
+		    $(".tabtitle h3").text("尽职调查");
+		    break;
+	   case "7":
+		    toobarData("投决会","添加投决会","meetingType:4");
+		    break;
+	   case "8":
+		    $(".tabtitle h3").text("投资协议");
+		    break;
+	   case "9":
+		    $(".tabtitle h3").text("股权交割");
+		    break;
+	   case "10":
+		    $(".tabtitle h3").text("投后运营");
+		    break;
+	   case "11":
+		    $(".tabtitle h3").text("会后商务谈判");
+		    break;
+	   default :
+	        break;
+	
+	}
+}
