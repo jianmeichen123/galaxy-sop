@@ -134,15 +134,15 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	});
 	
 	fileUploader.bind('BeforeUpload',function(uploader){
-		$("#"+selectId).closest("li").showLoading(
-				 {
-				    'addClass': 'loading-indicator'						
-				 });
+//		开始上传
+		$("#"+selectId).siblings(".file_box").find("span").hide();
+		$("#"+selectId).siblings(".file_box").find("p").show();
 	});
 	
 	fileUploader.bind('FileUploaded',function(uploader,files,rtn){
-		$("#"+selectId).closest("li").hideLoading();
-		
+//		上传成功
+		/*$("#"+selectId).closest("li").hideLoading();*/
+		$("#"+selectId).siblings(".file_box").find(".cover_box").hide();
 		uploader.splice(0, uploader.files.length);
 		
 		var response = $.parseJSON(rtn.response);
@@ -164,12 +164,16 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 					fi.fileWorktype.replace(":","_") + '_up',
 					null,
 					fi.fileWorktype.replace(":","_") + '_save');
+			
 		}else{
 			layer.msg(result.message);
 		}
 	});
 	
 	fileUploader.bind('Error',function(uploader,err){
+//		上传出错
+		$("#"+selectId).siblings(".file_box").find(".cover_box").hide();
+		$("#"+selectId).siblings(".file_box").find(".cover_box").siblings("img").addClass("add_img").attr("src", '../img/sop_progress/plus_icon.png');
 		$("#"+selectId).closest("li").hideLoading();
 		uploader.splice(0, uploader.files.length);
 		layer.msg(err.message);
@@ -234,6 +238,11 @@ function create_file_area(file){
 			'<div class="file_box file_img">' +
 				'<img class="bg_img" src="' + imgstr + '" alt="" />' +
 				optStr +
+				'<div class="cover_box">' +
+				'<span class="cancel">取消</span>'  +
+				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+				'<p>loading…</p>' +
+			'</div>' +
 			'</div>' +
 			'<span>'+ file.fWorktype +'</span>' ;
 		//'</li>';
@@ -256,6 +265,11 @@ function create_task_nofile_area(file){
 				'<p class="center_text" style="margin-top: -18px;">' +
 					lin +
 				'</p>' +
+				'<div class="cover_box">' +
+				'<span class="cancel">取消</span>'  +
+				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+				'<p>loading…</p>' +
+			'</div>' +
 			'</div>' +
 			'<span>'+ file.fWorktype +'</span>' ;
 		//'</li>';
@@ -283,6 +297,11 @@ function create_task_file_area(file){
 					lin +
 				'</p>' +
 				optStr +
+				'<div class="cover_box">' +
+				'<span class="cancel">取消</span>'  +
+				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+				'<p>loading…</p>' +
+			'</div>' +
 			'</div>' +
 			'<span>'+ file.fWorktype +'</span>' ;
 		//'</li>';
