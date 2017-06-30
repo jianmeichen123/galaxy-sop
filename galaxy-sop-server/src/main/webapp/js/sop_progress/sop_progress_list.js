@@ -21,6 +21,7 @@
 	}
 	//会议文档tab显示
 	function tab_show(status){
+		console.log(status)
 		if(status==1){
 //			1的时候是只有会议
 			$(".tab_con").show();
@@ -55,7 +56,7 @@
 		}
 	}
 	//阶段加载
-	function goToProgress(){
+	function goToProgress(){		
 		progressBtnToggle();
 		if(i==1){
 			interviewList();
@@ -120,8 +121,7 @@
 		$(".next_box").attr("data-progress",i);
 
 	})
-function selectFile(input){
-	var fileName = input.val();
+function selectFile(input,fileName){
 	if(fileName.length> 1 && fileName){
 		var ldot = fileName.lastIndexOf("."); 
 	var type = fileName.substr(Number(ldot + 1)); 
@@ -142,9 +142,6 @@ function selectFile(input){
 		input.siblings('.file_box').find('.cover_box').hide();
 	}
 }
-$(".file_list input[type='file']").change(function(event) {
-	selectFile($(this));
-});
 //文件上传与取消
 $(".file_box .cover_box .cancel").click(function(event) {
 	$(this).parents(".cover_box").hide();

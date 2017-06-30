@@ -45,7 +45,6 @@ function backForShowFiles(data){
 		str = '<li>' + getFileShowStr(filesCondition[filetype]) + '</li>';
 		
 		$(".file_list").append(str);
-		
 		if(filesCondition[filetype].canOpt){
 			fileUpBuild(
 					Constants.sopEndpointURL + "/galaxy/progressT/optProFlowFiles",
@@ -55,6 +54,7 @@ function backForShowFiles(data){
 					filesCondition[filetype].fileWorktype.replace(":","_") + '_save');
 		}
 	}
+	
 }
 
 
@@ -97,9 +97,11 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		}
 		
 		if(showFileId != null){
+			alert("!@#@#$");
 			plupload.each(files, function(file) {
 				$("#"+showFileId).text(file.name);
 			});
+			
 		}
 		
 		var fileWorktype = $("#"+selectId).attr("data-type");
@@ -112,6 +114,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		if(saveFileId == null){
 			uploader.start();
 		}
+		selectFile($("#"+selectId),files[0].name);
 	});
 	
 	fileUploader.bind('UploadProgress',function(uploader,files){
