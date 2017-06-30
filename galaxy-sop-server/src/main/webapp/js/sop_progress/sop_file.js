@@ -157,7 +157,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 			
 			liObj.empty();
 			liObj.append(filestr);
-			
+//			liObj——li重新渲染
 			fileUpBuild(
 					Constants.sopEndpointURL + "/galaxy/progressT/optProFlowFiles",
 					null,
