@@ -153,7 +153,7 @@
 		event.stopPropagation();
         var sec = $(this).closest('form');
         var id_code = $(this).attr('attr-save');
-        var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
+        var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,li[class='check_label active'],select");
 		var data = {
 			projectId : projectInfo.id
@@ -383,8 +383,9 @@
                 deletedResultTids.push(tid);
             }
         });
+        console.log(data.infoModeList);
         data.deletedResultTids = deletedResultTids;
-
+        console.log(data.deletedResultTids);
         sendPostRequestByJsonObj(
         			platformUrl.saveOrUpdateInfo ,
         			data,
