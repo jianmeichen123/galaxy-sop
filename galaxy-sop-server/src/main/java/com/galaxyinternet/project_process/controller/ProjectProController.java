@@ -2,6 +2,7 @@ package com.galaxyinternet.project_process.controller;
 
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -28,6 +30,8 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -115,7 +119,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	@RequestMapping(value = "/showProFlowFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<SopFile> showProFlowFiles(HttpServletRequest request,@RequestBody Project query ) {
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		Map<String,Object> resultMap = new HashMap<>();
+		Map<String,Object> resultMap = new LinkedHashMap<>();
 		
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -207,11 +211,18 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	 * 	file.fileUid   file.CareerLine  
 	 * @return 
 	 */
-	@RequestMapping(value = "/optProFlowFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseData<SopFile> showFilesProFlow(HttpServletRequest request,@RequestBody SopFile fileTemp ) {
+	@RequestMapping(value = "/optProFlowFiles", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseData<SopFile> showFilesProFlow(HttpServletRequest request, SopFile fileTemp ) {
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		
+		if(fileTemp.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR, null,"参数缺失"));
+			return responseBody;
+		}
 		try {
+			//String json = JSONUtils.getBodyString(request);
+			//fileTemp = GSONUtil.fromJson(json, SopFile.class);
+			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
 			Project pro = projectService.queryById(fileTemp.getProjectId());
@@ -220,6 +231,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			fileTemp.setFileUid(user.getId());
 			fileTemp.setCareerLine(user.getDepartmentId());
 			SopFile result = proFlowAboutFileService.optFileAboutProgress(request,this, fileTemp, tempfilePath);
+			
 			if(result == null){
 				logger.error("showFilesProFlow 异常");
 				responseBody.setResult(new Result(Status.ERROR, null,"系统异常"));
@@ -243,7 +255,8 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	
 	
 	
-	
-
-	
+	/*
+	ALTER TABLE `fx_db`.`sop_file`   
+	  CHANGE `fil_uri` `fil_uri` VARCHAR(300) CHARSET utf8 COLLATE utf8_bin NULL  COMMENT '存储地址';
+	*/
 }
