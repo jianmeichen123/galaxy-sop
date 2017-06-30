@@ -134,10 +134,15 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	});
 	
 	fileUploader.bind('BeforeUpload',function(uploader){
-		
+		$("#"+selectId).closest("li").showLoading(
+				 {
+				    'addClass': 'loading-indicator'						
+				 });
 	});
 	
 	fileUploader.bind('FileUploaded',function(uploader,files,rtn){
+		$("#"+selectId).closest("li").hideLoading();
+		
 		uploader.splice(0, uploader.files.length);
 		
 		var response = $.parseJSON(rtn.response);
@@ -165,6 +170,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	});
 	
 	fileUploader.bind('Error',function(uploader,err){
+		$("#"+selectId).closest("li").hideLoading();
 		uploader.splice(0, uploader.files.length);
 		layer.msg(err.message);
 	});
