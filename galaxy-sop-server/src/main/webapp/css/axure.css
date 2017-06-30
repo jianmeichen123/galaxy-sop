@@ -2967,7 +2967,7 @@ color:#999999;}
     	border-radius:4px;
     	display: inline-block;
     	font-size:14px;
-		margin: 20px 0 20px 20px;
+		margin: 20px 0 0px 20px;
 		background: #539be2 url("../img/btnico2.png") 8px -119px no-repeat;
     }
     .pop_table{
@@ -3263,7 +3263,7 @@ color:#999999;}
   	    background: url(../img/sop_progress/X_close.png) no-repeat;
   }
 .new_poptxt .tabcon{width:100%;}
-.new_poptxt .tabcon .fixed-table-body {border:1px solid #ccd2d7;border-radius:4px;	max-height:160px;overflow-y:auto;width:100%; display:block;}
+.new_poptxt .tabcon .fixed-table-body {margin-top:20px;border:1px solid #ccd2d7;border-radius:4px;	max-height:160px;overflow-y:auto;width:100%; display:block;}
 .new_poptxt .tabcon .fixed-table-body table thead th{border:0!important;background:#f9fafc;}
 .new_poptxt .fixed-table-body .fixed-table-loading{left:1px;right:1px;bottom:1px}
   
