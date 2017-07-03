@@ -178,8 +178,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		sopFileDao.insert(f);
 		f.setId(null);*/
 		
-		if(project.getProjectType() != null && 
-				DictEnum.projectType.投资.getCode().equals(project.getProjectType())){
+/*		if(project.getProjectType() != null && 
+				DictEnum.projectType.投资.getCode().equals(project.getProjectType())){*/
 			//投资项目必须四个尽调、创建必须两个尽调
 			f.setFileValid(0);
 			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
@@ -202,7 +202,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			f.setVoucherId(fid);
 			sopFileDao.insert(f);
 			f.setId(null);
-		}
+		/*}*/
 		return id;
 	}
 
