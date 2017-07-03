@@ -250,11 +250,11 @@ function buttonData(i){
 		break;
 	case 5:
 		btnTitle="签订投资协议书（闪投）";
-		nextProgress='projectProgress:2';
+		nextProgress='projectProgress:8';
 		 var result=whichOne(5);
 		 if("st"){
 			 var btnTitle="签订投资意向书（投资）";
-			 var nextProgress='projectProgress:2';
+			 var nextProgress='projectProgress:5';
 		 }
 		isShow=true;
 		break;
@@ -269,24 +269,24 @@ function buttonData(i){
 		isShow=false;
 		break;
 	case 8:
-		 var result=whichOne();
+		 var result=whichOne(8);
 		 if(result=="tzxy"){
-			 btnTitle="签订投资协议";
-				nextProgress='projectProgress:8';
+			btnTitle="签订投资协议";
+			nextProgress='projectProgress:8';
 		 }else{
-			 btnTitle="进入股权交割";
-				nextProgress='projectProgress:9'; 
+			btnTitle="进入股权交割";
+			nextProgress='projectProgress:9'; 
 		 }
 		 isShow=false;
 		break;
 	case 9:
-		 var result=whichOne();
+		 var result=whichOne(9);
 		 if(result=="jzdc"){
-			 btnTitle="进入尽职调查";
-				nextProgress='projectProgress:6';
+			btnTitle="进入尽职调查";
+			nextProgress='projectProgress:6';
 		 }else{
-			 btnTitle="进入股权交割";
-				nextProgress='projectProgress:9'; 
+			btnTitle="进入股权交割";
+			nextProgress='projectProgress:9'; 
 		 }
 		 isShow=false;
 		break;
@@ -304,10 +304,20 @@ function buttonData(i){
 	btn1.data("next-progress",nextProgress);
 }
 function whichOne(index){
-	if(index=="8"){
-		return 'tzxy';
-	}else if(index=="9"){
-		return 'jzdc';
+	if(index=="8")
+	{
+		if(_project_.businessTypeCode == 'ST')
+		{
+			return 'tzxy';
+		}
+		return '';
+	}else if(index=="9")
+	{
+		if(_project_.businessTypeCode == 'ST')
+		{
+			return 'jzdc';
+		}
+		return '';
 	}else{
 		return 'st';
 	}
