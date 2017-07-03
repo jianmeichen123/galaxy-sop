@@ -3,6 +3,11 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
+  
+	    <div class="task_noprovide"  style="display: none">
+		 	   <input type="checkbox"  value="${isShow}"> 不需要提供
+		</div>
+	
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -68,6 +73,11 @@
 	</div>
 </div>
 <script type="text/javascript">
+//不需要提供框是否显示
+var isShow="${isShow}";
+if($("#type").val()=="创建"||isShow=="true"){
+	$(".task_noprovide").show();
+}
 $(function(){
 	loadRows();
 	loadRelatedData();

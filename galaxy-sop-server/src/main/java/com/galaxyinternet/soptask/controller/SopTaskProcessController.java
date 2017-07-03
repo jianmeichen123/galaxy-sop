@@ -85,6 +85,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 		String viewName = "";
 		String btnTxt = "";
 		String fileWorktype = "";
+		boolean isShow=false;
 		switch(taskFlag)
 		{
 			case 0: //完善简历
@@ -102,11 +103,13 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 			case 3 : //法务尽职调查报告
 				btnTxt = "上传尽调报告";
 				fileWorktype = "fileWorktype:3";
+				isShow=true;
 				viewName = "/taskProcess/singleFileUpload";
 				break;
 			case 4 : //财务尽调报告
 				btnTxt = "上传尽调报告";
 				fileWorktype = "fileWorktype:4";
+				isShow=true;
 				viewName = "/taskProcess/singleFileUpload";
 				break;
 			case 5 : //业务尽调报告
@@ -137,6 +140,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 		mv.addObject("fileWorktype", fileWorktype);
 		mv.addObject("btnTxt", btnTxt);
 		mv.addObject("taskFlag", taskFlag);
+		mv.addObject("isShow", isShow);
 		return mv;
 	}
 	
