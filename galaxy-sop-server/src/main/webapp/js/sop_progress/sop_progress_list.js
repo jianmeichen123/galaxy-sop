@@ -218,6 +218,7 @@ function toobarData(title,add_title,meetingType){
 function buttonData(i){
 	var btnTitle="";
 	var nextProgress="";
+	var currProgress="projectProgress:1";
 	var btnTitle5="";
 	var btnHref5="";
 	var btn1=$("#btn1");
@@ -226,45 +227,53 @@ function buttonData(i){
 	switch(i){
 	case 1:
 		btnTitle="启动内部评审";
-		nextProgress='projectProgress:2';
+		currProgress="projectProgress:1";
+		nextProgress='projectProgress:1';
 		isShow=false;
 		break;
 	case 2:
 		btnTitle="申请CEO评审";
-		nextProgress='projectProgress:3';
+		currProgress="projectProgress:2";
+		nextProgress='projectProgress:2';
 		isShow=false;
 		break;
 	case 3:
 		btnTitle="申请立项会排期";
-		nextProgress='projectProgress:4';
+		currProgress="projectProgress:3";
+		nextProgress='projectProgress:3';
 		isShow=false;
 		break;
 	case 4:
 		btnTitle="进入会后商务谈判";
+		currProgress="projectProgress:4";
 		nextProgress='projectProgress:11';
 		isShow=false;
 		break;
 	case 5:
 		btnTitle="签订投资协议书（闪投）";
+		currProgress="projectProgress:11";
 		nextProgress='projectProgress:8';
 		 var result=whichOne(5);
 		 if("st"){
-			 var btnTitle="签订投资意向书（投资）";
-			 var nextProgress='projectProgress:5';
+			 btnTitle="签订投资意向书（投资）";
+			 nextProgress='projectProgress:5';
 		 }
 		isShow=true;
 		break;
 	case 6:
 		btnTitle="进入尽职调查";
+		currProgress="projectProgress:5";
 		nextProgress='projectProgress:6';
 		isShow=false;
 		break;
 	case 7:
 		btnTitle="申请投决会排期";
+		currProgress="projectProgress:6";
 		nextProgress='projectProgress:7';
 		isShow=false;
 		break;
 	case 8:
+		currProgress="projectProgress:7";
 		 var result=whichOne(8);
 		 if(result=="tzxy"){
 			btnTitle="签订投资协议";
@@ -277,6 +286,7 @@ function buttonData(i){
 		break;
 	case 9:
 		 var result=whichOne(9);
+		 currProgress="projectProgress:8";
 		 if(result=="jzdc"){
 			btnTitle="进入尽职调查";
 			nextProgress='projectProgress:6';
@@ -288,6 +298,7 @@ function buttonData(i){
 		break;
 	case 10:
 		btnTitle="进入投后运营";
+		currProgress="projectProgress:9";
 		nextProgress='projectProgress:10';
 		isShow=false;
 		break;
@@ -298,6 +309,14 @@ function buttonData(i){
 	}
 	btn1.text(btnTitle);
 	btn1.data("next-progress",nextProgress);
+	if('projectStatus:0'== _project_.projectStatus && _project_.projectProgress == currProgress)
+	{
+		btn1.removeClass('none');
+	}
+	else
+	{
+		btn1.addClass('none');
+	}
 }
 function whichOne(index){
 	if(index=="8")
