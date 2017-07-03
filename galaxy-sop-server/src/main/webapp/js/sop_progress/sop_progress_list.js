@@ -89,15 +89,19 @@
 		}else if(i==4){
 			meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
+			toobarfile("投资意向书",4);
 			tab_show(3);
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
+			toobarData("会后商务谈判","会后商务谈判","meetingType:3");
 			tab_show(1);
 		}else if(i==6){
 			$(".tabtitle h3").text("投资意向书");
+			toobarfile("投资意向书",6);
 			tab_show(2);
 		}else if(i==7){
 			$(".tabtitle h3").text("尽职调查");
+			toobarfile("尽职调查",7);
 			tab_show(2);
 			//尽职调查  上传附件
 		}else if(i==8){
@@ -106,10 +110,12 @@
 			tab_show(1);
 		}else if(i==9){
 			$(".tabtitle h3").text("投资协议");
+			toobarfile("投资协议",9);
 			tab_show(2);
 			//投资协议  上传附件
 		}else if(i==10){
 			$(".tabtitle h3").text("股权交割");
+			toobarfile("投资协议",10);
 			tab_show(2);
 			//股权交割   上传附件
 		}else if(i==11){
@@ -219,11 +225,24 @@ $(".new_poppage").on("click",function(){
  * @param meetingType
  */
 function toobarData(title,add_title,meetingType){
+	$("#add_button a").show();
 	$(".tabtitle h3").text(title);
 	$("#add_button a").text(add_title);
 	$("#meetingType").val(meetingType);
 	$("#pop_button").attr("data-name",add_title);
 	$("#pop_button").attr("data-type",meetingType);
+}
+/**
+ * 填充会议信息数据
+ * @param title
+ * @param add_title
+ * @param meetingType
+ */
+function toobarfile(title,index){
+	$(".tabtitle h3").text(title);
+	$("#add_button a").hide();
+	$(".file_list li").css("display","none");
+	$(".show_"+index).show();
 }
 /**
  * 填充会议信息数据
