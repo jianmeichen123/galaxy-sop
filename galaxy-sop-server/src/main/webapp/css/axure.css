@@ -1943,6 +1943,7 @@ word-wrap:break-word;
 .r_news table td{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 .r_news table a,.task table a{font-size:14px;font-family:"微软雅黑"}
 .r_news .fixed-table-pagination{display:none !important;} 
+.task_noprovide{margin-bottom: 20px;}
 /*添加日程*/
 #top{height:72px;}
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}

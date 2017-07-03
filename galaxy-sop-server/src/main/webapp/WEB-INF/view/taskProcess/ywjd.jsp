@@ -3,6 +3,9 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
+	<div class="task_noprovide">
+	 	<input type="checkbox" > 不需要提供
+	</div>
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -19,7 +22,7 @@
 		</tbody>
 	</table>
 	<ul>
-		<li><a href="javascript:;" id="show-upload-btn">上传业务尽职调查报告</a></li>
+		<li><a href="javascript:;" class="task_due_btn" id="show-upload-btn">上传业务尽职调查报告</a></li>
 		<li><a href="javascript:;" id="complete-task-btn" class="disabled" style="display:none">提交完成</a></li>
 		<li><a href="javascript:;" id="apply-decision-btn" class="disabled" style="display:none">申请投决会排期</a></li>
 	</ul>

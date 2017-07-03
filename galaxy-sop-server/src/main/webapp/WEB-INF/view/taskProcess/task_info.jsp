@@ -118,6 +118,7 @@
             <a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t'  class="pjt_more url_cookie" id="taskPinfo">项目详细信息&gt;</a>
           </div>
           <!-- 下半部分 -->
+          
           <!-- 人事尽职调查报告  hrjzdc;-->
           <jsp:include page="/galaxy/taskprocess/showFileList">
           <jsp:param value="<%=request.getAttribute(\"taskFlag\") %>" name="taskFlag"/>
@@ -222,7 +223,16 @@ $("#taskPinfo").click(function(){
 	var url=this.href;
     window.location.href = url;                           
 })
+//不需要提供 点击事件
 
+$(".task_noprovide input").click(function(){
+	if($(this).prop( "checked" )){
+		$(".task_due_btn").addClass("disabled");
+	}else{
+		$(".task_due_btn").removeClass("disabled")
+	}
+	
+})
 </script>
 </body>
 </html>
