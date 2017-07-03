@@ -3,27 +3,27 @@
 //fileWorktype
 var filesCondition = {};
 
-var tagProgress = 'projectProgress:6'; // projectId
+var tagProgress = 'projectProgress:6'; // projectId  progress
 
 
 function initFileShow(){
 	filesCondition = {};
 	
 	var toShowFlows = ['projectProgress:4','projectProgress:5','projectProgress:6','projectProgress:8','projectProgress:9'];
-	if($.inArray(tagProgress, toShowFlows)){
-		fileTabToggle(true);
+	if($.inArray(progress, toShowFlows) != -1){
+		//fileTabToggle(true);
 		
 		var condition = {};
 		condition.id = projectId;
-		condition.projectProgress = tagProgress;
+		condition.projectProgress = progress;
 		sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progressT/showProFlowFiles",condition,backForShowFiles);
 	}else{
-		fileTabToggle(false);
+		//fileTabToggle(false);
 	}
 }
 
 
-function fileTabToggle(mark){
+/*function fileTabToggle(mark){
 	if(mark == true){
 		$(".tab_2").show();
 		$(".file_list").hide();
@@ -31,7 +31,7 @@ function fileTabToggle(mark){
 		$(".tab_2").css("display","none");
 		$(".file_list").css("display","none");
 	}
-}
+}*/
 
 function backForShowFiles(data){
 	var result = data.result.status;
@@ -87,7 +87,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	           { title : "PDF files", extensions : "pdf,PDF" }
 	        ],
 			max_file_size : '25mb',
-			prevent_duplicates : true //不允许选取重复文件
+			prevent_duplicates : false //true 不允许选取重复文件
 		},
 	});
 	
@@ -116,8 +116,11 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		var saveObj = $("#"+saveFileId);
 		if(!saveObj  || saveObj == null ||saveObj.length == 0 ){
 			uploader.start();
+		}else{
+			tosaveToggle('toShow',selectId,files[0].name);
 		}
-		selectFile($("#"+selectId),files[0].name);
+		
+		//selectFile($("#"+selectId),files[0].name);
 	});
 	
 	fileUploader.bind('UploadProgress',function(uploader,files){
@@ -135,14 +138,15 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	
 	fileUploader.bind('BeforeUpload',function(uploader){
 //		开始上传
-		$("#"+selectId).siblings(".file_box").find("span").hide();
-		$("#"+selectId).siblings(".file_box").find("p").show();
+		tosaveToggle('toLoad',selectId);
+		
+		//$("#"+selectId).siblings(".file_box").find("span").hide();
+		//$("#"+selectId).siblings(".file_box").find("p").show();
 	});
 	
 	fileUploader.bind('FileUploaded',function(uploader,files,rtn){
 //		上传成功
 		/*$("#"+selectId).closest("li").hideLoading();*/
-		$("#"+selectId).siblings(".file_box").find(".cover_box").hide();
 		uploader.splice(0, uploader.files.length);
 		
 		var response = $.parseJSON(rtn.response);
@@ -166,19 +170,65 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 					fi.fileWorktype.replace(":","_") + '_save');
 			
 		}else{
+			tosaveToggle('toHide',selectId);
 			layer.msg(result.message);
 		}
 	});
 	
 	fileUploader.bind('Error',function(uploader,err){
 //		上传出错
-		$("#"+selectId).siblings(".file_box").find(".cover_box").hide();
-		$("#"+selectId).siblings(".file_box").find(".cover_box").siblings("img").addClass("add_img").attr("src", '../img/sop_progress/plus_icon.png');
-		$("#"+selectId).closest("li").hideLoading();
-		uploader.splice(0, uploader.files.length);
+		/*$("#"+selectId).closest("li").hideLoading();*/
+		tosaveToggle('toHide',selectId);
 		layer.msg(err.message);
+		uploader.splice(0, uploader.files.length);
 	});
 }
+
+
+
+
+function tosaveToggle(mark,selectId,fileName){
+	
+	var selectObj = $("#"+selectId);
+	var liObj = selectObj.closest("li");	
+	var typeObj=liObj.find("input[data-type]")[0];
+	var type = $(typeObj).attr("data-type");
+	
+	if(mark == 'toShow'){
+		// to show save and cancle btn;   for add a file
+		var imgStr = getImageOrPdf(fileName);
+		
+		liObj.find(".cover_box").show();
+		liObj.find(".file_btn").hide();
+		if(type && type == 'blank'){
+			liObj.find('.file_box').find('img').removeClass("add_img");
+			//liObj.find('.file_box').find('img').attr("src", imgStr);
+		}
+		liObj.find('.file_box').find('img').attr("src", imgStr);
+	}else if(mark == 'toLoad'){
+		// to show load...;  for adding file
+		
+		liObj.find(".file_box").find("span").hide();
+		liObj.find(".file_box").find("p").show();
+		
+	}else if(mark == 'toHide'){
+		// to hide...;  for error
+		var fileWorktype = selectObj.attr("data-type");
+		var file = filesCondition[fileWorktype];
+		imgStr = getImageOrPdf(file);
+		
+		liObj.find(".cover_box").hide();
+		liObj.find(".file_btn").show();
+		if(type && type == 'blank'){
+			liObj.find('.file_box').find('img').addClass("add_img");
+			liObj.find('.file_box').find('img').attr("src", Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png');
+		}else{
+			liObj.find('.file_box').find('img').attr("src", imgStr);
+		}
+	}
+} 
+
+
 
 
 
@@ -187,125 +237,17 @@ function getFileShowStr(file){
 	var str = '';
 	if(file.taskStatusStr && file.taskStatusStr !=null){
 		if(file.fileKey == null){
-			str += create_task_nofile_area(file);  // data-areatype="task_nofile"
+			str += create_task_nofile_area(file);  // data-type="task_nofile"
 		}else{
-			str += create_task_file_area(file);   // data-areatype="task_file"
+			str += create_task_file_area(file);   // data-type="task_file"
 		}
 	}else{      
 		if(file.fileKey == null){
-			str += create_blank_area(file);  //  data-areatype="blank"
+			str += create_blank_area(file);  //  data-type="blank"  空白可上传区域
 		}else{
-			str += create_file_area(file);  //  data-areatype="file"
+			str += create_file_area(file);  //  data-type="file"    有文档操作
 		}
 	}
-	return str;
-}
-
-
-
-//创建空白可上传区域
-//fileKey=null taskStatusStr == null canopt=true 
-function create_blank_area(file){
-	var selectopt = "";
-	if(file.canOpt){
-		selectopt = '<input type="file" title="" id="'+ file.fileWorktype.replace(":","_") +'_up" data-type="' + file.fileWorktype + '">';
-	}
-	var str = 
-		//'<li>' +
-			selectopt +
-			'<div class="file_box">' +
-				'<img src="' + Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png" class="add_img" alt="">' +
-				'<div class="cover_box">' +
-					'<span class="cancel">取消</span>'  +
-					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
-					'<p>loading…</p>' +
-				'</div>' +
-			'</div>' +
-			'<span>'+ file.fWorktype +'</span>' ;
-		//'</li>';
-	
-	return str;
-}
-
-
-//fileKey=null taskStatusStr == null 
-function create_file_area(file){
-	var imgstr = getImageOrPdf(file);
-	var optStr = getOptionStr(file);
-	var str = 
-		//'<li>' +
-			'<input type="hidden" data-areatype="file">' +
-			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" alt="" />' +
-				optStr +
-				'<div class="cover_box">' +
-				'<span class="cancel">取消</span>'  +
-				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
-				'<p>loading…</p>' +
-			'</div>' +
-			'</div>' +
-			'<span>'+ file.fWorktype +'</span>' ;
-		//'</li>';
-	
-	return str;
-}
-
-//创建任务显示区域  fWorktype
-//taskStatusStr!=null    fileKey=null
-function create_task_nofile_area(file){
-	var lin = file.taskStatusStr;
-	if(file.taskUname != null && file.taskUname.length > 0){
-		lin += '<br/>(' + file.taskUname + ')';
-	}
-	var str = 
-		//'<li>' +
-			'<div class="file_box">' +
-				'<input type="hidden" data-areatype="task_nofile">' +
-				'<p class="center_text" >' +
-					lin +
-				'</p>' +
-				'<div class="cover_box">' +
-				'<span class="cancel">取消</span>'  +
-				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
-				'<p>loading…</p>' +
-			'</div>' +
-			'</div>' +
-			'<span>'+ file.fWorktype +'</span>' ;
-		//'</li>';
-	
-	return str;
-}
-
-//taskStatusStr!=null    fileKey!=null
-function create_task_file_area(file){
-	
-	var imgstr = getImageOrPdf(file);
-	var optStr = getOptionStr(file);
-	
-	var lin = taskStatusStr;
-	if(taskUname != null && taskUname.length > 0){
-		lin += '<br/>(' + taskUname + ')';
-	}
-		console.log("@@@@@@@@@@@@@@@");
-		console.log(lin)
-	var str = 
-		//'<li>' +
-			'<div class="file_box file_img">' +
-				'<input type="hidden" data-areatype="task_file">' +
-				'<img class="bg_img" src="' + imgstr + '" alt="" />'
-				'<p class="center_text" style="margin-top: -18px;">' +
-					lin +
-				'</p>' +
-				optStr +
-				'<div class="cover_box">' +
-				'<span class="cancel">取消</span>'  +
-				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
-				'<p>loading…</p>' +
-			'</div>' +
-			'</div>' +
-			'<span>'+ file.fWorktype +'</span>' ;
-		//'</li>';
-	
 	return str;
 }
 
@@ -313,10 +255,7 @@ function create_task_file_area(file){
 
 function getImageOrPdf(file){
 	// fileType:1  文档    // fileType:4  图片
-	var fileType = file.fileType;
-	if(fileType == null){
-		fileType = getFileTypeByExt(file.fileSuffix);
-	}
+	var fileType = getFileType(file);
 	var imgstr = "";
 	if(fileType == "fileType:1"){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/pdf.png";   //pdf
@@ -325,7 +264,20 @@ function getImageOrPdf(file){
 	}
 	return imgstr;
 }
-
+/*
+ * fileType:1  pdf
+ * fileType:4  图片
+*/
+function getFileType(file){
+	if(typeof(file) == 'string'){
+		var fileType = getFileTypeByName(file);
+		return fileType;
+	}else{
+		var fileType = getFileTypeByExt(file.fileSuffix);
+		return fileType;
+	}
+	
+}
 
 function getOptionStr(file){
 	var optStr = "";
@@ -344,6 +296,115 @@ function getOptionStr(file){
 	}
 		
 	return optStr;
+}
+
+
+
+//创建空白可上传区域
+//fileKey=null taskStatusStr == null canopt=true 
+function create_blank_area(file){
+	var selectopt = "";
+	if(file.canOpt){
+		selectopt = '<input type="file" title="" id="'+ file.fileWorktype.replace(":","_") +'_up" data-type="' + file.fileWorktype + '">';
+	}
+	var str = 
+		//'<li>' +
+			'<input type="hidden" data-type="blank">' +
+			selectopt +
+			'<div class="file_box">' +
+				'<img src="' + Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png" class="add_img" alt="">' +
+				'<div class="cover_box">' +
+					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
+					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+					'<p>loading…</p>' +
+				'</div>' +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
+}
+
+
+//fileKey=null taskStatusStr == null 
+function create_file_area(file){
+	var imgstr = getImageOrPdf(file);
+	var optStr = getOptionStr(file);
+	var str = 
+		//'<li>' +
+			'<input type="hidden" data-type="file">' +
+			'<div class="file_box file_img">' +
+				'<img class="bg_img" src="' + imgstr + '" alt="" />' +
+				optStr +
+				'<div class="cover_box">' +
+					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
+					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+					'<p>loading…</p>' +
+				'</div>' +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
+}
+
+//创建任务显示区域  fWorktype
+//taskStatusStr!=null    fileKey=null
+function create_task_nofile_area(file){
+	var lin = file.taskStatusStr;
+	if(file.taskUname != null && file.taskUname.length > 0){
+		lin += '<br/>(' + file.taskUname + ')';
+	}
+	
+	var str = 
+		//'<li>' +
+			'<input type="hidden" data-type="task_nofile">' +
+			'<div class="file_box">' +
+				'<p class="center_text" style="margin-top: -18px;">' +
+					lin +
+				'</p>' +
+				'<div class="cover_box">' +
+					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
+					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+					'<p>loading…</p>' +
+				'</div>' +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
+}
+
+//taskStatusStr!=null    fileKey!=null
+function create_task_file_area(file){
+	
+	var imgstr = getImageOrPdf(file);
+	var optStr = getOptionStr(file);
+	
+	var lin = taskStatusStr;
+	if(taskUname != null && taskUname.length > 0){
+		lin += '<br/>(' + taskUname + ')';
+	}
+		
+	var str = 
+		//'<li>' +
+			'<input type="hidden" data-type="task_file">' +
+			'<div class="file_box file_img">' +
+				'<img class="bg_img" src="' + imgstr + '" alt="" />'
+				'<p class="center_text" style="margin-top: -18px;">' +
+					lin +
+				'</p>' +
+				optStr +
+				'<div class="cover_box">' +
+					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
+					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+					'<p>loading…</p>' +
+				'</div>' +
+			'</div>' +
+			'<span>'+ file.fWorktype +'</span>' ;
+		//'</li>';
+	
+	return str;
 }
 
 

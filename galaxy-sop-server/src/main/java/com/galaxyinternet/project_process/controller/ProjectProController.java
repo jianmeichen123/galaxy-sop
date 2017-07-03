@@ -119,8 +119,12 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	@RequestMapping(value = "/showProFlowFiles", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<SopFile> showProFlowFiles(HttpServletRequest request,@RequestBody Project query ) {
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		Map<String,Object> resultMap = new LinkedHashMap<>();
 		
+		if(!ProFlowUtilImpl.file_about.containsKey(query.getProjectProgress())){
+			return responseBody;
+		}
+		
+		Map<String,Object> resultMap = new LinkedHashMap<>();
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			//Long uDept = user.getDepartmentId();
@@ -254,9 +258,4 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	}
 	
 	
-	
-	/*
-	ALTER TABLE `fx_db`.`sop_file`   
-	  CHANGE `fil_uri` `fil_uri` VARCHAR(300) CHARSET utf8 COLLATE utf8_bin NULL  COMMENT '存储地址';
-	*/
 }

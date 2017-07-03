@@ -137,7 +137,7 @@
 		$(".next_box").attr("data-progress",i);
 
 	})
-function selectFile(input,fileName){
+/*function selectFile(input,fileName){
 	if(fileName.length> 1 && fileName){
 		var ldot = fileName.lastIndexOf("."); 
 	var type = fileName.substr(Number(ldot + 1)); 
@@ -167,7 +167,7 @@ $(".file_box .cover_box .cancel").click(function(event) {
 	$(this).parents(".cover_box").siblings('img').addClass("add_img").attr(
 		"src", '../img/sop_progress/plus_icon.png');
 	$(this).parents("li").find("input").val("");
-});
+});*/
 //tab点击事件
 $(".tab_2").click(function(event) {
 	$(this).addClass('on');
