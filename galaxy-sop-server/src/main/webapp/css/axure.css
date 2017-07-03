@@ -1944,6 +1944,7 @@ word-wrap:break-word;
 .r_news table a,.task table a{font-size:14px;font-family:"微软雅黑"}
 .r_news .fixed-table-pagination{display:none !important;} 
 .task_noprovide{margin-bottom: 20px;}
+.task_noprovide input{vertical-align: middle;}
 /*添加日程*/
 #top{height:72px;}
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}
@@ -2921,8 +2922,8 @@ color:#999999;}
     .tabtitle .edit{
         margin-bottom: 20px;
     }
-    .tab_con{
-    	padding: 0 20px;
+   .tab_con{
+    	padding: 0 10px;
     }
     .tabtitle h3{
         display: inline-block;
@@ -2938,6 +2939,7 @@ color:#999999;}
         line-height: 40px;
         padding-left: 5px;
     }
+    .new_poptxt .bootstrap-table{padding:0 20px;}
     .new_poptxt .tablink li{
 		line-height: 1;
 		padding: 9px 26px;
@@ -3007,7 +3009,7 @@ color:#999999;}
 		margin-right: 15px;
 		color:#66b1f2;
 	}
-	.popbtm_btn{margin-top: 50px;padding:0 20px;}
+	.popbtm_btn{margin-top: 40px;padding:0 20px;}
 	.popbtm_btn a{
 		display: inline-block;
 		line-height: 30px;

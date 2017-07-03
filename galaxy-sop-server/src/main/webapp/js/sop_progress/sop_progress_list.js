@@ -44,6 +44,7 @@
 			$(".new_poptxt .file_list").hide();
 			$(".new_poptxt .tab_1").addClass("on");
 			$(".new_poptxt .tab_2").removeClass("on");
+			$(".operation_warning").hide();
 		}else if(status==2){
 //			2的时候是只有文档
 			$(".tab_con").show();
@@ -53,6 +54,7 @@
 			$(".new_poptxt .file_list").show();
 			$(".new_poptxt .tab_2").addClass("on");
 			$(".new_poptxt .tab_1").removeClass("on");
+			$(".operation_warning").hide();
 		}else if(status ==3){
 //			3的时候是都有
 			$(".tab_con").show();
@@ -62,6 +64,7 @@
 			$(".new_poptxt .file_list").hide();
 			$(".new_poptxt .tab_1").addClass("on");
 			$(".new_poptxt .tab_2").removeClass("on");
+			$(".operation_warning").hide();
 		}else if(status==4){
 			//投后运营
 			$(".tab_con").hide();
