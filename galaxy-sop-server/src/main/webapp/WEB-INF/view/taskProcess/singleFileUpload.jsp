@@ -75,7 +75,7 @@
 <script type="text/javascript">
 //不需要提供框是否显示
 var isShow="${isShow}";
-if($("#type").val()=="创建"||isShow=="true"){
+if($("#type").val()=="创建"&&isShow=="true"){
 	$(".task_noprovide").show();
 }
 $(function(){
@@ -143,6 +143,7 @@ function loadRows()
 						{
 							$("#show-upload-btn").text(btnText.replace('上传','更新'))
 						}
+						$(".task_noprovide").hide();
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
