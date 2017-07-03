@@ -304,15 +304,18 @@ function getOptionStr(file){
 //fileKey=null taskStatusStr == null canopt=true 
 function create_blank_area(file){
 	var selectopt = "";
+	var imgHtm = "";
 	if(file.canOpt){
 		selectopt = '<input type="file" title="" id="'+ file.fileWorktype.replace(":","_") +'_up" data-type="' + file.fileWorktype + '">';
+		imgHtm = '<img src="' + Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png" class="add_img" alt="">';
 	}
+	
 	var str = 
 		//'<li>' +
 			'<input type="hidden" data-type="blank">' +
 			selectopt +
 			'<div class="file_box">' +
-				'<img src="' + Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png" class="add_img" alt="">' +
+				imgHtm +
 				'<div class="cover_box">' +
 					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
 					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
