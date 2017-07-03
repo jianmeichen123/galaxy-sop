@@ -522,6 +522,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				t.setTaskFlag(8);
 			}
 			SopFile f = sopFileDao.selectOne(file);
+			if(task.getGiveUp()==true){
+                f.setFileStatus("fileStatus:4");
+			}
 			f.setFileValid(1);
 			sopFileDao.updateById(f);
 			if(t != null){

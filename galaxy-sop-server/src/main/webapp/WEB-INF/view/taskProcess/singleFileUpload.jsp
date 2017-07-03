@@ -86,12 +86,19 @@ $(function(){
 		showUploadPopup(title_name);
 	});
 	$("#complete-task-btn").click(function(){
+		//判断是否放弃该任务的提交
+		var btn=$(".task_noprovide input");
+		var giveUp=false;
+		if(btn.attr("checked")==true){
+			giveUp=true;
+		}
 		//更新task为完成状态
 		sendPostRequestByJsonObj(
 			platformUrl.submitTask,
 			{
 				id:"${taskId}",
-				taskStatus:"taskStatus:3"
+				taskStatus:"taskStatus:3",
+				giveUp:giveUp
 			},
 			function(data){
 				if(data.result.status=="OK"){

@@ -427,7 +427,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		sipFile.setFileWorktype(fileWorktype);
 		SopFile queryOne = sopFileService.queryOne(sipFile);
 		Project project = projectService.queryById(queryOne.getProjectId());
-		if(null!=queryOne){
+		if(null!=queryOne&&!entity.getGiveUp()){
 			if(queryOne.getFileStatus().equals("fileStatus:1")){
 				responseBody.setResult(new Result(Status.ERROR,null,"文件未上传，任务提交失败!"));
 				return responseBody;
