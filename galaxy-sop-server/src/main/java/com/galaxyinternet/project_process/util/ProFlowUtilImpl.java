@@ -1,6 +1,7 @@
 package com.galaxyinternet.project_process.util;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -18,18 +19,18 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 	public static final String fileTypePareatCode = "fileWorktype";
 	
 	// projectProgress  :  <fileWorktype : task_flag(other) >
-	public static Map<String,Map<String,Integer>>  file_about = new HashMap<>();
+	public static Map<String,Map<String,Integer>>  file_about = new LinkedHashMap<>();
 	
 	
 	// canOpt;    // 文档可操作： 上传、编辑
 	// projectProgress  :  <fileWorktype : canOpt(true\false) >
-	public static Map<String,Map<String,Boolean>>  file_opt_about_tzjl = new HashMap<>();
-	public static Map<String,Map<String,Boolean>>  file_opt_about_r = new HashMap<>();
-	public static Map<String,Map<String,Boolean>>  file_opt_about_f = new HashMap<>();
-	public static Map<String,Map<String,Boolean>>  file_opt_about_c = new HashMap<>();
+	public static Map<String,Map<String,Boolean>>  file_opt_about_tzjl = new LinkedHashMap<>();
+	public static Map<String,Map<String,Boolean>>  file_opt_about_r = new LinkedHashMap<>();
+	public static Map<String,Map<String,Boolean>>  file_opt_about_f = new LinkedHashMap<>();
+	public static Map<String,Map<String,Boolean>>  file_opt_about_c = new LinkedHashMap<>();
 	
 	
-	public static Map<Long,Map<String,Map<String,Boolean>>>  role_file_opt_about = new HashMap<>();
+	public static Map<Long,Map<String,Map<String,Boolean>>>  role_file_opt_about = new LinkedHashMap<>();
 	static{
 		role_file_opt_about.put(UserConstant.TZJL, file_opt_about_tzjl);
 		role_file_opt_about.put(UserConstant.HRJL, file_opt_about_r);
@@ -46,7 +47,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 文档：
 		 * 		"fileWorktype:17", "立项报告 "
 		 */
-		Map<String,Integer> m_p4 = new HashMap<>();
+		Map<String,Integer> m_p4 = new LinkedHashMap<>();
 		m_p4.put("fileWorktype:17", null);
 		file_about.put("projectProgress:4", m_p4);
 		
@@ -58,7 +59,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 任务（task_flag）：
 		 * 			1	投资意向书（tzjl）
 		 */
-		Map<String,Integer> m_p5 = new HashMap<>();
+		Map<String,Integer> m_p5 = new LinkedHashMap<>();
 		m_p5.put("fileWorktype:5", null);   
 		file_about.put("projectProgress:5", m_p5);
 		
@@ -79,7 +80,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 			4	财务尽调报告、
 		 * 			5	业务尽调报告（tzjl）
 		 */
-		Map<String,Integer> m_p6 = new HashMap<>();
+		Map<String,Integer> m_p6 = new LinkedHashMap<>();
 		m_p6.put("fileWorktype:1", null);
 		m_p6.put("fileWorktype:2", 2);
 		m_p6.put("fileWorktype:3", 3);   
@@ -99,7 +100,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 			6	投资协议               （tzjl）
 		 * 			7	股权转让协议、（tzjl）
 		 */
-		Map<String,Integer> m_p8 = new HashMap<>();
+		Map<String,Integer> m_p8 = new LinkedHashMap<>();
 		m_p8.put("fileWorktype:6", null);      
 		m_p8.put("fileWorktype:7", null); 
 		file_about.put("projectProgress:8", m_p8);
@@ -116,7 +117,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 			9	工商变更登记凭证
 		 * 
 		 */
-		Map<String,Integer> m_p9 = new HashMap<>();
+		Map<String,Integer> m_p9 = new LinkedHashMap<>();
 		m_p9.put("fileWorktype:8", 9);
 		m_p9.put("fileWorktype:9", 8);
 		file_about.put("projectProgress:9", m_p9);
@@ -132,7 +133,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 文档：
 		 * 		"fileWorktype:17", "立项报告 "
 		 */
-		Map<String,Boolean> m_p4 = new HashMap<>();
+		Map<String,Boolean> m_p4 = new LinkedHashMap<>();
 		m_p4.put("fileWorktype:17", true);
 		file_opt_about_tzjl.put("projectProgress:4", m_p4);
 		
@@ -142,7 +143,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 文档：
 		 * 		"fileWorktype:5", "投资意向书 " (签署凭证)
 		 */
-		Map<String,Boolean> m_p5 = new HashMap<>();
+		Map<String,Boolean> m_p5 = new LinkedHashMap<>();
 		m_p5.put("fileWorktype:5", true);   
 		file_opt_about_tzjl.put("projectProgress:5", m_p5);
 		
@@ -157,7 +158,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"fileWorktype:18", "尽职调查启动会报告 "
 		 *		"fileWorktype:19", "尽职调查总结会报告 "
 		 */
-		Map<String,Boolean> m_p6 = new HashMap<>();
+		Map<String,Boolean> m_p6 = new LinkedHashMap<>();
 		m_p6.put("fileWorktype:1", true);
 		m_p6.put("fileWorktype:2", false);
 		m_p6.put("fileWorktype:3", false);   
@@ -173,7 +174,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"fileWorktype:6", "投资协议 "       (签署凭证)
 		 * 		"fileWorktype:7", "股权转让协议 "   (仅 投资类型  且  涉及股权转让)、 (签署凭证)
 		 */
-		Map<String,Boolean> m_p8 = new HashMap<>();
+		Map<String,Boolean> m_p8 = new LinkedHashMap<>();
 		m_p8.put("fileWorktype:6", true);      
 		m_p8.put("fileWorktype:7", true); 
 		file_opt_about_tzjl.put("projectProgress:8", m_p8);
@@ -192,7 +193,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"fileWorktype:18", "尽职调查启动会报告 "
 		 *		"fileWorktype:19", "尽职调查总结会报告 "
 		 */
-		Map<String,Boolean> m_p6 = new HashMap<>();
+		Map<String,Boolean> m_p6 = new LinkedHashMap<>();
 		m_p6.put("fileWorktype:1", false);
 		m_p6.put("fileWorktype:2", true);
 		m_p6.put("fileWorktype:3", false);   
@@ -214,7 +215,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"fileWorktype:18", "尽职调查启动会报告 "
 		 *		"fileWorktype:19", "尽职调查总结会报告 "
 		 */
-		Map<String,Boolean> m_p6 = new HashMap<>();
+		Map<String,Boolean> m_p6 = new LinkedHashMap<>();
 		m_p6.put("fileWorktype:1", false);
 		m_p6.put("fileWorktype:2", false);
 		m_p6.put("fileWorktype:3", true);   
@@ -230,7 +231,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"fileWorktype:8", "工商转让凭证 "
 		 * 		"fileWorktype:9", "资金拨付凭证 "
 		 */
-		Map<String,Boolean> m_p9 = new HashMap<>();
+		Map<String,Boolean> m_p9 = new LinkedHashMap<>();
 		m_p9.put("fileWorktype:8", true);
 		m_p9.put("fileWorktype:9", false);
 		file_opt_about_f.put("projectProgress:9", m_p9);
@@ -248,7 +249,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"fileWorktype:18", "尽职调查启动会报告 "
 		 *		"fileWorktype:19", "尽职调查总结会报告 "
 		 */
-		Map<String,Boolean> m_p6 = new HashMap<>();
+		Map<String,Boolean> m_p6 = new LinkedHashMap<>();
 		m_p6.put("fileWorktype:1", false);
 		m_p6.put("fileWorktype:2", false);
 		m_p6.put("fileWorktype:3", false);   
@@ -265,7 +266,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"fileWorktype:8", "工商转让凭证 "
 		 * 		"fileWorktype:9", "资金拨付凭证 "
 		 */
-		Map<String,Boolean> m_p9 = new HashMap<>();
+		Map<String,Boolean> m_p9 = new LinkedHashMap<>();
 		m_p9.put("fileWorktype:8", false);
 		m_p9.put("fileWorktype:9", true);
 		file_opt_about_c.put("projectProgress:9", m_p9);

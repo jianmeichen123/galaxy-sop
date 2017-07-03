@@ -5,7 +5,10 @@ var filesCondition = {};
 
 var tagProgress = 'projectProgress:6'; // projectId
 
+
 function initFileShow(){
+	filesCondition = {};
+	
 	var toShowFlows = ['projectProgress:4','projectProgress:5','projectProgress:6','projectProgress:8','projectProgress:9'];
 	if($.inArray(tagProgress, toShowFlows)){
 		fileTabToggle(true);
@@ -45,7 +48,6 @@ function backForShowFiles(data){
 		str = '<li>' + getFileShowStr(filesCondition[filetype]) + '</li>';
 		
 		$(".file_list").append(str);
-		
 		if(filesCondition[filetype].canOpt){
 			fileUpBuild(
 					Constants.sopEndpointURL + "/galaxy/progressT/optProFlowFiles",
@@ -55,6 +57,7 @@ function backForShowFiles(data){
 					filesCondition[filetype].fileWorktype.replace(":","_") + '_save');
 		}
 	}
+	
 }
 
 
@@ -106,12 +109,15 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		paramsCondition = filesCondition[fileWorktype];
 		var fileType = getFileTypeByName(files[0].name);
 		paramsCondition.fileType = fileType;
+		paramsCondition.projectId  = projectId;
 		
 		uploader.settings.multipart_params = paramsCondition;
 		
-		if(saveFileId == null){
+		var saveObj = $("#"+saveFileId);
+		if(!saveObj  || saveObj == null ||saveObj.length == 0 ){
 			uploader.start();
 		}
+		selectFile($("#"+selectId),files[0].name);
 	});
 	
 	fileUploader.bind('UploadProgress',function(uploader,files){
@@ -119,7 +125,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	});
 	
 	fileUploader.bind('PostInit',function(uploader){
-		if(saveFileId != null){
+		var saveObj = $("#"+saveFileId);
+		if(saveObj && saveObj!=null && saveObj.length > 0){
 			$("#"+saveFileId).click(function(){
 				uploader.start();
 			});
@@ -127,13 +134,20 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 	});
 	
 	fileUploader.bind('BeforeUpload',function(uploader){
-		
+//		开始上传
+		$("#"+selectId).siblings(".file_box").find("span").hide();
+		$("#"+selectId).siblings(".file_box").find("p").show();
 	});
 	
 	fileUploader.bind('FileUploaded',function(uploader,files,rtn){
+//		上传成功
+		/*$("#"+selectId).closest("li").hideLoading();*/
+		$("#"+selectId).siblings(".file_box").find(".cover_box").hide();
+		uploader.splice(0, uploader.files.length);
+		
 		var response = $.parseJSON(rtn.response);
-		var result = response.status;
-		if(result == "OK"){
+		var result = response.result;
+		if(result.status == "OK"){
 			var fileWorktype = $("#"+saveFileId).attr("data-type");
 			var fi = response.entity;
 			filesCondition[fileWorktype] = fi;
@@ -143,12 +157,25 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 			
 			liObj.empty();
 			liObj.append(filestr);
+//			liObj——li重新渲染
+			fileUpBuild(
+					Constants.sopEndpointURL + "/galaxy/progressT/optProFlowFiles",
+					null,
+					fi.fileWorktype.replace(":","_") + '_up',
+					null,
+					fi.fileWorktype.replace(":","_") + '_save');
+			
 		}else{
-			layer.msg(response.message);
+			layer.msg(result.message);
 		}
 	});
 	
 	fileUploader.bind('Error',function(uploader,err){
+//		上传出错
+		$("#"+selectId).siblings(".file_box").find(".cover_box").hide();
+		$("#"+selectId).siblings(".file_box").find(".cover_box").siblings("img").addClass("add_img").attr("src", '../img/sop_progress/plus_icon.png');
+		$("#"+selectId).closest("li").hideLoading();
+		uploader.splice(0, uploader.files.length);
 		layer.msg(err.message);
 	});
 }
@@ -159,13 +186,13 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 function getFileShowStr(file){
 	var str = '';
 	if(file.taskStatusStr && file.taskStatusStr !=null){
-		if(file.filekey == null){
+		if(file.fileKey == null){
 			str += create_task_nofile_area(file);  // data-areatype="task_nofile"
 		}else{
 			str += create_task_file_area(file);   // data-areatype="task_file"
 		}
-	}else{
-		if(file.filekey == null){
+	}else{      
+		if(file.fileKey == null){
 			str += create_blank_area(file);  //  data-areatype="blank"
 		}else{
 			str += create_file_area(file);  //  data-areatype="file"
@@ -177,7 +204,7 @@ function getFileShowStr(file){
 
 
 //创建空白可上传区域
-//filekey=null taskStatusStr == null canopt=true 
+//fileKey=null taskStatusStr == null canopt=true 
 function create_blank_area(file){
 	var selectopt = "";
 	if(file.canOpt){
@@ -201,7 +228,7 @@ function create_blank_area(file){
 }
 
 
-//filekey=null taskStatusStr == null 
+//fileKey=null taskStatusStr == null 
 function create_file_area(file){
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file);
@@ -209,8 +236,13 @@ function create_file_area(file){
 		//'<li>' +
 			'<input type="hidden" data-areatype="file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" alt="" />'
+				'<img class="bg_img" src="' + imgstr + '" alt="" />' +
 				optStr +
+				'<div class="cover_box">' +
+				'<span class="cancel">取消</span>'  +
+				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+				'<p>loading…</p>' +
+			'</div>' +
 			'</div>' +
 			'<span>'+ file.fWorktype +'</span>' ;
 		//'</li>';
@@ -219,7 +251,7 @@ function create_file_area(file){
 }
 
 //创建任务显示区域  fWorktype
-//taskStatusStr!=null    filekey=null
+//taskStatusStr!=null    fileKey=null
 function create_task_nofile_area(file){
 	var lin = file.taskStatusStr;
 	if(file.taskUname != null && file.taskUname.length > 0){
@@ -233,6 +265,11 @@ function create_task_nofile_area(file){
 				'<p class="center_text" style="margin-top: -18px;">' +
 					lin +
 				'</p>' +
+				'<div class="cover_box">' +
+				'<span class="cancel">取消</span>'  +
+				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+				'<p>loading…</p>' +
+			'</div>' +
 			'</div>' +
 			'<span>'+ file.fWorktype +'</span>' ;
 		//'</li>';
@@ -240,7 +277,7 @@ function create_task_nofile_area(file){
 	return str;
 }
 
-//taskStatusStr!=null    filekey!=null
+//taskStatusStr!=null    fileKey!=null
 function create_task_file_area(file){
 	
 	var imgstr = getImageOrPdf(file);
@@ -260,6 +297,11 @@ function create_task_file_area(file){
 					lin +
 				'</p>' +
 				optStr +
+				'<div class="cover_box">' +
+				'<span class="cancel">取消</span>'  +
+				'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
+				'<p>loading…</p>' +
+			'</div>' +
 			'</div>' +
 			'<span>'+ file.fWorktype +'</span>' ;
 		//'</li>';
@@ -292,7 +334,7 @@ function getOptionStr(file){
 		optOption += '<span class="reupload_jpg" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
 	}
 	if(file.canDown){
-		optOption += '<span class="downlond_jpg" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown("'+file.id+'")"></span>';
+		optOption += '<span class="downlond_jpg" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
 	}
 	if(optOption != '' && optOption.length > 0){
 		optStr = 

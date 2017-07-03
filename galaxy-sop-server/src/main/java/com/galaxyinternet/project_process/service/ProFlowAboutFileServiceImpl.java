@@ -108,6 +108,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		 Long taskUid;           // 认领人id
 		 String taskUname;       // 认领人name
 
+		FilUri                   // 文档地址
 	
 	 * 上传人/起草者                Long fileUid;
 	 * 
@@ -182,7 +183,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 							User user = userService.queryById(ta.getAssignUid());
 							temFile.setTaskUname(user.getRealName());
 						}
-						continue;
+						break;
 					}
 				}
 			}
@@ -195,6 +196,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 					temFile.setFileSuffix(tf.getFileSuffix());
 					temFile.setFileKey(tf.getFileKey());
 					temFile.setFileType(tf.getFileType());
+					temFile.setFilUri(tf.getFilUri());
 					/*
 					if(StringUtils.isBlank(tf.getFileKey())){
 						temFile.setInitMark(SopFile.INIT_FILE_MAEK_INIT);
@@ -204,7 +206,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 						temFile.setFileKey(tf.getFileKey());
 					}
 					*/
-					continue;
+					break;
 				}
 			}
 			
@@ -254,35 +256,44 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		UploadFileResult result = clazz.uploadFileToOSS(request, fileKey, tempfilePath);
 		
 		if(!Status.ERROR.equals(result.getResult().getStatus())){
+			String url = OSSHelper.getUrl(result.getBucketName(),result.getFileKey());
 			
 			if(initMark.equals("no")){
-				file.setBucketName(OSSFactory.getDefaultBucketName());
+				//file.setBucketName(OSSFactory.getDefaultBucketName());
+				file.setBucketName(result.getBucketName());
 				file.setFileKey(result.getFileKey());  
 				file.setFileLength(result.getContentLength());
 				file.setFileName(result.getFileName());
 				file.setFileSuffix(result.getFileSuffix());
 				file.setFileValid(1);
 				file.setRecordType(RecordType.PROJECT.getType());
+				file.setFilUri(url);
+				
+				file.setId(null);
 				sopFileDao.insert(file);
 				resultFile = file;
 			}else if(initMark.equals("init")){
-				oldFile.setBucketName(OSSFactory.getDefaultBucketName());
+				oldFile.setBucketName(result.getBucketName());
 				oldFile.setFileKey(result.getFileKey());  
 				oldFile.setFileLength(result.getContentLength());
 				oldFile.setFileName(result.getFileName());
 				oldFile.setFileSuffix(result.getFileSuffix());
 				oldFile.setFileValid(1);
 				oldFile.setRecordType(RecordType.PROJECT.getType());
+				oldFile.setFilUri(url);
 				sopFileDao.updateById(oldFile);
 				resultFile = oldFile;
 			}else{
-				file.setBucketName(OSSFactory.getDefaultBucketName());
+				file.setBucketName(result.getBucketName());
 				file.setFileKey(result.getFileKey());  
 				file.setFileLength(result.getContentLength());
 				file.setFileName(result.getFileName());
 				file.setFileSuffix(result.getFileSuffix());
 				file.setFileValid(1);
 				file.setRecordType(RecordType.PROJECT.getType());
+				file.setFilUri(url);
+				
+				file.setId(null);
 				sopFileDao.insert(file);
 				
 				oldFile.setFileValid(0);
