@@ -257,12 +257,11 @@ function create_task_nofile_area(file){
 	if(file.taskUname != null && file.taskUname.length > 0){
 		lin += '<br/>(' + file.taskUname + ')';
 	}
-	
 	var str = 
 		//'<li>' +
 			'<div class="file_box">' +
 				'<input type="hidden" data-areatype="task_nofile">' +
-				'<p class="center_text" style="margin-top: -18px;">' +
+				'<p class="center_text" >' +
 					lin +
 				'</p>' +
 				'<div class="cover_box">' +
@@ -287,7 +286,8 @@ function create_task_file_area(file){
 	if(taskUname != null && taskUname.length > 0){
 		lin += '<br/>(' + taskUname + ')';
 	}
-		
+		console.log("@@@@@@@@@@@@@@@");
+		console.log(lin)
 	var str = 
 		//'<li>' +
 			'<div class="file_box file_img">' +
