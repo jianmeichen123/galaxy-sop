@@ -3,6 +3,7 @@ package com.galaxyinternet.project_process.event.handlers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
@@ -24,6 +25,7 @@ import com.galaxyinternet.service.SopTaskService;
  * @author wangsong
  *
  */
+@Component
 public class STHandler implements ProgressChangeHandler
 {
 

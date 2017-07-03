@@ -38,7 +38,7 @@ public class StatementInterceptor implements Interceptor {
 	public Object intercept(Invocation inv) throws Throwable {
 		String pageId = AuthContext.get().getPageId();
 		List<Integer> userIds = AuthContext.get().getUserIds();
-		if(pageId == null || userIds == null || userIds.size() == 0)
+		if(pageId == null || pageId.equals("index") || userIds == null || userIds.size() == 0)
 		{
 			return inv.proceed();
 		}

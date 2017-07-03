@@ -65,7 +65,7 @@ public class CEOPSHandler implements ProgressChangeHandler
 		//添加排期
 		MeetingScheduling ms = new MeetingScheduling();
 		ms.setProjectId(project.getId());
-		ms.setMeetingType(DictEnum.meetingType.立项会.getCode());
+		ms.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
 		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());

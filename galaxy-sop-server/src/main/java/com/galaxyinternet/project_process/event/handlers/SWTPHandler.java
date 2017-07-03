@@ -3,6 +3,7 @@ package com.galaxyinternet.project_process.event.handlers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
@@ -21,6 +22,7 @@ import com.galaxyinternet.service.ProjectService;
  * @author wangsong
  *
  */
+@Component
 public class SWTPHandler implements ProgressChangeHandler
 {
 	@Autowired

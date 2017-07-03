@@ -1,3 +1,16 @@
+	var flow = [
+		'projectProgress:1',
+		'projectProgress:2',
+		'projectProgress:3',
+		'projectProgress:4',
+		'projectProgress:11',
+		'projectProgress:5',
+		'projectProgress:6',
+		'projectProgress:7',
+		'projectProgress:8',
+		'projectProgress:9',
+		'projectProgress:10'
+		];
 	var _project_;
 	sendGetRequest(platformUrl.detailProject + projectId, {}, function(data){
 		_project_ = data.entity;
@@ -228,19 +241,19 @@ function buttonData(i){
 	case 1:
 		btnTitle="启动内部评审";
 		currProgress="projectProgress:1";
-		nextProgress='projectProgress:1';
+		nextProgress='projectProgress:2';
 		isShow=false;
 		break;
 	case 2:
 		btnTitle="申请CEO评审";
 		currProgress="projectProgress:2";
-		nextProgress='projectProgress:2';
+		nextProgress='projectProgress:3';
 		isShow=false;
 		break;
 	case 3:
 		btnTitle="申请立项会排期";
 		currProgress="projectProgress:3";
-		nextProgress='projectProgress:3';
+		nextProgress='projectProgress:4';
 		isShow=false;
 		break;
 	case 4:
@@ -357,19 +370,32 @@ function nextProgress(btn,nextProgress)
 		platformUrl.projectStageChange,
 		{id:projectId, stage:nextProgress},
 		function(data){
+			$(btn).removeClass('disabled');
 			if(data.result.status == 'OK')
 			{
 				layer.msg('提交成功');
 				_project_=data.entity;
+				refreshIndex();
 			}
 			else if(data.result.message != null)
 			{
-				$(btn).removeClass('disabled');
 				layer.msg(data.result.message);
 			}
 		}
 	);
-}	
+}
+function refreshIndex()
+{
+	for(var j=0;j<flow.length;j++)
+	{
+		if(flow[j] == _project_.projectProgress)
+		{
+			i=j+1;
+			break;
+		}
+	}
+	goToProgress();
+}
 /***
  * 因为之前项目阶段是按照顺序进行来处理,现增加商务谈判阶段数据库为11
  * 而页面是在5阶段
