@@ -112,7 +112,8 @@ public enum DictEnum {
 		投资决策会("投资决策会","projectProgress:7"),
 		投资协议("投资协议","projectProgress:8"),
 		股权交割("股权交割","projectProgress:9"),
-		投后运营("投后运营","projectProgress:10");
+		投后运营("投后运营","projectProgress:10"),
+		会后商务谈判("会后商务谈判","projectProgress:11");
 		private String name;
 
 		private String code;
