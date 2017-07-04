@@ -19,33 +19,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project_process.service.ProFlowAboutFileService;
 import com.galaxyinternet.project_process.util.ProFlowUtilImpl;
-import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
-import com.galaxyinternet.service.InterviewRecordService;
-import com.galaxyinternet.service.MeetingRecordService;
-import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 
 
@@ -79,28 +69,10 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
-	private SopFileDao sopFileDao;
-	@Autowired
-	private MeetingRecordService meetingRecordService;
-	@Autowired
 	private DictService dictService;
-	@Autowired
-	private InterviewRecordService interviewRecordService;
-	
-	@Autowired
-	private MeetingSchedulingService meetingSchedulingService;
-	
-	@Autowired
-	private  SopFileService sopFileService;
-	
-	@Autowired
-	private DepartmentService departmentService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
-	
-	@Autowired
-	private HandlerManager handlerManager;
 	
 	@Override
 	protected BaseService<Project> getBaseService() {
@@ -229,7 +201,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			Project pro = projectService.queryById(fileTemp.getProjectId());
+			//Project pro = projectService.queryById(fileTemp.getProjectId());
 			
 			//封装结果
 			fileTemp.setFileUid(user.getId());

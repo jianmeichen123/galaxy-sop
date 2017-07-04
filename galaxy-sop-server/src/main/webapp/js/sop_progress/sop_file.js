@@ -3,19 +3,21 @@
 //fileWorktype
 var filesCondition = {};
 
-var tagProgress = 'projectProgress:6'; // projectId  progress
+//var tagProgress = 'projectProgress:6'; // projectId  progress
 
 
 function initFileShow(){
 	filesCondition = {};
 	
+	var tagProgress = flow[i-1]; 
+	
 	var toShowFlows = ['projectProgress:4','projectProgress:5','projectProgress:6','projectProgress:8','projectProgress:9'];
-	if($.inArray(progress, toShowFlows) != -1){
+	if($.inArray(tagProgress, toShowFlows) != -1){
 		//fileTabToggle(true);
 		
 		var condition = {};
 		condition.id = projectId;
-		condition.projectProgress = progress;
+		condition.projectProgress = tagProgress;
 		sendPostRequestByJsonObj(Constants.sopEndpointURL + "/galaxy/progressT/showProFlowFiles",condition,backForShowFiles);
 	}else{
 		//fileTabToggle(false);

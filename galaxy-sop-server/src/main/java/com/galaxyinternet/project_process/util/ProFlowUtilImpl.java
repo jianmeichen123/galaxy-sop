@@ -1,6 +1,5 @@
 package com.galaxyinternet.project_process.util;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -18,17 +17,31 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 	
 	public static final String fileTypePareatCode = "fileWorktype";
 	
-	// projectProgress  :  <fileWorktype : task_flag(other) >
+	/**
+	 * 投资经理 定制 显示
+	 * 投资经理文档任务为 null；区分前端任务图片显示
+	 * 
+	 * projectProgress  :  <fileWorktype : task_flag(other) >
+	 */
 	public static Map<String,Map<String,Integer>>  file_about = new LinkedHashMap<>();
 	
+	/**
+	 * 所有文档 - 任务标识  对应关系
+	 * projectProgress  :  <fileWorktype : task_flag(other) >
+	 */
+	public static Map<String,Integer>  filetype_taskflag_about = new LinkedHashMap<>();
 	
-	// canOpt;    // 文档可操作： 上传、编辑
-	// projectProgress  :  <fileWorktype : canOpt(true\false) >
+	
+	/**
+	 * 人法财 投资经理   对应文档操作权限关系
+	 * 
+	 * projectProgress  :  <fileWorktype : canOpt(true\false) >
+	 * canOpt;    // 文档可操作： 上传、编辑
+	 */
 	public static Map<String,Map<String,Boolean>>  file_opt_about_tzjl = new LinkedHashMap<>();
 	public static Map<String,Map<String,Boolean>>  file_opt_about_r = new LinkedHashMap<>();
 	public static Map<String,Map<String,Boolean>>  file_opt_about_f = new LinkedHashMap<>();
 	public static Map<String,Map<String,Boolean>>  file_opt_about_c = new LinkedHashMap<>();
-	
 	
 	public static Map<Long,Map<String,Map<String,Boolean>>>  role_file_opt_about = new LinkedHashMap<>();
 	static{
@@ -37,6 +50,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		role_file_opt_about.put(UserConstant.FWJL, file_opt_about_f);
 		role_file_opt_about.put(UserConstant.CWJL, file_opt_about_c);
 	}
+	
 	
 	
 	static{
@@ -121,6 +135,81 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		m_p9.put("fileWorktype:8", 9);
 		m_p9.put("fileWorktype:9", 8);
 		file_about.put("projectProgress:9", m_p9);
+	}
+	
+	
+	static{
+		/*
+		 * 阶段：  
+		 * 		"立项会" : "projectProgress:4"  
+		 * 
+		 * 文档：
+		 * 		"fileWorktype:17", "立项报告 "
+		 */
+		filetype_taskflag_about.put("fileWorktype:17", null);
+		
+		/*   
+		 * 阶段：  
+		 * 		"投资意向书","projectProgress:5" 
+		 * 文档：
+		 * 		"fileWorktype:5", "投资意向书 " (签署凭证)
+		 * 任务（task_flag）：
+		 * 			1	投资意向书（tzjl）
+		 */
+		filetype_taskflag_about.put("fileWorktype:5", 1);   
+		
+		/*   
+		 * 阶段：  
+		 * 		"尽职调查","projectProgress:6"  
+		 * 文档：
+		 * 		"fileWorktype:1",  "业务尽职调查报告 "
+		 * 		"fileWorktype:2",  "人力资源尽职调查报告 "
+		 * 		"fileWorktype:3",  "法务尽职调查报告 "      (仅 投资类型 有)
+		 *  	"fileWorktype:4",  "财务尽职调查报告 "      (仅 投资类型 有)
+		 * 		"fileWorktype:18", "尽职调查启动会报告 "
+		 *		"fileWorktype:19", "尽职调查总结会报告 "
+		 * 
+		 * task_flag(任务标识):
+		 * 			2	人事尽职调查报告、
+		 * 			3	法务尽职调查报告、
+		 * 			4	财务尽调报告、
+		 * 			5	业务尽调报告（tzjl）
+		 */
+		filetype_taskflag_about.put("fileWorktype:1", 5);
+		filetype_taskflag_about.put("fileWorktype:2", 2);
+		filetype_taskflag_about.put("fileWorktype:3", 3);   
+		filetype_taskflag_about.put("fileWorktype:4", 4);  
+		filetype_taskflag_about.put("fileWorktype:18", null);
+		filetype_taskflag_about.put("fileWorktype:19", null);
+  		
+		/*   
+		 * 阶段：  
+		 * 		"投资协议","projectProgress:8"  
+		 * 文档：  
+		 * 		"fileWorktype:6", "投资协议 "       (签署凭证)
+		 * 		"fileWorktype:7", "股权转让协议 "   (仅 投资类型  且  涉及股权转让)、 (签署凭证)
+		 * 
+		 * task_flag(任务标识): 
+		 * 			6	投资协议               （tzjl）
+		 * 			7	股权转让协议、（tzjl）
+		 */
+		filetype_taskflag_about.put("fileWorktype:6", 6);      
+		filetype_taskflag_about.put("fileWorktype:7", 7); 
+		
+		/*   
+		 * 阶段：  
+		 * 		"股权交割","projectProgress:9"   
+		 * 文档：  
+		 * 		"fileWorktype:8", "工商转让凭证 "
+		 * 		"fileWorktype:9", "资金拨付凭证 "
+		 * 
+		 * task_flag(任务标识): 
+		 * 			8	资金拨付凭证、
+		 * 			9	工商变更登记凭证
+		 * 
+		 */
+		filetype_taskflag_about.put("fileWorktype:8", 9);
+		filetype_taskflag_about.put("fileWorktype:9", 8);
 	}
 	
 	
@@ -271,8 +360,6 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		m_p9.put("fileWorktype:9", true);
 		file_opt_about_c.put("projectProgress:9", m_p9);
 	}
-	
-	
 	
 	
 	

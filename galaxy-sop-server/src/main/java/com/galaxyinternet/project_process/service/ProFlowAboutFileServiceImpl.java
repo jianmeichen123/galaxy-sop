@@ -1,76 +1,36 @@
 package com.galaxyinternet.project_process.service;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
-import com.galaxyinternet.dao.hr.PersonLearnDao;
-import com.galaxyinternet.dao.hr.PersonWorkDao;
-import com.galaxyinternet.dao.project.MeetingSchedulingDao;
-import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
-import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
-import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
-import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
-import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.hr.PersonLearn;
-import com.galaxyinternet.model.hr.PersonWork;
-import com.galaxyinternet.model.project.MeetingScheduling;
-import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.project.ProjectPerson;
-import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.model.user.UserRole;
-import com.galaxyinternet.project_process.event.ProgressChangeEvent;
-import com.galaxyinternet.project_process.event.RejectEvent;
 import com.galaxyinternet.project_process.util.ProFlowUtilImpl;
-import com.galaxyinternet.service.DepartmentService;
-import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.SopTaskService;
-import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
 
@@ -304,6 +264,17 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 	    }else{
 	    	return null;
 	    }
+		
+		if(ProFlowUtilImpl.filetype_taskflag_about.get(file.getFileWorktype()) != null){
+			SopTask task = new SopTask();
+			task.setProjectId(file.getProjectId());
+			task.setTaskType(DictEnum.taskType.协同办公.getCode());
+			task.setTaskFlag(ProFlowUtilImpl.filetype_taskflag_about.get(file.getFileWorktype()));
+			Date time=new Date();
+			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+			task.setTaskDeadline(time);
+			sopTaskDao.updateTask(task);
+		}
 		
 		return resultFile;
 	}
