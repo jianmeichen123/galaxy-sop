@@ -4,7 +4,6 @@
 %>
 	<!-- <p class='popwait'>数据加载中，请稍候...</p> -->
 	<div class="myprojecttc new_poptxt">
-		<button id="pdf">PDF</button>
         <div class="tabtitle">
             <i class="pre_box"></i>
             <h3>接触访谈</h3><span>(当前阶段)</span>
@@ -119,6 +118,5 @@
 <script>
 $("#projectId").val(projectId);
 interviewList();
-
 </script>
 
