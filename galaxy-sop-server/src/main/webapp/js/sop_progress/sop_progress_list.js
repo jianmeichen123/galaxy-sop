@@ -280,18 +280,33 @@ $(".new_poppage").on("click",function(){
 		data:"",//传递参数
 		okback:function(){
 			$("#popup_name").text(_name);
+			console.log(_type);
 			switch(_type){
 			  case "":
+				  //访谈结论radio
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
+				  //结论原因下拉框值
 				  $("#targetView").attr("style","display:block");
 				  break;
 			  case "meetingType:3":
+				  //会议结论radio
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
-				  $("#targetView").attr("style","display:block");
+				  //结论原因下拉框的值
+				  $("#toobar_time").text("会议时间");
+				  $("#toobar_content").text("会议纪要");
+				  $("#toobar_voice").text("会议录音");
+				  $("#toobar_result").text("会议结论");
+				  $("#targetView").attr("style","display:none");
 				  break;
 			  case "meetingType:5":
+				  //会议结论radio
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
-				  $("#targetView").attr("style","display:block");
+				  //结论原因下拉框的值
+				  $("#toobar_time").text("会议时间");
+				  $("#toobar_content").text("会议纪要");
+				  $("#toobar_voice").text("会议录音");
+				  $("#toobar_result").text("会议结论");
+				  $("#targetView").attr("style","display:none");
 				  break;
 			  default:
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
