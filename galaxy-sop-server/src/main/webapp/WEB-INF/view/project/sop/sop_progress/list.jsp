@@ -4,11 +4,11 @@
 %>
 	<!-- <p class='popwait'>数据加载中，请稍候...</p> -->
 	<div class="myprojecttc new_poptxt">
+		<button id="pdf">PDF</button>
         <div class="tabtitle">
             <i class="pre_box"></i>
             <h3>接触访谈</h3><span>(当前阶段)</span>
             <i class="next_box" data-progress="1" data-project-progress="${progress }"></i>
-            
         </div>
         <div class="tab_con">
         	<!-- tab nav -->
@@ -41,7 +41,7 @@
 			<!-- 文档没有就移除 -->			
 			<ul class="file_list clearfix">
             		<!-- 文件上传以及本地选择文件后的状态 -->
-                	<li class="show_4">
+                	<li>
                 		<input type="file" title="">
                 		<div class="file_box">
                 			<img src="<%=path%>/img/sop_progress/plus_icon.png" class="add_img" alt="">
@@ -53,44 +53,29 @@
                 		</div>
                 		<span>项目立项报告</span>
                 	</li>
-                		<!-- 文件上传以及本地选择文件后的状态 -->
-                	<li class="show_6">
-                		<input type="file" title="">
-                		<div class="file_box">
-                			<img src="<%=path%>/img/sop_progress/plus_icon.png" class="add_img" alt="">
-                			<div class="cover_box">
-                				<span class="cancel">取消</span>
-                				<span class="up_load">上传</span>
-                				<p>loading…</p>
-                			</div>
-                		</div>
-                		<span>投资意向书</span>
-                	</li>
-                	 <li class="show_7" style="display: none">
-                		<div class="file_box">
-                			<p class="center_text" style="margin-top:-18px;">已认领<br/>(法务)</p>
-                		</div>
-                		<span>业务尽调文档</span>
-                	</li>
-                	<li class="show_7" style="display: none">
-                		<div class="file_box">
-                			<p class="center_text" style="margin-top:-18px;">已认领<br/>(法务)</p>
-                		</div>
-                		<span>人事尽调文档</span>
-                	</li>
-                	<li class="show_7" style="display: none">
+                	<li>
                 		<div class="file_box">
                 			<p class="center_text" style="margin-top:-18px;">已认领<br/>(法务)</p>
                 		</div>
                 		<span>法务尽调文档</span>
                 	</li>
-                	<li class="show_7" style="display: none">
+                	<li>
                 		<div class="file_box">
                 			<p class="center_text">待认领</p>
                 		</div>
+                		<span>法务尽调文档</span>
+                	</li>
+                	<li>
+                		<div class="file_box file_img">
+                			<img class="bg_img" src="<%=path%>/img/sop_progress/pdf.png" alt="">
+                			<div class="file_btn">
+                				<span class="reupload_pdf"></span>
+                				<span class="downlond_pdf"></span>
+                			</div>
+                		</div>
                 		<span>财务尽调文档</span>
                 	</li>
-                	<li class="show_7" style="display: none">
+                	<li>
                 		<div class="file_box file_img">
                 			<img class="bg_img" src="<%=path%>/img/sop_progress/image.png" alt="">
                 			<div class="file_btn">
@@ -98,65 +83,7 @@
                 				<span class="downlond_jpg"></span>
                 			</div>
                 		</div>
-                		<span>尽调启动会报告</span>
-                	</li>
-                	 <li class="show_7" style="display: none">
-                		<div class="file_box file_img">
-                			<img class="bg_img" src="<%=path%>/img/sop_progress/image.png" alt="">
-                			<div class="file_btn">
-                				<span class="reupload_jpg"></span>
-                				<span class="downlond_jpg"></span>
-                			</div>
-                		</div>
-                		<span>尽调总结会报告</span>
-                	</li>
-                	<li class="show_9" style="display: none">
-                		<input type="file" title="">
-                		<div class="file_box">
-                			<img src="<%=path%>/img/sop_progress/plus_icon.png" class="add_img" alt="">
-                			<div class="cover_box">
-                				<span class="cancel">取消</span>
-                				<span class="up_load">上传</span>
-                				<p>loading…</p>
-                			</div>
-                		</div>
-                		<span>投资协议</span>
-                	</li>
-                	   	<li class="show_9" style="display: none">
-                		<input type="file" title="">
-                		<div class="file_box">
-                			<img src="<%=path%>/img/sop_progress/plus_icon.png" class="add_img" alt="">
-                			<div class="cover_box">
-                				<span class="cancel">取消</span>
-                				<span class="up_load">上传</span>
-                				<p>loading…</p>
-                			</div>
-                		</div>
-                		<span>股权转让协议</span>
-                	</li>
-                	   	<li class="show_10" style="display: none">
-                		<input type="file" title="">
-                		<div class="file_box">
-                			<img src="<%=path%>/img/sop_progress/plus_icon.png" class="add_img" alt="">
-                			<div class="cover_box">
-                				<span class="cancel">取消</span>
-                				<span class="up_load">上传</span>
-                				<p>loading…</p>
-                			</div>
-                		</div>
-                		<span>工商转让凭证</span>
-                	</li>
-                	  <li class="show_10" style="display: none">
-                		<input type="file" title="">
-                		<div class="file_box">
-                			<img src="<%=path%>/img/sop_progress/plus_icon.png" class="add_img" alt="">
-                			<div class="cover_box">
-                				<span class="cancel">取消</span>
-                				<span class="up_load">上传</span>
-                				<p>loading…</p>
-                			</div>
-                		</div>
-                		<span>资金拨付凭证</span>
+                		<span>项目立项报告</span>
                 	</li>
             </ul>
 			<!--The bottom button -->
@@ -192,5 +119,6 @@
 <script>
 $("#projectId").val(projectId);
 interviewList();
+
 </script>
 
