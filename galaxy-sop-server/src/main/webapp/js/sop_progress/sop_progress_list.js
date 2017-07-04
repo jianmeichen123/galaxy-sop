@@ -454,8 +454,12 @@ function buttonData(i){
 		btn1.show();
 		if(i==5)
 		{
-			btn2.text("签订投资意向书（投资）");
-			btn2.data("next-progress","projectProgress:5");
+			btn1.toggle(showSTBtn);//闪投
+			btn2.toggle(showTZBtn);//投资
+		}
+		else
+		{
+			btn1.show();
 		}
 	}
 	else
@@ -482,7 +486,7 @@ function whichOne(index){
 		return 'st';
 	}
 }
-$("#btn1").click(function(){
+$("#btn1,#btn2").click(function(){
 	if($(this).hasClass('disabled'))
 	{
 		return;

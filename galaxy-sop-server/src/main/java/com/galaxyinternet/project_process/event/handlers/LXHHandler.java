@@ -58,7 +58,7 @@ public class LXHHandler implements ProgressChangeHandler
 			}
 			Project po = new Project();
 			po.setId(project.getId());
-			po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
+			po.setProgressHistory(project.getProgressHistory()+","+projectProgress.立项会.getCode());
 			projectService.toEstablishStage(po);
 		} 
 		catch (Exception e)
