@@ -503,6 +503,7 @@ function showProgress(progress){
 	   case "11":
 		    $(".tabtitle h3").text("会后商务谈判");
 		    tab_show(1);
+		    toobarData("会后商务谈判","添加会议记录","meetingType:5");
 		    $(".next_box").attr("data-progress",5);
 		    break;
 	   default :
