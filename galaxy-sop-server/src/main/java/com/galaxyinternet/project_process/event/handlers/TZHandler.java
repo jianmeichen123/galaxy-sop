@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.SWTPResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
@@ -46,7 +47,8 @@ public class TZHandler implements ProgressChangeHandler
 		Project project = new Project();
 		MeetingRecordBo query = new MeetingRecordBo();
 		query.setProjectId(project.getId());
-		query.setMeetingResult(LXHResult.TZ.getCode());
+		query.setMeetingType(meetingType.会后商务谈判.getCode());
+		query.setMeetingResult(SWTPResult.TZ.getCode());
 		
 		Long count = meetingService.queryCount(query);
 		if(count.intValue()==0)

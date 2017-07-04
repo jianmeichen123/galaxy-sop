@@ -1,7 +1,5 @@
 package com.galaxyinternet.common.dictEnum;
 
-import com.galaxyinternet.common.enums.DictEnum.meetingResult;
-
 public enum DictEnum {
 	
 	项目类型("项目类型","projectType"),
@@ -168,7 +166,8 @@ public enum DictEnum {
 		内评会("内评会","meetingType:1"),
 		CEO评审("CEO评审","meetingType:2"),
 		立项会("立项会","meetingType:3"),
-		投决会("投决会","meetingType:4");
+		投决会("投决会","meetingType:4"),
+		会后商务谈判("会后商务谈判","meetingType:5");
 		private String name;
 
 		private String code;
@@ -291,7 +290,49 @@ public enum DictEnum {
 		        return null;
 		    }
 		}
-	
+	//商务谈判会议结果-
+	public enum SWTPResult
+	{
+		GJZ("跟进中","meeting5Result:1"),
+		FJ("否决","meeting5Result:2"),
+		ST("闪投","meeting5Result:3"),
+		TZ("投资","meeting5Result:4");
+		private String name;
+
+		private String code;
+
+		private SWTPResult(String name, String code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getCode() {
+			return code;
+		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	taskType[] values = taskType.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
+	}
 	//任务类型
 	public enum taskType {
 		审批流程("审批流程领","taskType:1"),
