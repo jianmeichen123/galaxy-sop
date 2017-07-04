@@ -89,7 +89,7 @@ function meetList(type){
                   },
                   {
                       title: '原因',
-                      field: 'resultReason',
+                      field: 'resultReasonStr',
                       valign: 'left',
                   },
                     {

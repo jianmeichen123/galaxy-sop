@@ -354,7 +354,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				bo.setMeetingType(ib.getMeetingType());
 				bo.setMeetingTypeStr(ib.getMeetingTypeStr());
 				bo.setMeetingResult(ib.getMeetingResult());
-				bo.setMeetingResultStr(ib.getMeetingResultStr());
+				bo.setMeetingResultStr(DictEnum.meetingResult.getNameByCode(ib.getInterviewResult()));
 				bo.setMeetingNotes(ib.getMeetingNotes());
 				Map<String,Dict> dictMap = new HashMap<String,Dict>();
 				String resultReson="";
