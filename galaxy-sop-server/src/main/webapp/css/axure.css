@@ -1588,7 +1588,7 @@ word-wrap:break-word;
 }
 .new_right_flow{
 	margin-top:45px;
-	margin-left:20px;
+	margin-left:10px;
 }
 .new_right_flow_line{
 	position:relative;
@@ -1596,7 +1596,7 @@ word-wrap:break-word;
 	border-top:1px solid #d6d8e1;
 }
 .line_ul_p .line_ul_li{
-	margin-right:10px;
+	margin-right:6px;
 }
 .new_right .line_ul_p li{line-height:18px;text-align:center;}
 .line_ul_p li{

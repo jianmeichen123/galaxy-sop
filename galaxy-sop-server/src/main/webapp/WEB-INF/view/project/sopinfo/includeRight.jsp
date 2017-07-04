@@ -72,6 +72,7 @@
                         <li><span class="gray_dot"></span>内部评审</li>
                         <li><span class="gray_dot"></span>C<br/>E<br/>O评审</li>
                         <li><span class="gray_dot"></span>立项会</li>
+                        <li><span class="gray_dot"></span>会后商务谈判</li>
                         <li><span class="gray_dot"></span>投资意向书</li>
                         <li><span class="gray_dot"></span>尽职调查</li>
                         <li><span class="gray_dot"></span>投决会</li>
