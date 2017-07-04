@@ -68,7 +68,7 @@ public class TJHHandler implements ProgressChangeHandler
 			}
 			Project po = new Project();
 			po.setId(project.getId());
-			po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
+			po.setProgressHistory(project.getProgressHistory()+","+projectProgress.投资决策会.getCode());
 			projectService.toSureMeetingStage(po);
 			
 			
