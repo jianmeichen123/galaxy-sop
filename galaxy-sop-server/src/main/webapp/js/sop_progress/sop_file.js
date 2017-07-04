@@ -339,7 +339,7 @@ function create_file_area(file){
 		//'<li>' +
 			'<input type="hidden" data-type="file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" alt="" />' +
+				'<img class="bg_img" src="' + imgstr + '"  FType="'+file.fileSuffix+'"  alt="" />' +
 				optStr +
 				'<div class="cover_box">' +
 					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +

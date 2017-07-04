@@ -3095,8 +3095,14 @@ color:#999999;}
 	}
 	.not_stage{
 		background-image:  url("../img/sop_progress/not_stage.png");
-	    background-position: center 45px;
-	    position: relative;
+	    background-position: center center;
+	    position: absolute;
+	    top:0;
+	    right:0;
+	    left:0;
+	    bottom:0;
+	    background-color:#fff;
+	    height:auto;
 	}
 	.not_stage .stage_cover{
 		position: absolute;
