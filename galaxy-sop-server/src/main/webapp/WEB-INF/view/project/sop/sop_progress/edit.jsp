@@ -95,7 +95,7 @@
         </div>                
     </div>
 <script>
-radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
+
 /**
  * 获取会议待定原因下拉项
  * @version 2016-06-21

@@ -117,12 +117,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//投资意向书，先提交投资意向书-签署-上传签署证明
 		svf.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
 		svf.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
-		Long fid = sopVoucherFileDao.insert(svf);
+	//	Long fid = sopVoucherFileDao.insert(svf);
 		svf.setId(null);
 		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
-		f.setVoucherId(fid);
+		//f.setVoucherId(fid);
 		sopFileDao.insert(f);
 		f.setId(null);
 		f.setVoucherId(null);
@@ -140,12 +140,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//投资协议文档，投资协议文档+签署证明
 		svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 		svf.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
-		fid = sopVoucherFileDao.insert(svf);
+		//fid = sopVoucherFileDao.insert(svf);
 		svf.setId(null);
 		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
-		f.setVoucherId(fid);
+		//f.setVoucherId(fid);
 		sopFileDao.insert(f);
 		f.setId(null);
 		f.setVoucherId(null);
@@ -194,12 +194,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			//投资转让协议文档，投资转让协议文档+签署证明
 			svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			svf.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
-			fid = sopVoucherFileDao.insert(svf);
+			//sfid = sopVoucherFileDao.insert(svf);
 			svf.setId(null);
 			f.setFileValid(1);
 			f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			f.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
-			f.setVoucherId(fid);
+			//f.setVoucherId(fid);
 			sopFileDao.insert(f);
 			f.setId(null);
 		/*}*/

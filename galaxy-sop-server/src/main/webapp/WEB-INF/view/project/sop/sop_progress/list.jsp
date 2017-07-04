@@ -120,8 +120,9 @@
 $("#projectId").val(projectId);
 interviewList();
 //PDF预览
-$(".file_list .file_img").click(function(){
-	var file_str = $(this).find(".bg_img").attr("src");
+$(".file_list .file_img .bg_img").click(function(){
+	var file_str = $(this).attr("src");
+	var file_type = $(this).attr("src");
 	window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
 })
 </script>

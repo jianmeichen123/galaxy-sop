@@ -282,9 +282,19 @@ $(".new_poppage").on("click",function(){
 			$("#popup_name").text(_name);
 			switch(_type){
 			  case "":
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
+				  $("#targetView").attr("style","display:block");
+				  break;
+			  case "meetingType:3":
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
+				  $("#targetView").attr("style","display:block");
+				  break;
+			  case "meetingType:5":
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
 				  $("#targetView").attr("style","display:block");
 				  break;
 			  default:
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
 				  $("#toobar_time").text("会议时间");
 				  $("#toobar_content").text("会议纪要");
 				  $("#toobar_voice").text("会议录音");
@@ -584,6 +594,7 @@ function showProgress(progress){
 	   case "11":
 		    $(".tabtitle h3").text("会后商务谈判");
 		    tab_show(1);
+		    toobarData("会后商务谈判","添加会议记录","meetingType:5");
 		    $(".next_box").attr("data-progress",5);
 		    hideCurrent('projectProgress:11');
 		    break;
