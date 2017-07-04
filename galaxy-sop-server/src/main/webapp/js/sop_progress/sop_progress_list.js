@@ -574,7 +574,10 @@ function changeSelect(value){
  */
 function  isPassCurrentProgress(currentProgress){
 	var progress = _project_.progressHistory;
-	return progress.indexOf(currentProgress) >= 0;
+	if(progress){
+	   return progress.indexOf(currentProgress) >= 0;
+	}
+	return false;
 }
 /**
  * 判断该阶段是否到未到此阶段
