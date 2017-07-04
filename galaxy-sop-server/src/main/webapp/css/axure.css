@@ -1588,7 +1588,7 @@ word-wrap:break-word;
 }
 .new_right_flow{
 	margin-top:45px;
-	margin-left:20px;
+	margin-left:10px;
 }
 .new_right_flow_line{
 	position:relative;
@@ -1596,7 +1596,7 @@ word-wrap:break-word;
 	border-top:1px solid #d6d8e1;
 }
 .line_ul_p .line_ul_li{
-	margin-right:10px;
+	margin-right:6px;
 }
 .new_right .line_ul_p li{line-height:18px;text-align:center;}
 .line_ul_p li{
@@ -3095,14 +3095,16 @@ color:#999999;}
 	}
 	.not_stage{
 		background-image:  url("../img/sop_progress/not_stage.png");
-	    background-position: center center;
+	    background-position: center 43%;
+        background-size: 23%;
 	    position: absolute;
-	    top:0;
+	    top:103px;
 	    right:0;
 	    left:0;
-	    bottom:0;
+	    bottom:40px;
 	    background-color:#fff;
 	    height:auto;
+	        z-index: 100;
 	}
 	.not_stage .stage_cover{
 		position: absolute;
@@ -3111,6 +3113,15 @@ color:#999999;}
 		right:0;
 		height: 35px;
 		background: rgba(255, 255, 255, .7);
+	}
+	.not_stage p{
+	position: absolute;
+	left:50%;
+	margin-left:-25px;
+    top: 50%;
+    margin-top: 56px;
+	font-size:12px;
+	color:#999999;
 	}
 	.file_list{
 		display: none;

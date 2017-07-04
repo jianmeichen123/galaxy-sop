@@ -6,7 +6,7 @@
 	<div class="myprojecttc new_poptxt">
         <div class="tabtitle">
             <i class="pre_box"></i>
-            <h3>接触访谈</h3><span>(当前阶段)</span>
+            <h3>接触访谈</h3>
             <i class="next_box" data-progress="1" data-project-progress="${progress }"></i>
         </div>
         <div class="tab_con">
@@ -101,6 +101,7 @@
 			<!-- 未到此阶段时隐藏table和 add button 然后显示not_stage -->
 			<div class="not_stage">
 				<span class="stage_cover"></span>
+				<p>未到此阶段～</p>
 			</div>
 			
           </div>
@@ -118,5 +119,10 @@
 <script>
 $("#projectId").val(projectId);
 interviewList();
+//PDF预览
+$(".file_list .file_img").click(function(){
+	var file_str = $(this).find(".bg_img").attr("src");
+	window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
+})
 </script>
 
