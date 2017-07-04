@@ -44,7 +44,7 @@ public class TZHandler implements ProgressChangeHandler
 	@Override
 	public void handler(ProgressChangeEvent event)
 	{
-		Project project = new Project();
+		Project project = event.getProject();
 		MeetingRecordBo query = new MeetingRecordBo();
 		query.setProjectId(project.getId());
 		query.setMeetingType(meetingType.会后商务谈判.getCode());
