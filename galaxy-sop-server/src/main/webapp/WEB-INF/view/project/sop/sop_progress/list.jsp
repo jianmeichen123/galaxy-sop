@@ -6,7 +6,7 @@
 	<div class="myprojecttc new_poptxt">
         <div class="tabtitle">
             <i class="pre_box"></i>
-            <h3>接触访谈</h3><span>(当前阶段)</span>
+            <h3>接触访谈</h3>
             <i class="next_box" data-progress="1" data-project-progress="${progress }"></i>
         </div>
         <div class="tab_con">
