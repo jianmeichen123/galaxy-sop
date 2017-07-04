@@ -285,13 +285,17 @@ $(".new_poppage").on("click",function(){
 			  case "":
 				  //访谈结论radio
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
-				  //结论原因下拉框值
+				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingUndeterminedReason","meetingUndeterminedReason");
+				 		  //结论原因下拉框值
+				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
+
 				  $("#targetView").attr("style","display:block");
 				  break;
 			  case "meetingType:3":
 				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
-				  //结论原因下拉框的值
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
+				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
+                  //结论原因下拉框的值
 				  $("#toobar_time").text("会议时间");
 				  $("#toobar_content").text("会议纪要");
 				  $("#toobar_voice").text("会议录音");
@@ -300,7 +304,9 @@ $(".new_poppage").on("click",function(){
 				  break;
 			  case "meetingType:5":
 				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
+				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingFollowingReason","meetingFollowingReason");
+				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
 				  //结论原因下拉框的值
 				  $("#toobar_time").text("会议时间");
 				  $("#toobar_content").text("会议纪要");
@@ -627,7 +633,7 @@ function radionDiv(data){
 	$.each(data.entityList, function(i, value){
 		var htmlDiv= 
 		'<div id="div_'+i+'">'+
-		'<label><input name="'+value.parentCode+'" type="radio" value='+value.code+' />'+value.name+'</label>';
+		'<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
 	    	   var htmlSelect='<select name="'+parentCode+'" id="'+parentCode+'">'+
