@@ -12,8 +12,74 @@
 		'projectProgress:10'
 		];
 	var _project_;
+	var showSTBtn = false;//会后商务谈判-闪投按钮
+	var showTZBtn = false;//会后商务谈判-投资按钮
+	
+	loadProjectData();
+	/**
+	 * 项目信息，{@link _project_}
+	 * @returns
+	 */
+	function loadProjectData()
+	{
+		sendGetRequest(platformUrl.detailProject + projectId, {}, function(data){
+			_project_ = data.entity;
+			loadSWTPData();
+		});
+	}
+	/**
+	 * 商务谈判会议信息，{@link showSTBtn,showSTBtn}
+	 * @returns
+	 */
+	function loadSWTPData()
+	{
+		if(_project_.projectProgress == 'projectProgress:11')
+		{
+			sendGetRequest(
+				platformUrl.searchMeeting, 
+				{'meetingType':'meetingType:5'}, 
+				function(data){
+					if(data.entityList)
+					{
+						$.each(data.entityList, function(){
+							if(this.meetingResult == 'meeting5Result:3')//闪投
+							{
+								showSTBtn = true;
+							}
+							if(this.meetingResult == 'meeting5Result:4')//投资
+							{
+								showTZBtn = true;
+							}
+						})
+					}
+				}
+			);
+		}
+	}
 	sendGetRequest(platformUrl.detailProject + projectId, {}, function(data){
 		_project_ = data.entity;
+		if(_project_.projectProgress == 'projectProgress:11')
+		{
+			sendGetRequest(
+				platformUrl.searchMeeting, 
+				{'meetingType':'meetingType:5'}, 
+				function(data){
+					if(data.entityList)
+					{
+						$.each(data.entityList, function(){
+							if(this.meetingResult == 'meeting5Result:3')//闪投
+							{
+								showSTBtn = true;
+							}
+							if(this.meetingResult == 'meeting5Result:4')//投资
+							{
+								showTZBtn = true;
+							}
+						})
+					}
+				}
+			);
+		}
 	});
 	
 	var i = $(".next_box").attr("data-progress"); //获取阶段值
@@ -89,7 +155,7 @@
 		}else if(i==4){
 			meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
-			toobarfile("投资意向书",4);
+			toobarfile("立项会",4);
 			tab_show(3);
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
@@ -288,11 +354,8 @@ function buttonData(i){
 		btnTitle="签订投资协议书（闪投）";
 		currProgress="projectProgress:11";
 		nextProgress='projectProgress:8';
-		 var result=whichOne(5);
-		 if("st"){
-			 btnTitle="签订投资意向书（投资）";
-			 nextProgress='projectProgress:5';
-		 }
+		btn2.text("签订投资意向书（投资）");
+		btn2.data("next-progress","projectProgress:5");
 		isShow=true;
 		break;
 	case 6:
@@ -346,11 +409,16 @@ function buttonData(i){
 	btn1.data("next-progress",nextProgress);
 	if('projectStatus:0'== _project_.projectStatus && _project_.projectProgress == currProgress)
 	{
-		btn1.removeClass('none');
+		btn1.show();
+		if(i==5)
+		{
+			btn2.text("签订投资意向书（投资）");
+			btn2.data("next-progress","projectProgress:5");
+		}
 	}
 	else
 	{
-		btn1.addClass('none');
+		btn1.hide();
 	}
 }
 function whichOne(index){

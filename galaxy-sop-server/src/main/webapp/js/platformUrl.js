@@ -1166,7 +1166,9 @@ var platformUrl = {
 	 */
 	 visitTrend: Constants.sopEndpointURL + "/galaxy/visit/getTendency",
 	 
-	 projectStageChange : Constants.sopEndpointURL + "/galaxy/progress/stageChange"
+	 projectStageChange : Constants.sopEndpointURL + "/galaxy/progress/stageChange",
+	 
+	 searchMeeting : Constants.sopEndpointURL + "/galaxy/progress/searchMeeting"
 }
 
 /**

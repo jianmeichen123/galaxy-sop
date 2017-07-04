@@ -2,9 +2,7 @@ package com.galaxyinternet.project_process.controller;
 
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +43,6 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
@@ -910,6 +907,14 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		
 		return null;
 	}
-
+	@RequestMapping(value = "/searchMeeting", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<MeetingRecord> searchMeeting(MeetingRecord query)
+	{
+		ResponseData<MeetingRecord> data = new ResponseData<MeetingRecord>();
+		List<MeetingRecord> list = meetingRecordService.queryList(query);
+		data.setEntityList(list);
+		return data;
+	}
 	
 }
