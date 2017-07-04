@@ -67,8 +67,8 @@
             </dl>  
             <dl class="fmdl clearfix check_result">
                 <dt id="toobar_result">访谈结论：</dt>
-                <dd>
-                    <div>
+                <dd id="resultRadion">
+                    <!-- <div>
                         <label><input name="interviewResult" type="radio" value="meetingResult:2" />待定</label> 
                         <select name="meetingUndeterminedReason" id="meetingUndeterminedReason">
                             <option value="">请选择原因</option>
@@ -84,7 +84,7 @@
                     </div>
                     <div>
                         <label><input name="interviewResult" type="radio" value="meetingResult:1" />通过</label> 
-                    </div>
+                    </div> -->
                 </dd>
             </dl>  
             <!-- bottom button -->
@@ -95,7 +95,7 @@
         </div>                
     </div>
 <script>
-
+radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
 /**
  * 获取会议待定原因下拉项
  * @version 2016-06-21
@@ -106,6 +106,11 @@ createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingUndete
  * @version 2016-06-21
  */
 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
+/**
+ * 获取会议跟进中原因下拉项
+ * @version 2016-06-21
+ */
+createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingFollowingReason","meetingFollowingReason");
 
 //ckeditor实例化
 var viewNotes=CKEDITOR.replace('viewNotes',{height:'100px',width:'538px'});

@@ -89,7 +89,7 @@
 		}else if(i==4){
 			meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
-			toobarfile("投资意向书",4);
+			toobarfile("立项会",4);
 			tab_show(3);
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
@@ -499,4 +499,53 @@ function showProgress(progress){
 	}
 	
 	initFileShow(); //file about
+}
+
+//会议结论原因数据字段获取
+function radioSearch(url, name){
+	sendGetRequest(url,null, function(data){
+		radionDiv(data);
+	});
+	
+}
+function radionDiv(data){
+	var dd=$("#resultRadion");
+	$.each(data.entityList, function(i, value){
+		var htmlDiv= 
+		'<div id="div_'+i+'">'+
+		'<label><input name="'+value.parentCode+'" type="radio" value='+value.code+' />'+value.name+'</label>';
+		     var parentCode=changeSelect(value);
+	       if(parentCode!=""){
+	    	   var htmlSelect='<select name="'+parentCode+'" id="'+parentCode+'">'+
+	           '<option value="">请选择原因</option>'+
+	           '</select>'+
+	         '<input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">';
+	    	 htmlDiv=htmlDiv+htmlSelect;
+		  }
+	     htmlDiv=htmlDiv+'</div>';
+		dd.append(htmlDiv);
+	});
+}
+
+/**
+ * 此方法判断该会议结果后是有会议结论的下拉框
+ * @param value
+ */
+function changeSelect(value){
+	//meeting5Result1:跟进中
+	//meeting5Result:2:否决
+	//meeting3Result:6:否决
+	//meetingResult:2:待定
+	//meetingResult:3:否决
+	var parentCode="";
+	if(value.code=='meeting5Result1'){
+		parentCode="meetingFollowingReason";
+	 }
+	if(value.code=='meetingResult:2'){
+		parentCode="meetingUndeterminedReason";
+	}
+	if(value.code=='meetingResult:3'||value.code=='meeting5Result:2'||value.code=='meeting3Result:6'){
+		parentCode="meetingVetoReason";
+	}
+	return parentCode;
 }
