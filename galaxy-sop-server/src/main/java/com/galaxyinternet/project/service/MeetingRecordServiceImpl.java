@@ -22,10 +22,12 @@ import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -57,7 +59,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	@Autowired
 	private UserService userService;
 	
-	
+	@Autowired
+	private Cache cache;
 	@Autowired
 	private IdeaService ideaService;
 	
@@ -353,6 +356,23 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				bo.setMeetingResult(ib.getMeetingResult());
 				bo.setMeetingResultStr(ib.getMeetingResultStr());
 				bo.setMeetingNotes(ib.getMeetingNotes());
+				Map<String,Dict> dictMap = new HashMap<String,Dict>();
+				String resultReson="";
+				if(null!=ib.getInterviewResult()&&ib.getInterviewResult().equals("meetingResult:2")){
+					dictMap=dictMap("meetingUndeterminedReason");
+				}else if(null!=ib.getInterviewResult()&&(ib.getInterviewResult().equals("meetingResult:3")
+						||ib.getInterviewResult().equals("meeting5Result:2")||ib.getInterviewResult().equals("meeting3Result:6"))){
+					dictMap=dictMap("meetingVetoReason");
+				}else if(null!=ib.getInterviewResult()&&ib.getInterviewResult().equals("meeting5Result:1")){
+					dictMap=dictMap("meetingFollowingReason");
+				}
+				if(null!=dictMap&&null!=ib.getResultReason()&&!"".equals(ib.getResultReason())){
+					Dict dict=dictMap.get(ib.getResultReason());
+					if(null!=dict){
+						resultReson=dict.getName();	
+					}
+				}
+				bo.setResultReasonStr(resultReson);
 				bo.setResultReason(ib.getResultReason());
 				bo.setReasonOther(ib.getReasonOther());
 				bo.setUid(proIdUidMap.get(ib.getProjectId()));
@@ -686,7 +706,17 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	}
 
 
-	
+	@SuppressWarnings("unchecked")
+	public Map<String,Dict> dictMap(String parentCOde){
+		Map<String,Dict> map=new HashMap<String,Dict>();
+           Object object = cache.get(parentCOde);
+           if(null==object){
+        	   object=new HashMap<String,Dict>();
+           }else{
+        	   map=(Map<String,Dict>)object;
+           }
+		return map;
+	}
 	
 	
 }

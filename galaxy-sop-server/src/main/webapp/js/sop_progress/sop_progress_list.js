@@ -280,52 +280,48 @@ $(".new_poppage").on("click",function(){
 		data:"",//传递参数
 		okback:function(){
 			$("#popup_name").text(_name);
-			console.log(_type);
+			var arrName=[];
 			switch(_type){
 			  case "":
 				  //访谈结论radio
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
-				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingUndeterminedReason","meetingUndeterminedReason");
-				 		  //结论原因下拉框值
-				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
-
+				  arrName.push("meetingUndeterminedReason");
+				  arrName.push("meetingVetoReason");
 				  $("#targetView").attr("style","display:block");
 				  break;
 			  case "meetingType:3":
 				  //会议结论radio
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
-				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
-                  //结论原因下拉框的值
-				  $("#toobar_time").text("会议时间");
-				  $("#toobar_content").text("会议纪要");
-				  $("#toobar_voice").text("会议录音");
-				  $("#toobar_result").text("会议结论");
-				  $("#targetView").attr("style","display:none");
+				  arrName.push("meetingVetoReason");
+				  meetingColumns();
 				  break;
 			  case "meetingType:5":
 				  //会议结论radio
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
-				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingFollowingReason","meetingFollowingReason");
-				  createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"meetingVetoReason","meetingVetoReason");
-				  //结论原因下拉框的值
-				  $("#toobar_time").text("会议时间");
-				  $("#toobar_content").text("会议纪要");
-				  $("#toobar_voice").text("会议录音");
-				  $("#toobar_result").text("会议结论");
-				  $("#targetView").attr("style","display:none");
+				  arrName.push("meetingFollowingReason");
+				  arrName.push("meetingVetoReason");
+				  meetingColumns();
 				  break;
 			  default:
+				  arrName.push("meetingUndeterminedReason");
+			      arrName.push("meetingVetoReason");
 				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
-				  $("#toobar_time").text("会议时间");
-				  $("#toobar_content").text("会议纪要");
-				  $("#toobar_voice").text("会议录音");
-				  $("#toobar_result").text("会议结论");
-				  $("#targetView").attr("style","display:none");
+				  meetingColumns();
 			}
+			//结论原因下拉框的值
+			selectDict(arrName);
 		}//模版反回成功执行	
 	});
 	return false;
 });
+//会议界面弹出层处理
+function meetingColumns(){
+	  $("#toobar_time").text("会议时间");
+	  $("#toobar_content").text("会议纪要");
+	  $("#toobar_voice").text("会议录音");
+	  $("#toobar_result").text("会议结论");
+	  $("#targetView").attr("style","display:none");
+}
 /**
  * 填充会议信息数据
  * @param title
@@ -577,6 +573,7 @@ function showProgress(progress){
 			hideCurrent('projectProgress:4');
 			break;
 	   case "5":
+		  
 		    $(".tabtitle h3").text("投资意向书");
 		    tab_show(2);
 		    $(".next_box").attr("data-progress",6);
@@ -589,6 +586,7 @@ function showProgress(progress){
 		    hideCurrent('projectProgress:6');
 		    break;
 	   case "7":
+		   meetList("meetingType:4");
 		    toobarData("投决会","添加投决会","meetingType:4");
 		    tab_show(1);
 		    $(".next_box").attr("data-progress",8);
@@ -613,6 +611,7 @@ function showProgress(progress){
 		    hideCurrent('projectProgress:10');
 		    break;
 	   case "11":
+		    meetList("meetingType:5");
 		    $(".tabtitle h3").text("会后商务谈判");
 		    tab_show(1);
 		    toobarData("会后商务谈判","添加会议记录","meetingType:5");
@@ -656,7 +655,7 @@ function radionDiv(data){
  * @param value
  */
 function changeSelect(value){
-	//meeting5Result1:跟进中
+	//meeting5Result:1:跟进中
 	//meeting5Result:2:否决
 	//meeting3Result:6:否决
 	//meetingResult:2:待定
@@ -672,6 +671,13 @@ function changeSelect(value){
 		parentCode="meetingVetoReason";
 	}
 	return parentCode;
+}
+function selectDict(arr){
+	if(null!=arr){
+		for(var i=0;i<arr.length;i++){
+			createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+arr[i],arr[i]);
+		}
+	}
 }
 /**
  * 判断该项目阶段是否为走过的阶段

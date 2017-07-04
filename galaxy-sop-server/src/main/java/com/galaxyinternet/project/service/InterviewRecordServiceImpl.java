@@ -165,8 +165,11 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				String resultReson="";
 				if(null!=ib.getInterviewResult()&&ib.getInterviewResult().equals("meetingResult:2")){
 					dictMap=dictMap("meetingUndeterminedReason");
-				}else if(null!=ib.getInterviewResult()&&ib.getInterviewResult().equals("meetingResult:3")){
+				}else if(null!=ib.getInterviewResult()&&(ib.getInterviewResult().equals("meetingResult:3")
+						||ib.getInterviewResult().equals("meeting5Result:2")||ib.getInterviewResult().equals("meeting3Result:6"))){
 					dictMap=dictMap("meetingVetoReason");
+				}else if(null!=ib.getInterviewResult()&&ib.getInterviewResult().equals("meeting5Result:1")){
+					dictMap=dictMap("meetingFollowingReason");
 				}
 				if(null!=dictMap&&null!=ib.getResultReason()&&!"".equals(ib.getResultReason())){
 					Dict dict=dictMap.get(ib.getResultReason());

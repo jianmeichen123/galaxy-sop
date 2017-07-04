@@ -78,21 +78,19 @@ function meetList(type){
 	    search: false,
 	    columns: [
                   {
-                      title: '会议概况',
-                      field: 'meetinfo',
+                      title: '时间',
+                      field: 'meetingDateStr',
                       valign: 'left',
-                      formatter:'metcolumnFormat'
                   },
                   {
-                      title: '会议类型',
-                      field: 'meetingTypeStr',
+                      title: '结论',
+                      field: 'meetingResultStr',
                       valign: 'left'
                   },
                   {
-                      title: '会议纪要',
-                      field: 'meetingNotes',
+                      title: '原因',
+                      field: 'resultReason',
                       valign: 'left',
-                      formatter:'tc_viewNotesFormat_noinfo'
                   },
                     {
                         title: '操作',
@@ -104,6 +102,7 @@ function meetList(type){
 	    onLoadSuccess:function(data){
 	    	if(data.pageList.total>0)
 	   		{
+	    		console.log(data);
 	    		$.each($('#projectProgress_1_table tr'),function(){
 	    			var $this = $(this);
 	    			$this.find('td:last').addClass('limits_gray');
@@ -119,7 +118,8 @@ function meetList(type){
 function viewOperFormat(value,row,index){  
 	var meetingType = "";
 	var title = $(".tabtitle h3").text();
-    if(row.meetingType){
+	
+    if(row){
     	meetingType = row.meetingType;
 	}
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
@@ -128,7 +128,6 @@ function viewOperFormat(value,row,index){
 	//if(userId==row.createdId && isTransfering == 'false'){
 		edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
 	//}
-	
 	return info + edit;
 }
 function notesInfoEdit(selectRowId,type,meetingType,title){
@@ -143,15 +142,38 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 		okback:function(){
 			var url = Constants.sopEndpointURL + "/galaxy/progress/p1/queryInterview";
 			$("#tabtitle").text(title);
-			if(meetingType){
-				$("#toobar_time").text("会议时间");
-				$("#toobar_content").text("会议纪要");
-				$("#toobar_voice").text("会议录音");
-				$("#toobar_result").text("会议结论");
-				$("#targetView").attr("style","display:none");
+			var arrName=[];
+			switch(meetingType){
+			  case "":
+				  //访谈结论radio
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
+				  arrName.push("meetingUndeterminedReason");
+				  arrName.push("meetingVetoReason");
+				  $("#targetView").attr("style","display:block");
+				  break;
+			  case "meetingType:3":
+				  res.meetingType = meetingType;
+				  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+				  //会议结论radio
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
+				  arrName.push("meetingVetoReason");
+				  meetingColumns();
+				  break;
+			  case "meetingType:5":
+				  res.meetingType = meetingType;
+				  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+				  //会议结论radio
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
+				  arrName.push("meetingFollowingReason");
+				  arrName.push("meetingVetoReason");
+				  meetingColumns();
+				  break;
+			  default:
+				meetingColumns();
 				res.meetingType = meetingType;
 				url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
 			}
+			selectDict(arrName);
 			//渲染数据|待后续加
 			sendPostRequestByJsonObj(url,res,function(data){
 				var result = data.result.status;

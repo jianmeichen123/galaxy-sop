@@ -75,6 +75,7 @@ public class MeetingRecord  extends PagableRecordEntity{
     private Long lastCreatedTime;
     private String interviewResult;
     private String resultReason;
+    private String resultReasonStr;
     private String reasonOther;
     
     
@@ -165,6 +166,8 @@ public class MeetingRecord  extends PagableRecordEntity{
 				this.meetingTypeStr = "立项会";
 			}else if(meetingType.equals("meetingType:4")){
 				meetingTypeStr = "投决会";
+			}else if(meetingType.equals("meetingType:5")){
+				meetingTypeStr = "会后商务谈判";
 			}else if(meetingType.equals("postMeetingType:1")){
 				meetingTypeStr = "周会议";
 			}else if(meetingType.equals("postMeetingType:2")){
@@ -226,9 +229,11 @@ public class MeetingRecord  extends PagableRecordEntity{
 			}else if(meetingType.equals("meetingType:2")){
 				meetingTypeStr = "CEO评审";
 			}else if(meetingType.equals("meetingType:3")){
-				meetingTypeStr = "立项会";
+				this.meetingTypeStr = "立项会";
 			}else if(meetingType.equals("meetingType:4")){
 				meetingTypeStr = "投决会";
+			}else if(meetingType.equals("meetingType:5")){
+				meetingTypeStr = "会后商务谈判";
 			}else if(meetingType.equals("postMeetingType:1")){
 				meetingTypeStr = "周会议";
 			}else if(meetingType.equals("postMeetingType:2")){
@@ -443,6 +448,14 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setInterviewResult(String interviewResult) {
 		this.interviewResult = interviewResult;
+	}
+
+	public String getResultReasonStr() {
+		return resultReasonStr;
+	}
+
+	public void setResultReasonStr(String resultReasonStr) {
+		this.resultReasonStr = resultReasonStr;
 	}
 
 	@Override
