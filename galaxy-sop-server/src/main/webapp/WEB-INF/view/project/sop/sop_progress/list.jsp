@@ -101,6 +101,7 @@
 			<!-- 未到此阶段时隐藏table和 add button 然后显示not_stage -->
 			<div class="not_stage">
 				<span class="stage_cover"></span>
+				<p>未到此阶段～</p>
 			</div>
 			
           </div>
@@ -118,5 +119,10 @@
 <script>
 $("#projectId").val(projectId);
 interviewList();
+//PDF预览
+$(".file_list .file_img").click(function(){
+	var file_str = $(this).find(".bg_img").attr("src");
+	window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
+})
 </script>
 

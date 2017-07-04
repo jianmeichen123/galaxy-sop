@@ -78,50 +78,62 @@
 			interviewList();
 			toobarData("接触访谈","添加访谈记录","");
 			tab_show(1);
+			$(".not_stage").show();
+			hideCurrent('projectProgress:1');
 		}else if(i==2){
 			meetList("meetingType:1");
 			toobarData("内部评审","添加内部评审","meetingType:1");
 			tab_show(1);
+			hideCurrent('projectProgress:2');
 		}else if(i==3){
 			meetList("meetingType:2");
 			toobarData("CEO评审","添加CEO评审","meetingType:2");
 			tab_show(1);
+			hideCurrent('projectProgress:3');
 		}else if(i==4){
 			meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
 			toobarfile("立项会",4);
 			tab_show(3);
+			hideCurrent('projectProgress:4');
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
 			toobarData("会后商务谈判","会后商务谈判","meetingType:3");
 			tab_show(1);
+			hideCurrent('projectProgress:11');
 		}else if(i==6){
 			$(".tabtitle h3").text("投资意向书");
 			toobarfile("投资意向书",6);
 			tab_show(2);
+			hideCurrent('projectProgress:5');
 		}else if(i==7){
 			$(".tabtitle h3").text("尽职调查");
 			toobarfile("尽职调查",7);
 			tab_show(2);
+			hideCurrent('projectProgress:6');
 			//尽职调查  上传附件
 		}else if(i==8){
 			meetList("meetingType:4");
 			toobarData("投决会","添加投决会","meetingType:4");
 			tab_show(1);
+			hideCurrent('projectProgress:7');
 		}else if(i==9){
 			$(".tabtitle h3").text("投资协议");
 			toobarfile("投资协议",9);
 			tab_show(2);
+			hideCurrent('projectProgress:8');
 			//投资协议  上传附件
 		}else if(i==10){
 			$(".tabtitle h3").text("股权交割");
 			toobarfile("投资协议",10);
 			tab_show(2);
+			hideCurrent('projectProgress:9');
 			//股权交割   上传附件
 		}else if(i==11){
 			//静态页
 			$(".tabtitle h3").text("投后运营");
 			tab_show(4);
+			hideCurrent('projectProgress:10');
 		}
 		buttonData(i);
 		
@@ -500,7 +512,6 @@ function showProgress(progress){
 	
 	initFileShow(); //file about
 }
-
 //会议结论原因数据字段获取
 function radioSearch(url, name){
 	sendGetRequest(url,null, function(data){
@@ -548,4 +559,23 @@ function changeSelect(value){
 		parentCode="meetingVetoReason";
 	}
 	return parentCode;
+}
+/**
+ * 判断该项目阶段是否为走过的阶段
+ */
+function  isCurrentProgress(currentProgress){
+	var progress = _project_.progressHistory;
+	return progress.indexOf(currentProgress) >= 0;
+}
+/**
+ * 判断该阶段是否到未到此阶段
+ * @param progress
+ */
+function  hideCurrent(progress){
+	if(isCurrentProgress(progress)){
+		$(".not_stage").hide();
+	}else{
+		$(".not_stage").show();
+	}
+	
 }
