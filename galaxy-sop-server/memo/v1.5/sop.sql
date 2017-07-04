@@ -59,3 +59,12 @@ UPDATE `fx_db`.`dict` SET `name`='投资方式未达成一致（如并购、财�
  * 放弃的任务对其任务对应的文件进行处理
  */
 insert into `dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`, `text`, `created_time`, `updated_time`, `is_delete`) values('216','fileStatus','已放弃','4','fileStatus:4','4','文档状态','145638261380','145638261380','0');
+ALTER TABLE `fx_db`.`sop_interview_record` 
+ADD COLUMN `notes_remark` TEXT NULL COMMENT '访谈纪要备份字段' AFTER `reason_other`;
+ALTER TABLE `fx_db`.`sop_meeting_record` 
+ADD COLUMN `notes_remark` TEXT NULL COMMENT '会议纪要备份字段' AFTER `reason_other`;
+
+UPDATE sop_meeting_record SET notes_remark=meeting_notes;
+UPDATE sop_interview_record SET notes_remark=view_notes;
+ 
+
