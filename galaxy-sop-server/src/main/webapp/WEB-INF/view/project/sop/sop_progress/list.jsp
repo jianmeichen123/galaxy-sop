@@ -137,10 +137,12 @@ $("#projectId").val(projectId);
 function view_file(obj){
 	var file_str = $(obj).attr("src");
 	var file_type = $(obj).attr("ftype");
+	var file_url = $(obj).attr("furl");
 	if(file_type=='pdf'||file_type=='PDF'){
-		window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
+		window.open("<%=path %>/pdf/web/viewer.html?file="+file_url);
 	}else if(file_type=='jpg'||file_type=='JPG'||file_type=='jpeg'||file_type=='JPEG'||file_type=='png'||file_type=='PNG'){
-		window.open(file_str);
+		
+		window.open("<%=path %>/pdf/file_img.html?file_url="+file_url);
 	}else{
 		$(obj).siblings(".file_btn").find(".downlond_jpg").click();
 	}

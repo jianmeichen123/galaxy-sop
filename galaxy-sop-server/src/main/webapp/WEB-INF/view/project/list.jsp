@@ -203,6 +203,7 @@ var pageId = "project";
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
 <!--提示验证  -->
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript">
 	createMenus(5);
 	/**权限点**/

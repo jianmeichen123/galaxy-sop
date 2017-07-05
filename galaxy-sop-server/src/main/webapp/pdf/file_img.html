@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片预览</title>
+	<script src="../js/jquery-1.12.2.min.js"></script>
+</head>
+<body>
+	<img id="f_img" src="http://galaxydev-xhhl-fx.oss-cn-hangzhou.aliyuncs.com/4126203741208644?Expires=1814607096" />
+</body>
+<script>
+
+var window_href = window.location.href;
+var img_src = window_href.split("file_url=");
+
+$("#f_img").attr('src',img_src[1]);
+</script>
+</html>
