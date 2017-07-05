@@ -440,11 +440,11 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			Project project = new Project();
 			project = projectService.queryById(meetingRecord.getProjectId());
 			
-			String err = errMessage(project,user,prograss);
+			/*String err = errMessage(project,user,prograss);
 			if(err!=null && err.length()>0){
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
-			}
+			}*/
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) &&
 					meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 				project.setFinalValuations(meetingRecord.getFinalValuations());

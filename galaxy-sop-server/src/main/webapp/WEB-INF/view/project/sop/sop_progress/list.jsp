@@ -119,22 +119,10 @@
 <script>
 $("#projectId").val(projectId);
 //PDF预览
-$(".file_list .file_img ").click(function(event){
-	alert("!@#@#$@%");
-	var file_img = $(this).find(".bg_img");
-	var file_str = file_img.attr("src");
-	var file_type = file_img.attr("ftype");
-	alert(file_type)
-	if(file_type=='pdf'||file_type=='PDF'){
-		window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
-	}else if(file_type=='jpg'||file_type=='JPG'||file_type=='jpeg'||file_type=='JPEG'){
-		alert("1243");
-		$(this).siblings(".file_btn").find(".downlond_jpg").click();
-		//window.open(file_str);
-	}else{
-		$(this).siblings(".file_btn").find(".downlond_jpg").click();
-	}
-	 event.stopPropagation(); // do something   
+$(".file_list .file_img .bg_img").click(function(){
+	var file_str = $(this).attr("src");
+	var file_type = $(this).attr("src");
+	window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
 })
 </script>
 

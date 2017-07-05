@@ -163,8 +163,9 @@
 			hideCurrent('projectProgress:4');
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
-			toobarData("会后商务谈判","会后商务谈判","meetingType:3");
+			toobarData("会后商务谈判","会后商务谈判","meetingType:5");
 			tab_show(1);
+			meetList("meetingType:5");
 			hideCurrent('projectProgress:11');
 		}else if(i==6){
 			$(".tabtitle h3").text("投资意向书");
@@ -291,14 +292,14 @@ $(".new_poppage").on("click",function(){
 				  break;
 			  case "meetingType:3":
 				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
+				  arrName.push("meetingFollowingReason");
 				  arrName.push("meetingVetoReason");
 				  meetingColumns();
 				  break;
 			  case "meetingType:5":
 				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
-				  arrName.push("meetingFollowingReason");
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
 				  arrName.push("meetingVetoReason");
 				  meetingColumns();
 				  break;
@@ -661,7 +662,7 @@ function changeSelect(value){
 	//meetingResult:2:待定
 	//meetingResult:3:否决
 	var parentCode="";
-	if(value.code=='meeting5Result1'){
+	if(value.code=='meeting5Result:1'){
 		parentCode="meetingFollowingReason";
 	 }
 	if(value.code=='meetingResult:2'){
