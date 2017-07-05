@@ -16,6 +16,8 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
+<!--提示验证  -->
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 
     <!-- 添加访谈记录 /编辑访谈记录 -->
     <div class="myprojecttc new_poptxt myproject_add">
@@ -32,14 +34,14 @@
                 <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd>
-                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate"  value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate"  valType="required"  msg="<font color=red>*</font>创建时间不能为空"/>
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt id="toobar_notes">访谈对象：</dt>
                     <dd class="clearfix">
-                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"/>
+                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value=""  />
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
                 </dl>
@@ -68,23 +70,7 @@
             <dl class="fmdl clearfix check_result">
                 <dt id="toobar_result">访谈结论：</dt>
                 <dd id="resultRadion">
-                    <!-- <div>
-                        <label><input name="interviewResult" type="radio" value="meetingResult:2" />待定</label> 
-                        <select name="meetingUndeterminedReason" id="meetingUndeterminedReason">
-                            <option value="">请选择原因</option>
-                        </select>
-                        <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
-                    </div>
-                    <div>
-                        <label><input name="interviewResult" type="radio" value="meetingResult:3" />否决</label> 
-                        <select name="meetingVetoReason" id="meetingVetoReason">
-                            <option value="">请选择原因</option>
-                        </select>
-                        <input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">
-                    </div>
-                    <div>
-                        <label><input name="interviewResult" type="radio" value="meetingResult:1" />通过</label> 
-                    </div> -->
+                    
                 </dd>
             </dl>  
             <!-- bottom button -->
