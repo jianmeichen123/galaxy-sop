@@ -41,7 +41,6 @@ function backForShowFiles(data){
 		layer.msg(data.result.message);
 		return;
 	}
-	
 	$(".file_list").empty();
 	
 	filesCondition = data.userData;
@@ -305,6 +304,7 @@ function getOptionStr(file){
 //创建空白可上传区域
 //fileKey=null taskStatusStr == null canopt=true 
 function create_blank_area(file){
+	console.log(file)
 	var selectopt = "";
 	var imgHtm = "";
 	if(file.canOpt){
@@ -333,13 +333,14 @@ function create_blank_area(file){
 
 //fileKey=null taskStatusStr == null 
 function create_file_area(file){
+	console.log(file)
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file);
 	var str = 
 		//'<li>' +
 			'<input type="hidden" data-type="file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" alt="" />' +
+				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" onclick="view_file(this)" alt="" />' +
 				optStr +
 				'<div class="cover_box">' +
 					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
@@ -382,7 +383,7 @@ function create_task_nofile_area(file){
 
 //taskStatusStr!=null    fileKey!=null
 function create_task_file_area(file){
-	
+	console.log(file)
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file);
 	
@@ -395,7 +396,7 @@ function create_task_file_area(file){
 		//'<li>' +
 			'<input type="hidden" data-type="task_file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'"  alt="" />'
+				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'"  onclick="view_file(this)"  alt="" />'
 				'<p class="center_text" style="margin-top: -18px;">' +
 					lin +
 				'</p>' +
