@@ -91,7 +91,7 @@
 			<!--  否决项目和启动内部评审  禁用 就是分别添加类名 disabled-->
 			<!-- 非此阶段的话就是 popbtm_btn全部隐藏-->
 			<div class="popbtm_btn clearfix">
-				<a href="javascript:;" class="fffbtn">否决项目</a>
+				<a href="javascript:showRejectConfim();" class="fffbtn">否决项目</a>
 				<a  id="btn1" href="javascript:;" class="bluebtn "></a>
 				<a  id="btn2" style="display:none;" href="javascript:;" class="bluebtn "></a>
 				<!-- 会后商务谈判按钮不同  直接添加相应按钮 -->
@@ -115,6 +115,19 @@
 			<span>请跳转到项目详情页面继续填写～</span>
 		</div>
     </div>
+<div id="reject-confirm" style="display:none;">
+	<div class="claimtc deltc">
+		<div class="title_bj" id="popup_name"></div>
+		<p class="tips">
+			<b class="null tips_d">ico</b>
+			将<span id="p-name"></span>项目否决
+		</p>
+	    <div class="btnbox">
+	    	<a href="javascript:;" class="pubbtn bluebtn" onclick="reject()">确认</a>
+	    	<a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
+	    </div>
+	</div>
+</div>
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress_list.js"></script>
 <script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
 
@@ -132,6 +145,33 @@ function view_file(obj){
 		$(obj).siblings(".file_btn").find(".downlond_jpg").click();
 	}
 	 event.stopPropagation(); // do something   
+}
+
+function showRejectConfim()
+{
+	$("#p-name").text(_project_.projectName);
+	$.popup({
+		txt:$("#reject-confirm").html()
+	})
+}
+function reject()
+{
+	
+	sendPostRequestByJsonObj(
+			platformUrl.closeProject ,
+			{'projectId':_project_.id},
+			function(data){
+				if(data.result.status == 'OK')
+				{
+					layer.msg('处理成功');
+				}
+				else
+				{
+					layer.msg(data.result.message);
+				}
+			}
+			
+	);
 }
 </script>
 
