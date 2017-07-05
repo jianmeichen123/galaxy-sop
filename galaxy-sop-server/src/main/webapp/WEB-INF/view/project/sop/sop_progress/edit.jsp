@@ -130,9 +130,11 @@ function initViewUpload() {
 					$("#resultRadion select").each(function(){
 						
 					})
-					if(!$(".myproject_add").validate().form()){
-						return;
-					}
+					var validator = $(".myproject_add").validate();
+ 					if(!validator.form())
+  					{
+ 						return;
+  					}
 					 
 				   $("#save_interview").addClass("disabled");
 				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
