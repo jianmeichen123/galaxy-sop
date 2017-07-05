@@ -14,6 +14,7 @@ function  progress(id){
 //因为太长放不下所以页码pageList改成不可选  如果产品需要就再改过来。
 function interviewList(){
 	$('#projectProgress_1_table').bootstrapTable('destroy');
+	$("#projectId").val(projectId);
 	$('#projectProgress_1_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
@@ -143,39 +144,51 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 		okback:function(){
 			var url = Constants.sopEndpointURL + "/galaxy/progress/p1/queryInterview";
 			$("#tabtitle").text(title);
-			var arrName=[];
-			switch(meetingType){
-			  case "":
-				  //访谈结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
-				  arrName.push("meetingUndeterminedReason");
-				  arrName.push("meetingVetoReason");
-				  $("#targetView").attr("style","display:block");
-				  break;
-			  case "meetingType:3":
-				  res.meetingType = meetingType;
-				  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
-				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
-				  arrName.push("meetingVetoReason");
-				  arrName.push("meetingFollowingReason");
-				  meetingColumns();
-				  break;
-			  case "meetingType:5":
-				  res.meetingType = meetingType;
-				  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
-				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
-				
-				  arrName.push("meetingVetoReason");
-				  meetingColumns();
-				  break;
-			  default:
-				meetingColumns();
-				res.meetingType = meetingType;
-				url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+			//判断是新增页面还是编辑页面
+			if(type=="e"){
+				var arrName=[];
+				switch(meetingType){
+				//编辑访谈时候的会议类型为undefined
+				  case "undefined":
+					  //访谈结论radio
+					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
+					  arrName.push("meetingUndeterminedReason");
+					  arrName.push("meetingVetoReason");
+					  $("#targetView").attr("style","display:block");
+					  break;
+				  case "meetingType:3":
+					  res.meetingType = meetingType;
+					  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+					  //会议结论radio
+					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
+					  arrName.push("meetingVetoReason");
+					  meetingColumns();
+					  break;
+				  case "meetingType:5":
+					  res.meetingType = meetingType;
+					  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+					  //会议结论radio
+					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
+					  arrName.push("meetingVetoReason");
+					  arrName.push("meetingFollowingReason");
+					 
+					  meetingColumns();
+					  break;
+				  default:
+					 radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
+					 arrName.push("meetingUndeterminedReason");
+				     arrName.push("meetingVetoReason");
+					meetingColumns();
+					res.meetingType = meetingType;
+					url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+				}
+				selectDict(arrName);
+			}else{
+				if(meetingType){
+					url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+					meetingColumns();
+				}
 			}
-			selectDict(arrName);
 			//渲染数据|待后续加
 			sendPostRequestByJsonObj(url,res,function(data){
 				var result = data.result.status;
@@ -190,7 +203,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					var recordId;
 					recordId= res[0].id;
 					var resultJudge="";
-					if(meetingType){
+					if(meetingType&&meetingType!="undefined"){
 						resultJudge=res[0].meetingResult;
 						time = res[0].meetingDateStr;
 						content = res[0].meetingNotes;
@@ -207,7 +220,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						resultReason = res[0].resultReasonStr;
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].interviewResult+"']").attr("checked",true) : $("#interviewResult").html(result);
-						
 					}
 					$("#recordId").val(recordId);
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);

@@ -292,14 +292,14 @@ $(".new_poppage").on("click",function(){
 				  break;
 			  case "meetingType:3":
 				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
-				  arrName.push("meetingFollowingReason");
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
 				  arrName.push("meetingVetoReason");
 				  meetingColumns();
 				  break;
 			  case "meetingType:5":
 				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting3Result");
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
+				  arrName.push("meetingFollowingReason");
 				  arrName.push("meetingVetoReason");
 				  meetingColumns();
 				  break;
