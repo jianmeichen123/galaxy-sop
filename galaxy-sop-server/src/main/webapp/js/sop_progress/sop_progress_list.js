@@ -658,7 +658,7 @@ function radionDiv(data){
 	$.each(data.entityList, function(i, value){
 		var lable;
 		if(i==0){
-			lable='<label><input name="interviewResult" type="radio" required alue='+value.code+' />'+value.name+'</label>';
+			lable='<label><input name="interviewResult" type="radio" required data-msg-required="<font color=red>*</font>必须选择一项" alue='+value.code+' />'+value.name+'</label>';
 		}else{
 			lable='<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
 		}

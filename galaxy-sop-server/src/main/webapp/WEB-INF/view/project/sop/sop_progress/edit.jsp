@@ -126,7 +126,14 @@ function initViewUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#save_interview").click(function(){
-					 $(".myproject_add").fxvalidate();
+					/* 判断选择其他 */
+					$("#resultRadion select").each(function(){
+						
+					})
+					if(!$(".myproject_add").validate().form()){
+						return;
+					}
+					 
 				   $("#save_interview").addClass("disabled");
 				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
 					if(res == false || res == "false"){
