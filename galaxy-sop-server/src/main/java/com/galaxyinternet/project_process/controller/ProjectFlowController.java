@@ -836,7 +836,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e)
 		{
-			data.setResult(new Result(Status.ERROR, null,"否决项目失败"));
+			data.setResult(new Result(Status.ERROR, null,e.getMessage()));
 			if (logger.isErrorEnabled()) 
 			{
 				logger.error("否决项目失败 ", e);
