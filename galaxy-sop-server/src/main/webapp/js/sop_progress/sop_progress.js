@@ -187,7 +187,9 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					var reasonOther;
 					var recordId;
 					recordId= res[0].id;
+					var name="";
 					if(meetingType){
+						name="meetingResult";
 						time = res[0].meetingDateStr;
 						content = res[0].meetingNotes;
 						result = res[0].meetingResultStr;
@@ -195,6 +197,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].meetingResult+"']").attr("checked",true) : $("#interviewResult").html(result);
 					}else{
+						name="interviewResult";
 						time = res[0].viewDateStr;
 						target = res[0].viewTarget;
 						content = res[0].viewNotes;
@@ -211,9 +214,12 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
 					var reason=res[0].resultReason;
+					 alert(res[0].name);
 					//结论原因回显
 	                 switch(res[0].interviewResult){
-	                 case "meetingResult:1":
+	                
+	                 case "meeting5Result:1":
+	                	 $("select[name='meetingFollowingReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
 	                 case "meetingResult:2":
 	                	 $("select[name='meetingUndeterminedReason']").find("option[value='"+reason+"']").attr("selected",true)
@@ -221,7 +227,14 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	                 case "meetingResult:3":
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
+	                 case "meeting3Result:6":
+	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
+	                	 break;
+	                 case "meeting5Result:2":
+	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
+	                	 break;
 	                 default:
+	                	 
 	                 }
 					var other=reasonOther==null||reasonOther==""?"":"("+reasonOther+")";
 					type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);

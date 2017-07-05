@@ -179,22 +179,15 @@ public class MeetingRecord  extends PagableRecordEntity{
         this.meetingType = meetingType == null ? null : meetingType.trim();
     }
 
-    
-    public String getMeetingResult() {
+ 
+
+
+	public String getMeetingResult() {
 		return meetingResult;
 	}
 
 	public void setMeetingResult(String meetingResult) {
-		if(meetingResult!=null&&meetingResultStr==null){
-			if(meetingResult.equals("meetingResult:1")){
-				meetingResultStr = "通过";
-			}else if(meetingResult.equals("meetingResult:2")){
-				meetingResultStr = "待定";
-			}else if(meetingResult.equals("meetingResult:3")){
-				meetingResultStr = "否决";
-			}
-		}
-		this.meetingResult = meetingResult == null ? null : meetingResult.trim();
+		this.meetingResult = meetingResult;
 	}
 
 	public String getMeetingNotes() {
