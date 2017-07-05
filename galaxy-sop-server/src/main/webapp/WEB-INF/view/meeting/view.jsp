@@ -42,9 +42,9 @@
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
-            <div class="btnbox_f btnbox_f1 clearfix">
+            <%-- <div class="btnbox_f btnbox_f1 clearfix">
                 <a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting" class="pubbtn lpubbtn bluebtn ico c4">添加会议纪要</a>
-            </div>
+            </div> --%>
         </div>
 
 	    <!-- 搜索条件 -->
@@ -204,6 +204,7 @@ function showMeetDetail(selectRowId){
 		data:"",//传递参数
 		okback:function(){
 			queryMeetPerPro();
+			$(".title_bj").text("会议纪要");
 			$('.edui-container').show();
 			initMeetTcVal();
 		}//模版反回成功执行	
@@ -220,8 +221,8 @@ function initMeetTcVal(){
 	$("input[name='meetingResult'][value='"+meetSelectRow.meetingResult+"']").attr("checked",'checked').attr("readonly","readonly");
 	$("input[name='meetingResult']").attr("disabled","desabled");
 	
-	meetEditor.setContent(meetSelectRow.meetingNotes); 
-	
+	/* meetEditor.setContent(meetSelectRow.meetingNotes);  */
+	$("#meetingNotesCon").html(meetSelectRow.meetingNotes) 
 	var fileinfo = "";
 	if(meetSelectRow.fname!=null && meetSelectRow.fname!=undefined && meetSelectRow.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+meetSelectRow.fileId+","+meetSelectRow.fkey+");\" class=\"blue\" >"+meetSelectRow.fname+"</a>"
