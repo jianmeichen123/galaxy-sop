@@ -100,7 +100,6 @@
 	}
 	//会议文档tab显示
 	function tab_show(status){
-		console.log(status)
 		if(status==1){
 //			1的时候是只有会议
 			$(".tab_con").show();
@@ -550,6 +549,7 @@ function showProgress(progress){
 			toobarData("接触访谈","添加访谈记录","");
 			tab_show(1);
 			$(".next_box").attr("data-progress",1);
+			$(".pre_box").hide();
 			hideCurrent('projectProgress:1');
 			break;
 	   case "2":
@@ -609,6 +609,7 @@ function showProgress(progress){
 		    $(".tabtitle h3").text("投后运营");
 		    tab_show(4);
 		    $(".next_box").attr("data-progress",11);
+		    $(".next_box").hide();
 		    hideCurrent('projectProgress:10');
 		    break;
 	   case "11":

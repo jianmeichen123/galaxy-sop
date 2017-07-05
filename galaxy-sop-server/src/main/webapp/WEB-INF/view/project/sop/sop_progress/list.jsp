@@ -118,11 +118,18 @@
 
 <script>
 $("#projectId").val(projectId);
-//PDF预览
-$(".file_list .file_img .bg_img").click(function(){
-	var file_str = $(this).attr("src");
-	var file_type = $(this).attr("src");
-	window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
-})
+//预览点击方法
+function view_file(obj){
+	var file_str = $(obj).attr("src");
+	var file_type = $(obj).attr("ftype");
+	if(file_type=='pdf'||file_type=='PDF'){
+		window.open("<%=path %>/pdf/web/viewer.html?file="+file_str);
+	}else if(file_type=='jpg'||file_type=='JPG'||file_type=='jpeg'||file_type=='JPEG'||file_type=='png'||file_type=='PNG'){
+		window.open(file_str);
+	}else{
+		$(obj).siblings(".file_btn").find(".downlond_jpg").click();
+	}
+	 event.stopPropagation(); // do something   
+}
 </script>
 
