@@ -187,8 +187,10 @@ console.log('script');
 		        	</c:when>
 		        	<c:otherwise>
 		        	
-                       <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
-                   	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a>
+                       <a href="javascript:;" class="light_gray"><b class="b4 ico null">ico</b>新增访谈</a>
+                   	<a href="javascript:;" class="light_gray" ><b class="b3 ico null">ico</b>新增会议</a>
+                   	  <%--  <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
+                   	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a> --%>
 		        	</c:otherwise>
 	        	</c:choose>
 		        	
