@@ -118,7 +118,6 @@
 
 <script>
 $("#projectId").val(projectId);
-
 //PDF预览
 $(".file_list .file_img .bg_img").click(function(){
 	var file_str = $(this).attr("src");

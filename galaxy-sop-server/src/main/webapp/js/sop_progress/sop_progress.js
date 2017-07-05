@@ -187,9 +187,9 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					var reasonOther;
 					var recordId;
 					recordId= res[0].id;
-					var name="";
+					var resultJudge="";
 					if(meetingType){
-						name="meetingResult";
+						resultJudge=res[0].meetingResult;
 						time = res[0].meetingDateStr;
 						content = res[0].meetingNotes;
 						result = res[0].meetingResultStr;
@@ -197,7 +197,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].meetingResult+"']").attr("checked",true) : $("#interviewResult").html(result);
 					}else{
-						name="interviewResult";
+						resultJudge=res[0].interviewResult;
 						time = res[0].viewDateStr;
 						target = res[0].viewTarget;
 						content = res[0].viewNotes;
@@ -214,9 +214,8 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
 					var reason=res[0].resultReason;
-					 alert(res[0].name);
 					//结论原因回显
-	                 switch(res[0].interviewResult){
+	                 switch(resultJudge){
 	                
 	                 case "meeting5Result:1":
 	                	 $("select[name='meetingFollowingReason']").find("option[value='"+reason+"']").attr("selected",true)
@@ -231,6 +230,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
 	                 case "meeting5Result:2":
+	                	 alert(111111);
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
 	                 default:

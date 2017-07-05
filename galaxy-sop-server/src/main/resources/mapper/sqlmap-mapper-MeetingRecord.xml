@@ -168,8 +168,8 @@
 		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT}, </if>
 		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT}, </if>
 		    <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT},</if>
-		    <if test="resultReason != null" > result_reason = #{updatedTime,jdbcType=BIGINT}, </if>
-		    <if test="reasonOther != null" > reason_other = #{updatedTime,jdbcType=BIGINT} </if>
+		    <if test="resultReason != null" > result_reason = #{resultReason,jdbcType=BIGINT}, </if>
+		    <if test="reasonOther != null" > reason_other = #{reasonOther,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
 	</update>
