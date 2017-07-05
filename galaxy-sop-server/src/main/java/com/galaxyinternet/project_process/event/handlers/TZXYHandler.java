@@ -57,7 +57,11 @@ public class TZXYHandler implements ProgressChangeHandler
 		{
 			throw new BusinessException("没有通过的会议记录");
 		}
-		//TODO - 判定该项目在“会后商务谈判”阶段的结论是“投资”
+		//判定该项目在“会后商务谈判”阶段的结论是“投资”
+		if(!SopConstant.BUSINESS_TYPE_TZ.equals(project.getBusinessTypeCode()))
+		{
+			throw new BusinessException("会后商务谈判”阶段的结论不是“投资”");
+		}
 		
 		//待办任务 - 上传投资协议、股权转让协议
 		SopTask task = new SopTask();

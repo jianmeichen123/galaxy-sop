@@ -472,7 +472,7 @@ function buttonData(i){
 function whichOne(index){
 	if(index=="8")
 	{
-		if(_project_.businessTypeCode == 'ST')
+		if(_project_.businessTypeCode == 'TZ')
 		{
 			return 'tzxy';
 		}

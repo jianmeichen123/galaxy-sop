@@ -85,6 +85,11 @@ public class GQJGHandler implements ProgressChangeHandler
 			{
 				throw new BusinessException("没有通过的投决会会议记录");
 			}
+			//判定该项目在“会后商务谈判”阶段的结论是“闪投”
+			if(!SopConstant.BUSINESS_TYPE_ST.equals(project.getBusinessTypeCode()))
+			{
+				throw new BusinessException("会后商务谈判”阶段的结论不是“闪投”");
+			}
 		}
 		//待办任务 - 上传资金拨付凭证
 		SopTask task = new SopTask();
