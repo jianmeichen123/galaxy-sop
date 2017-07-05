@@ -14,16 +14,24 @@
 	var _project_;
 	var showSTBtn = false;//会后商务谈判-闪投按钮
 	var showTZBtn = false;//会后商务谈判-投资按钮
-	
+	var projectDtd;
+	var i = 0;//获取阶段值
 	loadProjectData();
+	
+	//跳转到当前阶段
+	$.when(projectDtd).done(function(){
+		refreshIndex();
+	});
 	/**
 	 * 项目信息，{@link _project_}
 	 * @returns
 	 */
 	function loadProjectData()
 	{
+		projectDtd = $.Deferred();
 		sendGetRequest(platformUrl.detailProject + projectId, {}, function(data){
 			_project_ = data.entity;
+			projectDtd.resolve();
 			loadSWTPData();
 		});
 	}
@@ -56,36 +64,9 @@
 			);
 		}
 	}
-	sendGetRequest(platformUrl.detailProject + projectId, {}, function(data){
-		_project_ = data.entity;
-		if(_project_.projectProgress == 'projectProgress:11')
-		{
-			sendGetRequest(
-				platformUrl.searchMeeting, 
-				{'meetingType':'meetingType:5'}, 
-				function(data){
-					if(data.entityList)
-					{
-						$.each(data.entityList, function(){
-							if(this.meetingResult == 'meeting5Result:3')//闪投
-							{
-								showSTBtn = true;
-							}
-							if(this.meetingResult == 'meeting5Result:4')//投资
-							{
-								showTZBtn = true;
-							}
-						})
-					}
-				}
-			);
-		}
-	});
 	
-	var i = $(".next_box").attr("data-progress"); //获取阶段值
-	var progress = $(".next_box").attr("data-project-progress"); 
 	//显示当前阶段
-	showProgress(progress);
+	//showProgress(progress);
 	
 	//上一步、下一步显示隐藏
 	function progressBtnToggle(){
@@ -445,6 +426,7 @@ function buttonData(i){
 	}
 	btn1.text(btnTitle);
 	btn1.data("next-progress",nextProgress);
+	console.log( _project_.projectProgress +'-----'+ currProgress);
 	if('projectStatus:0'== _project_.projectStatus && _project_.projectProgress == currProgress)
 	{
 		btn1.show();
@@ -456,11 +438,13 @@ function buttonData(i){
 		else
 		{
 			btn1.show();
+			btn2.hide();
 		}
 	}
 	else
 	{
 		btn1.hide();
+		btn2.hide();
 	}
 }
 function whichOne(index){
@@ -516,6 +500,7 @@ function nextProgress(btn,nextProgress)
 		}
 	);
 }
+//刷新当前阶段值并跳转
 function refreshIndex()
 {
 	for(var j=0;j<flow.length;j++)
@@ -526,6 +511,7 @@ function refreshIndex()
 			break;
 		}
 	}
+	$(".next_box").attr("data-progress",i);
 	goToProgress();
 }
 /***
@@ -702,9 +688,12 @@ function  hideCurrent(progress){
 		$(".not_stage").show();
 	}
 	if(currentProgress(progress)){
-		$(".tabtitle h3").after('<span>(当前阶段)</span>');
+		if($(".tabtitle .current_progress").length == 0)
+		{
+			$(".tabtitle h3").after('<span class="current_progress">(当前阶段)</span>');
+		}
 	}else{
-		$(".tabtitle span").empty();
+		$(".tabtitle .current_progress").remove();
 	}
 }
 function currentProgress(currentProgress){
