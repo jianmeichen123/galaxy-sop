@@ -622,9 +622,14 @@ function radioSearch(url, name){
 function radionDiv(data){
 	var dd=$("#resultRadion");
 	$.each(data.entityList, function(i, value){
+		var lable;
+		if(i==0){
+			lable='<label><input name="interviewResult" type="radio" required alue='+value.code+' />'+value.name+'</label>';
+		}else{
+			lable='<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
+		}
 		var htmlDiv= 
-		'<div id="div_'+i+'">'+
-		'<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
+		'<div id="div_'+i+'">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
 	    	   var htmlSelect='<select name="'+parentCode+'" id="'+parentCode+'">'+
