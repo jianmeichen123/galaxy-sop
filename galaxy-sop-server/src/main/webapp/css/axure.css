@@ -2949,6 +2949,7 @@ color:#999999;}
     .new_poptxt .tablink{
 		border-bottom:2px solid #f1f2f5 ;
 		position: relative;
+		margin-bottom: 3px;
     }
      .new_poptxt .tablink .icon{
 		position: absolute;
@@ -2971,7 +2972,7 @@ color:#999999;}
     	border-radius:4px;
     	display: inline-block;
     	font-size:14px;
-		margin: 20px 0 0px 20px;
+		margin: 17px 0 0px 20px;
 		background: #539be2 url("../img/btnico2.png") 8px -119px no-repeat;
     }
     .pop_table{
