@@ -341,6 +341,7 @@ function buttonData(i){
 	var currProgress="projectProgress:1";
 	var btnTitle5="";
 	var btnHref5="";
+	var rejectBtn = $("#reject-btn");
 	var btn1=$("#btn1");
 	var btn2=$("#btn2");
 	var isShow=false;
@@ -440,11 +441,20 @@ function buttonData(i){
 			btn1.show();
 			btn2.hide();
 		}
+		if(currProgress == 'projectProgress:5' || 
+				currProgress == 'projectProgress:8' || 
+				currProgress == 'projectProgress:9' ||
+				currProgress == 'projectProgress:10'
+		)
+		{
+			rejectBtn.hide();
+		}
 	}
 	else
 	{
 		btn1.hide();
 		btn2.hide();
+		rejectBtn.hide();
 	}
 }
 function whichOne(index){

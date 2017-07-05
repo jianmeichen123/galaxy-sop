@@ -91,7 +91,7 @@
 			<!--  否决项目和启动内部评审  禁用 就是分别添加类名 disabled-->
 			<!-- 非此阶段的话就是 popbtm_btn全部隐藏-->
 			<div class="popbtm_btn clearfix">
-				<a href="javascript:showRejectConfim();" class="fffbtn">否决项目</a>
+				<a id="reject-btn" href="javascript:showRejectConfim();" class="fffbtn">否决项目</a>
 				<a  id="btn1" href="javascript:;" class="bluebtn "></a>
 				<a  id="btn2" style="display:none;" href="javascript:;" class="bluebtn "></a>
 				<!-- 会后商务谈判按钮不同  直接添加相应按钮 -->
