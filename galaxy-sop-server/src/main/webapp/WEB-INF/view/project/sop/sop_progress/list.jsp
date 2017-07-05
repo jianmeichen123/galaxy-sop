@@ -2,6 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<!--提示验证  -->
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 	<!-- <p class='popwait'>数据加载中，请稍候...</p> -->
 	<div class="myprojecttc new_poptxt">
         <div class="tabtitle">
