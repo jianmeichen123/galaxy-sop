@@ -2961,6 +2961,7 @@ color:#999999;}
 		line-height: 1;
 		width: 65px;
 		background:none;
+		display:none;
     }
     .new_poptxt .tablink img{
     	display: inline-block;

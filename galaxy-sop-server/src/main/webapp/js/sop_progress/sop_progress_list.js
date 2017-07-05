@@ -123,37 +123,44 @@
 		if(i==1){
 			interviewList();
 			toobarData("接触访谈","添加访谈记录","");
+			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:1');
 		}else if(i==2){
 			meetList("meetingType:1");
 			toobarData("内部评审","添加内部评审","meetingType:1");
+			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:2');
 		}else if(i==3){
 			meetList("meetingType:2");
 			toobarData("CEO评审","添加CEO评审","meetingType:2");
+			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:3');
 		}else if(i==4){
 			meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
+			$(".tablink .icon").hide();
 			toobarfile("立项会",4);
 			tab_show(3);
 			hideCurrent('projectProgress:4');
 		}else if(i==5){
 			$(".tabtitle h3").text("会后商务谈判");
 			toobarData("会后商务谈判","会后商务谈判","meetingType:5");
+			$(".tablink .icon").hide();
 			tab_show(1);
 			meetList("meetingType:5");
 			hideCurrent('projectProgress:11');
 		}else if(i==6){
 			$(".tabtitle h3").text("投资意向书");
 			toobarfile("投资意向书",6);
+			$(".tablink .icon").show();
 			tab_show(2);
 			hideCurrent('projectProgress:5');
 		}else if(i==7){
 			$(".tabtitle h3").text("尽职调查");
+			$(".tablink .icon").show();
 			toobarfile("尽职调查",7);
 			tab_show(2);
 			hideCurrent('projectProgress:6');
@@ -161,16 +168,19 @@
 		}else if(i==8){
 			meetList("meetingType:4");
 			toobarData("投决会","添加投决会","meetingType:4");
+			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:7');
 		}else if(i==9){
 			$(".tabtitle h3").text("投资协议");
+			$(".tablink .icon").show();
 			toobarfile("投资协议",9);
 			tab_show(2);
 			hideCurrent('projectProgress:8');
 			//投资协议  上传附件
 		}else if(i==10){
 			$(".tabtitle h3").text("股权交割");
+			$(".tablink .icon").show();
 			toobarfile("投资协议",10);
 			tab_show(2);
 			hideCurrent('projectProgress:9');
@@ -178,6 +188,7 @@
 		}else if(i==11){
 			//静态页
 			$(".tabtitle h3").text("投后运营");
+			$(".tablink .icon").hide();
 			tab_show(4);
 			hideCurrent('projectProgress:10');
 		}
@@ -240,6 +251,7 @@ $(".tab_2").click(function(event) {
 	$(".new_poptxt .bootstrap-table").next().hide();
 	$(".new_poptxt .bootstrap-table").hide();
 	$(".add_list").hide();
+	$(".tablink .icon").show();
 });
 $(".tab_1").click(function(event) {
 	$(this).addClass('on');
@@ -248,6 +260,7 @@ $(".tab_1").click(function(event) {
 	$(".new_poptxt .bootstrap-table").show();
 	$(".new_poptxt .bootstrap-table").next().show()
 	$(".add_list").show();
+	$(".tablink .icon").hide();
 });
 // 添加访谈记录
  
@@ -546,6 +559,7 @@ function showProgress(progress){
 			tab_show(1);
 			$(".next_box").attr("data-progress",1);
 			$(".pre_box").hide();
+			$(".tablink .icon").hide();
 			hideCurrent('projectProgress:1');
 			break;
 	   case "2":
@@ -553,6 +567,7 @@ function showProgress(progress){
 			toobarData("内部评审","添加内部评审","meetingType:1");
 			tab_show(1);
 			 $(".next_box").attr("data-progress",2);
+			 $(".tablink .icon").hide();
 			hideCurrent('projectProgress:2');
 			break;
 	   case "3":
@@ -560,11 +575,13 @@ function showProgress(progress){
 			toobarData("CEO评审","添加CEO评审","meetingType:2");
 			tab_show(1);
 			$(".next_box").attr("data-progress",3);
+			$(".tablink .icon").hide();
 			hideCurrent('projectProgress:3');
 			break;
 	   case "4":
 		    meetList("meetingType:3");
 			toobarData("立项会","添加立项会","meetingType:3");
+			$(".tablink .icon").hide();
 			tab_show(3);
 			$(".next_box").attr("data-progress",4);
 			hideCurrent('projectProgress:4');
@@ -572,12 +589,14 @@ function showProgress(progress){
 	   case "5":
 		  
 		    $(".tabtitle h3").text("投资意向书");
+		    $(".tablink .icon").show();
 		    tab_show(2);
 		    $(".next_box").attr("data-progress",6);
 		    hideCurrent('projectProgress:5');
 		    break;
 	   case "6":
 		    $(".tabtitle h3").text("尽职调查");
+		    $(".tablink .icon").show();
 		    tab_show(2);
 		    $(".next_box").attr("data-progress",7);
 		    hideCurrent('projectProgress:6');
@@ -585,18 +604,21 @@ function showProgress(progress){
 	   case "7":
 		   meetList("meetingType:4");
 		    toobarData("投决会","添加投决会","meetingType:4");
+		    $(".tablink .icon").hide();
 		    tab_show(1);
 		    $(".next_box").attr("data-progress",8);
 		    hideCurrent('projectProgress:7');
 		    break;
 	   case "8":
 		    $(".tabtitle h3").text("投资协议");
+		    $(".tablink .icon").show();
 		    tab_show(2);
 		    $(".next_box").attr("data-progress",9);
 		    hideCurrent('projectProgress:8');
 		    break;
 	   case "9":
 		    $(".tabtitle h3").text("股权交割");
+		    $(".tablink .icon").show();
 		    tab_show(2);
 		    $(".next_box").attr("data-progress",10);
 		    hideCurrent('projectProgress:9');
@@ -605,12 +627,14 @@ function showProgress(progress){
 		    $(".tabtitle h3").text("投后运营");
 		    tab_show(4);
 		    $(".next_box").attr("data-progress",11);
+		    $(".tablink .icon").hide();
 		    $(".next_box").hide();
 		    hideCurrent('projectProgress:10');
 		    break;
 	   case "11":
 		    meetList("meetingType:5");
 		    $(".tabtitle h3").text("会后商务谈判");
+		    $(".tablink .icon").hide();
 		    tab_show(1);
 		    toobarData("会后商务谈判","添加会议记录","meetingType:5");
 		    $(".next_box").attr("data-progress",5);
