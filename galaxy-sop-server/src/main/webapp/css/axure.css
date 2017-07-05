@@ -2892,7 +2892,8 @@ color:#999999;}
 	.new_poptxt{
     	background: #fff;
     	 width: 671px;
-        height: auto;
+        overflow-y: auto;
+        max-height:400px;
         padding: 60px 0 30px 0;
     }
     .tabtitle{
