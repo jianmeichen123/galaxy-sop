@@ -1,5 +1,7 @@
 package com.galaxyinternet.project_process.event;
 
+import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +13,21 @@ import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.SWTPResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum.fileWorktype;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 @Component
 public class RejectEventListener implements ApplicationListener<RejectEvent>
 {
@@ -34,6 +40,8 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 	private MeetingSchedulingDao meetingSchedulingDao;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private SopFileService fileService;
 	@Override
 	public void onApplicationEvent(RejectEvent event)
 	{
@@ -67,6 +75,10 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 				}
 				break;
 			case 尽职调查:
+				if(!hasAllFiles(project))
+				{
+					throw new BusinessException("文档不齐全");
+				}
 				break;
 			
 			default:
@@ -89,6 +101,7 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 	{
 		InterviewRecordBo query = new InterviewRecordBo();
 		query.setProjectId(project.getId());
+		query.setInterviewResult(meetingResult.否决.getCode());
 		return interViewService.selectCount(query) > 0l;
 	}
 	
@@ -123,6 +136,30 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 		query.setMeetingResult(result);
 		query.setMeetingType(type);
 		return meetingService.selectCount(query) > 0l;
+	}
+	
+	private boolean hasAllFiles(Project project)
+	{
+		String[] typeList = {
+				fileWorktype.业务尽职调查报告.getCode(), 
+				fileWorktype.人力资源尽职调查报告.getCode(), 
+				fileWorktype.法务尽职调查报告.getCode(),
+				fileWorktype.财务尽职调查报告.getCode(),
+				fileWorktype.尽职调查启动会报告.getCode(),
+				fileWorktype.尽职调查总结会报告.getCode()
+				
+		};
+		SopFile query = new SopFile();
+		query.setProjectId(project.getId());
+		query.setFileworktypeList(Arrays.asList(typeList));
+		query.setFileStatus(fileStatus.已上传.getCode());
+		
+		Long count = fileService.queryCount(query);
+		if(count == null || count.intValue()<6)
+		{
+			return false;
+		}
+		return true;
 	}
 
 }

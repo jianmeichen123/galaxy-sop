@@ -387,9 +387,9 @@ function create_task_file_area(file){
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file);
 	
-	var lin = taskStatusStr;
-	if(taskUname != null && taskUname.length > 0){
-		lin += '<br/>(' + taskUname + ')';
+	var lin = file.taskStatusStr;
+	if(file.taskUname != null && file.taskUname.length > 0){
+		lin += '<br/>(' + file.taskUname + ')';
 	}
 		
 	var str = 

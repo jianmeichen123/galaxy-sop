@@ -56,11 +56,12 @@ public class TJHHandler implements ProgressChangeHandler
 					fileWorktype.尽职调查总结会报告.getCode()
 					
 			};
+			String[] fileStatusList = {fileStatus.已上传.getCode(),fileStatus.已放弃.getCode()};
 			SopFile query = new SopFile();
 			query.setProjectId(project.getId());
 			query.setFileworktypeList(Arrays.asList(typeList));
-			query.setFileStatus(fileStatus.已上传.getCode());
-			
+			query.setFileStatusList(Arrays.asList(fileStatusList));;
+			query.setFileValid(1);//查询有效文件
 			Long count = fileService.queryCount(query);
 			if(count == null || count.intValue()<6)
 			{
