@@ -329,7 +329,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				|| meetingRecord.getMeetingResult() == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
-		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) && 
+		}
+		/*else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) && 
 				meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 			if(meetingRecord.getFinalValuations() == null ||
 					meetingRecord.getFinalContribution() == null ||
@@ -338,7 +339,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 				return responseBody;
 			}
-		}
+		}*/
 		MeetingRecord mrQuery = new MeetingRecord();
 		try {
 			String prograss = "";

@@ -262,64 +262,61 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		ir.setCreatedId(project.getCreateUid());
 		ir.setCreatedTime((new Date()).getTime());
 		
-		SopFile file = new SopFile();
-		file.setProjectId(p.getPid());
-		file.setProjectProgress(p.getStage());
-		file.setCareerLine(p.getDepartmentId());
-		file.setFileType(DictEnum.fileType.音频文件.getCode());
-		file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-		file.setFileUid(p.getCreatedUid());
-		file.setCreatedTime((new Date()).getTime());
-		file.setFileLength(result.getContentLength());
-		file.setFileKey(result.getFileKey());
-		file.setBucketName(result.getBucketName());
-		file.setFileName(result.getFileName());
-		file.setFileSuffix(result.getFileSuffix());
-		fid = sopFileDao.insert(file);
-		
 		String message="";
-		if(fid != null){
+		//没有上传文件时
+		if(!ServletFileUpload.isMultipartContent(request)){
+			if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
+				ir.setId(p.getRecordId());
+				int updateByIdSelective = interviewRecordDao.updateById(ir);
+				if(updateByIdSelective>0){
+					message="编辑访谈记录成功";
+				}
+			}else{
+				interviewRecordDao.insert(ir);	
+				message="添加访谈记录成功";
+			}
+		}else{
+			SopFile file = new SopFile();
+			file.setProjectId(p.getPid());
+			file.setProjectProgress(p.getStage());
+			file.setCareerLine(p.getDepartmentId());
+			file.setFileType(DictEnum.fileType.音频文件.getCode());
+			file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			file.setFileUid(p.getCreatedUid());
+			file.setCreatedTime((new Date()).getTime());
+			file.setFileLength(result.getContentLength());
+			file.setFileKey(result.getFileKey());
+			file.setBucketName(result.getBucketName());
+			file.setFileName(result.getFileName());
+			file.setFileSuffix(result.getFileSuffix());
+			fid = sopFileDao.insert(file);
 			ir.setFileId(fid);
-			//没有上传文件时
-			if(!ServletFileUpload.isMultipartContent(request)){
+			if (result != null
+					&& result.getResult().getStatus().equals(Result.Status.OK)) {
+				p.setFileName(result.getFileName());
+				p.setSuffix(result.getFileSuffix());
+				p.setBucketName(result.getBucketName());
+				p.setFileKey(result.getFileKey());
+				p.setFileSize(result.getContentLength());
+			}
+			if(p.getFileKey() != null){
 				if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
+					interviewRecordId = p.getRecordId();
 					ir.setId(p.getRecordId());
 					int updateByIdSelective = interviewRecordDao.updateById(ir);
 					if(updateByIdSelective>0){
 						message="编辑访谈记录成功";
 					}
+					
 				}else{
-					interviewRecordDao.insert(ir);	
+					Long interId = interviewRecordDao.insert(ir);	
+					if(interId > 0){
+						interviewRecordId = interId;
+					}
 					message="添加访谈记录成功";
 				}
-			}else{
-				if (result != null
-						&& result.getResult().getStatus().equals(Result.Status.OK)) {
-					p.setFileName(result.getFileName());
-					p.setSuffix(result.getFileSuffix());
-					p.setBucketName(result.getBucketName());
-					p.setFileKey(result.getFileKey());
-					p.setFileSize(result.getContentLength());
-				}
-				if(p.getFileKey() != null){
-					if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
-						interviewRecordId = p.getRecordId();
-						ir.setId(p.getRecordId());
-						int updateByIdSelective = interviewRecordDao.updateById(ir);
-						if(updateByIdSelective>0){
-							message="编辑访谈记录成功";
-						}
-						
-					}else{
-						Long interId = interviewRecordDao.insert(ir);	
-						if(interId > 0){
-							interviewRecordId = interId;
-						}
-						message="添加访谈记录成功";
-					}
-					file.setInterviewRecordId(interviewRecordId);
-					sopFileDao.updateById(file);
-				}
+				file.setInterviewRecordId(interviewRecordId);
+				sopFileDao.updateById(file);
 			}
 		}
 		SopResult r = new SopResult(Status.OK,null,message,UrlNumber.one,MessageHandlerInterceptor.add_interview_type);

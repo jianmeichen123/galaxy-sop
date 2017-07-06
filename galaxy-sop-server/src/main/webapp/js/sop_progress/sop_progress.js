@@ -7,6 +7,9 @@ function  progress(id){
 		data:{"projectId":projectId},//传递参数
 		okback:function(){
 			$(".close").addClass("progress_close");
+			$(".progress_close").click(function(){  //关闭弹窗刷新列表
+				refreshProjectList();
+			})
 			/*goToProgress();*/
 		}
 	});
@@ -255,7 +258,14 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	                	 
 	                 }
 					var other=reasonOther==null||reasonOther==""?"":"("+reasonOther+")";
-					type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
+					debugger;
+					console.log(resultReason);
+					console.log(other);
+					if(resultReason==""&&other==""){
+						type=="e" ? '' : $("#resultReason").html(resultReason+other);
+					}else{			
+						type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
+					}
 					if(res[0].fileId){
 						type=="e" ? $("#file_object").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>"): $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 						$("#file_object").text(res[0].fname);

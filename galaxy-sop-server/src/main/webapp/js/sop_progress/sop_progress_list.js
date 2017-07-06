@@ -127,6 +127,7 @@
 		}else if(status ==3){
 //			3的时候是都有
 			$(".tab_con").show();
+			$(".new_poppage").show();
 			$(".new_poptxt .tab_1").show();
 			$(".new_poptxt .bootstrap-table").show();
 			$(".new_poptxt .tab_2").show();
@@ -296,7 +297,7 @@ $(".new_poppage").on("click",function(){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$("#popup_name").text(_name);
+			$(".tabtitle h3").text(_name);
 			var arrName=[];
 			switch(_type){
 			  case "":
