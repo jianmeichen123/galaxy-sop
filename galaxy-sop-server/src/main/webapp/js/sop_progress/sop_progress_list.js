@@ -127,6 +127,7 @@
 		}else if(status ==3){
 //			3的时候是都有
 			$(".tab_con").show();
+			$(".new_poppage").show();
 			$(".new_poptxt .tab_1").show();
 			$(".new_poptxt .bootstrap-table").show();
 			$(".new_poptxt .tab_2").show();
