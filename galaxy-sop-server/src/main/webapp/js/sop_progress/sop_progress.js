@@ -186,7 +186,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 				}
 				selectDict(arrName);
 			}else{
-				if(meetingType){
+				if(meetingType && meetingType != 'undefined'){
 					url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
 					meetingColumns();
 				}

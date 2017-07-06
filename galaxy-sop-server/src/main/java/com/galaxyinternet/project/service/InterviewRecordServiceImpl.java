@@ -1,27 +1,38 @@
 package com.galaxyinternet.project.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
+import com.galaxyinternet.common.SopResult;
+import com.galaxyinternet.common.annotation.MessageHandlerInterceptor;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.export_schedule.dao.ScheduleContactsDao;
 import com.galaxyinternet.export_schedule.model.ScheduleContacts;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -231,6 +242,88 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
         	   map=(Map<String,Dict>)object;
            }
 		return map;
+	}
+
+	@Override
+	@Transactional
+	public SopResult operateInterview(Project project,ProjectQuery p,UploadFileResult result,HttpServletRequest request) {
+	
+		Long fid = null;
+		Long interviewRecordId = null;
+		//添加访谈文件记录
+		InterviewRecord ir = new InterviewRecord();
+		ir.setProjectId(p.getPid());
+		ir.setViewDate(p.getParseDate() == null ? new Date() : p.getParseDate());
+		ir.setViewTarget(p.getTarget());
+		ir.setViewNotes(p.getContent());
+		ir.setInterviewResult(p.getInterviewResult());
+		ir.setResultReason(p.getResultReason());
+		ir.setReasonOther(p.getReasonOther());
+		ir.setCreatedId(project.getCreateUid());
+		ir.setCreatedTime((new Date()).getTime());
+		
+		SopFile file = new SopFile();
+		file.setProjectId(p.getPid());
+		file.setProjectProgress(p.getStage());
+		file.setCareerLine(p.getDepartmentId());
+		file.setFileType(DictEnum.fileType.音频文件.getCode());
+		file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+		file.setFileUid(p.getCreatedUid());
+		file.setCreatedTime((new Date()).getTime());
+		file.setFileLength(result.getContentLength());
+		file.setFileKey(result.getFileKey());
+		file.setBucketName(result.getBucketName());
+		file.setFileName(result.getFileName());
+		file.setFileSuffix(result.getFileSuffix());
+		fid = sopFileDao.insert(file);
+		
+		String message="";
+		if(fid != null){
+			ir.setFileId(fid);
+			//没有上传文件时
+			if(!ServletFileUpload.isMultipartContent(request)){
+				if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
+					ir.setId(p.getRecordId());
+					int updateByIdSelective = interviewRecordDao.updateById(ir);
+					if(updateByIdSelective>0){
+						message="编辑访谈记录成功";
+					}
+				}else{
+					interviewRecordDao.insert(ir);	
+					message="添加访谈记录成功";
+				}
+			}else{
+				if (result != null
+						&& result.getResult().getStatus().equals(Result.Status.OK)) {
+					p.setFileName(result.getFileName());
+					p.setSuffix(result.getFileSuffix());
+					p.setBucketName(result.getBucketName());
+					p.setFileKey(result.getFileKey());
+					p.setFileSize(result.getContentLength());
+				}
+				if(p.getFileKey() != null){
+					if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
+						interviewRecordId = p.getRecordId();
+						ir.setId(p.getRecordId());
+						int updateByIdSelective = interviewRecordDao.updateById(ir);
+						if(updateByIdSelective>0){
+							message="编辑访谈记录成功";
+						}
+						
+					}else{
+						Long interId = interviewRecordDao.insert(ir);	
+						if(interId > 0){
+							interviewRecordId = interId;
+						}
+						message="添加访谈记录成功";
+					}
+					file.setInterviewRecordId(interviewRecordId);
+					sopFileDao.updateById(file);
+				}
+			}
+		}
+		SopResult r = new SopResult(Status.OK,null,message,UrlNumber.one,MessageHandlerInterceptor.add_interview_type);
+		return r;
 	}
 	
 }
