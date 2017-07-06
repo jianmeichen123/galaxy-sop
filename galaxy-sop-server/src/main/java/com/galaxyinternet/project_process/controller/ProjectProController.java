@@ -1,12 +1,17 @@
 package com.galaxyinternet.project_process.controller;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aliyun.oss.model.GetObjectRequest;
+import com.aliyun.oss.model.OSSObject;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -27,6 +35,7 @@ import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
@@ -36,6 +45,7 @@ import com.galaxyinternet.project_process.service.ProFlowAboutFileService;
 import com.galaxyinternet.project_process.util.ProFlowUtilImpl;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 
 
@@ -63,7 +73,8 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	@Value("${sop.oss.tempfile.path}")
 	public void setTempfilePath(String tempfilePath) { this.tempfilePath = tempfilePath; }
 	
-	
+	@Autowired
+	private SopFileService sopFileService;
 	@Autowired
 	private UserRoleService userRoleService;
 	@Autowired
@@ -230,4 +241,55 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	}
 	
 	
+	
+	
+	
+	
+	
+
+	@RequestMapping("showFile/{id}")
+	public void showFile(HttpServletRequest request,HttpServletResponse response, @PathVariable("id") Long id ){
+		SopFile file = sopFileService.queryById(id);
+		if(file != null)
+		{
+			String fileMimeType = request.getSession().getServletContext().getMimeType(file.getFileName() + "." + file.getFileSuffix());
+			response.setContentType(fileMimeType);
+			response.setHeader("If-Modified-Since", "0");
+			response.setHeader("Cache-Control", "no-cache");
+			
+			OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(file.getBucketName(), file.getFileKey()));
+			InputStream fis = null;
+			OutputStream os = null;
+			try{
+				fis = ossobjcet.getObjectContent();
+				os = response.getOutputStream();
+				int count = 0;
+				byte[] buffer = new byte[1024 * 1024];
+				while ((count = fis.read(buffer)) != -1){
+					os.write(buffer, 0, count);
+				}
+				os.flush();
+			}
+			catch (Exception e){
+				logger.error("显示文件失败",e);
+			}
+			finally{
+				try{
+					if (os != null) os.close();
+					if (fis != null) fis.close();
+				}
+				catch (IOException e){
+					logger.error("显示文件失败",e);
+				}
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
 }
+
+
