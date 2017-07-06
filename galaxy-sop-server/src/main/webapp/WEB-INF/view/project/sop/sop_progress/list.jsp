@@ -138,6 +138,7 @@ function view_file(obj){
 	var file_str = $(obj).attr("src");
 	var file_type = $(obj).attr("ftype");
 	var file_id = $(obj).attr("fid");
+	var file_url =$(obj).attr("furl");
 	if(file_type=='pdf'||file_type=='PDF'){
 		window.open("<%=path %>/pdf/web/viewer.html?file="+Constants.sopEndpointURL+"galaxy/progressT/showFile/"+file_id);
 
