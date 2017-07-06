@@ -27,7 +27,6 @@
 	 */
 	function refreshIndex(reload)
 	{
-		$(".next_box").attr("data-progress",i);
 		if(reload)
 		{
 			loadProjectData();
@@ -40,6 +39,7 @@
 						break;
 					}
 				}
+				$(".next_box").attr("data-progress",i);
 				goToProgress();
 			});
 		}
@@ -53,6 +53,7 @@
 					break;
 				}
 			}
+			$(".next_box").attr("data-progress",i);
 			goToProgress();
 		}
 	}
@@ -448,7 +449,9 @@ function buttonData(i){
 	btn1.data("next-progress",nextProgress);
 	if('projectStatus:0'== _project_.projectStatus && _project_.projectProgress == currProgress)
 	{
-		console.log(btnData);
+		rejectBtn.show();
+		btn1.show();
+		btn2.show();
 		rejectBtn.toggleClass('disabled',btnData.rejectValid==false);
 		btn1.toggleClass('disabled',btnData.next1Valid==false);
 		btn2.toggleClass('disabled',btnData.next1Valid==false);
