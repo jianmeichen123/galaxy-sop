@@ -3038,9 +3038,11 @@ color:#999999;}
     }
     .intw_time{
         float: left;
+        width:50%;
     }
     .interviewee{
         float: right;
+        width:50%;
     }
     .interviewee input{
         width: 160px!important;
