@@ -232,13 +232,9 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? '' : $("#interviewResult").html(result);
 					alert(meetingType);
 					if(meetingType == "undefined" && type == "e"){
-						alert("hahahahah");
-						alert("!@#@#$%");
 						 var viewDate = $("#viewDate").val();
-						  alert(viewDate);
 						  $("#viewDate").parent("dd").html(viewDate);
 						  var viewTarget = $("#viewTarget").val();
-						  alert(viewTarget);
 						  $("#viewTarget").parent("dd").html(viewTarget);
 					}
 					var reason=res[0].resultReason;

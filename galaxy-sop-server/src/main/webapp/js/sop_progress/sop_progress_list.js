@@ -327,6 +327,25 @@ $(".new_poppage").on("click",function(){
 			}
 			//结论原因下拉框的值
 			selectDict(arrName);
+			//判断是否选择其他原因  			
+			$('select[name="meetingUndeterminedReason"]').change(function(){
+				var val=$(this).children("option:selected").val()
+				//console.log($("select option:selected").text())
+				if(val=="meetingUndeterminedReason:2"){
+					$(this).siblings("input").attr("required","true");
+				}else{
+					$(this).siblings("input").removeAttr("required","true");
+				}
+			})
+			$('select[name="meetingVetoReason"]').change(function(){
+				var val=$(this).children("option:selected").val()
+				//console.log($("select option:selected").text())
+				if(val=="meetingVetoReason:5"){
+					$(this).siblings("input").attr("required","true");
+				}else{
+					$(this).siblings("input").removeAttr("required","true");
+				}
+			})
 		}//模版反回成功执行	
 	});
 	return false;
@@ -648,7 +667,7 @@ function radionDiv(data){
 	    	   var htmlSelect='<select name="'+parentCode+'" id="'+parentCode+'">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select>'+
-	         '<input type="text" name="reasonOther" id="reasonOther" class="txt" placeholder="请填写其它原因">';
+	         '<input type="text" name="reasonOther_'+i+'" id="reasonOther" class="txt" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填">';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';
