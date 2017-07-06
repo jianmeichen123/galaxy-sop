@@ -57,6 +57,17 @@
 			goToProgress();
 		}
 	}
+	/**
+	 * 刷新按钮
+	 * @returns
+	 */
+	function refreshButton()
+	{
+		loadProjectData();
+		$.when(btnDtd).done(function(){
+			buttonData();
+		});
+	}
 	
 	/**
 	 * 项目信息，{@link _project_}
@@ -216,7 +227,7 @@
 			tab_show(4);
 			hideCurrent('projectProgress:10');
 		}
-		buttonData(i);
+		buttonData();
 		
 		initFileShow(); //file about
 	}
@@ -390,7 +401,7 @@ function toobarfile(title,index){
  * @param add_title
  * @param meetingType
  */
-function buttonData(i){
+function buttonData(){
 	var btnTitle="";
 	var nextProgress="";
 	var currProgress="projectProgress:1";

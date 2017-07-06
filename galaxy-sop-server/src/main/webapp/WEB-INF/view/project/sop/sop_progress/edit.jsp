@@ -221,7 +221,7 @@ function initViewUpload() {
 									$.popupTwoClose();
 								}
 								//项目阶段按钮状态刷新
-								refreshIndex(true);
+								refreshButton();
 							}
 						});
 					}
@@ -266,7 +266,7 @@ function initViewUpload() {
 						$.popupTwoClose();
 					}
 					//项目阶段按钮状态刷新
-					refreshIndex(true);
+					refreshButton();
 				}
 			},
 			
