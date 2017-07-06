@@ -25,7 +25,7 @@ public enum OperationLogType {
 	ADD_MEETING_ONE("/galaxy/project/progress/addmeet/"+UrlNumber.one, OperType.ADD.getOperationType(), "会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
 
 	//点击‘申请CEO评审排期’
-	SUBMIT_CEO_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.two, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	SUBMIT_CEO_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.two, OperType.SUBMIT.getOperationType(), "CEO评审排期",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
 		
 	
 	//CEO评审阶段
