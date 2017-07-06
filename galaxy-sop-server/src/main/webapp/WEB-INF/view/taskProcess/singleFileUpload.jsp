@@ -74,13 +74,13 @@
 </div>
 <script type="text/javascript">
 //不需要提供框是否显示
-var isShow="${isShow}";
-if($("#type").val()=="创建"&&isShow=="true"){
-	$(".task_noprovide").show();
-}
 $(function(){
 	loadRows();
 	loadRelatedData();
+	var isShow="${isShow}";
+	if($("#type").val()=="创建"&&isShow=="true"){
+		$(".task_noprovide").show();
+	}
 	$("#show-upload-btn").click(function(){
 		var title_name=$(this).text();
 		showUploadPopup(title_name);
@@ -89,7 +89,7 @@ $(function(){
 		//判断是否放弃该任务的提交
 		var btn=$(".task_noprovide input");
 		var giveUp=false;
-		if(btn.attr("checked")==true){
+		if(btn.prop( "checked" )==true){
 			giveUp=true;
 		}
 		//更新task为完成状态

@@ -155,6 +155,12 @@ function getProjectInfo(projectLoaded)
 				 var checkboxHtml = '<input type="checkbox" value="1" class="input_checkbox" onclick="selected(this);" id="stock_transfer"><label for="stock_transfer" class="check-box"></label> <label for="stock_transfer" class="check-tit">涉及股权转让</label>';
 				$("#stock_transfer_model").html(checkboxHtml); 
 			} */
+			if(project.projectType == 'projectType:2'&&'${isShow==true}'){
+				// var checkboxHtml = '<input type="checkbox" value="1" class="input_checkbox" onclick="selected(this);" id="stock_transfer"><label for="stock_transfer" class="check-box"></label> <label for="stock_transfer" class="check-tit">涉及股权转让</label>';
+				//$("#stock_transfer_model").html(checkboxHtml); 
+				
+				$(".task_noprovide").show();
+			} 
 			$("#project-summary dd")
 			.each(function(){
 				var self = $(this);
