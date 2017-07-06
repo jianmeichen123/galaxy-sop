@@ -35,7 +35,7 @@
             <dl class="fmdl clearfix">
                 <dt id="toobar_voice">访谈录音：</dt>
                 <dd>
-                	<p class="audio_name download_name" id="file">访谈录音.mp3</p>
+                	<p class="audio_name download_name" id="file"></p>
                 </dd>
             </dl>  
             <dl class="fmdl clearfix check_detail">
