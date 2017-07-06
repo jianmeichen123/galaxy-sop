@@ -297,7 +297,7 @@ $(".new_poppage").on("click",function(){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$("#popup_name").text(_name);
+			$(".tabtitle h3").text(_name);
 			var arrName=[];
 			switch(_type){
 			  case "":
