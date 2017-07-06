@@ -7,6 +7,9 @@ function  progress(id){
 		data:{"projectId":projectId},//传递参数
 		okback:function(){
 			$(".close").addClass("progress_close");
+			$(".progress_close").click(function(){  //关闭弹窗刷新列表
+				refreshProjectList();
+			})
 			/*goToProgress();*/
 		}
 	});
