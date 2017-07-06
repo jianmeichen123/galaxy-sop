@@ -12,16 +12,51 @@
 		'projectProgress:10'
 		];
 	var _project_;
-	var showSTBtn = false;//会后商务谈判-闪投按钮
-	var showTZBtn = false;//会后商务谈判-投资按钮
+	var btnData = {};
 	var projectDtd;
+	var btnDtd;
 	var i = 0;//获取阶段值
-	loadProjectData();
 	
-	//跳转到当前阶段
-	$.when(projectDtd).done(function(){
-		refreshIndex();
-	});
+	//加载阶段信息
+	refreshIndex(true)
+	
+	/**
+	 * 刷新当前阶段值并跳转
+	 * @param reload 是否重新加载project数据 true/false
+	 * @returns
+	 */
+	function refreshIndex(reload)
+	{
+		$(".next_box").attr("data-progress",i);
+		if(reload)
+		{
+			loadProjectData();
+			$.when(btnDtd).done(function(){
+				for(var j=0;j<flow.length;j++)
+				{
+					if(flow[j] == _project_.projectProgress)
+					{
+						i=j+1;
+						break;
+					}
+				}
+				goToProgress();
+			});
+		}
+		else
+		{
+			for(var j=0;j<flow.length;j++)
+			{
+				if(flow[j] == _project_.projectProgress)
+				{
+					i=j+1;
+					break;
+				}
+			}
+			goToProgress();
+		}
+	}
+	
 	/**
 	 * 项目信息，{@link _project_}
 	 * @returns
@@ -32,37 +67,24 @@
 		sendGetRequest(platformUrl.detailProject + projectId, {}, function(data){
 			_project_ = data.entity;
 			projectDtd.resolve();
-			loadSWTPData();
+			loadButtonData();
 		});
 	}
 	/**
-	 * 商务谈判会议信息，{@link showSTBtn,showSTBtn}
+	 * j加载按钮信息 - 隐藏/显示
 	 * @returns
 	 */
-	function loadSWTPData()
+	function loadButtonData()
 	{
-		if(_project_.projectProgress == 'projectProgress:11')
-		{
-			sendGetRequest(
-				platformUrl.searchMeeting, 
-				{'meetingType':'meetingType:5'}, 
-				function(data){
-					if(data.entityList)
-					{
-						$.each(data.entityList, function(){
-							if(this.meetingResult == 'meeting5Result:3')//闪投
-							{
-								showSTBtn = true;
-							}
-							if(this.meetingResult == 'meeting5Result:4')//投资
-							{
-								showTZBtn = true;
-							}
-						})
-					}
-				}
-			);
-		}
+		btnDtd = $.Deferred();
+		sendGetRequest(
+			platformUrl.buttonToggle+projectId, 
+			{}, 
+			function(data){
+				btnData = data.userData;
+				btnDtd.resolve();
+			}
+		);
 	}
 	
 	//显示当前阶段
@@ -363,25 +385,21 @@ function buttonData(i){
 		btnTitle="启动内部评审";
 		currProgress="projectProgress:1";
 		nextProgress='projectProgress:2';
-		isShow=false;
 		break;
 	case 2:
 		btnTitle="申请CEO评审";
 		currProgress="projectProgress:2";
 		nextProgress='projectProgress:3';
-		isShow=false;
 		break;
 	case 3:
 		btnTitle="申请立项会排期";
 		currProgress="projectProgress:3";
 		nextProgress='projectProgress:4';
-		isShow=false;
 		break;
 	case 4:
 		btnTitle="进入会后商务谈判";
 		currProgress="projectProgress:4";
 		nextProgress='projectProgress:11';
-		isShow=false;
 		break;
 	case 5:
 		btnTitle="签订投资协议书（闪投）";
@@ -395,7 +413,6 @@ function buttonData(i){
 		btnTitle="进入尽职调查";
 		currProgress="projectProgress:5";
 		nextProgress='projectProgress:6';
-		isShow=false;
 		break;
 	case 7:
 		btnTitle="申请投决会排期";
@@ -404,28 +421,17 @@ function buttonData(i){
 		isShow=false;
 		break;
 	case 8:
+		btnTitle="签订投资协议";
 		currProgress="projectProgress:7";
-		 var result=whichOne(8);
-		 if(result=="tzxy"){
-			btnTitle="签订投资协议";
-			nextProgress='projectProgress:8';
-		 }else{
-			btnTitle="进入股权交割";
-			nextProgress='projectProgress:9'; 
-		 }
-		 isShow=false;
+		nextProgress='projectProgress:8';
+		btn2.text("进入股权交割");
+		btn2.data("next-progress","projectProgress:9");
 		break;
 	case 9:
-		 var result=whichOne(9);
-		 currProgress="projectProgress:8";
-		 if(result=="jzdc"){
-			btnTitle="进入尽职调查";
-			nextProgress='projectProgress:6';
-		 }else{
-			btnTitle="进入股权交割";
-			nextProgress='projectProgress:9'; 
-		 }
-		 isShow=false;
+		btnTitle="进入尽职调查";
+		currProgress="projectProgress:8";
+		btn2.text("进入股权交割");
+		btn2.data("next-progress","projectProgress:9");
 		break;
 	case 10:
 		btnTitle="进入投后运营";
@@ -442,31 +448,16 @@ function buttonData(i){
 	btn1.data("next-progress",nextProgress);
 	if('projectStatus:0'== _project_.projectStatus && _project_.projectProgress == currProgress)
 	{
-		btn1.show();
-		if(i==5)
-		{
-			btn1.toggle(showSTBtn);//闪投
-			btn2.toggle(showTZBtn);//投资
-		}
-		else
-		{
-			btn1.show();
-			btn2.hide();
-		}
-		if(currProgress == 'projectProgress:5' || 
-				currProgress == 'projectProgress:8' || 
-				currProgress == 'projectProgress:9' ||
-				currProgress == 'projectProgress:10'
-		)
-		{
-			rejectBtn.hide();
-		}
+		console.log(btnData);
+		rejectBtn.toggleClass('disabled',btnData.rejectValid==false);
+		btn1.toggleClass('disabled',btnData.next1Valid==false);
+		btn2.toggleClass('disabled',btnData.next1Valid==false);
 	}
 	else
 	{
+		rejectBtn.hide();
 		btn1.hide();
 		btn2.hide();
-		rejectBtn.hide();
 	}
 }
 function whichOne(index){
@@ -512,8 +503,7 @@ function nextProgress(btn,nextProgress)
 			if(data.result.status == 'OK')
 			{
 				layer.msg('提交成功');
-				_project_=data.entity;
-				refreshIndex();
+				refreshIndex(true);
 			}
 			else if(data.result.message != null)
 			{
@@ -522,20 +512,7 @@ function nextProgress(btn,nextProgress)
 		}
 	);
 }
-//刷新当前阶段值并跳转
-function refreshIndex()
-{
-	for(var j=0;j<flow.length;j++)
-	{
-		if(flow[j] == _project_.projectProgress)
-		{
-			i=j+1;
-			break;
-		}
-	}
-	$(".next_box").attr("data-progress",i);
-	goToProgress();
-}
+
 /***
  * 因为之前项目阶段是按照顺序进行来处理,现增加商务谈判阶段数据库为11
  * 而页面是在5阶段

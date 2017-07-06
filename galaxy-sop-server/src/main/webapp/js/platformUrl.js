@@ -1168,7 +1168,11 @@ var platformUrl = {
 	 
 	 projectStageChange : Constants.sopEndpointURL + "/galaxy/progress/stageChange",
 	 
-	 searchMeeting : Constants.sopEndpointURL + "/galaxy/progress/searchMeeting"
+	 searchMeeting : Constants.sopEndpointURL + "/galaxy/progress/searchMeeting",
+	 /**
+	  * 项目阶段按钮控制
+	  */
+	 buttonToggle : Constants.sopEndpointURL + "/galaxy/progress/buttonToggle/"
 }
 
 /**

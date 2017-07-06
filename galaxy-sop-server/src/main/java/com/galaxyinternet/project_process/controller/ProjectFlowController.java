@@ -1,6 +1,7 @@
 package com.galaxyinternet.project_process.controller;
 
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -29,12 +30,19 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.annotation.MessageHandlerInterceptor;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.SWTPResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
+import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum.fileWorktype;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
-import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -94,8 +102,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	
 	@Autowired
 	private ProjectService projectService;
-	@Autowired
-	private SopFileDao sopFileDao;
 	@Autowired
 	private MeetingRecordService meetingRecordService;
 	
@@ -290,7 +296,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			file.setBucketName(p.getBucketName());
 			file.setFileName(p.getFileName());
 			file.setFileSuffix(p.getSuffix());
-			fid = sopFileDao.insert(file);
+			fid = sopFileService.insert(file);
 			
 			String message="";
 			if(fid != null){
@@ -914,6 +920,182 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		ResponseData<MeetingRecord> data = new ResponseData<MeetingRecord>();
 		List<MeetingRecord> list = meetingRecordService.queryList(query);
 		data.setEntityList(list);
+		return data;
+	}
+	@RequestMapping(value = "/buttonToggle/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<Project> buttonToggle(@PathVariable Long id)
+	{
+		boolean rejectValid = false;
+		boolean next1Valid = false;
+		boolean next2Valid = false;
+		ResponseData<Project> data = new ResponseData<>();
+		Project project = projectService.queryById(id);
+		String currProgress = project.getProjectProgress();
+		if(projectProgress.接触访谈.getCode().equals(currProgress))
+		{
+			InterviewRecordBo query = new InterviewRecordBo();
+			query.setProjectId(project.getId());
+			query.setInterviewResult(meetingResult.通过.getCode());
+			Long count = interviewRecordService.selectCount(query);
+			next1Valid = count>0L;
+			
+			query.setInterviewResult(meetingResult.否决.getCode());
+			count = interviewRecordService.selectCount(query);
+			rejectValid = count>0L;
+		}
+		else if(projectProgress.内部评审.getCode().equals(currProgress) ||
+				projectProgress.CEO评审.getCode().equals(currProgress)
+				)
+		{
+			String type = meetingType.内评会.getCode();
+			if(projectProgress.CEO评审.getCode().equals(currProgress))
+			{
+				type = meetingType.CEO评审.getCode();
+			}
+			MeetingRecordBo query = new MeetingRecordBo();
+			query.setProjectId(project.getId());
+			query.setMeetingType(type);
+			query.setMeetingResult(meetingResult.通过.getCode());
+			
+			Long count = meetingRecordService.queryCount(query);
+			next1Valid = count>0L;
+			
+			query.setMeetingResult(meetingResult.否决.getCode());
+			count = meetingRecordService.queryCount(query);
+			rejectValid = count>0L;
+		}
+		else if(projectProgress.立项会.getCode().equals(currProgress))
+		{
+			MeetingRecordBo query = new MeetingRecordBo();
+			query.setProjectId(project.getId());
+			query.setMeetingType(meetingType.立项会.getCode());
+			query.setMeetingResult(LXHResult.ST.getCode());
+			
+			Long count = meetingRecordService.queryCount(query);
+			if(count.intValue()==0)
+			{
+				query.setMeetingResult(LXHResult.TZ.getCode());
+				count = meetingRecordService.queryCount(query);
+			}
+			
+			if(count.intValue()==0)
+			{
+				query.setMeetingResult(LXHResult.ZX.getCode());
+				count = meetingRecordService.queryCount(query);
+			}
+			
+			next1Valid = count>0L;
+			
+			query.setMeetingResult(LXHResult.FJ.getCode());
+			count = meetingRecordService.queryCount(query);
+			rejectValid = count>0L;
+		}
+		else if(projectProgress.会后商务谈判.getCode().equals(currProgress))
+		{
+			MeetingRecordBo query = new MeetingRecordBo();
+			query.setProjectId(project.getId());
+			query.setMeetingType(meetingType.会后商务谈判.getCode());
+			query.setMeetingResult(SWTPResult.ST.getCode());
+			
+			Long count = meetingRecordService.queryCount(query);
+			next1Valid = count>0L; //签订投资协议书（闪投）
+			
+			query.setMeetingResult(SWTPResult.TZ.getCode());
+			count = meetingRecordService.queryCount(query);
+			next2Valid = count>0L; //签订投资意向书（投资）
+			
+			query.setMeetingResult(SWTPResult.FJ.getCode());
+			count = meetingRecordService.queryCount(query);
+			rejectValid = count>0L;
+		}
+		else if(projectProgress.投资意向书.getCode().equals(currProgress))
+		{
+			SopFile query = new SopFile();
+			query.setProjectId(project.getId());
+			query.setFileWorktype(fileWorktype.投资意向书.getCode());
+			query.setFileStatus(fileStatus.已上传.getCode());
+			query.setFileValid(1);//查询有效文件
+			Long count = sopFileService.queryCount(query);
+			next1Valid = count>0L;
+		}
+		else if(projectProgress.尽职调查.getCode().equals(currProgress))
+		{
+			String[] typeList = {
+					fileWorktype.业务尽职调查报告.getCode(), 
+					fileWorktype.人力资源尽职调查报告.getCode(), 
+					fileWorktype.法务尽职调查报告.getCode(),
+					fileWorktype.财务尽职调查报告.getCode(),
+					fileWorktype.尽职调查启动会报告.getCode(),
+					fileWorktype.尽职调查总结会报告.getCode()
+					
+			};
+			String[] fileStatusList = {fileStatus.已上传.getCode(),fileStatus.已放弃.getCode()};
+			SopFile query = new SopFile();
+			query.setProjectId(project.getId());
+			query.setFileworktypeList(Arrays.asList(typeList));
+			query.setFileStatusList(Arrays.asList(fileStatusList));;
+			query.setFileValid(1);//查询有效文件
+			Long count = sopFileService.queryCount(query);
+			
+			next1Valid = count==6L;
+			rejectValid = count==6L;
+		}
+		else if(projectProgress.投资决策会.getCode().equals(currProgress))
+		{
+			MeetingRecordBo query = new MeetingRecordBo();
+			query.setProjectId(project.getId());
+			query.setMeetingType(meetingType.投决会.getCode());
+			query.setMeetingResult(meetingResult.通过.getCode());
+			Long count = meetingRecordService.queryCount(query);
+			if(count.intValue() > 0)
+			{
+				if(SopConstant.BUSINESS_TYPE_TZ.equals(project.getBusinessTypeCode()))
+				{
+					next1Valid = true; //签订投资协议
+				}
+				else if(SopConstant.BUSINESS_TYPE_ST.equals(project.getBusinessTypeCode()))
+				{
+					next2Valid = true; //进入股权交割
+				}
+			}
+			
+			query.setMeetingResult(meetingResult.否决.getCode());
+			count = meetingRecordService.queryCount(query);
+			rejectValid = count>0L;
+		}
+		else if(projectProgress.投资协议.getCode().equals(currProgress))
+		{
+			SopFile query = new SopFile();
+			query.setProjectId(project.getId());
+			query.setFileWorktype(fileWorktype.投资协议.getCode());
+			query.setFileStatus(fileStatus.已上传.getCode());
+			query.setFileValid(1);//查询有效文件
+			Long count = sopFileService.queryCount(query);
+			if(count > 0L)
+			{
+				if(SopConstant.BUSINESS_TYPE_ST.equals(project.getBusinessTypeCode()))
+				{
+					next1Valid = true; //进入尽职调查
+				}
+				else if(SopConstant.BUSINESS_TYPE_TZ.equals(project.getBusinessTypeCode()))
+				{
+					next2Valid = true; //进入股权交割
+				}
+			}
+		}
+		else if(projectProgress.股权交割.getCode().equals(currProgress))
+		{
+			SopFile query = new SopFile();
+			query.setProjectId(project.getId());
+			query.setFileStatus(fileStatus.已上传.getCode());
+			query.setFileWorktype(fileWorktype.工商转让凭证.getCode());
+			Long count = sopFileService.queryCount(query);
+			next1Valid = count > 0L;
+		}
+		data.getUserData().put("next1Valid", next1Valid);
+		data.getUserData().put("next2Valid", next2Valid);
+		data.getUserData().put("rejectValid", rejectValid);
 		return data;
 	}
 	

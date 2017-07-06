@@ -93,7 +93,7 @@
 			<div class="popbtm_btn clearfix">
 				<a id="reject-btn" href="javascript:showRejectConfim();" class="fffbtn">否决项目</a>
 				<a  id="btn1" href="javascript:;" class="bluebtn "></a>
-				<a  id="btn2" style="display:none;" href="javascript:;" class="bluebtn "></a>
+				<a  id="btn2" href="javascript:;" class="bluebtn "></a>
 				<!-- 会后商务谈判按钮不同  直接添加相应按钮 -->
 				<!-- <a href="javascript:;" class="bluebtn">闪投</a> -->
 			</div>
