@@ -1,3 +1,20 @@
+/*历史数据流程历史处理*/
+UPDATE sop_project SET progress_history=
+CASE project_progress 
+WHEN 'projectProgress:1' THEN 'projectProgress:1'
+WHEN 'projectProgress:2' THEN 'projectProgress:1,projectProgress:2'
+ WHEN 'projectProgress:3' THEN 'projectProgress:1,projectProgress:2,projectProgress:3'
+ WHEN 'projectProgress:4' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4'
+ WHEN 'projectProgress:11' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11'
+ WHEN 'projectProgress:5' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5'
+WHEN 'projectProgress:6' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5,projectProgress:6'
+ WHEN 'projectProgress:7' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5,projectProgress:6,projectProgress:7'
+WHEN 'projectProgress:8' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5,projectProgress:6,projectProgress:7,projectProgress:8'
+ WHEN 'projectProgress:9' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5,projectProgress:6,projectProgress:7,projectProgress:8,projectProgress:9'
+WHEN 'projectProgress:10' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5,projectProgress:6,projectProgress:7,projectProgress:8,projectProgress:9,projectProgress:10'
+ELSE '' END ;
+
+
 ALTER TABLE `fx_db`.`sop_project`   
   ADD COLUMN `progress_history` VARCHAR(255) NULL  COMMENT '流程历史记录(逗号分割)';
 ALTER TABLE `fx_db`.`sop_project`  
