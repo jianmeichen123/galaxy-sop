@@ -125,11 +125,7 @@ function viewOperFormat(value,row,index){
     	meetingType = row.meetingType;
 	}
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
-	var edit = "";
-	
-	//if(userId==row.createdId && isTransfering == 'false'){
-		edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
-	//}
+	var	edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
 	return info + edit;
 }
 function notesInfoEdit(selectRowId,type,meetingType,title){
@@ -186,7 +182,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 				}
 				selectDict(arrName);
 			}else{
-				if(meetingType){
+				if(meetingType && meetingType != 'undefined'){
 					url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
 					meetingColumns();
 				}

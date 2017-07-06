@@ -25,8 +25,8 @@
 		<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
 		<result column="record_type" jdbcType="TINYINT" property="recordType" />
 		<result column="meeting_id" jdbcType="BIGINT" property="meetingId"/>
-		
-		
+		<result column="interview_record_id" jdbcType="BIGINT" property="interviewRecordId"/>
+		<result column="meeting_record_id" jdbcType="BIGINT" property="meetingRecordId"/>
 		<result column="project_name" jdbcType="VARCHAR" property="projectName"/>
 		<result column="file_uname" jdbcType="VARCHAR" property="fileUName"/> 
 		<result column="v_status" jdbcType="VARCHAR" property="Vstatus"/>
@@ -40,7 +40,7 @@
 		file_source, file_type,
 		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
-		file_key, bucket_name,file_name,file_suffix,record_type,meeting_id
+		file_key, bucket_name,file_name,file_suffix,record_type,meeting_id,interview_record_id,meeting_record_id
 	</sql>
 	
 	
@@ -288,7 +288,7 @@
  		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
- 		bucket_name,file_name,file_suffix,record_type,meeting_id)
+ 		bucket_name,file_name,file_suffix,record_type,meeting_id,interview_record_id,meeting_record_id)
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{belongUid,jdbcType=BIGINT}, #{fileValid,jdbcType=INTEGER},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
@@ -301,7 +301,7 @@
  		#{fileName,jdbcType=VARCHAR},
  		#{fileSuffix,jdbcType=VARCHAR},
  		#{recordType,jdbcType=TINYINT},
- 		#{meetingId,jdbcType=BIGINT})
+ 		#{meetingId,jdbcType=BIGINT},#{interviewRecordId,jdbcType=BIGINT},#{meetingRecordId,jdbcType=BIGINT})
  	</insert>
 	
 	<!-- 项目移交时修改文档部门ID -->
@@ -334,6 +334,8 @@
 			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
 			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 			<if test="meetingId != null"> meeting_id = #{meetingId,jdbcType=BIGINT}, </if>
+			<if test="interviewRecordId != null"> interview_record_id = #{interviewRecordId,jdbcType=BIGINT}, </if>
+			<if test="meetingRecordId != null"> meeting_record_id = #{meetingRecordId,jdbcType=BIGINT}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -369,6 +371,8 @@
 			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 			<if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
 			<if test="meetingId != null"> meeting_id = #{meetingId,jdbcType=BIGINT}, </if>
+			<if test="interviewRecordId != null"> interview_record_id = #{interviewRecordId,jdbcType=BIGINT}, </if>
+			<if test="meetingRecordId != null"> meeting_record_id = #{meetingRecordId,jdbcType=BIGINT}, </if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>

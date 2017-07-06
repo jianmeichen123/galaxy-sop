@@ -712,15 +712,23 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	public void operateFlowMeeting(SopFile file, MeetingRecord meet) {
 		// TODO Auto-generated method stub
 		Long fid = null;
+		Long meetingId = null;
 		if(file != null){
 			fid = sopFileDao.insert(file);
 			meet.setFileId(fid);
 		}
 		if(meet != null){
-			if(meet.getId() != null)
+			if(meet.getId() != null){
+				meetingId = meet.getId();
 				meetingRecordDao.updateById(meet);
-			else
-				meetingRecordDao.insert(meet);
+			}else{
+				meetingId = meetingRecordDao.insert(meet);
+			}
+			if(file != null){
+				file.setMeetingRecordId(meetingId);
+				file.setId(fid);
+				sopFileDao.updateById(file);
+			}
 		}
 	}
 

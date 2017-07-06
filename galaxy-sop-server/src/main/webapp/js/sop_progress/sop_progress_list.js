@@ -394,32 +394,59 @@ function buttonData(i){
 	var btnTitle="";
 	var nextProgress="";
 	var currProgress="projectProgress:1";
-	var btnTitle5="";
-	var btnHref5="";
 	var rejectBtn = $("#reject-btn");
 	var btn1=$("#btn1");
 	var btn2=$("#btn2");
-	var isShow=false;
+	
+	rejectBtn.hide();
+	btn1.hide();
+	btn2.hide();
+	
+	if('projectStatus:0' != _project_.projectStatus)
+	{
+		return;
+	}
+	
 	switch(i){
 	case 1:
 		btnTitle="启动内部评审";
 		currProgress="projectProgress:1";
 		nextProgress='projectProgress:2';
+		if(_project_.projectProgress == currProgress)
+		{
+			rejectBtn.show();
+			btn1.show();
+		}
 		break;
 	case 2:
 		btnTitle="申请CEO评审";
 		currProgress="projectProgress:2";
 		nextProgress='projectProgress:3';
+		if(_project_.projectProgress == currProgress)
+		{
+			rejectBtn.show();
+			btn1.show();
+		}
 		break;
 	case 3:
 		btnTitle="申请立项会排期";
 		currProgress="projectProgress:3";
 		nextProgress='projectProgress:4';
+		if(_project_.projectProgress == currProgress)
+		{
+			rejectBtn.show();
+			btn1.show();
+		}
 		break;
 	case 4:
 		btnTitle="进入会后商务谈判";
 		currProgress="projectProgress:4";
 		nextProgress='projectProgress:11';
+		if(_project_.projectProgress == currProgress)
+		{
+			rejectBtn.show();
+			btn1.show();
+		}
 		break;
 	case 5:
 		btnTitle="签订投资协议书（闪投）";
@@ -427,18 +454,31 @@ function buttonData(i){
 		nextProgress='projectProgress:8';
 		btn2.text("签订投资意向书（投资）");
 		btn2.data("next-progress","projectProgress:5");
-		isShow=true;
+		if(_project_.projectProgress == currProgress)
+		{
+			rejectBtn.show();
+			btn1.show();
+			btn2.show();
+		}
 		break;
 	case 6:
 		btnTitle="进入尽职调查";
 		currProgress="projectProgress:5";
 		nextProgress='projectProgress:6';
+		if(_project_.projectProgress == currProgress)
+		{
+			btn1.show();
+		}
 		break;
 	case 7:
 		btnTitle="申请投决会排期";
 		currProgress="projectProgress:6";
 		nextProgress='projectProgress:7';
-		isShow=false;
+		if(_project_.projectProgress == currProgress)
+		{
+			rejectBtn.show();
+			btn1.show();
+		}
 		break;
 	case 8:
 		btnTitle="签订投资协议";
@@ -446,18 +486,33 @@ function buttonData(i){
 		nextProgress='projectProgress:8';
 		btn2.text("进入股权交割");
 		btn2.data("next-progress","projectProgress:9");
+		if(_project_.projectProgress == currProgress)
+		{
+			rejectBtn.show();
+			btn1.toggle(btnData.next1Valid);
+			btn2.toggle(btnData.next2Valid);
+		}
 		break;
 	case 9:
 		btnTitle="进入尽职调查";
 		currProgress="projectProgress:8";
+		nextProgress='projectProgress:6';
 		btn2.text("进入股权交割");
 		btn2.data("next-progress","projectProgress:9");
+		if(_project_.projectProgress == currProgress)
+		{
+			btn1.toggle(btnData.next1Valid);
+			btn2.toggle(btnData.next2Valid);
+		}
 		break;
 	case 10:
 		btnTitle="进入投后运营";
 		currProgress="projectProgress:9";
 		nextProgress='projectProgress:10';
-		isShow=false;
+		if(_project_.projectProgress == currProgress)
+		{
+			btn1.show();
+		}
 		break;
     case 11:
 		break;
@@ -466,20 +521,11 @@ function buttonData(i){
 	}
 	btn1.text(btnTitle);
 	btn1.data("next-progress",nextProgress);
-	if('projectStatus:0'== _project_.projectStatus && _project_.projectProgress == currProgress)
+	if(_project_.projectProgress == currProgress)
 	{
-		rejectBtn.show();
-		btn1.show();
-		btn2.show();
 		rejectBtn.toggleClass('disabled',btnData.rejectValid==false);
 		btn1.toggleClass('disabled',btnData.next1Valid==false);
-		btn2.toggleClass('disabled',btnData.next1Valid==false);
-	}
-	else
-	{
-		rejectBtn.hide();
-		btn1.hide();
-		btn2.hide();
+		btn2.toggleClass('disabled',btnData.next2Valid==false);
 	}
 }
 function whichOne(index){

@@ -220,6 +220,8 @@ function initViewUpload() {
 									$("#projectProgress_1_table").bootstrapTable('refresh');
 									$.popupTwoClose();
 								}
+								//项目阶段按钮状态刷新
+								refreshIndex(true);
 							}
 						});
 					}
@@ -263,6 +265,8 @@ function initViewUpload() {
 						$("#projectProgress_1_table").bootstrapTable('refresh');
 						$.popupTwoClose();
 					}
+					//项目阶段按钮状态刷新
+					refreshIndex(true);
 				}
 			},
 			

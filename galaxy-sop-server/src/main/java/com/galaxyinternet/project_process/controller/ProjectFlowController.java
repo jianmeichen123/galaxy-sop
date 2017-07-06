@@ -270,76 +270,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		 * 3.处理业务
 		 */
 		try {
-			Long fid = null;
-			//添加访谈文件记录
-			InterviewRecord ir = new InterviewRecord();
-			ir.setProjectId(p.getPid());
-			ir.setViewDate(p.getParseDate() == null ? new Date() : p.getParseDate());
-			ir.setViewTarget(p.getTarget());
-			ir.setViewNotes(p.getContent());
-			ir.setInterviewResult(p.getInterviewResult());
-			ir.setResultReason(p.getResultReason());
-			ir.setReasonOther(p.getReasonOther());
-			ir.setCreatedId(project.getCreateUid());
-			ir.setCreatedTime((new Date()).getTime());
-			
-			SopFile file = new SopFile();
-			file.setProjectId(p.getPid());
-			file.setProjectProgress(p.getStage());
-			file.setCareerLine(p.getDepartmentId());
-			file.setFileType(DictEnum.fileType.音频文件.getCode());
-			file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-			file.setFileUid(p.getCreatedUid());
-			file.setCreatedTime((new Date()).getTime());
-			file.setFileLength(p.getFileSize());
-			file.setFileKey(p.getFileKey());
-			file.setBucketName(p.getBucketName());
-			file.setFileName(p.getFileName());
-			file.setFileSuffix(p.getSuffix());
-			fid = sopFileService.insert(file);
-			
-			String message="";
-			if(fid != null){
-				ir.setFileId(fid);
-				//没有上传文件时
-				if(!ServletFileUpload.isMultipartContent(request)){
-					if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
-						ir.setId(p.getRecordId());
-						int updateByIdSelective = interviewRecordService.updateById(ir);
-						if(updateByIdSelective>0){
-							message="编辑访谈记录成功";
-						}
-					}else{
-						interviewRecordService.insert(ir);	
-						message="添加访谈记录成功";
-					}
-				}else{
-					if (result != null
-							&& result.getResult().getStatus().equals(Result.Status.OK)) {
-						p.setFileName(result.getFileName());
-						p.setSuffix(result.getFileSuffix());
-						p.setBucketName(result.getBucketName());
-						p.setFileKey(fileKey);
-						p.setFileSize(result.getContentLength());
-					}
-					if(p.getFileKey() != null){
-						if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
-							ir.setId(p.getRecordId());
-							int updateByIdSelective = interviewRecordService.updateById(ir);
-							if(updateByIdSelective>0){
-								message="编辑访谈记录成功";
-							}
-							
-						}else{
-							interviewRecordService.insert(ir);	
-							message="添加访谈记录成功";
-						}
-						
-					}
-				}
-			}
-			
-			SopResult r = new SopResult(Status.OK,null,message,UrlNumber.one,MessageHandlerInterceptor.add_interview_type);
+			SopResult r = interviewRecordService.operateInterview(project, p, result, request);
 			// 记录操作日志
 			ControllerUtils.setRequestParamsForMessageTip(request,
 					project.getProjectName(), project.getId(),
