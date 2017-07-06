@@ -230,7 +230,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
-					alert(meetingType);
 					if(meetingType == "undefined" && type == "e"){
 						 var viewDate = $("#viewDate").val();
 						  $("#viewDate").parent("dd").html(viewDate);
