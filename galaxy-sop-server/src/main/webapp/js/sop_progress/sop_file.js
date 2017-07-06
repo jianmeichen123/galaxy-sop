@@ -340,7 +340,7 @@ function create_file_area(file){
 		//'<li>' +
 			'<input type="hidden" data-type="file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" onclick="view_file(this)" alt="" />' +
+				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" fid="'+file.id+'" onclick="view_file(this)" alt="" />' +
 				optStr +
 				'<div class="cover_box">' +
 					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
@@ -396,7 +396,7 @@ function create_task_file_area(file){
 		//'<li>' +
 			'<input type="hidden" data-type="task_file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'"  onclick="view_file(this)"  alt="" />'
+				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
 				'<p class="center_text" style="margin-top: -18px;">' +
 					lin +
 				'</p>' +

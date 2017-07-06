@@ -118,7 +118,7 @@ function meetList(type){
  *  查看  or 编辑  
  */
 function viewOperFormat(value,row,index){  
-	var meetingType = "";
+	var meetingType = undefined;
 	var title = $(".tabtitle h3").text();
 	
     if(row){
@@ -151,10 +151,12 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 				//编辑访谈时候的会议类型为undefined
 				  case "undefined":
 					  //访谈结论radio
+					  //接触访谈
 					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meetingResult");
 					  arrName.push("meetingUndeterminedReason");
 					  arrName.push("meetingVetoReason");
 					  $("#targetView").attr("style","display:block");
+
 					  break;
 				  case "meetingType:3":
 					  res.meetingType = meetingType;
@@ -220,6 +222,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						resultReason = res[0].resultReasonStr;
 						reasonOther = res[0].reasonOther;
 						type=="e" ? $("input[name='interviewResult'][value='"+res[0].interviewResult+"']").attr("checked",true) : $("#interviewResult").html(result);
+					
 					}
 					$("#recordId").val(recordId);
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
@@ -227,10 +230,21 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
+					alert(meetingType);
+					if(meetingType == "undefined" && type == "e"){
+						alert("hahahahah");
+						alert("!@#@#$%");
+						 var viewDate = $("#viewDate").val();
+						  alert(viewDate);
+						  $("#viewDate").parent("dd").html(viewDate);
+						  var viewTarget = $("#viewTarget").val();
+						  alert(viewTarget);
+						  $("#viewTarget").parent("dd").html(viewTarget);
+					}
 					var reason=res[0].resultReason;
 					//结论原因回显
+
 	                 switch(resultJudge){
-	                
 	                 case "meeting5Result:1":
 	                	 $("select[name='meetingFollowingReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
@@ -259,6 +273,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}
 					
 				}
+				
 			});
 		}
 	});

@@ -2894,6 +2894,7 @@ color:#999999;}
     	 width: 671px;
         overflow-y: auto;
         max-height:400px;
+        height:auto;
         padding: 60px 0 30px 0;
     }
     .tabtitle{
@@ -3012,13 +3013,14 @@ color:#999999;}
 		margin-right: 15px;
 		color:#66b1f2;
 	}
-	.popbtm_btn{margin-top: 40px;padding:0 20px;}
+	.popbtm_btn{padding:0 20px;}
 	.popbtm_btn a{
 		display: inline-block;
 		line-height: 30px;
 		padding: 0 12px;
 		border-radius:4px;
 		font-size:14px;
+		margin-top: 40px;
 	}
 	.popbtm_btn .fffbtn{
 		background:#f9fbfc;
@@ -3292,6 +3294,6 @@ color:#999999;}
 /* 会议、访谈调整 */  
 #meetingNotesCon {width:600px;word-wrap:break-word;height:220px;overflow-y:auto;}
 #viewNotesCon{height:450px;word-wrap:break-word;overflow-y:auto;}
-  
+.new_poptxt .fixed-table-pagination .pagination-detail{    margin-bottom: -15px; margin-top: -10px;}
   
   

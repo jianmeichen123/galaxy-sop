@@ -40,7 +40,7 @@
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt id="toobar_notes">访谈对象：</dt>
                     <dd class="clearfix">
-                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font>访谈对象不能为空" />
+                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font>访谈对象不能为空" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
                 </dl>
@@ -109,6 +109,15 @@ var url = Constants.sopEndpointURL + "/galaxy/progress/p1/add";
 if(meetingType != ""){
 	url = Constants.sopEndpointURL + "/galaxy/progress/p2/add";
 }
+//验证
+$(function(){
+	$(".myproject_add").validate();
+})
+//访谈对象
+jQuery.validator.addMethod("viewTarget", function(value, element) {   
+	var viewTarget = /^(?!.{41}|^\s*$)/;
+	return this.optional(element) || (viewTarget.test(value));
+}, "不能全为空格"); 
 initViewUpload();
 function initViewUpload() {
 	var viewuploader = new plupload.Uploader({

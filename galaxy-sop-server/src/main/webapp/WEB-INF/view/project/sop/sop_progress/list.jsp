@@ -137,9 +137,10 @@ $("#projectId").val(projectId);
 function view_file(obj){
 	var file_str = $(obj).attr("src");
 	var file_type = $(obj).attr("ftype");
-	var file_url = $(obj).attr("furl");
+	var file_id = $(obj).attr("fid");
 	if(file_type=='pdf'||file_type=='PDF'){
-		window.open("<%=path %>/pdf/web/viewer.html?file="+file_url);
+		window.open("<%=path %>/pdf/web/viewer.html?file="+Constants.sopEndpointURL+"galaxy/progressT/showFile/"+file_id);
+
 	}else if(file_type=='jpg'||file_type=='JPG'||file_type=='jpeg'||file_type=='JPEG'||file_type=='png'||file_type=='PNG'){
 		
 		window.open("<%=path %>/pdf/file_img.html?file_url="+file_url);
