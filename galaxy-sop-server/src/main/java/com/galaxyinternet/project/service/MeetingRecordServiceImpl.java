@@ -724,9 +724,11 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			}else{
 				meetingId = meetingRecordDao.insert(meet);
 			}
-			file.setMeetingRecordId(meetingId);
-			file.setId(fid);
-			sopFileDao.updateById(file);
+			if(file != null){
+				file.setMeetingRecordId(meetingId);
+				file.setId(fid);
+				sopFileDao.updateById(file);
+			}
 		}
 	}
 
