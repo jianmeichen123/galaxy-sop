@@ -153,6 +153,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		var response = $.parseJSON(rtn.response);
 		var result = response.result;
 		if(result.status == "OK"){
+			//项目阶段按钮状态刷新
+			refreshIndex(true);
 			var fileWorktype = $("#"+saveFileId).attr("data-type");
 			var fi = response.entity;
 			filesCondition[fileWorktype] = fi;
