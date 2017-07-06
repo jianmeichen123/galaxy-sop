@@ -328,28 +328,27 @@ $(".new_poppage").on("click",function(){
 			//结论原因下拉框的值
 			selectDict(arrName);
 			//判断是否选择其他原因  			
-			$('select[name="meetingUndeterminedReason"]').change(function(){
-				var val=$(this).children("option:selected").val()
-				//console.log($("select option:selected").text())
-				if(val=="meetingUndeterminedReason:2"){
-					$(this).siblings("input").attr("required","true");
-				}else{
-					$(this).siblings("input").removeAttr("required","true");
-				}
-			})
-			$('select[name="meetingVetoReason"]').change(function(){
-				var val=$(this).children("option:selected").val()
-				//console.log($("select option:selected").text())
-				if(val=="meetingVetoReason:5"){
-					$(this).siblings("input").attr("required","true");
-				}else{
-					$(this).siblings("input").removeAttr("required","true");
-				}
-			})
+			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
+			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
 		}//模版反回成功执行	
 	});
 	return false;
 });
+//原因选择其他时
+function reason(obj,value){
+	$(obj).change(function(){
+		var val=$(this).children("option:selected").val();
+		if(val==value){
+			$(this).siblings("input").attr("required","true");
+			$(this).siblings("input").removeAttr("disabled","true");
+			$(this).siblings("input").removeClass("disabled");
+		}else{
+			$(this).siblings("input").removeAttr("required","true");
+			$(this).siblings("input").attr("disabled","true");
+			$(this).siblings("input").addClass("disabled");
+		}
+	})
+}
 //会议界面弹出层处理
 function meetingColumns(){
 	  $("#toobar_time").text("会议时间");
@@ -713,7 +712,7 @@ function radionDiv(data){
 	    	   var htmlSelect='<select name="'+parentCode+'" id="'+parentCode+'">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select>'+
-	         '<input type="text" name="reasonOther_'+i+'" id="reasonOther" class="txt" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填">';
+	         '<input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填">';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';
