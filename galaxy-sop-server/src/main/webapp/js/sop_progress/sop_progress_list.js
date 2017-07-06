@@ -496,6 +496,7 @@ function buttonData(i){
 	case 9:
 		btnTitle="进入尽职调查";
 		currProgress="projectProgress:8";
+		nextProgress='projectProgress:6';
 		btn2.text("进入股权交割");
 		btn2.data("next-progress","projectProgress:9");
 		if(_project_.projectProgress == currProgress)

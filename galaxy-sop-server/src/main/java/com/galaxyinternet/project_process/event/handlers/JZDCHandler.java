@@ -60,10 +60,11 @@ public class JZDCHandler implements ProgressChangeHandler
 		SopFile query = new SopFile();
 		query.setProjectId(project.getId());
 		query.setFileWorktype(type);
+		query.setFileStatus(fileStatus.已上传.getCode());
 		query.setFileValid(1);//查询有效文件
-		SopFile file = fileService.queryOne(query);
+		Long count = fileService.queryCount(query);
 		
-		if(file == null || fileStatus.缺失.getCode().equals(file.getFileStatus()))
+		if(count == 0l)
 		{
 			throw new BusinessException(fileWorktype.getNameByCode(type)+"缺失");
 		}
