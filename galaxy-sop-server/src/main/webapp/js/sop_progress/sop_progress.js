@@ -258,9 +258,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	                	 
 	                 }
 					var other=reasonOther==null||reasonOther==""?"":"("+reasonOther+")";
-					debugger;
-					console.log(resultReason);
-					console.log(other);
 					if(resultReason==""&&other==""){
 						type=="e" ? '' : $("#resultReason").html(resultReason+other);
 					}else{			
@@ -276,10 +273,26 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 				}
 				
 			});
+			//判断是否选择其他原因  			
+			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
+			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
+			var val=$("select[name=\"meetingUndeterminedReason\"]").children(" option:selected").val();
+			var val1=$("select[name=\"meetingVetoReason\"]").children(" option:selected").val();
+			if(val=="meetingUndeterminedReason:2"){
+				$("select[name=\"meetingUndeterminedReason\"]").siblings("input").attr("required","true");
+				$("select[name=\"meetingUndeterminedReason\"]").siblings("input").removeAttr("disabled","true");
+				$("select[name=\"meetingUndeterminedReason\"]").siblings("input").removeClass("disabled");
+			}
+			if(val1=="meetingVetoReason:5"){
+				$("select[name=\"meetingVetoReason\"]").siblings("input").attr("required","true");
+				$("select[name=\"meetingVetoReason\"]").siblings("input").removeAttr("disabled","true");
+				$("select[name=\"meetingVetoReason\"]").siblings("input").removeClass("disabled");
+			}
 		}
 	});
 	return false;
 }
+
 /**
  * 添加访谈记录弹窗
  * @param id
