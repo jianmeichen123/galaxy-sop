@@ -4,6 +4,22 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.model.common.PagableRecordEntity;
 
 public class SopParentFile extends PagableRecordEntity  {
+	public Long getInterviewRecordId() {
+		return interviewRecordId;
+	}
+
+	public void setInterviewRecordId(Long interviewRecordId) {
+		this.interviewRecordId = interviewRecordId;
+	}
+
+	public Long getMeetingRecordId() {
+		return meetingRecordId;
+	}
+
+	public void setMeetingRecordId(Long meetingRecordId) {
+		this.meetingRecordId = meetingRecordId;
+	}
+
 	/**
      * 文件大小
      */
@@ -41,6 +57,16 @@ public class SopParentFile extends PagableRecordEntity  {
      * 业务分类描述
      */
     protected String fWorktype;
+    
+    /**
+     * 访谈ID
+     */
+    private Long interviewRecordId;
+    
+    /**
+     * 会有ID
+     */
+    private Long meetingRecordId;
     
     
     /**
