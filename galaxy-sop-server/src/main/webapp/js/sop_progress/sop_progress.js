@@ -314,7 +314,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 				$("select[name=\"meetingUndeterminedReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
 			}
 			if(val1=="meetingVetoReason:5"){
-				$("select[name=\"meetingVetoReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled","true");
+				$("select[name=\"meetingVetoReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
 			}
 		}
 	});
