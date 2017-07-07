@@ -1723,9 +1723,9 @@ word-wrap:break-word;
 .prj_all table td span,.member table td span{display:inline-block;font-size: 0px;width:22px;height: 22px;background:url(../img/functionico.png) 0 0 no-repeat;cursor:pointer;vertical-align:middle;}
 .prj_all table td .prc{background-position:0 -225px;margin-right: 15px;vertical-align:middle;}
 .prj_all table td .see{background-position:0 -253px;}
-.sortable span{width:8px;height:12px;margin-left:5px;display:inline-block;background:url(../img/sort.png) 0 0 no-repeat;}
-.desc span{background:url(../img/sort.png) 0 -16px no-repeat;}
-.asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
+.sort .sortable span,#data-table-bftjt .sortable span{width:8px;height:12px;margin-left:5px;display:inline-block;background:url(../img/sort.png) 0 0 no-repeat;}
+.sort .desc span,#data-table-bftjt .desc span{background:url(../img/sort.png) 0 -16px no-repeat;}
+.sort .asc span,#data-table-bftjt .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
 #tablePerson th,#project_delivery_table th,#meetGrid th{padding-left:25px;}
@@ -2515,7 +2515,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit input[type="text"],.h_edit select{padding-left:10px;width:270px;height:34px;border:1px solid #dadada;margin:-10px 10px 10px 0; }
 /* .line_input input[type="text"]{margin:10px 0px 0px 0;} */
 .h_edit input[type="text"],.h_edit select{margin-bottom:0;}
-.h_edit input[type="text"]{width:180px;}
+.h_edit input[type="text"]{width:150px;}
 .base_tab-content .h_edit input[type="text"]{width:245px;}
 .base_tab-content .h_edit select{width:259px;}
 .h_edit select option:nth-child(1){color:#d3d3d3;}
@@ -2583,6 +2583,8 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 .btn_compet{display: inline-block; margin-bottom: 10px; margin-top: 20px;}
 .fl_none_box{box-sizing:border-box;padding-left:122px;}
 .h_edit .h_radios li.text_li{padding:0;margin-top:-8px;margin-left:-10px;}
+.h_edit .h_radios li.text_li_13{margin-top:4px}
+.h_edit .h_radios li.text_li_13 input{height:28px;}
 .sign_title{font-size:14px;margin-bottom:5px;}
 #compete{width:550px;}
 #compete dt{width:160px;text-align:right;}
@@ -2884,3 +2886,11 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 }
 .visit_box .round_data p{margin-top:170px;font-size:14px;
 color:#999999;}
+/* 项目详情 v20170707*/
+.institution {padding:0 20px 10px;display:none;}
+.institution input{border:1px solid #d6d8e1;width:148px;height:22px;margin-right:10px;padding:0 0 0 10px;}
+.institution input.name{width:228px;}
+.institution .del{color:#4a97da;font-family:"宋体";font-size:12px;cursor:pointer;}
+.institution .block_inputs{margin-bottom:10px;}
+label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#999060;background:#fff9c9;border-radius:4px;display:inline-block !important;}
+label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;background:url(../img/error_bg.png) 0 0 no-repeat}

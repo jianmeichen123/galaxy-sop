@@ -55,6 +55,20 @@ $(function(){
 			var width_fwb=$('.tabtable_con_on').width();
 			$('.width_fwb').css('width',(width_fwb-40));
 			responseData();   //反显数据
+			//投资形式切换
+						$(".new_table .mar_left>input").change(function(){
+							var val=$(this).val();
+							$(".institutionBtn span").css('margin-top','0');
+							if(val=="financeMode:0"){
+								$(".institution").hide();
+							}else if(val=="financeMode:1"){
+								$(".institution").show();
+								$(".institution .new_color_gray").text("领投机构：");
+							}else{
+								$(".institution").show();
+								$(".institution .new_color_gray").text("合投机构：");
+							}
+						});
 		})
 		//统一关
 		$('[data-on="close"]').on('click',function(){
@@ -63,6 +77,7 @@ $(function(){
 			$('.'+close+'_center').show();
 			$('.bj_hui_on').hide();
 			$('.tip-yellowsimple').hide();
+			$("label.error").remove();
 		})
 		
 		//项目名称截断
@@ -124,9 +139,24 @@ $(function(){
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
 			var ht=projectProgress(data)
 			$("#insertImg").html(ht);
+			//详情展示投资形式处理
+			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"--":(projectInfo.fModeRemark==0?"--":projectInfo.fModeRemark));
+			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
+				jointDeliveryList(projectInfo.jointDeliveryList);
+				//列表无数据时不显示表格
+				var trLen=$("#jointDelivery").find("tr:gt(0)").length;
+				if(trLen==0){
+					$("#jointDelivery").hide();
+				}else{
+					$("#jointDelivery").show();
+				}
+			}
 			var p;
 			var fs;
-			$("[data-on='data-open']").click(function (){
+			
+        $("[data-on='data-open']").click(function (){
+        	    isDelete=[];
+        	 
 				if($(this).hasClass('limits_gray'))
 				{
 					return;
@@ -149,7 +179,43 @@ $(function(){
 				$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
 				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
-				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark)
+				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
+				//添加投资形式字段
+				if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!=""){
+					var financeForms=$("input[name='investForm']");
+					for(var i=0;i<financeForms.length;i++){
+						if(financeForms[i].value==projectInfo.financeMode){
+							financeForms[i].checked=true;
+						}
+				
+				}
+					//机构显示
+					var investForm= $("input[name='investForm']:checked").val();
+					if(investForm=="financeMode:1"){
+						$(".institution .new_color_gray").text("领投机构：");
+						$(".institution").show();
+					}else if(investForm=="financeMode:2"){
+						$(".institution .new_color_gray").text("合投机构：");
+						$(".institution").show();
+					}else{
+						$(".institution").hide();
+					}
+					
+					if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
+						jointDeliveryEdit(projectInfo.jointDeliveryList);
+					}
+				}else{
+					$("input[name='investForm']").removeAttr("checked");
+					$(".inputsForm").find(".block_inputs").remove();
+					$(".institution").hide();
+				}
+				//详情页无列表，取消再编辑，取消上一步操作
+				if($("#jointDelivery").is(":hidden")){
+					$(".institutionBtn span").css("margin-top","0")
+				}
+				//投资形式合投，领头编辑页面投资列表处理
+				
+				
 			     radio_faFlag(projectInfo.faFlag);
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').prop("checked","true");
@@ -169,7 +235,7 @@ $(function(){
 			    	sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
 			    	
-			    	initDialogVal();
+			    	//initDialogVal();
 		    	}
 			
 			})
@@ -470,7 +536,11 @@ $(function(){
 		$("[data-on='save']").click(function(){
 			var data=getUpdateData();
 		
-				if(beforeSubmitById("updateProjectInfo")){
+			if(!$("#basicForm").validate().form())
+			{
+				labelPosition();
+				return;
+			}
 					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 						//console.log(data1);
 						if(data2.result.status=="OK"){
@@ -483,7 +553,7 @@ $(function(){
 //						window.location.reload();
 						
 					});
-				}
+				
 			
 			//typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0
 			
@@ -497,7 +567,6 @@ $(function(){
 			var pname=$("#project_name_edit").val().trim();
 			var industry_own=$("#industry_own_sel").val().trim();
 			var finance_status=$("#finance_status_sel").val().trim();
-			
 			var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val().trim();
 			var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val().trim();
 			var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val().trim();
@@ -513,7 +582,28 @@ $(function(){
 			}else{
 				faName=$("#faNameEdit").val();
 			}
-			
+			//处理投资形式
+			var investForm= $("input[name='investForm']:checked").val();
+			var arr=[];
+			if(investForm=="financeMode:1"||investForm=="financeMode:2"){
+				var jointDeliverys= $(".block_inputs");
+				for(var i=0;i<jointDeliverys.length;i++){
+					var obj={"deliveryName":"",
+							 "deliveryAmount":"",
+							 "deliveryShareRatio":"",
+						    };
+					var jointDelivery=jointDeliverys[i];
+					    var isUpdate=jointDelivery.childNodes[0].childNodes[0].getAttribute("data-id");
+					    if(isUpdate!=null){
+					    	obj.id=isUpdate;
+					    }
+				        obj.deliveryName=jointDelivery.childNodes[0].childNodes[0].value;
+				        obj.deliveryAmount=jointDelivery.childNodes[1].childNodes[0].value;
+				        obj.deliveryShareRatio=jointDelivery.childNodes[2].childNodes[0].value;
+				        arr[i]=obj;
+				}
+			}
+			   console.log(isDelete);
 			var formatData={"id":id,
 					       "projectName":pname,
 					        "industryOwn":industry_own,
@@ -527,12 +617,13 @@ $(function(){
 		  	               "serviceCharge":serviceCharge,
 		  	               "faFlag":faFlag,
 		  	               "faName":faName,
-		  	               "remark":remark
-		  	               
+		  	               "remark":remark,
+		  	               "financeMode":investForm,
+                           "jointDeliveryList":arr,
+                           "isDelete":isDelete
 			};
 			return formatData;
 		}
-
 		function saveSuccess(){
 			sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 				projectInfo = data.entity;
@@ -647,12 +738,42 @@ function radio_faFlag(isContactsV){
 	var phone = $("input[name='faName']");
 	if (isContactsV == 0 || isContactsV == '0') {
 		$("input[name='faName']").hide();
-		$("#faName_valiate").attr("style","display:none;");
-		//$("input[name='faName']").attr({allowNULL:"yes"}).removeAttr('msg');
-		$("input[name='faName']").attr({allowNULL:"yes"});
+		$("#faNameEdit-error").remove();
 	} else if (isContactsV == 1 || isContactsV == '1') {
-		$("input[name='faName']").attr('allowNULL','no');
 		$("input[name='faName']").show();
 	} 
+}
+function jointDeliveryList(list){
+	$("#jointDelivery").children().remove(); 
+	var html="<tr><th>投资人/投资机构</th><th>投资金额（万元）</th><th>占股比例（%）</th></tr>";
+	var temp=$("#jointDelivery");
+	temp.append(html);
+	for(var i=0;i<list.length;i++){
+	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
+	   temp.append(html);
+	}	
+}
+function jointDeliveryEdit(list){
+	$(".inputsForm").children(".block_inputs").remove(); 
+	for(var i=0;i<list.length;i++){
+		var inputsRow='<div class="block_inputs">'
+	        +'<span><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span><span><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	          +'<span class="del">删除</span>'
+	          +'</div>';
+		$(".inputsForm").append(inputsRow);
+	}
+	//新增按钮显示隐藏
+	var inputsLength=$(".block_inputs").length;
+	if(inputsLength <10){
+		$(".institutionBtn span").show()
+	}else{
+		$(".institutionBtn span").hide()
+	}
+	//编辑验证样式调整
+	$.each($("#basicForm input"),function(){
+		$(this).on("blur",function(){
+			labelPosition();
+		})
+	})
 }
 	

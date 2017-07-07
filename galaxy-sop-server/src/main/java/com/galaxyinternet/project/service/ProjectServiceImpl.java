@@ -1,5 +1,7 @@
 package com.galaxyinternet.project.service;
 
+import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
@@ -25,21 +27,26 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
+import com.galaxyinternet.dao.project.JointDeliveryDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.ExceptionMessage;
+import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
+import com.galaxyinternet.model.project.JointDelivery;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
@@ -85,6 +92,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private DepartmentService departmentService;
 	@Autowired
 	private PersonPoolDao personPoolDao;
+	@Autowired
+	private JointDeliveryDao jointDeliveryDao;
+	
 
 	
 	@Override
@@ -716,4 +726,44 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		// TODO Auto-generated method stub
 		return projectDao.selectProjectForPushMessage();
 	}
+	/**
+	 * @author chenjianmei
+	 * 修改项目基本信息，包括投资形式
+	 * @serialData 2017-06-12
+	 * @param project
+	 */
+	@Override
+	@Transactional
+	public int updateBaseById(Project project) {
+		JointDelivery jointNull=new JointDelivery();
+		if(null!=project.getFinanceMode()&&project.getFinanceMode().equals("financeMode:0")){
+			jointNull.setProjectId(project.getId());
+			jointDeliveryDao.delete(jointNull);
+		}else{
+			if(null!=project.getIsDelete()&&!project.getIsDelete().isEmpty()){
+				for( Long Id:project.getIsDelete()){
+					jointNull.setId(Id);
+					jointDeliveryDao.delete(jointNull);
+				}
+			}
+			if(null!=project.getJointDeliveryList()&&!project.getJointDeliveryList().isEmpty()){
+				List<JointDelivery> jointDeliverylist=project.getJointDeliveryList();
+				for(int i=0;i<jointDeliverylist.size();i++){
+					JointDelivery jointDelivery=jointDeliverylist.get(i);
+					jointDelivery.setProjectId(project.getId());
+					jointDelivery.setDeliveryType(project.getFinanceMode());
+					jointDelivery.setCreateUid(project.getUpdateUid());
+					jointDelivery.setUpdatedTime(System.currentTimeMillis());
+					if(null!=jointDelivery.getId()){
+						jointDeliveryDao.updateById(jointDelivery);
+					}else{
+						jointDeliveryDao.insert(jointDelivery);
+					}
+				}
+			 }
+		}
+		int result = projectDao.updateById(project);
+	  return result;
+	}
+		
 }

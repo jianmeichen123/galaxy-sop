@@ -883,7 +883,7 @@ function type_13_html(title,mark){
 			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
 							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}
-		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>其他项内容不能为空</span>";
+		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>不能为空</span>";
 		var eresult = 
 			"<dd>" +
 				"<ul class=\"h_radios h_edit_checkbox pro_innovation clearfix\">" +

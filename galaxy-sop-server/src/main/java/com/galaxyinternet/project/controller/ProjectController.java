@@ -76,6 +76,7 @@ import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
+import com.galaxyinternet.model.project.JointDelivery;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
@@ -96,8 +97,10 @@ import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.project.service.handler.YwjzdcHandler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.FinanceHistoryService;
 import com.galaxyinternet.service.InterviewRecordService;
+import com.galaxyinternet.service.JointDeliveryService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.PassRateService;
@@ -166,6 +169,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private SopTaskService sopTaskService;
 	
+	@Autowired
+	private DictService dictService;
+	
+	@Autowired
+	private JointDeliveryService jointDeliveryService;
+	 
 	@Resource(name ="utilsService")
 	private UtilsService utilsService;
 	
@@ -405,8 +414,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(!StringUtils.isBlank(project.getProjectName())){
 			projectName = project.getProjectName();
 		}
+		project.setUpdateUid(user.getId());
 		
-		int num = projectService.updateById(project);
+		int num = projectService.updateBaseById(project);
 		if (num > 0) {
 			responseBody.setResult(new Result(Status.OK, null, "修改项目基本信息成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
@@ -428,6 +438,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
+		 Map<String,String> dictMap=new HashMap<String,String>();
+		 dictMap=dictMap("financeMode");
 		if (project != null) {
 			List<Department> departments = departmentService.queryAll();
 			Department queryOne = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
@@ -443,7 +455,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 				}
 			}
-			
 			if(project.getIndustryOwn()!=null){
                 String name=DictEnum.industryOwn.getNameByCode(
         		 project.getIndustryOwn().toString());
@@ -452,8 +463,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}else{
 					project.setIndustryOwnDs(null);
 				}
-			}						
-			
+			}	
+			if(null!=project.getFinanceMode()&&!"".equals(project.getFinanceMode())){
+				String financeMode=dictMap.get(project.getFinanceMode());
+				project.setfModeRemark(financeMode);
+				List<JointDelivery> queryList=new ArrayList<JointDelivery>();
+				JointDelivery jointDelivery=new JointDelivery();
+				jointDelivery.setProjectId(project.getId());
+				jointDelivery.setDeliveryType(project.getFinanceMode());
+				if(project.getFinanceMode().equals("financeMode:1")||project.getFinanceMode().equals("financeMode:2")){
+					jointDelivery.setDeliveryType(project.getFinanceMode());
+					queryList = jointDeliveryService.queryList(jointDelivery);
+				}
+				project.setJointDeliveryList(queryList);
+			}
 		} else {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));
@@ -3385,7 +3408,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						}					
 										
 			}
-			
+			 Map<String,String> dictMap=new HashMap<String,String>();
+			 dictMap=dictMap("financeMode");
+			if(null!=project.getFinanceMode()&&!"".equals(project.getFinanceMode())){
+				String financeMode=dictMap.get(project.getFinanceMode());
+				project.setfModeRemark(financeMode);
+				List<JointDelivery> queryList=new ArrayList<JointDelivery>();
+				JointDelivery jointDelivery=new JointDelivery();
+				jointDelivery.setProjectId(project.getId());
+				jointDelivery.setDeliveryType(project.getFinanceMode());
+				if(null!=project.getFinanceMode()&&(project.getFinanceMode().equals("financeMode:1")||project.getFinanceMode().equals("financeMode:2"))){
+					jointDelivery.setDeliveryType(project.getFinanceMode());
+					queryList = jointDeliveryService.queryList(jointDelivery);
+				}
+				project.setJointDeliveryList(queryList);
+			}
 			request.setAttribute("proinfo", GSONUtil.toJson(project));
 			request.setAttribute("projectId", projectId);
 		}
@@ -4017,4 +4054,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			return map;
 	  }
+	  public Map<String,String> dictMap(String parentCode){
+		  Map<String,String> map=new HashMap<String,String>();
+			List<Dict> dictList = dictService.selectByParentCode(parentCode);
+			for(Dict d : dictList){
+				map.put(d.getCode(),d.getName());
+			}
+			return map;
+	  }
+	  
 }
