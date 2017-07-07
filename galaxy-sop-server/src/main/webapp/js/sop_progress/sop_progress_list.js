@@ -350,14 +350,15 @@ $(".new_poppage").on("click",function(){
 function reason(obj,value){
 	$(obj).change(function(){
 		var val=$(this).children("option:selected").val();
+		var _this= $(this).siblings(".reason_box").find("input");
 		if(val==value){
-			$(this).siblings("input").attr("required","true");
-			$(this).siblings("input").removeAttr("disabled","true");
-			$(this).siblings("input").removeClass("disabled");
+			_this.attr("required","true");
+			_this.removeAttr("disabled","true");
+			_this.removeClass("disabled");
 		}else{
-			$(this).siblings("input").removeAttr("required","true");
-			$(this).siblings("input").attr("disabled","true");
-			$(this).siblings("input").addClass("disabled");
+			_this.removeAttr("required","true");
+			_this.attr("disabled","true");
+			_this.addClass("disabled");
 		}
 	})
 }
@@ -724,7 +725,7 @@ function radionDiv(data){
 	    	   var htmlSelect='<select name="'+parentCode+'" id="'+parentCode+'">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select>'+
-	         '<input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填">';
+	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';
