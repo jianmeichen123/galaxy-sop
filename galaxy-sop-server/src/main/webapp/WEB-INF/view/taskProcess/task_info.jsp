@@ -47,6 +47,7 @@
           <h2></h2>
           <!-- 上半部分 -->
           <div class="top" id="project-summary">
+          <input type="hidden" id="projectType" >
             <table width="100%" cellspacing="5" cellpadding="0" >
              <tbody>
                   <tr>
@@ -122,6 +123,7 @@
           <!-- 人事尽职调查报告  hrjzdc;-->
           <jsp:include page="/galaxy/taskprocess/showFileList">
           <jsp:param value="<%=request.getAttribute(\"taskFlag\") %>" name="taskFlag"/>
+            <jsp:param value="<%=request.getAttribute(\"projectId\") %>" name="projectId"/>
           </jsp:include>
         </div>
 
@@ -151,16 +153,7 @@ function getProjectInfo(projectLoaded)
 			}
 			var project = data.entity;
 			stockTransfer = project.stockTransfer;
-			/* if(project.projectType == 'projectType:1'){
-				 var checkboxHtml = '<input type="checkbox" value="1" class="input_checkbox" onclick="selected(this);" id="stock_transfer"><label for="stock_transfer" class="check-box"></label> <label for="stock_transfer" class="check-tit">涉及股权转让</label>';
-				$("#stock_transfer_model").html(checkboxHtml); 
-			} */
-			if(project.projectType == 'projectType:2'&&'${isShow==true}'){
-				// var checkboxHtml = '<input type="checkbox" value="1" class="input_checkbox" onclick="selected(this);" id="stock_transfer"><label for="stock_transfer" class="check-box"></label> <label for="stock_transfer" class="check-tit">涉及股权转让</label>';
-				//$("#stock_transfer_model").html(checkboxHtml); 
-				
-				$(".task_noprovide").show();
-			} 
+			
 			$("#project-summary dd")
 			.each(function(){
 				var self = $(this);

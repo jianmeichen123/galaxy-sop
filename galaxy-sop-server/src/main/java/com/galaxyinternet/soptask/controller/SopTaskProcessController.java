@@ -79,8 +79,11 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	}
 	
 	@RequestMapping("/showFileList")
-	public ModelAndView showFileList(@RequestParam Integer taskFlag)
+	public ModelAndView showFileList(@RequestParam Integer taskFlag,@RequestParam Long projectId)
 	{
+		Project project=new Project();
+		project.setId(projectId);
+		Project queryOne = projectService.queryOne(project);
 		ModelAndView mv = new ModelAndView();
 		String viewName = "";
 		String btnTxt = "";
@@ -103,13 +106,17 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 			case 3 : //法务尽职调查报告
 				btnTxt = "上传尽调报告";
 				fileWorktype = "fileWorktype:3";
-				isShow=true;
+				if(queryOne.getProjectType().equals("projectType:2")){
+					isShow=true;
+				}
 				viewName = "/taskProcess/singleFileUpload";
 				break;
 			case 4 : //财务尽调报告
 				btnTxt = "上传尽调报告";
 				fileWorktype = "fileWorktype:4";
-				isShow=true;
+				if(queryOne.getProjectType().equals("projectType:2")){
+					isShow=true;
+				}
 				viewName = "/taskProcess/singleFileUpload";
 				break;
 			case 5 : //业务尽调报告
