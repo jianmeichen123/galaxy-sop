@@ -3083,6 +3083,7 @@ color:#999999;}
     	padding-left: 25px;
     	background: url("../img/sop_progress/audio_icon.png") no-repeat center left;
     }
+    .audio_name.no_bg{background:none;padding-left: 0px;}
     .download_name{
     	color:#4a97da;
     	cursor: pointer;

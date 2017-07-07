@@ -234,6 +234,7 @@ function initViewUpload() {
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
+					$("#file_object").removeClass("no_bg");
 					$("#file_object").text(file.name);
 					$("#select_btn").text("更新");
 					$("#file_object").addClass("audio_name")

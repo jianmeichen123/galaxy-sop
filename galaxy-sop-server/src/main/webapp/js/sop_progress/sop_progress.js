@@ -264,9 +264,17 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					}
 					if(res[0].fileId){
+						if(res[0].fname==undefined){							
+							$("#file_object").addClass("no_bg");
+							$("#file").addClass("no_bg");
+							type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<a href=\"javascript:;\" class=\"blue\" >暂无录音</a>");
+							$("#select_btn").text("选择文件");
+						}else{
 						type=="e" ? $("#file_object").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>"): $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
-						$("#file_object").text(res[0].fname);
 						$("#select_btn").text("更新");
+						}
+						$("#file_object").text(res[0].fname);
+						
 						$("#file_object").addClass("audio_name")
 					}
 					
