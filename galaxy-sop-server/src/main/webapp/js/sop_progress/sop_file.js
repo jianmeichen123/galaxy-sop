@@ -335,8 +335,13 @@ function create_blank_area(file){
 
 //fileKey=null taskStatusStr == null 
 function create_file_area(file){
-	console.log(file)
+	//获取上传的文件类型，显示不同上传下载图表
 	var type=file.fileSuffix;
+	if(type=="jpg" || type=="jpeg" || type=="png" || type=="JPG" || type=="JPEG" || type=="PNG"){
+		type="jpg"
+	}else{
+		type=="pdf"
+	}
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file,type);
 	var str = 
