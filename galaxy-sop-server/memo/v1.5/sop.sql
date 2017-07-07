@@ -13,7 +13,8 @@ WHEN 'projectProgress:8' THEN 'projectProgress:1,projectProgress:2,projectProgre
  WHEN 'projectProgress:9' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5,projectProgress:6,projectProgress:7,projectProgress:8,projectProgress:9'
 WHEN 'projectProgress:10' THEN 'projectProgress:1,projectProgress:2,projectProgress:3,projectProgress:4,projectProgress:11,projectProgress:5,projectProgress:6,projectProgress:7,projectProgress:8,projectProgress:9,projectProgress:10'
 ELSE '' END ;
-
+	ALTER TABLE `fx_db`.`sop_file`   
+	  CHANGE `fil_uri` `fil_uri` VARCHAR(300) CHARSET utf8 COLLATE utf8_bin NULL  COMMENT '存储地址';
 
 ALTER TABLE `fx_db`.`sop_project`   
   ADD COLUMN `progress_history` VARCHAR(255) NULL  COMMENT '流程历史记录(逗号分割)';

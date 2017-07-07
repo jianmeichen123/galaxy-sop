@@ -74,13 +74,13 @@
 </div>
 <script type="text/javascript">
 //不需要提供框是否显示
+var isShow='${isShow}';
+if(isShow=="true"){
+	$(".task_noprovide").show();
+}
 $(function(){
 	loadRows();
 	loadRelatedData();
-	var isShow="${isShow}";
-	if($("#type").val()=="创建"&&isShow=="true"){
-		$(".task_noprovide").show();
-	}
 	$("#show-upload-btn").click(function(){
 		var title_name=$(this).text();
 		showUploadPopup(title_name);
@@ -114,6 +114,7 @@ $(function(){
 		);
 	});
 });
+
 function projectLoaded(project)
 {
 	
@@ -168,6 +169,7 @@ function isBlank(val)
 }
 function loadRelatedData()
 {
+
 	sendGetRequest(
 			platformUrl.getTempRelatedData,
 			null,
