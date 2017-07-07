@@ -722,7 +722,7 @@ function radionDiv(data){
 		'<div id="div_'+i+'">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
-	    	   var htmlSelect='<div class="resel_box"><select name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font>必填">'+
+	    	   var htmlSelect='<div class="resel_box"><select disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font>必填">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select></div>'+
 	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
@@ -733,16 +733,22 @@ function radionDiv(data){
 //		判断选择原因并清空select
 		$("#resultRadion input[type='radio']").click(function(){
 			var _select = $(this).parent("label").next().find("select");
-			var oh_select = $(this).parents("#resultRadion").find("select");			
-			oh_select.removeAttr("required");
-			oh_select.val("");
+			var oh_select = $(this).parents("#resultRadion").find("select");
+//			var _input = $(this).parent().siblings(".reason_box").find("input[type='text']");
+			var oh_input = $(this).parent().parent().siblings().find("input[type='text']");
+//			_input.val("").removeClass("disabled").removeAttr("disabled");
+			oh_input.val("").addClass("disabled").attr("disabled","true");
+			oh_select.val("").addClass("disabled").attr("disabled","true");
 			_select.attr("required","true");
+			_select.removeClass("disabled").removeAttr("disabled")
 		})
 //		清空input的val
-		$("#resultRadion input[type='radio']").change(function(){
-			var se_input = $(this).parents("#resultRadion").find("#reasonOther");
-			se_input.val("").addClass("disabled").addAttr("disabled");
-		})
+		/*$("#resultRadion input[type='radio']").change(function(){
+			var se_input = $(this).parents("#resultRadion").find("input[type='text']");
+			var se_select = $(this).parents("#resultRadion").find("select");
+			se_input.val("").addClass("disabled").attr("disabled","true");
+			se_select.val("").addClass("disabled").attr("disabled","true");
+		})*/
 	});
 }
 

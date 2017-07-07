@@ -129,7 +129,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 				
 				//处理垃圾数据
 				for(SopFile temp : files){
-					if(temp.getFilUri() == null){
+					if(temp.getFileKey() != null && temp.getFilUri() == null){
 						String url = OSSHelper.getUrl(OSSFactory.getDefaultBucketName(),temp.getFileKey());
 						temp.setFilUri(url);
 						sopFileService.updateById(temp);
@@ -217,7 +217,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	 * 	file.fileUid   file.CareerLine  
 	 * @return 
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG })
 	@RequestMapping(value = "/optProFlowFiles", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<SopFile> showFilesProFlow(HttpServletRequest request, SopFile fileTemp ) {
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();

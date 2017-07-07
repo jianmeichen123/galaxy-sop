@@ -243,21 +243,27 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}
 					var reason=res[0].resultReason;
 					//结论原因回显
-
+					//选择的情况下移除disabled
 	                 switch(resultJudge){
 	                 case "meeting5Result:1":
-	                	 $("select[name='meetingFollowingReason']").find("option[value='"+reason+"']").attr("selected",true)
+	                	 $("select[name='meetingFollowingReason']").removeClass("disabled").removeAttr("disabled");
+	                	 $("select[name='meetingFollowingReason']").find("option[value='"+reason+"']").attr("selected",true);
+	                	 
 	                	 break;
 	                 case "meetingResult:2":
+	                	 $("select[name='meetingUndeterminedReason']").removeClass("disabled").removeAttr("disabled");
 	                	 $("select[name='meetingUndeterminedReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
 	                 case "meetingResult:3":
+	                	 $("select[name='meetingVetoReason']").removeClass("disabled").removeAttr("disabled");
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
 	                 case "meeting3Result:6":
+	                	 $("select[name='meetingVetoReason']").removeClass("disabled").removeAttr("disabled");
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
 	                 case "meeting5Result:2":
+	                	 $("select[name='meetingVetoReason']").removeClass("disabled").removeAttr("disabled");
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
 	                 default:
@@ -275,8 +281,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 							}
 						}
 						//type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
-					}
-					if($("#reasonOther").val()!=''){$("#reasonOther").removeClass("disabled").removeAttr("disabled")}
+					}					
 					if(res[0].fileId){
 						if(res[0].fname==undefined){							
 							$("#file_object").addClass("no_bg");
@@ -291,24 +296,25 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						
 						$("#file_object").addClass("audio_name")
 					}
-					
+//					if($("#reasonOther").val()!='')
+//					{	debugger;
+//						$("#reasonOther").removeClass("disabled").removeAttr("disabled");
+//						$("#reasonOther").parent().prev().find("select").removeClass("disabled").removeAttr("disabled")
+//					}
+					$("#resultRadion").each(function(){})
 				}
 				
 			});
 			//判断是否选择其他原因  			
 			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
 			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
-			var val=$("select[name=\"meetingUndeterminedReason\"]").children(" option:selected").val();
-			var val1=$("select[name=\"meetingVetoReason\"]").children(" option:selected").val();
-			if(val=="meetingUndeterminedReason:2"){
-				$("select[name=\"meetingUndeterminedReason\"]").siblings("input").attr("required","true");
-				$("select[name=\"meetingUndeterminedReason\"]").siblings("input").removeAttr("disabled","true");
-				$("select[name=\"meetingUndeterminedReason\"]").siblings("input").removeClass("disabled");
+			var val=$("select[name=\"meetingUndeterminedReason\"]").val();
+			var val1=$("select[name=\"meetingVetoReason\"]").val();
+			if(val=="meetingUndeterminedReason:2"){				
+				$("select[name=\"meetingUndeterminedReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
 			}
 			if(val1=="meetingVetoReason:5"){
-				$("select[name=\"meetingVetoReason\"]").siblings("input").attr("required","true");
-				$("select[name=\"meetingVetoReason\"]").siblings("input").removeAttr("disabled","true");
-				$("select[name=\"meetingVetoReason\"]").siblings("input").removeClass("disabled");
+				$("select[name=\"meetingVetoReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled","true");
 			}
 		}
 	});
