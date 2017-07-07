@@ -171,6 +171,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 					null,
 					fi.fileWorktype.replace(":","_") + '_save');
 			
+			
 		}else{
 			tosaveToggle('toHide',selectId);
 			layer.msg(result.message);
@@ -281,14 +282,14 @@ function getFileType(file){
 	
 }
 
-function getOptionStr(file){
+function getOptionStr(file,type){
 	var optStr = "";
 	var optOption = "";
 	if(file.canOpt){
-		optOption += '<span class="reupload_jpg" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
+		optOption += '<span class="reupload_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
 	}
 	if(file.canDown){
-		optOption += '<span class="downlond_jpg" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
+		optOption += '<span class="downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
 	}
 	if(optOption != '' && optOption.length > 0){
 		optStr = 
@@ -335,8 +336,9 @@ function create_blank_area(file){
 //fileKey=null taskStatusStr == null 
 function create_file_area(file){
 	console.log(file)
+	var type=file.fileSuffix;
 	var imgstr = getImageOrPdf(file);
-	var optStr = getOptionStr(file);
+	var optStr = getOptionStr(file,type);
 	var str = 
 		//'<li>' +
 			'<input type="hidden" data-type="file">' +
@@ -384,9 +386,9 @@ function create_task_nofile_area(file){
 
 //taskStatusStr!=null    fileKey!=null
 function create_task_file_area(file){
-	console.log(file)
+	var type=file.fileSuffix;
 	var imgstr = getImageOrPdf(file);
-	var optStr = getOptionStr(file);
+	var optStr = getOptionStr(file,type);
 	
 	var lin = file.taskStatusStr;
 	if(file.taskUname != null && file.taskUname.length > 0){

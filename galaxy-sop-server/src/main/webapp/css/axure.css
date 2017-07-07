@@ -3243,17 +3243,17 @@ color:#999999;}
 		padding-right: 4px;
 	    padding-top: 2px;
 	}
-	.downlond_pdf{
-		background-image: url('../img/sop_progress/downlond_pdf.png')
-	}
-	.reupload_pdf{
-		background-image: url('../img/sop_progress/reupload_pdf.png')
-	}
 	.downlond_jpg{
 		background-image: url('../img/sop_progress/downlond_jpg.png')
 	}
 	.reupload_jpg{
 		background-image: url('../img/sop_progress/reupload_jpg.png')
+	}
+	.downlond_pdf{
+		background-image: url('../img/sop_progress/downlond_pdf.png')
+	}
+	.reupload_pdf{
+		background-image: url('../img/sop_progress/reupload_pdf.png')
 	}
 	.downlond_pdf:hover,.downlond_jpg:hover{
 		background-image: url('../img/sop_progress/downlond_heightl.png')
