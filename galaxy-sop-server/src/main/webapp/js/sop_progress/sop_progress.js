@@ -192,6 +192,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 			}
 			//渲染数据|待后续加
 			sendPostRequestByJsonObj(url,res,function(data){
+				console.log(res)
 				var result = data.result.status;
 				if(result == "OK"){
 					var res = data.pageList.content;
@@ -260,8 +261,15 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					var other=reasonOther==null||reasonOther==""?"":"("+reasonOther+")";
 					if(resultReason==""&&other==""){
 						type=="e" ? '' : $("#resultReason").html(resultReason+other);
-					}else{			
-						type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
+					}else{	
+						if(type!="e"){  //会议结论为通过，去掉原因
+							if($("#interviewResult").text()=="通过"){
+								$("#resultReason").html("");
+							}else{
+								$("#resultReason").html("原因："+resultReason+other);
+							}
+						}
+						//type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					}
 					if(res[0].fileId){
 						if(res[0].fname==undefined){							
