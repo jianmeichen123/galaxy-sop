@@ -160,7 +160,6 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 			
 			var liObj = $("#"+selectId).closest("li");
 			var filestr = getFileShowStr(fi);
-			
 			liObj.empty();
 			liObj.append(filestr);
 //			liObj——li重新渲染
@@ -190,7 +189,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 
 
 
-function tosaveToggle(mark,selectId,fileName){
+function tosaveToggle(mark,selectId,fileName,beforeType){
 	
 	var selectObj = $("#"+selectId);
 	var liObj = selectObj.closest("li");	
@@ -219,7 +218,11 @@ function tosaveToggle(mark,selectId,fileName){
 		var fileWorktype = selectObj.attr("data-type");
 		var file = filesCondition[fileWorktype];
 		imgStr = getImageOrPdf(file);
-		
+		if(beforeType=="pdf"){
+			imgStr=imgStr.replace("image.png","pdf.png");
+		}else{
+			imgStr=imgStr.replace("pdf.png","image.png")
+		}
 		liObj.find(".cover_box").hide();
 		liObj.find(".file_btn").show();
 		if(type && type == 'blank'){
@@ -321,7 +324,7 @@ function create_blank_area(file){
 			'<div class="file_box">' +
 				imgHtm +
 				'<div class="cover_box">' +
-					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
+					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\',null,\''+file.fileSuffix+'\')" >取消</span>'  +
 					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
 					'<p>loading…</p>' +
 				'</div>' +
@@ -351,7 +354,7 @@ function create_file_area(file){
 				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'" onclick="view_file(this)" alt="" />' +
 				optStr +
 				'<div class="cover_box">' +
-					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
+					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\',null,\''+file.fileSuffix+'\')" >取消</span>'  +
 					'<span class="up_load" id="'+ file.fileWorktype.replace(":","_") +'_save" >上传</span>' +
 					'<p>loading…</p>' +
 				'</div>' +
@@ -369,7 +372,6 @@ function create_task_nofile_area(file){
 	if(file.taskUname != null && file.taskUname.length > 0){
 		lin += '<br/>(' + file.taskUname + ')';
 	}
-	
 	var str = 
 		//'<li>' +
 			'<input type="hidden" data-type="task_nofile">' +
@@ -399,7 +401,6 @@ function create_task_file_area(file){
 	if(file.taskUname != null && file.taskUname.length > 0){
 		lin += '<br/>(' + file.taskUname + ')';
 	}
-		
 	var str = 
 		//'<li>' +
 			'<input type="hidden" data-type="task_file">' +
