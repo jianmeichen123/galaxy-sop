@@ -1286,7 +1286,7 @@ function createCareelineOptions(url, name, selectStatus){
 			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
 		}
 		var op=$('select[name="'+name+'"] option');
-		if(op.length<=2){
+		if(op.length<=2 && op.length!=1){
 			$('select[name="'+name+'"]').find(":first").remove();
 		}
 	});
