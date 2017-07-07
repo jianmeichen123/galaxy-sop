@@ -350,7 +350,7 @@ $(".new_poppage").on("click",function(){
 function reason(obj,value){
 	$(obj).change(function(){
 		var val=$(this).children("option:selected").val();
-		var _this= $(this).siblings(".reason_box").find("input");
+		var _this= $(this).parent().siblings(".reason_box").find("input");
 		if(val==value){
 			_this.attr("required","true");
 			_this.removeAttr("disabled","true");
@@ -722,14 +722,21 @@ function radionDiv(data){
 		'<div id="div_'+i+'">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
-	    	   var htmlSelect='<select name="'+parentCode+'" id="'+parentCode+'">'+
+	    	   var htmlSelect='<div class="resel_box"><select name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font>必填">'+
 	           '<option value="">请选择原因</option>'+
-	           '</select>'+
+	           '</select></div>'+
 	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';
 		dd.append(htmlDiv);
+//		判断选择原因
+		$("#resultRadion input[type='radio']").click(function(){
+			var _select = $(this).parent("label").next().find("select");
+			var oh_select = $(this).parents("#resultRadion").find("select");			
+			oh_select.removeAttr("required");
+			_select.attr("required","true");
+		})
 	});
 }
 
