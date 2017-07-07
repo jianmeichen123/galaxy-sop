@@ -3064,6 +3064,7 @@ color:#999999;}
 	    margin-left: 77px;
 	    margin-top: -29px;
 	}
+	.check_result div#div_5{display:block;overflow:hidden; clear: both;}
     .check_detail{
     	margin-bottom: -10px;
     }
