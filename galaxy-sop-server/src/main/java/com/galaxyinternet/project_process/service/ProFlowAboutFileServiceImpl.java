@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.dao.project.ProjectDao;
@@ -158,6 +159,10 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 					temFile.setFileKey(tf.getFileKey());
 					temFile.setFileType(tf.getFileType());
 					temFile.setFilUri(tf.getFilUri());
+					if(fileStatus.已放弃.getCode().equals(tf.getFileStatus()))
+					{
+						temFile.setTaskStatusStr(fileStatus.已放弃.getName());
+					}
 					/*
 					if(StringUtils.isBlank(tf.getFileKey())){
 						temFile.setInitMark(SopFile.INIT_FILE_MAEK_INIT);
