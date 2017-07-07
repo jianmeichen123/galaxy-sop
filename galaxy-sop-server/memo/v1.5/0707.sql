@@ -23,6 +23,9 @@ ALTER TABLE `fx_db`.`platform_index_config`
 
 UPDATE platform_index_config,platform_resource SET platform_index_config.resource_code = platform_resource.resource_mark 
 WHERE platform_resource.id = platform_index_config.resource_id;
+ALTER TABLE `power`.`resource`   
+  CHANGE `resource_type` `resource_type` INT(11) NULL  COMMENT '资源类型1-菜单;2-页面;3-操作;4-其他(div等);5-桌面模块';
+
 
   /**
    * 全息图
@@ -133,6 +136,4 @@ VIEW `fx_db`.`v_department` AS
     FROM
         `power`.`department`);
 
-ALTER TABLE `power`.`resource`   
-  CHANGE `resource_type` `resource_type` INT(11) NULL  COMMENT '资源类型1-菜单;2-页面;3-操作;4-其他(div等);5-桌面模块';
 
