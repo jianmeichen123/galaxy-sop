@@ -25,6 +25,7 @@ import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -216,7 +217,8 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		UploadFileResult result = clazz.uploadFileToOSS(request, fileKey, tempfilePath);
 		
 		if(!Status.ERROR.equals(result.getResult().getStatus())){
-			String url = OSSHelper.getUrl(result.getBucketName(),result.getFileKey());
+			//String url = OSSHelper.getUrl(result.getBucketName(),result.getFileKey());  
+			String url = OSSHelper.getUrl(OSSFactory.getDefaultBucketName(),result.getFileKey());
 			
 			if(initMark.equals("no")){
 				//file.setBucketName(OSSFactory.getDefaultBucketName());
@@ -278,15 +280,10 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 			sopTaskDao.updateTask(task);
 		}
 		
+		resultFile = ProFlowUtilImpl.setNumForFile(initMark,resultFile);
+		
 		return resultFile;
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

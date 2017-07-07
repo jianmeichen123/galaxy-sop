@@ -7,6 +7,55 @@ package com.galaxyinternet.model.operationLog;
  * @date 2016年3月16日
  */
 public enum OperationLogType {
+	
+	/* 2017.7 v1.5 sopfile-flow ---------------------------------------------------------------------------*/
+
+	//projectProgress:4
+	//	立项报告     fileWorktype:17  
+	
+	
+	//projectProgress:5
+	//	投资意向书     fileWorktype:5  UrlNumber.one  two
+	p5_f5_tzxys_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.one, OperType.UPLOAD.getOperationType(), 
+			"投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	p5_f5_tzxys_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.two, OperType.UPDATE.getOperationType() , 
+			"投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	
+	
+	//projectProgress:6
+	//	业务尽职调查报告      fileWorktype:1   three
+	//	人力资源尽职调查报告      fileWorktype:2
+	//	法务尽职调查报告    fileWorktype:3
+	//	财务尽职调查报告    fileWorktype:4
+	p6_f1_ywjd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), 
+			"业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	
+	//	尽职调查启动会报告    fileWorktype:18  four  five
+	//	尽职调查总结会报告    fileWorktype:19	six   seven
+	p6_f18_jzqd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.four, OperType.UPLOAD.getOperationType(), 
+			"尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	p6_f18_jzqd_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.five, OperType.UPDATE.getOperationType(), 
+			"尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	p6_f19_jzzj_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.six, OperType.UPLOAD.getOperationType(), 
+			"尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	p6_f19_jzzj_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.seven, OperType.UPDATE.getOperationType(), 
+			"尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+
+	
+	//projectProgress:8  投资协议
+	//	投资协议     fileWorktype:6     eight
+	//	股权转让协议     fileWorktype:7  nine
+	p8_f6_tzxy_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.eight, OperType.UPLOAD.getOperationType(), 
+			"投资协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	p8_f6_gqzr_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.nine, OperType.UPLOAD.getOperationType(), 
+			"股权转让协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	
+	
+	//projectProgress:9  股权交割
+	//  工商转让凭证     fileWorktype:8
+	//  资金拨付凭证     fileWorktype:9
+	
+	
 
 	/*项目操作日志的配置-------------------开始-----------------------------------------------------------*/
 	//接触访谈阶段

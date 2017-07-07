@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 
 @Service("com.galaxyinternet.project_process.util.ProFlowUtil")
@@ -59,7 +61,7 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		 * 		"立项会" : "projectProgress:4"  
 		 * 
 		 * 文档：
-		 * 		"fileWorktype:17", "立项报告 "
+		 * 		"fileWorktype:17", "立项报告 "  （全程）
 		 */
 		Map<String,Integer> m_p4 = new LinkedHashMap<>();
 		m_p4.put("fileWorktype:17", null);
@@ -360,7 +362,66 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		m_p9.put("fileWorktype:9", true);
 		file_opt_about_c.put("projectProgress:9", m_p9);
 	}
+
 	
+	
+
+	
+	//	投资意向书     fileWorktype:5  UrlNumber.one  two
+	//	业务尽职调查报告      fileWorktype:1   three
+	//	人力资源尽职调查报告      fileWorktype:2
+	//	法务尽职调查报告    fileWorktype:3
+	//	财务尽职调查报告    fileWorktype:4
+	//	尽职调查启动会报告    fileWorktype:18  four  five
+	//	尽职调查总结会报告    fileWorktype:19	six   seven
+	//	投资协议     fileWorktype:6     eight
+	//	股权转让协议     fileWorktype:7  nine
+	//  文档状态， init(有初始记录)：记录update；     has(有完整记录)：记录dead，insert； no（没有记录）：insert；
+	public static SopFile setNumForFile(String initMark, SopFile resultFile) {
+		UrlNumber number = null;
+		switch (resultFile.getFileWorktype()) {
+		case "fileWorktype:5":
+			if(!initMark.equals("has")){
+				number = UrlNumber.one;
+			}else{
+				number = UrlNumber.two;
+			}
+			break;
+		case "fileWorktype:1":
+			if(!initMark.equals("has")){
+				number = UrlNumber.three;
+			}	
+			break;
+		case "fileWorktype:18":
+			if(!initMark.equals("has")){
+				number = UrlNumber.four;
+			}else{
+				number = UrlNumber.five;
+			}
+			break;
+		case "fileWorktype:19":
+			if(!initMark.equals("has")){
+				number = UrlNumber.six;
+			}else{
+				number = UrlNumber.seven;
+			}
+			break;
+		case "fileWorktype:6":
+			if(!initMark.equals("has")){
+				number = UrlNumber.eight;
+			}	
+			break;
+		case "fileWorktype:7":
+			if(!initMark.equals("has")){
+				number = UrlNumber.nine;
+			}	
+			break;
+		default:
+			break;
+		}
+		resultFile.setNumber(number);
+		return resultFile;
+	}
 	
 	
 	

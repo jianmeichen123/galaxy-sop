@@ -28,16 +28,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.OSSObject;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
@@ -122,6 +126,17 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			List<SopFile> files =  proFlowAboutFileService.getFileListForProFlow(query);
 			
 			if(!files.isEmpty()){
+				
+				//处理垃圾数据
+				for(SopFile temp : files){
+					if(temp.getFilUri() == null){
+						String url = OSSHelper.getUrl(OSSFactory.getDefaultBucketName(),temp.getFileKey());
+						temp.setFilUri(url);
+						sopFileService.updateById(temp);
+					}
+				}
+				
+				
 				Map<String,String> filetype_name = new HashMap<>();
 				List<Dict> dictList = dictService.selectByParentCode(ProFlowUtilImpl.fileTypePareatCode);
 				for(Dict tem : dictList){
@@ -135,6 +150,9 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 				
 				if(DictEnum.projectStatus.YFJ.getCode().equals(pro.getProjectStatus()) 
 						|| DictEnum.projectStatus.YTC.getCode().equals(pro.getProjectStatus())){ //以否决的项目
+					checkOpt = true;
+					optAuth = false;
+				}else if(!pro.getProjectProgress().equals(query.getProjectProgress())){ // 不在项目当前阶段
 					checkOpt = true;
 					optAuth = false;
 				}else if(roleIdList.contains(UserConstant.TZJL)){   //投资经理
@@ -166,6 +184,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 						resultMap.put(temp.getFileWorktype(), temp);
 					}
 				}
+				
 			}
 			
 			//responseBody.setEntityList(files);
@@ -198,6 +217,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 	 * 	file.fileUid   file.CareerLine  
 	 * @return 
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@RequestMapping(value = "/optProFlowFiles", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseData<SopFile> showFilesProFlow(HttpServletRequest request, SopFile fileTemp ) {
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
@@ -212,7 +232,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			//Project pro = projectService.queryById(fileTemp.getProjectId());
+			Project project = projectService.queryById(fileTemp.getProjectId());
 			
 			//封装结果
 			fileTemp.setFileUid(user.getId());
@@ -231,6 +251,11 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 				
 				responseBody.setEntity(result);
 				responseBody.setResult(new Result(Status.OK, ""));
+				
+				// 记录操作日志
+				if(result.getNumber() != null){
+					ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, result.getNumber());
+				}
 			}
 		} catch (Exception e) {
 			logger.error("showFilesProFlow 异常",e);

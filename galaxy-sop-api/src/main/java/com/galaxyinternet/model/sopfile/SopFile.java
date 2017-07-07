@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 
 public class SopFile extends SopParentFile implements Serializable{
 	
@@ -21,11 +22,18 @@ public class SopFile extends SopParentFile implements Serializable{
 	/**
      * 文档  操作
      */
+	private UrlNumber number;
 	//private String initMark;   // 文档状态， init(有初始记录)：记录update；     has(有完整记录)：记录dead，insert； no（没有记录）：insert；
 	private Boolean canOpt;    // 文档可操作： 上传、编辑
 	private Boolean canDown;   // 文档可操作： 下载
 	
 	
+	public UrlNumber getNumber() {
+		return number;
+	}
+	public void setNumber(UrlNumber number) {
+		this.number = number;
+	}
 	public Boolean getCanOpt() {
 		return canOpt;
 	}

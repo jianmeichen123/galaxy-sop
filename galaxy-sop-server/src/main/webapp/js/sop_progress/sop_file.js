@@ -397,7 +397,7 @@ function create_task_file_area(file){
 		//'<li>' +
 			'<input type="hidden" data-type="task_file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
+				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />' +
 				'<p class="center_text" style="margin-top: -18px;">' +
 					lin +
 				'</p>' +
