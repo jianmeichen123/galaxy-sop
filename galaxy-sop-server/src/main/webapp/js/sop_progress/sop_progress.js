@@ -276,6 +276,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						}
 						//type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					}
+					if($("#reasonOther").val()!=''){$("#reasonOther").removeClass("disabled").removeAttr("disabled")}
 					if(res[0].fileId){
 						if(res[0].fname==undefined){							
 							$("#file_object").addClass("no_bg");

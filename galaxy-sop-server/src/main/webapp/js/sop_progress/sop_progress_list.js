@@ -728,14 +728,20 @@ function radionDiv(data){
 	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
-	     htmlDiv=htmlDiv+'</div>';
-		dd.append(htmlDiv);
-//		判断选择原因
+	     htmlDiv=htmlDiv+'</div>';	     
+		dd.append(htmlDiv);		
+//		判断选择原因并清空select
 		$("#resultRadion input[type='radio']").click(function(){
 			var _select = $(this).parent("label").next().find("select");
 			var oh_select = $(this).parents("#resultRadion").find("select");			
 			oh_select.removeAttr("required");
+			oh_select.val("");
 			_select.attr("required","true");
+		})
+//		清空input的val
+		$("#resultRadion input[type='radio']").change(function(){
+			var se_input = $(this).parents("#resultRadion").find("#reasonOther");
+			se_input.val("").addClass("disabled").addAttr("disabled");
 		})
 	});
 }

@@ -159,8 +159,8 @@ function initViewUpload() {
 					}
 					var radionResult=$("input[name='interviewResult']:checked");
 					var inResult =radionResult.val();
-				    var resultReason=radionResult.parent().siblings("select").val();
-				    var resultReasonOther=radionResult.parent().siblings("input").val();
+				    var resultReason=radionResult.parent().siblings(".resel_box").find("select").val();
+				    var resultReasonOther=radionResult.parent().siblings(".reason_box").find("input").val();
 
 					switch (meetingType) {
 					   case  "":
