@@ -352,13 +352,9 @@ function reason(obj,value){
 		var val=$(this).children("option:selected").val();
 		var _this= $(this).parent().siblings(".reason_box").find("input");
 		if(val==value){
-			_this.attr("required","true");
-			_this.removeAttr("disabled","true");
-			_this.removeClass("disabled");
+			_this.attr("required","true").removeAttr("disabled").removeClass("disabled");
 		}else{
-			_this.removeAttr("required","true");
-			_this.attr("disabled","true");
-			_this.addClass("disabled");
+			_this.val("").attr("disabled","true").addClass("disabled");
 		}
 	})
 }
