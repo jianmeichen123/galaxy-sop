@@ -227,7 +227,12 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					$("#recordId").val(recordId);
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
 					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
-					type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
+					if(type=="e"){
+						$("input[name='interviewResult'][value='"+res[0].interviewResult+"']").closest("div").find("#reasonOther").val(reasonOther);
+					}else{
+						$("#reasonOther").text(reasonOther);
+					}
+					//type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
 					if(meetingType == "undefined" && type == "e"){
