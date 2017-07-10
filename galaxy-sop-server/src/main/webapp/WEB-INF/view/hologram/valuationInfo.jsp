@@ -44,6 +44,9 @@
 
 
 <script type="text/javascript">
+var key = Date.parse(new Date());
+var keyJSON={};
+var deleteJSON={};
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
 		function(data) {
@@ -52,6 +55,7 @@
 			if (result == 'OK') {
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
+				picData(projectInfo.id,1);
 				customBuilder();
 				$(".section").each(function(){
 					$(this).showResults(true);
@@ -107,6 +111,7 @@
 	}
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
+		key = Date.parse(new Date());
 		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
@@ -117,6 +122,7 @@
 		}else{
 			str ="";
 		}
+		keyJSON["b_"+id_code]=key;
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
@@ -151,6 +157,51 @@
 					}
 					//检查表格tr是否10行
 					check_table_tr_edit();
+					//上传图片
+					var files = $("#"+id_code).nextAll().find("input[type='file']");
+					var selectids = [];
+					
+					for(var i = 0;i < files.length; i++) {
+						  var select_id = files.eq(i).attr("id");
+						  var title_id = $("#"+select_id).attr("file-title-id");
+							
+							var params = {};
+							params.fileReidsKey = key;
+							params.projectId =  projectInfo.id;
+							params.titleId = title_id;
+							toBachUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile','edit-'+title_id,select_id,"h_save_btn","",null,params,null,null,id_code);
+							
+							var data={};
+							data.projectId = projectInfo.id;
+							data.titleId = title_id;
+							//打开显示历史图片记录
+							sendPostRequestByJsonObj(
+							Constants.sopEndpointURL+'galaxy/informationFile/getFileByProject' , 
+							data,
+							function(data) {
+								var result = data.result.status;
+								if (result == 'OK') {
+									var files = data.entityList;
+									var html = $('#'+'edit-'+title_id).html();
+									if(files.length > 0){
+										for(var i = 0;i < files.length; i++){
+											html +=  '<li class="pic_list fl" id="' + files[i].id + '">'
+								              +'<a href="javascript:;" class="h_img_del" code="'+"delete_"+id_code+'" data-val=' + files[i].id +
+								              ' data-title-val=' + title_id +
+								              '></a>' +'<img src="' + files[i].fileUrl + '" name="' + files[i].fileName + '" /></li>';
+										       if(i == 4){
+								            	  $("#h_imgs_add_"+title_id).hide();
+								              }
+										}
+									}
+									$('#'+'edit-'+title_id).html(html);
+								} else {
+
+								}
+				          }); 
+							
+							
+					}
 				} else {
 
 				}
@@ -242,13 +293,24 @@
 				
 			}
 		})
+		//上传图片相关
+		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
+		
+		
+		var key = keyJSON["b_"+id_code];
+		var deleteids = deleteJSON["delete_"+id_code];
+		
+		var params = {};
+		params.projectId =  projectInfo.id;
+		params.fileReidsKey = key;
+		params.deleteids = deleteids;
 		
 		if(!$("#b_"+id_code).validate().form())
 		{
 			return;
 		}
 		
-		sendPostRequestByJsonObj(
+		/* sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
 			data,
 			function(data) {
@@ -268,7 +330,42 @@
 				} else {
 
 				}
-		}) 
+		}) */ 
+		$("body").showLoading();
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
+			//进行上传
+			var result = dataParam.result.status;
+			if(result == "OK"){
+				sendPostRequestByJsonObjNoCache(
+						platformUrl.saveOrUpdateInfo , 
+						data,
+						true,
+						function(data) {
+							var result = data.result.status;
+							if (result == 'OK') {
+								updateInforTime(projectInfo.id,"financingTime");
+								layer.msg('保存成功');
+								$(".h#a_"+id_code).css("background","#fff");
+								$(".bj_hui_on").hide();
+								deletedRowIds = new Array();
+								var parent = $(sec).parent();
+								var id = parent.data('sectionId');
+								$(btn).next().click();
+								$(".loading-indicator-overlay").remove();
+								$(".loading-indicator").remove();
+								refreshSection(id);
+								picData(projectInfo.id);
+								btn_disable(0);
+							    toggle_btn($('.anchor_btn span'),0,save_this);
+							} else {
+								layer.msg("操作失败!");
+							}
+					});
+			}else{
+				layer.msg("操作失败!");
+			}
+			
+		});
 
 	});
 function refreshSection(id)
@@ -411,6 +508,132 @@ function getTableRowLimit(code)
 		return 20;
 	}
 	return 10;
+}
+
+
+function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
+	var params = {};
+	var uploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : selectBtnId, // you can pass an id...
+		//container: containerId, // ... or DOM Element itself
+		multi_selection:false,
+		url : fileurl,
+		rename : true,
+		unique_names:true,
+		filters : {
+			max_file_size : '2mb',
+			mime_types: [
+					{title : "Image files", extensions : "jpg,png,gif,bmp"}
+			]
+		},
+		init: {
+			PostInit: function(up) {
+				params = paramsFunction;
+			},
+			BeforeUpload:function(up,file){
+				var name = file.name.replace(/\s+/g,"");
+				params["fileName"] = name;
+			},
+			FileUploaded:function(up,file,rtn){
+             }, 
+			FilesAdded: function(up, files) {
+				params = paramsFunction;
+				var imglength = $('#'+fieInputId).children("li").length;
+				
+				if(imglength == 4){
+					//layer.msg("不能超过5张照片!");
+					var typeid = fieInputId.replace("edit-","");
+					$("#h_imgs_add_"+typeid).hide();
+					//return;
+				}
+				console.log(uploader.browse_button);
+				for(var i = 0, len = files.length; i<len; i++){
+					var file_name = files[i].name; //文件名
+					//构造html来更新UI
+					!function(i){
+						 previewImage(files[i], function (imgsrc) {
+		                                $('#'+fieInputId).html($('#'+fieInputId).html() +
+		                                    '<li class="pic_list fl" id="' + files[i].id + '">'
+		                                    +'<a href="javascript:;" class="h_img_del"  code="'+"delete_"+id_code+'" data-val=' + files[i].id +
+							              ' data-title-val=' + fieInputId.replace("edit-","") +
+							              '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
+		                            })
+				    }(i);
+				    params.newFileName = files[i].id;
+				    up.settings.multipart_params = params;
+					uploader.start();
+				}
+				
+			},
+			UploadProgress: function(up, file) {
+			},
+			UploadComplete: function(up, files){//所有都上传完成
+				
+		    },
+			Error: function(up, err) {
+			}
+			
+		}
+	});
+	uploader.init();
+}
+  $(document).on('click', '.pic_list a.h_img_del', function () {
+      $(this).parent().remove();
+      var _this = $(this);
+      var toremove = '';
+      var id = $(this).attr("data-val");
+      var deleteCode = $(this).attr("code");
+      if(deleteJSON[deleteCode]){
+          deleteJSON[deleteCode] = deleteJSON[deleteCode] +","+id;
+      }else{
+          deleteJSON[deleteCode] = id;
+      }
+  	  var params = {};
+	  params.projectId =  projectInfo.id;
+	  params.fileReidsKey = key;
+	  params.newFileName = id;
+      //文件id
+      sendPostRequestByJsonObj(Constants.sopEndpointURL+'galaxy/informationFile/deleteRedisFile',params,function(data){
+			//进行上传
+			var result = data.status;
+			if(result == "OK"){
+			   //删除
+			   var titleId = _this.attr("data-title-val");
+	           var imglength = $('#edit-'+titleId).children("li").length;
+	           if(imglength == 4){
+	             $("#h_imgs_add_"+titleId).show();
+	           }
+			}else{
+				layer.msg("删除失败!");
+			}
+	  });
+      
+   
+  });
+  
+function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
+if(!file || !/image\//.test(file.type)) return; //确保文件是图片
+if(file.type=='image/gif' || file.type=='image/bmp'){//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+	var fr = new mOxie.FileReader();
+	fr.onload = function(){
+		callback(fr.result);
+		fr.destroy();
+		fr = null;
+	}
+	fr.readAsDataURL(file.getSource());
+}else{
+	var preloader = new mOxie.Image();
+	preloader.onload = function() {
+		preloader.downsize( 300, 300 );//先压缩一下要预览的图片,宽300，高300
+		var imgsrc = preloader.type=='image/jpeg' ? preloader.getAsDataURL('image/jpeg',80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
+		callback && callback(imgsrc); //callback传入的参数为预览图片的url
+		preloader.destroy();
+		preloader = null;
+	};
+	preloader.load( file.getSource() );
+}	
+
 }
 
 </script>

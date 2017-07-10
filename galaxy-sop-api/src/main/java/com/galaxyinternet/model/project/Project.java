@@ -121,12 +121,17 @@ public class Project extends PagableEntity {
    private String eDate;
    
    private Long projectTime;
-   
    private String progressHistory;
    private String businessTypeCode;
+   private String financeMode;//投资形式
    
-    
-	
+   private String fModeRemark;//投资形式备注
+   
+   private List<JointDelivery> jointDeliveryList;
+   
+   private List<Long> isDelete;
+   
+   private Long updateUid;
 	
     public Long getId() {
         return id;
@@ -727,6 +732,7 @@ public class Project extends PagableEntity {
 		this.projectTime = projectTime;
 	}
 
+
 	public String getProgressHistory()
 	{
 		return progressHistory;
@@ -746,8 +752,47 @@ public class Project extends PagableEntity {
 	{
 		this.businessTypeCode = businessTypeCode;
 	}
+	public String getFinanceMode() {
+		return financeMode;
+	}
+
+	public void setFinanceMode(String financeMode) {
+		this.financeMode = financeMode;
+	}
+
+	public String getfModeRemark() {
+		return fModeRemark;
+	}
+
+	public void setfModeRemark(String fModeRemark) {
+		this.fModeRemark = fModeRemark;
+	}
+
+	public List<JointDelivery> getJointDeliveryList() {
+		return jointDeliveryList;
+	}
+
+	public void setJointDeliveryList(List<JointDelivery> jointDeliveryList) {
+		this.jointDeliveryList = jointDeliveryList;
+	}
+
+	public Long getUpdateUid() {
+		return updateUid;
+	}
+
+	public void setUpdateUid(Long updateUid) {
+		this.updateUid = updateUid;
+	}
+
+	public List<Long> getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(List<Long> isDelete) {
+		this.isDelete = isDelete;
+	}
    
- 
+    
 
 
 

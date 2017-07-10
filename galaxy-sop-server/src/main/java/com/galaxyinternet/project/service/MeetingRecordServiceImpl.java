@@ -356,12 +356,13 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				bo.setMeetingResult(ib.getMeetingResult());
 				//缓存获取数据字典对应值
 				Map<String,Dict> parentDictMap = new HashMap<String,Dict>();
-				String str=ib.getMeetingResult();
+				String[] str=(String[]) (ib.getMeetingResult()!=null?ib.getMeetingResult().split(":"):"");
+				
 				String resultStr="";
-				if(null!=str&&!str.equals("")){
-					if(str.indexOf("3")>0){
+				if(null!=str[0]&&!str[0].equals("")){
+					if(str[0].indexOf("3")>0){
 						parentDictMap=dictMap("meeting3Result");
-					}else if(str.indexOf("5")>0){
+					}else if(str[0].indexOf("5")>0){
 						parentDictMap=dictMap("meeting5Result");
 					}else{
 						parentDictMap=dictMap("meetingResult");

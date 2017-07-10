@@ -166,11 +166,15 @@
 
 
 		{{else type=="13"}}
-		{{each(i,valueList) valueList}}
-		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
-		{{/each}}
-		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
-		
+		<dd class="fl_none">
+			<ul class="h_radios h_edit_checkbox  clearfix" data-type="\${type}">
+				{{each(i,valueList) valueList}}
+				<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
+				{{/each}}
+				<li class="text_li text_li_13"><input type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
+		 	 </ul>
+		</dd>
+
 		{{else type=="14"}}
 		<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
 		<option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="1" data-code="">请选择</option>
@@ -371,12 +375,16 @@
 
 
 		{{else type=="13"}}
-		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
-		{{each(i,valueList) valueList}}
-		<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
-		{{/each}}
-		<dd><input type="text" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
-		
+		<dt data-type="\${type}"  data-title-id="\${id}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+		<dd class="fl_none">
+			<ul class="h_radios h_edit_checkbox  clearfix" data-type="\${type}">
+				{{each(i,valueList) valueList}}
+				<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
+				{{/each}}
+				<li class="text_li text_li_13"><input type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
+		 	 </ul>
+		</dd>	
+	
 		{{else type=="14"}}
 		<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
 		<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
@@ -520,7 +528,13 @@
 		{{else type=="12"}}
 		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="13"}}
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<div class="checked_div clearfix">
+		{{each(i,valueList) valueList}}
+		<dd class="border_dd" data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}" style="display:none;"></dd>
+		{{/each}}
+		<dd class="field">未选择</dd>
+		</div>
+		
 		{{else type=="14"}}
 		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="15"}}
@@ -551,7 +565,7 @@
 		<dt  data-type="\${type}" data-title-id="\${id}" >\${name}</dt>
 <div class="checked_div clearfix">
 		{{each(i,valueList) valueList}}
-		 <dd class="border_dd"  data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
+		 <dd class="border_dd"  data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}">未选择</dd>
 		{{/each}}
 </div>
 
@@ -621,8 +635,13 @@
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="field" data-title-id="\${id}">未选择</dd>
 		{{else type=="13"}}
-		<dt  data-type="\${type}">\${name}</dt>
-		<dd class="field" data-title-id="\${id}">未填写</dd>
+		<dt data-type="\${type}" data-id="\${id}" data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
+		<div class="checked_div clearfix">
+		{{each(i,valueList) valueList}}
+		<dd class="border_dd" data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}" style="display:none;"></dd>
+		{{/each}}
+		<dd class="field">未选择</dd>
+		</div>
 		{{else type=="14"}}
 		<dt  data-type="\${type}">\${name}</dt>
 		<dd class="field" data-title-id="\${id}">未选择</dd>

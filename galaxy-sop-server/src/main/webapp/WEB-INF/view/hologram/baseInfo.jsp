@@ -116,7 +116,6 @@ $(function() {
 				}
 				/* $('html,body').scrollTop(sTop);  //定位 */
 			}
-			
 			//去除base_half 类名
 			if(_this.is(':hidden')){
 				_this.parents('.h_look').siblings('.h_edit').find('.base_half').css('width','100%');
@@ -168,9 +167,11 @@ $(function() {
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
-			field.val(field.val().replace(/ /g,"&nbsp;"));
 			var typ = field.data('type');
 			var name = field.data('name');
+			if(typ == '5'){
+				field.val(field.val().replace(/ /g,"&nbsp;"));
+			}
 			var value = field.val().replace(/\n/g,'<br/>');
 			var infoMode = {
 				titleId : field.data('titleId'),
@@ -178,11 +179,12 @@ $(function() {
 			};
 			
 			if(typ == '12' || typ == '13' ){
+				var value = field.val();
 				var disabled = field.attr("disabled");
 				if(disabled && (disabled == true || disabled == "disabled")){  //其它未选中
 					infoMode.remark1 = null;
 				}else{
-					if(value && value.length > 0){
+					if(value.trim() && value.trim().length > 0){
 						infoMode.remark1 = value;
 					}else{
 						$(field.next()).show();
