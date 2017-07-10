@@ -51,7 +51,7 @@
                     <dt id="toobar_content">访谈纪要：</dt>
                     <dd>
                         <textarea id="viewNotes"></textarea> 
-                        <label id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font>不能超过5000字</label>
+                        <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font>不能超过5000字</span>
                     </dd>
                 </dl>           
             </div>
