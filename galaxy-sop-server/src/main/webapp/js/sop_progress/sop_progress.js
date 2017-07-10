@@ -355,9 +355,9 @@ function getInterViewParams(hasProid,projectId,
 	
 	var	condition = {};
 	
-	if(!beforeSubmit()){
+	/*if(!beforeSubmit()){
 		return false;
-	}
+	}*/
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
 	}else{
@@ -365,14 +365,13 @@ function getInterViewParams(hasProid,projectId,
 	}
 	var viewDateStr = $("#"+viewDateId).val();
 	var viewNotes = $.trim(CKEDITOR.instances.viewNotes.getData());
-	
 	if(projectId == null || projectId == ""){
 		layer.msg("项目不能为空");
 		return false;
 	}
 	if(viewNotes != null && viewNotes.length > 0){
-		if(getLength(viewNotes) > 9000){
-			layer.msg("访谈记录长度最大9000字符");
+		if(delHtmlTag(viewNotes).length > 5000){
+			layer.msg("访谈记录长度最大5000字");
 			return false;
 		}
 	}
