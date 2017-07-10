@@ -51,6 +51,7 @@
                     <dt id="toobar_content">访谈纪要：</dt>
                     <dd>
                         <textarea id="viewNotes"></textarea> 
+                        <label id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font>不能超过5000字</label>
                     </dd>
                 </dl>           
             </div>
@@ -112,6 +113,24 @@ if(meetingType != ""){
 //验证
 $(function(){
 	$(".myproject_add").validate();
+	viewNotes.on( 'change', function() {   //访谈纪要 
+		var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+		}else{
+			$("#viewNotes-error").hide();
+		}
+       
+    });
+	viewNotes.on( 'keyup', function() {    //兼容ie10
+		var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+		}else{
+			$("#viewNotes-error").hide();
+		}
+       
+    })
 })
 //访谈对象
 jQuery.validator.addMethod("viewTarget", function(value, element) {   
@@ -140,13 +159,16 @@ function initViewUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#save_interview").click(function(){
+					if($("#viewNotes-error").is(":visible")){  //访谈纪要
+						return false;
+					}
+
 					/* 判断选择其他 */
 					$("#resultRadion select").each(function(){
 						
 					})
 					var validator = $(".myproject_add").validate();
- 					if(!validator.form())
-  					{
+ 					if(!validator.form()){
  						return;
   					}
 					 
