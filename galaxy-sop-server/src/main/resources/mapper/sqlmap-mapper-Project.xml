@@ -51,7 +51,6 @@
     <result column="ctime" property="ctime" jdbcType="VARCHAR"/>
      <result column="grant_money" property="grantMoney" jdbcType="DECIMAL"/>
      <result column="project_time" property="projectTime" jdbcType="BIGINT"/>
-<<<<<<< HEAD
     <result column="progress_history" property="progressHistory" jdbcType="VARCHAR"/>
     <result column="business_type_code" property="businessTypeCode" jdbcType="VARCHAR"/>
      <result column="finance_mode" property="financeMode" jdbcType="VARCHAR"/>
