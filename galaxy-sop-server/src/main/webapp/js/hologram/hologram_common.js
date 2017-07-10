@@ -16,9 +16,32 @@ function editOpen(){
 }
 /*多选标签*/
 $("div").delegate(".check_label","click",function(event){
+	debugger;
 	  $(this).toggleClass('active');
+	  var par_ul = $(this).parent("ul");
+	  if(par_ul.hasClass("pro_innovation")){
+		  // 基本信息页面
+		  if(!par_ul.children().eq(par_ul.children().length-3).hasClass("active")){
+			  par_ul.find("span.error").hide();
+		  }
+	  }else{
+		  if(!par_ul.children().eq(par_ul.children().length-2).hasClass("active")){
+			  // 没有选择了其他
+			  par_ul.find("span.error").remove();
+		  }
+	  }
+	  
 	  event.stopPropagation();
 });
+function check_12(){
+	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
+		 var par_ul = $(this).parents("ul");
+		 if(!par_ul.find('li').eq(par_ul.find("li").length-2).find("input").checked){
+				// 没有选择了其他
+			  par_ul.find("span.error").remove();
+		  }
+	})
+}
 /*文本域字数统计*/
 function countChar(textareaName,spanName,maxLimit){
 	//var maxLimit=10;
@@ -255,7 +278,6 @@ function buildResults(sec,title,readonly)
 		{
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
 			var n = title.resultList[0];
-
 			if (n.contentDescribe1)
 			{
 				if(readonly == true)
@@ -267,7 +289,6 @@ function buildResults(sec,title,readonly)
 					$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
 				}
 			}
-
 			if(n.contentChoose)
 			{
 				if(readonly == true)
@@ -318,35 +339,85 @@ function buildResults(sec,title,readonly)
 				});
 			}
 		}
-		/*else if(title.type == 13) {
-			$.each(title.resultList,function(i,n){
-				if (n.contentDescribe1){
-					if(readonly == true){
-						$("dd[class='field'][data-title-id='"+ title.id +"']").text(n.contentDescribe1);
-					}else{
-						$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
-					}
-				}
-				if(n.contentChoose){
-					if(readonly == true){
-						$(".field[data-id='"+ title.id +"']").text(n.valueName);
-					}else{
-						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
-					}
-				}
-			});
-		}
-		else if(title.type == 14)
+		else if(title.type == 13)
 		{
-			if(readonly == true)
-			{
-				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未选择":title.resultList[0].valueName);
+			//var n = title.resultList[0];
+			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
+			var dl = dt.parent();
+			var inputText = dl.find('input[type="text"]:last');
+			if(readonly == true){
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
+				$.each(title.resultList,function(i,n){
+					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
+					if(n.contentDescribe1){ 
+						$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
+						$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
+					}
+					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
+				})
+				//判断是否选择
+				var i=0;
+				if($("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").is(":visible")){
+					i++;
+				}
+				if(i==0){
+					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
+				}else{
+					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
+				}
+			}else{
+				var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
+				var dd = dt.siblings();
+				var last_id = dd.find('li.check_label:last').attr('data-id');
+				var inputText = dd.find('input[type="text"]:last');
+				if ( title.resultList[0].contentChoose == last_id ){
+					inputText.attr('disabled',false);
+				}
+				$.each(title.resultList,function(i,n){
+					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+					if(n.contentDescribe1){  
+						$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1);
+						inputText.attr('disabled',false);
+						inputText.attr('required' , true);
+					}
+				})
 			}
-			else
+			/*$.each(title.resultList,function(i,n)
+					{
+						if(readonly == true)
+						{
+							
+							$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
+							if(n.contentDescribe1){ 
+								$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
+								$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
+							}
+							$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
+						}
+						else
+						{
+							$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+							if(n.contentDescribe1){  
+								$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1);
+								inputText.attr('disabled',false);
+								inputText.attr('required' , true);
+							}
+						}
+					});*/
+			/*if (readonly == true)
 			{
-				$("select[data-id='"+title.id+"']").val(title.resultList[0].contentChoose) ;
-			}
-		}*/
+				var dds = $("dt[data-type='13'][data-title-id='"+ title.id +"']").siblings().children();
+				$.each(dds,function(i,n)
+				{
+					if ($(this).text() == '未选择')
+					{
+						$(this).hide();
+					}
+				});
+				
+			}*/
+		}
 		else if(title.type == 15)
 		{
 			if(readonly == true)
@@ -447,6 +518,13 @@ function buildResults(sec,title,readonly)
 				});
 				var dd='<dd>未选择</dd>';
 				$("dt[data-type='3'][data-title-id='"+ title.id +"']").siblings().append(dd);
+			}
+		}else if(title.type == 13){
+			if (readonly == true)
+			{
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").show();
 			}
 		}
 	}
@@ -815,6 +893,20 @@ function validate(){
 						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="40"){
+				var validate={
+						"data-rule-verify_40":"true",
+						"name":i,
+						"data-msg-verify_40":"<font color=red>*</font>不能为空"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="100"){
+				var validate={
+						"data-rule-verify_100":"true",
+						"name":i,
+						"data-msg-verify_100":"<font color=red>*</font>不能为空"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="4"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
@@ -885,6 +977,16 @@ jQuery.validator.addMethod("verify_52", function(value, element) {
 	var verify_52 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,4})?(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_52.test(value));
 }, "不能超过99999"); 
+//inputValRuleMark=="40"
+jQuery.validator.addMethod("verify_40", function(value, element) {   
+	var verify_40 = /^(?!.{41}|^\s*$)/;
+	return this.optional(element) || (verify_40.test(value));
+}, "不能全为空格"); 
+//inputValRuleMark=="100"
+jQuery.validator.addMethod("verify_100", function(value, element) {   
+	var verify_100 = /^(?!.{101}|^\s*$)/;
+	return this.optional(element) || (verify_100.test(value));
+}, "不能全为空格");
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
 	var vinputValRule_4 = /^(((([1-9]{1}[0-9]{0,1}|0)|([1][0-5][0-9])|([1][6][0-7]))(\.\d{1})?)|168|168.0)$/;

@@ -32,7 +32,6 @@
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
       <div class="tabtxt" id="page_all">
 		<!--tab-->
-
 			
 			<!--tab end-->
 		</div>
@@ -95,6 +94,7 @@
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					check_12();
 				} else {
 
 				}

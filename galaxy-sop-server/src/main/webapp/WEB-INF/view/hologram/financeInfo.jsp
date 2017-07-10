@@ -96,6 +96,7 @@ console.log(mustids);
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
+					check_12()
 				} else {
 
 				}
@@ -118,7 +119,7 @@ console.log(mustids);
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
 		};
