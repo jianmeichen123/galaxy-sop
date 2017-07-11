@@ -146,7 +146,7 @@ function view_file(obj){
 		
 		window.open("<%=path %>/pdf/file_img.html?file_url="+file_url);
 	}else{
-		$(obj).siblings(".file_btn").find(".downlond_jpg").click();
+		$(obj).siblings(".file_btn").find("span[type='downlond']").click();
 	}
 	 event.stopPropagation(); // do something   
 }
