@@ -153,6 +153,7 @@ function view_file(obj){
 
 function showRejectConfim()
 {
+	$("#popup_name").text("提示")
 	$("#p-name").text(_project_.projectName);
 	$.popup({
 		txt:$("#reject-confirm").html()
