@@ -216,7 +216,7 @@
 		}else if(i==10){
 			$(".tabtitle h3").text("股权交割");
 			$(".tablink .icon").show();
-			toobarfile("投资协议",10);
+			toobarfile("股权交割",10);
 			tab_show(2);
 			hideCurrent('projectProgress:9');
 			//股权交割   上传附件
