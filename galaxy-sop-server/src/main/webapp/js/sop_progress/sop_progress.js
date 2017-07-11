@@ -237,9 +237,11 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? '' : $("#interviewResult").html(result);
 					if(meetingType == "undefined" && type == "e"){
 						 var viewDate = $("#viewDate").val();
-						  $("#viewDate").parent("dd").html(viewDate);
+						  $("#viewDate").parent("dd").append(viewDate);
+						  $("#viewDate").hide();
 						  var viewTarget = $("#viewTarget").val();
-						  $("#viewTarget").parent("dd").html(viewTarget);
+						  $("#viewTarget").parent("dd").append(viewTarget);
+						  $("#viewTarget").hide();
 					}
 					var reason=res[0].resultReason;
 					//结论原因回显

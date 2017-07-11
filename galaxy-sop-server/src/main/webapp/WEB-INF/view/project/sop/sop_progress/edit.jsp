@@ -183,18 +183,13 @@ function initViewUpload() {
 				    var resultReason=radionResult.parent().siblings(".resel_box").find("select").val();
 				    var resultReasonOther=radionResult.parent().siblings(".reason_box").find("input").val();
 					var target="";
-					if($(".viewTarget").children().is("#viewTarget")){
-						target = $.trim($("#viewTarget").val());
-					}else{
-						target = $(".viewTarget").text();
-					}
 					switch (meetingType) {
 					   case  "":
 							res.stage = "projectProgress:1";
 							res.pid = projectId;
 							res.createDate = res.viewDateStr;
 							res.content = res.viewNotes;
-							res.target=target;
+							res.target=$.trim($("#viewTarget").val());
 							res.interviewResult = inResult;
 							break;
 					   default:
