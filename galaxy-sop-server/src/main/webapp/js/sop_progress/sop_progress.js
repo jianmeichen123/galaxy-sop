@@ -35,6 +35,7 @@ function interviewList(){
                       title: '时间',
                       field: 'viewDateStr',
                       valign: 'left',
+                      formatter:'dateStr'
                   },
                   {
                       title: '结论',
@@ -86,6 +87,7 @@ function meetList(type){
                       title: '时间',
                       field: 'meetingDateStr',
                       valign: 'left',
+                      formatter:'dateStr'
                   },
                   {
                       title: '结论',
@@ -107,7 +109,6 @@ function meetList(type){
 	    onLoadSuccess:function(data){
 	    	if(data.pageList.total>0)
 	   		{
-	    		console.log(data);
 	    		$.each($('#projectProgress_1_table tr'),function(){
 	    			var $this = $(this);
 	    			$this.find('td:last').addClass('limits_gray');
@@ -117,10 +118,19 @@ function meetList(type){
 	    }
 	});
 }
+/*列表时间格式化*/
+function dateStr(value,row,index){
+	if(row.viewDateStr){
+		var date=row.viewDateStr;
+	}else if(row.meetingDateStr){
+		var date=row.meetingDateStr;
+	}
+	return date.split(" ")[0];
+}
 /**
  *  查看  or 编辑  
  */
-function viewOperFormat(value,row,index){  
+function viewOperFormat(value,row,index){ 
 	var meetingType = undefined;
 	var title = $(".tabtitle h3").text();
 	
