@@ -313,7 +313,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 //						$("#reasonOther").removeClass("disabled").removeAttr("disabled");
 //						$("#reasonOther").parent().prev().find("select").removeClass("disabled").removeAttr("disabled")
 //					}
-					$("#resultRadion").each(function(){})
 				}
 				
 			});

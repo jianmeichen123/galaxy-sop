@@ -718,10 +718,10 @@ function radionDiv(data){
 		'<div id="div_'+i+'">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
-	    	   var htmlSelect='<div class="resel_box"><select disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font>必填">'+
+	    	   var htmlSelect='<div class="resel_box"><select disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必填">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select></div>'+
-	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
+	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';	     

@@ -298,17 +298,10 @@ function getOptionStr(file,type){
 	}
 	if(optOption != '' && optOption.length > 0){
 		//var filetype = file.fileSuffix;
-		if(file.taskStatusStr=="已认领"&&file.filUri!=''&&file.filUri!=undefined){
-			optStr = 
-				'<div class="file_btn" style="display:none;">' +
-					optOption +
-				'</div>' ;
-		}else{
-			optStr = 
-				'<div class="file_btn" style="display:block;">' +
-					optOption +
-				'</div>' ;
-		}
+		optStr = 
+			'<div class="file_btn" style="display:block;">' +
+				optOption +
+			'</div>' ;
 		
 		
 	}	
@@ -413,8 +406,6 @@ function create_task_file_area(file){
 	if(file.taskUname != null && file.taskUname.length > 0){
 		lin += '<br/>(' + file.taskUname + ')';
 	}
-	console.log("!!!!!!!!!!!!!!!!!!!!!!!!");
-	console.log(file);
 	var p_line_img ='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />' +
 	'<p class="center_text" style="margin-top: -18px;">' +
 		lin +

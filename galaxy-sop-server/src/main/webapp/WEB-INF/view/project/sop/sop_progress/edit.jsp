@@ -33,14 +33,14 @@
                 <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd>
-                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>创建时间不能为空">
+                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt id="toobar_notes">访谈对象：</dt>
                     <dd class="clearfix viewTarget">
-                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font><i></i>访谈对象不能为空" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
+                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font><i></i>必填" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
                 </dl>
@@ -171,6 +171,12 @@ function initViewUpload() {
  					if(!validator.form()){
  						return;
   					}
+ 					$("#viewDate").onblur(function(){
+ 						debugger;
+ 						if($(this).value!==""){
+ 							$(this).next("label").hide();
+ 						}
+ 					})
 				   $("#save_interview").addClass("disabled");
 				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
 					if(res == false || res == "false"){
@@ -312,5 +318,8 @@ function initViewUpload() {
 
 	viewuploader.init();
 }
+$("#viewDate").change(function(){
+	if($(this).val()!=""){$(this).next().hide()}
+})
 </script>
 
