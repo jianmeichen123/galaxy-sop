@@ -3255,6 +3255,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		padding-right: 4px;
 	    padding-top: 2px;
 	}
+	.downlond_other{background-image: url('../img/sop_progress/downlond_jpg.png');}
 	.downlond_jpg{
 		background-image: url('../img/sop_progress/downlond_jpg.png')
 	}

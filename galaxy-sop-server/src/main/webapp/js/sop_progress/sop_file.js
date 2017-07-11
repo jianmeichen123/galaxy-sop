@@ -290,11 +290,15 @@ function getFileType(file){
 function getOptionStr(file,type){
 	var optStr = "";
 	var optOption = "";
+	var other_class="";
+	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'){
+		var other_class="downlond_other";
+	}
 	if(file.canOpt){
 		optOption += '<span type="reupload" class="reupload_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
 	}
 	if(file.canDown){
-		optOption += '<span type="downlond" class="downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
+		optOption += '<span type="downlond" class="'+other_class+'"downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
 	}
 	if(optOption != '' && optOption.length > 0){
 		//var filetype = file.fileSuffix;
