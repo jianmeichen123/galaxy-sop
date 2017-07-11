@@ -33,14 +33,14 @@
                 <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd>
-                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font>创建时间不能为空">
+                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>创建时间不能为空">
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt id="toobar_notes">访谈对象：</dt>
                     <dd class="clearfix viewTarget">
-                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font>访谈对象不能为空" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
+                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font><i></i>访谈对象不能为空" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
                 </dl>
@@ -51,7 +51,7 @@
                     <dt id="toobar_content">访谈纪要：</dt>
                     <dd>
                         <textarea id="viewNotes"></textarea> 
-                        <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font>不能超过5000字</span>
+                        <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
                     </dd>
                 </dl>           
             </div>

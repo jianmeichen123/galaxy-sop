@@ -3313,17 +3313,22 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .new_poptxt #resultReason{padding-left:30px;}
 .new_poptxt .tab_con dd{position:relative;}
 .new_poptxt label.error{position: absolute;
-    background: #fff;
-    border: 1px solid #eee;
     padding: 5px;
     z-index: 10;
     width: 102px;
-    border-radius: 3px;
     line-height: 1.2;
     left: 0;
-    top:25px;
+    top:38px;
     }
-
+.new_poptxt label.error i{
+	left: 10px;
+    top: -9px;
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);		/* IE 9 */
+	-webkit-transform: rotate(90deg);	/* Safari and Chrome */
+	-o-transform: rotate(90deg);		/* Opera */
+	-moz-transform: rotate(90deg);	
+}
 #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
 #viewNotes-error{display:none;}
 
