@@ -297,15 +297,15 @@ function getOptionStr(file,type){
 		optOption += '<span type="downlond" class="downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
 	}
 	if(optOption != '' && optOption.length > 0){
-		var filetype = file.fileSuffix;
-		if(filetype=="jpg"||filetype=="jpeg"||filetype=="JPG"||filetype=="JPEG"||filetype=="PNG"||filetype=="png"){
+		//var filetype = file.fileSuffix;
+		if(file.taskStatusStr=="已认领"&&file.filUri!=''&&file.filUri!=undefined){
 			optStr = 
-				'<div class="file_btn" style="display:block;">' +
+				'<div class="file_btn" style="display:none;">' +
 					optOption +
 				'</div>' ;
 		}else{
 			optStr = 
-				'<div class="file_btn" style="display:none;">' +
+				'<div class="file_btn" style="display:block;">' +
 					optOption +
 				'</div>' ;
 		}
@@ -419,9 +419,14 @@ function create_task_file_area(file){
 	'<p class="center_text" style="margin-top: -18px;">' +
 		lin +
 	'</p>'
-	if(file.fileSuffix=="txt"){
-		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
+	if(file.taskStatusStr=="已认领"&&file.filUri!=''&&file.filUri!=undefined){
+		//已经认领并且上传文件后
 		p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
+		if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'){
+			//历史数据非jpg/pdf的
+			imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
+			p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
+		}
 	}
 	var str = 
 		//'<li>' +
