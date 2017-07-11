@@ -39,7 +39,7 @@
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt id="toobar_notes">访谈对象：</dt>
-                    <dd class="clearfix">
+                    <dd class="clearfix viewTarget">
                         <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font>访谈对象不能为空" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
@@ -171,7 +171,6 @@ function initViewUpload() {
  					if(!validator.form()){
  						return;
   					}
-					 
 				   $("#save_interview").addClass("disabled");
 				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
 					if(res == false || res == "false"){
@@ -183,14 +182,19 @@ function initViewUpload() {
 					var inResult =radionResult.val();
 				    var resultReason=radionResult.parent().siblings(".resel_box").find("select").val();
 				    var resultReasonOther=radionResult.parent().siblings(".reason_box").find("input").val();
-
+					var target="";
+					if($(".viewTarget").children().is("#viewTarget")){
+						target = $.trim($("#viewTarget").val());
+					}else{
+						target = $(".viewTarget").text();
+					}
 					switch (meetingType) {
 					   case  "":
 							res.stage = "projectProgress:1";
 							res.pid = projectId;
 							res.createDate = res.viewDateStr;
 							res.content = res.viewNotes;
-							res.target = $.trim($("#viewTarget").val());
+							res.target=target;
 							res.interviewResult = inResult;
 							break;
 					   default:
