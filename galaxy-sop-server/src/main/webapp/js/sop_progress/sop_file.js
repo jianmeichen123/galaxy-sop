@@ -413,6 +413,7 @@ function create_task_nofile_area(file){
 }
 
 //taskStatusStr!=null    fileKey!=null
+//认领显示
 function create_task_file_area(file){
 	var type=file.fileSuffix;
 	var imgstr = getImageOrPdf(file);

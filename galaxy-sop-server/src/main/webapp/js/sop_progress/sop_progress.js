@@ -202,7 +202,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 			}
 			//渲染数据|待后续加
 			sendPostRequestByJsonObj(url,res,function(data){
-				console.log(res)
 				var result = data.result.status;
 				if(result == "OK"){
 					var res = data.pageList.content;
@@ -242,7 +241,9 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}else{
 						$("#reasonOther").text(reasonOther);
 					}
-					//type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
+					if(content==""){
+						content="暂无纪要";
+					}
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
 					if(meetingType == "undefined" && type == "e"){
@@ -293,9 +294,12 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 							}
 						}
 						//type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
-					}					
+					}			
+					debugger;
+					console.log(res[0].fileId);
 					if(res[0].fileId){
-						if(res[0].fname==undefined){							
+						
+						if(res[0].fname==""){							
 							$("#file_object").addClass("no_bg");
 							$("#file").addClass("no_bg");
 							type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<a href=\"javascript:;\" class=\"blue\" >暂无录音</a>");
@@ -307,6 +311,11 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						$("#file_object").text(res[0].fname);
 						
 						$("#file_object").addClass("audio_name")
+					}else{
+						$("#file_object").addClass("no_bg");
+						$("#file").addClass("no_bg");
+						type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<blockquote style='color:#000;'>暂无录音</blockquote>");
+						$("#select_btn").text("选择文件");
 					}
 //					if($("#reasonOther").val()!='')
 //					{	debugger;
