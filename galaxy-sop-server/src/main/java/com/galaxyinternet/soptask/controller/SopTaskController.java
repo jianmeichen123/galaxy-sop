@@ -432,10 +432,10 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 				responseBody.setResult(new Result(Status.ERROR,null,"文件未上传，任务提交失败!"));
 				return responseBody;
 			}
-		  if(queryOne.getFileStatus().equals("fileStatus:2")&&null!=queryOne.getVoucherId()){
+		/*  if(queryOne.getFileStatus().equals("fileStatus:2")&&null!=queryOne.getVoucherId()){
 				responseBody.setResult(new Result(Status.ERROR,null,"签署证明未上传，任务提交失败"));
 		        return responseBody;
-		     }
+		     }*/
 		}
 		try {
 			int r = sopTaskService.submitTask(entity);
