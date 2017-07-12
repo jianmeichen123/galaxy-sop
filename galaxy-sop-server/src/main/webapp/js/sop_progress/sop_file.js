@@ -298,7 +298,7 @@ function getOptionStr(file,type){
 		optOption += '<span type="reupload" class="reupload_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
 	}
 	if(file.canDown){
-		optOption += '<span type="downlond" class="'+other_class+'"downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
+		optOption += '<span type="downlond" class="'+other_class+' downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
 	}
 	if(optOption != '' && optOption.length > 0){
 		//var filetype = file.fileSuffix;

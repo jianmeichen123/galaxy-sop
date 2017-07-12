@@ -162,12 +162,6 @@ function initViewUpload() {
 					if($("#viewNotes-error").is(":visible")){  //访谈纪要
 						return false;
 					}
-
-					/* 判断选择其他 */
-					$("#resultRadion select").each(function(){
-						
-					})
-					debugger;
 					var validator = $(".myproject_add").validate();
  					if(!validator.form()){
  						return;
