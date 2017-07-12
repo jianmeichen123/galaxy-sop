@@ -167,16 +167,11 @@ function initViewUpload() {
 					$("#resultRadion select").each(function(){
 						
 					})
+					debugger;
 					var validator = $(".myproject_add").validate();
  					if(!validator.form()){
  						return;
   					}
- 					$("#viewDate").onblur(function(){
- 						debugger;
- 						if($(this).value!==""){
- 							$(this).next("label").hide();
- 						}
- 					})
 				   $("#save_interview").addClass("disabled");
 				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
 					if(res == false || res == "false"){
