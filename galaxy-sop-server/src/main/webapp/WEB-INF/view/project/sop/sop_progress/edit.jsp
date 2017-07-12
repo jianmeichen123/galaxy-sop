@@ -167,7 +167,6 @@ function initViewUpload() {
 					$("#resultRadion select").each(function(){
 						
 					})
-					debugger;
 					var validator = $(".myproject_add").validate();
  					if(!validator.form()){
  						return;
