@@ -128,6 +128,16 @@ function load_data_chart_project_time(){
 				}
 				re.push(tmp);
 			}
+			/**
+			 * 会后商务谈判假数据
+			 */
+			var tmp = {
+					name : "会后商务谈判",
+					color :'#00bdf4',
+					y : 0,
+					rate : parseFloat(0)
+			};
+			re.push(tmp);
 			//console.log(re);
 			//console.log(totalDay);
 			containerProjectTimeOptions.series[0].data = re;

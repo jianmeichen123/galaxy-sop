@@ -470,6 +470,9 @@ var chartOverviewUtils = {
 								case "projectProgress:10": 
 									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(10);' class='blue'>" + temp[0] + "</a>";
 									break;
+								case "projectProgress:11": 
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(11);' class='blue'>" + temp[0] + "</a>";
+									break;
 							}
 						};
 						var chart = new Highcharts.Chart(chartOverviewUtils.chartOverviewOptions);
