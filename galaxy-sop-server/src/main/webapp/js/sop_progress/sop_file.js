@@ -361,7 +361,7 @@ function create_file_area(file){
 	}
 	var imgstr = getImageOrPdf(file);
 	var line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
-	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'){
+	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'){
 		//历史数据非jpg/pdf的
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
 		line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
@@ -429,7 +429,7 @@ function create_task_file_area(file){
 	if(file.taskStatusStr=="已认领"&&file.filUri!=''&&file.filUri!=undefined){
 		//已经认领并且上传文件后
 		p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
-		if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'){
+		if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'){
 			//历史数据非jpg/pdf的
 			imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
 			p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
