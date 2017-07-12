@@ -426,7 +426,8 @@ function create_task_file_area(file){
 	var p_line_img ='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />' +
 	'<p class="center_text" >' +
 		lin +
-	'</p>'
+	'</p>';
+	console.log(file);
 	if(file.taskStatusStr=="已认领"&&file.filUri!=''&&file.filUri!=undefined){
 		//已经认领并且上传文件后
 		p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
