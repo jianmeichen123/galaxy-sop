@@ -3236,13 +3236,15 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		margin:-14px 0 0 -14px;
+		transform:translate(-50%,-50%);
+		-webkit-transform:translate(-50%,-50%);
+		-moz-transform:translate(-50%,-50%);
+		-o-transform:translate(-50%,-50%);
 	}
 	.file_list .file_box .center_text{
 		width: 46px;
 		color:#b2b2b2;
 		text-align: center;
-		margin:-9px 0 0 -23px;
 	}
 	.file_btn{
 		position: absolute;
@@ -3256,10 +3258,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	    padding-top: 2px;
 	}
 	.downlond_other{background-image: url('../img/sop_progress/downlond_jpg.png');}
-	.downlond_jpg{
+	.downlond_jpg,.downlond_png{
 		background-image: url('../img/sop_progress/downlond_jpg.png')
 	}
-	.reupload_jpg{
+	.reupload_jpg,.downlond_png{
 		background-image: url('../img/sop_progress/reupload_jpg.png')
 	}
 	.downlond_pdf{
