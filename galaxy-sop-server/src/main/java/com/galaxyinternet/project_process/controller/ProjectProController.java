@@ -132,6 +132,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 					if(temp.getFileKey() != null && temp.getFilUri() == null){
 						String url = OSSHelper.getUrl(OSSFactory.getDefaultBucketName(),temp.getFileKey());
 						temp.setFilUri(url);
+						//temp.setBucketName(OSSFactory.getDefaultBucketName());
 						sopFileService.updateById(temp);
 					}
 				}
@@ -282,7 +283,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			response.setHeader("If-Modified-Since", "0");
 			response.setHeader("Cache-Control", "no-cache");
 			
-			OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(file.getBucketName(), file.getFileKey()));
+			OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), file.getFileKey()));
 			InputStream fis = null;
 			OutputStream os = null;
 			try{
