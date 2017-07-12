@@ -8,7 +8,17 @@ package com.galaxyinternet.model.operationLog;
  */
 public enum OperationLogType {
 	
-	/* 2017.7 v1.5 sopfile-flow ---------------------------------------------------------------------------*/
+	
+	
+	/* 2017.7 v1.5   会后商务谈判      -----------------------------------*/
+	
+	//meetingType:5   会后商务谈判
+	m5_add("/galaxy/progress/p2/add", OperType.ADD.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	
+	
+	
+	
+	/* 2017.7 v1.5 sopfile-flow -----------------------------------------*/
 
 	//projectProgress:4
 	//	立项报告     fileWorktype:17  
@@ -54,6 +64,7 @@ public enum OperationLogType {
 	//projectProgress:9  股权交割
 	//  工商转让凭证     fileWorktype:8
 	//  资金拨付凭证     fileWorktype:9
+	
 	
 	
 

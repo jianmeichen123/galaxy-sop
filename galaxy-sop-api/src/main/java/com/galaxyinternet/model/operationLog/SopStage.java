@@ -19,6 +19,7 @@ public enum SopStage {
 	INNER_REVIEW_SCHEDULE("内部评审"),
 	CEO_REVIEW_SCHEDULE("CEO评审"),
 	PROJECT_SCHEDULE("立项会"),
+	SW_TP("会后商务谈判"),
 	INVESTMENT_INTENT("投资意向书"),
 	DUE_DILIGENCE_INVESTIGATION("尽职调查"),
 	VOTE_DECISION_MEETING("投决会"),

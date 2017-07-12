@@ -313,7 +313,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG })
 	@ResponseBody
 	@RequestMapping(value = "/p2/add",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> p2_add(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -448,7 +448,9 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				}
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, uNum);
+			if(meetingRecord.getMeetingType().equals("meetingType:5")){
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, null);
+			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 			if(logger.isErrorEnabled()){
