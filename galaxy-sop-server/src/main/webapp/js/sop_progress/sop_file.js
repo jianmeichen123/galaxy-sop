@@ -359,6 +359,7 @@ function create_file_area(file){
 	}else if(type=="pdf"||type=="PDF"){
 		type=="pdf"
 	}
+	var imgstr = getImageOrPdf(file);
 	var line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
 	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'){
 		//历史数据非jpg/pdf的
