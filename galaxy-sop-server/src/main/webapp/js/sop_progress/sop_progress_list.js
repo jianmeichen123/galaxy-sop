@@ -237,7 +237,6 @@
 		i = parseInt(pi)+parseInt(1); 
 		$(".next_box").attr("data-progress",i);
 		goToProgress();
-		
 	})
 	//点击上一步
 	$(".pre_box").click(function(){
@@ -794,8 +793,18 @@ function  isPassCurrentProgress(currentProgress){
 function  hideCurrent(progress){
 	if(isPassCurrentProgress(progress)){
 		$(".not_stage").hide();
+		$(".pop .poptxt").css({
+			"height":"auto",
+			"overflow":"visible"
+			
+		});
 	}else{
 		$(".not_stage").show();
+		$(".pop .poptxt").css({
+			"height":"300px",
+			"overflow":"hidden"
+			
+		});
 	}
 	if(currentProgress(progress)){
 		if($(".tabtitle .current_progress").length == 0)

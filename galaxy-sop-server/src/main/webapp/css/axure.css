@@ -3115,13 +3115,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	}
 	.not_stage{
 		background-image:  url("../img/sop_progress/not_stage.png");
-	    background-position: center 43%;
+	    background-position: center 16%;
         background-size: 23%;
 	    position: absolute;
 	    top:103px;
 	    right:0;
 	    left:0;
-	    bottom:32px;
+	    bottom:0px;
 	    background-color:#fff;
 	    height:auto;
 	        z-index: 100;
@@ -3139,7 +3139,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	left:50%;
 	margin-left:-25px;
     top: 50%;
-    margin-top: 56px;
+    margin-top: 35px;
 	font-size:12px;
 	color:#999999;
 	}
@@ -3258,7 +3258,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	    padding-top: 2px;
 	}
 	.downlond_other{background-image: url('../img/sop_progress/downlond_jpg.png');}
-	.downlond_jpg,.downlond_png{
+	.downlond_jpg,.downlond_png,.downlond_JPG,.downlond_PNG,.downlond_JPEG,.downlond_jpeg{
 		background-image: url('../img/sop_progress/downlond_jpg.png')
 	}
 	.reupload_jpg,.downlond_png{
