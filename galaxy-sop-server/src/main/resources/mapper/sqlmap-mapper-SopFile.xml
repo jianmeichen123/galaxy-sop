@@ -294,7 +294,7 @@
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
  		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{voucherId,jdbcType=BIGINT},
  		#{fileStatus,jdbcType=VARCHAR},
- 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT},
+ 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},
  		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},
  		#{fileKey,jdbcType=VARCHAR},
  		#{bucketName,jdbcType=VARCHAR},
