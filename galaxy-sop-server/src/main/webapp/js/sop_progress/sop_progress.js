@@ -295,20 +295,17 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						}
 						//type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					}			
-					console.log(res[0].fileId);
 					if(res[0].fileId){
-						
-						if(res[0].fname==""){							
+						if(res[0].fname==""||res[0].fname==undefined){							
 							$("#file_object").addClass("no_bg");
 							$("#file").addClass("no_bg");
-							type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<a href=\"javascript:;\" class=\"blue\" >暂无录音</a>");
+							type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<blockquote>暂无录音</blockquote>");
 							$("#select_btn").text("选择文件");
 						}else{
 						type=="e" ? $("#file_object").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>"): $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 						$("#select_btn").text("更新");
 						}
 						$("#file_object").text(res[0].fname);
-						
 						$("#file_object").addClass("audio_name")
 					}else{
 						$("#file_object").addClass("no_bg");
@@ -316,11 +313,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<blockquote style='color:#000;'>暂无录音</blockquote>");
 						$("#select_btn").text("选择文件");
 					}
-//					if($("#reasonOther").val()!='')
-//					{	debugger;
-//						$("#reasonOther").removeClass("disabled").removeAttr("disabled");
-//						$("#reasonOther").parent().prev().find("select").removeClass("disabled").removeAttr("disabled")
-//					}
 				}
 				
 			});
