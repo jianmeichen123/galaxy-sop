@@ -299,7 +299,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						if(res[0].fname==""||res[0].fname==undefined){							
 							$("#file_object").addClass("no_bg");
 							$("#file").addClass("no_bg");
-							type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<blockquote>暂无录音</blockquote>");
+							type=="e" ? $("#file_object").html(""): $("#file").html("<blockquote>暂无录音</blockquote>");
 							$("#select_btn").text("选择文件");
 						}else{
 						type=="e" ? $("#file_object").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>"): $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
@@ -310,7 +310,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}else{
 						$("#file_object").addClass("no_bg");
 						$("#file").addClass("no_bg");
-						type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<blockquote style='color:#000;'>暂无录音</blockquote>");
+						type=="e" ? $("#file_object").html(""): $("#file").html("<blockquote style='color:#000;'>暂无录音</blockquote>");
 						$("#select_btn").text("选择文件");
 					}
 				}
