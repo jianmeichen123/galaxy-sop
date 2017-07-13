@@ -3261,7 +3261,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	.downlond_jpg,.downlond_png,.downlond_JPG,.downlond_PNG,.downlond_JPEG,.downlond_jpeg{
 		background-image: url('../img/sop_progress/downlond_jpg.png')
 	}
-	.reupload_jpg,.downlond_png{
+	.reupload_jpg{
 		background-image: url('../img/sop_progress/reupload_jpg.png')
 	}
 	.downlond_pdf{
