@@ -1691,6 +1691,7 @@ word-wrap:break-word;
 .new_nputr_number{width:90px; height:22px;line-height:22px; overflow:hidden;border:1px solid #aaa;border-radius:4px;padding-left:5px;}
 .no_con{height:105px;color:#aaa;font-size:12px;font-family:"宋体";background:url(../img/default.png) center 60px no-repeat;text-align:center;padding-top:120px;display:none;}
 .new_correlation_cen_con{height:225px;}
+.new_nputr[name="faName"]{display:none;}
 /*全部项目*/
 .prj_all .searchall_prj .searchall_top,.prj_all .searchall_prj .searchall_bottom{padding-right:0;width:99%;}
 .btnbox_f .add_prj{border:1px solid #539be2;}
