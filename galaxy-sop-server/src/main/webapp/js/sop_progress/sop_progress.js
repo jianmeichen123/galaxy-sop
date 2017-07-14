@@ -1,5 +1,6 @@
 // JavaScript Document
 var projectId;
+var i = $(".next_box").attr("data-progress");
 function  progress(id){
 	projectId = id;
 	$.getHtml({
@@ -61,6 +62,7 @@ function interviewList(){
 	    			$this.find('td:last').addClass('limits_gray');
 	    			$this.find('td:last .edit').removeAttr('onclick');
 	    		});	
+	    		powerPosition(i);
 	   		}
 	    }
 	});
@@ -114,10 +116,30 @@ function meetList(type){
 	    			$this.find('td:last').addClass('limits_gray');
 	    			$this.find('td:last .edit').removeAttr('onclick');
 	    		});
+	    		powerPosition(i);
 	   		}
 	    }
 	});
 }
+/**
+ * 过阶段编辑和添加控制
+ * @param i
+ */
+function powerPosition(i){
+	var pg = 1;
+	if(i < 5){
+		pg = i;
+	}else if( i > 5){
+		pg = parseInt(i) - parseInt(1);
+	}else{
+		pg = 11;
+	}
+	if(!currentProgress("projectProgress:"+pg)){
+		$("#editButton").addClass('disabled');
+		$("#add_button").hide();
+	}
+}
+
 /*列表时间格式化*/
 function dateStr(value,row,index){
 	if(row.viewDateStr){
@@ -137,8 +159,8 @@ function viewOperFormat(value,row,index){
     if(row){
     	meetingType = row.meetingType;
 	}
-	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
-	var	edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
+	var info = "<span class=\"add see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
+	var	edit = " <span id=\"editButton\" class=\"edit see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
 	return info + edit;
 }
 function notesInfoEdit(selectRowId,type,meetingType,title){

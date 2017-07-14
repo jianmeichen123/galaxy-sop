@@ -98,10 +98,6 @@
 			}
 		);
 	}
-	
-	//显示当前阶段
-	//showProgress(progress);
-	
 	//上一步、下一步显示隐藏
 	function progressBtnToggle(){
 		if(i==1){
@@ -593,110 +589,8 @@ function nextProgress(btn,nextProgress)
  * 而页面是在5阶段
  * 所以单独处理渲染,不走下一步方法
  * @param progress
- */
-function showProgress(progress){
-	var i = 1;
-	var strs= new Array();
-	if(progress.indexOf(":") > 0){
-		istr = progress.split(":");
-		if(istr[1]){
-			i = istr[1];
-		}
-	}
-	switch(i){
-	   case "1":
-		    interviewList();
-			toobarData("接触访谈","添加访谈记录","");
-			tab_show(1);
-			$(".next_box").attr("data-progress",1);
-			$(".pre_box").hide();
-			$(".tablink .icon").hide();
-			hideCurrent('projectProgress:1');
-			break;
-	   case "2":
-		    meetList("meetingType:1");
-			toobarData("内部评审","添加内部评审","meetingType:1");
-			tab_show(1);
-			 $(".next_box").attr("data-progress",2);
-			 $(".tablink .icon").hide();
-			hideCurrent('projectProgress:2');
-			break;
-	   case "3":
-		    meetList("meetingType:2");
-			toobarData("CEO评审","添加CEO评审","meetingType:2");
-			tab_show(1);
-			$(".next_box").attr("data-progress",3);
-			$(".tablink .icon").hide();
-			hideCurrent('projectProgress:3');
-			break;
-	   case "4":
-		    meetList("meetingType:3");
-			toobarData("立项会","添加立项会","meetingType:3");
-			$(".tablink .icon").hide();
-			tab_show(3);
-			$(".next_box").attr("data-progress",4);
-			hideCurrent('projectProgress:4');
-			break;
-	   case "5":
-		  
-		    $(".tabtitle h3").text("投资意向书");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",6);
-		    hideCurrent('projectProgress:5');
-		    break;
-	   case "6":
-		    $(".tabtitle h3").text("尽职调查");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",7);
-		    hideCurrent('projectProgress:6');
-		    break;
-	   case "7":
-		   meetList("meetingType:4");
-		    toobarData("投决会","添加投决会","meetingType:4");
-		    $(".tablink .icon").hide();
-		    tab_show(1);
-		    $(".next_box").attr("data-progress",8);
-		    hideCurrent('projectProgress:7');
-		    break;
-	   case "8":
-		    $(".tabtitle h3").text("投资协议");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",9);
-		    hideCurrent('projectProgress:8');
-		    break;
-	   case "9":
-		    $(".tabtitle h3").text("股权交割");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",10);
-		    hideCurrent('projectProgress:9');
-		    break;
-	   case "10":
-		    $(".tabtitle h3").text("投后运营");
-		    tab_show(4);
-		    $(".next_box").attr("data-progress",11);
-		    $(".tablink .icon").hide();
-		    $(".next_box").hide();
-		    hideCurrent('projectProgress:10');
-		    break;
-	   case "11":
-		    meetList("meetingType:5");
-		    $(".tabtitle h3").text("会后商务谈判");
-		    $(".tablink .icon").hide();
-		    tab_show(1);
-		    toobarData("会后商务谈判","添加会议记录","meetingType:5");
-		    $(".next_box").attr("data-progress",5);
-		    hideCurrent('projectProgress:11');
-		    break;
-	   default :
-	        break;
-	
-	}
-	initFileShow(); //file about
-}
+ *//*
+
 //会议结论原因数据字段获取
 function radioSearch(url, name){
 	sendGetRequest(url,null, function(data){
@@ -744,8 +638,8 @@ function radionDiv(data){
 			se_input.val("").addClass("disabled").attr("disabled","true");
 			se_select.val("").addClass("disabled").attr("disabled","true");
 		})*/
-	});
-}
+//	});
+//}
 
 /**
  * 此方法判断该会议结果后是有会议结论的下拉框
@@ -810,9 +704,11 @@ function  hideCurrent(progress){
 		if($(".tabtitle .current_progress").length == 0)
 		{
 			$(".tabtitle h3").after('<span class="current_progress">(当前阶段)</span>');
+			$("#add_button").show();
 		}
 	}else{
 		$(".tabtitle .current_progress").remove();
+		
 	}
 }
 function currentProgress(currentProgress){
