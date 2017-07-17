@@ -19,7 +19,7 @@
 	<ul>
 		<li><a href="javascript:;" id="download-template-btn">下载投资意向书模板</a></li>
 		<li><a href="javascript:;" id="show-upload-btn">上传投资意向书</a></li>
-		<li><a href="javascript:;" id="show-voucher-upload-btn" class="disabled">上传签署凭证</a></li>
+		<!-- <li><a href="javascript:;" id="show-voucher-upload-btn" class="disabled">上传签署凭证</a></li> -->
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -48,9 +48,9 @@
 	        <dd>
 	        	<select name="fileWorktype" class="disabled" disabled="disabled"></select>
 	        </dd>
-	        <dd>
+	       <!--  <dd>
 	        	<label id="tzyxs_qszm"><input type="checkbox" id="voucherType" name="voucherType" value="1" disabled="disabled"/>签署凭证</label>
-	        </dd>
+	        </dd> -->
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>所属项目：</dt>
