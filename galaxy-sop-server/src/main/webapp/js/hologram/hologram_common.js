@@ -56,6 +56,7 @@ function countChar(textareaName,spanName,maxLimit){
 }
 
 function tabInfoChange(index){
+	$(".h_navbar li").eq(index).addClass("active").siblings().removeClass("active");
 	$('.anchor_nav').remove();
 	$("#tab-content").remove();
 	$("#tab-content1").remove();
@@ -75,6 +76,7 @@ function tabInfoChange(index){
 }
 //基本信息
 	function initBaseInfo(){
+		$("#page_all").html("");
 		$.getTabHtmlInfo({
 			url : platformUrl.toBaseInfo,
 			okback:function(){
@@ -84,15 +86,19 @@ function tabInfoChange(index){
 	   }
 	   //项目
 		function initProjectInfo(){
+			$("#page_all").html("");
 		 $.getTabHtmlInfo({
 				url : platformUrl.toProjectInfo ,
 				okback:function(){
 					right_anchor(2);
+					$("[data-id='tab-block']").next("ul").remove();
+					$("#tab-content").remove()
 				}
 			}); 
 		}
 		 //团队
 		function initTeamInfo(){
+			$("#page_all").html("");
 			$.getTabHtmlInfo({
 				url : platformUrl.toTeamInfo ,
 				okback:function(){
@@ -102,6 +108,7 @@ function tabInfoChange(index){
 		}
 		 //运营数据
 		function initOperateInfo(){
+			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperateInfo ,
 				okback:function(){
@@ -111,6 +118,7 @@ function tabInfoChange(index){
 		}
 		//竞争
 		function initCompeteInfo(){
+			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toCompeteInfo ,
 				okback:function(){
@@ -120,6 +128,7 @@ function tabInfoChange(index){
 		}
 		//战略以及策略
 		function initPlanInfo(){
+			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toPlanInfo ,
 				okback:function(){
@@ -129,6 +138,7 @@ function tabInfoChange(index){
 		}
 		//财务
 		function initFinanceInfo(){
+			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toFinanceInfo ,
 				okback:function(){
@@ -138,6 +148,7 @@ function tabInfoChange(index){
 		}
 		//法务
 		function initJusticeInfo(){
+			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toJusticeInfo ,
 				okback:function(){
@@ -147,6 +158,7 @@ function tabInfoChange(index){
 		}
 		//融资及估值
 		function initValuationInfo(){
+			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toValuationInfo ,
 				okback:function(){
