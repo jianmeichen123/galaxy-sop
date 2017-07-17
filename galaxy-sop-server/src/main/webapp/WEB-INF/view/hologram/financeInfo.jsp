@@ -117,6 +117,7 @@ console.log(mustids);
 			var type = field.data('type');
 			var infoMode = {
 				titleId	: field.data('titleId'),
+				resultId: field.attr("resultid"),
 				type : type
 			};
 			if(type==2 || type==3 || type==4)

@@ -497,12 +497,14 @@ function buildResults(sec,title,readonly)
 			else
 			{
 				var str=title.resultList[0].contentDescribe1;
+				var result_id = title.resultList[0].id;
 				if(str){
 					str=str.replace(/<br\/>/g,'\n');
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
 				$("textarea[data-title-id='"+title.id+"']").val(str);
+				$("textarea[data-title-id='"+title.id+"']").attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 14)
