@@ -409,7 +409,7 @@ function buttonData(){
 	{
 		return;
 	}
-	
+	i=Number(i);
 	switch(i){
 	case 1:
 		btnTitle="启动内部评审";
