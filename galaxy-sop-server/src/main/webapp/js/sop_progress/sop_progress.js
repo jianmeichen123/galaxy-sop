@@ -45,6 +45,7 @@ function interviewList(){
                   }, {
                       title: '结论原因',
                       field: 'resultReasonStr',
+                      formatter:'result',
                       valign: 'left',
                   },
                     {
@@ -100,6 +101,7 @@ function meetList(type){
                       title: '原因',
                       field: 'resultReasonStr',
                       valign: 'left',
+                      formatter:'result'
                   },
                     {
                         title: '操作',
@@ -138,6 +140,13 @@ function powerPosition(i){
 		$(".editButton").addClass('disabled');
 		$("#add_button").hide();
 	}
+}
+/*列表原因处理*/
+function result(value,row,index){
+	if(row.resultReasonStr && row.resultReasonStr == '其他原因'){
+		return row.reasonOther;
+	}
+	return row.resultReasonStr;
 }
 
 /*列表时间格式化*/
