@@ -589,7 +589,7 @@ function nextProgress(btn,nextProgress)
  * 而页面是在5阶段
  * 所以单独处理渲染,不走下一步方法
  * @param progress
- *//*
+ */
 
 //会议结论原因数据字段获取
 function radioSearch(url, name){
@@ -638,8 +638,8 @@ function radionDiv(data){
 			se_input.val("").addClass("disabled").attr("disabled","true");
 			se_select.val("").addClass("disabled").attr("disabled","true");
 		})*/
-//	});
-//}
+	});
+}
 
 /**
  * 此方法判断该会议结果后是有会议结论的下拉框
