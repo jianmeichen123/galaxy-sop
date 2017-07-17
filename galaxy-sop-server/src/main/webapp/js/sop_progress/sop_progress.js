@@ -135,7 +135,7 @@ function powerPosition(i){
 		pg = 11;
 	}
 	if(!currentProgress("projectProgress:"+pg)){
-		$("#editButton").addClass('disabled');
+		$(".editButton").addClass('disabled');
 		$("#add_button").hide();
 	}
 }
@@ -160,7 +160,7 @@ function viewOperFormat(value,row,index){
     	meetingType = row.meetingType;
 	}
 	var info = "<span class=\"add see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
-	var	edit = " <span id=\"editButton\" class=\"edit see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
+	var	edit = " <span id=\"editButton\" class=\"edit see blue editButton\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
 	return info + edit;
 }
 function notesInfoEdit(selectRowId,type,meetingType,title){
