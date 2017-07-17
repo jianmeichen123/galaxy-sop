@@ -44,7 +44,7 @@
               <!-- 注资进度end -->
 				</div>
 				
-				<div class="correlation">相关操作</div> 
+				<div class="correlation" onclick="qxbb();">相关操作</div> 
 	            <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
 	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
@@ -87,7 +87,7 @@
            
            
             <div class="tq_div" style="display:none;">
-	            <div class="correlation">相关操作</div> 
+	            <div class="correlation"  onclick="qxbb();">相关操作</div> 
 	            <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
 	            	<span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
@@ -169,6 +169,9 @@ if(!prograss){
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
+function qxbb(){
+	window.location.href=platformUrl.toBaseInfo;
+}
 $(function(){
 	//显示投前或投后信息
 	if(prograss == 'projectProgress:10')

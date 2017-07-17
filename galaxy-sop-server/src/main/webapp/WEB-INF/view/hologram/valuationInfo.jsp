@@ -13,12 +13,21 @@
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
 <title>项目详情</title>
-
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path%>/js/hologram/hologram_common.js"></script>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+<!-- 时间插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 </head>
 <body>
-<ul class="h_navbar clearfix">
+<!-- <ul class="h_navbar clearfix">
      <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基础<br/>信息</li>
     <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
     <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
@@ -29,7 +38,7 @@
     <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
     <li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('8')">融资及<br/>估值</li>
 
-  </ul>
+  </ul> -->
    <!--隐藏-->
 <div class="bj_hui_on"></div>
   <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
@@ -443,6 +452,7 @@ function delRow(ele)
 		check_table();
 		check_table_tr_edit();
 		$(".layui-layer-close1").click();
+		//$(".layui-layer-btn1").click();
 	}, function(index) {
 	});
 	

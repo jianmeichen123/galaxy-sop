@@ -16,7 +16,7 @@
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <body>
-<ul class="h_navbar clearfix">
+<!-- <ul class="h_navbar clearfix">
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基础<br/>信息</li>
                   <li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('1')">项目</li>
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
@@ -26,7 +26,7 @@
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('6')">财务</li>
                   <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
                   <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br/>估值</li>
-                </ul>
+                </ul> -->
        <!--隐藏-->
 <div class="bj_hui_on"></div>
 <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
