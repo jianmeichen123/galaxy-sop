@@ -14,6 +14,8 @@ public class FixedTableModel extends PagableEntity {
     private String type;//类型
 
     private String value;//值
+    //值ID(如果有)
+    private Long valueId;
 
 	public String getTitleId() {
 		return titleId;
@@ -53,6 +55,16 @@ public class FixedTableModel extends PagableEntity {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public Long getValueId()
+	{
+		return valueId;
+	}
+
+	public void setValueId(Long valueId)
+	{
+		this.valueId = valueId;
 	}
 
 

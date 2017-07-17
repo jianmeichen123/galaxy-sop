@@ -682,6 +682,7 @@ function buildfinxedTable(sec,title,readonly){
 		{
 			$.each(title.fixedTableList,function(i,n){
 				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"'][value="+n.content+"]").attr('checked','true');
+				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"']").attr('data-value-id',n.id);
 				
 			});
 		}

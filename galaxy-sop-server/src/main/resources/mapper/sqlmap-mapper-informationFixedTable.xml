@@ -119,5 +119,17 @@
 		<include refid="Base_Where_Clause" />
 	</delete>
 	
+	<update id="updateById" parameterType="java.util.Map">
+		update information_fixed_table 
+		<set>
+			<if test="content != null"> content = #{content,jdbcType=VARCHAR}, </if>
+			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
+			<if test="createId != null"> create_id = #{createId,jdbcType=BIGINT}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="updateId != null"> update_id = #{updateId,jdbcType=BIGINT}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
 </mapper>
 	

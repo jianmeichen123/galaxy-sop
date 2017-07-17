@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,16 +112,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			return;
 		}
-		String titleId = null;
 		InformationFixedTable entity = null;
 		List<InformationFixedTable> insertEntityList = new ArrayList<>();
-		Set<String> titleIds = new HashSet<>();
 		User user = WebUtils.getUserFromSession();
 		Long userId = user != null ? user.getId() : null;
 		Long now = new Date().getTime();
 		for(FixedTableModel model : list)
 		{
-			titleIds.add(model.getTitleId());
 			entity = new InformationFixedTable();
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
@@ -131,20 +126,22 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			entity.setColNo(model.getColNo());
 			entity.setType(model.getType());
 			entity.setContent(model.getValue());
+			if(model.getValueId() != null)
+			{
+				entity.setUpdateId(userId+"");
+				entity.setUpdatedTime(now);
+				entity.setId(model.getValueId());
+				fixdTableDao.updateById(entity);
+				continue;
+			}
 			entity.setCreatedTime(now);
 			entity.setCreateId(userId+"");
 			insertEntityList.add(entity);
 		}
-		InformationFixedTable infoFixedTable=new InformationFixedTable();
-		infoFixedTable.setTitleId(titleId);
-		infoFixedTable.setProjectId(projectId);
 		//插入数据
 		if(insertEntityList.size() > 0)
 		{
-			int delete = fixdTableDao.delete(infoFixedTable);
-			if(delete>=0){
-				fixdTableDao.insertInBatch(insertEntityList);
-			}
+			fixdTableDao.insertInBatch(insertEntityList);
 		}
 		
 	}

@@ -156,6 +156,7 @@
 				infoModeFixed.colNo=colNo;
 				infoModeFixed.titleId=titleid;
 				infoModeFixed.value=field.val();
+				infoModeFixed.valueId=field.data('valueId');
 				infoModeFixedList.push(infoModeFixed);
 			}
 			else if(type==1)
