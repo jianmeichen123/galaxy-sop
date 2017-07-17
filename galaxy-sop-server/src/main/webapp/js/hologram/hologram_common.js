@@ -76,13 +76,14 @@ function tabInfoChange(index){
 }
 //基本信息
 	function initBaseInfo(){
-		$("#page_all").html("");
+		/*$("#page_all").html("");
 		$.getTabHtmlInfo({
 			url : platformUrl.toBaseInfo,
 			okback:function(){
 				right_anchor(1);
 			}
-		}); 
+		});*/
+		window.location.href=platformUrl.toBaseInfo;
 	   }
 	   //项目
 		function initProjectInfo(){
