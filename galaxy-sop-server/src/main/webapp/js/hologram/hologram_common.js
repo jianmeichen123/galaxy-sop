@@ -14,25 +14,7 @@ function editOpen(){
 	  $(this).parent().parent().parent(".h").css("background","#fff");
 	})
 }
-/*多选标签*/
-$("div").delegate(".check_label","click",function(event){
-	debugger;
-	  $(this).toggleClass('active');
-	  var par_ul = $(this).parent("ul");
-	  if(par_ul.hasClass("pro_innovation")){
-		  // 基本信息页面
-		  if(!par_ul.children().eq(par_ul.children().length-3).hasClass("active")){
-			  par_ul.find("span.error").hide();
-		  }
-	  }else{
-		  if(!par_ul.children().eq(par_ul.children().length-2).hasClass("active")){
-			  // 没有选择了其他
-			  par_ul.find("span.error").remove();
-		  }
-	  }
-	  
-	  event.stopPropagation();
-});
+
 function check_12(){
 	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
 		 var par_ul = $(this).parents("ul");
@@ -41,6 +23,26 @@ function check_12(){
 			  par_ul.find("span.error").remove();
 		  }
 	})
+}
+/*多选标签*/
+function check_click(){
+	$(".check_label").click(function(event){
+		  $(this).toggleClass('active');
+		  var par_ul = $(this).parent("ul");
+		  if(par_ul.hasClass("pro_innovation")){
+			  // 基本信息页面
+			  if(!par_ul.children().eq(par_ul.children().length-3).hasClass("active")){
+				  par_ul.find("span.error").hide();
+			  }
+		  }else{
+			  if(!par_ul.children().eq(par_ul.children().length-2).hasClass("active")){
+				  // 没有选择了其他
+				  par_ul.find("span.error").remove();
+			  }
+		  }
+		  
+		  event.stopPropagation();
+	});
 }
 /*文本域字数统计*/
 function countChar(textareaName,spanName,maxLimit){

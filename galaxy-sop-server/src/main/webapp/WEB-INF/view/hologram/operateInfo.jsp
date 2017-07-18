@@ -146,7 +146,6 @@ getData();
 				}else{
 					
 				}
-				/* $('body,html').scrollTop(sTop);  //定位 */
 		}) 
 		
 	});
@@ -450,12 +449,12 @@ function bindChangeType13(){
         				inputText.attr('disabled',true);
                         inputText.attr('required' , false);
         			}
-        		}        		 
+        		}   
+        		
         	})
         });
-
-
     });
+    check_click();
 }
 </script>
 

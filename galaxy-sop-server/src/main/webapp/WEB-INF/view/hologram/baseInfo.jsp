@@ -162,6 +162,7 @@ $(function() {
 					autoTextarea(textareaId);
 				}
 				/* $('html,body').scrollTop(sTop);  //定位 */
+				check_click();
 			}
 			//去除base_half 类名
 			if(_this.is(':hidden')){
@@ -330,6 +331,7 @@ $(function() {
 		dtWidth();
 	});
 });
+
 </script>
 
 </body>

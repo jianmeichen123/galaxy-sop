@@ -297,7 +297,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						$("#file_object").addClass("audio_name")
 					}
 //					if($("#reasonOther").val()!='')
-//					{	debugger;
+//					{	
 //						$("#reasonOther").removeClass("disabled").removeAttr("disabled");
 //						$("#reasonOther").parent().prev().find("select").removeClass("disabled").removeAttr("disabled")
 //					}

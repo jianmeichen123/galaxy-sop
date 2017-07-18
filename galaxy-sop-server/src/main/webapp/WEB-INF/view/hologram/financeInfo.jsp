@@ -84,7 +84,8 @@ console.log(mustids);
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					check_12()
+					check_12();
+					check_click();
 				} else {
 
 				}
@@ -117,7 +118,6 @@ console.log(mustids);
 			var type = field.data('type');
 			var infoMode = {
 				titleId	: field.data('titleId'),
-				resultId: field.attr("resultid"),
 				type : type
 			};
 			if(type==2 || type==3 || type==4)
@@ -143,7 +143,7 @@ console.log(mustids);
 		{
 			return;
 		}
-		if( beforeSubmit()){
+		if(beforeSubmit()){
 			///validate();
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 

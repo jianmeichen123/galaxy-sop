@@ -632,6 +632,7 @@ function bindChangeType13(){
 
 
     });
+    check_click();
 }
 </script>
 </body>
