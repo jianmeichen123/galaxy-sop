@@ -17,18 +17,19 @@
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
 <body>
- <!--隐藏-->
+     <!--隐藏-->
 <div class="bj_hui_on"></div>
-<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>               
-                  <div class="tabtxt" id="page_all">
+<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+                 <div class="tabtxt" id="page_all">
 		<!--tab-->
 
 			
 			<!--tab end-->
 		</div>
+
+
+
 <script type="text/javascript">
-var mustids = "${mustids}";
-console.log(mustids);
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
 		function(data) {
@@ -50,12 +51,16 @@ console.log(mustids);
 		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
+		//
 		var str ="";
 		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
 			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
 		}else{
 			str ="";
 		}
+		//
+		 $.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
+		 $.getScript("<%=path %>/js/validate/lib/jq.validate.js"); 
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
@@ -70,9 +75,9 @@ console.log(mustids);
 					btn_disable(1);
 					$("#b_"+id_code).validate();
 					$(".bj_hui_on").show();
+					//文本域剩余字符数
 					section.find(".h_title span").remove();
 					section.find(".h_title").append(str);
-					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
 						var len=textarea_h.eq(i).val().length;
@@ -84,8 +89,7 @@ console.log(mustids);
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					check_12();
-					check_click();
+					check_12()
 				} else {
 
 				}
@@ -100,18 +104,24 @@ console.log(mustids);
 		$(".bj_hui_on").hide();
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
+		mustData(_this,1);
+		toggle_btn($('.anchor_btn span'),0,_this);
 		event.stopPropagation();
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
 		var save_this = $(this).parents('.radius');
+		if($('.tip-yellowsimple').length > 0){
+			return false;
+		}
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea");
+		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
 		var data = {
 			projectId : projectInfo.id
 		};
+		
 		var infoModeList = new Array();
 		$.each(fields,function(){
 			var field = $(this);
@@ -120,13 +130,13 @@ console.log(mustids);
 				titleId	: field.data('titleId'),
 				type : type
 			};
-			if(type==2 || type==3 || type==4)
+			if(type==2 || type==3 || type==4|| type==14)
 			{
 				infoMode.value = field.val()
 			}
 			else if(type==1)
 			{
-				infoMode.remark1 = field.val();
+				infoMode.remark1 = field.val()
 			}
 			else if(type==8)
 			{
@@ -144,14 +154,13 @@ console.log(mustids);
 			return;
 		}
 		if(beforeSubmit()){
-			///validate();
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 
 					data,
 					function(data) {
 						var result = data.result.status;
 						if (result == 'OK') {
-							updateInforTime(projectInfo.id,"financeTime");
+							updateInforTime(projectInfo.id,"lawTime");
 							layer.msg('保存成功');
 							$('#'+id_code).show();
 							$('#b_'+id_code).remove();
@@ -159,22 +168,15 @@ console.log(mustids);
 							btn_disable(0);
 							$(".h#a_"+id_code).css("background","#fff");
 							var pid=$('#a_'+id_code).attr("data-section-id");
-						    setDate(pid,true);	
+							setDate(pid,true);
 						    toggle_btn($('.anchor_btn span'),0,save_this);
 						} else {
 
 						}
 				}) 
 		}
-		
+	
 	});
-	/* $('div').delegate(".h_save_btn","click",function(event){
-		var id_code = $(this).attr('attr-save');
-		$('#'+id_code).show();
-		$('#b_'+id_code).remove();
-	}); */
-	
-	
 </script>
 </body>
 
