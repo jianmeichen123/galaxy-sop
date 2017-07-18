@@ -1532,17 +1532,17 @@ function fun_click(){
 //保存 题目change事件
 function type_change(){
 	$("input").change(function(){
-		var _target=$(this).parent().prev();
+		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
 		
 	})
 	$("textarea").change(function(){
-		var _target=$(this).parent().prev();
+		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
 		
 	})
 	$("select").change(function(){
-		var _target=$(this).parent().prev();
+		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
 		
 	})

@@ -128,7 +128,7 @@
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
-			var _tochange =field.parent().prev().attr("tochange");
+			var _tochange =field.parents("dd").prev().attr("tochange");
 			var _resultId = field.attr("resultId");
 			if(_tochange==undefined){
 				_tochange=false;
