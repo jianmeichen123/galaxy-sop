@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 
 public class InformationData extends PagableEntity {
 	private static final long serialVersionUID = 1L;
@@ -78,6 +79,11 @@ public class InformationData extends PagableEntity {
 
 	public void setDeletedResultTids(Set<String> deletedResultTids) {
 		this.deletedResultTids = deletedResultTids;
+	}
+
+	@Override
+	public String toString() {
+		return GSONUtil.toJson(this);
 	}
 
 	

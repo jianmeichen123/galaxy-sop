@@ -86,7 +86,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		    responseBody.setResult(new Result(Status.OK, null,"编辑项目部分成功"));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null,"编辑项目部分数据失败"));
-			logger.error("异常信息:",e.getMessage());
+			logger.error("异常信息:",e);
 		}
 		return responseBody;
 	}

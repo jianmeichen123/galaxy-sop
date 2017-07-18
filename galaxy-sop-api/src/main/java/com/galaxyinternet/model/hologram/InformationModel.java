@@ -1,13 +1,16 @@
 package com.galaxyinternet.model.hologram;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 
 public class InformationModel extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 	
-	private String projectId;//父id
+	private String projectId;//项目id
 	
-	private String titleId;//题干id（标签）	
+	private String titleId;//题干id（标签）
+	
+	private String resultId;//information_result 结果表id
 	
 	private String value;//所对应的值（数据字典id）
 	
@@ -33,6 +36,14 @@ public class InformationModel extends PagableEntity {
 
 	public void setTitleId(String titleId) {
 		this.titleId = titleId;
+	}
+
+	public String getResultId() {
+		return resultId;
+	}
+
+	public void setResultId(String resultId) {
+		this.resultId = resultId;
 	}
 
 	public String getValue() {
@@ -76,7 +87,11 @@ public class InformationModel extends PagableEntity {
 	}
 
 	
-	
+	@Override
+	public String toString() {
+		return GSONUtil.toJson(this);
+	}
+
 	
 	
 	
