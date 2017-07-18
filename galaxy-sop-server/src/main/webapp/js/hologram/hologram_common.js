@@ -195,8 +195,6 @@ function tabInfoChange(index){
         			var result = data.result.status;
         			if (result == 'OK')
         			{
-        				debugger;
-        				console.log(data);
         				var entityList = data.entityList;
         				if(entityList && entityList.length >0)
         				{
@@ -1530,4 +1528,24 @@ function fun_click(){
 		$(this).parent().siblings('.sign_box').hide();
 		event.stopPropagation();
 	}) 
+}
+//保存 题目change事件
+function type_change(){
+	$("input").change(function(){
+		var _target=$(this).parent().prev();
+		_target.attr("tochange",true);
+		
+	})
+	$("textarea").change(function(){
+		var _target=$(this).parent().prev();
+		_target.attr("tochange",true);
+		
+	})
+	$("select").change(function(){
+		var _target=$(this).parent().prev();
+		_target.attr("tochange",true);
+		
+	})
+	
+	
 }

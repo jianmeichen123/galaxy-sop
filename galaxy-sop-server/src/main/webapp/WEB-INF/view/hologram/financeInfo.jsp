@@ -89,7 +89,9 @@
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					check_12()
+					check_12();
+					//change事件
+					type_change();
 				} else {
 
 				}
@@ -126,8 +128,13 @@
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
+			var _tochange =field.parent().prev().attr("tochange");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId	: field.data('titleId'),
+				tochange:_tochange,
 				type : type
 			};
 			if(type==2 || type==3 || type==4|| type==14)
@@ -153,6 +160,7 @@
 		{
 			return;
 		}
+		console.log(data);
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 
