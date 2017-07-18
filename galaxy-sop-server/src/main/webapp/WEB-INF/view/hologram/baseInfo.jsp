@@ -137,8 +137,10 @@ $(function() {
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
+				debugger;
+				console.log(data);
 				var entity = data.entity;
-				var html = toGetHtmlByMark(entity, 'e');
+				var html = toGetHtmlByMark(entity, 'e');				
 				var s_div = toEditTitleHtml(entity, html);
 				$("#a_" + id_code).hide();
 				$("#" + id_code).append(s_div);
