@@ -195,6 +195,8 @@ function tabInfoChange(index){
         			var result = data.result.status;
         			if (result == 'OK')
         			{
+        				debugger;
+        				console.log(data);
         				var entityList = data.entityList;
         				if(entityList && entityList.length >0)
         				{
@@ -229,8 +231,9 @@ function buildResults(sec,title,readonly)
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
 			}
 			else
-			{
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1);
+			{	
+				var result_id = title.resultList[0].id;				
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);			
 			}
 		}
 		if(title.type == 2)
@@ -240,8 +243,10 @@ function buildResults(sec,title,readonly)
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].valueName);
 			}
 			else
-			{
-				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+			{	
+				var result_id = title.resultList[0].id;
+				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true').attr("resultId",result_id);
+				
 			}
 		}
 		else if(title.type == 3)
@@ -253,7 +258,7 @@ function buildResults(sec,title,readonly)
 					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
 				}
 				else
-				{
+				{	
 					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
 				}
 			});
@@ -301,7 +306,8 @@ function buildResults(sec,title,readonly)
 				}
 				else
 				{
-					$("input[data-id='"+title.id+"']").val(n.contentDescribe1) ;
+					var result_id = n.id;
+					$("input[data-id='"+title.id+"']").val(n.contentDescribe1).attr("resultId",result_id) ;
 				}
 			}
 			if(n.contentChoose)
@@ -315,7 +321,8 @@ function buildResults(sec,title,readonly)
 				}
 				else
 				{
-					$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true');
+					var result_id = n.id;
+					$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='radio'][data-id='"+ n.contentChoose +"']").attr('checked','true').attr("resultId",result_id);
 				}
 			}
 
@@ -390,9 +397,10 @@ function buildResults(sec,title,readonly)
 					inputText.attr('disabled',false);
 				}
 				$.each(title.resultList,function(i,n){
-					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
+					var result_id= n.id;
+					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active').attr("resultId",result_id);
 					if(n.contentDescribe1){  
-						$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1);
+						$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1).attr("resultId",result_id);
 						inputText.attr('disabled',false);
 						inputText.attr('required' , true);
 					}
@@ -456,8 +464,9 @@ function buildResults(sec,title,readonly)
 					str2=str2.replace(/&nbsp;/g," ");
 				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
-				textareas.eq(0).val(str);
-				textareas.eq(1).val(str2);
+				var result_id = title.resultList[0].id;
+				textareas.eq(0).val(str).attr("resultId",result_id);
+				textareas.eq(1).val(str2).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 16)
@@ -505,8 +514,7 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
-				$("textarea[data-title-id='"+title.id+"']").val(str);
-				$("textarea[data-title-id='"+title.id+"']").attr("resultId",result_id);
+				$("textarea[data-title-id='"+title.id+"']").val(str).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 14)
@@ -518,9 +526,11 @@ function buildResults(sec,title,readonly)
 			}
 			else
 			{
-				$('select[data-id="' + title.id + '"]').val( title.resultList[0].contentChoose );
+				var result_id = title.resultList[0].id;
+				$('select[data-id="' + title.id + '"]').val( title.resultList[0].contentChoose ).attr("resultId",result_id);;
 			}
 		}
+	//最外部else
 	}else{
 		if(title.type == 3){
 			if (readonly == true)

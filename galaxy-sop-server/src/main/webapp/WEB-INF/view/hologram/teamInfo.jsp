@@ -383,9 +383,9 @@
                 deletedResultTids.push(tid);
             }
         });
-        console.log(data.infoModeList);
+        console.log("@#$#%#$%^$%^%");
+        console.log(data);
         data.deletedResultTids = deletedResultTids;
-        console.log(data.deletedResultTids);
         sendPostRequestByJsonObj(
         			platformUrl.saveOrUpdateInfo ,
         			data,
