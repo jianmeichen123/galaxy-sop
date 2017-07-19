@@ -22,6 +22,7 @@ $(function(){
 				case 8: initTabSopFile(projectId);   break;  //标签8:项目文档
 				case 9: initTabOperLog();   break;  //标签9:操作日志
 				case 10:initTabInfomation();   break;  //标签10:全息图
+				case 11:laobanTest();   break;  //标签11:老板测试
 				default: return false;
 			}
 			
@@ -40,6 +41,16 @@ $(function(){
 });
 	
 })
+
+
+//老板测试
+function laobanTest(){
+	var url = Constants.sopEndpointURL+"/galaxy/test/laobanTest/";
+	$.getTabHtml({
+		url : url
+	});
+}
+
 
 //基本信息
 function initTabInfo(projectId){

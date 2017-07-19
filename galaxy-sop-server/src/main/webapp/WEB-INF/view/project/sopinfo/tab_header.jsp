@@ -42,6 +42,7 @@
 				<li data-tab="nav" class="no" disabled="disabled">全息报告</li>
 		</c:otherwise>
 	</c:choose>
+	<li data-tab="nav">老板测试</li>
 </ul>
 <script type="text/javascript">
 var index = "${param.index}";
