@@ -203,12 +203,13 @@ function tabInfoChange(index){
                             data = $(this)[0]
                         }
                     })
+                    
                     buildMemberTable(sec,data);
                 }
 		     })
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
-        				function(data) {
+				function(data) {
         			var result = data.result.status;
         			if (result == 'OK')
         			{
@@ -575,6 +576,7 @@ function buildResults(sec,title,readonly)
 }
 function buildMemberTable(sec,title){
         //列表Header
+	
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -654,8 +656,11 @@ function buildMemberRow(headerList,row,showOpts)
 function buildTable(sec,title)
 {
 	//列表Header
+	
 	if(title.tableHeader)
 	{
+		debugger;
+		console.log(title);
 		var header = title.tableHeader;
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
@@ -1225,7 +1230,6 @@ function check_labels(data){
 				$(this).parents('.mb_24').show();
 				 return false;
 			}else{
-				//alert("aha,多选没有")
 				$(this).parents('.mb_24').hide();
 			}
 		})
