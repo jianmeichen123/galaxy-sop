@@ -203,6 +203,7 @@ function tabInfoChange(index){
                             data = $(this)[0]
                         }
                     })
+                    
                     buildMemberTable(sec,data);
                 }
 		     })
@@ -575,6 +576,7 @@ function buildResults(sec,title,readonly)
 }
 function buildMemberTable(sec,title){
         //列表Header
+	
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -663,7 +665,6 @@ function buildTable(sec,title)
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
-			alert(header.code);
 			table.attr('data-code',header.code);
 			table.empty();
 			var tr="<tr>";
@@ -1229,7 +1230,6 @@ function check_labels(data){
 				$(this).parents('.mb_24').show();
 				 return false;
 			}else{
-				//alert("aha,多选没有")
 				$(this).parents('.mb_24').hide();
 			}
 		})
