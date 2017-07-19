@@ -1,28 +1,39 @@
 package com.galaxyinternet.hologram.controller;
 
-import com.galaxyinternet.bo.hologram.InformationTitleBo;
-import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.utils.WebUtils;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hologram.*;
-import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.hologram.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Queue;
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.hologram.InformationDataService;
+import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
+import com.galaxyinternet.service.hologram.InformationResultService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
 
 /**
  * Created by zcy on 17-3-13.
@@ -75,39 +86,54 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
         ResponseData<InformationListdata> responseBody = new ResponseData<>();
         try{
             List<InformationListdata> listdataList = data.getDataList();
-            //先删除之前的成员列表
+            
             InformationListdata query = new InformationListdata();
             query.setTitleId(data.getTitleId());
             query.setProjectId(data.getProjectId());
-            informationListdataService.delete(query);
+            List<InformationListdata> poList = informationListdataService.queryList(query);
+            Set<String> ids = new HashSet<>(poList.size());
+            for(InformationListdata po : poList)
+            {
+            	ids.add(po.getId()+"");
+            }
             if(listdataList != null && !listdataList.isEmpty()){
                 for (InformationListdata entity : listdataList){
                     if(null != entity.getCode() && entity.getCode().equals("team-members")){
-                        informationListdataService.insert(entity);
+                    	removeIfExists(ids,entity.getId()+"");
+                        informationListdataService.save(entity);
                         Long id = entity.getId();
                         List<InformationListdata> studyList = entity.getStudyList();
                         List<InformationListdata> workList = entity.getWorkList();
                         List<InformationListdata> startupList = entity.getStartupList();
                         if(studyList!=null &&!studyList.isEmpty()){
                             for(InformationListdata study:studyList){
+                            	removeIfExists(ids,study.getId()+"");
                                 study.setParentId(id);
                             }
-                            informationListdataService.insertInBatch(studyList);
+                            informationListdataService.saveBatch(studyList);
                         }
                         if(workList!=null &&!workList.isEmpty()){
                             for(InformationListdata work:workList){
+                            	removeIfExists(ids,work.getId()+"");
                                 work.setParentId(id);
                             }
-                            informationListdataService.insertInBatch(workList);
+                            informationListdataService.saveBatch(workList);
                         }
                         if(startupList!=null &&!startupList.isEmpty()){
                             for(InformationListdata startup:startupList){
+                            	removeIfExists(ids,startup.getId()+"");
                                 startup.setParentId(id);
                             }
-                            informationListdataService.insertInBatch(startupList);
+                            informationListdataService.saveBatch(startupList);
                         }
 
                     }
+                }
+                if(ids.size() > 0)
+                {
+                	query = new InformationListdata();
+                	query.setIds(ids);
+                	informationListdataService.delete(query);
                 }
             }
         }catch(Exception e ){
@@ -302,6 +328,17 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             logger.error("queryResultList 失败 ",e);
         }
         return resp;
+    }
+    
+    private void removeIfExists(Set<String> ids, String id)
+    {
+    	if(ids.size()>0)
+    	{
+    		if(ids.contains(id))
+    		{
+    			ids.remove(id);
+    		}
+    	}
     }
 
 }

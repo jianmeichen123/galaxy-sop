@@ -1,18 +1,18 @@
 package com.galaxyinternet.hologram.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
-import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service("com.galaxyinternet.service.hologram.InformationListdataService")
 public class InformationListdataServiceImpl extends BaseServiceImpl<InformationListdata> implements InformationListdataService {
@@ -101,4 +101,35 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 		}
 		return codes;
 	}
+
+	@Override
+	public void save(InformationListdata entity)
+	{
+		if(entity != null)
+		{
+			if(entity.getId() != null)
+			{
+				updateById(entity);
+			}
+			else
+			{
+				insert(entity);
+			}
+		}
+	}
+
+	@Override
+	public void saveBatch(List<InformationListdata> list)
+	{
+		if(list== null || list.size() == 0)
+		{
+			return;
+		}
+		for(InformationListdata item : list)
+		{
+			save(item);
+		}
+	}
+	
+	
 }

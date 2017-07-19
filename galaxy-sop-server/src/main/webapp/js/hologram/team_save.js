@@ -91,12 +91,14 @@
                var code = "entrepreneurial-experience";
                var id = div.find("[name='id']").text();
 
-               if(!id || id =="" ||id == 'null' || id == "undefined"){
-            	   delete json.id;
-                 }
-               /*if(!id || id ==""){
-                 json["id"]=null
-               }*/
+               if(!isNaN(id)){
+                 json["id"]=id;
+               }
+               else
+        	   {
+            	  json["id"]=null;
+        	   }
+               
                json["field1"]=field1;
                json["field2"]=field2;
                json["field3"]=field3;
@@ -108,8 +110,10 @@
                json["code"]=code;
                json["titleId"]=titleId;
                json["projectId"]=projectId;
+               
                startupList.push(json);
          })
+         
         data["startupList"]=startupList;
 
         var index = data["index"]
