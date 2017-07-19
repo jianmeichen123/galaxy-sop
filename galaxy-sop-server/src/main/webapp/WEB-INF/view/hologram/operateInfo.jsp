@@ -250,7 +250,6 @@ getData();
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
 		$("body").showLoading();
-		debugger;
 		console.log(data);
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传

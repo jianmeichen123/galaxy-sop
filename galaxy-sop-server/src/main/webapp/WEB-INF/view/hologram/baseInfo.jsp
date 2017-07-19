@@ -197,7 +197,6 @@ $(function() {
 			}
 			//判断是否到是select
 			if(sele=="SELECT"){
-				debugger;
 				var _resultId = field.parent().attr("resultId");
 			}else{
 				var _resultId = field.attr("resultId");
