@@ -208,7 +208,7 @@ function tabInfoChange(index){
 		     })
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
-        				function(data) {
+    				function(data) {
         			var result = data.result.status;
         			if (result == 'OK')
         			{

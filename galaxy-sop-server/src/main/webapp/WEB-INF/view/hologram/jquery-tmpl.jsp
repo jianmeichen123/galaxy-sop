@@ -147,7 +147,7 @@
                           </dd>
 		{{else type=="10"}}
 		<dd class="fl_none">
-			< data-title-id="\{id}" class="editable"></table>
+			<table data-title-id="\{id}" class="editable"></table>
 			<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
 		</dd>
 
