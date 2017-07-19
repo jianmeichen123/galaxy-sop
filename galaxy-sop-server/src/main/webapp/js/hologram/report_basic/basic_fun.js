@@ -121,3 +121,27 @@ function edit_display(_data){
 	//编辑表格显示隐藏
 	 check_table();
 }
+//通用取消编辑
+function cancel_edit(_data){
+	var id_code = _data.attr('attr-hide');
+	$('#'+id_code).show();
+	$('#b_'+id_code).remove();
+	$(".bj_hui_on").hide();
+	btn_disable(0);
+	$(".h#a_"+id_code).css("background","#fff");
+	dtWidth();
+	event.stopPropagation();
+	toggle_btn($('.anchor_btn span'),0,_this);
+    if (id_code =='NO3_1')
+    {
+        deletedRowIds = new Array();
+    }
+    else if (id_code=='NO3_8')
+    {
+        deletedRowIdsGq = new Array();
+    }
+}
+
+
+
+
