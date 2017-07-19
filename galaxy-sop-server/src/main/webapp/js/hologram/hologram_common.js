@@ -208,7 +208,7 @@ function tabInfoChange(index){
 		     })
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
-    				function(data) {
+				function(data) {
         			var result = data.result.status;
         			if (result == 'OK')
         			{
@@ -654,12 +654,16 @@ function buildMemberRow(headerList,row,showOpts)
 function buildTable(sec,title)
 {
 	//列表Header
+	
 	if(title.tableHeader)
 	{
+		debugger;
+		console.log(title);
 		var header = title.tableHeader;
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
+			alert(header.code);
 			table.attr('data-code',header.code);
 			table.empty();
 			var tr="<tr>";
