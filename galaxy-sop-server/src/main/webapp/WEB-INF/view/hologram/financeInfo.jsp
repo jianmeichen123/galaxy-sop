@@ -12,7 +12,6 @@
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
 </head>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
@@ -49,9 +48,9 @@
 		})
 	//通用编辑显示
 	$('div').delegate(".h_edit_btn","click",function(event){
-		edit_display($(this));
-		<%-- var id_code = $(this).attr('attr-id');
-		var section = $(this).closest('.section');
+		var section = $(this).parents('.section');
+		var id_code = $(this).attr('attr-id');
+		var sec = $(this).closest('.section');
 		//
 		var str ="";
 		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
@@ -69,7 +68,7 @@
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-					section.showResults();
+					sec.showResults();
 					$(".h#a_"+id_code).css("background","#fafafa");
 					$("#"+id_code).hide();
 					validate();
@@ -94,7 +93,7 @@
 				} else {
 
 				}
-		})  --%>
+		}) 
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
