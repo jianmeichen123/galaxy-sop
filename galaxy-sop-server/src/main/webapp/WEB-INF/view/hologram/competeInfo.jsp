@@ -106,7 +106,7 @@ $(function() {
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					check_12();
+					edit_bsaicfun();
 				} else {
 
 				}
@@ -156,10 +156,15 @@ $(function() {
 			var typ = field.data('type');
 			var name = field.data('name');
 			var value = field.val().replace(/\n/g,'<br/>');
-			
-			
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId : field.data('titleId'),
+				tochange:_tochange,
+				resultId:_resultId,
 				type : typ
 			};
 			
