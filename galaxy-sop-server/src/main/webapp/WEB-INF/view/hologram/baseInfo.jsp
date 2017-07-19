@@ -137,8 +137,6 @@ $(function() {
 		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
-				console.log("@#$@#$#%#$^");
-				console.log(data);
 				var entity = data.entity;
 				var html = toGetHtmlByMark(entity, 'e');				
 				var s_div = toEditTitleHtml(entity, html);
@@ -193,11 +191,19 @@ $(function() {
 		$.each(fields_value, function() {
 			var field = $(this);
 			var valu = null;
+			var sele = field.parent().get(0).tagName;
 			if (field.val() && field.val().length > 0) {
 				valu = field.val();
 			}
+			//判断是否到是select
+			if(sele=="SELECT"){
+				debugger;
+				var _resultId = field.parent().attr("resultId");
+			}else{
+				var _resultId = field.attr("resultId");
+			}
 			var _tochange =field.parents("dd").prev().attr("tochange");
-			var _resultId = field.attr("resultId");
+			
 			if(_tochange==undefined){
 				_tochange=false;
 			}

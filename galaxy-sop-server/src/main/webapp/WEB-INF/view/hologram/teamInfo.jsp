@@ -115,7 +115,7 @@
 					}
 					//检查表格tr是否10行
 					check_table_tr_edit();
-					edit_bsaicfun()
+					edit_bsaicfun();
 				} else {
 
 				}
