@@ -4,40 +4,552 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>老板-测试</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
-<!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<!-- 日历插件 -->
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<!-- 富文本编辑器 -->
-<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-
-<!-- 高管/投资经理 -->
-<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
+<title>项目详情</title>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+<!-- 时间插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 </head>
-
-
-
 <body>
-            
-	<hr>
-	老板-测试
-	<hr>
+<!-- <ul class="h_navbar clearfix">
+     <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')" >基础<br/>信息</li>
+    <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
+    <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
+    <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br/>数据</li>
+    <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('4')">竞争</li>
+    <li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br/>策略</li>
+    <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('6')">财务</li>
+    <li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
+    <li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('8')">融资及<br/>估值</li>
+
+  </ul> -->
+   <!--隐藏-->
+<div class="bj_hui_on"></div>
+  <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+  <div id="tab-content">
+		<div class="tabtxt valuation" id="page_all">
+		<!--tab-->
+
+			
+			<!--tab end-->
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+var key = Date.parse(new Date());
+var keyJSON={};
+var deleteJSON={};
+	//整体页面显示
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO5", null,
+		function(data) {
+		console.log(data);
+			var result = data.result.status;
+			if (result == 'OK') {
+				var entity = data.entity;
+				$("#page_list").tmpl(entity).appendTo('#page_all');
+				picData(projectInfo.id,1);
+				customBuilder();
+				$(".section").each(function(){
+					$(this).showResults(true);
+					var table = $(this).find('.mb_24 table');
+					table.each(function(){
+						if($(this).find('tr').length<=1){
+							$(this).hide();
+							if($(this).parents('dl').find('dd:gt(0)').length<=0){
+								$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+							} 
+						}
+						else{
+							$(this).show();
+						}
+					})
+					
+				});
+				//调整表格
+				$("table").css({"width":"80%","table-layout":"fixed"});
+				mustData(projectInfo.id,0);
+				toggle_btn($('.anchor_btn span'),1);
+				fun_click();
+				hideNav();
+				
+			} else {
+
+			}
+			
+		})
+	function customBuilder()
+	{
+		var div = $("div[data-code='NO9_3_12']");
+		var titleId = div.data('titleId');
+		var dd_box =$("<dd class='dd_field'></dd>")
+		var table = $("<table data-title-id='"+titleId+"'></table>")
+		var header = $("<tr></tr>");
+		var row = $("<tr></tr>");
+		
+		var dls = $("dl[data-parent-id='"+titleId+"']");
+		$.each(dls,function(){
+			var dl = $(this);
+			var name = dl.find('dt').text();
+			var dd = dl.find('dd');
+			header.append("<th>"+name.replace('：','')+"</th>");
+			row.append("<td class='field' data-title-id='"+dd.data('titleId')+"'>未填写</td>")
+		});
+		dls.remove();
+		table.append(header);
+		table.append(row);
+		dd_box.append(table);
+		div.after(dd_box);
+		
+	}
+	//通用编辑显示
+	$('div').delegate(".h_edit_btn","click",function(event){
+		edit_display($(this))
+	});
+	//通用取消编辑
+	$('div').delegate(".h_cancel_btn","click",function(event){
+		cancel_edit($(this))
+	});
+	//通用保存
+	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents('.radius');
+		var btn = this;
+		var id_code = $(this).attr('attr-save');
+		event.stopPropagation();
+		var sec = $(this).closest('form');
+		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var data = {
+			projectId : projectInfo.id
+		};
+
+		//普通结果
+		var infoModeList = new Array();
+		$.each(fields,function(){
+			var field = $(this);
+			var type = field.data('type');
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				tochange:_tochange,
+				resultId:_resultId,
+				type : type
+			};
+			if(type==2 || type==3 || type==4)
+			{
+				infoMode.value = field.val()
+			}
+			else if(type==1)
+			{
+				infoMode.remark1 = field.val()
+			}
+			else if(type==8)
+			{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s/g,"&nbsp;");
+				infoMode.remark1 = str;
+			}
+			infoModeList.push(infoMode);
+		});
+		data.infoModeList = infoModeList;
+		//表格
+		var infoTableModelList = new Array();
+		$.each(sec.find("table.editable"),function(){
+			$.each($(this).find('tr:gt(0)'),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				infoTableModelList.push($(this).data());
+			});
+		});
+	
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds;
+//估值表格显示隐藏
+		$.each($('table.editable'),function(){
+			var table_id = $(this).attr('data-title-id');
+			var noedi_table = $('table[data-title-id='+table_id+']')
+			if($(this).find('tr').length<=1){
+				if(noedi_table.parents('dl').find('dd').length<= 2){
+					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				}
+				noedi_table.hide();
+			}
+			else{
+				noedi_table.show();
+				noedi_table.parents('dl').find('.no_enter').remove();
+				
+			}
+		})
+		//上传图片相关
+		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
+		
+		
+		var key = keyJSON["b_"+id_code];
+		var deleteids = deleteJSON["delete_"+id_code];
+		
+		var params = {};
+		params.projectId =  projectInfo.id;
+		params.fileReidsKey = key;
+		params.deleteids = deleteids;
+		
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
+		
+		/* sendPostRequestByJsonObj(
+			platformUrl.saveOrUpdateInfo , 
+			data,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					updateInforTime(projectInfo.id,"financingTime");
+					layer.msg('保存成功');
+					$(".h#a_"+id_code).css("background","#fff");
+					$(".bj_hui_on").hide();
+					deletedRowIds = new Array();
+					var parent = $(sec).parent();
+					var id = parent.data('sectionId');
+					$(btn).next().click();
+					refreshSection(id);
+					btn_disable(0);
+				    toggle_btn($('.anchor_btn span'),0,save_this);
+				} else {
+
+				}
+		}) */ 
+		$("body").showLoading();
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
+			//进行上传
+			var result = dataParam.result.status;
+			if(result == "OK"){
+				sendPostRequestByJsonObjNoCache(
+						platformUrl.saveOrUpdateInfo , 
+						data,
+						true,
+						function(data) {
+							var result = data.result.status;
+							if (result == 'OK') {
+								updateInforTime(projectInfo.id,"financingTime");
+								layer.msg('保存成功');
+								$(".h#a_"+id_code).css("background","#fff");
+								$(".bj_hui_on").hide();
+								deletedRowIds = new Array();
+								var parent = $(sec).parent();
+								var id = parent.data('sectionId');
+								$(btn).next().click();
+								$(".loading-indicator-overlay").remove();
+								$(".loading-indicator").remove();
+								refreshSection(id);
+								picData(projectInfo.id);
+								btn_disable(0);
+							    toggle_btn($('.anchor_btn span'),0,save_this);
+							} else {
+								layer.msg("操作失败!");
+							}
+					});
+			}else{
+				layer.msg("操作失败!");
+			}
+			
+		});
+
+	});
+function refreshSection(id)
+{
+	var sec = $(".section[data-section-id='"+id+"']");
+	sec.showResults(true);
+}
+function getDetailUrl(code)
+{
+	if(code == 'equity-structure')
+	{
+		return '<%=path%>/html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return '<%=path%>/html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return '<%=path%>/html/fincing_add_yx.html';
+	}
+	else if(code == 'valuation-reference')
+	{
+		return '<%=path%>/html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return '<%=path%>/html/fincing_add_jd.html';
+	}
+	return "";
+}
+function editRow(ele)	
+{
+	var code = $(ele).closest('table').data('code');
+	var row = $(ele).closest('tr');
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			var title = $("#pop-title");
+			title.text(title.text().replace('添加','编辑'));
+			$.each($("#detail-form").find("input, select, textarea"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.val(row.data(name));
+			});
+			//文本框剩余字数
+			$.each($(".team_textarea"),function(){
+				var len=$(this).val().length;
+				var initNum=$(this).siblings('.num_tj').find("span").text();
+				$(this).siblings('.num_tj').find("span").text(initNum-len);
+			})
+			$("#detail-form input[name='index']").val(row.index());
+			$("#save-detail-btn").click(function(){
+				saveForm($("#detail-form"));
+			});
+		}//模版反回成功执行	
+	});
+}
+var deletedRowIds = new Array();
+function delRow(ele)
+{
+	layer.confirm('是否删除?', {
+		btn : [ '确定', '取消' ],
+		title:'提示'
+	}, function(index, layero) {
+		var tr = $(ele).closest('tr');
+		var id = tr.data('id');
+		
+		if(typeof id != 'undefined' && id>0)
+		{
+			deletedRowIds.push(id);
+		}
+		tr.remove();
+		check_table();
+		check_table_tr_edit();
+		$(".layui-layer-close1").click();
+		//$(".layui-layer-btn1").click();
+	}, function(index) {
+	});
+	
+}
+function addRow(ele)
+{
+	var code = $(ele).prev().data('code');
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$("#detail-form input[name='projectId']").val(projectInfo.id);
+			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+			$("#save-detail-btn").click(function(){
+				saveForm($("#detail-form"));
+				check_table();
+				check_table_tr_edit();
+			});
+		}//模版反回成功执行	
+	});
+}
+function saveForm(form)
+{
+	if($(form).validate().form())
+	{
+		var data = $(form).serializeObject();
+		saveRow(data);
+	}
+}
+
+/**
+ * 保存至到tr标签data属性
+ */
+function saveRow(data)
+{
+	data = JSON.parse(data);
+	var titleId = data.titleId;
+	var index = data.index;
+	if(typeof index == 'undefined' || index == null || index == '')
+	{
+		var tr = buildRow(data,true);
+		$('table[data-title-id="'+titleId+'"].editable').append(tr);
+	}
+	else
+	{
+		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+		for(var key in data)
+		{
+			if(key.indexOf('field')>-1)
+			{
+				tr.data(key,data[key]);
+				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+			}
+		}
+	}
+	$("a[data-close='close']").click();
+}
+
+function getTableRowLimit(code)
+{
+	if(code == 'investor-situation' || code =='operation-indices')
+	{
+		return 20;
+	}
+	return 10;
+}
+
+
+function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
+	var params = {};
+	var uploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : selectBtnId, // you can pass an id...
+		//container: containerId, // ... or DOM Element itself
+		multi_selection:false,
+		url : fileurl,
+		rename : true,
+		unique_names:true,
+		filters : {
+			max_file_size : '2mb',
+			mime_types: [
+					{title : "Image files", extensions : "jpg,png,gif,bmp"}
+			]
+		},
+		init: {
+			PostInit: function(up) {
+				params = paramsFunction;
+			},
+			BeforeUpload:function(up,file){
+				var name = file.name.replace(/\s+/g,"");
+				params["fileName"] = name;
+			},
+			FileUploaded:function(up,file,rtn){
+             }, 
+			FilesAdded: function(up, files) {
+				params = paramsFunction;
+				var imglength = $('#'+fieInputId).children("li").length;
+				
+				if(imglength == 4){
+					//layer.msg("不能超过5张照片!");
+					var typeid = fieInputId.replace("edit-","");
+					$("#h_imgs_add_"+typeid).hide();
+					//return;
+				}
+				console.log(uploader.browse_button);
+				for(var i = 0, len = files.length; i<len; i++){
+					var file_name = files[i].name; //文件名
+					//构造html来更新UI
+					!function(i){
+						 previewImage(files[i], function (imgsrc) {
+		                                $('#'+fieInputId).html($('#'+fieInputId).html() +
+		                                    '<li class="pic_list fl" id="' + files[i].id + '">'
+		                                    +'<a href="javascript:;" class="h_img_del"  code="'+"delete_"+id_code+'" data-val=' + files[i].id +
+							              ' data-title-val=' + fieInputId.replace("edit-","") +
+							              '></a>' +'<img src="' + imgsrc + '" name="' + files[i].name + '" /></li>');
+		                            })
+				    }(i);
+				    params.newFileName = files[i].id;
+				    up.settings.multipart_params = params;
+					uploader.start();
+				}
+				
+			},
+			UploadProgress: function(up, file) {
+			},
+			UploadComplete: function(up, files){//所有都上传完成
+				
+		    },
+			Error: function(up, err) {
+			}
+			
+		}
+	});
+	uploader.init();
+}
+  $(document).on('click', '.pic_list a.h_img_del', function () {
+      $(this).parent().remove();
+      var _this = $(this);
+      var toremove = '';
+      var id = $(this).attr("data-val");
+      var deleteCode = $(this).attr("code");
+      if(deleteJSON[deleteCode]){
+          deleteJSON[deleteCode] = deleteJSON[deleteCode] +","+id;
+      }else{
+          deleteJSON[deleteCode] = id;
+      }
+  	  var params = {};
+	  params.projectId =  projectInfo.id;
+	  params.fileReidsKey = key;
+	  params.newFileName = id;
+      //文件id
+      sendPostRequestByJsonObj(Constants.sopEndpointURL+'galaxy/informationFile/deleteRedisFile',params,function(data){
+			//进行上传
+			var result = data.status;
+			if(result == "OK"){
+			   //删除
+			   var titleId = _this.attr("data-title-val");
+	           var imglength = $('#edit-'+titleId).children("li").length;
+	           if(imglength == 4){
+	             $("#h_imgs_add_"+titleId).show();
+	           }
+			}else{
+				layer.msg("删除失败!");
+			}
+	  });
+      
+   
+  });
+  
+function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
+if(!file || !/image\//.test(file.type)) return; //确保文件是图片
+if(file.type=='image/gif' || file.type=='image/bmp'){//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+	var fr = new mOxie.FileReader();
+	fr.onload = function(){
+		callback(fr.result);
+		fr.destroy();
+		fr = null;
+	}
+	fr.readAsDataURL(file.getSource());
+}else{
+	var preloader = new mOxie.Image();
+	preloader.onload = function() {
+		preloader.downsize( 300, 300 );//先压缩一下要预览的图片,宽300，高300
+		var imgsrc = preloader.type=='image/jpeg' ? preloader.getAsDataURL('image/jpeg',80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
+		callback && callback(imgsrc); //callback传入的参数为预览图片的url
+		preloader.destroy();
+		preloader = null;
+	};
+	preloader.load( file.getSource() );
+}	
+
+}
+
+</script>
 </body>
 
+
 </html>
-
-

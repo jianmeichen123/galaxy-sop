@@ -144,21 +144,43 @@ $(function() {
 		$.each(fields_value, function() {
 			var field = $(this);
 			var valu = null;
+			
+			var sele = field.parent().get(0).tagName;
 			if (field.val() && field.val().length > 0) {
 				valu = field.val();
+			}
+			//判断是否到是select
+			if(sele=="SELECT"){
+				var _resultId = field.parent().attr("resultId");
+			}else{
+				var _resultId = field.attr("resultId");
+			}
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			
+			if(_tochange==undefined){
+				_tochange=false;
 			}
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : field.data('type'),
+				tochange:_tochange,
+				resultId:_resultId,
 				value : valu
 			};
 			infoModeList.push(infoMode);
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : field.data('type'),
+				tochange:_tochange,
+				resultId:_resultId,
 				value : field.data('value')
 			};
 			infoModeList.push(infoMode);
