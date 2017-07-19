@@ -141,6 +141,109 @@ function cancel_edit(_data){
         deletedRowIdsGq = new Array();
     }
 }
+//通用保存方法
+function report_save(_data){
+	var save_this = _data.parents('.radius');
+	if($('.tip-yellowsimple').length > 0){
+		return false;
+	}
+	var id_code = _data.attr('attr-save');
+	event.stopPropagation();
+	var sec = _data.closest('form');
+	var fields = sec.find("input[type='text'],input:checked,textarea,li[class='check_label active'],li.active,option:selected");
+	var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
+	var data = {
+		projectId : projectInfo.id
+	};
+	if(!$("#b_"+id_code).validate().form())
+	{
+		return;
+	}
+	//多选不选择的时候：
+	var deletedResultTids = new Array();
+	$.each(dt_type_3, function() {
+		var _this = $(this);
+		var active = _this.parent().find('dd .active');
+		
+		if(!(active && active.length > 0)){
+			var tid = _this.data('titleId');
+			deletedResultTids.push(tid);
+		}
+	});
+	data.deletedResultTids = deletedResultTids;
+	var infoModeList = new Array();
+	$.each(fields,function(){
+		var field = $(this);
+		var type = field.data('type');
+		var _tochange =field.parents("dd").prev().attr("tochange");
+		var _resultId = field.attr("resultId");
+		if(_tochange==undefined){
+			_tochange=false;
+		}
+		var infoMode = {
+			titleId	: field.data('titleId'),
+			tochange:_tochange,
+			resultId:_resultId,
+			type : type
+		};
+		if(type==2 || type==3 || type==4|| type==14)
+		{
+			infoMode.value = field.val()
+		}
+		else if(type==1)
+		{
+			infoMode.remark1 = field.val()
+		}
+		else if(type==8)
+		{
+			var str=field.val();
+			var str=str.replace(/\n|\r\n/g,"<br>")
+			var str=str.replace(/\s/g,"&nbsp;");
+			infoMode.remark1 = str;
+		}
+		infoModeList.push(infoMode);
+	});
+	data.infoModeList = infoModeList;
+	//验证插件调用
+	if(!$("#b_"+id_code).validate().form())
+	{
+		return;
+	}
+	console.log(data);
+	if(beforeSubmit()){
+		sendPostRequestByJsonObj(
+				platformUrl.saveOrUpdateInfo , 
+				data,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						updateInforTime(projectInfo.id,"lawTime");
+						layer.msg('保存成功');
+						$('#'+id_code).show();
+						$('#b_'+id_code).remove();
+						$(".bj_hui_on").hide();
+						btn_disable(0);
+						$(".h#a_"+id_code).css("background","#fff");
+						var pid=$('#a_'+id_code).attr("data-section-id");
+						setDate(pid,true);
+					    toggle_btn($('.anchor_btn span'),0,save_this);
+					} else {
+
+					}
+			}) 
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

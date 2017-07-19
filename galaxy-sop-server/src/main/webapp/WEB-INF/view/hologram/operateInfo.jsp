@@ -64,7 +64,10 @@ getData();
 			str ="";
 		}
 		//
+		console.log(key);
+		
 		keyJSON["b_"+id_code]=key;
+		console.log(keyJSON);
 		var sec = $(this).closest('.section');
 		var sTop=$(window).scrollTop();
 		event.stopPropagation();
@@ -142,7 +145,7 @@ getData();
 							
 							
 					}
-					edit_bsaicfun()
+					edit_bsaicfun();
 				}else{
 					
 				}
@@ -250,6 +253,7 @@ getData();
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
 		$("body").showLoading();
+		console.log("######################");
 		console.log(data);
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传

@@ -189,6 +189,7 @@ function tabInfoChange(index){
 
 
 	$.fn.showResults = function(readonly){
+		alert("#@$#@$");
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
         var id = $(this).attr('id');
@@ -210,6 +211,8 @@ function tabInfoChange(index){
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
 				function(data) {
+			console.log("%%%%%%%%")
+				console.log(data)
         			var result = data.result.status;
         			if (result == 'OK')
         			{

@@ -35,13 +35,11 @@
 
 <script type="text/javascript">
 var mustids = "${mustids}";
-console.log(mustids);
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO5", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
-				debugger;
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
@@ -86,6 +84,7 @@ $(function() {
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					
 					sec.showResults();
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
@@ -293,7 +292,50 @@ $(function() {
 	});
 });
 
-
+	function addRow(ele)
+	{
+		var code = $(ele).prev().data('code');
+		$.getHtml({
+			url:getDetailUrl(code),//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("#detail-form input[name='projectId']").val(projectInfo.id);
+				$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+				$("#save-detail-btn").click(function(){
+					saveForm($("#detail-form"));
+					check_table();
+					check_table_tr_edit();
+				});
+			}//模版反回成功执行	
+		});
+	}
+	function getDetailUrl(code)
+	{
+		if(code == 'equity-structure')
+		{
+			return '<%=path%>/html/funcing_add_gd.html';
+		}
+		else if(code == 'investor-situation')
+		{
+			return '<%=path%>/html/funcing_add_tz.html';
+		}
+		else if(code =='operation-indices')
+		{
+			return '<%=path%>/html/fincing_add_yx.html';
+		}
+		else if(code == 'valuation-reference')
+		{
+			return '<%=path%>/html/fincing_add_tl.html';
+		}
+		else if(code == 'financing-milestone')
+		{
+			return '<%=path%>/html/fincing_add_jd.html';
+		}else if(code == 'competition-comparison')
+		{
+			return '<%=path%>/html/compete_save.jsp';
+		}
+		return "";
+	}
 
 </script>
 
