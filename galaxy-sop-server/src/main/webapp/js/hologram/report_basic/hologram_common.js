@@ -193,7 +193,6 @@ function tabInfoChange(index){
 		var pid = $(this).data('sectionId');
         var id = $(this).attr('id');
 		if(id == "a_NO3_1"){
-			alert("!@#@#$");
 		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
@@ -213,7 +212,6 @@ function tabInfoChange(index){
         			var result = data.result.status;
         			if (result == 'OK')
         			{
-        				alert("111");
         				var entityList = data.entityList;
         				if(entityList && entityList.length >0)
         				{
@@ -656,7 +654,6 @@ function buildMemberRow(headerList,row,showOpts)
 function buildTable(sec,title)
 {
 	//列表Header
-	alert("!@!$#@#$");
 	
 	if(title.tableHeader)
 	{
@@ -666,7 +663,6 @@ function buildTable(sec,title)
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
-			alert(header.code);
 			table.attr('data-code',header.code);
 			table.empty();
 			var tr="<tr>";
@@ -1232,7 +1228,6 @@ function check_labels(data){
 				$(this).parents('.mb_24').show();
 				 return false;
 			}else{
-				//alert("aha,多选没有")
 				$(this).parents('.mb_24').hide();
 			}
 		})
