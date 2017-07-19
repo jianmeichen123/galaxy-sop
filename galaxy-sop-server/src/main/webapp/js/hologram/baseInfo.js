@@ -101,7 +101,7 @@ function toGetHtmlByMark(title,mark){
 				var result = data.result.status;
 				if (result == 'OK') {
 					var sign_title = data.entity;
-					html += toGetHtmlByMark(sign_title,mark);
+					html += (sign_title,mark);
 				}
 			});
 		}else{
@@ -110,7 +110,7 @@ function toGetHtmlByMark(title,mark){
 	});
 	return html;
 }
-
+//title_指每一个题
 function switchTypeByMark(title,mark){
 	var html = "";
 	switch (title.type) {
@@ -188,27 +188,26 @@ function type_1_html(title,mark){
 		if(results && results[0] && results[0].contentDescribe1) value = results[0].contentDescribe1;
 		var placeholder = '';
 		if(title.placeholder) placeholder = title.placeholder;
-		
+		var result_id=title.resultList[0].id;		
 		eresult = "<input type=\"text\" class=\"txt\" value='"+ value +"' " +
-					"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
+					"data-title-id='"+title.id+"' resultId='"+result_id+"' data-type='"+title.type+"' placeholder='"+placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		return  "<div class=\"mb_24 clearfix\" style='margin-bottom:14px;'>" + htitle + eresult + "</div>";
 	}
 	
 }
 
 
-
+//type 循环 
 function one_select_edit(title,inputtype,type){
 	var eresult = "";
 	var values = title.valueList;
-	//if(values.length < 6){
 	if(inputtype == 'radio'){
 		var li = "";
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\"  resultId='"+this.id+"' value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
 			}else
-				li +=  "<li><input type=\"radio\" value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' />" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\"   value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' />" + this.name  + "</li>";
 		});
 		if(type=='2'){
 			eresult = 
@@ -234,12 +233,22 @@ function one_select_edit(title,inputtype,type){
 			}else
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";
 		});
-    	eresult = 
-    		"<dd>" +
-		    	"<select data-must='"+title.isMust+"' name='"+title.id+"'>" +
-					li +
-				"</select>" +
-	    	"</dd>";
+    	if(title.resultList[0].id!=undefined){
+    		eresult = 
+        		"<dd>" +
+    		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
+    					li +
+    				"</select>" +
+    	    	"</dd>";
+    	}else{
+    		eresult = 
+        		"<dd>" +
+    		    	"<select data-must='"+title.isMust+"' name='"+title.id+"'>" +
+    					li +
+    				"</select>" +
+    	    	"</dd>";
+    	}
+    	
 	}
 	
 	return eresult;
@@ -287,9 +296,9 @@ function type_3_html(title,mark){
 		var values = title.valueList;
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<li class=\"check_label active\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
+				li +=  "<li class=\"check_label active\" resultId='"+this.id+"' data-value='"+this.id+"'  data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 			}else
-				li +=  "<li class=\"check_label\" data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
+				li +=  "<li class=\"check_label\"  data-value='"+this.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</li>";
 		});
 		var eresult = 
 			"<dd class=\"fl_none\">" +
@@ -301,22 +310,19 @@ function type_3_html(title,mark){
 		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + "</div>";
 	}
 }
-
-
- 
-
-function getNextSelect(title,cid){
+function getNextSelect(title,cid,i){
 	var rselect = {};
 	sendGetRequest(platformUrl.queryProNvaluesInfo + pid + "/"+ title.id  +"/"+cid ,null, function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entitys = data.entityList;
-			rselect = nselectHtml(entitys,title,cid);
+			console.log(data);
+			rselect = nselectHtml(entitys,title,cid,i);
 		}
 	});
 	return rselect;
 }
-function nselectHtml(values,title,cid){
+function nselectHtml(values,title,cid,l_i){
 	//var results = title.resultList;
 	
 	var has_checked = false;
@@ -334,11 +340,20 @@ function nselectHtml(values,title,cid){
 	if(!has_checked){
 		cid = null;
 	}
-	
-	var relu_ht =
-			"<select onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
+	$.each(title.resultList,function(){
+		
+	})
+	if (title.resultList[l_i-1].id){
+		var relu_ht =
+			"<select resultId='"+title.resultList[l_i-1].id+"' onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
 				li +
 			"</select>" ;
+	}else{
+		var relu_ht =
+			"<select  onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
+				li +
+			"</select>" ;
+	}
 	var return_re = {
 			htm : relu_ht,
 			vpid : cid
@@ -372,19 +387,20 @@ function type_4_html(title,mark){
 		var eresult = "";
 		
 		var checked_cid;
+		
 		for(var i = 1; i <6; i++){
 			if(i == 1){
 				var values = title.valueList;
-				var return_j = nselectHtml(values,title,checked_cid);
+				var return_j = nselectHtml(values,title,checked_cid,i);
 				checked_cid = return_j.vpid;
 				eresult += return_j.htm;
 			}else{
 				if(checked_cid){
-					var return_j = getNextSelect(title,checked_cid);
+					var return_j = getNextSelect(title,checked_cid,i);
 					checked_cid = return_j.vpid;
 					eresult += return_j.htm;
 				}else{
-					var return_j = nselectHtml({},title,checked_cid);
+					var return_j = nselectHtml({},title,checked_cid,i);
 					eresult += return_j.htm;
 				}
 			}
@@ -465,14 +481,15 @@ function type_5_html(title,mark){
 			for(var i = 0;  i < results.length; i++ ){
 				if(results[i].contentDescribe1){
 					r_value = results[i].contentDescribe1;
+					var result_id = results[i].id;
 					break;
 				}
 			}
 		}
 		var eresult_2 = 
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" " +
-					"data-title-id='"+title.id+"' id ='"+title.id+"' data-type='"+title.type+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
+				"<textarea resultId='"+result_id+"' class=\"textarea_h\" " +
+					"data-title-id='"+title.id+"'  id ='"+title.id+"' data-type='"+title.type+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					 	r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
@@ -590,10 +607,10 @@ function type_8_html(title,mark){
 
 		var r_value = '';
 		if(results && results[0] && results[0].contentDescribe1) r_value = results[0].contentDescribe1;
-		
+		var result_id=title.resultList[0].id;	
 		var eresult =
 			"<dd class=\"fl_none\">" +
-				"<textarea class=\"textarea_h\" data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
+				"<textarea class=\"textarea_h\" resultId='"+result_id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' id ='"+title.id+"' oninput=countChar('"+title.id+"','"+title.id+"_lable',"+title.valRuleMark+")  placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
 					r_value +
 				"</textarea>" +
 				"<p class=\"num_tj\"><label id="+title.id+"_lable>"+title.valRuleMark+"</label><span>/"+title.valRuleMark+"</span></p>" +
@@ -910,7 +927,7 @@ function type_14_html(title,mark){
 		}
 		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = one_select_edit(title,'select');
+		var eresult = one_select_edit(title,'select',);
 		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
 	}
 }

@@ -19,114 +19,99 @@
 
 
 <body>
-<!-- 	<ul class="h_navbar clearfix">
-		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('0')">基础<br />信息 </li>
-		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('1')">项目</li>
-		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
-		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br />数据 </li>
-		<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('4')">竞争</li>
-		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br />策略 </li>
-		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('6')">财务</li>
-		<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
-		<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br />估值 </li>
-	</ul> -->
 <!--隐藏-->
+
 <div class="bj_hui_on"></div>
-
-	<div id="tab-content">
-		<div class="tabtxt compete_tab-content" id="page_all">
-
-			<!-- <div class="h radius" id="NO5_2"> </div> -->
-
-			<div class="h radius" id="NO5_1"> </div>
-			<div class="h radius" id="NO5_3"> </div>
-			<div class="h radius" id="NO5_4"> </div>
-			<div class="h radius" id="NO5_5"> </div>
-			<div class="h radius" id="NO5_6"> </div>
-			<div class="h radius" id="NO5_7"> </div>
-			<div class="h radius" id="NO5_8"> </div>
-			
-		</div>
-	</div>
+<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>               
+<div class="tabtxt" id="page_all">
+<!--tab-->
 
 
+<!--tab end-->
+</div>
 
 
 				
 
 <script type="text/javascript">
-var isEditable = "${isEditable}";
+var mustids = "${mustids}";
+console.log(mustids);
+	//整体页面显示
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO5", null,
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				var entity = data.entity;
+				$("#page_list").tmpl(entity).appendTo('#page_all');
+				$(".section").each(function(){
+					$(this).showResults(true);
+				});
+				mustData(projectInfo.id,0);
+				fun_click();
+			} else {
 
-table_Value = {};
-table_filed = {};
+			}
+		})
 
-var codeArr = ['NO5_1','NO5_3','NO5_4','NO5_5','NO5_6','NO5_7','NO5_8'];
-sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backFun);
 
 	
 $(function() {
 	//通用取消编辑
-	$('div').delegate(".h_cancel_btn", "click", function(event) {
-		var _this = $(this);
+	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
-		$('#a_' + id_code).show();
-		$('#b_' + id_code).remove();
+		$('#'+id_code).show();
+		$('#b_'+id_code).remove();
 		$(".bj_hui_on").hide();
 		btn_disable(0);
-		$(".h#"+id_code).css("background","#fff");
+		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
-		if(_this.is(':visible')){
-			$('.base_half').css('width','50%');
-		}
 	});
 	
 	//通用编辑显示
-	$('div').delegate(".h_edit_btn", "click", function(event) {
-		var base_editbtn = $(this);
+	$('div').delegate(".h_edit_btn", "click", function(event) {		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
-		var section = $(this).parents('.section');
+		var sec = $(this).closest('.section');
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
 		event.stopPropagation();
-		sendGetRequest(platformUrl.editProjectAreaInfo + pid + "/" + id_code, null, function(data) {
-			var result = data.result.status;
-			if (result == 'OK') {
-				var sTop=$(window).scrollTop();
-				var entity = data.entity;
-				var html = toGetHtmlByMark(entity, 'e');
-				var s_div = toEditTitleHtml(entity, html);
-				$("#a_" + id_code).hide();
-				$("#" + id_code).append(s_div);
-				$(".bj_hui_on").show();
-				$(".h#"+id_code).css("background","#fafafa");
-				$.each($('.textarea_h'),function(i,data){
-					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
-					  $(this).val($(this).val().replace(/&nbsp;/g," "));
-					  var font_num = 2000 - $(this).val().length;
-					  $(this).siblings('p').find('label').html(font_num);
-				});
-				btn_disable(1);
-				mustData(projectInfo.id,0);
-				/* 文本域自适应高度 */
-				for(var i=0;i<$("textarea").length;i++){
-					var textareaId=$("textarea").eq(i).attr("id");
-					autoTextarea(textareaId);
-				}
-				$.each($("table"),function(i,data){
-					var len=$(this).find("tr:gt(0)").length;
-					if(len==0){
-						$(this).hide();
+		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					var entity = data.entity;
+					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					sec.showResults();
+					$(".h#a_"+id_code).css("background","#fafafa");
+					$("#"+id_code).hide();
+					validate();
+					btn_disable(1);
+					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
+					//文本域剩余字符数
+					var textarea_h = section.find('.textarea_h');
+					for(var i=0;i<textarea_h.length;i++){
+						var len=textarea_h.eq(i).val().length;
+						var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+						textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
 					}
-					
-				});
-			}
-			/* $('html,body').scrollTop(sTop);  //定位 */
-			//去除base_half 类名
-			if(base_editbtn.is(':hidden')){
-				$('.base_half').css('width','100%');
-			}
-			check_12()
-		})
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
+					check_12();
+				} else {
+
+				}
+		}) 
 	});
-	
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		event.stopPropagation();
@@ -244,7 +229,7 @@ $(function() {
 			data.infoTableModelList = infoTableModelList;
 			data.deletedRowIds = deletedRowIds;
 		}
-		if(!$("#c_"+id_code).validate().form())
+		if(!$("#b_"+id_code).validate().form())
 		{
 			return;
 		}
@@ -253,21 +238,18 @@ $(function() {
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"competeTime");
 				layer.msg('保存成功');
-				showArea(id_code);
+				$('#'+id_code).show();
+				$('#b_'+id_code).remove();
 				$(".bj_hui_on").hide();
-				toggle_btn($('.anchor_btn span'),0,save_this);
-				mustData(projectInfo.id,0);
-				check_radius($(".radius"))
-				$(".h#"+id_code).css("background","#fff");
 				btn_disable(0);
+				$(".h#a_"+id_code).css("background","#fff");
+				var pid=$('#a_'+id_code).attr("data-section-id");
+			    setDate(pid,true);	
+			    toggle_btn($('.anchor_btn span'),0,save_this);
 			} else {
 				layer.msg('保存失败');
 			}
 		});
-		//base_half
-		if(_this.is(':visible')){
-			$('.base_half').css('width','50%');
-		}
 	});
 });
 

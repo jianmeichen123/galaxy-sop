@@ -115,7 +115,7 @@
 					}
 					//检查表格tr是否10行
 					check_table_tr_edit();
-					check_12();
+					edit_bsaicfun()
 				} else {
 
 				}
@@ -290,7 +290,6 @@
             }
             else if(type==13)
             {
-            	console.log(type);
                     infoMode.value = field.data('id');
                     var field_v = field.data('id');
                     var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');

@@ -166,6 +166,7 @@ var deleteJSON={};
 					}
 					//检查表格tr是否10行
 					check_table_tr_edit();
+					edit_bsaicfun();
 					//上传图片
 					var files = $("#"+id_code).nextAll().find("input[type='file']");
 					var selectids = [];
