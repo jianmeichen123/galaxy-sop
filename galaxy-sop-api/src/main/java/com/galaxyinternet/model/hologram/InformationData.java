@@ -7,19 +7,22 @@ import java.util.Set;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+@ApiModel
 public class InformationData extends PagableEntity {
 	private static final long serialVersionUID = 1L;
-	
+	@ApiModelProperty("项目")
 	private String projectId;
 	
 	private int flag;//0:正常数据编辑;1:表格数据处理;2:固定表格处理
-	
+	@ApiModelProperty("普通类型")
 	private List<InformationModel> infoModeList;
-	
+	@ApiModelProperty("固定表格")
 	private List<FixedTableModel> infoFixedTableList;
-	
+	@ApiModelProperty("动态表格-删除的记录")
 	private Set<String> deletedRowIds;  //适用table表
-	
+	@ApiModelProperty("动态表格")
 	private List<TableModel>     infoTableModelList;
 	
 	private Set<String> deletedResultTids;  //适用result表

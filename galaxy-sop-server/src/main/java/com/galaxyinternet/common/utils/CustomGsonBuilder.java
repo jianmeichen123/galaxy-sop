@@ -11,6 +11,11 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import springfox.documentation.spring.web.json.Json;
 
 public class CustomGsonBuilder {
 	
@@ -18,6 +23,7 @@ public class CustomGsonBuilder {
 	public CustomGsonBuilder()
 	{
 		builder.registerTypeAdapter(Date.class, new DateAdapter());
+		builder.registerTypeAdapter(Json.class, new SpringfoxJsonToGsonAdapter());
 	}
 	
 	public Gson create()
@@ -54,6 +60,20 @@ public class CustomGsonBuilder {
 			return date;
 		}
 
+		
+	}
+	
+	private static final class SpringfoxJsonToGsonAdapter implements JsonSerializer<Json>
+	{
+
+		@Override
+		public JsonElement serialize(Json json, Type typeOfSrc, JsonSerializationContext context)
+		{
+			final JsonParser parser = new JsonParser();
+	        return parser.parse(json.value());
+		}
+
+		
 		
 	}
 }

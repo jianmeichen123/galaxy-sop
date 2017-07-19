@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.framework.core.form.Token;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -31,7 +30,11 @@ import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
+@Api("全息图后台接口")
 @Controller
 @RequestMapping("/galaxy/infoProject")
 public class InfoProjectController  extends BaseControllerImpl<InformationData, InformationData> {
@@ -67,10 +70,14 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	 * @version 2017-03-13
 	 * @author jianmeichen
 	 */
+	@ApiOperation("保存")
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdateInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> saveOrUpdateInfo(@RequestBody InformationData informationData,
+	public ResponseData<Project> saveOrUpdateInfo(
+			@ApiParam(name = "informationData", value = "标题/值信息", required = true)
+			@RequestBody 
+			InformationData informationData,
 			HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		if(null==informationData.getProjectId()||"".equals(informationData.getProjectId())){

@@ -2,6 +2,8 @@ package com.galaxyinternet.model.hologram;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class FixedTableModel extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 	
@@ -14,7 +16,7 @@ public class FixedTableModel extends PagableEntity {
     private String type;//类型
 
     private String value;//值
-    //值ID(如果有)
+    @ApiModelProperty("值ID(如果有)")
     private Long valueId;
 
 	public String getTitleId() {

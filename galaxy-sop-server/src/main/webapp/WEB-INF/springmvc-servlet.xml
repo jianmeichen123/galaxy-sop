@@ -173,5 +173,5 @@
 		<property name="defaultStatusCode" value="500" />
 	</bean>
 	<!-- 全局异常配置 end -->
-	
+	<bean class="com.galaxyinternet.framework.core.config.SwaggerConfiguration"></bean>
 </beans>
