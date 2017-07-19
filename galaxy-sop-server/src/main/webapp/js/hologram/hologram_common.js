@@ -15,8 +15,7 @@ function editOpen(){
 	})
 }
 
-function edit_bsaicfun(){
-//	check_12
+function check_12(){
 	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
 		 var par_ul = $(this).parents("ul");
 		 if(!par_ul.find('li').eq(par_ul.find("li").length-2).find("input").checked){
@@ -24,23 +23,9 @@ function edit_bsaicfun(){
 			  par_ul.find("span.error").remove();
 		  }
 	})
-	//change标识
-	$("input").change(function(){
-		var _target=$(this).parents("dd").prev();
-		_target.attr("tochange",true);
-		
-	})
-	$("textarea").change(function(){
-		var _target=$(this).parents("dd").prev();
-		_target.attr("tochange",true);
-		
-	})
-	$("select").change(function(){
-		var _target=$(this).parents("dd").prev();
-		_target.attr("tochange",true);
-		
-	})
-	//多选标签
+}
+/*多选标签*/
+function check_click(){
 	$(".check_label").click(function(event){
 		  $(this).toggleClass('active');
 		  var par_ul = $(this).parent("ul");
@@ -59,8 +44,6 @@ function edit_bsaicfun(){
 		  event.stopPropagation();
 	});
 }
-
-
 /*文本域字数统计*/
 function countChar(textareaName,spanName,maxLimit){
 	//var maxLimit=10;
@@ -203,13 +186,12 @@ function tabInfoChange(index){
                             data = $(this)[0]
                         }
                     })
-                    
                     buildMemberTable(sec,data);
                 }
 		     })
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
-				function(data) {
+        				function(data) {
         			var result = data.result.status;
         			if (result == 'OK')
         			{
@@ -499,7 +481,6 @@ function buildResults(sec,title,readonly)
 			}
 	        else{
 				var str=title.resultList[0].contentDescribe1;
-				var result_id=title.resultList[0].id
 				if(str !=undefined && str.indexOf("<sitg>")>-1){
 					var str=str.split("<sitg>");
 					var inputsValueList=[];
@@ -511,8 +492,7 @@ function buildResults(sec,title,readonly)
 					}
 				   var div=$(".inputs_block").closest(".h_edit_txt");
 				   for(var j=0;j<div.children("dd").length;j++){
-					   div.children("dd").eq(j).find("input").val(inputsValueList[j]).attr("resultId",result_id);
-					   
+					   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
 				   }
 				}
 			}
@@ -576,7 +556,6 @@ function buildResults(sec,title,readonly)
 }
 function buildMemberTable(sec,title){
         //列表Header
-	
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -656,12 +635,11 @@ function buildMemberRow(headerList,row,showOpts)
 function buildTable(sec,title)
 {
 	//列表Header
-	
 	if(title.tableHeader)
 	{
-		debugger;
-		console.log(title);
+		
 		var header = title.tableHeader;
+	
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
@@ -1230,6 +1208,7 @@ function check_labels(data){
 				$(this).parents('.mb_24').show();
 				 return false;
 			}else{
+				//alert("aha,多选没有")
 				$(this).parents('.mb_24').hide();
 			}
 		})
@@ -1442,7 +1421,6 @@ function setMustIds(mustids){
 	$(".unable").removeClass('unable');
 	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
 	var result=mustids.split(",");
-	console.log(result);
 	for(var i=0;i<result.length;i++){
 		//禁用
 		if(result[i].indexOf("a_")==0){
@@ -1553,48 +1531,21 @@ function fun_click(){
 }
 //保存 题目change事件
 function type_change(){
-	//check_12
-	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
-		 var par_ul = $(this).parents("ul");
-		 if(!par_ul.find('li').eq(par_ul.find("li").length-2).find("input").checked){
-				// 没有选择了其他
-			  par_ul.find("span.error").remove();
-		  }
-	})
-	//change标识
 	$("input").change(function(){
-		var _target=$(this).parents("dd").prev();
+		var _target=$(this).parent().prev();
 		_target.attr("tochange",true);
 		
 	})
 	$("textarea").change(function(){
-		var _target=$(this).parents("dd").prev();
+		var _target=$(this).parent().prev();
 		_target.attr("tochange",true);
 		
 	})
 	$("select").change(function(){
-		var _target=$(this).parents("dd").prev();
+		var _target=$(this).parent().prev();
 		_target.attr("tochange",true);
 		
 	})
+	
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
