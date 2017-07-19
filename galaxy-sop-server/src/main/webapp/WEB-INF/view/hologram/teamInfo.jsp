@@ -249,8 +249,15 @@
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type') || field.closest('.h_edit_txt').find(':first-child').data('type');
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
+				tochange:_tochange,
+				resultId:_resultId,
 				type : type
 			};
 			if(type==2 || type==4 || type==14)
@@ -599,8 +606,6 @@ function bindChange(){
                 }
             });
         });
-
-
     });
 }
 
@@ -631,7 +636,6 @@ function bindChangeType13(){
 
 
     });
-    check_click();
 }
 </script>
 </body>

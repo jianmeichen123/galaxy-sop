@@ -69,6 +69,7 @@ var isDSZ = "<%=isDSZ%>";
 <script src="<%=request.getContextPath() %>/js/cookie.js" type="text/javascript"></script>
 
 <script src="<%=request.getContextPath() %>/js/common_report.js" type="text/javascript"></script>
+
 <!-- end -->
 
 

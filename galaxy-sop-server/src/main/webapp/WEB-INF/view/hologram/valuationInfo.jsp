@@ -250,8 +250,15 @@ var deleteJSON={};
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId	: field.data('titleId'),
+				tochange:_tochange,
+				resultId:_resultId,
 				type : type
 			};
 			if(type==2 || type==3 || type==4)

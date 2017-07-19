@@ -183,6 +183,7 @@ getData();
 		$.each(dt_type_3, function() {
 			var _this = $(this);
 			var active = _this.parent().find('dd .active');
+			
 			if(!(active && active.length > 0)){
 				var tid = _this.data('titleId');
 				deletedResultTids.push(tid);
@@ -193,8 +194,15 @@ getData();
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId	: field.data('titleId'),
+				tochange:_tochange,
+				resultId:_resultId,
 				type : type
 			};
 			if(type==2 || type==3 || type==4 || type==14)
@@ -242,6 +250,8 @@ getData();
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
 		$("body").showLoading();
+		debugger;
+		console.log(data);
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传
 			var result = dataParam.result.status;
@@ -279,7 +289,7 @@ getData();
 				layer.msg("操作失败!");
 			}
 			
-		});
+		}); 
 	
 		
 	}); 
@@ -454,7 +464,6 @@ function bindChangeType13(){
         	})
         });
     });
-    check_click();
 }
 </script>
 
