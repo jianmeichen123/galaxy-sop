@@ -42,7 +42,6 @@ function edit_bsaicfun(){
 	})
 	//多选标签
 	$(".check_label").click(function(event){
-		alert("@!#@$")
 		  $(this).toggleClass('active');
 		  var par_ul = $(this).parent("ul");
 		  if(par_ul.hasClass("pro_innovation")){

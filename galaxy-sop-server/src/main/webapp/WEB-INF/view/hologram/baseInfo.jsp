@@ -155,9 +155,8 @@ $(function() {
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				btn_disable(1);
-				/* setReqiured();
-				isMust("#b_"+id_code);
-				$("#c_"+id_code).validate(); */
+				edit_bsaicfun();
+				/*基本信息 多级联动change特殊  */
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
@@ -181,7 +180,6 @@ $(function() {
 		event.stopPropagation();
 		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
-
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
 		var fields_value1 = $("#b_" + id_code).find(".active");
@@ -198,18 +196,32 @@ $(function() {
 			if (field.val() && field.val().length > 0) {
 				valu = field.val();
 			}
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : field.data('type'),
+				tochange:_tochange,
+				resultId:_resultId,
 				value : valu
 			};
 			infoModeList.push(infoMode);
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			var infoMode = {
 				titleId : field.data('titleId'),
 				type : field.data('type'),
+				tochange:_tochange,
+				resultId:_resultId,
 				value : field.data('value')
 			};
 			infoModeList.push(infoMode);
@@ -218,12 +230,19 @@ $(function() {
 			var field = $(this);
 			var typ = field.data('type');
 			var name = field.data('name');
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _resultId = field.attr("resultId");
+			if(_tochange==undefined){
+				_tochange=false;
+			}
 			if(typ == '5'){
 				field.val(field.val().replace(/ /g,"&nbsp;"));
 			}
 			var value = field.val().replace(/\n/g,'<br/>');
 			var infoMode = {
 				titleId : field.data('titleId'),
+				tochange:_tochange,
+				resultId:_resultId,
 				type : typ
 			};
 			
@@ -309,6 +328,8 @@ $(function() {
 		{
 			return;
 		}
+		console.log("!!!!!!!!!!!!!!!!");
+		console.log(data);
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
@@ -326,7 +347,6 @@ $(function() {
 		});
 		//base_half
 		if(_this.is(':visible')){
-			console.log("12344555");
 			_this.siblings('.base_half').css('width','50%');
 		}
 		dtWidth();

@@ -406,7 +406,7 @@ function type_4_html(title,mark){
 			}
 		}
 		
-		return  "<div class=\"mb_24 select_box clearfix\">" + htitle +eresult +"</div>";
+		return  "<div class=\"mb_24 select_box clearfix\">" + htitle +"<dd>"+eresult +"</dd></div>";
 	}
 }
 function showConstarct(thisSelect,tid,type){
@@ -870,13 +870,13 @@ function type_13_html(title,mark){
 			if(i+1 == values.length){
 				if(values[i].checked){
 					has_beizhu = true;
-					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" resultId='"+values[i].id+"' data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
 					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
 			}else{
 				if(values[i].checked){
-					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" resultId='"+values[i].id+"' data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
 					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
@@ -886,15 +886,19 @@ function type_13_html(title,mark){
 		var toadd_li = "";
 		var r_value = '';
 		if(has_beizhu == true){
+			
 			if(results && results.length > 0){
 				for(var i = 0;  i < results.length; i++ ){
 					if(results[i].contentDescribe1){
+						console.log("@@@@@@@@@@@@@@@");
+						console.log(results[i])
 						r_value = results[i].contentDescribe1;
+						var result_id = results[i].id;
 						break;
 					}
 				}
 			}
-			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
+			toadd_li = "<input type=\"text\" resultId='"+result_id+"' class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
 										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}else{
 			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
