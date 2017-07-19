@@ -142,7 +142,7 @@ getData();
 							
 							
 					}
-					check_12()
+					edit_bsaicfun()
 				}else{
 					
 				}
