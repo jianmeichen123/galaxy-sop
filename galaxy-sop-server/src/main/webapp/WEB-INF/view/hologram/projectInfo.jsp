@@ -132,13 +132,15 @@
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
+			var _resultId = null;
 			var _tochange =field.parents("dl.h_edit_txt").find("dt").attr("tochange");
 			var sele = field.parent().get(0).tagName;
 			if(sele=="SELECT"){
-				var _resultId = field.parent().attr("resultId");
+				_resultId = field.parent().attr("resultId");
 			}else{
-				var _resultId = field.attr("resultId");
+				_resultId = field.attr("resultId");
 			}
+			
 			if(_tochange==undefined){
 				_tochange=false;
 			}
@@ -188,6 +190,10 @@
                 var dds=div.find('dd');
                 var inputsValueList=[];
                 for(var i=0;i<dds.length;i++){
+                	_resultId = dds.eq(i).children("input").attr("resultId");
+                	if(_resultId && _resultId != undefined){
+                		infoMode.resultId = _resultId;
+                	}
                 	var field=dds.eq(i).children("input").val();
                 	inputsValueList.push(field);
                 }
