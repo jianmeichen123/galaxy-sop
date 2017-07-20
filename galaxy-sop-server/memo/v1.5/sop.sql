@@ -84,5 +84,8 @@ ADD COLUMN `notes_remark` TEXT NULL COMMENT '会议纪要备份字段' AFTER `re
 
 UPDATE sop_meeting_record SET notes_remark=meeting_notes;
 UPDATE sop_interview_record SET notes_remark=view_notes;
- 
-
+/**
+ * platform_user  密码同步
+ */
+update `power`.`user` a  left join `fx_db`.platform_user b on a.id = b.id
+set a.`password` = b.`password`,a.`origin_password`=b.`origin_password`;
