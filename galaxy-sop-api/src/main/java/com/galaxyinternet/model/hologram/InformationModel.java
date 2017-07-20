@@ -22,6 +22,8 @@ public class InformationModel extends PagableEntity {
 
 	private String titleCode;//题干code
 	
+	private String tochange; // 前端标识，是否需要操作该条数据
+	
 	public String getProjectId() {
 		return projectId;
 	}
@@ -87,6 +89,14 @@ public class InformationModel extends PagableEntity {
 	}
 
 	
+	public String getTochange() {
+		return tochange;
+	}
+
+	public void setTochange(String tochange) {
+		this.tochange = tochange;
+	}
+
 	@Override
 	public String toString() {
 		return GSONUtil.toJson(this);

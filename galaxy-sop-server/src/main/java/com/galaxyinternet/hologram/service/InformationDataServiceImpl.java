@@ -55,17 +55,22 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		
 		InformationResult entity = null;
-		List<InformationResult> entityList = new ArrayList<>();
+		List<InformationResult> entityList = new ArrayList<>(); //增加
+		List<InformationResult> uodateList = new ArrayList<>(); //修改
 		
-		Set<String> titleIds = new HashSet<>();
+		Set<String> titleIds = new HashSet<>(); //多条结果集  删除 （projectid titleid）
 		if(data.getDeletedResultTids() != null && !data.getDeletedResultTids().isEmpty()){
 			titleIds = data.getDeletedResultTids();
 		}
 		
+		
 		for(InformationModel model : list)
 		{
-			titleIds.add(model.getTitleId());
+			if(!"true".equals(model.getTochange())) continue;
+			
+			//titleIds.add(model.getTitleId());
 			entity = new InformationResult();
+			
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
 			if(!StringEx.isNullOrEmpty(model.getValue()))
@@ -74,14 +79,12 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			}
 			if(!StringEx.isNullOrEmpty(model.getRemark1()))
 			{
-				if(model.getType().equals("5")||model.getType().equals("6")||
-						model.getType().equals("8")||model.getType().equals("15")
+				if(model.getType().equals("5")||model.getType().equals("6")|| model.getType().equals("8")||model.getType().equals("15")
 					){
 					entity.setContentDescribe1(RegexUtil.getTextFromHtml(model.getRemark1()));
 				}else{
 					entity.setContentDescribe1(model.getRemark1());
 				}
-				
 			}
 			if(!StringEx.isNullOrEmpty(model.getRemark2()))
 			{
@@ -91,12 +94,26 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					entity.setContentDescribe2(model.getRemark2());
 				}
 			}
-			entityList.add(entity);
+			
+			if(model.getResultId() == null){
+				entityList.add(entity); // 新增
+			}else{
+				entity.setId(new Long(model.getResultId()));
+				uodateList.add(entity); // 修改
+			}
 		}
-		InformationResult query = new InformationResult();
-		query.setProjectId(projectId);
-		query.setTitleIds(titleIds);
-		resultDao.delete(query);
+		
+		
+		if(titleIds.size() > 0){
+			InformationResult query = new InformationResult();
+			query.setProjectId(projectId);
+			query.setTitleIds(titleIds);
+			resultDao.delete(query);
+		}
+		if(uodateList.size() > 0)
+		{
+			resultDao.updateInBatch(uodateList);
+		}
 		//插入数据
 		if(entityList.size() > 0)
 		{

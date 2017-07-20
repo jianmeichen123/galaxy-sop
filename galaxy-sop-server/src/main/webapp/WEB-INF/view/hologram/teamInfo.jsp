@@ -199,6 +199,8 @@
         				
         			}
         		})
+        		console.log("tuandui  ")
+        		console.log(data)
                 sendPostRequestByJsonObj(
                 platformUrl.saveTeamMember,
                 json,
@@ -249,7 +251,7 @@
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type') || field.closest('.h_edit_txt').find(':first-child').data('type');
-			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _tochange =field.parents("dl.h_edit_txt").find("dt").attr("tochange");
 			var sele = field.parent().get(0).tagName;
 			if(sele=="SELECT"){
 				var _resultId = field.parent().attr("resultId");
