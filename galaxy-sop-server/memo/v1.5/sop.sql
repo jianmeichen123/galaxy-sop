@@ -84,5 +84,11 @@ ADD COLUMN `notes_remark` TEXT NULL COMMENT '会议纪要备份字段' AFTER `re
 
 UPDATE sop_meeting_record SET notes_remark=meeting_notes;
 UPDATE sop_interview_record SET notes_remark=view_notes;
- 
+ UPDATE power.resource SET resource_type = 5 
+WHERE resource_code IN (
+'dataBriefing','project_view_module','div_duration_gg',
+'div_performance_gg','div_pro_doc','div_idea',
+'div_matter_preview_gg','div_project_progress','div_health_gg',
+'task_list','div_project_post_analysis_gg');
+
 
