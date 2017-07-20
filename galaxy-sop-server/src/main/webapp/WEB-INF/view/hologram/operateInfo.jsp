@@ -64,7 +64,6 @@ getData();
 			str ="";
 		}
 		//
-		console.log(key);
 		
 		keyJSON["b_"+id_code]=key;
 		console.log(keyJSON);
@@ -73,6 +72,8 @@ getData();
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
+			 console.log("@@@@");
+			 console.log(data);
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -197,33 +198,25 @@ getData();
 		data.deletedResultTids = deletedResultTids;
 		var infoModeList = new Array();
 		//多选和多选加备注特殊处理
-		debugger;
 		console.log(fields_value1)
-		$.each(fields_value1, function() {
-			alert("!@##!@$");
-			
+		$.each(fields_value1, function() {			
 			var field = $(this);			
 			var _tochange =field.parents("dd").prev().attr("tochange");
 			alert(_tochange);
 			if(_tochange==undefined){
-				alert("$$$$$$")
 				_tochange=false;
 			}			
 			if(_tochange == true||_tochange == "true"){
-				alert("xixixix");
 				var _resultId = field.attr("resultId");
 				if(_resultId==undefined  || _resultId=="undefined"){
 					_resultId=null
 				}
-				alert("hahahah")
-				console.log( field.data('titleId'));
-				console.log(field.data('type'));
 				var infoMode = {
 						titleId : field.data('titleId'),
 						type : field.data('type'),
 						tochange:_tochange,
 						resultId:_resultId,
-						value : field.data('value')
+						value : field.attr('value')
 					};
 				console.log(infoMode);
 				infoModeList.push(infoMode);
@@ -273,6 +266,8 @@ getData();
 	                    var field_v = field.data('id');
 	                    var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
 	                    var dt = field.closest('dt[data-type="13"]');
+	                    console.log(field_v);
+	                    console.log(last_id);
 	                    if ( field_v == last_id)
 	                    {
 	                    	//其他
@@ -328,7 +323,6 @@ getData();
 								setDate(pid,true);	
 								picData(projectInfo.id);
 								toggle_btn($('.anchor_btn span'),0,save_this);
-								
 							} else {
 								layer.msg("操作失败!");
 							}
