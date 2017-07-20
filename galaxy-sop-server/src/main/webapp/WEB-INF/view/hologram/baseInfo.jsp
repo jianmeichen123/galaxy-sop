@@ -180,7 +180,8 @@ $(function() {
 		var id_code = $(this).attr('attr-save');
 		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
 		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
-		var fields_value1 = $("#b_" + id_code).find(".active");
+		var fields_value1 = $("#b_" + id_code).find(".check_label");
+		//var fields_value1 = $("#b_" + id_code).find(".active");
 		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");		
 		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
 		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
@@ -217,19 +218,35 @@ $(function() {
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
+			// 有active  选中的class ，isActived = true，     不选中，isActived = false；
+			var isActived=false;
+			if($(this).hasClass("active")){
+				isActived = true;
+			}
+			
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
+			if(_resultId==undefined  || _resultId=="undefined"){
+				_resultId=null
+			}
 			if(_tochange==undefined){
 				_tochange=false;
 			}
-			var infoMode = {
-				titleId : field.data('titleId'),
-				type : field.data('type'),
-				tochange:_tochange,
-				resultId:_resultId,
-				value : field.data('value')
-			};
-			infoModeList.push(infoMode);
+			if(_resultId != null || isActived == true){
+				var vlau  = null;
+				if(isActived == true){
+					vlau = field.data('value');
+				}
+				var infoMode = {
+						titleId : field.data('titleId'),
+						type : field.data('type'),
+						tochange:_tochange,
+						resultId:_resultId,
+						value : vlau
+					};
+				infoModeList.push(infoMode);
+			}
+			
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
@@ -237,6 +254,9 @@ $(function() {
 			var name = field.data('name');
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
+			if(_resultId==undefined||_resultId=="undefined"){
+				_resultId=null
+			}
 			if(_tochange==undefined){
 				_tochange=false;
 			}
@@ -337,6 +357,7 @@ $(function() {
 		console.log(data);
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
+			console.log(data)
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"informationTime");
 				layer.msg('保存成功');
