@@ -101,7 +101,7 @@ function toGetHtmlByMark(title,mark){
 				var result = data.result.status;
 				if (result == 'OK') {
 					var sign_title = data.entity;
-					html += (sign_title,mark);
+					html += toGetHtmlByMark(sign_title,mark);
 				}
 			});
 		}else{
@@ -934,7 +934,7 @@ function type_14_html(title,mark){
 		}
 		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
-		var eresult = one_select_edit(title,'select',);
+		var eresult = one_select_edit(title,'select','radio');
 		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
 	}
 }
