@@ -217,6 +217,7 @@ $(function() {
 			infoModeList.push(infoMode);
 		});
 		$.each(fields_value1, function() {
+			debugger;
 			var field = $(this);
 			// 有active  选中的class ，isActived = true，     不选中，isActived = false；
 			/* var isActived=false;
@@ -229,7 +230,7 @@ $(function() {
 				_tochange=false;
 			}
 			
-			if(_tochange == true){
+			if(_tochange == 'true'){
 				var _resultId = field.attr("resultId");
 				if(_resultId==undefined  || _resultId=="undefined"){
 					_resultId=null
@@ -247,7 +248,7 @@ $(function() {
 						type : field.data('type'),
 						tochange:_tochange,
 						resultId:_resultId,
-						value : vlau
+						value : field.data('value')
 					};
 				infoModeList.push(infoMode);
 			}

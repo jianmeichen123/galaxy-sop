@@ -442,7 +442,7 @@ function buildResults(sec,title,readonly)
 					inputText.attr('disabled',false);
 				}
 				$.each(title.resultList,function(i,n){
-					var result_id= n.id;
+					var result_id= n.id;					
 					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active').attr("resultId",result_id);
 					if(n.contentDescribe1){  
 						$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1).attr("resultId",result_id);

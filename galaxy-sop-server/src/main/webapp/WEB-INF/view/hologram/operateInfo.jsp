@@ -64,7 +64,6 @@ getData();
 			str ="";
 		}
 		//
-		console.log(key);
 		
 		keyJSON["b_"+id_code]=key;
 		console.log(keyJSON);
@@ -73,6 +72,8 @@ getData();
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
+			 console.log("@@@@");
+			 console.log(data);
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;
@@ -172,7 +173,8 @@ getData();
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea,li[class='check_label active'],li.active,option:selected");
+		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
+		var fields_value1=sec.find("li[class='check_label active'],li.active");
 		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 		var data = {
 			projectId : projectInfo.id
@@ -181,6 +183,7 @@ getData();
 		{
 			return;
 		}
+		
 		//多选不选择的时候：
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
@@ -194,6 +197,48 @@ getData();
 		});
 		data.deletedResultTids = deletedResultTids;
 		var infoModeList = new Array();
+		//多选和多选加备注特殊处理
+		$.each(fields_value1, function() {			
+			var field = $(this);			
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			if(_tochange==undefined){
+				_tochange=false;
+			}			
+			if(_tochange == true||_tochange == "true"){
+				var _resultId = field.attr("resultId");
+				if(_resultId==undefined  || _resultId=="undefined"){
+					_resultId=null
+				}
+				var infoMode = {
+						titleId : field.data('titleId'),
+						type : field.data('type'),
+						tochange:_tochange,
+						resultId:_resultId,
+						value : field.attr('value')
+					};
+				var type = field.data('type');
+				if(type==13){
+					var field_v = field.data('id');
+	                 var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
+	                 var dt = field.closest('dt[data-type="13"]');
+	                 console.log(field_v);
+	                 console.log(last_id);
+	                 if ( field_v == last_id)
+	                 {
+	                 	//其他
+	                     infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
+	                 }
+	                 else
+	                 {
+	                     infoMode.remark1 = '' ;
+	                 }
+				}
+                 
+				console.log(infoMode);
+				infoModeList.push(infoMode);
+			}
+			
+		});
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
@@ -231,14 +276,18 @@ getData();
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
-			 else if(type==13)
+			/*  else if(type==13)
 	            {
+				 		debugger;
 	                    infoMode.value = field.data('id');
 	                    var field_v = field.data('id');
-	                    var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
+	                    var last_id = field.closest('ul').find('li.check_label:last').attr('data-title-id');
 	                    var dt = field.closest('dt[data-type="13"]');
+	                    console.log(field_v);
+	                    console.log(last_id);
 	                    if ( field_v == last_id)
 	                    {
+	                    	//其他
 	                        infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
 	                    }
 	                    else
@@ -246,7 +295,7 @@ getData();
 	                        infoMode.remark1 = '' ;
 	                    }
 	               
-	            }
+	            } */
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
@@ -291,7 +340,6 @@ getData();
 								setDate(pid,true);	
 								picData(projectInfo.id);
 								toggle_btn($('.anchor_btn span'),0,save_this);
-								
 							} else {
 								layer.msg("操作失败!");
 							}
