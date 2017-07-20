@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.hologram.GradeInfo">
+	<resultMap id="GradeInfoMap" type="com.galaxyinternet.model.hologram.GradeInfo">
+		<id column="id" 					property="relateId"			jdbcType="BIGINT"  />
+		<result column="parent_id" 			property="parentId" 		jdbcType="BIGINT" 	/>
+		<result column="report_type" 		property="reportType" 		jdbcType="BIGINT" />
+		<result column="score_max" 			property="scoreMax" 		jdbcType="BIGINT" />
+		<collection property="autoList" resultMap="GradeAutoInfoMap" />
+	</resultMap>
+	
+	<resultMap id="GradeAutoInfoMap" type="com.galaxyinternet.model.hologram.GradeAutoInfo">
+		<result column="dict_id" 			property="dictId" 		jdbcType="BIGINT" 	/>
+		<result column="proces_mode" 		property="mode" 			jdbcType="BIGINT" />
+		<result column="grade" 				property="grade" 		jdbcType="BIGINT" />
+	</resultMap>
+	
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		SELECT DISTINCT r.id,r.parent_id,r.report_type,g.score_max,a.process_mode
+		FROM information_title_relate r
+		INNER JOIN information_grade g ON r.id = g.title_relate_id
+		INNER JOIN information_grade_auto a ON a.title_relate_id = r.id
+		WHERE 
+		g.is_score = 0
+		and r.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+</mapper>
