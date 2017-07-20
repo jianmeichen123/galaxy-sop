@@ -867,19 +867,18 @@ function type_13_html(title,mark){
 	}else{
 		var li = "<li> ";
 		var values = title.valueList;
-		
 		var has_beizhu = false;
 		for(var i = 0;  i < values.length; i++ ){
 			if(i+1 == values.length){
 				if(values[i].checked){
 					has_beizhu = true;
-					li +=  "<li class=\"check_label active\" resultId='"+values[i].id+"' data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" resultId='"+results[i].id+"' data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
 					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
 			}else{
 				if(values[i].checked){
-					li +=  "<li class=\"check_label active\" resultId='"+values[i].id+"' data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" resultId='"+results[i].id+"' data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
 					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
@@ -893,8 +892,6 @@ function type_13_html(title,mark){
 			if(results && results.length > 0){
 				for(var i = 0;  i < results.length; i++ ){
 					if(results[i].contentDescribe1){
-						console.log("@@@@@@@@@@@@@@@");
-						console.log(results[i])
 						r_value = results[i].contentDescribe1;
 						var result_id = results[i].id;
 						break;
