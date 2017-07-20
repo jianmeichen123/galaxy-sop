@@ -121,7 +121,12 @@
 			var field = $(this);
 			var type = field.data('type');
 			var _tochange =field.parents("dd").prev().attr("tochange");
-			var _resultId = field.attr("resultId");
+			var sele = field.parent().get(0).tagName;
+			if(sele=="SELECT"){
+				var _resultId = field.parent().attr("resultId");
+			}else{
+				var _resultId = field.attr("resultId");
+			}
 			if(_tochange==undefined){
 				_tochange=false;
 			}
