@@ -10,18 +10,18 @@ public class GradeInfo extends BaseEntity
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Long relatedId;
+	private Long relateId;
 	private Long parentId;
 	private Integer reportType;
 	private Integer scoreMax;
 	private List<GradeAutoInfo> autoList;
-	public Long getRelatedId()
+	public Long getRelateId()
 	{
-		return relatedId;
+		return relateId;
 	}
-	public void setRelatedId(Long relatedId)
+	public void setRelateId(Long relateId)
 	{
-		this.relatedId = relatedId;
+		this.relateId = relateId;
 	}
 	public Long getParentId()
 	{

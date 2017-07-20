@@ -11,13 +11,13 @@
 	
 	<resultMap id="GradeAutoInfoMap" type="com.galaxyinternet.model.hologram.GradeAutoInfo">
 		<result column="dict_id" 			property="dictId" 		jdbcType="BIGINT" 	/>
-		<result column="proces_mode" 		property="mode" 			jdbcType="BIGINT" />
+		<result column="process_mode" 		property="processMode" 	jdbcType="BIGINT" />
 		<result column="grade" 				property="grade" 		jdbcType="BIGINT" />
 	</resultMap>
 	
 	
-	<select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-		SELECT DISTINCT r.id,r.parent_id,r.report_type,g.score_max,a.process_mode
+	<select id="selectById" parameterType="java.lang.Long" resultMap="GradeInfoMap">
+		SELECT DISTINCT r.id,r.parent_id,r.report_type,g.score_max,a.process_mode,a.dict_id,a.grade
 		FROM information_title_relate r
 		INNER JOIN information_grade g ON r.id = g.title_relate_id
 		INNER JOIN information_grade_auto a ON a.title_relate_id = r.id
