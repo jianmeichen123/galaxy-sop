@@ -202,7 +202,6 @@ getData();
 		$.each(fields_value1, function() {			
 			var field = $(this);			
 			var _tochange =field.parents("dd").prev().attr("tochange");
-			alert(_tochange);
 			if(_tochange==undefined){
 				_tochange=false;
 			}			
