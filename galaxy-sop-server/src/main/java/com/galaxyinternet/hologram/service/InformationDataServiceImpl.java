@@ -68,7 +68,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			if(!"true".equals(model.getTochange())) continue;
 			
-			if(model.getType().equals("3") || model.getType().equals("6") ||model.getType().equals("13") ){
+			if(model.getType()!=null &&(model.getType().equals("3") || model.getType().equals("6") ||model.getType().equals("13")) ){
 				titleIds.add(model.getTitleId());
 				model.setResultId(null);
 			}
