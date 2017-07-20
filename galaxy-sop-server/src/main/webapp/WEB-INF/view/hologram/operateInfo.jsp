@@ -198,7 +198,6 @@ getData();
 		data.deletedResultTids = deletedResultTids;
 		var infoModeList = new Array();
 		//多选和多选加备注特殊处理
-		console.log(fields_value1)
 		$.each(fields_value1, function() {			
 			var field = $(this);			
 			var _tochange =field.parents("dd").prev().attr("tochange");
