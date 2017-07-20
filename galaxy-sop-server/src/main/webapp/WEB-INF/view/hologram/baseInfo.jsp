@@ -153,7 +153,7 @@ $(function() {
 					  $(this).siblings('p').find('label').html(font_num);
 				});
 				btn_disable(1);
-				edit_bsaicfun();
+				edit_bsaicfun("base");
 				/*基本信息 多级联动change特殊  */
 				/* 文本域自适应高度 */
 				for(var i=0;i<$("textarea").length;i++){
@@ -201,7 +201,7 @@ $(function() {
 			}else{
 				var _resultId = field.attr("resultId");
 			}
-			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _tochange =field.closest("div").find("dt").attr("tochange");
 			
 			if(_tochange==undefined){
 				_tochange=false;
@@ -217,7 +217,7 @@ $(function() {
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
-			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
 			if(_tochange==undefined){
 				_tochange=false;
@@ -235,7 +235,7 @@ $(function() {
 			var field = $(this);
 			var typ = field.data('type');
 			var name = field.data('name');
-			var _tochange =field.parents("dd").prev().attr("tochange");
+			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
 			if(_tochange==undefined){
 				_tochange=false;

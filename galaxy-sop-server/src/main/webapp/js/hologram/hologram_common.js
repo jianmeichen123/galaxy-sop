@@ -15,7 +15,7 @@ function editOpen(){
 	})
 }
 
-function edit_bsaicfun(){
+function edit_bsaicfun(data){
 //	check_12
 	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
 		 var par_ul = $(this).parents("ul");
@@ -25,21 +25,40 @@ function edit_bsaicfun(){
 		  }
 	})
 	//change标识
-	$("input").change(function(){
-		var _target=$(this).parents("dl.h_edit_txt").find("dt");
-		_target.attr("tochange",true);
-		
-	})
-	$("textarea").change(function(){
-		var _target=$(this).parents("dl.h_edit_txt").find("dt");
-		_target.attr("tochange",true);
-		
-	})
-	$("select").change(function(){
-		var _target=$(this).parents("dl.h_edit_txt").find("dt");
-		_target.attr("tochange",true);
-		
-	})
+	if(data=="base"){
+		$("input").change(function(){
+			var _target=$(this).closest("div").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("textarea").change(function(){
+			var _target=$(this).closest("div").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("select").change(function(){
+			var _target=$(this).closest("div").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+	}else{
+		$("input").change(function(){
+			var _target=$(this).parents("dl.h_edit_txt").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("textarea").change(function(){
+			var _target=$(this).parents("dl.h_edit_txt").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("select").change(function(){
+			var _target=$(this).parents("dl.h_edit_txt").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+	}
+	
 	//多选标签
 	$(".check_label").click(function(event){
 		var _target=$(this).parents("dd").prev();
