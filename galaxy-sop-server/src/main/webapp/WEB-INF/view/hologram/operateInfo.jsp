@@ -172,7 +172,8 @@ getData();
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea,li[class='check_label active'],li.active,option:selected");
+		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
+		var fields_value1=sec.find("li[class='check_label active'],li.active");
 		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 		var data = {
 			projectId : projectInfo.id
@@ -181,6 +182,7 @@ getData();
 		{
 			return;
 		}
+		
 		//多选不选择的时候：
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
@@ -194,6 +196,40 @@ getData();
 		});
 		data.deletedResultTids = deletedResultTids;
 		var infoModeList = new Array();
+		//多选和多选加备注特殊处理
+		debugger;
+		console.log(fields_value1)
+		$.each(fields_value1, function() {
+			alert("!@##!@$");
+			
+			var field = $(this);			
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			alert(_tochange);
+			if(_tochange==undefined){
+				alert("$$$$$$")
+				_tochange=false;
+			}			
+			if(_tochange == true||_tochange == "true"){
+				alert("xixixix");
+				var _resultId = field.attr("resultId");
+				if(_resultId==undefined  || _resultId=="undefined"){
+					_resultId=null
+				}
+				alert("hahahah")
+				console.log( field.data('titleId'));
+				console.log(field.data('type'));
+				var infoMode = {
+						titleId : field.data('titleId'),
+						type : field.data('type'),
+						tochange:_tochange,
+						resultId:_resultId,
+						value : field.data('value')
+					};
+				console.log(infoMode);
+				infoModeList.push(infoMode);
+			}
+			
+		});
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
@@ -239,6 +275,7 @@ getData();
 	                    var dt = field.closest('dt[data-type="13"]');
 	                    if ( field_v == last_id)
 	                    {
+	                    	//其他
 	                        infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
 	                    }
 	                    else
