@@ -263,8 +263,8 @@ function buildResults(sec,title,readonly)
 			else
 			{	
 				var result_id = title.resultList[0].id;
-				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true').attr("resultId",result_id);
-				
+				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+				$("input[data-title-id='"+title.id+"']").attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 3)

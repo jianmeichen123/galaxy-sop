@@ -160,7 +160,7 @@
 		{
 			return;
 		}
-		console.log(data);
+		
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 

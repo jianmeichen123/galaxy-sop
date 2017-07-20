@@ -233,7 +233,7 @@ function one_select_edit(title,inputtype,type){
 			}else
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";
 		});
-    	if(title.resultList[0].id!=undefined){
+    	if(title.resultList!=undefined){
     		eresult = 
         		"<dd>" +
     		    	"<select resultId='"+title.resultList[0].id+"' data-must='"+title.isMust+"' name='"+title.id+"'>" +
