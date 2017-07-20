@@ -199,6 +199,9 @@ getData();
 			var type = field.data('type');
 			var _tochange =field.parents("dd").prev().attr("tochange");
 			var _resultId = field.attr("resultId");
+			if(_resultId==undefined){
+				_resultId=null;
+			}
 			if(_tochange==undefined){
 				_tochange=false;
 			}
@@ -253,7 +256,7 @@ getData();
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
 		$("body").showLoading();
-		console.log("######################");
+		console.log("保存的 data");
 		console.log(data);
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 			//进行上传

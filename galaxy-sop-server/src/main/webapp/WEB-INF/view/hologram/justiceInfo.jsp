@@ -126,10 +126,17 @@
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
-			var _resultId = field.attr("resultId");
+			var sele = field.parent().get(0).tagName;
+			if(sele=="SELECT"){
+				var _resultId = field.parent().attr("resultId");
+			}else{
+				var _resultId = field.attr("resultId");
+			}
+			var _tochange =field.parents("dd").prev().attr("tochange");
 			if(_tochange==undefined){
 				_tochange=false;
 			}
+			
 			var infoMode = {
 				titleId	: field.data('titleId'),
 				tochange:_tochange,
@@ -159,6 +166,8 @@
 		{
 			return;
 		}
+		console.log("发物保存的 data");
+		console.log(data);
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 

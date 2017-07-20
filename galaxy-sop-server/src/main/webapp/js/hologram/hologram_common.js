@@ -269,6 +269,8 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
+			console.log("3类型渲染数据");
+			console.log(title);
 			$.each(title.resultList,function(i,n)
 			{
 				if(readonly == true)
@@ -381,7 +383,8 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 13)
 		{
-			//var n = title.resultList[0];
+			console.log("13类型渲染数据");
+			console.log(title);
 			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');

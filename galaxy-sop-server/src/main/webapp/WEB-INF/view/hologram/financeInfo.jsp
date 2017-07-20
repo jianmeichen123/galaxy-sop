@@ -160,7 +160,8 @@
 		{
 			return;
 		}
-		
+		console.log("保存的 data");
+		console.log(data);
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 
