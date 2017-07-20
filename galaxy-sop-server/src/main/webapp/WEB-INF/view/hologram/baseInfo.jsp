@@ -225,28 +225,33 @@ $(function() {
 			} */
 			
 			var _tochange =field.closest("div").find("dt").attr("tochange");
-			var _resultId = field.attr("resultId");
-			if(_resultId==undefined  || _resultId=="undefined"){
-				_resultId=null
-			}
 			if(_tochange==undefined){
 				_tochange=false;
 			}
-			/* if(_resultId != null || isActived == true){
-				var vlau  = null;
-				if(isActived == true){
-					vlau = field.data('value');
+			
+			if(_tochange == true){
+				var _resultId = field.attr("resultId");
+				if(_resultId==undefined  || _resultId=="undefined"){
+					_resultId=null
 				}
+				
+				/* if(_resultId != null || isActived == true){
+					var vlau  = null;
+					if(isActived == true){
+						vlau = field.data('value');
+					}
+				}
+				 */
+				var infoMode = {
+						titleId : field.data('titleId'),
+						type : field.data('type'),
+						tochange:_tochange,
+						resultId:_resultId,
+						value : vlau
+					};
+				infoModeList.push(infoMode);
 			}
-			 */
-			var infoMode = {
-					titleId : field.data('titleId'),
-					type : field.data('type'),
-					tochange:_tochange,
-					resultId:_resultId,
-					value : vlau
-				};
-			infoModeList.push(infoMode);
+			
 		});
 		$.each(fields_remark1, function() {
 			var field = $(this);
