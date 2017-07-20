@@ -340,20 +340,23 @@ function nselectHtml(values,title,cid,l_i){
 	if(!has_checked){
 		cid = null;
 	}
-	$.each(title.resultList,function(){
+	/*$.each(title.resultList,function(){
 		
-	})
-	if (title.resultList[l_i-1].id){
-		var relu_ht =
-			"<select resultId='"+title.resultList[l_i-1].id+"' onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
-				li +
-			"</select>" ;
+	})*/
+	if(title.resultList!=undefined){
+		if (title.resultList[l_i-1].id){
+			var relu_ht =
+				"<select resultId='"+title.resultList[l_i-1].id+"' onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
+					li +
+				"</select>" ;
+		}
 	}else{
 		var relu_ht =
 			"<select  onchange=\"showConstarct(this,'"+title.id+ "','" + title.type + "')\" data-must='"+title.isMust+"' name='"+title.id+"'>" +
 				li +
 			"</select>" ;
 	}
+	
 	var return_re = {
 			htm : relu_ht,
 			vpid : cid
