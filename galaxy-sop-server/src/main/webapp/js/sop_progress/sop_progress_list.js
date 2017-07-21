@@ -177,8 +177,8 @@
 			tab_show(3);
 			hideCurrent('projectProgress:4');
 		}else if(i==5){
-			$(".tabtitle h3").text("会后商务谈判");
-			toobarData("会后商务谈判","会后商务谈判","meetingType:5");
+			$(".tabtitle h3").text("添加会后商务谈判");
+			toobarData("会后商务谈判","添加会后商务谈判","meetingType:5");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			meetList("meetingType:5");
@@ -303,7 +303,7 @@ $(".new_poppage").on("click",function(){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$(".tabtitle h3#popup_name").text(_name);
+			$(".tabtitle h3").text(_name);
 			var arrName=[];
 			switch(_type){
 			  case "":
