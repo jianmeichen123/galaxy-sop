@@ -270,6 +270,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					if(type=="e"){
 						$("input[name='interviewResult'][value='"+res[0].interviewResult+"']").closest("div").find("#reasonOther").val(reasonOther);
 					}else{
+						$("#viewTarget").attr("title",target);
 						$("#reasonOther").text(reasonOther);
 					}
 					if(content==""){

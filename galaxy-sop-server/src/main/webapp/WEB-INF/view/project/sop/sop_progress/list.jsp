@@ -169,11 +169,13 @@ function reject()
 				if(data.result.status == 'OK')
 				{
 					layer.msg('处理成功');
+					
 				}
 				else
 				{
 					layer.msg(data.result.message);
 				}
+				$.popupTwoClose();
 			}
 			
 	);
