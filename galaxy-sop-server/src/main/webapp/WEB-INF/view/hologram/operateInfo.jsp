@@ -198,7 +198,6 @@ getData();
 		data.deletedResultTids = deletedResultTids;
 		var infoModeList = new Array();
 		//多选和多选加备注特殊处理
-		console.log(fields_value1)
 		$.each(fields_value1, function() {			
 			var field = $(this);			
 			var _tochange =field.parents("dd").prev().attr("tochange");
@@ -217,6 +216,24 @@ getData();
 						resultId:_resultId,
 						value : field.attr('value')
 					};
+				var type = field.data('type');
+				if(type==13){
+					var field_v = field.data('id');
+	                 var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
+	                 var dt = field.closest('dt[data-type="13"]');
+	                 console.log(field_v);
+	                 console.log(last_id);
+	                 if ( field_v == last_id)
+	                 {
+	                 	//其他
+	                     infoMode.remark1 = field.closest('.h_edit_txt').find('input:last').val();
+	                 }
+	                 else
+	                 {
+	                     infoMode.remark1 = '' ;
+	                 }
+				}
+                 
 				console.log(infoMode);
 				infoModeList.push(infoMode);
 			}
@@ -259,11 +276,12 @@ getData();
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
 			}
-			 else if(type==13)
+			/*  else if(type==13)
 	            {
+				 		debugger;
 	                    infoMode.value = field.data('id');
 	                    var field_v = field.data('id');
-	                    var last_id = field.closest('ul').find('li.check_label:last').attr('data-id');
+	                    var last_id = field.closest('ul').find('li.check_label:last').attr('data-title-id');
 	                    var dt = field.closest('dt[data-type="13"]');
 	                    console.log(field_v);
 	                    console.log(last_id);
@@ -277,7 +295,7 @@ getData();
 	                        infoMode.remark1 = '' ;
 	                    }
 	               
-	            }
+	            } */
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
