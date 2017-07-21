@@ -188,14 +188,15 @@ getData();
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
 			var _this = $(this);
+			var _tochange =_this.attr("tochange");
 			var active = _this.parent().find('dd .active');
-			
-			if(!(active && active.length > 0)){
+			if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
 				var tid = _this.data('titleId');
 				deletedResultTids.push(tid);
 			}
 		});
 		data.deletedResultTids = deletedResultTids;
+		
 		var infoModeList = new Array();
 		//多选和多选加备注特殊处理
 		$.each(fields_value1, function() {			
