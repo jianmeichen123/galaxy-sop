@@ -1,19 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent> 
-		<groupId>com.galaxyinternet</groupId>
-		<artifactId>galaxy-sop</artifactId>
-		<version>1.0.0-fz</version>
-	</parent>
-	<artifactId>galaxy-sop-api</artifactId>
-	<packaging>jar</packaging>
+	<groupId>com.galaxyinternet</groupId>
+	<artifactId>galaxy-sop</artifactId>
+	<packaging>pom</packaging>
 	<name />
-	<description />
+	<version>1.0.2-SNAPSHOT</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dependency.project>1.0.0-fz</dependency.project>
+		<eclipse.useProjectReferences>false</eclipse.useProjectReferences>
 	</properties>
+	<modules>
+		<module>galaxy-sop-api</module>
+		<module>galaxy-sop-server</module>
+	</modules>
+
 	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
 	<repositories>
 		<repository>
@@ -36,57 +37,30 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.0.0</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<!-- <executions> <execution> <id>add-source</id> <phase>generate-sources</phase> 
+					<goals> <goal>add-source</goal> </goals> <configuration> <sources> <source>src/main/java</source> 
+					<source>src/main/gen</source> </sources> </configuration> </execution> </executions> -->
 			</plugin>
 			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<updateReleaseInfo>true</updateReleaseInfo>
 				</configuration>
 			</plugin>
+			<!-- sonar插件 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources/db</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
 	</build>
 
-	<dependencies>
-
-		<dependency>
-			<groupId>com.galaxyinternet</groupId>
-			<artifactId>galaxy-common</artifactId>
-			<version>${dependency.project}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.16</version>
-		</dependency>
-		<!-- <dependency> <groupId>net.sf.json-lib</groupId> <artifactId>json-lib</artifactId> 
-			<version>2.2.3</version> </dependency> -->
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>3.2.2</version>
-		</dependency>
-		<!-- <dependency> <groupId>commons-httpclient</groupId> <artifactId>commons-httpclient</artifactId> 
-			<version>3.1</version> </dependency> -->
-	</dependencies>
 	<profiles>
 		<profile>
 			<id>snapshotsjar</id>
@@ -164,4 +138,5 @@
 			</build>
 		</profile>
 	</profiles>
+
 </project>
