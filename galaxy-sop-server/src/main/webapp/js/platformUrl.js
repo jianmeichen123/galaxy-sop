@@ -1070,6 +1070,11 @@ var platformUrl = {
 	toValuationInfo : Constants.sopEndpointURL + "/galaxy/infomation/toValuationInfo",
 	
 	
+	/**
+	 * 全息图-融资及估值
+	 */
+	toFinaceHistory : Constants.sopEndpointURL + "/galaxy/infomation/toFinaceHistory",
+	
 	
 	
 	
