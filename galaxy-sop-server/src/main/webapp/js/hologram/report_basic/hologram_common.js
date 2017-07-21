@@ -189,7 +189,6 @@ function tabInfoChange(index){
 
 
 	$.fn.showResults = function(readonly){
-		alert("#@$#@$");
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
         var id = $(this).attr('id');
@@ -662,8 +661,6 @@ function buildTable(sec,title)
 	
 	if(title.tableHeader)
 	{
-		debugger;
-		console.log(title);
 		var header = title.tableHeader;
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
