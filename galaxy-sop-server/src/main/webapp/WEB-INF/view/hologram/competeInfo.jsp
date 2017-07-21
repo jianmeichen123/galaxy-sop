@@ -336,7 +336,99 @@ $(function() {
 		}
 		return "";
 	}
-
+	function saveForm(form)
+	{
+		if($(form).validate().form())
+		{
+			var data = $(form).serializeObject();
+			saveRow(data);
+		}
+	}
+	/**
+	 * 保存至到tr标签data属性
+	 */
+	function saveRow(data)
+	{
+		data = JSON.parse(data);
+		var titleId = data.titleId;
+		var index = data.index;
+		if(typeof index == 'undefined' || index == null || index == '')
+		{
+			var tr = buildRow(data,true);
+			$('table[data-title-id="'+titleId+'"].editable').append(tr);
+		}
+		else
+		{
+			var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+			for(var key in data)
+			{
+				if(key.indexOf('field')>-1)
+				{
+					tr.data(key,data[key]);
+					tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+				}
+			}
+		}
+		$("a[data-close='close']").click();
+	}
+	function editRow(ele)	
+	{
+		var code = $(ele).closest('table').data('code');
+		var row = $(ele).closest('tr');
+		$.getHtml({
+			url:getDetailUrl(code),//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				var title = $("#pop-title");
+				title.text(title.text().replace('添加','编辑'));
+				$.each($("#detail-form").find("input, select, textarea"),function(){
+					var ele = $(this);
+					var name = ele.attr('name');
+					var type=ele.attr('type');
+					if(type=="radio"){
+						if(ele.val()==row.data(name)){
+							ele.attr("checked","chedcked");
+						}
+					}else{
+						ele.val(row.data(name));
+					}
+				});
+				//文本框剩余字数
+				$.each($(".team_textarea"),function(){
+					var len=$(this).val().length;
+					var initNum=$(this).siblings('.num_tj').find("span").text();
+					$(this).siblings('.num_tj').find("span").text(initNum-len);
+				})
+				$("#detail-form input[name='index']").val(row.index());
+				$("#save-detail-btn").click(function(){
+					saveForm($("#detail-form"));
+				});
+			}//模版反回成功执行	
+		});
+	}
+	var deletedRowIds = new Array();
+	function delRow(ele)
+	{
+		layer.confirm('是否删除?', {
+			btn : [ '确定', '取消' ],
+			title:'提示'
+		}, function(index, layero) {
+			var tr = $(ele).closest('tr');
+			var id = tr.data('id');
+			
+			if(typeof id != 'undefined' && id>0)
+			{
+				deletedRowIds.push(id);
+			}
+			tr.remove();
+			check_table();
+			check_table_tr_edit();
+			$(".layui-layer-close1").click();
+			//$(".layui-layer-btn1").click();
+		}, function(index) {
+		});
+		
+	}
 </script>
 
 </body>
