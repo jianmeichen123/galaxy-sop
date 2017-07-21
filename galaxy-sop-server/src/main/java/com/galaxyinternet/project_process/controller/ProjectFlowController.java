@@ -340,7 +340,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				return responseBody;
 			}
 		}*/
-		MeetingRecord mrQuery = new MeetingRecord();
 		try {
 			String prograss = "";
 			UrlNumber uNum = null;
@@ -390,20 +389,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				project.setFinalShareRatio(meetingRecord.getFinalShareRatio());
 				project.setServiceCharge(meetingRecord.getServiceCharge());
 			}
-			
-			//已有通过的会议，不能再添加会议纪要
-			mrQuery = new MeetingRecord();
-			mrQuery.setProjectId(meetingRecord.getProjectId());
-			mrQuery.setMeetingType(meetingRecord.getMeetingType());
-			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-			Long mrCount = meetingRecordService.queryCount(mrQuery);
-			if(mrCount != null && mrCount.longValue() > 0L)
-			{
-				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
-				return responseBody;
-			}
 			//排期池校验
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+			/*if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
 				MeetingScheduling ms = new MeetingScheduling();
 				ms.setProjectId(meetingRecord.getProjectId());
 				ms.setMeetingType(meetingRecord.getMeetingType());
@@ -413,7 +400,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
 					return responseBody;
 				}
-			}
+			}*/
 			if(meetingRecord.getRecordId() != null){
 				meetingRecord.setId(meetingRecord.getRecordId());
 			}
