@@ -146,6 +146,9 @@ function result(value,row,index){
 	if(row.resultReasonStr && row.resultReasonStr == '其他原因'){
 		return row.reasonOther;
 	}
+	if(!row.resultReasonStr){
+		return "-";
+	}
 	return row.resultReasonStr;
 }
 
