@@ -34,6 +34,9 @@
 				
 
 <script type="text/javascript">
+var key = Date.parse(new Date());
+var keyJSON={};
+var deleteJSON={};
 var mustids = "${mustids}";
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO5", null,
@@ -126,169 +129,157 @@ $(function() {
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
-		event.stopPropagation();
-		var _this = $(this);
 		var save_this = $(this).parents('.radius');
+		var btn = this;
 		var id_code = $(this).attr('attr-save');
-		var fields_value = $("#b_" + id_code).find("input:checked,option:selected");
-		var fields_remark1 = $("#b_" + id_code).find("input[type='text'],textarea");
-		var fields_value1 = $("#b_" + id_code).find(".active");
-		var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3']");
-		//1:文本、2:单选、3:复选、4:级联选择、5:单选带备注(textarea)、6:复选带备注(textarea)、
-		//7:附件、8:文本域、9:固定表格、10:动态表格、11:静态数据、12:单选带备注(input)、13:复选带备注(input)
+		event.stopPropagation();
+		var sec = $(this).closest('form');
+		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
 		};
+
+		//普通结果
 		var infoModeList = new Array();
-		$.each(fields_value, function() {
+		$.each(fields,function(){
 			var field = $(this);
-			var valu = null;
-			
+			var type = field.data('type');
+			var _tochange =field.parents("dd").prev().attr("tochange");
 			var sele = field.parent().get(0).tagName;
-			if (field.val() && field.val().length > 0) {
-				valu = field.val();
-			}
-			//判断是否到是select
 			if(sele=="SELECT"){
 				var _resultId = field.parent().attr("resultId");
 			}else{
 				var _resultId = field.attr("resultId");
 			}
-			var _tochange =field.parents("dd").prev().attr("tochange");
-			
 			if(_tochange==undefined){
 				_tochange=false;
 			}
 			var infoMode = {
-				titleId : field.data('titleId'),
-				type : field.data('type'),
+				titleId	: field.data('titleId'),
 				tochange:_tochange,
 				resultId:_resultId,
-				value : valu
+				type : type
 			};
-			infoModeList.push(infoMode);
-		});
-		$.each(fields_value1, function() {
-			var field = $(this);
-			var _tochange =field.parents("dd").prev().attr("tochange");
-			var _resultId = field.attr("resultId");
-			if(_tochange==undefined){
-				_tochange=false;
+			if(type==2 || type==3 || type==4)
+			{
+				infoMode.value = field.val()
 			}
-			var infoMode = {
-				titleId : field.data('titleId'),
-				type : field.data('type'),
-				tochange:_tochange,
-				resultId:_resultId,
-				value : field.data('value')
-			};
-			infoModeList.push(infoMode);
-		});
-		$.each(fields_remark1, function() {
-			var field = $(this);
-			field.val(field.val().replace(/ /g,"&nbsp;"));
-			var typ = field.data('type');
-			var name = field.data('name');
-			var value = field.val().replace(/\n/g,'<br/>');
-			var _tochange =field.parents("dd").prev().attr("tochange");
-			var _resultId = field.attr("resultId");
-			if(_tochange==undefined){
-				_tochange=false;
+			else if(type==1)
+			{
+				infoMode.remark1 = field.val()
 			}
-			var infoMode = {
-				titleId : field.data('titleId'),
-				tochange:_tochange,
-				resultId:_resultId,
-				type : typ
-			};
-			
-			if(typ == '12' || typ == '13' ){
-				var disabled = field.attr("disabled");
-				if(disabled && (disabled == true || disabled == "disabled")){
-					infoMode.remark1 = null;
-				}else{
-					infoMode.remark1 = value;
-				}
-			}else if(typ == '15' && name == 'remark2'){
-				infoMode.remark2 = value;
-			}else{
-				infoMode.remark1 = value;
+			else if(type==8)
+			{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s/g,"&nbsp;");
+				infoMode.remark1 = str;
 			}
-		
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		//多选不选择的时候：
-		var deletedResultTids = new Array();
-		$.each(dt_type_3, function() {
-			var _this = $(this);
-			var active = _this.parent().find('dd .active');
-			if(!(active && active.length > 0)){
-				var tid = _this.data('titleId');
-				deletedResultTids.push(tid);
-			}
-		});
-		data.deletedResultTids = deletedResultTids;
-		
-		
 		//表格
-		var talbes = $("#b_"+id_code).find("[data-type='10']");
-		if(talbes){
-			var infoTableModelList = new Array();
-			var deletedRowIds = new Array();
-			
-			for(var i=0; i<talbes.length; i++){
-				var tid = $(talbes[0]).data("tid");
-				
-				var toAdds = table_tosave_Value[tid];
-				if(toAdds){
-					for(var key2 in toAdds){
-						if(toAdds[key2]!=null) infoTableModelList.push(toAdds[key2]);
-					}
-					table_tosave_Value[tid] = {};
+		var infoTableModelList = new Array();
+		$.each(sec.find("table.editable"),function(){
+			$.each($(this).find('tr:gt(0)'),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
 				}
-				
-				var toEdits = table_toedit_Value[tid];
-				if(toEdits){
-					for(var key2 in toEdits){
-						if(toEdits[key2]!=null) infoTableModelList.push(toEdits[key2]);
-					}
-					table_toedit_Value[tid] = {};
+				infoTableModelList.push($(this).data());
+			});
+		});
+	
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds;
+//估值表格显示隐藏
+		$.each($('table.editable'),function(){
+			var table_id = $(this).attr('data-title-id');
+			var noedi_table = $('table[data-title-id='+table_id+']')
+			if($(this).find('tr').length<=1){
+				if(noedi_table.parents('dl').find('dd').length<= 2){
+					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
 				}
-				
-				var todels = table_delComArr[tid];
-				if(todels && todels.length>0){
-					for(var j=0; j<todels.length; j++){
-						deletedRowIds.push(todels[j]);
-					}
-					table_delComArr[tid] = [];
-				}
+				noedi_table.hide();
 			}
-			
-			data.infoTableModelList = infoTableModelList;
-			data.deletedRowIds = deletedRowIds;
-		}
+			else{
+				noedi_table.show();
+				noedi_table.parents('dl').find('.no_enter').remove();
+				
+			}
+		})
+		//上传图片相关
+		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
+		var key = keyJSON["b_"+id_code];
+		var deleteids = deleteJSON["delete_"+id_code];
+		var params = {};
+		params.projectId =  projectInfo.id;
+		params.fileReidsKey = key;
+		params.deleteids = deleteids;
+		
 		if(!$("#b_"+id_code).validate().form())
 		{
 			return;
 		}
-		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
-			var result = data.result.status;
-			if (result == 'OK') {
-				updateInforTime(projectInfo.id,"competeTime");
-				layer.msg('保存成功');
-				$('#'+id_code).show();
-				$('#b_'+id_code).remove();
-				$(".bj_hui_on").hide();
-				btn_disable(0);
-				$(".h#a_"+id_code).css("background","#fff");
-				var pid=$('#a_'+id_code).attr("data-section-id");
-			    setDate(pid,true);	
-			    toggle_btn($('.anchor_btn span'),0,save_this);
-			} else {
-				layer.msg('保存失败');
+		
+		/* sendPostRequestByJsonObj(
+			platformUrl.saveOrUpdateInfo , 
+			data,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					updateInforTime(projectInfo.id,"financingTime");
+					layer.msg('保存成功');
+					$(".h#a_"+id_code).css("background","#fff");
+					$(".bj_hui_on").hide();
+					deletedRowIds = new Array();
+					var parent = $(sec).parent();
+					var id = parent.data('sectionId');
+					$(btn).next().click();
+					refreshSection(id);
+					btn_disable(0);
+				    toggle_btn($('.anchor_btn span'),0,save_this);
+				} else {
+
+				}
+		}) */ 
+	//$("body").showLoading();
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
+			//进行上传
+			var result = dataParam.result.status;
+			if(result == "OK"){
+				sendPostRequestByJsonObjNoCache(
+						platformUrl.saveOrUpdateInfo , 
+						data,
+						true,
+						function(data) {
+							var result = data.result.status;
+							if (result == 'OK') {
+								updateInforTime(projectInfo.id,"financingTime");
+								layer.msg('保存成功');
+								$(".h#a_"+id_code).css("background","#fff");
+								$(".bj_hui_on").hide();
+								deletedRowIds = new Array();
+								var parent = $(sec).parent();
+								var id = parent.data('sectionId');
+								$(btn).next().click();
+								$(".loading-indicator-overlay").remove();
+								$(".loading-indicator").remove();
+								refreshSection(id);
+								picData(projectInfo.id);
+								btn_disable(0);
+							    toggle_btn($('.anchor_btn span'),0,save_this);
+							} else {
+								layer.msg("操作失败!");
+							}
+					});
+			}else{
+				layer.msg("操作失败!");
 			}
+			
 		});
+
 	});
 });
 
@@ -336,7 +327,104 @@ $(function() {
 		}
 		return "";
 	}
-
+	function saveForm(form)
+	{
+		if($(form).validate().form())
+		{
+			var data = $(form).serializeObject();
+			saveRow(data);
+		}
+	}
+	/**
+	 * 保存至到tr标签data属性
+	 */
+	function saveRow(data)
+	{
+		data = JSON.parse(data);
+		var titleId = data.titleId;
+		var index = data.index;
+		if(typeof index == 'undefined' || index == null || index == '')
+		{
+			var tr = buildRow(data,true);
+			$('table[data-title-id="'+titleId+'"].editable').append(tr);
+		}
+		else
+		{
+			var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+			for(var key in data)
+			{
+				if(key.indexOf('field')>-1)
+				{
+					tr.data(key,data[key]);
+					tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+				}
+			}
+		}
+		$("a[data-close='close']").click();
+	}
+	function editRow(ele)	
+	{
+		var code = $(ele).closest('table').data('code');
+		var row = $(ele).closest('tr');
+		$.getHtml({
+			url:getDetailUrl(code),//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				var title = $("#pop-title");
+				title.text(title.text().replace('添加','编辑'));
+				$.each($("#detail-form").find("input, select, textarea"),function(){
+					var ele = $(this);
+					var name = ele.attr('name');
+					var type=ele.attr('type');
+					if(type=="radio"){
+						if(ele.val()==row.data(name)){
+							ele.attr("checked","chedcked");
+						}
+					}else{
+						ele.val(row.data(name));
+					}
+				});
+				//文本框剩余字数
+				$.each($(".team_textarea"),function(){
+					var len=$(this).val().length;
+					var initNum=$(this).siblings('.num_tj').find("span").text();
+					$(this).siblings('.num_tj').find("span").text(initNum-len);
+				})
+				$("#detail-form input[name='index']").val(row.index());
+				$("#save-detail-btn").click(function(){
+					saveForm($("#detail-form"));
+				});
+			}//模版反回成功执行	
+		});
+	}
+	var deletedRowIds = new Array();
+	function delRow(ele)
+	{
+		layer.confirm('是否删除?', {
+			btn : [ '确定', '取消' ],
+			title:'提示'
+		}, function(index, layero) {
+			var tr = $(ele).closest('tr');
+			var id = tr.data('id');
+			
+			if(typeof id != 'undefined' && id>0)
+			{
+				deletedRowIds.push(id);
+			}
+			tr.remove();
+			check_table();
+			check_table_tr_edit();
+			$(".layui-layer-close1").click();
+			//$(".layui-layer-btn1").click();
+		}, function(index) {
+		});
+		
+	}
+	function refreshSection(id)
+	{
+		var sec = $(".section[data-section-id='"+id+"']");
+		sec.showResults(true);
+	}
 </script>
 
 </body>

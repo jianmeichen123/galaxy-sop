@@ -159,7 +159,7 @@
 		{
 			return ;
 		}
-		if( beforeSubmit()){
+		//if(beforeSubmit()){
 		sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo , 
 			data,
@@ -180,7 +180,7 @@
 
 				}
 		}) 
-		}
+		//}
 
 	});
 

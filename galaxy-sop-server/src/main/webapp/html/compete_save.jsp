@@ -12,11 +12,11 @@
 	
     <div class="qualifications_all">
     
-    	<form action="" id="compete-form">
+    	<form action="" id="detail-form">
 			
+    <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
-    	<input name="projectId" type="hidden">
     	
         <div class="info clearfix"> 
             <dl class="fmdl fl">
@@ -58,9 +58,17 @@
     </div>
     
     <div class="button_affrim">
-        <a href="javascript:;"  class="register_all_affrim fl" id="save-btn">确定</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
 </div>
-
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        $.validator.setDefaults({
+        	errorElement:'span'
+        });
+    })
+    
+</script>
 

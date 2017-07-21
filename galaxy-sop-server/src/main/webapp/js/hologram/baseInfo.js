@@ -872,13 +872,13 @@ function type_13_html(title,mark){
 			if(i+1 == values.length){
 				if(values[i].checked){
 					has_beizhu = true;
-					li +=  "<li class=\"check_label active\" resultId='"+results[i].id+"' data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
 					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' onclick=\"other_beizhu(this,'active')\" data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
 			}else{
 				if(values[i].checked){
-					li +=  "<li class=\"check_label active\" resultId='"+results[i].id+"' data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
+					li +=  "<li class=\"check_label active\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"'>"  + values[i].name + "</li>";
 				}else{
 					li +=  "<li class=\"check_label\" data-value='"+values[i].id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + values[i].name + "</li>";
 				}
