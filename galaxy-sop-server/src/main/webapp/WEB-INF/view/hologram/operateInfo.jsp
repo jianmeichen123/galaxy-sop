@@ -188,18 +188,19 @@ getData();
 		var deletedResultTids = new Array();
 		$.each(dt_type_3, function() {
 			var _this = $(this);
+			var _tochange =_this.attr("tochange");
 			var active = _this.parent().find('dd .active');
-			
-			if(!(active && active.length > 0)){
+			if(_tochange && _tochange == 'true' && !(active && active.length > 0)){
 				var tid = _this.data('titleId');
 				deletedResultTids.push(tid);
 			}
 		});
 		data.deletedResultTids = deletedResultTids;
+		
 		var infoModeList = new Array();
 		//多选和多选加备注特殊处理
 		$.each(fields_value1, function() {			
-			var field = $(this);			
+			var field = $(this);
 			var _tochange =field.parents("dd").prev().attr("tochange");
 			if(_tochange==undefined){
 				_tochange=false;
@@ -245,6 +246,9 @@ getData();
 			var _tochange =field.parents("dd").prev().attr("tochange");
 			var sele = field.parent().get(0).tagName;
 			if(sele=="SELECT"){
+				if(!_tochange || _tochange==undefined){
+					_tochange =field.parents("dl").find("*[tochange]").attr("tochange");
+				}
 				var _resultId = field.parent().attr("resultId");
 			}else{
 				var _resultId = field.attr("resultId");

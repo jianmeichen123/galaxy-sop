@@ -317,11 +317,8 @@ var deleteJSON={};
 		})
 		//上传图片相关
 		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
-		
-		
 		var key = keyJSON["b_"+id_code];
 		var deleteids = deleteJSON["delete_"+id_code];
-		
 		var params = {};
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;

@@ -153,6 +153,15 @@ public class InfoJumpController{
 	public String tjlprojectlist(HttpServletRequest request) {
 		return "hologram/valuationInfo";
 	}
+	/**
+	 * 全息图-融资及估值-融资历史
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/toFinaceHistory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinaceHistory(HttpServletRequest request) {
+		return "hologram/finace_history";
+	}
 
 	/**
 	 * 获取必须题目的id

@@ -127,12 +127,16 @@
 			var field = $(this);
 			var type = field.data('type');
 			var sele = field.parent().get(0).tagName;
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			
 			if(sele=="SELECT"){
+				if(!_tochange || _tochange==undefined){
+					_tochange =field.parents("dl").find("*[tochange]").attr("tochange");
+				}
 				var _resultId = field.parent().attr("resultId");
 			}else{
 				var _resultId = field.attr("resultId");
 			}
-			var _tochange =field.parents("dd").prev().attr("tochange");
 			if(_tochange==undefined){
 				_tochange=false;
 			}
