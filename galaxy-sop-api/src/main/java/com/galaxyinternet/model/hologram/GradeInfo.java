@@ -14,6 +14,8 @@ public class GradeInfo extends BaseEntity
 	private Long parentId;
 	private Integer reportType;
 	private Integer scoreMax;
+	private Integer processMode;
+	private Integer scoreType;
 	private List<GradeAutoInfo> autoList;
 	public Long getRelateId()
 	{
@@ -47,6 +49,14 @@ public class GradeInfo extends BaseEntity
 	{
 		this.scoreMax = scoreMax;
 	}
+	public Integer getProcessMode()
+	{
+		return processMode;
+	}
+	public void setProcessMode(Integer processMode)
+	{
+		this.processMode = processMode;
+	}
 	public List<GradeAutoInfo> getAutoList()
 	{
 		return autoList;
@@ -54,9 +64,15 @@ public class GradeInfo extends BaseEntity
 	public void setAutoList(List<GradeAutoInfo> autoList)
 	{
 		this.autoList = autoList;
-	} 
-	
-	
+	}
+	public Integer getScoreType()
+	{
+		return scoreType;
+	}
+	public void setScoreType(Integer scoreType)
+	{
+		this.scoreType = scoreType;
+	}
 	
 	
 }

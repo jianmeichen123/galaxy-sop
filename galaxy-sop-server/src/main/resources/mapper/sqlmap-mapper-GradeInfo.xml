@@ -6,24 +6,37 @@
 		<result column="parent_id" 			property="parentId" 		jdbcType="BIGINT" 	/>
 		<result column="report_type" 		property="reportType" 		jdbcType="BIGINT" />
 		<result column="score_max" 			property="scoreMax" 		jdbcType="BIGINT" />
+		<result column="is_score" 			property="scoreType" 		jdbcType="BIGINT" />
+		<result column="process_mode" 		property="processMode" 	jdbcType="BIGINT" />
 		<collection property="autoList" resultMap="GradeAutoInfoMap" />
 	</resultMap>
 	
 	<resultMap id="GradeAutoInfoMap" type="com.galaxyinternet.model.hologram.GradeAutoInfo">
 		<result column="dict_id" 			property="dictId" 		jdbcType="BIGINT" 	/>
-		<result column="process_mode" 		property="processMode" 	jdbcType="BIGINT" />
 		<result column="grade" 				property="grade" 		jdbcType="BIGINT" />
 	</resultMap>
 	
 	
 	<select id="selectById" parameterType="java.lang.Long" resultMap="GradeInfoMap">
-		SELECT DISTINCT r.id,r.parent_id,r.report_type,g.score_max,a.process_mode,a.dict_id,a.grade
+		SELECT DISTINCT r.id,r.parent_id,r.report_type,g.is_score,g.score_max,a.process_mode,a.dict_id,a.grade
 		FROM information_title_relate r
 		INNER JOIN information_grade g ON r.id = g.title_relate_id
 		INNER JOIN information_grade_auto a ON a.title_relate_id = r.id
-		WHERE 
-		g.is_score = 0
+		WHERE 1=1
 		and r.id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="select" resultMap="GradeInfoMap" parameterType="java.util.Map">
+		SELECT DISTINCT r.id,r.parent_id,r.report_type,g.is_score,g.score_max,a.process_mode,a.dict_id,a.grade
+		FROM information_title_relate r
+		LEFT JOIN information_grade g ON r.id = g.title_relate_id
+		LEFT JOIN information_grade_auto a ON a.title_relate_id = r.id
+		<where>
+			<trim prefixOverrides="and">
+			<if test="id != null"> and r.id =#{id}</if>
+			<if test="parentId != null"> and r.parent_id =#{parentId}</if>
+			<if test="reportType != null"> and r.report_type =#{reportType}</if>
+			</trim>
+		</where>
 	</select>
 	
 </mapper>

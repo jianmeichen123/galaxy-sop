@@ -36,6 +36,9 @@ public class SpringContextManager implements ApplicationContextAware {
 	public static <T> T getBean(String name, Class<T> requiredType) throws BeansException {
 		return applicationContext.getBean(name, requiredType);
 	}
+	public static <T> T getBean(Class<T> type) throws BeansException {
+		return applicationContext.getBean(type);
+	}
 
 	/**
 	 * 如果BeanFactory包含一个与所给名称匹配的bean定义，则返回true
@@ -52,7 +55,7 @@ public class SpringContextManager implements ApplicationContextAware {
 		return applicationContext.isSingleton(name);
 	}
 
-	public static Class getType(String name) throws NoSuchBeanDefinitionException {
+	public static Class<?> getType(String name) throws NoSuchBeanDefinitionException {
 		return applicationContext.getType(name);
 	}
 
