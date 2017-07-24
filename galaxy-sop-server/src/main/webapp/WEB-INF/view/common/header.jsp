@@ -189,7 +189,6 @@ $(function(){
         $(".pagebox .ritmin").css("width",w_ritmin);
         $(".pagebox .ritmin-index").css("width",w_ritmin);
         $(".pagebox .ritmin").css("margin-left",w_lft);
-        console.log($("#new_right").css("width"));
         if($("#new_right").css("width")!=undefined){
         	var anchor_width=$("#new_right").css("width").replace("px","");
         	var  anchor_nav=$("#div-content").contents().find(".anchor_nav");
