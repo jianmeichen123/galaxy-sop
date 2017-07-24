@@ -1,5 +1,6 @@
 package com.galaxyinternet.test.service.hologram;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,41 +11,42 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import com.galaxyinternet.model.hologram.GradeInfo;
+import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.model.hologram.ItemParam;
-import com.galaxyinternet.model.hologram.SingleReportParam;
-import com.galaxyinternet.service.hologram.GradeInfoService;
+import com.galaxyinternet.model.hologram.ReportParam;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:spring/server_ctx.xml")
 public class GradeInfoServiceTest
 {
 	@Autowired
-	GradeInfoService service;
+	ScoreInfoService service;
 	
 	@Test
 	public void testGet()
 	{
-		GradeInfo query = new GradeInfo();
+		ScoreInfo query = new ScoreInfo();
 		query.setReportType(1);
-		List<GradeInfo> list = service.queryList(query);
+		List<ScoreInfo> list = service.queryList(query);
 		Assert.notEmpty(list);
 	}
 	@Test
 	public void calculate1()
 	{
-		SingleReportParam param = new SingleReportParam();
+		ReportParam param = new ReportParam();
 		param.setRelateId(1001l);
+		param.setProjectId(555l);
 		List<ItemParam> items =new ArrayList<>();
 		
 		ItemParam item = new ItemParam();
 		item.setRelatedId(1004l);
-		item.setScore(20);
+		item.setScore(BigDecimal.valueOf(20l));
 		items.add(item);
 		
 		item = new ItemParam();
 		item.setRelatedId(1008l);
-		item.setScore(5);
+		item.setScore(BigDecimal.valueOf(5l));
 		items.add(item);
 		
 		String[] values = {"1203"};

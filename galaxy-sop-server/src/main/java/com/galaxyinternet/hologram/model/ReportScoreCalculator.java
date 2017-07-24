@@ -14,36 +14,41 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import com.galaxyinternet.common.utils.SpringContextManager;
-import com.galaxyinternet.model.hologram.GradeAutoInfo;
-import com.galaxyinternet.model.hologram.GradeInfo;
+import com.galaxyinternet.model.hologram.ScoreAutoInfo;
+import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.ItemParam;
-import com.galaxyinternet.service.hologram.GradeInfoService;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
+import com.galaxyinternet.service.hologram.InformationResultService;
 /**
- * 计算当前编辑报告(tab)分数
+ * 计算报告分数
  * @author wangsong
  *
  */
-public class SingleReportCalculator extends RecursiveTask<Integer>
+public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 {
-	private static final Logger logger = LoggerFactory.getLogger(SingleReportCalculator.class);
+	private static final Logger logger = LoggerFactory.getLogger(ReportScoreCalculator.class);
 	private static final long serialVersionUID = 1L;
-	private GradeInfoService service = SpringContextManager.getBean(GradeInfoService.class);
+	private ScoreInfoService service = SpringContextManager.getBean(ScoreInfoService.class);
+	private InformationResultService resultService = SpringContextManager.getBean(InformationResultService.class);
 	private Long relateId;
+	private Long projectId;
 	private Map<Long,ItemParam> items;
 	
 
-	public SingleReportCalculator(Long relateId, Map<Long,ItemParam> items)
+	public ReportScoreCalculator(Long relateId, Long projectId, Map<Long,ItemParam> items)
 	{
 		super();
 		this.relateId = relateId;
+		this.projectId = projectId;
 		this.items = items;
 	}
 
 	@Override
-	protected Integer compute()
+	protected BigDecimal compute()
 	{
-		int score = 0;
-		GradeInfo info = service.queryById(relateId);
+		BigDecimal score = BigDecimal.ZERO;
+		ScoreInfo info = service.queryById(relateId);
 		if(info == null)
 		{
 			return score;
@@ -57,7 +62,7 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 		{
 			item = new ItemParam();
 			item.setRelatedId(relateId);
-			item.setScore(0);
+			item.setScore(BigDecimal.ZERO);
 		}
 		
 		Integer scoreType = info.getScoreType();
@@ -66,7 +71,7 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 			score=  item.getScore();
 			logger.debug(String.format("Relateid = %s Manual score = %s", relateId,score));
 		}
-		else
+		else //累加或自动打分
 		{
 			Integer mode = info.getProcessMode();
 			String[] values = item.getValues();
@@ -75,19 +80,19 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 				values = new String[0];
 			}
 			logger.debug(String.format("Values = %s", Arrays.asList(values)));
-			List<GradeAutoInfo> autoList = info.getAutoList();
+			List<ScoreAutoInfo> autoList = info.getAutoList();
 			if(mode == 2) //选项对应分数
 			{
 				Long dictId = null;
 				String value = null;
 				if(ArrayUtils.isEmpty(values) || CollectionUtils.isEmpty(autoList))
 				{
-					score = 0;
+					score = BigDecimal.ZERO;
 				}
 				else
 				{
 					value = values[0];
-					for(GradeAutoInfo auto : autoList)
+					for(ScoreAutoInfo auto : autoList)
 					{
 						if(auto.getDictId() != null && auto.getDictId().toString().equals(value))
 						{
@@ -101,16 +106,16 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 			}
 			else if(mode == 3) //n*分数
 			{
-				Integer grade = null;
+				BigDecimal grade = null;
 				Integer length = null;
 				if(ArrayUtils.isEmpty(values) || CollectionUtils.isEmpty(autoList))
 				{
-					score = 0;
+					score = BigDecimal.ZERO;
 				}
 				else
 				{
-					GradeAutoInfo autoInfo = autoList.get(0);
-					score = autoInfo.getGrade()*values.length;
+					ScoreAutoInfo autoInfo = autoList.get(0);
+					score = autoInfo.getGrade().multiply(new BigDecimal(values.length));
 					grade = autoInfo.getGrade();
 					length = values.length;
 				}
@@ -118,7 +123,7 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 			}
 			else if(mode == 4) //总分-n*分数
 			{
-				Integer grade = null;
+				BigDecimal grade = null;
 				Integer length = null;
 				if(ArrayUtils.isEmpty(values) || CollectionUtils.isEmpty(autoList))
 				{
@@ -126,8 +131,8 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 				}
 				else
 				{
-					GradeAutoInfo autoInfo = autoList.get(0);
-					score = info.getScoreMax() - (autoInfo.getGrade()*values.length);
+					ScoreAutoInfo autoInfo = autoList.get(0);
+					score = info.getScoreMax().subtract(autoInfo.getGrade().multiply(new BigDecimal(values.length)));
 					grade = autoInfo.getGrade();
 					length = values.length;
 				}
@@ -137,7 +142,7 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 			{
 				if(ArrayUtils.isEmpty(values))
 				{
-					score = 0;
+					score = BigDecimal.ZERO;
 				}
 				String value = values[0];
 				if(value != null && value.indexOf(" ")>-1)
@@ -147,7 +152,7 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 					{
 						BigDecimal num = new BigDecimal(val);
 						num = num.setScale(0, BigDecimal.ROUND_HALF_UP);
-						score = num.intValue();
+						score = num;
 					}
 					
 				}
@@ -158,40 +163,87 @@ public class SingleReportCalculator extends RecursiveTask<Integer>
 			itemParam.setScore(score);
 			items.put(relateId, itemParam);
 			
-			if(mode == 1)//权重-子项累加*权重
+			if(mode == 1)//权重(子项累加*权重)
 			{
-				GradeAutoInfo autoInfo = autoList.get(0);
-				GradeInfo query = new GradeInfo();
+				BigDecimal weight = getWeight(info);
+				ScoreInfo query = new ScoreInfo();
 				query.setParentId(relateId);
-				List<GradeInfo> list = service.queryList(query);
-				SingleReportCalculator subTask = null;
+				query.setReportType(info.getReportType());
+				List<ScoreInfo> list = service.queryList(query);
+				ReportScoreCalculator subTask = null;
 				if(list != null && list.size() >0)
 				{
-					List<SingleReportCalculator> subTasks = new ArrayList<>(list.size());
-					for(GradeInfo gradeInfo : list)
+					List<ReportScoreCalculator> subTasks = new ArrayList<>(list.size());
+					for(ScoreInfo scoreInfo : list)
 					{
-						subTask = new SingleReportCalculator(gradeInfo.getRelateId(),items);
+						subTask = new ReportScoreCalculator(scoreInfo.getRelateId(),projectId,items);
 						subTasks.add(subTask);
 					}
 					invokeAll(subTasks);
-					int sum = 0;
-					for(SingleReportCalculator gradeInfo : subTasks)
+					BigDecimal sum = BigDecimal.ZERO;
+					for(ReportScoreCalculator t : subTasks)
 					{
-						sum += gradeInfo.join();
+						sum = sum.add(t.join());
 					}
 					itemParam.setScore(sum);
 					items.put(relateId, itemParam);
 					logger.debug(String.format("RelateId=%s, Mode=1, Sum=%s",relateId,sum,sum));
-					BigDecimal num = BigDecimal.valueOf(sum)
-												.multiply(BigDecimal.valueOf(autoInfo.getGrade()))
-												.divide(BigDecimal.valueOf(100))
-												.setScale(0, BigDecimal.ROUND_HALF_UP);
-					score = num.intValue();
-					logger.debug(String.format("ParentID=%s, Mode=1, val*pec/100=%s*%s/100=%s",info.getParentId(),sum,autoInfo.getGrade(),score));
+					BigDecimal num = sum.multiply(weight)
+										.divide(BigDecimal.valueOf(100))
+										.setScale(2, BigDecimal.ROUND_HALF_UP);
+					score = num;
+					logger.debug(String.format("ParentID=%s, Mode=%s, val*pec/100=%s*%s/100=%s",info.getParentId(),mode,sum,weight,score));
 				}
 			}
 		}
 		return score;
+	}
+	
+	private BigDecimal getWeight(ScoreInfo scoreInfo)
+	{
+		List<ScoreAutoInfo> autoList = scoreInfo.getAutoList();
+		if(autoList == null || autoList.size() == 0)
+		{
+			return BigDecimal.ZERO;
+		}
+		String code = scoreInfo.getCode();
+		//项目轮次不同，六大评测的权重比不同
+		if(code != null 
+				&& (code.equals("ENO_1") ||
+					code.equals("ENO_2") ||
+					code.equals("ENO_3") ||
+					code.equals("ENO_4") ||
+					code.equals("ENO_5") ||
+					code.equals("ENO_6")
+					)
+			)
+		{
+			InformationResult query = new InformationResult();
+			query.setProjectId(projectId+"");
+			query.setTitleId("1108");
+			InformationResult result = resultService.queryOne(query);
+			if(result != null)
+			{
+				String value = result.getContentChoose();
+				if(value != null && autoList != null)
+				{
+					for(ScoreAutoInfo item : autoList)
+					{
+						if(value.equals(item.getDictId()+""))
+						{
+							return item.getGrade();
+						}
+					}
+				}
+			}
+		}
+		else if(autoList.get(0) != null)
+		{
+			ScoreAutoInfo auto = autoList.get(0);
+			return auto.getGrade();
+		}
+		
+		return BigDecimal.ZERO;
 	}
 
 }

@@ -1,12 +1,14 @@
 package com.galaxyinternet.model.hologram;
 
+import java.math.BigDecimal;
+
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
-public class GradeAutoInfo extends BaseEntity
+public class ScoreAutoInfo extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
 	private Long dictId;
-	private Integer grade;
+	private BigDecimal grade;
 	public Long getDictId()
 	{
 		return dictId;
@@ -15,11 +17,11 @@ public class GradeAutoInfo extends BaseEntity
 	{
 		this.dictId = dictId;
 	}
-	public Integer getGrade()
+	public BigDecimal getGrade()
 	{
 		return grade;
 	}
-	public void setGrade(Integer grade)
+	public void setGrade(BigDecimal grade)
 	{
 		this.grade = grade;
 	}

@@ -1,10 +1,13 @@
 package com.galaxyinternet.model.hologram;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+
 public class ItemParam
 {
 	private Long relatedId;
 	private String[] values;
-	private Integer score;
+	private BigDecimal score;
 	public Long getRelatedId()
 	{
 		return relatedId;
@@ -21,13 +24,19 @@ public class ItemParam
 	{
 		this.values = values;
 	}
-	public Integer getScore()
+	public BigDecimal getScore()
 	{
 		return score;
 	}
-	public void setScore(Integer score)
+	public void setScore(BigDecimal score)
 	{
 		this.score = score;
 	}
+	@Override
+	public String toString()
+	{
+		return "ItemParam [relatedId=" + relatedId + ", values=" + Arrays.toString(values) + ", score=" + score + "]";
+	}
+	
 	
 }
