@@ -90,5 +90,8 @@ WHERE resource_code IN (
 'div_performance_gg','div_pro_doc','div_idea',
 'div_matter_preview_gg','div_project_progress','div_health_gg',
 'task_list','div_project_post_analysis_gg');
+ALTER TABLE `fx_db`.`sop_file` ADD COLUMN `interview_record_id` bigint(20) NULL COMMENT '关联访谈ID';
+ALTER TABLE `fx_db`.`sop_file` ADD COLUMN `meeting_record_id` bigint(20) NULL COMMENT '关联会议ID';
+
 
 
