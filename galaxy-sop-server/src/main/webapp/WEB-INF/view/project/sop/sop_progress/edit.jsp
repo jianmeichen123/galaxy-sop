@@ -75,7 +75,7 @@
             </dl>  
             <!-- bottom button -->
             <div class="save_button">
-            	<button type=submit id="save_interview" class="pubbtn bluebtn">保存</button>
+            	<button type=button id="save_interview" class="pubbtn bluebtn">保存</button>
                 <a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
             </div>
         </div>                
@@ -167,7 +167,7 @@ function initViewUpload() {
  						return;
   					}
 				   $("#save_interview").addClass("disabled");
-				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
+				   var res = getInterViewParams('y',projectId, "viewDate","viewNotes");
 					if(res == false || res == "false"){
 						up.stop();
 						$("#save_interview").removeClass("disabled");
@@ -228,7 +228,6 @@ function initViewUpload() {
 								   "overflow-x":"auto",
 								   "overflow-y":"auto"
 								 });
-								/* toFormatNearNotes(); */
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									$.popupTwoClose();
@@ -240,7 +239,7 @@ function initViewUpload() {
 								refreshButton();
 							}
 						});
-					}
+					} 
 					return false;
 				});
 			},
