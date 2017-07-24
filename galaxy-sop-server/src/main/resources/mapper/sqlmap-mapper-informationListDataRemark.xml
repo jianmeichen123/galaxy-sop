@@ -26,12 +26,13 @@
 		<result column="create_id" 	jdbcType="BIGINT" 		property="createId" />
 		<result column="updated_time" jdbcType="BIGINT" 	property="updatedTime" />
 		<result column="update_id" 	jdbcType="BIGINT" 		property="updateId" />
+		<result column="fun_flag" 	jdbcType="VARCHAR" 		property="funFlag" />
 	</resultMap>
 
 
 
 	<sql id="Base_Column_List">
-		id, title_id,code,sub_code,name,field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10, is_valid, created_time, create_id, updated_time, update_id
+		id, title_id,code,sub_code,name,field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10, is_valid, created_time, create_id, updated_time, update_id,fun_flag
 	</sql>
 
 
@@ -67,6 +68,9 @@
 					#{item}
 					</foreach>
 				</if>
+				<if test="funFlag != null"> and fun_flag = #{funFlag,jdbcType=VARCHAR} </if>
+				
+				
 			</trim>
 			
 			<if test="sorting != null">order by ${sorting}</if>
@@ -101,7 +105,7 @@
 			created_time, 
 			create_id, 
 			updated_time, 
-			update_id
+			fun_flag
 		)
 		values (
 			#{id,jdbcType=BIGINT},
@@ -123,7 +127,9 @@
 			#{createdTime,jdbcType=BIGINT}, 
 			#{createId,jdbcType=BIGINT}, 
 			#{updatedTime,jdbcType=BIGINT}, 
-			#{updateId,jdbcType=BIGINT}
+			#{updateId,jdbcType=BIGINT},
+			#{funFlag,jdbcType=VARCHAR}
+			
 		)
 	    ]]>
 	</insert>
@@ -189,6 +195,8 @@
 			<if test="createId != null"> and create_id = #{createId,jdbcType=VARCHAR} </if>
 			<if test="updatedTime != null"> and updated_time = #{updatedTime,jdbcType=VARCHAR} </if>
 			<if test="updateId != null"> and update_id = #{updateId,jdbcType=VARCHAR} </if>
+			<if test="field10 != null"> and fun_flag = #{funFlag,jdbcType=VARCHAR} </if>
+			
 		</set>
 		where id = #{id}
 	</update>

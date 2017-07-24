@@ -37,7 +37,7 @@
                  
                 <dt>币种：</dt>
                 <dd>
-                    <select name="field6" id="financeUnit">
+                    <select name="field6" >
                         <option value="0"  name="financeUnit" >人民币</option>
                         <option value="1" name="financeUnit" selected="selected">美元</option>
           
@@ -59,12 +59,13 @@
             <dt>融资轮次：</dt>
                 <dd>
 					<select name="field7" class='new_nputr'>
+					        <option name="111">1111111</option>
 			         </select>
                 </dd> 
                  <dt>新老股：</dt>
                 <dd>
-					<input type="radio" name="field8">新股
-				    <input type="radio" name="field8">老股
+					<input type="radio" name="field8" value="1">新股
+				    <input type="radio" name="field8" value="2">老股
                 </dd> 
            
            </dl>

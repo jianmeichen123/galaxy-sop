@@ -49,6 +49,8 @@ public class InformationListdataRemark extends BaseEntity{
     private Long updateId;
 
     private Set<String> titleIds;
+    
+    private String funFlag;
 
     public Long getId() {
         return id;
@@ -217,6 +219,16 @@ public class InformationListdataRemark extends BaseEntity{
     public void setTitleIds(Set<String> titleIds) {
         this.titleIds = titleIds;
     }
+
+	public String getFunFlag() {
+		return funFlag;
+	}
+
+	public void setFunFlag(String funFlag) {
+		this.funFlag = funFlag;
+	}
+    
+    
 
 
 }
