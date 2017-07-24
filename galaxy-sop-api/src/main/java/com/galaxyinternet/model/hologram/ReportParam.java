@@ -2,7 +2,7 @@ package com.galaxyinternet.model.hologram;
 
 import java.util.List;
 
-public class SingleReportParam
+public class ReportParam
 {
 	private Long relateId;
 	private Long projectId;
@@ -40,5 +40,11 @@ public class SingleReportParam
 	{
 		this.items = items;
 	}
+	@Override
+	public String toString()
+	{
+		return "SingleReportParam [relateId=" + relateId + ", projectId=" + projectId + ", reportType=" + reportType + ", items=" + items + "]";
+	}
+	
 	
 }

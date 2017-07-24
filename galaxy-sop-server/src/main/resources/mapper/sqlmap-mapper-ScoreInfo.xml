@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.hologram.ScoreInfo">
+	<resultMap id="ScoreInfoMap" type="com.galaxyinternet.model.hologram.ScoreInfo">
+		<id column="id" 					property="relateId"			jdbcType="BIGINT"  />
+		<result column="code" 				property="code" 			jdbcType="VARCHAR" 	/>
+		<result column="parent_id" 			property="parentId" 		jdbcType="BIGINT" 	/>
+		<result column="report_type" 		property="reportType" 		jdbcType="BIGINT" />
+		<result column="score_max" 			property="scoreMax" 		jdbcType="BIGINT" />
+		<result column="is_score" 			property="scoreType" 		jdbcType="BIGINT" />
+		<result column="process_mode" 		property="processMode" 	  	jdbcType="BIGINT" />
+		<result column="score" 				property="score" 	  		jdbcType="BIGINT" />
+		<collection property="autoList" resultMap="GradeAutoInfoMap" />
+		<collection property="valueList" resultMap="ScoreValueMap" />
+	</resultMap>
+	
+	<resultMap id="ScoreAutoInfoMap" type="com.galaxyinternet.model.hologram.ScoreAutoInfo">
+		<result column="dict_id" 			property="dictId" 			jdbcType="BIGINT" 	/>
+		<result column="grade" 				property="grade" 			jdbcType="BIGINT" />
+	</resultMap>
+	<resultMap id="ScoreValueMap" type="com.galaxyinternet.model.hologram.ScoreValue">
+		<result column="value_id" 			property="valueId" 			jdbcType="BIGINT" 	/>
+		<result column="value" 				property="value" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<select id="selectById" parameterType="java.lang.Long" resultMap="ScoreInfoMap">
+		SELECT DISTINCT r.id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,a.process_mode,a.dict_id,a.grade
+		FROM information_title_relate r
+		INNER JOIN information_grade g ON r.id = g.title_relate_id
+		INNER JOIN information_grade_auto a ON a.title_relate_id = r.id
+		WHERE 1=1
+		and r.id = #{id,jdbcType=BIGINT}
+	</select>
+	<select id="select" resultMap="ScoreInfoMap" parameterType="java.util.Map">
+		SELECT DISTINCT r.id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,a.process_mode,a.dict_id,a.grade
+		<if test="projectId != null">
+		,rt.id AS value_id,rt.content_choose AS VALUE, rt.grade1 AS score
+		</if>
+		FROM information_title_relate r
+		LEFT JOIN information_grade g ON r.id = g.title_relate_id
+		LEFT JOIN information_grade_auto a ON a.title_relate_id = r.id
+		<if test="projectId != null">
+		LEFT JOIN information_result rt ON rt.title_id = r.title_id
+		</if>
+		<where>
+			<trim prefixOverrides="and">
+			<if test="id != null"> and r.id =#{id}</if>
+			<if test="parentId != null"> and r.parent_id =#{parentId}</if>
+			<if test="reportType != null"> and r.report_type =#{reportType}</if>
+			<if test="projectId != null">and rt.project_id =#{projectId}</if>
+			<if test="code != null">AND r.code LIKE CONCAT(#{code},'%')</if>
+			</trim>
+		</where>
+	</select>
+	
+</mapper>
