@@ -137,7 +137,7 @@ function powerPosition(i){
 		pg = 11;
 	}
 	if(!currentProgress("projectProgress:"+pg) && pg != 1){
-		$(".editButton").addClass('disabled');
+		$(".editButton").hide();
 		$("#add_button").hide();
 	}else{
 		$("#add_button").show();
@@ -412,6 +412,18 @@ function getInterViewParams(hasProid,projectId,
 		var projectId = $("#"+projectId).val();
 	}
 	var viewDateStr = $("#"+viewDateId).val();
+	
+	if(viewDateStr == null ||  viewDateStr == ""){
+		layer.msg("会议日期不能为空");
+		return false;
+	}else{
+		var clock = getNowDay("-");
+		if((new Date(viewDateStr)) > (new Date(clock))){
+			layer.msg("会议日期不能超过今天");
+			return false;
+         }
+	 }
+	
 	var viewNotes = $.trim(CKEDITOR.instances.viewNotes.getData());
 	if(projectId == null || projectId == ""){
 		layer.msg("项目不能为空");
