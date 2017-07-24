@@ -362,6 +362,8 @@ var chartProjectProgressUtils = {
 					param = 8;
 				}else if(name=="投后运营"){
 					param = 10;
+				}else if(name == '会后商务谈判'){
+					param = 11;
 				}
 			}
 			
