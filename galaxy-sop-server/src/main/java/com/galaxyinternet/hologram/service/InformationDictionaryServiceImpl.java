@@ -18,8 +18,10 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.hologram.InformationTitleRelate;
 import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
 
@@ -37,6 +39,9 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	@Autowired
 	private InformationTitleService informationTitleService;
+	
+	@Autowired
+	private InformationTitleRelateService informationTitleRelateService;
 	
 	@Override
 	protected BaseDao<InformationDictionary, Long> getBaseDao() {
@@ -277,9 +282,50 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 
 	}
 	
-	
-	
-	
+	@Override
+	public InformationTitle selectTitlesValues(InformationTitle info) {
+		List<InformationDictionary> valueList = selectValuesByTid(info.getId());
+		info.setValueList(valueList);
+		
+		List<InformationTitle> childList = selectTitlesByRelate(informationTitleRelateService.selectChildsByPid(info.getRelateId()));
+		info.setChildList(childList);
+		return info;
+	}
+	public List<InformationTitle> selectTitlesByRelate(List<InformationTitle> tList) {
+		for(InformationTitle title : tList){
+			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
+			title.setValueList(valueList);
+			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsByPid(title.getId());
+			if(ptitleList !=null && !ptitleList.isEmpty()){
+				selectByTlist(ptitleList);
+				title.setChildList(ptitleList);
+			} 
+		}
+		return tList;
+	}
+
+
+	@Override
+	public InformationTitle selectTitlesValuesGrade(InformationTitle info) {
+		List<InformationDictionary> valueList = selectValuesByTid(info.getId());
+		info.setValueList(valueList);
+		
+		List<InformationTitle> childList = selectTitlesGradeByRelate(informationTitleRelateService.selectChildsGradeByPid(info.getRelateId()));
+		info.setChildList(childList);
+		return info;
+	}
+	public List<InformationTitle> selectTitlesGradeByRelate(List<InformationTitle> tList) {
+		for(InformationTitle title : tList){
+			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
+			title.setValueList(valueList);
+			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsGradeByPid(title.getId());
+			if(ptitleList !=null && !ptitleList.isEmpty()){
+				selectByTlist(ptitleList);
+				title.setChildList(ptitleList);
+			} 
+		}
+		return tList;
+	}
 	
 	
 	

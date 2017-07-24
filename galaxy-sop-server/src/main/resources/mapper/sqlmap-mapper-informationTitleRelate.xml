@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.hologram.InformationTitleRelate">
+
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationTitleRelate">
+		<id column="id"               property="id"           jdbcType="BIGINT" />
+		<result column="parent_id"    property="parentId"     jdbcType="BIGINT" />
+		<result column="code"         property="code"         jdbcType="VARCHAR" />
+		<result column="name"         property="name"         jdbcType="VARCHAR" />
+		<result column="title_id"     property="titleId"      jdbcType="BIGINT" />
+		<result column="index_no"     property="indexNo"      jdbcType="DOUBLE" />
+		<result column="sign"         property="sign"         jdbcType="INTEGER" />
+		<result column="report_type"  property="reportType"   jdbcType="INTEGER" />
+		<result column="is_valid"     property="isValid"      jdbcType="INTEGER" />
+		<result column="created_id"   property="createdId"    jdbcType="BIGINT" />
+		<result column="created_time" property="createdTime"  jdbcType="BIGINT" />
+		<result column="updated_id"   property="updatedId"    jdbcType="BIGINT" />
+		<result column="updated_time" property="updatedTime"  jdbcType="BIGINT" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id, parent_id, code, name, title_id, index_no, sign, report_type, is_valid, created_id, 
+   		 created_time, updated_id, updated_time
+	</sql>
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="parentId != null" > and parent_id = #{parentId,jdbcType=BIGINT} </if>
+				<if test="code != null" > and code = #{code,jdbcType=VARCHAR} </if>
+				<if test="name != null" > and name = #{name,jdbcType=VARCHAR} </if>
+				<if test="titleId != null" > and title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="indexNo != null" > and index_no = #{indexNo,jdbcType=DOUBLE} </if>
+				<if test="sign != null" > and sign = #{sign,jdbcType=INTEGER} </if>
+				<if test="reportType != null" > and report_type = #{reportType,jdbcType=INTEGER} </if>
+				<if test="isValid != null" > andis_valid = #{isValid,jdbcType=INTEGER} </if>
+				<if test="createdId != null" > and created_id = #{createdId,jdbcType=BIGINT} </if>
+				<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="updatedId != null" > and updated_id = #{updatedId,jdbcType=BIGINT} </if>
+				<if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+			</trim>
+			
+			<if test="idcodekey != null">
+				and (
+					id = #{idcodekey,jdbcType=BIGINT}
+					or 
+					code = #{idcodekey,jdbcType=VARCHAR}
+				)
+			</if>
+			
+			<if test="sorting != null">order by ${sorting}</if>
+			
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>
+		</where>
+	</sql>
+
+	
+				
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from information_title_relate
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from information_title_relate
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from information_title_relate 
+		where id = #{id}
+	</select>
+	
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from information_title_relate
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+	
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from information_title_relate
+		where id = #{id}
+	</delete>
+
+
+
+
+
+	<resultMap id="TitleResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
+	
+		<id column="id" 			jdbcType="BIGINT" 		property="id" />
+		<result column="parent_id"  jdbcType="VARCHAR" 		property="parentId" />
+		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
+		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
+		<result column="index_no" 	jdbcType="DOUBLE" 		property="indexNo" />
+		<result column="type" 		jdbcType="INTEGER" 		property="type" />
+		<result column="sign" 		jdbcType="INTEGER" 		property="sign" />
+		<result column="content" 	jdbcType="VARCHAR" 		property="content" />
+		<result column="is_show" 	jdbcType="CHAR" 		property="isShow" />
+		<result column="is_valid" 	jdbcType="INTEGER" 		property="isValid" />
+		<result column="placeholder"  jdbcType="VARCHAR" 		property="placeholder" />
+		
+		<result column="is_must" 		jdbcType="INTEGER" 		property="isMust" />
+		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
+		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
+		
+		<result column="relate_id"  property="relateId"   jdbcType="BIGINT" />
+		<result column="relate_code"  property="relateCode"   jdbcType="VARCHAR" />
+		<result column="report_type"  property="reportType"   jdbcType="INTEGER" />
+		
+		<association property="informationGrade" javaType="com.galaxyinternet.model.hologram.InformationGrade">
+            <id column="id"                    property="id"               jdbcType="BIGINT" />
+			<result column="title_relate_id"   property="titleRelateId"    jdbcType="BIGINT" />
+			<result column="sub_id"            property="subId"            jdbcType="BIGINT" />
+			<result column="score_explain"     property="scoreExplain"     jdbcType="VARCHAR" />
+			<result column="score_max"         property="scoreMax"         jdbcType="DOUBLE" />
+			<result column="is_score"          property="isScore"          jdbcType="INTEGER" />
+			<result column="is_valid"          property="isValid"          jdbcType="INTEGER" />
+			<result column="created_time"      property="createdTime"      jdbcType="BIGINT" />
+			<result column="create_id"         property="createId"         jdbcType="BIGINT" />
+			<result column="updated_time"      property="updatedTime"      jdbcType="BIGINT" />
+			<result column="update_id"         property="updateId"         jdbcType="BIGINT" />
+         </association>
+
+	</resultMap>
+
+	
+	<select id="selectTitlesByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
+		select
+			title.id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
+			title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,
+			relate.id relate_id, relate.code relate_code,relate.report_type
+		FROM
+			information_title_relate relate,information_title title
+		WHERE 
+			title.id = relate.title_id
+			
+			<if test="id != null"> and relate.id = #{id,jdbcType=BIGINT} </if>
+			<if test="parentId != null" > and relate.parent_id = #{parentId,jdbcType=BIGINT} </if>
+			<if test="code != null" > and relate.code = #{code,jdbcType=VARCHAR} </if>
+			<if test="name != null" > and relate.name = #{name,jdbcType=VARCHAR} </if>
+			<if test="titleId != null" > and relate.title_id = #{titleId,jdbcType=BIGINT} </if>
+			<if test="sign != null" > and relate.sign = #{sign,jdbcType=INTEGER} </if>
+			<if test="reportType != null" > and relate.report_type = #{reportType,jdbcType=INTEGER} </if>
+			<if test="isValid != null" > and relate.is_valid = #{isValid,jdbcType=INTEGER} </if>
+			
+			<if test="sorting != null">order by ${sorting}</if>
+	</select>
+
+
+	<select id="selectTitlesGradeByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
+		select 
+			relate_title.*,grade.*
+		from
+			(
+			select
+				title.id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
+				title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,
+				relate.id relate_id, relate.code relate_code,relate.report_type
+			FROM
+				information_title_relate relate,information_title title
+			WHERE 
+				title.id = relate.title_id
+				
+				<if test="id != null"> and relate.id = #{id,jdbcType=BIGINT} </if>
+				<if test="parentId != null" > and relate.parent_id = #{parentId,jdbcType=BIGINT} </if>
+				<if test="code != null" > and relate.code = #{code,jdbcType=VARCHAR} </if>
+				<if test="name != null" > and relate.name = #{name,jdbcType=VARCHAR} </if>
+				<if test="titleId != null" > and relate.title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="sign != null" > and relate.sign = #{sign,jdbcType=INTEGER} </if>
+				<if test="reportType != null" > and relate.report_type = #{reportType,jdbcType=INTEGER} </if>
+				<if test="isValid != null" > and relate.is_valid = #{isValid,jdbcType=INTEGER} </if>
+				
+				<if test="sorting != null">order by ${sorting}</if>
+			) relate_title
+		left join  information_grade grade  on  relate_title.relate_id = grade.title_relate_id
+	</select>
+	
+</mapper>
+	
