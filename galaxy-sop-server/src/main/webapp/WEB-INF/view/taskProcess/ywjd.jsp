@@ -4,7 +4,6 @@
 %>
 <div class="btm">
 	<div class="task_noprovide">
-	 	<input type="checkbox" > 不需要提供
 	</div>
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
