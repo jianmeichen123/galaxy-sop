@@ -33,7 +33,7 @@
                 <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd>
-                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
+                         <input type="text" class="datetimepickerHour txt time" readonly id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
