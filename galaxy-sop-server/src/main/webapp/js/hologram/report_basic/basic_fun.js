@@ -1,7 +1,6 @@
 var key = Date.parse(new Date());
 var keyJSON={};
 var deleteJSON={};
-
 function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
 	var params = {};
 	var uploader = new plupload.Uploader({
@@ -38,7 +37,6 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					$("#h_imgs_add_"+typeid).hide();
 					//return;
 				}
-				console.log(uploader.browse_button);
 				for(var i = 0, len = files.length; i<len; i++){
 					var file_name = files[i].name; //文件名
 					//构造html来更新UI
@@ -152,7 +150,7 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 
 //通用编辑显示
 $('div').delegate(".h_edit_btn","click",function(event){
-
+	var key = Date.parse(new Date());
     key = Date.parse(new Date());
 	var section = $(this).parents('.section');
 	var id_code = $(this).attr('attr-id');
@@ -166,14 +164,11 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	//
 	
 	keyJSON["b_"+id_code]=key;
-	console.log(keyJSON);
 	var sec = $(this).closest('.section');
 	var sTop=$(window).scrollTop();
 	event.stopPropagation();
 	 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 		function(data) {
-		 console.log("@@@@");
-		 console.log(data);
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
@@ -297,7 +292,14 @@ function editRow(ele)
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.val(row.data(name));
+				var type=ele.attr('type');
+				if(type=="radio"){
+					if(ele.val()==row.data(name)){
+						ele.attr("checked","chedcked");
+					}
+				}else{
+					ele.val(row.data(name));
+				}
 			});
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
@@ -445,7 +447,7 @@ function bindChange(){
         });
     });
 }
-//核心团队能力匹配结论其他
+
 function bindChangeType13(){
     var dts = $("dt[data-type='13']");
     $.each(dts, function (i,n) {
@@ -478,7 +480,6 @@ function bindChangeType13(){
 
 
 
-
 function getDetailUrl(code)
 {
 	if(code == 'equity-structure')
@@ -506,7 +507,10 @@ function getDetailUrl(code)
 	}else if(code == 'share-holding')
     {
         return path+'/html/team_add_cgr.html';
-    }
+    }else if(code == 'competition-comparison')
+	{
+		return path+'/html/compete_save.jsp';
+	}
 	return "";
 }
 
