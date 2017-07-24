@@ -127,17 +127,13 @@
 		<result column="report_type"  property="reportType"   jdbcType="INTEGER" />
 		
 		<association property="informationGrade" javaType="com.galaxyinternet.model.hologram.InformationGrade">
-            <id column="id"                    property="id"               jdbcType="BIGINT" />
-			<result column="title_relate_id"   property="titleRelateId"    jdbcType="BIGINT" />
-			<result column="sub_id"            property="subId"            jdbcType="BIGINT" />
-			<result column="score_explain"     property="scoreExplain"     jdbcType="VARCHAR" />
-			<result column="score_max"         property="scoreMax"         jdbcType="DOUBLE" />
-			<result column="is_score"          property="isScore"          jdbcType="INTEGER" />
-			<result column="is_valid"          property="isValid"          jdbcType="INTEGER" />
-			<result column="created_time"      property="createdTime"      jdbcType="BIGINT" />
-			<result column="create_id"         property="createId"         jdbcType="BIGINT" />
-			<result column="updated_time"      property="updatedTime"      jdbcType="BIGINT" />
-			<result column="update_id"         property="updateId"         jdbcType="BIGINT" />
+			<id column="grade_id"                    property="id"               jdbcType="BIGINT" />
+			<result column="grade_title_relate_id"   property="titleRelateId"    jdbcType="BIGINT" />
+			<result column="grade_sub_id"            property="subId"            jdbcType="BIGINT" />
+			<result column="grade_score_explain"     property="scoreExplain"     jdbcType="VARCHAR" />
+			<result column="grade_score_max"         property="scoreMax"         jdbcType="DOUBLE" />
+			<result column="grade_is_score"          property="isScore"          jdbcType="INTEGER" />
+			<result column="grade_is_valid"          property="isValid"          jdbcType="INTEGER" />
          </association>
 
 	</resultMap>
@@ -168,7 +164,14 @@
 
 	<select id="selectTitlesGradeByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
 		select 
-			relate_title.*,grade.*
+			relate_title.*,
+			grade.id grade_id , 
+			grade.title_relate_id grade_title_relate_id, 
+			grade.sub_id grade_sub_id, 
+			grade.score_explain grade_score_explain, 
+			grade.score_max grade_score_max, 
+			grade.is_score grade_is_score, 
+			grade.is_valid grade_is_valid
 		from
 			(
 			select
