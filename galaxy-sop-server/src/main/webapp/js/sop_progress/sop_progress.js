@@ -273,7 +273,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
 					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
 					if(type=="e"){
-						$("input[name='interviewResult'][value='"+res[0].interviewResult+"']").closest("div").find("#reasonOther").val(reasonOther);
+						$("input[name='interviewResult'][value='"+resultJudge+"']").closest("div").find("#reasonOther").val(reasonOther);
 					}else{
 						$("#viewTarget").attr("title",target);
 						$("#reasonOther").text(reasonOther);
@@ -330,7 +330,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 								$("#resultReason").html("原因："+resultReason+other);
 							}
 						}
-						//type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
 					}			
 					if(res[0].fileId){
 						if(res[0].fname==""||res[0].fname==undefined){							
