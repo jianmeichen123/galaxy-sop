@@ -136,9 +136,11 @@ function powerPosition(i){
 	}else{
 		pg = 11;
 	}
-	if(!currentProgress("projectProgress:"+pg)){
+	if(!currentProgress("projectProgress:"+pg) && pg != 1){
 		$(".editButton").addClass('disabled');
 		$("#add_button").hide();
+	}else{
+		$("#add_button").show();
 	}
 }
 /*列表原因处理*/
@@ -277,7 +279,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						$("#reasonOther").text(reasonOther);
 					}
 					if(content==""){
-						content="暂无纪要";
+						content="";
 					}
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);

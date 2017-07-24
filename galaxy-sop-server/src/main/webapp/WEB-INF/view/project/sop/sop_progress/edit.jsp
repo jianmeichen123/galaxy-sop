@@ -20,7 +20,7 @@
 
     <!-- 添加访谈记录 /编辑访谈记录 -->
     <form class="myprojecttc new_poptxt myproject_add"  type="validate">
-        <div id="tabtitle" class="tabtitle edit">
+        <div id="tabtitle" class="tabtitle edit popup_name">
             <!--编辑状态显示  编辑访谈记录  -->
             <h3 id="popup_name">添加访谈记录</h3>
             <input type="hidden" name="meetingType" id="meetingType"/>
@@ -33,7 +33,7 @@
                 <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd>
-                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
+                         <input type="text" class="datetimepickerHour txt time" readonly id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
