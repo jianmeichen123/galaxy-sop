@@ -20,7 +20,7 @@
 
     <!-- 添加访谈记录 /编辑访谈记录 -->
     <form class="myprojecttc new_poptxt myproject_add"  type="validate">
-        <div id="tabtitle" class="tabtitle edit">
+        <div id="tabtitle" class="tabtitle edit popup_name">
             <!--编辑状态显示  编辑访谈记录  -->
             <h3 id="popup_name">添加访谈记录</h3>
             <input type="hidden" name="meetingType" id="meetingType"/>

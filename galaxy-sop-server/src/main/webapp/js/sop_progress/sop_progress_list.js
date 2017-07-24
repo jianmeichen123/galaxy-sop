@@ -153,32 +153,32 @@
 		progressBtnToggle();
 		if(i==1){
 			interviewList();
-			toobarData("接触访谈","添加访谈记录","");
+			toobarData("接触访谈","添加访谈记录","添加访谈记录","");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:1');
 		}else if(i==2){
 			meetList("meetingType:1");
-			toobarData("内部评审","添加内部评审","meetingType:1");
+			toobarData("内部评审","添加会议记录","添加内部评审会议记录","meetingType:1");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:2');
 		}else if(i==3){
 			meetList("meetingType:2");
-			toobarData("CEO评审","添加CEO评审","meetingType:2");
+			toobarData("CEO评审","添加会议记录","添加CEO评审会议记录","meetingType:2");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:3');
 		}else if(i==4){
 			meetList("meetingType:3");
-			toobarData("立项会","添加立项会","meetingType:3");
+			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
 			$(".tablink .icon").hide();
 			toobarfile("立项会",4);
 			tab_show(3);
 			hideCurrent('projectProgress:4');
 		}else if(i==5){
 			$(".tabtitle h3").text("添加会后商务谈判");
-			toobarData("会后商务谈判","添加会后商务谈判","meetingType:5");
+			toobarData("会后商务谈判","添加会议记录","添加会后商务谈判会议记录","meetingType:5");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			meetList("meetingType:5");
@@ -297,13 +297,13 @@ $(".tab_1").click(function(event) {
 $(".new_poppage").on("click",function(){ 
 	var $self = $(this);
 	var _url = $self.attr("href");
-	var _name=$self.attr("data-name");
+	var _name=$self.attr("data-name-value");
 	var _type = $self.attr("data-type");
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$(".tabtitle h3").text(_name);
+			$(".popup_name h3 ").text(_name);
 			var arrName=[];
 			switch(_type){
 			  case "":
@@ -367,12 +367,13 @@ function meetingColumns(){
  * @param add_title
  * @param meetingType
  */
-function toobarData(title,add_title,meetingType){
+function toobarData(title,title_value,add_title,meetingType){
 	$("#add_button a").show();
 	$(".tabtitle h3").text(title);
-	$("#add_button a").text(add_title);
+	$("#add_button a").text(title_value);
 	$("#meetingType").val(meetingType);
-	$("#pop_button").attr("data-name",add_title);
+	$("#pop_button").attr("data-name",title_value);
+	$("#pop_button").attr("data-name-value",add_title);
 	$("#pop_button").attr("data-type",meetingType);
 }
 /**
