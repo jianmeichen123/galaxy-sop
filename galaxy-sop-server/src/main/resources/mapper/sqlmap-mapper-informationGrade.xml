@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.hologram.InformationGrade">
+
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationGrade">
+	
+		<id column="id"                    property="id"               jdbcType="BIGINT" />
+		<result column="title_relate_id"   property="titleRelateId"    jdbcType="BIGINT" />
+		<result column="sub_id"            property="subId"            jdbcType="BIGINT" />
+		<result column="score_explain"     property="scoreExplain"     jdbcType="VARCHAR" />
+		<result column="score_max"         property="scoreMax"         jdbcType="DOUBLE" />
+		<result column="is_score"          property="isScore"          jdbcType="INTEGER" />
+		<result column="is_valid"          property="isValid"          jdbcType="INTEGER" />
+		<result column="created_time"      property="createdTime"      jdbcType="BIGINT" />
+		<result column="create_id"         property="createId"         jdbcType="BIGINT" />
+		<result column="updated_time"      property="updatedTime"      jdbcType="BIGINT" />
+		<result column="update_id"         property="updateId"         jdbcType="BIGINT" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id, title_relate_id, sub_id, score_explain, score_max, is_score, is_valid, created_time, 
+    	create_id, updated_time, update_id
+	</sql>
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="titleRelateId != null" > and  title_relate_id = #{titleRelateId,jdbcType=BIGINT} </if>
+				<if test="subId != null" > and  sub_id = #{subId,jdbcType=BIGINT} </if>
+				<if test="scoreExplain != null" >  and score_explain = #{scoreExplain,jdbcType=VARCHAR} </if>
+				<if test="scoreMax != null" >  and score_max = #{scoreMax,jdbcType=DOUBLE} </if>
+				<if test="isScore != null" >  and is_score = #{isScore,jdbcType=INTEGER} </if>
+				<if test="isValid != null" >  and is_valid = #{isValid,jdbcType=INTEGER} </if>
+				<if test="createdTime != null" >  and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="createId != null" >  and create_id = #{createId,jdbcType=BIGINT} </if>
+				<if test="updatedTime != null" >  and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+				<if test="updateId != null" >  and update_id = #{updateId,jdbcType=BIGINT} </if>
+			</trim>
+			
+			<if test="sorting != null">order by ${sorting}</if>
+		</where>
+	</sql>
+
+	
+				
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from information_grade
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from information_grade
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from information_grade 
+		where id = #{id}
+	</select>
+	
+
+	
+</mapper>
+	

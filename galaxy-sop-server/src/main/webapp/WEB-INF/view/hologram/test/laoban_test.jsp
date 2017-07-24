@@ -25,6 +25,7 @@
 <!-- tongyong -->
 <script src="<%=path %>/js/hologram/report_basic/hologram_common.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/report_basic/save_ok.js" type="text/javascript"></script>
 </head>
 <body>
 <!-- <ul class="h_navbar clearfix">
@@ -56,23 +57,41 @@
 var path = '<%=path%>';
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
-		function(data) {
-			var result = data.result.status;
-			if (result == 'OK') {
-				var entity = data.entity;
-				$("#page_list").tmpl(entity).appendTo('#page_all');
-				picData(projectInfo.id,1);
-				$(".section").each(function(){
-					$(this).showResults(true);
-				}); 
-				mustData(projectInfo.id,0);
-				fun_click();
+	function(data) {
+		var result = data.result.status;
+		if (result == 'OK') {
+			var entity = data.entity;
+			$("#page_list").tmpl(entity).appendTo('#page_all');
+			picData(projectInfo.id,1);
+			customBuilder();
+			$(".section").each(function(){
+				$(this).showResults(true);
+				var table = $(this).find('.mb_24 table');
+				table.each(function(){
+					if($(this).find('tr').length<=1){
+						$(this).hide();
+						if($(this).parents('dl').find('dd:gt(0)').length<=0){
+							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+						} 
+					}
+					else{
+						$(this).show();
+					}
+				})
 				
-			} else {
+			});
+			//调整表格
+			$("table").css({"width":"80%","table-layout":"fixed"});
+			mustData(projectInfo.id,0);
+			toggle_btn($('.anchor_btn span'),1);
+			fun_click();
+			hideNav();
+			
+		} else {
 
-			}
-		})
-
+		}
+		
+})
 </script>
 </body>
 

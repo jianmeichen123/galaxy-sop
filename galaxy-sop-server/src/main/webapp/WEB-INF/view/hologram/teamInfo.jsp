@@ -425,8 +425,6 @@
                 deletedResultTids.push(tid);
             }
         });
-        console.log("@#$#%#$%^$%^%");
-        console.log(data);
         data.deletedResultTids = deletedResultTids;
         sendPostRequestByJsonObj(
         			platformUrl.saveOrUpdateInfo ,

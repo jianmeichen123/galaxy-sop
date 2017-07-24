@@ -46,8 +46,6 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	
 	
 	
-	
-	
 	/**
 	 * 根据  title的id  递归查询 该 title下的各级的 title - value
 	 */
@@ -58,6 +56,8 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	 * 根据title 的  id 或 code ，  递归查询  title 及其下的所有 title - value
 	 */
 	InformationTitle selectTitlesValues(String pinfoKey);
+	InformationTitle selectTitlesValues(InformationTitle info);
+	InformationTitle selectTitlesValuesGrade(InformationTitle informationTitle);
 
 	
 

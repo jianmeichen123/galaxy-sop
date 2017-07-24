@@ -30,6 +30,9 @@
 
 
 <script type="text/javascript">
+var key = Date.parse(new Date());
+var keyJSON={};
+var deleteJSON={};
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO8", null,
 		function(data) {
@@ -111,28 +114,23 @@
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
 		var save_this = $(this).parents('.radius');
-		if($('.tip-yellowsimple').length > 0){
-			return false;
-		}
+		var btn = this;
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
+		var fields = sec.find("input[type='text'],input:checked,textarea");
 		var data = {
 			projectId : projectInfo.id
 		};
+
+		//普通结果
 		var infoModeList = new Array();
-		
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
-			var sele = field.parent().get(0).tagName;
 			var _tochange =field.parents("dd").prev().attr("tochange");
-			
+			var sele = field.parent().get(0).tagName;
 			if(sele=="SELECT"){
-				if(!_tochange || _tochange==undefined){
-					_tochange =field.parents("dl").find("*[tochange]").attr("tochange");
-				}
 				var _resultId = field.parent().attr("resultId");
 			}else{
 				var _resultId = field.attr("resultId");
@@ -140,14 +138,13 @@
 			if(_tochange==undefined){
 				_tochange=false;
 			}
-			
 			var infoMode = {
 				titleId	: field.data('titleId'),
 				tochange:_tochange,
 				resultId:_resultId,
 				type : type
 			};
-			if(type==2 || type==3 || type==4|| type==14)
+			if(type==2 || type==3 || type==4)
 			{
 				infoMode.value = field.val()
 			}
@@ -165,37 +162,260 @@
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		//验证插件调用
+		//表格
+		var infoTableModelList = new Array();
+		$.each(sec.find("table.editable"),function(){
+			$.each($(this).find('tr:gt(0)'),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				infoTableModelList.push($(this).data());
+			});
+		});
+	
+		data.infoTableModelList = infoTableModelList;
+		data.deletedRowIds = deletedRowIds;
+//估值表格显示隐藏
+		$.each($('table.editable'),function(){
+			var table_id = $(this).attr('data-title-id');
+			var noedi_table = $('table[data-title-id='+table_id+']')
+			if($(this).find('tr').length<=1){
+				if(noedi_table.parents('dl').find('dd').length<= 2){
+					$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+				}
+				noedi_table.hide();
+			}
+			else{
+				noedi_table.show();
+				noedi_table.parents('dl').find('.no_enter').remove();
+				
+			}
+		})
+		//上传图片相关
+		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
+		var key = keyJSON["b_"+id_code];
+		var deleteids = deleteJSON["delete_"+id_code];
+		var params = {};
+		params.projectId =  projectInfo.id;
+		params.fileReidsKey = key;
+		params.deleteids = deleteids;
+		
 		if(!$("#b_"+id_code).validate().form())
 		{
 			return;
 		}
-		console.log("发物保存的 data");
-		console.log(data);
-		if(beforeSubmit()){
-			sendPostRequestByJsonObj(
-					platformUrl.saveOrUpdateInfo , 
-					data,
-					function(data) {
-						var result = data.result.status;
-						if (result == 'OK') {
-							updateInforTime(projectInfo.id,"lawTime");
-							layer.msg('保存成功');
-							$('#'+id_code).show();
-							$('#b_'+id_code).remove();
-							$(".bj_hui_on").hide();
-							btn_disable(0);
-							$(".h#a_"+id_code).css("background","#fff");
-							var pid=$('#a_'+id_code).attr("data-section-id");
-							setDate(pid,true);
-						    toggle_btn($('.anchor_btn span'),0,save_this);
-						} else {
+		
+		/* sendPostRequestByJsonObj(
+			platformUrl.saveOrUpdateInfo , 
+			data,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					updateInforTime(projectInfo.id,"financingTime");
+					layer.msg('保存成功');
+					$(".h#a_"+id_code).css("background","#fff");
+					$(".bj_hui_on").hide();
+					deletedRowIds = new Array();
+					var parent = $(sec).parent();
+					var id = parent.data('sectionId');
+					$(btn).next().click();
+					refreshSection(id);
+					btn_disable(0);
+				    toggle_btn($('.anchor_btn span'),0,save_this);
+				} else {
 
-						}
-				}) 
-		}
-	
+				}
+		}) */ 
+	//$("body").showLoading();
+		sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
+			//进行上传
+			var result = dataParam.result.status;
+			if(result == "OK"){
+				sendPostRequestByJsonObjNoCache(
+						platformUrl.saveOrUpdateInfo , 
+						data,
+						true,
+						function(data) {
+							var result = data.result.status;
+							if (result == 'OK') {
+								updateInforTime(projectInfo.id,"financingTime");
+								layer.msg('保存成功');
+								$(".h#a_"+id_code).css("background","#fff");
+								$(".bj_hui_on").hide();
+								deletedRowIds = new Array();
+								var parent = $(sec).parent();
+								var id = parent.data('sectionId');
+								$(btn).next().click();
+								$(".loading-indicator-overlay").remove();
+								$(".loading-indicator").remove();
+								refreshSection(id);
+								picData(projectInfo.id);
+								btn_disable(0);
+							    toggle_btn($('.anchor_btn span'),0,save_this);
+							} else {
+								layer.msg("操作失败!");
+							}
+					});
+			}else{
+				layer.msg("操作失败!");
+			}
+			
+		});
+
 	});
+
+	function addRow(ele)
+	{
+		var code = $(ele).prev().data('code');
+		$.getHtml({
+			url:getDetailUrl(code),//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("#detail-form input[name='projectId']").val(projectInfo.id);
+				$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+				$("#save-detail-btn").click(function(){
+					saveForm($("#detail-form"));
+					check_table();
+					check_table_tr_edit();
+				});
+			}//模版反回成功执行	
+		});
+	}
+	function getDetailUrl(code)
+	{
+		if(code == 'equity-structure')
+		{
+			return '<%=path%>/html/funcing_add_gd.html';
+		}
+		else if(code == 'investor-situation')
+		{
+			return '<%=path%>/html/funcing_add_tz.html';
+		}
+		else if(code =='operation-indices')
+		{
+			return '<%=path%>/html/fincing_add_yx.html';
+		}
+		else if(code == 'valuation-reference')
+		{
+			return '<%=path%>/html/fincing_add_tl.html';
+		}
+		else if(code == 'financing-milestone')
+		{
+			return '<%=path%>/html/fincing_add_jd.html';
+		}else if(code == 'competition-comparison')
+		{
+			return '<%=path%>/html/compete_save.jsp';
+		}
+		else if(code == 'delivery-before')
+		{
+			return '<%=path%>/html/delivery_matter.jsp';
+		}else if(code == 'delivery-after')
+		{
+			return '<%=path%>/html/delivery_matter.jsp';
+		}
+		
+		return "";
+	}
+	function saveForm(form)
+	{
+		if($(form).validate().form())
+		{
+			var data = $(form).serializeObject();
+			saveRow(data);
+		}
+	}
+	/**
+	 * 保存至到tr标签data属性
+	 */
+	function saveRow(data)
+	{
+		data = JSON.parse(data);
+		var titleId = data.titleId;
+		var index = data.index;
+		if(typeof index == 'undefined' || index == null || index == '')
+		{
+			var tr = buildRow(data,true);
+			$('table[data-title-id="'+titleId+'"].editable').append(tr);
+		}
+		else
+		{
+			var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
+			for(var key in data)
+			{
+				if(key.indexOf('field')>-1)
+				{
+					tr.data(key,data[key]);
+					tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+				}
+			}
+		}
+		$("a[data-close='close']").click();
+	}
+	function editRow(ele)	
+	{
+		var code = $(ele).closest('table').data('code');
+		var row = $(ele).closest('tr');
+		$.getHtml({
+			url:getDetailUrl(code),//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				var title = $("#pop-title");
+				title.text(title.text().replace('添加','编辑'));
+				$.each($("#detail-form").find("input, select, textarea"),function(){
+					var ele = $(this);
+					var name = ele.attr('name');
+					var type=ele.attr('type');
+					if(type=="radio"){
+						if(ele.val()==row.data(name)){
+							ele.attr("checked","chedcked");
+						}
+					}else{
+						ele.val(row.data(name));
+					}
+				});
+				//文本框剩余字数
+				$.each($(".team_textarea"),function(){
+					var len=$(this).val().length;
+					var initNum=$(this).siblings('.num_tj').find("span").text();
+					$(this).siblings('.num_tj').find("span").text(initNum-len);
+				})
+				$("#detail-form input[name='index']").val(row.index());
+				$("#save-detail-btn").click(function(){
+					saveForm($("#detail-form"));
+				});
+			}//模版反回成功执行	
+		});
+	}
+	var deletedRowIds = new Array();
+	function delRow(ele)
+	{
+		layer.confirm('是否删除?', {
+			btn : [ '确定', '取消' ],
+			title:'提示'
+		}, function(index, layero) {
+			var tr = $(ele).closest('tr');
+			var id = tr.data('id');
+			
+			if(typeof id != 'undefined' && id>0)
+			{
+				deletedRowIds.push(id);
+			}
+			tr.remove();
+			check_table();
+			check_table_tr_edit();
+			$(".layui-layer-close1").click();
+			//$(".layui-layer-btn1").click();
+		}, function(index) {
+		});
+		
+	}
+	function refreshSection(id)
+	{
+		var sec = $(".section[data-section-id='"+id+"']");
+		sec.showResults(true);
+	}
 </script>
 </body>
 

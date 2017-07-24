@@ -48,6 +48,15 @@ public class InformationTitle extends PagableEntity {
 	private String resultContent1;
 	private String resultContent2;
 	
+	//TitleRelate 相关
+	private Long relateId;
+	private String relateCode;
+	private Integer reportType;
+	private int relateIsValid;
+	
+	private InformationGrade informationGrade;
+	
+	
 	public String getParentId() {
 		return parentId;
 	}
@@ -247,6 +256,46 @@ public class InformationTitle extends PagableEntity {
 
 	public void setValRuleMark(String valRuleMark) {
 		this.valRuleMark = valRuleMark;
+	}
+
+	public Long getRelateId() {
+		return relateId;
+	}
+
+	public void setRelateId(Long relateId) {
+		this.relateId = relateId;
+	}
+
+	public String getRelateCode() {
+		return relateCode;
+	}
+
+	public void setRelateCode(String relateCode) {
+		this.relateCode = relateCode;
+	}
+
+	public Integer getReportType() {
+		return reportType;
+	}
+
+	public void setReportType(Integer reportType) {
+		this.reportType = reportType;
+	}
+
+	public int getRelateIsValid() {
+		return relateIsValid;
+	}
+
+	public void setRelateIsValid(int relateIsValid) {
+		this.relateIsValid = relateIsValid;
+	}
+
+	public InformationGrade getInformationGrade() {
+		return informationGrade;
+	}
+
+	public void setInformationGrade(InformationGrade informationGrade) {
+		this.informationGrade = informationGrade;
 	}
 
 	

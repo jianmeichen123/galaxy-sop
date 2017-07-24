@@ -1,18 +1,22 @@
 package com.galaxyinternet.hologram.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
@@ -22,12 +26,15 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.GradeInfo;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
-
+import com.galaxyinternet.model.hologram.InformationTitleRelate;
 import com.galaxyinternet.project.controller.ProjectProgressController;
 import com.galaxyinternet.service.hologram.CacheOperationService;
+import com.galaxyinternet.service.hologram.GradeInfoService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
 
@@ -45,6 +52,9 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
+	
+	@Autowired
+	private InformationTitleRelateService informationTitleRelateService;
 	
 	@Override
 	protected BaseService<InformationTitle> getBaseService() {
@@ -260,11 +270,30 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryAllTitleValues/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InformationTitle> queryAllTitleValues(HttpServletRequest request,@PathVariable("pinfoKey") String pinfoKey ) {
+	public ResponseData<InformationTitle> queryAllTitleValues(HttpServletRequest request,
+			@PathVariable("pinfoKey") String pinfoKey,@RequestParam(value ="reportType", required =false) String reportType) {
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
-		
+		InformationTitle title = null;
 		try{
-			InformationTitle title = informationDictionaryService.selectTitlesValues(pinfoKey);
+			if(reportType != null ){
+				Map<String, Object> params = new HashMap<String,Object>();
+				params.put("reportType",reportType);
+				params.put("code",pinfoKey);
+				params.put("isValid",0);
+				List<InformationTitle> titles = informationTitleRelateService.selectTitleByRelate(params);
+				if(titles.isEmpty() || titles.size()!=1){
+					responseBody.setResult(new Result(Status.ERROR,null, "参数错误"));
+				}else{
+					if(reportType.equals("1")|| reportType.equals("6")){
+						title = informationDictionaryService.selectTitlesValuesGrade(titles.get(0));
+					}else{
+						title = informationDictionaryService.selectTitlesValues(titles.get(0));
+					}
+				}
+			}else{
+				title = informationDictionaryService.selectTitlesValues(pinfoKey);
+			}
+			
 			responseBody.setEntity(title);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {

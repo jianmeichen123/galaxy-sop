@@ -413,7 +413,11 @@ function getDetailUrl(code)
 	else if(code == 'financing-milestone')
 	{
 		return '<%=path%>/html/fincing_add_jd.html';
+	}else if(code == 'finance-history')
+	{
+		return '<%=path%>/html/finace_history.jsp';
 	}
+	
 	return "";
 }
 function editRow(ele)	

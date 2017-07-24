@@ -15,7 +15,7 @@ function editOpen(){
 	})
 }
 
-function edit_bsaicfun(){
+function edit_bsaicfun(data){
 //	check_12
 	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
 		 var par_ul = $(this).parents("ul");
@@ -25,23 +25,44 @@ function edit_bsaicfun(){
 		  }
 	})
 	//change标识
-	$("input").change(function(){
-		var _target=$(this).parents("dd").prev();
-		_target.attr("tochange",true);
-		
-	})
-	$("textarea").change(function(){
-		var _target=$(this).parents("dd").prev();
-		_target.attr("tochange",true);
-		
-	})
-	$("select").change(function(){
-		var _target=$(this).parents("dd").prev();
-		_target.attr("tochange",true);
-		
-	})
+	if(data=="base"){
+		$("input").change(function(){
+			var _target=$(this).closest("div").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("textarea").change(function(){
+			var _target=$(this).closest("div").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("select").change(function(){
+			var _target=$(this).closest("div").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+	}else{
+		$("input").change(function(){
+			var _target=$(this).parents("dl.h_edit_txt").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("textarea").change(function(){
+			var _target=$(this).parents("dl.h_edit_txt").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+		$("select").change(function(){
+			var _target=$(this).parents("dl.h_edit_txt").find("dt");
+			_target.attr("tochange",true);
+			
+		})
+	}
+	
 	//多选标签
 	$(".check_label").click(function(event){
+		var _target=$(this).parents("dd").prev();
+		_target.attr("tochange",true);
 		  $(this).toggleClass('active');
 		  var par_ul = $(this).parent("ul");
 		  if(par_ul.hasClass("pro_innovation")){
@@ -210,8 +231,6 @@ function tabInfoChange(index){
 		}else{
 		sendGetRequest(platformUrl.getTitleResults + pid+'/'+projectInfo.id, null,
 				function(data) {
-			console.log("%%%%%%%%")
-				console.log(data)
         			var result = data.result.status;
         			if (result == 'OK')
         			{
@@ -263,8 +282,8 @@ function buildResults(sec,title,readonly)
 			else
 			{	
 				var result_id = title.resultList[0].id;
-				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true').attr("resultId",result_id);
-				
+				$("input[data-title-id='"+title.id+"'][value='"+title.resultList[0].contentChoose+"']").attr('checked','true');
+				$("input[data-title-id='"+title.id+"']").attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 3)
@@ -316,6 +335,8 @@ function buildResults(sec,title,readonly)
 		{
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
 			var n = title.resultList[0];
+			var result_id = n.id;
+			$("input[name='"+title.id+"']").attr("resultId",result_id) ;
 			if (n.contentDescribe1)
 			{
 				if(readonly == true)
@@ -324,10 +345,11 @@ function buildResults(sec,title,readonly)
 				}
 				else
 				{
-					var result_id = n.id;
-					$("input[data-id='"+title.id+"']").val(n.contentDescribe1).attr("resultId",result_id) ;
+					
+					$("input[data-id='"+title.id+"']").val(n.contentDescribe1);
 				}
 			}
+			
 			if(n.contentChoose)
 			{
 				if(readonly == true)
@@ -381,7 +403,6 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 13)
 		{
-			//var n = title.resultList[0];
 			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
@@ -415,7 +436,7 @@ function buildResults(sec,title,readonly)
 					inputText.attr('disabled',false);
 				}
 				$.each(title.resultList,function(i,n){
-					var result_id= n.id;
+					var result_id= n.id;					
 					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active').attr("resultId",result_id);
 					if(n.contentDescribe1){  
 						$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1).attr("resultId",result_id);
@@ -1442,7 +1463,6 @@ function setMustIds(mustids){
 	$(".unable").removeClass('unable');
 	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
 	var result=mustids.split(",");
-	console.log(result);
 	for(var i=0;i<result.length;i++){
 		//禁用
 		if(result[i].indexOf("a_")==0){
