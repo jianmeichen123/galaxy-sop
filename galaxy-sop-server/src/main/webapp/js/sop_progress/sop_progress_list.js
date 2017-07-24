@@ -337,6 +337,7 @@ $(".new_poppage").on("click",function(){
 			//判断是否选择其他原因  			
 			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
 			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
+			reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2');
 		}//模版反回成功执行	
 	});
 	return false;
