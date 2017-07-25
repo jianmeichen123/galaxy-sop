@@ -138,10 +138,11 @@ jQuery.validator.addMethod("viewTarget", function(value, element) {
 	return this.optional(element) || (viewTarget.test(value));
 }, "不能全为空格"); 
 //其他原因
-jQuery.validator.addMethod("reasonOther", function(value, element) {   
-	var reasonOther = /^(?!.{41}|^\s*$)/;
+jQuery.validator.addMethod("reasonOther", function(value, element) {  
+	var reasonOther =/\s*\S+/;
 	return this.optional(element) || (reasonOther.test(value));
 }, "不能全为空格"); 
+
 initViewUpload();
 function initViewUpload() {
 	var viewuploader = new plupload.Uploader({
