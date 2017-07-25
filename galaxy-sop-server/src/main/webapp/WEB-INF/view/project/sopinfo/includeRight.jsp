@@ -88,10 +88,34 @@
         	<!-- 七大报告入口开始 -->
 			<div class="tq_div">
 				<div class="correlation">水晶球报告</div> 
-				<ul>
-					<li onclick="qxbb();">
-						<img src="<%=path %>/img/seven_report/h0_qx.png" />
+				<ul class="sev_report clearfix">
+					<li onclick="seven_link(1);">
+						<img src="<%=path %>/img/seven_report/ho_qx.png" />
 						<span>全息报告</span>	
+					</li>
+					<li onclick="seven_link(2);">
+						<img src="<%=path %>/img/seven_report/ho_qx.png" />
+						<span>评测报告</span>	
+					</li>
+					<li onclick="seven_link(3);">
+						<img src="<%=path %>/img/seven_report/ho_qx.png" />
+						<span>尽调报告</span>	
+					</li>
+					<li onclick="seven_link(4);">
+						<img src="<%=path %>/img/seven_report/ho_qx.png" />
+						<span>决策报告</span>	
+					</li>
+					<li onclick="seven_link(5);">
+						<img src="<%=path %>/img/seven_report/ho_qx.png" />
+						<span>初评报告</span>	
+					</li>
+					<li onclick="seven_link(6);">
+						<img src="<%=path %>/img/seven_report/ho_qx.png" />
+						<span>融资报告</span>	
+					</li>
+					<li onclick="seven_link(7);">
+						<img src="<%=path %>/img/seven_report/ho_qx.png" />
+						<span>运营报告</span>	
 					</li>
 				</ul>
 			</div>
@@ -179,8 +203,23 @@ if(!prograss){
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
-function qxbb(){
-	window.location.href=platformUrl.toBaseInfo;
+function seven_link(data){
+	if(data==1){
+		window.location.href=platformUrl.toBaseInfo;
+	}else if(data==2){
+		
+	}else if(data==3){
+		
+	}else if(data==4){
+		
+	}else if(data==5){
+		
+	}else if(data==6){
+		
+	}else if(data==7){
+		
+	}
+	
 }
 $(function(){
 	//显示投前或投后信息

@@ -3325,3 +3325,19 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     top:25px;
     }
  #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
+.sev_report li{
+	width:33%;
+	display:inline-block;
+	margin:30px 0;
+	padding:0;
+	float:left;
+	cursor:pointer;
+}
+.sev_report li img,.sev_report li span{
+	margin:0 auto;
+	display:block;
+	text-align:center;
+}
+.sev_report li span{
+	margin:20px 0 0px 0;
+}
