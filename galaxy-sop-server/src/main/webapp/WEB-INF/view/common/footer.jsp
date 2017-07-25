@@ -16,8 +16,7 @@ function createMenus(current){
 		 var selected = data.header.attachment;
 	   	 var html = "";
 	   	 $.each(data.entityList, function(i,o){
-	   		 console.log(o)
-	   		 if(typeof(o.nodes) == "undefined" || o.nodes==null){
+	   		 if(typeof(o.nodes) == "undefined" || o.nodes == null){
 	   			if(selected == o.id){
 		   			/* html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
 		   			html += '<li class="on"><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
@@ -25,7 +24,6 @@ function createMenus(current){
 	   			}else{
 		   			/* html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>'; */
 		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '" onclick= "menu_to_view(\''+o.url+'\',\''+o.menuName+'\')" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
-		   		 console.log(html);
 		   		}
 	   		 }else{
 	   			var innerHtml ="";
@@ -50,7 +48,6 @@ function createMenus(current){
 	   			 html += '</ul></li>';
 	   		 }
 	   	 });
-	   	
 	   	 //星眸链接
 	  // 	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
 	   	 $("#menus").html(html);

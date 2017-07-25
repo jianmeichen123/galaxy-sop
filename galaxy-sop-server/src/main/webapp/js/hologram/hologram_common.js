@@ -719,9 +719,7 @@ function buildTable(sec,title)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			$.each(tables,function(){
 				var table = $(this);
-				console.log(title.tableHeader);
-				
-				var tr = buildRow(row,table.hasClass('editable'),header.titleId);
+				var tr = buildRow(row,table.hasClass('editable'),row.titleId);
 				table.append(tr);
 			});
 		});
@@ -729,19 +727,19 @@ function buildTable(sec,title)
 }
 function buildRow(row,showOpts,titleId)
 {
-	var trs = $('table[data-title-id="'+titleId+'"].editable th');
+	var ths = $('table[data-title-id="'+titleId+'"]:eq(0) th');
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
-	$.each(trs,function()
+	for(var key in row)
+	{
+		//设置data
+		tr.data(key,row[key]);
+	}
+	$.each(ths,function()
 	{
 		var $this = $(this);
-		console.log($this.data());
-		//设置data
-		var k  = $this.data('fieldName')
-		tr.data(k,row[k]);
-		if(k.indexOf('field')>-1)
-		{
-			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
-		}
+		var k  = $this.data('fieldName');
+		console.log(k);
+		tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 	});
 	if(showOpts == true)
 	{
