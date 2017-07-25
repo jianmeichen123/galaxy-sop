@@ -288,6 +288,8 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
+			console.log("3类型渲染数据");
+			console.log(title);
 			$.each(title.resultList,function(i,n)
 			{
 				if(readonly == true)
@@ -336,6 +338,8 @@ function buildResults(sec,title,readonly)
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
 			var n = title.resultList[0];
 			var result_id = n.id;
+			console.log("!!!!!");
+			console.log(title);
 			$("input[name='"+title.id+"']").attr("resultId",result_id) ;
 			if (n.contentDescribe1)
 			{
@@ -403,6 +407,8 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 13)
 		{
+			console.log("13类型渲染数据");
+			console.log(title);
 			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
@@ -713,24 +719,30 @@ function buildTable(sec,title)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			$.each(tables,function(){
 				var table = $(this);
-				var tr = buildRow(row,table.hasClass('editable'));
+				console.log(title.tableHeader);
+				
+				var tr = buildRow(row,table.hasClass('editable'),header.titleId);
 				table.append(tr);
 			});
 		});
 	}
 }
-function buildRow(row,showOpts)
+function buildRow(row,showOpts,titleId)
 {
+	var trs = $('table[data-title-id="'+titleId+'"].editable th');
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
-	for(var key in row)
+	$.each(trs,function()
 	{
+		var $this = $(this);
+		console.log($this.data());
 		//设置data
-		tr.data(key,row[key]);
-		if(key.indexOf('field')>-1)
+		var k  = $this.data('fieldName')
+		tr.data(k,row[k]);
+		if(k.indexOf('field')>-1)
 		{
-			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
-	}
+	});
 	if(showOpts == true)
 	{
 		var td = $('<td data-field-name="opt"></td>');

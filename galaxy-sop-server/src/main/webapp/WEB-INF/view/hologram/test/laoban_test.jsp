@@ -42,8 +42,7 @@
   </ul> -->
    <!--隐藏-->
 <div class="bj_hui_on"></div>
- <%--  <jsp:include page="../jquery-tmpl.jsp" flush="true"></jsp:include> --%>
-  <jsp:include page="test-tmpl.jsp" flush="true"></jsp:include>
+  <jsp:include page="../jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
 		<!--tab-->
@@ -57,14 +56,13 @@
 <script type="text/javascript">
 var path = '<%=path%>';
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues+ "CNO3_1?reportType=6", null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'NO9', null,
 	function(data) {
-		console.log(data)
-	
+	console.log(data)
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
-			$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
 			customBuilder();
 			$(".section").each(function(){

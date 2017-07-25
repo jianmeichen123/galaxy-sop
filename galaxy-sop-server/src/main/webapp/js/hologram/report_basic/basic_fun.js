@@ -174,6 +174,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				var entity = data.entity;
 				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
 				sec.showResults();
+				bindChange();
 				bindChangeType13();
 				$(".h#a_"+id_code).css("background","#fafafa");
 				$("#"+id_code).hide();
@@ -181,8 +182,11 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				validate();
 				//编辑显示隐藏按钮不可用
 				btn_disable(1);
+				setReqiured();
 				//isMust("#b_"+id_code);	
 				$("#b_"+id_code).validate();
+				$(".bj_hui_on").show();
+				check_table_tr_edit();
 				section.find(".h_title span").remove();
 				section.find(".h_title").append(str);
 				//文本域剩余字符数
@@ -246,6 +250,8 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				
 			}
 	}) 
+	//编辑表格显示隐藏
+	 check_table();
 });
 
 //隔轮融资的估值及时间表
@@ -501,7 +507,12 @@ function getDetailUrl(code)
 	else if(code == 'financing-milestone')
 	{
 		return path+'/html/fincing_add_jd.html';
-	}else if (code =='team-members'){
+	}
+	else if(code == 'finance-history')
+	{
+		return path+'/html/finace_history.jsp';
+	}
+	else if (code =='team-members'){
 
 	    return path+'/html/team_compile.html';
 	}else if(code == 'share-holding')
