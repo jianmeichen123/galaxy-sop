@@ -438,13 +438,15 @@ var fileType_3 = {title : "fileType:3", extensions : "avi,AVI"};
 var fileType_4 = {title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg,BMP,JPG,GIF,PNG,JPEG"};
 //zip
 var fileType_5 = {title : "Zip files", extensions : "zip,rar,ZIP,RAR"};
+//图片和pdf
+var fileType_6 = {title : "fileType:6", extensions : "bmp,jpg,gif,png,jpeg,BMP,JPG,GIF,PNG,JPEG,pdf,PDF"};
 
 function paramsFilter(indexNum){
 	var filtersparams= new Array();
 	if(indexNum!=null){
 		//1\2\3\4\7  访谈、会议
 		if(indexNum == 1 || indexNum == '1' || indexNum == 2 || indexNum == '2' || indexNum == 3 || indexNum == '3' 
-			|| indexNum == 4 || indexNum == '4' || indexNum == 7 || indexNum == '7'){
+			|| indexNum == 4 || indexNum == '4' || indexNum == 7 || indexNum == '7' || indexNum == 6 || indexNum == '6'){
 			filtersparams.push(fileType_2);
 		}
 	}else{
