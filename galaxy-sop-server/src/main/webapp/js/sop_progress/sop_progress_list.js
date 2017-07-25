@@ -198,7 +198,7 @@
 			//尽职调查  上传附件
 		}else if(i==8){
 			meetList("meetingType:4");
-			toobarData("投决会","添加投决会","meetingType:4");
+			toobarData("投决会","添加投决会","添加投决会会议记录","meetingType:4");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:7');
@@ -616,7 +616,7 @@ function radionDiv(data){
 	    	   var htmlSelect='<div class="resel_box"><select disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必填">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select></div>'+
-	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
+	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';	     

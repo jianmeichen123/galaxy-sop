@@ -230,7 +230,7 @@ $(".task_noprovide input").click(function(){
 		$("#complete-task-btn").removeClass("disabled");
 	}else{
 		$("#show-upload-btn").removeClass("disabled");
-		$("#show-upload-btn").addClass("disabled");
+		$("#complete-task-btn").addClass("disabled");
 	}
 	
 })
