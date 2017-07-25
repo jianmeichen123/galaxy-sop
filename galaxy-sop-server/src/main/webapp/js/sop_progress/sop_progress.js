@@ -364,13 +364,18 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 			//判断是否选择其他原因  			
 			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
 			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
+			reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2');
 			var val=$("select[name=\"meetingUndeterminedReason\"]").val();
 			var val1=$("select[name=\"meetingVetoReason\"]").val();
+			var val2=$("select[name=\"meetingFollowingReason\"]").val();
 			if(val=="meetingUndeterminedReason:2"){				
 				$("select[name=\"meetingUndeterminedReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
 			}
 			if(val1=="meetingVetoReason:5"){
 				$("select[name=\"meetingVetoReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
+			}
+			if(val2=="meetingFollowingReason:2"){				
+				$("select[name=\"meetingFollowingReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
 			}
 		}
 	});
