@@ -751,7 +751,6 @@ function buildRow(row,showOpts,titleId)
 	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
 	{
-		
 		if(funFlg=="1"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		}
@@ -761,9 +760,8 @@ function buildRow(row,showOpts,titleId)
 	}else{
 		if(funFlg=="1"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
-			 tr.append(td);
+		    tr.append(td);
 		}
-		      
 	}
 	return tr;
 
