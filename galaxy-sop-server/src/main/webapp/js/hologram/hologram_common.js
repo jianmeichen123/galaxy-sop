@@ -719,24 +719,30 @@ function buildTable(sec,title)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			$.each(tables,function(){
 				var table = $(this);
-				var tr = buildRow(row,table.hasClass('editable'));
+				console.log(title.tableHeader);
+				
+				var tr = buildRow(row,table.hasClass('editable'),header.titleId);
 				table.append(tr);
 			});
 		});
 	}
 }
-function buildRow(row,showOpts)
+function buildRow(row,showOpts,titleId)
 {
+	var trs = $('table[data-title-id="'+titleId+'"].editable th');
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
-	for(var key in row)
+	$.each(trs,function()
 	{
+		var $this = $(this);
+		console.log($this.data());
 		//设置data
-		tr.data(key,row[key]);
-		if(key.indexOf('field')>-1)
+		var k  = $this.data('fieldName')
+		tr.data(k,row[k]);
+		if(k.indexOf('field')>-1)
 		{
-			tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
-	}
+	});
 	if(showOpts == true)
 	{
 		var td = $('<td data-field-name="opt"></td>');

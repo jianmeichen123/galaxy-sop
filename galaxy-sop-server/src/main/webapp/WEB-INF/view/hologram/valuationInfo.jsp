@@ -507,7 +507,7 @@ function saveRow(data)
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
-		var tr = buildRow(data,true);
+		var tr = buildRow(data,true,titleId);
 		$('table[data-title-id="'+titleId+'"].editable').append(tr);
 	}
 	else
