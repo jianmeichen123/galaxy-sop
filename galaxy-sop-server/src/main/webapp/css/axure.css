@@ -3314,9 +3314,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #meetingNotesCon {width:600px;word-wrap:break-word;height:220px;overflow-y:auto;}
 #viewNotesCon{height:450px;word-wrap:break-word;overflow-y:auto;}
 .new_poptxt .fixed-table-pagination .pagination-detail{    margin-bottom: -15px; margin-top: -10px;}
-.new_poptxt #resultReason{ display:block;}
-.new_poptxt #interviewResult{padding-left: 74px;}
-.new_poptxt .result_reason{margin-top:-30px;}
+.new_poptxt #resultReason{ display:block; margin-left: -73px;}
+.new_poptxt .result_dd{width:585px;}
 .new_poptxt .tab_con dd{position:relative;}
 .new_poptxt label.error{position: absolute;
     padding: 5px;
