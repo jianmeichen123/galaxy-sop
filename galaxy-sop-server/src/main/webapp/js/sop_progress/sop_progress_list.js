@@ -338,6 +338,10 @@ $(".new_poppage").on("click",function(){
 			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
 			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
 			reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2');
+			//立项会特殊类名
+			if(_name=="添加立项会会议记录"){
+				$("#resultRadion").addClass("spresult");
+			}
 		}//模版反回成功执行	
 	});
 	return false;

@@ -185,6 +185,11 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view"+"/"+type;
 	var res = {};
+	//立项会特殊类名
+	var sp_class="";
+	if(title=="编辑立项会会议记录"){
+		sp_class="spresult"
+	}
 	res.projectId = projectId;
 	res.id = selectRowId;
 	$.getHtml({
@@ -205,7 +210,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					  arrName.push("meetingUndeterminedReason");
 					  arrName.push("meetingVetoReason");
 					  $("#targetView").attr("style","display:block");
-
 					  break;
 				  case "meetingType:3":
 					  res.meetingType = meetingType;
@@ -358,6 +362,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						type=="e" ? $("#file_object").html(""): $("#file").html("<blockquote style='color:#000;'>暂无录音</blockquote>");
 						$("#select_btn").text("选择文件");
 					}
+					 $("#resultRadion").addClass(sp_class);
 				}
 				
 			});
@@ -391,7 +396,7 @@ function  p1(id){
 		url:Constants.sopEndpointURL + "/galaxy/progress/p1",//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			
+
 		}
 	});
 }

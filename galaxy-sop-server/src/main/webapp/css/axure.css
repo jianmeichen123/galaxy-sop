@@ -2953,6 +2953,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         padding-left: 5px;
     }
     .new_poptxt .bootstrap-table{padding:0 20px;}
+    .new_poptxt .bootstrap-table table tbody td{max-width:280px;}
     .new_poptxt .tablink li{
 		line-height: 1;
 		padding: 9px 26px;
@@ -3075,7 +3076,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	    margin-left: 77px;
 	    margin-top: -29px;
 	}
-	.check_result div#div_5{display:block;overflow:hidden; clear: both;}
+	.check_result div#div_5{display:block; clear: both;}
     .check_detail{
     	margin-bottom: -10px;
     }
@@ -3326,4 +3327,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     }
 #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
 #viewNotes-error{display:none;}
-
+#resultRadion.spresult div{margin-bottom:0;}
