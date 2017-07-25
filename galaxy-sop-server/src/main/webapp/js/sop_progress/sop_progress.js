@@ -169,7 +169,11 @@ function dateStr(value,row,index){
 function viewOperFormat(value,row,index){ 
 	var meetingType = undefined;
 	var title = $(".tabtitle h3").text();
-	
+	if(title == '接触访谈'){
+		title = title + "记录";
+	}else{
+		title = title + "会议记录";
+	}
     if(row){
     	meetingType = row.meetingType;
 	}
