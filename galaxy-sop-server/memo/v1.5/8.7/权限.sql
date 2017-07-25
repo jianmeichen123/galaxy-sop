@@ -20,3 +20,4 @@ UPDATE `power`.`role` SET `role_code`='19' WHERE `id`='16';
 UPDATE `power`.`role` SET `role_code`='20' WHERE `id`='17';
 UPDATE `power`.`role` SET `role_code`='21' WHERE `id`='18';
 UPDATE `power`.`role` SET `role_code`='72' WHERE `id`='19';
+INSERT INTO `power`.`rel_role_user` (`id`, `role_id`, `user_id`, `is_del`, `is_outtage`, `create_time`, `create_id`, `update_time`, `update_id`, `company_id`) VALUES ('461', '14', '78', '0', '0', '1500862741847', '0', '1500862741847', '0', '1');
