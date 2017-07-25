@@ -98,7 +98,7 @@ function meetList(type){
                       valign: 'left'
                   },
                   {
-                      title: '原因',
+                      title: '结论原因',
                       field: 'resultReasonStr',
                       valign: 'left',
                       formatter:'result'
