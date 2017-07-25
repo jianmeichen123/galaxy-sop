@@ -62,17 +62,17 @@ public class YwjzdcHandler implements Handler {
 		f.setFileSuffix(q.getSuffix());
 		sopFileDao.updateById(f);
 		
-		/*SopTask task = new SopTask();
+		SopTask task = new SopTask();
 		//条件
 		task.setProjectId(q.getPid());
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
 		task.setTaskFlag(SopConstant.TASK_FLAG_YWJD);
 		//修改
 		Date time = new Date();
-		//task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 		task.setUpdatedTime(time.getTime());
 		task.setTaskDeadline(time);
-		sopTaskDao.updateTask(task);*/
+		sopTaskDao.updateTask(task);
 		
 		return new SopResult(Status.OK,null,"上传业务尽职调查报告成功!",UrlNumber.seven,SopFileMessageHandler._5_4_,f);
 	}

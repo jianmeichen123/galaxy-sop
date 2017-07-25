@@ -356,10 +356,10 @@ function reason(obj,value){
 }
 //会议界面弹出层处理
 function meetingColumns(){
-	  $("#toobar_time").text("会议时间");
-	  $("#toobar_content").text("会议纪要");
-	  $("#toobar_voice").text("会议录音");
-	  $("#toobar_result").text("会议结论");
+	  $("#toobar_time").text("会议时间 :");
+	  $("#toobar_content").text("会议纪要 :");
+	  $("#toobar_voice").text("会议录音 :");
+	  $("#toobar_result").text("会议结论 :");
 	  $("#targetView").attr("style","display:none");
 }
 /**
