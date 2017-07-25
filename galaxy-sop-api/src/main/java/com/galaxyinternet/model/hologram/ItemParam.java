@@ -3,10 +3,16 @@ package com.galaxyinternet.model.hologram;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+@ApiModel("题目信息")
 public class ItemParam
 {
+	@ApiModelProperty("填写的题目ID(information_title_relate.id)")
 	private Long relatedId;
+	@ApiModelProperty("题目的值")
 	private String[] values;
+	@ApiModelProperty("题目的分数")
 	private BigDecimal score;
 	public Long getRelatedId()
 	{

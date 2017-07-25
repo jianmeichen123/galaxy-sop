@@ -2,11 +2,18 @@ package com.galaxyinternet.model.hologram;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+@ApiModel("计算参数")
 public class ReportParam
 {
+	@ApiModelProperty(value="当前页(选项卡)对应ID(information_title_relate.id)",required=true)
 	private Long relateId;
+	@ApiModelProperty(value="项目ID",required=true)
 	private Long projectId;
+	@ApiModelProperty(value="报告类型 1：评测报告",required=true)
 	private int reportType;
+	@ApiModelProperty(value="当前报告包含的题目信息",name="items")
 	private List<ItemParam> items;
 	public Long getRelateId()
 	{
