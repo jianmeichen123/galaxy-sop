@@ -1074,10 +1074,20 @@ var platformUrl = {
 	 * 全息图-融资及估值
 	 */
 	toFinaceHistory : Constants.sopEndpointURL + "/galaxy/infomation/toFinaceHistory",
-	
-	
-	
-	
+	/**
+	 * 评测报告-
+	 */
+	toEvalindex : Constants.sopEndpointURL + "/galaxy/infomation/toEvalindex",
+//	尽调报告
+	investigate:Constants.sopEndpointURL + "/galaxy/infomation/investigate",
+//	决策报告
+	toDecision:Constants.sopEndpointURL + "/galaxy/infomation/toDecision",
+//	初评报告
+	toPreEva:Constants.sopEndpointURL + "/galaxy/infomation/toPreEva",
+//	融资Financing
+	toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toFinancing",
+//运营
+	toOperation:Constants.sopEndpointURL + "/galaxy/infomation/toOperation",
 	/**
 	 * 传入项目 id，区域 code， 返回 该区域下 题和保存的结果信息
 	 */

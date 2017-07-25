@@ -52,7 +52,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/tabInfomation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String platform(HttpServletRequest request) {
-		return "hologram/tabInfomation";
+		return "seven_report/hologram/tabInfomation";
 	}
      /**
 	 *全息图-基本信息模块
@@ -60,9 +60,9 @@ public class InfoJumpController{
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/toBaseInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/toBaseInfo", method = RequestMethod.GET)
 	public String message(HttpServletRequest request) {
-		return "hologram/baseInfo";
+		return "seven_report/hologram/baseInfo";
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toProjectInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String projects(HttpServletRequest request) {
-		return "hologram/projectInfo";
+		return "seven_report/hologram/projectInfo";
 	}
 	/**
 	 * 全息图-团队成员
@@ -81,7 +81,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toTeamInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String dataBriefing(HttpServletRequest request) {
-		return "hologram/teamInfo";
+		return "seven_report/hologram/teamInfo";
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toOperateInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String projectAnalysis(HttpServletRequest request) {
-		return "hologram/operateInfo";
+		return "seven_report/hologram/operateInfo";
 	}
 	
 	
@@ -102,7 +102,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toSaveCompeteTable", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toSaveCompeteTable(HttpServletRequest request) {
-		return "hologram/gethtml/compete_save";
+		return "seven_report/hologram/gethtml/compete_save";
 	}
 	/**
 	 * 全息图-竞争
@@ -111,7 +111,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toCompeteInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String pfmAppraisal(HttpServletRequest request) {
-		return "hologram/competeInfo";
+		return "seven_report/hologram/competeInfo";
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toPlanInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String operation(HttpServletRequest request) {
-		return "hologram/planInfo";
+		return "seven_report/hologram/planInfo";
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toFinanceInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String paprojectlist(HttpServletRequest request) {
-		return "hologram/financeInfo";
+		return "seven_report/hologram/financeInfo";
 	}
 	
 	/**
@@ -141,7 +141,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toJusticeInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String ghlprojectlist(HttpServletRequest request) {
-		return "hologram/justiceInfo";
+		return "seven_report/hologram/justiceInfo";
 	}
 	
 	/**
@@ -151,7 +151,7 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toValuationInfo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String tjlprojectlist(HttpServletRequest request) {
-		return "hologram/valuationInfo";
+		return "seven_report/hologram/valuationInfo";
 	}
 	/**
 	 * 全息图-融资及估值-融资历史
@@ -160,9 +160,38 @@ public class InfoJumpController{
 	 */
 	@RequestMapping(value = "/toFinaceHistory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toFinaceHistory(HttpServletRequest request) {
-		return "hologram/finace_history";
+		return "seven_report/hologram/finace_history";
 	}
-
+//	评测
+	@RequestMapping(value = "/toEvalindex", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toEvalindex(HttpServletRequest request) {
+		return "seven_report/evaluation/index";
+	}
+	//尽调报告
+	@RequestMapping(value = "/investigate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String investigate(HttpServletRequest request) {
+		return "seven_report/investigate/index";
+	}
+//	决策
+	@RequestMapping(value = "/toDecision", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toDecision(HttpServletRequest request) {
+		return "seven_report/decision/index";
+	}
+//	初评
+	@RequestMapping(value = "/toPreEva", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toPreEva(HttpServletRequest request) {
+		return "seven_report/pre_eva/index";
+	}
+//	融资Financing
+	@RequestMapping(value = "/toFinancing", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancing(HttpServletRequest request) {
+		return "seven_report/financing/index";
+	}
+	//运营Operation
+	@RequestMapping(value = "/toOperation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperation(HttpServletRequest request) {
+		return "seven_report/operation/index";
+	}
 	/**
 	 * 获取必须题目的id
 	 * @param projectId

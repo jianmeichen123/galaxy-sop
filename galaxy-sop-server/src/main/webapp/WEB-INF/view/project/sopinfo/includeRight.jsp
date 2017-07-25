@@ -207,17 +207,18 @@ function seven_link(data){
 	if(data==1){
 		window.location.href=platformUrl.toBaseInfo;
 	}else if(data==2){
-		
+		window.location.href=platformUrl.toEvalindex;
+
 	}else if(data==3){
-		
+		window.location.href=platformUrl.investigate;
 	}else if(data==4){
-		
+		window.location.href=platformUrl.toDecision;
 	}else if(data==5){
-		
+		window.location.href=platformUrl.toPreEva;
 	}else if(data==6){
-		
+		window.location.href=platformUrl.toFinancing;
 	}else if(data==7){
-		
+		window.location.href=platformUrl.toOperation;
 	}
 	
 }

@@ -16,7 +16,7 @@
 <script type="text/javascript">
 var pageId = "project";
 </script>
-<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 </head>
 
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
@@ -24,11 +24,11 @@ var pageId = "project";
 
 
 <body >
-<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
-<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
+<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
 <div class="ritmin">
-    <jsp:include page="../project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
+    <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
 			<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInfoChange('0')">基础<br />信息 </li>
@@ -67,7 +67,7 @@ var pageId = "project";
 </div>
 
 
-<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <!-- 公用js -->
 <script src="<%=path%>/js/jquery-1.12.2.min.js"></script>
 <script src="<%=path %>/js/common.js"></script>
