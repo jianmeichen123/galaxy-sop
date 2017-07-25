@@ -330,6 +330,8 @@ function delRow(ele)
                 deletedRowIds.push(id);
             }else if (formId =='b_NO3_8'){
                 deletedRowIdsGq.push(id);
+            }else{
+            	deletedRowIds.push(id);
             }
 		}
 		tr.remove();

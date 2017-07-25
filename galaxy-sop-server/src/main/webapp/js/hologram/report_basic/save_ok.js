@@ -4,20 +4,7 @@ var deletedRowIds = new Array();
 // 股权结构合理性 表格删除行使用
 var deletedRowIdsGq = new Array();
 
-$('div').delegate(".h_save_btn","click",function(event){
-	/*var btn = this;
-	var save_this = $(this).parents(".radius");
-	var id_code = $(this).attr('attr-save');
-	event.stopPropagation();
-	var sec = $(this).closest('form');
-	//var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
-	var fields = sec.find("input[type='text'],input:checked,textarea");
-	var fields_value1=sec.find("li[class='check_label active'],li.active");
-	var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
-	var data = {
-		projectId : projectInfo.id
-	};*/
-	
+$('div').delegate(".h_save_btn","click",function(event){	
 	var btn = this;
 	var save_this = $(btn).parents('.radius');
 	event.stopPropagation();
@@ -369,7 +356,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 					function(data) {
 						var result = data.result.status;
 						if (result == 'OK') {
-							updateInforTime(projectInfo.id,"operationDataTime");
+							updateInforTime(projectInfo.id,"financingTime");
 							layer.msg('保存成功');
 							$(".bj_hui_on").hide();
                             if (h_cancel_btn_code=='NO3_1'){
