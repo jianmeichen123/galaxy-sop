@@ -446,8 +446,11 @@ function paramsFilter(indexNum){
 	if(indexNum!=null){
 		//1\2\3\4\7  访谈、会议
 		if(indexNum == 1 || indexNum == '1' || indexNum == 2 || indexNum == '2' || indexNum == 3 || indexNum == '3' 
-			|| indexNum == 4 || indexNum == '4' || indexNum == 7 || indexNum == '7' || indexNum == 6 || indexNum == '6'){
+			|| indexNum == 4 || indexNum == '4' || indexNum == 7 || indexNum == '7'){
 			filtersparams.push(fileType_2);
+		}
+		if(indexNum == 6 || indexNum == '6'){
+			filtersparams.push(fileType_6);
 		}
 	}else{
 		filtersparams= new Array(fileType_1,fileType_2,fileType_3,fileType_4);
