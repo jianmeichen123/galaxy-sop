@@ -169,7 +169,8 @@ function reject()
 				if(data.result.status == 'OK')
 				{
 					layer.msg('处理成功');
-					
+					refreshButton();
+					$('#projectProgress_1_table').bootstrapTable('refresh'); 
 				}
 				else
 				{
