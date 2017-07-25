@@ -1,8 +1,6 @@
 $(document).ajaxSend(function(event, xhr, settings) {
-	console.log("ajaxSend");
 	if(typeof(pageId) != 'undefined')
 	{
-		console.log("pageId="+pageId);
 		xhr.setRequestHeader("pageId",pageId);
 	}
 });
