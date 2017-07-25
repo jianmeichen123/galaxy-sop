@@ -198,7 +198,7 @@
 			//尽职调查  上传附件
 		}else if(i==8){
 			meetList("meetingType:4");
-			toobarData("投决会","添加投决会","添加投决会会议记录","meetingType:4");
+			toobarData("投决会","添加会议记录","添加投决会会议记录","meetingType:4");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:7');
