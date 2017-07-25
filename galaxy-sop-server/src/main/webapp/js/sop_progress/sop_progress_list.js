@@ -617,7 +617,7 @@ function radionDiv(data){
 		'<div id="div_'+i+'">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
-	    	   var htmlSelect='<div class="resel_box"><select disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必填">'+
+	    	   var htmlSelect='<div class="resel_box"><select required="required" disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必选">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select></div>'+
 	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"></div>';
