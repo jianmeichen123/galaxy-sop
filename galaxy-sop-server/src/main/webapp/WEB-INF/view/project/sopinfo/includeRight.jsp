@@ -44,7 +44,7 @@
               <!-- 注资进度end -->
 				</div>
 				
-				<div class="correlation" onclick="qxbb();">相关操作</div> 
+				<div class="correlation">相关操作</div> 
 	            <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
 	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
@@ -85,9 +85,19 @@
             </div>
             </div>
            
-           
+        	<!-- 七大报告入口开始 -->
+			<div class="tq_div">
+				<div class="correlation">水晶球报告</div> 
+				<ul>
+					<li onclick="qxbb();">
+						<img src="<%=path %>/img/seven_report/h0_qx.png" />
+						<span>全息报告</span>	
+					</li>
+				</ul>
+			</div>
+			<!-- 七大报告入口结束 -->
             <div class="tq_div" style="display:none;">
-	            <div class="correlation"  onclick="qxbb();">相关操作</div> 
+	            <div class="correlation">相关操作</div> 
 	            <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
 	            	<span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
@@ -98,7 +108,7 @@
             
             <div class="tq_div" style="display:none;">
             <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
-            <div class="correlation">
+           <!--  <div class="correlation">
             	近期会议纪要
 				<span class="more null new_righ" id="meet_more" style="cursor: pointer;">more</span>
 			</div>
@@ -106,23 +116,23 @@
             <div class="no_con">
             		暂无会议纪要
             	</div>
-            </div>
+            </div> -->
              
              
-            <div class="correlation">近期访谈记录
+           <!--  <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="view_more" style="cursor: pointer;" >more</span>
 			</div>
             <div class="new_correlation_cen new_correlation_cen_con"  id="near_view">
             	<div class="no_con">
             		暂无访谈记录
             	</div>
-            </div>
+            </div> -->
             </c:if>
             
             
         </div>
         <!-- 投前End -->
-        <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
+        <!-- <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
            <div class="correlation" style="position:relative;padding-left:20px;"><span class="new_ico_hint" style="position:absolute;left:15px;top:11px;"></span>温馨提示</div>
             <div>
             	<ul class="basic_right_ul">
@@ -132,7 +142,7 @@
                     <li>4、通过立项会，投资项目计10分，创建项目计20分</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var pRigthInfo = ${proinfo}
