@@ -126,12 +126,13 @@ var fileGrid = {
 					}, {
 						field : 'fWorktype',
 						title : '业务分类'
-					}, {
+					}, /*{
 					    field: 'voucherFile',
 					    title: '签署凭证',
 					    events : fileGrid.operatorVEvents,
 					    formatter: fileGrid.operateVFormatter 	
-					  }, {
+					  },*/ 
+					  {
 						field : 'updatedDate',
 						title : '更新日期'
 					}, {
@@ -191,9 +192,9 @@ var fileGrid = {
 		
 		if(tempPro <= fileGrid.progress && row.isEdit == "true"){
 			return [
-		            '<a class= "' + uploadClass +' blue"  href="javascript:void(0)">',
+		           /* '<a class= "' + uploadClass +' blue"  href="javascript:void(0)">',
 		            uploadOpt,
-		            '</a>  '
+		            '</a>  '*/
 		        ].join('');
 		}
 		return '';
