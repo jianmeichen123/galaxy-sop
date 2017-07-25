@@ -418,7 +418,7 @@ function getInterViewParams(hasProid,projectId,
 	}else{
 		var clock = getNowFormatDate();
 		if((new Date(viewDateStr).getTime()) > (new Date(clock).getTime())){
-			layer.msg("会议日期不能超过今天");
+			layer.msg("会议时间不能超过当前时间");
 			return false;
          }
 	 }
