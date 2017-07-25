@@ -283,7 +283,12 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						$("#reasonOther").text(reasonOther);
 					}
 					if(content==""){
-						content="";
+						if(type=="e"){
+							
+						}else{
+							content="暂无访谈纪要";
+						}
+						
 					}
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
