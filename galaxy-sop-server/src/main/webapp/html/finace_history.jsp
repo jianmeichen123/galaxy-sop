@@ -74,8 +74,8 @@
            <dl class="fmdl">
            		<dt>新老股：</dt>
                 <dd>
-					<input type="radio" name="field8" value="1">新股
-				    <input type="radio" name="field8" value="2">老股
+					<label><input type="radio" name="field8" value="1">新股</label>
+				    <label><input type="radio" name="field8" value="2">老股</label>
                 </dd> 
              </dl>
            <div class="team_wid">

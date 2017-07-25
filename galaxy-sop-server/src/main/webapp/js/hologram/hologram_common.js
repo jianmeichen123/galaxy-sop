@@ -693,17 +693,21 @@ function buildTable(sec,title)
 		$.each(tables,function(){
 			var table = $(this);
 			table.attr('data-code',header.code);
+			table.attr('data-funFlag',header.funFlag);
 			table.empty();
 			var tr="<tr>";
 			for(var key in header)
 			{
 				if(key.indexOf('field')>-1)
 				{
-					tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+					if(key!="opt"){
+					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
+					}
 				}
 			}
 			var editable = table.hasClass('editable');
-			if(editable == true)
+		
+			if(editable == true||header.funFlag=="1")
 			{
 				tr +='<th data-field-name="opt">操作</th>';
 			}
@@ -738,15 +742,28 @@ function buildRow(row,showOpts,titleId)
 	{
 		var $this = $(this);
 		var k  = $this.data('fieldName');
-		console.log(k);
-		tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+		if(k!="opt"){
+			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+		}
+		
 	});
+	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
+	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
 	{
-		var td = $('<td data-field-name="opt"></td>');
+		
+		if(funFlg=="1"){
+			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
+		}
 		td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">编辑</span>');
 		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
 		tr.append(td);
+	}else{
+		if(funFlg=="1"){
+			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
+			 tr.append(td);
+		}
+		      
 	}
 	return tr;
 

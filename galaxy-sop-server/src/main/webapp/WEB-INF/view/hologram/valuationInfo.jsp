@@ -433,7 +433,14 @@ function editRow(ele)
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.val(row.data(name));
+				var type=ele.attr('type');
+				if(type=="radio"){
+					if(ele.val()==row.data(name)){
+						ele.attr("checked","chedcked");
+					}
+				}else{
+					ele.val(row.data(name));
+				}
 			});
 			//文本框剩余字数
 			$.each($(".team_textarea"),function(){
