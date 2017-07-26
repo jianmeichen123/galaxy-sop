@@ -364,7 +364,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}
 					 $("#resultRadion").addClass(sp_class);
 					 $("#resultRadion input[type='radio']").click(function(){
-						 $("#resultRadion label.error").hide();
+						 $("#resultRadion label.error").remove();
 					 })
 				}
 				
