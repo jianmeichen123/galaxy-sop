@@ -73,6 +73,7 @@ public class JZDCHandler implements ProgressChangeHandler
 		//待办任务 - 上传业务尽职调查报告
 		SopTask task = new SopTask();
 		task.setProjectId(project.getId());
+		task.setTaskOrder(0);
 		task.setTaskName(SopConstant.TASK_NAME_YWJD);
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
 		task.setTaskFlag(SopConstant.TASK_FLAG_YWJD);
@@ -85,6 +86,7 @@ public class JZDCHandler implements ProgressChangeHandler
 		//待办任务 - 上传人事尽职调查报告
 		task = new SopTask();
 		task.setProjectId(project.getId());
+		task.setTaskOrder(0);
 		task.setAssignUid(null);
 		task.setTaskName(SopConstant.TASK_NAME_RSJD);
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
@@ -97,6 +99,7 @@ public class JZDCHandler implements ProgressChangeHandler
 		//待办任务 - 上传法务尽职调查报告
 		task = new SopTask();
 		task.setProjectId(project.getId());
+		task.setTaskOrder(0);
 		task.setAssignUid(null);
 		task.setTaskName(SopConstant.TASK_NAME_FWJD);
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
@@ -109,6 +112,7 @@ public class JZDCHandler implements ProgressChangeHandler
 		//待办任务 - 上传财务尽职调查报告
 		task = new SopTask();
 		task.setProjectId(project.getId());
+		task.setTaskOrder(0);
 		task.setAssignUid(null);
 		task.setTaskName(SopConstant.TASK_NAME_CWJD);
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
