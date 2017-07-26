@@ -3329,6 +3329,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     margin-left: 5px;
     }
 .new_poptxt #resultRadion label.error{margin-left: 33px; top: 2px;}
+.new_poptxt #resultRadion .resel_box label.error{ position: absolute; right: -35px;}
+.new_poptxt #resultRadion .reason_box label.error{position: absolute; right: -56px;}
 #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
 #viewNotes-error{display:none;}
 #resultRadion.spresult div{margin-bottom:0;}

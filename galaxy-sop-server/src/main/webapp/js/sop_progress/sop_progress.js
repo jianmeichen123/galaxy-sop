@@ -363,6 +363,9 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						$("#select_btn").text("选择文件");
 					}
 					 $("#resultRadion").addClass(sp_class);
+					 $("#resultRadion input[type='radio']").click(function(){
+						 $("#resultRadion label.error").hide();
+					 })
 				}
 				
 			});
