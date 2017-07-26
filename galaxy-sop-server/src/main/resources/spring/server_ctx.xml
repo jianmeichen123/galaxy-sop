@@ -48,7 +48,10 @@
 	
 	
 	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask" p:disabled="false"/>
-	
+	<bean id="leaderSelector" class="com.galaxyinternet.framework.core.cluster.LeaderSelector">
+		<constructor-arg name="address" value="${cluster.zk.address}"/>
+		<constructor-arg name="product" value="sop"/>
+	</bean>
 	<bean id="galaxyTaskScheduler" class="com.galaxyinternet.scheduling.GalaxyTaskScheduler"/>
 	<task:scheduled-tasks scheduler="galaxyTaskScheduler">
 		<!-- 
