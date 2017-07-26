@@ -34,6 +34,8 @@ public class InformationTitle extends PagableEntity {
 	private Integer isMust;
 	private String valRule; 
 	private String valRuleMark;
+	private String valRuleFormula;
+	
 	
 	private List<InformationTitle> childList;
 	private List<InformationDictionary> valueList;
@@ -152,6 +154,14 @@ public class InformationTitle extends PagableEntity {
 
 	public void setUpdateId(Long updateId) {
 		this.updateId = updateId;
+	}
+
+	public String getValRuleFormula() {
+		return valRuleFormula;
+	}
+
+	public void setValRuleFormula(String valRuleFormula) {
+		this.valRuleFormula = valRuleFormula;
 	}
 
 	public List<InformationTitle> getChildList() {
