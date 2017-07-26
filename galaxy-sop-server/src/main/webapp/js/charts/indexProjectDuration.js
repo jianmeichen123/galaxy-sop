@@ -292,9 +292,9 @@ var containerProjectTimeOptions = {
 	     align: 'right',
 	     verticalAlign: 'middle',
 	     borderWidth: 0,
-	     width:200,
+	     width:210,
 	     padding:-25,
-	     itemWidth:90,
+	     itemWidth:105,
 	     //minHeight:100,
 	     itemStyle:{
 	         fontWeight:'normal',
