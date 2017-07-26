@@ -71,7 +71,7 @@ public class STHandler implements ProgressChangeHandler
 		task.setCreatedTime(System.currentTimeMillis());
 		taskService.insert(task);
 		
-		task = new SopTask();
+		/*task = new SopTask();
 		task.setProjectId(project.getId());
 		task.setTaskName(SopConstant.TASK_NAME_GQZR);
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
@@ -81,7 +81,7 @@ public class STHandler implements ProgressChangeHandler
 		task.setAssignUid(project.getCreateUid());
 		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 		task.setCreatedTime(System.currentTimeMillis());
-		taskService.insert(task);
+		taskService.insert(task);*/
 		
 		Project po = new Project();
 		po.setId(project.getId());
