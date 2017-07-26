@@ -312,6 +312,9 @@ $(".new_poppage").on("click",function(){
 			if(_name=="添加立项会会议记录"){
 				$("#resultRadion").addClass("spresult");
 			}
+			 $("#resultRadion input[type='radio']").click(function(){
+				 $("#resultRadion label.error").remove();
+			 })
 		}//模版反回成功执行	
 	});
 	return false;
