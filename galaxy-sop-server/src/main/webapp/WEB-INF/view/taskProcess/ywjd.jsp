@@ -13,7 +13,6 @@
 				<th>经办经理</th>
 				<th>档案类型</th>
 				<th>档案状态</th>
-				<th>催办</th>
 				<th>查看附件</th>
 			</tr>
 		</thead>
@@ -137,8 +136,8 @@ function loadRows()
 					$tr.append('<td>'+((isBlank(this.fileUName)) ? "" : this.fileUName) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
-					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\" onclick=\"taskUrged("+this.id+");\">催办</a>" : "")+'</td>');
-					if(isBlank(this.fileName)){
+				/* 	$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\" onclick=\"taskUrged("+this.id+");\">催办</a>" : "")+'</td>');
+				 */	if(isBlank(this.fileName)){
 						$tr.append('<td></td>');
 						if(hasEmpty == false)
 						{
