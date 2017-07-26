@@ -468,7 +468,7 @@
 		      <if test="remark != null" >  remark = #{remark,jdbcType=LONGVARCHAR}, </if>
 		      <if test="progressHistory != null" >  progress_history = #{progressHistory,jdbcType=VARCHAR}, </if>
 		      <if test="businessTypeCode != null" >  business_type_code = #{businessTypeCode,jdbcType=VARCHAR}, </if>
-		      <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT} </if>
+		      <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT}, </if>
 		     <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
 		</set>
 		where id = #{id}
