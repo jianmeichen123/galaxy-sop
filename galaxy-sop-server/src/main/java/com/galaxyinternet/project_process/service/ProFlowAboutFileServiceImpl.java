@@ -235,6 +235,8 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setFileValid(1);
 				file.setRecordType(RecordType.PROJECT.getType());
 				file.setFilUri(url);
+				file.setFileSource(DictEnum.fileSource.内部.getCode());
+				file.setFileType(DictEnum.fileType.图片.getCode());
 				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				
 				file.setId(null);
@@ -251,6 +253,8 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				oldFile.setFilUri(url);
 				oldFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				oldFile.setFileUid(file.getFileUid());
+				oldFile.setFileSource(DictEnum.fileSource.内部.getCode());
+				oldFile.setFileType(DictEnum.fileType.图片.getCode());
 				sopFileDao.updateById(oldFile);
 				resultFile = oldFile;
 			}else{
@@ -263,10 +267,14 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setRecordType(RecordType.PROJECT.getType());
 				file.setFilUri(url);
 				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				file.setFileSource(DictEnum.fileSource.内部.getCode());
+				file.setFileType(DictEnum.fileType.图片.getCode());
 				file.setId(null);
 				sopFileDao.insert(file);
 				oldFile.setFileUid(file.getFileUid());
 				oldFile.setFileValid(0);
+				oldFile.setFileSource(DictEnum.fileSource.内部.getCode());
+				oldFile.setFileType(DictEnum.fileType.图片.getCode());
 				sopFileDao.updateById(oldFile);
 				
 				resultFile = file;
