@@ -23,6 +23,8 @@ function showMemberRow(ele){
                 var studyList = obj.studyList;
                 if(studyList.length>0){
                     var study = getStudyList("add",studyList)
+                    console.log("chenjiamei");
+                    console.log(studyList)
                     $("#team_learn").append(study);
                 }
                 var startupList = obj.startupList;
@@ -102,9 +104,17 @@ function getStudyList(flag,studyList){
                }else{
             	   field1=field1+"毕业";
                }
-            	   
+               var start="";//改处用于处理毕业时间
+               if(o.field5!="undefined"&&o.field5!=""){
+            	   start="<span name='field5'>"+o.field5+"</span>~";
+            	   if(field1.indexOf("毕业")){
+            		   field1=o.field1;
+            	   }
+               }
                var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+field1+"</span></div>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>" +
+                        start+
+                        "<span name='field1'>"+field1+"</span></div>"+
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
