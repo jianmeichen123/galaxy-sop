@@ -23,7 +23,7 @@
 	<ul>
 		<li><a href="javascript:;" class="task_due_btn" id="show-upload-btn">上传业务尽职调查报告</a></li>
 		<li><a href="javascript:;" id="complete-task-btn" class="disabled" style="display:none">提交完成</a></li>
-		<li><a href="javascript:;" id="apply-decision-btn" class="disabled" style="display:none">申请投决会排期</a></li>
+		<!-- <li><a href="javascript:;" id="apply-decision-btn" class="disabled" style="display:none">申请投决会排期</a></li> -->
 	</ul>
 </div>
 <!-- 弹出页面 -->
