@@ -3341,5 +3341,5 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     text-overflow: ellipsis;
     white-space: nowrap;}
 #powindow .close{z-index:40;}    
-    
+.intw_summary dd{word-break:break-all;}  
     
