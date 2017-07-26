@@ -24,13 +24,14 @@
 		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
 		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
 		<result column="realte_id"  jdbcType="BIGINT" 		property="relateId" />
+		<result column="val_rule_formula" 	jdbcType="VARCHAR" 		property="valRuleFormula" />
 	</resultMap>
 
 
 
 	<sql id="Base_Column_List">
 		id, parent_id, code, name, index_no, type, sign, content, is_show, is_valid, placeholder, created_time, create_id, updated_time, update_id,
-		is_must,val_rule,val_rule_mark
+		is_must,val_rule,val_rule_mark,val_rule_formula
 	</sql>
 
 
@@ -223,7 +224,7 @@
 	<!-- id, parent_id, code, name, index_no, type, sign, content,is_show, is_valid, placeholder -->
 	<select id="selectChildsByPid" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
-		id, parent_id, code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark
+		id, parent_id, code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark,val_rule_formula
 		from information_title 
 		<where>
 			<trim prefixOverrides="and">

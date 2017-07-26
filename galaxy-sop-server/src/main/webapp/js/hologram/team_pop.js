@@ -23,6 +23,8 @@ function showMemberRow(ele){
                 var studyList = obj.studyList;
                 if(studyList.length>0){
                     var study = getStudyList("add",studyList)
+                    console.log("chenjiamei");
+                    console.log(studyList)
                     $("#team_learn").append(study);
                 }
                 var startupList = obj.startupList;
@@ -102,9 +104,20 @@ function getStudyList(flag,studyList){
                }else{
             	   field1=field1+"毕业";
                }
-            	   
+               var start="";//改处用于处理毕业时间
+               var between="";
+               if(o.field5!="undefined"&&o.field5!=""&&o.field5!="未知"){
+            	   start=o.field5;
+            	   if(field1.indexOf("毕业")){
+            		   field1=o.field1;
+            		   between="~";
+            	   }
+               }
                var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span><span name='field1'>"+field1+"</span></div>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>" +
+                        "<span name='field5'>"+start+"</span>"+
+                        between+
+                        "<span name='field1'>"+field1+"</span></div>"+
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
@@ -139,6 +152,7 @@ function getStartupList(flag,startupList){
            }
              var str = "<div class=\"team_div\" data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
+                           start+
                            "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span>";
 
                          str +=  "</div><div class='team_p_two'><ul><li data-mix style='margin-bottom:0px;'>";

@@ -35,6 +35,7 @@
         var studyList = [];
         $(list1).each(function(){
             var div = $(this);
+       
             var t1 = getData(div);
             t1["code"]="study-experience";
             t1["titleId"]=data["titleId"];
@@ -46,6 +47,7 @@
                var field2 = div.find("[name='field2']").text();
                var field3 = div.find("[name='field3']").text();
                var field4 = div.find("[name='field4']").text();
+               var field5 = div.find("[name='field5']").text();
                if(field1.indexOf("毕业")>0){
             	   t1["field1"]=field1.substring(0,field1.length-2);
             	  
@@ -55,6 +57,7 @@
                t1["field2"]=field2;
                t1["field3"]=field3;
                t1["field4"]=field4;
+               t1["field5"]=field5;
                studyList.push(t1);
             //studyList.push(t1);
         })
@@ -74,7 +77,8 @@
               workList.push(t2);
          })
          data["workList"]=workList;
-
+         console.log("chenjiamei");
+         console.log(studyList)
          //创业经历
          var list3 =  $("#team_startup").find("div[data-flag]");
          var startupList = [];

@@ -82,7 +82,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$.each($('table.editable'),function(){
 		var table_id = $(this).attr('data-title-id');
 		var noedi_table = $('table[data-title-id='+table_id+']')
-		if($(this).find('tr:gt(0)').length<=0){
+		if($(this).find('tr').length<=1){
 			if(noedi_table.parents('dl').find('dd').length<= 2){
 				$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
 			}
@@ -312,6 +312,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	data.infoModeList = infoModeList;
 	data.infoFixedTableList=infoModeFixedList;
 	data.infoModeInputs=infoModeInputs;
+	data.deletedRowIds = deletedRowIds;
 	var h_cancel_btn_code = $(btn).next().attr('attr-hide');
 
     if (h_cancel_btn_code=='NO3_1'){
@@ -333,17 +334,15 @@ $('div').delegate(".h_save_btn","click",function(event){
     data.deletedResultTids = deletedResultTids;
 	
 	
-	
+  //上传图片相关
 	var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
-	
-	
 	var key = keyJSON["b_"+id_code];
 	var deleteids = deleteJSON["delete_"+id_code];
-	
 	var params = {};
 	params.projectId =  projectInfo.id;
 	params.fileReidsKey = key;
 	params.deleteids = deleteids;
+
 	$("body").showLoading();
 	sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 		//进行上传
@@ -357,6 +356,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						var result = data.result.status;
 						if (result == 'OK') {
 							updateInforTime(projectInfo.id,"financingTime");
+							console.log(params)
 							layer.msg('保存成功');
 							$(".bj_hui_on").hide();
                             if (h_cancel_btn_code=='NO3_1'){

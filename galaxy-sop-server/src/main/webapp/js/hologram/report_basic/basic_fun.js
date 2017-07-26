@@ -180,6 +180,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				$("#"+id_code).hide();
 				$(".bj_hui_on").show();
 				validate();
+				//调整表格
+				$("table").css({"width":"90%","table-layout":"fixed"});
+				$(".h_edit .sign_title").css("margin-bottom","20px");
 				//编辑显示隐藏按钮不可用
 				btn_disable(1);
 				setReqiured();
@@ -196,7 +199,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 					var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
 					textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
 				}
-				/* 文本域自适应高度 */
+				 //文本域自适应高度 
 				for(var i=0;i<$("textarea").length;i++){
 					var textareaId=$("textarea").eq(i).attr("id");
 					autoTextarea(textareaId);
@@ -399,7 +402,7 @@ function saveRow(data)
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
-		var tr = buildRow(data,true);
+		var tr = buildRow(data,true,titleId);
 		$('table[data-title-id="'+titleId+'"].editable').append(tr);
 	}
 	else
@@ -424,6 +427,14 @@ function refreshSection(id)
 	sec.showResults(true);
 	btn_disable(0);
 	
+}
+function getTableRowLimit(code)
+{
+	if(code == 'investor-situation' || code =='operation-indices')
+	{
+		return 20;
+	}
+	return 10;
 }
 /**
 * 页面加载时，给类型12的题目，绑定change方法，用于第一次没有返回结果的情况

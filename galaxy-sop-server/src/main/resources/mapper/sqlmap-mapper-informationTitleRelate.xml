@@ -121,6 +121,7 @@
 		<result column="is_must" 		jdbcType="INTEGER" 		property="isMust" />
 		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
 		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
+		<result column="val_rule_formula" 	jdbcType="VARCHAR" 		property="valRuleFormula" />
 		
 		<result column="relate_id"  property="relateId"   jdbcType="BIGINT" />
 		<result column="relate_code"  property="relateCode"   jdbcType="VARCHAR" />
@@ -142,7 +143,7 @@
 	<select id="selectTitlesByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
 		select
 			title.id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
-			title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,
+			title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark, title.val_rule_formula,
 			relate.id relate_id, relate.code relate_code,relate.report_type
 		FROM
 			information_title_relate relate,information_title title
@@ -176,7 +177,7 @@
 			(
 			select
 				title.id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
-				title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,
+				title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,title.val_rule_formula,
 				relate.id relate_id, relate.code relate_code,relate.report_type
 			FROM
 				information_title_relate relate,information_title title

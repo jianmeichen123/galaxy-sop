@@ -23,7 +23,7 @@
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <!-- tongyong -->
-<script src="<%=path %>/js/hologram/report_basic/hologram_common.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/report_basic/save_ok.js" type="text/javascript"></script>
 </head>
