@@ -179,8 +179,8 @@ var chartProjectProgressUtils = {
 			    align: 'right',
 			    verticalAlign: 'middle',
 			    borderWidth: 0,
-			    itemWidth:90,
-			    width:240,
+			    itemWidth:110,
+			    width:220,
 			    padding:-35,
 			    //minHeight:100,
 			    itemStyle:{
