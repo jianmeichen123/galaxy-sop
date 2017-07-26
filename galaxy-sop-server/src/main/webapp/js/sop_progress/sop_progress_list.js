@@ -436,8 +436,12 @@ function buttonData(){
 		if(_project_.projectProgress == currProgress)
 		{
 			rejectBtn.show();
-			btn1.show();
-			btn2.show();
+			if(btnData.next1Valid){
+				btn1.show();
+			}
+			if(btnData.next2Valid){
+				btn2.show();
+			}	
 		}
 		break;
 	case 6:
