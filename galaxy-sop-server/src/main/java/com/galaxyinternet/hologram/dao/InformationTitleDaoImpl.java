@@ -5,12 +5,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
-import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.hologram.InformationTitle;
 
 @Repository("informationTitleDao")
@@ -47,6 +45,19 @@ public class InformationTitleDaoImpl extends BaseDaoImpl<InformationTitle, Long>
 			throw new DaoException(String.format("根据titile查询子code出错！语句:%s", getSqlName("selectFirstTitle")), e);
 		}
 	}
+
+
+	@Override
+	public List<InformationTitle> selectRelateTitle(InformationTitle query)
+	{
+		try {
+			Map<String, Object> params = BeanUtils.toMap(query);
+			return sqlSessionTemplate.selectList(getSqlName("selectRelateTitle"),params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询出错！语句:%s", getSqlName("selectRelateTitle")), e);
+		}
+	}
+	
 
 	
 }

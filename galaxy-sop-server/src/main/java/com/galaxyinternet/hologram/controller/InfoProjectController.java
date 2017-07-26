@@ -31,6 +31,8 @@ import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -116,6 +118,30 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			data.getResult().addError("获取标题失败");
 		}
 		
+		return data;
+	}
+	@ApiOperation("查询页面标题及结果")
+	@ApiImplicitParams(
+		value = {
+			@ApiImplicitParam(name="realteId", value="标题relate id",paramType="path",required=true),
+			@ApiImplicitParam(name="projectId", value="项目id",paramType="path",required=true)
+		}	
+	)
+	@ResponseBody
+	@RequestMapping(value="/getRelateTitleResults/{realteId}/{projectId}",method=RequestMethod.GET)
+	public ResponseData<InformationTitle> getRelateTitleResults(@PathVariable String realteId, @PathVariable String projectId)
+	{
+		ResponseData<InformationTitle> data = new ResponseData<>();
+		try
+		{
+			List<InformationTitle> list = titleService.searchRelateTitleWithData(realteId, projectId);
+			data.setEntityList(list);
+			
+		} catch (Exception e)
+		{
+			logger.error("获取标题失败，信息:realteId="+realteId,e);
+			data.getResult().addError("获取标题失败");
+		}
 		return data;
 	}
 	

@@ -724,4 +724,67 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			}
 		}
 	}
+
+
+
+
+	@Override
+	public List<InformationTitle> searchRelateTitleWithData(String relateId, String projectId)
+	{
+		InformationTitle title = getRelateTitleById(Long.valueOf(relateId));
+		if(title != null)
+		{
+			String code = title.getCode();
+			InformationTitle query = new InformationTitle();
+			query.setCode(code);
+			List<InformationTitle> list = informationTitleDao.selectRelateTitle(query);
+			if(list != null && list.size() >0)
+			{
+				for(InformationTitle item : list)
+				{
+					Long id = item.getId();
+					InformationResult resultQuery = new InformationResult();
+					resultQuery.setTitleId(id+"");
+					resultQuery.setProjectId(projectId);
+					List<InformationResult> resultList = resultDao.selectList(resultQuery);
+					item.setResultList(resultList);
+					
+					InformationFixedTable fixedTableQuery = new InformationFixedTable();
+					fixedTableQuery.setProjectId(projectId);
+					fixedTableQuery.setTitleId(id+"");
+					List<InformationFixedTable> fixedTableList = fixedTableDao.selectList(fixedTableQuery);
+					item.setFixedTableList(fixedTableList);
+					
+					InformationListdataRemark header = headerDao.selectByTitleId(id);
+					item.setTableHeader(header);
+					
+					InformationListdata listdataQuery = new InformationListdata();
+					listdataQuery.setProjectId(Long.valueOf(projectId));
+					listdataQuery.setTitleId(id);
+					listdataQuery.setProperty("created_time");
+					listdataQuery.setDirection(Direction.ASC.toString());
+					List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
+					item.setDataList(listdataList);
+					
+				}
+			}
+			return list;
+		}
+		
+		return null;
+	}
+	
+	public InformationTitle getRelateTitleById(Long id)
+	{
+		InformationTitle query = new InformationTitle();
+		query.setId(id);
+		List<InformationTitle> list = informationTitleDao.selectRelateTitle(query);
+		if(list != null && list.size() >0)
+		{
+			return list.iterator().next();
+		}
+		return null;
+	}
+	
+	
 }

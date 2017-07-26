@@ -18,5 +18,7 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 	 * 查询 parentid 为空的 题， 即顶级目录
 	 */
 	List<InformationTitle> selectFirstTitle();
+	
+	public List<InformationTitle> selectRelateTitle(InformationTitle query);
 
 }

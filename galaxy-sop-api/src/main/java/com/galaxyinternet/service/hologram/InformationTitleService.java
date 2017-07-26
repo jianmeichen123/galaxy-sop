@@ -74,6 +74,8 @@ public interface InformationTitleService extends BaseService<InformationTitle>{
 	 * 返回 value 的 pid 下的 values
 	 */
 	List<InformationDictionary> selectProNvaluesInfo(String pid, String tid, String vpid);
+	
+	List<InformationTitle> searchRelateTitleWithData(String relateId, String projectId);
 
 
 
