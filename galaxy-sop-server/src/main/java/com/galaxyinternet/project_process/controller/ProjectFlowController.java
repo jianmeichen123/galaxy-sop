@@ -198,7 +198,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					}
 				}
 			}
-			
+			query.setDirection("desc");
 			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPage(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
