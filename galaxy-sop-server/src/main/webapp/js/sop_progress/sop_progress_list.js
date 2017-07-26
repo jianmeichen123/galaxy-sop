@@ -154,9 +154,9 @@
 		if(i==1){
 			interviewList();
 			toobarData("接触访谈","添加访谈记录","添加访谈记录","");
-			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:1');
+			$(".tablink .icon").hide();
 		}else if(i==2){
 			meetList("meetingType:1");
 			toobarData("内部评审","添加会议记录","添加内部评审会议记录","meetingType:1");
@@ -242,37 +242,7 @@
 		$(".next_box").attr("data-progress",i);
 
 	})
-/*function selectFile(input,fileName){
-	if(fileName.length> 1 && fileName){
-		var ldot = fileName.lastIndexOf("."); 
-	var type = fileName.substr(Number(ldot + 1)); 
-	var li_f =input.parents("li");
-	li_f.find(".cover_box").show();
-	li_f.find(".file_btn").hide();
-	if (type=="pdf") {
-		li_f.find('.file_box').find('img').removeClass("add_img")
-		li_f.find('.file_box').find('img').attr(
-			"src", '../img/sop_progress/pdf.png');
-	}else{
-		li_f.find('.file_box').find('img').removeClass("add_img")
-		li_f.find('.file_box').find('img').attr(
-		"src", '../img/sop_progress/image.png');
-	}
-	li_f.siblings('.file_box').find('.cover_box').show();
-	}else{
-		li_f.find('.file_box').find('img').addClass("add_img")
-		li_f.find('.file_box').find('img').attr(
-		"src", '../img/sop_progress/plus_icon.png');
-		li_f.find('.file_box').find('.cover_box').hide();
-	}
-}
-//文件取消
-$(".file_box .cover_box .cancel").click(function(event) {
-	$(this).parents(".cover_box").hide();
-	$(this).parents(".cover_box").siblings('img').addClass("add_img").attr(
-		"src", '../img/sop_progress/plus_icon.png');
-	$(this).parents("li").find("input").val("");
-});*/
+
 //tab点击事件
 $(".tab_2").click(function(event) {
 	$(this).addClass('on');
