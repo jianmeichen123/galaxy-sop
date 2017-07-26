@@ -250,6 +250,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				oldFile.setRecordType(RecordType.PROJECT.getType());
 				oldFile.setFilUri(url);
 				oldFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				oldFile.setFileUid(file.getFileUid());
 				sopFileDao.updateById(oldFile);
 				resultFile = oldFile;
 			}else{
@@ -264,7 +265,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				file.setId(null);
 				sopFileDao.insert(file);
-				
+				oldFile.setFileUid(file.getFileUid());
 				oldFile.setFileValid(0);
 				sopFileDao.updateById(oldFile);
 				
