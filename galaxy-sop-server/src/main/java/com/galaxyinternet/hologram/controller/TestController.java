@@ -18,7 +18,7 @@ public class TestController{
 
 	@RequestMapping(value = "/laobanTest", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String platform(HttpServletRequest request) {
-		return "hologram/test/laoban_test";
+		return "seven_report/hologram/test/laoban_test";
 	}
 
 
