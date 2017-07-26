@@ -180,8 +180,8 @@ var chartProjectProgressUtils = {
 			    verticalAlign: 'middle',
 			    borderWidth: 0,
 			    itemWidth:90,
-			    width:200,
-			    padding:-25,
+			    width:240,
+			    padding:-35,
 			    //minHeight:100,
 			    itemStyle:{
 			        fontWeight:'normal',
