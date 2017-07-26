@@ -290,7 +290,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						if(type=="e"){
 							
 						}else{
-							content="暂无访谈纪要";
+							content= (meetingType!="undefined" ? "暂无会议纪要" :"暂无访谈纪要");
 						}
 						
 					}
@@ -364,7 +364,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}
 					 $("#resultRadion").addClass(sp_class);
 					 $("#resultRadion input[type='radio']").click(function(){
-						 $("#resultRadion label.error").hide();
+						 $("#resultRadion label.error").remove();
 					 })
 				}
 				
