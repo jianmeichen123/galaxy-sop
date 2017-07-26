@@ -693,7 +693,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			Long count = sopFileService.queryCount(query);
 			
 			next1Valid = count==6L;
-			rejectValid = count==6L;
+			rejectValid = true;
 		}
 		else if(projectProgress.投资决策会.getCode().equals(currProgress))
 		{
