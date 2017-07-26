@@ -279,7 +279,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}
 					$("#recordId").val(recordId);
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
-					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
+					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target).attr("title",target);
 					if(type=="e"){
 						$("input[name='interviewResult'][value='"+resultJudge+"']").closest("div").find("#reasonOther").val(reasonOther);
 					}else{
