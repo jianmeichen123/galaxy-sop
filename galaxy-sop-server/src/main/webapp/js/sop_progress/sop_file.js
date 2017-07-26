@@ -41,8 +41,6 @@ function backForShowFiles(data){
 		layer.msg(data.result.message);
 		return;
 	}
-	console.log("!!!!!!!!");
-	console.log(data);
 	$(".file_list").empty();
 	
 	filesCondition = data.userData;
@@ -321,7 +319,6 @@ function getOptionStr(file,type){
 //创建空白可上传区域
 //fileKey=null taskStatusStr == null canopt=true 
 function create_blank_area(file){
-	console.log(file)
 	var selectopt = "";
 	var imgHtm = "";
 	if(file.canOpt){
