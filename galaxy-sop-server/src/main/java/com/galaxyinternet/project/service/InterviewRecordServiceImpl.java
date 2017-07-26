@@ -262,18 +262,16 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		ir.setCreatedId(project.getCreateUid());
 		ir.setCreatedTime((new Date()).getTime());
 		
-		String message="";
+		UrlNumber number = null;
 		//没有上传文件时
 		if(!ServletFileUpload.isMultipartContent(request)){
 			if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
 				ir.setId(p.getRecordId());
-				int updateByIdSelective = interviewRecordDao.updateById(ir);
-				if(updateByIdSelective>0){
-					message="编辑访谈记录成功";
-				}
+				interviewRecordDao.updateById(ir);
+				number = UrlNumber.two;
 			}else{
 				interviewRecordDao.insert(ir);	
-				message="添加访谈记录成功";
+				number = UrlNumber.one;
 			}
 		}else{
 			SopFile file = new SopFile();
@@ -303,23 +301,20 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				if(null!=p.getRecordId()&&!"".equals(p.getRecordId())){
 					interviewRecordId = p.getRecordId();
 					ir.setId(p.getRecordId());
-					int updateByIdSelective = interviewRecordDao.updateById(ir);
-					if(updateByIdSelective>0){
-						message="编辑访谈记录成功";
-					}
-					
+					interviewRecordDao.updateById(ir);
+					number = UrlNumber.two;
 				}else{
 					Long interId = interviewRecordDao.insert(ir);	
+					number = UrlNumber.one;
 					if(interId > 0){
 						interviewRecordId = interId;
 					}
-					message="添加访谈记录成功";
 				}
 				file.setInterviewRecordId(interviewRecordId);
 				sopFileDao.updateById(file);
 			}
 		}
-		SopResult r = new SopResult(Status.OK,null,message,UrlNumber.one,MessageHandlerInterceptor.add_interview_type);
+		SopResult r = new SopResult(Status.OK,null,null,number,MessageHandlerInterceptor.add_interview_type);
 		return r;
 	}
 	

@@ -8,13 +8,33 @@ package com.galaxyinternet.model.operationLog;
  */
 public enum OperationLogType {
 	
+    interview_add("/galaxy/progress/p1/add/"+UrlNumber.one, OperType.ADD.getOperationType(), "接触访谈",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	
+    interview_update("/galaxy/progress/p1/add/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "接触访谈",SopStage.TOUCH_INTERVIEW.getStageName()), 
 	
 	
 	/* 2017.7 v1.5   会后商务谈判      -----------------------------------*/
 	
 	//meetingType:5   会后商务谈判
-	m5_add("/galaxy/progress/p2/add", OperType.ADD.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+    meeting_1_add("/galaxy/progress/p2/add/"+UrlNumber.one, OperType.ADD.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
 	
+	meeting_1_update("/galaxy/progress/p2/add/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+	
+    meeting_2_add("/galaxy/progress/p2/add/"+UrlNumber.three, OperType.ADD.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	
+	meeting_2_update("/galaxy/progress/p2/add/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	
+    meeting_3_add("/galaxy/progress/p2/add/"+UrlNumber.five, OperType.ADD.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
+	meeting_3_update("/galaxy/progress/p2/add/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
+    meeting_4_add("/galaxy/progress/p2/add/"+UrlNumber.seven, OperType.ADD.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	
+	meeting_4_update("/galaxy/progress/p2/add/"+UrlNumber.eight, OperType.UPDATE.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	
+	meeting_5_add("/galaxy/progress/p2/add/"+UrlNumber.nine, OperType.ADD.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
+	
+	meeting_5_update("/galaxy/progress/p2/add/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
 	
 	
 	
