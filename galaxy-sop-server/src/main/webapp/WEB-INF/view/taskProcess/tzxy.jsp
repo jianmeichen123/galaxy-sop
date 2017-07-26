@@ -252,7 +252,10 @@ function initUpload(_dialog,type){
 		multi_selection:false,
 		filters : {
 			max_file_size : '25mb',
-			mime_types: paramsFilter(6)
+			mime_types : [
+				           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
+				           { title : "PDF files", extensions : "pdf,PDF" }
+				        ]
 		},
 
 		init: {

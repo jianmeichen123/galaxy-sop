@@ -2914,7 +2914,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         background:#f9fafc;
 		border-radius:4px 4px 0 0;
 		margin-bottom: 30px;
-		width:100%; line-height:40px; position:absolute; top:0; left:0; z-index: 9;
+		width:100%; line-height:40px; position:absolute; top:0; left:0; z-index: 30;
     }
     .tabtitle i{
 		position: absolute;
@@ -3292,7 +3292,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		color:#999999;
 	}
 	.intw_name{
-    max-width: 320px;
+	float:left;
+    max-width: 245px;
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
@@ -3326,6 +3327,16 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         top: 3px;
     margin-left: 5px;
     }
+.new_poptxt #resultRadion label.error{margin-left: 33px; top: 2px;}
 #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
 #viewNotes-error{display:none;}
 #resultRadion.spresult div{margin-bottom:0;}
+.interviewee .viewTarget span{float: left;
+    max-width: 239px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;}
+    
+    
+    
