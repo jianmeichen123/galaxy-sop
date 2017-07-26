@@ -2879,7 +2879,7 @@ $('#container_KPI').highcharts({
                 type: 'pie',
                 size:'140%',
                 innerSize :'70%',
-                name: '项目退出占比',
+                name: '项目退出占比1111',
                 data: [
                     {name:'接触访谈',color:'#d9c53e',y:8},
                     {name: '内部评审',color:'#cec938',y: 10},

@@ -134,16 +134,7 @@
 				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://fx.local.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.local.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
-				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
-					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
-					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
-					<mongodb.address>192.168.101.131:27017</mongodb.address> -->
-
-				<!-- redis集群配置 -->
-				<!-- <redis1.url>101.200.78.14:6379</redis1.url> <redis2.url>101.200.78.14:6379</redis2.url> 
-					<redis.master>galaxymaster</redis.master> -->
-
-				<!-- <redis.url>101.200.78.14</redis.url> <redis.port>6379</redis.port> -->
+				<cluster.zk.address>127.0.0.1:2181</cluster.zk.address>
 
 			</properties>
 		</profile>
@@ -511,17 +502,6 @@
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.16.1-GA</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.3.3</version>
-			<exclusions>
-				<exclusion>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.github.sgroschupf</groupId>
