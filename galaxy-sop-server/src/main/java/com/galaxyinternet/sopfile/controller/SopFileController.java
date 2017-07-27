@@ -338,6 +338,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				List<Long> projectIdList = new ArrayList<Long>();
 				for (Project temp : projectList) {
 					projectIdList.add(temp.getId());
+					sopFile.setFileValid(1);
 				}
 				if(projectList.size() > 0){
 					sopFile.setProjectIdList(projectIdList);
