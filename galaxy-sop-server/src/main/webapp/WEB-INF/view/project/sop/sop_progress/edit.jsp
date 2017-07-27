@@ -152,7 +152,7 @@ function initViewUpload() {
 		multipart:true,
 		multi_selection:false,
 		filters : {
-			max_file_size : '25mb',
+			max_file_size : '50mb',
 			mime_types: paramsFilter(1)
 		},
 
