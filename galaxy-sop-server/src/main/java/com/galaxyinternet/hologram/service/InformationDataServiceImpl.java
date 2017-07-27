@@ -99,14 +99,20 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			}
 			
+			User user = WebUtils.getUserFromSession();
+			Long userId = user != null ? user.getId() : null;
+			Long now = new Date().getTime();
 			if(model.getResultId() == null){
+				entity.setCreatedTime(now);
+				entity.setCreateId(userId.toString());
 				entityList.add(entity); // 新增
 			}else{
 				entity.setId(new Long(model.getResultId()));
+				entity.setUpdatedTime(now);
+				entity.setUpdateId(userId.toString());
 				uodateList.add(entity); // 修改
 			}
 		}
-		
 		
 		if(titleIds.size() > 0){
 			InformationResult query = new InformationResult();
