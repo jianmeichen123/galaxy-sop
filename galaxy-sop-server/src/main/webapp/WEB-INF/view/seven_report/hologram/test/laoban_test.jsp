@@ -56,7 +56,7 @@
 <script type="text/javascript">
 var path = '<%=path%>';
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'NO5', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'NO9', null,
 	function(data) {
 	console.log(data)
 		var result = data.result.status;

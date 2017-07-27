@@ -953,6 +953,15 @@ function validate(){
 						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="3" && inputValRuleMark=="ok"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_3":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_3":"<br/><font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="10,2"){
 				var validate={
 						"data-rule-verify_102":"true",
@@ -969,6 +978,15 @@ function validate(){
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_82":"<font color=red>*</font>支持0～99999999的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="9,4"){
+				var validate={
+						"data-rule-verify_82":"true",
+						"name":i,
+						//"required":"required",
+						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
+						"data-msg-verify_82":"<br><font color=red>*</font>支持0～99999999的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){

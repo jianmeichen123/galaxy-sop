@@ -411,6 +411,10 @@
 							<dd class="fl_none"><input class="big_input" data-title-id="\${id}" data-index="\${id}_\${$index+1}" data-valrule="\${valRule}" placeholder="\${placeholder.split('&')[$index]}" maxlength="\${valRuleMark}"/></dd>
 							{{/each}}
 						{{/each}}
+					{{else type=="19"}}
+						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+						<dd><input type="text" data-title-id="\${id}" data-valrulemark="ok" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+						<dd>\${content}</dd>
 					{{/if}}
 				  </dl>
 				</div>
@@ -644,7 +648,10 @@
 					{{else type=="16"}}
 						<dt  data-type="\${type}">\${name}</dt>
 						<dd class="fl_none field division_dd" data-title-id="\${id}" data-content="\${content}">未填写</dd>
-					{{/if}}                      
+					{{else type=="19"}}
+						<dt  data-type="\${type}">\${name}</dt>
+						<dd class="field" data-title-id="\${id}">未填写</dd>
+					{{/if}}                       
 					</dl>		
 				</div>
 			{{/if}}
