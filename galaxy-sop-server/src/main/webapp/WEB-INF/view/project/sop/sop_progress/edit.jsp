@@ -252,6 +252,7 @@ function initViewUpload() {
 				plupload.each(files, function(file) {
 					$("#file_object").removeClass("no_bg");
 					$("#file_object").text(file.name);
+					$("#select_btn").next().find("input").hide();
 					$("#select_btn").text("更新");
 					$("#file_object").addClass("audio_name")
 				});
