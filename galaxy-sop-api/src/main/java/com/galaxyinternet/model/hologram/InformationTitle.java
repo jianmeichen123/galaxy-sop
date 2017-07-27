@@ -57,8 +57,16 @@ public class InformationTitle extends PagableEntity {
 	private int relateIsValid;
 	
 	private InformationGrade informationGrade;
+	private List<InformationGrade> informationGrades;
 	
-	
+	public List<InformationGrade> getInformationGrades() {
+		return informationGrades;
+	}
+
+	public void setInformationGrades(List<InformationGrade> informationGrades) {
+		this.informationGrades = informationGrades;
+	}
+
 	public String getParentId() {
 		return parentId;
 	}
