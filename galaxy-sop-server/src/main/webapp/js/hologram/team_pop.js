@@ -102,7 +102,7 @@ function getStudyList(flag,studyList){
                }else{
             	   field1=field1+"毕业";
                }
-              /* var start="";//改处用于处理毕业时间
+               var start="";//改处用于处理毕业时间
                var between="";
                if(o.field5!="undefined"&&o.field5!=""&&o.field5!="未知"){
             	   start=o.field5;
@@ -110,20 +110,17 @@ function getStudyList(flag,studyList){
             		   field1=o.field1;
             		   between="~";
             	   }
-               }*/
+               }
                var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
-                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>";
-                        
-                        if(o.field5){
-                            tmp = tmp+"<span name='field1'>"+o.field5+"</span><span>～</span>";
-                         }
-                         if(o.field1){
-                              tmp = tmp+"<span name='field1'>"+o.field1+"</span>"
-                         }
-                         tmp=tmp+"</div><div>"+
+                        "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>" +
+                        "<span name='field5'>"+start+"</span>"+
+                        between+
+                        "<span name='field1'>"+field1+"</span></div>"+
+                        "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
                                 "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4'>"+o.field4+"</span></li>"+
+
                             "</ul>";
                             if(flag=="edit"){
                                 var str ="<div class='team_click'>"+
