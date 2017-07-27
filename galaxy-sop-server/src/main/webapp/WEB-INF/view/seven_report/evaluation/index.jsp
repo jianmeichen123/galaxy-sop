@@ -95,7 +95,12 @@ var pageId = "project";
 
 <script type="text/javascript">
 createMenus(5);
-
+//页面数据
+sendGetRequest(platformUrl.queryAllTitleValues+ "FNO3_4?reportType=1", null,
+	function(data){
+	
+	console.log(data)
+})
 
 </script>
 
