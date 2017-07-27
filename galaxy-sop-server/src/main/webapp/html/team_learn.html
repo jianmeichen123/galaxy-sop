@@ -106,23 +106,20 @@
                 }
             }
         });
-        var between="";
-        if( eduJson["field5"]!=""){
-        	between="~";
-        	if(eduJson["field1"].indexOf("毕业")>-1){
-        		eduJson["field1"]=eduJson["field1"].replace("毕业","")
-        	}
-        }
         var index = eduJson["index"];
         if(!index){
               //新增一条记录
               var str = "<div  data-flag class='team_div'><span name='id' style='display:none'>"+eduJson["id"]+"</span>"+
-               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>"+
-            
-              " <span name='field5'>"+eduJson['field5']+"</span>"+
-              between+
-              "<span name='field1'>"+eduJson['field1']+"</span></div>"+
-                "<div>"+
+               "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>";
+              if(eduJson["field5"]){
+                  str = str+"<span name='field5'>"+eduJson["field5"]+"</span><span>～</span>";
+                }
+               if(eduJson["field1"]){
+                  str = str+"<span name='field1'>"+eduJson["field1"]+"</span>";
+               }
+                
+              str = str+
+                "</div><div>"+
                     "<ul style='margin-left:16px;'>"+
                         "<li><span name='field2'>"+eduJson['field2']+"</span></li>"+
                         "<li><span name='field3'>"+eduJson['field3']+"</span>&nbsp;·&nbsp;<span name='field4'>"+eduJson['field4']+"</span></li>"+
