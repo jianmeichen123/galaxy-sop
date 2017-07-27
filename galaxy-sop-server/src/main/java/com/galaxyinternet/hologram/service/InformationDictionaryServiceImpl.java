@@ -295,7 +295,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		for(InformationTitle title : tList){
 			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
 			title.setValueList(valueList);
-			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsByPid(title.getId());
+			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsByPid(title.getRelateId());
 			if(ptitleList !=null && !ptitleList.isEmpty()){
 				selectByTlist(ptitleList);
 				title.setChildList(ptitleList);
@@ -318,7 +318,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		for(InformationTitle title : tList){
 			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
 			title.setValueList(valueList);
-			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsGradeByPid(title.getId());
+			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsGradeByPid(title.getRelateId());
 			if(ptitleList !=null && !ptitleList.isEmpty()){
 				selectByTlist(ptitleList);
 				title.setChildList(ptitleList);
