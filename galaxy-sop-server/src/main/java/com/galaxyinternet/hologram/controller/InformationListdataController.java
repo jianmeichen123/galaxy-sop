@@ -129,12 +129,13 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
 
                     }
                 }
-                if(ids.size() > 0)
-                {
-                	query = new InformationListdata();
-                	query.setIds(ids);
-                	informationListdataService.delete(query);
-                }
+               
+            }
+            if(ids.size() > 0)
+            {
+            	query = new InformationListdata();
+            	query.setIds(ids);
+            	informationListdataService.delete(query);
             }
         }catch(Exception e ){
             responseBody.setResult(new Result(Result.Status.ERROR,null, "保存失败"));
