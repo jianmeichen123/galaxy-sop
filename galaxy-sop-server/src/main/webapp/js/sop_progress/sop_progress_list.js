@@ -30,7 +30,9 @@
 		if(reload)
 		{
 			loadProjectData();
+			//$(".tabtitle").append("<span>"+_project_.projectName+"</span>");
 			$.when(btnDtd).done(function(){
+				
 				for(var j=0;j<flow.length;j++)
 				{
 					if(flow[j] == _project_.projectProgress)
