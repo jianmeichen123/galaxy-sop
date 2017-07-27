@@ -127,7 +127,7 @@
 		<result column="relate_code"  property="relateCode"   jdbcType="VARCHAR" />
 		<result column="report_type"  property="reportType"   jdbcType="INTEGER" />
 		
-		<association property="informationGrade" javaType="com.galaxyinternet.model.hologram.InformationGrade">
+		<collection property="informationGrades" ofType="com.galaxyinternet.model.hologram.InformationGrade">
 			<id column="grade_id"                    property="id"               jdbcType="BIGINT" />
 			<result column="grade_title_relate_id"   property="titleRelateId"    jdbcType="BIGINT" />
 			<result column="grade_sub_id"            property="subId"            jdbcType="BIGINT" />
@@ -135,7 +135,7 @@
 			<result column="grade_score_max"         property="scoreMax"         jdbcType="DOUBLE" />
 			<result column="grade_is_score"          property="isScore"          jdbcType="INTEGER" />
 			<result column="grade_is_valid"          property="isValid"          jdbcType="INTEGER" />
-         </association>
+         </collection>
 
 	</resultMap>
 
