@@ -238,6 +238,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			//封装结果
 			fileTemp.setFileUid(user.getId());
 			fileTemp.setCareerLine(user.getDepartmentId());
+			fileTemp.setProjectProgress(project.getProjectProgress());
 			SopFile result = proFlowAboutFileService.optFileAboutProgress(request,this, fileTemp, tempfilePath);
 			
 			if(result == null){
