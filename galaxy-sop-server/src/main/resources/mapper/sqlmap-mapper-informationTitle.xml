@@ -236,6 +236,7 @@
 				<if test="type != null"> and  type = #{type,jdbcType=INTEGER} </if>
 				<if test="sign != null"> and  sign = #{sign,jdbcType=INTEGER} </if>
 				<if test="isValid != null"> and  is_valid = #{isValid,jdbcType=INTEGER} </if>
+				<if test="isShow != null"> and  is_show = #{isShow,jdbcType=CHAR} </if>
 				<if test="createId != null"> and  create_id = #{createId,jdbcType=BIGINT} </if>
 				<if test="updateId != null"> and  update_id = #{updateId,jdbcType=BIGINT} </if>
 			</trim>
