@@ -1,9 +1,12 @@
 package com.galaxyinternet.project_process.controller;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,6 +42,8 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.fileWorktype;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.dao.sopfile.SopFileDao;
+import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -57,14 +62,17 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project.service.HandlerManager;
+import com.galaxyinternet.project_process.util.ProFlowUtilImpl;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
+import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
 
 
@@ -118,6 +126,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	
 	@Autowired
 	private HandlerManager handlerManager;
+	
+	@Autowired
+	private SopFileDao sopFileDao;
+	
+	@Autowired
+	private SopTaskDao sopTaskDao;
 	
 	@Override
 	protected BaseService<Project> getBaseService() {
@@ -692,7 +706,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			query.setFileValid(1);//查询有效文件
 			Long count = sopFileService.queryCount(query);
 			
-			next1Valid = count==6L;
+			next1Valid = count == 6L;
 			rejectValid = true;
 		}
 		else if(projectProgress.投资决策会.getCode().equals(currProgress))
@@ -740,12 +754,17 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		}
 		else if(projectProgress.股权交割.getCode().equals(currProgress))
 		{
+			String[] fileTypeList = {
+					fileWorktype.工商转让凭证.getCode(),
+					fileWorktype.资金拨付凭证.getCode()
+			};
 			SopFile query = new SopFile();
 			query.setProjectId(project.getId());
 			query.setFileStatus(fileStatus.已上传.getCode());
-			query.setFileWorktype(fileWorktype.工商转让凭证.getCode());
+			query.setFileworktypeList(Arrays.asList(fileTypeList));
+			query.setFileValid(1);//查询有效文件
 			Long count = sopFileService.queryCount(query);
-			next1Valid = count > 0L;
+			next1Valid = count == 2L;
 		}
 		data.getUserData().put("next1Valid", next1Valid);
 		data.getUserData().put("next2Valid", next2Valid);
