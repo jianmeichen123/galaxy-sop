@@ -131,7 +131,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 			
 			temFile =  new SopFile();
 			//temFile.setInitMark(SopFile.INIT_FILE_MAEK_NO);
-			temFile.setfWorktype(DictEnum.fileWorktype.getNameByCode(tem.getKey()));
+			//temFile.setfWorktype(DictEnum.fileWorktype.getNameByCode(tem.getKey()));
 			temFile.setFileWorktype(tem.getKey());
 			
 			if(tem.getValue()!=null){
