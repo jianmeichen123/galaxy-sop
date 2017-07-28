@@ -133,17 +133,17 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 					grade = autoInfo.getGrade();
 					length = values.length;
 				}
-				logger.debug(String.format("RelateId=%s, Mode=4, max - (grade*length) = %s - (%s*%s) = %s", info.getScoreMax(),grade,length,score));
+				logger.debug(String.format("RelateId=%s, Mode=4, max - (grade*length) = %s - (%s*%s) = %s", relateId,info.getScoreMax(),grade,length,score));
 			}
 			else if (mode == 5)//根据选择的数据四舍五入计算分数 - 胜算度，例如"阿里巴巴 10"
 			{
-				if(ArrayUtils.isEmpty(values))
+				if(ArrayUtils.isEmpty(values) || values[0] == null || values[0].indexOf(" ") == -1)
 				{
 					score = BigDecimal.ZERO;
 				}
-				String value = values[0];
-				if(value != null && value.indexOf(" ")>-1)
+				else
 				{
+					String value = values[0];
 					String val = value.substring(value.lastIndexOf(" "));
 					if(NumberUtils.isNumber(val))
 					{
@@ -151,9 +151,8 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 						num = num.setScale(0, BigDecimal.ROUND_HALF_UP);
 						score = num;
 					}
-					
+					logger.debug(String.format("RelateId=%s, Mode=5, Value=%s, Score=%s",relateId,value,score));
 				}
-				logger.debug(String.format("RelateId=%s, Mode=5, Value=%s, Score=%s",relateId,value,score));
 			}
 			ItemParam itemParam = new ItemParam();
 			itemParam.setRelatedId(relateId);

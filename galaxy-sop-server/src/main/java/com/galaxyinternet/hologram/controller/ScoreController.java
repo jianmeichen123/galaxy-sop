@@ -2,6 +2,7 @@ package com.galaxyinternet.hologram.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -20,6 +23,8 @@ import com.galaxyinternet.model.hologram.ReportParam;
 import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -35,14 +40,15 @@ public class ScoreController
 	
 	@SuppressWarnings({"rawtypes","unchecked"})
 	@RequestMapping(value="calculateScore", method=RequestMethod.POST)
-	@ApiOperation("计算题目分数")
+	@ApiOperation("计算题目分数-当前题分数以及子项标题分数")
 	@ApiResponses(
 		value={
-				@ApiResponse(code = 200, message = "返回分数userData(key=题目realteId, value=分数)", response=ResponseData.class)
+				@ApiResponse(code = 200, message = "返回分数-包含当前想以及子项,userData(key=题目realteId, value=分数)", response=ResponseData.class)
 		}
 	)
+	@ResponseBody
 	public ResponseData calculateScore(
-			@ApiParam(name = "param", value = "标题/值信息", required = true) 
+			@ApiParam(name = "param", value = "当前编辑页面包含的标题、值、分数信息", required = true) 
 			@RequestBody 
 			ReportParam param)
 	{
@@ -102,4 +108,66 @@ public class ScoreController
 		
 		return data;
 	}
+	@SuppressWarnings({"rawtypes","unchecked"})
+	@RequestMapping(value="getScores", method=RequestMethod.POST)
+	@ApiOperation("获取分数-当前题分数以及子项标题分数")
+	@ApiImplicitParams(value={
+			@ApiImplicitParam(name="parentId", value="标题的relateId",required=true,paramType="query" ),	
+			@ApiImplicitParam(name="projectId", value="项目",required=true,paramType="query" ),	
+			@ApiImplicitParam(name="reportType", value="报告类型",required=true,paramType="query" )
+	})
+	@ApiResponses(
+		value={
+				@ApiResponse(code = 200, message = "返回分数-包含当前想以及子项,data.userData(key=题目realteId, value=分数)", response=ResponseData.class)
+		}
+	)
+	@ResponseBody
+	public ResponseData getScores(@RequestParam Long parentId, @RequestParam Long projectId, @RequestParam Integer reportType)
+	{
+		ResponseData data = new ResponseData();
+		try
+		{
+			Map<Long,BigDecimal> scores = new HashMap<>();
+			ScoreInfo query = new ScoreInfo();
+			query.setParentId(parentId);
+			query.setReportType(reportType);
+			List<ScoreInfo> list = scoreService.queryList(query);
+			List<Long> relateIds = new ArrayList<>(list.size());
+			if(list != null && list.size()>0)
+			{
+				for(ScoreInfo item : list)
+				{
+					if(item != null && item.getRelateId() != null)
+					{
+						relateIds.add(item.getRelateId());
+					}
+				}
+			}
+			BigDecimal total = BigDecimal.ZERO;
+			if(relateIds.size() > 0)
+			{
+				Map<Long,BigDecimal> childrenScores = scoreService.calculateMutipleReport(relateIds, projectId);
+				scores.putAll(childrenScores);
+				for(Long item : relateIds)
+				{
+					if(scores.containsKey(item))
+					{
+						total = total.add(scores.get(item));
+					}
+				}
+			}
+			scores.put(parentId, total);
+			data.getUserData().putAll(scores);
+		} catch (Exception e)
+		{
+			logger.error(String.format("获取分数错误, ParentId=%s, ProjectId = %s, ReportType=%s", parentId,projectId,reportType),e);
+			String msg = StringUtils.isEmpty(e.getMessage()) ? e.getMessage() : "获取分数错误";
+			data.getResult().addError(msg);
+		}
+		
+		return data;
+	}
+	
+	
+	
 }
