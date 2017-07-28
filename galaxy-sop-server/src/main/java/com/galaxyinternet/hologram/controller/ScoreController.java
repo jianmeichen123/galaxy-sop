@@ -109,7 +109,7 @@ public class ScoreController
 		return data;
 	}
 	@SuppressWarnings({"rawtypes","unchecked"})
-	@RequestMapping(value="getScores", method=RequestMethod.POST)
+	@RequestMapping(value="getScores", method=RequestMethod.GET)
 	@ApiOperation("获取分数-当前题分数以及子项标题分数")
 	@ApiImplicitParams(value={
 			@ApiImplicitParam(name="parentId", value="标题的relateId",required=true,paramType="query" ),	
