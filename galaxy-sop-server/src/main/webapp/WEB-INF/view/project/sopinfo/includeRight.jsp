@@ -138,6 +138,7 @@
 var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
+var prograss_name=pRigthInfo.progress
 if('${fx:isTransfering(pid)}' == 'true')
 {
 	$('.fjxm_but').addClass("disabled");
@@ -166,7 +167,9 @@ if('${fx:isTransfering(pid)}' == 'true')
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
+
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
+console.log(index)
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
 $(function(){
@@ -191,6 +194,7 @@ $(function(){
 	{
 		$(".tq_div").show();
 	}
+	console.log(index);
 	init_lct(); //流程图初始化
 	
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
@@ -330,14 +334,14 @@ function initMoreLine(){
 /**
  * 流程图 ，动态生成初始化
  */
+ //prograss_name
 function init_lct(){
 	var ul_li = $("#lct_ul").children("li");
 	$(ul_li).each(function(i){
 		if(index!=0 && i!=0){
-			if(index > i){
+			if($(this).text()==prograss_name){
 				$(this).addClass("green_dot");
-			}else if(index == i){
-				$(this).addClass("green_dot");
+				$(this).prevAll().addClass("green_dot");
 				$(this).addClass('green_dot_color');
 				$(this).prepend("<span class='green_dot_on'></span>");
 			}

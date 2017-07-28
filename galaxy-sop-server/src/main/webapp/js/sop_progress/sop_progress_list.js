@@ -317,6 +317,9 @@ $(".new_poppage").on("click",function(){
 			 $("#resultRadion input[type='radio']").click(function(){
 				 $("#resultRadion label.error").remove();
 			 })
+			 $("#resultRadion select").change(function(){
+						 $("#resultRadion label.error").remove();
+					 })
 		}//模版反回成功执行	
 	});
 	return false;
