@@ -31,6 +31,7 @@
 		{
 			loadProjectData();
 			console.log(_project_.projectName);
+			$(".tabtitle .pre_box").before("");
 			$(".tabtitle .pre_box").before("<p>"+_project_.projectName+"</p><p>-</p>");
 			$.when(btnDtd).done(function(){
 				
