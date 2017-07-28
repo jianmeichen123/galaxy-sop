@@ -480,3 +480,30 @@ textarea::input-placeholder{
 	left: 500px;
 	top: 110px;
 }
+
+
+
+
+
+.cp_wrap .cp_box{
+    width: 100%;
+    border: #d8d8d8;
+    font-size: 12px;
+    word-wrap: break-word;
+    background: #fff;
+    display:table;
+}
+.cp_wrap .cp_box  li{
+	display: table-row
+	
+}
+.cp_wrap .cp_box block{
+	display:table-cell;
+	 
+	width: 14.38%;
+    color: #536379;
+	text-align: center;
+	min-height: 30px;
+	line-height: 30px;
+    border-bottom: 1px solid #aaa;
+}

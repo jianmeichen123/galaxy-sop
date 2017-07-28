@@ -24,6 +24,7 @@ var pageId = "project";
 
 
 <body >
+<jsp:include page="test-tmpl.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
 <jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
@@ -117,7 +118,7 @@ sendGetRequest(platformUrl.queryAllTitleValues+ "ENO1?reportType=1", null,
 	if (result == 'OK') {
 		var entity = data.entity;
 		console.log(entity)
-		//$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+		$("#test_tmpl").tmpl(entity).appendTo('#page_all');
 	}
 	
 })
