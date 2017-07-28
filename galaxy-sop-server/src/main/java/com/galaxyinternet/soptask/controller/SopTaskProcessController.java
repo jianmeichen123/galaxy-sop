@@ -130,9 +130,9 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				btnTxt = "上传资金拨付凭证";
 				fileWorktype = "fileWorktype:9";
 				viewName = "/taskProcess/singleFileUpload";
-				if(queryOne.getProjectType().equals("projectType:2")){
+				//if(queryOne.getProjectType().equals("projectType:2")){
 					isShow=true;
-				}
+				//}
 				break;
 			case 9 : //工商变更登记凭证
 				btnTxt = "上传工商变更登记凭证";
