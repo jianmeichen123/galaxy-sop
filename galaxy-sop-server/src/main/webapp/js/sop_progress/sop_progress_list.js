@@ -30,7 +30,8 @@
 		if(reload)
 		{
 			loadProjectData();
-			//$(".tabtitle").append("<span>"+_project_.projectName+"</span>");
+			console.log(_project_.projectName);
+			$(".tabtitle .pre_box").before("<p>"+_project_.projectName+"</p><p>-</p>");
 			$.when(btnDtd).done(function(){
 				
 				for(var j=0;j<flow.length;j++)
