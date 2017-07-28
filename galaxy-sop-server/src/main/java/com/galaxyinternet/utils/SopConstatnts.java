@@ -1,7 +1,12 @@
 package com.galaxyinternet.utils;
 
+import java.util.Map;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.galaxyinternet.model.hologram.InformationTitle;
 
 public interface SopConstatnts {
 	
@@ -26,6 +31,12 @@ public interface SopConstatnts {
 		public static final String _VOCHER_CHANNEL = "voucher_channel_key";
 		//投资意向书阶段   签署证明 并发检查， 在redis中的list中的值，为   "voucher_channel_5_" + 项目id
 		public static final String _VOCHER_CHANNEL_5_ = "voucher_channel_5_";
+		
+		
+		//查询全部题 缓存key; value = Map<String,InformationTitle>废弃      value = Set<String> 
+		public static final String ALL_TITLE_CACHE_CODE_KEY = "allTitleCacheCode";
+		public static final String ALL_TITLE_VALUE_CACHE_PRE_KEY = "allTitleValueCachePreKey_"; // value = InformationTitle
+		
 	}
 	
 	public interface TaskCode{

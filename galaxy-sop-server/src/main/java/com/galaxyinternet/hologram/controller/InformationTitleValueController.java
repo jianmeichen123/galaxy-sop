@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -32,13 +33,18 @@ import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 
 @Controller
 @RequestMapping("/galaxy/tvalue")
 public class InformationTitleValueController  extends BaseControllerImpl<InformationTitle, InformationTitleBo> {
 
+	
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
+	
+	@Autowired
+	private Cache cache;
 	
 	@Autowired
 	private CacheOperationService cacheOperationService;
@@ -271,23 +277,47 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		InformationTitle title = null;
 		try{
-			if(reportType != null ){
-				Map<String, Object> params = new HashMap<String,Object>();
-				params.put("reportType",reportType);
-				params.put("code",pinfoKey);
-				params.put("isValid",0);
-				List<InformationTitle> titles = informationTitleRelateService.selectTitleByRelate(params);
-				if(titles.isEmpty() || titles.size()!=1){
-					responseBody.setResult(new Result(Status.ERROR,null, "参数错误"));
-				}else{
-					if(reportType.equals("1")|| reportType.equals("6")){
-						title = informationDictionaryService.selectTitlesValuesGrade(titles.get(0));
+			boolean useCacha = false; //开关
+			boolean toCache = false;
+			
+			try {
+				String key_pre = SopConstatnts.Redis.ALL_TITLE_VALUE_CACHE_PRE_KEY;
+				if(useCacha){
+					Object kv = cache.get(key_pre+pinfoKey);
+					if(kv != null) title = (InformationTitle) kv;
+					
+					if(title == null){
+						toCache = true;
 					}else{
-						title = informationDictionaryService.selectTitlesValues(titles.get(0));
+						toCache = false;
 					}
 				}
-			}else{
-				title = informationDictionaryService.selectTitlesValues(pinfoKey);
+			} catch (Exception e) {}
+			
+			
+			if(title == null){
+				if(reportType != null ){
+					Map<String, Object> params = new HashMap<String,Object>();
+					params.put("reportType",reportType);
+					params.put("code",pinfoKey);
+					params.put("isValid",0);
+					List<InformationTitle> titles = informationTitleRelateService.selectTitleByRelate(params);
+					if(titles.isEmpty() || titles.size()!=1){
+						responseBody.setResult(new Result(Status.ERROR,null, "参数错误"));
+					}else{
+						if(reportType.equals("1")|| reportType.equals("6")){
+							title = informationDictionaryService.selectTitlesValuesGrade(titles.get(0));
+						}else{
+							title = informationDictionaryService.selectTitlesValues(titles.get(0));
+						}
+					}
+				}else{
+					title = informationDictionaryService.selectTitlesValues(pinfoKey);
+				}
+			}
+			
+			if(useCacha && toCache){
+				cacheOperationService.saveAllByRedies(pinfoKey, title);
 			}
 			
 			responseBody.setEntity(title);
@@ -316,7 +346,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	public ResponseData<InformationTitle> queryProjectAreaInfo(HttpServletRequest request,@PathVariable("pid") String pid,@PathVariable("tcode") String tcode ) {
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		try{
-
+			
 			InformationTitle title = informationTitleService.selectAreaTitleResutl(pid, tcode);
 			
 			responseBody.setEntity(title);
