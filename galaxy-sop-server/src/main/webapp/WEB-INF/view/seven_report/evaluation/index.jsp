@@ -31,7 +31,7 @@ var pageId = "project";
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav1 active" onclick="test_demo('0')">基础<br />信息 </li>
+			<li data-tab="navInfo" class="fl h_nav1 active" onclick="test_demo('0')">项目<br />评测 </li>
 			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('1')">项目</li>
 			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('2')">团队</li>
 			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('3')">运营<br />数据 </li>
@@ -96,11 +96,16 @@ var pageId = "project";
 <script type="text/javascript">
 createMenus(5);
 //页面数据
-sendGetRequest(platformUrl.queryAllTitleValues+ "FNO3_4?reportType=1", null,
+sendGetRequest(platformUrl.queryAllTitleValues+ "ENO1?reportType=1", null,
 	function(data){
-	
+	var result = data.result.status;
+	if (result == 'OK') {
+		var entity = data.entity;
+		$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+	}
 	console.log(data)
 })
+//整体页面显示
 
 </script>
 
