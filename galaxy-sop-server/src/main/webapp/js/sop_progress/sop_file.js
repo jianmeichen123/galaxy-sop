@@ -84,7 +84,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		filters : {   //只支持PDF和jpeg、png格式，大小限定为25M。
 			mime_types : [
 	           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
-	           { title : "PDF files", extensions : "pdf,PDF" }
+	           { title : "PDF files", extensions : "pdf,PDF" },
+	           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
 	        ],
 			max_file_size : '25mb',
 			prevent_duplicates : false //true 不允许选取重复文件

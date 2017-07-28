@@ -206,7 +206,8 @@ function initUpload(_dialog){
 			max_file_size : '25mb',
 			mime_types : [
 				           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
-				           { title : "PDF files", extensions : "pdf,PDF" }
+				           { title : "PDF files", extensions : "pdf,PDF" },
+				           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
 				        ]
 		},
 
