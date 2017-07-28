@@ -1,8 +1,5 @@
 package com.galaxyinternet.service.hologram;
 
-import java.util.List;
-import java.util.Map;
-
 import com.galaxyinternet.model.hologram.InformationTitle;
 
 public interface CacheOperationService {
@@ -12,6 +9,8 @@ public interface CacheOperationService {
 	void refreshCache();
 
 	void saveAreaInfoByRedies(String hasKey_toAddkey, InformationTitle area_tinfo);
+
+	void saveAllByRedies(String code, InformationTitle title);
 	
 /*	public Map<String, List<InformationTitle>> getPagesAreacode();
 	public void setPagesAreacode(Map<String, List<InformationTitle>> pagesAreacode);

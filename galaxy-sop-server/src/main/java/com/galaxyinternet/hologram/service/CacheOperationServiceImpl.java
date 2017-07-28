@@ -2,9 +2,10 @@ package com.galaxyinternet.hologram.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.CacheOperationService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 
 
@@ -63,6 +65,37 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	
 	
 	
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public synchronized void saveAllByRedies(String code, InformationTitle title){
+		InformationTitle t_title = null;
+		
+		Set<String> cachVs = new HashSet<>();
+		String key_codes = SopConstatnts.Redis.ALL_TITLE_CACHE_CODE_KEY;
+		
+		String key_pre = SopConstatnts.Redis.ALL_TITLE_VALUE_CACHE_PRE_KEY;
+		
+		Object kv = cache.get(key_pre+code);
+		if(kv != null){
+			t_title = (InformationTitle) kv;
+		}
+		
+		
+		if(t_title == null){
+			cache.set(key_pre+code, title);
+			
+			Object cs = cache.get(key_codes);
+			if(cs != null) cachVs= (Set<String>) cs;
+			cachVs.add(code);
+			cache.set(key_codes, cachVs);
+		}
+	}
+	
+	
+	
 	/**
 	 * CACHE_KEY_PAGE_AREA_TITLE 中没有的数据 存入缓存中
 	 */
@@ -87,8 +120,22 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	/**
 	 * CACHE_KEY_PAGE_AREA 中没有的数据 存入缓存中
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public synchronized void refreshCache(){
+		String key_pre = SopConstatnts.Redis.ALL_TITLE_VALUE_CACHE_PRE_KEY;
+		
+		Set<String> cachVs = new HashSet<>();
+		String key_codes = SopConstatnts.Redis.ALL_TITLE_CACHE_CODE_KEY;
+		Object cs = cache.get(key_codes);
+		if(cs != null) cachVs= (Set<String>) cs;
+		
+		if(cachVs!=null && !cachVs.isEmpty()){
+			for(String code : cachVs){
+				cache.remove(key_pre+code);
+			}
+			cache.remove(key_codes);
+		}
 		initTitleIdName();
 		initValueIdName();
 		initAreaTitleAndTValue();

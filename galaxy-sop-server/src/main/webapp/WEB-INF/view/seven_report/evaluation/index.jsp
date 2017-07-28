@@ -11,8 +11,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/beautify.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
 </script>
@@ -31,26 +31,41 @@ var pageId = "project";
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav1 active" onclick="test_demo('0')">项目<br />评测 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('1')">项目</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('2')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('3')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('4')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('5')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('6')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('7')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('8')">融资及<br />估值 </li>
+			<li data-tab="navInfo" class="fl h_nav1 active" onclick="testChange('0')">项目<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('1')">团队<br/>评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('2')">运营<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('3')">竞争<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('4')">融资<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('5')">退出<br />测评</li>
 		</ul>
-		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
-		<div class="tabtxt" id="page_all"> 
-		
-			<div class="h radius" id="NO1_1"> </div>
-			
-			<div class="h radius base_con2" id="NO1_2"> </div>
-			
+		<div class="test_top">
+			<ul class="clearfix">
+				<li class="test_top_first">项目综合测评得分:<span>90</span></li>
+				<li>项目评测得分:<span>23</span></li>
+				<li>权重:<span>30%</span></li>
+				<li class="test_top_last">
+					<em>保存</em>
+				</li>
+				
+			</ul>
 		</div>
-	</div>
-	
+		<table border="1" cellpadding="5" style="table-layout:fixed;word-break:break-all;">
+			<thead>
+				<tr>
+					<td>评测指标</th>
+					<td>指标细化</th>
+					<td>指标详情</th>
+					<td>分值</th>
+					<td>评分细则</th>
+					<td>打分</th>
+					<td>核算得分</th>
+				</tr>
+			</thead>
+			<tbody id="page_all">
+			
+			</tbody>
+		</table>
+		
 	</div>
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
@@ -101,9 +116,10 @@ sendGetRequest(platformUrl.queryAllTitleValues+ "ENO1?reportType=1", null,
 	var result = data.result.status;
 	if (result == 'OK') {
 		var entity = data.entity;
-		$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+		console.log(entity)
+		//$("#test_tmpl").tmpl(entity).appendTo('#page_all');
 	}
-	console.log(data)
+	
 })
 //整体页面显示
 

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <script id="test_tmpl" type="text/x-jquery-tmpl">
 <form id=\${parentId}>
-hahaha
+
 
 </form>
 </script>
