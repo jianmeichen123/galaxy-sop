@@ -10,7 +10,7 @@
 		<result column="is_score" 			property="scoreType" 		jdbcType="BIGINT" />
 		<result column="process_mode" 		property="processMode" 	  	jdbcType="BIGINT" />
 		<result column="score" 				property="score" 	  		jdbcType="BIGINT" />
-		<collection property="autoList" resultMap="GradeAutoInfoMap" />
+		<collection property="autoList" resultMap="ScoreAutoInfoMap" />
 		<collection property="valueList" resultMap="ScoreValueMap" />
 	</resultMap>
 	

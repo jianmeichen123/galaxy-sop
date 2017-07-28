@@ -1,4 +1,5 @@
 package com.galaxyinternet.hologram.service;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,8 +30,11 @@ import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.hologram.ScoreAutoInfo;
+import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
 
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
@@ -54,6 +58,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	private InformationDictionaryService informationDictionaryService;
 	@Autowired
 	private LocalCache localCache;
+	@Autowired
+	private ScoreInfoService scoreInfoService;
 	
 	@Override
 	protected BaseDao<InformationTitle, Long> getBaseDao() {
@@ -743,19 +749,21 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			{
 				for(InformationTitle item : list)
 				{
+					//普通结果
 					Long id = item.getId();
 					InformationResult resultQuery = new InformationResult();
 					resultQuery.setTitleId(id+"");
 					resultQuery.setProjectId(projectId);
 					List<InformationResult> resultList = resultDao.selectList(resultQuery);
 					item.setResultList(resultList);
-					
+					//固定表格
 					InformationFixedTable fixedTableQuery = new InformationFixedTable();
 					fixedTableQuery.setProjectId(projectId);
 					fixedTableQuery.setTitleId(id+"");
 					List<InformationFixedTable> fixedTableList = fixedTableDao.selectList(fixedTableQuery);
 					item.setFixedTableList(fixedTableList);
 					
+					//动态表格
 					InformationListdataRemark header = headerDao.selectByTitleId(id);
 					item.setTableHeader(header);
 					
@@ -766,6 +774,30 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					listdataQuery.setDirection(Direction.ASC.toString());
 					List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
 					item.setDataList(listdataList);
+					
+					ScoreInfo scoreInfo = scoreInfoService.queryById(item.getRelateId());
+					if(scoreInfo != null)
+					{
+						//权重
+						BigDecimal weight = scoreInfoService.getWeight(item.getRelateId(), Long.valueOf(projectId));
+						if(weight != null)
+						{
+							item.setWeight(weight);
+						}
+						//分数选项
+						List<ScoreAutoInfo> autoList = scoreInfo.getAutoList();
+						if(autoList!=null && autoList.size()>0)
+						{
+							Integer scoreType = scoreInfo.getScoreType();
+							if( scoreType!=null && scoreType.intValue() == 1)
+							{
+								item.setAutoList(autoList);
+							}
+						}
+					}
+					
+					
+					
 					
 				}
 			}

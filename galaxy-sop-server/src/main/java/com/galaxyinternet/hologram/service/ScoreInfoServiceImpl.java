@@ -17,13 +17,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.dao.hologram.InformationResultDao;
+import com.galaxyinternet.dao.hologram.ScoreInfoDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
-import com.galaxyinternet.hologram.dao.ScoreInfoDaoImpl;
 import com.galaxyinternet.hologram.model.ReportScoreCalculator;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.ItemParam;
 import com.galaxyinternet.model.hologram.ReportParam;
+import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.model.hologram.ScoreValue;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
@@ -33,7 +36,9 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 {
 	private static final Logger logger = LoggerFactory.getLogger(ScoreInfoServiceImpl.class);
 	@Autowired
-	private ScoreInfoDaoImpl gradeInfoDao;
+	private ScoreInfoDao scoreInfoDao;
+	@Autowired
+	private InformationResultDao resultDao;
 	/**
 	 * 计算题目分数
 	 * @param param
@@ -90,11 +95,11 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 				@Override
 				public void run()
 				{
-					ScoreInfo scoreInfo = gradeInfoDao.selectById(relateId);
+					ScoreInfo scoreInfo = scoreInfoDao.selectById(relateId);
 					ScoreInfo query = new ScoreInfo();
 					query.setProjectId(projectId);
 					query.setCode(scoreInfo.getCode());
-					List<ScoreInfo> vallueList = gradeInfoDao.selectList(query);
+					List<ScoreInfo> vallueList = scoreInfoDao.selectList(query);
 					
 					ReportParam param = new ReportParam();
 					param.setRelateId(relateId);
@@ -140,6 +145,58 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 	@Override
 	protected BaseDao<ScoreInfo, Long> getBaseDao()
 	{
-		return gradeInfoDao;
+		return scoreInfoDao;
+	}
+	
+	public BigDecimal getWeight(Long relateId, Long projectId)
+	{
+		ScoreInfo scoreInfo = scoreInfoDao.selectById(relateId);
+		if(scoreInfo == null || scoreInfo.getProcessMode() == null || 1 != scoreInfo.getProcessMode().intValue())
+		{
+			return null;
+		}
+		List<ScoreAutoInfo> autoList = scoreInfo.getAutoList();
+		if(autoList == null || autoList.size() == 0)
+		{
+			return null;
+		}
+		String code = scoreInfo.getCode();
+		//项目轮次不同，六大评测的权重比不同
+		if(code != null 
+				&& (code.equals("ENO_1") ||
+					code.equals("ENO_2") ||
+					code.equals("ENO_3") ||
+					code.equals("ENO_4") ||
+					code.equals("ENO_5") ||
+					code.equals("ENO_6")
+					)
+			)
+		{
+			InformationResult query = new InformationResult();
+			query.setProjectId(projectId+"");
+			query.setTitleId("1108");
+			InformationResult result = resultDao.selectOne(query);
+			if(result != null)
+			{
+				String value = result.getContentChoose();
+				if(value != null && autoList != null)
+				{
+					for(ScoreAutoInfo item : autoList)
+					{
+						if(value.equals(item.getDictId()+""))
+						{
+							return item.getGrade();
+						}
+					}
+				}
+			}
+		}
+		else if(autoList.get(0) != null)
+		{
+			ScoreAutoInfo auto = autoList.get(0);
+			return auto.getGrade();
+		}
+		
+		return null;
 	}
 }

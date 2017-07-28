@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.hologram;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
@@ -55,9 +56,12 @@ public class InformationTitle extends PagableEntity {
 	private String relateCode;
 	private Integer reportType;
 	private int relateIsValid;
+	private BigDecimal weight;
 	
 	private InformationGrade informationGrade;
 	private List<InformationGrade> informationGrades;
+	//分数选项
+	private List<ScoreAutoInfo> autoList;
 	
 	public List<InformationGrade> getInformationGrades() {
 		return informationGrades;
@@ -314,6 +318,26 @@ public class InformationTitle extends PagableEntity {
 
 	public void setInformationGrade(InformationGrade informationGrade) {
 		this.informationGrade = informationGrade;
+	}
+
+	public BigDecimal getWeight()
+	{
+		return weight;
+	}
+
+	public void setWeight(BigDecimal weight)
+	{
+		this.weight = weight;
+	}
+
+	public List<ScoreAutoInfo> getAutoList()
+	{
+		return autoList;
+	}
+
+	public void setAutoList(List<ScoreAutoInfo> autoList)
+	{
+		this.autoList = autoList;
 	}
 
 	

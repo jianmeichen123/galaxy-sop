@@ -14,12 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import com.galaxyinternet.common.utils.SpringContextManager;
+import com.galaxyinternet.model.hologram.ItemParam;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
-import com.galaxyinternet.model.hologram.InformationResult;
-import com.galaxyinternet.model.hologram.ItemParam;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
-import com.galaxyinternet.service.hologram.InformationResultService;
 /**
  * 计算报告分数
  * @author wangsong
@@ -30,7 +28,6 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 	private static final Logger logger = LoggerFactory.getLogger(ReportScoreCalculator.class);
 	private static final long serialVersionUID = 1L;
 	private ScoreInfoService service = SpringContextManager.getBean(ScoreInfoService.class);
-	private InformationResultService resultService = SpringContextManager.getBean(InformationResultService.class);
 	private Long relateId;
 	private Long projectId;
 	private Map<Long,ItemParam> items;
@@ -165,7 +162,8 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 			
 			if(mode == 1)//权重(子项累加*权重)
 			{
-				BigDecimal weight = getWeight(info);
+				BigDecimal weight = service.getWeight(relateId, projectId);
+				weight = weight == null ? BigDecimal.valueOf(100L) : weight;
 				ScoreInfo query = new ScoreInfo();
 				query.setParentId(relateId);
 				query.setReportType(info.getReportType());
@@ -198,52 +196,4 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		}
 		return score;
 	}
-	
-	private BigDecimal getWeight(ScoreInfo scoreInfo)
-	{
-		List<ScoreAutoInfo> autoList = scoreInfo.getAutoList();
-		if(autoList == null || autoList.size() == 0)
-		{
-			return BigDecimal.ZERO;
-		}
-		String code = scoreInfo.getCode();
-		//项目轮次不同，六大评测的权重比不同
-		if(code != null 
-				&& (code.equals("ENO_1") ||
-					code.equals("ENO_2") ||
-					code.equals("ENO_3") ||
-					code.equals("ENO_4") ||
-					code.equals("ENO_5") ||
-					code.equals("ENO_6")
-					)
-			)
-		{
-			InformationResult query = new InformationResult();
-			query.setProjectId(projectId+"");
-			query.setTitleId("1108");
-			InformationResult result = resultService.queryOne(query);
-			if(result != null)
-			{
-				String value = result.getContentChoose();
-				if(value != null && autoList != null)
-				{
-					for(ScoreAutoInfo item : autoList)
-					{
-						if(value.equals(item.getDictId()+""))
-						{
-							return item.getGrade();
-						}
-					}
-				}
-			}
-		}
-		else if(autoList.get(0) != null)
-		{
-			ScoreAutoInfo auto = autoList.get(0);
-			return auto.getGrade();
-		}
-		
-		return BigDecimal.ZERO;
-	}
-
 }

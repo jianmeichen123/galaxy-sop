@@ -12,4 +12,5 @@ public interface ScoreInfoService extends BaseService<ScoreInfo>
 {
 	public Map<Long, BigDecimal> calculateSingleReport(ReportParam param);
 	public Map<Long,BigDecimal> calculateMutipleReport(List<Long> relateIds, Long projectId) throws Exception;
+	public BigDecimal getWeight(Long relateId, Long projectId);
 }

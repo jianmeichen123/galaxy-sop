@@ -23,7 +23,7 @@
 		<result column="is_must" 		jdbcType="INTEGER" 		property="isMust" />
 		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
 		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
-		<result column="realte_id"  jdbcType="BIGINT" 		property="relateId" />
+		<result column="relate_id"  jdbcType="BIGINT" 		property="relateId" />
 		<result column="val_rule_formula" 	jdbcType="VARCHAR" 		property="valRuleFormula" />
 	</resultMap>
 
