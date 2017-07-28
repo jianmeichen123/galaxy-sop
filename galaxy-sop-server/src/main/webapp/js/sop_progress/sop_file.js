@@ -244,7 +244,8 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 function getFileShowStr(file){
 	var str = '';
 	if(file.taskStatusStr && file.taskStatusStr !=null){
-		if(file.fileKey == null){
+		//if(file.fileKey == null){
+		if(file.taskStatusStr != "已完成"){
 			str += create_task_nofile_area(file);  // data-type="task_nofile"
 		}else{
 			str += create_task_file_area(file);   // data-type="task_file"
@@ -417,16 +418,17 @@ function create_task_file_area(file){
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file,type);
 	
-	var lin = file.taskStatusStr;
-	if(file.taskUname != null && file.taskUname.length > 0){
+	var lin = '';
+	/*var lin = file.taskStatusStr;
+	if(file.taskUname != null && file.taskUname.length > 0 ){
 		lin += '<br/>(' + file.taskUname + ')';
-	}
+	}*/
 	var p_line_img ='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />' +
 	'<p class="center_text" >' +
 		lin +
 	'</p>';
 	console.log(file);
-	if(file.taskStatusStr=="已认领"&&file.filUri!=''&&file.filUri!=undefined){
+	if(file.taskStatusStr=="已完成"&&file.filUri!=''&&file.filUri!=undefined){
 		//已经认领并且上传文件后
 		p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
 		if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'){

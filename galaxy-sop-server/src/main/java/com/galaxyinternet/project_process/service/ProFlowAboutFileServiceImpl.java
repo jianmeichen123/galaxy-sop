@@ -139,8 +139,11 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				
 				for(SopTask ta : taskList){
 					if(tem.getValue().intValue() == ta.getTaskFlag().intValue()){
+						
+						//1:待认领、2:待完工、3:已完成
 						if(ta.getAssignUid() != null){
-							temFile.setTaskStatusStr("待完工");
+							//temFile.setTaskStatusStr("待完工");
+							temFile.setTaskStatusStr(DictEnum.taskStatus.getNameByCode(ta.getTaskStatus()));
 							temFile.setTaskUid(ta.getAssignUid());
 							User user = userService.queryById(ta.getAssignUid());
 							temFile.setTaskUname(user.getRealName());
