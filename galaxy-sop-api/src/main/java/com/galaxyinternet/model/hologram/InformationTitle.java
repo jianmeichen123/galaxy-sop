@@ -52,6 +52,7 @@ public class InformationTitle extends PagableEntity {
 	private String resultContent2;
 	
 	//TitleRelate 相关
+	private Long titleId;
 	private Long relateId;
 	private String relateCode;
 	private Integer reportType;
@@ -278,6 +279,14 @@ public class InformationTitle extends PagableEntity {
 
 	public void setValRuleMark(String valRuleMark) {
 		this.valRuleMark = valRuleMark;
+	}
+
+	public Long getTitleId() {
+		return titleId;
+	}
+
+	public void setTitleId(Long titleId) {
+		this.titleId = titleId;
 	}
 
 	public Long getRelateId() {

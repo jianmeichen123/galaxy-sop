@@ -77,11 +77,11 @@ public class InformationTitleRelateServiceImpl extends BaseServiceImpl<Informati
 		
 		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
 		
-		for(InformationTitle title : ptitleList){
+		/*for(InformationTitle title : ptitleList){
 			if(title.getSign() != null && title.getSign().intValue() == 2){
 				title.setName(title.getName()+"：");
 			}
-		}
+		}*/
 		
 		return ptitleList;
 	}

@@ -107,6 +107,7 @@
 	<resultMap id="TitleResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
 	
 		<id column="id" 			jdbcType="BIGINT" 		property="id" />
+		<result column="title_id"   jdbcType="BIGINT" 		property="titleId" />
 		<result column="parent_id"  jdbcType="VARCHAR" 		property="parentId" />
 		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
 		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
@@ -142,9 +143,9 @@
 	
 	<select id="selectTitlesByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
 		select
-			title.id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
-			title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark, title.val_rule_formula,
-			relate.id relate_id, relate.code relate_code,relate.report_type
+			relate.id, relate.code relate_code,relate.report_type,
+			title.id title_id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
+			title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark, title.val_rule_formula
 		FROM
 			information_title_relate relate,information_title title
 		WHERE 
@@ -162,7 +163,7 @@
 			<if test="sorting != null">order by ${sorting}</if>
 	</select>
 
-
+	<!-- id 为 relateid，   relate.id relate_id,  -->
 	<select id="selectTitlesGradeByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
 		select 
 			relate_title.*,
@@ -176,9 +177,9 @@
 		from
 			(
 			select
-				title.id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
-				title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,title.val_rule_formula,
-				relate.id relate_id, relate.code relate_code,relate.report_type
+				relate.id, relate.code relate_code,relate.report_type,
+				title.id title_id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
+				title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,title.val_rule_formula
 			FROM
 				information_title_relate relate,information_title title
 			WHERE 
@@ -195,7 +196,7 @@
 				
 				<if test="sorting != null">order by ${sorting}</if>
 			) relate_title
-		left join  information_grade grade  on  relate_title.relate_id = grade.title_relate_id
+		left join  information_grade grade  on  relate_title.id = grade.title_relate_id
 	</select>
 	
 </mapper>
