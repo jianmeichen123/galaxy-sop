@@ -3265,10 +3265,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	    padding-top: 2px;
 	}
 	.downlond_other{background-image: url('../img/sop_progress/downlond_jpg.png');}
-	.downlond_jpg,.downlond_png,.downlond_JPG,.downlond_PNG,.downlond_JPEG,.downlond_jpeg{
+	.downlond_jpg,.downlond_png,.downlond_JPG,.downlond_PNG,.downlond_JPEG,.downlond_jpeg,.downlond_xls,.downlond_xlsx,.downlond_XLS,.downlond_XLSX{
 		background-image: url('../img/sop_progress/downlond_jpg.png')
 	}
-	.reupload_jpg,.reupload_pdf,.reupload_JPG,.reupload_PDF,.reupload_jpeg,.reupload_JPEG{
+	.reupload_jpg,.reupload_pdf,.reupload_JPG,.reupload_PDF,.reupload_jpeg,.reupload_JPEG,.reupload_xls,.reupload_xlsx,.reupload_XLS,.reupload_XLSX{
 		background-image: url('../img/sop_progress/reupload_jpg.png')
 	}
 	.downlond_pdf{

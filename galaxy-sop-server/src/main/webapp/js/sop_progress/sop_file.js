@@ -294,7 +294,7 @@ function getOptionStr(file,type){
 	var optStr = "";
 	var optOption = "";
 	var other_class="";
-	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'){
+	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG' && file.fileSuffix!='xls'&&file.fileSuffix!='xlsx'&&file.fileSuffix!='XLS'&&file.fileSuffix!='XLSX'){
 		var other_class="downlond_other";
 	}
 	if(file.canOpt){
@@ -357,6 +357,8 @@ function create_file_area(file){
 		type="jpg"
 	}else if(type=="pdf"||type=="PDF"){
 		type=="pdf"
+	}else if(type == "xls" || type == "xlsx" || type == "XLS" || type == "XLSX"){
+	   type=="excel"
 	}
 	var imgstr = getImageOrPdf(file);
 	var line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
