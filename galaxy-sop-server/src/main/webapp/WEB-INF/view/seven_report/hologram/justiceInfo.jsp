@@ -266,7 +266,7 @@ var deleteJSON={};
 
 	});
 
-	function addRow(ele)
+	/* function addRow(ele)
 	{
 		var code = $(ele).prev().data('code');
 		$.getHtml({
@@ -282,7 +282,7 @@ var deleteJSON={};
 				});
 			}//模版反回成功执行	
 		});
-	}
+	} */
 	function getDetailUrl(code)
 	{
 		if(code == 'equity-structure')
@@ -318,7 +318,7 @@ var deleteJSON={};
 		
 		return "";
 	}
-	function saveForm(form)
+	/* function saveForm(form)
 	{
 		if($(form).validate().form())
 		{
@@ -329,6 +329,7 @@ var deleteJSON={};
 	/**
 	 * 保存至到tr标签data属性
 	 */
+	 /*
 	function saveRow(data)
 	{
 		data = JSON.parse(data);
@@ -415,7 +416,7 @@ var deleteJSON={};
 	{
 		var sec = $(".section[data-section-id='"+id+"']");
 		sec.showResults(true);
-	}
+	} */
 </script>
 </body>
 

@@ -15,6 +15,8 @@
     	<form action="" id="learn_form" method="post">
             <input name="id" style="display:none;">
             <input name="index" style="display:none;">
+            <input name="titleId" type="hidden">
+            <input name="subCode" type="hidden">
             <div class="info clearfix">
             <dl class="fmdl">
                 <dt>&nbsp;毕业时间：</dt>
@@ -37,15 +39,15 @@
             <dl class="fmdl">
                 <dt>学历：</dt>
                 <dd>
-                   <select name="field4">
-                       <option value="">请选择</option>
+                   <select name="field4" id="field4">
+                       <!-- <option value="">请选择</option>
                        <option value="高中">高中</option>
                        <option value="大专">大专</option>
                        <option value="本科">本科</option>
                        <option value="硕士">硕士</option>
                        <option value="MBA">MBA</option>
                        <option value="博士">博士</option>
-                       <option value="其他">其他</option>
+                       <option value="其他">其他</option> -->
                    </select>
                 </dd>
             </dl>

@@ -17,6 +17,7 @@
     <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
+    	<input name="subCode" type="hidden">
     <div class="qualifications_all">
         <div class="conference_all">
             <dl class="fmdl clearfix">
@@ -42,9 +43,9 @@
             <dl class="fmdl clearfix">
                <dt>币种：</dt>
                <dd>
-                   <select name="field6" >
-                       <option value="0"  name="financeUnit" >人民币</option>
-                       <option value="1" name="financeUnit" selected="selected">美元</option>
+                   <select name="field6"  id="field6">
+                      <!--  <option value="0"  name="financeUnit" >人民币</option>
+                       <option value="1" name="financeUnit" selected="selected">美元</option> -->
          
                    </select>
                </dd>
@@ -65,7 +66,7 @@
            <dl class="fmdl clearfix">
             <dt>融资轮次：</dt>
                 <dd>
-					<select name="field7" class='new_nputr'>
+					<select name="field7" class='new_nputr' id="field7">
 					        <option name="111">1111111</option>
 			         </select>
                 </dd>            
@@ -109,5 +110,6 @@ $(function(){
     	errorElement:'span'
     });
 })
+//selectContext();
 //initDialogValstr("updateOrSave_HF");
 </script>

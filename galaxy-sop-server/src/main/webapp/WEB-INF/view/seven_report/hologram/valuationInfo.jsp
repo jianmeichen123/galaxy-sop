@@ -387,11 +387,11 @@ var deleteJSON={};
 		});
 
 	});
-function refreshSection(id)
+/* function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
 	sec.showResults(true);
-}
+} */
 function getDetailUrl(code)
 {
 	if(code == 'equity-structure')
@@ -420,7 +420,7 @@ function getDetailUrl(code)
 	
 	return "";
 }
-function editRow(ele)	
+/* function editRow(ele)	
 {
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
@@ -500,6 +500,7 @@ function saveForm(form)
 /**
  * 保存至到tr标签data属性
  */
+ /*
 function saveRow(data)
 {
 	data = JSON.parse(data);
@@ -523,7 +524,7 @@ function saveRow(data)
 		}
 	}
 	$("a[data-close='close']").click();
-}
+} */
 
 function getTableRowLimit(code)
 {

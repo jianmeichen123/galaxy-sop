@@ -49,6 +49,11 @@ function editMemberRow(ele){
 		url:"/sop/html/team_compile.html",//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			$("#detail-form input[name='titleId']").val(row.parent().parent().attr('data-title-id'));
+			$("#detail-form input[name='subCode']").val(row.parent().parent().attr('data-code'));
+			alert(row.parent().parent().attr('data-title-id'));
+			alert(row.parent().parent().attr('data-code'));
+			  selectContext();
 			$("#qualifications_popup_name").text("编辑简历");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);

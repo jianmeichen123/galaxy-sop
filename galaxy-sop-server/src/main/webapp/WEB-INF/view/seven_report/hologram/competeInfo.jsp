@@ -283,7 +283,7 @@ $(function() {
 	});
 });
 
-	function addRow(ele)
+/* 	function addRow(ele)
 	{
 		var code = $(ele).prev().data('code');
 		$.getHtml({
@@ -302,33 +302,7 @@ $(function() {
 			}//模版反回成功执行	
 		});
 	}
-	function getDetailUrl(code)
-	{
-		if(code == 'equity-structure')
-		{
-			return '<%=path%>/html/funcing_add_gd.html';
-		}
-		else if(code == 'investor-situation')
-		{
-			return '<%=path%>/html/funcing_add_tz.html';
-		}
-		else if(code =='operation-indices')
-		{
-			return '<%=path%>/html/fincing_add_yx.html';
-		}
-		else if(code == 'valuation-reference')
-		{
-			return '<%=path%>/html/fincing_add_tl.html';
-		}
-		else if(code == 'financing-milestone')
-		{
-			return '<%=path%>/html/fincing_add_jd.html';
-		}else if(code == 'competition-comparison')
-		{
-			return '<%=path%>/html/compete_save.jsp';
-		}
-		return "";
-	}
+	
 	function saveForm(form)
 	{
 		if($(form).validate().form())
@@ -340,7 +314,7 @@ $(function() {
 	/**
 	 * 保存至到tr标签data属性
 	 */
-	function saveRow(data)
+	/* function saveRow(data)
 	{
 		data = JSON.parse(data);
 		var titleId = data.titleId;
@@ -429,6 +403,34 @@ $(function() {
 	{
 		var sec = $(".section[data-section-id='"+id+"']");
 		sec.showResults(true);
+	} */ 
+	
+	function getDetailUrl(code)
+	{
+		if(code == 'equity-structure')
+		{
+			return '<%=path%>/html/funcing_add_gd.html';
+		}
+		else if(code == 'investor-situation')
+		{
+			return '<%=path%>/html/funcing_add_tz.html';
+		}
+		else if(code =='operation-indices')
+		{
+			return '<%=path%>/html/fincing_add_yx.html';
+		}
+		else if(code == 'valuation-reference')
+		{
+			return '<%=path%>/html/fincing_add_tl.html';
+		}
+		else if(code == 'financing-milestone')
+		{
+			return '<%=path%>/html/fincing_add_jd.html';
+		}else if(code == 'competition-comparison')
+		{
+			return '<%=path%>/html/compete_save.jsp';
+		}
+		return "";
 	}
 </script>
 
