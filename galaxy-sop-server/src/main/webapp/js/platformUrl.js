@@ -1111,6 +1111,10 @@ var platformUrl = {
 	 * 传入题 id 或 code， 返回该题信息及其下的所有子级的 题 信息
 	 */
 	queryAllTitle : Constants.sopEndpointURL + "/galaxy/tvalue/queryAllTitle/",
+	/**
+	 * 传入题 id 或 code， 返回该题信息及其下的所有子级的 题 信息
+	 */
+	getDirectory : Constants.sopEndpointURL + "/galaxy/infoProject/getDirectory/",
 	
 	
 	

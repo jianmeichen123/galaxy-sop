@@ -292,11 +292,13 @@ $(function() {
 			okback:function(){
 				$("#detail-form input[name='projectId']").val(projectInfo.id);
 				$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+				$("#detail-form input[name='subCode']").val(code);
 				$("#save-detail-btn").click(function(){
 					saveForm($("#detail-form"));
 					check_table();
 					check_table_tr_edit();
 				});
+				selectContext();
 			}//模版反回成功执行	
 		});
 	}
@@ -384,6 +386,9 @@ $(function() {
 						ele.val(row.data(name));
 					}
 				});
+				//数据字典初始化
+				$("#detail-form input[name='subCode']").val(code);
+				selectContext();
 				//文本框剩余字数
 				$.each($(".team_textarea"),function(){
 					var len=$(this).val().length;

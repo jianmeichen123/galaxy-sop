@@ -14,10 +14,10 @@
     
     	<form action="" id="detail-form">
 			
-    <input name="index" type="hidden" value="">
+        <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
-    	
+    	<input name="subCode" type="hidden">
         <div class="info clearfix"> 
             <dl class="fmdl fl">
                 <dt>竞争对手名称：</dt>
@@ -46,9 +46,7 @@
             </dl>
             <dl class="fmdl fl">
                 <dt>措施的有效性是否验证：</dt>
-                <dd class="clearfix">
-                	<label><input type="radio" name="field5" value="是" />是</label>
-                	<label><input type="radio" name="field5" value="否" />否</label>
+                <dd class="clearfix" id="field5" data-type="radio">
                 </dd>
             </dl>
                         

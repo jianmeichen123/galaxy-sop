@@ -51,6 +51,26 @@ public class InformationListdataRemark extends BaseEntity{
     private Set<String> titleIds;
     
     private String funFlag;
+    
+    private String subTitleId1;
+    
+    private String subTitleId2;
+    
+    private String subTitleId3;
+    
+    private String subTitleId4;
+    
+    private String subTitleId5;
+    
+    private String subTitleId6;
+    
+    private String subTitleId7;
+    
+    private String subTitleId8;
+    
+    private String subTitleId9;
+    
+    private String subTitleId10;
 
     public Long getId() {
         return id;
@@ -227,7 +247,88 @@ public class InformationListdataRemark extends BaseEntity{
 	public void setFunFlag(String funFlag) {
 		this.funFlag = funFlag;
 	}
+
+	public String getSubTitleId1() {
+		return subTitleId1;
+	}
+
+	public void setSubTitleId1(String subTitleId1) {
+		this.subTitleId1 = subTitleId1;
+	}
+
+	public String getSubTitleId2() {
+		return subTitleId2;
+	}
+
+	public void setSubTitleId2(String subTitleId2) {
+		this.subTitleId2 = subTitleId2;
+	}
+
+	public String getSubTitleId3() {
+		return subTitleId3;
+	}
+
+	public void setSubTitleId3(String subTitleId3) {
+		this.subTitleId3 = subTitleId3;
+	}
+
+	public String getSubTitleId4() {
+		return subTitleId4;
+	}
+
+	public void setSubTitleId4(String subTitleId4) {
+		this.subTitleId4 = subTitleId4;
+	}
+
+	public String getSubTitleId5() {
+		return subTitleId5;
+	}
+
+	public void setSubTitleId5(String subTitleId5) {
+		this.subTitleId5 = subTitleId5;
+	}
+
+	public String getSubTitleId6() {
+		return subTitleId6;
+	}
+
+	public void setSubTitleId6(String subTitleId6) {
+		this.subTitleId6 = subTitleId6;
+	}
+
+	public String getSubTitleId7() {
+		return subTitleId7;
+	}
+
+	public void setSubTitleId7(String subTitleId7) {
+		this.subTitleId7 = subTitleId7;
+	}
+
+	public String getSubTitleId8() {
+		return subTitleId8;
+	}
+
+	public void setSubTitleId8(String subTitleId8) {
+		this.subTitleId8 = subTitleId8;
+	}
+
+	public String getSubTitleId9() {
+		return subTitleId9;
+	}
+
+	public void setSubTitleId9(String subTitleId9) {
+		this.subTitleId9 = subTitleId9;
+	}
+
+	public String getSubTitleId10() {
+		return subTitleId10;
+	}
+
+	public void setSubTitleId10(String subTitleId10) {
+		this.subTitleId10 = subTitleId10;
+	}
     
+	
     
 
 

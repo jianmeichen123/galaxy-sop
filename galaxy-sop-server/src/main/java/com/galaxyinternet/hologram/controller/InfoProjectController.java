@@ -1,7 +1,10 @@
 package com.galaxyinternet.hologram.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,11 +26,15 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.hologram.InformationData;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.hologram.InformationDataService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 
 import io.swagger.annotations.Api;
@@ -48,7 +55,10 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	private InformationDataService infoDataService;
 	@Autowired
 	private InformationTitleService titleService;
-
+	@Autowired
+	private InformationDictionaryService infoDictionaryService;
+	@Autowired
+	private InformationListdataRemarkService  infoListdataRemarkService;
 	@Override
 	protected BaseService<InformationData> getBaseService() {
 		return this.infoDataService;
@@ -144,7 +154,83 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		}
 		return data;
 	}
+	/**
+	 * 数据字典加载
+	 * @param parentTitleId
+	 * @param subCode
+	 * @param fileds
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getDirectory/{tittleId}/{subCode}/{filed}", method = RequestMethod.GET)
+	public ResponseData<InformationTitle> getDirectory(@PathVariable String tittleId, @PathVariable String subCode,
+			@PathVariable String filed)
+
+	{
+		ResponseData<InformationTitle> data = new ResponseData<>();
+		try {
+			InformationListdataRemark query = new InformationListdataRemark();
+			query.setCode(subCode);
+			query.setTitleId(Long.parseLong(tittleId));
+			Map<String, Object> map =
+					new HashMap<String, Object>();
+			InformationListdataRemark queryOne = infoListdataRemarkService.queryOne(query);
+			if (null != queryOne) {
+				{
+					  List<InformationDictionary> dircList=
+		  		                new ArrayList<InformationDictionary>();
+					String index = filed.substring(5);
+					String getSubCode = getSubCode(queryOne, index);
+					dircList = infoDictionaryService
+							.selectValuesByTid(Long.parseLong(getSubCode));
+					map.put(filed, dircList);
+				}
+			}
+			data.getResult().setStatus(Status.OK);
+			data.setUserData(map);
+		} catch (Exception e) {
+			logger.error("加载数据字典失败，信息:titileId=" + tittleId, e);
+			data.getResult().addError("加载数据字典失败");
+		}
+		return data;
+	}
 	
+	public String getSubCode(InformationListdataRemark query,String index){
+		String str="";
+		switch(Integer.parseInt(index)){
+		case 1:
+			str=query.getSubTitleId1();
+			break;
+		case 2:
+			str=query.getSubTitleId2();
+			break;
+		case 3:
+			str=query.getSubTitleId3();
+			break;
+		case 4:
+			str=query.getSubTitleId4();
+			break;
+		case 5:
+			str=query.getSubTitleId5();
+			break;
+		case 6:
+			str=query.getSubTitleId6();
+			break;
+		case 7:
+			str=query.getSubTitleId7();
+			break;
+		case 8:
+			str=query.getSubTitleId8();
+			break;
+		case 9:
+			str=query.getSubTitleId9();
+			break;
+		case 10:
+			str=query.getSubTitleId10();
+			break;
+		}
+		return str;
+	}
 }
 
 

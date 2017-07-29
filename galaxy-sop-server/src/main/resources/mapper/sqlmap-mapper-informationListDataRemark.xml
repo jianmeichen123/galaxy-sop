@@ -20,6 +20,18 @@
 		<result column="field_8" 	jdbcType="VARCHAR" 		property="field8" />
 		<result column="field_9" 	jdbcType="VARCHAR" 		property="field9" />
 		<result column="field_10" 	jdbcType="VARCHAR" 		property="field10" />
+		
+		<result column="sub_title_id1" 	jdbcType="VARCHAR" 		property="subTitleId1" />
+		<result column="sub_title_id2" 	jdbcType="VARCHAR" 		property="subTitleId2" />
+		<result column="sub_title_id3" 	jdbcType="VARCHAR" 		property="subTitleId3" />
+		<result column="sub_title_id4" 	jdbcType="VARCHAR" 		property="subTitleId4" />
+		<result column="sub_title_id5" 	jdbcType="VARCHAR" 		property="subTitleId5" />
+		<result column="sub_title_id6" 	jdbcType="VARCHAR" 		property="subTitleId6" />
+		<result column="sub_title_id7" 	jdbcType="VARCHAR" 		property="subTitleId7" />
+		<result column="sub_title_id8" 	jdbcType="VARCHAR" 		property="subTitleId8" />
+		<result column="sub_title_id9" 	jdbcType="VARCHAR" 		property="subTitleId9" />
+		<result column="sub_title_id10" 	jdbcType="VARCHAR" 		property="subTitleId10" />
+		
 
 		<result column="is_valid" 	jdbcType="INTEGER" 		property="isValid" />
 		<result column="created_time" jdbcType="BIGINT" 	property="createdTime" />
@@ -32,7 +44,9 @@
 
 
 	<sql id="Base_Column_List">
-		id, title_id,code,sub_code,name,field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10, is_valid, created_time, create_id, updated_time, update_id,fun_flag
+		id, title_id,code,sub_code,name,field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10, is_valid, created_time,
+		 create_id, updated_time, update_id,fun_flag,sub_title_id1,sub_title_id2,sub_title_id3,sub_title_id4,sub_title_id5,sub_title_id6,sub_title_id7,sub_title_id8,
+		 sub_title_id9,sub_title_id10
 	</sql>
 
 

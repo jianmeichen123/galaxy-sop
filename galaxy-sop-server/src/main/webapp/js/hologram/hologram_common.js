@@ -1641,6 +1641,48 @@ function type_change(){
 		
 	})
 }
+/**
+ * 数据字典加载
+ */
+function selectDirect(tittleId,subCode,filed){
+	sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK')
+				{
+					var dataMap = data.userData;
+				    var $filed=$("[id='"+filed+"']");
+				    var list=dataMap[filed];
+				    var name=""
+				    $filed.children().remove();
+					$.each(list, function(i, value){
+                        if($filed[0].tagName=="select"){
+                        	$filed.append("<option value="+value.code+">"+value.name+"</option>");
+				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
+				    		$filed.append("<label><input type='radio' value='"+value.code+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
+				    	}
+					});
+				}
+			})
+	}
+
+function selectContext(){
+	 var $fileds=$("#detail-form").find("select,dd[data-type='radio']");
+	 $.each($fileds,function(){
+		var field = $(this);
+		var titleId=$("input[name='titleId']").val();
+		var subCode=$("input[name='subCode']").val();
+		var filedName;
+	    if(field[0].tagName="DD"){
+	    	filedName=field.attr("id");
+		}else if(field[0].tagName="select"){
+		
+			filedName=field.attr("name");
+		}
+	    selectDirect(titleId,subCode,filedName);
+	})
+}
+
 
 
 
