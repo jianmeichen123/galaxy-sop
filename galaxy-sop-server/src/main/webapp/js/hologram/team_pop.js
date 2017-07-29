@@ -51,9 +51,7 @@ function editMemberRow(ele){
 		okback:function(){
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr('data-title-id'));
 			$("#detail-form input[name='subCode']").val(row.parent().parent().attr('data-code'));
-			alert(row.parent().parent().attr('data-title-id'));
-			alert(row.parent().parent().attr('data-code'));
-			  selectContext();
+			  selectContext("detail-form");
 			$("#qualifications_popup_name").text("编辑简历");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
@@ -245,6 +243,7 @@ function getWorkList(flag,workList){
         		data:"",//传递参数
         		okback:function(){
         			$("#team_learn_name").html('编辑学习经历');
+        			
                     var json = getData(div);
         			var list = div.find("*[name]");
                     $(list).each(function(){
@@ -255,7 +254,9 @@ function getWorkList(flag,workList){
                           json[key]=value;
                           json["index"]=index;
                     })
-
+                   $("#learn_form input[name='titleId']").val($("#detail-form input[name='titleId']").val());
+        		    $("#learn_form input[name='subCode']").val($(".team_learn_add").attr("data-code"));
+        			selectContext("learn_form");
                     $.each($("#learn_form").find("input, select, textarea"),function(){
                         var ele = $(this);
                         var name = ele.attr('name');

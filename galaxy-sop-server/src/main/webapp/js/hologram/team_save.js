@@ -200,6 +200,9 @@
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
+				$("#learn_form input[name='titleId']").val($("#detail-form input[name='titleId']").val());
+				$("#learn_form input[name='subCode']").val($self.attr("data-code"));
+				selectContext("learn_form");
 			}//模版反回成功执行
 		});
 		return false;
@@ -227,7 +230,7 @@
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-
+				
 			}//模版反回成功执行
 		});
 		return false;

@@ -1644,7 +1644,7 @@ function type_change(){
 /**
  * 数据字典加载请求
  */
-function selectDirect(tittleId,subCode,filed,val){
+function selectDirect(tittleId,subCode,filed){
 	sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
 			function(data) {
 				var result = data.result.status;
@@ -1660,18 +1660,9 @@ function selectDirect(tittleId,subCode,filed,val){
 				    }
 					$.each(list, function(i, value){
                         if($filed[0].tagName=="SELECT"){
-                        	if(null!=value&&val==value){
-                        		$filed.append("<option value="+value.code+" selected name='"+filed+"'>"+value.name+"</option>");
-                        	}else{
                         		$filed.append("<option value="+value.code+"  name='"+filed+"'>"+value.name+"</option>");
-                        	}
 				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
-				    		if(null!=value&&val==value){
-				    			$filed.append("<label><input type='radio' value='"+value.code+"' data-remark='"+value.name+"' checked name='"+filed+"'>"+value.name+"</label>")
-				    		}else{
 				    			$filed.append("<label><input type='radio' value='"+value.code+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
-				    		}
-				    		
 				    	}
 					});
 				}
@@ -1683,20 +1674,20 @@ function selectDirect(tittleId,subCode,filed,val){
  * 2，下拉框需要添加id属性，id的属性值跟name的值一样
  * 数据字典加载页面渲染
  */
-function selectContext(row){
-	 var $fileds=$("#detail-form").find("select,dd[data-type='radio']");
-	 /*alert($fileds.length)*/
+
+function selectContext(formId){
+
+	 var $fileds=$("#"+formId).find("select,dd[data-type='radio']");
 	 $.each($fileds,function(){
 		var field = $(this);
-		var titleId=$("input[name='titleId']").val();
-		var subCode=$("input[name='subCode']").val();
+		var titleId=$("#"+formId+" input[name='titleId']").val();
+		var subCode=$("#"+formId+" input[name='subCode']").val();
 		var filedName;
 	    if(field[0].tagName="DD"){
 	    	filedName=field.attr("id");
 		}else if(field[0].tagName="select"){
 			filedName=field.attr("name");
 		}
-	    console.log(row);
 	    selectDirect(titleId,subCode,filedName);
 	})
 }
@@ -1723,7 +1714,7 @@ function addRow(ele)
 				check_table_tr_edit();
 			});
 			//新增页面下拉框，单选按钮处理渲染处理
-			  selectContext();
+			selectContext("detail-form");
 		}//模版反回成功执行	
 	});
 }
@@ -1774,10 +1765,7 @@ function editRow(ele)
 			var title = $("#pop-title");
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
-			selectContext();
-			//console.log(row.parent().parent())
-			//alert(code+"---"+row.parent().parent().attr("data-title-id"));
-			title.text(title.text().replace('添加','编辑'));
+			selectContext("detail-form");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
