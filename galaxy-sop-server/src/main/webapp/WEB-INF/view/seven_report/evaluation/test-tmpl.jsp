@@ -4,7 +4,7 @@
 <script id="test_tmpl" type="text/x-jquery-tmpl">
 
 {{each(i,childList) childList}}
-	<tr class="evl_module">
+	<tr id="\${relateCode}" class="evl_module">
 		<td rowspan="\${childList.length}">\${name}</td>				
 		{{each(i,childList) childList}}
 			{{if i==0}}
@@ -16,26 +16,26 @@
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="3"}}
 						<!-- 复选 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="4"}}
 					{{else type=="5"}}
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="6"}}
 						<!-- 复选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="7"}}
 					{{else type=="8"}}
@@ -50,31 +50,26 @@
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="13"}}
  					<!-- 复选带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="14"}}
  					<!-- 单选select -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="15"}}
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left">该项目是一个通过或基于（技术或模
-							式）的（选择三级以下分类) 的（具体
-								品类：平台、运营商、服务商、技术
-								提供商、解决方案提供商、工具）连
-								接（服务一端）和（服务另一端）
-							</div>
+							<div class="  content_16 align_left">\${content}</div>
 				
-						<span class="editPic" onclick="gapEdit(this)" style="display: none;"></span>
+						<span class="editPic" onclick="gapEdit(this)"></span>
 					</td>
 				 	{{/if}}
 				{{/if}}	
@@ -95,7 +90,7 @@
 					<!-- 人工打分（数值范围） -->
 						<td class="">
 							<input type="text" value="" placeholder="请打分">
-                            <em>(0-10分)</em>
+                            <em>(0-\${scoreMax}分)</em>
 						</td>
 					{{else isScore==4}}
 					<!-- 根据其他子项分值计算得出 -->
@@ -118,26 +113,26 @@
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="3"}}
 						<!-- 复选 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="4"}}
 					{{else type=="5"}}
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="6"}}
 						<!-- 复选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="7"}}
 					{{else type=="8"}}
@@ -152,39 +147,52 @@
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="13"}}
  					<!-- 复选带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"></span>
 						</td>
 					{{else type=="14"}}
  					<!-- 单选select -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+							<span class="editPic" onclick="canEdit(this)"  ></span>
 						</td>
 					{{else type=="15"}}
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left">该项目是一个通过或基于（技术或模
-							式）的（选择三级以下分类) 的（具体
-								品类：平台、运营商、服务商、技术
-								提供商、解决方案提供商、工具）连
-								接（服务一端）和（服务另一端）
-							</div>
-				
-						<span class="editPic" onclick="gapEdit(this)" style="display: none;"></span>
+							<div class=" content_16 align_left">\${content}</div>
+							<span class="editPic" onclick="gapEdit(this)" style="display: none;"></span>
 					</td>
 				 	{{/if}}
 				
 				{{each(i,informationGrades) informationGrades }}
 					<td>\${scoreMax}</td>
 					<td>\${scoreExplain}</td>
+					{{if isScore==0}}
+					<!-- 系统打分 -->
+						<td class="">0</td>
+					{{else isScore==1}}
+					<!-- 人工打分（select） -->
+						<td class="">
+							<select>
+								<option>请选择</option>
+							</select>
+						</td>
+					{{else isScore==2}}
+					<!-- 人工打分（数值范围） -->
+						<td class="">
+							<input type="text" value="" placeholder="请打分">
+                              <em>(0-\${scoreMax}分)</em>
+						</td>
+					{{else isScore==4}}
+					<!-- 根据其他子项分值计算得出 -->
+						<td class="">0</td>
+					{{/if}}
 				{{/each}}
-				<td>0</td>
 				{{/if}}	
 			</tr>
 		{{/if}}		
@@ -193,3 +201,30 @@
 
 {{/each}}
 </script>
+
+
+
+
+
+<!-- 编辑悬浮弹窗模板 -->
+<script id="edit_tmpl1" type="text/x-jquery-tmpl">
+
+</script>
+
+
+
+
+
+
+<!-- 编辑遮罩弹窗模板 -->
+<script id="edit_tmpl2" type="text/x-jquery-tmpl">
+
+</script>
+
+
+
+
+
+
+
+

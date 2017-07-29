@@ -47,10 +47,12 @@ table{
 thead td{
 	text-align:center !important;
 }
-tbody td{
+.new_left tbody td{
 	text-align:center !important;
 	overflow:hidden;
 	position:relative;
+	border-bottom: 1px solid #d8d8d8;
+	
 }
 
 table td:nth-child(1){
