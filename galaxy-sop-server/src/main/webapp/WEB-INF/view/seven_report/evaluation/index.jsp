@@ -129,12 +129,20 @@ sendGetRequest(platformUrl.queryAllTitleValues+ "ENO1?reportType=1", null,
 	if (result == 'OK') {
 		var entity = data.entity;
 		console.log(entity)
-		console.log(entity.childList[0].childList[0].type)
-		console.log(typeof(entity.childList[0].childList[0].type))
 		$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+		/*显示结果  */
+		
+		$("tr").each(function(){
+ 
+		});
 	}
 	
 })
+//测试
+
+
+
+
 //整体页面显示
 
 

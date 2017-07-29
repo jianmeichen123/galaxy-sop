@@ -4,19 +4,39 @@
 <script id="test_tmpl" type="text/x-jquery-tmpl">
 
 {{each(i,childList) childList}}
-	<tr>
+	<tr class="evl_module">
 		<td rowspan="\${childList.length}">\${name}</td>				
 		{{each(i,childList) childList}}
 			{{if i==0}}
-				<td data_titleid="\${titleid}" data_reletid="\${id}">\${name}</td>
-				{{if sign!=3}}
+				<td data-type="\${type}" parentid="\${parentId}" data-title-id="\${titleid}" data-reletid="\${id}">\${name}</td>
+				{{if sign!=3&&sign!=1}}
 					{{if type==="1"}}
 						
 					{{else type=="2"}}
+						  <!-- 单选（Radio） --> 
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="3"}}
+						<!-- 复选 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="4"}}
 					{{else type=="5"}}
+						<!-- 单选带备注textarea -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="6"}}
+						<!-- 复选带备注textarea -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="7"}}
 					{{else type=="8"}}
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
@@ -27,8 +47,23 @@
 					{{else type=="10"}}
 					{{else type=="11"}}
 					{{else type=="12"}}
+ 					<!-- 单选（Radio）带备注input -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="13"}}
+ 					<!-- 复选带备注input -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="14"}}
+ 					<!-- 单选select -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="15"}}
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -52,20 +87,36 @@
 	</tr>
 	{{each(i,childList) childList}}
 		{{if i>0}}
-			<tr>
-				<td>\${name}</td>
-				{{if sign!=3}}
+			<tr parentid="\${parentId}">
+				<td data-title-id="\${titleid}" data-type="\${type}" data-reletid="\${id}">\${name}</td>
+				{{if sign!=3&&sign!=1}}
 					{{if type==="1"}}
 						
 					{{else type=="2"}}
+						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left">初步验证</div>
+							<div class="align_left"><i>未选择</i></div>
 							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
 						</td>
 					{{else type=="3"}}
+						<!-- 复选 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="4"}}
 					{{else type=="5"}}
+						<!-- 单选带备注textarea -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="6"}}
+						<!-- 复选带备注textarea -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="7"}}
 					{{else type=="8"}}
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
@@ -76,8 +127,23 @@
 					{{else type=="10"}}
 					{{else type=="11"}}
 					{{else type=="12"}}
+ 					<!-- 单选（Radio）带备注input -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="13"}}
+ 					<!-- 复选带备注input -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="14"}}
+ 					<!-- 单选select -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"><i>未选择</i></div>
+							<span class="editPic" onclick="canEdit(this)" style="display: block;"></span>
+						</td>
 					{{else type=="15"}}
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -91,10 +157,10 @@
 						<span class="editPic" onclick="gapEdit(this)" style="display: none;"></span>
 					</td>
 				 	{{/if}}
+				<td>111</td>
+				<td>\${type}</td>
+				<td>0</td>
 				{{/if}}	
-				<td>该项分为0分</td>
-				<td>0</td>
-				<td>0</td>
 			</tr>
 		{{/if}}		
 	{{/each}}
