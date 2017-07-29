@@ -78,9 +78,31 @@
 					</td>
 				 	{{/if}}
 				{{/if}}	
-				<td>111</td>
-				<td>\${type}</td>
-				<td>0</td>
+				{{each(i,informationGrades) informationGrades }}
+					<td>\${scoreMax}</td>
+					<td>\${scoreExplain}</td>
+					{{if isScore==0}}
+					<!-- 系统打分 -->
+						<td class="">0</td>
+					{{else isScore==1}}
+					<!-- 人工打分（select） -->
+						<td class="">
+							<select>
+								<option>请选择</option>
+							</select>
+						</td>
+					{{else isScore==2}}
+					<!-- 人工打分（数值范围） -->
+						<td class="">
+							<input type="text" value="" placeholder="请打分">
+                            <em>(0-10分)</em>
+						</td>
+					{{else isScore==4}}
+					<!-- 根据其他子项分值计算得出 -->
+						<td class="">0</td>
+					{{/if}}
+				{{/each}}
+				
 			{{/if}}		
 		{{/each}}
 		<td rowspan="\${childList.length}">10</td>
@@ -157,8 +179,11 @@
 						<span class="editPic" onclick="gapEdit(this)" style="display: none;"></span>
 					</td>
 				 	{{/if}}
-				<td>111</td>
-				<td>\${type}</td>
+				
+				{{each(i,informationGrades) informationGrades }}
+					<td>\${scoreMax}</td>
+					<td>\${scoreExplain}</td>
+				{{/each}}
 				<td>0</td>
 				{{/if}}	
 			</tr>
