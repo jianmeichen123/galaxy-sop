@@ -205,13 +205,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 			//infoMode.remark2 = field.parent().parent().children($('select option:selected')).text();
 			var id  = infoMode.titleId
 			var options=$("#"+id+"_select option:selected")
-			var n_array = new Array()
 			var name = options.text();
 			var value =options.val();
-			n_array.push(name);
-			n_array.push(value);
 			infoMode.remark2 = name+"p"+value;
-			console.log(n_array)
 		}
 		else if(type==8)
 		{
@@ -370,7 +366,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 						var result = data.result.status;
 						if (result == 'OK') {
 							updateInforTime(projectInfo.id,"financingTime");
-							console.log(params)
 							layer.msg('保存成功');
 							$(".bj_hui_on").hide();
                             if (h_cancel_btn_code=='NO3_1'){

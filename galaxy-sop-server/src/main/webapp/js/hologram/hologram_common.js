@@ -288,8 +288,6 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 3)
 		{
-			console.log("3类型渲染数据");
-			console.log(title);
 			$.each(title.resultList,function(i,n)
 			{
 				if(readonly == true)
@@ -338,8 +336,6 @@ function buildResults(sec,title,readonly)
 			var dd = $("dt[data-type='12'][data-title-id='"+ title.id +"']").siblings('dd').eq(0);
 			var n = title.resultList[0];
 			var result_id = n.id;
-			console.log("!!!!!");
-			console.log(title);
 			$("input[name='"+title.id+"']").attr("resultId",result_id) ;
 			if (n.contentDescribe1)
 			{
@@ -407,8 +403,6 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 13)
 		{
-			console.log("13类型渲染数据");
-			console.log(title);
 			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
@@ -565,7 +559,6 @@ function buildResults(sec,title,readonly)
 			}
 		}
 		else if(title.type == 14)
-		{console.log(title)
 			if(readonly == true)
 			{
 				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未选择":title.resultList[0].valueName);
@@ -594,7 +587,6 @@ function buildResults(sec,title,readonly)
 		}
 		if( title.type == 20)
 		{
-			console.log(title)
 			if(readonly == true)
 			{
 				var str = title.resultList[0].contentDescribe2
