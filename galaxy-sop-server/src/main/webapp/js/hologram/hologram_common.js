@@ -559,6 +559,7 @@ function buildResults(sec,title,readonly)
 			}
 		}
 		else if(title.type == 14)
+		{
 			if(readonly == true)
 			{
 				$("dd[class='field'][data-title-id='"+ title.id +"']").text(title.resultList[0].valueName==undefined ?"未选择":title.resultList[0].valueName);
