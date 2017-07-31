@@ -31,14 +31,15 @@ var pageId = "project";
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('1')">项目</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('4')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('6')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br />估值 </li>
+			<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInvestChange('0')">基础<br />信息 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('1')">项目</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('2')">团队</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('3')">运营<br />数据 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('4')">竞争</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('5')">战略及<br />策略 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('6')">财务</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('7')">法务</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('8')">融资及<br />估值 </li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
@@ -59,18 +60,8 @@ var pageId = "project";
 	
 
        <!--隐藏-->
-   <div class="bj_hui_on"></div>
-  <jsp:include page="../hologram/jquery-tmpl.jsp" flush="true"></jsp:include>
-  <div id="tab-content">
-		<div class="tabtxt valuation" id="page_all">
-		<!--tab-->
-
-			
-			<!--tab end-->
-		</div>
-	</div>
-
-	
+    <div class="bj_hui_on"></div>
+	<jsp:include page="../hologram/jquery-tmpl.jsp" flush="true"></jsp:include>
 	</div>
 
 </div>
@@ -100,26 +91,21 @@ var pageId = "project";
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
- <%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script> --%>
+<script src="<%=path%>/js/hologram/hologram_common.js"></script>			
 <script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
-<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<!-- tongyong -->
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/save_ok.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(5);
-var path = '<%=path%>';
+var isEditable = "${isEditable}";
+
+
+
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'NO9', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'DNO6?reportType=2', null,
 	function(data) {
-	console.log(data)
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
+			console.log(entity);
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
 			customBuilder();
@@ -151,8 +137,6 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'NO9', null,
 		}
 		
 })
-
-
 </script>
 
 </body>

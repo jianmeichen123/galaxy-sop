@@ -1,103 +1,197 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-	String path = request.getContextPath();
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<% 
+	String path = request.getContextPath(); 
 %>
 
 <!doctype html>
-<html class="scroll">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript">
-var pageId = "project";
-</script>
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 </head>
-
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
-
-<body >
-<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
-<div class="pagebox clearfix">
-<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
-<div class="ritmin">
-    <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
-    <div class="new_left">
-       	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInfoChange('1')">项目</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('2')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('3')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('4')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('5')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('6')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInfoChange('7')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInfoChange('8')">融资及<br />估值 </li>
-		</ul>
-		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
-		<div class="tabtxt" id="page_all"> 
-		
-			<div class="h radius" id="NO1_1"> </div>
-			
-			<div class="h radius base_con2" id="NO1_2"> </div>
-			
-		</div>
-	</div>
-	
-	</div>
-    <!--右边-->
-<%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
-    <div class="new_right" id="new_right"></div>
-    
-    
-	
-
-       <!--隐藏-->
+<body>
+     <!--隐藏-->
 <div class="bj_hui_on"></div>
-	
-	</div>
+<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+                 <div class="tabtxt" id="page_all">
+		<!--tab-->
 
-</div>
+			
+			<!--tab end-->
+		</div>
 
 
-<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-<!-- 公用js -->
-<script src="<%=path%>/js/jquery-1.12.2.min.js"></script>
-<script src="<%=path %>/js/common.js"></script>
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/teamSheetNew.js"></script>
-<script src="<%=path %>/js/planbusiness.js"></script>
-<script src="<%=path %>/js/projectDetail/tabFile.js" type="text/javascript"></script>
-<script src="<%=path %>/js/projectDetail/projectDetail.js" type="text/javascript"></script>
-<script src="<%=path %>/js/projectDetail/appro.js" type="text/javascript"></script>
-<script src="<%=path %>/js/base_appropriation.js" type="text/javascript"></script>
-<script src="<%=path %>/js/batchUpload.js" type="text/javascript"></script>
-<script src="<%=path %>/js/projectDetail/proPerOp.js"></script>
-<script src="<%=path %>/js/v_baseInfo_project_history.js" type="text/javascript"></script>
- <!-- layer -->
-<script src="<%=path %>/js/layer/layer.js"></script>
-<!--提示验证  -->
-<script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
-<script src="<%=path %>/js/hologram/base_table.js"></script>
-<script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>		 --%>	
-<script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
+
 <script type="text/javascript">
-createMenus(5);
+	//整体页面显示
+	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
+		function(data) {
+			var result = data.result.status;
+			if (result == 'OK') {
+				var entity = data.entity;
+				$("#page_list").tmpl(entity).appendTo('#page_all');
+				$(".section").each(function(){
+					$(this).showResults(true);
+				});
+				mustData(projectInfo.id,0);
+				fun_click();
+			} else {
 
+			}
+		})
+	//通用编辑显示
+	$('div').delegate(".h_edit_btn","click",function(event){
+		var section = $(this).parents('.section');
+		var id_code = $(this).attr('attr-id');
+		var sec = $(this).closest('.section');
+		//
+		var str ="";
+		if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
+			str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
+		}else{
+			str ="";
+		}
+		//
+		 $.getScript("<%=path %>/js/validate/lib/jquery.poshytip.js");
+		 $.getScript("<%=path %>/js/validate/lib/jq.validate.js"); 
+		event.stopPropagation();
+		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					var entity = data.entity;
+					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+					sec.showResults();
+					$(".h#a_"+id_code).css("background","#fafafa");
+					$("#"+id_code).hide();
+					validate();
+					btn_disable(1);
+					$("#b_"+id_code).validate();
+					$(".bj_hui_on").show();
+					//文本域剩余字符数
+					section.find(".h_title span").remove();
+					section.find(".h_title").append(str);
+					var textarea_h = section.find('.textarea_h');
+					for(var i=0;i<textarea_h.length;i++){
+						var len=textarea_h.eq(i).val().length;
+						var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text();
+						textarea_h.parent('dd').find(".num_tj").eq(i).find("label").text(initNum-len);
+					}
+					/* 文本域自适应高度 */
+					for(var i=0;i<$("textarea").length;i++){
+						var textareaId=$("textarea").eq(i).attr("id");
+						autoTextarea(textareaId);
+					}
+					edit_bsaicfun();
+				} else {
 
+				}
+		}) 
+	});
+	//通用取消编辑
+	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
+		var id_code = $(this).attr('attr-hide');
+		$('#'+id_code).show();
+		$('#b_'+id_code).remove();
+		$(".bj_hui_on").hide();
+		btn_disable(0);
+		$(".h#a_"+id_code).css("background","#fff");
+		mustData(_this,1);
+		toggle_btn($('.anchor_btn span'),0,_this);
+		event.stopPropagation();
+	});
+	//通用保存
+	$('div').delegate(".h_save_btn","click",function(event){
+		var save_this = $(this).parents('.radius');
+		if($('.tip-yellowsimple').length > 0){
+			return false;
+		}
+		var id_code = $(this).attr('attr-save');
+		event.stopPropagation();
+		var sec = $(this).closest('form');
+		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
+		var data = {
+			projectId : projectInfo.id
+		};
+		
+		var infoModeList = new Array();
+		$.each(fields,function(){
+			var field = $(this);
+			var type = field.data('type');
+			var _tochange =field.parents("dd").prev().attr("tochange");
+			var sele = field.parent().get(0).tagName;
+			if(sele=="SELECT"){
+				var _resultId = field.parent().attr("resultId");
+			}else{
+				var _resultId = field.attr("resultId");
+			}
+			if(_tochange==undefined){
+				_tochange=false;
+			}
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				tochange:_tochange,
+				resultId:_resultId,
+				type : type
+			};
+			if(type==2 || type==3 || type==4|| type==14)
+			{
+				infoMode.value = field.val()
+			}
+			else if(type==1)
+			{
+				infoMode.remark1 = field.val()
+			}
+			else if(type==8)
+			{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s/g,"&nbsp;");
+				infoMode.remark1 = str;
+			}
+			infoModeList.push(infoMode);
+		});
+		data.infoModeList = infoModeList;
+		//验证插件调用
+		if(!$("#b_"+id_code).validate().form())
+		{
+			return;
+		}
+		console.log("保存的 data");
+		console.log(data);
+		if(beforeSubmit()){
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					data,
+					function(data) {
+						var result = data.result.status;
+						if (result == 'OK') {
+							updateInforTime(projectInfo.id,"lawTime");
+							layer.msg('保存成功');
+							$('#'+id_code).show();
+							$('#b_'+id_code).remove();
+							$(".bj_hui_on").hide();
+							btn_disable(0);
+							$(".h#a_"+id_code).css("background","#fff");
+							var pid=$('#a_'+id_code).attr("data-section-id");
+							setDate(pid,true);
+						    toggle_btn($('.anchor_btn span'),0,save_this);
+						} else {
+
+						}
+				}) 
+		}
+	
+	});
 </script>
-
 </body>
 
 
