@@ -190,6 +190,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 					}
 				}
 			}
+			return BigDecimal.ZERO;
 		}
 		else if(autoList.get(0) != null)
 		{
