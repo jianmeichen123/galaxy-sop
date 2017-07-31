@@ -97,8 +97,13 @@
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="  content_16 align_left">\${content}</div>
 							<span class="editPic" e-type="" onclick="gapEdit(this)"></span>
-					</td>
+						</td>
 				 	{{/if}}
+				{{else sign==3}}
+					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						<div class="align_left"></div>
+						<span class="editPic" e-type="cover_pop" onclick="gapEdit(this)"></span>
+					</td>
 				{{/if}}	
 				{{each(i,informationGrades) informationGrades }}
 					<td>\${scoreMax}</td>
