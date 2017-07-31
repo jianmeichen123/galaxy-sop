@@ -16,14 +16,15 @@
 		var _this=$(obj);
 		var _td = _this.closest('td');
 		var e_type = _this.attr("e-type");
+		var radioShow = _td.find('.radioShow');
 		console.log(e_type);
 		if(e_type=="inside"){
 			//内部编辑
 			//编辑数据请求
-			//请求成功，数据渲染模板edit_tmpl1
-			var radioShow = _td.find('.radioShow');
-			var entity="";
-			$("#edit_tmpl1").tmpl(entity).appendTo(radioShow);
+			//请求成功，数据添加
+			
+			var result_html = "<input type=\"radio\" name=\"feasibility\" value=\"尚未验证\"/><label>尚未验证</label><br/>"
+			radioShow.html(result_html);
 			var pText = $(obj).parent().find('p');
 			_this.hide();
 			_td.data('edit','true');
@@ -38,7 +39,9 @@
 			var  topNum = _this.offset().top-$(".gapPopup").height()-22;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
-			
+			//请求成功，数据渲染模板edit_tmpl1
+			var entity="";
+			$("#edit_tmpl1").tmpl(entity).appendTo($(".gapPopup"));
 			$(obj).hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
@@ -47,12 +50,15 @@
 		}else if(e_type=="cover_pop"){
 			$('.ch_income_evaluation').show();
 			$('.mashLayer').show();
-			var  leftNum = _td.offset().left-230;
+			var  leftNum = $(".new_left").offset().left;
 			var  topNum = _td.offset().top-200;
 			//请求数据
 			//数据渲染模板edit_tmpl2
-			
-			$('.ch_income_evaluation').css('left',leftNum).css('top',topNum);
+			var entity="";
+			console.log($("#edit_tmpl2").tmpl(entity));
+			$("#edit_tmpl2").tmpl(entity).appendTo($(".ch_opration"));
+			$('.ch_opration').show();
+			$('.ch_opration').css('left',leftNum).css('top',topNum).css('width',$(".new_left").width()-80);
 		}
 		
 		

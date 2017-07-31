@@ -68,18 +68,22 @@ var pageId = "project";
 			</tbody>
 		</table>
 		
+		
+		<!--弹窗1  -->	
+		<div class="gapPopup">
+			<div class="Button popupButton">
+				<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+			</div>
+			<span class="show_edit"></span>
+		</div>
+		<!--弹窗2 -->	
+		<div class="h_look h_team_look clearfix ch_opration">
+		</div>
 	</div>
 	<!-- 遮罩层 -->
 	<div class="mashLayer"></div>
-	<!--弹窗  -->
-	<!-- 项目定位 -->
 	
-	<div class="gapPopup">
-		<div class="Button popupButton">
-			<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
-		</div>
-		<span class="show_edit"></span>
-	</div>
+	
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
     <div class="new_right" id="new_right"></div>
