@@ -442,7 +442,7 @@ function getInterViewParams(hasProid,projectId,
 		return false;
 	}else{
 		var clock = getNowFormatDate();
-		if((new Date(viewDateStr).getTime()) > (new Date(clock).getTime())){
+		if((new Date(Date.parse(viewDateStr.replace(/-/g, "/"))).getTime()) > (new Date(Date.parse(clock.replace(/-/g, "/"))).getTime())){
 			layer.msg("会议时间不能超过当前时间");
 			return false;
          }
