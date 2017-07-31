@@ -74,18 +74,11 @@ var pageId = "project";
 	<!--弹窗  -->
 	<!-- 项目定位 -->
 	
-	<div class="popup">
+	<div class="gapPopup">
 		<div class="Button popupButton">
-			<em onclick="right(this)" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+			<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 		</div>
-		<div class="popup_content">
-			<p>
-				<span>该项目是一个通过或基于</span><textarea class="adption" placeholder="(请填写)"/></textarea><span>的</span>
-				<textarea class="adption" placeholder="(请填写)"/></textarea><span>和</span><textarea class="adption" placeholder="(请填写)"/></textarea>，
-				<span>为</span><textarea class="adption" placeholder="(请填写)"/></textarea><span>提供</span><textarea class="adption" placeholder="(请填写)"/></textarea>
-				<span>产品和服务</span>，<textarea class="adption" placeholder="(请填写)"/></textarea><span>刚需或解决了</span><textarea class="adption" placeholder="(请填写)"/></textarea>
-			</p>
-		</div>
+		<span class="show_edit"></span>
 	</div>
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>

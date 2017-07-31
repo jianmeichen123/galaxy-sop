@@ -99,6 +99,9 @@ table .on td{
 	 display:none; 
 	
 }
+table td .holder{
+	height:27px;
+}
 table td input{
 	width:64px;
 	height:24px;
@@ -107,7 +110,9 @@ table td input{
 	border:1px solid #53b1fd;
 	text-align:center;
 }
-
+table td .table_show{
+	display:block;
+}
 table td em{
 	width:auto !important;
 	color:#d8d8d8;

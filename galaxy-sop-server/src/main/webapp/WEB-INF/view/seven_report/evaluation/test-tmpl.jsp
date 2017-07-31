@@ -15,37 +15,49 @@
 					{{else type=="2"}}
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside"  onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside"  onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="3"}}
 						<!-- 复选 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="4"}}
 					{{else type=="5"}}
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="6"}}
 						<!-- 复选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="7"}}
 					{{else type=="8"}}
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
-							<div class="align_left">未填写</div>
-							<span class="editPic" e-type="" onclick="chooseEdit(this)"></span>					
+							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)"></span>		
+							<div class="align_left">未填写</div>										
 						</td>
 					{{else type=="9"}}
 					{{else type=="10"}}
@@ -53,23 +65,32 @@
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="13"}}
  					<!-- 复选带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="14"}}
  					<!-- 单选select -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="15"}}
 					{{else type=="16"}}
@@ -118,37 +139,49 @@
 					{{else type=="2"}}
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside"  onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside"  onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="3"}}
 						<!-- 复选 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="4"}}
 					{{else type=="5"}}
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="6"}}
 						<!-- 复选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="7"}}
 					{{else type=="8"}}
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
-							<div class="align_left">未填写</div>
-							<span class="editPic" e-type="" onclick="chooseEdit(this)"></span>					
+							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)"></span>		
+							<div class="align_left">未填写</div>										
 						</td>
 					{{else type=="9"}}
 					{{else type=="10"}}
@@ -156,30 +189,38 @@
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="13"}}
  					<!-- 复选带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="14"}}
  					<!-- 单选select -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic choose_question" e-type="inside" onclick="chooseEdit(this)"  ></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)"  ></span>
+							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 					{{else type=="15"}}
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="  content_16 align_left">\${content}</div>
-				
-						<span class="editPic" e-type="" onclick="gapEdit(this)"></span>
+							<span class="editPic" e-type="" onclick="gapEdit(this)"></span>
 					</td>
 				 	{{/if}}
 				

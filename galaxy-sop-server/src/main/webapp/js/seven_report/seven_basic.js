@@ -1,6 +1,6 @@
 //这里不需要window.onload  和 $(document).ready(function(){})
 	function　mouserover(obj){
-		if($(obj).data('edit') == 'true') return;
+		//if($(obj).data('edit') == 'true') return;
 		var target = $(obj).find('.editPic');
 		 target.show();
 	};
@@ -11,9 +11,10 @@
 	
 	
 	//选择题的编辑按钮
-	function chooseEdit(obj){
+	function typeEdit(obj){
 		//编辑类型
 		var _this=$(obj);
+		var _td = _this.closest('td');
 		var e_type = _this.attr("e-type");
 		console.log(e_type);
 		if(e_type=="inside"){
@@ -22,11 +23,29 @@
 			//请求成功，填写数据
 			var resu_chose="<input type=\"radio\" name=\"feasibility\" value=\"唯一\"/><label>唯一</label><br/>"
 			$(obj).closest('td').find('.radioShow').html(resu_chose);
+			var pText = $(obj).parent().find('p');
+			pText.hide();
+			$(obj).hide();
+			//对号，×号显示
+			$(obj).closest('td').find('.Button').show();
+			$(obj).closest('td').find('.radioShow').show();
 			iCheck();
+		}else if(e_type=="small_pop"){
+			$('.gapPopup').show();
+			var  leftNum = _this.offset().left-10;
+			var  topNum = _this.offset().top-_td.height()+10;
+			$('.gapPopup').css('left',leftNum).css('top',topNum);
+			$('.mashLayer').show();
+			
+			$(obj).hide();
+			//对号，×号显示
+			$(obj).closest('td').find('.Button').show();
+			$(obj).closest('td').find('.radioShow').show();
+			
 		}
 		
 		
-		$(obj).closest('td').addClass('edit_true');
+		/*$(obj).closest('td').addClass('edit_true');
 		var pText = $(obj).parent().find('p');
 		pText.hide();
 		$(obj).hide();
@@ -34,7 +53,7 @@
 		$(obj).closest('td').find('.Button').show();
 		$(obj).closest('td').find('.radioShow').show();
 		//给td加自定义属性
-		$(obj).parent().data('edit','true')
+		$(obj).parent().data('edit','true')*/
 	}
 
 
@@ -189,7 +208,7 @@
 	
 	//===================================================新添加
 	//填空题的点击编辑按钮弹窗
-		$('.editPic').click(function(){
+		$('.editPic1111').click(function(){
 			if($(this).hasClass('choose_question')){
 				return false;
 			}
@@ -279,7 +298,7 @@ $('.h_cancel_btn').click(function(){
 
 })
 //radio checkbox 插件 渲染方法
-function iCheck{
+function iCheck(){
 	$('input').iCheck({
 		checkboxClass: 'icheckbox_flat-blue',
 		radioClass: 'iradio_flat-blue'
