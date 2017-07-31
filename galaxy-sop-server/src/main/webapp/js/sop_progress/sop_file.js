@@ -161,8 +161,6 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 			var liObj = $("#"+selectId).closest("li");
 			var filestr = getFileShowStr(fi);
 			liObj.empty();
-			console.log("hahahaha");
-			console.log(filestr);
 			liObj.append(filestr);
 //			liObj——li重新渲染
 			fileUpBuild(
@@ -222,6 +220,8 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		imgStr = getImageOrPdf(file);
 		if(beforeType=="pdf"){
 			imgStr=imgStr.replace("image.png","pdf.png");
+		}else if(beforeType == "xlsx"||beforeType == "xls"){
+			imgStr=imgStr.replace("pdf.png","excel.png")
 		}else{
 			imgStr=imgStr.replace("pdf.png","image.png")
 		}
@@ -272,8 +272,8 @@ function getImageOrPdf(file){
 		
 	}else if(fileType == "fileType:4"){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/image.png"; //图片
-	}else{
-		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png"; //图片
+	}else if(fileType=="xls_type"){
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/excel.png"; //图片
 	}
 	return imgstr;
 }
@@ -282,8 +282,12 @@ function getImageOrPdf(file){
  * fileType:4  图片
 */
 function getFileType(file){
-	var _file =String(file);
-	var fileType = getFileExt(_file);
+	if(typeof(file)=="string"){
+		var fileType = getFileExt(file);
+	}else{
+		var fileType = file.fileSuffix;
+	}
+
 	if (fileType=="xls"||fileType=="xlsx"||fileType=="XLS"||fileType=="XLSX"){
 		return "xls_type";
 	}
@@ -369,7 +373,7 @@ function create_file_area(file){
 	}
 	var imgstr = getImageOrPdf(file);
 	var line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
-	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'&&file.fileSuffix!='PDF'){
+	if(file.fileSuffix!='XLS'&&file.fileSuffix!='XLSX'&&file.fileSuffix!='xls'&&file.fileSuffix!='xlsx'&&file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'&&file.fileSuffix!='PDF'){
 		//历史数据非jpg/pdf的
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
 		line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
@@ -436,11 +440,10 @@ function create_task_file_area(file){
 	'<p class="center_text" >' +
 		lin +
 	'</p>';
-	console.log(file);
 	if(file.taskStatusStr=="已完成"&&file.filUri!=''&&file.filUri!=undefined){
 		//已经认领并且上传文件后
 		p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
-		if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'){
+		if(file.fileSuffix!='XLS'&&file.fileSuffix!='XLSX'&&file.fileSuffix!='xls'&&file.fileSuffix!='xlsx'&&file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'){
 			//历史数据非jpg/pdf的
 			imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
 			p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
