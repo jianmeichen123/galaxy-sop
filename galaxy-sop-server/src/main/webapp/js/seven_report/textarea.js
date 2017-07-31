@@ -68,7 +68,6 @@ var autoTextarea = function (elem, extra, maxHeight) {
 };
 
 var textAreaList = document.getElementsByClassName('adption');
-console.log(textAreaList)
 for(var i = 0;i<textAreaList.length;i++){
 	autoTextarea(textAreaList[i]);
 }
