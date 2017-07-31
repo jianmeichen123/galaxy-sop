@@ -758,13 +758,15 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					fileWorktype.工商转让凭证.getCode(),
 					fileWorktype.资金拨付凭证.getCode()
 			};
+			String[] fileStatusList = {fileStatus.已上传.getCode(),fileStatus.已放弃.getCode()};
 			SopFile query = new SopFile();
 			query.setProjectId(project.getId());
-			query.setFileStatus(fileStatus.已上传.getCode());
+			query.setFileStatusList(Arrays.asList(fileStatusList));
 			query.setFileworktypeList(Arrays.asList(fileTypeList));
 			query.setFileValid(1);//查询有效文件
 			Long count = sopFileService.queryCount(query);
 			next1Valid = count == 2L;
+			
 		}
 		data.getUserData().put("next1Valid", next1Valid);
 		data.getUserData().put("next2Valid", next2Valid);
