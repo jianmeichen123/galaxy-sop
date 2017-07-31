@@ -208,7 +208,6 @@ function seven_link(data){
 		window.location.href=platformUrl.toBaseInfo;
 	}else if(data==2){
 		window.location.href=platformUrl.toEvalindex;
-
 	}else if(data==3){
 		window.location.href=platformUrl.investigate;
 	}else if(data==4){

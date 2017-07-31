@@ -1080,6 +1080,24 @@ var platformUrl = {
 	toEvalindex : Constants.sopEndpointURL + "/galaxy/infomation/toEvalindex",
 //	尽调报告
 	investigate:Constants.sopEndpointURL + "/galaxy/infomation/investigate",
+	   //尽调报告-子页面************************start
+	    //尽调报告-项目
+		toInvestigateP:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigateP",
+	    //尽调报告-团队
+		toInvestigateT:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigateT",
+	   //尽调报告-运营
+		toInvestigateO:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigateO",
+	    //尽调报告-竞争
+		toInvestigateC:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigateC",
+		//尽调报告-战略及策略
+		toInvestigatePlan:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigatePlan",
+		//尽调报告-财务
+		toInvestigateF:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigateF",
+		//尽调报告-法务
+		toInvestigateJ:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigateJ",
+		//尽调报告-融资及估值
+		toInvestigateV:Constants.sopEndpointURL + "/galaxy/infomation/toInvestigateV",
+	   //尽调报告-子页面************************end
 //	决策报告
 	toDecision:Constants.sopEndpointURL + "/galaxy/infomation/toDecision",
 //	初评报告

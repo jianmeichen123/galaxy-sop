@@ -59,17 +59,7 @@ var pageId = "project";
 	
 
        <!--隐藏-->
-   <div class="bj_hui_on"></div>
-  <jsp:include page="../hologram/jquery-tmpl.jsp" flush="true"></jsp:include>
-  <div id="tab-content">
-		<div class="tabtxt valuation" id="page_all">
-		<!--tab-->
-
-			
-			<!--tab end-->
-		</div>
-	</div>
-
+<div class="bj_hui_on"></div>
 	
 	</div>
 
@@ -100,57 +90,10 @@ var pageId = "project";
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
- <%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script> --%>
+<%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>		 --%>	
 <script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
-<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<!-- tongyong -->
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/save_ok.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(5);
-var path = '<%=path%>';
-//整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'NO9', null,
-	function(data) {
-	console.log(data)
-		var result = data.result.status;
-		if (result == 'OK') {
-			var entity = data.entity;
-			$("#page_list").tmpl(entity).appendTo('#page_all');
-			picData(projectInfo.id,1);
-			customBuilder();
-			$(".section").each(function(){
-				$(this).showResults(true);
-				var table = $(this).find('.mb_24 table');
-				table.each(function(){
-					if($(this).find('tr').length<=1){
-						$(this).hide();
-						if($(this).parents('dl').find('dd:gt(0)').length<=0){
-							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-						} 
-					}
-					else{
-						$(this).show();
-					}
-				})
-				
-			});
-			//调整表格
-			$("table").css({"width":"80%","table-layout":"fixed"});
-			mustData(projectInfo.id,0);
-			toggle_btn($('.anchor_btn span'),1);
-			fun_click();
-			hideNav();
-			
-		} else {
-
-		}
-		
-})
 
 
 </script>

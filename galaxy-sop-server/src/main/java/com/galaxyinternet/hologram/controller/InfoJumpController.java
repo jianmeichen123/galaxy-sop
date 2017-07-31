@@ -319,5 +319,50 @@ public class InfoJumpController{
 			}
 	       return responseBody;
 	}
-	
+	/**
+	 * 尽职调查报告页面****************************************开始
+	 */
+	   //尽调报告-项目信息页面
+		@RequestMapping(value = "/toInvestigateP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigateP(HttpServletRequest request) {
+			return "seven_report/investigate/index";
+		}
+		 //尽调报告-团队成员
+		@RequestMapping(value = "/toInvestigateT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigateT(HttpServletRequest request) {
+			return "seven_report/investigate/teamInfo";
+		}
+		 //尽调报告-运营数据
+		@RequestMapping(value = "/toInvestigateO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigateO(HttpServletRequest request) {
+			return "seven_report/investigate/operateInfo";
+		}
+		 //尽调报告-竞争分析
+		@RequestMapping(value = "/toInvestigateC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigateC(HttpServletRequest request) {
+			return "seven_report/investigate/competeInfo";
+		}
+		 //尽调报告-战略策略
+		@RequestMapping(value = "/toInvestigatePlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigatePlan(HttpServletRequest request) {
+			return "seven_report/investigate/planInfo";
+		}
+		 //尽调报告-财务
+		@RequestMapping(value = "/toInvestigateF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigateF(HttpServletRequest request) {
+			return "seven_report/investigate/financeInfo";
+		}
+		 //尽调报告-法务
+		@RequestMapping(value = "/toInvestigateJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigateJ(HttpServletRequest request) {
+			return "seven_report/investigate/justiceInfo";
+		}
+		 //尽调报告-融资以及估值
+		@RequestMapping(value = "/toInvestigateV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public String toInvestigateV(HttpServletRequest request) {
+			return "seven_report/investigate/valuationInfo";
+		}
+		/**
+		 * 尽职调查报告页面 ****************************************结束
+		 */
 }
