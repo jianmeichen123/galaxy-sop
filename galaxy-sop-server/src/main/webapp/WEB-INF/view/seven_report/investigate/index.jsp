@@ -31,22 +31,19 @@ var pageId = "project";
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabInvestChange('0')">基础<br />信息 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('1')">项目</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('2')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('3')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('4')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('5')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('6')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('7')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('8')">融资及<br />估值 </li>
+			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInvestChange('0')">项目</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('1')">团队</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('2')">运营<br />数据 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('3')">竞争</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('4')">战略及<br />策略 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('5')">财务</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('6')">法务</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('7')">融资及<br />估值 </li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
 		
-			<div class="h radius" id="NO1_1"> </div>
-			
-			<div class="h radius base_con2" id="NO1_2"> </div>
+		
 			
 		</div>
 	</div>
@@ -96,9 +93,9 @@ var pageId = "project";
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";
-
-
-
+$(function() {
+	right_anchor(1);
+})
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'DNO6?reportType=2', null,
 	function(data) {
