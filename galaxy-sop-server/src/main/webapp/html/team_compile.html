@@ -13,6 +13,7 @@
 			<input name="code"  type="text" style="display:none">
 			<input name="projectId" type="text" style="display:none">
 			<input name="titleId"  type="text" style="display:none">
+			<input name="subCode" type="hidden"  value="222">
    			<li>
    				<span class="team_compile_ul_l"><em class="red">*</em>&nbsp;姓名</span>
 	            <input name="field1" type="text" class="txt " maxlength="50" required data-msg-required="<font color=red>*</font>请输入姓名" >
@@ -53,31 +54,24 @@
    			</li>
    			<li>
    				<span class="team_compile_ul_l">&nbsp;最高学历</span>
-   				<select name="field5" class="txt_select txt">
-	                <option value="">请选择</option>
-	                <option value="高中">高中</option>
-	                <option value="大专">大专</option>
-	                <option value="本科">本科</option>
-	                <option value="硕士">硕士</option>
-	                <option value="MBA">MBA</option>
-	                <option value="博士">博士</option>
-	                <option value="其他">其他</option>
+   				<select name="field5" class="txt_select txt" id="field5">
+	               
                    </select>
    			</li>
    		</ul>
 		</form>
-    	<div class="team_tit"><span class="team_ico team_ico_study"></span>学习经历<span class="team_ico team_ico_add team_learn_add"  href="/sop/html/team_learn.html"  ></span></div>
+    	<div class="team_tit"><span class="team_ico team_ico_study"></span>学习经历<span class="team_ico team_ico_add team_learn_add" data-code="study-experience" href="/sop/html/team_learn.html"  ></span></div>
 		<div class="team_p" id="team_learn">
 
 		</div>
 
-		<div class="team_tit"><span class="team_ico team_ico_work"></span>工作经历<span class="team_ico team_ico_add team_work_add"  href="/sop/html/team_work.html" ></span></div>
+		<div class="team_tit"><span class="team_ico team_ico_work"></span>工作经历<span class="team_ico team_ico_add team_work_add"  data-code="work-experience" href="/sop/html/team_work.html" ></span></div>
     	<div class="team_p" id="team_work">
 
 		</div>
 
 		
-		<div class="team_tit"><span class="team_ico team_ico_carve"></span>创业经历 <span class="team_ico team_ico_add team_startup_add" href="/sop/html/team_startup.html" ></span></div>
+		<div class="team_tit"><span class="team_ico team_ico_carve"></span>创业经历 <span class="team_ico team_ico_add team_startup_add" data-code="entrepreneurial-experience" href="/sop/html/team_startup.html" ></span></div>
     	<div class="team_p" id="team_startup">
 
 		</div>
