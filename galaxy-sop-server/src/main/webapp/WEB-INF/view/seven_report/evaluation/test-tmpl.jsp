@@ -16,7 +16,8 @@
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="align_left"><i>未选择</i></div>
-							<span class="editPic" onclick="canEdit(this)"  ></span>
+							<span class="editPic"  onclick="canEdit(this)"  ></span>
+
 						</td>
 					{{else type=="3"}}
 						<!-- 复选 -->
