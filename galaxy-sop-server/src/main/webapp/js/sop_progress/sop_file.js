@@ -272,6 +272,8 @@ function getImageOrPdf(file){
 		
 	}else if(fileType == "fileType:4"){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/image.png"; //图片
+	}else{
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png"; //图片
 	}
 	return imgstr;
 }
@@ -280,6 +282,11 @@ function getImageOrPdf(file){
  * fileType:4  图片
 */
 function getFileType(file){
+	var _file =String(file);
+	var fileType = getFileExt(_file);
+	if (fileType=="xls"||fileType=="xlsx"||fileType=="XLS"||fileType=="XLSX"){
+		return "xls_type";
+	}
 	if(typeof(file) == 'string'){
 		var fileType = getFileTypeByName(file);
 		return fileType;
