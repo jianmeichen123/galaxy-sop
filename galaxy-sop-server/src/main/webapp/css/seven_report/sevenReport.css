@@ -93,7 +93,7 @@ table .on td{
 	position:absolute;
 	right:5px;
 	top:5px;
-	background:url(../img/ICON.png) no-repeat;
+	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-17px -15px;
 	cursor:pointer;
 	 display:none; 
@@ -140,7 +140,7 @@ table td em.right{
 	position:absolute;
 	top:10px;
 	right:30px;
-	background:url(../img/ICON.png) no-repeat;
+	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-136px -19px;
 	cursor:pointer;
 	
@@ -152,7 +152,7 @@ table td i.wrong{
 	position:absolute;
 	top:10px;
 	right:10px;
-	background:url(../img/ICON.png) no-repeat;
+	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-80px -19px;
 	cursor:pointer;
 	
@@ -241,7 +241,7 @@ table td i.wrong{
 	position:absolute;
 	top:10px;
 	right:30px;
-	background:url(../img/ICON.png) no-repeat;
+	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-136px -19px;
 	cursor:pointer;
 	
@@ -253,7 +253,7 @@ table td i.wrong{
 	position:absolute;
 	top:10px;
 	right:10px;
-	background:url(../img/ICON.png) no-repeat;
+	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-80px -19px;
 	cursor:pointer;
 	
@@ -502,7 +502,7 @@ textarea::input-placeholder{
 	position:absolute;
 	right:224px;
 	top:126px;
-	background:url(../img/ICON.png) no-repeat;
+	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-17px -15px;
 	cursor:pointer;
 	

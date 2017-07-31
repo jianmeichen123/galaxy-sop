@@ -13,6 +13,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/skins/all.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
 </script>
@@ -157,6 +158,7 @@ sendGetRequest(platformUrl.queryAllTitleValues+ "ENO1?reportType=1", null,
 	
 
 </script>
+<script src="<%=path%>/js/seven_report/icheck.js"></script>	
 <script src="<%=path%>/js/seven_report/seven_basic.js"></script>	
 </body>
 

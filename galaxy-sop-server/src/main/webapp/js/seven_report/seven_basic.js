@@ -12,6 +12,20 @@
 	
 	//选择题的编辑按钮
 	function chooseEdit(obj){
+		//编辑类型
+		var _this=$(obj);
+		var e_type = _this.attr("e-type");
+		console.log(e_type);
+		if(e_type=="inside"){
+			//内部编辑
+			//编辑数据请求
+			//请求成功，填写数据
+			var resu_chose="<input type=\"radio\" name=\"feasibility\" value=\"唯一\"/><label>唯一</label><br/>"
+			$(obj).closest('td').find('.radioShow').html(resu_chose);
+			iCheck();
+		}
+		
+		
 		$(obj).closest('td').addClass('edit_true');
 		var pText = $(obj).parent().find('p');
 		pText.hide();
@@ -264,11 +278,13 @@ $('.h_cancel_btn').click(function(){
 
 
 })
-//radio checkbox 插件方法
+//radio checkbox 插件 渲染方法
+function iCheck{
 	$('input').iCheck({
-			checkboxClass: 'icheckbox_flat-blue',
-    		radioClass: 'iradio_flat-blue'
+		checkboxClass: 'icheckbox_flat-blue',
+		radioClass: 'iradio_flat-blue'
 	})
+}
 	
 	
 	
