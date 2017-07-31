@@ -250,11 +250,16 @@ function initViewUpload() {
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
+					var size=up.settings.filters.max_file_size.replace("mb","");   
+					if(parseInt(file.size) > parseInt(size) * 1024 * 1024){
+						layer.msg("最大支持"+size+"MB");
+						return;
+					}
 					$("#file_object").removeClass("no_bg");
 					$("#file_object").text(file.name);
 					$("#select_btn").next().find("input").hide();
 					$("#select_btn").text("更新");
-					$("#file_object").addClass("audio_name")
+					$("#file_object").addClass("audio_name");
 				});
 			},
 			
