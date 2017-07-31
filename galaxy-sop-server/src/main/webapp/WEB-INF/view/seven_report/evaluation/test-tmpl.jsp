@@ -33,6 +33,7 @@
 							</div>
 						</td>
 					{{else type=="4"}}
+						<!-- 级联选择  没有 -->	
 					{{else type=="5"}}
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -54,14 +55,33 @@
 							</div>
 						</td>
 					{{else type=="7"}}
+						<!-- 附件 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"  ></span>
+						</td>
 					{{else type=="8"}}
+						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)"></span>		
 							<div class="align_left">未填写</div>										
 						</td>
 					{{else type=="9"}}
+						<!-- 固定表格 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"></div>	
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"  ></span>
+						</td>
 					{{else type=="10"}}
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"></div>	
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"  ></span>
+						</td>
 					{{else type=="11"}}
+						<!-- 静态数据 -->
+						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"></div>	
+						</td>
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -93,16 +113,22 @@
 							</div>
 						</td>
 					{{else type=="15"}}
+					<!--一个标题带两个文本域-->
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="  content_16 align_left">\${content}</div>
-							<span class="editPic" e-type="" onclick="gapEdit(this)"></span>
+							<span class="editPic" e-type="" onclick="typeEdit(this)"></span>
 						</td>
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 						<div class="align_left"></div>
-						<span class="editPic" e-type="cover_pop" onclick="gapEdit(this)"></span>
+						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"></span>
+					</td>
+				{{else sign==1}}
+					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						<div class="align_left"></div>
+						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"></span>
 					</td>
 				{{/if}}	
 				{{each(i,informationGrades) informationGrades }}
@@ -162,6 +188,7 @@
 							</div>
 						</td>
 					{{else type=="4"}}
+						<!-- 级联选择  没有 -->	
 					{{else type=="5"}}
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -183,14 +210,33 @@
 							</div>
 						</td>
 					{{else type=="7"}}
+						<!-- 附件 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"  ></span>
+						</td>
 					{{else type=="8"}}
+						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)"></span>		
 							<div class="align_left">未填写</div>										
 						</td>
 					{{else type=="9"}}
+						<!-- 固定表格 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"></div>	
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"  ></span>
+						</td>
 					{{else type=="10"}}
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"></div>	
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"  ></span>
+						</td>
 					{{else type=="11"}}
+						<!-- 静态数据 -->
+						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left"></div>	
+						</td>
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -222,13 +268,24 @@
 							</div>
 						</td>
 					{{else type=="15"}}
+					<!--一个标题带两个文本域-->
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="  content_16 align_left">\${content}</div>
-							<span class="editPic" e-type="" onclick="gapEdit(this)"></span>
-					</td>
+							<span class="editPic" e-type="" onclick="typeEdit(this)"></span>
+						</td>
 				 	{{/if}}
-				
+				{{else sign==3}}
+					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						<div class="align_left"></div>
+						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"></span>
+					</td>
+				{{else sign==1}}
+					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						<div class="align_left"></div>
+						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)"></span>
+					</td>
+				{{/if}}	
 				{{each(i,informationGrades) informationGrades }}
 					<td>\${scoreMax}</td>
 					<td>\${scoreExplain}</td>
@@ -253,7 +310,7 @@
 						<td class="">0</td>
 					{{/if}}
 				{{/each}}
-				{{/if}}	
+				
 			</tr>
 		{{/if}}		
 	{{/each}}
@@ -278,7 +335,30 @@
 
 <!-- 编辑遮罩弹窗模板 -->
 <script id="edit_tmpl2" type="text/x-jquery-tmpl">
+	<form>
+		<div class="h_edit section">
+			<div class="h_btnbox">
+				<span class="h_save_btn">保存</span>
+				<span class="h_cancel_btn">取消</span>
+			</div>
+			<div class="h_title">收费模式</div>
+			<div class="sign_title">项目收费类型</div>
+			<div class="mb_16">
+				<dl class="h_edit_txt clearfix">
+					<dt>直销收费占比（%）：</dt>
+					<dd>
+						<input type="text" name="0">
+					</dd>
+				</dl>
+			</div>
+			<div class="h_edit_btnbox clearfix">
+				<span class="pubbtn bluebtn h_save_btn fl">保存</span>
+				<span class="pubbtn fffbtn fl h_cancel_btn">取消</span>
+			</div>
 
+
+		</div>
+	</form>	
 </script>
 
 
