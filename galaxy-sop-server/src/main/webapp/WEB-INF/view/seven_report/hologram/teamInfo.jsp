@@ -313,6 +313,7 @@
 			if(type==2 || type==4 || type==14)
 			{
 				infoMode.value = field.val();
+				console.log(infoMode+'--------')
 			}
 			else if (type==3)
 			{

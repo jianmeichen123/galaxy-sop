@@ -187,7 +187,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 				rowNo:"",
 				colNo:""
 			};
-		if(type==2  || type==4 || type==14)
+		if(type==2  || type==4 || type==14 )
 		{
 			infoMode.value = field.val();
 		}	
@@ -195,9 +195,23 @@ $('div').delegate(".h_save_btn","click",function(event){
 		{
 			infoMode.value = field.data('id');
 		}
-		else if(type==1)
+		else if(type==1 || type==19 )
 		{	
 			infoMode.remark1 = field.val();
+		}
+		else if( type==20 )
+		{	
+			infoMode.remark1 = field.val();
+			//infoMode.remark2 = field.parent().parent().children($('select option:selected')).text();
+			var id  = infoMode.titleId
+			var options=$("#"+id+"_select option:selected")
+			var n_array = new Array()
+			var name = options.text();
+			var value =options.val();
+			n_array.push(name);
+			n_array.push(value);
+			infoMode.remark2 = name+"p"+value;
+			console.log(n_array)
 		}
 		else if(type==8)
 		{

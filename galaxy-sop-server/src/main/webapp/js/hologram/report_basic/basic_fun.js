@@ -241,6 +241,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 									}
 								}
 								$('#'+'edit-'+title_id).html(html);
+								
 							} else {
 
 							}
