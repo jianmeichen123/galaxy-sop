@@ -15,4 +15,4 @@ alter table `fx_db`.`sop_interview_record` modify column reason_other varchar(50
 
 alter table `fx_db`.`sop_meeting_record` modify column reason_other varchar(50) COMMENT '其他原因';
 
-
+UPDATE dict SET NAME = '人事尽职调查报告' WHERE NAME= '人力资源尽职调查报告';
