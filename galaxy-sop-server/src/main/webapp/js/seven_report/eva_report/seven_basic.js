@@ -14,6 +14,7 @@
 	function typeEdit(obj){
 		//编辑类型
 		var _this=$(obj);
+		var id_code=$(obj).attr("attr-id")
 		var _td = _this.closest('td');
 		var e_type = _this.attr("e-type");
 		var radioShow = _td.find('.radioShow');
@@ -22,9 +23,7 @@
 			//内部编辑
 			//编辑数据请求
 			//请求成功，数据添加
-			
-			var result_html = "<input type=\"radio\" name=\"feasibility\" value=\"尚未验证\"/><label>尚未验证</label><br/>"
-			radioShow.html(result_html);
+			get_result(id_code,1,radioShow);
 			var pText = $(obj).parent().find('p');
 			_this.hide();
 			_td.data('edit','true');
@@ -40,8 +39,8 @@
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
-			var entity="";
-			$("#edit_tmpl1").tmpl(entity).appendTo($(".gapPopup"));
+			get_result(id_code,2,$(".gapPopup"));
+			
 			$(obj).hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
@@ -54,9 +53,7 @@
 			var  topNum = _td.offset().top-200;
 			//请求数据
 			//数据渲染模板edit_tmpl2
-			var entity="";
-			console.log($("#edit_tmpl2").tmpl(entity));
-			$("#edit_tmpl2").tmpl(entity).appendTo($(".ch_opration"));
+			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
 			$('.ch_opration').css('left',leftNum).css('top',topNum).css('width',$(".new_left").width()-80);
 		}
@@ -72,9 +69,60 @@
 		//给td加自定义属性
 		$(obj).parent().data('edit','true')*/
 	}
+function get_result(code,e_type,dom){
+	console.log(code);
+	 sendGetRequest(platformUrl.queryAllTitleValues+code,null,function(data){
+		 console.log(data);
+		 var result = data.result.status;
+		 if(result == 'OK'){
+			 var entity = data.entity;
+			 var valueList = data.entity.valueList;
+			 if(e_type==1){
+				 var result_html = ""
+				$.each(valueList,function(i,n){
+					result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"
+				})
+					 console.log(result_html);
+				 dom.html(result_html);
+			 }else if(e_type==2){
+				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
+			 }else if(e_type==3){
+				 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
+			 }
+		 }
+	 })  
 
-
-
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//插件回调方法
 	$('.others').on('ifChecked',function(event){
 		 $(this).parents('.radioShow').find('.others_text').show();
@@ -150,6 +198,7 @@
 		//弹窗消失
 		//$(obj).parent().parent().hide();
 		$(obj).closest('.gapPopup').hide();
+		$(obj).parents(".gapPopup").find(".div_tmpl").remove();
 		$('.mashLayer').hide();
 	}
 	
