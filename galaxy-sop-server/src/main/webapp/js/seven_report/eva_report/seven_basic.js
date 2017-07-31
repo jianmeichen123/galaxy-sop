@@ -1,6 +1,6 @@
 //这里不需要window.onload  和 $(document).ready(function(){})
 	function　mouserover(obj){
-		//if($(obj).data('edit') == 'true') return;
+		if($(obj).data('edit') == 'true') return;
 		var target = $(obj).find('.editPic');
 		 target.show();
 	};
@@ -20,20 +20,22 @@
 		if(e_type=="inside"){
 			//内部编辑
 			//编辑数据请求
-			//请求成功，填写数据
-			var resu_chose="<input type=\"radio\" name=\"feasibility\" value=\"唯一\"/><label>唯一</label><br/>"
-			$(obj).closest('td').find('.radioShow').html(resu_chose);
+			//请求成功，数据渲染模板edit_tmpl1
+			var radioShow = _td.find('.radioShow');
+			var entity="";
+			$("#edit_tmpl1").tmpl(entity).appendTo(radioShow);
 			var pText = $(obj).parent().find('p');
-			pText.hide();
-			$(obj).hide();
+			_this.hide();
+			_td.data('edit','true');
+			pText.hide();			
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
 			$(obj).closest('td').find('.radioShow').show();
 			iCheck();
 		}else if(e_type=="small_pop"){
 			$('.gapPopup').show();
-			var  leftNum = _this.offset().left-10;
-			var  topNum = _this.offset().top-_td.height()+10;
+			var  leftNum = _this.offset().left-34;
+			var  topNum = _this.offset().top-$(".gapPopup").height()-22;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 			
@@ -42,6 +44,15 @@
 			$(obj).closest('td').find('.Button').show();
 			$(obj).closest('td').find('.radioShow').show();
 			
+		}else if(e_type=="cover_pop"){
+			$('.ch_income_evaluation').show();
+			$('.mashLayer').show();
+			var  leftNum = _td.offset().left-230;
+			var  topNum = _td.offset().top-200;
+			//请求数据
+			//数据渲染模板edit_tmpl2
+			
+			$('.ch_income_evaluation').css('left',leftNum).css('top',topNum);
 		}
 		
 		

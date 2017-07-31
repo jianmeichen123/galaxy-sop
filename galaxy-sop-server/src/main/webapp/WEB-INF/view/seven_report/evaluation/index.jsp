@@ -151,8 +151,8 @@ sendGetRequest(platformUrl.queryAllTitleValues+ "ENO1?reportType=1", null,
 	
 
 </script>
-<script src="<%=path%>/js/seven_report/icheck.js"></script>	
-<script src="<%=path%>/js/seven_report/seven_basic.js"></script>	
+<script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>	
+<script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>	
 </body>
 
 
