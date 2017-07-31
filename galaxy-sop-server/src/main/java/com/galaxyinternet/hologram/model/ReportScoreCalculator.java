@@ -65,7 +65,11 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		Integer scoreType = info.getScoreType();
 		if(scoreType != null && (scoreType == 1 || scoreType == 2)) //手动输入或选择分数
 		{
-			score=  item.getScore();
+			score = item.getScore();
+			ItemParam itemParam = new ItemParam();
+			itemParam.setRelatedId(relateId);
+			itemParam.setScore(score);
+			items.put(relateId, itemParam);
 			logger.debug(String.format("Relateid = %s Manual score = %s", relateId,score));
 		}
 		else //累加或自动打分
