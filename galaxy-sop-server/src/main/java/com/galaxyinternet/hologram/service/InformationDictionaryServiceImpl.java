@@ -286,18 +286,12 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	public InformationTitle selectTitlesValues(InformationTitle info) {
 		List<InformationDictionary> valueList = selectValuesByTid(info.getTitleId());
 		info.setValueList(valueList);
-		if(info.getCode().equals("NO2_6")){
-			System.out.println(111);
-		}
 		List<InformationTitle> childList = selectTitlesByRelate(informationTitleRelateService.selectChildsByPid(info.getId()));
 		info.setChildList(childList);
 		return info;
 	}
 	public List<InformationTitle> selectTitlesByRelate(List<InformationTitle> tList) {
 		for(InformationTitle title : tList){
-			if(title.getCode().equals("NO2_6")){
-				System.out.println(111);
-			}
 			List<InformationDictionary> valueList = selectValuesByTid(title.getTitleId());
 			title.setValueList(valueList);
 			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsByPid(title.getId());
