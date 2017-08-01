@@ -178,13 +178,13 @@ table.table_15 td:nth-child(4){
 }
 .mashLayer{
 	background: #000;
-    filter: alpha(opacity=20); /* IEµÄÍ¸Ã÷¶È */
-    opacity: 0.1;  /* Í¸Ã÷¶È */
+    filter: alpha(opacity=20); /* IE碌脛脥赂脙梅露脠 */
+    opacity: 0.1;  /* 脥赂脙梅露脠 */
    display: none;
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 100; /* ´Ë´¦µÄÍ¼²ãÒª´óÓÚÒ³Ãæ */
+    z-index: 100; /* 麓脣麓娄碌脛脥录虏茫脪陋麓贸脫脷脪鲁脙忙 */
 }
 .popup{
 	padding:10px 5px 10px 5px;
@@ -274,7 +274,7 @@ table.table_15 td:nth-child(4){
 	cursor:pointer;
 	
 } 
-/* µ¯´° */
+/* 碌炉麓掳 */
  .popup{
 	width:23%;
 	min-height:105px;
@@ -442,7 +442,7 @@ textarea::input-placeholder{
  color:#999
  
  }
- /*运营测评弹窗*/
+ /*杩愯惀娴嬭瘎寮圭獥*/
  .ch_opration{
   	width:65.3%;
   	z-index: 999;
@@ -467,8 +467,8 @@ textarea::input-placeholder{
 
 
 
-/*新增内容===========================================*/
-/*填空题弹窗*/
+/*鏂板鍐呭===========================================*/
+/*濉┖棰樺脊绐�*/
 .gapPopup{
 	width: 284px;
 	height: 105px;
