@@ -52,7 +52,7 @@
     var deletedRowIdsGq = new Array();
 
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO3", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + "DNO3?reportType=2", null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {

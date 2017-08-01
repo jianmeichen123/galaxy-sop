@@ -88,13 +88,17 @@ var pageId = "project";
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<script src="<%=path%>/js/hologram/hologram_common.js"></script>			
+<script src="<%=path%>/js/hologram/hologram_common.js"></script>	
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">		
 <script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
+<script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
+<script src="<%=path %>/js/hologram/report_basic/save_ok.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	right_anchor("NO1");
+	/* right_anchor("DNO2?reportType=2"); */
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'DNO6?reportType=2', null,
