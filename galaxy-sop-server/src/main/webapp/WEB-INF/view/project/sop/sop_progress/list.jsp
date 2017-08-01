@@ -161,25 +161,36 @@ function showRejectConfim()
 }
 function reject()
 {
+	var reason = "";
+	$("#projectProgress_1_table").find("tr").each(function(){
+        var tdArr = $(this).children();
+        var result = tdArr.eq(1).text();
+        if(result == '否决'){
+        	reason = tdArr.eq(2).text();
+        	return;
+        }
+    });
+	if(reason){
+		sendPostRequestByJsonObj(
+				platformUrl.closeProject ,
+				{'projectId':_project_.id,"reason":reason},
+				function(data){
+					if(data.result.status == 'OK')
+					{
+						layer.msg('处理成功');
+						refreshButton();
+						$('#projectProgress_1_table').bootstrapTable('refresh'); 
+					}
+					else
+					{
+						layer.msg(data.result.message);
+					}
+					$.popupTwoClose();
+				}
+				
+		);
+	}
 	
-	sendPostRequestByJsonObj(
-			platformUrl.closeProject ,
-			{'projectId':_project_.id},
-			function(data){
-				if(data.result.status == 'OK')
-				{
-					layer.msg('处理成功');
-					refreshButton();
-					$('#projectProgress_1_table').bootstrapTable('refresh'); 
-				}
-				else
-				{
-					layer.msg(data.result.message);
-				}
-				$.popupTwoClose();
-			}
-			
-	);
 }
 </script>
 
