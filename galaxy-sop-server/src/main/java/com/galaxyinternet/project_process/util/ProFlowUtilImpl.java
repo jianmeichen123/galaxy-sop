@@ -390,6 +390,8 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		case "fileWorktype:1":
 			if(!initMark.equals("has")){
 				number = UrlNumber.three;
+			}else{
+				number = UrlNumber.ten;
 			}	
 			break;
 		case "fileWorktype:18":

@@ -59,7 +59,8 @@ public enum OperationLogType {
 	//	财务尽职调查报告    fileWorktype:4
 	p6_f1_ywjd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), 
 			"业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
-	
+	p6_f1_ywjd_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), 
+					"业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//	尽职调查启动会报告    fileWorktype:18  four  five
 	//	尽职调查总结会报告    fileWorktype:19	six   seven
 	p6_f18_jzqd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.four, OperType.UPLOAD.getOperationType(), 
