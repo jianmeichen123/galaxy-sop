@@ -10,8 +10,15 @@
 			{{if i==0}}
 				<td data-type="\${type}" parentid="\${parentId}" data-title-id="\${titleid}" data-reletid="\${id}">\${name}</td>
 				{{if sign!=3&&sign!=1}}
-					{{if type==="1"}}
-						
+					{{if type=="1"}}
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${code}"  ></span>
+							<div class="align_left"><p>未填写</p></div>	
+							<div class="radioShow"></div>						
+							<div class="Button">
+								<em onclick="right(this,'input')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
+						</td>
 					{{else type=="2"}}
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -112,11 +119,14 @@
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
-					{{else type=="15"}}
-					<!--一个标题带两个文本域-->
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="  content_16 align_left">\${content}</div>
+							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
+						</td>
+					{else type=="18"}}
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left">\${content}</div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
 						</td>
 				 	{{/if}}
@@ -163,10 +173,17 @@
 	{{each(i,childList) childList}}
 		{{if i>0}}
 			<tr parentid="\${parentId}">
-				<td data-title-id="\${titleid}" data-type="\${type}" data-reletid="\${id}">\${name}</td>
+				<td data-title-id="\${titleid}" data-type="\${type}" data-reletid="\${id}">\${name}</td>		
 				{{if sign!=3&&sign!=1}}
-					{{if type==="1"}}
-						
+					{{if type=="1"}}
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${code}"  ></span>
+							<div class="align_left"><p>未填写</p></div>
+							<div class="radioShow"></div>							
+							<div class="Button">
+								<em onclick="right(this,'input')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
+						</td>
 					{{else type=="2"}}
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -268,10 +285,50 @@
 							</div>
 						</td>
 					{{else type=="15"}}
-					<!--一个标题带两个文本域-->
+						<td colspan="4" class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
+							<div>
+								<table class="table_15">
+									<tr>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+
+									</tr>
+									<tr>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+										<td>
+											是的地方撒旦发射点发射点 
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+						
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="  content_16 align_left">\${content}</div>
+							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
+						</td>
+					{else type=="18"}}
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<div class="align_left">\${content}</div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
 						</td>
 				 	{{/if}}
@@ -286,6 +343,8 @@
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${code}"></span>
 					</td>
 				{{/if}}	
+				{{if type}}
+					{{if type!=15}}
 				{{each(i,informationGrades) informationGrades }}
 					<td>\${scoreMax}</td>
 					<td>\${scoreExplain}</td>
@@ -310,9 +369,35 @@
 						<td class="">0</td>
 					{{/if}}
 				{{/each}}
-				
+				{{/if}}
+			{{else}}
+			{{each(i,informationGrades) informationGrades }}
+					<td>\${scoreMax}</td>
+					<td>\${scoreExplain}</td>
+					{{if isScore==0}}
+					<!-- 系统打分 -->
+						<td class="">0</td>
+					{{else isScore==1}}
+					<!-- 人工打分（select） -->
+						<td class="">
+							<select>
+								<option>请选择</option>
+							</select>
+						</td>
+					{{else isScore==2}}
+					<!-- 人工打分（数值范围） -->
+						<td class="">
+							<input type="text" value="" placeholder="请打分">
+                              <em>(0-\${scoreMax}分)</em>
+						</td>
+					{{else isScore==4}}
+					<!-- 根据其他子项分值计算得出 -->
+						<td class="">0</td>
+					{{/if}}
+				{{/each}}
+			{{/if}}
 			</tr>
-		{{/if}}		
+		{{/if}}	
 	{{/each}}
 
 

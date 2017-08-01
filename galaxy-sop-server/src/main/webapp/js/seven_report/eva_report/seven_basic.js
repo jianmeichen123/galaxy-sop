@@ -79,10 +79,13 @@ function get_result(code,e_type,dom){
 			 var valueList = data.entity.valueList;
 			 if(e_type==1){
 				 var result_html = ""
-				$.each(valueList,function(i,n){
-					result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"
-				})
-					 console.log(result_html);
+				 if(entity.type==14||entity.type==3||entity.type==32||entity.type==5||entity.type==6||entity.type==12||entity.type==13){
+					 $.each(valueList,function(i,n){
+						 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"
+					 })
+				}else if(entity.type==1){
+					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
+				}
 				 dom.html(result_html);
 			 }else if(e_type==2){
 				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
@@ -94,7 +97,25 @@ function get_result(code,e_type,dom){
 
 }	
 	
+//小弹窗关闭按钮
+function closeX(obj){
+	//对号,x号消失
+	$(obj).parent().hide();
+	//radio 消失
+	$(obj).parent().parent().find('.radioShow').hide();
+	//p内容展示
+	$(obj).parent().parent().find('p').show();
+	$(obj).parent().parent().find('p').css('color','#000');
+	$(obj).closest('td').data('edit','false');
 	
+	//select下拉框消失
+	$(obj).closest('td').find('.selectTips').hide();
+	//弹窗消失
+	//$(obj).parent().parent().hide();
+	$(obj).closest('.gapPopup').hide();
+	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
+	$('.mashLayer').hide();
+}	
 	
 	
 	
@@ -182,25 +203,7 @@ function get_result(code,e_type,dom){
 
 
 	}
-	//x号函数
-	function closeX(obj){
-		//对号,x号消失
-		$(obj).parent().hide();
-		//radio 消失
-		$(obj).parent().parent().find('.radioShow').hide();
-		//p内容展示
-		$(obj).parent().parent().find('p').show();
-		$(obj).parent().parent().find('p').css('color','#000');
-		$(obj).closest('td').data('edit','false');
-		
-		//select下拉框消失
-		$(obj).closest('td').find('.selectTips').hide();
-		//弹窗消失
-		//$(obj).parent().parent().hide();
-		$(obj).closest('.gapPopup').hide();
-		$(obj).parents(".gapPopup").find(".div_tmpl").remove();
-		$('.mashLayer').hide();
-	}
+	
 	
 	//遮罩层
 	function pageHeight(){
