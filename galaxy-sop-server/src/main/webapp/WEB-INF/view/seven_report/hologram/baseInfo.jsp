@@ -110,7 +110,7 @@ sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backF
 	
 
 $(function() {
-	right_anchor(1);
+	right_anchor("NO1");
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
 		var _this = $(this);

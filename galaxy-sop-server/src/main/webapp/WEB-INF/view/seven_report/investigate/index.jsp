@@ -94,7 +94,7 @@ var pageId = "project";
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	right_anchor(1);
+	right_anchor("NO1");
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'DNO6?reportType=2', null,

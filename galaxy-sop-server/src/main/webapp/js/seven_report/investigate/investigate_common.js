@@ -35,7 +35,7 @@ function tabInvestChange(index){
 			$.getTabHtmlInfo({
 				url : platformUrl.toInvestigateT ,
 				okback:function(){
-					right_anchor(3);
+					right_anchor("NO3");
 				}
 			});
 		}
@@ -45,7 +45,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateO ,
 				okback:function(){
-					right_anchor(4);
+					right_anchor("NO4");
 				}
 			});
 		}
@@ -55,7 +55,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateC ,
 				okback:function(){
-					right_anchor(5);
+					right_anchor("NO5");
 				}
 			});
 		}
@@ -65,7 +65,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigatePlan ,
 				okback:function(){
-					right_anchor(6);
+					right_anchor("NO6");
 				}
 			});
 		}
@@ -75,7 +75,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateF ,
 				okback:function(){
-					right_anchor(7);
+					right_anchor("NO7");
 				}
 			});
 		}
@@ -85,7 +85,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateJ ,
 				okback:function(){
-					right_anchor(8);
+					right_anchor("NO8");
 				}
 			});
 		}
@@ -95,7 +95,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateV ,
 				okback:function(){
-					right_anchor(9);
+					right_anchor("NO9");
 				}
 			});
 		}
