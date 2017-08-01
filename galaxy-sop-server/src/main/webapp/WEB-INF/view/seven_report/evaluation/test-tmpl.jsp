@@ -125,10 +125,7 @@
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
 						</td>
 					{else type=="18"}}
-						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left">\${content}</div>
-							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
-						</td>
+						 
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -285,37 +282,75 @@
 							</div>
 						</td>
 					{{else type=="15"}}
-						<td colspan="4" class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
+						<td colspan="4"  class="condition td_15" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<div>
 								<table class="table_15">
 									<tr>
 										<td>
-											是的地方撒旦发射点发射点 
+											<div class="align_left"><p>未填写</p></div>
+											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${code}"  ></span>
+											<div class="radioShow"></div>
 										</td>
-										<td>
-											是的地方撒旦发射点发射点 
-										</td>
-										<td>
-											是的地方撒旦发射点发射点 
-										</td>
-										<td>
-											是的地方撒旦发射点发射点 
-										</td>
+										{{each(i,informationGrades) informationGrades }}
+											{{if i==0}}
+												<td>\${scoreMax}</td>
+												<td>\${scoreExplain}</td>
+												{{if isScore==0}}
+												<!-- 系统打分 -->
+													<td class="">0</td>
+												{{else isScore==1}}
+												<!-- 人工打分（select） -->
+													<td class="">
+														<select>
+															<option>请选择</option>
+														</select>
+													</td>
+												{{else isScore==2}}
+												<!-- 人工打分（数值范围） -->
+													<td class="">
+														<input type="text" value="" placeholder="请打分">
+							                              <em>(0-\${scoreMax}分)</em>
+													</td>
+												{{else isScore==4}}
+												<!-- 根据其他子项分值计算得出 -->
+													<td class="">0</td>
+												{{/if}}
+											{{/if}}
+										{{/each}}
 
 									</tr>
 									<tr>
 										<td>
-											是的地方撒旦发射点发射点 
+											<div class="align_left"><p>未填写</p></div>
+											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${code}"  ></span>
+											<div class="radioShow"></div>
 										</td>
-										<td>
-											是的地方撒旦发射点发射点 
-										</td>
-										<td>
-											是的地方撒旦发射点发射点 
-										</td>
-										<td>
-											是的地方撒旦发射点发射点 
-										</td>
+										{{each(i,informationGrades) informationGrades }}
+											{{if i==1}}
+												<td>\${scoreMax}</td>
+												<td>\${scoreExplain}</td>
+												{{if isScore==0}}
+												<!-- 系统打分 -->
+													<td class="">0</td>
+												{{else isScore==1}}
+												<!-- 人工打分（select） -->
+													<td class="">
+														<select>
+															<option>请选择</option>
+														</select>
+													</td>
+												{{else isScore==2}}
+												<!-- 人工打分（数值范围） -->
+													<td class="">
+														<input type="text" value="" placeholder="请打分">
+							                              <em>(0-\${scoreMax}分)</em>
+													</td>
+												{{else isScore==4}}
+												<!-- 根据其他子项分值计算得出 -->
+													<td class="">0</td>
+												{{/if}}
+											{{/if}}
+										{{/each}}
 									</tr>
 								</table>
 							</div>
@@ -327,10 +362,7 @@
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
 						</td>
 					{else type=="18"}}
-						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left">\${content}</div>
-							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${code}"></span>
-						</td>
+						 
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">

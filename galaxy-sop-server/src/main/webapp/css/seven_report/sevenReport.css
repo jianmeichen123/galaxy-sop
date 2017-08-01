@@ -75,13 +75,7 @@ table td:nth-child(7){
 table .on td{
 	background:none !important;
 }
-/* textarea{
-	width:100%;
-	border:none;
-	overflow:hidden;
-	resize:none;
-	color:#b2b2b2;
-} */
+
 .align_left{
 	text-align: left;
 	padding-left: 10px;
@@ -102,6 +96,7 @@ table .on td{
 table td .holder{
 	height:27px;
 }
+table td.td_15{padding:0;}
 table td input{
 	width:64px;
 	height:24px;
@@ -161,6 +156,22 @@ table td i.wrong{
 	background-position:-80px -19px;
 	cursor:pointer;
 	
+}
+table.table_15 td{
+	border-right: 1px solid #d8d8d8;
+}
+table.table_15 td:nth-child(1){
+	width:37.15%;
+}
+table.table_15 td:nth-child(2){
+	width:10.6%;
+}
+table.table_15 td:nth-child(3){
+	width:35.3%;
+}
+table.table_15 td:nth-child(4){
+	width:15.8%;
+	border-right: 0px;
 }
 .Button{
 	display:none;
@@ -684,3 +695,4 @@ table td select option{
 .h_radios li label{
 	margin-left: 10px;
 }
+.div_tmpl{height:100%;}
