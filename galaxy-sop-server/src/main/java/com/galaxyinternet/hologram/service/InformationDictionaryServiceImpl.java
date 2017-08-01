@@ -298,7 +298,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 			if(title.getCode().equals("NO2_6")){
 				System.out.println(111);
 			}
-			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
+			List<InformationDictionary> valueList = selectValuesByTid(title.getTitleId());
 			title.setValueList(valueList);
 			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsByPid(title.getId());
 			if(ptitleList !=null && !ptitleList.isEmpty()){
@@ -321,7 +321,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	}
 	public List<InformationTitle> selectTitlesGradeByRelate(List<InformationTitle> tList) {
 		for(InformationTitle title : tList){
-			List<InformationDictionary> valueList = selectValuesByTid(title.getId());
+			List<InformationDictionary> valueList = selectValuesByTid(title.getTitleId());
 			title.setValueList(valueList);
 			List<InformationTitle> ptitleList = informationTitleRelateService.selectChildsGradeByPid(title.getId());
 			if(ptitleList !=null && !ptitleList.isEmpty()){
