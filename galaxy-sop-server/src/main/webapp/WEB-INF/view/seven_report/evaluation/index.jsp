@@ -148,8 +148,12 @@ $("#eva-tabs li").click(function(){
 			sendGetRequest(
 				platformUrl.getRelateTitleResults+"1/"+relateId+"/${projectId}", 
 				null,
-				null
-							
+				function(data){
+					if(data.result.status == 'OK')
+					{
+						
+					}
+				}
 			);
 			
 		}
