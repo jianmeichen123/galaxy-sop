@@ -702,3 +702,7 @@ table td select option{
     width: 71%;
     vertical-align: top;
 }
+.radioShow span{
+	display:inline-block;
+	margin-left:10px;
+}
