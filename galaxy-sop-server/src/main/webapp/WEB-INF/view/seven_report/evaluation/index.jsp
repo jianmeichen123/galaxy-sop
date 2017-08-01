@@ -32,23 +32,22 @@ var pageId = "project";
 <div class="ritmin">
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
-       	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav1 active" onclick="testChange('0')">项目<br />评测</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('1')">团队<br/>评测</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('2')">运营<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('3')">竞争<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('4')">融资<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="testChange('5')">退出<br />测评</li>
+       	<ul class="h_navbar clearfix" id="eva-tabs">
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO1" data-relate-id="1001">项目<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO2" data-relate-id="1031">团队<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO3" data-relate-id="1071">运营<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO4" data-relate-id="1091">竞争<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO5" data-relate-id="1110">融资<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO6" data-relate-id="1116">退出<br />测评</li>
 		</ul>
 		<div class="test_top">
-			<ul class="clearfix">
+			<ul class="clearfix" id="title-info">
 				<li class="test_top_first">项目综合测评得分:<span>90</span></li>
 				<li>项目评测得分:<span>23</span></li>
 				<li>权重:<span>30%</span></li>
 				<li class="test_top_last">
 					<em>保存</em>
 				</li>
-				
 			</ul>
 		</div>
 		<table border="1" cellpadding="5" style="table-layout:fixed;word-break:break-all;">
@@ -120,31 +119,51 @@ var pageId = "project";
 
 <script type="text/javascript">
 createMenus(5);
-//页面数据
-sendGetRequest(platformUrl.queryAllTitleValues+"ENO2?reportType=1", null,
-	function(data){
-	var result = data.result.status;
-	if (result == 'OK') {
-		var entity = data.entity;
-		console.log(entity)
-		$("#test_tmpl").tmpl(entity).appendTo('#page_all');
-		/*显示结果  */
-		/* 16类型内容处理 */
-
-		var content_16 = $(".content_16").text();		
-		content_16=content_16.replace(/<sitg>/g,'（');
-		content_16=content_16.replace(/<\/sitg>/g,'）');
-		$(".content_16").text(content_16); 
+$("#eva-tabs li").click(function(){
+	var $li = $(this);
+	if($li.hasClass('active'))
+	{
+		return;
 	}
+	var code = $li.data('code');
+	var relateId = $li.data('relateId');
+	$li.siblings().removeClass('active');
+	$li.addClass('active');
+	sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType=1", null,
+		function(data){
+		var result = data.result.status;
+		if (result == 'OK') {
+			
+			$('#page_all').empty();
+			var entity = data.entity;
+			console.log(entity)
+			$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+			/*显示结果  */
+			/* 16类型内容处理 */
 	
-})
-// 
-$.getTabHtml({
-		url : platformUrl.toOperateInfo ,
-		okback:function(){
-			right_anchor("ENO2?reportType=1");
+			var content_16 = $(".content_16").text();		
+			content_16=content_16.replace(/<sitg>/g,'（');
+			content_16=content_16.replace(/<\/sitg>/g,'）');
+			$(".content_16").text(content_16); 
+			sendGetRequest(
+				platformUrl.getRelateTitleResults+"1/"+relateId+"/${projectId}", 
+				null,
+				null
+							
+			);
+			
 		}
 	});
+	$.getTabHtml({
+		url : platformUrl.toOperateInfo ,
+		okback:function(){
+			right_anchor(code+"?reportType=1");
+		}
+	});
+});
+$("#eva-tabs li:eq(0)").click();
+// 
+
 
 
 
