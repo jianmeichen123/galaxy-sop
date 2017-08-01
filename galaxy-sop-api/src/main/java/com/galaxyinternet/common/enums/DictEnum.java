@@ -390,7 +390,8 @@ public enum DictEnum {
 	public enum fileStatus{
 		缺失("缺失","fileStatus:1"),
 		已上传("已上传","fileStatus:2"),
-		已签署("已签署","fileStatus:3");
+		已签署("已签署","fileStatus:3"),
+		已放弃("已放弃","fileStatus:4");
 		
 		private String name;
 		private String code;

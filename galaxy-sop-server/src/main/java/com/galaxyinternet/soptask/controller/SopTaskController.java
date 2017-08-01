@@ -361,6 +361,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value = "/submitTask", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> submitTask(@RequestBody SopTask entity,HttpServletRequest request) {
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		entity.setAssignUid(user.getId());
 		SopFile sipFile =new SopFile();
 		if(entity.getId() == null){
 			responseBody.setResult(new Result(Status.ERROR,null,"缺失必须的参数!"));

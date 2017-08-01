@@ -524,6 +524,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			SopFile f = sopFileDao.selectOne(file);
 			if(giveUp==true){
+				f.setFileUid(task.getAssignUid());
                 f.setFileStatus("fileStatus:4");
 			}
 			f.setFileValid(1);
