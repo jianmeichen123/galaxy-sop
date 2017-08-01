@@ -50,6 +50,12 @@
 			<if test="reportType != null"> and r.report_type =#{reportType}</if>
 			<if test="projectId != null">and rt.project_id =#{projectId}</if>
 			<if test="code != null">AND r.code LIKE CONCAT(#{code},'%')</if>
+			<if test="ids != null">
+					and r.id in 
+					<foreach collection="ids" item="item" open="(" separator="," close=")">
+					#{item}
+					</foreach>
+				</if>
 			</trim>
 		</where>
 	</select>

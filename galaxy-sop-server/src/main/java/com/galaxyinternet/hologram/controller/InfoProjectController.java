@@ -133,18 +133,19 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	@ApiOperation("查询页面标题及结果")
 	@ApiImplicitParams(
 		value = {
+			@ApiImplicitParam(name="reportType", value="报告类型",paramType="path",required=true),
 			@ApiImplicitParam(name="realteId", value="标题relate id",paramType="path",required=true),
 			@ApiImplicitParam(name="projectId", value="项目id",paramType="path",required=true)
 		}	
 	)
 	@ResponseBody
-	@RequestMapping(value="/getRelateTitleResults/{realteId}/{projectId}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InformationTitle> getRelateTitleResults(@PathVariable String realteId, @PathVariable String projectId)
+	@RequestMapping(value="/getRelateTitleResults/{reportType}/{realteId}/{projectId}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> getRelateTitleResults(Integer reportType,@PathVariable Long realteId, @PathVariable Long projectId)
 	{
 		ResponseData<InformationTitle> data = new ResponseData<>();
 		try
 		{
-			List<InformationTitle> list = titleService.searchRelateTitleWithData(realteId, projectId);
+			List<InformationTitle> list = titleService.searchRelateTitleWithData(reportType, realteId, projectId);
 			data.setEntityList(list);
 			
 		} catch (Exception e)

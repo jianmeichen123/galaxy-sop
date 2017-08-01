@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -23,7 +25,9 @@ import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
@@ -57,7 +61,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
 	@Autowired
-	private LocalCache localCache;
+	private LocalCache<String,Object> localCache;
 	@Autowired
 	private ScoreInfoService scoreInfoService;
 	
@@ -732,79 +736,118 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		}
 	}
 
-
-
-
 	@Override
-	public List<InformationTitle> searchRelateTitleWithData(String relateId, String projectId)
+	public List<InformationTitle> searchRelateTitleWithData(final Integer reportType, final Long relateId, final Long projectId)
 	{
-		InformationTitle title = getRelateTitleById(Long.valueOf(relateId));
-		if(title != null)
+		final TitleInfoWapper titleInfo = getTitleCache(reportType, relateId);
+		if(titleInfo.getRelateIdMap() == null || titleInfo.getRelateIdMap().size() == 0)
 		{
-			String code = title.getCode();
-			InformationTitle query = new InformationTitle();
-			query.setCode(code);
-			List<InformationTitle> list = informationTitleDao.selectRelateTitle(query);
-			if(list != null && list.size() >0)
-			{
-				for(InformationTitle item : list)
+			return null;
+		}
+		List<InformationTitle> list = new ArrayList<>();
+		try
+		{
+			ExecutorService threadPool = GalaxyThreadPool.getExecutorService();
+			final CountDownLatch countDownLatch = new CountDownLatch(5);
+			threadPool.submit(new Runnable(){
+				@Override
+				public void run()
 				{
-					//普通结果
-					Long id = item.getId();
-					InformationResult resultQuery = new InformationResult();
-					resultQuery.setTitleId(id+"");
-					resultQuery.setProjectId(projectId);
-					List<InformationResult> resultList = resultDao.selectList(resultQuery);
-					item.setResultList(resultList);
-					//固定表格
-					InformationFixedTable fixedTableQuery = new InformationFixedTable();
-					fixedTableQuery.setProjectId(projectId);
-					fixedTableQuery.setTitleId(id+"");
-					List<InformationFixedTable> fixedTableList = fixedTableDao.selectList(fixedTableQuery);
-					item.setFixedTableList(fixedTableList);
-					
-					//动态表格
-					InformationListdataRemark header = headerDao.selectByTitleId(id);
-					item.setTableHeader(header);
-					
-					InformationListdata listdataQuery = new InformationListdata();
-					listdataQuery.setProjectId(Long.valueOf(projectId));
-					listdataQuery.setTitleId(id);
-					listdataQuery.setProperty("created_time");
-					listdataQuery.setDirection(Direction.ASC.toString());
-					List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
-					item.setDataList(listdataList);
-					
-					ScoreInfo scoreInfo = scoreInfoService.queryById(item.getRelateId());
-					if(scoreInfo != null)
-					{
-						//权重
-						BigDecimal weight = scoreInfoService.getWeight(item.getRelateId(), Long.valueOf(projectId));
-						if(weight != null)
-						{
-							item.setWeight(weight);
-						}
-						//分数选项
-						List<ScoreAutoInfo> autoList = scoreInfo.getAutoList();
-						if(autoList!=null && autoList.size()>0)
-						{
-							Integer scoreType = scoreInfo.getScoreType();
-							if( scoreType!=null && scoreType.intValue() == 1)
-							{
-								item.setAutoList(autoList);
-							}
-						}
-					}
-					
-					
-					
-					
+					getAndSetFixedTable(projectId, titleInfo);
+					countDownLatch.countDown();
+				}
+			});
+			
+			threadPool.submit(new Runnable(){
+				@Override
+				public void run()
+				{
+					getAndSetTableHeader(titleInfo);
+					countDownLatch.countDown();
+				}
+			});
+			threadPool.submit(new Runnable(){
+				@Override
+				public void run()
+				{
+					getAndSetTableContent(projectId, titleInfo);
+					countDownLatch.countDown();
+				}
+			});
+			
+			threadPool.submit(new Runnable(){
+				@Override
+				public void run()
+				{
+					getAndSetResult(projectId, titleInfo);
+					countDownLatch.countDown();
+				}
+			});
+			
+			threadPool.submit(new Runnable(){
+				@Override
+				public void run()
+				{
+					getAndSetScore(projectId, titleInfo);
+					countDownLatch.countDown();
+				}
+				
+			});
+			countDownLatch.await();
+			
+			list.addAll(titleInfo.getRelateIdMap().values());
+		} catch (InterruptedException e)
+		{
+			throw new BusinessException("获取结果错误",e);
+		}
+		return list;
+		
+	}
+	
+	public TitleInfoWapper getTitleCache(Integer reportType,Long relateId)
+	{
+		TitleInfoWapper result = null;
+		String key = "titleRelate:"+reportType+":"+relateId;
+		if(localCache.containsKey(key))
+		{
+			result = (TitleInfoWapper)localCache.get(key);
+		}
+		else
+		{
+			List<InformationTitle> titles = new ArrayList<>();
+			InformationTitle title = null;
+			if(0l == relateId)
+			{
+				title = new InformationTitle();
+				title.setRelateId(relateId);
+				title.setReportType(reportType);
+				titles.add(title);
+				
+				InformationTitle query = new InformationTitle();
+				query.setParentId(relateId+"");
+				query.setReportType(reportType);
+				List<InformationTitle> children = informationTitleDao.selectRelateTitle(query);
+				if(children != null && children.size() > 0)
+				{
+					title = children.iterator().next();
 				}
 			}
-			return list;
+			else
+			{
+				title = getRelateTitleById(Long.valueOf(relateId));
+			}
+			if(title != null)
+			{
+				String code = title.getCode();
+				InformationTitle query = new InformationTitle();
+				query.setCode(code);
+				List<InformationTitle> list = informationTitleDao.selectRelateTitle(query);
+				titles.addAll(list);
+			}
+			result = new TitleInfoWapper(titles);
+			localCache.put(key,  result);
 		}
-		
-		return null;
+		return result;
 	}
 	
 	public InformationTitle getRelateTitleById(Long id)
@@ -819,5 +862,215 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		return null;
 	}
 	
+	private static final class TitleInfoWapper
+	{
+		private Set<String> ids;
+		private Set<Long> relateIds;
+		private Map<String,InformationTitle> idMap = new HashMap<>();
+		private Map<Long,InformationTitle> relateIdMap = new HashMap<>();
+		
+		public TitleInfoWapper(List<InformationTitle> list)
+		{
+			if(list != null && list.size()>0)
+			{
+				for(InformationTitle item : list)
+				{
+					if(item.getId() != null)
+					{
+						idMap.put(item.getId()+"", item);
+					}
+					if(item.getRelateId() != null)
+					{
+						relateIdMap.put(item.getRelateId(), item);
+					}
+				}
+				ids = idMap.keySet();
+				relateIds = relateIdMap.keySet();
+			}
+		}
+
+		public Set<String> getIds()
+		{
+			return ids;
+		}
+
+		public Set<Long> getRelateIds()
+		{
+			return relateIds;
+		}
+
+		public Map<String, InformationTitle> getIdMap()
+		{
+			return idMap;
+		}
+
+		public Map<Long, InformationTitle> getRelateIdMap()
+		{
+			return relateIdMap;
+		}
+	}
+	
+	
+	/**
+	 * 固定表格
+	 * @param projectId
+	 * @param titleInfo
+	 */
+	public void getAndSetFixedTable(Long projectId, TitleInfoWapper titleInfo)
+	{
+		InformationFixedTable fixedTableQuery = new InformationFixedTable();
+		fixedTableQuery.setProjectId(projectId+"");
+		fixedTableQuery.setTitleIds(titleInfo.getIds());
+		List<InformationFixedTable> fixedTableList = fixedTableDao.selectList(fixedTableQuery);
+		if(fixedTableList != null && fixedTableList.size() < 0)
+		{
+			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			for(InformationFixedTable item : fixedTableList)
+			{
+				String titleId = item.getTitleId();
+				if(idMap.containsKey(titleId))
+				{
+					InformationTitle title = idMap.get(titleId);
+					List<InformationFixedTable> list = null;
+					if(title.getFixedTableList() == null)
+					{
+						list = new ArrayList<>();
+						title.setFixedTableList(list);
+					}
+					title.getFixedTableList().add(item);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 动态表格-表头
+	 * @param titleInfo
+	 */
+	public void getAndSetTableHeader(TitleInfoWapper titleInfo)
+	{
+		InformationListdataRemark headerQuery = new InformationListdataRemark();
+		headerQuery.setTitleIds(titleInfo.getIds());
+		List<InformationListdataRemark> headers = headerDao.selectList(headerQuery);
+		if(headers != null && headers.size()>0)
+		{
+			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			for(InformationListdataRemark item : headers)
+			{
+				String titleId = item.getTitleId()+"";
+				if(idMap.containsKey(titleId))
+				{
+					InformationTitle title = idMap.get(titleId);
+					title.setTableHeader(item);
+				}
+			}
+		}
+	}
+	/**
+	 * 表格内容
+	 * @param projectId
+	 * @param titleInfo
+	 */
+	public void getAndSetTableContent(Long projectId, TitleInfoWapper titleInfo)
+	{
+		InformationListdata listdataQuery = new InformationListdata();
+		listdataQuery.setProjectId(Long.valueOf(projectId));
+		listdataQuery.setTitleIds(titleInfo.getIds());
+		listdataQuery.setProperty("project_id,created_time");
+		listdataQuery.setDirection(Direction.ASC.toString());
+		List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
+		if(listdataList != null && listdataList.size()>0)
+		{
+			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			for(InformationListdata item : listdataList)
+			{
+				String titleId = item.getTitleId()+"";
+				if(idMap.containsKey(titleId))
+				{
+					InformationTitle title = idMap.get(titleId);
+					List<InformationListdata> list = null;
+					if(title.getFixedTableList() == null)
+					{
+						list = new ArrayList<>();
+						title.setDataList(list);;
+					}
+					title.getDataList().add(item);
+				}
+			}
+		}
+	}
+	/**
+	 * 	普通结果
+	 * @param projectId
+	 * @param titleInfo
+	 */
+	public void getAndSetResult(Long projectId, TitleInfoWapper titleInfo)
+	{
+		InformationResult resultQuery = new InformationResult();
+		resultQuery.setTitleIds(titleInfo.getIds());
+		resultQuery.setProjectId(projectId+"");
+		List<InformationResult> resultList = resultDao.selectList(resultQuery);
+		if(resultList != null && resultList.size()>0)
+		{
+			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			for(InformationResult item : resultList)
+			{
+				String titleId = item.getTitleId()+"";
+				if(idMap.containsKey(titleId))
+				{
+					InformationTitle title = idMap.get(titleId);
+					List<InformationResult> list = null;
+					if(title.getResultList() == null)
+					{
+						list = new ArrayList<>();
+						title.setResultList(list);;
+					}
+					title.getResultList().add(item);
+				}
+			}
+		}
+	}
+	/**
+	 * 分数权重
+	 * @param projectId
+	 * @param titleInfo
+	 */
+	public void getAndSetScore(Long projectId, TitleInfoWapper titleInfo)
+	{
+		ScoreInfo scoreQuery = new ScoreInfo();
+		scoreQuery.setIds(titleInfo.getRelateIds());
+		List<ScoreInfo> scoreList= scoreInfoService.queryList(scoreQuery);
+		if(scoreList != null && scoreList.size()>0)
+		{
+			Map<Long,InformationTitle> relateIdMap = titleInfo.getRelateIdMap();
+			for(ScoreInfo score : scoreList)
+			{
+				Long rId = score.getRelateId();
+				if(relateIdMap.containsKey(rId))
+				{
+					InformationTitle title = relateIdMap.get(rId);
+					//权重
+					if(score != null && score.getProcessMode() != null && 1 == score.getProcessMode().intValue())
+					{
+						BigDecimal weight = scoreInfoService.getWeight(score.getRelateId(), Long.valueOf(projectId));
+						if(weight != null)
+						{
+							title.setWeight(weight);
+						}
+					}
+					//分数选项
+					List<ScoreAutoInfo> autoList = score.getAutoList();
+					if(autoList!=null && autoList.size()>0)
+					{
+						Integer scoreType = score.getScoreType();
+						if( scoreType!=null && scoreType.intValue() == 1)
+						{
+							title.setAutoList(autoList);
+						}
+					}
+				}
+			}
+		}
+	}
 	
 }

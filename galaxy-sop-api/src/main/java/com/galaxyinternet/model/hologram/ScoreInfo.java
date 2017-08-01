@@ -2,6 +2,7 @@ package com.galaxyinternet.model.hologram;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
@@ -22,6 +23,7 @@ public class ScoreInfo extends BaseEntity
 	private BigDecimal score;
 	private List<ScoreAutoInfo> autoList;
 	private List<ScoreValue> valueList;
+	private Set<Long> ids;
 	public Long getRelateId()
 	{
 		return relateId;
@@ -109,6 +111,14 @@ public class ScoreInfo extends BaseEntity
 	public void setValueList(List<ScoreValue> valueList)
 	{
 		this.valueList = valueList;
+	}
+	public Set<Long> getIds()
+	{
+		return ids;
+	}
+	public void setIds(Set<Long> ids)
+	{
+		this.ids = ids;
 	}
 	
 	
