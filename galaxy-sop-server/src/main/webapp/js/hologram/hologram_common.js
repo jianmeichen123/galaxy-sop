@@ -131,7 +131,7 @@ function tabInfoChange(index){
 		 $.getTabHtmlInfo({
 				url : platformUrl.toProjectInfo ,
 				okback:function(){
-					right_anchor(2);
+					right_anchor("NO2");
 					$("[data-id='tab-block']").next("ul").remove();
 					$("#tab-content").remove()
 				}
@@ -143,7 +143,7 @@ function tabInfoChange(index){
 			$.getTabHtmlInfo({
 				url : platformUrl.toTeamInfo ,
 				okback:function(){
-					right_anchor(3);
+					right_anchor("NO3");
 				}
 			});
 		}
@@ -153,7 +153,7 @@ function tabInfoChange(index){
 			$.getTabHtml({
 				url : platformUrl.toOperateInfo ,
 				okback:function(){
-					right_anchor(4);
+					right_anchor("NO4");
 				}
 			});
 		}
@@ -163,7 +163,7 @@ function tabInfoChange(index){
 			$.getTabHtml({
 				url : platformUrl.toCompeteInfo ,
 				okback:function(){
-					right_anchor(5);
+					right_anchor("NO5");
 				}
 			});
 		}
@@ -173,7 +173,7 @@ function tabInfoChange(index){
 			$.getTabHtml({
 				url : platformUrl.toPlanInfo ,
 				okback:function(){
-					right_anchor(6);
+					right_anchor("NO6");
 				}
 			});
 		}
@@ -183,7 +183,7 @@ function tabInfoChange(index){
 			$.getTabHtml({
 				url : platformUrl.toFinanceInfo ,
 				okback:function(){
-					right_anchor(7);
+					right_anchor("NO7");
 				}
 			});
 		}
@@ -193,7 +193,7 @@ function tabInfoChange(index){
 			$.getTabHtml({
 				url : platformUrl.toJusticeInfo ,
 				okback:function(){
-					right_anchor(8);
+					right_anchor("NO8");
 				}
 			});
 		}
@@ -203,7 +203,7 @@ function tabInfoChange(index){
 			$.getTabHtml({
 				url : platformUrl.toValuationInfo ,
 				okback:function(){
-					right_anchor(9);
+					right_anchor("NO9");
 				}
 			});
 		}

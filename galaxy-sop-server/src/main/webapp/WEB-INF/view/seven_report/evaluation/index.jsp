@@ -121,7 +121,7 @@ var pageId = "project";
 <script type="text/javascript">
 createMenus(5);
 //页面数据
-sendGetRequest(platformUrl.queryAllTitleValues+ "ENO2?reportType=1", null,
+sendGetRequest(platformUrl.queryAllTitleValues+"ENO2?reportType=1", null,
 	function(data){
 	var result = data.result.status;
 	if (result == 'OK') {
@@ -134,13 +134,17 @@ sendGetRequest(platformUrl.queryAllTitleValues+ "ENO2?reportType=1", null,
 		var content_16 = $(".content_16").text();		
 		content_16=content_16.replace(/<sitg>/g,'（');
 		content_16=content_16.replace(/<\/sitg>/g,'）');
-		$(".content_16").text(content_16);
-		 
+		$(".content_16").text(content_16); 
 	}
 	
 })
-//测试
-
+// 
+$.getTabHtml({
+		url : platformUrl.toOperateInfo ,
+		okback:function(){
+			right_anchor("ENO2?reportType=1");
+		}
+	});
 
 
 

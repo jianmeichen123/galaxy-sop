@@ -120,7 +120,7 @@ function initTabInfomation(){
 	$.getTabHtml({
 		url : platformUrl.toBaseInfo,
 		okback:function(data){
-			right_anchor(1);
+			right_anchor("NO1");
 		}
 		/*okback:function(){
 			 $('.h_navbar').tabLazyChange({
@@ -218,7 +218,7 @@ function right_anchor(i){
 		url :'/sop/html/right_anchor.html' ,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			sendGetRequest(platformUrl.queryAllTitleValues + "NO"+i, null,
+			sendGetRequest(platformUrl.queryAllTitleValues+i, null,
 					function(data) {
 						console.log(data);
 						var result = data.result.status;

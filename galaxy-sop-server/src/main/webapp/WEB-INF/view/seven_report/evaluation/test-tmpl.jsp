@@ -4,7 +4,7 @@
 <script id="test_tmpl" type="text/x-jquery-tmpl">
 
 {{each(i,childList) childList}}
-	<tr id="\${relateCode}" class="evl_module">
+	<tr id="a_\${relateCode}" class="evl_module">
 		<td rowspan="\${childList.length}">\${name}</td>				
 		{{each(i,childList) childList}}
 			{{if i==0}}

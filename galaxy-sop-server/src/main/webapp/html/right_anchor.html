@@ -14,22 +14,38 @@
  		</ul>
 	</nav>
 	 <script id="nav_tmpl" type="text/x-jquery-tmpl">
-	{{if name == '基础信息' || name == '竞争'}}
+{{if name == '基础信息' || name == '竞争'}}
 		{{each(i,childList) childList}}
-			{{if i==0}}
-			<li class='${code} active'><a href="#${code}">${name}</a></li>
+			{{if relateCode}}
+				{{if i==0}}
+					<li class='${relateCode} active'><a href="#a_${relateCode}">${name}</a></li>
+					{{else}}
+					<li class='${relateCode}'><a href="#a_${relateCode}">${name}</a></li>
+				{{/if}}
 			{{else}}
-			<li class='${code}'><a href="#${code}">${name}</a></li>
-			{{/if}}	
+				{{if i==0}}
+					<li class='${code} active'><a href="#${code}">${name}</a></li>
+					{{else}}
+					<li class='${code}'><a href="#${code}">${name}</a></li>
+				{{/if}}	
+			{{/if}}
 		{{/each}}
 {{else}}
 {{each(i,childList) childList}}
-			{{if i==0}}
+	{{if relateCode}}
+		{{if i==0}}
+			<li class='a_${relateCode} active'><a href="#a_${relateCode}">${name}</a></li>
+			{{else}}
+			<li class='a_${relateCode}'><a href="#a_${relateCode}">${name}</a></li>
+		{{/if}}	
+	{{else}}
+		{{if i==0}}
 			<li class='a_${code} active'><a href="#a_${code}">${name}</a></li>
 			{{else}}
 			<li class='a_${code}'><a href="#a_${code}">${name}</a></li>
-			{{/if}}	
-		{{/each}}
+		{{/if}}
+	{{/if}}	
+{{/each}}
 {{/if}}
     </script>
 </body>
