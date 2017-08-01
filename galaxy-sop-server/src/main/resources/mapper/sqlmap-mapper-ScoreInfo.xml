@@ -28,7 +28,7 @@
 		SELECT DISTINCT r.id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,a.process_mode,a.dict_id,a.grade
 		FROM information_title_relate r
 		INNER JOIN information_grade g ON r.id = g.title_relate_id
-		INNER JOIN information_grade_auto a ON a.title_relate_id = r.id
+		LEFT JOIN information_grade_auto a ON a.title_relate_id = r.id
 		WHERE 1=1
 		and r.id = #{id,jdbcType=BIGINT}
 	</select>
