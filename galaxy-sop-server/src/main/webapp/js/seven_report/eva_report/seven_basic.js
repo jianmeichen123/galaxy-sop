@@ -83,7 +83,7 @@ function get_result(code,e_type,dom){
 				 if(entity.type==14||entity.type==3||entity.type==32||entity.type==5||entity.type==6||entity.type==12||entity.type==13){
 					 $.each(valueList,function(i,n){
 						 if(n.name=="其他"){
-						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
+						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><span>"+n.name+"</span><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
 						 }else{
 						 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
 						 }

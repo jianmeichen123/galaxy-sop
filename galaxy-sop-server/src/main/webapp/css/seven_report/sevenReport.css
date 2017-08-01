@@ -696,3 +696,9 @@ table td select option{
 	margin-left: 10px;
 }
 .div_tmpl{height:100%;}
+.radioShow label{
+	display: inline-block;
+    padding-right: 10px;
+    width: 71%;
+    vertical-align: top;
+}
