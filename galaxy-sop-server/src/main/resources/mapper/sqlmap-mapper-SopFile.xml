@@ -161,7 +161,7 @@
 			where	sf.project_id = sp.id
 			and		(select dict.dict_value  from dict where dict.dict_code = sp.project_progress) >= (select dict.dict_value  from dict where dict.dict_code = sf.project_progress)
 			and		sf.file_worktype is not null and sf.file_worktype != 'fileWorktype:12'
-			<![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]>
+			<!-- <![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]> -->
 			<include refid="Page_Where_Clause" />
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="offset != null and limit != null">

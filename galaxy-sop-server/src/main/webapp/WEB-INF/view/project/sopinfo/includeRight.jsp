@@ -75,7 +75,7 @@
                         <li><span class="gray_dot"></span>会后商务谈判</li>
                         <li><span class="gray_dot"></span>投资意向书</li>
                         <li><span class="gray_dot"></span>尽职调查</li>
-                        <li><span class="gray_dot"></span>投决会</li>
+                        <li><span class="gray_dot"></span>投资决策会</li>
                         <li><span class="gray_dot"></span>投资协议</li>
                         <li><span class="gray_dot"></span>股权交割</li>
                         <li><span class="gray_dot"></span>投后运营</li>
