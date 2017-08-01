@@ -277,7 +277,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		InformationTitle title = null;
 		try{
-			boolean useCacha = false; //开关
+			boolean useCacha = true; //开关
 			boolean toCache = false;
 			
 			try {
