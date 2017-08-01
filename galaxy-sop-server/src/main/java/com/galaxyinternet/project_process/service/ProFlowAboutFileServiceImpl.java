@@ -239,7 +239,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setRecordType(RecordType.PROJECT.getType());
 				file.setFilUri(url);
 				file.setFileSource(DictEnum.fileSource.内部.getCode());
-				file.setFileType(DictEnum.fileType.图片.getCode());
+				file.setFileType(getFileType(result.getFileSuffix()));
 				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				file.setId(null);
 				sopFileDao.insert(file);
@@ -256,7 +256,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				oldFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				oldFile.setFileUid(file.getFileUid());
 				oldFile.setFileSource(DictEnum.fileSource.内部.getCode());
-				oldFile.setFileType(DictEnum.fileType.图片.getCode());
+				oldFile.setFileType(getFileType(result.getFileSuffix()));
 				oldFile.setProjectProgress(file.getProjectProgress());
 				sopFileDao.updateById(oldFile);
 				resultFile = oldFile;
@@ -277,7 +277,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				oldFile.setFileUid(file.getFileUid());
 				oldFile.setFileValid(0);
 				oldFile.setFileSource(DictEnum.fileSource.内部.getCode());
-				oldFile.setFileType(DictEnum.fileType.图片.getCode());
+				oldFile.setFileType(getFileType(result.getFileSuffix()));
 				oldFile.setProjectProgress(file.getProjectProgress());
 				sopFileDao.updateById(oldFile);
 				
@@ -303,8 +303,20 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		return resultFile;
 	}
 	
-	
-	
+	/**
+	 * 判断上传文档上传的类型
+	 * @param fileSuffix
+	 * @return
+	 */
+	public String getFileType(String fileSuffix){
+		String fileType = DictEnum.fileType.图片.getCode();
+		if(fileSuffix.contains("PDF") || fileSuffix.contains("pdf")
+				|| fileSuffix.contains("xls") || fileSuffix.contains("xlsx") 
+				|| fileSuffix.contains("XLS") || fileSuffix.contains("XLSX")){
+			fileType = DictEnum.fileType.文档.getCode();
+		}
+		return fileType;
+	}
 	
 	
 }
