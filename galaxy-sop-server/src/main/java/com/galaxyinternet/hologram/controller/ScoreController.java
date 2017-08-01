@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class ScoreController
 	private ScoreInfoService scoreService;
 	
 	@SuppressWarnings({"rawtypes","unchecked"})
-	@RequestMapping(value="calculateScore", method=RequestMethod.POST)
+	@RequestMapping(value="calculateScore", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation("计算题目分数-当前题分数以及子项标题分数")
 	@ApiResponses(
 		value={
@@ -109,7 +110,7 @@ public class ScoreController
 		return data;
 	}
 	@SuppressWarnings({"rawtypes","unchecked"})
-	@RequestMapping(value="getScores", method=RequestMethod.GET)
+	@RequestMapping(value="getScores", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation("获取分数-当前题分数以及子项标题分数")
 	@ApiImplicitParams(value={
 			@ApiImplicitParam(name="parentId", value="标题的relateId",required=true,paramType="query" ),	

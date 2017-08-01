@@ -138,7 +138,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		}	
 	)
 	@ResponseBody
-	@RequestMapping(value="/getRelateTitleResults/{realteId}/{projectId}",method=RequestMethod.GET)
+	@RequestMapping(value="/getRelateTitleResults/{realteId}/{projectId}",method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InformationTitle> getRelateTitleResults(@PathVariable String realteId, @PathVariable String projectId)
 	{
 		ResponseData<InformationTitle> data = new ResponseData<>();
