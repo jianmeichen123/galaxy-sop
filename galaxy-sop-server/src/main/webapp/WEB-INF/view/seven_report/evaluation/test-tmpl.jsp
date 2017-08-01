@@ -129,13 +129,13 @@
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"></div>
+						<div class="align_left">sign==3</div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${code}"></span>
 					</td>
 				{{else sign==1}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"></div>
-						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${code}"></span>
+						<div class="align_left">sign==1</div>
+						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{/if}}	
 				{{each(i,informationGrades) informationGrades }}
@@ -366,13 +366,13 @@
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"></div>
+						<div class="align_left">sign==3</div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${code}"></span>
 					</td>
 				{{else sign==1}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"></div>
-						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${code}"></span>
+						<div class="align_left">sign==1</div>
+						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{/if}}	
 				{{if type}}
@@ -443,8 +443,9 @@
 <!-- 编辑悬浮弹窗模板 -->
 <script id="edit_tmpl1" type="text/x-jquery-tmpl">
 	<div class="div_tmpl">
-		{{if type==8}}
+		{{if type==8 || type==15}}
 			<textarea placeholder="\${placeholder}" data-id="\${id}" maxlength="\${valRuleMark}" data-must="\${isMust}"></textarea>
+		
 		{{/if}}
 	</div>
 </script>
@@ -463,10 +464,198 @@
 				<span class="h_cancel_btn">取消</span>
 			</div>
 			<div class="h_title">\${name}</div>
-			{{if type==8}}
-				<textarea placeholder="\${placeholder}" data-id="\${id}" maxlength="\${valRuleMark}" data-must="\${isMust}"></textarea>
-			{{/if}}
+		 	{{each(i,childList) childList}}
+					<div class="mb_16">
+					    <dl class="h_edit_txt clearfix">
+							<dt data-type="\${type}"  data-title-id="\${id}" data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+							{{if type=="1"}}
+							<dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
 
+							{{else type=="2"}}
+							<dd class="fl_none">
+							<ul class="h_radios clearfix">
+								{{each(i,valueList) valueList}}
+								<li><input type="radio" value="\${id}" data-title-id="\${titleId}" data-type="\${type}" name="\${titleId}" data-must="\${isMust}"/>\${name}</li>
+								{{/each}}
+							  </ul>
+							</dd>
+
+							{{else type=="3"}}
+							<dd class="fl_none">
+							<ul class="h_edit_checkbox clearfix" data-type="\${type}">
+								{{each(i,valueList) valueList}}
+								<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
+								{{/each}}
+							  </ul>
+							</dd>
+
+							{{else type=="4"}}
+								{{each(i,valueList) valueList}}
+								<dd>
+								  <select name="" id="" data-must="\${isMust}">
+									<option value="">\${name}</option>
+								  </select>
+								</dd>
+								{{/each}}
+
+							{{else type=="5"}}
+							<dd>
+							<ul class="h_radios clearfix">
+								{{each(i,valueList) valueList}}
+								<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-must="\${isMust}"/>\${name}</li>
+								{{/each}}
+							  </ul>
+							</dd>
+							<dd class="fl_none">
+								<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
+								<p class="num_tj">
+									<label for="">500</label>/500
+								</p>
+							</dd>
+
+
+							{{else type=="6"}}
+							{{each(i,valueList) valueList}}
+							<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${code}">\${name}</dd>
+							{{/each}}
+								<dd class="fl_none">
+									<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");'></textarea>
+									<p class="num_tj">
+										<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+									</p>
+								</dd>
+							{{else type=="7"}}
+								<dd class="fl_none clearfix">
+								 <ul class="h_imgs" id="edit-\${id}">
+
+								 </ul>
+								 <ul class="h_imgs">
+									<li class="h_imgs_add" id="h_imgs_add_\${id}"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
+								</ul>
+								</dd>
+								<dd class="fl_none red img_prompt">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
+							{{else type=="8"}}
+								<dd class="fl_none">
+									<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");' data-must="\${isMust}"  name="\${id}"></textarea>
+									<p class="num_tj">
+										<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+									</p>
+								</dd>
+							{{else type=="9"}}
+								<dd class="fl_none">
+								<table>
+									<tr>
+									<th></th>
+									<th colspan="2">\${$data.childList[4].childList[0].name}</th>
+									<th>\${$data.childList[4].childList[1].name}</th>
+									</tr>
+									<tr>
+									 <th class="fixed_table_td">上游</th>
+									 <td class="fixed_table_td">供应商</td>
+									{{each(i,childList) childList}}
+									 <td>
+									<ul class="h_radios clearfix">
+										{{each(i,valueList) valueList}}
+											<li><input type="radio"/>\${name}</li>
+										{{/each}}
+
+										 </ul>
+									</td>
+									{{/each}} 
+									</tr>
+									<tr>
+									 	<th rowspan="2" class="fixed_table_td">下游</th>
+									 	<td class="fixed_table_td">主要渠道</td>
+										{{each(i,childList) childList}}
+										 	<td>
+												<ul class="h_radios clearfix">
+													{{each(i,valueList) valueList}}
+										      		<li><input type="radio"/>\${name}</li>
+													{{/each}}
+
+										   		</ul>
+											</td>
+										{{/each}} 
+									</tr>
+									<tr>
+									 	<td class="fixed_table_td">主要客户</td>
+										{{each(i,childList) childList}}
+											<td>
+											<ul class="h_radios clearfix">
+											{{each(i,valueList) valueList}}
+												<li><input type="radio"/>\${name}</li>
+											{{/each}}
+
+											</ul>
+											</td>
+										{{/each}} 
+									</tr>
+								</table>
+								</dd>
+							{{else type=="10"}}
+								<dd class="fl_none">
+									<table data-title-id="\{id}" class="editable"></table>
+									<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
+								</dd>
+
+							{{else type=="11"}}
+								<dd>项目带过来的数据</dd>
+							
+							{{else type=="12"}}
+								<dd class="fl_none">
+								<ul class="h_radios clearfix">
+									{{each(i,valueList) valueList}}
+									<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${code}" data-must="\${isMust}"/>\${name}</li>
+									{{/each}}
+									<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
+								  </ul>
+								</dd>
+							{{else type=="13"}}
+								<dd class="fl_none">
+									<ul class="h_radios h_edit_checkbox  clearfix" data-type="\${type}">
+										{{each(i,valueList) valueList}}
+										<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
+										{{/each}}
+										<li class="text_li text_li_13"><input data-type="\${type}" type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
+								 	 </ul>
+								</dd>
+
+							{{else type=="14"}}
+								<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
+								<option data-value="" data-type="\${type}" data-id="" data-title-id="\${id}" value="1" data-code="">请选择</option>
+								{{each(i,valueList) valueList}}
+									<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
+								{{/each}}
+							</select>
+							{{else type=="15"}}
+
+								<dt data-type="\${type}">\${name}</dt>
+								<dd class="fl_none">
+									<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${placeholder}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");' data-must="\${isMust}" name="\${id}"></textarea>
+									<p class="num_tj">
+										<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+									</p>
+								</dd>
+									<dd class="fl_none">
+									<textarea class="textarea_h" data-title-id="\${id}" data-type="\${type}" placeholder="\${content}" id="\${id}" onInput='countChar("\${id}","label_\${id}","\${valRuleMark}");' data-must="\${isMust}" name="\${id}"></textarea>
+									<p class="num_tj">
+										<label for="" id="label_\${id}">\${valRuleMark}</label>/\${valRuleMark}
+									</p>
+								</dd>
+							{{else type=="16"}}
+								<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+								{{each(i,childList) childList}}
+								<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+								{{each placeholder.split('&')}}
+								<dd class="fl_none"><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" /></dd>
+								{{/each}}
+								{{/each}}
+
+							{{/if}}
+					    </dl>
+					</div>
+				{{/each}}
+			
 
 
 			 
@@ -479,6 +668,7 @@
 		</div>
 	</form>	
 </script>
+
 
 
 

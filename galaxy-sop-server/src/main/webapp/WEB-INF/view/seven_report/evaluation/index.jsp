@@ -77,7 +77,7 @@ var pageId = "project";
 			<span class="show_edit"></span>
 		</div>
 		<!--弹窗2 -->	
-		<div class="h_look h_team_look clearfix ch_opration">
+		<div class="h_look h h_team_look clearfix ch_opration">
 		</div>
 	</div>
 	<!-- 遮罩层 -->
@@ -121,7 +121,7 @@ var pageId = "project";
 <script type="text/javascript">
 createMenus(5);
 //页面数据
-sendGetRequest(platformUrl.queryAllTitleValues+ "ENO1?reportType=1", null,
+sendGetRequest(platformUrl.queryAllTitleValues+ "ENO2?reportType=1", null,
 	function(data){
 	var result = data.result.status;
 	if (result == 'OK') {

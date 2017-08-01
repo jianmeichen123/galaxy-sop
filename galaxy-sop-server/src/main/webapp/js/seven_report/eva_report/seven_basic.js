@@ -10,7 +10,7 @@
 	};
 	
 	
-	//选择题的编辑按钮
+	//编辑按钮
 	function typeEdit(obj){
 		//编辑类型
 		var _this=$(obj);
@@ -69,6 +69,7 @@
 		//给td加自定义属性
 		$(obj).parent().data('edit','true')*/
 	}
+//code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
 	console.log(code);
 	 sendGetRequest(platformUrl.queryAllTitleValues+code,null,function(data){
@@ -81,7 +82,11 @@ function get_result(code,e_type,dom){
 				 var result_html = ""
 				 if(entity.type==14||entity.type==3||entity.type==32||entity.type==5||entity.type==6||entity.type==12||entity.type==13){
 					 $.each(valueList,function(i,n){
-						 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"
+						 if(n.name=="其他"){
+						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
+						 }else{
+						 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
+						 }
 					 })
 				}else if(entity.type==1){
 					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
@@ -92,6 +97,9 @@ function get_result(code,e_type,dom){
 			 }else if(e_type==3){
 				 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
 			 }
+			 
+			//插件回调方法
+				
 		 }
 	 })  
 
@@ -117,93 +125,100 @@ function closeX(obj){
 	$('.mashLayer').hide();
 }	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//插件回调方法
-	$('.others').on('ifChecked',function(event){
-		 $(this).parents('.radioShow').find('.others_text').show();
-		 $(this).attr("checked",true);
-
-
-	});
-	$('.others').on('ifUnchecked',function(event){
-		$(this).parents('.radioShow').find('.others_text').hide();
-	})
-
-	//  对号函数
-	function right(obj,type){
-		//对号，x号消失
-		$(obj).parent().hide();
-		//raido消失
-		var other =$(obj).parent().siblings(".radioShow").find(".others");
-		//取值判断
-		if(type=="radio"){
-			var val = $(obj).parent().parent().find('input[type="radio"]:checked').val();
-		}else if("checkbox"){
-			var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
-			var val='';
-			$.each(val_checkbox,function(){
-				if($(this).val()=="其他"){
-					val += $(this).parents(".radioShow").find(".others_text").val()+'、';
-				}else{
-					val+=$(this).val()+'、';
-				}
-			})
-			var val=val.substring(0,val.length-1);
-		}else if("textarea"){
-
-		}
-
-		if(other.attr("checked") == "checked"){
-			var input_text = other.parents(".radioShow").find(".others_text").val();
-		}
-		$(obj).parent().parent().find('.radioShow').hide();
-		if(val=="其他"){
-			$(obj).parent().parent().find('p').html(input_text);
-		}else{
-			$(obj).parent().parent().find('p').html(val);
-		}
-		$(obj).parent().parent().find('p').show();
-		$(obj).parent().parent().find('p').css('color','#000')
-		$(obj).closest('td').data('edit','false');
-		//select下拉框的值
-		var selectText = $(obj).closest('td').find('.select_long').find("option:selected").text();
-		$(obj).parent().parent().find('.seclect_choose').html(selectText);
-		//console.log(selectText)
-		//select下拉框消失
-		$(obj).closest('td').find('.selectTips').hide();
-		//新添加，弹窗中的
-		$(obj).closest('.gapPopup').hide();
-		$('.mashLayer').hide();
-
+//小弹窗保存方法
+function right(obj,type){
+	//对号，x号消失
+	$(obj).parent().hide();
+	//raido消失
+	var other =$(obj).parent().siblings(".radioShow").find(".others");
+	//取值判断
+	if(type=="radio"){
+		var val = $(obj).parent().parent().find('input[type="radio"]:checked').val();
+	}else if("checkbox"){
+		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
+		var val='';
+		$.each(val_checkbox,function(){
+			if($(this).val()=="其他"){
+				val += $(this).parents(".radioShow").find(".others_text").val()+'、';
+			}else{
+				val+=$(this).val()+'、';
+			}
+		})
+		var val=val.substring(0,val.length-1);
+	}else if("textarea"){
 
 	}
+
+	if(other.attr("checked") == "checked"){
+		var input_text = other.parents(".radioShow").find(".others_text").val();
+	}
+	$(obj).parent().parent().find('.radioShow').hide();
+	if(val=="其他"){
+		$(obj).parent().parent().find('p').html(input_text);
+	}else{
+		$(obj).parent().parent().find('p').html(val);
+	}
+	$(obj).parent().parent().find('p').show();
+	$(obj).parent().parent().find('p').css('color','#000')
+	$(obj).closest('td').data('edit','false');
+	//select下拉框的值
+	var selectText = $(obj).closest('td').find('.select_long').find("option:selected").text();
+	$(obj).parent().parent().find('.seclect_choose').html(selectText);
+	//console.log(selectText)
+	//select下拉框消失
+	$(obj).closest('td').find('.selectTips').hide();
+	//新添加，弹窗中的
+	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
+	$(obj).closest('.gapPopup').hide();
+	$('.mashLayer').hide();
+
+
+}
+
+
+//大弹窗 取消方法
+$('div').delegate(".h_cancel_btn","click",function(event){
+	var _this = $(this).parents(".ch_opration");
+	_this.find("form").remove();
+	_this.hide();
+	$(".mashLayer").hide();
+	event.stopPropagation();
+});
+//大弹窗 保存方法
+$('div').delegate(".h_save_btn","click",function(event){
 	
+	var _this = $(this).parents(".ch_opration");
+	_this.find("form").remove();
+	_this.hide();
+	$(".mashLayer").hide();
+	event.stopPropagation();
+});	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	//遮罩层
 	function pageHeight(){
@@ -371,6 +386,13 @@ function iCheck(){
 	$('input').iCheck({
 		checkboxClass: 'icheckbox_flat-blue',
 		radioClass: 'iradio_flat-blue'
+	})
+	$('.others').on('ifChecked',function(event){
+		 $(this).parents('.radioShow').find('.others_text').show();
+		 $(this).attr("checked",true);
+	});
+	$('.others').on('ifUnchecked',function(event){
+		$(this).parents('.radioShow').find('.others_text').hide();
 	})
 }
 	
