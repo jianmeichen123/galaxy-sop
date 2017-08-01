@@ -270,9 +270,19 @@ var deleteJSON={};
 			{
 				infoMode.value = field.val()
 			}
-			else if(type==1)
-			{
-				infoMode.remark1 = field.val()
+			else if(type==1 || type==19 )
+			{	
+				infoMode.remark1 = field.val();
+			}
+			else if( type==20 )
+			{	
+				infoMode.remark1 = field.val();
+				//infoMode.remark2 = field.parent().parent().children($('select option:selected')).text();
+				var id  = infoMode.titleId
+				var options=$("#"+id+"_select option:selected")
+				var name = options.text();
+				var value =options.val();
+				infoMode.remark2 = name+"p"+value;
 			}
 			else if(type==8)
 			{
