@@ -1037,6 +1037,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 * @param projectId
 	 * @param titleInfo
 	 */
+	@SuppressWarnings("unchecked")
 	public void getAndSetResult(Long projectId, TitleInfoWapper titleInfo)
 	{
 		InformationResult resultQuery = new InformationResult();
@@ -1045,9 +1046,17 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		List<InformationResult> resultList = resultDao.selectList(resultQuery);
 		if(resultList != null && resultList.size()>0)
 		{
+			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
 			for(InformationResult item : resultList)
 			{
+				if(item.getContentChoose() != null)
+				{
+					if(dict != null)
+					{
+						item.setValueName(dict.get(Long.valueOf(item.getContentChoose())));
+					}
+				}
 				String titleId = item.getTitleId()+"";
 				if(idMap.containsKey(titleId))
 				{

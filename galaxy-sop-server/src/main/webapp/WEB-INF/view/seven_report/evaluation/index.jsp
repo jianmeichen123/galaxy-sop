@@ -42,9 +42,9 @@ var pageId = "project";
 		</ul>
 		<div class="test_top">
 			<ul class="clearfix" id="title-info">
-				<li class="test_top_first">项目综合测评得分:<span>90</span></li>
-				<li>项目评测得分:<span>23</span></li>
-				<li>权重:<span>30%</span></li>
+				<li class="test_top_first">项目综合测评得分:<span id="total-score">0</span></li>
+				<li><font id="part-title-name">项目评测</font>得分:<span id="part-score">0</span></li>
+				<li>权重:<span id="part-weight" >100%</span></li>
 				<li class="test_top_last">
 					<em>保存</em>
 				</li>
@@ -133,9 +133,9 @@ $("#eva-tabs li").click(function(){
 		function(data){
 		var result = data.result.status;
 		if (result == 'OK') {
-			
 			$('#page_all').empty();
 			var entity = data.entity;
+			$("#part-title-name").text(entity.name);
 			$("#test_tmpl").tmpl(entity).appendTo('#page_all');
 			/*显示结果  */
 			/* 16类型内容处理 */
@@ -169,11 +169,20 @@ function showScoreList(relateId)
 				if(data.result.status == 'OK')
 				{
 					$.each(data.entityList,function(){
-						var relateId = this.relateId;
+						var rid = this.relateId;
+						var weight = this.weight;
+						if(rid==relateId)
+						{
+							$("#part-weight").text(this.weight+"%");
+						}
+						if(weight != 'undefined')
+						{
+							$("span[class='title-weight'][data-relate-id='"+rid+"']").html("<br/>( "+weight+"% )");
+						}
 						var autoList = this.autoList;
 						if(typeof autoList != 'undefined' && autoList.length>0 )
 						{
-							var sel = $('td[class="score-column"][data-relate-id="'+relateId+'"]').find('select');
+							var sel = $('td[class="score-column"][data-relate-id="'+rid+'"]').find('select');
 							sel.empty();
 							sel.append('<option>请选择</option>')
 							$.each(autoList,function(){
@@ -191,22 +200,24 @@ function showScore(relateId)
 {
 	sendGetRequest(
 			platformUrl.getScores, 
-			{"parentId":relateId,"projectId":"${projectId}","reportType":"1"},
+			{"parentId":0,"projectId":"${projectId}","reportType":"1"},
 			function(data){
 				if(data.result.status == 'OK')
 				{
 					var titles = data.userData;
 					$.each(titles,function(rid,score){
-						if(rid == relateId)
+						if(rid == 0)
 						{
-							
+							$("#total-score").text(score);
+						}
+						else if(rid == relateId)
+						{
+							$("#part-score").text(score);
 						}
 						else
 						{
-							console.log(rid+"="+score)
 							var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
 							var ele = td.children('input,select');
-							console.log(ele[0])
 							if(ele.length ==0)
 							{
 								td.text(score)
