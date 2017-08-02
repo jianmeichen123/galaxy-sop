@@ -17,15 +17,15 @@ function tabOperateChange(index){
 	default: return false;
 }
 }
-	   //项目
+	   //投资方案
 		function investFinancePlan1(){
-			window.location.href=platformUrl.toInvestigateP;
+			window.location.href=platformUrl.toOperationP;
 		}
 		 //团队
 		function initTeamInfo1(){
 			$("#page_all").html("");
 			$.getTabHtmlInfo({
-				url : platformUrl.toInvestigateT ,
+				url : platformUrl.toOperationT ,
 				okback:function(){
 					right_anchor("DNO3?reportType=2","seven","hide");
 				}
@@ -35,17 +35,17 @@ function tabOperateChange(index){
 		function initOperateInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateO ,
+				url : platformUrl.toOperationO ,
 				okback:function(){
 					right_anchor("DNO4?reportType=2","seven","hide");
 				}
 			});
 		}
-		//竞争
+		//市场与开发
 		function initMarkDevelop1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateC ,
+				url : platformUrl.toOperationMD ,
 				okback:function(){
 					right_anchor("DNO5?reportType=2","seven","hide");
 				}
@@ -55,7 +55,7 @@ function tabOperateChange(index){
 		function initCompeteInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateC ,
+				url : platformUrl.toOperationC ,
 				okback:function(){
 					right_anchor("DNO5?reportType=2","seven","hide");
 				}
@@ -65,7 +65,7 @@ function tabOperateChange(index){
 		function initPlanInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigatePlan ,
+				url : platformUrl.toOperationPlan ,
 				okback:function(){
 					right_anchor("DNO6?reportType=2","seven","hide");
 				}
@@ -75,7 +75,7 @@ function tabOperateChange(index){
 		function initFinanceInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateF ,
+				url : platformUrl.toOperationJ ,
 				okback:function(){
 					right_anchor("DNO7?reportType=2","seven","hide");
 				}
@@ -85,7 +85,7 @@ function tabOperateChange(index){
 		function initJusticeInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateJ ,
+				url : platformUrl.toOperationF ,
 				okback:function(){
 					right_anchor("DNO8?reportType=2","seven","hide");
 				}
@@ -95,7 +95,7 @@ function tabOperateChange(index){
 		function initValuationInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateV ,
+				url : platformUrl.toOperationV ,
 				okback:function(){
 					right_anchor("DNO9?reportType=2","seven","hide");
 				}

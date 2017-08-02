@@ -378,25 +378,25 @@ public class InfoJumpController{
 	 * 融资报告页面****************************************开始
 	 */
 	// 融资报告-项目信息页面
-	@RequestMapping(value = "/toFinancingPlanP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toFinancingPlanP"(HttpServletRequest request) {
+	@RequestMapping(value = "/toFinancingP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanP (HttpServletRequest request) {
 		return "seven_report/financing/index";
 	}
 
 	// 融资报告-团队成员
-	@RequestMapping(value = "/toFinancingPlanT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toFinancingPlanT(HttpServletRequest request) {
+	@RequestMapping(value = "/toFinancingT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingT(HttpServletRequest request) {
 		return "seven_report/financing/teamInfo";
 	}
 
 	// 融资报告-运营数据
-	@RequestMapping(value = "/toFinancingPlanO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toFinancingPlanO(HttpServletRequest request) {
+	@RequestMapping(value = "/toFinancingO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingO(HttpServletRequest request) {
 		return "seven_report/financing/operateInfo";
 	}
 
 	// 融资报告-竞争分析
-	@RequestMapping(value = "/toFinancingPlanC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/toFinancingC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toFinancingPlanC(HttpServletRequest request) {
 		return "seven_report/financing/competeInfo";
 	}
@@ -408,19 +408,19 @@ public class InfoJumpController{
 	}
 
 	// 融资报告-财务
-	@RequestMapping(value = "/toFinancingPlanF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/toFinancingF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toFinancingPlanF(HttpServletRequest request) {
 		return "seven_report/financing/financeInfo";
 	}
 
 	// 融资报告-法务
-	@RequestMapping(value = "/toFinancingPlanJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/toFinancingJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toFinancingPlanJ(HttpServletRequest request) {
 		return "seven_report/financing/justiceInfo";
 	}
 
 	// 融资报告-融资以及估值
-	@RequestMapping(value = "/toFinancingPlanV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/toFinancingV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toFinancingPlanV(HttpServletRequest request) {
 		return "seven_report/financing/valuationInfo";
 	}
@@ -439,13 +439,13 @@ public class InfoJumpController{
 
 	// 运营报告-团队成员
 	@RequestMapping(value = "/toOperationT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toInvestigateT(HttpServletRequest request) {
+	public String toOperationT(HttpServletRequest request) {
 		return "seven_report/investigate/teamInfo";
 	}
 
 	// 运营报告-运营数据
 	@RequestMapping(value = "/toOperationO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toInvestigateO(HttpServletRequest request) {
+	public String toOperationO(HttpServletRequest request) {
 		return "seven_report/investigate/operateInfo";
 	}
 
@@ -493,12 +493,12 @@ public class InfoJumpController{
 	 */
 	// 决策报告-投资方案
 	@RequestMapping(value = "/toDecisionPlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toDecisionP(HttpServletRequest request) {
+	public String toDecisionPlan(HttpServletRequest request) {
 		return "seven_report/decision/index";
 	}
 	// 决策报告-其他事宜
 	@RequestMapping(value = "/toDecisionOther", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toDecisionT(HttpServletRequest request) {
+	public String toDecisionOther(HttpServletRequest request) {
 		return "seven_report/decision/other";
 	}
 	/**

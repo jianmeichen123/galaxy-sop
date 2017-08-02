@@ -1,4 +1,4 @@
-	function tabInvestChange(index){
+	function tabDecisionChange(index){
 		$(".h_navbar li").eq(index).addClass("active").siblings().removeClass("active");
 		$('.anchor_nav').remove();
 		$("#tab-content").remove();
@@ -12,13 +12,13 @@
 }
 	   //项目
 		function financePlan1(){
-			window.location.href=platformUrl.toInvestigateP;
+			window.location.href=platformUrl.toDecisionPlan;
 		}
 		 //团队
 		function initTeamInfo1(){
 			$("#page_all").html("");
 			$.getTabHtmlInfo({
-				url : platformUrl.toInvestigateT ,
+				url : platformUrl.toDecisionOther ,
 				okback:function(){
 					right_anchor("DNO3?reportType=2","seven","hide");
 				}

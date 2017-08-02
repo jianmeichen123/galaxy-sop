@@ -1,4 +1,4 @@
-function tabInvestChange(index){
+function tabFinanChange(index){
 	$(".h_navbar li").eq(index).addClass("active").siblings().removeClass("active");
 	$('.anchor_nav').remove();
 	$("#tab-content").remove();
@@ -18,13 +18,13 @@ function tabInvestChange(index){
 }
 	   //项目
 		function investProjectInfo1(){
-			window.location.href=platformUrl.toInvestigateP;
+			window.location.href=platformUrl.toFinancingP;
 		}
 		 //团队
 		function initTeamInfo1(){
 			$("#page_all").html("");
 			$.getTabHtmlInfo({
-				url : platformUrl.toInvestigateT ,
+				url : platformUrl.toFinancingT ,
 				okback:function(){
 					right_anchor("DNO3?reportType=2","seven","hide");
 				}
@@ -34,7 +34,7 @@ function tabInvestChange(index){
 		function initOperateInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateO ,
+				url : platformUrl.toFinancingO ,
 				okback:function(){
 					right_anchor("DNO4?reportType=2","seven","hide");
 				}
@@ -44,7 +44,7 @@ function tabInvestChange(index){
 		function initCompeteInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateC ,
+				url : platformUrl.toFinancingC ,
 				okback:function(){
 					right_anchor("DNO5?reportType=2","seven","hide");
 				}
@@ -54,7 +54,7 @@ function tabInvestChange(index){
 		function initPlanInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigatePlan ,
+				url : platformUrl.toFinancingPlan ,
 				okback:function(){
 					right_anchor("DNO6?reportType=2","seven","hide");
 				}
@@ -64,7 +64,7 @@ function tabInvestChange(index){
 		function initFinanceInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateF ,
+				url : platformUrl.toFinancingJ ,
 				okback:function(){
 					right_anchor("DNO7?reportType=2","seven","hide");
 				}
@@ -74,7 +74,7 @@ function tabInvestChange(index){
 		function initJusticeInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateJ ,
+				url : platformUrl.toFinancingF ,
 				okback:function(){
 					right_anchor("DNO8?reportType=2","seven","hide");
 				}
@@ -84,7 +84,7 @@ function tabInvestChange(index){
 		function initValuationInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toInvestigateV ,
+				url : platformUrl.toFinancingV ,
 				okback:function(){
 					right_anchor("DNO9?reportType=2","seven","hide");
 				}
