@@ -161,7 +161,7 @@ function showRejectConfim()
 }
 function reject()
 {
-	var reason = "";
+	var reason = " ";
 	$("#projectProgress_1_table").find("tr").each(function(){
         var tdArr = $(this).children();
         var result = tdArr.eq(1).text();
