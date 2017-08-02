@@ -168,6 +168,12 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	   case "D":
 		  reportType="2";
 		  break;
+	   case "O":
+			  reportType="7";
+			  break;
+	   case "G":
+			  reportType="5";
+			  break;
 	   default:
 		   reportType="";	  
 	}

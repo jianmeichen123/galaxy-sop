@@ -9,12 +9,13 @@
 <html class="scroll">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>项目详情</title>
+<title>项目详情1</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
+var path = '<%=path%>';
 </script>
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 </head>
@@ -31,22 +32,20 @@ var pageId = "project";
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav1 active" onclick="test_demo('0')">基础<br />信息 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('1')">项目</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('2')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('3')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('4')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('5')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('6')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('7')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('8')">融资及<br />估值 </li>
+			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabOperateChange('0')">项目</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('1')">团队</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('2')">运营<br />数据 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('3')">竞争</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('3')">竞争</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('4')">战略及<br />策略 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('5')">财务</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('6')">法务</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('7')">融资及<br />估值 </li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
 		
-			<div class="h radius" id="NO1_1"> </div>
-			
-			<div class="h radius base_con2" id="NO1_2"> </div>
+		
 			
 		</div>
 	</div>
@@ -60,8 +59,8 @@ var pageId = "project";
 	
 
        <!--隐藏-->
-<div class="bj_hui_on"></div>
-	
+    <div class="bj_hui_on"></div>
+	<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
 	</div>
 
 </div>
@@ -91,12 +90,63 @@ var pageId = "project";
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<script src="<%=path%>/js/hologram/hologram_common.js"></script>			
+<%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>	 --%>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
 
+
+<script src="<%=path%>/js/seven_report/optration/optration_common.js"></script>	
+
+<!-- 跟全息图相似的 -->
+<script src="<%=path%>/js/hologram/team_pop.js"></script>	
+<script src="<%=path%>/js/hologram/team_save.js"></script>	
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
+<script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(5);
+var isEditable = "${isEditable}";
+$(function() {
+	//right_anchor("DNO2?reportType=2"); 
+})
+//整体页面显示
+sendGetRequest(platformUrl.queryAllTitleValues + 'ONO1?reportType=7', null,
+	function(data) {
+		var result = data.result.status;
+		if (result == 'OK') {
+			var entity = data.entity;
+			console.log(entity);
+			$("#page_list").tmpl(entity).appendTo('#page_all');
+			picData(projectInfo.id,1);
+			customBuilder();
+			$(".section").each(function(){
+				$(this).showResults(true);
+				var table = $(this).find('.mb_24 table');
+				table.each(function(){
+					if($(this).find('tr').length<=1){
+						$(this).hide();
+						if($(this).parents('dl').find('dd:gt(0)').length<=0){
+							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+						} 
+					}
+					else{
+						$(this).show();
+					}
+				})
+				
+			});
+			//调整表格
+			$("table").css({"width":"80%","table-layout":"fixed"});
+			mustData(projectInfo.id,0);
+			toggle_btn($('.anchor_btn span'),1);
+			fun_click();
+			hideNav();
+			
+		} else {
 
-
+		}
+		
+})
 </script>
 
 </body>

@@ -218,10 +218,16 @@ function tabInfoChange(index){
     	var type=str.split("NO")[0];
     	var reportType="";
     	switch(type){
-    	   case "D":
-    		  reportType="2";
-    		  break;
-    	   default:
+    	 case "D":
+   		    reportType="2";
+   		   break;
+   	     case "O":
+   			  reportType="7";
+   			  break;
+   	     case "G":
+   			  reportType="5";
+   			  break;
+    	 default:
     		   reportType="";	  
     	}
 		if(id == "a_NO3_1"){
@@ -1708,7 +1714,8 @@ function selectDirect(tittleId,subCode,filed){
 				    }
 					$.each(list, function(i, value){
                         if($filed[0].tagName=="SELECT"){
-                        		$filed.append("<option value="+value.code+"  name='"+filed+"'>"+value.name+"</option>");
+                        	console.log(value);
+                        		$filed.append("<option value="+value.value+"  name='"+filed+"'>"+value.name+"</option>");
 				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
 				    			$filed.append("<label><input type='radio' value='"+value.code+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
 				    	}

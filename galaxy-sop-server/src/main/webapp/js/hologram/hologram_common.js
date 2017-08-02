@@ -212,8 +212,7 @@ function tabInfoChange(index){
 	$.fn.showResults = function(readonly){
 		var sec = $(this);
 		var pid = $(this).data('sectionId');
-        var id = $(this).attr('id');
-		if(id == "a_NO3_1"){
+		if(pid == 1302){
 		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
