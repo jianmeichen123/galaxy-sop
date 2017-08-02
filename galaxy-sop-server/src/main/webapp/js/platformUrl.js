@@ -1171,6 +1171,10 @@ var platformUrl = {
 	 * 传入题 id,返回子标题的结果
 	 */
 	getTitleResults : Constants.sopEndpointURL + "galaxy/infoProject/getTitleResults/",
+	/**
+	 * 传入题 id,返回子标题的结果
+	 */
+	getRelateTitleResults : Constants.sopEndpointURL + "galaxy/infoProject/getRelateTitleResults/",
 	
 	/**
 	 * 保存result

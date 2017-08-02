@@ -162,13 +162,22 @@ $('div').delegate(".h_edit_btn","click",function(event){
 		str ="";
 	}
 	//
-	
+	var type=id_code.split("NO")[0];
+	var reportType="";
+	switch(type){
+	   case "D":
+		  reportType="2";
+		  break;
+	   default:
+		   reportType="";	  
+	}
 	keyJSON["b_"+id_code]=key;
 	var sec = $(this).closest('.section');
 	var sTop=$(window).scrollTop();
 	event.stopPropagation();
-	 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
+	 sendGetRequest(platformUrl.queryAllTitleValues + id_code+"?reportType="+reportType, null,
 		function(data) {
+		 console.log();
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
