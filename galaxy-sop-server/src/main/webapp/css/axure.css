@@ -3280,10 +3280,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	.reupload_pdf{
 		background-image: url('../img/sop_progress/reupload_pdf.png')
 	}
-	.downlond_pdf:hover,.downlond_jpg:hover{
+	.downlond_pdf:hover,.downlond_other:hover,.downlond_jpg:hover{
 		background-image: url('../img/sop_progress/downlond_heightl.png')
 	}
-	.reupload_pdf:hover,.reupload_jpg:hover{
+	.reupload_pdf:hover,.reupload_jpg:hover,.reupload_other:hover{
 		background-image: url('../img/sop_progress/reupload_heightl.png')
 	}
 	.operation_warning{
