@@ -449,7 +449,6 @@ textarea::input-placeholder{
    	background:rgb(250, 250, 250);
    	position: absolute;
    	display: none;
-   	height:auto;
    max-height: 560px;
    overflow-y: auto;
  }
@@ -706,4 +705,49 @@ table td select option{
 .radioShow span{
 	display:inline-block;
 	margin-left:10px;
+}
+/*div模拟select下拉框样式*/
+ul,li{list-style:none;} 
+#dropdown{
+	width:186px; 
+	position:relative;
+	display:none;
+} 
+.input_select{
+	width:144px; 
+	height:24px; 
+	line-height:24px; 
+	padding-left:10px; 
+	padding-right:30px; 
+	border:1px solid #979797; 
+	background: url(../../img/down.png) no-repeat right 7px center	;
+	/*background-position: 10px 2px;*/
+	
+} 
+#dropdown ul{
+	width:184px; 
+	background:#fff; 
+	margin-top:2px;
+	border:1px solid #979797; 
+	position:absolute; 
+	display:none
+} 
+#dropdown ul li{
+	height:24px; 
+	line-height:24px; 
+	text-indent:10px;
+	padding-left: 1px;
+	border-bottom: 1px solid #979797;
+}
+#dropdown ul li a{
+	display:block; 
+	height:24px; 
+	color:#666666;; 
+	text-decoration:none
+} 
+#dropdown ul li a:hover{
+	background:#fff; 
+} 
+.up{
+	background: url(../../img/up.png) no-repeat center right 7px;
 }
