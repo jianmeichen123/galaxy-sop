@@ -292,7 +292,9 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 						toCache = false;
 					}
 				}
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				logger.error("queryAllTitleValues cache use failed："+pinfoKey,e);
+			}
 			
 			
 			if(title == null){
