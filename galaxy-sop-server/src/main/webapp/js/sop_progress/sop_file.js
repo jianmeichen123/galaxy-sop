@@ -154,7 +154,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		if(result.status == "OK"){
 			//项目阶段按钮状态刷新
 			refreshButton();
-			var fileWorktype = $("#"+saveFileId).attr("data-type");
+			/*var fileWorktype = $("#"+saveFileId).attr("data-type");
 			var fi = response.entity;
 			filesCondition[fileWorktype] = fi;
 			
@@ -168,7 +168,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 					null,
 					fi.fileWorktype.replace(":","_") + '_up',
 					null,
-					fi.fileWorktype.replace(":","_") + '_save');
+					fi.fileWorktype.replace(":","_") + '_save');*/
+			refreshIndex(true);
 			
 			
 		}else{
