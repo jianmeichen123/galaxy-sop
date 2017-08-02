@@ -125,7 +125,8 @@
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
-						 <td>
+						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" value="请选择城市"/> 
 								<ul> 
@@ -370,7 +371,8 @@
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
-						 <td>
+						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" value="请选择"/> 
 								<ul> 
