@@ -35,7 +35,7 @@ function tabInvestChange(index){
 			$.getTabHtmlInfo({
 				url : platformUrl.toInvestigateT ,
 				okback:function(){
-					right_anchor("NO3");
+					right_anchor("DNO3?reportType=2","seven","hide");
 				}
 			});
 		}
@@ -45,7 +45,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateO ,
 				okback:function(){
-					right_anchor("NO4");
+					right_anchor("DNO4?reportType=2","seven","hide");
 				}
 			});
 		}
@@ -55,7 +55,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateC ,
 				okback:function(){
-					right_anchor("NO5");
+					right_anchor("DNO5?reportType=2","seven","hide");
 				}
 			});
 		}
@@ -65,7 +65,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigatePlan ,
 				okback:function(){
-					right_anchor("NO6");
+					right_anchor("DNO6?reportType=2","seven","hide");
 				}
 			});
 		}
@@ -75,7 +75,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateF ,
 				okback:function(){
-					right_anchor("NO7");
+					right_anchor("DNO7?reportType=2","seven","hide");
 				}
 			});
 		}
@@ -85,7 +85,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateJ ,
 				okback:function(){
-					right_anchor("NO8");
+					right_anchor("DNO8?reportType=2","seven","hide");
 				}
 			});
 		}
@@ -95,7 +95,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateV ,
 				okback:function(){
-					right_anchor("NO9");
+					right_anchor("DNO9?reportType=2","seven","hide");
 				}
 			});
 		}
