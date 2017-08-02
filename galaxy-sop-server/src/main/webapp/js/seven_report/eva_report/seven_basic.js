@@ -180,7 +180,6 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 });
 //大弹窗 保存方法
 $('div').delegate(".h_save_btn","click",function(event){
-	
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
 	_this.hide();
@@ -189,7 +188,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 });	
 	
 //div模拟select下拉框
-$(function(){ 
 	$(".input_select").click(function(){ 
 		var ul = $("#dropdown ul"); 
 		var _this = $(this);
@@ -211,7 +209,7 @@ $(function(){
 		$("#dropdown ul").hide(); 
 }); 
 
-}); 
+
 		
 	//遮罩层
 	function pageHeight(){
