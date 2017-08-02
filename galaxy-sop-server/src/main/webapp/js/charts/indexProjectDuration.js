@@ -132,7 +132,7 @@ function load_data_chart_project_time(){
 					 */
 					var tmp1 = {
 							name : "会后商务谈判",
-							color :'#00bdf4',
+							color :'#4490d2',
 							y : 0,
 							rate : parseFloat(0)
 					};
