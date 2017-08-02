@@ -240,7 +240,7 @@ function tabInfoChange(index){
                 }
 		     })
 		}else{
-		sendGetRequest(platformUrl.getRelateTitleResults +reportType+"/"+pid+"/"+projectInfo.id, null,
+		sendGetRequest(platformUrl.getRelateTitleResults +reportType+"/"+relateId+"/"+projectInfo.id, null,
 				function(data) {
         			var result = data.result.status;
         			if (result == 'OK')

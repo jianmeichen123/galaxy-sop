@@ -115,6 +115,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 			if(_resultId==undefined  || _resultId=="undefined"){
 				_resultId=null
 			}
+			console.log(field);
 			var infoMode = {
 					titleId : field.data('titleId'),
 					type : field.data('type'),
@@ -163,6 +164,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 		if(_tochange==undefined){
 			_tochange=false;
 		}
+		alert(field.data('title-id'));
 		var infoMode = {
 			titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
 			tochange:_tochange,
@@ -354,7 +356,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	params.deleteids = deleteids;
 
 	$("body").showLoading();
-	
+
 	sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 		//进行上传
 		var result = dataParam.result.status;
