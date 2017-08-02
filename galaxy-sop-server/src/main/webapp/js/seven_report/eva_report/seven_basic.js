@@ -47,15 +47,16 @@
 			$(obj).closest('td').find('.radioShow').show();
 			
 		}else if(e_type=="cover_pop"){
-			$('.ch_income_evaluation').show();
+			//$('.ch_income_evaluation').show();
 			$('.mashLayer').show();
 			var  leftNum = $(".new_left").offset().left;
-			var  topNum = _td.offset().top-200;
+			adjust(".ch_opration");
+			//var  topNum = _td.offset().top-200;
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
-			$('.ch_opration').css('left',leftNum).css('top',topNum).css('width',$(".new_left").width()-80);
+			$('.ch_opration').css('left',leftNum);
 		}
 		
 		
@@ -92,10 +93,12 @@ function get_result(code,e_type,dom){
 					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
 				}
 				 dom.html(result_html);
+				 
 			 }else if(e_type==2){
 				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 			 }else if(e_type==3){
 				 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
+				 adjust(".ch_opration");
 			 }
 			 
 			//插件回调方法
@@ -231,23 +234,21 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$('.mashLayer').width(pageWidth());
 	
 	//弹窗
-	var popup = document.getElementsByClassName('popup')[0];
-	var popupTwo = document.getElementsByClassName("popup_two")[0];
-	var popupThree = document.getElementsByClassName("table_three")[0];
-	var ch_stock = document.getElementsByClassName("ch_stock")[0];
-	adjust(popup);
-	adjust(popupTwo);
-	adjust(popupThree);
-	adjust(ch_stock);
+
 	/* 定位到页面中心 */
 	function adjust(id) {
 	    var w = $(id).width();
+	    console.log(w)
 	    var h = $(id).height();
+	    console.log($('.ch_opration').height())
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
+	    console.log(t);
+	    console.log(scrollY() + (windowHeight()/2))
 	    if(t < 0) t = 0;
-	    var l = scrollX() + (windowWidth()/2) - (w/2);
-	    if(l < 0) l = 0;
-	    $(id).css({left: l+'px', top: t+'px'});
+	   // var l = scrollX() + (windowWidth()/2) - (w/2);
+	    //if(l < 0) l = 0;
+	    //$(id).css({left: l+'px', top: t+'px'});
+	    $(id).css('top',t+'px');
 	}
     
 	

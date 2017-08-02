@@ -444,11 +444,12 @@ textarea::input-placeholder{
  }
  /*杩愯惀娴嬭瘎寮圭獥*/
  .ch_opration{
-  	width:65.3%;
+  	width: 61.5%;
   	z-index: 999;
    	background:rgb(250, 250, 250);
    	position: absolute;
    	display: none;
+   	height:auto;
    max-height: 560px;
    overflow-y: auto;
  }
