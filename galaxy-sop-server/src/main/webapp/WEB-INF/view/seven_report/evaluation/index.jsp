@@ -136,7 +136,6 @@ $("#eva-tabs li").click(function(){
 			
 			$('#page_all').empty();
 			var entity = data.entity;
-			console.log(entity)
 			$("#test_tmpl").tmpl(entity).appendTo('#page_all');
 			/*显示结果  */
 			/* 16类型内容处理 */
@@ -145,30 +144,7 @@ $("#eva-tabs li").click(function(){
 			content_16=content_16.replace(/<sitg>/g,'（');
 			content_16=content_16.replace(/<\/sitg>/g,'）');
 			$(".content_16").text(content_16); 
-			sendGetRequest(
-				platformUrl.getRelateTitleResults+"1/"+relateId+"/${projectId}", 
-				null,
-				function(data){
-					if(data.result.status == 'OK')
-					{
-						$.each(data.entityList,function(){
-							var relateId = this.relateId;
-							var autoList = this.autoList;
-							console.log(autoList);
-							if(typeof autoList != 'undefined' && autoList.length>0 )
-							{
-								var sel = $('td[class="score-column"][data-relate-id="'+relateId+'"]').find('select');
-								console.log(sel);
-								sel.empty();
-								sel.append('<option>请选择</option>')
-								$.each(autoList,function(){
-									sel.append('<option>'+this.grade+'</option>')
-								});
-							}
-						});
-					}
-				}
-			);
+			showScoreList(relateId);
 			
 		}
 	});
@@ -181,8 +157,70 @@ $("#eva-tabs li").click(function(){
 });
 $("#eva-tabs li:eq(0)").click();
 // 
+/**
+ * 显示分数选项
+ */
+function showScoreList(relateId)
+{
+	sendGetRequest(
+			platformUrl.getRelateTitleResults+"1/"+relateId+"/${projectId}", 
+			null,
+			function(data){
+				if(data.result.status == 'OK')
+				{
+					$.each(data.entityList,function(){
+						var relateId = this.relateId;
+						var autoList = this.autoList;
+						if(typeof autoList != 'undefined' && autoList.length>0 )
+						{
+							var sel = $('td[class="score-column"][data-relate-id="'+relateId+'"]').find('select');
+							sel.empty();
+							sel.append('<option>请选择</option>')
+							$.each(autoList,function(){
+								sel.append('<option>'+this.grade+'</option>')
+							});
+						}
+					});
+					showScore(relateId);
+				}
+			}
+		);
+}
 
-
+function showScore(relateId)
+{
+	sendGetRequest(
+			platformUrl.getScores, 
+			{"parentId":relateId,"projectId":"${projectId}","reportType":"1"},
+			function(data){
+				if(data.result.status == 'OK')
+				{
+					var titles = data.userData;
+					$.each(titles,function(rid,score){
+						if(rid == relateId)
+						{
+							
+						}
+						else
+						{
+							console.log(rid+"="+score)
+							var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
+							var ele = td.children('input,select');
+							console.log(ele[0])
+							if(ele.length ==0)
+							{
+								td.text(score)
+							}
+							else
+							{
+								ele.val(score);
+							}
+						}
+					});
+				}
+			}
+		);
+}
 
 
 //整体页面显示

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -107,7 +108,16 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 					param.setReportType(scoreInfo.getProcessMode());
 					param.setItems(convert(vallueList));
 					Map<Long,BigDecimal> results = calculateSingleReport(param);
-					scores.putAll(results);
+					if(results != null && results.size()>0)
+					{
+						for(Entry<Long,BigDecimal> item : results.entrySet())
+						{
+							if(item.getKey() != null && item.getValue() != null)
+							{
+								scores.put(item.getKey(), item.getValue());
+							}
+						}
+					}
 					countDownLatch.countDown();
 				}
 			});
@@ -138,6 +148,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 				}
 				param.setValues(values.toArray(new String[values.size()]));
 			}
+			items.add(param);
 		}
 		
 		return items;

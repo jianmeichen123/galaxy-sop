@@ -934,6 +934,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					{
 						title.getDataList().clear();
 					}
+					if(title.getWeight() != null)
+					{
+						title.setWeight(null);
+					}
 				}
 			}
 		}

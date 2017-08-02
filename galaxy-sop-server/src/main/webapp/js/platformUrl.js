@@ -1214,8 +1214,19 @@ var platformUrl = {
 	  * 项目阶段按钮控制
 	  */
 	 buttonToggle : Constants.sopEndpointURL + "/galaxy/progress/buttonToggle/",
-	 
+	 /**
+	  * 报表结果
+	  */
 	 getRelateTitleResults : Constants.sopEndpointURL + "/galaxy/infoProject/getRelateTitleResults/",
+	 /**
+	  * 计算报表分数
+	  */
+	 calculateScore : Constants.sopEndpointURL + "/galaxy/score/calculateScore",
+	 
+	 /**
+	  * 获取报表分数
+	  */
+	 getScores : Constants.sopEndpointURL + "/galaxy/score/getScores",
 }
 
 /**
