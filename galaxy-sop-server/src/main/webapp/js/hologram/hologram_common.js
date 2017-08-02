@@ -1697,9 +1697,9 @@ function selectDirect(tittleId,subCode,filed){
 				    }
 					$.each(list, function(i, value){
                         if($filed[0].tagName=="SELECT"){
-                        		$filed.append("<option value="+value.value+"  name='"+filed+"'>"+value.name+"</option>");
+                        		$filed.append("<option value="+value.id+"  name='"+filed+"'>"+value.name+"</option>");
 				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
-				    			$filed.append("<label><input type='radio' value='"+value.value+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
+				    			$filed.append("<label><input type='radio' value='"+value.id+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
 				    	}
 					});
 				}
