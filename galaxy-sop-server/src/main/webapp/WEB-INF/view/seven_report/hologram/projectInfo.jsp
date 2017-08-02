@@ -40,6 +40,7 @@
 	//整体页面显示
 	sendGetRequest(platformUrl.queryAllTitleValues + "NO2", null,
 		function(data) {
+		console.log(data);
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
