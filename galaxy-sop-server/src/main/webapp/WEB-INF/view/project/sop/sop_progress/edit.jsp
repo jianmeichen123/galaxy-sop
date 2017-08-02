@@ -309,9 +309,9 @@ function initViewUpload() {
 			Error: function(up, err) {
 				$("#powindow").hideLoading();
 				$("#save_interview").removeClass("disabled");
-				$("#file_object").text("");
+				//$("#file_object").text("");
 				$("#select_btn").text("选择文件");
-				$("#file_object").removeClass("audio_name");
+				//$("#file_object").removeClass("audio_name");
 				layer.msg("最大支持"+up.settings.filters.max_file_size);
 			}
 		}
