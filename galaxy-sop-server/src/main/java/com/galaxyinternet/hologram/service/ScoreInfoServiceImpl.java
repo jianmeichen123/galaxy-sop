@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +64,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			BigDecimal score = result.get();
 			Collection<ItemParam> values = map.values();
 			Map<Long,BigDecimal> scores = new HashMap<>();
-			scores.put(param.getRelateId(), score);
+			scores.put(0l, score);
 			for(ItemParam value : values)
 			{
 				scores.put(value.getRelatedId(), value.getScore());
@@ -89,6 +90,8 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 		final Map<Long,BigDecimal> scores = new ConcurrentHashMap<>();
 		final CountDownLatch countDownLatch = new CountDownLatch(relateIds.size());
 		ExecutorService executorService = GalaxyThreadPool.getExecutorService();
+		final AtomicReference<BigDecimal> ref = new AtomicReference<BigDecimal>();
+		ref.set(BigDecimal.ZERO);
 		for(Long item : relateIds)
 		{
 			final Long relateId = item;
@@ -110,11 +113,27 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 					Map<Long,BigDecimal> results = calculateSingleReport(param);
 					if(results != null && results.size()>0)
 					{
-						for(Entry<Long,BigDecimal> item : results.entrySet())
+						for(Entry<Long,BigDecimal> entry : results.entrySet())
 						{
-							if(item.getKey() != null && item.getValue() != null)
+							if(entry.getKey() != null && entry.getValue() != null)
 							{
-								scores.put(item.getKey(), item.getValue());
+								//计算总分
+								if(entry.getKey() == 0l)
+								{
+									while(true)
+									{
+										BigDecimal expect = ref.get();
+										BigDecimal update = expect.add(entry.getValue());
+										if(ref.compareAndSet(expect, update))
+										{
+											break;
+										}
+									}
+								}
+								else
+								{
+									scores.put(entry.getKey(), entry.getValue());
+								}
 							}
 						}
 					}
@@ -123,7 +142,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			});
 		}
 		countDownLatch.await();
-		
+		scores.put(0L, ref.get());
 		return scores;
 	}
 	private List<ItemParam> convert(List<ScoreInfo> list)

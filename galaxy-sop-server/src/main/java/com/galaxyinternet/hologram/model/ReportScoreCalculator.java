@@ -45,16 +45,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 	protected BigDecimal compute()
 	{
 		BigDecimal score = BigDecimal.ZERO;
-		ScoreInfo info = null;
-		if(relateId == 0L)
-		{
-			info = new ScoreInfo();
-			info.setProcessMode(1);
-		}
-		else
-		{
-			info = service.queryById(relateId);
-		}
+		ScoreInfo info = service.queryById(relateId);
 		if(info == null || info.getProcessMode() == null)
 		{
 			return score;
@@ -206,6 +197,22 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 										.divide(BigDecimal.valueOf(100))
 										.setScale(2, BigDecimal.ROUND_HALF_UP);
 					score = num;
+					Long parentId = info.getParentId();
+					if( 0l == parentId)
+					{
+						if(!items.containsKey(parentId))
+						{
+							itemParam = new ItemParam();
+							itemParam.setRelatedId(parentId);
+							itemParam.setScore(score);
+							items.put(parentId, itemParam);
+						}
+						else
+						{
+							itemParam = items.get(parentId);
+							itemParam.setScore(itemParam.getScore().add(score));
+						}
+					}
 					logger.debug(String.format("ParentID=%s, Mode=%s, val*pec/100=%s*%s/100=%s",info.getParentId(),mode,sum,weight,score));
 				}
 			}

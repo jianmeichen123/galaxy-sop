@@ -90,13 +90,7 @@ public class ScoreController
 			{
 				Map<Long,BigDecimal> otherScores = scoreService.calculateMutipleReport(otherIds, projectId);
 				scores.putAll(otherScores);
-				for(Long item : otherIds)
-				{
-					if(scores.containsKey(item))
-					{
-						total = total.add(scores.get(item));
-					}
-				}
+				total = total.add(scores.get(parentId));
 			}
 			scores.put(parentId, total);
 			data.getUserData().putAll(scores);
@@ -144,20 +138,11 @@ public class ScoreController
 					}
 				}
 			}
-			BigDecimal total = BigDecimal.ZERO;
 			if(relateIds.size() > 0)
 			{
 				Map<Long,BigDecimal> childrenScores = scoreService.calculateMutipleReport(relateIds, projectId);
 				scores.putAll(childrenScores);
-				for(Long item : relateIds)
-				{
-					if(scores.containsKey(item))
-					{
-						total = total.add(scores.get(item));
-					}
-				}
 			}
-			scores.put(parentId, total);
 			data.getUserData().putAll(scores);
 		} catch (Exception e)
 		{

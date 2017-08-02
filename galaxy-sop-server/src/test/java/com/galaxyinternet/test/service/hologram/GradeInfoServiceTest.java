@@ -2,7 +2,9 @@ package com.galaxyinternet.test.service.hologram;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +13,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.model.hologram.ItemParam;
 import com.galaxyinternet.model.hologram.ReportParam;
+import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,5 +60,13 @@ public class GradeInfoServiceTest
 		param.setItems(items);
 		
 		System.out.println(service.calculateSingleReport(param));
+	}
+	@Test
+	public void get() throws Exception
+	{
+		Long[] ids = {0L};
+		List<Long> relateIds = Arrays.asList(ids);
+		Map<Long,BigDecimal> scores = service.calculateMutipleReport(relateIds, 555l);
+		System.out.println(scores);
 	}
 }
