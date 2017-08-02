@@ -508,7 +508,6 @@ function bindChangeType13(){
 
 
 
-
 function getDetailUrl(code)
 {
 	if(code == 'equity-structure')
@@ -544,6 +543,12 @@ function getDetailUrl(code)
     }else if(code == 'competition-comparison')
 	{
 		return path+'/html/compete_save.jsp';
+	}else if(code == 'delivery-before')
+	{
+		return path+'/html/delivery_matter.jsp';
+	}else if(code == 'delivery-after')
+	{
+		return path+'/html/delivery_matter.jsp';
 	}
 	return "";
 }

@@ -126,14 +126,19 @@
 						</td>
 					{{else type=="18"}}
 						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择城市"/> 
+								<input class="input_select" type="text" value="请选择"/> 
 								<ul> 
 									<!--模拟select  循环li标签-->
 									<!--<li><a href="#" value="2">北京</a></li> -->
+									<li><a href="#" value="2">北京</a></li>
+									<li><a href="#" value="2">上海</a></li> 
 								</ul> 
 							</div> 
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
 						</td>
 				 	{{/if}}
 				{{else sign==3}}
@@ -372,13 +377,18 @@
 						</td>
 					{{else type=="18"}}
 						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" value="请选择"/> 
 								<ul> 
 									<!--模拟select  循环li标签-->
-									<!--<li><a href="#" value="2">北京</a></li> --> 
+									<!--<li><a href="#" value="2">北京</a></li> -->
+									<li><a href="#" value="2">北京</a></li>
+									<li><a href="#" value="2">上海</a></li> 
 								</ul> 
+							</div>
+							<div class="Button">
+								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
 						</td>
 				 	{{/if}}

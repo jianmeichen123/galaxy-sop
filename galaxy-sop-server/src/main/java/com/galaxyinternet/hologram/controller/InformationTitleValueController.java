@@ -292,7 +292,9 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 						toCache = false;
 					}
 				}
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				logger.error("queryAllTitleValues cache use failed："+pinfoKey,e);
+			}
 			
 			
 			if(title == null){
@@ -316,7 +318,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 				}
 			}
 			
-			if(useCacha && toCache){
+			if(useCacha && toCache && title!=null){
 				cacheOperationService.saveAllByRedies(pinfoKey, title);
 			}
 			

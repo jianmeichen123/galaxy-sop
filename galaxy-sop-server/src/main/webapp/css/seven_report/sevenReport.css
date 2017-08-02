@@ -711,7 +711,8 @@ ul,li{list-style:none;}
 #dropdown{
 	width:186px; 
 	position:relative;
-	/* display:none; */
+	margin-top:15px;
+	/* display:none;  */
 } 
 .input_select{
 	width:144px; 
@@ -720,7 +721,7 @@ ul,li{list-style:none;}
 	padding-left:10px; 
 	padding-right:30px; 
 	border:1px solid #979797; 
-	background: url(../../img/down.png) no-repeat right 7px center	;
+	background: url(../../img/seven_report/down.png) no-repeat right 7px center	;
 	/*background-position: 10px 2px;*/
 	
 } 
@@ -749,5 +750,8 @@ ul,li{list-style:none;}
 	background:#fff; 
 } 
 .up{
-	background: url(../../img/up.png) no-repeat center right 7px;
+	background: url(../../img/seven_report/up.png) no-repeat center right 7px;
+}
+.new_left{
+	margin-bottom:20px !important;
 }

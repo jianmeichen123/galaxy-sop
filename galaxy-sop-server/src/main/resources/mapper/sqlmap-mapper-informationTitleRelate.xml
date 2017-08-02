@@ -144,8 +144,9 @@
 	<select id="selectTitlesByRelate" resultMap="TitleResultMap" parameterType="java.util.Map">
 		select
 			relate.id, relate.code relate_code,relate.report_type,
-			title.id title_id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
-			title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark, title.val_rule_formula
+			title.id title_id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name, 
+			title.type, (CASE WHEN relate.sign IS NULL THEN title.sign ELSE  relate.sign  END) sign, title.content,title.is_show, 
+			title.placeholder,title.is_must,title.val_rule,title.val_rule_mark, title.val_rule_formula
 		FROM
 			information_title_relate relate,information_title title
 		WHERE 
@@ -179,7 +180,8 @@
 			select
 				relate.id, relate.code relate_code,relate.report_type,
 				title.id title_id, title.parent_id, title.code, (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) name,  
-				title.type, title.sign, title.content,title.is_show, title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,title.val_rule_formula
+				title.type, (CASE WHEN relate.sign IS NULL THEN title.sign ELSE  relate.sign  END) sign, title.content,title.is_show,
+				title.placeholder,title.is_must,title.val_rule,title.val_rule_mark,title.val_rule_formula
 			FROM
 				information_title_relate relate,information_title title
 			WHERE 

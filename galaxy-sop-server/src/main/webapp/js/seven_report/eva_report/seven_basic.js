@@ -51,7 +51,6 @@
 			$('.mashLayer').show();
 			var  leftNum = $(".new_left").offset().left;
 			adjust(".ch_opration");
-			//var  topNum = _td.offset().top-200;
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
@@ -180,7 +179,6 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 });
 //大弹窗 保存方法
 $('div').delegate(".h_save_btn","click",function(event){
-	
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
 	_this.hide();
@@ -189,7 +187,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 });	
 	
 //div模拟select下拉框
-$(function(){ 
 	$(".input_select").click(function(){ 
 		var ul = $("#dropdown ul"); 
 		var _this = $(this);
@@ -211,7 +208,7 @@ $(function(){
 		$("#dropdown ul").hide(); 
 }); 
 
-}); 
+
 		
 	//遮罩层
 	function pageHeight(){

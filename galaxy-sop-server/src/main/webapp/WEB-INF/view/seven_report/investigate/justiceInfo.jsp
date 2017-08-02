@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>项目详情</title>
+<title>项目详情uyy</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 </head>
@@ -30,16 +30,14 @@
 
 
 <script type="text/javascript">
-var key = Date.parse(new Date());
-var keyJSON={};
-var deleteJSON={};
+
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	right_anchor("DNO6?reportType=2"); 
+	//right_anchor("DNO2?reportType=2"); 
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'DNO7?reportType=2', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'DNO8?reportType=2', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
