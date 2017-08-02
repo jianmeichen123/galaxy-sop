@@ -271,7 +271,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setFilUri(url);
 				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				file.setFileSource(DictEnum.fileSource.内部.getCode());
-				file.setFileType(DictEnum.fileType.图片.getCode());
+				file.setFileType(getFileType(result.getFileSuffix()));
 				file.setId(null);
 				sopFileDao.insert(file);
 				oldFile.setFileUid(file.getFileUid());

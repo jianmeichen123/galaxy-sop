@@ -251,9 +251,21 @@ function initViewUpload() {
 				}
 				plupload.each(files, function(file) {
 					var size=up.settings.filters.max_file_size.replace("mb","");   
-					console.log("文件上传大小:"+file.size);
-					console.log("文件设置大小:"+size);
-					if(parseInt(file.size) > parseInt(size) * 1024 * 1024){
+					var fileSize = 0;
+					if (navigator.userAgent.indexOf('Mac') != -1) {
+						 
+						 console.log("mac");
+						 console.log("文件上传大小:"+file.size / 1000);
+						 console.log("文件设置大小:"+size * 1000);
+						 fileSize = file.size / 1000;
+					} else {
+						 console.log("pc");
+						 console.log("文件上传大小:"+file.size / 1024);
+						 console.log("文件设置大小:"+size * 1000);
+						 fileSize = file.size / 1024;
+					}
+					
+					if(parseInt(fileSize) > parseInt(size) * 1000){
 						layer.msg("最大支持"+size+"MB");
 						return;
 					}
