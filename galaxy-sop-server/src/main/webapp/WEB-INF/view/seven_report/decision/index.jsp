@@ -33,10 +33,12 @@ var path = '<%=path%>';
     <div class="new_left">
        	<ul class="h_navbar clearfix">
 			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabDecisionChange('0')">投资方案</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabDecisionChange('1')">其他事宜</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabDecisionChange('1')">其他</li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
+		
+		
 			
 		</div>
 	</div>
