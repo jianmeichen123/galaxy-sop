@@ -143,29 +143,29 @@
 					<td>\${scoreExplain}</td>
 					{{if isScore==0}}
 					<!-- 系统打分 -->
-						<td class="">0</td>
+						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="">
+						<td class="score-column" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="">
+						<td class="score-column" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                             <em>(0-\${scoreMax}分)</em>
 						</td>
 					{{else isScore==4}}
 					<!-- 根据其他子项分值计算得出 -->
-						<td class="">0</td>
+						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{/if}}
 				{{/each}}
 				
 			{{/if}}		
 		{{/each}}
-		<td rowspan="\${childList.length}">10</td>
+		<td rowspan="\${childList.length}" class="score-column" data-relate-id="\${id}">10</td>
 	</tr>
 	{{each(i,childList) childList}}
 		{{if i>0}}
@@ -297,23 +297,23 @@
 												<td>\${scoreExplain}</td>
 												{{if isScore==0}}
 												<!-- 系统打分 -->
-													<td class="">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 												{{else isScore==1}}
 												<!-- 人工打分（select） -->
-													<td class="">
+													<td class="score-column" data-relate-id="\${titleRelateId}">
 														<select>
 															<option>请选择</option>
 														</select>
 													</td>
 												{{else isScore==2}}
 												<!-- 人工打分（数值范围） -->
-													<td class="">
+													<td class="score-column" data-relate-id="\${titleRelateId}">
 														<input type="text" value="" placeholder="请打分">
 							                              <em>(0-\${scoreMax}分)</em>
 													</td>
 												{{else isScore==4}}
 												<!-- 根据其他子项分值计算得出 -->
-													<td class="">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 												{{/if}}
 											{{/if}}
 										{{/each}}
@@ -331,23 +331,23 @@
 												<td>\${scoreExplain}</td>
 												{{if isScore==0}}
 												<!-- 系统打分 -->
-													<td class="">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 												{{else isScore==1}}
 												<!-- 人工打分（select） -->
-													<td class="">
+													<td class="score-column" data-relate-id="\${titleRelateId}">
 														<select>
 															<option>请选择</option>
 														</select>
 													</td>
 												{{else isScore==2}}
 												<!-- 人工打分（数值范围） -->
-													<td class="">
+													<td class="score-column" data-relate-id="\${titleRelateId}">
 														<input type="text" value="" placeholder="请打分">
 							                              <em>(0-\${scoreMax}分)</em>
 													</td>
 												{{else isScore==4}}
 												<!-- 根据其他子项分值计算得出 -->
-													<td class="">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 												{{/if}}
 											{{/if}}
 										{{/each}}
@@ -382,23 +382,23 @@
 					<td>\${scoreExplain}</td>
 					{{if isScore==0}}
 					<!-- 系统打分 -->
-						<td class="">0</td>
+						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="">
+						<td class="score-column" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="">
+						<td class="score-column" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                               <em>(0-\${scoreMax}分)</em>
 						</td>
 					{{else isScore==4}}
 					<!-- 根据其他子项分值计算得出 -->
-						<td class="">0</td>
+						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{/if}}
 				{{/each}}
 				{{/if}}
@@ -408,23 +408,23 @@
 					<td>\${scoreExplain}</td>
 					{{if isScore==0}}
 					<!-- 系统打分 -->
-						<td class="">0</td>
+						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="">
+						<td class="score-column" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="">
+						<td class="score-column" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                               <em>(0-\${scoreMax}分)</em>
 						</td>
 					{{else isScore==4}}
 					<!-- 根据其他子项分值计算得出 -->
-						<td class="">0</td>
+						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{/if}}
 				{{/each}}
 			{{/if}}
