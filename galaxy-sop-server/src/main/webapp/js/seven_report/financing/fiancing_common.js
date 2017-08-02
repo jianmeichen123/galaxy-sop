@@ -26,7 +26,7 @@ function tabFinanChange(index){
 			$.getTabHtmlInfo({
 				url : platformUrl.toFinancingT ,
 				okback:function(){
-					right_anchor("DNO3?reportType=2","seven","hide");
+					right_anchor("GNO3?reportType=5","seven","hide");
 				}
 			});
 		}
@@ -36,7 +36,7 @@ function tabFinanChange(index){
 			$.getTabHtml({
 				url : platformUrl.toFinancingO ,
 				okback:function(){
-					right_anchor("DNO4?reportType=2","seven","hide");
+					right_anchor("GNO4?reportType=5","seven","hide");
 				}
 			});
 		}
@@ -46,7 +46,7 @@ function tabFinanChange(index){
 			$.getTabHtml({
 				url : platformUrl.toFinancingC ,
 				okback:function(){
-					right_anchor("DNO5?reportType=2","seven","hide");
+					right_anchor("GNO5?reportType=5","seven","hide");
 				}
 			});
 		}
@@ -56,7 +56,7 @@ function tabFinanChange(index){
 			$.getTabHtml({
 				url : platformUrl.toFinancingPlan ,
 				okback:function(){
-					right_anchor("DNO6?reportType=2","seven","hide");
+					right_anchor("GNO6?reportType=5","seven","hide");
 				}
 			});
 		}
@@ -64,9 +64,9 @@ function tabFinanChange(index){
 		function initFinanceInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toFinancingJ ,
+				url : platformUrl.toFinancingF,
 				okback:function(){
-					right_anchor("DNO7?reportType=2","seven","hide");
+					right_anchor("GNO7?reportType=5","seven","hide");
 				}
 			});
 		}
@@ -74,9 +74,9 @@ function tabFinanChange(index){
 		function initJusticeInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toFinancingF ,
+				url : platformUrl.toFinancingJ,
 				okback:function(){
-					right_anchor("DNO8?reportType=2","seven","hide");
+					right_anchor("GNO8?reportType=5","seven","hide");
 				}
 			});
 		}
@@ -86,7 +86,7 @@ function tabFinanChange(index){
 			$.getTabHtml({
 				url : platformUrl.toFinancingV ,
 				okback:function(){
-					right_anchor("DNO9?reportType=2","seven","hide");
+					right_anchor("GNO9?reportType=5","seven","hide");
 				}
 			});
 		}

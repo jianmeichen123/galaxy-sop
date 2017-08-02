@@ -14,23 +14,13 @@
 		function financePlan1(){
 			window.location.href=platformUrl.toDecisionPlan;
 		}
-		 //团队
-		function initTeamInfo1(){
-			$("#page_all").html("");
-			$.getTabHtmlInfo({
-				url : platformUrl.toDecisionOther ,
-				okback:function(){
-					right_anchor("DNO3?reportType=2","seven","hide");
-				}
-			});
-		}
 		 //运营数据
 		function other1(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toInvestigateO ,
 				okback:function(){
-					right_anchor("DNO4?reportType=2","seven","hide");
+					right_anchor("PNO2?reportType=3","seven","hide");
 				}
 			});
 		}

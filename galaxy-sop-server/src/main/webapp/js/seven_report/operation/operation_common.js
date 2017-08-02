@@ -27,7 +27,7 @@ function tabOperateChange(index){
 			$.getTabHtmlInfo({
 				url : platformUrl.toOperationT ,
 				okback:function(){
-					right_anchor("DNO3?reportType=2","seven","hide");
+					right_anchor("ONO2?reportType=7","seven","hide");
 				}
 			});
 		}
@@ -37,7 +37,7 @@ function tabOperateChange(index){
 			$.getTabHtml({
 				url : platformUrl.toOperationO ,
 				okback:function(){
-					right_anchor("DNO4?reportType=2","seven","hide");
+					right_anchor("ONO3?reportType=7","seven","hide");
 				}
 			});
 		}
@@ -47,7 +47,7 @@ function tabOperateChange(index){
 			$.getTabHtml({
 				url : platformUrl.toOperationMD ,
 				okback:function(){
-					right_anchor("DNO5?reportType=2","seven","hide");
+					right_anchor("ONO4?reportType=7","seven","hide");
 				}
 			});
 		}
@@ -57,7 +57,7 @@ function tabOperateChange(index){
 			$.getTabHtml({
 				url : platformUrl.toOperationC ,
 				okback:function(){
-					right_anchor("DNO5?reportType=2","seven","hide");
+					right_anchor("ONO5?reportType=7","seven","hide");
 				}
 			});
 		}
@@ -67,7 +67,7 @@ function tabOperateChange(index){
 			$.getTabHtml({
 				url : platformUrl.toOperationPlan ,
 				okback:function(){
-					right_anchor("DNO6?reportType=2","seven","hide");
+					right_anchor("ONO6?reportType=7","seven","hide");
 				}
 			});
 		}
@@ -75,9 +75,9 @@ function tabOperateChange(index){
 		function initFinanceInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toOperationJ ,
+				url : platformUrl.toOperationF ,
 				okback:function(){
-					right_anchor("DNO7?reportType=2","seven","hide");
+					right_anchor("ONO7?reportType=7","seven","hide");
 				}
 			});
 		}
@@ -85,9 +85,9 @@ function tabOperateChange(index){
 		function initJusticeInfo1(){
 			$("#page_all").html("");
 			$.getTabHtml({
-				url : platformUrl.toOperationF ,
+				url : platformUrl.toOperationJ ,
 				okback:function(){
-					right_anchor("DNO8?reportType=2","seven","hide");
+					right_anchor("ONO8?reportType=7","seven","hide");
 				}
 			});
 		}
@@ -97,7 +97,7 @@ function tabOperateChange(index){
 			$.getTabHtml({
 				url : platformUrl.toOperationV ,
 				okback:function(){
-					right_anchor("DNO9?reportType=2","seven","hide");
+					right_anchor("ONO9?reportType=7","seven","hide");
 				}
 			});
 		}
