@@ -63,8 +63,8 @@ function interviewList(){
 	    			$this.find('td:last').addClass('limits_gray');
 	    			$this.find('td:last .edit').removeAttr('onclick');
 	    		});	
-	    		powerPosition(i);
 	   		}
+	   		powerPosition(i);
 	    }
 	});
 }
@@ -118,8 +118,8 @@ function meetList(type){
 	    			$this.find('td:last').addClass('limits_gray');
 	    			$this.find('td:last .edit').removeAttr('onclick');
 	    		});
-	    		powerPosition(i);
 	   		}
+	   		powerPosition(i);
 	    }
 	});
 }
