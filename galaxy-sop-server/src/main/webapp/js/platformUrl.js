@@ -1108,43 +1108,43 @@ var platformUrl = {
 	toPreEva:Constants.sopEndpointURL + "/galaxy/infomation/toPreEva",
 //	融资Financing
 	toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toFinancing",
-	   //融资报告-项目
-	    toFinancingP:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingP",
-	   //融资报告-团队
-		toFinancingT:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingT",
-		//融资报告-运营
-		toFinancingO:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingO",
-		//融资报告-竞争
-		toFinancingC:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingC",
-	   //融资报告-战略以及策略
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingPlan",
-	   //融资报告-财务
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingF",
-	   //融资报告-法务
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingJ",
-		//融资报告-融资以及估值
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingV",
+			   //融资报告-项目
+			    toFinancingP:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingP",
+			   //融资报告-团队
+				toFinancingT:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingT",
+				//融资报告-运营
+				toFinancingO:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingO",
+				//融资报告-竞争
+				toFinancingC:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingC",
+			   //融资报告-战略以及策略
+				toFinancingPlan:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingPlan",
+			   //融资报告-财务
+				toFinancingF:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingF",
+			   //融资报告-法务
+				toFinancingJ:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingJ",
+				//融资报告-融资以及估值
+				toFinancingV:Constants.sopEndpointURL + "/galaxy/infomation/toFinancingV",
        //运营
-	toOperation:Constants.sopEndpointURL + "/galaxy/infomation/toOperation",
-	    //运营报告-投资方案 
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationP",
-	    //运营报告-团队
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationT",
-	    //运营报告-运营数据
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationO",
-		//运营报告-市场与开发
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationMD",
-		//运营报告-竞争
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationC",
-		//运营报告-战略以及策略
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationPlan",
-		//运营报告-财务
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationF",
-		//运营报告-法务
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationJ",
-		//运营报告-融资以及估值
-		toFinancing:Constants.sopEndpointURL + "/galaxy/infomation/toOperationV",
-	/**
+		toOperation:Constants.sopEndpointURL + "/galaxy/infomation/toOperation",
+			    //运营报告-投资方案 
+			toOperationP:Constants.sopEndpointURL + "/galaxy/infomation/toOperationP",
+			    //运营报告-团队
+			toOperationT:Constants.sopEndpointURL + "/galaxy/infomation/toOperationT",
+			    //运营报告-运营数据
+			toOperationO:Constants.sopEndpointURL + "/galaxy/infomation/toOperationO",
+				//运营报告-市场与开发
+			toOperationMD:Constants.sopEndpointURL + "/galaxy/infomation/toOperationMD",
+				//运营报告-竞争
+			toOperationC:Constants.sopEndpointURL + "/galaxy/infomation/toOperationC",
+				//运营报告-战略以及策略
+			toOperationPlan:Constants.sopEndpointURL + "/galaxy/infomation/toOperationPlan",
+				//运营报告-财务
+			toOperationF:Constants.sopEndpointURL + "/galaxy/infomation/toOperationF",
+				//运营报告-法务
+			toOperationJ:Constants.sopEndpointURL + "/galaxy/infomation/toOperationJ",
+				//运营报告-融资以及估值
+			toOperationV:Constants.sopEndpointURL + "/galaxy/infomation/toOperationV",
+		/**
 	 * 传入项目 id，区域 code， 返回 该区域下 题和保存的结果信息
 	 */
 	queryProjectAreaInfo : Constants.sopEndpointURL + "/galaxy/tvalue/queryProjectAreaInfo/",

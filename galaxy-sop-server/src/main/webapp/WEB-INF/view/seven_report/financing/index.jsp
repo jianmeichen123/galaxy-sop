@@ -109,7 +109,7 @@ $(function() {
 	//right_anchor("DNO2?reportType=2"); 
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'GNO2?reportType=5', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'DNO2?reportType=2', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
