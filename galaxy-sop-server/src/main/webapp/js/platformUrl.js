@@ -1213,7 +1213,9 @@ var platformUrl = {
 	 /**
 	  * 项目阶段按钮控制
 	  */
-	 buttonToggle : Constants.sopEndpointURL + "/galaxy/progress/buttonToggle/"
+	 buttonToggle : Constants.sopEndpointURL + "/galaxy/progress/buttonToggle/",
+	 
+	 getRelateTitleResults : Constants.sopEndpointURL + "/galaxy/infoProject/getRelateTitleResults/",
 }
 
 /**

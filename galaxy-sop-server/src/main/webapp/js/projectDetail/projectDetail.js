@@ -210,12 +210,19 @@ function reference(projectId){
 		}
 	})
 }
-
-function right_anchor(i){
+//i--code,type--全息和其他六大报告区分,right--评分类别报告右侧多出来一个内容区域，show/hide
+function right_anchor(i,type,right){
+	var _url = '/sop/html/right_anchor.html';
+	if(type=="seven"){
+		_url = '/sop/html/seven_right_anchor.html'
+	}else if(type=="hologram"){
+		_url = '/sop/html/right_anchor.html'
+	}
+	
 	//右侧刷新	
 	$.getDivHtml({
 		domid : "new_right",
-		url :'/sop/html/right_anchor.html' ,//模版请求地址
+		url :_url ,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
 			sendGetRequest(platformUrl.queryAllTitleValues+i, null,
