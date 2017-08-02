@@ -949,6 +949,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	 * @param projectId
 	 * @param titleInfo
 	 */
+	@SuppressWarnings("unchecked")
 	public void getAndSetFixedTable(Long projectId, TitleInfoWapper titleInfo)
 	{
 		InformationFixedTable fixedTableQuery = new InformationFixedTable();
@@ -957,10 +958,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		List<InformationFixedTable> fixedTableList = fixedTableDao.selectList(fixedTableQuery);
 		if(fixedTableList != null && fixedTableList.size() < 0)
 		{
+			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
 			for(InformationFixedTable item : fixedTableList)
 			{
 				String titleId = item.getTitleId();
+				if(item.getContent() != null)
+				{
+					if(dict != null)
+					{
+						item.setValueName(dict.get(Long.valueOf(item.getContent())));
+					}
+				}
 				if(idMap.containsKey(titleId))
 				{
 					InformationTitle title = idMap.get(titleId);
