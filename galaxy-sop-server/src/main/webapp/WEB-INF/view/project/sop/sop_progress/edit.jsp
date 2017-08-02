@@ -251,6 +251,8 @@ function initViewUpload() {
 				}
 				plupload.each(files, function(file) {
 					var size=up.settings.filters.max_file_size.replace("mb","");   
+					console.log("文件上传大小:"+file.size);
+					console.log("文件设置大小:"+size);
 					if(parseInt(file.size) > parseInt(size) * 1024 * 1024){
 						layer.msg("最大支持"+size+"MB");
 						return;
