@@ -51,7 +51,6 @@
 			$('.mashLayer').show();
 			var  leftNum = $(".new_left").offset().left;
 			adjust(".ch_opration");
-			//var  topNum = _td.offset().top-200;
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			

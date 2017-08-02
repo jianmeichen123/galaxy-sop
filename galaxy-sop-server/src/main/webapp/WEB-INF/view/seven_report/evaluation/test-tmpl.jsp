@@ -127,7 +127,7 @@
 					{{else type=="18"}}
 						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
-							<div class="radioShow" id="dropdown"> 
+							<div id="dropdown"> 
 								<input class="input_select" type="text" value="请选择"/> 
 								<ul> 
 									<!--模拟select  循环li标签-->
