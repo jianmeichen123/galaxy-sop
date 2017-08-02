@@ -161,7 +161,7 @@ $("#eva-tabs li").click(function(){
 	$.getTabHtml({
 		url : platformUrl.toOperateInfo ,
 		okback:function(){
-			right_anchor(code+"?reportType=1");
+			right_anchor(code+"?reportType=1","seven","show");
 		}
 	});
 });

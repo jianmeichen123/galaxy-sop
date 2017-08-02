@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<nav class='anchor_nav anchor_navs'>
+	<div class="anchor_btn">
+		<p>隐藏未填写项</p><span></span>
+	</div>
+		<ul id="nav_ul">
+			
+ 		</ul>
+	</nav>
+	 <script id="nav_tmpl" type="text/x-jquery-tmpl">
+{{each(i,childList) childList}}
+	{{if i==0}}
+			<li class='a_${relateCode} active'><a href="#a_${relateCode}">${name}</a></li>
+			{{else}}
+			<li class='a_${relateCode}'><a href="#a_${relateCode}">${name}</a></li>
+		{{/if}}
+{{/each}}
+
+    </script>
+</body>
+</html>
