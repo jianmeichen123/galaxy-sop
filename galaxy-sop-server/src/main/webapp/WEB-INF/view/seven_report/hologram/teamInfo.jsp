@@ -200,8 +200,6 @@
         				
         			}
         		})
-        		console.log("tuandui  ")
-        		console.log(data)
                 sendPostRequestByJsonObj(
                 platformUrl.saveTeamMember,
                 json,

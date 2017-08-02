@@ -77,8 +77,6 @@
               workList.push(t2);
          })
          data["workList"]=workList;
-         console.log("chenjiamei");
-         console.log(studyList)
          //创业经历
          var list3 =  $("#team_startup").find("div[data-flag]");
          var startupList = [];
@@ -119,7 +117,7 @@
          })
          
         data["startupList"]=startupList;
-
+         data["code"]="team-members";
         var index = data["index"]
         //获取表头,
         var headerList =   $('table[data-title-id="'+titleId+'"].editable').find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
