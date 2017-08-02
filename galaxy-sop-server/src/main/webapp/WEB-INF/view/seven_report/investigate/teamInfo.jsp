@@ -58,7 +58,6 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO3?reportType=2', null,
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
-			console.log(entity);
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
 			customBuilder();
