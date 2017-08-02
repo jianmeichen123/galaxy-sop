@@ -42,6 +42,10 @@ public enum OperationLogType {
 
 	//projectProgress:4
 	//	立项报告     fileWorktype:17  
+	p5_f5_lxhbg_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.eleven, OperType.UPLOAD.getOperationType(), 
+			"立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
+	p5_f5_lxhbg_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.twelve, OperType.UPDATE.getOperationType() , 
+			"立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
 	
 	
 	//projectProgress:5
