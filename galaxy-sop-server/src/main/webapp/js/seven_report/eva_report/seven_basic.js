@@ -60,15 +60,6 @@
 		}
 		
 		
-		/*$(obj).closest('td').addClass('edit_true');
-		var pText = $(obj).parent().find('p');
-		pText.hide();
-		$(obj).hide();
-		//对号，×号显示
-		$(obj).closest('td').find('.Button').show();
-		$(obj).closest('td').find('.radioShow').show();
-		//给td加自定义属性
-		$(obj).parent().data('edit','true')*/
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
@@ -197,8 +188,32 @@ $('div').delegate(".h_save_btn","click",function(event){
 	event.stopPropagation();
 });	
 	
+//div模拟select下拉框
+$(function(){ 
+	$(".input_select").click(function(){ 
+		var ul = $("#dropdown ul"); 
+		var _this = $(this);
+		if(ul.css("display")=="none"){
+			_this.addClass('up');
+			ul.slideDown("fast"); 
+		}else{ 
+		ul.slideUp("fast");
+		_this.removeClass('up');
+		_this.addClass('input_select')
+		} 
+	}); 
+
+	$("#dropdown ul li a").click(function(){ 
+		var target = $(this).closest('#dropdown').find('input');
+		target.removeClass('up')
+		var txt = $(this).text(); 
+		$(".input_select").val(txt); 
+		$("#dropdown ul").hide(); 
+}); 
+
+}); 
 	
-	
+
 	
 	
 	

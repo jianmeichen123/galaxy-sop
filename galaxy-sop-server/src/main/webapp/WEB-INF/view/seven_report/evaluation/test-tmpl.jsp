@@ -124,8 +124,16 @@
 							<div class="  content_16 align_left">\${content}</div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
-					{else type=="18"}}
-						 
+					{{else type=="18"}}
+						 <td>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" value="请选择城市"/> 
+								<ul> 
+									<!--模拟select  循环li标签-->
+									<!--<li><a href="#" value="2">北京</a></li> -->
+								</ul> 
+							</div> 
+						</td>
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -361,8 +369,16 @@
 							<div class="  content_16 align_left">\${content}</div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
-					{else type=="18"}}
-						 
+					{{else type=="18"}}
+						 <td>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" value="请选择"/> 
+								<ul> 
+									<!--模拟select  循环li标签-->
+									<!--<li><a href="#" value="2">北京</a></li> --> 
+								</ul> 
+							</div> 
+						</td>
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -463,7 +479,7 @@
 				<span class="h_save_btn">保存</span>
 				<span class="h_cancel_btn">取消</span>
 			</div>
-			<div class="h_title">\${name}</div>
+			
 		 	{{each(i,childList) childList}}
 					<div class="mb_16">
 					    <dl class="h_edit_txt clearfix">
