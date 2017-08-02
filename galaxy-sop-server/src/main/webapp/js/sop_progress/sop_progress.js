@@ -450,8 +450,8 @@ function getInterViewParams(hasProid,projectId,
 		layer.msg("项目不能为空");
 		return false;
 	}
-	if(viewNotesId != null && viewNotesId.length > 0){
-		if(delHtmlTag(viewNotesId).length > 5000){
+	if(viewNotes != null && viewNotes.length > 0){
+		if(delHtmlTag(viewNotes).length > 5000){
 			layer.msg("访谈记录长度最大5000字");
 			return false;
 		}
