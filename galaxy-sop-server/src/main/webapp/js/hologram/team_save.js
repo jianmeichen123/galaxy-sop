@@ -15,19 +15,9 @@
         //data为列表的tr data属性值
         var row={};
         var data={};
-        $.each($("#detail-form").find("input, select"),function(){
-            var ele = $(this);
-            var name = ele.attr('name');
-            row[name]= ele.val();
-            row["field3"] = $("#detail-form").find("input:radio[name='field3']:checked").attr("data-value");
-        });
-
-        $.each($("#detail-form").find("input, select"),function(){
-            var ele = $(this);
-            var name = ele.attr('name');
-            data[name]= ele.val();
-            data["field3"] = $("#detail-form").find("input:radio[name='field3']:checked").attr("data-value");
-        });
+        row = getData($("#detail-form"))
+        row["field3"] = $("#detail-form").find("input:radio[name='field3']:checked").attr("data-value");
+        data = row;
         var titleId = data["titleId"]
         var projectId = data["projectId"]
         //学习经历
@@ -35,7 +25,6 @@
         var studyList = [];
         $(list1).each(function(){
             var div = $(this);
-       
             var t1 = getData(div);
             t1["code"]="study-experience";
             t1["titleId"]=data["titleId"];
@@ -43,22 +32,22 @@
             if(!t1["id"] || t1["id"] == 'null' || t1["id"] == "undefined"){
             	delete t1.id;
             }
-               var field1 = div.find("[name='field1']").text();
-               var field2 = div.find("[name='field2']").text();
-               var field3 = div.find("[name='field3']").text();
-               var field4 = div.find("[name='field4']").text();
-               var field5 = div.find("[name='field5']").text();
-               if(field1.indexOf("毕业")>0){
-            	   t1["field1"]=field1.substring(0,field1.length-2);
-            	  
-               }else{
-            	   t1["field1"]=field1;
-               }
-               t1["field2"]=field2;
-               t1["field3"]=field3;
-               t1["field4"]=field4;
-               t1["field5"]=field5;
-               studyList.push(t1);
+           var field1 = div.find("[name='field1']").text();
+           var field2 = div.find("[name='field2']").text();
+           var field3 = div.find("[name='field3']").text();
+           var field4 = div.find("[name='field4']").text();
+           var field5 = div.find("[name='field5']").text();
+           if(field1.indexOf("毕业")>0){
+               t1["field1"]=field1.substring(0,field1.length-2);
+
+           }else{
+               t1["field1"]=field1;
+           }
+           t1["field2"]=field2;
+           t1["field3"]=field3;
+           t1["field4"]=field4;
+           t1["field5"]=field5;
+           studyList.push(t1);
             //studyList.push(t1);
         })
         data["studyList"]=studyList;
@@ -100,7 +89,7 @@
         	   {
             	  json["id"]=null;
         	   }
-               
+
                json["field1"]=field1;
                json["field2"]=field2;
                json["field3"]=field3;
@@ -112,12 +101,12 @@
                json["code"]=code;
                json["titleId"]=titleId;
                json["projectId"]=projectId;
-               
+
                startupList.push(json);
          })
-         
+
         data["startupList"]=startupList;
-         data["code"]="team-members";
+        data["code"]="team-members";
         var index = data["index"]
         //获取表头,
         var headerList =   $('table[data-title-id="'+titleId+'"].editable').find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
