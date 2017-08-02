@@ -5,7 +5,7 @@
 
 {{each(i,childList) childList}}
 	<tr id="a_\${relateCode}" class="evl_module">
-		<td rowspan="\${childList.length}">\${name}</td>				
+		<td rowspan="\${childList.length}">\${name}<span class="title-weight" data-relate-id="\${id}"></span></td>				
 		{{each(i,childList) childList}}
 			{{if i==0}}
 				<td data-type="\${type}" parentid="\${parentId}" data-title-id="\${titleid}" data-reletid="\${id}">\${name}</td>

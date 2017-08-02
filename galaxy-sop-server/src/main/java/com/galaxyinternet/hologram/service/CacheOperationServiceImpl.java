@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.CacheOperationService;
@@ -43,6 +44,8 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	
 	@Autowired
 	private InformationDictionaryDao informationDictionaryDao;
+	@Autowired
+	private LocalCache<String,Object> localCache;
 	
 	
 	//@Autowired
@@ -92,6 +95,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 			cachVs.add(code);
 			cache.set(key_codes, cachVs);
 		}
+		localCache.clear();
 	}
 	
 	

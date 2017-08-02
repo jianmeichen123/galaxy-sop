@@ -45,7 +45,16 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 	protected BigDecimal compute()
 	{
 		BigDecimal score = BigDecimal.ZERO;
-		ScoreInfo info = service.queryById(relateId);
+		ScoreInfo info = null;
+		if(relateId == 0L)
+		{
+			info = new ScoreInfo();
+			info.setProcessMode(1);
+		}
+		else
+		{
+			info = service.queryById(relateId);
+		}
 		if(info == null || info.getProcessMode() == null)
 		{
 			return score;
