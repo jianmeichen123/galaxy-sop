@@ -3348,4 +3348,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     white-space: nowrap;}
 #powindow .close{z-index:40;}    
 .intw_summary dd{word-break:break-all;}  
-    
+.intw_summary ol,.intw_summary ol li{list-style-type: decimal;list-style-position: inside; } 
+.intw_summary ul,.intw_summary ul li{list-style-type: disc;list-style-position: inside; } 
+.intw_summary li{display: list-item;} 
