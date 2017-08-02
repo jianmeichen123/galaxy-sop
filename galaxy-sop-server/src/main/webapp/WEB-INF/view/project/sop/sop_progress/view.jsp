@@ -42,7 +42,7 @@
                 <dt id="toobar_result">访谈结论：</dt>
                 <dd class="result_dd">
                     <div class="result_reason">
-                       <span id="interviewResult">否决 &nbsp;</span>
+                       <span id="interviewResult"></span>
                        <span id="resultReason"></span>
                     </div>
                    
