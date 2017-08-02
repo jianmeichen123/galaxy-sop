@@ -318,7 +318,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 				}
 			}
 			
-			if(useCacha && toCache){
+			if(useCacha && toCache && title!=null){
 				cacheOperationService.saveAllByRedies(pinfoKey, title);
 			}
 			
