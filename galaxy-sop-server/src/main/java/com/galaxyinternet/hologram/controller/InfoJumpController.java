@@ -319,50 +319,189 @@ public class InfoJumpController{
 			}
 	       return responseBody;
 	}
+
 	/**
 	 * 尽职调查报告页面****************************************开始
 	 */
-	   //尽调报告-项目信息页面
-		@RequestMapping(value = "/toInvestigateP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigateP(HttpServletRequest request) {
-			return "seven_report/investigate/index";
-		}
-		 //尽调报告-团队成员
-		@RequestMapping(value = "/toInvestigateT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigateT(HttpServletRequest request) {
-			return "seven_report/investigate/teamInfo";
-		}
-		 //尽调报告-运营数据
-		@RequestMapping(value = "/toInvestigateO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigateO(HttpServletRequest request) {
-			return "seven_report/investigate/operateInfo";
-		}
-		 //尽调报告-竞争分析
-		@RequestMapping(value = "/toInvestigateC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigateC(HttpServletRequest request) {
-			return "seven_report/investigate/competeInfo";
-		}
-		 //尽调报告-战略策略
-		@RequestMapping(value = "/toInvestigatePlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigatePlan(HttpServletRequest request) {
-			return "seven_report/investigate/planInfo";
-		}
-		 //尽调报告-财务
-		@RequestMapping(value = "/toInvestigateF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigateF(HttpServletRequest request) {
-			return "seven_report/investigate/financeInfo";
-		}
-		 //尽调报告-法务
-		@RequestMapping(value = "/toInvestigateJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigateJ(HttpServletRequest request) {
-			return "seven_report/investigate/justiceInfo";
-		}
-		 //尽调报告-融资以及估值
-		@RequestMapping(value = "/toInvestigateV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		public String toInvestigateV(HttpServletRequest request) {
-			return "seven_report/investigate/valuationInfo";
-		}
-		/**
-		 * 尽职调查报告页面 ****************************************结束
-		 */
+	// 尽调报告-项目信息页面
+	@RequestMapping(value = "/toInvestigateP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateP(HttpServletRequest request) {
+		return "seven_report/investigate/index";
+	}
+
+	// 尽调报告-团队成员
+	@RequestMapping(value = "/toInvestigateT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateT(HttpServletRequest request) {
+		return "seven_report/investigate/teamInfo";
+	}
+
+	// 尽调报告-运营数据
+	@RequestMapping(value = "/toInvestigateO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateO(HttpServletRequest request) {
+		return "seven_report/investigate/operateInfo";
+	}
+
+	// 尽调报告-竞争分析
+	@RequestMapping(value = "/toInvestigateC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateC(HttpServletRequest request) {
+		return "seven_report/investigate/competeInfo";
+	}
+
+	// 尽调报告-战略策略
+	@RequestMapping(value = "/toInvestigatePlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigatePlan(HttpServletRequest request) {
+		return "seven_report/investigate/planInfo";
+	}
+
+	// 尽调报告-财务
+	@RequestMapping(value = "/toInvestigateF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateF(HttpServletRequest request) {
+		return "seven_report/investigate/financeInfo";
+	}
+
+	// 尽调报告-法务
+	@RequestMapping(value = "/toInvestigateJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateJ(HttpServletRequest request) {
+		return "seven_report/investigate/justiceInfo";
+	}
+
+	// 尽调报告-融资以及估值
+	@RequestMapping(value = "/toInvestigateV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateV(HttpServletRequest request) {
+		return "seven_report/investigate/valuationInfo";
+	}
+
+	/**
+	 * 尽职调查报告页面 ****************************************结束
+	 */
+	/**
+	 * 融资报告页面****************************************开始
+	 */
+	// 融资报告-项目信息页面
+	@RequestMapping(value = "/toFinancingPlanP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanP"(HttpServletRequest request) {
+		return "seven_report/financing/index";
+	}
+
+	// 融资报告-团队成员
+	@RequestMapping(value = "/toFinancingPlanT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanT(HttpServletRequest request) {
+		return "seven_report/financing/teamInfo";
+	}
+
+	// 融资报告-运营数据
+	@RequestMapping(value = "/toFinancingPlanO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanO(HttpServletRequest request) {
+		return "seven_report/financing/operateInfo";
+	}
+
+	// 融资报告-竞争分析
+	@RequestMapping(value = "/toFinancingPlanC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanC(HttpServletRequest request) {
+		return "seven_report/financing/competeInfo";
+	}
+
+	// 融资报告-战略策略
+	@RequestMapping(value = "/toFinancingPlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlan(HttpServletRequest request) {
+		return "seven_report/financing/planInfo";
+	}
+
+	// 融资报告-财务
+	@RequestMapping(value = "/toFinancingPlanF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanF(HttpServletRequest request) {
+		return "seven_report/financing/financeInfo";
+	}
+
+	// 融资报告-法务
+	@RequestMapping(value = "/toFinancingPlanJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanJ(HttpServletRequest request) {
+		return "seven_report/financing/justiceInfo";
+	}
+
+	// 融资报告-融资以及估值
+	@RequestMapping(value = "/toFinancingPlanV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toFinancingPlanV(HttpServletRequest request) {
+		return "seven_report/financing/valuationInfo";
+	}
+
+	/**
+	 * 融资报告页面 ****************************************结束
+	 */
+	/**
+	 * 运营报告页面****************************************开始
+	 */
+	// 运营报告-投资方案
+	@RequestMapping(value = "/toOperationP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperationP(HttpServletRequest request) {
+		return "seven_report/investigate/index";
+	}
+
+	// 运营报告-团队成员
+	@RequestMapping(value = "/toOperationT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateT(HttpServletRequest request) {
+		return "seven_report/investigate/teamInfo";
+	}
+
+	// 运营报告-运营数据
+	@RequestMapping(value = "/toOperationO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toInvestigateO(HttpServletRequest request) {
+		return "seven_report/investigate/operateInfo";
+	}
+
+	// 运营报告-市场与开发
+	@RequestMapping(value = "/toOperationMD", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperationMD(HttpServletRequest request) {
+		return "seven_report/investigate/competeInfo";
+	}
+
+	// 运营报告-竞争分析
+	@RequestMapping(value = "/toOperationC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperationC(HttpServletRequest request) {
+		return "seven_report/investigate/competeInfo";
+	}
+
+	// 运营报告-战略策略
+	@RequestMapping(value = "/toOperationPlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperationPlan(HttpServletRequest request) {
+		return "seven_report/investigate/planInfo";
+	}
+
+	// 运营报告-财务
+	@RequestMapping(value = "/toOperationF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperationF(HttpServletRequest request) {
+		return "seven_report/investigate/financeInfo";
+	}
+
+	// 运营报告-法务
+	@RequestMapping(value = "/toOperationJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperationJ(HttpServletRequest request) {
+		return "seven_report/investigate/justiceInfo";
+	}
+
+	// 运营报告-融资以及估值
+	@RequestMapping(value = "/toOperationV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toOperationV(HttpServletRequest request) {
+		return "seven_report/investigate/valuationInfo";
+	}
+
+	/**
+	 * 运营报告页面 ****************************************结束
+	 */
+	/**
+	 * 决策报告页面****************************************开始
+	 */
+	// 决策报告-投资方案
+	@RequestMapping(value = "/toDecisionPlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toDecisionP(HttpServletRequest request) {
+		return "seven_report/decision/index";
+	}
+	// 决策报告-其他事宜
+	@RequestMapping(value = "/toDecisionOther", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toDecisionT(HttpServletRequest request) {
+		return "seven_report/decision/other";
+	}
+	/**
+	 * 决策报告页面****************************************开始
+	 */
 }
