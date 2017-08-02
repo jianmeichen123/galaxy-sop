@@ -152,7 +152,7 @@ function initViewUpload() {
 		multipart:true,
 		multi_selection:false,
 		filters : {
-			max_file_size : '50mb',
+			max_file_size : '50MB',
 			mime_types: paramsFilter(1)
 		},
 
@@ -250,21 +250,13 @@ function initViewUpload() {
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
-					var size=up.settings.filters.max_file_size.replace("mb","");   
+					var size=up.settings.filters.max_file_size.replace("MB","");   
 					var fileSize = 0;
 					if (navigator.userAgent.indexOf('Mac') != -1) {
-						 
-						 console.log("mac");
-						 console.log("文件上传大小:"+file.size / 1000);
-						 console.log("文件设置大小:"+size * 1000);
 						 fileSize = file.size / 1000;
 					} else {
-						 console.log("pc");
-						 console.log("文件上传大小:"+file.size / 1024);
-						 console.log("文件设置大小:"+size * 1000);
 						 fileSize = file.size / 1024;
 					}
-					
 					if(parseInt(fileSize) > parseInt(size) * 1000){
 						layer.msg("最大支持"+size+"MB");
 						return;
@@ -319,8 +311,8 @@ function initViewUpload() {
 				$("#save_interview").removeClass("disabled");
 				$("#file_object").text("");
 				$("#select_btn").text("选择文件");
-				$("#file_object").removeClass("audio_name")
-				layer.msg(err.message);
+				$("#file_object").removeClass("audio_name");
+				layer.msg("最大支持"+up.settings.filters.max_file_size);
 			}
 		}
 	});
