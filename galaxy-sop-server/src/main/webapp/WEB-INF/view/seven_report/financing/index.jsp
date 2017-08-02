@@ -94,7 +94,7 @@ var path = '<%=path%>';
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
 
 
-<script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
+<script src="<%=path%>/js/seven_report/financing/financing_common.js"></script>	
 
 <!-- 跟全息图相似的 -->
 <script src="<%=path%>/js/hologram/team_pop.js"></script>	

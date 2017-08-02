@@ -32,15 +32,14 @@ var path = '<%=path%>';
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabFinanChange('0')">投资方案</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('1')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabFinanChange('2')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('3')">市场与开发</li>
-		    <li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('4')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabFinanChange('5')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('6')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('7')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabFinanChange('8')">融资及<br />估值 </li>
+			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInvestChange('0')">项目</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('1')">团队</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('2')">运营<br />数据 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('3')">竞争</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('4')">战略及<br />策略 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('5')">财务</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('6')">法务</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('7')">融资及<br />估值 </li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 

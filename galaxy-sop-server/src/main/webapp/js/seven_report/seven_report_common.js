@@ -218,10 +218,16 @@ function tabInfoChange(index){
     	var type=str.split("NO")[0];
     	var reportType="";
     	switch(type){
-    	   case "D":
-    		  reportType="2";
-    		  break;
-    	   default:
+    	 case "D":
+   		    reportType="2";
+   		   break;
+   	     case "O":
+   			  reportType="7";
+   			  break;
+   	     case "G":
+   			  reportType="5";
+   			  break;
+    	 default:
     		   reportType="";	  
     	}
 		if(id == "a_NO3_1"){
