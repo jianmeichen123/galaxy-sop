@@ -711,7 +711,7 @@ ul,li{list-style:none;}
 #dropdown{
 	width:186px; 
 	position:relative;
-	display:none;
+	/* display:none; */
 } 
 .input_select{
 	width:144px; 

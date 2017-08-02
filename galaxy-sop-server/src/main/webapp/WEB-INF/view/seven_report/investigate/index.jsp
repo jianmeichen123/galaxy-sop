@@ -9,7 +9,7 @@
 <html class="scroll">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>项目详情</title>
+<title>项目详情1</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
@@ -58,7 +58,7 @@ var pageId = "project";
 
        <!--隐藏-->
     <div class="bj_hui_on"></div>
-	<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+	<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
 	</div>
 
 </div>
@@ -90,12 +90,16 @@ var pageId = "project";
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
 <%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>	 --%>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
-<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">		
-<script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
 
-<script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/save_ok.js" type="text/javascript"></script>
+
+<script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
+
+<!-- 跟全息图相似的 -->
+<script src="<%=path%>/js/hologram/team_pop.js"></script>	
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
+<script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";

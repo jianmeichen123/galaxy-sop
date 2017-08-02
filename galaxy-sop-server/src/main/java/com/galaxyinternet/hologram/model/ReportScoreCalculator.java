@@ -59,7 +59,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		{
 			item = new ItemParam();
 			item.setRelatedId(relateId);
-			item.setScore(BigDecimal.ZERO);
+			item.setScore(null);
 		}
 		
 		Integer scoreType = info.getScoreType();
@@ -88,7 +88,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 				String value = null;
 				if(ArrayUtils.isEmpty(values) || CollectionUtils.isEmpty(autoList))
 				{
-					score = BigDecimal.ZERO;
+					score = null;
 				}
 				else
 				{
@@ -184,11 +184,15 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 					BigDecimal sum = BigDecimal.ZERO;
 					for(ReportScoreCalculator t : subTasks)
 					{
-						sum = sum.add(t.join());
+						BigDecimal rtn = t.join();
+						if(rtn != null)
+						{
+							sum = sum.add(rtn);
+						}
 					}
 					itemParam.setScore(sum);
 					items.put(relateId, itemParam);
-					logger.debug(String.format("RelateId=%s, Mode=1, Sum=%s",relateId,sum,sum));
+					logger.debug(String.format("RelateId=%s, Mode=1, Sum=%s",relateId,sum));
 					BigDecimal num = sum.multiply(weight)
 										.divide(BigDecimal.valueOf(100))
 										.setScale(2, BigDecimal.ROUND_HALF_UP);

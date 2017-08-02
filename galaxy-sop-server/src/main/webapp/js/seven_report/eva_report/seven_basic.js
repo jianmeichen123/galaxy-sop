@@ -212,32 +212,7 @@ $(function(){
 }); 
 
 }); 
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
+		
 	//遮罩层
 	function pageHeight(){
 		return document.body.scrollHeight+200;
@@ -260,9 +235,6 @@ $(function(){
 	    console.log(t);
 	    console.log(scrollY() + (windowHeight()/2))
 	    if(t < 0) t = 0;
-	   // var l = scrollX() + (windowWidth()/2) - (w/2);
-	    //if(l < 0) l = 0;
-	    //$(id).css({left: l+'px', top: t+'px'});
 	    $(id).css('top',t+'px');
 	}
     
