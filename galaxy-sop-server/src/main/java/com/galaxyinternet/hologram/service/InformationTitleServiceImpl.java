@@ -1,11 +1,13 @@
 package com.galaxyinternet.hologram.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
@@ -811,6 +813,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(localCache.containsKey(key))
 		{
 			result = (TitleInfoWapper)localCache.get(key);
+			result.init();
 		}
 		else
 		{
@@ -866,8 +869,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	{
 		private Set<String> ids;
 		private Set<Long> relateIds;
-		private Map<String,InformationTitle> idMap = new HashMap<>();
-		private Map<Long,InformationTitle> relateIdMap = new HashMap<>();
+		private Map<String,InformationTitle> idMap = new ConcurrentHashMap<>();
+		private Map<Long,InformationTitle> relateIdMap = new ConcurrentHashMap<>();
 		
 		public TitleInfoWapper(List<InformationTitle> list)
 		{
@@ -907,6 +910,32 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		public Map<Long, InformationTitle> getRelateIdMap()
 		{
 			return relateIdMap;
+		}
+		public void init()
+		{
+			if(relateIdMap.size()>0)
+			{
+				Collection<InformationTitle> titles = relateIdMap.values();
+				for(InformationTitle title : titles)
+				{
+					if(title.getFixedTableList() != null && title.getFixedTableList().size() >0)
+					{
+						title.getFixedTableList().clear();
+					}
+					if(title.getTableHeader() != null)
+					{
+						title.setTableHeader(null);
+					}
+					if(title.getResultList() != null && title.getResultList().size()>0)
+					{
+						title.getResultList().clear();
+					}
+					if(title.getDataList() != null && title.getDataList().size()>0)
+					{
+						title.getDataList().clear();
+					}
+				}
+			}
 		}
 	}
 	
