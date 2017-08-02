@@ -19,7 +19,7 @@
 				{{each(i,childList) childList}}
 					<div class="mb_16">
 					    <dl class="h_edit_txt clearfix">
-							<dt data-type="\${type}"  data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+							<dt data-type="\${type}"  data-title-id="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
 							{{if type=="1"}}
 							<dd><input type="text" data-title-id="\${titleId}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" data-must="\${isMust}"/></dd>
 
@@ -27,7 +27,7 @@
 							<dd class="fl_none">
 							<ul class="h_radios clearfix">
 								{{each(i,valueList) valueList}}
-								<li><input type="radio" value="\${titleId}" data-title-id="\${titleId}" data-type="\${type}" name="\${titleId}" data-must="\${isMust}"/>\${name}</li>
+								<li><input type="radio" value="\${id}" data-title-id="\${titleId}" data-type="\${type}" name="\${titleId}" data-must="\${isMust}"/>\${name}</li>
 								{{/each}}
 							  </ul>
 							</dd>
@@ -36,7 +36,7 @@
 							<dd class="fl_none">
 							<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 								{{each(i,valueList) valueList}}
-								<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
+								<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
 								{{/each}}
 							  </ul>
 							</dd>
@@ -54,7 +54,7 @@
 							<dd>
 							<ul class="h_radios clearfix">
 								{{each(i,valueList) valueList}}
-								<li><input type="radio" value="\${titleId}" data-value="\${value}" name="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
+								<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
 								{{/each}}
 							  </ul>
 							</dd>
@@ -68,7 +68,7 @@
 
 							{{else type=="6"}}
 							{{each(i,valueList) valueList}}
-							<dd class="check_label" data-value="\${value}" data-id="\${titleId}" data-code="\${relateCode}">\${name}</dd>
+							<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${relateCode}">\${name}</dd>
 							{{/each}}
 								<dd class="fl_none">
 									<textarea class="textarea_h" data-title-id="\${titleId}" data-type="\${type}" placeholder="\${placeholder}" id="\${titleId}" onInput='countChar("\${titleId}","label_\${titleId}","\${valRuleMark}");'></textarea>
@@ -157,26 +157,26 @@
 								<dd class="fl_none">
 								<ul class="h_radios clearfix">
 									{{each(i,valueList) valueList}}
-									<li><input type="radio" value="\${titleId}" data-value="\${value}" name="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
+									<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
 									{{/each}}
-									<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
+									<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
 								  </ul>
 								</dd>
 							{{else type=="13"}}
 								<dd class="fl_none">
 									<ul class="h_radios h_edit_checkbox  clearfix" data-type="\${type}">
 										{{each(i,valueList) valueList}}
-										<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
+										<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
 										{{/each}}
-										<li class="text_li text_li_13"><input data-type="\${type}" type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
+										<li class="text_li text_li_13"><input data-type="\${type}" type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
 								 	 </ul>
 								</dd>
 
 							{{else type=="14"}}
-								<select data-id="\${titleId}" data-must="\${isMust}" data-title-id="\${titleId}">
+								<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${titleId}">
 								<option data-value="" data-type="\${type}" data-id="" data-title-id="\${titleId}" value="1" data-code="">请选择</option>
 								{{each(i,valueList) valueList}}
-									<option data-value="\${value}" data-type="\${type}" data-id="\${titleId}" data-title-id="\${titleId}" value="\${titleId}" data-code="\${relateCode}">\${name}</option>
+									<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${relateCode}">\${name}</option>
 								{{/each}}
 							</select>
 							{{else type=="15"}}
@@ -220,17 +220,17 @@
 						<dd class="fl_none">
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-							<li><input type="radio" name="\${titleId}" value="\${titleId}" data-title-id="\${titleId}" data-type="\${type}"  data-must="\${isMust}"/>\${name}</li>
+							<li><input type="radio" name="\${titleId}" value="\${id}" data-title-id="\${titleId}" data-type="\${type}"  data-must="\${isMust}"/>\${name}</li>
 							{{/each}}
 						  </ul>
 						</dd>
 
 					{{else type=="3"}}
-						<dt data-type="\${type}"  data-id="\${titleId}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+						<dt data-type="\${type}"  data-id="\${id}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
 						<dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 							{{each(i,valueList) valueList}}
-							<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
+							<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
 							{{/each}}
 						  </ul>
 						</dd>
@@ -264,7 +264,7 @@
 					{{else type=="6"}}
 						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
 						{{each(i,valueList) valueList}}
-							<dd class="check_label" data-value="\${value}" data-id="\${titleId}" data-code="\${relateCode}">\${name}</dd>
+							<dd class="check_label" data-value="\${value}" data-id="\${id}" data-code="\${relateCode}">\${name}</dd>
 						{{/each}}
 						<dd class="fl_none">
 							<textarea class="textarea_h" data-title-id="\${titleId}" data-type="\${type}" placeholder="\${placeholder}" id="\${titleId}" onInput='countChar("\${titleId}","label_\${titleId}","\${valRuleMark}");'></textarea>
@@ -307,7 +307,7 @@
 			                 	 <td  data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-			                      		<li><input type="radio" data-title-id="\${titleId}" data-row="row1" name="row1_\${titleId}" value="\${titleId}" data-type="9"/>\${name}</li>
+			                      		<li><input type="radio" data-title-id="\${titleId}" data-row="row1" name="row1_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
 			                   		 </ul>
@@ -321,7 +321,7 @@
 			                 	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-			                      		<li><input type="radio" data-title-id="\${titleId}" data-row="row2" name="row2_\${titleId}" value="\${titleId}" data-type="9"/>\${name}</li>
+			                      		<li><input type="radio" data-title-id="\${titleId}" data-row="row2" name="row2_\${titleId}" value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
 			                   		 </ul>
@@ -334,7 +334,7 @@
 			                 	 <td data-flag="\${i+1}">
 									<ul class="h_radios clearfix">
 										{{each(i,valueList) valueList}}
-			                      		<li><input type="radio" data-title-id="\${titleId}" data-row="row3" name='row3_\${titleId}' value="\${titleId}" data-type="9"/>\${name}</li>
+			                      		<li><input type="radio" data-title-id="\${titleId}" data-row="row3" name='row3_\${titleId}' value="\${id}" data-type="9"/>\${name}</li>
 										{{/each}}
 
 			                   		 </ul>
@@ -363,28 +363,28 @@
 						<dd class="fl_none">
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-							<li><input type="radio" value="\${titleId}" data-value="\${value}" name="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
+							<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
 							{{/each}}
-							<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
+							<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
 						  </ul>
 						</dd>
 					{{else type=="13"}}
-						<dt data-type="\${type}"  data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+						<dt data-type="\${type}"  data-title-id="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
 						<dd class="fl_none">
 							<ul class="h_radios h_edit_checkbox  clearfix" data-type="\${type}">
 								{{each(i,valueList) valueList}}
-								<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
+								<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${relateCode}" data-type="\${type}">\${name}</li>
 								{{/each}}
-								<li class="text_li text_li_13"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
+								<li class="text_li text_li_13"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
 						 	 </ul>
 						</dd>	
 				
 					{{else type=="14"}}
 						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
-						<select data-id="\${titleId}" data-must="\${isMust}" data-title-id="\${titleId}">
+						<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${titleId}">
 				       <option data-value="" data-type="\${type}" data-id="" data-title-id="\${titleId}" value="" data-code="">请选择</option>
 						{{each(i,valueList) valueList}}
-						<option data-value="\${value}" data-type="\${type}" data-id="\${titleId}" data-title-id="\${titleId}" value="\${titleId}" data-code="\${relateCode}">\${name}</option>
+						<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${relateCode}">\${name}</option>
 						{{/each}}
 						</select>
 					{{else type=="15"}}
@@ -422,7 +422,7 @@
 						<dd>
 							<select id="\${titleId}_select">
 							{{each(i,valueList) valueList}}
-								<option data-value="\${value}" data-type="\${type}" data-id="\${titleId}" data-title-id="\${titleId}" value="\${titleId}" data-code="\${relateCode}">\${name}</option>
+								<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${relateCode}">\${name}</option>
 							{{/each}}
 							</select>
 						</dd>
@@ -483,7 +483,7 @@
 							{{else type=="3"}}
 								<div class="checked_div clearfix">
 									{{each(i,valueList) valueList}}
-									<dd class="border_dd" data-value="\${value}" data-type="3" value="\${titleId}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
+									<dd class="border_dd" data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
 									{{/each}}
 								</div>
 
@@ -543,7 +543,7 @@
 							{{else type=="13"}}
 								<div class="checked_div clearfix">
 									{{each(i,valueList) valueList}}
-										<dd class="border_dd" data-value="\${value}" data-type="13" value="\${titleId}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" style="display:none;"></dd>
+										<dd class="border_dd" data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" style="display:none;"></dd>
 									{{/each}}
 									<dd class="field">未选择</dd>
 								</div>
@@ -578,7 +578,7 @@
 					<dt  data-type="\${type}" data-title-id="\${titleId}" >\${name}</dt>
 					<div class="checked_div clearfix">
 					{{each(i,valueList) valueList}}
-					 <dd class="border_dd"  data-value="\${value}" data-type="13" value="\${titleId}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
+					 <dd class="border_dd"  data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
 					{{/each}}
 					</div>
 
@@ -646,7 +646,7 @@
 						<dt data-type="\${type}" data-id="\${titleId}" data-title-id="\${titleId}" data-code="\${relateCode}" data-parentId="\${parentId}">\${name}</dt>
 						<div class="checked_div clearfix">
 						{{each(i,valueList) valueList}}
-							<dd class="border_dd" data-value="\${value}" data-type="13" value="\${titleId}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" style="display:none;"></dd>
+							<dd class="border_dd" data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}" style="display:none;"></dd>
 						{{/each}}
 						<dd class="field">未选择</dd>
 						</div>
