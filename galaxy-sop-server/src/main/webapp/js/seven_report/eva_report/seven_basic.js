@@ -72,7 +72,7 @@
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
 	console.log(code);
-	 sendGetRequest(platformUrl.queryAllTitleValues+code,null,function(data){
+	 sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType=1",null,function(data){
 		 console.log(data);
 		 var result = data.result.status;
 		 if(result == 'OK'){
@@ -80,7 +80,7 @@ function get_result(code,e_type,dom){
 			 var valueList = data.entity.valueList;
 			 if(e_type==1){
 				 var result_html = ""
-				 if(entity.type==14||entity.type==3||entity.type==32||entity.type==5||entity.type==6||entity.type==12||entity.type==13){
+				 if(entity.type==14||entity.type==3||entity.type==2||entity.type==5||entity.type==6||entity.type==12||entity.type==13){
 					 $.each(valueList,function(i,n){
 						 if(n.name=="其他"){
 						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><span>"+n.name+"</span><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
