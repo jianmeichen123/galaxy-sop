@@ -151,7 +151,21 @@ $("#eva-tabs li").click(function(){
 				function(data){
 					if(data.result.status == 'OK')
 					{
-						
+						$.each(data.entityList,function(){
+							var relateId = this.relateId;
+							var autoList = this.autoList;
+							console.log(autoList);
+							if(typeof autoList != 'undefined' && autoList.length>0 )
+							{
+								var sel = $('td[class="score-column"][data-relate-id="'+relateId+'"]').find('select');
+								console.log(sel);
+								sel.empty();
+								sel.append('<option>请选择</option>')
+								$.each(autoList,function(){
+									sel.append('<option>'+this.grade+'</option>')
+								});
+							}
+						});
 					}
 				}
 			);
