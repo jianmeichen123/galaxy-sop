@@ -15,7 +15,6 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path%>/js/hologram/team_pop.js"></script>
 
 
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
@@ -23,9 +22,11 @@
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <!-- tongyong -->
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/basic_fun.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/report_basic/save_ok.js" type="text/javascript"></script>
+
+<script src="<%=path%>/js/hologram/team_pop.js"></script>	
+<script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
+<script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
+
 </head>
 <body>
 <!-- <ul class="h_navbar clearfix">
@@ -42,7 +43,7 @@
   </ul> -->
    <!--隐藏-->
 <div class="bj_hui_on"></div>
-  <jsp:include page="../jquery-tmpl.jsp" flush="true"></jsp:include>
+  <jsp:include page="../../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
 		<!--tab-->
@@ -56,7 +57,7 @@
 <script type="text/javascript">
 var path = '<%=path%>';
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'NO9', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'DNO2?reportType=2', null,
 	function(data) {
 	console.log(data)
 		var result = data.result.status;
