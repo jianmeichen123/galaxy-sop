@@ -15,6 +15,7 @@
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
+var path = '<%=path%>';
 </script>
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 </head>
@@ -97,6 +98,7 @@ var pageId = "project";
 
 <!-- 跟全息图相似的 -->
 <script src="<%=path%>/js/hologram/team_pop.js"></script>	
+<script src="<%=path%>/js/hologram/team_save.js"></script>	
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
 <script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
 <script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
