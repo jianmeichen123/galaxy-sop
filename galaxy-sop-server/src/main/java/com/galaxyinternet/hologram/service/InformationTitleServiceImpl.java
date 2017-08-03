@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
@@ -869,7 +870,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	{
 		private Set<String> ids;
 		private Set<Long> relateIds;
-		private Map<String,InformationTitle> idMap = new ConcurrentHashMap<>();
+		private Map<String,List<InformationTitle>> idMap = new ConcurrentHashMap<>();
 		private Map<Long,InformationTitle> relateIdMap = new ConcurrentHashMap<>();
 		
 		public TitleInfoWapper(List<InformationTitle> list)
@@ -880,7 +881,15 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				{
 					if(item.getId() != null)
 					{
-						idMap.put(item.getId()+"", item);
+						String id = item.getId()+"";
+						List<InformationTitle> titles = idMap.get(id);
+						if(titles == null)
+						{
+							titles = new CopyOnWriteArrayList<>();
+							idMap.put(id, titles);
+						}
+						titles.add(item);
+						
 					}
 					if(item.getRelateId() != null)
 					{
@@ -902,7 +911,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			return relateIds;
 		}
 
-		public Map<String, InformationTitle> getIdMap()
+		public Map<String, List<InformationTitle>> getIdMap()
 		{
 			return idMap;
 		}
@@ -959,7 +968,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(fixedTableList != null && fixedTableList.size()> 0)
 		{
 			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
-			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
 			for(InformationFixedTable item : fixedTableList)
 			{
 				String titleId = item.getTitleId();
@@ -972,14 +981,17 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				}
 				if(idMap.containsKey(titleId))
 				{
-					InformationTitle title = idMap.get(titleId);
+					List<InformationTitle> titles = idMap.get(titleId);
 					List<InformationFixedTable> list = null;
-					if(title.getFixedTableList() == null)
+					for(InformationTitle title : titles)
 					{
-						list = new ArrayList<>();
-						title.setFixedTableList(list);
+						if(title.getFixedTableList() == null)
+						{
+							list = new ArrayList<>();
+							title.setFixedTableList(list);
+						}
+						title.getFixedTableList().add(item);
 					}
-					title.getFixedTableList().add(item);
 				}
 			}
 		}
@@ -996,14 +1008,17 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		List<InformationListdataRemark> headers = headerDao.selectList(headerQuery);
 		if(headers != null && headers.size()>0)
 		{
-			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
 			for(InformationListdataRemark item : headers)
 			{
 				String titleId = item.getTitleId()+"";
 				if(idMap.containsKey(titleId))
 				{
-					InformationTitle title = idMap.get(titleId);
-					title.setTableHeader(item);
+					List<InformationTitle> titles = idMap.get(titleId);
+					for(InformationTitle title : titles)
+					{
+						title.setTableHeader(item);
+					}
 				}
 			}
 		}
@@ -1023,20 +1038,23 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		List<InformationListdata> listdataList = listDataDao.selectList(listdataQuery);
 		if(listdataList != null && listdataList.size()>0)
 		{
-			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
 			for(InformationListdata item : listdataList)
 			{
 				String titleId = item.getTitleId()+"";
 				if(idMap.containsKey(titleId))
 				{
-					InformationTitle title = idMap.get(titleId);
+					List<InformationTitle> titles = idMap.get(titleId);
 					List<InformationListdata> list = null;
-					if(title.getFixedTableList() == null)
+					for(InformationTitle title:titles)
 					{
-						list = new ArrayList<>();
-						title.setDataList(list);;
+						if(title.getFixedTableList() == null)
+						{
+							list = new ArrayList<>();
+							title.setDataList(list);;
+						}
+						title.getDataList().add(item);
 					}
-					title.getDataList().add(item);
 				}
 			}
 		}
@@ -1056,7 +1074,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(resultList != null && resultList.size()>0)
 		{
 			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
-			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
+			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
 			for(InformationResult item : resultList)
 			{
 				if(item.getContentChoose() != null)
@@ -1069,14 +1087,17 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				String titleId = item.getTitleId()+"";
 				if(idMap.containsKey(titleId))
 				{
-					InformationTitle title = idMap.get(titleId);
+					List<InformationTitle> titles = idMap.get(titleId);
 					List<InformationResult> list = null;
-					if(title.getResultList() == null)
+					for(InformationTitle title : titles)
 					{
-						list = new ArrayList<>();
-						title.setResultList(list);;
+						if(title.getResultList() == null)
+						{
+							list = new ArrayList<>();
+							title.setResultList(list);;
+						}
+						title.getResultList().add(item);
 					}
-					title.getResultList().add(item);
 				}
 			}
 		}
