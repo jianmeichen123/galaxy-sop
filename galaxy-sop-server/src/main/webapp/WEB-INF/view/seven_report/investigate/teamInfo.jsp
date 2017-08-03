@@ -35,7 +35,7 @@
   <!--隐藏-->
 <div class="bj_hui_on"></div>
  <div id="tab-content">
- <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+
 		<div class="tabtxt" id="page_all">
 		<!--tab-->
 
