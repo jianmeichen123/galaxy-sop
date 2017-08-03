@@ -178,6 +178,21 @@ function right(obj,type){
 
 }
 
+//select下拉框的对号函数
+function selectMethod(obj,type){
+		if(type=='select'){
+			var selectVal = $(obj).closest('td').find('.input_select').val();
+			$(obj).closest('td').find('p').html(selectVal);
+			$(obj).closest('td').find('p').show();
+			console.log(selectVal);
+			$(obj).parent().hide();
+			$(obj).parents('td').find('.radioShow').hide();
+			$(obj).closest('td').data('edit','false');
+		}
+			
+	}
+
+
 
 //大弹窗 取消方法
 $('div').delegate(".h_cancel_btn","click",function(event){
