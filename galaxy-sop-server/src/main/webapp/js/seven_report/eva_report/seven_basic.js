@@ -237,12 +237,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 	/* 定位到页面中心 */
 	function adjust(id) {
 	    var w = $(id).width();
-	    console.log(w)
 	    var h = $(id).height();
-	    console.log($('.ch_opration').height())
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
-	    console.log(t);
-	    console.log(scrollY() + (windowHeight()/2))
 	    if(t < 0) t = 0;
 	    $(id).css('top',t+'px');
 	}
