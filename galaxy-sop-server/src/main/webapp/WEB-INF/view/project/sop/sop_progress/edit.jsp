@@ -269,7 +269,7 @@ function initViewUpload() {
 					}
 					if(parseInt(fileSize) > parseInt(size) * 1000){
 						layer.msg("最大支持"+size+"MB");
-						return;
+						return false;
 					}
 					$("#file_object").removeClass("no_bg");
 					$("#file_object").text(file.name);
@@ -323,6 +323,7 @@ function initViewUpload() {
 				$("#select_btn").text("选择文件");
 				//$("#file_object").removeClass("audio_name");
 				layer.msg("最大支持"+up.settings.filters.max_file_size);
+				return false;
 			}
 		}
 	});
