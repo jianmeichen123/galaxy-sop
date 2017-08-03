@@ -131,7 +131,19 @@ function right(obj,type){
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
 		var val = $(obj).parent().parent().find('input[type="radio"]:checked').parent(".iradio_flat-blue").next("label").html();
-		align_left.find('p').attr("val_id",val_id);
+		var p = align_left;
+		console.log(p[0])
+		console.log(val_id);
+		console.log(typeof val_id == 'undefined')
+		if(typeof val_id == 'undefined')
+		{
+			p.text('未选择');
+			p.attr("data-value",'');
+		}
+		else
+		{
+			p.attr("data-value",val_id);
+		}
 	}else if(type=="checkbox"){
 		align_left = $(obj).parent().parent().find(".align_left");
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');

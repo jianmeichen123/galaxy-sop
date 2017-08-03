@@ -366,7 +366,7 @@
 						
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="  content_16 align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${content}</p></div>
+							<div class="content_16 align_left title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p>\${content}</p></div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}

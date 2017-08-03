@@ -267,7 +267,7 @@ function calcScore()
 		"projectId":"${projectId}"
 	};
 	var items = new Array();
-	$("p.title-value").each(function(){
+	$(".title-value").each(function(){
 		var _this = $(this);
 		var relateId = _this.data('relateId');
 		var values = getTitleValue(relateId);
@@ -293,7 +293,7 @@ function calcScore()
 }
 function getTitleValue(relateId)
 {
-	var _p = $("p.title-value,p[data-relate-id='"+relateId+"']");
+	var _p = $(".title-value,[data-relate-id='"+relateId+"']");
 	var val = _p.data('value');
 	if(typeof val == 'undefined' || val.length==0)
 	{
