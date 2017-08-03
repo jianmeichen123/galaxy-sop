@@ -422,12 +422,13 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 13)
 		{
-			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
+			
+			var dt = $("dt[data-type='13'][data-title-id='"+ title.titleId +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
 			if(readonly == true){
-				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
-				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
+				$("dt[data-id='"+ title.titleId +"']").siblings(".checked_div").find("dd[data-code]").text("");
+				$("dt[data-id='"+ title.titleId +"']").siblings(".checked_div").find("dd[data-code]").hide();
 				$.each(title.resultList,function(i,n){
 					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
 					if(n.contentDescribe1){ 
@@ -1716,10 +1717,9 @@ function selectDirect(tittleId,subCode,filed){
 				    }
 					$.each(list, function(i, value){
                         if($filed[0].tagName=="SELECT"){
-                        	console.log(value);
-                        		$filed.append("<option value="+value.value+"  name='"+filed+"'>"+value.name+"</option>");
+                        		$filed.append("<option value="+value.id+"  name='"+filed+"'>"+value.name+"</option>");
 				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
-				    			$filed.append("<label><input type='radio' value='"+value.code+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
+				    			$filed.append("<label><input type='radio' value='"+value.id+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
 				    	}
 					});
 				}
