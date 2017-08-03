@@ -202,6 +202,19 @@
 								<dd class="fl_none"><input type="text" data-title-id="\${titleId}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" /></dd>
 								{{/each}}
 								{{/each}}
+							{{else type=="19"}}
+						<dd><input type="text" data-title-id="\${titleId}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+						<dd>\${content}</dd>
+					{{else type=="20"}}
+						<dd><input type="text" data-title-id="\${titleId}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+						<dd>\${content}</dd>
+						<dd>
+							<select id="\${titleId}_select">
+							{{each(i,valueList) valueList}}
+								<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${relateCode}">\${name}</option>
+							{{/each}}
+							</select>
+						</dd>
 
 							{{/if}}
 					    </dl>
