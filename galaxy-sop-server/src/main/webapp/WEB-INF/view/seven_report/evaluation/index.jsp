@@ -119,6 +119,10 @@ var pageId = "project";
 
 <script type="text/javascript">
 createMenus(5);
+
+/**
+ * 加载标题
+ */
 $("#eva-tabs li").click(function(){
 	var $li = $(this);
 	if($li.hasClass('active'))
@@ -156,6 +160,13 @@ $("#eva-tabs li").click(function(){
 	});
 });
 $("#eva-tabs li:eq(0)").click();
+/**
+ * 修改分数
+ */
+ $(".score-column select,input").change(function(){
+	 console.log('change');
+	 calcScore();
+ });
 // 
 /**
  * 显示分数选项
@@ -190,14 +201,47 @@ function showScoreList(relateId)
 							});
 						}
 					});
-					showScore(relateId);
+					console.log('showScoreList');
+					initScore(relateId);
 				}
 			}
 		);
 }
-
-function showScore(relateId)
+/**
+ * 回显分数
+ */
+function popScore(titles,relateId)
 {
+	$.each(titles,function(rid,score){
+		if(rid == 0)
+		{
+			$("#total-score").text(score);
+		}
+		else if(rid == relateId)
+		{
+			$("#part-score").text(score);
+		}
+		else
+		{
+			var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
+			var ele = td.children('input,select');
+			if(ele.length ==0)
+			{
+				td.text(score)
+			}
+			else
+			{
+				ele.val(score);
+			}
+		}
+	});
+}
+/**
+ * 页面加载时获取
+ */
+function initScore(relateId)
+{
+	console.log('getScore');
 	sendGetRequest(
 			platformUrl.getScores, 
 			{"parentId":0,"projectId":"${projectId}","reportType":"1"},
@@ -205,36 +249,79 @@ function showScore(relateId)
 				if(data.result.status == 'OK')
 				{
 					var titles = data.userData;
-					$.each(titles,function(rid,score){
-						if(rid == 0)
-						{
-							$("#total-score").text(score);
-						}
-						else if(rid == relateId)
-						{
-							$("#part-score").text(score);
-						}
-						else
-						{
-							var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
-							var ele = td.children('input,select');
-							if(ele.length ==0)
-							{
-								td.text(score)
-							}
-							else
-							{
-								ele.val(score);
-							}
-						}
-					});
+					popScore(titles);
 				}
 			}
 		);
 }
+/**
+ * 计算分数分数
+ */
+function calcScore()
+{
+	var rid = $("#eva-tabs li.active").data('relateId');
+	var data = {
+		"parentId": 0	,
+		"relateId": rid,
+		"reportType": 1,
+		"projectId":"${projectId}"
+	};
+	var items = new Array();
+	$("p.title-value").each(function(){
+		var _this = $(this);
+		var relateId = _this.data('relateId');
+		var values = getTitleValue(relateId);
+		var score = getScore(relateId);
+		items.push({
+			"relateId": relateId,
+			"values": values,
+			"score": score
+		});
+	});
+	data.items = items;
+	sendPostRequestByJsonObj(
+			platformUrl.calculateScore, 
+			data,
+			function(data){
+				if(data.result.status == 'OK')
+				{
+					var titles = data.userData;
+					popScore(titles,rid);
+				}
+			}
+		);
+}
+function getTitleValue(relateId)
+{
+	var _p = $("p.title-value,p[data-relate-id='"+relateId+"']");
+	var val = _p.data('value');
+	if(typeof val == 'undefined' || val.length==0)
+	{
+		return null;
+	}
+	return val.split(',');
+}
+function getScore(relateId)
+{
+	var score = null;
+	var td = $('td[class="score-column"][data-relate-id="'+relateId+'"]');
+	var ele = td.children('input,select');
+	if(ele.length ==0)
+	{
+		score = td.text();
+	}
+	else
+	{
+		score = ele.val();
+	}
+	console.log("score="+score+","+isNaN(score));
+	if(score == "" || isNaN(score))
+	{
+		return null;
+	}
+	return score;
+}
 
-
-//整体页面显示
 
 
 	

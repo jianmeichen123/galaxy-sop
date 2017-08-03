@@ -13,7 +13,7 @@
 					{{if type=="1"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未填写</p></div>	
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>	
 							<div class="radioShow"></div>						
 							<div class="Button">
 								<em onclick="right(this,'input')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -23,7 +23,7 @@
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>							
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -33,7 +33,7 @@
 						<!-- 复选 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>							
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -45,7 +45,7 @@
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -55,7 +55,7 @@
 						<!-- 复选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>							
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -71,29 +71,29 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left"><p>未填写</p></div>										
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><p></p></div>	
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="10"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><p></p></div>	
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="11"}}
 						<!-- 静态数据 -->
 						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><p></p></div>	
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"></p></div>	
 						</td>
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -103,7 +103,7 @@
  					<!-- 复选带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -113,7 +113,7 @@
  					<!-- 单选select -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -121,13 +121,13 @@
 						</td>
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="  content_16 align_left"><p>\${content}</p></div>
+							<div class="  content_16 align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${content}</p></div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
 						 <td class="condition div_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							
 							<div class="Button">
@@ -137,12 +137,12 @@
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"><p>sign==3</p></div>
+						<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">sign==3</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{else sign==1}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"><p>sign==1</p></div>
+						<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">sign==1</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{/if}}	
@@ -183,7 +183,7 @@
 					{{if type=="1"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未填写</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
 							<div class="radioShow"></div>							
 							<div class="Button">
 								<em onclick="right(this,'input')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -193,7 +193,7 @@
 						  <!-- 单选（Radio） --> 
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>							
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -203,7 +203,7 @@
 						<!-- 复选 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>							
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -215,7 +215,7 @@
 						<!-- 单选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -225,7 +225,7 @@
 						<!-- 复选带备注textarea -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>							
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -241,29 +241,29 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left"><p>未填写</p></div>										
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><p></p></div>	
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="10"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><p></p></div>	
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="11"}}
 						<!-- 静态数据 -->
 						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"><p></p></div>	
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"></p></div>	
 						</td>
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -273,7 +273,7 @@
  					<!-- 复选带备注input -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -283,7 +283,7 @@
  					<!-- 单选select -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -295,7 +295,7 @@
 								<table class="table_15">
 									<tr>
 										<td>
-											<div class="align_left"><p>未填写</p></div>
+											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 											<div class="radioShow"></div>
 										</td>
@@ -329,7 +329,7 @@
 									</tr>
 									<tr>
 										<td>
-											<div class="align_left"><p>未填写</p></div>
+											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 											<div class="radioShow"></div>
 										</td>
@@ -366,13 +366,13 @@
 						
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="  content_16 align_left"><p>\${content}</p></div>
+							<div class="  content_16 align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${content}</p></div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
 						 <td class="condition div_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
-							<div class="align_left"><p>未选择</p></div>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="selectMethod(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
@@ -381,12 +381,12 @@
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"><p>sign==3</p></div>
+						<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">sign==3</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{else sign==1}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left"><p>sign==1</p></div>
+						<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">sign==1</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{/if}}	

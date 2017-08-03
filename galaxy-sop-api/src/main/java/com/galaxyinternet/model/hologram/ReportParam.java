@@ -12,7 +12,7 @@ public class ReportParam
 	@ApiModelProperty(value="项目ID",required=true)
 	private Long projectId;
 	@ApiModelProperty(value="报告类型 1：评测报告",required=true)
-	private int reportType;
+	private Integer reportType;
 	@ApiModelProperty(value="当前报告包含的题目信息",name="items")
 	private List<ItemParam> items;
 	public Long getRelateId()
@@ -31,11 +31,11 @@ public class ReportParam
 	{
 		this.projectId = projectId;
 	}
-	public int getReportType()
+	public Integer getReportType()
 	{
 		return reportType;
 	}
-	public void setReportType(int reportType)
+	public void setReportType(Integer reportType)
 	{
 		this.reportType = reportType;
 	}

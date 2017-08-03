@@ -58,7 +58,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		else
 		{
 			item = new ItemParam();
-			item.setRelatedId(relateId);
+			item.setRelateId(relateId);
 			item.setScore(null);
 		}
 		
@@ -67,7 +67,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		{
 			score = item.getScore();
 			ItemParam itemParam = new ItemParam();
-			itemParam.setRelatedId(relateId);
+			itemParam.setRelateId(relateId);
 			itemParam.setScore(score);
 			items.put(relateId, itemParam);
 			logger.debug(String.format("Relateid = %s Manual score = %s", relateId,score));
@@ -159,7 +159,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 				}
 			}
 			ItemParam itemParam = new ItemParam();
-			itemParam.setRelatedId(relateId);
+			itemParam.setRelateId(relateId);
 			itemParam.setScore(score);
 			items.put(relateId, itemParam);
 			
@@ -203,7 +203,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 						if(!items.containsKey(parentId))
 						{
 							itemParam = new ItemParam();
-							itemParam.setRelatedId(parentId);
+							itemParam.setRelateId(parentId);
 							itemParam.setScore(score);
 							items.put(parentId, itemParam);
 						}

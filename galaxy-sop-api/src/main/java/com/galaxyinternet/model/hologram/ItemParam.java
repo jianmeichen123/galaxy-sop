@@ -9,18 +9,18 @@ import io.swagger.annotations.ApiModelProperty;
 public class ItemParam
 {
 	@ApiModelProperty("填写的题目ID(information_title_relate.id)")
-	private Long relatedId;
+	private Long relateId;
 	@ApiModelProperty("题目的值")
 	private String[] values;
 	@ApiModelProperty("题目的分数")
 	private BigDecimal score;
-	public Long getRelatedId()
+	public Long getRelateId()
 	{
-		return relatedId;
+		return relateId;
 	}
-	public void setRelatedId(Long relatedId)
+	public void setRelateId(Long relatedId)
 	{
-		this.relatedId = relatedId;
+		this.relateId = relatedId;
 	}
 	public String[] getValues()
 	{
@@ -41,7 +41,7 @@ public class ItemParam
 	@Override
 	public String toString()
 	{
-		return "ItemParam [relatedId=" + relatedId + ", values=" + Arrays.toString(values) + ", score=" + score + "]";
+		return "ItemParam [relatedId=" + relateId + ", values=" + Arrays.toString(values) + ", score=" + score + "]";
 	}
 	
 	
