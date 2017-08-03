@@ -148,7 +148,12 @@ $("#eva-tabs li").click(function(){
 			content_16=content_16.replace(/<sitg>/g,'（');
 			content_16=content_16.replace(/<\/sitg>/g,'）');
 			$(".content_16").text(content_16); 
+			//显示分数
 			showScoreList(relateId);
+			 //修改分数时自动计算
+			 $(".score-column select,input").change(function(){
+				 calcScore();
+			 });
 			
 		}
 	});
@@ -160,12 +165,7 @@ $("#eva-tabs li").click(function(){
 	});
 });
 $("#eva-tabs li:eq(0)").click();
-/**
- * 修改分数
- */
- $(".score-column select,input").change(function(){
-	 calcScore();
- });
+
 // 
 /**
  * 显示分数选项
