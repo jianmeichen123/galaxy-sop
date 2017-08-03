@@ -377,7 +377,10 @@ function addRow(ele)
 				$('#qualifications_popup_name1').html('添加持股人');
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-                $("#detail-form input[name='code']").val($(ele).prev().data('code'));
+                $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+
+                selectContext("detail-form");
+
                 $("#save-detail-btn").click(function(){
                     saveForm($("#detail-form"));
                     check_table();

@@ -164,7 +164,7 @@
               }
               if(tagName=="SELECT"){
                  key = $(this).attr("name");
-                 value = $(this).find("option:selected").val();
+                 value = $(this).find("option:selected").text();
               }
               if(tagName == "SPAN"){
                 key = $(this).attr("name");
