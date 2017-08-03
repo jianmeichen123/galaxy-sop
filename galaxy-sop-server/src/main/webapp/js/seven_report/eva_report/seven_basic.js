@@ -77,7 +77,7 @@ function get_result(code,e_type,dom){
 				 if(entity.type==14||entity.type==3||entity.type==2||entity.type==5||entity.type==6||entity.type==12||entity.type==13){
 					 $.each(valueList,function(i,n){
 						 if(n.name=="其他"){
-						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><span>"+n.name+"</span><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
+						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
 						 }else{
 						 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
 						 }
@@ -154,7 +154,10 @@ function right(obj,type){
 		var input_text = other.parents(".radioShow").find(".others_text").val();
 	}
 	$(obj).parent().parent().find('.radioShow').hide();
+	debugger;
+	console.log(val);
 	if(val=="其他"){
+		debugger;
 		align_left.find('p').html(input_text);
 	}else{
 		align_left.find('p').html(val);
@@ -175,6 +178,19 @@ function right(obj,type){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 
 }
+//select下拉框的对号函数
+function selectMethod(obj,type){
+		if(type=='select'){
+		var selectVal = $(obj).closest('td').find('.input_select').val();
+		$(obj).closest('td').find('.seclect_choose').html(selectVal);
+		$(obj).closest('td').find('.seclect_choose').show();
+		console.log(selectVal);
+		$(obj).parent().hide();
+		$(obj).parents('td').find('.selectTips').hide();
+		$(obj).closest('td').data('edit','false');
+		}
+			
+	}
 
 
 //大弹窗 取消方法
@@ -234,12 +250,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 	/* 定位到页面中心 */
 	function adjust(id) {
 	    var w = $(id).width();
-	    console.log(w)
 	    var h = $(id).height();
-	    console.log($('.ch_opration').height())
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
-	    console.log(t);
-	    console.log(scrollY() + (windowHeight()/2))
 	    if(t < 0) t = 0;
 	    $(id).css('top',t+'px');
 	}

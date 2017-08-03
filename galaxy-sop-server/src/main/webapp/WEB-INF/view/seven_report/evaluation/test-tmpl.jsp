@@ -132,12 +132,12 @@
 								<ul> 
 									<!--模拟select  循环li标签-->
 									<!--<li><a href="#" value="2">北京</a></li> -->
-									<li><a href="#" value="2">北京</a></li>
-									<li><a href="#" value="2">上海</a></li> 
+									<li>北京</li>
+									<li>上海</li> 
 								</ul> 
 							</div> 
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="selectMethod(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 				 	{{/if}}
@@ -383,12 +383,12 @@
 								<ul> 
 									<!--模拟select  循环li标签-->
 									<!--<li><a href="#" value="2">北京</a></li> -->
-									<li><a href="#" value="2">北京</a></li>
-									<li><a href="#" value="2">上海</a></li> 
+									<li>北京</li>
+									<li>上海</li> 
 								</ul> 
 							</div>
 							<div class="Button">
-								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="selectMethod(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
 						</td>
 				 	{{/if}}
