@@ -713,6 +713,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 #dropdown{
 	width:186px; 
 	position:relative;
+	/* display:none; */
 } 
 .input_select{
 	width:144px; 
@@ -735,10 +736,9 @@ ul,li{list-style:none;padding:0;margin:0;}
 #dropdown ul li{
 	height:24px; 
 	line-height:24px; 
-	text-indent:10px;
-	padding-left: 1px;
 	border-bottom: 1px solid #979797;
 	cursor: pointer;
+	text-align:center;
 
 }
 #dropdown ul li{

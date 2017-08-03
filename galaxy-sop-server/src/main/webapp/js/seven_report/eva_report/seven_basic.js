@@ -32,6 +32,7 @@
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
 			$(obj).closest('td').find('.radioShow').show();
+			/*$(obj).closest('td').find('#dropdown').show();*/
 			iCheck();
 		}else if(e_type=="small_pop"){
 			$('.gapPopup').show();
@@ -84,9 +85,11 @@ function get_result(code,e_type,dom){
 					 })
 				}else if(entity.type==1){
 					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
+				}else if(entity.type==18){
+					result_html ="<div id=\"dropdown\"><input class=\"input_select\" type=\"text\" value=\"请选择\"/> <ul><li>sdvsd</li></ul> </div>";
 				}
 				 dom.html(result_html);
-				 
+				 selectDom();
 			 }else if(e_type==2){
 				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 			 }else if(e_type==3){
@@ -181,13 +184,13 @@ function right(obj,type){
 //select下拉框的对号函数
 function selectMethod(obj,type){
 		if(type=='select'){
-		var selectVal = $(obj).closest('td').find('.input_select').val();
-		$(obj).closest('td').find('.seclect_choose').html(selectVal);
-		$(obj).closest('td').find('.seclect_choose').show();
-		console.log(selectVal);
-		$(obj).parent().hide();
-		$(obj).parents('td').find('.selectTips').hide();
-		$(obj).closest('td').data('edit','false');
+			var selectVal = $(obj).closest('td').find('.input_select').val();
+			$(obj).closest('td').find('p').html(selectVal);
+			$(obj).closest('td').find('p').show();
+			console.log(selectVal);
+			$(obj).parent().hide();
+			/*$(obj).parents('td').find('#dropdown').hide();*/
+			$(obj).closest('td').data('edit','false');
 		}
 			
 	}
@@ -212,6 +215,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 });	
 	
 //div模拟select下拉框
+function selectDom(){
 	$(".input_select").click(function(){ 
 		var ul = $("#dropdown ul"); 
 		var _this = $(this);
@@ -225,13 +229,16 @@ $('div').delegate(".h_save_btn","click",function(event){
 		} 
 	}); 
 
-	$("#dropdown ul li a").click(function(){ 
+	$("#dropdown ul li").click(function(){ 
 		var target = $(this).closest('#dropdown').find('input');
 		target.removeClass('up')
 		var txt = $(this).text(); 
 		$(".input_select").val(txt); 
 		$("#dropdown ul").hide(); 
 }); 
+	
+}
+	
 
 
 		
