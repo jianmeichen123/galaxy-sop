@@ -51,7 +51,7 @@ function editMemberRow(ele){
 		okback:function(){
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr('data-title-id'));
 			$("#detail-form input[name='subCode']").val(row.parent().parent().attr('data-code'));
-			  selectContext("detail-form");
+			selectContext("detail-form");
 			$("#qualifications_popup_name").text("编辑简历");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);

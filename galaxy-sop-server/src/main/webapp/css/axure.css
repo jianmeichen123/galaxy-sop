@@ -2652,15 +2652,17 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .compete_tab-content table th,.compete_tab-content table td{width:auto;max-width:110px; }
 .anchor_nav,.anchor_navs{
 	position: fixed;
-	padding: 36px 28px 22px;
-	background: #fff;
 	right: 0px;
-	top: 170px;
+	top: 140px;
 	width: 21%;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;padding-bottom:10px;
 }
-
+.anchor_nav #nav_ul{
+	width:100%;
+	padding: 30px 28px 22px;
+	background: #fff;
+}
 .anchor_nav a,.anchor_navs a{color:#999;}
 .anchor_nav li a,.anchor_navs li a{
 	display: inline-block;
@@ -2680,14 +2682,13 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 	color: #333;
 }
 .anchor_nav li.active,.anchor_navs li.active{background-image:url('../img/anchora.png'); background-position: 0 6px;}
-.anchor_btn{
-	
-}
-.anchor_btn{margin-bottom:35px;margin-top: -10px;}
+.anchor_btn{padding: 30px 0 0px 20px; background:#fff; }
 .anchor_btn p{z-index:99;color:#333; font-size:12px; line-height:28px;position:relative;}
 .anchor_btn span{z-index:100;cursor:pointer;position:absolute;right:28px;top:28px;width:50px;height:28px;background:url('../img/navhide_btn.png') no-repeat center;}
 .anchor_btn span.invisible{background-image:url('../img/navshow_btn.png');}
 .anchor_btn span.unabled{cursor:not-allowed;background-color:#fff;}
+.right_bom{padding:30px 20px;background:#fff;margin-top:10px;}
+.right_bom h3{font-size:12px;color:#333333;}
 @media(max-width:1300px){.anchor_nav li{height: 33px;}.anchor_navs li{height: 33px;}}
 .nocon{width:300px;height:376px;margin:80px auto 0;background:url('../img/nocon.png');font-size:0;}
 .h_edit_btn.put_away,.out_box{display:none;}

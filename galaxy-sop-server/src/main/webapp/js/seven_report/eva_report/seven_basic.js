@@ -50,15 +50,12 @@
 			
 		}else if(e_type=="cover_pop"){
 			$(obj).attr("parent_dom","show");
-			//$('.ch_income_evaluation').show();
 			$('.mashLayer').show();
-			/*var  leftNum = $(".new_left").offset().left;*/
-			adjust(".ch_opration");
+			//adjust(".ch_opration");
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();			
-			/*$('.ch_opration').css('left',leftNum);*/
 		}
 		
 		
@@ -91,7 +88,8 @@ function get_result(code,e_type,dom){
 				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 			 }else if(e_type==3){
 				 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
-				 adjust(".ch_opration");
+					 adjust(".ch_opration");
+				
 			 }
 			 
 			//插件回调方法
@@ -238,7 +236,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 		
 	//遮罩层
 	function pageHeight(){
-		return document.body.scrollHeight+200;
+		return document.body.scrollHeight;
 	}
 	function pageWidth(){
 		return document.body.scrollWidth;
@@ -255,6 +253,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
 	    if(t < 0) t = 0;
 	    $(id).css('top',t+'px');
+	    console.log(t);
 	}
     
 	

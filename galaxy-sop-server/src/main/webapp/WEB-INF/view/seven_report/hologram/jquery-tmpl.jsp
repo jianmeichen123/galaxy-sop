@@ -202,7 +202,19 @@
 								<dd class="fl_none"><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" /></dd>
 								{{/each}}
 								{{/each}}
-
+							{{else type=="19"}}
+								<dd><input type="text" data-title-id="\${id}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+								<dd>\${content}</dd>
+							{{else type=="20"}}
+								<dd><input type="text" data-title-id="\${id}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+								<dd>\${content}</dd>
+								<dd>
+									<select id="\${id}_select">
+									{{each(i,valueList) valueList}}
+										<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
+									{{/each}}
+									</select>
+								</dd>
 							{{/if}}
 					    </dl>
 					</div>
@@ -553,6 +565,15 @@
 							{{else type=="15"}}
 								<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
 								<dd class="fl_none field division_dd" data-title-id="\${id}">未填写</dd>
+							{{else type=="16"}}
+								<dd class="fl_none field division_dd" data-title-id="\${id}" data-content="\${content}">未填写</dd>
+							{{else type=="19"}}
+								<dd class="field" data-title-id="\${id}">未填写</dd>
+								<dd class="field news_table">\${content}</dd>
+							{{else type=="20"}}
+								<dd class="field" data-title-id="\${id}">未填写</dd>
+								<dd class="field news_table">\${content}</dd>
+								<dd class="field news_table"></dd>
 							{{/if}}                      
 						</dl>		
 					</div>

@@ -31,7 +31,6 @@
   <!--隐藏-->
 <div class="bj_hui_on"></div>
  <div id="tab-content">
- <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
 		<div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -46,7 +45,7 @@ var path = '<%=path%>';
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	//right_anchor("DNO2?reportType=2");
+	//right_anchor("DNO3?reportType=2");
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'DNO3?reportType=2', null,
