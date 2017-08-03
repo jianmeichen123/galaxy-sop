@@ -289,6 +289,11 @@ function right_anchor(i,type,right){
 							 toggle_btn(_this,1);
 						})
 					})
+					if(right=="show"){
+						$(".anchor_btn").remove();
+					}else if(!right||right=="hide"){
+						$(".right_bom").remove();
+					}
 		}
 	})
 }
