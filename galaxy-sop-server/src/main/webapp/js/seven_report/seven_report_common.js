@@ -232,9 +232,8 @@ function tabInfoChange(index){
     	 default:
     		   reportType="";	  
     	}
-    	
-		if(id == "a_NO3_1"){
-		     sendGetRequest(platformUrl.queryMemberList+reportType+"/"+relateId+"/"+projectInfo.id,null,function(data){
+		if(pid == 1302){
+		     sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;
                 if (result == 'OK')
                 {

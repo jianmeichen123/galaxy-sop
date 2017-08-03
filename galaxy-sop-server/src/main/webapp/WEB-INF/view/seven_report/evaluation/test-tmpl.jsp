@@ -8,7 +8,7 @@
 		<td rowspan="\${childList.length}">\${name}<span class="title-weight" data-relate-id="\${id}"></span></td>				
 		{{each(i,childList) childList}}
 			{{if i==0}}
-				<td data-type="\${type}" parentid="\${parentId}" data-title-id="\${titleid}" data-reletid="\${id}">\${name}</td>
+				<td data-type="\${type}" parentid="\${parentId}" data-title-id="\${titleId}" data-reletid="\${id}">\${name}</td>
 				{{if sign!=3&&sign!=1}}
 					{{if type=="1"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -58,7 +58,7 @@
 							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="7"}}
@@ -116,7 +116,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="16"}}
@@ -184,7 +184,7 @@
 	{{each(i,childList) childList}}
 		{{if i>0}}
 			<tr parentid="\${parentId}">
-				<td data-title-id="\${titleid}" data-type="\${type}" data-reletid="\${id}">\${name}</td>		
+				<td data-title-id="\${titleId}" data-type="\${type}" data-reletid="\${id}">\${name}</td>		
 				{{if sign!=3&&sign!=1}}
 					{{if type=="1"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -212,7 +212,7 @@
 							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="4"}}
@@ -224,7 +224,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="6"}}
@@ -234,7 +234,7 @@
 							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="7"}}
@@ -282,7 +282,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="14"}}
@@ -292,7 +292,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="15"}}
@@ -388,7 +388,7 @@
 								</ul> 
 							</div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
 						</td>
 				 	{{/if}}
