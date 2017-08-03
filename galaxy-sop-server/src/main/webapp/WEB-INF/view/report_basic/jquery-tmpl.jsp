@@ -566,7 +566,16 @@
 							{{else type=="15"}}
 								<dd class="fl_none field division_dd" data-title-id="\${titleId}">未填写</dd>
 								<dd class="fl_none field division_dd" data-title-id="\${titleId}">未填写</dd>
-							{{/if}}                      
+							{{else type=="16"}}
+								<dd class="fl_none field division_dd" data-title-id="\${titleId}" data-content="\${content}">未填写</dd>
+							{{else type=="19"}}
+								<dd class="field" data-title-id="\${titleId}">未填写</dd>
+								<dd class="field news_table">\${content}</dd>
+							{{else type=="20"}}
+								<dd class="field" data-title-id="\${titleId}">未填写</dd>
+								<dd class="field news_table">\${content}</dd>
+								<dd class="field news_table"></dd>
+						{{/if}}                     
 						</dl>		
 					</div>
 				{{/each}}
