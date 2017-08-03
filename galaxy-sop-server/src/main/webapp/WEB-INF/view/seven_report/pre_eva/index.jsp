@@ -25,7 +25,7 @@ var pageId = "project";
 
 
 <body >
-<jsp:include page="test-tmpl.jsp" flush="true"></jsp:include>
+<jsp:include page="../evaluation/test-tmpl.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
 <jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
