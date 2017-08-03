@@ -8,7 +8,7 @@
 		<td rowspan="\${childList.length}">\${name}<span class="title-weight" data-relate-id="\${id}"></span></td>				
 		{{each(i,childList) childList}}
 			{{if i==0}}
-				<td data-type="\${type}" parentid="\${parentId}" data-title-id="\${titleid}" data-reletid="\${id}">\${name}</td>
+				<td data-type="\${type}" parentid="\${parentId}" data-title-id="\${titleId}" data-reletid="\${id}">\${name}</td>
 				{{if sign!=3&&sign!=1}}
 					{{if type=="1"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -184,7 +184,7 @@
 	{{each(i,childList) childList}}
 		{{if i>0}}
 			<tr parentid="\${parentId}">
-				<td data-title-id="\${titleid}" data-type="\${type}" data-reletid="\${id}">\${name}</td>		
+				<td data-title-id="\${titleId}" data-type="\${type}" data-reletid="\${id}">\${name}</td>		
 				{{if sign!=3&&sign!=1}}
 					{{if type=="1"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
