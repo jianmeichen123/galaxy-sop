@@ -88,8 +88,8 @@ var path = '<%=path%>';
 <!--提示验证  -->
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
-<script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>	 --%>
+<script src="<%=path %>/js/hologram/baseInfo.js"></script>
+
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
 
