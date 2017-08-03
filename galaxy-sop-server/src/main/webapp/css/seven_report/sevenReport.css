@@ -685,12 +685,14 @@ table td select option{
 	z-index: 999;
 }
 .others_text{
-	border-color: #979797;
-	text-align: left;
-	width: 147px;
-	margin-left: 10px;
-	color:#3e4351;
-	display: none;
+    border-color: #979797;
+    text-align: left;
+    width: 142px;
+    margin-right: 10px;
+    color: #3e4351;
+    display: none;
+    float: right;
+    margin-top: -30px;
 }
 .h_radios li label{
 	margin-left: 10px;
