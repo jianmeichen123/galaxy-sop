@@ -51,7 +51,7 @@
 		}else if(e_type=="cover_pop"){
 			$(obj).attr("parent_dom","show");
 			$('.mashLayer').show();
-			adjust(".ch_opration");
+			//adjust(".ch_opration");
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
@@ -88,7 +88,8 @@ function get_result(code,e_type,dom){
 				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 			 }else if(e_type==3){
 				 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
-				 adjust(".ch_opration");
+					 adjust(".ch_opration");
+				
 			 }
 			 
 			//插件回调方法
@@ -235,7 +236,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 		
 	//遮罩层
 	function pageHeight(){
-		return document.body.scrollHeight+200;
+		return document.body.scrollHeight;
 	}
 	function pageWidth(){
 		return document.body.scrollWidth;
