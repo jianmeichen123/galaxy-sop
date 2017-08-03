@@ -709,12 +709,10 @@ table td select option{
 	margin-left:10px;
 }
 /*div模拟select下拉框样式*/
-ul,li{list-style:none;} 
+ul,li{list-style:none;padding:0;margin:0;} 
 #dropdown{
 	width:186px; 
 	position:relative;
-	margin-top:15px;
-	/* display:none;  */
 } 
 .input_select{
 	width:144px; 
@@ -723,9 +721,7 @@ ul,li{list-style:none;}
 	padding-left:10px; 
 	padding-right:30px; 
 	border:1px solid #979797; 
-	background: url(../../img/seven_report/down.png) no-repeat right 7px center	;
-	/*background-position: 10px 2px;*/
-	
+	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 } 
 #dropdown ul{
 	width:184px; 
@@ -733,7 +729,8 @@ ul,li{list-style:none;}
 	margin-top:2px;
 	border:1px solid #979797; 
 	position:absolute; 
-	display:none
+	display:none;
+	z-index:999;
 } 
 #dropdown ul li{
 	height:24px; 
@@ -741,18 +738,22 @@ ul,li{list-style:none;}
 	text-indent:10px;
 	padding-left: 1px;
 	border-bottom: 1px solid #979797;
+	cursor: pointer;
+
 }
-#dropdown ul li a{
+#dropdown ul li{
 	display:block; 
 	height:24px; 
 	color:#666666;; 
-	text-decoration:none
 } 
-#dropdown ul li a:hover{
+#dropdown ul li:hover{
 	background:#fff; 
 } 
 .up{
 	background: url(../../img/seven_report/up.png) no-repeat center right 7px;
+}
+.div_select{
+	overflow: visible !important;
 }
 .new_left{
 	margin-bottom:20px !important;

@@ -178,6 +178,19 @@ function right(obj,type){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 
 }
+//select下拉框的对号函数
+function selectMethod(obj,type){
+		if(type=='select'){
+		var selectVal = $(obj).closest('td').find('.input_select').val();
+		$(obj).closest('td').find('.seclect_choose').html(selectVal);
+		$(obj).closest('td').find('.seclect_choose').show();
+		console.log(selectVal);
+		$(obj).parent().hide();
+		$(obj).parents('td').find('.selectTips').hide();
+		$(obj).closest('td').data('edit','false');
+		}
+			
+	}
 
 
 //大弹窗 取消方法
