@@ -11,8 +11,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/beautify.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/skins/all.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
 </script>
@@ -24,45 +25,68 @@ var pageId = "project";
 
 
 <body >
+<jsp:include page="../evaluation/test-tmpl.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
 <jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
 <div class="ritmin">
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
-       	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav1 active" onclick="test_demo('0')">基础<br />信息 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('1')">项目</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('2')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('3')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('4')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('5')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('6')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="test_demo('7')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="test_demo('8')">融资及<br />估值 </li>
+       	<ul class="h_navbar clearfix" id="eva-tabs">
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO1" data-relate-id="1001">项目<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO2" data-relate-id="1031">团队<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO3" data-relate-id="1071">运营<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO4" data-relate-id="1091">竞争<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO5" data-relate-id="1110">融资<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO6" data-relate-id="1116">退出<br />测评</li>
 		</ul>
-		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
-		<div class="tabtxt" id="page_all"> 
+		<div class="test_top">
+			<ul class="clearfix" id="title-info">
+				<li class="test_top_first">项目综合测评得分:<span id="total-score">0</span></li>
+				<li><font id="part-title-name">项目评测</font>得分:<span id="part-score">0</span></li>
+				<li>权重:<span id="part-weight" >100%</span></li>
+				<li class="test_top_last">
+					<em>保存</em>
+				</li>
+			</ul>
+		</div>
+		<table border="1" cellpadding="5" style="table-layout:fixed;word-break:break-all;">
+			<thead>
+				<tr>
+					<td>评测指标</th>
+					<td>指标细化</th>
+					<td>指标详情</th>
+					<td>分值</th>
+					<td>评分细则</th>
+					<td>打分</th>
+					<td>核算得分</th>
+				</tr>
+			</thead>
+			<tbody id="page_all">
+			
+			</tbody>
+		</table>
 		
-			<div class="h radius" id="NO1_1"> </div>
-			
-			<div class="h radius base_con2" id="NO1_2"> </div>
-			
+		
+		<!--弹窗1  -->	
+		<div class="gapPopup">
+			<div class="Button popupButton">
+				<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+			</div>
+			<span class="show_edit"></span>
+		</div>
+		<!--弹窗2 -->	
+		<div class="h_look h h_team_look clearfix ch_opration">
 		</div>
 	</div>
+	<!-- 遮罩层 -->
+	<div class="mashLayer"></div>
 	
-	</div>
+	
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
     <div class="new_right" id="new_right"></div>
-    
-    
-	
 
-       <!--隐藏-->
-<div class="bj_hui_on"></div>
-	
-	</div>
 
 </div>
 
@@ -95,10 +119,134 @@ var pageId = "project";
 
 <script type="text/javascript">
 createMenus(5);
+$("#eva-tabs li").click(function(){
+	var $li = $(this);
+	if($li.hasClass('active'))
+	{
+		return;
+	}
+	var code = $li.data('code');
+	var relateId = $li.data('relateId');
+	$li.siblings().removeClass('active');
+	$li.addClass('active');
+	sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType=6", null,
+		function(data){
+		var result = data.result.status;
+		if (result == 'OK') {
+			$('#page_all').empty();
+			var entity = data.entity;
+			$("#part-title-name").text(entity.name);
+			$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+			/*显示结果  */
+			/* 16类型内容处理 */
+	
+			var content_16 = $(".content_16").text();		
+			content_16=content_16.replace(/<sitg>/g,'（');
+			content_16=content_16.replace(/<\/sitg>/g,'）');
+			$(".content_16").text(content_16); 
+			showScoreList(relateId);
+			
+		}
+	});
+	$.getTabHtml({
+		url : platformUrl.toOperateInfo ,
+		okback:function(){
+			right_anchor(code+"?reportType=6","seven","show");
+		}
+	});
+});
+$("#eva-tabs li:eq(0)").click();
+// 
+/**
+ * 显示分数选项
+ */
+function showScoreList(relateId)
+{
+	sendGetRequest(
+			platformUrl.getRelateTitleResults+"1/"+relateId+"/${projectId}", 
+			null,
+			function(data){
+				if(data.result.status == 'OK')
+				{
+					$.each(data.entityList,function(){
+						var rid = this.relateId;
+						var weight = this.weight;
+						if(rid==relateId)
+						{
+							$("#part-weight").text(this.weight+"%");
+						}
+						if(weight != 'undefined')
+						{
+							$("span[class='title-weight'][data-relate-id='"+rid+"']").html("<br/>( "+weight+"% )");
+						}
+						var autoList = this.autoList;
+						if(typeof autoList != 'undefined' && autoList.length>0 )
+						{
+							var sel = $('td[class="score-column"][data-relate-id="'+rid+'"]').find('select');
+							sel.empty();
+							sel.append('<option>请选择</option>')
+							$.each(autoList,function(){
+								sel.append('<option>'+this.grade+'</option>')
+							});
+						}
+					});
+					showScore(relateId);
+				}
+			}
+		);
+}
 
+function showScore(relateId)
+{
+	sendGetRequest(
+			platformUrl.getScores, 
+			{"parentId":0,"projectId":"${projectId}","reportType":"1"},
+			function(data){
+				if(data.result.status == 'OK')
+				{
+					var titles = data.userData;
+					$.each(titles,function(rid,score){
+						if(rid == 0)
+						{
+							$("#total-score").text(score);
+						}
+						else if(rid == relateId)
+						{
+							$("#part-score").text(score);
+						}
+						else
+						{
+							var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
+							var ele = td.children('input,select');
+							if(ele.length ==0)
+							{
+								td.text(score)
+							}
+							else
+							{
+								ele.val(score);
+							}
+						}
+					});
+				}
+			}
+		);
+}
+
+
+//整体页面显示
+
+
+	
+	
+	
+	
+	
+	
 
 </script>
-
+<script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>	
+<script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>	
 </body>
 
 

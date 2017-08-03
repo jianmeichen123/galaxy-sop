@@ -72,8 +72,6 @@ getData();
 		event.stopPropagation();
 		 sendGetRequest(platformUrl.queryAllTitleValues + id_code, null,
 			function(data) {
-			 console.log("@@@@");
-			 console.log(data);
 				var result = data.result.status;
 				if (result == 'OK') {
 					var entity = data.entity;

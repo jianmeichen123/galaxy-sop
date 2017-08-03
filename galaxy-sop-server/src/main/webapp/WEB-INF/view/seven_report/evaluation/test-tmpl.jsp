@@ -125,17 +125,11 @@
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
-						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						 <td class="condition div_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
-							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择"/> 
-								<ul> 
-									<!--模拟select  循环li标签-->
-									<!--<li><a href="#" value="2">北京</a></li> -->
-									<li>北京</li>
-									<li>上海</li> 
-								</ul> 
-							</div> 
+							<div class="align_left"><p>未选择</p></div>
+							<div class="radioShow"></div>
+							
 							<div class="Button">
 								<em onclick="selectMethod(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
@@ -376,17 +370,10 @@
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
-						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						 <td class="condition div_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
-							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择"/> 
-								<ul> 
-									<!--模拟select  循环li标签-->
-									<!--<li><a href="#" value="2">北京</a></li> -->
-									<li>北京</li>
-									<li>上海</li> 
-								</ul> 
-							</div>
+							<div class="align_left"><p>未选择</p></div>
+							<div class="radioShow"></div>
 							<div class="Button">
 								<em onclick="selectMethod(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
