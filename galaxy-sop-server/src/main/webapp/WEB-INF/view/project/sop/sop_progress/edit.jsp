@@ -112,7 +112,12 @@ if(meetingType != ""){
 }
 //验证
 $(function(){
-	$(".myproject_add").validate();
+	$(".myproject_add").validate({
+		focusCleanup:true,
+		onfocusout:false,
+		onclick:false,
+		focusCleanup:true
+	});
 	viewNotes.on( 'change', function() {   //访谈纪要 
 		var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
 		if(viewNotesLen>5000){
@@ -163,7 +168,12 @@ function initViewUpload() {
 					if($("#viewNotes-error").is(":visible")){  //访谈纪要
 						return false;
 					}
-					var validator = $(".myproject_add").validate();
+					var validator = $(".myproject_add").validate({
+						focusCleanup:true,
+						onfocusout:false,
+						onclick:false,
+						focusCleanup:true
+					});
  					if(!validator.form()){
  						return;
   					}
