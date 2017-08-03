@@ -93,7 +93,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 				String value = null;
 				if(ArrayUtils.isEmpty(values) || CollectionUtils.isEmpty(autoList))
 				{
-					score = null;
+					score = BigDecimal.ZERO;
 				}
 				else
 				{

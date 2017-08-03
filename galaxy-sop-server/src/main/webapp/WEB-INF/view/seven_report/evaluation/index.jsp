@@ -324,6 +324,10 @@ function getScore(relateId)
 	return score;
 }
 
+function afterTitleSaved()
+{
+	calcScore();
+}
 
 
 	

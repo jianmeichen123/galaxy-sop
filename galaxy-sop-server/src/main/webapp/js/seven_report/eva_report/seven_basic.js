@@ -182,7 +182,10 @@ function right(obj,type){
 	$(obj).closest('.gapPopup').hide();
 	$('.mashLayer').hide();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-
+	if(typeof afterTitleSaved == 'function')
+	{
+		afterTitleSaved();
+	}
 }
 
 //select下拉框的对号函数
