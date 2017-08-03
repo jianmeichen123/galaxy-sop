@@ -122,7 +122,7 @@
             
         </div>
         <!-- 投前End -->
-        <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
+       <!--  <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
            <div class="correlation" style="position:relative;padding-left:20px;"><span class="new_ico_hint" style="position:absolute;left:15px;top:11px;"></span>温馨提示</div>
             <div>
             	<ul class="basic_right_ul">
@@ -132,7 +132,7 @@
                     <li>4、通过立项会，投资项目计10分，创建项目计20分</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var pRigthInfo = ${proinfo}
