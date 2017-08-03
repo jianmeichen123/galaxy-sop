@@ -956,7 +956,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		fixedTableQuery.setProjectId(projectId+"");
 		fixedTableQuery.setTitleIds(titleInfo.getIds());
 		List<InformationFixedTable> fixedTableList = fixedTableDao.selectList(fixedTableQuery);
-		if(fixedTableList != null && fixedTableList.size() < 0)
+		if(fixedTableList != null && fixedTableList.size()> 0)
 		{
 			Map<Long, String> dict = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 			Map<String,InformationTitle> idMap = titleInfo.getIdMap();
