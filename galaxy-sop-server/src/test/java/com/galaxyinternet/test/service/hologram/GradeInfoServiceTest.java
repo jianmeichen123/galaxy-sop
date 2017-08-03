@@ -42,18 +42,18 @@ public class GradeInfoServiceTest
 		List<ItemParam> items =new ArrayList<>();
 		
 		ItemParam item = new ItemParam();
-		item.setRelatedId(1004l);
+		item.setRelateId(1004l);
 		item.setScore(BigDecimal.valueOf(20l));
 		items.add(item);
 		
 		item = new ItemParam();
-		item.setRelatedId(1008l);
+		item.setRelateId(1008l);
 		item.setScore(BigDecimal.valueOf(5l));
 		items.add(item);
 		
 		String[] values = {"1203"};
 		item = new ItemParam();
-		item.setRelatedId(1014l);
+		item.setRelateId(1014l);
 		item.setValues(values);
 		items.add(item);
 		

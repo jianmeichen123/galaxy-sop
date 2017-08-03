@@ -55,7 +55,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			Map<Long,ItemParam> map = new ConcurrentHashMap<>();
 			for(ItemParam item : items)
 			{
-				map.put(item.getRelatedId(), item);
+				map.put(item.getRelateId(), item);
 			}
 			
 			ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
@@ -67,7 +67,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			scores.put(0l, score);
 			for(ItemParam value : values)
 			{
-				scores.put(value.getRelatedId(), value.getScore());
+				scores.put(value.getRelateId(), value.getScore());
 			}
 			return scores;
 			
@@ -152,7 +152,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 		{
 			
 			ItemParam param = new ItemParam();
-			param.setRelatedId(info.getRelateId());
+			param.setRelateId(info.getRelateId());
 			param.setScore(info.getScore());
 			List<ScoreValue> valueList = info.getValueList();
 			if(valueList != null && valueList.size()>0)

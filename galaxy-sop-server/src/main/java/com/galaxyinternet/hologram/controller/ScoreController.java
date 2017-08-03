@@ -78,7 +78,7 @@ public class ScoreController
 			{
 				for(ScoreInfo item : list)
 				{
-					if(item != null && item.getRelateId() != null && item.getRelateId().intValue() == relateId.intValue())
+					if(item != null && item.getRelateId() != null && item.getRelateId().intValue() != relateId.intValue())
 					{
 						otherIds.add(item.getRelateId());
 					}

@@ -46,7 +46,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 	{
 		BigDecimal score = BigDecimal.ZERO;
 		ScoreInfo info = service.queryById(relateId);
-		if(info == null || info.getProcessMode() == null)
+		if(info == null)
 		{
 			return score;
 		}
@@ -58,7 +58,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		else
 		{
 			item = new ItemParam();
-			item.setRelatedId(relateId);
+			item.setRelateId(relateId);
 			item.setScore(null);
 		}
 		
@@ -67,13 +67,18 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		{
 			score = item.getScore();
 			ItemParam itemParam = new ItemParam();
-			itemParam.setRelatedId(relateId);
+			itemParam.setRelateId(relateId);
 			itemParam.setScore(score);
 			items.put(relateId, itemParam);
 			logger.debug(String.format("Relateid = %s Manual score = %s", relateId,score));
 		}
 		else //累加或自动打分
 		{
+			if(info.getProcessMode() == null)
+			{
+				logger.debug(String.format("Relateid = %s ProcessMode is null score = %s", relateId,score));
+				return score;
+			}
 			Integer mode = info.getProcessMode();
 			String[] values = item.getValues();
 			if(values == null)
@@ -88,7 +93,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 				String value = null;
 				if(ArrayUtils.isEmpty(values) || CollectionUtils.isEmpty(autoList))
 				{
-					score = null;
+					score = BigDecimal.ZERO;
 				}
 				else
 				{
@@ -159,7 +164,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 				}
 			}
 			ItemParam itemParam = new ItemParam();
-			itemParam.setRelatedId(relateId);
+			itemParam.setRelateId(relateId);
 			itemParam.setScore(score);
 			items.put(relateId, itemParam);
 			
@@ -203,7 +208,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 						if(!items.containsKey(parentId))
 						{
 							itemParam = new ItemParam();
-							itemParam.setRelatedId(parentId);
+							itemParam.setRelateId(parentId);
 							itemParam.setScore(score);
 							items.put(parentId, itemParam);
 						}

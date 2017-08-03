@@ -131,7 +131,16 @@ function right(obj,type){
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
 		var val = $(obj).parent().parent().find('input[type="radio"]:checked').parent(".iradio_flat-blue").next("label").html();
-		align_left.find('p').attr("val_id",val_id);
+		var p = align_left;
+		if(typeof val_id == 'undefined')
+		{
+			p.text('未选择');
+			p.attr("data-title-value",'');
+		}
+		else
+		{
+			p.attr("data-title-value",val_id);
+		}
 	}else if(type=="checkbox"){
 		align_left = $(obj).parent().parent().find(".align_left");
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
@@ -173,7 +182,10 @@ function right(obj,type){
 	$(obj).closest('.gapPopup').hide();
 	$('.mashLayer').hide();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-
+	if(typeof afterTitleSaved == 'function')
+	{
+		afterTitleSaved();
+	}
 }
 
 //select下拉框的对号函数
