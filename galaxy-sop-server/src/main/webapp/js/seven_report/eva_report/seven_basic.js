@@ -18,6 +18,7 @@
 		var _td = _this.closest('td');
 		var e_type = _this.attr("e-type");
 		var radioShow = _td.find('.radioShow');
+		$(obj).removeAttr("parent_dom");		
 		console.log(e_type);
 		if(e_type=="inside"){
 			//内部编辑
@@ -34,6 +35,7 @@
 			iCheck();
 		}else if(e_type=="small_pop"){
 			$('.gapPopup').show();
+			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
 			var  topNum = _this.offset().top-$(".gapPopup").height()-22;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
@@ -47,15 +49,16 @@
 			$(obj).closest('td').find('.radioShow').show();
 			
 		}else if(e_type=="cover_pop"){
+			$(obj).attr("parent_dom","show");
 			//$('.ch_income_evaluation').show();
 			$('.mashLayer').show();
-			/*var  leftNum = $(".new_left").offset().left;*/
-		/*	adjust(".ch_opration");*/
+			var  leftNum = $(".new_left").offset().left;
+			adjust(".ch_opration");
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
-			$('.ch_opration').show();
-			/*$('.ch_opration').css('left',leftNum);*/
+			$('.ch_opration').show();			
+			$('.ch_opration').css('left',leftNum);
 		}
 		
 		
@@ -116,6 +119,7 @@ function closeX(obj){
 	$(obj).closest('.gapPopup').hide();
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
 	$('.mashLayer').hide();
+	$("span[parent_dom='show']").removeAttr("parent_dom");
 }	
 	
 //小弹窗保存方法
@@ -124,10 +128,13 @@ function right(obj,type){
 	$(obj).parent().hide();
 	//raido消失
 	var other =$(obj).parent().siblings(".radioShow").find(".others");
+	var align_left = $(obj).parent().parent().find(".align_left");
 	//取值判断
 	if(type=="radio"){
-		var val = $(obj).parent().parent().find('input[type="radio"]:checked').val();
-	}else if("checkbox"){
+		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
+		var val = $(obj).parent().parent().find('input[type="radio"]:checked').parent(".iradio_flat-blue").next("label").html();
+		align_left.find('p').attr("val_id",val_id);
+	}else if(type=="checkbox"){
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
 		var val='';
 		$.each(val_checkbox,function(){
@@ -138,8 +145,9 @@ function right(obj,type){
 			}
 		})
 		var val=val.substring(0,val.length-1);
-	}else if("textarea"){
-
+	}else if(type=="textarea"){
+		align_left = $("span[parent_dom='show']").parent().find(".align_left");
+		var val = $(obj).parent().parent().find("textarea").val();
 	}
 
 	if(other.attr("checked") == "checked"){
@@ -147,9 +155,9 @@ function right(obj,type){
 	}
 	$(obj).parent().parent().find('.radioShow').hide();
 	if(val=="其他"){
-		$(obj).parent().parent().find('p').html(input_text);
+		align_left.find('p').html(input_text);
 	}else{
-		$(obj).parent().parent().find('p').html(val);
+		align_left.find('p').html(val);
 	}
 	$(obj).parent().parent().find('p').show();
 	$(obj).parent().parent().find('p').css('color','#000')
@@ -164,7 +172,7 @@ function right(obj,type){
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
 	$(obj).closest('.gapPopup').hide();
 	$('.mashLayer').hide();
-
+	$("span[parent_dom='show']").removeAttr("parent_dom");
 
 }
 
@@ -184,6 +192,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	_this.hide();
 	$(".mashLayer").hide();
 	event.stopPropagation();
+	$("span[parent_dom='show']").removeAttr("parent_dom");
 });	
 	
 //div模拟select下拉框
@@ -208,10 +217,11 @@ $('div').delegate(".h_save_btn","click",function(event){
 		$("#dropdown ul").hide(); 
 }); 
 
+
 		
 	//遮罩层
 	function pageHeight(){
-		return document.body.scrollHeight;
+		return document.body.scrollHeight+200;
 	}
 	function pageWidth(){
 		return document.body.scrollWidth;
@@ -224,8 +234,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 	/* 定位到页面中心 */
 	function adjust(id) {
 	    var w = $(id).width();
+	    console.log(w)
 	    var h = $(id).height();
+	    console.log($('.ch_opration').height())
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
+	    console.log(t);
+	    console.log(scrollY() + (windowHeight()/2))
 	    if(t < 0) t = 0;
 	    $(id).css('top',t+'px');
 	}

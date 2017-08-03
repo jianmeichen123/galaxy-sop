@@ -58,7 +58,7 @@
 							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="7"}}
@@ -116,7 +116,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="16"}}
@@ -212,7 +212,7 @@
 							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="4"}}
@@ -224,7 +224,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="6"}}
@@ -234,7 +234,7 @@
 							<div class="align_left"><p>未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'textarea')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="7"}}
@@ -282,7 +282,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="14"}}
@@ -292,7 +292,7 @@
 							<div class="align_left"><p>未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="15"}}
@@ -388,7 +388,7 @@
 								</ul> 
 							</div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'select')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div> 
 						</td>
 				 	{{/if}}
