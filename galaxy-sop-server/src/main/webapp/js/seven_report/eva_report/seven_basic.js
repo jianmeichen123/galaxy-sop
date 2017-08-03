@@ -52,13 +52,13 @@
 			$(obj).attr("parent_dom","show");
 			//$('.ch_income_evaluation').show();
 			$('.mashLayer').show();
-			var  leftNum = $(".new_left").offset().left;
+			/*var  leftNum = $(".new_left").offset().left;*/
 			adjust(".ch_opration");
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();			
-			$('.ch_opration').css('left',leftNum);
+			/*$('.ch_opration').css('left',leftNum);*/
 		}
 		
 		
@@ -251,12 +251,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 	/* 定位到页面中心 */
 	function adjust(id) {
 	    var w = $(id).width();
-	    console.log(w)
 	    var h = $(id).height();
-	    console.log($('.ch_opration').height())
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
-	    console.log(t);
-	    console.log(scrollY() + (windowHeight()/2))
 	    if(t < 0) t = 0;
 	    $(id).css('top',t+'px');
 	}
