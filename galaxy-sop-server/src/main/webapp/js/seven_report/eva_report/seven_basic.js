@@ -126,7 +126,8 @@ function right(obj,type){
 	var other =$(obj).parent().siblings(".radioShow").find(".others");
 	//取值判断
 	if(type=="radio"){
-		var val = $(obj).parent().parent().find('input[type="radio"]:checked').val();
+		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
+		var val = $(obj).parent().parent().find('input[type="radio"]:checked').parent(".iradio_flat-blue").next("label").html();
 	}else if("checkbox"){
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
 		var val='';

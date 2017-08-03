@@ -71,23 +71,23 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left">未填写</div>										
+							<div class="align_left"><p>未填写</p></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"></div>	
+							<div class="align_left"><p></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="10"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"></div>	
+							<div class="align_left"><p></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="11"}}
 						<!-- 静态数据 -->
 						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"></div>	
+							<div class="align_left"><p></p></div>	
 						</td>
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
@@ -121,7 +121,7 @@
 						</td>
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="  content_16 align_left">\${content}</div>
+							<div class="  content_16 align_left"><p>\${content}</p></div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
@@ -143,12 +143,12 @@
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left">sign==3</div>
+						<div class="align_left"><p>sign==3</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{else sign==1}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left">sign==1</div>
+						<div class="align_left"><p>sign==1</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{/if}}	
@@ -247,23 +247,23 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left">未填写</div>										
+							<div class="align_left"><p>未填写</p></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"></div>	
+							<div class="align_left"><p></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="10"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"></div>	
+							<div class="align_left"><p></p></div>	
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 						</td>
 					{{else type=="11"}}
 						<!-- 静态数据 -->
 						 <td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left"></div>	
+							<div class="align_left"><p></p></div>	
 						</td>
 					{{else type=="12"}}
  					<!-- 单选（Radio）带备注input -->
@@ -372,7 +372,7 @@
 						
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="  content_16 align_left">\${content}</div>
+							<div class="  content_16 align_left"><p>\${content}</p></div>
 							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
@@ -394,12 +394,12 @@
 				 	{{/if}}
 				{{else sign==3}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left">sign==3</div>
+						<div class="align_left"><p>sign==3</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{else sign==1}}
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-						<div class="align_left">sign==1</div>
+						<div class="align_left"><p>sign==1</p></div>
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 					</td>
 				{{/if}}	
