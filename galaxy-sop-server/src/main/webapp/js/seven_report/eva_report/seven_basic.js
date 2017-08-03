@@ -157,10 +157,8 @@ function right(obj,type){
 		var input_text = other.parents(".radioShow").find(".others_text").val();
 	}
 	$(obj).parent().parent().find('.radioShow').hide();
-	debugger;
 	console.log(val);
 	if(val=="其他"){
-		debugger;
 		align_left.find('p').html(input_text);
 	}else{
 		align_left.find('p').html(val);
