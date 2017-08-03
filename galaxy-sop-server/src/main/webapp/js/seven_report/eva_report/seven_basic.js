@@ -71,7 +71,7 @@ function get_result(code,e_type,dom){
 			 var valueList = data.entity.valueList;
 			 if(e_type==1){
 				 var result_html = ""
-				 if(entity.type==14||entity.type==3||entity.type==2||entity.type==5||entity.type==6||entity.type==12){
+				 if(entity.type==14||entity.type==2||entity.type==5||entity.type==6||entity.type==12){
 					 $.each(valueList,function(i,n){
 						 if(n.name=="其他"){
 						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
@@ -81,7 +81,7 @@ function get_result(code,e_type,dom){
 					 })
 				}else if(entity.type==1){
 					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
-				}else if(entity.type==13){
+				}else if(entity.type==13||entity.type==3){
 					 $.each(valueList,function(i,n){
 						 if(n.name=="其他"){
 						 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
