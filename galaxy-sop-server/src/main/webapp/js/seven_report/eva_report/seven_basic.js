@@ -32,7 +32,6 @@
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
 			$(obj).closest('td').find('.radioShow').show();
-			/*$(obj).closest('td').find('#dropdown').show();*/
 			iCheck();
 		}else if(e_type=="small_pop"){
 			$('.gapPopup').show();
@@ -85,11 +84,9 @@ function get_result(code,e_type,dom){
 					 })
 				}else if(entity.type==1){
 					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
-				}else if(entity.type==18){
-					result_html ="<div id=\"dropdown\"><input class=\"input_select\" type=\"text\" value=\"请选择\"/> <ul><li>sdvsd</li></ul> </div>";
 				}
 				 dom.html(result_html);
-				 selectDom();
+				 
 			 }else if(e_type==2){
 				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 			 }else if(e_type==3){
@@ -131,25 +128,27 @@ function right(obj,type){
 	$(obj).parent().hide();
 	//raido消失
 	var other =$(obj).parent().siblings(".radioShow").find(".others");
-	var align_left = $(obj).parent().parent().find(".align_left");
+	var align_left = $(obj).parent().parent().find(".align_left").find('p');
 	//取值判断
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
 		var val = $(obj).parent().parent().find('input[type="radio"]:checked').parent(".iradio_flat-blue").next("label").html();
 		align_left.find('p').attr("val_id",val_id);
 	}else if(type=="checkbox"){
+		align_left = $(obj).parent().parent().find(".align_left");
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
 		var val='';
 		$.each(val_checkbox,function(){
 			if($(this).val()=="其他"){
-				val += $(this).parents(".radioShow").find(".others_text").val()+'、';
+				var o_val = $(this).parents(".radioShow").find(".others_text").val()
+				val += "<p>"+o_val+"</p>、";
 			}else{
-				val+=$(this).val()+'、';
+				val+="<p>"+$(this).val()+"</p>、";
 			}
 		})
 		var val=val.substring(0,val.length-1);
 	}else if(type=="textarea"){
-		align_left = $("span[parent_dom='show']").parent().find(".align_left");
+		align_left = $("span[parent_dom='show']").parent().find(".align_left").find('p');
 		var val = $(obj).parent().parent().find("textarea").val();
 	}
 
@@ -157,11 +156,10 @@ function right(obj,type){
 		var input_text = other.parents(".radioShow").find(".others_text").val();
 	}
 	$(obj).parent().parent().find('.radioShow').hide();
-	console.log(val);
 	if(val=="其他"){
-		align_left.find('p').html(input_text);
+		align_left.html(input_text);
 	}else{
-		align_left.find('p').html(val);
+		align_left.html(val);
 	}
 	$(obj).parent().parent().find('p').show();
 	$(obj).parent().parent().find('p').css('color','#000')
@@ -179,19 +177,6 @@ function right(obj,type){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 
 }
-//select下拉框的对号函数
-function selectMethod(obj,type){
-		if(type=='select'){
-			var selectVal = $(obj).closest('td').find('.input_select').val();
-			$(obj).closest('td').find('p').html(selectVal);
-			$(obj).closest('td').find('p').show();
-			console.log(selectVal);
-			$(obj).parent().hide();
-			/*$(obj).parents('td').find('#dropdown').hide();*/
-			$(obj).closest('td').data('edit','false');
-		}
-			
-	}
 
 
 //大弹窗 取消方法
@@ -213,7 +198,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 });	
 	
 //div模拟select下拉框
-function selectDom(){
 	$(".input_select").click(function(){ 
 		var ul = $("#dropdown ul"); 
 		var _this = $(this);
@@ -227,16 +211,13 @@ function selectDom(){
 		} 
 	}); 
 
-	$("#dropdown ul li").click(function(){ 
+	$("#dropdown ul li a").click(function(){ 
 		var target = $(this).closest('#dropdown').find('input');
 		target.removeClass('up')
 		var txt = $(this).text(); 
 		$(".input_select").val(txt); 
 		$("#dropdown ul").hide(); 
 }); 
-	
-}
-	
 
 
 		
@@ -255,8 +236,12 @@ function selectDom(){
 	/* 定位到页面中心 */
 	function adjust(id) {
 	    var w = $(id).width();
+	    console.log(w)
 	    var h = $(id).height();
+	    console.log($('.ch_opration').height())
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
+	    console.log(t);
+	    console.log(scrollY() + (windowHeight()/2))
 	    if(t < 0) t = 0;
 	    $(id).css('top',t+'px');
 	}
