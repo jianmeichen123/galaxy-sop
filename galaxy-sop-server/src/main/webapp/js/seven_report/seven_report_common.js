@@ -226,10 +226,13 @@ function tabInfoChange(index){
    			  break;
    	     case "G":
    			  reportType="5";
+   	     case "P":
+			  reportType="3";
    			  break;
     	 default:
     		   reportType="";	  
     	}
+    	
 		if(id == "a_NO3_1"){
 		     sendGetRequest(platformUrl.queryMemberList+reportType+"/"+relateId+"/"+projectInfo.id,null,function(data){
 		        var result = data.result.status;

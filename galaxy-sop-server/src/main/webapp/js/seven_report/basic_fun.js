@@ -174,6 +174,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	   case "G":
 			  reportType="5";
 			  break;
+	   case "P":
+			  reportType="3";
+			  break;
 	   default:
 		   reportType="";	  
 	}

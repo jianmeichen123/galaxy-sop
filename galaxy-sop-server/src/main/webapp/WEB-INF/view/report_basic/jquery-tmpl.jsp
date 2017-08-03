@@ -14,7 +14,7 @@
 			<div class="h_title">\${name}</div>
 			{{each(i,childList) childList}}
 				
-			{{if sign=="3" && isShow=="t"}}
+			{{if sign=="3"}}
 				<div class="sign_title">\${name}</div>
 				{{each(i,childList) childList}}
 					<div class="mb_16">
@@ -208,7 +208,7 @@
 					</div>
 				{{/each}}
 			{{else}}
-				{{if isShow=="t"}}
+				{{if 1==1}}
 				<div class="mb_16">
 				   <dl class="h_edit_txt clearfix">		
 					{{if type=="1"}}
@@ -463,7 +463,7 @@
 	</c:if>
 	<div class="h_title">\${name}<span>（如果该项目涉及此项内容，请进行填写，反之可略过）</span></div>
 	{{each(i,childList) childList}}                    
-		{{if sign=="3" && isShow=="t"}}
+		{{if sign=="3"}}
 			<div class="sign_box">
 				<div class="sign_title" data-title-id="\${titleId}" data-code="\${relateCode}">\${name}</div>
 				{{each(i,childList) childList}}
@@ -559,7 +559,7 @@
 				{{/each}}
 			</div>
 		{{else}}
-			{{if isShow=="t"}}
+			{{if 1==1}}
 				<div class="mb_24 clearfix">
 				  <dl class="clearfix">
 					{{if type=="1"}}
