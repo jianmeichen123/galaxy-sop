@@ -75,10 +75,10 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 				}
 				break;
 			case 尽职调查:
-				if(!hasAllFiles(project))
+				/*if(!hasAllFiles(project))
 				{
 					throw new BusinessException("文档不齐全");
-				}
+				}*/
 				break;
 			
 			default:
