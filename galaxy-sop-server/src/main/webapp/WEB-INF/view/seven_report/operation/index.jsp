@@ -32,15 +32,15 @@ var path = '<%=path%>';
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabOperateChange('0')">项目</li>
+			<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabOperateChange('0')">投资<br />方案</li>
 			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('1')">团队</li>
 			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('2')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('3')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('3')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('4')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('5')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('6')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('7')">融资及<br />估值 </li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('3')">市场<br />与开发</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('4')">竞争</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('5')">战略及<br />策略 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('6')">财务</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('7')">法务</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('8')">融资及<br />估值 </li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
@@ -95,7 +95,7 @@ var path = '<%=path%>';
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
 
 
-<script src="<%=path%>/js/seven_report/optration/optration_common.js"></script>	
+<script src="<%=path%>/js/seven_report/operation/operation_common.js"></script>	
 
 <!-- 跟全息图相似的 -->
 <script src="<%=path%>/js/hologram/team_pop.js"></script>	
