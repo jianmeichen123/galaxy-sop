@@ -253,6 +253,11 @@ function right_anchor(i,type,right){
 								var scrollTop = $(this).scrollTop();
 								var scrollHeight = $(document).height()-2;
 								var windowHeight = $(this).height();
+								if(scrollTop>10){
+									$(".anchor_nav").css("top","60px");
+								}else{
+									$(".anchor_nav").css("top","140px");
+								}
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
 									if(_this.is(":hidden")){}else{
