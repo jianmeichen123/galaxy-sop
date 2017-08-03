@@ -169,7 +169,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 					fi.fileWorktype.replace(":","_") + '_up',
 					null,
 					fi.fileWorktype.replace(":","_") + '_save');*/
-			refreshIndex(true);
+			//refreshIndex(true);
+			initFileShow();
 			
 			
 		}else{
