@@ -254,6 +254,7 @@ function tabInfoChange(index){
         			if (result == 'OK')
         			{
         				var entityList = data.entityList;
+        				console.log(entityList);
         				if(entityList && entityList.length >0)
         				{
         					$.each(entityList,function(){
@@ -422,8 +423,7 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 13)
 		{
-			
-			var dt = $("dt[data-type='13'][data-title-id='"+ title.titleId +"']");
+			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
 			if(readonly == true){
@@ -457,9 +457,9 @@ function buildResults(sec,title,readonly)
 				}
 				$.each(title.resultList,function(i,n){
 					var result_id= n.id;					
-					$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active').attr("resultId",result_id);
+					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active').attr("resultId",result_id);
 					if(n.contentDescribe1){  
-						$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1).attr("resultId",result_id);
+						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1).attr("resultId",result_id);
 						inputText.attr('disabled',false);
 						inputText.attr('required' , true);
 					}

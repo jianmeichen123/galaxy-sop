@@ -556,7 +556,7 @@
 							{{else type=="13"}}
 								<div class="checked_div clearfix">
 									{{each(i,valueList) valueList}}
-										<dd class="border_dd" data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${id}" data-id="\${id}" data-code="\${code}" style="display:none;"></dd>
+										<dd class="border_dd" data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${titleId}" data-id="\${id}" data-code="\${code}" style="display:none;"></dd>
 									{{/each}}
 									<dd class="field">未选择</dd>
 								</div>
