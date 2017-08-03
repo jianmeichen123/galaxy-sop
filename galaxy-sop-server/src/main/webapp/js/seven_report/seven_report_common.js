@@ -427,8 +427,8 @@ function buildResults(sec,title,readonly)
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
 			if(readonly == true){
-				$("dt[data-id='"+ title.titleId +"']").siblings(".checked_div").find("dd[data-code]").text("");
-				$("dt[data-id='"+ title.titleId +"']").siblings(".checked_div").find("dd[data-code]").hide();
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").text("");
+				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
 				$.each(title.resultList,function(i,n){
 					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
 					if(n.contentDescribe1){ 

@@ -402,6 +402,7 @@ function buildResults(sec,title,readonly)
 		}
 		else if(title.type == 13)
 		{
+			
 			var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 			var dl = dt.parent();
 			var inputText = dl.find('input[type="text"]:last');
@@ -427,6 +428,7 @@ function buildResults(sec,title,readonly)
 					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
 				}
 			}else{
+				alert(title.id);
 				var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 				var dd = dt.siblings();
 				var last_id = dd.find('li.check_label:last').attr('data-id');

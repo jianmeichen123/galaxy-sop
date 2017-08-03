@@ -35,7 +35,7 @@ function tabInvestChange(index){
 			$.getTabHtmlInfo({
 				url : platformUrl.toInvestigateT ,
 				okback:function(){
-					right_anchor("DNO3?reportType=2","seven","hide");
+				//	right_anchor("DNO3?reportType=2","seven","hide");
 				}
 			});
 		}
