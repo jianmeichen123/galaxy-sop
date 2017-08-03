@@ -181,7 +181,7 @@ table.table_15 td:nth-child(4){
     filter: alpha(opacity=20); /* IE碌脛脥赂脙梅露脠 */
     opacity: 0.1;  /* 脥赂脙梅露脠 */
    display: none;
-    position: absolute;
+    position: fixed;
     top: 0px;
     left: 0px;
     z-index: 100; /* 麓脣麓娄碌脛脥录虏茫脪陋麓贸脫脷脪鲁脙忙 */
