@@ -164,7 +164,6 @@ $("#eva-tabs li:eq(0)").click();
  * 修改分数
  */
  $(".score-column select,input").change(function(){
-	 console.log('change');
 	 calcScore();
  });
 // 
@@ -201,7 +200,6 @@ function showScoreList(relateId)
 							});
 						}
 					});
-					console.log('showScoreList');
 					initScore(relateId);
 				}
 			}
@@ -241,7 +239,6 @@ function popScore(titles,relateId)
  */
 function initScore(relateId)
 {
-	console.log('getScore');
 	sendGetRequest(
 			platformUrl.getScores, 
 			{"parentId":0,"projectId":"${projectId}","reportType":"1"},
@@ -293,8 +290,14 @@ function calcScore()
 }
 function getTitleValue(relateId)
 {
-	var _p = $(".title-value,[data-relate-id='"+relateId+"']");
-	var val = _p.data('value');
+	var val;
+	$(".title-value").each(function(){
+		if($(this).attr('data-relate-id')==relateId)
+		{
+			val = $(this).attr('data-title-value');
+			return false;
+		}
+	});
 	if(typeof val == 'undefined' || val.length==0)
 	{
 		return null;
@@ -314,7 +317,6 @@ function getScore(relateId)
 	{
 		score = ele.val();
 	}
-	console.log("score="+score+","+isNaN(score));
 	if(score == "" || isNaN(score))
 	{
 		return null;

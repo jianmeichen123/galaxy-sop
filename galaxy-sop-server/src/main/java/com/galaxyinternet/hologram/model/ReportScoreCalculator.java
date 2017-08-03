@@ -46,7 +46,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 	{
 		BigDecimal score = BigDecimal.ZERO;
 		ScoreInfo info = service.queryById(relateId);
-		if(info == null || info.getProcessMode() == null)
+		if(info == null)
 		{
 			return score;
 		}
@@ -74,6 +74,11 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 		}
 		else //累加或自动打分
 		{
+			if(info.getProcessMode() == null)
+			{
+				logger.debug(String.format("Relateid = %s ProcessMode is null score = %s", relateId,score));
+				return score;
+			}
 			Integer mode = info.getProcessMode();
 			String[] values = item.getValues();
 			if(values == null)
