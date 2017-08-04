@@ -293,73 +293,41 @@
 						<td colspan="4"  class="condition td_15" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<div>
 								<table class="table_15">
+										{{each(i,informationGrades) informationGrades }}
 									<tr>
 										<td>
-											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}" data-sub-id="\${subId}">未填写</p></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 											<div class="radioShow"></div>
 										</td>
-										{{each(i,informationGrades) informationGrades }}
-											{{if i==0}}
+											
 												<td>\${scoreMax}</td>
 												<td>\${scoreExplain}</td>
 												{{if isScore==0}}
 												<!-- 系统打分 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
 												{{else isScore==1}}
 												<!-- 人工打分（select） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<select>
 															<option>请选择</option>
 														</select>
 													</td>
 												{{else isScore==2}}
 												<!-- 人工打分（数值范围） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<input type="text" value="" placeholder="请打分">
 							                              <em>(0-\${scoreMax}分)</em>
 													</td>
 												{{else isScore==4}}
 												<!-- 根据其他子项分值计算得出 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
 												{{/if}}
-											{{/if}}
-										{{/each}}
+											
 
 									</tr>
-									<tr>
-										<td>
-											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
-											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-											<div class="radioShow"></div>
-										</td>
-										{{each(i,informationGrades) informationGrades }}
-											{{if i==1}}
-												<td>\${scoreMax}</td>
-												<td>\${scoreExplain}</td>
-												{{if isScore==0}}
-												<!-- 系统打分 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
-												{{else isScore==1}}
-												<!-- 人工打分（select） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
-														<select>
-															<option>请选择</option>
-														</select>
-													</td>
-												{{else isScore==2}}
-												<!-- 人工打分（数值范围） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
-														<input type="text" value="" placeholder="请打分">
-							                              <em>(0-\${scoreMax}分)</em>
-													</td>
-												{{else isScore==4}}
-												<!-- 根据其他子项分值计算得出 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
-												{{/if}}
-											{{/if}}
 										{{/each}}
-									</tr>
+									
 								</table>
 							</div>
 						</td>
