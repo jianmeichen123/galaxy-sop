@@ -71,9 +71,10 @@ function get_result(code,e_type,dom){
 		 if(result == 'OK'){
 			 var entity = data.entity;
 			 var valueList = data.entity.valueList;
+			 var type=entity.type;
 			 if(e_type==1){
 				 var result_html = ""
-				 if(entity.type==14||entity.type==2||entity.type==5||entity.type==6||entity.type==12){
+				 if(type==14||type==2||type==5||type==6||type==12){
 					 $.each(valueList,function(i,n){
 						 if(n.name=="其他"){
 						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
@@ -81,9 +82,9 @@ function get_result(code,e_type,dom){
 						 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
 						 }
 					 })
-				}else if(entity.type==1){
+				}else if(type==1){
 					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
-				}else if(entity.type==13||entity.type==3){
+				}else if(type==13||type==3){
 					 $.each(valueList,function(i,n){						 
 						 if(n.name=="其他"){
 						 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
@@ -91,6 +92,8 @@ function get_result(code,e_type,dom){
 						 result_html += "<input type=\"checkbox\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
 						 }
 					 })
+				}else if(type==18){
+					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><li>hahah</li></div>"
 				}
 				 dom.html(result_html);
 				 
