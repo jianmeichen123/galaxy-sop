@@ -11,8 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
-</head>
+<script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script></head>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
@@ -32,7 +31,7 @@
                 </ul> -->
  <!--隐藏-->
 <div class="bj_hui_on"></div>
-<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>               
+<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>               
               <div class="tabtxt" id="page_all">
 		<!--tab-->
 

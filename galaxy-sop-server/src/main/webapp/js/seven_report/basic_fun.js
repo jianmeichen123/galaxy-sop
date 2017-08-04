@@ -191,6 +191,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 			if (result == 'OK') {
 				var entity = data.entity;
 				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+				console.log(entity);
 				sec.showResults();
 				bindChange();
 				bindChangeType13();
