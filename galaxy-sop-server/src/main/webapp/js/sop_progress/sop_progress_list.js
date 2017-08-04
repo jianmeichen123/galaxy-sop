@@ -274,7 +274,7 @@ $(".new_poppage").on("click",function(){
 	var _type = $self.attr("data-type");
 	$.getHtml({
 		url:_url,//模版请求地址
-		data:"",//传递参数
+		data:{'projectId':_project_.id,"progress":_project_.projectProgress},//传递参数
 		okback:function(){
 			$(".popup_name h3 ").text(_name);
 			var arrName=[];
@@ -555,7 +555,7 @@ function nextProgress(btn,nextProgress)
 	$(btn).addClass('disabled');
 	sendPostRequestByJsonObj(
 		platformUrl.projectStageChange,
-		{id:projectId, stage:nextProgress},
+		{id:projectId, stage:nextProgress,projectProgress:_project_.projectProgress},
 		function(data){
 			$(btn).removeClass('disabled');
 			if(data.result.status == 'OK')

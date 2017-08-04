@@ -34,7 +34,15 @@ public class ProjectQuery extends ViewQuery{
 	private String target;
 	//访谈结果
 	private String interviewResult;
+	private String projectProgress;
 	
+	
+	public String getProjectProgress() {
+		return projectProgress;
+	}
+	public void setProjectProgress(String projectProgress) {
+		this.projectProgress = projectProgress;
+	}
 	private Long recordId;
 	public String getInterviewResult() {
 		return interviewResult;

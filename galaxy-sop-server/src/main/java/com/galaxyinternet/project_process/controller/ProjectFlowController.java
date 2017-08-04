@@ -151,7 +151,17 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 * 访谈页面
 	 */
 	@RequestMapping(value = "/p1", method = RequestMethod.GET)
-	public String p1() {
+	public String p1(HttpServletRequest request) {
+		String progress = request.getParameter("progress");
+		String projectId = request.getParameter("projectId");
+		if(StringUtils.isNotBlank(progress) && StringUtils.isNotBlank(projectId)){
+			Project pro = projectService.queryById(Long.valueOf(projectId));
+			//判断项目状态
+			String err = ProUtil.errMessage(pro,progress); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				return "project/sop/sop_progress/list";
+			}
+		}
 		return "project/sop/sop_progress/edit";
 	}
 	
@@ -552,7 +562,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		{
 			Project entity = projectService.queryById(p.getId());
 			//判断项目状态
-			String err = ProUtil.errMessage(entity,null); //字典  项目进度  接触访谈 
+			String err = ProUtil.errMessage(entity,p.getProjectProgress()); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
 				data.setResult(new Result(Status.ERROR,null, err));
 				return data;
