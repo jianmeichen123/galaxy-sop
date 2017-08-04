@@ -244,6 +244,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	}
 
 	@Override
+	@Transactional
 	public void toSureMeetingStage(Project project) throws Exception {
 		project.setProjectProgress(DictEnum.projectProgress.投资决策会.getCode());
 		projectDao.updateById(project);
@@ -260,6 +261,15 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setCreatedTime((new Date()).getTime());
 		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		meetingSchedulingDao.insert(ms);
+		
+		//修改CEO评审排期记录为完成
+		MeetingScheduling m = new MeetingScheduling();
+		m.setProjectId(project.getId());
+		m.setMeetingType(DictEnum.meetingType.立项会.getCode());
+		m.setStatus(DictEnum.meetingResult.通过.getCode());
+		m.setUpdatedTime((new Date()).getTime());
+		m.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
+		meetingSchedulingDao.updateBySelective(m);
 	}
 
 	public Map<String, Object> getSummary(Long userId)
