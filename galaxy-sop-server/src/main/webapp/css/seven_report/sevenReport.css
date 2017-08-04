@@ -713,12 +713,13 @@ table td select option{
 /*div模拟select下拉框样式*/
 ul,li{list-style:none;padding:0;margin:0;} 
 #dropdown{
-	width:186px; 
+	width:100%; 
 	position:relative;
 	/* display:none; */
+	margin-top:23px;
 } 
 .input_select{
-	width:130px; 
+	width:81%; 
 	height:24px; 
 	line-height:24px; 
 	padding-left:10px; 
@@ -727,7 +728,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 } 
 #dropdown ul{
-	width:170px; 
+	width:95%; 
 	background:#fff; 
 	margin-top:2px;
 	border:1px solid #979797; 
