@@ -240,12 +240,11 @@ function right_anchor(i,type,right){
 								var _this=$(this);
 								var id = $(this).attr("href");
 								var target = $(id).offset().top-50;
-								//$(window).scrollTop(target);
 								$(".anchor_navs").removeClass("anchor_nav");
 								$('html, body').animate({scrollTop:target}, 0);
-								//alert("hahaha");
-								setTimeout(function (){$(".anchor_navs").addClass("anchor_nav");$('.anchor_nav li').removeClass('active');
-								_this.parents('li').addClass('active')},3);
+								$(".anchor_navs").addClass("anchor_nav");
+								$('.anchor_nav li').removeClass('active');
+								_this.parents('li').addClass('active');
 								event.preventDefault();
 							});
 							//滑动高亮
@@ -255,8 +254,10 @@ function right_anchor(i,type,right){
 								var windowHeight = $(this).height();
 								if(scrollTop>10){
 									$(".anchor_nav").css("top","60px");
+									$(".to_top").fadeIn(100);
 								}else{
 									$(".anchor_nav").css("top","140px");
+									$(".to_top").fadeOut(100);
 								}
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
@@ -283,6 +284,9 @@ function right_anchor(i,type,right){
 								
 							});
 							hideNav();
+							$(".to_top").click(function(){
+								$('body,html').animate({scrollTop:0},300);
+							})
 							
 						} else {
 

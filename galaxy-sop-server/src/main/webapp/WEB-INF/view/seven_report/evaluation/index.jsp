@@ -148,8 +148,8 @@ $("#eva-tabs li").click(function(){
 			content_16=content_16.replace(/<sitg>/g,'（');
 			content_16=content_16.replace(/<\/sitg>/g,'）');
 			$(".content_16").text(content_16); 
-			//显示分数
-			showScoreList(relateId);
+			//显示结果和分数向
+			showResultAndScoreList(relateId);
 			 //修改分数时自动计算
 			 $(".score-column select,input").change(function(){
 				 calcScore();
@@ -168,9 +168,9 @@ $("#eva-tabs li:eq(0)").click();
 
 // 
 /**
- * 显示分数选项
+ * 显示结果和分数向
  */
-function showScoreList(relateId)
+function showResultAndScoreList(relateId)
 {
 	sendGetRequest(
 			platformUrl.getRelateTitleResults+"1/"+relateId+"/${projectId}", 
@@ -181,6 +181,7 @@ function showScoreList(relateId)
 					$.each(data.entityList,function(){
 						var rid = this.relateId;
 						var weight = this.weight;
+						//分数选择
 						if(rid==relateId)
 						{
 							$("#part-weight").text(this.weight+"%");
@@ -199,6 +200,8 @@ function showScoreList(relateId)
 								sel.append('<option>'+this.grade+'</option>')
 							});
 						}
+						//结果
+						buildResult(this)
 					});
 					initScore(relateId);
 				}
@@ -290,14 +293,8 @@ function calcScore()
 }
 function getTitleValue(relateId)
 {
-	var val;
-	$(".title-value").each(function(){
-		if($(this).attr('data-relate-id')==relateId)
-		{
-			val = $(this).attr('data-title-value');
-			return false;
-		}
-	});
+	var _ele = $(".title-value[data-relate-id='"+relateId+"']");
+	var val = _ele.attr('data-title-value');
 	if(typeof val == 'undefined' || val.length==0)
 	{
 		return null;
@@ -327,6 +324,29 @@ function getScore(relateId)
 function afterTitleSaved()
 {
 	calcScore();
+}
+/**
+ * 结果回显
+ */
+function buildResult(title)
+{
+	var results = title.resultList;
+	var type = title.type;
+	if(typeof results == 'undefined' || results.length == 0)
+	{
+		return;
+	}
+	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
+	//Radio
+	if(type == 2)
+	{
+		_ele.attr('data-title-value',results[0].contentChoose)
+		_ele.text(results[0].valueName);
+	}
+	else if(type == 8)
+	{
+		_ele.text(results[0].contentDescribe1);
+	}
 }
 
 

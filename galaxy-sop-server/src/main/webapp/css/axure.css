@@ -2652,14 +2652,14 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .compete_tab-content table th,.compete_tab-content table td{width:auto;max-width:110px; }
 .anchor_nav,.anchor_navs{
 	position: fixed;
-	right: 0px;
+	right: 20px;
 	top: 140px;
 	width: 21%;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;padding-bottom:10px;
 }
 .anchor_nav #nav_ul{
-	width:100%;
+	/* width:100%; */
 	padding: 30px 28px 22px;
 	background: #fff;
 }
@@ -2687,8 +2687,9 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_btn span{z-index:100;cursor:pointer;position:absolute;right:28px;top:28px;width:50px;height:28px;background:url('../img/navhide_btn.png') no-repeat center;}
 .anchor_btn span.invisible{background-image:url('../img/navshow_btn.png');}
 .anchor_btn span.unabled{cursor:not-allowed;background-color:#fff;}
-.right_bom{padding:30px 20px;background:#fff;margin-top:10px;}
-.right_bom h3{font-size:12px;color:#333333;}
+.right_bom{padding: 30px 20px 20px 30px;background:#fff;margin-top:10px;}
+.right_bom h3{padding-bottom:30px; font-size:12px;color:#333333;font-weight:normal;}
+.right_bom p{font-size:12px;color:#333333;padding-bottom:10px;}
 @media(max-width:1300px){.anchor_nav li{height: 33px;}.anchor_navs li{height: 33px;}}
 .nocon{width:300px;height:376px;margin:80px auto 0;background:url('../img/nocon.png');font-size:0;}
 .h_edit_btn.put_away,.out_box{display:none;}
@@ -3345,3 +3346,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 }
 .sev_report .seven_link3,.sev_report .seven_link6{border-right:0;}
 .sev_report .seven_link7{border-bottom:0;}
+.to_top{width:48px;height:48px; cursor:pointer; background:url(../img/to_top.png) center no-repeat;position:fixed;bottom:40px;right:20px;display:none;}
+
+

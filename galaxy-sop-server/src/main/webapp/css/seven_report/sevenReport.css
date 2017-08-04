@@ -6,7 +6,7 @@
 }
 .test_top ul li{
 	float:left;
-	margin-left:12%;
+	margin-left:9%;
 }
 .pagebox{
 	 min-width:initial;
@@ -100,7 +100,7 @@ table td.td_15{padding:0;}
 table td input{
 	width:64px;
 	height:24px;
-	color:#d8d8d8;
+	color:#333;
 	outline:none;
 	border:1px solid #53b1fd;
 	text-align:center;
@@ -693,6 +693,8 @@ table td select option{
     display: none;
     float: right;
     margin-top: -30px;
+    position: relative;
+    z-index: 100;
 }
 .h_radios li label{
 	margin-left: 10px;
@@ -711,12 +713,13 @@ table td select option{
 /*div模拟select下拉框样式*/
 ul,li{list-style:none;padding:0;margin:0;} 
 #dropdown{
-	width:186px; 
+	width:100%; 
 	position:relative;
 	/* display:none; */
+	margin-top:23px;
 } 
 .input_select{
-	width:144px; 
+	width:81%; 
 	height:24px; 
 	line-height:24px; 
 	padding-left:10px; 
@@ -725,13 +728,14 @@ ul,li{list-style:none;padding:0;margin:0;}
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 } 
 #dropdown ul{
-	width:184px; 
+	width:95%; 
 	background:#fff; 
 	margin-top:2px;
 	border:1px solid #979797; 
 	position:absolute; 
 	display:none;
 	z-index:999;
+	border-bottom:0px;
 } 
 #dropdown ul li{
 	height:24px; 
@@ -739,15 +743,12 @@ ul,li{list-style:none;padding:0;margin:0;}
 	border-bottom: 1px solid #979797;
 	cursor: pointer;
 	text-align:center;
+	display:block; 
+	color:#666666;; 
 
 }
-#dropdown ul li{
-	display:block; 
-	height:24px; 
-	color:#666666;; 
-} 
 #dropdown ul li:hover{
-	background:#fff; 
+	
 } 
 .up{
 	background: url(../../img/seven_report/up.png) no-repeat center right 7px;
@@ -758,3 +759,4 @@ ul,li{list-style:none;padding:0;margin:0;}
 .new_left{
 	margin-bottom:20px !important;
 }
+p.check_p{display:inline;}

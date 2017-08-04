@@ -36,7 +36,7 @@
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="4"}}
@@ -106,7 +106,7 @@
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="14"}}
@@ -293,73 +293,41 @@
 						<td colspan="4"  class="condition td_15" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<div>
 								<table class="table_15">
+										{{each(i,informationGrades) informationGrades }}
 									<tr>
 										<td>
-											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}" data-sub-id="\${subId}">未填写</p></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 											<div class="radioShow"></div>
 										</td>
-										{{each(i,informationGrades) informationGrades }}
-											{{if i==0}}
+											
 												<td>\${scoreMax}</td>
 												<td>\${scoreExplain}</td>
 												{{if isScore==0}}
 												<!-- 系统打分 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
 												{{else isScore==1}}
 												<!-- 人工打分（select） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<select>
 															<option>请选择</option>
 														</select>
 													</td>
 												{{else isScore==2}}
 												<!-- 人工打分（数值范围） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<input type="text" value="" placeholder="请打分">
 							                              <em>(0-\${scoreMax}分)</em>
 													</td>
 												{{else isScore==4}}
 												<!-- 根据其他子项分值计算得出 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
+													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
 												{{/if}}
-											{{/if}}
-										{{/each}}
+											
 
 									</tr>
-									<tr>
-										<td>
-											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
-											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-											<div class="radioShow"></div>
-										</td>
-										{{each(i,informationGrades) informationGrades }}
-											{{if i==1}}
-												<td>\${scoreMax}</td>
-												<td>\${scoreExplain}</td>
-												{{if isScore==0}}
-												<!-- 系统打分 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
-												{{else isScore==1}}
-												<!-- 人工打分（select） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
-														<select>
-															<option>请选择</option>
-														</select>
-													</td>
-												{{else isScore==2}}
-												<!-- 人工打分（数值范围） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">
-														<input type="text" value="" placeholder="请打分">
-							                              <em>(0-\${scoreMax}分)</em>
-													</td>
-												{{else isScore==4}}
-												<!-- 根据其他子项分值计算得出 -->
-													<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
-												{{/if}}
-											{{/if}}
 										{{/each}}
-									</tr>
+									
 								</table>
 							</div>
 						</td>
@@ -496,13 +464,15 @@
 							</dd>
 
 							{{else type=="3"}}
-							<dd class="fl_none">
-							<ul class="h_edit_checkbox clearfix" data-type="\${type}">
-								{{each(i,valueList) valueList}}
-								<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
-								{{/each}}
-							  </ul>
-							</dd>
+							<!-- 复选 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
+						</td>
 
 							{{else type=="4"}}
 								{{each(i,valueList) valueList}}
@@ -626,14 +596,15 @@
 								  </ul>
 								</dd>
 							{{else type=="13"}}
-								<dd class="fl_none">
-									<ul class="h_radios h_edit_checkbox  clearfix" data-type="\${type}">
-										{{each(i,valueList) valueList}}
-										<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
-										{{/each}}
-										<li class="text_li text_li_13"><input data-type="\${type}" type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
-								 	 </ul>
-								</dd>
+								<!-- 复选带备注input -->
+								<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+									<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
+									<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+									<div class="radioShow"></div>
+									<div class="Button">
+									<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+									</div>
+								</td>
 
 							{{else type=="14"}}
 								<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
