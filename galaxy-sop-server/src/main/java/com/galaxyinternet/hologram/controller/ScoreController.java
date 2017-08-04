@@ -113,7 +113,7 @@ public class ScoreController
 	})
 	@ApiResponses(
 		value={
-				@ApiResponse(code = 200, message = "返回分数-包含当前想以及子项,data.userData(key=题目realteId, value=分数)", response=ResponseData.class)
+				@ApiResponse(code = 200, message = "返回分数-包含当前想以及子项,data.userData(key=题目realteId[如果包含子项key为relateId-subId,例如1059-1], value=分数)", response=ResponseData.class)
 		}
 	)
 	@ResponseBody
