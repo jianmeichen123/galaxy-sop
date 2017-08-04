@@ -255,8 +255,10 @@ function right_anchor(i,type,right){
 								var windowHeight = $(this).height();
 								if(scrollTop>10){
 									$(".anchor_nav").css("top","60px");
+									$(".to_top").fadeIn(100);
 								}else{
 									$(".anchor_nav").css("top","140px");
+									$(".to_top").fadeOut(100);
 								}
 								$('.anchor_nav a[href^="#"]').each(function() {
 									var _this =$(this);
@@ -283,6 +285,9 @@ function right_anchor(i,type,right){
 								
 							});
 							hideNav();
+							$(".to_top").click(function(){
+								$('body,html').animate({scrollTop:0},300);
+							})
 							
 						} else {
 
