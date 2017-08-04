@@ -96,7 +96,7 @@ function get_result(code,e_type,dom){
 					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul><li>hahah</li></ul></div>"
 				}
 				 dom.html(result_html);
-				 
+				 divSelect();
 			 }else if(e_type==2){
 				 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 			 }else if(e_type==3){
@@ -245,6 +245,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 });	
 	
 //div模拟select下拉框
+function divSelect(){
 	$(".input_select").click(function(){ 
 		var ul = $("#dropdown ul"); 
 		var _this = $(this);
@@ -258,13 +259,15 @@ $('div').delegate(".h_save_btn","click",function(event){
 		} 
 	}); 
 
-	$("#dropdown ul li a").click(function(){ 
+	$("#dropdown ul li").click(function(){ 
 		var target = $(this).closest('#dropdown').find('input');
 		target.removeClass('up')
 		var txt = $(this).text(); 
 		$(".input_select").val(txt); 
 		$("#dropdown ul").hide(); 
 }); 
+}
+
 
 
 		
