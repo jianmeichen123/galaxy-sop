@@ -1,7 +1,5 @@
 package com.galaxyinternet.project_process.controller;
 
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,12 +39,12 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project_process.service.ProFlowAboutFileService;
 import com.galaxyinternet.project_process.util.ProFlowUtilImpl;
+import com.galaxyinternet.project_process.util.ProUtil;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
@@ -234,7 +232,12 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
 			Project project = projectService.queryById(fileTemp.getProjectId());
-			
+			//判断项目状态
+			String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				responseBody.setResult(new Result(Status.ERROR,null, err));
+				return responseBody;
+			}
 			//封装结果
 			fileTemp.setFileUid(user.getId());
 			fileTemp.setCareerLine(user.getDepartmentId());

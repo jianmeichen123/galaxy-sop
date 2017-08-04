@@ -1,12 +1,8 @@
 package com.galaxyinternet.project_process.controller;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,17 +58,15 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project.service.HandlerManager;
-import com.galaxyinternet.project_process.util.ProFlowUtilImpl;
+import com.galaxyinternet.project_process.util.ProUtil;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
 
 
@@ -267,6 +261,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					.setResult(new Result(Status.ERROR, null, "没有权限修改该项目!"));
 			return responseBody;
 		}
+		//判断项目状态
+		String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR,null, err));
+			return responseBody;
+		}
 		p.setCreatedUid(user.getId());
 		p.setDepartmentId(user.getDepartmentId());
 		/**
@@ -378,7 +378,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(meetingRecord.getProjectId());
-			
+			//判断项目状态
+			String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				responseBody.setResult(new Result(Status.ERROR,null, err));
+				return responseBody;
+			}
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) &&
 					meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 				project.setFinalValuations(meetingRecord.getFinalValuations());
@@ -506,6 +511,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try
 		{
 			Project project = projectService.queryById(param.getProjectId());
+			//判断项目状态
+			String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				data.setResult(new Result(Status.ERROR,null, err));
+				return data;
+			}
 			projectService.reject(param.getProjectId());
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e)
@@ -535,6 +546,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		{
 			projectService.updateProgress(p.getId(), p.getStage());
 			Project entity = projectService.queryById(p.getId());
+			//判断项目状态
+			String err = ProUtil.errMessage(entity); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				data.setResult(new Result(Status.ERROR,null, err));
+				return data;
+			}
 			data.setEntity(entity);
 			
 		} catch (Exception e)
@@ -549,38 +566,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	}
 	
 	
-	public String errMessage(Project project,User user,String prograss){
-		if(project == null){
-			return "项目检索为空";
-		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
-			return "项目已经关闭";
-		}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
-			return "项目已退出";
-		}
-		
-		if(user != null){
-			if(project.getCreateUid()==null || user.getId().longValue()!=project.getCreateUid().longValue()){ 
-				return "不允许操作他人项目";
-			}
-		}
-		if(prograss != null){
-			if(project.getProjectProgress()!=null){
-				try {
-					int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;
-					int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
-					if(projectPro < operationPro){
-						return "项目当前阶段不允许进行该操作";
-					}
-				} catch (Exception e) {
-					return "项目阶段不和规范";
-				}
-			}else{
-				return "项目阶段出错";
-			}
-		}
-		
-		return null;
-	}
 	@RequestMapping(value = "/searchMeeting", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseData<MeetingRecord> searchMeeting(MeetingRecord query)
@@ -599,6 +584,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		boolean next2Valid = false;
 		ResponseData<Project> data = new ResponseData<>();
 		Project project = projectService.queryById(id);
+		//判断项目状态
+		String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+		if(err!=null && err.length()>0){
+			data.setResult(new Result(Status.ERROR,null, err));
+			return data;
+		}
 		String currProgress = project.getProjectProgress();
 		if(projectProgress.接触访谈.getCode().equals(currProgress))
 		{
