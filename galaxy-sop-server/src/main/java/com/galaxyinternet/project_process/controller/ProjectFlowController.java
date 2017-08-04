@@ -552,7 +552,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		{
 			Project entity = projectService.queryById(p.getId());
 			//判断项目状态
-			String err = ProUtil.errMessage(entity,p.getStage()); //字典  项目进度  接触访谈 
+			String err = ProUtil.errMessage(entity,null); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
 				data.setResult(new Result(Status.ERROR,null, err));
 				return data;
