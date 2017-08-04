@@ -26,9 +26,11 @@
 			//请求成功，数据添加
 			get_result(id_code,1,radioShow);
 			var pText = $(obj).parent().find('p');
+			var pSpan = $(obj).parent().find('span');
 			_this.hide();
 			_td.data('edit','true');
-			pText.hide();			
+			pText.hide();	
+			pSpan.hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
 			$(obj).closest('td').find('.radioShow').show();
@@ -82,7 +84,7 @@ function get_result(code,e_type,dom){
 				}else if(entity.type==1){
 					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
 				}else if(entity.type==13||entity.type==3){
-					 $.each(valueList,function(i,n){
+					 $.each(valueList,function(i,n){						 
 						 if(n.name=="其他"){
 						 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
 						 }else{
@@ -150,18 +152,24 @@ function right(obj,type){
 			p.attr("data-title-value",val_id);
 		}
 	}else if(type=="checkbox"){
+
 		align_left = $(obj).parent().parent().find(".align_left");
-		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
+		//
+		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked')
 		var val='';
+		if(val_checkbox.length==0){
+			val+="<p>未选择</p>";
+		}
 		$.each(val_checkbox,function(){
-			if($(this).val()=="其他"){
+			var val_id =$(this).val();
+			var val_text = $(this).parent(".icheckbox_flat-blue").next("label").html();;
+			if(val_text=="其他"){
 				var o_val = $(this).parents(".radioShow").find(".others_text").val()
-				val += "<p>"+o_val+"</p>、";
+				val+= "<p class=\"check_p\" data-title-value="+val_id+">"+o_val+"</p><span>、</span>";
 			}else{
-				val+="<p>"+$(this).val()+"</p>、";
+				val+="<p class=\"check_p\" data-title-value="+val_id+">"+val_text+"</p><span>、</span>";
 			}
 		})
-		var val=val.substring(0,val.length-1);
 	}else if(type=="textarea"){
 		align_left = $("span[parent_dom='show']").parent().find(".align_left").find('p');
 		var val = $(obj).parent().parent().find("textarea").val();
@@ -176,6 +184,9 @@ function right(obj,type){
 	}else{
 		align_left.html(val);
 	}
+	$(".align_left span").last().remove();
+	
+	
 	$(obj).parent().parent().find('p').show();
 	$(obj).parent().parent().find('p').css('color','#000')
 	$(obj).closest('td').data('edit','false');

@@ -693,6 +693,8 @@ table td select option{
     display: none;
     float: right;
     margin-top: -30px;
+    position: relative;
+    z-index: 100;
 }
 .h_radios li label{
 	margin-left: 10px;
@@ -758,3 +760,4 @@ ul,li{list-style:none;padding:0;margin:0;}
 .new_left{
 	margin-bottom:20px !important;
 }
+p.check_p{display:inline;}

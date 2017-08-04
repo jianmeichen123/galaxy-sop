@@ -36,7 +36,7 @@
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>							
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="4"}}
@@ -106,7 +106,7 @@
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
 							<div class="Button">
-								<em onclick="right(this,'radio')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
 						</td>
 					{{else type=="14"}}
@@ -496,13 +496,15 @@
 							</dd>
 
 							{{else type=="3"}}
-							<dd class="fl_none">
-							<ul class="h_edit_checkbox clearfix" data-type="\${type}">
-								{{each(i,valueList) valueList}}
-								<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
-								{{/each}}
-							  </ul>
-							</dd>
+							<!-- 复选 -->
+						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
+							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+							<div class="radioShow"></div>
+							<div class="Button">
+								<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+							</div>
+						</td>
 
 							{{else type=="4"}}
 								{{each(i,valueList) valueList}}
@@ -626,14 +628,15 @@
 								  </ul>
 								</dd>
 							{{else type=="13"}}
-								<dd class="fl_none">
-									<ul class="h_radios h_edit_checkbox  clearfix" data-type="\${type}">
-										{{each(i,valueList) valueList}}
-										<li class="check_label" data-value="\${value}" data-title-id="\${titleId}" value="\${id}" data-id="\${id}" data-code="\${code}" data-type="\${type}">\${name}</li>
-										{{/each}}
-										<li class="text_li text_li_13"><input data-type="\${type}" type="text" data-value="\${value}" disabled="true" name="\${id}" data-id="\${id}" data-code="\${code}"  placeholder="\${placeholder}" data-valrulemark="\${valRuleMark}" maxlength="\${valRuleMark}"/></li>
-								 	 </ul>
-								</dd>
+								<!-- 复选带备注input -->
+								<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+									<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
+									<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+									<div class="radioShow"></div>
+									<div class="Button">
+									<em onclick="right(this,'checkbox')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
+									</div>
+								</td>
 
 							{{else type=="14"}}
 								<select data-id="\${id}" data-must="\${isMust}" data-title-id="\${id}">
