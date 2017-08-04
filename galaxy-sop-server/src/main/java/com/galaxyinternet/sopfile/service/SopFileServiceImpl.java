@@ -637,6 +637,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			while (fis.read(buffer) != -1) {
 				out.write(buffer);
 			}
+			out.flush();
 			response.flushBuffer();
 		}catch(Exception e){
 			throw new Exception(e);
