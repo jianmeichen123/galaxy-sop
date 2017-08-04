@@ -278,7 +278,6 @@ function calcScore()
 		var _this = $(this);
 		var relateId = _this.data('relateId');
 		var subId = typeof _this.data('subId')=='undefined' ? null:_this.data('subId');
-		console.log(relateId+"="+subId);
 		var values = getTitleValue(relateId);
 		var score = getScore(relateId,subId);
 		items.push({

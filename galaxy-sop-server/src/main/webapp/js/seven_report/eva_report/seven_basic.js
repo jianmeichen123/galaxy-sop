@@ -155,24 +155,26 @@ function right(obj,type){
 			p.attr("data-title-value",val_id);
 		}
 	}else if(type=="checkbox"){
-
-		align_left = $(obj).parent().parent().find(".align_left");
-		//
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked')
-		var val='';
+		var p = align_left;
 		if(val_checkbox.length==0){
-			val+="<p>未选择</p>";
+			p.text('未选择');
+			p.attr("data-title-value",'');
 		}
-		$.each(val_checkbox,function(){
-			var val_id =$(this).val();
-			var val_text = $(this).parent(".icheckbox_flat-blue").next("label").html();;
-			if(val_text=="其他"){
-				var o_val = $(this).parents(".radioShow").find(".others_text").val()
-				val+= "<p class=\"check_p\" data-title-value="+val_id+">"+o_val+"</p><span>、</span>";
-			}else{
-				val+="<p class=\"check_p\" data-title-value="+val_id+">"+val_text+"</p><span>、</span>";
-			}
-		})
+		else
+		{
+			var content = new Array();
+			var values = new Array();
+			$.each(val_checkbox,function(){
+				var val_text = $(this).parent(".icheckbox_flat-blue").next("label").html();
+				var val_id =$(this).val();
+				values.push(val_id);
+				content.push(val_text);
+			});
+			p.html(content.join('、'));
+			p.attr("data-title-value",values.join(','));
+		}
+			
 	}else if(type=="textarea"){
 		align_left = $("span[parent_dom='show']").parent().find(".align_left").find('p');
 		var val = $(obj).parent().parent().find("textarea").val();
