@@ -30,6 +30,8 @@ public class GradeInfoServiceTest
 	{
 		ScoreInfo query = new ScoreInfo();
 		query.setReportType(1);
+		query.setProjectId(555L);
+		query.setRelateId(1059l);
 		List<ScoreInfo> list = service.queryList(query);
 		Assert.notEmpty(list);
 	}
@@ -64,9 +66,9 @@ public class GradeInfoServiceTest
 	@Test
 	public void get() throws Exception
 	{
-		Long[] ids = {0L};
+		Long[] ids = {1001l, 1031l, 1071l, 1091l, 1110l, 1116l };
 		List<Long> relateIds = Arrays.asList(ids);
-		Map<Long,BigDecimal> scores = service.calculateMutipleReport(relateIds, 555l);
+		Map<String,BigDecimal> scores = service.calculateMutipleReport(relateIds, 555l);
 		System.out.println(scores);
 	}
 }

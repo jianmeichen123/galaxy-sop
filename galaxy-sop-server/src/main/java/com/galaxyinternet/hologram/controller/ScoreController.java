@@ -68,7 +68,7 @@ public class ScoreController
 			{
 				throw new BusinessException("参数错误");
 			}
-			Long parentId = info.getParentId();
+			String parentId = info.getParentId()+"";
 			ScoreInfo query = new ScoreInfo();
 			query.setParentId(info.getParentId());
 			query.setReportType(reportType);
@@ -84,15 +84,15 @@ public class ScoreController
 					}
 				}
 			}
-			Map<Long,BigDecimal> scores = scoreService.calculateSingleReport(param);
+			Map<String,BigDecimal> scores = scoreService.calculateSingleReport(param);
 			BigDecimal total = scores.containsKey(parentId) ? scores.get(parentId) : BigDecimal.ZERO;
 			if(otherIds.size() > 0)
 			{
-				Map<Long,BigDecimal> otherScores = scoreService.calculateMutipleReport(otherIds, projectId);
+				Map<String,BigDecimal> otherScores = scoreService.calculateMutipleReport(otherIds, projectId);
 				scores.putAll(otherScores);
 				total = total.add(scores.get(parentId));
 			}
-			scores.put(parentId, total);
+			scores.put(parentId+"", total);
 			data.getUserData().putAll(scores);
 		} catch (Exception e)
 		{
@@ -122,7 +122,7 @@ public class ScoreController
 		ResponseData data = new ResponseData();
 		try
 		{
-			Map<Long,BigDecimal> scores = new HashMap<>();
+			Map<String,BigDecimal> scores = new HashMap<>();
 			ScoreInfo query = new ScoreInfo();
 			query.setParentId(parentId);
 			query.setReportType(reportType);
@@ -140,7 +140,7 @@ public class ScoreController
 			}
 			if(relateIds.size() > 0)
 			{
-				Map<Long,BigDecimal> childrenScores = scoreService.calculateMutipleReport(relateIds, projectId);
+				Map<String,BigDecimal> childrenScores = scoreService.calculateMutipleReport(relateIds, projectId);
 				scores.putAll(childrenScores);
 			}
 			data.getUserData().putAll(scores);

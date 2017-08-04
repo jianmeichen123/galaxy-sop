@@ -46,28 +46,28 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 	 * @param param
 	 * @return
 	 */
-	public Map<Long,BigDecimal> calculateSingleReport(ReportParam param)
+	public Map<String,BigDecimal> calculateSingleReport(ReportParam param)
 	{
 		try
 		{
 			Long relateId = param.getRelateId();
 			List<ItemParam> items = param.getItems();
-			Map<Long,ItemParam> map = new ConcurrentHashMap<>();
+			Map<String,ItemParam> map = new ConcurrentHashMap<>();
 			for(ItemParam item : items)
 			{
-				map.put(item.getRelateId(), item);
+				map.put(item.getKey(), item);
 			}
-			
 			ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
-			ReportScoreCalculator task = new ReportScoreCalculator(relateId,param.getProjectId(),map);
+			ScoreInfo scoreInfo = getByRelateId(relateId);
+			ReportScoreCalculator task = new ReportScoreCalculator(scoreInfo,param.getProjectId(),map);
 			ForkJoinTask<BigDecimal> result = pool.submit(task);
 			BigDecimal score = result.get();
 			Collection<ItemParam> values = map.values();
-			Map<Long,BigDecimal> scores = new HashMap<>();
-			scores.put(0l, score);
+			Map<String,BigDecimal> scores = new HashMap<>();
+			scores.put("0", score);
 			for(ItemParam value : values)
 			{
-				scores.put(value.getRelateId(), value.getScore());
+				scores.put(value.getKey(), value.getScore());
 			}
 			return scores;
 			
@@ -85,9 +85,9 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 	 * @return
 	 * @throws Exception 
 	 */
-	public Map<Long,BigDecimal> calculateMutipleReport(List<Long> relateIds, final Long projectId) throws Exception
+	public Map<String,BigDecimal> calculateMutipleReport(List<Long> relateIds, final Long projectId) throws Exception
 	{
-		final Map<Long,BigDecimal> scores = new ConcurrentHashMap<>();
+		final Map<String,BigDecimal> scores = new ConcurrentHashMap<>();
 		final CountDownLatch countDownLatch = new CountDownLatch(relateIds.size());
 		ExecutorService executorService = GalaxyThreadPool.getExecutorService();
 		final AtomicReference<BigDecimal> ref = new AtomicReference<BigDecimal>();
@@ -110,15 +110,15 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 					param.setProjectId(projectId);
 					param.setReportType(scoreInfo.getProcessMode());
 					param.setItems(convert(vallueList));
-					Map<Long,BigDecimal> results = calculateSingleReport(param);
+					Map<String,BigDecimal> results = calculateSingleReport(param);
 					if(results != null && results.size()>0)
 					{
-						for(Entry<Long,BigDecimal> entry : results.entrySet())
+						for(Entry<String,BigDecimal> entry : results.entrySet())
 						{
 							if(entry.getKey() != null && entry.getValue() != null)
 							{
 								//计算总分
-								if(entry.getKey() == 0l)
+								if(entry.getKey().equals("0"))
 								{
 									while(true)
 									{
@@ -142,7 +142,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			});
 		}
 		countDownLatch.await();
-		scores.put(0L, ref.get());
+		scores.put("0", ref.get());
 		return scores;
 	}
 	private List<ItemParam> convert(List<ScoreInfo> list)
@@ -153,6 +153,7 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			
 			ItemParam param = new ItemParam();
 			param.setRelateId(info.getRelateId());
+			param.setSubId(info.getSubId());
 			param.setScore(info.getScore());
 			List<ScoreValue> valueList = info.getValueList();
 			if(valueList != null && valueList.size()>0)
@@ -228,6 +229,18 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 			return auto.getGrade();
 		}
 		
+		return null;
+	}
+	
+	public ScoreInfo getByRelateId(Long relateId)
+	{
+		ScoreInfo query = new ScoreInfo();
+		query.setRelateId(relateId);
+		List<ScoreInfo> list = queryList(query);
+		if(list != null && list.size() > 0)
+		{
+			return list.iterator().next();
+		}
 		return null;
 	}
 }

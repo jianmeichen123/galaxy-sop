@@ -28,15 +28,19 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 	private static final Logger logger = LoggerFactory.getLogger(ReportScoreCalculator.class);
 	private static final long serialVersionUID = 1L;
 	private ScoreInfoService service = SpringContextManager.getBean(ScoreInfoService.class);
-	private Long relateId;
 	private Long projectId;
-	private Map<Long,ItemParam> items;
+	private Long relateId;
+	private String key;
+	private ScoreInfo info;
+	private Map<String,ItemParam> items;
 	
 
-	public ReportScoreCalculator(Long relateId, Long projectId, Map<Long,ItemParam> items)
+	public ReportScoreCalculator(ScoreInfo info, Long projectId, Map<String,ItemParam> items)
 	{
 		super();
-		this.relateId = relateId;
+		this.info = info;
+		this.key = info.getPk();
+		this.relateId = info.getRelateId();
 		this.projectId = projectId;
 		this.items = items;
 	}
@@ -45,21 +49,21 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 	protected BigDecimal compute()
 	{
 		BigDecimal score = BigDecimal.ZERO;
-		ScoreInfo info = service.queryById(relateId);
 		if(info == null)
 		{
 			return score;
 		}
 		ItemParam item = null;
-		if(items.containsKey(relateId))
+		if(items.containsKey(key))
 		{
-			item=  items.get(relateId);
+			item = items.get(key);
 		}
 		else
 		{
 			item = new ItemParam();
 			item.setRelateId(relateId);
 			item.setScore(null);
+			item.setSubId(info.getSubId());
 		}
 		
 		Integer scoreType = info.getScoreType();
@@ -69,14 +73,15 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 			ItemParam itemParam = new ItemParam();
 			itemParam.setRelateId(relateId);
 			itemParam.setScore(score);
-			items.put(relateId, itemParam);
-			logger.debug(String.format("Relateid = %s Manual score = %s", relateId,score));
+			itemParam.setSubId(info.getSubId());
+			items.put(key, itemParam);
+			logger.debug(String.format("ID=%s, ScoreType=%s, Score=%s", info.getPk(),scoreType,score));
 		}
 		else //累加或自动打分
 		{
 			if(info.getProcessMode() == null)
 			{
-				logger.debug(String.format("Relateid = %s ProcessMode is null score = %s", relateId,score));
+				logger.debug(String.format("ID = %s ProcessMode is null score = %s", info.getPk(),score));
 				return score;
 			}
 			Integer mode = info.getProcessMode();
@@ -108,7 +113,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 						}
 					}
 				}
-				logger.debug(String.format("RelateId=%s, Mode=2, Value=%s, DictId=%s, Score=%s", relateId,value,dictId,score));
+				logger.debug(String.format("ID=%s, Mode=2, Value=%s, DictId=%s, Score=%s", info.getPk(),value,dictId,score));
 			}
 			else if(mode == 3) //n*分数
 			{
@@ -125,7 +130,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 					grade = autoInfo.getGrade();
 					length = values.length;
 				}
-				logger.debug(String.format("RelateId=%s, Mode=3，grade*length = %s*%s = %s", relateId,grade,length,score));
+				logger.debug(String.format("ID=%s, Mode=3，grade*length = %s*%s = %s", info.getPk(),grade,length,score));
 			}
 			else if(mode == 4) //总分-n*分数
 			{
@@ -142,7 +147,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 					grade = autoInfo.getGrade();
 					length = values.length;
 				}
-				logger.debug(String.format("RelateId=%s, Mode=4, max - (grade*length) = %s - (%s*%s) = %s", relateId,info.getScoreMax(),grade,length,score));
+				logger.debug(String.format("ID=%s, Mode=4, max - (grade*length) = %s - (%s*%s) = %s", info.getPk(),info.getScoreMax(),grade,length,score));
 			}
 			else if (mode == 5)//根据选择的数据四舍五入计算分数 - 胜算度，例如"阿里巴巴 10"
 			{
@@ -160,13 +165,14 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 						num = num.setScale(0, BigDecimal.ROUND_HALF_UP);
 						score = num;
 					}
-					logger.debug(String.format("RelateId=%s, Mode=5, Value=%s, Score=%s",relateId,value,score));
+					logger.debug(String.format("ID=%s, Mode=5, Value=%s, Score=%s",info.getPk(),value,score));
 				}
 			}
 			ItemParam itemParam = new ItemParam();
 			itemParam.setRelateId(relateId);
 			itemParam.setScore(score);
-			items.put(relateId, itemParam);
+			itemParam.setSubId(info.getSubId());
+			items.put(key, itemParam);
 			
 			if(mode == 1)//权重(子项累加*权重)
 			{
@@ -182,7 +188,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 					List<ReportScoreCalculator> subTasks = new ArrayList<>(list.size());
 					for(ScoreInfo scoreInfo : list)
 					{
-						subTask = new ReportScoreCalculator(scoreInfo.getRelateId(),projectId,items);
+						subTask = new ReportScoreCalculator(scoreInfo,projectId,items);
 						subTasks.add(subTask);
 					}
 					invokeAll(subTasks);
@@ -196,8 +202,8 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 						}
 					}
 					itemParam.setScore(sum);
-					items.put(relateId, itemParam);
-					logger.debug(String.format("RelateId=%s, Mode=1, Sum=%s",relateId,sum));
+					items.put(key, itemParam);
+					logger.debug(String.format("ID=%s, Mode=1, Sum=%s",info.getPk(),sum));
 					BigDecimal num = sum.multiply(weight)
 										.divide(BigDecimal.valueOf(100))
 										.setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -210,7 +216,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 							itemParam = new ItemParam();
 							itemParam.setRelateId(parentId);
 							itemParam.setScore(score);
-							items.put(parentId, itemParam);
+							items.put("0", itemParam);
 						}
 						else
 						{

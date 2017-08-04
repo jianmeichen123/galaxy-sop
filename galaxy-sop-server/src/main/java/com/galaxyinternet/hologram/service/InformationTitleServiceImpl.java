@@ -798,7 +798,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			});
 			countDownLatch.await();
 			
-			list.addAll(titleInfo.getRelateIdMap().values());
+			list.addAll(titleInfo.getList());
 		} catch (InterruptedException e)
 		{
 			throw new BusinessException("获取结果错误",e);
@@ -868,13 +868,15 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	
 	private static final class TitleInfoWapper
 	{
+		private List<InformationTitle> list;
 		private Set<String> ids;
 		private Set<Long> relateIds;
 		private Map<String,List<InformationTitle>> idMap = new ConcurrentHashMap<>();
-		private Map<Long,InformationTitle> relateIdMap = new ConcurrentHashMap<>();
+		private Map<Long,List<InformationTitle>> relateIdMap = new ConcurrentHashMap<>();
 		
 		public TitleInfoWapper(List<InformationTitle> list)
 		{
+			this.list = list;
 			if(list != null && list.size()>0)
 			{
 				for(InformationTitle item : list)
@@ -893,7 +895,14 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					}
 					if(item.getRelateId() != null)
 					{
-						relateIdMap.put(item.getRelateId(), item);
+						Long relateId = item.getRelateId();
+						List<InformationTitle> titles = relateIdMap.get(relateId);
+						if(titles == null)
+						{
+							titles = new CopyOnWriteArrayList<>();
+							relateIdMap.put(item.getRelateId(), titles);
+						}
+						titles.add(item);
 					}
 				}
 				ids = idMap.keySet();
@@ -916,37 +925,43 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			return idMap;
 		}
 
-		public Map<Long, InformationTitle> getRelateIdMap()
+		public Map<Long, List<InformationTitle>> getRelateIdMap()
 		{
 			return relateIdMap;
 		}
+		
+		public List<InformationTitle> getList()
+		{
+			return list;
+		}
+
 		public void init()
 		{
-			if(relateIdMap.size()>0)
+			if(list == null || list.size()==0)
 			{
-				Collection<InformationTitle> titles = relateIdMap.values();
-				for(InformationTitle title : titles)
+				return;
+			}
+			for(InformationTitle title : list)
+			{
+				if(title.getFixedTableList() != null && title.getFixedTableList().size() >0)
 				{
-					if(title.getFixedTableList() != null && title.getFixedTableList().size() >0)
-					{
-						title.getFixedTableList().clear();
-					}
-					if(title.getTableHeader() != null)
-					{
-						title.setTableHeader(null);
-					}
-					if(title.getResultList() != null && title.getResultList().size()>0)
-					{
-						title.getResultList().clear();
-					}
-					if(title.getDataList() != null && title.getDataList().size()>0)
-					{
-						title.getDataList().clear();
-					}
-					if(title.getWeight() != null)
-					{
-						title.setWeight(null);
-					}
+					title.getFixedTableList().clear();
+				}
+				if(title.getTableHeader() != null)
+				{
+					title.setTableHeader(null);
+				}
+				if(title.getResultList() != null && title.getResultList().size()>0)
+				{
+					title.getResultList().clear();
+				}
+				if(title.getDataList() != null && title.getDataList().size()>0)
+				{
+					title.getDataList().clear();
+				}
+				if(title.getWeight() != null)
+				{
+					title.setWeight(null);
 				}
 			}
 		}
@@ -1114,30 +1129,37 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		List<ScoreInfo> scoreList= scoreInfoService.queryList(scoreQuery);
 		if(scoreList != null && scoreList.size()>0)
 		{
-			Map<Long,InformationTitle> relateIdMap = titleInfo.getRelateIdMap();
+			Map<Long,List<InformationTitle>> relateIdMap = titleInfo.getRelateIdMap();
 			for(ScoreInfo score : scoreList)
 			{
 				Long rId = score.getRelateId();
 				if(relateIdMap.containsKey(rId))
 				{
-					InformationTitle title = relateIdMap.get(rId);
-					//权重
-					if(score != null && score.getProcessMode() != null && 1 == score.getProcessMode().intValue())
+					List<InformationTitle> titles = relateIdMap.get(rId);
+					if(titles == null || titles.size() ==0)
 					{
-						BigDecimal weight = scoreInfoService.getWeight(score.getRelateId(), Long.valueOf(projectId));
-						if(weight != null)
-						{
-							title.setWeight(weight);
-						}
+						continue;
 					}
-					//分数选项
-					List<ScoreAutoInfo> autoList = score.getAutoList();
-					if(autoList!=null && autoList.size()>0)
+					for(InformationTitle title : titles)
 					{
-						Integer scoreType = score.getScoreType();
-						if( scoreType!=null && scoreType.intValue() == 1)
+						//权重
+						if(score != null && score.getProcessMode() != null && 1 == score.getProcessMode().intValue())
 						{
-							title.setAutoList(autoList);
+							BigDecimal weight = scoreInfoService.getWeight(score.getRelateId(), Long.valueOf(projectId));
+							if(weight != null)
+							{
+								title.setWeight(weight);
+							}
+						}
+						//分数选项
+						List<ScoreAutoInfo> autoList = score.getAutoList();
+						if(autoList!=null && autoList.size()>0)
+						{
+							Integer scoreType = score.getScoreType();
+							if( scoreType!=null && scoreType.intValue() == 1)
+							{
+								title.setAutoList(autoList);
+							}
 						}
 					}
 				}

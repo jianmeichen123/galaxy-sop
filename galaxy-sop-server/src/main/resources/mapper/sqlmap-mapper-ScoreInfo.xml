@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.galaxyinternet.model.hologram.ScoreInfo">
 	<resultMap id="ScoreInfoMap" type="com.galaxyinternet.model.hologram.ScoreInfo">
-		<id column="id" 					property="relateId"			jdbcType="BIGINT"  />
+		<id column="pk" 					property="pk"				jdbcType="VARCHAR"  />
+		<result column="relate_id" 			property="relateId"			jdbcType="BIGINT"  />
 		<result column="code" 				property="code" 			jdbcType="VARCHAR" 	/>
 		<result column="parent_id" 			property="parentId" 		jdbcType="BIGINT" 	/>
 		<result column="report_type" 		property="reportType" 		jdbcType="BIGINT" />
@@ -10,6 +11,7 @@
 		<result column="is_score" 			property="scoreType" 		jdbcType="BIGINT" />
 		<result column="process_mode" 		property="processMode" 	  	jdbcType="BIGINT" />
 		<result column="score" 				property="score" 	  		jdbcType="BIGINT" />
+		<result column="sub_id" 			property="subId" 			jdbcType="BIGINT" 	/>
 		<collection property="autoList" resultMap="ScoreAutoInfoMap" />
 		<collection property="valueList" resultMap="ScoreValueMap" />
 	</resultMap>
@@ -25,7 +27,7 @@
 	
 	
 	<select id="selectById" parameterType="java.lang.Long" resultMap="ScoreInfoMap">
-		SELECT DISTINCT r.id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,a.process_mode,a.dict_id,a.grade
+		SELECT DISTINCT CASE WHEN g.sub_id IS NOT NULL THEN CONCAT(r.id,'-',g.sub_id) ELSE r.id END AS pk,r.id AS relate_id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,g.sub_id,a.process_mode,a.dict_id,a.grade
 		FROM information_title_relate r
 		INNER JOIN information_grade g ON r.id = g.title_relate_id
 		LEFT JOIN information_grade_auto a ON a.title_relate_id = r.id
@@ -33,9 +35,9 @@
 		and r.id = #{id,jdbcType=BIGINT}
 	</select>
 	<select id="select" resultMap="ScoreInfoMap" parameterType="java.util.Map">
-		SELECT DISTINCT r.id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,a.process_mode,a.dict_id,a.grade
+		SELECT DISTINCT CASE WHEN g.sub_id IS NOT NULL THEN CONCAT(r.id,'-',g.sub_id) ELSE r.id END AS pk,r.id AS relate_id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,g.sub_id,a.process_mode,a.dict_id,a.grade
 		<if test="projectId != null">
-		,rt.id AS value_id,rt.content_choose AS VALUE, rt.grade1 AS score
+		,rt.id AS value_id,rt.content_choose AS VALUE, CASE WHEN g.sub_id = 2 THEN rt.grade2 ELSE rt.grade1 END AS score
 		</if>
 		FROM information_title_relate r
 		LEFT JOIN information_grade g ON r.id = g.title_relate_id
@@ -45,7 +47,7 @@
 		</if>
 		<where>
 			<trim prefixOverrides="and">
-			<if test="id != null"> and r.id =#{id}</if>
+			<if test="relateId != null"> and r.id =#{relateId}</if>
 			<if test="parentId != null"> and r.parent_id =#{parentId}</if>
 			<if test="reportType != null"> and r.report_type =#{reportType}</if>
 			<if test="projectId != null">and rt.project_id =#{projectId}</if>

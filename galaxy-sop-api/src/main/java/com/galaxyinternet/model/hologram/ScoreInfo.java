@@ -12,7 +12,9 @@ public class ScoreInfo extends BaseEntity
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String pk;
 	private Long relateId;
+	private Long subId;
 	private String code;
 	private Long parentId;
 	private Long projectId;
@@ -24,6 +26,15 @@ public class ScoreInfo extends BaseEntity
 	private List<ScoreAutoInfo> autoList;
 	private List<ScoreValue> valueList;
 	private Set<Long> ids;
+	
+	public String getPk()
+	{
+		return pk;
+	}
+	public void setPk(String pk)
+	{
+		this.pk = pk;
+	}
 	public Long getRelateId()
 	{
 		return relateId;
@@ -120,7 +131,12 @@ public class ScoreInfo extends BaseEntity
 	{
 		this.ids = ids;
 	}
-	
-	
-	
+	public Long getSubId()
+	{
+		return subId;
+	}
+	public void setSubId(Long subId)
+	{
+		this.subId = subId;
+	}
 }

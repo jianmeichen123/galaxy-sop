@@ -168,7 +168,7 @@ $("#eva-tabs li:eq(0)").click();
 
 // 
 /**
- * 显示结果和分数向
+ * 显示结果和分数项
  */
 function showResultAndScoreList(relateId)
 {
@@ -225,6 +225,13 @@ function popScore(titles,relateId)
 		else
 		{
 			var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
+			if(rid.indexOf('-')>0)
+			{
+				var arr = rid.split('-');
+				rid = arr[0];
+				var subId = arr[1];
+				td = $('td[class="score-column"][data-relate-id="'+rid+'"][data-sub-id="'+subId+'"]');
+			}
 			var ele = td.children('input,select');
 			if(ele.length ==0)
 			{
@@ -270,10 +277,13 @@ function calcScore()
 	$(".title-value").each(function(){
 		var _this = $(this);
 		var relateId = _this.data('relateId');
+		var subId = typeof _this.data('subId')=='undefined' ? null:_this.data('subId');
+		console.log(relateId+"="+subId);
 		var values = getTitleValue(relateId);
-		var score = getScore(relateId);
+		var score = getScore(relateId,subId);
 		items.push({
 			"relateId": relateId,
+			"subId": subId,
 			"values": values,
 			"score": score
 		});
@@ -301,10 +311,14 @@ function getTitleValue(relateId)
 	}
 	return val.split(',');
 }
-function getScore(relateId)
+function getScore(relateId,subId)
 {
 	var score = null;
 	var td = $('td[class="score-column"][data-relate-id="'+relateId+'"]');
+	if(subId >0)
+	{
+		td = $('td[class="score-column"][data-relate-id="'+relateId+'"][data-sub-id="'+subId+'"]');
+	}
 	var ele = td.children('input,select');
 	if(ele.length ==0)
 	{
@@ -346,6 +360,20 @@ function buildResult(title)
 	else if(type == 8)
 	{
 		_ele.text(results[0].contentDescribe1);
+	}
+	else if(type == 15)
+	{
+		_ele = $('.title-value[data-title-id="'+title.id+'"][data-sub-id="'+title.subId+'"]');
+		var val = results[0]["contentDescribe"+title.subId];
+		if(typeof val == 'undefined')
+		{
+			_ele.text('未填写');
+		}
+		else
+		{
+			_ele.text(val);
+		}
+		
 	}
 }
 

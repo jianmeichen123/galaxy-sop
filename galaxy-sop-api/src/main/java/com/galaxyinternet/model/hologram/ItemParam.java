@@ -10,6 +10,8 @@ public class ItemParam
 {
 	@ApiModelProperty("填写的题目ID(information_title_relate.id)")
 	private Long relateId;
+	@ApiModelProperty("subId, 一题多文本")
+	private Long subId;
 	@ApiModelProperty("题目的值")
 	private String[] values;
 	@ApiModelProperty("题目的分数")
@@ -18,9 +20,17 @@ public class ItemParam
 	{
 		return relateId;
 	}
-	public void setRelateId(Long relatedId)
+	public void setRelateId(Long relateId)
 	{
-		this.relateId = relatedId;
+		this.relateId = relateId;
+	}
+	public Long getSubId()
+	{
+		return subId;
+	}
+	public void setSubId(Long subId)
+	{
+		this.subId = subId;
 	}
 	public String[] getValues()
 	{
@@ -41,7 +51,16 @@ public class ItemParam
 	@Override
 	public String toString()
 	{
-		return "ItemParam [relatedId=" + relateId + ", values=" + Arrays.toString(values) + ", score=" + score + "]";
+		return "ItemParam [relateId=" + relateId + ", subId=" + subId + ", values=" + Arrays.toString(values) + ", score=" + score + "]";
+	}
+	
+	public String getKey()
+	{
+		if(subId != null)
+		{
+			return relateId+"-"+subId;
+		}
+		return relateId+"";
 	}
 	
 	

@@ -244,15 +244,32 @@
 			<if test="sorting != null">order by ${sorting}</if>
 		</where>
 	</select>
-	
-	<select id="selectRelateTitle" resultMap="BaseResultMap" parameterType="java.util.Map">
+	<resultMap id="RelateMap" type="com.galaxyinternet.model.hologram.InformationTitle">
+		<id column="pk" 				jdbcType="VARCHAR" 		property="pk" />
+		<result column="parent_id"  	jdbcType="BIGINT" 		property="parentId" />
+		<result column="code" 			jdbcType="VARCHAR" 		property="code" />
+		<result column="name" 			jdbcType="VARCHAR" 		property="name" />
+		<result column="type" 			jdbcType="INTEGER" 		property="type" />
+		<result column="sign" 			jdbcType="INTEGER" 		property="sign" />
+		<result column="content" 		jdbcType="VARCHAR" 		property="content" />
+		<result column="is_show" 		jdbcType="CHAR" 		property="isShow" />
+		<result column="placeholder"  	jdbcType="VARCHAR" 		property="placeholder" />
+		<result column="is_must" 		jdbcType="INTEGER" 		property="isMust" />
+		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
+		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
+		<result column="relate_id"  	jdbcType="BIGINT" 		property="relateId" />
+		<result column="sub_id" 		jdbcType="VARCHAR" 		property="subId" />
+	</resultMap>
+	<select id="selectRelateTitle" resultMap="RelateMap" parameterType="java.util.Map">
 		SELECT
 		t.id, r.parent_id, r.code, CASE WHEN r.name IS NOT NULL THEN r.name ELSE t.name END AS name,  
 		t.type, t.sign, t.content,
 		t.is_show, t.placeholder,t.is_must,
-		t.val_rule,t.val_rule_mark,r.id AS relate_id 
+		t.val_rule,t.val_rule_mark,r.id AS relate_id,
+		g.sub_id 
 		FROM information_title t
 		INNER JOIN information_title_relate r ON r.title_id = t.id
+		LEFT JOIN information_grade g ON r.id = g.title_relate_id
 		<where>
 			<trim prefixOverrides="and">
 				<if test="id != null"> and r.id = #{id,jdbcType=BIGINT} </if>

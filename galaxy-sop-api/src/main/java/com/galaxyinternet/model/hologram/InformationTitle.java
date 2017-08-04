@@ -58,6 +58,7 @@ public class InformationTitle extends PagableEntity {
 	private Integer reportType;
 	private int relateIsValid;
 	private BigDecimal weight;
+	private Long subId;
 	
 	private InformationGrade informationGrade;
 	private List<InformationGrade> informationGrades;
@@ -347,6 +348,16 @@ public class InformationTitle extends PagableEntity {
 	public void setAutoList(List<ScoreAutoInfo> autoList)
 	{
 		this.autoList = autoList;
+	}
+
+	public Long getSubId()
+	{
+		return subId;
+	}
+
+	public void setSubId(Long subId)
+	{
+		this.subId = subId;
 	}
 
 	
