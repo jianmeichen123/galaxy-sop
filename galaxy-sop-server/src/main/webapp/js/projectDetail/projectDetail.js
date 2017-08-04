@@ -240,12 +240,11 @@ function right_anchor(i,type,right){
 								var _this=$(this);
 								var id = $(this).attr("href");
 								var target = $(id).offset().top-50;
-								//$(window).scrollTop(target);
 								$(".anchor_navs").removeClass("anchor_nav");
 								$('html, body').animate({scrollTop:target}, 0);
-								//alert("hahaha");
-								setTimeout(function (){$(".anchor_navs").addClass("anchor_nav");$('.anchor_nav li').removeClass('active');
-								_this.parents('li').addClass('active')},3);
+								$(".anchor_navs").addClass("anchor_nav");
+								$('.anchor_nav li').removeClass('active');
+								_this.parents('li').addClass('active');
 								event.preventDefault();
 							});
 							//滑动高亮
