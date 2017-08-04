@@ -128,6 +128,7 @@ function popScore(titles,relateId)
  */
 function initScore(relateId)
 {
+	var rid = $("#eva-tabs li.active").data('relateId');
 	sendGetRequest(
 			platformUrl.getScores, 
 			{"parentId":0,"projectId":projId,"reportType":reportType},
@@ -135,7 +136,7 @@ function initScore(relateId)
 				if(data.result.status == 'OK')
 				{
 					var titles = data.userData;
-					popScore(titles);
+					popScore(titles,rid);
 				}
 			}
 		);
