@@ -727,13 +727,14 @@ ul,li{list-style:none;padding:0;margin:0;}
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 } 
 #dropdown ul{
-	width:184px; 
+	width:170px; 
 	background:#fff; 
 	margin-top:2px;
 	border:1px solid #979797; 
 	position:absolute; 
 	display:none;
 	z-index:999;
+	border-bottom:0px;
 } 
 #dropdown ul li{
 	height:24px; 
@@ -741,15 +742,12 @@ ul,li{list-style:none;padding:0;margin:0;}
 	border-bottom: 1px solid #979797;
 	cursor: pointer;
 	text-align:center;
+	display:block; 
+	color:#666666;; 
 
 }
-#dropdown ul li{
-	display:block; 
-	height:24px; 
-	color:#666666;; 
-} 
 #dropdown ul li:hover{
-	background:#fff; 
+	
 } 
 .up{
 	background: url(../../img/seven_report/up.png) no-repeat center right 7px;
