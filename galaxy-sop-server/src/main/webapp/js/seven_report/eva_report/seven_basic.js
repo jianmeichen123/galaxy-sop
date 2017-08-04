@@ -270,7 +270,19 @@ function divSelect(){
 
 
 
-		
+		window.onresize = function(){
+			//遮罩层
+			function pageHeight(){
+				return document.body.scrollHeight;
+			}
+			function pageWidth(){
+				return document.body.scrollWidth;
+			}
+			$('.mashLayer').height(pageHeight());
+			$('.mashLayer').width(pageWidth());
+			adjust(".ch_opration");
+			
+		}
 	//遮罩层
 	function pageHeight(){
 		return document.body.scrollHeight;
