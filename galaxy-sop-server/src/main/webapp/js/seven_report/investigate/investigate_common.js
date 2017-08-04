@@ -45,7 +45,7 @@ function tabInvestChange(index){
 			$.getTabHtml({
 				url : platformUrl.toInvestigateO ,
 				okback:function(){
-					right_anchor("DNO4?reportType=2","seven","hide");
+					//right_anchor("DNO4?reportType=2","seven","hide");
 				}
 			});
 		}
