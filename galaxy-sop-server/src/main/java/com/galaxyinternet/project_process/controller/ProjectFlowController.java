@@ -262,7 +262,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			return responseBody;
 		}
 		//判断项目状态
-		String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+		String err = ProUtil.errMessage(project,null); //字典  项目进度  接触访谈 
 		if(err!=null && err.length()>0){
 			responseBody.setResult(new Result(Status.ERROR,null, err));
 			return responseBody;
@@ -337,6 +337,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				prograss = 1;
 			}
 			UrlNumber uNum = null;
+			String progress = null;
 			/**
 			 * 操作日志分区判断
 			 */
@@ -346,30 +347,35 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			    	    	uNum = UrlNumber.one;
 			    	    else 
 			    	    	uNum = UrlNumber.two;
+			    	    progress = DictEnum.projectProgress.内部评审.getCode();
 			    	    break;
 			       case "meetingType:2":
 			    	    if(prograss == 0)
 			    	    	uNum = UrlNumber.three;
 			    	    else 
 			    	    	uNum = UrlNumber.four;
+			    	    progress = DictEnum.projectProgress.CEO评审.getCode();
 			    	    break;
 			       case "meetingType:3":
 			    	    if(prograss == 0)
 			    	    	uNum = UrlNumber.five;
 			    	    else 
 			    	    	uNum = UrlNumber.six;
+			    	    progress = DictEnum.projectProgress.立项会.getCode();
 			    	    break;
 			       case "meetingType:4":
 			    	    if(prograss == 0)
 			    	    	uNum = UrlNumber.nine;
 			            else 
 			    	    	uNum = UrlNumber.ten;
+			    	    progress = DictEnum.projectProgress.投资决策会.getCode();
 			    	    break;
 			       case "meetingType:5":
 			    	    if(prograss == 0)
 			    	    	uNum = UrlNumber.seven;
 			            else 
 			    	    	uNum = UrlNumber.eight;
+			    	    progress = DictEnum.projectProgress.会后商务谈判.getCode();
 			    	    break;
 			    	default :
 			    		 break;
@@ -379,7 +385,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			Project project = new Project();
 			project = projectService.queryById(meetingRecord.getProjectId());
 			//判断项目状态
-			String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+			String err = ProUtil.errMessage(project,progress); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
@@ -512,7 +518,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		{
 			Project project = projectService.queryById(param.getProjectId());
 			//判断项目状态
-			String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+			String err = ProUtil.errMessage(project,param.getProgress()); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
 				data.setResult(new Result(Status.ERROR,null, err));
 				return data;
@@ -544,14 +550,14 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		ResponseData<Project> data = new ResponseData<Project>();
 		try
 		{
-			projectService.updateProgress(p.getId(), p.getStage());
 			Project entity = projectService.queryById(p.getId());
 			//判断项目状态
-			String err = ProUtil.errMessage(entity); //字典  项目进度  接触访谈 
+			String err = ProUtil.errMessage(entity,p.getStage()); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
 				data.setResult(new Result(Status.ERROR,null, err));
 				return data;
 			}
+			projectService.updateProgress(p.getId(), p.getStage());
 			data.setEntity(entity);
 			
 		} catch (Exception e)
@@ -585,7 +591,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		ResponseData<Project> data = new ResponseData<>();
 		Project project = projectService.queryById(id);
 		//判断项目状态
-		String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+		String err = ProUtil.errMessage(project,null); //字典  项目进度  接触访谈 
 		if(err!=null && err.length()>0){
 			data.setResult(new Result(Status.ERROR,null, err));
 			return data;

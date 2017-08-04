@@ -233,7 +233,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			
 			Project project = projectService.queryById(fileTemp.getProjectId());
 			//判断项目状态
-			String err = ProUtil.errMessage(project); //字典  项目进度  接触访谈 
+			String err = ProUtil.errMessage(project,fileTemp.getProjectProgress()); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;

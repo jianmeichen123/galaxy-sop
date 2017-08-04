@@ -173,7 +173,7 @@ function reject()
 	if(reason){
 		sendPostRequestByJsonObj(
 				platformUrl.closeProject ,
-				{'projectId':_project_.id,"reason":reason},
+				{'projectId':_project_.id,"reason":reason,"progress":_project_.projectProgress},
 				function(data){
 					if(data.result.status == 'OK')
 					{
