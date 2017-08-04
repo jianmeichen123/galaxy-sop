@@ -65,7 +65,7 @@
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
 	console.log(code);
-	 sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType=1",null,function(data){
+	 sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType,null,function(data){
 		 console.log(data);
 		 var result = data.result.status;
 		 if(result == 'OK'){

@@ -33,12 +33,12 @@ var pageId = "project";
     <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix" id="eva-tabs">
-			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO1" data-relate-id="1001">项目<br />评测</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO2" data-relate-id="1031">团队<br />评测</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO3" data-relate-id="1071">运营<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO4" data-relate-id="1091">竞争<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO5" data-relate-id="1110">融资<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO6" data-relate-id="1116">退出<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO1" data-relate-id="9001">项目<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO2" data-relate-id="9031">团队<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO3" data-relate-id="9071">运营<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO4" data-relate-id="9091">竞争<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO5" data-relate-id="9110">融资<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO6" data-relate-id="9116">退出<br />测评</li>
 		</ul>
 		<div class="test_top">
 			<ul class="clearfix" id="title-info">
@@ -119,132 +119,10 @@ var pageId = "project";
 
 <script type="text/javascript">
 createMenus(5);
-$("#eva-tabs li").click(function(){
-	var $li = $(this);
-	if($li.hasClass('active'))
-	{
-		return;
-	}
-	var code = $li.data('code');
-	var relateId = $li.data('relateId');
-	$li.siblings().removeClass('active');
-	$li.addClass('active');
-	sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType=6", null,
-		function(data){
-		var result = data.result.status;
-		if (result == 'OK') {
-			$('#page_all').empty();
-			var entity = data.entity;
-			$("#part-title-name").text(entity.name);
-			$("#test_tmpl").tmpl(entity).appendTo('#page_all');
-			/*显示结果  */
-			/* 16类型内容处理 */
-	
-			var content_16 = $(".content_16").text();		
-			content_16=content_16.replace(/<sitg>/g,'（');
-			content_16=content_16.replace(/<\/sitg>/g,'）');
-			$(".content_16").text(content_16); 
-			showScoreList(relateId);
-			
-		}
-	});
-	$.getTabHtml({
-		url : platformUrl.toOperateInfo ,
-		okback:function(){
-			right_anchor(code+"?reportType=6","seven","show");
-		}
-	});
-});
-$("#eva-tabs li:eq(0)").click();
-// 
-/**
- * 显示分数选项
- */
-function showScoreList(relateId)
-{
-	sendGetRequest(
-			platformUrl.getRelateTitleResults+"1/"+relateId+"/${projectId}", 
-			null,
-			function(data){
-				if(data.result.status == 'OK')
-				{
-					$.each(data.entityList,function(){
-						var rid = this.relateId;
-						var weight = this.weight;
-						if(rid==relateId)
-						{
-							$("#part-weight").text(this.weight+"%");
-						}
-						if(weight != 'undefined')
-						{
-							$("span[class='title-weight'][data-relate-id='"+rid+"']").html("<br/>( "+weight+"% )");
-						}
-						var autoList = this.autoList;
-						if(typeof autoList != 'undefined' && autoList.length>0 )
-						{
-							var sel = $('td[class="score-column"][data-relate-id="'+rid+'"]').find('select');
-							sel.empty();
-							sel.append('<option>请选择</option>')
-							$.each(autoList,function(){
-								sel.append('<option>'+this.grade+'</option>')
-							});
-						}
-					});
-					showScore(relateId);
-				}
-			}
-		);
-}
-
-function showScore(relateId)
-{
-	sendGetRequest(
-			platformUrl.getScores, 
-			{"parentId":0,"projectId":"${projectId}","reportType":"1"},
-			function(data){
-				if(data.result.status == 'OK')
-				{
-					var titles = data.userData;
-					$.each(titles,function(rid,score){
-						if(rid == 0)
-						{
-							$("#total-score").text(score);
-						}
-						else if(rid == relateId)
-						{
-							$("#part-score").text(score);
-						}
-						else
-						{
-							var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
-							var ele = td.children('input,select');
-							if(ele.length ==0)
-							{
-								td.text(score)
-							}
-							else
-							{
-								ele.val(score);
-							}
-						}
-					});
-				}
-			}
-		);
-}
-
-
-//整体页面显示
-
-
-	
-	
-	
-	
-	
-	
-
+var reportType = 6;
+var projId="${projectId}";
 </script>
+<script src="<%=path%>/js/seven_report/eva_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>	
 </body>

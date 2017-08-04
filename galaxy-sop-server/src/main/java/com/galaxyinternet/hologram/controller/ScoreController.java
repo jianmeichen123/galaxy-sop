@@ -44,7 +44,7 @@ public class ScoreController
 	@ApiOperation("计算题目分数-当前题分数以及子项标题分数")
 	@ApiResponses(
 		value={
-				@ApiResponse(code = 200, message = "返回分数-包含当前想以及子项,userData(key=题目realteId, value=分数)", response=ResponseData.class)
+				@ApiResponse(code = 200, message = "返回分数-包含当前想以及子项,userData(key=题目realteId, value=分数),如果包含子项key为relateId-subId,例如1059-1", response=ResponseData.class)
 		}
 	)
 	@ResponseBody
