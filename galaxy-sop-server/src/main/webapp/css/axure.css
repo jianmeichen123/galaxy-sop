@@ -2905,6 +2905,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     	width: 700px;
         overflow-y: auto;
         max-height:400px;
+        min-height:301px;
         height:auto;
         padding: 60px 0 30px 0;
     }
@@ -3026,7 +3027,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		margin-right: 15px;
 		color:#66b1f2;
 	}
-	.popbtm_btn{padding:0 20px;}
+	.popbtm_btn{position:absolute;bottom:30px; right:40px;left:40px;}
 	.popbtm_btn a{
 		display: inline-block;
 		line-height: 30px;
@@ -3063,7 +3064,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         width:50%;
     }
     .interviewee input{
-        width: 160px!important;
+        width: 189px!important;
     }
     .new_poptxt .fmdl{
         margin: 0 0 20px; 
@@ -3125,7 +3126,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	    background-position: center 16%;
         background-size: 23%;
 	    position: absolute;
-	    top:103px;
+	    top:120px;
 	    right:0;
 	    left:0;
 	    bottom:0px;
@@ -3135,7 +3136,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	}
 	.not_stage .stage_cover{
 		position: absolute;
-		top: -34px;
+		top: -50px;
 		left:0;
 		right:0;
 		height: 35px;
@@ -3145,8 +3146,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	position: absolute;
 	left:50%;
 	margin-left:-25px;
-    top: 50%;
-    margin-top: 35px;
+    top: 95%;
+    margin-top: -107px;
 	font-size:12px;
 	color:#999999;
 	}
@@ -3292,7 +3293,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 		margin-bottom:20px;
 	}
 	.operation_warning img{
-		margin: 20px auto 20px;
+		margin: 58px auto 20px;
 	}
 	.operation_warning span{
 		display: block;
@@ -3320,6 +3321,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .new_poptxt .tabcon .fixed-table-body {margin-top:20px;border:1px solid #ccd2d7;border-radius:4px;	max-height:160px;overflow-y:auto;width:100%; display:block;}
 .new_poptxt .tabcon .fixed-table-body table thead th{border:0!important;background:#f9fafc;}
 .new_poptxt .fixed-table-body .fixed-table-loading{left:1px;right:1px;bottom:1px}
+.new_poptxt .tabcon .fixed-table-body table thead th:nth-child(3){width:150px;}
+.new_poptxt .tabcon .fixed-table-body table tbody tr td:nth-child(3){width:150px;}
+#projectProgress_1_table .no-records-found td{height: 88px!important;}
+#projectProgress_1_table tbody td{ padding:0; world-break:normal;overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
 /* 会议、访谈调整 */  
 #meetingNotesCon {width:600px;word-wrap:break-word;height:220px;overflow-y:auto;}
 #viewNotesCon{height:450px;word-wrap:break-word;overflow-y:auto;}

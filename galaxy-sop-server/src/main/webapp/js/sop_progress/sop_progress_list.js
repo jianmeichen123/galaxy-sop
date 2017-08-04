@@ -682,7 +682,7 @@ function  hideCurrent(progress){
 	}else{
 		$(".not_stage").show();
 		$(".pop .poptxt").css({
-			"height":"300px",
+			"height":"391px",
 			"overflow":"hidden"
 			
 		});
