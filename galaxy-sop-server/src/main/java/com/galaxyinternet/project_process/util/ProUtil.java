@@ -19,7 +19,7 @@ public class ProUtil {
 				try {
 					int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;
 					int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
-					if(projectPro < operationPro){
+					if(projectPro != operationPro){
 						return "项目当前阶段不允许进行该操作";
 					}
 				} catch (Exception e) {
