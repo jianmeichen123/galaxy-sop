@@ -93,7 +93,7 @@ function get_result(code,e_type,dom){
 						 }
 					 })
 				}else if(type==18){
-					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul><li>hahah</li></ul></div>"
+					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"></ul></div>"
 				}
 				 dom.html(result_html);
 				 divSelect();

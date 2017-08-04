@@ -6,7 +6,7 @@
 }
 .test_top ul li{
 	float:left;
-	margin-left:12%;
+	margin-left:9%;
 }
 .pagebox{
 	 min-width:initial;
@@ -718,7 +718,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 	/* display:none; */
 } 
 .input_select{
-	width:144px; 
+	width:130px; 
 	height:24px; 
 	line-height:24px; 
 	padding-left:10px; 
