@@ -391,6 +391,7 @@
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="projectProgress != null" > and project_progress = #{projectProgress} </if>
+				<if test="fileWorktype != null" > and  file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
 				<if test="fileworktypeList != null and fileworktypeList.size() > 0" > 
 					and file_worktype in
 					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">

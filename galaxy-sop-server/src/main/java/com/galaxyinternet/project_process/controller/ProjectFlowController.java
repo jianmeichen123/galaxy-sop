@@ -152,16 +152,16 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 */
 	@RequestMapping(value = "/p1", method = RequestMethod.GET)
 	public String p1(HttpServletRequest request) {
-		String progress = request.getParameter("progress");
+		/*String progress = request.getParameter("progress");
 		String projectId = request.getParameter("projectId");
 		if(StringUtils.isNotBlank(progress) && StringUtils.isNotBlank(projectId)){
 			Project pro = projectService.queryById(Long.valueOf(projectId));
 			//判断项目状态
-			String err = ProUtil.errMessage(pro,progress); //字典  项目进度  接触访谈 
+			String err = ProUtil.errMessage(pro,progress); //字典  项目进度  接触访谈
 			if(err!=null && err.length()>0){
 				return "project/sop/sop_progress/list";
 			}
-		}
+		}*/
 		return "project/sop/sop_progress/edit";
 	}
 	
@@ -274,7 +274,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		//判断项目状态
 		String err = ProUtil.errMessage(project,null); //字典  项目进度  接触访谈 
 		if(err!=null && err.length()>0){
-			responseBody.setResult(new Result(Status.ERROR,null, err));
+			responseBody.setResult(new Result(Status.ERROR,"REFRESH", err));
 			return responseBody;
 		}
 		p.setCreatedUid(user.getId());
@@ -397,7 +397,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			//判断项目状态
 			String err = ProUtil.errMessage(project,progress); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
-				responseBody.setResult(new Result(Status.ERROR,null, err));
+				responseBody.setResult(new Result(Status.ERROR,"REFRESH", err));
 				return responseBody;
 			}
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) &&
@@ -530,7 +530,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			//判断项目状态
 			String err = ProUtil.errMessage(project,param.getProgress()); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
-				data.setResult(new Result(Status.ERROR,null, err));
+				data.setResult(new Result(Status.ERROR,"REFRESH", err));
 				return data;
 			}
 			projectService.reject(param.getProjectId());
@@ -564,7 +564,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			//判断项目状态
 			String err = ProUtil.errMessage(entity,p.getProjectProgress()); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
-				data.setResult(new Result(Status.ERROR,null, err));
+				data.setResult(new Result(Status.ERROR,"REFRESH", err));
 				return data;
 			}
 			projectService.updateProgress(p.getId(), p.getStage());
@@ -603,7 +603,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		//判断项目状态
 		String err = ProUtil.errMessage(project,null); //字典  项目进度  接触访谈 
 		if(err!=null && err.length()>0){
-			data.setResult(new Result(Status.ERROR,null, err));
+			data.setResult(new Result(Status.ERROR,"REFRESH", err));
 			return data;
 		}
 		String currProgress = project.getProjectProgress();

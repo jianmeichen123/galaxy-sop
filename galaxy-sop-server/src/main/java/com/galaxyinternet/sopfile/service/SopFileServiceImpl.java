@@ -625,6 +625,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			String fileName = getFileNameByBrowser(request, downloadEntity.getFileName()+downloadEntity.getFileSuffix());
 			downloadEntity.setFileName(fileName);
 			response.reset();
+
+//			response.setContentType("applicatoin/octet-stream");
+
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/x-download");
 			response.setHeader("Content-Disposition", "attachment;filename="

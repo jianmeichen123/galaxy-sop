@@ -111,9 +111,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		var fileType = getFileTypeByName(files[0].name);
 		paramsCondition.fileType = fileType;
 		paramsCondition.projectId  = projectId;
-		
+        paramsCondition.projectProgress = _project_.projectProgress;
 		uploader.settings.multipart_params = paramsCondition;
-		
 		var saveObj = $("#"+saveFileId);
 		if(!saveObj  || saveObj == null ||saveObj.length == 0 ){
 			uploader.start();
@@ -132,6 +131,9 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		var saveObj = $("#"+saveFileId);
 		if(saveObj && saveObj!=null && saveObj.length > 0){
 			$("#"+saveFileId).click(function(){
+				if(!uploader.settings.multipart_params.projectProgress){
+                    uploader.settings.multipart_params.projectProgress =  _project_.projectProgress;
+				}
 				uploader.start();
 			});
 		}
@@ -174,8 +176,12 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 			
 			
 		}else{
+            layer.msg(result.message);
+            if(result.errorCode == 'REFRESH'){
+                refreshIndex(true);
+            }
 			tosaveToggle('toHide',selectId);
-			layer.msg(result.message);
+
 		}
 	});
 	

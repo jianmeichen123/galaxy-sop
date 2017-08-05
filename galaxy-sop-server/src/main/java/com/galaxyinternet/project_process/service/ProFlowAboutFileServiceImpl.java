@@ -207,8 +207,29 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		SopFile resultFile = null;
 		
 		SopFile oldFile = null;
-		// 文档状态， init(有初始记录)：记录update；     has(有完整记录)：记录dead，insert； no（没有记录）：insert；
+		// 文档状态，
+		// init(有初始记录)：记录update；
+		// has(有完整记录)：记录dead，insert；
+		// no（没有记录）：insert；
+		// hasup
 		String initMark = "no";
+
+		SopFileBo sbo =  new SopFileBo();
+		sbo.setProjectId(file.getProjectId());
+		sbo.setFileWorktype(file.getFileWorktype());
+		sbo.setFileValid(1);
+		sbo.setRecordType((byte) 0);
+		List<SopFile> oldfileList = sopFileDao.queryByFileTypeList(sbo);
+
+		if (oldfileList==null || oldfileList.isEmpty()){
+			initMark = "no";
+		}else if(oldfileList.size()==1 && oldfileList.get(0).getFileKey()==null ){
+			initMark = "init";
+			oldFile = oldfileList.get(0);
+		}else{
+			initMark = "has";
+		}
+/*
 		if(file.getId() != null){
 			if( file.getFileKey() != null){
 				initMark = "has";
@@ -218,7 +239,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 			oldFile = sopFileDao.selectById(file.getId());
 			//BeanUtils.copyProperties(resultFile, oldFile);
 		} 
-		
+	*/
 		
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 		//	Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
@@ -261,6 +282,13 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				sopFileDao.updateById(oldFile);
 				resultFile = oldFile;
 			}else{
+				sbo.setFileValid(0);
+				sbo.setFileUid(file.getFileUid());
+				sbo.setFileSource(DictEnum.fileSource.内部.getCode());
+				sbo.setFileType(getFileType(result.getFileSuffix()));
+				sbo.setProjectProgress(file.getProjectProgress());
+				sopFileDao.updateByIdSelective(sbo);
+
 				file.setBucketName(result.getBucketName());
 				file.setFileKey(result.getFileKey());  
 				file.setFileLength(result.getContentLength());
@@ -274,13 +302,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setFileType(getFileType(result.getFileSuffix()));
 				file.setId(null);
 				sopFileDao.insert(file);
-				oldFile.setFileUid(file.getFileUid());
-				oldFile.setFileValid(0);
-				oldFile.setFileSource(DictEnum.fileSource.内部.getCode());
-				oldFile.setFileType(getFileType(result.getFileSuffix()));
-				oldFile.setProjectProgress(file.getProjectProgress());
-				sopFileDao.updateById(oldFile);
-				
+
 				resultFile = file;
 			}
 	    }else{

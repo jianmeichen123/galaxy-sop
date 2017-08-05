@@ -229,8 +229,12 @@ function initViewUpload() {
 						sendPostRequestByJsonObj(url,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
-								$("#save_interview").removeClass("disabled");
-								layer.msg(data.result.message);
+                                layer.msg(data.result.message);
+                                $("#save_interview").removeClass("disabled");
+                                if(data.result.errorCode == 'REFRESH'){
+                                    $.popupTwoClose();
+                                    refreshIndex(true);
+                                }
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
