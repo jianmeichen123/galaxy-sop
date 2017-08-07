@@ -74,7 +74,7 @@ function get_result(code,e_type,dom){
 			 var type=entity.type;
 			 if(e_type==1){
 				 var result_html = ""
-				 if(type==14||type==2||type==5||type==6||type==12){
+				 if(type==2||type==5||type==6||type==12){
 					 $.each(valueList,function(i,n){
 						 if(n.name=="其他"){
 						 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
@@ -94,6 +94,12 @@ function get_result(code,e_type,dom){
 					 })
 				}else if(type==18){
 					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"></ul></div>"
+				}else if(type==14){
+					var result_li='';
+					$.each(valueList,function(i,n){
+						result_li += "<li><a href=\"#\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
+					})
+					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
 				}
 				 dom.html(result_html);
 				 divSelect();
@@ -133,7 +139,8 @@ function closeX(obj){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 }	
 	
-//小弹窗保存方法
+//保存方法
+//e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function right(obj,type){
 	//对号，x号消失
 	$(obj).parent().hide();
@@ -178,6 +185,8 @@ function right(obj,type){
 	}else if(type=="textarea"){
 		align_left = $("span[parent_dom='show']").parent().find(".align_left").find('p');
 		var val = $(obj).parent().parent().find("textarea").val();
+	}else if(type=="select"){
+		
 	}
 
 	if(other.attr("checked") == "checked"){

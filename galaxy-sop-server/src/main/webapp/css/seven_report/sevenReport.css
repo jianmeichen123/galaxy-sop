@@ -722,20 +722,25 @@ ul,li{list-style:none;padding:0;margin:0;}
 	width:81%; 
 	height:24px; 
 	line-height:24px; 
-	padding-left:10px; 
-	padding-right:30px; 
+	display:inherit;
+	margin:0 auto;
 	border:1px solid #979797; 
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 } 
 #dropdown ul{
-	width:95%; 
-	background:#fff; 
-	margin-top:2px;
+	width:81%; 
+	background:#fff; 	
 	border:1px solid #979797; 
 	position:absolute; 
+	left:50%;
+	transform:translateX(-50%);
+	-webkit-transform:translateX(-50%);
+	-moz-transform:translateX(-50%);
 	display:none;
 	z-index:999;
 	border-bottom:0px;
+	margin:0 auto;
+	margin-top:2px;
 } 
 #dropdown ul li{
 	height:24px; 
@@ -760,3 +765,4 @@ ul,li{list-style:none;padding:0;margin:0;}
 	margin-bottom:20px !important;
 }
 p.check_p{display:inline;}
+.condition.condition_select{overflow: inherit;}
