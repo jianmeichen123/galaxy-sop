@@ -275,7 +275,7 @@ function buildResult(title)
 	}
 }
 $("#save-rpt-btn").click(function(){
-	var data = {};
+	var data = {projectId: projId};
 	var eles = $(".title-value");
 	var infoModeList = new Array();
 	$.each(eles,function(){
@@ -284,21 +284,102 @@ $("#save-rpt-btn").click(function(){
 		var titleId = _this.data('titleId');
 		var value = _this.data('titleValue');
 		var resultId = _this.data('resultId');
-		var model = {};
-		model.projectId = projId;
-		model.titleId = titleId;
-		if(typeof resultId != 'undefined')
+		var remark = _this.data('remark');
+		var text = _this.text();
+		//input,textarea
+		if(type == 1 || type == 8)
 		{
-			model.resultId = resultId;
+			var model = {
+				tochange:"true",
+				type:type		
+			};
+			model.projectId = projId;
+			model.titleId = titleId;
+			if(typeof resultId != 'undefined')
+			{
+				model.resultId = resultId;
+			}
+			if(typeof text == 'undefined' || text == '未填写')
+			{
+				model.remark1 = '';
+			}
+			else
+			{
+				model.remark1 = text;
+			}
+			infoModeList.push(model);
 		}
-		if(type == 2 || type==14)
+		//radio,radio+备注,select
+		else if(type == 2 || type == 5 ||type==14)
 		{
-			model.value = value;
+			var model = {
+					tochange:"true",
+					type:type		
+				};
+			model.projectId = projId;
+			model.titleId = titleId;
+			if(typeof resultId != 'undefined')
+			{
+				model.resultId = resultId;
+			}
+			if(typeof value != 'undefined')
+			{
+				model.value = value;
+			}
+			if(typeof remark != 'undefined')
+			{
+				model.remark1 = remark;
+			}
+			infoModeList.push(model);
 		}
-		infoModeList.push(model);
+		//checkbox,checkbox+input,checkbox+textarea
+		else if( type == 3 || type == 6 || type == 13)
+		{
+			if(typeof value != 'undefined')
+			{
+				var values = value.split(',');
+				console.log(values);
+				$.each(values,function(i,val){
+					var model = {
+							tochange:"true",
+							type:type		
+						};
+					model.projectId = projId;
+					model.titleId = titleId;
+					if(typeof resultId != 'undefined')
+					{
+						model.resultId = resultId;
+					}
+					if(typeof value != 'undefined')
+					{
+						model.value = val;
+					}
+					if(typeof remark != 'undefined')
+					{
+						model.remark1 = remark;
+					}
+					infoModeList.push(model);
+				})
+			}
+		}
+		
 		
 	});
 	data.infoModeList = infoModeList;
 	console.log(data);
+	
+	sendPostRequestByJsonObj(
+			platformUrl.saveOrUpdateInfo+'?_='+new Date().getTime() , 
+			data,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK') {
+					layer.msg('保存成功');
+				} 
+				else 
+				{
+
+				}
+		})
 })
 
