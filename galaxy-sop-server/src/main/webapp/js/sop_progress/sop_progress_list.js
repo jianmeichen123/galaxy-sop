@@ -226,9 +226,10 @@
 			tab_show(4);
 			hideCurrent('projectProgress:10');
 		}
-		buttonData();
-		
+		//buttonData();
+		refreshButton();
 		initFileShow(); //file about
+		
 	}
 	//点击下一步
 	$(".next_box").click(function(){
