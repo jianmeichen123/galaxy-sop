@@ -64,6 +64,12 @@ function edit_bsaicfun(data){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
 		  $(this).toggleClass('active');
+		  //团队三个核心亮点与核心团队具有的能力联动
+		  var titleId=$(this).attr("data-title-id");
+			if(titleId=="1364"){
+					var value=$(this).attr("value");
+					$(this).closest(".mb_16").siblings().find(".check_label[data-title-id='"+titleId+"'][value='"+value+"']").toggleClass("active");
+			}
 		  var par_ul = $(this).parent("ul");
 		  if(par_ul.hasClass("pro_innovation")){
 			  // 基本信息页面

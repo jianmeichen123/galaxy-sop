@@ -504,6 +504,26 @@ function bindChangeType13(){
         {
         	$(this).click(function(){
         		if ( $(this).attr('data-id') == last_id ){
+        			  //团队三个核心亮点与核心团队具有的能力联动
+        			var titleId=$(this).attr("data-title-id");
+            		if(titleId=="1364"){
+            			var inputText1=$(this).closest(".mb_16").siblings().find("dt[data-title-id='"+titleId+"']").siblings().find("input[type=\"text\"]:last");
+            			if(inputText1.attr("disabled")=="disabled"){
+           				  inputText1.attr('disabled',false);
+                          inputText1.attr('required' , true);
+	           			}else{
+	           				inputText1.attr('disabled',true);
+	                        inputText1.attr('required' , false);
+	           			}
+            			$(inputText).on("input",function(){
+            				var val=$(this).val();
+            				$(inputText1).val(val);
+            			});
+            			$(inputText1).on("input",function(){
+            				var val=$(this).val();
+            				$(inputText).val(val);
+            			})
+            		}
         			if(inputText.attr("disabled")=="disabled"){
         				 inputText.attr('disabled',false);
                          inputText.attr('required' , true);
@@ -513,6 +533,8 @@ function bindChangeType13(){
         			}
         		}        		 
         	})
+        	
+        	
         });
 
 
@@ -566,65 +588,6 @@ function getDetailUrl(code)
 	return "";
 }
 
-/**
-* 页面加载时，给类型12的题目，绑定change方法，用于第一次没有返回结果的情况
-*/
-function bindChange(){
-    var dts = $("dt[data-type='12']");
-    $.each(dts, function (i,n) {
-        var dl = $(this).parent();
-        var radios = dl.find('input[type="radio"]');
-        var last_id = dl.find('input[type="radio"]:last').attr('data-id');
-        var inputText = dl.find('input[type="text"]:last');
-		if(dl.find('input[type="radio"]:last:checked')){
-			 inputText.attr('required' , true);
-		}
-        $.each(radios , function ( i ,n )
-        {
-            $(this).unbind('change').bind('change',function(){
-                if ( $(this).attr('data-id') == last_id )
-                {
-                    inputText.attr('disabled',false);
-                    inputText.attr('required' , true);
-                }
-                else
-                {
-                    inputText.attr('disabled',true);
-                    inputText.attr('required' , false);
-                }
-            });
-        });
-    });
-}
-
-function bindChangeType13(){
-    var dts = $("dt[data-type='13']");
-    $.each(dts, function (i,n) {
-        var dl = $(this).parent();
-        var lis = dl.find('li.check_label');
-        var last_id = dl.find('li.check_label:last').attr('data-id');
-        var inputText = dl.find('input[type="text"]:last');
-		if(dl.find('li.check_label:last').hasClass("active")){
-			 inputText.attr('required' , true);
-		}
-        $.each(lis, function ( i ,n )
-        {
-        	$(this).click(function(){
-        		if ( $(this).attr('data-id') == last_id ){
-        			if(inputText.attr("disabled")=="disabled"){
-        				 inputText.attr('disabled',false);
-                         inputText.attr('required' , true);
-        			}else{
-        				inputText.attr('disabled',true);
-                        inputText.attr('required' , false);
-        			}
-        		}        		 
-        	})
-        });
-
-
-    });
-}
 
 
 
