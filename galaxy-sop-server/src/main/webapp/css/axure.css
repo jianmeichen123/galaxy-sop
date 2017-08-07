@@ -3364,3 +3364,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .intw_summary ol,.intw_summary ol li{list-style-type: decimal;list-style-position: inside; } 
 .intw_summary ul,.intw_summary ul li{list-style-type: disc;list-style-position: inside; } 
 .intw_summary li{display: list-item;} 
+/* 字母无法换行 */
+ .interview .bootstrap-table #projectProgress_1_table tr td,.interview .bootstrap-table #data-table tr td{word-break: break-all;}
+
