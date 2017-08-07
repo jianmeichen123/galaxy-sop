@@ -202,6 +202,15 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				//调整表格
 				$("table").css({"width":"90%","table-layout":"fixed"});
 				$(".h_edit .sign_title").css("margin-bottom","20px");
+				//团队核心亮点与团队核心能力联动修改其他值
+				$("input").on("input",function(){
+					var titleId=$(this).parent("li").prev("li").attr("data-title-id");
+					var val=$(this).val();
+					if(titleId=="1364"){
+						var inputText=$(this).closest(".mb_16").siblings().find("dt[data-title-id='"+titleId+"']").siblings("dd").find("input[type='text']");
+						$(inputText).val(val);
+					}
+				})
 				//编辑显示隐藏按钮不可用
 				btn_disable(1);
 				setReqiured();
@@ -533,7 +542,6 @@ function bindChangeType13(){
         			}
         		}        		 
         	})
-        	
         	
         });
 
