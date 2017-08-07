@@ -3325,7 +3325,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .new_poptxt .tabcon .fixed-table-body table thead th:nth-child(3){width:150px;}
 .new_poptxt .tabcon .fixed-table-body table tbody tr td:nth-child(3){width:150px;}
 #projectProgress_1_table .no-records-found td{height: 88px!important;}
-#projectProgress_1_table tbody td{ padding:0; world-break:normal;overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
+#projectProgress_1_table tbody td{ padding:0 0 0 5px!important; world-break:normal;overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
 /* 会议、访谈调整 */  
 #meetingNotesCon {width:600px;word-wrap:break-word;height:220px;overflow-y:auto;}
 #viewNotesCon{height:450px;word-wrap:break-word;overflow-y:auto;}
@@ -3334,6 +3334,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .new_poptxt #resultReason{display:block; width:640px;padding-right:30px  }
 .new_poptxt .result_reason{margin-top: -30px;}
 .new_poptxt .tab_con dd{position:relative;}
+.new_poptxt .fixed-table-pagination{margin-bottom:105px}
 .new_poptxt label.error{position: absolute;
     padding: 5px;
     z-index: 10;

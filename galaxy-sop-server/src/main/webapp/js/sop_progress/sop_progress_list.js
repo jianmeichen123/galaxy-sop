@@ -31,7 +31,7 @@
 		{
 			loadProjectData();
 			$(".tabtitle").find('p').remove();
-			$(".tabtitle .pre_box").before("<p>"+_project_.projectName+"</p><p>-</p>");
+			$(".tabtitle .pre_box").before("<p>"+_project_.projectName+"</p><p>&nbsp;-</p>");
 			$.when(btnDtd).done(function(){
 				
 				for(var j=0;j<flow.length;j++)
