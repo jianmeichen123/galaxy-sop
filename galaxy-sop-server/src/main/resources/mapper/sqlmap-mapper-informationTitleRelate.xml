@@ -155,6 +155,7 @@
 			<if test="id != null"> and relate.id = #{id,jdbcType=BIGINT} </if>
 			<if test="parentId != null" > and relate.parent_id = #{parentId,jdbcType=BIGINT} </if>
 			<if test="code != null" > and relate.code = #{code,jdbcType=VARCHAR} </if>
+			<if test="codeLike != null" > and relate.code LIKE CONCAT("%",#{codeLike},"%") </if>
 			<if test="name != null" > and relate.name = #{name,jdbcType=VARCHAR} </if>
 			<if test="titleId != null" > and relate.title_id = #{titleId,jdbcType=BIGINT} </if>
 			<if test="sign != null" > and relate.sign = #{sign,jdbcType=INTEGER} </if>

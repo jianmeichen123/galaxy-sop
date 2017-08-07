@@ -104,7 +104,39 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		
 		return responseBody;
 	}
-	
+
+
+	/**
+	 * 针对全息报告以外的其他报告,查询顶头大标题
+	 * 传入题 code， 返回该题下一级的 题 信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryNsTitles/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationTitle> queryNsTitles(HttpServletRequest request, @PathVariable("pinfoKey") String pinfoKey) {
+		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
+
+		try{
+			Map<String, Object> params = new HashMap<String,Object>();
+			params.put("codeLike",pinfoKey);
+			params.put("isValid",0);
+			params.put("parentId",0);
+			List<InformationTitle> titles = informationTitleRelateService.selectTitleByRelate(params);
+			if( titles==null || titles.isEmpty() ){
+				responseBody.setResult(new Result(Status.ERROR,null, "参数错误"));
+			}else{
+				responseBody.setEntityList(titles);
+				responseBody.setResult(new Result(Status.OK, ""));
+			}
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "题信息获取失败"));
+			logger.error("queryNsTitles 其他报告,查询顶头大标题 : "+pinfoKey,e);
+		}
+
+		return responseBody;
+	}
+
+
+
 	
 	/**
 	 * 传入题 id 或 code， 返回该题 及其下一级的 题 信息
