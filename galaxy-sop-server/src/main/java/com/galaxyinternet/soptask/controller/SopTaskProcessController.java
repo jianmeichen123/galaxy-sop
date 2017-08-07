@@ -79,12 +79,16 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	}
 	
 	@RequestMapping("/showFileList")
-	public ModelAndView showFileList(@RequestParam Integer taskFlag)
+	public ModelAndView showFileList(@RequestParam Integer taskFlag,@RequestParam Long projectId)
 	{
+		Project project=new Project();
+		project.setId(projectId);
+		Project queryOne = projectService.queryOne(project);
 		ModelAndView mv = new ModelAndView();
 		String viewName = "";
 		String btnTxt = "";
 		String fileWorktype = "";
+		boolean isShow=false;
 		switch(taskFlag)
 		{
 			case 0: //完善简历
@@ -102,11 +106,17 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 			case 3 : //法务尽职调查报告
 				btnTxt = "上传尽调报告";
 				fileWorktype = "fileWorktype:3";
+				if(queryOne.getProjectType().equals("projectType:2")){
+					isShow=true;
+				}
 				viewName = "/taskProcess/singleFileUpload";
 				break;
 			case 4 : //财务尽调报告
 				btnTxt = "上传尽调报告";
 				fileWorktype = "fileWorktype:4";
+				if(queryOne.getProjectType().equals("projectType:2")){
+					isShow=true;
+				}
 				viewName = "/taskProcess/singleFileUpload";
 				break;
 			case 5 : //业务尽调报告
@@ -120,11 +130,17 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				btnTxt = "上传资金拨付凭证";
 				fileWorktype = "fileWorktype:9";
 				viewName = "/taskProcess/singleFileUpload";
+				//if(queryOne.getProjectType().equals("projectType:2")){
+					isShow=true;
+				//}
 				break;
 			case 9 : //工商变更登记凭证
 				btnTxt = "上传工商变更登记凭证";
 				fileWorktype = "fileWorktype:8";
 				viewName = "/taskProcess/singleFileUpload";
+				/*if(queryOne.getProjectType().equals("projectType:2")){
+					isShow=true;
+				}*/
 				break;
 			case SopConstatnts.TaskCode._accept_project_flag_ : //工商变更登记凭证
 				btnTxt = "接收项目";
@@ -137,6 +153,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 		mv.addObject("fileWorktype", fileWorktype);
 		mv.addObject("btnTxt", btnTxt);
 		mv.addObject("taskFlag", taskFlag);
+		mv.addObject("isShow", isShow);
 		return mv;
 	}
 	

@@ -33,7 +33,7 @@ var platformUrl = {
 	/**
 	 * 关闭项目
 	 */
-	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro",
+	closeProject : Constants.sopEndpointURL + "/galaxy/progress/reject",
 	/**
 	 * 获取事业部——高管查询select
 	 */
@@ -1164,7 +1164,15 @@ var platformUrl = {
 	 /**
 	 * 高管报表----拜访管理
 	 */
-	 visitTrend: Constants.sopEndpointURL + "/galaxy/visit/getTendency"
+	 visitTrend: Constants.sopEndpointURL + "/galaxy/visit/getTendency",
+	 
+	 projectStageChange : Constants.sopEndpointURL + "/galaxy/progress/stageChange",
+	 
+	 searchMeeting : Constants.sopEndpointURL + "/galaxy/progress/searchMeeting",
+	 /**
+	  * 项目阶段按钮控制
+	  */
+	 buttonToggle : Constants.sopEndpointURL + "/galaxy/progress/buttonToggle/"
 }
 
 /**

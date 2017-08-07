@@ -1,5 +1,6 @@
 package com.galaxyinternet.common.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,8 @@ import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.resource.PlatformResource;
+import com.galaxyinternet.model.sopIndex.IndexConfig;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.IndexConfigService;
@@ -90,11 +93,27 @@ public class IndexController extends BaseControllerImpl<User, UserBo>{
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
+		List<IndexConfig> models = new ArrayList<>();
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-		Map<String,Object> params = new HashMap<String,Object>();
-		params.put("roleIds", roleIdList);
-		List<IndexConfigBo> models = indexConfigService.queryUserIndexModel(params);
+		List<PlatformResource> resList = user.getAllResourceToUser();
+		Map<String,PlatformResource> resMap = new HashMap<>();
+		for(PlatformResource item : resList)
+		{
+			if("5".equals(item.getResourceType())) //是否桌面组件
+			{
+				resMap.put(item.getResourceMark(), item);
+			}
+		}
+		
+		List<IndexConfig> list = indexConfigService.queryAll();
+		for(IndexConfig item: list)
+		{
+			if(item.getResourceCode() != null && resMap.containsKey(item.getResourceCode()))
+			{
+				models.add(item);
+			}
+		}
+		
 		logger.debug(GSONUtil.toJson(models));
 		request.setAttribute("modules", models);
 		return "desktop/index";

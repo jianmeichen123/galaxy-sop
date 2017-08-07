@@ -47,9 +47,9 @@
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
-            <div class="btnbox_f btnbox_f1 clearfix">   <!-- onclick="umInit()" -->
+            <%-- <div class="btnbox_f btnbox_f1 clearfix">   <!-- onclick="umInit()" -->
                 <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview" class="pubbtn lpubbtn bluebtn ico c4"  >添加访谈记录</a>
-            </div>
+            </div> --%>
         </div>
        
        
@@ -189,12 +189,13 @@ function showLogdetail(selectRowId){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-		var um=UM.getEditor('viewNotes');
-		um.setContent(interviewSelectRow.viewNotes);
+		/* var um=UM.getEditor('viewNotes');
+		um.setContent(interviewSelectRow.viewNotes); */
+		$("#viewNotesCon").html(interviewSelectRow.viewNotes);
 		var uid='<%=userId%>';
 		if(uid!=interviewSelectRow.createdId){
-			$("#interviewsave").hide();
-			um.setDisabled();
+			/* $("#interviewsave").hide();
+			um.setDisabled(); */
 		}
 		//$("#interviewsave").hide();
 		$("#vid").val(selectRowId);

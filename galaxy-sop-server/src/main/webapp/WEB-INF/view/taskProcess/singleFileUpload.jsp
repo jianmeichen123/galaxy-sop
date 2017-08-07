@@ -3,6 +3,11 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
+  
+	    <div class="task_noprovide"  style="display: none">
+		 	   <input type="checkbox"  value="${isShow}"> 不需要提供
+		</div>
+	
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -68,6 +73,11 @@
 	</div>
 </div>
 <script type="text/javascript">
+//不需要提供框是否显示
+var isShow='${isShow}';
+if(isShow=="true"){
+	$(".task_noprovide").show();
+}
 $(function(){
 	loadRows();
 	loadRelatedData();
@@ -76,12 +86,19 @@ $(function(){
 		showUploadPopup(title_name);
 	});
 	$("#complete-task-btn").click(function(){
+		//判断是否放弃该任务的提交
+		var btn=$(".task_noprovide input");
+		var giveUp=false;
+		if(btn.prop( "checked" )==true){
+			giveUp=true;
+		}
 		//更新task为完成状态
 		sendPostRequestByJsonObj(
 			platformUrl.submitTask,
 			{
 				id:"${taskId}",
-				taskStatus:"taskStatus:3"
+				taskStatus:"taskStatus:3",
+				giveUp:giveUp
 			},
 			function(data){
 				if(data.result.status=="OK"){
@@ -97,6 +114,7 @@ $(function(){
 		);
 	});
 });
+
 function projectLoaded(project)
 {
 	
@@ -133,6 +151,7 @@ function loadRows()
 						{
 							$("#show-upload-btn").text(btnText.replace('上传','更新'))
 						}
+						$(".task_noprovide").hide();
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
@@ -150,6 +169,7 @@ function isBlank(val)
 }
 function loadRelatedData()
 {
+
 	sendGetRequest(
 			platformUrl.getTempRelatedData,
 			null,
@@ -183,7 +203,12 @@ function initUpload(_dialog){
 		url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
-			max_file_size : '25mb'
+			max_file_size : '25mb',
+			mime_types : [
+				           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
+				           { title : "PDF files", extensions : "pdf,PDF" },
+				           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
+				        ]
 		},
 
 		init: {

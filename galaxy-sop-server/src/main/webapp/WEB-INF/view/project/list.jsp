@@ -18,6 +18,9 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript">
+var pageId = "project";
+</script>
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
 <!-- 校验 -->
@@ -149,10 +152,10 @@
 				    <tr>
 			        	<th data-field="projectName"  class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
-			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="5%">融资状态<span></span></th>
-			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="15%">项目进度<span></span></th>
-			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="5%">项目状态<span></span></th>
-			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="6%">来源于FA<span></span></th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">来源于FA<span></span></th>
 			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
 			        	<th data-field="createUname"  class="data-input" data-width="17%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
@@ -196,7 +199,11 @@
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
-
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
+<!--提示验证  -->
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript">
 	createMenus(5);
 	/**权限点**/
@@ -212,7 +219,8 @@
 		var transferingIds = "${fx:getTransferingPids()}".split(",");
 		if(uid == row.createUid)
 		{
-			var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>";
+			//var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>";
+			var options = "<span class=\"prc\" data-btn='myproject' onclick='progress(" + id + ")'>项目流程</span>";
 			if(transferingIds.contains(id))
 			{
 				options = "<span class=\"prc limits_gray\" data-btn='myproject' title=\"项目移交中\"></span>";
@@ -533,11 +541,8 @@
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		var proStatus = row.projectStatus;
 		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
-		if(pronum == 0 || pronum == 1){
-			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
-		}else{
-			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
-		}
+
+		return row.progress;
 	}
 	/**
 	 * 融资状态格式化

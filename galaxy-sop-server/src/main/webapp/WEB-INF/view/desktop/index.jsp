@@ -16,6 +16,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <head>
 <meta charset="utf-8">
 <title>星河投</title>
+<script type="text/javascript">
+var pageId = "index";
+console.log('script');
+</script>
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
@@ -183,8 +187,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		        	</c:when>
 		        	<c:otherwise>
 		        	
-                       <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
-                   	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a>
+                       <a href="javascript:;" class="light_gray"><b class="b4 ico null">ico</b>新增访谈</a>
+                   	<a href="javascript:;" class="light_gray" ><b class="b3 ico null">ico</b>新增会议</a>
+                   	  <%--  <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
+                   	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a> --%>
 		        	</c:otherwise>
 	        	</c:choose>
 		        	
@@ -202,7 +208,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
     <!--内容显示区域-->
  	<div class="ritmin clearfix ritmin-index">
  	<c:forEach var="module" items="${modules }">
- 		<div class="floatBox fl" data-url="${module.resourceUrl }"></div>
+ 		<div class="floatBox fl" data-url="${module.contentUrl }"></div>
  	</c:forEach>
   </div>
   

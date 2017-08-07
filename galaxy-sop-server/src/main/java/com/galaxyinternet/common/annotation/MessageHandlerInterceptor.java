@@ -372,7 +372,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		OperationLogs entity = new OperationLogs();
 		
 		entity.setOperationContent(type.getContent());
-		if(type.getUniqueKey().contains("project/breakpro")){
+		if(type.getUniqueKey().contains("progress/reject")){
 			entity.setOperationContent(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 		}
 		entity.setOperationType(type.getType());

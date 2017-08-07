@@ -51,15 +51,16 @@
     <result column="ctime" property="ctime" jdbcType="VARCHAR"/>
      <result column="grant_money" property="grantMoney" jdbcType="DECIMAL"/>
      <result column="project_time" property="projectTime" jdbcType="BIGINT"/>
+    <result column="progress_history" property="progressHistory" jdbcType="VARCHAR"/>
+    <result column="business_type_code" property="businessTypeCode" jdbcType="VARCHAR"/>
      <result column="finance_mode" property="financeMode" jdbcType="VARCHAR"/>
-    
     </resultMap>
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
     project_valuations,industry_own, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe,project_describe_financing, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
-    industry_analysis,operational_data, idea_id,fa_flag,fa_name,grean_channel,remark,project_time,finance_mode
+    industry_analysis,operational_data, idea_id,fa_flag,fa_name,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code
   </sql>
     <sql id="Base_Where_Clause">
 		<where>
@@ -282,7 +283,7 @@
 	      project_status, updated_time, created_time, 
 	      project_describe,project_describe_financing, project_business_model, 
 	      company_location, user_portrait, 
-	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark,project_time,finance_mode)
+	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark,project_time,finance_mode,progress_history,business_type_code)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
@@ -291,7 +292,9 @@
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR},#{projectDescribeFinancing,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
-	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR},#{remark,jdbcType=LONGVARCHAR},#{projectTime,jdbcType=BIGINT},#{financeMode,jdbcType=VARCHAR})
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR},#{remark,jdbcType=LONGVARCHAR},#{projectTime,jdbcType=BIGINT},#{financeMode,jdbcType=VARCHAR},
+	      #{progressHistory,jdbcType=VARCHAR},#{businessTypeCode,jdbcType=VARCHAR}
+	      )
 	    ]]>
     </insert>
     
@@ -305,7 +308,8 @@
 	      project_status, updated_time, created_time, 
 	      project_describe,project_describe_financing, project_business_model, 
 	      company_location, user_portrait, 
-	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark,project_time,finance_mode)
+	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel,remark,project_time,,finance_mode
+	      progress_history,business_type_code)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT},  #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
@@ -314,7 +318,9 @@
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR},#{projectDescribeFinancing,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
-	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR},#{remark,jdbcType=LONGVARCHAR},#{projectTime,jdbcType=BIGINT},#{financeMode,jdbcType=VARCHAR})
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR},#{remark,jdbcType=LONGVARCHAR},#{projectTime,jdbcType=BIGINT},#{financeMode,jdbcType=VARCHAR},
+	      #{progressHistory,jdbcType=VARCHAR},#{businessTypeCode,jdbcType=VARCHAR}
+	      )
 	    ]]>
     </insert>
     
@@ -363,8 +369,10 @@
 		      <if test="operationalData != null" >  operational_data = #{operationalData,jdbcType=LONGVARCHAR}, </if>
 		      <if test="faFlag != null" >  fa_flag = #{faFlag,jdbcType=INTEGER}, </if>
 		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR}, </if>
-		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR} </if>
+		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR}, </if>
 		      <if test="remark != null" >  remark = #{remark,jdbcType=VARCHAR}, </if>
+		      <if test="progressHistory != null" >  progress_history = #{progressHistory,jdbcType=VARCHAR}, </if>
+		      <if test="businessTypeCode != null" >  business_type_code = #{businessTypeCode,jdbcType=VARCHAR}, </if>
 		       <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT} </if>
 		        <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR} </if>
 		</set>
@@ -458,8 +466,10 @@
 		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR}, </if>
 		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR},</if>
 		      <if test="remark != null" >  remark = #{remark,jdbcType=LONGVARCHAR}, </if>
+		      <if test="progressHistory != null" >  progress_history = #{progressHistory,jdbcType=VARCHAR}, </if>
+		      <if test="businessTypeCode != null" >  business_type_code = #{businessTypeCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectTime != null" > project_time = #{projectTime,jdbcType=BIGINT}, </if>
-		      <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
+		     <if test="financeMode != null" > finance_mode = #{financeMode,jdbcType=VARCHAR} </if>	
 		</set>
 		where id = #{id}
 	</update>

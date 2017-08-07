@@ -60,8 +60,8 @@ public class ScheduleInfoController extends BaseControllerImpl<ScheduleInfo, Sch
 			return responseBody;
 		}
 		try{
-			if(sheduleInfo.getCreatedId() == 0) sheduleInfo.setCreatedId(null);
-			if(sheduleInfo.getDepartmentId() == 0) sheduleInfo.setDepartmentId(null);
+			if(sheduleInfo.getCreatedId() != null && sheduleInfo.getCreatedId() == 0) sheduleInfo.setCreatedId(null);
+			if(sheduleInfo.getDepartmentId() != null && sheduleInfo.getDepartmentId() == 0) sheduleInfo.setDepartmentId(null);
 			List<BaiFanTj> results = baiFanTjService.exportBaiFanSum(sheduleInfo);
 			
 			responseBody.setEntityList(results);

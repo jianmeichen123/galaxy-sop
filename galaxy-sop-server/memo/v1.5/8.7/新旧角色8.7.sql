@@ -1,0 +1,13 @@
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('101', 'DSZ', '董事长', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('102', 'CEO', 'CEO', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('103', 'HHR', '合伙人', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('104', 'TZJL', '投资经理', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('105', 'HRZJ', '人事总监', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('106', 'HRJL', '人事经理', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('107', 'FWZJ', '法务总监', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('108', 'FWJL', '法务经理', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('109', 'CWZJ', '财务总监', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('110', 'CWJL', '财务经理', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('111', 'DSZMS', '董事长秘书', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('112', 'CEOMS', 'CEO秘书', '新旧替换临时权限', '0', '2', '1');
+INSERT INTO `power`.`role` (`id`, `role_code`, `role_name`, `role_demo`, `is_del`, `is_outtage`, `company_id`) VALUES ('113', 'QT', '其他', '新旧替换临时权限', '0', '2', '1');

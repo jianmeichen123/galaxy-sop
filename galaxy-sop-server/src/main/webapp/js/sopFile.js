@@ -173,14 +173,14 @@ var fileGrid = {
 			
 			if(isTransfing == false )
 			{
-				opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');
+				/*opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');*/
 			}
 			opts.push('<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">下载</a>');
 			return opts.join('');
 		}else if(!row.fileKey && row.isEdit == "true"){
 			if(isTransfing == false )
 			{
-				opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');
+				/*opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');*/
 			}
 			return opts.join('');
 		}else if(row.fileKey && row.fileValid==1  && row.isEdit == "false"){
@@ -349,7 +349,7 @@ var fileGrid = {
 		if(row.Vstatus=="false"){
 			if(row.fileKey){
 				return [
-						'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">上传</a>'
+						/*'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">上传</a>'*/
 				        ].join('');
 			}else{
 				return [
@@ -360,8 +360,9 @@ var fileGrid = {
 		if(row.Vstatus=="true"){
 			if(row.isProveEdit=="true"){
 				return [
-						'<a class="filedownloadlink blue" id="vsopfile" href="javascript:void(0)">查看</a>',
-						'<a class="fileupdatelink blue" id="vsopfile" href="javascript:void(0)">更新</a>'
+						'<a class="filedownloadlink blue" id="vsopfile" href="javascript:void(0)">查看</a>'
+						/*,
+						'<a class="fileupdatelink blue" id="vsopfile" href="javascript:void(0)">更新</a>'*/
 				        ].join('');
 			}else{
 				return [

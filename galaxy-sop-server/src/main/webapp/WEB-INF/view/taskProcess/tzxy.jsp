@@ -18,7 +18,7 @@
 				<th>模板下载</th>
 				<th>上传附件</th>
 				<th>查看附件</th>
-				<th>签署凭证</th>
+				<!-- <th>签署凭证</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -58,9 +58,9 @@
 	        <dd>
 	        	<select name="fileWorktype" class="disabled" disabled="disabled"></select>
 	        </dd>
-	        <dd>
+	      <!--   <dd>
 	        	<label id="tzxy_qszm"><input type="checkbox" id="voucherType" name="voucherType" value="1" disabled="disabled"/>签署凭证</label>
-	        </dd>
+	        </dd> -->
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>所属项目：</dt>
@@ -167,13 +167,13 @@ function loadRows()
 						$tr.append('<td><a href="#" onclick="downloadFile(this);" data-type="">查看</a></td>');
 					}
 					//签署凭证
-					if(isBlank(this.voucherFileName)){
+					/* if(isBlank(this.voucherFileName)){
 						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="voucher" data-name="签署凭证">上传</a></td>');
 					}
 					else
 					{
 						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="voucher">查看</a></td>');
-					}	
+					} */	
 					$("#hrjzdc-table tbody").append($tr);
 					if((this.fileWorktype == 'fileWorktype:6' && this.voucherFileName != '' && this.voucherFileName != null) || (this.fileWorktype == 'fileWorktype:7' && this.voucherFileName != '' && this.voucherFileName != null)){
 						$("#stock_transfer").attr("disabled","true");
@@ -251,7 +251,12 @@ function initUpload(_dialog,type){
 		url : url+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
-			max_file_size : '25mb'
+			max_file_size : '25mb',
+			mime_types : [
+				           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
+				           { title : "PDF files", extensions : "pdf,PDF" },
+				           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
+				        ]
 		},
 
 		init: {

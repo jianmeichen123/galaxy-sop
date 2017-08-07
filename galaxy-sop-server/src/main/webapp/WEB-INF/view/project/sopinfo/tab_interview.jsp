@@ -43,12 +43,12 @@
 
 						<!--按钮-->
 						<c:if test="${isEditable }">
-						<div class="top clearfix">
+						<!-- <div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
 								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview" style="display: none;"></a>
-								<!-- <a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a> -->
+								<a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a>
 							</div>
-						</div>
+						</div> -->
 						</c:if>
 						<!-- 接触访谈信息 -->
 						<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" style="display:none; " >
@@ -336,9 +336,9 @@ function viewOperFormat(value,row,index){
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
-	if(userId==row.createdId && isTransfering == 'false'){
+	/* if(userId==row.createdId && isTransfering == 'false'){
 		edit = " <span class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
-	}
+	} */
 	return info + edit;
 }
 
@@ -351,12 +351,14 @@ function notesInfoEdit(selectRowId,type){
 		data:"",
 		okback:function(){
 			$('.title_bj').html('访谈纪要');
-			var um=UM.getEditor('viewNotes');
-			um.setContent(interviewSelectRow.viewNotes);
+			//查看页面已文本形式显示
+			/* var um=UM.getEditor('viewNotes');
+			um.setContent(interviewSelectRow.viewNotes); 
 			if(type == 'v'){
 				$("#interviewsave").remove();
 				um.setDisabled();
-			}
+			}*/
+			$("#viewNotesCon").html(interviewSelectRow.viewNotes);
 		}
 	});
 	return false;

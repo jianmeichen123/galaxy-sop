@@ -369,9 +369,9 @@ function meetOperFormat(value,row,index){
 	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
-	if(userId==row.uid && isTransfering == 'false'){
+	/* if(userId==row.uid && isTransfering == 'false'){
 		edit = " <span  class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
-	}
+	} */
 	return info + edit;
 }
 
@@ -384,12 +384,14 @@ function notesInfoEdit(selectRowId,type){
 		data:"",
 		okback:function(){
 			$('.title_bj').html('会议详情')
-			var um=UM.getEditor('viewNotes');
+			//去掉富文本，查看更新
+			/* var um=UM.getEditor('viewNotes');
 			um.setContent(selectRow.meetingNotes);
 			if(type == 'v'){
 				$("#interviewsave").remove();
 				um.setDisabled();
-			}
+			} */
+			$("#viewNotesCon").html(selectRow.meetingNotes);
 		}
 	});
 	return false;

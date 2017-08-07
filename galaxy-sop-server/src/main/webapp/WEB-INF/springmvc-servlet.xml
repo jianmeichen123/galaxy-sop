@@ -97,6 +97,10 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
+			<bean class="com.galaxyinternet.common.interceptor.PageInfoInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
 			<bean class="com.galaxyinternet.common.interceptor.MenuAccessInterceptor">
 				<property name="mappings">
 					<map>

@@ -72,9 +72,10 @@
                         <li><span class="gray_dot"></span>内部评审</li>
                         <li><span class="gray_dot"></span>C<br/>E<br/>O评审</li>
                         <li><span class="gray_dot"></span>立项会</li>
+                        <li><span class="gray_dot"></span>会后商务谈判</li>
                         <li><span class="gray_dot"></span>投资意向书</li>
                         <li><span class="gray_dot"></span>尽职调查</li>
-                        <li><span class="gray_dot"></span>投决会</li>
+                        <li><span class="gray_dot"></span>投资决策会</li>
                         <li><span class="gray_dot"></span>投资协议</li>
                         <li><span class="gray_dot"></span>股权交割</li>
                         <li><span class="gray_dot"></span>投后运营</li>
@@ -121,7 +122,7 @@
             
         </div>
         <!-- 投前End -->
-        <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
+       <!--  <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
            <div class="correlation" style="position:relative;padding-left:20px;"><span class="new_ico_hint" style="position:absolute;left:15px;top:11px;"></span>温馨提示</div>
             <div>
             	<ul class="basic_right_ul">
@@ -131,12 +132,13 @@
                     <li>4、通过立项会，投资项目计10分，创建项目计20分</li>
                 </ul>
             </div>
-        </div>
+        </div> -->
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
+var prograss_name=pRigthInfo.progress
 if('${fx:isTransfering(pid)}' == 'true')
 {
 	$('.fjxm_but').addClass("disabled");
@@ -165,7 +167,9 @@ if('${fx:isTransfering(pid)}' == 'true')
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
+
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
+console.log(index)
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
 $(function(){
@@ -190,6 +194,7 @@ $(function(){
 	{
 		$(".tq_div").show();
 	}
+	console.log(index);
 	init_lct(); //流程图初始化
 	
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
@@ -329,14 +334,14 @@ function initMoreLine(){
 /**
  * 流程图 ，动态生成初始化
  */
+ //prograss_name
 function init_lct(){
 	var ul_li = $("#lct_ul").children("li");
 	$(ul_li).each(function(i){
 		if(index!=0 && i!=0){
-			if(index > i){
+			if($(this).text()==prograss_name){
 				$(this).addClass("green_dot");
-			}else if(index == i){
-				$(this).addClass("green_dot");
+				$(this).prevAll().addClass("green_dot");
 				$(this).addClass('green_dot_color');
 				$(this).prepend("<span class='green_dot_on'></span>");
 			}
@@ -509,6 +514,10 @@ function revokePro(){
 function closeback(data,fuc){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
+		if(data.result.message && data.result.message.length > 0)
+		{
+			layer.msg(data.result.message);
+		}
 		return;
 	}else{
 		layer.msg("该项目已关闭");

@@ -362,7 +362,7 @@ public class HomePageSearchController
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (user != null && user.getId()!= null) {
 			//读取数据库
-			user = userService.queryById(user.getId());
+			user = userService.queryById(user.getId(),true);
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();

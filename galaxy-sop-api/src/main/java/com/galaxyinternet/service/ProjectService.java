@@ -74,5 +74,7 @@ public interface ProjectService extends BaseService<Project> {
 	 */
 	public Page<Project> selectProjectTotalTime(Project query, Pageable pageable);
 	public List<Project>  selectProjectForPushMessage();
+	void reject(Long id);
+	void updateProgress(Long id, String next);
 	public int updateBaseById(Project query);
 }

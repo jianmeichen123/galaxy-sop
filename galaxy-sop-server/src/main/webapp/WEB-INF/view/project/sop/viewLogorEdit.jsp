@@ -35,14 +35,14 @@
     </div>
     
     <dl class="fmdl clearfix">
-        <dd style='position: relative'>
-			<script id="viewNotes" name="content" type="text/plain" style="width:780px;height:320px;"></script>
-			<div class="tip-yellowsimple" id='hint_all' style="visibility: inherit; display: none; left: 678px; top: 60.472px; opacity: 1; width: 169.778px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>访谈纪要不能超过9000字节</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
+        <dd id="viewNotesCon" style="width:780px">
+			<!-- <script id="viewNotes" name="content" type="text/plain" style="width:780px;height:320px;"></script>
+			<div class="tip-yellowsimple" id='hint_all' style="visibility: inherit; display: none; left: 678px; top: 60.472px; opacity: 1; width: 169.778px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>访谈纪要不能超过9000字节</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div> -->
         </dd>
     </dl>
-    <div class="btnbox save_log">
+    <!-- <div class="btnbox save_log">
     	<a href="javascript:;" id="interviewsave" class="pubbtn bluebtn" onclick="interviewsave()">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
-    </div>
+    </div> -->
 </div>
 <script type="text/javascript">
 	//UM.getEditor('viewNotes');

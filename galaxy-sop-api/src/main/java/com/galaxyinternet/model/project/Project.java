@@ -121,7 +121,8 @@ public class Project extends PagableEntity {
    private String eDate;
    
    private Long projectTime;
-   
+   private String progressHistory;
+   private String businessTypeCode;
    private String financeMode;//投资形式
    
    private String fModeRemark;//投资形式备注
@@ -731,6 +732,26 @@ public class Project extends PagableEntity {
 		this.projectTime = projectTime;
 	}
 
+
+	public String getProgressHistory()
+	{
+		return progressHistory;
+	}
+
+	public void setProgressHistory(String progressHistory)
+	{
+		this.progressHistory = progressHistory;
+	}
+
+	public String getBusinessTypeCode()
+	{
+		return businessTypeCode;
+	}
+
+	public void setBusinessTypeCode(String businessTypeCode)
+	{
+		this.businessTypeCode = businessTypeCode;
+	}
 	public String getFinanceMode() {
 		return financeMode;
 	}

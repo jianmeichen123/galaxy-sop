@@ -167,14 +167,14 @@
     
     <dl class="fmdl clearfix">  <!-- class="um_width" -->
        <dt>会议纪要:</dt>
-       <dd>
+       <dd id="meetingNotesCon">
        	  <%-- <div type="text/plain" id="meetingNotes"  style="width:100%;height:150px;max-height:150px;overflow:auto;" 
        	 	 valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字节" >
        	  </div> --%>
        	  
-       	  <div type="text/plain" id="meetingNotes"  style="width:100%;height:110px;max-height:150px;overflow:auto;" 
+       	  <%-- <div type="text/plain" id="meetingNotes"  style="width:100%;height:110px;max-height:150px;overflow:auto;" 
        	 	 valType="MAXBYTE" regString="9000" msg="<font color=red>*</font>会议纪要不能超过9000字节" >
-       	  </div>
+       	  </div> --%>
        	  
 		</dd>
       </dl>
@@ -191,13 +191,13 @@
     		</dd>
         </div>
     </dl>
-    <div class="btnbox" id="btnNotBeUse">
+   <!--  <div class="btnbox" id="btnNotBeUse">
     	<a href="javascript:;" class="pubbtn bluebtn" id="savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
-    </div>
+    </div> -->
 </div>
 
  <script type="text/javascript">
-	var meetEditor = UM.getEditor('meetingNotes');
+	//var meetEditor = UM.getEditor('meetingNotes');
 		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd hh:mm"));
 		$('#meetingDateStr').datetimepicker({
 		    format: 'yyyy-mm-dd hh:mm',

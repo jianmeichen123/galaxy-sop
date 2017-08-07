@@ -20,7 +20,7 @@ public enum DictEnum {
 	融资状态("融资状态","financeStatus"),
 	项目状态("项目状态","projectStatus"),
 	//行业归属
-行业归属("行业归属","industryOwn");
+   行业归属("行业归属","industryOwn");
 	
 	private String name;
 
@@ -112,7 +112,8 @@ public enum DictEnum {
 		投资决策会("投资决策会","projectProgress:7"),
 		投资协议("投资协议","projectProgress:8"),
 		股权交割("股权交割","projectProgress:9"),
-		投后运营("投后运营","projectProgress:10");
+		投后运营("投后运营","projectProgress:10"),
+		会后商务谈判("会后商务谈判","projectProgress:11");
 		private String name;
 
 		private String code;
@@ -234,6 +235,7 @@ public enum DictEnum {
 	        return null;
 	    }
 	}
+	
 	
 	//会议状态
 	public enum meetingSheduleResult {
@@ -388,7 +390,8 @@ public enum DictEnum {
 	public enum fileStatus{
 		缺失("缺失","fileStatus:1"),
 		已上传("已上传","fileStatus:2"),
-		已签署("已签署","fileStatus:3");
+		已签署("已签署","fileStatus:3"),
+		已放弃("已放弃","fileStatus:4");
 		
 		private String name;
 		private String code;

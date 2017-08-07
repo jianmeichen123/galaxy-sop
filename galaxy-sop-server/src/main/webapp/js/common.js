@@ -1,7 +1,13 @@
+$(document).ajaxSend(function(event, xhr, settings) {
+	console.log("ajaxSend");
+	if(typeof(pageId) != 'undefined')
+	{
+		console.log("pageId="+pageId);
+		xhr.setRequestHeader("pageId",pageId);
+	}
+});
 /**
- * 加密Ajax请求
- * jsonStr:json字符串
- * jsonObj:json对象
+ * 加密Ajax请求 jsonStr:json字符串 jsonObj:json对象
  */
 function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
 	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun, TOKEN);
@@ -432,6 +438,8 @@ var fileType_3 = {title : "fileType:3", extensions : "avi,AVI"};
 var fileType_4 = {title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg,BMP,JPG,GIF,PNG,JPEG"};
 //zip
 var fileType_5 = {title : "Zip files", extensions : "zip,rar,ZIP,RAR"};
+//图片和pdf
+var fileType_6 = {title : "fileType:6", extensions : "bmp,jpg,gif,png,jpeg,BMP,JPG,GIF,PNG,JPEG,pdf,PDF"};
 
 function paramsFilter(indexNum){
 	var filtersparams= new Array();
@@ -440,6 +448,9 @@ function paramsFilter(indexNum){
 		if(indexNum == 1 || indexNum == '1' || indexNum == 2 || indexNum == '2' || indexNum == 3 || indexNum == '3' 
 			|| indexNum == 4 || indexNum == '4' || indexNum == 7 || indexNum == '7'){
 			filtersparams.push(fileType_2);
+		}
+		if(indexNum == 6 || indexNum == '6'){
+			filtersparams.push(fileType_6);
 		}
 	}else{
 		filtersparams= new Array(fileType_1,fileType_2,fileType_3,fileType_4);
@@ -1191,7 +1202,23 @@ function getNowDay(fg){
 	clock += day;
 	return clock;
 }
-
+//获取当前时间精确到分
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes();
+    return currentdate;
+}
 function getFileSize(size)
 {
 	if(size>1000000)

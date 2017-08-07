@@ -1588,7 +1588,7 @@ word-wrap:break-word;
 }
 .new_right_flow{
 	margin-top:45px;
-	margin-left:20px;
+	margin-left:10px;
 }
 .new_right_flow_line{
 	position:relative;
@@ -1596,7 +1596,7 @@ word-wrap:break-word;
 	border-top:1px solid #d6d8e1;
 }
 .line_ul_p .line_ul_li{
-	margin-right:10px;
+	margin-right:6px;
 }
 .new_right .line_ul_p li{line-height:18px;text-align:center;}
 .line_ul_p li{
@@ -1943,6 +1943,8 @@ word-wrap:break-word;
 .r_news table td{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 .r_news table a,.task table a{font-size:14px;font-family:"微软雅黑"}
 .r_news .fixed-table-pagination{display:none !important;} 
+.task_noprovide{margin-bottom: 20px;}
+.task_noprovide input{vertical-align: middle;}
 /*添加日程*/
 #top{height:72px;}
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}
@@ -2146,6 +2148,7 @@ dl{position: relative;}
     cursor:default;
  }
  .mar_left{ float:left;margin-right:10px;}
+ .mar_left input{margin-right:5px}
   /* 投后运营V2.3.91 */
 .ritmin .fund_list .bottom  dl dd .txt{width:130px;}
 .fund_list .cx{margin-left:10px;}
@@ -2886,11 +2889,475 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 }
 .visit_box .round_data p{margin-top:170px;font-size:14px;
 color:#999999;}
+
 /* 项目详情 v20170707*/
 .institution {padding:0 20px 10px;display:none;}
 .institution input{border:1px solid #d6d8e1;width:148px;height:22px;margin-right:10px;padding:0 0 0 10px;}
 .institution input.name{width:228px;}
 .institution .del{color:#4a97da;font-family:"宋体";font-size:12px;cursor:pointer;}
 .institution .block_inputs{margin-bottom:10px;}
-label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#999060;background:#fff9c9;border-radius:4px;display:inline-block !important;}
+label.error{font-size:12px;font-family:"宋体";line-height:20px;color:#999060;background:#fff9c9;border-radius:4px;}
 label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;background:url(../img/error_bg.png) 0 0 no-repeat}
+。block_inputs label.error{display:inline-block!important;}
+/* 项目流程progress */
+
+	.new_poptxt{
+    	background: #fff;
+    	width: 700px;
+        overflow-y: auto;
+        max-height:400px;
+        min-height:301px;
+        height:auto;
+        padding: 60px 0 30px 0;
+    }
+    .tabtitle{
+        text-align: center;
+        height: 40px;
+        background:#f9fafc;
+		border-radius:4px 4px 0 0;
+		margin-bottom: 30px;
+		width:100%; line-height:40px; position:absolute; top:0; left:0; z-index: 30;
+    }
+    .tabtitle p{display:inline-block;max-width:120px;font-size: 16px;color: #3e4351; overflow:hidden; line-height: 40px;vertical-align: top;white-space: nowrap;text-overflow:ellipsis;}
+    .tabtitle i{
+		position: absolute;
+		top: 8px;
+		background-position:0 0 ;
+		height: 18px;
+		width: 18px;
+		cursor: pointer;
+    }
+   	.tabtitle .pre_box{
+   		background-image: url('../img/sop_progress/pre_box.png');
+   		left: 13px;
+   	}
+   		.tabtitle .next_box{
+   		background-image: url('../img/sop_progress/next_box.png');
+   		right: 13px;
+   	}
+    .tabtitle .edit{
+        margin-bottom: 20px;
+    }
+   .tab_con{
+    	padding: 0 10px;
+    }
+    .tabtitle h3{
+        display: inline-block;
+        font-size:16px;
+        color:#3e4351;
+        line-height: 40px;
+        font-weight: normal;
+        margin: 0 auto;
+    }
+    .tabtitle span{
+        font-size:12px;
+        color:#ff5a5a;
+        line-height: 40px;
+        padding-left: 5px;
+    }
+    .new_poptxt .bootstrap-table{padding:0 20px;}
+    .new_poptxt .bootstrap-table table tbody td{max-width:280px;}
+    .new_poptxt .tablink li{
+		line-height: 1;
+		padding: 9px 26px;
+		height: auto;
+    }
+    .new_poptxt .tablink{
+		border-bottom:2px solid #f1f2f5 ;
+		position: relative;
+		margin-bottom: 3px;
+    }
+     .new_poptxt .tablink .icon{
+		position: absolute;
+		right: 0;
+		top: 5px;
+		margin: 0;
+		font-size:12px;
+		color:#7a8798;
+		line-height: 1;
+		width: 65px;
+		background:none;
+		display:none;
+    }
+    .new_poptxt .tablink img{
+    	display: inline-block;
+		margin: -2px 10px 0 0;
+		vertical-align: middle;
+    }
+    .add_list{
+    	padding: 8px 12px 8px 30px;
+    	border-radius:4px;
+    	display: inline-block;
+    	font-size:14px;
+		margin: 17px 0 0px 20px;
+		background: #539be2 url("../img/btnico2.png") 8px -119px no-repeat;
+    }
+    .pop_table{
+    	border:1px solid #ccd2d7;
+		border-radius:4px;
+		width:588px;
+		margin: 0 auto;
+		display: table;
+		table-layout: fixed;
+		overflow: hidden;
+    }
+    .pop_table thead{
+    	background:#f9fafc;
+    }
+	.myprojecttc .pop_table td{
+		padding-left: 20px;
+		text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+	}
+	.myprojecttc .pop_table th{
+		padding:0 20px;
+		text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+	}
+	.myprojecttc .pop_table .tab_time{
+		width: 80px;
+	}
+	.myprojecttc .pop_table .conclusion{
+		width: 40px;
+	}
+	.myprojecttc .pop_table .reason{
+		width: 210px;
+	}
+	.myprojecttc .pop_table .action{
+		width: 80px;
+	}
+	.pop_table td a{
+		margin-right: 15px;
+		color:#66b1f2;
+	}
+	.popbtm_btn{position:absolute;bottom:30px; right:40px;left:40px;}
+	.popbtm_btn a{
+		display: inline-block;
+		line-height: 30px;
+		padding: 0 12px;
+		border-radius:4px;
+		font-size:14px;
+		margin-top: 40px;
+	}
+	.popbtm_btn .fffbtn{
+		background:#f9fbfc;
+		border:1px solid #ccd2d7;
+		color:#4a97da;
+	}
+	.popbtm_btn .bluebtn.disabled,.popbtm_btn .fffbtn.disabled{
+		border:1px solid #ccd2d7;
+		border-radius:4px;
+		color:#b2b2b2!important;
+	}
+	.popbtm_btn .bluebtn{
+		float: right;
+		margin-left: 15px;
+	}
+    /* 添加访谈记录表单 */
+    .intw_time input{
+        width: 220px!important;
+        background-position: 200px -150px !important;
+    }
+    .intw_time{
+        float: left;
+        width:50%;
+    }
+    .interviewee{
+        float: right;
+        width:50%;
+    }
+    .interviewee input{
+        width: 189px!important;
+    }
+    .new_poptxt .fmdl{
+        margin: 0 0 20px; 
+    }
+    .new_poptxt .pubbtn{display: inline-block;}
+    .fmdl.check_result select{
+        display: inline-block;
+        margin: 0 20px 0 10px;
+        width: 170px;
+    }
+     .fmdl.check_result input[type='text']{
+        width: 266px;
+    }
+    .check_result div{
+        margin-bottom: 37px;
+	    margin-left: 77px;
+	    margin-top: -29px;
+	}
+	.check_result div#div_5{display:block; clear: both;}
+    .check_detail{
+    	margin-bottom: -10px;
+    }
+    .save_button{
+        text-align: center;
+        margin-top: 40px;
+    }
+    .save_button a{
+        display: inline-block;
+    }
+    .save_button .bluebtn{
+        margin-right: 18px;
+    }
+    .audio_name{
+    	display: inline-block;
+    	padding-right:8px;
+    	padding-left: 25px;
+    	background: url("../img/sop_progress/audio_icon.png") no-repeat center left;
+    }
+    .audio_name.no_bg{background:none;padding-left: 0px;}
+    .download_name{
+    	color:#4a97da;
+    	cursor: pointer;
+    }
+	#sop_progress_view  blockquote {
+		margin: 0;
+	    width: 540px;
+	   	height:auto;
+	    max-height: 150px!important;
+	    overflow-y: auto!important;
+	}
+	.empty_warning,.not_stage{
+		display: none;
+		background: url("../img/sop_progress/tableno_data.png") no-repeat;
+		height: 210px;
+		background-position:center 10px; 
+	}
+	.not_stage{
+		background-image:  url("../img/sop_progress/not_stage.png");
+	    background-position: center 16%;
+        background-size: 23%;
+	    position: absolute;
+	    top:120px;
+	    right:0;
+	    left:0;
+	    bottom:0px;
+	    background-color:#fff;
+	    height:auto;
+	        z-index: 100;
+	}
+	.not_stage .stage_cover{
+		position: absolute;
+		top: -50px;
+		left:0;
+		right:0;
+		height: 35px;
+		background: rgba(255, 255, 255, .7);
+	}
+	.not_stage p{
+	position: absolute;
+	left:50%;
+	margin-left:-25px;
+    top: 95%;
+    margin-top: -107px;
+	font-size:12px;
+	color:#999999;
+	}
+	.file_list{
+		display: none;
+		margin-top: 30px;
+	}
+	.file_list li{
+		position: relative;
+		display: inline-block;
+		height:150px;
+		width:90px;
+		float: left;
+		margin-right:12px;
+	}
+	.file_list input{
+		width:90px;
+		height:120px;
+		opacity: 0;
+		position: relative;
+		z-index: 10;
+		position: absolute;
+	}
+	.file_list span{
+		display: block;
+		margin-top: 130px;
+		font-size:12px;
+		color:#3e4351;
+		line-height: 1;
+		text-align: center;
+	}
+	.file_list .file_box{
+		background:#f1f2f5;
+		width:90px;
+		height:120px;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+	.file_list .file_box .cover_box{
+		display: none;
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		top: 0px;
+		left: 0px;
+		z-index: 10;
+		width: auto;
+		height: auto;
+		background: rgba(0,0,0,.6);
+	}
+	.file_list .file_box .cover_box span{
+		height: 24px;
+		width: 24px;
+		padding-top:28px;
+		background-repeat: no-repeat;
+		background-position: top center;
+		margin-left: 12px;
+		font-size:12px;
+		color:#ffffff;
+		margin-top: 40px;
+		cursor: pointer
+	}
+	.file_list .file_box .cover_box p{
+		display: none;
+		color: #fff;
+		line-height: 120px;
+		text-align: center;
+
+	}
+	.file_box .cover_box .cancel{
+	background-image: url('../img/sop_progress/cancel.png');
+	margin-right: 3px;
+	}
+	.file_box .cover_box .up_load{
+	background-image: url('../img/sop_progress/up_load.png');
+	}
+	.file_box .cover_box .up_load:hover{
+	background-image: url('../img/sop_progress/up_load_h.png');
+	}
+	.file_box .cover_box .cancel:hover{
+	background-image: url('../img/sop_progress/cancel_h.png');
+	}
+	.file_list .file_box span{
+		display: inline-block;
+		cursor: pointer;
+		width: 18px;
+		height: 18px;
+		background-repeat: no-repeat;
+		background-position: center;
+		margin: 2px 0 0 0;
+	}
+	.file_list .file_box .add_img,.file_list .file_box .center_text{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform:translate(-50%,-50%);
+		-webkit-transform:translate(-50%,-50%);
+		-moz-transform:translate(-50%,-50%);
+		-o-transform:translate(-50%,-50%);
+	}
+	.file_list .file_box .center_text{
+		width: 46px;
+		color:#b2b2b2;
+		text-align: center;
+	}
+	.file_btn{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 26px;
+		background:rgba(0,0,0,.2);
+		text-align: right;
+		padding-right: 4px;
+	    padding-top: 2px;
+	}
+	.downlond_other{background-image: url('../img/sop_progress/downlond_pdf.png');}
+	.downlond_jpg,.downlond_png,.downlond_JPG,.downlond_PNG,.downlond_JPEG,.downlond_jpeg,.downlond_xls,.downlond_xlsx,.downlond_XLS,.downlond_XLSX{
+		background-image: url('../img/sop_progress/downlond_jpg.png')
+	}
+	.reupload_jpg,.reupload_pdf,.reupload_JPG,.reupload_PDF,.reupload_jpeg,.reupload_JPEG,.reupload_xls,.reupload_xlsx,.reupload_XLS,.reupload_XLSX{
+		background-image: url('../img/sop_progress/reupload_jpg.png')
+	}
+	.reupload_other{
+	    background-image: url('../img/sop_progress/reupload_pdf.png')
+	}
+	.downlond_pdf{
+		background-image: url('../img/sop_progress/downlond_pdf.png')
+	}
+	.reupload_pdf{
+		background-image: url('../img/sop_progress/reupload_pdf.png')
+	}
+	.downlond_pdf:hover,.downlond_other:hover,.downlond_jpg:hover{
+		background-image: url('../img/sop_progress/downlond_heightl.png')
+	}
+	.reupload_pdf:hover,.reupload_jpg:hover,.reupload_other:hover{
+		background-image: url('../img/sop_progress/reupload_heightl.png')
+	}
+	.operation_warning{
+		text-align: center;
+		display:none;
+		margin-bottom:20px;
+	}
+	.operation_warning img{
+		margin: 58px auto 20px;
+	}
+	.operation_warning span{
+		display: block;
+		text-align: center;
+		font-size:12px;
+		color:#999999;
+	}
+	.intw_name{
+	float:left;
+    max-width: 245px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+  .close.progress_close{
+  	width: 32px;
+  	height: 32px;
+  	position: absolute;
+  	right: -30px;
+  	top: -29px;
+  	cursor: pointer;
+  	    background: url(../img/sop_progress/X_close.png) no-repeat;
+  }
+.new_poptxt .tabcon{width:100%;}
+.new_poptxt .tabcon .fixed-table-body {margin-top:20px;border:1px solid #ccd2d7;border-radius:4px;	max-height:160px;overflow-y:auto;width:100%; display:block;}
+.new_poptxt .tabcon .fixed-table-body table thead th{border:0!important;background:#f9fafc;}
+.new_poptxt .fixed-table-body .fixed-table-loading{left:1px;right:1px;bottom:1px}
+.new_poptxt .tabcon .fixed-table-body table thead th:nth-child(3){width:150px;}
+.new_poptxt .tabcon .fixed-table-body table tbody tr td:nth-child(3){width:150px;}
+.new_poptxt  #projectProgress_1_table .no-records-found td{height: 88px!important;}
+.new_poptxt #projectProgress_1_table tbody td{ padding:0 0 0 5px!important; world-break:normal;overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
+/* 会议、访谈调整 */  
+#meetingNotesCon {width:600px;word-wrap:break-word;height:220px;overflow-y:auto;}
+#viewNotesCon{height:450px;word-wrap:break-word;overflow-y:auto;}
+.new_poptxt .fixed-table-pagination .pagination-detail{ margin-bottom: -15px; margin-top: -10px;}
+.new_poptxt #interviewResult{padding-left: 74px;}
+.new_poptxt #resultReason{display:block; width:640px;padding-right:30px  }
+.new_poptxt .result_reason{margin-top: -30px;}
+.new_poptxt .tab_con dd{position:relative;}
+.new_poptxt .fixed-table-pagination{margin-bottom:105px}
+.new_poptxt label.error{position: absolute;
+    padding: 5px;
+    z-index: 10;
+    width: 30px;
+    line-height: 1.2;
+    border:1px solid #ddd;
+        top: 3px;
+    margin-left: 5px;
+    }
+.new_poptxt #resultRadion label.error{margin-left: 33px; top: 2px;}
+.new_poptxt #resultRadion .resel_box label.error{ position: absolute; right: -35px;}
+.new_poptxt #resultRadion .reason_box label.error{position: absolute; right: -56px;}
+#resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
+#viewNotes-error{display:none;}
+#resultRadion.spresult div{margin-bottom:0;}
+.interviewee .viewTarget span{float: left;
+    max-width: 239px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;}
+#powindow .close{z-index:40;}    
+.intw_summary dd{word-break:break-all;}  
+.intw_summary ol,.intw_summary ol li{list-style-type: decimal;list-style-position: inside; } 
+.intw_summary ul,.intw_summary ul li{list-style-type: disc;list-style-position: inside; } 
+.intw_summary li{display: list-item;} 

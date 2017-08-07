@@ -25,8 +25,8 @@
 		<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
 		<result column="record_type" jdbcType="TINYINT" property="recordType" />
 		<result column="meeting_id" jdbcType="BIGINT" property="meetingId"/>
-		
-		
+		<result column="interview_record_id" jdbcType="BIGINT" property="interviewRecordId"/>
+		<result column="meeting_record_id" jdbcType="BIGINT" property="meetingRecordId"/>
 		<result column="project_name" jdbcType="VARCHAR" property="projectName"/>
 		<result column="file_uname" jdbcType="VARCHAR" property="fileUName"/> 
 		<result column="v_status" jdbcType="VARCHAR" property="Vstatus"/>
@@ -40,7 +40,7 @@
 		file_source, file_type,
 		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
-		file_key, bucket_name,file_name,file_suffix,record_type,meeting_id
+		file_key, bucket_name,file_name,file_suffix,record_type,meeting_id,interview_record_id,meeting_record_id
 	</sql>
 	
 	
@@ -161,7 +161,7 @@
 			where	sf.project_id = sp.id
 			and		(select dict.dict_value  from dict where dict.dict_code = sp.project_progress) >= (select dict.dict_value  from dict where dict.dict_code = sf.project_progress)
 			and		sf.file_worktype is not null and sf.file_worktype != 'fileWorktype:12'
-			<![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]>
+			<!-- <![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]> -->
 			<include refid="Page_Where_Clause" />
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="offset != null and limit != null">
@@ -179,7 +179,7 @@
 			where	sf.project_id = sp.id
 			and		(select dict.dict_value  from dict where dict.dict_code = sp.project_progress) >= (select dict.dict_value  from dict where dict.dict_code = sf.project_progress)
 			and		sf.file_worktype is not null and sf.file_worktype != 'fileWorktype:12'
-			<![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]>
+			<!-- <![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]> -->
 			<include refid="Page_Where_Clause" />
 	</select>
 	
@@ -288,20 +288,20 @@
  		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
- 		bucket_name,file_name,file_suffix,record_type,meeting_id)
+ 		bucket_name,file_name,file_suffix,record_type,meeting_id,interview_record_id,meeting_record_id)
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{belongUid,jdbcType=BIGINT}, #{fileValid,jdbcType=INTEGER},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
  		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{voucherId,jdbcType=BIGINT},
  		#{fileStatus,jdbcType=VARCHAR},
- 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT},
+ 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},
  		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},
  		#{fileKey,jdbcType=VARCHAR},
  		#{bucketName,jdbcType=VARCHAR},
  		#{fileName,jdbcType=VARCHAR},
  		#{fileSuffix,jdbcType=VARCHAR},
  		#{recordType,jdbcType=TINYINT},
- 		#{meetingId,jdbcType=BIGINT})
+ 		#{meetingId,jdbcType=BIGINT},#{interviewRecordId,jdbcType=BIGINT},#{meetingRecordId,jdbcType=BIGINT})
  	</insert>
 	
 	<!-- 项目移交时修改文档部门ID -->
@@ -334,6 +334,8 @@
 			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
 			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 			<if test="meetingId != null"> meeting_id = #{meetingId,jdbcType=BIGINT}, </if>
+			<if test="interviewRecordId != null"> interview_record_id = #{interviewRecordId,jdbcType=BIGINT}, </if>
+			<if test="meetingRecordId != null"> meeting_record_id = #{meetingRecordId,jdbcType=BIGINT}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -369,6 +371,8 @@
 			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 			<if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
 			<if test="meetingId != null"> meeting_id = #{meetingId,jdbcType=BIGINT}, </if>
+			<if test="interviewRecordId != null"> interview_record_id = #{interviewRecordId,jdbcType=BIGINT}, </if>
+			<if test="meetingRecordId != null"> meeting_record_id = #{meetingRecordId,jdbcType=BIGINT}, </if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
@@ -387,6 +391,7 @@
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="projectProgress != null" > and project_progress = #{projectProgress} </if>
+				<if test="fileWorktype != null" > and  file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
 				<if test="fileworktypeList != null and fileworktypeList.size() > 0" > 
 					and file_worktype in
 					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">

@@ -38,7 +38,15 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String projectType;
 	private List<Long> userIdList;
 	private List<Long> deptIdList;
+	private Long recordId;
 	
+	
+	public Long getRecordId() {
+		return recordId;
+	}
+	public void setRecordId(Long recordId) {
+		this.recordId = recordId;
+	}
 	public String getProName() {
 		return proName;
 	}

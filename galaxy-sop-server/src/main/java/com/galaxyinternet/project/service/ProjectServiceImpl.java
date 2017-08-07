@@ -13,17 +13,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
@@ -51,13 +51,14 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
-import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.project_process.event.ProgressChangeEvent;
+import com.galaxyinternet.project_process.event.RejectEvent;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
@@ -66,7 +67,7 @@ import com.galaxyinternet.service.UserService;
 
 
 @Service("com.galaxyinternet.service.ProjectService")
-public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService {
+public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService,ApplicationEventPublisherAware  {
 
 	@Autowired
 	private ProjectDao projectDao;
@@ -94,9 +95,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private PersonPoolDao personPoolDao;
 	@Autowired
 	private JointDeliveryDao jointDeliveryDao;
-	
-
-	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
 		return this.projectDao;
@@ -105,6 +103,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	@Transactional
 	public long newProject(Project project, SopFile file) throws Exception {
+		project.setProgressHistory(project.getProjectProgress());
 		long id = projectDao.insertProject(project);
 		//存商业计划书
 		if(file != null){
@@ -126,12 +125,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//投资意向书，先提交投资意向书-签署-上传签署证明
 		svf.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
 		svf.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
-		Long fid = sopVoucherFileDao.insert(svf);
+	//	Long fid = sopVoucherFileDao.insert(svf);
 		svf.setId(null);
 		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
-		f.setVoucherId(fid);
+		//f.setVoucherId(fid);
 		sopFileDao.insert(f);
 		f.setId(null);
 		f.setVoucherId(null);
@@ -149,12 +148,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//投资协议文档，投资协议文档+签署证明
 		svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 		svf.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
-		fid = sopVoucherFileDao.insert(svf);
+		//fid = sopVoucherFileDao.insert(svf);
 		svf.setId(null);
 		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
-		f.setVoucherId(fid);
+		//f.setVoucherId(fid);
 		sopFileDao.insert(f);
 		f.setId(null);
 		f.setVoucherId(null);
@@ -187,8 +186,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		sopFileDao.insert(f);
 		f.setId(null);*/
 		
-		if(project.getProjectType() != null && 
-				DictEnum.projectType.投资.getCode().equals(project.getProjectType())){
+/*		if(project.getProjectType() != null && 
+				DictEnum.projectType.投资.getCode().equals(project.getProjectType())){*/
 			//投资项目必须四个尽调、创建必须两个尽调
 			f.setFileValid(0);
 			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
@@ -203,15 +202,15 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			//投资转让协议文档，投资转让协议文档+签署证明
 			svf.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			svf.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
-			fid = sopVoucherFileDao.insert(svf);
+			//sfid = sopVoucherFileDao.insert(svf);
 			svf.setId(null);
 			f.setFileValid(1);
 			f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			f.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
-			f.setVoucherId(fid);
+			//f.setVoucherId(fid);
 			sopFileDao.insert(f);
 			f.setId(null);
-		}
+		/*}*/
 		return id;
 	}
 
@@ -245,6 +244,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	}
 
 	@Override
+	@Transactional
 	public void toSureMeetingStage(Project project) throws Exception {
 		project.setProjectProgress(DictEnum.projectProgress.投资决策会.getCode());
 		projectDao.updateById(project);
@@ -261,6 +261,15 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setCreatedTime((new Date()).getTime());
 		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		meetingSchedulingDao.insert(ms);
+		
+		//修改CEO评审排期记录为完成
+		MeetingScheduling m = new MeetingScheduling();
+		m.setProjectId(project.getId());
+		m.setMeetingType(DictEnum.meetingType.立项会.getCode());
+		m.setStatus(DictEnum.meetingResult.通过.getCode());
+		m.setUpdatedTime((new Date()).getTime());
+		m.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
+		meetingSchedulingDao.updateBySelective(m);
 	}
 
 	public Map<String, Object> getSummary(Long userId)
@@ -726,6 +735,33 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		// TODO Auto-generated method stub
 		return projectDao.selectProjectForPushMessage();
 	}
+
+
+	ApplicationEventPublisher eventPublisher;
+	@Override
+	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher)
+	{
+		this.eventPublisher = applicationEventPublisher;
+		
+	}
+
+	@Override
+	public void reject(Long id)
+	{
+		Project project = queryById(id);
+		RejectEvent event = new RejectEvent(project);
+		eventPublisher.publishEvent(event);
+	}
+
+	@Override
+	public void updateProgress(Long id, String next)
+	{
+		Project project = queryById(id);
+		ProgressChangeEvent event = new ProgressChangeEvent(project,projectProgress.getByCode(next));
+		eventPublisher.publishEvent(event);
+	}
+	
+	
 	/**
 	 * @author chenjianmei
 	 * 修改项目基本信息，包括投资形式
@@ -765,5 +801,4 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		int result = projectDao.updateById(project);
 	  return result;
 	}
-		
 }

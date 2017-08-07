@@ -73,6 +73,11 @@ public class MeetingRecord  extends PagableRecordEntity{
     private Date passMeetTime;
     private Long firstCreatedTime;
     private Long lastCreatedTime;
+    private String interviewResult;
+    private String resultReason;
+    private String resultReasonStr;
+    private String reasonOther;
+    
     
     public String getParticipant() {
 		return participant;
@@ -80,6 +85,22 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setParticipant(String participant) {
 		this.participant = participant;
+	}
+
+	public String getResultReason() {
+		return resultReason;
+	}
+
+	public void setResultReason(String resultReason) {
+		this.resultReason = resultReason;
+	}
+
+	public String getReasonOther() {
+		return reasonOther;
+	}
+
+	public void setReasonOther(String reasonOther) {
+		this.reasonOther = reasonOther;
 	}
 
 	public Long getProjectId() {
@@ -145,6 +166,8 @@ public class MeetingRecord  extends PagableRecordEntity{
 				this.meetingTypeStr = "立项会";
 			}else if(meetingType.equals("meetingType:4")){
 				meetingTypeStr = "投决会";
+			}else if(meetingType.equals("meetingType:5")){
+				meetingTypeStr = "会后商务谈判";
 			}else if(meetingType.equals("postMeetingType:1")){
 				meetingTypeStr = "周会议";
 			}else if(meetingType.equals("postMeetingType:2")){
@@ -156,22 +179,15 @@ public class MeetingRecord  extends PagableRecordEntity{
         this.meetingType = meetingType == null ? null : meetingType.trim();
     }
 
-    
-    public String getMeetingResult() {
+ 
+
+
+	public String getMeetingResult() {
 		return meetingResult;
 	}
 
 	public void setMeetingResult(String meetingResult) {
-		if(meetingResult!=null&&meetingResultStr==null){
-			if(meetingResult.equals("meetingResult:1")){
-				meetingResultStr = "通过";
-			}else if(meetingResult.equals("meetingResult:2")){
-				meetingResultStr = "待定";
-			}else if(meetingResult.equals("meetingResult:3")){
-				meetingResultStr = "否决";
-			}
-		}
-		this.meetingResult = meetingResult == null ? null : meetingResult.trim();
+		this.meetingResult = meetingResult;
 	}
 
 	public String getMeetingNotes() {
@@ -206,9 +222,11 @@ public class MeetingRecord  extends PagableRecordEntity{
 			}else if(meetingType.equals("meetingType:2")){
 				meetingTypeStr = "CEO评审";
 			}else if(meetingType.equals("meetingType:3")){
-				meetingTypeStr = "立项会";
+				this.meetingTypeStr = "立项会";
 			}else if(meetingType.equals("meetingType:4")){
 				meetingTypeStr = "投决会";
+			}else if(meetingType.equals("meetingType:5")){
+				meetingTypeStr = "会后商务谈判";
 			}else if(meetingType.equals("postMeetingType:1")){
 				meetingTypeStr = "周会议";
 			}else if(meetingType.equals("postMeetingType:2")){
@@ -416,7 +434,23 @@ public class MeetingRecord  extends PagableRecordEntity{
 	public void setLastCreatedTime(Long lastCreatedTime) {
 		this.lastCreatedTime = lastCreatedTime;
 	}
-    
+	
+	public String getInterviewResult() {
+		return interviewResult;
+	}
+
+	public void setInterviewResult(String interviewResult) {
+		this.interviewResult = interviewResult;
+	}
+
+	public String getResultReasonStr() {
+		return resultReasonStr;
+	}
+
+	public void setResultReasonStr(String resultReasonStr) {
+		this.resultReasonStr = resultReasonStr;
+	}
+
 	@Override
 	public String toString() {
 		return GSONUtil.toJson(this);

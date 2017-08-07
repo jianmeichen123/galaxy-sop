@@ -7,6 +7,91 @@ package com.galaxyinternet.model.operationLog;
  * @date 2016年3月16日
  */
 public enum OperationLogType {
+	
+    interview_add("/galaxy/progress/p1/add/"+UrlNumber.one, OperType.ADD.getOperationType(), "接触访谈",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	
+    interview_update("/galaxy/progress/p1/add/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "接触访谈",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	
+	
+	/* 2017.7 v1.5   会后商务谈判      -----------------------------------*/
+	
+	//meetingType:5   会后商务谈判
+    meeting_1_add("/galaxy/progress/p2/add/"+UrlNumber.one, OperType.ADD.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+	
+	meeting_1_update("/galaxy/progress/p2/add/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+	
+    meeting_2_add("/galaxy/progress/p2/add/"+UrlNumber.three, OperType.ADD.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	
+	meeting_2_update("/galaxy/progress/p2/add/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	
+    meeting_3_add("/galaxy/progress/p2/add/"+UrlNumber.five, OperType.ADD.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
+	meeting_3_update("/galaxy/progress/p2/add/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
+    meeting_4_add("/galaxy/progress/p2/add/"+UrlNumber.seven, OperType.ADD.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	
+	meeting_4_update("/galaxy/progress/p2/add/"+UrlNumber.eight, OperType.UPDATE.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	
+	meeting_5_add("/galaxy/progress/p2/add/"+UrlNumber.nine, OperType.ADD.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
+	
+	meeting_5_update("/galaxy/progress/p2/add/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
+	
+	
+	
+	/* 2017.7 v1.5 sopfile-flow -----------------------------------------*/
+
+	//projectProgress:4
+	//	立项报告     fileWorktype:17  
+	p5_f5_lxhbg_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.eleven, OperType.UPLOAD.getOperationType(), 
+			"立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
+	p5_f5_lxhbg_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.twelve, OperType.UPDATE.getOperationType() , 
+			"立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
+	
+	
+	//projectProgress:5
+	//	投资意向书     fileWorktype:5  UrlNumber.one  two
+	p5_f5_tzxys_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.one, OperType.UPLOAD.getOperationType(), 
+			"投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	p5_f5_tzxys_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.two, OperType.UPDATE.getOperationType() , 
+			"投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	
+	
+	//projectProgress:6
+	//	业务尽职调查报告      fileWorktype:1   three
+	//	人力资源尽职调查报告      fileWorktype:2
+	//	法务尽职调查报告    fileWorktype:3
+	//	财务尽职调查报告    fileWorktype:4
+	p6_f1_ywjd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), 
+			"业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	p6_f1_ywjd_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), 
+					"业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	//	尽职调查启动会报告    fileWorktype:18  four  five
+	//	尽职调查总结会报告    fileWorktype:19	six   seven
+	p6_f18_jzqd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.four, OperType.UPLOAD.getOperationType(), 
+			"尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	p6_f18_jzqd_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.five, OperType.UPDATE.getOperationType(), 
+			"尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	p6_f19_jzzj_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.six, OperType.UPLOAD.getOperationType(), 
+			"尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	p6_f19_jzzj_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.seven, OperType.UPDATE.getOperationType(), 
+			"尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+
+	
+	//projectProgress:8  投资协议
+	//	投资协议     fileWorktype:6     eight
+	//	股权转让协议     fileWorktype:7  nine
+	p8_f6_tzxy_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.eight, OperType.UPLOAD.getOperationType(), 
+			"投资协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	p8_f6_gqzr_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.nine, OperType.UPLOAD.getOperationType(), 
+			"股权转让协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	
+	
+	//projectProgress:9  股权交割
+	//  工商转让凭证     fileWorktype:8
+	//  资金拨付凭证     fileWorktype:9
+	
+	
+	
 
 	/*项目操作日志的配置-------------------开始-----------------------------------------------------------*/
 	//接触访谈阶段
@@ -16,7 +101,7 @@ public enum OperationLogType {
 	ADD_INTERVIEW_RECORD("/galaxy/project/progress/addInterview", OperType.ADD.getOperationType(), "访谈记录",SopStage.TOUCH_INTERVIEW.getStageName()), 
 	
 	//点击‘启动内部评审’
-	SUBMIT_INNER_REVIEW_SCHEDULE("/galaxy/project/startReview", OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	SUBMIT_INNER_REVIEW_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.one, OperType.SUBMIT.getOperationType(), "内部评审",SopStage.TOUCH_INTERVIEW.getStageName()), 
 	
 	//内部评审阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -24,6 +109,9 @@ public enum OperationLogType {
 	ADD_MEETING_FILE_ONE("/galaxy/project/progress/addfilemeet/"+UrlNumber.one, OperType.ADD.getOperationType(), "会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()),
 	ADD_MEETING_ONE("/galaxy/project/progress/addmeet/"+UrlNumber.one, OperType.ADD.getOperationType(), "会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
 
+	//点击‘申请CEO评审排期’
+	SUBMIT_CEO_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.two, OperType.SUBMIT.getOperationType(), "CEO评审排期",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+		
 	
 	//CEO评审阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -32,7 +120,7 @@ public enum OperationLogType {
 	ADD_MEETING_TWO("/galaxy/project/progress/addmeet/"+UrlNumber.two, OperType.ADD.getOperationType(), "会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
 
 	//点击申请立项会排期
-	ADD_PROJECT_SCHEDULE("/galaxy/project/ges", OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	ADD_PROJECT_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.three, OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
 	
 	//立项会阶段
 	//添加会议记录的弹出框中点击‘保存’。
@@ -42,7 +130,10 @@ public enum OperationLogType {
 
 	//点击申请立项会排期
 	//APPALY_PROJECT_SCHEDULE("", OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.PROJECT_SCHEDULE.getStageName()), 
-
+	
+	//进入会后商务谈判
+	TO_SWTP("/galaxy/progress/stageChange/"+UrlNumber.four, OperType.SUBMIT.getOperationType(), "会后商务谈判",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
 	//投资意向书阶段
 	//下载投资意向书模版	
 	DOWNLOAD_INVESTMENT_TEMPLATE("/galaxy/template/download/"+UrlNumber.five, OperType.DOWNLOAD.getOperationType(), "投资意向书模版",SopStage.INVESTMENT_INTENT.getStageName()),
@@ -57,7 +148,7 @@ public enum OperationLogType {
 	//上传业务尽职调查报告	  
 	UPLOAD_DUE_DILIGENCE_INVESTIGATION("/galaxy/project/stageChange/"+UrlNumber.seven, OperType.UPLOAD.getOperationType(), "业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//点击申请投决会排期	
-	APPLY_VOTE_SCHEDULE("/galaxy/project/smp", OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	APPLY_VOTE_SCHEDULE("/galaxy/progress/stageChange/"+UrlNumber.nine, OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//尽职调查报告催办
 	REMIND_VOTE_SCHEDULE("", OperType.REMINDER.getOperationType(), "法务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	
@@ -95,7 +186,7 @@ public enum OperationLogType {
 	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	
 	//否决项目日志
-	BREAK_PROJECT("/galaxy/project/breakpro", OperType.BREAK.getOperationType(), null,"否决项目"),
+	BREAK_PROJECT("/galaxy/progress/reject", OperType.BREAK.getOperationType(), null,"否决项目"),
 	
 	 /**
      * 人，法，财操作项目日志添加开始
@@ -211,7 +302,25 @@ public enum OperationLogType {
 
 	_19_1("/galaxy/operationalData/formAddOperationalData/"+UrlNumber.one, OperType.ADD.getOperationType(), "运营数据","运营记录"),
 	_19_2("/galaxy/operationalData/formAddOperationalData/"+UrlNumber.two, "编辑", "运营数据","运营记录"),
-	_19_3("/galaxy/operationalData/delOperationalData", OperType.DELETE.getOperationType(), "运营数据","运营记录");
+	_19_3("/galaxy/operationalData/delOperationalData", OperType.DELETE.getOperationType(), "运营数据","运营记录"),
+	
+	//签订投资意向书（投资）
+	TO_TZ("/galaxy/progress/stageChange/"+UrlNumber.five, OperType.SUBMIT.getOperationType(), "签订投资意向书（投资）",SopStage.SWTP.getStageName()),	
+	//签订投资协议书（闪投）
+	TO_ST("/galaxy/progress/stageChange/"+UrlNumber.six, OperType.SUBMIT.getOperationType(), "签订投资协议书（闪投）",SopStage.SWTP.getStageName()),	
+	//签订投资意向书（投资）-> 尽职调查
+	TZ2JADC("/galaxy/progress/stageChange/"+UrlNumber.seven, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_INTENT.getStageName()),	
+	//签订投资协议书（闪投）-> 尽职调查
+	ST2JADC("/galaxy/progress/stageChange/"+UrlNumber.eight, OperType.SUBMIT.getOperationType(), "尽职调查",SopStage.INVESTMENT_AGREEMENT.getStageName()),	
+	//投决会->投资协议
+	TJH2JADC("/galaxy/progress/stageChange/"+UrlNumber.ten, OperType.SUBMIT.getOperationType(), "签订投资协议书",SopStage.VOTE_DECISION_MEETING.getStageName()),
+	//投资协议 -> 股权交割
+	TZXY2GQJG("/galaxy/progress/stageChange/"+UrlNumber.eleven, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	//投决会 -> 股权交割 
+	TJH2GQJG("/galaxy/progress/stageChange/"+UrlNumber.twelve, OperType.SUBMIT.getOperationType(), "股权交割",SopStage.VOTE_DECISION_MEETING.getStageName()),
+	//投后运营
+	THYY("/galaxy/progress/stageChange/"+UrlNumber.thirteen, OperType.SUBMIT.getOperationType(), "投后运营",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	;
 
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/

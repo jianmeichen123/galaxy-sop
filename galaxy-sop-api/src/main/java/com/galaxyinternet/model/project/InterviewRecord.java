@@ -3,6 +3,9 @@ package com.galaxyinternet.model.project;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
@@ -29,6 +32,21 @@ public class InterviewRecord extends BaseEntity{
     
     private Long scheduleId;
     
+    private String interviewResult;
+    private String interviewResultStr;
+    
+    public String getInterviewResultStr() {
+       return interviewResultStr;
+	}
+
+	public void setInterviewResultStr(String interviewResultStr) {
+		this.interviewResultStr = interviewResultStr;
+	}
+
+	private String resultReason;
+    private String reasonOther;
+    
+    private String resultReasonStr;
     
     
     public Long getProjectId() {
@@ -169,6 +187,40 @@ public class InterviewRecord extends BaseEntity{
 
 	public void setScheduleId(Long scheduleId) {
 		this.scheduleId = scheduleId;
+	}
+	
+	
+
+	public String getInterviewResult() {
+		return interviewResult;
+	}
+
+	public void setInterviewResult(String interviewResult) {
+		this.interviewResult = interviewResult;
+	}
+
+	public String getResultReason() {
+		return resultReason;
+	}
+
+	public void setResultReason(String resultReason) {
+		this.resultReason = resultReason;
+	}
+
+	public String getReasonOther() {
+		return reasonOther;
+	}
+
+	public void setReasonOther(String reasonOther) {
+		this.reasonOther = reasonOther;
+	}
+	
+	public String getResultReasonStr() {
+		return resultReasonStr;
+	}
+
+	public void setResultReasonStr(String resultReasonStr) {
+		this.resultReasonStr = resultReasonStr;
 	}
 
 	@Override

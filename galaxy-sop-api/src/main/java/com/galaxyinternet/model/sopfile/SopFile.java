@@ -8,13 +8,88 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 
 public class SopFile extends SopParentFile implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-   
-    /**
-     * 上传所属人
+	
+	/*public static final String INIT_FILE_MAEK_INIT = "init"; // 文档状态， init(有初始记录)：记录   update；    
+	public static final String INIT_FILE_MAEK_HAS = "has";   // 文档状态，  has(有完整记录)：  记录  dead，insert；
+	public static final String INIT_FILE_MAEK_NO = "no";     // 文档状态，  no（没有记录）：      insert；
+*/	
+	private Long id;
+	@Override
+	public Long getId() {
+		return id;
+	}
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+     * 文档  操作
+     */
+	private UrlNumber number;
+	//private String initMark;   // 文档状态， init(有初始记录)：记录update；     has(有完整记录)：记录dead，insert； no（没有记录）：insert；
+	private Boolean canOpt;    // 文档可操作： 上传、编辑
+	private Boolean canDown;   // 文档可操作： 下载
+	
+	public UrlNumber getNumber() {
+		return number;
+	}
+
+
+	public void setNumber(UrlNumber number) {
+		this.number = number;
+	}
+	public Boolean getCanOpt() {
+		return canOpt;
+	}
+	public void setCanOpt(Boolean canOpt) {
+		this.canOpt = canOpt;
+	}
+	public Boolean getCanDown() {
+		return canDown;
+	}
+	public void setCanDown(Boolean canDown) {
+		this.canDown = canDown;
+	}
+
+
+
+	/**
+     * 任务
+     */
+	private String taskStatusStr;   // 关联任务状态
+	private Long taskUid;           // 认领人id
+	private String taskUname;       // 认领人name
+	
+    public String getTaskStatusStr() {
+		return taskStatusStr;
+	}
+	public void setTaskStatusStr(String taskStatusStr) {
+		this.taskStatusStr = taskStatusStr;
+	}
+	public Long getTaskUid() {
+		return taskUid;
+	}
+	public void setTaskUid(Long taskUid) {
+		this.taskUid = taskUid;
+	}
+	public String getTaskUname() {
+		return taskUname;
+	}
+	public void setTaskUname(String taskUname) {
+		this.taskUname = taskUname;
+	}
+	
+	
+	
+
+	/**
+     * 任务所属人
      */
     private Long belongUid;
     

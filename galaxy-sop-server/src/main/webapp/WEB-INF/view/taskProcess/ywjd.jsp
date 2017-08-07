@@ -3,6 +3,8 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
+	<div class="task_noprovide">
+	</div>
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -11,7 +13,6 @@
 				<th>经办经理</th>
 				<th>档案类型</th>
 				<th>档案状态</th>
-				<th>催办</th>
 				<th>查看附件</th>
 			</tr>
 		</thead>
@@ -19,9 +20,9 @@
 		</tbody>
 	</table>
 	<ul>
-		<li><a href="javascript:;" id="show-upload-btn">上传业务尽职调查报告</a></li>
+		<li><a href="javascript:;" class="task_due_btn" id="show-upload-btn">上传业务尽职调查报告</a></li>
 		<li><a href="javascript:;" id="complete-task-btn" class="disabled" style="display:none">提交完成</a></li>
-		<li><a href="javascript:;" id="apply-decision-btn" class="disabled" style="display:none">申请投决会排期</a></li>
+		<!-- <li><a href="javascript:;" id="apply-decision-btn" class="disabled" style="display:none">申请投决会排期</a></li> -->
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -135,8 +136,8 @@ function loadRows()
 					$tr.append('<td>'+((isBlank(this.fileUName)) ? "" : this.fileUName) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
-					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\" onclick=\"taskUrged("+this.id+");\">催办</a>" : "")+'</td>');
-					if(isBlank(this.fileName)){
+				/* 	$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\" onclick=\"taskUrged("+this.id+");\">催办</a>" : "")+'</td>');
+				 */	if(isBlank(this.fileName)){
 						$tr.append('<td></td>');
 						if(hasEmpty == false)
 						{
@@ -229,7 +230,12 @@ function initUpload(_dialog){
 		url : platformUrl.businessAdjustment,
 		multi_selection:false,
 		filters : {
-			max_file_size : '25mb'
+			max_file_size : '25mb',
+			mime_types : [
+				           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
+				           { title : "PDF files", extensions : "pdf,PDF" },
+				           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
+				        ]
 		},
 
 		init: {

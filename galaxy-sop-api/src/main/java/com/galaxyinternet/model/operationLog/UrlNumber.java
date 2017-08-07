@@ -9,5 +9,5 @@ package com.galaxyinternet.model.operationLog;
  *
  */
 public enum UrlNumber {
-	one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve;
+	one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen;
 }

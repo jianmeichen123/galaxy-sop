@@ -31,6 +31,8 @@ public class OperationLogs extends RecordEntity{
     
     private String reason;
     
+    private String progress;
+    
     /**
      * 0项目 1创意
     
@@ -147,6 +149,16 @@ public class OperationLogs extends RecordEntity{
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+	
+	
+
+	public String getProgress() {
+		return progress;
+	}
+
+	public void setProgress(String progress) {
+		this.progress = progress;
+	}
 
 	@Override
 	public String toString() {
@@ -155,6 +167,6 @@ public class OperationLogs extends RecordEntity{
 				+ operationType + ", operationTypeStr=" + operationTypeStr + ", projectId=" + projectId
 				+ ", projectName=" + projectName + ", operationContent=" + operationContent + ", operationContentStr="
 				+ operationContentStr + ", sopstage=" + sopstage + ", type=" + recordType + ", id=" + id + ", createdTime="
-				+ createdTime + ", reason=" + reason +"]";
+				+ createdTime + ", reason=" + reason + ", progress=" + progress +"]";
 	}
 }

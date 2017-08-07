@@ -179,9 +179,9 @@ var chartProjectProgressUtils = {
 			    align: 'right',
 			    verticalAlign: 'middle',
 			    borderWidth: 0,
-			    itemWidth:90,
-			    width:200,
-			    padding:-25,
+			    itemWidth:110,
+			    width:220,
+			    padding:-35,
 			    //minHeight:100,
 			    itemStyle:{
 			        fontWeight:'normal',
@@ -362,6 +362,8 @@ var chartProjectProgressUtils = {
 					param = 8;
 				}else if(name=="投后运营"){
 					param = 10;
+				}else if(name == '会后商务谈判'){
+					param = 11;
 				}
 			}
 			

@@ -138,7 +138,7 @@ $(function(){
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
 			var ht=projectProgress(data)
-			$("#insertImg").html(ht);
+			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
 			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"--":(projectInfo.fModeRemark==0?"--":projectInfo.fModeRemark));
 			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){

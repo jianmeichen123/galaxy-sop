@@ -108,7 +108,8 @@ public enum DictEnum {
 		投资决策会("投资决策会","projectProgress:7"),
 		投资协议("投资协议","projectProgress:8"),
 		股权交割("股权交割","projectProgress:9"),
-		投后运营("投后运营","projectProgress:10");
+		投后运营("投后运营","projectProgress:10"),
+		会后商务谈判("会后商务谈判","projectProgress:11");
 		private String name;
 
 		private String code;
@@ -144,6 +145,20 @@ public enum DictEnum {
 	        }
 	        return null;
 	    }
+	    
+	    public static projectProgress getByCode(String code)
+	    {
+	    	if (code != null && !code.trim().equals("")) 
+	    	{
+	        	projectProgress[] values = projectProgress.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i];
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 		
 	//会议类型
@@ -151,7 +166,8 @@ public enum DictEnum {
 		内评会("内评会","meetingType:1"),
 		CEO评审("CEO评审","meetingType:2"),
 		立项会("立项会","meetingType:3"),
-		投决会("投决会","meetingType:4");
+		投决会("投决会","meetingType:4"),
+		会后商务谈判("会后商务谈判","meetingType:5");
 		private String name;
 
 		private String code;
@@ -229,8 +245,94 @@ public enum DictEnum {
 	        }
 	        return null;
 	    }
-	}		
-	
+	}
+	//立项会结果
+		public enum LXHResult {
+			BCCL("补充材料","meeting3Result:1"),
+			ST("闪投","meeting3Result:2"),
+			TZ("投资","meeting3Result:3"),
+			GW("观望","meeting3Result:4"),
+			ZX("转向","meeting3Result:5"),
+			FJ("否决","meeting3Result:6");
+			private String name;
+
+			private String code;
+
+			private LXHResult(String name, String code) {
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+			
+			/**
+		     * 根据code get name
+		     * @param reslut
+		     * @return
+		     */
+		    public static String getNameByCode(String code) {
+		        
+		        if (code != null && !code.trim().equals("")) {
+		            
+		        	meetingResult[] values = meetingResult.values();
+		            for (int i = 0;i < values.length;i++) {
+		                if (code.equals(values[i].getCode())) {
+		                    return values[i].getName();
+		                }                
+		            }
+		        }
+		        return null;
+		    }
+		}
+	//商务谈判会议结果-
+	public enum SWTPResult
+	{
+		GJZ("跟进中","meeting5Result:1"),
+		FJ("否决","meeting5Result:2"),
+		ST("闪投","meeting5Result:3"),
+		TZ("投资","meeting5Result:4");
+		private String name;
+
+		private String code;
+
+		private SWTPResult(String name, String code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getCode() {
+			return code;
+		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	taskType[] values = taskType.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
+	}
 	//任务类型
 	public enum taskType {
 		审批流程("审批流程领","taskType:1"),
@@ -346,7 +448,8 @@ public enum DictEnum {
 	public enum fileStatus{
 		缺失("缺失","fileStatus:1"),
 		已上传("已上传","fileStatus:2"),
-		已签署("已签署","fileStatus:3");
+		已签署("已签署","fileStatus:3"),
+		已放弃("已放弃","fileStatus:4");
 		
 		private String name;
 		private String code;

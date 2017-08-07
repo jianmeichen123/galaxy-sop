@@ -361,6 +361,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value = "/submitTask", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> submitTask(@RequestBody SopTask entity,HttpServletRequest request) {
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		entity.setAssignUid(user.getId());
 		SopFile sipFile =new SopFile();
 		if(entity.getId() == null){
 			responseBody.setResult(new Result(Status.ERROR,null,"缺失必须的参数!"));
@@ -427,15 +429,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		sipFile.setFileWorktype(fileWorktype);
 		SopFile queryOne = sopFileService.queryOne(sipFile);
 		Project project = projectService.queryById(queryOne.getProjectId());
-		if(null!=queryOne){
+		if(null!=queryOne&&!entity.getGiveUp()){
 			if(queryOne.getFileStatus().equals("fileStatus:1")){
 				responseBody.setResult(new Result(Status.ERROR,null,"文件未上传，任务提交失败!"));
 				return responseBody;
 			}
-		  if(queryOne.getFileStatus().equals("fileStatus:2")&&null!=queryOne.getVoucherId()){
+		/*  if(queryOne.getFileStatus().equals("fileStatus:2")&&null!=queryOne.getVoucherId()){
 				responseBody.setResult(new Result(Status.ERROR,null,"签署证明未上传，任务提交失败"));
 		        return responseBody;
-		     }
+		     }*/
 		}
 		try {
 			int r = sopTaskService.submitTask(entity);

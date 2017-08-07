@@ -493,6 +493,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	@Transactional
 	@Override
 	public int submitTask(SopTask task) throws Exception {
+		boolean giveUp=task.getGiveUp();
 		int result = 0;
 		task = sopTaskDao.selectById(task.getId());
 		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
@@ -522,17 +523,21 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				t.setTaskFlag(8);
 			}
 			SopFile f = sopFileDao.selectOne(file);
+			if(giveUp==true){
+				f.setFileUid(task.getAssignUid());
+                f.setFileStatus("fileStatus:4");
+			}
 			f.setFileValid(1);
 			sopFileDao.updateById(f);
 			if(t != null){
 				t.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 				SopTask ut = sopTaskDao.selectOne(t);
 		    	if(ut != null){
-		    		Project project = new Project();
+		    		/*Project project = new Project();
 		    		project.setId(task.getProjectId());
 		    		project.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		    		project.setProjectStatus(DictEnum.projectStatus.THYY.getCode());
-		    		projectDao.updateById(project);
+		    		projectDao.updateById(project);*/
 		    		result = 1;
 		    	}
 			}

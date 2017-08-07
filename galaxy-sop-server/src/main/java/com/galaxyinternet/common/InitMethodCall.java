@@ -3,6 +3,8 @@ package com.galaxyinternet.common;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+
+import com.galaxyinternet.common.utils.DictCacheUtils;
 import com.galaxyinternet.common.utils.SpringContextManager;
 import com.galaxyinternet.scheduling.MeetingPassStageTask;
 import com.galaxyinternet.scheduling.PullMessageTask;
@@ -30,9 +32,17 @@ public class InitMethodCall extends HttpServlet {
 		PushMessageTask pushMessageTask = SpringContextManager.getBean("pushMessageTask",PushMessageTask.class);
 		pushMessageTask.execute();
 		
+		
+		//推送排期时间
+		DictCacheUtils dictCacheUtils = SpringContextManager.getBean("dictCacheUtils",DictCacheUtils.class);
+		dictCacheUtils.execute();
+		
 		//每月1号给已经有注资信息的项目推送添加运营数据的消息
 	//	PushMessageOperation pushMessageOperation = SpringContextManager.getBean("pushMessageOperation",PushMessageOperation.class);
 	//	pushMessageOperation.execute();
+		
+		
+		
 	}
 
 }

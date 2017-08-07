@@ -128,13 +128,13 @@
         </div>
        <!--右边-->
         <div class="basic_right">
-        	<div class="tabtable_con_on">
+        <!-- 	<div class="tabtable_con_on">
             	<div class="new_bottom_color">
                     <span class="new_ico_hint"></span>
                     <span class="new_color size16">温馨提示</span>
                 </div>
                 <p class="basic_p">标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）</p>
-            </div>
+            </div> -->
         </div>
         <!--右边 end--> 
     </div>

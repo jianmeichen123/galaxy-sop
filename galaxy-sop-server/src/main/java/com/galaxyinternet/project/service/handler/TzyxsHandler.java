@@ -49,7 +49,7 @@ public class TzyxsHandler implements Handler {
 	@Autowired
 	private SopVoucherFileDao sopVoucherFileDao;
 
-	@Override
+	/*@Override
 	@Transactional
 	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
@@ -158,6 +158,45 @@ public class TzyxsHandler implements Handler {
 			sopFileDao.updateById(f);
 			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five,SopFileMessageHandler._5_2_,f);
 		}
+	}
+	*/
+	
+	@Override
+	@Transactional
+	public SopResult handler(ViewQuery query, Project project) throws Exception {
+		ProjectQuery q = (ProjectQuery) query;
+		//投资意向书
+		SopFile qf = new SopFile();
+		qf.setProjectId(q.getPid());
+		qf.setProjectProgress(q.getStage());
+		qf.setFileWorktype(q.getFileWorktype());
+		SopFile f = sopFileDao.selectOne(qf);
+		f.setFileSource(String.valueOf(q.getType()));
+		f.setFileType(q.getFileType());
+		f.setRemark(q.getContent());
+		f.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+		f.setFileUid(q.getCreatedUid());
+		f.setUpdatedTime((new Date()).getTime());
+		f.setFileLength(q.getFileSize());
+		f.setFileKey(q.getFileKey());
+		f.setBucketName(q.getBucketName());
+		f.setFileName(q.getFileName());
+		f.setFileSuffix(q.getSuffix());
+		sopFileDao.updateById(f);
+			
+		SopTask task = new SopTask();
+		//条件
+		task.setProjectId(q.getPid());
+		task.setTaskType(DictEnum.taskType.协同办公.getCode());
+		task.setTaskFlag(SopConstant.TASK_FLAG_SCTZYXS);
+		//修改
+		Date time=new Date();
+		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setUpdatedTime(time.getTime());
+		task.setTaskDeadline(time);
+		sopTaskDao.updateTask(task);
+			
+		return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five,SopFileMessageHandler._5_2_,f);
 	}
 	
 }

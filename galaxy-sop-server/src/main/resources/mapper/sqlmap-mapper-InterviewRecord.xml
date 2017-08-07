@@ -14,11 +14,13 @@
     <result column="created_id" property="createdId" jdbcType="BIGINT" />
      <result column="update_time" property="updatedTime" jdbcType="BIGINT" />
      <result column="schedule_id" property="scheduleId" jdbcType="BIGINT" />
-     
+     <result column="interview_result" property="interviewResult" jdbcType="VARCHAR" />
+     <result column="result_reason" property="resultReason" jdbcType="VARCHAR" />
+     <result column="reason_other" property="reasonOther" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, project_id,file_id, view_date, view_target, view_notes, view_notes_text,schedule_id,created_time,created_id
+    id, project_id,file_id, view_date, view_target, view_notes, view_notes_text,schedule_id,created_time,created_id,interview_result,result_reason,reason_other
   </sql>
   
   <sql id="Base_Where_Clause">
@@ -43,6 +45,9 @@
 				</if>
 				<if test="startTime != null"> <![CDATA[  and view_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 				<if test="endTime != null"> <![CDATA[ and view_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="interviewResult != null" > and interview_result = #{interviewResult,jdbcType=VARCHAR} </if>
+				<if test="resultReason != null" > and result_reason = #{resultReason,jdbcType=VARCHAR} </if>
+				<if test="reasonOther != null" > and reason_other = #{reasonOther,jdbcType=VARCHAR} </if>
 				
 			</trim>
 		</where>
@@ -89,11 +94,11 @@
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.InterviewRecord" >
 	    <![CDATA[
 		insert into sop_interview_record (id, project_id, file_id,view_date, 
-		  view_target, view_notes,view_notes_text, created_time,created_id,update_time
+		  view_target, view_notes,view_notes_text, created_time,created_id,update_time,interview_result,result_reason,reason_other
       	)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{viewDate,jdbcType=TIMESTAMP}, 
 	      #{viewTarget,jdbcType=VARCHAR}, #{viewNotes,jdbcType=VARCHAR}, #{viewNotesText,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{createdId,jdbcType=BIGINT}
-		,#{createdTime,jdbcType=BIGINT})
+		,#{createdTime,jdbcType=BIGINT},#{interviewResult,jdbcType=VARCHAR},#{resultReason,jdbcType=VARCHAR},#{reasonOther,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
@@ -109,8 +114,10 @@
 	      <if test="viewNotesText != null" > view_notes_text = #{viewNotesText,jdbcType=VARCHAR}, </if>
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 	       <if test="createdId != null" > created_id = #{createdId,jdbcType=BIGINT}, </if>
-	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT} </if>
-	   
+	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT}, </if>
+	       <if test="interviewResult != null" > interview_result = #{updatedTime,jdbcType=BIGINT}, </if>
+		    <if test="resultReason != null" > result_reason = #{updatedTime,jdbcType=BIGINT}, </if>
+		    <if test="reasonOther != null" > reason_other = #{updatedTime,jdbcType=BIGINT} </if>
 	       
 		</set>
 		<where>
@@ -124,6 +131,9 @@
 	      		<if test="viewNotesText != null" > and view_notes_text = #{viewNotesText,jdbcType=VARCHAR} </if>
 	      		<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 	      	    <if test="createdId != null" > and created_id = #{createdId,jdbcType=BIGINT} </if>
+	      	    <if test="interviewResult != null" > interview_result = #{updatedTime,jdbcType=BIGINT}, </if>
+		        <if test="resultReason != null" > result_reason = #{updatedTime,jdbcType=BIGINT}, </if>
+		        <if test="reasonOther != null" > reason_other = #{updatedTime,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
 	</update>
@@ -139,8 +149,10 @@
 	       <if test="viewNotesText != null" > view_notes_text = #{viewNotesText,jdbcType=VARCHAR}, </if>
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 	      <if test="createdId != null" > created_id= #{createdId,jdbcType=BIGINT}, </if>
-	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT}</if>
-	   
+	       <if test="updatedTime != null" > update_time = #{updatedTime,jdbcType=BIGINT},</if>
+	       <if test="interviewResult != null" > interview_result = #{interviewResult,jdbcType=BIGINT}, </if>
+		    <if test="resultReason != null" > result_reason = #{resultReason,jdbcType=BIGINT}, </if>
+		    <if test="reasonOther != null" > reason_other = #{reasonOther,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -171,6 +183,7 @@
 	    <result column="view_date" property="viewDate" jdbcType="TIMESTAMP" />
 	    <result column="view_target" property="viewTarget" jdbcType="VARCHAR" />
 	    <result column="view_notes" property="viewNotes" jdbcType="VARCHAR" />
+	    <result column="interview_result" property="interviewResult" jdbcType="VARCHAR" />
 	    <result column="view_notes_text" property="viewNotesText" jdbcType="VARCHAR" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
 	    <result column="created_id" property="createdId" jdbcType="BIGINT" />
@@ -180,7 +193,7 @@
 	<select id="selectInterviewPage" resultMap="PageResultMap" parameterType="java.util.Map">
 		select
 			ir.id, ir.project_id, p.project_name, ir.file_id, ir.view_date, ir.view_target, 
-			ir.view_notes,ir.view_notes_text, ir.created_time
+			ir.view_notes,ir.interview_result,ir.view_notes_text, ir.created_time
 		from sop_interview_record ir , sop_project p 
 		where ir.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>

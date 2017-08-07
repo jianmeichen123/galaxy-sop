@@ -27,6 +27,7 @@ public class SopTask extends PagableEntity{
  	private Long endTime;
  	private List<Integer> taskFlagS;
  	private List<Long> projectIdList;
+ 	private boolean giveUp;
      
 	public Long getProjectId() {
 		return projectId;
@@ -133,5 +134,15 @@ public class SopTask extends PagableEntity{
 	public void setQueryTaskStatus(String queryTaskStatus) {
 		this.queryTaskStatus = queryTaskStatus;
 	}
+	public boolean getGiveUp() {
+		return giveUp;
+	}
+	public void setGiveUp(boolean giveUp) {
+		this.giveUp = giveUp;
+	}
+	
+	
+	
+	
     
 }

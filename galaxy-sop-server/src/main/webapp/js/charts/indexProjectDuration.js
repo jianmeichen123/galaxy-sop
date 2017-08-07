@@ -126,8 +126,21 @@ function load_data_chart_project_time(){
 					//tmp.selected=true;
 					//selectedPie = {num:tmp.y,rate:rate};
 				}
+				if( i == 4){
+					/**
+					 * 会后商务谈判假数据
+					 */
+					var tmp1 = {
+							name : "会后商务谈判",
+							color :'#4490d2',
+							y : 0,
+							rate : parseFloat(0)
+					};
+					re.push(tmp1);
+				}
 				re.push(tmp);
 			}
+			
 			//console.log(re);
 			//console.log(totalDay);
 			containerProjectTimeOptions.series[0].data = re;
@@ -279,9 +292,9 @@ var containerProjectTimeOptions = {
 	     align: 'right',
 	     verticalAlign: 'middle',
 	     borderWidth: 0,
-	     width:200,
+	     width:210,
 	     padding:-25,
-	     itemWidth:90,
+	     itemWidth:105,
 	     //minHeight:100,
 	     itemStyle:{
 	         fontWeight:'normal',

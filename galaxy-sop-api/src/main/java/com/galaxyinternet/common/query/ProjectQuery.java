@@ -32,6 +32,43 @@ public class ProjectQuery extends ViewQuery{
 	private Integer type;
 	//针对访谈对象
 	private String target;
+	//访谈结果
+	private String interviewResult;
+	private String projectProgress;
+	
+	
+	public String getProjectProgress() {
+		return projectProgress;
+	}
+	public void setProjectProgress(String projectProgress) {
+		this.projectProgress = projectProgress;
+	}
+	private Long recordId;
+	public String getInterviewResult() {
+		return interviewResult;
+	}
+	public void setInterviewResult(String interviewResult) {
+		this.interviewResult = interviewResult;
+	}
+	//结果原因
+	private String resultReason;
+	//其他原因
+	private String reasonOther;
+	
+	
+	public String getResultReason() {
+		return resultReason;
+	}
+	public void setResultReason(String resultReason) {
+		this.resultReason = resultReason;
+	}
+	
+	public String getReasonOther() {
+		return reasonOther;
+	}
+	public void setReasonOther(String reasonOther) {
+		this.reasonOther = reasonOther;
+	}
 	//附加内容
 	private String content;
 	//时间
@@ -209,6 +246,14 @@ public class ProjectQuery extends ViewQuery{
 	public void setServiceCharge(Double serviceCharge) {
 		this.serviceCharge = serviceCharge;
 	}
+	public Long getRecordId() {
+		return recordId;
+	}
+	public void setRecordId(Long recordId) {
+		this.recordId = recordId;
+	}
+	
+	
 	
 	
 }
