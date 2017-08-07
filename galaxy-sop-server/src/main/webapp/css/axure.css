@@ -3325,10 +3325,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .new_poptxt .tabcon .fixed-table-body table thead th:nth-child(3){width:150px;}
 .new_poptxt .tabcon .fixed-table-body table tbody tr td:nth-child(3){width:150px;}
 .new_poptxt  #projectProgress_1_table .no-records-found td{height: 88px!important;}
-.new_poptxt #projectProgress_1_table tbody td{ padding:0 0 0 5px!important; world-break:normal;overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
+.new_poptxt  #projectProgress_1_table tbody td{ padding:0 0 0 5px!important; world-break:normal;overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
 /* 会议、访谈调整 */  
 #meetingNotesCon {width:600px;word-wrap:break-word;height:220px;overflow-y:auto;}
 #viewNotesCon{height:450px;word-wrap:break-word;overflow-y:auto;}
+#viewNotesCon li{    display: list-item;}
+#viewNotesCon ol,#viewNotesCon ol li{list-style-type: decimal;list-style-position: inside;}
+#viewNotesCon ul,#viewNotesCon ul li{list-style-type: disc;list-style-position: inside; }
 .new_poptxt .fixed-table-pagination .pagination-detail{ margin-bottom: -15px; margin-top: -10px;}
 .new_poptxt #interviewResult{padding-left: 74px;}
 .new_poptxt #resultReason{display:block; width:640px;padding-right:30px  }
