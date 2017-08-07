@@ -231,15 +231,17 @@ function buildResult(title)
 	}
 	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
 	//Radio
-	if(type == 2)
+	if(type == 2 || type==14)
 	{
 		_ele.attr('data-title-value',results[0].contentChoose)
 		_ele.text(results[0].valueName);
+		_ele.attr("data-result-id",results[0].id);
 	}
 	//文本域
 	else if(type == 8)
 	{
 		_ele.text(results[0].contentDescribe1);
+		_ele.attr("data-result-id",results[0].id);
 	}
 	//复选带备注
 	else if (type == 3 || type == 6 || type == 13)
@@ -270,7 +272,6 @@ function buildResult(title)
 		{
 			_ele.text(val);
 		}
-		
 	}
 }
 

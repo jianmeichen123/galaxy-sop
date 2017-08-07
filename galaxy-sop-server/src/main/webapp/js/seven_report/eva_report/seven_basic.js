@@ -160,6 +160,7 @@ function right(obj,type){
 		else
 		{
 			p.attr("data-title-value",val_id);
+			p.text(val);
 		}
 	}else if(type=="checkbox"){
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked')
@@ -183,15 +184,30 @@ function right(obj,type){
 		}
 			
 	}else if(type=="textarea"){
-		align_left = $("span[parent_dom='show']").parent().find(".align_left").find('p');
+		p = $("span[parent_dom='show']").parent().find(".align_left").find('p');
 		var val = $(obj).parent().parent().find("textarea").val();
+		if(val == null || val.length == 0)
+		{
+			val='未填写';
+		}
+		p.text(val);
+		
 	}else if(type=="select"){
-		align_left =  $(obj).parent().parent().find(".align_left");
+		var p = align_left.find('p');
 		var _select = $(obj).closest('td').find('.dropdown').find("input");
 		var selectVal = _select.attr("value");
 		var selectId = _select.attr("id");
 		var selectCode = _select.data("code");
-		var val="<p id="+selectId+" data-code="+selectCode+">"+selectVal+"</p>";
+		if(typeof selectId == 'undefined')
+		{
+			p.text('未选择');
+			p.attr("data-title-value",'');
+		}
+		else
+		{
+			p.attr("data-title-value",selectId);
+			p.text(selectVal);
+		}
 	}
 	//判断选中其他
 	if(other.attr("checked") == "checked"){
@@ -202,7 +218,7 @@ function right(obj,type){
 	if(val=="其他"){
 		align_left.html(input_text);
 	}else{
-		align_left.html(val); 
+		//align_left.html(val); 
 	}
 	$(".align_left span").last().remove();
 	
