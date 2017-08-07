@@ -93,13 +93,13 @@ function get_result(code,e_type,dom){
 						 }
 					 })
 				}else if(type==18){
-					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"></ul></div>"
+					result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"></ul></div>"
 				}else if(type==14){
 					var result_li='';
 					$.each(valueList,function(i,n){
 						result_li += "<li><a href=\"#\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
 					})
-					result_html="<div id=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
+					result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
 				}
 				 dom.html(result_html);
 				 divSelect();
@@ -186,17 +186,23 @@ function right(obj,type){
 		align_left = $("span[parent_dom='show']").parent().find(".align_left").find('p');
 		var val = $(obj).parent().parent().find("textarea").val();
 	}else if(type=="select"){
-		
+		align_left =  $(obj).parent().parent().find(".align_left");
+		var _select = $(obj).closest('td').find('.dropdown').find("input");
+		var selectVal = _select.attr("value");
+		var selectId = _select.attr("id");
+		var selectCode = _select.data("code");
+		var val="<p id="+selectId+" data-code="+selectCode+">"+selectVal+"</p>";
 	}
-
+	//判断选中其他
 	if(other.attr("checked") == "checked"){
 		var input_text = other.parents(".radioShow").find(".others_text").val();
 	}
 	$(obj).parent().parent().find('.radioShow').hide();
+	//填充结果
 	if(val=="其他"){
 		align_left.html(input_text);
 	}else{
-		align_left.html(val);
+		align_left.html(val); 
 	}
 	$(".align_left span").last().remove();
 	
@@ -204,12 +210,6 @@ function right(obj,type){
 	$(obj).parent().parent().find('p').show();
 	$(obj).parent().parent().find('p').css('color','#000')
 	$(obj).closest('td').data('edit','false');
-	//select下拉框的值
-	var selectText = $(obj).closest('td').find('.select_long').find("option:selected").text();
-	$(obj).parent().parent().find('.seclect_choose').html(selectText);
-	//console.log(selectText)
-	//select下拉框消失
-	$(obj).closest('td').find('.selectTips').hide();
 	//新添加，弹窗中的
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
 	$(obj).closest('.gapPopup').hide();
@@ -220,20 +220,6 @@ function right(obj,type){
 		afterTitleSaved();
 	}
 }
-
-//select下拉框的对号函数
-function selectMethod(obj,type){
-		if(type=='select'){
-			var selectVal = $(obj).closest('td').find('.input_select').val();
-			$(obj).closest('td').find('p').html(selectVal);
-			$(obj).closest('td').find('p').show();
-			console.log(selectVal);
-			$(obj).parent().hide();
-			$(obj).parents('td').find('.radioShow').hide();
-			$(obj).closest('td').data('edit','false');
-		}
-			
-	}
 
 
 
@@ -258,7 +244,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 //div模拟select下拉框
 function divSelect(){
 	$(".input_select").click(function(){ 
-		var ul = $("#dropdown ul"); 
+		var ul = $(".dropdown ul"); 
 		var _this = $(this);
 		if(ul.css("display")=="none"){
 			_this.addClass('up');
@@ -270,12 +256,17 @@ function divSelect(){
 		} 
 	}); 
 
-	$("#dropdown ul li").click(function(){ 
-		var target = $(this).closest('#dropdown').find('input');
+	$(".dropdown ul li").click(function(){ 
+		var target = $(this).closest('.dropdown').find('input');
+		var _a=$(this).find('a');
 		target.removeClass('up')
-		var txt = $(this).text(); 
-		$(".input_select").val(txt); 
-		$("#dropdown ul").hide(); 
+		var txt = _a.text(); 
+		var _id=_a.attr("id");
+		var _code=_a.data("code");
+		target.attr("value",txt); 
+		target.attr("id",_id);
+		target.attr("data-code",_code);
+		$(".dropdown ul").hide(); 
 }); 
 }
 

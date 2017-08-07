@@ -712,7 +712,7 @@ table td select option{
 }
 /*div模拟select下拉框样式*/
 ul,li{list-style:none;padding:0;margin:0;} 
-#dropdown{
+.dropdown{
 	width:100%; 
 	position:relative;
 	/* display:none; */
@@ -727,7 +727,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 	border:1px solid #979797; 
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 } 
-#dropdown ul{
+.dropdown ul{
 	width:81%; 
 	background:#fff; 	
 	border:1px solid #979797; 
@@ -742,7 +742,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 	margin:0 auto;
 	margin-top:2px;
 } 
-#dropdown ul li{
+.dropdown ul li{
 	height:24px; 
 	line-height:24px; 
 	border-bottom: 1px solid #979797;
@@ -752,7 +752,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 	color:#666666;; 
 
 }
-#dropdown ul li:hover{
+.dropdown ul li:hover{
 	
 } 
 .up{
