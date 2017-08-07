@@ -136,7 +136,10 @@ function powerPosition(i){
 	}else{
 		pg = 11;
 	}
-	if((!currentProgress("projectProgress:"+pg) && pg != 1) || 'projectStatus:0' != _project_.projectStatus){
+	console.log("!!!!!!!------------!!!!!!!");
+	console.log(_project_.projectStatus);
+	if((!currentProgress("projectProgress:"+pg) && pg != 1)|| ('projectStatus:0' != _project_.projectStatus && 'projectStatus:1' != _project_.projectStatus))
+{
 		$(".editButton").hide();
 		$("#add_button").hide();
 	}else{
