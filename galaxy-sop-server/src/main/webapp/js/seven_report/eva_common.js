@@ -274,4 +274,31 @@ function buildResult(title)
 		}
 	}
 }
+$("#save-rpt-btn").click(function(){
+	var data = {};
+	var eles = $(".title-value");
+	var infoModeList = new Array();
+	$.each(eles,function(){
+		var _this = $(this);
+		var type = _this.data('type');
+		var titleId = _this.data('titleId');
+		var value = _this.data('titleValue');
+		var resultId = _this.data('resultId');
+		var model = {};
+		model.projectId = projId;
+		model.titleId = titleId;
+		if(typeof resultId != 'undefined')
+		{
+			model.resultId = resultId;
+		}
+		if(type == 2 || type==14)
+		{
+			model.value = value;
+		}
+		infoModeList.push(model);
+		
+	});
+	data.infoModeList = infoModeList;
+	console.log(data);
+})
 

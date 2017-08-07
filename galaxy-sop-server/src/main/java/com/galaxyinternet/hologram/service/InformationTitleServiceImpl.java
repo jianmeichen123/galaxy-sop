@@ -1,7 +1,6 @@
 package com.galaxyinternet.hologram.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -826,15 +825,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				title.setRelateId(relateId);
 				title.setReportType(reportType);
 				titles.add(title);
-				
-				InformationTitle query = new InformationTitle();
-				query.setParentId(relateId+"");
-				query.setReportType(reportType);
-				List<InformationTitle> children = informationTitleDao.selectRelateTitle(query);
-				if(children != null && children.size() > 0)
-				{
-					title = children.iterator().next();
-				}
 			}
 			else
 			{
@@ -842,9 +832,16 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			}
 			if(title != null)
 			{
-				String code = title.getCode();
 				InformationTitle query = new InformationTitle();
-				query.setCode(code);
+				if(0l == relateId)
+				{
+					query.setReportType(reportType);
+				}
+				else
+				{
+					String code = title.getCode();
+					query.setCode(code);
+				}
 				List<InformationTitle> list = informationTitleDao.selectRelateTitle(query);
 				titles.addAll(list);
 			}

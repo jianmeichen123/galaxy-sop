@@ -276,6 +276,7 @@
 				<if test="parentId != null"> and  r.parent_id = #{parentId,jdbcType=VARCHAR} </if>
 				<if test="code != null"> and  r.code like CONCAT( #{code,jdbcType=VARCHAR},'%') </if>
 				<if test="isValid != null"> and  r.is_valid = #{isValid,jdbcType=INTEGER} </if>
+				<if test="reportType != null"> and  r.report_type = #{reportType,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>		
