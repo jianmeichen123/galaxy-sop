@@ -236,10 +236,28 @@ function buildResult(title)
 		_ele.attr('data-title-value',results[0].contentChoose)
 		_ele.text(results[0].valueName);
 	}
+	//文本域
 	else if(type == 8)
 	{
 		_ele.text(results[0].contentDescribe1);
 	}
+	//复选带备注
+	else if (type == 3 || type == 6 || type == 13)
+	{
+		if(results.length==0)
+		{
+			return;
+		}
+		var content = new Array();
+		var values = new Array();
+		$.each(results,function(){
+			content.push(this.valueName);
+			values.push(this.contentChoose);
+		});
+		_ele.html(content.join('、'));
+		_ele.attr("data-title-value",values.join(','));
+	}
+	//一个标题带两个文本域、
 	else if(type == 15)
 	{
 		_ele = $('.title-value[data-title-id="'+title.id+'"][data-sub-id="'+title.subId+'"]');

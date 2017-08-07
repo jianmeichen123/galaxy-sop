@@ -139,12 +139,12 @@ function right(obj,type){
 	$(obj).parent().hide();
 	//raido消失
 	var other =$(obj).parent().siblings(".radioShow").find(".others");
-	var align_left = $(obj).parent().parent().find(".align_left").find('p');
+	var align_left = $(obj).parent().parent().find(".align_left");
 	//取值判断
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
 		var val = $(obj).parent().parent().find('input[type="radio"]:checked').parent(".iradio_flat-blue").next("label").html();
-		var p = align_left;
+		var p = align_left.find('p');
 		if(typeof val_id == 'undefined')
 		{
 			p.text('未选择');
@@ -156,7 +156,7 @@ function right(obj,type){
 		}
 	}else if(type=="checkbox"){
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked')
-		var p = align_left;
+		var p = align_left.find('p');
 		if(val_checkbox.length==0){
 			p.text('未选择');
 			p.attr("data-title-value",'');
