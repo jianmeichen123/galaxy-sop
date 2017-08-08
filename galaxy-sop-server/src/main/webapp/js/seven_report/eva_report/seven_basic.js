@@ -89,9 +89,16 @@
 				}			
 			}else if(type==13){
 				var titleValList=titleVal.split(",");
+				var valList=val.split("、");
 				for(var i=0;i<titleValList.length;i++){
-					$(".radioShow input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
-					$(".radioShow input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+					var radioShow=$(obj).closest("td").find(".radioShow")
+					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
+					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+				}
+				var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
+				if(last_id){
+					$(radioShow).find(".others_text").show();
+					$(radioShow).find(".others_text").val(valList[valList.length-1])
 				}
 			}
 		}else{  //大弹窗编辑回显
