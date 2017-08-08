@@ -29,7 +29,7 @@ var path = '<%=path%>';
 <div class="pagebox clearfix">
 <jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
 <div class="ritmin">
-    <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
+    <jsp:include page="../reportcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
 			<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabOperateChange('0')">投资<br />方案</li>
