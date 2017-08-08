@@ -10,13 +10,18 @@ $('div').delegate(".h_save_btn","click",function(event){
 	event.stopPropagation();
     var sec = $(this).closest('form');
     var id_code = $(this).attr('attr-save');
+    var parent_code;
+    if(id_code && id_code.indexOf("_") > 0){
+		var arr = new Array();
+		arr = id_code.split("_");
+		parent_code = arr[0];
+	}
     var dt_type_3 = $("#b_" + id_code).find("dt[data-type='3'],dt[data-type='13']");
 	var fields = sec.find("input[type='text'][data-title-id],input:checked,textarea,radio,select");
 	var fields_value1=sec.find("li[class='check_label active'],li.active");
 	var data = {
 		projectId : projectInfo.id
 	};
-	
 	if(!$("#b_"+id_code).validate().form())
 	{
 		return;
@@ -64,7 +69,9 @@ $('div').delegate(".h_save_btn","click",function(event){
         function(data) {
             var result = data.result.status;
             if (result == 'OK') {
-            	updateInforTime(projectInfo.id,"teamTime");
+            	if(parent_code){
+            		updateInforTime(projectInfo.id,parent_code);
+            	}
                 layer.msg('保存成功');
             	$(".h#a_"+id_code).css("background","#fff");
                 var parent = $(sec).parent();
@@ -367,7 +374,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 					function(data) {
 						var result = data.result.status;
 						if (result == 'OK') {
-							updateInforTime(projectInfo.id,"financingTime");
+							if(parent_code){
+			            		updateInforTime(projectInfo.id,parent_code);
+			            	}
 							layer.msg('保存成功');
 							$(".bj_hui_on").hide();
                             if (h_cancel_btn_code=='NO3_1'){
