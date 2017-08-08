@@ -18,7 +18,7 @@
 <body>
      <!--隐藏-->
 <div class="bj_hui_on"></div>
-<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
                  <div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -29,19 +29,18 @@
 
 
 <script type="text/javascript">
-
+var path = '<%=path%>';
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	//right_anchor("DNO2?reportType=2"); 
+	//right_anchor("DNO3?reportType=2");
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'DNO8?reportType=2', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'ONO8?reportType=7', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
-			console.log(entity);
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
 			customBuilder();
@@ -53,13 +52,13 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO8?reportType=2', null,
 						$(this).hide();
 						if($(this).parents('dl').find('dd:gt(0)').length<=0){
 							$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-						} 
+						}
 					}
 					else{
 						$(this).show();
 					}
 				})
-				
+
 			});
 			//调整表格
 			$("table").css({"width":"80%","table-layout":"fixed"});
@@ -67,11 +66,11 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO8?reportType=2', null,
 			toggle_btn($('.anchor_btn span'),1);
 			fun_click();
 			hideNav();
-			
+
 		} else {
 
 		}
-		
+
 })
 </script>
 </body>
