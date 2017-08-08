@@ -1060,7 +1060,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					List<InformationListdata> list = null;
 					for(InformationTitle title:titles)
 					{
-						if(title.getFixedTableList() == null)
+						if(title.getDataList() == null)
 						{
 							list = new ArrayList<>();
 							title.setDataList(list);;
