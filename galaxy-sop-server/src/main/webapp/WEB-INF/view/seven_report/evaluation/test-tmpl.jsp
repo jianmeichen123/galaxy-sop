@@ -139,9 +139,9 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					{{each(i,childList) childList}}
 						{{if type=="1" || type=="8"}}
-						<div class="align_left"><p  data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</span></p></div>
+						<div class="align_left"><div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div></div>
 						{{else type=="2" || type=="12" || type=="14"}}
-						<div class="align_left"><p  data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</span></p></div>
+						<div class="align_left"><div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div></div>
 						{{/if}}
 					{{/each}}
 						<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
