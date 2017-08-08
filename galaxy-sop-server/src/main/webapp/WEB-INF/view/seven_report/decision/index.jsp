@@ -103,7 +103,7 @@ $(function() {
 	right_anchor("DNO1?reportType=3"); 
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'PNO1?reportType=3', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'PNO1?reportType=2', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {

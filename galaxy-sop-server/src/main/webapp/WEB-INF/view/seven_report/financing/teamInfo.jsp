@@ -14,7 +14,8 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+
+<script src="<%=path%>/js/seven_report/financing/fiancing_common.js"></script>	
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
@@ -35,7 +36,7 @@
   <!--隐藏-->
 <div class="bj_hui_on"></div>
  <div id="tab-content">
- <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+ <jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
 		<div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -52,7 +53,7 @@
     var deletedRowIdsGq = new Array();
 
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "DNO3?reportType=2", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + 'GNO3?reportType=5', null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {

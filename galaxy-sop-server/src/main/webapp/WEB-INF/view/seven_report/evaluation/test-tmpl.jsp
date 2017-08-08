@@ -162,14 +162,14 @@
 						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                             <em>(0-\${scoreMax}分)</em>
 						</td>
@@ -316,14 +316,14 @@
 													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
 												{{else isScore==1}}
 												<!-- 人工打分（select） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+													<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<select>
 															<option>请选择</option>
 														</select>
 													</td>
 												{{else isScore==2}}
 												<!-- 人工打分（数值范围） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+													<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<input type="text" value="" placeholder="请打分">
 							                              <em>(0-\${scoreMax}分)</em>
 													</td>
@@ -384,14 +384,14 @@
 						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                               <em>(0-\${scoreMax}分)</em>
 						</td>
@@ -410,14 +410,14 @@
 						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                               <em>(0-\${scoreMax}分)</em>
 						</td>

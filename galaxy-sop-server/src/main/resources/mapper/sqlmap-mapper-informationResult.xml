@@ -16,12 +16,14 @@
 		<result column="create_id" 			jdbcType="BIGINT" 		property="createId" />
 		<result column="updated_time" 		jdbcType="BIGINT" 		property="updatedTime" />
 		<result column="update_id" 			jdbcType="BIGINT" 		property="updateId" />
+		<result column="grade1" 			jdbcType="NUMERIC" 		property="grade1" />
+		<result column="grade2" 			jdbcType="NUMERIC" 		property="grade2" />
 	</resultMap>
 
 
 
 	<sql id="Base_Column_List">
-		id, project_id, title_id, content_choose, content_describe1, content_describe2, sort, is_valid, created_time, create_id, updated_time, update_id
+		id, project_id, title_id, content_choose, content_describe1, content_describe2, grade1, grade2, sort, is_valid, created_time, create_id, updated_time, update_id
 	</sql>
 
 
@@ -59,6 +61,8 @@
 			content_choose, 
 			content_describe1,
 			content_describe2,
+			grade1,
+			grade2,
 			sort
 		)
 		values (
@@ -68,6 +72,8 @@
 			#{contentChoose,jdbcType=VARCHAR}, 
 			#{contentDescribe1,jdbcType=VARCHAR},
 			#{contentDescribe2,jdbcType=VARCHAR},
+			#{grade1,jdbcType=NUMERIC}, 
+			#{grade2,jdbcType=NUMERIC}, 
 			#{sort}
 	    ]]>
 	</insert>
@@ -79,6 +85,8 @@
 			content_choose, 
 			content_describe1,
 			content_describe2,
+			grade1,
+			grade2,
 			sort
 		)
 		values 
@@ -89,6 +97,8 @@
 				#{item.contentChoose,jdbcType=VARCHAR}, 
 				#{item.contentDescribe1,jdbcType=VARCHAR},
 				#{item.contentDescribe2,jdbcType=VARCHAR},
+				#{item.grade1,jdbcType=NUMERIC}, 
+				#{item.grade2,jdbcType=NUMERIC},
 				#{item.sort,jdbcType=INTEGER}
 			)
 		</foreach>
@@ -126,6 +136,9 @@
 			content_choose = #{contentChoose,jdbcType=VARCHAR},
 			content_describe1 = #{contentDescribe1,jdbcType=VARCHAR},
 			content_describe2 = #{contentDescribe2,jdbcType=VARCHAR},
+			
+			<if test="grade1 != null"> grade1 = #{grade1,jdbcType=NUMERIC}, </if>
+			<if test="grade2 != null"> grade2 = #{grade2,jdbcType=NUMERIC}, </if>
 			<!-- 
 			<if test="contentChoose != null"> content_choose = #{contentChoose,jdbcType=VARCHAR}, </if>
 			<if test="contentDescribe1 != null"> content_describe1 = #{contentDescribe1,jdbcType=VARCHAR}, </if>
@@ -148,6 +161,8 @@
 			content_choose = #{contentChoose,jdbcType=VARCHAR},
 			content_describe1 = #{contentDescribe1,jdbcType=VARCHAR},
 			content_describe2 = #{contentDescribe2,jdbcType=VARCHAR},
+			<if test="grade1 != null"> grade1 = #{grade1,jdbcType=NUMERIC}, </if>
+			<if test="grade2 != null"> grade2 = #{grade2,jdbcType=NUMERIC}, </if>
 			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 		</set>
 		where id = #{id}

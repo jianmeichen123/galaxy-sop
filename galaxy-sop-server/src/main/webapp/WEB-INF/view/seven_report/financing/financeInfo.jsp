@@ -19,7 +19,7 @@
 <body>
      <!--隐藏-->
 <div class="bj_hui_on"></div>
-<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
                  <div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -31,7 +31,7 @@
 
 <script type="text/javascript">
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + 'GNO7?reportType=5', null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {

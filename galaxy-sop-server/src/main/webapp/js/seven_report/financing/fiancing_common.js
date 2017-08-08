@@ -5,7 +5,7 @@ function tabFinanChange(index){
 	$("#tab-content1").remove();
 	$(".tip-yellowsimple").remove();
   switch(index){
-	case '0':investProjectInfo1(); break;  //标签1:项目
+	case '0':projectInfo1(); break;  //标签1:项目
 	case '1': initTeamInfo1(); break;  //标签2: 团队
 	case '2': initOperateInfo1();   break;  //标签3:运营数据
 	case '3': initCompeteInfo1();   break;  //标签4:竞争
@@ -17,7 +17,7 @@ function tabFinanChange(index){
 }
 }
 	   //项目
-		function investProjectInfo1(){
+		function projectInfo1(){
 			window.location.href=platformUrl.toFinancingP;
 		}
 		 //团队

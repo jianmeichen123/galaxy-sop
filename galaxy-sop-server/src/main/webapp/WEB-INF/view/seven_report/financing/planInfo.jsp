@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script> --%>
 </head>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
@@ -32,7 +32,7 @@
                 </ul> -->
  <!--隐藏-->
 <div class="bj_hui_on"></div>
-<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>               
+<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>               
               <div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -47,7 +47,7 @@ $(function() {
 	//right_anchor("DNO2?reportType=2");
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'DNO6?reportType=2', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'GNO6?reportType=5', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
