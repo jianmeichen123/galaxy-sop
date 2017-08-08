@@ -206,7 +206,7 @@
                 function(data) {
                     var result = data.result.status;
                     if (result == 'OK') {
-                    	updateInforTime(projectInfo.id,"teamTime");
+                    	updateInforTime(projectInfo.id,"NO3");
                         layer.msg('保存成功');
                     	$(".h#a_"+id_code).css("background","#fff");
                         var parent = $(sec).parent();
@@ -441,7 +441,7 @@
         			function(data) {
         				var result = data.result.status;
         				if (result == 'OK') {
-        					updateInforTime(projectInfo.id,"teamTime");
+        					updateInforTime(projectInfo.id,"NO3");
         					layer.msg('保存成功');
         					$(".bj_hui_on").hide();
                             if (h_cancel_btn_code=='NO3_1'){

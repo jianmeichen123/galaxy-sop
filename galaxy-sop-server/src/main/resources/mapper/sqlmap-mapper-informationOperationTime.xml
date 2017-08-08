@@ -5,6 +5,7 @@
 <mapper namespace="com.galaxyinternet.model.hologram.InformationOperationTime">
   <resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationOperationTime">
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="report_type" property="reportType" jdbcType="TINYINT" />
     <result column="project_id" property="projectId" jdbcType="BIGINT" />
     <result column="information_time" property="informationTime" jdbcType="TIMESTAMP" />
     <result column="project_time" property="projectTime" jdbcType="TIMESTAMP" />
@@ -15,9 +16,9 @@
     <result column="finance_time" property="financeTime" jdbcType="TIMESTAMP" />
     <result column="law_time" property="lawTime" jdbcType="TIMESTAMP" />
     <result column="financing_time" property="financingTime" jdbcType="TIMESTAMP" />
-    <result column="time1" property="time1" jdbcType="TIMESTAMP" />
-    <result column="time2" property="time2" jdbcType="TIMESTAMP" />
-    <result column="time3" property="time3" jdbcType="TIMESTAMP" />
+    <result column="exit_evaluation_time" property="exitEvaluationTime" jdbcType="TIMESTAMP" />
+    <result column="investment_program_time" property="investmentProgramTime" jdbcType="TIMESTAMP" />
+    <result column="other_business_time" property="otherBusinessTime" jdbcType="TIMESTAMP" />
     <result column="time4" property="time4" jdbcType="TIMESTAMP" />
     <result column="time5" property="time5" jdbcType="TIMESTAMP" />
     <result column="time6" property="time6" jdbcType="TIMESTAMP" />
@@ -57,8 +58,8 @@
   </sql>
  
   <sql id="Base_Column_List">
-    id, project_id, information_time, project_time, team_time, operation_data_time, compete_time, 
-    stratagem_time, finance_time, law_time, financing_time, time1, time2, time3, time4, 
+    id, report_type, project_id, information_time, project_time, team_time, operation_data_time, compete_time, 
+    stratagem_time, finance_time, law_time, financing_time, exit_evaluation_time, investment_program_time, other_business_time, time4, 
     time5, time6, time7, time8, time9, time10
   </sql>
   <delete id="deleteById" parameterType="java.lang.Long">
@@ -66,19 +67,20 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationOperationTime">
-    insert into information_operation_time (id, project_id, information_time, 
+    insert into information_operation_time (id,report_type, project_id, information_time, 
       project_time, team_time, operation_data_time, 
       compete_time, stratagem_time, finance_time, 
-      law_time, financing_time, time1, 
-      time2, time3, time4, 
+      law_time, financing_time, exit_evaluation_time,
+      investment_program_time, other_business_time,
+      time4, 
       time5, time6, time7, 
       time8, time9, time10
       )
-    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{informationTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT}, #{reportType,jdbcType=TINYINT}, #{projectId,jdbcType=BIGINT}, #{informationTime,jdbcType=TIMESTAMP}, 
       #{projectTime,jdbcType=TIMESTAMP}, #{teamTime,jdbcType=TIMESTAMP}, #{operationDataTime,jdbcType=TIMESTAMP}, 
       #{competeTime,jdbcType=TIMESTAMP}, #{stratagemTime,jdbcType=TIMESTAMP}, #{financeTime,jdbcType=TIMESTAMP}, 
-      #{lawTime,jdbcType=TIMESTAMP}, #{financingTime,jdbcType=TIMESTAMP}, #{time1,jdbcType=TIMESTAMP}, 
-      #{time2,jdbcType=TIMESTAMP}, #{time3,jdbcType=TIMESTAMP}, #{time4,jdbcType=TIMESTAMP}, 
+      #{lawTime,jdbcType=TIMESTAMP}, #{financingTime,jdbcType=TIMESTAMP}, #{exitEvaluationTime,jdbcType=TIMESTAMP}, 
+      #{investmentProgramTime,jdbcType=TIMESTAMP}, #{otherBusinessTime,jdbcType=TIMESTAMP}, #{time4,jdbcType=TIMESTAMP}, 
       #{time5,jdbcType=TIMESTAMP}, #{time6,jdbcType=TIMESTAMP}, #{time7,jdbcType=TIMESTAMP}, 
       #{time8,jdbcType=TIMESTAMP}, #{time9,jdbcType=TIMESTAMP}, #{time10,jdbcType=TIMESTAMP}
       )
@@ -128,14 +130,14 @@
       <if test="financingTime != null" >
         financing_time = #{financingTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="time1 != null" >
-        time1 = #{time1,jdbcType=TIMESTAMP},
+      <if test="exitEvaluationTime != null" >
+        exit_evaluation_time = #{exitEvaluationTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="time2 != null" >
-        time2 = #{time2,jdbcType=TIMESTAMP},
+      <if test="investmentProgramTime != null" >
+        investment_program_time = #{investmentProgramTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="time3 != null" >
-        time3 = #{time3,jdbcType=TIMESTAMP},
+      <if test="otherBusinessTime != null" >
+        other_business_time = #{otherBusinessTime,jdbcType=TIMESTAMP},
       </if>
       <if test="time4 != null" >
         time4 = #{time4,jdbcType=TIMESTAMP},

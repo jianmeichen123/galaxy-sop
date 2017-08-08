@@ -52,7 +52,6 @@ public class InformationOperationTimeServiceImpl extends BaseServiceImpl<Informa
 		try {
 			InformationOperationTime oldInformation = informationOperationTimeDao.selectOne(infromation);
 			if(oldInformation != null){
-				 //Method method = (Method) oldInformation.getClass().getMethod("get"+oldInformation.getReflect().toUpperCase().substring(0, 1)+oldInformation.getReflect().substring(1),Date.class);
 				 Method method = oldInformation.getClass().getMethod("get" + infromation.getReflect().toUpperCase().substring(0, 1)+infromation.getReflect().substring(1));
 				Date value = (Date) method.invoke(oldInformation);
 				if(value != null){
