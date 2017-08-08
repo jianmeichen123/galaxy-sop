@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>		
 </head>
 
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
