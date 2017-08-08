@@ -14,7 +14,7 @@
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>	
-							<div class="radioShow"></div>						
+							<div class="radioShow radioShow_1"></div>						
 							<div class="Button">
 								<em onclick="right(this,'input')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>
@@ -192,7 +192,7 @@
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside"  onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
-							<div class="radioShow"></div>							
+							<div class="radioShow radioShow_1"></div>							
 							<div class="Button">
 								<em onclick="right(this,'input')" class="right"></em><i onclick="closeX(this)" class="wrong"></i>
 							</div>

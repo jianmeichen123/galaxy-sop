@@ -237,9 +237,13 @@ function right(obj,type){
 			var content = new Array();
 			var values = new Array();
 			$.each(val_checkbox,function(){
-				var val_text = $(this).parent(".icheckbox_flat-blue").next("label").html();
+				var radio_label = $(this).parent(".icheckbox_flat-blue").next("label");
+				var val_text = radio_label.html();
 				var val_id =$(this).val();
 				values.push(val_id);
+				if(val_text=="其他"){
+					val_text=radio_label.next().val();
+				}	
 				content.push(val_text);
 			});
 			p.html(content.join('、'));
