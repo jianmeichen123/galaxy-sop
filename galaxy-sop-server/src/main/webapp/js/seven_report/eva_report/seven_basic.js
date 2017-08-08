@@ -140,7 +140,6 @@ function closeX(obj){
 }	
 	
 //保存方法
-//e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function right(obj,type){
 	//对号，x号消失
 	$(obj).parent().hide();
@@ -249,6 +248,12 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 });
 //大弹窗 保存方法
 $('div').delegate(".h_save_btn","click",function(event){
+	var align_left = $("span[parent_dom='show']").parent().find(".align_left");
+	
+	
+	
+	
+	
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
 	_this.hide();
