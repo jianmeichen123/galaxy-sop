@@ -41,7 +41,7 @@
   </ul> -->
    <!--隐藏-->
 <div class="bj_hui_on"></div>
-  <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+  <jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
 		<!--tab-->
