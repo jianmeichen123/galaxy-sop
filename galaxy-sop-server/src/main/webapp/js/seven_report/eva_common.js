@@ -213,6 +213,31 @@ function getScore(relateId,subId)
 	}
 	return score;
 }
+/**
+ * 手动填写、选择的分数
+ * @param relateId
+ * @param subId
+ * @returns
+ */
+function getManualScore(relateId,subId)
+{
+	var score = null;
+	var td = $('td[class="score-column"][data-relate-id="'+relateId+'"]');
+	if(subId >0)
+	{
+		td = $('td[class="score-column"][data-relate-id="'+relateId+'"][data-sub-id="'+subId+'"]');
+	}
+	var ele = td.children('input,select');
+	if(ele.length > 0)
+	{
+		score = ele.val();
+	}
+	if(score == "" || isNaN(score))
+	{
+		score = null;
+	}
+	return score;
+}
 
 function afterTitleSaved()
 {
@@ -274,11 +299,10 @@ function buildResult(title)
 		}
 	}
 }
-$("#save-rpt-btn").click(function(){
-	var data = {projectId: projId};
-	var eles = $(".title-value");
-	var infoModeList = new Array();
-	$.each(eles,function(){
+function addValues(map)
+{
+	var titleEles = $(".title-value");
+	$.each(titleEles,function(){
 		var _this = $(this);
 		var type = _this.data('type');
 		var titleId = _this.data('titleId');
@@ -291,7 +315,7 @@ $("#save-rpt-btn").click(function(){
 		{
 			var model = {
 				tochange:"true",
-				type:type		
+				type:type
 			};
 			model.projectId = projId;
 			model.titleId = titleId;
@@ -307,7 +331,7 @@ $("#save-rpt-btn").click(function(){
 			{
 				model.remark1 = text;
 			}
-			infoModeList.push(model);
+			map.put(titleId,model);
 		}
 		//radio,radio+备注,select
 		else if(type == 2 || type == 5 ||type==14)
@@ -330,7 +354,7 @@ $("#save-rpt-btn").click(function(){
 			{
 				model.remark1 = remark;
 			}
-			infoModeList.push(model);
+			map.put(titleId,model);
 		}
 		//checkbox,checkbox+input,checkbox+textarea
 		else if( type == 3 || type == 6 || type == 13)
@@ -338,7 +362,6 @@ $("#save-rpt-btn").click(function(){
 			if(typeof value != 'undefined')
 			{
 				var values = value.split(',');
-				console.log(values);
 				$.each(values,function(i,val){
 					var model = {
 							tochange:"true",
@@ -358,13 +381,25 @@ $("#save-rpt-btn").click(function(){
 					{
 						model.remark1 = remark;
 					}
-					infoModeList.push(model);
+					map.put(titleId,model);
 				})
 			}
 		}
-		
-		
 	});
+	
+	return map;
+	
+}
+function addScores(map)
+{
+	
+}
+$("#save-rpt-btn").click(function(){
+	var map = new Map();
+	addValues(map);
+	return;
+	var data = {projectId: projId};
+	
 	data.infoModeList = infoModeList;
 	console.log(data);
 	
@@ -378,8 +413,32 @@ $("#save-rpt-btn").click(function(){
 				} 
 				else 
 				{
-
+					layer.msg(data.result.message);
 				}
 		})
 })
 
+var Map = function(){
+	this.keys = new Array();
+	this.data = new Object();
+	
+	this.containsKey = function(key){
+		return this.data.hasOwnProperty(key);
+	};
+	
+	this.put = function(key,value){
+		if(!this.containsKey(key))
+		{
+			this.keys.push(key);
+		}
+		this.data[key]=value;
+	};
+	
+	this.get = function(key){
+		return this.data[key];
+	};
+	
+	this.toString = function(){
+		return JSON.stringify(this.data);
+	}
+}

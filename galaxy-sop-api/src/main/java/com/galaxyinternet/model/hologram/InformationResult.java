@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.hologram;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
@@ -35,6 +36,9 @@ public class InformationResult extends PagableEntity{
     
     private Long valueId;
     private String valueName;
+    
+    private BigDecimal grade1;
+    private BigDecimal grade2;
     
     
     public Long getValueId() {
@@ -150,4 +154,25 @@ public class InformationResult extends PagableEntity{
     public void setUpdateId(String updateId) {
         this.updateId = updateId == null ? null : updateId.trim();
     }
+
+	public BigDecimal getGrade1()
+	{
+		return grade1;
+	}
+
+	public void setGrade1(BigDecimal grade1)
+	{
+		this.grade1 = grade1;
+	}
+
+	public BigDecimal getGrade2()
+	{
+		return grade2;
+	}
+
+	public void setGrade2(BigDecimal grade2)
+	{
+		this.grade2 = grade2;
+	}
+    
 }

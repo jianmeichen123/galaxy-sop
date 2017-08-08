@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.hologram;
 
+import java.math.BigDecimal;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 
@@ -23,6 +25,9 @@ public class InformationModel extends PagableEntity {
 	private String titleCode;//题干code
 	
 	private String tochange; // 前端标识，是否需要操作该条数据
+	
+	private BigDecimal score1;
+	private BigDecimal score2;
 	
 	public String getProjectId() {
 		return projectId;
@@ -95,6 +100,27 @@ public class InformationModel extends PagableEntity {
 
 	public void setTochange(String tochange) {
 		this.tochange = tochange;
+	}
+
+	
+	public BigDecimal getScore1()
+	{
+		return score1;
+	}
+
+	public void setScore1(BigDecimal score1)
+	{
+		this.score1 = score1;
+	}
+
+	public BigDecimal getScore2()
+	{
+		return score2;
+	}
+
+	public void setScore2(BigDecimal score2)
+	{
+		this.score2 = score2;
 	}
 
 	@Override
