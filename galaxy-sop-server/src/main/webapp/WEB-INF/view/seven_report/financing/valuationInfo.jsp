@@ -57,7 +57,7 @@ var key = Date.parse(new Date());
 var keyJSON={};
 var deleteJSON={};
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + 'GNO9?reportType=5', null,
 		function(data) {
 		console.log(data);
 			var result = data.result.status;

@@ -31,7 +31,7 @@
 
 <script type="text/javascript">
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO7", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + 'GNO7?reportType=5', null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {

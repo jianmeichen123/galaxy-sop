@@ -29,7 +29,7 @@ var path = '<%=path%>';
 <div class="pagebox clearfix">
 <jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
 <div class="ritmin">
-    <jsp:include page="../..//project/sopinfo/sopcommon.jsp" flush="true"></jsp:include>
+    <jsp:include page="../reportcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
 			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabFinanChange('0')">项目</li>
@@ -92,16 +92,14 @@ var path = '<%=path%>';
 <%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>	 --%>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
-
-
 <script src="<%=path%>/js/seven_report/financing/fiancing_common.js"></script>	
-
 <!-- 跟全息图相似的 -->
 <script src="<%=path%>/js/hologram/team_pop.js"></script>	
 <script src="<%=path%>/js/hologram/team_save.js"></script>	
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
 <script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
 <script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
+<script src="<%=path %>/js/seven_report/financing/fiancing_common.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";
@@ -109,7 +107,11 @@ $(function() {
 	//right_anchor("DNO2?reportType=2"); 
 })
 //整体页面显示
+<<<<<<< HEAD
 sendGetRequest(platformUrl.queryAllTitleValues + 'ONO1?reportType=7', null,
+=======
+sendGetRequest(platformUrl.queryAllTitleValues + 'GNO2?reportType=5', null,
+>>>>>>> branch 'dev_1.6' of http://git.gi.com/galaxy-star/galaxy-sop.git
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
