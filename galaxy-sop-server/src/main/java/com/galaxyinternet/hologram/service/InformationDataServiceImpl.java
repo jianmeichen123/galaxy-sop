@@ -77,6 +77,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
+			entity.setGrade1(model.getScore1());
+			entity.setGrade2(model.getScore2());
 			if(!StringEx.isNullOrEmpty(model.getValue()))
 			{
 				entity.setContentChoose(model.getValue());

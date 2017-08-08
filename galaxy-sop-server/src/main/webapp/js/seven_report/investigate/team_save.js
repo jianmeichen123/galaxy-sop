@@ -15,8 +15,10 @@
         //data为列表的tr data属性值
         var row={};
         var data={};
+        //select字段列表展示存string
         row = getData($("#detail-form"))
         row["field3"] = $("#detail-form").find("input:radio[name='field3']:checked").attr("data-value");
+        //select字段data属性存id
         data = row;
         var titleId = data["titleId"]
         var projectId = data["projectId"]
@@ -33,22 +35,14 @@
             	delete t1.id;
             }
            var field1 = div.find("[name='field1']").text();
-           var field2 = div.find("[name='field2']").text();
-           var field3 = div.find("[name='field3']").text();
-           var field4 = div.find("[name='field4']").text();
-           var field5 = div.find("[name='field5']").text();
            if(field1.indexOf("毕业")>0){
                t1["field1"]=field1.substring(0,field1.length-2);
-
            }else{
                t1["field1"]=field1;
            }
-           t1["field2"]=field2;
-           t1["field3"]=field3;
-           t1["field4"]=field4;
-           t1["field5"]=field5;
+           //select 字段 存id
+           t1["field4"] = div.find("[name='field4']").attr("val_id");
            studyList.push(t1);
-            //studyList.push(t1);
         })
         data["studyList"]=studyList;
         //工作经历
@@ -81,14 +75,10 @@
                var field7 = div.find("[name='field7']").text();
                var code = "entrepreneurial-experience";
                var id = div.find("[name='id']").text();
-
-               if(!isNaN(id)){
-                 json["id"]=id;
+               json["id"]= id
+               if(!json["id"] || json["id"] == 'null' || json["id"] == "undefined"){
+                delete json.id;
                }
-               else
-        	   {
-            	  json["id"]=null;
-        	   }
 
                json["field1"]=field1;
                json["field2"]=field2;
@@ -107,20 +97,20 @@
 
         data["startupList"]=startupList;
         data["code"]="team-members";
-        var index = data["index"]
+        var index = row["index"]
         //获取表头,
         var headerList =   $('table[data-title-id="'+titleId+'"].editable').find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
         if(typeof index == 'undefined' || index == null || index == '')
         {
             var tr = buildMemberRow(headerList,row,true);
-            tr.data("obj",data);
+            tr.data("person",data);
             $('table[data-title-id="'+titleId+'"].editable').append(tr);
         }
         else
         {
             var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
-            tr.data("obj",data);
-            var i = tr.data("obj");
+            tr.data("person",data);
+            var i = tr.data("person");
             //解决字段无值列错位的问题
             for(var key in row)
             {
@@ -131,7 +121,15 @@
                 if(key.indexOf('field')>-1)
                 {
                     if(row[key]){
-                        tr.find('td[data-field-name="'+key+'"]').text(row[key]);
+                         if(key == "field2"){
+                             tr.find('td[data-field-name="'+key+'"]').text(map_edu[row[key]]);
+                             return;
+                         }else if(key =="field5"){
+                             tr.find('td[data-field-name="'+key+'"]').text(map_pos[row[key]]);
+                             return;
+                         }else{
+                             tr.find('td[data-field-name="'+key+'"]').text(row[key]);
+                         }
                     }else{
                         tr.data(key,"未知");
                         tr.find('td[data-field-name="'+key+'"]').text("未知");
@@ -147,7 +145,6 @@
     	if($("span.error").length>0){
     		$(".team_porp").scrollTop(0);
     	}
-        
     })
 
 	function getData(div){

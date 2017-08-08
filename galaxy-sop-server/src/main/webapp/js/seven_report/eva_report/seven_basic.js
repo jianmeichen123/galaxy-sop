@@ -1,14 +1,17 @@
-//这里不需要window.onload  和 $(document).ready(function(){})
-	function　mouserover(obj){
-		if($(obj).data('edit') == 'true') return;
-		var target = $(obj).find('.editPic');
-		 target.show();
-	};
-	function mouseout(obj){
-		var target = $(obj).find('.editPic');
-		target.hide();
-	};
-	
+//单选点击事件
+	$('div').delegate(".h_radios input","click",function(){
+		debugger;
+		var val = $(this).parent().text();
+		if(val=="其他"){
+			var other_input = $(this).parent().next().find("input");
+			other_input.attr("disabled",false);
+		}else{
+			var other_input = $(this).parent().next().find("input");
+			if(!other_input){
+				other_input.attr("disabled",true);
+			}
+		}
+	})
 	
 	//编辑按钮
 	function typeEdit(obj){
@@ -59,8 +62,20 @@
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();			
 		}
+		editResult(obj);
 		
-		
+	}
+	//编辑回显
+	function editResult(obj){
+		var id_code=$(obj).attr("attr-id")
+		var p_box=$(obj).siblings(".align_left").find("p")
+		var  val=p_box.text();
+		var titleVal=p_box.attr("data-title-value");
+		var type=p_box.attr("data-type");
+		if(type==2){
+			var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
+			dom.addClass("checked");
+		}
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
@@ -249,9 +264,55 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 //大弹窗 保存方法
 $('div').delegate(".h_save_btn","click",function(event){
 	var align_left = $("span[parent_dom='show']").parent().find(".align_left");
-	
-	
-	
+	var array_p = align_left.find("p");
+	var form = $(this).parents(".ch_opration").find("form");
+	var data=[];
+	//获取保存的的数据
+	$.each(form.find(".mb_16"),function(i,n){
+		var data_list={};
+		var _dt = $(this).find("dt");
+		data_list.code=_dt.data("code");
+		data_list.id=_dt.data("id");
+		data_type=_dt.data("type");
+		data_list.type=data_type;
+		if(data_type==1){
+			data_list.value=$(this).find("dd").find("input").val();
+		}else if(data_type==14){
+			data_list.value=$(this).find("select").find("option:selected").text();
+			data_list.value_id=$(this).find("select").val();
+		}else if(data_type==2||data_type==12){
+			var h_radios = $(this).find(".h_radios");
+			var value_check = h_radios.find('input[type="radio"]:checked');
+			data_list.value=value_check.parent().text();
+			data_list.value_id=value_check.val();
+			if(data_list.value=="其他"){
+				/*other_input.attr("disabled")*/
+				data_list.value=value_check.parent().next().find("input").val();
+			}
+			
+		}
+		data.push(data_list);
+	})
+	//填充保存的的数据
+	var align_p = align_left.find("p");
+	$.each(align_p,function(){
+		var _this=$(this);
+		var _code = _this.data("code");
+		$.each(data,function(){
+			var d_this = $(this)[0];
+			var dcode = d_this.code;
+			var _type =d_this.type;
+			if(_code==dcode){
+				if(_type==1){
+					_this.html(d_this.value);
+				}else if(_type==14||_type==2||_type==12){
+					_this.html(d_this.value);
+					_this.attr("data-title-value",d_this.value_id);
+				}
+				
+			}
+		})
+	})
 	
 	
 	var _this = $(this).parents(".ch_opration");

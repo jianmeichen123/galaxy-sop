@@ -437,7 +437,7 @@ function buildResults(sec,title,readonly)
 				$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find("dd[data-code]").hide();
 				$.each(title.resultList,function(i,n){
 					$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
-					if(n.contentDescribe1){ 
+					if(n.contentDescribe1){
 						$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
 						$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
 					}
@@ -462,9 +462,9 @@ function buildResults(sec,title,readonly)
 					inputText.attr('disabled',false);
 				}
 				$.each(title.resultList,function(i,n){
-					var result_id= n.id;					
+					var result_id= n.id;
 					$("dt[data-title-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active').attr("resultId",result_id);
-					if(n.contentDescribe1){  
+					if(n.contentDescribe1){
 						$("dt[data-title-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1).attr("resultId",result_id);
 						inputText.attr('disabled',false);
 						inputText.attr('required' , true);
@@ -475,9 +475,9 @@ function buildResults(sec,title,readonly)
 					{
 						if(readonly == true)
 						{
-							
+
 							$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).show();
-							if(n.contentDescribe1){ 
+							if(n.contentDescribe1){
 								$("dd[data-id='"+n.contentChoose+"']").text(n.valueName).hide();
 								$("dd[data-id='"+n.contentChoose+"']").text(n.contentDescribe1).show();
 							}
@@ -486,7 +486,7 @@ function buildResults(sec,title,readonly)
 						else
 						{
 							$("dt[data-id='"+ title.id +"']").next('dd').find("li[data-id='"+ n.contentChoose +"']").addClass('active');
-							if(n.contentDescribe1){  
+							if(n.contentDescribe1){
 								$("dt[data-id='"+ title.id +"']").next('dd').find("input[type='text']").val(n.contentDescribe1);
 								inputText.attr('disabled',false);
 								inputText.attr('required' , true);
@@ -503,7 +503,7 @@ function buildResults(sec,title,readonly)
 						$(this).hide();
 					}
 				});
-				
+
 			}*/
 		}
 		else if(title.type == 15)
@@ -561,7 +561,7 @@ function buildResults(sec,title,readonly)
 				   var div=$(".inputs_block").closest(".h_edit_txt");
 				   for(var j=0;j<div.children("dd").length;j++){
 					   div.children("dd").eq(j).find("input").val(inputsValueList[j]).attr("resultId",result_id);
-					   
+
 				   }
 				}
 			}
@@ -594,7 +594,8 @@ function buildResults(sec,title,readonly)
 			else
 			{
 				var result_id = title.resultList[0].id;
-				$('select[data-id="' + title.id + '"]').val( title.resultList[0].contentChoose ).attr("resultId",result_id);;
+				//$('select[data-id="' + title.id + '"]').val( title.resultList[0].contentChoose ).attr("resultId",result_id);
+				$('select[data-id="' + title.relateId + '"]').val( title.resultList[0].contentChoose ).attr("resultId",result_id);;
 			}
 		}
 		if(title.type == 19 )
@@ -607,9 +608,9 @@ function buildResults(sec,title,readonly)
 				}
 			}
 			else
-			{	
-				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);			
+			{
+				var result_id = title.resultList[0].id;
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
 			}
 		}
 		if( title.type == 20)
@@ -629,8 +630,8 @@ function buildResults(sec,title,readonly)
 				}
 			}
 			else
-			{	
-				var result_id = title.resultList[0].id;	
+			{
+				var result_id = title.resultList[0].id;
 				var result_parentId = title.resultList[0].titleId
 				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
 				var str = title.resultList[0].contentDescribe2
@@ -668,7 +669,7 @@ function buildResults(sec,title,readonly)
 }
 function buildMemberTable(sec,title){
         //列表Header
-	
+
     	if(title.tableHeader)
     	{
     		var header = title.tableHeader;
@@ -711,7 +712,7 @@ function buildMemberTable(sec,title){
 function buildMemberRow(headerList,row,showOpts)
 {
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
-	tr.data("obj",row);
+	tr.data("person",row);
     for(var key in row)
    	{
     	//设置data
@@ -723,7 +724,16 @@ function buildMemberRow(headerList,row,showOpts)
         if(key.indexOf('field')>-1)
         {
             if(row[key]){
-                tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+                //select字段在页面缓存根据id取value
+                if(key == "field2"){
+                     tr.append('<td data-field-name="'+key+'">'+map_edu[row[key]]+'</td>');
+                     return;
+                }else if(key == "field5"){
+                     tr.append('<td data-field-name="'+key+'">'+map_pos[row[key]]+'</td>');
+                     return;
+                }else{
+                     tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+                }
             }else{
                 tr.data(key,"未知");
                 tr.append('<td data-field-name="'+key+'">未知</td>');
@@ -748,7 +758,7 @@ function buildMemberRow(headerList,row,showOpts)
 function buildTable(sec,title)
 {
 	//列表Header
-	
+
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
@@ -769,7 +779,7 @@ function buildTable(sec,title)
 				}
 			}
 			var editable = table.hasClass('editable');
-		
+
 			if(editable == true||header.funFlag=="1")
 			{
 				tr +='<th data-field-name="opt">操作</th>';
@@ -808,7 +818,7 @@ function buildRow(row,showOpts,titleId)
 		if(k!="opt"){
 			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
-		
+
 	});
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
@@ -841,7 +851,7 @@ function buildfinxedTable(sec,title,readonly){
 			$.each(title.fixedTableList,function(i,n){
 				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"'][value="+n.content+"]").attr('checked','true');
 				$("td[data-flag='"+n.colNo+"']").find("input[data-row='row"+n.rowNo+"']").attr('data-value-id',n.id);
-				
+
 			});
 		}
 	}
@@ -875,7 +885,7 @@ function picData(pid){
 	data.projectId = pid;
 	data.infoFileids = infoFileids;
 	sendPostRequestByJsonObjNoCache(
-				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' , 
+				Constants.sopEndpointURL+'galaxy/informationFile/getFileByProjectByType' ,
 				data,
 				false,
 				function(data) {
@@ -884,7 +894,7 @@ function picData(pid){
 					if (result == 'OK') {
 						var files = data.entity.commonFileList;
 						if(files != null && files != ""){
-							$.each(files, function (key, value) { 
+							$.each(files, function (key, value) {
 								var fl = value;
 								var html="";
 								for(var i = 0;i < fl.length; i++){
@@ -902,7 +912,7 @@ function picData(pid){
 //								toggle_btn($('.anchor_btn span'),0,save_this);
 //							}
 						}
-						
+
 					} else {
 
 					}
@@ -920,68 +930,68 @@ function countChar(textareaName,spanName,maxLimit){
 		spanCount.innerHTML =maxLimit-textArea.value.length;
 	}
 }
-/**  
- * 文本框根据输入内容自适应高度  
- * @param                {HTMLElement}        输入框元素  
- * @param                {Number}                设置光标与输入框保持的距离(默认0)  
- * @param                {Number}                设置最大高度(可选)  
- */  
-var autoTextarea = function(elem, extra, maxHeight) {  
-    extra = extra || 0;  
+/**
+ * 文本框根据输入内容自适应高度
+ * @param                {HTMLElement}        输入框元素
+ * @param                {Number}                设置光标与输入框保持的距离(默认0)
+ * @param                {Number}                设置最大高度(可选)
+ */
+var autoTextarea = function(elem, extra, maxHeight) {
+    extra = extra || 0;
     var elem=document.getElementById(elem);
-    var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,  
-        isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),  
-        addEvent = function(type, callback) {  
-            elem.addEventListener ?  
-                elem.addEventListener(type, callback, false) :  
-                elem.attachEvent('on' + type, callback);  
-        },  
-        getStyle = elem.currentStyle ? function(name) {  
-            var val = elem.currentStyle[name];  
-            if (name === 'height' && val.search(/px/i) !== 1) {  
-                var rect = elem.getBoundingClientRect();  
-                return rect.bottom - rect.top -  
-                    parseFloat(getStyle('paddingTop')) -  
-                    parseFloat(getStyle('paddingBottom')) + 'px';  
-            };  
-            return val;  
-        } : function(name) {  
-            return getComputedStyle(elem, null)[name];  
-        },  
-        minHeight = parseFloat(getStyle('height'));  
-    elem.style.resize = 'none';  
-    var change = function() {  
-        var scrollTop, height,  
-            padding = 0,  
-            style = elem.style;  
-        if (elem._length === elem.value.length) return;  
-        elem._length = elem.value.length;  
-        if (!isFirefox && !isOpera) {  
-            padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));  
-        };  
-        scrollTop = document.body.scrollTop || document.documentElement.scrollTop;  
-        elem.style.height = minHeight + 'px';  
-        if (elem.scrollHeight > minHeight) {  
-            if (maxHeight && elem.scrollHeight > maxHeight) {  
-                height = maxHeight+10;  
-                style.overflowY = 'auto';  
-            } else {  
-                height = elem.scrollHeight+10;  
-                style.overflowY = 'hidden';  
-            };  
-            style.height = height + extra + 'px'; 
+    var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+        isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+        addEvent = function(type, callback) {
+            elem.addEventListener ?
+                elem.addEventListener(type, callback, false) :
+                elem.attachEvent('on' + type, callback);
+        },
+        getStyle = elem.currentStyle ? function(name) {
+            var val = elem.currentStyle[name];
+            if (name === 'height' && val.search(/px/i) !== 1) {
+                var rect = elem.getBoundingClientRect();
+                return rect.bottom - rect.top -
+                    parseFloat(getStyle('paddingTop')) -
+                    parseFloat(getStyle('paddingBottom')) + 'px';
+            };
+            return val;
+        } : function(name) {
+            return getComputedStyle(elem, null)[name];
+        },
+        minHeight = parseFloat(getStyle('height'));
+    elem.style.resize = 'none';
+    var change = function() {
+        var scrollTop, height,
+            padding = 0,
+            style = elem.style;
+        if (elem._length === elem.value.length) return;
+        elem._length = elem.value.length;
+        if (!isFirefox && !isOpera) {
+            padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+        };
+        scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        elem.style.height = minHeight + 'px';
+        if (elem.scrollHeight > minHeight) {
+            if (maxHeight && elem.scrollHeight > maxHeight) {
+                height = maxHeight+10;
+                style.overflowY = 'auto';
+            } else {
+                height = elem.scrollHeight+10;
+                style.overflowY = 'hidden';
+            };
+            style.height = height + extra + 'px';
            if(elem.currHeight!=undefined){
         	   scrollTop += parseInt(style.height) - elem.currHeight;
            }
-             document.body.scrollTop = scrollTop;  
-             document.documentElement.scrollTop = scrollTop;  
+             document.body.scrollTop = scrollTop;
+             document.documentElement.scrollTop = scrollTop;
              elem.currHeight = parseInt(style.height);
-        };  
-    };  
-    addEvent('propertychange', change);  
-    addEvent('input', change);  
-    addEvent('focus', change);  
-    change();  
+        };
+    };
+    addEvent('propertychange', change);
+    addEvent('input', change);
+    addEvent('focus', change);
+    change();
 };
 /* 通用验证 */
 function validate(){
@@ -995,7 +1005,7 @@ function validate(){
 						"data-rule-vinputValRule_2":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"			
+						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="2" && inputValRuleMark=="2"){
@@ -1004,7 +1014,7 @@ function validate(){
 						"data-rule-vinputValRule_1":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-vinputValRule_1":"<font color=red>*</font>支持0～99的整数"			
+						"data-msg-vinputValRule_1":"<font color=red>*</font>支持0～99的整数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3" && inputValRuleMark=="3"){
@@ -1013,7 +1023,7 @@ function validate(){
 						"data-rule-vinputValRule_3":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
+						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3" && inputValRuleMark=="ok"){
@@ -1022,7 +1032,7 @@ function validate(){
 						"data-rule-vinputValRule_3":"true",
 						//"required":"required",
 						"name":i,
-						"data-msg-vinputValRule_3":"<br/><font color=red>*</font>支持0～100的整数和两位小数"			
+						"data-msg-vinputValRule_3":"<br/><font color=red>*</font>支持0～100的整数和两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="10,2"){
@@ -1031,7 +1041,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="8,2"){
@@ -1040,7 +1050,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_82":"<font color=red>*</font>支持0～99999999的整数和两位小数"			
+						"data-msg-verify_82":"<font color=red>*</font>支持0～99999999的整数和两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="9,4"){
@@ -1049,16 +1059,16 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_82":"<br><font color=red>*</font>支持0～99999999的整数和两位小数"			
+						"data-msg-verify_82":"<br><font color=red>*</font>支持0～99999999的整数和两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
 				var validate={
 						"data-rule-verify_32":"true",
-						//"required":"required",	
+						//"required":"required",
 						"name":i,
 						//"msg":"^(?:[1-9][0-9]?|1[01][0-9]|100)$",
-						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"			
+						"data-msg-verify_32":"<font color=red>*</font>支持0～100的整数和两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="5,2"){
@@ -1067,21 +1077,21 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"			
+						"data-msg-verify_52":"<font color=red>*</font>支持0～99999的整数和两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="40"){
 				var validate={
 						"data-rule-verify_40":"true",
 						"name":i,
-						"data-msg-verify_40":"<font color=red>*</font>不能为空"			
+						"data-msg-verify_40":"<font color=red>*</font>不能为空"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="100"){
 				var validate={
 						"data-rule-verify_100":"true",
 						"name":i,
-						"data-msg-verify_100":"<font color=red>*</font>不能为空"			
+						"data-msg-verify_100":"<font color=red>*</font>不能为空"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="4"){
@@ -1090,13 +1100,13 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"			
+						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="5"){
 				var add_time =i+"_time";
 				var validate={
-						"class":"time",	
+						"class":"time",
 						"data-time":add_time
 				}
 				inputs.eq(i).attr(validate);
@@ -1113,74 +1123,74 @@ function validate(){
 		    	});
 			}
 	 }
-	
-	
+
+
 }
 //配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
 $.validator.setDefaults({
 	errorElement:'span'
 });
 //inputValRuleMark=="10,2"
-jQuery.validator.addMethod("verify_102", function(value, element) {   
+jQuery.validator.addMethod("verify_102", function(value, element) {
 	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
 //inputValRuleMark=="8,2"
-jQuery.validator.addMethod("verify_82", function(value, element) {   
+jQuery.validator.addMethod("verify_82", function(value, element) {
 	var verify_82 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,7})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_82.test(value));
 }, "不能超过99999999");
 //vinputValRule=="2"
-jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
+jQuery.validator.addMethod("vinputValRule_2", function(value, element) {
 	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2})$/;;
 	return this.optional(element) || (vinputValRule_2.test(value));
-}, "不能超过100"); 
-jQuery.validator.addMethod("vinputValRule_1", function(value, element) {   
+}, "不能超过100");
+jQuery.validator.addMethod("vinputValRule_1", function(value, element) {
 	var vinputValRule_1 = /^([1-9]{1}[0-9]{0,1}|0)$/;;
 	return this.optional(element) || (vinputValRule_1.test(value));
 }, "不能超过100")
 //vinputValRule=="3"
-jQuery.validator.addMethod("vinputValRule_3", function(value, element) {   
+jQuery.validator.addMethod("vinputValRule_3", function(value, element) {
 	var vinputValRule_3 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (vinputValRule_3.test(value));
-}, "不能超过100"); 
+}, "不能超过100");
 //inputValRuleMark=="3,2"
-jQuery.validator.addMethod("verify_32", function(value, element) {   
+jQuery.validator.addMethod("verify_32", function(value, element) {
 	var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (verify_32.test(value));
-}, "不能超过100"); 
+}, "不能超过100");
 //inputValRuleMark=="5,2"
-jQuery.validator.addMethod("verify_52", function(value, element) {   
+jQuery.validator.addMethod("verify_52", function(value, element) {
 	var verify_52 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,4})?(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_52.test(value));
-}, "不能超过99999"); 
+}, "不能超过99999");
 //inputValRuleMark=="40"
-jQuery.validator.addMethod("verify_40", function(value, element) {   
+jQuery.validator.addMethod("verify_40", function(value, element) {
 	var verify_40 = /^(?!.{41}|^\s*$)/;
 	return this.optional(element) || (verify_40.test(value));
-}, "不能全为空格"); 
+}, "不能全为空格");
 //inputValRuleMark=="100"
-jQuery.validator.addMethod("verify_100", function(value, element) {   
+jQuery.validator.addMethod("verify_100", function(value, element) {
 	var verify_100 = /^(?!.{101}|^\s*$)/;
 	return this.optional(element) || (verify_100.test(value));
 }, "不能全为空格");
 //inputValRule=="4"
-jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
+jQuery.validator.addMethod("vinputValRule_4", function(value, element) {
 	var vinputValRule_4 = /^(((([1-9]{1}[0-9]{0,1}|0)|([1][0-5][0-9])|([1][6][0-7]))(\.\d{1})?)|168|168.0)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
-}, "不能超过168"); 
+}, "不能超过168");
 //百分数
-jQuery.validator.addMethod("percentage", function(value, element) {   
+jQuery.validator.addMethod("percentage", function(value, element) {
 	var percentage = /^\d+(\.\d{2})?$/;
 	return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
-}, "只能是0～100的整数和两位小数"); 
+}, "只能是0～100的整数和两位小数");
 //更新时间
 function updateInforTime(projectId,type){
 	var test={};
 	test.projectId = projectId;
 	test.reflect = type;
 	sendPostRequestByJsonObj(
-				Constants.sopEndpointURL+'/galaxy/InformationOperationTime/updateOperateTime' , 
+				Constants.sopEndpointURL+'/galaxy/InformationOperationTime/updateOperateTime' ,
 				test,
 				null);
 }
@@ -1194,7 +1204,7 @@ function check_table(){
 			$(this).show();
 		}
 	})
-}	
+}
 //检查是否10条tr
 function check_table_tr_edit(){
 	$.each($("table.editable"),function(){
@@ -1212,7 +1222,7 @@ function getTableRowLimit(code)
 {
 	return 10;
 }
-	
+
 //编辑的时候右侧导航隐藏不可用
 //data==1的时候为编辑否则为取消、保存
 function btn_disable(data){
@@ -1243,14 +1253,14 @@ function btn_disable(data){
 function toggle_btn(data,status,dom_this){
 	//初始化下全部显示dd
 	if(status==1){
-		$('.radius').show();	
+		$('.radius').show();
 		$('dd').parents('.mb_24').show();
 		$("dt[data-type=5]").siblings('dd').show();
 		$("dt[data-type=15]").siblings('dd').show();
 		$('.sign_box').show();
 	}else{};
 	//判断右侧是否点击了隐藏，是就走下面代码 不是走1003行
-	if(data.hasClass('invisible')){ 
+	if(data.hasClass('invisible')){
 		//全局      否969
 		if(status==1){
 			$('.radius dd').each(function(){
@@ -1284,12 +1294,12 @@ function toggle_btn(data,status,dom_this){
 			if($(this).find('.spread_out').is(":visible")){
 				$(this).find('.mb_24').hide();
 				$(this).find('.sign_box').hide();
-				 
+
 			}
 		});
 	//右侧锚点按钮是展示
 	}else{
-		
+
 		//全局
 		if(status ==1){
 			$('.radius').each(function(){
@@ -1319,16 +1329,16 @@ function toggle_btn(data,status,dom_this){
 					}
 				}
 			});
-			//$(dom_this).find('.mb_24').show();		
+			//$(dom_this).find('.mb_24').show();
 			$('.anchor_nav li').removeClass("active");
 			$('.anchor_nav li').eq(0).addClass("active");
 			$('html, body').scrollTop(0);
-			
+
 		}else{
 			//局部
-			$(dom_this).find('.mb_24').show();	
+			$(dom_this).find('.mb_24').show();
 			$(dom_this).find('.sign_box').show();
-		}	
+		}
 	}
 	//全部隐藏状态
 	hideAll();
@@ -1510,7 +1520,7 @@ function save_cancel_show(data,status){
 	})
 	//1有红字
 	if(status==1){
-		if(i>=_this.find('.mb_24').length){	
+		if(i>=_this.find('.mb_24').length){
 			show_btn(_this,1)
 			_this.find('.sign_box').hide();
 		}else{
@@ -1520,7 +1530,7 @@ function save_cancel_show(data,status){
 		}
 		//无红字
 	}else{
-		if(i>=_this.find('.mb_24').length){	
+		if(i>=_this.find('.mb_24').length){
 			$('.sign_box').hide();
 			i=0;
 		}else{
@@ -1528,7 +1538,7 @@ function save_cancel_show(data,status){
 			_this.find('.sign_box').show();
 		}
 	}
-} 
+}
 //必填项添加必填字段
 function setReqiured(){  //必填添加required
 	$("*[data-must]").each(function(){
@@ -1548,20 +1558,20 @@ function mustData(projectId,status){
 				    if (result == 'OK') {
 				    	if(data.entity.resultIds){
 				    		setMustIds(data.entity.resultIds);
-				    	}				    	
+				    	}
 				    }
-					
+
 				});
 		}
 	}else{
-		//当前模块 projectId  
+		//当前模块 projectId
 		var id =projectId.attr('id');
 		//如果有红字
 		if($('#'+id).find('.h_title').find('span').is(":visible")){
 			save_cancel_show($('#'+id),1);
 		}
 		/*else{save_cancel_show($('#'+id),1);}*/
-		
+
 	}
 }
 function setMustIds(mustids){
@@ -1595,7 +1605,7 @@ function setMustIds(mustids){
 			if(roleId != '1' && roleId != 1 && roleId != '2' && roleId != 2){
 			$("#"+id ).addClass('limit_sec');
 			$("#"+id ).find('.h_title span').show();
-			save_cancel_show($("#"+id),1); 
+			save_cancel_show($("#"+id),1);
 			}
 		}else{
 			var str ="<span style='color:#ff8181'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
@@ -1610,7 +1620,7 @@ function setMustIds(mustids){
 		}else{
 			$("[data-title-id="+result[i]+"]").attr("required","required");
 		}*/
-		
+
 	}
 }
 function hideNav(){
@@ -1634,9 +1644,9 @@ function hideNav(){
 			var l = 0;
 			$('#nav_ul li').each(function(){
 				if($(this).is(':visible')){
-					l=$(this).index();  
+					l=$(this).index();
 				}
-			})			 
+			})
 			$('#nav_ul li').eq(l).addClass('active');
 		}
 	})
@@ -1667,7 +1677,7 @@ function fun_click(){
 			$(this).parents('.limit_sec').find('.mb_24').show();
 			$(this).parent().siblings('.sign_box').show();
 			event.stopPropagation();
-		}	
+		}
 	})
 	//收起
 	$('.put_away').click(function(){
@@ -1675,7 +1685,7 @@ function fun_click(){
 		$(this).parents('.limit_sec').find('.mb_24').hide();
 		$(this).parent().siblings('.sign_box').hide();
 		event.stopPropagation();
-	}) 
+	})
 }
 //保存 题目change事件
 function type_change(){
@@ -1691,17 +1701,17 @@ function type_change(){
 	$("input").change(function(){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
-		
+
 	})
 	$("textarea").change(function(){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
-		
+
 	})
 	$("select").change(function(){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
-		
+
 	})
 }
 /**
@@ -1761,26 +1771,26 @@ function selectContext(formId){
  * 表格增删改查通用方法   **************************************************** 开始
  */
 //新增弹出页面渲染
-function addRow(ele)
-{
-	var code = $(ele).prev().data('code');
-	$.getHtml({
-		url:getDetailUrl(code),//模版请求地址
-		data:"",//传递参数
-		okback:function(){
-			$("#detail-form input[name='projectId']").val(projectInfo.id);
-			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-			$("#detail-form input[name='subCode']").val(code);
-			$("#save-detail-btn").click(function(){
-				saveForm($("#detail-form"));
-				check_table();
-				check_table_tr_edit();
-			});
-			//新增页面下拉框，单选按钮处理渲染处理
-			selectContext("detail-form");
-		}//模版反回成功执行	
-	});
-}
+//function addRow(ele)
+//{
+//	var code = $(ele).prev().data('code');
+//	$.getHtml({
+//		url:getDetailUrl(code),//模版请求地址
+//		data:"",//传递参数
+//		okback:function(){
+//			$("#detail-form input[name='projectId']").val(projectInfo.id);
+//			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+//			$("#detail-form input[name='subCode']").val(code);
+//			$("#save-detail-btn").click(function(){
+//				saveForm($("#detail-form"));
+//				check_table();
+//				check_table_tr_edit();
+//			});
+//			//新增页面下拉框，单选按钮处理渲染处理
+//			selectContext("detail-form");
+//		}//模版反回成功执行
+//	});
+//}
 //提交表单处理
 function saveForm(form)
 {

@@ -372,11 +372,11 @@
 					<dd>项目带过来的数据</dd>
 
 					{{else type=="12"}}
-						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+						<dt data-type="\${type}" data-must="\${isMust}" data-title-id = "\${titleId}">\${name}</dt>
 						<dd class="fl_none">
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-							<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
+							<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-title-id = "\${titleId}"  data-id="\${id}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
 							{{/each}}
 							<li class="text_li"><input type="text" data-value="\${value}" disabled="true" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" maxlength="\${valRuleMark}"/></li>
 						  </ul>
@@ -662,7 +662,7 @@
 					<dd>项目带过来的数据</dd>
 
 					{{else type=="12"}}
-						<dt  data-type="\${type}">\${name}</dt>
+						<dt  data-type="\${type}" data-title-id="\${titleId}">\${name}</dt>
 						<dd class="field" data-title-id="\${titleId}">未选择</dd>
 					{{else type=="13"}}
 						<dt data-type="\${type}" data-id="\${titleId}" data-title-id="\${titleId}" data-code="\${relateCode}" data-parentId="\${parentId}">\${name}</dt>

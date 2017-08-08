@@ -204,6 +204,8 @@ var index = Number(prograss.substring("projectProgress:".length,prograss.length)
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
 function seven_link(data){
+	var _href=window.location.href;
+	setCookie("back_url",_href,24,'/');
 	if(data==1){
 		window.location.href=platformUrl.toBaseInfo;
 	}else if(data==2){

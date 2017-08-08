@@ -213,13 +213,14 @@ table.table_15 td:nth-child(4){
 }
 .income_structor_content{
 	display:inline-block;
-	width:235px;
 	overflow : hidden;
+	color:#999;
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
+.title-value.income_structor_content span{color:#333; display:inline-block;}
 .content_radio_show{
 	text-align:left;
 	

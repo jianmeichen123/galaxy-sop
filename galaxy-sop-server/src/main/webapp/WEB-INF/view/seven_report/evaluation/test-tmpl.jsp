@@ -140,9 +140,9 @@
 					<div class="align_left">						
 						{{each(i,childList) childList}}
 						{{if type=="1" || type=="8"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="2" || type=="12" || type=="14"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}
 					{{/each}}
 					</div>
@@ -162,14 +162,14 @@
 						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                             <em>(0-\${scoreMax}分)</em>
 						</td>
@@ -289,7 +289,7 @@
 						</td>
 					{{else type=="14"}}
  					<!-- 单选select -->
-						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						<td class="condition condition_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
@@ -316,14 +316,14 @@
 													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">0</td>
 												{{else isScore==1}}
 												<!-- 人工打分（select） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+													<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<select>
 															<option>请选择</option>
 														</select>
 													</td>
 												{{else isScore==2}}
 												<!-- 人工打分（数值范围） -->
-													<td class="score-column" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+													<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
 														<input type="text" value="" placeholder="请打分">
 							                              <em>(0-\${scoreMax}分)</em>
 													</td>
@@ -360,9 +360,9 @@
 					<div class="align_left">						
 						{{each(i,childList) childList}}
 						{{if type=="1" || type=="8"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="2" || type=="12" || type=="14"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}
 					{{/each}}
 					</div>
@@ -384,14 +384,14 @@
 						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                               <em>(0-\${scoreMax}分)</em>
 						</td>
@@ -410,14 +410,14 @@
 						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{else isScore==1}}
 					<!-- 人工打分（select） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<select>
 								<option>请选择</option>
 							</select>
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-relate-id="\${titleRelateId}">
+						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
 							<input type="text" value="" placeholder="请打分">
                               <em>(0-\${scoreMax}分)</em>
 						</td>
