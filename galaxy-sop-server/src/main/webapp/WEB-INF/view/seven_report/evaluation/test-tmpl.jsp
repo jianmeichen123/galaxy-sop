@@ -140,9 +140,9 @@
 					<div class="align_left">						
 						{{each(i,childList) childList}}
 						{{if type=="1" || type=="8"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="2" || type=="12" || type=="14"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}
 					{{/each}}
 					</div>
@@ -360,9 +360,9 @@
 					<div class="align_left">						
 						{{each(i,childList) childList}}
 						{{if type=="1" || type=="8"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="2" || type=="12" || type=="14"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}
 					{{/each}}
 					</div>
