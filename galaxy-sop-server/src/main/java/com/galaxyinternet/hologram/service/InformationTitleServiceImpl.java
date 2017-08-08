@@ -718,6 +718,24 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					{
 						tempList = title.getDataList();
 					}
+					if(item.getCreateId() != null)
+					{
+						String createUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+						item.setCreateUserName(createUserName);
+					}
+					if(item.getUpdateId() != null)
+					{
+						String updateUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+						item.setUpdateUserName(updateUserName);
+					}
+					if(item.getCreatedTime() != null)
+					{
+						item.setCreateTimeStr(DateUtil.longString(item.getCreatedTime()));
+					}
+					if(item.getUpdatedTime() != null)
+					{
+						item.setUpdateTimeStr(DateUtil.longString(item.getUpdatedTime()));
+					}
 					tempList.add(item);
 				}
 			}
