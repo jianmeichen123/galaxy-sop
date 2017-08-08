@@ -211,11 +211,12 @@ function right(obj,type){
 			p.text(val);
 		}
 	}else if(type=="checkbox"){
-		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked')
+		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
+		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
 		var p = align_left.find('p');
 		if(val_checkbox.length==0){
 			p.text('未选择');
-			p.attr("data-title-value",'');
+			p.attr("data-title-value",val_id);
 		}
 		else
 		{
