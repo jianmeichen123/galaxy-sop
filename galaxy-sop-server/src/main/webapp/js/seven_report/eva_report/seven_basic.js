@@ -590,9 +590,88 @@ function iCheck(){
 	
 	
 	
+//	分割————表格和图片特殊类型
 	
-	
-	
+function getDetailUrl(code)
+{
+	if(code == 'equity-structure')
+	{
+		return '../../../html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return '../../../html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return '../../../html/fincing_add_yx.html';
+	}
+	else if(code == 'valuation-reference')
+	{
+		return '../../../html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return '../../../html/fincing_add_jd.html';
+	}else if (code =='team-members'){
+
+	    return '../../../html/team_compile.html';
+	}else if(code == 'share-holding')
+    {
+        return '../../../html/team_add_cgr.html';
+    }
+	return "";
+}
+	//add新增表格按钮
+	function addRow(ele)
+{
+   /*  if ( validateCGR() ) { */
+        var code = $(ele).prev().data('code');
+        $.getHtml({
+            url:"../../../html/team_compile.html",//模版请求地址
+            data:"",//传递参数
+            okback:function(){
+				/*$('#qualifications_popup_name').html('添加简历');
+				$('#qualifications_popup_name1').html('添加持股人');
+                $("#detail-form input[name='projectId']").val(projectInfo.id);
+                $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+                $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+               
+                selectContext("detail-form");
+                
+                $("#save-detail-btn").click(function(){
+                    saveForm($("#detail-form"));
+                    check_table();
+                    check_table_tr_edit();
+                });
+                $("#save_person_learning").click(function(){
+                	check_table();
+                	check_table_tr_edit();
+                });*/
+            }//模版反回成功执行
+        });
+    /* } */
+}
+//图片缩略图
+$('div').delegate(".h_imgs_add input[type='file']","change",function(){
+	 var fi_this = $(this);
+	 if ($(this).val() != '') {
+    var files = !!this.files ? this.files : [];
+    if (!files.length || !window.FileReader) return;
+    if (/^image/.test( files[0].type)){
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onloadend = function(){  
+        fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
+
+        }
+    }
+ }else{
+	 fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
+
+ }
+	 console.log(this.result);
+})
 	
 	
 	
