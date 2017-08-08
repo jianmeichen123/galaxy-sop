@@ -81,6 +81,7 @@
 			}else if(type==2){
 				var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
 				dom.addClass("checked");
+				dom.children("input").attr("checked",true);
 			}else if(type==8){
 				var relateId=p_box.attr("data-relate-id");
 				if(val!="未填写"){
@@ -90,6 +91,7 @@
 				var titleValList=titleVal.split(",");
 				for(var i=0;i<titleValList.length;i++){
 					$(".radioShow input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
+					$(".radioShow input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
 				}
 			}
 		}else{  //大弹窗编辑回显
