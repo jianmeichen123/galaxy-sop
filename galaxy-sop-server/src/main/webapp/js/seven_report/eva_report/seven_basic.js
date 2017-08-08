@@ -67,15 +67,49 @@
 	}
 	//编辑回显
 	function editResult(obj){
+		var e_type=$(obj).attr("e-type");
 		var id_code=$(obj).attr("attr-id")
 		var p_box=$(obj).siblings(".align_left").find("p")
 		var  val=p_box.text();
 		var titleVal=p_box.attr("data-title-value");
 		var type=p_box.attr("data-type");
-		if(type==2){
-			var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
-			dom.addClass("checked");
+		if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
+			if(type==1){
+				alert("11")
+			}else if(type==2){
+				var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
+				dom.addClass("checked");
+			}else if(type==8){
+				var relateId=p_box.attr("data-relate-id");
+				if(val!="未填写"){
+					$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
+				}			
+			}else if(type=="13"){
+				
+			}
+		}else{  //大弹窗编辑回显
+			var data=[];
+			var dom=$(obj).siblings(".align_left").find("span")
+			$(dom).each(function(){
+				var data_list={};
+				var relateId=$(this).parent("p").attr("data-relate-id");
+				var val=$(this).text();
+				data_list.relateId=relateId;
+				data_list.val=val;
+				data.push(data_list);
+			});
+			console.log(data);
+			$(data).each(function(){  //sign为3，且type为1 
+				var n=$(this)[0];
+				if(type==1){
+					if(n.val!="未填写"){
+						$("input[data-title-id='"+n.relateId+"']").val(n.val);
+					}
+				}
+								
+			})
 		}
+		
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
