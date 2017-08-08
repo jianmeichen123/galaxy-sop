@@ -72,6 +72,7 @@
 		var  val=p_box.text();
 		var titleVal=p_box.attr("data-title-value");
 		var type=p_box.attr("data-type");
+		var radioShow=$(obj).closest("td").find(".radioShow")
 		if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
 			if(type==1){
 				var relateId=p_box.attr("data-relate-id");
@@ -91,7 +92,6 @@
 				var titleValList=titleVal.split(",");
 				var valList=val.split("、");
 				for(var i=0;i<titleValList.length;i++){
-					var radioShow=$(obj).closest("td").find(".radioShow")
 					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
 					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
 				}
@@ -100,6 +100,12 @@
 					$(radioShow).find(".others_text").show();
 					$(radioShow).find(".others_text").val(valList[valList.length-1])
 				}
+			}else if(type==14){
+				$(radioShow).find(".input_select").attr("id",titleVal);
+				if(val!="未选择"){
+					$(radioShow).find(".input_select").val(val);
+				}
+				
 			}
 		}else{  //大弹窗编辑回显
 			var data=[];
@@ -161,7 +167,7 @@ function get_result(code,e_type,dom){
 				}else if(type==14){
 					var result_li='';
 					$.each(valueList,function(i,n){
-						result_li += "<li><a href=\"#\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
+						result_li += "<li><a href=\"javascript:;\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
 					})
 					result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
 				}
