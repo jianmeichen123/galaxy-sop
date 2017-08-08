@@ -32,7 +32,7 @@ position:absolute;
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
 	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backList()">创投项目</a>>
-	<a id="project_name_title" onclick="backProject()"></a>><span class="report_type"></span>
+	<a id="project_name_title" href="#" onclick="backProject()"></a>><span class="report_type"></span>
 	</div>
     	
     	<div class="new_tit_b">
