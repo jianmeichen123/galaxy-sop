@@ -1,6 +1,8 @@
 package com.galaxyinternet.model.hologram;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -8,6 +10,8 @@ public class InformationOperationTime extends PagableEntity{
 	private static final long serialVersionUID = 1L;
 
 	private Long projectId;
+	
+	private Byte reportType;
 
     private Date informationTime;
 
@@ -27,11 +31,11 @@ public class InformationOperationTime extends PagableEntity{
 
     private Date financingTime;
 
-    private Date time1;
+    private Date exitEvaluationTime;
 
-    private Date time2;
+    private Date investmentProgramTime;
 
-    private Date time3;
+    private Date otherBusinessTime;
 
     private Date time4;
 
@@ -143,31 +147,41 @@ public class InformationOperationTime extends PagableEntity{
         this.financingTime = financingTime;
     }
 
-    public Date getTime1() {
-        return time1;
-    }
+   
 
-    public void setTime1(Date time1) {
-        this.time1 = time1;
-    }
+	public Byte getReportType() {
+		return reportType;
+	}
 
-    public Date getTime2() {
-        return time2;
-    }
+	public void setReportType(Byte reportType) {
+		this.reportType = reportType;
+	}
 
-    public void setTime2(Date time2) {
-        this.time2 = time2;
-    }
+	public Date getExitEvaluationTime() {
+		return exitEvaluationTime;
+	}
 
-    public Date getTime3() {
-        return time3;
-    }
+	public void setExitEvaluationTime(Date exitEvaluationTime) {
+		this.exitEvaluationTime = exitEvaluationTime;
+	}
 
-    public void setTime3(Date time3) {
-        this.time3 = time3;
-    }
+	public Date getInvestmentProgramTime() {
+		return investmentProgramTime;
+	}
 
-    public Date getTime4() {
+	public void setInvestmentProgramTime(Date investmentProgramTime) {
+		this.investmentProgramTime = investmentProgramTime;
+	}
+
+	public Date getOtherBusinessTime() {
+		return otherBusinessTime;
+	}
+
+	public void setOtherBusinessTime(Date otherBusinessTime) {
+		this.otherBusinessTime = otherBusinessTime;
+	}
+
+	public Date getTime4() {
         return time4;
     }
 
@@ -230,6 +244,5 @@ public class InformationOperationTime extends PagableEntity{
 	public void setReflect(String reflect) {
 		this.reflect = reflect;
 	}
-    
-    
+  
 }
