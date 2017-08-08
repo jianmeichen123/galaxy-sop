@@ -32,7 +32,7 @@
                 </ul> -->
  <!--隐藏-->
 <div class="bj_hui_on"></div>
-<jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>               
+<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>               
               <div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -41,18 +41,18 @@
 		</div>
 
 <script type="text/javascript">
+var path = '<%=path%>';
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	//right_anchor("DNO2?reportType=2");
+	//right_anchor("DNO3?reportType=2");
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'DNO6?reportType=2', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'ONO6?reportType=7', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
-			console.log(entity);
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
 			customBuilder();

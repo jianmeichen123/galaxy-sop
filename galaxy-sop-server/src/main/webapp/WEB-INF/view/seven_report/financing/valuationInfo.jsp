@@ -16,7 +16,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
@@ -41,7 +41,7 @@
   </ul> -->
    <!--隐藏-->
 <div class="bj_hui_on"></div>
-  <jsp:include page="jquery-tmpl.jsp" flush="true"></jsp:include>
+  <jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
   <div id="tab-content">
 		<div class="tabtxt valuation" id="page_all">
 		<!--tab-->
@@ -57,7 +57,7 @@ var key = Date.parse(new Date());
 var keyJSON={};
 var deleteJSON={};
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO9", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + 'GNO9?reportType=5', null,
 		function(data) {
 		console.log(data);
 			var result = data.result.status;
