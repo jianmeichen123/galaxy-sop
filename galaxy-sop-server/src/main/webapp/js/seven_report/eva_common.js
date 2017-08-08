@@ -43,6 +43,16 @@ $("#eva-tabs li").click(function(){
 		}
 	});
 });
+//编辑按钮显示
+function　mouserover(obj){
+	if($(obj).data('edit') == 'true') return;
+	var target = $(obj).find('.editPic');
+	 target.show();
+};
+function mouseout(obj){
+	var target = $(obj).find('.editPic');
+	target.hide();
+};
 $("#eva-tabs li:eq(0)").click();
 
 // 
