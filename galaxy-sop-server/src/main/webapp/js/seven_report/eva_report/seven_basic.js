@@ -88,18 +88,20 @@
 				if(val!="未填写"){
 					$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
 				}			
-			}else if(type==13){
-				var titleValList=titleVal.split(",");
-				var valList=val.split("、");
-				for(var i=0;i<titleValList.length;i++){
-					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
-					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
-				}
-				var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
-				if(last_id){
-					$(radioShow).find(".others_text").show();
-					$(radioShow).find(".others_text").val(valList[valList.length-1])
-				}
+			}else if(type==13 || type==3){
+				if(titleVal){
+					var titleValList=titleVal.split(",");
+					var valList=val.split("、");
+					for(var i=0;i<titleValList.length;i++){
+						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
+						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+					}
+					var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
+					if(last_id){
+						$(radioShow).find(".others_text").show();
+						$(radioShow).find(".others_text").val(valList[valList.length-1])
+					}
+				}				
 			}else if(type==14){
 				$(radioShow).find(".input_select").attr("id",titleVal);
 				if(val!="未选择"){
