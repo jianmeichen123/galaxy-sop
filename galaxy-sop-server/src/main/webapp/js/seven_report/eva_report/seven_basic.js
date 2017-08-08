@@ -249,9 +249,38 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 //大弹窗 保存方法
 $('div').delegate(".h_save_btn","click",function(event){
 	var align_left = $("span[parent_dom='show']").parent().find(".align_left");
-	
-	
-	
+	var array_p = align_left.find("p");
+	var form = $(this).parents(".ch_opration").find("form");
+	var data=[];
+	//获取保存的的数据
+	$.each(form.find(".mb_16"),function(i,n){
+		var data_list={};
+		var _dt = $(this).find("dt");
+		data_list.code=_dt.data("code");
+		data_list.id=_dt.data("id");
+		data_type=_dt.data("type");
+		if(data_type==1){
+			data_list.value=$(this).find("dd").find("input").val();
+		}else if(data_type==2){
+			
+		}
+		data.push(data_list);
+	})
+	//填充保存的的数据
+	var align_p = align_left.find("p");
+	$.each(align_p,function(){
+		var _this=$(this);
+		var _code = _this.data("code");
+		$.each(data,function(){
+			
+			var dcode = $(this)[0].code;
+			console.log(dcode);
+			if(_code==dcode){
+				debugger;
+				_this.html($(this)[0].value)
+			}
+		})
+	})
 	
 	
 	var _this = $(this).parents(".ch_opration");
