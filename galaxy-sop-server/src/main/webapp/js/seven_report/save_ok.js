@@ -21,14 +21,14 @@ $('div').delegate(".h_save_btn","click",function(event){
 	{
 		return;
 	}
-	if($(this).closest('form').attr("id") =="b_NO3_1"){
+	if($(this).closest('.radius').attr("data-section-id") ==1302){
 		//表格
 		var titleId = sec.find("table.editable").attr("data-title-id");
         var json = {"projectId":projectInfo.id,"titleId":titleId};
 		var dataList = new Array();
 		$.each(sec.find("table.editable"),function(){
 			$.each($(this).find('tr:gt(0)'),function(){
-				var row = $(this).data("obj");
+				var row = $(this).data("person");
 				if(row.id=="")
 				{
 					row.id=null;
@@ -164,12 +164,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 		if(_tochange==undefined){
 			_tochange=false;
 		}
-		var infoMode = {
-			titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
-			tochange:_tochange,
-			resultId:_resultId,
-			type : type
-		};
+//		var infoMode = {
+//			titleId	: field.data('title-id') || field.closest('.h_edit_txt').find(':first-child').data('title-id'),
+//			tochange:_tochange,
+//			resultId:_resultId,
+//			type : type
+//		};
 		if(_resultId==undefined){
 			_resultId=null;
 		}
