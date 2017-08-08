@@ -103,8 +103,9 @@
 			}else if(type==14){
 				$(radioShow).find(".input_select").attr("id",titleVal);
 				if(val!="未选择"){
-					$(radioShow).find(".input_select").val(val);
+					$(radioShow).find(".input_select").attr("value",val);
 				}
+			
 				
 			}
 		}else{  //大弹窗编辑回显
