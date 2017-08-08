@@ -1,6 +1,5 @@
 //单选点击事件
 	$('div').delegate(".h_radios input","click",function(){
-		debugger;
 		var val = $(this).parent().text();
 		if(val=="其他"){
 			var other_input = $(this).parent().next().find("input");
@@ -75,7 +74,10 @@
 		var type=p_box.attr("data-type");
 		if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
 			if(type==1){
-				alert("11")
+				var relateId=p_box.attr("data-relate-id");
+				if(val!="未填写"){
+					$(".condition").find("input[data-id='"+relateId+"']").val(val);
+				}			
 			}else if(type==2){
 				var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
 				dom.addClass("checked");
@@ -132,7 +134,7 @@ function get_result(code,e_type,dom){
 						 }
 					 })
 				}else if(type==1){
-					result_html ="<input type=\"text\" palceholder="+entity.placeholder+" />";
+					result_html ="<input type=\"text\" data-id="+data.id+" palceholder="+entity.placeholder+" />";
 				}else if(type==13||type==3){
 					 $.each(valueList,function(i,n){						 
 						 if(n.name=="其他"){
@@ -241,6 +243,14 @@ function right(obj,type){
 		}
 		p.text(val);
 		
+	}else if(type=="input"){
+		var val = $(obj).closest("tr").find("input").val();
+		var p = align_left.find('p');
+		if(val == null || val.length == 0)
+		{
+			val='未填写';
+		}
+		p.text(val);
 	}else if(type=="select"){
 		var p = align_left.find('p');
 		var _select = $(obj).closest('td').find('.dropdown').find("input");
@@ -269,9 +279,7 @@ function right(obj,type){
 	}else{
 		//align_left.html(val); 
 	}
-	$(".align_left span").last().remove();
-	
-	
+	//$(".align_left span").last().remove();
 	$(obj).parent().parent().find('p').show();
 	$(obj).parent().parent().find('p').css('color','#000')
 	$(obj).closest('td').data('edit','false');
@@ -284,6 +292,7 @@ function right(obj,type){
 	{
 		afterTitleSaved();
 	}
+	$("span[parent_dom='show']").removeAttr("parent_dom");
 }
 
 
@@ -312,10 +321,15 @@ $('div').delegate(".h_save_btn","click",function(event){
 		data_list.type=data_type;
 		if(data_type==1||data_type==8){
 			data_list.value=$(this).find("dd").children().val();
-			console.log(data_list);
+			if(data_list.value==""||!data_list.value){
+				data_list.value=="未填写";
+			}
 		}else if(data_type==14){
 			data_list.value=$(this).find("select").find("option:selected").text();
 			data_list.value_id=$(this).find("select").val();
+			if(data_list.value==""||!data_list.value){
+				data_list.value=="未选择";
+			}
 		}else if(data_type==2||data_type==12){
 			var h_radios = $(this).find(".h_radios");
 			var value_check = h_radios.find('input[type="radio"]:checked');
@@ -325,7 +339,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 				/*other_input.attr("disabled")*/
 				data_list.value=value_check.parent().next().find("input").val();
 			}
-			
+			if(data_list.value==""||!data_list.value){
+				data_list.value=="未选择";
+			}
 		}
 		data.push(data_list);
 	})
