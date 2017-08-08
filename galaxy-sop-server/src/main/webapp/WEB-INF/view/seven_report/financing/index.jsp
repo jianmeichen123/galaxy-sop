@@ -92,7 +92,7 @@ var path = '<%=path%>';
 <%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>	 --%>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
-<script src="<%=path%>/js/seven_report/financing/fiancing_common.js"></script>	
+
 <!-- 跟全息图相似的 -->
 <script src="<%=path%>/js/hologram/team_pop.js"></script>	
 <script src="<%=path%>/js/hologram/team_save.js"></script>	
@@ -107,11 +107,7 @@ $(function() {
 	//right_anchor("DNO2?reportType=2"); 
 })
 //整体页面显示
-<<<<<<< HEAD
-sendGetRequest(platformUrl.queryAllTitleValues + 'ONO1?reportType=7', null,
-=======
 sendGetRequest(platformUrl.queryAllTitleValues + 'GNO2?reportType=5', null,
->>>>>>> branch 'dev_1.6' of http://git.gi.com/galaxy-star/galaxy-sop.git
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
