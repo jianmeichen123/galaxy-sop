@@ -32,14 +32,14 @@ var path = '<%=path%>';
     <jsp:include page="../reportcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabInvestChange('0')">项目</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('1')">团队</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('2')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('3')">竞争</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('4')">战略及<br />策略 </li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('5')">财务</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabInvestChange('6')">法务</li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabInvestChange('7')">融资及<br />估值 </li>
+			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabFinanChange('0')">项目</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('1')">团队</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabFinanChange('2')">运营<br />数据 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('3')">竞争</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabFinanChange('4')">战略及<br />策略 </li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('5')">财务</li>
+			<li data-tab="navInfo" class="fl h_nav2" onclick="tabFinanChange('6')">法务</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabFinanChange('7')">融资及<br />估值 </li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
@@ -93,15 +93,13 @@ var path = '<%=path%>';
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
 
-
-<script src="<%=path%>/js/seven_report/financing/financing_common.js"></script>	
-
 <!-- 跟全息图相似的 -->
 <script src="<%=path%>/js/hologram/team_pop.js"></script>	
 <script src="<%=path%>/js/hologram/team_save.js"></script>	
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
 <script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
 <script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
+<script src="<%=path %>/js/seven_report/financing/fiancing_common.js" type="text/javascript"></script>
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";
@@ -109,7 +107,7 @@ $(function() {
 	//right_anchor("DNO2?reportType=2"); 
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'DNO2?reportType=2', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'GNO2?reportType=5', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {

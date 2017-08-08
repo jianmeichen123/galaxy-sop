@@ -483,7 +483,7 @@ function previewImage(file,callback){//file为plupload事件监听函数参数�
 }
 function getData(){
 	//整体页面显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO4", null,
+	sendGetRequest(platformUrl.queryAllTitleValues + 'GNO4?reportType=5', null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
