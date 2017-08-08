@@ -82,7 +82,7 @@
 				var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
 				dom.addClass("checked");
 				dom.children("input").attr("checked",true);
-			}else if(type==8){
+			}else if(type==8 || type==15){
 				var relateId=p_box.attr("data-relate-id");
 				if(val!="未填写"){
 					$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
@@ -133,6 +133,7 @@ function get_result(code,e_type,dom){
 		 var result = data.result.status;
 		 if(result == 'OK'){
 			 var entity = data.entity;
+			 console.log(entity);
 			 var valueList = data.entity.valueList;
 			 var type=entity.type;
 			 if(e_type==1){
