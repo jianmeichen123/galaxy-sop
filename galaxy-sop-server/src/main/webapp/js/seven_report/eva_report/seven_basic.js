@@ -62,7 +62,7 @@
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();			
 		}
-		
+		editResult(obj);
 		
 	}
 	//编辑回显
@@ -72,7 +72,6 @@
 		var  val=p_box.text();
 		var titleVal=p_box.attr("data-title-value");
 		var type=p_box.attr("data-type");
-		alert(type);
 		if(type==2){
 			var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
 			dom.addClass("checked");
