@@ -275,8 +275,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 		data_list.id=_dt.data("id");
 		data_type=_dt.data("type");
 		data_list.type=data_type;
-		if(data_type==1){
-			data_list.value=$(this).find("dd").find("input").val();
+		if(data_type==1||data_type==8){
+			data_list.value=$(this).find("dd").children().val();
+			console.log(data_list);
 		}else if(data_type==14){
 			data_list.value=$(this).find("select").find("option:selected").text();
 			data_list.value_id=$(this).find("select").val();
@@ -303,10 +304,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var dcode = d_this.code;
 			var _type =d_this.type;
 			if(_code==dcode){
-				if(_type==1){
-					_this.html(d_this.value);
+				if(_type==1||_type==8){
+					_this.find("span").html(d_this.value);
 				}else if(_type==14||_type==2||_type==12){
-					_this.html(d_this.value);
+					_this.find("span").html(d_this.value);
 					_this.attr("data-title-value",d_this.value_id);
 				}
 				
