@@ -255,6 +255,7 @@ function buildResult(title)
 		return;
 	}
 	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
+	var _scoreEle = $('.score-column[data-title-id="'+title.id+'"]');
 	//Radio
 	if(type == 2 || type==14)
 	{
@@ -297,6 +298,11 @@ function buildResult(title)
 		{
 			_ele.text(val);
 		}
+		_ele.attr("data-result-id",results[0].id);
+	}
+	if(_scoreEle.length>0)
+	{
+		_scoreEle.attr("data-result-id",results[0].id);
 	}
 }
 function addValues(map)
@@ -392,17 +398,53 @@ function addValues(map)
 }
 function addScores(map)
 {
-	
+	var scores = $(".score-column input,select");
+	$.each(scores,function(){
+		var _this = $(this);
+		var val = _this.val();
+		if(val == null || val.length == 0 || isNaN(val))
+		{
+			return;
+		}
+		var td = _this.parent();
+		var resultId = td.data('resultId');
+		var titleId= td.data('titleId');
+		var subId = td.data('subId');
+		var model = {
+				tochange:"true",
+				type:"1",
+				titleId: titleId,
+				projectId: projId
+			};
+		if(typeof resultId != 'undefined')
+		{
+			model.resultId = resultId;
+		}
+		if(map.containsKey(titleId))
+		{
+			model = map.get(titleId);
+		}
+		if(subId == 2)
+		{
+			model.score2 = val;
+		}
+		else
+		{
+			model.score1 = val;
+		}
+		map.put(titleId,model);
+	});
 }
 $("#save-rpt-btn").click(function(){
 	var map = new Map();
 	addValues(map);
-	return;
+	addScores(map);
 	var data = {projectId: projId};
-	
+	var infoModeList = new Array();
+	map.each(function(titleId,model){
+		infoModeList.push(model);
+	});
 	data.infoModeList = infoModeList;
-	console.log(data);
-	
 	sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo+'?_='+new Date().getTime() , 
 			data,
@@ -440,5 +482,12 @@ var Map = function(){
 	
 	this.toString = function(){
 		return JSON.stringify(this.data);
+	}
+	this.each = function(fn){
+		if(typeof fn != 'function')
+		{
+			return;
+		}
+		$.each(this.data,fn);
 	}
 }
