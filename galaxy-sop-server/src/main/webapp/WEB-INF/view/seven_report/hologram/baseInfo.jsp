@@ -365,7 +365,7 @@ $(function() {
 			var result = data.result.status;
 			console.log(data)
 			if (result == 'OK') {
-				updateInforTime(projectInfo.id,"informationTime");
+				updateInforTime(projectInfo.id,"NO1");
 				layer.msg('保存成功');
 				showArea(id_code);
 				$(".bj_hui_on").hide();

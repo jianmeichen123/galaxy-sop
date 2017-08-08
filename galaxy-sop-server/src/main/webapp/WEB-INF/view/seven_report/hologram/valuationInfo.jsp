@@ -400,7 +400,7 @@ var deleteJSON={};
 						function(data) {
 							var result = data.result.status;
 							if (result == 'OK') {
-								updateInforTime(projectInfo.id,"financingTime");
+								updateInforTime(projectInfo.id,"NO9");
 								layer.msg('保存成功');
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".bj_hui_on").hide();
