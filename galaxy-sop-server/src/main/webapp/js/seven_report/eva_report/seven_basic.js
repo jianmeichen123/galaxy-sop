@@ -1,13 +1,3 @@
-//这里不需要window.onload  和 $(document).ready(function(){})
-	function　mouserover(obj){
-		if($(obj).data('edit') == 'true') return;
-		var target = $(obj).find('.editPic');
-		 target.show();
-	};
-	function mouseout(obj){
-		var target = $(obj).find('.editPic');
-		target.hide();
-	};
 //单选点击事件
 	$('div').delegate(".h_radios input","click",function(){
 		debugger;
@@ -74,6 +64,19 @@
 		}
 		
 		
+	}
+	//编辑回显
+	function editResult(obj){
+		var id_code=$(obj).attr("attr-id")
+		var p_box=$(obj).siblings(".align_left").find("p")
+		var  val=p_box.text();
+		var titleVal=p_box.attr("data-title-value");
+		var type=p_box.attr("data-type");
+		alert(type);
+		if(type==2){
+			var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
+			dom.addClass("checked");
+		}
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
