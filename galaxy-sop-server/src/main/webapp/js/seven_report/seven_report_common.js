@@ -260,7 +260,6 @@ function tabInfoChange(index){
         			if (result == 'OK')
         			{
         				var entityList = data.entityList;
-        				console.log(entityList);
         				if(entityList && entityList.length >0)
         				{
         					$.each(entityList,function(){
@@ -778,8 +777,13 @@ function buildTable(sec,title)
 					}
 				}
 			}
+			if(header.titleId = '1810')
+			{
+				tr +='<th data-field-name="updateUserName">创建人</th>';
+				tr +='<th data-field-name="updateTimeStr">操作时间</th>';
+			}
+			
 			var editable = table.hasClass('editable');
-
 			if(editable == true||header.funFlag=="1")
 			{
 				tr +='<th data-field-name="opt">操作</th>';
