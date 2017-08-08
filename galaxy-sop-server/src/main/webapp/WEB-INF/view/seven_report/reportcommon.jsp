@@ -31,15 +31,15 @@ position:absolute;
 </head>
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
-	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">创投项目</a>>
-	<span id="project_name_title"></span>><span class="report_type"></span>
+	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backList()">创投项目</a>>
+	<a id="project_name_title" onclick="backProject()"></a>><span class="report_type"></span>
 	</div>
     	
     	<div class="new_tit_b">
         	<span class="size18 report_type"></span>
         	<!-- <span class="b_span"> 
 	        	<a href="#" onclick="back();">返回></a>
-			</span> -->
+			</span>  -->
         </div>
 </body>
 <!-- 高管/投资经理 -->
@@ -89,12 +89,19 @@ $(function(){
  * 面包屑
  * @version 2016-06-21
  */
-function backIndex(){
+/* function backIndex(){
 	  var url=Constants.sopEndpointURL+"/galaxy/index";
 	  window.location.href = url+"?sid="+sessionId+"&guid="+userId+"&_is_menu_=true";
 	
+} */
+function backProject(){  //返回项目详情页
+	var url=getCookieValue("back_url");
+	if(url!=""){
+		deleteCookie("back_url","/");
+		window.location.href=url;
+	}
 }
-function projectList(){
+function backList(){   //返回项目列表页
 	var url=Constants.sopEndpointURL+"/galaxy/mpl";
 	forwardWithHeader(url);
 }
