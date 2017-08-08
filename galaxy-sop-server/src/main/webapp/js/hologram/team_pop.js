@@ -1,4 +1,27 @@
 
+var map_edu = selectCache("team-members","field2")
+var map_pos = selectCache("team-members","field5")
+var map_stu = selectCache("study-experience","field4")
+/**
+团队select 字典缓存
+*/
+function selectCache(subCode,filed){
+    var map = {};
+	sendGetRequest(platformUrl.getDirectory+"1303"+'/'+subCode+"/"+filed,null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK')
+				{
+					var dataMap = data.userData;
+				    var list=dataMap[filed];
+				    var name=""
+					$.each(list, function(i, value){
+					     map[value.id]=value.name;
+					});
+				}
+			})
+			return map;
+}
 function delete_row(ele){
     var div=$(ele).closest('div[data-flag]');
     div.remove();
@@ -15,11 +38,15 @@ function showMemberRow(ele){
     			$.each($("#detail-form").find("span"),function(){
     				var ele = $(this);
     				var name = ele.attr('name');
-    				ele.text(row.data(name));
+    				if(name=="field5"){
+                        ele.text(map_pos[row.data(name)]);
+                    }else{
+                        ele.text(row.data(name));
+                    }
     			});
     			pop.text(row.data(pop.attr("name")));
     			//填充学习经历
-                var obj = row.data("obj")
+                var obj = row.data("person")
                 var studyList = obj.studyList;
                 if(studyList.length>0){
                     var study = getStudyList("add",studyList)
@@ -53,19 +80,21 @@ function editMemberRow(ele){
 			$("#detail-form input[name='subCode']").val(row.parent().parent().attr('data-code'));
 			selectContext("detail-form");
 			$("#qualifications_popup_name").text("编辑简历");
+			//console.log(row.data(""))
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
 				ele.val(row.data(name));
 				var tagName = $(this).get(0).tagName;
-                if(tagName=="SELECT" && (ele.val()==null)){
-                    ele.find("option:eq(0)").attr("selected",true);
+                if(tagName=="SELECT"){
+                    if(ele.val()==null){
+                         ele.find("option:eq(0)").attr("selected",true);
+                    }
                 }
 			});
 			$("input:radio[name='field3'][data-value='" + row.data("field3") + "']").prop("checked", "checked");
             //填充学习经历
-            var obj = row.data("obj")
-
+            var obj = row.data("person")
             var studyList = obj.studyList;
             if(studyList.length>0){
                 var study = getStudyList("edit",studyList)
@@ -92,13 +121,13 @@ function getStudyList(flag,studyList){
                var o = $(this)[0];
                for(var item in o){
 
-                           if(item.indexOf("field")>-1){
+                   if(item.indexOf("field")>-1){
 
-                               if(!o[item]){
-                                   o[item]=""
-                               }
-                           }
-                         }
+                       if(!o[item]){
+                           o[item]=""
+                       }
+                   }
+               }
                var field1=o.field1;
                if(field1=="未知" || field1=="至今"){
             	   field1=field1;
@@ -122,7 +151,7 @@ function getStudyList(flag,studyList){
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
-                                "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4'>"+o.field4+"</span></li>"+
+                                "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4' val_id='"+o.field4+"'>"+map_stu[o.field4]+"</span></li>"+
 
                             "</ul>";
                             if(flag=="edit"){
@@ -237,24 +266,25 @@ function getWorkList(flag,workList){
  //编辑学习经历弹窗
  function editStudy(ele){
           var div=$(ele).closest('div[data-flag]');
-           var index = div.index();
+          var index = div.index();
 	      $.getHtml({
         		url:"/sop/html/team_learn.html",//模版请求地址
         		data:"",//传递参数
         		okback:function(){
         			$("#team_learn_name").html('编辑学习经历');
-        			
                     var json = getData(div);
+                    json["field4"]= div.find("span[name='field4']").attr("val_id");
         			var list = div.find("*[name]");
-                    $(list).each(function(){
-                          var key = "";
-                          var value = "";
-                          key = $(this).attr("name");
-                          value = $(this).text();
-                          json[key]=value;
-                          json["index"]=index;
-                    })
-                   $("#learn_form input[name='titleId']").val($("#detail-form input[name='titleId']").val());
+        			json["index"]=index;
+//                    $(list).each(function(){
+//                          var key = "";
+//                          var value = "";
+//                          key = $(this).attr("name");
+//                          value = $(this).text();
+//                          json[key]=value;
+//                          json["index"]=index;
+//                    })
+                    $("#learn_form input[name='titleId']").val($("#detail-form input[name='titleId']").val());
         		    $("#learn_form input[name='subCode']").val($(".team_learn_add").attr("data-code"));
         			selectContext("learn_form");
                     $.each($("#learn_form").find("input, select, textarea"),function(){
@@ -342,7 +372,7 @@ function getWorkList(flag,workList){
 
                     var json = getData(div);
          			var list = div.find("*[name]");
-                     $(list).each(function(){
+                    $(list).each(function(){
                            var key = "";
                            var value = "";
                            key = $(this).attr("name");
@@ -377,7 +407,7 @@ function getWorkList(flag,workList){
          			}else{
          				$('.team_stock_on').show();
          			}*/
-         			console.log($(".team_textarea").length);
+         			//console.log($(".team_textarea").length);
          			//文本框剩余字数
                     $.each($(".team_textarea"),function(){
         				var len=$(this).val().length;
