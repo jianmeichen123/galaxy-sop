@@ -8,7 +8,20 @@
 		var target = $(obj).find('.editPic');
 		target.hide();
 	};
-	
+//单选点击事件
+	$('div').delegate(".h_radios input","click",function(){
+		debugger;
+		var val = $(this).parent().text();
+		if(val=="其他"){
+			var other_input = $(this).parent().next().find("input");
+			other_input.attr("disabled",false);
+		}else{
+			var other_input = $(this).parent().next().find("input");
+			if(!other_input){
+				other_input.attr("disabled",true);
+			}
+		}
+	})
 	
 	//编辑按钮
 	function typeEdit(obj){
@@ -259,9 +272,21 @@ $('div').delegate(".h_save_btn","click",function(event){
 		data_list.code=_dt.data("code");
 		data_list.id=_dt.data("id");
 		data_type=_dt.data("type");
+		data_list.type=data_type;
 		if(data_type==1){
 			data_list.value=$(this).find("dd").find("input").val();
-		}else if(data_type==2){
+		}else if(data_type==14){
+			data_list.value=$(this).find("select").find("option:selected").text();
+			data_list.value_id=$(this).find("select").val();
+		}else if(data_type==2||data_type==12){
+			var h_radios = $(this).find(".h_radios");
+			var value_check = h_radios.find('input[type="radio"]:checked');
+			data_list.value=value_check.parent().text();
+			data_list.value_id=value_check.val();
+			if(data_list.value=="其他"){
+				/*other_input.attr("disabled")*/
+				data_list.value=value_check.parent().next().find("input").val();
+			}
 			
 		}
 		data.push(data_list);
@@ -272,12 +297,17 @@ $('div').delegate(".h_save_btn","click",function(event){
 		var _this=$(this);
 		var _code = _this.data("code");
 		$.each(data,function(){
-			
-			var dcode = $(this)[0].code;
-			console.log(dcode);
+			var d_this = $(this)[0];
+			var dcode = d_this.code;
+			var _type =d_this.type;
 			if(_code==dcode){
-				debugger;
-				_this.html($(this)[0].value)
+				if(_type==1){
+					_this.html(d_this.value);
+				}else if(_type==14||_type==2||_type==12){
+					_this.html(d_this.value);
+					_this.attr("data-title-value",d_this.value_id);
+				}
+				
 			}
 		})
 	})

@@ -289,7 +289,7 @@
 						</td>
 					{{else type=="14"}}
  					<!-- 单选select -->
-						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
+						<td class="condition condition_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<span class="editPic" e-type="inside" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未选择</p></div>
 							<div class="radioShow"></div>
