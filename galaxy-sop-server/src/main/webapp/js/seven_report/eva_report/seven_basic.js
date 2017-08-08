@@ -86,8 +86,11 @@
 				if(val!="未填写"){
 					$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
 				}			
-			}else if(type=="13"){
-				
+			}else if(type==13){
+				var titleValList=titleVal.split(",");
+				for(var i=0;i<titleValList.length;i++){
+					$(".radioShow input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
+				}
 			}
 		}else{  //大弹窗编辑回显
 			var data=[];
