@@ -207,7 +207,7 @@ table.table_15 td:nth-child(4){
 	color:#999999;
 }
 
-.income_structor  em,.income_line em{
+.income_structor  em,.income_line em,.income_structor_content em.income_pic{
 	cursor:pointer;
 	color:#53B1FD;
 }
