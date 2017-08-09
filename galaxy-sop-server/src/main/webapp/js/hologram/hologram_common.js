@@ -1863,7 +1863,9 @@ function delRow(ele)
             //股权合理性
             if (sectionId ==1324){
                deletedRowIdsGq.push(id);
-           }
+            }else{
+               deletedRowIds.push(id);
+            }
         }
 		tr.remove();
 		check_table();

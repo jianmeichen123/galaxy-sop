@@ -129,6 +129,7 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 	event.stopPropagation();
 	var _this = $(this).parents(".radius");
 	var id_code = $(this).attr('attr-hide');
+	var session_id = $(this).attr('attr-session')
 	$('#'+id_code).show();
 	$('#b_'+id_code).remove();
 	$(".bj_hui_on").hide();
@@ -138,11 +139,8 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 	toggle_btn($('.anchor_btn span'),0,_this);
 	//团队
 	dtWidth();
-    if (id_code =='NO3_1')
-    {
-        deletedRowIds = new Array();
-    }
-    else if (id_code=='NO3_8')
+	//判断团队-股权合理性
+    if (session_id=='1324')
     {
         deletedRowIdsGq = new Array();
     }
@@ -186,12 +184,10 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	event.stopPropagation();
 	 sendGetRequest(platformUrl.queryAllTitleValues + id_code+"?reportType="+reportType, null,
 		function(data) {
-		 console.log();
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
 				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-				console.log(entity);
 				sec.showResults();
 				bindChange();
 				bindChangeType13();
@@ -355,17 +351,16 @@ function delRow(ele)
 	}, function(index, layero){
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-        var formId = $(ele).closest('form').attr('id');
-		if(typeof id != 'undefined' && id>0)
-		{
-            if( formId =='b_NO3_1') {
-                deletedRowIds.push(id);
-            }else if (formId =='b_NO3_8'){
-                deletedRowIdsGq.push(id);
-            }else{
-            	deletedRowIds.push(id);
-            }
-		}
+       	var sectionId =$(ele).closest('.radius').attr("data-section-id");
+        if(typeof id != 'undefined' && id>0)
+        {
+           //股权合理性
+           if (sectionId ==1324){
+              deletedRowIdsGq.push(id);
+           }else{
+              deletedRowIds.push(id);
+           }
+        }
 		tr.remove();
 		check_table();   
 		check_table_tr_edit();

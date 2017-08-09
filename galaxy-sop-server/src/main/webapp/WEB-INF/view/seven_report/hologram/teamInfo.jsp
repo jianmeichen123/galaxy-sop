@@ -47,7 +47,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script type="text/javascript">
     // 核心创始团队 表格删除行使用
-    //var deletedRowIds = new Array();
+   // var deletedRowIds = new Array();
     // 股权结构合理性 表格删除行使用
     //var deletedRowIdsGq = new Array();
 
@@ -130,6 +130,8 @@
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
 		var id_code = $(this).attr('attr-hide');
+		//新增,用于通用判断 股权合理性块
+		var session_id = $(this).attr('attr-session')
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".bj_hui_on").hide();
@@ -137,11 +139,8 @@
 		$(".h#a_"+id_code).css("background","#fff");
 		dtWidth();
 		event.stopPropagation();
-        if (id_code =='NO3_1')
-        {
-            deletedRowIds = new Array();
-        }
-        else if (id_code=='NO3_8')
+
+        if (session_id=='1324')
         {
             deletedRowIdsGq = new Array();
         }
@@ -163,14 +162,14 @@
 		{
 			return;
 		}
-		if($(this).closest('.radius').attr("data-section-id") ==1302){
+		if($(this).closest('form').attr("id") =="b_NO3_1"){
         		//表格
         		var titleId = sec.find("table.editable").attr("data-title-id");
                 var json = {"projectId":projectInfo.id,"titleId":titleId};
         		var dataList = new Array();
         		$.each(sec.find("table.editable"),function(){
         			$.each($(this).find('tr:gt(0)'),function(){
-        				var row = $(this).data("person");
+        				var row = $(this).data("obj");
         				if(row.id=="")
         				{
         					row.id=null;
@@ -206,7 +205,7 @@
                 function(data) {
                     var result = data.result.status;
                     if (result == 'OK') {
-                    	updateInforTime(projectInfo.id,"teamTime");
+                    	updateInforTime(projectInfo.id,"NO3");
                         layer.msg('保存成功');
                     	$(".h#a_"+id_code).css("background","#fff");
                         var parent = $(sec).parent();
@@ -416,11 +415,8 @@
 
 		data.infoTableModelList = infoTableModelList;
 
-        var h_cancel_btn_code = $(btn).next().attr('attr-hide');
-
-        if (h_cancel_btn_code=='NO3_1'){
-            data.deletedRowIds = deletedRowIds;
-        }else if (h_cancel_btn_code=='NO3_8'){
+        var h_cancel_btn_code = $(btn).next().attr('attr-session');
+        if (h_cancel_btn_code=='1324'){
             data.deletedRowIds = deletedRowIdsGq;
         }
  		
@@ -441,12 +437,10 @@
         			function(data) {
         				var result = data.result.status;
         				if (result == 'OK') {
-        					updateInforTime(projectInfo.id,"teamTime");
+        					updateInforTime(projectInfo.id,"NO3");
         					layer.msg('保存成功');
         					$(".bj_hui_on").hide();
-                            if (h_cancel_btn_code=='NO3_1'){
-                                deletedRowIds = new Array();
-                            }else if (h_cancel_btn_code=='NO3_8'){
+                            if (h_cancel_btn_code=='1324'){
                                 deletedRowIdsGq = new Array();
                             }
         					var parent = $(sec).parent();
@@ -529,14 +523,15 @@ function getDetailUrl(code)
 	}, function(index, layero){
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-        var sectionId =$(ele).closest('.radius').attr("data-section-id");
-        if(typeof id != 'undefined' && id>0)
-        {
-            //股权合理性
-            if (sectionId ==1324){
-               deletedRowIdsGq.push(id);
-           }
-        }
+        var formId = $(ele).closest('form').attr('id');
+		if(typeof id != 'undefined' && id>0)
+		{
+            if( formId =='b_NO3_1') {
+                deletedRowIds.push(id);
+            }else if (formId =='b_NO3_8'){
+                deletedRowIdsGq.push(id);
+            }
+		}
 		tr.remove();
 		check_table();   
 		check_table_tr_edit();
@@ -545,6 +540,35 @@ function getDetailUrl(code)
 	});
  
 
+}*/
+/*function addRow(ele)
+{
+     if ( validateCGR() ) {
+        var code = $(ele).prev().data('code');
+        $.getHtml({
+            url:getDetailUrl(code),//模版请求地址
+            data:"",//传递参数
+            okback:function(){
+				$('#qualifications_popup_name').html('添加简历');
+				$('#qualifications_popup_name1').html('添加持股人');
+                $("#detail-form input[name='projectId']").val(projectInfo.id);
+                $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+                $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+
+                selectContext("detail-form");
+
+                $("#save-detail-btn").click(function(){
+                    saveForm($("#detail-form"));
+                    check_table();
+                    check_table_tr_edit();
+                });
+                $("#save_person_learning").click(function(){
+                	check_table();
+                	check_table_tr_edit();
+                });
+            }//模版反回成功执行
+        });
+     }
 }*/
 
 /* function validateCGR(){
