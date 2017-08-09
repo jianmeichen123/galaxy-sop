@@ -428,7 +428,6 @@ function buildResults(sec,title,readonly)
 					$("dt[data-id='"+ title.id +"']").siblings(".checked_div").find(".field").hide();
 				}
 			}else{
-				alert(title.id);
 				var dt = $("dt[data-type='13'][data-title-id='"+ title.id +"']");
 				var dd = dt.siblings();
 				var last_id = dd.find('li.check_label:last').attr('data-id');
@@ -686,7 +685,7 @@ function buildMemberTable(sec,title){
 function buildMemberRow(headerList,row,showOpts)
 {
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
-	tr.data("obj",row);
+	tr.data("person",row);
     for(var key in row)
    	{
     	//设置data
@@ -698,7 +697,16 @@ function buildMemberRow(headerList,row,showOpts)
         if(key.indexOf('field')>-1)
         {
             if(row[key]){
-                tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+                //select字段在页面缓存根据id取value
+                if(key == "field2"){
+                     tr.append('<td data-field-name="'+key+'">'+map_edu[row[key]]+'</td>');
+                     return;
+                }else if(key == "field5"){
+                     tr.append('<td data-field-name="'+key+'">'+map_pos[row[key]]+'</td>');
+                     return;
+                }else{
+                     tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+                }
             }else{
                 tr.data(key,"未知");
                 tr.append('<td data-field-name="'+key+'">未知</td>');
@@ -1743,16 +1751,23 @@ function addRow(ele)
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$("#detail-form input[name='projectId']").val(projectInfo.id);
-			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-			$("#detail-form input[name='subCode']").val(code);
-			$("#save-detail-btn").click(function(){
-				saveForm($("#detail-form"));
-				check_table();
-				check_table_tr_edit();
-			});
-			//新增页面下拉框，单选按钮处理渲染处理
-			selectContext("detail-form");
+			$('#qualifications_popup_name').html('添加简历');
+            $('#qualifications_popup_name1').html('添加持股人');
+            $("#detail-form input[name='projectId']").val(projectInfo.id);
+            $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+
+            selectContext("detail-form");
+
+            $("#save-detail-btn").click(function(){
+                saveForm($("#detail-form"));
+                check_table();
+                check_table_tr_edit();
+            });
+            $("#save_person_learning").click(function(){
+                check_table();
+                check_table_tr_edit();
+            });
 		}//模版反回成功执行	
 	});
 }
@@ -1831,6 +1846,8 @@ function editRow(ele)
 	});
 }
 var deletedRowIds = new Array();
+ // 股权结构合理性 表格删除行使用
+var deletedRowIdsGq = new Array();
 function delRow(ele)
 {
 	layer.confirm('是否删除?', {
@@ -1839,11 +1856,15 @@ function delRow(ele)
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-		
-		if(typeof id != 'undefined' && id>0)
-		{
-			deletedRowIds.push(id);
-		}
+
+		var sectionId =$(ele).closest('.radius').attr("data-section-id");
+        if(typeof id != 'undefined' && id>0)
+        {
+            //股权合理性
+            if (sectionId ==1324){
+               deletedRowIdsGq.push(id);
+           }
+        }
 		tr.remove();
 		check_table();
 		check_table_tr_edit();

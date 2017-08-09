@@ -72,6 +72,7 @@
 		var  val=p_box.text();
 		var titleVal=p_box.attr("data-title-value");
 		var type=p_box.attr("data-type");
+		var radioShow=$(obj).closest("td").find(".radioShow")
 		if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
 			if(type==1){
 				var relateId=p_box.attr("data-relate-id");
@@ -82,24 +83,32 @@
 				var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
 				dom.addClass("checked");
 				dom.children("input").attr("checked",true);
-			}else if(type==8){
+			}else if(type==8 || type==15){
 				var relateId=p_box.attr("data-relate-id");
 				if(val!="未填写"){
 					$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
 				}			
-			}else if(type==13){
-				var titleValList=titleVal.split(",");
-				var valList=val.split("、");
-				for(var i=0;i<titleValList.length;i++){
-					var radioShow=$(obj).closest("td").find(".radioShow")
-					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
-					$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+			}else if(type==13 || type==3){
+				if(titleVal){
+					var titleValList=titleVal.split(",");
+					var valList=val.split("、");
+					for(var i=0;i<titleValList.length;i++){
+						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
+						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+					}
+					var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
+					if(last_id){
+						$(radioShow).find(".others_text").show();
+						$(radioShow).find(".others_text").val(valList[valList.length-1])
+					}
+				}				
+			}else if(type==14){
+				$(radioShow).find(".input_select").attr("id",titleVal);
+				if(val!="未选择"){
+					$(radioShow).find(".input_select").attr("value",val);
 				}
-				var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
-				if(last_id){
-					$(radioShow).find(".others_text").show();
-					$(radioShow).find(".others_text").val(valList[valList.length-1])
-				}
+			
+				
 			}
 		}else{  //大弹窗编辑回显
 			var data=[];
@@ -133,6 +142,7 @@ function get_result(code,e_type,dom){
 		 var result = data.result.status;
 		 if(result == 'OK'){
 			 var entity = data.entity;
+			 console.log(entity);
 			 var valueList = data.entity.valueList;
 			 var type=entity.type;
 			 if(e_type==1){
@@ -160,7 +170,7 @@ function get_result(code,e_type,dom){
 				}else if(type==14){
 					var result_li='';
 					$.each(valueList,function(i,n){
-						result_li += "<li><a href=\"#\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
+						result_li += "<li><a href=\"javascript:;\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
 					})
 					result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
 				}

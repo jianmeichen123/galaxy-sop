@@ -30,6 +30,7 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
@@ -38,6 +39,7 @@ import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.hologram.ScoreAutoInfo;
 import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
@@ -716,6 +718,24 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					{
 						tempList = title.getDataList();
 					}
+					if(item.getCreateId() != null)
+					{
+						String createUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+						item.setCreateUserName(createUserName);
+					}
+					if(item.getUpdateId() != null)
+					{
+						String updateUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+						item.setUpdateUserName(updateUserName);
+					}
+					if(item.getCreatedTime() != null)
+					{
+						item.setCreateTimeStr(DateUtil.longString(item.getCreatedTime()));
+					}
+					if(item.getUpdatedTime() != null)
+					{
+						item.setUpdateTimeStr(DateUtil.longString(item.getUpdatedTime()));
+					}
 					tempList.add(item);
 				}
 			}
@@ -1065,6 +1085,25 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 							list = new ArrayList<>();
 							title.setDataList(list);;
 						}
+						if(item.getCreateId() != null)
+						{
+							String createUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+							item.setCreateUserName(createUserName);
+						}
+						if(item.getUpdateId() != null)
+						{
+							String updateUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+							item.setUpdateUserName(updateUserName);
+						}
+						if(item.getCreatedTime() != null)
+						{
+							item.setCreateTimeStr(DateUtil.longString(item.getCreatedTime()));
+						}
+						if(item.getUpdatedTime() != null)
+						{
+							item.setUpdateTimeStr(DateUtil.longString(item.getUpdatedTime()));
+						}
+						
 						title.getDataList().add(item);
 					}
 				}

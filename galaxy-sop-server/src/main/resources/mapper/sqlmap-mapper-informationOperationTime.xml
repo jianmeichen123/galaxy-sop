@@ -90,7 +90,7 @@
     select 
     <include refid="Base_Column_List" />
     from information_operation_time
-    where project_id = #{projectId}
+    where project_id = #{projectId} and report_type = #{reportType}
   </select>
   
  <!-- 根据ID查询 -->
