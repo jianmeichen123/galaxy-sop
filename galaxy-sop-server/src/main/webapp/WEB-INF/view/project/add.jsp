@@ -35,7 +35,7 @@
             <span class="size18">添加项目</span>
         </div>
     	
-        <div class="">
+        <div class="new_left">
         	<div class="tabtable_con_on">
                     <!--融资计划-->
                     <div class="new_r_compile new_bottom_color">
@@ -46,7 +46,7 @@
                     <ul class="basic_ul">
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
-                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w" checked="checked"><label for="radio_w">投资</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">投资</label></span>
                             <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
                            <span id="projectTypeTip"  style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
@@ -72,25 +72,13 @@
 							</span>
                         </li>
                         <li>
-                        <span class="basic_span"><em class="red">*</em>项目来源：</span>
-                            <%-- <span class="m_r30" style="with:400px">
+                        <span class="basic_span"><em class="red">*</em>来源于FA：</span>
+                            <span class="m_r30" style="with:400px">
                             <span class="m_r30">
                              <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
                              <input type="radio" name="faFlag"  value="1" id="faFlag2">是
                              <input type="text" class="new_nputr"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
-                        </span> --%>
-                        	<span class="m_r30">
-                        		<select class='new_nputr' id="resource">
-                        			<option value="">--请选择--</option>
-                        			<option value="">事业部</option>
-                        			<option value="">FA</option>
-                        			<option value="">创业者</option>
-                        			<option value="">外部独立合伙人</option>
-                        			<option value="">其他部门推荐</option>
-                        			<option value="">其他</option>                        			
-                        		</select>
-                        		<input type="text" class="new_nputr"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
-                        	</span>
+                        </span>
                         </li>
                     </ul>  
                     
@@ -107,19 +95,18 @@
                             	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
-                            <span class="basic_span">出让股份：</span>
-                            <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
-                            </span>
-                            <span class="m_r30">% </span>
-                        </li>
-                        <li>
-                       	 <span class="basic_span">项目估值：</span>
+                            <span class="basic_span">项目估值：</span>
                             <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
-                        	
+                        </li>
+                        <li>
+                        	<span class="basic_span">出让股份：</span>
+                            <span class="m_r15">
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            </span>
+                            <span class="m_r30">% </span>
                         </li>
                     </ul>
                     </form>
@@ -140,15 +127,15 @@
                 </div>
         </div>
        <!--右边-->
-        <!-- <div class="basic_right">
-        	<div class="tabtable_con_on">
+        <div class="basic_right">
+        <!-- 	<div class="tabtable_con_on">
             	<div class="new_bottom_color">
                     <span class="new_ico_hint"></span>
                     <span class="new_color size16">温馨提示</span>
                 </div>
                 <p class="basic_p">标记 <em class="red">*</em> 的内容需要进行填写，填写后方能进入内部评审阶段。（包括基本信息中的商业计划书、融资计划、项目描述、公司定位、用户画像、产品服务、行业分析、竞争分析；访谈记录；团队成员中的基本信息）</p>
-            </div>
-        </div> -->
+            </div> -->
+        </div>
         <!--右边 end--> 
     </div>
      
@@ -166,13 +153,6 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <script type="text/javascript">
-$("#resource").change(function(){  //项目来源交互
-	if($(this).children("option:selected").text()=="FA"){
-		$(this).siblings("input").show();
-	}else{
-		$(this).siblings("input").hide();
-	}
-})
 $("input:radio[name='faFlag']").change(function() {
 	// 0 y; 1 n
 	var $selectedvalue = $("input:radio[name='faFlag']:checked").val();
@@ -290,6 +270,25 @@ $("input:radio[name='faFlag']").change(function() {
 		}
 		
 	}
+
+/* 	$("#faName").keydown(function(){
+  		if(this.value=="请输入FA名称"){
+  			this.value = "";
+  		}
+  		if(this.value!="请输入FA名称"){
+  			$("#faName").attr("style","color:#333;");
+  		}
+		
+	}) */
+/* 	$("#faName").blur(function(){
+  		if(this.value==""){
+  			this.value = "请输入FA名称";
+  		}
+  		if(this.value=="请输入FA名称"){
+  			$("#faName").attr("style","color:#999;");
+  		}
+		
+	}) */
 	
 //是否为来源于中介
 function radio_faFlag(isContactsV){
