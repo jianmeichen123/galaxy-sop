@@ -281,6 +281,7 @@ function right(obj,type){
 			val='未填写';
 		}
 		p.text(val);
+		Tfun_8(p);
 		
 	}else if(type=="input"){
 		var val = $(obj).closest("tr").find("input").val();
@@ -531,16 +532,16 @@ function divSelect(){
 	
 	
 	//详情，展开，  收起方法
-	$('.detail').click(function(){
-		$('.income_structor_content').removeClass('income_structor_content');
-		$(this).hide();
-		$('.detail').prev().show();
-	})
-	$('.packup').click(function(){
-		$('.income_structor span').addClass('income_structor_content');
-		$(this).hide();
-		$(this).next().show();
-	})
+	 $('.detail').click(function(){
+			$(this).parents(".align_left").find(".title-value").removeClass("mare_text")
+			$(this).hide();
+			$(this).prev().show();
+		})
+		$('.packup').click(function(){
+			$(this).parents(".align_left").find(".title-value").addClass("mare_text")	
+			$(this).hide();
+			$(this).next().show();
+		})
 	
 	
 	
