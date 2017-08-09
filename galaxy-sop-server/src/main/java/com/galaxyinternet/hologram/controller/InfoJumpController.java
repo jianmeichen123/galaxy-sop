@@ -470,7 +470,7 @@ public class InfoJumpController{
 	// 运营报告-财务
 	@RequestMapping(value = "/toOperationF", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationF(HttpServletRequest request) {
-		return "seven_report/investigate/financeInfo";
+		return "seven_report/operation/financeInfo";
 	}
 
 	// 运营报告-法务
