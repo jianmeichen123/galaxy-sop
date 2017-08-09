@@ -530,7 +530,7 @@
 								 <ul class="h_imgs" id="edit-\${id}">
 
 								 </ul>
-								 <ul class="h_imgs">
+								 <ul class="h_imgs"  id="edit-\${id}">
 									<li class="h_imgs_add" id="h_imgs_add_\${id}"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
 								</ul>
 								</dd>
