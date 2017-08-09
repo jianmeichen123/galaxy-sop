@@ -359,8 +359,6 @@ $(function() {
 		{
 			return;
 		}
-		console.log("!!!!!!!!!!!!!!!!");
-		console.log(data);
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status;
 			console.log(data)
