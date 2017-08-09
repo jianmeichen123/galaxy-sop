@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sun.org.apache.bcel.internal.generic.I2F;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -305,13 +306,15 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 	@ResponseBody
 	@RequestMapping(value = "/queryAllTitleValues/{pinfoKey}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InformationTitle> queryAllTitleValues(HttpServletRequest request,
-			@PathVariable("pinfoKey") String pinfoKey,@RequestParam(value ="reportType", required =false) String reportType) {
+			@PathVariable("pinfoKey") String pinfoKey,
+			@RequestParam(value ="reportType", required =false) String reportType,
+			@RequestParam(value ="proId", required =false) Long proId) {
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		InformationTitle title = null;
 		try{
 			boolean useCacha = true; //开关
 			boolean toCache = false;
-			
+
 			try {
 				String key_pre = SopConstatnts.Redis.ALL_TITLE_VALUE_CACHE_PRE_KEY;
 				if(useCacha){
@@ -327,7 +330,6 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			} catch (Exception e) {
 				logger.error("queryAllTitleValues cache use failed："+pinfoKey,e);
 			}
-			
 			
 			if(title == null){
 				if(reportType != null ){
@@ -353,7 +355,11 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 			if(useCacha && toCache && title!=null){
 				cacheOperationService.saveAllByRedies(pinfoKey, title);
 			}
-			
+
+			if (proId != null){
+				informationDictionaryService.setValuesForTitleByTable(proId,title);
+			}
+
 			responseBody.setEntity(title);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {

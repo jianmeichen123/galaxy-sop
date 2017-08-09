@@ -1,10 +1,16 @@
 package com.galaxyinternet.hologram.service;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.galaxyinternet.dao.hologram.InformationListdataDao;
+import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTRegularTextRun;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -30,6 +36,12 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 
 	@Autowired
 	private Cache cache;
+
+	@Autowired
+	private InformationListdataRemarkDao informationListdataRemarkDao;
+	@Autowired
+	private InformationListdataDao informationListdataDao;
+
 	
 	@Autowired
 	private CacheOperationService cacheOperationService;
@@ -281,7 +293,6 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		return tList;
 
 	}
-	
 	@Override
 	public InformationTitle selectTitlesValues(InformationTitle info) {
 		List<InformationDictionary> valueList = selectValuesByTid(info.getTitleId());
@@ -302,13 +313,11 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		}
 		return tList;
 	}
-
-
 	@Override
 	public InformationTitle selectTitlesValuesGrade(InformationTitle info) {
 		List<InformationDictionary> valueList = selectValuesByTid(info.getTitleId());
 		info.setValueList(valueList);
-		
+
 		List<InformationTitle> childList = selectTitlesGradeByRelate(informationTitleRelateService.selectChildsGradeByPid(info.getId()));
 		info.setChildList(childList);
 		return info;
@@ -325,8 +334,119 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		}
 		return tList;
 	}
-	
-	
+
+
+
+	/*
+	特别定制，拼装后返回 valueList
+	综合竞争比较 table code : competition-comparison
+	ENO4_4_2   ： -valuelist  field_1 field_2
+	ENO4_4_5   ： -valuelist  field_1 field_4
+	*/
+	public static Map<String,Map<String,List<String>>>  relateCode_tableCode_fieldList = new HashMap<>();
+	static {
+		//================  胜算度
+		List<String> fieldList = new ArrayList<>();
+		fieldList.add("field1");
+		fieldList.add("field2");
+
+		Map<String,List<String>> tableCode_fieldList = new HashMap<>();
+		tableCode_fieldList.put("competition-comparison",fieldList);
+
+		relateCode_tableCode_fieldList.put("ENO4_4_2",tableCode_fieldList);
+
+
+		//=================  差异化策略
+
+		fieldList = new ArrayList<>();
+		fieldList.add("field1");
+		fieldList.add("field4");
+
+		tableCode_fieldList = new HashMap<>();
+		tableCode_fieldList.put("competition-comparison",fieldList);
+
+		relateCode_tableCode_fieldList.put("ENO4_4_5",tableCode_fieldList);
+	}
+
+	/**
+	 * 特别定制，拼装后返回 valueList
+	 *
+	 * 胜算度查询:
+	 * 	主要竞争对手  field_1  + 胜算度 field_2
+	 *
+	 * 差异化策略:
+	 * 	field_1 + field_4
+	 *
+	 */
+	@Override
+	public void setValuesForTitleByTable(Long proId, InformationTitle title) throws Exception {
+
+		if(relateCode_tableCode_fieldList.containsKey(title.getRelateCode()))
+		{
+			List<InformationDictionary> vs = selectValuesByTable(proId,title.getRelateCode());
+			if(vs!= null && !vs.isEmpty()){
+				title.setValueList(vs);
+			}
+		}
+
+		if(title.getChildList()!=null && !title.getChildList().isEmpty()){
+			for(InformationTitle temp : title.getChildList()){
+				setValuesForTitleByTable(proId, temp);
+			}
+		}
+	}
+	@Override
+	public List<InformationDictionary> selectValuesByTable(Long  proid, String relateCode) throws Exception {
+		List<InformationDictionary> valueList = new ArrayList<>();
+
+		// 得到 relatecode 要取值的表格 code 和 要取值的 field name
+		Map<String,List<String>> tableCode_fieldList = relateCode_tableCode_fieldList.get(relateCode);
+		String tableCode = tableCode_fieldList.keySet().iterator().next();
+		List<String> fieldList = tableCode_fieldList.values().iterator().next();
+
+		// 根据得到的 表格 code -->  title id
+		InformationListdataRemark remark = new InformationListdataRemark();
+		remark.setCode(tableCode);
+		remark = informationListdataRemarkDao.selectOne(remark);
+		Long titleId = remark.getTitleId();
+
+		// 根据得到的 titleid 、 project id -->  表格的结果集
+		InformationListdata dataq = new InformationListdata();
+		dataq.setProjectId(proid);
+		dataq.setTitleId(titleId);
+		List<InformationListdata> listdata = informationListdataDao.selectList(dataq);
+
+		// 封装取得结果集 --> valueList
+		InformationDictionary informationDictionary = null;
+		for(InformationListdata temp : listdata){
+			informationDictionary = new InformationDictionary();
+			String value = null;
+			// 取值 赋值
+			for(int i = 0 ; i < fieldList.size(); i++){
+				//首字母转大写
+				String newStr=fieldList.get(i).substring(0, 1).toUpperCase()+fieldList.get(i).replaceFirst("\\w","");
+				String methodStr="get"+newStr;
+				Method getMethod = InformationListdata.class.getMethod(methodStr);
+				String fileValue = (String) getMethod.invoke(temp);
+
+				String setMethodStr = "set"+"Content" + (i+1);
+				Method setMethod = InformationDictionary.class.getMethod(setMethodStr,String.class);
+				setMethod.invoke(informationDictionary,fileValue);
+
+				if(i == 0){
+					value = fileValue;
+				}else{
+					value += " " + fileValue;
+				}
+			}
+			informationDictionary.setValue(value);
+
+			valueList.add(informationDictionary);
+		}
+		return valueList;
+	}
+
+
 	
 }
 

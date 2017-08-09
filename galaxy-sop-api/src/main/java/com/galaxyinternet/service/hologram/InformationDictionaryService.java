@@ -59,20 +59,8 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	InformationTitle selectTitlesValues(InformationTitle info);
 	InformationTitle selectTitlesValuesGrade(InformationTitle informationTitle);
 
-	
-
-	
-	
-	
+	List<InformationDictionary> selectValuesByTable(Long  proid, String relateCode) throws Exception;
 
 
-	
-
-
-	
-	
-
-	
-	
-
+	void setValuesForTitleByTable(Long proId, InformationTitle title) throws Exception ;
 }

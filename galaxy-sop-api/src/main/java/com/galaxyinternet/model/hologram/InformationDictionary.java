@@ -28,8 +28,10 @@ public class InformationDictionary extends PagableEntity {
 	private Boolean checked;
 	
 	private List<InformationDictionary> valueList;
-	
-	
+
+	private String content1;
+	private String content2;
+
 
 	public Long getParentId() {
 		return parentId;
@@ -118,6 +120,20 @@ public class InformationDictionary extends PagableEntity {
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
-	
-	
+
+	public String getContent1() {
+		return content1;
+	}
+
+	public void setContent1(String content1) {
+		this.content1 = content1;
+	}
+
+	public String getContent2() {
+		return content2;
+	}
+
+	public void setContent2(String content2) {
+		this.content2 = content2;
+	}
 }
