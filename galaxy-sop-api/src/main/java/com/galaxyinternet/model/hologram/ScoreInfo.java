@@ -22,11 +22,11 @@ public class ScoreInfo extends BaseEntity
 	private BigDecimal scoreMax;
 	private Integer processMode;
 	private Integer scoreType;
+	private Long scoreId;
 	private BigDecimal score;
 	private List<ScoreAutoInfo> autoList;
 	private List<ScoreValue> valueList;
 	private Set<Long> ids;
-	
 	public String getPk()
 	{
 		return pk;
@@ -42,6 +42,14 @@ public class ScoreInfo extends BaseEntity
 	public void setRelateId(Long relateId)
 	{
 		this.relateId = relateId;
+	}
+	public Long getSubId()
+	{
+		return subId;
+	}
+	public void setSubId(Long subId)
+	{
+		this.subId = subId;
 	}
 	public String getCode()
 	{
@@ -99,6 +107,14 @@ public class ScoreInfo extends BaseEntity
 	{
 		this.scoreType = scoreType;
 	}
+	public Long getScoreId()
+	{
+		return scoreId;
+	}
+	public void setScoreId(Long scoreId)
+	{
+		this.scoreId = scoreId;
+	}
 	public BigDecimal getScore()
 	{
 		return score;
@@ -130,13 +146,5 @@ public class ScoreInfo extends BaseEntity
 	public void setIds(Set<Long> ids)
 	{
 		this.ids = ids;
-	}
-	public Long getSubId()
-	{
-		return subId;
-	}
-	public void setSubId(Long subId)
-	{
-		this.subId = subId;
 	}
 }
