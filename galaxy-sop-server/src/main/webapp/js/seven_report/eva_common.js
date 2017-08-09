@@ -519,3 +519,43 @@ var Map = function(){
 		$.each(this.data,fn);
 	}
 }
+
+
+//评测报告图片缩略图 公共方法
+function img_fun(data){
+	var fi_this = $(data);
+	if (fi_this.val() != '') {
+		var files = !!data.files ? data.files : [];
+	    if (!files.length || !window.FileReader) return;
+	    if (/^image/.test( files[0].type)){
+	        var reader = new FileReader();
+	        reader.readAsDataURL(files[0]);
+	        reader.onloadend = function(){  
+	        fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
+	
+	        }
+	    }
+	 }else{
+		 fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
+	 }
+	 var _id = fi_this.closest(".fl_none").find("ul:first-child").attr("id");
+	 var _idnum = _id.split("-")[1];
+	 var _htm ="<li class=\"h_imgs_add\" id=\"h_imgs_add_"+_idnum+"\"><input type=\"file\" onchange=\"img_fun(this)\" file-title-id="+_idnum+" id=\"selected_file_"+_idnum+"\"></li>"
+	 var add_html= "<ul class=\"h_imgs\" id="+_id+">"+_htm+"</ul>"
+	 if(fi_this.closest(".h_edit_txt").find("ul").length<6){
+		 fi_this.closest(".fl_none").append(add_html);
+	 }
+}
+
+$("div").delegate(".h_img_del","click",function(){
+	var _id = $(this).closest(".h_imgs").attr("id");
+	var _idnum = _id.split("-")[1];
+	var _htm ="<li class=\"h_imgs_add\" id=\"h_imgs_add_"+_idnum+"\"><input type=\"file\" onchange=\"img_fun(this)\" file-title-id="+_idnum+" id=\"selected_file_"+_idnum+"\"></li>"
+	var add_html= "<ul class=\"h_imgs\" id="+_id+">"+_htm+"</ul>";
+	var _src = $(this).closest(".fl_none").find("ul:last-child").find("img").attr("src")
+	console.log(_src);
+	if(_src){
+		$(this).closest(".fl_none").append(add_html);
+	}
+	$(this).closest(".h_imgs").remove();
+})
