@@ -139,8 +139,11 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				
 				for(SopTask ta : taskList){
 					if(tem.getValue().intValue() == ta.getTaskFlag().intValue()){
+						
+						//1:待认领、2:待完工、3:已完成
 						if(ta.getAssignUid() != null){
-							temFile.setTaskStatusStr("已认领");
+							//temFile.setTaskStatusStr("待完工");
+							temFile.setTaskStatusStr(DictEnum.taskStatus.getNameByCode(ta.getTaskStatus()));
 							temFile.setTaskUid(ta.getAssignUid());
 							User user = userService.queryById(ta.getAssignUid());
 							temFile.setTaskUname(user.getRealName());
@@ -204,8 +207,29 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		SopFile resultFile = null;
 		
 		SopFile oldFile = null;
-		// 文档状态， init(有初始记录)：记录update；     has(有完整记录)：记录dead，insert； no（没有记录）：insert；
+		// 文档状态，
+		// init(有初始记录)：记录update；
+		// has(有完整记录)：记录dead，insert；
+		// no（没有记录）：insert；
+		// hasup
 		String initMark = "no";
+
+		SopFileBo sbo =  new SopFileBo();
+		sbo.setProjectId(file.getProjectId());
+		sbo.setFileWorktype(file.getFileWorktype());
+		sbo.setFileValid(1);
+		sbo.setRecordType((byte) 0);
+		List<SopFile> oldfileList = sopFileDao.queryByFileTypeList(sbo);
+
+		if (oldfileList==null || oldfileList.isEmpty()){
+			initMark = "no";
+		}else if(oldfileList.size()==1 && oldfileList.get(0).getFileKey()==null ){
+			initMark = "init";
+			oldFile = oldfileList.get(0);
+		}else{
+			initMark = "has";
+		}
+/*
 		if(file.getId() != null){
 			if( file.getFileKey() != null){
 				initMark = "has";
@@ -215,7 +239,7 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 			oldFile = sopFileDao.selectById(file.getId());
 			//BeanUtils.copyProperties(resultFile, oldFile);
 		} 
-		
+	*/
 		
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 		//	Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
@@ -235,8 +259,9 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setFileValid(1);
 				file.setRecordType(RecordType.PROJECT.getType());
 				file.setFilUri(url);
+				file.setFileSource(DictEnum.fileSource.内部.getCode());
+				file.setFileType(getFileType(result.getFileSuffix()));
 				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-				
 				file.setId(null);
 				sopFileDao.insert(file);
 				resultFile = file;
@@ -250,9 +275,20 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				oldFile.setRecordType(RecordType.PROJECT.getType());
 				oldFile.setFilUri(url);
 				oldFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				oldFile.setFileUid(file.getFileUid());
+				oldFile.setFileSource(DictEnum.fileSource.内部.getCode());
+				oldFile.setFileType(getFileType(result.getFileSuffix()));
+				oldFile.setProjectProgress(file.getProjectProgress());
 				sopFileDao.updateById(oldFile);
 				resultFile = oldFile;
 			}else{
+				sbo.setFileValid(0);
+				sbo.setFileUid(file.getFileUid());
+				sbo.setFileSource(DictEnum.fileSource.内部.getCode());
+				sbo.setFileType(getFileType(result.getFileSuffix()));
+				sbo.setProjectProgress(file.getProjectProgress());
+				sopFileDao.updateByIdSelective(sbo);
+
 				file.setBucketName(result.getBucketName());
 				file.setFileKey(result.getFileKey());  
 				file.setFileLength(result.getContentLength());
@@ -262,12 +298,11 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 				file.setRecordType(RecordType.PROJECT.getType());
 				file.setFilUri(url);
 				file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				file.setFileSource(DictEnum.fileSource.内部.getCode());
+				file.setFileType(getFileType(result.getFileSuffix()));
 				file.setId(null);
 				sopFileDao.insert(file);
-				
-				oldFile.setFileValid(0);
-				sopFileDao.updateById(oldFile);
-				
+
 				resultFile = file;
 			}
 	    }else{
@@ -290,8 +325,20 @@ public class ProFlowAboutFileServiceImpl extends BaseServiceImpl<Project> implem
 		return resultFile;
 	}
 	
-	
-	
+	/**
+	 * 判断上传文档上传的类型
+	 * @param fileSuffix
+	 * @return
+	 */
+	public String getFileType(String fileSuffix){
+		String fileType = DictEnum.fileType.图片.getCode();
+		if(fileSuffix.contains("PDF") || fileSuffix.contains("pdf")
+				|| fileSuffix.contains("xls") || fileSuffix.contains("xlsx") 
+				|| fileSuffix.contains("XLS") || fileSuffix.contains("XLSX")){
+			fileType = DictEnum.fileType.文档.getCode();
+		}
+		return fileType;
+	}
 	
 	
 }

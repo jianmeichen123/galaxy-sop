@@ -50,7 +50,7 @@ public class TzxyHandler implements Handler {
 	@Autowired
 	private SopVoucherFileDao sopVoucherFileDao;
 
-	@Override
+	/*@Override
 	@Transactional
 	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
@@ -83,13 +83,13 @@ public class TzxyHandler implements Handler {
 			f.setFileStatus(DictEnum.fileStatus.已签署.getCode());
 			sopFileDao.updateById(f);
 			
-			/**
+			*//**
 			 * 如果创建，只有投资协议
 			 * 如果是投资，投资协议必须，股权转让非必须[根据其在上传投资协议签署证明时是否勾选"涉及股权转让"来判断]
 			 * 
 			 * 前一个判断是可以将项目状态切换为股权交割
 			 * 后一个判断是需要上传股权转让协议
-			 */
+			 *//*
 			String messageType = null;
 			if(project.getProjectType().equals(DictEnum.projectType.创建.getCode())
 					|| (project.getProjectType().equals(DictEnum.projectType.投资.getCode())
@@ -191,6 +191,59 @@ public class TzxyHandler implements Handler {
 			}else{
 				r = new SopResult(Status.OK,null,"上传股权转让协议成功!",UrlNumber.ten,SopFileMessageHandler._5_12_,f);
 			}
+		}
+		return r;
+	}*/
+	
+	@Override
+	@Transactional
+	public SopResult handler(ViewQuery query, Project project) throws Exception {
+		ProjectQuery q = (ProjectQuery) query;
+		SopResult r = null;
+		//非签署证明
+		SopFile qf = new SopFile();
+		qf.setProjectId(q.getPid());
+		qf.setProjectProgress(q.getStage());
+		qf.setFileWorktype(q.getFileWorktype());
+		SopFile f = sopFileDao.selectOne(qf);
+		f.setFileSource(String.valueOf(q.getType()));
+		f.setFileType(q.getFileType());
+		f.setRemark(q.getContent());
+		f.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+		f.setFileUid(q.getCreatedUid());
+		f.setUpdatedTime((new Date()).getTime());
+		f.setFileLength(q.getFileSize());
+		f.setFileKey(q.getFileKey());
+		f.setBucketName(q.getBucketName());
+		f.setFileName(q.getFileName());
+		f.setFileSuffix(q.getSuffix());
+		sopFileDao.updateById(f);
+		
+		SopTask task = new SopTask();
+		//条件
+		task.setProjectId(q.getPid());
+		task.setTaskType(DictEnum.taskType.协同办公.getCode());
+		if(q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
+			task.setTaskFlag(SopConstant.TASK_FLAG_TZXY);
+		}else{
+			task.setTaskFlag(SopConstant.TASK_FLAG_GQZR);
+		}
+		//修改
+		Date time=new Date();
+		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setUpdatedTime(time.getTime());
+		task.setTaskDeadline(time);
+		sopTaskDao.updateTask(task);
+		
+		if(q.getHasStockTransfer() != null && q.getHasStockTransfer().intValue() == 1){
+			project.setStockTransfer(q.getHasStockTransfer().intValue());
+			projectDao.updateById(project);
+		}
+
+		if(q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
+			r = new SopResult(Status.OK,null,"上传投资协议成功!",UrlNumber.nine,SopFileMessageHandler._5_8_,f);
+		}else{
+			r = new SopResult(Status.OK,null,"上传股权转让协议成功!",UrlNumber.ten,SopFileMessageHandler._5_12_,f);
 		}
 		return r;
 	}

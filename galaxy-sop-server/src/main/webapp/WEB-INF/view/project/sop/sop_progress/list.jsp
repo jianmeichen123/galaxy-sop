@@ -17,7 +17,7 @@
           <ul class="tablink">
           	<li class="tab_1 on">会议访谈</li>
           	<li class="tab_2">文档</li>
-          	<span class="icon"  title="仅支持上传PDF、JPEG格式，最大限制25M"><img src="<%=path%>/img/sop_progress/remind__icon.png"><font>提示</font></span>
+          	<span class="icon"  title="仅支持上传PDF、JPEG、PNG、EXCEL格式，最大限制25M"><img src="<%=path%>/img/sop_progress/remind__icon.png"><font>提示</font></span>
           </ul>
           <div class="tabcon">
           
@@ -146,13 +146,14 @@ function view_file(obj){
 		
 		window.open("<%=path %>/pdf/file_img.html?file_url="+file_url);
 	}else{
-		$(obj).siblings(".file_btn").find(".downlond_jpg").click();
+		$(obj).siblings(".file_btn").find("span[type='downlond']").click();
 	}
 	 event.stopPropagation(); // do something   
 }
 
 function showRejectConfim()
 {
+	$("#popup_name").text("提示")
 	$("#p-name").text(_project_.projectName);
 	$.popup({
 		txt:$("#reject-confirm").html()
@@ -160,22 +161,36 @@ function showRejectConfim()
 }
 function reject()
 {
+	var reason = " ";
+	$("#projectProgress_1_table").find("tr").each(function(){
+        var tdArr = $(this).children();
+        var result = tdArr.eq(1).text();
+        if(result == '否决'){
+        	reason = tdArr.eq(2).text();
+        	return;
+        }
+    });
+	if(reason){
+		sendPostRequestByJsonObj(
+				platformUrl.closeProject ,
+				{'projectId':_project_.id,"reason":reason,"progress":_project_.projectProgress},
+				function(data){
+					if(data.result.status == 'OK')
+					{
+						layer.msg('处理成功');
+						refreshButton();
+						$('#projectProgress_1_table').bootstrapTable('refresh'); 
+					}
+					else
+					{
+						layer.msg(data.result.message);
+					}
+					$.popupTwoClose();
+				}
+				
+		);
+	}
 	
-	sendPostRequestByJsonObj(
-			platformUrl.closeProject ,
-			{'projectId':_project_.id},
-			function(data){
-				if(data.result.status == 'OK')
-				{
-					layer.msg('处理成功');
-				}
-				else
-				{
-					layer.msg(data.result.message);
-				}
-			}
-			
-	);
 }
 </script>
 

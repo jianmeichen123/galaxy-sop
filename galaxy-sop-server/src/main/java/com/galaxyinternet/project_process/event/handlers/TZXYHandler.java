@@ -1,5 +1,7 @@
 package com.galaxyinternet.project_process.event.handlers;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,10 @@ import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
@@ -35,6 +39,8 @@ public class TZXYHandler implements ProgressChangeHandler
 	private MeetingRecordService meetingService;
 	@Autowired
 	private SopTaskService taskService;
+	@Autowired
+	private MeetingSchedulingDao meetingSchedulingDao;
 	@Override
 	public boolean support(ProgressChangeEvent event)
 	{
@@ -82,6 +88,15 @@ public class TZXYHandler implements ProgressChangeHandler
 		po.setProjectProgress(projectProgress.投资协议.getCode());
 		po.setProgressHistory(project.getProgressHistory()+","+po.getProjectProgress());
 		projectService.updateById(po);
+		
+		//修改投决会评审排期记录为完成
+		MeetingScheduling m = new MeetingScheduling();
+		m.setProjectId(project.getId());
+		m.setMeetingType(DictEnum.meetingType.投决会.getCode());
+		m.setStatus(DictEnum.meetingResult.通过.getCode());
+		m.setUpdatedTime((new Date()).getTime());
+		m.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
+		meetingSchedulingDao.updateBySelective(m);
 		
 		HttpServletRequest request = WebUtils.getRequest();
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.ten);

@@ -30,7 +30,10 @@
 		if(reload)
 		{
 			loadProjectData();
+			$(".tabtitle").find('p').remove();
+			$(".tabtitle .pre_box").before("<p>"+_project_.projectName+"</p><p>&nbsp;-</p>");
 			$.when(btnDtd).done(function(){
+				
 				for(var j=0;j<flow.length;j++)
 				{
 					if(flow[j] == _project_.projectProgress)
@@ -98,10 +101,6 @@
 			}
 		);
 	}
-	
-	//显示当前阶段
-	//showProgress(progress);
-	
 	//上一步、下一步显示隐藏
 	function progressBtnToggle(){
 		if(i==1){
@@ -157,32 +156,32 @@
 		progressBtnToggle();
 		if(i==1){
 			interviewList();
-			toobarData("接触访谈","添加访谈记录","");
-			$(".tablink .icon").hide();
+			toobarData("接触访谈","添加访谈记录","添加访谈记录","");
 			tab_show(1);
 			hideCurrent('projectProgress:1');
+			$(".tablink .icon").hide();
 		}else if(i==2){
 			meetList("meetingType:1");
-			toobarData("内部评审","添加内部评审","meetingType:1");
+			toobarData("内部评审","添加会议记录","添加内部评审会议记录","meetingType:1");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:2');
 		}else if(i==3){
 			meetList("meetingType:2");
-			toobarData("CEO评审","添加CEO评审","meetingType:2");
+			toobarData("CEO评审","添加会议记录","添加CEO评审会议记录","meetingType:2");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:3');
 		}else if(i==4){
 			meetList("meetingType:3");
-			toobarData("立项会","添加立项会","meetingType:3");
+			toobarData("立项会","添加会议记录","添加立项会会议记录","meetingType:3");
 			$(".tablink .icon").hide();
 			toobarfile("立项会",4);
 			tab_show(3);
 			hideCurrent('projectProgress:4');
 		}else if(i==5){
-			$(".tabtitle h3").text("会后商务谈判");
-			toobarData("会后商务谈判","会后商务谈判","meetingType:5");
+			$(".tabtitle h3").text("添加会后商务谈判");
+			toobarData("会后商务谈判","添加会议记录","添加会后商务谈判会议记录","meetingType:5");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			meetList("meetingType:5");
@@ -202,7 +201,7 @@
 			//尽职调查  上传附件
 		}else if(i==8){
 			meetList("meetingType:4");
-			toobarData("投决会","添加投决会","meetingType:4");
+			toobarData("投决会","添加会议记录","添加投决会会议记录","meetingType:4");
 			$(".tablink .icon").hide();
 			tab_show(1);
 			hideCurrent('projectProgress:7');
@@ -216,7 +215,7 @@
 		}else if(i==10){
 			$(".tabtitle h3").text("股权交割");
 			$(".tablink .icon").show();
-			toobarfile("投资协议",10);
+			toobarfile("股权交割",10);
 			tab_show(2);
 			hideCurrent('projectProgress:9');
 			//股权交割   上传附件
@@ -227,9 +226,10 @@
 			tab_show(4);
 			hideCurrent('projectProgress:10');
 		}
-		buttonData();
-		
+		//buttonData();
+		refreshButton();
 		initFileShow(); //file about
+		
 	}
 	//点击下一步
 	$(".next_box").click(function(){
@@ -237,7 +237,6 @@
 		i = parseInt(pi)+parseInt(1); 
 		$(".next_box").attr("data-progress",i);
 		goToProgress();
-		
 	})
 	//点击上一步
 	$(".pre_box").click(function(){
@@ -247,37 +246,7 @@
 		$(".next_box").attr("data-progress",i);
 
 	})
-/*function selectFile(input,fileName){
-	if(fileName.length> 1 && fileName){
-		var ldot = fileName.lastIndexOf("."); 
-	var type = fileName.substr(Number(ldot + 1)); 
-	var li_f =input.parents("li");
-	li_f.find(".cover_box").show();
-	li_f.find(".file_btn").hide();
-	if (type=="pdf") {
-		li_f.find('.file_box').find('img').removeClass("add_img")
-		li_f.find('.file_box').find('img').attr(
-			"src", '../img/sop_progress/pdf.png');
-	}else{
-		li_f.find('.file_box').find('img').removeClass("add_img")
-		li_f.find('.file_box').find('img').attr(
-		"src", '../img/sop_progress/image.png');
-	}
-	li_f.siblings('.file_box').find('.cover_box').show();
-	}else{
-		li_f.find('.file_box').find('img').addClass("add_img")
-		li_f.find('.file_box').find('img').attr(
-		"src", '../img/sop_progress/plus_icon.png');
-		li_f.find('.file_box').find('.cover_box').hide();
-	}
-}
-//文件取消
-$(".file_box .cover_box .cancel").click(function(event) {
-	$(this).parents(".cover_box").hide();
-	$(this).parents(".cover_box").siblings('img').addClass("add_img").attr(
-		"src", '../img/sop_progress/plus_icon.png');
-	$(this).parents("li").find("input").val("");
-});*/
+
 //tab点击事件
 $(".tab_2").click(function(event) {
 	$(this).addClass('on');
@@ -302,13 +271,13 @@ $(".tab_1").click(function(event) {
 $(".new_poppage").on("click",function(){ 
 	var $self = $(this);
 	var _url = $self.attr("href");
-	var _name=$self.attr("data-name");
+	var _name=$self.attr("data-name-value");
 	var _type = $self.attr("data-type");
 	$.getHtml({
 		url:_url,//模版请求地址
-		data:"",//传递参数
+		data:{'projectId':_project_.id,"progress":_project_.projectProgress},//传递参数
 		okback:function(){
-			$(".tabtitle h3").text(_name);
+			$(".popup_name h3 ").text(_name);
 			var arrName=[];
 			switch(_type){
 			  case "":
@@ -342,6 +311,15 @@ $(".new_poppage").on("click",function(){
 			//判断是否选择其他原因  			
 			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
 			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
+			reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2');
+			//立项会特殊类名
+			if(_name=="添加立项会会议记录"){
+				$("#resultRadion").addClass("spresult");
+			}
+			 $("#resultRadion input[type='radio']").click(function(){
+				 $("#resultRadion label.error").remove();
+				
+			 })
 		}//模版反回成功执行	
 	});
 	return false;
@@ -360,10 +338,10 @@ function reason(obj,value){
 }
 //会议界面弹出层处理
 function meetingColumns(){
-	  $("#toobar_time").text("会议时间");
-	  $("#toobar_content").text("会议纪要");
-	  $("#toobar_voice").text("会议录音");
-	  $("#toobar_result").text("会议结论");
+	  $("#toobar_time").text("会议时间 :");
+	  $("#toobar_content").text("会议纪要 :");
+	  $("#toobar_voice").text("会议录音 :");
+	  $("#toobar_result").text("会议结论 :");
 	  $("#targetView").attr("style","display:none");
 }
 /**
@@ -372,12 +350,13 @@ function meetingColumns(){
  * @param add_title
  * @param meetingType
  */
-function toobarData(title,add_title,meetingType){
+function toobarData(title,title_value,add_title,meetingType){
 	$("#add_button a").show();
 	$(".tabtitle h3").text(title);
-	$("#add_button a").text(add_title);
+	$("#add_button a").text(title_value);
 	$("#meetingType").val(meetingType);
-	$("#pop_button").attr("data-name",add_title);
+	$("#pop_button").attr("data-name",title_value);
+	$("#pop_button").attr("data-name-value",add_title);
 	$("#pop_button").attr("data-type",meetingType);
 }
 /**
@@ -414,7 +393,7 @@ function buttonData(){
 	{
 		return;
 	}
-	
+	i=Number(i);
 	switch(i){
 	case 1:
 		btnTitle="启动内部评审";
@@ -465,8 +444,12 @@ function buttonData(){
 		if(_project_.projectProgress == currProgress)
 		{
 			rejectBtn.show();
-			btn1.show();
-			btn2.show();
+			if(btnData.next1Valid){
+				btn1.show();
+			}
+			if(btnData.next2Valid){
+				btn2.show();
+			}	
 		}
 		break;
 	case 6:
@@ -573,7 +556,7 @@ function nextProgress(btn,nextProgress)
 	$(btn).addClass('disabled');
 	sendPostRequestByJsonObj(
 		platformUrl.projectStageChange,
-		{id:projectId, stage:nextProgress},
+		{id:projectId, stage:nextProgress,projectProgress:_project_.projectProgress},
 		function(data){
 			$(btn).removeClass('disabled');
 			if(data.result.status == 'OK')
@@ -595,109 +578,7 @@ function nextProgress(btn,nextProgress)
  * 所以单独处理渲染,不走下一步方法
  * @param progress
  */
-function showProgress(progress){
-	var i = 1;
-	var strs= new Array();
-	if(progress.indexOf(":") > 0){
-		istr = progress.split(":");
-		if(istr[1]){
-			i = istr[1];
-		}
-	}
-	switch(i){
-	   case "1":
-		    interviewList();
-			toobarData("接触访谈","添加访谈记录","");
-			tab_show(1);
-			$(".next_box").attr("data-progress",1);
-			$(".pre_box").hide();
-			$(".tablink .icon").hide();
-			hideCurrent('projectProgress:1');
-			break;
-	   case "2":
-		    meetList("meetingType:1");
-			toobarData("内部评审","添加内部评审","meetingType:1");
-			tab_show(1);
-			 $(".next_box").attr("data-progress",2);
-			 $(".tablink .icon").hide();
-			hideCurrent('projectProgress:2');
-			break;
-	   case "3":
-		    meetList("meetingType:2");
-			toobarData("CEO评审","添加CEO评审","meetingType:2");
-			tab_show(1);
-			$(".next_box").attr("data-progress",3);
-			$(".tablink .icon").hide();
-			hideCurrent('projectProgress:3');
-			break;
-	   case "4":
-		    meetList("meetingType:3");
-			toobarData("立项会","添加立项会","meetingType:3");
-			$(".tablink .icon").hide();
-			tab_show(3);
-			$(".next_box").attr("data-progress",4);
-			hideCurrent('projectProgress:4');
-			break;
-	   case "5":
-		  
-		    $(".tabtitle h3").text("投资意向书");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",6);
-		    hideCurrent('projectProgress:5');
-		    break;
-	   case "6":
-		    $(".tabtitle h3").text("尽职调查");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",7);
-		    hideCurrent('projectProgress:6');
-		    break;
-	   case "7":
-		   meetList("meetingType:4");
-		    toobarData("投决会","添加投决会","meetingType:4");
-		    $(".tablink .icon").hide();
-		    tab_show(1);
-		    $(".next_box").attr("data-progress",8);
-		    hideCurrent('projectProgress:7');
-		    break;
-	   case "8":
-		    $(".tabtitle h3").text("投资协议");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",9);
-		    hideCurrent('projectProgress:8');
-		    break;
-	   case "9":
-		    $(".tabtitle h3").text("股权交割");
-		    $(".tablink .icon").show();
-		    tab_show(2);
-		    $(".next_box").attr("data-progress",10);
-		    hideCurrent('projectProgress:9');
-		    break;
-	   case "10":
-		    $(".tabtitle h3").text("投后运营");
-		    tab_show(4);
-		    $(".next_box").attr("data-progress",11);
-		    $(".tablink .icon").hide();
-		    $(".next_box").hide();
-		    hideCurrent('projectProgress:10');
-		    break;
-	   case "11":
-		    meetList("meetingType:5");
-		    $(".tabtitle h3").text("会后商务谈判");
-		    $(".tablink .icon").hide();
-		    tab_show(1);
-		    toobarData("会后商务谈判","添加会议记录","meetingType:5");
-		    $(".next_box").attr("data-progress",5);
-		    hideCurrent('projectProgress:11');
-		    break;
-	   default :
-	        break;
-	
-	}
-	initFileShow(); //file about
-}
+
 //会议结论原因数据字段获取
 function radioSearch(url, name){
 	sendGetRequest(url,null, function(data){
@@ -710,7 +591,7 @@ function radionDiv(data){
 	$.each(data.entityList, function(i, value){
 		var lable;
 		if(i==0){
-			lable='<label><input name="interviewResult" type="radio" required data-msg-required="<font color=red>*</font>必须选择一项" value='+value.code+' />'+value.name+'</label>';
+			lable='<label><input name="interviewResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value='+value.code+' />'+value.name+'</label>';
 		}else{
 			lable='<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
 		}
@@ -718,10 +599,10 @@ function radionDiv(data){
 		'<div id="div_'+i+'">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
-	    	   var htmlSelect='<div class="resel_box"><select disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font>必填">'+
+	    	   var htmlSelect='<div class="resel_box"><select required="required" disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必选">'+
 	           '<option value="">请选择原因</option>'+
 	           '</select></div>'+
-	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font>必填" maxLength="50" data-rule-reasonOther="true" data-msg-reasonOther="<font color=red>*</font><i></i>必填"></div>';
+	         '<div class="reason_box"><input type="text" disabled="disabled" name="reasonOther_'+i+'" id="reasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true"></div>';
 	    	 htmlDiv=htmlDiv+htmlSelect;
 		  }
 	     htmlDiv=htmlDiv+'</div>';	     
@@ -794,16 +675,28 @@ function  isPassCurrentProgress(currentProgress){
 function  hideCurrent(progress){
 	if(isPassCurrentProgress(progress)){
 		$(".not_stage").hide();
+		$(".pop .poptxt").css({
+			"height":"auto",
+			"overflow":"visible"
+			
+		});
 	}else{
 		$(".not_stage").show();
+		$(".pop .poptxt").css({
+			"height":"391px",
+			"overflow":"hidden"
+			
+		});
 	}
 	if(currentProgress(progress)){
 		if($(".tabtitle .current_progress").length == 0)
 		{
 			$(".tabtitle h3").after('<span class="current_progress">(当前阶段)</span>');
+			$("#add_button").show();
 		}
 	}else{
 		$(".tabtitle .current_progress").remove();
+		
 	}
 }
 function currentProgress(currentProgress){

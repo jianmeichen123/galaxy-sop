@@ -20,7 +20,7 @@
 
     <!-- 添加访谈记录 /编辑访谈记录 -->
     <form class="myprojecttc new_poptxt myproject_add"  type="validate">
-        <div id="tabtitle" class="tabtitle edit">
+        <div id="tabtitle" class="tabtitle edit popup_name">
             <!--编辑状态显示  编辑访谈记录  -->
             <h3 id="popup_name">添加访谈记录</h3>
             <input type="hidden" name="meetingType" id="meetingType"/>
@@ -33,14 +33,14 @@
                 <dl class="fmdl clearfix intw_time">
                     <dt id="toobar_time">访谈时间：</dt>
                     <dd>
-                         <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font>创建时间不能为空">
+                         <input type="text" class="datetimepickerHour txt time" readonly id="viewDate" name="viewDate" required data-msg-required="<font color=red>*</font><i></i>必填">
                         <!-- <dd>2017-06-05 12:00</dd> -->
                     </dd>
                 </dl>   
                 <dl class="fmdl fml clearfix interviewee" id="targetView">
                     <dt id="toobar_notes">访谈对象：</dt>
-                    <dd class="clearfix">
-                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required data-msg-required="<font color=red>*</font>访谈对象不能为空" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
+                    <dd class="clearfix viewTarget">
+                        <input type="text" class="txt" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt"   value="" required="" data-msg-required="<font color=red>*</font><i></i>必填" maxLength="40" data-rule-viewTarget="true" data-msg-viewTarget="<font color=red>*</font><i></i>访谈对象不能为空"/>
                         <!-- <dd>刘丽君琉璃苣</dd> -->
                     </dd>
                 </dl>
@@ -51,6 +51,7 @@
                     <dt id="toobar_content">访谈纪要：</dt>
                     <dd>
                         <textarea id="viewNotes"></textarea> 
+                        <span id="viewNotes-error" class="error" for="viewNotes"><font color="red">*</font><i></i>不能超过5000字</span>
                     </dd>
                 </dl>           
             </div>
@@ -74,7 +75,7 @@
             </dl>  
             <!-- bottom button -->
             <div class="save_button">
-            	<button type=submit id="save_interview" class="pubbtn bluebtn">保存</button>
+            	<button type=button id="save_interview" class="pubbtn bluebtn">保存</button>
                 <a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
             </div>
         </div>                
@@ -111,18 +112,42 @@ if(meetingType != ""){
 }
 //验证
 $(function(){
-	$(".myproject_add").validate();
+	$(".myproject_add").validate({
+		focusCleanup:true,
+		onfocusout:false,
+		onclick:false,
+		focusCleanup:true
+	});
+	viewNotes.on( 'change', function() {   //访谈纪要 
+		var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+		}else{
+			$("#viewNotes-error").hide();
+		}
+       
+    });
+	viewNotes.on( 'keyup', function() {    //兼容ie10
+		var viewNotesLen=viewNotes.document.getBody().getText().trim().length;
+		if(viewNotesLen>5000){
+			$("#viewNotes-error").show();
+		}else{
+			$("#viewNotes-error").hide();
+		}
+       
+    })
 })
 //访谈对象
 jQuery.validator.addMethod("viewTarget", function(value, element) {   
-	var viewTarget = /^(?!.{41}|^\s*$)/;
+	var viewTarget = /\s*\S+/;
 	return this.optional(element) || (viewTarget.test(value));
 }, "不能全为空格"); 
 //其他原因
-jQuery.validator.addMethod("reasonOther", function(value, element) {   
-	var reasonOther = /^(?!.{41}|^\s*$)/;
+jQuery.validator.addMethod("reasonOther", function(value, element) {  
+	var reasonOther =/\s*\S+/;
 	return this.optional(element) || (reasonOther.test(value));
 }, "不能全为空格"); 
+
 initViewUpload();
 function initViewUpload() {
 	var viewuploader = new plupload.Uploader({
@@ -132,7 +157,7 @@ function initViewUpload() {
 		multipart:true,
 		multi_selection:false,
 		filters : {
-			max_file_size : '25mb',
+			max_file_size : '50MB',
 			mime_types: paramsFilter(1)
 		},
 
@@ -140,18 +165,20 @@ function initViewUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#save_interview").click(function(){
-					/* 判断选择其他 */
-					$("#resultRadion select").each(function(){
-						
-					})
-					var validator = $(".myproject_add").validate();
- 					if(!validator.form())
-  					{
+					if($("#viewNotes-error").is(":visible")){  //访谈纪要
+						return false;
+					}
+					var validator = $(".myproject_add").validate({
+						focusCleanup:true,
+						onfocusout:false,
+						onclick:false,
+						focusCleanup:true
+					});
+ 					if(!validator.form()){
  						return;
   					}
-					 
 				   $("#save_interview").addClass("disabled");
-				   var res = getInterViewParams('y',projectId, "viewDate", "viewTarget", "viewNotes");
+				   var res = getInterViewParams('y',projectId, "viewDate","viewNotes");
 					if(res == false || res == "false"){
 						up.stop();
 						$("#save_interview").removeClass("disabled");
@@ -161,14 +188,14 @@ function initViewUpload() {
 					var inResult =radionResult.val();
 				    var resultReason=radionResult.parent().siblings(".resel_box").find("select").val();
 				    var resultReasonOther=radionResult.parent().siblings(".reason_box").find("input").val();
-
+					var target="";
 					switch (meetingType) {
 					   case  "":
 							res.stage = "projectProgress:1";
 							res.pid = projectId;
 							res.createDate = res.viewDateStr;
 							res.content = res.viewNotes;
-							res.target = $.trim($("#viewTarget").val());
+							res.target=$.trim($("#viewTarget").val());
 							res.interviewResult = inResult;
 							break;
 					   default:
@@ -202,8 +229,12 @@ function initViewUpload() {
 						sendPostRequestByJsonObj(url,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
-								$("#save_interview").removeClass("disabled");
-								layer.msg(data.result.message);
+                                layer.msg(data.result.message);
+                                $("#save_interview").removeClass("disabled");
+                                if(data.result.errorCode == 'REFRESH'){
+                                    $.popupTwoClose();
+                                    refreshIndex(true);
+                                }
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
@@ -212,7 +243,6 @@ function initViewUpload() {
 								   "overflow-x":"auto",
 								   "overflow-y":"auto"
 								 });
-								/* toFormatNearNotes(); */
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									$.popupTwoClose();
@@ -224,7 +254,7 @@ function initViewUpload() {
 								refreshButton();
 							}
 						});
-					}
+					} 
 					return false;
 				});
 			},
@@ -234,10 +264,22 @@ function initViewUpload() {
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
+					var size=up.settings.filters.max_file_size.replace("MB","");   
+					var fileSize = 0;
+					if (navigator.userAgent.indexOf('Mac') != -1) {
+						 fileSize = file.size / 1000;
+					} else {
+						 fileSize = file.size / 1024;
+					}
+					if(parseInt(fileSize) > parseInt(size) * 1000){
+						layer.msg("最大支持"+size+"MB");
+						return false;
+					}
 					$("#file_object").removeClass("no_bg");
 					$("#file_object").text(file.name);
+					$("#select_btn").next().find("input").hide();
 					$("#select_btn").text("更新");
-					$("#file_object").addClass("audio_name")
+					$("#file_object").addClass("audio_name");
 				});
 			},
 			
@@ -281,15 +323,19 @@ function initViewUpload() {
 			Error: function(up, err) {
 				$("#powindow").hideLoading();
 				$("#save_interview").removeClass("disabled");
-				$("#file_object").text("");
+				//$("#file_object").text("");
 				$("#select_btn").text("选择文件");
-				$("#file_object").removeClass("audio_name")
-				layer.msg(err.message);
+				//$("#file_object").removeClass("audio_name");
+				layer.msg("最大支持"+up.settings.filters.max_file_size);
+				return false;
 			}
 		}
 	});
 
 	viewuploader.init();
 }
+$("#viewDate").change(function(){
+	if($(this).val()!=""){$(this).next().hide()}
+})
 </script>
 

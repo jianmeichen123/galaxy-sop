@@ -1,6 +1,5 @@
 package com.galaxyinternet.project_process.controller;
 
-
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +26,6 @@ import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.annotation.LogType;
-import com.galaxyinternet.common.annotation.MessageHandlerInterceptor;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
@@ -40,9 +38,10 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.fileWorktype;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.dao.sopfile.SopFileDao;
+import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -56,13 +55,12 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
-import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
-import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project.service.HandlerManager;
+import com.galaxyinternet.project_process.util.ProUtil;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -123,6 +121,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	@Autowired
 	private HandlerManager handlerManager;
 	
+	@Autowired
+	private SopFileDao sopFileDao;
+	
+	@Autowired
+	private SopTaskDao sopTaskDao;
+	
 	@Override
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
@@ -147,7 +151,17 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 * 访谈页面
 	 */
 	@RequestMapping(value = "/p1", method = RequestMethod.GET)
-	public String p1() {
+	public String p1(HttpServletRequest request) {
+		/*String progress = request.getParameter("progress");
+		String projectId = request.getParameter("projectId");
+		if(StringUtils.isNotBlank(progress) && StringUtils.isNotBlank(projectId)){
+			Project pro = projectService.queryById(Long.valueOf(projectId));
+			//判断项目状态
+			String err = ProUtil.errMessage(pro,progress); //字典  项目进度  接触访谈
+			if(err!=null && err.length()>0){
+				return "project/sop/sop_progress/list";
+			}
+		}*/
 		return "project/sop/sop_progress/edit";
 	}
 	
@@ -202,7 +216,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					}
 				}
 			}
-			
+			query.setDirection("desc");
 			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPage(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -227,7 +241,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG })
 	@ResponseBody
 	@RequestMapping(value = "/p1/add", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> p1_add(ProjectQuery p,HttpServletRequest request,HttpServletResponse response ) {
@@ -257,6 +271,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					.setResult(new Result(Status.ERROR, null, "没有权限修改该项目!"));
 			return responseBody;
 		}
+		//判断项目状态
+		String err = ProUtil.errMessage(project,null); //字典  项目进度  接触访谈 
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR,"REFRESH", err));
+			return responseBody;
+		}
 		p.setCreatedUid(user.getId());
 		p.setDepartmentId(user.getDepartmentId());
 		/**
@@ -272,9 +292,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try {
 			SopResult r = interviewRecordService.operateInterview(project, p, result, request);
 			// 记录操作日志
-			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId(),
-					r.getMessageType(), r.getNumber(),r.getAttachment());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, r.getNumber());
 			
 		} catch (Exception e) {
 			logger.error("操作失败", e);
@@ -297,23 +315,13 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		return "project/sop/sop_progress/view";
 	}
 	
-	// TODO : 内部评审
-	/**
-	 * 内部评审页面
-	 */
-	@RequestMapping(value = "/p2", method = RequestMethod.GET)
-	public String p2() {
-		return "view";
-	}
-	
-	
 	/**
 	 * 内部评审、 CEO评审 、 立项会、投决会  阶段 : 添加会议记录   
 	 * 			判断会议结论，更新项目进度，启动关联任务
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG })
 	@ResponseBody
 	@RequestMapping(value = "/p2/add",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> p2_add(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -330,92 +338,74 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
-		/*else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) && 
-				meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
-			if(meetingRecord.getFinalValuations() == null ||
-					meetingRecord.getFinalContribution() == null ||
-					meetingRecord.getFinalShareRatio() == null ||
-					meetingRecord.getServiceCharge() == null ){
-				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
-				return responseBody;
-			}
-		}*/
-		MeetingRecord mrQuery = new MeetingRecord();
 		try {
-			String prograss = "";
-			UrlNumber uNum = null;
-			String messageType = null;
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
-				prograss = DictEnum.projectProgress.内部评审.getCode();                                 	
-				uNum = UrlNumber.one;
-				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
-					messageType = "6.3";
-				}else{
-					messageType = "4.1";
-				}
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
-				prograss = DictEnum.projectProgress.CEO评审.getCode(); 								
-				uNum = UrlNumber.two;
-				messageType = "4.2";
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
-				prograss = DictEnum.projectProgress.立项会.getCode(); 										
-				uNum = UrlNumber.three;
-				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
-					messageType = "6.5";
-				}else{
-					messageType = "4.3";
-				}
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
-				prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
-				uNum = UrlNumber.four;
-				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
-					messageType = "6.8";
-				}else{
-					messageType = "4.4";
-				}
+			if(meetingRecord.getRecordId() != null){
+				meetingRecord.setId(meetingRecord.getRecordId());
 			}
+			int prograss = 0;
+			if(meetingRecord.getId() != null){
+				prograss = 1;
+			}
+			UrlNumber uNum = null;
+			String progress = null;
+			/**
+			 * 操作日志分区判断
+			 */
+			switch(meetingRecord.getMeetingType()){
+			       case "meetingType:1":
+			    	    if(prograss == 0)
+			    	    	uNum = UrlNumber.one;
+			    	    else 
+			    	    	uNum = UrlNumber.two;
+			    	    progress = DictEnum.projectProgress.内部评审.getCode();
+			    	    break;
+			       case "meetingType:2":
+			    	    if(prograss == 0)
+			    	    	uNum = UrlNumber.three;
+			    	    else 
+			    	    	uNum = UrlNumber.four;
+			    	    progress = DictEnum.projectProgress.CEO评审.getCode();
+			    	    break;
+			       case "meetingType:3":
+			    	    if(prograss == 0)
+			    	    	uNum = UrlNumber.five;
+			    	    else 
+			    	    	uNum = UrlNumber.six;
+			    	    progress = DictEnum.projectProgress.立项会.getCode();
+			    	    break;
+			       case "meetingType:4":
+			    	    if(prograss == 0)
+			    	    	uNum = UrlNumber.nine;
+			            else 
+			    	    	uNum = UrlNumber.ten;
+			    	    progress = DictEnum.projectProgress.投资决策会.getCode();
+			    	    break;
+			       case "meetingType:5":
+			    	    if(prograss == 0)
+			    	    	uNum = UrlNumber.seven;
+			            else 
+			    	    	uNum = UrlNumber.eight;
+			    	    progress = DictEnum.projectProgress.会后商务谈判.getCode();
+			    	    break;
+			    	default :
+			    		 break;
+			}
+			
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(meetingRecord.getProjectId());
-			
-			/*String err = errMessage(project,user,prograss);
+			//判断项目状态
+			String err = ProUtil.errMessage(project,progress); //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
-				responseBody.setResult(new Result(Status.ERROR,null, err));
+				responseBody.setResult(new Result(Status.ERROR,"REFRESH", err));
 				return responseBody;
-			}*/
+			}
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode()) &&
 					meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
 				project.setFinalValuations(meetingRecord.getFinalValuations());
 				project.setFinalContribution(meetingRecord.getFinalContribution());
 				project.setFinalShareRatio(meetingRecord.getFinalShareRatio());
 				project.setServiceCharge(meetingRecord.getServiceCharge());
-			}
-			
-			//已有通过的会议，不能再添加会议纪要
-			mrQuery = new MeetingRecord();
-			mrQuery.setProjectId(meetingRecord.getProjectId());
-			mrQuery.setMeetingType(meetingRecord.getMeetingType());
-			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-			Long mrCount = meetingRecordService.queryCount(mrQuery);
-			if(mrCount != null && mrCount.longValue() > 0L)
-			{
-				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
-				return responseBody;
-			}
-			//排期池校验
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
-				MeetingScheduling ms = new MeetingScheduling();
-				ms.setProjectId(meetingRecord.getProjectId());
-				ms.setMeetingType(meetingRecord.getMeetingType());
-				ms.setStatus(DictEnum.meetingResult.待定.getCode());  //排期按钮置为 待定
-				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
-				if(mslist==null || mslist.isEmpty()){
-					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
-					return responseBody;
-				}
-			}
-			if(meetingRecord.getRecordId() != null){
-				meetingRecord.setId(meetingRecord.getRecordId());
 			}
 			//没有上传文件的
 			if(!ServletFileUpload.isMultipartContent(request)){
@@ -447,8 +437,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					meetingRecordService.operateFlowMeeting(sopFile,meetingRecord);
 				}
 			}
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, uNum);
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, uNum);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 			if(logger.isErrorEnabled()){
@@ -528,239 +518,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		return responseBody;
 	}
 	
-
-	
-	
-	// TODO : CEO评审 
-	/**
-	 * CEO评审 
-	 */
-	@RequestMapping(value = "/p3", method = RequestMethod.GET)
-	public String p3() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p3/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p3_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-
-	
-	// TODO : 立项会
-	/**
-	 * 立项会
-	 */
-	@RequestMapping(value = "/p4", method = RequestMethod.GET)
-	public String p4() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p4/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p4_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-	
-
-	// TODO : 商务谈判
-	/**
-	 * 商务谈判
-	 */
-	@RequestMapping(value = "/p5", method = RequestMethod.GET)
-	public String p5() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p5/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p5_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-	
-	
-
-	
-	// TODO : 投资意向书
-	/**
-	 * 投资意向书
-	 */
-	@RequestMapping(value = "/p6", method = RequestMethod.GET)
-	public String p6() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p6/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p6_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-	
-	
-
-	
-	// TODO : 尽职调查
-	/**
-	 * 尽职调查
-	 */
-	@RequestMapping(value = "/p7", method = RequestMethod.GET)
-	public String p7() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p7/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p7_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-	
-	
-	
-
-	// TODO : 投决会
-	/**
-	 * 投决会
-	 */
-	@RequestMapping(value = "/p8", method = RequestMethod.GET)
-	public String p8() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p8/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p8_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-	
-
-	
-	// TODO : 投资协议
-	/**
-	 * 投资协议
-	 */
-	@RequestMapping(value = "/p9", method = RequestMethod.GET)
-	public String p9() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p9/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p9_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-	
-
-	
-	// TODO : 股权交割
-	/**
-	 * 股权交割
-	 */
-	@RequestMapping(value = "/p10", method = RequestMethod.GET)
-	public String p10() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p10/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p10_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
-	
-	
-	
-	
-	
-	// TODO : 投后运营
-	/**
-	 * 投后运营
-	 */
-	@RequestMapping(value = "/p11", method = RequestMethod.GET)
-	public String p11() {
-		return "view";
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/p11/add", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> p11_add(HttpServletRequest request,HttpServletResponse response ) 
-	{
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		
-		
-		return responseBody;
-	}
-	
 	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value = "/reject", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -770,6 +527,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		try
 		{
 			Project project = projectService.queryById(param.getProjectId());
+			//判断项目状态
+			String err = ProUtil.errMessage(project,param.getProgress()); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				data.setResult(new Result(Status.ERROR,"REFRESH", err));
+				return data;
+			}
 			projectService.reject(param.getProjectId());
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e)
@@ -797,8 +560,14 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		ResponseData<Project> data = new ResponseData<Project>();
 		try
 		{
-			projectService.updateProgress(p.getId(), p.getStage());
 			Project entity = projectService.queryById(p.getId());
+			//判断项目状态
+			String err = ProUtil.errMessage(entity,p.getProjectProgress()); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				data.setResult(new Result(Status.ERROR,"REFRESH", err));
+				return data;
+			}
+			projectService.updateProgress(p.getId(), p.getStage());
 			data.setEntity(entity);
 			
 		} catch (Exception e)
@@ -813,38 +582,6 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	}
 	
 	
-	public String errMessage(Project project,User user,String prograss){
-		if(project == null){
-			return "项目检索为空";
-		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
-			return "项目已经关闭";
-		}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
-			return "项目已退出";
-		}
-		
-		if(user != null){
-			if(project.getCreateUid()==null || user.getId().longValue()!=project.getCreateUid().longValue()){ 
-				return "不允许操作他人项目";
-			}
-		}
-		if(prograss != null){
-			if(project.getProjectProgress()!=null){
-				try {
-					int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;
-					int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
-					if(projectPro < operationPro){
-						return "项目当前阶段不允许进行该操作";
-					}
-				} catch (Exception e) {
-					return "项目阶段不和规范";
-				}
-			}else{
-				return "项目阶段出错";
-			}
-		}
-		
-		return null;
-	}
 	@RequestMapping(value = "/searchMeeting", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseData<MeetingRecord> searchMeeting(MeetingRecord query)
@@ -863,6 +600,12 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		boolean next2Valid = false;
 		ResponseData<Project> data = new ResponseData<>();
 		Project project = projectService.queryById(id);
+		//判断项目状态
+		String err = ProUtil.errMessage(project,null); //字典  项目进度  接触访谈 
+		if(err!=null && err.length()>0){
+			data.setResult(new Result(Status.ERROR,"REFRESH", err));
+			return data;
+		}
 		String currProgress = project.getProjectProgress();
 		if(projectProgress.接触访谈.getCode().equals(currProgress))
 		{
@@ -970,8 +713,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			query.setFileValid(1);//查询有效文件
 			Long count = sopFileService.queryCount(query);
 			
-			next1Valid = count==6L;
-			rejectValid = count==6L;
+			next1Valid = count == 6L;
+			rejectValid = true;
 		}
 		else if(projectProgress.投资决策会.getCode().equals(currProgress))
 		{
@@ -1018,12 +761,19 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 		}
 		else if(projectProgress.股权交割.getCode().equals(currProgress))
 		{
+			String[] fileTypeList = {
+					fileWorktype.工商转让凭证.getCode(),
+					fileWorktype.资金拨付凭证.getCode()
+			};
+			String[] fileStatusList = {fileStatus.已上传.getCode(),fileStatus.已放弃.getCode()};
 			SopFile query = new SopFile();
 			query.setProjectId(project.getId());
-			query.setFileStatus(fileStatus.已上传.getCode());
-			query.setFileWorktype(fileWorktype.工商转让凭证.getCode());
+			query.setFileStatusList(Arrays.asList(fileStatusList));
+			query.setFileworktypeList(Arrays.asList(fileTypeList));
+			query.setFileValid(1);//查询有效文件
 			Long count = sopFileService.queryCount(query);
-			next1Valid = count > 0L;
+			next1Valid = count == 2L;
+			
 		}
 		data.getUserData().put("next1Valid", next1Valid);
 		data.getUserData().put("next2Valid", next2Valid);

@@ -1,7 +1,5 @@
 package com.galaxyinternet.project_process.controller;
 
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,12 +39,12 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project_process.service.ProFlowAboutFileService;
 import com.galaxyinternet.project_process.util.ProFlowUtilImpl;
+import com.galaxyinternet.project_process.util.ProUtil;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
@@ -132,6 +130,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 					if(temp.getFileKey() != null && temp.getFilUri() == null){
 						String url = OSSHelper.getUrl(OSSFactory.getDefaultBucketName(),temp.getFileKey());
 						temp.setFilUri(url);
+						//temp.setBucketName(OSSFactory.getDefaultBucketName());
 						sopFileService.updateById(temp);
 					}
 				}
@@ -233,10 +232,16 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
 			Project project = projectService.queryById(fileTemp.getProjectId());
-			
+			//判断项目状态
+			String err = ProUtil.errMessage(project,fileTemp.getProjectProgress()); //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				responseBody.setResult(new Result(Status.ERROR,"REFRESH", err));
+				return responseBody;
+			}
 			//封装结果
 			fileTemp.setFileUid(user.getId());
 			fileTemp.setCareerLine(user.getDepartmentId());
+			fileTemp.setProjectProgress(project.getProjectProgress());
 			SopFile result = proFlowAboutFileService.optFileAboutProgress(request,this, fileTemp, tempfilePath);
 			
 			if(result == null){
@@ -282,7 +287,7 @@ public class ProjectProController extends BaseControllerImpl<Project, ProjectBo>
 			response.setHeader("If-Modified-Since", "0");
 			response.setHeader("Cache-Control", "no-cache");
 			
-			OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(file.getBucketName(), file.getFileKey()));
+			OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), file.getFileKey()));
 			InputStream fis = null;
 			OutputStream os = null;
 			try{

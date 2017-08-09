@@ -390,6 +390,8 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 		case "fileWorktype:1":
 			if(!initMark.equals("has")){
 				number = UrlNumber.three;
+			}else{
+				number = UrlNumber.ten;
 			}	
 			break;
 		case "fileWorktype:18":
@@ -415,6 +417,13 @@ public class ProFlowUtilImpl implements ProFlowUtil {
 			if(!initMark.equals("has")){
 				number = UrlNumber.nine;
 			}	
+			break;
+		case "fileWorktype:17":
+			if(!initMark.equals("has")){
+				number = UrlNumber.eleven;
+			}else{
+				number = UrlNumber.twelve;
+			}
 			break;
 		default:
 			break;

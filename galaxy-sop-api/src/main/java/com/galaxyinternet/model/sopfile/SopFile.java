@@ -18,7 +18,16 @@ public class SopFile extends SopParentFile implements Serializable{
 	public static final String INIT_FILE_MAEK_HAS = "has";   // 文档状态，  has(有完整记录)：  记录  dead，insert；
 	public static final String INIT_FILE_MAEK_NO = "no";     // 文档状态，  no（没有记录）：      insert；
 */	
-	
+	private Long id;
+	@Override
+	public Long getId() {
+		return id;
+	}
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	/**
      * 文档  操作
      */
@@ -27,10 +36,11 @@ public class SopFile extends SopParentFile implements Serializable{
 	private Boolean canOpt;    // 文档可操作： 上传、编辑
 	private Boolean canDown;   // 文档可操作： 下载
 	
-	
 	public UrlNumber getNumber() {
 		return number;
 	}
+
+
 	public void setNumber(UrlNumber number) {
 		this.number = number;
 	}

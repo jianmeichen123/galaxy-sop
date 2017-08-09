@@ -1,5 +1,6 @@
 // JavaScript Document
 var projectId;
+var i = $(".next_box").attr("data-progress");
 function  progress(id){
 	projectId = id;
 	$.getHtml({
@@ -35,6 +36,7 @@ function interviewList(){
                       title: '时间',
                       field: 'viewDateStr',
                       valign: 'left',
+                      formatter:'dateStr'
                   },
                   {
                       title: '结论',
@@ -43,6 +45,7 @@ function interviewList(){
                   }, {
                       title: '结论原因',
                       field: 'resultReasonStr',
+                      formatter:'result',
                       valign: 'left',
                   },
                     {
@@ -61,6 +64,7 @@ function interviewList(){
 	    			$this.find('td:last .edit').removeAttr('onclick');
 	    		});	
 	   		}
+	   		powerPosition(i);
 	    }
 	});
 }
@@ -86,6 +90,7 @@ function meetList(type){
                       title: '时间',
                       field: 'meetingDateStr',
                       valign: 'left',
+                      formatter:'dateStr'
                   },
                   {
                       title: '结论',
@@ -93,9 +98,10 @@ function meetList(type){
                       valign: 'left'
                   },
                   {
-                      title: '原因',
+                      title: '结论原因',
                       field: 'resultReasonStr',
                       valign: 'left',
+                      formatter:'result'
                   },
                     {
                         title: '操作',
@@ -107,34 +113,84 @@ function meetList(type){
 	    onLoadSuccess:function(data){
 	    	if(data.pageList.total>0)
 	   		{
-	    		console.log(data);
 	    		$.each($('#projectProgress_1_table tr'),function(){
 	    			var $this = $(this);
 	    			$this.find('td:last').addClass('limits_gray');
 	    			$this.find('td:last .edit').removeAttr('onclick');
 	    		});
 	   		}
+	   		powerPosition(i);
 	    }
 	});
 }
 /**
+ * 过阶段编辑和添加控制
+ * @param i
+ */
+function powerPosition(i){
+	var pg = 1;
+	if(i < 5){
+		pg = i;
+	}else if( i > 5){
+		pg = parseInt(i) - parseInt(1);
+	}else{
+		pg = 11;
+	}
+	if((!currentProgress("projectProgress:"+pg) && pg != 1)|| ('projectStatus:0' != _project_.projectStatus && 'projectStatus:1' != _project_.projectStatus))
+{
+		$(".editButton").hide();
+		$("#add_button").hide();
+	}else{
+		$("#add_button").show();
+	}
+}
+/*列表原因处理*/
+function result(value,row,index){
+	if(row.resultReasonStr && row.resultReasonStr == '其他原因'){
+		return row.reasonOther;
+	}
+	if(!row.resultReasonStr){
+		return "-";
+	}
+	return row.resultReasonStr;
+}
+
+/*列表时间格式化*/
+function dateStr(value,row,index){
+	if(row.viewDateStr){
+		var date=row.viewDateStr;
+	}else if(row.meetingDateStr){
+		var date=row.meetingDateStr;
+	}
+	return date.split(" ")[0];
+}
+/**
  *  查看  or 编辑  
  */
-function viewOperFormat(value,row,index){  
+function viewOperFormat(value,row,index){ 
 	var meetingType = undefined;
 	var title = $(".tabtitle h3").text();
-	
+	if(title == '接触访谈'){
+		title = title + "记录";
+	}else{
+		title = title + "会议记录";
+	}
     if(row){
     	meetingType = row.meetingType;
 	}
-	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
-	var	edit = " <span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
+	var info = "<span class=\"add see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v','"+meetingType+"','"+"查看"+title+"')\" >查看</span>";
+	var edit = " <span class=\"add see blue editButton\"  onclick=\"notesInfoEdit('"+row.id+"','e','"+meetingType+"','"+"编辑"+title+"')\" >编辑</span>";
 	return info + edit;
 }
 function notesInfoEdit(selectRowId,type,meetingType,title){
 	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/progress/p1/view"+"/"+type;
 	var res = {};
+	//立项会特殊类名
+	var sp_class="";
+	if(title=="编辑立项会会议记录"){
+		sp_class="spresult"
+	}
 	res.projectId = projectId;
 	res.id = selectRowId;
 	$.getHtml({
@@ -155,7 +211,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					  arrName.push("meetingUndeterminedReason");
 					  arrName.push("meetingVetoReason");
 					  $("#targetView").attr("style","display:block");
-
 					  break;
 				  case "meetingType:3":
 					  res.meetingType = meetingType;
@@ -192,7 +247,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 			}
 			//渲染数据|待后续加
 			sendPostRequestByJsonObj(url,res,function(data){
-				console.log(res)
 				var result = data.result.status;
 				if(result == "OK"){
 					var res = data.pageList.content;
@@ -226,20 +280,30 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					}
 					$("#recordId").val(recordId);
 					type=="e" ? $("#viewDate").val(time) : $("#viewDate").text(time);
-					type=="e" ? $("#viewTarget").val(target) : $("#viewTarget").text(target);
+					type=="e" ? $("#viewTarget").val(target): $("#viewTarget").text(target).attr("title",target);
 					if(type=="e"){
-						$("input[name='interviewResult'][value='"+res[0].interviewResult+"']").closest("div").find("#reasonOther").val(reasonOther);
+						$("input[name='interviewResult'][value='"+resultJudge+"']").closest("div").find("#reasonOther").val(reasonOther);
 					}else{
+						$("#viewTarget").attr("title",target);
 						$("#reasonOther").text(reasonOther);
 					}
-					//type=="e" ? $("#reasonOther").val(reasonOther) : $("#reasonOther").text(reasonOther);
+					if(content==""){
+						if(type=="e"){
+							
+						}else{
+							content= (meetingType!="undefined" ? "暂无会议纪要" :"暂无访谈纪要");
+						}
+						
+					}
 					type=="e" ? $("#viewNotes").val(content) : $("#viewNotes").html(content);
 					type=="e" ? '' : $("#interviewResult").html(result);
 					if(meetingType == "undefined" && type == "e"){
 						 var viewDate = $("#viewDate").val();
-						  $("#viewDate").parent("dd").html(viewDate);
+						  $("#viewDate").parent("dd").append(viewDate);
+						  $("#viewDate").hide();
 						  var viewTarget = $("#viewTarget").val();
-						  $("#viewTarget").parent("dd").html(viewTarget);
+						  $("#viewTarget").parent("dd").append("<span>"+viewTarget+"</span>");
+						  $("#viewTarget").hide();
 					}
 					var reason=res[0].resultReason;
 					//结论原因回显
@@ -280,41 +344,47 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 								$("#resultReason").html("原因："+resultReason+other);
 							}
 						}
-						//type=="e" ? '' : $("#resultReason").html("原因："+resultReason+other);
-					}					
+					}			
 					if(res[0].fileId){
-						if(res[0].fname==undefined){							
+						if(res[0].fname==""||res[0].fname==undefined){							
 							$("#file_object").addClass("no_bg");
 							$("#file").addClass("no_bg");
-							type=="e" ? $("#file_object").html("暂无录音"): $("#file").html("<a href=\"javascript:;\" class=\"blue\" >暂无录音</a>");
+							type=="e" ? $("#file_object").html(""): $("#file").html("<blockquote>暂无录音</blockquote>");
 							$("#select_btn").text("选择文件");
 						}else{
 						type=="e" ? $("#file_object").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>"): $("#file").html("<a href=\"javascript:filedown("+res[0].fileId+","+res[0].fkey+");\" class=\"blue\" >"+res[0].fname+"</a>");
 						$("#select_btn").text("更新");
 						}
 						$("#file_object").text(res[0].fname);
-						
 						$("#file_object").addClass("audio_name")
+					}else{
+						$("#file_object").addClass("no_bg");
+						$("#file").addClass("no_bg");
+						type=="e" ? $("#file_object").html(""): $("#file").html("<blockquote style='color:#000;'>暂无录音</blockquote>");
+						$("#select_btn").text("选择文件");
 					}
-//					if($("#reasonOther").val()!='')
-//					{	
-//						$("#reasonOther").removeClass("disabled").removeAttr("disabled");
-//						$("#reasonOther").parent().prev().find("select").removeClass("disabled").removeAttr("disabled")
-//					}
-					$("#resultRadion").each(function(){})
+					 $("#resultRadion").addClass(sp_class);
+					 $("#resultRadion input[type='radio']").click(function(){
+						 $("#resultRadion label.error").remove();
+					 })
 				}
 				
 			});
 			//判断是否选择其他原因  			
 			reason('select[name="meetingUndeterminedReason"]','meetingUndeterminedReason:2');
 			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
+			reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2');
 			var val=$("select[name=\"meetingUndeterminedReason\"]").val();
 			var val1=$("select[name=\"meetingVetoReason\"]").val();
+			var val2=$("select[name=\"meetingFollowingReason\"]").val();
 			if(val=="meetingUndeterminedReason:2"){				
 				$("select[name=\"meetingUndeterminedReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
 			}
 			if(val1=="meetingVetoReason:5"){
 				$("select[name=\"meetingVetoReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
+			}
+			if(val2=="meetingFollowingReason:2"){				
+				$("select[name=\"meetingFollowingReason\"]").parent().next().find("input").attr("required","true").removeAttr("disabled").removeClass("disabled");
 			}
 		}
 	});
@@ -330,7 +400,7 @@ function  p1(id){
 		url:Constants.sopEndpointURL + "/galaxy/progress/p1",//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			
+
 		}
 	});
 }
@@ -355,15 +425,24 @@ function getInterViewParams(hasProid,projectId,
 	
 	var	condition = {};
 	
-	/*if(!beforeSubmit()){
-		return false;
-	}*/
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
 	}else{
 		var projectId = $("#"+projectId).val();
 	}
 	var viewDateStr = $("#"+viewDateId).val();
+	
+	if(viewDateStr == null ||  viewDateStr == ""){
+		layer.msg("会议日期不能为空");
+		return false;
+	}else{
+		var clock = getNowFormatDate();
+		if((new Date(Date.parse(viewDateStr.replace(/-/g, "/"))).getTime()) > (new Date(Date.parse(clock.replace(/-/g, "/"))).getTime())){
+			layer.msg("会议时间不能超过当前时间");
+			return false;
+         }
+	 }
+	
 	var viewNotes = $.trim(CKEDITOR.instances.viewNotes.getData());
 	if(projectId == null || projectId == ""){
 		layer.msg("项目不能为空");

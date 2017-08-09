@@ -524,6 +524,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			SopFile f = sopFileDao.selectOne(file);
 			if(giveUp==true){
+				f.setFileUid(task.getAssignUid());
                 f.setFileStatus("fileStatus:4");
 			}
 			f.setFileValid(1);
@@ -532,11 +533,11 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				t.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 				SopTask ut = sopTaskDao.selectOne(t);
 		    	if(ut != null){
-		    		Project project = new Project();
+		    		/*Project project = new Project();
 		    		project.setId(task.getProjectId());
 		    		project.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		    		project.setProjectStatus(DictEnum.projectStatus.THYY.getCode());
-		    		projectDao.updateById(project);
+		    		projectDao.updateById(project);*/
 		    		result = 1;
 		    	}
 			}

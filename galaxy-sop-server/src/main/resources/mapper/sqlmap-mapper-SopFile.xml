@@ -161,7 +161,7 @@
 			where	sf.project_id = sp.id
 			and		(select dict.dict_value  from dict where dict.dict_code = sp.project_progress) >= (select dict.dict_value  from dict where dict.dict_code = sf.project_progress)
 			and		sf.file_worktype is not null and sf.file_worktype != 'fileWorktype:12'
-			<![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]>
+			<!-- <![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]> -->
 			<include refid="Page_Where_Clause" />
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="offset != null and limit != null">
@@ -179,7 +179,7 @@
 			where	sf.project_id = sp.id
 			and		(select dict.dict_value  from dict where dict.dict_code = sp.project_progress) >= (select dict.dict_value  from dict where dict.dict_code = sf.project_progress)
 			and		sf.file_worktype is not null and sf.file_worktype != 'fileWorktype:12'
-			<![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]>
+			<!-- <![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]> -->
 			<include refid="Page_Where_Clause" />
 	</select>
 	
@@ -294,7 +294,7 @@
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
  		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{voucherId,jdbcType=BIGINT},
  		#{fileStatus,jdbcType=VARCHAR},
- 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT},
+ 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},
  		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},
  		#{fileKey,jdbcType=VARCHAR},
  		#{bucketName,jdbcType=VARCHAR},
@@ -391,6 +391,7 @@
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="projectProgress != null" > and project_progress = #{projectProgress} </if>
+				<if test="fileWorktype != null" > and  file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
 				<if test="fileworktypeList != null and fileworktypeList.size() > 0" > 
 					and file_worktype in
 					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">

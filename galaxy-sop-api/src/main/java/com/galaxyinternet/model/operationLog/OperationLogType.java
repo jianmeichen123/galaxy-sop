@@ -8,10 +8,44 @@ package com.galaxyinternet.model.operationLog;
  */
 public enum OperationLogType {
 	
-	/* 2017.7 v1.5 sopfile-flow ---------------------------------------------------------------------------*/
+    interview_add("/galaxy/progress/p1/add/"+UrlNumber.one, OperType.ADD.getOperationType(), "接触访谈",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	
+    interview_update("/galaxy/progress/p1/add/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "接触访谈",SopStage.TOUCH_INTERVIEW.getStageName()), 
+	
+	
+	/* 2017.7 v1.5   会后商务谈判      -----------------------------------*/
+	
+	//meetingType:5   会后商务谈判
+    meeting_1_add("/galaxy/progress/p2/add/"+UrlNumber.one, OperType.ADD.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+	
+	meeting_1_update("/galaxy/progress/p2/add/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "内部评审会议记录",SopStage.INNER_REVIEW_SCHEDULE.getStageName()), 
+	
+    meeting_2_add("/galaxy/progress/p2/add/"+UrlNumber.three, OperType.ADD.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	
+	meeting_2_update("/galaxy/progress/p2/add/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "CEO评审会议记录",SopStage.CEO_REVIEW_SCHEDULE.getStageName()), 
+	
+    meeting_3_add("/galaxy/progress/p2/add/"+UrlNumber.five, OperType.ADD.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
+	meeting_3_update("/galaxy/progress/p2/add/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "立项会会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	
+    meeting_4_add("/galaxy/progress/p2/add/"+UrlNumber.seven, OperType.ADD.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	
+	meeting_4_update("/galaxy/progress/p2/add/"+UrlNumber.eight, OperType.UPDATE.getOperationType(), "会后商务谈判会议记录",SopStage.SW_TP.getStageName()), 
+	
+	meeting_5_add("/galaxy/progress/p2/add/"+UrlNumber.nine, OperType.ADD.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
+	
+	meeting_5_update("/galaxy/progress/p2/add/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), "投决会会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()), 
+	
+	
+	
+	/* 2017.7 v1.5 sopfile-flow -----------------------------------------*/
 
 	//projectProgress:4
 	//	立项报告     fileWorktype:17  
+	p5_f5_lxhbg_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.eleven, OperType.UPLOAD.getOperationType(), 
+			"立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
+	p5_f5_lxhbg_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.twelve, OperType.UPDATE.getOperationType() , 
+			"立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
 	
 	
 	//projectProgress:5
@@ -29,7 +63,8 @@ public enum OperationLogType {
 	//	财务尽职调查报告    fileWorktype:4
 	p6_f1_ywjd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), 
 			"业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
-	
+	p6_f1_ywjd_edit("/galaxy/progressT/optProFlowFiles/"+UrlNumber.ten, OperType.UPDATE.getOperationType(), 
+					"业务尽职调查报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//	尽职调查启动会报告    fileWorktype:18  four  five
 	//	尽职调查总结会报告    fileWorktype:19	six   seven
 	p6_f18_jzqd_up("/galaxy/progressT/optProFlowFiles/"+UrlNumber.four, OperType.UPLOAD.getOperationType(), 
@@ -54,6 +89,7 @@ public enum OperationLogType {
 	//projectProgress:9  股权交割
 	//  工商转让凭证     fileWorktype:8
 	//  资金拨付凭证     fileWorktype:9
+	
 	
 	
 

@@ -75,10 +75,10 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 				}
 				break;
 			case 尽职调查:
-				if(!hasAllFiles(project))
+				/*if(!hasAllFiles(project))
 				{
 					throw new BusinessException("文档不齐全");
-				}
+				}*/
 				break;
 			
 			default:
@@ -109,25 +109,25 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 	{
 		String type = null;
 		String result = meetingResult.否决.getCode();
-		if(projectProgress.内部评审.getCode().equals(project.getProgress()))
+		if(projectProgress.内部评审.getName().equals(project.getProgress()))
 		{
 			type = meetingType.内评会.getCode();
 		}
-		else if(projectProgress.CEO评审.getCode().equals(project.getProgress()))
+		else if(projectProgress.CEO评审.getName().equals(project.getProgress()))
 		{
 			type = meetingType.CEO评审.getCode();
 		}
-		else if(projectProgress.立项会.getCode().equals(project.getProgress()))
+		else if(projectProgress.立项会.getName().equals(project.getProgress()))
 		{
 			type = meetingType.立项会.getCode();
 			result = LXHResult.FJ.getCode();
 		}
-		else if(projectProgress.会后商务谈判.getCode().equals(project.getProgress()))
+		else if(projectProgress.会后商务谈判.getName().equals(project.getProgress()))
 		{
 			type = meetingType.会后商务谈判.getCode();
 			result = SWTPResult.FJ.getCode();
 		}
-		else if(projectProgress.投资决策会.getCode().equals(project.getProgress()))
+		else if(projectProgress.投资决策会.getName().equals(project.getProgress()))
 		{
 			type = meetingType.投决会.getCode();
 		}

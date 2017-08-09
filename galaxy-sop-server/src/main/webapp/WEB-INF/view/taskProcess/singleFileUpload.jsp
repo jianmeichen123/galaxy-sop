@@ -203,7 +203,12 @@ function initUpload(_dialog){
 		url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
-			max_file_size : '25mb'
+			max_file_size : '25mb',
+			mime_types : [
+				           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
+				           { title : "PDF files", extensions : "pdf,PDF" },
+				           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
+				        ]
 		},
 
 		init: {

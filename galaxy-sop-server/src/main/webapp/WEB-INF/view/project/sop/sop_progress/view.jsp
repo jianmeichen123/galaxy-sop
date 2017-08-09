@@ -40,9 +40,9 @@
             </dl>  
             <dl class="fmdl clearfix check_detail">
                 <dt id="toobar_result">访谈结论：</dt>
-                <dd>
-                    <div>
-                       <span id="interviewResult">否决 &nbsp;</span>
+                <dd class="result_dd">
+                    <div class="result_reason">
+                       <span id="interviewResult"></span>
                        <span id="resultReason"></span>
                     </div>
                    

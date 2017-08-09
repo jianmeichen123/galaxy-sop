@@ -228,9 +228,11 @@ $(".task_noprovide input").click(function(){
 	if($(this).prop( "checked" )){
 		$("#show-upload-btn").addClass("disabled");
 		$("#complete-task-btn").removeClass("disabled");
+		$("#complete-task-btn").attr("disabled",false);
 	}else{
 		$("#show-upload-btn").removeClass("disabled");
-		$("#show-upload-btn").addClass("disabled");
+		$("#complete-task-btn").addClass("disabled");
+		
 	}
 	
 })

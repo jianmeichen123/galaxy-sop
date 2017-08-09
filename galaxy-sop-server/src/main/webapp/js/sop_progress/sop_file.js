@@ -46,8 +46,7 @@ function backForShowFiles(data){
 	filesCondition = data.userData;
 	var str = "";
 	for(var filetype in filesCondition){
-		str = '<li>' + getFileShowStr(filesCondition[filetype]) + '</li>';
-		
+		str = '<li>' + getFileShowStr(filesCondition[filetype]) + '</li>';	
 		$(".file_list").append(str);
 		if(filesCondition[filetype].canOpt){
 			fileUpBuild(
@@ -85,7 +84,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		filters : {   //只支持PDF和jpeg、png格式，大小限定为25M。
 			mime_types : [
 	           { title : "Image files", extensions : "jpg,jpeg,png,JPG,JPEG,PNG" }, 
-	           { title : "PDF files", extensions : "pdf,PDF" }
+	           { title : "PDF files", extensions : "pdf,PDF" },
+	           { title : "DOC", extensions : "xls,xlsx,XLS,XLSX"}
 	        ],
 			max_file_size : '25mb',
 			prevent_duplicates : false //true 不允许选取重复文件
@@ -111,9 +111,8 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		var fileType = getFileTypeByName(files[0].name);
 		paramsCondition.fileType = fileType;
 		paramsCondition.projectId  = projectId;
-		
+        paramsCondition.projectProgress = _project_.projectProgress;
 		uploader.settings.multipart_params = paramsCondition;
-		
 		var saveObj = $("#"+saveFileId);
 		if(!saveObj  || saveObj == null ||saveObj.length == 0 ){
 			uploader.start();
@@ -132,6 +131,9 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		var saveObj = $("#"+saveFileId);
 		if(saveObj && saveObj!=null && saveObj.length > 0){
 			$("#"+saveFileId).click(function(){
+				if(!uploader.settings.multipart_params.projectProgress){
+                    uploader.settings.multipart_params.projectProgress =  _project_.projectProgress;
+				}
 				uploader.start();
 			});
 		}
@@ -154,7 +156,7 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 		if(result.status == "OK"){
 			//项目阶段按钮状态刷新
 			refreshButton();
-			var fileWorktype = $("#"+saveFileId).attr("data-type");
+			/*var fileWorktype = $("#"+saveFileId).attr("data-type");
 			var fi = response.entity;
 			filesCondition[fileWorktype] = fi;
 			
@@ -168,19 +170,25 @@ function fileUpBuild(addFileUrl,paramsCondition,selectId,showFileId,saveFileId){
 					null,
 					fi.fileWorktype.replace(":","_") + '_up',
 					null,
-					fi.fileWorktype.replace(":","_") + '_save');
+					fi.fileWorktype.replace(":","_") + '_save');*/
+			//refreshIndex(true);
+			initFileShow();
 			
 			
 		}else{
+            layer.msg(result.message);
+            if(result.errorCode == 'REFRESH'){
+                refreshIndex(true);
+            }
 			tosaveToggle('toHide',selectId);
-			layer.msg(result.message);
+
 		}
 	});
 	
 	fileUploader.bind('Error',function(uploader,err){
 //		上传出错
 		/*$("#"+selectId).closest("li").hideLoading();*/
-		tosaveToggle('toHide',selectId);
+		tosaveToggle('toHide',selectId,"",fileType);
 		layer.msg(err.message);
 		uploader.splice(0, uploader.files.length);
 	});
@@ -218,8 +226,11 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 		var fileWorktype = selectObj.attr("data-type");
 		var file = filesCondition[fileWorktype];
 		imgStr = getImageOrPdf(file);
+		console.log(beforeType);
 		if(beforeType=="pdf"){
 			imgStr=imgStr.replace("image.png","pdf.png");
+		}else if(beforeType == "xlsx"||beforeType == "xls"){
+			imgStr=imgStr.replace("pdf.png","excel.png")
 		}else{
 			imgStr=imgStr.replace("pdf.png","image.png")
 		}
@@ -242,7 +253,8 @@ function tosaveToggle(mark,selectId,fileName,beforeType){
 function getFileShowStr(file){
 	var str = '';
 	if(file.taskStatusStr && file.taskStatusStr !=null){
-		if(file.fileKey == null){
+		//if(file.fileKey == null){
+		if(file.taskStatusStr != "已完成"){
 			str += create_task_nofile_area(file);  // data-type="task_nofile"
 		}else{
 			str += create_task_file_area(file);   // data-type="task_file"
@@ -261,12 +273,16 @@ function getFileShowStr(file){
 
 function getImageOrPdf(file){
 	// fileType:1  文档    // fileType:4  图片
+	//txt的时候是fileType:1
 	var fileType = getFileType(file);
 	var imgstr = "";
 	if(fileType == "fileType:1"){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/pdf.png";   //pdf
+		
 	}else if(fileType == "fileType:4"){
 		imgstr = Constants.sopEndpointURL + "/img/sop_progress/image.png"; //图片
+	}else if(fileType=="xls_type"){
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/excel.png"; //图片
 	}
 	return imgstr;
 }
@@ -275,6 +291,15 @@ function getImageOrPdf(file){
  * fileType:4  图片
 */
 function getFileType(file){
+	if(typeof(file)=="string"){
+		var fileType = getFileExt(file);
+	}else{
+		var fileType = file.fileSuffix;
+	}
+
+	if (fileType=="xls"||fileType=="xlsx"||fileType=="XLS"||fileType=="XLSX"){
+		return "xls_type";
+	}
 	if(typeof(file) == 'string'){
 		var fileType = getFileTypeByName(file);
 		return fileType;
@@ -288,19 +313,27 @@ function getFileType(file){
 function getOptionStr(file,type){
 	var optStr = "";
 	var optOption = "";
+	var other_class="";
+	if(file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG' && file.fileSuffix!='xls'&&file.fileSuffix!='xlsx'&&file.fileSuffix!='XLS'&&file.fileSuffix!='XLSX'){
+		var other_class="downlond_other";
+		type = "other";
+	}
 	if(file.canOpt){
-		optOption += '<span class="reupload_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
+		optOption += '<span type="reupload" class="reupload_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_up"  data-type="' + file.fileWorktype + '"></span> ';
 	}
 	if(file.canDown){
-		optOption += '<span class="downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
+		optOption += '<span type="downlond" class=" downlond_'+type+'" id="'+ file.fileWorktype.replace(":","_") +'_down" onclick="filedown(\''+file.id+'\')"></span>';
 	}
 	if(optOption != '' && optOption.length > 0){
+		//var filetype = file.fileSuffix;
 		optStr = 
-			'<div class="file_btn">' +
+			'<div class="file_btn" style="display:block;">' +
 				optOption +
 			'</div>' ;
-	}
 		
+		
+	}	
+	
 	return optStr;
 }
 
@@ -309,12 +342,13 @@ function getOptionStr(file,type){
 //创建空白可上传区域
 //fileKey=null taskStatusStr == null canopt=true 
 function create_blank_area(file){
-	console.log(file)
 	var selectopt = "";
 	var imgHtm = "";
 	if(file.canOpt){
 		selectopt = '<input type="file" title="" id="'+ file.fileWorktype.replace(":","_") +'_up" data-type="' + file.fileWorktype + '">';
 		imgHtm = '<img src="' + Constants.sopEndpointURL + '/img/sop_progress/plus_icon.png" class="add_img" alt="">';
+	}else{
+		imgHtm = '<img src="' + Constants.sopEndpointURL + '/img/sop_progress/progress_empty.png" class="add_img" alt="">';
 	}
 	
 	var str = 
@@ -342,8 +376,17 @@ function create_file_area(file){
 	var type=file.fileSuffix;
 	if(type=="jpg" || type=="jpeg" || type=="png" || type=="JPG" || type=="JPEG" || type=="PNG"){
 		type="jpg"
-	}else{
+	}else if(type=="pdf"||type=="PDF"){
 		type=="pdf"
+	}else if(type == "xls" || type == "xlsx" || type == "XLS" || type == "XLSX"){
+	   type=="excel"
+	}
+	var imgstr = getImageOrPdf(file);
+	var line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
+	if(file.fileSuffix!='XLS'&&file.fileSuffix!='XLSX'&&file.fileSuffix!='xls'&&file.fileSuffix!='xlsx'&&file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'&&file.fileSuffix!='PDF'){
+		//历史数据非jpg/pdf的
+		imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
+		line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
 	}
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file,type);
@@ -351,7 +394,7 @@ function create_file_area(file){
 		//'<li>' +
 			'<input type="hidden" data-type="file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'" onclick="view_file(this)" alt="" />' +
+			line_img+
 				optStr +
 				'<div class="cover_box">' +
 					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\',null,\''+file.fileSuffix+'\')" >取消</span>'  +
@@ -376,7 +419,7 @@ function create_task_nofile_area(file){
 		//'<li>' +
 			'<input type="hidden" data-type="task_nofile">' +
 			'<div class="file_box">' +
-				'<p class="center_text" style="margin-top: -18px;">' +
+				'<p class="center_text">' +
 					lin +
 				'</p>' +
 				'<div class="cover_box">' +
@@ -392,23 +435,35 @@ function create_task_nofile_area(file){
 }
 
 //taskStatusStr!=null    fileKey!=null
+//认领显示
 function create_task_file_area(file){
 	var type=file.fileSuffix;
 	var imgstr = getImageOrPdf(file);
 	var optStr = getOptionStr(file,type);
 	
-	var lin = file.taskStatusStr;
-	if(file.taskUname != null && file.taskUname.length > 0){
+	var lin = '';
+	/*var lin = file.taskStatusStr;
+	if(file.taskUname != null && file.taskUname.length > 0 ){
 		lin += '<br/>(' + file.taskUname + ')';
+	}*/
+	var p_line_img ='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />' +
+	'<p class="center_text" >' +
+		lin +
+	'</p>';
+	if(file.taskStatusStr=="已完成"&&file.filUri!=''&&file.filUri!=undefined){
+		//已经认领并且上传文件后
+		p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
+		if(file.fileSuffix!='XLS'&&file.fileSuffix!='XLSX'&&file.fileSuffix!='xls'&&file.fileSuffix!='xlsx'&&file.fileSuffix!='JPG'&&file.fileSuffix!='jpg'&&file.fileSuffix!='jpeg'&&file.fileSuffix!='png'&&file.fileSuffix!='PNG'&&file.fileSuffix!='pdf'){
+			//历史数据非jpg/pdf的
+			imgstr = Constants.sopEndpointURL + "/img/sop_progress/progress_other.png";   //其他
+			p_line_img='<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />'
+		}
 	}
 	var str = 
 		//'<li>' +
 			'<input type="hidden" data-type="task_file">' +
 			'<div class="file_box file_img">' +
-				'<img class="bg_img" src="' + imgstr + '" ftype="'+file.fileSuffix+'" furl="'+file.filUri+'" fid="'+file.id+'"  onclick="view_file(this)"  alt="" />' +
-				'<p class="center_text" style="margin-top: -18px;">' +
-					lin +
-				'</p>' +
+			p_line_img +
 				optStr +
 				'<div class="cover_box">' +
 					'<span class="cancel" onclick="tosaveToggle(\'toHide\',\'' + file.fileWorktype.replace(":","_") +"_up" + '\')" >取消</span>'  +
@@ -418,7 +473,6 @@ function create_task_file_area(file){
 			'</div>' +
 			'<span>'+ file.fWorktype +'</span>' ;
 		//'</li>';
-	
 	return str;
 }
 
