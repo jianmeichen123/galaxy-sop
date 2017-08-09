@@ -59,7 +59,7 @@
 							  </ul>
 							</dd>
 							<dd class="fl_none">
-								<textarea class="textarea_h" data-title-id="\${titleId}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
+								<textarea class="textarea_h" data-title-id="\${titleId}" id="\${titleId}" data-type="\${type}" placeholder="\${placeholder}"></textarea>
 								<p class="num_tj">
 									<label for="">500</label>/500
 								</p>
@@ -268,7 +268,7 @@
 						  </ul>
 						</dd>
 						<dd class="fl_none">
-							<textarea class="textarea_h" data-title-id="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
+							<textarea class="textarea_h" data-title-id="\${titleId}" id="\${titleId}" data-type="\${type}" data-parentId="\${parentId}" placeholder="\${placeholder}"></textarea>
 							<p class="num_tj">
 								<label for="">500</label>/500
 							</p>
