@@ -61,6 +61,11 @@
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();			
 		}
+		//特殊处理项目评测内的刚需和痛点
+		if(id_code=="ENO1_1_4"){
+			$(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']").attr("readyonly","readyonly");
+			$(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']").addClass("disabled");
+		}
 		editResult(obj);
 		validate();
 		img_fun();

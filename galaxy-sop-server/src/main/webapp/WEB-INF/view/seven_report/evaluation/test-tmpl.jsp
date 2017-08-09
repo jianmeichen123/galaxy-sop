@@ -462,7 +462,7 @@
 				<span class="h_save_btn">保存</span>
 				<span class="h_cancel_btn">取消</span>
 			</div>
-			
+			{{if sign=="3"}}
 		 	{{each(i,childList) childList}}
 					<div class="mb_16">
 					    <dl class="h_edit_txt clearfix">
@@ -531,7 +531,7 @@
 
 								 </ul>
 								 <ul class="h_imgs"  id="edit-\${id}">
-									<li class="h_imgs_add" id="h_imgs_add_\${id}"><input type="file" file-title-id="\${id}" id="selected_file_\${id}"></li>
+									<li class="h_imgs_add" id="h_imgs_add_\${id}"><input type="file" onchange="img_fun(this)" file-title-id="\${id}" id="selected_file_\${id}"></li>
 								</ul>
 								</dd>
 								<dd class="fl_none red img_prompt">最多支持5张图片，最大上传大小2M，格式限定为jpg、png、gif、bmp</dd>
@@ -659,9 +659,22 @@
 					</div>
 				{{/each}}
 			
-
-
-			 
+			{{else}}
+			<!-- 商业模式特殊情况 -->
+			<div class="mb_16">
+				<dl class="h_edit_txt clearfix">		
+				{{if type=="16"}}
+					<input data-type="\${type}" data-must="\${isMust}" class="hidden" data-title-id="\${id}" type="text"/>
+					{{each(i,childList) childList}}
+							<dt class="title_dt" data-type="\${type}" data-must="\${isMust}">\${name}</dt>
+							{{each placeholder.split('&')}}
+							<dd class="fl_none"><input class="big_input" data-title-id="\${id}" data-index="\${id}_\${$index+1}" data-valrule="\${valRule}" placeholder="\${placeholder.split('&')[$index]}" maxlength="\${valRuleMark}"/></dd>
+					{{/each}}
+				{{/each}}
+			{{/if}}
+				</dl>
+			</div>
+		{{/if}}
 			<div class="h_edit_btnbox clearfix">
 				<span class="pubbtn bluebtn h_save_btn fl">保存</span>
 				<span class="pubbtn fffbtn fl h_cancel_btn">取消</span>

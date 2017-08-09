@@ -331,11 +331,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 	data.infoFixedTableList=infoModeFixedList;
 	data.infoModeInputs=infoModeInputs;
 	data.deletedRowIds = deletedRowIds;
-	var h_cancel_btn_code = $(btn).next().attr('attr-hide');
+	var h_cancel_btn_code = $(btn).next().attr('attr-session');
 
-    if (h_cancel_btn_code=='NO3_1'){
-        data.deletedRowIds = deletedRowIds;
-    }else if (h_cancel_btn_code=='NO3_8'){
+    //股权合理性 h_cancel_btn_code 为块titleId
+    if (h_cancel_btn_code=='1324'){
         data.deletedRowIds = deletedRowIdsGq;
     }
 		
@@ -379,9 +378,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 			            	}
 							layer.msg('保存成功');
 							$(".bj_hui_on").hide();
-                            if (h_cancel_btn_code=='NO3_1'){
-                                deletedRowIds = new Array();
-                            }else if (h_cancel_btn_code=='NO3_8'){
+                            if (h_cancel_btn_code=='1324'){
                                 deletedRowIdsGq = new Array();
                             }
         					var parent = $(sec).parent();

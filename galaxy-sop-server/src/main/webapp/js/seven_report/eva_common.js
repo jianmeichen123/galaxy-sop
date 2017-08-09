@@ -157,26 +157,55 @@ function initScore(relateId)
 function calcScore()
 {
 	var rid = $("#eva-tabs li.active").data('relateId');
-	var data = {
-		"parentId": 0	,
-		"relateId": rid,
-		"reportType": 1,
-		"projectId":projId
-	};
-	var items = new Array();
+	
+	var titleData = {};
 	$(".title-value").each(function(){
 		var _this = $(this);
 		var relateId = _this.data('relateId');
 		var subId = typeof _this.data('subId')=='undefined' ? null:_this.data('subId');
 		var values = getTitleValue(relateId);
-		var score = getScore(relateId,subId);
-		items.push({
+		var title = {
+			"relateId": relateId,
+			"subId": subId,
+			"values": values	
+		}
+		titleData[relateId+"-"+subId] = title;
+	});
+	
+	$(".score-column input,select").each(function(){
+		var _this = $(this);
+		var td = _this.parent();
+		var relateId = td.data('relateId');
+		var subId = typeof td.data('subId')=='undefined' ? null:td.data('subId');
+		var values = getTitleValue(relateId);
+		var score = _this.val();
+		if(score == "" || isNaN(score))
+		{
+			score = null;
+		}
+		var title = {
 			"relateId": relateId,
 			"subId": subId,
 			"values": values,
-			"score": score
-		});
+			"score": score	
+		}
+		if(titleData.hasOwnProperty(relateId+"-"+subId))
+		{
+			title = titleData[relateId+"-"+subId];
+			title.score = score
+		}
+		titleData[relateId+"-"+subId] = title;
 	});
+	var items = new Array();
+	$.each(titleData,function(key,item){
+		items.push(item);
+	});
+	var data = {
+			"parentId": 0	,
+			"relateId": rid,
+			"reportType": 1,
+			"projectId":projId
+		};
 	data.items = items;
 	sendPostRequestByJsonObj(
 			platformUrl.calculateScore, 
@@ -429,11 +458,15 @@ function getScores()
 	var scores = $(".score-column input,select");
 	$.each(scores,function(){
 		var _this = $(this);
-		var val = _this.val();
 		var td = _this.parent();
 		var titleId= td.data('titleId');
 		var relateId= td.data('relateId');
 		var subId = td.data('subId');
+		var val = _this.val();
+		if(val == "" || isNaN(val))
+		{
+			val = null;
+		}
 		var model = {
 				relateId:relateId,
 				projectId: projId
