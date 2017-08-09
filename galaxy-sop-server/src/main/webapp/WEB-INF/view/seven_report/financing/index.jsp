@@ -42,20 +42,20 @@ var path = '<%=path%>';
 			<li data-tab="navInfo" class="fl h_nav1" onclick="tabFinanChange('7')">融资及<br />估值 </li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
-		<div class="tabtxt" id="page_all"> 
-		
-		
-			
+		<div class="tabtxt" id="page_all">
+
+
+
 		</div>
 	</div>
-	
+
 	</div>
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
     <div class="new_right" id="new_right"></div>
-    
-    
-	
+
+
+
 
        <!--隐藏-->
     <div class="bj_hui_on"></div>
@@ -88,16 +88,13 @@ var path = '<%=path%>';
 <!--提示验证  -->
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
-<script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
-<%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>	 --%>
+<script src="<%=path %>/js/hologram/baseInfo.js"></script>
+
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
-<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 
 <!-- 跟全息图相似的 -->
-<script src="<%=path%>/js/hologram/team_pop.js"></script>	
-<script src="<%=path%>/js/hologram/team_save.js"></script>	
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
 <script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
 <script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
 <script src="<%=path %>/js/seven_report/financing/fiancing_common.js" type="text/javascript"></script>
@@ -105,7 +102,7 @@ var path = '<%=path%>';
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	//right_anchor("DNO2?reportType=2"); 
+	//right_anchor("DNO2?reportType=2");
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'GNO2?reportType=5', null,
