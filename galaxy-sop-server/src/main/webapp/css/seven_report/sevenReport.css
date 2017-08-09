@@ -79,6 +79,7 @@ table .on td{
 .align_left{
 	text-align: left;
 	padding-left: 10px;
+	position:relative;
 }
 .editPic{
 	display:inline-block;
@@ -90,7 +91,8 @@ table .on td{
 	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-17px -15px;
 	cursor:pointer;
-	 display:none; 
+	display:none; 
+	z-index:10;
 	
 }
 table td .holder{
@@ -207,18 +209,15 @@ table.table_15 td:nth-child(4){
 	color:#999999;
 }
 
-.income_structor  em,.income_line em,.income_structor_content em.income_pic{
+.income_structor  em,.income_line em,.income_structor_content em.income_pic,.condition em.packup,.condition em.detail{
 	cursor:pointer;
 	color:#53B1FD;
+	line-height:1;
 }
-.income_structor_content{
-	display:inline-block;
-	overflow : hidden;
-	color:#999;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
+.condition em.detail{
+	top:50%;
+	transform:translateY(-50%);
+	padding-top:64px;
 }
 .title-value.income_structor_content span{color:#333;}
 .content_radio_show{
@@ -230,11 +229,12 @@ table.table_15 td:nth-child(4){
 }
 .detail{
 	position:absolute;
-	right:8px;
-	top:24px;
+	right:-2px;
+	display:none;
 }
 .packup{
 	display:none;
+	margin-left:-20px;
 }
 .content_radio_show input{
 	margin-left:10px;
@@ -772,3 +772,12 @@ p.check_p{display:inline;}
 .select_list li a{text-align:left;    display: inherit;}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
+p.type_8{display: inline;padding-right:20px;}
+.type_8.mare_text{
+hieght:50px;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;
+
+}

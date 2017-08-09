@@ -71,7 +71,7 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>										
+							<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">详情</em></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->
@@ -249,7 +249,7 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>										
+							<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">详情</em></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->

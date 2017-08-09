@@ -93,6 +93,7 @@ function showResultAndScoreList(relateId)
 						buildResult(this)
 					});
 					initScore(relateId);
+					Tfun_8($(".type_8"));	
 				}
 			}
 		);
@@ -531,7 +532,20 @@ $("#save-rpt-btn").click(function(){
 		})
 });
 
-
+//type_8  展开收起公共方法
+function Tfun_8(data){
+	$.each(data,function(){
+		var _this = $(this);
+		var height = _this.height();
+		if(height>90){
+			_this.addClass("mare_text");
+			_this.parent().find(".detail").show();
+		}else{
+			_this.removeClass("mare_text");
+			_this.parent().find("em").hide();
+		}
+	})
+}
 //评测报告图片缩略图 公共方法
 function img_fun(data){
 	if(data==undefined){
