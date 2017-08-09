@@ -63,7 +63,7 @@
 		}
 		editResult(obj);
 		validate();
-		
+		img_fun();
 	}
 	//编辑回显
 	function editResult(obj){
@@ -690,7 +690,11 @@ function getDetailUrl(code)
     /* } */
 }
 //图片缩略图
-$('div').delegate(".h_imgs_add input[type='file']","change",function(){
+function img_fun(){
+	
+
+$(".h_imgs_add input[type='file']").change(function(e){
+	e.preventDefault();
 	 var fi_this = $(this);
 	 if ($(this).val() != '') {
     var files = !!this.files ? this.files : [];
@@ -707,8 +711,18 @@ $('div').delegate(".h_imgs_add input[type='file']","change",function(){
 	 fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
 
  }
-	 console.log(this.result);
+	 var _id = fi_this.closest(".fl_none").find("ul:first-child").attr("id");
+	 var _idnum = _id.split("-")[1];
+	 var _htm ="<li class=\"h_imgs_add\" id=\"h_imgs_add_"+_idnum+"\"><input type=\"file\" file-title-id="+_idnum+" id=\"selected_file_"+_idnum+"\"></li>"
+	 var add_html= "<ul class=\"h_imgs\" id="+_id+">"+_htm+"</ul>"
+	 if(fi_this.closest(".h_edit_txt").find("ul").length<6){
+		 fi_this.closest(".fl_none").append(add_html);
+		 img_fun();
+	 }
 })
-	
-	
+}
+$("div").delegate(".h_img_del","click",function(){
+	$(this).closest(".h_imgs").remove();
+})
+
 	
