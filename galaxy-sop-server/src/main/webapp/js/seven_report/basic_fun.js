@@ -285,7 +285,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 //隔轮融资的估值及时间表
 function customBuilder()
 {
-	var div = $("div[data-code='NO9_3_12']");
+	var div = $("div[data-title-id='1938']");
 	var titleId = div.data('titleId');
 	var dd_box =$("<dd class='dd_field'></dd>")
 	var table = $("<table data-title-id='"+titleId+"'></table>")
