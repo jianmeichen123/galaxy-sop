@@ -78,6 +78,15 @@ var pageId = "project";
 		<!--弹窗2 -->	
 		<div class="h_look h h_team_look clearfix ch_opration">
 		</div>
+		<!-- 图片展示弹窗 -->
+		<div class="customer_income">
+			<div class="Button popupButton ch_reason_stock">
+					<i onclick="closeX(this)" class="wrong h_cancel_btn"></i>
+			</div>
+			<img class="img_inner" src="" />
+			<a target="_blank" href="" class="master_pic">原图</a>
+			
+		</div>
 	</div>
 	<!-- 遮罩层 -->
 	<div class="mashLayer"></div>
