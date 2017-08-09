@@ -259,10 +259,8 @@ function afterTitleSaved()
 function buildResult(title)
 {
 	
-	console.log("!!!----------!!!");
-	console.log(title)
+	
 	var results = title.resultList;
-	console.log(results)
 	var type = title.type;
 	if(typeof results == 'undefined' || results.length == 0)
 	{
@@ -305,8 +303,13 @@ function buildResult(title)
 			content.push(this.valueName);
 			values.push(this.contentChoose);
 		});
-		_ele.html(content.join('、'));
+		_ele.html(content.join('、')); 
 		_ele.attr("data-title-value",values.join(','));
+		var _val_id =_ele.attr("data-title-value");
+		if(_val_id!=""){
+			_val_id=_val_id+",";
+		}
+		_ele.attr("data-title-value",_val_id);
 	}
 	//一个标题带两个文本域、
 	else if(type == 15)
@@ -391,6 +394,7 @@ function addValues(map)
 			if(typeof value != 'undefined')
 			{
 				var values = value.split(',');
+				values.pop();
 				$.each(values,function(i,val){
 					var model = {
 							tochange:"true",
@@ -411,11 +415,12 @@ function addValues(map)
 						model.remark1 = remark;
 					}
 					map.put(titleId,model);
+
 				})
+				
 			}
 		}
 	});
-	
 	return map;
 	
 }

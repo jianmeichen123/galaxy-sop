@@ -262,8 +262,13 @@ function right(obj,type){
 				}	
 				content.push(val_text);
 			});
-			p.html(content.join('、'));
-			p.attr("data-title-value",values.join(','));
+			p.html(content.join('、'));		
+			p.attr("data-title-value",values.join(','));			
+			var _val_id = p.attr("data-title-value");
+			if(_val_id!=""){
+				_val_id=_val_id+",";
+			}
+			p.attr("data-title-value",_val_id);
 		}
 			
 	}else if(type=="textarea"){
