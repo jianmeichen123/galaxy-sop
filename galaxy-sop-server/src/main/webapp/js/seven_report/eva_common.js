@@ -164,12 +164,17 @@ function calcScore()
 		"projectId":projId
 	};
 	var items = new Array();
-	$(".title-value").each(function(){
+	$(".score-column input,select").each(function(){
 		var _this = $(this);
-		var relateId = _this.data('relateId');
-		var subId = typeof _this.data('subId')=='undefined' ? null:_this.data('subId');
+		var td = _this.parent();
+		var relateId = td.data('relateId');
+		var subId = typeof td.data('subId')=='undefined' ? null:td.data('subId');
 		var values = getTitleValue(relateId);
-		var score = getScore(relateId,subId);
+		var score = _this.val();
+		if(score == "")
+		{
+			score = null;
+		}
 		items.push({
 			"relateId": relateId,
 			"subId": subId,

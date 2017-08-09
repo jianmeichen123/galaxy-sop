@@ -44,7 +44,7 @@
 		LEFT JOIN information_grade g ON r.id = g.title_relate_id
 		LEFT JOIN information_grade_auto a ON a.title_relate_id = r.id
 		<if test="projectId != null">
-		LEFT JOIN information_result rt ON rt.title_id = r.title_id
+		LEFT JOIN (SELECT * FROM information_result WHERE project_id = #{projectId})  rt ON rt.title_id = r.title_id
 		LEFT JOIN (SELECT * FROM information_result_grade WHERE project_id = #{projectId}) rg ON rg.title_relate_id = r.id
 		</if>
 		<where>
@@ -52,7 +52,6 @@
 			<if test="relateId != null"> and r.id =#{relateId}</if>
 			<if test="parentId != null"> and r.parent_id =#{parentId}</if>
 			<if test="reportType != null"> and r.report_type =#{reportType}</if>
-			<if test="projectId != null">and rt.project_id =#{projectId}</if>
 			<if test="code != null">AND r.code LIKE CONCAT(#{code},'%')</if>
 			<if test="ids != null">
 					and r.id in 
