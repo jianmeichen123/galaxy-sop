@@ -371,7 +371,7 @@ function buildResults(sec,title,readonly)
 				else
 				{
 					
-					$("input[data-id='"+title.id+"']").val(n.contentDescribe1);
+					$("input[data-id='"+title.relateId+"']").val(n.contentDescribe1);
 				}
 			}
 			
@@ -1878,7 +1878,7 @@ function delRow(ele)
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-		
+
 		if(typeof id != 'undefined' && id>0)
 		{
 			deletedRowIds.push(id);
@@ -1890,7 +1890,7 @@ function delRow(ele)
 		//$(".layui-layer-btn1").click();
 	}, function(index) {
 	});
-	
+
 }
 function refreshSection(id)
 {
