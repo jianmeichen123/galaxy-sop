@@ -62,7 +62,8 @@
 			$('.ch_opration').show();			
 		}
 		editResult(obj);
-		
+		validate();
+		img_fun();
 	}
 	//编辑回显
 	function editResult(obj){
@@ -72,6 +73,7 @@
 		var  val=p_box.text();
 		var titleVal=p_box.attr("data-title-value");
 		var type=p_box.attr("data-type");
+		var radioShow=$(obj).closest("td").find(".radioShow")
 		if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
 			if(type==1){
 				var relateId=p_box.attr("data-relate-id");
@@ -81,12 +83,37 @@
 			}else if(type==2){
 				var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
 				dom.addClass("checked");
-			}else if(type==8){
+				dom.children("input").attr("checked",true);
+			}else if(type==8 || type==15){
 				var relateId=p_box.attr("data-relate-id");
 				if(val!="未填写"){
 					$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
 				}			
-			}else if(type=="13"){
+			}else if(type==13 || type==3){
+				if(titleVal){
+					var titleValList=titleVal.split(",");
+					var valList=val.split("、");
+					for(var i=0;i<titleValList.length;i++){
+						var _parents = $(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue");
+						_parents.addClass("checked");
+						var text = _parents.find("label");
+						if(text=="其他"){
+							_parents.find(".others_text").show();			
+						}
+						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+					}
+					var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
+					if(last_id){
+						$(radioShow).find(".others_text").show();
+						$(radioShow).find(".others_text").val(valList[valList.length-1])
+					}
+				}				
+			}else if(type==14){
+				$(radioShow).find(".input_select").attr("id",titleVal);
+				if(val!="未选择"){
+					$(radioShow).find(".input_select").attr("value",val);
+				}
+			
 				
 			}
 		}else{  //大弹窗编辑回显
@@ -121,6 +148,7 @@ function get_result(code,e_type,dom){
 		 var result = data.result.status;
 		 if(result == 'OK'){
 			 var entity = data.entity;
+			 console.log(entity);
 			 var valueList = data.entity.valueList;
 			 var type=entity.type;
 			 if(e_type==1){
@@ -148,7 +176,7 @@ function get_result(code,e_type,dom){
 				}else if(type==14){
 					var result_li='';
 					$.each(valueList,function(i,n){
-						result_li += "<li><a href=\"#\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
+						result_li += "<li><a href=\"javascript:;\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
 					})
 					result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
 				}
@@ -225,13 +253,22 @@ function right(obj,type){
 			var content = new Array();
 			var values = new Array();
 			$.each(val_checkbox,function(){
-				var val_text = $(this).parent(".icheckbox_flat-blue").next("label").html();
+				var radio_label = $(this).parent(".icheckbox_flat-blue").next("label");
+				var val_text = radio_label.html();
 				var val_id =$(this).val();
 				values.push(val_id);
+				if(val_text=="其他"){
+					val_text=radio_label.next().val();
+				}	
 				content.push(val_text);
 			});
-			p.html(content.join('、'));
-			p.attr("data-title-value",values.join(','));
+			p.html(content.join('、'));		
+			p.attr("data-title-value",values.join(','));			
+			var _val_id = p.attr("data-title-value");
+			if(_val_id!=""){
+				_val_id=_val_id+",";
+			}
+			p.attr("data-title-value",_val_id);
 		}
 			
 	}else if(type=="textarea"){
@@ -590,9 +627,102 @@ function iCheck(){
 	
 	
 	
+//	分割————表格和图片特殊类型
 	
+function getDetailUrl(code)
+{
+	if(code == 'equity-structure')
+	{
+		return '../../../html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return '../../../html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return '../../../html/fincing_add_yx.html';
+	}
+	else if(code == 'valuation-reference')
+	{
+		return '../../../html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return '../../../html/fincing_add_jd.html';
+	}else if (code =='team-members'){
+
+	    return '../../../html/team_compile.html';
+	}else if(code == 'share-holding')
+    {
+        return '../../../html/team_add_cgr.html';
+    }
+	return "";
+}
+	//add新增表格按钮
+	function addRow(ele)
+{
+   /*  if ( validateCGR() ) { */
+        var code = $(ele).prev().data('code');
+        $.getHtml({
+            url:"../../../html/team_compile.html",//模版请求地址
+            data:"",//传递参数
+            okback:function(){
+				/*$('#qualifications_popup_name').html('添加简历');
+				$('#qualifications_popup_name1').html('添加持股人');
+                $("#detail-form input[name='projectId']").val(projectInfo.id);
+                $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+                $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+               
+                selectContext("detail-form");
+                
+                $("#save-detail-btn").click(function(){
+                    saveForm($("#detail-form"));
+                    check_table();
+                    check_table_tr_edit();
+                });
+                $("#save_person_learning").click(function(){
+                	check_table();
+                	check_table_tr_edit();
+                });*/
+            }//模版反回成功执行
+        });
+    /* } */
+}
+//图片缩略图
+function img_fun(){
 	
-	
-	
-	
+
+$(".h_imgs_add input[type='file']").change(function(e){
+	e.preventDefault();
+	 var fi_this = $(this);
+	 if ($(this).val() != '') {
+    var files = !!this.files ? this.files : [];
+    if (!files.length || !window.FileReader) return;
+    if (/^image/.test( files[0].type)){
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onloadend = function(){  
+        fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
+
+        }
+    }
+ }else{
+	 fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
+
+ }
+	 var _id = fi_this.closest(".fl_none").find("ul:first-child").attr("id");
+	 var _idnum = _id.split("-")[1];
+	 var _htm ="<li class=\"h_imgs_add\" id=\"h_imgs_add_"+_idnum+"\"><input type=\"file\" file-title-id="+_idnum+" id=\"selected_file_"+_idnum+"\"></li>"
+	 var add_html= "<ul class=\"h_imgs\" id="+_id+">"+_htm+"</ul>"
+	 if(fi_this.closest(".h_edit_txt").find("ul").length<6){
+		 fi_this.closest(".fl_none").append(add_html);
+		 img_fun();
+	 }
+})
+}
+$("div").delegate(".h_img_del","click",function(){
+	$(this).closest(".h_imgs").remove();
+})
+
 	

@@ -258,6 +258,8 @@ function afterTitleSaved()
  */
 function buildResult(title)
 {
+	
+	
 	var results = title.resultList;
 	var type = title.type;
 	if(typeof results == 'undefined' || results.length == 0)
@@ -266,17 +268,26 @@ function buildResult(title)
 	}
 	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
 	var _scoreEle = $('.score-column[data-title-id="'+title.id+'"]');
+	var _sign = _ele.parent().attr("class");
 	//Radio
 	if(type == 2 || type==14)
 	{
+		if(_sign=="sign_3"){
+			_ele.find("span").text(results[0].valueName);
+		}else{
+			_ele.text(results[0].valueName);
+		}
 		_ele.attr('data-title-value',results[0].contentChoose)
-		_ele.text(results[0].valueName);
 		_ele.attr("data-result-id",results[0].id);
 	}
 	//文本域
 	else if(type == 8)
 	{
-		_ele.text(results[0].contentDescribe1);
+		if(_sign=="sign_3"){
+			_ele.find("span").text(results[0].contentDescribe1);
+		}else{
+			_ele.text(results[0].contentDescribe1);
+		}
 		_ele.attr("data-result-id",results[0].id);
 	}
 	//复选带备注
@@ -292,8 +303,13 @@ function buildResult(title)
 			content.push(this.valueName);
 			values.push(this.contentChoose);
 		});
-		_ele.html(content.join('、'));
+		_ele.html(content.join('、')); 
 		_ele.attr("data-title-value",values.join(','));
+		var _val_id =_ele.attr("data-title-value");
+		if(_val_id!=""){
+			_val_id=_val_id+",";
+		}
+		_ele.attr("data-title-value",_val_id);
 	}
 	//一个标题带两个文本域、
 	else if(type == 15)
@@ -378,6 +394,7 @@ function addValues(map)
 			if(typeof value != 'undefined')
 			{
 				var values = value.split(',');
+				values.pop();
 				$.each(values,function(i,val){
 					var model = {
 							tochange:"true",
@@ -398,11 +415,12 @@ function addValues(map)
 						model.remark1 = remark;
 					}
 					map.put(titleId,model);
+
 				})
+				
 			}
 		}
 	});
-	
 	return map;
 	
 }

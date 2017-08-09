@@ -97,7 +97,6 @@ var path = '<%=path%>';
 <script src="<%=path%>/js/seven_report/investigate/investigate_common.js"></script>	
 
 <!-- 跟全息图相似的 -->
-<script src="<%=path%>/js/seven_report/investigate/team_pop.js"></script>
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
 <script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
 <script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>

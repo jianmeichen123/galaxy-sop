@@ -66,6 +66,11 @@ public class InformationListdata extends PagableEntity{
     private String property;
 
     private  String direction;
+    
+    private String createUserName;
+    private String createTimeStr;
+    private String updateUserName;
+    private String updateTimeStr;
 
     
 
@@ -303,4 +308,46 @@ public class InformationListdata extends PagableEntity{
     public void setDirection(String direction) {
         this.direction = direction;
     }
+
+	public String getCreateUserName()
+	{
+		return createUserName;
+	}
+
+	public void setCreateUserName(String createUserName)
+	{
+		this.createUserName = createUserName;
+	}
+
+	public String getCreateTimeStr()
+	{
+		return createTimeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr)
+	{
+		this.createTimeStr = createTimeStr;
+	}
+
+	public String getUpdateUserName()
+	{
+		return updateUserName;
+	}
+
+	public void setUpdateUserName(String updateUserName)
+	{
+		this.updateUserName = updateUserName;
+	}
+
+	public String getUpdateTimeStr()
+	{
+		return updateTimeStr;
+	}
+
+	public void setUpdateTimeStr(String updateTimeStr)
+	{
+		this.updateTimeStr = updateTimeStr;
+	}
+    
+    
 }
