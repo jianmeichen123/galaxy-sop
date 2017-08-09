@@ -11,11 +11,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>项目详情</title>
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
-<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 
-<script src="<%=path%>/js/hologram/team_pop.js"></script>
+
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
@@ -35,7 +32,6 @@
   <!--隐藏-->
 <div class="bj_hui_on"></div>
  <div id="tab-content">
- <jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
 		<div class="tabtxt" id="page_all">
 		<!--tab-->
 
@@ -43,8 +39,8 @@
 			<!--tab end-->
 		</div>
 	</div>
-
-<script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
+<jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
+<script src="<%=path%>/js/hologram/team_pop.js"></script>
 <script type="text/javascript">
 var path = '<%=path%>';
 createMenus(5);
