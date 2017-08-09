@@ -418,7 +418,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 				}else if(_type==7){
 					_this.find("span").html("");
 					$.each(d_this.valueList,function(i,n){
-						console.log(n)
 						var a_img="<em class=\"income_pic\" data-url="+n+">[图片]</em>"
 						_this.find("span").append(a_img);
 					})
@@ -556,7 +555,6 @@ function divSelect(){
 				var _target = $(this).closest('td');
 				var  leftNum = _target.offset().left-230;
 				var  topNum = _target.offset().top-200;
-				console.log(topNum);
 				$('.ch_stock').css('left',leftNum).css('top',topNum);
 				return false;
 			}
@@ -568,7 +566,6 @@ function divSelect(){
 				var _target = $(this).closest('td');
 				var  leftNum = _target.offset().left-230;
 				var  topNum = _target.offset().top-200;
-				console.log(topNum);
 				$('.ch_income_evaluation').css('left',leftNum).css('top',topNum);
 				return false;
 			}
@@ -580,7 +577,6 @@ function divSelect(){
 				var _target = $(this).closest('td');
 				var  leftNum = _target.offset().left-230;
 				var  topNum = _target.offset().top-200;
-				console.log(topNum);
 				$('.ch_opration').css('left',leftNum).css('top',topNum);
 				return false;
 
@@ -590,7 +586,6 @@ function divSelect(){
 			var _target = $(this).closest('td');
 			var  leftNum = _target.offset().left+220;
 			var  topNum = _target.offset().top-122;
-			console.log(topNum);
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 
@@ -604,7 +599,6 @@ function divSelect(){
 			var _target = $(this).closest('td');
 			var  leftNum = _target.offset().left+220;
 			var  topNum = _target.offset().top-148;
-			console.log(topNum);
 			$('.reasonable_stock').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 		});
