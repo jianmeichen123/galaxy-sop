@@ -89,8 +89,8 @@ var path = '<%=path%>';
 <!--提示验证  -->
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
-<script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<%-- <script src="<%=path%>/js/hologram/hologram_common.js"></script>	 --%>
+<script src="<%=path %>/js/hologram/baseInfo.js"></script>
+
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">	
 
@@ -98,9 +98,7 @@ var path = '<%=path%>';
 <script src="<%=path%>/js/seven_report/operation/operation_common.js"></script>	
 
 <!-- 跟全息图相似的 -->
-<script src="<%=path%>/js/hologram/team_pop.js"></script>	
-<script src="<%=path%>/js/hologram/team_save.js"></script>	
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
 <script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
 <script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>
 <script type="text/javascript">

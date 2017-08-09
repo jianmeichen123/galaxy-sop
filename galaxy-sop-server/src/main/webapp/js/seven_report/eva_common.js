@@ -310,7 +310,7 @@ function buildResult(title)
 		_ele.attr("data-result-id",results[0].id);
 	}
 	//文本域
-	else if(type == 8)
+	else if(type == 1 || type == 8)
 	{
 		if(_sign=="sign_3"){
 			_ele.find("span").text(results[0].contentDescribe1);
@@ -372,6 +372,10 @@ function getValues()
 		var resultId = _this.data('resultId');
 		var remark = _this.data('remark');
 		var text = _this.text();
+		if(_this.parent().hasClass('sign_3'))
+		{
+			text = _this.find('span').text();
+		}
 		//input,textarea
 		if(type == 1 || type == 8)
 		{
