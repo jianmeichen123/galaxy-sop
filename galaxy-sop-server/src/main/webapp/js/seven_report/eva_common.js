@@ -362,6 +362,8 @@ function buildResult(title)
 }
 function getValues()
 {
+	
+	var dupCheck = {};
 	var infoModelList = new Array();
 	var titleEles = $(".title-value");
 	$.each(titleEles,function(){
@@ -372,6 +374,11 @@ function getValues()
 		var resultId = _this.data('resultId');
 		var remark = _this.data('remark');
 		var text = _this.text();
+		if(dupCheck.hasOwnProperty(titleId))
+		{
+			return;
+		}
+		dupCheck[titleId]=titleId;
 		if(_this.parent().hasClass('sign_3'))
 		{
 			text = _this.find('span').text();
