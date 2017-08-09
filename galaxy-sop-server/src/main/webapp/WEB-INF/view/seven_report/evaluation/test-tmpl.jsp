@@ -122,7 +122,7 @@
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="  content_16 align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${content}</p></div>
-							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
 						 <td class="condition div_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -139,7 +139,7 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="8"}}
+						{{if type=="1" || type=="8" || type=="20"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="2" || type=="12" || type=="14"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
@@ -343,7 +343,7 @@
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 							<div class="content_16 align_left title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p>\${content}</p></div>
-							<span class="editPic" e-type="" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
+							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
 						 <td class="condition div_select" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
@@ -359,7 +359,7 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="8"}}
+						{{if type=="1" || type=="8" || type=="20"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="2" || type=="12" || type=="14"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
@@ -652,7 +652,8 @@
 								<dd class="fl_none"><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder.split('&')[$index]}" /></dd>
 								{{/each}}
 								{{/each}}
-
+							{{else type=="20"}}
+								<dd><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/><span>\${content}</span></dd>
 							{{/if}}
 					    </dl>
 					</div>
