@@ -263,7 +263,7 @@
 						<dd>
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
-							<li><input type="radio" data-value="\${value}" data-type="\${type}" placeholder="\${placeholder}"/>\${name}</li>
+							<li><input type="radio" value="\${id}" name="radio" data-title-id="\${titleId}" data-value="\${value}" data-type="\${type}" placeholder="\${placeholder}"/>\${name}</li>
 							{{/each}}
 						  </ul>
 						</dd>
@@ -589,8 +589,9 @@
 			         <dd class="field" data-title-id="\${titleId}">未填写</dd>
 					{{else type=="5"}}       
 					<dt  data-type="\${type}">\${name}</dt>                 
-					<dd data-value="\${value}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
-					<dd>备注</dd>
+					<dd class="type_radio" data-value="\${value}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
+					<br/>
+					<dd class="fl_none field division_dd" data-title-id="\${titleId}">未填写</dd>
 
 					{{else type=="2"}}
 					<dt  data-type="\${type}">\${name}</dt>

@@ -207,6 +207,17 @@ $('div').delegate(".h_save_btn","click",function(event){
 		{	
 			infoMode.remark1 = field.val();
 		}
+		else if(type==5){  
+			if($(field).attr("type")=="radio"){
+				var val=field.val();
+				infoMode.value = val;
+			}else{
+				var str=field.val();
+				var str=str.replace(/\n|\r\n/g,"<br>")
+				var str=str.replace(/\s/g,"&nbsp;");
+				infoMode.remark1 = str;
+			}	
+		}
 		else if( type==20 )
 		{	
 			infoMode.remark1 = field.val();
