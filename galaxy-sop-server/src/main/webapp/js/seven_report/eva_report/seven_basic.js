@@ -93,7 +93,12 @@
 					var titleValList=titleVal.split(",");
 					var valList=val.split("、");
 					for(var i=0;i<titleValList.length;i++){
-						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").addClass("checked");
+						var _parents = $(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue");
+						_parents.addClass("checked");
+						var text = _parents.find("label");
+						if(text=="其他"){
+							_parents.find(".others_text").show();			
+						}
 						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
 					}
 					var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");

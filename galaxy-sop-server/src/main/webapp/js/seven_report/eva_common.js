@@ -258,7 +258,11 @@ function afterTitleSaved()
  */
 function buildResult(title)
 {
+	
+	console.log("!!!----------!!!");
+	console.log(title)
 	var results = title.resultList;
+	console.log(results)
 	var type = title.type;
 	if(typeof results == 'undefined' || results.length == 0)
 	{
@@ -266,17 +270,26 @@ function buildResult(title)
 	}
 	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
 	var _scoreEle = $('.score-column[data-title-id="'+title.id+'"]');
+	var _sign = _ele.parent().attr("class");
 	//Radio
 	if(type == 2 || type==14)
 	{
+		if(_sign=="sign_3"){
+			_ele.find("span").text(results[0].valueName);
+		}else{
+			_ele.text(results[0].valueName);
+		}
 		_ele.attr('data-title-value',results[0].contentChoose)
-		_ele.text(results[0].valueName);
 		_ele.attr("data-result-id",results[0].id);
 	}
 	//文本域
 	else if(type == 8)
 	{
-		_ele.text(results[0].contentDescribe1);
+		if(_sign=="sign_3"){
+			_ele.find("span").text(results[0].contentDescribe1);
+		}else{
+			_ele.text(results[0].contentDescribe1);
+		}
 		_ele.attr("data-result-id",results[0].id);
 	}
 	//复选带备注
