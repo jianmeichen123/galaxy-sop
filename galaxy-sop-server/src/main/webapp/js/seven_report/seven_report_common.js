@@ -341,8 +341,13 @@ function buildResults(sec,title,readonly)
 		{
 			$.each(title.resultList,function(i,n){
 				if(readonly == true){
-					$(".type_radio[data-id='"+title.id+"']").text(n.valueName);
-					$(".field[data-title-id='"+n.titleId+"']").html(n.contentDescribe1==undefined ?"未填写":n.contentDescribe1);
+					if(n.contentChoose!=null){
+						//单选按钮回显
+						$(".type_radio[data-id='"+title.id+"']").text(n.valueName);
+						
+					}else{
+						$(".field[data-title-id='"+n.titleId+"']").html(n.contentDescribe1==undefined ?"未填写":n.contentDescribe1);
+					}
 				}else{
 					var str=n.contentDescribe1;
 					var result_id = n.id;
@@ -351,10 +356,16 @@ function buildResults(sec,title,readonly)
 						str=str.replace(/<br>/g,'\n');
 						str=str.replace(/&nbsp;/g," ");
 					}
-					$("textarea[data-title-id='"+n.titleId+"']").val(str).attr("resultId",result_id);
-					//单选按钮回显
-					$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").attr('checked','true').siblings().removeAttr("checked");
-					$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
+
+						
+					if(n.contentChoose!=null){
+						//单选按钮回显
+						$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").attr('checked','true').siblings().removeAttr("checked");
+						$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
+					}else{
+						$("textarea[data-title-id='"+n.titleId+"']").val(str).attr("resultId",result_id);
+					}
+				
 					
 					
 				}
