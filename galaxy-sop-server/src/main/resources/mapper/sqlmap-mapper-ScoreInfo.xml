@@ -63,5 +63,51 @@
 			</trim>
 		</where>
 	</select>
+	<resultMap id="InformationScoreMap" type="com.galaxyinternet.model.hologram.InformationScore">
+		<id column="id" 					property="id"				jdbcType="BIGINT"/>
+		<id column="projectId" 				property="project_id"		jdbcType="BIGINT"/>
+		<id column="relateId" 				property="title_relate_id"	jdbcType="BIGINT"/>
+		<id column="grade1" 				property="score1"			jdbcType="NUMERIC"/>
+		<id column="grade2" 				property="score2"			jdbcType="NUMERIC"/>
+	</resultMap>
 	
+	<select id="selectScore" resultMap="InformationScoreMap" parameterType="java.util.Map">
+		select * from information_result_grade
+		<where>
+			<trim prefixOverrides="and">
+			<if test="projectId != null">and project_id =#{projectId}</if>
+			<if test="relateId != null"> and title_relate_id =#{relateId}</if>
+			<if test="ids != null">
+				and id in 
+				<foreach collection="ids" item="item" open="(" separator="," close=")">
+				#{item}
+				</foreach>
+			</if>
+			</trim>
+		</where>
+	</select>
+	<insert id="insertScoreBatch" parameterType="java.util.List">
+		insert into information_result_grade (
+			project_id, 
+			title_relate_id,
+			grade1,
+			grade2
+		)
+		values 
+		<foreach collection="list" item="item" separator=",">
+			(
+				#{item.projectId,jdbcType=BIGINT}, 
+				#{item.relateId,jdbcType=BIGINT}, 
+				#{item.score1,jdbcType=NUMERIC},
+				#{item.score2,jdbcType=NUMERIC}
+			)
+		</foreach>
+	</insert>
+	<delete id="deleteScoreBatch" parameterType="java.util.Map">
+		delete from information_result_grade
+		where title_relate_id in
+		<foreach collection="relateIds" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+	</delete>
 </mapper>
