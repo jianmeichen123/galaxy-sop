@@ -434,37 +434,37 @@ public class InfoJumpController{
 	// 运营报告-投资方案
 	@RequestMapping(value = "/toOperationP", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationP(HttpServletRequest request) {
-		return "seven_report/investigate/index";
+		return "seven_report/operation/index";
 	}
 
 	// 运营报告-团队成员
 	@RequestMapping(value = "/toOperationT", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationT(HttpServletRequest request) {
-		return "seven_report/investigate/teamInfo";
+		return "seven_report/operation/teamInfo";
 	}
 
 	// 运营报告-运营数据
 	@RequestMapping(value = "/toOperationO", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationO(HttpServletRequest request) {
-		return "seven_report/investigate/operateInfo";
+		return "seven_report/operation/operateInfo";
 	}
 
 	// 运营报告-市场与开发
 	@RequestMapping(value = "/toOperationMD", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationMD(HttpServletRequest request) {
-		return "seven_report/investigate/competeInfo";
+		return "seven_report/operation/competeInfo";
 	}
 
 	// 运营报告-竞争分析
 	@RequestMapping(value = "/toOperationC", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationC(HttpServletRequest request) {
-		return "seven_report/investigate/competeInfo";
+		return "seven_report/operation/competeInfo";
 	}
 
 	// 运营报告-战略策略
 	@RequestMapping(value = "/toOperationPlan", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationPlan(HttpServletRequest request) {
-		return "seven_report/investigate/planInfo";
+		return "seven_report/operation/planInfo";
 	}
 
 	// 运营报告-财务
@@ -476,13 +476,13 @@ public class InfoJumpController{
 	// 运营报告-法务
 	@RequestMapping(value = "/toOperationJ", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationJ(HttpServletRequest request) {
-		return "seven_report/investigate/justiceInfo";
+		return "seven_report/operation/justiceInfo";
 	}
 
 	// 运营报告-融资以及估值
 	@RequestMapping(value = "/toOperationV", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationV(HttpServletRequest request) {
-		return "seven_report/investigate/valuationInfo";
+		return "seven_report/operation/valuationInfo";
 	}
 
 	/**

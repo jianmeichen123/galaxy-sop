@@ -14,7 +14,7 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
+
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
@@ -58,6 +58,7 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'ONO2?reportType=7', null,
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
+			console.log(entity);
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
 			customBuilder();
