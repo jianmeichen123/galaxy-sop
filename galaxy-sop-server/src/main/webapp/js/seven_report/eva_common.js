@@ -515,6 +515,9 @@ $("#save-rpt-btn").click(function(){
 
 //评测报告图片缩略图 公共方法
 function img_fun(data){
+	if(data==undefined){
+		return;
+	}
 	var fi_this = $(data);
 	if (fi_this.val() != '') {
 		var files = !!data.files ? data.files : [];
