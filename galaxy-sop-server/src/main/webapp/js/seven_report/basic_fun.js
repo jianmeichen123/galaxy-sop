@@ -587,6 +587,9 @@ function getDetailUrl(code)
 	}else if(code == 'delivery-after')
 	{
 		return path+'/html/delivery_matter.jsp';
+	}else if(code == 'grant-part')
+	{
+		return path+'/html/grant-part.jsp';
 	}
 	return "";
 }

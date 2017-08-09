@@ -141,7 +141,7 @@
 						{{each(i,childList) childList}}
 						{{if type=="1" || type=="8" || type=="20"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
-						{{else type=="2" || type=="12" || type=="14"}}
+						{{else type=="2" || type=="12" || type=="14"||type=="7"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}
 					{{/each}}
@@ -361,7 +361,7 @@
 						{{each(i,childList) childList}}
 						{{if type=="1" || type=="8" || type=="20"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
-						{{else type=="2" || type=="12" || type=="14"}}
+						{{else type=="2" || type=="12" || type=="14"||type=="7"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}
 					{{/each}}

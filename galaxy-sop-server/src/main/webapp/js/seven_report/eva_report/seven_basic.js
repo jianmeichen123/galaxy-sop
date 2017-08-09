@@ -132,7 +132,6 @@
 				data_list.val=val;
 				data.push(data_list);
 			});
-			console.log(data);
 			$(data).each(function(){  //sign为3，且type为1 
 				var n=$(this)[0];
 				if(type==1){
@@ -384,7 +383,21 @@ $('div').delegate(".h_save_btn","click",function(event){
 			if(data_list.value==""||!data_list.value){
 				data_list.value=="未选择";
 			}
-		}
+		}else if(data_type==7){
+			//图片
+			var imgUrl=[];
+			var img_list = $(this).find(".h_imgs");
+			$.each(img_list,function(){
+				var img_url="";
+				var _this = $(this);
+				var _src = _this.find("img").attr("src");
+				if(_src!=undefined){
+					img_url =_src;
+					imgUrl.push(img_url);
+				}
+			})
+			data_list.valueList=imgUrl;
+		}  
 		data.push(data_list);
 	})
 	//填充保存的的数据
@@ -402,6 +415,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 				}else if(_type==14||_type==2||_type==12){
 					_this.find("span").html(d_this.value);
 					_this.attr("data-title-value",d_this.value_id);
+				}else if(_type==7){
+					_this.find("span").html("");
+					$.each(d_this.valueList,function(i,n){
+						var a_img="<em class=\"income_pic\" data-url="+n+">[图片]</em>"
+						_this.find("span").append(a_img);
+					})
 				}
 				
 			}
@@ -480,7 +499,6 @@ function divSelect(){
 	    var t = scrollY() + (windowHeight()/2) - (h/2);
 	    if(t < 0) t = 0;
 	    $(id).css('top',t+'px');
-	    console.log(t);
 	}
     
 	
@@ -537,7 +555,6 @@ function divSelect(){
 				var _target = $(this).closest('td');
 				var  leftNum = _target.offset().left-230;
 				var  topNum = _target.offset().top-200;
-				console.log(topNum);
 				$('.ch_stock').css('left',leftNum).css('top',topNum);
 				return false;
 			}
@@ -549,7 +566,6 @@ function divSelect(){
 				var _target = $(this).closest('td');
 				var  leftNum = _target.offset().left-230;
 				var  topNum = _target.offset().top-200;
-				console.log(topNum);
 				$('.ch_income_evaluation').css('left',leftNum).css('top',topNum);
 				return false;
 			}
@@ -561,7 +577,6 @@ function divSelect(){
 				var _target = $(this).closest('td');
 				var  leftNum = _target.offset().left-230;
 				var  topNum = _target.offset().top-200;
-				console.log(topNum);
 				$('.ch_opration').css('left',leftNum).css('top',topNum);
 				return false;
 
@@ -571,7 +586,6 @@ function divSelect(){
 			var _target = $(this).closest('td');
 			var  leftNum = _target.offset().left+220;
 			var  topNum = _target.offset().top-122;
-			console.log(topNum);
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 
@@ -585,21 +599,28 @@ function divSelect(){
 			var _target = $(this).closest('td');
 			var  leftNum = _target.offset().left+220;
 			var  topNum = _target.offset().top-148;
-			console.log(topNum);
 			$('.reasonable_stock').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 		});
 
 		//图片点击弹窗
-		$('.income_pic').click(function(){
+	
+		$('div').delegate(".income_pic","click",function(){
 			$('.customer_income').show();
 			var _target = $(this);
 			var  leftNum = _target.offset().left-20;
 			var  topNum = _target.offset().top-188;
-			console.log(topNum);
 			$('.customer_income').css('left',leftNum).css('top',topNum);
+			$(".img_inner").attr("src",$(this).data("url"));
+			$(".master_pic").attr("href",$(this).data("url"))
 			$('.mashLayer').show();
 		})
+		//查看原图
+		/*$('div').delegate(".master_pic","click",function(){
+			
+			//window.open("../../../pdf/file_img.html?file_url="+$(this).prev().attr("src"));
+		})*/
+		//
 
 
 
