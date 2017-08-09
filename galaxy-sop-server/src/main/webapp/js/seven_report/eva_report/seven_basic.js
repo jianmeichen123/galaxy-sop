@@ -62,6 +62,7 @@
 			$('.ch_opration').show();			
 		}
 		editResult(obj);
+		validate();
 		
 	}
 	//编辑回显
