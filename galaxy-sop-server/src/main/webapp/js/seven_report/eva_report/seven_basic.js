@@ -260,6 +260,7 @@ function right(obj,type){
 				values.push(val_id);
 				if(val_text=="其他"){
 					val_text=radio_label.next().val();
+					p.attr("data-remark",val_text);
 				}	
 				content.push(val_text);
 			});

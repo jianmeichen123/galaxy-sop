@@ -328,8 +328,15 @@ function buildResult(title)
 		}
 		var content = new Array();
 		var values = new Array();
+		var remark;
 		$.each(results,function(){
-			content.push(this.valueName);
+			var text = this.valueName;
+			if(text == '其他')
+			{
+				text = this.contentDescribe1;
+				remark = text;
+			}
+			content.push(text);
 			values.push(this.contentChoose);
 		});
 		_ele.html(content.join('、')); 
@@ -339,6 +346,7 @@ function buildResult(title)
 			_val_id=_val_id+",";
 		}
 		_ele.attr("data-title-value",_val_id);
+		_ele.attr("data-remark",remark);
 	}
 	//一个标题带两个文本域、
 	else if(type == 15)
