@@ -13,6 +13,7 @@ import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
+import com.galaxyinternet.dao.hologram.ScoreInfoDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.StringEx;
@@ -23,6 +24,7 @@ import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationModel;
 import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.hologram.InformationScore;
 import com.galaxyinternet.model.hologram.TableModel;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationDataService;
@@ -37,6 +39,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	private InformationFixedTableDao fixdTableDao;
 	@Autowired
 	private InformationListdataDao listdataDao;
+	@Autowired
+	private ScoreInfoDao scoreInfoDao;
 
 	@Override
 	public void save(InformationData data)
@@ -44,6 +48,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		saveResult(data);
 		saveListData(data);
 		saveFixedTable(data);
+		saveScore(data);
 	}
 	private void saveResult(InformationData data)
 	{
@@ -241,6 +246,27 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			listdataDao.insertInBatch(insertEntityList);
 		}
 		
+	}
+	
+	public void saveScore(InformationData data)
+	{
+		if(data == null || data.getProjectId() == null || data.getScoreList()==null)
+		{
+			return;
+		}
+		List<InformationScore> scoreList = data.getScoreList();
+		Set<Long> relateIds = new HashSet<>();
+		for(InformationScore item : scoreList)
+		{
+			relateIds.add(item.getRelateId());
+		}
+		if(relateIds.size() >0)
+		{
+			InformationScore query = new InformationScore();
+			query.setRelateIds(relateIds);
+			scoreInfoDao.deleteScoreBatch(query);
+			scoreInfoDao.insertScoreBatch(scoreList);
+		}
 	}
 
 	@Override

@@ -331,8 +331,9 @@ function buildResult(title)
 		_scoreEle.attr("data-result-id",results[0].id);
 	}
 }
-function addValues(map)
+function getValues()
 {
+	var infoModelList = new Array();
 	var titleEles = $(".title-value");
 	$.each(titleEles,function(){
 		var _this = $(this);
@@ -363,7 +364,7 @@ function addValues(map)
 			{
 				model.remark1 = text;
 			}
-			map.put(titleId,model);
+			infoModelList.push(model);
 		}
 		//radio,radio+备注,select
 		else if(type == 2 || type == 5 ||type==14)
@@ -386,7 +387,7 @@ function addValues(map)
 			{
 				model.remark1 = remark;
 			}
-			map.put(titleId,model);
+			infoModelList.push(model);
 		}
 		//checkbox,checkbox+input,checkbox+textarea
 		else if( type == 3 || type == 6 || type == 13)
@@ -414,43 +415,32 @@ function addValues(map)
 					{
 						model.remark1 = remark;
 					}
-					map.put(titleId,model);
-
+					infoModelList.push(model);
 				})
-				
 			}
 		}
 	});
-	return map;
+	return infoModelList;
 	
 }
-function addScores(map)
+function getScores()
 {
+	var scoreData = {};
 	var scores = $(".score-column input,select");
 	$.each(scores,function(){
 		var _this = $(this);
 		var val = _this.val();
-		if(val == null || val.length == 0 || isNaN(val))
-		{
-			return;
-		}
 		var td = _this.parent();
-		var resultId = td.data('resultId');
 		var titleId= td.data('titleId');
+		var relateId= td.data('relateId');
 		var subId = td.data('subId');
 		var model = {
-				tochange:"true",
-				type:"1",
-				titleId: titleId,
+				relateId:relateId,
 				projectId: projId
 			};
-		if(typeof resultId != 'undefined')
+		if(scoreData.hasOwnProperty(relateId))
 		{
-			model.resultId = resultId;
-		}
-		if(map.containsKey(titleId))
-		{
-			model = map.get(titleId);
+			model = scoreData[relateId];
 		}
 		if(subId == 2)
 		{
@@ -460,19 +450,20 @@ function addScores(map)
 		{
 			model.score1 = val;
 		}
-		map.put(titleId,model);
+		scoreData[relateId] = model;
 	});
+	var scoreList = new Array();
+	$.each(scoreData,function(id,model){
+		scoreList.push(model);
+	});
+	return scoreList;
 }
 $("#save-rpt-btn").click(function(){
-	var map = new Map();
-	addValues(map);
-	addScores(map);
-	var data = {projectId: projId};
-	var infoModeList = new Array();
-	map.each(function(titleId,model){
-		infoModeList.push(model);
-	});
-	data.infoModeList = infoModeList;
+	var data = {
+		projectId: projId,
+		scoreList:	getScores(),
+		infoModeList: getValues()
+	};
 	sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo+'?_='+new Date().getTime() , 
 			data,
@@ -486,39 +477,7 @@ $("#save-rpt-btn").click(function(){
 					layer.msg(data.result.message);
 				}
 		})
-})
-
-var Map = function(){
-	this.keys = new Array();
-	this.data = new Object();
-	
-	this.containsKey = function(key){
-		return this.data.hasOwnProperty(key);
-	};
-	
-	this.put = function(key,value){
-		if(!this.containsKey(key))
-		{
-			this.keys.push(key);
-		}
-		this.data[key]=value;
-	};
-	
-	this.get = function(key){
-		return this.data[key];
-	};
-	
-	this.toString = function(){
-		return JSON.stringify(this.data);
-	}
-	this.each = function(fn){
-		if(typeof fn != 'function')
-		{
-			return;
-		}
-		$.each(this.data,fn);
-	}
-}
+});
 
 
 //评测报告图片缩略图 公共方法
@@ -559,3 +518,4 @@ $("div").delegate(".h_img_del","click",function(){
 	}
 	$(this).closest(".h_imgs").remove();
 })
+

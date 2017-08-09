@@ -24,6 +24,8 @@ public class InformationData extends PagableEntity {
 	private Set<String> deletedRowIds;  //适用table表
 	@ApiModelProperty("动态表格")
 	private List<TableModel>     infoTableModelList;
+	@ApiModelProperty("分数")
+	private List<InformationScore> scoreList;
 	
 	private Set<String> deletedResultTids;  //适用result表
 	
@@ -82,6 +84,16 @@ public class InformationData extends PagableEntity {
 
 	public void setDeletedResultTids(Set<String> deletedResultTids) {
 		this.deletedResultTids = deletedResultTids;
+	}
+
+	public List<InformationScore> getScoreList()
+	{
+		return scoreList;
+	}
+
+	public void setScoreList(List<InformationScore> scoreList)
+	{
+		this.scoreList = scoreList;
 	}
 
 	@Override
