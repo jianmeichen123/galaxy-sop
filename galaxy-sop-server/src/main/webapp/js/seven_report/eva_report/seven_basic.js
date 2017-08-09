@@ -146,13 +146,10 @@
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
-	console.log(code);
 	 sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType,null,function(data){
-		 console.log(data);
 		 var result = data.result.status;
 		 if(result == 'OK'){
 			 var entity = data.entity;
-			 console.log(entity);
 			 var valueList = data.entity.valueList;
 			 var type=entity.type;
 			 if(e_type==1){
@@ -362,14 +359,14 @@ $('div').delegate(".h_save_btn","click",function(event){
 		data_list.type=data_type;
 		if(data_type==1||data_type==8){
 			data_list.value=$(this).find("dd").children().val();
-			if(data_list.value==""||!data_list.value){
-				data_list.value=="未填写";
+			if(data_list.value==""||data_list.value==undefined){
+				data_list.value="未填写";
 			}
 		}else if(data_type==14){
 			data_list.value=$(this).find("select").find("option:selected").text();
 			data_list.value_id=$(this).find("select").val();
-			if(data_list.value==""||!data_list.value){
-				data_list.value=="未选择";
+			if(data_list.value==""||data_list.value==undefined){
+				data_list.value="未选择";
 			}
 		}else if(data_type==2||data_type==12){
 			var h_radios = $(this).find(".h_radios");
@@ -381,7 +378,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 				data_list.value=value_check.parent().next().find("input").val();
 			}
 			if(data_list.value==""||!data_list.value){
-				data_list.value=="未选择";
+				data_list.value="未选择";
 			}
 		}else if(data_type==7){
 			//图片
@@ -411,16 +408,21 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var _type =d_this.type;
 			if(_code==dcode){
 				if(_type==1||_type==8){
+					
 					_this.find("span").html(d_this.value);
 				}else if(_type==14||_type==2||_type==12){
 					_this.find("span").html(d_this.value);
 					_this.attr("data-title-value",d_this.value_id);
 				}else if(_type==7){
 					_this.find("span").html("");
-					$.each(d_this.valueList,function(i,n){
-						var a_img="<em class=\"income_pic\" data-url="+n+">[图片]</em>"
-						_this.find("span").append(a_img);
-					})
+					if(d_this.valueList.length<=0){
+						_this.find("span").html("未选择");
+					}else{
+						$.each(d_this.valueList,function(i,n){
+							var a_img="<em class=\"income_pic\" data-url="+n+">[图片]</em>"
+							_this.find("span").append(a_img);
+						})
+					}
 				}
 				
 			}
