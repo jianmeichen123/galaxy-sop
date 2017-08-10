@@ -1259,10 +1259,10 @@ function check_table_tr_edit(){
 		}
 	})
 }
-function getTableRowLimit(code)
+/*function getTableRowLimit(code)
 {
 	return 10;
-}
+}*/
 
 //编辑的时候右侧导航隐藏不可用
 //data==1的时候为编辑否则为取消、保存
@@ -1833,18 +1833,18 @@ function selectContext(formId){
 //	});
 //}
 //提交表单处理
-function saveForm(form)
+/*function saveForm(form)
 {
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject();
 		saveRow(data);
 	}
-}
+}*/
 /**
  * 保存至到tr标签data属性
  */
-function saveRow(data)
+/*function saveRow(data)
 {
 	data = JSON.parse(data);
 	var titleId = data.titleId;
@@ -1867,8 +1867,8 @@ function saveRow(data)
 		}
 	}
 	$("a[data-close='close']").click();
-}
-function editRow(ele)	
+}*/
+/*function editRow(ele)	
 {
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
@@ -1905,8 +1905,8 @@ function editRow(ele)
 			});
 		}//模版反回成功执行	
 	});
-}
-var deletedRowIds = new Array();
+}*/
+/*var deletedRowIds = new Array();
 function delRow(ele)
 {
 	layer.confirm('是否删除?', {
@@ -1928,12 +1928,12 @@ function delRow(ele)
 	}, function(index) {
 	});
 
-}
-function refreshSection(id)
+}*/
+/*function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
 	sec.showResults(true);
-}
+}*/
 /**
  * 表格增删改查通用方法   **************************************************** 结束
  */
