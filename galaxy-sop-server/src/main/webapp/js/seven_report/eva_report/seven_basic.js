@@ -145,7 +145,7 @@
 		
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
-function get_result(code,e_type,dom,type,valueList){
+function get_result(code,e_type,dom){
 		if(code=="ENO4_4_2" || code=="ENO4_4_5"){
 			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType+"&proId="+projectInfo.id,null,function(data){
 				 var result = data.result.status;
@@ -153,7 +153,7 @@ function get_result(code,e_type,dom,type,valueList){
 					 var entity = data.entity;
 					 var valueList = data.entity.valueList;
 					 var type=entity.type;
-					 edit_box_page(e_type,dom,type,valueList);
+					 edit_box_page(e_type,dom,type,valueList,entity);
 					//插件回调方法						
 				 }
 			 })
@@ -164,7 +164,7 @@ function get_result(code,e_type,dom,type,valueList){
 					 var entity = data.entity;
 					 var valueList = data.entity.valueList;
 					 var type=entity.type;
-					 edit_box_page(e_type,dom,type,valueList);
+					 edit_box_page(e_type,dom,type,valueList,entity);
 					//插件回调方法
 						
 				 }
@@ -174,7 +174,7 @@ function get_result(code,e_type,dom,type,valueList){
 
 	}
 //编辑显示
-function edit_box_page(e_type,dom,type,valueList){
+function edit_box_page(e_type,dom,type,valueList,entity){
 	if(e_type==1){
 		 var result_html = ""
 		 if(type==2||type==5||type==6||type==12){
