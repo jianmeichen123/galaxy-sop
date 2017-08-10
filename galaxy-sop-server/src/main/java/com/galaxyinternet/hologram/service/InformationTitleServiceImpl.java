@@ -1043,15 +1043,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
 			for(InformationListdataRemark item : headers)
 			{
-				String titleId = item.getTitleId()+"";
-				if(idMap.containsKey(titleId))
-				{
-					List<InformationTitle> titles = idMap.get(titleId);
-					for(InformationTitle title : titles)
+				if(item.getSubCode() == null){
+					String titleId = item.getTitleId()+"";
+					if(idMap.containsKey(titleId))
 					{
-						title.setTableHeader(item);
+						List<InformationTitle> titles = idMap.get(titleId);
+						for(InformationTitle title : titles)
+						{
+							title.setTableHeader(item);
+						}
 					}
 				}
+				
+			
 			}
 		}
 	}
