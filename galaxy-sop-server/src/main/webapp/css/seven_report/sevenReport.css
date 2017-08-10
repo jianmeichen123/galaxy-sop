@@ -707,6 +707,19 @@ table td select option{
     width: 71%;
     vertical-align: top;
 }
+.radioShow label.select_1,.radioShow label.select_2{
+	padding:0;
+	margin:0;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.radioShow label.select_1{
+	max-width:66%;
+}
+.radioShow label.select_2{
+	width:28%;
+}
 .radioShow span{
 	display:inline-block;
 	margin-left:10px;
