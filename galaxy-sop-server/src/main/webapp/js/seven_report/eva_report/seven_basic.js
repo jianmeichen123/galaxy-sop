@@ -122,29 +122,56 @@
 				
 			}
 		}else{  //大弹窗编辑回显
-			var data=[];
-			var dom=$(obj).siblings(".align_left").find("span")
-			$(dom).each(function(){
-				var data_list={};
-				var relateId=$(this).parent("p").attr("data-relate-id");
-				var val=$(this).text();
-				data_list.relateId=relateId;
-				data_list.val=val;
-				data.push(data_list);
-			});
-			$(data).each(function(){  //sign为3，且type为1 
-				var n=$(this)[0];
-				if(type==1){
-					if(n.val!="未填写"){
-						$("input[data-title-id='"+n.relateId+"']").val(n.val);
-					}else if(type==8){
+			if(type!=16){
+				var data=[];
+				var dom=$(obj).siblings(".align_left").find("span")
+				$(dom).each(function(){
+					var data_list={};
+					var relateId=$(this).parent("p").attr("data-relate-id");
+					var val=$(this).text();
+					data_list.relateId=relateId;
+					data_list.val=val;
+					data.push(data_list);
+				});
+				$(data).each(function(){  //sign为3，且type为1 
+					var n=$(this)[0];
+					if(type==1){
 						if(n.val!="未填写"){
-							$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
+							$("input[data-title-id='"+n.relateId+"']").val(n.val);
+						}else if(type==8){
+							if(n.val!="未填写"){
+								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
+							}
 						}
 					}
-				}
-								
-			})
+									
+				})
+			}else{  //商业模式特殊情况
+				var data=[];
+				var dom=$(obj).siblings(".align_left").find("p");
+				$(dom).each(function(){
+					var data_list={};
+					var relateId=$(this).attr("data-relate-id");
+					var str=$(this).attr("data-content");
+					if(str !=undefined && str.indexOf("<sitg>")>-1){
+						var str=str.split("<sitg>");
+						var inputsValueList=[];
+					   for(var i=0;i<str.length;i++){
+							if(str[i].indexOf("</sitg>")>-1){
+								var inputsValue=str[i].substring(0,str[i].indexOf("</sitg>"));
+								inputsValueList.push(inputsValue);
+							}
+						}
+					   console.log(inputsValueList);
+					   var div=$(".h_edit_txt");
+					   for(var j=0;j<div.children("dd").length;j++){
+						   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
+						   
+					   }
+					}
+				});
+			}
+			
 		}
 		
 	}
@@ -492,10 +519,11 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var str=d_this.remark1;
 					var dds = $(".content_16 p[data-code='" + code + "']");
 					if(str){
-						str=str.replace(/<sitg>/g,'（');
-						str=str.replace(/<\/sitg>/g,'）');
+						str1=str.replace(/<sitg>/g,'（');
+						str1=str1.replace(/<\/sitg>/g,'）');
 					}
-					dds.html(d_this.remark1==undefined ?"未填写":str);
+					dds.html(d_this.remark1==undefined ?"未填写":str1);
+					dds.attr("data-content",str);
 				}else if(_type==10){
 					_this.find("span").html("");
 					if(d_this.tableList.length<=0){
