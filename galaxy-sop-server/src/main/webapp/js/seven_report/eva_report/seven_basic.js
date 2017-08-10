@@ -186,7 +186,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 				 }
 			 })
 		}else if(type==1){
-			result_html ="<input type=\"text\" data-id="+data.id+" palceholder="+entity.placeholder+" />";
+			result_html ="<input type=\"text\" data-id="+entity.id+" palceholder="+entity.placeholder+" />";
 		}else if(type==13||type==3){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
