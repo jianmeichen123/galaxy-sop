@@ -199,7 +199,13 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 					code.equals("ENO3") ||
 					code.equals("ENO4") ||
 					code.equals("ENO5") ||
-					code.equals("ENO6")
+					code.equals("ENO6") ||
+					code.equals("CNO1") ||
+					code.equals("CNO2") ||
+					code.equals("CNO3") ||
+					code.equals("CNO4") ||
+					code.equals("CNO5") ||
+					code.equals("CNO6")
 					)
 			)
 		{
