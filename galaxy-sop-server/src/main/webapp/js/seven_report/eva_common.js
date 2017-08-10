@@ -644,6 +644,7 @@ function income_table(){
 	})
 }
 
-$('div').delegate(".reasonable_stock .h_cancel_btn","click",function(){
+$('div').delegate(".reasonable_stock .close_tab","click",function(){
 	$(this).parents(".reasonable_stock").find("tbody").html("");
+	$(this).parents(".reasonable_stock").hide();
 })
