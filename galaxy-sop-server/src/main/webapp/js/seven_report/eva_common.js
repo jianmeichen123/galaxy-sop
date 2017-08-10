@@ -535,17 +535,32 @@ $("#save-rpt-btn").click(function(){
 //type_8  展开收起公共方法
 function Tfun_8(data){
 	$.each(data,function(){
+		if(!data.hasClass("type_8")){
+			return;
+		}
 		var _this = $(this);
+		_this.parent().find("em").hide();
+		_this.removeClass("mare_text");
 		var height = _this.height();
 		if(height>90){
 			_this.addClass("mare_text");
 			_this.parent().find(".detail").show();
-		}else{
-			_this.removeClass("mare_text");
-			_this.parent().find("em").hide();
 		}
 	})
 }
+//详情，展开，  收起方法
+
+$('div').delegate(".detail","click",function(){
+	$(this).closest("div").find(".type_8").removeClass("mare_text")
+	$(this).hide();
+	$(this).prev().show();
+})
+	
+$('div').delegate(".packup","click",function(){
+	$(this).closest("div").find(".type_8").addClass("mare_text")	
+	$(this).hide();
+	$(this).next().show();
+})
 //评测报告图片缩略图 公共方法
 function img_fun(data){
 	if(data==undefined){
@@ -587,4 +602,15 @@ $("div").delegate(".h_img_del","click",function(){
 	}
 	$(this).closest(".h_imgs").remove();
 })
-
+//图片点击弹窗
+	
+		$('div').delegate(".income_pic","click",function(){
+			$('.customer_income').show();
+			var _target = $(this);
+			var  leftNum = _target.offset().left-20;
+			var  topNum = _target.offset().top-188;
+			$('.customer_income').css('left',leftNum).css('top',topNum);
+			$(".img_inner").attr("src",$(this).data("url"));
+			$(".master_pic").attr("href",$(this).data("url"))
+			$('.mashLayer').show();
+		})

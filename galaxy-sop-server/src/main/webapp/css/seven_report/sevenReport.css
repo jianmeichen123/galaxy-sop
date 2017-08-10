@@ -217,8 +217,10 @@ table.table_15 td:nth-child(4){
 .condition em.detail{
 	top:50%;
 	transform:translateY(-50%);
-	padding-top:64px;
+	margin-top: 32px;
+	z-index: 12;
 }
+.title-value.income_structor_content{color:#999;}
 .title-value.income_structor_content span{color:#333;}
 .content_radio_show{
 	text-align:left;
@@ -235,6 +237,9 @@ table.table_15 td:nth-child(4){
 .packup{
 	display:none;
 	margin-left:-20px;
+}
+.sign_3 .packup{
+	margin-left:10px;
 }
 .content_radio_show input{
 	margin-left:10px;
@@ -721,13 +726,16 @@ ul,li{list-style:none;padding:0;margin:0;}
 	margin-top:23px;
 } 
 .input_select{
-	width:81%; 
+	width:64%; 
 	height:24px; 
 	line-height:24px; 
-	display:inherit;
 	margin:0 auto;
 	border:1px solid #979797; 
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
+	padding: 0 18px 0 9px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 } 
 .dropdown ul{
 	width:81%; 
@@ -779,5 +787,5 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
 overflow: hidden;
-
+position:relative;
 }

@@ -139,8 +139,10 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="8" || type=="20"}}
+						{{if type=="1" || type=="20"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
+						{{else type=="8"}}
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span><em class="packup">收起</em><em class="detail">详情</em></p> </div>
 						{{else type=="2" || type=="12" || type=="14"||type=="7"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}
@@ -304,7 +306,7 @@
 										{{each(i,informationGrades) informationGrades }}
 									<tr>
 										<td>
-											<div class="align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">未填写</p></div>
+											<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">未填写</p><em class="packup">收起</em><em class="detail">详情</em></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 											<div class="radioShow"></div>
 										</td>
@@ -359,8 +361,10 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="8" || type=="20"}}
+						{{if type=="1" || type=="20"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
+						{{else type=="8"}}
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span> <em class="packup">收起</em><em class="detail">详情</em></p></div>
 						{{else type=="2" || type=="12" || type=="14"||type=="7"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{/if}}

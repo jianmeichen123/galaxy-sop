@@ -409,9 +409,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var dcode = d_this.code;
 			var _type =d_this.type;
 			if(_code==dcode){
-				if(_type==1||_type==8){
-					
+				if(_type==1||_type==8){					
 					_this.find("span").html(d_this.value);
+					Tfun_8(_this);
 				}else if(_type==14||_type==2||_type==12){
 					_this.find("span").html(d_this.value);
 					_this.attr("data-title-value",d_this.value_id);
@@ -531,18 +531,8 @@ function divSelect(){
 	}
 	
 	
-	//详情，展开，  收起方法
-	 $('.detail').click(function(){
-			$(this).parents(".align_left").find(".title-value").removeClass("mare_text")
-			$(this).hide();
-			$(this).prev().show();
-		})
-		$('.packup').click(function(){
-			$(this).parents(".align_left").find(".title-value").addClass("mare_text")	
-			$(this).hide();
-			$(this).next().show();
-		})
 	
+
 	
 	
 	//===================================================新添加
@@ -607,26 +597,8 @@ function divSelect(){
 			$('.mashLayer').show();
 		});
 
-		//图片点击弹窗
-	
-		$('div').delegate(".income_pic","click",function(){
-			$('.customer_income').show();
-			var _target = $(this);
-			var  leftNum = _target.offset().left-20;
-			var  topNum = _target.offset().top-188;
-			$('.customer_income').css('left',leftNum).css('top',topNum);
-			$(".img_inner").attr("src",$(this).data("url"));
-			$(".master_pic").attr("href",$(this).data("url"))
-			$('.mashLayer').show();
-		})
-		//查看原图
-		/*$('div').delegate(".master_pic","click",function(){
-			
-			//window.open("../../../pdf/file_img.html?file_url="+$(this).prev().attr("src"));
-		})*/
-		//
-
-
+		
+	 
 
 //弹窗消失按钮
 $('.h_cancel_btn').click(function(){
