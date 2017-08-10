@@ -209,7 +209,7 @@ table.table_15 td:nth-child(4){
 	color:#999999;
 }
 
-.income_structor  em,.income_line em,.income_structor_content em.income_pic,.condition em.packup,.condition em.detail{
+.income_structor  em,.income_line em,.income_structor_content em.income_table,.income_structor_content em.income_pic,.condition em.packup,.condition em.detail{
 	cursor:pointer;
 	color:#53B1FD;
 	line-height:1;
@@ -569,10 +569,13 @@ table td select option{
  	padding: 10px;
  	background: #fff;
  	max-width: 477px;
- 	max-height: 278px;
- 	/*overflow: auto;*/
+ 	max-height: 145px;
  	display: none;
  	z-index: 999;
+ }
+ .reasonable_box{
+ max-height: 127px;
+ overflow:auto;
  }
  .reasonable_stock:before{
 			content: '';
@@ -581,7 +584,7 @@ table td select option{
 			height: 0px;
 			position: absolute;
 			left:30px;
-			top: 125px;
+			bottom: -16px;
 			z-index: 20;
 			border-left: 12px solid transparent;
 			border-right:12px solid transparent;
@@ -594,7 +597,7 @@ table td select option{
 			height: 0px;
 			position: absolute;
 			left: 30px;
-			top: 126px;
+			bottom: -18px;
 			z-index: 10;
 			border-left: 12px solid transparent;
 			border-right:12px solid transparent;

@@ -614,20 +614,30 @@ $('div').delegate(".income_pic","click",function(){
 	$(".master_pic").attr("href",$(this).data("url"))
 	$('.mashLayer').show();
 })
-//add新增表格按钮   
-	/*function addRow(ele)
-{
-        var code = $(ele).prev().data('code');
-        $.getHtml({
-            url:"../../../html/team_add_cgr.html",//模版请求地址
-            data:"",//传递参数
-            okback:function(){
-            	 $("#save-detail-btn").click(function(){
-                     saveForm($("#detail-form"));
-                     check_table();
-                     check_table_tr_edit();
-                 });
-            }
-        });
-
-}*/
+//图片点击弹窗
+	
+$('div').delegate(".income_pic","click",function(){
+	$('.customer_income').show();
+	var _target = $(this);
+	var  leftNum = _target.offset().left-20;
+	var  topNum = _target.offset().top-188;
+	$('.customer_income').css('left',leftNum).css('top',topNum);
+	$(".img_inner").attr("src",$(this).data("url"));
+	$(".master_pic").attr("href",$(this).data("url"))
+	$('.mashLayer').show();
+})
+//表格预览 
+$('div').delegate(".income_table","click",function(){
+	$('.reasonable_stock').show();
+	var _target = $(this);
+	var  leftNum = _target.offset().left-20;
+	var  topNum = _target.offset().top-188;
+	$('.reasonable_stock').css('left',leftNum).css('top',topNum);
+	var tr_arry = _target.data("tr");
+	var tr_html="";
+	$.each(tr_arry,function(i,n){
+		tr_html+="<tr><td>"+n.field1+"</td><td>"+n.field2+"</td></tr>"
+	})
+	$('.reasonable_stock').find("tbody").append(tr_html);
+	 
+})

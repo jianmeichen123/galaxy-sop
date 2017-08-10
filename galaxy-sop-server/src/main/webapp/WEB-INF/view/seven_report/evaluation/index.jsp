@@ -84,9 +84,27 @@ var pageId = "project";
 					<i onclick="closeX(this)" class="wrong h_cancel_btn"></i>
 			</div>
 			<img class="img_inner" src="" />
-			<a target="_blank" href="" class="master_pic">原图</a>
-			
+			<a target="_blank" href="" class="master_pic">原图</a>			
 		</div>
+		
+<!-- 股权结构展示弹窗 -->	
+<div class="reasonable_stock">
+	<div class="Button popupButton ch_reason_stock">
+			<i onclick="closeX(this)" class="wrong h_cancel_btn"></i>
+	</div>
+	<div class="reasonable_box">
+		<table border="1">
+			<thead>
+				<th>持股人</th>
+				<th>持股比例</th>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+		
 	</div>
 	<!-- 遮罩层 -->
 	<div class="mashLayer"></div>

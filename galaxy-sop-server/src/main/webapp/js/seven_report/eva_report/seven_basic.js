@@ -220,7 +220,8 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 	 }else if(e_type==3){
 		 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
 			 adjust(".ch_opration");
-		
+			 check_table();
+			 check_table_tr_edit();
 	 }
 	
 }
@@ -441,7 +442,20 @@ $('div').delegate(".h_save_btn","click",function(event){
              }
              var content='该项目是一个通过或基于<sitg>'+inputsValueList[0]+'</sitg>的<sitg>'+inputsValueList[1]+'</sitg>的<sitg>'+inputsValueList[2]+'</sitg>，连接<sitg>'+inputsValueList[3]+'</sitg>和<sitg>'+inputsValueList[4]+'</sitg>，为<sitg>'+inputsValueList[5]+'</sitg>提供<sitg>'+inputsValueList[6]+'</sitg>的产品或服务，满足了<sitg>'+inputsValueList[7]+'</sitg>的刚需或解决了<sitg>'+inputsValueList[8]+'</sitg>。'
              data_list.remark1 = content;
-		} 
+		}else if(data_type==10){
+			var tableTr=[];
+			var tr_list = $(this).find("tr");
+			tr_list.splice(0,1)
+			if (tr_list.length<1){return;}
+			$.each(tr_list,function(){
+				var _this = $(this);
+				var _data={};
+				_data.field1=_this.find("td[data-field-name='field1']").text();
+				_data.field2=_this.find("td[data-field-name='field2']").text();
+				tableTr.push(_data);
+			})
+			data_list.tableList=tableTr;
+		}
 		data.push(data_list);
 	})
 	//填充保存的的数据
@@ -482,6 +496,15 @@ $('div').delegate(".h_save_btn","click",function(event){
 						str=str.replace(/<\/sitg>/g,'）');
 					}
 					dds.html(d_this.remark1==undefined ?"未填写":str);
+				}else if(_type==10){
+					_this.find("span").html("");
+					if(d_this.tableList.length<=0){
+						_this.find("span").html("未填写");
+					}else{
+						var _data = JSON.stringify(d_this.tableList);
+						var a_tr="<em class=\"income_table\" data-tr=\'"+_data+"\'>[表格]</em>"
+						_this.find("span").append(a_tr);
+					}
 				}
 				
 			}
