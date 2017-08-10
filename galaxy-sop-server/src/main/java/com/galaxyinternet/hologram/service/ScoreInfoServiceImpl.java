@@ -194,12 +194,12 @@ public class ScoreInfoServiceImpl extends BaseServiceImpl<ScoreInfo> implements 
 		String code = scoreInfo.getCode();
 		//项目轮次不同，六大评测的权重比不同
 		if(code != null 
-				&& (code.equals("ENO_1") ||
-					code.equals("ENO_2") ||
-					code.equals("ENO_3") ||
-					code.equals("ENO_4") ||
-					code.equals("ENO_5") ||
-					code.equals("ENO_6")
+				&& (code.equals("ENO1") ||
+					code.equals("ENO2") ||
+					code.equals("ENO3") ||
+					code.equals("ENO4") ||
+					code.equals("ENO5") ||
+					code.equals("ENO6")
 					)
 			)
 		{
