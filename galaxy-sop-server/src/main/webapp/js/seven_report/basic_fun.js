@@ -354,11 +354,14 @@ function editRow(ele)
 		data:"",//传递参数
 		okback:function(){
 			var title = $("#pop-title");
-			title.text(title.text().replace('添加','编辑'));
+			$("#detail-form input[name='subCode']").val(code);
+			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
+			selectContext("detail-form");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
 				var type=ele.attr('type');
+				var idVal=ele.attr('id');
 				if(type=="radio"){
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
@@ -367,9 +370,15 @@ function editRow(ele)
 					ele.val(row.data(name));
 				}
 			});
+			//文本框剩余字数
+			$.each($(".team_textarea"),function(){
+				var len=$(this).val().length;
+				var initNum=$(this).siblings('.num_tj').find("span").text();
+				$(this).siblings('.num_tj').find("span").text(initNum-len);
+			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-                saveForm($("#detail-form"));
+				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行
 	});

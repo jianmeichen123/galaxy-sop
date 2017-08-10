@@ -15,6 +15,28 @@ function editOpen(){
 	})
 }
 
+/**
+ 字典缓存
+*/
+function dictCache(titleId,subCode,filed){
+    var map = {};
+    map["undefined"] = "未填写"
+    map[""] = "未填写"
+	sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK')
+				{
+					var dataMap = data.userData;
+				    var list=dataMap[filed];
+				    var name=""
+					$.each(list, function(i, value){
+					     map[value.id]=value.name;
+					});
+				}
+			})
+			return map;
+}
 function edit_bsaicfun(data){
 //	check_12
 	$("dt[data-type='12']").parent('dl').find("dd").find("input").click(function(){
@@ -1755,7 +1777,7 @@ function selectContext(formId){
 	}
 	$("a[data-close='close']").click();
 }*/
-/*function editRow(ele)	
+/*function editRow(ele)
 {
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');

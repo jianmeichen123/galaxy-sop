@@ -30,13 +30,13 @@
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt"  name="field2" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"/>
+                    <input type="text" class="txt"  name="field2" valType="OTHER" allowNULL="yes"  data-rule-verify_101="true" regString="^[^\s](.{0,49})$" data-msg-verify_101="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
              <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field3" allowNULL="yes" valType="LIMIT_10_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="field3" allowNULL="yes" valType="LIMIT_10_NUMBER"  data-rule-verify_102="true" data-msg-verify_102="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
                 </dd>
                  
             </dl>
@@ -53,14 +53,14 @@
           <dl class="fmdl clearfix">
             <dt>股权占比：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field4" valType="OTHER" allowNULL="yes" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2})|100)$" msg="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
                 </dd>
-              
+                    <input type="text" class="txt fl" name="field4" valType="OTHER" allowNULL="yes"  data-rule-verify_103="true" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2})|100)$" data-msg-verify_103="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
+
            </dl>
            <dl class="fmdl clearfix">
            <dt>估值金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" msg="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_102="true" data-msg-verify_102="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
            <dl class="fmdl clearfix">
@@ -75,9 +75,9 @@
            <dl class="fmdl">
            		<dt>新老股：</dt>
                 <dd>
-					<label><input type="radio" name="field8" value="1">新股</label>
-				    <label><input type="radio" name="field8" value="2">老股</label>
-                </dd> 
+					<label><input type="radio" name="field8" value="2203">新股</label>
+				    <label><input type="radio" name="field8" value="2204">老股</label>
+                </dd>
              </dl>
            <div class="team_wid">
             	<p>合同关键条款：</p>
@@ -110,6 +110,7 @@ $(function(){
     	errorElement:'span'
     });
 })
+
 //selectContext();
 //initDialogValstr("updateOrSave_HF");
 </script>

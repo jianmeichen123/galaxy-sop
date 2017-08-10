@@ -16,15 +16,17 @@
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+
 <!-- 时间插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
 </head>
 <body>
 <!-- <ul class="h_navbar clearfix">
@@ -64,7 +66,6 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
-			console.log(entity);
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
 			customBuilder();
@@ -72,6 +73,7 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
 				$(this).showResults(true);
 				var table = $(this).find('.mb_24 table');
 				table.each(function(){
+                    resizetable($(this))
 					if($(this).find('tr').length<=1){
 						$(this).hide();
 						if($(this).parents('dl').find('dd:gt(0)').length<=0){
@@ -95,7 +97,27 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
 
 		}
 		
-})</script>
+})
+function resizetable(table,fields){
+    var dict_map = {}
+    var fields_json = {
+        "finance-history":["field6","field7","field8"],
+        "equity-structure":["field3","field4"],
+        "investor-situation":["field1","field6"]
+    }
+    var title_id = table.attr("data-title-id")
+    var  code = table.attr("data-code")
+    if (!fields){fields = fields_json[code]}
+    for(var v in fields){
+        var dict = dictCache(title_id,code,fields[v])
+        dict_map[title_id+"-"+code+"-"+fields[v]] = dict
+        table.find('td[data-field-name="'+fields[v]+'"]').each(function(){
+            var o = $(this)
+            o.text(dict[o.text()])
+        })
+    }
+}
+</script>
 </body>
 
 
