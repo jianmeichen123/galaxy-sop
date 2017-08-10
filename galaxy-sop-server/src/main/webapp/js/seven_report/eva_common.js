@@ -53,7 +53,7 @@ function mouseout(obj){
 	var target = $(obj).find('.editPic');
 	target.hide();
 };
-$("#eva-tabs li:eq(0)").click();
+$("#eva-tabs li:eq(1)").click();
 
 // 
 /**
@@ -604,13 +604,30 @@ $("div").delegate(".h_img_del","click",function(){
 })
 //图片点击弹窗
 	
-		$('div').delegate(".income_pic","click",function(){
-			$('.customer_income').show();
-			var _target = $(this);
-			var  leftNum = _target.offset().left-20;
-			var  topNum = _target.offset().top-188;
-			$('.customer_income').css('left',leftNum).css('top',topNum);
-			$(".img_inner").attr("src",$(this).data("url"));
-			$(".master_pic").attr("href",$(this).data("url"))
-			$('.mashLayer').show();
-		})
+$('div').delegate(".income_pic","click",function(){
+	$('.customer_income').show();
+	var _target = $(this);
+	var  leftNum = _target.offset().left-20;
+	var  topNum = _target.offset().top-188;
+	$('.customer_income').css('left',leftNum).css('top',topNum);
+	$(".img_inner").attr("src",$(this).data("url"));
+	$(".master_pic").attr("href",$(this).data("url"))
+	$('.mashLayer').show();
+})
+//add新增表格按钮   
+	/*function addRow(ele)
+{
+        var code = $(ele).prev().data('code');
+        $.getHtml({
+            url:"../../../html/team_add_cgr.html",//模版请求地址
+            data:"",//传递参数
+            okback:function(){
+            	 $("#save-detail-btn").click(function(){
+                     saveForm($("#detail-form"));
+                     check_table();
+                     check_table_tr_edit();
+                 });
+            }
+        });
+
+}*/

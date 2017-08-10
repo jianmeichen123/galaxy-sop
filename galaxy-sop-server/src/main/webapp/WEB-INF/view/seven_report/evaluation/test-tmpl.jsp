@@ -139,7 +139,7 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="20"}}
+						{{if type=="1" || type=="20"|| type=="10"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="8"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span><em class="packup">收起</em><em class="detail">详情</em></p> </div>
@@ -361,7 +361,7 @@
 					<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
 					<div class="align_left">						
 						{{each(i,childList) childList}}
-						{{if type=="1" || type=="20"}}
+						{{if type=="1" || type=="20"||type=="10"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="8"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span> <em class="packup">收起</em><em class="detail">详情</em></p></div>
@@ -599,7 +599,7 @@
 								</dd>
 							{{else type=="10"}}
 								<dd class="fl_none">
-									<table data-title-id="\{id}" class="editable"></table>
+									<table data-title-id="\${id}" data-code="share-holding" class="editable" data-funflag="0" class="editable"><tbody><tr><th data-field-name="field1">持股人</th><th data-field-name="field2">持股比例</th><th data-field-name="opt">操作</th></tr></tbody></table>
 									<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
 								</dd>
 

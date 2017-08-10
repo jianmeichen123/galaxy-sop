@@ -131,6 +131,7 @@ createMenus(5);
 var reportType = 1;
 var projId="${projectId}";
 </script>
+<script src="<%=path%>/js/hologram/hologram_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>	
@@ -140,6 +141,15 @@ var projId="${projectId}";
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>	
 </body>
-
+<script>
+function getDetailUrl(code)
+{
+	if(code == 'share-holding')
+	{
+		return '<%=path%>/html/team_add_cgr.html';
+	}
+	return "";
+}
+</script>
 
 </html>
