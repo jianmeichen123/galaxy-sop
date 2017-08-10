@@ -636,7 +636,9 @@ function buildResults(sec,title,readonly)
 				var str = title.resultList[0].contentDescribe2
 
 				var strs= new Array();
-				strs=str.split("p")
+				if(str!=null || str!=undefined){
+					strs=str.split("p")
+				}
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
                     if (title.id == '1939' ){
@@ -668,7 +670,9 @@ function buildResults(sec,title,readonly)
 				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
 				var str = title.resultList[0].contentDescribe2
 				var strs= new Array();
-				strs=str.split("p")
+				if(str!=null || str!=undefined){
+					strs=str.split("p")
+				}
 				var value=strs[1];
 				$('#'+result_parentId+'_select').val(value);
 			}

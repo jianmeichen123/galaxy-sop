@@ -216,6 +216,38 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				check_table_tr_edit();
 				section.find(".h_title span").remove();
 				section.find(".h_title").append(str);
+				//计算项目估值
+				var valRuleFormula=$("input[data-type='19']").attr("data-valruleformula");
+				//console.log(valRuleFormula);
+				if(valRuleFormula!=null || valRuleFormula!=undefined){
+					var valRule=valRuleFormula.split("=");
+					var valRule1=valRule[1].split("/");
+					var result=valRule[0];
+					var parent=valRule1[0];
+					var children=valRule1[1];
+				}
+				
+				function calculationValuations(){
+					var projectParent = $("input[data-title-id='"+parent+"']").val();
+					var projectChildren = $("input[data-title-id='"+children+"']").val();
+					var cell=$("input[data-title-id='"+children+"']").attr("data-content");
+					if(projectParent > 0 && projectChildren > 0 && cell=="%"){
+						return projectParent * (100/projectChildren);
+					}
+					return null;
+				}
+				$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
+					var valuations = calculationValuations();
+					if(valuations != null){
+						$("input[data-title-id='"+result+"']").val(valuations);
+					}
+				});
+				$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+					var valuations = calculationValuations();
+					if(valuations != null){
+						$("input[data-title-id='"+result+"']").val(valuations);
+					}
+				})
 				//文本域剩余字符数
 				var textarea_h = section.find('.textarea_h');
 				for(var i=0;i<textarea_h.length;i++){

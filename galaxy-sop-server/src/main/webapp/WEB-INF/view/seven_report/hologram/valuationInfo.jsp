@@ -168,7 +168,7 @@ var deleteJSON={};
 						var projectChildren = $("input[data-title-id='"+children+"']").val();
 						var cell=$("input[data-title-id='"+children+"']").attr("data-content");
 						if(projectParent > 0 && projectChildren > 0 && cell=="%"){
-							return projectChildren * (100/projectParent);
+							return projectParent * (100/projectChildren);
 						}
 						return null;
 					}

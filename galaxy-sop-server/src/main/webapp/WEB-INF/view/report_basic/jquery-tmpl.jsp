@@ -203,7 +203,7 @@
 								{{/each}}
 								{{/each}}
 							{{else type=="19"}}
-						<dd><input type="text" data-title-id="\${titleId}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+						<dd><input type="text" data-title-id="\${titleId}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" data-valRuleFormula="\${valRuleFormula}" data-must="\${isMust}" data-content="\${content}"/></dd>
 						<dd>\${content}</dd>
 					{{else type=="20"}}
 						<dd><input type="text" data-title-id="\${titleId}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
@@ -426,7 +426,7 @@
 						{{/each}}
 					{{else type=="19"}}
 						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
-						<dd><input type="text" data-title-id="\${titleId}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+						<dd><input type="text" data-title-id="\${titleId}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}" data-valRuleFormula="\${valRuleFormula}" data-must="\${isMust}" data-content="\${content}"/></dd>
 						<dd>\${content}</dd>
 					{{else type=="20"}}
 						<dt data-type="\${type}" data-must="\${isMust}">\${name}</dt>
