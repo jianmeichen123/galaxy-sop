@@ -505,6 +505,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						var a_tr="<em class=\"income_table\" data-tr=\'"+_data+"\'>[表格]</em>"
 						_this.find("span").append(a_tr);
 					}
+					income_table();
 				}
 				
 			}

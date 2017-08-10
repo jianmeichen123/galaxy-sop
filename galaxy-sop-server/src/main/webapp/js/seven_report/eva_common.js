@@ -627,17 +627,23 @@ $('div').delegate(".income_pic","click",function(){
 	$('.mashLayer').show();
 })
 //表格预览 
-$('div').delegate(".income_table","click",function(){
-	$('.reasonable_stock').show();
-	var _target = $(this);
-	var  leftNum = _target.offset().left-20;
-	var  topNum = _target.offset().top-188;
-	$('.reasonable_stock').css('left',leftNum).css('top',topNum);
-	var tr_arry = _target.data("tr");
-	var tr_html="";
-	$.each(tr_arry,function(i,n){
-		tr_html+="<tr><td>"+n.field1+"</td><td>"+n.field2+"</td></tr>"
+function income_table(){
+	$('.income_table').click(function(){
+		$('.reasonable_stock').show();
+		var _target = $(this);
+		var  leftNum = _target.offset().left-20;
+		var  topNum = _target.offset().top-188;
+		$('.reasonable_stock').css('left',leftNum).css('top',topNum);
+		var tr_arry = _target.data("tr");
+		var tr_html="";
+		$.each(tr_arry,function(i,n){
+			tr_html+="<tr><td>"+n.field1+"</td><td>"+n.field2+"</td></tr>"
+		})
+		$('.reasonable_stock').find("tbody").append(tr_html);
+		 
 	})
-	$('.reasonable_stock').find("tbody").append(tr_html);
-	 
+}
+
+$('div').delegate(".reasonable_stock .h_cancel_btn","click",function(){
+	$(this).parents(".reasonable_stock").find("tbody").html("");
 })

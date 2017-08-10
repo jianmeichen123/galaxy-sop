@@ -90,7 +90,7 @@ var pageId = "project";
 <!-- 股权结构展示弹窗 -->	
 <div class="reasonable_stock">
 	<div class="Button popupButton ch_reason_stock">
-			<i onclick="closeX(this)" class="wrong h_cancel_btn"></i>
+			<i class="wrong h_cancel_btn"></i>
 	</div>
 	<div class="reasonable_box">
 		<table border="1">
