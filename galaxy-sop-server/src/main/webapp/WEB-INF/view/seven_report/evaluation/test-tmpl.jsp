@@ -121,7 +121,7 @@
 						</td>
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="  content_16 align_left"><p class="title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${content}</p></div>
+							<div class="align_left content_16"><p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${content}</p></div>
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
@@ -344,7 +344,7 @@
 						
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="content_16 align_left title-value" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p>\${content}</p></div>
+							<div class="align_left content_16"><p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${content}</p></div>
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
@@ -668,7 +668,7 @@
 			<div class="mb_16">
 				<dl class="h_edit_txt clearfix">		
 				{{if type=="16"}}
-					<input data-type="\${type}" data-must="\${isMust}" class="hidden" data-title-id="\${id}" type="text"/>
+					<input data-type="\${type}" data-must="\${isMust}" class="hidden" data-code="\${code}" data-title-id="\${id}" type="text"/>
 					{{each(i,childList) childList}}
 							<dt class="title_dt" data-type="\${type}" data-must="\${isMust}">\${name}</dt>
 							{{each placeholder.split('&')}}

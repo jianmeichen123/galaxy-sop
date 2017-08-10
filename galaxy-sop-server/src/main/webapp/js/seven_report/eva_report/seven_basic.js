@@ -137,6 +137,10 @@
 				if(type==1){
 					if(n.val!="未填写"){
 						$("input[data-title-id='"+n.relateId+"']").val(n.val);
+					}else if(type==8){
+						if(n.val!="未填写"){
+							$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
+						}
 					}
 				}
 								
@@ -378,6 +382,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$.each(form.find(".mb_16"),function(i,n){
 		var data_list={};
 		var _dt = $(this).find("dt");
+		var _resultId=null;
 		data_list.code=_dt.data("code");
 		data_list.id=_dt.data("id");
 		data_type=_dt.data("type");
@@ -419,7 +424,24 @@ $('div').delegate(".h_save_btn","click",function(event){
 				}
 			})
 			data_list.valueList=imgUrl;
-		}  
+		}else if(data_type==16){
+			var relateId=$(".mb_16").find("input.hidden").attr("data-title-id");
+			data_list.code=$(".mb_16").find("input.hidden").data("code");
+			 var div =  $(".mb_16").find(".h_edit_txt");
+             var dds=div.find('dd');
+             var inputsValueList=[];
+             data_list.relateId=relateId;
+            for(var i=0;i<dds.length;i++){
+             	_resultId = dds.eq(i).children("input").attr("resultId");
+             	if(_resultId && _resultId != undefined){
+             		data_list.resultId = _resultId;
+             	}
+             	var field=dds.eq(i).children("input").val();
+             	inputsValueList.push(field);
+             }
+             var content='该项目是一个通过或基于<sitg>'+inputsValueList[0]+'</sitg>的<sitg>'+inputsValueList[1]+'</sitg>的<sitg>'+inputsValueList[2]+'</sitg>，连接<sitg>'+inputsValueList[3]+'</sitg>和<sitg>'+inputsValueList[4]+'</sitg>，为<sitg>'+inputsValueList[5]+'</sitg>提供<sitg>'+inputsValueList[6]+'</sitg>的产品或服务，满足了<sitg>'+inputsValueList[7]+'</sitg>的刚需或解决了<sitg>'+inputsValueList[8]+'</sitg>。'
+             data_list.remark1 = content;
+		} 
 		data.push(data_list);
 	})
 	//填充保存的的数据
@@ -427,10 +449,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$.each(align_p,function(){
 		var _this=$(this);
 		var _code = _this.data("code");
+		var titleId=_this.attr("data-relate-id");
 		$.each(data,function(){
 			var d_this = $(this)[0];
 			var dcode = d_this.code;
 			var _type =d_this.type;
+			var drelateId=d_this.relateId;
 			if(_code==dcode){
 				if(_type==1||_type==8){					
 					_this.find("span").html(d_this.value);
@@ -448,6 +472,16 @@ $('div').delegate(".h_save_btn","click",function(event){
 							_this.find("span").append(a_img);
 						})
 					}
+				}else if(_type==16){
+					var relateId=d_this.relateId;
+					var code=d_this.code;
+					var str=d_this.remark1;
+					var dds = $(".content_16 p[data-code='" + code + "']");
+					if(str){
+						str=str.replace(/<sitg>/g,'（');
+						str=str.replace(/<\/sitg>/g,'）');
+					}
+					dds.html(d_this.remark1==undefined ?"未填写":str);
 				}
 				
 			}
@@ -461,7 +495,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$(".mashLayer").hide();
 	event.stopPropagation();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-});	
+});
 	
 //div模拟select下拉框
 function divSelect(){

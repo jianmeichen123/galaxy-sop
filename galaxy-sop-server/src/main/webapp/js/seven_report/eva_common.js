@@ -26,7 +26,7 @@ $("#eva-tabs li").click(function(){
 			var content_16 = $(".content_16").text();		
 			content_16=content_16.replace(/<sitg>/g,'（');
 			content_16=content_16.replace(/<\/sitg>/g,'）');
-			$(".content_16").text(content_16); 
+			$(".content_16 p").text(content_16); 
 			//显示结果和分数向
 			showResultAndScoreList(relateId);
 			 //修改分数时自动计算
