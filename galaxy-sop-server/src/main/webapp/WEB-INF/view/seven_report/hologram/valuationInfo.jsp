@@ -154,11 +154,15 @@ var deleteJSON={};
 					section.find(".h_title").append(str);
 					//计算项目估值
 					var valRuleFormula=$("input[data-type='19']").attr("data-valruleformula");
-					var valRule=valRuleFormula.split("=");
-					var valRule1=valRule[1].split("/");
-					var result=valRule[0];
-					var parent=valRule1[0];
-					var children=valRule1[1];
+					//console.log(valRuleFormula);
+					if(valRuleFormula!=null || valRuleFormula!=undefined){
+						var valRule=valRuleFormula.split("=");
+						var valRule1=valRule[1].split("/");
+						var result=valRule[0];
+						var parent=valRule1[0];
+						var children=valRule1[1];
+					}
+					
 					function calculationValuations(){
 						var projectParent = $("input[data-title-id='"+parent+"']").val();
 						var projectChildren = $("input[data-title-id='"+children+"']").val();
