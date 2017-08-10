@@ -552,19 +552,19 @@ $('div').delegate(".h_save_btn","click",function(event){
 	
 //div模拟select下拉框
 function divSelect(){
+	$(".input_select").unbind("click");
 	$(".input_select").click(function(){ 
-		var ul = $(".dropdown ul"); 
 		var _this = $(this);
+		var ul = _this.next("ul"); 		
 		if(ul.css("display")=="none"){
 			_this.addClass('up');
 			ul.slideDown("fast"); 
 		}else{ 
-		ul.slideUp("fast");
-		_this.removeClass('up');
-		_this.addClass('input_select')
+			ul.slideUp("fast");
+			_this.removeClass('up');
+			_this.addClass('input_select')
 		} 
 	}); 
-
 	$(".dropdown ul li").click(function(){ 
 		var target = $(this).closest('.dropdown').find('input');
 		var _a=$(this).find('a');
