@@ -133,15 +133,16 @@
 					data_list.val=val;
 					data.push(data_list);
 				});
-				$(data).each(function(){  //sign为3，且type为1 
+				console.log(data);
+				$(data).each(function(){  
 					var n=$(this)[0];
 					if(type==1){
 						if(n.val!="未填写"){
 							$("input[data-title-id='"+n.relateId+"']").val(n.val);
-						}else if(type==8){
-							if(n.val!="未填写"){
-								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
-							}
+						}
+					}else if(type==8){
+						if(n.val!="未填写"){
+							$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
 						}
 					}
 									
@@ -506,7 +507,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 				}else if(_type==7){
 					_this.find("span").html("");
 					if(d_this.valueList.length<=0){
-						_this.find("span").html("未选择");
+						_this.find("span").html("未添加");
 					}else{
 						$.each(d_this.valueList,function(i,n){
 							var a_img="<em class=\"income_pic\" data-url="+n+">[图片]</em>"
