@@ -78,7 +78,7 @@ table .on td{
 
 .align_left{
 	text-align: left;
-	padding-left: 10px;
+	padding:0 5px;
 	position:relative;
 }
 .editPic{
@@ -739,7 +739,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 	margin-top:23px;
 } 
 .input_select{
-	width:64%; 
+	width:83%;
 	height:24px; 
 	line-height:24px; 
 	margin:0 auto;
@@ -751,7 +751,7 @@ ul,li{list-style:none;padding:0;margin:0;}
     overflow: hidden;
 } 
 .dropdown ul{
-	width:81%; 
+	width:95%; 
 	background:#fff; 	
 	border:1px solid #979797; 
 	position:absolute; 
