@@ -625,7 +625,6 @@ function Tfun_8(data){
 	})
 }
 //详情，展开，  收起方法
-
 $('div').delegate(".detail","click",function(){
 	$(this).closest("div").find(".type_8").removeClass("mare_text")
 	$(this).hide();
@@ -712,8 +711,28 @@ function income_table(){
 		 
 	})
 }
-
 $('div').delegate(".reasonable_stock .close_tab","click",function(){
 	$(this).parents(".reasonable_stock").find("tbody").html("");
 	$(this).parents(".reasonable_stock").hide();
 })
+//表格编辑tr方法
+function s_editRow(ele)	
+{	var code = $(ele).closest('table').data('code');
+	var row = $(ele).closest('tr');
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			var title = $("#pop-title");
+			$("#detail-form input[name='subCode']").val(code);
+			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
+			selectContext("detail-form");
+			$.each($("#detail-form .info").find("input"),function(){
+				var _ele = $(this);
+				var name = _ele.attr("name");
+				var _td=row.find("td[data-field-name='"+name+"']");
+				_ele.val(_td.text());
+			});
+		}//模版反回成功执行	
+	});
+}
