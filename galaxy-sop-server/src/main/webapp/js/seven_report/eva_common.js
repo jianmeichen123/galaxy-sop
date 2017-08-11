@@ -51,7 +51,7 @@ function mouseout(obj){
 	var target = $(obj).find('.editPic');
 	target.hide();
 };
-$("#eva-tabs li:eq(3)").click();
+$("#eva-tabs li:eq(0)").click();
 
 // 
 /**
