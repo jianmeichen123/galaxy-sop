@@ -22,7 +22,6 @@ $("#eva-tabs li").click(function(){
 			$("#test_tmpl").tmpl(entity).appendTo('#page_all');
 			/*显示结果  */
 			/* 16类型内容处理 */
-	
 			var content_16 = $(".content_16").text();		
 			content_16=content_16.replace(/<sitg>/g,'（');
 			content_16=content_16.replace(/<\/sitg>/g,'）');
@@ -33,7 +32,6 @@ $("#eva-tabs li").click(function(){
 			 $(".score-column select,input").change(function(){
 				 calcScore();
 			 });
-			
 		}
 	});
 	$.getTabHtml({
