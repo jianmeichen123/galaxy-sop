@@ -101,3 +101,189 @@ function tabOperateChange(index){
 				}
 			});
 		}
+		
+		/**
+		 * 运营报告-分期拨款:增加弹窗
+		 * @param ele
+		 */
+		function addRow(ele)
+		{
+			  var code = $(ele).prev().data('code');
+			  var titleId = $(ele).prev().data("titleId");
+			  $.getHtml({
+		          url:path+'/html/operation_appr_part.html',//模版请求地址
+		          data:"",//传递参数
+		          okback:function(){
+		        	   $("#save_appr_part").click(function(){
+		        		   var data = getData($("#detail-form"));
+		        		   var dataList = getDataList($("#appr_part"));
+		        		   var index = data['index'];
+		        		   var headerList =   $('table[data-title-id="'+titleId+'"].editable').find('tbody').find('tr:eq(0)').find("th[data-field-name!='opt']");
+		        		   if(typeof index == 'undefined' || index == null || index == '')
+		        	        {
+		        			    data["titleId"]=titleId;
+		        			    data["projectId"]=projectInfo.id;
+		        			    data["dataList"] = dataList;
+		        	            var tr = buildTableRow(headerList,data,true);
+		        	            $('table[data-title-id="'+titleId+'"].editable').append(tr);
+		        	        }
+		        		   check_table();
+		       			   check_table_tr_edit();
+		        		  $("#part_cancle").click();
+		              }); 
+		          }
+			  });
+		}
+		
+		/**
+		 * 运营报告-分期拨款:表格追加数据
+		 * @param headerList
+		 * @param row
+		 * @param showOpts
+		 * @returns
+		 */
+		function buildTableRow(headerList,row,showOpts)
+		{
+			var tr=$("<tr data-row-id='"+row.id+"'></tr>");
+		    for(var key in row)
+		   	{
+		    	//设置data
+		   		tr.data(key,row[key]);
+		   	}
+		    $(headerList).each(function(){
+		        var key = $(this).attr("data-field-name");
+		        tr.data(key,row[key]);
+		        if(key.indexOf('field')>-1)
+		        {
+		            if(row[key]){
+		               tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
+		            }
+		        }
+		
+		    })
+			var td = $('<td data-field-name="opt"></td>');
+		    if(showOpts == true)
+		    {
+		        td.append('<span class="blue" data-btn="btn" onclick="showRow(this)">查看</span>');
+		        td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">编辑</span>');
+		        td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+		        tr.append(td);
+		    }else{
+		        td.append('<span class="blue" data-btn="btn" onclick="showRow(this)">查看</span>');
+		        tr.append(td);
+		    }
+			return tr;
+		}
+
+		/**
+		 * 编辑实际拨款计划
+		 * @param ele
+		 */
+		function editActual(ele){
+		        div=$(ele).closest('div[data-flag]');
+		        var index = div.index();
+			       $.getHtml({
+		       		url:"/sop/html/operation_appr_actual.html",//模版请求地址
+		       		data:"",//传递参数
+		       		okback:function(){
+		       			  $("#appr_actual_title").html('编辑实际注资计划');
+		                   var json = getData(div);
+		                   if(json['id']){
+		                   $("#actual-form").find("[name='id']").val(json['id']);
+		                   }
+		                   $("#actual-form").find("[name='code']").val(json['code']);
+		                   $("#actual-form").find("[name='field1']").val(json['field1']);
+		                   $("#actual-form").find("[name='field2']").val(json['field2']);
+		                   $("#actual-form").find("[name='field3']").val(json['field3']);
+		                   $("#actual-form").find("[name='index']").val(index);
+		                   
+		       		}
+			      }); 
+		}
+		/**
+		 * 删除实际拨款计划
+		 * @param ele
+		 */
+		function delActualRow(ele){
+		      div=$(ele).closest('div[data-flag]');
+		      var id = div.find("[name='id']").text();
+		      if(typeof id != 'undefined' && id>0)
+			  {
+					deletedRowIds.push(id);
+			  }
+		      div.remove();
+		}
+
+		/**
+		 * 获取分期拨款表单数据
+		 * @param div
+		 * @returns {___anonymous6377_6378}
+		 */
+		function getData(div){
+			var json={};
+		    var list = div.find("*[name]");
+	        $(list).each(function(){
+	           var key = "";
+	           var value = "";
+	           var tagName = $(this).get(0).tagName;
+
+	           if(tagName == "INPUT"|| tagName == "TEXTAREA"){
+					 key = $(this).attr("name");
+					 value = $(this).val();
+	           }
+	           if(tagName=="SELECT"){
+	              key = $(this).attr("name");
+	              value = $(this).find("option:selected").val();
+	           }
+	           if(tagName == "SPAN"){
+	             key = $(this).attr("name");
+	             value = $(this).text();
+	             if(!value){
+	             	value= null;
+	             }
+	           }
+	           json[key]=value;
+	     })
+
+	     return json;
+		}
+		/**
+		 * 获取实际拨款计划列表数据
+		 * @param div
+		 * @returns {Array}
+		 */
+		function getDataList(div){
+			var dataList = [];
+		    var list = div.find(".team_div");
+		     $(list).each(function(){
+		     	 var json = {};
+		     	 var data = $(this).find("*[name]");
+		          $(data).each(function(){
+		                var key = "";
+		                var value = "";
+		                var tagName = $(this).get(0).tagName;
+		
+		                if(tagName == "INPUT"|| tagName == "TEXTAREA"){
+		  				 key = $(this).attr("name");
+		  				 value = $(this).val();
+		                }
+		                if(tagName=="SELECT"){
+		                   key = $(this).attr("name");
+		                   value = $(this).find("option:selected").val();
+		                }
+		                if(tagName == "SPAN"){
+		                  key = $(this).attr("name");
+		                  value = $(this).text();
+		                  if(!value){
+		                  	value= null;
+		                  }
+		                }
+		                json[key]=value;
+		          })
+		          dataList.push(json);
+		     })
+	     return dataList;
+		}
+		
+		
+		

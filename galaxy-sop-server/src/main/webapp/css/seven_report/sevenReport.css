@@ -144,9 +144,9 @@ table td em.right{
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:30px;
+	right:10px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-80px -19px;
+	background-position:-136px -19px;
 	cursor:pointer;
 	
 }
@@ -156,9 +156,9 @@ table td i.wrong{
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:10px;
+	right:30px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-136px -19px;
+	background-position:-80px -19px;
 	cursor:pointer;
 	
 }
@@ -265,9 +265,9 @@ table.table_15 td:nth-child(4){
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:30px;
+	right:10px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-80px -19px;
+	background-position:-136px -19px;
 	cursor:pointer;
 	
 }
@@ -277,9 +277,9 @@ table.table_15 td:nth-child(4){
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:10px;
+	right:30px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-136px -19px;
+	background-position:-80px -19px;
 	cursor:pointer;
 	
 } 
@@ -540,7 +540,7 @@ table td select{
 	height:29px;
 	color:#0aa7ff;
 	border-color:#0aa7ff;;
-	
+	padding-left: 5px !important;
 }
 table td select option{
 	color: #999999;;

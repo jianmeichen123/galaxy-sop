@@ -1,16 +1,19 @@
 package com.galaxyinternet.hologram.service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -1075,8 +1078,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(listdataList != null && listdataList.size()>0)
 		{
 			Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
+			
 			for(InformationListdata item : listdataList)
 			{
+				
 				String titleId = item.getTitleId()+"";
 				if(idMap.containsKey(titleId))
 				{
@@ -1107,8 +1112,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						{
 							item.setUpdateTimeStr(DateUtil.longString(item.getUpdatedTime()));
 						}
+						if(StringUtils.isEmpty(item.getCode())){
+							List<InformationListdata> datalist = new ArrayList<InformationListdata>();
+							for(InformationListdata data : listdataList)
+							{
+							  if(data.getParentId() != null && data.getCode() != null && item.getId().intValue() == data.getParentId().intValue()){
+								  datalist.add(data);
+							  }
+							}
+							item.setDataList(datalist);
+							title.getDataList().add(item);
+						}
 						
-						title.getDataList().add(item);
 					}
 				}
 			}

@@ -197,8 +197,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			return;
 		}
 		InformationListdata entity = null;
-		List<InformationListdata> insertEntityList = new ArrayList<>();
-		List<InformationListdata> updateEntityList = new ArrayList<>();
 		Set<String> titleIds = new HashSet<>();
 		
 		for(TableModel model : list)
@@ -227,21 +225,20 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			{
 				entity.setCreatedTime(now);
 				entity.setCreateId(userId);
-				insertEntityList.add(entity);
+				Long id = listdataDao.insert(entity);
+				setDataList(id,entity,model.getDataList(),
+						userId,now);
+				continue;	
 			}
 			else
 			{
 				entity.setId(model.getId());
 				entity.setUpdatedTime(now);
 				entity.setUpdateId(userId);
-				updateEntityList.add(entity);
 				listdataDao.updateById(entity);
+				setDataList(entity.getId(),entity,model.getDataList(),
+						userId,now);
 			}
-		}
-		//插入数据
-		if(insertEntityList.size() > 0)
-		{
-			listdataDao.insertInBatch(insertEntityList);
 		}
 		
 	}
@@ -264,6 +261,44 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			query.setRelateIds(relateIds);
 			scoreInfoDao.deleteScoreBatch(query);
 			scoreInfoDao.insertScoreBatch(scoreList);
+		}
+	}
+	
+	public void setDataList(Long id,InformationListdata entity,List<InformationListdata> list,
+			Long userId,Long now){
+		if(id > 0 && list != null && list.size() > 0){
+			for(InformationListdata tm : list){
+				InformationListdata td;
+				try {
+					td = (InformationListdata) entity.clone();
+					td.setParentId(id);
+					td.setCode(tm.getCode());
+					td.setField1(tm.getField1());
+					td.setField2(tm.getField2());
+					td.setField3(tm.getField3());
+					td.setField4(tm.getField4());
+					td.setField5(tm.getField5());
+					td.setField6(tm.getField6());
+					td.setField7(tm.getField7());
+					td.setField8(tm.getField8());
+					td.setField9(tm.getField9());
+					td.setField10(tm.getField10());
+					if(tm.getId() == null){
+						//新增
+						td.setId(null);
+						listdataDao.insert(td);
+					}else{
+						//修改
+						td.setId(tm.getId());
+						td.setUpdatedTime(now);
+						td.setUpdateId(userId);
+						listdataDao.updateById(td);
+					}
+				} catch (CloneNotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

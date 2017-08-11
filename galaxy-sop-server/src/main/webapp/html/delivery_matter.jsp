@@ -19,6 +19,8 @@
         	<form action="" id="detail-form">
          <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
+    	<input name="updateTimeStr" type="hidden" >
+    	<input name="updateUserName" type="hidden">
     	<input name="titleId" type="hidden">
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>
@@ -44,3 +46,13 @@
     </div>
   	
 </div>
+<script>
+     $(function(){
+        $("#detail-form").validate({});
+        
+    })
+    $.validator.setDefaults({
+        	errorElement:'span'
+        });
+   
+</script>
