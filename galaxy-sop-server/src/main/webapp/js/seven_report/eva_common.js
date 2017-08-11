@@ -565,40 +565,33 @@ function img_fun(data){
 		return;
 	}
 	var fi_this = $(data);
+	var firsr_ul = fi_this.closest(".fl_none").find("ul:first-child");	
+	var last_ul = fi_this.closest(".fl_none").find("ul:last-child");
 	if (fi_this.val() != '') {
 		var files = !!data.files ? data.files : [];
-	    if (!files.length || !window.FileReader) return;
-	    if (/^image/.test( files[0].type)){
+	    if (!files.length || !window.FileReader){return;}	    
+	    if (/^image/.test(files[0].type)){
 	        var reader = new FileReader();
 	        reader.readAsDataURL(files[0]);
 	        reader.onloadend = function(){  
-	        fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
-	
+        	firsr_ul.append("<li class=\"pic_list fl\"><a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" /></li>");
 	        }
 	    }
 	 }else{
-		 fi_this.parent(".h_imgs_add").html("<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" />");
+		 firsr_ul.append("<li class=\"pic_list fl\"<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" /><li>");
 	 }
-	 var _id = fi_this.closest(".fl_none").find("ul:first-child").attr("id");
-	 var _idnum = _id.split("-")[1];
-	 var _htm ="<li class=\"h_imgs_add\" id=\"h_imgs_add_"+_idnum+"\"><input type=\"file\" onchange=\"img_fun(this)\" file-title-id="+_idnum+" id=\"selected_file_"+_idnum+"\"></li>"
-	 var add_html= "<ul class=\"h_imgs\" id="+_id+">"+_htm+"</ul>"
-	 if(fi_this.closest(".h_edit_txt").find("ul").length<6){
-		 fi_this.closest(".fl_none").append(add_html);
+	last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\"/>");
+	if(firsr_ul.find("li").length>=4){
+		last_ul.hide()
+	 }else{
+	    last_ul.show()
 	 }
 }
 
 $("div").delegate(".h_img_del","click",function(){
-	var _id = $(this).closest(".h_imgs").attr("id");
-	var _idnum = _id.split("-")[1];
-	var _htm ="<li class=\"h_imgs_add\" id=\"h_imgs_add_"+_idnum+"\"><input type=\"file\" onchange=\"img_fun(this)\" file-title-id="+_idnum+" id=\"selected_file_"+_idnum+"\"></li>"
-	var add_html= "<ul class=\"h_imgs\" id="+_id+">"+_htm+"</ul>";
-	var _src = $(this).closest(".fl_none").find("ul:last-child").find("img").attr("src")
-	console.log(_src);
-	if(_src){
-		$(this).closest(".fl_none").append(add_html);
-	}
-	$(this).closest(".h_imgs").remove();
+	$(this).parents(".fl_none").find("ul").show()
+	$(this).parent().remove();	
+
 })
 //图片点击弹窗
 	

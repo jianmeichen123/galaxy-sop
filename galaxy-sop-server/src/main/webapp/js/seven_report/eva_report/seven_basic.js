@@ -133,12 +133,15 @@
 					data_list.val=val;
 					data.push(data_list);
 				});
-				console.log(data);
 				$(data).each(function(){  
 					var n=$(this)[0];
 					if(type==1){
 						if(n.val!="未填写"){
 							$("input[data-title-id='"+n.relateId+"']").val(n.val);
+						}
+					}else if(type==8){
+						if(n.val!="未填写"){
+							$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
 						}
 					}else if(type==8){
 						if(n.val!="未填写"){
@@ -438,11 +441,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 			}
 			if(data_list.value==""||!data_list.value){
 				data_list.value="未选择";
+				data_list.value_id="";
 			}
 		}else if(data_type==7){
 			//图片
 			var imgUrl=[];
-			var img_list = $(this).find(".h_imgs");
+			var img_list = $(this).find(".h_imgs:first-child").find("li");
 			$.each(img_list,function(){
 				var img_url="";
 				var _this = $(this);
