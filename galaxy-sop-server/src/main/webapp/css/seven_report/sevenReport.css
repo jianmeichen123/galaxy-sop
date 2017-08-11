@@ -827,7 +827,7 @@ select::-ms-expand { display: none; }
     padding: 0;
     width: 15px !important;
     height: 15px !important;
-    background: url(blue.png) no-repeat;
+    background: url(../../img/seven_report/myBlue.png) no-repeat !important;
      background-size:cover !important;
     border: none;
     cursor: pointer;
@@ -836,7 +836,7 @@ select::-ms-expand { display: none; }
 	background-position:-75px 0px !important;
 }
 .iradio_flat-blue{
-	background-position: -90px 0 !important;
+	background-position: -34.2px 0 !important;
 }
 .icheckbox_flat-blue.checked{
 	    background-position: -14px 0 !important;
