@@ -723,7 +723,7 @@ function buildTable(sec,title)
 					}
 				}
 			}
-			if(header.titleId =='1810')
+			if(header.titleId =='1810'||header.titleId =='1811')
 			{
 				tr +='<th data-field-name="updateUserName">创建人</th>';
 				tr +='<th data-field-name="updateTimeStr">操作时间</th>';

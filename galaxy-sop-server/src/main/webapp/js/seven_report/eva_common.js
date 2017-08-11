@@ -88,7 +88,8 @@ function showResultAndScoreList(relateId)
 							});
 						}
 						//结果
-						buildResult(this)
+						buildResult(this);
+						buildTable(this);
 					});
 					initScore(relateId);
 					Tfun_8($(".type_8"));	
@@ -371,9 +372,28 @@ function buildResult(title)
 		}
 		_ele.attr("data-result-id",results[0].id);
 	}
+	
 	if(_scoreEle.length>0)
 	{
 		_scoreEle.attr("data-result-id",results[0].id);
+	}
+}
+function buildTable(title)
+{
+	var rows = title.dataList;
+	var type = title.type;
+	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
+	if(typeof rows == 'undefined' || rows.length == 0)
+	{
+		return;
+	}
+	if (type == 10)
+	{
+		var content = JSON.stringify(rows);
+		var em = $('<em class="income_table" >[表格]</em>');
+		em.attr('data-tr',content);
+		_ele.find('span').html(em);
+		income_table();
 	}
 }
 function getValues()
@@ -540,11 +560,38 @@ function getScores()
 	});
 	return scoreList;
 }
+function getTalbleData()
+{
+	var infoTableModelList = new Array();
+	var titleEles = $(".title-value");
+	$.each(titleEles,function(){
+		var _this = $(this);
+		var type = _this.data('type');
+		var titleId = _this.data('titleId');
+		if(type == 10)
+		{
+			var em = _this.find('em');
+			if(em.length>0)
+			{
+				var rows = em.data('tr');
+				$.each(rows,function(){
+					var row = this;
+					$.extend(row,{projectId:projId,titleId:titleId});
+					infoTableModelList.push(row);
+				});
+			}
+		}
+	});
+	
+	return infoTableModelList;
+	
+}
 $("#save-rpt-btn").click(function(){
 	var data = {
 		projectId: projId,
 		scoreList:	getScores(),
-		infoModeList: getValues()
+		infoModeList: getValues(),
+		infoTableModelList: getTalbleData()
 	};
 	sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo+'?_='+new Date().getTime() , 
@@ -650,7 +697,7 @@ $('div').delegate(".income_pic","click",function(){
 })
 //表格预览 
 function income_table(){
-	$('.income_table').click(function(){
+	$('.income_table').unbind().click(function(){
 		$('.reasonable_stock').show();
 		var _target = $(this);
 		var  leftNum = _target.offset().left-20;
