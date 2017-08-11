@@ -129,14 +129,16 @@
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).parent("p").attr("data-relate-id");
+						var titleValue=$(this).parent("p").attr("data-title-value");
 						var val=$(this).text();
 						data_list.relateId=relateId;
 						data_list.val=val;
+						data_list.titleVal=titleValue;
 						data.push(data_list);
 					});
-					//console.log(data);
 					$(data).each(function(){  
 						var n=$(this)[0];
+						console.log(n)
 						if(type==1){
 							if(n.val!="未填写"){
 								$("input[data-title-id='"+n.relateId+"']").val(n.val);
@@ -144,6 +146,10 @@
 						}else if(type==8){
 							if(n.val!="未填写"){
 								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
+							}
+						}else if(type==2){
+							if(n.titleVal){
+								$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleVal+"']").attr("checked","checked");
 							}
 						}
 										
