@@ -8,7 +8,17 @@
 			$(this).closest(".h_radios").find(".text_li input").attr("disabled",true);
 		}
 	})
-
+//多选点击事件
+	$('div').delegate(".h_radios .check_label","click",function(event){
+		 $(this).toggleClass('active');
+		  var par_ul = $(this).parent("ul");
+		  if(par_ul.children(".check_label").last().hasClass("active")){
+			  par_ul.children(".text_li").find("input").attr("disabled",false);
+		  }else{
+			  par_ul.children(".text_li").find("input").attr("disabled",true);
+		  }
+		  event.stopPropagation();
+	})
 	
 	//编辑按钮
 	function typeEdit(obj){
