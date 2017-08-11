@@ -199,7 +199,7 @@
 								
 						}else if(type==14){
 							if(n.val!="未选择"){
-								console.log(n);
+								$(".h_edit_txt select[data-title-id='"+n.relateId+"']").val(n.titleVal);
 							}
 							
 						}
