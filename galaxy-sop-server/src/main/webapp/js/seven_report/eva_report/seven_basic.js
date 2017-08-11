@@ -77,106 +77,140 @@
 		var p_box=$(obj).siblings(".align_left").find("p")
 		var  val=p_box.text();
 		var titleVal=p_box.attr("data-title-value");
-		var type=p_box.attr("data-type");
 		var radioShow=$(obj).closest("td").find(".radioShow")
-		if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
-			if(type==1){
-				var relateId=p_box.attr("data-relate-id");
-				if(val!="未填写"){
-					$(".condition").find("input[data-id='"+relateId+"']").val(val);
-				}			
-			}else if(type==2){
-				var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
-				dom.addClass("checked");
-				dom.children("input").attr("checked",true);
-			}else if(type==8 || type==15){
-				var relateId=p_box.attr("data-relate-id");
-				if(val!="未填写"){
-					$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
-				}			
-			}else if(type==13 || type==3){
-				if(titleVal){
-					var titleValList=titleVal.split(",");
-					var valList=val.split("、");
-					for(var i=0;i<titleValList.length;i++){
-						var _parents = $(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue");
-						_parents.addClass("checked");
-						var text = _parents.find("label");
-						if(text=="其他"){
-							_parents.find(".others_text").show();			
+		$.each(p_box,function(){
+			var type=$(this).attr("data-type");
+			if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
+				if(type==1){
+					var relateId=p_box.attr("data-relate-id");
+					if(val!="未填写"){
+						$(".condition").find("input[data-id='"+relateId+"']").val(val);
+					}			
+				}else if(type==2){
+					var dom=$(obj).siblings(".radioShow").find("input[value='"+titleVal+"']").parent(".iradio_flat-blue");
+					dom.addClass("checked");
+					dom.children("input").attr("checked",true);
+				}else if(type==8 || type==15){
+					var relateId=p_box.attr("data-relate-id");
+					if(val!="未填写"){
+						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
+					}			
+				}else if(type==13 || type==3){
+					if(titleVal){
+						var titleValList=titleVal.split(",");
+						var valList=val.split("、");
+						for(var i=0;i<titleValList.length;i++){
+							var _parents = $(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue");
+							_parents.addClass("checked");
+							var text = _parents.find("label");
+							if(text=="其他"){
+								_parents.find(".others_text").show();			
+							}
+							$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
 						}
-						$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
+						var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
+						if(last_id){
+							$(radioShow).find(".others_text").show();
+							$(radioShow).find(".others_text").val(valList[valList.length-1])
+						}
+					}				
+				}else if(type==14){
+					$(radioShow).find(".input_select").attr("id",titleVal);
+					if(val!="未选择"){
+						$(radioShow).find(".input_select").attr("value",val);
 					}
-					var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
-					if(last_id){
-						$(radioShow).find(".others_text").show();
-						$(radioShow).find(".others_text").val(valList[valList.length-1])
-					}
-				}				
-			}else if(type==14){
-				$(radioShow).find(".input_select").attr("id",titleVal);
-				if(val!="未选择"){
-					$(radioShow).find(".input_select").attr("value",val);
-				}
-			
 				
-			}
-		}else{  //大弹窗编辑回显
-			if(type!=16){
-				var data=[];
-				var dom=$(obj).siblings(".align_left").find("span")
-				$(dom).each(function(){
-					var data_list={};
-					var relateId=$(this).parent("p").attr("data-relate-id");
-					var val=$(this).text();
-					data_list.relateId=relateId;
-					data_list.val=val;
-					data.push(data_list);
-				});
-				$(data).each(function(){  
-					var n=$(this)[0];
-					if(type==1){
-						if(n.val!="未填写"){
-							$("input[data-title-id='"+n.relateId+"']").val(n.val);
-						}
-					}else if(type==8){
-						if(n.val!="未填写"){
-							$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
-						}
-					}else if(type==8){
-						if(n.val!="未填写"){
-							$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
-						}
-					}
-									
-				})
-			}else{  //商业模式特殊情况
-				var data=[];
-				var dom=$(obj).siblings(".align_left").find("p");
-				$(dom).each(function(){
-					var data_list={};
-					var relateId=$(this).attr("data-relate-id");
-					var str=$(this).attr("data-content");
-					if(str !=undefined && str.indexOf("<sitg>")>-1){
-						var str=str.split("<sitg>");
-						var inputsValueList=[];
-					   for(var i=0;i<str.length;i++){
-							if(str[i].indexOf("</sitg>")>-1){
-								var inputsValue=str[i].substring(0,str[i].indexOf("</sitg>"));
-								inputsValueList.push(inputsValue);
+					
+				}
+			}else{  //大弹窗编辑回显
+				if(type!=16 && type!=7){
+					var data=[];
+					var dom=$(obj).siblings(".align_left").find("span")
+					$(dom).each(function(){
+						var data_list={};
+						var relateId=$(this).parent("p").attr("data-relate-id");
+						var val=$(this).text();
+						data_list.relateId=relateId;
+						data_list.val=val;
+						data.push(data_list);
+					});
+					//console.log(data);
+					$(data).each(function(){  
+						var n=$(this)[0];
+						if(type==1){
+							if(n.val!="未填写"){
+								$("input[data-title-id='"+n.relateId+"']").val(n.val);
+							}
+						}else if(type==8){
+							if(n.val!="未填写"){
+								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
 							}
 						}
-					   console.log(inputsValueList);
-					   var div=$(".h_edit_txt");
-					   for(var j=0;j<div.children("dd").length;j++){
-						   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
-						   
-					   }
+										
+					})
+				}else if(type==16){  //商业模式特殊情况
+					var data=[];
+					var dom=$(obj).siblings(".align_left").find("p");
+					$(dom).each(function(){
+						var data_list={};
+						var relateId=$(this).attr("data-relate-id");
+						var str=$(this).attr("data-content");
+						if(str !=undefined && str.indexOf("<sitg>")>-1){
+							var str=str.split("<sitg>");
+							var inputsValueList=[];
+						   for(var i=0;i<str.length;i++){
+								if(str[i].indexOf("</sitg>")>-1){
+									var inputsValue=str[i].substring(0,str[i].indexOf("</sitg>"));
+									inputsValueList.push(inputsValue);
+								}
+							}
+						   var div=$(".h_edit_txt");
+						   for(var j=0;j<div.children("dd").length;j++){
+							   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
+							   
+						   }
+						}
+					});
+				}else if(type==7){
+					var dataList=[];
+					var dom=$(obj).siblings(".align_left").find("em.income_pic");
+					$(dom).each(function(){
+						var data={
+								url:"",
+								list:""
+						};
+						var _url=$(this).attr("data-url");
+						var _list=$(this).attr("data-list");
+						data.url=_url;
+						data.list=_list;
+						dataList.push(data);
+					})
+					var html="";
+					if(dataList.length>0){
+						for(var i=0;i<dataList.length;i++){
+							html +=  '<li class="pic_list fl" >'
+				              +'<a href="javascript:;" class="h_img_del"></a>' +'<img src="' + dataList[i].url + '" data-list="'+dataList[i].list+'"/></li>';
+						}
+						$(".h_edit_txt .h_imgs").first().html(html);						
 					}
-				});
+					if(dataList.length>4){
+						$(".h_edit_txt .h_imgs").last().hide();
+					}
+					$(".h_img_del").click(function(){
+						$(this).parent("li.pic_list").remove();
+						$(".h_edit_txt .h_imgs").last().show();
+					})
+					
+					
+					
+					
+					
+				}
+				
 			}
-			
-		}
+		})
+		
+		
 		
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
@@ -514,7 +548,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						_this.find("span").html("未添加");
 					}else{
 						$.each(d_this.valueList,function(i,n){
-							var a_img="<em class=\"income_pic\" data-url="+n+">[图片]</em>"
+							var a_img="<em class=\"income_pic\" data-url="+n+" data-list="+i+">[图片]</em>"
 							_this.find("span").append(a_img);
 						})
 					}
