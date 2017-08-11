@@ -37,9 +37,12 @@
 table{
 	border-collapse:collapse;
 	width:100%;
-	border:#d8d8d8;
+	border:0px solid #d8d8d8;
 	font-size:12px;
 	word-wrap:break-word;
+}
+table td{
+	border:1px solid #d8d8d8;
 }
 thead td{
 	text-align:center !important;
