@@ -98,25 +98,6 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
 		}
 		
 })
-function resizetable(table,fields){
-    var dict_map = {}
-    var fields_json = {
-        "finance-history":["field6","field7","field8"],
-        "equity-structure":["field3","field4"],
-        "investor-situation":["field1","field6"]
-    }
-    var title_id = table.attr("data-title-id")
-    var  code = table.attr("data-code")
-    if (!fields){fields = fields_json[code]}
-    for(var v in fields){
-        var dict = dictCache(title_id,code,fields[v])
-        dict_map[title_id+"-"+code+"-"+fields[v]] = dict
-        table.find('td[data-field-name="'+fields[v]+'"]').each(function(){
-            var o = $(this)
-            o.text(dict[o.text()])
-        })
-    }
-}
 </script>
 </body>
 

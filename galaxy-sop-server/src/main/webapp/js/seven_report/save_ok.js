@@ -4,7 +4,7 @@ var deletedRowIds = new Array();
 // 股权结构合理性 表格删除行使用
 var deletedRowIdsGq = new Array();
 
-$('div').delegate(".h_save_btn","click",function(event){	
+$('div').delegate(".h_save_btn","click",function(event){
 	var btn = this;
 	var save_this = $(btn).parents('.radius');
 	event.stopPropagation();
@@ -122,7 +122,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 			if(_resultId==undefined  || _resultId=="undefined"){
 				_resultId=null
 			}
-			console.log(field);
 			var infoMode = {
 					titleId : field.data('titleId'),
 					type : field.data('type'),
@@ -411,6 +410,18 @@ $('div').delegate(".h_save_btn","click",function(event){
 							setDate(pid,true);	
 							picData(projectInfo.id);
 							toggle_btn($('.anchor_btn span'),0,save_this);
+                            $('table').each(function(){
+                                resizetable($(this))
+                                if($(this).find('tr').length<=1){
+                                    $(this).hide();
+                                    if($(this).parents('dl').find('dd:gt(0)').length<=0){
+                                        $(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+                                    }
+                                }
+                                else{
+                                    $(this).show();
+                                }
+                            })
 						} else {
 							layer.msg("操作失败!");
 						}
