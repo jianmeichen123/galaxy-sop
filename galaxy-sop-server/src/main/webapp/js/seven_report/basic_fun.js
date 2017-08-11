@@ -310,10 +310,36 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				
 			}
 	}) 
+    $(".editable").each(function(){resizetable($(this))})
 	//编辑表格显示隐藏
 	 check_table();
 });
+//
+function resizetable(table){
+    var dict_map = {}
+    var fields_json = {
+        "finance-history":["field6","field7","field8"],
+        "equity-structure":["field3","field4"],
+        "investor-situation":["field1","field6"]
+    }
+    var title_id = table.attr("data-title-id")
+    var  code = table.attr("data-code")
 
+    if (code in fields_json){
+        console.log("resizetable")
+        var fields = fields_json[code]
+
+        for(var i=0;i<fields.length;i++){
+            var v = fields[i]
+            var dict = dictCache(title_id,code,v)
+            dict_map[title_id+"-"+code+"-"+v] = dict
+            table.find('td[data-field-name="'+v+'"]').each(function(){
+                var o = $(this)
+                o.text(dict[o.text()])
+            })
+        }
+    }
+}
 //隔轮融资的估值及时间表
 function customBuilder()
 {
@@ -485,6 +511,7 @@ function saveRow(data)
 			}
 		}
 	}
+	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();
 }
 
