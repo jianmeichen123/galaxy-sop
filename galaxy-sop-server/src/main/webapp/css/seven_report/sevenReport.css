@@ -146,7 +146,7 @@ table td em.right{
 	top:10px;
 	right:30px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-136px -19px;
+	background-position:-80px -19px;
 	cursor:pointer;
 	
 }
@@ -158,7 +158,7 @@ table td i.wrong{
 	top:10px;
 	right:10px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-80px -19px;
+	background-position:-136px -19px;
 	cursor:pointer;
 	
 }
@@ -267,7 +267,7 @@ table.table_15 td:nth-child(4){
 	top:10px;
 	right:30px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-136px -19px;
+	background-position:-80px -19px;
 	cursor:pointer;
 	
 }
@@ -279,7 +279,7 @@ table.table_15 td:nth-child(4){
 	top:10px;
 	right:10px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
-	background-position:-80px -19px;
+	background-position:-136px -19px;
 	cursor:pointer;
 	
 } 
@@ -808,3 +808,37 @@ display: -webkit-box;
 overflow: hidden;
 position:relative;
 }
+select{
+	border:1px solid #000;
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	background: url(../../img/seven_report/down.png) no-repeat center right 3px;
+	padding-right: 14px;
+}
+select::-ms-expand { display: none; } 
+
+.icheckbox_flat-blue,
+.iradio_flat-blue {
+    display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    width: 15px !important;
+    height: 15px !important;
+    background: url(blue.png) no-repeat;
+     background-size:cover !important;
+    border: none;
+    cursor: pointer;
+}
+.iradio_flat-blue.checked{
+	background-position:-75px 0px !important;
+}
+.iradio_flat-blue{
+	background-position: -90px 0 !important;
+}
+.icheckbox_flat-blue.checked{
+	    background-position: -14px 0 !important;
+}
+

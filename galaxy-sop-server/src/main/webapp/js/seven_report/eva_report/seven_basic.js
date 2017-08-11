@@ -2,13 +2,10 @@
 	$('div').delegate(".h_radios input","click",function(){
 		var val = $(this).parent().text();
 		if(val=="其他"){
-			var other_input = $(this).parent().next().find("input");
+			var other_input = $(this).parent().next().find("input[type=\"text\"]");
 			other_input.attr("disabled",false);
 		}else{
-			var other_input = $(this).parent().next().find("input");
-			if(!other_input){
-				other_input.attr("disabled",true);
-			}
+			$(this).closest(".h_radios").find(".text_li input").attr("disabled",true);
 		}
 	})
 	
@@ -129,12 +126,23 @@
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).parent("p").attr("data-relate-id");
+						var titleValue=$(this).parent("p").attr("data-title-value");
 						var val=$(this).text();
 						data_list.relateId=relateId;
 						data_list.val=val;
+						if(type==10){
+							var table_list=[];
+							p_box.find(".income_table").each(function(){
+								table_list.push($(this).data("tr"))
+							})
+							data_list.val=table_list;
+						}else if(type==12){
+							var code=$(this).parent("p").attr("data-code");
+							data_list.code=code;
+						}
+						data_list.titleVal=titleValue;
 						data.push(data_list);
 					});
-					//console.log(data);
 					$(data).each(function(){  
 						var n=$(this)[0];
 						if(type==1){
@@ -145,6 +153,36 @@
 							if(n.val!="未填写"){
 								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
 							}
+						}else if(type==2){
+							if(n.val!="未选择"){
+								if(n.titleVal){
+									$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleVal+"']").attr("checked","checked");
+								}
+							}
+							
+						}else if(type==10){
+							var td_l = n.val;
+							if(td_l!="未填写"){														
+								if(td_l.length<=0){
+									return;
+								}
+								$("table[data-title-id='"+n.relateId+"']").show();		
+								var tr_html="";
+								$.each(td_l[0],function(i,n){
+									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
+									tr_html+="<tr data-row-id=\"\" class=\"\">"+td_html+"</tr>"	;								
+								})
+								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
+							}
+						}else if(type==12){
+							if(n.val!="未选择"){
+								var  lastId=$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().prev().find("input").attr("value");
+								if(n.titleVal==lastId){
+									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").removeAttr("disabled");
+									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").val(n.val);
+								}
+							}					
+								
 						}
 										
 					})
