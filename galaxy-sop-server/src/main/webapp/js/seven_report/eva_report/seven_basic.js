@@ -139,6 +139,9 @@
 								table_list.push($(this).data("tr"))
 							})
 							data_list.val=table_list;
+						}else if(type==12){
+							var code=$(this).parent("p").attr("data-code");
+							data_list.code=code;
 						}
 						data_list.titleVal=titleValue;
 						data.push(data_list);
@@ -154,9 +157,12 @@
 								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
 							}
 						}else if(type==2){
-							if(n.titleVal){
-								$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleVal+"']").attr("checked","checked");
+							if(n.val!="未选择"){
+								if(n.titleVal){
+									$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleVal+"']").attr("checked","checked");
+								}
 							}
+							
 						}else if(type==10){
 							var td_l = n.val;
 							if(td_l!="未填写"){														
@@ -171,6 +177,15 @@
 								})
 								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
 							}
+						}else if(type==12){
+							if(n.val!="未选择"){
+								var  lastId=$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().prev().find("input").attr("value");
+								if(n.titleVal==lastId){
+									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").removeAttr("disabled");
+									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").val(n.val);
+								}
+							}					
+								
 						}
 										
 					})
