@@ -308,7 +308,7 @@ function buildResult(title)
 		_ele.attr("data-result-id",results[0].id);
 	}
 	//文本域
-	else if(type == 1 || type == 8)
+	else if(type == 1 || type == 8|| type == 18)
 	{
 		if(_sign=="sign_3"){
 			_ele.find("span").text(results[0].contentDescribe1);
@@ -432,7 +432,7 @@ function getValues()
 			{
 				model.resultId = resultId;
 			}
-			if(typeof text == 'undefined' || text == '未填写')
+			if(typeof text == 'undefined' || text == '未填写'|| text == '未选择')
 			{
 				model.remark1 = '';
 			}
