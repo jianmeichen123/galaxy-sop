@@ -2,13 +2,10 @@
 	$('div').delegate(".h_radios input","click",function(){
 		var val = $(this).parent().text();
 		if(val=="其他"){
-			var other_input = $(this).parent().next().find("input");
+			var other_input = $(this).parent().next().find("input[type=\"text\"]");
 			other_input.attr("disabled",false);
 		}else{
-			var other_input = $(this).parent().next().find("input");
-			if(!other_input){
-				other_input.attr("disabled",true);
-			}
+			$(this).closest(".h_radios").find(".text_li input").attr("disabled",true);
 		}
 	})
 	
