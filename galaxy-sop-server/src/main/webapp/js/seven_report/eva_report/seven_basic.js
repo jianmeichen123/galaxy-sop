@@ -1,13 +1,14 @@
 //单选点击事件
-	$('div').delegate(".h_radios input","click",function(){
+	$('div').delegate(".h_radios input[type='radio']","click",function(){
 		var val = $(this).parent().text();
 		if(val=="其他"){
-			var other_input = $(this).parent().next().find("input[type=\"text\"]");
+			var other_input = $(this).parent().next().find("input");
 			other_input.attr("disabled",false);
 		}else{
 			$(this).closest(".h_radios").find(".text_li input").attr("disabled",true);
 		}
 	})
+
 	
 	//编辑按钮
 	function typeEdit(obj){
