@@ -808,7 +808,7 @@ display: -webkit-box;
 overflow: hidden;
 position:relative;
 }
-/* select{
+select{
 	border:1px solid #000;
 	appearance:none;
 	-webkit-appearance:none;
@@ -816,7 +816,7 @@ position:relative;
 	background: url(../../img/seven_report/down.png) no-repeat center right 3px;
 	padding-right: 14px;
 }
-select::-ms-expand { display: none; } */
+select::-ms-expand { display: none; } 
 
 .icheckbox_flat-blue,
 .iradio_flat-blue {
