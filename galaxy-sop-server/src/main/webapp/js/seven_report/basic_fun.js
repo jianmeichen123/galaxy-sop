@@ -370,6 +370,32 @@ function editRow(ele)
 					ele.val(row.data(name));
 				}
 			});
+			//运营 报告嵌套表格处理
+			if(reportType == 7){
+				if(row.data("dataList"))
+				{
+					$.each(row.data("dataList"),function(){
+						 var row = this;
+						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
+							   //新增数据
+							   var o = $(data);
+							   o.find("[name='id']").text(row.id);
+							   o.find("[name='field1']").text(row.field1);
+							   o.find("[name='field2']").text(row.field2);
+							   o.find("[name='field3']").text(row.field3);
+							   o.find("[name='code']").text(row.code);
+							   $("#appr_part").append(o);
+						   });
+					});
+					$("#save_appr_part").click(function(){
+						var data = getData($("#detail-form"));
+	        		    var dataList = getDataList($("#appr_part"));
+	    	            var tr = $('table[data-title-id="'+data['titleId']+'"].editable').find('tr:eq('+data['index']+')');
+	    	    		tr.data("dataList",dataList);
+	        	        saveForm($("#detail-form"));
+				    });
+				}
+			}
 			//文本框剩余字数
 			$.each($(".team_textarea"),function(){
 				var len=$(this).val().length;
@@ -589,8 +615,6 @@ function bindChangeType13(){
 
 function getDetailUrl(code)
 {
-	alert(code);
-	alert(reportType);
 	if(code == 'equity-structure')
 	{
 		return path+'/html/funcing_add_gd.html';
