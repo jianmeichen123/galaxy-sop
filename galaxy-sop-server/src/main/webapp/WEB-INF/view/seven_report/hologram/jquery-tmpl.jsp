@@ -98,8 +98,8 @@
 								<table>
 									<tr>
 									<th></th>
-									<th colspan="2">\${$data.childList[3].childList[0].name}</th>
-									<th>\${$data.childList[3].childList[1].name}</th>
+									<th colspan="2">\${$data.childList[4].childList[0].name}</th>
+									<th>\${$data.childList[4].childList[1].name}</th>
 									</tr>
 									<tr>
 									 <th class="fixed_table_td">上游</th>
@@ -309,8 +309,8 @@
 			                <table data-type="\${type}" data-test="\${id}" class="fixed_table">
 			                  <tr>
 			                    <th></th>
-			                     <th colspan="2">\${$data.childList[3].childList[0].name}</th>
-								<th>\${$data.childList[3].childList[1].name}</th>
+			                     <th colspan="2">\${$data.childList[4].childList[0].name}</th>
+								<th>\${$data.childList[4].childList[1].name}</th>
 			                  </tr>
 			                   <tr>
 			                 	 <th class="fixed_table_td">上游</th>
@@ -515,8 +515,8 @@
 					                <table>
 					                  <tr>
 					                    <th></th>
-					                    <th colspan="2">\${$data.childList[3].childList[3].childList[0].name}</th>
-										<th>\${$data.childList[3].childList[3].childList[1].name}</th>
+					                    <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
+										<th>\${$data.childList[3].childList[4].childList[1].name}</th>
 					                  </tr>
 					                   <tr>
 					                 	 <th>上游</th>
@@ -624,8 +624,8 @@
 			                <table>
 			                  <tr>
 			                    <th></th>
-			                    <th colspan="2">\${$data.childList[3].childList[3].childList[0].name}</th>
-								<th>\${$data.childList[3].childList[3].childList[1].name}</th>
+			                    <th colspan="2">\${$data.childList[3].childList[4].childList[0].name}</th>
+								<th>\${$data.childList[3].childList[4].childList[1].name}</th>
 			                  </tr>
 			                  <tr>
 			                 	 <th>上游</th>
