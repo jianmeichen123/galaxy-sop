@@ -1,38 +1,39 @@
 package com.galaxyinternet.hologram.service;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
+import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
-import org.openxmlformats.schemas.drawingml.x2006.main.CTRegularTextRun;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.service.hologram.CacheOperationService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
+import com.galaxyinternet.utils.SopConstatnts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.model.hologram.InformationTitleRelate;
-import com.galaxyinternet.service.hologram.CacheOperationService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
-import com.galaxyinternet.service.hologram.InformationTitleRelateService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service("com.galaxyinternet.service.hologram.InformationDictionaryService")
 public class InformationDictionaryServiceImpl extends BaseServiceImpl<InformationDictionary> implements InformationDictionaryService{
+	final Logger logger = LoggerFactory.getLogger(InformationDictionaryServiceImpl.class);
 
 	@Autowired
 	private Cache cache;
@@ -264,12 +265,59 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		List<InformationTitle> childList = selectByTlist(informationTitleService.selectChildsByPid(titleId));
 		return childList;
 	}*/
-	
-	
-	
+
+
+
 	/**
 	 * 根据title 的  id 或 code ，  递归查询  title 及其下的所有 title - value
 	 */
+	@Override
+	public InformationTitle selectTitlesValuesForAll(String pinfoKey, String reportType) {
+		InformationTitle title = null;
+
+		boolean useCacha = true; //开关
+		boolean toCache = false;
+
+		try {
+			String key_pre = SopConstatnts.Redis.ALL_TITLE_VALUE_CACHE_PRE_KEY;
+			if(useCacha){
+				Object kv = cache.get(key_pre+pinfoKey);
+				if(kv != null) title = (InformationTitle) kv;
+
+				if(title == null){
+					toCache = true;
+				}else{
+					toCache = false;
+				}
+			}
+		} catch (Exception e) {
+			logger.error("selectTitlesValuesForAll cache use failed："+pinfoKey,e);
+		}
+
+		if(title == null){
+			if(reportType != null ){
+				Map<String, Object> params = new HashMap<String,Object>();
+				params.put("reportType",reportType);
+				params.put("code",pinfoKey);
+				params.put("isValid",0);
+				List<InformationTitle> titles = informationTitleRelateService.selectTitleByRelate(params);
+				if(titles != null &&  titles.size() == 1){
+					if(reportType.equals("1")|| reportType.equals("6")){
+						title = selectTitlesValuesGrade(titles.get(0));
+					}else{
+						title = selectTitlesValues(titles.get(0));
+					}
+				}
+			}else{
+				title = selectTitlesValues(pinfoKey);
+			}
+		}
+		if(useCacha && toCache && title!=null){
+			cacheOperationService.saveAllByRedies(pinfoKey, title);
+		}
+
+		return title;
+	}
 	@Override
 	@Transactional
 	public InformationTitle selectTitlesValues(String pinfoKey) {
@@ -357,7 +405,6 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 
 
 		//=================  差异化策略
-
 		fieldList = new ArrayList<>();
 		fieldList.add("field1");
 		fieldList.add("field4");

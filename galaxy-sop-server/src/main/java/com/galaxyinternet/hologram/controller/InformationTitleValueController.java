@@ -1,24 +1,6 @@
 package com.galaxyinternet.hologram.controller;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.sun.org.apache.bcel.internal.generic.I2F;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.exception.PlatformException;
@@ -34,7 +16,21 @@ import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
-import com.galaxyinternet.utils.SopConstatnts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -312,49 +308,7 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		InformationTitle title = null;
 		try{
-			boolean useCacha = true; //开关
-			boolean toCache = false;
-
-			try {
-				String key_pre = SopConstatnts.Redis.ALL_TITLE_VALUE_CACHE_PRE_KEY;
-				if(useCacha){
-					Object kv = cache.get(key_pre+pinfoKey);
-					if(kv != null) title = (InformationTitle) kv;
-					
-					if(title == null){
-						toCache = true;
-					}else{
-						toCache = false;
-					}
-				}
-			} catch (Exception e) {
-				logger.error("queryAllTitleValues cache use failed："+pinfoKey,e);
-			}
-			
-			if(title == null){
-				if(reportType != null ){
-					Map<String, Object> params = new HashMap<String,Object>();
-					params.put("reportType",reportType);
-					params.put("code",pinfoKey);
-					params.put("isValid",0);
-					List<InformationTitle> titles = informationTitleRelateService.selectTitleByRelate(params);
-					if(titles.isEmpty() || titles.size()!=1){
-						responseBody.setResult(new Result(Status.ERROR,null, "参数错误"));
-					}else{
-						if(reportType.equals("1")|| reportType.equals("6")){
-							title = informationDictionaryService.selectTitlesValuesGrade(titles.get(0));
-						}else{
-							title = informationDictionaryService.selectTitlesValues(titles.get(0));
-						}
-					}
-				}else{
-					title = informationDictionaryService.selectTitlesValues(pinfoKey);
-				}
-			}
-			
-			if(useCacha && toCache && title!=null){
-				cacheOperationService.saveAllByRedies(pinfoKey, title);
-			}
+			title = informationDictionaryService.selectTitlesValuesForAll(pinfoKey,reportType);
 
 			if (proId != null){
 				informationDictionaryService.setValuesForTitleByTable(proId,title);

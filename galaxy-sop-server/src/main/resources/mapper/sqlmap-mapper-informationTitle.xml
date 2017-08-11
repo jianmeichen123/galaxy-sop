@@ -288,7 +288,10 @@
 		select
 			id, parent_id, code, name, index_no, type, sign, is_valid
 		from information_title 
-		where parent_id is null
+		where
+			parent_id is null
+			and is_show = 't'
+			and type is NULL
 		<!-- order by index_no -->
 	</select>
 	
