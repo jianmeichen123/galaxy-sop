@@ -238,7 +238,7 @@
 						</dd>
 
 					{{else type=="3"}}
-						<dt data-type="\${type}"  data-id="\${titleId}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+						<dt data-type="\${type}"  data-id="\${id}" data-code="\${code}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
 						<dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 							{{each(i,valueList) valueList}}
