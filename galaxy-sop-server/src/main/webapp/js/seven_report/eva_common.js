@@ -286,8 +286,6 @@ function afterTitleSaved()
  */
 function buildResult(title)
 {
-	
-	
 	var results = title.resultList;
 	var type = title.type;
 	if(typeof results == 'undefined' || results.length == 0)
@@ -358,6 +356,17 @@ function buildResult(title)
 		}
 		else
 		{
+			_ele.text(val);
+		}
+		_ele.attr("data-result-id",results[0].id);
+	}
+	else if(type == 16)
+	{
+		var val = results[0].contentDescribe1;
+		if(val != null && val.length>0)
+		{
+			_ele.attr("data-remark",val);
+			val=val.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
 			_ele.text(val);
 		}
 		_ele.attr("data-result-id",results[0].id);
@@ -465,6 +474,28 @@ function getValues()
 					infoModelList.push(model);
 				})
 			}
+		}
+		else if(type == 16)
+		{
+			var model = {
+					tochange:"true",
+					type:type
+				};
+				model.projectId = projId;
+				model.titleId = titleId;
+				if(typeof resultId != 'undefined')
+				{
+					model.resultId = resultId;
+				}
+				if(typeof remark == 'undefined' || remark == '未填写')
+				{
+					model.remark1 = '';
+				}
+				else
+				{
+					model.remark1 = remark;
+				}
+				infoModelList.push(model);
 		}
 	});
 	return infoModelList;
