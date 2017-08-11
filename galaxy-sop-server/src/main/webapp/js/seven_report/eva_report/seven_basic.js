@@ -197,6 +197,11 @@
 								}
 							}					
 								
+						}else if(type==14){
+							if(n.val!="未选择"){
+								console.log(n);
+							}
+							
 						}
 										
 					})
@@ -592,8 +597,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 					_this.find("span").html(d_this.value);
 					Tfun_8(_this);
 				}else if(_type==14||_type==2||_type==12){
-					_this.find("span").html(d_this.value);
-					_this.attr("data-title-value",d_this.value_id);
+					if(d_this.value!="请选择"){
+						_this.find("span").html(d_this.value);
+						_this.attr("data-title-value",d_this.value_id);
+					}
 				}else if(_type==7){
 					_this.find("span").html("");
 					if(d_this.valueList.length<=0){
