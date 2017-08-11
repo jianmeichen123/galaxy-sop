@@ -103,6 +103,11 @@
 					if(val!="未填写"){
 						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
 					}			
+				}else if(type==18){
+					var relateId=p_box.attr("data-relate-id");
+					if(val!="未选择"){
+						$(".input_select").attr("value",val);
+					}			
 				}else if(type==13 || type==3){
 					if(titleVal){
 						var titleValList=titleVal.split(",");
