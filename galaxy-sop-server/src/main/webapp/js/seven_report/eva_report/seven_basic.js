@@ -133,12 +133,18 @@
 						var val=$(this).text();
 						data_list.relateId=relateId;
 						data_list.val=val;
+						if(type==10){
+							var table_list=[];
+							p_box.find(".income_table").each(function(){
+								table_list.push($(this).data("tr"))
+							})
+							data_list.val=table_list;
+						}
 						data_list.titleVal=titleValue;
 						data.push(data_list);
 					});
 					$(data).each(function(){  
 						var n=$(this)[0];
-						console.log(n)
 						if(type==1){
 							if(n.val!="未填写"){
 								$("input[data-title-id='"+n.relateId+"']").val(n.val);
@@ -150,6 +156,20 @@
 						}else if(type==2){
 							if(n.titleVal){
 								$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleVal+"']").attr("checked","checked");
+							}
+						}else if(type==10){
+							var td_l = n.val;
+							if(td_l!="未填写"){														
+								if(td_l.length<=0){
+									return;
+								}
+								$("table[data-title-id='"+n.relateId+"']").show();		
+								var tr_html="";
+								$.each(td_l[0],function(i,n){
+									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
+									tr_html+="<tr data-row-id=\"\" class=\"\">"+td_html+"</tr>"	;								
+								})
+								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
 							}
 						}
 										
