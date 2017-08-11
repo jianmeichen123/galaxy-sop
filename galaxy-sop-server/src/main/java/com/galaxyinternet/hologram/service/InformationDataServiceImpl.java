@@ -82,8 +82,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
-			entity.setGrade1(model.getScore1());
-			entity.setGrade2(model.getScore2());
 			if(!StringEx.isNullOrEmpty(model.getValue()))
 			{
 				entity.setContentChoose(model.getValue());
@@ -109,7 +107,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			if(model.getResultId() == null){
+			if(null==model.getResultId()||model.getResultId().equals("")){
 				entity.setCreatedTime(now);
 				entity.setCreateId(userId.toString());
 				entityList.add(entity); // 新增

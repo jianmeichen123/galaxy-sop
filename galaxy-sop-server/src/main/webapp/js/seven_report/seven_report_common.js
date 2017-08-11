@@ -538,8 +538,6 @@ function buildResults(sec,title,readonly)
 		}
 		if( title.type == 20)
 		{
-		    console.log("title")
-		    console.log(title)
 			if(readonly == true)
 			{
 				var str = title.resultList[0].contentDescribe2
