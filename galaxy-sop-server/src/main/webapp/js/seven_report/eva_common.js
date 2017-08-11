@@ -51,7 +51,7 @@ function mouseout(obj){
 	var target = $(obj).find('.editPic');
 	target.hide();
 };
-$("#eva-tabs li:eq(0)").click();
+$("#eva-tabs li:eq(3)").click();
 
 // 
 /**
@@ -420,7 +420,7 @@ function getValues()
 			text = _this.find('span').text();
 		}
 		//input,textarea
-		if(type == 1 || type == 8)
+		if(type == 1 || type == 8||type == 18)
 		{
 			var model = {
 				tochange:"true",
