@@ -12,19 +12,16 @@
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
-<title>项目详情66666</title>
+<title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
+<script src="<%=path%>/js/seven_report/operation/operation_common.js"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<!-- 时间插件 -->
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 </head>
 <body>
 <!-- <ul class="h_navbar clearfix">
@@ -96,6 +93,7 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'ONO9?reportType=7', null,
 		}
 
 })
+
 </script>
 </body>
 

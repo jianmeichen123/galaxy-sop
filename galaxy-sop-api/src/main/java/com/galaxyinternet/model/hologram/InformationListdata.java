@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
-public class InformationListdata extends PagableEntity{
+public class InformationListdata extends PagableEntity implements Cloneable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -348,6 +348,9 @@ public class InformationListdata extends PagableEntity{
 	{
 		this.updateTimeStr = updateTimeStr;
 	}
-    
+	@Override
+	public Object clone() throws CloneNotSupportedException {  
+        return (InformationListdata)super.clone();  
+    }  
     
 }

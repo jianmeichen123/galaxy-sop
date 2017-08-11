@@ -707,6 +707,7 @@ function buildTable(sec,title)
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
+	    console.log("*************8"+header);
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
@@ -1779,6 +1780,7 @@ function selectContext(formId){
 }*/
 /*function editRow(ele)
 {
+	var parent =$(ele).closest('table').closest('form').attr('id');
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
 	$.getHtml({
@@ -1801,7 +1803,34 @@ function selectContext(formId){
 				}else{
 					ele.val(row.data(name));
 				}
+				
 			});
+			//运营 报告嵌套表格处理
+			if(reportType == 7){
+				if(row.data("dataList"))
+				{
+					$.each(row.data("dataList"),function(){
+						 var row = this;
+						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
+							   //新增数据
+							   var o = $(data);
+							   o.find("[name='id']").text(row.id);
+							   o.find("[name='field1']").text(row.field1);
+							   o.find("[name='field2']").text(row.field2);
+							   o.find("[name='field3']").text(row.field3);
+							   o.find("[name='code']").text(row.code);
+							   $("#appr_part").append(o);
+						   });
+					});
+					$("#save_appr_part").click(function(){
+						var data = getData($("#detail-form"));
+	        		    var dataList = getDataList($("#appr_part"));
+	    	            var tr = $('table[data-title-id="'+data['titleId']+'"].editable').find('tr:eq('+data['index']+')');
+	    	    		tr.data("dataList",dataList);
+	        	        saveForm($("#detail-form"));
+				    });
+				}
+			}
 			//文本框剩余字数
 			$.each($(".team_textarea"),function(){
 				var len=$(this).val().length;
@@ -1824,7 +1853,6 @@ function delRow(ele)
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-
 		if(typeof id != 'undefined' && id>0)
 		{
 			deletedRowIds.push(id);
@@ -1847,6 +1875,59 @@ function delRow(ele)
  * 表格增删改查通用方法   **************************************************** 结束
  */
 
+
+
+function getDetailUrl(code)
+{
+	
+	if(code == 'equity-structure')
+	{
+		return path+'/html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return path+'/html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return path+'/html/fincing_add_yx.html';
+	}
+	else if(code == 'valuation-reference')
+	{
+		return path+'/html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return path+'/html/fincing_add_jd.html';
+	}
+	else if(code == 'finance-history')
+	{
+		return path+'/html/finace_history.jsp';
+	}
+	else if (code =='team-members'){
+
+	    return path+'/html/team_compile.html';
+	}else if(code == 'share-holding')
+    {
+        return path+'/html/team_add_cgr.html';
+    }else if(code == 'competition-comparison')
+	{
+		return path+'/html/compete_save.jsp';
+	}else if(code == 'delivery-before')
+	{
+		return path+'/html/delivery_matter.jsp';
+	}else if(code == 'delivery-after')
+	{
+		return path+'/html/delivery_matter.jsp';
+	}else if(code == 'grant-part' || code == 'grant-actual')
+	{
+	    if(reportType == 7){
+	    	return path+'/html/operation_appr_part.html';
+	    }
+		return path+'/html/grant-part.jsp';
+	}
+	return "";
+}
 
 
 

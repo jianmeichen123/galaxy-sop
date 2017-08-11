@@ -1,0 +1,94 @@
+<!-- 时间插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<div  class="qualificationstc">
+	<div class="title_bj" id="appr_actual_title">添加实际注资信息</div>
+    <div class="qualifications_all">
+		<form id = "actual-form" >
+    	<ul>
+			<input name="id" type="text" style="display:none">
+			<input name="index" type="text" style="display:none">
+			<input name="code"  type="text" value="grant-actual" style="display:none">
+			<input name="projectId" type="text" style="display:none">
+			<input name="titleId"  type="text" style="display:none">
+			<input name="subCode" type="hidden"  value="">
+   			<li>
+   			        <dl class="fmdl">
+		                <dt>实际注资名称 ：</dt>
+		                <dd>
+		                	<div>
+		                    	<input class="edittxt" id="grantDetail" name="field1" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    </div> 
+		                </dd>
+		            </dl>
+   			       <dl class="fmdl">
+		                <dt>实际注资时间 ：</dt>
+		                <dd>
+		                	<div>
+		                    	<input readonly id="grantDetail" name="field2" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/>
+		                    </div> 
+		                </dd>
+		            </dl>
+	                 <dl class="fmdl">
+		                <dt>实际注资金额 ：</dt>
+		                <dd>
+		                	
+		                	<div class='moeny_all'>
+		                    	<input class=" txt " id="grantMoney" name="field3" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<span id="editMoney" class="bj_hui"></span>
+		                    	<span class='money'>万元</span>
+		                    </div> 
+	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>万元</div> 
+		                </dd>
+		            </dl>
+   			</li>
+   			
+   		</ul>
+		</form>
+    </div>
+    
+    <div class="button_affrim">
+        <a href="javascript:;"  class="register_all_affrim fl" id="save_appr_actual" >确定</a>
+        <a href="javascript:;"  class="register_all_input fr" id="cancle" data-close="close">取消</a>
+    </div>
+</div>
+<script>
+   var div;
+   $("#save_appr_actual").click(
+		   function (){
+			   var json =getToobarQueryParams("actual-form");
+			   $.get("/sop/html/operation_appr_actual_table.html", json,function(data){
+				   var index = json['index'];
+				   if(index){
+					   //编辑数据
+					   div.find("[name='field1']").text(json['field1']);
+					   div.find("[name='field2']").text(json['field2']);
+					   div.find("[name='field3']").text(json['field3']);
+					   div.find("[name='code']").text(json['code']);
+				   }else{
+					   //新增数据
+					   var o = $(data);
+					   if(json['id']){
+						   o.find("[name='id']").text(json['id']);
+					   }
+					   o.find("[name='field1']").text(json['field1']);
+					   o.find("[name='field2']").text(json['field2']);
+					   o.find("[name='field3']").text(json['field3']);
+					   o.find("[name='code']").text(json['code']);
+					   $("#appr_part").append(o);
+				   }
+				   $("#cancle").click();
+			   });
+		   }
+   );
+ 
+</script>
+<style>
+#field3-error{position:absolute;left:100px;width:100px;;}
+</style>
+

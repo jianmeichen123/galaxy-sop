@@ -147,6 +147,7 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 });
 
 //通用编辑显示
+var reportType="";
 $('div').delegate(".h_edit_btn","click",function(event){
 	var key = Date.parse(new Date());
     key = Date.parse(new Date());
@@ -161,7 +162,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	}
 	//
 	var type=id_code.split("NO")[0];
-	var reportType="";
 	switch(type){
 	   case "D":
 		  reportType="2";
@@ -589,6 +589,8 @@ function bindChangeType13(){
 
 function getDetailUrl(code)
 {
+	alert(code);
+	alert(reportType);
 	if(code == 'equity-structure')
 	{
 		return path+'/html/funcing_add_gd.html';
@@ -628,8 +630,11 @@ function getDetailUrl(code)
 	}else if(code == 'delivery-after')
 	{
 		return path+'/html/delivery_matter.jsp';
-	}else if(code == 'grant-part')
+	}else if(code == 'grant-part' || code == 'grant-actual')
 	{
+	    if(reportType == 7){
+	    	return path+'/html/operation_appr_part.html';
+	    }
 		return path+'/html/grant-part.jsp';
 	}
 	return "";
