@@ -8,7 +8,17 @@
 			$(this).closest(".h_radios").find(".text_li input").attr("disabled",true);
 		}
 	})
-
+//多选点击事件
+	$('div').delegate(".h_radios .check_label","click",function(event){
+		 $(this).toggleClass('active');
+		  var par_ul = $(this).parent("ul");
+		  if(par_ul.children(".check_label").last().hasClass("active")){
+			  par_ul.children(".text_li").find("input").attr("disabled",false);
+		  }else{
+			  par_ul.children(".text_li").find("input").attr("disabled",true);
+		  }
+		  event.stopPropagation();
+	})
 	
 	//编辑按钮
 	function typeEdit(obj){
@@ -93,6 +103,11 @@
 					if(val!="未填写"){
 						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
 					}			
+				}else if(type==18){
+					var relateId=p_box.attr("data-relate-id");
+					if(val!="未选择"){
+						$(".input_select").attr("value",val);
+					}			
 				}else if(type==13 || type==3){
 					if(titleVal){
 						var titleValList=titleVal.split(",");
@@ -170,8 +185,11 @@
 								$("table[data-title-id='"+n.relateId+"']").show();		
 								var tr_html="";
 								$.each(td_l[0],function(i,n){
-									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
-									tr_html+="<tr data-row-id=\"\" class=\"\">"+td_html+"</tr>"	;								
+									if($(this)[0].id==undefined){
+										$(this)[0].id="";
+									}
+									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"s_editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
+									tr_html+="<tr data-row-id=\""+$(this)[0].id+"\" class=\"\">"+td_html+"</tr>"	;								
 								})
 								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
 							}
@@ -184,6 +202,11 @@
 								}
 							}					
 								
+						}else if(type==14){
+							if(n.val!="未选择"){
+								$(".h_edit_txt select[data-title-id='"+n.relateId+"']").val(n.titleVal);
+							}
+							
 						}
 										
 					})
@@ -306,7 +329,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 		}else if(type==18){
 			var result_li='';
 			$.each(valueList,function(i,n){
-				result_li += "<li><a href=\"javascript:;\" data-value-code=\"code_"+i+"\"><label class=\"select_1\">"+n.content1+"</label>+<label class=\"select_2\">"+n.content2+"</label></a></li> "
+				result_li += "<li><a href=\"javascript:;\" data-value-code=\"code_"+i+"\"><label class=\"select_1\">"+n.content1+"</label> <label class=\"select_2\">"+n.content2+"</label></a></li> "
 			})
 			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
 			
@@ -429,7 +452,7 @@ function right(obj,type){
 		var selectVal = _select.attr("value");
 		var selectId = _select.attr("id");
 		var selectCode = _select.data("code");
-		if(typeof selectId == 'undefined')
+		if(selectVal == '请选择')
 		{
 			p.text('未选择');
 			p.attr("data-title-value",'');
@@ -579,8 +602,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 					_this.find("span").html(d_this.value);
 					Tfun_8(_this);
 				}else if(_type==14||_type==2||_type==12){
-					_this.find("span").html(d_this.value);
-					_this.attr("data-title-value",d_this.value_id);
+					if(d_this.value!="请选择"){
+						_this.find("span").html(d_this.value);
+						_this.attr("data-title-value",d_this.value_id);
+					}
 				}else if(_type==7){
 					_this.find("span").html("");
 					if(d_this.valueList.length<=0){
@@ -811,5 +836,67 @@ function iCheck(){
 	})
 }
 	
+//	分割————表格和图片特殊类型
 	
+function getDetailUrl(code)
+{
 	
+	alert(8)
+	if(code == 'equity-structure')
+	{
+		return '../../../html/funcing_add_gd.html';
+	}
+	else if(code == 'investor-situation')
+	{
+		return '../../../html/funcing_add_tz.html';
+	}
+	else if(code =='operation-indices')
+	{
+		return '../../../html/fincing_add_yx.html';
+	}
+	else if(code == 'valuation-reference')
+	{
+		return '../../../html/fincing_add_tl.html';
+	}
+	else if(code == 'financing-milestone')
+	{
+		return '../../../html/fincing_add_jd.html';
+	}else if (code =='team-members'){
+
+	    return '../../../html/team_compile.html';
+	}else if(code == 'share-holding')
+    {
+        return '../../../html/team_add_cgr.html';
+    }
+	return "";
+}
+	//add新增表格按钮
+	function addRow(ele)
+{
+   /*  if ( validateCGR() ) { */
+        var code = $(ele).prev().data('code');
+        $.getHtml({
+            url:"../../../html/team_compile.html",//模版请求地址
+            data:"",//传递参数
+            okback:function(){
+				/*$('#qualifications_popup_name').html('添加简历');
+				$('#qualifications_popup_name1').html('添加持股人');
+                $("#detail-form input[name='projectId']").val(projectInfo.id);
+                $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+                $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+               
+                selectContext("detail-form");
+                
+                $("#save-detail-btn").click(function(){
+                    saveForm($("#detail-form"));
+                    check_table();
+                    check_table_tr_edit();
+                });
+                $("#save_person_learning").click(function(){
+                	check_table();
+                	check_table_tr_edit();
+                });*/
+            }//模版反回成功执行
+        });
+    /* } */
+}

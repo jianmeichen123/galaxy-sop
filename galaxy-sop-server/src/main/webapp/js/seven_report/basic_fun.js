@@ -147,6 +147,7 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 });
 
 //通用编辑显示
+var reportType="";
 $('div').delegate(".h_edit_btn","click",function(event){
 	var key = Date.parse(new Date());
     key = Date.parse(new Date());
@@ -161,7 +162,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	}
 	//
 	var type=id_code.split("NO")[0];
-	var reportType="";
 	switch(type){
 	   case "D":
 		  reportType="2";
@@ -396,6 +396,32 @@ function editRow(ele)
 					ele.val(row.data(name));
 				}
 			});
+			//运营 报告嵌套表格处理
+			if(reportType == 7){
+				if(row.data("dataList"))
+				{
+					$.each(row.data("dataList"),function(){
+						 var row = this;
+						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
+							   //新增数据
+							   var o = $(data);
+							   o.find("[name='id']").text(row.id);
+							   o.find("[name='field1']").text(row.field1);
+							   o.find("[name='field2']").text(row.field2);
+							   o.find("[name='field3']").text(row.field3);
+							   o.find("[name='code']").text(row.code);
+							   $("#appr_part").append(o);
+						   });
+					});
+					$("#save_appr_part").click(function(){
+						var data = getData($("#detail-form"));
+	        		    var dataList = getDataList($("#appr_part"));
+	    	            var tr = $('table[data-title-id="'+data['titleId']+'"].editable').find('tr:eq('+data['index']+')');
+	    	    		tr.data("dataList",dataList);
+	        	        saveForm($("#detail-form"));
+				    });
+				}
+			}
 			//文本框剩余字数
 			$.each($(".team_textarea"),function(){
 				var len=$(this).val().length;
@@ -655,8 +681,11 @@ function getDetailUrl(code)
 	}else if(code == 'delivery-after')
 	{
 		return path+'/html/delivery_matter.jsp';
-	}else if(code == 'grant-part')
+	}else if(code == 'grant-part' || code == 'grant-actual')
 	{
+	    if(reportType == 7){
+	    	return path+'/html/operation_appr_part.html';
+	    }
 		return path+'/html/grant-part.jsp';
 	}
 	return "";

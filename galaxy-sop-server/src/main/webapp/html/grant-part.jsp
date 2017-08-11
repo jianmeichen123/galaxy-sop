@@ -18,7 +18,12 @@
     	<input name="subCode" type="hidden">
 	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="appr_aging">
-	         
+	                <dl class="fmdl fl_l  clearfix">
+		                <dt>计划注资金额 ：</dt>
+		                <dd>
+		                    	<input class=" txt "  name="field1" type="text" value="" placeholder="分拨"/>
+		                </dd>
+		            </dl>
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资时间 ：</dt>
 		                <dd>

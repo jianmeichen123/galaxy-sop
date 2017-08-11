@@ -371,7 +371,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 	params.deleteids = deleteids;
 
 	$("body").showLoading();
-
 	sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
 		//进行上传
 		var result = dataParam.result.status;

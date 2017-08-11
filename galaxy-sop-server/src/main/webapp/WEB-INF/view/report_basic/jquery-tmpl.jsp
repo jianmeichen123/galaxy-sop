@@ -239,7 +239,7 @@
 						</dd>
 
 					{{else type=="3"}}
-						<dt data-type="\${type}"  data-id="\${id}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
+						<dt data-type="\${type}"  data-id="\${titleId}" data-code="\${relateCode}" data-parentId="\${parentId}" data-must="\${isMust}">\${name}</dt>
 						<dd class="fl_none">
 						<ul class="h_edit_checkbox clearfix" data-type="\${type}">
 							{{each(i,valueList) valueList}}
@@ -496,7 +496,7 @@
 							{{else type=="3"}}
 								<div class="checked_div clearfix">
 									{{each(i,valueList) valueList}}
-									<dd class="border_dd" data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
+									<dd class="border_dd" data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${titleId}" data-id="\${id}" data-code="\${relateCode}">未选择</dd>
 									{{/each}}
 								</div>
 
@@ -601,7 +601,7 @@
 					<dt  data-type="\${type}" data-title-id="\${titleId}" >\${name}</dt>
 					<div class="checked_div clearfix">
 					{{each(i,valueList) valueList}}
-					 <dd class="border_dd"  data-value="\${value}" data-type="13" value="\${id}" data-title-id="\${titleId}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
+					 <dd class="border_dd"  data-value="\${value}" data-type="3" value="\${id}" data-title-id="\${titleId}" data-id="\${id}" data-code="\${relateCode}">未选择</dd>
 					{{/each}}
 					</div>
 

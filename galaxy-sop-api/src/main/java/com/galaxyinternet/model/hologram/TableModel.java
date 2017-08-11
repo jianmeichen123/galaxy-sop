@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.hologram;
 
+import java.util.List;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class TableModel extends PagableEntity {
@@ -34,7 +36,6 @@ public class TableModel extends PagableEntity {
 
 	    private String field10;
 
-	    
 		public Long getId() {
 			return id;
 		}
@@ -155,7 +156,16 @@ public class TableModel extends PagableEntity {
 			this.field10 = field10;
 		}
 	    
+	    private List<InformationListdata> dataList;
 	    
+		public List<InformationListdata> getDataList() {
+			return dataList;
+		}
+
+		public void setDataList(List<InformationListdata> dataList) {
+			this.dataList = dataList;
+		}
+
 	    
 
 
