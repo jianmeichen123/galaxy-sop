@@ -92,7 +92,7 @@ function showResultAndScoreList(relateId)
 						buildTable(this);
 					});
 					initScore(relateId);
-					Tfun_8($(".type_8"));	
+					Tfun_8($(".type_8"));
 				}
 			}
 		);
@@ -715,6 +715,8 @@ $('div').delegate(".reasonable_stock .close_tab","click",function(){
 	$(this).parents(".reasonable_stock").find("tbody").html("");
 	$(this).parents(".reasonable_stock").hide();
 })
+//新增表格
+
 //表格编辑tr方法
 function s_editRow(ele)	
 {	var code = $(ele).closest('table').data('code');
@@ -735,4 +737,28 @@ function s_editRow(ele)
 			});
 		}//模版反回成功执行	
 	});
+}
+function eva_validate(){
+	for(var i=0;i<$(".score-column").length;i++){
+		var input = $(this).find("input[type='text']");
+		var rulerMarket=input.attr("rulerMarket");
+		var name1="data-rule-eva-"+rulerMarket,
+		name2="data-msg-eva-"+rulerMarket;
+		var validate={
+				name1:"true",
+				"name":i,
+				name2:"<font color=red>*</font>只允许输入数字0~"+rulerMarket+"整数"			
+		}
+		eva_validator(rulerMarket);
+	}
+}
+function  eva_validator(data){
+	$.validator.setDefaults({
+		errorElement:'span'
+	});
+	jQuery.validator.addMethod("eva-"+data, function(value, element) {   
+		var ruler = "^[1-9]\d*$";
+		return this.optional(element) || (ruler.test(value));
+		;
+	}, "只允许输入数字0~"+data+"整数");
 }

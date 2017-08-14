@@ -583,6 +583,24 @@ $('div').delegate(".h_save_btn","click",function(event){
 				tableTr.push(_data);
 			})
 			data_list.tableList=tableTr;
+		}else if(data_type==13){
+			var infoList=[];
+			var lis=$("dt[data-title-id='"+data_list.id+"']").siblings("dd").find(".check_label.active");
+			var lisId=$("dt[data-title-id='"+data_list.id+"']").siblings("dd").find(".check_label").last().attr("data-id");
+			$(lis).each(function(){
+				var _this=$(this);
+				var info = {
+						titleId : _this.attr('data-title-id'),
+						value : _this.attr('data-id'),
+						remark:_this.text()
+					};
+				
+				if(lisId==info.value){
+					info.remark1 =$("dt[data-title-id='"+data_list.id+"']").siblings("dd").find("input[type='text']").val();
+				}
+				infoList.push(info);
+			})
+			data_list.infoMOdeList=infoList;
 		}
 		data.push(data_list);
 	})
@@ -637,6 +655,16 @@ $('div').delegate(".h_save_btn","click",function(event){
 						_this.find("span").append(a_tr);
 					}
 					income_table();
+				}else if(_type==13){
+					var valList=[];
+					$(d_this.infoMOdeList).each(function(i,n){
+						var val=n.remark;
+						if(n.remark=="其他"){
+							val=n.remark1;
+						}
+						valList.push(val);
+					})
+					_this.find("span").html(valList.join("、"));
 				}
 				
 			}
@@ -836,67 +864,3 @@ function iCheck(){
 	})
 }
 	
-//	分割————表格和图片特殊类型
-	
-function getDetailUrl(code)
-{
-	
-	alert(8)
-	if(code == 'equity-structure')
-	{
-		return '../../../html/funcing_add_gd.html';
-	}
-	else if(code == 'investor-situation')
-	{
-		return '../../../html/funcing_add_tz.html';
-	}
-	else if(code =='operation-indices')
-	{
-		return '../../../html/fincing_add_yx.html';
-	}
-	else if(code == 'valuation-reference')
-	{
-		return '../../../html/fincing_add_tl.html';
-	}
-	else if(code == 'financing-milestone')
-	{
-		return '../../../html/fincing_add_jd.html';
-	}else if (code =='team-members'){
-
-	    return '../../../html/team_compile.html';
-	}else if(code == 'share-holding')
-    {
-        return '../../../html/team_add_cgr.html';
-    }
-	return "";
-}
-	//add新增表格按钮
-	function addRow(ele)
-{
-   /*  if ( validateCGR() ) { */
-        var code = $(ele).prev().data('code');
-        $.getHtml({
-            url:"../../../html/team_compile.html",//模版请求地址
-            data:"",//传递参数
-            okback:function(){
-				/*$('#qualifications_popup_name').html('添加简历');
-				$('#qualifications_popup_name1').html('添加持股人');
-                $("#detail-form input[name='projectId']").val(projectInfo.id);
-                $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-                $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
-               
-                selectContext("detail-form");
-                
-                $("#save-detail-btn").click(function(){
-                    saveForm($("#detail-form"));
-                    check_table();
-                    check_table_tr_edit();
-                });
-                $("#save_person_learning").click(function(){
-                	check_table();
-                	check_table_tr_edit();
-                });*/
-            }//模版反回成功执行
-        });
-    /* } */
-}
