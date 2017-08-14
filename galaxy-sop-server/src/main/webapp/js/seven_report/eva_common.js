@@ -595,6 +595,20 @@ function getTalbleData()
 	
 }
 $("#save-rpt-btn").click(function(){
+	//判断是否让其进行保存
+	var editbox = $(".radioShow");
+	var edit_status = false;
+	$.each(editbox,function(){
+		console.log(!$(this).is(":hidden"))
+		if(!$(this).is(":hidden")){
+			edit_status = true;
+			return false;
+		}
+		return edit_status; 
+	})
+	if(edit_status==true){
+		alert("正在编辑无法保存");
+	}else{
 	var data = {
 		projectId: projId,
 		scoreList:	getScores(),
@@ -614,6 +628,8 @@ $("#save-rpt-btn").click(function(){
 					layer.msg(data.result.message);
 				}
 		})
+		
+}
 });
 
 //type_8  展开收起公共方法
