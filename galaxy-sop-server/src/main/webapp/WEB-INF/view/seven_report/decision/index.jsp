@@ -100,7 +100,7 @@ var path = '<%=path%>';
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	right_anchor("DNO1?reportType=3"); 
+	right_anchor("PNO1?reportType=3","seven","hide");
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'PNO1?reportType=3', null,
