@@ -191,6 +191,7 @@ var data_change_status=false;
 								}
 								$("table[data-title-id='"+n.relateId+"']").show();		
 								var tr_html="";
+								if(td_l!="[表格]"){
 								$.each(td_l[0],function(i,n){
 									if($(this)[0].id==undefined){
 										$(this)[0].id="";
@@ -198,6 +199,7 @@ var data_change_status=false;
 									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"s_editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
 									tr_html+="<tr data-row-id=\""+$(this)[0].id+"\" class=\"\">"+td_html+"</tr>"	;								
 								})
+								}
 								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
 							}
 						}else if(d_type==12){
