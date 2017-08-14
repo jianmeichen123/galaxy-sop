@@ -1864,6 +1864,7 @@ function delRow(ele)
 		var id = tr.data('id');
 
 		var sectionId =$(ele).closest('.radius').attr("data-section-id");
+		var ch_opration =$(ele).closest('.h_team_look')
         if(typeof id != 'undefined' && id>0)
         {
             //股权合理性
@@ -1871,6 +1872,9 @@ function delRow(ele)
                deletedRowIdsGq.push(id);
             }else{
                deletedRowIds.push(id);
+            }
+            if (ch_opration.hasClass("ch_opration")){
+            	
             }
         }
 		tr.remove();

@@ -1,5 +1,4 @@
 
-var data_change_status=false;
 /**
  * 加载标题
  */
@@ -36,7 +35,7 @@ $("#eva-tabs li").click(function(){
 						return false;
 					}else{
 						calcScore();
-						data_change_status=true;
+						$(".pagebox").attr("data-result",true);
 						$("#save-rpt-btn").removeClass("disabled")
 					}
 				 

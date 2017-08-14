@@ -1,5 +1,4 @@
-//判断数据是否有变化的状态值  true 改变了  false没改变
-var data_change_status=false;
+
 //单选点击事件
 	$('div').delegate(".h_radios input[type='radio']","click",function(){
 		var val = $(this).parent().text();
@@ -519,7 +518,7 @@ function right(obj,type){
 	//内容改变状态
 	var data_change=align_left.text();
 	if(data_change!=data_initial){
-		data_change_status=true;
+		$(".pagebox").attr("data-result",true);
 		$("#save-rpt-btn").removeClass("disabled")
 	}
 	
@@ -720,7 +719,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	var data_change=align_left.text();
 	if(data_change!=data_initial){
-		data_change_status=true;
+	$(".pagebox").attr("data-result",true);
 		$("#save-rpt-btn").removeClass("disabled")
 	}
 });
