@@ -722,18 +722,6 @@ $('div').delegate(".income_pic","click",function(){
 	$(".master_pic").attr("href",$(this).data("url"))
 	$('.mashLayer').show();
 })
-//图片点击弹窗
-	
-$('div').delegate(".income_pic","click",function(){
-	$('.customer_income').show();
-	var _target = $(this);
-	var  leftNum = _target.offset().left-20;
-	var  topNum = _target.offset().top-188;
-	$('.customer_income').css('left',leftNum).css('top',topNum);
-	$(".img_inner").attr("src",$(this).data("url"));
-	$(".master_pic").attr("href",$(this).data("url"))
-	$('.mashLayer').show();
-})
 //表格预览 
 function income_table(){
 	$('.income_table').unbind().click(function(){
