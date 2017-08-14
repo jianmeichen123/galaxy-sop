@@ -50,12 +50,12 @@ var data_change_status=false;
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
-			var  topNum = _this.offset().top;
+			var  topNum = _this.offset().top-$(".gapPopup").height()-129;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
-			
+			autosize(document.getElementById('myTextarea'));
 			$(obj).hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
@@ -289,16 +289,13 @@ var data_change_status=false;
 						$(this).parent("li.pic_list").remove();
 						$(".h_edit_txt .h_imgs").last().show();
 					})
-					
-					
-					
-					
-					
 				}
 				
 			}
 		})
-		
+		//表单验证
+		validate();
+		$(".ch_opration form").validate();
 		
 		
 	}
@@ -913,6 +910,4 @@ function iCheck(){
 $(window).bind('beforeunload',function(){ 
 	return '您输入的内容尚未保存，确定离开此页面吗？'; 
 	});
-
-
 

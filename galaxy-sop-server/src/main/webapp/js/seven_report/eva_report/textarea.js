@@ -1,3 +1,4 @@
+
 	/**
  * 文本框根据输入内容自适应高度
  * @param                {HTMLElement}        输入框元素
@@ -67,7 +68,8 @@ var autoTextarea = function (elem, extra, maxHeight) {
         change();
 };
 
-var textAreaList = document.getElementsByClassName('adption');
-for(var i = 0;i<textAreaList.length;i++){
-	autoTextarea(textAreaList[i]);
-}
+
+
+     /*   var text = document.getElementById("myTextarea");
+        autoTextarea(text);// 调用
+*/        

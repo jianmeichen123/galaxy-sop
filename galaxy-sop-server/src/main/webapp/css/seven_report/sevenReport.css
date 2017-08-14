@@ -479,15 +479,11 @@ textarea::input-placeholder{
 /*鏂板鍐呭===========================================*/
 /*濉┖棰樺脊绐�*/
 .gapPopup{
-	/* width: 284px; */
-	/* height: 80px; */
-	/* border: 1px solid #979797; */
+	height:auto;
 	background-color: #fff;
 	position: absolute;
 	display: none;
 	z-index: 999;
-	/* max-height:169px; */
-	/* padding-top:25px; */
 }
 .gapPopup:after{
 			content: '';
@@ -518,22 +514,24 @@ textarea::input-placeholder{
 			border-top: 18px solid #fff;
 		}
 .gapPopup textarea{
-	width: 284px;
-	 min-height: 101px;
-	/* border:1px solid #979797; */
+	width: 262px;
+	min-height: 74px;
 	border:none;
 	outline: none;
 	resize: none; 
 	max-height: 169px;
 	overflow-y:auto !important;
+	margin-top:25px;
+	padding:0px 10px;
 }
 .show_edit{
 	display:inline-block;
 	width:27px;
 	height:27px;
 	position:absolute;
-	right:224px;
-	top:126px;
+	right:225px;
+	/* top:126px; */
+	bottom:-50px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-17px -15px;
 	cursor:pointer;
