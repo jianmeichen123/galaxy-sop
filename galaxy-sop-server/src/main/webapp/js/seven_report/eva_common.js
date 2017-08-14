@@ -31,7 +31,6 @@ $("#eva-tabs li").click(function(){
 			showResultAndScoreList(relateId);
 			 //修改分数时自动计算
 			 $(".score-column select,input").change(function(){
-				 console.log($("#table_box").validate().form())
 				 if(!$("#table_box").validate().form())
 					{
 						return false;

@@ -289,16 +289,13 @@ var data_change_status=false;
 						$(this).parent("li.pic_list").remove();
 						$(".h_edit_txt .h_imgs").last().show();
 					})
-					
-					
-					
-					
-					
 				}
 				
 			}
 		})
-		
+		//表单验证
+		validate();
+		$(".ch_opration form").validate();
 		
 		
 	}
