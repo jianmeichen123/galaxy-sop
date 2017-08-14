@@ -26,7 +26,7 @@ function tabFinanChange(index){
 			$.getTabHtmlInfo({
 				url : platformUrl.toFinancingT ,
 				okback:function(){
-					right_anchor("GNO3?reportType=5","seven","hide");
+				right_anchor("GNO3?reportType=5","seven","hide");
 				}
 			});
 		}
