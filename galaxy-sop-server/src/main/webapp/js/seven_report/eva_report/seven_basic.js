@@ -196,7 +196,7 @@
 										$(this)[0].id="";
 									}
 									var td_html="<td data-field-name=\"field1\">"+$(this)[0].field1+"</td><td data-field-name=\"field2\">"+$(this)[0].field2+"</td><td data-field-name=\"opt\"><span class=\"blue\" data-btn=\"btn\" onclick=\"s_editRow(this)\">编辑</span><span class=\"blue\" data-btn=\"btn\" onclick=\"delRow(this)\">删除</span></td>";
-									tr_html+="<tr data-row-id=\""+$(this)[0].id+"\" class=\"\">"+td_html+"</tr>"	;								
+									tr_html+="<tr data-id=\""+$(this)[0].id+"\" class=\"\">"+td_html+"</tr>"	;								
 								})
 								}
 								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
