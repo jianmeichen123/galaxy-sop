@@ -173,8 +173,8 @@
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
-							<input type="text" value="" placeholder="请打分" data-rule-eva-\${scoreMax}="true" rulerMarket="\${scoreMax}">
+						<td class="score-column score-columns" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
+							<input type="text" value="" placeholder="请打分" name="\${isScore}" rulermarket="\${scoreMax}">
                             <em>(0-\${scoreMax}分)</em>
 						</td>
 					{{else isScore==4}}
@@ -182,7 +182,6 @@
 						<td class="score-column" data-relate-id="\${titleRelateId}">0</td>
 					{{/if}}
 				{{/each}}
-				
 			{{/if}}		
 		{{/each}}
 		<td rowspan="\${childList.length}" class="score-column" data-relate-id="\${id}">10</td>
@@ -327,9 +326,10 @@
 													</td>
 												{{else isScore==2}}
 												<!-- 人工打分（数值范围） -->
-													<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
-														<input type="text" value="" placeholder="请打分" data-rule-eva-\${scoreMax}="true" rulerMarket="\${scoreMax}">
-							                              <em>(0-\${scoreMax}分)</em>
+													<td class="score-column score-columns" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">
+														
+														<input type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}">
+							                            <em>(0-\${scoreMax}分)</em>
 													</td>
 												{{else isScore==4}}
 												<!-- 根据其他子项分值计算得出 -->
@@ -399,8 +399,8 @@
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
-							<input type="text" value="" placeholder="请打分" data-rule-eva-\${scoreMax}="true" rulerMarket="\${scoreMax}">
+						<td class="score-column score-columns" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
+							<input type="text" value="" placeholder="请打分"  name="\${isScore}" rulermarket="\${scoreMax}">
                               <em>(0-\${scoreMax}分)</em>
 						</td>
 					{{else isScore==4}}
@@ -425,8 +425,8 @@
 						</td>
 					{{else isScore==2}}
 					<!-- 人工打分（数值范围） -->
-						<td class="score-column" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
-							<input type="text" value="" placeholder="请打分" data-rule-eva-\${scoreMax}="true" rulerMarket="\${scoreMax}">
+						<td class="score-column score-columns" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}">
+							<input type="text" value="" placeholder="请打分" name="\${isScore}" rulermarket="\${scoreMax}">
                               <em>(0-\${scoreMax}分)</em>
 						</td>
 					{{else isScore==4}}

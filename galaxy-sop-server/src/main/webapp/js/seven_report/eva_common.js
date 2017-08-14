@@ -92,7 +92,9 @@ function showResultAndScoreList(relateId)
 						buildTable(this);
 					});
 					initScore(relateId);
-					Tfun_8($(".type_8"));
+					Tfun_8($(".type_8"));	
+					eva_validate();
+					$("#table_box").validate();
 				}
 			}
 		);
@@ -157,7 +159,6 @@ function initScore(relateId)
 function calcScore()
 {
 	var rid = $("#eva-tabs li.active").data('relateId');
-	
 	var titleData = {};
 	$(".title-value").each(function(){
 		var _this = $(this);
@@ -739,26 +740,34 @@ function s_editRow(ele)
 	});
 }
 function eva_validate(){
-	for(var i=0;i<$(".score-column").length;i++){
-		var input = $(this).find("input[type='text']");
-		var rulerMarket=input.attr("rulerMarket");
-		var name1="data-rule-eva-"+rulerMarket,
-		name2="data-msg-eva-"+rulerMarket;
-		var validate={
-				name1:"true",
-				"name":i,
-				name2:"<font color=red>*</font>只允许输入数字0~"+rulerMarket+"整数"			
-		}
-		eva_validator(rulerMarket);
+	var scores = $(".score-columns").find("input[type='text']");
+	for(var i=0;i<scores.length;i++){
+		var input = scores.eq(i);
+		var rulerMarket=input.attr("rulermarket");
+		var name=input.attr("name");
+		var name1="data-rule-eva_"+rulerMarket;
+		name2="data-msg-eva_"+rulerMarket;
+		scores.eq(i).attr("data-rule-eva_"+rulerMarket+"",true);
+		scores.eq(i).attr("name",name);
 	}
 }
-function  eva_validator(data){
-	$.validator.setDefaults({
-		errorElement:'span'
-	});
-	jQuery.validator.addMethod("eva-"+data, function(value, element) {   
-		var ruler = "^[1-9]\d*$";
-		return this.optional(element) || (ruler.test(value));
-		;
-	}, "只允许输入数字0~"+data+"整数");
-}
+jQuery.validator.addMethod("eva_10", function(value, element) {   
+	var eva_10 = /^([0-9]{0,1}|10)$/;
+	return this.optional(element) || (eva_10.test(value));
+	;
+}, "输入数字0~10的整数");
+jQuery.validator.addMethod("eva_50", function(value, element) {   
+	var eva_50 =/^([0-9]{0,1}|[0-4]{1}[0-9]{1}|50)$/;
+	return this.optional(element) || (eva_50.test(value));
+	;
+}, "只允许输入数字0~50整数");
+jQuery.validator.addMethod("eva_30", function(value, element) {   
+	var eva_30 =/^([0-9]{0,1}|[0-2]{1}[0-9]{1}|30)$/;
+	return this.optional(element) || (eva_30.test(value));
+	;
+}, "只允许输入数字0~30整数");
+jQuery.validator.addMethod("eva_70", function(value, element) {   
+	var eva_70 =/^([0-9]{0,1}|[0-6]{1}[0-9]{1}|70)$/;
+	return this.optional(element) || (eva_70.test(value));
+	;
+}, "只允许输入数字0~70整数");

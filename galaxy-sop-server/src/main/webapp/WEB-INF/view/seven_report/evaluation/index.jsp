@@ -50,6 +50,7 @@ var pageId = "project";
 				</li>
 			</ul>
 		</div>
+		<form id="table_box">
 		<table border="1" cellpadding="5" style="table-layout:fixed;word-break:break-all;">
 			<thead>
 				<tr>
@@ -66,7 +67,7 @@ var pageId = "project";
 			
 			</tbody>
 		</table>
-		
+		</form>
 		
 		<!--弹窗1  -->	
 		<div class="gapPopup">
