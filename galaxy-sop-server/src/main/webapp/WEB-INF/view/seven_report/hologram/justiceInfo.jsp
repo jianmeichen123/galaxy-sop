@@ -42,6 +42,18 @@ var deleteJSON={};
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
+					var table = $(this).find('.mb_24 table');
+					table.each(function(){
+						if($(this).find('tr').length<=1){
+							$(this).hide();
+							if($(this).parents('dl').find('dd:gt(0)').length<=0){
+								$(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+							} 
+						}
+						else{
+							$(this).show();
+						}
+					})
 				});
 				mustData(projectInfo.id,0);
 				fun_click();
@@ -97,6 +109,8 @@ var deleteJSON={};
 
 				}
 		}) 
+		//编辑表格显示隐藏
+		 check_table();
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
