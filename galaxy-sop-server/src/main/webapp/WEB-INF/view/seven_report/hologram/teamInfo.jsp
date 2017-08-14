@@ -169,7 +169,7 @@
         		var dataList = new Array();
         		$.each(sec.find("table.editable"),function(){
         			$.each($(this).find('tr:gt(0)'),function(){
-        				var row = $(this).data("obj");
+        				var row = $(this).data("person");
         				if(row.id=="")
         				{
         					row.id=null;

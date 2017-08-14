@@ -155,8 +155,10 @@
 						}else if(type==12){
 							var code=$(this).parent("p").attr("data-code");
 							data_list.code=code;
+							data_list.titleValue=titleValue;
+						}else if(type==13 || type==2){
+							data_list.titleValue=titleValue;
 						}
-						data_list.titleVal=titleValue;
 						data.push(data_list);
 					});
 					$(data).each(function(){  
@@ -171,8 +173,8 @@
 							}
 						}else if(type==2){
 							if(n.val!="未选择"){
-								if(n.titleVal){
-									$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleVal+"']").attr("checked","checked");
+								if(n.titleValue){
+									$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleValue+"']").attr("checked","checked");
 								}
 							}
 							
@@ -196,7 +198,7 @@
 						}else if(type==12){
 							if(n.val!="未选择"){
 								var  lastId=$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().prev().find("input").attr("value");
-								if(n.titleVal==lastId){
+								if(n.titleValue==lastId){
 									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").removeAttr("disabled");
 									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").val(n.val);
 								}
@@ -207,6 +209,25 @@
 								$(".h_edit_txt select[data-title-id='"+n.relateId+"']").val(n.titleVal);
 							}
 							
+						}else if(type==13){
+							if(n.val!="未选择"){
+								if(n.titleValue){
+									var titleValList=n.titleValue.split(",");
+									var valList=n.val.split("、");
+									var lastId=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']").siblings("dd").find(".check_label:last").attr("value");
+									for(var i=0;i<titleValList.length;i++){
+										var _dt=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']");
+										_dt.siblings("dd").find(".check_label[value='"+titleValList[i]+"']").addClass("active");
+										if(titleValList[i]==lastId){
+											_dt.siblings("dd").find(".text_li input").attr("disabled",false);
+											_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]);
+										}else{
+											_dt.siblings("dd").find(".text_li input").attr("disabled",true);
+											_dt.siblings("dd").find(".text_li input").val("");
+										}
+									}
+								}
+							}
 						}
 										
 					})
@@ -657,14 +678,18 @@ $('div').delegate(".h_save_btn","click",function(event){
 					income_table();
 				}else if(_type==13){
 					var valList=[];
+					var titleIdList=[];
 					$(d_this.infoMOdeList).each(function(i,n){
 						var val=n.remark;
+						var titleId=n.value;
 						if(n.remark=="其他"){
 							val=n.remark1;
 						}
 						valList.push(val);
+						titleIdList.push(titleId);
 					})
 					_this.find("span").html(valList.join("、"));
+					_this.attr("data-title-value",titleIdList.join(","));
 				}
 				
 			}
