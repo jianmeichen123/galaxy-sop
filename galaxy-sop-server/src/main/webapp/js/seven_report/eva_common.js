@@ -599,7 +599,6 @@ $("#save-rpt-btn").click(function(){
 	var editbox = $(".radioShow");
 	var edit_status = false;
 	$.each(editbox,function(){
-		console.log(!$(this).is(":hidden"))
 		if(!$(this).is(":hidden")){
 			edit_status = true;
 			return false;
@@ -607,7 +606,7 @@ $("#save-rpt-btn").click(function(){
 		return edit_status; 
 	})
 	if(edit_status==true){
-		alert("正在编辑无法保存");
+		layer.msg("正在编辑无法保存");
 	}else{
 	var data = {
 		projectId: projId,
