@@ -192,43 +192,20 @@ function beforeSave(){
 //离开页面提示
 
  $(function(){
-	/* $("#menus li a").click(function(){   //左侧导航
-		$(window).unbind('beforeunload');
-		$(this).attr("onclick","");
-		beforeSave();
-		debugger;
-		return false;
-	}); */
-	/* $(".usermsg #daiban").click(function(){
-		$(window).unbind('beforeunload');
-		beforeSave();
-		return false;
+	 $(".usermsg #daiban,.usermsg .work").click(function(){
+		 var _href=window.location.href;
+			if(_href=platformUrl.toEvalindex){
+				var result=$(".pagebox").attr("data-result");
+				if(result=="true"){
+					$(window).unbind('beforeunload');
+					beforeSave();
+					return false;
+				}else{
+					$(window).unbind('beforeunload');
+				}
+			}
 	});
-	$(".usermsg .work").click(function(){
-		$(window).unbind('beforeunload');
-		beforeSave();
-		return false;
-	});
-	$(".man_info .loginout").click(function(){
-		$(window).unbind('beforeunload');
-		beforeSave();
-		return false;
-	});
-	$(".usermsg .xingmou").click(function(){
-		$(window).unbind('beforeunload');
-		beforeSave();
-		return false;
-	}); */
-	/* $(".ritmin #top_menu a").click(function(){
-		$(window).unbind('beforeunload');
-		beforeSave();
-		return false;
-	}); */
-	/* $("#eva-tabs li").click(function(){
-		$(window).unbind('beforeunload');
-		beforeSave();
-		return false;
-	}); */
+
 }) 
 
 </script>

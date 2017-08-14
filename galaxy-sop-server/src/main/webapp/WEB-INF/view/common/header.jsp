@@ -112,28 +112,38 @@ if(isContainResourceByMark("task_into_view")){
 	}
  }
  function logout(){
-		$.ajax({
-			url : platformUrl.logout,
-			type : "POST",
-			dataType : "json",
-			contentType : "application/json; charset=UTF-8",
-			async : false,
-			beforeSend : function(xhr) {
-				if (sessionId) {
-					xhr.setRequestHeader("sessionId", sessionId);
-				}
-				if(userId){
-					xhr.setRequestHeader("guserId", userId);
-				}
-			},
-			error : function(request) {
-			},
-			success : function(data) {
-				if(data.result.status=="OK"){
-					location.href = platformUrl.toLoginPage;
-				}
+	 var _href=window.location.href;
+		if(_href=platformUrl.toEvalindex){
+			var result=$(".pagebox").attr("data-result");
+			if(result=="true"){
+				$(window).unbind('beforeunload');
+				beforeSave();
+			}else{
+				$(window).unbind('beforeunload');
+				$.ajax({
+					url : platformUrl.logout,
+					type : "POST",
+					dataType : "json",
+					contentType : "application/json; charset=UTF-8",
+					async : false,
+					beforeSend : function(xhr) {
+						if (sessionId) {
+							xhr.setRequestHeader("sessionId", sessionId);
+						}
+						if(userId){
+							xhr.setRequestHeader("guserId", userId);
+						}
+					},
+					error : function(request) {
+					},
+					success : function(data) {
+						if(data.result.status=="OK"){
+							location.href = platformUrl.toLoginPage;
+						}
+					}
+				}); 
 			}
-		}); 
+		}
 } 
 /*  function panhhr(){
 		if(roleId=='1'&&roleId!=='2'&&roleId=='3'){
