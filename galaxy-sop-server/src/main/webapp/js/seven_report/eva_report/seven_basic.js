@@ -242,7 +242,7 @@
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).attr("data-relate-id");
-						var str=$(this).attr("data-content");
+						var str=$(this).attr("data-remark");
 						if(str !=undefined && str.indexOf("<sitg>")>-1){
 							var str=str.split("<sitg>");
 							var inputsValueList=[];
@@ -670,7 +670,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						str1=str1.replace(/<\/sitg>/g,'）');
 					}
 					dds.html(d_this.remark1==undefined ?"未填写":str1);
-					dds.attr("data-content",str);
+					dds.attr("data-remark",str);
 				}else if(_type==10){
 					_this.find("span").html("");
 					if(d_this.tableList.length<=0){
