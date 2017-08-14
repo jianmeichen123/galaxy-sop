@@ -31,8 +31,8 @@ position:absolute;
 </head>
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
-	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backList()">创投项目</a>>
-	<a id="project_name_title" href="#" onclick="backProject()"></a>><span class="report_type"></span>
+	<div class="new_tit_a" id="top_menu"><a href="javascript:;" onclick="backList()">创投项目</a>>
+	<a id="project_name_title" href="javascript:;" onclick="backProject()"></a>><span class="report_type"></span>
 	</div>
     	
     	<div class="new_tit_b">
@@ -95,15 +95,35 @@ $(function(){
 	
 } */
 function backProject(){  //返回项目详情页
-	var url=getCookieValue("back_url");
-	if(url!=""){
-		deleteCookie("back_url","/");
-		window.location.href=url;
+	var _href=window.location.href;
+	if(_href=platformUrl.toEvalindex){
+		var result=$(".pagebox").attr("data-result");
+		if(result=="true"){
+			$(window).unbind('beforeunload');
+			beforeSave();
+		}else{
+			$(window).unbind('beforeunload');
+			var url=getCookieValue("back_url");
+			if(url!=""){
+				deleteCookie("back_url","/");
+				window.location.href=url;
+			}
+		}
 	}
 }
 function backList(){   //返回项目列表页
-	var url=Constants.sopEndpointURL+"/galaxy/mpl";
-	forwardWithHeader(url);
+	var _href=window.location.href;
+	if(_href=platformUrl.toEvalindex){
+		var result=$(".pagebox").attr("data-result");
+		if(result=="true"){
+			$(window).unbind('beforeunload');
+			beforeSave();
+		}else{
+			$(window).unbind('beforeunload');
+			var url=Constants.sopEndpointURL+"/galaxy/mpl";
+			forwardWithHeader(url);
+		}
+	}
 }
 </script>
 
