@@ -138,14 +138,16 @@
 			}else{  //大弹窗编辑回显
 				if(type!=16 && type!=7){
 					var data=[];
-					var dom=$(obj).siblings(".align_left").find("span")
+					var dom=$(obj).siblings(".align_left").find("span");
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).parent("p").attr("data-relate-id");
 						var titleValue=$(this).parent("p").attr("data-title-value");
 						var val=$(this).text();
+						var d_type=$(this).parent("p").attr("data-type");
 						data_list.relateId=relateId;
 						data_list.val=val;
+						data_list.d_type=d_type;
 						if(type==10){
 							var table_list=[];
 							p_box.find(".income_table").each(function(){
@@ -161,24 +163,26 @@
 						}
 						data.push(data_list);
 					});
+					
 					$(data).each(function(){  
 						var n=$(this)[0];
-						if(type==1){
+						var d_type=n.d_type;
+						if(d_type==1){
 							if(n.val!="未填写"){
 								$("input[data-title-id='"+n.relateId+"']").val(n.val);
 							}
-						}else if(type==8){
+						}else if(d_type==8){
 							if(n.val!="未填写"){
 								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
 							}
-						}else if(type==2){
+						}else if(d_type==2){
 							if(n.val!="未选择"){
 								if(n.titleValue){
 									$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleValue+"']").attr("checked","checked");
 								}
 							}
 							
-						}else if(type==10){
+						}else if(d_type==10){
 							var td_l = n.val;
 							if(td_l!="未填写"){														
 								if(td_l.length<=0){
@@ -195,8 +199,9 @@
 								})
 								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
 							}
-						}else if(type==12){
+						}else if(d_type==12){
 							if(n.val!="未选择"){
+								$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li input[type='radio'][value='"+n.titleValue+"']").attr("checked","checked");
 								var  lastId=$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().prev().find("input").attr("value");
 								if(n.titleValue==lastId){
 									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").removeAttr("disabled");
@@ -204,12 +209,12 @@
 								}
 							}					
 								
-						}else if(type==14){
+						}else if(d_type==14){
 							if(n.val!="未选择"){
 								$(".h_edit_txt select[data-title-id='"+n.relateId+"']").val(n.titleVal);
 							}
 							
-						}else if(type==13){
+						}else if(d_type==13){
 							if(n.val!="未选择"){
 								if(n.titleValue){
 									var titleValList=n.titleValue.split(",");
