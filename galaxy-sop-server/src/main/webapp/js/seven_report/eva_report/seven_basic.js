@@ -1,3 +1,5 @@
+//判断数据是否有变化的状态值  true 改变了  false没改变
+var data_change_status=false;
 //单选点击事件
 	$('div').delegate(".h_radios input[type='radio']","click",function(){
 		var val = $(this).parent().text();
@@ -28,8 +30,7 @@
 		var _td = _this.closest('td');
 		var e_type = _this.attr("e-type");
 		var radioShow = _td.find('.radioShow');
-		$(obj).removeAttr("parent_dom");		
-		console.log(e_type);
+		$(obj).removeAttr("parent_dom");
 		if(e_type=="inside"){
 			//内部编辑
 			//编辑数据请求
@@ -49,7 +50,7 @@
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
-			var  topNum = _this.offset().top-$(".gapPopup").height()-22;
+			var  topNum = _this.offset().top;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
@@ -407,6 +408,8 @@ function right(obj,type){
 	//raido消失
 	var other =$(obj).parent().siblings(".radioShow").find(".others");
 	var align_left = $(obj).parent().parent().find(".align_left");
+	//内容初始值
+	var data_initial = align_left.text();
 	//取值判断
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
@@ -514,6 +517,13 @@ function right(obj,type){
 		afterTitleSaved();
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
+	//内容改变状态
+	var data_change=align_left.text();
+	if(data_change!=data_initial){
+		data_change_status=true;
+		$("#save-rpt-btn").removeClass("disabled")
+	}
+	
 }
 
 
@@ -532,6 +542,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	var array_p = align_left.find("p");
 	var form = $(this).parents(".ch_opration").find("form");
 	var data=[];
+	var data_initial=align_left.text();
 	//获取保存的的数据
 	$.each(form.find(".mb_16"),function(i,n){
 		var data_list={};
@@ -708,6 +719,11 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$(".mashLayer").hide();
 	event.stopPropagation();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
+	var data_change=align_left.text();
+	if(data_change!=data_initial){
+		data_change_status=true;
+		$("#save-rpt-btn").removeClass("disabled")
+	}
 });
 	
 //div模拟select下拉框
