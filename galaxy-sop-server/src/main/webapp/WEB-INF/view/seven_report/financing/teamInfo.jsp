@@ -41,7 +41,7 @@
 		</div>
 	</div>
 <jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
-<script src="<%=path%>/js/hologram/team_pop.js"></script>
+<%-- <script src="<%=path%>/js/hologram/team_pop.js"></script> --%>
 <script type="text/javascript">
 var path = '<%=path%>';
 createMenus(5);
@@ -50,7 +50,7 @@ $(function() {
 	//right_anchor("DNO3?reportType=2");
 })
 	//整体页面显示
-    sendGetRequest(platformUrl.queryAllTitleValues + 'DNO3?reportType=2', null,
+    sendGetRequest(platformUrl.queryAllTitleValues + 'GNO3?reportType=5', null,
     	function(data) {
     		var result = data.result.status;
     		if (result == 'OK') {

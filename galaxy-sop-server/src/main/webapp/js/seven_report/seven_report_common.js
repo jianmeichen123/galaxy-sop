@@ -141,6 +141,7 @@ function countChar(textareaName,spanName,maxLimit){
    			  break;
    	     case "G":
    			  reportType="5";
+   			 break;
    	     case "P":
 			  reportType="3";
    			  break;
