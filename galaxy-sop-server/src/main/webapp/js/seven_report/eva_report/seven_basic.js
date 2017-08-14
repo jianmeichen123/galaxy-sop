@@ -620,7 +620,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 				tableTr.push(_data);
 			})
 			data_list.tableList=tableTr;
-			data_list.deletedRowIds=deletedRowIds;
 		}else if(data_type==13){
 			var infoList=[];
 			var lis=$("dt[data-title-id='"+data_list.id+"']").siblings("dd").find(".check_label.active");
@@ -689,8 +688,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						_this.find("span").html("未填写");
 					}else{
 						var _data = JSON.stringify(d_this.tableList);
-						var  updata = JSON.stringify(d_this);
-						var a_tr="<em class=\"income_table\" data-updata=\'"+updata+"\' data-tr=\'"+_data+"\'>[表格]</em>"
+						var a_tr="<em class=\"income_table\" data-tr=\'"+_data+"\'>[表格]</em>"
 						_this.find("span").append(a_tr);
 					}
 					income_table();
