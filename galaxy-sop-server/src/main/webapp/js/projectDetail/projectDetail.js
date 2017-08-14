@@ -21,9 +21,9 @@ $(function(){
 				case 7: initTabPostMeeting();   break;  //标签7:运营分析
 				case 8: initTabSopFile(projectId);   break;  //标签8:项目文档
 				case 9: initTabOperLog();   break;  //标签9:操作日志
-				case 10:initTabInfomation();   break;  //标签10:全息图
+				/*case 10:initTabInfomation();   break;  //标签10:全息图
 				case 11:laobanTest();   break;  //标签11:老板测试
-				default: return false;
+*/				default: return false;
 			}
 			
 			//右侧刷新	
