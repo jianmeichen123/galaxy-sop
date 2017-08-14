@@ -179,11 +179,16 @@ function beforeSave(){
 				$("a[data-close=\"close\"]").click();
 			});
 			$("#leave").click(function(){
-				backList();
+				//点击直接离开跳到项目列表页
+				var url=Constants.sopEndpointURL+"/galaxy/mpl";
+				forwardWithHeader(url);
 			});
 			$("#save").click(function(){
+				//点击保存，保存数据，并跳到项目列表页
+				$("a[data-close=\"close\"]").click();
 				$("#save-rpt-btn").click();
-				backList();
+				var url=Constants.sopEndpointURL+"/galaxy/mpl";
+				forwardWithHeader(url);
 			})
 		}//模版反回成功执行	
 	});
