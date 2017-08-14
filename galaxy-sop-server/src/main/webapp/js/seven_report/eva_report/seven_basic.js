@@ -583,6 +583,24 @@ $('div').delegate(".h_save_btn","click",function(event){
 				tableTr.push(_data);
 			})
 			data_list.tableList=tableTr;
+		}else if(data_type==13){
+			var infoList=[];
+			var lis=$("dt[data-title-id='"+data_list.id+"']").siblings("dd").find(".check_label.active");
+			var lisId=$("dt[data-title-id='"+data_list.id+"']").siblings("dd").find(".check_label").last().attr("data-id");
+			$(lis).each(function(){
+				var _this=$(this);
+				var info = {
+						titleId : _this.attr('data-title-id'),
+						value : _this.attr('data-id'),
+						remark:_this.text()
+					};
+				
+				if(lisId==info.value){
+					info.remark1 =$("dt[data-title-id='"+data_list.id+"']").siblings("dd").find("input[type='text']").val();
+				}
+				infoList.push(info);
+			})
+			data_list.infoMOdeList=infoList;
 		}
 		data.push(data_list);
 	})
@@ -637,6 +655,16 @@ $('div').delegate(".h_save_btn","click",function(event){
 						_this.find("span").append(a_tr);
 					}
 					income_table();
+				}else if(_type==13){
+					var valList=[];
+					$(d_this.infoMOdeList).each(function(i,n){
+						var val=n.remark;
+						if(n.remark=="其他"){
+							val=n.remark1;
+						}
+						valList.push(val);
+					})
+					_this.find("span").html(valList.join("、"));
 				}
 				
 			}
