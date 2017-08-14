@@ -68,7 +68,6 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
 			var entity = data.entity;
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
-			customBuilder();
 			$(".section").each(function(){
 				$(this).showResults(true);
 				var table = $(this).find('.mb_24 table');

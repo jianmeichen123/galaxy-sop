@@ -12,16 +12,21 @@
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
-<title>项目详情</title>
+<title>项目详情66666</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
-<script src="<%=path%>/js/seven_report/operation/operation_common.js"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+
+<!-- 时间插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
 </head>
 <body>
 <!-- <ul class="h_navbar clearfix">
@@ -50,25 +55,24 @@
 
 
 <script type="text/javascript">
-var path = '<%=path%>';
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	//right_anchor("DNO3?reportType=2");
+	//right_anchor("DNO2?reportType=2");
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'ONO9?reportType=7', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {
 			var entity = data.entity;
 			$("#page_list").tmpl(entity).appendTo('#page_all');
 			picData(projectInfo.id,1);
-			customBuilder();
 			$(".section").each(function(){
 				$(this).showResults(true);
 				var table = $(this).find('.mb_24 table');
 				table.each(function(){
+                    resizetable($(this))
 					if($(this).find('tr').length<=1){
 						$(this).hide();
 						if($(this).parents('dl').find('dd:gt(0)').length<=0){
@@ -93,7 +97,6 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'ONO9?reportType=7', null,
 		}
 
 })
-
 </script>
 </body>
 

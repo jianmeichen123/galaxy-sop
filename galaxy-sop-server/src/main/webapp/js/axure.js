@@ -700,8 +700,6 @@
 					url:opts.url,
 					beforeSend : function(xhr) {
 						/**清楚浏览器缓存**/
-						xhr.setRequestHeader("If-Modified-Since","0"); 
-						xhr.setRequestHeader("Cache-Control","no-cache");
 						if (sessionId) {
 							xhr.setRequestHeader("sessionId", sessionId);
 						}
