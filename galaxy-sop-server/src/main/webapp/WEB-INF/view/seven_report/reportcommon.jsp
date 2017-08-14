@@ -96,7 +96,7 @@ $(function(){
 } */
 function backProject(){  //返回项目详情页
 	var _href=window.location.href;
-	if(_href=platformUrl.toEvalindex || _href=platformUrl.toPreEva){
+	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){
 			$(window).unbind('beforeunload');
@@ -113,7 +113,7 @@ function backProject(){  //返回项目详情页
 }
 function backList(){   //返回项目列表页
 	var _href=window.location.href;
-	if(_href=platformUrl.toEvalindex || _href=platformUrl.toPreEva){
+	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){
 			$(window).unbind('beforeunload');

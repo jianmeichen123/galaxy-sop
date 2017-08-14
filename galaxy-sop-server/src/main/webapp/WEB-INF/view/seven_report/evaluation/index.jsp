@@ -194,7 +194,7 @@ function beforeSave(){
  $(function(){
 	 $(".usermsg #daiban,.usermsg .work").click(function(){
 		 var _href=window.location.href;
-			if(_href=platformUrl.toEvalindex  || _href=platformUrl.toPreEva){
+			if(_href=platformUrl.toEvalindex){
 				var result=$(".pagebox").attr("data-result");
 				if(result=="true"){
 					$(window).unbind('beforeunload');

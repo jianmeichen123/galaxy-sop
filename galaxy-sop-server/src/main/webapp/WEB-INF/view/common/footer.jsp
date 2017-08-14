@@ -6,7 +6,7 @@
 
 function menu_to_view(url,name){
 	var _href=window.location.href;
-	if(_href=platformUrl.toEvalindex || _href=platformUrl.toPreEva){
+	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){
 			$(window).unbind('beforeunload');
