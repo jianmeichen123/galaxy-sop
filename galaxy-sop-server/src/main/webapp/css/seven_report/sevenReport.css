@@ -848,4 +848,9 @@ select::-ms-expand { display: none; }
 {
 	background-position: -100.2px -5px !important;
 }
-
+.score-columns .error{
+	display:block;
+	color:red;
+	text-align:left;
+    line-height: 1.5;
+} 

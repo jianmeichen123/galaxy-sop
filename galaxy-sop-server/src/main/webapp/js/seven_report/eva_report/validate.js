@@ -189,3 +189,38 @@ jQuery.validator.addMethod("percentage", function(value, element) {
 	var percentage = /^\d+(\.\d{2})?$/;
 	return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
 }, "只能是0～100的整数和两位小数"); 
+
+
+//打分报告正则
+function eva_validate(){
+	var scores = $(".score-columns").find("input[type='text']");
+	for(var i=0;i<scores.length;i++){
+		var input = scores.eq(i);
+		var rulerMarket=input.attr("rulermarket");
+		var name=input.parent().data("relate-id");
+		var name1="data-rule-eva_"+rulerMarket;
+		name2="data-msg-eva_"+rulerMarket;
+		scores.eq(i).attr("data-rule-eva_"+rulerMarket+"",true);
+		scores.eq(i).attr("name",name);
+	}
+}
+jQuery.validator.addMethod("eva_10", function(value, element) {   
+	var eva_10 = /^([0-9]{0,1}|10)$/;
+	return this.optional(element) || (eva_10.test(value));
+	;
+}, "输入数字0~10的整数");
+jQuery.validator.addMethod("eva_50", function(value, element) {   
+	var eva_50 =/^([0-9]{0,1}|[0-4]{1}[0-9]{1}|50)$/;
+	return this.optional(element) || (eva_50.test(value));
+	;
+}, "只允许输入数字0~50整数");
+jQuery.validator.addMethod("eva_30", function(value, element) {   
+	var eva_30 =/^([0-9]{0,1}|[0-2]{1}[0-9]{1}|30)$/;
+	return this.optional(element) || (eva_30.test(value));
+	;
+}, "只允许输入数字0~30整数");
+jQuery.validator.addMethod("eva_70", function(value, element) {   
+	var eva_70 =/^([0-9]{0,1}|[0-6]{1}[0-9]{1}|70)$/;
+	return this.optional(element) || (eva_70.test(value));
+	;
+}, "只允许输入数字0~70整数");
