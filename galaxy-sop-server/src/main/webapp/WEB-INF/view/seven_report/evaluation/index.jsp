@@ -170,6 +170,67 @@ function getDetailUrl(code)
 	}
 	return "";
 }
+function beforeSave(){
+	$.getHtml({
+		url:'<%=path%>/html/beforeSave.html',  
+		data:"",//传递参数
+		okback:function(){
+			$("#cancel").click(function(){  //取消
+				$("a[data-close=\"close\"]").click();
+			});
+			$("#leave").click(function(){
+				backList();
+			});
+			$("#save").click(function(){
+				$("#save-rpt-btn").click();
+				backList();
+			})
+		}//模版反回成功执行	
+	});
+	return false;
+}
+//离开页面提示
+
+ $(function(){
+	/* $("#menus li a").click(function(){   //左侧导航
+		$(window).unbind('beforeunload');
+		$(this).attr("onclick","");
+		beforeSave();
+		debugger;
+		return false;
+	}); */
+	/* $(".usermsg #daiban").click(function(){
+		$(window).unbind('beforeunload');
+		beforeSave();
+		return false;
+	});
+	$(".usermsg .work").click(function(){
+		$(window).unbind('beforeunload');
+		beforeSave();
+		return false;
+	});
+	$(".man_info .loginout").click(function(){
+		$(window).unbind('beforeunload');
+		beforeSave();
+		return false;
+	});
+	$(".usermsg .xingmou").click(function(){
+		$(window).unbind('beforeunload');
+		beforeSave();
+		return false;
+	}); */
+	/* $(".ritmin #top_menu a").click(function(){
+		$(window).unbind('beforeunload');
+		beforeSave();
+		return false;
+	}); */
+	/* $("#eva-tabs li").click(function(){
+		$(window).unbind('beforeunload');
+		beforeSave();
+		return false;
+	}); */
+}) 
+
 </script>
 
 </html>

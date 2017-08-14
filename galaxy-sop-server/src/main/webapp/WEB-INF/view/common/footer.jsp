@@ -5,10 +5,25 @@
 <script>
 
 function menu_to_view(url,name){
-	if(name == '立项会' || name == '投决会' || name == 'CEO评审会'){
-		deleteCookie("meetingSheduleList","/");
+	var _href=window.location.href;
+	if(_href=platformUrl.toEvalindex){
+		var result=$(".pagebox").attr("data-result");
+		if(result=="true"){
+			$(window).unbind('beforeunload');
+			beforeSave();
+		}else{
+			$(window).unbind('beforeunload');
+			if(name == '立项会' || name == '投决会' || name == 'CEO评审会'){
+				deleteCookie("meetingSheduleList","/");
+			}
+			window.location.href = url;
+		}
+	}else{
+		if(name == '立项会' || name == '投决会' || name == 'CEO评审会'){
+			deleteCookie("meetingSheduleList","/");
+		}
+		window.location.href = url;
 	}
-	window.location.href = url;
 }
 
 function createMenus(current){
