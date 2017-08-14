@@ -893,4 +893,7 @@ function iCheck(){
 		$(this).parents('.radioShow').find('.others_text').hide();
 	})
 }
-	
+//离开页面提示
+$(window).bind('beforeunload',function(){ 
+	return '您输入的内容尚未保存，确定离开此页面吗？'; 
+	});
