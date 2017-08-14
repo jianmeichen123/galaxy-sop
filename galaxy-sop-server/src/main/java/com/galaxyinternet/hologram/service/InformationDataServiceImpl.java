@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.ScoreInfoDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
 import com.galaxyinternet.model.hologram.FixedTableModel;
@@ -249,11 +251,46 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			return;
 		}
-		List<InformationScore> scoreList = data.getScoreList();
+		final List<InformationScore> scoreList = data.getScoreList();
 		Set<Long> relateIds = new HashSet<>();
 		for(InformationScore item : scoreList)
 		{
 			relateIds.add(item.getRelateId());
+		}
+		if(relateIds.size() >0)
+		{
+			InformationScore query = new InformationScore();
+			query.setRelateIds(relateIds);
+			scoreInfoDao.deleteScoreBatch(query);
+			scoreInfoDao.insertScoreBatch(scoreList);
+			
+			ExecutorService pool = GalaxyThreadPool.getExecutorService();
+			pool.submit(new Runnable(){
+				@Override
+				public void run()
+				{
+					copyScore(scoreList);
+				}
+			});
+		}
+	}
+	/**
+	 * 评测报告、初评报告分数保持一致
+	 * @param data
+	 */
+	public void copyScore(List<InformationScore> scoreList)
+	{
+		Set<Long> relateIds = new HashSet<>();
+		for(InformationScore item : scoreList)
+		{
+			Long fromId = item.getRelateId();
+			Long targetId = fromId+8000L;
+			if(fromId.intValue() > 8000)
+			{
+				targetId = fromId-8000L;
+			}
+			item.setRelateId(targetId);
+			relateIds.add(targetId);
 		}
 		if(relateIds.size() >0)
 		{
