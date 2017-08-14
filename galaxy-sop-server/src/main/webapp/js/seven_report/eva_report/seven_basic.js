@@ -12,7 +12,7 @@ var data_change_status=false;
 	})
 //多选点击事件
 	$('div').delegate(".h_radios .check_label","click",function(event){
-		 $(this).toggleClass('active');
+			 $(this).toggleClass('active');
 		  var par_ul = $(this).parent("ul");
 		  if(par_ul.children(".check_label").last().hasClass("active")){
 			  par_ul.children(".text_li").find("input").attr("disabled",false);
