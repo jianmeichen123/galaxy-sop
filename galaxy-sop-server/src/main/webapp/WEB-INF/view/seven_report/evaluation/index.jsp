@@ -45,8 +45,8 @@ var pageId = "project";
 				<li class="test_top_first">项目综合测评得分:<span id="total-score">0</span></li>
 				<li><font id="part-title-name">项目评测</font>得分:<span id="part-score">0</span></li>
 				<li>权重:<span id="part-weight" >100%</span></li>
-				<li class="test_top_last disabled" id="save-rpt-btn">
-					<em>保存</em>
+				<li class="test_top_last" id="save-rpt-btn">
+					<em class="disabled">保存</em>
 				</li>
 			</ul>
 		</div>

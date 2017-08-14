@@ -521,7 +521,7 @@ function right(obj,type){
 	var data_change=align_left.text();
 	if(data_change!=data_initial){
 		$(".pagebox").attr("data-result",true);
-		$("#save-rpt-btn").removeClass("disabled")
+		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	
 }
