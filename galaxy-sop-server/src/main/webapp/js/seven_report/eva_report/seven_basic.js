@@ -456,7 +456,9 @@ function right(obj,type){
 		}
 			
 	}else if(type=="textarea"){
-		p = $("span[parent_dom='show']").parent().find(".align_left").find('p');
+		var align_left = $("span[parent_dom='show']").parent().find(".align_left");
+		p = align_left.find('p');
+		var data_initial = p.text();
 		var val = $(obj).parent().parent().find("textarea").val();
 		if(val == null || val.length == 0)
 		{
