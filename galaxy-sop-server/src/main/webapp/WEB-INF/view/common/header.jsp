@@ -113,7 +113,7 @@ if(isContainResourceByMark("task_into_view")){
  }
  function logout(){
 	 var _href=window.location.href;
-		if(_href=platformUrl.toEvalindex){
+		if(_href=platformUrl.toEvalindex || _href=platformUrl.toPreEva){
 			var result=$(".pagebox").attr("data-result");
 			if(result=="true"){
 				$(window).unbind('beforeunload');
