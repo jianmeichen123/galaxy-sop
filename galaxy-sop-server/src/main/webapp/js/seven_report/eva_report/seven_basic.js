@@ -894,6 +894,7 @@ $('.h_cancel_btn').click(function(){
 	$('.reasonable_stock').hide();
 	$('.customer_income').hide();
 	$('.ch_income_evaluation').hide();
+	deletedRowIds=[];
 })
 //radio checkbox 插件 渲染方法
 function iCheck(){

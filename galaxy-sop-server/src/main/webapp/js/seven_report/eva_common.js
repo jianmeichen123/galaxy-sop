@@ -639,6 +639,7 @@ $("#save-rpt-btn").click(function(){
 				if (result == 'OK') {
 					var relateId = $("#eva-tabs li.active").data('relateId');
 					showResultAndScoreList(relateId);
+					deletedRowIds=[];
 					layer.msg('保存成功');
 				} 
 				else 
