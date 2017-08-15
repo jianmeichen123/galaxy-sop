@@ -14,6 +14,7 @@
 <link href="<%=path %>/css/seven_report/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/skins/all.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/jquery.mCustomScrollbar.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
 </script>
@@ -155,7 +156,8 @@ var projId="${projectId}";
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>	
-<script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>	
+<script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>
+<script src="<%=path%>/js/seven_report/eva_report/jquery.mCustomScrollbar.min.js"></script>	
 <!-- 时间插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
