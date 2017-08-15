@@ -447,12 +447,7 @@ function right(obj,type){
 				content.push(val_text);
 			});
 			p.html(content.join('、'));		
-			p.attr("data-title-value",values.join(','));			
-			var _val_id = p.attr("data-title-value");
-			if(_val_id!=""){
-				_val_id=_val_id+",";
-			}
-			p.attr("data-title-value",_val_id);
+			p.attr("data-title-value",values.join(','));
 		}
 			
 	}else if(type=="textarea"){
@@ -610,9 +605,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 		}else if(data_type==10){
 			var tableTr=[];
 			var tr_list = $(this).find("tr");
-			tr_list.splice(0,1)
-			if (tr_list.length<1){return;}
+			tr_list.splice(0,1);			
 			var tab_lengthaf=tr_list.length;
+			if (tab_lengthaf.length<1){return;}
 			var tab_lengthbf=0;
 			if(align_left.find("em.income_table").data("tr")!=undefined){
 				tab_lengthbf=align_left.find("em.income_table").data("tr").length;

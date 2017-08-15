@@ -364,11 +364,6 @@ function buildResult(title)
 		});
 		_ele.html(content.join('、')); 
 		_ele.attr("data-title-value",values.join(','));
-		var _val_id =_ele.attr("data-title-value");
-		if(_val_id!=""){
-			_val_id=_val_id+",";
-		}
-		_ele.attr("data-title-value",_val_id);
 		_ele.attr("data-remark",remark);
 	}
 	//一个标题带两个文本域、
@@ -495,6 +490,7 @@ function getValues()
 		{
 			if(typeof value != 'undefined')
 			{
+				value=value+","
 				var values = value.split(',');
 				values.pop();
 				$.each(values,function(i,val){
