@@ -637,6 +637,8 @@ $("#save-rpt-btn").click(function(){
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
+					var relateId = $("#eva-tabs li.active").data('relateId');
+					showResultAndScoreList(relateId);
 					layer.msg('保存成功');
 				} 
 				else 
