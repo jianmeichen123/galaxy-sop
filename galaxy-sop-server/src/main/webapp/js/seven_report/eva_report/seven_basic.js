@@ -71,7 +71,14 @@
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
-			$('.ch_opration').show();			
+			$('.ch_opration').show();
+			//!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))
+			$(".ch_opration").mCustomScrollbar({
+						/*autoHideScrollbar:true,*/
+						theme:"light-thin"
+			});
+				
+			
 		}
 		//特殊处理项目评测内的刚需和痛点
 		if(id_code=="ENO1_1_4"){
