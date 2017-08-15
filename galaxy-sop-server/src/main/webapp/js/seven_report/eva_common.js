@@ -777,6 +777,10 @@ function s_editRow(ele)
 				var _td=row.find("td[data-field-name='"+name+"']");
 				_ele.val(_td.text());
 			});
+			$("#detail-form input[name='index']").val(row.index());
+			$("#save-detail-btn").click(function(){
+				saveForm($("#detail-form"));
+			});
 		}//模版反回成功执行	
 	});
 }
