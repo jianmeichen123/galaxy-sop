@@ -155,7 +155,6 @@ var projId="${projectId}";
 <script src="<%=path%>/js/seven_report/eva_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>	
-<script src="<%=path%>/js/seven_report/eva_report/autosize.js"></script>	
 <!-- 时间插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
