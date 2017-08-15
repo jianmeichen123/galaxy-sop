@@ -612,8 +612,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var tr_list = $(this).find("tr");
 			tr_list.splice(0,1)
 			if (tr_list.length<1){return;}
-			var tab_lengthaf=tr_list.length
-			var tab_lengthbf=align_left.find("em.income_table").data("tr").length;
+			var tab_lengthaf=tr_list.length;
+			var tab_lengthbf=0;
+			if(align_left.find("em.income_table").data("tr")!=undefined){
+				tab_lengthbf=align_left.find("em.income_table").data("tr").length;
+			}
+			if
 			if(tab_lengthaf!=tab_lengthbf){
 				$(".pagebox").attr("data-result",true);
 				$("#save-rpt-btn em").removeClass("disabled")
