@@ -3395,21 +3395,34 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .conference_all .wid_2 input,.conference_all .wid_2 textarea,.conference_all .wid_2 select{border:0;width:auto;padding:0;}
 .conference_all .wid dt{width:auto}
 .before_save_tc{
-	width:450px;
+	width:460px;
 }
 .before_save_tc .con{
 	padding-top:70px;
 	text-align:center;
 	margin-bottom:60px;
 }
-.before_save_tc .btn{
-	padding:5px 15px;
+.before_save_tc .con .tips{
+	position:relative;
 }
-.before_save_tc .cancel{
-	margin:0 30px;
+.before_save_tc .deltc{
+	width:auto;
+}
+.before_save_tc .deltc .tips_d{
+	top:0;
+	left:85px;
+}
+.before_save_tc .btn{
+	padding:5px 0;
 }
 .before_save_tc .button_affrim{
-	width:270px;
+	width:400px;
+}
+.before_save_tc .button_affrim .bluebtn{
+	margin-left:130px;
+}
+.before_save_tc .before_save_btn .btn{
+	width:80px;
 }
 .test_top_last .disabled{background:#9f9f9f !important;}
 .h_edit_txt .tmpl_con{margin-right:10px;}
