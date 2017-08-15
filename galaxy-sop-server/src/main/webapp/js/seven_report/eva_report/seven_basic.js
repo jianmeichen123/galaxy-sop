@@ -54,7 +54,7 @@
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
-			autosize(document.getElementById('myTextarea'));
+			//autosize(document.getElementById('myTextarea'));
 			$(obj).hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
