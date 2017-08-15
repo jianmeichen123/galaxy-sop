@@ -317,18 +317,17 @@ $('div').delegate(".h_edit_btn","click",function(event){
 //
 function resizetable(table){
     var dict_map = {}
-    var fields_json = {
+  /*  var fields_json = {
         "finance-history":["field6","field7","field8"],
         "equity-structure":["field3","field4"],
         "investor-situation":["field1","field6"]
-    }
+    }*/
     var title_id = table.attr("data-title-id")
     var  code = table.attr("data-code")
-
+    var fields_json=tableDictColumn(code);
+    console.log(fields_json);
     if (code in fields_json){
-        console.log("resizetable")
         var fields = fields_json[code]
-
         for(var i=0;i<fields.length;i++){
             var v = fields[i]
             var dict = dictCache(title_id,code,v)
@@ -692,6 +691,40 @@ function getDetailUrl(code)
 }
 
 
+
+function tableDictColumn(code){
+	var json;
+	var arr=[];
+	if(code == 'competition-comparison')
+	{
+        return json={"competition-comparison":["field5"]};
+	}else if(code == 'finance-history'){
+		return json={"finance-history":["field6","field7","field8"]};
+	}else if(code=="equity-structure"){
+		return json={"equity-structure":["field3","field4"]};
+	}else if(code=="investor-situation"){
+		return json={"investor-situation":["field1","field6"]};
+	}
+}
+
+/*function dealTableDict(table){
+    var dict_map = {}
+    var title_id = table.attr("data-title-id")
+    var  code = table.attr("data-code")
+    var fields_json=tableDictColumn(code);
+    if (code in fields_json){
+        var fields = fields_json[code]
+        for(var i=0;i<fields.length;i++){
+            var v = fields[i]
+            var dict = dictCache(title_id,code,v)
+            dict_map[title_id+"-"+code+"-"+v] = dict
+            table.find('td[data-field-name="'+v+'"]').each(function(){
+                var o = $(this)
+                o.text(dict[o.text()])
+            })
+        }
+    }
+}*/
 
 
 
