@@ -612,11 +612,18 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var tr_list = $(this).find("tr");
 			tr_list.splice(0,1)
 			if (tr_list.length<1){return;}
-			$.each(tr_list,function(){
+			var tab_lengthaf=tr_list.length
+			var tab_lengthbf=align_left.find("em.income_table").data("tr").length;
+			if(tab_lengthaf!=tab_lengthbf){
+				$(".pagebox").attr("data-result",true);
+				$("#save-rpt-btn em").removeClass("disabled")
+			}
+			$.each(tr_list,function(){  
 				var _this = $(this);
 				var _data={};
 				_data.field1=_this.find("td[data-field-name='field1']").text();
 				_data.field2=_this.find("td[data-field-name='field2']").text();
+				_data.id=_this.data("id");
 				tableTr.push(_data);
 			})
 			data_list.tableList=tableTr;
@@ -718,12 +725,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 	_this.hide();
 	$(".mashLayer").hide();
 	event.stopPropagation();
-	$("span[parent_dom='show']").removeAttr("parent_dom");
 	var data_change=align_left.text();
 	if(data_change!=data_initial){
-	$(".pagebox").attr("data-result",true);
-		$("#save-rpt-btn").removeClass("disabled")
+		$(".pagebox").attr("data-result",true);
+		$("#save-rpt-btn em").removeClass("disabled")
 	}
+	$("span[parent_dom='show']").removeAttr("parent_dom");
 });
 	
 //div模拟select下拉框

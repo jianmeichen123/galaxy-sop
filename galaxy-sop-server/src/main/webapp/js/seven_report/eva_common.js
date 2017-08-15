@@ -46,7 +46,7 @@ $("#eva-tabs li").click(function(){
 							}else{
 								calcScore();
 								$(".pagebox").attr("data-result",true);
-								$("#save-rpt-btn").removeClass("disabled")
+								$("#save-rpt-btn em").removeClass("disabled")
 							}
 						 
 					 });
@@ -640,6 +640,8 @@ $("#save-rpt-btn").click(function(){
 					var relateId = $("#eva-tabs li.active").data('relateId');
 					showResultAndScoreList(relateId);
 					deletedRowIds=[];
+					$(".pagebox").attr("data-result",false);
+					$("#save-rpt-btn em").addClass("disabled")
 					layer.msg('保存成功');
 				} 
 				else 
