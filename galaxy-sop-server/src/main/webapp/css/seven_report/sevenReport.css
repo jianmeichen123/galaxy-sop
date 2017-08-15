@@ -515,11 +515,10 @@ textarea::input-placeholder{
 		}
 .gapPopup textarea{
 	width: 262px;
-	min-height: 74px;
+	height: 138px !important;
 	border:none;
 	outline: none;
 	resize: none; 
-	max-height: 169px;
 	overflow-y:auto !important;
 	margin-top:25px;
 	padding:0px 10px;

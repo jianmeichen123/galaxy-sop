@@ -49,7 +49,7 @@
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
-			var  topNum = _this.offset().top-$(".gapPopup").height()-129;
+			var  topNum = _this.offset().top-$(".gapPopup").height()-195;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
