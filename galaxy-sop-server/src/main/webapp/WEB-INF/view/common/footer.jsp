@@ -10,7 +10,7 @@ function menu_to_view(url,name){
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){
 			$(window).unbind('beforeunload');
-			beforeSave();
+			beforeSave(url);
 		}else{
 			$(window).unbind('beforeunload');
 			if(name == '立项会' || name == '投决会' || name == 'CEO评审会'){

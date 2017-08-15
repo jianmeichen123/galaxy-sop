@@ -94,16 +94,16 @@ $(function(){
 	  window.location.href = url+"?sid="+sessionId+"&guid="+userId+"&_is_menu_=true";
 	
 } */
-function backProject(){  //返回项目详情页
+function backProject(url){  //返回项目详情页
 	var _href=window.location.href;
+	var url=getCookieValue("back_url");
 	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){
 			$(window).unbind('beforeunload');
-			beforeSave();
+			beforeSave(url);
 		}else{
 			$(window).unbind('beforeunload');
-			var url=getCookieValue("back_url");
 			if(url!=""){
 				deleteCookie("back_url","/");
 				window.location.href=url;
@@ -111,16 +111,16 @@ function backProject(){  //返回项目详情页
 		}
 	}
 }
-function backList(){   //返回项目列表页
+function backList(url){   //返回项目列表页
 	var _href=window.location.href;
+	var url=Constants.sopEndpointURL+"/galaxy/mpl";
 	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){
 			$(window).unbind('beforeunload');
-			beforeSave();
+			beforeSave(url);
 		}else{
 			$(window).unbind('beforeunload');
-			var url=Constants.sopEndpointURL+"/galaxy/mpl";
 			forwardWithHeader(url);
 		}
 	}

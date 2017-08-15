@@ -111,13 +111,14 @@ if(isContainResourceByMark("task_into_view")){
 		}
 	}
  }
- function logout(){
+ function logout(url){
 	 var _href=window.location.href;
+	 var url=platformUrl.toLoginPage;
 		if(_href=platformUrl.toEvalindex){
 			var result=$(".pagebox").attr("data-result");
 			if(result=="true"){
 				$(window).unbind('beforeunload');
-				beforeSave();
+				beforeSave(url);
 			}else{
 				$(window).unbind('beforeunload');
 				$.ajax({
@@ -138,7 +139,7 @@ if(isContainResourceByMark("task_into_view")){
 					},
 					success : function(data) {
 						if(data.result.status=="OK"){
-							location.href = platformUrl.toLoginPage;
+							location.href = url
 						}
 					}
 				}); 

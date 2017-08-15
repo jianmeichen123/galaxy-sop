@@ -170,7 +170,7 @@ function getDetailUrl(code)
 	}
 	return "";
 }
-function beforeSave(){
+function beforeSave(url){
 	$.getHtml({
 		url:'<%=path%>/html/beforeSave.html',  
 		data:"",//传递参数
@@ -187,8 +187,9 @@ function beforeSave(){
 				//点击保存，保存数据，并跳到项目列表页
 				$("a[data-close=\"close\"]").click();
 				$("#save-rpt-btn").click();
-				var url=Constants.sopEndpointURL+"/galaxy/mpl";
-				forwardWithHeader(url);
+				forwardWithHeader(url); 
+				/* var url=Constants.sopEndpointURL+"/galaxy/mpl";
+				forwardWithHeader(url); */
 			})
 		}//模版反回成功执行	
 	});
@@ -199,11 +200,12 @@ function beforeSave(){
  $(function(){
 	 $(".usermsg #daiban,.usermsg .work").click(function(){
 		 var _href=window.location.href;
+		 var url=$(this).attr("href");
 			if(_href=platformUrl.toEvalindex){
 				var result=$(".pagebox").attr("data-result");
 				if(result=="true"){
 					$(window).unbind('beforeunload');
-					beforeSave();
+					beforeSave(url);
 					return false;
 				}else{
 					$(window).unbind('beforeunload');
