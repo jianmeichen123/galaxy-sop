@@ -84,6 +84,12 @@ table .on td{
 	padding:0 5px;
 	position:relative;
 }
+.align_left p,.align_left span{
+	color:#b2b2b2;
+}
+.align_left p.black,.align_left span.black{
+	color:#333;
+}
 .editPic{
 	display:inline-block;
 	width:27px;
@@ -163,18 +169,22 @@ table td i.wrong{
 	
 }
 table.table_15 td{
+	border:0px;
 	border-right: 1px solid #d8d8d8;
 }
-table.table_15 td:nth-child(1){
+table.table_15 tr:first-child{
+	border-bottom: 1px solid #d8d8d8;
+}
+table.table_15 td:first-child{
 	width:37.15%;
 }
-table.table_15 td:nth-child(2){
+table.table_15 td:first-child+td{
 	width:10.6%;
 }
-table.table_15 td:nth-child(3){
+table.table_15 td:first-child+td+td{
 	width:35.3%;
 }
-table.table_15 td:nth-child(4){
+table.table_15 td:first-child+td+td+td{
 	width:15.8%;
 	border-right: 0px;
 }
@@ -224,7 +234,6 @@ table.table_15 td:nth-child(4){
 	z-index: 12;
 }
 .title-value.income_structor_content{color:#999;}
-.title-value.income_structor_content span{color:#333;}
 .content_radio_show{
 	text-align:left;
 	
@@ -458,6 +467,7 @@ textarea::input-placeholder{
    	background:rgb(250, 250, 250);
    	position: absolute;
    	display: none;
+   	height:auto;
    max-height: 560px;
    overflow-y: auto;
  }

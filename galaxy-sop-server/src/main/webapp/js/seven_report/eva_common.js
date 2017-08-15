@@ -127,6 +127,9 @@ function showResultAndScoreList(relateId)
 					Tfun_8($(".type_8"));	
 					eva_validate();
 					$("#table_box").validate();
+					//渲染数据结束对字体颜色进行操作
+					font_color($(".align_left p"));
+					font_color($(".align_left p span"));
 				}
 			}
 		);
@@ -786,4 +789,18 @@ function s_editRow(ele)
 		}//模版反回成功执行	
 	});
 }
-
+//字体颜色进行操作
+function font_color(data){
+	$.each(data,function(){
+		var _this=$(this);
+		if(_this.text()=="未填写"||_this.text()=="未选择"){
+			_this.removeClass("black");
+		}else{
+			_this.addClass("black");
+		}
+		if(_this.hasClass("income_structor_content")){
+			_this.removeClass("black");
+		}
+		
+	})
+}
