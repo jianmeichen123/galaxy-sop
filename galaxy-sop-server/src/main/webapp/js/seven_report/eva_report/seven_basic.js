@@ -705,6 +705,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						var titleId=n.value;
 						if(n.remark=="其他"){
 							val=n.remark1;
+							_this.attr("data-remark",n.remark1);
 						}
 						valList.push(val);
 						titleIdList.push(titleId);

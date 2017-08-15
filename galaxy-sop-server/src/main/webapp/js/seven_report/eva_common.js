@@ -371,7 +371,11 @@ function buildResult(title)
 			content.push(text);
 			values.push(this.contentChoose);
 		});
-		_ele.html(content.join('、')); 
+		if(_sign=="sign_3"){
+			_ele.find("span").html(content.join('、')); 
+		}else{
+			_ele.html(content.join('、')); 
+		}
 		_ele.attr("data-title-value",values.join(','));
 		_ele.attr("data-remark",remark);
 	}
