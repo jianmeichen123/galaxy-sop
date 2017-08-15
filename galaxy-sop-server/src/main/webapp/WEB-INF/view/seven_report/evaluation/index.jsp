@@ -141,6 +141,7 @@ var pageId = "project";
 <script src="<%=path %>/js/layer/layer.js"></script>
 <!--提示验证  -->
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>	
 <script src="<%=path%>/js/hologram/hologram_common.js"></script>			

@@ -5,8 +5,10 @@
 		if(val=="其他"){
 			var other_input = $(this).parent().next().find("input");
 			other_input.attr("disabled",false);
+			other_input.attr("required",true);
 		}else{
 			$(this).closest(".h_radios").find(".text_li input").attr("disabled",true);
+			$(this).closest(".h_radios").find(".text_li input").attr("required",false);
 		}
 	})
 //多选点击事件
@@ -15,8 +17,10 @@
 		  var par_ul = $(this).parent("ul");
 		  if(par_ul.children(".check_label").last().hasClass("active")){
 			  par_ul.children(".text_li").find("input").attr("disabled",false);
+			  par_ul.children(".text_li").find("input").attr("required",true);
 		  }else{
 			  par_ul.children(".text_li").find("input").attr("disabled",true);
+			  par_ul.children(".text_li").find("input").attr("required",false);
 		  }
 		  event.stopPropagation();
 	})
