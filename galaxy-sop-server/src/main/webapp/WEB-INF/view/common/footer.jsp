@@ -8,6 +8,7 @@ function menu_to_view(url,name){
 	var _href=window.location.href;
 	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
+		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 		if(result=="true"){
 			$(window).unbind('beforeunload');
 			beforeSave(url);

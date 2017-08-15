@@ -116,6 +116,7 @@ if(isContainResourceByMark("task_into_view")){
 	 var url=platformUrl.toLoginPage;
 		if(_href=platformUrl.toEvalindex){
 			var result=$(".pagebox").attr("data-result");
+			 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 			if(result=="true"){
 				$(window).unbind('beforeunload');
 				beforeSave(url);

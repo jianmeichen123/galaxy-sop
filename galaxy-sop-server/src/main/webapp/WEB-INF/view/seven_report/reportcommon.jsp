@@ -99,6 +99,7 @@ function backProject(url){  //返回项目详情页
 	var url=getCookieValue("back_url");
 	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
+		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 		if(result=="true"){
 			$(window).unbind('beforeunload');
 			beforeSave(url);
@@ -116,6 +117,7 @@ function backList(url){   //返回项目列表页
 	var url=Constants.sopEndpointURL+"/galaxy/mpl";
 	if(_href=platformUrl.toEvalindex){
 		var result=$(".pagebox").attr("data-result");
+		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 		if(result=="true"){
 			$(window).unbind('beforeunload');
 			beforeSave(url);

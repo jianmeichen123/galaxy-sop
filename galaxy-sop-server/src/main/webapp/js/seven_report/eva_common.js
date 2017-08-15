@@ -3,6 +3,12 @@
  * 加载标题
  */
 $("#eva-tabs li").click(function(){
+	var $li = $(this);
+	var code = $li.data('code');
+	var relateId = $li.data('relateId');
+	$(".pagebox").attr("data-lis","tab");  //区分离开页面时，点击的是tab标签
+	$(".pagebox").attr("data-code",code);  //存当前li的code
+	$(".pagebox").attr("data-relateId",relateId);   //存当前li的relateId
 	//离开二次确认
 	var _href=window.location.href;
 	if(_href=platformUrl.toEvalindex){
@@ -13,13 +19,13 @@ $("#eva-tabs li").click(function(){
 		}else{
 			$(window).unbind('beforeunload');
 			//加载新页面
-			var $li = $(this);
+			/*var $li = $(this);*/
 			if($li.hasClass('active'))
 			{
 				return;
 			}
-			var code = $li.data('code');
-			var relateId = $li.data('relateId');
+			/*var code = $li.data('code');
+			var relateId = $li.data('relateId');*/
 			$li.siblings().removeClass('active');
 			$li.addClass('active');
 			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType, null,
