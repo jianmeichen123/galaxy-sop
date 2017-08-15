@@ -406,10 +406,12 @@ function closeX(obj){
 //保存方法
 function right(obj,type){
 	//验证
-	var form = $(obj).closest("form");
-	if(!form.validate().form())
-	{
-		return false;
+	if(type=="checkbox" || type=="radio"){
+		var form = $(obj).closest("form");
+		if(!form.validate().form())
+		{
+			return false;
+		}
 	}
 	//对号，x号消失
 	$(obj).parent().hide();
