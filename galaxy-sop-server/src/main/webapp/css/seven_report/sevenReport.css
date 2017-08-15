@@ -864,3 +864,23 @@ select::-ms-expand { display: none; }
 	text-align:left;
     line-height: 1.5;
 } 
+
+.mCSB_scrollTools .mCSB_draggerRail{
+	background-color:#e9ebf2 !important;
+	width:6px !important;
+}
+.mCSB_dragger{
+	height: 122px !important;
+	background:#61aae6;
+	border-radius:5px !important;
+	width:6px !important;
+}
+.mCSB_draggerContainer{
+	width:6px !important;
+}
+.mCS-light-thin>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+	width:0px !important;
+}
+
+
+
