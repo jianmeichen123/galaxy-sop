@@ -19,58 +19,58 @@ $("#eva-tabs li").click(function(){
 		}else{
 			$(window).unbind('beforeunload');
 			//加载新页面
-			/*var $li = $(this);*/
 			if($li.hasClass('active'))
 			{
 				return;
 			}
-			/*var code = $li.data('code');
-			var relateId = $li.data('relateId');*/
 			$li.siblings().removeClass('active');
 			$li.addClass('active');
-			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType, null,
-				function(data){
-				var result = data.result.status;
-				if (result == 'OK') {
-					$('#page_all').empty();
-					var entity = data.entity;
-					$("#part-title-name").text(entity.name);
-					$("#test_tmpl").tmpl(entity).appendTo('#page_all');
-					/*显示结果  */
-					/* 16类型内容处理 */
-					var content_16 = $(".content_16").text();		
-					content_16=content_16.replace(/<sitg>/g,'（');
-					content_16=content_16.replace(/<\/sitg>/g,'）');
-					$(".content_16 p").text(content_16); 
-					//显示结果和分数向
-					showResultAndScoreList(relateId);
-					 //修改分数时自动计算
-					 $(".score-column select,input").change(function(){
-						 if(!$("#table_box").validate().form())
-							{
-								return false;
-							}else{
-								calcScore();
-								$(".pagebox").attr("data-result",true);
-								$("#save-rpt-btn em").removeClass("disabled")
-							}
-						 
-					 });
-				}
-			});
-			$.getTabHtml({
-				url : platformUrl.toOperateInfo ,
-				okback:function(){
-					right_anchor(code+"?reportType=1","seven","show");
-				}
-			});
-			
-			
-			
+			tabShow(code,relateId);
 		}
 	}
 	
 });
+//加载tab页
+function tabShow(code,relateId){
+	sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType, null,
+			function(data){
+			var result = data.result.status;
+			if (result == 'OK') {
+				$('#page_all').empty();
+				var entity = data.entity;
+				$("#part-title-name").text(entity.name);
+				$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+				/*显示结果  */
+				/* 16类型内容处理 */
+				var content_16 = $(".content_16").text();		
+				content_16=content_16.replace(/<sitg>/g,'（');
+				content_16=content_16.replace(/<\/sitg>/g,'）');
+				$(".content_16 p").text(content_16); 
+				//显示结果和分数向
+				showResultAndScoreList(relateId);
+				 //修改分数时自动计算
+				 $(".score-column select,input").change(function(){
+					 if(!$("#table_box").validate().form())
+						{
+							return false;
+						}else{
+							calcScore();
+							$(".pagebox").attr("data-result",true);
+							$("#save-rpt-btn em").removeClass("disabled")
+						}
+					 
+				 });
+			}
+		});
+	
+	$.getTabHtml({
+		url : platformUrl.toOperateInfo ,
+		okback:function(){
+			right_anchor(code+"?reportType=1","seven","show");
+		}
+	});
+	
+}
 //编辑按钮显示
 function　mouserover(obj){
 	if($(obj).data('edit') == 'true') return;
