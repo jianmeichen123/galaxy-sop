@@ -8,7 +8,7 @@ public interface CacheOperationService {
 
 	void refreshCache();
 
-	void saveAreaInfoByRedies(String hasKey_toAddkey, InformationTitle area_tinfo);
+	//void saveAreaInfoByRedies(String hasKey_toAddkey, InformationTitle area_tinfo);
 
 	void saveAllByRedies(String code, InformationTitle title);
 	

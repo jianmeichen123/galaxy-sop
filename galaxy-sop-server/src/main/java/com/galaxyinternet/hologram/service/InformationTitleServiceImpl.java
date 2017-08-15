@@ -1,24 +1,4 @@
 package com.galaxyinternet.hologram.service;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
@@ -46,6 +26,24 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
@@ -460,7 +458,9 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Override
 	public InformationTitle editAreaTitleResutl(String pid, String pinfoKey) {
 		
-		InformationTitle title = informationDictionaryService.selectTitleAndTsTvaluesByCache(pinfoKey);  //得到 父 title
+		//InformationTitle title = informationDictionaryService.selectTitleAndTsTvaluesByCache(pinfoKey);  //得到 父 title
+		InformationTitle title = informationDictionaryService.selectTitlesValuesForAll(pinfoKey,null);
+
 		if(title.getSign().intValue() == 2){
 			List<InformationResult> title_r =  selectResultByPidTids(pid ,null,title.getId());
 			title.setResultList(title_r);

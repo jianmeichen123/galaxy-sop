@@ -31,9 +31,9 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	List<InformationTitle> selectTsTvalueInfo(Object pinfoKey);
 	/**
 	 * 运用cache ,根据title的 id或 code ，查询 该title下一级的 title-value
-	 */
-	List<InformationTitle> selectTsTvalueInfoByCache(Object pinfoKey);
 
+	List<InformationTitle> selectTsTvalueInfoByCache(Object pinfoKey);
+	 */
 	
 	/**
 	 * 传入题 id 或  code， 返回该题信息，及该题的下一级的 题及value 信息
@@ -41,9 +41,9 @@ public interface InformationDictionaryService extends BaseService<InformationDic
 	InformationTitle selectTitleAndTsTvalues(Object pinfoKey);
 	/**
 	 * 运用cache , 传入题 id 或  code， 返回该题信息，及该题的下一级的 题及value 信息
-	 */
+
 	InformationTitle selectTitleAndTsTvaluesByCache(Object pinfoKey);
-	
+	 */
 	
 	
 	/**

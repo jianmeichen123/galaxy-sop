@@ -1,18 +1,5 @@
 package com.galaxyinternet.hologram.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.framework.cache.Cache;
@@ -21,14 +8,23 @@ import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.utils.SopConstatnts;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 
 @Service("com.galaxyinternet.service.hologram.CacheOperationService")
 public class CacheOperationServiceImpl implements CacheOperationService,InitializingBean{
 	
-	public static final String CACHE_KEY_PAGE_AREA_TITLE = "QXT_PAGE_AREA_TITLE_";               //各区域块下的   题：value   ==  InformationTitle
-	public static final String CACHE_KEY_PAGE_AREA_TITLE_HASKEY = "QXT_PAGE_AREA_TITLE_KEYLIST"; //各区域块下的   题：code   ==  List<String>
+	//public static final String CACHE_KEY_PAGE_AREA_TITLE = "QXT_PAGE_AREA_TITLE_";               //各区域块下的   题：value   ==  InformationTitle
+	//public static final String CACHE_KEY_PAGE_AREA_TITLE_HASKEY = "QXT_PAGE_AREA_TITLE_KEYLIST"; //各区域块下的   题：code   ==  List<String>
 	
 	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
@@ -63,7 +59,16 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	public void afterPropertiesSet() throws Exception {
 		initTitleIdName();
 		initValueIdName();
-		initAreaTitleAndTValue();
+
+		//initAreaTitleAndTValue();
+		//清理  initAreaTitleAndTValue 中的cache， 下个版本 1.7 后  删除该代码
+		Object getK = cache.get("QXT_PAGE_AREA_TITLE_KEYLIST");
+		if(getK != null){
+			List<String> cacheKey = (List<String>) getK;
+			for(String ak : cacheKey){
+				cache.remove("QXT_PAGE_AREA_TITLE_KEYLIST" +ak);
+			}
+		}
 	}
 	
 	
@@ -102,7 +107,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	
 	/**
 	 * CACHE_KEY_PAGE_AREA_TITLE 中没有的数据 存入缓存中
-	 */
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public synchronized void saveAreaInfoByRedies(String hasKey_toAddkey, InformationTitle area_tinfo){
@@ -119,7 +124,8 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 			cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE +hasKey_toAddkey, area_tinfo);
 		}
 	}
-	
+	 */
+
 	
 	/**
 	 * CACHE_KEY_PAGE_AREA 中没有的数据 存入缓存中
@@ -142,7 +148,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 		}
 		initTitleIdName();
 		initValueIdName();
-		initAreaTitleAndTValue();
+		//initAreaTitleAndTValue();
 	}
 	
 	
@@ -175,7 +181,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	}
 	
 	
-	@SuppressWarnings("unchecked")
+	/*
 	public void initAreaTitleAndTValue() {
 		//Map<String,List<InformationTitle>> pagesAreacode = new HashMap<String,List<InformationTitle>>();
 		List<String> cacheAreascode = new ArrayList<String>();
@@ -204,11 +210,11 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 		
 		cache.set(CacheOperationServiceImpl.CACHE_KEY_PAGE_AREA_TITLE_HASKEY, cacheAreascode);
 	}
+	*/
 	
 	
 	
-	
-	
+	/*
 	private List<InformationTitle> selectFirstTitle() {
 		List<InformationTitle> ptitleList = informationTitleDao.selectFirstTitle();
 		ptitleList = ptitleList == null ? new ArrayList<InformationTitle>() : ptitleList;
@@ -253,4 +259,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 		
 		return ptitleList == null ? new ArrayList<InformationDictionary>() : ptitleList;
 	}
+	*/
+
 }

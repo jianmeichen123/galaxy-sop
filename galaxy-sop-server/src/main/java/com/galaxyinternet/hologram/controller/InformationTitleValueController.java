@@ -257,8 +257,11 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		
 		try{
-			List<InformationTitle> titles = informationDictionaryService.selectTsTvalueInfoByCache(pinfoKey);
-			responseBody.setEntityList(titles);
+
+			//List<InformationTitle> titles = informationDictionaryService.selectTsTvalueInfoByCache(pinfoKey);
+			//InformationTitle title = informationDictionaryService.selectTitleAndTsTvalues(pinfoKey);
+			InformationTitle title = informationDictionaryService.selectTitlesValuesForAll(pinfoKey,null);
+			responseBody.setEntityList(title.getChildList());
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "信息获取失败"));
@@ -282,7 +285,9 @@ public class InformationTitleValueController  extends BaseControllerImpl<Informa
 		ResponseData<InformationTitle> responseBody = new ResponseData<InformationTitle>();
 		
 		try{
-			InformationTitle title = informationDictionaryService.selectTitleAndTsTvaluesByCache(pinfoKey);
+			//InformationTitle title = informationDictionaryService.selectTitleAndTsTvaluesByCache(pinfoKey);
+			//InformationTitle title = informationDictionaryService.selectTitleAndTsTvalues(pinfoKey);
+			InformationTitle title = informationDictionaryService.selectTitlesValuesForAll(pinfoKey,null);
 			responseBody.setEntity(title);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {

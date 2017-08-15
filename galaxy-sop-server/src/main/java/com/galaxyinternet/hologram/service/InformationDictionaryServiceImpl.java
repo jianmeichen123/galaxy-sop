@@ -6,7 +6,6 @@ import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
@@ -144,7 +143,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	
 	/**
 	 * 运用cache ,根据title的 id或 code ，查询 该title下一级的 title-value
-	 */
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -186,7 +185,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		
 		return titles;
 	}
-	
+	 */
 	
 	
 	
@@ -212,7 +211,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	}
 	/**
 	 * 运用cache , 传入题 id 或  code， 返回该题信息，及该题的下一级的 题及value 信息
-	 */
+
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -251,7 +250,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		
 		return ptitles;
 	}
-	
+	 */
 	
 	
 	
