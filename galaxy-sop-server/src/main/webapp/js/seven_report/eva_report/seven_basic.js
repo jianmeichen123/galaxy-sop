@@ -617,7 +617,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 			if(align_left.find("em.income_table").data("tr")!=undefined){
 				tab_lengthbf=align_left.find("em.income_table").data("tr").length;
 			}
-			if
 			if(tab_lengthaf!=tab_lengthbf){
 				$(".pagebox").attr("data-result",true);
 				$("#save-rpt-btn em").removeClass("disabled")
