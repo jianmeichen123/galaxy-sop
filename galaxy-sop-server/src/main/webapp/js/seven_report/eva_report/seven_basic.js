@@ -293,6 +293,8 @@
 					$(".h_img_del").click(function(){
 						$(this).parent("li.pic_list").remove();
 						$(".h_edit_txt .h_imgs").last().show();
+						$(".pagebox").attr("data-result",true);
+						$("#save-rpt-btn em").removeClass("disabled")
 					})
 				}
 				
@@ -406,10 +408,12 @@ function closeX(obj){
 //保存方法
 function right(obj,type){
 	//验证
-	var form = $(obj).closest("form");
-	if(!form.validate().form())
-	{
-		return false;
+	if(type=="checkbox" || type=="radio"){
+		var form = $(obj).closest("form");
+		if(!form.validate().form())
+		{
+			return false;
+		}
 	}
 	//对号，x号消失
 	$(obj).parent().hide();
@@ -528,7 +532,7 @@ function right(obj,type){
 		$(".pagebox").attr("data-result",true);
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
-	
+	font_color($(".align_left p"));
 }
 
 
@@ -663,7 +667,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 				var _data={};
 				_data.field1=_this.find("td[data-field-name='field1']").text();
 				_data.field2=_this.find("td[data-field-name='field2']").text();
-				_data.id=_this.data("id");
+				if(_this.data("id")!=""&&_this.data("id")!=undefined){
+					_data.id=_this.data("id");
+				}
+				
 				tableTr.push(_data);
 			})
 			data_list.tableList=tableTr;
@@ -774,6 +781,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
+	font_color($(".align_left p span"));
 });
 	
 //div模拟select下拉框
