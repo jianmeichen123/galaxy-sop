@@ -412,6 +412,12 @@ function right(obj,type){
 	var align_left = $(obj).parent().parent().find(".align_left");
 	//内容初始值
 	var data_initial = align_left.text();
+	//验证
+	var form = $(obj).closest("form");
+	if(!form.validate().form())
+	{
+		return false;
+	}
 	//取值判断
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
@@ -948,10 +954,12 @@ function iCheck(){
 	})
 	$('.others').on('ifChecked',function(event){
 		 $(this).parents('.radioShow').find('.others_text').show();
+		 $(this).parents('.radioShow').find('.others_text').attr("required",true);
 		 $(this).attr("checked",true);
 	});
 	$('.others').on('ifUnchecked',function(event){
 		$(this).parents('.radioShow').find('.others_text').hide();
+		 $(this).parents('.radioShow').find('.others_text').attr("required",false);
 	})
 }
 //离开页面提示
