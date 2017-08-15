@@ -469,7 +469,7 @@
 <script id="edit_tmpl1" type="text/x-jquery-tmpl">
 	<div class="div_tmpl">
 		{{if type==8 || type==15}}
-			<textarea id='myTextarea' placeholder="\${placeholder}" data-id="\${id}" maxlength="\${valRuleMark}" data-must="\${isMust}"></textarea>
+			<textarea id='myTextarea' placeholder="\${placeholder}"  data-content="\${content}" data-id="\${id}" maxlength="\${valRuleMark}" data-must="\${isMust}"></textarea>
 		
 		{{/if}}
 	</div>

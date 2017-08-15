@@ -77,6 +77,12 @@
 		if(id_code=="ENO1_1_4"){
 			$(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']").attr("readyonly","readyonly");
 			$(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']").addClass("disabled");
+		}else if(id_code='ENO2_4_4'){   //解决的方法和时间表提示语特殊处理
+			var subId=$(obj).siblings(".align_left").find("p").attr("data-sub-id");
+			if(subId=="2"){
+				var content=$("#myTextarea").attr("data-content");
+				$("#myTextarea").attr("placeholder",content);
+			}
 		}
 		editResult(obj);
 		validate();
