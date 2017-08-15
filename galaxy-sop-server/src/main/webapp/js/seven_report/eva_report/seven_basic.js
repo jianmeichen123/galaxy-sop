@@ -405,6 +405,12 @@ function closeX(obj){
 	
 //保存方法
 function right(obj,type){
+	//验证
+	var form = $(obj).closest("form");
+	if(!form.validate().form())
+	{
+		return false;
+	}
 	//对号，x号消失
 	$(obj).parent().hide();
 	//raido消失
@@ -412,12 +418,6 @@ function right(obj,type){
 	var align_left = $(obj).parent().parent().find(".align_left");
 	//内容初始值
 	var data_initial = align_left.text();
-	//验证
-	var form = $(obj).closest("form");
-	if(!form.validate().form())
-	{
-		return false;
-	}
 	//取值判断
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
