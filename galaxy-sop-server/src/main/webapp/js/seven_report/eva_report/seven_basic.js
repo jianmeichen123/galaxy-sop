@@ -538,6 +538,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 	var form = $(this).parents(".ch_opration").find("form");
 	var data=[];
 	var data_initial=align_left.text();
+	if(!form.validate().form())
+	{
+		return false;
+	}
 	//获取保存的的数据
 	$.each(form.find(".mb_16"),function(i,n){
 		var data_list={};
