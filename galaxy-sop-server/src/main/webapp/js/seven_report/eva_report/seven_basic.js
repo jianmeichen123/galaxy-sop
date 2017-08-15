@@ -613,13 +613,41 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var tab_lengthaf=tr_list.length;
 			if (tab_lengthaf.length<1){return;}
 			var tab_lengthbf=0;
+			//判断表格是否更改过开始
 			if(align_left.find("em.income_table").data("tr")!=undefined){
-				tab_lengthbf=align_left.find("em.income_table").data("tr").length;
+				var tr_data=align_left.find("em.income_table").data("tr")
+				tab_lengthbf=tr_data.length;
 			}
 			if(tab_lengthaf!=tab_lengthbf){
 				$(".pagebox").attr("data-result",true);
 				$("#save-rpt-btn em").removeClass("disabled")
+			}else{
+				$.each(tr_list,function(){
+					var tr_this = $(this);
+					var id_a=tr_this.data("id");
+					var a_field1=tr_this.find("td[data-field-name='field1']").text();
+					var a_field2=tr_this.find("td[data-field-name='field2']").text();
+					$.each(tr_data,function(){
+						var trd_this = $(this);
+						var id_b=trd_this[0].id;
+						var b_field1=trd_this[0].field1;
+						var b_field2=trd_this[0].field2;
+						if(id_b==""||id_b==undefined){
+							$(".pagebox").attr("data-result",true);
+							$("#save-rpt-btn em").removeClass("disabled")
+							return false;
+						}
+						 if(id_a==id_b){
+							 if(a_field1!=b_field1||a_field2!=b_field2){
+								$(".pagebox").attr("data-result",true);
+								$("#save-rpt-btn em").removeClass("disabled")
+								return false;
+							 }
+						 }
+					})
+				})
 			}
+			//判断表格是否更改过结束
 			$.each(tr_list,function(){  
 				var _this = $(this);
 				var _data={};
