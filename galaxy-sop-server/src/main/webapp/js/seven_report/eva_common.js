@@ -345,6 +345,9 @@ function buildResult(title)
 	//复选带备注
 	else if (type == 3 || type == 6 || type == 13)
 	{
+		if(_sign=="sign_3"){
+			_ele = _ele.find("span");
+		}
 		if(results.length==0)
 		{
 			return;
