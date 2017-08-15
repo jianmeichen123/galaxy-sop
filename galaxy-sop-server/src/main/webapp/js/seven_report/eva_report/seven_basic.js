@@ -167,7 +167,7 @@
 					$(data).each(function(){  
 						var n=$(this)[0];
 						var d_type=n.d_type;
-						if(d_type==1){
+						if(d_type==1 || d_type==20){
 							if(n.val!="未填写"){
 								$("input[data-title-id='"+n.relateId+"']").val(n.val);
 							}
@@ -547,7 +547,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 		data_list.id=_dt.data("id");
 		data_type=_dt.data("type");
 		data_list.type=data_type;
-		if(data_type==1||data_type==8){
+		if(data_type==1||data_type==8 ||data_type==20){
 			data_list.value=$(this).find("dd").children().val();
 			if(data_list.value==""||data_list.value==undefined){
 				data_list.value="未填写";
@@ -658,7 +658,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var _type =d_this.type;
 			var drelateId=d_this.relateId;
 			if(_code==dcode){
-				if(_type==1||_type==8){					
+				if(_type==1||_type==8){	
 					_this.find("span").html(d_this.value);
 					Tfun_8(_this);
 				}else if(_type==14||_type==2||_type==12){
@@ -712,6 +712,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 					})
 					_this.find("span").html(valList.join("、"));
 					_this.attr("data-title-value",titleIdList.join(","));
+				}else if(_type==20){
+					_this.closest("td").find("p[data-relate-id='"+d_this.id+"']").find("span").html(d_this.value);
 				}
 				
 			}
