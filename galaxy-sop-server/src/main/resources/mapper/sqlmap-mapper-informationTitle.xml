@@ -294,7 +294,173 @@
 			and type is NULL
 		<!-- order by index_no -->
 	</select>
-	
-	
+
+
+	<resultMap id="Title_ResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
+
+		<id column="id" 			jdbcType="BIGINT" 		property="id" />
+		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
+		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
+		<result column="type" 		jdbcType="INTEGER" 		property="type" />
+		<result column="sign" 		jdbcType="INTEGER" 		property="sign" />
+
+		<collection property="resultList" ofType="com.galaxyinternet.model.hologram.InformationResult">
+			<id column="result_id" 				jdbcType="BIGINT" 		property="id" />
+			<result column="project_id" 		jdbcType="BIGINT" 		property="projectId" />
+			<result column="title_id" 			jdbcType="BIGINT" 		property="titleId" />
+			<result column="content_choose" 	jdbcType="VARCHAR" 		property="contentChoose" />
+			<result column="content_describe1" 	jdbcType="VARCHAR" 		property="contentDescribe1" />
+			<result column="content_describe2" 	jdbcType="VARCHAR" 		property="contentDescribe2" />
+		</collection>
+
+	</resultMap>
+
+
+	<select id="selectTitleOfResults" resultMap="Title_ResultMap" parameterType="java.util.Map">
+		select
+			title.id, title.code, title.name,title.type, title.sign,
+			result.id result_id, result.project_id, result.title_id, result.content_choose, result.content_describe1, result.content_describe2
+		FROM
+			information_title title
+		LEFT JOIN information_result result ON title.id = result.title_id
+		<where>
+		<trim prefixOverrides="and">
+			<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+			<if test="titleIds != null">
+				and title.id in
+				<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+
+			<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+			<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
+		</trim>
+		</where>
+	</select>
+
+	<select id="selectCountForTitleOfResults" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+			count(allresult.id)
+		FROM
+		(
+		select
+			title.id
+		FROM
+			information_title title
+		LEFT JOIN information_result result
+			ON title.id = result.title_id
+		<where>
+			<trim prefixOverrides="and">
+				<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title.id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				and result.is_valid = 0
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
+			</trim>
+		</where>
+		GROUP BY title.id
+		) allresult
+	</select>
+
+	<select id="selectCountForTitleOfListdata" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+			count(allresult.id)
+		FROM
+		(
+		select
+			title.id
+		FROM
+			information_title title
+		LEFT JOIN information_listdata result
+			ON title.id = result.title_id
+		<where>
+			<trim prefixOverrides="and">
+				<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title.id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				and result.is_valid = 0
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="notAllNUll != null"> and (result.field_1 is not null OR result.field_2 is not null OR result.field_3 is not null) </if>
+			</trim>
+		</where>
+		GROUP BY title.id
+		) allresult
+	</select>
+
+	<select id="selectCountForTitleOfFixedTable" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+			count(allresult.id)
+		FROM
+		(
+		select
+			title.id
+		FROM
+			information_title title
+		LEFT JOIN information_fixed_table result
+			ON title.id = result.title_id
+		<where>
+			<trim prefixOverrides="and">
+				<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title.id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				and result.is_valid = 0
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="notAllNUll != null"> and (result.content is not null) </if>
+			</trim>
+		</where>
+		GROUP BY title.id
+		) allresult
+	</select>
+
+	<select id="selectCountForTitleOfFile" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+			count(allresult.id)
+		FROM
+		(
+		select
+			title.id
+		FROM
+			information_title title
+		LEFT JOIN information_file result
+			ON title.id = result.title_id
+		<where>
+			<trim prefixOverrides="and">
+				<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title.id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="notAllNUll != null"> and (result.file_key is not null OR result.file_name is not null) </if>
+			</trim>
+		</where>
+		GROUP BY title.id
+		) allresult
+	</select>
+
+
+
+
+
 </mapper>
 	

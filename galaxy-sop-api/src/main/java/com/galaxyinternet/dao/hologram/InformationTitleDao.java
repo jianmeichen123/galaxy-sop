@@ -1,10 +1,10 @@
 package com.galaxyinternet.dao.hologram;
 
-import java.util.List;
-import java.util.Map;
-
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.model.hologram.InformationTitle;
+
+import java.util.List;
+import java.util.Map;
 
 public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 
@@ -20,5 +20,19 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 	List<InformationTitle> selectFirstTitle();
 	
 	public List<InformationTitle> selectRelateTitle(InformationTitle query);
+
+
+	/**
+	 * 根据 title id 查询results
+	 */
+	public List<InformationTitle> selectTitleOfResults(Map<String, Object> params);
+	/**
+	 * 根据 title id 查询results,  统计 title 记录数
+	 */
+	public Integer selectCountForTitleOfResults(Map<String, Object> params);
+	public Integer selectCountForTitleOfListdata(Map<String, Object> params);
+	public Integer selectCountForTitleOfFixedTable(Map<String, Object> params);
+	public Integer selectCountForTitleOfFile(Map<String, Object> params);
+
 
 }
