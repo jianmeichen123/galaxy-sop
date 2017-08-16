@@ -388,8 +388,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		
 		try
 		{
+			//插入新添加的文件
 			for(InformationFile infoFile : infoFiles)
 			{
+				if(infoFile.getId() != null)
+				{
+					continue;
+				}
 				String fileData = infoFile.getData();
 				String suffix = fileData.substring(fileData.indexOf("data:image/")+11,fileData.indexOf(";base64,"));
 				String fileName = "image-"+System.currentTimeMillis();
@@ -409,18 +414,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				infoFile.setUpdatedTime(now);
 				infoFile.setFileName(fileName);
 				infoFile.setFileUrl(url);
-				if(infoFile.getId() == null)
-				{
-					infoFile.setCreatedTime(now);
-					infoFileDao.insert(infoFile);
-				}
-				else
-				{
-					infoFileDao.updateById(infoFile);
-				}
-				
-				
-				
+				infoFile.setCreatedTime(now);
+				infoFileDao.insert(infoFile);
 			}
 		} catch (IOException e)
 		{
