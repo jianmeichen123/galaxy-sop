@@ -188,6 +188,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 			if (result == 'OK') {
 				var entity = data.entity;
 				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+				if(id_code=="DNO5_1" || id_code=="GNO5_1" ){   //竞争俩字
+					$("#b_"+id_code).closest(".section").find(".h_title").text("竞争");
+				}
 				sec.showResults();
 				bindChange();
 				bindChangeType13();
