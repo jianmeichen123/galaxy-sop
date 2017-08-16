@@ -36,7 +36,7 @@
             <dl class="fmdl clearfix">
              <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field3" allowNULL="yes" valType="LIMIT_10_NUMBER"  data-rule-verify_102="true" data-msg-verify_102="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_82="true" />&nbsp;<span>万元</span>
                 </dd>
                  
             </dl>
@@ -53,7 +53,7 @@
           <dl class="fmdl clearfix">
             <dt>股权占比：</dt>
                 <dd>
-                	 <input type="text" class="txt fl" name="field4" valType="OTHER" allowNULL="yes"  data-rule-verify_103="true" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2})|100)$" data-msg-verify_103="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
+                	 <input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-vinputValRule_3="true"  data-msg-vinputValRule_3="<font color=red></font>支持0～100的整数和两位小数"/>&nbsp;<span>%</span>
                 </dd>
            </dl>
            <dl class="fmdl clearfix">
