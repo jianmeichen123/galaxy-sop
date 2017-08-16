@@ -326,7 +326,7 @@ function resizetable(table){
     var  code = table.attr("data-code")
     var fields_json=tableDictColumn(code);
     console.log(fields_json);
-    if (code in fields_json){
+    if (fields_json && code in fields_json){
         var fields = fields_json[code]
         for(var i=0;i<fields.length;i++){
             var v = fields[i]
@@ -483,7 +483,7 @@ function addRow(ele)
                     check_table();
                     check_table_tr_edit();
                 });
-                $("#save_person_learning").click(function(){
+                $("#save_perso  n_learning").click(function(){
                 	check_table();
                 	check_table_tr_edit();
                 });
