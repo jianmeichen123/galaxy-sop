@@ -44,6 +44,7 @@ public class InformationTitle extends PagableEntity {
 	private List<InformationFixedTable> fixedTableList;
 	private List<InformationListdata> dataList;
 	private InformationListdataRemark tableHeader;
+	private List<InformationFile> fileList;
 	
 	
 	private Long resultId;
@@ -358,6 +359,16 @@ public class InformationTitle extends PagableEntity {
 	public void setSubId(Long subId)
 	{
 		this.subId = subId;
+	}
+
+	public List<InformationFile> getFileList()
+	{
+		return fileList;
+	}
+
+	public void setFileList(List<InformationFile> fileList)
+	{
+		this.fileList = fileList;
 	}
 
 	

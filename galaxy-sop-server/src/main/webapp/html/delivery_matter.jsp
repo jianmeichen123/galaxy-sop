@@ -20,18 +20,18 @@
          <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="updateTimeStr" type="hidden" >
-    	<input name="updateUserName" type="hidden">
+    	<input name="updateUserName" type="hidden" value="${realName }">
     	<input name="titleId" type="hidden">
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>
                 <dd>
-                    <input type="text" class="txt"  name="field1"  maxlength="24" valType="required" msg="<font color=red>*</font>事项简述不能为空"/>
+                    <input type="text" class="txt"  name="field1" oninput="change(event)" onporpertychange="change(event)"  maxlength="24" valType="required" msg="<font color=red>*</font>事项简述不能为空"/>
                 </dd>
             </dl>
             
             <dl class="fmdl fl_l">
                  <dt>详细内容：</dt>
-                 <dd><textarea class="area" name="field2" cols="45" rows="5" maxlength="100" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea></dd>
+                 <dd><textarea class="area" name="field2" oninput="change(event)" onporpertychange="change(event)" cols="45" rows="5" maxlength="100" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea></dd>
             </dl>
             
             </form>
@@ -49,10 +49,13 @@
 <script>
      $(function(){
         $("#detail-form").validate({});
-        
+      
     })
     $.validator.setDefaults({
         	errorElement:'span'
         });
-   
+   function change(){
+	   var time = new Date().format("yyyy-MM-dd hh:mm:ss");
+	   $("input[name=updateTimeStr]").val(time)
+   }
 </script>

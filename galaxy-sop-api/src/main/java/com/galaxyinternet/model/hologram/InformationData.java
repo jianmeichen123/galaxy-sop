@@ -26,6 +26,10 @@ public class InformationData extends PagableEntity {
 	private List<TableModel>     infoTableModelList;
 	@ApiModelProperty("分数")
 	private List<InformationScore> scoreList;
+	@ApiModelProperty("文件/图片")
+	private List<InformationFile> infoFileList;
+	
+	private Set<Long> deleteFileIds;
 	
 	private Set<String> deletedResultTids;  //适用result表
 	
@@ -94,6 +98,26 @@ public class InformationData extends PagableEntity {
 	public void setScoreList(List<InformationScore> scoreList)
 	{
 		this.scoreList = scoreList;
+	}
+
+	public List<InformationFile> getInfoFileList()
+	{
+		return infoFileList;
+	}
+
+	public void setInfoFileList(List<InformationFile> infoFileList)
+	{
+		this.infoFileList = infoFileList;
+	}
+
+	public Set<Long> getDeleteFileIds()
+	{
+		return deleteFileIds;
+	}
+
+	public void setDeleteFileIds(Set<Long> deleteFileIds)
+	{
+		this.deleteFileIds = deleteFileIds;
 	}
 
 	@Override

@@ -122,6 +122,7 @@ function showResultAndScoreList(relateId)
 						//结果
 						buildResult(this);
 						buildTable(this);
+						buildFileList(this);
 					});
 					initScore(relateId);
 					Tfun_8($(".type_8"));	
@@ -411,9 +412,34 @@ function buildResult(title)
 		_ele.attr("data-result-id",results[0].id);
 	}
 	
+	
 	if(_scoreEle.length>0)
 	{
 		_scoreEle.attr("data-result-id",results[0].id);
+	}
+}
+function buildFileList(title)
+{
+	var _ele = $('.title-value[data-title-id="'+title.id+'"]');
+	var fileList = title.fileList;
+	var type = title.type;
+	var span = _ele.find('span');
+	if(typeof fileList == 'undefined' || fileList.length == 0)
+	{
+		return;
+	}
+	if(type == 7)
+	{
+		span.empty();
+		$.each(fileList,function(){
+			var em = $('<em>[图片]</em>');
+			em.addClass('income_pic');
+			em.attr('data-file-id',this.id);
+			var data = "data:image/"+this.fileSuffix+";base64,"+this.data;
+			em.attr('data-url',data);
+			span.append(em);
+		});
+		
 	}
 }
 function buildTable(title)
@@ -625,6 +651,7 @@ function getTalbleData()
 	return infoTableModelList;
 	
 }
+var deleteFileIds = new Array();
 $("#save-rpt-btn").click(function(){
 	//判断是否让其进行保存
 	var editbox = $(".radioShow");
@@ -643,7 +670,10 @@ $("#save-rpt-btn").click(function(){
 		projectId: projId,
 		scoreList:	getScores(),
 		infoModeList: getValues(),
-		infoTableModelList: getTalbleData()
+		infoTableModelList: getTalbleData(),
+		infoFileList: getImageList(),
+		deletedRowIds: deletedRowIds,
+		deleteFileIds: deleteFileIds
 	};
 	sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo+'?_='+new Date().getTime() , 
@@ -654,6 +684,7 @@ $("#save-rpt-btn").click(function(){
 					var relateId = $("#eva-tabs li.active").data('relateId');
 					showResultAndScoreList(relateId);
 					deletedRowIds=[];
+					deleteFileIds=[];
 					$(".pagebox").attr("data-result",false);
 					$("#save-rpt-btn em").addClass("disabled")
 					layer.msg('保存成功');
@@ -666,7 +697,28 @@ $("#save-rpt-btn").click(function(){
 		
 }
 });
-
+function getImageList()
+{
+	var infoFileList = new Array();
+	var imgs = $(".title-value .income_pic");
+	$.each(imgs,function(){
+		var _this = $(this);
+		var fileId = _this.data('fileId');
+		var titleId = _this.closest('p').data('titleId');
+		var data = _this.data('url');
+		var model = {
+			titleId: titleId,
+			projectId: projId,
+			data: data
+		};
+		if(typeof fileId != 'undefined')
+		{
+			model.id = fileId;
+		}
+		infoFileList.push(model);
+	});
+	return infoFileList;
+}
 //type_8  展开收起公共方法
 function Tfun_8(data){
 	$.each(data,function(){
@@ -726,8 +778,11 @@ function img_fun(data){
 
 $("div").delegate(".h_img_del","click",function(){
 	$(this).parents(".fl_none").find("ul").show()
-	$(this).parent().remove();	
-
+	$(this).parent().remove();
+	$(".pagebox").attr("data-result",true);
+	$("#save-rpt-btn em").removeClass("disabled")
+	var del_id = $(this).next().data("id");
+	deleteFileIds.push(del_id);
 })
 //图片点击弹窗
 	

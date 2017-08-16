@@ -1,5 +1,9 @@
 package com.galaxyinternet.hologram.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,17 +15,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.dao.hologram.InformationFileDao;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hologram.ScoreInfoDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
+import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.DatePatternUtil;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
 import com.galaxyinternet.model.hologram.FixedTableModel;
 import com.galaxyinternet.model.hologram.InformationData;
+import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationModel;
@@ -30,6 +41,7 @@ import com.galaxyinternet.model.hologram.InformationScore;
 import com.galaxyinternet.model.hologram.TableModel;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationDataService;
+import com.galaxyinternet.utils.FileUtils;
 
 @Service
 public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>implements InformationDataService
@@ -43,6 +55,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	private InformationListdataDao listdataDao;
 	@Autowired
 	private ScoreInfoDao scoreInfoDao;
+	@Autowired
+	private InformationFileDao infoFileDao;
 
 	@Override
 	public void save(InformationData data)
@@ -51,6 +65,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		saveListData(data);
 		saveFixedTable(data);
 		saveScore(data);
+		saveFiles(data);
 	}
 	private void saveResult(InformationData data)
 	{
@@ -240,23 +255,38 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			{
 				entity.setCreatedTime(now);
 				entity.setCreateId(userId);
+				entity.setUpdateId(userId);
+				entity.setUpdateTime(now);
 				Long id = listdataDao.insert(entity);
-				setDataList(id,entity,model.getDataList(),
-						userId,now);
+				if(model.getDataList() != null && model.getDataList().size() > 0){
+					setDataList(id,entity,model.getDataList(),
+							userId,now);
+				}
 				continue;	
 			}
 			else
 			{
 				entity.setId(model.getId());
-				entity.setUpdatedTime(now);
+				if(model.getUpdateTimeStr() != null){
+					try {
+						entity.setUpdateTime(DateUtil.convertStringtoD(model.getUpdateTimeStr()).getTime());
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				entity.setUpdateId(userId);
 				listdataDao.updateById(entity);
-				setDataList(entity.getId(),entity,model.getDataList(),
-						userId,now);
+				if(model.getDataList() != null && model.getDataList().size() > 0){
+					setDataList(entity.getId(),entity,model.getDataList(),
+							userId,entity.getUpdatedTime());
+				}
+				
 			}
 		}
 		
 	}
+	
 	
 	public void saveScore(InformationData data)
 	{
@@ -336,11 +366,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					if(tm.getId() == null){
 						//新增
 						td.setId(null);
+						entity.setUpdateId(userId);
+						entity.setUpdateTime(now);
 						listdataDao.insert(td);
 					}else{
 						//修改
 						td.setId(tm.getId());
-						td.setUpdatedTime(now);
+						td.setUpdateTime(now);
 						td.setUpdateId(userId);
 						listdataDao.updateById(td);
 					}
@@ -351,7 +383,64 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			}
 		}
 	}
-
+	private void saveFiles(InformationData data)
+	{
+		Set<Long> delIds = data.getDeleteFileIds();
+		if(delIds != null && delIds.size()>0)
+		{
+			for(Long id : delIds)
+			{
+				infoFileDao.deleteById(id);
+			}
+		}
+		List<InformationFile> infoFiles = data.getInfoFileList();
+		if(infoFiles == null || infoFiles.size() == 0)
+		{
+			return;
+		}
+		
+		try
+		{
+			for(InformationFile infoFile : infoFiles)
+			{
+				String fileData = infoFile.getData();
+				String suffix = fileData.substring(fileData.indexOf("data:image/")+11,fileData.indexOf(";base64,"));
+				String fileName = "image-"+System.currentTimeMillis();
+				File tempFile = File.createTempFile(fileName, "."+suffix);
+				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				fileData = fileData.substring(fileData.indexOf(";base64,")+8, fileData.length());
+				FileUtils.base64ToFile(fileData, tempFile);
+				UploadFileResult rtn = OSSHelper.simpleUploadByOSS(tempFile, fileKey, OSSHelper.setRequestHeader(tempFile.getName(), tempFile.length())); //上传至阿里云
+				String bucketName = rtn.getBucketName();
+				String url = OSSHelper.getUrl(bucketName,fileKey);
+				Long now = System.currentTimeMillis();
+				
+				infoFile.setFileKey(fileKey);
+				infoFile.setFileLength(tempFile.length()+"");
+				infoFile.setBucketName(bucketName);
+				infoFile.setFileSuffix(suffix);
+				infoFile.setUpdatedTime(now);
+				infoFile.setFileName(fileName);
+				infoFile.setFileUrl(url);
+				if(infoFile.getId() == null)
+				{
+					infoFile.setCreatedTime(now);
+					infoFileDao.insert(infoFile);
+				}
+				else
+				{
+					infoFileDao.updateById(infoFile);
+				}
+				
+				
+				
+			}
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	protected BaseDao<InformationData, Long> getBaseDao()
 	{

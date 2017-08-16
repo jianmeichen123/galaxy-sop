@@ -50,6 +50,7 @@ var mustids = "${mustids}";
 					$(this).showResults(true);
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
+    					resizetable($(this))
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
@@ -107,6 +108,7 @@ $(function() {
 					sec.showResults();
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
+					    resizetable($(this))
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
@@ -331,6 +333,19 @@ $(function() {
 								picData(projectInfo.id);
 								btn_disable(0);
 							    toggle_btn($('.anchor_btn span'),0,save_this);
+							    //重新格式化表格,select radio 字段id转换value
+							    $('table').each(function(){
+                                    resizetable($(this))
+                                    if($(this).find('tr').length<=1){
+                                        $(this).hide();
+                                        if($(this).parents('dl').find('dd:gt(0)').length<=0){
+                                            $(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+                                        }
+                                    }
+                                    else{
+                                        $(this).show();
+                                    }
+                                })
 							} else {
 								layer.msg("操作失败!");
 							}

@@ -53,25 +53,34 @@ thead td{
 	position:relative;
 	border-bottom: 1px solid #d8d8d8;
 }
-table td:nth-child(1){
+#page_all tr td:first-child+td+td+td{
+	text-align:left;
+}
+#page_all tr.evl_module td:first-child+td+td+td{
+	text-align:center;
+}
+#page_all tr.evl_module td:first-child+td+td+td+td{
+	text-align:left;
+}
+table td:first-child{
 	width:7%;
 }
-table td:nth-child(2){
+table td:first-child+td{
 	width:10%;
 }
-table td:nth-child(3){
+table td:first-child+td+td{
 	width:21%;
 }
-table td:nth-child(4){
+table td:first-child+td+td+td{
 	width:6%;
 }
-table td:nth-child(5){
+table td:first-child+td+td+td+td{
 	width:20%;
 }
-table td:nth-child(6){
+table td:first-child+td+td+td+td+td{
 	width:9%;
 }
-table td:nth-child(7){
+table td:first-child+td+td+td+td+td+td{
 	width:9%;
 }
 

@@ -35,6 +35,18 @@ public class TableModel extends PagableEntity {
 	    private String field9;
 
 	    private String field10;
+	    
+	    private String updateTimeStr;
+	    
+	    
+
+		public String getUpdateTimeStr() {
+			return updateTimeStr;
+		}
+
+		public void setUpdateTimeStr(String updateTimeStr) {
+			this.updateTimeStr = updateTimeStr;
+		}
 
 		public Long getId() {
 			return id;

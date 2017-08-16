@@ -1005,6 +1005,15 @@ function validate(){
 						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="3" && inputValRuleMark=="3,2"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_3":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3" && inputValRuleMark=="ok"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
@@ -1815,6 +1824,7 @@ function saveRow(data)
 			}
 		}
 	}
+	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();
 }
 function editRow(ele)	
@@ -1903,8 +1913,68 @@ function refreshSection(id)
  */
 
 
+/**
+ 字典缓存
+*/
+function dictCache(titleId,subCode,filed){
+    var map = {};
+    map["undefined"] = "未填写"
+    map[""] = "未填写"
+	sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK')
+				{
+					var dataMap = data.userData;
+				    var list=dataMap[filed];
+				    var name=""
+					$.each(list, function(i, value){
+					     map[value.id]=value.name;
+					});
+				}
+			})
+			return map;
+}
 
+function tableDictColumn(code){
+	var json;
+	var arr=[];
+	if(code == 'competition-comparison')
+	{
+        return json={"competition-comparison":["field5"]};
+	}else if(code == 'finance-history'){
+		return json={"finance-history":["field6","field7","field8"]};
+	}else if(code=="equity-structure"){
+		return json={"equity-structure":["field3","field4"]};
+	}else if(code=="investor-situation"){
+		return json={"investor-situation":["field1","field6"]};
+	}
+}
 
+function resizetable(table){
+    var dict_map = {}
+  /*  var fields_json = {
+        "finance-history":["field6","field7","field8"],
+        "equity-structure":["field3","field4"],
+        "investor-situation":["field1","field6"]
+    }*/
+    var title_id = table.attr("data-title-id")
+    var  code = table.attr("data-code")
+    var fields_json=tableDictColumn(code);
+    console.log(fields_json);
+    if (fields_json && code in fields_json){
+        var fields = fields_json[code]
+        for(var i=0;i<fields.length;i++){
+            var v = fields[i]
+            var dict = dictCache(title_id,code,v)
+            dict_map[title_id+"-"+code+"-"+v] = dict
+            table.find('td[data-field-name="'+v+'"]').each(function(){
+                var o = $(this)
+                o.text(dict[o.text()])
+            })
+        }
+    }
+}
 
 
 

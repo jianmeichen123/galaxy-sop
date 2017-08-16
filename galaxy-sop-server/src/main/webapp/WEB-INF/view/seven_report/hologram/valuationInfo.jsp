@@ -70,6 +70,7 @@ var deleteJSON={};
 					$(this).showResults(true);
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
+					    resizetable($(this))
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
@@ -251,6 +252,7 @@ var deleteJSON={};
 				}
 		}) 
 		$('body,html').scrollTop(sTop);  //定位
+		$("table").each(function(){resizetable($(this))})
 		//编辑表格显示隐藏
 		 check_table();
 	});
@@ -360,6 +362,7 @@ var deleteJSON={};
 				
 			}
 		})
+
 		//上传图片相关
 		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
 		var key = keyJSON["b_"+id_code];
@@ -391,6 +394,7 @@ var deleteJSON={};
 					refreshSection(id);
 					btn_disable(0);
 				    toggle_btn($('.anchor_btn span'),0,save_this);
+
 				} else {
 
 				}
@@ -421,6 +425,18 @@ var deleteJSON={};
 								picData(projectInfo.id);
 								btn_disable(0);
 							    toggle_btn($('.anchor_btn span'),0,save_this);
+							     $('table').each(function(){
+                                    resizetable($(this))
+                                    if($(this).find('tr').length<=1){
+                                        $(this).hide();
+                                        if($(this).parents('dl').find('dd:gt(0)').length<=0){
+                                            $(this).parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
+                                        }
+                                    }
+                                    else{
+                                        $(this).show();
+                                    }
+                                })
 							} else {
 								layer.msg("操作失败!");
 							}
@@ -568,6 +584,7 @@ function saveRow(data)
 			}
 		}
 	}
+	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();
 } */
 

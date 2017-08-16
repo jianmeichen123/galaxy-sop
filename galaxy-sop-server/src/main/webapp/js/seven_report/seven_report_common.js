@@ -530,6 +530,9 @@ function buildResults(sec,title,readonly)
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
 					$(".field[data-title-id='"+title.id+"']").next().show();
 				}
+				if(title.resultList[0].contentDescribe1=='' || title.resultList[0].contentDescribe1==undefined){
+					$(".field[data-title-id='"+title.id+"']").siblings(".news_table").hide();
+				}
 			}
 			else
 			{
@@ -718,6 +721,9 @@ function buildTable(sec,title)
 			{
 				if(key.indexOf('field')>-1)
 				{
+					if(header.titleId == '1810' && key == 'field2'){
+						continue;
+					}
 					if(key!="opt"){
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}

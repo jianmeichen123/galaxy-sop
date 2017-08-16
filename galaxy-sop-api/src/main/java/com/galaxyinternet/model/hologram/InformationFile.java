@@ -2,6 +2,7 @@ package com.galaxyinternet.model.hologram;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -55,6 +56,8 @@ public class InformationFile extends BaseEntity{
     private String infoFileids;
     private Map<String,List<InformationFile>> commonFileList;
     
+    private String data;
+    private Set<String> titleIds;
     
     
     
@@ -257,4 +260,24 @@ public class InformationFile extends BaseEntity{
     public void setUpdateId(Long updateId) {
         this.updateId = updateId;
     }
+
+	public String getData()
+	{
+		return data;
+	}
+
+	public void setData(String data)
+	{
+		this.data = data;
+	}
+
+	public Set<String> getTitleIds()
+	{
+		return titleIds;
+	}
+
+	public void setTitleIds(Set<String> titleIds)
+	{
+		this.titleIds = titleIds;
+	}
 }
