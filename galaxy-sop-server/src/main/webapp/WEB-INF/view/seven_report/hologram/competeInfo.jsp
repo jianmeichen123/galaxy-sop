@@ -44,6 +44,7 @@ var mustids = "${mustids}";
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
+				console.log(entity);
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
@@ -83,7 +84,8 @@ $(function() {
 	});
 	
 	//通用编辑显示
-	$('div').delegate(".h_edit_btn", "click", function(event) {		var section = $(this).parents('.section');
+	$('div').delegate(".h_edit_btn", "click", function(event) {	
+		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var str ="";
@@ -99,7 +101,9 @@ $(function() {
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-					
+					if(id_code=="NO5_1"){   //竞争俩字
+						$("#b_"+id_code).closest(".section").find(".h_title").text("竞争");
+					}
 					sec.showResults();
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
