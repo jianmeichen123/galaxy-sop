@@ -84,10 +84,10 @@ table .on td{
 	padding:0 5px;
 	position:relative;
 }
-.align_left p,.align_left span{
+.align_left p,.align_left span,.content_16.align_left p.black{
 	color:#b2b2b2;
 }
-.align_left p.black,.align_left span.black{
+.align_left p.black,.align_left span.black,.content_16.align_left p.black sitg{
 	color:#333;
 }
 .editPic{
