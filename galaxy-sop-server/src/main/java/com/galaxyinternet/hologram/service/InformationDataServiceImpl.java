@@ -2,6 +2,8 @@ package com.galaxyinternet.hologram.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,6 +26,8 @@ import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.DatePatternUtil;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
 import com.galaxyinternet.model.hologram.FixedTableModel;
@@ -238,23 +242,38 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			{
 				entity.setCreatedTime(now);
 				entity.setCreateId(userId);
+				entity.setUpdateId(userId);
+				entity.setUpdateTime(now);
 				Long id = listdataDao.insert(entity);
-				setDataList(id,entity,model.getDataList(),
-						userId,now);
+				if(model.getDataList() != null && model.getDataList().size() > 0){
+					setDataList(id,entity,model.getDataList(),
+							userId,now);
+				}
 				continue;	
 			}
 			else
 			{
 				entity.setId(model.getId());
-				entity.setUpdatedTime(now);
+				if(model.getUpdateTimeStr() != null){
+					try {
+						entity.setUpdateTime(DateUtil.convertStringtoD(model.getUpdateTimeStr()).getTime());
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				entity.setUpdateId(userId);
 				listdataDao.updateById(entity);
-				setDataList(entity.getId(),entity,model.getDataList(),
-						userId,now);
+				if(model.getDataList() != null && model.getDataList().size() > 0){
+					setDataList(entity.getId(),entity,model.getDataList(),
+							userId,entity.getUpdatedTime());
+				}
+				
 			}
 		}
 		
 	}
+	
 	
 	public void saveScore(InformationData data)
 	{
@@ -334,11 +353,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					if(tm.getId() == null){
 						//新增
 						td.setId(null);
+						entity.setUpdateId(userId);
+						entity.setUpdateTime(now);
 						listdataDao.insert(td);
 					}else{
 						//修改
 						td.setId(tm.getId());
-						td.setUpdatedTime(now);
+						td.setUpdateTime(now);
 						td.setUpdateId(userId);
 						listdataDao.updateById(td);
 					}

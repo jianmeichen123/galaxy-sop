@@ -422,7 +422,10 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-					ele.val(row.data(name));
+					if(name != 'updateTimeStr'){
+						ele.val(row.data(name));
+					}
+					
 				}
 			});
 			//运营 报告嵌套表格处理
@@ -548,6 +551,7 @@ function saveForm(form)
 function saveRow(data)
 {
 	data = JSON.parse(data);
+	console.log("*****************"+data);
 	var titleId = data.titleId;
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
@@ -560,7 +564,7 @@ function saveRow(data)
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
 		for(var key in data)
 		{
-			if(key.indexOf('field')>-1)
+			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName")
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
