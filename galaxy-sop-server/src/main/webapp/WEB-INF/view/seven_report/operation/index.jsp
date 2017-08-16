@@ -106,6 +106,7 @@ createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
 	//right_anchor("DNO2?reportType=2"); 
+	right_anchor("ONO1?reportType=7","seven","hide");
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'ONO1?reportType=7', null,
