@@ -1285,7 +1285,6 @@ function toggle_btn(data,status,dom_this){
 					}
 				}
 			});
-			//$(dom_this).find('.mb_24').show();
 			$('.anchor_nav li').removeClass("active");
 			$('.anchor_nav li').eq(0).addClass("active");
 			$('html, body').scrollTop(0);
