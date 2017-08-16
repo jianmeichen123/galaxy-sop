@@ -1005,6 +1005,15 @@ function validate(){
 						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="3" && inputValRuleMark=="3,2"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-vinputValRule_3":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-vinputValRule_3":"<font color=red>*</font>支持0～100的整数和两位小数"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="3" && inputValRuleMark=="ok"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
