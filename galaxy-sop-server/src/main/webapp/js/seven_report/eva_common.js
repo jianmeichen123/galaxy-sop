@@ -651,6 +651,7 @@ function getTalbleData()
 	return infoTableModelList;
 	
 }
+var deleteFileIds = new Array();
 $("#save-rpt-btn").click(function(){
 	//判断是否让其进行保存
 	var editbox = $(".radioShow");
@@ -670,7 +671,9 @@ $("#save-rpt-btn").click(function(){
 		scoreList:	getScores(),
 		infoModeList: getValues(),
 		infoTableModelList: getTalbleData(),
-		infoFileList: getImageList()
+		infoFileList: getImageList(),
+		deletedRowIds: deletedRowIds,
+		deleteFileIds: deleteFileIds
 	};
 	sendPostRequestByJsonObj(
 			platformUrl.saveOrUpdateInfo+'?_='+new Date().getTime() , 
