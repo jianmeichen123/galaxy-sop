@@ -158,7 +158,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 				else
 				{
 					String value = values[0];
-					String val = value.substring(value.lastIndexOf(" "));
+					String val = value.substring(value.lastIndexOf(" ")).trim();
 					if(NumberUtils.isNumber(val))
 					{
 						BigDecimal num = new BigDecimal(val);

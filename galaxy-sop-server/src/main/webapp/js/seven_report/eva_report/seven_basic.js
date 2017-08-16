@@ -373,7 +373,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 		}else if(type==18){
 			var result_li='';
 			$.each(valueList,function(i,n){
-				result_li += "<li><a href=\"javascript:;\" data-value-code=\"code_"+i+"\"><label class=\"select_1\">"+n.content1+"</label> <label class=\"select_2\">"+n.content2+"</label></a></li> "
+				result_li += "<li><a href=\"javascript:;\" data-value-code=\"code_"+i+"\" id=\""+n.content1+' '+n.content2+"\"><label class=\"select_1\">"+n.content1+"</label> <label class=\"select_2\">"+n.content2+"</label></a></li> "
 			})
 			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
 			
@@ -452,11 +452,10 @@ function right(obj,type){
 		}
 	}else if(type=="checkbox"){
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
-		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
 		var p = align_left.find('p');
 		if(val_checkbox.length==0){
 			p.text('未选择');
-			p.attr("data-title-value",val_id);
+			p.attr("data-title-value",'');
 		}
 		else
 		{
