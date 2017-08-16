@@ -14,7 +14,6 @@
 <link href="<%=path %>/css/seven_report/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/skins/all.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/seven_report/jquery.mCustomScrollbar.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
 </script>
@@ -78,7 +77,7 @@ var pageId = "project";
 			<span class="show_edit"></span>
 		</div>
 		<!--弹窗2 -->	
-		<div class="h_look h h_team_look clearfix ch_opration">
+		<div class="h_look h h_team_look clearfix ch_opration" id="scrollbar">
 		</div>
 		<!-- 图片展示弹窗 -->
 		<div class="customer_income">
@@ -158,7 +157,7 @@ var projId="${projectId}";
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>
 <script src="<%=path%>/js/seven_report/eva_report/textarea.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>
-<script src="<%=path%>/js/seven_report/eva_report/jquery.mCustomScrollbar.min.js"></script>
+<script src="<%=path%>/js/seven_report/eva_report/jquery.nicescroll.min.js"></script>
 <script src="<%=path%>/js/seven_report/eva_report/textarea_scroll.js"></script>
 				
 <!-- 时间插件 -->

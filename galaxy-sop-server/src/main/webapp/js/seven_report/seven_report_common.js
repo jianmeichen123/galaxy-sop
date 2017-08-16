@@ -721,6 +721,9 @@ function buildTable(sec,title)
 			{
 				if(key.indexOf('field')>-1)
 				{
+					if(header.titleId == '1810' && key == 'field2'){
+						continue;
+					}
 					if(key!="opt"){
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}

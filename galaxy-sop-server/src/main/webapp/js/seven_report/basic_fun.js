@@ -243,8 +243,10 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						var cell=$("input[data-title-id='"+children+"']").attr("data-content");
 						if(projectParent > 0 && projectChildren > 0 && cell=="%"){
 							return projectParent * (100/projectChildren);
+						}else{
+							return '';
 						}
-						return null;
+						
 					}
 					if(reportType=="3"){
 						$("input[data-title-id='"+result+"']").attr("value",calculationValuations());
@@ -401,12 +403,22 @@ function editRow(ele)
 {
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
+	var txt= $(ele).text();
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
 			var title = $("#pop-title");
 			 $('#finace_popup_name').html('编辑融资历史');
+			 if(txt=="查看"){
+					$("#detail-form").hide();
+					$(".button_affrim").hide();
+					$("#delivery_popup_name").text("查看交割事项");
+					
+				}else{
+					$(".see_block").hide();
+					$("#delivery_popup_name").text("编辑交割事项");
+				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
@@ -420,9 +432,16 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-					ele.val(row.data(name));
+						ele.val(row.data(name));
 				}
 			});
+
+			//查看显示
+			$.each($(".see_block").find("dd[name]"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.text(row.data(name));
+			})
 			//运营 报告嵌套表格处理
 			if(reportType == 7){
 				if(row.data("dataList"))
@@ -500,6 +519,10 @@ function addRow(ele)
             okback:function(){
 				$('#qualifications_popup_name').html('添加简历');
 				$('#qualifications_popup_name1').html('添加持股人');
+				//交割前事项
+				$("#delivery_popup_name").text("新增交割事项");
+				$(".see_block").hide();
+				
 				$('#finace_popup_name').html('添加融资历史');
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
@@ -546,6 +569,7 @@ function saveForm(form)
 function saveRow(data)
 {
 	data = JSON.parse(data);
+	console.log("*****************"+data);
 	var titleId = data.titleId;
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
@@ -558,7 +582,7 @@ function saveRow(data)
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
 		for(var key in data)
 		{
-			if(key.indexOf('field')>-1)
+			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName")
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(data[key]);

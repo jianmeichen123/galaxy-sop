@@ -2,6 +2,8 @@ package com.galaxyinternet.hologram.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,6 +26,8 @@ import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.DatePatternUtil;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
 import com.galaxyinternet.model.hologram.FixedTableModel;
@@ -128,6 +132,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				entity.setId(new Long(model.getResultId()));
 				entity.setUpdatedTime(now);
 				entity.setUpdateId(userId.toString());
+				entity.setIsValid("0");
 				uodateList.add(entity); // 修改
 			}
 		}
@@ -140,6 +145,18 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		if(uodateList.size() > 0)
 		{
+			// ===== 待 1.7  rc环境时 删除
+			List<InformationResult> toVaild1_list = new ArrayList<>();
+			InformationResult toVaild1;
+			for(InformationResult tempUp : uodateList){
+				toVaild1 = new InformationResult();
+				toVaild1.setProjectId(tempUp.getProjectId());
+				toVaild1.setTitleId(tempUp.getTitleId());
+				toVaild1.setIsValid("1");
+				toVaild1_list.add(toVaild1);
+			}
+			resultDao.updateInBatch(toVaild1_list);
+			// ====  end
 			resultDao.updateInBatch(uodateList);
 		}
 		//插入数据
@@ -238,23 +255,38 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			{
 				entity.setCreatedTime(now);
 				entity.setCreateId(userId);
+				entity.setUpdateId(userId);
+				entity.setUpdateTime(now);
 				Long id = listdataDao.insert(entity);
-				setDataList(id,entity,model.getDataList(),
-						userId,now);
+				if(model.getDataList() != null && model.getDataList().size() > 0){
+					setDataList(id,entity,model.getDataList(),
+							userId,now);
+				}
 				continue;	
 			}
 			else
 			{
 				entity.setId(model.getId());
-				entity.setUpdatedTime(now);
+				if(model.getUpdateTimeStr() != null){
+					try {
+						entity.setUpdateTime(DateUtil.convertStringtoD(model.getUpdateTimeStr()).getTime());
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				entity.setUpdateId(userId);
 				listdataDao.updateById(entity);
-				setDataList(entity.getId(),entity,model.getDataList(),
-						userId,now);
+				if(model.getDataList() != null && model.getDataList().size() > 0){
+					setDataList(entity.getId(),entity,model.getDataList(),
+							userId,entity.getUpdatedTime());
+				}
+				
 			}
 		}
 		
 	}
+	
 	
 	public void saveScore(InformationData data)
 	{
@@ -334,11 +366,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					if(tm.getId() == null){
 						//新增
 						td.setId(null);
+						entity.setUpdateId(userId);
+						entity.setUpdateTime(now);
 						listdataDao.insert(td);
 					}else{
 						//修改
 						td.setId(tm.getId());
-						td.setUpdatedTime(now);
+						td.setUpdateTime(now);
 						td.setUpdateId(userId);
 						listdataDao.updateById(td);
 					}
@@ -367,8 +401,13 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		
 		try
 		{
+			//插入新添加的文件
 			for(InformationFile infoFile : infoFiles)
 			{
+				if(infoFile.getId() != null)
+				{
+					continue;
+				}
 				String fileData = infoFile.getData();
 				String suffix = fileData.substring(fileData.indexOf("data:image/")+11,fileData.indexOf(";base64,"));
 				String fileName = "image-"+System.currentTimeMillis();
@@ -388,18 +427,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				infoFile.setUpdatedTime(now);
 				infoFile.setFileName(fileName);
 				infoFile.setFileUrl(url);
-				if(infoFile.getId() == null)
-				{
-					infoFile.setCreatedTime(now);
-					infoFileDao.insert(infoFile);
-				}
-				else
-				{
-					infoFileDao.updateById(infoFile);
-				}
-				
-				
-				
+				infoFile.setCreatedTime(now);
+				infoFileDao.insert(infoFile);
 			}
 		} catch (IOException e)
 		{

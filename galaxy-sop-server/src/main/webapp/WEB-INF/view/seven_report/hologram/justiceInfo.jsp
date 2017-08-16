@@ -132,7 +132,7 @@ var deleteJSON={};
 		var id_code = $(this).attr('attr-save');
 		event.stopPropagation();
 		var sec = $(this).closest('form');
-		var fields = sec.find("input[type='text'],input:checked,textarea");
+		var fields = sec.find("input[type='text'],input:checked,textarea,option:selected");
 		var data = {
 			projectId : projectInfo.id
 		};
@@ -142,10 +142,14 @@ var deleteJSON={};
 		$.each(fields,function(){
 			var field = $(this);
 			var type = field.data('type');
-			var _tochange =field.parents("dd").prev().attr("tochange");
+            var _tochange =field.closest("div").find("dt").attr("tochange");;
 			var sele = field.parent().get(0).tagName;
+			var valu = null;
+			if (field.val() && field.val().length > 0) {
+				valu = field.val();
+			}
 			if(sele=="SELECT"){
-				var _resultId = field.parent().attr("resultId");
+				var _resultId = field.parent().attr("resultId");              
 			}else{
 				var _resultId = field.attr("resultId");
 			}
@@ -156,7 +160,8 @@ var deleteJSON={};
 				titleId	: field.data('titleId'),
 				tochange:_tochange,
 				resultId:_resultId,
-				type : type
+				type : type,
+				value : valu
 			};
 			if(type==2 || type==3 || type==4)
 			{

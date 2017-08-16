@@ -424,13 +424,13 @@ function buildFileList(title)
 	var fileList = title.fileList;
 	var type = title.type;
 	var span = _ele.find('span');
-	span.empty();
 	if(typeof fileList == 'undefined' || fileList.length == 0)
 	{
 		return;
 	}
 	if(type == 7)
 	{
+		span.empty();
 		$.each(fileList,function(){
 			var em = $('<em>[图片]</em>');
 			em.addClass('income_pic');
@@ -684,6 +684,7 @@ $("#save-rpt-btn").click(function(){
 					var relateId = $("#eva-tabs li.active").data('relateId');
 					showResultAndScoreList(relateId);
 					deletedRowIds=[];
+					deleteFileIds=[];
 					$(".pagebox").attr("data-result",false);
 					$("#save-rpt-btn em").addClass("disabled")
 					layer.msg('保存成功');
@@ -700,7 +701,6 @@ function getImageList()
 {
 	var infoFileList = new Array();
 	var imgs = $(".title-value .income_pic");
-	console.log();
 	$.each(imgs,function(){
 		var _this = $(this);
 		var fileId = _this.data('fileId');
@@ -711,7 +711,6 @@ function getImageList()
 			projectId: projId,
 			data: data
 		};
-		console.log('fileId='+fileId);
 		if(typeof fileId != 'undefined')
 		{
 			model.id = fileId;
@@ -779,8 +778,11 @@ function img_fun(data){
 
 $("div").delegate(".h_img_del","click",function(){
 	$(this).parents(".fl_none").find("ul").show()
-	$(this).parent().remove();	
-
+	$(this).parent().remove();
+	$(".pagebox").attr("data-result",true);
+	$("#save-rpt-btn em").removeClass("disabled")
+	var del_id = $(this).next().data("id");
+	deleteFileIds.push(del_id);
 })
 //图片点击弹窗
 	
