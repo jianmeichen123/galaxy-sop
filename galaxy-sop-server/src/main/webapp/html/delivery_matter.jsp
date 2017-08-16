@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 
 <div class="addmentc">
-	<div class="title_bj" id="popup_name"></div>
+	<div class="title_bj" id="delivery_popup_name"></div>
 	
     <div class="form clearfix" id="container">
     
@@ -35,6 +35,18 @@
             </dl>
             
             </form>
+            <!-- 查看显示下面内容 -->
+            <div class="see_block">
+            	<dl class="fmdl clearfix">
+                	<dt>事项简述：</dt>
+                	<dd name="field1"></dd>
+            	</dl>
+            
+            	<dl class="fmdl fl_l">
+                	 <dt>详细内容：</dt>
+                 	<dd name="field2"></dd>
+           		</dl>
+            </div>
             
         </div>
     </div>

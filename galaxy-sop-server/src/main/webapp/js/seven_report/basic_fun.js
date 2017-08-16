@@ -403,12 +403,22 @@ function editRow(ele)
 {
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
+	var txt= $(ele).text();
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
 			var title = $("#pop-title");
 			 $('#finace_popup_name').html('编辑融资历史');
+			 if(txt=="查看"){
+					$("#detail-form").hide();
+					$(".button_affrim").hide();
+					$("#delivery_popup_name").text("查看交割事项");
+					
+				}else{
+					$(".see_block").hide();
+					$("#delivery_popup_name").text("编辑交割事项");
+				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
@@ -425,6 +435,13 @@ function editRow(ele)
 						ele.val(row.data(name));
 				}
 			});
+
+			//查看显示
+			$.each($(".see_block").find("dd[name]"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.text(row.data(name));
+			})
 			//运营 报告嵌套表格处理
 			if(reportType == 7){
 				if(row.data("dataList"))
