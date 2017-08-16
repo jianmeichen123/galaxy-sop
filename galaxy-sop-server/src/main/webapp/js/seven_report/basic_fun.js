@@ -221,7 +221,11 @@ $('div').delegate(".h_edit_btn","click",function(event){
 					var valRuleFormula=$(this).attr("data-valruleformula");
 					if(valRuleFormula){
 						var valRule=valRuleFormula.split("=");
-						var valRule1=valRule[1].split("/");
+						var valRule1="";
+						if(null!=valRule[1]){
+							valRule1=valRule[1].split("/");
+						}
+					
 						var result=valRule[0];
 						var parent=valRule1[0];
 						var children=valRule1[1];
