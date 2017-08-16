@@ -196,25 +196,27 @@ $(function() {
 			if (field.val() && field.val().length > 0) {
 				valu = field.val();
 			}
-			//判断是否到是select
-			if(sele=="SELECT"){
-				var _resultId = field.parent().attr("resultId");
-			}else{
-				var _resultId = field.attr("resultId");
-			}
-			var _tochange =field.closest("div").find("dt").attr("tochange");
 			
-			if(_tochange==undefined){
-				_tochange=false;
+			var _tochange =field.closest("div").find("dt").attr("tochange");
+			if(_tochange && _tochange == 'true'){
+				//判断是否到是select
+				if(sele=="SELECT"){
+					var _resultId = field.parent().attr("resultId");
+				}else{
+					var _resultId = field.closest("dd").attr("resultId");
+				}
+				
+				var infoMode = {
+						titleId : field.data('titleId'),
+						type : field.data('type'),
+						tochange:_tochange,
+						resultId:_resultId,
+						value : valu
+					};
+					infoModeList.push(infoMode);
+				
 			}
-			var infoMode = {
-				titleId : field.data('titleId'),
-				type : field.data('type'),
-				tochange:_tochange,
-				resultId:_resultId,
-				value : valu
-			};
-			infoModeList.push(infoMode);
+			
 		});
 		$.each(fields_value1, function() {
 			var field = $(this);
