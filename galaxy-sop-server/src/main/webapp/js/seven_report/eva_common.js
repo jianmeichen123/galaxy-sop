@@ -83,7 +83,7 @@ function mouseout(obj){
 	var target = $(obj).find('.editPic');
 	target.hide();
 };
-$("#eva-tabs li:eq(2)").click();
+$("#eva-tabs li:eq(0)").click();
 
 // 
 /**
@@ -666,7 +666,6 @@ $("#save-rpt-btn").click(function(){
 	if(edit_status==true){
 		layer.msg("正在编辑无法保存");
 	}else{
-		console.log(deleteFileIds)
 	var data = {
 		projectId: projId,
 		scoreList:	getScores(),
@@ -692,7 +691,6 @@ $("#save-rpt-btn").click(function(){
 				} 
 				else 
 				{
-					alert("!!!!scjkfhfjgh")
 					layer.msg(data.result.message);
 				}
 		})
@@ -703,7 +701,6 @@ function getImageList()
 {
 	var infoFileList = new Array();
 	var imgs = $(".title-value .income_pic");
-	console.log();
 	$.each(imgs,function(){
 		var _this = $(this);
 		var fileId = _this.data('fileId');
