@@ -267,6 +267,8 @@ table.table_15 td:first-child+td+td+td{
  .popupButton{
 	display:block !important;
 	overflow:hidden;
+	height:28px;
+	
 } 
  .popupButton em.right{
 	display:inline-block;
@@ -493,7 +495,12 @@ textarea::input-placeholder{
 	background-color: #fff;
 	position: absolute;
 	display: none;
+<<<<<<< Updated upstream
 	z-index: 21;
+=======
+	z-index: 999;
+	border:1px solid #979797;
+>>>>>>> Stashed changes
 }
 .gapPopup:after{
 			content: '';
@@ -524,15 +531,21 @@ textarea::input-placeholder{
 			border-top: 18px solid #fff;
 		}
 .gapPopup textarea{
+<<<<<<< Updated upstream
 	width: 262px;
 	height: 138px !important;
 	border-top:none;
 	border-bottom:none;
+=======
+	width: 259px;
+	height: 139px !important;
+	border:none;
+>>>>>>> Stashed changes
 	outline: none;
 	resize: none; 
-	overflow-y:auto !important;
+	overflow-y:hidden !important;
 	margin-top:25px;
-	padding:0px 10px;
+	padding:0px 10px 10px 10px;
 }
 .show_edit{
 	display:inline-block;
@@ -726,7 +739,7 @@ table td select option{
 .h_radios li label{
 	margin-left: 10px;
 }
- .div_tmpl{border:1px solid #979797;}
+ .div_tmpl{}
 .radioShow label{
 	display: inline-block;
     padding-right: 10px;
@@ -882,6 +895,47 @@ select::-ms-expand { display: none; }
 .mCS-light-thin>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	width:0px !important;
 }
-
+/* textarea scroll */
+   /*for srcollbar*/
+.mTEXTAREA_scrollTools {
+        height: 100%;
+        right: 0;
+        top: 0;
+        width: 6px;
+        position: absolute;
+        display: block;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer {
+        bottom: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer .mTEXTAREA_draggerRail {
+        /*background-color: #000;*/
+        border-radius: 2px;
+        height: 100%;
+        opacity: 0.1;
+        filter: alpha(opacity = 10);
+        width: 90%;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer .mTEXTAREA_dragger {
+        cursor: pointer;
+        width: 100%;
+        position: absolute;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer .mTEXTAREA_dragger .mTEXTAREA_dragger_bar {
+        background-color: #61aae6;
+        border-radius: 6px;
+        cursor: pointer;
+        height: 80%;
+        opacity: 0.75;
+        filter: alpha(opacity = 75);
+        width: 4px;
+        position: relative;
+    }
+.scrobar_textarea {position: relative;}
 
 

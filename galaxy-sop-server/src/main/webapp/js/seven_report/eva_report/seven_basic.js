@@ -53,12 +53,12 @@
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
-			var  topNum = _this.offset().top-$(".gapPopup").height()-195;
+			var  topNum = _this.offset().top-$(".gapPopup").height()-174;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
-			//autosize(document.getElementById('myTextarea'));
+			$('#myTextarea').textareaScroll();
 			$(obj).hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
@@ -72,11 +72,11 @@
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
-			//!window.jQuery && document.write(unescape('%3Cscript src="js/minified/jquery-1.9.1.min.js"%3E%3C/script%3E'))
 			$(".ch_opration").mCustomScrollbar({
 						/*autoHideScrollbar:true,*/
 						theme:"light-thin"
 			});
+			
 				
 			
 		}
