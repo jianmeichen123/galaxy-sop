@@ -519,6 +519,10 @@ function addRow(ele)
             okback:function(){
 				$('#qualifications_popup_name').html('添加简历');
 				$('#qualifications_popup_name1').html('添加持股人');
+				//交割前事项
+				$("#delivery_popup_name").text("新增交割事项");
+				$(".see_block").hide();
+				
 				$('#finace_popup_name').html('添加融资历史');
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
