@@ -1677,10 +1677,13 @@ function type_change(){
 		  }
 	})
 	//change标识
-	$("input").change(function(){
+	/*$("input").change(function(){
+		
+		
+	})*/
+	$("input").on("input",function(){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
-		
 	})
 	$("textarea").change(function(){
 		var _target=$(this).parents("dd").prev();
