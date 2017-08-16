@@ -117,6 +117,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				entity.setId(new Long(model.getResultId()));
 				entity.setUpdatedTime(now);
 				entity.setUpdateId(userId.toString());
+				entity.setIsValid("0");
 				uodateList.add(entity); // 修改
 			}
 		}
@@ -129,6 +130,18 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		if(uodateList.size() > 0)
 		{
+			// ===== 待 1.7  rc环境时 删除
+			List<InformationResult> toVaild1_list = new ArrayList<>();
+			InformationResult toVaild1;
+			for(InformationResult tempUp : uodateList){
+				toVaild1 = new InformationResult();
+				toVaild1.setProjectId(tempUp.getProjectId());
+				toVaild1.setTitleId(tempUp.getTitleId());
+				toVaild1.setIsValid("1");
+				toVaild1_list.add(toVaild1);
+			}
+			resultDao.updateInBatch(toVaild1_list);
+			// ====  end
 			resultDao.updateInBatch(uodateList);
 		}
 		//插入数据

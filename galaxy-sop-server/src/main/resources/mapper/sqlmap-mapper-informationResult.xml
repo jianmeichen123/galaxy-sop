@@ -126,6 +126,7 @@
 			content_choose = #{contentChoose,jdbcType=VARCHAR},
 			content_describe1 = #{contentDescribe1,jdbcType=VARCHAR},
 			content_describe2 = #{contentDescribe2,jdbcType=VARCHAR},
+			<if test="isValid != null">  is_valid = #{isValid,jdbcType=BIGINT}, </if>
 			
 			<!-- 
 			<if test="contentChoose != null"> content_choose = #{contentChoose,jdbcType=VARCHAR}, </if>
