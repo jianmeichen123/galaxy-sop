@@ -53,9 +53,8 @@
           <dl class="fmdl clearfix">
             <dt>股权占比：</dt>
                 <dd>
+                	 <input type="text" class="txt fl" name="field4" valType="OTHER" allowNULL="yes"  data-rule-verify_103="true" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2})|100)$" data-msg-verify_103="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
                 </dd>
-                    <input type="text" class="txt fl" name="field4" valType="OTHER" allowNULL="yes"  data-rule-verify_103="true" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2})|100)$" data-msg-verify_103="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
-
            </dl>
            <dl class="fmdl clearfix">
            <dt>估值金额：</dt>
@@ -81,13 +80,13 @@
              </dl>
            <div class="team_wid">
             	<p>合同关键条款：</p>
-            	<textarea class="team_textarea" name="field9" maxlength="1000" id="finace_area" oninput="countChar(&quot;now_area&quot;,&quot;label_now&quot;,&quot;1000&quot;)"></textarea>
+            	<textarea class="team_textarea" name="field9" maxlength="1000" id="finace_area" oninput="countChar('finace_area','label_now','1000')"></textarea>
             	<div class="finace_fnum num_tj"><span for="" id="label_now">1000</span>/1000</div>
             </div>
            <div class="team_wid">
             	<p>对赌或业绩承诺条款：</p>
-            	<textarea class="team_textarea" name="field10" maxlength="1000" id="now_area" oninput="countChar(&quot;now_area&quot;,&quot;label_now&quot;,&quot;1000&quot;)"></textarea>
-            	<div class="finace_fnum num_tj"><span for="" id="label_now">1000</span>/1000</div>
+            	<textarea class="team_textarea" name="field10" maxlength="1000" id="now_area" oninput="countChar('now_area','label_now_next','1000')"></textarea>
+            	<div class="finace_fnum num_tj"><span for="" id="label_now_next">1000</span>/1000</div>
             </div>
         </div>
     </div>
@@ -109,6 +108,29 @@ $(function(){
     $.validator.setDefaults({
     	errorElement:'span'
     });
+    
+    //金额联动
+    function calculationValuations(){
+		var projectParent = $("input[name='field3']").val();
+		var projectChildren = $("input[name='field4']").val();
+		if(projectParent > 0 && projectChildren > 0){
+			return projectParent * (100/projectChildren);
+		}
+		return null;
+	}
+    $("div").delegate("input[name='field3']","blur",function(){
+    	var valuations = calculationValuations();
+		if(valuations != null){
+			$("input[name='field5']").val(valuations);
+		}
+	});
+    $("div").delegate("input[name='field4']","blur",function(){
+    	var valuations = calculationValuations();
+		if(valuations != null){
+			$("input[name='field5']").val(valuations);
+		}
+	});
+    
 })
 
 //selectContext();
