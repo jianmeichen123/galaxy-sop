@@ -50,6 +50,7 @@ var mustids = "${mustids}";
 					$(this).showResults(true);
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
+    					resizetable($(this))
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
@@ -107,6 +108,7 @@ $(function() {
 					sec.showResults();
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
+					    resizetable($(this))
 						if($(this).find('tr').length<=1){
 							$(this).hide();
 							if($(this).parents('dl').find('dd:gt(0)').length<=0){
