@@ -779,6 +779,8 @@ function img_fun(data){
 $("div").delegate(".h_img_del","click",function(){
 	$(this).parents(".fl_none").find("ul").show()
 	$(this).parent().remove();
+	$(".pagebox").attr("data-result",true);
+	$("#save-rpt-btn em").removeClass("disabled")
 	var del_id = $(this).next().data("id");
 	deleteFileIds.push(del_id);
 })
