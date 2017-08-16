@@ -243,8 +243,10 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						var cell=$("input[data-title-id='"+children+"']").attr("data-content");
 						if(projectParent > 0 && projectChildren > 0 && cell=="%"){
 							return projectParent * (100/projectChildren);
+						}else{
+							return '';
 						}
-						return null;
+						
 					}
 					if(reportType=="3"){
 						$("input[data-title-id='"+result+"']").attr("value",calculationValuations());
