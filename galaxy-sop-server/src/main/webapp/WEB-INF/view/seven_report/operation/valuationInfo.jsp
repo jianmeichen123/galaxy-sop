@@ -19,6 +19,7 @@
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
+<script src="<%=path%>/js/seven_report/operation/operation_common.js"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 
@@ -61,7 +62,7 @@ $(function() {
 	//right_anchor("DNO2?reportType=2");
 })
 //整体页面显示
-sendGetRequest(platformUrl.queryAllTitleValues + 'DNO9?reportType=2', null,
+sendGetRequest(platformUrl.queryAllTitleValues + 'ONO9?reportType=7', null,
 	function(data) {
 		var result = data.result.status;
 		if (result == 'OK') {

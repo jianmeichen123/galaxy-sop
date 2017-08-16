@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>项目详情uyy</title>
+<title>项目详情</title>
 
 </head>
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>

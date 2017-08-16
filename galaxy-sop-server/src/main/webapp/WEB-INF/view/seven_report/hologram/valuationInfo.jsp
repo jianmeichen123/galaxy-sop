@@ -65,7 +65,7 @@ var deleteJSON={};
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				picData(projectInfo.id,1);
-				customBuilder();
+				//customBuilder();  表格
 				$(".section").each(function(){
 					$(this).showResults(true);
 					var table = $(this).find('.mb_24 table');
@@ -176,12 +176,14 @@ var deleteJSON={};
 						var valuations = calculationValuations();
 						if(valuations != null){
 							$("input[data-title-id='"+result+"']").val(valuations);
+							$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 						}
 					});
 					$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 						var valuations = calculationValuations();
 						if(valuations != null){
 							$("input[data-title-id='"+result+"']").val(valuations);
+							$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 						}
 					})
 					//文本域剩余字符数
@@ -326,6 +328,7 @@ var deleteJSON={};
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
+		console.log(data);
 		//表格
 		var infoTableModelList = new Array();
 		$.each(sec.find("table.editable"),function(){

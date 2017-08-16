@@ -188,6 +188,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 			if (result == 'OK') {
 				var entity = data.entity;
 				$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
+				if(id_code=="DNO5_1" || id_code=="GNO5_1" ){   //竞争俩字
+					$("#b_"+id_code).closest(".section").find(".h_title").text("竞争");
+				}
 				sec.showResults();
 				bindChange();
 				bindChangeType13();
@@ -217,36 +220,60 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				section.find(".h_title span").remove();
 				section.find(".h_title").append(str);
 				//计算项目估值
-				var valRuleFormula=$("input[data-type='19']").attr("data-valruleformula");
-				//console.log(valRuleFormula);
-				if(valRuleFormula!=null || valRuleFormula!=undefined){
-					var valRule=valRuleFormula.split("=");
-					var valRule1=valRule[1].split("/");
-					var result=valRule[0];
-					var parent=valRule1[0];
-					var children=valRule1[1];
-				}
-				
-				function calculationValuations(){
-					var projectParent = $("input[data-title-id='"+parent+"']").val();
-					var projectChildren = $("input[data-title-id='"+children+"']").val();
-					var cell=$("input[data-title-id='"+children+"']").attr("data-content");
-					if(projectParent > 0 && projectChildren > 0 && cell=="%"){
-						return projectParent * (100/projectChildren);
+				$.each($("input[data-type='19'][data-content='%']"),function(){
+					var valRuleFormula=$(this).attr("data-valruleformula");
+					if(valRuleFormula){
+						var valRule=valRuleFormula.split("=");
+						var valRule1="";
+						if(null!=valRule[1]){
+							valRule1=valRule[1].split("/");
+						}
+					
+						var result=valRule[0];
+						var parent=valRule1[0];
+						var children=valRule1[1];
+						if(reportType=="3"){
+							var input='<input type="text" class="hidden" data-code="PNO1_1_2" resultid="60740" data-title-id="'+result+'" data-type="19"/>';  //添加隐藏域
+							$("input[data-valruleformula='"+valRuleFormula+"']").after(input);
+						}
 					}
-					return null;
-				}
-				$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
-					var valuations = calculationValuations();
-					if(valuations != null){
-						$("input[data-title-id='"+result+"']").val(valuations);
+					function calculationValuations(){
+						var projectParent = $("input[data-title-id='"+parent+"']").val();
+						var projectChildren = $("input[data-title-id='"+children+"']").val();
+						var cell=$("input[data-title-id='"+children+"']").attr("data-content");
+						if(projectParent > 0 && projectChildren > 0 && cell=="%"){
+							return projectParent * (100/projectChildren);
+						}
+						return null;
 					}
-				});
-				$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
-					var valuations = calculationValuations();
-					if(valuations != null){
-						$("input[data-title-id='"+result+"']").val(valuations);
+					if(reportType=="3"){
+						$("input[data-title-id='"+result+"']").attr("value",calculationValuations());
 					}
+					$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
+						var valuations = calculationValuations();
+						if(valuations != null){
+							if(reportType=="3"){
+								$("input[data-title-id='"+result+"']").attr("value",valuations);
+								$("input[type='hidden'].money").val(valuations);
+							}else{
+								$("input[data-title-id='"+result+"']").val(valuations);
+								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+							}
+							
+						}
+					});
+					$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+						var valuations = calculationValuations();
+						if(valuations != null){
+							if(reportType=="3"){
+								$("input[data-title-id='"+result+"']").attr("value",valuations);
+								$("input[type='hidden'].money").val(valuations);
+							}else{
+								$("input[data-title-id='"+result+"']").val(valuations);
+								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+							}
+						}
+					})
 				})
 				//文本域剩余字符数
 				var textarea_h = section.find('.textarea_h');
@@ -379,6 +406,7 @@ function editRow(ele)
 		data:"",//传递参数
 		okback:function(){
 			var title = $("#pop-title");
+			 $('#finace_popup_name').html('编辑融资历史');
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
@@ -472,6 +500,7 @@ function addRow(ele)
             okback:function(){
 				$('#qualifications_popup_name').html('添加简历');
 				$('#qualifications_popup_name1').html('添加持股人');
+				$('#finace_popup_name').html('添加融资历史');
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));

@@ -9,7 +9,7 @@
 <html class="scroll">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>项目详情1</title>
+<title>项目详情</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
@@ -104,7 +104,7 @@ var path = '<%=path%>';
 createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
-	//right_anchor("DNO2?reportType=2"); 
+	right_anchor("DNO2?reportType=2","seven","hide"); 
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'DNO2?reportType=2', null,

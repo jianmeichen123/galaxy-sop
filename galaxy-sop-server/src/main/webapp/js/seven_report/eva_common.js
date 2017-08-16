@@ -44,9 +44,9 @@ function tabShow(code,relateId){
 				/* 16类型内容处理 */
 				var content_16 = $(".content_16").text();
 				if(content_16!="未填写未填写"){
-					content_16=content_16.replace(/<sitg>/g,'（');
-					content_16=content_16.replace(/<\/sitg>/g,'）');
-					$(".content_16 p").text(content_16); 
+					content_16=content_16.replace(/<sitg>/g,'（<sitg>');
+					content_16=content_16.replace(/<\/sitg>/g,'<\/sitg>）');
+					$(".content_16 p").html(content_16); 
 				}
 				//显示结果和分数向
 				showResultAndScoreList(relateId);
@@ -406,8 +406,8 @@ function buildResult(title)
 		if(val != null && val.length>0)
 		{
 			_ele.attr("data-remark",val);
-			val=val.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
-			_ele.text(val);
+			val=val.replace(/<sitg>/g,'（<sitg>').replace(/<\/sitg>/g,'<\/sitg>）');
+			_ele.html(val);
 		}
 		_ele.attr("data-result-id",results[0].id);
 	}
@@ -843,7 +843,7 @@ function s_editRow(ele)
 function font_color(data){
 	$.each(data,function(){
 		var _this=$(this);
-		if(_this.text()=="未填写"||_this.text()=="未选择"){
+		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
 			_this.removeClass("black");
 		}else{
 			_this.addClass("black");

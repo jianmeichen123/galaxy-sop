@@ -5,24 +5,24 @@ function tabOperateChange(index){
 	$("#tab-content1").remove();
 	$(".tip-yellowsimple").remove();
   switch(index){
-	case '0':investFinancePlan1(); break;  //标签1:投资方案
-	case '1': initTeamInfo1(); break;  //标签2: 团队
-	case '2': initOperateInfo1();   break;  //标签3:运营数据
-	case '3': initMarkDevelop1();   break;  //标签4:市场开发
-	case '4': initCompeteInfo1();   break;  //标签4:竞争
-	case '5': initPlanInfo1();   break;  //标签5:战略及策略
-	case '6': initFinanceInfo1();   break;  //标签6:财务
-	case '7': initJusticeInfo1();   break;  //标签7:法务
-	case '8': initValuationInfo1();   break;  //标签8:融资及估值
+	case '0':investFinancePlanO(); break;  //标签1:投资方案
+	case '1': initTeamInfoO(); break;  //标签2: 团队
+	case '2': initOperateInfoO();   break;  //标签3:运营数据
+	case '3': initMarkDevelopO();   break;  //标签4:市场开发
+	case '4': initCompeteInfoO();   break;  //标签4:竞争
+	case '5': initPlanInfoO();   break;  //标签5:战略及策略
+	case '6': initFinanceInfoO();   break;  //标签6:财务
+	case '7': initJusticeInfoO();   break;  //标签7:法务
+	case '8': initValuationO();   break;  //标签8:融资及估值
 	default: return false;
 }
 }
 	   //投资方案
-		function investFinancePlan1(){
+		function investFinancePlanO(){
 			window.location.href=platformUrl.toOperationP;
 		}
 		 //团队
-		function initTeamInfo1(){
+		function initTeamInfoO(){
 			$("#page_all").html("");
 			$.getTabHtmlInfo({
 				url : platformUrl.toOperationT ,
@@ -32,7 +32,7 @@ function tabOperateChange(index){
 			});
 		}
 		 //运营数据
-		function initOperateInfo1(){
+		function initOperateInfoO(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperationO ,
@@ -42,7 +42,7 @@ function tabOperateChange(index){
 			});
 		}
 		//市场与开发
-		function initMarkDevelop1(){
+		function initMarkDevelopO(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperationMD ,
@@ -52,7 +52,7 @@ function tabOperateChange(index){
 			});
 		}
 		//竞争
-		function initCompeteInfo1(){
+		function initCompeteInfoO(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperationC ,
@@ -62,7 +62,7 @@ function tabOperateChange(index){
 			});
 		}
 		//战略以及策略
-		function initPlanInfo1(){
+		function initPlanInfoO(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperationPlan ,
@@ -72,7 +72,7 @@ function tabOperateChange(index){
 			});
 		}
 		//财务
-		function initFinanceInfo1(){
+		function initFinanceInfoO(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperationF ,
@@ -82,7 +82,7 @@ function tabOperateChange(index){
 			});
 		}
 		//法务
-		function initJusticeInfo1(){
+		function initJusticeInfoO(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperationJ ,
@@ -92,7 +92,7 @@ function tabOperateChange(index){
 			});
 		}
 		//融资及估值
-		function initValuationInfo1(){
+		function initValuationO(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toOperationV ,

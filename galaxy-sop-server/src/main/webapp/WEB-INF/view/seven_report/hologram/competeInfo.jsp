@@ -44,6 +44,7 @@ var mustids = "${mustids}";
 			var result = data.result.status;
 			if (result == 'OK') {
 				var entity = data.entity;
+				console.log(entity);
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				$(".section").each(function(){
 					$(this).showResults(true);
@@ -83,7 +84,8 @@ $(function() {
 	});
 	
 	//通用编辑显示
-	$('div').delegate(".h_edit_btn", "click", function(event) {		var section = $(this).parents('.section');
+	$('div').delegate(".h_edit_btn", "click", function(event) {	
+		var section = $(this).parents('.section');
 		var id_code = $(this).attr('attr-id');
 		var sec = $(this).closest('.section');
 		var str ="";
@@ -99,7 +101,9 @@ $(function() {
 				if (result == 'OK') {
 					var entity = data.entity;
 					$("#ifelse").tmpl(entity).appendTo("#a_"+id_code);
-					
+					if(id_code=="NO5_1"){   //竞争俩字
+						$("#b_"+id_code).closest(".section").find(".h_title").text("竞争");
+					}
 					sec.showResults();
 					var table = $(this).find('.mb_24 table');
 					table.each(function(){
@@ -138,6 +142,7 @@ $(function() {
 
 				}
 		}) 
+		 $(".editable").each(function(){resizetable($(this))})
 		//编辑表格显示隐藏
 		 check_table();
 	});
@@ -338,129 +343,6 @@ $(function() {
 
 	});
 });
-
-/* 	function addRow(ele)
-	{
-		var code = $(ele).prev().data('code');
-		$.getHtml({
-			url:getDetailUrl(code),//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				$("#detail-form input[name='projectId']").val(projectInfo.id);
-				$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-				$("#detail-form input[name='subCode']").val(code);
-				$("#save-detail-btn").click(function(){
-					saveForm($("#detail-form"));
-					check_table();
-					check_table_tr_edit();
-				});
-				selectContext();
-			}//模版反回成功执行	
-		});
-	}
-	
-	function saveForm(form)
-	{
-		if($(form).validate().form())
-		{
-			var data = $(form).serializeObject();
-			saveRow(data);
-		}
-	}
-	/**
-	 * 保存至到tr标签data属性
-	 */
-	/* function saveRow(data)
-	{
-		data = JSON.parse(data);
-		var titleId = data.titleId;
-		var index = data.index;
-		if(typeof index == 'undefined' || index == null || index == '')
-		{
-			var tr = buildRow(data,true,titleId);
-			$('table[data-title-id="'+titleId+'"].editable').append(tr);
-		}
-		else
-		{
-			var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
-			for(var key in data)
-			{
-				if(key.indexOf('field')>-1)
-				{
-					tr.data(key,data[key]);
-					tr.find('td[data-field-name="'+key+'"]').text(data[key]);
-				}
-			}
-		}
-		$("a[data-close='close']").click();
-	}
-	function editRow(ele)	
-	{
-		var code = $(ele).closest('table').data('code');
-		var row = $(ele).closest('tr');
-		$.getHtml({
-			url:getDetailUrl(code),//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				var title = $("#pop-title");
-				title.text(title.text().replace('添加','编辑'));
-				$.each($("#detail-form").find("input, select, textarea"),function(){
-					var ele = $(this);
-					var name = ele.attr('name');
-					var type=ele.attr('type');
-					if(type=="radio"){
-						if(ele.val()==row.data(name)){
-							ele.attr("checked","chedcked");
-						}
-					}else{
-						ele.val(row.data(name));
-					}
-				});
-				//数据字典初始化
-				$("#detail-form input[name='subCode']").val(code);
-				selectContext();
-				//文本框剩余字数
-				$.each($(".team_textarea"),function(){
-					var len=$(this).val().length;
-					var initNum=$(this).siblings('.num_tj').find("span").text();
-					$(this).siblings('.num_tj').find("span").text(initNum-len);
-				})
-				$("#detail-form input[name='index']").val(row.index());
-				$("#save-detail-btn").click(function(){
-					saveForm($("#detail-form"));
-				});
-			}//模版反回成功执行	
-		});
-	}
-	var deletedRowIds = new Array();
-	function delRow(ele)
-	{
-		layer.confirm('是否删除?', {
-			btn : [ '确定', '取消' ],
-			title:'提示'
-		}, function(index, layero) {
-			var tr = $(ele).closest('tr');
-			var id = tr.data('id');
-			
-			if(typeof id != 'undefined' && id>0)
-			{
-				deletedRowIds.push(id);
-			}
-			tr.remove();
-			check_table();
-			check_table_tr_edit();
-			$(".layui-layer-close1").click();
-			//$(".layui-layer-btn1").click();
-		}, function(index) {
-		});
-		
-	}
-	function refreshSection(id)
-	{
-		var sec = $(".section[data-section-id='"+id+"']");
-		sec.showResults(true);
-	} */ 
-	
 	function getDetailUrl(code)
 	{
 		if(code == 'equity-structure')

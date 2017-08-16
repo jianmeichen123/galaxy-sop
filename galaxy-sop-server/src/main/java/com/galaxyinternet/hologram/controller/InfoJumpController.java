@@ -452,7 +452,7 @@ public class InfoJumpController{
 	// 运营报告-市场与开发
 	@RequestMapping(value = "/toOperationMD", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toOperationMD(HttpServletRequest request) {
-		return "seven_report/operation/competeInfo";
+		return "seven_report/operation/marketDevelop";
 	}
 
 	// 运营报告-竞争分析

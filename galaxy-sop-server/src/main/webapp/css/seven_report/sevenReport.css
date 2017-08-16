@@ -53,25 +53,34 @@ thead td{
 	position:relative;
 	border-bottom: 1px solid #d8d8d8;
 }
-table td:nth-child(1){
+#page_all tr td:first-child+td+td+td{
+	text-align:left;
+}
+#page_all tr.evl_module td:first-child+td+td+td{
+	text-align:center;
+}
+#page_all tr.evl_module td:first-child+td+td+td+td{
+	text-align:left;
+}
+table td:first-child{
 	width:7%;
 }
-table td:nth-child(2){
+table td:first-child+td{
 	width:10%;
 }
-table td:nth-child(3){
+table td:first-child+td+td{
 	width:21%;
 }
-table td:nth-child(4){
+table td:first-child+td+td+td{
 	width:6%;
 }
-table td:nth-child(5){
+table td:first-child+td+td+td+td{
 	width:20%;
 }
-table td:nth-child(6){
+table td:first-child+td+td+td+td+td{
 	width:9%;
 }
-table td:nth-child(7){
+table td:first-child+td+td+td+td+td+td{
 	width:9%;
 }
 
@@ -84,10 +93,10 @@ table .on td{
 	padding:0 5px;
 	position:relative;
 }
-.align_left p,.align_left span{
+.align_left p,.align_left span,.content_16.align_left p.black{
 	color:#b2b2b2;
 }
-.align_left p.black,.align_left span.black{
+.align_left p.black,.align_left span.black,.content_16.align_left p.black sitg{
 	color:#333;
 }
 .editPic{
@@ -199,7 +208,7 @@ table.table_15 td:first-child+td+td+td{
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 100; /* 麓脣麓娄碌脛脥录虏茫脪陋麓贸脫脷脪鲁脙忙 */
+    z-index: 20; /* 麓脣麓娄碌脛脥录虏茫脪陋麓贸脫脷脪鲁脙忙 */
 }
 .popup{
 	padding:10px 5px 10px 5px;
@@ -267,6 +276,8 @@ table.table_15 td:first-child+td+td+td{
  .popupButton{
 	display:block !important;
 	overflow:hidden;
+	height:28px;
+	
 } 
  .popupButton em.right{
 	display:inline-block;
@@ -494,6 +505,7 @@ textarea::input-placeholder{
 	position: absolute;
 	display: none;
 	z-index: 999;
+	border:1px solid #979797;
 }
 .gapPopup:after{
 			content: '';
@@ -524,14 +536,14 @@ textarea::input-placeholder{
 			border-top: 18px solid #fff;
 		}
 .gapPopup textarea{
-	width: 262px;
-	height: 138px !important;
+	width: 259px;
+	height: 129px !important;
 	border:none;
 	outline: none;
 	resize: none; 
-	overflow-y:auto !important;
+	overflow-y:hidden !important;
 	margin-top:25px;
-	padding:0px 10px;
+	padding:0px 10px 10px 10px;
 }
 .show_edit{
 	display:inline-block;
@@ -725,12 +737,12 @@ table td select option{
 .h_radios li label{
 	margin-left: 10px;
 }
- .div_tmpl{border:1px solid #979797;}
+ .div_tmpl{}
 .radioShow label{
 	display: inline-block;
     padding-right: 10px;
     width: 71%;
-    vertical-align: top;
+    vertical-align: middle;
 }
 .radioShow label.select_1,.radioShow label.select_2{
 	padding:0;
@@ -839,8 +851,8 @@ select::-ms-expand { display: none; }
     vertical-align: middle;
     margin: 0;
     padding: 0;
-    width: 12px !important;
-    height: 12px !important;
+    width: 14px !important;
+    height: 14px !important;
     background: url(../../img/seven_report/myBlue.png) no-repeat !important;
     border: none;
     cursor: pointer;
@@ -849,7 +861,7 @@ select::-ms-expand { display: none; }
 	background-position:-58px -5px !important;
 }
 .iradio_flat-blue{
-	background-position: -72.2px -5px !important;
+	background-position: -72.2px -4px !important;
 }
 .icheckbox_flat-blue.checked{
 	   background-position:-86px -5px !important;
@@ -881,6 +893,47 @@ select::-ms-expand { display: none; }
 .mCS-light-thin>.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
 	width:0px !important;
 }
-
+/* textarea scroll */
+   /*for srcollbar*/
+.mTEXTAREA_scrollTools {
+        height: 100%;
+        right: 0;
+        top: 0;
+        width: 6px;
+        position: absolute;
+        display: block;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer {
+        bottom: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer .mTEXTAREA_draggerRail {
+        /*background-color: #000;*/
+        border-radius: 2px;
+        height: 100%;
+        opacity: 0.1;
+        filter: alpha(opacity = 10);
+        width: 90%;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer .mTEXTAREA_dragger {
+        cursor: pointer;
+        width: 100%;
+        position: absolute;
+    }
+.mTEXTAREA_scrollTools .mTEXTAREA_draggerContainer .mTEXTAREA_dragger .mTEXTAREA_dragger_bar {
+        background-color: #61aae6;
+        border-radius: 6px;
+        cursor: pointer;
+        height: 80%;
+        opacity: 0.75;
+        filter: alpha(opacity = 75);
+        width: 4px;
+        position: relative;
+    }
+.scrobar_textarea {position: relative;}
 
 

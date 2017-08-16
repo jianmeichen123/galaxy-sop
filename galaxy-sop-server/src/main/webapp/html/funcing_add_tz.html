@@ -61,6 +61,27 @@
 <script>
      $(function(){
         $("#detail-form").validate({});
+        //金额联动
+        function calculationValuations(){
+    		var projectParent = $("input[name='field3']").val();
+    		var projectChildren = $("input[name='field4']").val();
+    		if(projectParent > 0 && projectChildren > 0){
+    			return projectParent * (100/projectChildren);
+    		}
+    		return null;
+    	}
+        $("div").delegate("input[name='field3']","blur",function(){
+        	var valuations = calculationValuations();
+    		if(valuations != null){
+    			$("input[name='field5']").val(valuations);
+    		}
+    	});
+        $("div").delegate("input[name='field4']","blur",function(){
+        	var valuations = calculationValuations();
+    		if(valuations != null){
+    			$("input[name='field5']").val(valuations);
+    		}
+    	});
         
     })
     $.validator.setDefaults({
