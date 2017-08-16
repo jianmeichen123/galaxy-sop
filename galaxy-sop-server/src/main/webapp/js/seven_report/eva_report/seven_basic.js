@@ -311,31 +311,29 @@
 						};
 						var _url=$(this).attr("data-url");
 						var _list=$(this).attr("data-list");
+						var _id=$(this).attr("data-file-id");
 						data.url=_url;
 						data.list=_list;
+						if(_id!=undefined||_id!=""){
+							data.id=_id;
+						}						
 						dataList.push(data);
 					})
 					var html="";
 					if(dataList.length>0){
 						for(var i=0;i<dataList.length;i++){
 							html +=  '<li class="pic_list fl" >'
-				              +'<a href="javascript:;" class="h_img_del"></a>' +'<img src="' + dataList[i].url + '" data-list="'+dataList[i].list+'"/></li>';
+				              +'<a href="javascript:;" class="h_img_del"></a>' +'<img  src="' + dataList[i].url + '" data-id="'+dataList[i].id+'" data-list="'+dataList[i].list+'"/></li>';
 						}
 						$(".h_edit_txt .h_imgs").first().html(html);						
 					}
 					if(dataList.length>4){
 						$(".h_edit_txt .h_imgs").last().hide();
 					}
-					$(".h_img_del").click(function(){
-						$(this).parent("li.pic_list").remove();
-						$(".h_edit_txt .h_imgs").last().show();
-						$(".pagebox").attr("data-result",true);
-						$("#save-rpt-btn em").removeClass("disabled")
-					})
 				}
 				
 			}
-		})
+		}) 
 		//表单验证
 		validate();
 		$(".ch_opration form").validate();
@@ -633,13 +631,19 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var imgUrl=[];
 			var img_list = $(this).find(".h_imgs:first-child").find("li");
 			$.each(img_list,function(){
-				var img_url="";
 				var _this = $(this);
+				var img_obj={};
 				var _src = _this.find("img").attr("src");
+				var _id = _this.find("img").data("id");
 				if(_src!=undefined){
-					img_url =_src;
-					imgUrl.push(img_url);
+					img_obj.url=_src
 				}
+				if(_id!=undefined){
+					img_obj.id=_id
+				}else{
+					img_obj.id="";
+				}
+				imgUrl.push(img_obj);
 			})
 			data_list.valueList=imgUrl;
 		}else if(data_type==16){
@@ -760,7 +764,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						_this.find("span").html("未添加");
 					}else{
 						$.each(d_this.valueList,function(i,n){
-							var a_img="<em class=\"income_pic\" data-url="+n+" data-list="+i+">[图片]</em>"
+							var a_img="<em class=\"income_pic\" data-url="+n.url+" data-file-id="+n.id+" data-list="+i+">[图片]</em>";
 							_this.find("span").append(a_img);
 						})
 					}
@@ -992,6 +996,7 @@ $('.h_cancel_btn').click(function(){
 	$('.customer_income').hide();
 	$('.ch_income_evaluation').hide();
 	deletedRowIds=[];
+	deleteFileIds=[]; 
 })
 //radio checkbox 插件 渲染方法
 function iCheck(){
