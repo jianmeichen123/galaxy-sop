@@ -252,9 +252,12 @@ $('div').delegate(".h_edit_btn","click",function(event){
 					$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 						var valuations = calculationValuations();
 						if(valuations != null){
-							$("input[data-title-id='"+result+"']").attr("value",valuations);
 							if(reportType=="3"){
+								$("input[data-title-id='"+result+"']").attr("value",valuations);
 								$("input[type='hidden'].money").val(valuations);
+							}else{
+								$("input[data-title-id='"+result+"']").val(valuations);
+								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 							}
 							
 						}
@@ -262,9 +265,12 @@ $('div').delegate(".h_edit_btn","click",function(event){
 					$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 						var valuations = calculationValuations();
 						if(valuations != null){
-							$("input[data-title-id='"+result+"']").attr("value",valuations);
 							if(reportType=="3"){
+								$("input[data-title-id='"+result+"']").attr("value",valuations);
 								$("input[type='hidden'].money").val(valuations);
+							}else{
+								$("input[data-title-id='"+result+"']").val(valuations);
+								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 							}
 						}
 					})
