@@ -38,7 +38,9 @@
 	<select id="select" resultMap="ScoreInfoMap" parameterType="java.util.Map">
 		SELECT DISTINCT CASE WHEN g.sub_id IS NOT NULL THEN CONCAT(r.id,'-',g.sub_id) ELSE r.id END AS pk,r.id AS relate_id,r.code,r.parent_id,r.report_type,g.is_score,g.score_max,g.sub_id,a.process_mode,a.dict_id,a.grade
 		<if test="projectId != null">
-		,rt.id AS value_id,rt.content_choose AS VALUE, rg.id AS score_id, CASE WHEN g.sub_id = 2 THEN rg.grade2 ELSE rg.grade1 END AS score
+		,rt.id AS value_id,
+		CASE WHEN a.process_mode = 5 THEN rt.content_describe1 ELSE rt.content_choose END AS VALUE, 
+		rg.id AS score_id, CASE WHEN g.sub_id = 2 THEN rg.grade2 ELSE rg.grade1 END AS score
 		</if>
 		FROM information_title_relate r
 		LEFT JOIN information_grade g ON r.id = g.title_relate_id
