@@ -13,7 +13,7 @@ function tabOperateChange(index){
 	case '5': initPlanInfoO();   break;  //标签5:战略及策略
 	case '6': initFinanceInfoO();   break;  //标签6:财务
 	case '7': initJusticeInfoO();   break;  //标签7:法务
-	case '8': initValuationInfoO();   break;  //标签8:融资及估值
+	case '8': initValuationO();   break;  //标签8:融资及估值
 	default: return false;
 }
 }
