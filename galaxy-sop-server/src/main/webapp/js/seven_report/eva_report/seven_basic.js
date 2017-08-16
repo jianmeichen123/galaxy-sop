@@ -754,8 +754,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var str=d_this.remark1;
 					var dds = $(".content_16 p[data-code='" + code + "']");
 					if(str){
-						str1=str.replace(/<sitg>/g,'（');
-						str1=str1.replace(/<\/sitg>/g,'）');
+						str1=str.replace(/<sitg>/g,'（<sitg>');
+						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');
 					}
 					dds.html(d_this.remark1==undefined ?"未填写":str1);
 					dds.attr("data-remark",str);
