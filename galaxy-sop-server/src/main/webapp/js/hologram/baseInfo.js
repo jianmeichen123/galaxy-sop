@@ -200,25 +200,32 @@ function type_1_html(title,mark){
 //type 循环 
 function one_select_edit(title,inputtype,type){
 	var eresult = "";
-	var values = title.valueList;
+	var values = title.valueList; 
 	if(inputtype == 'radio'){
 		var li = "";
 		$.each(values,function(i,o){
+			console.log(title);
 			if(this.checked){
-				li +=  "<li><input type=\"radio\"  resultId='"+this.id+"' value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\"   value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
 			}else
 				li +=  "<li><input type=\"radio\"   value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' />" + this.name  + "</li>";
 		});
+		
+		var ddStr = "<dd class='fl_none'>" ;
+		if(title.resultList!=undefined){
+			ddStr = "<dd class='fl_none' resultId='"+title.resultList[0].id+"'>" ;
+    	}
+		
 		if(type=='2'){
 			eresult = 
-				"<dd class='fl_none'>" +
+				ddStr +
 					"<ul class=\"h_radios clearfix\">" +
 						li + 
 					"</ul>" +
 				"</dd>";	
 		}else if(type=='5'){
 			eresult = 
-				"<dd  class='fl_none'>" +
+				ddStr +
 					"<ul class=\"h_radios clearfix\">" +
 						li + 
 					"</ul>" +
