@@ -95,23 +95,12 @@
 				}else{
 					$('#scrollbar').css('overflow','hidden');
 				}
-					
-				
-				
 			})
-					
-				
-			
-			
-			
 			var text = document.getElementsByClassName('textarea_h');
 		       for(var i = 0;i<text.length;i++){
 		            autoTextarea(text[i]);
 		            console.log('dddd')
 		       }
-			
-			
-				
 			
 		}
 		//特殊处理项目评测内的刚需和痛点
