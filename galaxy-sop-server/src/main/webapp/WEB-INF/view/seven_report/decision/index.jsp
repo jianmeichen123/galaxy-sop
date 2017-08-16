@@ -37,7 +37,7 @@ var path = '<%=path%>';
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
-		
+			<input type="hidden" type="19" class="money">
 		
 			
 		</div>

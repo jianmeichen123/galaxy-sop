@@ -50,6 +50,7 @@
 			$(obj).closest('td').find('.radioShow').show();
 			iCheck();
 		}else if(e_type=="small_pop"){
+			$("body").css("overflow", "hidden");
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
@@ -65,6 +66,7 @@
 			$(obj).closest('td').find('.radioShow').show();
 			
 		}else if(e_type=="cover_pop"){
+			$("body").css("overflow", "hidden");
 			$(obj).attr("parent_dom","show");
 			$('.mashLayer').show();
 			//adjust(".ch_opration");
@@ -404,6 +406,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 	
 //小弹窗关闭按钮
 function closeX(obj){
+	$('body').css('overflow', 'auto');
 	//对号,x号消失
 	$(obj).parent().hide();
 	//radio 消失
@@ -425,6 +428,7 @@ function closeX(obj){
 	
 //保存方法
 function right(obj,type){
+	$('body').css('overflow', 'auto');
 	//验证
 	if(type=="checkbox" || type=="radio"){
 		var form = $(obj).closest("form");
@@ -556,6 +560,7 @@ function right(obj,type){
 
 //大弹窗 取消方法
 $('div').delegate(".h_cancel_btn","click",function(event){
+	$('body').css('overflow', 'auto');
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
 	_this.hide();
@@ -564,6 +569,7 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 });
 //大弹窗 保存方法
 $('div').delegate(".h_save_btn","click",function(event){
+	$('body').css('overflow', 'auto');
 	var align_left = $("span[parent_dom='show']").parent().find(".align_left");
 	var array_p = align_left.find("p");
 	var form = $(this).parents(".ch_opration").find("form");
@@ -748,8 +754,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var str=d_this.remark1;
 					var dds = $(".content_16 p[data-code='" + code + "']");
 					if(str){
-						str1=str.replace(/<sitg>/g,'（');
-						str1=str1.replace(/<\/sitg>/g,'）');
+						str1=str.replace(/<sitg>/g,'（<sitg>');
+						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');
 					}
 					dds.html(d_this.remark1==undefined ?"未填写":str1);
 					dds.attr("data-remark",str);
