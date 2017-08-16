@@ -1214,6 +1214,9 @@ function toggle_btn(data,status,dom_this){
 		//全局      否969
 		if(status==1){
 			$('.radius dd').each(function(){
+				if($(this).is(":hidden")){
+					return;
+				}
 				dd_type($(this));
 			});
 			//多选
@@ -1226,6 +1229,9 @@ function toggle_btn(data,status,dom_this){
 			hideAll();
 		}else{
 			$(dom_this).find('dd').each(function(){
+				if($(this).is(":hidden")){
+					return;
+				}
 				if($(this).parents('.radius').hasClass('unable')){
 					$(this).parents('.radius').hide();
 				}else{

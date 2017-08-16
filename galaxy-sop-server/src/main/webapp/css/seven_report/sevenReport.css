@@ -495,12 +495,8 @@ textarea::input-placeholder{
 	background-color: #fff;
 	position: absolute;
 	display: none;
-<<<<<<< Updated upstream
-	z-index: 21;
-=======
 	z-index: 999;
 	border:1px solid #979797;
->>>>>>> Stashed changes
 }
 .gapPopup:after{
 			content: '';
@@ -531,16 +527,9 @@ textarea::input-placeholder{
 			border-top: 18px solid #fff;
 		}
 .gapPopup textarea{
-<<<<<<< Updated upstream
-	width: 262px;
-	height: 138px !important;
-	border-top:none;
-	border-bottom:none;
-=======
 	width: 259px;
-	height: 139px !important;
+	height: 129px !important;
 	border:none;
->>>>>>> Stashed changes
 	outline: none;
 	resize: none; 
 	overflow-y:hidden !important;

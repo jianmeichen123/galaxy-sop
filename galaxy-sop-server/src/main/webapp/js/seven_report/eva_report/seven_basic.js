@@ -53,7 +53,7 @@
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
-			var  topNum = _this.offset().top-$(".gapPopup").height()-174;
+			var  topNum = _this.offset().top-$(".gapPopup").height()-165;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
@@ -73,9 +73,14 @@
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
 			$(".ch_opration").mCustomScrollbar({
-						/*autoHideScrollbar:true,*/
 						theme:"light-thin"
 			});
+			var text = document.getElementsByClassName('textarea_h');
+		       for(var i = 0;i<text.length;i++){
+		            autoTextarea(text[i]);
+		            console.log('dddd')
+		       }
+			
 			
 				
 			
