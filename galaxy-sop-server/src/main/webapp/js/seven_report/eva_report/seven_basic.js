@@ -67,11 +67,9 @@
 			$(obj).closest('td').find('.radioShow').show();
 			
 		}else if(e_type=="cover_pop"){
-			/*$("body").css("overflow", "hidden");*/
 			$(obj).attr("parent_dom","show");
 			$('.mashLayer').css('opacity','0.5');
 			$('.mashLayer').show();
-			//adjust(".ch_opration");
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
@@ -99,7 +97,6 @@
 			var text = document.getElementsByClassName('textarea_h');
 		       for(var i = 0;i<text.length;i++){
 		            autoTextarea(text[i]);
-		            console.log('dddd')
 		       }
 			
 		}

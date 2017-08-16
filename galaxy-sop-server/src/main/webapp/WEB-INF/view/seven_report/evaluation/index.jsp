@@ -143,16 +143,15 @@ var pageId = "project";
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
-<script src="<%=path %>/js/hologram/baseInfo.js"></script>	
-<script src="<%=path%>/js/hologram/hologram_common.js"></script>			
+<script src="<%=path %>/js/hologram/baseInfo.js"></script>				
 
 <script type="text/javascript">
 createMenus(5);
 var reportType = 1;
 var projId="${projectId}";
 </script>
-<script src="<%=path%>/js/seven_report/eva_report/validate.js"></script>
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<script src="<%=path%>/js/seven_report/eva_report/validate.js"></script>
 <script src="<%=path%>/js/seven_report/eva_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>
 <script src="<%=path%>/js/seven_report/eva_report/textarea.js"></script>	

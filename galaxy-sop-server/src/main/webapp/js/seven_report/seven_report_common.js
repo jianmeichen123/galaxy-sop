@@ -1174,10 +1174,10 @@ function check_table_tr_edit(){
 		}
 	})
 }
-/*function getTableRowLimit(code)
+function getTableRowLimit(code)
 {
 	return 10;
-}*/
+}
 
 //编辑的时候右侧导航隐藏不可用
 //data==1的时候为编辑否则为取消、保存
@@ -1725,46 +1725,52 @@ function selectContext(formId){
 	    selectDirect(titleId,subCode,filedName);
 	})
 }
-
-
 /**
  * 该方法不包含团队成员复杂的表格处理
  * 表格增删改查通用方法   **************************************************** 开始
  */
 //新增弹出页面渲染
-//function addRow(ele)
-//{
-//	var code = $(ele).prev().data('code');
-//	$.getHtml({
-//		url:getDetailUrl(code),//模版请求地址
-//		data:"",//传递参数
-//		okback:function(){
-//			$("#detail-form input[name='projectId']").val(projectInfo.id);
-//			$("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
-//			$("#detail-form input[name='subCode']").val(code);
-//			$("#save-detail-btn").click(function(){
-//				saveForm($("#detail-form"));
-//				check_table();
-//				check_table_tr_edit();
-//			});
-//			//新增页面下拉框，单选按钮处理渲染处理
-//			selectContext("detail-form");
-//		}//模版反回成功执行
-//	});
-//}
+function addRow(ele)
+{
+	var code = $(ele).prev().data('code');
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$('#qualifications_popup_name').html('添加简历');
+            $('#qualifications_popup_name1').html('添加持股人');
+            $('#finace_popup_name').html('添加融资历史');
+            $("#detail-form input[name='projectId']").val(projectInfo.id);
+            $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+            $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+
+            selectContext("detail-form");
+
+            $("#save-detail-btn").click(function(){
+                saveForm($("#detail-form"));
+                check_table();
+                check_table_tr_edit();
+            });
+            $("#save_person_learning").click(function(){
+                check_table();
+                check_table_tr_edit();
+            });
+		}//模版反回成功执行	
+	});
+}
 //提交表单处理
-/*function saveForm(form)
+function saveForm(form)
 {
 	if($(form).validate().form())
 	{
 		var data = $(form).serializeObject();
 		saveRow(data);
 	}
-}*/
+}
 /**
  * 保存至到tr标签data属性
  */
-/*function saveRow(data)
+function saveRow(data)
 {
 	data = JSON.parse(data);
 	var titleId = data.titleId;
@@ -1786,11 +1792,11 @@ function selectContext(formId){
 			}
 		}
 	}
+	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();
-}*/
-/*function editRow(ele)
+}
+function editRow(ele)	
 {
-	var parent =$(ele).closest('table').closest('form').attr('id');
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
 	$.getHtml({
@@ -1798,6 +1804,7 @@ function selectContext(formId){
 		data:"",//传递参数
 		okback:function(){
 			var title = $("#pop-title");
+			 $('#finace_popup_name').html('编辑融资历史');
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
@@ -1813,34 +1820,7 @@ function selectContext(formId){
 				}else{
 					ele.val(row.data(name));
 				}
-				
 			});
-			//运营 报告嵌套表格处理
-			if(reportType == 7){
-				if(row.data("dataList"))
-				{
-					$.each(row.data("dataList"),function(){
-						 var row = this;
-						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
-							   //新增数据
-							   var o = $(data);
-							   o.find("[name='id']").text(row.id);
-							   o.find("[name='field1']").text(row.field1);
-							   o.find("[name='field2']").text(row.field2);
-							   o.find("[name='field3']").text(row.field3);
-							   o.find("[name='code']").text(row.code);
-							   $("#appr_part").append(o);
-						   });
-					});
-					$("#save_appr_part").click(function(){
-						var data = getData($("#detail-form"));
-	        		    var dataList = getDataList($("#appr_part"));
-	    	            var tr = $('table[data-title-id="'+data['titleId']+'"].editable').find('tr:eq('+data['index']+')');
-	    	    		tr.data("dataList",dataList);
-	        	        saveForm($("#detail-form"));
-				    });
-				}
-			}
 			//文本框剩余字数
 			$.each($(".team_textarea"),function(){
 				var len=$(this).val().length;
@@ -1853,8 +1833,10 @@ function selectContext(formId){
 			});
 		}//模版反回成功执行	
 	});
-}*/
-/*var deletedRowIds = new Array();
+}
+var deletedRowIds = new Array();
+ // 股权结构合理性 表格删除行使用
+var deletedRowIdsGq = new Array();
 function delRow(ele)
 {
 	layer.confirm('是否删除?', {
@@ -1863,10 +1845,21 @@ function delRow(ele)
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-		if(typeof id != 'undefined' && id>0)
-		{
-			deletedRowIds.push(id);
-		}
+
+		var sectionId =$(ele).closest('.radius').attr("data-section-id");
+		var ch_opration =$(ele).closest('.h_team_look')
+        if(typeof id != 'undefined' && id>0)
+        {
+            //股权合理性
+            if (sectionId ==1324){
+               deletedRowIdsGq.push(id);
+            }else{
+               deletedRowIds.push(id);
+            }
+            if (ch_opration.hasClass("ch_opration")){
+            	
+            }
+        }
 		tr.remove();
 		check_table();
 		check_table_tr_edit();
@@ -1874,74 +1867,53 @@ function delRow(ele)
 		//$(".layui-layer-btn1").click();
 	}, function(index) {
 	});
-
-}*/
-/*function refreshSection(id)
+	
+}
+function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
+    sec.find("dd[data-type='3']").text('未选择');
+	//var sec = $(".section[data-section-id='"+id+"']");
 	sec.showResults(true);
-}*/
+}
 /**
  * 表格增删改查通用方法   **************************************************** 结束
  */
-
-
-
-function getDetailUrl(code)
-{
-	
-	if(code == 'equity-structure')
+function tableDictColumn(code){
+	var json;
+	var arr=[];
+	if(code == 'competition-comparison')
 	{
-		return path+'/html/funcing_add_gd.html';
+        return json={"competition-comparison":["field5"]};
+	}else if(code == 'finance-history'){
+		return json={"finance-history":["field6","field7","field8"]};
+	}else if(code=="equity-structure"){
+		return json={"equity-structure":["field3","field4"]};
+	}else if(code=="investor-situation"){
+		return json={"investor-situation":["field1","field6"]};
 	}
-	else if(code == 'investor-situation')
-	{
-		return path+'/html/funcing_add_tz.html';
-	}
-	else if(code =='operation-indices')
-	{
-		return path+'/html/fincing_add_yx.html';
-	}
-	else if(code == 'valuation-reference')
-	{
-		return path+'/html/fincing_add_tl.html';
-	}
-	else if(code == 'financing-milestone')
-	{
-		return path+'/html/fincing_add_jd.html';
-	}
-	else if(code == 'finance-history')
-	{
-		return path+'/html/finace_history.jsp';
-	}
-	else if (code =='team-members'){
-
-	    return path+'/html/team_compile.html';
-	}else if(code == 'share-holding')
-    {
-        return path+'/html/team_add_cgr.html';
-    }else if(code == 'competition-comparison')
-	{
-		return path+'/html/compete_save.jsp';
-	}else if(code == 'delivery-before')
-	{
-		return path+'/html/delivery_matter.jsp';
-	}else if(code == 'delivery-after')
-	{
-		return path+'/html/delivery_matter.jsp';
-	}else if(code == 'grant-part' || code == 'grant-actual')
-	{
-	    if(reportType == 7){
-	    	return path+'/html/operation_appr_part.html';
-	    }
-		return path+'/html/grant-part.jsp';
-	}
-	return "";
+}
+function resizetable(table){
+    var dict_map = {}
+    var title_id = table.attr("data-title-id")
+    var  code = table.attr("data-code")
+    var fields_json=tableDictColumn(code);
+    console.log(fields_json);
+    if (fields_json && code in fields_json){
+        var fields = fields_json[code]
+        for(var i=0;i<fields.length;i++){
+            var v = fields[i]
+            var dict = dictCache(title_id,code,v)
+            dict_map[title_id+"-"+code+"-"+v] = dict
+            table.find('td[data-field-name="'+v+'"]').each(function(){
+                var o = $(this)
+                o.text(dict[o.text()])
+            })
+        }
+    }
 }
 
-
-
-
+ 
 
 
 
