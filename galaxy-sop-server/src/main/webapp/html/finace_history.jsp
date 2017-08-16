@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
 <div class="qualificationstc"  id="financeDetail" style="    max-height: 500px;   overflow:hidden; overflow-y: auto;">
-	<div class="title_bj" id="popup_name"></div>
+	<div class="title_bj" id="finace_popup_name"></div>
 
 	
 	<form action="" id="detail-form">
