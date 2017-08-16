@@ -53,6 +53,7 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'DNO5?reportType=2', null,
 				$(this).showResults(true);
 				var table = $(this).find('.mb_24 table');
 				table.each(function(){
+				    resizetable($(this))
 					if($(this).find('tr').length<=1){
 						$(this).hide();
 						if($(this).parents('dl').find('dd:gt(0)').length<=0){
