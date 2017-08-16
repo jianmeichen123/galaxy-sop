@@ -793,7 +793,7 @@ function s_editRow(ele)
 function font_color(data){
 	$.each(data,function(){
 		var _this=$(this);
-		if(_this.text()=="未填写"||_this.text()=="未选择"){
+		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
 			_this.removeClass("black");
 		}else{
 			_this.addClass("black");
