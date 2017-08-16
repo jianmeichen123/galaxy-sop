@@ -733,7 +733,7 @@ table td select option{
 	display: inline-block;
     padding-right: 10px;
     width: 71%;
-    vertical-align: top;
+    vertical-align: middle;
 }
 .radioShow label.select_1,.radioShow label.select_2{
 	padding:0;
@@ -842,8 +842,8 @@ select::-ms-expand { display: none; }
     vertical-align: middle;
     margin: 0;
     padding: 0;
-    width: 12px !important;
-    height: 12px !important;
+    width: 14px !important;
+    height: 14px !important;
     background: url(../../img/seven_report/myBlue.png) no-repeat !important;
     border: none;
     cursor: pointer;
@@ -852,7 +852,7 @@ select::-ms-expand { display: none; }
 	background-position:-58px -5px !important;
 }
 .iradio_flat-blue{
-	background-position: -72.2px -5px !important;
+	background-position: -72.2px -4px !important;
 }
 .icheckbox_flat-blue.checked{
 	   background-position:-86px -5px !important;

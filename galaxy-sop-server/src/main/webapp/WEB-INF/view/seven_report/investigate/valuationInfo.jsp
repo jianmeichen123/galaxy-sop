@@ -12,7 +12,7 @@
 <c:set var="projectId" value="${sessionScope.curr_project_id}" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
-<title>项目详情66666</title>
+<title>项目详情</title>
 <script src="<%=path%>/js/hologram/jquery.tmpl.js"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>

@@ -50,7 +50,7 @@
 			$(obj).closest('td').find('.radioShow').show();
 			iCheck();
 		}else if(e_type=="small_pop"){
-			$("body").css("overflow", "hidden");
+			//$("body").css("overflow", "hidden");
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
 			var  leftNum = _this.offset().left-34;
@@ -59,6 +59,7 @@
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
+			//滚动条
 			$('#myTextarea').textareaScroll();
 			$(obj).hide();
 			//对号，×号显示
@@ -66,17 +67,25 @@
 			$(obj).closest('td').find('.radioShow').show();
 			
 		}else if(e_type=="cover_pop"){
-			$("body").css("overflow", "hidden");
+			/*$("body").css("overflow", "hidden");*/
 			$(obj).attr("parent_dom","show");
+			$('.mashLayer').css('opacity','0.5');
 			$('.mashLayer').show();
 			//adjust(".ch_opration");
 			//请求数据
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
-			$(".ch_opration").mCustomScrollbar({
-						theme:"light-thin"
-			});
+			$(document).ready(function(){
+				$(".ch_opration").mCustomScrollbar({
+					theme:"light-thin",
+				});
+			})
+					
+				
+			
+			
+			
 			var text = document.getElementsByClassName('textarea_h');
 		       for(var i = 0;i<text.length;i++){
 		            autoTextarea(text[i]);
