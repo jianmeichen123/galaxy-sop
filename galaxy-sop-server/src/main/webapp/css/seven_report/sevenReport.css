@@ -199,7 +199,7 @@ table.table_15 td:first-child+td+td+td{
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 100; /* 麓脣麓娄碌脛脥录虏茫脪陋麓贸脫脷脪鲁脙忙 */
+    z-index: 20; /* 麓脣麓娄碌脛脥录虏茫脪陋麓贸脫脷脪鲁脙忙 */
 }
 .popup{
 	padding:10px 5px 10px 5px;
@@ -493,7 +493,7 @@ textarea::input-placeholder{
 	background-color: #fff;
 	position: absolute;
 	display: none;
-	z-index: 999;
+	z-index: 21;
 }
 .gapPopup:after{
 			content: '';
@@ -526,7 +526,8 @@ textarea::input-placeholder{
 .gapPopup textarea{
 	width: 262px;
 	height: 138px !important;
-	border:none;
+	border-top:none;
+	border-bottom:none;
 	outline: none;
 	resize: none; 
 	overflow-y:auto !important;
