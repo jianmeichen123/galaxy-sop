@@ -41,7 +41,7 @@
 		</div>
 	</div>
 <jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
-<%-- <script src="<%=path%>/js/hologram/team_pop.js"></script> --%>
+<script src="<%=path%>/js/hologram/team_pop.js"></script>
 <script type="text/javascript">
 var path = '<%=path%>';
 createMenus(5);

@@ -535,7 +535,7 @@ function addRow(ele)
                     check_table();
                     check_table_tr_edit();
                 });
-                $("#save_perso  n_learning").click(function(){
+                $("#save_person_learning").click(function(){
                 	check_table();
                 	check_table_tr_edit();
                 });
