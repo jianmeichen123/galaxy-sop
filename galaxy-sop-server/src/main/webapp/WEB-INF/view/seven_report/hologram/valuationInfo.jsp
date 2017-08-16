@@ -65,7 +65,7 @@ var deleteJSON={};
 				var entity = data.entity;
 				$("#page_list").tmpl(entity).appendTo('#page_all');
 				picData(projectInfo.id,1);
-				customBuilder();
+				//customBuilder();  表格
 				$(".section").each(function(){
 					$(this).showResults(true);
 					var table = $(this).find('.mb_24 table');
