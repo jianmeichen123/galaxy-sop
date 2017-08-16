@@ -422,10 +422,7 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-					if(name != 'updateTimeStr'){
 						ele.val(row.data(name));
-					}
-					
 				}
 			});
 			//运营 报告嵌套表格处理
