@@ -20,8 +20,8 @@ function editOpen(){
 */
 function dictCache(titleId,subCode,filed){
     var map = {};
-    map["undefined"] = "未填写"
-    map[""] = "未填写"
+    map["undefined"] = ""
+    map[""] = ""
 	sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
 			function(data) {
 				var result = data.result.status;
