@@ -103,6 +103,7 @@ createMenus(5);
 var isEditable = "${isEditable}";
 $(function() {
 	//right_anchor("DNO2?reportType=2");
+	right_anchor("GNO2?reportType=5","seven","hide"); 
 })
 //整体页面显示
 sendGetRequest(platformUrl.queryAllTitleValues + 'GNO2?reportType=5', null,
