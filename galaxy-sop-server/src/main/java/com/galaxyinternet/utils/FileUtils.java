@@ -1,9 +1,17 @@
 package com.galaxyinternet.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.galaxyinternet.common.dictEnum.DictEnum;
 
@@ -117,5 +125,83 @@ public class FileUtils {
 			}
 		}
 		return null;
+	}
+	
+	public static void base64ToFile(String data, File file)
+	{
+		if(data == null)
+		{
+			return;
+		}
+		OutputStream out = null;
+		try
+		{
+			byte[] bytes = Base64.decodeBase64(data);
+			out = new FileOutputStream(file);  
+			out.write(bytes);  
+			out.flush();  
+			out.close(); 
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
+		{
+			if(out != null)
+			{
+				try
+				{
+					out.close();
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+				
+		}
+	}
+	
+	public static String file2Base64(File file)
+	{
+		InputStream in = null;  
+		try
+		{
+			in = new FileInputStream(file);  
+			byte[] data = new byte[in.available()];  
+			in.read(data);  
+			byte[] b = Base64.encodeBase64(data);
+			return new String(b, "UTF-8");
+			
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		} 
+		finally
+		{
+			if(in != null)
+			{
+				try
+				{
+					in.close();
+				} catch (IOException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
+	public static void main(String[] args)
+	{
+		String data = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD";
+		String suffix = data.substring(data.indexOf("data:image/")+11,data.indexOf(";base64,"));
+		System.out.println(suffix);
+		data = data.substring(data.indexOf(";base64,")+8, data.length());
+		System.out.println(data);
+		
 	}
 }

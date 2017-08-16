@@ -1,38 +1,7 @@
 package com.galaxyinternet.hologram.service;
 
-import com.galaxyinternet.bo.hologram.InformationTitleBo;
-import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
-import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
-import com.galaxyinternet.dao.hologram.InformationListdataDao;
-import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
-import com.galaxyinternet.dao.hologram.InformationResultDao;
-import com.galaxyinternet.dao.hologram.InformationTitleDao;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.cache.LocalCache;
-import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
-import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationFixedTable;
-import com.galaxyinternet.model.hologram.InformationListdata;
-import com.galaxyinternet.model.hologram.InformationListdataRemark;
-import com.galaxyinternet.model.hologram.InformationResult;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.model.hologram.ScoreAutoInfo;
-import com.galaxyinternet.model.hologram.ScoreInfo;
-import com.galaxyinternet.platform.constant.PlatformConst;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
-import com.galaxyinternet.service.hologram.ScoreInfoService;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,9 +14,50 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.galaxyinternet.bo.hologram.InformationTitleBo;
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.dao.hologram.InformationFileDao;
+import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
+import com.galaxyinternet.dao.hologram.InformationListdataDao;
+import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
+import com.galaxyinternet.dao.hologram.InformationResultDao;
+import com.galaxyinternet.dao.hologram.InformationTitleDao;
+import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.cache.LocalCache;
+import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationFile;
+import com.galaxyinternet.model.hologram.InformationFixedTable;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.hologram.ScoreAutoInfo;
+import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.platform.constant.PlatformConst;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
+import com.galaxyinternet.utils.FileUtils;
+
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
 
+	private static final Logger logger = LoggerFactory.getLogger(InformationTitleServiceImpl.class);
 	@Autowired
 	private Cache cache;
 	@Autowired
@@ -69,6 +79,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	private LocalCache<String,Object> localCache;
 	@Autowired
 	private ScoreInfoService scoreInfoService;
+	@Autowired
+	private InformationFileDao infoFileDao;
 	
 	@Override
 	protected BaseDao<InformationTitle, Long> getBaseDao() {
@@ -715,7 +727,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					if(title.getDataList() == null)
 					{
 						tempList = new ArrayList<>();
-						title.setDataList(tempList);;
+						title.setDataList(tempList);
 					}
 					else
 					{
@@ -773,7 +785,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		try
 		{
 			ExecutorService threadPool = GalaxyThreadPool.getExecutorService();
-			final CountDownLatch countDownLatch = new CountDownLatch(5);
+			final CountDownLatch countDownLatch = new CountDownLatch(6);
 			threadPool.submit(new Runnable(){
 				@Override
 				public void run()
@@ -817,6 +829,15 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					countDownLatch.countDown();
 				}
 				
+			});
+			
+			threadPool.submit(new Runnable(){
+				@Override
+				public void run()
+				{
+					getAndSeInfoFiles(projectId, titleInfo);
+					countDownLatch.countDown();
+				}
 			});
 			countDownLatch.await();
 			
@@ -983,6 +1004,10 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				{
 					title.setWeight(null);
 				}
+				if(title.getFileList() != null)
+				{
+					title.getFileList().clear();
+				}
 			}
 		}
 	}
@@ -1092,7 +1117,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						if(title.getDataList() == null)
 						{
 							list = new ArrayList<>();
-							title.setDataList(list);;
+							title.setDataList(list);
 						}
 						if(item.getCreateId() != null)
 						{
@@ -1164,7 +1189,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						if(title.getResultList() == null)
 						{
 							list = new ArrayList<>();
-							title.setResultList(list);;
+							title.setResultList(list);
 						}
 						title.getResultList().add(item);
 					}
@@ -1221,5 +1246,42 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			}
 		}
 	}
-	
+	public void getAndSeInfoFiles(Long projectId, TitleInfoWapper titleInfo)
+	{
+		try
+		{
+			InformationFile query = new InformationFile();
+			query.setProjectId(projectId);
+			query.setTitleIds(titleInfo.getIds());
+			List<InformationFile> files = infoFileDao.selectList(query);
+			if(files != null && files.size() >0)
+			{
+				Map<String,List<InformationTitle>> idMap = titleInfo.getIdMap();
+				for(InformationFile item : files)
+				{
+					String titleId = item.getTitleId()+"";
+					if(idMap.containsKey(titleId))
+					{
+						List<InformationTitle> titles = idMap.get(titleId);
+						List<InformationFile> list = null;
+						for(InformationTitle title : titles)
+						{
+							if(title.getFileList() == null)
+							{
+								list = new ArrayList<>();
+								title.setFileList(list);
+							}
+							File tempFile = File.createTempFile(item.getFileName(), "."+item.getFileSuffix());
+							OSSHelper.simpleDownloadByOSS(tempFile, item.getFileKey());
+							item.setData(FileUtils.file2Base64(tempFile));
+							title.getFileList().add(item);
+						}
+					}
+				}
+			}
+		} catch (IOException e)
+		{
+			logger.error("Error:",e);
+		}
+	}
 }
