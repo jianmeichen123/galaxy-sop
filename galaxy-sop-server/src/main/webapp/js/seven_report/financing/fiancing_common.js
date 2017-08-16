@@ -5,23 +5,23 @@ function tabFinanChange(index){
 	$("#tab-content1").remove();
 	$(".tip-yellowsimple").remove();
   switch(index){
-	case '0':projectFinanInfo1(); break;  //标签1:项目
-	case '1': initTeamFinanInfo1(); break;  //标签2: 团队
-	case '2': initOperateFinanInfo1();   break;  //标签3:运营数据
-	case '3': initCompeteFinanInfo1();   break;  //标签4:竞争
-	case '4': initPlanFinanInfo1();   break;  //标签5:战略及策略
-	case '5': initFinanceFinanInfo1();   break;  //标签6:财务
-	case '6': initJusticeFinanInfo1();   break;  //标签7:法务
-	case '7': initValuationFinanInfo1();   break;  //标签8:融资及估值
+	case '0':projectFinanInfoF(); break;  //标签1:项目
+	case '1': initTeamFinanInfoF(); break;  //标签2: 团队
+	case '2': initOperateFinanInfoF();   break;  //标签3:运营数据
+	case '3': initCompeteFinanInfoF();   break;  //标签4:竞争
+	case '4': initPlanFinanInfoF();   break;  //标签5:战略及策略
+	case '5': initFinanceFinanInfoF();   break;  //标签6:财务
+	case '6': initJusticeFinanInfoF();   break;  //标签7:法务
+	case '7': initValuationFinanInfoF();   break;  //标签8:融资及估值
 	default: return false;
 }
 }
 	   //项目
-		function projectFinanInfo1(){
+		function projectFinanInfoF(){
 			window.location.href=platformUrl.toFinancingP;
 		}
 		 //团队
-		function initTeamFinanInfo1(){
+		function initTeamFinanInfoF(){
 			$("#page_all").html("");
 			$.getTabHtmlInfo({
 				url : platformUrl.toFinancingT ,
@@ -31,7 +31,7 @@ function tabFinanChange(index){
 			});
 		}
 		 //运营数据
-		function initOperateFinanInfo1(){
+		function initOperateFinanInfoF(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toFinancingO ,
@@ -41,7 +41,7 @@ function tabFinanChange(index){
 			});
 		}
 		//竞争
-		function initCompeteFinanInfo1(){
+		function initCompeteFinanInfoF(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toFinancingC ,
@@ -51,7 +51,7 @@ function tabFinanChange(index){
 			});
 		}
 		//战略以及策略
-		function initPlanFinanInfo1(){
+		function initPlanFinanInfoF(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toFinancingPlan ,
@@ -61,7 +61,7 @@ function tabFinanChange(index){
 			});
 		}
 		//财务
-		function initFinanceFinanInfo1(){
+		function initFinanceFinanInfoF(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toFinancingF,
@@ -71,7 +71,7 @@ function tabFinanChange(index){
 			});
 		}
 		//法务
-		function initJusticeFinanInfo1(){
+		function initJusticeFinanInfoF(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toFinancingJ,
@@ -81,7 +81,7 @@ function tabFinanChange(index){
 			});
 		}
 		//融资及估值
-		function initValuationFinanInfo1(){
+		function initValuationFinanInfoF(){
 			$("#page_all").html("");
 			$.getTabHtml({
 				url : platformUrl.toFinancingV ,
