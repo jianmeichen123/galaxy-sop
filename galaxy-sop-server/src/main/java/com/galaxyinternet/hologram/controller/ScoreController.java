@@ -100,7 +100,6 @@ public class ScoreController
 			scores.put(parentId+"", total);
 			data.getUserData().putAll(scores);
 
-			informationProgressService.threadForUpdate(user.getId(),projectId);
 		} catch (Exception e)
 		{
 			logger.error("计算分数错误,Param = "+param,e);
