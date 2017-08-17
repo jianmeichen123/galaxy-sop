@@ -74,37 +74,6 @@
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
-			$(document).ready(function(){
-				var divHeight = $('#scrollbar').height();
-				if(divHeight==560){
-					$(".ch_opration").niceScroll({
-				        boxzoom:true,
-				        autohidemode:false,
-				        cursorwidth: "5px",
-				        background: "white",
-				        cursorcolor: "#61aae6",
-				        cursorborderradius: "6px",
-				        cursorfixedheight:168, 
-				        smoothscroll: true,
-				        mousescrollstep: 10,
-				        zindex: "auto" 
-				    }); 
-					
-				}else{
-					$(".ch_opration").niceScroll({
-				        boxzoom:true,
-				        autohidemode:false,
-				        cursorwidth: "5px",
-				        background: "white",
-				        cursorcolor: "#61aae6",
-				        cursorborderradius: "6px",
-				        cursorfixedheight:168, 
-				        smoothscroll: true,
-				        mousescrollstep: 10,
-				        zindex: "auto" 
-				    }); 
-				}
-			})
 			var text = document.getElementsByClassName('textarea_h');
 		       for(var i = 0;i<text.length;i++){
 		            autoTextarea(text[i]);
