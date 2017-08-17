@@ -227,11 +227,20 @@ function right_anchor(i,type,right){
 		okback:function(){
 			sendGetRequest(platformUrl.queryAllTitleValues+i, null,
 					function(data) {
-						console.log(data);
 						var result = data.result.status;
 						if (result == 'OK') {
 							var entity = data.entity;
 							 $('#nav_tmpl').tmpl(entity).appendTo('#nav_ul');
+							 var scrollTop = $(window).scrollTop();
+								alert(scrollTop)
+								if(scrollTop>10){
+									alert("SSDFSDF");
+									$(".anchor_nav").css("top","60px");
+									$(".to_top").fadeIn(100);
+								}else{
+									$(".anchor_nav").css("top","140px");
+									$(".to_top").fadeOut(100);
+								}
 							 var anchor_width=$("#new_right").css("width").replace("px","");
 							 var  anchor_nav=$("#div-content").contents().find(".anchor_nav");
 							 anchor_nav.css("width",Number(anchor_width)+5);
