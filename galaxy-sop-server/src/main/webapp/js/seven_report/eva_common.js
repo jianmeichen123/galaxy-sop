@@ -795,7 +795,6 @@ $('div').delegate(".income_pic","click",function(){
 	$('.customer_income').css('left',leftNum).css('top',topNum);
 	$(".img_inner").attr("src",$(this).data("url"));
 	$(".master_pic").attr("href",$(this).data("url"))
-	$('.mashLayer').show();
 })
 //表格预览 
 function income_table(){
