@@ -1835,7 +1835,7 @@ function editRow(ele)
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			var title = $("#pop-title");
+			//var title = $("#pop-title");
 			 if(txt=="查看"){
 					$("#detail-form").hide();
 					$(".button_affrim").hide();
@@ -1850,6 +1850,9 @@ function editRow(ele)
 					 $('#grant_popup_name').html('编辑分期注资计划');
 					 $('#finace_popup_name').html('编辑融资历史');
 					 $("#complete_title").html('编辑综合竞争比较');
+					 $("#pop-title-tz").html('编辑投资人');
+					 $("#pop-title-share").html('编辑股东');
+					 $("#pop-title-yy").html('编辑运营指标');
 				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
