@@ -181,6 +181,7 @@ function beforeSave(url){
 				$("a[data-close=\"close\"]").click();
 			});
 			$("#leave").click(function(){
+				$("a[data-close=\"close\"]").click();
 				//点击直接离开跳到项目列表页
 				forwardToPage();
 			});

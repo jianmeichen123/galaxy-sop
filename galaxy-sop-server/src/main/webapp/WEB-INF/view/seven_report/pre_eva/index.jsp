@@ -181,6 +181,7 @@ function beforeSave(url){
 				$("a[data-close=\"close\"]").click();
 			});
 			$("#leave").click(function(){
+				$("a[data-close=\"close\"]").click();
 				forwardToPage();
 			});
 			$("#save").click(function(){
