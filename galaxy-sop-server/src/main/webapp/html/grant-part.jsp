@@ -11,7 +11,7 @@
 <script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc">
-	<div class="title_bj" id="grant_popup_name"></div>
+	<div class="title_bj" id="grant_popup_name">添加分拨计划</div>
   <form id="detail-form">
 		<input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
