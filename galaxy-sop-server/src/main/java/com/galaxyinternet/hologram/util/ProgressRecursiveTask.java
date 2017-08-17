@@ -15,8 +15,9 @@ import java.util.concurrent.RecursiveTask;
 
 public class ProgressRecursiveTask extends RecursiveTask<InformationProgress>{
     private static final long serialVersionUID = 1L;
-
     private static final Logger logger = LoggerFactory.getLogger(ProgressRecursiveTask.class);
+
+    public static final ThreadLocal<String> tl = new ThreadLocal<String>();
 
     private InformationProgressService informationProgressService = SpringContextManager.getBean(InformationProgressService.class);
 
@@ -52,6 +53,7 @@ public class ProgressRecursiveTask extends RecursiveTask<InformationProgress>{
                 tem.join();
             }
         }else{
+            tl.set(preCode);
             //double progress = informationProgressService.getReportProgressByReportCode(preCode,proId);
             double progress = informationProgressService.getProgressByReportCode(preCode,proId);
             try {

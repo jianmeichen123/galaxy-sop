@@ -9,13 +9,18 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.hologram.util.ProgressRecursiveTask;
 import com.galaxyinternet.model.hologram.InformationProgress;
+import com.galaxyinternet.project.controller.ProjectProgressController;
 import com.galaxyinternet.service.hologram.InformationProgressService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
@@ -23,6 +28,8 @@ import java.util.concurrent.ForkJoinTask;
 
 @Service("com.galaxyinternet.service.hologram.InformationProgressService")
 public class InformationProgressServiceImpl extends BaseServiceImpl<InformationProgress> implements InformationProgressService {
+
+	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
 
 
 	@Autowired
@@ -49,9 +56,10 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			}
 		});
 	}
+
 	@Override
 	public void updateUsersAllReportProgressOfPro(Long uid, final Long proId){
-		Long btime = System.currentTimeMillis();
+		int reback = 3;
 
 		InformationProgress informationProgress = new InformationProgress();
 		informationProgress.setUid(uid);
@@ -59,12 +67,25 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 		try {
 			InformationProgress checkM = informationProgressDao.selectOne(informationProgress);
 			if(null == checkM){
-				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
+				while(reback != 0){
+					checkM = informationProgressDao.selectOne(informationProgress);
+					if(null == checkM){
+						reback -= 1;
+						Thread.currentThread().sleep(50);
+					}else{
+						informationProgress = checkM;
+						ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
+						ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
+						ForkJoinTask<InformationProgress> result = pool.submit(task);
+						result.get();
+						informationProgressDao.updateByIdSelective(informationProgress);
 
-				ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
-				ForkJoinTask<InformationProgress> result = pool.submit(task);
-				result.get();
-				informationProgressDao.insert(informationProgress);
+						break;
+					}
+				}
+				if(null == checkM){
+					throw new ServiceException("err usersAllReportProgressOfPro : 初始化失败");
+				}
 			}else{
 				informationProgress = checkM;
 				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
@@ -77,36 +98,36 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 		} catch (Exception e) {
 			throw new ServiceException("err usersAllReportProgressOfPro : ", e);
 		}
-
-		System.err.println( "===========  用时 ： "  +  (System.currentTimeMillis() -  btime));//444  //352
-		System.err.println("=============");
 	}
 
 
 	public InformationProgress initUsersAllReportProgressOfPro(Long uid, final Long proId){
-		Long btime = System.currentTimeMillis();
-
 		InformationProgress informationProgress = new InformationProgress();
 		informationProgress.setUid(uid);
 		informationProgress.setProjectId(proId);
 		try {
-			InformationProgress checkM = informationProgressDao.selectOne(informationProgress);
-			if(null == checkM){
-				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
+			ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
 
-				ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
-				ForkJoinTask<InformationProgress> result = pool.submit(task);
-				result.get();
+			ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
+			ForkJoinTask<InformationProgress> result = pool.submit(task);
+			result.get();
+
+			InformationProgress query = new InformationProgress();
+			query.setUid(uid);
+			query.setProjectId(proId);
+			List<InformationProgress> checkM = informationProgressDao.selectList(query);
+			if(null == checkM || checkM.isEmpty()){
+				informationProgressDao.insert(informationProgress);
+			}else if(checkM.size() > 1){
+				informationProgressDao.delete(query);
 				informationProgressDao.insert(informationProgress);
 			}else{
-				informationProgress = checkM;
+				informationProgress = checkM.get(0);
 			}
 		} catch (Exception e) {
 			throw new ServiceException("err usersAllReportProgressOfPro : ", e);
 		}
 
-		System.err.println( "===========  用时 ： "  +  (System.currentTimeMillis() -  btime));//444  //352
-		System.err.println("=============");
 		return informationProgress;
 	}
 	public Double getProgressByReportCode(String code,final Long proId){
@@ -132,6 +153,14 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			BigDecimal b1 = new BigDecimal((project_completed + result_completed + listdata_completed + fixedtable_completed + file_completed + resultGrage_completed) + "");
 			BigDecimal b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code)));
 			result = b1.divide(b2,mc).doubleValue();
+
+			logger.debug(String.format("计算进度 code：%s   \n  totleNum : %d , result : %f  \n"+
+					"project_completed : %d , result_completed : %d ,  listdata_completed : %d ,  "+
+					"fixedtable_completed : %d ,  file_completed : %d ,  resultGrage_completed : %d" ,
+					code,CacheOperationServiceImpl.code_titleNum.get(code),result,
+					project_completed , result_completed , listdata_completed ,
+					fixedtable_completed , file_completed , resultGrage_completed)
+			);
 		} catch (Exception e) {
 			throw new ServiceException("err getProgressByReportCode : ", e);
 		}
@@ -147,6 +176,13 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 		if(ids == null || ids.isEmpty()){
 			return 0;
 		}
+
+		//debug used
+		String code = ProgressRecursiveTask.tl.get();
+		if(null != code && code.equals("NO")){
+			System.err.println("============");
+			logger.debug("result_ids : " + Arrays.toString(ids.toArray()));
+		}//end
 
 		Map<String, Object> params = new HashMap<String,Object>();
 		params.put("titleIds",ids);
