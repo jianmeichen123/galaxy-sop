@@ -435,6 +435,13 @@ function editRow(ele)
 						ele.val(row.data(name));
 				}
 			});
+			//文本域剩余字符数
+			var textarea_h = $("#detail-form").find('textarea');
+			for(var i=0;i<textarea_h.length;i++){
+				var len=textarea_h.eq(i).val().length;
+				var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).children().text();
+				textarea_h.parent('dd').find(".num_tj").eq(i).children().text(initNum-len);
+			}
 
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
