@@ -56,6 +56,7 @@
 			var  leftNum = _this.offset().left-34;
 			var  topNum = _this.offset().top-$(".gapPopup").height()-165;
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
+			$('.mashLayer').css('opacity','0.1');
 			$('.mashLayer').show();
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
