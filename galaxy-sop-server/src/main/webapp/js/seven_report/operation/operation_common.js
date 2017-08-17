@@ -1,5 +1,3 @@
-var totalMoney;
-var remainMoney;
 function tabOperateChange(index){
 	$(".h_navbar li").eq(index).addClass("active").siblings().removeClass("active");
 	$('.anchor_nav').remove();

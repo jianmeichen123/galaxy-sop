@@ -1,6 +1,8 @@
 var key = Date.parse(new Date());
 var keyJSON={};
 var deleteJSON={};
+var totalMoney;
+var remainMoney;
 function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
 	var params = {};
 	var uploader = new plupload.Uploader({
