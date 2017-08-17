@@ -152,18 +152,18 @@ function popScore(titles,relateId)
 		}
 		else
 		{
-			var td = $('td[class="score-column"][data-relate-id="'+rid+'"]');
+			var td = $('td.score-column[data-relate-id="'+rid+'"]');
 			if(rid.indexOf('-')>0)
 			{
 				var arr = rid.split('-');
 				rid = arr[0];
 				var subId = arr[1];
-				td = $('td[class="score-column"][data-relate-id="'+rid+'"][data-sub-id="'+subId+'"]');
+				td = $('td.score-column[data-relate-id="'+rid+'"][data-sub-id="'+subId+'"]');
 			}
 			var ele = td.children('input,select');
 			if(ele.length ==0)
 			{
-				td.text(score)
+				td.text(score);
 			}
 			else
 			{
