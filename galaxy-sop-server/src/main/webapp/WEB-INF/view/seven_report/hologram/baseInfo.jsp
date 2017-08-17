@@ -202,19 +202,25 @@ $(function() {
 				//判断是否到是select
 				if(sele=="SELECT"){
 					var _resultId = field.parent().attr("resultId");
+					var infoMode = {
+							titleId : field.data('titleId'),
+							type : field.data('type'),
+							tochange:_tochange,
+							resultId:_resultId,
+							value : valu
+						};
 				}else{
 					var _resultId = field.closest("dd").attr("resultId");
+					var infoMode = {
+							titleId : field.data('titleId'),
+							type : field.data('type'),
+							tochange:_tochange,
+							resultId:_resultId
+						};
 				}
 				
-				var infoMode = {
-						titleId : field.data('titleId'),
-						type : field.data('type'),
-						tochange:_tochange,
-						resultId:_resultId,
-						value : valu
-					};
-					infoModeList.push(infoMode);
 				
+					infoModeList.push(infoMode);
 			}
 			
 		});

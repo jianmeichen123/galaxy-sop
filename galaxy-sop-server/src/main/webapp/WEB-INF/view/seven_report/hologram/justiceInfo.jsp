@@ -160,8 +160,7 @@ var deleteJSON={};
 				titleId	: field.data('titleId'),
 				tochange:_tochange,
 				resultId:_resultId,
-				type : type,
-				value : valu
+				type : type
 			};
 			if(type==2 || type==3 || type==4)
 			{
@@ -177,6 +176,8 @@ var deleteJSON={};
 				var str=str.replace(/\n|\r\n/g,"<br>")
 				var str=str.replace(/\s/g,"&nbsp;");
 				infoMode.remark1 = str;
+			}else if(type==14){
+				infoMode.value=valu;
 			}
 			infoModeList.push(infoMode);
 		});
