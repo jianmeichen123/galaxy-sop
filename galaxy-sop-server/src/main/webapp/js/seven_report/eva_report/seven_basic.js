@@ -91,7 +91,18 @@
 				    }); 
 					
 				}else{
-					$('#scrollbar').css('overflow','hidden');
+					$(".ch_opration").niceScroll({
+				        boxzoom:true,
+				        autohidemode:false,
+				        cursorwidth: "5px",
+				        background: "white",
+				        cursorcolor: "#61aae6",
+				        cursorborderradius: "6px",
+				        cursorfixedheight:168, 
+				        smoothscroll: true,
+				        mousescrollstep: 10,
+				        zindex: "auto" 
+				    }); 
 				}
 			})
 			var text = document.getElementsByClassName('textarea_h');
