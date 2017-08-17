@@ -1,34 +1,5 @@
 package com.galaxyinternet.project.controller;
 
-import java.sql.Timestamp;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
@@ -70,6 +41,7 @@ import com.galaxyinternet.model.chart.ProjectData;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hologram.InformationProgress;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.operationLog.OperationLogs;
@@ -115,8 +87,36 @@ import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.ProjectGradeService;
+import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.utils.CollectionUtils;
 import com.galaxyinternet.utils.SopConstatnts;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -180,6 +180,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
+
+	@Autowired
+	private InformationProgressService informationProgressService;
 
 	private String tempfilePath;
 
@@ -3454,6 +3457,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@RequestMapping(value = "/detail/toRight/{projectId}", method = RequestMethod.GET)
 	public String toRight(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Project project = new Project();
 		project = projectService.queryById(projectId);
 		request.setAttribute("proinfo", GSONUtil.toJson(project));
@@ -3461,6 +3465,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("pid", projectId);
 		request.setAttribute("prograss", project.getProjectProgress());
 		request.setAttribute("projectName", project.getProjectName());
+
+		InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(user.getId(), projectId);
+		request.setAttribute("reportProgress", reportProgress);
 		return "project/sopinfo/includeRight";
 	}
 	
