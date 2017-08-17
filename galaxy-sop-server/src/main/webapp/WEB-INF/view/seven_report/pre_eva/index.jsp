@@ -192,6 +192,21 @@ function beforeSave(url){
 	});
 	return false;
 }
+function forwardToPage(){   //跳到相关页面
+	var where=$(".pagebox").attr("data-lis");
+	//alert(where);
+	if(where=="tab"){  //点击评测报告tab切换
+		var code = $(".pagebox").attr('data-code');
+		var relateId =$(".pagebox").attr('data-relateId');
+		//加载相应tab页；
+		$("#eva-tabs li[data-code='"+code+"']").siblings().removeClass('active');
+		$("#eva-tabs li[data-code='"+code+"']").addClass('active');
+		tabShow(code,relateId);   
+	}else{   //点击页面其他能跳转的地方
+		//跳到相关页					
+		forwardWithHeader(url); 
+	}
+}
 //离开页面提示
 
  $(function(){
