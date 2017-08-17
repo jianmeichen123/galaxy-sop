@@ -338,7 +338,7 @@
 		</trim>
 		</where>
 	</select>
-
+	<!--
 	<select id="selectCountForTitleOfResults" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select
 			count(allresult.id)
@@ -367,8 +367,8 @@
 		</where>
 		GROUP BY title.id
 		) allresult
-	</select>
-
+	</select>-->
+	<!--
 	<select id="selectCountForTitleOfListdata" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select
 			count(allresult.id)
@@ -397,9 +397,9 @@
 		</where>
 		GROUP BY title.id
 		) allresult
-	</select>
+	</select>-->
 
-	<select id="selectCountForTitleOfFixedTable" resultType="java.lang.Integer" parameterType="java.util.Map">
+	<!--<select id="selectCountForTitleOfFixedTable" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select
 			count(allresult.id)
 		FROM
@@ -427,9 +427,9 @@
 		</where>
 		GROUP BY title.id
 		) allresult
-	</select>
+	</select>-->
 
-	<select id="selectCountForTitleOfFile" resultType="java.lang.Integer" parameterType="java.util.Map">
+	<!--<select id="selectCountForTitleOfFile" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select
 			count(allresult.id)
 		FROM
@@ -456,10 +456,181 @@
 		</where>
 		GROUP BY title.id
 		) allresult
+	</select>-->
+
+
+	<select id="selectCountForTitleOfResults" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(allresult.title_id)
+		FROM
+		(
+		select
+			title_id
+		FROM
+			information_result
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
+
+				<if test="titleId != null"> and title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title_id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="notAllNUll != null"> and (content_choose is not null OR content_describe1 is not null OR content_describe2 is not null) </if>
+				and is_valid = 0
+			</trim>
+		</where>
+		GROUP BY title_id
+		) allresult
+	</select>
+
+	<select id="selectCountForTitleOfListdata" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(allresult.title_id)
+		FROM
+		(
+		select
+			result.title_id
+		FROM
+			information_listdata result
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+
+				<if test="titleId != null"> and result.title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and result.title_id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="notAllNUll != null"> and (result.field_1 is not null OR result.field_2 is not null OR result.field_3 is not null) </if>
+				and result.is_valid = 0
+			</trim>
+		</where>
+		GROUP BY result.title_id
+		) allresult
+	</select>
+
+	<select id="selectCountForTitleOfFixedTable" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(allresult.title_id)
+		FROM
+		(
+		select
+			result.title_id
+		FROM
+			information_fixed_table result
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+
+				 <if test="titleId != null"> and result.title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and result.title_id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="notAllNUll != null"> and (result.content is not null) </if>
+				and result.is_valid = 0
+			</trim>
+		</where>
+		GROUP BY result.title_id
+		) allresult
+	</select>
+
+	<select id="selectCountForTitleOfFile" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(allresult.title_id)
+		FROM
+		(
+		select
+			result.title_id
+		FROM
+			information_file result
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+
+				 <if test="titleId != null"> and result.title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and result.title_id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="notAllNUll != null"> and (result.file_key is not null OR result.file_name is not null) </if>
+			</trim>
+		</where>
+		GROUP BY result.title_id
+		) allresult
 	</select>
 
 
+	<select id="selectCountForRelateOfGrade" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+			count(allresult.title_relate_id)
+		FROM
+		(
+		select
+			title_relate_id
+		FROM
+			information_result_grade
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
 
+				 <if test="titleRelateId != null"> and title_relate_id = #{titleRelateId,jdbcType=BIGINT} </if>
+				<if test="titleRelateIds != null">
+					and title_relate_id in
+					<foreach collection="titleRelateIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<!--<if test="notAllNUll != null"> and (grade1 is not null OR grade1 is not null) </if>-->
+				<if test="notAllNUll != null"> and (grade1 is not null ) </if>
+			</trim>
+		</where>
+		GROUP BY title_relate_id
+		) allresult
+	</select>
+	<select id="selectCountForRelateOfGrade2" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(allresult.title_relate_id)
+		FROM
+		(
+		select
+		title_relate_id
+		FROM
+		information_result_grade
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
+
+				<if test="titleRelateId != null"> and title_relate_id = #{titleRelateId,jdbcType=BIGINT} </if>
+				<if test="titleRelateIds != null">
+					and title_relate_id in
+					<foreach collection="titleRelateIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<!--<if test="notAllNUll != null"> and (grade1 is not null OR grade1 is not null) </if>-->
+				<if test="notAllNUll != null"> and (grade2 is not null ) </if>
+			</trim>
+		</where>
+		GROUP BY title_relate_id
+		) allresult
+	</select>
 
 
 </mapper>

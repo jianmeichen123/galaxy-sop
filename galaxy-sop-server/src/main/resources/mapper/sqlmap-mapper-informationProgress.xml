@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.hologram.InformationProgress">
+
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationProgress">
+		<id column="id"                property="id"           jdbcType="BIGINT" />
+		<result column="project_id"    property="projectId"    jdbcType="BIGINT" />
+		<result column="uid"           property="uid"          jdbcType="BIGINT" />
+		<result column="NO"            property="no"           jdbcType="DOUBLE" />
+		<result column="DN"            property="dn"           jdbcType="DOUBLE" />
+		<result column="PN"            property="pn"           jdbcType="DOUBLE" />
+		<result column="GN"            property="gn"           jdbcType="DOUBLE" />
+		<result column="ON"            property="on"           jdbcType="DOUBLE" />
+		<result column="EN"            property="en"           jdbcType="DOUBLE" />
+		<result column="CN"            property="cn"           jdbcType="DOUBLE" />
+		<result column="created_time"  property="createdTime"  jdbcType="BIGINT" />
+		<result column="updated_time"  property="updatedTime"  jdbcType="BIGINT" />
+	</resultMap>
+
+
+
+	<sql id="Base_Column_List">
+		 id, project_id, uid, `NO`, DN, PN, GN, `ON`, EN, CN, created_time, updated_time
+	</sql>
+
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="uid != null" > and uid = #{uid,jdbcType=BIGINT} </if>
+				<if test="no != null" > and `NO` = #{no,jdbcType=DOUBLE} </if>
+				<if test="dn != null" > and DN = #{dn,jdbcType=DOUBLE} </if>
+				<if test="pn != null" > and PN = #{pn,jdbcType=DOUBLE} </if>
+				<if test="gn != null" > and GN = #{gn,jdbcType=DOUBLE} </if>
+				<if test="on != null" > and `ON` = #{on,jdbcType=DOUBLE} </if>
+				<if test="en != null" > and EN = #{en,jdbcType=DOUBLE} </if>
+				<if test="cn != null" > and CN = #{cn,jdbcType=DOUBLE} </if>
+				<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
+			<if test="property != null">order by ${property} ${direction}</if>
+
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>
+
+	</sql>
+
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationProgress">
+	    <![CDATA[
+	      insert into information_progress (id, project_id, uid,
+			  `NO`, DN, PN, GN,
+			  `ON`, EN, CN, created_time,
+			  updated_time)
+		  values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT},
+			  #{no,jdbcType=DOUBLE}, #{dn,jdbcType=DOUBLE}, #{pn,jdbcType=DOUBLE}, #{gn,jdbcType=DOUBLE},
+			  #{on,jdbcType=DOUBLE}, #{en,jdbcType=DOUBLE}, #{cn,jdbcType=DOUBLE}, #{createdTime,jdbcType=BIGINT},
+			  #{updatedTime,jdbcType=BIGINT})
+	    ]]>
+	</insert>
+
+
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from information_progress
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from information_progress 
+		where id = #{id}
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from information_progress
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+	
+	 <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hologram.InformationProgress">
+		update information_progress
+		<set>
+			<if test="no != null" > `NO` = #{no,jdbcType=DOUBLE}, </if>
+			<if test="dn != null" > DN = #{dn,jdbcType=DOUBLE}, </if>
+			<if test="pn != null" > PN = #{pn,jdbcType=DOUBLE}, </if>
+			<if test="gn != null" > GN = #{gn,jdbcType=DOUBLE}, </if>
+			<if test="on != null" > `ON` = #{on,jdbcType=DOUBLE}, </if>
+			<if test="en != null" > EN = #{en,jdbcType=DOUBLE}, </if>
+			<if test="cn != null" > CN = #{cn,jdbcType=DOUBLE}, </if>
+			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="uid != null" > and uid = #{uid,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.hologram.InformationProgress">
+		update information_progress
+		<set>
+			<if test="no != null" > `NO` = #{no,jdbcType=DOUBLE}, </if>
+			<if test="dn != null" > DN = #{dn,jdbcType=DOUBLE}, </if>
+			<if test="pn != null" > PN = #{pn,jdbcType=DOUBLE}, </if>
+			<if test="gn != null" > GN = #{gn,jdbcType=DOUBLE}, </if>
+			<if test="on != null" > `ON` = #{on,jdbcType=DOUBLE}, </if>
+			<if test="en != null" > EN = #{en,jdbcType=DOUBLE}, </if>
+			<if test="cn != null" > CN = #{cn,jdbcType=DOUBLE}, </if>
+			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	
+	
+</mapper>
+	

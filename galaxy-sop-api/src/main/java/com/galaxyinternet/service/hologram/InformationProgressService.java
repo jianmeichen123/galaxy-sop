@@ -10,8 +10,10 @@ public interface InformationProgressService extends BaseService<InformationProgr
     void checkUsersProReportProgress(Long uid, final Long proId);*/
 
 
-    void usersAllReportProgressOfPro(Long uid, final Long proId);
+    InformationProgress initUsersAllReportProgressOfPro(Long uid, final Long proId);
     //Double getReportProgressByReportCode(String code,final Long proId);
     Double getProgressByReportCode(String code,final Long proId);
 
+
+    void updateUsersAllReportProgressOfPro(Long uid, final Long proId);
 }
