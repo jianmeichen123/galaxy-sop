@@ -738,7 +738,7 @@ function buildTable(sec,title)
 			{
 				if(key.indexOf('field')>-1)
 				{
-					if(header.titleId == '1810' && key == 'field2'){
+					if((header.titleId == '1810'||header.titleId == '1811') && key == 'field2'){
 						continue;
 					}
 					if(header.code=='finance-history'&&(key == 'field9'||key == 'field10')){
@@ -748,6 +748,11 @@ function buildTable(sec,title)
 					    tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
 					}
 				}
+			}
+			if(header.titleId =='1810'||header.titleId =='1811')
+			{
+				tr +='<th data-field-name="updateUserName">创建人</th>';
+				tr +='<th data-field-name="updateTimeStr">操作时间</th>';
 			}
 			var editable = table.hasClass('editable');
 		
