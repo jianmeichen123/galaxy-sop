@@ -1,24 +1,6 @@
 package com.galaxyinternet.hologram.controller;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -35,13 +17,29 @@ import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
+import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Api("全息图后台接口")
 @Controller
@@ -59,6 +57,8 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	private InformationDictionaryService infoDictionaryService;
 	@Autowired
 	private InformationListdataRemarkService  infoListdataRemarkService;
+	@Autowired
+	private InformationProgressService informationProgressService;
 	@Override
 	protected BaseService<InformationData> getBaseService() {
 		return this.infoDataService;
@@ -103,6 +103,8 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			infoDataService.save(informationData);
 		    logger.info("全息图编辑项目相关信息["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
 		    responseBody.setResult(new Result(Status.OK, null,"编辑项目部分成功"));
+
+			informationProgressService.threadForUpdate(user.getId(),projectId);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null,"编辑项目部分数据失败"));
 			logger.error("异常信息:",e);

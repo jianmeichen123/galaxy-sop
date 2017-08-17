@@ -401,26 +401,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 				title = informationDictionaryService.selectTitlesValuesForAll(titles.get(i).getRelateCode(),code_report$type.get(codeLike));
 				num += getNumForTypeIsNotNull(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
 
-				if (codeLike.equals("DN"))
-				{
-					setCodeTypeTids("DN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
-				}else if (codeLike.equals("PN"))
-				{
-					setCodeTypeTids("PN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
-				}else if (codeLike.equals("GN"))
-				{
-					setCodeTypeTids("GN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
-				}else if (codeLike.equals("ON"))
-				{
-					setCodeTypeTids("ON",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
-				}
-
-				/*System.err.println("其它报告　" + titles.get(i).getRelateCode() + " : " + num);
-				System.err.println("project_ids　" + project_ids.size() + " : " + Arrays.toString(project_ids.toArray()));
-				System.err.println("result_ids　" + result_ids.size() + " : " + Arrays.toString(result_ids.toArray()));
-				System.err.println("listdata_ids　" + listdata_ids.size() + " : " + Arrays.toString(listdata_ids.toArray()));
-				System.err.println("fixedtable_ids　" + fixedtable_ids.size() + " : " + Arrays.toString(fixedtable_ids.toArray()));
-				System.err.println("file_ids　" + file_ids.size() + " : " +Arrays.toString(file_ids.toArray()));*/
+				setCodeTypeTids(codeLike, code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 			}
 			/*System.err.println(codeLike + " tnum :  " + num);
 			System.err.println(codeLike + " ids :  " + code_titletype_titleIds.get(codeLike));*/
@@ -464,20 +445,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 				title = informationDictionaryService.selectTitlesValuesForAll( titles.get(i).getRelateCode(),code_report$type$grade.get(codeLike));
 				num += getNumForTypeIsNotNullByGrade(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 
-				if (codeLike.equals("EN"))
-				{
-					setCodeTypeTids("EN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
-				}else if (codeLike.equals("CN"))
-				{
-					setCodeTypeTids("CN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
-				}
-
-				/*System.err.println("打分报告　" +  titles.get(i).getRelateCode() + " : " + num);
-				System.err.println("project_ids　" + project_ids.size() + " : " + Arrays.toString(project_ids.toArray()));
-				System.err.println("result_ids　" + result_ids.size() + " : " + Arrays.toString(result_ids.toArray()));
-				System.err.println("listdata_ids　" + listdata_ids.size() + " : " + Arrays.toString(listdata_ids.toArray()));
-				System.err.println("fixedtable_ids　" + fixedtable_ids.size() + " : " + Arrays.toString(fixedtable_ids.toArray()));
-				System.err.println("file_ids　" + file_ids.size() + " : " + Arrays.toString(file_ids.toArray()));*/
+				setCodeTypeTids(codeLike,  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 			}
 			/*System.err.println(codeLike + " tnum :  " + num);
 			System.err.println(codeLike + " ids :  " + code_titletype_titleIds.get(codeLike));*/

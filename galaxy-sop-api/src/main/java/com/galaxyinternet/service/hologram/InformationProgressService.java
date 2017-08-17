@@ -6,6 +6,9 @@ import com.galaxyinternet.model.hologram.InformationProgress;
 public interface InformationProgressService extends BaseService<InformationProgress>{
 
 
+    void threadForUpdate(final Long uid, Long proId);
+
+
    /* void usersProAllReportProgress(Long uid, final Long proId);
     void checkUsersProReportProgress(Long uid, final Long proId);*/
 

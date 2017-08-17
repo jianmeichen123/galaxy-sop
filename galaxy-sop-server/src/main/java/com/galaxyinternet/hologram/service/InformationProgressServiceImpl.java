@@ -42,6 +42,14 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 
 
 	@Override
+	public void threadForUpdate(final Long uid, final Long proId){
+		GalaxyThreadPool.getExecutorService().execute(new Runnable(){
+			public void run(){
+				updateUsersAllReportProgressOfPro(uid,proId);
+			}
+		});
+	}
+	@Override
 	public void updateUsersAllReportProgressOfPro(Long uid, final Long proId){
 		Long btime = System.currentTimeMillis();
 
