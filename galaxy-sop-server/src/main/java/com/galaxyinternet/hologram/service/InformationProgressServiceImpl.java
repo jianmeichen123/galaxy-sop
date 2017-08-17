@@ -77,7 +77,7 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 					checkM = informationProgressDao.selectList(query);
 					if(null == checkM || checkM.isEmpty() || checkM.size() > 1){
 						reback -= 1;
-						Thread.currentThread().sleep(50);
+						Thread.currentThread().sleep(10);
 					}else{
                         query = checkM.get(0);
 						break;
@@ -89,13 +89,13 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 
             result.get();
             if(null == query.getId()){
-                throw new ServiceException("err usersAllReportProgressOfPro : 初始化失败");
+                throw new ServiceException("err updateUsersAllReportProgressOfPro : 修改失败");
             }else{
                 informationProgress.setId(query.getId());
                 informationProgressDao.updateById(informationProgress);
             }
         } catch (Exception e) {
-			throw new ServiceException("err usersAllReportProgressOfPro : ", e);
+			throw new ServiceException("err updateUsersAllReportProgressOfPro : 修改失败 ", e);
 		}
 	}
 
@@ -126,7 +126,7 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 				informationProgress = checkM.get(0);
 			}
 		} catch (Exception e) {
-			throw new ServiceException("err usersAllReportProgressOfPro : ", e);
+			throw new ServiceException("err initUsersAllReportProgressOfPro : 初始化失败 ", e);
 		}
 
 		return informationProgress;
