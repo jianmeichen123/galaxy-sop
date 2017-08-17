@@ -77,7 +77,7 @@ var pageId = "project";
 			<span class="show_edit"></span>
 		</div>
 		<!--弹窗2 -->	
-		<div class="h_look h h_team_look clearfix ch_opration" id="scrollbar">
+		<div class="h_look h h_team_look ch_opration" id="scrollbar">
 		</div>
 		<!-- 图片展示弹窗 -->
 		<div class="customer_income">
