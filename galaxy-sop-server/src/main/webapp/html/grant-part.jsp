@@ -11,6 +11,7 @@
 <script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc">
+	<div class="title_bj" id="grant_popup_name"></div>
   <form id="detail-form">
 		<input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
@@ -19,7 +20,7 @@
 	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="appr_aging">
 	                <dl class="fmdl fl_l  clearfix">
-		                <dt>计划注资金额 ：</dt>
+		                <dt>计划注资名称：</dt>
 		                <dd>
 		                    	<input class=" txt "  name="field1" type="text" value="" placeholder="分拨"/>
 		                </dd>
@@ -28,7 +29,7 @@
 		                <dt>计划注资时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt"  name="field2" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    	<input class="txt"  name="field2" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -52,6 +53,32 @@
             </dl>
 	        </div>
 	    </div>
+	    </form>
+	    <!-- 查看显示下面内容 -->
+            <div class="see_block">
+            	<div class="appr_aging">
+	                <dl class="fmdl fl_l  clearfix">
+		                <dt>计划注资名称：</dt>
+		                <dd>
+		                    	<dd name="field1"></dd>
+		                </dd>
+		            </dl>
+	                <dl class="fmdl fl_l  clearfix">
+		                <dt>计划注资时间 ：</dt>
+		                <dd>
+		                	<dd name="field2"></dd>
+		                </dd>
+		            </dl>
+	                 <dl class="fmdl fl_l  clearfix">
+		                <dt>计划注资金额 ：</dt>
+		                <dd name="field3"></dd>
+		            </dl>
+		        <dl class="fmdl fl_l">
+                 <dt>付款条件：</dt>
+                 <dd name="field4"></dd>
+            </dl>
+	        </div>
+            </div>
 	    <div class="button_affrim">
 	         <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>

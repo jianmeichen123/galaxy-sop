@@ -414,10 +414,12 @@ function editRow(ele)
 					$("#detail-form").hide();
 					$(".button_affrim").hide();
 					$("#delivery_popup_name").text("查看交割事项");
+					 $('#grant_popup_name').html('查看分期注资计划');
 					
 				}else{
 					$(".see_block").hide();
 					$("#delivery_popup_name").text("编辑交割事项");
+					 $('#grant_popup_name').html('编辑分期注资计划');
 				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
@@ -526,6 +528,7 @@ function addRow(ele)
             okback:function(){
 				$('#qualifications_popup_name').html('添加简历');
 				$('#qualifications_popup_name1').html('添加持股人');
+				 $('#grant_popup_name').html('添加分期注资计划');
 				//交割前事项
 				$("#delivery_popup_name").text("新增交割事项");
 				$(".see_block").hide();
