@@ -709,7 +709,6 @@ function buildTable(sec,title)
 	if(title.tableHeader)
 	{
 		var header = title.tableHeader;
-	    console.log("*************8"+header);
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
 			var table = $(this);
@@ -722,6 +721,9 @@ function buildTable(sec,title)
 				if(key.indexOf('field')>-1)
 				{
 					if(header.titleId == '1810' && key == 'field2'){
+						continue;
+					}
+					if(header.code=='finance-history'&&(key == 'field9'||key == 'field10')){
 						continue;
 					}
 					if(key!="opt"){
