@@ -232,9 +232,7 @@ function right_anchor(i,type,right){
 							var entity = data.entity;
 							 $('#nav_tmpl').tmpl(entity).appendTo('#nav_ul');
 							 var scrollTop = $(window).scrollTop();
-								alert(scrollTop)
 								if(scrollTop>10){
-									alert("SSDFSDF");
 									$(".anchor_nav").css("top","60px");
 									$(".to_top").fadeIn(100);
 								}else{
