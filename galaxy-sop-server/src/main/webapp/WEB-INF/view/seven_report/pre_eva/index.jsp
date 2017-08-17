@@ -128,7 +128,6 @@ var projId="${projectId}";
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>
 <script src="<%=path%>/js/seven_report/eva_report/textarea.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>
-<script src="<%=path%>/js/seven_report/eva_report/jquery.nicescroll.min.js"></script>
 <script src="<%=path%>/js/seven_report/eva_report/textarea_scroll.js"></script>
 				
 <!-- 时间插件 -->
