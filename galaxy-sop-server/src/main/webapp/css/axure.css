@@ -3395,6 +3395,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .conference_all .wid_2{width:50%;float:left;}
 .conference_all .wid_2 input,.conference_all .wid_2 textarea,.conference_all .wid_2 select{border:0;width:auto;padding:0;}
 .conference_all .wid dt{width:auto}
+.conference_all .block{width:100%}
 .before_save_tc{
 	width:460px;
 }

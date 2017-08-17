@@ -402,6 +402,11 @@ function customBuilder()
 function editRow(ele)
 {
 	var code = $(ele).closest('table').data('code');
+	if(code == 'grant-part' || code == 'grant-actual'){
+		 if(!getTotalAppr(projectInfo.id)){
+			  return;
+		  }
+	}
 	var row = $(ele).closest('tr');
 	var txt= $(ele).text();
 	$.getHtml({
@@ -522,6 +527,12 @@ function addRow(ele)
 {
    /*  if ( validateCGR() ) { */
         var code = $(ele).prev().data('code');
+        //总注资校验
+		if(code == 'grant-part' || code == 'grant-actual'){
+			 if(!getTotalAppr(projectInfo.id)){
+				  return;
+			  }
+		}
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
             data:"",//传递参数
@@ -789,5 +800,38 @@ function tableDictColumn(code){
     }
 }*/
 
+
+/**
+ * 获取总注资计划并校验
+ * @param projectId
+ * @returns {Boolean}
+ */
+function getTotalAppr(projectId){
+	var flag = false;
+	var params={};
+	params.projectId = projectId;
+	params.titleId = "3004";
+	sendPostRequestByJsonObj(
+				Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
+				params,
+				function(data){
+					if(data.result.status == "OK"){
+						if(typeof(data.userData) != "object"){
+							flag = true;
+							totalMoney = data.userData.totalMoney;
+							remainMoney = data.userData.remainMoney;
+						}
+					}
+				});
+	if(!flag){
+		layer.open({
+			  type: 1,
+			  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
+			  area: ['420px', '240px'], //宽高
+			  content: '无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体'
+			});
+	}
+	return flag;
+}
 
 

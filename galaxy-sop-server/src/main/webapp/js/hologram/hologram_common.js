@@ -1769,6 +1769,8 @@ function addRow(ele)
 			$('#qualifications_popup_name').html('添加简历');
             $('#qualifications_popup_name1').html('添加持股人');
             $('#finace_popup_name').html('添加融资历史');
+            $('#finace_popup_name').html('添加融资历史');
+			 $("#complete_title").html('添加综合竞争比较');
             $("#detail-form input[name='projectId']").val(projectInfo.id);
             $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
             $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
@@ -1828,12 +1830,30 @@ function editRow(ele)
 {
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
+	var txt=$(ele).text();
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			var title = $("#pop-title");
-			 $('#finace_popup_name').html('编辑融资历史');
+			//var title = $("#pop-title");
+			 if(txt=="查看"){
+					$("#detail-form").hide();
+					$(".button_affrim").hide();
+					$("#delivery_popup_name").text("查看交割事项");
+					 $('#grant_popup_name').html('查看分期注资计划');
+					 $('#finace_popup_name').html('查看融资历史');
+					 $("#complete_title").html('查看综合竞争比较');
+					
+				}else{
+					$(".see_block").hide();
+					$("#delivery_popup_name").text("编辑交割事项");
+					 $('#grant_popup_name').html('编辑分期注资计划');
+					 $('#finace_popup_name').html('编辑融资历史');
+					 $("#complete_title").html('编辑综合竞争比较');
+					 $("#pop-title-tz").html('编辑投资人');
+					 $("#pop-title-share").html('编辑股东');
+					 $("#pop-title-yy").html('编辑运营指标');
+				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
@@ -1850,6 +1870,29 @@ function editRow(ele)
 					ele.val(row.data(name));
 				}
 			});
+			//查看显示
+			$.each($(".see_block").find("dd[name]"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.text(row.data(name));
+				//历史融资特殊处理select,radio
+				$.each($("#financeDetail select"),function(){
+					var selectId=$(this).val();
+					var selectVal=$("#financeDetail select").find("option[value='"+selectId+"']").text();
+					if(row.data(name)==selectId){
+						ele.text(selectVal);
+					}
+				});
+				$.each($("#financeDetail input[type='radio']"),function(){
+					var selectId=$(this).val();
+					var selectVal=$("#financeDetail").find("input[type='radio'][value='"+selectId+"']").parent().text();
+					if(row.data(name)==selectId){
+						ele.text(selectVal);
+					}
+				});
+				
+				
+			})
 			//文本框剩余字数
 			$.each($(".team_textarea"),function(){
 				var len=$(this).val().length;

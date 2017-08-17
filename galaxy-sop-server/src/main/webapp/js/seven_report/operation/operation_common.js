@@ -1,3 +1,5 @@
+var totalMoney;
+var remainMoney;
 function tabOperateChange(index){
 	$(".h_navbar li").eq(index).addClass("active").siblings().removeClass("active");
 	$('.anchor_nav').remove();
@@ -110,6 +112,10 @@ function tabOperateChange(index){
 		{
 			  var code = $(ele).prev().data('code');
 			  var titleId = $(ele).prev().data("titleId");
+			  
+			  if(!getTotalAppr(projectInfo.id)){
+				  return;
+			  }
 			  $.getHtml({
 		          url:path+'/html/operation_appr_part.html',//模版请求地址
 		          data:"",//传递参数

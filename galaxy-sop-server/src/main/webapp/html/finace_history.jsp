@@ -91,6 +91,51 @@
         </div>
     </div>
       	</form>
+      	<!-- 查看显示下面内容 -->
+      	<div class="see_block">
+            <div class="conference_all">
+            <dl class="fmdl clearfix wid_2">
+                <dt>融资时间：</dt>
+                <dd name="field1"></dd>
+                  
+            </dl>
+            <dl class="fmdl clearfix wid_2 wid">
+                 <dt>投资方(机构或个人)：</dt>
+                <dd name="field2"></dd>
+            </dl>
+            <dl class="fmdl clearfix wid_2">
+             <dt>投资金额：</dt>
+                <dd name="field3"></dd>
+                 
+            </dl>
+          <dl class="fmdl clearfix wid_2">
+            <dt>股权占比：</dt>
+                <dd name="field4"></dd>
+              
+           </dl>
+           <dl class="fmdl clearfix wid_2">
+           <dt>估值金额：</dt>
+           <dd name="field5"></dd>
+            </dl>
+           <dl class="fmdl clearfix wid_2">
+            <dt>融资轮次：</dt>
+                <dd name="field7"></dd>            
+           
+           </dl>
+           <dl class="fmdl  wid_2">
+				<dt>新老股：</dt>
+				<dd name="field8"></dd> 
+				</dl>
+             	<dl class="fmdl wid clearfix block">
+           		<dt>合同关键条款：</dt>
+	                <dd name="field9"></dd> 
+	             </dl>
+	             <dl class="fmdl wid clearfix block">
+	           		<dt>对赌或业绩承诺条款：</dt>
+	                <dd name="field10"></dd> 
+	             </dl>
+        	</div>	
+        </div>
     
   <div class="button_affrim">
         <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>

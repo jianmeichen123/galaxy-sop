@@ -1,29 +1,20 @@
 package com.galaxyinternet.hologram.controller;
 
-
-import com.galaxyinternet.common.annotation.LogType;
-import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hologram.InformationData;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationListdataRemark;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.hologram.InformationDataService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
-import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
-import com.galaxyinternet.service.hologram.InformationProgressService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +25,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationData;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.InformationResult;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.hologram.InformationDataService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
+import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.galaxyinternet.service.hologram.InformationListdataService;
+import com.galaxyinternet.service.hologram.InformationResultService;
 
 @Api("全息图后台接口")
 @Controller
@@ -59,6 +67,9 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	private InformationListdataRemarkService  infoListdataRemarkService;
 	@Autowired
 	private InformationProgressService informationProgressService;
+	private InformationResultService informationResultService;
+	@Autowired
+	private InformationListdataService informationListdataService;
 	@Override
 	protected BaseService<InformationData> getBaseService() {
 		return this.infoDataService;
@@ -233,6 +244,47 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			break;
 		}
 		return str;
+	}
+	
+	/**
+	 * 获取总注资计划额度
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getTotalAppr", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationResult> getTotalAppr(@RequestBody InformationResult informationResult,HttpServletRequest request){
+		
+		ResponseData<InformationResult> response = new ResponseData<InformationResult>();
+		if(StringUtils.isEmpty(informationResult.getProjectId()) && StringUtils.isEmpty(informationResult.getTitleId())){
+			response.setResult(new Result(Status.ERROR,"参数丢失."));
+		}
+		try{
+			Map<String,Object> map = null;
+			//获取总注资计划的金额
+			InformationResult ir = informationResultService.queryOne(informationResult);
+			if(ir != null){
+				InformationListdata query = new InformationListdata();
+	            query.setTitleId(3022l);
+	            query.setProjectId(Long.valueOf(informationResult.getProjectId()));
+	            double money = informationListdataService.selectPartMoney(query);
+	            BigDecimal total = new BigDecimal(ir.getContentDescribe1());
+	            BigDecimal part = new BigDecimal(money);
+	            if(total.doubleValue() > part.doubleValue()){
+	            	double remainMoney = total.subtract(part).doubleValue();
+	            	map = new HashMap<String,Object>();
+	  				map.put("totalMoney", ir.getContentDescribe1());
+	  				map.put("remainMoney",remainMoney );
+	            }
+	            response.setUserData(map);
+			}
+		   
+		}catch(Exception e){
+			logger.error("获取总注资金额失败.", e);
+			response.setResult(new Result(Status.ERROR,"总注资计划失败."));
+		}
+		
+		return response;
 	}
 }
 
