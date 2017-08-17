@@ -117,8 +117,10 @@
 					dom.children("input").attr("checked",true);
 				}else if(type==8 || type==15){
 					var relateId=p_box.attr("data-relate-id");
+					alert(relateId);
+					alert(val)
 					if(val!="未填写"){
-						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").text(val);
+						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").val(val);
 					}			
 				}else if(type==18){
 					var relateId=p_box.attr("data-relate-id");
