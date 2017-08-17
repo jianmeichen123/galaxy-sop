@@ -130,6 +130,12 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 			save(item);
 		}
 	}
+
+	@Override
+	public double selectPartMoney(InformationListdata entity) {
+		// TODO Auto-generated method stub
+		return informationListdataDao.selectTotalMoney(entity);
+	}
 	
 	
 }

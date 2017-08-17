@@ -13,4 +13,6 @@ public interface InformationListdataService extends BaseService<InformationListd
      
      public void save(InformationListdata entity);
      public void saveBatch(List<InformationListdata> list);
+     
+     double selectPartMoney(InformationListdata entity);
 }

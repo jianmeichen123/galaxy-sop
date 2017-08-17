@@ -1709,6 +1709,7 @@ function selectContext(formId){
 //新增弹出页面渲染
 function addRow(ele)
 {
+	
 	var code = $(ele).prev().data('code');
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
@@ -1776,6 +1777,13 @@ function editRow(ele)
 {
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
+
+	if(code == 'grant-part' || code == 'grant-actual'){
+		 if(!getTotalAppr(projectInfo.id)){
+			  return;
+		  }
+	}
+	
 	$.getHtml({
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
