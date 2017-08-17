@@ -1719,6 +1719,7 @@ function addRow(ele)
             $('#qualifications_popup_name1').html('添加持股人');
             $('#finace_popup_name').html('添加融资历史');
             $("#complete_title").html('添加综合竞争比较');
+            $(".see_block").hide();
             $("#detail-form input[name='projectId']").val(projectInfo.id);
             $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
             $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
