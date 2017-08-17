@@ -464,22 +464,18 @@ function buildTable(title)
 function getValues()
 {
 	
-	var dupCheck = {};
+	var titleObj = {};
 	var infoModelList = new Array();
 	var titleEles = $(".title-value");
 	$.each(titleEles,function(){
 		var _this = $(this);
 		var type = _this.data('type');
 		var titleId = _this.data('titleId');
+		var subId = _this.data('subId');
 		var value = _this.data('titleValue');
 		var resultId = _this.data('resultId');
 		var remark = _this.data('remark');
 		var text = _this.text();
-		if(dupCheck.hasOwnProperty(titleId))
-		{
-			return;
-		}
-		dupCheck[titleId]=titleId;
 		if(_this.parent().hasClass('sign_3'))
 		{
 			text = _this.find('span').text();
@@ -505,7 +501,7 @@ function getValues()
 			{
 				model.remark1 = text;
 			}
-			infoModelList.push(model);
+			titleObj[titleId]=model;
 		}
 		//radio,radio+备注,select
 		else if(type == 2 || type == 5 ||type==14)
@@ -528,7 +524,7 @@ function getValues()
 			{
 				model.remark1 = remark;
 			}
-			infoModelList.push(model);
+			titleObj[titleId]=model;
 		}
 		//checkbox,checkbox+input,checkbox+textarea
 		else if( type == 3 || type == 6 || type == 13)
@@ -557,9 +553,43 @@ function getValues()
 					{
 						model.remark1 = remark;
 					}
-					infoModelList.push(model);
+					titleObj[titleId]=model;
 				})
 			}
+		}
+		else if(type == 15)
+		{
+			var model;
+			if(titleObj.hasOwnProperty(titleId))
+			{
+				model=titleObj[titleId];
+			}
+			else
+			{
+				model = {
+						tochange:"true",
+						type:type,
+						projectId: projId,
+						titleId: titleId
+					};
+			}
+			if(typeof text == 'undefined' || text == '未填写'|| text == '未选择')
+			{
+				text = '';
+			}
+			if(typeof resultId != 'undefined')
+			{
+				model.resultId = resultId;
+			}
+			if(subId == 2)
+			{
+				model['remark2']=text;
+			}
+			else
+			{
+				model['remark1']=text;
+			}
+			titleObj[titleId]=model;
 		}
 		else if(type == 16)
 		{
@@ -581,8 +611,11 @@ function getValues()
 				{
 					model.remark1 = remark;
 				}
-				infoModelList.push(model);
+				titleObj[titleId]=model;
 		}
+	});
+	$.each(titleObj,function(key){
+		infoModelList.push(titleObj[key]);
 	});
 	return infoModelList;
 	
