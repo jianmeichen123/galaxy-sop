@@ -570,7 +570,7 @@ table td select{
 }
 table td select option{
 	color: #999999;;
-	padding-top: 30px;
+	/* padding-top: 30px; */
 }
 .select_long{
 	width:202px;
