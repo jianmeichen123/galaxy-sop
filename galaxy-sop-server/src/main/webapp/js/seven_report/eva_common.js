@@ -11,7 +11,7 @@ $("#eva-tabs li").click(function(){
 	$(".pagebox").attr("data-relateId",relateId);   //存当前li的relateId
 	//离开二次确认
 	var _href=window.location.href;
-	if(_href=platformUrl.toEvalindex){
+	if(_href=platformUrl.toEvalindex || _href=platformUrl.toPreEva){   //判断评测报告或初评报告
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){   //数据变化弹出二次确认弹窗
 			$(window).unbind('beforeunload');
