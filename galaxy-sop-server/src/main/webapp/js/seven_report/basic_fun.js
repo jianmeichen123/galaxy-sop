@@ -815,10 +815,12 @@ function getTotalAppr(projectId){
 				params,
 				function(data){
 					if(data.result.status == "OK"){
-						if(typeof(data.userData) != "object"){
-							flag = true;
-							totalMoney = data.userData.totalMoney;
-							remainMoney = data.userData.remainMoney;
+						if(typeof(data.userData) == "object"){
+							if(data.userData.totalMoney || data.userData.remainMoney){
+								flag = true;
+								totalMoney = data.userData.totalMoney;
+								remainMoney = data.userData.remainMoney == null ? 0 : data.userData.remainMoney;
+							}
 						}
 					}
 				});

@@ -67,6 +67,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 	private InformationListdataRemarkService  infoListdataRemarkService;
 	@Autowired
 	private InformationProgressService informationProgressService;
+	@Autowired
 	private InformationResultService informationResultService;
 	@Autowired
 	private InformationListdataService informationListdataService;
@@ -260,27 +261,29 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			response.setResult(new Result(Status.ERROR,"参数丢失."));
 		}
 		try{
-			Map<String,Object> map = null;
+			Map<String,Object> map = new HashMap<String,Object>();;
 			//获取总注资计划的金额
 			InformationResult ir = informationResultService.queryOne(informationResult);
 			if(ir != null){
 				InformationListdata query = new InformationListdata();
 	            query.setTitleId(3022l);
 	            query.setProjectId(Long.valueOf(informationResult.getProjectId()));
-	            double money = informationListdataService.selectPartMoney(query);
-	            BigDecimal total = new BigDecimal(ir.getContentDescribe1());
-	            BigDecimal part = new BigDecimal(money);
-	            if(total.doubleValue() > part.doubleValue()){
-	            	double remainMoney = total.subtract(part).doubleValue();
-	            	map = new HashMap<String,Object>();
-	  				map.put("totalMoney", ir.getContentDescribe1());
-	  				map.put("remainMoney",remainMoney );
+	            map.put("totalMoney", ir.getContentDescribe1());
+	            Double money = informationListdataService.selectPartMoney(query);
+	            if(money != null){
+	            	 BigDecimal total = new BigDecimal(ir.getContentDescribe1());
+	 	             BigDecimal part = new BigDecimal(money);
+	 	             if(total.doubleValue() > part.doubleValue()){
+	 	            	double remainMoney = total.subtract(part).doubleValue();
+	 	  				map.put("remainMoney",remainMoney );
+	 	             }
 	            }
 	            response.setUserData(map);
 			}
 		   
 		}catch(Exception e){
 			logger.error("获取总注资金额失败.", e);
+			e.printStackTrace();
 			response.setResult(new Result(Status.ERROR,"总注资计划失败."));
 		}
 		
