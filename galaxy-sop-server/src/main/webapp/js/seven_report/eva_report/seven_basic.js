@@ -171,7 +171,7 @@
 								table_list.push($(this).data("tr"))
 							})
 							data_list.val=table_list;
-						}else if(type==12){
+						}else if(type==12 || type==14){
 							var code=$(this).parent("p").attr("data-code");
 							data_list.code=code;
 							data_list.titleValue=titleValue;
@@ -181,7 +181,7 @@
 						data.push(data_list);
 					});
 					
-					$(data).each(function(){  
+					$(data).each(function(){ 
 						var n=$(this)[0];
 						var d_type=n.d_type;
 						if(d_type==1 || d_type==20){
@@ -230,7 +230,7 @@
 								
 						}else if(d_type==14){
 							if(n.val!="未选择"){
-								$(".h_edit_txt select[data-title-id='"+n.relateId+"']").val(n.titleVal);
+								$(".h_edit_txt select[data-title-id='"+n.relateId+"']").val(n.titleValue);
 							}
 							
 						}else if(d_type==13){
