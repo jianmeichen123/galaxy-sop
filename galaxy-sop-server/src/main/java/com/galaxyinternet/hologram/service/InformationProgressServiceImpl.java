@@ -60,42 +60,41 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 	@Override
 	public void updateUsersAllReportProgressOfPro(Long uid, final Long proId){
 		int reback = 3;
-
-		InformationProgress informationProgress = new InformationProgress();
-		informationProgress.setUid(uid);
-		informationProgress.setProjectId(proId);
 		try {
-			InformationProgress checkM = informationProgressDao.selectOne(informationProgress);
-			if(null == checkM){
+            InformationProgress informationProgress = new InformationProgress();
+            informationProgress.setUid(uid);
+            informationProgress.setProjectId(proId);
+
+            ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
+            ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
+            ForkJoinTask<InformationProgress> result = pool.submit(task);
+
+            InformationProgress query = new InformationProgress();
+            query.setProjectId(proId);
+            List<InformationProgress> checkM = informationProgressDao.selectList(query);
+			if(null == checkM || checkM.isEmpty() || checkM.size() > 1){
 				while(reback != 0){
-					checkM = informationProgressDao.selectOne(informationProgress);
-					if(null == checkM){
+					checkM = informationProgressDao.selectList(query);
+					if(null == checkM || checkM.isEmpty() || checkM.size() > 1){
 						reback -= 1;
 						Thread.currentThread().sleep(50);
 					}else{
-						informationProgress = checkM;
-						ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
-						ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
-						ForkJoinTask<InformationProgress> result = pool.submit(task);
-						result.get();
-						informationProgressDao.updateByIdSelective(informationProgress);
-
+                        query = checkM.get(0);
 						break;
 					}
 				}
-				if(null == checkM){
-					throw new ServiceException("err usersAllReportProgressOfPro : 初始化失败");
-				}
 			}else{
-				informationProgress = checkM;
-				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
-
-				ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
-				ForkJoinTask<InformationProgress> result = pool.submit(task);
-				result.get();
-				informationProgressDao.updateByIdSelective(informationProgress);
+                query = checkM.get(0);
 			}
-		} catch (Exception e) {
+
+            result.get();
+            if(null == query.getId()){
+                throw new ServiceException("err usersAllReportProgressOfPro : 初始化失败");
+            }else{
+                informationProgress.setId(query.getId());
+                informationProgressDao.updateById(informationProgress);
+            }
+        } catch (Exception e) {
 			throw new ServiceException("err usersAllReportProgressOfPro : ", e);
 		}
 	}
@@ -110,12 +109,14 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 
 			ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
 			ForkJoinTask<InformationProgress> result = pool.submit(task);
-			result.get();
+
 
 			InformationProgress query = new InformationProgress();
-			query.setUid(uid);
+			//query.setUid(uid);
 			query.setProjectId(proId);
 			List<InformationProgress> checkM = informationProgressDao.selectList(query);
+
+            result.get();
 			if(null == checkM || checkM.isEmpty()){
 				informationProgressDao.insert(informationProgress);
 			}else if(checkM.size() > 1){

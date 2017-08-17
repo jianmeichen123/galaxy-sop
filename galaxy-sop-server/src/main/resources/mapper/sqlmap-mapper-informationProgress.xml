@@ -107,7 +107,6 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
-				<if test="uid != null" > and uid = #{uid,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
 	</update>

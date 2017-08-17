@@ -31,6 +31,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
@@ -330,7 +331,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setUpdatedTime(date.getTime());
 				project.setProjectTime(date.getTime());
 				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
-				long id = projectService.newProject(project, file);
+				final long id = projectService.newProject(project, file);
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
@@ -339,6 +340,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 					_common_logger_.info("添加项目["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
 					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
+
+					final Long uid = user.getId();
+					GalaxyThreadPool.getExecutorService().execute(new Runnable(){
+						public void run(){
+							informationProgressService.initUsersAllReportProgressOfPro(uid,id);
+						}
+					});
 				}
 			}
 		} catch (Exception e) {
@@ -3466,7 +3474,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("prograss", project.getProjectProgress());
 		request.setAttribute("projectName", project.getProjectName());
 
-		InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(user.getId(), projectId);
+		InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(null, projectId);
 		request.setAttribute("reportProgress", reportProgress);
 		return "project/sopinfo/includeRight";
 	}
