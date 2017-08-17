@@ -181,35 +181,12 @@ function beforeSave(url){
 				$("a[data-close=\"close\"]").click();
 			});
 			$("#leave").click(function(){
-				//点击直接离开不保存跳到相关页面
-				var where=$(".pagebox").attr("data-lis");
-				if(where=="tab"){  //点击评测报告tab切换
-					var code = $(".pagebox").attr('data-code');
-					var relateId =$(".pagebox").attr('data-relateId');
-					//加载相应tab页；
-					$("#eva-tabs li[data-code='"+code+"']").siblings().removeClass('active');
-					$("#eva-tabs li[data-code='"+code+"']").addClass('active');
-					tabShow(code,relateId);   
-				}else{   //点击页面其他能跳转的地方
-					//跳到相关页					
-					forwardWithHeader(url); 
-				}
+				forwardToPage();
 			});
 			$("#save").click(function(){
 				$("a[data-close=\"close\"]").click();
 				$("#save-rpt-btn").click();   //点击保存，保存数据
-				var where=$(".pagebox").attr("data-lis");
-				if(where=="tab"){  //点击评测报告tab切换
-					var code = $(".pagebox").attr('data-code');
-					var relateId =$(".pagebox").attr('data-relateId');
-					//加载相应tab页；
-					$("#eva-tabs li[data-code='"+code+"']").siblings().removeClass('active');
-					$("#eva-tabs li[data-code='"+code+"']").addClass('active');
-					tabShow(code,relateId);   
-				}else{   //点击页面其他能跳转的地方
-					//跳到相关页					
-					forwardWithHeader(url); 
-				}
+				forwardToPage();
 			})
 		}//模版反回成功执行	
 	});
@@ -221,7 +198,7 @@ function beforeSave(url){
 	 $(".usermsg #daiban,.usermsg .work").click(function(){
 		 var _href=window.location.href;
 		 var url=$(this).attr("href");
-		 if(_href=platformUrl.toEvalindex){   //判断评测报告或初评报告
+		 if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
 				var result=$(".pagebox").attr("data-result");
 				 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 				if(result=="true"){
