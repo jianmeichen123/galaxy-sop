@@ -1557,16 +1557,6 @@ function setMustIds(mustids){
 			var str ="<span style='color:#ff8181'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
 			$('.h_edit').find("dt[data-tid='"+result[i]+"']").append(str);
 		}
-		/*else if(result[i].indexOf("b_")>-1){
-			$("#"+result[i]).find("[data-title-id]").each(function(){
-				$(this).attr("required","required");
-			})
-			var id=result[i].substring(2,result[i].length);
-			$("#a_"+id).show();
-		}else{
-			$("[data-title-id="+result[i]+"]").attr("required","required");
-		}*/
-
 	}
 }
 function hideNav(){
