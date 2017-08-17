@@ -1,19 +1,5 @@
 package com.galaxyinternet.hologram.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationFileDao;
 import com.galaxyinternet.dao.hologram.InformationFixedTableDao;
@@ -26,7 +12,6 @@ import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
-import com.galaxyinternet.framework.core.utils.DatePatternUtil;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
@@ -42,6 +27,19 @@ import com.galaxyinternet.model.hologram.TableModel;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationDataService;
 import com.galaxyinternet.utils.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
 
 @Service
 public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>implements InformationDataService
@@ -99,7 +97,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
-			if(!StringEx.isNullOrEmpty(model.getValue()))
+			if(!StringEx.isNullOrEmpty(model.getValue()) && StringUtils.isNumeric(model.getValue()) )
 			{
 				entity.setContentChoose(model.getValue());
 			}
