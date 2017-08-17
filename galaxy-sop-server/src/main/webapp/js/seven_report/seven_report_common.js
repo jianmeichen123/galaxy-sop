@@ -705,7 +705,7 @@ function buildTable(sec,title)
 			{
 				if(key.indexOf('field')>-1)
 				{
-					if(header.titleId == '1810' && key == 'field2'){
+					if((header.titleId == '1810'||header.titleId == '1811')&& key == 'field2'){
 						continue;
 					}
 					if(header.code=='finance-history'&&(key == 'field9'||key == 'field10')){
