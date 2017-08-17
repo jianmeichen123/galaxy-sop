@@ -40,16 +40,17 @@ var pageId = "project";
 			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO5" data-relate-id="9110">融资<br />测评</li>
 			<li data-tab="navInfo" class="fl h_nav1" data-code="CNO6" data-relate-id="9116">退出<br />测评</li>
 		</ul>
-		<div class="test_top">
+				<div class="test_top">
 			<ul class="clearfix" id="title-info">
 				<li class="test_top_first">项目综合测评得分:<span id="total-score">0</span></li>
 				<li><font id="part-title-name">项目评测</font>得分:<span id="part-score">0</span></li>
 				<li>权重:<span id="part-weight" >100%</span></li>
 				<li class="test_top_last" id="save-rpt-btn">
-					<em>保存</em>
+					<em class="disabled">保存</em>
 				</li>
 			</ul>
 		</div>
+		<form id="table_box">
 		<table border="1" cellpadding="5" style="table-layout:fixed;word-break:break-all;">
 			<thead>
 				<tr>
@@ -66,7 +67,7 @@ var pageId = "project";
 			
 			</tbody>
 		</table>
-		
+		</form>
 		
 		<!--弹窗1  -->	
 		<div class="gapPopup">
@@ -76,8 +77,35 @@ var pageId = "project";
 			<span class="show_edit"></span>
 		</div>
 		<!--弹窗2 -->	
-		<div class="h_look h h_team_look clearfix ch_opration">
+		<div class="h_look h h_team_look clearfix ch_opration" id="scrollbar">
 		</div>
+		<!-- 图片展示弹窗 -->
+		<div class="customer_income">
+			<div class="Button popupButton ch_reason_stock">
+					<i onclick="closeX(this)" class="wrong h_cancel_btn"></i>
+			</div>
+			<img class="img_inner" src="" />
+			<a target="_blank" href="" class="master_pic">原图</a>			
+		</div>
+		
+<!-- 股权结构展示弹窗 -->	
+<div class="reasonable_stock">
+	<div class="Button popupButton ch_reason_stock">
+			<i class="wrong close_tab"></i>
+	</div>
+	<div class="reasonable_box">
+		<table border="1">
+			<thead>
+				<th>持股人</th>
+				<th>持股比例</th>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	
+</div>
+		
 	</div>
 	<!-- 遮罩层 -->
 	<div class="mashLayer"></div>
@@ -122,8 +150,8 @@ createMenus(5);
 var reportType = 6;
 var projId="${projectId}";
 </script>
-<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
-<script src="<%=path%>/js/seven_report/eva_report/validate.js"></script>	
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<script src="<%=path%>/js/seven_report/eva_report/validate.js"></script>
 <script src="<%=path%>/js/seven_report/eva_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>
 <script src="<%=path%>/js/seven_report/eva_report/textarea.js"></script>	
@@ -144,6 +172,62 @@ function getDetailUrl(code)
 	}
 	return "";
 }
+function beforeSave(url){
+	$.getHtml({
+		url:'<%=path%>/html/beforeSave.html',  
+		data:"",//传递参数
+		okback:function(){
+			$("#cancel").click(function(){  //取消
+				$("a[data-close=\"close\"]").click();
+			});
+			$("#leave").click(function(){
+				//点击直接离开跳到项目列表页
+				var url=Constants.sopEndpointURL+"/galaxy/mpl";
+				forwardWithHeader(url);
+			});
+			$("#save").click(function(){
+				$("a[data-close=\"close\"]").click();
+				$("#save-rpt-btn").click();   //点击保存，保存数据
+				var where=$(".pagebox").attr("data-lis");
+				//alert(where);
+				if(where=="tab"){  //点击评测报告tab切换
+					var code = $(".pagebox").attr('data-code');
+					var relateId =$(".pagebox").attr('data-relateId');
+					//加载相应tab页；
+					$("#eva-tabs li[data-code='"+code+"']").siblings().removeClass('active');
+					$("#eva-tabs li[data-code='"+code+"']").addClass('active');
+					tabShow(code,relateId);   
+				}else{   //点击页面其他能跳转的地方
+					//跳到相关页					
+					forwardWithHeader(url); 
+				}
+			})
+		}//模版反回成功执行	
+	});
+	return false;
+}
+//离开页面提示
+
+ $(function(){
+	 $(".usermsg #daiban,.usermsg .work").click(function(){
+		 var _href=window.location.href;
+		 var url=$(this).attr("href");
+			if(_href=platformUrl.toEvalindex){
+				var result=$(".pagebox").attr("data-result");
+				 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
+				if(result=="true"){
+					$(window).unbind('beforeunload');
+					beforeSave(url);
+					return false;
+				}else{
+					$(window).unbind('beforeunload');
+				}
+			}
+	});
+
+}) 
+
 </script>
 
 </html>
+
