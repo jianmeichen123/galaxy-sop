@@ -81,20 +81,6 @@ function edit_bsaicfun(data){
 	});
 }
 
-
-/*文本域字数统计*/
-function countChar(textareaName,spanName,maxLimit){
-	//var maxLimit=10;
-	var textArea=document.getElementById(textareaName);
-	var spanCount=document.getElementById(spanName);
-	if (textArea.value.length>maxLimit){
-		spanCount.innerHTML='0';
-		textArea.value = textArea.value.substring(0, maxLimit);
-	}else{
-		spanCount.innerHTML =maxLimit-textArea.value.length;
-	}
-}
-
 function tabInfoChange(index){
 	$(".h_navbar li").eq(index).addClass("active").siblings().removeClass("active");
 	$('.anchor_nav').remove();
