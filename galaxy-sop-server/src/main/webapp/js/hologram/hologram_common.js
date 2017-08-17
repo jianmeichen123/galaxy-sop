@@ -1769,6 +1769,8 @@ function addRow(ele)
 			$('#qualifications_popup_name').html('添加简历');
             $('#qualifications_popup_name1').html('添加持股人');
             $('#finace_popup_name').html('添加融资历史');
+            $('#finace_popup_name').html('添加融资历史');
+			 $("#complete_title").html('添加综合竞争比较');
             $("#detail-form input[name='projectId']").val(projectInfo.id);
             $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
             $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
@@ -1840,12 +1842,14 @@ function editRow(ele)
 					$("#delivery_popup_name").text("查看交割事项");
 					 $('#grant_popup_name').html('查看分期注资计划');
 					 $('#finace_popup_name').html('查看融资历史');
+					 $("#complete_title").html('查看综合竞争比较');
 					
 				}else{
 					$(".see_block").hide();
 					$("#delivery_popup_name").text("编辑交割事项");
 					 $('#grant_popup_name').html('编辑分期注资计划');
 					 $('#finace_popup_name').html('编辑融资历史');
+					 $("#complete_title").html('编辑综合竞争比较');
 				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
