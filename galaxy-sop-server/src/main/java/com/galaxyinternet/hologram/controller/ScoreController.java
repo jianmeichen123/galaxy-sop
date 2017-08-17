@@ -1,11 +1,19 @@
 package com.galaxyinternet.hologram.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.model.hologram.ReportParam;
+import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,18 +26,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.model.hologram.ReportParam;
-import com.galaxyinternet.model.hologram.ScoreInfo;
-import com.galaxyinternet.service.hologram.ScoreInfoService;
-
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/galaxy/score")
@@ -38,6 +40,8 @@ public class ScoreController
 	private static final Logger logger = LoggerFactory.getLogger(ScoreController.class);
 	@Autowired
 	private ScoreInfoService scoreService;
+	@Autowired
+	private InformationProgressService informationProgressService;
 	
 	@SuppressWarnings({"rawtypes","unchecked"})
 	@RequestMapping(value="calculateScore", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,7 +55,7 @@ public class ScoreController
 	public ResponseData calculateScore(
 			@ApiParam(name = "param", value = "当前编辑页面包含的标题、值、分数信息", required = true) 
 			@RequestBody 
-			ReportParam param)
+			ReportParam param,HttpServletRequest request)
 	{
 		ResponseData data = new ResponseData();
 		try
@@ -68,6 +72,7 @@ public class ScoreController
 			{
 				throw new BusinessException("参数错误");
 			}
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			String parentId = info.getParentId()+"";
 			ScoreInfo query = new ScoreInfo();
 			query.setParentId(info.getParentId());
@@ -94,6 +99,8 @@ public class ScoreController
 			}
 			scores.put(parentId+"", total);
 			data.getUserData().putAll(scores);
+
+			informationProgressService.threadForUpdate(user.getId(),projectId);
 		} catch (Exception e)
 		{
 			logger.error("计算分数错误,Param = "+param,e);

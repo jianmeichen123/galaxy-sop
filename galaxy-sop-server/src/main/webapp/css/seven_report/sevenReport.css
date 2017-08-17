@@ -96,7 +96,7 @@ table .on td{
 .align_left p,.align_left span,.content_16.align_left p.black{
 	color:#b2b2b2;
 }
-.align_left p.black,.align_left span.black,.content_16.align_left p.black sitg{
+.align_left p.black,.align_left span.black,.content_16.align_left p sitg{
 	color:#333;
 }
 .editPic{
@@ -570,7 +570,7 @@ table td select{
 }
 table td select option{
 	color: #999999;;
-	padding-top: 30px;
+	/* padding-top: 30px; */
 }
 .select_long{
 	width:202px;

@@ -1,13 +1,21 @@
 package com.galaxyinternet.hologram.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.hologram.InformationDataService;
+import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
+import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.InformationResultService;
+import com.galaxyinternet.service.hologram.InformationTitleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +28,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.utils.WebUtils;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.hologram.InformationListdata;
-import com.galaxyinternet.model.hologram.InformationListdataRemark;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.hologram.InformationDataService;
-import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
-import com.galaxyinternet.service.hologram.InformationListdataService;
-import com.galaxyinternet.service.hologram.InformationResultService;
-import com.galaxyinternet.service.hologram.InformationTitleService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zcy on 17-3-13.
@@ -60,6 +60,8 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
     @Autowired
     private InformationListdataRemarkService informationListdataRemarkService;
 
+    @Autowired
+    private InformationProgressService informationProgressService;
 
     @Override
     protected BaseService<InformationListdata> getBaseService() {
@@ -82,9 +84,11 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
      */
     @RequestMapping(value = "/saveorUpdate", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseData<InformationListdata> saveOrupdate(@RequestBody InformationListdata data){
+    public ResponseData<InformationListdata> saveOrupdate(@RequestBody InformationListdata data,HttpServletRequest request){
         ResponseData<InformationListdata> responseBody = new ResponseData<>();
+        User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
         try{
+
             List<InformationListdata> listdataList = data.getDataList();
             
             InformationListdata query = new InformationListdata();
@@ -137,6 +141,8 @@ public class InformationListdataController extends BaseControllerImpl<Informatio
             	query.setIds(ids);
             	informationListdataService.delete(query);
             }
+
+            informationProgressService.threadForUpdate(user.getId(),data.getProjectId());
         }catch(Exception e ){
             responseBody.setResult(new Result(Result.Status.ERROR,null, "保存失败"));
             logger.error("save 保存失败 ",e);

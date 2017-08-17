@@ -31,7 +31,10 @@
             
             <dl class="fmdl fl_l">
                  <dt>详细内容：</dt>
-                 <dd><textarea class="area" name="field2" oninput="change(event)" onporpertychange="change(event)" cols="45" rows="5" maxlength="100" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea></dd>
+                 <dd>
+                	 <textarea class="area" name="field2"  id="area_textarea" oninput="change(event);countChar('area_textarea','label_now_next','100')" cols="45" rows="5"  valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea>
+                 	 <p class="num_tj"><span for="" id="label_now_next">100</span>/100</p>
+                 </dd>
             </dl>
             
             </form>
@@ -61,7 +64,6 @@
 <script>
      $(function(){
         $("#detail-form").validate({});
-      
     })
     $.validator.setDefaults({
         	errorElement:'span'

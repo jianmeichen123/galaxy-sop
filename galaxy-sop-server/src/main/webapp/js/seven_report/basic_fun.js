@@ -414,10 +414,12 @@ function editRow(ele)
 					$("#detail-form").hide();
 					$(".button_affrim").hide();
 					$("#delivery_popup_name").text("查看交割事项");
+					 $('#grant_popup_name').html('查看分期注资计划');
 					
 				}else{
 					$(".see_block").hide();
 					$("#delivery_popup_name").text("编辑交割事项");
+					 $('#grant_popup_name').html('编辑分期注资计划');
 				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
@@ -435,6 +437,13 @@ function editRow(ele)
 						ele.val(row.data(name));
 				}
 			});
+			//文本域剩余字符数
+			var textarea_h = $("#detail-form").find('textarea');
+			for(var i=0;i<textarea_h.length;i++){
+				var len=textarea_h.eq(i).val().length;
+				var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).children().text();
+				textarea_h.parent('dd').find(".num_tj").eq(i).children().text(initNum-len);
+			}
 
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
@@ -519,6 +528,7 @@ function addRow(ele)
             okback:function(){
 				$('#qualifications_popup_name').html('添加简历');
 				$('#qualifications_popup_name1').html('添加持股人');
+				 $('#grant_popup_name').html('添加分期注资计划');
 				//交割前事项
 				$("#delivery_popup_name").text("新增交割事项");
 				$(".see_block").hide();

@@ -6,10 +6,12 @@ import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationGrade;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.utils.SopConstatnts;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -288,11 +290,12 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	code ： NO  / DN PN GN ON   /  EN CN
 
 	titletype :
-		project     静态数据    "project"     ,11,
-		result      结果表      "result"      ,1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,
-		listdata    结果表      "listdata"    ,10,
-		fixedtable  结果表      "fixedtable"  ,9,
-		file        结果表	   "file"        ,7,
+		project     静态数据    "project"       ,11,
+		result      结果表      "result"        ,1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,
+		listdata    结果表      "listdata"      ,10,
+		fixedtable  结果表      "fixedtable"    ,9,
+		file        结果表	   "file"          ,7,
+		result_grage 结果表     "resultGrage" (relate_id)
 	*/
 	public static Map<String,Integer> code_titleNum = new HashMap<>();
 	public static Map<String,Map<String,Set<Long>>> code_titletype_titleIds = new HashMap<>();
@@ -322,6 +325,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 			titletype_titleIds.put("listdata", new HashSet<Long>());
 			titletype_titleIds.put("fixedtable", new HashSet<Long>());
 			titletype_titleIds.put("file", new HashSet<Long>());
+			titletype_titleIds.put("resultGrage", new HashSet<Long>());
 
 			code_titletype_titleIds.put(code,titletype_titleIds);
 		}
@@ -339,6 +343,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 		Set<Long> listdata_ids = new HashSet<>();
 		Set<Long> fixedtable_ids = new HashSet<>();
 		Set<Long> file_ids = new HashSet<>();
+		Set<Long> resultGrage_ids = new HashSet<>();
 
 		//全息报告
 		Integer noNum = 0;
@@ -351,11 +356,12 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 			listdata_ids.clear();
 			fixedtable_ids.clear();
 			file_ids.clear();
+			resultGrage_ids.clear();
 
 			title = informationDictionaryService.selectTitlesValuesForAll(title_0.getCode(),null);
 			noNum += getNumForTypeIsNotNull(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
 
-			setCodeTypeTids("NO",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
+			setCodeTypeTids("NO",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 
 			/*System.err.println("全息报告　" + title_0.getCode() + " : " + noNum);
 			System.err.println("project_ids　" + project_ids.size() + " : " + Arrays.toString(project_ids.toArray()));
@@ -390,30 +396,12 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 				listdata_ids.clear();
 				fixedtable_ids.clear();
 				file_ids.clear();
+				resultGrage_ids.clear();
 
 				title = informationDictionaryService.selectTitlesValuesForAll(titles.get(i).getRelateCode(),code_report$type.get(codeLike));
 				num += getNumForTypeIsNotNull(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
 
-				if (codeLike.equals("DN"))
-				{
-					setCodeTypeTids("DN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
-				}else if (codeLike.equals("PN"))
-				{
-					setCodeTypeTids("PN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
-				}else if (codeLike.equals("GN"))
-				{
-					setCodeTypeTids("GN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
-				}else if (codeLike.equals("ON"))
-				{
-					setCodeTypeTids("ON",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
-				}
-
-				/*System.err.println("其它报告　" + titles.get(i).getRelateCode() + " : " + num);
-				System.err.println("project_ids　" + project_ids.size() + " : " + Arrays.toString(project_ids.toArray()));
-				System.err.println("result_ids　" + result_ids.size() + " : " + Arrays.toString(result_ids.toArray()));
-				System.err.println("listdata_ids　" + listdata_ids.size() + " : " + Arrays.toString(listdata_ids.toArray()));
-				System.err.println("fixedtable_ids　" + fixedtable_ids.size() + " : " + Arrays.toString(fixedtable_ids.toArray()));
-				System.err.println("file_ids　" + file_ids.size() + " : " +Arrays.toString(file_ids.toArray()));*/
+				setCodeTypeTids(codeLike, code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 			}
 			/*System.err.println(codeLike + " tnum :  " + num);
 			System.err.println(codeLike + " ids :  " + code_titletype_titleIds.get(codeLike));*/
@@ -447,30 +435,17 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 
 			//for(InformationTitle title_0 : titles){
 			for(int i = 0 ; i < titles.size(); i++){
-
 				project_ids.clear();
 				result_ids.clear();
 				listdata_ids.clear();
 				fixedtable_ids.clear();
 				file_ids.clear();
+				resultGrage_ids.clear();
 
 				title = informationDictionaryService.selectTitlesValuesForAll( titles.get(i).getRelateCode(),code_report$type$grade.get(codeLike));
-				num += getNumForTypeIsNotNull(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
+				num += getNumForTypeIsNotNullByGrade(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 
-				if (codeLike.equals("EN"))
-				{
-					setCodeTypeTids("EN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
-				}else if (codeLike.equals("CN"))
-				{
-					setCodeTypeTids("CN",  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
-				}
-
-				/*System.err.println("打分报告　" +  titles.get(i).getRelateCode() + " : " + num);
-				System.err.println("project_ids　" + project_ids.size() + " : " + Arrays.toString(project_ids.toArray()));
-				System.err.println("result_ids　" + result_ids.size() + " : " + Arrays.toString(result_ids.toArray()));
-				System.err.println("listdata_ids　" + listdata_ids.size() + " : " + Arrays.toString(listdata_ids.toArray()));
-				System.err.println("fixedtable_ids　" + fixedtable_ids.size() + " : " + Arrays.toString(fixedtable_ids.toArray()));
-				System.err.println("file_ids　" + file_ids.size() + " : " + Arrays.toString(file_ids.toArray()));*/
+				setCodeTypeTids(codeLike,  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 			}
 			/*System.err.println(codeLike + " tnum :  " + num);
 			System.err.println(codeLike + " ids :  " + code_titletype_titleIds.get(codeLike));*/
@@ -501,12 +476,13 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	 *  code - id 赋值
 	 */
 	public void setCodeTypeTids(String code, Map<String,Map<String,Set<Long>>> code_titletype_titleIds,
-								Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids){
+		Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids,Set<Long> resultGrage_ids){
 		code_titletype_titleIds.get(code).get("project").addAll(project_ids);
 		code_titletype_titleIds.get(code).get("result").addAll(result_ids);
 		code_titletype_titleIds.get(code).get("listdata").addAll(listdata_ids);
 		code_titletype_titleIds.get(code).get("fixedtable").addAll(fixedtable_ids);
 		code_titletype_titleIds.get(code).get("file").addAll(file_ids);
+		code_titletype_titleIds.get(code).get("resultGrage").addAll(resultGrage_ids);
 	}
 
 	/**
@@ -524,24 +500,25 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 
 		if(title.getType() != null && (title.getSign()!=null && title.getSign().intValue() == 2)){
 			count += 1;
+			Long titleId = (title.getTitleId() == null ? title.getId() : title.getTitleId());
 
 			switch(title.getType())
 			{
 				case 7 :
-					file_ids.add(title.getId());
+					file_ids.add(titleId);
 					break;
 				case 9:
-					fixedtable_ids.add(title.getId());
+					fixedtable_ids.add(titleId);
 					break;
 				case 10:
-					listdata_ids.add(title.getId());
+					listdata_ids.add(titleId);
 					break;
 				case 11:
-					project_ids.add(title.getId());
+					project_ids.add(titleId);
 					break;
 				default:
 					//if(null != title.getType() && result_titletype.contains(","+ title.getType() +",")){
-					result_ids.add(title.getId());
+					result_ids.add(titleId);
 					//}
 			}
 		}
@@ -554,6 +531,61 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	}
 
 
+
+
+	/**
+	 * 递归计数、记入id
+	 * 有 grade.score_explain   countByGrade+
+	 * grade.is_score
+	 * 			result         结果表 :   0：系统打分
+	 * 			result_grade   结果表 :   1：人工打分（下拉框），2：人工打分（数值范围）
+	 */
+	public static int countByGrade;
+	public Integer getNumForTypeIsNotNullByGrade(InformationTitle title,
+		Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids,Set<Long> resultGrage_ids){
+		countByGrade = 0;
+		setNumAddByGrade(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
+		return countByGrade;
+	}
+	public void setNumAddByGrade(InformationTitle title,
+		Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids,Set<Long> resultGrage_ids){
+
+		List<InformationGrade> informationGrades = title.getInformationGrades();
+
+		if(null != informationGrades && !informationGrades.isEmpty()){
+
+			for(InformationGrade tempGrade : informationGrades){
+
+				if(StringUtils.isNotBlank(tempGrade.getScoreExplain())){
+					countByGrade += 1;
+				}
+
+				if(null != tempGrade.getIsScore()){
+					switch(tempGrade.getIsScore())
+					{
+						case 0 :
+							result_ids.add(title.getTitleId());
+							break;
+						case 1:
+							resultGrage_ids.add(title.getId());
+							break;
+						case 2:
+							resultGrage_ids.add(title.getId());
+							break;
+					}
+				}
+
+
+			}
+		}
+
+		if(title.getChildList()!=null && !title.getChildList().isEmpty()){
+			for(InformationTitle temp : title.getChildList()){
+				setNumAddByGrade(temp,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
+			}
+		}
+
+	}
 
 
 

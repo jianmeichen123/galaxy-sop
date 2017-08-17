@@ -74,26 +74,6 @@
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
-			$(document).ready(function(){
-				var divHeight = $('#scrollbar').height();
-				if(divHeight==560){
-					$(".ch_opration").niceScroll({
-				        boxzoom:true,
-				        autohidemode:false,
-				        cursorwidth: "5px",
-				        background: "white",
-				        cursorcolor: "#61aae6",
-				        cursorborderradius: "6px",
-				        cursorfixedheight:168, 
-				        smoothscroll: true,
-				        mousescrollstep: 10,
-				        zindex: "auto" 
-				    }); 
-					
-				}else{
-					$('#scrollbar').css('overflow','hidden');
-				}
-			})
 			var text = document.getElementsByClassName('textarea_h');
 		       for(var i = 0;i<text.length;i++){
 		            autoTextarea(text[i]);
@@ -423,8 +403,7 @@ function closeX(obj){
 	//radio 消失
 	$(obj).parent().parent().find('.radioShow').hide();
 	//p内容展示
-	$(obj).parent().parent().find('p').show();
-	$(obj).parent().parent().find('p').css('color','#000');
+	$(obj).parent().parent().find('p').show();	
 	$(obj).closest('td').data('edit','false');
 	
 	//select下拉框消失
@@ -435,6 +414,7 @@ function closeX(obj){
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
 	$('.mashLayer').hide();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
+	font_color($(".align_left p"));
 }	
 	
 //保存方法
@@ -546,7 +526,6 @@ function right(obj,type){
 	}
 	//$(".align_left span").last().remove();
 	$(obj).parent().parent().find('p').show();
-	$(obj).parent().parent().find('p').css('color','#000')
 	$(obj).closest('td').data('edit','false');
 	//新添加，弹窗中的
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
@@ -564,7 +543,7 @@ function right(obj,type){
 		$(".pagebox").attr("data-result",true);
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
-	font_color($(".align_left p"));
+	font_color(align_left.find("p"));
 }
 
 
@@ -826,7 +805,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-	font_color($(".align_left p span"));
+	font_color(align_left.find("p span"));
 });
 	
 //div模拟select下拉框

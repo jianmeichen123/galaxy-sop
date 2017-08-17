@@ -1,34 +1,6 @@
 package com.galaxyinternet.hologram.controller;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.file.FileResult;
@@ -45,8 +17,33 @@ import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.hologram.InformationFileService;
+import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/galaxy/informationFile")
@@ -58,7 +55,8 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 	
 	@Autowired
 	InformationFileService informationFileService;
-
+	@Autowired
+	private InformationProgressService informationProgressService;
 	@Autowired
 	BatchUploadFile batchUpload;
 	
@@ -230,6 +228,8 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			}
 			
 			responseBody.setResult(new Result(Status.OK,null));
+
+			informationProgressService.threadForUpdate(user.getId(),informationFile.getProjectId());
 		} catch (Exception e) {
 			e.printStackTrace();
 			cache.removeRedisKeyOBJ(user.getId()+informationFile.getFileReidsKey());
