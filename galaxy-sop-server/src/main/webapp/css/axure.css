@@ -3430,3 +3430,5 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .h_edit_txt .tmpl_con{margin-right:10px;}
 .base_tab-content .h_edit_txt .valuationInfo_20_select{width:150px}
 #financeDetail .qualificationstc dt{width:138px}
+v
+table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}

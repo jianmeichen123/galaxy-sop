@@ -231,14 +231,7 @@ function right_anchor(i,type,right){
 						if (result == 'OK') {
 							var entity = data.entity;
 							 $('#nav_tmpl').tmpl(entity).appendTo('#nav_ul');
-							 var scrollTop = $(window).scrollTop();
-								if(scrollTop>10){
-									$(".anchor_nav").css("top","60px");
-									$(".to_top").fadeIn(100);
-								}else{
-									$(".anchor_nav").css("top","140px");
-									$(".to_top").fadeOut(100);
-								}
+							 setTimeout(function(){$(window).scrollTop(0)},1);
 							 var anchor_width=$("#new_right").css("width").replace("px","");
 							 var  anchor_nav=$("#div-content").contents().find(".anchor_nav");
 							 anchor_nav.css("width",Number(anchor_width)+5);
