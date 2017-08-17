@@ -182,18 +182,19 @@ function beforeSave(url){
 			});
 			$("#leave").click(function(){
 				$("a[data-close=\"close\"]").click();
-				forwardToPage();
+				forwardToPage(url);
+				
 			});
 			$("#save").click(function(){
 				$("a[data-close=\"close\"]").click();
 				$("#save-rpt-btn").click();   //点击保存，保存数据
-				forwardToPage();
+				forwardToPage(url);
 			})
 		}//模版反回成功执行	
 	});
 	return false;
 }
-function forwardToPage(){   //跳到相关页面
+function forwardToPage(url){   //跳到相关页面
 	var where=$(".pagebox").attr("data-lis");
 	//alert(where);
 	if(where=="tab"){  //点击评测报告tab切换
@@ -202,7 +203,7 @@ function forwardToPage(){   //跳到相关页面
 		//加载相应tab页；
 		$("#eva-tabs li[data-code='"+code+"']").siblings().removeClass('active');
 		$("#eva-tabs li[data-code='"+code+"']").addClass('active');
-		tabShow(code,relateId);   
+		tabShow(code,relateId); 
 	}else{   //点击页面其他能跳转的地方
 		//跳到相关页					
 		forwardWithHeader(url); 

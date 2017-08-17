@@ -183,12 +183,12 @@ function beforeSave(url){
 			$("#leave").click(function(){
 				$("a[data-close=\"close\"]").click();
 				//点击直接离开跳到项目列表页
-				forwardToPage();
+				forwardToPage(url);
 			});
 			$("#save").click(function(){
 				$("a[data-close=\"close\"]").click();
 				$("#save-rpt-btn").click();   //点击保存，保存数据
-				forwardToPage();
+				forwardToPage(url);
 				
 			})
 		}//模版反回成功执行	
@@ -196,7 +196,7 @@ function beforeSave(url){
 	return false;
 }
 
-function forwardToPage(){   //跳到相关页面
+function forwardToPage(url){   //跳到相关页面
 	var where=$(".pagebox").attr("data-lis");
 	//alert(where);
 	if(where=="tab"){  //点击评测报告tab切换

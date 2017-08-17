@@ -40,6 +40,7 @@ function tabShow(code,relateId){
 				var entity = data.entity;
 				$("#part-title-name").text(entity.name);
 				$("#test_tmpl").tmpl(entity).appendTo('#page_all');
+				$(".pagebox").attr("data-result",false);  
 				/*显示结果  */
 				/* 16类型内容处理 */
 				var content_16 = $(".content_16").text();
