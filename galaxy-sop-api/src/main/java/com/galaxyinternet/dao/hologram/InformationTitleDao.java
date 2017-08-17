@@ -33,6 +33,8 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 	public Integer selectCountForTitleOfListdata(Map<String, Object> params);
 	public Integer selectCountForTitleOfFixedTable(Map<String, Object> params);
 	public Integer selectCountForTitleOfFile(Map<String, Object> params);
+	public Integer selectCountForRelateOfGrade(Map<String, Object> params);
+	public Integer selectCountForRelateOfGrade2(Map<String, Object> params);
 
 
 }

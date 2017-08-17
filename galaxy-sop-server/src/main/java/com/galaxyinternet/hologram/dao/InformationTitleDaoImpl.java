@@ -115,5 +115,23 @@ public class InformationTitleDaoImpl extends BaseDaoImpl<InformationTitle, Long>
 			throw new DaoException(String.format("根据titiles查询listdata count title出错 ！语句:%s", getSqlName("selectCountForTitleOfFile")), e);
 		}
 	}
-	
+	public Integer selectCountForRelateOfGrade(Map<String, Object> params) {
+		try {
+			Integer content = sqlSessionTemplate.selectOne(getSqlName("selectCountForRelateOfGrade") ,params);
+			//System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
+			return content;
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据titiles查询listdata count title出错 ！语句:%s", getSqlName("selectCountForRelateOfGrade")), e);
+		}
+	}
+	public Integer selectCountForRelateOfGrade2(Map<String, Object> params) {
+		try {
+			Integer content = sqlSessionTemplate.selectOne(getSqlName("selectCountForRelateOfGrade2") ,params);
+			//System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
+			return content;
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据titiles查询listdata count title出错 ！语句:%s", getSqlName("selectCountForRelateOfGrade2")), e);
+		}
+	}
+
 }

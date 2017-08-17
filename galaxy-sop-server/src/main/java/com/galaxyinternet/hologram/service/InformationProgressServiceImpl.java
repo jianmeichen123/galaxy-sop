@@ -41,27 +41,65 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 	}
 
 
-
-
-	public void usersAllReportProgressOfPro(Long uid, final Long proId){
+	@Override
+	public void updateUsersAllReportProgressOfPro(Long uid, final Long proId){
 		Long btime = System.currentTimeMillis();
-		InformationProgress informationProgress;
+
+		InformationProgress informationProgress = new InformationProgress();
+		informationProgress.setUid(uid);
+		informationProgress.setProjectId(proId);
 		try {
-			ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
+			InformationProgress checkM = informationProgressDao.selectOne(informationProgress);
+			if(null == checkM){
+				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
 
-			informationProgress = new InformationProgress();
-			informationProgress.setUid(uid);
-			informationProgress.setProjectId(proId);
+				ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
+				ForkJoinTask<InformationProgress> result = pool.submit(task);
+				result.get();
+				informationProgressDao.insert(informationProgress);
+			}else{
+				informationProgress = checkM;
+				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
 
-			ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
-			ForkJoinTask<InformationProgress> result = pool.submit(task);
-			result.get();
+				ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
+				ForkJoinTask<InformationProgress> result = pool.submit(task);
+				result.get();
+				informationProgressDao.updateByIdSelective(informationProgress);
+			}
 		} catch (Exception e) {
 			throw new ServiceException("err usersAllReportProgressOfPro : ", e);
 		}
 
 		System.err.println( "===========  用时 ： "  +  (System.currentTimeMillis() -  btime));//444  //352
 		System.err.println("=============");
+	}
+
+
+	public InformationProgress initUsersAllReportProgressOfPro(Long uid, final Long proId){
+		Long btime = System.currentTimeMillis();
+
+		InformationProgress informationProgress = new InformationProgress();
+		informationProgress.setUid(uid);
+		informationProgress.setProjectId(proId);
+		try {
+			InformationProgress checkM = informationProgressDao.selectOne(informationProgress);
+			if(null == checkM){
+				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
+
+				ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
+				ForkJoinTask<InformationProgress> result = pool.submit(task);
+				result.get();
+				informationProgressDao.insert(informationProgress);
+			}else{
+				informationProgress = checkM;
+			}
+		} catch (Exception e) {
+			throw new ServiceException("err usersAllReportProgressOfPro : ", e);
+		}
+
+		System.err.println( "===========  用时 ： "  +  (System.currentTimeMillis() -  btime));//444  //352
+		System.err.println("=============");
+		return informationProgress;
 	}
 	public Double getProgressByReportCode(String code,final Long proId){
 		double result = BigDecimal.ZERO.doubleValue();
@@ -73,15 +111,17 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			Set<Long> listdata_ids = titletype_titleIds.get("listdata");
 			Set<Long> fixedtable_ids = titletype_titleIds.get("fixedtable");
 			Set<Long> file_ids = titletype_titleIds.get("file");
+			Set<Long> resultGrage_ids = titletype_titleIds.get("resultGrage");
 
 			int project_completed = projectCompletedNum(project_ids, proId);
 			int result_completed = resultCompletedNum(result_ids, proId);
 			int listdata_completed = listdataCompletedNum(listdata_ids, proId);
 			int fixedtable_completed = fixedtableCompletedNum(fixedtable_ids, proId);
 			int file_completed = fileCompletedNum(file_ids, proId);
+			int resultGrage_completed = resultGrageNum(resultGrage_ids, proId);
 
 			MathContext mc = new MathContext(5);
-			BigDecimal b1 = new BigDecimal((project_completed + result_completed + listdata_completed + fixedtable_completed + file_completed) + "");
+			BigDecimal b1 = new BigDecimal((project_completed + result_completed + listdata_completed + fixedtable_completed + file_completed + resultGrage_completed) + "");
 			BigDecimal b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code)));
 			result = b1.divide(b2,mc).doubleValue();
 		} catch (Exception e) {
@@ -148,6 +188,21 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 
 		return count==null?0:count;
 	}
+	public Integer resultGrageNum(Set<Long> ids,Long projectId){
+		if(ids == null || ids.isEmpty()){
+			return 0;
+		}
+
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put("titleRelateIds",ids);
+		params.put("projectId",projectId);
+		params.put("notAllNUll",true);
+		Integer count = informationTitleDao.selectCountForRelateOfGrade(params);
+		Integer count2 = informationTitleDao.selectCountForRelateOfGrade2(params);
+
+		return (count==null?0:count) + (count2==null?0:count2);
+	}
+
 
 
 
