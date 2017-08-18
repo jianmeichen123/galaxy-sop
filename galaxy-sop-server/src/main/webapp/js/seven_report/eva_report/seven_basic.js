@@ -28,13 +28,11 @@
 	$('.score-columns input').each(function(){
 		$(this).focus(function(){
 			$(this).css('border','1px solid #53b1fd');
-			console.log($(this));
 		})
 	});
 	$('.score-columns input').each(function(){
 		$(this).blur(function(){
 			$(this).css('border','1px solid #dadada');
-			console.log($(this));
 		})
 	});
 	
