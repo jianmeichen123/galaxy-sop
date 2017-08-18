@@ -265,13 +265,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			else
 			{
 				entity.setId(model.getId());
-				if(model.getUpdateTimeStr() != null){
-					try {
-						entity.setUpdateTime(DateUtil.convertStringtoD(model.getUpdateTimeStr()).getTime());
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				if(StringUtils.isNotEmpty(model.getUpdateTimeSign())){
+					entity.setUpdateTime(now);
 				}
 				entity.setUpdateId(userId);
 				listdataDao.updateById(entity);

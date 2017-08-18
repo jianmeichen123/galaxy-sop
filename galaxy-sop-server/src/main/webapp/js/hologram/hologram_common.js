@@ -1817,7 +1817,7 @@ function saveRow(data)
 		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
 		for(var key in data)
 		{
-			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName")
+			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(data[key]);

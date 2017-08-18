@@ -749,7 +749,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					}
 					if(item.getUpdateTime() != null)
 					{
-						item.setUpdateTimeStr(DateUtil.longString(item.getUpdateTime()));
+						item.setUpdateTimeStr(DateUtil.longToString(item.getUpdateTime()));
 					}
 					tempList.add(item);
 				}
@@ -1135,7 +1135,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						}
 						if(item.getUpdateTime() != null)
 						{
-							item.setUpdateTimeStr(DateUtil.longString(item.getUpdateTime()));
+							item.setUpdateTimeStr(DateUtil.longToString(item.getUpdateTime()));
 						}
 						if(StringUtils.isEmpty(item.getCode())){
 							List<InformationListdata> datalist = new ArrayList<InformationListdata>();
