@@ -103,7 +103,7 @@ function tabOperateChange(index){
 		}
 		
 		/**
-		 * 运营报告-分期拨款:增加弹窗
+		 * 运营报告-分期拨款:增加弹窗【重写基础方法】
 		 * @param ele
 		 */
 		function addRow(ele)
@@ -118,6 +118,20 @@ function tabOperateChange(index){
 		          url:getDetailUrl(code),//模版请求地址
 		          data:"",//传递参数
 		          okback:function(){
+		        	   $("#detail-form input[name='projectId']").val(projectInfo.id);
+		               $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
+		               $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
+
+		        	   selectContext("detail-form");
+		               $("#save-detail-btn").click(function(){
+		                   saveForm($("#detail-form"));
+		                   check_table();
+		                   check_table_tr_edit();
+		               });
+		               $("#save_person_learning").click(function(){
+		                   check_table();
+		                   check_table_tr_edit();
+		               });
 		        	   $("#save_appr_part").click(function(){
 		        		   var data = getData($("#detail-form"));
 		        		   var dataList = getDataList($("#appr_part"));
