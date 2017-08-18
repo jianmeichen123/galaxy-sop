@@ -358,9 +358,6 @@ function buildResult(title)
 	//复选带备注
 	else if (type == 3 || type == 6 || type == 13)
 	{
-		if(_sign=="sign_3"){
-			_ele = _ele.find("span");
-		}
 		if(results.length==0)
 		{
 			return;
@@ -484,6 +481,7 @@ function getValues()
 	var titleObj = {};
 	var infoModelList = new Array();
 	var titleEles = $(".title-value");
+	var dupCheck = {};
 	$.each(titleEles,function(){
 		var _this = $(this);
 		var type = _this.data('type');
@@ -518,7 +516,7 @@ function getValues()
 			{
 				model.remark1 = text;
 			}
-			titleObj[titleId]=model;
+			infoModelList.push(model);
 		}
 		//radio,radio+备注,select
 		else if(type == 2 || type == 5 ||type==12 ||type==14)
@@ -541,7 +539,7 @@ function getValues()
 			{
 				model.remark1 = remark;
 			}
-			titleObj[titleId]=model;
+			infoModelList.push(model);
 		}
 		//checkbox,checkbox+input,checkbox+textarea
 		else if( type == 3 || type == 6 || type == 13)
@@ -570,7 +568,12 @@ function getValues()
 					{
 						model.remark1 = remark;
 					}
-					titleObj[titleId]=model;
+					var key = titleId+'_'+val;
+					if(!dupCheck.hasOwnProperty(key))
+					{
+						dupCheck[key]=model;
+						infoModelList.push(model);
+					}	
 				})
 			}
 		}
@@ -628,7 +631,7 @@ function getValues()
 				{
 					model.remark1 = remark;
 				}
-				titleObj[titleId]=model;
+				infoModelList.push(model);
 		}
 	});
 	$.each(titleObj,function(key){

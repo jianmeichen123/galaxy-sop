@@ -733,12 +733,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 						if(d_this.value == '其他')
 						{
 							_this.find("span").html(d_this.remark1);
-							_this.attr("data-title-remark",d_this.remark1);
+							_this.attr("data-remark",d_this.remark1);
 						}
 						else
 						{
 							_this.find("span").html(d_this.value);
-							_this.attr("data-title-remark",'');
+							_this.attr("data-remark",'');
 						}
 						_this.attr("data-title-value",d_this.value_id);
 					}
