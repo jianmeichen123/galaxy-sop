@@ -902,17 +902,21 @@ function s_editRow(ele)
 function font_color(data){
 	$.each(data,function(){
 		var _this=$(this);
+		var code_dom =_this.closest("td").siblings(".score-column").find("input,select");
 		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
 			_this.removeClass("black");
-			_this.closest("td").siblings(".score-column").find("input,select").addClass("disabled").attr("disabled",true);
+			code_dom.addClass("disabled").attr("disabled",true);
+			//code_dom.value="";
+			code_dom.val("");
+			_this.closest("td").siblings(".score-column").find("select").val("请选择");
 		}else{
 			_this.addClass("black");
-			_this.closest("td").siblings(".score-column").find("input,select").removeClass("disabled").attr("disabled",false);
+			code_dom.removeClass("disabled").attr("disabled",false);
 		}
 		if(_this.hasClass("income_structor_content")){
 			//sign==3
 			if(_this.text()!="未填写"&&_this.text()!="未选择"&&_this.text()!="未添加"){
-				_this.closest("td").siblings(".score-column").find("input,select").removeClass("disabled").attr("disabled",false);	
+				code_dom.removeClass("disabled").attr("disabled",false);	
 			}
 			_this.removeClass("black");
 		}
