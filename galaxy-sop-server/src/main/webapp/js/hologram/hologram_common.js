@@ -1880,7 +1880,7 @@ function editRow(ele)
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();
 					var selectVal=$("#financeDetail select").find("option[value='"+selectId+"']").text();
-					if(row.data(name)==selectId){
+					if(row.data(name)==selectId && selectId!=""){
 						ele.text(selectVal);
 					}
 				});
