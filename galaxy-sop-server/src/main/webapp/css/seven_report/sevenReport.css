@@ -129,6 +129,9 @@ table td input{
 	border:1px solid #53b1fd;
 	text-align:center;
 }
+table td input.disabled{
+	border-color:#dadada;
+}
 table td .table_show{
 	display:block;
 }

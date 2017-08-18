@@ -904,10 +904,18 @@ function font_color(data){
 		var _this=$(this);
 		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
 			_this.removeClass("black");
+			_this.closest("td").siblings(".score-column").find("input,select").addClass("disabled").attr("disabled",true);
 		}else{
 			_this.addClass("black");
+			_this.closest("td").siblings(".score-column").find("input,select").removeClass("disabled").attr("disabled",false);
 		}
+		
+		
 		if(_this.hasClass("income_structor_content")){
+			//sign==3
+			if(_this.text()!="未填写"&&_this.text()!="未选择"&&_this.text()!="未添加"){
+				_this.closest("td").siblings(".score-column").find("input,select").removeClass("disabled").attr("disabled",false);	
+			}
 			_this.removeClass("black");
 		}
 		
