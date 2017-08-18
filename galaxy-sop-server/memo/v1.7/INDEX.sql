@@ -15,7 +15,7 @@ CREATE TABLE `fx_db`.`information_progress` (
   `updated_time` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pid_uid` (`project_id`,`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 ALTER TABLE `fx_db`.`information_progress`
   ADD  INDEX `pid_uid` (`project_id`, `uid`);
