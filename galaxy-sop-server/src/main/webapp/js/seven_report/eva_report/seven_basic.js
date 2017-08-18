@@ -25,23 +25,6 @@
 		  event.stopPropagation();
 	});
 	
-	$('.score-columns input').each(function(){
-		$(this).focus(function(){
-			$(this).css('border','1px solid #53b1fd');
-		})
-	});
-	$('.score-columns input').each(function(){
-		$(this).blur(function(){
-			$(this).css('border','1px solid #dadada');
-		})
-	});
-	
-	
-	
-	
-	
-	
-	
 	//编辑按钮
 	function typeEdit(obj){
 		//只可以编辑一个
