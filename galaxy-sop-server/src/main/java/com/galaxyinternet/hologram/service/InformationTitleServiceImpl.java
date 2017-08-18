@@ -790,8 +790,21 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				@Override
 				public void run()
 				{
-					getAndSetFixedTable(projectId, titleInfo);
-					countDownLatch.countDown();
+					long start = System.currentTimeMillis();
+					
+					try
+					{
+						getAndSetFixedTable(projectId, titleInfo);
+					} catch (Exception e)
+					{
+						logger.error("getAndSetFixedTable Error",e);
+					}
+					finally
+					{
+						logger.debug("====================================getAndSetFixedTable taken: "+(System.currentTimeMillis()-start));
+						countDownLatch.countDown();
+					}
+					
 				}
 			});
 			
@@ -799,16 +812,39 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				@Override
 				public void run()
 				{
-					getAndSetTableHeader(titleInfo);
-					countDownLatch.countDown();
+					long start = System.currentTimeMillis();
+					try
+					{
+						getAndSetTableHeader(titleInfo);
+					} catch (Exception e)
+					{
+						logger.error("getAndSetTableHeader Error",e);
+					}
+					finally
+					{
+						logger.debug("====================================getAndSetTableHeader taken: "+(System.currentTimeMillis()-start));
+						countDownLatch.countDown();
+					}
+					
 				}
 			});
 			threadPool.submit(new Runnable(){
 				@Override
 				public void run()
 				{
-					getAndSetTableContent(projectId, titleInfo);
-					countDownLatch.countDown();
+					long start = System.currentTimeMillis();
+					try
+					{
+						getAndSetTableContent(projectId, titleInfo);
+					} catch (Exception e)
+					{
+						logger.error("getAndSetTableContent Error",e);
+					}
+					finally
+					{
+						logger.debug("====================================getAndSetTableContent taken: "+(System.currentTimeMillis()-start));
+						countDownLatch.countDown();
+					}
 				}
 			});
 			
@@ -816,8 +852,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				@Override
 				public void run()
 				{
-					getAndSetResult(projectId, titleInfo);
-					countDownLatch.countDown();
+					long start = System.currentTimeMillis();
+					try
+					{
+						getAndSetResult(projectId, titleInfo);
+					} catch (Exception e)
+					{
+						logger.error("getAndSetResult Error",e);
+					}
+					finally
+					{
+						logger.debug("====================================getAndSetResult taken: "+(System.currentTimeMillis()-start));
+						countDownLatch.countDown();
+					}
 				}
 			});
 			
@@ -825,8 +872,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				@Override
 				public void run()
 				{
-					getAndSetScore(projectId, titleInfo);
-					countDownLatch.countDown();
+					long start = System.currentTimeMillis();
+					try
+					{
+						getAndSetScore(projectId, titleInfo);
+					} catch (Exception e)
+					{
+						logger.error("getAndSetScore Error",e);
+					}
+					finally
+					{
+						logger.debug("====================================getAndSetScore taken: "+(System.currentTimeMillis()-start));
+						countDownLatch.countDown();
+					}
 				}
 				
 			});
@@ -835,8 +893,19 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				@Override
 				public void run()
 				{
-					getAndSeInfoFiles(projectId, titleInfo);
-					countDownLatch.countDown();
+					long start = System.currentTimeMillis();
+					try
+					{
+						getAndSeInfoFiles(projectId, titleInfo);
+					} catch (Exception e)
+					{
+						logger.error("getAndSeInfoFiles Error",e);
+					}
+					finally
+					{
+						logger.debug("====================================getAndSeInfoFiles taken: "+(System.currentTimeMillis()-start));
+						countDownLatch.countDown();
+					}
 				}
 			});
 			countDownLatch.await();
@@ -1271,7 +1340,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 								list = new ArrayList<>();
 								title.setFileList(list);
 							}
-							File tempFile = File.createTempFile(item.getFileName(), "."+item.getFileSuffix());
+							File tempFile = File.createTempFile(item.getFileName()+"_temp", "."+item.getFileSuffix());
 							OSSHelper.simpleDownloadByOSS(tempFile, item.getFileKey());
 							item.setData(FileUtils.file2Base64(tempFile));
 							title.getFileList().add(item);

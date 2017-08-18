@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,21 +104,15 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 		informationProgress.setUid(uid);
 		informationProgress.setProjectId(proId);
 		try {
-			ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
-
-			ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
-			ForkJoinTask<InformationProgress> result = pool.submit(task);
-
-
 			InformationProgress query = new InformationProgress();
-			//query.setUid(uid);
 			query.setProjectId(proId);
 			List<InformationProgress> checkM = informationProgressDao.selectList(query);
+			if(null == checkM || checkM.isEmpty() || checkM.size() > 1){
+				ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
+				ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
+				ForkJoinTask<InformationProgress> result = pool.submit(task);
+				result.get();
 
-            result.get();
-			if(null == checkM || checkM.isEmpty()){
-				informationProgressDao.insert(informationProgress);
-			}else if(checkM.size() > 1){
 				informationProgressDao.delete(query);
 				informationProgressDao.insert(informationProgress);
 			}else{
@@ -144,7 +137,7 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			Set<Long> resultGrage_ids = titletype_titleIds.get("resultGrage");
 
 			int project_completed = projectCompletedNum(project_ids, proId);
-			int result_completed = resultCompletedNum(result_ids, proId);
+			int result_completed = resultCompletedNum(result_ids, proId,code);
 			int listdata_completed = listdataCompletedNum(listdata_ids, proId);
 			int fixedtable_completed = fixedtableCompletedNum(fixedtable_ids, proId);
 			int file_completed = fileCompletedNum(file_ids, proId);
@@ -173,24 +166,25 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 	public Integer projectCompletedNum(Set<Long> ids,Long projectId){
 		return ids==null?0:ids.size();
 	}
-	public Integer resultCompletedNum(Set<Long> ids,Long projectId){
+	public Integer resultCompletedNum(Set<Long> ids,Long projectId,String precode){
 		if(ids == null || ids.isEmpty()){
 			return 0;
 		}
-
-		//debug used
-		String code = ProgressRecursiveTask.tl.get();
-		if(null != code && code.equals("NO")){
-			System.err.println("============");
-			logger.debug("result_ids : " + Arrays.toString(ids.toArray()));
-		}//end
-
-		Map<String, Object> params = new HashMap<String,Object>();
-		params.put("titleIds",ids);
-		params.put("projectId",projectId);
-		params.put("notAllNUll",true);
-		//List<InformationTitle> titleList = informationTitleDao.selectTitleOfResults(params);
-		Integer count = informationTitleDao.selectCountForTitleOfResults(params);
+		Integer count = 0;
+		if(null != precode && precode.equals("NO")){
+			Map<String, Object> params = new HashMap<String,Object>();
+			params.put("titleIds",ids);
+			params.put("projectId",projectId);
+			params.put("notAllNUll",true);
+			//List<InformationTitle> titleList = informationTitleDao.selectTitleOfResults(params);
+			count = informationTitleDao.selectCountForTitleOfResults(params);
+		}else{
+			Map<String, Object> params = new HashMap<String,Object>();
+			params.put("relateIds",ids);
+			params.put("projectId",projectId);
+			params.put("notAllNUll",true);
+			count = informationTitleDao.selectCountForTitleOfResultsByRelate(params);
+		}
 
 		return count==null?0:count;
 	}

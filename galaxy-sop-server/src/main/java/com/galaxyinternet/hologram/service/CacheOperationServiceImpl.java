@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.TreeSet;
 
 
 @Service("com.galaxyinternet.service.hologram.CacheOperationService")
@@ -320,12 +320,12 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 		code_titletype_titleIds = new HashMap<>();
 		for(String code : pre_reports_codes){
 			Map<String, Set<Long>> titletype_titleIds = new HashMap<>();
-			titletype_titleIds.put("project", new HashSet<Long>());
-			titletype_titleIds.put("result", new HashSet<Long>());
-			titletype_titleIds.put("listdata", new HashSet<Long>());
-			titletype_titleIds.put("fixedtable", new HashSet<Long>());
-			titletype_titleIds.put("file", new HashSet<Long>());
-			titletype_titleIds.put("resultGrage", new HashSet<Long>());
+			titletype_titleIds.put("project", new TreeSet<Long>());      // title_id
+			titletype_titleIds.put("result", new TreeSet<Long>());       // NO:title_id ; other : relate_id
+			titletype_titleIds.put("listdata", new TreeSet<Long>());     // title_id
+			titletype_titleIds.put("fixedtable", new TreeSet<Long>());   // title_id
+			titletype_titleIds.put("file", new TreeSet<Long>());         // title_id
+			titletype_titleIds.put("resultGrage", new TreeSet<Long>()); // relate_id
 
 			code_titletype_titleIds.put(code,titletype_titleIds);
 		}
@@ -338,12 +338,12 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 
 		InformationTitle title = null;
 
-		Set<Long> project_ids = new HashSet<>();
-		Set<Long> result_ids = new HashSet<>();
-		Set<Long> listdata_ids = new HashSet<>();
-		Set<Long> fixedtable_ids = new HashSet<>();
-		Set<Long> file_ids = new HashSet<>();
-		Set<Long> resultGrage_ids = new HashSet<>();
+		Set<Long> project_ids = new TreeSet<>();
+		Set<Long> result_ids = new TreeSet<>();
+		Set<Long> listdata_ids = new TreeSet<>();
+		Set<Long> fixedtable_ids = new TreeSet<>();
+		Set<Long> file_ids = new TreeSet<>();
+		Set<Long> resultGrage_ids = new TreeSet<>();
 
 		//全息报告
 		Integer noNum = 0;
@@ -389,7 +389,8 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 			params.put("parentId",0);
 			List<InformationTitle> titles = informationTitleRelateDao.selectTitleByRelate(params);
 
-			for(int i = 0 ; i < titles.size(); i++)
+			//for(int i = 0 ; i < titles.size(); i++)
+			for(InformationTitle title_0 : titles)
 			{
 				project_ids.clear();
 				result_ids.clear();
@@ -398,10 +399,12 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 				file_ids.clear();
 				resultGrage_ids.clear();
 
-				title = informationDictionaryService.selectTitlesValuesForAll(titles.get(i).getRelateCode(),code_report$type.get(codeLike));
+				title = informationDictionaryService.selectTitlesValuesForAll(title_0.getRelateCode(),code_report$type.get(codeLike));
 				num += getNumForTypeIsNotNull(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
 
 				setCodeTypeTids(codeLike, code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
+
+				//System.err.println("==========报告　" + title_0.getRelateCode() + " : " + num);
 			}
 			/*System.err.println(codeLike + " tnum :  " + num);
 			System.err.println(codeLike + " ids :  " + code_titletype_titleIds.get(codeLike));*/
@@ -433,8 +436,8 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 			params.put("parentId",0);
 			List<InformationTitle> titles = informationTitleRelateDao.selectTitleByRelate(params);
 
-			//for(InformationTitle title_0 : titles){
-			for(int i = 0 ; i < titles.size(); i++){
+			//for(int i = 0 ; i < titles.size(); i++){
+			for(InformationTitle title_0 : titles){
 				project_ids.clear();
 				result_ids.clear();
 				listdata_ids.clear();
@@ -442,7 +445,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 				file_ids.clear();
 				resultGrage_ids.clear();
 
-				title = informationDictionaryService.selectTitlesValuesForAll( titles.get(i).getRelateCode(),code_report$type$grade.get(codeLike));
+				title = informationDictionaryService.selectTitlesValuesForAll( title_0.getRelateCode(),code_report$type$grade.get(codeLike));
 				num += getNumForTypeIsNotNullByGrade(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 
 				setCodeTypeTids(codeLike,  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
@@ -490,13 +493,13 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	 */
 	public static int count;
 	public Integer getNumForTypeIsNotNull(InformationTitle title,
-										  Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids){
+		Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids){
 		count = 0;
 		setNumAdd(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
 		return count;
 	}
 	public void setNumAdd(InformationTitle title,
-						  Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids){
+		Set<Long> project_ids, Set<Long> result_ids, Set<Long> listdata_ids, Set<Long> fixedtable_ids, Set<Long> file_ids){
 
 		if(title.getType() != null && (title.getSign()!=null && title.getSign().intValue() == 2)){
 			count += 1;
@@ -517,8 +520,13 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 					project_ids.add(titleId);
 					break;
 				default:
+					if(title.getRelateCode()==null){ //全息报告
+						result_ids.add(titleId);
+					}else{
+						result_ids.add(title.getId());
+					}
 					//if(null != title.getType() && result_titletype.contains(","+ title.getType() +",")){
-					result_ids.add(titleId);
+
 					//}
 			}
 		}
@@ -564,7 +572,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 					switch(tempGrade.getIsScore())
 					{
 						case 0 :
-							result_ids.add(title.getTitleId());
+							result_ids.add(title.getId());
 							break;
 						case 1:
 							resultGrage_ids.add(title.getId());

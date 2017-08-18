@@ -27,6 +27,19 @@
 	
 	//编辑按钮
 	function typeEdit(obj){
+		//只可以编辑一个
+		$(obj).parents('td').addClass('edit_true');
+		var status = 0;
+		var thisTr = $(obj).parents('tr');
+		var targetTd = thisTr.siblings().find('.condition');
+		if(targetTd.hasClass('edit_true')){
+			var status = 1;
+		};
+		if(status==1){
+			layer.msg("正在编辑其他模块");
+			return false;			
+		}
+		
 		//编辑类型
 		var _this=$(obj);
 		var id_code=$(obj).attr("attr-id")
@@ -128,6 +141,7 @@
 					}			
 				}else if(type==13 || type==3){
 					if(titleVal){
+						titleVal=titleVal+","
 						var titleValList=titleVal.split(",");
 						var valList=val.split("、");
 						for(var i=0;i<titleValList.length;i++){
@@ -237,6 +251,7 @@
 						}else if(d_type==13){
 							if(n.val!="未选择"){
 								if(n.titleValue){
+									n.titleValue=n.titleValue+",";
 									var titleValList=n.titleValue.split(",");
 									var valList=n.val.split("、");
 									var lastId=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']").siblings("dd").find(".check_label:last").attr("value");
@@ -398,6 +413,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 	
 //小弹窗关闭按钮
 function closeX(obj){
+	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	//对号,x号消失
 	$(obj).parent().hide();
@@ -420,6 +436,7 @@ function closeX(obj){
 	
 //保存方法
 function right(obj,type){
+	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	//验证
 	if(type=="checkbox" || type=="radio"){
@@ -551,6 +568,7 @@ function right(obj,type){
 
 //大弹窗 取消方法
 $('div').delegate(".h_cancel_btn","click",function(event){
+	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
@@ -560,6 +578,7 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 });
 //大弹窗 保存方法
 $('div').delegate(".h_save_btn","click",function(event){
+	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
 	var align_left = $("span[parent_dom='show']").parent().find(".align_left");
 	var array_p = align_left.find("p");
