@@ -1416,6 +1416,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .label_static1{position:relative;}
 .new_tit_a{ width:100%; overflow:hidden; height:auto; color:#8895a2;}
 .new_tit_b{ width:75%; overflow:hidden; height:60px;  color:#8895a2;}
+.new_tit_b p{display: inline-block;padding-top: 22px;font-size: 14px;color: #ff8181;}
 .new_tit_a a ,.new_tit_b a{ text-decoration:none; color:#60a1e3;}
 .new_tit_a a{font-family: "微软雅黑";line-height: 20px;}
 .new_color{ color:#6b799f; margin-left: 10px;}
