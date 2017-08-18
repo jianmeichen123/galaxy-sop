@@ -633,5 +633,40 @@
 	</select>
 
 
+
+
+	<select id="selectCountForTitleOfResultsByRelate" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT
+			COUNT(allresult.id)
+		FROM (
+			SELECT
+				relate.id
+			FROM
+				information_title_relate relate
+			LEFT JOIN
+				information_result result
+			ON
+				relate.title_id = result.title_id
+			<where>
+				<trim prefixOverrides="and">
+					<if test="relateId != null"> and relate.id = #{titleId,jdbcType=BIGINT} </if>
+					<if test="relateIds != null">
+						and relate.id in
+						<foreach collection="relateIds" item="item" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</if>
+
+					<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+					<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
+					and result.is_valid = 0
+				</trim>
+			</where>
+			GROUP BY relate.id
+		) allresult
+	</select>
+
+
+
 </mapper>
 	

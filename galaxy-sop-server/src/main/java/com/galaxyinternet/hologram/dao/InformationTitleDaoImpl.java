@@ -87,6 +87,14 @@ public class InformationTitleDaoImpl extends BaseDaoImpl<InformationTitle, Long>
 		} catch (Exception e) {
 			throw new DaoException(String.format("根据titiles查询results count title出错 ！语句:%s", getSqlName("selectCountForTitleOfResults")), e);
 		}
+	}public Integer selectCountForTitleOfResultsByRelate(Map<String, Object> params) {
+		try {
+			Integer content = sqlSessionTemplate.selectOne(getSqlName("selectCountForTitleOfResultsByRelate") ,params);
+			//System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
+			return content;
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据titiles查询results count title出错 ！语句:%s", getSqlName("selectCountForTitleOfResults")), e);
+		}
 	}
 	public Integer selectCountForTitleOfListdata(Map<String, Object> params) {
 		try {
