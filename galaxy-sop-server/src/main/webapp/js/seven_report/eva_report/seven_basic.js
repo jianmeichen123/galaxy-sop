@@ -32,13 +32,12 @@
 		var status = 0;
 		var thisTr = $(obj).parents('tr');
 		var targetTd = thisTr.siblings().find('.condition');
-		console.log(targetTd)
 		if(targetTd.hasClass('edit_true')){
 			var status = 1;
 		};
-		
 		if(status==1){
-			return false;
+			layer.msg("正在编辑其他模块");
+			return false;			
 		}
 		
 		//编辑类型
@@ -252,6 +251,7 @@
 						}else if(d_type==13){
 							if(n.val!="未选择"){
 								if(n.titleValue){
+									n.titleValue=n.titleValue+",";
 									var titleValList=n.titleValue.split(",");
 									var valList=n.val.split("、");
 									var lastId=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']").siblings("dd").find(".check_label:last").attr("value");
