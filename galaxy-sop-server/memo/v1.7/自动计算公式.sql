@@ -11,3 +11,9 @@ INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `ind
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2242', 'currency', '主要战略投资人、财务投资人投资情况', 'D225', '0', '0');
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2243', '2242', '2081', 'currency1', '人民币', 'D225_1', '1', '0');
 INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2244', '2242', '2081', 'currency2', '美元', 'D225_2', '2', '0');
+
+
+
+/*决策报告项目估值自动计算公式*/
+UPDATE `fx_db`.`information_title` SET `val_rule_formula`='3004=3012/3010' WHERE `id`='3010';
+UPDATE `fx_db`.`information_title` SET `val_rule_formula`='3004=3012/3010' WHERE `id`='3012';

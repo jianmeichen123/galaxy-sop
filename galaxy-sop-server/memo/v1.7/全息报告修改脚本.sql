@@ -9,7 +9,7 @@ UPDATE `fx_db`.`information_title` SET `name`='希望融资金额', `type`='19',
 /*全息报告标题表 题目类型修改 确保该项目在成功上市以前需要投入多少资金*/
 UPDATE `fx_db`.`information_title` SET `name`='确保该项目在成功上市以前需要投入多少资金', `type`='19', `content`='万元', `val_rule_mark`='9,4' WHERE `id`='1923';
 /*全息报告标题表 题目类型修改 本轮融资希望稀释股权比例*/
-UPDATE `fx_db`.`information_title` SET `name`='本轮融资希望稀释股权比例', `type`='19', `content`='%' WHERE `id`='1917';
+UPDATE `fx_db`.`information_title` SET `name`='本轮融资希望稀释股权比例', `type`='19', `content`='%', `val_rule_mark`='3,2' WHERE `id`='1917';
 /*全息报告标题表 题目类型修改 上轮投资估值为*/
 UPDATE `fx_db`.`information_title` SET `name`='上轮投资估值为', `type`='20', `content`='万元', `val_rule_mark`='9,4' WHERE `id`='1910';
 /*全息报告标题表 题目类型修改 投资金额为*/
@@ -72,9 +72,10 @@ UPDATE `fx_db`.`information_result` SET `content_choose`='1174' WHERE title_id =
 UPDATE `fx_db`.`information_title` SET `code`='NO2_1_2' WHERE `id`='1204';
 UPDATE `fx_db`.`information_title` SET `code`='NO2_1_3' WHERE `id`='1205';
 
-/*评测报告字典表  刚需和痛点题修改 */
-INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `name`, `index_no`, `type`, `sign`, `content`, `is_show`, `is_valid`, `placeholder`, `is_must`, `val_rule`, `val_rule_mark`, `val_rule_formula`) VALUES ('1270', '1202', '刚需或痛点', '203.5', '16', '2', '该项目是一个通过或基于<sitg>技术或模式</sitg>的<sitg>选择三级以下分类</sitg> 的<sitg>具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具</sitg>，连接<sitg>服务一端</sitg>和<sitg>服务另一端</sitg>，为<sitg>用户</sitg>提供<sitg>产品服务即内容</sitg>的产品或服务，满足了<sitg>需求，如有</sitg>的刚需或解决了<sitg>痛点，如有</sitg>。', 'e', '0', '该项目是一个通过或基于（技术或模式）的（选择三级以下分类) 的（具体品类：平台、运营商、服务商、技术提供商、解决方案提供商、工具），连接（服务一端）和（服务另一端），为（用户）提供（产品服务即内容）的产品或服务，满足了（需求，如有）的刚需或解决了（痛点，如有）。', '0', '1', '2000', '1203');
-UPDATE `fx_db`.`information_title` SET `val_rule_formula`='1270' WHERE `id`='1203';
-UPDATE `fx_db`.`information_title_relate` SET `title_id`='1270',`name`=null WHERE `id`='1006';
-UPDATE `fx_db`.`information_title_relate` SET `name`=null, `title_id`='1270' WHERE `id`='9006';
+/*综合竞争比较提变成显示*/
+UPDATE `fx_db`.`information_title` SET `is_show`='t' WHERE `id`='1548';
+
+
+UPDATE `fx_db`.`information_title` SET `code`='NO9_3_12_2' WHERE `id`='1940';
+
 

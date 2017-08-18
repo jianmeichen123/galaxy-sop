@@ -40,8 +40,8 @@ INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type
 INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (1581,'1577',NULL,'需要的资金投入',NULL,8,2,NULL,'o',0,'请填写',NULL,NULL,NULL,NULL,0,'1','2000');
 
 /*市场与开发*/
-INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (3031,'0',NULL,'市场与开发',NULL,0,1,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
-INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (3032,'3031',NULL,'市场与开发',NULL,0,1,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
+INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (3031,'0',NULL,'市场与开发',NULL,NULL,1,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
+INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (3032,'3031',NULL,'市场与开发',NULL,NULL,1,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
 INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (3033,'3032',NULL,'关键客户开发',NULL,8,2,NULL,'o',0,'请填写',NULL,NULL,NULL,NULL,0,'1','2000');
 INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (3034,'3032',NULL,'关键渠道开发',NULL,8,2,NULL,'o',0,'请填写',NULL,NULL,NULL,NULL,0,'1','2000');
 INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (3035,'3032',NULL,'获客效率优化',NULL,8,2,NULL,'o',0,'请填写',NULL,NULL,NULL,NULL,0,'1','2000');
@@ -84,7 +84,8 @@ INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type
 INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (2080,'2078',NULL,'隔轮融资时间点',NULL,1,2,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,'5',NULL);
 
 
-INSERT INTO `fx_db`.`information_listdata_remark` (`id`, `title_id`, `code`, `name`, `field_1`, `sub_title_id1`, `field_2`, `sub_title_id2`, `field_3`, `sub_title_id3`) VALUES ('19', '2067', 'operation-indices', '上一轮融资后关键运营指标变化', '指标名称', '2035', '融资时指标值', '2036', '目前指标值', '2037');
+INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`name`,`field_1`,`sub_title_id1`,`field_2`,`sub_title_id2`,`field_3`,`sub_title_id3`,`field_4`,`sub_title_id4`,`field_5`,`sub_title_id5`,`field_6`,`sub_title_id6`,`field_7`,`sub_title_id7`,`field_8`,`sub_title_id8`,`field_9`,`sub_title_id9`,`field_10`,`sub_title_id10`,`is_valid`,`created_time`,`create_id`,`updated_time`,`update_id`,`fun_flag`) VALUES (20,3022,'grant-actual','grant-part','实际注资计划','实际注资名称',3037,'实际注资时间',3038,'实际注资金额',3039,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0');
+
 
 
 /*字典表增加字典项*/
@@ -120,3 +121,14 @@ INSERT INTO `information_dictionary` (`id`,`parent_id`,`title_id`,`code`,`name`,
 INSERT INTO `information_dictionary` (`id`,`parent_id`,`title_id`,`code`,`name`,`value`,`sort`,`is_valid`,`created_time`,`create_id`,`updated_time`,`update_id`) VALUES (2234,2231,1716,'financeVerify3','充分验证','D222_3',3,0,NULL,NULL,NULL,NULL);
 INSERT INTO `information_dictionary` (`id`,`parent_id`,`title_id`,`code`,`name`,`value`,`sort`,`is_valid`,`created_time`,`create_id`,`updated_time`,`update_id`) VALUES (2235,2231,1716,'financeVerify4','尚未验证','D222_4',4,0,NULL,NULL,NULL,NULL);
 
+INSERT INTO `fx_db`.`information_dictionary` (`id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2245', 'currency', '币种', 'D226', '0', '0');
+INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2246', '2245', '2072', 'currency1', '人民币', 'D226_1', '1', '0');
+INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2247', '2245', '2072', 'currency2', '美元', 'D226_2', '2', '0');
+INSERT INTO `fx_db`.`information_dictionary` (`id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2248', 'currency', '币种', 'D227', '0', '0');
+INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2249', '2248', '2079', 'currency1', '人民币', 'D227_1', '1', '0');
+INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `code`, `name`, `value`, `sort`, `is_valid`) VALUES ('2250', '2248', '2079', 'currency2', '美元', 'D227_2', '2', '0');
+
+
+INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`, `val_rule_mark`) VALUES ('3037', '3022', '实际注资名称', '3062.7', '1', '2', 'f', '0', '0', '1', '20');
+INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('3038', '3022', '实际注资时间', '3062.8', '1', '2', 'f', '0', '0', '5');
+INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`, `val_rule_mark`) VALUES ('3039', '3022', '实际注资金额', '3062.9', '1', '2', 'f', '0', '0', '2', '9,4');

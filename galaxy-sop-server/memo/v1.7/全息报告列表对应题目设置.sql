@@ -34,7 +34,7 @@ INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`na
 INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`name`,`field_1`,`sub_title_id1`,`field_2`,`sub_title_id2`,`field_3`,`sub_title_id3`,`field_4`,`sub_title_id4`,`field_5`,`sub_title_id5`,`field_6`,`sub_title_id6`,`field_7`,`sub_title_id7`,`field_8`,`sub_title_id8`,`field_9`,`sub_title_id9`,`field_10`,`sub_title_id10`,`is_valid`,`created_time`,`create_id`,`updated_time`,`update_id`,`fun_flag`) VALUES (19,2067,'operation-indices',NULL,'上一轮融资后关键运营指标变化','指标名称',2035,'融资时指标值',2036,'目前指标值',2037,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0');
 
 
-
+INSERT INTO `fx_db`.`information_listdata_remark` (`id`, `title_id`, `code`, `sub_code`, `name`, `field_1`, `field_2`, `field_3`) VALUES ('20', '3022', 'grant-actual', 'grant-part', '实际注资计划', '注资名称', '注资时间', '注资金额');
 
 
 
@@ -74,7 +74,7 @@ INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `ind
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`) VALUES ('2030', '1906', 'NO9_1_4_4', '股东性质', '907.1', '14', '2', 'f', '0', '0');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('2031', '1908', 'NO9_1_6_2', '投资人名称', '910.1', '1', '2', 'f', '0', '0', '1');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `placeholder`, `is_must`, `val_rule`) VALUES ('2032', '1908', 'NO9_1_6_3', '投资金额', '910.2', '1', '2', 'f', '0', '', '0', '2');
-INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `placeholder`, `is_must`, `val_rule`) VALUES ('2033', '1908', 'NO9_1_6_4', '股权占比%', '910.3', '1', '2', 'f', '0', '股权占比', '0', '3');
+INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `placeholder`, `is_must`, `val_rule`, `val_rule_mark`) VALUES ('2033', '1908', 'NO9_1_6_4', '股权占比%', '910.3', '1', '2', 'f', '0', '股权占比', '0', '3', '3,2');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `placeholder`, `is_must`, `val_rule`) VALUES ('2034', '1908', 'NO9_1_6_5', '投后估值', '910.4', '1', '2', 'f', '0', '投后估值', '0', '2');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('2035', '1912', 'NO9_1_8_1', '指标名称', '914.1', '1', '2', 'f', '0', '0', '1');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`, `val_rule_mark`) VALUES ('2036', '1912', 'NO9_1_8_2', '融资时指标值', '914.2', '8', '2', 'f', '0', '0', '1', '1000');
@@ -104,7 +104,7 @@ INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `ind
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('2057', '1903', 'NO9_1_1_1', '融资时间', '903.11', '1', '2', 'f', '0', '0', '5');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('2058', '1903', 'NO9_1_1_2', '投资方(机构或个人)', '903.12', '1', '2', 'f', '0', '0', '1');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('2059', '1903', 'NO9_1_1_3', '投资金额', '903.13', '1', '2', 'f', '0', '0', '2');
-INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('2060', '1903', 'NO9_1_1_4', '股权占比', '903.14', '1', '2', 'f', '0', '0', '3');
+INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`, `val_rule_mark`) VALUES ('2060', '1903', 'NO9_1_1_4', '股权占比', '903.14', '1', '2', 'f', '0', '0', '3', '3,2');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`, `val_rule`) VALUES ('2061', '1903', 'NO9_1_1_5', '估值金额', '903.15', '1', '2', 'f', '0', '0', '4');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`) VALUES ('2062', '1903', 'NO9_1_1_6', '币种', '903.16', '14', '2', 'f', '0', '0');
 INSERT INTO `fx_db`.`information_title` (`id`, `parent_id`, `code`, `name`, `index_no`, `type`, `sign`, `is_show`, `is_valid`, `is_must`) VALUES ('2063', '1903', 'NO9_1_1_7', '融资轮次', '903.17', '14', '2', 'f', '0', '0');
