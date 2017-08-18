@@ -58,7 +58,7 @@
    			
    		</ul>
 		</form>
-    	<div class="team_tit"><span class="team_ico team_ico_study"></span>实际注资<span class="team_ico team_ico_add appr_part_add" data-code="study-experience" href="/sop/html/operation_appr_actual.html"></span></div>
+    	<div class="team_tit">实际注资<span class="team_ico team_ico_add appr_part_add" data-code="study-experience" href="/sop/html/operation_appr_actual.html"></span></div>
 		<div class="team_p" id="appr_part">
 
 		</div>
@@ -89,7 +89,30 @@ $("div").delegate(".appr_part_add","click",function(event){
 	});
 	return false;
 });
-
+remainMoney();
+function remainMoney(){   //计算剩余金额
+	var params={};
+	params.projectId = projectInfo.id;
+	params.titleId = "3004";
+	sendPostRequestByJsonObj(
+				Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
+				params,
+				function(data){
+					if(data.result.status == "OK"){
+						if(typeof(data.userData) == "object"){
+							if(data.userData.totalMoney || data.userData.remainMoney){
+								var remainMoney=data.userData.remainMoney;
+								$("#formatRemainMoney").text(remainMoney == null ? 0 : remainMoney);
+								$(".moeny_all input").on("input",function(){
+									var val=$(this).val();
+									var remainMoneyNew=remainMoney-val;
+									$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
+								})
+							}
+						}
+					}
+				});
+}
 </script>
 <style>
 #field3-error{position:absolute;left:100px;width:100px;;}
