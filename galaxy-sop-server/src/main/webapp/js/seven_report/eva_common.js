@@ -84,7 +84,7 @@ function mouseout(obj){
 	var target = $(obj).find('.editPic');
 	target.hide();
 };
-$("#eva-tabs li:eq(0)").click();
+$("#eva-tabs li:eq(1)").click();
 
 // 
 /**
@@ -712,10 +712,11 @@ $("#save-rpt-btn").click(function(){
 	var edit_status = false;
 	$.each(editbox,function(){
 		if(!$(this).is(":hidden")){
-			edit_status = true;
+			edit_status=true;
+			return edit_status; 
 			return false;
 		}
-		return edit_status; 
+		
 	})
 	if(edit_status==true){
 		layer.msg("正在编辑无法保存");
