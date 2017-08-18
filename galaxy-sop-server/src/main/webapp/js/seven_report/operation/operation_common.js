@@ -115,7 +115,7 @@ function tabOperateChange(index){
 				  return;
 			  }
 			  $.getHtml({
-		          url:path+'/html/operation_appr_part.html',//模版请求地址
+		          url:getDetailUrl(code),//模版请求地址
 		          data:"",//传递参数
 		          okback:function(){
 		        	   $("#save_appr_part").click(function(){
