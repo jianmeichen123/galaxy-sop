@@ -767,7 +767,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 						_this.find("span").html("未添加");
 					}else{
 						$.each(d_this.valueList,function(i,n){
-							console.log(n.id)
 							if(n.id==undefined){
 								var a_img="<em class=\"income_pic\" data-url="+n.url+" data-list="+i+">[图片]</em>";
 								
