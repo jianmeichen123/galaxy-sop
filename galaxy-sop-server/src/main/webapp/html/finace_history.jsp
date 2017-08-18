@@ -117,6 +117,10 @@
            <dt>估值金额：</dt>
            <dd name="field5"></dd>
             </dl>
+            <dl class="fmdl clearfix wid_2 hidden">
+           <dt>币种：</dt>
+           <dd name="field6"></dd>
+            </dl>
            <dl class="fmdl clearfix wid_2">
             <dt>融资轮次：</dt>
                 <dd name="field7"></dd>            
