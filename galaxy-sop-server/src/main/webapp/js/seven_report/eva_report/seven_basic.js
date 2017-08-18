@@ -597,7 +597,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 			data_list.value_id=value_check.val();
 			if(data_list.value=="其他"){
 				/*other_input.attr("disabled")*/
-				data_list.value=value_check.parent().next().find("input").val();
+				data_list.remark1=value_check.parent().next().find("input").val();
 			}
 			if(data_list.value==""||!data_list.value){
 				data_list.value="未选择";
@@ -730,7 +730,16 @@ $('div').delegate(".h_save_btn","click",function(event){
 					Tfun_8(_this);
 				}else if(_type==14||_type==2||_type==12){
 					if(d_this.value!="请选择"){
-						_this.find("span").html(d_this.value);
+						if(d_this.value == '其他')
+						{
+							_this.find("span").html(d_this.remark1);
+							_this.attr("data-title-remark",d_this.remark1);
+						}
+						else
+						{
+							_this.find("span").html(d_this.value);
+							_this.attr("data-title-remark",'');
+						}
 						_this.attr("data-title-value",d_this.value_id);
 					}
 				}else if(_type==7){

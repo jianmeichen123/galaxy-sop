@@ -386,6 +386,23 @@ function buildResult(title)
 		_ele.attr("data-title-value",values.join(','));
 		_ele.attr("data-remark",remark);
 	}
+	else if(type == 12)
+	{
+		var text = results[0].valueName;
+		if(text == '其他')
+		{
+			text = results[0].contentDescribe1;
+			remark = results[0].contentDescribe1;
+		}
+		if(_sign=="sign_3"){
+			_ele.find("span").text(text);
+		}else{
+			_ele.text(text);
+		}
+		_ele.attr('data-title-value',results[0].contentChoose)
+		_ele.attr("data-result-id",results[0].id);
+		_ele.attr("data-remark",remark);
+	}
 	//一个标题带两个文本域、
 	else if(type == 15)
 	{
@@ -504,7 +521,7 @@ function getValues()
 			titleObj[titleId]=model;
 		}
 		//radio,radio+备注,select
-		else if(type == 2 || type == 5 ||type==14)
+		else if(type == 2 || type == 5 ||type==12 ||type==14)
 		{
 			var model = {
 					tochange:"true",
