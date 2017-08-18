@@ -128,6 +128,7 @@
 					}			
 				}else if(type==13 || type==3){
 					if(titleVal){
+						titleVal=titleVal+","
 						var titleValList=titleVal.split(",");
 						var valList=val.split("、");
 						for(var i=0;i<titleValList.length;i++){
