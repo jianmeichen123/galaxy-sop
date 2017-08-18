@@ -3475,7 +3475,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("projectName", project.getProjectName());
 
 		InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(null, projectId);
-		request.setAttribute("reportProgress", reportProgress);
+		request.setAttribute("reportProgress", GSONUtil.toJson(reportProgress));
 		return "project/sopinfo/includeRight";
 	}
 	

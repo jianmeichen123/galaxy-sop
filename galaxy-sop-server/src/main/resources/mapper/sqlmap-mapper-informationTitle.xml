@@ -481,7 +481,7 @@
 				</if>
 
 				<if test="notAllNUll != null"> and (content_choose is not null OR content_describe1 is not null OR content_describe2 is not null) </if>
-				and is_valid = 0
+				<!-- and is_valid = 0 -->
 			</trim>
 		</where>
 		GROUP BY title_id
@@ -510,7 +510,7 @@
 				</if>
 
 				<if test="notAllNUll != null"> and (result.field_1 is not null OR result.field_2 is not null OR result.field_3 is not null) </if>
-				and result.is_valid = 0
+				<!--and result.is_valid = 0 -->
 			</trim>
 		</where>
 		GROUP BY result.title_id
@@ -539,7 +539,7 @@
 				</if>
 
 				<if test="notAllNUll != null"> and (result.content is not null) </if>
-				and result.is_valid = 0
+				<!-- and result.is_valid = 0 -->
 			</trim>
 		</where>
 		GROUP BY result.title_id
@@ -659,7 +659,7 @@
 
 					<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
 					<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
-					and result.is_valid = 0
+					<!-- and result.is_valid = 0 -->
 				</trim>
 			</where>
 			GROUP BY relate.id
