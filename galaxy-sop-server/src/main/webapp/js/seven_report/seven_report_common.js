@@ -1707,7 +1707,7 @@ function selectContext(formId){
  * 表格增删改查通用方法   **************************************************** 开始
  */
 //新增弹出页面渲染
-function addRow(ele)
+/*function addRow(ele)
 {
 	
 	var code = $(ele).prev().data('code');
@@ -1747,9 +1747,9 @@ function saveForm(form)
 		saveRow(data);
 	}
 }
-/**
+*//**
  * 保存至到tr标签data属性
- */
+ *//*
 function saveRow(data)
 {
 	data = JSON.parse(data);
@@ -1904,7 +1904,7 @@ function refreshSection(id)
     sec.find("dd[data-type='3']").text('未选择');
 	//var sec = $(".section[data-section-id='"+id+"']");
 	sec.showResults(true);
-}
+}*/
 /**
  * 表格增删改查通用方法   **************************************************** 结束
  */

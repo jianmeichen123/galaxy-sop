@@ -38,7 +38,17 @@ public class TableModel extends PagableEntity {
 	    
 	    private String updateTimeStr;
 	    
+	    private String updateTimeSign;
 	    
+
+	    
+		public String getUpdateTimeSign() {
+			return updateTimeSign;
+		}
+
+		public void setUpdateTimeSign(String updateTimeSign) {
+			this.updateTimeSign = updateTimeSign;
+		}
 
 		public String getUpdateTimeStr() {
 			return updateTimeStr;

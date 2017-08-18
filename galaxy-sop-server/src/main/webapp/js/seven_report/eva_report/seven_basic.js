@@ -102,7 +102,7 @@
 		var id_code=$(obj).attr("attr-id")
 		var p_box=$(obj).siblings(".align_left").find("p")
 		var  val=p_box.text();
-		var titleVal=p_box.attr("data-title-value");
+		var titleVal=p_box.data("titleValue");
 		var radioShow=$(obj).closest("td").find(".radioShow")
 		$.each(p_box,function(){
 			var type=$(this).attr("data-type");
@@ -159,8 +159,8 @@
 					var dom=$(obj).siblings(".align_left").find("span");
 					$(dom).each(function(){
 						var data_list={};
-						var relateId=$(this).parent("p").attr("data-relate-id");
-						var titleValue=$(this).parent("p").attr("data-title-value");
+						var relateId=$(this).parent("p").data("relateId");
+						var titleValue=$(this).parent("p").data("titleValue");
 						var val=$(this).text();
 						var d_type=$(this).parent("p").attr("data-type");
 						data_list.relateId=relateId;
@@ -262,7 +262,7 @@
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).attr("data-relate-id");
-						var str=$(this).attr("data-remark");
+						var str=$(this).data("remark");
 						if(str !=undefined && str.indexOf("<sitg>")>-1){
 							var str=str.split("<sitg>");
 							var inputsValueList=[];
@@ -444,11 +444,11 @@ function right(obj,type){
 		if(typeof val_id == 'undefined')
 		{
 			p.text('未选择');
-			p.attr("data-title-value",'');
+			p.data("titleValue",'');
 		}
 		else
 		{
-			p.attr("data-title-value",val_id);
+			p.data("titleValue",val_id);
 			p.text(val);
 		}
 	}else if(type=="checkbox"){
@@ -456,7 +456,7 @@ function right(obj,type){
 		var p = align_left.find('p');
 		if(val_checkbox.length==0){
 			p.text('未选择');
-			p.attr("data-title-value",'');
+			p.data("titleValue",'');
 		}
 		else
 		{
@@ -474,7 +474,7 @@ function right(obj,type){
 				content.push(val_text);
 			});
 			p.html(content.join('、'));		
-			p.attr("data-title-value",values.join(','));
+			p.data("titleValue",values.join(','));
 		}
 			
 	}else if(type=="textarea"){
@@ -506,11 +506,11 @@ function right(obj,type){
 		if(selectVal == '请选择')
 		{
 			p.text('未选择');
-			p.attr("data-title-value",'');
+			p.data("titleValue",'');
 		}
 		else
 		{
-			p.attr("data-title-value",selectId);
+			p.data("titleValue",selectId);
 			p.text(selectVal);
 		}
 	}
@@ -651,7 +651,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 				tab_lengthbf=tr_data.length;
 			}
 			if(tab_lengthaf!=tab_lengthbf){
-				$(".pagebox").attr("data-result",true);
+				$(".pagebox").data("result",true);
 				$("#save-rpt-btn em").removeClass("disabled")
 			}else{
 				$.each(tr_list,function(){
@@ -665,13 +665,13 @@ $('div').delegate(".h_save_btn","click",function(event){
 						var b_field1=trd_this[0].field1;
 						var b_field2=trd_this[0].field2;
 						if(id_b==""||id_b==undefined){
-							$(".pagebox").attr("data-result",true);
+							$(".pagebox").data("result",true);
 							$("#save-rpt-btn em").removeClass("disabled")
 							return false;
 						}
 						 if(id_a==id_b){
 							 if(a_field1!=b_field1||a_field2!=b_field2){
-								$(".pagebox").attr("data-result",true);
+								$(".pagebox").data("result",true);
 								$("#save-rpt-btn em").removeClass("disabled")
 								return false;
 							 }
@@ -740,7 +740,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 							_this.find("span").html(d_this.value);
 							_this.attr("data-remark",'');
 						}
-						_this.attr("data-title-value",d_this.value_id);
+						_this.data("titleValue",d_this.value_id);
 					}
 				}else if(_type==7){
 					_this.find("span").html("");
@@ -794,7 +794,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						titleIdList.push(titleId);
 					})
 					_this.find("span").html(valList.join("、"));
-					_this.attr("data-title-value",titleIdList.join(","));
+					_this.data("titleValue",titleIdList.join(","));
 				}else if(_type==20){
 					_this.closest("td").find("p[data-relate-id='"+d_this.id+"']").find("span").html(d_this.value);
 				}

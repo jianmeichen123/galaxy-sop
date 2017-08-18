@@ -20,6 +20,7 @@
          <input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="updateTimeStr" type="hidden" >
+    	<input name="updateTimeSign" type="hidden" >
     	<input name="updateUserName" type="hidden" value="${realName }">
     	<input name="titleId" type="hidden">
             <dl class="fmdl clearfix">
@@ -69,7 +70,8 @@
         	errorElement:'span'
         });
    function change(){
-	   var time = new Date().format("yyyy-MM-dd hh:mm:ss");
-	   $("input[name=updateTimeStr]").val(time)
+	   var time = new Date().format("yyyy-MM-dd");
+	   $("input[name=updateTimeStr]").val(time);
+	   $("input[name=updateTimeSign]").val(1);
    }
 </script>
