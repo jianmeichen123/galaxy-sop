@@ -205,6 +205,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 		else if(type==1 || type==19 )
 		{	
 			infoMode.remark1 = field.val();
+			if(reportType=="3"){
+				infoMode.reportType=3;
+			}
 		}
 		else if(type==5){  
 			if($(field).attr("type")=="radio"){
