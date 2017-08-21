@@ -1415,7 +1415,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .project_center,.company_center,.portrayal_center,.product_center,.operation_center,.industry_center,.analysis_center,.next_financing_center{line-height:24px;}
 .label_static1{position:relative;}
 .new_tit_a{ width:100%; overflow:hidden; height:auto; color:#5192ff;font-size:12px;}
-.new_tit_b{ width:75%; overflow:hidden; height:60px;  color:#596071;}
+.new_tit_b{ width:75%; /* overflow:hidden; */ height:60px;  color:#596071;}
 .new_tit_b p{display: inline-block;padding-top: 22px;font-size: 14px;color: #ff8181;}
 .new_tit_a a ,.new_tit_b a{ text-decoration:none; color:#9097aa;}
 .new_tit_a img.arrow{display:inline-block;margin:0px 4px;}
@@ -3447,5 +3447,46 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 .operation_actual_title{border-bottom:1px solid #dadfe3;padding-bottom:5px;}
 .see_block .textarea{display:block;width:90%;}
 .addmentc{max-height:450px;overflow-y:auto;}
-
-
+.report_select .input_selects{
+	border:1px solid #d8d8d8;
+	border-radius:2px;
+	width:84px;
+	height:28px;
+	margin-top:15px;
+	font-size:12px;
+	background:#ffffff url(../img/seven_report/down.png) no-repeat center right 20px;
+	cursor:pointer;
+	padding-left:20px;
+	font-size:12px;
+	font-family:'宋体';
+}
+.report_select{position:relative;}
+.report_select .select_list{
+	position:absolute;
+}
+.select_lists{
+	background:#ffffff;
+	border:1px solid #d8d8d8;
+	border-radius:2px;
+	width:176px;
+	height:178px;
+	margin-top:-10px;
+	display:none;
+}
+.select_lists li{
+	font-size:12px;
+	color:#333333;
+	line-height:12px;
+	text-align:left;
+	height:30px;
+	line-height:30px;
+	padding-left:20px;
+	cursor:pointer;
+}
+.select_lists li:hover{
+	background:#5badfc;
+	color:#fff;
+}
+.input_selects.up{
+	background:#fff url(../img/seven_report/up.png) no-repeat center right 20px
+}
