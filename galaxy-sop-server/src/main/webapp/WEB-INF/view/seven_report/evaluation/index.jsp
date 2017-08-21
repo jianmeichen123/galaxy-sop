@@ -89,28 +89,27 @@ var pageId = "project";
 		</div>
 		
 <!-- 股权结构展示弹窗 -->	
-<div class="reasonable_stock">
-	<div class="Button popupButton ch_reason_stock">
-			<i class="wrong close_tab"></i>
+	<div class="reasonable_stock">
+		<div class="Button popupButton ch_reason_stock">
+				<i class="wrong close_tab"></i>
+		</div>
+		<div class="reasonable_box">
+			<table border="1">
+				<thead>
+					<th>持股人</th>
+					<th>持股比例</th>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div class="reasonable_box">
-		<table border="1">
-			<thead>
-				<th>持股人</th>
-				<th>持股比例</th>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-	</div>
-	
-</div>
 		
-	</div>
+</div>
 	<!-- 遮罩层 -->
 	<div class="mashLayer"></div>
-	
-	
+	<!-- 查看原图图片 -->
+	<img class="o_picture" src="" />
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
     <div class="new_right" id="new_right"></div>
