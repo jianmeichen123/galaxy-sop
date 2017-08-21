@@ -432,6 +432,10 @@ $('div').delegate(".h_save_btn","click",function(event){
                                     $(this).show();
                                 }
                             })
+                            //隐藏编辑按钮【运营报告分期编辑按钮】
+                            if($("table[data-title-id=3022] tr").length == 1){
+                            	$("span[attr-id=ONO9_2]").hide();
+                            }
 						} else {
 							layer.msg("操作失败!");
 						}

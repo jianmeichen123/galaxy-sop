@@ -98,6 +98,7 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'ONO9?reportType=7', null,
 		}
 
 })
+//隐藏编辑按钮
 if($("table[data-title-id=3022] tr").length == 1){
 	$("span[attr-id=ONO9_2]").hide();
 }

@@ -229,6 +229,7 @@ function tabOperateChange(index){
 		 * @param ele
 		 */
 		function delActualRow(ele){
+			  
 		      div=$(ele).closest('div[data-flag]');
 		      var id = div.find("[name='id']").text();
 		      if(typeof id != 'undefined' && id>0)
@@ -236,6 +237,10 @@ function tabOperateChange(index){
 					deletedRowIds.push(id);
 			  }
 		      div.remove();
+		      
+		      if($(".team_div").length==0){
+		    	  $("#field3").removeAttr("readonly");
+		      }
 		}
 
 		/**
