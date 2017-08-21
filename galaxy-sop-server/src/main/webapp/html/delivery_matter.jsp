@@ -13,7 +13,7 @@
 <div class="addmentc">
 	<div class="title_bj" id="delivery_popup_name"></div>
 	
-    <div class="form clearfix" id="container">
+    <div class="form" id="container">
     
         <div class="conference_all">
         	<form action="" id="detail-form">
@@ -48,7 +48,7 @@
             
             	<dl class="fmdl fl_l">
                 	 <dt>详细内容：</dt>
-                 	<dd name="field2"></dd>
+                 	<dd name="field2" class="textarea"></dd>
            		</dl>
             </div>
             
