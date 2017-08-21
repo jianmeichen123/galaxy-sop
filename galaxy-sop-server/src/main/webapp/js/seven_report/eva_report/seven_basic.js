@@ -115,7 +115,7 @@
 		var id_code=$(obj).attr("attr-id")
 		var p_box=$(obj).siblings(".align_left").find("p")
 		var  val=p_box.text();
-		var titleVal=p_box.data("titleValue");
+		var titleVal=p_box.attr("data-title-value");
 		var radioShow=$(obj).closest("td").find(".radioShow")
 		$.each(p_box,function(){
 			var type=$(this).attr("data-type");
@@ -174,7 +174,7 @@
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).parent("p").data("relateId");
-						var titleValue=$(this).parent("p").data("titleValue");
+						var titleValue=$(this).parent("p").attr("data-title-value");
 						var val=$(this).text();
 						var d_type=$(this).parent("p").attr("data-type");
 						data_list.relateId=relateId;
@@ -212,8 +212,7 @@
 								if(n.titleValue){
 									$(".h_edit_txt dt[data-id='"+n.relateId+"']").siblings("dd").find("input[value='"+n.titleValue+"']").attr("checked","checked");
 								}
-							}
-							
+							}							
 						}else if(d_type==10){
 							var td_l = n.val;
 							if(td_l!="未填写"){														
@@ -461,11 +460,11 @@ function right(obj,type){
 		if(typeof val_id == 'undefined')
 		{
 			p.text('未选择');
-			p.data("titleValue",'');
+			p.attr("data-title-value",'');
 		}
 		else
 		{
-			p.data("titleValue",val_id);
+			p.attr("data-title-value",val_id);
 			p.text(val);
 		}
 	}else if(type=="checkbox"){
@@ -473,7 +472,7 @@ function right(obj,type){
 		var p = align_left.find('p');
 		if(val_checkbox.length==0){
 			p.text('未选择');
-			p.data("titleValue",'');
+			p.attr("data-title-value",'');
 		}
 		else
 		{
@@ -490,8 +489,8 @@ function right(obj,type){
 				}	
 				content.push(val_text);
 			});
-			p.html(content.join('、'));		
-			p.data("titleValue",values.join(','));
+			p.html(content.join('、'));
+			p.attr("data-title-value",values.join(','));
 		}
 			
 	}else if(type=="textarea"){
@@ -523,11 +522,11 @@ function right(obj,type){
 		if(selectVal == '请选择')
 		{
 			p.text('未选择');
-			p.data("titleValue",'');
+			p.attr("data-title-value",'');
 		}
 		else
 		{
-			p.data("titleValue",selectId);
+			p.attr("data-title-value",selectId);
 			p.text(selectVal);
 		}
 	}
@@ -759,7 +758,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 							_this.find("span").html(d_this.value);
 							_this.attr("data-remark",'');
 						}
-						_this.data("titleValue",d_this.value_id);
+						_this.attr("data-title-value",d_this.value_id);
 					}
 				}else if(_type==7){
 					_this.find("span").html("");
@@ -812,7 +811,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						titleIdList.push(titleId);
 					})
 					_this.find("span").html(valList.join("、"));
-					_this.data("titleValue",titleIdList.join(","));
+					_this.attr("data-title-value",titleIdList.join(","));
 				}else if(_type==20){
 					_this.closest("td").find("p[data-relate-id='"+d_this.id+"']").find("span").html(d_this.value);
 				}
