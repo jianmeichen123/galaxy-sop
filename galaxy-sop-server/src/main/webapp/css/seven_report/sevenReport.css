@@ -126,7 +126,7 @@ table td.td_15{padding:0;}
 table td input{
 	width:64px;
 	height:24px;
-	color:#333;
+	color:#0aa7ff;
 	outline:none;
 	border:1px solid #53b1fd;
 	text-align:center;
@@ -306,7 +306,7 @@ table.table_15 td:first-child+td+td+td{
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:30px;
+	right:10px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-80px -19px;
 	cursor:pointer;
@@ -710,11 +710,12 @@ table td select option{
 	margin-top: 1	0px;
 }
 .master_pic{
-	float: right;
-	margin-right: 10px;
+    position: absolute;
 	font-size: 12px;
 	color: #53b1fd;
 	cursor: pointer;
+	right: 10px;
+    bottom: 10px;
 }
 .radioShow{
 	display:none;
@@ -858,15 +859,16 @@ select::-ms-expand { display: none; }
 .icheckbox_flat-blue,
 .iradio_flat-blue {
     display: inline-block;
-    *display: inline;
     vertical-align: middle;
     margin: 0;
     padding: 0;
     width: 14px !important;
     height: 14px !important;
     background: url(../../img/seven_report/myBlue.png) no-repeat !important;
+    vertical-align: top;
     border: none;
     cursor: pointer;
+    margin-top: 9px;
 }
 .iradio_flat-blue.checked{
 	background-position:-58px -5px !important;

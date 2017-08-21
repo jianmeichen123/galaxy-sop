@@ -494,7 +494,7 @@ function getValues()
 		var type = _this.data('type');
 		var titleId = _this.data('titleId');
 		var subId = _this.data('subId');
-		var value = _this.data('titleValue');
+		var value = _this.attr('data-title-value');
 		var resultId = _this.data('resultId');
 		var remark = _this.data('remark');
 		var text = _this.text();

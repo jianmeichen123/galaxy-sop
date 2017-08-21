@@ -12,8 +12,8 @@
 <title>项目详情</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/seven_report/skins/all.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/seven_report/sevenReport.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
 </script>
