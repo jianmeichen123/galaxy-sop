@@ -40,13 +40,13 @@ position:absolute;
         	<span class="report_select">
         		<input type="text" value="切换报告" class="input_selects" readonly="readonly">
         		<ul class="select_lists">
-        			<li class="none">全息报告</li>
-        			<li>评测报告</li>
-        			<li>尽调报告</li>
-        			<li>决策报告</li>
-        			<li>初评报告</li>
-        			<li>融资报告</li>
-        			<li>运营报告</li>
+        			<li class="none" onclick="seven_link(1);">全息报告</li>
+        			<li onclick="seven_link(2);">评测报告</li>
+        			<li onclick="seven_link(3);">尽调报告</li>
+        			<li onclick="seven_link(4);">决策报告</li>
+        			<li onclick="seven_link(5);">初评报告</li>
+        			<li onclick="seven_link(6);">融资报告</li>
+        			<li onclick="seven_link(7);">运营报告</li>
         		</ul>
         	</span>
         	
@@ -113,19 +113,29 @@ $(function(){
 				_this.addClass('input_selects')
 			} 
 		}); 
-		$(".dropdown ul li").click(function(){ 
-			var target = $(this).prev('input');
-			target.removeClass('up')
-			var txt = _a.text(); 
-			var _id=_a.attr("id");
-			var _code=_a.data("code");
-			target.attr("value",txt); 
-			target.attr("id",_id);
-			target.attr("data-code",_code);
-			$(".dropdown ul").hide(); 
-	}); 
 	}
 });
+function seven_link(data){
+	var _href=window.location.href;
+	setCookie("back_url",_href,24,'/');
+	if(data==1){
+		window.location.href=platformUrl.toBaseInfo;
+	}else if(data==2){
+		window.location.href=platformUrl.toEvalindex;
+	}else if(data==3){
+		window.location.href=platformUrl.investigate;
+	}else if(data==4){
+		window.location.href=platformUrl.toDecision;
+	}else if(data==5){
+		window.location.href=platformUrl.toPreEva;
+	}else if(data==6){
+		window.location.href=platformUrl.toFinancing;
+	}else if(data==7){
+		window.location.href=platformUrl.toOperation;
+	}
+	
+} 
+
 /**
  * 面包屑
  * @version 2016-06-21
