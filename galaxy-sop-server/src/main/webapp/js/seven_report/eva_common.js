@@ -854,13 +854,13 @@ $('div').delegate(".income_pic","click",function(){
 	var  topNum = _target.offset().top-188;
 	$('.customer_income').css('left',leftNum).css('top',topNum);
 	$(".img_inner").attr("src",$(this).data("url"));
-	$(".master_pic").attr("href",$(this).data("url"))
+	$(".master_pic").attr("href","javascript:;")
 })
 //图片点击原图效果
 $('div').delegate(".master_pic","click",function(){
 	$(".mashLayer").show().css('opacity',0.5);
 	var  _src = $(this).prev().attr("src");
-	$(".o_picture").attr("src",_src).show().css('top',document.body.scrollTop+20);
+	$(".o_picture").attr("src",_src).show().css('top',document.body.scrollTop+35);
 	$(".x_picture").show();
 	$(".x_picture").click( function(){
 		$(".x_picture,.mashLayer,.o_picture").hide();
