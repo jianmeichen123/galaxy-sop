@@ -37,6 +37,19 @@ position:absolute;
     	
     	<div class="new_tit_b">
         	<span class="size18 report_type"></span>
+        	<span class="report_select">
+        		<input type="text" value="切换报告" class="input_selects" readonly="readonly">
+        		<ul class="select_lists">
+        			<li class="none">全息报告</li>
+        			<li>评测报告</li>
+        			<li>尽调报告</li>
+        			<li>决策报告</li>
+        			<li>初评报告</li>
+        			<li>融资报告</li>
+        			<li>运营报告</li>
+        		</ul>
+        	</span>
+        	
         	<!-- <span class="b_span"> 
 	        	<a href="#" onclick="back();">返回></a>
 			</span>  -->
@@ -84,6 +97,34 @@ $(function(){
 	}
 	$("#project_name_title").text(projectInfo.projectName);
 	$(".report_type").text(report_type);
+	
+	divSelect();
+	function divSelect(){
+		$(".input_selects").unbind("click");
+		$(".input_selects").click(function(){ 
+			var _this = $(this);
+			var ul = _this.next("ul"); 		
+			if(ul.css("display")=="none"){
+				_this.addClass('up');
+				ul.slideDown("fast"); 
+			}else{ 
+				ul.slideUp("fast");
+				_this.removeClass('up');
+				_this.addClass('input_selects')
+			} 
+		}); 
+		$(".dropdown ul li").click(function(){ 
+			var target = $(this).prev('input');
+			target.removeClass('up')
+			var txt = _a.text(); 
+			var _id=_a.attr("id");
+			var _code=_a.data("code");
+			target.attr("value",txt); 
+			target.attr("id",_id);
+			target.attr("data-code",_code);
+			$(".dropdown ul").hide(); 
+	}); 
+	}
 });
 /**
  * 面包屑
