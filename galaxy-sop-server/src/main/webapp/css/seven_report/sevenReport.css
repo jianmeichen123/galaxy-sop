@@ -957,4 +957,14 @@ select::-ms-expand { display: none; }
 	z-index:21;
 	width:50%;
 }
-
+.x_picture{
+	display:none;
+    color: #aaa;
+	position:fixed;
+	right:20px;
+	top:60px;
+	width:40px;
+	font-size:40px;
+	z-index:21;
+	cursor:pointer;
+}

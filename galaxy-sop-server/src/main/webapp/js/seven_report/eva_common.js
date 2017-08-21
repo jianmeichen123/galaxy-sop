@@ -860,9 +860,14 @@ $('div').delegate(".income_pic","click",function(){
 $('div').delegate(".master_pic","click",function(){
 	$(".mashLayer").show().css('opacity',0.5);
 	var  _src = $(this).prev().attr("src");
-	$(".o_picture").attr("src",_src).show().css('top',document.body.scrollTop);
-	
+	$(".o_picture").attr("src",_src).show().css('top',document.body.scrollTop+20);
+	$(".x_picture").show();
+	$(".x_picture").click( function(){
+		$(".x_picture,.mashLayer,.o_picture").hide();
+		$(".o_picture").attr("src","")
+	})
 })
+
 //表格预览 
 function income_table(){
 	$('.income_table').unbind().click(function(){

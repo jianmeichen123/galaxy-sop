@@ -109,6 +109,7 @@ var pageId = "project";
 	<!-- 遮罩层 -->
 	<div class="mashLayer"></div>
 	<!-- 查看原图图片 -->
+	<p class="x_picture">X</p>
 	<img class="o_picture" src="" />
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
