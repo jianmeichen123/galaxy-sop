@@ -930,6 +930,7 @@ function font_color(data){
 			code_select.val("请选择");
 		}else{
 			_this.addClass("black");
+			_span.addClass("black");
 			code_dom.removeClass("disabled").attr("disabled",false);
 		}
 		if(_this.hasClass("income_structor_content")){
