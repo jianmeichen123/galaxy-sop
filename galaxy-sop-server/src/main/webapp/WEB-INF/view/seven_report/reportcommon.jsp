@@ -40,7 +40,7 @@ position:absolute;
         	<span class="report_select">
         		<input type="text" value="切换报告" class="input_selects" readonly="readonly">
         		<ul class="select_lists">
-        			<li class="none" onclick="seven_link(1);">全息报告</li>
+        			<li onclick="seven_link(1);">全息报告</li>
         			<li onclick="seven_link(2);">评测报告</li>
         			<li onclick="seven_link(3);">尽调报告</li>
         			<li onclick="seven_link(4);">决策报告</li>
@@ -114,6 +114,14 @@ $(function(){
 			} 
 		}); 
 	}
+	//切换报告相关按钮隐藏
+	var reportName=$(".new_tit_b .report_type").text();
+	$.each($(".select_lists li"),function(){
+		var txt=$(this).text();
+		if(txt==reportName){
+			$(this).addClass("none");
+		}
+	})
 });
 function seven_link(data){
 	var _href=window.location.href;
