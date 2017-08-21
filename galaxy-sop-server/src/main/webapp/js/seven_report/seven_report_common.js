@@ -708,7 +708,7 @@ function buildTable(sec,title)
 					if((header.titleId == '1810'||header.titleId == '1811')&& key == 'field2'){
 						continue;
 					}
-					if(header.code=='finance-history'&&(key == 'field9'||key == 'field10')){
+					if(header.code=='finance-history'&&(key == 'field8'||key == 'field9'||key == 'field10')){
 						continue;
 					}
 					if(key!="opt"){
