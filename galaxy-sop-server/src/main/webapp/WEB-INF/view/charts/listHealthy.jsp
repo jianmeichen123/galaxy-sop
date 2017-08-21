@@ -43,7 +43,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin prj_all" >
-    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>项目健康度</div>
+    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>项目健康度</div>
     		
     	<div class="new_tit_b">
         	<span class="size18" id="project_name_t"><%=title %></span>

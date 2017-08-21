@@ -37,7 +37,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	    <div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#">>创投项目</a><a href="#">>${projectName }</a><a href="#">>运营分析</a><a href="#">>运营数据记录</a>>查看运营数据
+    	    <div class="new_tit_a"><a href="<%=path %>/galaxy/index">工作桌面</a><a href="#"><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>创投项目</a><a href="#">>${projectName }</a><a href="#"><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>运营分析</a><a href="#"><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>运营数据记录</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>查看运营数据
     	    	<span class="b_span" style="float:right;"> 
             <%-- <c:if test="${fx:hasRole(4)}"><a href="<%=path %>/galaxy/operationalData/editOperationalDataList/${operationalData.id}" class="blue edit_operation">编辑</a></c:if>
              --%>
