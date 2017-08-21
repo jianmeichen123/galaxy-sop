@@ -771,7 +771,7 @@ table td select option{
 	display:inline-block;
 	margin-left:10px;
 }
-.radioShow_1 input{width: 80%;margin: 0 auto;display: block;margin-top:20px;}
+.radioShow_1 input{color:#000; width: 80%;margin: 0 auto;display: block;margin-top:20px;text-align: left;padding:0 5px;;}
 /*div模拟select下拉框样式*/
 ul,li{list-style:none;padding:0;margin:0;} 
 .dropdown{
@@ -864,7 +864,7 @@ select::-ms-expand { display: none; }
     padding: 0;
     width: 14px !important;
     height: 14px !important;
-    background: url(../../img/seven_report/myBlue.png) no-repeat !important;
+    : url(../../img/seven_report/myBlue.png) no-repeat !important;
     vertical-align: top;
     border: none;
     cursor: pointer;
@@ -961,12 +961,16 @@ select::-ms-expand { display: none; }
 }
 .x_picture{
 	display:none;
+	width:32px;
+	height:32px;
     color: #aaa;
 	position:fixed;
 	right:20px;
-	top:60px;
+	top:70px;
 	width:40px;
 	font-size:40px;
 	z-index:21;
 	cursor:pointer;
+	background: url(../../img/sop_progress/X_close.png) no-repeat ;
+	X_close
 }
