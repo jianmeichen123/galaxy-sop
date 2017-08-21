@@ -15,6 +15,7 @@ import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
+import com.galaxyinternet.model.hologram.CalculateMoney;
 import com.galaxyinternet.model.hologram.FixedTableModel;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationFile;
@@ -69,6 +70,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	{
 		String projectId = data.getProjectId();
 		List<InformationModel> list = data.getInfoModeList();
+		CalculateMoney calculateMoney=new CalculateMoney();
 		if(projectId == null || ((list ==null||list.size()==0) && (data.getDeletedResultTids()==null||data.getDeletedResultTids().size()==0)) )
 		{
 			return;
@@ -118,7 +120,14 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					entity.setContentDescribe2(model.getRemark2());
 				}
 			}
-			
+			//判断是否为决策报告里面，处理投资金额字段
+			if(null!=model.getReportType()&&model.getReportType()==3){
+				if(model.getTitleId()=="3012"){
+					calculateMoney.setValuation(model.getRemark1());
+				}else if(model.getTitleId()=="3010"){
+					calculateMoney.setProportion(model.getRemark1());
+				}
+			}
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
@@ -134,7 +143,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				uodateList.add(entity); // 修改
 			}
 		}
-		
 		if(titleIds.size() > 0){
 			InformationResult query = new InformationResult();
 			query.setProjectId(projectId);
@@ -161,6 +169,32 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		if(entityList.size() > 0)
 		{
 			resultDao.insertInBatch(entityList);
+		}
+		//决策报告编辑估值安排时候计算项目投资额
+		if(null!=calculateMoney){
+			InformationResult result =new InformationResult();
+			result.setProjectId(projectId);
+			result.setTitleId("3004");
+			User user = WebUtils.getUserFromSession();
+			Long userId = user != null ? user.getId() : null;
+			Long now = new Date().getTime();
+			if(null!=calculateMoney.getInvestment()&&!"".equals(calculateMoney.getInvestment())
+					&&null!=calculateMoney.getProportion()&&"".equals(calculateMoney.getProportion())){
+				List<InformationResult> selectList = resultDao.selectList(result);
+				 Long investment=Long.parseLong(calculateMoney.getValuation())*Long.parseLong(calculateMoney.getProportion());
+	        	result.setContentDescribe1(investment.toString());
+		        if(null!=selectList&&selectList.size()>0){
+		        	result=selectList.get(0);
+		        	result.setUpdatedTime(now);
+		        	result.setUpdateId(userId.toString());
+		        	resultDao.updateById(entity);
+		        }else{
+		        	result.setCreatedTime(now);
+		        	result.setCreateId(userId.toString());
+		        	resultDao.insert(result);
+		        }
+			}
+			
 		}
 		
 	}
