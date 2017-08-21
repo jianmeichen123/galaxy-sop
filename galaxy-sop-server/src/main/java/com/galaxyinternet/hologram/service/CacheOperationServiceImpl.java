@@ -299,6 +299,8 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	*/
 	public static Map<String,Integer> code_titleNum = new HashMap<>();
 	public static Map<String,Map<String,Set<Long>>> code_titletype_titleIds = new HashMap<>();
+	// NO9_1 ： 历史上的融资及估值
+	public static Set<Long> NO9_1$tids$qx = new TreeSet<>();
 
 	public static final String result_titletype = ",1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,";
 	public static final String pre_reports_codes[] = new String[]{"NO","DN","PN","GN","ON","EN","CN"};
@@ -503,7 +505,16 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 
 		if(title.getType() != null && (title.getSign()!=null && title.getSign().intValue() == 2)){
 			count += 1;
-			Long titleId = (title.getTitleId() == null ? title.getId() : title.getTitleId());
+
+			Long titleId = null;
+			if(title.getTitleId() == null){ //全息报告
+				titleId = title.getId();
+				if(title.getCode().startsWith("NO9_1")){
+					NO9_1$tids$qx.add(titleId);
+				}
+			}else{
+				titleId = title.getTitleId();
+			}
 
 			switch(title.getType())
 			{
@@ -520,11 +531,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 					project_ids.add(titleId);
 					break;
 				default:
-					if(title.getRelateCode()==null){ //全息报告
-						result_ids.add(titleId);
-					}else{
-						result_ids.add(title.getId());
-					}
+					result_ids.add(title.getId());
 					//if(null != title.getType() && result_titletype.contains(","+ title.getType() +",")){
 
 					//}
@@ -582,8 +589,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 							break;
 					}
 				}
-
-
 			}
 		}
 

@@ -17,6 +17,5 @@ public interface InformationProgressService extends BaseService<InformationProgr
     //Double getReportProgressByReportCode(String code,final Long proId);
     Double getProgressByReportCode(String code,final Long proId);
 
-
     void updateUsersAllReportProgressOfPro(Long uid, final Long proId);
 }

@@ -391,7 +391,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.getCurrencyUnit();
 		project.getProjectShareRatio();
 
-		User user = (User) getUserFromSession(request);
+		final User user = (User) getUserFromSession(request);
 		if (project.getProjectValuations() == null) {
 			if (project.getProjectShareRatio() != null
 					&& project.getProjectShareRatio() > 0
@@ -432,6 +432,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, null, "修改项目基本信息成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
 					projectName, project.getId(),"2");
+			final Long pid = project.getId();
+			informationProgressService.threadForUpdate(user.getId(),pid);
 		}
 		return responseBody;
 	}

@@ -4,11 +4,13 @@ import com.aliyun.oss.ServiceException;
 import com.galaxyinternet.dao.hologram.InformationProgressDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
+import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.hologram.util.ProgressRecursiveTask;
 import com.galaxyinternet.model.hologram.InformationProgress;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.project.controller.ProjectProgressController;
 import com.galaxyinternet.service.hologram.InformationProgressService;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 
@@ -39,6 +42,9 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 
 	@Autowired
 	private InformationTitleDao informationTitleDao;
+
+	@Autowired
+	private ProjectDao projectDao;
 
 
 	@Override
@@ -136,6 +142,42 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			Set<Long> file_ids = titletype_titleIds.get("file");
 			Set<Long> resultGrage_ids = titletype_titleIds.get("resultGrage");
 
+			boolean isToEval = false;
+			if(code.equals("NO")){
+				Project pro = projectDao.selectById(proId);
+				if(pro.getFinanceStatus().equals( com.galaxyinternet.common.enums.DictEnum.financeStatus.种子轮.getCode())){
+					isToEval = true;
+
+					//Set<Long> project_ids_no = new TreeSet<>();
+					Set<Long> result_ids_no = new TreeSet<>();
+					Set<Long> listdata_ids_no = new TreeSet<>();
+					Set<Long> fixedtable_ids_no = new TreeSet<>();
+					Set<Long> file_ids_no = new TreeSet<>();
+					//Set<Long> resultGrage_ids_no = new TreeSet<>();
+					result_ids_no.addAll(result_ids);
+					listdata_ids_no.addAll(listdata_ids);
+					fixedtable_ids_no.addAll(fixedtable_ids);
+					file_ids_no.addAll(file_ids);
+
+					for(Long temp : CacheOperationServiceImpl.NO9_1$tids$qx){
+						if(result_ids.contains(temp)){
+							result_ids_no.remove(temp);
+						}else if(listdata_ids.contains(temp)){
+							listdata_ids_no.remove(temp);
+						}else if(file_ids.contains(temp)){
+							file_ids_no.remove(temp);
+						}else if(fixedtable_ids.contains(temp)){
+							fixedtable_ids_no.remove(temp);
+						}
+					}
+
+					result_ids = result_ids_no;
+					listdata_ids = listdata_ids_no;
+					fixedtable_ids = fixedtable_ids_no;
+					file_ids = file_ids_no;
+				}
+			}
+
 			int project_completed = projectCompletedNum(project_ids, proId);
 			int result_completed = resultCompletedNum(result_ids, proId,code);
 			int listdata_completed = listdataCompletedNum(listdata_ids, proId);
@@ -146,12 +188,15 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			MathContext mc = new MathContext(5);
 			BigDecimal b1 = new BigDecimal((project_completed + result_completed + listdata_completed + fixedtable_completed + file_completed + resultGrage_completed) + "");
 			BigDecimal b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code)));
+			if(isToEval == true){
+				b2 = new BigDecimal(Integer.toString(CacheOperationServiceImpl.code_titleNum.get(code) - CacheOperationServiceImpl.NO9_1$tids$qx.size()));
+			}
 			result = b1.divide(b2,mc).doubleValue();
 
 			logger.debug(String.format("计算进度 code：%s   \n  totleNum : %d , result : %f  \n"+
 					"project_completed : %d , result_completed : %d ,  listdata_completed : %d ,  "+
 					"fixedtable_completed : %d ,  file_completed : %d ,  resultGrage_completed : %d" ,
-					code,CacheOperationServiceImpl.code_titleNum.get(code),result,
+					code,b2.intValue(),result,
 					project_completed , result_completed , listdata_completed ,
 					fixedtable_completed , file_completed , resultGrage_completed)
 			);
@@ -160,7 +205,6 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 		}
 		return result;
 	}
-
 
 
 	public Integer projectCompletedNum(Set<Long> ids,Long projectId){
