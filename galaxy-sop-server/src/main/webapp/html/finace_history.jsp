@@ -36,7 +36,7 @@
             <dl class="fmdl clearfix">
              <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_82="true" data-msg-vverify_82="<font color=red>*</font>不能超过99999999整数和两位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_82="true" data-msg-verify_82="<font color=red>*</font>不能超过99999999整数和两位小数"/>&nbsp;<span>万元</span>
                 </dd>
                  
             </dl>

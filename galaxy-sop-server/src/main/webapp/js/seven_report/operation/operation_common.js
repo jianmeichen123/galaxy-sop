@@ -133,6 +133,10 @@ function tabOperateChange(index){
 		                   check_table_tr_edit();
 		               });
 		        	   $("#save_appr_part").click(function(){
+		        		   if(!$("#detail-form").validate().form())
+		        			{
+		        				return;
+		        			}
 		        		   var data = getData($("#detail-form"));
 		        		   var dataList = getDataList($("#appr_part"));
 		        		   var index = data['index'];

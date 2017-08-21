@@ -39,7 +39,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" name="field3" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt " id="grantMoney" name="field3" type="text" value="" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
@@ -58,9 +58,19 @@
     </div>
 </div>
 <script>
+$(function(){
+	 $("#actual-form").validate({});
+	$.validator.setDefaults({
+		errorElement:'span'
+	});
+})
    var div;
    $("#save_appr_actual").click(
 		   function (){
+			   if(!$("#actual-form").validate().form())
+				{
+					return;
+				}
 			   var json =getToobarQueryParams("actual-form");
 			   $.get("/sop/html/operation_appr_actual_table.html", json,function(data){
 				   var index = json['index'];
