@@ -483,7 +483,7 @@ textarea::input-placeholder{
  /*杩愯惀娴嬭瘎寮圭獥*/
  .ch_opration{
   	width: 61.5%;
-  	z-index: 999;
+  	z-index: 30;
    	background:rgb(250, 250, 250);
    	position: absolute;
    	display: none;
