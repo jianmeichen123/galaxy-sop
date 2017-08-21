@@ -957,7 +957,6 @@ select::-ms-expand { display: none; }
 	-moz-transform:translateX(-50%);
 	display:none;
 	z-index:21;
-	width:50%;
 }
 .x_picture{
 	display:none;
@@ -972,5 +971,4 @@ select::-ms-expand { display: none; }
 	z-index:21;
 	cursor:pointer;
 	background: url(../../img/sop_progress/X_close.png) no-repeat ;
-	X_close
 }
