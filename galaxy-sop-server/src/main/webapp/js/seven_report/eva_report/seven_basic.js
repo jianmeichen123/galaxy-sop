@@ -241,8 +241,7 @@
 									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").removeAttr("disabled");
 									$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li").last().find("input").val(n.val);
 								}
-							}					
-								
+							}
 						}else if(d_type==14){
 							if(n.val!="未选择"){
 								$(".h_edit_txt select[data-title-id='"+n.relateId+"']").val(n.titleValue);
@@ -277,7 +276,7 @@
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).attr("data-relate-id");
-						var str=$(this).data("remark");
+						var str=$(this).html();
 						if(str !=undefined && str.indexOf("<sitg>")>-1){
 							var str=str.split("<sitg>");
 							var inputsValueList=[];
