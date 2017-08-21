@@ -12,7 +12,7 @@ ADD COLUMN `sub_title_id9` BIGINT(20) NULL AFTER `field_9`,
 ADD COLUMN `sub_title_id10` BIGINT(20) NULL AFTER `field_10`;
 
 
-UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='1374', `sub_title_id1`='1370', `sub_title_id1`='1369', `sub_title_id4`='1375' `sub_title_id1`='1371', WHERE `id`='1';
+UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='1374', `sub_title_id1`='1370', `sub_title_id1`='1369', `sub_title_id4`='1375', `sub_title_id1`='1371' WHERE `id`='1';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2014', `sub_title_id2`='2015', `sub_title_id3`='2016', `sub_title_id4`='2017', `sub_title_id5`='2018', `sub_title_id6`='2019', `sub_title_id7`='2020' WHERE `id`='4';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2008', `sub_title_id2`='2009', `sub_title_id3`='2010', `sub_title_id4`='2011', `sub_title_id5`='2012' WHERE `id`='3';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2002', `sub_title_id2`='2003', `sub_title_id3`='2004', `sub_title_id4`='2005', `sub_title_id5`='2006' WHERE `id`='2';
