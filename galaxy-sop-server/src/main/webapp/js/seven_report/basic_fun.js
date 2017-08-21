@@ -585,17 +585,20 @@ function editRow(ele)
 
 function delRow(ele)
 {
-	
-	var tr = $(ele).closest('tr');
-	var data = tr.data('dataList').length;
-	if(data > 0){
-		layer.open({
-			  type: 1,
-			  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
-			  area: ['420px', '240px'], //宽高
-			  content: '有实际注资计划,无法删除分期注资计划'
-			});
-	    return;
+	//判断是否可以删除分期注资计划
+	var code = $(ele).closest('table').data('code');
+	if(code == 'grant-part' || code == 'grant-actual'){
+		var tr = $(ele).closest('tr');
+		var data = tr.data('dataList').length;
+		if(data > 0){
+			layer.open({
+				  type: 1,
+				  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
+				  area: ['420px', '240px'], //宽高
+				  content: '有实际注资计划,无法删除分期注资计划'
+				});
+		    return;
+		}
 	}
 	layer.confirm('是否删除?', {
 		btn : [ '确定', '取消' ],

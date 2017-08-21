@@ -93,6 +93,9 @@ $(function(){
 					   $("#appr_part").append(o);
 				   }
 				   $("#cancle").click();
+				   if($(".team_div").length > 0){
+				    	  $("#field3").attr("readonly","readonly");
+				   }
 			   });
 		   }
    );
