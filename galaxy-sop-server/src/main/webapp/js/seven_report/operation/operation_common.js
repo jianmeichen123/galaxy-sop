@@ -118,6 +118,7 @@ function tabOperateChange(index){
 		          url:getDetailUrl(code),//模版请求地址
 		          data:"",//传递参数
 		          okback:function(){
+		        	  $(".see_block").hide();
 		        	   $("#detail-form input[name='projectId']").val(projectInfo.id);
 		               $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
 		               $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
