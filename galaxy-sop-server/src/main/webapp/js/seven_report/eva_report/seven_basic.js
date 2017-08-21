@@ -405,6 +405,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 	 }else if(e_type==3){
 		 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
 			 adjust(".ch_opration");
+			 $(".ch_opration").css('width',$(".new_left").width())
 			 check_table();
 			 check_table_tr_edit();
 	 }
@@ -872,19 +873,19 @@ function divSelect(){
 
 
 
-		window.onresize = function(){
-			//遮罩层
-			function pageHeight(){
-				return document.body.scrollHeight;
-			}
-			function pageWidth(){
-				return document.body.scrollWidth;
-			}
-			$('.mashLayer').height(pageHeight());
-			$('.mashLayer').width(pageWidth());
-			adjust(".ch_opration");
-			
-		}
+window.onresize = function(){
+	//遮罩层
+	$(".ch_opration").css('width',$(".new_left").width());
+	function pageHeight(){
+		return document.body.scrollHeight;
+	}
+	function pageWidth(){
+		return document.body.scrollWidth;
+	}
+	$('.mashLayer').height(pageHeight());
+	$('.mashLayer').width(pageWidth());	
+	adjust(".ch_opration");
+}
 	//遮罩层
 	function pageHeight(){
 		return document.body.scrollHeight;
