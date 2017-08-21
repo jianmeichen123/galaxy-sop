@@ -833,7 +833,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-	font_color(align_left.find("p span"));
+	
+	if(align_left.hasClass("content_16")){
+		font_color($(".content_16").find("p"));
+	}else{
+		font_color(align_left.find("p"));
+	}
 });
 	
 //div模拟select下拉框

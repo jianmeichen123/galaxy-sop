@@ -913,7 +913,6 @@ function font_color(data){
 		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
 			_this.removeClass("black");
 			code_dom.addClass("disabled").attr("disabled",true);
-			//code_dom.value="";
 			code_dom.val("");
 			_this.closest("td").siblings(".score-column").find("select").val("请选择");
 		}else{
@@ -922,10 +921,38 @@ function font_color(data){
 		}
 		if(_this.hasClass("income_structor_content")){
 			//sign==3
-			if(_this.text()!="未填写"&&_this.text()!="未选择"&&_this.text()!="未添加"){
-				code_dom.removeClass("disabled").attr("disabled",false);	
-			}
 			_this.removeClass("black");
+		}
+		//16类型特殊处理
+		if(_this.parent().hasClass("content_16")){
+			var sitg=_this.find("sitg");
+			$.each(sitg,function(i,n){
+				if($(this).html()!=""){
+					code_dom.removeClass("disabled").attr("disabled",false);
+					return false;
+				}
+			})
+		}
+		if(_this.data("relateId")=="1006"){
+			var sitg=_this.find("sitg");
+			code_dom.addClass("disabled").attr("disabled",true);
+			code_dom.val("");
+			$.each(sitg,function(i,n){
+				var n_this=$(this)
+				var len = sitg.length;
+				console.log(i);
+				console.log(len);
+				debugger;
+				if(i==len-1||i==len-2){
+					console.log(i);
+					console.log($(this).html());
+					if(n_this.text()!=""){
+						code_dom.removeClass("disabled").attr("disabled",false);
+						return false;
+					}
+				}
+				
+			})
 		}
 		
 	})
