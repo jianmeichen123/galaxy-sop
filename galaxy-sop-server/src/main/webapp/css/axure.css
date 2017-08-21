@@ -422,7 +422,7 @@ table .width_gd{width:12%;}
 .fmdl dd textarea,
 .fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:12px; color:#525662; font-family:"宋体"}
 .fmdl dd select{ width:160px;font-size: 12px;}
-.fmdl dd .txt{ width:230px;;font-size: 12px;height:28px !important;}
+.fmdl dd .txt{ width:225px;;font-size: 12px;height:28px !important;}
 .fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:12px; color:#525662; font-family:"宋体"; position:relative}
 .fmdl label input{ position:absolute; left:0; top:9px !important; *top:4px !important;}
 
@@ -3460,7 +3460,7 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 	font-size:12px;
 	font-family:'宋体';
 }
-.report_select{position:relative;}
+.report_select{position:relative;margin-left:10px;}
 .report_select .select_list{
 	position:absolute;
 }
@@ -3468,7 +3468,7 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 	background:#ffffff;
 	border:1px solid #d8d8d8;
 	border-radius:2px;
-	width:176px;
+	width:104px;
 	height:178px;
 	margin-top:-10px;
 	display:none;
