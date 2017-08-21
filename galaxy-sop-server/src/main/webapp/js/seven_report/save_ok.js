@@ -412,9 +412,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 							$('#a_'+id_code).find('dd[data-type="3"]').hide();
 							setDate(pid,true);
 							picData(projectInfo.id);
-							if(id_code=="PNO1_2"){   //投资金额单独刷新
+							if(id_code=="PNO1_1"){   //投资金额单独刷新
 								var val=$("input[type='hidden'].money").val();
-								$("dd[data-title-id=\"3004\"]").text(val);
+								if(!(val.indexOf("万元")>-1)){
+									$("dd[data-title-id=\"3012\"]").text(val+'万元');
+								}
+								
 							}
 							toggle_btn($('.anchor_btn span'),0,save_this);
                             $('table').each(function(){
