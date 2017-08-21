@@ -909,9 +909,10 @@ function s_editRow(ele)
 function font_color(data){
 	$.each(data,function(){
 		var _this=$(this);
+		var _span= _this.find("span");
 		var code_dom =_this.closest("td").siblings(".score-column").find("input,select");
 		var code_select = _this.closest("td").siblings(".score-column").find("select");
-		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
+		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"||_span.text()=="未填写"||_span.text()=="未选择"||_span.text()=="未添加"){
 			_this.removeClass("black");
 			code_dom.addClass("disabled").attr("disabled",true);
 			code_dom.val("");
