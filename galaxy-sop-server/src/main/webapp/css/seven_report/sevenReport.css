@@ -864,7 +864,7 @@ select::-ms-expand { display: none; }
     padding: 0;
     width: 14px !important;
     height: 14px !important;
-    : url(../../img/seven_report/myBlue.png) no-repeat !important;
+    background: url(../../img/seven_report/myBlue.png) no-repeat !important;
     vertical-align: top;
     border: none;
     cursor: pointer;

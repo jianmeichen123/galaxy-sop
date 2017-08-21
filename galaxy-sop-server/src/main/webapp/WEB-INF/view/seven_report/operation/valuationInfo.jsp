@@ -92,12 +92,15 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'ONO9?reportType=7', null,
 			toggle_btn($('.anchor_btn span'),1);
 			fun_click();
 			hideNav();
-
+			$(".h_edit_btn [attr-id=ONO9_2]").hide();
 		} else {
 
 		}
 
 })
+if($("table[data-title-id=3022] tr").length == 1){
+	$("span[attr-id=ONO9_2]").hide();
+}
 </script>
 </body>
 

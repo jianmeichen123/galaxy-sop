@@ -153,6 +153,7 @@ function tabOperateChange(index){
 		        		   check_table();
 		       			   check_table_tr_edit();
 		        		  $("#part_cancle").click();
+		        		  
 		              }); 
 		          }
 			  });
@@ -307,6 +308,5 @@ function tabOperateChange(index){
 		     })
 	     return dataList;
 		}
-		
-		
+	
 		
