@@ -937,12 +937,10 @@ function font_color(data){
 			var sitg=_this.find("sitg");
 			code_dom.addClass("disabled").attr("disabled",true);
 			code_dom.val("");
+			_this.closest("td").siblings(".score-column").find("select").val("请选择");
 			$.each(sitg,function(i,n){
 				var n_this=$(this)
 				var len = sitg.length;
-				console.log(i);
-				console.log(len);
-				debugger;
 				if(i==len-1||i==len-2){
 					console.log(i);
 					console.log($(this).html());
