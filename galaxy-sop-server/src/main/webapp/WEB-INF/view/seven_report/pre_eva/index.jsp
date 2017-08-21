@@ -151,6 +151,7 @@ var reportType = 6;
 var projId="${projectId}";
 </script>
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
+<script src="<%=path%>/js/seven_report/eva_report/eva_table.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/validate.js"></script>
 <script src="<%=path%>/js/seven_report/eva_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>

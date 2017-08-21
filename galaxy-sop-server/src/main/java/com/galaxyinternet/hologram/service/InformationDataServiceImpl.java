@@ -311,7 +311,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 	}
 	/**
-	 * 评测报告、初评报告分数保持一致
+	 * 评测报告与初评报告分数保持一致
 	 * @param data
 	 */
 	public void copyScore(List<InformationScore> scoreList)
@@ -320,10 +320,14 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		for(InformationScore item : scoreList)
 		{
 			Long fromId = item.getRelateId();
-			Long targetId = fromId+8000L;
+			Long targetId = fromId;
 			if(fromId.intValue() > 8000)
 			{
 				targetId = fromId-8000L;
+			}
+			else
+			{
+				return;
 			}
 			item.setRelateId(targetId);
 			relateIds.add(targetId);
