@@ -31,7 +31,7 @@ position:absolute;
 </head>
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
-	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">工作桌面</a>>
+	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>
 	<c:choose>
 		 <c:when test="${empty sessionScope._curr_menu_ }"> 
 			<a href="#" onclick="projectList()">创投项目</a>
@@ -40,7 +40,7 @@ position:absolute;
 			<a href="#">${sessionScope._curr_menu_ }</a>
 		</c:otherwise> 
 	</c:choose>
-	><span id="project_name_title"></span></div>
+	<img alt="" src="<%=path %>/img/arrow-brumd.png"  class="arrow"/><span id="project_name_title"></span></div>
     	
     	<div class="new_tit_b">
         	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>

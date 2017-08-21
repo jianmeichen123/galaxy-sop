@@ -31,7 +31,7 @@
 	
      <!--右中部内容-->
  	<div class="ritmin message">
-    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>消息提醒</div>
+    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>消息提醒</div>
     	<div class="new_tit_b">
 	        <span class="new_color size18">消息提醒</span>
 	      </div>
