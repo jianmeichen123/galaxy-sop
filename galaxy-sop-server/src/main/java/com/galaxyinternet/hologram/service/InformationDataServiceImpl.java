@@ -88,6 +88,14 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		
 		for(InformationModel model : list)
 		{
+			//判断是否为决策报告里面，处理投资金额字段
+			if(null!=model.getReportType()&&model.getReportType()==3){
+				if(model.getTitleId().equals("3012")){
+					calculateMoney.setValuation(model.getRemark1());
+				}else if(model.getTitleId().equals("3010")){
+					calculateMoney.setProportion(model.getRemark1());
+				}
+			}
 			if(!"true".equals(model.getTochange()) || model.getTitleId()==null) continue;
 			
 			if(model.getType()!=null &&(model.getType().equals("3") || model.getType().equals("6") ||model.getType().equals("13")) ){
@@ -118,14 +126,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					entity.setContentDescribe2(RegexUtil.getTextFromHtml(model.getRemark2()));
 				}else{
 					entity.setContentDescribe2(model.getRemark2());
-				}
-			}
-			//判断是否为决策报告里面，处理投资金额字段
-			if(null!=model.getReportType()&&model.getReportType()==3){
-				if(model.getTitleId()=="3012"){
-					calculateMoney.setValuation(model.getRemark1());
-				}else if(model.getTitleId()=="3010"){
-					calculateMoney.setProportion(model.getRemark1());
 				}
 			}
 			User user = WebUtils.getUserFromSession();
@@ -175,23 +175,25 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			InformationResult result =new InformationResult();
 			result.setProjectId(projectId);
 			result.setTitleId("3004");
+			result.setIsValid("0");
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			if(null!=calculateMoney.getInvestment()&&!"".equals(calculateMoney.getInvestment())
-					&&null!=calculateMoney.getProportion()&&"".equals(calculateMoney.getProportion())){
+			if(null!=calculateMoney.getValuation()&&!"".equals(calculateMoney.getValuation())
+					&&null!=calculateMoney.getProportion()&&!"".equals(calculateMoney.getProportion())){
 				List<InformationResult> selectList = resultDao.selectList(result);
-				 Long investment=Long.parseLong(calculateMoney.getValuation())*Long.parseLong(calculateMoney.getProportion());
+				 Double investment=Double.parseDouble(calculateMoney.getValuation())*Double.parseDouble(calculateMoney.getProportion());
 	        	result.setContentDescribe1(investment.toString());
 		        if(null!=selectList&&selectList.size()>0){
 		        	result=selectList.get(0);
+		        	result.setContentDescribe1(investment.toString());
 		        	result.setUpdatedTime(now);
 		        	result.setUpdateId(userId.toString());
-		        	resultDao.updateById(entity);
+		        	resultDao.updateById(result);
 		        }else{
 		        	result.setCreatedTime(now);
 		        	result.setCreateId(userId.toString());
-		        	resultDao.insert(result);
+		            resultDao.insert(result);
 		        }
 			}
 			
