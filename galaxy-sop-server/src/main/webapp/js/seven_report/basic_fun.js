@@ -222,63 +222,110 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				section.find(".h_title span").remove();
 				section.find(".h_title").append(str);
 				//计算项目估值
-				$.each($("input[data-type='19'][data-content='%']"),function(){
-					var valRuleFormula=$(this).attr("data-valruleformula");
-					if(valRuleFormula){
-						var valRule=valRuleFormula.split("=");
-						var valRule1="";
-						if(null!=valRule[1]){
-							valRule1=valRule[1].split("/");
-						}
-					
-						var result=valRule[0];
-						var parent=valRule1[0];
-						var children=valRule1[1];
-						if(reportType=="3"){
-							var input='<input type="text" class="hidden" data-code="PNO1_1_2" resultid="60740" data-title-id="'+result+'" data-type="19"/>';  //添加隐藏域
-							$("input[data-valruleformula='"+valRuleFormula+"']").after(input);
-						}
-					}
-					function calculationValuations(){
-						var projectParent = $("input[data-title-id='"+parent+"']").val();
-						var projectChildren = $("input[data-title-id='"+children+"']").val();
-						var cell=$("input[data-title-id='"+children+"']").attr("data-content");
-						if(projectParent > 0 && projectChildren > 0 && cell=="%"){
-							return projectParent * (100/projectChildren);
-						}else{
-							return '';
-						}
+				if(reportType=="3"){
+					$.each($("input[data-type='19']"),function(){
+						var valRuleFormula=$(this).attr("data-valruleformula");
+						if(valRuleFormula){
+							var valRule=valRuleFormula.split("=");
+							var valRule1="";
+							if(null!=valRule[1]){
+								valRule1=valRule[1].split("/");
+							}
 						
-					}
-					if(reportType=="3"){
-						$("input[data-title-id='"+result+"']").attr("value",calculationValuations());
-					}
-					$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
-						var valuations = calculationValuations();
-						if(valuations != null){
+							var result=valRule[0];
+							var parent=valRule1[0];
+							var children=valRule1[1];
 							if(reportType=="3"){
-								$("input[data-title-id='"+result+"']").attr("value",valuations);
-								$("input[type='hidden'].money").val(valuations);
+								var input='<input type="text" class="hidden" data-code="PNO1_1_2" data-title-id="'+result+'" data-type="19"/>';  //添加隐藏域
+								$("input[data-valruleformula='"+valRuleFormula+"']").after(input);
+							}
+						}
+						function calculationValuations(){  //编辑股权占比
+							var projectParent = $("dd[data-title-id='"+parent+"']").text();
+							var projectChildren = $("input[data-title-id='"+children+"']").val();
+							if(projectParent > 0 && projectChildren > 0){
+								console.log(projectParent * (100/projectChildren))
+								return projectParent * (100/projectChildren);
 							}else{
-								$("input[data-title-id='"+result+"']").val(valuations);
-								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+								return '';
 							}
 							
 						}
-					});
-					$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
-						var valuations = calculationValuations();
-						if(valuations != null){
-							if(reportType=="3"){
+						function calculationValuationsParent(){  //编辑投资金额
+							var projectParent = $("input[data-title-id='"+parent+"']").val();
+							var projectChildren = $("dd[data-title-id='"+children+"']").text();
+							if(projectParent > 0 && projectChildren > 0){
+								console.log(projectParent * (100/projectChildren))
+								return projectParent * (100/projectChildren);
+							}else{
+								return '';
+							}
+							
+						}
+					/*	if(reportType=="3"){
+							$("input[data-title-id='"+result+"']").attr("value",calculationValuations());
+						}*/
+					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
+							var valuations = calculationValuationsParent();
+							if(valuations != null){
 								$("input[data-title-id='"+result+"']").attr("value",valuations);
 								$("input[type='hidden'].money").val(valuations);
-							}else{
-								$("input[data-title-id='"+result+"']").val(valuations);
-								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+								
+								
 							}
-						}
+						});
+						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+							var valuations = calculationValuations();
+							if(valuations != null){
+								$("input[data-title-id='"+result+"']").attr("value",valuations);
+								$("input[type='hidden'].money").val(valuations);
+							}
+						})
 					})
-				})
+				}else{
+					$.each($("input[data-type='19']"),function(){
+						var valRuleFormula=$(this).attr("data-valruleformula");
+						if(valRuleFormula){
+							var valRule=valRuleFormula.split("=");
+							var valRule1="";
+							if(null!=valRule[1]){
+								valRule1=valRule[1].split("/");
+							}
+						
+							var result=valRule[0];
+							var parent=valRule1[0];
+							var children=valRule1[1];
+						}
+						function calculationValuations(){
+							var projectParent = $("input[data-title-id='"+parent+"']").val();
+							var projectChildren = $("input[data-title-id='"+children+"']").val();
+							var cell=$("input[data-title-id='"+children+"']").attr("data-content");
+							if(projectParent > 0 && projectChildren > 0){
+								console.log(projectParent * (100/projectChildren))
+								return projectParent * (100/projectChildren);
+							}else{
+								return '';
+							}
+							
+						}
+						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
+							var valuations = calculationValuations();
+							if(valuations != null){
+									$("input[data-title-id='"+result+"']").val(valuations);
+									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+								
+							}
+						});
+						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+							var valuations = calculationValuations();
+							if(valuations != null){
+									$("input[data-title-id='"+result+"']").val(valuations);
+									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+							}
+						})
+					})
+				}
+				
 				//文本域剩余字符数
 				var textarea_h = section.find('.textarea_h');
 				for(var i=0;i<textarea_h.length;i++){
