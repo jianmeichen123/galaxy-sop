@@ -458,8 +458,7 @@ function buildFileList(title)
 			var em = $('<em>[图片]</em>');
 			em.addClass('income_pic');
 			em.attr('data-file-id',this.id);
-			var data = "data:image/"+this.fileSuffix+";base64,"+this.data;
-			em.attr('data-url',data);
+			em.attr('data-file-url',this.fileUrl);
 			span.append(em);
 		});
 		

@@ -1,7 +1,5 @@
 package com.galaxyinternet.hologram.service;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +33,6 @@ import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.cache.LocalCache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.DateUtil;
@@ -52,7 +49,6 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
-import com.galaxyinternet.utils.FileUtils;
 
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
@@ -1340,15 +1336,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 								list = new ArrayList<>();
 								title.setFileList(list);
 							}
-							File tempFile = File.createTempFile(item.getFileName()+"_temp", "."+item.getFileSuffix());
-							OSSHelper.simpleDownloadByOSS(tempFile, item.getFileKey());
-							item.setData(FileUtils.file2Base64(tempFile));
 							title.getFileList().add(item);
 						}
 					}
 				}
 			}
-		} catch (IOException e)
+		} catch (Exception e)
 		{
 			logger.error("Error:",e);
 		}
