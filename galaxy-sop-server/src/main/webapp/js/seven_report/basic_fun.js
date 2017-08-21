@@ -463,17 +463,23 @@ function editRow(ele)
 		data:"",//传递参数
 		okback:function(){
 			var title = $("#pop-title");
-			 $('#finace_popup_name').html('编辑融资历史');
 			 if(txt=="查看"){
 					$("#detail-form").hide();
 					$(".button_affrim").hide();
 					$("#delivery_popup_name").text("查看交割事项");
 					 $('#grant_popup_name').html('查看分期注资计划');
+					 $('#finace_popup_name').html('查看融资历史');
+					 $("#complete_title").html('查看综合竞争比较');
 					
 				}else{
 					$(".see_block").hide();
 					$("#delivery_popup_name").text("编辑交割事项");
 					 $('#grant_popup_name').html('编辑分期注资计划');
+					 $('#finace_popup_name').html('编辑融资历史');
+					 $("#complete_title").html('编辑综合竞争比较');
+					 $("#pop-title-tz").html('编辑投资人');
+					 $("#pop-title-share").html('编辑股东');
+					 $("#pop-title-yy").html('编辑运营指标');
 				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
@@ -504,6 +510,26 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				ele.text(row.data(name));
+				//历史融资特殊处理select,radio
+				$.each($("#financeDetail select"),function(){
+					var selectId=$(this).val();
+					var selectVal=$("#financeDetail select").find("option[value='"+selectId+"']").text();
+					if(row.data(name)==selectId && selectId!=""){
+						ele.text(selectVal);
+					}
+					var val=$(".see_block").find("dd[name='field6']").text();
+					$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+					$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+				});
+				$.each($("#financeDetail input[type='radio']"),function(){
+					var selectId=$(this).val();
+					var selectVal=$("#financeDetail").find("input[type='radio'][value='"+selectId+"']").parent().text();
+					if(row.data(name)==selectId){
+						ele.text(selectVal);
+					}
+				});
+				
+				
 			})
 			//运营 报告嵌套表格处理
 			if(reportType == 7){

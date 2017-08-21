@@ -1877,7 +1877,6 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				ele.text(row.data(name));
-				console.log(row.data())
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();
@@ -1885,8 +1884,9 @@ function editRow(ele)
 					if(row.data(name)==selectId && selectId!=""){
 						ele.text(selectVal);
 					}
-					var val=$(".see_block").find("dd[name='field6']").text()
-					$(".see_block").find("dd[name='field3'],dd[name='field5']").text(row.data(name)+'万'+val);
+					var val=$(".see_block").find("dd[name='field6']").text();
+					$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+					$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
 				});
 				$.each($("#financeDetail input[type='radio']"),function(){
 					var selectId=$(this).val();

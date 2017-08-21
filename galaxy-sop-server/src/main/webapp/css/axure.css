@@ -3445,7 +3445,7 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 .sev_report li.gray_link6{display:none;}
 .sev_report li.gray_link7{display:none;}
 .operation_actual_title{border-bottom:1px solid #dadfe3;padding-bottom:5px;}
-.see_block .textarea{width:420px;}
+.see_block .textarea{display:block;width:90%;}
 .addmentc{max-height:450px;overflow-y:auto;}
 
 

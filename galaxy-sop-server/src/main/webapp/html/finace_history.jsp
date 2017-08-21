@@ -132,11 +132,11 @@
 				</dl>
              	<dl class="fmdl wid clearfix block">
            		<dt>合同关键条款：</dt>
-	                <dd name="field9"></dd> 
+	                <dd name="field9" class="textarea"></dd> 
 	             </dl>
 	             <dl class="fmdl wid clearfix block">
 	           		<dt>对赌或业绩承诺条款：</dt>
-	                <dd name="field10"></dd> 
+	                <dd name="field10" class="textarea"></dd> 
 	             </dl>
         	</div>	
         </div>
