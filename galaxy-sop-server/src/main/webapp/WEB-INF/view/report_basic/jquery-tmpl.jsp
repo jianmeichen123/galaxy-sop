@@ -147,7 +147,7 @@
 							{{else type=="10"}}
 								<dd class="fl_none">
 									<table data-title-id="\{titleId}" class="editable"></table>
-									<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
+									<span id="add_row" class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
 								</dd>
 
 							{{else type=="11"}}
@@ -365,7 +365,7 @@
 							<table data-title-id="\${titleId}"  class="editable">
 
 							</table>
-							<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
+							<span id="add_row" class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
 						  </dd>
 
 					{{else type=="11"}}

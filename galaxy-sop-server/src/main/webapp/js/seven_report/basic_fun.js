@@ -221,6 +221,12 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				check_table_tr_edit();
 				section.find(".h_title span").remove();
 				section.find(".h_title").append(str);
+				
+				//运营报告中【融资估值中分期添加按钮隐藏】
+				if(reportType=="7" && id_code=="ONO9_2"){
+					$("#add_row").hide();
+				}
+				
 				//计算项目估值
 				if(reportType=="3"){
 					$.each($("input[data-type='19']"),function(){
@@ -537,6 +543,9 @@ function editRow(ele)
 			if(reportType == 7){
 				if(row.data("dataList"))
 				{
+					if(row.data("dataList").length > 0){
+						$("#field3").attr("readonly","readonly");
+					}
 					$.each(row.data("dataList"),function(){
 						 var row = this;
 						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
@@ -557,6 +566,7 @@ function editRow(ele)
 	    	    		tr.data("dataList",dataList);
 	        	        saveForm($("#detail-form"));
 				    });
+					
 				}
 			}
 			//文本框剩余字数
@@ -575,6 +585,18 @@ function editRow(ele)
 
 function delRow(ele)
 {
+	
+	var tr = $(ele).closest('tr');
+	var data = tr.data('dataList').length;
+	if(data > 0){
+		layer.open({
+			  type: 1,
+			  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
+			  area: ['420px', '240px'], //宽高
+			  content: '有实际注资计划,无法删除分期注资计划'
+			});
+	    return;
+	}
 	layer.confirm('是否删除?', {
 		btn : [ '确定', '取消' ],
 		title:'提示'
