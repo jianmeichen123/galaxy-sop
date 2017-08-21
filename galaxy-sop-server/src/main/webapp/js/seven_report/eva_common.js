@@ -922,6 +922,7 @@ function font_color(data){
 		var _this=$(this);
 		var _span= _this.find("span");
 		var code_dom =_this.closest("td").siblings(".score-column").find("input,select");
+		var code_input = _this.closest("td").siblings(".score-column").find("input");
 		var code_select = _this.closest("td").siblings(".score-column").find("select");
 		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"||_span.text()=="未填写"||_span.text()=="未选择"||_span.text()=="未添加"){
 			_this.removeClass("black");
@@ -950,29 +951,31 @@ function font_color(data){
 					return false;
 				}
 			})
-			if(_this.data("relateId")=="1006"){
-				var sitg=_this.find("sitg");
-				$.each(sitg,function(i,n){
-					var n_this=$(this)
-					var len = sitg.length;
-					if(i==len-1||i==len-2){
-						if(n_this.text()!=""){
-							code_dom.removeClass("disabled").attr("disabled",false);	
-							clean_status=1;
-							return clean_status;
-							return false;
-						}
-					}				
-				})			
-			}
-			
 			if(clean_status==0){
 				code_dom.val("");
 				code_select.val("请选择");
-				
 			}
 		}
-			
+		if(_this.data("relateId")=="1006"){
+			code_input.addClass("disabled").attr("disabled",true);
+			var sitg=_this.find("sitg");
+			$.each(sitg,function(i,n){
+				var n_this=$(this)
+				var len = sitg.length;
+				if(i==len-1||i==len-2){
+					if(n_this.text()!=""){
+						code_input.removeClass("disabled").attr("disabled",false);	
+						clean_status=1;
+						return clean_status;
+						return false;
+					}
+				}				
+			})	
+			if(clean_status==0){
+				code_dom.val("");
+				code_select.val("请选择");
+			}
+		}
 		
 	})
 }
