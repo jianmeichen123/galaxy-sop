@@ -500,6 +500,7 @@ function getValues()
 		var text = _this.text();
 		if(_this.parent().hasClass('sign_3'))
 		{
+			_this= _this.find('span');
 			text = _this.find('span').text();
 			if(type == 1 || type == 8||type == 18){
 				text = _this.find('span').html();
@@ -512,6 +513,7 @@ function getValues()
 				tochange:"true",
 				type:type
 			};
+			text = _this.html();
 			model.projectId = projId;
 			model.titleId = titleId;
 			if(typeof resultId != 'undefined')
