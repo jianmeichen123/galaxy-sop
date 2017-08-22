@@ -241,10 +241,10 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var result=valRule[0];
 							var parent=valRule1[0];
 							var children=valRule1[1];
-							if(reportType=="3"){
+							/*if(reportType=="3"){
 								var input='<input type="text" class="hidden" data-code="PNO1_1_2" data-title-id="'+result+'" data-type="19"/>';  //添加隐藏域
 								$("input[data-valruleformula='"+valRuleFormula+"']").after(input);
-							}
+							}*/
 						}
 						function calculationValuations(){  //编辑股权占比
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
