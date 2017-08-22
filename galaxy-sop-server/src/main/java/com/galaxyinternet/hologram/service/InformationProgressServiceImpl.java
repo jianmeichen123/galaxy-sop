@@ -64,7 +64,7 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 
 	@Override
 	public void updateUsersAllReportProgressOfPro(Long uid, final Long proId){
-		int reback = 3;
+		//int reback = 3;
 		try {
             InformationProgress informationProgress = new InformationProgress();
             informationProgress.setUid(uid);
@@ -74,7 +74,9 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
             ProgressRecursiveTask task = new ProgressRecursiveTask(informationProgress,null,proId);
             ForkJoinTask<InformationProgress> result = pool.submit(task);
 
-            InformationProgress query = new InformationProgress();
+			result.get();
+			informationProgressDao.updateByIdSelective(informationProgress);
+            /*InformationProgress query = new InformationProgress();
             query.setProjectId(proId);
             List<InformationProgress> checkM = informationProgressDao.selectList(query);
 			if(null == checkM || checkM.isEmpty() || checkM.size() > 1){
@@ -98,7 +100,7 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
             }else{
                 informationProgress.setId(query.getId());
                 informationProgressDao.updateById(informationProgress);
-            }
+            }*/
         } catch (Exception e) {
 			throw new ServiceException("err updateUsersAllReportProgressOfPro : 修改失败 ", e);
 		}
