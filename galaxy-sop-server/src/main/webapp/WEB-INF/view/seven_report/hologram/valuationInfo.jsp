@@ -176,14 +176,14 @@ var deleteJSON={};
 					$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 						var valuations = calculationValuations();
 						if(valuations != null){
-							$("input[data-title-id='"+result+"']").val(valuations);
+							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
 							$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 						}
 					});
 					$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 						var valuations = calculationValuations();
 						if(valuations != null){
-							$("input[data-title-id='"+result+"']").val(valuations);
+							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
 							$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 						}
 					})

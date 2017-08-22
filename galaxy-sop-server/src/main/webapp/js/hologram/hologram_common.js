@@ -1040,11 +1040,11 @@ function validate(){
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="9,4"){
 				var validate={
-						"data-rule-verify_82":"true",
+						"data-rule-verify_94":"true",
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_82":"<br><font color=red>*</font>支持0～99999999的整数和两位小数"			
+						"data-msg-verify_94":"<font color=red>*</font>支持0～999999999的整数和四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
