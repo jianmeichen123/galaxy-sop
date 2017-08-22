@@ -518,8 +518,18 @@ function editRow(ele)
 						ele.text(selectVal);
 					}
 					var val=$(".see_block").find("dd[name='field6']").text();
-					$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
-					$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+					if(row.data('field3')==""){
+						$(".see_block").find("dd[name='field3']").text(row.data('field3'));
+					}else{
+						$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+					}
+					if(row.data('field5')==""){
+						$(".see_block").find("dd[name='field5']").text(row.data('field5'));
+					}else{
+						$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+					}
+					
+					
 				});
 				$.each($("#financeDetail input[type='radio']"),function(){
 					var selectId=$(this).val();
