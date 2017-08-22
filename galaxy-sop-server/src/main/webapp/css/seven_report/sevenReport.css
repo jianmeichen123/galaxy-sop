@@ -101,6 +101,7 @@ table .on td{
 }
 .align_left p,.align_left span,.content_16.align_left p.black{
 	color:#b2b2b2;
+    word-break: break-word;
 }
 .align_left p.black,.align_left span.black,.content_16.align_left p sitg{
 	color:#333;

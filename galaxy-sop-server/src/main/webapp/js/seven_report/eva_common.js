@@ -357,9 +357,9 @@ function buildResult(title)
 	else if(type == 1 || type == 8|| type == 18)
 	{
 		if(_sign=="sign_3"){
-			_ele.find("span").text(results[0].contentDescribe1);
+			_ele.find("span").html(results[0].contentDescribe1);
 		}else{
-			_ele.text(results[0].contentDescribe1);
+			_ele.html(results[0].contentDescribe1);
 		}
 		_ele.attr("data-result-id",results[0].id);
 	}
@@ -501,6 +501,9 @@ function getValues()
 		if(_this.parent().hasClass('sign_3'))
 		{
 			text = _this.find('span').text();
+			if(type == 1 || type == 8||type == 18){
+				text = _this.find('span').html();
+			}
 		}
 		//input,textarea
 		if(type == 1 || type == 8||type == 18)

@@ -71,6 +71,7 @@
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
 			$('.mashLayer').css('opacity','0.1');
 			$('.mashLayer').show();
+			
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
 			//滚动条
@@ -88,11 +89,6 @@
 			//数据渲染模板edit_tmpl2
 			get_result(id_code,3,$(".ch_opration"));			
 			$('.ch_opration').show();
-			var text = document.getElementsByClassName('textarea_h');
-		       for(var i = 0;i<text.length;i++){
-		            autoTextarea(text[i]);
-		       }
-			
 		}
 		//特殊处理项目评测内的刚需和痛点
 		if(id_code=="ENO1_1_4"){
@@ -114,7 +110,7 @@
 		var e_type=$(obj).attr("e-type");
 		var id_code=$(obj).attr("attr-id")
 		var p_box=$(obj).siblings(".align_left").find("p")
-		var  val=p_box.text();
+		var val=p_box.html();
 		var titleVal=p_box.attr("data-title-value");
 		var radioShow=$(obj).closest("td").find(".radioShow")
 		$.each(p_box,function(){
@@ -123,6 +119,8 @@
 				if(type==1){
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未填写"){
+						val= val.replace(/\<br\>/g,'\n');
+						val= val.replace(/&nbsp;/g," ");
 						$(".condition").find("input[data-id='"+relateId+"']").val(val);
 					}			
 				}else if(type==2){
@@ -132,6 +130,10 @@
 				}else if(type==8 || type==15){
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未填写"){
+						console.log(val)
+						val= val.replace(/\<br\>/g,'\n');
+						val= val.replace(/&nbsp;/g," ");
+						console.log(val)
 						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").val(val);
 					}			
 				}else if(type==18){
@@ -175,7 +177,7 @@
 						var data_list={};
 						var relateId=$(this).parent("p").data("relateId");
 						var titleValue=$(this).parent("p").attr("data-title-value");
-						var val=$(this).text();
+						var val=$(this).html();
 						var d_type=$(this).parent("p").attr("data-type");
 						data_list.relateId=relateId;
 						data_list.val=val;
@@ -205,7 +207,11 @@
 							}
 						}else if(d_type==8){
 							if(n.val!="未填写"){
-								$("textarea[data-title-id='"+n.relateId+"']").val(n.val);
+								var val= n.val
+								val= val.replace(/\<br\>/g,'\n');
+								val= val.replace(/&nbsp;/g," ");
+								$("textarea[data-title-id='"+n.relateId+"']").val(val);
+								
 							}
 						}else if(d_type==2){
 							if(n.val!="未选择"){
@@ -332,7 +338,10 @@
 						$(".h_edit_txt .h_imgs").last().hide();
 					}
 				}
-				
+				var text = $(".textarea_h");
+				for(var i = 0;i<text.length;i++){
+					autoTextarea_eva(text[i]);
+				}
 			}
 		}) 
 		//表单验证
@@ -410,7 +419,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 		 divSelect();
 	 }else if(e_type==2){
 		 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
-	 }else if(e_type==3){
+		 }else if(e_type==3){
 		 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
 			 adjust(".ch_opration");
 			 $(".ch_opration").css('width',$(".new_left").width())
@@ -508,11 +517,13 @@ function right(obj,type){
 		p = align_left.find('p');
 		var data_initial = p.text();
 		var val = $(obj).parent().parent().find("textarea").val();
+		val=val.replace(/\n|\r\n/g,"<br>")
+		val=val.replace(/\s/g,"&nbsp;");
 		if(val == null || val.length == 0)
 		{
 			val='未填写';
 		}
-		p.text(val);
+		p.html(val);
 		Tfun_8(p);
 		
 	}else if(type=="input"){
@@ -608,7 +619,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 		data_type=_dt.data("type");
 		data_list.type=data_type;
 		if(data_type==1||data_type==8 ||data_type==20){
-			data_list.value=$(this).find("dd").children().val();
+			var c_val = $(this).find("dd").children().val();
+			c_val=c_val.replace(/\n|\r\n/g,"<br>")
+			c_val=c_val.replace(/\s/g,"&nbsp;");
+			data_list.value=c_val;
 			if(data_list.value==""||data_list.value==undefined){
 				data_list.value="未填写";
 			}
