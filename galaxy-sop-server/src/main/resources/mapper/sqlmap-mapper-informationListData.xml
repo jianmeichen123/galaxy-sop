@@ -199,7 +199,7 @@
 	
 	<!-- 计算金额 -->
 	<select id="sumPartMoney" resultType="java.lang.Double" parameterType="java.util.Map">
-		select IFNULL(sum(field_3), 0) from information_listdata where title_id = #{titleId} and project_id = #{projectId}
+		select IFNULL(sum(field_3), 0) from information_listdata where title_id = #{titleId} and project_id = #{projectId} and code=null
 	</select>
 	
 	
