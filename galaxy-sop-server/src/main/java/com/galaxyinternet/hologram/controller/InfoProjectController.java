@@ -262,6 +262,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		}
 		try{
 			Map<String,Object> map = new HashMap<String,Object>();;
+			informationResult.setIsValid("0");
 			//获取总注资计划的金额
 			InformationResult ir = informationResultService.queryOne(informationResult);
 			if(ir != null){
