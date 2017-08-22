@@ -342,6 +342,7 @@
 				for(var i = 0;i<text.length;i++){
 					autoTextarea_eva(text[i]);
 				}
+				adjust(".ch_opration");
 			}
 		}) 
 		//表单验证
@@ -421,7 +422,6 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 		 $("#edit_tmpl1").tmpl(entity).appendTo(dom);
 		 }else if(e_type==3){
 		 $("#edit_tmpl2").tmpl(entity).appendTo(dom);
-			 adjust(".ch_opration");
 			 $(".ch_opration").css('width',$(".new_left").width())
 			 check_table();
 			 check_table_tr_edit();

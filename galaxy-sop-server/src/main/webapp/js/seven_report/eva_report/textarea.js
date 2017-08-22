@@ -55,10 +55,7 @@ var autoTextarea_eva = function (elem, extra, maxHeight) {
                                 style.overflowY = 'hidden';
                         };
                         style.height = height + extra+10+ 'px';
-                        console.log( height + extra);
                         scrollTop += parseInt(style.height) - elem.currHeight;
-                        document.body.scrollTop = scrollTop;
-                        document.documentElement.scrollTop = scrollTop;
                         elem.currHeight = parseInt(style.height);
                 };
             
