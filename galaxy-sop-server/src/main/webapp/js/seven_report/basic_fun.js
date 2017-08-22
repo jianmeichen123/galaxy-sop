@@ -610,6 +610,7 @@ function delRow(ele)
 		title:'提示'
 	}, function(index, layero){
 		var tr = $(ele).closest('tr');
+		var table=$(ele).closest('table');
 		var id = tr.data('id');
        	var sectionId =$(ele).closest('.radius').attr("data-section-id");
         if(typeof id != 'undefined' && id>0)
@@ -624,6 +625,8 @@ function delRow(ele)
 		tr.remove();
 		check_table();   
 		check_table_tr_edit();
+		//运营报告中【融资估值中分期添加按钮隐藏】
+		check_add_button_hide(reportType,table.attr("data-title-id"));
 		$(".layui-layer-close1").click();
 	},function(index) {
 	});

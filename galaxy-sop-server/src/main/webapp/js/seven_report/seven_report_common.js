@@ -1166,6 +1166,16 @@ function check_table_tr_edit(){
 		}
 	})
 }
+//运营报告中【融资估值中分期添加按钮隐藏】
+function check_add_button_hide(reportType,sectionId){
+	$.each($("table.editable"),function(){
+		if(sectionId=="3022"&&reportType=="7"){
+			$(this).siblings(".bluebtn").hide();
+		}else{
+			$(this).siblings(".bluebtn").show();
+		}
+	})
+}
 function getTableRowLimit(code)
 {
 	return 10;
