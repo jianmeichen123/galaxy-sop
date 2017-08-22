@@ -3437,15 +3437,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .base_tab-content .h_edit_txt .valuationInfo_20_select{width:150px}
 #financeDetail .qualificationstc dt{width:138px}
 table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
-/*  chen*/
-.sev_report li.seven_link1{display:none;}
-.sev_report li.gray_link1{display:block;}
-.sev_report li.gray_link2{display:none;}
-.sev_report li.gray_link3{display:none;}
-.sev_report li.gray_link4{display:none;}
-.sev_report li.gray_link5{display:none;}
-.sev_report li.gray_link6{display:none;}
-.sev_report li.gray_link7{display:none;}
 .operation_actual_title{border-bottom:1px solid #dadfe3;padding-bottom:5px;}
 .see_block .textarea{/* display:block; */width:70%;}
 .addmentc{max-height:450px;overflow-y:auto;}
