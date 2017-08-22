@@ -505,14 +505,6 @@ function editRow(ele)
 						ele.val(row.data(name));
 				}
 			});
-			//文本域剩余字符数
-			var textarea_h = $("#detail-form").find('textarea');
-			for(var i=0;i<textarea_h.length;i++){
-				var len=textarea_h.eq(i).val().length;
-				var initNum=textarea_h.parent('dd').find(".num_tj").eq(i).children().text();
-				textarea_h.parent('dd').find(".num_tj").eq(i).children().text(initNum-len);
-			}
-
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
@@ -570,7 +562,7 @@ function editRow(ele)
 				}
 			}
 			//文本框剩余字数
-			$.each($(".team_textarea"),function(){
+			$.each($("textarea"),function(){
 				var len=$(this).val().length;
 				var initNum=$(this).siblings('.num_tj').find("span").text();
 				$(this).siblings('.num_tj').find("span").text(initNum-len);
@@ -642,6 +634,7 @@ function addRow(ele)
 				$('#qualifications_popup_name').html('添加简历');
 				$('#qualifications_popup_name1').html('添加持股人');
 				 $('#grant_popup_name').html('添加分期注资计划');
+				 $("#complete_title").html('添加综合竞争比较');
 				//交割前事项
 				$("#delivery_popup_name").text("新增交割事项");
 				$(".see_block").hide();
