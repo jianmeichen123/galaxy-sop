@@ -181,7 +181,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			for (int i = 0; i < selectList.size(); i++) {
 				InformationResult resultNew = selectList.get(i);
 				if (resultNew.getTitleId().equals("3010") && null != resultNew.getContentDescribe1()) {
-					v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1());
+					v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1())*100;
 				}
 				if (null != v && resultNew.getTitleId().equals("3012")) {
 					result = resultNew;
@@ -189,7 +189,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			}
 			if (flag) {
-				result.setContentDescribe1(investment.toString());
+				result.setContentDescribe1(v.toString());
 				result.setUpdatedTime(now);
 				result.setUpdateId(userId.toString());
 				resultDao.updateById(result);
