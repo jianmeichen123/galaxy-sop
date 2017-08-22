@@ -32,8 +32,8 @@ var path = '<%=path%>';
     <jsp:include page="../reportcommon.jsp" flush="true"></jsp:include>
     <div class="new_left">
        	<ul class="h_navbar clearfix">
-			<li data-tab="navInfo" class="fl h_nav2 active" onclick="tabDecisionChange('0')">投资方案</li>
-			<li data-tab="navInfo" class="fl h_nav2" onclick="tabDecisionChange('1')">其他事宜</li>
+			<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabDecisionChange('0')">投资<br>方案</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabDecisionChange('1')">其他<br>事宜</li>
 		</ul>
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
