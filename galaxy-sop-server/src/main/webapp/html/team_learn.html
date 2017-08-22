@@ -148,6 +148,9 @@
         $("#close_learn").click();
    }
    $(".add_team_learn").on("click",function(){
-        $("#learn_form").submit();
+    if(beTimeCompare($("#learn_form [name='field5']").val(),$("#learn_form [name='field1']").val())){
+      $("#learn_form").submit();
+    }
+       
    })
 </script>
