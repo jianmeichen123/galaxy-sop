@@ -300,7 +300,7 @@
 								url:"",
 								list:""
 						};
-						var _url=$(this).attr("data-url");
+						var _url=$(this).attr("data-file-url");
 						var _list=$(this).attr("data-list");
 						var _id=$(this).attr("data-file-id");
 						data.url=_url;
@@ -420,8 +420,7 @@ function closeX(obj){
 	$(obj).parent().parent().find('.radioShow').hide();
 	//p内容展示
 	$(obj).parent().parent().find('p').show();	
-	$(obj).closest('td').data('edit','false');
-	
+	$(obj).closest('td').data('edit','false');	
 	//select下拉框消失
 	$(obj).closest('td').find('.selectTips').hide();
 	//弹窗消失
@@ -430,6 +429,7 @@ function closeX(obj){
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
 	$('.mashLayer').hide();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
+	$(".img_inner").attr("src","")
 	font_color($(".align_left p"));
 }	
 	

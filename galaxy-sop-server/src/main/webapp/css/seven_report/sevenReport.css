@@ -957,6 +957,7 @@ select::-ms-expand { display: none; }
 	-moz-transform:translateX(-50%);
 	display:none;
 	z-index:21;
+    max-width: 80%;
 }
 .x_picture{
 	display:none;
