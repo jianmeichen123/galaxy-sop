@@ -47,8 +47,7 @@
 		            </dl>
 		             <dl class="fmdl fl_l">
                  <dt>付款条件：</dt>
-                 <dd><textarea class="area" name="field4" cols="45" rows="5" valType="required" msg="<font color=red>*</font>详细内容不能为空">
-                     </textarea>
+                 <dd><textarea class="area" name="field4" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea>
                  </dd>
             </dl>
 	        </div>
