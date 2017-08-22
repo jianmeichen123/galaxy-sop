@@ -3399,7 +3399,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .to_top{width:48px;height:48px; cursor:pointer; background:url(../img/to_top.png) center no-repeat;position:fixed;bottom:40px;right:20px;display:none;}
 .conference_all .wid_2{width:50%;float:left;}
 .conference_all .wid_2 input,.conference_all .wid_2 textarea,.conference_all .wid_2 select{border:0;width:auto;padding:0;}
-.conference_all .wid dt{width:auto}
+.conference_all .wid dt,.see_block .conference_all .wid_3 dt{width:auto}
+.see_block .conference_all .wid dt{width:110px;}
 .conference_all .block{width:100%}
 .before_save_tc{
 	width:460px;
@@ -3446,7 +3447,7 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 .sev_report li.gray_link6{display:none;}
 .sev_report li.gray_link7{display:none;}
 .operation_actual_title{border-bottom:1px solid #dadfe3;padding-bottom:5px;}
-.see_block .textarea{display:block;width:90%;}
+.see_block .textarea{/* display:block; */width:70%;}
 .addmentc{max-height:450px;overflow-y:auto;}
 .report_select .input_selects{
 	border:1px solid #d8d8d8;

@@ -99,7 +99,7 @@
                 <dd name="field1"></dd>
                   
             </dl>
-            <dl class="fmdl clearfix wid_2 wid">
+            <dl class="fmdl clearfix wid_2 wid_3">
                  <dt>投资方(机构或个人)：</dt>
                 <dd name="field2"></dd>
             </dl>
