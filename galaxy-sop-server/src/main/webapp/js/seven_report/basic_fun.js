@@ -261,32 +261,30 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var projectParent = $("input[data-title-id='"+parent+"']").val();
 							var projectChildren = $("dd[data-title-id='"+children+"']").text();
 							if(projectParent > 0 && projectChildren > 0){
-								console.log(projectParent * (100/projectChildren))
 								return projectParent * (100/projectChildren);
 							}else{
 								return '';
 							}
 							
 						}
-					  if(reportType=="3"){
-							$("input[data-title-id='"+result+"']").val(calculationValuations());
-						}
+					  /*if(reportType=="3"){
+						  var valuations = calculationValuations();
+							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
+						}*/
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
 							if(valuations != null){
-								$("input[data-title-id='"+result+"']").val(valuations);
+								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								$("input[type='hidden'].money").val(valuations);
-								
-								
+								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 							var valuations = calculationValuations();
 							if(valuations != null){
-								$("input[data-title-id='"+result+"']").val(valuations);
+								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								$("input[type='hidden'].money").val(valuations);
+								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
 							}
 						})
 					})
