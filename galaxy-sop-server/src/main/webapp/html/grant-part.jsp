@@ -84,34 +84,29 @@
 	    </div>  	
 	</div>
 	<script>
-	   $(function(){
-		   var remainMoney = '${remainMoney}';
-			  remainMoney = fixSizeDecimal(parseFloat(remainMoney),4);
-	          $("#formatRemainMoney").html(remainMoney);	
-	          var remainMoneyOld=$("#formatRemainMoney").text();
-	         
-		  $("#grantMoney").blur(function(){
-			 var grantMoney=$("#grantMoney").val();
-			 if(!beforeSubmitById("actual_aging_container")){
-				 $("#formatRemainMoney").html(remainMoneyOld);
-	 				return false;
-	 			} 
-			 if(grantMoney<0){
-	 				$("#formatRemainMoney").html(remainMoney)
-	 			 }else{
-	 				var remainMoney = '${remainMoney}';
-	 				var sremainMoneyNew=remainMoney-Number(grantMoney);
-	 				remainMoneyNew = fixSizeDecimal(parseFloat(sremainMoneyNew),4);
-	 				
-	 				if( sremainMoneyNew < 0 || sremainMoneyNew == 0){
-	 				    $("#formatRemainMoney").html("0");
-	 				}else{
-	 				    $("#formatRemainMoney").html(remainMoneyNew);
-	 				      }	 
-	 			 }
-			            
-		  })
-		  
-	   });
+	remainMoney();
+	function remainMoney(){   //计算剩余金额
+		var params={};
+		params.projectId = projectInfo.id;
+		params.titleId = "3004";
+		sendPostRequestByJsonObj(
+					Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
+					params,
+					function(data){
+						if(data.result.status == "OK"){
+							if(typeof(data.userData) == "object"){
+								if(data.userData.totalMoney || data.userData.remainMoney){
+									var remainMoney=data.userData.remainMoney;
+									$("#formatRemainMoney").text(remainMoney == null ? 0 : remainMoney);
+									$(".moeny_all input").on("input",function(){
+										var val=$(this).val();
+										var remainMoneyNew=remainMoney-val;
+										$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
+									})
+								}
+							}
+						}
+					});
+	}
 	
 	</script>
