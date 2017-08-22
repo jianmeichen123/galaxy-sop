@@ -767,10 +767,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 					}else{
 						$.each(d_this.valueList,function(i,n){
 							if(n.id==undefined){
-								var a_img="<em class=\"income_pic\" data-url="+n.url+" data-list="+i+">[图片]</em>";
+								var a_img="<em class=\"income_pic\" data-file-url="+n.url+" data-list="+i+">[图片]</em>";
 								
 							}else{
-								var a_img="<em class=\"income_pic\" data-url="+n.url+" data-file-id="+n.id+" data-list="+i+">[图片]</em>";
+								var a_img="<em class=\"income_pic\" data-file-url="+n.url+" data-file-id="+n.id+" data-list="+i+">[图片]</em>";
 								
 							}
 							_this.find("span").append(a_img);
