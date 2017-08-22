@@ -309,6 +309,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 	public static Map<String,String> code_report$type$grade = new HashMap<>();
 	public void initMapConf(){
 		code_titleNum = new HashMap<>();
+		NO9_1$tids$qx = new TreeSet<>();
 
 		code_report$type.put("DN", "2"); // "尽调报告"
 		code_report$type.put("PN", "3"); // "决策报告"
