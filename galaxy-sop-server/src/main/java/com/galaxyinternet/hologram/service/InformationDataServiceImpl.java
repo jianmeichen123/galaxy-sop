@@ -12,10 +12,8 @@ import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.hologram.util.RegexUtil;
-import com.galaxyinternet.model.hologram.CalculateMoney;
 import com.galaxyinternet.model.hologram.FixedTableModel;
 import com.galaxyinternet.model.hologram.InformationData;
 import com.galaxyinternet.model.hologram.InformationFile;
@@ -34,7 +32,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -145,18 +142,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			resultDao.delete(query);
 		}
 		if (uodateList.size() > 0) {
-			// ===== 待 1.7 rc环境时 删除
-			List<InformationResult> toVaild1_list = new ArrayList<>();
-			InformationResult toVaild1;
-			for (InformationResult tempUp : uodateList) {
-				toVaild1 = new InformationResult();
-				toVaild1.setProjectId(tempUp.getProjectId());
-				toVaild1.setTitleId(tempUp.getTitleId());
-				toVaild1.setIsValid("1");
-				toVaild1_list.add(toVaild1);
-			}
-			resultDao.updateInBatch(toVaild1_list);
-			// ==== end
 			resultDao.updateInBatch(uodateList);
 		}
 		// 插入数据
