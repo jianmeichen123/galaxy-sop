@@ -199,10 +199,11 @@ $(function() {
 			
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			if(_tochange && _tochange == 'true'){
+                var infoMode = null;
 				//判断是否到是select
 				if(sele=="SELECT"){
 					var _resultId = field.parent().attr("resultId");
-					var infoMode = {
+					infoMode = {
 							titleId : field.data('titleId'),
 							type : field.data('type'),
 							tochange:_tochange,
@@ -211,16 +212,16 @@ $(function() {
 						};
 				}else{
 					var _resultId = field.closest("dd").attr("resultId");
-					var infoMode = {
+					infoMode = {
 							titleId : field.data('titleId'),
 							type : field.data('type'),
 							tochange:_tochange,
-							resultId:_resultId
+							resultId:_resultId,
+                        	value : valu
 						};
 				}
 				
-				
-					infoModeList.push(infoMode);
+				infoModeList.push(infoMode);
 			}
 			
 		});
