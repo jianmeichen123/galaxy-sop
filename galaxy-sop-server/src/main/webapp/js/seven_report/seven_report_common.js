@@ -718,8 +718,8 @@ function buildTable(sec,title)
 			}
 			if(header.titleId =='1810'||header.titleId =='1811')
 			{
-				tr +='<th data-field-name="updateUserName">创建人</th>';
-				tr +='<th data-field-name="updateTimeStr">操作时间</th>';
+				tr +='<th data-field-name="updateUserName">编辑人</th>';
+				tr +='<th data-field-name="updateTimeStr">编辑日期</th>';
 			}
 			
 			var editable = table.hasClass('editable');
