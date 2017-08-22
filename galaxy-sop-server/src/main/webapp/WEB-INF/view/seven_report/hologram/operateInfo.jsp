@@ -327,7 +327,6 @@ getData();
 						function(data) {
 							var result = data.result.status;
 							if (result == 'OK') {
-								alert(999);
 								updateInforTime(projectInfo.id,"NO4");
 								layer.msg('保存成功');
 								//tabInfoChange('3');
