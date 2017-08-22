@@ -119,6 +119,11 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					entity.setContentDescribe2(model.getRemark2());
 				}
 			}
+
+			if(StringEx.isNullOrEmpty(entity.getContentChoose()) && StringEx.isNullOrEmpty(entity.getContentDescribe1()) && StringEx.isNullOrEmpty(entity.getContentDescribe2())){
+			    continue;
+            }
+
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();

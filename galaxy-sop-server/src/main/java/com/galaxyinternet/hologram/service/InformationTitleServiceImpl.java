@@ -1,26 +1,5 @@
 package com.galaxyinternet.hologram.service;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationFileDao;
@@ -49,6 +28,26 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
@@ -503,6 +502,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	public List<InformationResult> selectResultByPidTids(String pid,Set<String> tids,Long tid){
 		InformationResult rq = new InformationResult();
 		rq.setProjectId(pid);
+		rq.setIsValid(0+"");
 		if(tids != null) rq.setTitleIds(tids);
 		if(tid != null) rq.setTitleId(tid+"");
 		//rq.setProperty("title_id sort");
