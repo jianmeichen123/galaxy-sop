@@ -127,6 +127,7 @@ $(function() {
 					$(".bj_hui_on").show();
 					section.find(".h_title span").remove();
 					section.find(".h_title").append(str);
+					mustData(projectInfo.id,0);
 					//文本域剩余字符数
 					var textarea_h = section.find('.textarea_h');
 					for(var i=0;i<textarea_h.length;i++){
@@ -358,6 +359,7 @@ $(function() {
 								refreshSection(id);
 								picData(projectInfo.id);
 								btn_disable(0);
+								mustData(projectInfo.id,0);
 							    toggle_btn($('.anchor_btn span'),0,save_this);
 							    //重新格式化表格,select radio 字段id转换value
 							    $('table').each(function(){

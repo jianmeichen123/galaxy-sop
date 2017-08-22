@@ -5,7 +5,7 @@
  * @param                {Number}                设置光标与输入框保持的距离(默认0)
  * @param                {Number}                设置最大高度(可选)
  */
-var autoTextarea = function (elem, extra, maxHeight) {
+var autoTextarea_eva = function (elem, extra, maxHeight) {
         extra = extra || 0;
         var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
         isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
@@ -54,22 +54,21 @@ var autoTextarea = function (elem, extra, maxHeight) {
                                 height = elem.scrollHeight - padding;
                                 style.overflowY = 'hidden';
                         };
-                        style.height = height + extra + 'px';
+                        style.height = height + extra+10+ 'px';
+                        console.log( height + extra);
                         scrollTop += parseInt(style.height) - elem.currHeight;
                         document.body.scrollTop = scrollTop;
                         document.documentElement.scrollTop = scrollTop;
                         elem.currHeight = parseInt(style.height);
                 };
+            
         };
  
         addEvent('propertychange', change);
         addEvent('input', change);
         addEvent('focus', change);
         change();
+       
 };
 
-
-
-     /*   var text = document.getElementById("myTextarea");
-        autoTextarea(text);// 调用
-*/        
+  
