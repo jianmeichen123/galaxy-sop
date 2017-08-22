@@ -414,8 +414,11 @@ $('div').delegate(".h_save_btn","click",function(event){
 							picData(projectInfo.id);
 							if(id_code=="PNO1_1"){   //投资金额单独刷新
 								var val=$("input[type='hidden'].money").val();
-								if(!(val.indexOf("万元")>-1)){
+								var resultVal=$("dd[data-title-id=\"3012\"]").text();
+								if(resultVal=="未填写"){
 									$("dd[data-title-id=\"3012\"]").text(val+'万元');
+								}else{
+									$("dd[data-title-id=\"3012\"]").text(val);
 								}
 								
 							}
