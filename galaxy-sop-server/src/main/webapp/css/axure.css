@@ -2527,6 +2527,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .base_tab-content .h_edit input[type="text"]{width:245px;}
 .base_tab-content .h_edit select{width:259px;}
 .h_edit select option:nth-child(1){color:#d3d3d3;}
+.h_edit select.valuationInfo_20_select option:nth-child(1){color:black;}
 .h_edit_txt dt,.h_edit_checkbox dt{line-height: 36px;padding-right:20px;}
 .h .h_edit .mb_16{margin-bottom: 24px;}
 /* .h .h_edit dl{margin-bottom: 16px;} */
