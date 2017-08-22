@@ -32,6 +32,7 @@
 				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
 				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="titleId != null"> and title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="isValid != null">  and is_valid = #{isValid,jdbcType=BIGINT} </if>
 				<if test="titleIds != null">
 					and title_id in 
 					<foreach collection="titleIds" item="item" open="(" separator="," close=")">

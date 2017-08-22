@@ -70,72 +70,66 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	{
 		String projectId = data.getProjectId();
 		List<InformationModel> list = data.getInfoModeList();
-		CalculateMoney calculateMoney=new CalculateMoney();
-		if(projectId == null || ((list ==null||list.size()==0) && (data.getDeletedResultTids()==null||data.getDeletedResultTids().size()==0)) )
-		{
+		String investment = "";
+		if (projectId == null || ((list == null || list.size() == 0)
+				&& (data.getDeletedResultTids() == null || data.getDeletedResultTids().size() == 0))) {
 			return;
 		}
-		
+
 		InformationResult entity = null;
-		List<InformationResult> entityList = new ArrayList<>(); //增加
-		List<InformationResult> uodateList = new ArrayList<>(); //修改
-		
-		Set<String> titleIds = new HashSet<>(); //多条结果集  删除 （projectid titleid）
-		if(data.getDeletedResultTids() != null && !data.getDeletedResultTids().isEmpty()){
+		List<InformationResult> entityList = new ArrayList<>(); // 增加
+		List<InformationResult> uodateList = new ArrayList<>(); // 修改
+
+		Set<String> titleIds = new HashSet<>(); // 多条结果集 删除 （projectid titleid）
+		if (data.getDeletedResultTids() != null && !data.getDeletedResultTids().isEmpty()) {
 			titleIds = data.getDeletedResultTids();
 		}
-		
-		
-		for(InformationModel model : list)
-		{
-			//判断是否为决策报告里面，处理投资金额字段
-			if(null!=model.getReportType()&&model.getReportType()==3){
-				if(model.getTitleId().equals("3012")){
-					calculateMoney.setValuation(model.getRemark1());
-				}else if(model.getTitleId().equals("3010")){
-					calculateMoney.setProportion(model.getRemark1());
+
+		for (InformationModel model : list) {
+			if (!"true".equals(model.getTochange()) || model.getTitleId() == null)
+				continue;
+			// 判断是否为决策报告里面，处理投资金额字段
+			if (null != model.getReportType() && model.getReportType() == 3 && model.getType().equals("19")) {
+				if (model.getTitleId().equals("3004")) {
+					investment = model.getRemark1();
 				}
 			}
-			if(!"true".equals(model.getTochange()) || model.getTitleId()==null) continue;
-			
-			if(model.getType()!=null &&(model.getType().equals("3") || model.getType().equals("6") ||model.getType().equals("13")) ){
+			if (model.getType() != null
+					&& (model.getType().equals("3") || model.getType().equals("6") || model.getType().equals("13"))) {
 				titleIds.add(model.getTitleId());
 				model.setResultId(null);
 			}
-			
+
 			entity = new InformationResult();
-			
+
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
-			if(!StringEx.isNullOrEmpty(model.getValue()) && StringUtils.isNumeric(model.getValue()) )
-			{
+			if (!StringEx.isNullOrEmpty(model.getValue()) && StringUtils.isNumeric(model.getValue())) {
 				entity.setContentChoose(model.getValue());
 			}
-			if(!StringEx.isNullOrEmpty(model.getRemark1()))
-			{
-				if(model.getType().equals("5")||model.getType().equals("6")|| model.getType().equals("8")||model.getType().equals("15")
-					){
+			if (!StringEx.isNullOrEmpty(model.getRemark1())) {
+				if (model.getType().equals("5") || model.getType().equals("6") || model.getType().equals("8")
+						|| model.getType().equals("15")) {
 					entity.setContentDescribe1(RegexUtil.getTextFromHtml(model.getRemark1()));
-				}else{
+				} else {
 					entity.setContentDescribe1(model.getRemark1());
 				}
 			}
-			if(!StringEx.isNullOrEmpty(model.getRemark2()))
-			{
-				if(model.getType().equals("15")){
+			if (!StringEx.isNullOrEmpty(model.getRemark2())) {
+				if (model.getType().equals("15")) {
 					entity.setContentDescribe2(RegexUtil.getTextFromHtml(model.getRemark2()));
-				}else{
+				} else {
 					entity.setContentDescribe2(model.getRemark2());
 				}
 			}
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			if(null==model.getResultId()||model.getResultId().equals("")){
+			if (null == model.getResultId() || model.getResultId().equals("")) {
 				entity.setCreatedTime(now);
 				entity.setCreateId(userId.toString());
 				entityList.add(entity); // 新增
-			}else{
+			} else {
 				entity.setId(new Long(model.getResultId()));
 				entity.setUpdatedTime(now);
 				entity.setUpdateId(userId.toString());
@@ -143,18 +137,18 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				uodateList.add(entity); // 修改
 			}
 		}
-		if(titleIds.size() > 0){
+
+		if (titleIds.size() > 0) {
 			InformationResult query = new InformationResult();
 			query.setProjectId(projectId);
 			query.setTitleIds(titleIds);
 			resultDao.delete(query);
 		}
-		if(uodateList.size() > 0)
-		{
-			// ===== 待 1.7  rc环境时 删除
+		if (uodateList.size() > 0) {
+			// ===== 待 1.7 rc环境时 删除
 			List<InformationResult> toVaild1_list = new ArrayList<>();
 			InformationResult toVaild1;
-			for(InformationResult tempUp : uodateList){
+			for (InformationResult tempUp : uodateList) {
 				toVaild1 = new InformationResult();
 				toVaild1.setProjectId(tempUp.getProjectId());
 				toVaild1.setTitleId(tempUp.getTitleId());
@@ -162,44 +156,55 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				toVaild1_list.add(toVaild1);
 			}
 			resultDao.updateInBatch(toVaild1_list);
-			// ====  end
+			// ==== end
 			resultDao.updateInBatch(uodateList);
 		}
-		//插入数据
-		if(entityList.size() > 0)
-		{
+		// 插入数据
+		if (entityList.size() > 0) {
 			resultDao.insertInBatch(entityList);
 		}
-		//决策报告编辑估值安排时候计算项目投资额
-		if(null!=calculateMoney){
-			InformationResult result =new InformationResult();
+		// 决策报告编辑估值安排时候计算项目投资额
+		if (null != investment && !"".equals(investment)) {
+			InformationResult result = new InformationResult();
 			result.setProjectId(projectId);
-			result.setTitleId("3004");
+			Set<String> titleids = new HashSet<String>();
+			titleids.add("3012");
+			titleids.add("3010");
+			result.setTitleIds(titleids);
 			result.setIsValid("0");
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
-			if(null!=calculateMoney.getValuation()&&!"".equals(calculateMoney.getValuation())
-					&&null!=calculateMoney.getProportion()&&!"".equals(calculateMoney.getProportion())){
-				List<InformationResult> selectList = resultDao.selectList(result);
-				 Double investment=Double.parseDouble(calculateMoney.getValuation())*Double.parseDouble(calculateMoney.getProportion());
-	        	result.setContentDescribe1(investment.toString());
-		        if(null!=selectList&&selectList.size()>0){
-		        	result=selectList.get(0);
-		        	result.setContentDescribe1(investment.toString());
-		        	result.setUpdatedTime(now);
-		        	result.setUpdateId(userId.toString());
-		        	resultDao.updateById(result);
-		        }else{
-		        	result.setCreatedTime(now);
-		        	result.setCreateId(userId.toString());
-		            resultDao.insert(result);
-		        }
+			List<InformationResult> selectList = resultDao.selectList(result);
+			Double v = null;
+			boolean flag = false;
+			for (int i = 0; i < selectList.size(); i++) {
+				InformationResult resultNew = selectList.get(i);
+				if (resultNew.getTitleId().equals("3010") && null != resultNew.getContentDescribe1()) {
+					v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1());
+				}
+				if (null != v && resultNew.getTitleId().equals("3012")) {
+					result = resultNew;
+					flag = true;
+				}
 			}
-			
+			if (flag) {
+				result.setContentDescribe1(investment.toString());
+				result.setUpdatedTime(now);
+				result.setUpdateId(userId.toString());
+				resultDao.updateById(result);
+			} else {
+				result.setContentDescribe1(investment.toString());
+				result.setCreatedTime(now);
+				result.setCreateId(userId.toString());
+				resultDao.insert(result);
+			}
 		}
+	}			
+			
 		
-	}
+		
+
 	private void saveFixedTable(InformationData data)
 	{
 		String projectId = data.getProjectId();
