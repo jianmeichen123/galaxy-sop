@@ -926,6 +926,7 @@ function font_color(data){
 		var code_select = _this.closest("td").siblings(".score-column").find("select");
 		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"||_span.text()=="未填写"||_span.text()=="未选择"||_span.text()=="未添加"){
 			_this.removeClass("black");
+			_span.removeClass("black");
 			code_dom.addClass("disabled").attr("disabled",true);
 			code_dom.val("");
 			code_select.val("请选择");

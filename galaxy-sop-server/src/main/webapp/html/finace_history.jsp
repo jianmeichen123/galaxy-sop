@@ -8,6 +8,10 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
+<!-- 校验 -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <div class="qualificationstc"  id="financeDetail" style="    max-height: 500px;   overflow:hidden; overflow-y: auto;">
 	<div class="title_bj" id="finace_popup_name"></div>
 
@@ -30,13 +34,13 @@
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt"  name="field2" valType="OTHER" allowNULL="yes"  data-rule-verify_101="true" regString="^[^\s](.{0,49})$" data-msg-verify_101="<font color=red>*</font>不能超过50字符"/>
+                    <input type="text" class="txt"  name="field2" valType="OTHER" allowNULL="yes"  regString="^[^\s](.{0,49})$" msg="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
              <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_82="true" data-msg-verify_82="<font color=red>*</font>不能超过99999999整数和两位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="field3" allowNULL="yes" valType="LIMIT_10_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>&nbsp;<span>万元</span>
                 </dd>
                  
             </dl>
@@ -53,13 +57,13 @@
           <dl class="fmdl clearfix">
             <dt>股权占比：</dt>
                 <dd>
-                	 <input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-vinputValRule_3="true"  data-msg-vinputValRule_3="<font color=red>*</font>支持0～100的整数和两位小数"/>&nbsp;<span>%</span>
+                	 <input type="text" class="txt fl" name="field4" allowNULL="yes" valType="OTHER" regstring="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2})|100)$"  msg="<font color=red>*</font>0-100之间的两位小数"/>&nbsp;<span>%</span>
                 </dd>
            </dl>
            <dl class="fmdl clearfix">
            <dt>估值金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_102="true" data-msg-verify_102="<font color=red>*</font>支持四位小数"/>&nbsp;<span>万元</span>
+                    <input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>&nbsp;<span>万元</span>
                 </dd>
             </dl>
            <dl class="fmdl clearfix">
