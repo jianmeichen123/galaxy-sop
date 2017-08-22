@@ -1561,6 +1561,7 @@ function mustData(projectId,status){
 }
 function setMustIds(mustids){
 	$(".unable").show();
+	$(".unable").children().show();
 	$(".unable").removeClass('unable');
 	$('.compete_tab-content .h_edit').find("dt").find('span').remove();
 	var result=mustids.split(",");
@@ -1576,6 +1577,7 @@ function setMustIds(mustids){
 				$("#"+a_id).find(".h_look").show();
 				$("#"+a_id).css("background","#fff");
 				$("#"+id).hide();
+				//$("#nav_ul").find("a[href="'#'+id+"]").parent("li").hide();
 				//竞争页面
 			}else{
 				$("#"+id).addClass("unable");
@@ -1613,6 +1615,9 @@ function hideNav(){
 		if($(this).is(':hidden')){
 			var id=$(this).attr("id");
 			$("#nav_ul a[href='#"+id+"']").parent().hide();
+		}else{
+			var id=$(this).attr("id");
+			$("#nav_ul a[href='#"+id+"']").parent().show();
 		}
 		var i = 0;
 		$('#nav_ul li').each(function(){
