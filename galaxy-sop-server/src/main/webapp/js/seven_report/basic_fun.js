@@ -201,7 +201,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				$(".bj_hui_on").show();
 				validate();
 				//调整表格
-				$("table").css({"width":"90%","table-layout":"fixed"});
+				$("table").css({"width":"80%","table-layout":"fixed"});
 				$(".h_edit .sign_title").css("margin-bottom","20px");
 				//团队核心亮点与团队核心能力联动修改其他值
 				$("input").on("input",function(){

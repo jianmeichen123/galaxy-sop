@@ -146,7 +146,7 @@ var deleteJSON={};
 					$("#"+id_code).hide();
 					validate();
 					//调整表格
-					$("table").css({"width":"90%","table-layout":"fixed"});
+					$("table").css({"width":"80%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					btn_disable(1);
 					$("#b_"+id_code).validate();
