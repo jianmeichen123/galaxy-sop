@@ -518,8 +518,18 @@ function editRow(ele)
 						ele.text(selectVal);
 					}
 					var val=$(".see_block").find("dd[name='field6']").text();
-					$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
-					$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+					if(row.data('field3')==""){
+						$(".see_block").find("dd[name='field3']").text(row.data('field3'));
+					}else{
+						$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+					}
+					if(row.data('field5')==""){
+						$(".see_block").find("dd[name='field5']").text(row.data('field5'));
+					}else{
+						$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+					}
+					
+					
 				});
 				$.each($("#financeDetail input[type='radio']"),function(){
 					var selectId=$(this).val();
@@ -581,16 +591,19 @@ function delRow(ele)
 	var code = $(ele).closest('table').data('code');
 	if(code == 'grant-part' || code == 'grant-actual'){
 		var tr = $(ele).closest('tr');
-		var data = tr.data('dataList').length;
-		if(data > 0){
-			layer.open({
-				  type: 1,
-				  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
-				  area: ['420px', '240px'], //宽高
-				  content: '有实际注资计划,无法删除分期注资计划'
-				});
-		    return;
+		if(tr.data('dataList')){
+			var data = tr.data('dataList').length;
+			if(data > 0){
+				layer.open({
+					  type: 1,
+					  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
+					  area: ['420px', '240px'], //宽高
+					  content: '有实际注资计划,无法删除分期注资计划'
+					});
+			    return;
+			}
 		}
+	
 	}
 	layer.confirm('是否删除?', {
 		btn : [ '确定', '取消' ],

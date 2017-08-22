@@ -234,7 +234,7 @@ function right_anchor(i,type,right){
 							 setTimeout(function(){$(window).scrollTop(0)},1);
 							 var anchor_width=$("#new_right").css("width").replace("px","");
 							 var  anchor_nav=$("#div-content").contents().find(".anchor_nav");
-							 anchor_nav.css("width",Number(anchor_width)+5);
+							 anchor_nav.css("width",Number(anchor_width));
 							 //点击锚点
 							$('.anchor_nav a[href^="#"]').click(function(event) {
 								var _this=$(this);
