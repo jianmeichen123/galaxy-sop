@@ -301,9 +301,11 @@
 								list:""
 						};
 						var _url=$(this).attr("data-file-url");
+						var _durl=$(this).attr("data-url");
 						var _list=$(this).attr("data-list");
 						var _id=$(this).attr("data-file-id");
 						data.url=_url;
+						data.durl=_durl;
 						data.list=_list;
 						if(_id!=undefined||_id!=""){
 							data.id=_id;
@@ -313,8 +315,16 @@
 					var html="";
 					if(dataList.length>0){
 						for(var i=0;i<dataList.length;i++){
-							html +=  '<li class="pic_list fl" >'
-				              +'<a href="javascript:;" class="h_img_del"></a>' +'<img  src="' + dataList[i].url + '" data-id="'+dataList[i].id+'" data-list="'+dataList[i].list+'"/></li>';
+							if(dataList[i].url==undefined){
+								html +=  '<li class="pic_list fl" >'
+						              +'<a href="javascript:;" class="h_img_del"></a>' +'<img  src="' + dataList[i].durl + '" data-list="'+dataList[i].list+'"/></li>';
+								
+							
+							}else{
+								html +=  '<li class="pic_list fl" >'
+						              +'<a href="javascript:;" class="h_img_del"></a>' +'<img  src="' + dataList[i].url + '" data-id="'+dataList[i].id+'" data-list="'+dataList[i].list+'"/></li>';
+								
+							}
 						}
 						$(".h_edit_txt .h_imgs").first().html(html);						
 					}
@@ -634,7 +644,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 					img_obj.url=_src
 				}
 				if(_id!=undefined||_id!=""){
-					img_obj.id=_id
+					img_obj.id=_id;
 				}
 				imgUrl.push(img_obj);
 			})
@@ -767,7 +777,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 					}else{
 						$.each(d_this.valueList,function(i,n){
 							if(n.id==undefined){
-								var a_img="<em class=\"income_pic\" data-file-url="+n.url+" data-list="+i+">[图片]</em>";
+								var a_img="<em class=\"income_pic\" data-url="+n.url+" data-list="+i+">[图片]</em>";
 								
 							}else{
 								var a_img="<em class=\"income_pic\" data-file-url="+n.url+" data-file-id="+n.id+" data-list="+i+">[图片]</em>";
