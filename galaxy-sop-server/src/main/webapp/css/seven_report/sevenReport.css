@@ -514,7 +514,7 @@ textarea::input-placeholder{
 	background-color: #fff;
 	position: absolute;
 	display: none;
-	z-index: 999;
+	z-index: 21;
 	border:1px solid #979797;
 }
 .gapPopup:after{

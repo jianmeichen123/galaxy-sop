@@ -89,62 +89,68 @@
 			<div class="tq_div">
 				<div class="correlation">水晶球报告</div> 
 				<ul class="sev_report clearfix">
+				<c:choose>
+				 <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
 					<li class="seven_link1" onclick="seven_link(1);">
 						<img src="<%=path %>/img/seven_report/qx.png" />
-						<span>全息报告</span>	
-					</li>
-					<li class="seven_link1 gray_link1" onclick="seven_link(1);">
-						<img src="<%=path %>/img/seven_report/qx_gray.png" />
 						<span>全息报告</span>	
 					</li>
 					<li class="seven_link2" onclick="seven_link(2);">
 						<img src="<%=path %>/img/seven_report/pc.png" />
 						<span>评测报告</span>	
 					</li>
-					<li class="seven_link2 gray_link2">
-						<img src="<%=path %>/img/seven_report/pc_gray.png" />
-						<span>评测报告</span>	
-					</li>
 					<li class="seven_link3" onclick="seven_link(3);">
 						<img src="<%=path %>/img/seven_report/jd.png" />
-						<span>尽调报告</span>	
-					</li>
-					<li class="seven_link3 gray_link3">
-						<img src="<%=path %>/img/seven_report/jd_gray.png" />
 						<span>尽调报告</span>	
 					</li>
 					<li class="seven_link4" onclick="seven_link(4);">
 						<img src="<%=path %>/img/seven_report/jc.png" />
 						<span>决策报告</span>	
 					</li>
-					<li class="seven_link4 gray_link4">
-						<img src="<%=path %>/img/seven_report/jd_gray.png" />
-						<span>决策报告</span>	
-					</li>
 					<li class="seven_link5" onclick="seven_link(5);">
 						<img src="<%=path %>/img/seven_report/cp.png" />
-						<span>初评报告</span>	
-					</li>
-					<li class="seven_link5 gray_link5">
-						<img src="<%=path %>/img/seven_report/cp_gray.png" />
 						<span>初评报告</span>	
 					</li>
 					<li class="seven_link6" onclick="seven_link(6);">
 						<img src="<%=path %>/img/seven_report/rz.png" />
 						<span>融资报告</span>	
 					</li>
-					<li class="seven_link6 gray_link6">
-						<img src="<%=path %>/img/seven_report/rz_gray.png" />
-						<span>融资报告</span>	
-					</li>
 					<li class="seven_link7" onclick="seven_link(7);">
 						<img src="<%=path %>/img/seven_report/yy.png" />
 						<span>运营报告</span>	
 					</li>
-					<li class="seven_link7 gray_link7">
-						<img src="<%=path %>/img/seven_report/yy_gray.png" />
-						<span>运营报告</span>	
-					</li>
+					 </c:when>
+					 <c:otherwise>
+						<li class="seven_link1 gray_link1">
+							<img src="<%=path %>/img/seven_report/qx_gray.png" />
+							<span>全息报告</span>	
+						</li>
+						<li class="seven_link2 gray_link2">
+							<img src="<%=path %>/img/seven_report/pc_gray.png" />
+							<span>评测报告</span>	
+						</li>
+						<li class="seven_link3 gray_link3">
+							<img src="<%=path %>/img/seven_report/jd_gray.png" />
+							<span>尽调报告</span>	
+						</li>
+						<li class="seven_link4 gray_link4">
+							<img src="<%=path %>/img/seven_report/jd_gray.png" />
+							<span>决策报告</span>	
+						</li>
+						<li class="seven_link5 gray_link5">
+							<img src="<%=path %>/img/seven_report/cp_gray.png" />
+							<span>初评报告</span>	
+						</li>
+						<li class="seven_link6 gray_link6">
+							<img src="<%=path %>/img/seven_report/rz_gray.png" />
+							<span>融资报告</span>	
+						</li>
+						<li class="seven_link7 gray_link7">
+							<img src="<%=path %>/img/seven_report/yy_gray.png" />
+							<span>运营报告</span>	
+						</li>
+					 </c:otherwise>
+					 </c:choose>
 				</ul>
 			</div>
 			<!-- 七大报告入口结束 -->

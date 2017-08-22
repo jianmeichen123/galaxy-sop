@@ -121,7 +121,9 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			}
 
 			if(StringEx.isNullOrEmpty(entity.getContentChoose()) && StringEx.isNullOrEmpty(entity.getContentDescribe1()) && StringEx.isNullOrEmpty(entity.getContentDescribe2())){
-			    continue;
+			    if(!(model.getType().equals("4") || model.getType().equals("14"))){
+					continue;
+				}
             }
 
 			User user = WebUtils.getUserFromSession();
