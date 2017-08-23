@@ -75,7 +75,7 @@
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
 			//滚动条
-			$('#myTextarea').textareaScroll();
+			//$('#myTextarea').textareaScroll();
 			$(obj).hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
@@ -130,10 +130,8 @@
 				}else if(type==8 || type==15){
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未填写"){
-						console.log(val)
 						val= val.replace(/\<br\>/g,'\n');
 						val= val.replace(/&nbsp;/g," ");
-						console.log(val)
 						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").val(val);
 					}			
 				}else if(type==18){
