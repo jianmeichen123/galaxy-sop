@@ -3487,4 +3487,6 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 }
 .errortc .error{
 	display:block;
+	font-size:12px;
+	font-family:"宋体";
 }
