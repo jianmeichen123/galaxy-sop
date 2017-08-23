@@ -354,10 +354,19 @@ function buildResult(title)
 		_ele.attr("data-result-id",results[0].id);
 	}
 	//文本域
-	else if(type == 1 || type == 8|| type == 18)
+	else if(type == 1 || type == 8|| type == 18|| type == 20)
 	{
 		if(_sign=="sign_3"){
-			_ele.find("span").html(results[0].contentDescribe1);
+			var val = results[0].contentDescribe1;
+			var currency = results[0].contentDescribe2;
+			if(currency!=undefined){
+				currency=currency.split("p")[0];
+			}
+			
+			if(type == 20){
+				val=val+"万元"+currency; 
+			 }
+			_ele.find("span").html(val);
 		}else{
 			_ele.html(results[0].contentDescribe1);
 		}
@@ -501,19 +510,21 @@ function getValues()
 		if(_this.parent().hasClass('sign_3'))
 		{
 			_this= _this.find('span');
-			text = _this.find('span').text();
-			if(type == 1 || type == 8||type == 18){
-				text = _this.find('span').html();
-			}
+			text = _this.text();
 		}
 		//input,textarea
-		if(type == 1 || type == 8||type == 18)
+		if(type == 1 || type == 8||type == 18||type == 20)
 		{
 			var model = {
 				tochange:"true",
 				type:type
-			};
+			};		
 			text = _this.html();
+			if(type == 20){				
+				text=text.replace("万元人民币","");
+				text=text.replace("万元美元","");
+				model.remark2 =_this.attr("currency") ;
+			}			
 			model.projectId = projId;
 			model.titleId = titleId;
 			if(typeof resultId != 'undefined')

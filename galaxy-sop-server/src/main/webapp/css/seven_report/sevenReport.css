@@ -975,4 +975,5 @@ select::-ms-expand { display: none; }
 	background: url(../../img/sop_progress/X_close.png) no-repeat ;
 }
 .h_edit input[data-type="20"]+.error{display:block;padding-top: 5px;}
-.h_edit  .tag_20{float:right;}
+.h_edit input[data-type="20"]{width: 245px;}
+.h_edit .valuationInfo_20_select{ width: 150px;}
