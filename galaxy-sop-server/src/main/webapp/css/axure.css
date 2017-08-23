@@ -3496,3 +3496,4 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 	font-size:12px;
 	font-family:"宋体";
 }
+.h_edit input[data-type="20"]+.error{display:block;padding-top: 5px;}

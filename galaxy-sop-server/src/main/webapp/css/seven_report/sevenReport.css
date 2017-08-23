@@ -974,5 +974,5 @@ select::-ms-expand { display: none; }
 	cursor:pointer;
 	background: url(../../img/sop_progress/X_close.png) no-repeat ;
 }
-.h_edit input[data-type="20"]{float:left;}
-.h_edit input+span{display:block;}
+.h_edit input[data-type="20"]+.error{display:block;padding-top: 5px;}
+.h_edit  .tag_20{float:right;}

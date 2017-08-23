@@ -60,11 +60,9 @@ function validate(){
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="9,4"){
 				var validate={
-						"data-rule-verify_82":"true",
+						"data-rule-verify_94":"true",
 						"name":i,
-						//"required":"required",
-						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_82":"<br><font color=red>*</font>支持0～99999999的整数和两位小数"			
+						"data-msg-verify_94":"<font color=red>*</font>支持0～999999999的整数和四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
@@ -145,6 +143,10 @@ jQuery.validator.addMethod("verify_82", function(value, element) {
 	var verify_82 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,7})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_82.test(value));
 }, "不能超过99999999");
+jQuery.validator.addMethod("verify_94", function(value, element) {
+	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+	return this.optional(element) || (verify_94.test(value));
+}, "支持9位长度的四位小数");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
 	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2})$/;;

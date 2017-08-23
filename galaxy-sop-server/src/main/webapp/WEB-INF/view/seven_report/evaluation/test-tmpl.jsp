@@ -680,7 +680,7 @@
 								{{/each}}
 								{{/each}}
 							{{else type=="20"}}
-								<dd><span>\${content}</span><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
+								<dd><span class="tag_20">\${content}</span><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
 							{{/if}}
 					    </dl>
 					</div>
