@@ -1045,7 +1045,7 @@ function validate(){
 						"data-msg-verify_100":"<font color=red>*</font>不能为空"
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="4" && inputValRuleMark==""){
+			}else if(inputValRule=="4" && inputValRuleMark=="3,1"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
 						//"required":"required",

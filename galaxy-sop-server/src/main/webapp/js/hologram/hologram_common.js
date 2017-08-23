@@ -1079,13 +1079,22 @@ function validate(){
 						"data-msg-verify_100":"<font color=red>*</font>不能为空"			
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="4"){
+			}else if(inputValRule=="4" && inputValRuleMark=="3,1"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"			
+						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="4" && inputValRuleMark=="1,4"){
+				var validate={
+						"data-rule-vinputValRule_54":"true",
+						//"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-vinputValRule_54":"<font color=red>*</font>只允许输入数字0~5整数和四一位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="5"){
