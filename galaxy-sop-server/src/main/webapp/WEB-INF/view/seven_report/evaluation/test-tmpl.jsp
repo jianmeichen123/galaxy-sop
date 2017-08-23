@@ -680,7 +680,15 @@
 								{{/each}}
 								{{/each}}
 							{{else type=="20"}}
-								<dd><span class="tag_20">\${content}</span><input type="text" data-title-id="\${id}" data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}"/></dd>
+								<dd><input type="text" data-title-id="\${id}"  data-type="\${type}" data-valrule="\${valRule}" data-valrulemark="\${valRuleMark}" placeholder="\${placeholder}"  data-must="\${isMust}"/></dd>
+								<dd class="tmpl_con">\${content}</dd>
+								<dd>
+									<select id="\${id}_select" class="valuationInfo_20_select">
+									{{each(i,valueList) valueList}}
+										<option data-value="\${value}" data-type="\${type}" data-id="\${id}" data-title-id="\${titleId}" value="\${id}" data-code="\${code}">\${name}</option>
+									{{/each}}
+									</select>
+								</dd>
 							{{/if}}
 					    </dl>
 					</div>
