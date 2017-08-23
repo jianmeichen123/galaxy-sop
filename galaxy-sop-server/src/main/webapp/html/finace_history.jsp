@@ -110,7 +110,7 @@
             </dl>
           <dl class="fmdl clearfix wid_2">
             <dt>股权占比：</dt>
-                <dd name="field4"></dd>
+                <dd name="field4" class="percent"></dd>
               
            </dl>
            <dl class="fmdl clearfix wid_2">
