@@ -7,7 +7,7 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
-<div class="qualificationstc" id="compete">
+<div class="qualificationstc errortc" id="compete">
 	<div class="title_bj" id="complete_title"></div>
 	
     <div class="qualifications_all">
@@ -28,13 +28,13 @@
             <dl class="fmdl fl">
                 <dt>胜算度：</dt>
                 <dd class="clearfix">
-                    <input name="field2" type="text" class="txt" maxLength="50" allowNULL="yes" valType="OTHER" regString="^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$" msg="<font color=red>*</font>0到10之间的一位小数"/>
+                    <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>威胁度：</dt>
                 <dd class="clearfix">
-                    <input name="field3" type="text" class="txt" maxLength="50" allowNULL="yes" valType="OTHER" regString="^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$" msg="<font color=red>*</font>0到10之间的一位小数"/>
+                    <input name="field3" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
