@@ -2495,7 +2495,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_wid{ width:100%; overflow:hidden; margin-left:40px;}
 .team_wid p{margin-bottom:10px;color: #2d3342;font-size: 14px; overflow:hidden;  line-height: 28px;}
 .team_wid_p span{ display:block; float:left; margin-right:10px;}
-.error_fr span{display: initial;float: none;font-size: 12px;}
+.error_fr span{display: initial;float: none;font-size: 12px;font-family:'宋体'}
 .error_fr span.error{display:block;}
 .team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px; height:28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
 .team_wid .team_textarea{ width:390px; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; margin-bottom:10px; margin-top:-5px;}
