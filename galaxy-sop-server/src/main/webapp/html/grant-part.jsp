@@ -66,7 +66,9 @@
 		            </dl>
 	                 <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资金额 ：</dt>
-		                <dd name="field3"></dd>
+		                <dd name="field3" class="money"></dd>
+		               	<dd class="remainMoney gray">剩余金额<span></span>万元</dd>
+		                
 		            </dl>
 		        <dl class="fmdl fl_l">
                  <dt>付款条件：</dt>

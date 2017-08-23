@@ -1925,6 +1925,20 @@ function editRow(ele)
 				
 				
 			})
+			//分拨剩余金额显示
+			$(".remainMoney span").text($("#formatRemainMoney").text());
+			//特殊处理带万元单位的查看
+			$.each($(".see_block").find("dd.money[name]"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.text(row.data(name)+'万元');
+			})
+			//特殊处理带%单位的查看
+			$.each($(".see_block").find("dd.percent[name]"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.text(row.data(name)+'%');
+			})
 			//文本框剩余字数
 			$.each($("textarea"),function(){
 				var len=$(this).val().length;
