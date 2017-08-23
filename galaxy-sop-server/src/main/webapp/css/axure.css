@@ -2016,7 +2016,7 @@ dl{position: relative;}
 #post-meeting-dialog{position:static !important;}
 .conference_all{ width:590px; margin:45px auto 30px;}
 .conference_all_750{ width:730px; margin:45px auto 0px;}
-.area{ width:420px; min-height:80px; overflow-y: auto}
+.area{ width:410px; min-height:80px; overflow-y: auto}
 .button_affrim{ width:202px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
 .area_input{ width:328px; height: 28px !important;}
 .overflow_y{height:80px; overflow-y: scroll}
@@ -2189,7 +2189,7 @@ border-radius: 4px;
 padding: 0 4px;}
 .edit_actual{min-width: 450px;
 margin: 45px auto 30px;}
-.appr_aging{min-width: 590px;margin:45px auto 30px}
+.appr_aging{margin:45px auto 30px}
 .actual_all th,.actual_all td{padding:0 5px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
 #actual-table td a,#actual-table td label{margin-right:10px;cursor:pointer;}
