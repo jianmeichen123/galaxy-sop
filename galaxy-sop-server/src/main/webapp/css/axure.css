@@ -3485,3 +3485,6 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 .input_selects.up{
 	background:#fff url(../img/seven_report/up.png) no-repeat center right 20px
 }
+.errortc .error{
+	display:block;
+}

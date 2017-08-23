@@ -1149,6 +1149,11 @@ jQuery.validator.addMethod("vinputValRule_54", function(value, element) {
 	var vinputValRule_54 = /^([0-5]{1}|[0-5]{1}\.\d{1,4}|[0-5]{1}\.0{1,4})$/;
 	return this.optional(element) || (vinputValRule_54.test(value));
 }, "不能超过5");
+//不能超过50个字
+jQuery.validator.addMethod("verify_50_font", function(value, element) { 
+	var verify_50_font = /^[^\s](.{0,49})$/;
+	return this.optional(element) || (verify_50_font.test(value));
+}, "不能超过50个字"); 
 //百分数
 jQuery.validator.addMethod("percentage", function(value, element) {
 	var percentage = /^\d+(\.\d{2})?$/;
