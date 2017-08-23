@@ -41,6 +41,7 @@ function tabShow(code,relateId){
 				$("#part-title-name").text(entity.name);
 				$("#test_tmpl").tmpl(entity).appendTo('#page_all');
 				$(".pagebox").attr("data-result",false);  
+				$("#save-rpt-btn").attr("disabled",true);
 				/*显示结果  */
 				/* 16类型内容处理 */
 				var content_16 = $(".content_16").text();
@@ -59,7 +60,8 @@ function tabShow(code,relateId){
 						}else{
 							calcScore();
 							$(".pagebox").attr("data-result",true);
-							$("#save-rpt-btn em").removeClass("disabled")
+							$("#save-rpt-btn").removeAttr("disabled");
+							$("#save-rpt-btn em").removeClass("disabled");
 						}
 					 
 				 });
@@ -764,7 +766,8 @@ $("#save-rpt-btn").click(function(){
 					deletedRowIds=[];
 					deleteFileIds=[];
 					$(".pagebox").attr("data-result",false);
-					$("#save-rpt-btn em").addClass("disabled")
+					$("#save-rpt-btn").attr("disabled",true);
+					$("#save-rpt-btn em").addClass("disabled");
 					layer.msg('保存成功');
 				} 
 				else 

@@ -24,6 +24,10 @@
 .test_top_last{
 	float:right !important;
 	margin-right:40px;
+	border:0;
+	line-height: 60px;
+	background: none;
+	outline:none;
 }
 .test_top_last em{
 	display:inline-block;
@@ -35,6 +39,7 @@
 	color:#fff;
 	border-radius:8px;
 	cursor:pointer;
+	font-size: 18px;
 }
 table{
 	border-collapse:collapse;

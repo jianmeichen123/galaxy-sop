@@ -211,6 +211,11 @@ jQuery.validator.addMethod("eva_10", function(value, element) {
 	return this.optional(element) || (eva_10.test(value));
 	;
 }, "输入数字0~10的整数");
+jQuery.validator.addMethod("eva_20", function(value, element) {   
+	var eva_20 = /^([0-9]{0,1}|[0-1]{1}[0-9]{1}|20)$/;
+	return this.optional(element) || (eva_20.test(value));
+	;
+}, "输入数字0~10的整数");
 jQuery.validator.addMethod("eva_25", function(value, element) {   
 	var eva_25 =/^([0-9]{0,1}|[0-1]{1}[0-9]{1}|2[0-5]{1})$/;
 	return this.optional(element) || (eva_25.test(value));
