@@ -214,6 +214,8 @@ function tabOperateChange(index){
 		                   var json = getData(div);
 		                   if(json['id']){
 		                   $("#actual-form").find("[name='id']").val(json['id']);
+		                      var data = getTotalApprActual(json['id']);
+		                      $("#formatRemainActualMoney").text(data.remainMoney);
 		                   }
 		                   $("#actual-form").find("[name='code']").val(json['code']);
 		                   $("#actual-form").find("[name='field1']").val(json['field1']);

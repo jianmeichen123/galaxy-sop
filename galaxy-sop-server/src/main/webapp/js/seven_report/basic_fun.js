@@ -960,4 +960,33 @@ function getTotalAppr(projectId){
 	return flag;
 }
 
+/**
+ * 获取总注资计划并校验
+ * @param projectId
+ * @returns {Boolean}
+ */
+function getTotalApprActual(id){
+	var flag = false;
+	var params={};
+	var dataMoney={};
+	params.id = id;
+	sendPostRequestByJsonObj(
+				Constants.sopEndpointURL+'/galaxy/infoProject/getTotalApprActual' , 
+				params,
+				function(data){
+					if(data.result.status == "OK"){
+						if(typeof(data.userData) == "object"){
+							if(data.userData.totalMoney || data.userData.remainMoney){
+								flag = true;
+								totalMoney = data.userData.totalMoney;
+								remainMoney = data.userData.remainMoney == null ? 0 : data.userData.remainMoney;
+								dataMoney.totalMoney=totalMoney;
+								dataMoney.remainMoney=remainMoney;
+							}
+						}
+					}
+				});
+
+	return dataMoney;
+}
 
