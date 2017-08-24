@@ -733,8 +733,10 @@ function getTalbleData()
 var deleteFileIds = new Array();
 $("#save-rpt-btn").click(function(){
 	//判断是否让其进行保存
-	var editbox = $(".radioShow");
+	var editbox = $(".radioShow");	
 	var edit_status = false;
+	var scores=$(".score-columns");
+	var scores_status = false;
 	$.each(editbox,function(){
 		if(!$(this).is(":hidden")){
 			edit_status=true;
@@ -743,7 +745,17 @@ $("#save-rpt-btn").click(function(){
 		}
 		
 	})
-	if(edit_status==true){
+	$.each(scores,function(){
+		if($(this).find(".error").length>0&&$(this).find(".error").is(":visible")){
+			scores_status=true;
+			return scores_status; 
+			return false;
+		}
+		
+	})
+	if(scores_status==true){
+		layer.msg("打分错误	无法保存");
+	}else if(edit_status==true){
 		layer.msg("正在编辑无法保存");
 	}else{
 	var data = {
