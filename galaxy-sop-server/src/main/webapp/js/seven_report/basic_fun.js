@@ -526,11 +526,15 @@ function editRow(ele)
 				}else{
 					$("#formatRemainMoney").text(Number(remainMoneyPop)-sum+sumRow);
 				}
-				
 				$(".moeny_all input").on("input",function(){
 					var val=$(this).val();
 					if(val>0){
-						var remainMoneyNew=Number(planMoneyThis)+Number(NewRemainMoneyH)-val;
+						if(NewRemainMoneyH){
+							var remainMoneyNew=Number(planMoneyThis)+Number(NewRemainMoneyH)-val;
+						}else{
+							var remainMoneyNew=Number(planMoneyThis)+Number(remainMoneyPop)-val;
+						}
+						
 						$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
 					}
 				})
