@@ -278,6 +278,7 @@ table.table_15 td:first-child+td+td+td{
     height: 20px;
     right: 20px;
     margin-righ:3px;
+    width: 18px;
 }
 .packup{
 	display:none;
@@ -856,6 +857,7 @@ p.type_8.mare_text{
 height:90px;
 overflow:hidden;
 display:block;
+position: relative;
 }
 select{
 	border:1px solid #000;

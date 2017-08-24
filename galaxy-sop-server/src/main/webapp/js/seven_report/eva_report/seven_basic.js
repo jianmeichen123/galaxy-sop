@@ -899,6 +899,7 @@ function divSelect(){
 		var txt = _a.text(); 
 		var _id=_a.attr("id");
 		var _code=_a.data("code");
+		target.val(txt)
 		target.attr("value",txt); 
 		target.attr("id",_id);
 		target.attr("data-code",_code);

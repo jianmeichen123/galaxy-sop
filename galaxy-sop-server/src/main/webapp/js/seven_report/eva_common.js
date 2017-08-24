@@ -832,7 +832,7 @@ function Tfun_8(data){
 $('div').delegate(".detail","click",function(){
 	$(this).closest("div").find(".type_8").removeClass("mare_text")
 	$(this).hide();
-	$(this).prev().show();
+	$(this).prev().css("display","inline-block");
 })
 	
 $('div').delegate(".packup","click",function(){
