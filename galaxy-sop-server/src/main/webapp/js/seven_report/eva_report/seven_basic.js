@@ -521,7 +521,7 @@ function right(obj,type){
 	}else if(type=="textarea"){
 		var align_left = $("span[parent_dom='show']").parent().find(".align_left");
 		p = align_left.find('p');
-		var data_initial = p.text();
+		var data_initial = align_left.text();
 		var val = $(obj).parent().parent().find("textarea").val();
 		val=val.replace(/\n|\r\n/g,"<br>")
 		val=val.replace(/\s/g,"&nbsp;");
@@ -583,6 +583,9 @@ function right(obj,type){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	//内容改变状态
 	var data_change=align_left.text();
+	alert(data_change)
+	alert(data_initial)
+	alert(data_change!=data_initial)
 	if(data_change!=data_initial){
 		$(".pagebox").attr("data-result",true);
 		$("#save-rpt-btn").removeAttr("disabled"); 
