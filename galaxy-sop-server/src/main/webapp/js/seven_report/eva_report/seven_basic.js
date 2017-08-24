@@ -456,7 +456,6 @@ function closeX(obj){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	$(".img_inner").attr("src","");
 	font_color($(".condition"));
-	//font_color($(".align_left p"));
 }	
 	
 //保存方法
@@ -590,7 +589,6 @@ function right(obj,type){
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	font_color($(".condition"));
-	//font_color(align_left.find("p"));
 }
 
 
@@ -877,13 +875,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
-	/*if(align_left.hasClass("content_16")){
-		font_color($(".condition"));
-		//font_color($(".content_16").find("p"));
-	}else{
-		font_color($(".condition"));
-		//font_color(align_left.find("p"));
-	}*/
 });
 	
 //div模拟select下拉框

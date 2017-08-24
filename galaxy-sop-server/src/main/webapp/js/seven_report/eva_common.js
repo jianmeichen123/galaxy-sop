@@ -141,7 +141,6 @@ function showResultAndScoreList(relateId)
 					$("#table_box").validate();
 					//渲染数据结束对字体颜色进行操作
 					font_color($(".condition"));
-					//font_color($(".align_left p span"));
 				}
 			}
 		);
@@ -947,7 +946,7 @@ function s_editRow(ele)
 		}//模版反回成功执行	
 	});
 }
-//字体颜色进行操作
+//字体颜色进行操作以及对打分进行限制
 function font_color(data){
 	$.each(data,function(){
 		var _this=$(this).find(".align_left").find("p");
