@@ -466,6 +466,7 @@ function editRow(ele)
 	  var rowId=$(ele).closest('tr').attr("data-row-id");
 	  var tabletrs=$(ele).closest("table").find("tr");
 	  var planMoneyThis=tabletrs.eq(index).find("td[data-field-name='field3']").text();  //当前编辑行的计划金额
+	  var delMoney=$("#imbalanceMoney").val();  //已删除的金额
 	  var valList=[];     //未存库的数据
 	  var valRowList=[];     //未存库的数据
 	  $.each(tabletrs,function(){   //从数据库中的数据添加edit_rows
@@ -522,9 +523,18 @@ function editRow(ele)
 				}
 				var remainMoneyPop=$("#remainMoney").val();   //初始剩余金额
 				if(NewRemainMoneyH){
-					$("#formatRemainMoney").text(NewRemainMoneyH);
+					if(delMoney!=undefined){
+						$("#formatRemainMoney").text(Number(NewRemainMoneyH)+Number(delMoney));
+					}else{
+						$("#formatRemainMoney").text(Number(NewRemainMoneyH));
+					}
+					
 				}else{
-					$("#formatRemainMoney").text(Number(remainMoneyPop)-sum+sumRow);
+					if(delMoney!=undefined){
+						$("#formatRemainMoney").text(Number(remainMoneyPop)-sum+sumRow+Number(delMoney));
+					}else{
+						$("#formatRemainMoney").text(Number(remainMoneyPop)-sum+sumRow);
+					}
 				}
 				$(".moeny_all input").on("input",function(){
 					var val=$(this).val();
@@ -677,7 +687,31 @@ function delRow(ele)
 			    return;
 			}
 		}
-	
+		//剩余金额
+		 var NewRemainMoneyH=$("#NewRemainMoneyH").val();
+		  var index=$(ele).closest('tr').index();
+		  var rowId=$(ele).closest('tr').attr("data-row-id");
+		  var tabletrs=$(ele).closest("table").find("tr");
+		  var planMoneyThis=tabletrs.eq(index).find("td[data-field-name='field3']").text();  //当前删除行的计划金额
+		  var valList=[];  
+		  var sum=0;
+		  for(var i=1;i<=tabletrs.length;i++){
+			var planMoney=tabletrs.eq(i).find("td[data-field-name='field3']").text();
+			valList.push(planMoney)
+		  }
+		  for(var i =0;i<valList.length;i++){
+				sum+=Number(valList[i]);
+		  }
+		  var imbalanceMoneyOld=$("#imbalanceMoneyOld").val();
+		  var elementOld='<input type=hidden id="imbalanceMoneyOld" value=""/>';
+		  $("#imbalanceMoneyOld").remove();
+		  $("table[data-code='"+code+"'].editable").before(elementOld);
+		  if(imbalanceMoneyOld>0){
+			  $("#imbalanceMoneyOld").val(imbalanceMoneyOld)
+		  }else{
+			  $("#imbalanceMoneyOld").val(sum)
+		  }
+		 
 	}
 	layer.confirm('是否删除?', {
 		btn : [ '确定', '取消' ],
@@ -702,6 +736,23 @@ function delRow(ele)
 		//运营报告中【融资估值中分期添加按钮隐藏】
 		check_add_button_hide(reportType,table.attr("data-title-id"));
 		$(".layui-layer-close1").click();
+		//注资剩余金额
+		if(code == 'grant-part' || code == 'grant-actual'){
+			var tabletrsRemain=$("table[data-code='"+code+"'].editable").find("tr");
+			  var valListRemain=[];  
+			  var sumRemain=0;
+			  for(var i=0;i<=tabletrsRemain.length;i++){
+				var planMoney=tabletrsRemain.eq(i).find("td[data-field-name='field3']").text();
+				valListRemain.push(planMoney)
+			  }
+			  for(var i =0;i<valList.length;i++){
+					sumRemain+=Number(valListRemain[i]);
+			  }
+			$("#imbalanceMoney").remove();
+			var element='<input type=hidden id="imbalanceMoney" value=""/>';
+			$("table[data-code='"+code+"'].editable").before(element);
+			$("#imbalanceMoney").val($("#imbalanceMoneyOld").val()-sumRemain);
+		}
 	},function(index) {
 	});
  
@@ -717,6 +768,7 @@ function addRow(ele)
 				  return;
 			  }
 			 var NewRemainMoneyH=$("#NewRemainMoneyH").val();   //减去计划的剩余金额
+			 var delMoney=$("#imbalanceMoney").val();
 		}
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
@@ -733,7 +785,7 @@ function addRow(ele)
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
-                getTotalAppr(projectInfo.id,NewRemainMoneyH);
+                getTotalAppr(projectInfo.id,NewRemainMoneyH,delMoney);
                 selectContext("detail-form");
 
                 $("#save-detail-btn").click(function(){
@@ -749,6 +801,8 @@ function addRow(ele)
                     saveForm($("#detail-form"));
                     check_table();
                     check_table_tr_edit();
+                    $("#imbalanceMoneyOld").remove();
+    				$("#imbalanceMoney").remove();
                 });
                 $("#save_person_learning").click(function(){
                 	check_table();
@@ -1020,7 +1074,7 @@ function tableDictColumn(code){
  * @param projectId
  * @returns {Boolean}
  */
-function getTotalAppr(projectId,NewRemainMoneyH){
+function getTotalAppr(projectId,NewRemainMoneyH,delMoney){
 	var flag = false;
 	var params={};
 	params.projectId = projectId;
@@ -1040,10 +1094,17 @@ function getTotalAppr(projectId,NewRemainMoneyH){
 								$("#remainMoney").val(remainMoney == null ? 0 : remainMoney);
 								$("#totalMoney").val(totalMoney == null ? 0 : totalMoney);
 								if(NewRemainMoneyH){   //剩余金额
-									$("#formatRemainMoney").text(NewRemainMoneyH);
+									if(delMoney!=undefined){
+										$("#formatRemainMoney").text(Number(NewRemainMoneyH)+Number(delMoney));
+									}else{
+										$("#formatRemainMoney").text(Number(NewRemainMoneyH));
+									}
 								}else{
-									
-									$("#formatRemainMoney").text($("#remainMoney").val());
+									if(delMoney!=undefined){
+										$("#formatRemainMoney").text(Number($("#remainMoney").val())+Number(delMoney));
+									}else{
+										$("#formatRemainMoney").text(Number($("#remainMoney").val()));
+									}
 								}
 								
 								var remainMoneyPoP=$("#formatRemainMoney").text();
