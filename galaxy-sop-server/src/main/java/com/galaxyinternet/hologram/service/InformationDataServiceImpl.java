@@ -161,6 +161,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		if (entityList.size() > 0) {
 			resultDao.insertInBatch(entityList);
 		}
+		InformationResult resultUpdate = new InformationResult();
 		// 决策报告编辑估值安排时候计算项目投资额
 		if (null != investment && !"".equals(investment)) {
 			InformationResult result = new InformationResult();
@@ -175,28 +176,31 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			Long now = new Date().getTime();
 			List<InformationResult> selectList = resultDao.selectList(result);
 			Double v = null;
-			boolean flag = false;
+			int count=0;
 			for (int i = 0; i < selectList.size(); i++) {
-				InformationResult resultNew = selectList.get(i);
-				if (resultNew.getTitleId().equals("3010") && null != resultNew.getContentDescribe1()) {
-					v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1())*100;
-				}
-				if (null != v && resultNew.getTitleId().equals("3012")) {
-					result = resultNew;
-					flag = true;
+					InformationResult resultNew = selectList.get(i);
+					if (resultNew.getTitleId().equals("3010") && null != resultNew.getContentDescribe1()) {
+						v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1())*100;
+					}else if (null != v&&resultNew.getTitleId().equals("3012")) {
+						count=count+1;
+						resultUpdate=resultNew;
 				}
 			}
-			if (flag) {
-				result.setContentDescribe1(v.toString());
-				result.setUpdatedTime(now);
-				result.setUpdateId(userId.toString());
-				resultDao.updateById(result);
-			} else {
-				result.setContentDescribe1(investment.toString());
-				result.setCreatedTime(now);
-				result.setCreateId(userId.toString());
-				resultDao.insert(result);
+			if(null!=v){
+				if(count>0){
+					result = resultUpdate;
+					result.setContentDescribe1(v.toString());
+					result.setUpdatedTime(now);
+					result.setUpdateId(userId.toString());
+					resultDao.updateById(result);
+				}else {
+					result.setContentDescribe1(v.toString());
+					result.setCreatedTime(now);
+					result.setCreateId(userId.toString());
+					resultDao.insert(result);
+				}
 			}
+			
 		}
 	}			
 			
