@@ -2016,7 +2016,7 @@ dl{position: relative;}
 #post-meeting-dialog{position:static !important;}
 .conference_all{ width:590px; margin:45px auto 30px;}
 .conference_all_750{ width:730px; margin:45px auto 0px;}
-.area{ width:420px; min-height:80px; overflow-y: auto}
+.area{ width:410px; min-height:80px; overflow-y: auto}
 .button_affrim{ width:202px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
 .area_input{ width:328px; height: 28px !important;}
 .overflow_y{height:80px; overflow-y: scroll}
@@ -2189,7 +2189,7 @@ border-radius: 4px;
 padding: 0 4px;}
 .edit_actual{min-width: 450px;
 margin: 45px auto 30px;}
-.appr_aging{min-width: 590px;margin:45px auto 30px}
+.appr_aging{width:560px;margin:45px auto 30px}
 .actual_all th,.actual_all td{padding:0 5px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
 #actual-table td a,#actual-table td label{margin-right:10px;cursor:pointer;}
@@ -2495,6 +2495,8 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_wid{ width:100%; overflow:hidden; margin-left:40px;}
 .team_wid p{margin-bottom:10px;color: #2d3342;font-size: 14px; overflow:hidden;  line-height: 28px;}
 .team_wid_p span{ display:block; float:left; margin-right:10px;}
+.error_fr span{display: initial;float: none;font-size: 12px;font-family:'宋体'}
+.error_fr span.error{display:block;}
 .team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px; height:28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
 .team_wid .team_textarea{ width:390px; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; margin-bottom:10px; margin-top:-5px;}
 .no_bl{ display:none;}
@@ -3485,3 +3487,13 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 .input_selects.up{
 	background:#fff url(../img/seven_report/up.png) no-repeat center right 20px
 }
+.errortc .error{
+	display:block;
+	font-size:12px;
+	font-family:"宋体";
+}
+.errortc .gray{
+	font-size:12px;
+	font-family:"宋体";
+}
+.h_edit input[data-type="20"]+.error{display:block;padding-top: 5px;}

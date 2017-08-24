@@ -410,7 +410,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 							dtWidth();
 							var pid=$('#a_'+id_code).attr("data-section-id");
 							$('#a_'+id_code).find('dd[data-type="3"]').hide();
-							setDate(pid,true);
+							//setDate(pid,true);
 							picData(projectInfo.id);
 							if(id_code=="PNO1_1"){   //投资金额单独刷新
 								var val=$("input[type='hidden'].money").val();

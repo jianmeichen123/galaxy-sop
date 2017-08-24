@@ -1,21 +1,5 @@
 package com.galaxyinternet.chart.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
-
 import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
@@ -42,6 +26,20 @@ import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.KpiService;
 import com.galaxyinternet.service.chart.statistics.MeetingPassRateService;
 import com.galaxyinternet.utils.ListSortUtil;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 @Service("com.galaxyinternet.service.chart.KpiService")
 public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
@@ -909,7 +907,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 			kpi.setDepartmentName(departIdNameMap.get(pro.getProjectDepartid()));
 
 			kpi.setUserId(pro.getCreateUid());
-			kpi.setRealName(user.getRealName());
+			kpi.setRealName(user==null?"":user.getRealName());
 
 			kpi.setCompanyRank(companyRank);
 			kpi.setDeptRank(pro.getDepNumOrder());

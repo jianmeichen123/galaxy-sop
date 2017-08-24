@@ -401,7 +401,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		tableCode_fieldList.put("competition-comparison",fieldList);
 
 		relateCode_tableCode_fieldList.put("ENO4_4_2",tableCode_fieldList);
-
+		relateCode_tableCode_fieldList.put("CNO4_4_2",tableCode_fieldList);
 
 		//=================  差异化策略
 		fieldList = new ArrayList<>();
@@ -412,6 +412,7 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		tableCode_fieldList.put("competition-comparison",fieldList);
 
 		relateCode_tableCode_fieldList.put("ENO4_4_5",tableCode_fieldList);
+		relateCode_tableCode_fieldList.put("CNO4_4_5",tableCode_fieldList);
 	}
 
 	/**

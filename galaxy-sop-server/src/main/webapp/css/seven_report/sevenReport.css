@@ -24,6 +24,10 @@
 .test_top_last{
 	float:right !important;
 	margin-right:40px;
+	border:0;
+	line-height: 60px;
+	background: none;
+	outline:none;
 }
 .test_top_last em{
 	display:inline-block;
@@ -35,6 +39,7 @@
 	color:#fff;
 	border-radius:8px;
 	cursor:pointer;
+	font-size: 18px;
 }
 table{
 	border-collapse:collapse;
@@ -551,8 +556,8 @@ textarea::input-placeholder{
 	border:none;
 	outline: none;
 	resize: none; 
-	overflow-y:hidden !important;
-	margin-top:25px;
+	/* overflow-y:hidden !important;
+	margin-top:25px; */
 	padding:0px 10px 10px 10px;
 }
 .show_edit{
@@ -672,7 +677,7 @@ table td select option{
  	left: 20px;
  	background: #fff;
  	display: none;
- 	z-index: 10;
+ 	z-index: 13;
  }
  .customer_income:before{
 			content: '';
@@ -974,3 +979,6 @@ select::-ms-expand { display: none; }
 	cursor:pointer;
 	background: url(../../img/sop_progress/X_close.png) no-repeat ;
 }
+.h_edit input[data-type="20"]+.error{display:block;padding-top: 5px;}
+.h_edit input[data-type="20"]{width: 245px;}
+.h_edit .valuationInfo_20_select{ width: 150px;}

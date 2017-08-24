@@ -1042,8 +1042,6 @@ function validate(){
 				var validate={
 						"data-rule-verify_94":"true",
 						"name":i,
-						//"required":"required",
-						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
 						"data-msg-verify_94":"<font color=red>*</font>支持0～999999999的整数和四位小数"
 				}
 				inputs.eq(i).attr(validate);
@@ -1079,13 +1077,22 @@ function validate(){
 						"data-msg-verify_100":"<font color=red>*</font>不能为空"			
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="4"){
+			}else if(inputValRule=="4" && inputValRuleMark=="3,1"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"			
+						"data-msg-vinputValRule_4":"<font color=red>*</font>只允许输入数字0~168整数和一位小数"
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="4" && inputValRuleMark=="1,4"){
+				var validate={
+						"data-rule-vinputValRule_54":"true",
+						//"required":"required",
+						"name":i,
+						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
+						"data-msg-vinputValRule_54":"<font color=red>*</font>只允许输入数字0~5整数和四一位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="5"){
@@ -1125,6 +1132,11 @@ jQuery.validator.addMethod("verify_82", function(value, element) {
 	var verify_82 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,7})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_82.test(value));
 }, "不能超过99999999");
+//inputValRuleMark=="9,4"
+jQuery.validator.addMethod("verify_94", function(value, element) {
+	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+	return this.optional(element) || (verify_94.test(value));
+}, "支持9位长度的四位小数");
 //vinputValRule=="2"
 jQuery.validator.addMethod("vinputValRule_2", function(value, element) {   
 	var vinputValRule_2 = /^([1-9]{1}[0-9]{0,2})$/;;
@@ -1164,6 +1176,16 @@ jQuery.validator.addMethod("vinputValRule_4", function(value, element) {
 	var vinputValRule_4 = /^(((([1-9]{1}[0-9]{0,1}|0)|([1][0-5][0-9])|([1][6][0-7]))(\.\d{1})?)|168|168.0)$/;
 	return this.optional(element) || (vinputValRule_4.test(value));
 }, "不能超过168"); 
+//不能超过50个字
+jQuery.validator.addMethod("verify_50_font", function(value, element) { 
+	var verify_50_font = /^[^\s](.{0,49})$/;
+	return this.optional(element) || (verify_50_font.test(value));
+}, "不能超过50个字"); 
+//0到10之间的一位小数
+jQuery.validator.addMethod("verify_10_1", function(value, element) { 
+	var verify_10_1 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
+	return this.optional(element) || (verify_10_1.test(value));
+}, "0到10之间的一位小数"); 
 //百分数
 jQuery.validator.addMethod("percentage", function(value, element) {   
 	var percentage = /^\d+(\.\d{2})?$/;
@@ -1902,6 +1924,20 @@ function editRow(ele)
 				});
 				
 				
+			})
+			//分拨剩余金额显示
+			$(".remainMoney span").text($("#formatRemainMoney").text());
+			//特殊处理带万元单位的查看
+			$.each($(".see_block").find("dd.money[name]"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.text(row.data(name)+'万元');
+			})
+			//特殊处理带%单位的查看
+			$.each($(".see_block").find("dd.percent[name]"),function(){
+				var ele = $(this);
+				var name = ele.attr('name');
+				ele.text(row.data(name)+'%');
 			})
 			//文本框剩余字数
 			$.each($("textarea"),function(){

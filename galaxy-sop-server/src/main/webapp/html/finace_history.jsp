@@ -8,7 +8,7 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js" charset="UTF-8"></script>
-<div class="qualificationstc"  id="financeDetail" style="    max-height: 500px;   overflow:hidden; overflow-y: auto;">
+<div class="qualificationstc errortc"  id="financeDetail" style="    max-height: 500px;   overflow:hidden; overflow-y: auto;">
 	<div class="title_bj" id="finace_popup_name"></div>
 
 	
@@ -30,13 +30,13 @@
             <dl class="fmdl clearfix">
                  <dt>投资方(机构或个人)：</dt>
                 <dd>
-                    <input type="text" class="txt"  name="field2" valType="OTHER" allowNULL="yes"  data-rule-verify_101="true" regString="^[^\s](.{0,49})$" data-msg-verify_101="<font color=red>*</font>不能超过50字符"/>
+                    <input type="text" class="txt"  name="field2" data-rule-verify_50_font="true" data-msg-verify_50_font="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
              <dt>投资金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_82="true" data-msg-verify_82="<font color=red>*</font>支持9位长度的四位小数"/>&nbsp;<span>万元</span>
+                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
                 </dd>
                  
             </dl>
@@ -53,13 +53,13 @@
           <dl class="fmdl clearfix">
             <dt>股权占比：</dt>
                 <dd>
-                	 <input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-vinputValRule_3="true"  data-msg-vinputValRule_3="<font color=red>*</font>支持0-100之间的两位小数"/>&nbsp;<span>%</span>
+                	 &nbsp;<span class="fr">%</span><input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-vinputValRule_3="true"  data-msg-vinputValRule_3="<font color=red>*</font>支持0-100之间的两位小数"/>
                 </dd>
            </dl>
            <dl class="fmdl clearfix">
            <dt>估值金额：</dt>
                 <dd>
-                    <input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_102="true" data-msg-verify_102="<font color=red>*</font>支持9位长度的四位小数"/>&nbsp;<span>万元</span>
+                    &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
                 </dd>
             </dl>
            <dl class="fmdl clearfix">
@@ -110,7 +110,7 @@
             </dl>
           <dl class="fmdl clearfix wid_2">
             <dt>股权占比：</dt>
-                <dd name="field4"></dd>
+                <dd name="field4" class="percent"></dd>
               
            </dl>
            <dl class="fmdl clearfix wid_2">

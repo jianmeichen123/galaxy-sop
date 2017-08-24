@@ -713,10 +713,13 @@ function buildTable(sec,title)
 			{
 				if(key.indexOf('field')>-1)
 				{
-					if((header.titleId == '1810'||header.titleId == '1811')&& key == 'field2'){
+					if((header.titleId == '1810'||header.titleId == '1811') && key == 'field2'){
 						continue;
 					}
 					if(header.code=='finance-history'&&(key == 'field8'||key == 'field9'||key == 'field10')){
+						continue;
+					}
+					if((header.code=='delivery-before' || header.code=='delivery-after') && (key == 'field3')){
 						continue;
 					}
 					if(key!="opt"){
@@ -1045,7 +1048,7 @@ function validate(){
 						"data-msg-verify_100":"<font color=red>*</font>不能为空"
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="4" && inputValRuleMark==""){
+			}else if(inputValRule=="4" && inputValRuleMark=="3,1"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
 						//"required":"required",
@@ -1149,6 +1152,16 @@ jQuery.validator.addMethod("vinputValRule_54", function(value, element) {
 	var vinputValRule_54 = /^([0-5]{1}|[0-5]{1}\.\d{1,4}|[0-5]{1}\.0{1,4})$/;
 	return this.optional(element) || (vinputValRule_54.test(value));
 }, "不能超过5");
+//不能超过50个字
+jQuery.validator.addMethod("verify_50_font", function(value, element) { 
+	var verify_50_font = /^[^\s](.{0,49})$/;
+	return this.optional(element) || (verify_50_font.test(value));
+}, "不能超过50个字"); 
+//0到10之间的一位小数
+jQuery.validator.addMethod("verify_10_1", function(value, element) { 
+	var verify_10_1 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
+	return this.optional(element) || (verify_10_1.test(value));
+}, "0到10之间的一位小数"); 
 //百分数
 jQuery.validator.addMethod("percentage", function(value, element) {
 	var percentage = /^\d+(\.\d{2})?$/;

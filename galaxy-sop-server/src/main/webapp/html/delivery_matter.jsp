@@ -2,15 +2,10 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
-<!-- 校验 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+<script src="<%=path %>/js/validate/messages_zh.min.js"></script>
 
-<div class="addmentc">
+<div class="addmentc errortc">
 	<div class="title_bj" id="delivery_popup_name"></div>
 	
     <div class="form" id="container">
@@ -21,19 +16,20 @@
     	<input name="id" type="hidden">
     	<input name="updateTimeStr" type="hidden" >
     	<input name="updateTimeSign" type="hidden" >
+    	<input name="field3" type="hidden" value="2175">
     	<input name="updateUserName" type="hidden" value="${realName }">
     	<input name="titleId" type="hidden">
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>
                 <dd>
-                    <input type="text" class="txt"  name="field1" oninput="change(event)" onporpertychange="change(event)"  maxlength="24" valType="required" msg="<font color=red>*</font>事项简述不能为空"/>
+                    <input type="text" class="txt"  name="field1" oninput="change(event)" onporpertychange="change(event)"  maxlength="24" required valType="required" msg="<font color=red>*</font>事项简述不能为空"/>
                 </dd>
             </dl>
             
             <dl class="fmdl fl_l">
                  <dt>详细内容：</dt>
                  <dd>
-                	 <textarea class="area" name="field2"  id="area_textarea" oninput="change(event);countChar('area_textarea','label_now_next','100')" cols="45" rows="5"  valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea>
+                	 <textarea class="area" name="field2"  id="area_textarea" oninput="change(event);countChar('area_textarea','label_now_next','100')" cols="45" rows="5" required valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea>
                  	 <p class="num_tj"><span for="" id="label_now_next">100</span>/100</p>
                  </dd>
             </dl>

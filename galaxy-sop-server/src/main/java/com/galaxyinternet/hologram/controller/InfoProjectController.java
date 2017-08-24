@@ -290,6 +290,55 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		
 		return response;
 	}
+	
+	/**
+	 * 获取实际注资计划额度
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getTotalApprActual", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationResult> getTotalApprActual(@RequestBody InformationResult informationResult,HttpServletRequest request){
+		
+		ResponseData<InformationResult> response = new ResponseData<InformationResult>();
+		if(informationResult.getId() == null){
+			response.setResult(new Result(Status.ERROR,"参数丢失."));
+		}
+		try{
+			Map<String,Object> map = new HashMap<String,Object>();;
+			//获取分拨注资计划的金额
+			InformationListdata ir = informationListdataService.queryById(informationResult.getId());
+			if(StringUtils.isNotEmpty(ir.getCode())){
+				ir = informationListdataService.queryById(ir.getParentId());
+			}
+			if(ir != null){
+				String field3 = ir.getField3();
+				InformationListdata query = new InformationListdata();
+				query.setParentId(ir.getId());
+				query.setCode("grant-actual");
+	            query.setTitleId(ir.getTitleId());
+	            query.setProjectId(ir.getProjectId());
+	            Double money = informationListdataService.selectPartMoney(query);
+	            map.put("totalMoney", field3);
+	            if(money != null){
+	            	 BigDecimal total = new BigDecimal(field3);
+	 	             BigDecimal part = new BigDecimal(money);
+	 	             if(total.doubleValue() > part.doubleValue()){
+	 	            	double remainMoney = total.subtract(part).doubleValue();
+	 	  				map.put("remainMoney",remainMoney );
+	 	             }
+	            }
+	            response.setUserData(map);
+			}
+		   
+		}catch(Exception e){
+			logger.error("获取总注资金额失败.", e);
+			e.printStackTrace();
+			response.setResult(new Result(Status.ERROR,"总注资计划失败."));
+		}
+		
+		return response;
+	}
 }
 
 

@@ -87,9 +87,9 @@
 <script src="/sop/js/hologram/team_save.js"></script>
 <script>
    //验证手机号
-    jQuery.validator.addMethod("mobile", function (value, element) {
-      var mobile = /^[\+\-\(\)0-9]{0,40}$/;
-   	return this.optional(element) || (mobile.test(value));
+    jQuery.validator.addMethod("phone", function (value, element) {
+      var phone = /^[\+\-\(\)0-9]{0,40}$/;
+   	return this.optional(element) || (phone.test(value));
     }, "手机格式不对");
 </script>
 <style>

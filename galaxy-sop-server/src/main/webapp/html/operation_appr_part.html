@@ -6,7 +6,7 @@
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
 <script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<div  class="qualificationstc">
+<div  class="qualificationstc errortc">
 	<div class="title_bj" id="pop-title">添加分拨计划</div>
     <div class="qualifications_all">
 		<form id = "detail-form" >
@@ -102,6 +102,7 @@ $(function(){
  */
 $("div").delegate(".appr_part_add","click",function(event){
 	event.stopPropagation();
+	var json =getToobarQueryParams("detail-form");
   	var $self = $(this);
 	var _url = $self.attr("href");
 	var _name= $self.attr("data-name");
@@ -109,7 +110,10 @@ $("div").delegate(".appr_part_add","click",function(event){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-           
+			if(json['id']){
+				 var data = getTotalApprActual(json['id']);
+				 $("#formatRemainActualMoney").text(data.remainMoney);
+			}
 		}//模版反回成功执行
 	});
 	return false;
@@ -130,8 +134,10 @@ function remainMoney(){   //计算剩余金额
 								$("#formatRemainMoney").text(remainMoney == null ? 0 : remainMoney);
 								$(".moeny_all input").on("input",function(){
 									var val=$(this).val();
-									var remainMoneyNew=remainMoney-val;
-									$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
+									if(val>0){
+										var remainMoneyNew=remainMoney-val;
+										$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
+									}
 								})
 							}
 						}
@@ -139,7 +145,5 @@ function remainMoney(){   //计算剩余金额
 				});
 }
 </script>
-<style>
-#field3-error{position:absolute;right:68px;width:auto;top:6px;font-size: 12px;line-height: 1.2;}
-</style>
+
 

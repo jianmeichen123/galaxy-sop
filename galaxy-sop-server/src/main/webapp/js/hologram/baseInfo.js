@@ -489,8 +489,10 @@ function type_5_html(title,mark){
 		var r_value = '';
 		if(results && results.length > 0){
 			for(var i = 0;  i < results.length; i++ ){
-				if(results[i].contentDescribe1){
-					r_value = results[i].contentDescribe1;
+				if(!results[i].valueId){
+					if(results[i].contentDescribe1){
+                        r_value = results[i].contentDescribe1;
+					}
 					var result_id = results[i].id;
 					break;
 				}

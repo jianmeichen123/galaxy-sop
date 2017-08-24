@@ -120,12 +120,6 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				}
 			}
 
-			if(StringEx.isNullOrEmpty(entity.getContentChoose()) && StringEx.isNullOrEmpty(entity.getContentDescribe1()) && StringEx.isNullOrEmpty(entity.getContentDescribe2())){
-			    if(!(model.getType().equals("4") || model.getType().equals("14"))){
-					continue;
-				}
-            }
-
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
@@ -149,6 +143,18 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			resultDao.delete(query);
 		}
 		if (uodateList.size() > 0) {
+			// ===== 待 1.7 rc环境时 删除
+			List<InformationResult> toVaild1_list = new ArrayList<>();
+			InformationResult toVaild1;
+			for (InformationResult tempUp : uodateList) {
+				toVaild1 = new InformationResult();
+				toVaild1.setProjectId(tempUp.getProjectId());
+				toVaild1.setTitleId(tempUp.getTitleId());
+				toVaild1.setIsValid("1");
+				toVaild1_list.add(toVaild1);
+			}
+			resultDao.updateInBatch(toVaild1_list);
+			// ==== end
 			resultDao.updateInBatch(uodateList);
 		}
 		// 插入数据

@@ -45,9 +45,9 @@ var pageId = "project";
 				<li class="test_top_first">项目综合测评得分:<span id="total-score">0</span></li>
 				<li><font id="part-title-name">项目评测</font>得分:<span id="part-score">0</span></li>
 				<li>权重:<span id="part-weight" >100%</span></li>
-				<li class="test_top_last" id="save-rpt-btn">
+				<button class="test_top_last" id="save-rpt-btn" disabled="true">
 					<em class="disabled">保存</em>
-				</li>
+				</button>
 			</ul>
 		</div>
 		<form id="table_box">
@@ -158,7 +158,6 @@ var projId="${projectId}";
 <script src="<%=path%>/js/seven_report/eva_report/icheck.js"></script>
 <script src="<%=path%>/js/seven_report/eva_report/textarea.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/seven_basic.js"></script>
-<script src="<%=path%>/js/seven_report/eva_report/textarea_scroll.js"></script>
 				
 <!-- 时间插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>

@@ -98,10 +98,11 @@
 	}
 	
 	function toCyPage(){
-		window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid=idea";
+
+		window.location.href=Constants.sopEndpointURL + "/galaxy/idea"+"?indextoid=idea";
 	}
 	function toCyOper(ideaid){
-		window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid="+ideaid;
+		window.location.href=Constants.sopEndpointURL + "/galaxy/idea"+"?indextoid="+ideaid;
 	}
 </script>
 

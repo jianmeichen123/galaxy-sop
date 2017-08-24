@@ -2,21 +2,20 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
-<!-- 校验 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<div class="addmentc">
+<div class="addmentc qualificationstc">
 	<div class="title_bj" id="grant_popup_name">添加分拨计划</div>
   <form id="detail-form">
 		<input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
+    	<input name="id" id="partId" type="hidden" value=""/>
+		<input type="hidden" id="remainMoney" value=""/>
+		<input type="hidden" id="totalMoney" value=""/>
+		<input type="hidden" id="NewRemainMoney" value=""/>
+		<input type="hidden" id="prevPlanMoney" value=""/>
 	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="appr_aging">
 	                <dl class="fmdl fl_l  clearfix">
@@ -38,7 +37,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt "  name="field3" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt "  name="field3" type="text" value="" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
@@ -47,7 +46,9 @@
 		            </dl>
 		             <dl class="fmdl fl_l">
                  <dt>付款条件：</dt>
-                 <dd><textarea class="area" name="field4" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea>
+                 <dd>
+                 	<textarea class="area" name="field4" id="now_area" oninput="countChar('now_area','label_now_next','2000')" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea>
+                 	<p class="num_tj"><span for="" id="label_now_next">2000</span>/2000</p>
                  </dd>
             </dl>
 	        </div>
@@ -70,11 +71,13 @@
 		            </dl>
 	                 <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资金额 ：</dt>
-		                <dd name="field3"></dd>
+		                <dd name="field3" class="money"></dd>
+		               	<dd class="remainMoney gray">剩余金额<span></span>万元</dd>
+		                
 		            </dl>
 		        <dl class="fmdl fl_l">
                  <dt>付款条件：</dt>
-                 <dd name="field4"></dd>
+                 <dd name="field4" class="textarea"></dd>
             </dl>
 	        </div>
             </div>
@@ -84,29 +87,12 @@
 	    </div>  	
 	</div>
 	<script>
-	remainMoney();
-	function remainMoney(){   //计算剩余金额
-		var params={};
-		params.projectId = projectInfo.id;
-		params.titleId = "3004";
-		sendPostRequestByJsonObj(
-					Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
-					params,
-					function(data){
-						if(data.result.status == "OK"){
-							if(typeof(data.userData) == "object"){
-								if(data.userData.totalMoney || data.userData.remainMoney){
-									var remainMoney=data.userData.remainMoney;
-									$("#formatRemainMoney").text(remainMoney == null ? 0 : remainMoney);
-									$(".moeny_all input").on("input",function(){
-										var val=$(this).val();
-										var remainMoneyNew=remainMoney-val;
-										$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
-									})
-								}
-							}
-						}
-					});
-	}
+	$(function(){
+		 $("#detail-form").validate({});
+		$.validator.setDefaults({
+			errorElement:'span'
+		});
+	})
+
 	
 	</script>
