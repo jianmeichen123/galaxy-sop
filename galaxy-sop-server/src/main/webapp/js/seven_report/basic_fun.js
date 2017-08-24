@@ -463,13 +463,24 @@ function editRow(ele)
 		  }
 	  var NewRemainMoneyH=$("#NewRemainMoneyH").val();
 	  var index=$(ele).closest('tr').index();
+	  var rowId=$(ele).closest('tr').attr("data-row-id");
 	  var tabletrs=$(ele).closest("table").find("tr");
 	  var planMoneyThis=tabletrs.eq(index).find("td[data-field-name='field3']").text();  //当前编辑行的计划金额
-	  var valList=[];
-	  for(var i=1;i<=tabletrs.length;i++){
-		  var planMoney=tabletrs.eq(i).find("td[data-field-name='field3']").text();
-		  valList.push(planMoney)
-	  }
+	  var valList=[];     //未存库的数据
+	  var valRowList=[];     //未存库的数据
+	  $.each(tabletrs,function(){   //从数据库中的数据添加edit_rows
+	    var dataRow=$(this).attr("data-row-id");
+	    if(dataRow){
+			var planMoney=$(this).find("td[data-field-name='field3']").text();
+			valRowList.push(planMoney)
+		 }
+	})
+		  
+	for(var i=1;i<=tabletrs.length;i++){
+		var planMoney=tabletrs.eq(i).find("td[data-field-name='field3']").text();
+		valList.push(planMoney)
+	}
+	  
 	}
 	var row = $(ele).closest('tr');
 	var txt= $(ele).text();
@@ -505,8 +516,17 @@ function editRow(ele)
 				for(var i =0;i<valList.length;i++){
 					sum+=Number(valList[i]);
 				}
+				var sumRow=0;
+				for(var i =0;i<valRowList.length;i++){
+					sumRow+=Number(valRowList[i]);
+				}
 				var remainMoneyPop=$("#remainMoney").val();   //初始剩余金额
-				$("#formatRemainMoney").text(Number(remainMoneyPop)-sum);
+				if(NewRemainMoneyH){
+					$("#formatRemainMoney").text(NewRemainMoneyH);
+				}else{
+					$("#formatRemainMoney").text(Number(remainMoneyPop)-sum+sumRow);
+				}
+				
 				$(".moeny_all input").on("input",function(){
 					var val=$(this).val();
 					if(val>0){
