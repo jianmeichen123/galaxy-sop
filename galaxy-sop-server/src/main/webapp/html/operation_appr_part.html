@@ -17,6 +17,10 @@
 			<input name="projectId" type="text" style="display:none">
 			<input name="titleId"  type="text" style="display:none">
 			<input name="subCode" type="hidden"  value="">
+			<input type="hidden" id="remainMoney" value=""/>
+			<input type="hidden" id="totalMoney" value=""/>
+			<input type="hidden" id="NewRemainMoney" value=""/>
+			<input type="hidden" id="prevPlanMoney" value=""/>
    			<li>
    			       <dl class="fmdl">
 		                <dt>分拨名称 ：</dt>
@@ -70,7 +74,8 @@
 		            </dl>
 	                 <dl class="fmdl">
 		                <dt>计划注资金额 ：</dt>
-		                <dd name="field3"></dd>
+		                <dd name="field3" class="money"></dd>
+		               	<dd class="remainMoney gray">剩余金额<span></span>万元</dd>
 		            </dl>
 		             <dl class="fmdl">
 		                <dt>付款条件 ：</dt>
@@ -118,32 +123,6 @@ $("div").delegate(".appr_part_add","click",function(event){
 	});
 	return false;
 });
-remainMoney();
-function remainMoney(){   //计算剩余金额
-	var params={};
-	params.projectId = projectInfo.id;
-	params.titleId = "3004";
-	sendPostRequestByJsonObj(
-				Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
-				params,
-				function(data){
-					if(data.result.status == "OK"){
-						if(typeof(data.userData) == "object"){
-							if(data.userData.totalMoney || data.userData.remainMoney){
-								var remainMoney=data.userData.remainMoney;
-								$("#formatRemainMoney").text(remainMoney == null ? 0 : remainMoney);
-								$(".moeny_all input").on("input",function(){
-									var val=$(this).val();
-									if(val>0){
-										var remainMoneyNew=remainMoney-val;
-										$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
-									}
-								})
-							}
-						}
-					}
-				});
-}
 </script>
 
 
