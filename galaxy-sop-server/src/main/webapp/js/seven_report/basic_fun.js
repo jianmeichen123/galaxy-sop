@@ -644,6 +644,15 @@ function editRow(ele)
 			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
+				var obj=$(this).closest(".poptxt");
+            	if(obj.find("#remainMoney")){
+            		var prevPlanMoney=$(".moeny_all input[name=\"field3\"]").val();
+    				var NewRemainMoney=$("#formatRemainMoney").text();
+    				if(prevPlanMoney>NewRemainMoney){
+    					layer.msg("分期注资金额之和大于总注资金额");
+    					return;
+    				}
+            	}
 				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行
@@ -728,6 +737,15 @@ function addRow(ele)
                 selectContext("detail-form");
 
                 $("#save-detail-btn").click(function(){
+                	var obj=$(this).closest(".poptxt");
+                	if(obj.find("#remainMoney")){
+                		var prevPlanMoney=$(".moeny_all input[name=\"field3\"]").val();
+        				var NewRemainMoney=$("#formatRemainMoney").text();
+        				if(prevPlanMoney>NewRemainMoney){
+        					layer.msg("分期注资金额之和大于总注资金额");
+        					return;
+        				}
+                	}
                     saveForm($("#detail-form"));
                     check_table();
                     check_table_tr_edit();
@@ -771,8 +789,9 @@ function saveRow(data)
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);
-		$('table[data-title-id="'+titleId+'"].editable').append(tr);
 		addHiddenSection(titleId);
+		$('table[data-title-id="'+titleId+'"].editable').append(tr);
+		
 	}
 	else
 	{
@@ -804,6 +823,9 @@ function addHiddenSection(id){  //分拨注资特殊处理剩余金额
 		$("#remainMoneyH").val(remainMoneyPop);
 		$("#prevPlanMoneyH").val(prevPlanMoney);
 		$("#NewRemainMoneyH").val(NewRemainMoney);
+		if(prevPlanMoney>NewRemainMoney){
+			layer.msg("分期注资金额之和大于总注资金额");
+		}
 	}
 }
 function refreshSection(id)
