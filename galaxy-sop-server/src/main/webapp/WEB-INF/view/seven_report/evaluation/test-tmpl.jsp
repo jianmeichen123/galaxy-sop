@@ -327,7 +327,6 @@
 										<td  onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 											<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">未填写</p><em class="packup">收起</em><em class="detail">详情</em></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
-											<div class="radioShow"></div>
 										</td>
 											
 												<td>\${scoreMax}</td>

@@ -753,7 +753,7 @@ $("#save-rpt-btn").click(function(){
 		
 	})
 	if(scores_status==true){
-		layer.msg("打分错误	无法保存");
+		layer.msg("打分错误无法保存");
 	}else if(edit_status==true){
 		layer.msg("正在编辑无法保存");
 	}else{
