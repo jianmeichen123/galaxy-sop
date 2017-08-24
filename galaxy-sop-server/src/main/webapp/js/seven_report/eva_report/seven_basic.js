@@ -583,9 +583,6 @@ function right(obj,type){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	//内容改变状态
 	var data_change=align_left.text();
-	alert(data_change)
-	alert(data_initial)
-	alert(data_change!=data_initial)
 	if(data_change!=data_initial){
 		$(".pagebox").attr("data-result",true);
 		$("#save-rpt-btn").removeAttr("disabled"); 

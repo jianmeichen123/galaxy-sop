@@ -206,6 +206,8 @@ function forwardToPage(url){   //跳到相关页面
 		$("#eva-tabs li[data-code='"+code+"']").siblings().removeClass('active');
 		$("#eva-tabs li[data-code='"+code+"']").addClass('active');
 		tabShow(code,relateId);   
+		$("#save-rpt-btn").attr("disabled");
+		$("#save-rpt-btn em").addClass("disabled");
 	}else{   //点击页面其他能跳转的地方
 		//跳到相关页					
 		forwardWithHeader(url); 
