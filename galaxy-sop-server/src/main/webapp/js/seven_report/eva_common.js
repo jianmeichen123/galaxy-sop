@@ -890,7 +890,8 @@ $('div').delegate(".income_pic","click",function(){
 $('div').delegate(".master_pic","click",function(){
 	$(".mashLayer").show().css('opacity',0.5);
 	var  _src = $(this).prev().attr("src");
-	$(".o_picture").attr("src",_src).show().css('top',document.body.scrollTop+70);
+	var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+	$(".o_picture").attr("src",_src).show().css('top',scrollTop+70);
 	$(".x_picture").show();
 	$(".x_picture").click( function(){
 		$(".x_picture,.mashLayer,.o_picture").hide();
