@@ -270,9 +270,17 @@ table.table_15 td:first-child+td+td+td{
 	right:-2px;
 	display:none;
 }
+.detail::before { 
+    content: "...";
+    color:#333;
+    position: absolute;
+    top: -5px;
+    height: 20px;
+    right: 20px;
+    margin-righ:3px;
+}
 .packup{
 	display:none;
-	margin-left:-20px;
 }
 .sign_3 .packup{
 	margin-left:10px;
@@ -843,14 +851,11 @@ p.check_p{display:inline;}
 .select_list li a{text-align:left;    display: inherit;}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
-p.type_8{display: inline;padding-right:20px;}
-.type_8.mare_text{
-hieght:50px;
-display: -webkit-box;
--webkit-box-orient: vertical;
--webkit-line-clamp: 3;
-overflow: hidden;
-position:relative;
+p.type_8{display: inline;padding-right:25px;}
+p.type_8.mare_text{
+height:90px;
+overflow:hidden;
+display:block;
 }
 select{
 	border:1px solid #000;

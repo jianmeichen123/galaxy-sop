@@ -824,6 +824,7 @@ function Tfun_8(data){
 		if(height>90){
 			_this.addClass("mare_text");
 			_this.parent().find(".detail").show();
+			
 		}
 	})
 }
