@@ -454,8 +454,9 @@ function closeX(obj){
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
 	$('.mashLayer').hide();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-	$(".img_inner").attr("src","")
-	font_color($(".align_left p"));
+	$(".img_inner").attr("src","");
+	font_color($(".condition"));
+	//font_color($(".align_left p"));
 }	
 	
 //保存方法
@@ -588,7 +589,8 @@ function right(obj,type){
 		$("#save-rpt-btn").removeAttr("disabled"); 
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
-	font_color(align_left.find("p"));
+	font_color($(".condition"));
+	//font_color(align_left.find("p"));
 }
 
 
@@ -874,12 +876,14 @@ $('div').delegate(".h_save_btn","click",function(event){
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-	
-	if(align_left.hasClass("content_16")){
-		font_color($(".content_16").find("p"));
+	font_color($(".condition"));
+	/*if(align_left.hasClass("content_16")){
+		font_color($(".condition"));
+		//font_color($(".content_16").find("p"));
 	}else{
-		font_color(align_left.find("p"));
-	}
+		font_color($(".condition"));
+		//font_color(align_left.find("p"));
+	}*/
 });
 	
 //div模拟select下拉框

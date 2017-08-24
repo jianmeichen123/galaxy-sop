@@ -140,8 +140,8 @@ function showResultAndScoreList(relateId)
 					eva_validate();
 					$("#table_box").validate();
 					//渲染数据结束对字体颜色进行操作
-					font_color($(".align_left p"));
-					font_color($(".align_left p span"));
+					font_color($(".condition"));
+					//font_color($(".align_left p span"));
 				}
 			}
 		);
@@ -950,25 +950,41 @@ function s_editRow(ele)
 //字体颜色进行操作
 function font_color(data){
 	$.each(data,function(){
-		var _this=$(this);
-		var _span= _this.find("span");
+		var _this=$(this).find(".align_left").find("p");
+		var sign_3 = $(this).find(".align_left").find(".sign_3")
+		var sign_status = _this.hasClass("income_structor_content");
 		var code_dom =_this.closest("td").siblings(".score-column").find("input,select");
 		var code_input = _this.closest("td").siblings(".score-column").find("input");
 		var code_select = _this.closest("td").siblings(".score-column").find("select");
-		if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"||_span.text()=="未填写"||_span.text()=="未选择"||_span.text()=="未添加"){
-			_this.removeClass("black");
-			_span.removeClass("black");
-			code_dom.addClass("disabled").attr("disabled",true);
-			code_dom.val("");
-			code_select.val("请选择");
+		if(sign_status){
+			//多道题 sign=3
+			var num=0;
+			$.each(sign_3,function(){
+				var _span = $(this).find("span").text();				
+				if(_span=="未填写"||_span=="未选择"||_span=="未添加"){
+					$(this).find("span").removeClass("black");			
+					num++;
+				}else{
+					$(this).find("span").addClass("black");
+				}
+			})
+			if(num>0){
+				code_dom.addClass("disabled").attr("disabled",true);
+				code_dom.val("");
+				code_select.val("请选择");
+			}else{
+				code_dom.removeClass("disabled").attr("disabled",false);
+			}
 		}else{
-			_this.addClass("black");
-			_span.addClass("black");
-			code_dom.removeClass("disabled").attr("disabled",false);
-		}
-		if(_this.hasClass("income_structor_content")){
-			//sign==3
-			_this.removeClass("black");
+			if(_this.text()=="未填写"||_this.text()=="未选择"||_this.text()=="未添加"){
+				_this.removeClass("black");			
+				code_dom.addClass("disabled").attr("disabled",true);
+				code_dom.val("");
+				code_select.val("请选择");
+			}else{
+				_this.addClass("black");
+				code_dom.removeClass("disabled").attr("disabled",false);
+			}
 		}
 		//16类型特殊处理
 		var clean_status=0;
