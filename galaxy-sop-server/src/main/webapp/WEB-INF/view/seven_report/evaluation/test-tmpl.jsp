@@ -131,7 +131,7 @@
 						</td>
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left content_16"><p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+							<div class="align_left content_16"><p class="title-value type_8 " data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">详情</em></div>
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
@@ -364,7 +364,7 @@
 						
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left content_16"><p class="title-value" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p></div>
+							<div class="align_left content_16"><p class="title-value type_8 " data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">详情</em></div>
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
