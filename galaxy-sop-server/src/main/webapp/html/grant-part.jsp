@@ -11,6 +11,11 @@
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
+    	<input name="id" id="partId" type="hidden" value=""/>
+		<input type="hidden" id="remainMoney" value=""/>
+		<input type="hidden" id="totalMoney" value=""/>
+		<input type="hidden" id="NewRemainMoney" value=""/>
+		<input type="hidden" id="prevPlanMoney" value=""/>
 	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="appr_aging">
 	                <dl class="fmdl fl_l  clearfix">
@@ -88,31 +93,6 @@
 			errorElement:'span'
 		});
 	})
-	remainMoney();
-	function remainMoney(){   //计算剩余金额
-		var params={};
-		params.projectId = projectInfo.id;
-		params.titleId = "3004";
-		sendPostRequestByJsonObj(
-					Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
-					params,
-					function(data){
-						if(data.result.status == "OK"){
-							if(typeof(data.userData) == "object"){
-								if(data.userData.totalMoney || data.userData.remainMoney){
-									var remainMoney=data.userData.remainMoney;
-									$("#formatRemainMoney").text(remainMoney == null ? 0 : remainMoney);
-									$(".moeny_all input").on("input",function(){
-										var val=$(this).val();
-										if(val>0){
-											var remainMoneyNew=remainMoney-val;
-											$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
-										}
-									})
-								}
-							}
-						}
-					});
-	}
+
 	
 	</script>

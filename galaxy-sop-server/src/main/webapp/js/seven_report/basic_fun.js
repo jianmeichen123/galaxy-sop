@@ -461,6 +461,15 @@ function editRow(ele)
 		 if(!getTotalAppr(projectInfo.id)){
 			  return;
 		  }
+	  var NewRemainMoneyH=$("#NewRemainMoneyH").val();
+	  var index=$(ele).closest('tr').index();
+	  var tabletrs=$(ele).closest("table").find("tr");
+	  var planMoneyThis=tabletrs.eq(index).find("td[data-field-name='field3']").text();  //当前编辑行的计划金额
+	  var valList=[];
+	  for(var i=1;i<=index;i++){
+		  var planMoney=tabletrs.eq(i).find("td[data-field-name='field3']").text();
+		  valList.push(planMoney)
+	  }
 	}
 	var row = $(ele).closest('tr');
 	var txt= $(ele).text();
@@ -489,8 +498,26 @@ function editRow(ele)
 				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
+			//注资剩余金额
+			if(code == 'grant-part' || code == 'grant-actual'){
+				getTotalAppr(projectInfo.id,NewRemainMoneyH);
+				var sum=0;
+				for(var i =0;i<valList.length;i++){
+					sum+=Number(valList[i]);
+				}
+				var remainMoneyPop=$("#remainMoney").val();   //初始剩余金额
+				$("#formatRemainMoney").text(Number(remainMoneyPop)-sum);
+				$(".moeny_all input").on("input",function(){
+					var val=$(this).val();
+					if(val>0){
+						var remainMoneyNew=Number(remainMoneyPop)-(sum-Number(planMoneyThis))-val;
+						$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
+					}
+				})
+			}
+			
 			selectContext("detail-form");
-			$.each($("#detail-form").find("input, select, textarea"),function(){
+			$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'], select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
 				var type=ele.attr('type');
@@ -656,6 +683,7 @@ function addRow(ele)
 			 if(!getTotalAppr(projectInfo.id)){
 				  return;
 			  }
+			 var NewRemainMoneyH=$("#NewRemainMoneyH").val();   //减去计划的剩余金额
 		}
         $.getHtml({
             url:getDetailUrl(code),//模版请求地址
@@ -672,7 +700,7 @@ function addRow(ele)
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
                 $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
                 $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
-
+                getTotalAppr(projectInfo.id,NewRemainMoneyH);
                 selectContext("detail-form");
 
                 $("#save-detail-btn").click(function(){
@@ -714,13 +742,13 @@ function saveForm(form)
 function saveRow(data)
 {
 	data = JSON.parse(data);
-	console.log("*****************"+data);
 	var titleId = data.titleId;
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
 		var tr = buildRow(data,true,titleId);
 		$('table[data-title-id="'+titleId+'"].editable').append(tr);
+		addHiddenSection(titleId);
 	}
 	else
 	{
@@ -733,11 +761,27 @@ function saveRow(data)
 				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
 			}
 		}
+		addHiddenSection(titleId);
+		
 	}
 	resizetable($('table[data-title-id="'+titleId+'"].editable'))
 	$("a[data-close='close']").click();
 }
-
+function addHiddenSection(id){  //分拨注资特殊处理剩余金额
+	if(id=="3022"){   
+		$('table[data-title-id="'+id+'"].editable').prev("div.none").remove();
+		var inputs='<div class="none"><input type="hidden" id="remainMoneyH" value=""/><input type="hidden" id="prevPlanMoneyH" value=""/><input type="hidden" id="NewRemainMoneyH" value=""/></div>';
+		$('table[data-title-id="'+id+'"].editable').before(inputs);
+		var remainMoneyPop=$("#remainMoney").val();
+		var prevPlanMoney=$(".moeny_all input[name=\"field3\"]").val();
+		var NewRemainMoney=$("#formatRemainMoney").text();
+		$("#NewRemainMoney").val(NewRemainMoney);
+		$("#prevPlanMoney").val(prevPlanMoney);
+		$("#remainMoneyH").val(remainMoneyPop);
+		$("#prevPlanMoneyH").val(prevPlanMoney);
+		$("#NewRemainMoneyH").val(NewRemainMoney);
+	}
+}
 function refreshSection(id)
 {
 	var sec = $(".section[data-section-id='"+id+"']");
@@ -930,7 +974,7 @@ function tableDictColumn(code){
  * @param projectId
  * @returns {Boolean}
  */
-function getTotalAppr(projectId){
+function getTotalAppr(projectId,NewRemainMoneyH){
 	var flag = false;
 	var params={};
 	params.projectId = projectId;
@@ -945,6 +989,25 @@ function getTotalAppr(projectId){
 								flag = true;
 								totalMoney = data.userData.totalMoney;
 								remainMoney = data.userData.remainMoney == null ? 0 : data.userData.remainMoney;
+								/*var remainMoney=data.userData.remainMoney;
+								var totalMoney=data.userData.totalMoney;*/
+								$("#remainMoney").val(remainMoney == null ? 0 : remainMoney);
+								$("#totalMoney").val(totalMoney == null ? 0 : totalMoney);
+								if(NewRemainMoneyH){   //剩余金额
+									$("#formatRemainMoney").text(NewRemainMoneyH);
+								}else{
+									
+									$("#formatRemainMoney").text($("#remainMoney").val());
+								}
+								
+								var remainMoneyPoP=$("#formatRemainMoney").text();
+								$(".moeny_all input").on("input",function(){
+									var val=$(this).val();
+									if(val>0){
+										var remainMoneyNew=remainMoneyPoP-val;
+										$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
+									}
+								})
 							}
 						}
 					}
