@@ -713,10 +713,13 @@ function buildTable(sec,title)
 			{
 				if(key.indexOf('field')>-1)
 				{
-					if((header.titleId == '1810'||header.titleId == '1811')&& key == 'field2'){
+					if((header.titleId == '1810'||header.titleId == '1811') && key == 'field2'){
 						continue;
 					}
 					if(header.code=='finance-history'&&(key == 'field8'||key == 'field9'||key == 'field10')){
+						continue;
+					}
+					if((header.code=='delivery-before' || header.code=='delivery-after') && (key == 'field3')){
 						continue;
 					}
 					if(key!="opt"){
