@@ -85,7 +85,7 @@ var pageId = "project";
 					<i onclick="closeX(this)" class="wrong h_cancel_btn"></i>
 			</div>
 			<img class="img_inner" src="" />
-			<a target="_blank" href="" class="master_pic">原图</a>			
+			<p target="_blank" class="master_pic">原图</p>			
 		</div>
 		
 <!-- 股权结构展示弹窗 -->	

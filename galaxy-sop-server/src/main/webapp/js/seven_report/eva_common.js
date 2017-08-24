@@ -885,7 +885,6 @@ $('div').delegate(".income_pic","click",function(){
 	var  topNum = _target.offset().top-188;
 	$('.customer_income').css('left',leftNum).css('top',topNum);
 	$(".img_inner").attr("src",$(this).data("fileUrl"));
-	$(".master_pic").attr("href","javascript:;");
 })
 //图片点击原图效果
 $('div').delegate(".master_pic","click",function(){
