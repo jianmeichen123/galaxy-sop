@@ -359,7 +359,7 @@
 	}
 //code--第几道题的code    e_type--1-inside-在td里面编辑    2-small_pop-在小浮层里面编辑    3-cover_pop-在打弹窗里面编辑
 function get_result(code,e_type,dom){
-		if(code=="ENO4_4_2" || code=="ENO4_4_5"){
+		if(code=="ENO4_4_2" || code=="ENO4_4_5"||code=="CNO4_4_5" || code=="CNO4_4_2"){
 			sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType+"&proId="+projectInfo.id,null,function(data){
 				 var result = data.result.status;
 				 if(result == 'OK'){
