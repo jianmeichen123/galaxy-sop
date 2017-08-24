@@ -637,6 +637,15 @@ function editRow(ele)
 						   });
 					});
 					$("#save_appr_part").click(function(){
+						var obj=$(this).closest(".poptxt");
+		            	if(obj.find("#remainMoney")){
+		            		var prevPlanMoney=$(".moeny_all input[name=\"field3\"]").val();
+		    				var NewRemainMoney=$("#formatRemainMoney").text();
+		    				if(prevPlanMoney>NewRemainMoney){
+		    					layer.msg("分期注资金额之和大于总注资金额");
+		    					return;
+		    				}
+		            	}
 						var data = getData($("#detail-form"));
 	        		    var dataList = getDataList($("#appr_part"));
 	    	            var tr = $('table[data-title-id="'+data['titleId']+'"].editable').find('tr:eq('+data['index']+')');
