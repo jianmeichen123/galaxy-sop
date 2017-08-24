@@ -972,6 +972,7 @@ function font_color(data){
 				code_dom.addClass("disabled").attr("disabled",true);
 				code_dom.val("");
 				code_select.val("请选择");
+				calcScore();
 			}else{
 				code_dom.removeClass("disabled").attr("disabled",false);
 			}
@@ -981,6 +982,7 @@ function font_color(data){
 				code_dom.addClass("disabled").attr("disabled",true);
 				code_dom.val("");
 				code_select.val("请选择");
+				calcScore();
 			}else{
 				_this.addClass("black");
 				code_dom.removeClass("disabled").attr("disabled",false);
@@ -1002,11 +1004,13 @@ function font_color(data){
 			if(clean_status==0){
 				code_dom.val("");
 				code_select.val("请选择");
+				calcScore();
 			}
 		}
 		if(_this.data("relateId")=="1006"){
 			code_input.addClass("disabled").attr("disabled",true);
 			var sitg=_this.find("sitg");
+			var clean_status=0;
 			$.each(sitg,function(i,n){
 				var n_this=$(this)
 				var len = sitg.length;
@@ -1018,10 +1022,11 @@ function font_color(data){
 						return false;
 					}
 				}				
-			})	
+			})
 			if(clean_status==0){
 				code_dom.val("");
 				code_select.val("请选择");
+				calcScore();
 			}
 		}
 		
