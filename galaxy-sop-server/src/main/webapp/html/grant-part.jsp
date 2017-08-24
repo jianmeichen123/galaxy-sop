@@ -11,7 +11,6 @@
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
-    	<input name="id" id="partId" type="hidden" value=""/>
 		<input type="hidden" id="remainMoney" value=""/>
 		<input type="hidden" id="totalMoney" value=""/>
 		<input type="hidden" id="NewRemainMoney" value=""/>
