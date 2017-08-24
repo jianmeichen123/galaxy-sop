@@ -1066,6 +1066,26 @@ function validate(){
 						"data-msg-vinputValRule_54":"<font color=red>*</font>只允许输入数字0~5整数和四一位小数"
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="1" && inputValRuleMark=="50"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-verify_50_font":"true",
+						//"required":"required",
+						"name":i,
+						"maxlength":"50",
+						"data-msg-verify_50_font":"<font color=red>*</font>不能超过50字"
+				}
+				inputs.eq(i).attr(validate);
+			}else if(inputValRule=="1" && inputValRuleMark=="30"){
+				var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-verify_30_font":"true",
+						//"required":"required",
+						"name":i,
+						"maxlength":"30",
+						"data-msg-verify_30_font":"<font color=red>*</font>不能超过30字"
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="5"){
 				var add_time =i+"_time";
 				var validate={
@@ -1157,6 +1177,11 @@ jQuery.validator.addMethod("verify_50_font", function(value, element) {
 	var verify_50_font = /^[^\s](.{0,49})$/;
 	return this.optional(element) || (verify_50_font.test(value));
 }, "不能超过50个字"); 
+//不能超过30个字
+jQuery.validator.addMethod("verify_30_font", function(value, element) { 
+	var verify_30_font = /^[^\s](.{0,29})$/;
+	return this.optional(element) || (verify_30_font.test(value));
+}, "不能超过30个字");
 //0到10之间的一位小数
 jQuery.validator.addMethod("verify_10_1", function(value, element) { 
 	var verify_10_1 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
