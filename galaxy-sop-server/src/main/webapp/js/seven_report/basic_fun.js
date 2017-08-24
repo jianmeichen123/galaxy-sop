@@ -466,7 +466,7 @@ function editRow(ele)
 	  var tabletrs=$(ele).closest("table").find("tr");
 	  var planMoneyThis=tabletrs.eq(index).find("td[data-field-name='field3']").text();  //当前编辑行的计划金额
 	  var valList=[];
-	  for(var i=1;i<=index;i++){
+	  for(var i=1;i<=tabletrs.length;i++){
 		  var planMoney=tabletrs.eq(i).find("td[data-field-name='field3']").text();
 		  valList.push(planMoney)
 	  }
@@ -510,7 +510,7 @@ function editRow(ele)
 				$(".moeny_all input").on("input",function(){
 					var val=$(this).val();
 					if(val>0){
-						var remainMoneyNew=Number(remainMoneyPop)-(sum-Number(planMoneyThis))-val;
+						var remainMoneyNew=Number(planMoneyThis)+Number(NewRemainMoneyH)-val;
 						$("#formatRemainMoney").text(remainMoneyNew < 0 ? 0 : remainMoneyNew);
 					}
 				})
