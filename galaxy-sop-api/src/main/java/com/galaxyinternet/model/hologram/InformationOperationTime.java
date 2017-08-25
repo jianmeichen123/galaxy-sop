@@ -37,7 +37,7 @@ public class InformationOperationTime extends PagableEntity{
 
     private Date otherBusinessTime;
 
-    private Date time4;
+    private Date marketDevelopmentTime;
 
     private Date time5;
 
@@ -181,15 +181,17 @@ public class InformationOperationTime extends PagableEntity{
 		this.otherBusinessTime = otherBusinessTime;
 	}
 
-	public Date getTime4() {
-        return time4;
-    }
+	
 
-    public void setTime4(Date time4) {
-        this.time4 = time4;
-    }
+    public Date getMarketDevelopmentTime() {
+		return marketDevelopmentTime;
+	}
 
-    public Date getTime5() {
+	public void setMarketDevelopmentTime(Date marketDevelopmentTime) {
+		this.marketDevelopmentTime = marketDevelopmentTime;
+	}
+
+	public Date getTime5() {
         return time5;
     }
 
