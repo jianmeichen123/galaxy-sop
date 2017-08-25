@@ -78,11 +78,13 @@ function tabShow(code,relateId){
 }
 //编辑按钮显示
 function　mouserover(obj){
+	if(isEditable != 'true') return;
 	if($(obj).data('edit') == 'true') return;
 	var target = $(obj).find('.editPic');
 	 target.show();
 };
 function mouseout(obj){
+	if(isEditable != 'true') return;
 	var target = $(obj).find('.editPic');
 	target.hide();
 };
