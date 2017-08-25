@@ -53,7 +53,7 @@ function edit_bsaicfun(data){
 			_target.attr("tochange",true);
 			
 		})
-		$("textarea").change(function(){
+		$("textarea").on("input",function(){
 			var _target=$(this).closest("div").find("dt");
 			_target.attr("tochange",true);
 			
@@ -69,7 +69,7 @@ function edit_bsaicfun(data){
 			_target.attr("tochange",true);
 			
 		})
-		$("textarea").change(function(){
+		$("textarea").on("input",function(){
 			var _target=$(this).parents("dl.h_edit_txt").find("dt");
 			_target.attr("tochange",true);
 			
@@ -1716,7 +1716,7 @@ function type_change(){
 		_target.attr("tochange",true);
 
 	})
-	$("textarea").change(function(){
+	$("textarea").on("input",function(){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
 
