@@ -1747,11 +1747,15 @@ function selectDirect(tittleId,subCode,filed){
 				    var name=""
 				    $filed.children().remove();
 				    if($filed[0].tagName=="SELECT"){
-				    	$filed.append("<option value='' name='"+filed+"'>请选择</option>");
+				    	$filed.append("<option value='' name='"+filed+"' data-name='请选择'>请选择</option>");
 				    }
 					$.each(list, function(i, value){
                         if($filed[0].tagName=="SELECT"){
-                        		$filed.append("<option value="+value.id+"  name='"+filed+"'>"+value.name+"</option>");
+                        	var code=value.code; 
+                        	if(code.indexOf("currency")>-1){   //币种的请选择移除
+                        		$filed.find("option[data-name]").remove();
+                        	}
+                        	$filed.append("<option value="+value.id+"  name='"+filed+"'>"+value.name+"</option>");
 				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
 				    			$filed.append("<label><input type='radio' value='"+value.id+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
 				    	}
