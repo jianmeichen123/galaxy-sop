@@ -164,6 +164,7 @@ public class InformationOperationTimeController extends BaseControllerImpl<Infor
 		    case "PNO1": reportType = 3;reflect = "investmentProgramTime";break;
 		    case "ONO1": reportType = 7;reflect = "investmentProgramTime";break;
 		    case "PNO2": reportType = 3;reflect = "otherBusinessTime";break;
+		    case "ONO4": reportType = 7;reflect = "marketDevelopmentTime";break;
 		    default:
 			    	reflect = null;reportType = null;
 			    	break;

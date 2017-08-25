@@ -19,7 +19,7 @@
     <result column="exit_evaluation_time" property="exitEvaluationTime" jdbcType="TIMESTAMP" />
     <result column="investment_program_time" property="investmentProgramTime" jdbcType="TIMESTAMP" />
     <result column="other_business_time" property="otherBusinessTime" jdbcType="TIMESTAMP" />
-    <result column="time4" property="time4" jdbcType="TIMESTAMP" />
+    <result column="market_development_time" property="marketDevelopmentTime" jdbcType="TIMESTAMP" />
     <result column="time5" property="time5" jdbcType="TIMESTAMP" />
     <result column="time6" property="time6" jdbcType="TIMESTAMP" />
     <result column="time7" property="time7" jdbcType="TIMESTAMP" />
@@ -59,7 +59,7 @@
  
   <sql id="Base_Column_List">
     id, report_type, project_id, information_time, project_time, team_time, operation_data_time, compete_time, 
-    stratagem_time, finance_time, law_time, financing_time, exit_evaluation_time, investment_program_time, other_business_time, time4, 
+    stratagem_time, finance_time, law_time, financing_time, exit_evaluation_time, investment_program_time, other_business_time, market_development_time, 
     time5, time6, time7, time8, time9, time10
   </sql>
   <delete id="deleteById" parameterType="java.lang.Long">
@@ -72,7 +72,7 @@
       compete_time, stratagem_time, finance_time, 
       law_time, financing_time, exit_evaluation_time,
       investment_program_time, other_business_time,
-      time4, 
+      market_development_time, 
       time5, time6, time7, 
       time8, time9, time10
       )
@@ -80,7 +80,7 @@
       #{projectTime,jdbcType=TIMESTAMP}, #{teamTime,jdbcType=TIMESTAMP}, #{operationDataTime,jdbcType=TIMESTAMP}, 
       #{competeTime,jdbcType=TIMESTAMP}, #{stratagemTime,jdbcType=TIMESTAMP}, #{financeTime,jdbcType=TIMESTAMP}, 
       #{lawTime,jdbcType=TIMESTAMP}, #{financingTime,jdbcType=TIMESTAMP}, #{exitEvaluationTime,jdbcType=TIMESTAMP}, 
-      #{investmentProgramTime,jdbcType=TIMESTAMP}, #{otherBusinessTime,jdbcType=TIMESTAMP}, #{time4,jdbcType=TIMESTAMP}, 
+      #{investmentProgramTime,jdbcType=TIMESTAMP}, #{otherBusinessTime,jdbcType=TIMESTAMP}, #{marketDevelopmentTime,jdbcType=TIMESTAMP}, 
       #{time5,jdbcType=TIMESTAMP}, #{time6,jdbcType=TIMESTAMP}, #{time7,jdbcType=TIMESTAMP}, 
       #{time8,jdbcType=TIMESTAMP}, #{time9,jdbcType=TIMESTAMP}, #{time10,jdbcType=TIMESTAMP}
       )
@@ -139,8 +139,8 @@
       <if test="otherBusinessTime != null" >
         other_business_time = #{otherBusinessTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="time4 != null" >
-        time4 = #{time4,jdbcType=TIMESTAMP},
+      <if test="marketDevelopmentTime != null" >
+        market_development_time = #{marketDevelopmentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="time5 != null" >
         time5 = #{time5,jdbcType=TIMESTAMP},
