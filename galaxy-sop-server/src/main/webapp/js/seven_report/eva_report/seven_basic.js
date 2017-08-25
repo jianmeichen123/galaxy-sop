@@ -395,17 +395,17 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 		 if(type==2||type==5||type==6||type==12){
 			 $.each(valueList,function(i,n){
 				 if(n.name=="其他"){
-				 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
+				 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+">"	 
 				 }else{
 				 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
 				 }
 			 })
 		}else if(type==1){
-			result_html ="<input type=\"text\" data-id="+entity.id+" palceholder="+entity.placeholder+" />";
+			result_html ="<input type=\"text\" data-id="+entity.id+" palceholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+"/>";
 		}else if(type==13||type==3){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
-				 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\">"	 
+				 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+">"	 
 				 }else{
 				 result_html += "<input type=\"checkbox\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
 				 }
