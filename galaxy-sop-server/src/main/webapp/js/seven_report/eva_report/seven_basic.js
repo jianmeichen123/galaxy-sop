@@ -1070,20 +1070,3 @@ function iCheck(){
 		 $(this).parents('.radioShow').find('.others_text').attr("required",false);
 	})
 }
-//离开页面提示
-$(window).bind('beforeunload',function(){ 
-	if(checkCon()){
-		return '您输入的内容尚未保存，确定离开此页面吗？'; 
-	}
-	
-	});
-
-function checkCon(){   //判断内容是否更改
-	var result=false;
-	var dataResult=$(".pagebox").attr("data-result");
-	if(dataResult=="true"){
-		result=true;
-	}
-	return result;
-}
-

@@ -14,10 +14,10 @@ $("#eva-tabs li").click(function(){
 	if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
 		var result=$(".pagebox").attr("data-result");
 		if(result=="true"){   //数据变化弹出二次确认弹窗
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			beforeSave();
 		}else{
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			//加载新页面
 			if($li.hasClass('active'))
 			{
@@ -65,6 +65,22 @@ function tabShow(code,relateId){
 						}
 					 
 				 });
+				//离开页面提示
+				 $(window).bind('beforeunload',function(){ 
+				 	if(checkCon()){
+				 		return '您输入的内容尚未保存，确定离开此页面吗？'; 
+				 	}
+				 	});
+
+				 function checkCon(){   //判断内容是否更改
+				 	var result=false;
+				 	var dataResult=$(".pagebox").attr("data-result");
+				 	if(dataResult=="true"){
+				 		result=true;
+				 	}
+				 	return result;
+				 }
+
 			}
 		});
 	
