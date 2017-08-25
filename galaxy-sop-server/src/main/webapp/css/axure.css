@@ -2663,9 +2663,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .compete_tab-content table th,.compete_tab-content table td{width:auto;max-width:110px; }
 .anchor_nav,.anchor_navs{
 	position: fixed;
-	right: 20px;
 	top: 140px;
-	width: 21%;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;padding-bottom:10px;
 }
