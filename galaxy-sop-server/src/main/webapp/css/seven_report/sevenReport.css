@@ -78,12 +78,14 @@ table td:first-child{
 }
 table td:first-child+td{
 	width:10%;
+	line-height: 2;
 }
 table td:first-child+td+td{
 	width:21%;
 }
 table td:first-child+td+td+td{
 	width:6%;
+    line-height: 2;
 }
 table td:first-child+td+td+td+td{
 	width:20%;
@@ -254,7 +256,7 @@ table.table_15 td:first-child+td+td+td{
 .condition em.detail{
 	top:50%;
 	transform:translateY(-50%);
-	margin-top: 29px;
+	margin-top: 38px;
 	z-index: 12;
 	right:4px;
 }
