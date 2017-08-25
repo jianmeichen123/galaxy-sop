@@ -1068,7 +1068,7 @@ function validate(){
 						//"required":"required",
 						"name":i,
 						//"regString":"^(([1-9][0-9]{0,4})|([0-9]{1,5}\.[1-9]{1,2})|([0-9]{1,5}\.[0][1-9]{1})|([0-9]{1,5}\.[1-9]{1}[0])|([1-9][0-9]{0,4}\.[0][0]))$",
-						"data-msg-vinputValRule_54":"<font color=red>*</font>只允许输入数字0~5整数和四一位小数"
+						"data-msg-vinputValRule_54":"<font color=red>*</font>只允许输入数字0~5整数和四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="1" && inputValRuleMark=="50"){
