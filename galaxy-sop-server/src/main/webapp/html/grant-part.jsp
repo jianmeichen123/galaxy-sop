@@ -2,6 +2,14 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<!-- 时间插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc qualificationstc">
@@ -27,7 +35,7 @@
 		                <dt>计划注资时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="txt"  name="field2" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    	<input readonly name="field2" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/>
 		                    </div> 
 		                </dd>
 		            </dl>
