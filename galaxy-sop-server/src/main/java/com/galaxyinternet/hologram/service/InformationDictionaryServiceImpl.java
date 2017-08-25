@@ -480,7 +480,11 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 				String newStr=fieldList.get(i).substring(0, 1).toUpperCase()+fieldList.get(i).replaceFirst("\\w","");
 				String methodStr="get"+newStr;
 				Method getMethod = InformationListdata.class.getMethod(methodStr);
-				String fileValue = (String) getMethod.invoke(temp);
+				Object obj = getMethod.invoke(temp);
+                String fileValue = "";
+                if(obj != null){
+                    fileValue = (String) obj ;
+                }
 
 				if(fieldList.get(i).equals("field2") || fieldList.get(i).equals("field4")){ //胜算
 					if(StringUtils.isBlank(fileValue)){
