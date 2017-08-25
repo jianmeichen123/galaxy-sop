@@ -2495,7 +2495,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_wid{ width:100%; overflow:hidden; margin-left:40px;}
 .team_wid p{margin-bottom:10px;color: #2d3342;font-size: 14px; overflow:hidden;  line-height: 28px;}
 .team_wid_p span{ display:block; float:left; margin-right:10px;}
-.error_fr span{display: initial;float: none;font-size: 12px;font-family:'宋体'}
+.error_fr span{display: inline;float: none;font-size: 12px;font-family:'宋体'}
 .error_fr span.error{display:block;}
 .team_wid_p .input{border: 1px solid #dadfe3; float:left;  background: #ffffff; line-height: 28px; height:28px;  border-radius: 4px;  padding: 0 4px;  font-size: 12px;  color: #525662;}
 .team_wid .team_textarea{ width:390px; padding:10px; box-sizing:border-box; -moz-box-sizing:border-box; margin-bottom:10px; margin-top:-5px;}
@@ -3449,11 +3449,12 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 	height:28px;
 	margin-top:15px;
 	font-size:12px;
-	background:#ffffff url(../img/seven_report/down.png) no-repeat center right 20px;
+	background:#fff url(../img/seven_report/down.png) 76px center no-repeat ;
 	cursor:pointer;
 	padding-left:20px;
 	font-size:12px;
 	font-family:'宋体';
+	line-height:28px;
 }
 .report_select{position:relative;margin-left:10px;}
 .report_select .select_list{
@@ -3487,10 +3488,11 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 .input_selects.up{
 	background:#fff url(../img/seven_report/up.png) no-repeat center right 20px
 }
-.errortc .error{
-	display:block;
-	font-size:12px;
-	font-family:"宋体";
+.errortc .fmdl dd .txt{
+	float:left;
+}
+.errortc .sign_fmdl dd .error{
+	display: block;
 }
 .errortc .gray{
 	font-size:12px;
