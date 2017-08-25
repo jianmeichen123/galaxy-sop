@@ -527,7 +527,12 @@ function buildResults(sec,title,readonly)
 			{
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
-					$("input[data-title-id='"+title.id+"']").val(Number(title.resultList[0].contentDescribe1).toFixed(4)).attr("resultId",result_id);
+					if(title.resultList[0].contentDescribe1){
+						$("input[data-title-id='"+title.id+"']").val(Number(title.resultList[0].contentDescribe1).toFixed(4)).attr("resultId",result_id);
+					}else{
+						$("input[data-title-id='"+title.id+"']").val('');
+					}
+					
 				}else{
 					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
 				}
