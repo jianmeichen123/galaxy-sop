@@ -1912,8 +1912,17 @@ function editRow(ele)
 						ele.text(selectVal);
 					}
 					var val=$(".see_block").find("dd[name='field6']").text();
-					$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
-					$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+					if(row.data('field3')==""){
+						$(".see_block").find("dd[name='field3']").text(row.data('field3'));
+					}else{
+						$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+					}
+					if(row.data('field5')==""){
+						$(".see_block").find("dd[name='field5']").text(row.data('field5'));
+					}else{
+						$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+					}
+					
 				});
 				$.each($("#financeDetail input[type='radio']"),function(){
 					var selectId=$(this).val();
@@ -1931,13 +1940,23 @@ function editRow(ele)
 			$.each($(".see_block").find("dd.money[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name)+'万元');
+				if(row.data(name)==""){
+					ele.text(row.data(name));
+				}else{
+					ele.text(row.data(name)+'万元');
+				}
+				
 			})
 			//特殊处理带%单位的查看
 			$.each($(".see_block").find("dd.percent[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name)+'%');
+				if(row.data(name)==""){
+					ele.text(row.data(name));
+				}else{
+					ele.text(row.data(name)+'%');
+				}
+				
 			})
 			//文本框剩余字数
 			$.each($("textarea"),function(){

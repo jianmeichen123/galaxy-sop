@@ -51,7 +51,7 @@
 								{{/each}}
 
 							{{else type=="5"}}
-							<dd>
+							<dd class="fl_none">
 							<ul class="h_radios clearfix">
 								{{each(i,valueList) valueList}}
 								<li><input type="radio" value="\${id}" data-value="\${value}" name="\${titleId}" data-id="\${id}" data-code="\${relateCode}" data-must="\${isMust}"/>\${name}</li>
@@ -260,7 +260,7 @@
 
 					{{else type=="5"}}
 						<dt  data-type="\${type}" data-must="\${isMust}">\${name}</dt>
-						<dd>
+						<dd class="fl_none">
 						<ul class="h_radios clearfix">
 							{{each(i,valueList) valueList}}
 							<li><input type="radio" value="\${id}" name="radio" data-title-id="\${titleId}" data-value="\${value}" data-type="\${type}" placeholder="\${placeholder}"/>\${name}</li>

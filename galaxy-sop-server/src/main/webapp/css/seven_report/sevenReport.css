@@ -254,8 +254,9 @@ table.table_15 td:first-child+td+td+td{
 .condition em.detail{
 	top:50%;
 	transform:translateY(-50%);
-	margin-top: 32px;
+	margin-top: 29px;
 	z-index: 12;
+	right:4px;
 }
 .title-value.income_structor_content{color:#999;}
 .content_radio_show{
@@ -274,17 +275,18 @@ table.table_15 td:first-child+td+td+td{
     content: "...";
     color:#333;
     position: absolute;
-    top: -5px;
+    top: -1px;
     height: 20px;
     right: 20px;
     margin-righ:3px;
     width: 18px;
+    font-size: 9px;
 }
 .packup{
 	display:none;
 }
-.sign_3 .packup{
-	margin-left:10px;
+.align_left .packup{
+	margin-left:5px;
 }
 .content_radio_show input{
 	margin-left:10px;
@@ -852,12 +854,13 @@ p.check_p{display:inline;}
 .select_list li a{text-align:left;    display: inherit;}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
-p.type_8{display: inline;padding-right:25px;}
+p.type_8{display: inline;padding-right:0px;}
 p.type_8.mare_text{
 height:90px;
 overflow:hidden;
 display:block;
 position: relative;
+padding-right:30px;
 }
 select{
 	border:1px solid #000;
