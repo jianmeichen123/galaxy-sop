@@ -28,7 +28,7 @@ function delete_row(ele){
 }
 //查看团队成员弹窗
 function showMemberRow(ele){
-	
+
     var row = $(ele).closest('tr');
      $.getHtml({
     		url:"/sop/html/team_xk.html",//模版请求地址
@@ -151,9 +151,12 @@ function getStudyList(flag,studyList){
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
-                                "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4' val_id='"+o.field4+"'>"+map_stu[o.field4]+"</span></li>"+
-
-                            "</ul>";
+                                "<li><span name='field3'>"+o.field3+"</span>&nbsp;·&nbsp;<span name='field4' val_id='"+o.field4+"'>";
+                                if(o.field4 !="未知"){
+                                   tmp +=  map_stu[o.field4]+"</span></li></ul>";
+                                }else{
+                                   tmp += "未知</span></li></ul>"
+                                }
                             if(flag=="edit"){
                                 var str ="<div class='team_click'>"+
                                          "<span class='blue'  onclick='editStudy(this)' >编辑</span>"+
