@@ -1258,9 +1258,18 @@ function check_add_button_hide(reportType,titleId){
 		}
 	})
 }
+//设置10限制
 function getTableRowLimit(code)
 {
-	return 10;
+	var num=0;
+	switch(code){
+	   case "finance-history":
+	       num=20; 
+	       break;
+	   default:
+		  num=10; 
+	}
+	return num;
 }
 
 //编辑的时候右侧导航隐藏不可用
