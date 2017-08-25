@@ -92,13 +92,13 @@ $(function(){
 	}else if(_href.indexOf("toOperation")>-1){
 		var report_type="运营报告";
 	}
-	var str=projectInfo.projectName;
-	if(projectInfo.projectName.length>24){
-		str=projectInfo.projectName.substring(0,24);
-	}
+	
 	$("#project_name_title").text(projectInfo.projectName);
 	$(".report_type").text(report_type);
-	
+	var str=projectInfo.projectName;
+	if((projectInfo.projectName!=undefined) && (projectInfo.projectName.length>24)){
+		str=projectInfo.projectName.substring(0,24);
+	}
 	divSelect();
 	function divSelect(){
 		//$(".input_selects").unbind("click");
