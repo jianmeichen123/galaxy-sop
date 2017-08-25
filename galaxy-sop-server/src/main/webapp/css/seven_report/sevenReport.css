@@ -254,7 +254,7 @@ table.table_15 td:first-child+td+td+td{
 .condition em.detail{
 	top:50%;
 	transform:translateY(-50%);
-	margin-top: 32px;
+	margin-top: 29px;
 	z-index: 12;
 }
 .title-value.income_structor_content{color:#999;}
@@ -274,11 +274,12 @@ table.table_15 td:first-child+td+td+td{
     content: "...";
     color:#333;
     position: absolute;
-    top: -5px;
+    top: -1px;
     height: 20px;
     right: 20px;
     margin-righ:3px;
     width: 18px;
+    font-size: 9px;
 }
 .packup{
 	display:none;
