@@ -313,7 +313,7 @@ table.table_15 td:first-child+td+td+td{
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:30px;
+	right:10px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-136px -19px;
 	cursor:pointer;
@@ -325,7 +325,7 @@ table.table_15 td:first-child+td+td+td{
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:10px;
+	right:30px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-80px -19px;
 	cursor:pointer;
