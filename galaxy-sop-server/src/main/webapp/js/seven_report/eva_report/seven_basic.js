@@ -456,6 +456,7 @@ function closeX(obj){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	$(".img_inner").attr("src","");
 	font_color($(".condition"));
+	calcScore()
 }	
 	
 //保存方法
@@ -589,6 +590,7 @@ function right(obj,type){
 		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	font_color($(".condition"));
+	calcScore();
 }
 
 
@@ -875,6 +877,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
+	calcScore();
 });
 	
 //div模拟select下拉框
