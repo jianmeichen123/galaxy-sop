@@ -114,6 +114,7 @@
 		var titleVal=p_box.attr("data-title-value");
 		var radioShow=$(obj).closest("td").find(".radioShow")
 		$.each(p_box,function(){
+			var p_this=$(this);
 			var type=$(this).attr("data-type");
 			if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
 				if(type==1){
@@ -170,13 +171,14 @@
 			}else{  //大弹窗编辑回显
 				if(type!=16 && type!=7){
 					var data=[];
-					var dom=$(obj).siblings(".align_left").find("span");
+					var dom=p_this.find("span");
 					$(dom).each(function(){
+						var span_this=$(this);
 						var data_list={};
-						var relateId=$(this).parent("p").data("relateId");
-						var titleValue=$(this).parent("p").attr("data-title-value");
-						var val=$(this).html();
-						var d_type=$(this).parent("p").attr("data-type");
+						var relateId=p_this.data("relateId");
+						var titleValue=p_this.attr("data-title-value");
+						var val=span_this.html();
+						var d_type=p_this.attr("data-type");
 						data_list.relateId=relateId;
 						data_list.val=val;
 						data_list.d_type=d_type;
@@ -283,7 +285,7 @@
 					})
 				}else if(type==16){  //商业模式特殊情况
 					var data=[];
-					var dom=$(obj).siblings(".align_left").find("p");
+					var dom=p_this;
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).attr("data-relate-id");
@@ -306,7 +308,7 @@
 					});
 				}else if(type==7){
 					var dataList=[];
-					var dom=$(obj).siblings(".align_left").find("em.income_pic");
+					var dom=p_this.find("em.income_pic");
 					$(dom).each(function(){
 						var data={
 								url:"",
