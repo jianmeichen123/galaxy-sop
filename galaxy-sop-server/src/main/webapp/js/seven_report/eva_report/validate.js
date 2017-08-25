@@ -124,6 +124,11 @@ function validate(){
 	                maxView:'decade',
 	                todayHighlight: false
 		    	});
+			}else if(inputValRule=="1"){
+				var validate={
+						"maxlength":inputValRuleMark,			
+				}
+				inputs.eq(i).attr(validate);
 			}
 	 }
 	
