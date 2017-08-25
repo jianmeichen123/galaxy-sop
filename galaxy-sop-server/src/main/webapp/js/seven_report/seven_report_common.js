@@ -1098,17 +1098,34 @@ function validate(){
 						"data-time":add_time
 				}
 				inputs.eq(i).attr(validate);
-				$("[data-time="+add_time+"]").datepicker({
-					language:  'zh-CN',
-			        format: 'yyyy-mm',
-			        autoclose: true,
-			        todayBtn: false,
-			        startView: 'year',
-			        minView:'year',
-	                minViewMode: 1,
-	                maxView:'decade',
-	                todayHighlight: false
-		    	});
+				
+				if(i=="4"){
+					alert(i);
+					$("[data-time="+add_time+"]").datepicker({
+						language:  'zh-CN',
+				        format: 'yyyy-mm-dd',
+				        autoclose: true,
+				        todayBtn: false,
+				        startView: 'day',
+				        minView:'day',
+		                minViewMode: 0,
+		                maxView:'decade',
+		                todayHighlight: false
+			    	});
+				}else{
+					$("[data-time="+add_time+"]").datepicker({
+						language:  'zh-CN',
+				        format: 'yyyy-mm',
+				        autoclose: true,
+				        todayBtn: false,
+				        startView: 'year',
+				        minView:'year',
+		                minViewMode: 1,
+		                maxView:'decade',
+		                todayHighlight: false
+			    	});
+				}
+				
 			}
 	 }
 
