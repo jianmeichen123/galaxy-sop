@@ -9,7 +9,7 @@
 <html class="scroll">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>项目详情</title>
+<title>项目详情-全息报告</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
