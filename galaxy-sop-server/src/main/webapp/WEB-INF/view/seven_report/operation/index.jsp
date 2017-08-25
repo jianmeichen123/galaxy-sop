@@ -35,7 +35,7 @@ var path = '<%=path%>';
 			<li data-tab="navInfo" class="fl h_nav1 active" onclick="tabOperateChange('0')">投资<br />方案</li>
 			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('1')">团队</li>
 			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('2')">运营<br />数据 </li>
-			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('3')">市场<br />与开发</li>
+			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('3')">市场与<br />开发</li>
 			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('4')">竞争</li>
 			<li data-tab="navInfo" class="fl h_nav1" onclick="tabOperateChange('5')">战略及<br />策略 </li>
 			<li data-tab="navInfo" class="fl h_nav2" onclick="tabOperateChange('6')">财务</li>

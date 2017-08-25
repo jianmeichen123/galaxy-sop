@@ -170,13 +170,13 @@ $(function(){
     $("div").delegate("input[name='field3']","blur",function(){
     	var valuations = calculationValuations();
 		if(valuations != null){
-			$("input[name='field5']").val(valuations.toFixed(2));
+			$("input[name='field5']").val(valuations.toFixed(4));
 		}
 	});
     $("div").delegate("input[name='field4']","blur",function(){
     	var valuations = calculationValuations();
 		if(valuations != null){
-			$("input[name='field5']").val(valuations.toFixed(2));
+			$("input[name='field5']").val(valuations.toFixed(4));
 		}
 	});
     

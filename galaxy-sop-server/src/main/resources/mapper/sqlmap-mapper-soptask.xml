@@ -192,9 +192,7 @@
 				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
 				<if test="departmentId != null"> and department_id =#{departmentId}</if>	
-				<if test="assignUid != null">
-					and (assign_uid =#{assignUid} or task_status='taskStatus:1' )
-				</if>
+				<if test="assignUid != null"> and assign_uid =#{assignUid}  </if>
 				<if test="taskStatus != null and taskStatus!='' "> and task_status =#{taskStatus}</if>
 				<if test="remark != null"> and remark =#{remark}</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>

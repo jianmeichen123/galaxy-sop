@@ -4,7 +4,12 @@
 	version="2.0">
 	<tlib-version>1.0</tlib-version>
 	<short-name>fx</short-name>
-	
+
+	<function>
+		<name>isForTask</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean isForTask(java.lang.Long)</function-signature>
+	</function>
 	<function>
 		<name>hasRole</name>
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
