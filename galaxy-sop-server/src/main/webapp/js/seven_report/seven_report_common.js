@@ -1130,7 +1130,7 @@ jQuery.validator.addMethod("verify_82", function(value, element) {
 }, "不能超过99999999");
 //inputValRuleMark=="9,4"
 jQuery.validator.addMethod("verify_94", function(value, element) {
-	var verify_94 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
 }, "支持9位长度的四位小数");
 //vinputValRule=="2"
