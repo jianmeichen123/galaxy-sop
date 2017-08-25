@@ -551,7 +551,7 @@ function editRow(ele)
 			}
 			
 			selectContext("detail-form");
-			$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'], select, textarea"),function(){
+			$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
 				var type=ele.attr('type');
@@ -606,13 +606,21 @@ function editRow(ele)
 			$.each($(".see_block").find("dd.money[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name)+'万元');
+				if(row.data(name)==""){
+					ele.text(row.data(name));
+				}else{
+					ele.text(row.data(name)+'万元');
+				}
 			})
 			//特殊处理带%单位的查看
 			$.each($(".see_block").find("dd.percent[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name)+'%');
+				if(row.data(name)==""){
+					ele.text(row.data(name));
+				}else{
+					ele.text(row.data(name)+'%');
+				}
 			})
 			
 			
