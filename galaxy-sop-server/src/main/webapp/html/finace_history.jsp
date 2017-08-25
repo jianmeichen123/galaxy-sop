@@ -33,7 +33,7 @@
                     <input type="text" class="txt"  name="field2" data-rule-verify_50_font="true" data-msg-verify_50_font="<font color=red>*</font>不能超过50字符"/>
                 </dd>
             </dl>
-            <dl class="fmdl clearfix">
+            <dl class="fmdl clearfix sign_fmdl">
              <dt>投资金额：</dt>
                 <dd>
                     &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field3" allowNULL="yes"  data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
@@ -50,13 +50,13 @@
                    </select>
                </dd>
            </dl>
-          <dl class="fmdl clearfix">
+          <dl class="fmdl clearfix sign_fmdl">
             <dt>股权占比：</dt>
                 <dd>
                 	 &nbsp;<span class="fr">%</span><input type="text" class="txt fl" name="field4" allowNULL="yes" data-rule-vinputValRule_3="true"  data-msg-vinputValRule_3="<font color=red>*</font>支持0-100之间的两位小数"/>
                 </dd>
            </dl>
-           <dl class="fmdl clearfix">
+           <dl class="fmdl clearfix sign_fmdl">
            <dt>估值金额：</dt>
                 <dd>
                     &nbsp;<span class="fr">万元</span><input type="text" class="txt fl" name="field5" allowNULL="yes" valType="LIMIT_10_NUMBER" data-rule-verify_94="true" data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>

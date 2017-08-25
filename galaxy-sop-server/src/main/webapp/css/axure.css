@@ -3488,10 +3488,11 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 .input_selects.up{
 	background:#fff url(../img/seven_report/up.png) no-repeat center right 20px
 }
-.errortc .error{
-	display:block;
-	font-size:12px;
-	font-family:"宋体";
+.errortc .fmdl dd .txt{
+	float:left;
+}
+.errortc .sign_fmdl dd .error{
+	display: block;
 }
 .errortc .gray{
 	font-size:12px;
