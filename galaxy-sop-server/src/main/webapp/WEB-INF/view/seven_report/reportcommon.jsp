@@ -27,6 +27,7 @@ div.tip-yellowsimple {
 .tip-yellowsimple .tip-arrow-left{
 position:absolute;
 }
+
 </style>
 </head>
 <script src="<%=path %>/js/projectTransfer.js"></script>
@@ -100,9 +101,9 @@ $(function(){
 	
 	divSelect();
 	function divSelect(){
-		$(".input_selects").unbind("click");
-		$(".input_selects").click(function(){ 
-			var _this = $(this);
+		//$(".input_selects").unbind("click");
+		$(".report_select").hover(function(){ 
+			var _this = $(this).find(".input_selects");
 			var ul = _this.next("ul"); 		
 			if(ul.css("display")=="none"){
 				_this.addClass('up');

@@ -3449,11 +3449,12 @@ table[data-code=finance-history] th[data-field-name=opt] { width: 99px;}
 	height:28px;
 	margin-top:15px;
 	font-size:12px;
-	background:#ffffff url(../img/seven_report/down.png) no-repeat center right 20px;
+	background:#fff url(../img/seven_report/down.png) 76px center no-repeat ;
 	cursor:pointer;
 	padding-left:20px;
 	font-size:12px;
 	font-family:'宋体';
+	line-height:28px;
 }
 .report_select{position:relative;margin-left:10px;}
 .report_select .select_list{
