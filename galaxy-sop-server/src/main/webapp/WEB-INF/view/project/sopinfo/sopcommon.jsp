@@ -37,7 +37,7 @@ position:absolute;
 			<a href="#" onclick="projectList()">创投项目</a>
 	 	</c:when>
 		<c:otherwise>
-			<a href="#">${sessionScope._curr_menu_ }</a>
+			<a href="#" onclick="projectList()">${sessionScope._curr_menu_ }</a>
 		</c:otherwise> 
 	</c:choose>
 	<img alt="" src="<%=path %>/img/arrow-brumd.png"  class="arrow"/><span id="project_name_title"></span></div>
