@@ -1,15 +1,17 @@
 package com.galaxyinternet.common.taglib;
 
-import java.util.List;
-
-import com.galaxyinternet.common.utils.UtilsService;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.utils.SopConstatnts;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 public class FXFunctionTags
 {
@@ -132,4 +134,35 @@ public class FXFunctionTags
 		}
 		return false;
 	}
+
+
+
+	/**
+	 * 项目 中 是否 有待办任务
+	 * @param projectId
+	 * @return
+	 */
+	public static boolean isForTask(Long projectId)
+	{
+		SopTaskDao sopTaskDao = WebUtils.getBean(SopTaskDao.class);
+		User user = WebUtils.getUserFromSession();
+		if(sopTaskDao == null || user == null)
+		{
+			return false;
+		}
+
+		SopTask sopTask  = new SopTask();
+		sopTask.setProjectId(projectId);
+		sopTask.setAssignUid(user.getId());
+		sopTask.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
+		List<SopTask> taskList = sopTaskDao.selectXXXXXX(sopTask);
+
+		if(taskList == null || taskList.isEmpty())
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 }
