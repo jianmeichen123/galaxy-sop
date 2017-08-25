@@ -1,26 +1,5 @@
 package com.galaxyinternet.touhou.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.galaxyinternet.bo.OperationalDataBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -38,6 +17,24 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationalDataService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/galaxy/operationalData")
@@ -205,7 +202,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@RequestMapping(value = "/formAddOperationalData", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<OperationalDataBo> addOperationalData(@RequestBody OperationalDataBo operationalData,HttpServletRequest request) {
@@ -250,7 +247,7 @@ public class OperationalDataController extends BaseControllerImpl<OperationalDat
 	/**
 	 *删除
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/delOperationalData/{operationalDataId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<OperationalData> delOperationalData(@PathVariable("operationalDataId") Long operationalDataId,HttpServletRequest request,HttpServletResponse response ) {

@@ -1,25 +1,5 @@
 package com.galaxyinternet.grant.controller;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.galaxyinternet.bo.GrantTotalBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -37,6 +17,24 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 
@@ -147,7 +145,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 新建总注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addGrantTotal", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> addGrantTotal(@RequestBody GrantTotal grantTotal,
@@ -294,7 +292,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 删除总注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/deleteGrantTotal/{tid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> deleteGrantTotal(@PathVariable("tid") Long tid,
@@ -333,7 +331,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 编辑总注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/resetGrantTotal", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> resetGrantTotal(@RequestBody GrantTotal grantTotal,

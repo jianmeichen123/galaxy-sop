@@ -1,28 +1,5 @@
 package com.galaxyinternet.grant.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.alibaba.dubbo.remoting.exchange.Response;
 import com.galaxyinternet.bo.GrantActualBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -42,7 +19,6 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
@@ -52,6 +28,25 @@ import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.MathUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -228,7 +223,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return responseBody;
 	}
 	
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value="/saveApprActual" , method=RequestMethod.POST , produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantActual> saveApprActual(HttpServletRequest request, @RequestBody GrantActual form){
@@ -304,7 +299,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return responseBody;
 	}
 	
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value="/deleteApprActual/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantActual> deleteApprActual( @PathVariable Long id,HttpServletRequest request){

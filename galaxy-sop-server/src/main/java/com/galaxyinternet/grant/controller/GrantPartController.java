@@ -1,24 +1,5 @@
 package com.galaxyinternet.grant.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.galaxyinternet.bo.GrantPartBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -34,7 +15,6 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
@@ -42,6 +22,23 @@ import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.utils.BatchUploadFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -135,7 +132,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 * 新建分期注资计划
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addGrantPart", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantPart> addGrantPart(@RequestBody GrantPart grantPart,
@@ -202,7 +199,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 *删除
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/delGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantPart> delGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
@@ -237,7 +234,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 *校验
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/isGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantPart> isGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
