@@ -90,7 +90,7 @@
 				<div class="correlation">水晶球报告</div> 
 				<ul class="sev_report clearfix">
 				<c:choose>
-				 <c:when test="${(fx:inOwnDepart('project',pid) ) && (fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| (fx:isCreatedByUser('project',pid) && !fx:isTransfering(pid)))}">
+				 <c:when test="${(fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3) || fx:inOwnDepart('project',pid) || (fx:isCreatedByUser('project',pid) && !fx:isTransfering(pid)))}">
 					<li class="seven_link1" onclick="seven_link(1);">
 						<img src="<%=path %>/img/seven_report/qx.png" />
 						<span>全息报告</span>	
