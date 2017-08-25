@@ -52,6 +52,13 @@
 				<if test="field8 != null"> and field_8 = #{field8,jdbcType=VARCHAR} </if>
 				<if test="field9 != null"> and field_9 = #{field9,jdbcType=VARCHAR} </if>
 				<if test="field10 != null"> and field_10 = #{field10,jdbcType=VARCHAR} </if>
+
+				<if test="field1NotNull != null"> and field_1 IS NOT NULL </if>
+				<if test="field2NotNull != null"> and field_2 IS NOT NULL </if>
+				<if test="field3NotNull != null"> and field_3 IS NOT NULL </if>
+				<if test="field4NotNull != null"> and field_4 IS NOT NULL </if>
+				<if test="field5NotNull != null"> and field_5 IS NOT NULL </if>
+
 				<if test="isValid != null"> and is_valid = #{isValid,jdbcType=VARCHAR} </if>
 				<if test="createdTime != null"> and created_time = #{createdTime,jdbcType=VARCHAR} </if>
 				<if test="createId != null"> and create_id = #{createId,jdbcType=VARCHAR} </if>

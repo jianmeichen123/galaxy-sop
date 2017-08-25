@@ -1,9 +1,9 @@
 package com.galaxyinternet.model.hologram;
 
+import com.galaxyinternet.framework.core.model.PagableEntity;
+
 import java.util.List;
 import java.util.Set;
-
-import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class InformationListdata extends PagableEntity implements Cloneable{
 
@@ -72,7 +72,13 @@ public class InformationListdata extends PagableEntity implements Cloneable{
     private String updateUserName;
     private String updateTimeStr;
 
-    
+    //查询辅助
+    private Boolean field1NotNull;
+    private Boolean field2NotNull;
+    private Boolean field3NotNull;
+    private Boolean field4NotNull;
+    private Boolean field5NotNull;
+
 
 
     public Set<String> getTitleIds()
@@ -348,7 +354,48 @@ public class InformationListdata extends PagableEntity implements Cloneable{
 	{
 		this.updateTimeStr = updateTimeStr;
 	}
-	@Override
+
+    public Boolean getField1NotNull() {
+        return field1NotNull;
+    }
+
+    public void setField1NotNull(Boolean field1NotNull) {
+        this.field1NotNull = field1NotNull;
+    }
+
+    public Boolean getField2NotNull() {
+        return field2NotNull;
+    }
+
+    public void setField2NotNull(Boolean field2NotNull) {
+        this.field2NotNull = field2NotNull;
+    }
+
+    public Boolean getField3NotNull() {
+        return field3NotNull;
+    }
+
+    public void setField3NotNull(Boolean field3NotNull) {
+        this.field3NotNull = field3NotNull;
+    }
+
+    public Boolean getField4NotNull() {
+        return field4NotNull;
+    }
+
+    public void setField4NotNull(Boolean field4NotNull) {
+        this.field4NotNull = field4NotNull;
+    }
+
+    public Boolean getField5NotNull() {
+        return field5NotNull;
+    }
+
+    public void setField5NotNull(Boolean field5NotNull) {
+        this.field5NotNull = field5NotNull;
+    }
+
+    @Override
 	public Object clone() throws CloneNotSupportedException {  
         return (InformationListdata)super.clone();  
     }  

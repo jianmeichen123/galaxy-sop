@@ -15,6 +15,7 @@ import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.utils.SopConstatnts;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -461,6 +462,11 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 		InformationListdata dataq = new InformationListdata();
 		dataq.setProjectId(proid);
 		dataq.setTitleId(titleId);
+		if(relateCode.equals("ENO4_4_2") || relateCode.equals("CNO4_4_2")){ //胜算
+			dataq.setField2NotNull(true);
+		}else if(relateCode.equals("ENO4_4_5") || relateCode.equals("CNO4_4_5")){
+			dataq.setField4NotNull(true);
+		}
 		List<InformationListdata> listdata = informationListdataDao.selectList(dataq);
 
 		// 封装取得结果集 --> valueList
@@ -475,6 +481,12 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 				String methodStr="get"+newStr;
 				Method getMethod = InformationListdata.class.getMethod(methodStr);
 				String fileValue = (String) getMethod.invoke(temp);
+
+				if(fieldList.get(i).equals("field2") || fieldList.get(i).equals("field4")){ //胜算
+					if(StringUtils.isBlank(fileValue)){
+						continue;
+					}
+				}
 
 				String setMethodStr = "set"+"Content" + (i+1);
 				Method setMethod = InformationDictionary.class.getMethod(setMethodStr,String.class);
