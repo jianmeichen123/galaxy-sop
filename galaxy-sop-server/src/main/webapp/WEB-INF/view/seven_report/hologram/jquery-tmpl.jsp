@@ -484,7 +484,7 @@
 							<dt data-type="\${type}" data-id="\${id}" data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
 							{{if type=="1"}} 
-                                 {{if titleId=="1940"}} 
+                                 {{if titleId=="2080"}} 
                                       <dd class="field" data-title-id="\${titleId}">未选择</dd>
                                   {{else}}
                                       <dd class="field" data-title-id="\${titleId}">未填写</dd>
