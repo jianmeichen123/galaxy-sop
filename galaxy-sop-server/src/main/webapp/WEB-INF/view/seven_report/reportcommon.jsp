@@ -124,25 +124,36 @@ $(function(){
 		}
 	})
 });
-function seven_link(data){
+function seven_link(data,url){
 	var _href=window.location.href;
-	setCookie("back_url",_href,24,'/');
 	if(data==1){
-		window.location.href=platformUrl.toBaseInfo;
+		url=platformUrl.toBaseInfo;
 	}else if(data==2){
-		window.location.href=platformUrl.toEvalindex;
+		url=platformUrl.toEvalindex;
 	}else if(data==3){
-		window.location.href=platformUrl.investigate;
+		url=platformUrl.investigate;
 	}else if(data==4){
-		window.location.href=platformUrl.toDecision;
+		url=platformUrl.toDecision;
 	}else if(data==5){
-		window.location.href=platformUrl.toPreEva;
+		url=platformUrl.toPreEva;
 	}else if(data==6){
-		window.location.href=platformUrl.toFinancing;
+		url=platformUrl.toFinancing;
 	}else if(data==7){
-		window.location.href=platformUrl.toOperation;
+		url=platformUrl.toOperation;
+	} 
+	if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
+		var result=$(".pagebox").attr("data-result");
+		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
+		if(result=="true"){
+			$(window).unbind('beforeunload');
+			beforeSave(url);
+		}else{
+			$(window).unbind('beforeunload');
+			window.location.href = url;
+		}
+	}else{
+		window.location.href = url;
 	}
-	
 } 
 
 /**
