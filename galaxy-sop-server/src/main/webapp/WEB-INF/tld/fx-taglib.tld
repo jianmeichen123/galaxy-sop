@@ -11,6 +11,11 @@
 		<function-signature>boolean isForTask(java.lang.Long)</function-signature>
 	</function>
 	<function>
+		<name>hasRoles</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean hasRoles(java.lang.String)</function-signature>
+	</function>
+	<function>
 		<name>hasRole</name>
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
 		<function-signature>boolean hasRole(java.lang.Long)</function-signature>

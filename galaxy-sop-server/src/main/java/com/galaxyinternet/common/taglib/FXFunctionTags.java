@@ -10,11 +10,25 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.utils.SopConstatnts;
 import com.google.gson.Gson;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
 public class FXFunctionTags
 {
+
+    public static boolean hasRoles(String roleIds)
+    {
+        if(StringUtils.isNotBlank(roleIds)){
+            String[] ids = roleIds.split(",");
+            for(String id : ids){
+                if(WebUtils.hasRole(new Long(id))){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 	public static boolean hasRole(Long roleId)
 	{
 		return WebUtils.hasRole(roleId);
