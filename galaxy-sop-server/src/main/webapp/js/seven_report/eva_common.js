@@ -78,11 +78,13 @@ function tabShow(code,relateId){
 }
 //编辑按钮显示
 function　mouserover(obj){
+	if(isEditable != 'true') return;
 	if($(obj).data('edit') == 'true') return;
 	var target = $(obj).find('.editPic');
 	 target.show();
 };
 function mouseout(obj){
+	if(isEditable != 'true') return;
 	var target = $(obj).find('.editPic');
 	target.hide();
 };
@@ -972,7 +974,6 @@ function font_color(data){
 				code_dom.addClass("disabled").attr("disabled",true);
 				code_dom.val("");
 				code_select.val("请选择");
-				calcScore();
 			}else{
 				code_dom.removeClass("disabled").attr("disabled",false);
 			}
@@ -982,7 +983,6 @@ function font_color(data){
 				code_dom.addClass("disabled").attr("disabled",true);
 				code_dom.val("");
 				code_select.val("请选择");
-				calcScore();
 			}else{
 				_this.addClass("black");
 				code_dom.removeClass("disabled").attr("disabled",false);
@@ -1004,7 +1004,6 @@ function font_color(data){
 			if(clean_status==0){
 				code_dom.val("");
 				code_select.val("请选择");
-				calcScore();
 			}
 		}
 		if(_this.data("relateId")=="1006"){
@@ -1026,7 +1025,6 @@ function font_color(data){
 			if(clean_status==0){
 				code_dom.val("");
 				code_select.val("请选择");
-				calcScore();
 			}
 		}
 		

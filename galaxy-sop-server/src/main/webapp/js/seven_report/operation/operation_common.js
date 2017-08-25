@@ -110,9 +110,10 @@ function tabOperateChange(index){
 		{
 			  var code = $(ele).prev().data('code');
 			  var titleId = $(ele).prev().data("titleId");
-			  
-			  if(!getTotalAppr(projectInfo.id)){
-				  return;
+			  if(code == 'grant-part' || code == 'grant-actual'){
+					 if(!getTotalAppr(projectInfo.id)){
+						  return;
+					  }
 			  }
 			  $.getHtml({
 		          url:getDetailUrl(code),//模版请求地址

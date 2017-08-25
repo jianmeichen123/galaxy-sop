@@ -454,7 +454,7 @@ table .width_gd{width:12%;}
 .calendar .week li a:hover{ background:#FFF; color:#333333; border:0; text-decoration:none}
 
 /*滚动条*/
-.scroll{scrollbar-face-color:#fff;scrollbar-shadow-color:#fff;scrollbar-highlight-color:#ccc;scrollbar-3dlight-color:#fff;scrollbar-arrow-color:#f00;scrollbar-track-color:#fff;}
+/* .scroll{scrollbar-face-color:#fff;scrollbar-shadow-color:#fff;scrollbar-highlight-color:#ccc;scrollbar-3dlight-color:#fff;scrollbar-arrow-color:#f00;scrollbar-track-color:#fff;} */
 /*滚动条*/
 ::-webkit-scrollbar{width:4px;height:10px;background-color: transparent;}
 ::-webkit-scrollbar-track{background-color:#e9ebf2}
@@ -2043,6 +2043,7 @@ dl{position: relative;}
 .scroll_table .fixed-table-body{max-height:250px; overflow-y:auto;}
 #div_meetingNotes dd{width:490px;margin:0;}
 .conference_all dd,.appr_aging dd{font-size:12px;font-family:'宋体'}
+.conference_all dd{word-break:break-all;}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
 .div_meetingNotes_dd{max-height:250px;overflow:auto;word-wrap:break-word}
@@ -2528,6 +2529,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit input[type="text"]{width:150px;}
 .base_tab-content .h_edit input[type="text"]{width:245px;}
 .base_tab-content .h_edit select{width:259px;}
+dt[data-type='19']+dd .error{display:block;}
 .h_edit select option:nth-child(1){color:#d3d3d3;}
 .h_edit select.valuationInfo_20_select option:nth-child(1){color:black;}
 .h_edit_txt dt,.h_edit_checkbox dt{line-height: 36px;padding-right:20px;}
@@ -3401,6 +3403,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .to_top{width:48px;height:48px; cursor:pointer; background:url(../img/to_top.png) center no-repeat;position:fixed;bottom:40px;right:20px;display:none;}
 .conference_all .wid_2{width:50%;float:left;}
 .conference_all .wid_2 input,.conference_all .wid_2 textarea,.conference_all .wid_2 select{border:0;width:auto;padding:0;}
+.conference_all .wid_3 dd{word-break: break-all; width: 100px;}
 .conference_all .wid dt,.see_block .conference_all .wid_3 dt{width:auto}
 .see_block .conference_all .wid dt{width:110px;}
 .conference_all .block{width:100%}

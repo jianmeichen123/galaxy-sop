@@ -53,7 +53,7 @@ function edit_bsaicfun(data){
 			_target.attr("tochange",true);
 			
 		})
-		$("textarea").change(function(){
+		$("textarea").on("input",function(){
 			var _target=$(this).closest("div").find("dt");
 			_target.attr("tochange",true);
 			
@@ -69,7 +69,7 @@ function edit_bsaicfun(data){
 			_target.attr("tochange",true);
 			
 		})
-		$("textarea").change(function(){
+		$("textarea").on("input",function(){
 			var _target=$(this).parents("dl.h_edit_txt").find("dt");
 			_target.attr("tochange",true);
 			
@@ -527,7 +527,12 @@ function buildResults(sec,title,readonly)
 			{
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
-					$("input[data-title-id='"+title.id+"']").val(Number(title.resultList[0].contentDescribe1).toFixed(4)).attr("resultId",result_id);
+					if(title.resultList[0].contentDescribe1){
+						$("input[data-title-id='"+title.id+"']").val(Number(title.resultList[0].contentDescribe1).toFixed(4)).attr("resultId",result_id);
+					}else{
+						$("input[data-title-id='"+title.id+"']").val('');
+					}
+					
 				}else{
 					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
 				}
@@ -1125,7 +1130,7 @@ jQuery.validator.addMethod("verify_82", function(value, element) {
 }, "不能超过99999999");
 //inputValRuleMark=="9,4"
 jQuery.validator.addMethod("verify_94", function(value, element) {
-	var verify_94 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
 }, "支持9位长度的四位小数");
 //vinputValRule=="2"
@@ -1716,7 +1721,7 @@ function type_change(){
 		_target.attr("tochange",true);
 
 	})
-	$("textarea").change(function(){
+	$("textarea").on("input",function(){
 		var _target=$(this).parents("dd").prev();
 		_target.attr("tochange",true);
 
