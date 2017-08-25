@@ -524,7 +524,7 @@ function getValues()
 		var subId = _this.data('subId');
 		var value = _this.attr('data-title-value');
 		var resultId = _this.data('resultId');
-		var remark = _this.data('remark');
+		var remark = _this.attr('data-remark');
 		var text = _this.text();
 		if(_this.parent().hasClass('sign_3'))
 		{
