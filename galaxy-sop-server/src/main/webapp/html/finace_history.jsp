@@ -163,7 +163,6 @@ $(function(){
 		var projectParent = $("input[name='field3']").val();
 		var projectChildren = $("input[name='field4']").val();
 		if(projectParent > 0 && projectChildren > 0){
-			alert(projectParent * (100/projectChildren))
 			return projectParent * (100/projectChildren);
 		}
 		return null;
