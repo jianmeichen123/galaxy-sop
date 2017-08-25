@@ -485,7 +485,7 @@
 							<dt data-type="\${type}" data-id="\${titleId}" data-title-id="\${titleId}" data-code="\${relateCode}" data-parentId="\${parentId}">\${name}</dt>
 
 							{{if type=="1"}} 
-                                 {{if titleId=="2080"}} 
+                                 {{if titleId=="2080" || titleId=="2074" || titleId=="1940"}} 
                                       <dd class="field" data-title-id="\${titleId}">未选择</dd>
                                   {{else}}
                                       <dd class="field" data-title-id="\${titleId}">未填写</dd>
@@ -590,8 +590,13 @@
 				<div class="mb_24 clearfix">
 				  <dl class="clearfix">
 					{{if type=="1"}}
-					<dt  data-type="\${type}" >\${name}</dt>  
-			         <dd class="field" data-title-id="\${titleId}">未填写</dd>
+					  <dt  data-type="\${type}" >\${name}</dt>  
+                                {{if titleId=="2080" || titleId=="2074" || titleId=="1940"}} 
+                                       <dd class="field" data-title-id="\${titleId}">未选择</dd>
+                                  {{else}}
+                                      <dd class="field" data-title-id="\${titleId}">未填写</dd>
+                                 {{/if}}
+			        
 					{{else type=="5"}}       
 					<dt  data-type="\${type}">\${name}</dt>                 
 					<dd class="type_radio" data-value="\${value}" data-id="\${titleId}" data-code="\${relateCode}">未选择</dd>
