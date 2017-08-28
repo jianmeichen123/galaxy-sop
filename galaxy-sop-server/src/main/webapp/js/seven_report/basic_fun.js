@@ -748,9 +748,9 @@ function delRow(ele)
         }
 		tr.remove();
 		check_table();   
-		check_table_tr_edit();
 		//运营报告中【融资估值中分期添加按钮隐藏】
 		check_add_button_hide(reportType,table.attr("data-title-id"));
+		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 		//注资剩余金额
 		if(code == 'grant-part' || code == 'grant-actual'){
