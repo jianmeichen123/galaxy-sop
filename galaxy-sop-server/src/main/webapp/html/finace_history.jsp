@@ -80,13 +80,13 @@
              </dl>
            <div class="team_wid">
             	<p>合同关键条款：</p>
-            	<textarea class="team_textarea" name="field9" maxlength="1000" id="finace_area" oninput="countChar('finace_area','label_now','1000')"></textarea>
-            	<div class="finace_fnum num_tj"><span for="" id="label_now">1000</span>/1000</div>
+            	<textarea class="team_textarea" name="field9" maxlength="1000" id="finace_area" oninput="countChar('finace_area','label_now','2000')"></textarea>
+            	<div class="finace_fnum num_tj"><span for="" id="label_now">2000</span>/2000</div>
             </div>
            <div class="team_wid">
             	<p>对赌或业绩承诺条款：</p>
-            	<textarea class="team_textarea" name="field10" maxlength="1000" id="now_area" oninput="countChar('now_area','label_now_next','1000')"></textarea>
-            	<div class="finace_fnum num_tj"><span for="" id="label_now_next">1000</span>/1000</div>
+            	<textarea class="team_textarea" name="field10" maxlength="1000" id="now_area" oninput="countChar('now_area','label_now_next','2000')"></textarea>
+            	<div class="finace_fnum num_tj"><span for="" id="label_now_next">2000</span>/2000</div>
             </div>
         </div>
     </div>
