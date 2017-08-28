@@ -814,6 +814,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 							_this.attr("data-remark",'');
 						}
 						_this.attr("data-title-value",d_this.value_id);
+					}else{
+						_this.find("span").html(d_this.value);
+						_this.attr("data-remark",'');
+						_this.attr("data-title-value",d_this.value_id);
 					}
 				}else if(_type==7){
 					_this.find("span").html("");
