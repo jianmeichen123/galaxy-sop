@@ -2348,6 +2348,7 @@ margin: 45px auto 30px;}
 .qualifications_all .fmdl{ width:100%; overflow:hidden;}
 .addPerson_all h3{font-size: 14px;line-height:28px;margin-bottom:10px;font-family: "微软雅黑";border-bottom:1px solid #dadfe3;font-weight: normal;color:#2d3342;}
 .addPersontc dt,.qualificationstc dt,.stocktc dt{width:110px;text-align: right;}
+.finace_history_tc dt{width:142px;text-align: right;}
 .addPersontc dl{width:50%;margin-bottom: 10px;}
 .addPersontc dd .txt{width: 130px;}
 .addPersontc dd textarea{width:458px;height:50px;}
@@ -3402,9 +3403,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .to_top{width:48px;height:48px; cursor:pointer; background:url(../img/to_top.png) center no-repeat;position:fixed;bottom:40px;right:20px;display:none;}
 .conference_all .wid_2{width:50%;float:left;}
 .conference_all .wid_2 input,.conference_all .wid_2 textarea,.conference_all .wid_2 select{border:0;width:auto;padding:0;}
-.conference_all .wid_3 dd{word-break: break-all; width: 100px;}
+.conference_all .wid_3 dd{word-break: break-all; width: 120px;}
 .conference_all .wid dt,.see_block .conference_all .wid_3 dt{width:auto}
-.see_block .conference_all .wid dt{width:110px;}
+.see_block .conference_all .wid dt{width:142px;}
 .conference_all .block{width:100%}
 .before_save_tc{
 	width:460px;
@@ -3442,6 +3443,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #financeDetail .qualificationstc dt{width:138px}
 .operation_actual_title{border-bottom:1px solid #dadfe3;padding-bottom:5px;}
 .see_block .textarea{/* display:block; */width:70%;}
+.finace_history_tc .see_block{width:66%;}
+.finace_history_tc,.finace_history_tc .conference_all{width:600px;}
 .addmentc{overflow-y:auto;max-height:450px;}
 .addstocktc{height:350px;}
 .report_select .input_selects{
