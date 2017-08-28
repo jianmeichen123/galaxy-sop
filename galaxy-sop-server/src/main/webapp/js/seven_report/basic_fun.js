@@ -151,11 +151,9 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 //通用编辑显示
 var reportType="";
 $('div').delegate(".h_edit_btn","click",function(event){
-	var key = Date.parse(new Date());
     key = Date.parse(new Date());
 	var section = $(this).parents('.section');
 	var id_code = $(this).attr('attr-id');
-	//
 	var str ="";
 	if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
 		str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
