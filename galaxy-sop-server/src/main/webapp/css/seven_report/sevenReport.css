@@ -266,7 +266,7 @@ table.table_15 td:first-child+td+td+td{
 .condition em.detail{
 	top:50%;
 	transform:translateY(-50%);
-	margin-top: 31px;
+	margin-top: 26px;
 	z-index: 12;
 	right:4px;
 }
@@ -287,12 +287,12 @@ table.table_15 td:first-child+td+td+td{
     content: "...";
     color:#333;
     position: absolute;
-    top: -1px;
+    top: -3px;
     height: 20px;
-    right: 20px;
+    right: 17px;
     margin-righ:3px;
     width: 18px;
-    font-size: 9px;
+    font-size: 12px;
 }
 .packup{
 	display:none;
