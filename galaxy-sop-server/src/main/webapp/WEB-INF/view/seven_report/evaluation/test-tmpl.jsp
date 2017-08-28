@@ -316,12 +316,12 @@
 							</div>
 						</td>
 					{{else type=="15"}}
-						<td colspan="4"  class="condition td_15">
+						<td colspan="4"  class="td_15">
 							<div>
 								<table class="table_15">
 										{{each(i,informationGrades) informationGrades }}
 									<tr>
-										<td  onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
+										<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 											<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">未填写</p><em class="packup">收起</em><em class="detail">展开</em></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 										</td>

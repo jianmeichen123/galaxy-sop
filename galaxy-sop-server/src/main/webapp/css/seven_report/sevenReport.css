@@ -70,6 +70,10 @@ thead td{
 #page_all tr td:first-child+td+td+td{
 	text-align:left;
 }
+#page_all tr td.score-column{
+	text-align:center!important;
+}
+
 #page_all tr.evl_module td:first-child+td+td+td{
 	text-align:center;
 }
@@ -213,6 +217,8 @@ table.table_15 td:first-child+td{
 }
 table.table_15 td:first-child+td+td{
 	width:35.3%;
+	text-align:left;
+	padding: 5px;
 }
 table.table_15 td:first-child+td+td+td{
 	width:15.8%;
