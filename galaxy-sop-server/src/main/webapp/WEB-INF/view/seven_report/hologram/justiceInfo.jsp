@@ -120,6 +120,7 @@ var deleteJSON={};
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".bj_hui_on").hide();
+		deletedRowIds.splice(0,deletedRowIds.length); 
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		mustData(_this,1);
