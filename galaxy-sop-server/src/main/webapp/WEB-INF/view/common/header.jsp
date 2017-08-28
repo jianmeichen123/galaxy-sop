@@ -223,10 +223,10 @@ $(function(){
       //getScript();
     })
     //下拉框
-    $(".man_info .name").hover(function(){
-      $(".man_info ul").show();
+    $(".man_info").hover(function(){
+      $(".man_info ul").toggle();
     });
-    $(".man_info ul").closeDom();
+   // $(".man_info ul").closeDom();
     var man_info_width=$(".man_info").width();
     $(".man_info ul").css("left",(man_info_width-140)/2);
 	
