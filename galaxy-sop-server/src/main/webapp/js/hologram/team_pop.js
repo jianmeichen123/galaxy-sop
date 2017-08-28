@@ -120,34 +120,31 @@ function getStudyList(flag,studyList){
         $(studyList).each(function(){
                var o = $(this)[0];
                for(var item in o){
-
                    if(item.indexOf("field")>-1){
-
                        if(!o[item]){
                            o[item]=""
                        }
                    }
                }
                var field1=o.field1;
-               if(field1=="未知" || field1=="至今"){
-            	   field1=field1;
-               }else{
-            	   field1=field1+"毕业";
-               }
-               var start="";//改处用于处理毕业时间
-               var between="";
-               if(o.field5!="undefined"&&o.field5!=""&&o.field5!="未知"){
-            	   start=o.field5;
-            	   if(field1.indexOf("毕业")){
-            		   field1=o.field1;
-            		   between="~";
-            	   }
-               }
+//               if(field1=="未知" || field1=="至今"){
+//            	   field1=field1;
+//               }else{
+//            	   field1=field1+"毕业";
+//               }
+//               var start="";//改处用于处理毕业时间
+//               var between="~";
+//               if(o.field5!="undefined"&&o.field5!=""&&o.field5!="未知"){
+//            	   start=o.field5;
+//            	   if(field1.indexOf("毕业")){
+//            		   field1=o.field1;
+//            		   between="~";
+//            	   }
+//               }
                var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
                         "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>" +
-                        "<span name='field5'>"+start+"</span>"+
-                        between+
-                        "<span name='field1'>"+field1+"</span></div>"+
+                        "<span name='field5'>"+o.field5+"</span>~"+
+                        "<span name='field1'>"+o.field1+"</span></div>"+
                         "<div>"+
                             "<ul style='margin-left:14px;'>"+
                                 "<li><span name='field2'>"+o.field2+"</span></li>"+
