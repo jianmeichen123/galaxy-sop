@@ -1108,7 +1108,6 @@ function validate(){
 				inputs.eq(i).attr(validate);
 				
 				if(i=="4"){
-					alert(i);
 					$("[data-time="+add_time+"]").datepicker({
 						language:  'zh-CN',
 				        format: 'yyyy-mm-dd',
