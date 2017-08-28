@@ -271,7 +271,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						}*/
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
-							if(valuations != null){
+							if(valuations != null && valuations != ""){
 								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
@@ -279,7 +279,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 							var valuations = calculationValuations();
-							if(valuations != null){
+							if(valuations != null && valuations != ""){
 								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
