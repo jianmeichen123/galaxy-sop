@@ -1055,7 +1055,7 @@ function validate(){
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="1" && inputValRuleMark=="200"){
 				var validate={
-						"maxlength":inputValRuleMark,
+						//"maxlength":inputValRuleMark,
 						"data-rule-verify_200":"true",
 						"name":i,
 						"data-msg-verify_200":"<font color=red>*</font>不能超过200字"	

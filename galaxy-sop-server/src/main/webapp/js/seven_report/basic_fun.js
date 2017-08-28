@@ -247,8 +247,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						function calculationValuations(){  //编辑股权占比
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
 							var projectChildren = $("input[data-title-id='"+children+"']").val();
-							if(projectParent > 0 && projectChildren > 0){
-								console.log(projectParent * (100/projectChildren))
+							if(projectParent !="未填写" && projectChildren !="未填写" && projectParent > 0 && projectChildren > 0){
 								return projectParent * (100/projectChildren);
 							}else{
 								return '';
@@ -749,9 +748,9 @@ function delRow(ele)
         }
 		tr.remove();
 		check_table();   
-		check_table_tr_edit();
 		//运营报告中【融资估值中分期添加按钮隐藏】
 		check_add_button_hide(reportType,table.attr("data-title-id"));
+		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 		//注资剩余金额
 		if(code == 'grant-part' || code == 'grant-actual'){

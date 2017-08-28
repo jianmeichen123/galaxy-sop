@@ -1079,7 +1079,7 @@ function validate(){
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="1" && inputValRuleMark=="200"){
 				var validate={
-						"maxlength":inputValRuleMark,
+						//"maxlength":inputValRuleMark,
 						"data-rule-verify_200":"true",
 						"name":i,
 						"data-msg-verify_200":"<font color=red>*</font>不能超过200字"	
@@ -1820,7 +1820,7 @@ function addRow(ele)
             $("#detail-form input[name='projectId']").val(projectInfo.id);
             $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
             $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
-
+            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
             selectContext("detail-form");
             $("#save-detail-btn").click(function(){
                 saveForm($("#detail-form"));

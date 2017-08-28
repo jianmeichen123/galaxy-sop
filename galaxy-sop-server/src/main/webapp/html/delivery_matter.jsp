@@ -65,6 +65,7 @@
     $.validator.setDefaults({
         	errorElement:'span'
         });
+     
    function change(){
 	   var time = new Date().format("yyyy-MM-dd");
 	   $("input[name=updateTimeStr]").val(time);
