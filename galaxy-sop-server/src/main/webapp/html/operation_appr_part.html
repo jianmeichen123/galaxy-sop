@@ -7,7 +7,7 @@
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
 <script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <div  class="qualificationstc errortc">
-	<div class="title_bj" id="pop-title">添加分拨计划</div>
+	<div class="title_bj" id="pop-title">添加分期注资计划</div>
     <div class="qualifications_all">
 		<form id = "detail-form" >
     	<ul>
@@ -118,6 +118,7 @@ $("div").delegate(".appr_part_add","click",function(event){
 			if(json['id']){
 				 var data = getTotalApprActual(json['id']);
 				 $("#formatRemainActualMoney").text(data.remainMoney);
+				 $("#remainMoney").val(data.remainMoney);
 			}
 		}//模版反回成功执行
 	});
