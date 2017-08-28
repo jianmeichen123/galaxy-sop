@@ -17,7 +17,7 @@
         	<!-- 投后运营Start -->
         	<c:if test="${aclViewProject or isThyy}">
         	
-        	<!-- <div id="thyy_div" style="display:none;">
+        	<div id="thyy_div" style="display:none;">
         					<div class="correlation">投后运营</div>
         					<div class="new_correlation_cen status">
         						<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
@@ -41,8 +41,8 @@
         	                </ul>
         	                <div class="progressBar"><div id="bar_m"></div></div>
         	              </div>
-        	              注资进度end
-        					</div> -->
+        	              
+        					</div> 
 				
 				
             	
@@ -149,12 +149,6 @@
 				</ul>
 			</div>
 			<!-- 七大报告入口结束 -->
-			<div class="correlation">相关操作</div> 
-	            <div class="new_correlation_cen">
-	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
-	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
-	                <span class="bluebtn new_btn cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
-	            </div>
             <div class="tq_div" style="display:none;">
 	            <div class="correlation">相关操作</div> 
 	            <div class="new_correlation_cen">
@@ -683,7 +677,12 @@ function setJgqrProgress()
 }
 
 
-
+$(function(){
+	if($(".new_correlation_cen").find(".fjxm_but").length==0){
+		$(".yjxm_btn").removeClass("new_btn_right").addClass("new_btn");
+		$(".cxxm_btn").removeClass("new_btn_right").addClass("new_btn");
+	}
+})
 
 	
 
