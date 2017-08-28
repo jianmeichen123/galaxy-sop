@@ -1822,7 +1822,6 @@ function addRow(ele)
             $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
 
             selectContext("detail-form");
-
             $("#save-detail-btn").click(function(){
                 saveForm($("#detail-form"));
                 check_table();
