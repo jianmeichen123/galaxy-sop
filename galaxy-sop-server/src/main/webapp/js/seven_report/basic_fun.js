@@ -151,11 +151,9 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 //通用编辑显示
 var reportType="";
 $('div').delegate(".h_edit_btn","click",function(event){
-	var key = Date.parse(new Date());
     key = Date.parse(new Date());
 	var section = $(this).parents('.section');
 	var id_code = $(this).attr('attr-id');
-	//
 	var str ="";
 	if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
 		str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
@@ -273,7 +271,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						}*/
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
-							if(valuations != null){
+							if(valuations != null && valuations != ""){
 								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
@@ -281,7 +279,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 							var valuations = calculationValuations();
-							if(valuations != null){
+							if(valuations != null && valuations != ""){
 								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
@@ -317,7 +315,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuations();
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
+									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								
 							}
@@ -325,7 +323,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 							var valuations = calculationValuations();
 							if(valuations != null){
-									$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
+									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 							}
 						})
@@ -623,14 +621,16 @@ function editRow(ele)
 				}
 			})
 			
-			
+			//运营报告和决策报告分期拨款有注资计划不能编辑
+			if(reportType == 3 || reportType == 7){
+				if(row.data("dataList").length > 0){
+					$("#field3").attr("readonly","readonly");
+				}
+			}
 			//运营 报告嵌套表格处理
 			if(reportType == 7){
 				if(row.data("dataList"))
 				{
-					if(row.data("dataList").length > 0){
-						$("#field3").attr("readonly","readonly");
-					}
 					$.each(row.data("dataList"),function(){
 						 var row = this;
 						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){

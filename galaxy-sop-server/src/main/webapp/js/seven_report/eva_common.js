@@ -382,9 +382,18 @@ function buildResult(title)
 				var currency=currency_id.split("p")[0];
 			}
 			if(type == 20){
-				val=val+"万元"+currency; 
+				console.log(val);
+				if(val==""||val==undefined){
+					val="未填写";
+					currency_id="";
+				}else{
+					val=val+"万元"+currency; 
+				}
 				_ele.find("span").attr("currency",currency_id);
 			 }
+			if(type==1&&val==undefined&&title.valRule==5){
+				val="未选择";
+			}
 			_ele.find("span").html(val);
 		}else{
 			_ele.html(results[0].contentDescribe1);

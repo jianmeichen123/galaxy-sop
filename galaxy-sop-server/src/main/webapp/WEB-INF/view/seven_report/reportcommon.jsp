@@ -39,7 +39,7 @@ position:absolute;
     	<div class="new_tit_b">
         	<span class="size18 report_type"></span>
         	<span class="report_select">
-        		<input type="text" value="切换报告" class="input_selects" readonly="readonly">
+        		<input type="text" value="切换报告" class="input_selects" readonly="readonly" UNSELECTABLE='true' disabled>
         		<ul class="select_lists">
         			<li onclick="seven_link(1);">全息报告</li>
         			<li onclick="seven_link(2);">评测报告</li>
@@ -145,10 +145,10 @@ function seven_link(data,url){
 		var result=$(".pagebox").attr("data-result");
 		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 		if(result=="true"){
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			beforeSave(url);
 		}else{
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			window.location.href = url;
 		}
 	}else{

@@ -104,7 +104,8 @@ var deleteJSON={};
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					edit_bsaicfun()
+					edit_bsaicfun();
+					check_table_tr_edit();
 				} else {
 
 				}
