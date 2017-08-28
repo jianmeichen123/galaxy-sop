@@ -855,6 +855,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 					}
 					dds.html(d_this.remark1==undefined ?"未填写":str1);
 					dds.attr("data-remark",str);
+					Tfun_8(dds)
 				}else if(_type==10){
 					_this.find("span").html("");
 					if(d_this.tableList.length<=0){

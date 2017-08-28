@@ -55,10 +55,10 @@ table td{
 	font-family:'Microsoft YaHei';
 }
 thead td{
-	text-align:center !important;
+	text-align:center;
 }
 .new_left tbody td{
-	text-align:center !important;
+	text-align:center;
 	overflow:hidden;
 	position:relative;
 	border-bottom: 1px solid #d8d8d8;
@@ -110,6 +110,7 @@ table .on td{
 	position:relative;
 }
 .align_left p,.align_left span,.content_16.align_left p.black{
+	line-height:2;
 	color:#b2b2b2;
     word-break: break-word;
 }
@@ -259,7 +260,7 @@ table.table_15 td:first-child+td+td+td{
 .condition em.detail{
 	top:50%;
 	transform:translateY(-50%);
-	margin-top: 38px;
+	margin-top: 31px;
 	z-index: 12;
 	right:4px;
 }
@@ -782,7 +783,6 @@ table td select option{
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
-	cursor:pointer;
 }
 .radioShow label.select_1{
 	max-width:66%;
@@ -856,7 +856,7 @@ p.check_p{display:inline;}
 .h_imgs li{margin-bottom:10px;}
 p.type_8{display: inline;padding-right:0px;}
 p.type_8.mare_text{
-height:90px;
+height:70px;
 overflow:hidden;
 display:block;
 position: relative;
@@ -994,5 +994,5 @@ select::-ms-expand { display: none; }
 .h_edit .valuationInfo_20_select{ width: 150px;}
 #title-info li{color:#333333;font-size:18px;}
 .condition+td{
-	text-align:left !important;
+	text-align:left;
 } 
