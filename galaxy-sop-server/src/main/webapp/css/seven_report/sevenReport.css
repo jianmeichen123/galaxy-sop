@@ -823,15 +823,14 @@ ul,li{list-style:none;padding:0;margin:0;}
 	-webkit-transform:translateX(-50%);
 	-moz-transform:translateX(-50%);
 	display:none;
-	z-index:999;
-	border-bottom:0px;
+	z-index:22;
 	margin:0 auto;
 	margin-top:2px;
 } 
 .dropdown ul li{
 	padding:5px;
 	line-height:24px; 
-	border-bottom: 1px solid #979797;
+	border-bottom: 1px solid #d8d8d8;
 	cursor: pointer;
 	text-align:center;
 	display:block; 
