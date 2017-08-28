@@ -782,6 +782,7 @@ table td select option{
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
+	cursor:pointer;
 }
 .radioShow label.select_1{
 	max-width:66%;
@@ -850,7 +851,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 p.check_p{display:inline;}
 .condition.condition_select{overflow: inherit;}
 .sign_3 p{display:inline-block;}
-.select_list li a{text-align:left;    display: inherit;}
+.select_list li a{text-align:left;display: inherit;cursor:pointer;}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
 p.type_8{display: inline;padding-right:0px;}
