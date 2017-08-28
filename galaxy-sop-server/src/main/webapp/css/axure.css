@@ -1422,6 +1422,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_tit_a a{font-family: "微软雅黑";line-height: 20px;}
 .new_color{ color:#596071; margin-left: 10px;}
 .new_tit_b .new_color{margin:0;}
+.b_span a{color:#5192ff}
 .new_color_gray{ color:#999;font-family: "宋体";font-size:12px;margin-top:5px;}
 .new_color_black{ color:#333;}
 .size18{ font-size:22px;}
