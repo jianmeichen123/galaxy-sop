@@ -529,10 +529,10 @@ function getValues()
 	$.each(titleEles,function(){
 		var _this = $(this);
 		var type = _this.data('type');
-		var titleId = _this.data('titleId');
+		var titleId = _this.attr('data-title-id');
 		var subId = _this.data('subId');
 		var value = _this.attr('data-title-value');
-		var resultId = _this.data('resultId');
+		var resultId = _this.attr('data-result-id');
 		var remark = _this.attr('data-remark');
 		var text = _this.text();
 		if(_this.parent().hasClass('sign_3'))
@@ -594,7 +594,7 @@ function getValues()
 		}
 		//checkbox,checkbox+input,checkbox+textarea
 		else if( type == 3 || type == 6 || type == 13)
-		{
+		{					
 			if(typeof value != 'undefined')
 			{
 				value=value+","
