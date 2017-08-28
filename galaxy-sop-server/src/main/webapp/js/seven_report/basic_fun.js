@@ -151,11 +151,9 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 //通用编辑显示
 var reportType="";
 $('div').delegate(".h_edit_btn","click",function(event){
-	var key = Date.parse(new Date());
     key = Date.parse(new Date());
 	var section = $(this).parents('.section');
 	var id_code = $(this).attr('attr-id');
-	//
 	var str ="";
 	if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
 		str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
@@ -1136,14 +1134,14 @@ function getTotalAppr(projectId,NewRemainMoneyH,delMoney){
 						}
 					}
 				});
-	if(!flag){
+	/*if(!flag){
 		layer.open({
 			  type: 1,
 			  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
 			  area: ['420px', '240px'], //宽高
 			  content: '无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体'
-			});
-	}
+			});*/
+
 	return flag;
 }
 
