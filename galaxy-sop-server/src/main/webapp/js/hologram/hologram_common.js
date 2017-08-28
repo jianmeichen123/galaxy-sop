@@ -1077,7 +1077,16 @@ function validate(){
 						"data-msg-verify_100":"<font color=red>*</font>不能为空"			
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="4" && inputValRuleMark=="3,1"){
+			}else if(inputValRule=="1" && inputValRuleMark=="200"){
+				var validate={
+						"maxlength":inputValRuleMark,
+						"data-rule-verify_200":"true",
+						"name":i,
+						"data-msg-verify_200":"<font color=red>*</font>不能为空"	
+				}
+				inputs.eq(i).attr(validate);
+			}
+			else if(inputValRule=="4" && inputValRuleMark=="3,1"){
 				var validate={
 						"data-rule-vinputValRule_4":"true",
 						//"required":"required",
@@ -1167,9 +1176,13 @@ jQuery.validator.addMethod("verify_40", function(value, element) {
 	return this.optional(element) || (verify_40.test(value));
 }, "不能全为空格"); 
 //inputValRuleMark=="100"
-jQuery.validator.addMethod("verify_100", function(value, element) {   
+jQuery.validator.addMethod("verify_100", function(value, element) {  
 	var verify_100 = /^(?!.{101}|^\s*$)/;
 	return this.optional(element) || (verify_100.test(value));
+}, "不能全为空格");
+jQuery.validator.addMethod("verify_200", function(value, element) {  
+	var verify_200 = /^(?!.{201}|^\s*$)/;
+	return this.optional(element) || (verify_200.test(value));
 }, "不能全为空格");
 //inputValRule=="4"
 jQuery.validator.addMethod("vinputValRule_4", function(value, element) { 
