@@ -656,6 +656,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var currency=$(this).find("dd select").find("option[data-id='"+currency_id+"']").text();
 			data_list.currency=currency+"p"+currency_id;
 			data_list.value=val+"万元"+currency;			
+			if(val==""||val==undefined){
+				data_list.value="未填写";
+				data_list.currency="";
+			}
 		}else if(data_type==14){
 			data_list.value=$(this).find("select").find("option:selected").text();
 			data_list.value_id=$(this).find("select").val();
