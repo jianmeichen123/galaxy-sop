@@ -129,6 +129,7 @@ if(file.type=='image/gif' || file.type=='image/bmp'){//gif使用FileReader进行
 //通用取消编辑
 $('div').delegate(".h_cancel_btn","click",function(event){
 	event.stopPropagation();
+	debugger;
 	var _this = $(this).parents(".radius");
 	var id_code = $(this).attr('attr-hide');
 	var session_id = $(this).attr('attr-session')
@@ -146,6 +147,9 @@ $('div').delegate(".h_cancel_btn","click",function(event){
     {
         deletedRowIdsGq = new Array();
     }
+    var code=_this.find("table").attr("data-code");
+    
+    resizetable($("table[data-code='"+code+"']"));
 });
 
 //通用编辑显示
