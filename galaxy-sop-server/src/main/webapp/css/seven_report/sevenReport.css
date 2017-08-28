@@ -19,7 +19,7 @@
 }
 .test_top ul li span{
 	color:#65a7ff;
-	margin-left:5px;
+	margin-left:10px;
 }
 .test_top_last{
 	float:right !important;
@@ -50,6 +50,9 @@ table{
 }
 table td{
 	border:1px solid #d8d8d8;
+	color:#333333;
+	font-size:12px;
+	font-family:'Microsoft YaHei';
 }
 thead td{
 	text-align:center !important;
@@ -987,3 +990,4 @@ select::-ms-expand { display: none; }
 .h_edit input[data-type="20"]+.error{display:block;padding-top: 5px;}
 .h_edit input[data-type="20"]{width: 245px;}
 .h_edit .valuationInfo_20_select{ width: 150px;}
+#title-info li{color:#333333;font-size:18px;}

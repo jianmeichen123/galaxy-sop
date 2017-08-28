@@ -13,57 +13,52 @@
 
 
         
-        	<b class="sj_ico null">三角</b>
+        	
         	<!-- 投后运营Start -->
         	<c:if test="${aclViewProject or isThyy}">
         	
-        	<div id="thyy_div" style="display:none;">
-				<div class="correlation">投后运营</div>
-				<div class="new_correlation_cen status">
-					<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
-					<div class="delivery">
-						<div class="title">交割前确认事项</div>
-						<ul class="clearfix">
-							<li class="fl">已完成：<span class="delivery_complete">3</span></li>
-							<li class="fr">总计：<span class="delivery_total">16</span></li>
-						</ul>
-						<div class="progressBar">
-							<div id="bar"></div>
-						</div>
-					</div>
-					 <!-- 注资进度 -->
-              <div class="money">
-                <div class="title">注资进度</div>
-                <input type="hidden" id="planMoney">
-                <ul class="clearfix">
-                  <li class="fl">已注资：<span class="money_complete"></span>万</li>
-                  <li class="fr">计划注资：<span class="money_total"></span>万</li>
-                </ul>
-                <div class="progressBar"><div id="bar_m"></div></div>
-              </div>
-              <!-- 注资进度end -->
-				</div>
+        	<!-- <div id="thyy_div" style="display:none;">
+        					<div class="correlation">投后运营</div>
+        					<div class="new_correlation_cen status">
+        						<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
+        						<div class="delivery">
+        							<div class="title">交割前确认事项</div>
+        							<ul class="clearfix">
+        								<li class="fl">已完成：<span class="delivery_complete">3</span></li>
+        								<li class="fr">总计：<span class="delivery_total">16</span></li>
+        							</ul>
+        							<div class="progressBar">
+        								<div id="bar"></div>
+        							</div>
+        						</div>
+        						 注资进度
+        	              <div class="money">
+        	                <div class="title">注资进度</div>
+        	                <input type="hidden" id="planMoney">
+        	                <ul class="clearfix">
+        	                  <li class="fl">已注资：<span class="money_complete"></span>万</li>
+        	                  <li class="fr">计划注资：<span class="money_total"></span>万</li>
+        	                </ul>
+        	                <div class="progressBar"><div id="bar_m"></div></div>
+        	              </div>
+        	              注资进度end
+        					</div> -->
 				
-				<div class="correlation">相关操作</div> 
-	            <div class="new_correlation_cen">
-	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
-	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
-	                <span class="bluebtn new_btn cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
-	            </div>
+				
             	
-				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
+				<!-- <div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
 				</div>
 				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
 					<div class="no_con">
-	            		暂无会议纪要
-	            	</div>
-				</div>
+					            		暂无会议纪要
+					            	</div>
+				</div> -->
 			</div>
 			</c:if>
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
 			<div class="tq_div" style="display:none;">
-			
+			<b class="sj_ico null">三角</b>
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
                 	<ul class="line_ul_p" id="lct_ul">
@@ -154,6 +149,12 @@
 				</ul>
 			</div>
 			<!-- 七大报告入口结束 -->
+			<div class="correlation">相关操作</div> 
+	            <div class="new_correlation_cen">
+	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
+	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
+	                <span class="bluebtn new_btn cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
+	            </div>
             <div class="tq_div" style="display:none;">
 	            <div class="correlation">相关操作</div> 
 	            <div class="new_correlation_cen">
