@@ -66,16 +66,13 @@
 			//$("body").css("overflow", "hidden");
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
-			var  leftNum = _this.offset().left-34;
+			var  leftNum = _this.offset().left-29;
 			var  topNum = _this.offset().top-$(".gapPopup").height()-165;
-			$('.gapPopup').css('left',leftNum).css('top',topNum);
-			$('.mashLayer').css('opacity','0.1');
-			$('.mashLayer').show();
-			
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
-			//滚动条
-			//$('#myTextarea').textareaScroll();
+			$('.gapPopup').css('left',leftNum).css('top',topNum);
+			$('.mashLayer').css('opacity','0.1');
+			$('.mashLayer').show();			
 			$(obj).hide();
 			//对号，×号显示
 			$(obj).closest('td').find('.Button').show();
@@ -412,10 +409,17 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 			 })
 		}else if(type==18){
 			var result_li='';
+			
 			$.each(valueList,function(i,n){
+				if(n.content1==undefined){
+					n.content1="未知"
+				}
+				if(n.content2==undefined){
+					n.content2="未知"
+				}
 				result_li += "<li><a href=\"javascript:;\" data-value-code=\"code_"+i+"\" id=\""+n.content1+' '+n.content2+"\"><label class=\"select_1\">"+n.content1+"</label> <label class=\"select_2\">"+n.content2+"</label></a></li> "
 			})
-			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
+			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"><li>请选择</li>"+result_li+"</ul></div>"
 			
 		}else if(type==14){
 			var result_li='';
@@ -451,9 +455,13 @@ function closeX(obj){
 	//select下拉框消失
 	$(obj).closest('td').find('.selectTips').hide();
 	//弹窗消失
-	//$(obj).parent().parent().hide();
-	$(obj).closest('.gapPopup').hide();
+	//$(obj).parent().parent().hide();	
 	$(obj).parents(".gapPopup").find(".div_tmpl").remove();
+	$(obj).parents(".gapPopup").css({
+		top:"auto",
+		left:"auto"
+	})
+	$(obj).closest('.gapPopup').hide();
 	$('.mashLayer').hide();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	$(".img_inner").attr("src","");
@@ -904,10 +912,17 @@ function divSelect(){
 		var txt = _a.text(); 
 		var _id=_a.attr("id");
 		var _code=_a.data("code");
-		target.val(txt)
-		target.attr("value",txt); 
-		target.attr("id",_id);
-		target.attr("data-code",_code);
+		if($(this).text()=="请选择"){
+			target.val("请选择");
+			target.attr("value","请选择"); 
+			target.attr("id","");
+			target.attr("data-code","");
+		}else{
+			target.val(txt)
+			target.attr("value",txt); 
+			target.attr("id",_id);
+			target.attr("data-code",_code);
+		}
 		$(".dropdown ul").hide(); 
 }); 
 }
