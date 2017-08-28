@@ -887,11 +887,15 @@ function img_fun(data){
 	        reader.onloadend = function(){  
         	firsr_ul.append("<li class=\"pic_list fl\"><a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" /></li>");
 	        }
+	    }else{
+	    	return;
 	    }
 	 }else{
 		 firsr_ul.append("<li class=\"pic_list fl\"<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" /><li>");
 	 }
 	last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\"/>");
+	
+	
 	if(firsr_ul.find("li").length>=4){
 		last_ul.hide()
 	 }else{
