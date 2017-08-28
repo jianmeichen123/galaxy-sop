@@ -268,6 +268,9 @@ var deleteJSON={};
 		event.stopPropagation();
 		deletedRowIds = new Array();
 		toggle_btn($('.anchor_btn span'),0,_this);
+		var code=_this.find("table").attr("data-code");
+	    
+	    resizetable($("table[data-code='"+code+"']"));
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){

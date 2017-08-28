@@ -104,7 +104,8 @@ var deleteJSON={};
 						var textareaId=$("textarea").eq(i).attr("id");
 						autoTextarea(textareaId);
 					}
-					edit_bsaicfun()
+					edit_bsaicfun();
+					check_table_tr_edit();
 				} else {
 
 				}
@@ -119,11 +120,15 @@ var deleteJSON={};
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();
 		$(".bj_hui_on").hide();
+		deletedRowIds.splice(0,deletedRowIds.length); 
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		mustData(_this,1);
 		toggle_btn($('.anchor_btn span'),0,_this);
 		event.stopPropagation();
+		var code=_this.find("table").attr("data-code");
+	    
+	    resizetable($("table[data-code='"+code+"']"));
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){

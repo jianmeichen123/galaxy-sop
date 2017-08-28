@@ -191,7 +191,7 @@ table td i.wrong{
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:30px;
+	right:36px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-80px -19px;
 	cursor:pointer;
@@ -328,7 +328,7 @@ table.table_15 td:first-child+td+td+td{
 	height:16px;
 	position:absolute;
 	top:10px;
-	right:30px;
+	right:36px;
 	background:url(../../img/seven_report/ICON.png) no-repeat;
 	background-position:-80px -19px;
 	cursor:pointer;
@@ -782,6 +782,7 @@ table td select option{
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
+	cursor:pointer;
 }
 .radioShow label.select_1{
 	max-width:66%;
@@ -807,7 +808,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 	height:24px; 
 	line-height:24px; 
 	margin:0 auto;
-	border:1px solid #0aa7ff; 
+	border:1px solid #979797; 
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 	padding: 0 18px 0 9px;
     display: -webkit-box;
@@ -815,9 +816,10 @@ ul,li{list-style:none;padding:0;margin:0;}
     overflow: hidden;
     font-size:12px;
     text-align:center;
+    color:#3e4351;
 } 
 .dropdown ul{
-	width:95%; 
+	width:93%; 
 	background:#fff; 	
 	border:1px solid #979797; 	
 	display:none;
@@ -849,7 +851,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 p.check_p{display:inline;}
 .condition.condition_select{overflow: inherit;}
 .sign_3 p{display:inline-block;}
-.select_list li a{text-align:left;    display: inherit;}
+.select_list li a{text-align:left;display: inherit;cursor:pointer;}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
 p.type_8{display: inline;padding-right:0px;}
@@ -991,3 +993,6 @@ select::-ms-expand { display: none; }
 .h_edit input[data-type="20"]{width: 245px;}
 .h_edit .valuationInfo_20_select{ width: 150px;}
 #title-info li{color:#333333;font-size:18px;}
+.condition+td{
+	text-align:left !important;
+} 

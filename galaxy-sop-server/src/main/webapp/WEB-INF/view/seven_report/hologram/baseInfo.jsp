@@ -126,6 +126,9 @@ $(function() {
 		if(_this.is(':visible')){
 			_this.siblings('.base_half').css('width','50%');
 		}
+		var code=_this.find("table").attr("data-code");
+	    
+	    resizetable($("table[data-code='"+code+"']"));
 	});
 	
 	//通用编辑显示

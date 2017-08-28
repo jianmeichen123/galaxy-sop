@@ -154,7 +154,7 @@
 						var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
 						if(last_id){
 							$(radioShow).find(".others_text").show();
-							$(radioShow).find(".others_text").val(valList[valList.length-1])
+							$(radioShow).find(".others_text").val(p_box.attr("data-remark"))
 						}
 					}				
 				}else if(type==14){
@@ -402,7 +402,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 		}else if(type==13||type==3){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
-				 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+">"	 
+				 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\"  required data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+">"	 
 				 }else{
 				 result_html += "<input type=\"checkbox\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
 				 }

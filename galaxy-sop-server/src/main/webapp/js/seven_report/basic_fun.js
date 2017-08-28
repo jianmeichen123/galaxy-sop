@@ -129,6 +129,7 @@ if(file.type=='image/gif' || file.type=='image/bmp'){//gif使用FileReader进行
 //通用取消编辑
 $('div').delegate(".h_cancel_btn","click",function(event){
 	event.stopPropagation();
+	debugger;
 	var _this = $(this).parents(".radius");
 	var id_code = $(this).attr('attr-hide');
 	var session_id = $(this).attr('attr-session')
@@ -146,6 +147,9 @@ $('div').delegate(".h_cancel_btn","click",function(event){
     {
         deletedRowIdsGq = new Array();
     }
+    var code=_this.find("table").attr("data-code");
+    
+    resizetable($("table[data-code='"+code+"']"));
 });
 
 //通用编辑显示
@@ -247,8 +251,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						function calculationValuations(){  //编辑股权占比
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
 							var projectChildren = $("input[data-title-id='"+children+"']").val();
-							if(projectParent > 0 && projectChildren > 0){
-								console.log(projectParent * (100/projectChildren))
+							if(projectParent !="未填写" && projectChildren !="未填写" && projectParent > 0 && projectChildren > 0){
 								return projectParent * (100/projectChildren);
 							}else{
 								return '';
@@ -271,7 +274,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						}*/
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
-							if(valuations != null){
+							if(valuations != null && valuations != ""){
 								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
@@ -279,7 +282,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
 							var valuations = calculationValuations();
-							if(valuations != null){
+							if(valuations != null && valuations != ""){
 								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
@@ -621,14 +624,16 @@ function editRow(ele)
 				}
 			})
 			
-			
+			//运营报告和决策报告分期拨款有注资计划不能编辑
+			if(reportType == 3 || reportType == 7){
+				if(row.data("dataList").length > 0){
+					$("#field3").attr("readonly","readonly");
+				}
+			}
 			//运营 报告嵌套表格处理
 			if(reportType == 7){
 				if(row.data("dataList"))
 				{
-					if(row.data("dataList").length > 0){
-						$("#field3").attr("readonly","readonly");
-					}
 					$.each(row.data("dataList"),function(){
 						 var row = this;
 						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
@@ -747,9 +752,9 @@ function delRow(ele)
         }
 		tr.remove();
 		check_table();   
-		check_table_tr_edit();
 		//运营报告中【融资估值中分期添加按钮隐藏】
 		check_add_button_hide(reportType,table.attr("data-title-id"));
+		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 		//注资剩余金额
 		if(code == 'grant-part' || code == 'grant-actual'){
