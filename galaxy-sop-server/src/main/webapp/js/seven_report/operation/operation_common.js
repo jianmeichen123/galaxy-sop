@@ -206,6 +206,11 @@ function tabOperateChange(index){
 		 */
 		function editActual(ele){
 		        div=$(ele).closest('div[data-flag]');
+		      //获取已实际投资的金额之和
+				 var sum=0;
+				 $.each($("#appr_part .team_div"),function(){
+					 sum+=Number($(this).find("span[name='field3']").text());
+				 })
 		        var index = div.index();
 			       $.getHtml({
 		       		url:"/sop/html/operation_appr_actual.html",//模版请求地址
@@ -217,12 +222,29 @@ function tabOperateChange(index){
 		                   $("#actual-form").find("[name='id']").val(json['id']);
 		                      var data = getTotalApprActual(json['id']);
 		                      $("#formatRemainActualMoney").text(data.remainMoney);
+		                      $("#remainMoneyActual").val(data.remainMoney);
+		     				  $("#totalMoneyActual").val(data.totalMoney);
 		                   }
 		                   $("#actual-form").find("[name='code']").val(json['code']);
 		                   $("#actual-form").find("[name='field1']").val(json['field1']);
 		                   $("#actual-form").find("[name='field2']").val(json['field2']);
 		                   $("#actual-form").find("[name='field3']").val(json['field3']);
 		                   $("#actual-form").find("[name='index']").val(index);
+		                   //总的实际注资金额
+		                   var totalMoneyActual=$("#totalMoneyActual").val();
+		                   var oldgrantMoney=$("#grantMoney").val();
+		                   var remainActualMoney=Number(totalMoneyActual)-sum;
+		  				 	$("#formatRemainActualMoney").text(remainActualMoney);
+		  				 	$("#grantMoney").on("input",function(){
+								 var val=$(this).val();
+								 if(val>0){
+									 if(val>remainActualMoney+Number(oldgrantMoney)){
+										 $("#formatRemainActualMoney").text("0");
+									 }else{
+										 $("#formatRemainActualMoney").text(remainActualMoney+Number(oldgrantMoney)-val);
+									 }
+								 }
+							 })
 		                   
 		       		}
 			      }); 

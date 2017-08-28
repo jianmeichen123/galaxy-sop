@@ -84,7 +84,8 @@
         </div>
     	<div class="team_tit operation_actual_title">实际注资<span class="team_ico team_ico_add appr_part_add" data-code="study-experience" href="/sop/html/operation_appr_actual.html"></span></div>
 		<div class="team_p" id="appr_part">
-
+			<input type="hidden" id="remainMoneyActual" value=""/>
+			<input type="hidden" id="totalMoneyActual" value=""/>
 		</div>
 
     </div>
@@ -119,6 +120,27 @@ $("div").delegate(".appr_part_add","click",function(event){
 				 var data = getTotalApprActual(json['id']);
 				 $("#formatRemainActualMoney").text(data.remainMoney);
 				 $("#remainMoney").val(data.remainMoney);
+				 $("#remainMoneyActual").val(data.remainMoney);
+				 $("#totalMoneyActual").val(data.totalMoney);
+				 //获取已实际投资的金额之和
+				 var sum=0;
+				 $.each($("#appr_part .team_div"),function(){
+					 sum+=Number($(this).find("span[name='field3']").text());
+				 })
+				 var totalMoneyActual=$("#totalMoneyActual").val();
+				 var remainActualMoney=Number(totalMoneyActual)-sum;
+				 $("#formatRemainActualMoney").text(remainActualMoney);
+				 $("#remainMoney").val(data.remainMoney);
+				 $("#grantMoney").on("input",function(){
+					 var val=$(this).val();
+					 if(val>0){
+						 if(val>remainActualMoney){
+							 $("#formatRemainActualMoney").text("0");
+						 }else{
+							 $("#formatRemainActualMoney").text(remainActualMoney-val);
+						 }
+					 }
+				 })
 			}
 		}//模版反回成功执行
 	});

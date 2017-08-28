@@ -17,6 +17,8 @@
 			<input name="projectId" type="text" style="display:none">
 			<input name="titleId"  type="text" style="display:none">
 			<input name="subCode" type="hidden"  value="">
+			<!-- <input type="hidden" id="remainMoneyActual" value=""/>
+			<input type="hidden" id="totalMoneyActual" value=""/> -->
    			<li>
    			        <dl class="fmdl">
 		                <dt>实际注资名称 ：</dt>
@@ -97,6 +99,10 @@ $(function(){
 				    	  $("#field3").attr("readonly","readonly");
 				   }
 			   });
+			   //隐藏
+			    var remainMoneyActual=$("#remainMoneyActual").val();
+			   	var totalMoneyActual=$("#totalMoneyActual").val();
+			   	
 		   }
    );
  
