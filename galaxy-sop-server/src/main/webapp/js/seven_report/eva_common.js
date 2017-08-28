@@ -44,8 +44,8 @@ function tabShow(code,relateId){
 				$("#save-rpt-btn").attr("disabled",true);
 				/*显示结果  */
 				/* 16类型内容处理 */
-				var content_16 = $(".content_16").text();
-				if(content_16!="未填写未填写"){
+				var content_16 = $(".content_16 p").html();
+				if(content_16!="未填写"){
 					content_16=content_16.replace(/<sitg>/g,'（<sitg>');
 					content_16=content_16.replace(/<\/sitg>/g,'<\/sitg>）');
 					$(".content_16 p").html(content_16); 
