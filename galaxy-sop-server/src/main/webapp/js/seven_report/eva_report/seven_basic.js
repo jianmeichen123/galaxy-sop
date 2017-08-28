@@ -204,7 +204,7 @@
 						if(d_type==1 || d_type==20){
 							if(n.val!="未填写"){
 								if(d_type==20){
-									$("#"+n.relateId+"_select").find("option[data-code='currency2']").attr("selected",true);
+									$("#"+n.relateId+"_select").find("option[data-code='currency1']").attr("selected",true);
 									if(n.val.indexOf("美元")!=-1){
 										$("#"+n.relateId+"_select").find("option[data-code='currency2']").attr("selected",true);
 									}
