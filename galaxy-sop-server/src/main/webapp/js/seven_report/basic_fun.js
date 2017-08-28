@@ -1136,14 +1136,14 @@ function getTotalAppr(projectId,NewRemainMoneyH,delMoney){
 						}
 					}
 				});
-	if(!flag){
+	/*if(!flag){
 		layer.open({
 			  type: 1,
 			  skin: 'layui-layer layui-anim layui-layer-dialog', //加上边框
 			  area: ['420px', '240px'], //宽高
 			  content: '无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体'
-			});
-	}
+			});*/
+
 	return flag;
 }
 
