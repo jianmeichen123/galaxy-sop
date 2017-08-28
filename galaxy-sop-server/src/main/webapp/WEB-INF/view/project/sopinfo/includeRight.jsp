@@ -149,7 +149,7 @@
 				</ul>
 			</div>
 			<!-- 七大报告入口结束 -->
-            <div class="tq_div" style="display:none;">
+            <div class="tq_div">
 	            <div class="correlation">相关操作</div> 
 	            <div class="new_correlation_cen">
 	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
