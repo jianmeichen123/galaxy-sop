@@ -1888,6 +1888,9 @@ function editRow(ele)
 					 $('#grant_popup_name').html('查看分期注资计划');
 					 $('#finace_popup_name').html('查看融资历史');
 					 $("#complete_title").html('查看综合竞争比较');
+					 $("#pop-title-gs").text('查看同类公司');
+					 $("#pop-title-time").text('查看里程碑和时间节点');
+					 $("#pop-title").text('查看分期注资计划');
 					
 				}else{
 					$(".see_block").hide();
@@ -1898,6 +1901,9 @@ function editRow(ele)
 					 $("#pop-title-tz").html('编辑投资人');
 					 $("#pop-title-share").html('编辑股东');
 					 $("#pop-title-yy").html('编辑运营指标');
+					 $("#pop-title-gs").text('编辑同类公司');
+					 $("#pop-title-time").text('编辑里程碑和时间节点');
+					 $("#pop-title").text('编辑分期注资计划');
 				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
