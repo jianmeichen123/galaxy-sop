@@ -1820,7 +1820,7 @@ function addRow(ele)
             $("#detail-form input[name='projectId']").val(projectInfo.id);
             $("#detail-form input[name='titleId']").val($(ele).prev().data('titleId'));
             $("#detail-form input[name='subCode']").val($(ele).prev().data('code'));
-
+            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
             selectContext("detail-form");
             $("#save-detail-btn").click(function(){
                 saveForm($("#detail-form"));
