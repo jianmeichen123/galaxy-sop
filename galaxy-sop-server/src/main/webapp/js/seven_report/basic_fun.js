@@ -247,8 +247,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						function calculationValuations(){  //编辑股权占比
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
 							var projectChildren = $("input[data-title-id='"+children+"']").val();
-							if(projectParent > 0 && projectChildren > 0){
-								console.log(projectParent * (100/projectChildren))
+							if(projectParent !="未填写" && projectChildren !="未填写" && projectParent > 0 && projectChildren > 0){
 								return projectParent * (100/projectChildren);
 							}else{
 								return '';
