@@ -615,9 +615,12 @@ function getValues()
 					{
 						model.value = val;
 					}
-					if(typeof remark != 'undefined')
-					{
-						model.remark1 = remark;
+
+					if(i + 1 == values.length){
+                        if(typeof remark != 'undefined')
+                        {
+                            model.remark1 = remark;
+                        }
 					}
 					var key = titleId+'_'+val;
 					if(!dupCheck.hasOwnProperty(key))
