@@ -104,6 +104,9 @@
 		btn_disable(0);
 		$(".h#a_"+id_code).css("background","#fff");
 		event.stopPropagation();
+		var code=_this.find("table").attr("data-code");
+	    
+	    resizetable($("table[data-code='"+code+"']"));
 	});
 	//通用保存
 	$('div').delegate(".h_save_btn","click",function(event){
