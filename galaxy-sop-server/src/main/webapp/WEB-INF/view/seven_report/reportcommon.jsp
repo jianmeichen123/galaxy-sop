@@ -167,17 +167,17 @@ function seven_link(data,url){
 } */
 function backProject(url){  //返回项目详情页
 	var _href=window.location.href;
-	//var url=getCookieValue("back_url");
+	var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectInfo.id;
 	if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
 		var result=$(".pagebox").attr("data-result");
 		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 		if(result=="true"){
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			beforeSave(url);
 		}else{
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			if(url!=""){
-				window.location.href=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectInfo.id;
+				forwardWithHeader(url);
 			}
 		}
 	}
@@ -189,10 +189,10 @@ function backList(url){   //返回项目列表页
 		var result=$(".pagebox").attr("data-result");
 		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 		if(result=="true"){
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			beforeSave(url);
 		}else{
-			$(window).unbind('beforeunload');
+			//$(window).unbind('beforeunload');
 			forwardWithHeader(url);
 		}
 	}

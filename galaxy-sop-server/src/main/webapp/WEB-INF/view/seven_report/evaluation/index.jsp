@@ -223,11 +223,11 @@ function forwardToPage(url){   //跳到相关页面
 				var result=$(".pagebox").attr("data-result");
 				 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 				if(result=="true"){
-					$(window).unbind('beforeunload');
+					//$(window).unbind('beforeunload');
 					beforeSave(url);
 					return false;
 				}else{
-					$(window).unbind('beforeunload');
+					//$(window).unbind('beforeunload');
 				}
 			}
 	});

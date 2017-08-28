@@ -118,10 +118,10 @@ if(isContainResourceByMark("task_into_view")){
 			var result=$(".pagebox").attr("data-result");
 			 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 			if(result=="true"){
-				$(window).unbind('beforeunload');
+				//$(window).unbind('beforeunload');
 				beforeSave(url);
 			}else{
-				$(window).unbind('beforeunload');
+				//$(window).unbind('beforeunload');
 				$.ajax({
 					url : platformUrl.logout,
 					type : "POST",
