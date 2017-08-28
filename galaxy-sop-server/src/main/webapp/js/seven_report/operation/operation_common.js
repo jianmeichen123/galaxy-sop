@@ -232,18 +232,24 @@ function tabOperateChange(index){
 		 * @param ele
 		 */
 		function delActualRow(ele){
-			  
-		      div=$(ele).closest('div[data-flag]');
-		      var id = div.find("[name='id']").text();
-		      if(typeof id != 'undefined' && id>0)
-			  {
-					deletedRowIds.push(id);
-			  }
-		      div.remove();
-		      
-		      if($(".team_div").length==0){
-		    	  $("#field3").removeAttr("readonly");
-		      }
+			layer.confirm('是否删除?', {
+				btn : [ '确定', '取消' ],
+				title:'提示'
+			}, function(index, layero){
+				   div=$(ele).closest('div[data-flag]');
+				      var id = div.find("[name='id']").text();
+				      if(typeof id != 'undefined' && id>0)
+					  {
+							deletedRowIds.push(id);
+					  }
+				      div.remove();
+				      
+				      if($(".team_div").length==0){
+				    	  $("#field3").removeAttr("readonly");
+				      }
+				      $(".layui-layer-close1").click();
+			},function(index) {
+			});  
 		}
 
 		/**
