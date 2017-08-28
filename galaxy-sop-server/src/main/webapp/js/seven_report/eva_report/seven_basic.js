@@ -643,7 +643,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 			c_val=c_val.replace(/\s/g,"&nbsp;");
 			data_list.value=c_val;
 			if(data_list.value==""||data_list.value==undefined){
-				data_list.value="未填写";
+				if( $(this).find("dd").children().attr("data-time")!=undefined){
+					data_list.value="未选择";
+				}else{
+					data_list.value="未填写";
+				}
+				
 			}
 		}else if(data_type==20){
 			var val = $(this).find("dd input").val();
