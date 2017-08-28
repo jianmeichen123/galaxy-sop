@@ -910,14 +910,6 @@ function refreshSection(id)
 	btn_disable(0);
 	
 }
-function getTableRowLimit(code)
-{
-	if(code == 'investor-situation' || code =='operation-indices')
-	{
-		return 20;
-	}
-	return 10;
-}
 /**
 * 页面加载时，给类型12的题目，绑定change方法，用于第一次没有返回结果的情况
 */

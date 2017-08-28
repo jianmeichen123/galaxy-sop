@@ -1277,6 +1277,15 @@ function getTableRowLimit(code)
 	   case "finance-history":
 	       num=20; 
 	       break;
+	   case "investor-situation":
+	       num=20; 
+	       break;
+	   case "operation-indices":
+	       num=20; 
+	       break;
+	   case "equity-structure":
+	       num=20; 
+	       break;
 	   default:
 		  num=10; 
 	}
