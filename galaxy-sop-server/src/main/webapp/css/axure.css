@@ -3493,8 +3493,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .errortc .fmdl dd .txt{
 	float:left;
 }
-.errortc .sign_fmdl dd .error{
+.errortc dd .error{
 	display: block;
+	font-size:12px;
+	font-family:"宋体";
 }
 .errortc .gray{
 	font-size:12px;

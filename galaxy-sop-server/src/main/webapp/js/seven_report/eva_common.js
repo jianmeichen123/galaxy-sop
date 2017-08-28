@@ -615,9 +615,12 @@ function getValues()
 					{
 						model.value = val;
 					}
-					if(typeof remark != 'undefined')
-					{
-						model.remark1 = remark;
+
+					if(i + 1 == values.length){
+                        if(typeof remark != 'undefined')
+                        {
+                            model.remark1 = remark;
+                        }
 					}
 					var key = titleId+'_'+val;
 					if(!dupCheck.hasOwnProperty(key))
@@ -848,7 +851,7 @@ function Tfun_8(data){
 		_this.parent().find("em").hide();
 		_this.removeClass("mare_text");
 		var height = _this.height();
-		if(height>90){
+		if(height>70){
 			_this.addClass("mare_text");
 			_this.parent().find(".detail").show();
 			
