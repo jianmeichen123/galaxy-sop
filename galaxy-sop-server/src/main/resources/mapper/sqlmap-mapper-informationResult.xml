@@ -52,7 +52,6 @@
 
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationResult">
-	    <![CDATA[
 	     insert into information_result (
 	     	id, 
 			project_id, 
@@ -60,6 +59,8 @@
 			content_choose, 
 			content_describe1,
 			content_describe2,
+			created_time,
+			create_id,
 			sort
 		)
 		values (
@@ -69,8 +70,9 @@
 			#{contentChoose,jdbcType=VARCHAR}, 
 			#{contentDescribe1,jdbcType=VARCHAR},
 			#{contentDescribe2,jdbcType=VARCHAR},
+			#{createdTime,jdbcType=BIGINT},
+			#{createId,jdbcType=BIGINT},
 			#{sort}
-	    ]]>
 	</insert>
 	
 	<insert id="insertBatch" parameterType="java.util.List">
@@ -80,6 +82,8 @@
 			content_choose, 
 			content_describe1,
 			content_describe2,
+			created_time,
+			create_id,
 			sort
 		)
 		values 
@@ -90,6 +94,8 @@
 				#{item.contentChoose,jdbcType=VARCHAR}, 
 				#{item.contentDescribe1,jdbcType=VARCHAR},
 				#{item.contentDescribe2,jdbcType=VARCHAR},
+				#{item.createdTime,jdbcType=BIGINT},
+			    #{item.createId,jdbcType=BIGINT},
 				#{item.sort,jdbcType=INTEGER}
 			)
 		</foreach>
@@ -135,6 +141,7 @@
 			<if test="contentDescribe2 != null"> content_describe2 = #{contentDescribe2,jdbcType=VARCHAR}, </if>
 			 -->
 			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="updateId != null"> update_id = #{updateId,jdbcType=BIGINT}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -152,6 +159,7 @@
 			content_describe1 = #{contentDescribe1,jdbcType=VARCHAR},
 			content_describe2 = #{contentDescribe2,jdbcType=VARCHAR},
 			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="updateId != null"> update_id = #{updateId,jdbcType=BIGINT}, </if>
 		</set>
 		where id = #{id}
 	</update>
