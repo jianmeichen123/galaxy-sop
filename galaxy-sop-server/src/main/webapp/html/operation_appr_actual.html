@@ -78,7 +78,7 @@ $(function(){
 			   var apprActualMoney=$("#grantMoney").val();
 			   var newRemainMoneyActual=$("#newRemainMoneyActual").val();
 			   if(apprActualMoney>newRemainMoneyActual){
-				   layer.msg("实际注资计划之和大于总注资金额");
+				   layer.msg("实际注资金额之和大于分期注资金额");
 				   return;
 			   }
 			   var json =getToobarQueryParams("actual-form");
