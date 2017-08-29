@@ -152,13 +152,14 @@ function showResultAndScoreList(relateId)
 							var _input =$(this).find("input");
 							var _select =$(this).find("select");
 							if(_input.val()==""){
-								$(this).html("0");
+								$(this).html("未打分");
+								$(this).css("color","#b2b2b2")
 							}else{
 								$(this).html(_input.val());
 							}
-							console.log(_select.val());
 							if(_select.val()=="请选择"){
-								$(this).html("0");
+								$(this).html("未打分");
+								$(this).css("color","#b2b2b2")
 							}else{
 								$(this).html(_select.val());
 							}
@@ -410,9 +411,6 @@ function buildResult(title)
 				}
 				_ele.find("span").attr("currency",currency_id);
 			 }
-			if(type==1&&val==undefined&&title.valRule==5){
-				val="未选择";
-			}
 			_ele.find("span").html(val);
 		}else{
 			_ele.html(results[0].contentDescribe1);
@@ -925,8 +923,6 @@ function img_fun(data){
 $("div").delegate(".h_img_del","click",function(){
 	$(this).parents(".fl_none").find("ul").show()
 	$(this).parent().remove();
-	$(".pagebox").attr("data-result",true);
-	$("#save-rpt-btn em").removeClass("disabled")
 	var del_id = $(this).next().data("id");
 	deleteFileIds.push(del_id);
 })

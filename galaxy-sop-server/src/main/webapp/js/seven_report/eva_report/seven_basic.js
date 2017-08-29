@@ -101,6 +101,9 @@
 		editResult(obj);
 		validate();
 		img_fun();
+		$(".pagebox").attr("data-result",true);
+		$("#save-rpt-btn").removeAttr("disabled"); 
+		$("#save-rpt-btn em").removeClass("disabled")
 	}
 	//编辑回显
 	function editResult(obj){
@@ -486,8 +489,6 @@ function right(obj,type){
 	//raido消失
 	var other =$(obj).parent().siblings(".radioShow").find(".others");
 	var align_left = $(obj).parent().parent().find(".align_left");
-	//内容初始值
-	var data_initial = align_left.text();
 	//取值判断
 	if(type=="radio"){
 		var val_id = $(obj).parent().parent().find('input[type="radio"]:checked').val();
@@ -532,7 +533,6 @@ function right(obj,type){
 	}else if(type=="textarea"){
 		var align_left = $("span[parent_dom='show']").parent().find(".align_left");
 		p = align_left.find('p');
-		var data_initial = align_left.text();
 		var val = $(obj).parent().parent().find("textarea").val();
 		val=val.replace(/\n|\r\n/g,"<br>")
 		val=val.replace(/\s/g,"&nbsp;");
@@ -592,13 +592,6 @@ function right(obj,type){
 		afterTitleSaved();
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
-	//内容改变状态
-	var data_change=align_left.text();
-	if(data_change!=data_initial){
-		$(".pagebox").attr("data-result",true);
-		$("#save-rpt-btn").removeAttr("disabled"); 
-		$("#save-rpt-btn em").removeClass("disabled")
-	}
 	font_color($(".condition"));
 	calcScore();
 }
@@ -643,12 +636,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 			c_val=c_val.replace(/\s/g,"&nbsp;");
 			data_list.value=c_val;
 			if(data_list.value==""||data_list.value==undefined){
-				if( $(this).find("dd").children().attr("data-time")!=undefined){
-					data_list.value="未选择";
-				}else{
-					data_list.value="未填写";
-				}
-				
+				data_list.value="未填写";
 			}
 		}else if(data_type==20){
 			var val = $(this).find("dd input").val();
@@ -893,12 +881,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 	_this.hide();
 	$(".mashLayer").hide();
 	event.stopPropagation();
-	var data_change=align_left.text();
-	if(data_change!=data_initial){
-		$(".pagebox").attr("data-result",true);
-		$("#save-rpt-btn").removeAttr("disabled"); 
-		$("#save-rpt-btn em").removeClass("disabled")
-	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
 	calcScore();

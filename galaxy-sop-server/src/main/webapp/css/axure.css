@@ -1594,6 +1594,13 @@ word-wrap:break-word;
 	margin-top:45px;
 	margin-left:10px;
 }
+.new_right_flow_after{
+	margin-top:0px;
+	margin-left: 0px;
+	padding-left: 10px;
+	padding-top:45px;
+	border-top:1px solid #e4e4e4;
+}
 .new_right_flow_line{
 	position:relative;
 	height:140px;

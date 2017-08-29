@@ -42,8 +42,26 @@
         	                <div class="progressBar"><div id="bar_m"></div></div>
         	              </div>
         	              
-        					</div> 
-				
+      					</div> 
+						<div class="new_right_flow new_right_flow_after">
+		            	<div class="new_right_flow_line">
+		                	<ul class="line_ul_p" id="lct_ul">
+		                    	<li class="line_ul_li"><span class="one_dot"></span></li>
+		                    	<li><span class="gray_dot"></span>接触访谈</li>
+		                        <li><span class="gray_dot"></span>内部评审</li>
+		                        <li><span class="gray_dot"></span>C<br/>E<br/>O评审</li>
+		                        <li><span class="gray_dot"></span>立项会</li>
+		                        <li><span class="gray_dot"></span>会后商务谈判</li>
+		                        <li><span class="gray_dot"></span>投资意向书</li>
+		                        <li><span class="gray_dot"></span>尽职调查</li>
+		                        <li><span class="gray_dot"></span>投资决策会</li>
+		                        <li><span class="gray_dot"></span>投资协议</li>
+		                        <li><span class="gray_dot"></span>股权交割</li>
+		                        <li><span class="gray_dot on"></span>投后运营</li>
+		                    </ul>
+		                </div>
+		                 <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
+		            </div>
 				
             	
 				<!-- <div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
@@ -247,6 +265,7 @@ function seven_link(data){
 	
 }
 $(function(){
+	
 	//显示投前或投后信息
 	if(prograss == 'projectProgress:10')
 	{
@@ -268,9 +287,7 @@ $(function(){
 	{
 		$(".tq_div").show();
 	}
-	console.log(index);
 	init_lct(); //流程图初始化
-	
 	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
 		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
 	}
@@ -410,9 +427,11 @@ function initMoreLine(){
  */
  //prograss_name
 function init_lct(){
-	var ul_li = $("#lct_ul").children("li");
+	var ul_li = $(".line_ul_p").children("li");
 	$(ul_li).each(function(i){
 		if(index!=0 && i!=0){
+			console.log($(this).text());
+			console.log(prograss_name);
 			if($(this).text()==prograss_name){
 				$(this).addClass("green_dot");
 				$(this).prevAll().addClass("green_dot");
