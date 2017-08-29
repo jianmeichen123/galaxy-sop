@@ -149,6 +149,7 @@ var pageId = "project";
 createMenus(5);
 var reportType = 1;
 var projId="${projectId}";
+var isEditable = "${isEditable}";
 </script>
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/eva_table.js"></script>	
@@ -164,6 +165,7 @@ var projId="${projectId}";
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>	
 </body>
 <script>
+
 function getDetailUrl(code)
 {
 	if(code == 'share-holding')
