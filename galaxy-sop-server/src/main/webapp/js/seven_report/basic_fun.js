@@ -622,6 +622,12 @@ function editRow(ele)
 						   });
 					});
 					$("#save_appr_part").click(function(){
+						//运营验证分期计划拨款金额是否大于剩余金额
+		                var valInput=$(".moeny_all input").val();
+		                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+		                	layer.msg("分期注资金额之和大于总注资金额");
+		 				   return;
+		                }
 						var obj=$(this).closest(".poptxt");
 						var data = getData($("#detail-form"));
 	        		    var dataList = getDataList($("#appr_part"));
