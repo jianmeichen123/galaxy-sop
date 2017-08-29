@@ -962,7 +962,13 @@ $('div').delegate(".income_pic","click",function(){
 	var  leftNum = _target.offset().left-20;
 	var  topNum = _target.offset().top-188;
 	$('.customer_income').css('left',leftNum).css('top',topNum);
-	$(".img_inner").attr("src",$(this).data("fileUrl"));
+	var im_url=$(this).data("fileUrl");
+	if(im_url==undefined||im_url==""){
+		$(".img_inner").attr("src",$(this).data("url"));
+	}else{
+		$(".img_inner").attr("src",$(this).data("fileUrl"));
+	}
+	
 })
 //图片点击原图效果
 $('div').delegate(".master_pic","click",function(){

@@ -529,7 +529,7 @@ function right(obj,type){
 				if(val_text=="其他"){
 					val_text=radio_label.next().val();
 					relateId_p.attr("data-remark",val_text);
-				content.push(val_text);
+					content.push(val_text);}
 			});
 			relateId_p.html(content.join('、'));
 			relateId_p.attr("data-title-value",values.join(','));
