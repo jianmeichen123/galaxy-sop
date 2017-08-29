@@ -211,6 +211,8 @@ function tabOperateChange(index){
 				 $.each($("#appr_part .team_div"),function(){
 					 sum+=Number($(this).find("span[name='field3']").text());
 				 })
+				 //获取总金额
+				 var totalMoneyActual=$("#totalMoneyActual").val();
 		        var index = div.index();
 			       $.getHtml({
 		       		url:"/sop/html/operation_appr_actual.html",//模版请求地址
@@ -218,12 +220,17 @@ function tabOperateChange(index){
 		       		okback:function(){
 		       			  $("#appr_actual_title").html('编辑实际注资计划');
 		                   var json = getData(div);
-		                   if(json['id']){
+		                   if(json['id']!="null" && json['id']!=null){   //保存数据库
+		                	   alert("11")
 		                   $("#actual-form").find("[name='id']").val(json['id']);
 		                      var data = getTotalApprActual(json['id']);
 		                      $("#formatRemainActualMoney").text(data.remainMoney);
 		                      $("#remainMoneyActual").val(data.remainMoney);
 		     				  $("#totalMoneyActual").val(data.totalMoney);
+		                   }else{   //未保存数据库
+		                	   var moneyActualHave=$(".moeny_all input").val();   //分拨计划金额
+		                	   $("#formatRemainActualMoney").text(Number(moneyActualHave)-sum);
+			     			   $("#totalMoneyActual").val(totalMoneyActual);
 		                   }
 		                   $("#actual-form").find("[name='code']").val(json['code']);
 		                   $("#actual-form").find("[name='field1']").val(json['field1']);
@@ -231,12 +238,12 @@ function tabOperateChange(index){
 		                   $("#actual-form").find("[name='field3']").val(json['field3']);
 		                   $("#actual-form").find("[name='index']").val(index);
 		                   //总的实际注资金额
-		                   var totalMoneyActual=$("#totalMoneyActual").val();
+		                   totalMoneyActual=$("#totalMoneyActual").val();
 		                   var oldgrantMoney=$("#grantMoney").val();
 		                   var remainActualMoney=Number(totalMoneyActual)-sum;
 		                   $("#newRemainMoneyActual").val(Number(remainActualMoney)+Number(oldgrantMoney));   //新的剩余金额
-		  				 	$("#formatRemainActualMoney").text(remainActualMoney);
-		  				 	$("#grantMoney").on("input",function(){
+		  				  // $("#formatRemainActualMoney").text(remainActualMoney);
+		  				   $("#grantMoney").on("input",function(){
 								 var val=$(this).val();
 								 if(val>0){
 									 if(val>remainActualMoney+Number(oldgrantMoney)){

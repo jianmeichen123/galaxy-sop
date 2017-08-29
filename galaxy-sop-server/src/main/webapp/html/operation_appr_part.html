@@ -10,7 +10,7 @@
 	<div class="title_bj" id="pop-title">添加分期注资计划</div>
 	<input type="hidden" id="remainMoneyPart" value=""/>
 	<input type="hidden" id="totalMoneyPart" value=""/>
-    <div class="qualifications_all">
+    <div class="qualifications_all injection">
 		<form id = "detail-form" >
     	<ul>
 			<input name="id" type="text" style="display:none">
@@ -57,8 +57,9 @@
 		                <dt>付款条件 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="field4" name="field4" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
-		                    </div> 
+		                	<textarea class="team_textarea" name="field4" id="field4" oninput="countChar('field4','label_now','2000')"></textarea>
+		                		<div class="finace_fnum num_tj"><span for="" id="label_now">2000</span>/2000</div>
+		                    	</div> 
 		                </dd>
 		            </dl>
    			</li>
