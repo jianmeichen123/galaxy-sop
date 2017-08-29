@@ -19,6 +19,7 @@
 			<input name="subCode" type="hidden"  value="">
 			<!-- <input type="hidden" id="remainMoneyActual" value=""/>
 			<input type="hidden" id="totalMoneyActual" value=""/> -->
+			<input type="hidden" id="newRemainMoneyActual" value=""/>
    			<li>
    			        <dl class="fmdl">
 		                <dt>实际注资名称 ：</dt>
@@ -73,6 +74,13 @@ $(function(){
 				{
 					return;
 				}
+			 //验证计划拨款金额是否大于剩余金额
+			   var apprActualMoney=$("#grantMoney").val();
+			   var newRemainMoneyActual=$("#newRemainMoneyActual").val();
+			   if(apprActualMoney>newRemainMoneyActual){
+				   layer.msg("实际注资计划之和大于总注资金额");
+				   return;
+			   }
 			   var json =getToobarQueryParams("actual-form");
 			   $.get("/sop/html/operation_appr_actual_table.html", json,function(data){
 				   var index = json['index'];
@@ -99,9 +107,6 @@ $(function(){
 				    	  $("#field3").attr("readonly","readonly");
 				   }
 			   });
-			   //隐藏
-			    var remainMoneyActual=$("#remainMoneyActual").val();
-			   	var totalMoneyActual=$("#totalMoneyActual").val();
 			   	
 		   }
    );

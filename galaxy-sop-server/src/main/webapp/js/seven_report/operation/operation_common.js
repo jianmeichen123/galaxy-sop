@@ -234,6 +234,7 @@ function tabOperateChange(index){
 		                   var totalMoneyActual=$("#totalMoneyActual").val();
 		                   var oldgrantMoney=$("#grantMoney").val();
 		                   var remainActualMoney=Number(totalMoneyActual)-sum;
+		                   $("#newRemainMoneyActual").val(Number(remainActualMoney)+Number(oldgrantMoney));   //新的剩余金额
 		  				 	$("#formatRemainActualMoney").text(remainActualMoney);
 		  				 	$("#grantMoney").on("input",function(){
 								 var val=$(this).val();
