@@ -223,6 +223,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 							itemParam = items.get(parentId);
 							itemParam.setScore(itemParam.getScore().add(score));
 						}
+						logger.debug(String.format("ProjectId=%s,Current Total=%s, Part=%s",projectId, itemParam.getScore(),score));
 					}
 					logger.debug(String.format("ParentID=%s, Mode=%s, val*pec/100=%s*%s/100=%s",info.getParentId(),mode,sum,weight,score));
 				}
