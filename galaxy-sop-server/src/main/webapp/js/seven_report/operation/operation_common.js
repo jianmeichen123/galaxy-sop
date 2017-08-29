@@ -266,8 +266,8 @@ function tabOperateChange(index){
 							deletedRowIds.push(id);
 					  }
 				      div.remove();
-				      
 				      if($(".team_div").length==0){
+				    	  $("#field3").removeClass("disabled");
 				    	  $("#field3").removeAttr("readonly");
 				      }
 				      $(".layui-layer-close1").click();
