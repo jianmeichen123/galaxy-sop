@@ -659,6 +659,9 @@ function editRow(ele)
 							   o.find("[name='field3']").text(row.field3);
 							   o.find("[name='code']").text(row.code);
 							   $("#appr_part").append(o);
+							   if(txt=="查看"){   //查看时隐藏编辑，删除按钮
+								   $("#appr_part").find(".team_click").hide();
+							   }
 						   });
 					});
 					$("#save_appr_part").click(function(){
