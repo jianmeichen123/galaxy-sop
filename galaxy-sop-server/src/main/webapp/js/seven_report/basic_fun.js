@@ -508,7 +508,12 @@ function editRow(ele)
 			$("#formatRemainMoney").text(Number(totalMoneyPart)-sum);
 			$(".moeny_all input").on("input",function(){
             	var val=$(this).val();
-            	$("#formatRemainMoney").text(Number(totalMoneyPart)-(sum-Number(valtr))-val);
+            	if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
+            		$("#formatRemainMoney").text(Number(totalMoneyPart)-(sum-Number(valtr))-val);
+            	}else{
+            		$("#formatRemainMoney").text(0);
+            	}
+            	
             })
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
@@ -590,11 +595,11 @@ function editRow(ele)
 			
 			//运营报告和决策报告分期拨款有注资计划不能编辑
 			if(reportType == 3 || reportType == 7){
-				if(row.data("dataList").length > 0){
+				/*if(row.data("dataList").length > 0){
 					$("#field3").attr("readonly","readonly");
 					$("#field3").addClass("disabled");
 					$("#editMoney").attr("display","block");
-				}
+				}*/
 			}
 			//运营 报告嵌套表格处理
 			if(reportType == 7){
@@ -635,6 +640,12 @@ function editRow(ele)
 			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
+				//验证分期计划拨款金额是否大于剩余金额
+                var valInput=$(".moeny_all input").val();
+                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+                	layer.msg("分期注资金额之和大于总注资金额");
+ 				   return;
+                }
 				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行
@@ -727,9 +738,20 @@ function addRow(ele)
                 $("#formatRemainMoney").text(Number(totalMoneyInit)-sum);
                 $(".moeny_all input").on("input",function(){
                 	var val=$(this).val();
-                	$("#formatRemainMoney").text(Number(totalMoneyInit)-sum-val);
+                	if(Number(totalMoneyInit)-sum-val>0){
+                		$("#formatRemainMoney").text(Number(totalMoneyInit)-sum-val);
+                	}else{
+                		$("#formatRemainMoney").text(0);
+                	}
+                	
                 })
                 $("#save-detail-btn").click(function(){
+                	//验证分期计划拨款金额是否大于剩余金额
+                    var valInput=$(".moeny_all input").val();
+                    if(valInput>Number(totalMoneyInit)-sum){
+                    	layer.msg("分期注资金额之和大于总注资金额");
+     				   return;
+                    }
                     saveForm($("#detail-form"));
                     check_table();
                     check_table_tr_edit();
