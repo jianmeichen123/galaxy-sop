@@ -248,19 +248,19 @@ function seven_link(data){
 	var _href=window.location.href;
 	setCookie("back_url",_href,24,'/');
 	if(data==1){
-		window.location.href=platformUrl.toBaseInfo;
+		window.location.href=platformUrl.toBaseInfo+'?pid=${pid}';
 	}else if(data==2){
-		window.location.href=platformUrl.toEvalindex;
+		window.location.href=platformUrl.toEvalindex+'?pid=${pid}';
 	}else if(data==3){
-		window.location.href=platformUrl.investigate;
+		window.location.href=platformUrl.investigate+'?pid=${pid}';
 	}else if(data==4){
-		window.location.href=platformUrl.toDecision;
+		window.location.href=platformUrl.toDecision+'?pid=${pid}';
 	}else if(data==5){
-		window.location.href=platformUrl.toPreEva;
+		window.location.href=platformUrl.toPreEva+'?pid=${pid}';
 	}else if(data==6){
-		window.location.href=platformUrl.toFinancing;
+		window.location.href=platformUrl.toFinancing+'?pid=${pid}';
 	}else if(data==7){
-		window.location.href=platformUrl.toOperation;
+		window.location.href=platformUrl.toOperation+'?pid=${pid}';
 	}
 	
 }
