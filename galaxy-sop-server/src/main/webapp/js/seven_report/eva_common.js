@@ -145,8 +145,31 @@ function showResultAndScoreList(relateId)
 						buildTable(this);
 						buildFileList(this);
 					});
+
+					//权限判断， 没有编辑权限
+                    if(!isEditable || isEditable != 'true'){
+                        $("#save-rpt-btn").remove();
+                        $.each($(".score-column"),function(){
+                            var _input =$(this).find("input");
+                            var _select =$(this).find("select");
+                            if(_input.val()==""){
+                                $(this).html("未打分");
+                                $(this).css("color","#b2b2b2")
+                            }else{
+                                $(this).html(_input.val());
+                            }
+                            if(_select.val()=="请选择"){
+                                $(this).html("未打分");
+                                $(this).css("color","#b2b2b2")
+                            }else{
+                                $(this).html(_select.val());
+                            }
+                        })
+					}
+
+
 //					角色判断
-					if(roleId== 1 || roleId == 2|| roleId== 3){
+					/*if(roleId== 1 || roleId == 2|| roleId== 3){
 						$("#save-rpt-btn").remove();
 						$.each($(".score-column"),function(){
 							var _input =$(this).find("input");
@@ -164,7 +187,7 @@ function showResultAndScoreList(relateId)
 								$(this).html(_select.val());
 							}
 						})
-					}
+					}*/
 					//权重==0的时候有红字
 					var part_weight =$("#part-weight").text();
 					if(part_weight=="0%"){
