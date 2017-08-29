@@ -486,6 +486,7 @@ function editRow(ele)
 					 $("#pop-title-gs").text('查看同类公司');
 					 $("#pop-title-time").text('查看里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
+					  $(".appr_part_add").hide();   //添加实际注资计划按钮
 				}else{
 					$(".see_block").hide();
 					$("#delivery_popup_name").text("编辑交割事项");
@@ -622,6 +623,12 @@ function editRow(ele)
 						   });
 					});
 					$("#save_appr_part").click(function(){
+						//运营验证分期计划拨款金额是否大于剩余金额
+		                var valInput=$(".moeny_all input").val();
+		                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+		                	layer.msg("分期注资金额之和大于总注资金额");
+		 				   return;
+		                }
 						var obj=$(this).closest(".poptxt");
 						var data = getData($("#detail-form"));
 	        		    var dataList = getDataList($("#appr_part"));

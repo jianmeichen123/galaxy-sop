@@ -8,6 +8,8 @@
 <script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <div  class="qualificationstc appr_parttc errortc opera_porp ">
 	<div class="title_bj" id="pop-title">添加分期注资计划</div>
+	<input type="hidden" id="remainMoneyPart" value=""/>
+	<input type="hidden" id="totalMoneyPart" value=""/>
     <div class="qualifications_all">
 		<form id = "detail-form" >
     	<ul>
@@ -17,10 +19,10 @@
 			<input name="projectId" type="text" style="display:none">
 			<input name="titleId"  type="text" style="display:none">
 			<input name="subCode" type="hidden"  value="">
-			<input type="hidden" id="remainMoney" value=""/>
+			<!-- <input type="hidden" id="remainMoney" value=""/>
 			<input type="hidden" id="totalMoney" value=""/>
 			<input type="hidden" id="NewRemainMoney" value=""/>
-			<input type="hidden" id="prevPlanMoney" value=""/>
+			<input type="hidden" id="prevPlanMoney" value=""/> -->
    			<li>
    			       <dl class="fmdl">
 		                <dt>分拨名称 ：</dt>
