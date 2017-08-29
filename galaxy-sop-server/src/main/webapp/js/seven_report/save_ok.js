@@ -426,8 +426,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 									$("dd[data-title-id=\"3012\"]").text(val);
 								}
 								
-							}
-							toggle_btn($('.anchor_btn span'),0,save_this);
+							}							
                             $('table').each(function(){
                                 resizetable($(this))
                                 if($(this).find('tr').length<=1){
@@ -444,6 +443,8 @@ $('div').delegate(".h_save_btn","click",function(event){
                             if($("table[data-title-id=3022] tr").length == 1){
                             	$("span[attr-id=ONO9_2]").hide();
                             }
+                            
+                            toggle_btn($('.anchor_btn span'),0,save_this);
 						} else {
 							layer.msg("操作失败!");
 						}
@@ -454,5 +455,5 @@ $('div').delegate(".h_save_btn","click",function(event){
 		
 	}); 
 
-	
+	//toggle_btn($('.anchor_btn span'),0,save_this);
 }); 
