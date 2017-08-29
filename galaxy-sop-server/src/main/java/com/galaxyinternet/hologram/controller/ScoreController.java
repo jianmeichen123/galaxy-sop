@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,7 +98,7 @@ public class ScoreController
 				scores.putAll(otherScores);
 				total = total.add(scores.get(parentId));
 			}
-			scores.put(parentId+"", total);
+			scores.put(parentId+"", total.setScale(2, RoundingMode.HALF_DOWN));
 			data.getUserData().putAll(scores);
 
 		} catch (Exception e)

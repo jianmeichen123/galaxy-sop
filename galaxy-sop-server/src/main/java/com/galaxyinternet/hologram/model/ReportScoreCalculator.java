@@ -206,7 +206,7 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 					logger.debug(String.format("ID=%s, Mode=1, Sum=%s",info.getPk(),sum));
 					BigDecimal num = sum.multiply(weight)
 										.divide(BigDecimal.valueOf(100))
-										.setScale(2, BigDecimal.ROUND_HALF_UP);
+										.setScale(4, BigDecimal.ROUND_HALF_UP);
 					score = num;
 					Long parentId = info.getParentId();
 					if( 0l == parentId)

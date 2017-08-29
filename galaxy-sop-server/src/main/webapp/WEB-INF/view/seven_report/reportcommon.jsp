@@ -149,10 +149,10 @@ function seven_link(data,url){
 			beforeSave(url);
 		}else{
 			//$(window).unbind('beforeunload');
-			window.location.href = url;
+			window.location.href = url+'?pid='+pid;
 		}
 	}else{
-		window.location.href = url;
+		window.location.href = url+'?pid='+pid;
 	}
 } 
 
