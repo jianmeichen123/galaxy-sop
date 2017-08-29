@@ -3517,3 +3517,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .appr_parttc dd .txt{width:130px;}
 .appr_parttc .moeny_all .money{left:266px}
 .opera_porp{max-height:450px;overflow-y: auto;}
+.sev_report .gray{
+	cursor:default;
+}
