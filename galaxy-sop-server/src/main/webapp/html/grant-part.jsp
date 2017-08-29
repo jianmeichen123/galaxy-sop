@@ -14,15 +14,13 @@
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc qualificationstc">
 	<div class="title_bj" id="grant_popup_name">添加分拨计划</div>
+	<input type="hidden" id="remainMoneyPart" value=""/>
+	<input type="hidden" id="totalMoneyPart" value=""/>
   <form id="detail-form">
 		<input name="index" type="hidden" value="">
     	<input name="id" type="hidden">
     	<input name="titleId" type="hidden">
     	<input name="subCode" type="hidden">
-		<input type="hidden" id="remainMoney" value=""/>
-		<input type="hidden" id="totalMoney" value=""/>
-		<input type="hidden" id="NewRemainMoney" value=""/>
-		<input type="hidden" id="prevPlanMoney" value=""/>
 	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="appr_aging">
 	                <dl class="fmdl fl_l  clearfix">
