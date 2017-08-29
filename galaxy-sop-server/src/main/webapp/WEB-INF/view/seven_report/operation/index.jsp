@@ -104,6 +104,7 @@ var path = '<%=path%>';
 <script type="text/javascript">
 createMenus(5);
 var isEditable = "${isEditable}";
+reportType="7";
 $(function() {
 	right_anchor("ONO1?reportType=7","seven","hide");
 })
