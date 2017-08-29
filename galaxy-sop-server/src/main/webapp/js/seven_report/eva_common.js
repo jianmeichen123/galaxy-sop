@@ -53,15 +53,17 @@ function tabShow(code,relateId){
 				//显示结果和分数向
 				showResultAndScoreList(relateId);
 				 //修改分数时自动计算
+				$(".score-column select,input").click(function(){
+					$(".pagebox").attr("data-result",true);
+					$("#save-rpt-btn").removeAttr("disabled"); 
+					$("#save-rpt-btn em").removeClass("disabled")
+				})
 				 $(".score-column select,input").change(function(){
 					 if(!$("#table_box").validate().form())
 						{
 							return false;
 						}else{
 							calcScore();
-							$(".pagebox").attr("data-result",true);
-							$("#save-rpt-btn").removeAttr("disabled");
-							$("#save-rpt-btn em").removeClass("disabled");
 						}
 					 
 				 });

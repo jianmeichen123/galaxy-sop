@@ -1295,7 +1295,11 @@ function toggle_btn(data,status,dom_this){
 			//局部
 			hideAll();
 		}else{
-			$(dom_this).find('dd').each(function(){
+			$(dom_this).find('dd[data-title]').each(function(){
+				console.log($(this).attr("class"));
+				if($(this).hasClass("news_table")){
+					return;
+				}
 				if($(this).parents('.radius').hasClass('unable')){
 					$(this).parents('.radius').hide();
 				}else{

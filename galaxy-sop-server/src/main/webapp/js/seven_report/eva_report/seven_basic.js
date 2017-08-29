@@ -100,10 +100,7 @@
 		}
 		editResult(obj);
 		validate();
-		img_fun();
-		$(".pagebox").attr("data-result",true);
-		$("#save-rpt-btn").removeAttr("disabled"); 
-		$("#save-rpt-btn em").removeClass("disabled")
+		img_fun();		
 	}
 	//编辑回显
 	function editResult(obj){
@@ -423,9 +420,10 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 				result_li += "<li><a href=\"javascript:;\" data-value-code=\"code_"+i+"\" id=\""+n.content1+' '+n.content2+"\"><label class=\"select_1\">"+n.content1+"</label> <label class=\"select_2\">"+n.content2+"</label></a></li> "
 			})
 			if(valueList.length<=0){
-				
+				result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul style=\"border:0;height:0px;margin:0;\"></ul></div>"
+			}else{
+				result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"><li>请选择</li>"+result_li+"</ul></div>"				
 			}
-			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"><li>请选择</li>"+result_li+"</ul></div>"
 			
 		}else if(type==14){
 			var result_li='';
@@ -472,7 +470,10 @@ function closeX(obj){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	$(".img_inner").attr("src","");
 	font_color($(".condition"));
-	calcScore()
+	calcScore();
+	$(".pagebox").attr("data-result",true);
+	$("#save-rpt-btn").removeAttr("disabled"); 
+	$("#save-rpt-btn em").removeClass("disabled")
 }	
 	
 //保存方法
@@ -597,6 +598,9 @@ function right(obj,type){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
 	calcScore();
+	$(".pagebox").attr("data-result",true);
+	$("#save-rpt-btn").removeAttr("disabled"); 
+	$("#save-rpt-btn em").removeClass("disabled")
 }
 
 
@@ -610,6 +614,9 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 	_this.find("form").remove();
 	_this.hide();
 	$(".mashLayer").hide();
+	$(".pagebox").attr("data-result",true);
+	$("#save-rpt-btn").removeAttr("disabled"); 
+	$("#save-rpt-btn em").removeClass("disabled")
 	event.stopPropagation();
 });
 //大弹窗 保存方法
@@ -888,6 +895,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
 	calcScore();
+	$(".pagebox").attr("data-result",true);
+	$("#save-rpt-btn").removeAttr("disabled"); 
+	$("#save-rpt-btn em").removeClass("disabled")
 });
 	
 //div模拟select下拉框
