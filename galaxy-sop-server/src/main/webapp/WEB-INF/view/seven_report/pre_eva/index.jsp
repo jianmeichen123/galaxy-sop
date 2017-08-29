@@ -150,6 +150,7 @@ var pageId = "project";
 createMenus(5);
 var reportType = 6;
 var projId="${projectId}";
+var isEditable = "${isEditable}";
 </script>
 <script src="<%=path%>/js/seven_report/seven_report_common.js"></script>	
 <script src="<%=path%>/js/seven_report/eva_report/eva_table.js"></script>	
