@@ -3433,6 +3433,15 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	top:0;
 	left:85px;
 }
+.stag_plan .deltc .tips_d{
+	left:26px;
+}
+.stag_plan .deltc span{
+    text-align: left;
+    display: inline-block;	
+    width: 360px;
+    line-height: 1.7;
+}
 .before_save_tc .btn{
 	padding:5px 0;
 }

@@ -10,6 +10,8 @@
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
 <script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!--提示验证  -->
+<script src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc qualificationstc">

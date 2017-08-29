@@ -508,12 +508,14 @@ function right(obj,type){
 			p.attr("data-title-value",val_id);
 			p.text(val);
 		}
-	}else if(type=="checkbox"){
+	}else if(type=="checkbox"){		
 		var val_checkbox = $(obj).parent().parent().find('input[type="checkbox"]:checked');
 		var p = align_left.find('p');
+		var relateId=p.attr("data-title-id");
+		var relateId_p= $(".new_left").find("p[data-title-id='" + relateId + "']");
 		if(val_checkbox.length==0){
-			p.text('未选择');
-			p.attr("data-title-value",'');
+			relateId_p.text('未选择');
+			relateId_p.attr("data-title-value",'');		
 		}
 		else
 		{
@@ -526,12 +528,13 @@ function right(obj,type){
 				values.push(val_id);
 				if(val_text=="其他"){
 					val_text=radio_label.next().val();
-					p.attr("data-remark",val_text);
-				}	
-				content.push(val_text);
+					relateId_p.attr("data-remark",val_text);
+					content.push(val_text);}
 			});
-			p.html(content.join('、'));
-			p.attr("data-title-value",values.join(','));
+			relateId_p.html(content.join('、'));
+			relateId_p.attr("data-title-value",values.join(','));
+			
+			
 		}
 			
 	}else if(type=="textarea"){
@@ -903,6 +906,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 //div模拟select下拉框
 function divSelect(){
 	$(".input_select").unbind("click");
+	$(".input_select").attr("readonly",true)
 	$(".input_select").click(function(){ 
 		var _this = $(this);
 		var ul = _this.next("ul"); 		
