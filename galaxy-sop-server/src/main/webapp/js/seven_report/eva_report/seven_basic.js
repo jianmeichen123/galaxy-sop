@@ -422,6 +422,9 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 				}
 				result_li += "<li><a href=\"javascript:;\" data-value-code=\"code_"+i+"\" id=\""+n.content1+' '+n.content2+"\"><label class=\"select_1\">"+n.content1+"</label> <label class=\"select_2\">"+n.content2+"</label></a></li> "
 			})
+			if(valueList.length<=0){
+				
+			}
 			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"><li>请选择</li>"+result_li+"</ul></div>"
 			
 		}else if(type==14){
@@ -429,7 +432,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 			$.each(valueList,function(i,n){
 				result_li += "<li><a href=\"javascript:;\" data-code="+n.code+" id="+n.id+">"+n.name+"</a></li> "
 			})
-			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\">"+result_li+"</ul></div>"
+			result_html="<div class=\"dropdown\"> <input class=\"input_select\" type=\"text\" value=\"请选择\"/><ul class=\"select_list\"><li>请选择</li>"+result_li+"</ul></div>"
 		}
 		 dom.html(result_html);
 		 divSelect();
@@ -602,6 +605,7 @@ function right(obj,type){
 $('div').delegate(".h_cancel_btn","click",function(event){
 	$('.condition').removeClass('edit_true');
 	$('body').css('overflow', 'auto');
+	$("span[parent_dom='show']").removeAttr("parent_dom");
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
 	_this.hide();
