@@ -563,14 +563,6 @@ function editRow(ele)
 						ele.text(selectVal);
 					}
 				});
-				//估值弹窗截断显示
-				var title=$(".finace_history_tc .see_block dd[name='field2']").text();
-				if(title !="" && title.length>8){
-					$(".finace_history_tc .see_block dd[name='field2']").text(title.substring(0,8)+"...");
-					$(".finace_history_tc .see_block dd[name='field2']").attr("title",title)
-				}else{
-					$(".finace_history_tc .see_block dd[name='field2']").text(title);
-				}
 				
 			})
 			//特殊处理带万元单位的查看
