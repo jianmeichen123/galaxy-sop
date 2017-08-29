@@ -1295,11 +1295,7 @@ function toggle_btn(data,status,dom_this){
 			//局部
 			hideAll();
 		}else{
-			$(dom_this).find('dd[data-title]').each(function(){
-				console.log($(this).attr("class"));
-				if($(this).hasClass("news_table")){
-					return;
-				}
+			$(dom_this).find('dd').each(function(){				
 				if($(this).parents('.radius').hasClass('unable')){
 					$(this).parents('.radius').hide();
 				}else{
@@ -1465,6 +1461,9 @@ function second_title(status,dom_this){
 //dd_type
 function dd_type(_this){
 	//动态表格
+	if(_this.hasClass("news_table")){
+		return;
+	}
 	if(_this.html() == '未验证'||_this.html() == '未选择'||_this.html() == '未填写'||$.trim(_this.html()) == '未添加'||_this.find("table").css("display")=="none"){
 		_this.parents('.mb_24').hide();
 	}else{
