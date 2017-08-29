@@ -465,7 +465,11 @@ function buildResult(title)
 		if(_sign=="sign_3"){
 			_ele.find("span").html(content.join('、')); 
 		}else{
-			_ele.html(content.join('、')); 
+			if(content==""||content==undefined){
+				_ele.html("未选择"); 
+			}else{
+				_ele.html(content.join('、')); 
+			}
 		}
 		_ele.attr("data-title-value",values.join(','));
 		_ele.attr("data-remark",remark);
