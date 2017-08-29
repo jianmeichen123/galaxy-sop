@@ -268,7 +268,7 @@ table.table_15 td:first-child+td+td+td{
 	transform:translateY(-50%);
 	margin-top: 26px;
 	z-index: 12;
-	right:2px;
+	right:0px;
 }
 .title-value.income_structor_content{color:#999;}
 .content_radio_show{
@@ -769,7 +769,7 @@ table td select option{
     color: #3e4351;
     display: none;
     float: right;
-    margin-top: -30px;
+    margin-top: -26px;
     position: relative;
    /*  z-index: 100; */
 }
@@ -866,7 +866,7 @@ height:70px;
 overflow:hidden;
 display:block;
 position: relative;
-padding-right:30px;
+padding-right:31px;
 }
 select{
 	border:1px solid #000;

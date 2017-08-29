@@ -65,7 +65,7 @@ position:absolute;
 
 var isCreatedByUser = "${isCreatedByUser}";
 var isEditable = "${isEditable}";
-var pid='${pid}';
+var pid='${pid}'=='' ? '${param.pid}' : '${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
 	pid='${projectId}';
 }
