@@ -3437,6 +3437,16 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .stag_plan .deltc .tips_d{
 	left:26px;
 }
+.before_save_tc .deltc p{
+	fong-weight:normal;
+	font-size:18px;
+}
+.before_save_tc .deltc em{
+	fong-weight:normal;
+	font-size:12px;
+	color:#b2b2b2;
+	
+}
 .stag_plan .deltc span{
     text-align: left;
     display: inline-block;	

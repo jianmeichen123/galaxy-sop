@@ -100,7 +100,8 @@
 		}
 		editResult(obj);
 		validate();
-		img_fun();		
+		img_fun();	
+		$(".pagebox").attr("data-result",true);
 	}
 	//编辑回显
 	function editResult(obj){

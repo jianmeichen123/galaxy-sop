@@ -427,7 +427,6 @@ function buildResult(title)
 				var currency=currency_id.split("p")[0];
 			}
 			if(type == 20){
-				console.log(val);
 				if(val==""||val==undefined){
 					val="未填写";
 					currency_id="";
