@@ -706,6 +706,14 @@ function addRow(ele)
         //总注资校验
 		if(code == 'grant-part' || code == 'grant-actual'){
 			 if(!getTotalAppr(projectInfo.id)){
+				 $.getHtml({
+						url:'../../html/beforeSave.html',  
+						data:"",//传递参数
+						okback:function(){
+							 $(".before_save_btn").remove();
+							 $(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
+						}//模版反回成功执行	
+					});
 				  return;
 			  }
 			 //获取表格上的计划金额之和

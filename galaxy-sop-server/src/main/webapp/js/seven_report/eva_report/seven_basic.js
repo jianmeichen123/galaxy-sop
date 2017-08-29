@@ -903,6 +903,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 //div模拟select下拉框
 function divSelect(){
 	$(".input_select").unbind("click");
+	$(".input_select").attr("readonly",true)
 	$(".input_select").click(function(){ 
 		var _this = $(this);
 		var ul = _this.next("ul"); 		
