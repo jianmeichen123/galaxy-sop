@@ -3543,3 +3543,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray{
 	cursor:default;
 }
+.grantPartTc{max-height:460px;overflow-y:auto;}
