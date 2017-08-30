@@ -252,6 +252,8 @@ function forwardToPage(url){   //跳到相关页面
 				}
 			}
 	});
+	 //去掉左侧导航的href
+	 $("#menus li").find("a").removeAttr("href");
 
 }) 
 
