@@ -253,7 +253,7 @@ function tabOperateChange(index){
 									 if(val>remainActualMoney+Number(oldgrantMoney)){
 										 $("#formatRemainActualMoney").text("0");
 									 }else{
-										 $("#formatRemainActualMoney").text(remainActualMoney+Number(oldgrantMoney)-val);
+										 $("#formatRemainActualMoney").text((remainActualMoney*10000+Number(oldgrantMoney)*10000-val*10000)/10000);
 									 }
 								 }
 							 })

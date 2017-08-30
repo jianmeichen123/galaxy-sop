@@ -517,7 +517,7 @@ function editRow(ele)
 			$(".moeny_all input").on("input",function(){
             	var val=$(this).val();
             	if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-            		$("#formatRemainMoney").text(Number(totalMoneyPart)-(sum-Number(valtr))-val);
+            		$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-(sum*10000-Number(valtr)*10000)-val*10000)/10000);
             	}else{
             		$("#formatRemainMoney").text(0);
             	}
@@ -787,7 +787,7 @@ function addRow(ele)
                 $(".moeny_all input").on("input",function(){
                 	var val=$(this).val();
                 	if(Number(totalMoneyInit)-sum-val>0){
-                		$("#formatRemainMoney").text(Number(totalMoneyInit)-sum-val);
+                		$("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000);
                 	}else{
                 		$("#formatRemainMoney").text(0);
                 	}
