@@ -163,7 +163,10 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	}else{
 		str ="";
 	}
-	//
+	//特殊处理决策报告-投决会结果>投资金额
+	var len=$(".pagebox table[data-code=\"grant-part\"]").find("tr").length;   //获取分期注资表格的长度
+	$(this).attr("data-table-len",len);
+	var lenn=$(this).attr("data-table-len");
 	var type=id_code.split("NO")[0];
 	switch(type){
 	   case "D":
@@ -201,6 +204,10 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				$("#"+id_code).hide();
 				$(".bj_hui_on").show();
 				validate();
+				//特殊处理决策报告-投决会结果>投资金额
+				if(lenn>1){
+					$("input[data-title-id=\"3004\"]").addClass("disabled").attr("readonly","readonly");
+				}
 				//调整表格
 				$("table").css({"width":"80%","table-layout":"fixed"});
 				$(".h_edit .sign_title").css("margin-bottom","20px");
