@@ -205,7 +205,7 @@ function beforeSave(url){
 			if(edit_status==false){
 				
 			}else{
-				var resul = "<p>当前页面正在编辑，确认离开此页面？<p><em>直接离开有可能导致数据丢失，建议保存后在离开</em>";
+				var resul = "<p>当前页面正在编辑，确认离开此页面？<p><em>直接离开有可能导致数据丢失，建议保存后再离开</em>";
 				$(".tips.deltc").html(resul);
 				$("#leave").html("确定").addClass("bluebtn").removeClass("fffbtn").css("margin-left","105px");
 				$("#cancel").removeClass("fr").css("margin-left","35px");

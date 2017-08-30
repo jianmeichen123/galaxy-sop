@@ -179,19 +179,39 @@ function beforeSave(url){
 		url:'<%=path%>/html/beforeSave.html',  
 		data:"",//传递参数
 		okback:function(){
-			$("#cancel").click(function(){  //取消
-				$("a[data-close=\"close\"]").click();
-			});
-			$("#leave").click(function(){
-				$("a[data-close=\"close\"]").click();
-				forwardToPage(url);
-				
-			});
-			$("#save").click(function(){
-				$("a[data-close=\"close\"]").click();
-				$("#save-rpt-btn").click();   //点击保存，保存数据
-				forwardToPage(url);
+			var editbox = $(".radioShow");	
+			var edit_status=false;
+			$.each(editbox,function(){
+				if(!$(this).is(":hidden")){
+					edit_status=true;
+					return false;
+				}
 			})
+			$("#cancel").click(function(){  //取消
+					$("a[data-close=\"close\"]").click();
+				});
+				$("#leave").click(function(){
+					$("a[data-close=\"close\"]").click();
+					$(window).unbind('beforeunload');
+					//点击直接离开跳到项目列表页
+					forwardToPage(url);
+				});
+				$("#save").click(function(){
+					$("a[data-close=\"close\"]").click();
+					$("#save-rpt-btn").click();   //点击保存，保存数据
+					forwardToPage(url);
+					
+				})
+			if(edit_status==false){
+				
+			}else{
+				var resul = "<p>当前页面正在编辑，确认离开此页面？<p><em>直接离开有可能导致数据丢失，建议保存后再离开</em>";
+				$(".tips.deltc").html(resul);
+				$("#leave").html("确定").addClass("bluebtn").removeClass("fffbtn").css("margin-left","105px");
+				$("#cancel").removeClass("fr").css("margin-left","35px");
+				$("#save").remove();
+				$(".before_save_tc .con").css("margin-bottom","30px")
+			}
 		}//模版反回成功执行	
 	});
 	return false;
