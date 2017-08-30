@@ -118,8 +118,11 @@
 				if(type==1){
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未填写"){
+						//空格换行 去除HTML标签
+						val=val.replace(/<.*?>/g,"")
 						val= val.replace(/\<br\>/g,'\n');
 						val= val.replace(/&nbsp;/g," ");
+						
 						$(".condition").find("input[data-id='"+relateId+"']").val(val);
 					}			
 				}else if(type==2){
@@ -129,6 +132,7 @@
 				}else if(type==8 || type==15){
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未填写"){
+						val=val.replace(/<.*?>/g,"");
 						val= val.replace(/\<br\>/g,'\n');
 						val= val.replace(/&nbsp;/g," ");
 						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").val(val);
@@ -217,6 +221,7 @@
 								var val= n.val
 								val= val.replace(/\<br\>/g,'\n');
 								val= val.replace(/&nbsp;/g," ");
+								val=val.replace(/<.*?>/g,"");
 								$("textarea[data-title-id='"+n.relateId+"']").val(val);
 								
 							}
