@@ -146,6 +146,8 @@ table td input{
 	outline:none;
 	border:1px solid #53b1fd;
 	text-align:center;
+	font-size:12px;
+	font-family:'Microsoft YaHei';
 }
 table td input.disabled{
 	border-color:#dadada;
@@ -602,13 +604,16 @@ textarea::input-placeholder{
 table td select{
 	width:64px;
 	height:29px;
-	color:#0aa7ff;
-	border-color:#0aa7ff;;
+	color:#53b1fd;
+	border:1px solid #53b1fd;
 	padding-left: 5px !important;
 	border-radius:0px;
+	font-size:12px;
+	font-family:'Microsoft YaHei';
 }
 table td select option{
-	color: #999999;;
+	color: #999999;
+	
 	/* padding-top: 30px; */
 }
 .select_long{
