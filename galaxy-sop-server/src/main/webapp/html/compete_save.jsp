@@ -20,13 +20,13 @@
     	<input name="subCode" type="hidden">
         <div class="info clearfix"> 
             <dl class="fmdl fl">
-                <dt>竞争对手名称：</dt>
+                <dt>主要竞争对手：</dt>
                 <dd class="clearfix">
                     <input name="field1" type="text" class="txt" maxLength="200"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
-                <dt>胜算度：</dt>
+                <dt>威胁系数：</dt>
                 <dd class="clearfix">
                     <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
                 </dd>
