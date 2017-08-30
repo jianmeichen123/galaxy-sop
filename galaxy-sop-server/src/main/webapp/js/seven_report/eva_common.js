@@ -920,10 +920,29 @@ function img_fun(data){
 	if(data==undefined){
 		return;
 	}
+	var fileSize = 0;
 	var fi_this = $(data);
 	var firsr_ul = fi_this.closest(".fl_none").find("ul:first-child");	
 	var last_ul = fi_this.closest(".fl_none").find("ul:last-child");
+	var isIE = /msie/i.test(navigator.userAgent) && !window.opera; 
+	//判断文件大小
+	 if (isIE && !data.files) {     
+	       var filePath = data.value;     
+	       var fileSystem = new ActiveXObject("Scripting.FileSystemObject");        
+	       var file = fileSystem.GetFile (filePath);     
+	       fileSize = file.Size;    
+	     } else {    
+	      fileSize = data.files[0].size;     
+	      }   
+	      var size = fileSize / 1024;    
+	      if(size>2000){  
+    		layer.msg("图片不能大于2M");
+	        data.value="";
+	       return
+	      }
+	  	//
 	if (fi_this.val() != '') {
+		
 		var files = !!data.files ? data.files : [];
 	    if (!files.length || !window.FileReader){return;}	    
 	    if (/^image/.test(files[0].type)){

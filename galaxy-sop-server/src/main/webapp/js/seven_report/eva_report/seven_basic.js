@@ -525,13 +525,13 @@ function right(obj,type){
 			var values = new Array();
 			$.each(val_checkbox,function(){
 				var radio_label = $(this).parent(".icheckbox_flat-blue").next("label");
-				var val_text = radio_label.html();
+				var val_text = radio_label.html();				
 				var val_id =$(this).val();
 				values.push(val_id);
 				if(val_text=="其他"){
 					val_text=radio_label.next().val();
 					relateId_p.attr("data-remark",val_text);
-					content.push(val_text);}
+					content.push(val_text);}else{content.push(val_text);}
 			});
 			relateId_p.html(content.join('、'));
 			relateId_p.attr("data-title-value",values.join(','));
