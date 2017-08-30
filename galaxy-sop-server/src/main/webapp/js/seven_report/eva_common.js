@@ -957,7 +957,7 @@ function img_fun(data){
 	 }else{
 		 firsr_ul.append("<li class=\"pic_list fl\"<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" /><li>");
 	 }
-	last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\"/>");
+	last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\" accept=\"image/png,image/gif,image/jpeg,image/jpg,image/BMP\"/>");
 	
 	
 	if(firsr_ul.find("li").length>=4){
