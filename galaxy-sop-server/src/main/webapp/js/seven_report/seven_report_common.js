@@ -527,7 +527,6 @@ function buildResults(sec,title,readonly)
 			{
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
-					alert(result_id);
 					if(title.resultList[0].contentDescribe1){
 						$("input[data-title-id='"+title.id+"']").val(Number(title.resultList[0].contentDescribe1).toFixed(4)).attr("resultId",result_id);
 					}else{

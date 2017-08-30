@@ -126,6 +126,7 @@ $(function() {
 					$("#"+id_code).hide();
 					validate();
 					btn_disable(1);
+					check_table_tr_edit();
 					$("#b_"+id_code).validate();
 					$(".bj_hui_on").show();
 					section.find(".h_title span").remove();
