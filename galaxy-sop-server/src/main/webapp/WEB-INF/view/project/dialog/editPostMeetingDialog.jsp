@@ -108,17 +108,12 @@
 		    currentText: 'Now',
 		   defaultDate : new Date(),
 		   todayBtn:  1
-	    }).on('changeDate', function(ev){
-	    	$('.tip-yellowsimple').each(function(){
-	    		if( $(this).text()=='*会议时间不能为空'){
-	    			 $(this).remove();
-	    		}
-	    	})
+	    }).on('blur', function(ev){
+	    	$('.tip-yellowsimple').remove();
 	    });
-	$("#win_post_meeting_form").validate({
-		focusCleanup:true,
-		onfocusout:false,
-		onclick:false,
-		focusCleanup:true
-	});
+		$("#meetingNotes").blur(function(){
+			$('.tip-yellowsimple').remove();
+		})
+	
+	 
 </script>
