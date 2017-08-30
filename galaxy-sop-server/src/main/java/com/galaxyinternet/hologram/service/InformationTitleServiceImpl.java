@@ -15,6 +15,7 @@ import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.hologram.InformationDictionary;
 import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
@@ -28,6 +29,7 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
 import com.galaxyinternet.service.hologram.ScoreInfoService;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1210,6 +1212,8 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 								  datalist.add(data);
 							  }
 							}
+							 ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();  
+							 sortList.sort(datalist,"field2","desc");
 							item.setDataList(datalist);
 							title.getDataList().add(item);
 						}
