@@ -109,7 +109,7 @@
 		    currentText: 'Now',
 		   defaultDate : new Date(),
 		   todayBtn:  1
-	    }).on('changeDate', function(ev){
+	    }).on('blur', function(ev){
 	    	$('.tip-yellowsimple').each(function(){
 	    		if( $(this).text()=='*会议时间不能为空'){
 	    			 $(this).remove();

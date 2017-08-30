@@ -4,8 +4,7 @@
 $.fn.fxValidate = function(options){
 	var defaultOption = {
 			errorElement : 'p',
-	        focusInvalid : false, 
-	        onfocusout:false,
+	        focusInvalid : false,
 	        success : function(label,element) { 
 	        	var target = $(element).closest('dd')[0];
 	        	$(target).poshytip('hide');
