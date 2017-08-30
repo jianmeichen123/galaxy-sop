@@ -1284,9 +1284,6 @@ function getTableRowLimit(code)
 	   case "operation-indices":
 	       num=20; 
 	       break;
-	   case "equity-structure":
-	       num=20; 
-	       break;
 	   default:
 		  num=10; 
 	}
