@@ -589,10 +589,13 @@ function editRow(ele)
 			
 			//运营报告和决策报告分期拨款有注资计划不能编辑
 			if(reportType == 3 || reportType == 7){
-				if(row.data("dataList").length > 0){
-					$("#field3").attr("readonly","readonly");
-					$("#field3").addClass("disabled");
-					$("#editMoney").attr("display","block");
+				if(row.data("dataList"))
+				{
+					if(row.data("dataList").length > 0){
+						$("#field3").attr("readonly","readonly");
+						$("#field3").addClass("disabled");
+						$("#editMoney").attr("display","block");
+					}
 				}
 			}
 			//运营 报告嵌套表格处理
