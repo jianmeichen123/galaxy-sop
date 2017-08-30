@@ -737,7 +737,7 @@ function addRow(ele)
 				 $('#grant_popup_name').html('添加分期注资计划');
 				 $("#complete_title").html('添加综合竞争比较');
 				//交割前事项
-				$("#delivery_popup_name").text("新增交割事项");
+				$("#delivery_popup_name").text("添加交割事项");
 				$(".see_block").hide();
 				$('#finace_popup_name').html('添加融资历史');
                 $("#detail-form input[name='projectId']").val(projectInfo.id);
