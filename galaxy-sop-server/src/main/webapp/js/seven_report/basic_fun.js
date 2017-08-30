@@ -513,7 +513,7 @@ function editRow(ele)
 			//计算剩余金额
 			getTotalAppr(projectInfo.id);
 			var totalMoneyPart=$("#totalMoneyPart").val();
-			$("#formatRemainMoney").text(Number(totalMoneyPart)-sum);
+			$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-sum*10000)/10000);
 			$(".moeny_all input").on("input",function(){
             	var val=$(this).val();
             	if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
@@ -783,7 +783,7 @@ function addRow(ele)
                 selectContext("detail-form");
                 //计算剩余金额
                 var totalMoneyInit=$("#totalMoneyPart").val();
-                $("#formatRemainMoney").text(Number(totalMoneyInit)-sum);
+                $("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000)/10000);
                 $(".moeny_all input").on("input",function(){
                 	var val=$(this).val();
                 	if(Number(totalMoneyInit)-sum-val>0){
