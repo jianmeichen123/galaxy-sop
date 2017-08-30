@@ -512,7 +512,14 @@ function buildResult(title)
 		{
 			_ele.attr("data-remark",val);
 			val=val.replace(/<sitg>/g,'（<sitg>').replace(/<\/sitg>/g,'<\/sitg>）');
-			_ele.html(val);
+			$(_ele).each(function(){
+				if($(this).data("relateId")=="1006"){
+					val=val.split("的产品或服务，");
+					val = val[1];
+				}
+				$(this).html(val);
+			})
+			
 		}
 		_ele.attr("data-result-id",results[0].id);
 	}
@@ -1115,7 +1122,7 @@ function font_color(data){
 				var len = sitg.length;
 				if(i==len-1||i==len-2){
 					if(n_this.text()!=""){
-						code_input.removeClass("disabled").attr("disabled",false);	
+						code_input.removeClass("disabled").attr("disabled",false);
 						clean_status=1;
 						return clean_status;
 						return false;
