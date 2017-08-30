@@ -330,6 +330,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			return;
 		}
+		final Long projectId = Long.valueOf(data.getProjectId());
 		final List<InformationScore> scoreList = data.getScoreList();
 		Set<Long> relateIds = new HashSet<>();
 		for(InformationScore item : scoreList)
@@ -340,6 +341,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			InformationScore query = new InformationScore();
 			query.setRelateIds(relateIds);
+			query.setProjectId(projectId);
 			scoreInfoDao.deleteScoreBatch(query);
 			scoreInfoDao.insertScoreBatch(scoreList);
 			
@@ -348,7 +350,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				@Override
 				public void run()
 				{
-					copyScore(scoreList);
+					copyScore(scoreList, projectId);
 				}
 			});
 		}
@@ -357,7 +359,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 	 * 评测报告与初评报告分数保持一致
 	 * @param data
 	 */
-	public void copyScore(List<InformationScore> scoreList)
+	public void copyScore(List<InformationScore> scoreList, Long projectId)
 	{
 		Set<Long> relateIds = new HashSet<>();
 		for(InformationScore item : scoreList)
@@ -379,6 +381,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		{
 			InformationScore query = new InformationScore();
 			query.setRelateIds(relateIds);
+			query.setProjectId(projectId);
 			scoreInfoDao.deleteScoreBatch(query);
 			scoreInfoDao.insertScoreBatch(scoreList);
 		}
