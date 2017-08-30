@@ -97,7 +97,7 @@ var pageId = "project";
 		<table border="1">
 			<thead>
 				<th>持股人</th>
-				<th>持股比例</th>
+				<th>持股比例（%）</th>
 			</thead>
 			<tbody>
 			</tbody>

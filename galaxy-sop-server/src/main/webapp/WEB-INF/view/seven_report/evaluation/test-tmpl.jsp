@@ -619,7 +619,7 @@
 								</dd>
 							{{else type=="10"}}
 								<dd class="fl_none">
-									<table data-title-id="\${id}" data-code="share-holding" class="editable" data-funflag="0" class="editable"><tbody><tr><th data-field-name="field1">持股人</th><th data-field-name="field2">持股比例</th><th data-field-name="opt">操作</th></tr></tbody></table>
+									<table data-title-id="\${id}" data-code="share-holding" class="editable" data-funflag="0" class="editable"><tbody><tr><th data-field-name="field1">持股人</th><th data-field-name="field2">持股比例（%）</th><th data-field-name="opt">操作</th></tr></tbody></table>
 									<span class="pubbtn bluebtn margin_btn" onclick="addRow(this)">新增</span>
 								</dd>
 
