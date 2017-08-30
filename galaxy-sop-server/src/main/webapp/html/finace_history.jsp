@@ -128,7 +128,7 @@
 				</dl>
 			<dl class="fmdl wid clearfix block ">
                  <dt>投资方(机构或个人)：</dt>
-                <dd name="field2"></dd>
+                <dd name="field2" class="textarea"></dd>
             </dl>
              	<dl class="fmdl wid clearfix block">
            		<dt>合同关键条款：</dt>
