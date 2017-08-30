@@ -89,8 +89,10 @@
 		}
 		//特殊处理项目评测内的刚需和痛点
 		if(id_code=="ENO1_1_4"){
-			$(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']").attr("readyonly","readyonly");
-			$(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']").addClass("disabled");
+		var sp_input = $(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']")
+		sp_input.parent().hide();
+		sp_input.closest(".mb_16").find("dt").hide();
+		sp_input.closest(".mb_16").find("dt").last().show();
 		}else if(id_code='ENO2_4_4'){   //解决的方法和时间表提示语特殊处理
 			var subId=$(obj).siblings(".align_left").find("p").attr("data-sub-id");
 			if(subId=="2"){
@@ -287,13 +289,13 @@
 						}
 										
 					})
-				}else if(type==16){  //商业模式特殊情况
+				}else if(type==16){//商业模式特殊情况
 					var data=[];
 					var dom=p_this;
 					$(dom).each(function(){
 						var data_list={};
 						var relateId=$(this).attr("data-relate-id");
-						var str=$(this).html();
+						var str=$(this).attr("data-remark");
 						if(str !=undefined && str.indexOf("<sitg>")>-1){
 							var str=str.split("<sitg>");
 							var inputsValueList=[];
@@ -858,11 +860,17 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var code=d_this.code;
 					var str=d_this.remark1;
 					var dds = $(".content_16 p[data-code='" + code + "']");
+					var sp_dds = $(".content_16 p[data-relate-id='1006']");
+					/*str=str.replace(/\n|\r\n/g,"<br>")
+					str=str.replace(/\s/g,"&nbsp;");*/
 					if(str){
 						str1=str.replace(/<sitg>/g,'（<sitg>');
-						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');
-					}
+						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');						
+					} 
+					sp_str1=str1.split("的产品或服务，");
+					sp_str1=sp_str1[1];					
 					dds.html(d_this.remark1==undefined ?"未填写":str1);
+					sp_dds.html(d_this.remark1==undefined ?"未填写":sp_str1);
 					dds.attr("data-remark",str);
 					Tfun_8(dds)
 				}else if(_type==10){

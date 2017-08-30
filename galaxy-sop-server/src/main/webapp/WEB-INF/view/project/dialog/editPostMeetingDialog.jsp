@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div id="post-meeting-dialog">
-	<form id="win_post_meeting_form">
+	<form id="win_post_meeting_form" type="validate">
 	<div class="editPostMeetingtc">
 		<div class="title_bj" id="popup_name">添加运营会议纪要</div>
 	    <div class="form clearfix">
@@ -87,10 +87,9 @@
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 
 <script type="text/javascript">
@@ -116,4 +115,10 @@
 	    		}
 	    	})
 	    });
+	$("#win_post_meeting_form").validate({
+		focusCleanup:true,
+		onfocusout:false,
+		onclick:false,
+		focusCleanup:true
+	});
 </script>

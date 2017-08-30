@@ -4,7 +4,7 @@
 $.fn.fxValidate = function(options){
 	var defaultOption = {
 			errorElement : 'p',
-	        focusInvalid : false, 
+	        focusInvalid : false,
 	        onfocusout:false,
 	        success : function(label,element) { 
 	        	var target = $(element).closest('dd')[0];
