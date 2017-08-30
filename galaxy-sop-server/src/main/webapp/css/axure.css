@@ -36,7 +36,8 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
         -ms-filter: grayscale(100%); 
         -o-filter: grayscale(100%); 
         filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);  
-        _filter:none;}
+        _filter:none;
+        border-color: #dadada;}
 input.disabled{background-color: #000;}
 /*背景图片*/
 .ico{ background-repeat:no-repeat}
