@@ -2354,7 +2354,7 @@ margin: 45px auto 30px;}
 .addPerson_all{margin:50px auto 30px;height:380px;overflow-y:auto; }
 .qualifications_all{margin:50px auto 30px;}
 .qualifications_all .fmdl{ width:100%; overflow:hidden;}
-.injection .fmdl dd[name="field4"]{width:71%;word-break: break-all; height: 20px; overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.injection .fmdl dd[name="field4"]{width:71%;word-break: break-all; height: 22px; overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .addPerson_all h3{font-size: 14px;line-height:28px;margin-bottom:10px;font-family: "微软雅黑";border-bottom:1px solid #dadfe3;font-weight: normal;color:#2d3342;}
 .addPersontc dt,.qualificationstc dt,.stocktc dt{width:110px;text-align: right;}
 .finace_history_tc dt{width:142px;text-align: right;}
@@ -3532,10 +3532,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .errortc .gray{
 	font-size:12px;
 	font-family:"宋体";
+	display: block;
 }
 .h_edit input[data-type="20"]+.error{display:block;padding-top: 5px;}
 .appr_parttc dd .txt{width:130px;}
 .appr_parttc .moeny_all .money{left:266px}
+.appr_parttc .moeny_all{display:inline-block;}
+.appr_parttc .moeny_all input.txt{float:none;}
 .opera_porp{max-height:450px;overflow-y: auto;}
 .sev_report .gray{
 	cursor:default;

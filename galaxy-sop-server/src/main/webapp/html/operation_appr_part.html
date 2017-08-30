@@ -49,7 +49,7 @@
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
-		                    <br>
+		                   
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>万元</div> 
 		                </dd>
 		            </dl>
@@ -116,13 +116,14 @@ $("div").delegate(".appr_part_add","click",function(event){
   	var $self = $(this);
 	var _url = $self.attr("href");
 	var _name= $self.attr("data-name");
+	var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
 			if(json['id']){
-				 var data = getTotalApprActual(json['id']);
-				 $("#formatRemainActualMoney").text(data.remainMoney);
+				var data = getTotalApprActual(json['id']);
+				 //$("#formatRemainActualMoney").text(data.remainMoney);
 				 $("#remainMoney").val(data.remainMoney);
 				 $("#remainMoneyActual").val(data.remainMoney);
 				 $("#totalMoneyActual").val(data.totalMoney);
@@ -131,10 +132,18 @@ $("div").delegate(".appr_part_add","click",function(event){
 				 $.each($("#appr_part .team_div"),function(){
 					 sum+=Number($(this).find("span[name='field3']").text());
 				 })
-				 var totalMoneyActual=$("#totalMoneyActual").val();
-				 var remainActualMoney=Number(totalMoneyActual)-sum;
-				 $("#formatRemainActualMoney").text(remainActualMoney);
-				 $("#remainMoney").val(data.remainMoney);
+				 var totalMoneyActual;
+				 var remainActualMoney;
+				 if($(".moeny_all input").is(".disabled")){
+					 $("#remainMoney").val(data.remainMoney);
+					 totalMoneyActual=$("#totalMoneyActual").val();
+					 remainActualMoney=Number(totalMoneyActual)-sum;
+					 $("#formatRemainActualMoney").text(remainActualMoney);
+				 }else{
+					 $("#formatRemainActualMoney").text(Number(formatRemainActualMoney)-sum);
+					 totalMoneyActual=formatRemainActualMoney;
+					 remainActualMoney=Number(totalMoneyActual)-sum;
+				 }
 				 $("#newRemainMoneyActual").val(remainActualMoney);
 				 $("#grantMoney").on("input",function(){
 					 var val=$(this).val();

@@ -28,7 +28,7 @@
             </dl>
             <dl class="fmdl sign_fmdl">
                 <dt>投资金额：</dt>
-                <dd class="team_wid_p error_fr"><span>&nbsp;万元</span><input name="field3" type="text" class="input" placeholder="投资金额"  data-rule-verify_102="true"  data-msg-verify_102="<font color=red>*</font>支持0～999999999的整数和四位小数"/></dd>
+                <dd class="team_wid_p error_fr"><span>&nbsp;万元</span><input name="field3" type="text" class="input" placeholder="投资金额"  data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/></dd>
             </dl>
             <dl class="fmdl sign_fmdl">
                 <dt>股权占比：</dt>
@@ -36,7 +36,7 @@
             </dl>
             <dl class="fmdl sign_fmdl">
                 <dt>投后估值：</dt>
-                <dd class="team_wid_p error_fr"><span>&nbsp;万元</span><input name="field5" type="text" class="input" placeholder="投后估值"  data-rule-verify_102="true"  data-msg-verify_102="<font color=red>*</font>支持0～9999999999的整数和两位小数"/></dd>
+                <dd class="team_wid_p error_fr"><span>&nbsp;万元</span><input name="field5" type="text" class="input" placeholder="投后估值"  data-rule-verify_134="true"  data-msg-verify_134="<font color=red>*</font>支持13位长度的四位小数"/></dd>
             </dl>
             <dl class="fmdl clearfix">
                 <dt>币种：</dt>
@@ -66,21 +66,21 @@
     		var projectParent = $("input[name='field3']").val();
     		var projectChildren = $("input[name='field4']").val();
     		if(projectParent > 0 && projectChildren > 0){
-    			return projectParent * (100/projectChildren);
+    			return parseInt(projectParent) * (100/parseInt(projectChildren));
     		}
     		return null;
     	}
         $("div").delegate("input[name='field3']","blur",function(){
         	var valuations = calculationValuations();
     		if(valuations != null){
-    			 valuations=valuations.toFixed(2);
+    			 valuations=valuations.toFixed(4);
     			$("input[name='field5']").val(valuations);
     		}
     	});
         $("div").delegate("input[name='field4']","blur",function(){
         	var valuations = calculationValuations();
     		if(valuations != null){
-                valuations=valuations.toFixed(2);
+                valuations=valuations.toFixed(4);
     			$("input[name='field5']").val(valuations);
     		}
     	});

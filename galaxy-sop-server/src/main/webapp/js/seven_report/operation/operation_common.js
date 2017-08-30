@@ -213,6 +213,7 @@ function tabOperateChange(index){
 				 })
 				 //获取总金额
 				 var totalMoneyActual=$("#totalMoneyActual").val();
+				 var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
 		        var index = div.index();
 			       $.getHtml({
 		       		url:"/sop/html/operation_appr_actual.html",//模版请求地址
@@ -237,11 +238,15 @@ function tabOperateChange(index){
 		                   $("#actual-form").find("[name='field3']").val(json['field3']);
 		                   $("#actual-form").find("[name='index']").val(index);
 		                   //总的实际注资金额
-		                   totalMoneyActual=$("#totalMoneyActual").val();
-		                   var oldgrantMoney=$("#grantMoney").val();
+		                   if($(".moeny_all input").is(".disabled")){
+		                	   totalMoneyActual=$("#totalMoneyActual").val();
+				               var oldgrantMoney=$("#grantMoney").val();
+		  				 }else{
+		  					 totalMoneyActual=formatRemainActualMoney;
+			                 var oldgrantMoney=$("#grantMoney").val();
+		  				 }
 		                   var remainActualMoney=Number(totalMoneyActual)-sum;
-		                   $("#newRemainMoneyActual").val(Number(remainActualMoney)+Number(oldgrantMoney));   //新的剩余金额
-		  				  // $("#formatRemainActualMoney").text(remainActualMoney);
+			               $("#newRemainMoneyActual").val(Number(remainActualMoney)+Number(oldgrantMoney));   //新的剩余金额
 		  				   $("#grantMoney").on("input",function(){
 								 var val=$(this).val();
 								 if(val>0){
