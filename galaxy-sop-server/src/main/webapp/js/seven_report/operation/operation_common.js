@@ -221,7 +221,6 @@ function tabOperateChange(index){
 		       			  $("#appr_actual_title").html('编辑实际注资计划');
 		                   var json = getData(div);
 		                   if(json['id']!="null" && json['id']!=null){   //保存数据库
-		                	   alert("11")
 		                   $("#actual-form").find("[name='id']").val(json['id']);
 		                      var data = getTotalApprActual(json['id']);
 		                      $("#formatRemainActualMoney").text(data.remainMoney);
