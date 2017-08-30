@@ -1147,12 +1147,8 @@ jQuery.validator.addMethod("verify_102", function(value, element) {
 	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_102.test(value));
 }, "不能超过9999999999");
-jQuery.validator.addMethod("verify_104", function(value, element) {
-	var verify_104 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
-	return this.optional(element) || (verify_104.test(value));
-}, "不能超过999999999");
-jQuery.validator.addMethod("verify_n4", function(value, element) {
-	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]*)(\.\d{1,4})?)$/;
+jQuery.validator.addMethod("verify_134", function(value, element) {
+	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_n4.test(value));
 }, "不能超过999999999");
 //inputValRuleMark=="8,2"
