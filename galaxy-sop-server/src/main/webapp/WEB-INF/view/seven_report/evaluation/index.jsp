@@ -35,10 +35,10 @@ var pageId = "project";
        	<ul class="h_navbar clearfix" id="eva-tabs">
 			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO1" data-relate-id="1001">项目<br />评测</li>
 			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO2" data-relate-id="1031">团队<br />评测</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO3" data-relate-id="1071">运营<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO4" data-relate-id="1091">竞争<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO5" data-relate-id="1110">融资<br />测评</li>
-			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO6" data-relate-id="1116">退出<br />测评</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO3" data-relate-id="1071">运营<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO4" data-relate-id="1091">竞争<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO5" data-relate-id="1110">融资<br />评测</li>
+			<li data-tab="navInfo" class="fl h_nav1" data-code="ENO6" data-relate-id="1116">退出<br />评测</li>
 		</ul>
 		<div class="test_top">
 			<ul class="clearfix" id="title-info">
