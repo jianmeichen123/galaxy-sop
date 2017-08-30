@@ -635,7 +635,10 @@ function editRow(ele)
 			if(reportType == 7){
 				if(row.data("dataList"))
 				{
-					$.each(row.data("dataList"),function(){
+					var tableList = row.data("dataList");
+					tableList.sort(function(a,b){
+			            return Date.parse(new Date(b.field2))-Date.parse(new Date(a.field2))});
+					$.each(tableList,function(){
 						 var row = this;
 						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
 							   //新增数据
