@@ -162,6 +162,7 @@
 					$(radioShow).find(".input_select").attr("id",titleVal);
 					if(val!="未选择"){
 						$(radioShow).find(".input_select").attr("value",val);
+						$(radioShow).find(".input_select").val(val);
 					}
 				
 					
