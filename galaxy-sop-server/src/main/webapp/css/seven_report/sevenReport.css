@@ -605,6 +605,7 @@ table td select{
 	color:#0aa7ff;
 	border-color:#0aa7ff;;
 	padding-left: 5px !important;
+	border-radius:0px;
 }
 table td select option{
 	color: #999999;;
