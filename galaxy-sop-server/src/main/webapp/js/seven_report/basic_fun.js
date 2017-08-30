@@ -516,6 +516,7 @@ function editRow(ele)
             	}
             	
             })
+            $(".remainMoney span").text($("#remainMoneyPart").val())  //查看时的剩余金额
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 				var ele = $(this);
