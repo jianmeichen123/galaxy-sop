@@ -861,8 +861,8 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var str=d_this.remark1;
 					var dds = $(".content_16 p[data-code='" + code + "']");
 					var sp_dds = $(".content_16 p[data-relate-id='1006']");
-					str=str.replace(/\n|\r\n/g,"<br>")
-					str=str.replace(/\s/g,"&nbsp;");
+					/*str=str.replace(/\n|\r\n/g,"<br>")
+					str=str.replace(/\s/g,"&nbsp;");*/
 					if(str){
 						str1=str.replace(/<sitg>/g,'（<sitg>');
 						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');						
