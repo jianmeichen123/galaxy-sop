@@ -14,7 +14,7 @@
 <script src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<div class="addmentc qualificationstc">
+<div class="addmentc qualificationstc grantPartTc">
 	<div class="title_bj" id="grant_popup_name">添加分拨计划</div>
 	<input type="hidden" id="remainMoneyPart" value=""/>
 	<input type="hidden" id="totalMoneyPart" value=""/>

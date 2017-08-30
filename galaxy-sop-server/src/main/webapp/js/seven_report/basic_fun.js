@@ -586,7 +586,33 @@ function editRow(ele)
 					ele.text(row.data(name)+'%');
 				}
 			})
-			
+			//融资查看弹窗-付款条件特殊处理
+			var h=$(".see_block dd[name='field4']").height();
+			if(h>40){
+				$(".injection").find(".see_more").show();
+				$(".injection .fmdl dd[name=\"field4\"]").css({"height":"22px","overflow":"hidden","margin-right":'0'});
+				var span='<span>...</span>';
+				$(".injection .fmdl dd[name=\"field4\"]").after(span);
+				$(".see_more .show").click(function(){
+					$(this).hide();
+					$(this).siblings().show();
+					$(".injection .fmdl dd[name=\"field4\"]").css({"height":"auto"});
+					$(".injection .fmdl dd[name=\"field4\"]").next("span").hide();
+				});
+				$(".see_more .hide").click(function(){
+					$(this).hide();
+					$(this).siblings().show();
+					$(".injection .fmdl dd[name=\"field4\"]").css({"height":"22px"});
+					$(".injection .fmdl dd[name=\"field4\"]").next("span").show();
+				})
+			}else{
+				$(".injection").find(".see_more").hide();
+			}
+			console.log($(".see_block dd[name='field4']").height());
+			var height=$(".see_block dd[name='field4']").height();
+			if(height>60){
+				
+			}
 			//运营报告和决策报告分期拨款有注资计划不能编辑
 			if(reportType == 3 || reportType == 7){
 				if(row.data("dataList"))
@@ -737,7 +763,7 @@ function addRow(ele)
 				 $('#grant_popup_name').html('添加分期注资计划');
 				 $("#complete_title").html('添加综合竞争比较');
 				//交割前事项
-				$("#delivery_popup_name").text("新增交割事项");
+				$("#delivery_popup_name").text("添加交割事项");
 				$(".see_block").hide();
 				$('#finace_popup_name').html('添加融资历史');
                 $("#detail-form input[name='projectId']").val(projectInfo.id);

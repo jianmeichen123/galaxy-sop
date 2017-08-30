@@ -224,7 +224,7 @@ function tabOperateChange(index){
 		                   if(json['id']!="null" && json['id']!=null){   //保存数据库
 		                   $("#actual-form").find("[name='id']").val(json['id']);
 		                      var data = getTotalApprActual(json['id']);
-		                      $("#formatRemainActualMoney").text(data.remainMoney);
+		                      $("#formatRemainActualMoney").text(data.totalMoney-sum);
 		                      $("#remainMoneyActual").val(data.remainMoney);
 		     				  $("#totalMoneyActual").val(data.totalMoney);
 		                   }else{   //未保存数据库
