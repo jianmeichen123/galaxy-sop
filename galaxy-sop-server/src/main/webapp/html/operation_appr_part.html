@@ -155,7 +155,7 @@ $("div").delegate(".appr_part_add","click",function(event){
 						 if(val>remainActualMoney){
 							 $("#formatRemainActualMoney").text("0");
 						 }else{
-							 $("#formatRemainActualMoney").text(remainActualMoney-val);
+							 $("#formatRemainActualMoney").text((remainActualMoney*10000-val*10000)/10000);
 						 }
 					 }
 				 })

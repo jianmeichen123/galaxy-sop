@@ -109,12 +109,12 @@
 	function editResult(obj){
 		var e_type=$(obj).attr("e-type");
 		var id_code=$(obj).attr("attr-id")
-		var p_box=$(obj).siblings(".align_left").find("p")
-		var val=p_box.html();
+		var p_box=$(obj).siblings(".align_left").find("p");
 		var titleVal=p_box.attr("data-title-value");
 		var radioShow=$(obj).closest("td").find(".radioShow")
 		$.each(p_box,function(){
 			var p_this=$(this);
+			var val=$(this).html();
 			var type=$(this).attr("data-type");
 			if(e_type!="cover_pop"){  //inside和小弹窗编辑回显
 				if(type==1){
@@ -133,12 +133,9 @@
 					dom.children("input").attr("checked",true);
 				}else if(type==8 || type==15){
 					var relateId=p_box.attr("data-relate-id");
-					if(val!="未填写"){
-						val=val.replace(/<.*?>/g,"");
-						val= val.replace(/\<br\>/g,'\n');
-						val= val.replace(/&nbsp;/g," ");
-						$(".div_tmpl").find("textarea[data-id='"+relateId+"']").val(val);
-					}			
+					val= val.replace(/\<br\>/g,'\n').replace(/&nbsp;/g," ").replace(/<.*?>/g,"");
+					var textarea=$(".div_tmpl").find("textarea[data-id='"+relateId+"']");
+					(val !="未填写") ? textarea.val(val):textarea.val() ;		
 				}else if(type==18){
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未选择"){
@@ -220,12 +217,9 @@
 							}
 						}else if(d_type==8){
 							if(n.val!="未填写"){
-								var val= n.val
-								val= val.replace(/\<br\>/g,'\n');
-								val= val.replace(/&nbsp;/g," ");
-								val=val.replace(/<.*?>/g,"");
-								$("textarea[data-title-id='"+n.relateId+"']").val(val);
-								
+								var val= n.val;
+								val= val.replace(/\<br\>/g,'\n').replace(/&nbsp;/g," ").replace(/<.*?>/g,"");
+								$("textarea[data-title-id='"+n.relateId+"']").val(val);								
 							}
 						}else if(d_type==2){
 							if(n.val!="未选择"){

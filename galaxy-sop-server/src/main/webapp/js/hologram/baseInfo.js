@@ -211,12 +211,13 @@ function one_select_edit(title,inputtype,type){
 				li +=  "<li><input type=\"radio\"   value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' />" + this.name  + "</li>";
 		});
 		
-		var ddStr = "<dd class='fl_none'>" ;
-		if(title.resultList!=undefined){
-			ddStr = "<dd class='fl_none' resultId='"+title.resultList[0].id+"'>" ;
-    	}
-		
+
 		if(type=='2'){
+            var ddStr = "<dd class='fl_none'>" ;
+            if(title.resultList!=undefined){
+                ddStr = "<dd class='fl_none' resultId='"+title.resultList[0].id+"'>" ;
+            }
+
 			eresult = 
 				ddStr +
 					"<ul class=\"h_radios clearfix\">" +
@@ -224,6 +225,23 @@ function one_select_edit(title,inputtype,type){
 					"</ul>" +
 				"</dd>";	
 		}else if(type=='5'){
+            var ddStr = "<dd class='fl_none'>" ;
+
+            if(title.resultList!=undefined){
+            	if(title.resultList.length == 1){
+            		if(!title.resultList[0].valueId){
+                        ddStr = "<dd class='fl_none'>" ;
+					}
+				}else{
+                    for(var i = 0;  i < title.resultList.length; i++ ){
+                        if(title.resultList[i].i){
+                            ddStr = "<dd class='fl_none' resultId='"+title.resultList[i].id+"'>" ;
+                            break;
+                        }
+                    }
+				}
+            }
+
 			eresult = 
 				ddStr +
 					"<ul class=\"h_radios clearfix\">" +

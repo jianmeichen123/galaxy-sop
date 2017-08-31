@@ -110,5 +110,6 @@
 		<foreach collection="relateIds" item="item" open="(" separator="," close=")">
 		#{item}
 		</foreach>
+		and project_id = #{projectId}
 	</delete>
 </mapper>
