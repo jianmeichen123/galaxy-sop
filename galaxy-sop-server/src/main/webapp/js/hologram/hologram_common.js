@@ -770,6 +770,7 @@ function buildTable(sec,title)
 		$.each(title.dataList,function(){
 			var row = this;
 			var tables = $("table[data-title-id='"+row.titleId+"']");
+			tables.show();   //有数据表格显示
 			$.each(tables,function(){
 				var table = $(this);
 				var tr = buildRow(row,table.hasClass('editable'),row.titleId);

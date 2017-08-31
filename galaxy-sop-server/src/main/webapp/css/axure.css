@@ -2618,6 +2618,9 @@ dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color
 .h_edit table{width:95%;table-layout:fixed;}
 .h_edit .fixed_table{table-layout:auto;width:698px;}
 .h_edit .fixed_table .fixed_table_td{width:15%;}
+.h_look  table[data-title-id],.h_edit table[data-title-id]{
+	display:none;
+}
 /*输入框placeholder 颜色及大小 */
 .textarea_h::-webkit-input-placeholder { 
     color:#b3b3b3;
