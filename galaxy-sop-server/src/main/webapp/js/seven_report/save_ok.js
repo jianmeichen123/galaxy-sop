@@ -420,10 +420,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 									if(childrenVal=="未填写"){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
 									}else{
-										$("dd[data-title-id=\"3012\"]").text(val+'万元');
+										$("dd[data-title-id=\"3012\"]").text(val);
+										$("dd[data-title-id=\"3012\"]").next("dd").show();
 									}
 								}else{
 									$("dd[data-title-id=\"3012\"]").text(val);
+									$("dd[data-title-id=\"3012\"]").next("dd").show();
 								}
 								
 							}							
