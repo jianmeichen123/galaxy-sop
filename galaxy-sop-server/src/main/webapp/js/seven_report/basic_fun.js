@@ -469,7 +469,7 @@ function editRow(ele)
 			  return;
 		  }
 		 //获取表格上的计划金额之和
-		 var trs=$("table.editable[data-code='"+code+"']").find("tr");
+		 var trs=$(ele).closest("table[data-code='"+code+"']").find("tr");
 		 var sum=0;
 		 $.each(trs,function(){ 
 			 sum+=Number($(this).find("td[data-field-name='field3']").text());
@@ -513,17 +513,17 @@ function editRow(ele)
 			//计算剩余金额
 			getTotalAppr(projectInfo.id);
 			var totalMoneyPart=$("#totalMoneyPart").val();
-			$("#formatRemainMoney").text(Number(totalMoneyPart)-sum);
+			$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-sum*10000)/10000);
 			$(".moeny_all input").on("input",function(){
             	var val=$(this).val();
             	if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-            		$("#formatRemainMoney").text(Number(totalMoneyPart)-(sum-Number(valtr))-val);
+            		$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000);
             	}else{
             		$("#formatRemainMoney").text(0);
             	}
             	
             })
-            $(".remainMoney span").text($("#remainMoneyPart").val())  //查看时的剩余金额
+            $(".remainMoney span").text((Number(totalMoneyPart)*10000-sum*10000)/10000);  //查看时的剩余金额
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 				var ele = $(this);
@@ -615,7 +615,6 @@ function editRow(ele)
 			}else{
 				$(".injection").find(".see_more").hide();
 			}
-			console.log($(".see_block dd[name='field4']").height());
 			var height=$(".see_block dd[name='field4']").height();
 			if(height>60){
 				
@@ -784,11 +783,11 @@ function addRow(ele)
                 selectContext("detail-form");
                 //计算剩余金额
                 var totalMoneyInit=$("#totalMoneyPart").val();
-                $("#formatRemainMoney").text(Number(totalMoneyInit)-sum);
+                $("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000)/10000);
                 $(".moeny_all input").on("input",function(){
                 	var val=$(this).val();
                 	if(Number(totalMoneyInit)-sum-val>0){
-                		$("#formatRemainMoney").text(Number(totalMoneyInit)-sum-val);
+                		$("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000);
                 	}else{
                 		$("#formatRemainMoney").text(0);
                 	}
