@@ -513,11 +513,11 @@ function editRow(ele)
 			//计算剩余金额
 			getTotalAppr(projectInfo.id);
 			var totalMoneyPart=$("#totalMoneyPart").val();
-			$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-sum*10000)/10000);
+			$("#formatRemainMoney").text(Number(totalMoneyPart)-sum);
 			$(".moeny_all input").on("input",function(){
             	var val=$(this).val();
             	if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-            		$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-(sum*10000-Number(valtr)*10000)-val*10000)/10000);
+            		$("#formatRemainMoney").text(Number(totalMoneyPart)-(sum-Number(valtr))-val);
             	}else{
             		$("#formatRemainMoney").text(0);
             	}
@@ -637,7 +637,8 @@ function editRow(ele)
 				{
 					var tableList = row.data("dataList");
 					tableList.sort(function(a,b){
-			            return Date.parse(new Date(b.field2))-Date.parse(new Date(a.field2))});
+			            return parseInt(Date.parse(new Date(a.field2)))-parseInt(Date.parse(new Date(b.field2)))});
+					$.ajaxSettings.async = false; 
 					$.each(tableList,function(){
 						 var row = this;
 						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
@@ -783,11 +784,11 @@ function addRow(ele)
                 selectContext("detail-form");
                 //计算剩余金额
                 var totalMoneyInit=$("#totalMoneyPart").val();
-                $("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000)/10000);
+                $("#formatRemainMoney").text(Number(totalMoneyInit)-sum);
                 $(".moeny_all input").on("input",function(){
                 	var val=$(this).val();
                 	if(Number(totalMoneyInit)-sum-val>0){
-                		$("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000);
+                		$("#formatRemainMoney").text(Number(totalMoneyInit)-sum-val);
                 	}else{
                 		$("#formatRemainMoney").text(0);
                 	}

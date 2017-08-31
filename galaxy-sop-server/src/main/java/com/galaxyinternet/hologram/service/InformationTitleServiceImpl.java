@@ -1213,7 +1213,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 							  }
 							}
 							 ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();  
-							 sortList.sort(datalist,"field2","desc");
+							 sortList.sort(datalist,"field2","asc");
 							item.setDataList(datalist);
 							title.getDataList().add(item);
 						}
