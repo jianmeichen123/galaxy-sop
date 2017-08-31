@@ -643,7 +643,9 @@ function editRow(ele)
 						 $.get("/sop/html/operation_appr_actual_table.html", row,function(data){
 							   //新增数据
 							   var o = $(data);
-							   o.find("[name='id']").text(row.id);
+							   if(row.id){
+								   o.find("[name='id']").text(row.id);
+							   }
 							   o.find("[name='field1']").text(row.field1);
 							   o.find("[name='field2']").text(row.field2);
 							   o.find("[name='field3']").text(row.field3);
@@ -664,6 +666,7 @@ function editRow(ele)
 						var obj=$(this).closest(".poptxt");
 						var data = getData($("#detail-form"));
 	        		    var dataList = getDataList($("#appr_part"));
+	        		    console.log(dataList);
 	    	            var tr = $('table[data-title-id="'+data['titleId']+'"].editable').find('tr:eq('+data['index']+')');
 	    	    		tr.data("dataList",dataList);
 	        	        saveForm($("#detail-form"));
