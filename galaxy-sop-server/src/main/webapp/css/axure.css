@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-body{font-size:14px; font-family:"微软雅黑"; background:#E9EBF2;}
+body{font-size:14px; font-family:"Microsoft YaHei"; background:#E9EBF2;}
 /*css-reset*/
 html,body,div,ul,ol,li,dl,dt,dd,p,span,em,strong,b,i,h1,h2,h3,h4,form,input,button,textarea,select,option,img,a{ margin:0; padding:0}
 ul,ol,dl,dt,dd,p,img{ display:block; border:0}
@@ -375,7 +375,7 @@ table .width_gd{width:12%;}
 /*标签连接*/
 .tablink{ height:30px; line-height:30px}
 .tablink li{ float:left; padding:0 7px; margin:0 4px 0 0; background:#d6d8e1;color:#5d678a; height:30px; border-radius:4px 4px 0 0;cursor: pointer;}
-.tablink li a{ font-size:14px;color:#8f97b2;font-family:"微软雅黑" !important;}
+.tablink li a{ font-size:14px;color:#8f97b2;font-family:"Microsoft YaHei" !important;}
 .tablink li a:hover{ text-decoration:none}
 .tablink .on{ background:#f1f2f5}
 .tablink .on a{ color:#5d678a}
@@ -525,10 +525,10 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*左侧导航*/
 /* .pagebox .lft{ float:left; width:9.375%; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
 .pagebox .lft li{ float:left; width:100%; min-height:48px;}
-.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; margin:0 auto; height:48px; text-align:left; line-height:48px; font-size:12px; color:#d8dce5;cursor: pointer;padding-left:50px;}
+.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "Microsoft YaHei";display:block; margin:0 auto; height:48px; text-align:left; line-height:48px; font-size:12px; color:#d8dce5;cursor: pointer;padding-left:50px;}
 .pagebox .lft .on a,
 .pagebox .lft li a:hover{ text-decoration:none; color:#6dafee;}
-.pagebox .lft li ul li a{font-family: "微软雅黑";display:block; height:40px; line-height:40px; font-size:12px; color:#6b799f;padding-left:30px;}
+.pagebox .lft li ul li a{font-family: "Microsoft YaHei";display:block; height:40px; line-height:40px; font-size:12px; color:#6b799f;padding-left:30px;}
 .pagebox .lft li div{position: relative;}
 .pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; left: 15%;}
 .pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
@@ -577,7 +577,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist dt .t12{ background-position:0 -261px}
 .pagebox .min .tablist .l_executive .l_previewTop{width:100%;margin:15px auto 0; overflow: hidden; font-size: 14px;color:#656974;}
 .pagebox .min .tablist .l_executive .l_previewTop span{margin:0 3px;}
-.pagebox .min .tablist .l_executive .l_previewTop span a{font-size: 18px;font-family: "微软雅黑";color:#ff9c89;margin:0 2px;}
+.pagebox .min .tablist .l_executive .l_previewTop span a{font-size: 18px;font-family: "Microsoft YaHei";color:#ff9c89;margin:0 2px;}
 
 .pagebox .min .tablist .l_executive .l_previewBottom{font-size: 14px;color:#656974;width:100%;margin:10px auto;}
 /* .pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b{width:48%;height: 63px;background-color: #f5f6f8;margin:0 1%;float: left;text-align: center;color:#2d3342;padding:18px 0;} */
@@ -585,7 +585,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b span,.pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b a{display: block; float:left; width:50%; }
 .pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b span{ background-color:#e9ebf2; height:60px; padding-top:5px;}
 .pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b span p{line-height:30px;}
-.l_previewBottom .l_previewBottom_b a{font-size: 22px;color: #7d89ab;font-family: "微软雅黑";}
+.l_previewBottom .l_previewBottom_b a{font-size: 22px;color: #7d89ab;font-family: "Microsoft YaHei";}
 .l_previewBottom .l_previewBottom_b a.gray{color:#d6dae9;}
 .pagebox .rit_executive .top_radius{border-top-right-radius: 6px;border-top-left-radius: 6px;}
 .bj_pagebox{    width: 33.3333%;  display:block;height: 55px; line-height:55px;float: left;text-align:center;}
@@ -657,7 +657,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg{width: 732px;padding:5px 20px 35px;margin:0 auto;background-color: #fff;border-radius: 10px;}
 .pagebox .projectmsg h2{width:100%;color:#6b799f;font-size: 20px;text-align: center;}
 .pagebox .projectmsg .top table{border:1px solid #fff;}
-.pagebox .projectmsg .top table td{border:0;width:50%;background-color: #f9fafc;font-family: "微软雅黑"}
+.pagebox .projectmsg .top table td{border:0;width:50%;background-color: #f9fafc;font-family: "Microsoft YaHei"}
 .pagebox .projectmsg .top table dl{padding-left:10px;overflow: hidden;}
 .pagebox .projectmsg .top table dl dt{float: left;font-size: 14px;color:#2d3342;width:88px;text-align: right;}
 .pagebox .projectmsg .top table dl dd{float: left;font-size: 12px;color:#525662;font-family: "宋体"}
@@ -681,7 +681,7 @@ pre{white-space:pre-wrap;margin:0;}
 .pagebox .projectmsg_d .block table{border-radius: 0;}
 .pagebox .projectmsg_d .block1{padding:6px 0 20px;}
 .pagebox .projectmsg_d .block1 table{border-bottom: 0;}
-.pagebox .projectmsg_d .block1 table td{padding:0 0 0 3%;width:47%;font-family: "微软雅黑";border:0;}
+.pagebox .projectmsg_d .block1 table td{padding:0 0 0 3%;width:47%;font-family: "Microsoft YaHei";border:0;}
 .pagebox .projectmsg_d .block1 table td input[type="text"]{width:266px;height:28px;border:1px solid #ccd2d7; border-radius: 5px;font-size: 12px;padding-left: 8px;line-height: 28px;}
 .pagebox .projectmsg_d .block1 table td label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; color:#525662; font-family:"宋体"; position:relative}
 .pagebox .projectmsg_d .block1 table td label input[type="radio"]{ position:absolute; left:0; top:9px; *top:4px}
@@ -720,7 +720,7 @@ pre{white-space:pre-wrap;margin:0;}
 .pagebox .projectmsg_d .block .btnbox_f .b4{background-position: 15px -84px;padding: 0 15px 0 35px;}
 .pagebox .projectmsg_d .block .btnbox_f .b5{background-position: 15px -112px;padding: 0 15px 0 35px;}
 .pagebox .projectmsg_d .block table{width: 100%;}
-.pagebox .projectmsg_d .block table th{background-color: #f9fafc;font-family: "微软雅黑"}
+.pagebox .projectmsg_d .block table th{background-color: #f9fafc;font-family: "Microsoft YaHei"}
 .pagebox .projectmsg_d .block dd ul{float: right;padding: 0 0 15px 0;}
 .pagebox .projectmsg_d .block dd ul li{float: left;margin-right: 12px;}
 .pagebox .projectmsg_d .block dd ul li a{font-size: 12px;font-family: "宋体";color: #c3c3c3;text-decoration: none;}
@@ -733,7 +733,7 @@ pre{white-space:pre-wrap;margin:0;}
 .ritmin .tabtable .tabtable_con_close dl{border-bottom:1px solid #edeff5;overflow: hidden; }
 .ritmin .tabtable .tabtable_con_close dl.no_border{border:0;}
 .ritmin .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 30px 0 20px 0;}
-.ritmin .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 22px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
+.ritmin .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 22px;font-family: "Microsoft YaHei";height: 30px;line-height: 30px;float: left;}
 .ritmin .pjt_introduct .update{float: left;height: 24px;padding:6px 0 0;line-height: 24px;margin:0 0 0 10px;}
 .ritmin .pjt_introduct .update dt,.ritmin .pjt_introduct .update dd,.ritmin .pjt_introduct dl dt,.ritmin .pjt_introduct dl dt{float: left;}
 .ritmin .pjt_introduct .pjt_brf{margin:15px 0 0 0;}
@@ -912,7 +912,7 @@ right: 200px;}
 .chart_list dl.no_border{border:0;}
 .chart_list dl dt{width: 100% !important;height: 36px;line-height: 36px;font-size: 16px;color:#5d678a;text-align: center !important;background-color: #f3f4f9;margin:0 0 2px 0;padding: 0 !important;}
 .chart_list dl dd{background-color: #f9f9fc;text-align: center;font-size: 12px;font-family: "宋体";}
-.chart_list dl dd.orange{font-size: 36px;font-family: "微软雅黑";clear: both;}
+.chart_list dl dd.orange{font-size: 36px;font-family: "Microsoft YaHei";clear: both;}
 .chart_list dl dd ul{padding:0 0 15px 0;text-align: left !important;width:100px;margin: 0 auto;}
 .chart_list dl dd ul li{color:#525662;height: 20px;line-height: 20px;}
 .chart_list dl dd ul li span{margin-left: 15px;background: url(../img/deal.png) no-repeat;padding-left: 16px;}
@@ -963,7 +963,7 @@ dl dd .time1{display:inline-block !important;width: 100px !important;background:
 .loginpage .min{ width:1280px; height:572px; padding:70px 0 0; margin:0 auto}
 .loginpage .pic{width: 759px;height: 448px;background: url(../img/loginbg.png) 0 0 no-repeat;float: left;-webkit-background-size: 93%;
 background-size: 93%;position: relative;z-index: 10;position: relative;}
-.loginpage .pic a{color:#fff;text-decoration: underline;font-size: 14px;font-family:"微软雅黑";position: absolute;bottom: 120px;right: 170px;background: url(../img/help.png) 0 0 no-repeat;padding-left: 25px;text-shadow:0px 0px 4px #666;}
+.loginpage .pic a{color:#fff;text-decoration: underline;font-size: 14px;font-family:"Microsoft YaHei";position: absolute;bottom: 120px;right: 170px;background: url(../img/help.png) 0 0 no-repeat;padding-left: 25px;text-shadow:0px 0px 4px #666;}
 .loginpage .loginbox{ width:362px; float:right; margin:48px 100px 0 0;}
 .loginpage .loginbox h2{ height:33px; background-position:0 0; margin:0 0 16px 17px}
 .loginpage .loginbox .txt{ display:block; border:0; width:282px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; background-color:#edf0f4; border-radius:6px; padding:0 10px 0 36px; margin:0 0 10px 17px}
@@ -993,7 +993,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .loginpage_new img{position: absolute;left: 50%;margin-left: -960px;}
 .loginpage_new .loginbox{width:362px;height:395px; background-color: #fff;border:1px solid #c7d3e0;position: relative;float: right;border-radius: 6px;margin:-38px 83px 0 0;}
 .loginpage_new .loginbox .loginbox_top{ height:52px; border-bottom:1px solid #c7d3e0;background-color: #f9fbfe;margin-bottom: 30px;}
-.loginpage_new .loginbox .loginbox_top h2{font-size: 18px;font-family: '微软雅黑';font-weight: normal;color:#272b38;line-height: 52px;float: left;padding-left: 28px;}
+.loginpage_new .loginbox .loginbox_top h2{font-size: 18px;font-family: 'Microsoft YaHei';font-weight: normal;color:#272b38;line-height: 52px;float: left;padding-left: 28px;}
 .loginpage_new .loginbox .txt{ display:block; border:0; width:264px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; border-radius:6px; padding:0 10px 0 36px; margin:0 auto 10px;border:1px solid #dadada;}
 .loginpage_new .loginbox .uname{ background-position:10px -160px}
 .loginpage_new .loginbox .uword{ background-position:10px -216px}
@@ -1001,7 +1001,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .loginpage_new .loginbox .login:hover{background-position:0 -295px}
 .loginpage_new .loginbox .tips{ margin:80px 0 0 17px; line-height:18px; padding:0 0 0 20px; background-position:0 -43px; font-size:12px; font-family:"宋体"; color:#797979}
 .loginpage_new .loginbox .tips a{margin-left: 18px;}
-.loginpage_new .loginbox .login{width: 310px;margin: 0 auto;background-color: #539be2;display: block;height: 46px;border-radius: 6px;text-align: center;color: #fff;font-size: 18px;font-family: '微软雅黑';line-height: 46px;margin-top:30px;}
+.loginpage_new .loginbox .login{width: 310px;margin: 0 auto;background-color: #539be2;display: block;height: 46px;border-radius: 6px;text-align: center;color: #fff;font-size: 18px;font-family: 'Microsoft YaHei';line-height: 46px;margin-top:30px;}
 .loginpage_new .loginbox .login:hover{text-decoration: none;background-color: #85c1f5;}
 .loginpage_new .btm{ text-align:center; line-height:34px; background:#acc0d1; height:34px;position: fixed;bottom: 0;width: 100%;}
 .loginpage_new .btm a{ color:#FFF; font-size:14px; font-family:"宋体"; margin:0 10px 0 0}
@@ -1051,7 +1051,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .meetingtc .btnbox{ margin:0 0 0 80px}
 .meetingtc .btnbox .pubbtn{ margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
 .meetingtc dl dd,.meetingtc dl dd label{font-size: 12px;font-family: '宋体';}
-.meetingtc dl dt{font-family: '微软雅黑';line-height: 30px;} 
+.meetingtc dl dt{font-family: 'Microsoft YaHei';line-height: 30px;} 
 /*添加成功弹窗*/
 .addtc{ width:305px; padding:20px 0}
 .addtc .tips{ text-align: center; position:relative; line-height:26px; font-size:16px; color:#1f2128; margin:0 0 30px}
@@ -1096,7 +1096,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .addmentc .left,.addmentc .right{width:390px;float: left;}
 .addmentc dl{margin:10px 0;overflow: hidden;}
 .addmentc dl dt,.addmentc dl dd{float: left;}
-.addmentc dl dt{width:120px;text-align: right;font-family: '微软雅黑';line-height: 30px;}
+.addmentc dl dt{width:120px;text-align: right;font-family: 'Microsoft YaHei';line-height: 30px;}
 .addmentc .fmdl dd .txt{ width:140px;font-size: 12px;font-family: '宋体';}
 .addmentc .pubbtn{margin: 20px 0 0 250px;}
 /* 立项会弹窗 */
@@ -1120,7 +1120,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 添加人员弹窗 */
 .userinfrotc .userinfro{width:540px;border: 1px solid #e9ebf2;margin-bottom: 20px;}
 .userinfrotc .userinfro dl{border-bottom: 1px solid #e9ebf2; height: auto;line-height: 28px;height: 28px; overflow: hidden;}
-.userinfrotc .userinfro dl dt{width: 125px;padding-right:10px;text-align: right;float: left;color: #414652;background-color: #f9fafc;font-weight: normal;line-height: 27px;font-family: '微软雅黑';font-size:14px;}
+.userinfrotc .userinfro dl dt{width: 125px;padding-right:10px;text-align: right;float: left;color: #414652;background-color: #f9fafc;font-weight: normal;line-height: 27px;font-family: 'Microsoft YaHei';font-size:14px;}
 .userinfrotc .userinfro dl dd{width:405px;float: left; font-size: 12px;color:#535762;}
 .userinfrotc .userinfro  .role label{margin-right: 20px;width:155px;display: inline-block;font-weight: normal;}
 .userinfrotc .userinfro  dl label{margin-right: 20px;font-weight: normal;}
@@ -1141,7 +1141,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .myprojecttc{padding:0 20px;width:960px;height:470px;}
 .myprojecttc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 10px 0;}
 .myprojecttc .block dl dd.describe,.myprojecttc .block dl dd.edit{display:block;}
-.myprojecttc .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
+.myprojecttc .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "Microsoft YaHei";height: 30px;line-height: 30px;float: left;}
 .myprojecttc .pjt_introduct .update{float: left;height: 24px;padding:6px 0 0;line-height: 24px;margin:0 0 0 10px;}
 .myprojecttc .pjt_introduct .update dt,.ritmin .pjt_introduct .update dd,.ritmin .pjt_introduct dl dt,.ritmin .pjt_introduct dl dt{float: left;}
 .myprojecttc .pjt_introduct .pjt_brf{margin:15px 0 0 0;}
@@ -1159,7 +1159,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .myprojecttc .bars{display:none;}
 .myprojecttc .tabtable .tabtable_con .block table th{background-color: #f9fafc;}
 .myprojecttc .process{width: 100%;overflow: hidden;/* margin:0 0 20px 0; */}
-.myprojecttc .process h2{color:#6b799f;font-size:16px;font-family:"微软雅黑"}
+.myprojecttc .process h2{color:#6b799f;font-size:16px;font-family:"Microsoft YaHei"}
 .myprojecttc .process img{margin: 0 auto;}
 .myprojecttc .pagright{margin-top: 10px;}
 /* .myprojecttc .tabtable{padding: 10px;background-color: #e9ebf2;} */
@@ -1228,7 +1228,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .schedule1tc .bottom .bottom_l .tips .on{background: #d1e9ff url(../img/dian.png) 4px 10px no-repeat; }
 .schedule1tc .bottom .bottom_l dl dd dl dt{font-size: 12px;font-family: "宋体";margin-bottom: 5px;}
 .schedule1tc .bottom .bottom_r{width: 100%;height: 300px; }
-.schedule1tc .bottom .bottom_r h2{font-size: 16px;font-family: "微软雅黑";font-weight: normal;color:#5d678a;margin-bottom: 5px;}
+.schedule1tc .bottom .bottom_r h2{font-size: 16px;font-family: "Microsoft YaHei";font-weight: normal;color:#5d678a;margin-bottom: 5px;}
 .schedule1tc .bottom .bottom_r dl{margin-left: 10px;}
 .schedule1tc .bottom .bottom_r dl .txt{width: 88px;}
 .schedule1tc .bottom .bottom_r dl textarea{width: 560px;min-height: 100px}
@@ -1251,7 +1251,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .creativetc{padding:0 20px 20px;width:800px;}
 .creativetc .tabtable_con{height:400px;}
 .creativetc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 5px 0;}
-.creativetc .pjt_introduct h3,.create_historytc .idea-title{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left; overflow: hidden;}
+.creativetc .pjt_introduct h3,.create_historytc .idea-title{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "Microsoft YaHei";height: 30px;line-height: 30px;float: left; overflow: hidden;}
 .creativetc .pjt_introduct .pjt_brf{margin:5px 0 0 0;}
 .creativetc .pjt_introduct .pjt_brf li{float: left;margin:0 20px 0 0;line-height: 20px;}
 .creativetc .tablink li{min-width:55px;text-align: center;}
@@ -1313,15 +1313,15 @@ em{font-style: normal;}
 .erwmb{width:auto;height:145px;margin-left:-45px;bottom: 10px;display:none;left:4.6875%;}
 .erwms img{margin-left:5px;}
 .erwmb img{margin-bottom:10px;}
-.erwm p,.erwm a{font-size:12px;font-family:"微软雅黑";color:#7a8798;text-align:center;margin-bottom:6px;}
+.erwm p,.erwm a{font-size:12px;font-family:"Microsoft YaHei";color:#7a8798;text-align:center;margin-bottom:6px;}
   */
 .erwm{position:relative;}
-.erwmfont{font-family:"微软雅黑";line-height:24px;margin-right:30px;cursor:pointer;height:50px;display:inline-block;}
+.erwmfont{font-family:"Microsoft YaHei";line-height:24px;margin-right:30px;cursor:pointer;height:50px;display:inline-block;}
 .erwm  .triangle{ width: 0;height: 0;font-size:0;display:inline-block;border-left: 6px solid transparent;border-right: 6px solid transparent;border-bottom: 8px solid #fff;position:absolute;top:-8px;left:154px;}
 .erwm_show{background:#fff;width:320px;box-shadow:0 0 5px #ccc;position:absolute;top:35px;left:-128px;display:none;}  
 .erwm_show ul{padding:20px 25px 0;}
 .erwm_show li{width:102px;}
-.erwm_show span{color:#333;font-family:"微软雅黑";display:inline-block;width:100%;text-align:center;height:30px;line-height:30px;}
+.erwm_show span{color:#333;font-family:"Microsoft YaHei";display:inline-block;width:100%;text-align:center;height:30px;line-height:30px;}
 .erwm_show p{width:100%;height:30px;background:#f0f8ff;}
 .header .usermsg .erwm_show p a{color:#539be3;display:inline-block;text-align:center;line-height:30px;width:100%;}
  /*登录信息与密码*/
@@ -1363,7 +1363,7 @@ em{font-style: normal;}
 .calendar_box{width: auto;padding: 20px;height: auto;background-color: #fff; position: absolute;  z-index: 1000; left:50%;  margin-left: -178px; display: none;box-shadow: 2px 2px 2px #ccc;border: 1px solid #ccc;border-radius: 5px;}
 .calendar_box dl dt,.calendar_box dl dd{float: left;}
 .calendar_box dl{height:30px;line-height: 30px;color:#3e4351;}
-.calendar_box dl dt{font-size: 14px;font-family: "微软雅黑";}
+.calendar_box dl dt{font-size: 14px;font-family: "Microsoft YaHei";}
 .calendar_box dl dd{font-size: 12px;font-family: "宋体";}
 .calendar_box .closed{position: absolute;top: 3px;right: 3px;width: 26px;height:26px;z-index:10;background: url(../img/tcclose.png) 0 0 no-repeat;font-size: 0;cursor: pointer;}
 /* 公共调样式 ------------------------------------------------------------------*/
@@ -1421,14 +1421,14 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_tit_b p{display: inline-block;padding-top: 22px;font-size: 14px;color: #ff8181;}
 .new_tit_a a ,.new_tit_b a{ text-decoration:none; color:#9097aa;}
 .new_tit_a img.arrow{display:inline-block;margin:0px 4px;}
-.new_tit_a a{font-family: "微软雅黑";line-height: 20px;}
+.new_tit_a a{font-family: "Microsoft YaHei";line-height: 20px;}
 .new_color{ color:#596071; margin-left: 10px;}
 .new_tit_b .new_color{margin:0;}
 .b_span a{color:#5192ff}
 .new_color_gray{ color:#999;font-family: "宋体";font-size:12px;margin-top:5px;}
 .new_color_black{ color:#333;}
 .size18{ font-size:22px;}
-.size16{ font-size:16px;font-family: "微软雅黑"; display:table-cell; height:20px; margin-top:3px; vertical-align:bottom;}
+.size16{ font-size:16px;font-family: "Microsoft YaHei"; display:table-cell; height:20px; margin-top:3px; vertical-align:bottom;}
 .size14{ font-size:14px}
 .new_tit_b span{ display:block; margin-right:10px; float:left; line-height:60px; height:60px;}
 .new_tit_b .b_span{ float:right;}
@@ -1656,7 +1656,7 @@ word-wrap:break-word;
 	margin-top:-20px;
 }
 .new_btn,.new_btn_right{ width:100px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;}
-.correlation{ border-top:1px solid #e9ebf2; background-color:#f9fafc; height:40px; line-height:40px; text-indent:20px;font-size: 16px;font-family: "微软雅黑";color:#6b799f;}
+.correlation{ border-top:1px solid #e9ebf2; background-color:#f9fafc; height:40px; line-height:40px; text-indent:20px;font-size: 16px;font-family: "Microsoft YaHei";color:#6b799f;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}
 .new_correlation_cen .new_btn{ float:left; margin-top:20px;}
 .new_righ{ float:right; margin-top:15px; margin-right:10px;}
@@ -1842,7 +1842,7 @@ word-wrap:break-word;
     margin-left: -4px;
     margin-top: 10px;
 }
-.commonsize th{font-size:14px;color:#3e4351;font-family:"微软雅黑";}
+.commonsize th{font-size:14px;color:#3e4351;font-family:"Microsoft YaHei";}
 
 /*访谈表格*/
 .no0_1{width:20%;}
@@ -1950,12 +1950,12 @@ word-wrap:break-word;
 .message table .message_t{width:20%;}
 .message table .message_t1{width:40%}
 .message table .message_n{width:80%;}
-.message table th{font-size: 16px;font-family: "微软雅黑";color:#6b799f;padding-left: 25px !important;}
+.message table th{font-size: 16px;font-family: "Microsoft YaHei";color:#6b799f;padding-left: 25px !important;}
 .message .bootstrap-table .table > tbody > tr > td{padding-left: 30px !important;}
 .message table .operator{margin-right: 10px;}
 .r_news table{table-layout:fixed;}
 .r_news table td{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
-.r_news table a,.task table a{font-size:14px;font-family:"微软雅黑"}
+.r_news table a,.task table a{font-size:14px;font-family:"Microsoft YaHei"}
 .r_news .fixed-table-pagination{display:none !important;} 
 .task_noprovide{margin-bottom: 20px;}
 .task_noprovide input{vertical-align: middle;}
@@ -2170,7 +2170,7 @@ dl{position: relative;}
 .agreement{margin-bottom: 50px;}
 .b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
 .b_agreement_l {width:70%}
-.b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"微软雅黑";}
+.b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"Microsoft YaHei";}
 .b_agreement_r{width:29%;padding-top: 8px;}
 .b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
 .b_agreement_l dl{margin-right:5%;margin-top: 12px;}
@@ -2229,7 +2229,7 @@ margin: 45px auto 30px;}
 .addEblockContc .form{padding-top: 40px;}
 .addEblockContc .btnbox{margin:20px 0 10px;}
 .addEblockContc .btnbox a{margin:0 10px;}
-.equipmentBoxBtn{border:0;font-size: 16px;font-family: "微软雅黑";padding:12px 20px 12px 40px;border-radius:3px;background:#539be2 url(../img/btnico2.png) 0 0 no-repeat;background-position: 18px -113px;line-height: 18px;display: block;margin:38px auto;}
+.equipmentBoxBtn{border:0;font-size: 16px;font-family: "Microsoft YaHei";padding:12px 20px 12px 40px;border-radius:3px;background:#539be2 url(../img/btnico2.png) 0 0 no-repeat;background-position: 18px -113px;line-height: 18px;display: block;margin:38px auto;}
 .deleteEblockCon{display: none;margin:90px auto;text-align: center;}
 .deleteEblockCon  span{margin-right: 30px;}
 .new_tit_b button.save{margin-top: 20px;}
@@ -2243,7 +2243,7 @@ margin: 45px auto 30px;}
 .usermsg div.xingmou .navbar{left:4px;width:24px;}
 .man_info{position:relative;height:50px;}
 .man_info .name{position:absoute;}
-.usermsg a,.man_info span{font-size: 12px;font-family: "微软雅黑";line-height: 24px;}
+.usermsg a,.man_info span{font-size: 12px;font-family: "Microsoft YaHei";line-height: 24px;}
 .man_info .avator{width:24px;height:24px;display:inline-block;background:url(../img/defalut_avator.png) 0 0 no-repeat;margin-right: 10px;}
 .header .usermsg .name{line-height: 24px;background:url(../img/xiala.png) right 6px no-repeat;padding:0 15px 0 0px;margin:0 30px 0 0;}
 .usermsg div.xingmou a{line-height: 50px;}
@@ -2255,7 +2255,7 @@ margin: 45px auto 30px;}
 .top_small span{font-size: 12px;font-family:"宋体";}
 .bottom_small{height:100%;background-color: #fff;}
 .bottom_small ul li{padding:20px 0 10px 0;}
-.bottom_small ul li span,.bottom_small ul li a{display: block;text-align: center;width: 100%;font-size: 14px;color: #c2c2c2;font-family:"微软雅黑"}
+.bottom_small ul li span,.bottom_small ul li a{display: block;text-align: center;width: 100%;font-size: 14px;color: #c2c2c2;font-family:"Microsoft YaHei"}
 .bottom_small ul li a:hover{text-decoration:none;}
 .bottom_small ul li .ico_small{width:36px;height:36px;margin:0 auto 6px;background:url(../img/ico_index.png) 0 0 no-repeat;}
 .bottom_small ul li .tjh{background-position: 0 -55px;}
@@ -2275,13 +2275,13 @@ margin: 45px auto 30px;}
 .month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;height:24px;}
 .pagebox .rit .top .tody .time_moment{font-weight: bold;font-size: 30px;color:#7a8094;margin-top: 10px;}
 .pagebox .rit .top .tody a[data-btn="shecudle_list"]{font-size: 12px;background-color: #539be2;border:none;padding:3px 8px;margin-right: 14px;margin-top: 17px;}
-.pagebox .rit .top .link{font-size: 14px;font-family: "微软雅黑";color:#7a8094;margin:0 22px 15px;}
+.pagebox .rit .top .link{font-size: 14px;font-family: "Microsoft YaHei";color:#7a8094;margin:0 22px 15px;}
 .pagebox .big dd{border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1; padding:0;}
 .pagebox .big dl {text-align: right;height:122px;}
 .pagebox .big dl dt{line-height: 20px;height: 20px;}
 .pagebox .big dl dt a{margin:0 14px 0 6px;}
 .pagebox .big dl a.more{display: inline-block;}
-.pagebox .big table td{height:40px;line-height: 40px;font-size: 14px;font-family: "微软雅黑";color:#7a8094;}
+.pagebox .big table td{height:40px;line-height: 40px;font-size: 14px;font-family: "Microsoft YaHei";color:#7a8094;}
 .pagebox .big table td.noborder{border-bottom: 0;}
 .pagebox .big .ico_index{width:36px;height:36px;background: url(../img/ico_index.png) 0 0 no-repeat;margin:22px 16px;}
 .pagebox .big .table{width:255px;}
@@ -2320,24 +2320,24 @@ margin: 45px auto 30px;}
 .pagebox .big .tool a.light_gray .b4{width: 50px;
     background-position: 4px -347px;}
 /* 内容区域 */
-#tbody a,#tlbody a,#ceopsbodytop a,#cy_index a{font-size:14px;font-family:"微软雅黑"}
+#tbody a,#tlbody a,#ceopsbodytop a,#cy_index a{font-size:14px;font-family:"Microsoft YaHei"}
 .floatBox{margin:0 10px 10px;height:216px;background-color: #fff;border-radius:2px;box-shadow:0px 0px 25px #ddd;overflow:hidden;}
 .floatBox dt{margin-top:10px;padding:0 0 20px 20px;}
-.floatBox dt h3{font-size:16px;font-weight:normal;color:#6b799f;font-family:"微软雅黑"}
+.floatBox dt h3{font-size:16px;font-weight:normal;color:#6b799f;font-family:"Microsoft YaHei"}
 .floatBox .position{top:7px;right:10px;}
-.floatBox table td,.floatBox table th{padding-left:20px !important;font-size:14px;font-family:"微软雅黑"}
+.floatBox table td,.floatBox table th{padding-left:20px !important;font-size:14px;font-family:"Microsoft YaHei"}
 .floatBox .bootstrap-table table tbody  tr td{padding-left:20px !important;font-size:14px;}
 .floatBox table th{color:#9e9e9e;}
 .floatBox table td{color:#666;}
 .floatBox .l_previewTop{width:87%;margin:0 auto;}
 .floatBox .l_previewTop span{font-size:14px;color:#666}
-.floatBox .l_previewTop span a{color:#3b8bd9;font-size:18px;margin-left:5px;font-family:"微软雅黑"}
+.floatBox .l_previewTop span a{color:#3b8bd9;font-size:18px;margin-left:5px;font-family:"Microsoft YaHei"}
 .floatBox .l_previewBottom{margin:0 20px;background:#f0f4f7;height:80px;}
 .floatBox .eduling_wait_title{width:22%;text-align:center;background:#e9ebf2;height:80px;}
 .eduling_wait_ico img{margin:12px auto 5px;}
 .floatBox .l_previewBottom_b{width:26%;text-align:center;padding:14px 0 0 0;}
 .floatBox .l_previewBottom_b p{margin-top:4px;}
-#project-progress-div td span{font-size:14px;font-family:"微软雅黑"}
+#project-progress-div td span{font-size:14px;font-family:"Microsoft YaHei"}
 /* 首页截断 */
 .ritmin-index table{table-layout:fixed;}
 .ritmin-index table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -2356,7 +2356,7 @@ margin: 45px auto 30px;}
 .addPerson_all{margin:50px auto 30px;height:380px;overflow-y:auto; }
 .qualifications_all{margin:50px auto 30px;}
 .qualifications_all .fmdl{ width:100%; overflow:hidden;}
-.addPerson_all h3{font-size: 14px;line-height:28px;margin-bottom:10px;font-family: "微软雅黑";border-bottom:1px solid #dadfe3;font-weight: normal;color:#2d3342;}
+.addPerson_all h3{font-size: 14px;line-height:28px;margin-bottom:10px;font-family: "Microsoft YaHei";border-bottom:1px solid #dadfe3;font-weight: normal;color:#2d3342;}
 .addPersontc dt,.qualificationstc dt,.stocktc dt{width:110px;text-align: right;}
 .finace_history_tc dt{width:142px;text-align: right;}
 .addPersontc dl{width:50%;margin-bottom: 10px;}
@@ -2527,7 +2527,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h{background-color: #fff;margin-bottom: 10px;}
 .h .mb_24{margin-bottom: 24px;}
 .h .w_half{width:50%;}
-.h dt,.h dd{float: left;font-size: 12px;font-family: '微软雅黑';word-break:break-all;}
+.h dt,.h dd{float: left;font-size: 12px;font-family: 'Microsoft YaHei';word-break:break-all;}
 .h dt{color:#3382fb;}
 .h  .h_edit  dt{color:#999;}
 .h dd{color:#000;vertical-align: middle;}
@@ -2565,7 +2565,7 @@ dt[data-type='19']+dd .error{display:block;}
 .h_remarks{color:#999;font-size: 12px;margin-top: 5px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}
 .h_edit .h_radios input[type="radio"]{position: absolute;top:2px;left: 0;}
-.h_edit .h_radios input[type="text"]{margin:0;font-size:12px;font-family:"微软雅黑";}
+.h_edit .h_radios input[type="text"]{margin:0;font-size:12px;font-family:"Microsoft YaHei";}
 .textarea_h{color:#666;width: 100%;min-height: 70px;border:1px solid #dadada; padding:8px 10px;box-sizing:border-box;overflow:hidden;font-size:12px;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
 .num_tj{color:#dadada;font-size: 12px;text-align: right;}
@@ -2687,7 +2687,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .anchor_nav li a,.anchor_navs li a{
 	display: inline-block;
 	font-size: 12px;
-	    font-family: '微软雅黑';
+	    font-family: 'Microsoft YaHei';
 }
 .anchor_nav li,.anchor_navs li{
 	list-style: none;
@@ -2716,7 +2716,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .h_edit_btn.put_away,.out_box{display:none;}
 .radius .h_btnbox .spread_out{color: #72a7ff;}
 .h_edit_txt dt.title_dt{color:#333;margin-top:16px;}
-.h_edit_txt .big_input{width:750px;height:30px;border:1px solid #dadada;padding-left:10px;line-height:30px;font-size:12px;font-family:"微软雅黑"}
+.h_edit_txt .big_input{width:750px;height:30px;border:1px solid #dadada;padding-left:10px;line-height:30px;font-size:12px;font-family:"Microsoft YaHei"}
 .radius.unable{display:none!important;}
 .h_look .h_btnbox span.blue_btn{color:#72a7ff;display:none;}
 /* 拜访统计 */
