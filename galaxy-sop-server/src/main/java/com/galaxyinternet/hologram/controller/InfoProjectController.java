@@ -8,9 +8,12 @@ import io.swagger.annotations.ApiParam;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -45,7 +49,6 @@ import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
-
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 
@@ -260,25 +263,34 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 		if(StringUtils.isEmpty(informationResult.getProjectId()) && StringUtils.isEmpty(informationResult.getTitleId())){
 			response.setResult(new Result(Status.ERROR,"参数丢失."));
 		}
+		//投资金额,估值安排所有值,投资方主体
+		String[] titleIds = {"3004","3012","3011","3010","3009","3020"};
+		Set<String> set=new HashSet<String>();         
+		set.addAll(Arrays.asList(titleIds));
 		try{
-			Map<String,Object> map = new HashMap<String,Object>();;
+			Map<String,Object> map = new HashMap<String,Object>();
+			informationResult.setTitleIds(set);
 			informationResult.setIsValid("0");
 			//获取总注资计划的金额
-			InformationResult ir = informationResultService.queryOne(informationResult);
-			if(ir != null){
-				InformationListdata query = new InformationListdata();
-	            query.setTitleId(3022l);
-	            query.setProjectId(Long.valueOf(informationResult.getProjectId()));
-	            map.put("totalMoney", ir.getContentDescribe1());
-	            Double money = informationListdataService.selectPartMoney(query);
-	            if(money != null){
-	            	 BigDecimal total = new BigDecimal(ir.getContentDescribe1());
-	 	             BigDecimal part = new BigDecimal(money);
-	 	             if(total.doubleValue() > part.doubleValue()){
-	 	            	double remainMoney = total.subtract(part).doubleValue();
-	 	  				map.put("remainMoney",remainMoney );
-	 	             }
-	            }
+			List<InformationResult> list = informationResultService.queryList(informationResult);
+			if(list != null && list.size() == titleIds.length){
+				for(InformationResult ir : list){
+					if("3004".equals(ir.getTitleId())){
+						InformationListdata query = new InformationListdata();
+			            query.setTitleId(3022l);
+			            query.setProjectId(Long.valueOf(informationResult.getProjectId()));
+			            map.put("totalMoney", ir.getContentDescribe1());
+			            Double money = informationListdataService.selectPartMoney(query);
+			            if(money != null){
+			            	 BigDecimal total = new BigDecimal(ir.getContentDescribe1());
+			 	             BigDecimal part = new BigDecimal(money);
+			 	             if(total.doubleValue() > part.doubleValue()){
+			 	            	double remainMoney = total.subtract(part).doubleValue();
+			 	  				map.put("remainMoney",remainMoney );
+			 	             }
+			            }
+					}
+				}
 	            response.setUserData(map);
 			}
 		   

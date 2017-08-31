@@ -1051,7 +1051,6 @@ function getTotalAppr(projectId){
 	var flag = false;
 	var params={};
 	params.projectId = projectId;
-	params.titleId = "3004";
 	sendPostRequestByJsonObj(
 				Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
 				params,
