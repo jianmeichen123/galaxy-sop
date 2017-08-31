@@ -1193,7 +1193,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 						}
 						if(item.getUpdateId() != null)
 						{
-							String updateUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName");
+							String updateUserName = (String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getUpdateId(), "realName");
 							item.setUpdateUserName(updateUserName);
 						}
 						if(item.getCreatedTime() != null)

@@ -17,7 +17,7 @@
     	<input name="updateTimeStr" type="hidden" >
     	<input name="updateTimeSign" type="hidden" >
     	<input name="field3" type="hidden" value="2175">
-    	<input name="updateUserName" type="hidden" value="${realName }">
+    	<input name="updateUserName" type="hidden" value="${realName}">
     	<input name="titleId" type="hidden">
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>

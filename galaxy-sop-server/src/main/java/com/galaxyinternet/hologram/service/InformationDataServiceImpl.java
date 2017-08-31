@@ -310,8 +310,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 				entity.setId(model.getId());
 				if(StringUtils.isNotEmpty(model.getUpdateTimeSign())){
 					entity.setUpdateTime(now);
+					entity.setUpdateId(userId);
 				}
-				entity.setUpdateId(userId);
 				listdataDao.updateById(entity);
 				if(model.getDataList() != null && model.getDataList().size() > 0){
 					setDataList(entity.getId(),entity,model.getDataList(),

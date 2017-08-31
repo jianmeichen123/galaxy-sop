@@ -26,13 +26,13 @@
                 </dd>
             </dl>
             <dl class="fmdl fl">
-                <dt>威胁系数：</dt>
+                <dt>胜算度：</dt>
                 <dd class="clearfix">
                     <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
-                <dt>威胁度：</dt>
+                <dt>威胁系数：</dt>
                 <dd class="clearfix">
                     <input name="field3" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
                 </dd>
