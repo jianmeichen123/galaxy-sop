@@ -18,7 +18,7 @@ function tabInvestChange(index){
 }
 	   //项目
 		function investProjectInfo1(){
-			window.location.href=platformUrl.toInvestigateP;
+			window.location.href=platformUrl.investigate+'?pid='+pid;
 			/*$("#page_all").html("");
 		   $.getTabHtmlInfo({
 				url : platformUrl.toInvestigateP ,

@@ -18,7 +18,7 @@ function tabFinanChange(index){
 }
 	   //项目
 		function projectFinanInfoF(){
-			window.location.href=platformUrl.toFinancingP;
+			window.location.href=platformUrl.toFinancingP+'?pid='+pid;
 		}
 		 //团队
 		function initTeamFinanInfoF(){

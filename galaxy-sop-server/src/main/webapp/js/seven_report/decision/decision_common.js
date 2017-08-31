@@ -12,7 +12,7 @@
 }
 	   //项目
 		function decisionPlan(){
-			window.location.href=platformUrl.toDecisionPlan;
+			window.location.href=platformUrl.toDecisionPlan+'?pid='+pid;
 		}
 		 //运营数据
 		function other1(){

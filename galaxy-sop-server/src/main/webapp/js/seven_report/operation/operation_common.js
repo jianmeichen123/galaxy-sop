@@ -19,7 +19,7 @@ function tabOperateChange(index){
 }
 	   //投资方案
 		function investFinancePlanO(){
-			window.location.href=platformUrl.toOperationP;
+			window.location.href=platformUrl.toOperationP+'?pid='+pid;
 		}
 		 //团队
 		function initTeamInfoO(){
