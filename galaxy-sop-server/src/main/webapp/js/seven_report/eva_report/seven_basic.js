@@ -123,8 +123,7 @@
 						//空格换行 去除HTML标签
 						val=val.replace(/<.*?>/g,"")
 						val= val.replace(/\<br\>/g,'\n');
-						val= val.replace(/&nbsp;/g," ");
-						
+						val= val.replace(/&nbsp;/g," ");						
 						$(".condition").find("input[data-id='"+relateId+"']").val(val);
 					}			
 				}else if(type==2){
@@ -491,8 +490,6 @@ function right(obj,type){
 			return false;
 		}
 	}
-	//对号，x号消失
-	$(obj).parent().hide();
 	//raido消失
 	var other =$(obj).parent().siblings(".radioShow").find(".others");
 	var align_left = $(obj).parent().parent().find(".align_left");
@@ -554,7 +551,14 @@ function right(obj,type){
 		Tfun_8(p);
 		
 	}else if(type=="input"){
-		var val = $(obj).closest("tr").find("input").val();
+		var input = $(obj).closest("tr").find("input")
+		var val = input.val();
+		var maxlength = input.attr("maxlength");
+		if(val.length>maxlength){
+			input.focus();
+			input.blur();
+			return ;
+		}
 		var p = align_left.find('p');
 		if(val == null || val.length == 0)
 		{
@@ -587,9 +591,10 @@ function right(obj,type){
 	if(val=="其他"){
 		align_left.html(input_text);
 	}else{
-		//align_left.html(val); 
 	}
-	//$(".align_left span").last().remove();
+
+	//对号，x号消失
+	$(obj).parent().hide();
 	$(obj).parent().parent().find('p').show();
 	$(obj).closest('td').data('edit','false');
 	//新添加，弹窗中的
