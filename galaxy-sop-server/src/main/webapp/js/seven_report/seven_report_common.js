@@ -750,7 +750,14 @@ function buildTable(sec,title)
 	//列表Row
 	if(title.dataList)
 	{
-		$.each(title.dataList,function(){
+		//分期注资计划进行排序
+		var tableList = title.dataList;
+		if(title.parentId == '3021' || title.parentId == '10095'){
+			tableList.sort(function(a,b){
+	            return parseInt(Date.parse(new Date(a.field2)))-parseInt(Date.parse(new Date(b.field2)))});
+		
+		}
+		$.each(tableList,function(){
 			var row = this;
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			tables.show();  //有数据表格显示
