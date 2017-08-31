@@ -213,6 +213,11 @@ function tabOperateChange(index){
 				 })
 				 //获取总金额
 				 var totalMoneyActual=$("#totalMoneyActual").val();
+				 if(totalMoneyActual){
+					 totalMoneyActual=totalMoneyActual;
+				 }else{
+					 totalMoneyActual=$(".moeny_all input").val();
+				 }
 				 var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
 		        var index = div.index();
 			       $.getHtml({
