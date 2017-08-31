@@ -237,6 +237,8 @@ function right_anchor(i,type,right){
 							 anchor_nav.css("width",Number(anchor_width));
 							 //点击锚点
 							$('.anchor_nav a[href^="#"]').click(function(event) {
+								$(".to_top").fadeIn(100);
+								$(".anchor_nav").css("top","60px");			
 								var _this=$(this);
 								var id = $(this).attr("href");
 								var target = $(id).offset().top-50;
@@ -245,6 +247,7 @@ function right_anchor(i,type,right){
 								$(".anchor_navs").addClass("anchor_nav");
 								$('.anchor_nav li').removeClass('active');
 								_this.parents('li').addClass('active');
+													
 								event.preventDefault();
 							});
 							//滑动高亮
