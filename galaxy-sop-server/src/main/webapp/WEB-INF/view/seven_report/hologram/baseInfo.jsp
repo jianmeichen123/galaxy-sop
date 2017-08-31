@@ -372,8 +372,7 @@ $(function() {
 			return;
 		}
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
-			var result = data.result.status;
-			console.log(data)
+			var result = data.result.status; 
 			if (result == 'OK') {
 				updateInforTime(projectInfo.id,"NO1");
 				layer.msg('保存成功');
