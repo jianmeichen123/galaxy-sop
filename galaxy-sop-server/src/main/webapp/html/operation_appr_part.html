@@ -121,10 +121,12 @@ $("div").delegate(".appr_part_add","click",function(event){
 	var _url = $self.attr("href");
 	var _name= $self.attr("data-name");
 	var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
+	var time=$(this).closest(".opera_porp").find("#field2").val();
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			$(".opera_porp").find("#field2").val(time);  //时间重新赋值
 			if(json['id']){
 				var data = getTotalApprActual(json['id']);
 				 //$("#formatRemainActualMoney").text(data.remainMoney);
