@@ -1052,14 +1052,14 @@ function validate(){
 				var validate={
 						"data-rule-verify_40":"true",
 						"name":i,
-						"data-msg-verify_40":"<font color=red>*</font>不能为空且不能超过40字"
+						"data-msg-verify_40":"<font color=red>*</font>不能超过40字且不能全为空格"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="100"){
 				var validate={
 						"data-rule-verify_100":"true",
 						"name":i,
-						"data-msg-verify_100":"<font color=red>*</font>不能为空且不能超过100字"
+						"data-msg-verify_100":"<font color=red>*</font>不能超过100字且不能全为空格"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="1" && inputValRuleMark=="200"){
@@ -1067,7 +1067,7 @@ function validate(){
 						//"maxlength":inputValRuleMark,
 						"data-rule-verify_200":"true",
 						"name":i,
-						"data-msg-verify_200":"<font color=red>*</font>不能为空且不能超过200字"	
+						"data-msg-verify_200":"<font color=red>*</font>不能超过200字且不能全为空格"	
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="4" && inputValRuleMark=="3,1"){

@@ -498,11 +498,11 @@ function buildResult(title)
 		var val = results[0]["contentDescribe"+title.subId];
 		if(typeof val == 'undefined')
 		{
-			_ele.text('未填写');
+			_ele.html('未填写');
 		}
 		else
 		{
-			_ele.text(val);
+			_ele.html(val);
 		}
 		_ele.attr("data-result-id",results[0].id);
 	}
@@ -514,7 +514,7 @@ function buildResult(title)
 			_ele.attr("data-remark",val);
 			val=val.replace(/<sitg>/g,'（<sitg>').replace(/<\/sitg>/g,'<\/sitg>）');
 			$(_ele).each(function(){
-				if($(this).data("relateId")=="1006"){
+				if($(this).data("relateId")=="1006"||$(this).data("relateId")=="9006"){
 					val=val.split("的产品或服务，");
 					val = val[1];
 				}

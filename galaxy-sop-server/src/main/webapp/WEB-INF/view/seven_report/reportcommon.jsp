@@ -101,18 +101,16 @@ $(function(){
 	}
 	divSelect();
 	function divSelect(){
-		//$(".input_selects").unbind("click");
-		$(".report_select").hover(function(){ 
+		$(".report_select").mouseover(function(){ 
 			var _this = $(this).find(".input_selects");
-			var ul = _this.next("ul"); 		
-			if(ul.css("display")=="none"){
-				_this.addClass('up');
-				ul.slideDown("fast"); 
-			}else{ 
-				ul.slideUp("fast");
-				_this.removeClass('up');
-				_this.addClass('input_selects')
-			} 
+			var ul = _this.next("ul"); 
+			_this.addClass('up');
+			ul.show(); 
+		}).mouseout(function(){
+			var _this = $(this).find(".input_selects");
+			var ul = _this.next("ul"); 
+			ul.hide();
+			_this.removeClass('up');
 		}); 
 	}
 	//切换报告相关按钮隐藏

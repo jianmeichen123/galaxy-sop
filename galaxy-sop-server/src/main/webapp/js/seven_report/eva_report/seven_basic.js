@@ -88,8 +88,8 @@
 			$('.ch_opration').show();
 		}
 		//特殊处理项目评测内的刚需和痛点
-		if(id_code=="ENO1_1_4"){
-		var sp_input = $(".section").find("input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']")
+		if(id_code=="ENO1_1_4"||id_code=="CNO1_1_4"){
+		var sp_input = $(".section").find("input[data-title-id='9173'],input[data-title-id='9174'],input[data-title-id='9175'],input[data-title-id='1173'],input[data-title-id='1174'],input[data-title-id='1175']")
 		sp_input.parent().hide();
 		sp_input.closest(".mb_16").find("dt").hide();
 		sp_input.closest(".mb_16").find("dt").last().show();
@@ -854,7 +854,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var code=d_this.code;
 					var str=d_this.remark1;
 					var dds = $(".content_16 p[data-code='" + code + "']");
-					var sp_dds = $(".content_16 p[data-relate-id='1006']");
+					var sp_dds = $(".content_16 p[data-relate-id='1006'],.content_16 p[data-relate-id='9006']");
 					/*str=str.replace(/\n|\r\n/g,"<br>")
 					str=str.replace(/\s/g,"&nbsp;");*/
 					if(str){
