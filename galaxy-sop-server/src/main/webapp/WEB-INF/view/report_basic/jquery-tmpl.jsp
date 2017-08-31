@@ -9,7 +9,7 @@
 		<div class="h_edit section">
 			<div class="h_btnbox">
 				<span class="h_save_btn" attr-save="\${relateCode}">保存</span>
-				<span class="h_cancel_btn" data-on="h_cancel" attr-hide="\${relateCode}">取消</span>
+				<span class="h_cancel_btn" data-on="h_cancel" attr-hide="\${relateCode}" attr-session="\${titleId}">取消</span>
 			</div>
 			<div class="h_title">\${name}</div>
 			{{each(i,childList) childList}}
@@ -450,7 +450,7 @@
 			{{/each}}
 			<div class="h_edit_btnbox clearfix">
 			  <span class="pubbtn bluebtn h_save_btn fl" data-on="save" attr-save="\${relateCode}">保存</span>
-			  <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${relateCode}">取消</span>
+			  <span class="pubbtn fffbtn fl h_cancel_btn" data-name="basic" data-on="h_cancel" attr-hide="\${relateCode}" attr-session="\${titleId}">取消</span>
 			</div>
 
 		</div>
