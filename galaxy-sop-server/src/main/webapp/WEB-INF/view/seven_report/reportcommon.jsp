@@ -139,12 +139,12 @@ function seven_link(data,url){
 	}else if(data==7){
 		url=platformUrl.toOperation;
 	} 
-	if((_href=platformUrl.toEvalindex) || (_href=platformUrl.toPreEva)){   //判断评测报告或初评报告
+	if((_href.indexOf(platformUrl.toEvalindex)>-1) || (_href.indexOf(platformUrl.toPreEva)>-1)){   //判断评测报告或初评报告
 		var result=$(".pagebox").attr("data-result");
 		 $(".pagebox").attr("data-lis","other");  //区分离开页面时，点击的是tab标签
 		if(result=="true"){
 			//$(window).unbind('beforeunload');
-			beforeSave(url);
+			beforeSave(url+'?pid='+pid);
 		}else{
 			//$(window).unbind('beforeunload');
 			window.location.href = url+'?pid='+pid;
