@@ -484,11 +484,7 @@
 							<dt data-type="\${type}" data-id="\${id}" data-title-id="\${id}" data-code="\${code}" data-parentId="\${parentId}">\${name}</dt>
 
 							{{if type=="1"}} 
-                                 {{if id=="2080" || id=="2074" || id=="1940" || id=="1934"}} 
-                                      <dd class="field" data-title-id="\${id}">未选择</dd>
-                                  {{else}}
                                       <dd class="field" data-title-id="\${id}">未填写</dd>
-                                 {{/if}}
 							{{else type=="5"}}                             
 								<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
 								<dd>备注</dd>
@@ -589,12 +585,7 @@
 				  <dl class="clearfix">
 					{{if type=="1"}}
 					<dt  data-type="\${type}" >\${name}</dt>  
-                             {{if id=="2080" || id=="2074" || id=="1940" || id=="1934" }} 
-                                       <dd class="field" data-title-id="\${id}">未选择</dd>
-                                  {{else}}
-                                      <dd class="field" data-title-id="\${id}">未填写</dd>
-                                 {{/if}}
-			        
+                           <dd class="field" data-title-id="\${id}">未填写</dd>
 					{{else type=="5"}}       
 					<dt  data-type="\${type}">\${name}</dt>                 
 					<dd data-value="\${value}" data-id="\${id}" data-code="\${code}">未选择</dd>
