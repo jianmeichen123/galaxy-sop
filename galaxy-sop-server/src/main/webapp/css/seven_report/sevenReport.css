@@ -978,10 +978,6 @@ select::-ms-expand { display: none; }
 	position:absolute;
 	left:50%;
 	top:20px;
-	transform:translateX(-50%);
-	-webkit-transform:translateX(-50%);
-	-moz-transform:translateX(-50%);
-	-ms-transform:translateX(-50%);
 	display:none;
 	z-index:21;
     max-width: 80%;
