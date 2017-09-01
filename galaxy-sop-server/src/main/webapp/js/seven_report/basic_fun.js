@@ -103,29 +103,16 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
    
   });
   
-function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
-if(!file || !/image\//.test(file.type)) return; //确保文件是图片
-if(file.type=='image/gif' || file.type=='image/bmp'){//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
-	var fr = new mOxie.FileReader();
-	fr.onload = function(){
-		callback(fr.result);
-		fr.destroy();
-		fr = null;
-	}
-	fr.readAsDataURL(file.getSource());
-}else{
-	var preloader = new mOxie.Image();
-	preloader.onload = function() {
-		preloader.downsize( 300, 300 );//先压缩一下要预览的图片,宽300，高300
-		var imgsrc = preloader.type=='image/jpeg' ? preloader.getAsDataURL('image/jpeg',80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
-		callback && callback(imgsrc); //callback传入的参数为预览图片的url
-		preloader.destroy();
-		preloader = null;
-	};
-	preloader.load( file.getSource() );
-}	
-
-}
+  function previewImage(file,callback){//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
+		if(!file || !/^image/.test(file.type)) return; //确保文件是图片
+		var fr = new mOxie.FileReader();
+		fr.onload = function(){
+			callback(fr.result);
+			//fr.destroy();
+			fr = null;
+		}
+		fr.readAsDataURL(file.getSource());
+	}  
 //通用取消编辑
 $('div').delegate(".h_cancel_btn","click",function(event){
 	event.stopPropagation();
@@ -199,6 +186,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	   default:
 		   reportType="";	  
 	}
+	if(reportType=="3"){   //获取股权占比值
+		var stockPencent=$("dd[data-title-id=\"3010\"]").text();
+	}
 	keyJSON["b_"+id_code]=key;
 	var sec = $(this).closest('.section');
 	var sTop=$(window).scrollTop();
@@ -264,10 +254,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var result=valRule[0];
 							var parent=valRule1[0];
 							var children=valRule1[1];
-							/*if(reportType=="3"){
-								var input='<input type="text" class="hidden" data-code="PNO1_1_2" data-title-id="'+result+'" data-type="19"/>';  //添加隐藏域
-								$("input[data-valruleformula='"+valRuleFormula+"']").after(input);
-							}*/
 						}
 						function calculationValuations(){  //编辑股权占比
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
@@ -289,10 +275,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 							
 						}
-					  /*if(reportType=="3"){
-						  var valuations = calculationValuations();
-							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
-						}*/
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
 							if(valuations != null && valuations != ""){
@@ -302,11 +284,17 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+							var val=$(this).val();
 							var valuations = calculationValuations();
-							if(valuations != null && valuations != ""){
-								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+							if(stockPencent!="未填写" && val==""){
+								$("input[data-title-id='"+result+"']").val("");
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+							}else{
+								if(valuations != null && valuations != ""){
+									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+								}
 							}
 						})
 					})
@@ -671,7 +659,7 @@ function editRow(ele)
 					$("#save_appr_part").click(function(){
 						//运营验证分期计划拨款金额是否大于剩余金额
 		                var valInput=$(".moeny_all input").val();
-		                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+		                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
 		                	layer.msg("分期注资金额之和大于总注资金额");
 		 				   return;
 		                }
@@ -696,7 +684,7 @@ function editRow(ele)
 			$("#save-detail-btn").click(function(){
 				//验证分期计划拨款金额是否大于剩余金额
                 var valInput=$(".moeny_all input").val();
-                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
                 	layer.msg("分期注资金额之和大于总注资金额");
  				   return;
                 }
@@ -799,7 +787,7 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                 	//验证分期计划拨款金额是否大于剩余金额
                     var valInput=$(".moeny_all input").val();
-                    if(valInput>Number(totalMoneyInit)-sum){
+                    if(valInput>(Number(totalMoneyInit)*10000-sum*10000)/10000){
                     	layer.msg("分期注资金额之和大于总注资金额");
      				   return;
                     }

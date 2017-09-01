@@ -143,8 +143,8 @@ $("div").delegate(".appr_part_add","click",function(event){
 				 if($(".moeny_all input").is(".disabled")){
 					 $("#remainMoney").val(data.remainMoney);
 					 totalMoneyActual=$(".moeny_all input").val();
-					 remainActualMoney=Number(totalMoneyActual)-sum;
-					 $("#formatRemainActualMoney").text((remainActualMoney*10000)/10000);
+					 remainActualMoney=(Number(totalMoneyActual)*10000-sum*10000)/10000;
+					 $("#formatRemainActualMoney").text(remainActualMoney);
 				 }else{
 					 $("#formatRemainActualMoney").text((Number(formatRemainActualMoney)*10000-sum*10000)/10000);
 					 totalMoneyActual=formatRemainActualMoney;
