@@ -275,6 +275,10 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			List<InformationResult> list = informationResultService.queryList(informationResult);
 			if(list != null && list.size() == titleIds.length){
 				for(InformationResult ir : list){
+					if(StringUtils.isEmpty(ir.getContentDescribe1())){
+						map.clear();
+						break;
+					}
 					if("3004".equals(ir.getTitleId())){
 						InformationListdata query = new InformationListdata();
 			            query.setTitleId(3022l);
