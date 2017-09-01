@@ -68,6 +68,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		String projectId = data.getProjectId();
 		List<InformationModel> list = data.getInfoModeList();
 		String investment = "";
+		String resulId="";
 		if (projectId == null || ((list == null || list.size() == 0)
 				&& (data.getDeletedResultTids() == null || data.getDeletedResultTids().size() == 0))) {
 			return;
@@ -88,6 +89,9 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			// 判断是否为决策报告里面，处理投资金额字段
 			if (null != model.getReportType() && model.getReportType() == 3 && model.getType().equals("19")) {
 				if (model.getTitleId().equals("3004")) {
+					if(null!=model.getResultId()){
+						resulId=model.getResultId();
+					}
 					investment = model.getRemark1();
 				}
 			}
@@ -163,7 +167,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 		}
 		InformationResult resultUpdate = new InformationResult();
 		// 决策报告编辑估值安排时候计算项目投资额
-		if (null != investment && !"".equals(investment)) {
+		if ((null != investment && !"".equals(investment))||(!"".equals(resulId)&&"".equals(investment))) {
 			InformationResult result = new InformationResult();
 			result.setProjectId(projectId);
 			Set<String> titleids = new HashSet<String>();
@@ -180,21 +184,23 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			for (int i = 0; i < selectList.size(); i++) {
 					InformationResult resultNew = selectList.get(i);
 					if (resultNew.getTitleId().equals("3010") && null != resultNew.getContentDescribe1()) {
-						v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1())*100;
-					}else if (null != v&&resultNew.getTitleId().equals("3012")) {
+						if(!"".equals(investment)){
+							v = Double.parseDouble(investment) / Double.parseDouble(resultNew.getContentDescribe1())*100;
+						}
+					}else if (null != v&&resultNew.getTitleId().equals("3012")||(null!=resulId&&v==null)) {
 						count=count+1;
 						resultUpdate=resultNew;
 				}
 			}
-			if(null!=v){
+			if(null!=v||(null==v&&!"".equals(resulId))){
 				if(count>0){
 					result = resultUpdate;
-					result.setContentDescribe1(v.toString());
+					result.setContentDescribe1(v==null?"":v.toString());
 					result.setUpdatedTime(now);
 					result.setUpdateId(userId.toString());
 					resultDao.updateById(result);
 				}else {
-					result.setContentDescribe1(v.toString());
+					result.setContentDescribe1(v==null?"":v.toString());
 					result.setCreatedTime(now);
 					result.setCreateId(userId.toString());
 					resultDao.insert(result);
