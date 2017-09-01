@@ -940,7 +940,7 @@ function img_fun(data){
 	       var fileSystem = new ActiveXObject("Scripting.FileSystemObject");        
 	       var file = fileSystem.GetFile (filePath);     
 	       fileSize = file.Size;    
-	     } else {    
+	     } else {    	    	 
 	      fileSize = data.files[0].size;     
 	      }   
 	      var size = fileSize / 1024;    
@@ -958,17 +958,14 @@ function img_fun(data){
 	        var reader = new FileReader();
 	        reader.readAsDataURL(files[0]);
 	        reader.onloadend = function(){  
-        	firsr_ul.append("<li class=\"pic_list fl\"><a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" /></li>");
+        	firsr_ul.append("<li class=\"pic_list fl\"><span  class=\"h_img_del\" ></span><img src="+this.result+" /></li>");
 	        }
 	    }else{
 	    	return;
 	    }
 	 }else{
-		 firsr_ul.append("<li class=\"pic_list fl\"<a href=\"javascript:;\" class=\"h_img_del\" ></a><img src="+this.result+" /><li>");
+		 firsr_ul.append("<li class=\"pic_list fl\"<span class=\"h_img_del\" ></span><img src="+this.result+" /><li>");
 	 }
-	last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\" accept=\"image/png,image/gif,image/jpeg,image/jpg,image/BMP\"/>");
-	
-	
 	if(firsr_ul.find("li").length>=4){
 		last_ul.hide()
 	 }else{
@@ -977,10 +974,11 @@ function img_fun(data){
 }
 
 $("div").delegate(".h_img_del","click",function(){
-	$(this).parents(".fl_none").find("ul").show()
-	$(this).parent().remove();
-	var del_id = $(this).next().data("id");
+	var _this=$(this);
+	_this.parents(".fl_none").find(".h_imgs").show();
+	var del_id =_this.next().data("id");
 	deleteFileIds.push(del_id);
+	_this.parent("li").remove();
 })
 //图片点击弹窗
 $('div').delegate(".income_pic","click",function(){
