@@ -795,14 +795,15 @@ table td select option{
 .others_text{
     border-color: #979797;
     text-align: left;
-    width: 142px;
+    width: 135px;
     margin-right: 10px;
     color: #3e4351;
     display: none;
-    float: right;
+    float: left;
     margin-top: -26px;
     position: relative;
-   /*  z-index: 100; */
+  	padding-left:8px;
+    margin-left: 64px;
 }
 .h_radios li label{
 	margin-left: 10px;
