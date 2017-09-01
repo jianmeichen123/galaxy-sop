@@ -216,7 +216,8 @@ function popScore(titles,relateId)
 	$.each(titles,function(rid,score){
 		if(rid == 0)
 		{
-			score=score.toFixed(2);
+			score=score.toFixed(2)*100/100;
+			console.log(score);
 			$("#total-score").text(score);
 		}
 		else if(rid == relateId)

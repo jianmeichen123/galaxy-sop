@@ -983,6 +983,7 @@ select::-ms-expand { display: none; }
 	transform:translateX(-50%);
 	-webkit-transform:translateX(-50%);
 	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
 	display:none;
 	z-index:21;
     max-width: 80%;
@@ -1008,3 +1009,7 @@ select::-ms-expand { display: none; }
 .condition+td{
 	text-align:left;
 } 
+.h_edit_txt select{
+	padding: 0 6px!important;
+	padding-right: 22px!important;
+}
