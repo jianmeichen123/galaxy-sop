@@ -3,6 +3,7 @@
  * 加载标题
  */
 $("#eva-tabs li").click(function(){
+	$(".reasonable_stock,.customer_income").hide();
 	var $li = $(this);
 	var code = $li.data('code');
 	var relateId = $li.data('relateId');
@@ -217,7 +218,6 @@ function popScore(titles,relateId)
 		if(rid == 0)
 		{
 			score=score.toFixed(2)*100/100;
-			console.log(score);
 			$("#total-score").text(score);
 		}
 		else if(rid == relateId)
