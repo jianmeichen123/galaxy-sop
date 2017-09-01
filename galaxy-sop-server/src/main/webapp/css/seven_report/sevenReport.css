@@ -879,12 +879,12 @@ ul,li{list-style:none;padding:0;margin:0;}
 	line-height:24px; 
 	border-bottom: .5px solid #d8d8d8;
 	cursor: pointer;
-	text-align:center;
+	text-align:left;
 	display:block; 
-	color:#666666;; 
+	color:#536379;; 
 
 }
-.dropdown ul lilast-child{
+.dropdown ul li:last-child{
 	border-bottom:0px;
 } 
 .up{
@@ -899,7 +899,7 @@ ul,li{list-style:none;padding:0;margin:0;}
 p.check_p{display:inline;}
 .condition.condition_select{overflow: inherit;}
 .sign_3 p{display:inline-block;}
-.select_list li a{text-align:left;display: inherit;cursor:pointer;}
+.select_list li a{text-align:left;display: inherit;cursor:pointer;font-family: "Microsoft YaHei";}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
 p.type_8{display: inline;padding-right:0px;}
