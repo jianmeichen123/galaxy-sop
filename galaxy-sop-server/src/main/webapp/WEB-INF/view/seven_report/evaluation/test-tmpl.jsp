@@ -77,7 +77,7 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">展开</em></div>										
+							<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail"><i>...</i>展开</em></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->
@@ -129,7 +129,7 @@
 						</td>
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left content_16"><p class="title-value type_8 " data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">展开</em></div>
+							<div class="align_left content_16"><p class="title-value type_8 " data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail"><i>...</i>展开</em></div>
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
@@ -150,7 +150,7 @@
 						{{if type=="1" || type=="20"|| type=="10"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="8"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span><em class="packup">收起</em><em class="detail">展开</em></p> </div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span><em class="packup">收起</em><em class="detail"><i>...</i>展开</em></p> </div>
 						{{else type=="2" || type=="12" || type=="14" || type=="13"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{else type=="7"}}
@@ -264,7 +264,7 @@
 						<!-- 文本域 -->
 						<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
 							<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>		
-							<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">展开</em></div>										
+							<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail"><i>...</i>展开</em></div>										
 						</td>
 					{{else type=="9"}}
 						<!-- 固定表格 -->
@@ -322,7 +322,7 @@
 										{{each(i,informationGrades) informationGrades }}
 									<tr>
 										<td class="condition" onmouseover="mouserover(this)"  onmouseout="mouseout(this)">
-											<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">未填写</p><em class="packup">收起</em><em class="detail">展开</em></div>
+											<div class="align_left"><p class="title-value type_8" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${titleRelateId}" data-sub-id="\${subId}">未填写</p><em class="packup">收起</em><em class="detail"><i>...</i>展开</em></div>
 											<span class="editPic" e-type="small_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"  ></span>
 										</td>
 											
@@ -360,7 +360,7 @@
 						
 					{{else type=="16"}}
 						<td class="condition" onmouseover="mouserover(this)" onmouseout="mouseout(this)">
-							<div class="align_left content_16"><p class="title-value type_8 " data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail">展开</em></div>
+							<div class="align_left content_16"><p class="title-value type_8 " data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">未填写</p><em class="packup">收起</em><em class="detail"><i>...</i>展开</em></div>
 							<span class="editPic" e-type="cover_pop" onclick="typeEdit(this)" attr-id="\${relateCode}"></span>
 						</td>
 					{{else type=="18"}}
@@ -380,7 +380,7 @@
 						{{if type=="1" || type=="20"||type=="10"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span></p></div>
 						{{else type=="8"}}
-						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span> <em class="packup">收起</em><em class="detail">展开</em></p></div>
+						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value type_8 income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未填写</span> <em class="packup">收起</em><em class="detail"><i>...</i>展开</em></p></div>
 						{{else type=="2" || type=="12" || type=="14" || type=="13"}}
 						<div class="sign_3" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}"><p class="title-value income_structor_content" data-code="\${code}" data-type="\${type}" data-title-id="\${titleId}" data-relate-id="\${id}">\${name}：<span>未选择</span></p></div>
 						{{else type=="7"}}
