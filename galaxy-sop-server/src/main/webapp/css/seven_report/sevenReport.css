@@ -667,10 +667,11 @@ table td select option{
  	max-height: 145px;
  	display: none;
  	z-index: 999;
+ 	overflow:auto;
  }
  .reasonable_box{
  max-height: 127px;
- overflow:auto;
+
  }
  .reasonable_stock:before{
 			content: '';

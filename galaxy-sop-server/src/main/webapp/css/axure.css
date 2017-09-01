@@ -1656,7 +1656,7 @@ word-wrap:break-word;
 	margin-top:-20px;
 }
 .new_btn,.new_btn_right{ width:100px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;}
-.correlation{ border-top:1px solid #e9ebf2; background-color:#f9fafc; height:40px; line-height:40px; text-indent:20px;font-size: 16px;font-family: "Microsoft YaHei";color:#6b799f;}
+.correlation{ border-top:1px solid #e4e4e4; background-color:#f7f7f7; height:40px; line-height:40px; text-indent:20px;font-size: 14px;font-family: "Microsoft YaHei";color:#333;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}
 .new_correlation_cen .new_btn{ float:left; margin-top:20px;}
 .new_righ{ float:right; margin-top:15px; margin-right:10px;}
