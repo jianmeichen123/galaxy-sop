@@ -2516,7 +2516,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 /* V201703全息图 */
 .h_navbar{padding: 30px 0 30px 40px;background-color: #fff;margin-bottom: 10px;}
 .h_navbar li{cursor:pointer;width: 60px;text-align:center;margin-right: 30px;background: url(../img/qxt/h_navbarbg.png) 0 -90px no-repeat;color:#5badfc;}
-.h_navbar li.h_nav1{padding: 10px 0;height:40px;}
+.h_navbar li.h_nav1{padding: 12px 0;height:40px;}
 .h_navbar li.h_nav2{height:60px;line-height: 60px;}
 .h_navbar li.active{background:url(../img/qxt/h_navbarbg.png) 0 0px no-repeat;color:#fff;}
 .h_look,.h_edit{position: relative;padding:75px 30px 6px 30px;}

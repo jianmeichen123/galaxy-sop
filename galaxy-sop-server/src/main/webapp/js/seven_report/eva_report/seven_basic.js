@@ -400,7 +400,7 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 				 }
 			 })
 		}else if(type==1){
-			result_html ="<input type=\"text\" data-id="+entity.id+" palceholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" >";
+			result_html ="<input type=\"text\" data-id="+entity.id+" placeholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" >";
 		}else if(type==13||type==3){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
