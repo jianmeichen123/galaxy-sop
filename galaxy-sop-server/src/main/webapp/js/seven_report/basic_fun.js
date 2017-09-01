@@ -169,7 +169,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 						$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
 					}//模版反回成功执行	
 				});
-			  return;
+			  return false;
 		 }
 	}
 	var str ="";
