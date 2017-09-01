@@ -11,7 +11,7 @@
 		<dd style="position: relative;">
 			<div class="mask_platform_progress"></div>
 			<div id="container_progress"
-				style="height: 145px; margin-left: -5%"></div>
+				style="height: 145px; margin-left: -8%"></div>
 		</dd>
 	</dl>
 

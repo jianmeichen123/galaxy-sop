@@ -157,6 +157,21 @@ $('div').delegate(".h_edit_btn","click",function(event){
     key = Date.parse(new Date());
 	var section = $(this).parents('.section');
 	var id_code = $(this).attr('attr-id');
+	//分期注资计划:PNO1_7|本轮融资:ONO9_2(编辑判断)
+	if(id_code == 'PNO1_7' || id_code == 'ONO9_2'){
+		if(!getTotalAppr(projectInfo.id)){
+			 $.getHtml({
+					url:'../../html/beforeSave.html',  
+					data:"",//传递参数
+					okback:function(){
+						$(".before_save_tc").addClass("stag_plan")
+						$(".before_save_btn").remove();
+						$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
+					}//模版反回成功执行	
+				});
+			  return false;
+		 }
+	}
 	var str ="";
 	if($(this).parents(".h_btnbox").siblings(".h_title").find("span").is(":visible")){
 		str =" <span style='color:#ff8181;display:inline'>（如果该项目涉及此项内容，请进行填写，反之可略过）</span>";
@@ -232,7 +247,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				
 				//运营报告中【融资估值中分期添加按钮隐藏】
 				if(reportType=="7" && id_code=="ONO9_2"){
-					$("#add_row").hide();
+					$("#add_row").remove();
 				}
 				
 				//计算项目估值
@@ -465,9 +480,6 @@ function editRow(ele)
 {
 	var code = $(ele).closest('table').data('code');
 	if(code == 'grant-part' || code == 'grant-actual'){
-		 if(!getTotalAppr(projectInfo.id)){
-			  return;
-		  }
 		 //获取表格上的计划金额之和
 		 var trs=$(ele).closest("table[data-code='"+code+"']").find("tr");
 		 var sum=0;
@@ -747,18 +759,6 @@ function addRow(ele)
         var code = $(ele).prev().data('code');
         //总注资校验
 		if(code == 'grant-part' || code == 'grant-actual'){
-			 if(!getTotalAppr(projectInfo.id)){
-				 $.getHtml({
-						url:'../../html/beforeSave.html',  
-						data:"",//传递参数
-						okback:function(){
-							$(".before_save_tc").addClass("stag_plan")
-							 $(".before_save_btn").remove();
-							 $(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
-						}//模版反回成功执行	
-					});
-				  return;
-			  }
 			 //获取表格上的计划金额之和
 			 var trs=$("table.editable[data-code='"+code+"']").find("tr");
 			 var sum=0;

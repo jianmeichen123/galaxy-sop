@@ -205,7 +205,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 		else if(type==1 || type==19 )
 		{	
 			infoMode.remark1 = field.val();
-			if(reportType=="3"){
+			if(reportType=="3"){   //特殊处理决策里面的投资金额
 				infoMode.reportType=3;
 			}
 		}

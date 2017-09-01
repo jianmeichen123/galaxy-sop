@@ -267,8 +267,7 @@ table.table_15 td:first-child+td+td+td{
 }
 .condition em.detail{
 	top:50%;
-	transform:translateY(-50%);
-	margin-top: 26px;
+	margin-top: 19px;
 	z-index: 12;
 	right:0px;
 }
@@ -285,8 +284,7 @@ table.table_15 td:first-child+td+td+td{
 	right:-2px;
 	display:none;
 }
-.detail::before { 
-    content: "...";
+.detail i{ 
     color:#333;
     position: absolute;
     top: -3px;
@@ -983,6 +981,7 @@ select::-ms-expand { display: none; }
 	transform:translateX(-50%);
 	-webkit-transform:translateX(-50%);
 	-moz-transform:translateX(-50%);
+	-ms-transform:translateX(-50%);
 	display:none;
 	z-index:21;
     max-width: 80%;
@@ -1008,3 +1007,7 @@ select::-ms-expand { display: none; }
 .condition+td{
 	text-align:left;
 } 
+.h_edit_txt select{
+	padding: 0 6px!important;
+	padding-right: 22px!important;
+}

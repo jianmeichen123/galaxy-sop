@@ -109,7 +109,7 @@ function tabInfoChange(index){
 				right_anchor(1);
 			}
 		});*/
-		window.location.href=platformUrl.toBaseInfo;
+		window.location.href=platformUrl.toBaseInfo+'?pid='+pid;
 	   }
 	   //项目
 		function initProjectInfo(){
