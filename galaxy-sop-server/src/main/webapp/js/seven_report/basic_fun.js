@@ -237,6 +237,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				
 				//计算项目估值
 				if(reportType=="3"){
+					$("input[type='hidden'].tz_money").val($("dd[data-title-id=\"3004\"]").text())
 					$.each($("input[data-type='19']"),function(){
 						var valRuleFormula=$(this).attr("data-valruleformula");
 						if(valRuleFormula){
