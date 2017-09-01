@@ -517,16 +517,17 @@ function editRow(ele)
 			getTotalAppr(projectInfo.id);
 			var totalMoneyPart=$("#totalMoneyPart").val();
 			$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-sum*10000)/10000);
-			$(".moeny_all input").on("input",function(){
+			$(".moeny_all input").on("blur",function(){
             	var val=$(this).val();
             	if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
-            		$("#formatRemainMoney").text((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000);
+            		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+            		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
             	}else{
             		$("#formatRemainMoney").text(0);
             	}
             	
             })
-            $(".remainMoney span").text((Number(totalMoneyPart)*10000-sum*10000)/10000);  //查看时的剩余金额
+            $(".remainMoney span").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);  //查看时的剩余金额
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input[type='text'],input[type='radio'],input[type='checkbox'],input[type='hidden'],select, textarea"),function(){
 				var ele = $(this);
@@ -662,7 +663,7 @@ function editRow(ele)
 					$("#save_appr_part").click(function(){
 						//运营验证分期计划拨款金额是否大于剩余金额
 		                var valInput=$(".moeny_all input").val();
-		                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
+		                if(valInput>((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000).toFixed(4)){
 		                	layer.msg("分期注资金额之和大于总注资金额");
 		 				   return;
 		                }
@@ -687,7 +688,7 @@ function editRow(ele)
 			$("#save-detail-btn").click(function(){
 				//验证分期计划拨款金额是否大于剩余金额
                 var valInput=$(".moeny_all input").val();
-                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
+                if(valInput>((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000).toFixed(4)){
                 	layer.msg("分期注资金额之和大于总注资金额");
  				   return;
                 }
@@ -778,10 +779,11 @@ function addRow(ele)
                 //计算剩余金额
                 var totalMoneyInit=$("#totalMoneyPart").val();
                 $("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000)/10000);
-                $(".moeny_all input").on("input",function(){
+                $(".moeny_all input").on("blur",function(){
                 	var val=$(this).val();
                 	if(Number(totalMoneyInit)-sum-val>0){
-                		$("#formatRemainMoney").text((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000);
+                		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
+                		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
                 	}else{
                 		$("#formatRemainMoney").text(0);
                 	}
@@ -790,7 +792,7 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                 	//验证分期计划拨款金额是否大于剩余金额
                     var valInput=$(".moeny_all input").val();
-                    if(valInput>(Number(totalMoneyInit)*10000-sum*10000)/10000){
+                    if(valInput>((Number(totalMoneyInit)*10000-sum*10000)/10000).toFixed(4)){
                     	layer.msg("分期注资金额之和大于总注资金额");
      				   return;
                     }
