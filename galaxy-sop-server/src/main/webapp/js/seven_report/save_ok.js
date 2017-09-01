@@ -419,13 +419,24 @@ $('div').delegate(".h_save_btn","click",function(event){
 								if(resultVal=="未填写"){
 									if(childrenVal=="未填写"){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
+										$("dd[data-title-id=\"3012\"]").next("dd").hide();
+									}else{
+										if(val==""){
+											$("dd[data-title-id=\"3012\"]").text("未填写");
+											$("dd[data-title-id=\"3012\"]").next("dd").hide();
+										}else{
+											$("dd[data-title-id=\"3012\"]").text(val);
+											$("dd[data-title-id=\"3012\"]").next("dd").show();
+										}
+									}
+								}else{
+									if(val==""){
+										$("dd[data-title-id=\"3012\"]").text("未填写");
+										$("dd[data-title-id=\"3012\"]").next("dd").hide();
 									}else{
 										$("dd[data-title-id=\"3012\"]").text(val);
 										$("dd[data-title-id=\"3012\"]").next("dd").show();
 									}
-								}else{
-									$("dd[data-title-id=\"3012\"]").text(val);
-									$("dd[data-title-id=\"3012\"]").next("dd").show();
 								}
 								
 							}							

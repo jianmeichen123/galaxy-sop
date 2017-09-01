@@ -199,6 +199,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	   default:
 		   reportType="";	  
 	}
+	if(reportType=="3"){   //获取股权占比值
+		var stockPencent=$("dd[data-title-id=\"3010\"]").text();
+	}
 	keyJSON["b_"+id_code]=key;
 	var sec = $(this).closest('.section');
 	var sTop=$(window).scrollTop();
@@ -264,10 +267,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var result=valRule[0];
 							var parent=valRule1[0];
 							var children=valRule1[1];
-							/*if(reportType=="3"){
-								var input='<input type="text" class="hidden" data-code="PNO1_1_2" data-title-id="'+result+'" data-type="19"/>';  //添加隐藏域
-								$("input[data-valruleformula='"+valRuleFormula+"']").after(input);
-							}*/
 						}
 						function calculationValuations(){  //编辑股权占比
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
@@ -289,10 +288,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 							
 						}
-					  /*if(reportType=="3"){
-						  var valuations = calculationValuations();
-							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
-						}*/
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
 							if(valuations != null && valuations != ""){
@@ -302,11 +297,17 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+							var val=$(this).val();
 							var valuations = calculationValuations();
-							if(valuations != null && valuations != ""){
-								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+							if(stockPencent!="未填写" && val==""){
+								$("input[data-title-id='"+result+"']").val("");
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+							}else{
+								if(valuations != null && valuations != ""){
+									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+								}
 							}
 						})
 					})
