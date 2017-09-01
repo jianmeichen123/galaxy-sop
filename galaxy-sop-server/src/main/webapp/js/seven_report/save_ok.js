@@ -207,13 +207,6 @@ $('div').delegate(".h_save_btn","click",function(event){
 			infoMode.remark1 = field.val();
 			if(reportType=="3"){   //特殊处理决策里面的投资金额
 				infoMode.reportType=3;
-				var tz_money=$("input[type='hidden'].tz_money").val();
-				var tz_edit_money=$("input[data-title-id=\"3004\"]").val();
-				if(tz_money!="未填写" && tz_edit_money==""){
-					infoMode.flag=1;
-				}else{
-					infoMode.flag=0;
-				}
 			}
 		}
 		else if(type==5){  
