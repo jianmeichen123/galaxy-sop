@@ -219,11 +219,13 @@ function tabOperateChange(index){
 					 totalMoneyActual=$(".moeny_all input").val();
 				 }
 				 var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
+				 var time=$("#field2").val();
 		        var index = div.index();
 			       $.getHtml({
 		       		url:"/sop/html/operation_appr_actual.html",//模版请求地址
 		       		data:"",//传递参数
 		       		okback:function(){
+		       			$(".opera_porp").find("#field2").val(time);  //时间重新赋值
 		       			  $("#appr_actual_title").html('编辑实际注资计划');
 		                   var json = getData(div);
 		                   if(json['id']!="null" && json['id']!=null){   //保存数据库
