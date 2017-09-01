@@ -199,6 +199,9 @@ $('div').delegate(".h_edit_btn","click",function(event){
 	   default:
 		   reportType="";	  
 	}
+	if(reportType=="3"){   //获取股权占比值
+		var stockPencent=$("dd[data-title-id=\"3010\"]").text();
+	}
 	keyJSON["b_"+id_code]=key;
 	var sec = $(this).closest('.section');
 	var sTop=$(window).scrollTop();
@@ -247,7 +250,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				
 				//运营报告中【融资估值中分期添加按钮隐藏】
 				if(reportType=="7" && id_code=="ONO9_2"){
-					$("#add_row").hide();
+					$("#add_row").remove();
 				}
 				
 				//计算项目估值
@@ -264,10 +267,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							var result=valRule[0];
 							var parent=valRule1[0];
 							var children=valRule1[1];
-							/*if(reportType=="3"){
-								var input='<input type="text" class="hidden" data-code="PNO1_1_2" data-title-id="'+result+'" data-type="19"/>';  //添加隐藏域
-								$("input[data-valruleformula='"+valRuleFormula+"']").after(input);
-							}*/
 						}
 						function calculationValuations(){  //编辑股权占比
 							var projectParent = $("dd[data-title-id='"+parent+"']").text();
@@ -289,10 +288,6 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 							
 						}
-					  /*if(reportType=="3"){
-						  var valuations = calculationValuations();
-							$("input[data-title-id='"+result+"']").val(valuations.toFixed(4));
-						}*/
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
 							if(valuations != null && valuations != ""){
@@ -302,11 +297,17 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							}
 						});
 						$("div").delegate("input[data-title-id='"+children+"']","blur",function(){
+							var val=$(this).val();
 							var valuations = calculationValuations();
-							if(valuations != null && valuations != ""){
-								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+							if(stockPencent!="未填写" && val==""){
+								$("input[data-title-id='"+result+"']").val("");
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
-								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+							}else{
+								if(valuations != null && valuations != ""){
+									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
+									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
+									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
+								}
 							}
 						})
 					})
@@ -671,7 +672,7 @@ function editRow(ele)
 					$("#save_appr_part").click(function(){
 						//运营验证分期计划拨款金额是否大于剩余金额
 		                var valInput=$(".moeny_all input").val();
-		                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+		                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
 		                	layer.msg("分期注资金额之和大于总注资金额");
 		 				   return;
 		                }
@@ -696,7 +697,7 @@ function editRow(ele)
 			$("#save-detail-btn").click(function(){
 				//验证分期计划拨款金额是否大于剩余金额
                 var valInput=$(".moeny_all input").val();
-                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
                 	layer.msg("分期注资金额之和大于总注资金额");
  				   return;
                 }
@@ -799,7 +800,7 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                 	//验证分期计划拨款金额是否大于剩余金额
                     var valInput=$(".moeny_all input").val();
-                    if(valInput>Number(totalMoneyInit)-sum){
+                    if(valInput>(Number(totalMoneyInit)*10000-sum*10000)/10000){
                     	layer.msg("分期注资金额之和大于总注资金额");
      				   return;
                     }
