@@ -247,7 +247,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 				
 				//运营报告中【融资估值中分期添加按钮隐藏】
 				if(reportType=="7" && id_code=="ONO9_2"){
-					$("#add_row").hide();
+					$("#add_row").remove();
 				}
 				
 				//计算项目估值
