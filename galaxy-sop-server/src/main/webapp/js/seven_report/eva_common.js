@@ -194,7 +194,7 @@ function showResultAndScoreList(relateId)
 					var part_weight =$("#part-weight").text();
 					if(part_weight=="0%"){
 						$(".new_tit_b p").last().remove();
-						$(".new_tit_b").append("<p>请选择本轮的融资轮次以查看正确的评测结果</p>")
+						$(".new_tit_b").append("<p>请选择本轮的融资轮次以查看正确的评测结果！</p>")
 					}
 					
 					

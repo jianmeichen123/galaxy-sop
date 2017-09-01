@@ -1418,7 +1418,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .label_static1{position:relative;}
 .new_tit_a{ width:100%; overflow:hidden; height:auto; color:#5192ff;font-size:12px;}
 .new_tit_b{ width:75%; /* overflow:hidden; */ height:60px;  color:#596071;}
-.new_tit_b p{display: inline-block;padding-top: 22px;font-size: 14px;color: #ff8181;}
+.new_tit_b p{display: inline-block;padding-top: 22px;font-size: 14px;color: #FF4F4F;}
 .new_tit_a a ,.new_tit_b a{ text-decoration:none; color:#9097aa;}
 .new_tit_a img.arrow{display:inline-block;margin:0px 4px;}
 .new_tit_a a{font-family: "Microsoft YaHei";line-height: 20px;}
