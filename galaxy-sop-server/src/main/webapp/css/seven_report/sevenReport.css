@@ -713,6 +713,8 @@ table td select option{
  	height: 40px;
  	width: 130px;
  }
+ .reasonable_stock i.wrong,.customer_income i.wrong{
+     right: 10px;}
  .ch_reason_stock{
  	height: 18px;
  }
