@@ -671,7 +671,7 @@ function editRow(ele)
 					$("#save_appr_part").click(function(){
 						//运营验证分期计划拨款金额是否大于剩余金额
 		                var valInput=$(".moeny_all input").val();
-		                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+		                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
 		                	layer.msg("分期注资金额之和大于总注资金额");
 		 				   return;
 		                }
@@ -696,7 +696,7 @@ function editRow(ele)
 			$("#save-detail-btn").click(function(){
 				//验证分期计划拨款金额是否大于剩余金额
                 var valInput=$(".moeny_all input").val();
-                if(valInput>Number(totalMoneyPart)-(sum-Number(valtr))){
+                if(valInput>(Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000){
                 	layer.msg("分期注资金额之和大于总注资金额");
  				   return;
                 }
@@ -799,7 +799,7 @@ function addRow(ele)
                 $("#save-detail-btn").click(function(){
                 	//验证分期计划拨款金额是否大于剩余金额
                     var valInput=$(".moeny_all input").val();
-                    if(valInput>Number(totalMoneyInit)-sum){
+                    if(valInput>(Number(totalMoneyInit)*10000-sum*10000)/10000){
                     	layer.msg("分期注资金额之和大于总注资金额");
      				   return;
                     }
