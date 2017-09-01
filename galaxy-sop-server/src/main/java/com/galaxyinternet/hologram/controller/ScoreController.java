@@ -1,19 +1,15 @@
 package com.galaxyinternet.hologram.controller;
 
-import com.galaxyinternet.framework.core.constants.Constants;
-import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.model.hologram.ReportParam;
-import com.galaxyinternet.model.hologram.ScoreInfo;
-import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.hologram.InformationProgressService;
-import com.galaxyinternet.service.hologram.ScoreInfoService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +22,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.model.hologram.ReportParam;
+import com.galaxyinternet.model.hologram.ScoreInfo;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Controller
 @RequestMapping("/galaxy/score")
@@ -98,7 +102,8 @@ public class ScoreController
 				scores.putAll(otherScores);
 				total = total.add(scores.get(parentId));
 			}
-			scores.put(parentId+"", total.setScale(2, RoundingMode.HALF_DOWN));
+			scores.put(parentId+"", total);
+			roundHalfUp(scores);
 			data.getUserData().putAll(scores);
 
 		} catch (Exception e)
@@ -150,6 +155,7 @@ public class ScoreController
 				Map<String,BigDecimal> childrenScores = scoreService.calculateMutipleReport(relateIds, projectId);
 				scores.putAll(childrenScores);
 			}
+			roundHalfUp(scores);
 			data.getUserData().putAll(scores);
 		} catch (Exception e)
 		{
@@ -159,6 +165,15 @@ public class ScoreController
 		}
 		
 		return data;
+	}
+	
+	private void roundHalfUp(Map<String,BigDecimal> scores)
+	{
+		Set<Map.Entry<String, BigDecimal>> items = scores.entrySet();
+		for(Map.Entry<String, BigDecimal> item : items)
+		{
+			item.setValue(item.getValue().setScale(2, RoundingMode.HALF_UP));
+		}
 	}
 	
 	
