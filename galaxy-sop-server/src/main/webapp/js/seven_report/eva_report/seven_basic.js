@@ -245,6 +245,7 @@
 								}
 								$("table[data-title-id='"+n.relateId+"']").append(tr_html);
 							}
+							check_table_tr_edit();
 						}else if(d_type==12){
 							if(n.val!="未选择"){
 								$(".h_edit_txt dt[data-code='"+n.code+"']").siblings("dd").find("li input[type='radio'][value='"+n.titleValue+"']").attr("checked","checked");
