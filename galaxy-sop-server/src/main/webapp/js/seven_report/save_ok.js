@@ -22,6 +22,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 	var data = {
 		projectId : projectInfo.id
 	};
+	if(reportType=="3"){   //获取投资金额
+		var tz_moneyNew=$("input[data-title-id=\"3004\"]").val();
+	}
 	if(!$("#b_"+id_code).validate().form())
 	{
 		return;
@@ -414,8 +417,13 @@ $('div').delegate(".h_save_btn","click",function(event){
 							picData(projectInfo.id);
 							if(id_code=="PNO1_1"){   //投资金额单独刷新
 								var val=$("input[type='hidden'].money").val();
+								var parentVal=$("dd[data-title-id=\"3004\"]").text();
 								var childrenVal=$("dd[data-title-id=\"3010\"]").text();
 								var resultVal=$("dd[data-title-id=\"3012\"]").text();
+								if(tz_moneyNew=="" && val!="未填写"){
+									$("dd[data-title-id=\"3012\"]").text("未填写");
+									$("dd[data-title-id=\"3012\"]").next("dd").hide();
+								}
 								if(resultVal=="未填写"){
 									if(childrenVal=="未填写"){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
@@ -430,13 +438,13 @@ $('div').delegate(".h_save_btn","click",function(event){
 										}
 									}
 								}else{
-									if(val==""){
+									/*if(val==""){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
 										$("dd[data-title-id=\"3012\"]").next("dd").hide();
 									}else{
 										$("dd[data-title-id=\"3012\"]").text(val);
 										$("dd[data-title-id=\"3012\"]").next("dd").show();
-									}
+									}*/
 								}
 								
 							}							

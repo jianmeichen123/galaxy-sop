@@ -38,6 +38,8 @@ var path = '<%=path%>';
 		<div id="tab-content base" class="base_tab-content"  data-id="tab-block">
 		<div class="tabtxt" id="page_all"> 
 			<input type="hidden" type="19" class="money">
+			<input type="hidden" type="19" class="tz_money">
+			<input type="hidden" type="19" class="zb_money">
 			
 		</div>
 	</div>
