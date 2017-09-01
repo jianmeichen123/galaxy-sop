@@ -866,25 +866,26 @@ ul,li{list-style:none;padding:0;margin:0;}
     border-radius: 2px;
 } 
 .dropdown ul{
-	width:93%; 
+	width:95%; 
 	background:#fff; 	
-	border:1px solid #979797; 	
+	border:.5px solid #979797; 	
 	display:none;
 	margin:0 auto;
-	margin-top:2px;
+	margin-top:-1px;
+	border-radius: 2px;
 } 
 .dropdown ul li{
 	padding:2px 5px;
 	line-height:24px; 
-	border-bottom: 1px solid #d8d8d8;
+	border-bottom: .5px solid #d8d8d8;
 	cursor: pointer;
 	text-align:center;
 	display:block; 
 	color:#666666;; 
 
 }
-.dropdown ul li:hover{
-	
+.dropdown ul lilast-child{
+	border-bottom:0px;
 } 
 .up{
 	background: url(../../img/seven_report/up.png) no-repeat center right 7px;
