@@ -184,6 +184,7 @@ $(function(){
           }
         w_lft=$(".lft").width();
         w_ritmin=w_win-w_rit-w_lft;
+       // alert(w_ritmin)
 		var Sys = {};
 		var ua = navigator.userAgent.toLowerCase();
 		var s;
@@ -191,7 +192,8 @@ $(function(){
 		(s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
 		 0;
 		if(Sys.ie!=undefined){
-			w_ritmin=w_ritmin-25;
+			//w_ritmin=w_ritmin-25;
+			w_ritmin=w_ritmin-10;
 		}else{
 			w_ritmin=w_ritmin-10;
 		}
