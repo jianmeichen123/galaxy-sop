@@ -217,10 +217,16 @@ function popScore(titles,relateId)
 		if(rid == 0)
 		{
 			score=score.toFixed(2);
+			if(score==0.00){
+				score=0
+			}
 			$("#total-score").text(score);
 		}
 		else if(rid == relateId)
 		{
+			if(score==0.00){
+				score=0
+			}
 			$("#part-score").text(score);
 		}
 		else
