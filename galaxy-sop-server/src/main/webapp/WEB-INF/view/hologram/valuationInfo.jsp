@@ -238,6 +238,12 @@ var deleteJSON={};
 		var save_this = $(this).parents('.radius');
 		var btn = this;
 		var id_code = $(this).attr('attr-save');
+		var parent_code;
+		if(id_code && id_code.indexOf("_") > 0){
+				var arr = new Array();
+				arr = id_code.split("_");
+				parent_code = arr[0];
+	    }
 		event.stopPropagation();
 		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
@@ -362,7 +368,9 @@ var deleteJSON={};
 						function(data) {
 							var result = data.result.status;
 							if (result == 'OK') {
-								updateInforTime(projectInfo.id,"financingTime");
+								if(parent_code){
+				            		updateInforTime(projectInfo.id,parent_code);
+				            	}
 								layer.msg('保存成功');
 								$(".h#a_"+id_code).css("background","#fff");
 								$(".bj_hui_on").hide();
