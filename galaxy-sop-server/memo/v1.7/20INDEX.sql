@@ -28,4 +28,4 @@ ALTER TABLE `fx_db`.`information_listdata`
 ALTER TABLE `fx_db`.`information_result`
   ADD  INDEX `pid_tid` (`project_id`, `title_id`);
 ALTER TABLE `fx_db`.`information_result_grade`
-  ADD  INDEX `pid_tid` (`project_id`, `title_relate_id`);
+  ADD  INDEX `pid_tid` (`project_id`, `title_relate_id`);                 

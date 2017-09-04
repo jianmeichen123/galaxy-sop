@@ -1,3 +1,9 @@
+﻿
+/*全息报告标题表 增加自动计算公式的字段，处理题目之间自动计算逻辑*/
+ALTER TABLE `fx_db`.`information_title` 
+ADD COLUMN `val_rule_formula` VARCHAR(50) NULL COMMENT '验证规则题之间自动计算公式' AFTER `val_rule_mark`;
+
+
 /*项目估值自动计算公式*/
 UPDATE `fx_db`.`information_title` SET `val_rule_formula`='1943=1916/1917' WHERE `id`='1916';
 UPDATE `fx_db`.`information_title` SET `val_rule_formula`='1943=1916/1917' WHERE `id`='1917';
