@@ -24,6 +24,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 	};
 	if(reportType=="3"){   //获取投资金额
 		var tz_moneyNew=$("input[data-title-id=\"3004\"]").val();
+		var parentVal=$("dd[data-title-id=\"3004\"]").text();
+		var childrenVal=$("dd[data-title-id=\"3010\"]").text();
+		var resultVal=$("dd[data-title-id=\"3012\"]").text();
 	}
 	if(!$("#b_"+id_code).validate().form())
 	{
@@ -415,39 +418,49 @@ $('div').delegate(".h_save_btn","click",function(event){
 							//$('#a_'+id_code).find('dd[data-type="3"]').hide();
 							//setDate(pid,true);
 							picData(projectInfo.id);
-							if(id_code=="PNO1_1"){   //投资金额单独刷新
+							if(id_code=="PNO1_1"){
 								var val=$("input[type='hidden'].money").val();
-								var parentVal=$("dd[data-title-id=\"3004\"]").text();
-								var childrenVal=$("dd[data-title-id=\"3010\"]").text();
-								var resultVal=$("dd[data-title-id=\"3012\"]").text();
-								if(tz_moneyNew=="" && val!="未填写"){
-									$("dd[data-title-id=\"3012\"]").text("未填写");
-									$("dd[data-title-id=\"3012\"]").next("dd").hide();
-								}
-								if(resultVal=="未填写"){
-									if(childrenVal=="未填写"){
+								$("dd[data-title-id=\"3012\"]").text(val);
+								$("dd[data-title-id=\"3012\"]").next("dd").show();
+								if(resultVal!="未填写" && childrenVal=="未填写"){
+									if(parentVal!="未填写" && tz_moneyNew==""){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
 										$("dd[data-title-id=\"3012\"]").next("dd").hide();
-									}else{
-										if(val==""){
-											$("dd[data-title-id=\"3012\"]").text("未填写");
-											$("dd[data-title-id=\"3012\"]").next("dd").hide();
-										}else{
-											$("dd[data-title-id=\"3012\"]").text(val);
-											$("dd[data-title-id=\"3012\"]").next("dd").show();
-										}
+									}else if(parentVal=="未填写" && tz_moneyNew!=""){
+										$("dd[data-title-id=\"3012\"]").text("未填写");
+										$("dd[data-title-id=\"3012\"]").next("dd").hide();
+									}else if(parentVal==tz_moneyNew){
+										$("dd[data-title-id=\"3012\"]").text(resultVal);
+										$("dd[data-title-id=\"3012\"]").next("dd").show();
+									}else if(parentVal!=tz_moneyNew){
+										$("dd[data-title-id=\"3012\"]").text("未填写");
+										$("dd[data-title-id=\"3012\"]").next("dd").hide();
 									}
-								}else{
-									/*if(val==""){
+								}else if(resultVal=="未填写" && childrenVal=="未填写"){
+									if(tz_moneyNew!=""){
 										$("dd[data-title-id=\"3012\"]").text("未填写");
 										$("dd[data-title-id=\"3012\"]").next("dd").hide();
-									}else{
+									}else if(parentVal!=tz_moneyNew){
+										$("dd[data-title-id=\"3012\"]").text("未填写");
+										$("dd[data-title-id=\"3012\"]").next("dd").hide();
+									}
+								}
+								if(childrenVal!="未填写"){
+									if(parentVal==tz_moneyNew && resultVal=="未填写"){
+										$("dd[data-title-id=\"3012\"]").text("未填写");
+										$("dd[data-title-id=\"3012\"]").next("dd").hide();
+									}else if(parentVal=="未填写" && tz_moneyNew!=""){
 										$("dd[data-title-id=\"3012\"]").text(val);
 										$("dd[data-title-id=\"3012\"]").next("dd").show();
-									}*/
+									}else if(parentVal==tz_moneyNew && resultVal!="未填写"){
+										$("dd[data-title-id=\"3012\"]").text(resultVal);
+										$("dd[data-title-id=\"3012\"]").next("dd").show();
+									}else if(parentVal!="未填写" && tz_moneyNew==""){
+										$("dd[data-title-id=\"3012\"]").text("未填写");
+										$("dd[data-title-id=\"3012\"]").next("dd").hide();
+									}
 								}
-								
-							}							
+							}
                             $('table').each(function(){
                                 resizetable($(this))
                                 if($(this).find('tr').length<=1){

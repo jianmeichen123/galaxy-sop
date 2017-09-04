@@ -511,9 +511,11 @@ function buildResults(sec,title,readonly)
 		{
 			if(title.id=="3012"){
 				var num =title.resultList[0].contentDescribe1;
-				var nums=num.split(".");
-				nums[1]= nums[1].slice(0,4);
-				num = nums.toString(".");
+				if(num!=undefined && num!=""){
+					var nums=num.split(".");
+					nums[1]= nums[1].slice(0,4);
+					num = nums.toString(".");
+				}
 			}
 			
 		
@@ -524,7 +526,7 @@ function buildResults(sec,title,readonly)
 					var nums=num.split(".");
 					nums[1]= nums[1].slice(0,4);
 					num = nums.toString(".");*/
-					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":num);
+					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num);
 				}else{
 					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
 				}
