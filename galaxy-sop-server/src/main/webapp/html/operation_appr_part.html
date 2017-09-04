@@ -144,9 +144,10 @@ $("div").delegate(".appr_part_add","click",function(event){
 					 $("#remainMoney").val(data.remainMoney);
 					 totalMoneyActual=$(".moeny_all input").val();
 					 remainActualMoney=(Number(totalMoneyActual)*10000-sum*10000)/10000;
-					 $("#formatRemainActualMoney").text(remainActualMoney);
+					 $("#formatRemainActualMoney").text(remainActualMoney.toFixed(4)*10000/10000);
 				 }else{
-					 $("#formatRemainActualMoney").text((Number(formatRemainActualMoney)*10000-sum*10000)/10000);
+					 var formatRemainActualMoneyNew=Number(formatRemainActualMoney)-sum;
+					 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
 					 totalMoneyActual=formatRemainActualMoney;
 					 remainActualMoney=Number(totalMoneyActual)-sum;
 				 }
@@ -157,7 +158,8 @@ $("div").delegate(".appr_part_add","click",function(event){
 						 if(val>remainActualMoney){
 							 $("#formatRemainActualMoney").text("0");
 						 }else{
-							 $("#formatRemainActualMoney").text((remainActualMoney*10000-val*10000)/10000);
+							 var formatRemainActualMoney=remainActualMoney-val;
+							 $("#formatRemainActualMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
 						 }
 					 }
 				 })

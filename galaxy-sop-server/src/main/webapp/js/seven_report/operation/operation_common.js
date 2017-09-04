@@ -231,12 +231,14 @@ function tabOperateChange(index){
 		                   if(json['id']!="null" && json['id']!=null){   //保存数据库
 		                   $("#actual-form").find("[name='id']").val(json['id']);
 		                      var data = getTotalApprActual(json['id']);
-		                      $("#formatRemainActualMoney").text(data.totalMoney-sum);
+		                      var formatRemainActualMoneyNew=data.totalMoney-sum;
+		                      $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
 		                      $("#remainMoneyActual").val(data.remainMoney);
 		     				  $("#totalMoneyActual").val(data.totalMoney);
 		                   }else{   //未保存数据库
 		                	   var moneyActualHave=$(".moeny_all input").val();   //分拨计划金额
-		                	   $("#formatRemainActualMoney").text(Number(moneyActualHave)-sum);
+		                	   var formatRemainActualMoneyNew=Number(moneyActualHave)-sum;
+		                	   $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
 			     			   $("#totalMoneyActual").val(totalMoneyActual);
 		                   }
 		                   $("#actual-form").find("[name='code']").val(json['code']);
@@ -260,7 +262,8 @@ function tabOperateChange(index){
 									 if(val>remainActualMoney+Number(oldgrantMoney)){
 										 $("#formatRemainActualMoney").text("0");
 									 }else{
-										 $("#formatRemainActualMoney").text((remainActualMoney*10000+Number(oldgrantMoney)*10000-val*10000)/10000);
+										 var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
+										 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
 									 }
 								 }
 							 })

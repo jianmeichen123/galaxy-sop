@@ -77,7 +77,7 @@ $(function(){
 			 //验证计划拨款金额是否大于剩余金额
 			   var apprActualMoney=$("#grantMoney").val();
 			   var newRemainMoneyActual=$("#newRemainMoneyActual").val();
-			   if(Number(apprActualMoney)>Number(newRemainMoneyActual)){
+			   if(Number(apprActualMoney).toFixed(4)*10000/10000>Number(newRemainMoneyActual).toFixed(4)*10000/10000){
 				   layer.msg("实际注资金额之和大于分期注资金额");
 				   return;
 			   }
