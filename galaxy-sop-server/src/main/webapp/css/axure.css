@@ -2486,6 +2486,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_p_one{ width:100%; overflow:hidden;}
 .team_p_one span{margin-right:5px;}
 .team_p_two{ margin-left:14px; overflow:hidden; margin-top:5px;}
+.team_p_two{white-span:wrap;word-break:break-word;}
 .team_p_two ul li{ float:left; margin-right:30px; margin-bottom: 7px;}
 .team_ico_study {width:23px; height:19px;background-position:-51px 0px;  display:block; float:left;}
 .team_ico_work {width:23px; height:19px;background-position:-77px 0px;  display:block; float:left;}
