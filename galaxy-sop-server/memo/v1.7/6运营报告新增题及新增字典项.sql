@@ -1,6 +1,6 @@
 /*投资方案*/
-INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (1266,'1202',NULL,'是否经历了转向',205.500,2,2,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
-INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (1267,'1218',NULL,'产品服务用户体验',226.500,8,2,NULL,'o',0,'请填写',NULL,NULL,NULL,NULL,0,'1','2000');
+INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (1268,'1202',NULL,'是否经历了转向',205.500,2,2,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);
+INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (1269,'1218',NULL,'产品服务用户体验',226.500,8,2,NULL,'o',0,'请填写',NULL,NULL,NULL,NULL,0,'1','2000');
 
 /*团队*/
 INSERT INTO `information_title` (`id`,`parent_id`,`code`,`name`,`index_no`,`type`,`sign`,`content`,`is_show`,`is_valid`,`placeholder`,`created_time`,`create_id`,`updated_time`,`update_id`,`is_must`,`val_rule`,`val_rule_mark`) VALUES (1387,'1363',NULL,'达成该项目需要的核心能力不足部分的完善是否如期完成',272.100,2,2,NULL,'o',0,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL);

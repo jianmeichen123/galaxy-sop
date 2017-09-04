@@ -1,4 +1,4 @@
-﻿CREATE TABLE `fx_db`.`information_result_grade` (
+CREATE TABLE `fx_db`.`information_result_grade` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '分数表主键，自增长',
   `project_id` BIGINT(20) NULL COMMENT '项目ID（关联sop_project表ID）',
   `title_relate_id` BIGINT(20) NULL COMMENT '关联relate表ID',

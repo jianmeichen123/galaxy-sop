@@ -11,4 +11,3 @@ ALTER TABLE `fx_db`.`information_operation_time`
   CHANGE `time3` `other_business_time` datetime COMMENT '其他事宜时间';
 ALTER TABLE `fx_db`.`information_operation_time`   
   CHANGE `time4` `market_development_time` datetime COMMENT '市场与开发时间';
-ALTER TABLE `fx_db`.`information_operation_time` 

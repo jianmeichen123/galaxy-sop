@@ -38,8 +38,6 @@ INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`na
 INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`name`,`field_1`,`sub_title_id1`,`field_2`,`sub_title_id2`,`field_3`,`sub_title_id3`,`field_4`,`sub_title_id4`,`field_5`,`sub_title_id5`,`field_6`,`sub_title_id6`,`field_7`,`sub_title_id7`,`field_8`,`sub_title_id8`,`field_9`,`sub_title_id9`,`field_10`,`sub_title_id10`,`is_valid`,`created_time`,`create_id`,`updated_time`,`update_id`,`fun_flag`) VALUES (19,2067,'operation-indices',NULL,'上一轮融资后关键运营指标变化','指标名称',2035,'融资时指标值',2036,'目前指标值',2037,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0');
 
 
-INSERT INTO `fx_db`.`information_listdata_remark` (`id`, `title_id`, `code`, `sub_code`, `name`, `field_1`, `field_2`, `field_3`) VALUES ('20', '3022', 'grant-actual', 'grant-part', '实际注资计划', '注资名称', '注资时间', '注资金额');
-
 
 
 
