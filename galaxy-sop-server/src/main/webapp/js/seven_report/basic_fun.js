@@ -63,6 +63,9 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				
 		    },
 			Error: function(up, err) {
+				if(err.code==-600){
+					layer.msg("图片不能大于2M");
+				}
 			}
 			
 		}

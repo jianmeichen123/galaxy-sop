@@ -396,7 +396,6 @@ getData();
 						$("#h_imgs_add_"+typeid).hide();
 						//return;
 					}
-					console.log(uploader.browse_button);
 					for(var i = 0, len = files.length; i<len; i++){
 						var file_name = files[i].name; //文件名
 						//构造html来更新UI
@@ -421,6 +420,10 @@ getData();
 					
 			    },
 				Error: function(up, err) {
+					if(err.code==-600){
+						layer.msg("图片不能大于2M");
+					}
+					
 				}
 				
 			}
