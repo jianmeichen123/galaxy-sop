@@ -1000,6 +1000,7 @@ $('div').delegate(".master_pic","click",function(){
 	$(".mashLayer").show().css('opacity',0.5);
 	var  _src = $(this).prev().attr("src");
 	var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+	var m_left = $(".o_picture").width()/2;
 	$(".o_picture").attr("src",_src).show().css({
 			'top':scrollTop+70,
 			 "margin-left":-m_left
