@@ -3550,7 +3550,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray{
 	cursor:default;
 }
-.grantPartTc{max-height:460px;overflow-y:auto;}
+.grantPartTc{max-height:460px;overflow-y:auto;overflow-x:hidden;}
 .see_block .see_more{font-size:12px;font-family:"宋体";position:absolute;bottom:-15px;right:35px;}
 .see_block .see_more .blue{cursor:pointer;}
 .injection .see_block{position:relative;}
