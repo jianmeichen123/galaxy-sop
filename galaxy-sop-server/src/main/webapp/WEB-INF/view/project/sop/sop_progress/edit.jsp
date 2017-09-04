@@ -326,7 +326,11 @@ function initViewUpload() {
 				//$("#file_object").text("");
 				$("#select_btn").text("选择文件");
 				//$("#file_object").removeClass("audio_name");
-				layer.msg("最大支持"+up.settings.filters.max_file_size);
+				if(err.code=="-600"){
+					layer.msg("最大支持"+up.settings.filters.max_file_size);
+				}else if(err.code=="-601"){
+					layer.msg("文件类型错误");
+				}
 				return false;
 			}
 		}
