@@ -820,6 +820,8 @@ $("#save-rpt-btn").click(function(){
 	var edit_status = false;
 	var scores=$(".score-columns");
 	var scores_status = false;
+	var parent_code;
+	parent_code=$("#eva-tabs").find("li.active").attr("data-code");
 	$.each(editbox,function(){
 		if(!$(this).is(":hidden")){
 			edit_status=true;
@@ -856,6 +858,9 @@ $("#save-rpt-btn").click(function(){
 			function(data) {
 				var result = data.result.status;
 				if (result == 'OK') {
+					if(parent_code){
+	            		updateInforTime(projectInfo.id,parent_code);
+	            	}
 					var relateId = $("#eva-tabs li.active").data('relateId');
 					showResultAndScoreList(relateId);
 					deletedRowIds=[];
