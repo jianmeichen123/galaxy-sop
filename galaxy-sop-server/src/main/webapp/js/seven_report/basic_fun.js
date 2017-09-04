@@ -133,9 +133,12 @@ $('div').delegate(".h_cancel_btn","click",function(event){
     {
         deletedRowIdsGq = new Array();
     }
-    var code=_this.find("table").attr("data-code");
+    $.each(_this.find("table"),function(){
+    	var code=$(this).attr("data-code");
+    	 resizetable($("table[data-code='"+code+"']"));
+    })
     
-    resizetable($("table[data-code='"+code+"']"));
+   
 });
 
 //通用编辑显示
