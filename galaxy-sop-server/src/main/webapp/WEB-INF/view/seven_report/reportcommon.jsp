@@ -33,7 +33,7 @@ position:absolute;
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
 	<div class="new_tit_a" id="top_menu"><a href="javascript:;" onclick="backList()">创投项目</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>
-	<a id="project_name_title" href="javascript:;" onclick="backProject()"></a><img alt="" src="<%=path %>/img/arrow-brumd.png"  class="arrow"/> <span class="report_type"></span>
+	<a id="project_name_title" href="javascript:;" onclick="backProject()"></a><img alt="" src="<%=path %>/img/arrow-brumd.png"  class="arrow"/>&nbsp;<span class="report_type"></span>
 	</div>
     	
     	<div class="new_tit_b">
