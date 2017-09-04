@@ -2486,6 +2486,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_p_one{ width:100%; overflow:hidden;}
 .team_p_one span{margin-right:5px;}
 .team_p_two{ margin-left:14px; overflow:hidden; margin-top:5px;}
+.team_p_two{word-break:break-all;}
 .team_p_two ul li{ float:left; margin-right:30px; margin-bottom: 7px;}
 .team_ico_study {width:23px; height:19px;background-position:-51px 0px;  display:block; float:left;}
 .team_ico_work {width:23px; height:19px;background-position:-77px 0px;  display:block; float:left;}
@@ -2707,7 +2708,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 }
 .anchor_nav li.active,.anchor_navs li.active{background-image:url('../img/anchora.png'); background-position: 0 6px;}
 .anchor_btn{padding: 30px 0 0px 20px; background:#fff; }
-.anchor_btn p{z-index:99;color:#333; font-size:12px; line-height:28px;position:relative;}
+.anchor_btn p{color:#333; font-size:12px; line-height:28px;position:relative;}
 .anchor_btn span{cursor:pointer;position:absolute;right:28px;top:28px;width:50px;height:28px;background:url('../img/navhide_btn.png') no-repeat center;}
 .anchor_btn span.invisible{background-image:url('../img/navshow_btn.png');}
 .anchor_btn span.unabled{cursor:not-allowed;background-color:#fff;}

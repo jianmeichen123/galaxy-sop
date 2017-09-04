@@ -665,22 +665,30 @@ table td select option{
  }
 
  .reasonable_stock{
- 	width: auto;
+ 	width: 280px;
  	height: auto;
  	border: 1px solid #979797;
  	position: absolute;
  	top: 30px;
  	left: 300px;
- 	padding: 10px;
+ 	padding: 10px 0;
  	background: #fff;
  	max-width: 477px;
  	max-height: 145px;
  	display: none;
  	z-index: 999;
- 	overflow:auto;
+ 	
+ }
+ .reasonable_out{
+ width: 280px;
+ 	height: auto;
+ max-height: 145px;
+ overflow:auto;
  }
  .reasonable_box{
- max-height: 127px;
+    width: 260px;
+    max-height: 127px;
+    margin: 0 auto;
 
  }
  .reasonable_stock:before{
@@ -871,26 +879,35 @@ ul,li{list-style:none;padding:0;margin:0;}
 	width:83%;
 	height:24px; 
 	line-height:24px; 
-	margin:0 auto;
 	border:.5px solid #979797; 
 	background: url(../../img/seven_report/down.png) no-repeat center right 7px;
 	padding: 0 18px 0 9px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    display: block;
     overflow: hidden;
     font-size:12px;
     text-align:left;
     color:#3e4351;
     border-radius: 2px;
+    -moz-box-sizing: border-box;  
+     -webkit-box-sizing: border-box; 
+     -o-box-sizing: border-box; 
+     -ms-box-sizing: border-box; 
+     box-sizing: border-box; 
+     margin:0 auto;
 } 
 .dropdown ul{
-	width:95%; 
+	width:83%; 
 	background:#fff; 	
 	border:.5px solid #979797; 	
 	display:none;
 	margin:0 auto;
 	margin-top:-1px;
 	border-radius: 2px;
+	-moz-box-sizing: border-box;  
+     -webkit-box-sizing: border-box; 
+     -o-box-sizing: border-box; 
+     -ms-box-sizing: border-box; 
+     box-sizing: border-box; 
 } 
 .dropdown ul li{
 	padding:2px 5px;
@@ -950,12 +967,12 @@ select::-ms-expand { display: none; }
     vertical-align: top;
     border: none;
     cursor: pointer;
-    margin-top: 7px;
+    margin-top: 6px;
     margin-left:3px;
 }
 .icheckbox_flat-blue{margin-left:5px;}
 .iradio_flat-blue.checked{
-	background-position:-58px -5px !important;
+	background-position:-57px -5px !important;
 }
 .iradio_flat-blue{
 	background-position: -71px -4px !important;
