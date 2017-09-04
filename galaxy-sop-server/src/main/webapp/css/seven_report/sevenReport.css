@@ -665,22 +665,30 @@ table td select option{
  }
 
  .reasonable_stock{
- 	width: auto;
+ 	width: 280px;
  	height: auto;
  	border: 1px solid #979797;
  	position: absolute;
  	top: 30px;
  	left: 300px;
- 	padding: 10px;
+ 	padding: 10px 0;
  	background: #fff;
  	max-width: 477px;
  	max-height: 145px;
  	display: none;
  	z-index: 999;
- 	overflow:auto;
+ 	
+ }
+ .reasonable_out{
+ width: 280px;
+ 	height: auto;
+ max-height: 145px;
+ overflow:auto;
  }
  .reasonable_box{
- max-height: 127px;
+    width: 260px;
+    max-height: 127px;
+    margin: 0 auto;
 
  }
  .reasonable_stock:before{

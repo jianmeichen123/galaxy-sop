@@ -90,21 +90,22 @@ var pageId = "project";
 		
 <!-- 股权结构展示弹窗 -->	
 	<div class="reasonable_stock">
-		<div class="Button popupButton ch_reason_stock">
-				<i class="wrong close_tab"></i>
+		<div class="reasonable_out">
+			<div class="Button popupButton ch_reason_stock">
+					<i class="wrong close_tab"></i>
+			</div>
+				<div class="reasonable_box">
+					<table border="1">
+						<thead>
+							<th>持股人</th>
+							<th>持股比例（%）</th>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
 		</div>
-		<div class="reasonable_box">
-			<table border="1">
-				<thead>
-					<th>持股人</th>
-					<th>持股比例（%）</th>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-		</div>
-	</div>
-		
+	</div>	
 </div>
 	<!-- 遮罩层 -->
 	<div class="mashLayer"></div>
