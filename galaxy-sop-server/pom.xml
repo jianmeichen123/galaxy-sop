@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
+	<parent> 
 		<groupId>com.galaxyinternet</groupId>
 		<artifactId>galaxy-sop</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.0-fz</version>
 	</parent>
 	<artifactId>galaxy-sop-server</artifactId>
 	<packaging>war</packaging>
@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.1.RELEASE</spring.version>
-		<dependency.project>1.0.2-SNAPSHOT</dependency.project>
+		<dependency.project>1.0.0-fz</dependency.project>
 	</properties>
 
 	<repositories>
@@ -23,7 +23,6 @@
 			<url>http://nexus.gi.com/content/groups/public/</url>
 		</repository>
 	</repositories>
-
 	<build>
 		<plugins>
 			<!-- war插件, 设定war名称不带版本号 -->
@@ -53,7 +52,7 @@
 					<webDefaultXml>src/main/resources/webdefault.xml</webDefaultXml>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>7878</port>
+							<port>8888</port>
 						</connector>
 					</connectors>
 					<contextPath>/sop</contextPath>
@@ -80,23 +79,23 @@
 		<profile>
 			<id>local</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->
 				<jdbc.url>
-					jdbc:mysql://10.9.11.234:3306/fx_db?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8
+					jdbc:mysql://10.9.11.232:3306/fx_db?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8
 				</jdbc.url>
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 				<!-- 本地项目地址 -->
-				<log4j.path>/home/zcy/tmp</log4j.path>
+				<log4j.path>d:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8086</dubbo.protocol.port>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
 				
 				<xinge.enviroment>2</xinge.enviroment>
 				
@@ -110,7 +109,7 @@
 		<profile>
 			<id>nginx</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->
@@ -120,7 +119,7 @@
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 				<!-- 本地项目地址 -->
-				<log4j.path>/home/zcy</log4j.path>
+				<log4j.path>D:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
@@ -129,6 +128,12 @@
 				<dubbo.protocol.port>8082</dubbo.protocol.port>
 				
 				<xinge.enviroment>2</xinge.enviroment>
+				
+				<mongo.host>10.9.210.22</mongo.host>
+				<mongo.port>27012</mongo.port>
+				<mongo.username>sop</mongo.username>
+				<mongo.password>sop</mongo.password>
+				<mongo.dbname>sop</mongo.dbname>
 				
 				<project.server.url>http://fx.local.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
@@ -160,6 +165,13 @@
 				<dubbo.protocol.port>8082</dubbo.protocol.port>
 
 				<xinge.enviroment>2</xinge.enviroment>
+				
+				
+				<mongo.host>10.9.210.22</mongo.host>
+				<mongo.port>27012</mongo.port>
+				<mongo.username>sop</mongo.username>
+				<mongo.password>sop</mongo.password>
+				<mongo.dbname>sop</mongo.dbname>
 
 				<project.server.url>http://fx.dev.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.dev.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
@@ -202,6 +214,13 @@
 				<dubbo.protocol.port>8085</dubbo.protocol.port>
 				
 				<xinge.enviroment>2</xinge.enviroment>
+				
+				
+				<mongo.host>10.9.210.22</mongo.host>
+				<mongo.port>27012</mongo.port>
+				<mongo.username>sop</mongo.username>
+				<mongo.password>sop</mongo.password>
+				<mongo.dbname>sop</mongo.dbname>
 				
 				<project.server.url>http://fx.qa.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.qa.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
@@ -540,19 +559,10 @@
 			<artifactId>poi</artifactId>
 			<version>3.11</version>
 		</dependency>
-		<dependency>
+			<dependency>
 			<groupId>com.github.jsqlparser</groupId>
 			<artifactId>jsqlparser</artifactId>
 			<version>1.0</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.23</version>
-		</dependency>
-
-
 	</dependencies>
 </project>
