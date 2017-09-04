@@ -974,7 +974,8 @@ function img_fun(data){
 	if(firsr_ul.find("li").length>=4){
 		last_ul.hide()
 	 }else{
-	    last_ul.show()
+	    last_ul.show();
+	    last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\" accept=\"image/png,image/gif,image/jpeg,image/jpg,image/BMP\"/>");
 	 }
 }
 
