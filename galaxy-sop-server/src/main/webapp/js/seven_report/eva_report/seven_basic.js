@@ -355,7 +355,7 @@
 		}) 
 		//表单验证
 		validate();
-		$(".ch_opration form").validate();
+		$(".ch_opration form input[type='text']").validate();
 		
 		
 	}
