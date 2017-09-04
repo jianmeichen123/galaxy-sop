@@ -149,15 +149,19 @@ table td input{
 	font-family:'Microsoft YaHei';
 }
 table td input::-webkit-input-placeholder{
+	font-size:12px;
   color: #d8d8d8;
 }
 table td input:-moz-placeholder {
+	font-size:12px;
   color: #d8d8d8;
 }
 table td input:-ms-input-placeholder{
+	font-size:12px;
   color: #d8d8d8;
 }
 table td input::-moz-placeholder {
+	font-size:12px;
   color: #d8d8d8;
 }
 table td input.disabled,table td select.disabled{
@@ -386,6 +390,7 @@ table.table_15 td:first-child+td+td+td{
 	margin-top:5px;
 }
 textarea::input-placeholder{
+	font-size:12px;
 	text-align:center;
 }
 .popup_content span{
@@ -594,17 +599,22 @@ textarea::input-placeholder{
 	/* overflow-y:hidden !important;
 	margin-top:25px; */
 	padding:0px 10px 10px 10px;
+	font-family:Microsoft YaHei;
 }
 .gapPopup textarea:-moz-placeholder {
+	font-size:12px;
    color: #999;
  }
  .gapPopup textarea:-ms-input-placeholder {
+ font-size:12px;
    color: #999;
  }
  .gapPopup textarea::-moz-placeholder {
+ font-size:12px;
    color: #999;
  }
  .gapPopup textarea::-webkit-input-placeholder {
+ font-size:12px;
    color: #999;
  }
 .show_edit{
@@ -834,15 +844,19 @@ table td select option{
 }
 .radioShow_1 input{color:#000; width: 80%;margin: 0 auto;display: block;margin-top:20px;text-align: left;padding:0 5px;border:0px;}
 .radioShow_1 input::-webkit-input-placeholder{
+	font-size:12px;
   color: #d8d8d8;
 }
 .radioShow_1 input:-moz-placeholder {
+	font-size:12px;
   color: #d8d8d8;
 }
 .radioShow_1 input:-ms-input-placeholder{
+	font-size:12px;
   color: #d8d8d8;
 }
 .radioShow_1 input::-moz-placeholder {
+	font-size:12px;
   color: #d8d8d8;
 }
 /*div模拟select下拉框样式*/
