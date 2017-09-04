@@ -266,7 +266,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(projectParent !="未填写" && projectChildren !="未填写" && projectParent > 0 && projectChildren > 0){
 								return projectParent * (100/projectChildren);
 							}else{
-								return '';
+								return null;
 							}
 							
 						}
@@ -276,13 +276,13 @@ $('div').delegate(".h_edit_btn","click",function(event){
 							if(projectParent > 0 && projectChildren > 0){
 								return projectParent * (100/projectChildren);
 							}else{
-								return '';
+								return null;
 							}
 							
 						}
 					   $("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuationsParent();
-							if(valuations != null && valuations != ""){
+							if(valuations != null){
 								$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
@@ -296,7 +296,7 @@ $('div').delegate(".h_edit_btn","click",function(event){
 								$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 								$("input[type='hidden'].money").val("");
 							}else{
-								if(valuations != null && valuations != ""){
+								if(valuations != null){
 									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
 									$("input[type='hidden'].money").val(Number(valuations).toFixed(4));
@@ -326,12 +326,13 @@ $('div').delegate(".h_edit_btn","click",function(event){
 								console.log(projectParent * (100/projectChildren))
 								return projectParent * (100/projectChildren);
 							}else{
-								return '';
+								return null;
 							}
 							
 						}
 						$("div").delegate("input[data-title-id='"+parent+"']","blur",function(){
 							var valuations = calculationValuations();
+							console.log(valuations)
 							if(valuations != null){
 									$("input[data-title-id='"+result+"']").val(Number(valuations).toFixed(4));
 									$("input[data-title-id='"+result+"']").parents("dd").prev().attr("tochange",true);
