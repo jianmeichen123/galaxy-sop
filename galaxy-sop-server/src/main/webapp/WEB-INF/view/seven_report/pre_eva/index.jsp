@@ -90,18 +90,20 @@ var pageId = "project";
 		
 <!-- 股权结构展示弹窗 -->	
 <div class="reasonable_stock">
-	<div class="Button popupButton ch_reason_stock">
-			<i class="wrong close_tab"></i>
-	</div>
-	<div class="reasonable_box">
-		<table border="1">
-			<thead>
-				<th>持股人</th>
-				<th>持股比例（%）</th>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+	<div class="reasonable_out">
+		<div class="Button popupButton ch_reason_stock">
+				<i class="wrong close_tab"></i>
+		</div>
+			<div class="reasonable_box">
+				<table border="1">
+					<thead>
+						<th>持股人</th>
+						<th>持股比例（%）</th>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
 	</div>
 	
 </div>
@@ -142,6 +144,7 @@ var pageId = "project";
 <script src="<%=path %>/js/layer/layer.js"></script>
 <!--提示验证  -->
 <script src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/hologram/base_table.js"></script>
 <script src="<%=path %>/js/hologram/baseInfo.js"></script>			
 

@@ -12,7 +12,7 @@ ADD COLUMN `sub_title_id9` BIGINT(20) NULL AFTER `field_9`,
 ADD COLUMN `sub_title_id10` BIGINT(20) NULL AFTER `field_10`;
 
 
-UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='1374', `sub_title_id1`='1370', `sub_title_id1`='1369', `sub_title_id4`='1375', `sub_title_id1`='1371' WHERE `id`='1';
+UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='1374', `sub_title_id2`='1370', `sub_title_id3`='1369', `sub_title_id4`='1375',`sub_title_id5`='1371' WHERE `id`='1';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2014', `sub_title_id2`='2015', `sub_title_id3`='2016', `sub_title_id4`='2017', `sub_title_id5`='2018', `sub_title_id6`='2019', `sub_title_id7`='2020' WHERE `id`='4';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2008', `sub_title_id2`='2009', `sub_title_id3`='2010', `sub_title_id4`='2011', `sub_title_id5`='2012' WHERE `id`='3';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2002', `sub_title_id2`='2003', `sub_title_id3`='2004', `sub_title_id4`='2005', `sub_title_id5`='2006' WHERE `id`='2';
@@ -23,6 +23,10 @@ UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='1942', `sub_ti
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2035', `sub_title_id2`='2036', `sub_title_id3`='2037' WHERE `id`='9';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2038', `sub_title_id2`='2039' WHERE `id`='10';
 UPDATE `fx_db`.`information_listdata_remark` SET `sub_title_id1`='2040', `sub_title_id2`='2041', `sub_title_id3`='2042' WHERE `id`='11';
+UPDATE `fx_db`.`information_listdata_remark` SET `field_2`='估值（万元）' WHERE `id`='10';
+UPDATE `fx_db`.`information_listdata_remark` SET `field_3`='投资金额（万元）', `field_4`='股权占比（%）', `field_5`='估值金额（万元）' WHERE `id`='18';
+UPDATE `fx_db`.`information_listdata_remark` SET `field_3`='投资金额（万元）', `field_4`='股权占比（%）', `field_5`='投后估值（万元）' WHERE `id`='8';
+
 
 /*
 全息报告题型调整，文本录入改为列表题
@@ -33,8 +37,6 @@ INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`na
 INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`name`,`field_1`,`sub_title_id1`,`field_2`,`sub_title_id2`,`field_3`,`sub_title_id3`,`field_4`,`sub_title_id4`,`field_5`,`sub_title_id5`,`field_6`,`sub_title_id6`,`field_7`,`sub_title_id7`,`field_8`,`sub_title_id8`,`field_9`,`sub_title_id9`,`field_10`,`sub_title_id10`,`is_valid`,`created_time`,`create_id`,`updated_time`,`update_id`,`fun_flag`) VALUES (18,1903,'finance-history',NULL,'融资历史','融资时间',2057,'投资方(机构或个人)',2058,'投资金额',2059,'股权占比',2060,'估值金额',2061,'币种',2062,'融资轮次',2063,'新老股',2064,'合同关键条款',2065,'对赌或业绩承诺条款',2066,0,NULL,NULL,NULL,NULL,'1');
 INSERT INTO `information_listdata_remark` (`id`,`title_id`,`code`,`sub_code`,`name`,`field_1`,`sub_title_id1`,`field_2`,`sub_title_id2`,`field_3`,`sub_title_id3`,`field_4`,`sub_title_id4`,`field_5`,`sub_title_id5`,`field_6`,`sub_title_id6`,`field_7`,`sub_title_id7`,`field_8`,`sub_title_id8`,`field_9`,`sub_title_id9`,`field_10`,`sub_title_id10`,`is_valid`,`created_time`,`create_id`,`updated_time`,`update_id`,`fun_flag`) VALUES (19,2067,'operation-indices',NULL,'上一轮融资后关键运营指标变化','指标名称',2035,'融资时指标值',2036,'目前指标值',2037,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,'0');
 
-
-INSERT INTO `fx_db`.`information_listdata_remark` (`id`, `title_id`, `code`, `sub_code`, `name`, `field_1`, `field_2`, `field_3`) VALUES ('20', '3022', 'grant-actual', 'grant-part', '实际注资计划', '注资名称', '注资时间', '注资金额');
 
 
 
