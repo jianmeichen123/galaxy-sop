@@ -106,12 +106,19 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	@Override
 	@Transactional
 	public InformationTitle selectValuesByTinfo(String pinfoKey) {
-		InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey);
-		if(ptitle!=null){
-			List<InformationDictionary> valueList = selectValuesByTid(ptitle.getId());
-			ptitle.setValueList(valueList);
+		try
+		{
+			InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey);
+			if(ptitle!=null){
+				List<InformationDictionary> valueList = selectValuesByTid(ptitle.getId());
+				ptitle.setValueList(valueList);
+			}
+			return ptitle;
+		} catch (Exception e)
+		{
+			logger.error("pinfoKey="+pinfoKey);
 		}
-		return ptitle;
+		return null;
 	}
 	
 	
