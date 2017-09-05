@@ -596,8 +596,8 @@ textarea::input-placeholder{
 	border:none;
 	outline: none;
 	resize: none; 
-	/* overflow-y:hidden !important;
-	margin-top:25px; */
+	/* overflow-y:hidden !important;*/
+	margin-top:25px; 
 	padding:0px 10px 10px 10px;
 	font-family:Microsoft YaHei;
 }
