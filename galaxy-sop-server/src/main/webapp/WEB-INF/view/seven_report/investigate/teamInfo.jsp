@@ -41,6 +41,7 @@
 
 <jsp:include page="../../report_basic/jquery-tmpl.jsp" flush="true"></jsp:include>
 <script src="<%=path%>/js/hologram/team_pop.js"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <!-- 时间插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
