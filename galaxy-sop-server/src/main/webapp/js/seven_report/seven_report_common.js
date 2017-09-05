@@ -513,8 +513,14 @@ function buildResults(sec,title,readonly)
 				var num =title.resultList[0].contentDescribe1;
 				if(num!=undefined && num!=""){
 					var nums=num.split(".");
-					nums[1]= nums[1].slice(0,4);
-					num = nums.join(".");
+					console.log( nums[1])
+					if(nums[1]!=undefined&&nums[1]!=""){
+						nums[1]= nums[1].slice(0,4);
+						num = nums.join(".");
+					}else{
+						num = nums[0];
+					}
+					
 				}
 			}
 			if(readonly == true)
