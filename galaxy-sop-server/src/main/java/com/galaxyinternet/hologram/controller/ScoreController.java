@@ -172,7 +172,10 @@ public class ScoreController
 		Set<Map.Entry<String, BigDecimal>> items = scores.entrySet();
 		for(Map.Entry<String, BigDecimal> item : items)
 		{
-			item.setValue(item.getValue().setScale(2, RoundingMode.HALF_UP));
+			if(item.getValue() != null)
+			{
+				item.setValue(item.getValue().setScale(2, RoundingMode.HALF_UP));
+			}
 		}
 	}
 	
