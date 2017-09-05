@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ import java.util.Map;
 
 
 @Service("com.galaxyinternet.service.hologram.InformationDictionaryService")
+@Order(2)
 public class InformationDictionaryServiceImpl extends BaseServiceImpl<InformationDictionary> implements InformationDictionaryService{
 	final Logger logger = LoggerFactory.getLogger(InformationDictionaryServiceImpl.class);
 
