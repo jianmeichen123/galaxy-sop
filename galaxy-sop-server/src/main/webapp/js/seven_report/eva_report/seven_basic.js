@@ -267,15 +267,15 @@
 									var titleValList=n.titleValue.split(",");
 									var valList=n.val.split("、");
 									var lastId=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']").siblings("dd").find(".check_label:last").attr("value");
+									var _dt=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']");
+									_dt.siblings("dd").find(".text_li input").attr("disabled",true);
+									_dt.siblings("dd").find(".text_li input").val("");
 									for(var i=0;i<titleValList.length;i++){
-										var _dt=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']");
-										_dt.siblings("dd").find(".check_label[value='"+titleValList[i]+"']").addClass("active");
+										
+										_dt.siblings("dd").find(".check_label[value='"+titleValList[i]+"']").addClass("active");										
 										if(titleValList[i]==lastId){
 											_dt.siblings("dd").find(".text_li input").attr("disabled",false);
 											_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]);
-										}else{
-											_dt.siblings("dd").find(".text_li input").attr("disabled",true);
-											_dt.siblings("dd").find(".text_li input").val("");
 										}
 									}
 								}
