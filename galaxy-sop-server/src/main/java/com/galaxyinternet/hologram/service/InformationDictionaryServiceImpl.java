@@ -108,15 +108,17 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	public InformationTitle selectValuesByTinfo(String pinfoKey) {
 		try
 		{
+			logger.debug("==========================selectValuesByTinfo("+pinfoKey+") start ======================================");
 			InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey);
 			if(ptitle!=null){
 				List<InformationDictionary> valueList = selectValuesByTid(ptitle.getId());
 				ptitle.setValueList(valueList);
 			}
+			logger.debug("==========================selectValuesByTinfo("+pinfoKey+")  title="+ptitle+" end======================================");
 			return ptitle;
 		} catch (Exception e)
 		{
-			logger.error("pinfoKey="+pinfoKey);
+			logger.error("pinfoKey="+pinfoKey,e);
 		}
 		return null;
 	}
