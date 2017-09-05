@@ -331,7 +331,7 @@ table.table_15 td:first-child+td+td+td{
  .popupButton{
 	display:block !important;
 	overflow:hidden;
-	height:28px;
+	height:0 !important;
 	
 } 
  .popupButton em.right{
@@ -682,16 +682,15 @@ table td select option{
  }
  .reasonable_out{
  width: 280px;
- /* 	height: auto;
- max-height: 145px; */
- /* overflow:auto; */
+ height: auto;
+ max-height: 127px;
+ overflow:auto; 
+ margin-top:20px;
  }
  .reasonable_box{
     width: 260px;
     max-height: 127px;
     margin: 0 auto;
-    overflow:auto;
-
  }
  .reasonable_stock:before{
 			content: '';
