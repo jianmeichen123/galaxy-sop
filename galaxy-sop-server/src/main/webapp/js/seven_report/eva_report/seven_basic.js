@@ -473,7 +473,7 @@ function closeX(obj){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	$(".img_inner").attr("src","");
 	font_color($(".condition"));
-	calcScore();
+	//calcScore();
 	$(".pagebox").attr("data-result",true);
 	$("#save-rpt-btn").removeAttr("disabled"); 
 	$("#save-rpt-btn em").removeClass("disabled")
@@ -614,7 +614,6 @@ function right(obj,type){
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
-	calcScore();
 	$(".pagebox").attr("data-result",true);
 	$("#save-rpt-btn").removeAttr("disabled"); 
 	$("#save-rpt-btn em").removeClass("disabled")
@@ -907,9 +906,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 				
 			}
 		})
-	})
-	
-	
+	})	
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
 	_this.hide();
@@ -917,7 +914,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	event.stopPropagation();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
-	calcScore();
+	//calcScore();
 	$(".pagebox").attr("data-result",true);
 	$("#save-rpt-btn").removeAttr("disabled"); 
 	$("#save-rpt-btn em").removeClass("disabled")
