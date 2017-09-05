@@ -829,7 +829,9 @@ table td select option{
 .h_radios li label{
 	margin-left: 10px;
 }
- .div_tmpl{}
+.gapPopup .div_tmpl textarea {
+     margin-top: 25px;
+ }
 .radioShow label{
 	display: inline-block;
     padding-right: 10px;
