@@ -2696,7 +2696,7 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 }
 .anchor_nav li,.anchor_navs li{
 	list-style: none;
-	height: 40px;
+	margin-bottom: 15px;
 	background: url('../img/anchor.png') no-repeat top left;
 	background-position: 1px 9px;
 	padding-left: 23px;
@@ -2716,7 +2716,6 @@ dd.team_compile_ul_l_dd{margin: 0 20px 0 0;}
 .right_bom h3{padding-bottom:30px; font-size:12px;color:#333333;font-weight:normal;}
 .right_bom h3 span{display:inline-block;width:20px;height:20px; background: url(../img/seven_report/ICON.png) no-repeat;background-position: -181px -15px;margin-right: 10px; margin-top: -2px;vertical-align: middle;}
 .right_bom p{font-size:12px;color:#333333;padding-bottom:10px;}
-@media(max-width:1300px){.anchor_nav li{height: 33px;}.anchor_navs li{height: 33px;}}
 .nocon{width:300px;height:376px;margin:80px auto 0;background:url('../img/nocon.png');font-size:0;}
 .h_edit_btn.put_away,.out_box{display:none;}
 .radius .h_btnbox .spread_out{color: #72a7ff;}

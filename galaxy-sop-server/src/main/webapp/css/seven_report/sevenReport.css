@@ -172,6 +172,7 @@ table td .table_show{
 	display:block;
 }
 table td em{
+	display:block;
 	width:auto !important;
 	color:#d8d8d8;
 }
@@ -798,6 +799,8 @@ table td select option{
 .radioShow{
 	display:none;
 	text-align: left;
+	line-height:2;
+	font-size:12px;
 }
 .radioShow label{
 	margin-left: 10px;
@@ -830,7 +833,7 @@ table td select option{
 .radioShow label{
 	display: inline-block;
     padding-right: 10px;
-    width: 71%;
+    width: 61%;
     vertical-align: middle;
 }
 .radioShow label.select_1,.radioShow label.select_2{
@@ -982,7 +985,7 @@ select::-ms-expand { display: none; }
 }
 .icheckbox_flat-blue
 {
-	background-position: -100.2px -5px !important;
+	background-position: -99px -5px !important;
 }
 .score-column select,.score-column input{border-radius:2px;}
 .score-columns span.error{
