@@ -90,10 +90,10 @@ var pageId = "project";
 		
 <!-- 股权结构展示弹窗 -->	
 <div class="reasonable_stock">
-	<div class="reasonable_out">
-		<div class="Button popupButton ch_reason_stock">
-				<i class="wrong close_tab"></i>
-		</div>
+	<div class="Button popupButton ch_reason_stock">
+			<i class="wrong close_tab"></i>
+	</div>
+	<div class="reasonable_out">		
 			<div class="reasonable_box">
 				<table border="1">
 					<thead>
@@ -169,6 +169,7 @@ var isEditable = "${isEditable}";
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>	
 </body>
 <script>
+
 function getDetailUrl(code)
 {
 	if(code == 'share-holding')
@@ -215,10 +216,12 @@ function beforeSave(url){
 				$("#save").remove();
 				$(".before_save_tc .con").css("margin-bottom","30px")
 			}
+			
 		}//模版反回成功执行	
 	});
 	return false;
 }
+
 function forwardToPage(url){   //跳到相关页面
 	var where=$(".pagebox").attr("data-lis");
 	//alert(where);
@@ -228,14 +231,15 @@ function forwardToPage(url){   //跳到相关页面
 		//加载相应tab页；
 		$("#eva-tabs li[data-code='"+code+"']").siblings().removeClass('active');
 		$("#eva-tabs li[data-code='"+code+"']").addClass('active');
-		tabShow(code,relateId); 
+		tabShow(code,relateId);   
+		$("#save-rpt-btn").attr("disabled");
+		$("#save-rpt-btn em").addClass("disabled");
 	}else{   //点击页面其他能跳转的地方
 		//跳到相关页					
 		forwardWithHeader(url); 
 	}
 }
 //离开页面提示
-
  $(function(){
 	 $(".usermsg #daiban,.usermsg .work").click(function(){
 		 var _href=window.location.href;
@@ -252,7 +256,7 @@ function forwardToPage(url){   //跳到相关页面
 				}
 			}
 	});
-	//去掉左侧导航的href
+	 //去掉左侧导航的href
 	 $("#menus li").find("a").removeAttr("href");
 
 }) 

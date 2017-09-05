@@ -1,5 +1,19 @@
 package com.galaxyinternet.hologram.service;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Service;
+
 import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
 import com.galaxyinternet.dao.hologram.InformationTitleDao;
 import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
@@ -11,23 +25,11 @@ import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.utils.SopConstatnts;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 
 @Service("com.galaxyinternet.service.hologram.CacheOperationService")
 @Order
-public class CacheOperationServiceImpl implements CacheOperationService,InitializingBean{
+public class CacheOperationServiceImpl implements CacheOperationService,ApplicationListener<ContextRefreshedEvent>{
 	
 	//public static final String CACHE_KEY_PAGE_AREA_TITLE = "QXT_PAGE_AREA_TITLE_";               //各区域块下的   题：value   ==  InformationTitle
 	//public static final String CACHE_KEY_PAGE_AREA_TITLE_HASKEY = "QXT_PAGE_AREA_TITLE_KEYLIST"; //各区域块下的   题：code   ==  List<String>
@@ -60,14 +62,17 @@ public class CacheOperationServiceImpl implements CacheOperationService,Initiali
 
 	
 	
+
+
 	/**
 	 * 启动时：
 	 * 1、清空缓存
 	 * 2、写入缓存
 	*/
-	//@PostConstruct  
+	@SuppressWarnings("unchecked")
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void onApplicationEvent(ContextRefreshedEvent event)
+	{
 		initTitleIdName();
 		initValueIdName();
 

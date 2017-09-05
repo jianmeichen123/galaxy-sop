@@ -972,10 +972,11 @@ function img_fun(data){
 		 firsr_ul.append("<li class=\"pic_list fl\"<span class=\"h_img_del\" ></span><img src="+this.result+" /><li>");
 	 }
 	if(firsr_ul.find("li").length>=4){
-		last_ul.hide()
+		last_ul.hide();
+		last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\" accept=\"image/png,image/gif,image/jpeg,image/jpg,image/bmp\">");
 	 }else{
 	    last_ul.show();
-	    last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\" accept=\"image/png,image/gif,image/jpeg,image/jpg,image/x-ms-bmp, image/bmp\"/>");
+	    last_ul.find(".h_imgs_add").html("<input type=\"file\" onchange=\"img_fun(this)\" accept=\"image/png,image/gif,image/jpeg,image/jpg,image/bmp\">");
 	 }
 }
 

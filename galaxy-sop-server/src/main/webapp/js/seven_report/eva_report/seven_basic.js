@@ -267,15 +267,15 @@
 									var titleValList=n.titleValue.split(",");
 									var valList=n.val.split("、");
 									var lastId=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']").siblings("dd").find(".check_label:last").attr("value");
+									var _dt=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']");
+									_dt.siblings("dd").find(".text_li input").val("").attr("disabled",true).removeAttr("required");
+									//_dt.siblings("dd").find(".text_li input").val("");
 									for(var i=0;i<titleValList.length;i++){
-										var _dt=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']");
-										_dt.siblings("dd").find(".check_label[value='"+titleValList[i]+"']").addClass("active");
+										
+										_dt.siblings("dd").find(".check_label[value='"+titleValList[i]+"']").addClass("active");										
 										if(titleValList[i]==lastId){
-											_dt.siblings("dd").find(".text_li input").attr("disabled",false);
-											_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]);
-										}else{
-											_dt.siblings("dd").find(".text_li input").attr("disabled",true);
-											_dt.siblings("dd").find(".text_li input").val("");
+											_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]).attr("disabled",false).attr("required",true);
+											//_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]);
 										}
 									}
 								}
@@ -473,7 +473,7 @@ function closeX(obj){
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	$(".img_inner").attr("src","");
 	font_color($(".condition"));
-	calcScore();
+	//calcScore();
 	$(".pagebox").attr("data-result",true);
 	$("#save-rpt-btn").removeAttr("disabled"); 
 	$("#save-rpt-btn em").removeClass("disabled")
@@ -614,7 +614,6 @@ function right(obj,type){
 	}
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
-	calcScore();
 	$(".pagebox").attr("data-result",true);
 	$("#save-rpt-btn").removeAttr("disabled"); 
 	$("#save-rpt-btn em").removeClass("disabled")
@@ -902,14 +901,16 @@ $('div').delegate(".h_save_btn","click",function(event){
 						titleIdList.push(titleId);
 					})
 					_this.find("span").html(valList.join("、"));
+					if(valList.join("、")==""){
+						_this.find("span").html("未选择");
+					}
+					
 					_this.attr("data-title-value",titleIdList.join(","));
 				}
 				
 			}
 		})
-	})
-	
-	
+	})	
 	var _this = $(this).parents(".ch_opration");
 	_this.find("form").remove();
 	_this.hide();
@@ -917,7 +918,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 	event.stopPropagation();
 	$("span[parent_dom='show']").removeAttr("parent_dom");
 	font_color($(".condition"));
-	calcScore();
+	//calcScore();
 	$(".pagebox").attr("data-result",true);
 	$("#save-rpt-btn").removeAttr("disabled"); 
 	$("#save-rpt-btn em").removeClass("disabled")
