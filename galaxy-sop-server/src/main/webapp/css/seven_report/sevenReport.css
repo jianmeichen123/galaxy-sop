@@ -331,7 +331,6 @@ table.table_15 td:first-child+td+td+td{
  .popupButton{
 	display:block !important;
 	overflow:hidden;
-	height:0 !important;
 	
 } 
  .popupButton em.right{
@@ -685,7 +684,6 @@ table td select option{
  height: auto;
  max-height: 127px;
  overflow:auto; 
- margin-top:20px;
  }
  .reasonable_box{
     width: 260px;
@@ -829,9 +827,6 @@ table td select option{
 .h_radios li label{
 	margin-left: 10px;
 }
-.gapPopup .div_tmpl textarea {
-     margin-top: 25px;
- }
 .radioShow label{
 	display: inline-block;
     padding-right: 10px;

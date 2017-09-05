@@ -90,10 +90,10 @@ var pageId = "project";
 		
 <!-- 股权结构展示弹窗 -->	
 <div class="reasonable_stock">
-	<div class="reasonable_out">
-		<div class="Button popupButton ch_reason_stock">
-				<i class="wrong close_tab"></i>
-		</div>
+	<div class="Button popupButton ch_reason_stock">
+			<i class="wrong close_tab"></i>
+	</div>
+	<div class="reasonable_out">		
 			<div class="reasonable_box">
 				<table border="1">
 					<thead>
