@@ -682,14 +682,15 @@ table td select option{
  }
  .reasonable_out{
  width: 280px;
- 	height: auto;
- max-height: 145px;
- overflow:auto;
+ /* 	height: auto;
+ max-height: 145px; */
+ /* overflow:auto; */
  }
  .reasonable_box{
     width: 260px;
     max-height: 127px;
     margin: 0 auto;
+    overflow:auto;
 
  }
  .reasonable_stock:before{
