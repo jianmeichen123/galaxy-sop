@@ -429,7 +429,6 @@ function resizetable(table){
     var title_id = table.attr("data-title-id")
     var  code = table.attr("data-code")
     var fields_json=tableDictColumn(code);
-    console.log(fields_json);
     if (fields_json && code in fields_json){
         var fields = fields_json[code]
         for(var i=0;i<fields.length;i++){
