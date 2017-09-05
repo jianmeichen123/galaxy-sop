@@ -7,6 +7,7 @@
  */
 var autoTextarea_eva = function (elem, extra, maxHeight) {
         extra = extra || 0;
+        var elem=document.getElementById(elem);
         var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
         isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
                 addEvent = function (type, callback) {
@@ -46,17 +47,21 @@ var autoTextarea_eva = function (elem, extra, maxHeight) {
                 scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
  
                 elem.style.height = minHeight + 'px';
-                if (elem.scrollHeight > minHeight) {
-                        if (maxHeight && elem.scrollHeight > maxHeight) {
-                                height = maxHeight - padding;
-                                style.overflowY = 'auto';
-                        } else {
-                                height = elem.scrollHeight - padding;
-                                style.overflowY = 'hidden';
-                        };
-                        style.height = height + extra+10+ 'px';
-                        scrollTop += parseInt(style.height) - elem.currHeight;
-                        elem.currHeight = parseInt(style.height);
+                if (elem.scrollHeight > minHeight) {  
+                    if (maxHeight && elem.scrollHeight > maxHeight) {  
+                        height = maxHeight+10;  
+                        style.overflowY = 'auto';  
+                    } else {  
+                        height = elem.scrollHeight+10;  
+                        style.overflowY = 'hidden';  
+                    };  
+                    style.height = height + extra + 'px'; 
+                   if(elem.currHeight!=undefined){
+                	   scrollTop += parseInt(style.height) - elem.currHeight;
+                   }
+                     document.body.scrollTop = scrollTop;  
+                     document.documentElement.scrollTop = scrollTop;  
+                     elem.currHeight = parseInt(style.height);
                 };
             
         };

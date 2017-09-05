@@ -348,7 +348,8 @@
 				}
 				var text = $(".textarea_h");
 				for(var i = 0;i<text.length;i++){
-					autoTextarea_eva(text[i]);
+					var id=$(text[i]).attr("id");
+					autoTextarea_eva(id);
 				}
 				adjust(".ch_opration");
 			}
