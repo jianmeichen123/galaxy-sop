@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ import java.util.Map;
 
 
 @Service("com.galaxyinternet.service.hologram.InformationDictionaryService")
+@Order(2)
 public class InformationDictionaryServiceImpl extends BaseServiceImpl<InformationDictionary> implements InformationDictionaryService{
 	final Logger logger = LoggerFactory.getLogger(InformationDictionaryServiceImpl.class);
 
@@ -106,12 +108,23 @@ public class InformationDictionaryServiceImpl extends BaseServiceImpl<Informatio
 	@Override
 	@Transactional
 	public InformationTitle selectValuesByTinfo(String pinfoKey) {
-		InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey);
-		if(ptitle!=null){
-			List<InformationDictionary> valueList = selectValuesByTid(ptitle.getId());
-			ptitle.setValueList(valueList);
+		try
+		{
+			logger.debug("==========================selectValuesByTinfo("+pinfoKey+") start ======================================");
+			logger.debug("==========================start call "+informationTitleService+"selectTitleByPinfo("+pinfoKey+")======================================");
+			InformationTitle ptitle = informationTitleService.selectTitleByPinfo(pinfoKey);
+			logger.debug("title="+ptitle);
+			if(ptitle!=null){
+				List<InformationDictionary> valueList = selectValuesByTid(ptitle.getId());
+				ptitle.setValueList(valueList);
+			}
+			logger.debug("==========================selectValuesByTinfo("+pinfoKey+")  title="+ptitle+" end======================================");
+			return ptitle;
+		} catch (Exception e)
+		{
+			logger.error("pinfoKey="+pinfoKey,e);
 		}
-		return ptitle;
+		return null;
 	}
 	
 	

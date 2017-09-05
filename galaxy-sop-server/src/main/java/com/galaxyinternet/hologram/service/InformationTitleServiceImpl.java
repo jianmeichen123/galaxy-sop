@@ -34,6 +34,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 
 @Service("com.galaxyinternet.service.hologram.InformationTitleService")
+@Order(1)
 public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitle> implements InformationTitleService{
 
 	private static final Logger logger = LoggerFactory.getLogger(InformationTitleServiceImpl.class);
