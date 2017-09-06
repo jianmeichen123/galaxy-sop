@@ -229,13 +229,13 @@ table.table_15 tr:first-child{
 	border-bottom: 1px solid #d8d8d8;
 }
 table.table_15 td:first-child{
-	width:37.15%;
+	width:37.13%;
 }
 table.table_15 td:first-child+td{
 	width:10.6%;
 }
 table.table_15 td:first-child+td+td{
-	width:35.3%;
+	width:35.24%;
 	text-align:left;
 	padding: 5px;
 }
