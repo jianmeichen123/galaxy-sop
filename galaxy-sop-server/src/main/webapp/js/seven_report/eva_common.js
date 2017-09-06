@@ -36,7 +36,7 @@ function tabShow(code,relateId){
 	sendGetRequest(platformUrl.queryAllTitleValues+code+"?reportType="+reportType, null,
 			function(data){
 			var result = data.result.status;
-			if (result == 'OK') {
+			if (result == 'OK') {				
 				$('#page_all').empty();
 				var entity = data.entity;
 				$("#part-title-name").text(entity.name);
@@ -144,7 +144,7 @@ function showResultAndScoreList(relateId)
 							});
 						}
 						//结果
-						buildResult(this);
+						buildResult(this);						
 						buildTable(this);
 						buildFileList(this);
 					});
@@ -169,28 +169,7 @@ function showResultAndScoreList(relateId)
                             }
                         })
 					}
-
-
-//					角色判断
-					/*if(roleId== 1 || roleId == 2|| roleId== 3){
-						$("#save-rpt-btn").remove();
-						$.each($(".score-column"),function(){
-							var _input =$(this).find("input");
-							var _select =$(this).find("select");
-							if(_input.val()==""){
-								$(this).html("未打分");
-								$(this).css("color","#b2b2b2")
-							}else{
-								$(this).html(_input.val());
-							}
-							if(_select.val()=="请选择"){
-								$(this).html("未打分");
-								$(this).css("color","#b2b2b2")
-							}else{
-								$(this).html(_select.val());
-							}
-						})
-					}*/
+                    $("#save-rpt-btn").show();
 					//权重==0的时候有红字
 					var part_weight =$("#part-weight").text();
 					if(part_weight=="0%"){

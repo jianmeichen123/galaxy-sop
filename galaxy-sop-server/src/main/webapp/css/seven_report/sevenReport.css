@@ -28,6 +28,7 @@
 	line-height: 60px;
 	background: none;
 	outline:none;
+	display:none;
 }
 .test_top_last em{
 	display:inline-block;
