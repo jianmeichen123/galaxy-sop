@@ -84,7 +84,7 @@ var pageId = "project";
 		<!-- 图片展示弹窗 -->
 		<div class="customer_income">
 			<div class="Button popupButton ch_reason_stock">
-					<i onclick="closeX(this)" class="wrong h_cancel_btn"></i>
+					<i class="wrong close_img"></i>
 			</div>
 			<img class="img_inner" src="" />
 			<p target="_blank" class="master_pic">原图</p>			

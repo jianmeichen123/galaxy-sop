@@ -139,6 +139,7 @@
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未选择"){
 						$(".input_select").attr("value",val);
+						$(".input_select").val(val);
 					}			
 				}else if(type==13 || type==3){
 					if(titleVal){
@@ -268,14 +269,14 @@
 									var valList=n.val.split("、");
 									var lastId=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']").siblings("dd").find(".check_label:last").attr("value");
 									var _dt=$(".h_edit_txt").find("dt[data-title-id='"+n.relateId+"']");
-									_dt.siblings("dd").find(".text_li input").attr("disabled",true);
-									_dt.siblings("dd").find(".text_li input").val("");
+									_dt.siblings("dd").find(".text_li input").val("").attr("disabled",true).removeAttr("required");
+									//_dt.siblings("dd").find(".text_li input").val("");
 									for(var i=0;i<titleValList.length;i++){
 										
 										_dt.siblings("dd").find(".check_label[value='"+titleValList[i]+"']").addClass("active");										
 										if(titleValList[i]==lastId){
-											_dt.siblings("dd").find(".text_li input").attr("disabled",false);
-											_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]);
+											_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]).attr("disabled",false).attr("required",true);
+											//_dt.siblings("dd").find(".text_li input").val(valList[valList.length-1]);
 										}
 									}
 								}
@@ -348,7 +349,12 @@
 				}
 				var text = $(".textarea_h");
 				for(var i = 0;i<text.length;i++){
-					autoTextarea_eva(text[i]);
+					var id=$(text[i]).attr("id");
+					var parent=$(text[i]).closest(".ch_opration").attr("id");
+					if(parent){
+						autoTextarea_eva(id,parent);
+					}
+					//autoTextarea_eva(text[i]);
 				}
 				adjust(".ch_opration");
 			}
@@ -901,6 +907,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 						titleIdList.push(titleId);
 					})
 					_this.find("span").html(valList.join("、"));
+					if(valList.join("、")==""){
+						_this.find("span").html("未选择");
+					}
+					
 					_this.attr("data-title-value",titleIdList.join(","));
 				}
 				

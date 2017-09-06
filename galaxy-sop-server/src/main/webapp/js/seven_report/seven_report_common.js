@@ -690,7 +690,10 @@ function buildMemberRow(headerList,row,showOpts)
                 }else if(key == "field5"){
                      tr.append('<td data-field-name="'+key+'">'+map_pos[row[key]]+'</td>');
                      return;
-                }else{
+                }else if(key == "field3"){
+                    tr.append('<td data-field-name="'+key+'">'+map_sex[row[key]]+'</td>');
+                    return;
+               }else{
                      tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
                 }
             }else{
@@ -1327,20 +1330,20 @@ function btn_disable(data){
 	if (data == 1){
 		$('.anchor_btn span').addClass('unabled');
 		$('.anchor_btn p').css({
-			'z-index':'101',
+			
 			'cursor':'not-allowed'
 		});
 	}else{
 		if($('.h_save_btn.bluebtn').length>0){
 			$('.anchor_btn span').addClass('unabled');
 			$('.anchor_btn p').css({
-				'z-index':'101',
+				
 				'cursor':'not-allowed'
 			});
 		}else{
 			$('.anchor_btn span').removeClass('unabled');
 			$('.anchor_btn p').css({
-				'z-index':'99',
+				
 				'cursor':'auto'
 			});
 		}

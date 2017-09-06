@@ -19,5 +19,5 @@ INSERT INTO `fx_db`.`information_dictionary` (`id`, `parent_id`, `title_id`, `co
 
 
 /*决策报告项目估值自动计算公式*/
-UPDATE `fx_db`.`information_title` SET `val_rule_formula`='3004=3012/3010' WHERE `id`='3010';
-UPDATE `fx_db`.`information_title` SET `val_rule_formula`='3004=3012/3010' WHERE `id`='3012';
+UPDATE `fx_db`.`information_title` SET `val_rule_formula`='3012=3004/3010' WHERE `id`='3010';
+UPDATE `fx_db`.`information_title` SET `val_rule_formula`='3012=3004/3010' WHERE `id`='3004';
