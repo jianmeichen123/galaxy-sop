@@ -3479,7 +3479,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .operation_actual_title{border-bottom:1px solid #dadfe3;padding-bottom:5px;}
 .see_block .textarea{/* display:block; */width:70%;}
 .finace_history_tc .see_block{width:66%;}
-.finace_history_tc,.finace_history_tc .conference_all{width:600px;}
+.finace_history_tc,.finace_history_tc .conference_all{width:650px;}
 /* .addmentc{overflow-y:auto;max-height:450px;} */
 .addstocktc{height:350px;}
 .report_select .input_selects{
