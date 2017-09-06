@@ -74,7 +74,6 @@ thead td{
 	word-break: break-word;
 	-webkit-word-break: break-word;
 	-ms-word-break: break-word;
-	word-wrap:break-word; 
 }
 #page_all tr td.score-column{
 	text-align:center!important;
