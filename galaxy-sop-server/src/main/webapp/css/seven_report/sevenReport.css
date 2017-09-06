@@ -172,10 +172,10 @@ table td .table_show{
 	display:block;
 }
 table td em{
-	display:block;
 	width:auto !important;
 	color:#d8d8d8;
 }
+table td.score-column em{display:block}
 table td i{
 	font-style:normal;
 	color:#d8d8d8;
