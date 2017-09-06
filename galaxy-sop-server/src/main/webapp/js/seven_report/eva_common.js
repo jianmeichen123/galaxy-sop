@@ -1042,6 +1042,10 @@ $('div').delegate(".reasonable_stock .close_tab","click",function(){
 	$(this).parents(".reasonable_stock").find("tbody").html("");
 	$(this).parents(".reasonable_stock").hide();
 })
+$('div').delegate(".customer_income .close_img","click",function(){
+	$(this).parents(".customer_income").find("img_inner").attr("src","");
+	$(this).parents(".customer_income").hide();
+})
 //新增表格
 
 //表格编辑tr方法
