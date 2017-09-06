@@ -691,12 +691,24 @@ function buildMemberRow(headerList,row,showOpts)
             if(row[key]){
                 //select字段在页面缓存根据id取value
                 if(key == "field2"){
+                	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
+                		map_edu[row[key]]="未知"
+                	}
                      tr.append('<td data-field-name="'+key+'">'+map_edu[row[key]]+'</td>');
                      return;
                 }else if(key == "field5"){
+                	if(map_pos[row[key]]==""||map_pos[row[key]]==undefined||map_pos[row[key]]=="undefined"){
+                		map_pos[row[key]]="未知"
+                	}
                      tr.append('<td data-field-name="'+key+'">'+map_pos[row[key]]+'</td>');
                      return;
-                }else{
+                }else if(key == "field3"){
+                	if(map_sex[row[key]]==""||map_sex[row[key]]==undefined||map_sex[row[key]]=="undefined"){
+                		map_sex[row[key]]="未知"
+                	}
+                    tr.append('<td data-field-name="'+key+'">'+map_sex[row[key]]+'</td>');
+                    return;
+               }else{
                      tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
                 }
             }else{

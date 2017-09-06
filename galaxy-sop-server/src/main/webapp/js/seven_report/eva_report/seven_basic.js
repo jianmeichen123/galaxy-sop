@@ -139,6 +139,7 @@
 					var relateId=p_box.attr("data-relate-id");
 					if(val!="未选择"){
 						$(".input_select").attr("value",val);
+						$(".input_select").val(val);
 					}			
 				}else if(type==13 || type==3){
 					if(titleVal){
@@ -349,7 +350,11 @@
 				var text = $(".textarea_h");
 				for(var i = 0;i<text.length;i++){
 					var id=$(text[i]).attr("id");
-					autoTextarea_eva(id);
+					var parent=$(text[i]).closest(".ch_opration").attr("id");
+					if(parent){
+						autoTextarea_eva(id,parent);
+					}
+					//autoTextarea_eva(text[i]);
 				}
 				adjust(".ch_opration");
 			}

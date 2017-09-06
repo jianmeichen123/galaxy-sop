@@ -690,7 +690,10 @@ function buildMemberRow(headerList,row,showOpts)
                 }else if(key == "field5"){
                      tr.append('<td data-field-name="'+key+'">'+map_pos[row[key]]+'</td>');
                      return;
-                }else{
+                }else if(key == "field3"){
+                    tr.append('<td data-field-name="'+key+'">'+map_sex[row[key]]+'</td>');
+                    return;
+               }else{
                      tr.append('<td data-field-name="'+key+'">'+row[key]+'</td>');
                 }
             }else{

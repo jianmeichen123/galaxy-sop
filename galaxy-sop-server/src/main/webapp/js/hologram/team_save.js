@@ -127,6 +127,9 @@
                          }else if(key =="field5"){
                              tr.find('td[data-field-name="'+key+'"]').text(map_pos[row[key]]);
                              return;
+                         }else if(key =="field3"){
+                             tr.find('td[data-field-name="'+key+'"]').text(map_sex[row[key]]);
+                             return;
                          }else{
                              tr.find('td[data-field-name="'+key+'"]').text(row[key]);
                          }

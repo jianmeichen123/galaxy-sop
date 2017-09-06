@@ -28,6 +28,7 @@
 	line-height: 60px;
 	background: none;
 	outline:none;
+	display:none;
 }
 .test_top_last em{
 	display:inline-block;
@@ -229,13 +230,13 @@ table.table_15 tr:first-child{
 	border-bottom: 1px solid #d8d8d8;
 }
 table.table_15 td:first-child{
-	width:37.15%;
+	width:37.13%;
 }
 table.table_15 td:first-child+td{
 	width:10.6%;
 }
 table.table_15 td:first-child+td+td{
-	width:35.3%;
+	width:35.24%;
 	text-align:left;
 	padding: 5px;
 }
@@ -306,7 +307,7 @@ table.table_15 td:first-child+td+td+td{
     position: absolute;
     top: -3px;
     height: 20px;
-    right: 18px;
+    right: 17px;
     margin-righ:3px;
     width: 18px;
     font-size: 12px;
@@ -728,7 +729,11 @@ table td select option{
  	color:#666666;
  	height: 40px;
  	width: 130px;
+ 	border:1px solid #fff;
  }
+  .reasonable_stock table thead th{
+  border:1px solid #fff;
+  }
  .reasonable_stock i.wrong,.customer_income i.wrong{
      right: 10px;}
  .ch_reason_stock{
@@ -942,7 +947,7 @@ height:70px;
 overflow:hidden;
 display:block;
 position: relative;
-padding-right:31px;
+padding-right:33px;
 }
 select{
 	border:1px solid #000;

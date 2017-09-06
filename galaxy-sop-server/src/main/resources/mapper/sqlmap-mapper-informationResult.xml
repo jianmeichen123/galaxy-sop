@@ -73,6 +73,7 @@
 			#{createdTime,jdbcType=BIGINT},
 			#{createId,jdbcType=BIGINT},
 			#{sort}
+			)
 	</insert>
 	
 	<insert id="insertBatch" parameterType="java.util.List">
