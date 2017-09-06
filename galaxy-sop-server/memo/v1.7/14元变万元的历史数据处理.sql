@@ -16,3 +16,7 @@ and b.`project_id` not in (select `project_id` from fx_db.information_result whe
  
 -- 更新fx_db.information_listdata.field_2,元更新为万元，四舍五入保留四位小数 
 update fx_db.information_listdata set `field_2`=round(`field_2`/10000,4) where `title_id`=1920;
+
+ 
+-- 更新投资人情况 fx_db.information_listdata.field_3,field_5,field_6元更新为万元，四舍五入保留四位小数 
+update fx_db.information_listdata set `field_3`=round(`field_3`/10000,4), `field_5`=round(`field_5`/10000,4),`field_5`= '2243' where `title_id`=1908;

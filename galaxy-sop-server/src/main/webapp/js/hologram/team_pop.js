@@ -1,6 +1,7 @@
 
 var map_edu = selectCache("team-members","field2")
 var map_pos = selectCache("team-members","field5")
+var map_sex = selectCache("team-members","field3")
 var map_stu = selectCache("study-experience","field4")
 /**
 团队select 字典缓存
