@@ -1,6 +1,6 @@
 -- 更新fx_db.information_result.content_describe1,元更新为万元，四舍五入保留四位小数
 update fx_db.information_result set `content_describe1`=round(`content_describe1`/10000,4) where `title_id` in (1916,1923,1929,1939,1910,1911);
-
+UPDATE `fx_db`.`information_result` SET `content_describe2`='人民币p2154' WHERE title_id in (1929,1939,1910,1911);
 -- 新增title_id=1943,用content_describe1计算, 结果四舍五入保留四位小数 
 insert into fx_db.information_result(`project_id`,`title_id`,`content_describe1`,`is_valid`)
 select  

@@ -10,6 +10,11 @@ set a.field_5 = t2.id where a.title_id = 1303 and a.code = 'team-members';
 update fx_db.information_listdata a inner join fx_db.information_dictionary t2 on  t2.name = a.field_2  and t2.parent_id = 1351
 set a.field_2 = t2.id where a.title_id = 1303 and a.code = 'team-members';
 
+UPDATE fx_db.information_listdata a INNER JOIN fx_db.information_dictionary t2 ON  t2.name 
+
+ = a.field_4  AND t2.parent_id = 2159
+SET a.field_4 = t2.id WHERE a.title_id = 1303 AND a.code = 'study-experience';
+
 
 
 /*综合竞争比较 措施的有效性是否验证字段调整为字典项*/
