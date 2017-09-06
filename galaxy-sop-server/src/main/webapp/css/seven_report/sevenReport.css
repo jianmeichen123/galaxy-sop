@@ -306,7 +306,7 @@ table.table_15 td:first-child+td+td+td{
     position: absolute;
     top: -3px;
     height: 20px;
-    right: 18px;
+    right: 17px;
     margin-righ:3px;
     width: 18px;
     font-size: 12px;
@@ -946,7 +946,7 @@ height:70px;
 overflow:hidden;
 display:block;
 position: relative;
-padding-right:31px;
+padding-right:33px;
 }
 select{
 	border:1px solid #000;
