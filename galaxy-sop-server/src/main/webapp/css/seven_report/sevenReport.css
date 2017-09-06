@@ -53,7 +53,7 @@ table td{
 	border:1px solid #d8d8d8;
 	color:#333333;
 	font-size:12px;
-	font-family:'Microsoft YaHei';
+	font-family:'Microsoft YaHei';	
 }
 thead td{
 	text-align:center;
@@ -71,9 +71,7 @@ thead td{
 	} 
 #page_all tr td:first-child+td+td+td{
 	text-align:left;
-	word-break: break-word;
-	-webkit-word-break: break-word;
-	-ms-word-break: break-word;
+	word-wrap :normal;
 }
 #page_all tr td.score-column{
 	text-align:center!important;
@@ -84,8 +82,7 @@ thead td{
 }
 #page_all tr.evl_module td:first-child+td+td+td+td{
 	text-align:left;
-	word-break: break-word;
-	word-wrap:break-word; 
+	word-wrap :normal;
 }
 table td:first-child{
 	width:7%;
@@ -244,8 +241,7 @@ table.table_15 td:first-child+td+td{
 	width:35.24%;
 	text-align:left;
 	padding: 5px;
-	word-break: break-word;
-	word-wrap:break-word; 
+	word-wrap :normal;
 }
 table.table_15 td:first-child+td+td+td{
 	width:15.8%;
