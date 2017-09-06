@@ -5,9 +5,10 @@
  * @param                {Number}                设置光标与输入框保持的距离(默认0)
  * @param                {Number}                设置最大高度(可选)
  */
-var autoTextarea_eva = function (elem, extra, maxHeight) {
+var autoTextarea_eva = function (elem,parent, extra, maxHeight) {
         extra = extra || 0;
         var elem=document.getElementById(elem);
+        var parentId=document.getElementById(parent);
         var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
         isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
                 addEvent = function (type, callback) {
@@ -44,8 +45,7 @@ var autoTextarea_eva = function (elem, extra, maxHeight) {
                 if (!isFirefox && !isOpera) {
                         padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
                 };
-                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
- 
+                scrollTop = parentId.scrollTop;
                 elem.style.height = minHeight + 'px';
                 if (elem.scrollHeight > minHeight) {  
                     if (maxHeight && elem.scrollHeight > maxHeight) {  
@@ -59,9 +59,8 @@ var autoTextarea_eva = function (elem, extra, maxHeight) {
                    if(elem.currHeight!=undefined){
                 	   scrollTop += parseInt(style.height) - elem.currHeight;
                    }
-                     document.body.scrollTop = scrollTop;  
-                     document.documentElement.scrollTop = scrollTop;  
-                     elem.currHeight = parseInt(style.height);
+                   parentId.scrollTop = scrollTop; 
+                   elem.currHeight = parseInt(style.height);
                 };
             
         };
