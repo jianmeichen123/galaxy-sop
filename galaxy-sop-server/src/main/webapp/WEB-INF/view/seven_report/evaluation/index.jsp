@@ -201,8 +201,23 @@ function beforeSave(url){
 				});
 				$("#save").click(function(){
 					$("a[data-close=\"close\"]").click();
-					$("#save-rpt-btn").click();   //点击保存，保存数据
-					forwardToPage(url);
+					var scores=$(".score-columns");
+					var scores_status = false;
+					$.each(scores,function(){
+						if($(this).find(".error").length>0&&$(this).find(".error").is(":visible")){
+							scores_status=true;
+							return scores_status; 
+							return false;
+						}
+					})
+					if(scores_status==true){
+						layer.msg("打分错误无法保存");
+						return;
+					}else{
+						$("#save-rpt-btn").click();   //点击保存，保存数据
+						forwardToPage(url);
+					}
+					
 					
 				})
 			if(edit_status==false){
