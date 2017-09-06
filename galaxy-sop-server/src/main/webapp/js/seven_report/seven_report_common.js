@@ -1823,8 +1823,6 @@ function selectDirect(tittleId,subCode,filed){
 				{
 					var dataMap = data.userData;
 				    var $filed=$("[id='"+filed+"']");
-				    alert($filed);
-				     console.log($filed);
 				    var list=dataMap[filed];
 				    var name=""
 				    $filed.children().remove();
