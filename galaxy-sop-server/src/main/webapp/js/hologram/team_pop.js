@@ -117,50 +117,50 @@ function editMemberRow(ele){
 }
 //未知  undefined
 function field_undefined(data){
-	 if(data.field1=="undefined"||data.field1==undefined){
+	 if(data.field1=="undefined"||data.field1==undefined||data.field1==""){
          data.field1="未知";
      }
-     if(data.field2=="undefined"||data.field2==undefined){
+     if(data.field2=="undefined"||data.field2==undefined||data.field2==""){
          data.field2="未知";
      }
-     if(data.field3=="undefined"||data.field3==undefined){
+     if(data.field3=="undefined"||data.field3==undefined||data.field3==""){
          data.field3="未知";
      }
-     if(data.field4=="undefined"||data.field4==undefined){
+     if(data.field4=="undefined"||data.field4==undefined||data.field4==""){
          data.field4="未知";
      }
-     if(data.field5=="undefined"||data.field5==undefined){
+     if(data.field5=="undefined"||data.field5==undefined||data.field5==""){
          data.field5="未知";
      }
-     if(data.field6=="undefined"||data.field6==undefined){
+     if(data.field6=="undefined"||data.field6==undefined||data.field6==""){
          data.field6="未知";
      }
-     if(data.field7=="undefined"||data.field7==undefined){
+     if(data.field7=="undefined"||data.field7==undefined||data.field7==""){
          data.field7="未知";
      }
 }
 function field_undefineds(data){
-	 if(data.field1=="undefined"||data.field1==undefined){
-        data.field1="未知";
-    }
-    if(data.field2=="undefined"||data.field2==undefined){
-        data.field2="未知";
-    }
-    if(data.field3=="undefined"||data.field3==undefined){
-        data.field3="";
-    }
-    if(data.field4=="undefined"||data.field4==undefined){
-        data.field4="";
-    }
-    if(data.field5=="undefined"||data.field5==undefined){
-        data.field5="";
-    }
-    if(data.field6=="undefined"||data.field6==undefined){
-        data.field6="";
-    }
-    if(data.field7=="undefined"||data.field7==undefined){
-        data.field7="未知";
-    }
+	 if(data.field1=="undefined"||data.field1==undefined||data.field1==""){
+         data.field1="未知";
+     }
+     if(data.field2=="undefined"||data.field2==undefined||data.field2==""){
+         data.field2="未知";
+     }
+     if(data.field3=="undefined"||data.field3==undefined||data.field3==""){
+         data.field3="";
+     }
+     if(data.field4=="undefined"||data.field4==undefined||data.field4==""){
+         data.field4="";
+     }
+     if(data.field5=="undefined"||data.field5==undefined||data.field5==""){
+         data.field5="";
+     }
+     if(data.field6=="undefined"||data.field6==undefined||data.field6==""){
+         data.field6="";
+     }
+     if(data.field7=="undefined"||data.field7==undefined||data.field7==""){
+         data.field7="未知";
+     }
 }  
 function getStudyList(flag,studyList){
         var study = "";
@@ -259,13 +259,20 @@ function getStartupList(flag,startupList){
                                 temp += e;
                             }
                         })
-
+             if(temp==""){
+                temp="未知"
+             }         
             str=str +temp+"</li></ul>";
+
             if(flag=="edit"){
                 str+="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span>";
                 str+="<span class='blue' onclick='delete_row(this)'>删除</span></div>";
             }
+            if(o.field7=="未知"){
+            str+="</div><div class='team_p_two' style='margin-top:0px;'><span name='field7'>未知</span></div></div>"
+            }else{
             str+="</div><div class='team_p_two' style='margin-top:0px;'><span>项目概述:</span><span name='field7'>"+o.field7+"</span></div></div>"
+            }
             startup += str;
         })
         return startup;

@@ -124,7 +124,12 @@
 					}
 					str = str + temp + "</li></ul>";
 					str +="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span><span class='blue' onclick='delete_row(this)' >删除</span>";
-					str +="</div></div><div class='team_p_two' style='margin-top:0px;'><span>项目概述:</span><span name='field7'>"+json["field7"]+"</span></div></div>";
+					if(json["field7"]==""||json["field7"]==undefined){
+						str +="</div></div><div class='team_p_two' style='margin-top:0px;'><span name='field7'>未知</span></div></div>";
+					}else{
+						str +="</div></div><div class='team_p_two' style='margin-top:0px;'><span>项目概述:</span><span name='field7'>"+json["field7"]+"</span></div></div>";
+					}
+					
 	            $("#team_startup").append(str);
 	        }else{
 	            //修改操作
@@ -134,9 +139,18 @@
 	
 	            $(list).each(function(){
 	                  var key = $(this).attr("name");
-	                  $(this).html(json[key]);
-	            })
-	
+	                  if(key=="field7"){
+	                  		if(json[key]==""){
+	                  			$(this).html("未知");
+	                  		}else{
+	                  			$(this).html(json[key]);
+	                  			$(this).before('<span>项目概述:</span>');
+	                  		}
+	                  }else{
+	                  	$(this).html(json[key]);
+	                  }
+	                  
+	            })	
 	            div.attr("data-a",json["field3"]);
 	            div.attr("data-b",json["field4"]);
 	            div.attr("data-c",json["field5"]);
@@ -162,6 +176,9 @@
 	                        temp += e;
 	                    }
 	                })
+	                if(temp==""){
+	                	temp="未知"
+	                }
 	            div.find("ul li[data-mix]").html(temp);
 	        }
 	        $("#close_startup").click();
