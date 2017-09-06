@@ -115,7 +115,53 @@ function editMemberRow(ele){
 		}//模版反回成功执行
 	});
 }
-
+//未知  undefined
+function field_undefined(data){
+	 if(data.field1=="undefined"||data.field1==undefined){
+         data.field1="未知";
+     }
+     if(data.field2=="undefined"||data.field2==undefined){
+         data.field2="未知";
+     }
+     if(data.field3=="undefined"||data.field3==undefined){
+         data.field3="未知";
+     }
+     if(data.field4=="undefined"||data.field4==undefined){
+         data.field4="未知";
+     }
+     if(data.field5=="undefined"||data.field5==undefined){
+         data.field5="未知";
+     }
+     if(data.field6=="undefined"||data.field6==undefined){
+         data.field6="未知";
+     }
+     if(data.field7=="undefined"||data.field7==undefined){
+         data.field7="未知";
+     }
+}
+function field_undefineds(data){
+	 if(data.field1=="undefined"||data.field1==undefined){
+        data.field1="未知";
+    }
+    if(data.field2=="undefined"||data.field2==undefined){
+        data.field2="未知";
+    }
+    if(data.field3=="undefined"||data.field3==undefined){
+        data.field3="";
+    }
+    if(data.field4=="undefined"||data.field4==undefined){
+        data.field4="";
+    }
+    if(data.field5=="undefined"||data.field5==undefined){
+        data.field5="";
+    }
+    if(data.field6=="undefined"||data.field6==undefined){
+        data.field6="";
+    }
+    if(data.field7=="undefined"||data.field7==undefined){
+        data.field7="未知";
+    }
+}  
 function getStudyList(flag,studyList){
         var study = "";
         $(studyList).each(function(){
@@ -142,6 +188,7 @@ function getStudyList(flag,studyList){
 //            		   between="~";
 //            	   }
 //               }
+               field_undefined(o);
                var tmp = "<div class=\"team_div\" data-flag><span name='id'  style='display:none'>"+o.id+"</span>"+
                         "<div class='team_p_one'><span class='team_ico team_ico_dot' ></span>" +
                         "<span name='field5'>"+o.field5+"</span>~"+
@@ -181,6 +228,7 @@ function getStartupList(flag,startupList){
                  }
              }
            }
+             field_undefineds(o);
              var str = "<div class=\"team_div\" data-flag data-a='"+o.field3+"' data-b='"+o.field4+"' data-c='"+o.field5+"' data-d='"+o.field6+"' >"+
                            "<span name='id' style='display:none'>"+o.id+"</span>"+
                            "<div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='field1'>"+o.field1+"</span><span>～</span><span name='field2'>"+o.field2+"</span>";
@@ -236,7 +284,7 @@ function getWorkList(flag,workList){
                 }
             }
           }
-
+         field_undefined(o);
          var tmp="<div data-flag class=\"team_div\"><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+o.id+"</span>";
                 if(o.field1){
                    tmp = tmp+"<span name='field1'>"+o.field1+"</span><span>～</span>";
