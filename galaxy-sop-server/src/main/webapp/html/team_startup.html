@@ -119,7 +119,9 @@
 	                        temp += e;
 	                    }
 	                })
-	
+					if(temp==""){
+						temp="未知"
+					}
 					str = str + temp + "</li></ul>";
 					str +="<div class='team_click'><span class='blue '  onclick='editStartup(this)' >编辑</span><span class='blue' onclick='delete_row(this)' >删除</span>";
 					str +="</div></div><div class='team_p_two' style='margin-top:0px;'><span>项目概述:</span><span name='field7'>"+json["field7"]+"</span></div></div>";
