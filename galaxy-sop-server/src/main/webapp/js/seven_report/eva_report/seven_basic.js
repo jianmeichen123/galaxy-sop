@@ -350,7 +350,11 @@
 				var text = $(".textarea_h");
 				for(var i = 0;i<text.length;i++){
 					var id=$(text[i]).attr("id");
-					autoTextarea_eva(id);
+					var parent=$(text[i]).closest(".ch_opration").attr("id");
+					if(parent){
+						autoTextarea_eva(id,parent);
+					}
+					//autoTextarea_eva(text[i]);
 				}
 				adjust(".ch_opration");
 			}
