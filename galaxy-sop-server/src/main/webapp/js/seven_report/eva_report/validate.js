@@ -237,7 +237,7 @@ jQuery.validator.addMethod("eva_50", function(value, element) {
 	;
 }, "只允许输入数字0~50整数");
 jQuery.validator.addMethod("eva_60", function(value, element) {   
-	var eva_60 =/^([0-9]{0,1}|[0-5]{1}[0-9]{1}|70)$/;
+	var eva_60 =/^([0-9]{0,1}|[0-5]{1}[0-9]{1}|60)$/;
 	return this.optional(element) || (eva_60.test(value));
 	;
 }, "只允许输入数字0~60整数");
