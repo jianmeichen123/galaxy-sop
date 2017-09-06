@@ -13,8 +13,11 @@ set a.field_2 = t2.id where a.title_id = 1303 and a.code = 'team-members';
 
 
 /*综合竞争比较 措施的有效性是否验证字段调整为字典项*/
-update fx_db.information_listdata a inner join fx_db.information_dictionary t2 on  t2.name = a.field_5  and t2.parent_id = 1551
-set a.field_5 = t2.id where a.title_id = 1548 ;
+UPDATE fx_db.information_listdata a INNER JOIN fx_db1.information_dictionary t2 ON  t2.name 
+ = a.field_5  AND t2.parent_id = 1941
+SET a.field_5 = t2.id 
+ WHERE a.title_id = 1548 ;
+
 
 /*股权结构 股东类型字段调整为字典项*/
 update fx_db.information_listdata a inner join fx_db.information_dictionary t2 on  t2.name = a.field_3  and t2.parent_id = 2091
