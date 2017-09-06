@@ -728,7 +728,11 @@ table td select option{
  	color:#666666;
  	height: 40px;
  	width: 130px;
+ 	border:1px solid #fff;
  }
+  .reasonable_stock table thead th{
+  border:1px solid #fff;
+  }
  .reasonable_stock i.wrong,.customer_income i.wrong{
      right: 10px;}
  .ch_reason_stock{
