@@ -210,7 +210,9 @@
 									if(n.val.indexOf("美元")!=-1){
 										$("#"+n.relateId+"_select").find("option[data-code='currency2']").attr("selected",true);
 									}
+									n.val=n.val.replace("万人民币","");
 									n.val=n.val.replace("万元人民币","");
+									n.val=n.val.replace("万美元","");
 									n.val=n.val.replace("万元美元","");
 								}								
 								$("input[data-title-id='"+n.relateId+"']").val(n.val);								
@@ -676,7 +678,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var currency_id = $(this).find("dd select").val();
 			var currency=$(this).find("dd select").find("option[data-id='"+currency_id+"']").text();
 			data_list.currency=currency+"p"+currency_id;
-			data_list.value=val+"万元"+currency;			
+			data_list.value=val+"万"+currency;			
 			if(val==""||val==undefined){
 				data_list.value="未填写";
 				data_list.currency="";
