@@ -28,7 +28,7 @@
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资名称：</dt>
 		                <dd>
-		                    	<input class=" txt "  name="field1" type="text" value="分拨" placeholder="分拨"/>
+		                    	<input class=" txt "  name="field1" type="text" value="分拨" placeholder="分拨" maxlength="20"/>
 		                </dd>
 		            </dl>
 	                <dl class="fmdl fl_l  clearfix">

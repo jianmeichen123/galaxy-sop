@@ -47,13 +47,13 @@ table{
 	width:100%;
 	border:0px solid #d8d8d8;
 	font-size:12px;
-	word-wrap:break-word;
+	/* word-wrap:break-word; */
 }
 table td{
 	border:1px solid #d8d8d8;
 	color:#333333;
 	font-size:12px;
-	font-family:'Microsoft YaHei';
+	font-family:'Microsoft YaHei';	
 }
 thead td{
 	text-align:center;
@@ -71,6 +71,7 @@ thead td{
 	} 
 #page_all tr td:first-child+td+td+td{
 	text-align:left;
+	word-wrap :normal;
 }
 #page_all tr td.score-column{
 	text-align:center!important;
@@ -81,6 +82,7 @@ thead td{
 }
 #page_all tr.evl_module td:first-child+td+td+td+td{
 	text-align:left;
+	word-wrap :normal;
 }
 table td:first-child{
 	width:7%;
@@ -239,6 +241,7 @@ table.table_15 td:first-child+td+td{
 	width:35.24%;
 	text-align:left;
 	padding: 5px;
+	word-wrap :normal;
 }
 table.table_15 td:first-child+td+td+td{
 	width:15.8%;
@@ -596,9 +599,9 @@ textarea::input-placeholder{
 	height: 129px !important;
 	border:none;
 	outline: none;
-	resize: none; 
-	margin-top:25px; 
-	padding:0px 10px 10px 10px;
+	resize: none; 	
+    margin: 30px 1px 0px 1px;
+	padding:0px 8px 10px 8px;
 	font-family:Microsoft YaHei;
 }
 .gapPopup textarea:-moz-placeholder {
@@ -943,7 +946,8 @@ p.check_p{display:inline;}
 .h_imgs li{margin-bottom:10px;}
 p.type_8{display: inline;padding-right:0px;}
 p.type_8.mare_text{
-height:70px;
+height:auto;
+max-height:70px;
 overflow:hidden;
 display:block;
 position: relative;
