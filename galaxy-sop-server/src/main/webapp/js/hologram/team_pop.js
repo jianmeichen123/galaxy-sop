@@ -393,7 +393,7 @@ function getWorkList(flag,workList){
                           json[key]=value;
                           json["index"]=index;
                     })
-
+                     $("#team_work_name").attr("index",index);
                     $.each($("#work_form").find("input, select, textarea"),function(){
                         var ele = $(this);
                         var name = ele.attr('name');
@@ -402,7 +402,7 @@ function getWorkList(flag,workList){
                                 ele.val(json[name]);
                             }
                         }else{
-                            ele.val(json[name]);
+                            ele.val("");
                         }
 
                     });

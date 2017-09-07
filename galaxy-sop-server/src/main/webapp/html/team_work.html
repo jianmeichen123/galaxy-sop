@@ -62,7 +62,7 @@
             var ele = $(this);
             var name = ele.attr('name');
             json[name]= ele.val();
-            if(name.indexOf("field")>-1 && name != "field5"){
+            if(name.indexOf("field")>-1){
                if(ele.val()){
                     json[name]= ele.val();
                }else{
@@ -70,9 +70,8 @@
                }
             }
         });
-
-        var index = json["index"];
-        if(!index){
+        var index = $("#team_work_name").attr("index");
+        if(index==undefined||index==""){
             //新增一条记录
             var str="<div data-flag class='team_div'><div class='team_p_one'><span class='team_ico team_ico_dot'></span><span name='id' style='display:none'>"+json["id"]+"</span>";
             if(json["field1"]){
