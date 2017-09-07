@@ -412,7 +412,7 @@ function buildResult(title)
 					val="未填写";
 					currency_id="";
 				}else{
-					val=val+"万元"+currency; 
+					val=val; 
 				}
 				_ele.find("span").attr("currency",currency_id);
 			 }
