@@ -404,12 +404,15 @@ function buildResult(title)
 		if(_sign=="sign_3"){
 			var val = results[0].contentDescribe1;
 			var currency_id = results[0].contentDescribe2;
+			if(currency_id!=undefined){
+				var currency=currency_id.split("p")[0];
+			}
 			if(type == 20){
 				if(val==""||val==undefined){
 					val="未填写";
 					currency_id="";
 				}else{
-					val=val; 
+					val=val+"万"+currency; 
 				}
 				_ele.find("span").attr("currency",currency_id);
 			 }
@@ -579,8 +582,8 @@ function getValues()
 			};		
 			text = _this.html();
 			if(type == 20){				
-				text=text.replace("万元人民币","");
-				text=text.replace("万元美元","");
+				text=text.replace("万人民币","");
+				text=text.replace("万美元","");
 				model.remark2 =_this.attr("currency") ;
 			}			
 			model.projectId = projId;
