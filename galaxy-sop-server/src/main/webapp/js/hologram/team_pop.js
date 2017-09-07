@@ -41,8 +41,10 @@ function showMemberRow(ele){
     				var name = ele.attr('name');
     				if(name=="field5"){
                         ele.text(map_pos[row.data(name)]);
+                    }else if(name=="field3"){
+    					ele.text(map_sex[row.data(name)]);
                     }else{
-                        ele.text(row.data(name));
+                    	ele.text(row.data(name));
                     }
     			});
     			pop.text(row.data(pop.attr("name")));
