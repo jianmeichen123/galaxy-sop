@@ -2601,7 +2601,7 @@ dt[data-type='19']+dd .error{display:block;}
 dd.border_dd{border:1px solid #ff966b;border-radius:100px;color:#ff966b; text-align:center; padding:0 18px;line-height:27px;height:26px;margin:-4px 10px 10px 0;}
 .mb_24 dt{padding-right:5px}
 .base_tab-content .base_half{display:inline-block;width:50%;}
-dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color:#666;line-height:20px; border:1px dashed #e1e1e1;background:#fbfbfc;word-wrap: break-word; word-break: normal;word-break:break-all;}
+dd.division_dd {padding:10px; margin:10px 0px 0 0;  box-sizing: border-box;color:#666;line-height:20px; border:1px dashed #e1e1e1;background:#fbfbfc;word-wrap: break-word; word-break: normal;}
 .pro_innovation{margin-top:-10px;}
 .select_box select{width:125px;margin-bottom:20px;}
 .base_tab-content .select_box select{width:125px;margin-bottom:0px;}
