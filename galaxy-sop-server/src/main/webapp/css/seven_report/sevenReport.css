@@ -599,9 +599,9 @@ textarea::input-placeholder{
 	height: 129px !important;
 	border:none;
 	outline: none;
-	resize: none; 
-	margin-top:25px; 
-	padding:0px 10px 10px 10px;
+	resize: none; 	
+    margin: 30px 1px 0px 1px;
+	padding:0px 8px 10px 8px;
 	font-family:Microsoft YaHei;
 }
 .gapPopup textarea:-moz-placeholder {
