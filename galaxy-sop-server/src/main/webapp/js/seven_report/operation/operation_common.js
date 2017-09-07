@@ -258,14 +258,12 @@ function tabOperateChange(index){
 			               $("#newRemainMoneyActual").val((Number(remainActualMoney)*10000+Number(oldgrantMoney)*10000)/10000);   //新的剩余金额
 		  				   $("#grantMoney").on("input",function(){
 								 var val=$(this).val();
-								 if(val>0){
 									 if(val>remainActualMoney+Number(oldgrantMoney)){
 										 $("#formatRemainActualMoney").text("0");
 									 }else{
 										 var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
 										 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
 									 }
-								 }
 							 })
 		                   
 		       		}
