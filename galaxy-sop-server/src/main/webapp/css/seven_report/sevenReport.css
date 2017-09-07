@@ -952,6 +952,7 @@ overflow:hidden;
 display:block;
 position: relative;
 padding-right:33px;
+line-height:23px;
 }
 select{
 	border:1px solid #000;
