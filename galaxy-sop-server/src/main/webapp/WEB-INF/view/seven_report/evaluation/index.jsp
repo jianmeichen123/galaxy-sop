@@ -53,7 +53,7 @@ var pageId = "project";
 			</ul>
 		</div>
 		<form id="table_box">
-		<table border="1" cellpadding="5" style="table-layout:fixed;word-break:break-all;">
+		<table border="1" cellpadding="5" style="table-layout:fixed;">
 			<thead>
 				<tr>
 					<td>评测指标</th>
