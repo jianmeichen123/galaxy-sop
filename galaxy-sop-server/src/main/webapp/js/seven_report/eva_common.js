@@ -404,9 +404,6 @@ function buildResult(title)
 		if(_sign=="sign_3"){
 			var val = results[0].contentDescribe1;
 			var currency_id = results[0].contentDescribe2;
-			if(currency_id!=undefined){
-				var currency=currency_id.split("p")[0];
-			}
 			if(type == 20){
 				if(val==""||val==undefined){
 					val="未填写";
