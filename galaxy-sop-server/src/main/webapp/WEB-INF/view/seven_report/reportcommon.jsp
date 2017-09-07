@@ -73,9 +73,14 @@ if(null==pid||typeof(pid)=="underfind"||pid==""){
 var projectInfo = '';
 sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 	projectInfo = data.entity;
+	console.log(projectInfo)
 });
+$("#project_name_title").text(projectInfo.projectName);
+var str=projectInfo.projectName;
+if((projectInfo.projectName!=undefined) && (projectInfo.projectName.length>24)){
+	str=projectInfo.projectName.substring(0,24);
+}
 
-$(function(){
 	var _href=window.location.href;
 	if(_href.indexOf("toEvalindex")>-1){
 		var report_type="评测报告";
@@ -92,13 +97,7 @@ $(function(){
 	}else if(_href.indexOf("toOperation")>-1){
 		var report_type="运营报告";
 	}
-	
-	$("#project_name_title").text(projectInfo.projectName);
 	$(".report_type").text(report_type);
-	var str=projectInfo.projectName;
-	if((projectInfo.projectName!=undefined) && (projectInfo.projectName.length>24)){
-		str=projectInfo.projectName.substring(0,24);
-	}
 	divSelect();
 	function divSelect(){
 		$(".report_select").mouseover(function(){ 
@@ -121,7 +120,7 @@ $(function(){
 			$(this).addClass("none");
 		}
 	})
-});
+
 function seven_link(data,url){
 	var _href=window.location.href;
 	if(data==1){

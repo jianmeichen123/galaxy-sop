@@ -211,9 +211,7 @@
 										$("#"+n.relateId+"_select").find("option[data-code='currency2']").attr("selected",true);
 									}
 									n.val=n.val.replace("万人民币","");
-									n.val=n.val.replace("万元人民币","");
 									n.val=n.val.replace("万美元","");
-									n.val=n.val.replace("万元美元","");
 								}								
 								$("input[data-title-id='"+n.relateId+"']").val(n.val);								
 							}
