@@ -946,7 +946,8 @@ p.check_p{display:inline;}
 .h_imgs li{margin-bottom:10px;}
 p.type_8{display: inline;padding-right:0px;}
 p.type_8.mare_text{
-height:70px;
+height:auto;
+max-height:70px;
 overflow:hidden;
 display:block;
 position: relative;
