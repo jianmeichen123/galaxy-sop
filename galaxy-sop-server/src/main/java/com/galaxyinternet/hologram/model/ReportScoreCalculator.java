@@ -151,9 +151,14 @@ public class ReportScoreCalculator extends RecursiveTask<BigDecimal>
 			}
 			else if (mode == 5)//根据选择的数据四舍五入计算分数 - 胜算度，例如"阿里巴巴 10"
 			{
-				if(ArrayUtils.isEmpty(values) || values[0] == null || values[0].indexOf(" ") == -1)
+				if(ArrayUtils.isEmpty(values) || values[0] == null)
 				{
 					score = BigDecimal.ZERO;
+				}
+				else if(values[0].indexOf(" ") == -1 && NumberUtils.isNumber(values[0]))
+				{
+					//只有胜算度无竞争对手
+					score = new BigDecimal(values[0]).setScale(0, BigDecimal.ROUND_HALF_UP);
 				}
 				else
 				{
