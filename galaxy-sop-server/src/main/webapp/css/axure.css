@@ -3373,7 +3373,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     width: 30px;
     line-height: 1.2;
     border:1px solid #ddd;
-        top: 3px;
+    top: 3px;
+   	right: -60px;
     margin-left: 5px;
     }
 .new_poptxt #resultRadion label.error{margin-left: 33px; top: 2px;}
