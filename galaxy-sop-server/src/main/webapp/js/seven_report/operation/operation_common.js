@@ -253,13 +253,13 @@ function tabOperateChange(index){
 		                   $("#actual-form").find("[name='field3']").val(json['field3']);
 		                   $("#actual-form").find("[name='index']").val(index);
 		                   //总的实际注资金额
-		                   if($(".moeny_all input").is(".disabled")){
+		                   /*if($(".moeny_all input").is(".disabled")){
 		                	   totalMoneyActual=$("#totalMoneyActual").val();
 				               var oldgrantMoney=$("#grantMoney").val();
-		  				 }else{
+		  				 }else{*/
 		  					 totalMoneyActual=formatRemainActualMoney;
 			                 var oldgrantMoney=$("#grantMoney").val();
-		  				 }
+		  				/* }*/
 		                   var remainActualMoney=Number(totalMoneyActual)-sum;
 			               $("#newRemainMoneyActual").val((Number(remainActualMoney)*10000+Number(oldgrantMoney)*10000)/10000);   //新的剩余金额
 		  				   $("#grantMoney").on("blur",function(){
