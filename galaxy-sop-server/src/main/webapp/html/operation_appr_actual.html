@@ -77,9 +77,17 @@ $(function(){
 			 //验证计划拨款金额是否大于剩余金额
 			   var apprActualMoney=$("#grantMoney").val();
 			   var newRemainMoneyActual=$("#newRemainMoneyActual").val();
-			   if(Number(apprActualMoney).toFixed(4)*10000/10000>Number(newRemainMoneyActual).toFixed(4)*10000/10000){
-				   layer.msg("实际注资金额之和大于分期注资金额");
-				   return;
+			   var errorTipss=$(".moeny_all input").siblings(".error");
+			   if(errorTipss.is(":visible")){
+				   if(apprActualMoney>0){
+					   layer.msg("实际注资金额之和大于分期注资金额");
+					   return;
+				   }
+			   }else{
+				   if(Number(apprActualMoney).toFixed(4)*10000/10000>Number(newRemainMoneyActual).toFixed(4)*10000/10000){
+					   layer.msg("实际注资金额之和大于分期注资金额");
+					   return;
+				   }
 			   }
 			   var json =getToobarQueryParams("actual-form");
 			   $.get("/sop/html/operation_appr_actual_table.html", json,function(data){
