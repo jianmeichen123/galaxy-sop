@@ -1820,7 +1820,7 @@ function selectContext(formId){
 		var filedName;
 	    if(field[0].tagName=="DD"){
 	    	filedName=field.attr("id");
-		}else if(field[0].tagName=="select"){
+		}else if(field[0].tagName=="select"||field[0].tagName=="SELECT"){
 			filedName=field.attr("name");
 		}
 	    selectDirect(titleId,subCode,filedName);
