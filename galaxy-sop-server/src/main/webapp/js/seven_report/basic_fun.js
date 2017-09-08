@@ -525,13 +525,19 @@ function editRow(ele)
 			$("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);
 			$(".moeny_all input").on("blur",function(){
             	var val=$(this).val();
-            	if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
+            	var errorTips=$(this).siblings(".error");
+            	if(errorTips.is(":visible")){
+            		val=0;
             		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
             		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
             	}else{
-            		$("#formatRemainMoney").text(0);
+            		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
+                		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+                		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+                	}else{
+                		$("#formatRemainMoney").text(0);
+                	}
             	}
-            	
             })
             $(".remainMoney span").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);  //查看时的剩余金额
 			selectContext("detail-form");
@@ -788,13 +794,19 @@ function addRow(ele)
                 $("#formatRemainMoney").text((Number(totalMoneyInit)-sum).toFixed(4)*10000/10000);
                 $(".moeny_all input").on("blur",function(){
                 	var val=$(this).val();
-                	if(Number(totalMoneyInit)-sum-val>0){
+                	var errorTips=$(this).siblings(".error");
+                	if(errorTips.is(":visible")){
+                		val=0;
                 		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
                 		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
                 	}else{
-                		$("#formatRemainMoney").text(0);
+                		if(Number(totalMoneyInit)-sum-val>0){
+                    		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
+                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+                    	}else{
+                    		$("#formatRemainMoney").text(0);
+                    	}
                 	}
-                	
                 })
                 $("#save-detail-btn").click(function(){
                 	//验证分期计划拨款金额是否大于剩余金额

@@ -256,14 +256,21 @@ function tabOperateChange(index){
 		  				 }
 		                   var remainActualMoney=Number(totalMoneyActual)-sum;
 			               $("#newRemainMoneyActual").val((Number(remainActualMoney)*10000+Number(oldgrantMoney)*10000)/10000);   //新的剩余金额
-		  				   $("#grantMoney").on("input",function(){
+		  				   $("#grantMoney").on("blur",function(){
 								 var val=$(this).val();
-									 if(val>remainActualMoney+Number(oldgrantMoney)){
-										 $("#formatRemainActualMoney").text("0");
-									 }else{
-										 var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
+								 var errorTips=$(this).siblings(".error");
+					                if(errorTips.is(":visible")){
+					                	val=0;
+					                	var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
 										 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
-									 }
+					                }else{
+					                	 if(val>remainActualMoney+Number(oldgrantMoney)){
+											 $("#formatRemainActualMoney").text("0");
+										 }else{
+											 var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
+											 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
+										 }
+					                }
 							 })
 		                   
 		       		}
