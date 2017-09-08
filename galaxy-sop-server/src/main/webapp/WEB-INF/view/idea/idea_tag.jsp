@@ -30,6 +30,8 @@
 
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
+<script src="<%=path %>/js/idea-common.js"></script>
+<script type="text/javascript" src='<%=request.getContextPath() %>/js/ideaadd.js'></script>
 
 
 
@@ -142,7 +144,7 @@ function initTabZixun(){
 }
 
 function initTabIdea(){
-	defaultnum = 0;
+	//defaultnum = 0;
 	$.getTabHtml({
 		url : platformUrl.ideaList,
 	});
