@@ -945,8 +945,8 @@ p.check_p{display:inline;}
 .select_list li a{text-align:left;display: inherit;cursor:pointer;font-family: "Microsoft YaHei";}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
-td .align_left p.type_8{display: inline;padding-right:0px;}
-p.type_8.mare_text{
+p.type_8{display: inline;padding-right:0px;}
+td .align_left p.type_8.mare_text{
 height:auto;
 max-height:70px;
 overflow:hidden;
