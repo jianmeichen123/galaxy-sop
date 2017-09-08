@@ -1,6 +1,7 @@
 --核心团队对核心能力的满足度
 UPDATE `fx_db`.`information_result` SET `content_choose`='2147' WHERE `id`='125';
 UPDATE `fx_db`.`information_result` SET `content_choose`='2147' WHERE `id`='676';
+UPDATE `fx_db`.`information_result` SET `content_choose`='2148' WHERE `id`='437';
 UPDATE `fx_db`.`information_result` SET `content_choose`='2147' WHERE `id`='828';
 UPDATE `fx_db`.`information_result` SET `content_choose`='2147' WHERE `id`='1094';
 UPDATE `fx_db`.`information_result` SET `content_choose`='2148' WHERE `id`='1386';

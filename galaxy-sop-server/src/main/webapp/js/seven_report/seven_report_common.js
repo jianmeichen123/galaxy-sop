@@ -518,7 +518,7 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				if(title.id=="3012"){
-					if(nums[1].length>4){
+					if(nums && nums[1].length>4){
 						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":Number(num).toFixed(4));
 					}else{
 						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num);
@@ -538,7 +538,7 @@ function buildResults(sec,title,readonly)
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
 					if(title.resultList[0].contentDescribe1){
-						if(nums[1].length>4){
+						if(nums && nums[1].length>4){
 							$("input[data-title-id='"+title.id+"']").val(Number(num).toFixed(4)).attr("resultId",result_id);
 						}else{
 							$("input[data-title-id='"+title.id+"']").val(num).attr("resultId",result_id);
