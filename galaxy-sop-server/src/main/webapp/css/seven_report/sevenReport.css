@@ -116,7 +116,7 @@ table .on td{
 	position:relative;
 }
 .align_left p,.align_left span,.content_16.align_left p.black{
-	line-height:2;
+	line-height:23px;
 	color:#b2b2b2;
     word-break: break-word;
 }
