@@ -163,8 +163,7 @@
 
 
 <script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
-<script src="<%=path %>/js/idea-common.js"></script>
-<script type="text/javascript" src='<%=request.getContextPath() %>/js/ideaadd.js'></script>
+
 
 
 

@@ -190,8 +190,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
-<script src="<%=path %>/js/idea-common.js"></script>
-<script type="text/javascript" src='<%=request.getContextPath() %>/js/ideaadd.js'></script>
 <!-- 保存进度条 -->
 <link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>

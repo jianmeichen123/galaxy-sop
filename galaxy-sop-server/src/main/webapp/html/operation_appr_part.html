@@ -122,6 +122,10 @@ $("div").delegate(".appr_part_add","click",function(event){
 	var _name= $self.attr("data-name");
 	var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
 	var time=$(this).closest(".opera_porp").find("#field2").val();
+	var errorTipss=$(".moeny_all input").siblings(".error");
+	if(errorTipss.is(":visible")){
+		formatRemainActualMoney=0;
+	}
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
@@ -141,10 +145,15 @@ $("div").delegate(".appr_part_add","click",function(event){
 				 var totalMoneyActual;
 				 var remainActualMoney;
 				 if($(".moeny_all input").is(".disabled")){
-					 $("#remainMoney").val(data.remainMoney);
-					 totalMoneyActual=$(".moeny_all input").val();
-					 remainActualMoney=(Number(totalMoneyActual)*10000-sum*10000)/10000;
-					 $("#formatRemainActualMoney").text(remainActualMoney.toFixed(4)*10000/10000);
+					 if(errorTipss.is(":visible")){
+						 $("#formatRemainActualMoney").text("0");
+					 }else{
+						 $("#remainMoney").val(data.remainMoney);
+						 totalMoneyActual=$(".moeny_all input").val();
+						 remainActualMoney=(Number(totalMoneyActual)*10000-sum*10000)/10000;
+						 $("#formatRemainActualMoney").text(remainActualMoney.toFixed(4)*10000/10000);
+					 }
+					
 				 }else{
 					 var formatRemainActualMoneyNew=Number(formatRemainActualMoney)-sum;
 					 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
@@ -156,15 +165,23 @@ $("div").delegate(".appr_part_add","click",function(event){
 					 var val=$(this).val();
 					 var errorTips=$(this).siblings(".error");
 	                if(errorTips.is(":visible")){
-	                	val=0;
-	                	var formatRemainActualMoney=remainActualMoney-val;
-						 $("#formatRemainActualMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
+	                	if(errorTipss.is(":visible")){
+	                		$("#formatRemainActualMoney").text("0");
+	                	}else{
+	                		val=0;
+		                	var formatRemainActualMoney=remainActualMoney-val;
+							 $("#formatRemainActualMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
+	                	}
 	                }else{
 	                	if(val>remainActualMoney){
 							 $("#formatRemainActualMoney").text("0");
 						 }else{
-							 var formatRemainActualMoney=remainActualMoney-val;
-							 $("#formatRemainActualMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
+							 if(errorTipss.is(":visible")){
+								 $("#formatRemainActualMoney").text("0");
+							 }else{
+								 var formatRemainActualMoney=remainActualMoney-val;
+								 $("#formatRemainActualMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
+							 }
 						 }
 	                }
 				 })

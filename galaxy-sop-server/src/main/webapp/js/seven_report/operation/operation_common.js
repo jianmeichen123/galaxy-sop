@@ -220,6 +220,7 @@ function tabOperateChange(index){
 				 }
 				 var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
 				 var time=$("#field2").val();
+				 var errorTipss=$(".moeny_all input").siblings(".error");
 		        var index = div.index();
 			       $.getHtml({
 		       		url:"/sop/html/operation_appr_actual.html",//模版请求地址
@@ -236,10 +237,15 @@ function tabOperateChange(index){
 		                      $("#remainMoneyActual").val(data.remainMoney);
 		     				  $("#totalMoneyActual").val(data.totalMoney);
 		                   }else{   //未保存数据库
-		                	   var moneyActualHave=$(".moeny_all input").val();   //分拨计划金额
-		                	   var formatRemainActualMoneyNew=Number(moneyActualHave)-sum;
-		                	   $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
-			     			   $("#totalMoneyActual").val(totalMoneyActual);
+		                	   if(errorTipss.is(":visible")){
+		                		   $("#formatRemainActualMoney").text("0");
+		                	   }else{
+		                		   var moneyActualHave=$(".moeny_all input").val();   //分拨计划金额
+			                	   var formatRemainActualMoneyNew=Number(moneyActualHave)-sum;
+			                	   $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
+				     			   $("#totalMoneyActual").val(totalMoneyActual);
+		                	   }
+		                	  
 		                   }
 		                   $("#actual-form").find("[name='code']").val(json['code']);
 		                   $("#actual-form").find("[name='field1']").val(json['field1']);
@@ -247,28 +253,38 @@ function tabOperateChange(index){
 		                   $("#actual-form").find("[name='field3']").val(json['field3']);
 		                   $("#actual-form").find("[name='index']").val(index);
 		                   //总的实际注资金额
-		                   if($(".moeny_all input").is(".disabled")){
+		                   /*if($(".moeny_all input").is(".disabled")){
 		                	   totalMoneyActual=$("#totalMoneyActual").val();
 				               var oldgrantMoney=$("#grantMoney").val();
-		  				 }else{
+		  				 }else{*/
 		  					 totalMoneyActual=formatRemainActualMoney;
 			                 var oldgrantMoney=$("#grantMoney").val();
-		  				 }
+		  				/* }*/
 		                   var remainActualMoney=Number(totalMoneyActual)-sum;
 			               $("#newRemainMoneyActual").val((Number(remainActualMoney)*10000+Number(oldgrantMoney)*10000)/10000);   //新的剩余金额
 		  				   $("#grantMoney").on("blur",function(){
 								 var val=$(this).val();
 								 var errorTips=$(this).siblings(".error");
 					                if(errorTips.is(":visible")){
-					                	val=0;
-					                	var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
-										 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
+					                	if(errorTipss.is(":visible")){
+					                		$("#formatRemainActualMoney").text("0");
+					                	}else{
+					                		val=0;
+						                	var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
+											 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
+					                	}
+					                	
 					                }else{
 					                	 if(val>remainActualMoney+Number(oldgrantMoney)){
 											 $("#formatRemainActualMoney").text("0");
 										 }else{
-											 var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
-											 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
+											 if(errorTipss.is(":visible")){
+												 $("#formatRemainActualMoney").text("0");
+											 }else{
+												 var formatRemainActualMoneyNew=remainActualMoney+Number(oldgrantMoney)-val;
+												 $("#formatRemainActualMoney").text(formatRemainActualMoneyNew.toFixed(4)*10000/10000);
+											 }
+											 
 										 }
 					                }
 							 })

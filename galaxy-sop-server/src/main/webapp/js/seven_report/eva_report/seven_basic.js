@@ -132,7 +132,7 @@
 					dom.children("input").attr("checked",true);
 				}else if(type==8 || type==15){
 					var relateId=p_box.attr("data-relate-id");
-					val= val.replace(/\<br\>/g,'\n').replace(/&nbsp;/g," ").replace(/<.*?>/g,"");
+					val= val.replace(/\<br\>/g,'\n').replace(/&nbsp;/g," ").replace(/<.*?>/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<");
 					var textarea=$(".div_tmpl").find("textarea[data-id='"+relateId+"']");
 					(val !="未填写") ? textarea.val(val):textarea.val() ;		
 				}else if(type==18){
