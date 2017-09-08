@@ -114,9 +114,10 @@ table .on td{
 	text-align: left;
 	padding:0 5px;
 	position:relative;
+    word-wrap: break-word;
 }
 .align_left p,.align_left span,.content_16.align_left p.black{
-	line-height:2;
+	line-height:23px;
 	color:#b2b2b2;
     word-break: break-word;
 }
@@ -288,7 +289,7 @@ table.table_15 td:first-child+td+td+td{
 }
 .condition em.detail{
 	top:50%;
-	margin-top: 19px;
+	margin-top: 16px;
 	z-index: 12;
 	right:0px;
 }
@@ -945,7 +946,7 @@ p.check_p{display:inline;}
 .h_look img{margin:0;top:10px;}
 .h_imgs li{margin-bottom:10px;}
 p.type_8{display: inline;padding-right:0px;}
-p.type_8.mare_text{
+td .align_left p.type_8.mare_text{
 height:auto;
 max-height:70px;
 overflow:hidden;

@@ -66,8 +66,8 @@
 			//$("body").css("overflow", "hidden");
 			$('.gapPopup').show();
 			$(obj).attr("parent_dom","show");
-			var  leftNum = _this.offset().left-29;
-			var  topNum = _this.offset().top-$(".gapPopup").height()-165;
+			var  leftNum = _this.offset().left-26;
+			var  topNum = _this.offset().top-$(".gapPopup").height()-197;
 			//请求成功，数据渲染模板edit_tmpl1
 			get_result(id_code,2,$(".gapPopup"));
 			$('.gapPopup').css('left',leftNum).css('top',topNum);
@@ -132,7 +132,7 @@
 					dom.children("input").attr("checked",true);
 				}else if(type==8 || type==15){
 					var relateId=p_box.attr("data-relate-id");
-					val= val.replace(/\<br\>/g,'\n').replace(/&nbsp;/g," ").replace(/<.*?>/g,"");
+					val= val.replace(/\<br\>/g,'\n').replace(/&nbsp;/g," ").replace(/<.*?>/g,"").replace(/&amp;/g,"&").replace(/&gt;/g,">").replace(/&lt;/g,"<");
 					var textarea=$(".div_tmpl").find("textarea[data-id='"+relateId+"']");
 					(val !="未填写") ? textarea.val(val):textarea.val() ;		
 				}else if(type==18){
