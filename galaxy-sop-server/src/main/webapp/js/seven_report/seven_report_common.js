@@ -1858,9 +1858,9 @@ function selectContext(formId){
 		var titleId=$("#"+formId+" input[name='titleId']").val();
 		var subCode=$("#"+formId+" input[name='subCode']").val();
 		var filedName;
-	    if(field[0].tagName="DD"){
+	    if(field[0].tagName=="DD"){
 	    	filedName=field.attr("id");
-		}else if(field[0].tagName="select"){
+		}else if(field[0].tagName=="select"){
 			filedName=field.attr("name");
 		}
 	    selectDirect(titleId,subCode,filedName);
