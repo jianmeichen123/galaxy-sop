@@ -114,6 +114,7 @@ table .on td{
 	text-align: left;
 	padding:0 5px;
 	position:relative;
+    word-wrap: break-word;
 }
 .align_left p,.align_left span,.content_16.align_left p.black{
 	line-height:23px;
