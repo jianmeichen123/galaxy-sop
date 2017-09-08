@@ -24,7 +24,8 @@
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
-
+<script src="<%=path %>/js/idea-common.js"></script>
+<script type="text/javascript" src='<%=request.getContextPath() %>/js/ideaadd.js'></script>
 
 	<!--右中部内容-->
  	<div class="tabtxt tabblock idea_add">
