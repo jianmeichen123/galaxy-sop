@@ -122,6 +122,10 @@ $("div").delegate(".appr_part_add","click",function(event){
 	var _name= $self.attr("data-name");
 	var formatRemainActualMoney=$(".moeny_all input").val();   //获取计划金额
 	var time=$(this).closest(".opera_porp").find("#field2").val();
+	var errorTips=$(".moeny_all input").siblings(".error");
+	if(errorTips.is(":visible")){
+		formatRemainActualMoney=$("#formatRemainMoney").text();
+	}
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
