@@ -124,7 +124,7 @@ $("div").delegate(".appr_part_add","click",function(event){
 	var time=$(this).closest(".opera_porp").find("#field2").val();
 	var errorTips=$(".moeny_all input").siblings(".error");
 	if(errorTips.is(":visible")){
-		formatRemainActualMoney=$("#formatRemainMoney").text();
+		formatRemainActualMoney=0;
 	}
 	$.getHtml({
 		url:_url,//模版请求地址
