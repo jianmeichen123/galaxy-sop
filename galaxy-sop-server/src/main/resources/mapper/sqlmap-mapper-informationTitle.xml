@@ -40,6 +40,14 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+
+				<if test="titleIds != null">
+					and id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
 				<if test="parentId != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
 				<if test="code != null"> and  code = #{code,jdbcType=VARCHAR} </if>
 				<if test="name != null"> and  name = #{name,jdbcType=VARCHAR} </if>
@@ -303,6 +311,7 @@
 		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
 		<result column="type" 		jdbcType="INTEGER" 		property="type" />
 		<result column="sign" 		jdbcType="INTEGER" 		property="sign" />
+		<result column="content" 	jdbcType="VARCHAR" 		property="content" />
 
 		<collection property="resultList" ofType="com.galaxyinternet.model.hologram.InformationResult">
 			<id column="result_id" 				jdbcType="BIGINT" 		property="id" />
@@ -318,7 +327,7 @@
 
 	<select id="selectTitleOfResults" resultMap="Title_ResultMap" parameterType="java.util.Map">
 		select
-			title.id, title.code, title.name,title.type, title.sign,
+			title.id, title.code, title.name,title.type, title.sign, title.content,
 			result.id result_id, result.project_id, result.title_id, result.content_choose, result.content_describe1, result.content_describe2
 		FROM
 			information_title title
@@ -334,8 +343,63 @@
 			</if>
 
 			<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+			and result.is_valid = 0
 			<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
 		</trim>
+		</where>
+	</select>
+
+
+
+	<resultMap id="Title_fileResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
+
+		<id column="id" 			jdbcType="BIGINT" 		property="id" />
+		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
+		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
+		<result column="type" 		jdbcType="INTEGER" 		property="type" />
+		<result column="sign" 		jdbcType="INTEGER" 		property="sign" />
+		<result column="content" 	jdbcType="VARCHAR" 		property="content" />
+
+		<collection property="fileList" ofType="com.galaxyinternet.model.hologram.InformationFile">
+			<id column="file_id" jdbcType="BIGINT" property="id" />
+			<result column="project_id" jdbcType="BIGINT" property="projectId" />
+			<result column="title_id" jdbcType="BIGINT" property="titleId" />
+			<result column="file_type" jdbcType="VARCHAR" property="fileType" />
+			<result column="file_length" jdbcType="VARCHAR" property="fileLength" />
+			<result column="file_key" jdbcType="VARCHAR" property="fileKey" />
+			<result column="file_name" jdbcType="VARCHAR" property="fileName" />
+			<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
+			<result column="bucket_name" jdbcType="VARCHAR" property="bucketName" />
+			<result column="new_file_name" jdbcType="VARCHAR" property="newFileName" />
+			<result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+			<result column="wide" jdbcType="VARCHAR" property="wide" />
+			<result column="high" jdbcType="VARCHAR" property="high" />
+		</collection>
+
+	</resultMap>
+
+
+	<select id="selectTitleOfFileResults" resultMap="Title_fileResultMap" parameterType="java.util.Map">
+		select
+		title.id, title.code, title.name,title.type, title.sign, title.content,
+		result.id file_id, result.project_id, result.title_id, result.file_type, result.file_length, result.file_key,
+		result.file_name, result.file_suffix, result.bucket_name,result.new_file_name, result.wide, result.high
+		FROM
+		information_title title
+		LEFT JOIN information_file result ON title.id = result.title_id
+		<where>
+			<trim prefixOverrides="and">
+				<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title.id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="notAllNUll != null"> and (result.file_key is not null ) </if>
+			</trim>
 		</where>
 	</select>
 	<!--

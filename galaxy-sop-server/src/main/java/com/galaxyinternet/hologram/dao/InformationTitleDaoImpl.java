@@ -74,6 +74,21 @@ public class InformationTitleDaoImpl extends BaseDaoImpl<InformationTitle, Long>
 			throw new DaoException(String.format("根据titiles查询results出错！语句:%s", getSqlName("selectTitleOfResults")), e);
 		}
 	}
+	/**
+	 * 根据 title id 查询results
+	 */
+	@Override
+	public List<InformationTitle> selectTitleOfFileResults(Map<String, Object> params) {
+
+		try {
+			List<InformationTitle> contentList = sqlSessionTemplate.selectList(getSqlName("selectTitleOfFileResults") ,params);
+			//System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
+			return contentList;
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据titiles查询file results出错！语句:%s", getSqlName("selectTitleOfFileResults")), e);
+		}
+	}
+
 
 	/**
 	 * 根据 title id 查询results,  统计 title 记录数

@@ -26,6 +26,7 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 	 * 根据 title id 查询results
 	 */
 	public List<InformationTitle> selectTitleOfResults(Map<String, Object> params);
+	public List<InformationTitle> selectTitleOfFileResults(Map<String, Object> params);
 	/**
 	 * 根据 title id 查询results,  统计 title 记录数
 	 */

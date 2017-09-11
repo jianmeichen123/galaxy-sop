@@ -1,12 +1,18 @@
 package com.galaxyinternet.hologram.service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
+import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
+import com.galaxyinternet.dao.hologram.InformationListdataRemarkDao;
+import com.galaxyinternet.dao.hologram.InformationTitleDao;
+import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
+import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.cache.LocalCache;
+import com.galaxyinternet.model.hologram.InformationDictionary;
+import com.galaxyinternet.model.hologram.InformationGrade;
+import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.service.hologram.CacheOperationService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.utils.SopConstatnts;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -14,17 +20,12 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-import com.galaxyinternet.dao.hologram.InformationDictionaryDao;
-import com.galaxyinternet.dao.hologram.InformationTitleDao;
-import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
-import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.cache.LocalCache;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationGrade;
-import com.galaxyinternet.model.hologram.InformationTitle;
-import com.galaxyinternet.service.hologram.CacheOperationService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
-import com.galaxyinternet.utils.SopConstatnts;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 @Service("com.galaxyinternet.service.hologram.CacheOperationService")
@@ -55,6 +56,8 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	@Autowired
 	private InformationDictionaryDao informationDictionaryDao;
 
+	@Autowired
+	private InformationListdataRemarkDao headerDao;
 
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
@@ -76,6 +79,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		initTitleIdName();
 		initValueIdName();
 
+		tableRelationInti();
 		initReportsCodeIdsAndNum();
 
 		//initAreaTitleAndTValue();
@@ -168,6 +172,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 
 		initTitleIdName();
 		initValueIdName();
+		tableRelationInti();
 		//initAreaTitleAndTValue();
 		initReportsCodeIdsAndNum();
 	}
@@ -283,6 +288,76 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	*/
 
 
+	/**
+	 *辅助确定表格关系
+	 * 根据 title id -> title 对应的题目 remarkCode (不能完全确定，需要 listdata 结果表辅助)
+	 * 根据 remarkCode -> 各 field 对应的 title id
+	 * 根据 field 的 title id -> title 对应的题目 type
+	 *
+	 */
+	public static Map<String,Map<String, String>> table_remarkCode_field_tid = new HashMap<>();
+	public static Map<String, Integer> table_fieldTid_type = new HashMap<>();
+	public static Map<String, String> table_tid_remarkCode = new HashMap<>();
+	public void tableRelationInti(){
+		Set<String> table_tids = new TreeSet<>();
+		//查询表格头
+		List<InformationListdataRemark> headerList = headerDao.selectAll();
+		for(InformationListdataRemark temp : headerList){
+			table_tid_remarkCode.put(temp.getTitleId()+"", temp.getCode());
+
+			Map<String, String> field_tid = new HashMap<>();
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId1())) {
+				field_tid.put("field1", temp.getSubTitleId1());
+				table_tids.add(temp.getSubTitleId1());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId2())){
+				field_tid.put("field2",temp.getSubTitleId2());
+				table_tids.add(temp.getSubTitleId2());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId3())){
+				field_tid.put("field3",temp.getSubTitleId3());
+				table_tids.add(temp.getSubTitleId3());
+
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId4())){
+				field_tid.put("field4",temp.getSubTitleId4());
+				table_tids.add(temp.getSubTitleId4());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId5())){
+				field_tid.put("field5",temp.getSubTitleId5());
+				table_tids.add(temp.getSubTitleId5());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId6())){
+				field_tid.put("field6",temp.getSubTitleId6());
+				table_tids.add(temp.getSubTitleId6());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId7())){
+				field_tid.put("field7",temp.getSubTitleId7());
+				table_tids.add(temp.getSubTitleId7());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId8())){
+				field_tid.put("field8",temp.getSubTitleId8());
+				table_tids.add(temp.getSubTitleId8());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId9())){
+				field_tid.put("field9",temp.getSubTitleId9());
+				table_tids.add(temp.getSubTitleId9());
+			}
+			if(org.apache.commons.lang.StringUtils.isNotBlank(temp.getSubTitleId10())){
+				field_tid.put("field10",temp.getSubTitleId10());
+				table_tids.add(temp.getSubTitleId10());
+			}
+
+			table_remarkCode_field_tid.put(temp.getCode(),field_tid);
+
+			InformationTitle titleQuery = new InformationTitle();
+			titleQuery.setTitleIds(table_tids);
+			List<InformationTitle> titleList = informationTitleDao.selectList(titleQuery);
+			for(InformationTitle tempTitle : titleList){
+				table_fieldTid_type.put(tempTitle.getId() + "", tempTitle.getType());
+			}
+		}
+	}
 
 
 
