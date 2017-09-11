@@ -533,7 +533,6 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
-			alert('3');
 			var data=getUpdateData();
 		
 			if(!$("#basicForm").validate().form())
