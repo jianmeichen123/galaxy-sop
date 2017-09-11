@@ -1712,7 +1712,7 @@ word-wrap:break-word;
 .searchall_prj .searchall_top,.searchall_prj .searchall_bottom{padding:0 20px;overflow: hidden;width:95%;}
 .searchall_prj .searchall_top{margin-bottom: 10px;display: none;}
 .searchall_prj .fmdl{margin-right: 1%;}
-.searchall_prj .fmdl select{box-sizing: border-box; height:30px;}
+.searchall_prj .fmdl select{box-sizing: border-box; height:28px;}
 .searchall_prj dt{width:75px;text-align: right;font-size: 14px;color:#3e4351;}
 .searchall_prj dd,.searchall_prj dd select{width:110px;}
 .searchall_prj dd select{border:1px solid #ccd2d7;}
