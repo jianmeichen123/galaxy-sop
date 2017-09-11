@@ -222,49 +222,49 @@ function getDetailUrl(code)
 {
 	if(code == 'equity-structure')
 	{
-		return'../../html/funcing_add_gd.html';
+		return'../../../html/funcing_add_gd.html';
 	}
 	else if(code == 'investor-situation')
 	{
-		return'../../html/funcing_add_tz.html';
+		return'../../../html/funcing_add_tz.html';
 	}
 	else if(code =='operation-indices')
 	{
-		return'../../html/fincing_add_yx.html';
+		return'../../../html/fincing_add_yx.html';
 	}
 	else if(code == 'valuation-reference')
 	{
-		return'../../html/fincing_add_tl.html';
+		return'../../../html/fincing_add_tl.html';
 	}
 	else if(code == 'financing-milestone')
 	{
-		return'../../html/fincing_add_jd.html';
+		return'../../../html/fincing_add_jd.html';
 	}
 	else if(code == 'finance-history')
 	{
-		return'../../html/finace_history.jsp';
+		return'../../../html/finace_history.jsp';
 	}
 	else if (code =='team-members'){
 
-	    return'../../html/team_compile.html';
+	    return'../../../html/team_compile.html';
 	}else if(code == 'share-holding')
     {
-        return'../../html/team_add_cgr.html';
+        return'../../../html/team_add_cgr.html';
     }else if(code == 'competition-comparison')
 	{
-		return'../../html/compete_save.jsp';
+		return'../../../html/compete_save.jsp';
 	}else if(code == 'delivery-before')
 	{
-		return'../../html/delivery_matter.jsp';
+		return'../../../html/delivery_matter.jsp';
 	}else if(code == 'delivery-after')
 	{
-		return'../../html/delivery_matter.jsp';
+		return'../../../html/delivery_matter.jsp';
 	}else if(code == 'grant-part' || code == 'grant-actual')
 	{
 	    if(reportType == 7){
-	    	return'../../html/operation_appr_part.html';
+	    	return'../../../html/operation_appr_part.html';
 	    }
-		return'../../html/grant-part.jsp';
+		return'../../../html/grant-part.jsp';
 	}
 	return "";
 }
