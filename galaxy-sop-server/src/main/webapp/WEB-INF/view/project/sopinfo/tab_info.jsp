@@ -52,7 +52,7 @@
 					<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
 			</tr>
 			     <tr>
-				     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
+				     <td><span class="new_color_gray">项目来源：</span><span class="new_color_black" id="faName"></span></td>
 					</tr>
 			 <tr>
 				     <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span class="new_color_black" id="remarkStr"></span></td>
@@ -127,12 +127,17 @@
                               <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                          </tr>
                            <tr>
-                             <td><span class="new_color_gray">来源于FA：</span>
-                             <span class="mar_left">
-                             	<div class="mar_left"><input type="radio" name="faFlag" checked="checked"  value="0" onclick="setText('reset')" id="faFlag">否 </div>
-                                 <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                 <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  name="faName" id="faNameEdit" style="display:none" required data-rule-faname="true" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20"/></div>
-                             </span></td>
+                             <td>
+	                             <span class="new_color_gray">项目来源：</span>
+	                             <span class="mar_left">
+	                             	<select name="projectSource" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+				                    	<option value="">--请选择--</option>
+				                    	<option value="">FA</option>
+				                    	<option value="">其他</option>
+				                    </select>
+	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+	                             </span>
+                             </td>
                            </tr>
 
                  <tr>
@@ -477,6 +482,15 @@
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
+	//项目来源切换
+	$("select[name='projectSource']").change(function(){
+		var text=$(this).find("option:checked").text();
+		if(text=="FA"){
+			$(this).siblings(".new_nputr").show();
+		}else{
+			$(this).siblings(".new_nputr").hide();
+		}
+	})
 	//运营数据分析返回
 	if(document.URL.indexOf("back=operateList")>0){
 		initTabPostMeeting();
