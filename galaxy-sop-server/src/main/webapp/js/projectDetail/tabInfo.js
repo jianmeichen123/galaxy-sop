@@ -112,8 +112,6 @@ $(function(){
 			$("#end").hide();
 			$("#s").hide();
 		}
-		console.log(!!!!!!!!!!!)；
-		console.log(projectPro);
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		
 			$("#project_name_title").text(projectInfo.projectName);
@@ -535,6 +533,7 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
+			alert('3');
 			var data=getUpdateData();
 		
 			if(!$("#basicForm").validate().form())
@@ -591,6 +590,7 @@ $(function(){
 				for(var i=0;i<jointDeliverys.length;i++){
 					var obj={"deliveryName":"",
 							 "deliveryAmount":"",
+							 "deliveryCurrency":"",
 							 "deliveryShareRatio":"",
 						    };
 					var jointDelivery=jointDeliverys[i];
@@ -600,7 +600,8 @@ $(function(){
 					    }
 				        obj.deliveryName=jointDelivery.childNodes[0].childNodes[0].value;
 				        obj.deliveryAmount=jointDelivery.childNodes[1].childNodes[0].value;
-				        obj.deliveryShareRatio=jointDelivery.childNodes[2].childNodes[0].value;
+				        obj.deliveryCurrency=jointDelivery.childNodes[2].childNodes[0].options[jointDelivery.childNodes[2].childNodes[0].selectedIndex].text;
+				        obj.deliveryShareRatio=jointDelivery.childNodes[3].childNodes[0].value;
 				        arr[i]=obj;
 				}
 			}
@@ -750,7 +751,7 @@ function jointDeliveryList(list){
 	var temp=$("#jointDelivery");
 	temp.append(html);
 	for(var i=0;i<list.length;i++){
-	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>币种</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
+	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryCurrency+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
 	   temp.append(html);
 	}	
 }
