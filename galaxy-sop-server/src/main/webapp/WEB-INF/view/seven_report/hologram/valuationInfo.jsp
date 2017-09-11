@@ -84,7 +84,7 @@ var deleteJSON={};
 					
 				});
 				//调整表格
-				$("table").css({"width":"80%","table-layout":"fixed"});
+				$("table").css({"width":"100%","table-layout":"fixed"});
 				mustData(projectInfo.id,0);
 				toggle_btn($('.anchor_btn span'),1);
 				fun_click();
@@ -146,7 +146,7 @@ var deleteJSON={};
 					$("#"+id_code).hide();
 					validate();
 					//调整表格
-					$("table").css({"width":"80%","table-layout":"fixed"});
+					$("table").css({"width":"100%","table-layout":"fixed"});
 					$(".h_edit .sign_title").css("margin-bottom","20px");
 					btn_disable(1);
 					$("#b_"+id_code).validate();

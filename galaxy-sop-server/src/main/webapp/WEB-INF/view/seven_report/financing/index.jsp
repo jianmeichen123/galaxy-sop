@@ -132,7 +132,7 @@ sendGetRequest(platformUrl.queryAllTitleValues + 'GNO2?reportType=5', null,
 				
 			});
 			//调整表格
-			$("table").css({"width":"80%","table-layout":"fixed"});
+			$("table").css({"width":"100%","table-layout":"fixed"});
 			mustData(projectInfo.id,0);
 			toggle_btn($('.anchor_btn span'),1);
 			fun_click();
