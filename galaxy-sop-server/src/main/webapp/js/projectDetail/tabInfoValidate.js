@@ -31,9 +31,9 @@
 		var procontribution = /^(0(?:[.](?:[1-9]\d{0,3}|0[1-9]0{0,2}|0[1-9]{2}0{0,1}|0[1-9]{3}|0{2}[1-9]0{0,1}|0{2}[1-9]{2}|0{3}[1-9]))|([1-9][0-9]{0,8})|([1-9][0-9]{0,8}\.[0-9]{1,4}))$/;
 		return this.optional(element) || (procontribution.test(value));
 	}, "支持四位小数");
-	//项目估值LIMIT_11_NUMBER
+	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("provaluations", function (value, element) {
-		var provaluations = /^(0(?:[.](?:[1-9]\d{0,3}|0[1-9]0{0,2}|0[1-9]{2}0{0,1}|0[1-9]{3}|0{2}[1-9]0{0,1}|0{2}[1-9]{2}|0{3}[1-9]))|([1-9][0-9]{0,8})|([1-9][0-9]{0,8}\.[0-9]{1,4}))$/;
+		var provaluations = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 		return this.optional(element) || (provaluations.test(value));
 	}, "支持四位小数");
 	//出让股份
