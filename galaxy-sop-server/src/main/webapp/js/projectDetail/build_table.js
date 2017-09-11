@@ -2,7 +2,6 @@ function buildTable(title)
 {
 	//列表Header
 	if(title.tableHeader)
-		console.log(title);
 	{	var header = title.tableHeader;
 		var tables = $("table[data-title-id='"+header.titleId+"']");
 		$.each(tables,function(){
@@ -82,11 +81,9 @@ function buildRow(row,showOpts,titleId)
 	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
 	{
-		if(funFlg=="1"){
-			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
-		}
-		td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">编辑</span>');
-		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
+		td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">查看</em>');
+		td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">编辑</em>');
+		td.append('<em class="blue" data-btn="btn" onclick="delRow(this)">删除</em>');
 		tr.append(td);
 	}else{
 		if(funFlg=="1"){
