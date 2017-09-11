@@ -635,7 +635,7 @@
  --%>
 <!-- 1.8期隐藏结束 -->
 <!-- 融资历史 -->
-<div class="tabtable_con_on member financeHistory">
+<%-- <div class="tabtable_con_on member financeHistory">
 	<div class='company_center'>
 		<div class="new_r_compile ">
 			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>融资历史</span> <span class="bj_ico" id="location">暂无数据</span>
@@ -656,7 +656,7 @@
 			</div>
 		</div>
 	</div>	
-</div>
+</div> --%>
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
