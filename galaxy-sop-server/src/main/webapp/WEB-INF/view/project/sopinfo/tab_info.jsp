@@ -683,6 +683,23 @@
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
+/* var proinfo = '${proinfo}';
+var proid = '${pid}';
+var pname = '${pname}';
+var interviewSelectRow = null;
+var projectId ='${pid}';
+var flag = '${flag}';
+var isCreatedByUser = "${fx:isCreatedByUser('project',pid) }";
+var isTransfering = "${fx:isTransfering(pid) }"; */
+
+
+$(function(){
+getTabPerson();
+if(isTransfering == 'true'){
+	$("#add_person_btn").addClass('limits_gray');
+}
+});	
+
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
@@ -754,23 +771,6 @@
 		}
 	});
 	
-	/*团队成员  */
-	/* var proinfo = '${proinfo}';
-	var proid = '${pid}';
-	var pname = '${pname}';
-	var interviewSelectRow = null;
-	var projectId ='${pid}';
-	var flag = '${flag}';
-	var isCreatedByUser = "${fx:isCreatedByUser('project',pid) }";
-	var isTransfering = "${fx:isTransfering(pid) }"; */
-
-
-	/* $(function(){
-		getTabPerson();
-		if(isTransfering == 'true'){
-			$("#add_person_btn").addClass('limits_gray');
-		}
-	});	 */
 	/* 股权结构 */
 	  searchFH();
 	var $sharesTable;
