@@ -479,7 +479,7 @@ $(function(){
           shadowColor:'rgba(0,0,0,0.9)',
           textStyle:{
               color:'#555',
-              fontFamily:'微软雅黑',
+              fontFamily:'Microsoft YaHei',
               fontSize:'12'
           },
           /*formatter: function (params) {
@@ -538,7 +538,7 @@ $(function(){
                             interval:0,
                             textStyle: {
                                 color: '#666',
-                                fontFamily:'微软雅黑',
+                                fontFamily:'Microsoft YaHei',
                                 align:'center'
                             },
                             formatter:function(item){
@@ -577,14 +577,14 @@ $(function(){
                         nameRotate:90,
                         nameTextStyle:{
                           color:"#666",
-                          fontFamily:'微软雅黑'
+                          fontFamily:'Microsoft YaHei'
                         },
                         type : 'value',
                         axisLabel: {
                             show: true,
                            textStyle: {
                                 color: '#666',
-                                fontFamily:'微软雅黑'
+                                fontFamily:'Microsoft YaHei'
                             }
                         },
                         axisLine:{

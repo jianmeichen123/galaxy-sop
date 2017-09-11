@@ -14,7 +14,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },
@@ -98,7 +98,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },
@@ -467,7 +467,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
 
@@ -562,7 +562,7 @@ $(function () {
             align:'center',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },
         },
@@ -823,7 +823,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },
@@ -918,7 +918,7 @@ $(function () {
             align:'left',
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },
         },
@@ -1132,7 +1132,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
 
@@ -1227,7 +1227,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },
@@ -1307,7 +1307,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },
@@ -1387,7 +1387,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },
@@ -1467,7 +1467,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
 
@@ -1553,7 +1553,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },
@@ -1798,7 +1798,7 @@ $(function () {
             align:'left',  
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },        
         },                                                                 
@@ -1894,7 +1894,7 @@ $(function () {
                 align:'left',  
                 style:{
                     fontSize:'18px',
-                    fontFamily:'微软雅黑',
+                    fontFamily:'Microsoft YaHei',
                     color:'#808e9b',
                 },        
             },
@@ -1978,7 +1978,7 @@ $(function () {
             align:'left',
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },
         },
@@ -2044,7 +2044,7 @@ $(function () {
             align:'left',
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },
         },
@@ -2114,7 +2114,7 @@ $(function () {
             align:'left',
             style:{
                 fontSize:'18px',
-                fontFamily:'微软雅黑',
+                fontFamily:'Microsoft YaHei',
                 color:'#808e9b',
             },
         },
@@ -2182,7 +2182,7 @@ $(function () {
             align:'left',  
                 style:{
                     fontSize:'18px',
-                    fontFamily:'微软雅黑',
+                    fontFamily:'Microsoft YaHei',
                     color:'#808e9b',
                 },        
         },
@@ -2821,7 +2821,7 @@ $('#container_KPI').highcharts({
                 y:-5,
                 x:-95,
                 style:{
-                    fontFamily:'微软雅黑',
+                    fontFamily:'Microsoft YaHei',
                     color:'#4490d2',
                     fontWeight:'bold',
                 },
@@ -2912,7 +2912,7 @@ $('#container_KPI').highcharts({
                 y:-5,
                 x:-95,
                 style:{
-                    fontFamily:'微软雅黑',
+                    fontFamily:'Microsoft YaHei',
                     color:'#4490d2',
                     fontWeight:'bold',
                 },

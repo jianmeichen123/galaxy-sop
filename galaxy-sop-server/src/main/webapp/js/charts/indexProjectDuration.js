@@ -19,7 +19,7 @@ function noDataProTimeDiv(){
                 y:5,
                 x:-80,
                 style:{
-                    fontFamily:'微软雅黑',
+                    fontFamily:'Microsoft YaHei',
                     color:'#e9ebf2',
                     fontWeight:'bold',
                 },
@@ -223,7 +223,7 @@ var containerProjectTimeOptions = {
          y:5,
          x:-80,
          style:{
-             fontFamily:'微软雅黑',
+             fontFamily:'Microsoft YaHei',
              color:'#4490d2',
              fontWeight:'bold',
              cursor:'pointer'

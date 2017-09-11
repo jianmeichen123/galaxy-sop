@@ -839,7 +839,6 @@ table td select option{
 	display: inline-block;
     padding-right: 10px;
     width: 61%;
-    vertical-align: middle;
 }
 .radioShow label.select_1,.radioShow label.select_2{
 	padding:0;

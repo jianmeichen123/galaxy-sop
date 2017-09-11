@@ -81,7 +81,7 @@ var containerUserKpiOptions = {
         align:'left',  
         style:{
             fontSize:'18px',
-            fontFamily:'微软雅黑',
+            fontFamily:'Microsoft YaHei',
             color:'#3e4351',
         },        
 
