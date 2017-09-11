@@ -2137,7 +2137,7 @@ dl{position: relative;}
     cursor:default;
 }
 .new_correlation_cen .new_btn_right {
-    float: right;
+    float:left;
     margin-top: 20px;
 }
 .member table .limits_gray .resume{
@@ -3565,3 +3565,5 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .searchall_top input.new_nputr{display:none;}
 .compile_on_center select.new_nputr {margin-right:10px;}
 .border-top{border-top:1px solid #e6e8f1; }
+.to-hide{display:none;}
+.fjxm_but{display:none;}
