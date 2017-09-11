@@ -441,6 +441,46 @@ $(function(){
 				$(this).parent().siblings('p').css('height','100px');
 				$(this).parent().parent().css('height','120px');
 			}) 
+			//1.8新加数据开始
+			//不同表格公共方法
+			function info_table(code,name,table){
+				var pid;
+				var tabid;
+				sendGetRequest(platformUrl.queryAllTitleValues +code, null,
+						function(data) {
+					    var result = data.result.status;
+						if(result=="OK"){
+							pid = data.id;
+					    	$.each(data.entity.childList,function(){
+					    		var _header =$(this);
+					    		if(_header[0].name==name){
+					    			tabid=_header[0].id;
+					    			return false;
+					    		}
+					    	})
+						}						
+					})
+					table.attr("data-title-id",tabid);
+				//HEADER
+				sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
+			        var result = data.result.status;
+					var header=data.entityList;
+					if(result=="OK"){
+				    	$.each(header,function(){
+				    		var _header =$(this);
+				    		if(_header[0].name==name){
+				    			console.log(_header[0]);
+				    			buildTable(_header[0])
+				    			return false;
+				    		}
+				    	})
+					}
+			     })
+			}
+		//1.8新加数据结束
+			//表格渲染
+			info_table("NO9_1","融资历史：",$("table.fina_history"))
+			
 			/**
 			 * 商业计划
 			 */

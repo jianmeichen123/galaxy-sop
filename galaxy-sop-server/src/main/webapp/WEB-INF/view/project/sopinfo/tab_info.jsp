@@ -592,7 +592,7 @@
 </div>
 </div>
 <!-- 融资历史 -->
-<div class="tabtable_con_on">
+<%-- <div class="tabtable_con_on">
 <div class="member financeHistory">
     <div class="title" >
         <span class="new_ico_stock icon"></span>
@@ -605,7 +605,7 @@
               <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
           </div>
         </c:if>
-      </div>
+    </div>
   	<div class="new_ul_all history_show" >
 			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
             <thead>
@@ -626,8 +626,31 @@
          </table>
 		</div>
 </div>
+</div> --%>
+<!-- 融资历史 -->
+<div class="tabtable_con_on">
+	<div class='company_center'>
+		<div class="new_r_compile ">
+			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>融资历史</span> <span class="bj_ico" id="location">暂无数据</span>
+		</div>
+		 <div class="top clearfix">
+        <!--按钮-->
+     <%--   <c:if test="${isEditable}">
+          <div class="btnbox_f btnbox_f1 clearfix">
+              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
+          </div>
+        </c:if> --%>
+    </div>
+		<div class="location_show history_show new_ul_all">
+			<span class="ico_dot ico"></span>
+			<p id="location_show" class="clearfix"></p>
+			<a id="add_person_btn" href="javascript:;" onclick="toAddPerson(null,null);" class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
+			<div class="fixed-table-container">			
+				<table cellspacing="0" class="fina_history table table-hover"></table>
+			</div>
+		</div>
+	</div>	
 </div>
-
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <script type="text/javascript">
@@ -1090,6 +1113,7 @@
 	
 	
 </script>
+<script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/jquery.validate.min.js'></script>
