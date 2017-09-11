@@ -977,8 +977,8 @@ select::-ms-expand { display: none; }
     vertical-align: top;
     border: none;
     cursor: pointer;
-    margin-top: 6px;
     margin-left:3px;
+    vertical-align: middle;
 }
 .icheckbox_flat-blue{margin-left:5px;}
 .iradio_flat-blue.checked{
