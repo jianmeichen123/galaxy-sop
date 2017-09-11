@@ -12,6 +12,13 @@
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 	<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+   <c:set var="aclViewProject"
+	value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }"
+	scope="request" />
+	
+<c:set var="isEditable"
+	value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}"
+	scope="request" />
     <!-- 基本信息 -->
 	<div class="tabtable_con_jbxx">
 	<!-- 默认展示 -->
@@ -214,7 +221,7 @@
 	</ul>
 </div>
 
-<div class="tabtable_con_on" >
+<%-- <div class="tabtable_con_on" >
 	<div class="project_on" id="updateProjectDescribe" style="height:420px;">
 		<div class="title_bj_tzjl">项目描述</div>
 		<div class="block_wrap">
@@ -252,7 +259,7 @@
 			<p style="padding-left:22px" id="describe2_show" valiate="required"></p>
 		</div>
 	</div>
-</div>
+</div> --%>
 <!-- 1.8期隐藏开始  -->
 
 <%-- <!--公司定位-->
@@ -471,6 +478,34 @@
 </div>
  --%>
 <!-- 1.8期隐藏开结束 -->
+<div class="tabtable_con_on">
+<input type="hidden" id="pid" name="id" value="${pid}" />
+
+<c:if test="${aclViewProject==true}">
+	<div class="member">
+		<c:if test="${isEditable}">
+			<div class="top clearfix">
+				<!--按钮-->
+				<div class="btnbox_f btnbox_f1 clearfix">
+					<a id="add_person_btn" href="javascript:;" onclick="toAddPerson(null,null);" class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
+					<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
+				</div>
+			</div>
+		</c:if>
+		
+		<!--表格内容-->
+		<div class="tab-pane active commonsize" id="view">
+			<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
+			</table>
+		</div>
+
+	</div>
+</c:if>
+</div>
+
+
+
+
 
 
 
@@ -548,7 +583,7 @@
 		}else{
 			$(".institutionBtn span").css("margin-top","0")
 		}
-	})
+	});
 </script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 
