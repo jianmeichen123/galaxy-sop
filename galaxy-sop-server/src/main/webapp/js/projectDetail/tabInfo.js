@@ -112,7 +112,8 @@ $(function(){
 			$("#end").hide();
 			$("#s").hide();
 		}
-		
+		console.log(!!!!!!!!!!!)；
+		console.log(projectPro);
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		
 			$("#project_name_title").text(projectInfo.projectName);

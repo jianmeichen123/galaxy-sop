@@ -430,8 +430,6 @@ function init_lct(){
 	var ul_li = $(".line_ul_p").children("li");
 	$(ul_li).each(function(i){
 		if(index!=0 && i!=0){
-			console.log($(this).text());
-			console.log(prograss_name);
 			if($(this).text()==prograss_name){
 				$(this).addClass("green_dot");
 				$(this).prevAll().addClass("green_dot");

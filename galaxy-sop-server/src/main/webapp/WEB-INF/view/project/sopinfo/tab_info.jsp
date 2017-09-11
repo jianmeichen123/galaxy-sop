@@ -248,7 +248,9 @@
 		</div>
 	</div>
 </div>
-<!--公司定位-->
+<!-- 1.8期隐藏开始  -->
+
+<%-- <!--公司定位-->
 <div class="tabtable_con_on">
 	<div class='company_center'>
 		<div class="new_r_compile ">
@@ -462,6 +464,12 @@
 	</div>
 	
 </div>
+ --%>
+<!-- 1.8期隐藏开结束 -->
+
+
+
+
 
 <!--隐藏-->
 <div class="bj_hui_on"></div>
