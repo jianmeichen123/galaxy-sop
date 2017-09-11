@@ -1,12 +1,15 @@
 package com.galaxyinternet.model.hologram;
 
+import com.galaxyinternet.framework.core.model.PagableEntity;
+
 import java.math.BigDecimal;
 import java.util.List;
-
-import com.galaxyinternet.framework.core.model.PagableEntity;
+import java.util.Set;
 
 public class InformationTitle extends PagableEntity {
 	private static final long serialVersionUID = 1L;
+
+	private Set<String> titleIds;
 
 	private String parentId;
 
@@ -65,7 +68,16 @@ public class InformationTitle extends PagableEntity {
 	private List<InformationGrade> informationGrades;
 	//分数选项
 	private List<ScoreAutoInfo> autoList;
-	
+
+
+	public Set<String> getTitleIds() {
+		return titleIds;
+	}
+
+	public void setTitleIds(Set<String> titleIds) {
+		this.titleIds = titleIds;
+	}
+
 	public List<InformationGrade> getInformationGrades() {
 		return informationGrades;
 	}

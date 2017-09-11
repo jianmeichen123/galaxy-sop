@@ -7,6 +7,8 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import sun.misc.BASE64Encoder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class DocExportUtil {
     private String filePath;
     private String fileName;
 
+    private HttpServletRequest request;
+    private HttpServletResponse response;
 
     public String getFileName() {
         return fileName;
@@ -69,6 +73,7 @@ public class DocExportUtil {
         super();
     }
     /**
+     * 本地使用
      * @param templatePath 模板文件位置
      * @param templateName 模板文件名称
      * @param filePath doc保存路径
@@ -82,13 +87,34 @@ public class DocExportUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        configuration.setObjectWrapper(new DefaultObjectWrapper());
+        configuration.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_23));
         configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
 
         this.templatePath = templatePath;
         this.templateName = templateName;
         this.filePath = filePath;
         this.fileName = fileName;
+    }
+
+    /**
+     * web使用
+     * @param templatePath 模板文件位置
+     * @param templateName 模板文件名称
+     * @param filePath doc保存路径
+     * @param fileName doc保存名称
+     */
+    public DocExportUtil(String templatePath, String templateName, HttpServletRequest request, HttpServletResponse response) {
+        configuration=new Configuration(Configuration.VERSION_2_3_23);
+        configuration.setDefaultEncoding("utf-8");
+        configuration.setServletContextForTemplateLoading(request.getSession().getServletContext(),templatePath); // /template  是:/WebRoot/ftl
+
+        configuration.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_23));
+        configuration.setTemplateExceptionHandler(TemplateExceptionHandler.IGNORE_HANDLER);
+
+        this.templatePath = templatePath;
+        this.templateName = templateName;
+        this.request = request;
+        this.response = response;
     }
 
 
@@ -110,6 +136,30 @@ public class DocExportUtil {
             e.printStackTrace();
         }
     }
+    public OutputStream createDocOut(Map<String, Object> dataMap)
+    {
+        try
+        {
+            Template template = configuration.getTemplate(templateName); //.xml  .ftl
+
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("application/msword");
+            response.addHeader("Content-Disposition", "attachment; filename=test.doc");
+            OutputStream out = response.getOutputStream();
+            template.process(dataMap,new OutputStreamWriter(out,"utf-8"));
+            out.flush();
+            out.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+
+
 
     public String getImageStr(String imgFile){
         InputStream in=null;
@@ -127,8 +177,6 @@ public class DocExportUtil {
         BASE64Encoder encoder=new BASE64Encoder();
         return encoder.encode(data);
     }
-
-
 
 
     /**
@@ -208,76 +256,3 @@ public class DocExportUtil {
 }
 
 
-
-class Model implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private  String file1;
-    private  String file2;
-    private  String file3;
-
-    private  String name;
-    private  String sex;
-    private  String age;
-
-    public void setFile1(String file1) {
-        this.file1 = file1;
-    }
-
-    public void setFile2(String file2) {
-        this.file2 = file2;
-    }
-
-    public void setFile3(String file3) {
-        this.file3 = file3;
-    }
-
-    public String getFile1() {
-        return file1;
-    }
-
-    public String getFile2() {
-        return file2;
-    }
-
-    public String getFile3() {
-        return file3;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "Model{" +
-                "file1='" + file1 + '\'' +
-                ", file2='" + file2 + '\'' +
-                ", file3='" + file3 + '\'' +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", age='" + age + '\'' +
-                '}';
-    }
-}
