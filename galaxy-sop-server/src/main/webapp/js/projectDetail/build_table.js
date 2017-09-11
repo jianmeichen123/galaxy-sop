@@ -213,9 +213,10 @@ function editRow(ele)
 			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-				saveForm($("#detail-form"));
+				saveForm($("#detail-form"),$(this));
 			});
 		}//模版反回成功执行	
+	
 	});
 }
 function getDetailUrl(code)
@@ -267,4 +268,86 @@ function getDetailUrl(code)
 		return'../../../html/grant-part.jsp';
 	}
 	return "";
+}
+//编辑保存
+function saveForm(form,_this)
+{
+	if($(form).validate().form())
+	{
+		var data = $(form).serializeObject();
+		saveRow(data);
+		
+		var post_data= {
+			projectId : projectInfo.id
+		};
+		var infoTableModelList = new Array();
+		$.each(_this.closest("table"),function(){
+			$.each($(this).find('tr:gt(0)'),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				infoTableModelList.push($(this).data());
+			});
+		});
+	
+		post_data.infoTableModelList = infoTableModelList;
+		
+		
+		sendPostRequestByJsonObj(
+				platformUrl.saveOrUpdateInfo , 
+				post_data,
+				function(data){
+					console.log(data);
+					
+		})
+		
+		
+		
+	}
+}
+function saveRow(data)
+{
+	data = JSON.parse(data);
+	var titleId = data.titleId;
+	var index = data.index;
+	if(typeof index == 'undefined' || index == null || index == '')
+	{
+		var tr = buildRow(data,true,titleId);
+		$('table[data-title-id="'+titleId+'"]').append(tr);
+	}
+	else
+	{
+		var tr = $('table[data-title-id="'+titleId+'"]').find('tbody tr:eq('+index+')');
+		for(var key in data)
+		{
+			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
+			{
+				tr.data(key,data[key]);
+				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+			}
+		}
+	}
+	resizetable($('table[data-title-id="'+titleId+'"]'))
+	$("a[data-close='close']").click();
+}
+function resizetable(table){
+    var dict_map = {};
+    var title_id = table.attr("data-title-id")
+    var  code = table.attr("data-code")
+    var fields_json=tableDictColumn(code);
+    console.log(fields_json);
+    if (fields_json && code in fields_json){
+        var fields = fields_json[code]
+        for(var i=0;i<fields.length;i++){
+            var v = fields[i]
+            var dict = dictCache(title_id,code,v)
+            dict_map[title_id+"-"+code+"-"+v] = dict
+            table.find('td[data-field-name="'+v+'"]').each(function(){
+                var o = $(this)
+                o.text(dict[o.text()])
+            })
+        }
+    }
 }
