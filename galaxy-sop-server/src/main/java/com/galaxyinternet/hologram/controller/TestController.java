@@ -45,7 +45,7 @@ public class TestController{
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),pid,"NO");
 
-		DocExportUtil docExportUtil = new DocExportUtil(tempath, temp1, request, response);
+		DocExportUtil docExportUtil = new DocExportUtil(tempath, temp1, request, response,"test.doc");
 		docExportUtil.createDocOut(map);
 	}
 
