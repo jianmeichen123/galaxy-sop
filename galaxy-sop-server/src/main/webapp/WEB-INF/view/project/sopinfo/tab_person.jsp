@@ -15,7 +15,7 @@
 %>
 
 
-<%-- <input type="hidden" id="pid" name="id" value="${pid}" />
+<input type="hidden" id="pid" name="id" value="${pid}" />
 
 <c:if test="${aclViewProject==true}">
 	<div class="member">
@@ -36,7 +36,7 @@
 		</div>
 
 	</div>
-</c:if> --%>
+</c:if>
 
 
 

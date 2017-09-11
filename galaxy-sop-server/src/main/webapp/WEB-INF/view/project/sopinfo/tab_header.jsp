@@ -18,8 +18,8 @@
 				<!-- <li data-tab="nav">全息报告</li> -->
 		</c:when>
 		<c:when test="${aclViewProject==true }">
-				<!-- <li data-tab="nav">团队成员</li>
-				<li data-tab="nav">股权结构</li> -->
+				<li class="to-hide" data-tab="nav">团队成员</li>
+				<li class="to-hide" data-tab="nav">股权结构</li>
 				<li data-tab="nav">访谈记录</li>
 				<li data-tab="nav">会议纪要</li>	
 				<li data-tab="nav">交割前事项</li>
@@ -30,8 +30,8 @@
 				<!-- <li data-tab="nav">全息报告</li> -->
 		</c:when>
 		<c:otherwise>
-				<!-- <li data-tab="nav" class="no" disabled="disabled">团队成员</li>
-				<li data-tab="nav" class="no" disabled="disabled">股权结构</li> -->
+				<li data-tab="nav" class="no" disabled="disabled">团队成员</li>
+				<li data-tab="nav" class="no" disabled="disabled">股权结构</li>
 				<li data-tab="nav" class="no" disabled="disabled">访谈记录</li>
 				<li data-tab="nav" class="no" disabled="disabled">会议纪要</li>	
 				<li data-tab="nav" class="no" disabled="disabled">交割前事项</li>

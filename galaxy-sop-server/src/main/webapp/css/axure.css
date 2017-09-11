@@ -3564,3 +3564,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .searchall_top select.new_nputr{margin-right:10px}
 .searchall_top input.new_nputr{display:none;}
 .compile_on_center select.new_nputr {margin-right:10px;}
+.border-top{border-top:1px solid #e6e8f1; }

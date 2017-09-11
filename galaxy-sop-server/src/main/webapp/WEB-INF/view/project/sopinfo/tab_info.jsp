@@ -12,7 +12,7 @@
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 	<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
-   <c:set var="aclViewProject"
+  <c:set var="aclViewProject"
 	value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }"
 	scope="request" />
 	
@@ -220,6 +220,162 @@
 		</span></li>
 	</ul>
 </div>
+
+<!--团队成员 -->
+	<div class="tabtable_con_on">
+	<div class="new_r_compile ">
+		<span class="new_ico_book"></span> <span class="new_color size16">团队成员</span>
+	</div>
+	<input type="hidden" id="pid" name="id" value="${pid}" />
+	<c:if test="${aclViewProject==true}">
+		<div class="member">
+			<c:if test="${isEditable}">
+				<div class="top clearfix border-top">
+					<!--按钮-->
+					<div class="btnbox_f btnbox_f1 clearfix">
+						<a id="add_person_btn" href="javascript:;" onclick="toAddPerson(null,null);" class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
+						<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
+					</div>
+				</div>
+			</c:if>
+			
+			<!--表格内容-->
+			<div class="tab-pane active commonsize" id="view">
+				<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
+				
+				</table>
+			</div>
+	
+		</div>
+	</c:if>
+	</div>
+
+
+<!-- 法人信息 -->
+<div class="tabtable_con_on">
+<div class="legal">
+	<div class="show">
+		<div class="title">
+	        <span class="new_ico_legal icon"></span>
+	        <span class="new_color size16">法人信息</span>
+	        <c:if test="${isEditable}">
+	        <div class="btn">
+	         	<span class="new_fctbox">
+	            	<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+	         	</span>
+	        </div> 
+	        </c:if>
+	    </div>
+	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
+	        <tr>
+	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany"></span></td>
+	            <td><span class="new_color_gray th">组织代码：</span><span class="new_color_black" id="projectCompanyCode"></span></td>
+	        </tr>
+	        <tr>
+	            <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"></span></td>
+	            <td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"></span></td>
+	        </tr>
+	    </table>                
+	</div>
+    <div class="hidden">
+      <div class="title">
+          <span class="new_ico_legal icon"></span>
+          <span class="new_color size16">法人信息</span>
+          <div class="btn btnbox">
+              <button href="javascript:;" class="pubbtn bluebtn" data-btn="save">保存</button>
+              <button href="javascript:;" class="pubbtn fffbtn" data-btn="cancle">取消</button>
+          </div> 
+      </div>
+      <form action="#" id="company-info-form">
+      <input type="hidden" name="id" value="${projectId }">
+      <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
+          <tr>
+              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50"></td>
+              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td>
+          </tr>
+          <tr>
+              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
+              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
+          </tr>
+      </table>                    
+      </form>
+  </div>
+</div>
+</div>
+
+<!--股权结构-->
+<div class="tabtable_con_on">
+<div class="member stock">
+    <div class="title">
+        <span class="new_ico_stock icon"></span>
+        <span class="new_color size16">股权结构</span> 
+    </div> 
+    <div class="top clearfix">
+        <!--按钮-->
+        <c:if test="${isEditable}">
+          <div class="btnbox_f btnbox_f1 clearfix">
+              <a href="#" id="add_share_bth" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
+          </div>
+         </c:if>
+      </div>
+    <div id="shares-custom-toolbar">
+		<input type="hidden" name="projectId" value="${projectId }">
+	</div>	
+  	<table id="shares-table" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
+   	<thead>
+	    <tr>
+	    	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">股东</th>
+	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">股东类型</th>
+        	<th data-field="sharesRatio" data-align="left" class="data-input">股权占比(%)</th>
+<!--         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th> -->
+        	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
+        	<c:if test="${isEditable }">
+        	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
+        	</c:if>
+			</tr>	
+		</thead>
+	</table>
+</div>
+</div>
+<!-- 融资历史 -->
+<div class="tabtable_con_on">
+<div class="member financeHistory">
+    <div class="title" >
+        <span class="new_ico_stock icon"></span>
+        <span class="new_color size16"  >融资历史</span> 
+    </div> 
+    <div class="top clearfix">
+        <!--按钮-->
+       <c:if test="${isEditable}">
+          <div class="btnbox_f btnbox_f1 clearfix">
+              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
+          </div>
+        </c:if>
+      </div>
+  	<div class="new_ul_all history_show" >
+			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
+            <thead>
+               <tr>
+                  <th>融资时间</th>
+                  <th>投资方(机构或个人)</th>
+                  <th>投资金额(万元)</th>
+                  <th>币种</th>
+                  <th>股权占比(%)</th>
+                  <th>融资轮次</th>
+                  <c:if test="${isEditable}">
+                  <th>操作</th>
+                  </c:if>
+                 </tr>
+             </thead>
+	         <tbody id="financeHistory_table">
+	         </tbody>
+         </table>
+		</div>
+</div>
+</div>
+
+<!--隐藏-->
+<div class="bj_hui_on"></div>
 
 <%-- <div class="tabtable_con_on" >
 	<div class="project_on" id="updateProjectDescribe" style="height:420px;">
@@ -477,181 +633,7 @@
 	
 </div>
  --%>
-<!-- 1.8期隐藏开结束 -->
-<!--团队成员 -->
-<div class="tabtable_con_on">
-<input type="hidden" id="pid" name="id" value="${pid}" />
-
-<c:if test="${aclViewProject==true}">
-	<div class="member">
-		<c:if test="${isEditable}">
-			<div class="top clearfix">
-				<!--按钮-->
-				<div class="btnbox_f btnbox_f1 clearfix">
-					<a id="add_person_btn" href="javascript:;" onclick="toAddPerson(null,null);" class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
-					<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
-				</div>
-			</div>
-		</c:if>
-		
-		<!--表格内容-->
-		<div class="tab-pane active commonsize" id="view">
-			<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
-			</table>
-		</div>
-
-	</div>
-</c:if>
-</div>
-
-
-<!-- 法人信息 -->
-<div class="tabtable_con_on">
-<div class="legal">
-	<div class="show">
-		<div class="title">
-	        <span class="new_ico_legal icon"></span>
-	        <span class="new_color size16">法人信息</span>
-	        <c:if test="${isEditable}">
-	        <div class="btn">
-	         	<span class="new_fctbox">
-	            	<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-	         	</span>
-	        </div> 
-	        </c:if>
-	    </div>
-	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
-	        <tr>
-	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany"></span></td>
-	            <td><span class="new_color_gray th">组织代码：</span><span class="new_color_black" id="projectCompanyCode"></span></td>
-	        </tr>
-	        <tr>
-	            <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"></span></td>
-	            <td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"></span></td>
-	        </tr>
-	    </table>                
-	</div>
-    <div class="hidden">
-      <div class="title">
-          <span class="new_ico_legal icon"></span>
-          <span class="new_color size16">法人信息</span>
-          <div class="btn btnbox">
-              <button href="javascript:;" class="pubbtn bluebtn" data-btn="save">保存</button>
-              <button href="javascript:;" class="pubbtn fffbtn" data-btn="cancle">取消</button>
-          </div> 
-      </div>
-      <form action="#" id="company-info-form">
-      <input type="hidden" name="id" value="${projectId }">
-      <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
-          <tr>
-              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50"></td>
-              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td>
-          </tr>
-          <tr>
-              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
-              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
-          </tr>
-      </table>                    
-      </form>
-  </div>
-</div>
-</div>
-
-<!--股权结构-->
-<div class="tabtable_con_on">
-<div class="member stock">
-    <div class="title">
-        <span class="new_ico_stock icon"></span>
-        <span class="new_color size16">股权结构</span> 
-    </div> 
-    <div class="top clearfix">
-        <!--按钮-->
-        <c:if test="${isEditable}">
-          <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" id="add_share_bth" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
-          </div>
-         </c:if>
-      </div>
-    <div id="shares-custom-toolbar">
-		<input type="hidden" name="projectId" value="${projectId }">
-	</div>	
-  	<table id="shares-table" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
-   	<thead>
-	    <tr>
-	    	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">股东</th>
-	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">股东类型</th>
-        	<th data-field="sharesRatio" data-align="left" class="data-input">股权占比(%)</th>
-<!--         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th> -->
-        	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
-        	<c:if test="${isEditable }">
-        	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
-        	</c:if>
-			</tr>	
-		</thead>
-	</table>
-</div>
-</div>
-<!-- 融资历史 -->
-<%-- <div class="tabtable_con_on">
-<div class="member financeHistory">
-    <div class="title" >
-        <span class="new_ico_stock icon"></span>
-        <span class="new_color size16"  >融资历史</span> 
-    </div> 
-    <div class="top clearfix">
-        <!--按钮-->
-       <c:if test="${isEditable}">
-          <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
-          </div>
-        </c:if>
-    </div>
-  	<div class="new_ul_all history_show" >
-			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
-            <thead>
-               <tr>
-                  <th>融资时间</th>
-                  <th>投资方(机构或个人)</th>
-                  <th>投资金额(万元)</th>
-                  <th>币种</th>
-                  <th>股权占比(%)</th>
-                  <th>融资轮次</th>
-                  <c:if test="${isEditable}">
-                  <th>操作</th>
-                  </c:if>
-                 </tr>
-             </thead>
-	         <tbody id="financeHistory_table">
-	         </tbody>
-         </table>
-		</div>
-</div>
-</div> --%>
-<!-- 融资历史 -->
-<div class="tabtable_con_on member financeHistory">
-	<div class='company_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>融资历史</span> <span class="bj_ico" id="location">暂无数据</span>
-		</div>
-		<div class="top clearfix">
-        <!--按钮-->
-	       <c:if test="${isEditable}">
-	          <div class="btnbox_f btnbox_f1 clearfix">
-	              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
-	          </div>
-	        </c:if>
-	    </div>
-		<div class="location_show history_show new_ul_all">
-			<span class="ico_dot ico"></span>
-			<p id="location_show" class="clearfix"></p>
-			<div class="fixed-table-container">			
-				<table id="tablePerson" cellspacing="0" class="fina_history table table-hover"></table>
-			</div>
-		</div>
-	</div>	
-</div>
-<!--隐藏-->
-<div class="bj_hui_on"></div>
+<!-- 1.8期隐藏结束 -->
 <script type="text/javascript">
      //投资机构是否删除字段标示
      var isDelete=[];
@@ -724,6 +706,23 @@
 		}
 	});
 	
+	/*团队成员  */
+	/* var proinfo = '${proinfo}';
+	var proid = '${pid}';
+	var pname = '${pname}';
+	var interviewSelectRow = null;
+	var projectId ='${pid}';
+	var flag = '${flag}';
+	var isCreatedByUser = "${fx:isCreatedByUser('project',pid) }";
+	var isTransfering = "${fx:isTransfering(pid) }"; */
+
+
+	/* $(function(){
+		getTabPerson();
+		if(isTransfering == 'true'){
+			$("#add_person_btn").addClass('limits_gray');
+		}
+	});	 */
 	/* 股权结构 */
 	  searchFH();
 	var $sharesTable;
