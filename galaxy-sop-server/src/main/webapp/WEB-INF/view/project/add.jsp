@@ -150,7 +150,6 @@
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew2.js'></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness2.js'></script>
 <!-- 校验 -->
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
