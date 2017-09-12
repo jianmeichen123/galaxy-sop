@@ -1,3 +1,51 @@
+
+	//1.8新加数据开始
+	//不同表格公共方法
+	function info_table(code,name,table){
+		var pid;
+		var tabid;
+		sendGetRequest(platformUrl.queryAllTitleValues +code, null,
+				function(data) {
+			    var result = data.result.status;
+				if(result=="OK"){
+					pid = data.id;
+			    	$.each(data.entity.childList,function(){
+			    		var _header =$(this);
+			    		if(_header[0].name==name){
+			    			tabid=_header[0].id;
+			    			return false;
+			    		}
+			    	})
+				}						
+			})
+			table.attr("data-title-id",tabid);
+		    table.attr("data-name",name);
+		    table.attr("data-url-code",code);
+		sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
+	        var result = data.result.status;
+			var header=data.entityList;
+			if(result=="OK"){
+		    	$.each(header,function(){
+		    		var _header =$(this);
+		    		if(_header[0].name==name){
+		    			buildTable(_header[0]);
+		    			return false;
+		    		}
+		    	})
+		    	if(name=="融资历史："){
+		    		$.each(table.find("td[data-field-name='field6']"),function(){
+			    		var _this =$(this);
+			    		if(_this.text()=="2181"){
+			    			_this.text("人民币")
+			    		}else{
+			    			_this.text("美元")
+			    		}
+			    	})
+		    	}
+			}
+	     })
+	}
+//1.8新加数据结束
 function buildTable(title)
 {
 	//列表Header
@@ -29,13 +77,8 @@ function buildTable(title)
 			{
 				tr +='<th data-field-name="updateUserName">编辑人</th>';
 				tr +='<th data-field-name="updateTimeStr">编辑日期</th>';
-			}
-			var editable = table.hasClass('editable');
-		
-			if(editable == true||header.funFlag=="1")
-			{
-				tr +='<th data-field-name="opt">操作</th>';
-			}
+			}	 
+				tr +='<th data-field-name="opt">操作</th>'; 
 			tr+="</tr></thead>";
 			table.append(tr);
 		});
@@ -214,6 +257,7 @@ function editRow(ele)
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"),$(ele).closest("table"));
+				
 			});
 		}//模版反回成功执行	
 	});
@@ -300,6 +344,9 @@ function saveForm(form,_this)
 					function(data){		
 						if(data.result.status=="OK"){
 							layer.msg("保存成功");
+							var code = _this.data("urlCode");
+							var name = _this.data("name")					
+							info_table(code,name,_this);
 						}
 			})
 		}
@@ -348,12 +395,12 @@ function addRow(ele)
             selectContext("detail-form");
             $("#save-detail-btn").click(function(){
                 saveForm($("#detail-form"),table);
-                check_table();
-                check_table_tr_edit();
+                check_table(table);
+                check_table_tr_edit(table);
             });
             $("#save_person_learning").click(function(){
-                check_table();
-                check_table_tr_edit();
+                check_table(table);
+                check_table_tr_edit(table);
             });
 		}//模版反回成功执行	
 	});
@@ -401,28 +448,23 @@ function resizetable(table){
         }
     }
 }
-function check_table(){
-	$.each($('table.editable'),function(){
-		if($(this).find('tr').length<=1){
-			$(this).hide();
-		}
-		else{
-			$(this).show();
-		}
-	})
+function check_table(table){
+	if($(table).find('tbody tr').length<=0){
+		$(table).find("tbody").hide();
+	}
+	else{
+		$(table).find("tbody").show();
+	}
 }	
 //检查是否10条tr
-function check_table_tr_edit(){
-	$.each($("table.editable"),function(){
-		var code = $(this).data('code');
-		var limit = getTableRowLimit(code);
-		var trs=$(this).find("tr").length-1;
+function check_table_tr_edit(table){
+		var limit = 10;
+		var trs=$(table).find("tbody").find("tr").length;
 		if(trs>=limit){
-			$(this).siblings(".bluebtn").hide();
+			$(table).closest(".tabtable_con_on").find(".add_profile").hide(); 
 		}else{
-			$(this).siblings(".bluebtn").show();
+			$(table).closest(".tabtable_con_on").find(".add_profile").show(); 
 		}
-	})
 }
 /**
  * 调用此方法渲染下拉框，需要注意几点：
@@ -488,24 +530,20 @@ function delRow(ele)
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-
-		var sectionId =$(ele).closest('.radius').attr("data-section-id");
-		var ch_opration =$(ele).closest('.h_team_look')
+		var table = $(ele).closest('table')
+		var code =table.data("code");
         if(typeof id != 'undefined' && id>0)
         {
             //股权合理性
-            if (sectionId ==1324){
+            if (code =="equity-structure"){
                deletedRowIdsGq.push(id);
             }else{
                deletedRowIds.push(id);
             }
-            if (ch_opration.hasClass("ch_opration")){
-            	
-            }
         }
 		tr.remove();
-		check_table();
-		check_table_tr_edit();
+		check_table(table);
+		check_table_tr_edit(table);
 		$(".layui-layer-close1").click();
 		saveForm("delete",$(ele).closest("table"));
 	}, function(index) {

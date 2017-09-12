@@ -441,53 +441,16 @@ $(function(){
 				$(this).parent().siblings('p').css('height','100px');
 				$(this).parent().parent().css('height','120px');
 			}) 
-			//1.8新加数据开始
-			//不同表格公共方法
-			function info_table(code,name,table){
-				var pid;
-				var tabid;
-				sendGetRequest(platformUrl.queryAllTitleValues +code, null,
-						function(data) {
-					    var result = data.result.status;
-						if(result=="OK"){
-							pid = data.id;
-					    	$.each(data.entity.childList,function(){
-					    		var _header =$(this);
-					    		if(_header[0].name==name){
-					    			tabid=_header[0].id;
-					    			return false;
-					    		}
-					    	})
-						}						
-					})
-					table.attr("data-title-id",tabid);
-				sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
-			        var result = data.result.status;
-					var header=data.entityList;
-					if(result=="OK"){
-				    	$.each(header,function(){
-				    		var _header =$(this);
-				    		if(_header[0].name==name){
-				    			buildTable(_header[0]);
-				    			return false;
-				    		}
-				    	})
-				    	if(name=="融资历史："){
-				    		$.each(table.find("td[data-field-name='field6']"),function(){
-					    		var _this =$(this);
-					    		if(_this.text()=="2181"){
-					    			_this.text("人民币")
-					    		}else{
-					    			_this.text("美元")
-					    		}
-					    	})
-				    	}
-					}
-			     })
-			}
-		//1.8新加数据结束
+			
 			//表格渲染
-			info_table("NO9_1","融资历史：",$("table.fina_history"))
+			info_table("NO9_1","融资历史：",$("table.fina_history"));
+			info_table("NO9_1","股权结构：",$("#equity"));
+			$.each($(".location_show .table"),function(){
+				var table =$(this);
+				check_table(table);
+				check_table_tr_edit(table);
+				
+			})
 			
 			/**
 			 * 商业计划

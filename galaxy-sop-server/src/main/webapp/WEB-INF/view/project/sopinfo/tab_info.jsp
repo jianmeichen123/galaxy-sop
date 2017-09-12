@@ -337,42 +337,6 @@
 	</table>
 </div>
 </div>
-<!-- 融资历史 -->
-<div class="tabtable_con_on">
-<div class="member financeHistory">
-    <div class="title" >
-        <span class="new_ico_stock icon"></span>
-        <span class="new_color size16"  >融资历史</span> 
-    </div> 
-    <div class="top clearfix">
-        <!--按钮-->
-       <c:if test="${isEditable}">
-          <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
-          </div>
-        </c:if>
-      </div>
-  	<div class="new_ul_all history_show" >
-			<table style="width:100%;margin:20px 0;"  cellspacing="0" cellpadding="0" class="table financeHistoryTable">
-            <thead>
-               <tr>
-                  <th>融资时间</th>
-                  <th>投资方(机构或个人)</th>
-                  <th>投资金额(万元)</th>
-                  <th>币种</th>
-                  <th>股权占比(%)</th>
-                  <th>融资轮次</th>
-                  <c:if test="${isEditable}">
-                  <th>操作</th>
-                  </c:if>
-                 </tr>
-             </thead>
-	         <tbody id="financeHistory_table">
-	         </tbody>
-         </table>
-		</div>
-</div>
-</div>
 
 <!--隐藏-->
 <div class="bj_hui_on"></div>
@@ -657,11 +621,34 @@
 		</div>
 	</div>	
 </div> --%>
+<!--股权结构 -->
+<div class="tabtable_con_on member financeHistory">
+	<div class='company_center'>
+		<div class="new_r_compile ">
+			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>股权结构 </span> <span class="bj_ico" id="location">暂无数据</span>
+		</div>
+		<div class="top clearfix">
+        <!--按钮-->
+	       <c:if test="${isEditable}">
+	          <div class="btnbox_f btnbox_f1 clearfix">
+	              <span href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="addRow(this)">添加</span>
+	          </div>
+	        </c:if>
+	    </div>
+		<div class="location_show history_show new_ul_all">
+			<span class="ico_dot ico"></span>
+			<p id="location_show" class="clearfix"></p>
+			<div class="fixed-table-container">			
+				<table id="equity" cellspacing="0" class="table"></table>
+			</div>
+		</div>
+	</div>	
+</div>
 <!-- 融资历史 -->
 <div class="tabtable_con_on member financeHistory">
 	<div class='company_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>融资历史</span> <span class="bj_ico" id="location">暂无数据</span>
+			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>融资历史</span>
 		</div>
 		<div class="top clearfix">
         <!--按钮-->
