@@ -342,20 +342,11 @@ function saveForm(form,_this)
 		var post_data= {
 				projectId : projectInfo.id
 			};
-		var Gqcode = _this.attr("data-code");
-		console.log(deletedRowIdsGq);
-		console.log(Gqcode);
-		console.log(Gqcode=="equity-structure");
-		if (Gqcode=="equity-structure"){
-			post_data.deletedRowIds = deletedRowIdsGq;
-		}else{
-			post_data.deletedRowIds = deletedRowIds;
-		}
+		post_data.deletedRowIds = deletedRowIds;
 		sendPostRequestByJsonObj(
 				platformUrl.saveOrUpdateInfo , 
 				post_data,
 				function(data){	
-					deletedRowIdsGq = new Array();
 					deletedRowIds = new Array();
 					if(data.result.status=="OK"){
 						layer.msg("删除成功");
@@ -500,7 +491,6 @@ function selectDirect(tittleId,subCode,filed){
 			})
 	}
 var deletedRowIds = new Array();
-var deletedRowIdsGq = new Array();
 function delRow(ele)
 {
 	layer.confirm('是否删除?', {
@@ -513,12 +503,7 @@ function delRow(ele)
 		var code =table.data("code");
         if(typeof id != 'undefined' && id>0)
         {
-            //股权合理性
-            if (code =="equity-structure"){
-               deletedRowIdsGq.push(id);
-            }else{
-               deletedRowIds.push(id);
-            }
+        	 deletedRowIds.push(id);
         }
 		tr.remove();
 		check_table(table);

@@ -363,41 +363,6 @@
 </div>
 </div>
 
-<!--股权结构-->
-<div class="tabtable_con_on">
-<div class="member stock">
-    <div class="title">
-        <span class="new_ico_stock icon"></span>
-        <span class="new_color size16">股权结构</span> 
-    </div> 
-    <div class="top clearfix">
-        <!--按钮-->
-        <c:if test="${isEditable}">
-          <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" id="add_share_bth" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
-          </div>
-         </c:if>
-      </div>
-    <div id="shares-custom-toolbar">
-		<input type="hidden" name="projectId" value="${projectId }">
-	</div>	
-  	<table id="shares-table" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
-   	<thead>
-	    <tr>
-	    	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">股东</th>
-	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">股东类型</th>
-        	<th data-field="sharesRatio" data-align="left" class="data-input">股权占比(%)</th>
-<!--         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th> -->
-        	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
-        	<c:if test="${isEditable }">
-        	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
-        	</c:if>
-			</tr>	
-		</thead>
-	</table>
-</div>
-</div>
-
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 
@@ -681,11 +646,34 @@
 		</div>
 	</div>	
 </div> --%>
+<!--团队成员-->
+<div class="tabtable_con_on member financeHistory">
+	<div class='company_center'>
+		<div class="new_r_compile ">
+			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>团队成员 </span>
+		</div>
+		<div class="top clearfix">
+        <!--按钮-->
+	       <c:if test="${isEditable}">
+	          <div class="btnbox_f btnbox_f1 clearfix">
+	              <span href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="addRow(this)">添加</span>
+	          </div>
+	        </c:if>
+	    </div>
+		<div class="location_show history_show new_ul_all">
+			<span class="ico_dot ico"></span>
+			<p id="location_show" class="clearfix"></p>
+			<div class="fixed-table-container">			
+				<table id="team_person" cellspacing="0" class="table info_table"></table>
+			</div>
+		</div>
+	</div>	
+</div>
 <!--股权结构 -->
 <div class="tabtable_con_on member financeHistory">
 	<div class='company_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>股权结构 </span> <span class="bj_ico" id="location">暂无数据</span>
+			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>股权结构 </span>
 		</div>
 		<div class="top clearfix">
         <!--按钮-->
