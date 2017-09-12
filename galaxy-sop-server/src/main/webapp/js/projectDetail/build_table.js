@@ -213,10 +213,9 @@ function editRow(ele)
 			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-				saveForm($("#detail-form"),$(this));
+				saveForm($("#detail-form"),$(ele).closest("table"));
 			});
 		}//模版反回成功执行	
-	
 	});
 }
 function getDetailUrl(code)
@@ -272,40 +271,92 @@ function getDetailUrl(code)
 //编辑保存
 function saveForm(form,_this)
 {
-	if($(form).validate().form())
-	{
-		var data = $(form).serializeObject();
-		saveRow(data);
-		
-		var post_data= {
-			projectId : projectInfo.id
-		};
-		var infoTableModelList = new Array();
-		$.each(_this.closest("table"),function(){
-			$.each($(this).find('tr:gt(0)'),function(){
-				var row = $(this).data();
-				if(row.id=="")
-				{
-					row.id=null;
-				}
-				infoTableModelList.push($(this).data());
+	if(form !=undefined&&form !=""&&form !="delete"){
+		if($(form).validate().form())
+		{
+			var data = $(form).serializeObject();
+			saveRow(data);
+			//保存数据
+			var post_data= {
+				projectId : projectInfo.id
+			};
+			var infoTableModelList = new Array();
+			
+			$.each(_this,function(){
+				$.each($(this).find('tr:gt(0)'),function(){
+					var row = $(this).data();
+					if(row.id=="")
+					{
+						row.id=null;
+					}
+					infoTableModelList.push($(this).data());
+				});
 			});
-		});
-	
-		post_data.infoTableModelList = infoTableModelList;
 		
-		
-		sendPostRequestByJsonObj(
-				platformUrl.saveOrUpdateInfo , 
-				post_data,
-				function(data){
-					console.log(data);
-					
-		})
-		
-		
-		
+			post_data.infoTableModelList = infoTableModelList;
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					post_data,
+					function(data){		
+						if(data.result.status=="OK"){
+							layer.msg("保存成功");
+						}
+			})
+		}
+	}else{
+		var post_data= {
+				projectId : projectInfo.id
+			};
+			post_data.deletedRowIds = deletedRowIds;
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					post_data,
+					function(data){	
+						deletedRowIds = new Array();
+						if(data.result.status=="OK"){
+							layer.msg("删除成功");
+						}
+						
+						
+			})
 	}
+}
+/**
+ * 该方法不包含团队成员复杂的表格处理
+ * 表格增删改查通用方法   **************************************************** 开始
+ */
+//新增弹出页面渲染
+function addRow(ele)
+{
+	var table = $(ele).closest(".member").find("table")
+	var code = table.data("code");
+	$.getHtml({
+		url:getDetailUrl(code),//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$('#qualifications_popup_name').html('添加简历');
+            $('#qualifications_popup_name1').html('添加持股人');
+            $('#finace_popup_name').html('添加融资历史');
+            $('#finace_popup_name').html('添加融资历史');
+			$("#complete_title").html('添加综合竞争比较');
+			$("#delivery_popup_name").html("添加交割事项")
+			$(".see_block").hide();
+            $("#detail-form input[name='projectId']").val(projectInfo.id);
+            $("#detail-form input[name='titleId']").val(table.data('titleId'));
+            $("#detail-form input[name='subCode']").val(table.data('code'));
+            $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
+            selectContext("detail-form");
+            $("#save-detail-btn").click(function(){
+                saveForm($("#detail-form"),table);
+                check_table();
+                check_table_tr_edit();
+            });
+            $("#save_person_learning").click(function(){
+                check_table();
+                check_table_tr_edit();
+            });
+		}//模版反回成功执行	
+	});
 }
 function saveRow(data)
 {
@@ -337,7 +388,6 @@ function resizetable(table){
     var title_id = table.attr("data-title-id")
     var  code = table.attr("data-code")
     var fields_json=tableDictColumn(code);
-    console.log(fields_json);
     if (fields_json && code in fields_json){
         var fields = fields_json[code]
         for(var i=0;i<fields.length;i++){
@@ -350,4 +400,115 @@ function resizetable(table){
             })
         }
     }
+}
+function check_table(){
+	$.each($('table.editable'),function(){
+		if($(this).find('tr').length<=1){
+			$(this).hide();
+		}
+		else{
+			$(this).show();
+		}
+	})
+}	
+//检查是否10条tr
+function check_table_tr_edit(){
+	$.each($("table.editable"),function(){
+		var code = $(this).data('code');
+		var limit = getTableRowLimit(code);
+		var trs=$(this).find("tr").length-1;
+		if(trs>=limit){
+			$(this).siblings(".bluebtn").hide();
+		}else{
+			$(this).siblings(".bluebtn").show();
+		}
+	})
+}
+/**
+ * 调用此方法渲染下拉框，需要注意几点：
+ * 1，<dd class="clearfix" id="field5" data-type="radio">如果是单选需要在dd标签上面加上两个属性（id="field5" ，data-type="radio"）
+ * 2，下拉框需要添加id属性，id的属性值跟name的值一样
+ * 数据字典加载页面渲染
+ */
+
+function selectContext(formId){
+
+	 var $fileds=$("#"+formId).find("select,dd[data-type='radio']");
+	 $.each($fileds,function(){
+		var field = $(this);
+		var titleId=$("#"+formId+" input[name='titleId']").val();
+		var subCode=$("#"+formId+" input[name='subCode']").val();
+		var filedName;
+	    if(field[0].tagName=="DD"){
+	    	filedName=field.attr("id");
+		}else if(field[0].tagName=="select"||field[0].tagName=="SELECT"){
+			filedName=field.attr("name");
+		}
+	    selectDirect(titleId,subCode,filedName);
+	})
+}
+/**
+ * 数据字典加载请求
+ */
+function selectDirect(tittleId,subCode,filed){
+	sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK')
+				{
+					var dataMap = data.userData;
+				    var $filed=$("[id='"+filed+"']");
+				    var list=dataMap[filed];
+				    var name=""
+				    $filed.children().remove();
+				    if($filed[0].tagName=="SELECT"){
+				    	$filed.append("<option value='' name='"+filed+"' data-name='请选择'>请选择</option>");
+				    }
+					$.each(list, function(i, value){
+                        if($filed[0].tagName=="SELECT"){
+                        	var code=value.code;
+                        	if(code.indexOf("currency")>-1){    //币种的请选择移除
+                        		$filed.find("option[data-name]").remove();
+                        	}
+                        	$filed.append("<option value="+value.id+"  name='"+filed+"'>"+value.name+"</option>");
+				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
+				    			$filed.append("<label><input type='radio' value='"+value.id+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
+				    	}
+					});
+				}
+			})
+	}
+var deletedRowIds = new Array();
+var deletedRowIdsGq = new Array();
+function delRow(ele)
+{
+	layer.confirm('是否删除?', {
+		btn : [ '确定', '取消' ],
+		title:'提示'
+	}, function(index, layero) {
+		var tr = $(ele).closest('tr');
+		var id = tr.data('id');
+
+		var sectionId =$(ele).closest('.radius').attr("data-section-id");
+		var ch_opration =$(ele).closest('.h_team_look')
+        if(typeof id != 'undefined' && id>0)
+        {
+            //股权合理性
+            if (sectionId ==1324){
+               deletedRowIdsGq.push(id);
+            }else{
+               deletedRowIds.push(id);
+            }
+            if (ch_opration.hasClass("ch_opration")){
+            	
+            }
+        }
+		tr.remove();
+		check_table();
+		check_table_tr_edit();
+		$(".layui-layer-close1").click();
+		saveForm("delete",$(ele).closest("table"));
+	}, function(index) {
+	});
+	
 }
