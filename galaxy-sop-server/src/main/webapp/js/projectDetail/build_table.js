@@ -271,39 +271,54 @@ function getDetailUrl(code)
 //编辑保存
 function saveForm(form,_this)
 {
-	if($(form).validate().form())
-	{
-		var data = $(form).serializeObject();
-		saveRow(data);
-		
-		var post_data= {
-			projectId : projectInfo.id
-		};
-		var infoTableModelList = new Array();
-		$.each(_this,function(){
-			$.each($(this).find('tr:gt(0)'),function(){
-				var row = $(this).data();
-				if(row.id=="")
-				{
-					row.id=null;
-				}
-				infoTableModelList.push($(this).data());
+	if(form !=undefined&&form !=""&&form !="delete"){
+		if($(form).validate().form())
+		{
+			var data = $(form).serializeObject();
+			saveRow(data);
+			//保存数据
+			var post_data= {
+				projectId : projectInfo.id
+			};
+			var infoTableModelList = new Array();
+			
+			$.each(_this,function(){
+				$.each($(this).find('tr:gt(0)'),function(){
+					var row = $(this).data();
+					if(row.id=="")
+					{
+						row.id=null;
+					}
+					infoTableModelList.push($(this).data());
+				});
 			});
-		});
-	
-		post_data.infoTableModelList = infoTableModelList;
 		
-		console.log(post_data);
-		sendPostRequestByJsonObj(
-				platformUrl.saveOrUpdateInfo , 
-				post_data,
-				function(data){
-					console.log(data);
-					
-		})
-		
-		
-		
+			post_data.infoTableModelList = infoTableModelList;
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					post_data,
+					function(data){		
+						if(data.result.status=="OK"){
+							layer.msg("保存成功");
+						}
+			})
+		}
+	}else{
+		var post_data= {
+				projectId : projectInfo.id
+			};
+			post_data.deletedRowIds = deletedRowIds;
+			sendPostRequestByJsonObj(
+					platformUrl.saveOrUpdateInfo , 
+					post_data,
+					function(data){	
+						deletedRowIds = new Array();
+						if(data.result.status=="OK"){
+							layer.msg("删除成功");
+						}
+						
+						
+			})
 	}
 }
 /**
@@ -463,3 +478,37 @@ function selectDirect(tittleId,subCode,filed){
 				}
 			})
 	}
+var deletedRowIds = new Array();
+var deletedRowIdsGq = new Array();
+function delRow(ele)
+{
+	layer.confirm('是否删除?', {
+		btn : [ '确定', '取消' ],
+		title:'提示'
+	}, function(index, layero) {
+		var tr = $(ele).closest('tr');
+		var id = tr.data('id');
+
+		var sectionId =$(ele).closest('.radius').attr("data-section-id");
+		var ch_opration =$(ele).closest('.h_team_look')
+        if(typeof id != 'undefined' && id>0)
+        {
+            //股权合理性
+            if (sectionId ==1324){
+               deletedRowIdsGq.push(id);
+            }else{
+               deletedRowIds.push(id);
+            }
+            if (ch_opration.hasClass("ch_opration")){
+            	
+            }
+        }
+		tr.remove();
+		check_table();
+		check_table_tr_edit();
+		$(".layui-layer-close1").click();
+		saveForm("delete",$(ele).closest("table"));
+	}, function(index) {
+	});
+	
+}

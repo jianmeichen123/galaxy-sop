@@ -667,7 +667,7 @@
         <!--按钮-->
 	       <c:if test="${isEditable}">
 	          <div class="btnbox_f btnbox_f1 clearfix">
-	              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="addRow(this)">添加</a>
+	              <span href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="addRow(this)">添加</span>
 	          </div>
 	        </c:if>
 	    </div>

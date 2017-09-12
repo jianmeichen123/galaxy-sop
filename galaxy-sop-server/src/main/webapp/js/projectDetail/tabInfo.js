@@ -461,7 +461,6 @@ $(function(){
 						}						
 					})
 					table.attr("data-title-id",tabid);
-				//HEADER
 				sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
 			        var result = data.result.status;
 					var header=data.entityList;
@@ -469,11 +468,20 @@ $(function(){
 				    	$.each(header,function(){
 				    		var _header =$(this);
 				    		if(_header[0].name==name){
-				    			console.log(_header[0]);
-				    			buildTable(_header[0])
+				    			buildTable(_header[0]);
 				    			return false;
 				    		}
 				    	})
+				    	if(name=="融资历史："){
+				    		$.each(table.find("td[data-field-name='field6']"),function(){
+					    		var _this =$(this);
+					    		if(_this.text()=="2181"){
+					    			_this.text("人民币")
+					    		}else{
+					    			_this.text("美元")
+					    		}
+					    	})
+				    	}
 					}
 			     })
 			}
