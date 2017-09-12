@@ -100,6 +100,7 @@
         
         </form>
     </div>
+    
     <div class="button_affrim">
         <a href="javascript:;"  class="register_all_affrim fl" id="save-detail-btn">确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>

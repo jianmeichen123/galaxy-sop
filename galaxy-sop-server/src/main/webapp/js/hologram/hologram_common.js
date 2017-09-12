@@ -813,14 +813,14 @@ function buildRow(row,showOpts,titleId)
 	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
 	{
-		if(funFlg=="1"){
+		if(funFlg=="1" || funFlg=="0"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		}
 		td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">编辑</span>');
 		td.append('<span class="blue" data-btn="btn" onclick="delRow(this)">删除</span>');
 		tr.append(td);
 	}else{
-		if(funFlg=="1"){
+		if(funFlg=="1"  || funFlg=="0"){
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		    tr.append(td);
 		}
