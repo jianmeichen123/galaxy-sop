@@ -877,7 +877,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						str1=str.replace(/<sitg>/g,'（<sitg>');
 						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');						
 					} 
-					sp_str1=str1.split("的产品或服务，");
+					sp_str1=str1.split("</sitg>）的产品或服务，");
 					sp_str1=sp_str1[1];					
 					dds.html(d_this.remark1==undefined ?"未填写":str1);
 					sp_dds.html(d_this.remark1==undefined ?"未填写":sp_str1);
