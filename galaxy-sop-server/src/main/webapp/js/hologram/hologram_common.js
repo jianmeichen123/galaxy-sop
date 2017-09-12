@@ -1914,6 +1914,7 @@ function editRow(ele)
 			 if(txt=="查看"){
 					$("#detail-form").hide();
 					$(".button_affrim").hide();
+					$('#detail-form_look_over').show();
 					$("#delivery_popup_name").text("查看交割事项");
 					 $('#grant_popup_name').html('查看分期注资计划');
 					 $('#finace_popup_name').html('查看融资历史');
@@ -1924,6 +1925,7 @@ function editRow(ele)
 					
 				}else{
 					$(".see_block").hide();
+					$('#detail-form_look_over').hide();
 					$("#delivery_popup_name").text("编辑交割事项");
 					 $('#grant_popup_name').html('编辑分期注资计划');
 					 $('#finace_popup_name').html('编辑融资历史');
