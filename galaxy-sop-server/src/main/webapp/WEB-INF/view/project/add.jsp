@@ -74,13 +74,13 @@
                         <li>
                         <span class="basic_span"><em class="red">*</em>项目来源：</span>
                             <span class="m_r30" style="with:400px">
-	                            <%-- <select name="projectSource" class='new_nputr' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+	                            <select name="projectSource" class='new_nputr' valType="required" msg="<font color=red>*</font>项目来源不能为空">
 				                    	<option value="">--请选择--</option>
 				                    	<option value="">FA</option>
 				                    	<option value="">其他</option>
-				                    </select> --%>
-	                             <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
-	                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是 
+				                   </select> 
+	                            <!--  <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
+	                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是  -->
 	                             <input type="text" class="new_nputr"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
                         </li>
                     </ul>  
