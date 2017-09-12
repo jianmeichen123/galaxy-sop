@@ -107,7 +107,6 @@ function buildRow(row,showOpts,titleId)
 		var $this = $(this);
 		var k = $this.data('fieldName');
 		if(k!="opt"){
-			console.log(row[k]);
 			if(row[k]==""||row[k]==undefined){
 				row[k]="—";
 			}
@@ -301,7 +300,7 @@ function getDetailUrl(code)
 	}
 	return "";
 }
-//编辑保存
+//编辑保存  _this  当前 table
 function saveForm(form,_this)
 {
 	if(form !=undefined&&form !=""&&form !="delete"){
@@ -343,18 +342,27 @@ function saveForm(form,_this)
 		var post_data= {
 				projectId : projectInfo.id
 			};
+		var Gqcode = _this.attr("data-code");
+		console.log(deletedRowIdsGq);
+		console.log(Gqcode);
+		console.log(Gqcode=="equity-structure");
+		if (Gqcode=="equity-structure"){
+			post_data.deletedRowIds = deletedRowIdsGq;
+		}else{
 			post_data.deletedRowIds = deletedRowIds;
-			sendPostRequestByJsonObj(
-					platformUrl.saveOrUpdateInfo , 
-					post_data,
-					function(data){	
-						deletedRowIds = new Array();
-						if(data.result.status=="OK"){
-							layer.msg("删除成功");
-						}
-						
-						
-			})
+		}
+		sendPostRequestByJsonObj(
+				platformUrl.saveOrUpdateInfo , 
+				post_data,
+				function(data){	
+					deletedRowIdsGq = new Array();
+					deletedRowIds = new Array();
+					if(data.result.status=="OK"){
+						layer.msg("删除成功");
+					}
+					
+					
+		})
 	}
 }
 /**
