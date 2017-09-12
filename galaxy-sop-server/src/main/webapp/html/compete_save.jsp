@@ -56,6 +56,7 @@
     </div>
     
     <!-- 查看显示这里 -->
+    	<div class="see_block">
     <div class="qualifications_all">
     
     	<form action="" id="detail-form_look_over">
@@ -68,37 +69,38 @@
             <dl class="fmdl fl">
                 <dt>主要竞争对手：</dt>
                 <dd class="clearfix">
-                    <input name="field1" type="text" class="txt" maxLength="200"/>
+                 <!--    <input name="field1" type="text" class="txt" maxLength="200"/> -->
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>胜算度：</dt>
                 <dd class="clearfix">
-                    <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
+                   <%--  <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/> --%>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>威胁系数：</dt>
                 <dd class="clearfix">
-                    <input name="field3" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
+                   <%--  <input name="field3" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/> --%>
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>应对竞争的最有效措施：</dt>
                 <dd>
-                   <textarea class="team_textarea" name="field4" id="com_save_field4" oninput='countChar("com_save_field4","label_com_save_field4","200")'></textarea>
-                   <div class="font_num_m num_tj"><span for="" id="label_com_save_field4">200</span>/200</div>
+                  <!--  <textarea class="team_textarea" name="field4" id="com_save_field4" oninput='countChar("com_save_field4","label_com_save_field4","200")'></textarea>
+                   <div class="font_num_m num_tj"><span for="" id="label_com_save_field4">200</span>/200</div> -->
                 </dd>
             </dl>
             <dl class="fmdl fl">
                 <dt>措施的有效性是否验证：</dt>
-                <dd class="clearfix" id="field5" data-type="radio">
+               <!--  <dd class="clearfix" id="field5" data-type="radio"> -->
                 </dd>
             </dl>
                         
         </div>
         
         </form>
+    </div>
     </div>
     
     <div class="button_affrim">
