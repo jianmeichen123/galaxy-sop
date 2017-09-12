@@ -1159,10 +1159,7 @@ if(isTransfering == 'true'){
 	
 	
 </script>
-<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/seven_report/eva_report/validate.js" type="text/javascript"></script>
+<script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
+<script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/jquery.validate.min.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/projectDetail/tabInfoValidate.js'></script>
