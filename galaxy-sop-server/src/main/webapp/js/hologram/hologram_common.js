@@ -1912,7 +1912,7 @@ function editRow(ele)
 		okback:function(){
 			//var title = $("#pop-title");
 			 if(txt=="查看"){
-					$("#detail-form").hide();
+				 	$("#detail-form").hide();
 					$(".button_affrim").hide();
 					$('#detail-form_look_over').show();
 					$("#delivery_popup_name").text("查看交割事项");
@@ -2016,14 +2016,36 @@ function editRow(ele)
 				var len=$(this).val().length;
 				var initNum=$(this).siblings('.num_tj').find("span").text();
 				$(this).siblings('.num_tj').find("span").text(initNum-len);
-			})
+			});
+			
+			//竞争对手的展示;
+			var myRow = $(ele).closest('tr');
+			var oppoPerson = myRow.find('td:eq(0)').text();
+			var degress = myRow.find('td:eq(1)').text();
+			var dangerRation = myRow.find('td:eq(2)').text();
+			var helpfullMethod = myRow.find('td:eq(3)').text();
+			var vervifyHas = myRow.find('td:eq(4)').text();
+			console.log(vervifyHas);
+			$('.oppostie_people').text(oppoPerson);
+			$('.win_degree').text(degress);
+			$('.danger_degree').text(dangerRation);
+			$('.helpful_method').text(helpfullMethod);
+			$('.verfify_orNot').text(vervifyHas);
+			
+			
+			
+			
+			
+			
+			
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	
 	});
-}
+};
+
 var deletedRowIds = new Array();
  // 股权结构合理性 表格删除行使用
 var deletedRowIdsGq = new Array();

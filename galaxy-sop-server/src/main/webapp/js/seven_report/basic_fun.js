@@ -597,6 +597,7 @@ function editRow(ele)
 					ele.text(row.data(name));
 				}else{
 					ele.text(row.data(name)+'万元');
+					console.log(row)
 				}
 			})
 			//特殊处理带%单位的查看
@@ -607,6 +608,7 @@ function editRow(ele)
 					ele.text(row.data(name));
 				}else{
 					ele.text(row.data(name)+'%');
+					console.log(row.data(name))
 				}
 			})
 			//融资查看弹窗-付款条件特殊处理
