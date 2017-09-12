@@ -342,7 +342,6 @@ function addRow(ele)
             });
 		}//模版反回成功执行	
 	});
-	validate();
 }
 function saveRow(data)
 {
@@ -425,7 +424,6 @@ function selectContext(formId){
 		var titleId=$("#"+formId+" input[name='titleId']").val();
 		var subCode=$("#"+formId+" input[name='subCode']").val();
 		var filedName;
-		debugger;
 	    if(field[0].tagName=="DD"){
 	    	filedName=field.attr("id");
 		}else if(field[0].tagName=="select"||field[0].tagName=="SELECT"){
