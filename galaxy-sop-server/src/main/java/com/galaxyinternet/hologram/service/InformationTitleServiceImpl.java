@@ -774,7 +774,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Override
 	public List<InformationTitle> searchRelateTitleWithData(final Integer reportType, final Long relateId, final Long projectId)
 	{
-		final TitleInfoWapper titleInfo = getTitleCache(reportType, relateId);
+		final TitleInfoWapper titleInfo = getTitleCache(reportType, relateId).clone();
 		if(titleInfo.getRelateIdMap() == null || titleInfo.getRelateIdMap().size() == 0)
 		{
 			return null;
@@ -1043,6 +1043,31 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			return list;
 		}
 
+		private void setList(List<InformationTitle> list)
+		{
+			this.list = list;
+		}
+
+		private void setIds(Set<String> ids)
+		{
+			this.ids = ids;
+		}
+
+		private void setRelateIds(Set<Long> relateIds)
+		{
+			this.relateIds = relateIds;
+		}
+
+		private void setIdMap(Map<String, List<InformationTitle>> idMap)
+		{
+			this.idMap = idMap;
+		}
+
+		private void setRelateIdMap(Map<Long, List<InformationTitle>> relateIdMap)
+		{
+			this.relateIdMap = relateIdMap;
+		}
+
 		public void init()
 		{
 			if(list == null || list.size()==0)
@@ -1076,6 +1101,18 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 					title.getFileList().clear();
 				}
 			}
+		}
+		private TitleInfoWapper(){}
+		@Override
+		public TitleInfoWapper clone()
+		{
+			TitleInfoWapper clone = new TitleInfoWapper();
+			clone.setList(getList());
+			clone.setIds(getIds());
+			clone.setRelateIds(getRelateIds());
+			clone.setIdMap(getIdMap());
+			clone.setRelateIdMap(getRelateIdMap());
+			return clone;
 		}
 	}
 	
