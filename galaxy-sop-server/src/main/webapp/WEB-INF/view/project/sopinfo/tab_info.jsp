@@ -667,7 +667,7 @@
         <!--按钮-->
 	       <c:if test="${isEditable}">
 	          <div class="btnbox_f btnbox_f1 clearfix">
-	              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="toUpdateOrSave()">添加</a>
+	              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="addRow(this)">添加</a>
 	          </div>
 	        </c:if>
 	    </div>
@@ -1094,7 +1094,7 @@ if(isTransfering == 'true'){
 		);
 		
 	}
-	function addSharesView(){
+	/* function addSharesView(){
 		if(isTransfering == 'true')
 		{
 			return;
@@ -1109,7 +1109,7 @@ if(isTransfering == 'true'){
 			}
 		});
 		return false;
-	}
+	} */
 	function updateStock()
 	{
 		if(beforeSubmit())
@@ -1159,8 +1159,10 @@ if(isTransfering == 'true'){
 	
 	
 </script>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/seven_report/eva_report/validate.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
-
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/projectDetail/tabInfoValidate.js'></script>
