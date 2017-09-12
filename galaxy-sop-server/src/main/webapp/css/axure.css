@@ -1742,8 +1742,8 @@ word-wrap:break-word;
 .sort .asc span,#data-table-bftjt .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
-#tablePerson th,#project_delivery_table th,#meetGrid th{padding-left:30px;}
-#tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:30px !important;}
+#tablePerson th,#project_delivery_table th,#meetGrid th,.fixed-table-container  table.info_table thead th{padding-left:30px;}
+#tablePerson td,#project_delivery_table td,#meetGrid td,.info_table td{padding-left:30px !important;}
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px; overflow:hidden;}
 .member .delivery a{margin-right: 10px;}
@@ -2374,7 +2374,7 @@ margin: 45px auto 30px;}
 .addProject{background:#fff;border-radius:6px;margin-top:10px;}
 .financeHistoryTable th{white-space:nowrap;}
 .learning-table td,.sharestable td,.financeHistoryTable td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.learning-table,.sharestable,.financeHistoryTable,#equity{table-layout:fixed}
+.learning-table,.sharestable,.financeHistoryTable,.info_table{table-layout:fixed}
 .project_on .basic_span1{font-size:14px;margin:3px 10px;display:block;color:#3e4351}
 #step2 .tip-yellowsimple .tip-arrow-left,#shares_block_valiate .tip-arrow-left,#person_block_valiate .tip-arrow-left{margin-top:-12px;margin-left:-14px;}
 #step2 .tip-yellowsimple,#shares_block_valiate,#person_block_valiate{margin-left:10px;height:16px;}

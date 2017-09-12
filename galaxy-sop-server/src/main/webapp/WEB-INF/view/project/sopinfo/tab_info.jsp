@@ -639,7 +639,7 @@
 			<span class="ico_dot ico"></span>
 			<p id="location_show" class="clearfix"></p>
 			<div class="fixed-table-container">			
-				<table id="equity" cellspacing="0" class="table"></table>
+				<table id="equity" cellspacing="0" class="table info_table"></table>
 			</div>
 		</div>
 	</div>	
@@ -662,7 +662,7 @@
 			<span class="ico_dot ico"></span>
 			<p id="location_show" class="clearfix"></p>
 			<div class="fixed-table-container">			
-				<table id="tablePerson" cellspacing="0" class="fina_history table financeHistoryTable"></table>
+				<table id="tablePerson" cellspacing="0" class="fina_history table info_table financeHistoryTable"></table>
 			</div>
 		</div>
 	</div>	

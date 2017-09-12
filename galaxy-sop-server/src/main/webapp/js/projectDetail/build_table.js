@@ -32,18 +32,9 @@
 		    			return false;
 		    		}
 		    	})
-		    	if(name=="融资历史："){
-		    		$.each(table.find("td[data-field-name='field6']"),function(){
-			    		var _this =$(this);
-			    		if(_this.text()=="2181"){
-			    			_this.text("人民币")
-			    		}else{
-			    			_this.text("美元")
-			    		}
-			    	})
-		    	}
 			}
 	     })
+	     resizetable(table);
 	}
 //1.8新加数据结束
 function buildTable(title)
@@ -114,34 +105,29 @@ function buildRow(row,showOpts,titleId)
 	$.each(ths,function()
 	{
 		var $this = $(this);
-		var k  = $this.data('fieldName');
+		var k = $this.data('fieldName');
 		if(k!="opt"){
+			console.log(row[k]);
+			if(row[k]==""||row[k]==undefined){
+				row[k]="—";
+			}
 			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
 		
 	});
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
-	if(showOpts == true)
-	{
-		td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">查看</em>');
-		td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">编辑</em>');
-		td.append('<em class="blue" data-btn="btn" onclick="delRow(this)">删除</em>');
-		tr.append(td);
-	}else{
-		if(funFlg=="1"){
-			td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">查看</em>');
-			td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">编辑</em>');
-			td.append('<em class="blue" data-btn="btn" onclick="delRow(this)">删除</em>');
-			tr.append(td);
-		}
-	}
+	td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">查看</em>');
+	td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">编辑</em>');
+	td.append('<em class="blue" data-btn="btn" onclick="delRow(this)">删除</em>');
+	tr.append(td);
 	return tr;
 
 }
 
 function editRow(ele)	
 {
+	var table = $(ele).closest('table');
 	var code = $(ele).closest('table').data('code');
 	var row = $(ele).closest('tr');
 	var txt=$(ele).text();
@@ -160,6 +146,7 @@ function editRow(ele)
 					 $("#pop-title-gs").text('查看同类公司');
 					 $("#pop-title-time").text('查看里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
+					 $("#pop-title-share").text('查看股东');
 					
 				}else{
 					$(".see_block").hide();
@@ -224,6 +211,7 @@ function editRow(ele)
 				});
 				
 			})
+			resizetable(table)
 			//分拨剩余金额显示
 			$(".remainMoney span").text($("#formatRemainMoney").text());
 			//特殊处理带万元单位的查看
@@ -256,9 +244,10 @@ function editRow(ele)
 			})
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
-				saveForm($("#detail-form"),$(ele).closest("table"));
+				saveForm($("#detail-form"),table);
 				
 			});
+			
 		}//模版反回成功执行	
 	});
 }
@@ -430,24 +419,6 @@ function saveRow(data)
 	resizetable($('table[data-title-id="'+titleId+'"]'))
 	$("a[data-close='close']").click();
 }
-function resizetable(table){
-    var dict_map = {};
-    var title_id = table.attr("data-title-id")
-    var  code = table.attr("data-code")
-    var fields_json=tableDictColumn(code);
-    if (fields_json && code in fields_json){
-        var fields = fields_json[code]
-        for(var i=0;i<fields.length;i++){
-            var v = fields[i]
-            var dict = dictCache(title_id,code,v)
-            dict_map[title_id+"-"+code+"-"+v] = dict
-            table.find('td[data-field-name="'+v+'"]').each(function(){
-                var o = $(this)
-                o.text(dict[o.text()])
-            })
-        }
-    }
-}
 function check_table(table){
 	if($(table).find('tbody tr').length<=0){
 		$(table).find("tbody").hide();
@@ -548,5 +519,58 @@ function delRow(ele)
 		saveForm("delete",$(ele).closest("table"));
 	}, function(index) {
 	});
-	
+}
+//table  select  显示转换
+function resizetable(table){
+    var dict_map = {};
+    var title_id = table.attr("data-title-id")
+    var  code = table.attr("data-code")
+    var fields_json=tableDictColumn(code);
+    if (fields_json && code in fields_json){
+        var fields = fields_json[code]
+        for(var i=0;i<fields.length;i++){
+            var v = fields[i]
+            var dict = dictCache(title_id,code,v)
+            dict_map[title_id+"-"+code+"-"+v] = dict
+            table.find('td[data-field-name="'+v+'"]').each(function(){
+                var o = $(this)
+                o.text(dict[o.text()])
+            })
+           var dd = $('.see_block dd[name="'+v+'"]');
+           dd.text(dict[dd.text()])
+        }
+    }
+}
+function dictCache(titleId,subCode,filed){
+    var map = {};
+    map["undefined"] = ""
+    map[""] = ""
+	sendGetRequest(platformUrl.getDirectory+titleId+'/'+subCode+"/"+filed,null,
+			function(data) {
+				var result = data.result.status;
+				if (result == 'OK')
+				{
+					var dataMap = data.userData;
+				    var list=dataMap[filed];
+				    var name=""
+					$.each(list, function(i, value){
+					     map[value.id]=value.name;
+					});
+				}
+			})
+			return map;
+}
+function tableDictColumn(code){
+	var json;
+	var arr=[];
+	if(code == 'competition-comparison')
+	{
+        return json={"competition-comparison":["field5"]};
+	}else if(code == 'finance-history'){
+		return json={"finance-history":["field6","field7","field8"]};
+	}else if(code=="equity-structure"){
+		return json={"equity-structure":["field3","field4"]};
+	}else if(code=="investor-situation"){
+		return json={"investor-situation":["field1","field6"]};
+	}
 }
