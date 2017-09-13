@@ -41,10 +41,8 @@ function selectCache(subCode,filed){
 	                        }
 	                    })
 	                    buildMemberTable(data);
-	                    $.each($(".member .table"),function(){
-	        				var table =$(this);
-	        				check_table_tr_edit(table);
-	        			})
+	                    var table=$("table[data-code=\"team-members\"]");
+	                    check_table_tr_edit(table);
 	                }
 			     })
 					
