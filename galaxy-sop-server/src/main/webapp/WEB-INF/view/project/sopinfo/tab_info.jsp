@@ -300,11 +300,12 @@
 			</c:if>
 			
 			<!--表格内容-->
-			<div class="tab-pane active commonsize" id="view">
+			<!-- <div class="tab-pane active commonsize" id="view">
 				<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
 				
 				</table>
-			</div>
+			</div> -->
+			<table class="table table-hover team_info editable" data-code="team-members" data-title-id="1303"></table>
 	
 		</div>
 	</c:if>
@@ -1201,4 +1202,6 @@ if(isTransfering == 'true'){
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail/team_info.js" type="text/javascript"></script>
+
 
