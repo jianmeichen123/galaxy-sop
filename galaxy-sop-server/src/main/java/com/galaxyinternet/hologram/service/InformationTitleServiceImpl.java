@@ -580,7 +580,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			popTitleMap(list, titleMap);
 			localCache.put(key, titleMap);
 		}
-		return titleMap;
+		Map<String,InformationTitle> map = new ConcurrentHashMap<>(titleMap.size());
+		for (Map.Entry<String,InformationTitle> e : titleMap.entrySet())
+		{
+			map.put(e.getKey(), e.getValue().clone());
+		}
+		return map;
 	}
 	
 
