@@ -805,6 +805,9 @@ function check_table_tr_edit(){
 		var trs=$(this).find("tr").length-1;
 		if(trs>=limit){
 			$(this).closest(".tabtable_con_on").find(".bluebtn").hide();
+			for(var i=limit;i<trs-limit;i++){   //历史数据展示前10条
+				$(this).find("tr").eq(i).hide();
+			}
 		}else{
 			$(this).closest(".tabtable_con_on").find(".bluebtn").show();
 		}
