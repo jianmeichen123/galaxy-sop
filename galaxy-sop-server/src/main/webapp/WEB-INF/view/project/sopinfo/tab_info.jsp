@@ -284,7 +284,7 @@
 <!--团队成员 -->
 	<div class="tabtable_con_on">
 	<div class="new_r_compile ">
-		<span class="new_ico_book"></span> <span class="new_color size16">团队成员</span>
+		<span class="new_ico_book team_group"></span> <span class="new_color size16">团队成员</span>
 	</div>
 	<input type="hidden" id="pid" name="id" value="${pid}" />
 	<c:if test="${aclViewProject==true}">
