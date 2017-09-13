@@ -42,6 +42,7 @@ function selectCache(subCode,filed){
 	                    })
 	                    
 	                    buildMemberTable(data);
+	                    check_table_tr_edit();
 	                }
 			     })
 					
@@ -259,7 +260,6 @@ function delMemberRow(ele)
         }
 		tr.remove();
         saveTeamInfo();
-		check_table();
 		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 		//$(".layui-layer-btn1").click();
@@ -620,8 +620,8 @@ function addRow(ele)
                 check_table_tr_edit();*/
             });
             $("#save_person_learning").click(function(){
-                /*check_table();
-                check_table_tr_edit();*/
+                /*check_table();*/
+                check_table_tr_edit();
                 saveTeamInfo();
             });
 		}//模版反回成功执行	
@@ -728,22 +728,7 @@ function saveTeamInfo(){
         alert("最多只能添加10条记录!")
         return false;
     }
-  //团队表格显示隐藏
-	$.each($('table.team_info'),function(){
-		var table_id = $(this).attr('data-title-id');
-		var noedi_table = $('table[data-title-id='+table_id+']');
-		if($(this).find('tr:gt(0)').length<=0){
-			if(noedi_table.parents('dl').find('dd').length<= 2){
-				$('table[data-title-id='+table_id+']').parents('dl').find('dt').after('<dd class="no_enter">未填写</dd>');
-			}
-			noedi_table.hide();
-		}
-		else{
-			noedi_table.show();
-			noedi_table.parents('dl').find('.no_enter').remove();
-			
-		}
-	})
+
     sendPostRequestByJsonObj(
     platformUrl.saveTeamMember,
     json,
@@ -812,3 +797,22 @@ function selectDirect(tittleId,subCode,filed){
 				}
 			})
 	}
+
+//检查表格tr数
+function check_table_tr_edit(){
+	$.each($("table.editable"),function(){
+		var limit = 10;
+		var trs=$(this).find("tr").length-1;
+		if(trs>=limit){
+			$(this).closest(".tabtable_con_on").find(".bluebtn").hide();
+		}else{
+			$(this).closest(".tabtable_con_on").find(".bluebtn").show();
+		}
+		if(trs==0){
+			var no_tr='<tr class="no-records-found"><td colspan="5" style=" text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>';
+			$(this).find("tbody").append(no_tr);
+		}else{
+			$(this).find(".no-records-found").remove();
+		}
+	})
+}
