@@ -1,0 +1,4 @@
+INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (217,'meeting2Result','闪投',1,'meeting2Result:1',1,'CEO审会结果-闪投','1456382861380','1456382861380',0);
+INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (218,'meeting2Result','投资',2,'meeting2Result:2',2,'CEO审会结果-投资','1456382861380','1456382861380',0);
+INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (219,'meeting2Result','观望',3,'meeting2Result:3',3,'CEO审会结果-观望','1456382861380','1456382861380',0);
+INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (220,'meeting3Result','否决',4,'meeting2Result:4',4,'CEO审会结果-否决','1456382861380','1456382861380',0);
