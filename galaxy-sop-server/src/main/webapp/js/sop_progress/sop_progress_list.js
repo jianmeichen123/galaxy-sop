@@ -313,7 +313,7 @@ $(".new_poppage").on("click",function(){
 			reason('select[name="meetingVetoReason"]','meetingVetoReason:5');
 			reason('select[name="meetingFollowingReason"]','meetingFollowingReason:2');
 			//立项会特殊类名
-			if(_name=="添加立项会会议记录"||_name=="添加内部评审会议记录"||_name=="添加投决会会议记录"){
+			if(_name=="添加立项会会议记录"||_name=="添加内部评审会议记录"){
 				$("#resultRadion").addClass("spresult");
 			}
 			 $("#resultRadion input[type='radio']").click(function(){
