@@ -41,8 +41,10 @@ function selectCache(subCode,filed){
 	                        }
 	                    })
 	                    buildMemberTable(data);
-	        			var table=$(".member .table");
-	                    check_table_tr_edit(table);
+	                    $.each($(".member .table"),function(){
+	        				var table =$(this);
+	        				check_table_tr_edit(table);
+	        			})
 	                }
 			     })
 					
