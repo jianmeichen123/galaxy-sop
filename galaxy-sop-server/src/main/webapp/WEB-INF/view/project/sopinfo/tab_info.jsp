@@ -730,7 +730,7 @@ var isTransfering = "${fx:isTransfering(pid) }"; */
 
 
 $(function(){
-getTabPerson();
+/* getTabPerson(); */
 if(isTransfering == 'true'){
 	$("#add_person_btn").addClass('limits_gray');
 }
