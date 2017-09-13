@@ -445,12 +445,10 @@ $(function(){
 			//表格渲染
 			info_table("NO9_1","融资历史：",$("table.fina_history"));
 			info_table("NO9_1","股权结构：",$("#equity"));
-//			info_table("NO3_1","核心创始团队成员名单：",$("#team_person"));
+			$(".location_show").show();
 			$.each($(".location_show .table"),function(){
 				var table =$(this);
-				check_table(table);
 				check_table_tr_edit(table);
-				
 			})
 			
 			/**

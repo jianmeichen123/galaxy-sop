@@ -83,7 +83,6 @@ function buildTable(title)
 			var tables = $("table[data-title-id='"+row.titleId+"']");
 			var location_show = tables.parents(".location_show");
 			location_show.show();
-			tables.show();   //有数据表格显示
 			$.each(tables,function(){
 				var table = $(this);
 				var tr = buildRow(row,table.hasClass('editable'),row.titleId);
@@ -383,11 +382,9 @@ function addRow(ele)
             selectContext("detail-form");
             $("#save-detail-btn").click(function(){
                 saveForm($("#detail-form"),table);
-                check_table(table);
                 check_table_tr_edit(table);
             });
             $("#save_person_learning").click(function(){
-                check_table(table);
                 check_table_tr_edit(table);
             });
 		}//模版反回成功执行	
@@ -418,18 +415,17 @@ function saveRow(data)
 	resizetable($('table[data-title-id="'+titleId+'"]'))
 	$("a[data-close='close']").click();
 }
-function check_table(table){
-	if($(table).find('tbody tr').length<=0){
-		$(table).find("tbody").hide();
-	}
-	else{
-		$(table).find("tbody").show();
-	}
-}	
 //检查是否10条tr
 function check_table_tr_edit(table){
 		var limit = 10;
 		var trs=$(table).find("tbody").find("tr").length;
+		if(trs==0){
+			var th_length =$(table).find("th").length
+			var noData='<tr class="no-records-found"><td colspan='+th_length+'  style=" text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
+			$(table).append(noData);
+		}else{
+			$(table).find(".no-records-found").remove();
+		}
 		if(trs>=limit){
 			$(table).closest(".tabtable_con_on").find(".add_profile").hide(); 
 		}else{
@@ -506,7 +502,6 @@ function delRow(ele)
         	 deletedRowIds.push(id);
         }
 		tr.remove();
-		check_table(table);
 		check_table_tr_edit(table);
 		$(".layui-layer-close1").click();
 		saveForm("delete",$(ele).closest("table"));
