@@ -446,7 +446,7 @@ $(function(){
 			info_table("NO9_1","融资历史：",$("table.fina_history"));
 			info_table("NO9_1","股权结构：",$("#equity"));
 			$(".location_show").show();
-			$.each($(".location_show .table"),function(){
+			$.each($(".member .table"),function(){
 				var table =$(this);
 				check_table_tr_edit(table);
 			})

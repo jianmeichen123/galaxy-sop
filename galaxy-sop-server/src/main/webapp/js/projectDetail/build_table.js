@@ -411,7 +411,7 @@ function saveRow(data)
 //检查是否10条tr
 function check_table_tr_edit(table){
 		var limit = 10;
-		var trs=$(table).find("tbody").find("tr").length;
+		var trs=$(table).find("tr").length-1;
 		if(trs==0){
 			var th_length =$(table).find("th").length
 			var noData='<tr class="no-records-found"><td colspan='+th_length+'  style=" text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>'
@@ -420,9 +420,12 @@ function check_table_tr_edit(table){
 			$(table).find(".no-records-found").remove();
 		}
 		if(trs>=limit){
-			$(table).closest(".tabtable_con_on").find(".add_profile").hide(); 
+			$(table).closest(".tabtable_con_on").find(".bluebtn").hide(); 
+			for(var i=limit;i<trs-limit;i++){   //历史数据展示前10条
+				$(table).find("tr").eq(i).hide();
+			}
 		}else{
-			$(table).closest(".tabtable_con_on").find(".add_profile").show(); 
+			$(table).closest(".tabtable_con_on").find(".bluebtn").show(); 
 		}
 }
 /**

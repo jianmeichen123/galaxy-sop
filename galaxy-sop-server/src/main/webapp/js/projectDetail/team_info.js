@@ -40,9 +40,9 @@ function selectCache(subCode,filed){
 	                            data = $(this)[0]
 	                        }
 	                    })
-	                    
 	                    buildMemberTable(data);
-	                    check_table_tr_edit();
+	        			var table=$(".member .table");
+	                    check_table_tr_edit(table);
 	                }
 			     })
 					
@@ -254,7 +254,7 @@ function delMemberRow(ele)
 	}, function(index, layero) {
 		var tr = $(ele).closest('tr');
 		var id = tr.data('id');
-
+		var table=$(ele).closest('table');
         if(typeof id != 'undefined' && id>0)
         {
         	deletedRowIds.push(id);
@@ -262,7 +262,7 @@ function delMemberRow(ele)
 		tr.remove();
 		var v="删除成功";
         saveTeamInfo(v);
-		check_table_tr_edit();
+		check_table_tr_edit(table);
 		$(".layui-layer-close1").click();
 		//$(".layui-layer-btn1").click();
 	}, function(index) {
@@ -606,6 +606,7 @@ function editStartup(ele){
 function addRow(ele)
 {
 	var _url = $(ele).attr('data-href');
+	var table = $(ele).closest(".member").find("table");
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
@@ -617,7 +618,7 @@ function addRow(ele)
             $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
             selectContext("detail-form");
             $("#save_person_learning").click(function(){
-                check_table_tr_edit();
+            	check_table_tr_edit(table);
                 var v="保存成功";
                 saveTeamInfo(v);
             });
@@ -753,24 +754,4 @@ function selectDirect(tittleId,subCode,filed){
 			})
 	}
 
-//检查表格tr数
-function check_table_tr_edit(){
-	$.each($("table.editable"),function(){
-		var limit = 10;
-		var trs=$(this).find("tr").length-1;
-		if(trs>=limit){
-			$(this).closest(".tabtable_con_on").find(".bluebtn").hide();
-			for(var i=limit;i<trs-limit;i++){   //历史数据展示前10条
-				$(this).find("tr").eq(i).hide();
-			}
-		}else{
-			$(this).closest(".tabtable_con_on").find(".bluebtn").show();
-		}
-		if(trs==0){
-			var no_tr='<tr class="no-records-found"><td colspan="5" style=" text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">没有找到匹配的记录</label></td></tr>';
-			$(this).find("tbody").append(no_tr);
-		}else{
-			$(this).find(".no-records-found").remove();
-		}
-	})
-}
+
