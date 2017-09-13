@@ -624,42 +624,6 @@ function addRow(ele)
 		}//模版反回成功执行	
 	});
 }
-//提交表单处理
-function saveForm(form)
-{
-	if($(form).validate().form())
-	{
-		var data = $(form).serializeObject();
-		saveRow(data);
-	}
-}
-/**
- * 保存至到tr标签data属性
- */
-function saveRow(data)
-{
-	data = JSON.parse(data);
-	var titleId = data.titleId;
-	var index = data.index;
-	if(typeof index == 'undefined' || index == null || index == '')
-	{
-		var tr = buildRow(data,true,titleId);
-		$('table[data-title-id="'+titleId+'"].team_info').append(tr);
-	}
-	else
-	{
-		var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
-		for(var key in data)
-		{
-			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
-			{
-				tr.data(key,data[key]);
-				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
-			}
-		}
-	}
-	resizetable($('table[data-title-id="'+titleId+'"].team_info'))
-}
 /**
  * 调用此方法渲染下拉框，需要注意几点：
  * 1，<dd class="clearfix" id="field5" data-type="radio">如果是单选需要在dd标签上面加上两个属性（id="field5" ，data-type="radio"）
