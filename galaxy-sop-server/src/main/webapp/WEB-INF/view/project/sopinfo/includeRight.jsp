@@ -212,11 +212,12 @@ var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
 var prograss_name=pRigthInfo.progress;
+var prostatus = pRigthInfo.projectStatusDs
 $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 if('${fx:isTransfering(pid)}' == 'true')
-{
-	$('.fjxm_but').addClass("disabled");
+{	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
+	  $(".tzlc_btn").addClass("disabled")
 	if(isCreatedByUser == "true"){
 	  $(".cxxm_btn").attr("style","display:block;");
 	}else{
