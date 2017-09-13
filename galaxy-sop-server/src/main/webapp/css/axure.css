@@ -1667,7 +1667,7 @@ word-wrap:break-word;
 .new_b_bottom ul li.new_b_li_two1{width:20%;}
 .new_b_bottom ul li.new_b_li_three1{width:50%;}
 .new_b_bottom  p{ margin-bottom:10px; width:100%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;  height:30px; line-height:30px;color:#7a8798; }
-
+.new_btn_right.tzlc_btn{margin-right: 10px;}
 .new_b_li_two{  text-align:center;}
 .new_b_li_three{ text-align:right; color:#999999;}
 .color_pass{ color:#00ba00}
