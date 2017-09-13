@@ -360,7 +360,7 @@ function saveForm(form,_this)
  * 表格增删改查通用方法   **************************************************** 开始
  */
 //新增弹出页面渲染
-function addRow(ele)
+function addRow_sp(ele)
 {
 	var table = $(ele).closest(".member").find("table")
 	var code = table.data("code");
@@ -368,12 +368,8 @@ function addRow(ele)
 		url:getDetailUrl(code),//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$('#qualifications_popup_name').html('添加简历');
             $('#qualifications_popup_name1').html('添加持股人');
             $('#finace_popup_name').html('添加融资历史');
-            $('#finace_popup_name').html('添加融资历史');
-			$("#complete_title").html('添加综合竞争比较');
-			$("#delivery_popup_name").html("添加交割事项")
 			$(".see_block").hide();
             $("#detail-form input[name='projectId']").val(projectInfo.id);
             $("#detail-form input[name='titleId']").val(table.data('titleId'));
@@ -382,9 +378,6 @@ function addRow(ele)
             selectContext("detail-form");
             $("#save-detail-btn").click(function(){
                 saveForm($("#detail-form"),table);
-                check_table_tr_edit(table);
-            });
-            $("#save_person_learning").click(function(){
                 check_table_tr_edit(table);
             });
 		}//模版反回成功执行	
