@@ -251,19 +251,19 @@ function seven_link(data){
 	var _href=window.location.href;
 	setCookie("back_url",_href,24,'/');
 	if(data==1){
-		window.location.href=platformUrl.toBaseInfo+'?pid=${pid}';
+		window.location.href=platformUrl.toBaseInfo+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==2){
-		window.location.href=platformUrl.toEvalindex+'?pid=${pid}';
+		window.location.href=platformUrl.toEvalindex+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==3){
-		window.location.href=platformUrl.investigate+'?pid=${pid}';
+		window.location.href=platformUrl.investigate+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==4){
-		window.location.href=platformUrl.toDecision+'?pid=${pid}';
+		window.location.href=platformUrl.toDecision+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==5){
-		window.location.href=platformUrl.toPreEva+'?pid=${pid}';
+		window.location.href=platformUrl.toPreEva+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==6){
-		window.location.href=platformUrl.toFinancing+'?pid=${pid}';
+		window.location.href=platformUrl.toFinancing+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==7){
-		window.location.href=platformUrl.toOperation+'?pid=${pid}';
+		window.location.href=platformUrl.toOperation+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}
 	
 }

@@ -146,10 +146,10 @@ function seven_link(data,url){
 			beforeSave(url+'?pid='+pid);
 		}else{
 			//$(window).unbind('beforeunload');
-			window.location.href = url+'?pid='+pid;
+			window.location.href = url+'?pid='+pid+"&sid="+sessionId+"&guid="+userId;
 		}
 	}else{
-		window.location.href = url+'?pid='+pid;
+		window.location.href = url+'?pid='+pid+"&sid="+sessionId+"&guid="+userId;
 	}
 } 
 
