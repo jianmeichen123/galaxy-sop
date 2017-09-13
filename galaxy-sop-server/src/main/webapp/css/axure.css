@@ -3567,4 +3567,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .border-top{border-top:1px solid #e6e8f1; }
 .to-hide{display:none;}
 .fjxm_but{display:none;}
-.helpful_method{width:66%;}
+.helpful_method,.max_this_width{max-width:66%;}

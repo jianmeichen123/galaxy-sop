@@ -1920,8 +1920,9 @@ function editRow(ele)
 					 $('#finace_popup_name').html('查看融资历史');
 					 $("#complete_title").html('查看综合竞争比较');
 					 $("#pop-title-gs").text('查看同类公司');
-					 $("#pop-title-time").text('查看里程碑和时间节点');
+					 $("#pop-title-time").text('查看融资的里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
+					 $("#pop-title-yy").html('查看关键运营指标变化');
 					
 				}else{
 					$(".see_block").hide();
@@ -2031,7 +2032,14 @@ function editRow(ele)
 			$('.danger_degree').text(dangerRation);
 			$('.helpful_method').text(helpfullMethod);
 			$('.verfify_orNot').text(vervifyHas);
-			
+			//上一轮融资后关键运营指标变化
+			$('.index-name').text(oppoPerson);
+			$('.index-value').text(degress);
+			$('.current-value').text(dangerRation);
+			//融资的里程碑和时间点
+			$('.finicial-number').text(oppoPerson);
+			$('.milestone').text(degress);
+			$('.finicial-time').text(dangerRation);
 			
 			
 			
