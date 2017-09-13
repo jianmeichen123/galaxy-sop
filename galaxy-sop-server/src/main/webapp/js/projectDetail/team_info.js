@@ -616,15 +616,9 @@ function addRow(ele)
             $("#detail-form input[name='subCode']").val($(ele).closest(".member").find("table").attr('data-code'));
             $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
             selectContext("detail-form");
-            $("#save-detail-btn").click(function(){
-                saveForm($("#detail-form"));
-               /* check_table();
-                check_table_tr_edit();*/
-            });
             $("#save_person_learning").click(function(){
-                /*check_table();*/
                 check_table_tr_edit();
-                var v="保存成功"
+                var v="保存成功";
                 saveTeamInfo(v);
             });
 		}//模版反回成功执行	
