@@ -233,7 +233,8 @@ function editMemberRow(ele){
                $("#team_work").append(work);
             }
             $("#save_person_learning").click(function(){
-                saveTeamInfo();
+            	var v="保存成功";
+                saveTeamInfo(v);
             });
 		}//模版反回成功执行
 	});
@@ -259,7 +260,8 @@ function delMemberRow(ele)
         	deletedRowIds.push(id);
         }
 		tr.remove();
-        saveTeamInfo();
+		var v="删除成功";
+        saveTeamInfo(v);
 		check_table_tr_edit();
 		$(".layui-layer-close1").click();
 		//$(".layui-layer-btn1").click();
@@ -622,7 +624,8 @@ function addRow(ele)
             $("#save_person_learning").click(function(){
                 /*check_table();*/
                 check_table_tr_edit();
-                saveTeamInfo();
+                var v="保存成功"
+                saveTeamInfo(v);
             });
 		}//模版反回成功执行	
 	});
@@ -706,7 +709,7 @@ function resizetable(table){
 }
 
 //保存团队成员数据
-function saveTeamInfo(){
+function saveTeamInfo(v){
 	//表格
 	var titleId = $("table.team_info").attr("data-title-id");
     var json = {"projectId":projectInfo.id,"titleId":titleId};
@@ -736,13 +739,7 @@ function saveTeamInfo(){
         var result = data.result.status;
         if (result == 'OK') {
         	updateInforTime(projectInfo.id,"NO3");
-            layer.msg('保存成功');
-        	/*$(".h#a_"+id_code).css("background","#fff");*/
-           /* var parent = $(sec).parent();
-            var id = parent.data('sectionId');*/
-           /* $(btn).next().click();
-            refreshSection(id);
-            toggle_btn($('.anchor_btn span'),0,save_this);*/
+            layer.msg(v);
         } else {
 
         }
