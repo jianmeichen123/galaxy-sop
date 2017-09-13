@@ -152,6 +152,10 @@ function tabInfoChange(index){
 					right_anchor("NO5");
 				}
 			});
+			//获取tablle TD 宽度
+			var tdWidth  = $('table');
+			console.log(tdWidth);
+
 		}
 		//战略以及策略
 		function initPlanInfo(){
@@ -768,7 +772,7 @@ function buildTable(sec,title)
 			}
 			var editable = table.hasClass('editable');
 		
-			if(editable == true||header.funFlag=="1")
+			if(editable == true||header.funFlag=="1"|| header.funFlag=="0")
 			{
 				tr +='<th data-field-name="opt">操作</th>';
 			}
@@ -807,8 +811,9 @@ function buildRow(row,showOpts,titleId)
 		if(k!="opt"){
 			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
-		
+			
 	});
+	
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
@@ -825,7 +830,21 @@ function buildRow(row,showOpts,titleId)
 		    tr.append(td);
 		}
 	}
+	var tdNumber = tr.children().length;
+	var td = tr.children();
+	//console.log(tdNumber);
+	console.log(td);
+	if(tdNumber===6){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'16.6%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}
+	
 	return tr;
+	
 
 }
 function buildfinxedTable(sec,title,readonly){
@@ -2026,7 +2045,6 @@ function editRow(ele)
 			var dangerRation = myRow.find('td:eq(2)').text();
 			var helpfullMethod = myRow.find('td:eq(3)').text();
 			var vervifyHas = myRow.find('td:eq(4)').text();
-			console.log(vervifyHas);
 			$('.oppostie_people').text(oppoPerson);
 			$('.win_degree').text(degress);
 			$('.danger_degree').text(dangerRation);
@@ -2157,7 +2175,6 @@ function resizetable(table){
         }
     }
 }
-
 
 
 
