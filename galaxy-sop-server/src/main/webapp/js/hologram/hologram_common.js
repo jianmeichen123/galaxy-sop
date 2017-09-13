@@ -863,6 +863,13 @@ function buildRow(row,showOpts,titleId)
 			td.css('white-space','nowrap');
 			
 		}
+	}else if(tdNumber===2){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'50%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
 	}else if(tdNumber===8){
 		for(var i=0;i<td.length;i++){
 			td.css({width:'12.5%',overflow:"hidden"});

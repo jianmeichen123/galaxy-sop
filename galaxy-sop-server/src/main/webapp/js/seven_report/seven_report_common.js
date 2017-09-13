@@ -820,6 +820,54 @@ function buildRow(row,showOpts,titleId)
 		    tr.append(td);
 		}
 	}
+	
+	var tdNumber = tr.children().length;
+	var td = tr.children();
+	//console.log(tdNumber);
+	console.log(td);
+	if(tdNumber===6){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'16.6%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===5){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'20%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+		}
+	}else if(tdNumber===4){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'25%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===3){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'33.3%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===2){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'50%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===8){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'12.5%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}
+	
 	return tr;
 
 }
