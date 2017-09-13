@@ -206,16 +206,13 @@
         <!-- 投前End -->
         <!-- <div class="tq_div" style="font-size:12px;font-family:'宋体';border-top:1px solid #e9ebf2;">
         </div> -->
-<script type="text/javascript" src="<%=path %>/js/sop.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
 var prograss_name=pRigthInfo.progress;
-$(".tzlc_btn").attr("onclick","progress("+pid+")");
+$(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 if('${fx:isTransfering(pid)}' == 'true')
 {
 	$('.fjxm_but').addClass("disabled");
