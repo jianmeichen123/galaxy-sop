@@ -300,10 +300,9 @@ $(".new_poppage").on("click",function(){
 				  arrName.push("meetingVetoReason");
 				  meetingColumns();
 				  break;
-			  case "meetingType:2":
+			  case "meetingType:1":
 				  //会议结论radio
-				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting2Result");
-				  arrName.push("meetingFollowingReason");
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting1Result");
 				  arrName.push("meetingVetoReason");
 				  meetingColumns();
 				  break;
@@ -653,7 +652,7 @@ function changeSelect(value){
 	if(value.code=='meetingResult:2'){
 		parentCode="meetingUndeterminedReason";
 	}
-	if(value.code=='meetingResult:3'||value.code=='meeting5Result:2'||value.code=='meeting2Result:4'){
+	if(value.code=='meetingResult:3'||value.code=='meeting5Result:2'||value.code=='meeting1Result:4'){
 		parentCode="meetingVetoReason";
 	}
 	return parentCode;

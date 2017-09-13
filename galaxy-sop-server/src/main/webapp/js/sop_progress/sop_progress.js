@@ -230,14 +230,12 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					 
 					  meetingColumns();
 					  break;
-				  case "meetingType:2":
+				  case "meetingType:1":
 					  res.meetingType = meetingType;
 					  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
 					  //会议结论radio
-					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting2Result");
+					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting1Result");
 					  arrName.push("meetingVetoReason");
-					  arrName.push("meetingFollowingReason");
-					 
 					  meetingColumns();
 					  break;
 				  default:
@@ -340,7 +338,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	                	 $("select[name='meetingVetoReason']").removeClass("disabled").removeAttr("disabled");
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
-	                 case "meeting2Result:4":
+	                 case "meeting1Result:4":
 	                	 $("select[name='meetingVetoReason']").removeClass("disabled").removeAttr("disabled");
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
