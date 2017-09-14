@@ -112,7 +112,10 @@
 								PostInit: function(){	
 								},
 								FilesAdded: function(up, files) {
-									var type=files[0].name.split(".")[1];
+									if(files[0].name.indexOf(".")>-1){
+										var typeArr=files[0].name.split(".");
+										var type=typeArr[typeArr.length-1];
+									}
 									var extensionsImage="bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG";
 									var extensionsZip="zip,rar,ZIP,RAR";
 									var extensionsDoc="doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS";
@@ -145,6 +148,7 @@
 								UploadProgress: function(up, file) {
 								},
 								FileUploaded:function(up,file,result){
+									 $('.pagebox').hideLoading();
 									if(result.status==200){
 										if(!win.ossObject){
 											var _restmp = $.parseJSON(result.response);
@@ -204,6 +208,10 @@
 									}
 								},
 								BeforeUpload:function(up){
+									$('.pagebox').showLoading(
+											 {
+											    'addClass': 'loading-indicator'						
+											 });
 									if(win.ossObject){
 										var form = {
 										        'Filename': up.files[0].name,
@@ -250,7 +258,7 @@
 									
 								},
 								Error: function(up, err) {
-								//	$(_this).hideLoading();
+								   $('.pagebox').hideLoading();
 									layer.msg(err.message);
 //									document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 								}
