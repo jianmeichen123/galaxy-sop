@@ -748,27 +748,82 @@ $(function(){
 var reportProgress = '${reportProgress}';
 console.log(reportProgress);
 var progressObject = JSON.parse(reportProgress);
-console.log(typeof(progressObject));
+/* console.log(typeof(progressObject));
 console.log(progressObject.no);
+console.log(Math.round(progressObject.no*100)); */
+var no = Math.round(progressObject.no*100);//全息报告
+var en = Math.round(progressObject.en*100);//评测报告
+var dn = Math.round(progressObject.dn*100);//尽调报告
+var pn = Math.round(progressObject.pn*100);//决策报告
+var cn = Math.round(progressObject.cn*100);//初评报告
+var gn = Math.round(progressObject.en*100);//融资报告
+var on = Math.round(progressObject.on*100);//运营报告
+
+
+
+/* var progressObject = {
+		"projectId":837,
+		"uid":104,
+		"no":0.03896,
+		"dn":0.02273,
+		"pn":0.0,
+		"gn":0.02336,
+		"on":0.0,
+		"en":0.0,
+		"cn":0.0,
+		"id":150,
+		"createdTime":1505285294341,
+		"updatedTime":1505298252539
+} */
 
 /* 进度条 */
 function setProcess(num){  
   var processbar = document.getElementsByClassName("processbar"); 
   var percent_number =document.getElementsByClassName("percent_number");  
-  console.log(processbar);
-   /* var percent_number = document.getElementsByClassName('percent_number')[0]; */
+ // console.log(processbar[3]);
     for(var i=0;i<processbar.length;i++){
-	  processbar[i].style.width = parseInt(num)+"px";
-	   percent_number[i].innerHTML = parseInt(num)+"%";
+    	if(num === no){
+    		 processbar[0].style.width = parseInt(num)+"%";
+    	  	 percent_number[0].innerHTML = parseInt(num)+"%";
+    	}
+    	if(num === en){
+    		 processbar[1].style.width = parseInt(num)+"%";
+    	  	 percent_number[1].innerHTML = parseInt(num)+"%";
+    	}
+    	if(num === dn){
+	   		 processbar[2].style.width = parseInt(num)+"%";
+		  	 percent_number[2].innerHTML = parseInt(num)+"%";
+		}
+    	if(num === pn){
+	   		 processbar[3].style.width = parseInt(num)+"%";
+		  	 percent_number[3].innerHTML = parseInt(num)+"%";
+		}  
+    	if(num === cn){
+	   		 processbar[4].style.width = parseInt(num)+"%";
+		  	 percent_number[4].innerHTML = parseInt(num)+"%";
+		}  
+    	if(num === gn){
+	   		 processbar[5].style.width = parseInt(num)+"%";
+		  	 percent_number[5].innerHTML = parseInt(num)+"%";
+		}
+    	if(num === on){
+	   		 processbar[6].style.width = parseInt(num)+"%";
+		  	 percent_number[6].innerHTML = parseInt(num)+"%";
+		}
+		
+	 	
   	}
   
- 
-   /* if(processbar.style.width == "100%"){  
-     window.clearInterval(bartimer);  
-  }  */
   
  }  
- setProcess(10);
+setProcess(no);
+setProcess(en);
+setProcess(dn);
+setProcess(pn);
+setProcess(cn);
+setProcess(gn);
+setProcess(on); 
+  
 
 	
 
