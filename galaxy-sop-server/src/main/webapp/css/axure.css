@@ -1428,7 +1428,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_color_gray{ color:#999;font-family: "宋体";font-size:12px;margin-top:5px;}
 .new_color_black{ color:#333;}
 .size18{ font-size:22px;}
-.size16{ font-size:16px;font-family: "Microsoft YaHei"; display:table-cell; height:20px; margin-top:3px; vertical-align:bottom;}
+.size16{ font-size:16px;font-family: "Microsoft YaHei"; height:20px; margin-top:3px; vertical-align:bottom;}
 .size14{ font-size:14px}
 .new_tit_b span{ display:block; margin-right:10px; float:left; line-height:60px; height:60px;}
 .new_tit_b .b_span{ float:right;}
@@ -3409,6 +3409,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	cursor:pointer;
 	border-right:.5px solid #e4e4e4;
 	border-bottom:.5px solid #e4e4e4;
+	position:reltive;
 }
 .sev_report li img,.sev_report li span{
 	margin:0 auto;
@@ -3572,14 +3573,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .helpful_method,.max_this_width{max-width:66%;}
 .team_info label{margin-right:10px}
 .progress-contain{
-  width: 74px;
   height: 4px;
-  margin-left:25px;
-  margin-top:13px;
+  margin:13px auto 0;
+  margin-left:50%;
+  transform:translateX(-50%)
 }
 .processcontainer{  
    width:40px;  
-   border:1px solid #d8d8d8;  
    height:4px;
    background-color: #d8d8d8;  
    border-radius: 6px;
@@ -3596,12 +3596,14 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
     border-radius: 8px; 
  }
 .progress-contain .percent_number{
-  float: right;
+  float: left;
   height: 4px;
   font-size: 12px;
-  margin-top: -5px;
+  margin-top: -7px;
   color:#ff7439;
   width:22px;
   margin-left: 4px;
+  font-family:'宋体';
 
  } 
+ .new_r_compile  .icon{margin-top:3px;}

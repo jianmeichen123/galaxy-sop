@@ -373,9 +373,9 @@
 <div class="tabtable_con_on member financeHistory">
 	<div class='company_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_stock icon"></span> <span class="new_color size16"><em class="red">*</em>股权结构 </span>
+			<span class="new_ico_stock icon"></span> <span class="new_color size16">股权结构 </span>
 		</div>
-		<div class="top clearfix">
+		<div class="top clearfix border-top">
         <!--按钮-->
 	       <c:if test="${isEditable}">
 	          <div class="btnbox_f btnbox_f1 clearfix">
@@ -396,9 +396,9 @@
 <div class="tabtable_con_on member financeHistory">
 	<div class='company_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_stock icon"></span> <span class="new_color size16"><em class="red">*</em>融资历史</span>
+			<span class="new_ico_stock icon"></span> <span class="new_color size16">融资历史</span>
 		</div>
-		<div class="top clearfix">
+		<div class="top clearfix border-top">
         <!--按钮-->
 	       <c:if test="${isEditable}">
 	          <div class="btnbox_f btnbox_f1 clearfix">
