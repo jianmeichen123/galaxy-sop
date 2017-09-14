@@ -50,7 +50,7 @@ position:absolute;
         			<li onclick="seven_link(7);">运营报告</li>
         		</ul>
         	</span>
-        	
+        	<a href="javascript:;" class="bluebtn ico tj exportReport">导出报告</a>
         	<!-- <span class="b_span"> 
 	        	<a href="#" onclick="back();">返回></a>
 			</span>  -->
