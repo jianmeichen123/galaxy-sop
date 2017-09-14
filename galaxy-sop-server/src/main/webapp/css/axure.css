@@ -3404,7 +3404,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report li{
 	width:32.9%;
 	display:inline-block;
-	padding:32px 0;
+	padding:22px 0;
 	float:left;
 	cursor:pointer;
 	border-right:.5px solid #e4e4e4;
@@ -3574,7 +3574,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .progress-contain{
   width: 74px;
   height: 4px;
-  margin-left:15px;
+  margin-left:25px;
   margin-top:13px;
 }
 .processcontainer{  
