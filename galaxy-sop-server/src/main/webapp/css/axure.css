@@ -3571,4 +3571,37 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .fjxm_but{display:none;}
 .helpful_method,.max_this_width{max-width:66%;}
 .team_info label{margin-right:10px}
-.exportReport{margin-top:12px;display:none;}
+.progress-contain{
+  width: 74px;
+  height: 4px;
+  margin-left:15px;
+  margin-top:13px;
+}
+.processcontainer{  
+   width:40px;  
+   border:1px solid #d8d8d8;  
+   height:4px;
+   background-color: #d8d8d8;  
+   border-radius: 6px;
+   float: left;
+ } 
+ .processbar{  
+   background:#ffa985;
+   border:0px solid #ffa985;  
+   float:left; 
+   height:100%;
+   width:50px;  
+   text-align:center;  
+   line-height:150%;
+    border-radius: 8px; 
+ }
+.progress-contain .percent_number{
+  float: right;
+  height: 4px;
+  font-size: 12px;
+  margin-top: -5px;
+  color:#ff7439;
+  width:22px;
+  margin-left: 4px;
+
+ } 

@@ -107,31 +107,73 @@
 				 <c:when test="${(fx:hasRoles('1,2,18,19') || (fx:hasRole(3) && fx:inOwnDepart('project',pid) ) || (!fx:hasRole(4) &&fx:isForTask(pid)) || (fx:isCreatedByUser('project',pid) ))}">
 					<li class="seven_link1" onclick="seven_link(1);">
 						<img src="<%=path %>/img/seven_report/qx.png" />
-						<span>全息报告</span>	
+						<span>全息报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>
 					</li>
 					<li class="seven_link2" onclick="seven_link(2);">
 						<img src="<%=path %>/img/seven_report/pc.png" />
-						<span>评测报告</span>	
+						<span>评测报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link3" onclick="seven_link(3);">
 						<img src="<%=path %>/img/seven_report/jd.png" />
-						<span>尽调报告</span>	
+						<span>尽调报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link4" onclick="seven_link(4);">
 						<img src="<%=path %>/img/seven_report/jc.png" />
-						<span>决策报告</span>	
+						<span>决策报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link5" onclick="seven_link(5);">
 						<img src="<%=path %>/img/seven_report/cp.png" />
-						<span>初评报告</span>	
+						<span>初评报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link6" onclick="seven_link(6);">
 						<img src="<%=path %>/img/seven_report/rz.png" />
-						<span>融资报告</span>	
+						<span>融资报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link7" onclick="seven_link(7);">
 						<img src="<%=path %>/img/seven_report/yy.png" />
-						<span>运营报告</span>	
+						<span>运营报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					 </c:when>
 					 <c:otherwise>
@@ -703,6 +745,30 @@ $(function(){
 		$(".cxxm_btn").removeClass("new_btn_right").addClass("new_btn");
 	}
 })
+var reportProgress = '${reportProgress}';
+console.log(reportProgress);
+var progressObject = JSON.parse(reportProgress);
+console.log(typeof(progressObject));
+console.log(progressObject.no);
+
+/* 进度条 */
+function setProcess(num){  
+  var processbar = document.getElementsByClassName("processbar"); 
+  var percent_number =document.getElementsByClassName("percent_number");  
+  console.log(processbar);
+   /* var percent_number = document.getElementsByClassName('percent_number')[0]; */
+    for(var i=0;i<processbar.length;i++){
+	  processbar[i].style.width = parseInt(num)+"px";
+	   percent_number[i].innerHTML = parseInt(num)+"%";
+  	}
+  
+ 
+   /* if(processbar.style.width == "100%"){  
+     window.clearInterval(bartimer);  
+  }  */
+  
+ }  
+ setProcess(10);
 
 	
 
