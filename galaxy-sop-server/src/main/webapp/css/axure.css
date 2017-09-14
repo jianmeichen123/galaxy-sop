@@ -3573,6 +3573,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .fjxm_but{display:none;}
 .helpful_method,.max_this_width{max-width:66%;}
 .team_info label{margin-right:10px}
+.exportReport{display:none;margin-top:10px;}
 .progress-contain{
   height: 4px;
   margin:13px auto 0;
