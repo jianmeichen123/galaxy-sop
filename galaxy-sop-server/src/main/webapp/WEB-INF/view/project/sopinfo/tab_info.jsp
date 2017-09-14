@@ -305,7 +305,7 @@
 				
 				</table>
 			</div> -->
-			<table class="table table-hover team_info editable" data-code="team-members" data-title-id="1303"></table>
+			<table cellspacing="0" class="table table-hover team_info info_table editable" data-code="team-members" data-title-id="1303"></table>
 	
 		</div>
 	</c:if>
@@ -330,11 +330,11 @@
 	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
 	        <tr>
 	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany"></span></td>
-	            <td><span class="new_color_gray th">组织代码：</span><span class="new_color_black" id="projectCompanyCode"></span></td>
+	            <!-- <td><span class="new_color_gray th">组织代码：</span><span class="new_color_black" id="projectCompanyCode"></span></td> -->
+	        	<td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"></span></td>
 	        </tr>
 	        <tr>
-	            <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"></span></td>
-	            <td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"></span></td>
+	            <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"></span></td>	            
 	        </tr>
 	    </table>                
 	</div>
@@ -352,11 +352,11 @@
       <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
           <tr>
               <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50"></td>
-              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td>
+              <!-- <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td> -->
+        	  <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
           </tr>
           <tr>
-              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
-              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
+              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>              
           </tr>
       </table>                    
       </form>
