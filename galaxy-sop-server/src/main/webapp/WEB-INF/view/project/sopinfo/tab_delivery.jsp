@@ -97,12 +97,12 @@ $(function(){
 		$("[data-btn='to_add_deliver']").addClass('limits_gray');
 	}
 	init_bootstrapTable('project_delivery_table',10);
+	$(".fixed-table-pagination").remove();
 	//刷新右侧投后运营简报信息
 	function check_tr(table){
 		var tr_length = table.find("tr").length;
 		if(tr_length>=10){
 			$("[data-btn='to_add_deliver']").hide();
-			
 		}else{
 			$("[data-btn='to_add_deliver']").show();
 		}
