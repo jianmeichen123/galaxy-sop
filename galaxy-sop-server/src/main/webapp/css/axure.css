@@ -1764,6 +1764,7 @@ word-wrap:break-word;
 .title{height: 45px;line-height: 44px;border-bottom:1px solid #e6e8f1;padding:0 20px;position: relative;}
 .icon{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; width:20px; height:22px; display:block; float:left;margin: 11px 0 0 0;}
 .new_ico_stock{background-position:-25px -28px; }
+.new_ico_history{background-position:-159px -29px; }
 .new_ico_legal{background-position:-50px -26px; }
 .title .btn{position: absolute;right: 10px;top:12px;}
 .title .btnbox{top:6px;}

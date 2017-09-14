@@ -396,7 +396,7 @@
 <div class="tabtable_con_on member financeHistory">
 	<div class='company_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_stock icon"></span> <span class="new_color size16">融资历史</span>
+			<span class="new_ico_history icon"></span> <span class="new_color size16">融资历史</span>
 		</div>
 		<div class="top clearfix border-top">
         <!--按钮-->
