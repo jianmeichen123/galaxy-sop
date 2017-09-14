@@ -35,7 +35,7 @@
 				<div class="top clearfix">
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix">
-						<a href="javascript:void(0)"  class="pubbtn bluebtn ico c4" data-btn='to_add_deliver' data-name='添加事项'></a>
+						<a href="javascript:void(0)"  class="pubbtn bluebtn ico c4" data-btn='to_add_deliver' data-name='添加事项' style='display:none;'></a>
 					</div>
 				</div>
 				</c:if>
@@ -98,7 +98,18 @@ $(function(){
 	}
 	init_bootstrapTable('project_delivery_table',10);
 	//刷新右侧投后运营简报信息
+	function check_tr(table){
+		var tr_length = table.find("tr").length;
+		if(tr_length>=10){
+			$("[data-btn='to_add_deliver']").hide();
+			
+		}else{
+			$("[data-btn='to_add_deliver']").show();
+		}
+		
+	}
 	$("#project_delivery_table").on('load-success.bs.table',function(table,data){
+		check_tr($("#project_delivery_table tbody"));
 		if(data.pageList.total>0 && isTransfering == 'true')
 		{
 			$.each($("#project_delivery_table tr"),function(){
@@ -295,7 +306,6 @@ function operFormat(value,row,index){
 							$("#deliver_form [name='delDescribe']").val(deliverInfo.delDescribe);
 							$("#deliver_form [name='details']").text(deliverInfo.details);
 							$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
-							
 							$.each(data.entity.files,function(){
 								var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
 								var htm = "<tr id='"+this.id+"tr'>"+
