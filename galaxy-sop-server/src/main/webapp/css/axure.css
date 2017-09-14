@@ -3575,10 +3575,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .team_info label{margin-right:10px}
 .exportReport{display:none;margin-top:10px;}
 .progress-contain{
-  height: 4px;
-  margin:13px auto 0;
-  margin-left:50%;
-  transform:translateX(-50%)
+	width:57px;
+	height: 4px;
+	margin:13px auto 0;										
 }
 .processcontainer{  
    width:40px;  
