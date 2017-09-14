@@ -24,10 +24,11 @@ var planGrid = {
 						operator = '上传附件';
 					}
 					return [
-							'<a class="uploadlink blue ico_pgn 3333" id="upload_btn" href="javascript:void(0)">'+ operator +'</a>'
+					        '<input type="file" class="uploadlink" id="upload_btn" style="opacity:0;width:100px;"/><a class="blue ico_pgn 3333"  href="javascript:void(0)" style="margin-left:-100px;">'+ operator +'</a>'
+							//'<a class="uploadlink blue ico_pgn 3333" id="upload_btn" href="javascript:void(0)">'+ operator +'</a>'
 							 ].join('');
 					
-				},
+				}/*,
 				operatorEvent : {
 					 'mouseover .uploadlink': function (e, value, row, index) {
 						 console.log("2")
@@ -50,7 +51,7 @@ var planGrid = {
 							win.init(formData);
 							
 				        }
-				}
+				}*/
 		}
 		
 		 planGrid.domid = data._domid;
@@ -89,9 +90,29 @@ var planGrid = {
 			}, {
 				field : 'operate',
 				title : '操作',
-				events : gridFormatter.operatorEvent,
+				//events : gridFormatter.operatorEvent,
 				formatter : gridFormatter.operatorFormatter
-			}]
+			}],
+			onLoadSuccess : function(){
+				 formData = {
+			    			_fileType : "fileType:1",
+			    			_fileTypeAuto : true,
+			    			_workType : "fileWorktype:12",
+			    			_projectId : '0',
+			    			_projectName : "-",
+			    			_isProve : "hide",
+			    			_remark : "hide",
+							callFuc : function(){
+								console.log("刷新商业计划表格");
+//								window.location.reload(platformUrl.projectDetail + project.projectId);
+								$('#' + planGrid.domid).bootstrapTable('refresh',planGrid.queryParams);
+							},
+							_url : platformUrl.uploadBpToSession, //兼容老板插件
+							_localUrl : platformUrl.uploadBpToSession
+					};
+					win.init(formData);
+			}
+			
 		});	  
 	},
 	queryParams : function(params){

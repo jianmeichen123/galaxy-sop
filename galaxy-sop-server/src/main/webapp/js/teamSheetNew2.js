@@ -101,38 +101,46 @@
 							multi_selection:false,
 							filters : {
 								max_file_size : '25mb',
-								mime_types: [
-								    {title : "Zip files", extensions : "zip,rar,ZIP,RAR"},
-									{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG"},
-									{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R,FLV"},
-									{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS"}
-								]
+							/*	mime_types: [
+									//{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG"},
+									//{title : "Zip files", extensions : "zip,rar,ZIP,RAR"},
+									//{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R,FLV"},
+									//{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS"}
+								]*/
 							},
 							init: {
 								PostInit: function(){	
 								},
 								FilesAdded: function(up, files) {
-									uploader.start();
-									return false;
-									var $fileType = $(_this).find("#win_fileType");
-									
-									//解决多次文件选择后，文件都存入upload
-									if(uploader.files.length >= 2){
-										uploader.splice(0, uploader.files.length-1)
-									}
-									plupload.each(files, function(file) {
-//										document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-										$(_this).find("#win_fileTxt").val(file.name);   
-										if(_formdata._fileTypeAuto){
-											attrFileType($fileType, file);
-										}
+									var type=files[0].name.split(".")[1];
+									var extensionsImage="bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG";
+									var extensionsZip="zip,rar,ZIP,RAR";
+									var extensionsDoc="doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS";
+									if(extensionsImage.indexOf(type)>-1 || extensionsZip.indexOf(type)>-1 || extensionsDoc.indexOf(type)>-1){
+										uploader.start();
+										return false;
+										var $fileType = $(_this).find("#win_fileType");
 										
-									});
-									if(!win.fileKey || win.fileKey == ""){
-										win.fileKey = "null";
+										//解决多次文件选择后，文件都存入upload
+										if(uploader.files.length >= 2){
+											uploader.splice(0, uploader.files.length-1)
+										}
+										plupload.each(files, function(file) {
+//											document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+											$(_this).find("#win_fileTxt").val(file.name);   
+											if(_formdata._fileTypeAuto){
+												attrFileType($fileType, file);
+											}
+											
+										});
+										if(!win.fileKey || win.fileKey == ""){
+											win.fileKey = "null";
+										}
+										sendGetRequest(platformUrl.getPolicy+"/"+win.fileKey,null,win.getPolicyCallBack);
+									}else{
+										layer.msg("文件拓展名错误.");
+										return;
 									}
-									sendGetRequest(platformUrl.getPolicy+"/"+win.fileKey,null,win.getPolicyCallBack);
-								
 								},
 								UploadProgress: function(up, file) {
 								},
