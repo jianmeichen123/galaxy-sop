@@ -256,7 +256,8 @@ var initPage = {
 					projectId : initPage.projectId,
 					projectName : initPage.projectName	
 			};
-			dom.find("#upload_btn").hover(operatorFuc.uploadBusinessPlan);
+			operatorFuc.uploadBusinessPlan();
+			//dom.find("#upload_btn").click(operatorFuc.uploadBusinessPlan);
 			dom.find("#download_btn").click(operatorFuc.downloadBusinessPlan);
 			dom.find("#show_history_btn").click(operatorFuc.businessPlanHistory);
 		}
