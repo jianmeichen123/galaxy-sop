@@ -779,7 +779,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 	@Override
 	public List<InformationTitle> searchRelateTitleWithData(final Integer reportType, final Long relateId, final Long projectId)
 	{
-		final TitleInfoWapper titleInfo = getTitleCache(reportType, relateId).clone();
+		final TitleInfoWapper titleInfo = getTitleCache(reportType, relateId);
 		if(titleInfo.getRelateIdMap() == null || titleInfo.getRelateIdMap().size() == 0)
 		{
 			return null;
@@ -929,7 +929,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(localCache.containsKey(key))
 		{
 			result = (TitleInfoWapper)localCache.get(key);
-			result.init();
 		}
 		else
 		{
@@ -964,7 +963,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			result = new TitleInfoWapper(titles);
 			localCache.put(key,  result);
 		}
-		return result;
+		return result.clone();
 	}
 	
 	public InformationTitle getRelateTitleById(Long id)
@@ -1048,76 +1047,16 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			return list;
 		}
 
-		private void setList(List<InformationTitle> list)
-		{
-			this.list = list;
-		}
-
-		private void setIds(Set<String> ids)
-		{
-			this.ids = ids;
-		}
-
-		private void setRelateIds(Set<Long> relateIds)
-		{
-			this.relateIds = relateIds;
-		}
-
-		private void setIdMap(Map<String, List<InformationTitle>> idMap)
-		{
-			this.idMap = idMap;
-		}
-
-		private void setRelateIdMap(Map<Long, List<InformationTitle>> relateIdMap)
-		{
-			this.relateIdMap = relateIdMap;
-		}
-
-		public void init()
-		{
-			if(list == null || list.size()==0)
-			{
-				return;
-			}
-			for(InformationTitle title : list)
-			{
-				if(title.getFixedTableList() != null && title.getFixedTableList().size() >0)
-				{
-					title.getFixedTableList().clear();
-				}
-				if(title.getTableHeader() != null)
-				{
-					title.setTableHeader(null);
-				}
-				if(title.getResultList() != null && title.getResultList().size()>0)
-				{
-					title.getResultList().clear();
-				}
-				if(title.getDataList() != null && title.getDataList().size()>0)
-				{
-					title.getDataList().clear();
-				}
-				if(title.getWeight() != null)
-				{
-					title.setWeight(null);
-				}
-				if(title.getFileList() != null)
-				{
-					title.getFileList().clear();
-				}
-			}
-		}
-		private TitleInfoWapper(){}
 		@Override
 		public TitleInfoWapper clone()
 		{
-			TitleInfoWapper clone = new TitleInfoWapper();
-			clone.setList(getList());
-			clone.setIds(getIds());
-			clone.setRelateIds(getRelateIds());
-			clone.setIdMap(getIdMap());
-			clone.setRelateIdMap(getRelateIdMap());
-			return clone;
+			List<InformationTitle> originalList = getList();
+			List<InformationTitle> newList = new ArrayList<>(originalList.size());
+			for(InformationTitle original : originalList)
+			{
+				newList.add(original.clone());
+			}
+			return new TitleInfoWapper(newList);
 		}
 	}
 	
