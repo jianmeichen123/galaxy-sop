@@ -511,7 +511,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(title.id=="3012"){
 				var num =title.resultList[0].contentDescribe1;
-				if(num!=undefined && num!=""){
+				if(num!=undefined && num!="" && num.indexOf(".")>-1){
 					var nums=num.split(".");
 				}
 			}
