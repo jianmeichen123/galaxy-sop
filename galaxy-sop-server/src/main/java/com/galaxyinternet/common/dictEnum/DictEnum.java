@@ -333,6 +333,91 @@ public enum DictEnum {
 	        return null;
 	    }
 	}
+	//内部评审会议结果-
+		public enum NBPSResult
+		{
+			ST("闪投","meeting1Result:1"),
+			TZ("投资","meeting1Result:2"),
+			GW("观望","meeting1Result:3"),
+			FJ("否决","meeting1Result:4");
+			private String name;
+
+			private String code;
+
+			private NBPSResult(String name, String code) {
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+			
+			/**
+		     * 根据code get name
+		     * @param reslut
+		     * @return
+		     */
+		    public static String getNameByCode(String code) {
+		        
+		        if (code != null && !code.trim().equals("")) {
+		            
+		        	NBPSResult[] values = NBPSResult.values();
+		            for (int i = 0;i < values.length;i++) {
+		                if (code.equals(values[i].getCode())) {
+		                    return values[i].getName();
+		                }                
+		            }
+		        }
+		        return null;
+		    }
+		}
+		//投决会会议结果-
+		public enum TJHResult
+		{
+			TZ("投资","meeting4Result:1"),
+			BCCL("补充材料","meeting4Result:2"),
+			FJ("否决","meeting4Result:3");
+			private String name;
+
+			private String code;
+
+			private TJHResult(String name, String code) {
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+			
+			/**
+		     * 根据code get name
+		     * @param reslut
+		     * @return
+		     */
+		    public static String getNameByCode(String code) {
+		        
+		        if (code != null && !code.trim().equals("")) {
+		            
+		        	TJHResult[] values = TJHResult.values();
+		            for (int i = 0;i < values.length;i++) {
+		                if (code.equals(values[i].getCode())) {
+		                    return values[i].getName();
+		                }                
+		            }
+		        }
+		        return null;
+		    }
+		}
 	//任务类型
 	public enum taskType {
 		审批流程("审批流程领","taskType:1"),

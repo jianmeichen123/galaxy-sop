@@ -29,7 +29,9 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.NBPSResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.SWTPResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.TJHResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
@@ -631,23 +633,32 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			count = interviewRecordService.selectCount(query);
 			rejectValid = count>0L;
 		}
-		else if(projectProgress.内部评审.getCode().equals(currProgress) ||
-				projectProgress.CEO评审.getCode().equals(currProgress)
-				)
+		else if(projectProgress.内部评审.getCode().equals(currProgress))
 		{
 			String type = meetingType.内评会.getCode();
-			if(projectProgress.CEO评审.getCode().equals(currProgress))
-			{
-				type = meetingType.CEO评审.getCode();
+			MeetingRecordBo query = new MeetingRecordBo();
+			query.setProjectId(project.getId());
+			query.setMeetingType(type);
+			query.setMeetingResult(NBPSResult.ST.getCode());
+			Long count = meetingRecordService.queryCount(query);
+			if(count.intValue()==0){
+				query.setMeetingResult(NBPSResult.TZ.getCode());
+				count = meetingRecordService.queryCount(query);
 			}
+			next1Valid = count>0L;
+			query.setMeetingResult(NBPSResult.FJ.getCode());
+			count = meetingRecordService.queryCount(query);
+			rejectValid = count>0L;
+		}else if(projectProgress.CEO评审.getCode().equals(currProgress))
+		{
+			
+			String type  = meetingType.CEO评审.getCode();
 			MeetingRecordBo query = new MeetingRecordBo();
 			query.setProjectId(project.getId());
 			query.setMeetingType(type);
 			query.setMeetingResult(meetingResult.通过.getCode());
-			
 			Long count = meetingRecordService.queryCount(query);
 			next1Valid = count>0L;
-			
 			query.setMeetingResult(meetingResult.否决.getCode());
 			count = meetingRecordService.queryCount(query);
 			rejectValid = count>0L;
@@ -733,7 +744,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			MeetingRecordBo query = new MeetingRecordBo();
 			query.setProjectId(project.getId());
 			query.setMeetingType(meetingType.投决会.getCode());
-			query.setMeetingResult(meetingResult.通过.getCode());
+			query.setMeetingResult(TJHResult.TZ.getCode());
 			Long count = meetingRecordService.queryCount(query);
 			if(count.intValue() > 0)
 			{
@@ -747,7 +758,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				}
 			}
 			
-			query.setMeetingResult(meetingResult.否决.getCode());
+			query.setMeetingResult(TJHResult.FJ.getCode());
 			count = meetingRecordService.queryCount(query);
 			rejectValid = count>0L;
 		}
