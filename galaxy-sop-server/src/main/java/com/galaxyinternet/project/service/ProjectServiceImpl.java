@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.utils.WebUtils;
+import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.JointDeliveryDao;
@@ -44,6 +46,7 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.JointDelivery;
@@ -95,6 +98,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private PersonPoolDao personPoolDao;
 	@Autowired
 	private JointDeliveryDao jointDeliveryDao;
+	@Autowired
+	private InformationResultDao informationResultDao;
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
 		return this.projectDao;
@@ -800,5 +805,47 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		}
 		int result = projectDao.updateById(project);
 	  return result;
+	}
+	
+	public void updateReportResut(Project project ){
+		String progress=project.getProjectProgress();
+		String titleId="";
+		String contentChoose="";
+		if(null!=progress){
+			if(progress.equals(projectProgress.内部评审.getCode())){
+				titleId="1111";
+				contentChoose="1145";
+			}else if(progress.equals(projectProgress.立项会.getCode())){
+				titleId="1113";
+				contentChoose="1167";
+			}else if(progress.equals(projectProgress.投资决策会.getCode())){
+				titleId="1114";
+				contentChoose="1177";
+			}
+		}
+		InformationResult selectById=new InformationResult();
+		selectById.setProjectId(project.getId().toString());
+		selectById.setTitleId(titleId);
+		User user = WebUtils.getUserFromSession();
+		Long userId = user != null ? user.getId() : null;
+		Long now = new Date().getTime();
+		List<InformationResult> reList=new ArrayList<InformationResult>();
+		InformationResult re=new InformationResult();
+		if(!"".equals(contentChoose)){
+			reList = informationResultDao.selectList(selectById);
+			if(null!=reList&&!reList.isEmpty()){
+				re=reList.get(0);
+				re.setUpdatedTime(now);
+				re.setUpdateId(userId.toString());
+				re.setContentChoose(contentChoose);
+				re.setIsValid("0");
+				informationResultDao.updateById(re);
+			}else{
+				selectById.setContentChoose(contentChoose);
+				selectById.setCreatedTime(now);
+				selectById.setCreateId(userId.toString());
+				informationResultDao.insert(selectById);
+			}
+		}
 	}
 }
