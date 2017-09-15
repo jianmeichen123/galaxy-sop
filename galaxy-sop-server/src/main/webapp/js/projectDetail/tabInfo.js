@@ -442,7 +442,7 @@ $(function(){
 				$(this).parent().parent().css('height','120px');
 			}) 
 			
-			//表格渲染
+			//表格渲染 
 			info_table("NO9_1","FNO7","融资历史：",$("table.fina_history"));
 			info_table("NO9_1","FNO6","股权结构：",$("#equity"));
 			$(".location_show").show();
