@@ -24,32 +24,21 @@ function selectCache(subCode,filed){
 			return map;
 }
 //团队整体显示
-	sendGetRequest(platformUrl.queryAllTitleValues+'FNO4?reportType=4', null,
-		function(data) {
-			var result = data.result.status;
-			if (result == 'OK') {
-				var entity = data.entity;
-				var pid = 1302;
-				sendGetRequest(platformUrl.queryMemberList+pid+"/"+projectInfo.id,null,function(data){
-			        var result = data.result.status;
-	                if (result == 'OK')
-	                {
-	                   var entityList = data.entityList;
-	                    $(entityList).each(function(){
-	                        if($(this)[0]["tableHeader"]){
-	                            data = $(this)[0]
-	                        }
-	                    })
-	                    buildMemberTable(data);
-	                    var table=$("table[data-code=\"team-members\"]");
-	                    check_table_tr_edit(table);
-	                }
-			     })
-					
-			} else {
-
-			}
-		})
+sendGetRequest(platformUrl.queryMemberList+"1302/"+projectInfo.id,null,function(data){
+    var result = data.result.status;
+    if (result == 'OK')
+    {
+       var entityList = data.entityList;
+        $(entityList).each(function(){
+            if($(this)[0]["tableHeader"]){
+                data = $(this)[0]
+            }
+        })
+        buildMemberTable(data);
+        var table=$("table[data-code=\"team-members\"]");
+        check_table_tr_edit(table);
+    }
+ })
 		
 function buildMemberTable(title){
         //列表Header
