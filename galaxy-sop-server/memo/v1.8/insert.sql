@@ -1,4 +1,10 @@
-INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (217,'meeting2Result','闪投',1,'meeting2Result:1',1,'CEO审会结果-闪投','1456382861380','1456382861380',0);
-INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (218,'meeting2Result','投资',2,'meeting2Result:2',2,'CEO审会结果-投资','1456382861380','1456382861380',0);
-INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (219,'meeting2Result','观望',3,'meeting2Result:3',3,'CEO审会结果-观望','1456382861380','1456382861380',0);
-INSERT INTO `dict` (`id`,`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`text`,`created_time`,`updated_time`,`is_delete`) VALUES (220,'meeting3Result','否决',4,'meeting2Result:4',4,'CEO审会结果-否决','1456382861380','1456382861380',0);
+/*数据字典表增加 项目来源*/
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `created_time` , `updated_time` , `is_delete`) VALUES ('216', 'xhhl', '项目来源', '31', 'projectSource', '1456382861380', '1456382861380', '0');
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`,  `created_time` , `updated_time` , `is_delete`) VALUES ('234', 'projectSource', '事业部', '0', 'projectSource:0', '0', '1456382861380', '1456382861380', '0');
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`,  `created_time` , `updated_time` , `is_delete`) VALUES ('235', 'projectSource', 'FA', '1', 'projectSource:1', '1', '1456382861380', '1456382861380', '0');
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`,  `created_time` , `updated_time` , `is_delete`) VALUES ('236', 'projectSource', '创业者', '2', 'projectSource:2', '2', '1456382861380', '1456382861380', '0');
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`,  `created_time` , `updated_time` , `is_delete`) VALUES ('237', 'projectSource', '外部独立合伙人', '3', 'projectSource:3', '3', '1456382861380', '1456382861380', '0');
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`,  `created_time` , `updated_time` , `is_delete`) VALUES ('238', 'projectSource', '其他部门推荐', '4', 'projectSource:4', '4', '1456382861380', '1456382861380', '0');
+INSERT INTO `fx_db`.`dict` (`id`, `parent_code`, `name`, `dict_value`, `dict_code`, `dict_sort`,  `created_time` , `updated_time` , `is_delete`) VALUES ('239', 'projectSource', '其他', '5', 'projectSource:5', '5', '1456382861380', '1456382861380', '0');
+
+

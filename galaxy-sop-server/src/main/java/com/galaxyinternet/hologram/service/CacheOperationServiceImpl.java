@@ -20,6 +20,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -38,6 +39,8 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	public static final String CACHE_KEY_TITLE_ID_NAME = "QXT_TITLE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
 	public static final String CACHE_KEY_VALUE_ID_NAME = "QXT_VALUE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
+	
+	public static final String CACHE_KEY_VALUE_ID_LIST = "QXT_VALUE_ID_LIST"; //各区域块下的   题：value   ==  Map<Long,String>
 
 	
 	@Autowired
@@ -76,12 +79,14 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event)
 	{
+	  //数据字典清空缓存
+		removeInfoDicList();
+	  //数据字典加载缓存
+		setInfoDicList();
 		initTitleIdName();
 		initValueIdName();
-
 		tableRelationInti();
 		initReportsCodeIdsAndNum();
-
 		//initAreaTitleAndTValue();
 		//清理  initAreaTitleAndTValue 中的cache， 下个版本 1.7 后  删除该代码
 		Object getK = cache.get("QXT_PAGE_AREA_TITLE_KEYLIST");
@@ -169,7 +174,10 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 			cache.remove(key_codes);
 		}
 
-
+	   //数据字典清空缓存
+		removeInfoDicList();
+	   //数据字典加载缓存
+		setInfoDicList();
 		initTitleIdName();
 		initValueIdName();
 		tableRelationInti();
@@ -680,7 +688,37 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		}
 
 	}
+	
+	public void setInfoDicList(){
+		List<InformationDictionary> queryAll = informationDictionaryService.queryAll();
+		for(InformationDictionary infom:queryAll){
+			if(null!=infom.getTitleId()){
+				@SuppressWarnings("unchecked")
+				List<InformationDictionary> object = (List<InformationDictionary>)cache.get(infom.getTitleId()+"_info");
+				if(null==object){
+					object= new ArrayList<InformationDictionary>();
+				}
+				object.add(infom);
+				cache.set(infom.getTitleId()+"_info", object);
+			}
+		}
+	}
+	
+	public void removeInfoDicList(){
+		List<InformationDictionary> queryAll = informationDictionaryService.queryAll();
+		for(InformationDictionary infom:queryAll){
+			if(null!=infom.getTitleId()){
+				@SuppressWarnings("unchecked")
+				List<InformationDictionary> object = (List<InformationDictionary>)cache.get(infom.getTitleId()+"_info");
+				if(null!=object){
+					cache.removeRedisKeyOBJ(infom.getTitleId()+"_info");
+				}
+			}
+		}
+	}
 
+		
+   
 
 
 

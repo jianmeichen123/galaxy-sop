@@ -53,6 +53,7 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
+import com.galaxyinternet.model.hologram.InformationTitleRelate;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -68,6 +69,9 @@ import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.hologram.InformationDictionaryService;
+import com.galaxyinternet.service.hologram.InformationResultService;
+import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 
 
 /**
@@ -126,7 +130,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	
 	@Autowired
 	private SopTaskDao sopTaskDao;
-	
+	@Autowired
+	private InformationResultService informationResultService;
 	@Override
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
@@ -348,6 +353,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			}
 			UrlNumber uNum = null;
 			String progress = null;
+			String synchroReport="";
 			/**
 			 * 操作日志分区判断
 			 */
@@ -358,6 +364,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			    	    else 
 			    	    	uNum = UrlNumber.two;
 			    	    progress = DictEnum.projectProgress.内部评审.getCode();
+			    	    synchroReport="meetingType:1";
 			    	    break;
 			       case "meetingType:2":
 			    	    if(prograss == 0)
@@ -372,6 +379,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			    	    else 
 			    	    	uNum = UrlNumber.six;
 			    	    progress = DictEnum.projectProgress.立项会.getCode();
+			    	    synchroReport="meetingType:3";
 			    	    break;
 			       case "meetingType:4":
 			    	    if(prograss == 0)
@@ -379,6 +387,7 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 			            else 
 			    	    	uNum = UrlNumber.ten;
 			    	    progress = DictEnum.projectProgress.投资决策会.getCode();
+			    	    synchroReport="meetingType:4";
 			    	    break;
 			       case "meetingType:5":
 			    	    if(prograss == 0)
@@ -436,6 +445,9 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 					sopFile.setCreatedTime(new Date().getTime());
 					meetingRecordService.operateFlowMeeting(sopFile,meetingRecord);
 				}
+			}
+			if(!"".equals(synchroReport)){
+				informationResultService.upResultByMeeting(meetingRecord);
 			}
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), null, uNum);
 			responseBody.setResult(new Result(Status.OK, ""));
