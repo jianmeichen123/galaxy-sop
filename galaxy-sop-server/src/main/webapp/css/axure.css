@@ -3575,9 +3575,15 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .team_info label{margin-right:10px}
 .exportReport{display:none;margin-top:10px;}
 .progress-contain{
-	width:57px;
-	height: 4px;
-	margin:13px auto 0;										
+	display: inline-block;	
+	max-width: 70px;
+	width: auto;
+    height: 4px;
+    margin: 13px auto 0;
+    text-align: center;	
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;				
 }
 .processcontainer{  
    width:40px;  
@@ -3601,8 +3607,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
   height: 4px;
   font-size: 12px;
   margin-top: -6px;
-  color:#ff7439;
   margin-left: 4px;
+  color:#ff7439;
   font-family:'宋体';
 
  } 
