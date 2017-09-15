@@ -1,29 +1,26 @@
 
 	//1.8新加数据开始
 	//不同表格公共方法
-	function info_table(code,name,table){
+	function info_table(code,report_code,name,table){
 		var pid;
 		var tabid;
-		sendGetRequest(platformUrl.queryAllTitleValues +code, null,
+		sendGetRequest(platformUrl.queryAllTitleValues+report_code+'?reportType=4'
+, null,
 				function(data) {
 			    var result = data.result.status;
+			    var resu = data.entity;
 				if(result=="OK"){
-					pid = data.id;
-			    	$.each(data.entity.childList,function(){
-			    		var _header =$(this);
-			    		if(_header[0].name==name){
-			    			tabid=_header[0].id;
-			    			return false;
-			    		}
-			    	})
+					pid = resu.parentId;
+					table.attr("data-title-id",resu.titleId);
+				    table.attr("data-name",name);
+				    table.attr("data-url-code",code);
 				}						
 			})
-			table.attr("data-title-id",tabid);
-		    table.attr("data-name",name);
-		    table.attr("data-url-code",code);
+			
 		sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
 	        var result = data.result.status;
 			var header=data.entityList;
+			console.log(data);
 			if(result=="OK"){
 		    	$.each(header,function(){
 		    		var _header =$(this);
