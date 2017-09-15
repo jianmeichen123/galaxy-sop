@@ -366,6 +366,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 						parentDictMap=dictMap("meeting5Result");
 					}else if(str[0].indexOf("1")>0){
 						parentDictMap=dictMap("meeting1Result");
+					}else if(str[0].indexOf("4")>0){
+						parentDictMap=dictMap("meeting4Result");
 					}else{
 						parentDictMap=dictMap("meetingResult");
 					}
@@ -383,7 +385,10 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				if(null!=ib.getMeetingResult()&&ib.getMeetingResult().equals("meetingResult:2")){
 					dictMap=dictMap("meetingUndeterminedReason");
 				}else if(null!=ib.getMeetingResult()&&(ib.getMeetingResult().equals("meetingResult:3")
-						||ib.getMeetingResult().equals("meeting5Result:2")||ib.getMeetingResult().equals("meeting3Result:6")||ib.getMeetingResult().equals("meeting1Result:4"))){
+						||ib.getMeetingResult().equals("meeting5Result:2")||ib.getMeetingResult().equals("meeting3Result:6")
+						||ib.getMeetingResult().equals("meeting1Result:4")
+						||ib.getMeetingResult().equals("meeting4Result:3"))
+						){
 					dictMap=dictMap("meetingVetoReason");
 				}else if(null!=ib.getMeetingResult()&&(ib.getMeetingResult().equals("meeting5Result:1"))){
 					dictMap=dictMap("meetingFollowingReason");

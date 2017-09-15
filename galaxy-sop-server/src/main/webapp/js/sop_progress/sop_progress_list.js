@@ -306,6 +306,12 @@ $(".new_poppage").on("click",function(){
 				  arrName.push("meetingVetoReason");
 				  meetingColumns();
 				  break;
+			  case "meetingType:4":
+				  //会议结论radio
+				  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting4Result");
+				  arrName.push("meetingVetoReason");
+				  meetingColumns();
+				  break;
 			  default:
 				  arrName.push("meetingUndeterminedReason");
 			      arrName.push("meetingVetoReason");
@@ -652,12 +658,12 @@ function changeSelect(value){
 	if(value.code=='meetingResult:2'){
 		parentCode="meetingUndeterminedReason";
 	}
-	if(value.code=='meetingResult:3'||value.code=='meeting5Result:2'||value.code=='meeting1Result:4'){
+	if(value.code=='meetingResult:3'||value.code=='meeting5Result:2'||value.code=='meeting1Result:4'||value.code=='meeting3Result:6'||value.code=='meeting4Result:3'){
 		parentCode="meetingVetoReason";
 	}
 	return parentCode;
 }
-function selectDict(arr){
+function selectDict(arr){ 
 	if(null!=arr){
 		for(var i=0;i<arr.length;i++){
 			createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+arr[i],arr[i]);

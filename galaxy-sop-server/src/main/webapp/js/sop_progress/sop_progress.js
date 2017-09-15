@@ -227,7 +227,6 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting5Result");
 					  arrName.push("meetingVetoReason");
 					  arrName.push("meetingFollowingReason");
-					 
 					  meetingColumns();
 					  break;
 				  case "meetingType:1":
@@ -235,6 +234,14 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 					  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
 					  //会议结论radio
 					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting1Result");
+					  arrName.push("meetingVetoReason");
+					  meetingColumns();
+					  break;
+				  case "meetingType:4":
+					  res.meetingType = meetingType;
+					  url = Constants.sopEndpointURL + "/galaxy/progress/p/queryMeet";
+					  //会议结论radio
+					  radioSearch(platformUrl.searchDictionaryChildrenItems+"meeting4Result");
 					  arrName.push("meetingVetoReason");
 					  meetingColumns();
 					  break;
@@ -342,6 +349,11 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	                	 $("select[name='meetingVetoReason']").removeClass("disabled").removeAttr("disabled");
 	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
 	                	 break;
+	                 case "meeting4Result:3":
+	                	 $("select[name='meetingVetoReason']").removeClass("disabled").removeAttr("disabled");
+	                	 $("select[name='meetingVetoReason']").find("option[value='"+reason+"']").attr("selected",true)
+	                	 break;
+	                	 
 	                 default:
 	                	 
 	                 }
