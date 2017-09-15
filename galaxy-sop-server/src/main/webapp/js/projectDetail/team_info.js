@@ -24,7 +24,7 @@ function selectCache(subCode,filed){
 			return map;
 }
 //团队整体显示
-	sendGetRequest(platformUrl.queryAllTitleValues + "NO3_1", null,
+	sendGetRequest(platformUrl.queryAllTitleValues+'FNO4?reportType=4', null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
