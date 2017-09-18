@@ -1,22 +1,10 @@
 
 	//1.8新加数据开始
 	//不同表格公共方法
-	function info_table(code,report_code,name,table){
-		var pid;
-		var tabid;
-		sendGetRequest(platformUrl.queryAllTitleValues+report_code+'?reportType=4'
-, null,
-				function(data) {
-			    var result = data.result.status;
-			    var resu = data.entity;
-				if(result=="OK"){
-					pid = resu.parentId;
-					table.attr("data-title-id",resu.titleId);
-				    table.attr("data-name",name);
-				    table.attr("data-url-code",code);
-				}						
-			})
-			
+	function info_table(code,name,table){
+		var pid=table.attr("parentid");
+		table.attr("data-name",name);
+	    table.attr("data-url-code",code);			
 		sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
 	        var result = data.result.status;
 			var header=data.entityList;
