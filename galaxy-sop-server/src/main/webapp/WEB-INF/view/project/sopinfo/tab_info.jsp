@@ -513,17 +513,20 @@ if(isTransfering == 'true'){
 		$('.legal [data-btn="edit"]').addClass('limits_gray');
 		$('#add_share_bth').addClass('limits_gray');
 	}
-	refreshCompanyInfo();
+	//refreshCompanyInfo();
 	$('.legal [data-btn="edit"]').on('click',function(){
 		if($(this).hasClass('limits_gray'))
 		{
 			return;
 		}
-		editCompany();
-		
+		editCompany();		
 	});
 	$('.legal [data-btn="save"]').on('click',function(){
-		saveCompany();
+		saveBaseInfo("company-info-form");
+		$('.bj_hui_on').hide();
+	    $('.legal .show').show();
+		$('.legal .hidden').hide();
+		buildShareResult("4","5812");
 	});
 	$('.legal [data-btn="cancle"]').on('click',function(){
 		$('.bj_hui_on').hide();
@@ -582,15 +585,6 @@ if(isTransfering == 'true'){
 				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
 			}
-		/* 	if(str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
-				return options;
-			}
-			else{
-				var options = "<label title='"+str+"'>"+str+"</label>";
-				return options;
-			} */
 		}
 	 function sharesOwnerFormatter(value,row,index){
 		    var id=row.id;
@@ -606,15 +600,6 @@ if(isTransfering == 'true'){
 				var options = "<label title='"+str+"'>"+str+"</label>";
 				return options;
 			}
-			/* if(str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
-				return options;
-			}
-			else{
-				var options = "<label title='"+str+"'>"+str+"</label>";
-				return options;
-			} */
 		}
 	 function gainModeFormatter(value,row,index){
 		    var id=row.id;
@@ -644,105 +629,6 @@ if(isTransfering == 'true'){
     	$('.bj_hui_on').show();
 		$('.legal .show').hide();
 		$('.legal .hidden').show();
-	}
-	function saveCompany()
-	{
-		var date = $('input[name="formationDate"]').val();
-		if(date == ''){
-			$('input[name="formationDate"]').attr("name","cancel");
-		}
-		var url = platformUrl.saveCompanyInfo;
-		var data = JSON.parse($("#company-info-form").serializeObject());
-		if(data.formationDate != null && data.formationDate != '')
-		{
-			var val = $('#company-info-form [name="formationDate"]').val();
-			var date = new Date(val);
-			date.setHours(0);
-			data['formationDate'] = date.getTime();
-		}
-		sendPostRequestByJsonObj(
-			url, 
-			data, 
-			function(data){
-				if(data.result.status=='OK')
-				{
-					layer.msg("保存成功!");
-					$('.bj_hui_on').hide();
-				    $('.legal .show').show();
-					$('.legal .hidden').hide();
-					refreshCompanyInfo();
-				}
-				else
-				{
-					layer.msg(data.result.message);
-				}
-		});
-	}
-	function refreshCompanyInfo()
-	{
-		$('input[name="cancel"]').attr("name","formationDate");
-		var dtd = $.Deferred();
-		$.when(top.getProjectInfo(dtd))
-		.done(function(){
-			var projectCompanyStr=$.trim(projectInfo.projectCompany);
-			//console.log(projectCompanyStr)
-			if(projectCompanyStr == undefined){
-				var projectCompanyStrN='';
-			}else if(projectCompanyStr.length>20){
-				var projectCompanyStrN=projectCompanyStr.substring(0,20);				
-			}else{
-				var projectCompanyStrN=projectCompanyStr;
-			}
-			
-			var projectCompanyCodeStr=$.trim(projectInfo.projectCompanyCode);
-			if(projectCompanyCodeStr == undefined){
-				var projectCompanyCodeStrN='';
-			}else if(projectCompanyCodeStr.length>20){
-				
-				var projectCompanyCodeStrN=projectCompanyCodeStr.substring(0,20);				
-			}else{
-				var projectCompanyCodeStrN=projectCompanyCodeStr;
-			}
-			
-			
-			var companyLegalStr=$.trim(projectInfo.companyLegal);
-			if(projectCompanyStr == undefined){
-				var companyLegalStrN='';
-			}else if(companyLegalStr.length>20){
-				
-				var companyLegalStrN=companyLegalStr.substring(0,20);				
-			}else{
-				var companyLegalStrN=companyLegalStr;
-			} 
-			
-			$("#company-info #projectCompany").text(getVal(projectCompanyStrN,''));
-			$("#company-info #projectCompany").attr("title",getVal(projectCompanyStr,''));
-			$("#company-info #projectCompanyCode").text(getVal(projectCompanyCodeStrN,''));
-			$("#company-info #projectCompanyCode").attr("title",getVal(projectCompanyCodeStr,''));
-			$("#company-info #companyLegal").text(getVal(companyLegalStrN,''));
-			$("#company-info #companyLegal").attr("title",getVal(companyLegalStr,''));
-			var date = '';
-			if(!isNaN(projectInfo.formationDate))
-			{
-				date = new Date(projectInfo.formationDate).format('yyyy-MM-dd');
-			}
-			$("#company-info #formationDate").text(date);
-		});
-		
-	}
-	//设置公司表单数据
-	function initCompanyFormData()
-	{
-		var $form = $('#company-info-form');
-		$form.find('[name="projectCompany"]').val(getVal(projectInfo.projectCompany,''));
-		$form.find('[name="projectCompanyCode"]').val(getVal(projectInfo.projectCompanyCode,''));
-		$form.find('[name="companyLegal"]').val(getVal(projectInfo.companyLegal,''));
-		var date = '';
-		if(!isNaN(projectInfo.formationDate))
-		{
-			date = new Date(projectInfo.formationDate).format('yyyy-MM-dd');
-		}
-		$form.find('[name="formationDate"]').val(date);
 	}
 	//股权结构列表
 	$sharesTable = $("#shares-table").bootstrapTable({

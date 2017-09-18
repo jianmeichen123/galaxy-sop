@@ -33,7 +33,7 @@ function saveBaseInfo(dom){
 		if(type==14 )
 		{
 			infoMode.value = field.val();
-		}else if(type==19){
+		}else if(type==19 || type==1){
 			infoMode.remark1 = field.val();
 		}	
 		if (infoMode != null) {
