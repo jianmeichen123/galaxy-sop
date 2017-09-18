@@ -599,14 +599,14 @@ $(function(){
 			//var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
 			//var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
 			//var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
-		//	var faFlag=$('input:radio[name="faFlag"]:checked').val();
+			var faFlag=$('select[name="projectSource"] option:selected').text();
 			var remark=$('#remark').val().trim();
-			/*var faName="";
-			if(faFlag=='0'){
-				faName="";
-			}else{
+			var faName="";
+			if(faFlag=='FA'){
 				faName=$("#faNameEdit").val();
-			}*/
+			}else{
+				faName="";
+			}
 			//处理投资形式
 			var investForm= $("input[name='investForm']:checked").val();
 			var arr=[];
@@ -642,7 +642,7 @@ $(function(){
 		                 //  "finalContribution":finalcontribution,//实际投资
 		  	             //  "finalShareRatio":finalshare_ratio,	//实际股权占比	
 		  	            //   "serviceCharge":serviceCharge,
-		  	            //   "faFlag":faFlag,
+		  	             //  "faFlag":faFlag,
 		  	            //   "faName":faName,
 		  	               "remark":remark,
 		  	               "financeMode":investForm,

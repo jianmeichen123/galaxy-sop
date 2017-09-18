@@ -140,7 +140,7 @@
 	                             	<select name="projectSource" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
 				                    	<option value="">--请选择--</option>
 				                    </select>
-	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faNameEdit" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 	                             </span>
                              </td>
                            </tr>
