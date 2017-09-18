@@ -76,8 +76,6 @@
                             <span class="m_r30" style="with:400px">
 	                            <select name="projectSource" class='new_nputr' valType="required" msg="<font color=red>*</font>项目来源不能为空">
 				                    	<option value="">--请选择--</option>
-				                    	<option value="">FA</option>
-				                    	<option value="">其他</option>
 				                   </select> 
 	                            <!--  <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
 	                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是  -->
@@ -242,8 +240,11 @@ $("input:radio[name='faFlag']").change(function() {
 	 * @version 2016-06-21
 	 */
 	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
-	
-	
+	/**
+	 * 获取项目来源下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
 	
    var TOKEN;
    var formData;
