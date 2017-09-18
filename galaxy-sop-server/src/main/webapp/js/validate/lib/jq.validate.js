@@ -253,9 +253,11 @@ function validateBeforeScroll() {  //团队成员验证，单独加了一个表�
 //submit之前对所有表单进行验证
 function beforeSubmit() {
 	var flag=true;
-	 $.each($("[valType]"),function(i, n) {
-		 //清除可能已有的提示信息
-		 $(n).poshytip('hide');
+	 $.each($("[valType]"),function(i, n){
+	 	 //清除可能已有的提示信息
+	 	$(n).poshytip('hide');
+	 })
+	 $.each($("[valType]:visible"),function(i, n) {
 		 if($(n).attr("valType")=='required') {//对不能为空的文本框进行验证
 			if($(n).val()=='' || $.trim($(n).val())=='') {
 				//显示tips			
