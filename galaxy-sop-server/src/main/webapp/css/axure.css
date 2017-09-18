@@ -2152,6 +2152,7 @@ dl{position: relative;}
 	cursor:default;
 	color:#aaaaaa;
 }
+.member table .blue{cursor:pointer;}
 /* .limits_gray .blue{
 	cursor:default;
 	color:#aaaaaa;
