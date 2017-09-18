@@ -482,7 +482,7 @@ $(function(){
 			var valuations = calculationValuations();
 			$("#project_valuations_edit").val("");
 			if(valuations){
-				$("#project_valuations_edit").val(valuations);
+				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
 		/**
@@ -495,7 +495,7 @@ $(function(){
 			var valuations = calculationValuations();
 			$("#project_valuations_edit").val("");
 			if(valuations){
-				$("#project_valuations_edit").val(valuations);
+				$("#project_valuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
 		/**
@@ -517,7 +517,7 @@ $(function(){
 			var valuations = finalValuations();
 			$("finalValuations_edit").val("");
 			if(valuations){
-				$("#finalValuations_edit").val(valuations);
+				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
 		/**
@@ -530,7 +530,7 @@ $(function(){
 			var valuations = finalValuations();
 			$("#finalValuations_edit").val("");
 			if(valuations){
-				$("#finalValuations_edit").val(valuations);
+				$("#finalValuations_edit").val(valuations).attr("tochange",true);
 			}
 		});
 		/**
@@ -846,7 +846,7 @@ function buildShareResult(reportType,relateId){
 							var title = this;
 							if(null!=title.resultList&&title.resultList.length>0){
 								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id,"data-type":title.type});	
 							}
 						});
 					}
@@ -866,7 +866,7 @@ function buildMoneyResult(pid){
 							var title = this;
 							if(null!=title.resultList&&title.resultList.length>0){
 								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id,"data-type":title.type});	
 							}
 						});
 					}
@@ -898,5 +898,8 @@ function financeRound(){
 			});
 }
 
-
+//给input赋予tochange属性
+$("input[data-title-id]").on("input",function(){
+	$(this).attr("tochange",true);
+})
 	

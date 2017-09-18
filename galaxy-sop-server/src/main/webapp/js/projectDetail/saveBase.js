@@ -1,6 +1,6 @@
 function saveBaseInfo(dom){
 	var infoModeList = new Array();
-	var fields = $("#"+dom).find("input[type='text'][data-title-id],select[data-title-id]");
+	var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
 	var data = {
 			projectId : projectInfo.id
 		};
@@ -33,6 +33,8 @@ function saveBaseInfo(dom){
 		if(type==14 )
 		{
 			infoMode.value = field.val();
+		}else if(type==19){
+			infoMode.remark1 = field.val();
 		}	
 		if (infoMode != null) {
 	        infoModeList.push(infoMode);
