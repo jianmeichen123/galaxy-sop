@@ -72,11 +72,11 @@
 		</div>
 		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 			<tr>
-				<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span><span class="new_color_black">&nbsp;%</span></td>
+				<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"  data-title-id="1916"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"  data-title-id="1917"></span><span class="new_color_black">&nbsp;%</span></td>
 			</tr>
 			<tr>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"  data-title-id="1943"></span><span class="new_color_black">&nbsp;万元</span></td>
 			</tr>
 		</table>
 		
@@ -86,12 +86,12 @@
 		</div>
 		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 			<tr>
-				<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">&nbsp;%</span></td>
+				<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution" data-title-id="3004"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio" data-title-id="3010"></span><span class="new_color_black">&nbsp;%</span></td>
 			</tr>
 			<tr>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black" id="serviceCharge"></span><span class="new_color_black">&nbsp;%</span></td>
+				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations" data-title-id="3012"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black" id="serviceCharge" data-title-id="3011"></span><span class="new_color_black">&nbsp;%</span></td>
 	
 			</tr>
 			<tr>
@@ -161,11 +161,11 @@
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font><i></i>支持9位长度的四位小数"/>　&nbsp;万元</span></td>
-	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font><i></i>0到100之间的四位小数"/>　&nbsp;%</span></td>
+	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font><i></i>支持9位长度的四位小数" data-title-id="1916"/>　&nbsp;万元</span></td>
+	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font><i></i>0到100之间的四位小数" data-title-id="1917"/>　&nbsp;%</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的支持四位小数"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的支持四位小数" data-title-id="1943"/>&nbsp;　万元</span></td>
 	            </tr>
 	              </table>
 	        <!--实际投资-->
@@ -175,12 +175,12 @@
 	        </div>  
 	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font><i></i>支持9位长度的支持四位小数"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font><i></i>0到100之间的四位小数"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font><i></i>支持9位长度的支持四位小数"  data-title-id="3004"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font><i></i>0到100之间的四位小数"  data-title-id="3010"/>&nbsp;　%</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的支持四位小数"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font><i></i>0到5之间的四位小数"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的支持四位小数"  data-title-id="3012"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font><i></i>0到5之间的四位小数"  data-title-id="3011"/>&nbsp;　%</span></td>
 	     	
 	     		</tr>
 	     		<tr>
@@ -329,12 +329,12 @@
 	    </div>
 	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
 	        <tr>
-	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany"></span></td>
+	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany" data-title-id="1814"></span></td>
 	            <!-- <td><span class="new_color_gray th">组织代码：</span><span class="new_color_black" id="projectCompanyCode"></span></td> -->
-	        	<td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"></span></td>
+	        	<td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"  data-title-id="1816"></span></td>
 	        </tr>
 	        <tr>
-	            <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"></span></td>	            
+	            <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"  data-title-id="1815"></span></td>	            
 	        </tr>
 	    </table>                
 	</div>
@@ -351,12 +351,12 @@
       <input type="hidden" name="id" value="${projectId }">
       <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
           <tr>
-              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50"></td>
+              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50" data-title-id="1814"></td>
               <!-- <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td> -->
-        	  <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
+        	  <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"  data-title-id="1816"></td>
           </tr>
           <tr>
-              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>              
+              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"  data-title-id="1815"></td>              
           </tr>
       </table>                    
       </form>
@@ -522,6 +522,7 @@ if(isTransfering == 'true'){
 			return;
 		}
 		editCompany();
+		
 	});
 	$('.legal [data-btn="save"]').on('click',function(){
 		saveCompany();
@@ -640,7 +641,8 @@ if(isTransfering == 'true'){
 	
 	function editCompany()
 	{
-		initCompanyFormData();
+		/* initCompanyFormData(); */
+		buildShareResult("4","5812");
     	$('.bj_hui_on').show();
 		$('.legal .show').hide();
 		$('.legal .hidden').show();
