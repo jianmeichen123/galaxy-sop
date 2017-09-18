@@ -902,5 +902,6 @@ if(isTransfering == 'true'){
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/team_info.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail/saveBase.js" type="text/javascript"></script>
 
 

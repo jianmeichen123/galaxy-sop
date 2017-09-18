@@ -252,9 +252,11 @@ $(function(){
 			        _dom.append('<option value="">--请选择--</option>');
 			    var childNum = _dom.find("option").length;
 			    var valueId=$("#financeStatusDs").attr("value");
-			    console.log(data.entity.childList[0])
+			    var resultId=$("#financeStatusDs").attr("data-result-id");
+			    var entity=data.entity.childList[0];
+			    _dom.attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
 			    if(!childNum || childNum !=0 ){
-			    	$.each(data.entity.childList[0].valueList,function(){
+			    	$.each(entity.valueList,function(){
 						if(this.id){
 							if(this.id==valueId){
 								_dom.append("<option selected value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
@@ -268,6 +270,9 @@ $(function(){
 						
 					});
 			    }
+			    $("select[data-title-id]").change(function(){
+			    	$(this).attr("tochange",true)
+			    })
 				 
 			}
 			function CallBackA(data){
@@ -553,7 +558,7 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
-			//saveBaseInfo("basicForm");
+			saveBaseInfo("basicForm");
 			var data=getUpdateData();
 			
 			if(!$("#basicForm").validate().form())
@@ -881,8 +886,9 @@ function financeRound(){
 					{
 						$.each(entityList,function(){
 							var title = this;
+							console.log(title);
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName).attr("value",title.resultList[0].valueId);
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName).attr({"value":title.resultList[0].valueId,"data-result-id":title.resultList[0].id});
 								//$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
 							}
 						});
