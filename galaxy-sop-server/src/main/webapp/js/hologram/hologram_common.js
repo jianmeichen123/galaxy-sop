@@ -154,7 +154,6 @@ function tabInfoChange(index){
 			});
 			//获取tablle TD 宽度
 			var tdWidth  = $('table');
-			console.log(tdWidth);
 
 		}
 		//战略以及策略
@@ -582,7 +581,6 @@ function buildResults(sec,title,readonly)
 			{
 				var str = title.resultList[0].contentDescribe2
 				var strs= new Array();
-				console.log(str)
 				if(str!=null || str!=undefined){
 					strs=str.split("p")
 				}
@@ -747,7 +745,7 @@ function buildTable(sec,title)
 		$.each(tables,function(){
 			var table = $(this);
 			table.attr('data-code',header.code);
-			table.attr('data-funFlag',header.funFlag);
+			table.attr('data-funFlag',header.funFlag);			
 			table.empty();
 			var tr="<tr>";
 			for(var key in header)
@@ -791,13 +789,42 @@ function buildTable(sec,title)
 				var table = $(this);
 				var tr = buildRow(row,table.hasClass('editable'),row.titleId);
 				table.append(tr);
+				//table.find("td").addClass("sdlfkjsd");
+				//增加显示字段限制
+				var dataCode = table.attr('data-code');
+				if(dataCode === 'valuation-reference'){
+					var targetTd = table.find('tr').find('td:eq(0)');
+					targetTd.addClass('limit-number');
+					$('.limit-number').each(function(){
+						var _this = $(this);
+						var tdText = _this.text();
+						var limitTd = tdText.substr(0,20);
+						/*_this.outterHTML = 'DDDDD'*/
+						_this.text(limitTd)
+						//_this.html(limitTd);
+						console.log(limitTd);
+							
+					})
+					$(".number_limits").on("input propertychange", function() {
+						alert('ccc')
+			       		 var $this = $(this); 
+			            _val = $this.val(); 
+				        if (_val.length > 20) {  
+				            $this.val(_val.substring(0, 20));  
+				        }  
+					});  
+
+				}
+				
+				
 			});
 		});
 	}
 }
 function buildRow(row,showOpts,titleId)
 {
-	var ths = $('table[data-title-id="'+titleId+'"]:eq(0) th');
+	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
+	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	for(var key in row)
 	{
@@ -813,7 +840,6 @@ function buildRow(row,showOpts,titleId)
 		}
 			
 	});
-	
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
 	if(showOpts == true)
@@ -830,11 +856,9 @@ function buildRow(row,showOpts,titleId)
 		    tr.append(td);
 		}
 	};
-	
+	//判断td的数量，判断宽度
 	var tdNumber = tr.children().length;
 	var td = tr.children();
-	//console.log(tdNumber);
-	console.log(td);
 	if(tdNumber===6){
 		for(var i=0;i<td.length;i++){
 			td.css({width:'16.6%',overflow:"hidden"});
@@ -877,7 +901,11 @@ function buildRow(row,showOpts,titleId)
 			td.css('white-space','nowrap');
 			
 		}
-	}
+	};
+	
+	
+	
+	
 	
 	return tr;
 	
@@ -1996,6 +2024,33 @@ function editRow(ele)
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
+			//增加显示字段限制
+			var dataCode = $(ele).closest('table').attr('data-code');
+			if(dataCode === 'valuation-reference'){
+				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,20);
+					/*_this.outterHTML = 'DDDDD'*/
+					_this.text(limitTd)
+					//_this.html(limitTd);
+					console.log(limitTd);
+						
+				})
+				$(".number_limits").on("input propertychange", function() {
+		       		 var $this = $(this); 
+		            _val = $this.val(); 
+			        if (_val.length > 20) {  
+			            $this.val(_val.substring(0, 20));  
+			        }  
+				});  
+
+			}
+			
+			
+			
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
