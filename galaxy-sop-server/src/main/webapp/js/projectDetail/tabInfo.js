@@ -236,6 +236,11 @@ $(function(){
 			    	//融资
 			    	sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
+			    	/**
+			    	 * 查询项目来源
+			    	 * @version 2017-09-18
+			    	 */
+			    	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
 			    	
 			    	//initDialogVal();
 		    	}
@@ -247,6 +252,7 @@ $(function(){
 			        _dom.append('<option value="">--请选择--</option>');
 			    var childNum = _dom.find("option").length;
 			    var valueId=$("#financeStatusDs").attr("value");
+			    console.log(data.entity.childList[0])
 			    if(!childNum || childNum !=0 ){
 			    	$.each(data.entity.childList[0].valueList,function(){
 						if(this.id){
@@ -547,8 +553,9 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
+			//saveBaseInfo("basicForm");
 			var data=getUpdateData();
-		
+			
 			if(!$("#basicForm").validate().form())
 			{
 				labelPosition();
@@ -579,22 +586,22 @@ $(function(){
 			var id=$("#pid").val();
 			var pname=$("#project_name_edit").val().trim();
 			var industry_own=$("#industry_own_sel").val().trim();
-			var finance_status=$("#finance_status_sel").val().trim();
+			//var finance_status=$("#finance_status_sel").val().trim();  //本轮融资轮次
 			//var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val().trim();
 			//var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val().trim();
 			//var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val().trim();
-			var finalcontribution=$("#finalContribution_edit").val()==""?0:$("#finalContribution_edit").val().trim();
-			var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
-			var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
-			var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
-			var faFlag=$('input:radio[name="faFlag"]:checked').val();
+			//var finalcontribution=$("#finalContribution_edit").val()==""?0:$("#finalContribution_edit").val().trim();
+			//var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
+			//var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
+			//var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
+		//	var faFlag=$('input:radio[name="faFlag"]:checked').val();
 			var remark=$('#remark').val().trim();
-			var faName="";
+			/*var faName="";
 			if(faFlag=='0'){
 				faName="";
 			}else{
 				faName=$("#faNameEdit").val();
-			}
+			}*/
 			//处理投资形式
 			var investForm= $("input[name='investForm']:checked").val();
 			var arr=[];
@@ -621,17 +628,17 @@ $(function(){
 			   console.log(isDelete);
 			var formatData={"id":id,
 					       "projectName":pname,
-					        "industryOwn":industry_own,
-					        "financeStatus":finance_status,
-					       "projectValuations":project_valuations,
-					       "projectContribution" :project_contribution,
-					       "projectShareRatio":project_share_ratio,
-					       "finalValuations":finalvaluations,//实际估值
-		                   "finalContribution":finalcontribution,//实际投资
-		  	               "finalShareRatio":finalshare_ratio,	//实际股权占比	
-		  	               "serviceCharge":serviceCharge,
-		  	               "faFlag":faFlag,
-		  	               "faName":faName,
+					       "industryOwn":industry_own,
+					    //   "financeStatus":finance_status,
+					    //   "projectValuations":project_valuations,
+					    //   "projectContribution" :project_contribution,
+					     //  "projectShareRatio":project_share_ratio,
+					     //  "finalValuations":finalvaluations,//实际估值
+		                 //  "finalContribution":finalcontribution,//实际投资
+		  	             //  "finalShareRatio":finalshare_ratio,	//实际股权占比	
+		  	            //   "serviceCharge":serviceCharge,
+		  	            //   "faFlag":faFlag,
+		  	            //   "faName":faName,
 		  	               "remark":remark,
 		  	               "financeMode":investForm,
                            "jointDeliveryList":arr,
@@ -874,7 +881,6 @@ function financeRound(){
 					{
 						$.each(entityList,function(){
 							var title = this;
-							console.log(this)
 							if(null!=title.resultList&&title.resultList.length>0){
 								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName).attr("value",title.resultList[0].valueId);
 								//$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
