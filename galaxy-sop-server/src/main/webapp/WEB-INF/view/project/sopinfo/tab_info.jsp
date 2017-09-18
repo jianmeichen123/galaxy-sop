@@ -53,7 +53,7 @@
 			</tr>
 			
 		     <tr>
-				<td><span class="new_color_gray">本轮融资轮次：</span><span class="new_color_black" id="financeStatusDs"></span></td>
+				<td><span class="new_color_gray">本轮融资轮次：</span><span class="new_color_black" id="financeStatusDs"  data-title-id="1108"></span></td>
 				<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
 				<span class="new_color_gray" id="s">(</span>
 					<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>

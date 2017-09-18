@@ -234,7 +234,7 @@ $(function(){
 			    if('basic' == sectionName)
 		    	{
 			    	//融资
-			    	sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
+			    	sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
 			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"industryOwn",null,CallBackA);
 			    	
 			    	//initDialogVal();
@@ -246,17 +246,18 @@ $(function(){
 			        _dom.html("");
 			        _dom.append('<option value="">--请选择--</option>');
 			    var childNum = _dom.find("option").length;
+			    var valueId=$("#financeStatusDs").attr("value");
 			    if(!childNum || childNum !=0 ){
-			    	$.each(data.entityList,function(){
-						if(this.code){
-							if(this.code==fs){
-								_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
+			    	$.each(data.entity.childList[0].valueList,function(){
+						if(this.id){
+							if(this.id==valueId){
+								_dom.append("<option selected value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
 							}else{
-								_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
+								_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
 							}
 							
 						}else{
-							_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
+							_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
 						}
 						
 					});
@@ -617,6 +618,7 @@ $(function(){
 				        arr[i]=obj;
 				}
 			}
+			   console.log(isDelete);
 			var formatData={"id":id,
 					       "projectName":pname,
 					        "industryOwn":industry_own,
@@ -792,17 +794,25 @@ function jointDeliveryEdit(list){
 		})
 	})
 }
-//法人信息
-
-/*sendGetRequest(platformUrl.queryAllTitleValues+'FNO5?reportType=4', null,
+//本轮融资轮次
+/*sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,
 		function(data) {
 			var result = data.result.status;
 			if (result == 'OK') {
-				var entity = data.entity;
-				console.log("111111111111")
-				console.log(entity);
-				console.log("111111111111")
-				$("#page_list").tmpl(entity).appendTo('#page_all5');
+				var entityList = data.entity.childList[0];
+				var options = [];
+				if(entityList.valueList && entityList.valueList.length>0){
+					$.each(entityList.valueList, function(i, value){
+						console.log(value)
+						options.push('<option value="'+value.id+'" data-title-id="'+value.titleId+'">'+value.name+'</option>');
+						if(selectIndex && i == selectIndex){
+							options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+						}else{
+							options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+						}
+					});
+					$('select[name="financeStatus"]').append(options.join(''));
+				}
 			} else {
 
 			}
@@ -842,7 +852,6 @@ function buildMoneyResult(pid){
 					{
 						$.each(entityList,function(){
 							var title = this;
-							console.log(title);
 							if(null!=title.resultList&&title.resultList.length>0){
 								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
@@ -852,4 +861,30 @@ function buildMoneyResult(pid){
 				}
 			})
 }
+//本轮融资轮次
+financeRound();
+function financeRound(){   
+	var codeArr = ['NO1_1'];
+	sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, 
+			function backFun(data){
+				var result = data.result.status;
+				if (result == 'OK') {
+					var entityList = data.entity.childList;
+					if(entityList && entityList.length >0)
+					{
+						$.each(entityList,function(){
+							var title = this;
+							console.log(this)
+							if(null!=title.resultList&&title.resultList.length>0){
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName).attr("value",title.resultList[0].valueId);
+								//$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
+							}
+						});
+					}
+					
+				}
+			});
+}
+
+
 	
