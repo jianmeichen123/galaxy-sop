@@ -789,8 +789,7 @@ function buildTable(sec,title)
 				var table = $(this);
 				var tr = buildRow(row,table.hasClass('editable'),row.titleId);
 				table.append(tr);
-				//table.find("td").addClass("sdlfkjsd");
-				//增加显示字段限制
+				//增加显示字段限制，，市场同类公司估值参考
 				var dataCode = table.attr('data-code');
 				if(dataCode === 'valuation-reference'){
 					var targetTd = table.find('tr').find('td:eq(0)');
@@ -799,23 +798,34 @@ function buildTable(sec,title)
 						var _this = $(this);
 						var tdText = _this.text();
 						var limitTd = tdText.substr(0,20);
-						/*_this.outterHTML = 'DDDDD'*/
 						_this.text(limitTd)
-						//_this.html(limitTd);
-						console.log(limitTd);
 							
 					})
-					$(".number_limits").on("input propertychange", function() {
-						alert('ccc')
-			       		 var $this = $(this); 
-			            _val = $this.val(); 
-				        if (_val.length > 20) {  
-				            $this.val(_val.substring(0, 20));  
-				        }  
-					});  
-
+				};
+				//股权结构合理性
+				if(dataCode === 'share-holding'|| dataCode === "equity-structure"){
+					var targetTd = table.find('tr').find('td:eq(0)');
+					targetTd.addClass('limit-number');
+					$('.limit-number').each(function(){
+						var _this = $(this);
+						var tdText = _this.text();
+						var limitTd = tdText.substr(0,10);
+						_this.text(limitTd);
+							
+					})
 				}
-				
+				//主要战略投资人；
+				if(dataCode === "investor-situation" ){
+					var targetTd = table.find('tr').find('td:eq(1)');
+					targetTd.addClass('limit-number');
+					$('.limit-number').each(function(){
+						var _this = $(this);
+						var tdText = _this.text();
+						var limitTd = tdText.substr(0,10);
+						_this.text(limitTd);
+							
+					})
+				};
 				
 			});
 		});
@@ -1306,9 +1316,9 @@ jQuery.validator.addMethod("verify_50_font", function(value, element) {
 }, "不能超过50个字"); 
 //0到10之间的一位小数
 jQuery.validator.addMethod("verify_10_1", function(value, element) { 
-	var verify_10_1 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
+	var verify_10_1 = /^([0-9]|10)$/;
 	return this.optional(element) || (verify_10_1.test(value));
-}, "0到10之间的一位小数"); 
+}, "0到10之间的整数"); 
 //百分数
 jQuery.validator.addMethod("percentage", function(value, element) {   
 	var percentage = /^\d+(\.\d{2})?$/;
@@ -2026,6 +2036,7 @@ function editRow(ele)
 			selectContext("detail-form");
 			//增加显示字段限制
 			var dataCode = $(ele).closest('table').attr('data-code');
+			//市场同类型公司估值参考
 			if(dataCode === 'valuation-reference'){
 				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
 				targetTd.addClass('limit-number');
@@ -2033,9 +2044,7 @@ function editRow(ele)
 					var _this = $(this);
 					var tdText = _this.text();
 					var limitTd = tdText.substr(0,20);
-					/*_this.outterHTML = 'DDDDD'*/
 					_this.text(limitTd)
-					//_this.html(limitTd);
 					console.log(limitTd);
 						
 				})
@@ -2047,7 +2056,49 @@ function editRow(ele)
 			        }  
 				});  
 
-			}
+			};
+		//股权结构的合理性||股权结构table；
+			if(dataCode === 'share-holding'||dataCode === 'equity-structure'){
+				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,10);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})
+				$(".number_limits").on("input propertychange", function() {
+		       		 var $this = $(this); 
+		            _val = $this.val(); 
+			        if (_val.length > 10){  
+			            $this.val(_val.substring(0, 10));  
+			        }  
+				});  
+
+			};
+			//主要战略投资人
+			if(dataCode === 'investor-situation'){
+				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,10);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})
+				$(".number_limits").on("input propertychange", function() {
+		       		 var $this = $(this); 
+		            _val = $this.val(); 
+			        if (_val.length > 10){  
+			            $this.val(_val.substring(0, 10));  
+			        }  
+				});  
+
+			};
 			
 			
 			
