@@ -526,7 +526,6 @@ if(isTransfering == 'true'){
 		$('.bj_hui_on').hide();
 	    $('.legal .show').show();
 		$('.legal .hidden').hide();
-		buildShareResult("4","5812");
 	});
 	$('.legal [data-btn="cancle"]').on('click',function(){
 		$('.bj_hui_on').hide();

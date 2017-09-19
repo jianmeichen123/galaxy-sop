@@ -49,6 +49,7 @@ function saveBaseInfo(dom){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					buildShareResult("4","5812");   //法人信息保存刷新
 				} else {
 					layer.msg("操作失败!");
 				}

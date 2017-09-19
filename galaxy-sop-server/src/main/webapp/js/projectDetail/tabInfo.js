@@ -845,7 +845,6 @@ function buildShareResult(reportType,relateId){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
 							if(null!=title.resultList&&title.resultList.length>0){
-								debugger;
 								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"--":title.resultList[0].contentDescribe1);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id});	
 							}
