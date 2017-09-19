@@ -236,7 +236,6 @@ var pageId = "project";
 	 function projectInfo(value,row,index){
 		    var id=row.id;
 			var str=row.projectName;
-			console.log(str)
 			if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
@@ -542,12 +541,18 @@ var pageId = "project";
 	 * @version 2016-06-21
 	 */
 	function projectFaFormat(value,row,index){
+		/* console.log("SDVSDVSDG");
+		console.log(value)
+		console.log(row) */
 		var retStr = '-';
 		if(row.faFlag=='1'){
 			retStr = "是";
 		}else if(row.faFlag=='0'){
 			retStr = '否';
+		}else{
+			retStr="<div>FA-</div>"
 		}
+		
 		return retStr;
 	}
 	/**
