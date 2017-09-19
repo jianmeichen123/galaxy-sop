@@ -78,7 +78,7 @@ public class Project extends PagableEntity {
 	private Long startTime; 
 	private Long endTime;
 	
-	private Integer faFlag;//项目是否来自中介
+	private String  faFlag;//项目是否来自中介
 	
 	private String faName;//中介名称
 	
@@ -612,11 +612,13 @@ public class Project extends PagableEntity {
 		this.departmentName = departmentName;
 	}
 
-	public Integer getFaFlag() {
+
+
+	public String getFaFlag() {
 		return faFlag;
 	}
 
-	public void setFaFlag(Integer faFlag) {
+	public void setFaFlag(String faFlag) {
 		this.faFlag = faFlag;
 	}
 
