@@ -445,6 +445,7 @@ if(isTransfering == 'true'){
 		}else{
 			$(this).siblings(".new_nputr").hide();
 			$(this).siblings(".new_nputr").remove("required");
+			$("#faNameEdit-error").hide();
 		}
 	})
 	//运营数据分析返回
