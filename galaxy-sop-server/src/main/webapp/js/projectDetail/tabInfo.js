@@ -39,37 +39,6 @@ $(function(){
 		{
 			$('[data-on="data-open"]').addClass('limits_gray');
 		}
-		$('[data-on="data-open"]').on('click',function(){
-			if($(this).hasClass('limits_gray'))
-			{
-				return;
-			}
-			 var scroll_top=$(this).offset().top;
-			 $('html,body').animate({  
-			        scrollTop: scroll_top
-			    }, 1000);   
-			var open=$(this).attr('data-name')
-			$('.'+open+'_on').show();
-			$('.'+open+'_center').hide();
-			$('.bj_hui_on').show();
-			var width_fwb=$('.tabtable_con_on').width();
-			$('.width_fwb').css('width',(width_fwb-40));
-			responseData();   //反显数据
-			//投资形式切换
-						$(".new_table .mar_left>input").change(function(){
-							var val=$(this).val();
-							$(".institutionBtn span").css('margin-top','0');
-							if(val=="financeMode:0"){
-								$(".institution").hide();
-							}else if(val=="financeMode:1"){
-								$(".institution").show();
-								$(".institution .new_color_gray").text("领投机构：");
-							}else{
-								$(".institution").show();
-								$(".institution .new_color_gray").text("合投机构：");
-							}
-						});
-		})
 		//统一关
 		$('[data-on="close"]').on('click',function(){
 			var close=$(this).attr('data-name')
@@ -101,6 +70,10 @@ $(function(){
 			$("#industry_editor").html($("#industry_analysis_show").html());
 			$("#analysis_editor").html($("#analysis_show").html());
 			$("#next_financing_editor").html($("#next_financing_source_show").html());
+			var sel_val = $("#financeStatusDs").text();
+			if(sel_val!="A+轮"){
+				$("#finance_status_sel").find('option[text='+sel_val+']').attr("selected",true);
+			}
 		}
 		
 		
@@ -159,6 +132,31 @@ $(function(){
 				{
 					return;
 				}
+				var scroll_top=$(this).offset().top;
+				 $('html,body').animate({  
+				        scrollTop: scroll_top
+				    }, 1000);   
+				var open=$(this).attr('data-name')
+				$('.'+open+'_on').show();
+				$('.'+open+'_center').hide();
+				$('.bj_hui_on').show();
+				var width_fwb=$('.tabtable_con_on').width();
+				$('.width_fwb').css('width',(width_fwb-40));
+				responseData();   //反显数据
+				//投资形式切换
+				$(".new_table .mar_left>input").change(function(){
+					var val=$(this).val();
+					$(".institutionBtn span").css('margin-top','0');
+					if(val=="financeMode:0"){
+						$(".institution").hide();
+					}else if(val=="financeMode:1"){
+						$(".institution").show();
+						$(".institution .new_color_gray").text("领投机构：");
+					}else{
+						$(".institution").show();
+						$(".institution .new_color_gray").text("合投机构：");
+					}
+				});
 				buildMoneyResult("1915");  //融资计划
 				buildShareResult("4","3002");  //实际投资
 				buildShareResult("4","3008");  //实际投资
@@ -243,6 +241,7 @@ $(function(){
 			    	
 			    	//initDialogVal();
 		    	}
+			    responseData()//数据反显
 			
 			})
 				function CallBackB(data){
@@ -256,16 +255,7 @@ $(function(){
 			    _dom.attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
 			    if(!childNum || childNum !=0 ){
 			    	$.each(entity.valueList,function(){
-						if(this.id){
-							if(this.id==valueId){
-								_dom.append("<option selected value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-							}else{
-								_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-							}
-							
-						}else{
-							_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
-						}
+			    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</option>");
 						
 					});
 			    }
