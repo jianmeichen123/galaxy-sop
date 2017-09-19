@@ -113,7 +113,6 @@ $(function(){
 			$("#s").hide();
 		}
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
-		
 			$("#project_name_title").text(projectInfo.projectName);
 			$("#project_name_t").text(projectInfo.projectName);
 			$("#project_name").text(projectInfo.projectName);
@@ -599,14 +598,15 @@ $(function(){
 			//var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
 			//var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
 			//var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
-			var faFlag=$('select[name="projectSource"] option:selected').text();
+			var faFlag=$('select[name="projectSource"] option:selected').text().trim();
 			var remark=$('#remark').val().trim();
 			var faName="";
 			if(faFlag=='FA'){
-				faName=$("#faNameEdit").val();
+				faName="FA-"+$("#faNameEdit").val();
 			}else{
 				faName="";
 			}
+			alert(faFlag)
 			//处理投资形式
 			var investForm= $("input[name='investForm']:checked").val();
 			var arr=[];
@@ -642,8 +642,8 @@ $(function(){
 		                 //  "finalContribution":finalcontribution,//实际投资
 		  	             //  "finalShareRatio":finalshare_ratio,	//实际股权占比	
 		  	            //   "serviceCharge":serviceCharge,
-		  	             //  "faFlag":faFlag,
-		  	            //   "faName":faName,
+		  	               "faFlag":faFlag,
+		  	               "faName":faName,
 		  	               "remark":remark,
 		  	               "financeMode":investForm,
                            "jointDeliveryList":arr,
