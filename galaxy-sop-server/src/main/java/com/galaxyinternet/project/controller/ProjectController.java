@@ -1,5 +1,34 @@
 package com.galaxyinternet.project.controller;
 
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
@@ -91,33 +120,11 @@ import com.galaxyinternet.service.chart.ProjectGradeService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
 import com.galaxyinternet.utils.CollectionUtils;
 import com.galaxyinternet.utils.SopConstatnts;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.sql.Timestamp;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -3467,7 +3474,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@RequestMapping(value = "/detail/toRight/{projectId}", method = RequestMethod.GET)
 	public String toRight(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		Project project = new Project();
 		project = projectService.queryById(projectId);
 		request.setAttribute("proinfo", GSONUtil.toJson(project));
@@ -3479,6 +3485,30 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(null, projectId);
 		request.setAttribute("reportProgress", GSONUtil.toJson(reportProgress));
 		return "project/sopinfo/includeRight";
+	}
+	@ApiOperation("获取报告进度")
+	@ApiImplicitParam(name="projectId", value="项目ID",required=true,paramType="path" )
+	@ApiResponses(
+			value={
+					@ApiResponse(code = 200, message = "各报告进度(NO-全息报告进度; DN-尽调报告进度; PN-决策报告进度; GN-融资报告进度; ON-运营报告进度; EN-评测报告进度; CN-初评报告进度)", response=ResponseData.class)
+			}
+		)
+	@RequestMapping(value = "/getReportProgress/{projectId}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseData<InformationProgress> getReportProgress(@PathVariable(value="projectId") Long projectId)
+	{
+		ResponseData<InformationProgress> data = new ResponseData<InformationProgress>();
+		try
+		{
+			InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(null, projectId);
+			data.setEntity(reportProgress);
+		} catch (Exception e)
+		{
+			_common_logger_.error(String.format("获取报告进度出错(Project ID=%s)", projectId),e);
+			data.getResult().addError("获取报告进度出错");
+		}
+		
+		return data;
 	}
 	
 	/**
