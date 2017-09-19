@@ -297,28 +297,28 @@ function saveForm(form,_this)
 				projectId : projectInfo.id
 			};
 			var infoTableModelList = new Array();
-			
-			$.each(_this,function(){
-				$.each($(this).find('tr:gt(0)'),function(){
-					var row = $(this).data();
-					if(row.id=="")
-					{
-						row.id=null;
-					}
-					infoTableModelList.push($(this).data());
-				});
+			$.each(_this.find("tbody tr[data-row-id]"),function(){
+				var row = $(this).data();
+				if(row.id=="")
+				{
+					row.id=null;
+				}
+				infoTableModelList.push($(this).data());
 			});
-		
 			post_data.infoTableModelList = infoTableModelList;
 			sendPostRequestByJsonObj(
 					platformUrl.saveOrUpdateInfo , 
 					post_data,
 					function(data){		
 						if(data.result.status=="OK"){
+							$("tr.no-records-found").remove();
 							layer.msg("保存成功");
 							var code = _this.data("urlCode");
 							var name = _this.data("name")					
 							info_table(code,name,_this);
+						}else{
+							layer.msg(data.result.status);
+							_this.find("tbody tr:last-child").remove();
 						}
 			})
 		}

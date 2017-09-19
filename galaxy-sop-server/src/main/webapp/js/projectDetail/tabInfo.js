@@ -845,7 +845,8 @@ function buildShareResult(reportType,relateId){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+								debugger;
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"--":title.resultList[0].contentDescribe1);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id});	
 							}
 						});
@@ -866,7 +867,7 @@ function buildMoneyResult(pid){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"--":title.resultList[0].contentDescribe1);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id});	
 							}
 						});
@@ -888,7 +889,7 @@ function financeRound(){
 						$.each(entityList,function(){
 							var title = this;
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"未填写":title.resultList[0].valueName).attr({"value":title.resultList[0].valueId,"data-result-id":title.resultList[0].id});
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].valueName==undefined ?"--":title.resultList[0].valueName).attr({"value":title.resultList[0].valueId,"data-result-id":title.resultList[0].id});
 								//$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",title.resultList[0].id);	
 							}
 						});
