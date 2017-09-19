@@ -98,8 +98,11 @@ function buildMemberRow(headerList,row)
         	if(row[key]){
                 //select字段在页面缓存根据id取value
                 if(key == "field2"){
+                	if(row[key]=="1363"){
+                		map_edu[row[key]]=row.other;
+                	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
-                		map_edu[row[key]]="未知"
+                		map_edu[row[key]]="未知";
                 	}
                      tr.append('<td data-field-name="'+key+'">'+map_edu[row[key]]+'</td>');
                      return;
@@ -673,7 +676,6 @@ function saveTeamInfo(v){
 			dataList.push(row);
 		});
 	});
-	//console.log(dataList);
     json["dataList"]=dataList;
     if(dataList.length>10){
         alert("最多只能添加10条记录!")
