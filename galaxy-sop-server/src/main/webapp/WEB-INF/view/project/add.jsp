@@ -68,6 +68,7 @@
                         	<span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
+								<option value="">--请选择--</option>
 			                    </select>
 							</span>
                         </li>
@@ -239,7 +240,7 @@ $("input:radio[name='faFlag']").change(function() {
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
 	/**
 	 * 获取项目来源下拉项
 	 * @version 2016-06-21
