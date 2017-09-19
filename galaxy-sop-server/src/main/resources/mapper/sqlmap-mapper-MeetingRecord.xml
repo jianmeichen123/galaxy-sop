@@ -79,7 +79,8 @@
 			  <if test="meetingName != null" >and meeting_name = #{meetingName,jdbcType=BIGINT} </if>
 			  <if test="resultReason != null" > and result_reason = #{resultReason,jdbcType=VARCHAR} </if>
 			  <if test="reasonOther != null" > and reason_other = #{reasonOther,jdbcType=VARCHAR} </if>
-			
+			  <if test="passLXFlag != null" > and (meeting_result = 'meeting3Result:2' or meeting_result ='meeting3Result:3' or meeting_result ='meeting3Result:5') </if>
+			  <if test="passNPFlag != null" > and (meeting_result = 'meeting1Result:1' or meeting_result ='meeting1Result:2') </if>
 		  </trim>
 		</where>
 		<!-- <if test="sorting != null">order by ${sorting}</if> -->

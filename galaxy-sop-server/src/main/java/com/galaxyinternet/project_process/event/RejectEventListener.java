@@ -12,7 +12,9 @@ import com.alibaba.dubbo.common.utils.Assert;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.NBPSResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.SWTPResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.TJHResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
@@ -112,6 +114,7 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 		if(projectProgress.内部评审.getName().equals(project.getProgress()))
 		{
 			type = meetingType.内评会.getCode();
+			result=NBPSResult.FJ.getCode();
 		}
 		else if(projectProgress.CEO评审.getName().equals(project.getProgress()))
 		{
@@ -130,6 +133,7 @@ public class RejectEventListener implements ApplicationListener<RejectEvent>
 		else if(projectProgress.投资决策会.getName().equals(project.getProgress()))
 		{
 			type = meetingType.投决会.getCode();
+			result = TJHResult.FJ.getCode();
 		}
 		MeetingRecordBo query = new MeetingRecordBo();
 		query.setProjectId(project.getId());

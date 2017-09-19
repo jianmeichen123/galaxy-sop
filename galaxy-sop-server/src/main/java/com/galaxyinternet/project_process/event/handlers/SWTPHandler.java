@@ -1,6 +1,7 @@
 package com.galaxyinternet.project_process.event.handlers;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,19 +10,24 @@ import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.NBPSResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
+import com.galaxyinternet.common.dictEnum.DictEnum.titleIdResult;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.project_process.event.ProgressChangeEvent;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.hologram.InformationResultService;
 /**
  * 进入会后商务谈判：前置条件判定，必须一条“闪投”或“投资”或“转向”结果的会议记录。然后进入会后商务谈判阶段。
  * @author wangsong
@@ -36,6 +42,8 @@ public class SWTPHandler implements ProgressChangeHandler
 	private ProjectService projectService;
 	@Autowired
 	private MeetingSchedulingDao meetingSchedulingDao;
+	@Autowired
+	private InformationResultService informationResultService;
 	@Override
 	public boolean support(ProgressChangeEvent event)
 	{
@@ -48,9 +56,23 @@ public class SWTPHandler implements ProgressChangeHandler
 	public void handler(ProgressChangeEvent event)
 	{
 		Project project = event.getProject();
-		if(!hasPassedMeeting(project.getId()))
+		MeetingRecord hasPassedMeeting = hasPassedMeeting(project.getId());
+		if(null==hasPassedMeeting)
 		{
 			throw new BusinessException("没有闪投\\投资\\转向”结果的会议记录");
+		}else{
+			InformationResult selectById=new InformationResult();
+			selectById.setProjectId(project.getId().toString());
+			selectById.setTitleId(titleIdResult.LX.getCode());
+			String contentChoose="";
+				if(hasPassedMeeting.getMeetingResult().equals(LXHResult.ST.getCode())){
+					contentChoose=LXHResult.ST.getConnect();
+				}else if(hasPassedMeeting.getMeetingResult().equals(LXHResult.TZ.getCode())){
+					contentChoose=LXHResult.TZ.getConnect();
+				}else if(hasPassedMeeting.getMeetingResult().equals(LXHResult.ZX.getCode())){
+					contentChoose=LXHResult.ZX.getConnect();
+				}
+				informationResultService.updateOrInsert(selectById, contentChoose);
 		}
 		
 		Project po = new Project();
@@ -77,34 +99,23 @@ public class SWTPHandler implements ProgressChangeHandler
 	 * @param projectId
 	 * @return
 	 */
-	private boolean hasPassedMeeting(Long projectId)
+	private MeetingRecord hasPassedMeeting(Long projectId)
 	{
+		MeetingRecord result=new MeetingRecord();
 		MeetingRecordBo query = new MeetingRecordBo();
 		query.setProjectId(projectId);
 		query.setMeetingType(meetingType.立项会.getCode());
-		query.setMeetingResult(LXHResult.ST.getCode());
-		
-		Long count = meetingService.queryCount(query);
-		if(count.intValue()>0)
+			query.setPassLXFlag("yes");
+			query.setProjectType("meeting_date");
+			query.setDirection("desc");
+		List<MeetingRecord> queryList = meetingService.queryList(query);
+		if(null!=queryList&&!queryList.isEmpty())
 		{
-			return true;
+			result=queryList.get(0);
+			
 		}
 		
-		query.setMeetingResult(LXHResult.TZ.getCode());
-		count = meetingService.queryCount(query);
-		if(count.intValue()>0)
-		{
-			return true;
-		}
-		
-		query.setMeetingResult(LXHResult.ZX.getCode());
-		count = meetingService.queryCount(query);
-		if(count.intValue()>0)
-		{
-			return true;
-		}
-		
-		return false;
+		return result;
 	}
 
 }

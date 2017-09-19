@@ -108,6 +108,12 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 	    	default :
 	    		 break;
 	}
+		this.updateOrInsert(selectById,contentChoose);
+		
+		return 0;
+	}
+	@Override
+	public void updateOrInsert(InformationResult selectById,String contentChoose ){
 		User user = WebUtils.getUserFromSession();
 		Long userId = user != null ? user.getId() : null;
 		Long now = new Date().getTime();
@@ -129,7 +135,6 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 				informationResultDao.insert(selectById);
 			}
 		}
-		return 0;
 	}
 
 }

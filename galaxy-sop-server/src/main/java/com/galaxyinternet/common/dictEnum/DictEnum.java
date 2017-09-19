@@ -248,19 +248,22 @@ public enum DictEnum {
 	}
 	//立项会结果
 		public enum LXHResult {
-			BCCL("补充材料","meeting3Result:1"),
-			ST("闪投","meeting3Result:2"),
-			TZ("投资","meeting3Result:3"),
-			GW("观望","meeting3Result:4"),
-			ZX("转向","meeting3Result:5"),
-			FJ("否决","meeting3Result:6");
+			BCCL("补充材料","meeting3Result:1","1162"),
+			ST("闪投","meeting3Result:2","1163"),
+			TZ("投资","meeting3Result:3","1164"),
+			GW("观望","meeting3Result:4","1165"),
+			ZX("转向","meeting3Result:5","1166"),
+			FJ("否决","meeting3Result:6","1167");
 			private String name;
 
 			private String code;
+			
+			private String connect;
 
-			private LXHResult(String name, String code) {
+			private LXHResult(String name, String code,String connect) {
 				this.name = name;
 				this.code = code;
+				this.connect = connect;
 			}
 
 			public String getName() {
@@ -269,6 +272,10 @@ public enum DictEnum {
 
 			public String getCode() {
 				return code;
+			}
+			
+			public String getConnect() {
+				return connect;
 			}
 			
 			/**
@@ -297,6 +304,7 @@ public enum DictEnum {
 		FJ("否决","meeting5Result:2"),
 		ST("闪投","meeting5Result:3"),
 		TZ("投资","meeting5Result:4");
+		
 		private String name;
 
 		private String code;
@@ -336,17 +344,20 @@ public enum DictEnum {
 	//内部评审会议结果-
 		public enum NBPSResult
 		{
-			ST("闪投","meeting1Result:1"),
-			TZ("投资","meeting1Result:2"),
-			GW("观望","meeting1Result:3"),
-			FJ("否决","meeting1Result:4");
+			ST("闪投","meeting1Result:1","1142"),
+			TZ("投资","meeting1Result:2","1143"),
+			GW("观望","meeting1Result:3","1144"),
+			FJ("否决","meeting1Result:4","1145");
 			private String name;
 
 			private String code;
+			
+			private String connect;
 
-			private NBPSResult(String name, String code) {
+			private NBPSResult(String name, String code,String connect) {
 				this.name = name;
 				this.code = code;
+				this.connect=connect;
 			}
 
 			public String getName() {
@@ -355,6 +366,10 @@ public enum DictEnum {
 
 			public String getCode() {
 				return code;
+			}
+			
+			public String getConnect() {
+				return connect;
 			}
 			
 			/**
@@ -379,16 +394,19 @@ public enum DictEnum {
 		//投决会会议结果-
 		public enum TJHResult
 		{
-			TZ("投资","meeting4Result:1"),
-			BCCL("补充材料","meeting4Result:2"),
-			FJ("否决","meeting4Result:3");
+			TZ("投资","meeting4Result:1","1173"),
+			BCCL("补充材料","meeting4Result:2","1174"),
+			FJ("否决","meeting4Result:3","1177");
 			private String name;
 
 			private String code;
+			
+			private String connect;
 
-			private TJHResult(String name, String code) {
+			private TJHResult(String name, String code,String connect) {
 				this.name = name;
 				this.code = code;
+				this.connect=connect;
 			}
 
 			public String getName() {
@@ -397,6 +415,10 @@ public enum DictEnum {
 
 			public String getCode() {
 				return code;
+			}
+			
+			public String getConnect() {
+				return connect;
 			}
 			
 			/**
@@ -418,6 +440,50 @@ public enum DictEnum {
 		        return null;
 		    }
 		}
+		//内部评审会议结果-
+				public enum titleIdResult
+				{
+					NP("内评会","1111"),
+					LX("立项会","1113"),
+					TJ("投决会","1114");
+					
+					private String name;
+
+					private String code;
+					
+
+					private titleIdResult(String name, String code) {
+						this.name = name;
+						this.code = code;
+					}
+
+					public String getName() {
+						return name;
+					}
+
+					public String getCode() {
+						return code;
+					}
+					
+					/**
+				     * 根据code get name
+				     * @param reslut
+				     * @return
+				     */
+				    public static String getNameByCode(String code) {
+				        
+				        if (code != null && !code.trim().equals("")) {
+				            
+				        	titleIdResult[] values = titleIdResult.values();
+				            for (int i = 0;i < values.length;i++) {
+				                if (code.equals(values[i].getCode())) {
+				                    return values[i].getName();
+				                }                
+				            }
+				        }
+				        return null;
+				    }
+				}
 	//任务类型
 	public enum taskType {
 		审批流程("审批流程领","taskType:1"),

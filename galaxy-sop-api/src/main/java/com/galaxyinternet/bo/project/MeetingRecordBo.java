@@ -40,6 +40,12 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private List<Long> deptIdList;
 	private Long recordId;
 	
+	private String  passNPFlag;
+	
+	
+	private String  passLXFlag;
+	
+	
 	
 	public Long getRecordId() {
 		return recordId;
@@ -215,6 +221,21 @@ public class MeetingRecordBo  extends MeetingRecord{
 	public void setServiceCharge(Double serviceCharge) {
 		this.serviceCharge = serviceCharge;
 	}
+	public String getPassNPFlag() {
+		return passNPFlag;
+	}
+	public void setPassNPFlag(String passNPFlag) {
+		this.passNPFlag = passNPFlag;
+	}
+	public String getPassLXFlag() {
+		return passLXFlag;
+	}
+	public void setPassLXFlag(String passLXFlag) {
+		this.passLXFlag = passLXFlag;
+	}
+	
+	
+	
 	
 	
 }

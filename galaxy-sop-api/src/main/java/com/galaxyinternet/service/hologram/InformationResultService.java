@@ -7,5 +7,7 @@ import com.galaxyinternet.model.project.MeetingRecord;
 public interface InformationResultService extends BaseService<InformationResult>{
 	
 	public int upResultByMeeting(MeetingRecord mr);
+	
+	public void updateOrInsert(InformationResult selectById,String contentChoose);
 
 }
