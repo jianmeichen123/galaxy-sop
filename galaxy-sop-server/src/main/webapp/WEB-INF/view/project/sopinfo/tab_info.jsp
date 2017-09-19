@@ -526,6 +526,7 @@ if(isTransfering == 'true'){
 		$('.bj_hui_on').hide();
 	    $('.legal .show').show();
 		$('.legal .hidden').hide();
+		setTimeout(buildShareResult("4","5812"),500);   //法人信息保存刷新
 	});
 	$('.legal [data-btn="cancle"]').on('click',function(){
 		$('.bj_hui_on').hide();
