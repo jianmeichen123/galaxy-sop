@@ -12,6 +12,13 @@
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 	<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+  <c:set var="aclViewProject"
+	value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }"
+	scope="request" />
+	
+<c:set var="isEditable"
+	value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}"
+	scope="request" />
     <!-- 基本信息 -->
 	<div class="tabtable_con_jbxx">
 	<!-- 默认展示 -->
@@ -46,13 +53,13 @@
 			</tr>
 			
 		     <tr>
-				<td><span class="new_color_gray">本轮融资轮次：</span><span class="new_color_black" id="financeStatusDs"></span></td>
+				<td><span class="new_color_gray">本轮融资轮次：</span><span class="new_color_black" id="financeStatusDs"  data-title-id="1108"></span></td>
 				<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
 				<span class="new_color_gray" id="s">(</span>
 					<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
 			</tr>
 			     <tr>
-				     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
+				     <td><span class="new_color_gray">项目来源：</span><span class="new_color_black" id="faName"></span></td>
 					</tr>
 			 <tr>
 				     <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span class="new_color_black" id="remarkStr"></span></td>
@@ -65,11 +72,11 @@
 		</div>
 		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 			<tr>
-				<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"  data-title-id="1916"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"  data-title-id="1917"></span><span class="new_color_black">&nbsp;%</span></td>
 			</tr>
 			<tr>
-				<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span><span class="new_color_black">&nbsp;%</span></td>
+				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"  data-title-id="1943"></span><span class="new_color_black">&nbsp;万元</span></td>
 			</tr>
 		</table>
 		
@@ -79,12 +86,12 @@
 		</div>
 		<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 			<tr>
-				<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span class="new_color_black">&nbsp;万元</span></td>
-				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution" data-title-id="3004"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio" data-title-id="3010"></span><span class="new_color_black">&nbsp;%</span></td>
 			</tr>
 			<tr>
-				<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">&nbsp;%</span></td>
-				<td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black" id="serviceCharge"></span><span class="new_color_black">&nbsp;%</span></td>
+				<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations" data-title-id="3012"></span><span class="new_color_black">&nbsp;万元</span></td>
+				<td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black" id="serviceCharge" data-title-id="3011"></span><span class="new_color_black">&nbsp;%</span></td>
 	
 			</tr>
 			<tr>
@@ -127,12 +134,15 @@
                               <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                          </tr>
                            <tr>
-                             <td><span class="new_color_gray">来源于FA：</span>
-                             <span class="mar_left">
-                             	<div class="mar_left"><input type="radio" name="faFlag" checked="checked"  value="0" onclick="setText('reset')" id="faFlag">否 </div>
-                                 <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                 <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  name="faName" id="faNameEdit" style="display:none" required data-rule-faname="true" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20"/></div>
-                             </span></td>
+                             <td>
+	                             <span class="new_color_gray">项目来源：</span>
+	                             <span class="mar_left">
+	                             	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" >
+				                    	<option value="">--请选择--</option>
+				                    </select>
+	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-required="<font color=red>*</font><i></i>必填" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20"/>
+	                             </span>
+                             </td>
                            </tr>
 
                  <tr>
@@ -149,11 +159,11 @@
 	        </div>  
 	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font><i></i>支持四位小数"/>　&nbsp;万元</span></td>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持四位小数"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font><i></i>支持9位长度的四位小数" data-title-id="1916"/>　&nbsp;万元</span></td>
+	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font><i></i>0到100之间的四位小数" data-title-id="1917"/>　&nbsp;%</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font><i></i>0到100之间的四位小数"/>　&nbsp;%</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的支持四位小数" data-title-id="1943"/>&nbsp;　万元</span></td>
 	            </tr>
 	              </table>
 	        <!--实际投资-->
@@ -163,12 +173,12 @@
 	        </div>  
 	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
-	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font><i></i>支持四位小数"/>&nbsp;　万元</span></td>
-	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-finalValuations="true" data-msg-finalValuations="<font color=red>*</font><i></i>支持四位小数"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font><i></i>支持9位长度的支持四位小数"  data-title-id="3004"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font><i></i>0到100之间的四位小数"  data-title-id="3010"/>&nbsp;　%</span></td>
 	            </tr>
 	            <tr>
-	                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" name="finalShareRatio" data-rule-finalShareRatio="true" data-msg-finalShareRatio="<font color=red>*</font><i></i>0到100之间的四位小数"/>&nbsp;　%</span></td>
-	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font><i></i>0到5之间的四位小数"/>&nbsp;　%</span></td>
+	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" name="finalValuations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的支持四位小数"  data-title-id="3012"/>&nbsp;　万元</span></td>
+	                <td><span class="new_color_gray">加速服务费占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" name="serviceChargeedit" data-rule-serviceChargeedit="true" data-msg-serviceChargeedit="<font color=red>*</font><i></i>0到5之间的四位小数"  data-title-id="3011"/>&nbsp;　%</span></td>
 	     	
 	     		</tr>
 	     		<tr>
@@ -208,267 +218,236 @@
 		</span></li>
 	</ul>
 </div>
-
-<div class="tabtable_con_on" >
-	<div class="project_on" id="updateProjectDescribe" style="height:420px;">
-		<div class="title_bj_tzjl">项目描述</div>
-		<div class="block_wrap">
-			<div class="describe1">
-				<span class="basic_span1"><em class="red">*</em>商业模式：</span>
-				<!-- <div id="describe_editor" type="text/plain" class='width_fwb'></div>   -->
-				<input id="describe_editor" class="new_nputr text" style="border:1px solid #d4d4d4;width:100%;" placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font><i></i>不能超过50字符"></input>
-			</div>
-			<div class="describe2">
-				<span class="basic_span1"><em class="red">*</em>业务简要概述和项目亮点：</span>
-				<div id="describe_editor2" type="text/plain" class='width_fwb'></div>  
-			</div>
-            <div class="compile_on_center">
-                <div class="compile_on_right">
-                     <span class="pubbtn bluebtn" id="save_describe">保存</span>
-                     <span class="pubbtn fffbtn" data-name="project" data-on="close">取消</span>
-                </div>  
-          </div>
-		</div>
-                  
-              </div>
-              <div class="project_center">
-		<div class="new_r_compile ">
-			<span class="new_ico_project"></span> <span class="new_color size16"><em class="red">*</em>项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
-			<c:if test="${isEditable}">
-			<span class="new_fctbox">
-				<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
-			</span>
-			</c:if>
-		</div>
-		<div class="new_ul_all new_top_color describe_show clearfix" >
-			<div id="describe_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;padding-left:20px;">商业模式</span></div>
-			<p style="padding-left:22px" id="describe_show" valiate="required"></p>
-			<div id="describe2_show_div"><span class="ico_dot ico"></span><span style="font-size:14px;font-family:'微软雅黑';line-height:36px;padding-left:20px;">业务简要概述和项目亮点</span></div>
-			<p style="padding-left:22px" id="describe2_show" valiate="required"></p>
-		</div>
+<!-- 商业计划书隐藏页面 -->
+<div id="uploadPanel"  style="display: none;">
+	<div class="title_bj">上传更新</div>
+	<div class="meetingtc margin_45">
+	<dl class="fmdl clearfix">
+    	<dt>档案来源：</dt>
+        <dd class="clearfix">
+        	<label><input name="win_fileSource" type="radio" value = "1" checked="checked"/>内部</label>
+            <label><input name="win_fileSource" type="radio" value = "2"/>外部</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>存储类型：</dt>
+        <dd>
+        	<select id="win_fileType">
+            	<option>sadasd</option>
+            </select>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>业务分类：</dt>
+        <dd>
+<!--          	<input type="text" id="fileWorkType"  class="txt"/> -->
+<!--          	<input type="hidden" id="fileWorkTypeId"/> -->
+         	
+         	<select id="win_fileWorkType">
+            	<option>sadasd</option>
+            </select>
+         	
+        </dd>
+        <dd id="win_isProve_div">
+        	<label><input type="checkbox" value="1" id="win_isProve"/>签署凭证</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>所属项目：</dt>
+        <dd>
+            <input type="hidden" id="win_sopFileId" data-tid=""  class="txt disabled"/>
+        	<input type="text" id="win_sopProjectId" data-tid=""  class="txt disabled"/>
+        </dd>
+       <dd><a class="searchbtn null" id="win_searchProjectBtn" href="javascript:;">搜索</a></dd>
+   
+    </dl>
+    
+     <dl class="fmdl clearfix">
+    	<dt>文档上传：</dt>
+        <dd>
+        	<input type="text" class="txt" id="win_fileTxt" readonly="readonly"/>
+        </dd>
+        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="win_selectBtn">选择档案</a></dd>
+    </dl>  
+    <TEXTAREA ID="win_FILELIST"></TEXTAREA>
+<!--     <div class="fmarea"> -->
+<!-- 		<div  id="filelist"></div> -->
+<!-- 		<div  id="console"></div> -->
+<!--     </div> -->
+    <a href="javascript:;" class="pubbtn bluebtn" id="win_uploadBtn" style="margin-left:80px;">上传保存</a>
+<%--     <input type="hidden" id="pathInput" value="<%=path%>"> --%>
 	</div>
 </div>
-<!--公司定位-->
-<div class="tabtable_con_on">
-	<div class='company_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_firm"></span> <span class="new_color size16"><em class="red">*</em>公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
+
+<!--团队成员 -->
+	<div class="tabtable_con_on">
+	<div class="new_r_compile ">
+		<span class="new_ico_book team_group"></span> <span class="new_color size16">团队成员</span>
+	</div>
+	<input type="hidden" id="pid" name="id" value="${pid}" />
+	<c:if test="${aclViewProject==true}">
+		<div class="member">
 			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-				<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
-			</span>
+				<div class="top clearfix border-top">
+					<!--按钮-->
+					<div class="btnbox_f btnbox_f1 clearfix">
+						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
+						<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
+					</div>
+				</div>
 			</c:if>
-		</div>
-		<div class="new_ul_all new_top_color new_top_color_new location_show">
-			<span class="ico_dot ico"></span>
-			<p id="location_show" class="clearfix"></p>
-		</div>
-	</div>
-	<div class='company_on'>					
-		<div class="title_bj_tzjl">公司定位</div>
-		<div class="block_wrap">
-			<div id="company_editor" type="text/plain" class='width_fwb'></div>  
-                 <div class="compile_on_center">
-                    <div class="compile_on_right">
-                        <span class="pubbtn bluebtn" id="save_location">保存</span>
-                        <span class="pubbtn fffbtn" data-name='company' data-on="close">取消</span>
-                    </div>  
-                </div>
-        </div>
-	</div>
+			
+			<!--表格内容-->
+			<!-- <div class="tab-pane active commonsize" id="view">
+				<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
+				
+				</table>
+			</div> -->
+			<table cellspacing="0" class="table table-hover team_info info_table editable" data-code="team-members" data-title-id="1303"></table>
 	
-</div>
-<!--用户画像-->
-<div class="tabtable_con_on">
-	<div class='portrayal_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_people"></span> <span class="new_color size16"><em class="red">*</em>用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
-			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-			<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
-			</span>
-			</c:if>
 		</div>
-		<div class="new_ul_all new_top_color new_top_color_new portrait_show">
-			<span class="ico_dot ico"></span>
-			<p id="portrait_show" class="clearfix"></p>
-		</div>
+	</c:if>
 	</div>
-	<div class='portrayal_on'>
-		<div class="title_bj_tzjl">用户画像</div>
-		<div class="block_wrap">
-			<div id="portrait_editor" type="text/plain" class='width_fwb'></div>  
-                 <div class="compile_on_center">
-                    <div class="compile_on_right">
-                        <span class="pubbtn bluebtn" id="save_portrait">保存</span>
-                        <span class="pubbtn fffbtn" data-name='portrayal' data-on="close">取消</span>
-                    </div>  
-                </div>
-         </div>
-	</div>
-	
-</div>
 
 
-<!--产品服务-->
+<!-- 法人信息 -->
 <div class="tabtable_con_on">
-	<div class='product_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_product"></span> <span class="new_color size16"><em class="red">*</em>产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
-			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-				<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
-			</span>
-			</c:if>
-		</div>
-		<div class="new_ul_all new_top_color new_top_color_new business_model_show">
-			<span class="ico_dot ico"></span>
-			<p id="business_model_show" class="clearfix"></p>
-		</div>
+<div class="legal">
+	<div class="show">
+		<div class="title">
+	        <span class="new_ico_legal icon"></span>
+	        <span class="new_color size16">法人信息</span>
+	        <c:if test="${isEditable}">
+	        <div class="btn">
+	         	<span class="new_fctbox">
+	            	<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+	         	</span>
+	        </div> 
+	        </c:if>
+	    </div>
+	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
+	        <tr>
+	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany" data-title-id="1814"></span></td>
+	            <!-- <td><span class="new_color_gray th">组织代码：</span><span class="new_color_black" id="projectCompanyCode"></span></td> -->
+	        	<td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"  data-title-id="1816"></span></td>
+	        </tr>
+	        <tr>
+	            <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"  data-title-id="1815"></span></td>	            
+	        </tr>
+	    </table>                
 	</div>
-	<div class='product_on'>
-		<div class="title_bj_tzjl">产品服务</div>
-		<div class="block_wrap">
-			<div id="business_editor" type="text/plain" class='width_fwb' ></div>  
-                 <div class="compile_on_center">
-                    <div class="compile_on_right">
-                        <span class="pubbtn bluebtn" id="save_business">保存</span>
-                        <span class="pubbtn fffbtn" data-name='product' data-on="close">取消</span>
-                    </div>  
-                </div>
-         </div>
-	</div>
+    <div class="hidden">
+      <div class="title">
+          <span class="new_ico_legal icon"></span>
+          <span class="new_color size16">法人信息</span>
+          <div class="btn btnbox">
+              <button href="javascript:;" class="pubbtn bluebtn" data-btn="save">保存</button>
+              <button href="javascript:;" class="pubbtn fffbtn" data-btn="cancle">取消</button>
+          </div> 
+      </div>
+      <form action="#" id="company-info-form">
+      <input type="hidden" name="id" value="${projectId }">
+      <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
+          <tr>
+              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="50" data-title-id="1814"></td>
+              <!-- <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td> -->
+        	  <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"  data-title-id="1816"></td>
+          </tr>
+          <tr>
+              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"  data-title-id="1815"></td>              
+          </tr>
+      </table>                    
+      </form>
+  </div>
 </div>
-
-<!--运营数据-->
-<div class="tabtable_con_on">
-	<div class='operation_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
-			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-				<a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
-			</span>
-			</c:if>
-		</div>
-		<div class="new_ul_all new_top_color new_top_color_new operational_data_show">
-			<span class="ico_dot ico"></span>
-			<p id="operational_data_show" class="clearfix"></p>
-		</div>
-	</div>
-	<div class='operation_on'>
-		<div class="title_bj_tzjl">运营数据</div>
-		<div class="block_wrap">
-			<div id="operation_editor" type="text/plain" class='width_fwb' ></div>  
-                 <div class="compile_on_center">
-                    <div class="compile_on_right">
-                        <span class="pubbtn bluebtn" id="save_operation">保存</span>
-                        <span class="pubbtn fffbtn" data-name='operation' data-on="close">取消</span>
-                    </div>  
-                </div>
-       </div>
-	</div>
-	
-</div>
-
-
-<!--行业分析-->
-<div class="tabtable_con_on">
-	<div class='industry_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_industry"></span> <span class="new_color size16"><em class="red">*</em>行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
-			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-				<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
-			</span>
-			</c:if>
-		</div>
-		<div class="new_ul_all new_top_color new_top_color_new industry_analysis_show">
-			<span class="ico_dot ico"></span>
-			<p id="industry_analysis_show" class="clearfix"></p>
-		</div>
-	</div>
-	<div class='industry_on'>
-		<div class="title_bj_tzjl">行业分析</div>
-		<div class="block_wrap">
-			<div id="industry_editor" type="text/plain" class='width_fwb' ></div>  
-                 <div class="compile_on_center">
-                    <div class="compile_on_right">
-                        <span class="pubbtn bluebtn" id="save_industry">保存</span>
-                        <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
-                    </div>  
-                </div>
-       </div>
-	</div>
-	
-</div>
-<!--竞情分析-->
-<div class="tabtable_con_on">
-	<div class='analysis_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_jq"></span> <span class="new_color size16"><em class="red">*</em>竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
-			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-				<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
-			</span>
-			</c:if>
-		</div>
-		<div class="new_ul_all new_top_color new_top_color_new analysis_show">
-			<span class="ico_dot ico"></span>
-			<p id="analysis_show" class="clearfix"></p>
-		</div>
-	</div>
-	<div class='analysis_on'>
-		<div class="title_bj_tzjl">竞争分析</div>
-		<div class="block_wrap">
-			<div id="analysis_editor" type="text/plain" class='width_fwb'></div>  
-                 <div class="compile_on_center">
-                    <div class="compile_on_right">
-                        <span class="pubbtn bluebtn" id="save_analysis">保存</span>
-                        <span class="pubbtn fffbtn" data-name='analysis' data-on="close">取消</span>
-                    </div>  
-                </div>
-           </div>
-	</div>
-</div>
-
-<!--下一轮融资路径-->
-<div class="tabtable_con_on">
-	<div class='next_financing_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
-			<c:if test="${isEditable}">
-			<span class="new_fctbox"> 
-			<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
-			</span>
-			</c:if>
-		</div>
-		<div class="new_ul_all new_top_color new_top_color_new next_financing_source_show">
-			<span class="ico_dot ico"></span>
-			<p id="next_financing_source_show" class="clearfix"></p>
-		</div>
-	</div>
-	<div class='next_financing_on'>
-		<div class="title_bj_tzjl">下一轮融资路径</div>
-		<div class="block_wrap">
-			<script id="next_financing_editor" type="text/plain" class='width_fwb'></script>  
-                 <div class="compile_on_center">
-                    <div class="compile_on_right">
-                        <span class="pubbtn bluebtn" id="save_next_financing">保存</span>
-                        <span class="pubbtn fffbtn" data-name='next_financing' data-on="close">取消</span>
-                    </div>  
-                </div>
-        </div>
-	</div>
-	
 </div>
 
 <!--隐藏-->
 <div class="bj_hui_on"></div>
+
+
+
+<!--股权结构 -->
+<div class="tabtable_con_on member financeHistory">
+	<div class='company_center'>
+		<div class="new_r_compile ">
+			<span class="new_ico_stock icon"></span> <span class="new_color size16">股权结构 </span>
+		</div>
+		<div class="top clearfix border-top">
+        <!--按钮-->
+	       <c:if test="${isEditable}">
+	          <div class="btnbox_f btnbox_f1 clearfix">
+	              <span href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_equity' onclick="addRow_sp(this)">添加</span>
+	          </div>
+	        </c:if>
+	    </div>
+		<div class="location_show history_show new_ul_all">
+			<span class="ico_dot ico"></span>
+			<p id="location_show" class="clearfix"></p>
+			<div class="fixed-table-container">			
+				<table id="equity" cellspacing="0" class="table info_table" data-title-id="1906" parentid="1902" ></table>
+			</div>
+		</div>
+	</div>	
+</div>
+<!-- 融资历史 -->
+<div class="tabtable_con_on member financeHistory">
+	<div class='company_center'>
+		<div class="new_r_compile ">
+			<span class="new_ico_history icon"></span> <span class="new_color size16">融资历史</span>
+		</div>
+		<div class="top clearfix border-top">
+        <!--按钮-->
+	       <c:if test="${isEditable}">
+	          <div class="btnbox_f btnbox_f1 clearfix">
+	              <span href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="addRow_sp(this)">添加</span>
+	          </div>
+	        </c:if>
+	    </div>
+		<div class="location_show history_show new_ul_all">
+			<span class="ico_dot ico"></span>
+			<p id="location_show" class="clearfix"></p>
+			<div class="fixed-table-container">			
+				<table id="tablePerson" cellspacing="0" class="fina_history table info_table financeHistoryTable"  data-title-id="1903" parentid="1902" ></table>
+			</div>
+		</div>
+	</div>	
+</div>
+<!--隐藏-->
+<div class="bj_hui_on"></div>
 <script type="text/javascript">
+/* var proinfo = '${proinfo}';
+var proid = '${pid}';
+var pname = '${pname}';
+var interviewSelectRow = null;
+var projectId ='${pid}';
+var flag = '${flag}';
+var isCreatedByUser = "${fx:isCreatedByUser('project',pid) }";
+var isTransfering = "${fx:isTransfering(pid) }"; */
+
+
+$(function(){
+/* getTabPerson(); */
+if(isTransfering == 'true'){
+	$("#add_person_btn").addClass('limits_gray');
+}
+});	
+
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
+	//项目来源切换
+	$("select[name='projectSource']").change(function(){
+		var text=$(this).find("option:checked").text();
+		if(text=="FA"){
+			$(this).siblings(".new_nputr").show();
+			$(this).siblings(".new_nputr").attr("required","required");
+		}else{
+			$(this).siblings(".new_nputr").hide();
+			$(this).siblings(".new_nputr").remove("required");
+			$("#faNameEdit-error").hide();
+		}
+	})
 	//运营数据分析返回
 	if(document.URL.indexOf("back=operateList")>0){
 		initTabPostMeeting();
@@ -477,7 +456,10 @@
 	//新增添加合投机构
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs">'
-	          +'<span><input placeholder="填写机构名称" class="name" name="deliveryName_'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span><span><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span><span><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	          +'<span><input placeholder="填写机构名称" class="name" name="deliveryName_'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
+	          +'<span><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
+	          +'<span><select><option value="">人民币</option><option value="">美元</option></select></span>'
+	          +'<span><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
 	  	$(".inputsForm").append(inputsRow);
@@ -523,9 +505,67 @@
 		}else{
 			$(".institutionBtn span").css("margin-top","0")
 		}
-	})
-</script>
-<script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
+	});
+	
+	/* 股权结构 */
+	var isTransfering = "${fx:isTransfering(pid) }";
+	if(isTransfering == 'true')
+	{
+		$('.legal [data-btn="edit"]').addClass('limits_gray');
+		$('#add_share_bth').addClass('limits_gray');
+	}
+	$('.legal [data-btn="edit"]').on('click',function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
+		editCompany();		
+	});
+	$('.legal [data-btn="save"]').on('click',function(){
+		saveBaseInfo("company-info-form");
+		$('.bj_hui_on').hide();
+	    $('.legal .show').show();
+		$('.legal .hidden').hide();
+		setTimeout(buildShareResult("4","5812"),500);   //法人信息保存刷新
+	});
+	$('.legal [data-btn="cancle"]').on('click',function(){
+		$('.bj_hui_on').hide();
+	    $('.legal .show').show();
+		$('.legal .hidden').hide();
+	});
+	$('#company-info-form [name="formationDate"]').datepicker({
+	    format: 'yyyy-mm-dd',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    defaultDate : Date,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:false,
+	    currentText: 'Now'
+	});
 
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/jquery.validate.min.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/projectDetail/tabInfoValidate.js'></script>
+	
+	
+	function editCompany()
+	{
+		buildShareResult("4","5812");
+    	$('.bj_hui_on').show();
+		$('.legal .show').hide();
+		$('.legal .hidden').show();
+	}
+	
+</script>
+<script type="text/javascript" src="<%=path %>/js/sop.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
+<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
+<script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
+<script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
+<script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail/team_info.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail/saveBase.js" type="text/javascript"></script>
+
+

@@ -1,16 +1,24 @@
 // JavaScript Document
 var projectId;
 var i = $(".next_box").attr("data-progress");
-function  progress(id){
+function  progress(id,type){
 	projectId = id;
 	$.getHtml({
 		url:Constants.sopEndpointURL + "/galaxy/progress/index",//模版请求地址
 		data:{"projectId":projectId},//传递参数
 		okback:function(){
 			$(".close").addClass("progress_close");
-			$(".progress_close").click(function(){  //关闭弹窗刷新列表
-				refreshProjectList();
-			})
+			if(type=="detail"){
+				//详情点击关闭页面刷新
+				$(".progress_close").click(function(){  //关闭弹窗刷新列表
+					$(".tablinks.projectDetail li.on").click();
+				})
+			}else{
+				$(".progress_close").click(function(){  //关闭弹窗刷新列表
+					refreshProjectList();
+				})
+			}
+			
 			/*goToProgress();*/
 		}
 	});
@@ -188,7 +196,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	var res = {};
 	//立项会特殊类名
 	var sp_class="";
-	if(title=="编辑立项会会议记录"){
+	if(title=="编辑立项会会议记录"||title=="编辑内部评审会议记录"){
 		sp_class="spresult"
 	}
 	res.projectId = projectId;

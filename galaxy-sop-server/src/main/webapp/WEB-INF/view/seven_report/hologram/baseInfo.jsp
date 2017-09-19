@@ -15,6 +15,7 @@
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript">
 var pageId = "project";
+var path = '<%=path%>';
 </script>
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 </head>
@@ -111,6 +112,7 @@ sendGetRequestTasync(platformUrl.queryProjectAreaInfo + pid +"/", codeArr, backF
 
 $(function() {
 	right_anchor("NO1");
+	$(".exportReport").show();
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn", "click", function(event) {
 		var _this = $(this);

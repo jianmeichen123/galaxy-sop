@@ -50,7 +50,7 @@ position:absolute;
         			<li onclick="seven_link(7);">运营报告</li>
         		</ul>
         	</span>
-        	
+        	<a href="javascript:;" class="bluebtn ico tj exportReport">导出报告</a>
         	<!-- <span class="b_span"> 
 	        	<a href="#" onclick="back();">返回></a>
 			</span>  -->
@@ -146,10 +146,10 @@ function seven_link(data,url){
 			beforeSave(url+'?pid='+pid);
 		}else{
 			//$(window).unbind('beforeunload');
-			window.location.href = url+'?pid='+pid;
+			window.location.href = url+'?pid='+pid+"&sid="+sessionId+"&guid="+userId;
 		}
 	}else{
-		window.location.href = url+'?pid='+pid;
+		window.location.href = url+'?pid='+pid+"&sid="+sessionId+"&guid="+userId;
 	}
 } 
 

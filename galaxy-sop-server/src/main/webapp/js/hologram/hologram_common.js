@@ -152,6 +152,9 @@ function tabInfoChange(index){
 					right_anchor("NO5");
 				}
 			});
+			//获取tablle TD 宽度
+			var tdWidth  = $('table');
+
 		}
 		//战略以及策略
 		function initPlanInfo(){
@@ -578,7 +581,6 @@ function buildResults(sec,title,readonly)
 			{
 				var str = title.resultList[0].contentDescribe2
 				var strs= new Array();
-				console.log(str)
 				if(str!=null || str!=undefined){
 					strs=str.split("p")
 				}
@@ -743,7 +745,7 @@ function buildTable(sec,title)
 		$.each(tables,function(){
 			var table = $(this);
 			table.attr('data-code',header.code);
-			table.attr('data-funFlag',header.funFlag);
+			table.attr('data-funFlag',header.funFlag);			
 			table.empty();
 			var tr="<tr>";
 			for(var key in header)
@@ -787,13 +789,52 @@ function buildTable(sec,title)
 				var table = $(this);
 				var tr = buildRow(row,table.hasClass('editable'),row.titleId);
 				table.append(tr);
+				//增加显示字段限制，，市场同类公司估值参考
+				var dataCode = table.attr('data-code');
+				if(dataCode === 'valuation-reference'){
+					var targetTd = table.find('tr').find('td:eq(0)');
+					targetTd.addClass('limit-number');
+					$('.limit-number').each(function(){
+						var _this = $(this);
+						var tdText = _this.text();
+						var limitTd = tdText.substr(0,20);
+						_this.text(limitTd)
+							
+					})
+				};
+				//股权结构合理性
+				if(dataCode === 'share-holding'|| dataCode === "equity-structure"){
+					var targetTd = table.find('tr').find('td:eq(0)');
+					targetTd.addClass('limit-number');
+					$('.limit-number').each(function(){
+						var _this = $(this);
+						var tdText = _this.text();
+						var limitTd = tdText.substr(0,10);
+						_this.text(limitTd);
+							
+					})
+				}
+				//主要战略投资人；
+				if(dataCode === "investor-situation" ){
+					var targetTd = table.find('tr').find('td:eq(1)');
+					targetTd.addClass('limit-number');
+					$('.limit-number').each(function(){
+						var _this = $(this);
+						var tdText = _this.text();
+						var limitTd = tdText.substr(0,10);
+						_this.text(limitTd);
+							
+					})
+				};
+				
 			});
 		});
 	}
 }
 function buildRow(row,showOpts,titleId)
 {
-	var ths = $('table[data-title-id="'+titleId+'"]:eq(0) th');
+	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
+	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	for(var key in row)
 	{
@@ -807,7 +848,7 @@ function buildRow(row,showOpts,titleId)
 		if(k!="opt"){
 			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
-		
+			
 	});
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	var td = $('<td data-field-name="opt"></td>');
@@ -824,8 +865,60 @@ function buildRow(row,showOpts,titleId)
 			td.append('<span class="blue" data-btn="btn" onclick="editRow(this)">查看</span>');
 		    tr.append(td);
 		}
-	}
+	};
+	//判断td的数量，判断宽度
+	var tdNumber = tr.children().length;
+	var td = tr.children();
+	if(tdNumber===6){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'16.6%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===5){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'20%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===4){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'25%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===3){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'33.3%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===2){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'50%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===8){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'12.5%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	};
+	
+	
+	
+	
+	
 	return tr;
+	
 
 }
 function buildfinxedTable(sec,title,readonly){
@@ -1223,9 +1316,9 @@ jQuery.validator.addMethod("verify_50_font", function(value, element) {
 }, "不能超过50个字"); 
 //0到10之间的一位小数
 jQuery.validator.addMethod("verify_10_1", function(value, element) { 
-	var verify_10_1 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
+	var verify_10_1 = /^([0-9]|10)$/;
 	return this.optional(element) || (verify_10_1.test(value));
-}, "0到10之间的一位小数"); 
+}, "0到10之间的整数"); 
 //百分数
 jQuery.validator.addMethod("percentage", function(value, element) {   
 	var percentage = /^\d+(\.\d{2})?$/;
@@ -1912,18 +2005,21 @@ function editRow(ele)
 		okback:function(){
 			//var title = $("#pop-title");
 			 if(txt=="查看"){
-					$("#detail-form").hide();
+				 	$("#detail-form").hide();
 					$(".button_affrim").hide();
+					$('#detail-form_look_over').show();
 					$("#delivery_popup_name").text("查看交割事项");
 					 $('#grant_popup_name').html('查看分期注资计划');
 					 $('#finace_popup_name').html('查看融资历史');
 					 $("#complete_title").html('查看综合竞争比较');
 					 $("#pop-title-gs").text('查看同类公司');
-					 $("#pop-title-time").text('查看里程碑和时间节点');
+					 $("#pop-title-time").text('查看融资的里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
+					 $("#pop-title-yy").html('查看关键运营指标变化');
 					
 				}else{
 					$(".see_block").hide();
+					$('#detail-form_look_over').hide();
 					$("#delivery_popup_name").text("编辑交割事项");
 					 $('#grant_popup_name').html('编辑分期注资计划');
 					 $('#finace_popup_name').html('编辑融资历史');
@@ -1938,6 +2034,74 @@ function editRow(ele)
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
+			//增加显示字段限制
+			var dataCode = $(ele).closest('table').attr('data-code');
+			//市场同类型公司估值参考
+			if(dataCode === 'valuation-reference'){
+				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,20);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})
+				$(".number_limits").on("input propertychange", function() {
+		       		 var $this = $(this); 
+		            _val = $this.val(); 
+			        if (_val.length > 20) {  
+			            $this.val(_val.substring(0, 20));  
+			        }  
+				});  
+
+			};
+		//股权结构的合理性||股权结构table；
+			if(dataCode === 'share-holding'||dataCode === 'equity-structure'){
+				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,10);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})
+				$(".number_limits").on("input propertychange", function() {
+		       		 var $this = $(this); 
+		            _val = $this.val(); 
+			        if (_val.length > 10){  
+			            $this.val(_val.substring(0, 10));  
+			        }  
+				});  
+
+			};
+			//主要战略投资人
+			if(dataCode === 'investor-situation'){
+				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,10);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})
+				$(".number_limits").on("input propertychange", function() {
+		       		 var $this = $(this); 
+		            _val = $this.val(); 
+			        if (_val.length > 10){  
+			            $this.val(_val.substring(0, 10));  
+			        }  
+				});  
+
+			};
+			
+			
+			
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
@@ -2014,14 +2178,42 @@ function editRow(ele)
 				var len=$(this).val().length;
 				var initNum=$(this).siblings('.num_tj').find("span").text();
 				$(this).siblings('.num_tj').find("span").text(initNum-len);
-			})
+			});
+			
+			//竞争对手的展示;
+			var myRow = $(ele).closest('tr');
+			var oppoPerson = myRow.find('td:eq(0)').text();
+			var degress = myRow.find('td:eq(1)').text();
+			var dangerRation = myRow.find('td:eq(2)').text();
+			var helpfullMethod = myRow.find('td:eq(3)').text();
+			var vervifyHas = myRow.find('td:eq(4)').text();
+			$('.oppostie_people').text(oppoPerson);
+			$('.win_degree').text(degress);
+			$('.danger_degree').text(dangerRation);
+			$('.helpful_method').text(helpfullMethod);
+			$('.verfify_orNot').text(vervifyHas);
+			//上一轮融资后关键运营指标变化
+			$('.index-name').text(oppoPerson);
+			$('.index-value').text(degress);
+			$('.current-value').text(dangerRation);
+			//融资的里程碑和时间点
+			$('.finicial-number').text(oppoPerson);
+			$('.milestone').text(degress);
+			$('.finicial-time').text(dangerRation);
+			
+			
+			
+			
+			
+			
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
 			});
 		}//模版反回成功执行	
 	});
-}
+};
+
 var deletedRowIds = new Array();
  // 股权结构合理性 表格删除行使用
 var deletedRowIdsGq = new Array();
@@ -2108,16 +2300,10 @@ function tableDictColumn(code){
 }
 
 function resizetable(table){
-    var dict_map = {}
-  /*  var fields_json = {
-        "finance-history":["field6","field7","field8"],
-        "equity-structure":["field3","field4"],
-        "investor-situation":["field1","field6"]
-    }*/
+    var dict_map = {};
     var title_id = table.attr("data-title-id")
     var  code = table.attr("data-code")
     var fields_json=tableDictColumn(code);
-    console.log(fields_json);
     if (fields_json && code in fields_json){
         var fields = fields_json[code]
         for(var i=0;i<fields.length;i++){
@@ -2131,7 +2317,6 @@ function resizetable(table){
         }
     }
 }
-
 
 
 

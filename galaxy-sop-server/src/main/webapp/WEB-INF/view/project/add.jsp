@@ -46,7 +46,7 @@
                     <ul class="basic_ul">
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
-                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">投资</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w" checked="checked"><label for="radio_w">投资</label></span>
                             <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">创建</label></span>
                            <span id="projectTypeTip"  style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 452px; top: 202px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
@@ -68,17 +68,19 @@
                         	<span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
                             <span class="m_r30">
 								<select name="financeStatus" class='new_nputr'>
+								<option value="">--请选择--</option>
 			                    </select>
 							</span>
                         </li>
                         <li>
-                        <span class="basic_span"><em class="red">*</em>来源于FA：</span>
+                        <span class="basic_span"><em class="red">*</em>项目来源：</span>
                             <span class="m_r30" style="with:400px">
-                            <span class="m_r30">
-                             <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
-                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是
-                             <input type="text" class="new_nputr"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
-                        </span>
+	                            <select name="projectSource" class='new_nputr' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+				                    	<option value="">--请选择--</option>
+				                   </select> 
+	                            <!--  <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
+	                             <input type="radio" name="faFlag"  value="1" id="faFlag2">是  -->
+	                             <input type="text" class="new_nputr"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
                         </li>
                     </ul>  
                     
@@ -92,21 +94,21 @@
                         <li>
                             <span class="basic_span">融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的支持四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
-                            <span class="basic_span">项目估值：</span>
-                            <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持四位小数"/>
-                            </span>
-                            <span class="m_r30">万元</span>
-                        </li>
-                        <li>
-                        	<span class="basic_span">出让股份：</span>
+                            <span class="basic_span">出让股份：</span>
                             <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                             </span>
                             <span class="m_r30">% </span>
+                        </li>
+                        <li>
+                        	<span class="basic_span">项目估值：</span>
+                            <span class="m_r15">
+                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_13_NUMBER" msg="<font color=red>*</font>支持13位长度的四位小数"/>
+                            </span>
+                            <span class="m_r30">万元</span>
                         </li>
                     </ul>
                     </form>
@@ -118,6 +120,66 @@
                     <!-- 商业计划书表格-->
                     <table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
                     </table>
+                    <!-- 商业计划书隐藏页面 -->
+					<div id="uploadPanel"  style="display: none;">
+						<div class="title_bj">上传更新</div>
+						<div class="meetingtc margin_45">
+						<dl class="fmdl clearfix">
+					    	<dt>档案来源：</dt>
+					        <dd class="clearfix">
+					        	<label><input name="win_fileSource" type="radio" value = "1" checked="checked"/>内部</label>
+					            <label><input name="win_fileSource" type="radio" value = "2"/>外部</label>
+					        </dd>
+					    </dl>
+					    <dl class="fmdl clearfix">
+					    	<dt>存储类型：</dt>
+					        <dd>
+					        	<select id="win_fileType">
+					            	<option>sadasd</option>
+					            </select>
+					        </dd>
+					    </dl>
+					    <dl class="fmdl clearfix">
+					    	<dt>业务分类：</dt>
+					        <dd>
+					<!--          	<input type="text" id="fileWorkType"  class="txt"/> -->
+					<!--          	<input type="hidden" id="fileWorkTypeId"/> -->
+					         	
+					         	<select id="win_fileWorkType">
+					            	<option>sadasd</option>
+					            </select>
+					         	
+					        </dd>
+					        <dd id="win_isProve_div">
+					        	<label><input type="checkbox" value="1" id="win_isProve"/>签署凭证</label>
+					        </dd>
+					    </dl>
+					    <dl class="fmdl clearfix">
+					    	<dt>所属项目：</dt>
+					        <dd>
+					            <input type="hidden" id="win_sopFileId" data-tid=""  class="txt disabled"/>
+					        	<input type="text" id="win_sopProjectId" data-tid=""  class="txt disabled"/>
+					        </dd>
+					       <dd><a class="searchbtn null" id="win_searchProjectBtn" href="javascript:;">搜索</a></dd>
+					   
+					    </dl>
+					    
+					     <dl class="fmdl clearfix">
+					    	<dt>文档上传：</dt>
+					        <dd>
+					        	<input type="text" class="txt" id="win_fileTxt" readonly="readonly"/>
+					        </dd>
+					        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="win_selectBtn">选择档案</a></dd>
+					    </dl>  
+					    <TEXTAREA ID="win_FILELIST"></TEXTAREA>
+					<!--     <div class="fmarea"> -->
+					<!-- 		<div  id="filelist"></div> -->
+					<!-- 		<div  id="console"></div> -->
+					<!--     </div> -->
+					    <a href="javascript:;" class="pubbtn bluebtn" id="win_uploadBtn" style="margin-left:80px;">上传保存</a>
+					<%--     <input type="hidden" id="pathInput" value="<%=path%>"> --%>
+						</div>
+					</div>
                     <div class="compile_on_center">
                        <div class="compile_on_left">
                            <span class="pubbtn bluebtn" onclick="add();">保存</span>
@@ -147,8 +209,8 @@
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew2.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness2.js'></script>
 <!-- 校验 -->
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
@@ -178,8 +240,12 @@ $("input:radio[name='faFlag']").change(function() {
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus", 17);
-	
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	/**
+	 * 获取项目来源下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
 	
    var TOKEN;
    var formData;
@@ -208,6 +274,15 @@ $("input:radio[name='faFlag']").change(function() {
 		$('input:radio[name="projectType"]').click(function(){
 			$("#projectTypeTip").css("display","none");
 		});
+		//项目来源切换
+		$("select[name='projectSource']").change(function(){
+			var text=$(this).find("option:checked").text();
+			if(text=="FA"){
+				$(this).siblings(".new_nputr").show();
+			}else{
+				$(this).siblings(".new_nputr").hide();
+			}
+		})
 		
 	});
 	function calculationValuations(){

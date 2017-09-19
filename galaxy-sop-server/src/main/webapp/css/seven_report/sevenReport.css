@@ -839,7 +839,6 @@ table td select option{
 	display: inline-block;
     padding-right: 10px;
     width: 61%;
-    vertical-align: middle;
 }
 .radioShow label.select_1,.radioShow label.select_2{
 	padding:0;
@@ -977,8 +976,8 @@ select::-ms-expand { display: none; }
     vertical-align: top;
     border: none;
     cursor: pointer;
-    margin-top: 6px;
     margin-left:3px;
+    vertical-align: middle;
 }
 .icheckbox_flat-blue{margin-left:5px;}
 .iradio_flat-blue.checked{

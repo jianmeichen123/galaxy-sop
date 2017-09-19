@@ -66,10 +66,10 @@ function  assembleHtml(grantTotal,i){
 		'<div class="agreement">'
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
-		     +'<h3>'+grantTotal.grantName+'</h3>'
+		     /*+'<h3>'+grantTotal.grantName+'</h3>'*/
 	         +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+fixSizeDecimal(grantTotal.grantMoney,4)+'</dd></dl>'
-             +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
-             +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'
+            /* +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
+             +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'*/
           +'</div>'    
          +'<div class="b_agreement_r fr">'
             +'<span class="pbtn bluebtn rolehide" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期注资计划" data-total-name="'+grantTotal.grantName+'">添加分期注资计划</span>'

@@ -495,7 +495,7 @@ function buildResult(title)
 			val=val.replace(/<sitg>/g,'（<sitg>').replace(/<\/sitg>/g,'<\/sitg>）');
 			$(_ele).each(function(){
 				if($(this).data("relateId")=="1006"||$(this).data("relateId")=="9006"){
-					val=val.split("的产品或服务，");
+					val=val.split("</sitg>）的产品或服务，");
 					val = val[1];
 				}
 				$(this).html(val);

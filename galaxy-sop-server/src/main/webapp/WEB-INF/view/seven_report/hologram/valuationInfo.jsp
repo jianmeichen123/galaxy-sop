@@ -468,6 +468,7 @@ function getDetailUrl(code)
 	}
 	else if(code =='operation-indices')
 	{
+		
 		return '<%=path%>/html/fincing_add_yx.html';
 	}
 	else if(code == 'valuation-reference')

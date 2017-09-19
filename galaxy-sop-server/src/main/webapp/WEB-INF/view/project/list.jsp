@@ -98,10 +98,14 @@ var pageId = "project";
                   </dd>
                 </dl>
                  <dl class="fmdl fml  fmdll clearfix">
-              		<dt >来源于FA：</dt>
-              		<dd class="clearfix">
-		                <label><input type="radio" name="faFlag" value = "1"/>是</label>
-		                <label><input type="radio" name="faFlag" value = "0"/>否</label>
+              		<dt >项目来源：</dt>
+              		<dd class="clearfix" style="width:300px;">
+		                <!-- <label><input type="radio" name="faFlag" value = "1"/>是</label>
+		                <label><input type="radio" name="faFlag" value = "0"/>否</label> -->
+		                <select name="projectSource" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+	                    	<option value="">--请选择--</option>
+	                    </select>
+                     <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 	            	</dd>
          		</dl> 
             </div>
@@ -155,7 +159,7 @@ var pageId = "project";
 			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
 			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
-			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">来源于FA<span></span></th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
 			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
 			        	<th data-field="createUname"  class="data-input" data-width="17%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
@@ -232,7 +236,6 @@ var pageId = "project";
 	 function projectInfo(value,row,index){
 		    var id=row.id;
 			var str=row.projectName;
-			console.log(str)
 			if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = '<a href="#" class="blue" data-btn="myproject" onclick="proInfo(' + id + ')" title="'+str+'">'+subStr+'</a>';
@@ -293,6 +296,15 @@ var pageId = "project";
 		if(!(!pid)){
 			info(pid);
 		}	
+		//项目来源切换
+		$("select[name='projectSource']").change(function(){
+			var text=$(this).find("option:checked").text();
+			if(text=="FA"){
+				$(this).siblings(".new_nputr").show();
+			}else{
+				$(this).siblings(".new_nputr").hide();
+			}
+		})
 	});
 	
 	/**
@@ -325,6 +337,11 @@ var pageId = "project";
 	 * @version 2016-06-21
 	 */
     createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
+    /**
+	 * 查询项目来源
+	 * @version 2017-09-19
+	 */
+	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
 	$(function(){
 		//返回附带参数功能代码
 		var initParams,
@@ -524,12 +541,18 @@ var pageId = "project";
 	 * @version 2016-06-21
 	 */
 	function projectFaFormat(value,row,index){
+		/* console.log("SDVSDVSDG");
+		console.log(value)
+		console.log(row) */
 		var retStr = '-';
 		if(row.faFlag=='1'){
 			retStr = "是";
 		}else if(row.faFlag=='0'){
 			retStr = '否';
+		}else{
+			retStr="<div>FA-</div>"
 		}
+		
 		return retStr;
 	}
 	/**

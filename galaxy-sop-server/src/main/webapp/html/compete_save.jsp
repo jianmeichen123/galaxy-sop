@@ -28,7 +28,7 @@
             <dl class="fmdl fl">
                 <dt>胜算度：</dt>
                 <dd class="clearfix">
-                    <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/>
+                    <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的整数"/>
                 </dd>
             </dl>
             <dl class="fmdl fl">
@@ -53,6 +53,52 @@
         </div>
         
         </form>
+    </div>
+    
+    <!-- 查看显示这里 -->
+    	<div class="see_block">
+    <div class="qualifications_all">
+    
+    	<form action="" id="detail-form_look_over">
+			
+       <!--  <input name="index" type="hidden" value="">
+    	<input name="id" type="hidden">
+    	<input name="titleId" type="hidden">
+    	<input name="subCode" type="hidden"> -->
+        <div class="info clearfix"> 
+            <dl class="fmdl fl">
+                <dt>主要竞争对手：</dt>
+                <dd class="clearfix oppostie_people max_this_width">
+                 <!--    <input name="field1" type="text" class="txt" maxLength="200"/> -->
+                </dd>
+            </dl>
+            <dl class="fmdl fl">
+                <dt>胜算度：</dt>
+                <dd class="clearfix win_degree max_this_width">
+                   <%--  <input name="field2" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/> --%>
+                </dd>
+            </dl>
+            <dl class="fmdl fl">
+                <dt>威胁系数：</dt>
+                <dd class="clearfix danger_degree max_this_width">
+                   <%--  <input name="field3" type="text" class="txt" maxLength="50" data-rule-verify_10_1="true" data-msg-verify_10_1="<font color=red>*</font>0到10之间的一位小数"/> --%>
+                </dd>
+            </dl>
+            <dl class="fmdl fl">
+                <dt>应对竞争的最有效措施：</dt>
+                <dd class="helpful_method">
+                  
+                </dd>
+            </dl>
+            <dl class="fmdl fl">
+                <dt>措施的有效性是否验证：</dt>
+                <dd class="clearfix verfify_orNot max_this_width"> </dd>
+            </dl>
+                        
+        </div>
+        
+        </form>
+    </div>
     </div>
     
     <div class="button_affrim">

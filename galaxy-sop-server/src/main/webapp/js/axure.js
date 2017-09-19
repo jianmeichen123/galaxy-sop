@@ -837,7 +837,16 @@
 						dataType:"html",
 						url:opts.url,
 						cache:false,
-						beforeSend: function () {
+						beforeSend: function (xhr) {
+							/**清楚浏览器缓存**/
+							xhr.setRequestHeader("If-Modified-Since","0");
+							xhr.setRequestHeader("Cache-Control","no-cache");
+							if (sessionId) {
+								xhr.setRequestHeader("sessionId", sessionId);
+							}
+							if(userId){
+								xhr.setRequestHeader("guserId", userId);
+							}
 							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.gif">'+'</img></center></div>';
 							$(_this.id).find(".tabtxt").html(imgDiv);
 						},
@@ -873,7 +882,16 @@
 						dataType:"html",
 						url:opts.url,
 						cache:false,
-						beforeSend: function () {
+						beforeSend: function (xhr) {
+							/**清楚浏览器缓存**/
+							xhr.setRequestHeader("If-Modified-Since","0");
+							xhr.setRequestHeader("Cache-Control","no-cache");
+							if (sessionId) {
+								xhr.setRequestHeader("sessionId", sessionId);
+							}
+							if(userId){
+								xhr.setRequestHeader("guserId", userId);
+							}
 							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.gif">'+'</img></center></div>';
 							$(_this.id).find(".tabtxt").html(imgDiv);
 						},

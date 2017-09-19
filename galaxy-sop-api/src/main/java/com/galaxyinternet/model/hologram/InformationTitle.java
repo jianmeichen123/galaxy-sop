@@ -1,12 +1,12 @@
 package com.galaxyinternet.model.hologram;
 
-import com.galaxyinternet.framework.core.model.PagableEntity;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
-public class InformationTitle extends PagableEntity {
+import com.galaxyinternet.framework.core.model.PagableEntity;
+
+public class InformationTitle extends PagableEntity implements Cloneable  {
 	private static final long serialVersionUID = 1L;
 
 	private Set<String> titleIds;
@@ -381,6 +381,20 @@ public class InformationTitle extends PagableEntity {
 	public void setFileList(List<InformationFile> fileList)
 	{
 		this.fileList = fileList;
+	}
+
+	@Override
+	public InformationTitle clone() 
+	{
+		try
+		{
+			return (InformationTitle)super.clone();
+		} catch (CloneNotSupportedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	

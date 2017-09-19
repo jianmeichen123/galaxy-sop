@@ -580,7 +580,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			popTitleMap(list, titleMap);
 			localCache.put(key, titleMap);
 		}
-		return titleMap;
+		Map<String,InformationTitle> map = new ConcurrentHashMap<>(titleMap.size());
+		for (Map.Entry<String,InformationTitle> e : titleMap.entrySet())
+		{
+			map.put(e.getKey(), e.getValue().clone());
+		}
+		return map;
 	}
 	
 
@@ -924,7 +929,6 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 		if(localCache.containsKey(key))
 		{
 			result = (TitleInfoWapper)localCache.get(key);
-			result.init();
 		}
 		else
 		{
@@ -959,7 +963,7 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			result = new TitleInfoWapper(titles);
 			localCache.put(key,  result);
 		}
-		return result;
+		return result.clone();
 	}
 	
 	public InformationTitle getRelateTitleById(Long id)
@@ -1043,39 +1047,16 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			return list;
 		}
 
-		public void init()
+		@Override
+		public TitleInfoWapper clone()
 		{
-			if(list == null || list.size()==0)
+			List<InformationTitle> originalList = getList();
+			List<InformationTitle> newList = new ArrayList<>(originalList.size());
+			for(InformationTitle original : originalList)
 			{
-				return;
+				newList.add(original.clone());
 			}
-			for(InformationTitle title : list)
-			{
-				if(title.getFixedTableList() != null && title.getFixedTableList().size() >0)
-				{
-					title.getFixedTableList().clear();
-				}
-				if(title.getTableHeader() != null)
-				{
-					title.setTableHeader(null);
-				}
-				if(title.getResultList() != null && title.getResultList().size()>0)
-				{
-					title.getResultList().clear();
-				}
-				if(title.getDataList() != null && title.getDataList().size()>0)
-				{
-					title.getDataList().clear();
-				}
-				if(title.getWeight() != null)
-				{
-					title.setWeight(null);
-				}
-				if(title.getFileList() != null)
-				{
-					title.getFileList().clear();
-				}
-			}
+			return new TitleInfoWapper(newList);
 		}
 	}
 	

@@ -74,7 +74,7 @@
       	</c:if>
       </div>
 
-<jsp:include page="../../common/uploadwin.jsp" flush="true"></jsp:include>
+
 <jsp:include page="../../sopFile/projectDialog.jsp" flush="true"></jsp:include>
 <jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
 
@@ -109,5 +109,5 @@
   
 </script>
 
-<script src="<%=path %>/js/teamSheetNew.js"></script>
+<script src="<%=path %>/js/teamSheetNew2.js"></script>
 <script src="<%=path %>/js/filerepository.js"></script>

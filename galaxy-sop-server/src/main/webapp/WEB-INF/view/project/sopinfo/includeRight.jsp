@@ -60,7 +60,7 @@
 		                        <li><span class="gray_dot on"></span>投后运营</li>
 		                    </ul>
 		                </div>
-		                 <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
+		                 <span class="bluebtn new_btn_right tzlc_btn">进入投资流程</span>
 		            </div>
 				
             	
@@ -96,6 +96,7 @@
                 </div>
                  <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
             </div>
+            <span class="bluebtn new_btn_right tzlc_btn">进入投资流程</span>
             </div>
            
         	<!-- 七大报告入口开始 -->
@@ -106,31 +107,73 @@
 				 <c:when test="${(fx:hasRoles('1,2,18,19') || (fx:hasRole(3) && fx:inOwnDepart('project',pid) ) || (!fx:hasRole(4) &&fx:isForTask(pid)) || (fx:isCreatedByUser('project',pid) ))}">
 					<li class="seven_link1" onclick="seven_link(1);">
 						<img src="<%=path %>/img/seven_report/qx.png" />
-						<span>全息报告</span>	
+						<span>全息报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>
 					</li>
 					<li class="seven_link2" onclick="seven_link(2);">
 						<img src="<%=path %>/img/seven_report/pc.png" />
-						<span>评测报告</span>	
+						<span>评测报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link3" onclick="seven_link(3);">
 						<img src="<%=path %>/img/seven_report/jd.png" />
-						<span>尽调报告</span>	
+						<span>尽调报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link4" onclick="seven_link(4);">
 						<img src="<%=path %>/img/seven_report/jc.png" />
-						<span>决策报告</span>	
+						<span>决策报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link5" onclick="seven_link(5);">
 						<img src="<%=path %>/img/seven_report/cp.png" />
-						<span>初评报告</span>	
+						<span>初评报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link6" onclick="seven_link(6);">
 						<img src="<%=path %>/img/seven_report/rz.png" />
-						<span>融资报告</span>	
+						<span>融资报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					<li class="seven_link7" onclick="seven_link(7);">
 						<img src="<%=path %>/img/seven_report/yy.png" />
-						<span>运营报告</span>	
+						<span>运营报告</span>
+						<div class="progress-contain">
+							  <div class="processcontainer">  
+							      <div class="processbar" style="width:0%;"></div>
+							  </div>  
+							  <span class="percent_number"></span>
+						</div>	
 					</li>
 					 </c:when>
 					 <c:otherwise>
@@ -210,11 +253,13 @@
 var pRigthInfo = ${proinfo}
 var proid = pid;
 var prograss = pRigthInfo.projectProgress;
-var prograss_name=pRigthInfo.progress
+var prograss_name=pRigthInfo.progress;
+var prostatus = pRigthInfo.projectStatusDs
+$(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 if('${fx:isTransfering(pid)}' == 'true')
-{
-	$('.fjxm_but').addClass("disabled");
+{	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
+	  $(".tzlc_btn").addClass("disabled")
 	if(isCreatedByUser == "true"){
 	  $(".cxxm_btn").attr("style","display:block;");
 	}else{
@@ -248,19 +293,19 @@ function seven_link(data){
 	var _href=window.location.href;
 	setCookie("back_url",_href,24,'/');
 	if(data==1){
-		window.location.href=platformUrl.toBaseInfo+'?pid=${pid}';
+		window.location.href=platformUrl.toBaseInfo+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==2){
-		window.location.href=platformUrl.toEvalindex+'?pid=${pid}';
+		window.location.href=platformUrl.toEvalindex+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==3){
-		window.location.href=platformUrl.investigate+'?pid=${pid}';
+		window.location.href=platformUrl.investigate+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==4){
-		window.location.href=platformUrl.toDecision+'?pid=${pid}';
+		window.location.href=platformUrl.toDecision+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==5){
-		window.location.href=platformUrl.toPreEva+'?pid=${pid}';
+		window.location.href=platformUrl.toPreEva+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==6){
-		window.location.href=platformUrl.toFinancing+'?pid=${pid}';
+		window.location.href=platformUrl.toFinancing+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}else if(data==7){
-		window.location.href=platformUrl.toOperation+'?pid=${pid}';
+		window.location.href=platformUrl.toOperation+'?pid=${pid}'+"&sid="+sessionId+"&guid="+userId;
 	}
 	
 }
@@ -430,8 +475,6 @@ function init_lct(){
 	var ul_li = $(".line_ul_p").children("li");
 	$(ul_li).each(function(i){
 		if(index!=0 && i!=0){
-			console.log($(this).text());
-			console.log(prograss_name);
 			if($(this).text()==prograss_name){
 				$(this).addClass("green_dot");
 				$(this).prevAll().addClass("green_dot");
@@ -702,6 +745,85 @@ $(function(){
 		$(".cxxm_btn").removeClass("new_btn_right").addClass("new_btn");
 	}
 })
+var reportProgress = '${reportProgress}';
+console.log(reportProgress);
+var progressObject = JSON.parse(reportProgress);
+/* console.log(typeof(progressObject));
+console.log(progressObject.no);
+console.log(Math.round(progressObject.no*100)); */
+var no = Math.round(progressObject.no*100);//全息报告
+var en = Math.round(progressObject.en*100);//评测报告
+var dn = Math.round(progressObject.dn*100);//尽调报告
+var pn = Math.round(progressObject.pn*100);//决策报告
+var cn = Math.round(progressObject.cn*100);//初评报告
+var gn = Math.round(progressObject.en*100);//融资报告
+var on = Math.round(progressObject.on*100);//运营报告
+
+
+
+/* var progressObject = {
+		"projectId":837,
+		"uid":104,
+		"no":0.03896,
+		"dn":0.02273,
+		"pn":0.0,
+		"gn":0.02336,
+		"on":0.0,
+		"en":0.0,
+		"cn":0.0,
+		"id":150,
+		"createdTime":1505285294341,
+		"updatedTime":1505298252539
+} */
+
+/* 进度条 */
+function setProcess(num){  
+  var processbar = document.getElementsByClassName("processbar"); 
+  var percent_number =document.getElementsByClassName("percent_number");  
+ // console.log(processbar[3]);
+    for(var i=0;i<processbar.length;i++){
+    	if(num === no){
+    		 processbar[0].style.width = parseInt(num)+"%";
+    	  	 percent_number[0].innerHTML = parseInt(num)+"%";
+    	}
+    	if(num === en){
+    		 processbar[1].style.width = parseInt(num)+"%";
+    	  	 percent_number[1].innerHTML = parseInt(num)+"%";
+    	}
+    	if(num === dn){
+	   		 processbar[2].style.width = parseInt(num)+"%";
+		  	 percent_number[2].innerHTML = parseInt(num)+"%";
+		}
+    	if(num === pn){
+	   		 processbar[3].style.width = parseInt(num)+"%";
+		  	 percent_number[3].innerHTML = parseInt(num)+"%";
+		}  
+    	if(num === cn){
+	   		 processbar[4].style.width = parseInt(num)+"%";
+		  	 percent_number[4].innerHTML = parseInt(num)+"%";
+		}  
+    	if(num === gn){
+	   		 processbar[5].style.width = parseInt(num)+"%";
+		  	 percent_number[5].innerHTML = parseInt(num)+"%";
+		}
+    	if(num === on){
+	   		 processbar[6].style.width = parseInt(num)+"%";
+		  	 percent_number[6].innerHTML = parseInt(num)+"%";
+		}
+		
+	 	
+  	}
+  
+  
+ }  
+setProcess(no);
+setProcess(en);
+setProcess(dn);
+setProcess(pn);
+setProcess(cn);
+setProcess(gn);
+setProcess(on); 
+  
 
 	
 

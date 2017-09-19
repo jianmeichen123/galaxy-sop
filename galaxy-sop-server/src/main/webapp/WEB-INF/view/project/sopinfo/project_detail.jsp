@@ -117,14 +117,14 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/teamSheetNew.js"></script>
-<script src="<%=path %>/js/planbusiness.js"></script>
+<script src="<%=path %>/js/teamSheetNew2.js"></script>  
+<script src="<%=path %>/js/planbusiness2.js"></script>
 <script src="<%=path %>/js/projectDetail/tabFile.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/projectDetail.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/appro.js" type="text/javascript"></script>
 <script src="<%=path %>/js/base_appropriation.js" type="text/javascript"></script>
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript"></script>
-<script src="<%=path %>/js/projectDetail/proPerOp.js"></script>
+<%-- <script src="<%=path %>/js/projectDetail/proPerOp.js"></script> --%>
 <script src="<%=path %>/js/v_baseInfo_project_history.js" type="text/javascript"></script>
  
 <!--提示验证  -->

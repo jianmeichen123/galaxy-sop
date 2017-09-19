@@ -401,19 +401,19 @@ function edit_box_page(e_type,dom,type,valueList,entity){
 		 if(type==2||type==5||type==6||type==12){
 			 $.each(valueList,function(i,n){
 				 if(n.name=="其他"){
-				 result_html += "<input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" >"	 
+				 result_html += "<div class=\"icheck\"><input type=\"radio\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" ></div>"	 
 				 }else{
-				 result_html += "<input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
+				 result_html += "<div class=\"icheck\"><input type=\"radio\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label></div>"	 
 				 }
 			 })
 		}else if(type==1){
-			result_html ="<input type=\"text\" data-id="+entity.id+" placeholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" >";
+			result_html ="<div class=\"icheck\"><input type=\"text\" data-id="+entity.id+" placeholder="+entity.placeholder+" data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+" ></div>";
 		}else if(type==13||type==3){
 			 $.each(valueList,function(i,n){						 
 				 if(n.name=="其他"){
-				 result_html += "<input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\"  required data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+">"	 
+				 result_html += "<div class=\"icheck\"><input type=\"checkbox\" class=\"others\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><input type=\"text\" name=\"\" class=\"others_text\" value=\"\"  required data-valrule="+entity.valRule+" data-valrulemark="+entity.valRuleMark+"></div>"	 
 				 }else{
-				 result_html += "<input type=\"checkbox\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label><br/>"	 
+				 result_html += "<div class=\"icheck\"><input type=\"checkbox\" name="+n.titleId+" value="+n.id+" data-title-id="+n.titleId+" value="+n.code+"/><label>"+n.name+"</label></div>"	 
 				 }
 			 })
 		}else if(type==18){
@@ -877,7 +877,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 						str1=str.replace(/<sitg>/g,'（<sitg>');
 						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');						
 					} 
-					sp_str1=str1.split("的产品或服务，");
+					sp_str1=str1.split("</sitg>）的产品或服务，");
 					sp_str1=sp_str1[1];					
 					dds.html(d_this.remark1==undefined ?"未填写":str1);
 					sp_dds.html(d_this.remark1==undefined ?"未填写":sp_str1);
