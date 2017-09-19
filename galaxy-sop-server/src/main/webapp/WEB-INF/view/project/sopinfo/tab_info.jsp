@@ -508,15 +508,12 @@ if(isTransfering == 'true'){
 	});
 	
 	/* 股权结构 */
-	  searchFH();
-	var $sharesTable;
 	var isTransfering = "${fx:isTransfering(pid) }";
 	if(isTransfering == 'true')
 	{
 		$('.legal [data-btn="edit"]').addClass('limits_gray');
 		$('#add_share_bth').addClass('limits_gray');
 	}
-	//refreshCompanyInfo();
 	$('.legal [data-btn="edit"]').on('click',function(){
 		if($(this).hasClass('limits_gray'))
 		{
@@ -536,7 +533,6 @@ if(isTransfering == 'true'){
 	    $('.legal .show').show();
 		$('.legal .hidden').hide();
 	});
-		
 	$('#company-info-form [name="formationDate"]').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
@@ -550,237 +546,16 @@ if(isTransfering == 'true'){
 	    forceParse:false,
 	    currentText: 'Now'
 	});
-	 function remarkFormater(value,row,index){
-		    var id=row.id;
-			var str=row.remark;
-			if(typeof(str)=="undefined"){
-				var options = "<label>"+"-"+"</label>";
-				return options;
-			}else if(typeof(str)!="undefined" && str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
-				return options;
-			}else{
-				var options = "<label title='"+str+"'>"+str+"</label>";
-				return options;
-			}
-			/* if(str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
-				return options;
-			}
-			else{
-				var options = "<label title='"+str+"'>"+str+"</label>";
-				return options;
-			} */
-		}
-	 function typeFormatter(value,row,index){
-		    var id=row.id;
-			var str=row.sharesType;
-			if(typeof(str)=="undefined"){
-				var options = "<label>"+"-"+"</label>";
-				return options;
-			}else if(typeof(str)!="undefined" && str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
-				return options;
-			}else{
-				var options = "<label title='"+str+"'>"+str+"</label>";
-				return options;
-			}
-		}
-	 function sharesOwnerFormatter(value,row,index){
-		    var id=row.id;
-			var str=row.sharesOwner;
-			if(typeof(str)=="undefined"){
-				var options = "<label>"+"-"+"</label>";
-				return options;
-			}else if(typeof(str)!="undefined" && str.length>10){
-				subStr = str.substring(0,10);
-				var options = "<label title='"+str+"'>"+subStr+"</label>";
-				return options;
-			}else{
-				var options = "<label title='"+str+"'>"+str+"</label>";
-				return options;
-			}
-		}
-	 function gainModeFormatter(value,row,index){
-		    var id=row.id;
-			var str=row.gainMode;
-			if(null!=str){
-				if(str.length>10){
-					subStr = str.substring(0,10);
-					var options = "<label title='"+str+"'>"+subStr+"</label>";
-					return options;
-				}
-				else{
-					var options = "<label title='"+str+"'>"+str+"</label>";
-					return options;
-				}
-			}else{
-				var options = "<label title='--'>--</label>";
-				return options;
-			}
-			
-		}
+
 	
 	
 	function editCompany()
 	{
-		/* initCompanyFormData(); */
 		buildShareResult("4","5812");
     	$('.bj_hui_on').show();
 		$('.legal .show').hide();
 		$('.legal .hidden').show();
 	}
-	//股权结构列表
-	$sharesTable = $("#shares-table").bootstrapTable({
-		queryParamsType: 'size|page', 
-		pageSize:10,
-		url: platformUrl.projectSharesList,  
-		showRefresh : false ,
-		sidePagination: 'server',
-		method : 'post',
-		pagination: true,
-        search: false,
-        onLoadSuccess: function (data) {
-       		$("#shares-table span.edit").click(function(){
-       			editStock($(this).data('id'));
-       		});
-       		$("#shares-table span.del").click(function(){
-       			delStock($(this).data('id'));
-       		});
-        }
-	});
-	
-	function shareOperatFormater(val,row,index)
-	{
-		var e = '<span class="edit" data-id="'+row.id+'">编辑</span> ';  
-        var d = '<span class="del" data-id="'+row.id+'">删除</span>';  
-        return e+d;  
-	}
-	function editStock(id){
-    	var _url = platformUrl.editStockView+id;
-		$.getHtml({
-			url:_url,
-			okback:function(){
-				$("#up_stock_form #projectId").val("${projectId}");
-				sendPostRequest(platformUrl.selectEntityShare+"/"+id,  function(data){
-					setDataShare(data.entity);
-			});
-				
-			},
-			hideback:function(){
-				$sharesTable.bootstrapTable('refresh');
-			}
-		});
-		return false;
-    }
-	
-	function setDataShare(data){
-		console.log(data);
-		$("#sharesOwner").val(data.sharesOwner);		
-		$("#sharesRatio").val(data.sharesRatio);
-		var sharesType=data.sharesType;
-		var options= $("select[name='sharesType'] option");
-		for(var i=0;i<options.length;i++){
-			if(options[i].value==sharesType){
-				options[i].selected='selected';
-			}
-		}
-		$("#remark").val(data.remark);
-		$("#id").val(data.id);
-	}
-	function delStock(id)
-	{
-		layer.confirm(
-			'确定要删除数据？',
-			function(index){
-				layer.close(index);
-				var url = platformUrl.deleteProjectShares+id+"/${projectId}";
-				sendGetRequest(
-					url,
-					{},
-					function(data){
-						if(data.result.status=="OK")
-						{
-							layer.msg('删除成功');
-							$("#shares-table").bootstrapTable('refresh',{url : platformUrl.projectSharesList});	
-						}
-						else
-						{
-							layer.msg(data.result.message);
-						}
-						
-					}
-				);
-			}
-		);
-		
-	}
-	/* function addSharesView(){
-		if(isTransfering == 'true')
-		{
-			return;
-		}
-		$.getHtml({
-			url:platformUrl.addSharesView,
-			okback:function(){
-				$("#stock_form #projectId").val("${projectId}");
-			},
-			hideback:function(){
-				$sharesTable.bootstrapTable('refresh');
-			}
-		});
-		return false;
-	} */
-	function updateStock()
-	{
-		if(beforeSubmit())
-		{
-			sendPostRequestByJsonObj(
-					platformUrl.updateStock, 
-				JSON.parse($("#up_stock_form").serializeObjectIsNotNull()), 
-				function(data){
-					if(data.result.status=="OK")
-					{
-						layer.msg('保存成功');
-						console.log($(".pop .close")[0]);
-						$("[data-close='close']").click();
-						$("#shares-table").bootstrapTable('refresh');
-					}
-					else
-					{
-						layer.msg(data.result.message);
-					}
-				}
-			);
-		}
-	}
-	function savaStock(){
-		if(beforeSubmit())
-		{
-			sendPostRequestByJsonObj(
-				platformUrl.addStock, 
-				JSON.parse($("#stock_form").serializeObjectIsNotNull()), 
-				function(data){
-					if(data.result.status=="OK")
-					{
-						layer.msg('保存成功');
-						console.log($(".pop .close")[0]);
-						$("[data-close='close']").click();
-						$("#shares-table").bootstrapTable('refresh');
-					}
-					else
-					{
-						layer.msg(data.result.message);
-					}
-				}
-			);
-		}
-	}
-	
-	
 	
 </script>
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
