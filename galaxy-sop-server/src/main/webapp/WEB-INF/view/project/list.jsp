@@ -159,7 +159,7 @@ var pageId = "project";
 			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
 			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="8%">项目进度<span></span></th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
-			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">来源于FA<span></span></th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="8%">项目来源<span></span></th>
 			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
 			        	<th data-field="createUname"  class="data-input" data-width="17%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
