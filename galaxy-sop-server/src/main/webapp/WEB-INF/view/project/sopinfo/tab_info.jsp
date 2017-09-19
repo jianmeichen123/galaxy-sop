@@ -137,10 +137,10 @@
                              <td>
 	                             <span class="new_color_gray">项目来源：</span>
 	                             <span class="mar_left">
-	                             	<select name="projectSource" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+	                             	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" >
 				                    	<option value="">--请选择--</option>
 				                    </select>
-	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faNameEdit" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
+	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-required="<font color=red>*</font><i></i>必填" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20"/>
 	                             </span>
                              </td>
                            </tr>
@@ -441,8 +441,10 @@ if(isTransfering == 'true'){
 		var text=$(this).find("option:checked").text();
 		if(text=="FA"){
 			$(this).siblings(".new_nputr").show();
+			$(this).siblings(".new_nputr").attr("required","required");
 		}else{
 			$(this).siblings(".new_nputr").hide();
+			$(this).siblings(".new_nputr").remove("required");
 		}
 	})
 	//运营数据分析返回

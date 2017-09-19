@@ -557,7 +557,6 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
-			saveBaseInfo("basicForm");
 			var data=getUpdateData();
 			
 			if(!$("#basicForm").validate().form())
@@ -565,6 +564,7 @@ $(function(){
 				labelPosition();
 				return;
 			}
+			saveBaseInfo("basicForm");
 					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 						//console.log(data1);
 						if(data2.result.status=="OK"){
