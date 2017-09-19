@@ -606,7 +606,6 @@ $(function(){
 			}else{
 				faName="";
 			}
-			alert(faFlag)
 			//处理投资形式
 			var investForm= $("input[name='investForm']:checked").val();
 			var arr=[];
