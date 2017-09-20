@@ -318,6 +318,7 @@ if('${fx:isTransfering(pid)}' == 'true')
 	  $(".yjxm_btn").attr("style","display:block;");
 	  $(".yjxm_btn").addClass("disabled");
 	  $(".yjxm_btn").removeAttr("onclick");
+	  $(".tzlc_btn").remove();
 	}
 	$("#cxxm_btn").attr("style","display:none;");
 }

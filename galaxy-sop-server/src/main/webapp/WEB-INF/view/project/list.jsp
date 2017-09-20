@@ -547,12 +547,12 @@ var pageId = "project";
 		}else if(row.faFlag=='0'){
 			retStr = '否';
 		}else{
-			if(row.faName.length>4){
+			/* if(row.faName.length>4){
 				var name=row.faName.slice(0,4) 
 				retStr="<div title='FA-"+row.faName+"'>FA-"+name+"</div>"
 			}else{
 				retStr="<div>FA-"+row.faName+"</div>"
-			}
+			} */
 			
 		}
 		
