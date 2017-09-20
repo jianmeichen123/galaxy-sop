@@ -420,7 +420,7 @@
 </div>
 <!--隐藏-->
 <div class="bj_hui_on"></div>
-<script type="text/javascript">
+<script type="text/javascript">	
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
@@ -500,7 +500,6 @@
 	if(isTransfering == 'true')
 	{
 		$('.legal [data-btn="edit"]').addClass('limits_gray');
-		$('#add_share_bth').addClass('limits_gray');
 	}
 	$('.legal [data-btn="edit"]').on('click',function(){
 		if($(this).hasClass('limits_gray'))

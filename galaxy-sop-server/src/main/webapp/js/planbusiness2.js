@@ -220,7 +220,7 @@ var initPage = {
 			if(data.result.status=="OK"){
 				//为空时候显示
 				var grayClass = "";
-				if(isTransfering=='true')
+				if(isTransferings=='true')
 				{
 					grayClass = " limits_gray";
 				}

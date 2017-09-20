@@ -46,6 +46,7 @@
 <script type="text/javascript">
 var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
 var isTransfering = "${fx:isTransfering(projectId) }";
+var isTransferings = "${fx:isTransfering(projectId) }";
 var projectInfo;
 $(function(){
 	//createMenus(4);
