@@ -67,7 +67,7 @@
                             </span>
                         	<span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
                             <span class="m_r30">
-								<select name="financeStatus" class='new_nputr'>
+								<select name="financeStatus" class='new_nputr' valtype="required" msg="<font color=red>*</font>本轮融资轮次不能为空">
 								<option value="">--请选择--</option>
 			                    </select>
 							</span>
