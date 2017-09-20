@@ -797,9 +797,9 @@ function buildTable(sec,title)
 					$('.limit-number').each(function(){
 						var _this = $(this);
 						var tdText = _this.text();
-						var limitTd = tdText.substr(0,20);
-						_this.text(limitTd)
-							
+						console.log(tdText);
+						_this.attr('title',tdText);
+						//_this.setAttribute('title',"tdText");
 					})
 				};
 				//股权结构合理性
@@ -809,20 +809,21 @@ function buildTable(sec,title)
 					$('.limit-number').each(function(){
 						var _this = $(this);
 						var tdText = _this.text();
-						var limitTd = tdText.substr(0,10);
-						_this.text(limitTd);
+						_this.attr('title',tdText);
 							
 					})
 				}
-				//主要战略投资人；
+				//主要战略投资人/财务投资人；
 				if(dataCode === "investor-situation" ){
 					var targetTd = table.find('tr').find('td:eq(1)');
 					targetTd.addClass('limit-number');
+					targetTd.css({width:'14.28%',overflow:"hidden"});
+					targetTd.css('text-overflow','ellipsis');
+					targetTd.css('white-space','nowrap');
 					$('.limit-number').each(function(){
 						var _this = $(this);
 						var tdText = _this.text();
-						var limitTd = tdText.substr(0,10);
-						_this.text(limitTd);
+						_this.attr('title',tdText);
 							
 					})
 				};
@@ -2038,7 +2039,7 @@ function editRow(ele)
 			var dataCode = $(ele).closest('table').attr('data-code');
 			//市场同类型公司估值参考
 			if(dataCode === 'valuation-reference'){
-				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
 				targetTd.addClass('limit-number');
 				$('.limit-number').each(function(){
 					var _this = $(this);
@@ -2047,19 +2048,13 @@ function editRow(ele)
 					_this.text(limitTd)
 					console.log(limitTd);
 						
-				})
-				$(".number_limits").on("input propertychange", function() {
-		       		 var $this = $(this); 
-		            _val = $this.val(); 
-			        if (_val.length > 20) {  
-			            $this.val(_val.substring(0, 20));  
-			        }  
-				});  
+				})*/
+				  
 
 			};
 		//股权结构的合理性||股权结构table；
 			if(dataCode === 'share-holding'||dataCode === 'equity-structure'){
-				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
 				targetTd.addClass('limit-number');
 				$('.limit-number').each(function(){
 					var _this = $(this);
@@ -2068,19 +2063,13 @@ function editRow(ele)
 					_this.text(limitTd)
 					console.log(limitTd);
 						
-				})
-				$(".number_limits").on("input propertychange", function() {
-		       		 var $this = $(this); 
-		            _val = $this.val(); 
-			        if (_val.length > 10){  
-			            $this.val(_val.substring(0, 10));  
-			        }  
-				});  
+				})*/
+				  
 
 			};
 			//主要战略投资人
 			if(dataCode === 'investor-situation'){
-				var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
 				targetTd.addClass('limit-number');
 				$('.limit-number').each(function(){
 					var _this = $(this);
@@ -2089,14 +2078,8 @@ function editRow(ele)
 					_this.text(limitTd)
 					console.log(limitTd);
 						
-				})
-				$(".number_limits").on("input propertychange", function() {
-		       		 var $this = $(this); 
-		            _val = $this.val(); 
-			        if (_val.length > 10){  
-			            $this.val(_val.substring(0, 10));  
-			        }  
-				});  
+				})*/
+				
 
 			};
 			
