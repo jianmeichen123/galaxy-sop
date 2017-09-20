@@ -440,13 +440,13 @@ public enum DictEnum {
 		        return null;
 		    }
 		}
-		//内部评审会议结果-
+		//项目信息与报告关联关系
 				public enum titleIdResult
 				{
 					NP("内评会","1111"),
 					LX("立项会","1113"),
-					TJ("投决会","1114");
-					
+					TJ("投决会","1114"),
+					RZZT("融资状态","1108");
 					private String name;
 
 					private String code;
@@ -475,6 +475,48 @@ public enum DictEnum {
 				        if (code != null && !code.trim().equals("")) {
 				            
 				        	titleIdResult[] values = titleIdResult.values();
+				            for (int i = 0;i < values.length;i++) {
+				                if (code.equals(values[i].getCode())) {
+				                    return values[i].getName();
+				                }                
+				            }
+				        }
+				        return null;
+				    }
+				}
+				//数据字典对应的字段处理
+				public enum columnDict
+				{
+					fa_flag("项目来源","projectSource");
+				
+					private String name;
+
+					private String code;
+					
+
+					private columnDict(String name, String code) {
+						this.name = name;
+						this.code = code;
+					}
+
+					public String getName() {
+						return name;
+					}
+
+					public String getCode() {
+						return code;
+					}
+					
+					/**
+				     * 根据code get name
+				     * @param reslut
+				     * @return
+				     */
+				    public static String getNameByCode(String code) {
+				        
+				        if (code != null && !code.trim().equals("")) {
+				            
+				        	columnDict[] values = columnDict.values();
 				            for (int i = 0;i < values.length;i++) {
 				                if (code.equals(values[i].getCode())) {
 				                    return values[i].getName();

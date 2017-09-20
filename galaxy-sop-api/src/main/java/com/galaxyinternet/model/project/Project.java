@@ -78,7 +78,9 @@ public class Project extends PagableEntity {
 	private Long startTime; 
 	private Long endTime;
 	
-	private String  faFlag;//项目是否来自中介
+	private String  faFlag;//项目来源
+	
+	private String faFlagStr;
 	
 	private String faName;//中介名称
 	
@@ -619,7 +621,10 @@ public class Project extends PagableEntity {
 	}
 
 	public void setFaFlag(String faFlag) {
-		this.faFlag = faFlag;
+		this.faFlag = faFlag == null ? null: faFlag.trim();
+        if(faFlag != null){
+			this.faFlagStr = DictEnum.projectSource.getNameByCode(faFlag);
+		}
 	}
 
 	public String getFaName() {
@@ -793,7 +798,11 @@ public class Project extends PagableEntity {
 	public void setIsDelete(List<Long> isDelete) {
 		this.isDelete = isDelete;
 	}
-   
+
+	public String getFaFlagStr() {
+		return faFlagStr;
+	}
+
     
 
 

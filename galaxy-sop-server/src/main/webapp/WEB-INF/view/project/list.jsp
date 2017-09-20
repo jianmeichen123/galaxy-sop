@@ -555,8 +555,8 @@ var pageId = "project";
 			} */
 			
 		}
-		
-		return retStr;
+		//alert(r)
+		return row.faFlagStr;
 	}
 	/**
 	 * 项目进度格式化

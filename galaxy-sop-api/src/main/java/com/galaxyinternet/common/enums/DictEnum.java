@@ -728,24 +728,19 @@ public enum DictEnum {
 		}
 		// 融资状态
 		public enum financeStatus {
-			尚未获投("尚未获投", "financeStatus:0"),
-			种子轮("种子轮", "financeStatus:1"),
-			天使轮("天使轮", "financeStatus:2"),
-			PreA轮("Pre-A轮", "financeStatus:3"),
-			A轮("A轮", "financeStatus:4"),
-			A2轮("A+轮", "financeStatus:5"),
-			PreB轮("Pre-B轮", "financeStatus:6"), 
-			B轮("B轮", "financeStatus:7"),
-			B2轮("B+轮", "financeStatus:8"),
-			C轮("C轮", "financeStatus:9"),
-			D轮("D轮", "financeStatus:10"),
-			E轮("E轮", "financeStatus:11"),
-			F轮上市前("Pre-IPO", "financeStatus:12"),
-			已上市("已上市", "financeStatus:13"),
-			新三板("新三板", "financeStatus:14"),
-			战略投资("战略投资", "financeStatus:15"),
-			已被收购("已被收购", "financeStatus:16"),
-			不明确("不明确", "financeStatus:17");
+			尚未获投("尚未获投", "尚未获投"),
+			种子轮("种子轮", "1122"),
+			天使轮("天使轮", "1123"),
+			PreA("PreA", "1124"),
+			A轮("A轮", "1125"),
+			B轮("B轮", "1126"),
+			C轮("C轮", "1127"),
+			IPO("IPO", "1128"),
+			已上市("已上市", "1129"),
+			新三板挂牌("新三板挂牌", "1130"),
+			并购("并购", "1139"),
+			战略投资("战略投资", "1140"),
+			不明确("不明确", "不明确");
 			private String name;
 			private String code;
 
@@ -784,7 +779,52 @@ public enum DictEnum {
 			
 			
 		}
-		
+		// 融资状态
+				public enum projectSource {
+					事业部("事业部", "projectSource:0"),
+					FA("FA", "projectSource:1"),
+					创业者("创业者", "projectSource:2"),
+					外部独立合伙人("外部独立合伙人", "projectSource:3"),
+					其他部门推荐("其他部门推荐", "projectSource:4"),
+					其他("其他", "projectSource:5");
+					private String name;
+					private String code;
+
+					private projectSource(String name, String code) {
+						this.name = name;
+						this.code = code;
+					}
+
+					public String getName() {
+						return name;
+					}
+
+					public String getCode() {
+						return code;
+					}
+
+					/**
+					 * 根据code get name
+					 * 
+					 * @param reslut
+					 * @return
+					 */
+					public static String getNameByCode(String code) {
+
+						if (code != null && !code.trim().equals("")) {
+
+							projectSource[] values = projectSource.values();
+							for (int i = 0; i < values.length; i++) {
+								if (code.equals(values[i].getCode())) {
+									return values[i].getName();
+								}
+							}
+						}
+						return null;
+					}
+					
+					
+				}
 		
 		
 		/**
