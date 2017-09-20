@@ -58,7 +58,7 @@ function buildMemberTable(title){
                         tr +='<th data-field-name="'+key+'">'+header[key]+'</th>';
                     }
                 }
-                tr +='<th data-field-name="opt">操作</th>';
+    			tr +='<th data-field-name="opt">操作</th>';
                 tr+="</tr>";
     			table.append(tr);
     		});
@@ -131,8 +131,10 @@ function buildMemberRow(headerList,row)
 
 	var td = $('<td data-field-name="opt"></td>');
         td.append('<label class="blue" data-btn="btn" onclick="showMemberRow(this)">查看</label>');
-        td.append('<label class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</label>');
-        td.append('<label class="blue" data-btn="btn" onclick="delMemberRow(this)">删除</label>');
+        if(isCreatedByUser=='true'){
+        	 td.append('<label class="blue" data-btn="btn" onclick="editMemberRow(this)">编辑</label>');
+             td.append('<label class="blue" data-btn="btn" onclick="delMemberRow(this)">删除</label>');
+        }
         tr.append(td);
 	return tr;
 }

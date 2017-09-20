@@ -301,7 +301,8 @@ $(".tzlc_btn").attr("onclick","progress("+pid+",'detail')");
 if('${fx:isTransfering(pid)}' == 'true')
 {	$('.fjxm_but').addClass("disabled");
 	$(".yjxm_btn").attr("style","display:none;");
-	  $(".tzlc_btn").addClass("disabled")
+	  $(".tzlc_btn").addClass("disabled");
+	  $("#upload_btn").addClass("limits_gray")
 	if(isCreatedByUser == "true"){
 	  $(".cxxm_btn").attr("style","display:block;");
 	}else{
