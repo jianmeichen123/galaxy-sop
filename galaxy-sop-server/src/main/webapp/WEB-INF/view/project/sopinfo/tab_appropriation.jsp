@@ -130,12 +130,19 @@ var searchPartMoney;
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
+					key = Date.parse(new Date());
+					delete deleteJSON.partDelFile;
 					$("#popup_name").html(_name);
 					$("#totalName").html(_total_name);
 					if($("#popup_name").text()=="添加分期注资计划"){
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
 					$("#projectId").val(pId);
+					 keyJSON["b_part"]=key;
+					 var params = {};
+					 params.fileReidsKey = key;
+					 params.projectId =  '${projectId}';
+					 params.titleId = "3022";
 					if(_data_type == "edit" || _data_type == "info"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
@@ -144,6 +151,7 @@ var searchPartMoney;
 							var result = data.result.status;
 							if(result == "OK"){
 								var grantPartInfo = data.entity;
+								$("#actual_aging_container [data-name='id']").val(grantPartInfo.id);
 								$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
 								$("#actual_aging_container [data-name='field2']").val(grantPartInfo.field2);
 								$("#actual_aging_container [data-name='field3']").val(grantPartInfo.field3);
@@ -168,7 +176,7 @@ var searchPartMoney;
 									$("#editMoney").html(grantPartInfo.grantMoney);
 								} */
 								$.each(data.entity.fileList,function(){
-									var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+									var but = "<button type='button' id='"+this.id+"btn' onclick=delPart('"+this.id+"','"+this.fileName+"','textarea2','partDelFile')>删除</button>" ;
 									var htm = "<tr id='"+this.id+"tr'>"+
 													"<td>"+this.fileName+"."+this.fileSuffix+
 														"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
@@ -185,6 +193,9 @@ var searchPartMoney;
 								if(fileLen==0){
 									$("#filelist").css("display","none");
 								}
+								 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
+											null,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
+											params,"actual_aging_form",null,null);
 								
 							}else{
 								layer.msg(data.result.message);
@@ -219,16 +230,6 @@ var searchPartMoney;
 						 
 					}else{
 						$("#partId").remove();
-						 key = Date.parse(new Date());
-						 keyJSON["b_part"]=key;
-						 //toInitBachUpload();
-						 var params = {};
-						 params.fileReidsKey = key;
-						 params.projectId =  '${projectId}';
-						 params.titleId = "3022";
-						 //toBachUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',null,"textarea2","select_btn",null,"actual_aging_container",null,params,null,null);
-
-					
 						 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
 									null,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
 									params,"actual_aging_form",null,null);
@@ -403,6 +404,7 @@ var searchPartMoney;
 			//进行上传
 			var result = data.status;
 			if(result == "OK"){
+				  alert("成功")
 			     //删除
 			     $("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
 				 $("#"+id+"tr").remove();

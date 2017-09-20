@@ -25,12 +25,20 @@ public class Delivery extends PagableEntity {
     
     private List<SopFile> files; 
     private List<Long> fileIds;
+    private String fids;
 
-    private String endByUname;
+	private String endByUname;
     
     private String fileReidsKey;
     
 
+    public String getFids() {
+ 		return fids;
+ 	}
+
+ 	public void setFids(String fids) {
+ 		this.fids = fids;
+ 	}
     public String getFileReidsKey() {
 		return fileReidsKey;
 	}

@@ -294,7 +294,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 			entity.setField8(model.getField8());
 			entity.setField9(model.getField9());
 			entity.setField10(model.getField10());
-			
+			entity.setRelateFileId(model.getRelateFileId());
 			User user = WebUtils.getUserFromSession();
 			Long userId = user != null ? user.getId() : null;
 			Long now = new Date().getTime();
@@ -412,6 +412,7 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					td.setField8(tm.getField8());
 					td.setField9(tm.getField9());
 					td.setField10(tm.getField10());
+					td.setRelateFileId(tm.getRelateFileId());
 					if(tm.getId() == null){
 						//新增
 						td.setId(null);

@@ -12,8 +12,6 @@ public class InformationFile extends BaseEntity{
 	
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-
     private Long projectId;
 
     private Long titleId;
@@ -58,7 +56,7 @@ public class InformationFile extends BaseEntity{
     
     private String data;
     private Set<String> titleIds;
-    
+    private List<String> fileIds;
     
     
 	
@@ -114,15 +112,6 @@ public class InformationFile extends BaseEntity{
 	public void setFileReidsKey(String fileReidsKey) {
 		this.fileReidsKey = fileReidsKey;
 	}
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getProjectId() {
         return projectId;
@@ -275,9 +264,18 @@ public class InformationFile extends BaseEntity{
 	{
 		return titleIds;
 	}
-
+ 
 	public void setTitleIds(Set<String> titleIds)
 	{
 		this.titleIds = titleIds;
 	}
+
+	public List<String> getFileIds() {
+		return fileIds;
+	}
+
+	public void setFileIds(List<String> fileIds) {
+		this.fileIds = fileIds;
+	}
+	
 }

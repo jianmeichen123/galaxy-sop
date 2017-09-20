@@ -36,6 +36,8 @@ public class TableModel extends PagableEntity {
 
 	    private String field10;
 	    
+	    private String relateFileId;
+	    
 	    private String updateTimeStr;
 	    
 	    private String updateTimeSign;
@@ -178,7 +180,15 @@ public class TableModel extends PagableEntity {
 			this.field10 = field10;
 		}
 	    
-	    private List<InformationListdata> dataList;
+	    public String getRelateFileId() {
+			return relateFileId;
+		}
+
+		public void setRelateFileId(String relateFileId) {
+			this.relateFileId = relateFileId;
+		}
+
+		private List<InformationListdata> dataList;
 	    
 		public List<InformationListdata> getDataList() {
 			return dataList;

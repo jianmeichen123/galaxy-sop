@@ -62,7 +62,7 @@
     delete from information_file
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.galaxyinternet.model.hologram.InformationFile">
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationFile">
     insert into information_file (id, project_id, title_id, 
       file_type, file_length, file_key, 
       file_name, file_suffix, bucket_name, 
@@ -87,6 +87,12 @@
     <trim prefixOverrides="and">  
 	    <if test="projectId != null"> and project_id = #{projectId}</if> 
 	    <if test="titleId != null"> and title_id = #{titleId}</if>
+	    <if test="fileIds != null">
+	    	and id in 
+            <foreach close=")" collection="fileIds" item="item" open="(" separator=",">
+              #{item}
+            </foreach>
+	    </if>
 	    <if test="titleIds != null">
 	    	and title_id in 
             <foreach close=")" collection="titleIds" item="item" open="(" separator=",">

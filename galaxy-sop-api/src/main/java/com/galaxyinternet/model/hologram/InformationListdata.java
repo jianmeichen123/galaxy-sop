@@ -40,8 +40,10 @@ public class InformationListdata extends PagableEntity implements Cloneable{
     private String field10;
 
     private Integer isValid;
+    
+    private String relateFileId;
 
-    private Long createTime;
+	private Long createTime;
 
     private Long createId;
 
@@ -413,7 +415,15 @@ public class InformationListdata extends PagableEntity implements Cloneable{
 		this.fileList = fileList;
 	}
 
-    @Override
+    public String getRelateFileId() {
+		return relateFileId;
+	}
+
+	public void setRelateFileId(String relateFileId) {
+		this.relateFileId = relateFileId;
+	}
+
+	@Override
 	public Object clone() throws CloneNotSupportedException {  
         return (InformationListdata)super.clone();  
     }  

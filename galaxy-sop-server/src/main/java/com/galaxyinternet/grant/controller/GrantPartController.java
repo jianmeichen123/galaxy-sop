@@ -1,6 +1,7 @@
 package com.galaxyinternet.grant.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,13 +124,17 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		try {
 			if(partid != null){
 				InformationListdata data = informationListdataService.queryById(partid);
-				InformationFile file = new InformationFile();
-								file.setTitleId(data.getTitleId());
-								file.setProjectId(data.getProjectId());
-				List<InformationFile> fileList = informationFileService.queryList(file);
-				if(fileList != null && fileList.size() > 0){
-					data.setFileList(fileList);
+				if(!StringUtils.isEmpty(data.getRelateFileId())){
+					InformationFile file = new InformationFile();
+					file.setTitleId(data.getTitleId());
+					file.setProjectId(data.getProjectId());
+					file.setFileIds(Arrays.asList(data.getRelateFileId().split(",")));
+					List<InformationFile> fileList = informationFileService.queryList(file);
+					if(fileList != null && fileList.size() > 0){
+						data.setFileList(fileList);
+					}
 				}
+				
 				responseBody.setEntity(data);
 				responseBody.setResult(new Result(Status.OK, ""));
 			}

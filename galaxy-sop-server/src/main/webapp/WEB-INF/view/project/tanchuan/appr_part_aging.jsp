@@ -24,7 +24,7 @@
 	           <form id="actual_aging_form">
 	               <dl class="fmdl fl_l  clearfix">
 	               <input type="hidden" id="projectId" name="projectId" value=""/>
-	               <input type="hidden" name="id" value=""/>
+	               <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
 		            <dt>分拨名称 ：</dt>
 		                <dd>
 		                	<div>
@@ -135,8 +135,27 @@
 			data.projectId = projectId;
 			
 			var fileLength1 = $("#filelist tr").length;
+			var fs = "";
+			$('#filelist tr').each(function(){
+				 var id = $(this).attr("id");
+				 if(id != undefined)
+				 {
+					 id = id.replace("tr", "");
+					 if(!isNaN(id)){
+						 if(fs){
+							 fs = fs +","+id;
+					     }else{
+					    	 fs = id;
+					     }
+					 }
+				 }
+				
+			});
 			var fields = $.find("input[type='text'][data-type],textarea");
-			var id = null;
+			var id =  $("#grantId").val();
+			if(!id){
+				id = null;
+			}
 			var infoMode = {
 					titleId	: "3022",
 					subCode:"grant-part",
@@ -154,12 +173,7 @@
 					infoMode[name] = field.val();
 				}
 			});
-			if (infoMode != null) {
-				infoTableModelList.push(infoMode);
-		    } 
-			data.infoTableModelList = infoTableModelList;
 			
-			console.log("测试测试566:"+JSON.stringify(data));
 			var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
 			var params = {};
 			params.projectId =  projectInfo.id;
@@ -168,10 +182,22 @@
 			$("body").showLoading();
 			console.log("保存的 data");
 			console.log(data);
-			sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
+			sendPostRequestByJsonObjNoCache(sendFileUrl,params,false,function(dataParam){
 				//进行上传
 				var result = dataParam.result.status;
 				if(result == "OK"){
+					var fids = dataParam.entity.fids;
+					if(fids != null && fids != undefined){
+						fs=fs+","+fids;
+					}
+					if(fs){
+						infoMode.relateFileId = fs;
+					}
+					if (infoMode != null) {
+						infoTableModelList.push(infoMode);
+				    } 
+					data.infoTableModelList = infoTableModelList;
+					console.log("测试测试566:"+JSON.stringify(data));
 					sendPostRequestByJsonObjNoCache(
 							platformUrl.saveOrUpdateInfo , 
 							data,
@@ -191,7 +217,7 @@
 					layer.msg("操作失败!");
 				}
 				
-			}); 
+			});
 	   	
 	   });
 

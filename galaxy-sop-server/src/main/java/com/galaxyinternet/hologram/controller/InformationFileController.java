@@ -182,6 +182,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			return responseBody;
 		}
 		try {
+			List<Long> delids = new ArrayList<Long>();
 			//如有历史上传文件进行删除
 			String deleteids = informationFile.getDeleteids() == null ? "" : informationFile.getDeleteids();
 			if(StringUtils.isNotEmpty(deleteids) || deleteids.contains(",")){
@@ -194,6 +195,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 							 FileResult result = OSSHelper.deleteFile(file.getBucketName(), file.getFileKey());
 							 if(Status.OK.equals(result.getResult().getStatus())){
 								 informationFileService.deleteById(Long.valueOf(fileids[i]));
+								 delids.add(Long.valueOf(fileids[i]));
 								 logger.info("删除文件名:{},项目id:{}",file.getFileName(),file.getProjectId());
 							 }
 						}
@@ -203,7 +205,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 			}
 			//进行上传文件
 			if(informationFile.getFileReidsKey() != null){
-				    fileIdList = new ArrayList();
+				    fileIdList = new ArrayList<Long>();
 				    Delivery delivery = new Delivery();
 				    final String redisKey = user.getId()+informationFile.getFileReidsKey();
 					final List<Object> fileList = cache.getRedisQuenOBJ(redisKey);
@@ -232,7 +234,7 @@ public class InformationFileController extends BaseControllerImpl<InformationFil
 					    startSignal.await();
 					}
 					cache.removeRedisKeyOBJ(redisKey);
-					delivery.setFileIds(fileIdList);
+					delivery.setFids(StringUtils.join(fileIdList.toArray(), ','));
 					responseBody.setEntity(delivery);
 			}
 			responseBody.setResult(new Result(Status.OK,null));

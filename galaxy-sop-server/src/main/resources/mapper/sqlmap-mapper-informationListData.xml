@@ -19,6 +19,7 @@
 		<result column="field_8" 	jdbcType="VARCHAR" 		property="field8" />
 		<result column="field_9" 	jdbcType="VARCHAR" 		property="field9" />
 		<result column="field_10" 	jdbcType="VARCHAR" 		property="field10" />
+		<result column="relate_file_id" 	jdbcType="VARCHAR" 		property="relateFileId" />
 		<result column="is_valid" 	jdbcType="INTEGER" 		property="isValid" />
 		<result column="created_time" jdbcType="BIGINT" 	property="createdTime" />
 		<result column="create_id" 	jdbcType="BIGINT" 		property="createId" />
@@ -29,7 +30,7 @@
 
 
 	<sql id="Base_Column_List">
-		id, project_id, title_id,parent_id, code,field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10, is_valid, created_time, create_id, updated_time, update_id
+		id, project_id, title_id,parent_id, code,field_1, field_2, field_3, field_4, field_5,field_6,field_7,field_8,field_9,field_10,relate_file_id,is_valid, created_time, create_id, updated_time, update_id
 	</sql>
 
 
@@ -52,7 +53,7 @@
 				<if test="field8 != null"> and field_8 = #{field8,jdbcType=VARCHAR} </if>
 				<if test="field9 != null"> and field_9 = #{field9,jdbcType=VARCHAR} </if>
 				<if test="field10 != null"> and field_10 = #{field10,jdbcType=VARCHAR} </if>
-
+				<if test="relateFileId != null"> and relate_file_id = #{relateFileId,jdbcType=VARCHAR} </if>
 				<if test="field1NotNull != null"> and field_1 IS NOT NULL </if>
 				<if test="field2NotNull != null"> and field_2 IS NOT NULL </if>
 				<if test="field3NotNull != null"> and field_3 IS NOT NULL </if>
@@ -112,6 +113,7 @@
 			field_8,
 			field_9,
 			field_10,
+			relate_file_id,
 			is_valid, 
 			created_time, 
 			create_id, 
@@ -134,6 +136,7 @@
 			#{field8,jdbcType=VARCHAR},
 			#{field9,jdbcType=VARCHAR},
 			#{field10,jdbcType=VARCHAR},
+			#{relateFileId,jdbcType=VARCHAR}, 
 			#{isValid,jdbcType=INTEGER}, 
 			#{createdTime,jdbcType=BIGINT}, 
 			#{createId,jdbcType=BIGINT}, 
@@ -187,6 +190,7 @@
 			<if test="field8 != null"> field_8 = #{field8,jdbcType=VARCHAR}, </if>
 			<if test="field9 != null"> field_9 = #{field9,jdbcType=VARCHAR}, </if>
 			<if test="field10 != null"> field_10 = #{field10,jdbcType=VARCHAR}, </if>
+			<if test="relateFileId != null"> relate_file_id = #{relateFileId,jdbcType=VARCHAR} </if>
 			<if test="isValid != null"> is_valid = #{isValid,jdbcType=VARCHAR}, </if>
 			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=VARCHAR}, </if>
 			<if test="createId != null"> create_id = #{createId,jdbcType=VARCHAR}, </if>
