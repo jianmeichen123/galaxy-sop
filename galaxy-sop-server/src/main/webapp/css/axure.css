@@ -3603,6 +3603,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
    line-height:150%;
     border-radius: 8px; 
  }
+.gray .processbar{
+	background:#b2b2b2;
+}
 .progress-contain .percent_number{
   float: left;
   height: 4px;
@@ -3613,4 +3616,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
   font-family:'宋体';
 
  } 
+ .gray .progress-contain .percent_number{
+ color:#b2b2b2;
+ }
  .new_r_compile  .icon{margin-top:3px;}
