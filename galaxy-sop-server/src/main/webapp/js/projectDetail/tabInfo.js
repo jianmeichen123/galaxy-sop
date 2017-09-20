@@ -75,7 +75,26 @@ $(function(){
 				$("#finance_status_sel").find('option[text='+sel_val+']').attr("selected",true);
 			}
 		}
-		
+		//项目来源字典回显
+	var map_projectSource = selectCache("projectSource");
+   	 function selectCache(name){
+   		    var map = {};
+   			sendGetRequest(platformUrl.searchDictionaryChildrenItems+name,null,
+   					function(data) {
+   						var result = data.result.status;
+   						if (result == 'OK')
+   						{
+   							var dataMap = data.userData;
+   						    var list=data.entityList;
+   						    var name=""
+   							$.each(list, function(i, value){
+   							     map[value.code]=value.name;
+   							});
+   						}
+   					})
+   					console.log(map)
+   					return map;
+   		}
 		
 	   /**
 		 * 加载项目详情数据
@@ -85,6 +104,7 @@ $(function(){
 			$("#end").hide();
 			$("#s").hide();
 		}
+		console.log(projectInfo)
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 			$("#project_name_title").text(projectInfo.projectName);
 			$("#project_name_t").text(projectInfo.projectName);
@@ -106,7 +126,7 @@ $(function(){
 			$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":(projectInfo.finalShareRatio==0?"--":projectInfo.finalShareRatio));
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
-			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
+			$("#faName").text(projectInfo.faFlag=="projectSource:1"?"FA-"+projectInfo.faName:map_projectSource[projectInfo.faFlag]);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
 			var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
@@ -214,17 +234,6 @@ $(function(){
 				}
 				//投资形式合投，领头编辑页面投资列表处理
 				
-				
-			     radio_faFlag(projectInfo.faFlag);
-				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
-					$('#faFlagEdit').prop("checked","true");
-					$("#faNameEdit").val(projectInfo.faName);
-					$("#faNameEdit").css("display","block");
-				}else{
-					$("#faFlag").prop("checked","true")
-					$("#faNameEdit").val(projectInfo.faName);
-					$("#faNameEdit").css("display","none");
-				}
 				 p=projectInfo.industryOwn;
 			    fs=projectInfo.financeStatus;
 			    var sectionName = $(this).data('name');
@@ -242,6 +251,15 @@ $(function(){
 			    	//initDialogVal();
 		    	}
 			    responseData()//数据反显
+			    radio_faFlag(projectInfo.faFlag);
+				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag=="projectSource:1"){
+					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").attr("selected",true);
+					$("#faNameEdit").val(projectInfo.faName);
+					$("#faNameEdit").css("display","block");
+				}else{
+					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").attr("selected",true);
+					$("#faNameEdit").css("display","none");
+				}
 			
 			})
 				function CallBackB(data){
@@ -588,11 +606,11 @@ $(function(){
 			//var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
 			//var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
 			//var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
-			var faFlag=$('select[name="projectSource"] option:selected').text().trim();
+			var faFlag=$('select[name="projectSource"] option:selected').attr("value");
 			var remark=$('#remark').val().trim();
 			var faName="";
-			if(faFlag=='FA'){
-				faName="FA-"+$("#faNameEdit").val();
+			if(faFlag=='projectSource:1'){
+				faName=$("#faNameEdit").val();
 			}else{
 				faName="";
 			}
@@ -638,6 +656,8 @@ $(function(){
                            "jointDeliveryList":arr,
                            "isDelete":isDelete
 			};
+			console.log("&&&&&&&&&&&&&&&&")
+			console.log(formatData)
 			return formatData;
 		}
 		function saveSuccess(){
@@ -742,9 +762,9 @@ $(function(){
 			
 		});
 });
-$("input:radio[name='faFlag']").change(function() {
+$("select[name='projectSource']").change(function() {
 	// 0 y; 1 n
-	var $selectedvalue = $("input:radio[name='faFlag']:checked").val();
+	var $selectedvalue = $(this).find("option:selected").attr("value");
 	radio_faFlag($selectedvalue);
 });
 
@@ -752,11 +772,11 @@ $("input:radio[name='faFlag']").change(function() {
 function radio_faFlag(isContactsV){
 	console.log(isContactsV);
 	var phone = $("input[name='faName']");
-	if (isContactsV == 0 || isContactsV == '0') {
+	if (isContactsV == 'projectSource:1') {
+		$("input[name='faName']").show();
+	} else{
 		$("input[name='faName']").hide();
 		$("#faNameEdit-error").remove();
-	} else if (isContactsV == 1 || isContactsV == '1') {
-		$("input[name='faName']").show();
 	} 
 }
 function jointDeliveryList(list){
