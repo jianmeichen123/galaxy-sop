@@ -153,7 +153,6 @@ $(function(){
 				$('.bj_hui_on').show();
 				var width_fwb=$('.tabtable_con_on').width();
 				$('.width_fwb').css('width',(width_fwb-40));
-				responseData();   //反显数据
 				//投资形式切换
 				$(".new_table .mar_left>input").change(function(){
 					var val=$(this).val();
@@ -525,15 +524,19 @@ function jointDeliveryList(list){
 }
 function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
+	console.log("listlistlist");
+	console.log(list);
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
-	        +'<span><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
-	        +'<span><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	        +'<span><select><option value="">'+list[i].deliveryCurrency+'</option></select></span>'
-	        +'<span><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
+	        +'<span><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName_'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
+	        +'<span><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount_'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
+	        +'<span><select name="select_'+i+'"><option value="人民币">人民币</option><option value="美元">美元</option></select></span>'
+	        +'<span><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio_'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	          +'<span class="del">删除</span>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow);
+		$("select[name='select_"+i+"'] option[value='"+list[i].deliveryName+"']").attr("selected",true)
+		//
 	}
 	//新增按钮显示隐藏
 	var inputsLength=$(".block_inputs").length;
