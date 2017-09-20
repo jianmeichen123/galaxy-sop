@@ -1,8 +1,6 @@
 package com.galaxyinternet.hologram.controller;
 
-import com.galaxyinternet.common.utils.DocExportUtil;
-import com.galaxyinternet.framework.core.constants.Constants;
-import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.ReportExportService;
 import org.slf4j.Logger;
@@ -10,13 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/galaxy/test")
@@ -30,11 +25,18 @@ public class TestController{
 	@Autowired
 	private ReportExportService reportExportService;
 
+	@Autowired
+	private ProjectService projectService;
+
 	@RequestMapping(value = "/laobanTest", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String platform(HttpServletRequest request) {
 		return "seven_report/hologram/test/laoban_test";
 	}
 
+/*
+
+	@Value("${sop.oss.tempfile.path}")
+	private String tempfilePath;
 
 	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
 	public static final String temp2 = "qxbg-zh-temp.xml"; //综合
@@ -43,11 +45,31 @@ public class TestController{
 	@RequestMapping("/down/{pid}")
 	public void downDoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response) {
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),pid,"NO");
 
-		DocExportUtil docExportUtil = new DocExportUtil(tempath, temp1, request, response,"test.doc");
-		docExportUtil.createDocOut(map);
+		String currTime = System.currentTimeMillis()+"";
+
+		Project project = projectService.queryById(pid);
+		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO");
+
+		String fn1 = currTime + project.getProjectName() + "全息报告概览.docx";
+		String fn2 = currTime + project.getProjectName() + "全息报告内容.docx";
+		try {
+			DocExportUtil docExportUtil1 = new DocExportUtil(request,tempath, temp1, tempfilePath, fn1);
+			DocExportUtil docExportUtil2 = new DocExportUtil(request,tempath, temp2, tempfilePath, fn2);
+			docExportUtil1.createDoc(map);
+			docExportUtil2.createDoc(map);
+
+			String zipName = project.getProjectName() + "全息报告.zip";
+			List<String> fnlist = new ArrayList<>();
+			fnlist.add(fn1);
+			fnlist.add(fn2);
+			DocExportUtil.downZip(zipName,fnlist,currTime,tempfilePath,request,response);
+		} catch (Exception e) {
+			logger.error("downDoc ",e);
+		}
 	}
+
+*/
 
 
 
