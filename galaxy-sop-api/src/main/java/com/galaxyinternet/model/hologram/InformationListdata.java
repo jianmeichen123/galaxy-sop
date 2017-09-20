@@ -79,7 +79,15 @@ public class InformationListdata extends PagableEntity implements Cloneable{
     private Boolean field4NotNull;
     private Boolean field5NotNull;
 
+    private String noStr;
 
+    public String getNoStr() {
+        return noStr;
+    }
+
+    public void setNoStr(String noStr) {
+        this.noStr = noStr;
+    }
 
     public Set<String> getTitleIds()
 	{

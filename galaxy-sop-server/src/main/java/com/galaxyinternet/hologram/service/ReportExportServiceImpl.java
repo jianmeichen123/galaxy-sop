@@ -23,10 +23,12 @@ import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.ReportExportService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +83,25 @@ public class ReportExportServiceImpl implements ReportExportService {
 
 
 
+    /*
+    replace(/\<br\>/g,'\n')  <w:br />
+    replace(/&nbsp;/g," ")
+    replace(/&amp;/g,"&")
+    replace(/&gt;/g,">")
+    replace(/&lt;/g,"<")
+    replace(/<.*?>/g,"").
+    */
+    public String textConversion(String text){
+        if(StringUtils.isBlank(text)){
+            return text;
+        }
+
+        String result = text.replace("<br>","<w:br />").replace("&nbsp;"," ")
+                .replace("&amp;","&").replace("&gt;",">").replace("&lt;","<");
+
+        return result;
+    }
+
     /**
      * 查询出题答案
      *
@@ -91,7 +113,7 @@ public class ReportExportServiceImpl implements ReportExportService {
      * EN  评测报告
      * CN  初评报告
      */
-    public Map<String, Object> titleAnswerConversionTask(Long uid, Long proId, String preCode){
+    public Map<String, Object> titleAnswerConversionTask(Long uid, Project project, String preCode){
         Long btime = System.currentTimeMillis();
 
         Map<String, Object> map = new HashMap<>();
@@ -99,7 +121,7 @@ public class ReportExportServiceImpl implements ReportExportService {
             Map<Long, String> valueIdNameMap = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 
             ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
-            ExportDataConversionTask task = new ExportDataConversionTask(preCode,proId,null,null,valueIdNameMap);
+            ExportDataConversionTask task = new ExportDataConversionTask(preCode,project.getId(),null,null,valueIdNameMap);
             ForkJoinTask<Map<String,Object>> result = pool.submit(task);
 
             map = result.get();
@@ -229,6 +251,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                         value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
                     }else{
                         value = tempResult.getContentDescribe1();
+                        value = textConversion(value);
                     }
 
                     if(StringUtils.isNotBlank(value)){
@@ -294,6 +317,9 @@ public class ReportExportServiceImpl implements ReportExportService {
                         {
                             if(StringUtils.isNotBlank(valueIdNameMap.get(new Long(resultList.get(i).getContentChoose())))){
                                 value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
+                                if(value.contains("其他")){
+                                    continue;
+                                }
                             }
                         }
 
@@ -317,11 +343,11 @@ public class ReportExportServiceImpl implements ReportExportService {
                     for(int i = 0; i<resultList.size(); i++)
                     {
                         if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())){
-                            mapValue.add(resultList.get(i).getContentDescribe1());
+                            mapValue.add(textConversion(resultList.get(i).getContentDescribe1()));
                         }
 
                         if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe2())){
-                            mapValue.add(resultList.get(i).getContentDescribe2());
+                            mapValue.add(textConversion(resultList.get(i).getContentDescribe2()));
                         }
                     }
 
@@ -336,7 +362,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                     InformationResult tempResult = resultList.get(0);
                     if(StringUtils.isNotBlank(tempResult.getContentDescribe1()) && tempResult.getContentDescribe1().contains("sitg")){
                         value = tempResult.getContentDescribe1().replace("<sitg>","（").replace("</sitg>","）");
-                        map.put(tempTitle.getCode(), value);
+                        map.put(tempTitle.getCode(), textConversion(value));
                     }
                     //type16ValueCon(tempTitle, map);
                 }else if(tempTitle.getType().intValue() == 19 || tempTitle.getType().intValue() == 20 )
@@ -391,6 +417,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         }
 
         String remarkCode = null;
+        String codeReplace = null;
         String preField = "field";
         List<InformationListdata> listDataResult = null;
         for(InformationListdata item : listdataList)
@@ -401,7 +428,13 @@ public class ReportExportServiceImpl implements ReportExportService {
             }else{
                 remarkCode = CacheOperationServiceImpl.table_tid_remarkCode.get(item.getTitleId()+"");
             }
-            if(StringUtils.isNotBlank(remarkCode)) remarkCode = remarkCode.replace("-","_");
+            if(StringUtils.isNotBlank(remarkCode)) codeReplace = remarkCode.replace("-","_");
+
+            if(item.getUpdateId() != null){
+                item.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getUpdateId(), "realName"));
+            }else if(item.getCreateId() != null){
+                item.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName"));
+            }
 
             for(int i=1; i<11;i++){
                 try {
@@ -430,13 +463,18 @@ public class ReportExportServiceImpl implements ReportExportService {
                 item.setField1(tableFieldValueCon(item.getField1(), type==null?0:type, valueIdNameMap));
             }*/
 
-            if(map.containsKey(remarkCode)){
-                listDataResult = (List<InformationListdata>)  map.get(remarkCode);
+            if(map.containsKey(codeReplace)){
+                listDataResult = (List<InformationListdata>)  map.get(codeReplace);
+
+                listDataResult.add(item);
+                //map.put(codeReplace,listDataResult);
             }else{
                 listDataResult = new ArrayList<>();
+
+                listDataResult.add(item);
+                map.put(codeReplace,listDataResult);
             }
-            listDataResult.add(item);
-            map.put(remarkCode,listDataResult);
+
         }
 
         /*
@@ -499,7 +537,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         if(type == 0 || type == 1 || type == 8 )
         {
             // 1:文本、 8:文本域(textarea)、
-            value = fieldValue;
+            value = textConversion(value);
         }else  if( type == 2 || type == 14 )
         {
             // 2: 单选（Radio）、 14 单选（select）、
@@ -585,7 +623,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * 图片数据
-     * map code - map
+     * map code - map N1\N2\N3\N4
      */
     public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId){
         Map<String, Object> map = new HashMap<>();
@@ -605,7 +643,7 @@ public class ReportExportServiceImpl implements ReportExportService {
             return  map;
         }
 
-        List<String> resultTemp = new ArrayList<>();
+        /*List<String> resultTemp = new ArrayList<>();
         for (InformationTitle temp : titleList)
         {
             resultTemp = new ArrayList<>();
@@ -618,8 +656,21 @@ public class ReportExportServiceImpl implements ReportExportService {
                 }
                 map.put(temp.getCode(),resultTemp);
             }
-        }
+        }*/
+        Map<String,String> resultTemp = null;
+        for (InformationTitle temp : titleList)
+        {
+            resultTemp = new HashMap<>();
+            List<InformationFile> resultList = temp.getFileList();
 
+            if(resultList!=null && !resultList.isEmpty())
+            {
+                for (int i = 0; i < resultList.size(); i++) {
+                    resultTemp.put("N" + i, getImageStr(resultList.get(i)));
+                }
+                map.put(temp.getCode(),resultTemp);
+            }
+        }
         return map;
     }
     public String getImageStr(InformationFile informationFile){
@@ -627,24 +678,48 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), informationFile.getFileKey()));
         InputStream fis = null;
-
         try {
             fis = ossobjcet.getObjectContent();
-            data=new byte[fis.available()];
-            fis.read(data);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                if(data == null){
+                    data = Arrays.copyOf(buffer, bytesRead);
+                }else{
+                    data = ArrayUtils.addAll(data, Arrays.copyOf(buffer, bytesRead));
+                }
+            }
         } catch (Exception e) {
-            throw new RuntimeException();
+            logger.error("getImageStr err",e);
         } finally {
             try {
                 fis.close();
             } catch (IOException e1) {
-                e1.printStackTrace();
+                logger.error("getImageStr err",e1);
             }
         }
 
         if(data == null){
             return null;
         }else{
+            //==ceshi
+           /*OutputStream os = null;
+            try {
+                File outFile = new File("C:\\Users\\feng\\Desktop\\photo2.png");
+                os = new FileOutputStream(outFile);
+                os.write(data);
+                os.flush();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }*/
+            //== end ceshi
+
             BASE64Encoder encoder=new BASE64Encoder();
             return encoder.encode(data);
         }
