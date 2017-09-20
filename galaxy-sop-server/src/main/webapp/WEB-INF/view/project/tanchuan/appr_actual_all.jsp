@@ -6,29 +6,19 @@
 
 <div class="addmentc">
 		<div class="title_bj" id="popup_name"></div>
-		<form action="" method="post" id="add_form">
+		<form action="" method="post" id="b_apprGrantTotal">
 	    <div class="form clearfix">
 	        <div class="edit_actual" id="info">
-	            <dl class="fmdl fl_l  clearfix">
-	                <dt>协议名称：</dt>
-	                <input type="hidden"  name="id" id="totallId" >
-	                <dd>
-	                	<div>
-	                    	<input class="edittxt" type="text" id="grantName" name="grantName" maxLength="20"  
-	                    		valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
-	                    </div>
-	                </dd>
-	            </dl>
 	             <dl class="fmdl fl_l  clearfix">
 	                <dt>投资方 ：</dt>
 	                <dd>
 	                	<div>
-	                    	<input class="edittxt" type="text" id="investors" name="investors" maxLength="50"  
+	                    	<input class="edittxt" type="text" data-title-id="3020" data-result-id="${result3020}" value="${value3020}" data-type="8" id="investors" name="3020" value="" maxLength="50"  
 	                    		valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>只能输入50个字符"/>
 	                    </div>
 	                </dd>
 	            </dl>
-	             <dl class="fmdl fl_l  clearfix">
+	           <%--   <dl class="fmdl fl_l  clearfix">
 	                <dt>目标公司 ：</dt>
 	                <dd>
 	                	<div>
@@ -36,7 +26,7 @@
 	                    		maxLength="50"  valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>只能输入50个字符"/>
 	                    </div>
 	                </dd>
-	            </dl>
+	            </dl> --%>
                 <input type="hidden" name="projectId" id="projectId" value="${projectId}">
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划总注资金额 ：</dt>
@@ -46,7 +36,7 @@
 	                    		value="${finalContributions}" onblur="set_finalValuations()"
 	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
 	                    		msg="<font color=red>*</font>支持9位长度的四位小数" /> --%>
-	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
+	                    	<input class=" txt " type="text" id="grantMoney" data-title-id="3004" value="${value3004}" data-result-id="${result3004}" data-type="19" name="1"  
 	                    		value="<fmt:formatNumber value="${finalContributions}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
 	                    		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
@@ -57,7 +47,7 @@
 	                <dt>股权占比 ：</dt>
 	                <dd>
 	                	<div id="setValue">
-	                    	<input class="txt" type="text" size ="10" id="finalShareRatio" name="finalShareRatio" 
+	                    	<input class="txt" type="text" data-title-id="3010" data-result-id="${result3010}" value="${value3010}" data-type="19" size ="10" id="finalShareRatio" name="2" 
 	                    		value="<fmt:formatNumber value="${finalShareRatio}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
 	                    		maxLength="20"  allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
 	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
@@ -69,7 +59,7 @@
 	                <dt>加速服务费占比 ：</dt>
 	                <dd>
 	                	<div id="setValue"> <!-- regString="^(\d{1,2}(\.\d{1,4})?)$"   -->
-	                    	<input class="txt" type="text" size ="10" id="serviceCharge" name="serviceCharge" value="<fmt:formatNumber value="${serviceCharge}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
+	                    	<input class="txt" type="text" data-title-id="3011" data-result-id="${result3011}" value="${value3011}" data-type="19" size ="10" id="serviceCharge" name="3" value="<fmt:formatNumber value="${serviceCharge}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
 	                    		maxLength="20"  allowNULL="no" valType="OTHER" regstring="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$"
 	                    		msg="<font color=red>*</font>0到5之间的四位小数" />
 	                    	<span class='money'>%</span>
@@ -80,7 +70,7 @@
 	                <dt>项目估值：</dt>
 	                <dd>
 	                	<div id="setValue">
-	                    	<input class="txt" type="text" id="finalValuations" name="finalValuations" value="<fmt:formatNumber value="${finalValuations}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
+	                    	<input class="txt" type="text" data-title-id="3012" data-result-id="${result3012}" value="${value3012}" data-type="19" id="finalValuations" name="4" value="<fmt:formatNumber value="${finalValuations}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
 	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
 	                    </div>
@@ -91,12 +81,18 @@
 	    </div>
 
 	    <div class="button_affrim">
-	        <a href="javascript:;" id="win_ok_btn" onclick="saveAppr()" class="register_all_affrim fl">确定</a>
+	         <!-- <span class="register_all_input fr h_save_btn" attr-save="apprGrantTotal" data-on="save">保存</span> -->
+	        <!-- <div class="register_all_input fr"><span class="h_save_btn">确定</span></div> -->
+	         <a href="javascript:;" onclick="save()" class="register_all_input fr">保存</a>
+	        
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div> 
 	  </form> 	
 	</div>
-	
+<!-- 跟全息图相似的 -->
+<script src="<%=path%>/js/seven_report/seven_report_common.js"></script>
+<script src="<%=path %>/js/seven_report/basic_fun.js" type="text/javascript"></script>
+<script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>     	
 	
 	<script>
 	$(function(){
@@ -155,7 +151,56 @@
 			});
 		}
 	}
+	var data = {
+			projectId : '${projectId}'
+		};
+	var infoModeList = new Array();
+	function save(){
+		var fields = $.find("input[type='text'][data-title-id]");
+		$.each(fields,function(){
+			var field = $(this);
+			var type = field.data('type');
+			var result = field.data('resultId');
+			if(result==undefined){
+				result=null;
+			}
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				tochange:true,
+				resultId:result,
+				type : type
+			};
+			if(type==19 || type==8)
+			{	
+				infoMode.remark1 = field.val();
+				if(field.data('titleId') == "3004"){   //特殊处理决策里面的投资金额
+					infoMode.reportType=3;
+				}
+			}
+			if (infoMode != null) {
+		        infoModeList.push(infoMode);
+		    } 
+		});
+		data.infoModeList = infoModeList;
+		//JSON.stringify(jsonObj)
+		console.log("测试测试:"+JSON.stringify(data))
+		
+		sendPostRequestByJsonObjNoCache(
+				platformUrl.saveOrUpdateInfo , 
+				data,
+				true,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						console.log("-------------")
+						$("#powindow").remove();
+						$("#popbg").remove();
+						initTabAppropriation('${projectId}');
+					}
+                   
+			});
 	
+	}
 	
 	//项目估值
 	function set_finalValuations(){
@@ -168,5 +213,34 @@
 		if(finalValuations_val && finalValuations_val > 0){
 			$("#finalValuations").val(finalValuations_val);
 		}
+	}
+	
+	function getData(div){
+		var json={};
+	    var list = div.find("*[name]");
+        $(list).each(function(){
+           var key = "";
+           var value = "";
+           var tagName = $(this).get(0).tagName;
+
+           if(tagName == "INPUT"|| tagName == "TEXTAREA"){
+				 key = $(this).attr("name");
+				 value = $(this).val();
+           }
+           if(tagName=="SELECT"){
+              key = $(this).attr("name");
+              value = $(this).find("option:selected").val();
+           }
+           if(tagName == "SPAN"){
+             key = $(this).attr("name");
+             value = $(this).text();
+             if(!value){
+             	value= null;
+             }
+           }
+           json[key]=value;
+     })
+
+     return json;
 	}
 	</script>

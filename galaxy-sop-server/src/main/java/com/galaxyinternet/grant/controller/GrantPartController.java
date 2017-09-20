@@ -1,27 +1,11 @@
 package com.galaxyinternet.grant.controller;
 
-import com.galaxyinternet.bo.GrantPartBo;
-import com.galaxyinternet.common.annotation.LogType;
-import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.utils.ControllerUtils;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.GrantActual;
-import com.galaxyinternet.model.GrantPart;
-import com.galaxyinternet.model.GrantTotal;
-import com.galaxyinternet.model.operationLog.UrlNumber;
-import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.sopfile.SopDownLoad;
-import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.GrantActualService;
-import com.galaxyinternet.service.GrantPartService;
-import com.galaxyinternet.service.GrantTotalService;
-import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.utils.BatchUploadFile;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +19,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import com.galaxyinternet.bo.GrantPartBo;
+import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.GrantActual;
+import com.galaxyinternet.model.GrantPart;
+import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.hologram.InformationFile;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
+import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.GrantActualService;
+import com.galaxyinternet.service.GrantPartService;
+import com.galaxyinternet.service.GrantTotalService;
+import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
+import com.galaxyinternet.service.hologram.InformationFileService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
+import com.galaxyinternet.utils.BatchUploadFile;
 
 
 
@@ -63,6 +69,10 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	@Autowired
 	private GrantActualService grantActualService;
 	@Autowired
+	private InformationListdataService informationListdataService;
+	@Autowired
+	InformationFileService informationFileService;
+	@Autowired
 	BatchUploadFile batchUpload;
 	
 	private String tempfilePath;
@@ -79,16 +89,8 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
-	@RequestMapping(value = "/toApprPartAging/{tid}", method = RequestMethod.GET)
-	public String toApprActualAging(@PathVariable("tid") Long tid, HttpServletRequest request) {
-		GrantTotal total = grantTotalService.queryById(tid);
-		Project project = projectService.queryById(total.getProjectId());
-		double useMoney = grantPartService.calculateBelongToPartMoney(tid);
-		request.setAttribute("projectCompany", project.getProjectCompany());
-		request.setAttribute("investors", total.getInvestors());
-		request.setAttribute("totalGrantId", total.getId());
-		request.setAttribute("totalMoney", total.getGrantMoney());
-		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);
+	@RequestMapping(value = "/toApprPartAging", method = RequestMethod.GET)
+	public String toApprActualAging(HttpServletRequest request) {
 		return "project/tanchuan/appr_part_aging";
 	}
 	
@@ -116,12 +118,23 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/selectGrantPart/{partid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<GrantPart> selectDelivery(@PathVariable("partid") Long partid,HttpServletRequest request,HttpServletResponse response ) {
-		ResponseData<GrantPart> responseBody = new ResponseData<GrantPart>();
+	public ResponseData<InformationListdata> selectDelivery(@PathVariable("partid") Long partid,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
 		try {
-			GrantPart grantPart = grantPartService.selectGrantPart(partid);
-			responseBody.setEntity(grantPart);
-			responseBody.setResult(new Result(Status.OK, ""));
+			if(partid != null){
+				InformationListdata data = informationListdataService.queryById(partid);
+				InformationFile file = new InformationFile();
+								file.setTitleId(data.getTitleId());
+								file.setProjectId(data.getProjectId());
+				List<InformationFile> fileList = informationFileService.queryList(file);
+				if(fileList != null && fileList.size() > 0){
+					data.setFileList(fileList);
+				}
+				responseBody.setEntity(data);
+				responseBody.setResult(new Result(Status.OK, ""));
+			}
+			
+			
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
 			_common_logger_.error("grantPart 查询失败",e);

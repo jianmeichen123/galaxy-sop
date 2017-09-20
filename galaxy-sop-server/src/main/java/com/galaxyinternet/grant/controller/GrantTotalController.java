@@ -9,14 +9,20 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.hologram.InformationListdata;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
+import com.galaxyinternet.service.hologram.InformationResultService;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +36,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 
@@ -51,6 +62,11 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	private GrantTotalService grantTotalService;
 	@Autowired
 	private GrantPartService grantPartService;
+	
+	@Autowired
+	private InformationResultService informationResultService;
+	@Autowired
+	private InformationListdataService informationListdataService;
 	
 	@Override
 	protected BaseService<GrantTotal> getBaseService() {
@@ -78,26 +94,21 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	public String toApprActualAll(HttpServletRequest request) {
 		String pid=request.getParameter("pid");
 		if(StringUtils.isNotEmpty(pid)){
-			Project pro = projectService.queryById(Long.valueOf(pid));
-			request.setAttribute("finalShareRatio", pro.getFinalShareRatio());
-			request.setAttribute("serviceCharge", pro.getServiceCharge());
-			request.setAttribute("projectCompany", pro.getProjectCompany());
-/*			request.setAttribute("finalValuations", pro.getFinalValuations());
-			request.setAttribute("finalContributions", pro.getFinalContribution());*/
-			Double finalValuations = pro.getFinalValuations();
-			if(finalValuations != null){
-				BigDecimal num = new BigDecimal(finalValuations);
-				DecimalFormat df = new DecimalFormat("0.0000");
-			    String res = df.format(num);
-			    request.setAttribute("finalValuations", res);
-			}
-			
-			Double finalContribution = pro.getFinalContribution();
-			if(finalContribution != null){
-				BigDecimal num = new BigDecimal(finalContribution);
-				DecimalFormat df = new DecimalFormat("0.0000");
-			    String res = df.format(num);
-			    request.setAttribute("finalContributions", res);
+			//投资金额,估值安排所有值,投资方主体
+			String[] titleIds = {"3004","3012","3011","3010","3020"};
+			Set<String> set=new HashSet<String>();         
+			set.addAll(Arrays.asList(titleIds));
+			InformationResult informationResult = new InformationResult();
+			informationResult.setProjectId(pid);
+			informationResult.setTitleIds(set);
+			informationResult.setIsValid("0");
+			//获取总注资计划的金额
+			List<InformationResult> list = informationResultService.queryList(informationResult);
+			if(list != null && list.size() > 0){
+				for(InformationResult ir : list){
+					  request.setAttribute("result"+ir.getTitleId(), ir.getId());
+					  request.setAttribute("value"+ir.getTitleId(), ir.getContentDescribe1());
+				}
 			}
 			
 		}
@@ -115,24 +126,28 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		if(id == null){
 			return "project/tanchuan/appr_actual_total_look";
 		}
-		GrantTotal c = grantTotalService.queryById(id);
-		Long projectId = c.getProjectId();
-		if(projectId != null){
-			Project pro = projectService.queryById(projectId);
-			
-			c.setProjectCompany(pro.getProjectCompany());  //目标公司
-			/*c.setFinalContribution(pro.getFinalContribution());  //实际投资
-			c.setFinalShareRatio(pro.getFinalShareRatio());  //股权占比
-			c.setServiceCharge(pro.getServiceCharge());  //加速服务费占比
-			c.setFinalValuations(pro.getFinalValuations());  //实际估值
-            */		
+		InformationResult c = informationResultService.queryById(id);
+		if(c != null){
+			//投资金额,估值安排所有值,投资方主体
+			String[] titleIds = {"3004","3012","3011","3010","3020"};
+			Set<String> set=new HashSet<String>();         
+			set.addAll(Arrays.asList(titleIds));
+			InformationResult informationResult = new InformationResult();
+			informationResult.setProjectId(c.getProjectId());
+			informationResult.setTitleIds(set);
+			informationResult.setIsValid("0");
+			//获取总注资计划的金额
+			List<InformationResult> list = informationResultService.queryList(informationResult);
+			if(list != null && list.size() > 0){
+				for(InformationResult ir : list){
+					if(!StringUtils.isEmpty(ir.getContentDescribe1())){
+					    request.setAttribute("value"+ir.getTitleId(), ir.getContentDescribe1());
+					}
+				}
 			}
-		request.setAttribute("actualTotalInfo", c);
+		}
 		return "project/tanchuan/appr_actual_toatl_look";
 	}
-	
-	
-	
 	
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
@@ -247,6 +262,62 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		return responseBody;
 	}
 	
+	
+	/**
+	 * 总注资计划列表查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchPart", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationListdata> searchPart(HttpServletRequest request, @RequestBody InformationListdata informationListdata) {
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
+		if(informationListdata.getProjectId() == null && "".equals(informationListdata.getProjectId())){
+			responseBody.setResult(new Result(Status.ERROR,"error" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		
+		InformationResult informationResult = new InformationResult();
+		informationResult.setProjectId(Long.toString(informationListdata.getProjectId()));
+		informationResult.setTitleId("3004");
+		informationResult.setIsValid("0");
+		//获取总注资计划的金额
+		List<InformationListdata> gp = null;
+		List<InformationResult> list = informationResultService.queryList(informationResult);
+		Map<String,Object> userData = new HashMap<String,Object>();
+		if(list != null && list.size() > 0){
+			informationResult = list.get(0);
+			userData.put("id", informationResult.getId());
+			userData.put("grantMoney", informationResult.getContentDescribe1());
+		    //查找分期
+			InformationListdata id = new InformationListdata();
+			id.setTitleId(3022l);
+			id.setProjectId(informationListdata.getProjectId());
+			gp = informationListdataService.queryList(id);
+			//分期列表
+			if(gp != null && gp.size() > 0){
+				List<InformationListdata> removedatalist = new ArrayList<InformationListdata>();
+				for(InformationListdata item : gp){
+					List<InformationListdata> datalist = new ArrayList<InformationListdata>();
+					//实际注资
+					for(InformationListdata data : gp)
+					{
+					  if(data.getParentId() != null && data.getCode() != null && item.getId().intValue() == data.getParentId().intValue()){
+						  datalist.add(data);
+						  removedatalist.add(data);
+					  }
+					}
+					ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();  
+					sortList.sort(datalist,"field2","asc");
+					item.setDataList(datalist);
+				}
+				gp.removeAll(removedatalist);
+			}
+		}
+		Page<InformationListdata> totalPage = new Page<InformationListdata>(gp, gp == null ? 0 : Long.parseLong(String.valueOf(gp.size())));
+		responseBody.setUserData(userData);
+		responseBody.setPageList(totalPage);
+		return responseBody;
+	}
+	
 	/**
 	 * 根据id查询某个总注资计划
 	 */
@@ -298,27 +369,40 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	public ResponseData<GrantTotal> deleteGrantTotal(@PathVariable("tid") Long tid,
 			HttpServletRequest request) {
 		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
-		
-		GrantTotal c = grantTotalService.queryById(tid);
+		InformationResult c = informationResultService.queryById(tid);
 		if(c == null){
 			responseBody.setResult(new Result(Status.ERROR, "error" , "要删除的总注资记录不存在!"));
 			return responseBody;
 		}
-		
-		GrantPart part = new GrantPart();
-		part.setTotalGrantId(c.getId());
-		Long count = grantPartService.queryCount(part);
-		if(count > 0){
+		//查找分期
+		InformationListdata id = new InformationListdata();
+		id.setTitleId(3022l);
+		id.setProjectId(Long.valueOf(c.getProjectId()));
+		List<InformationListdata> part = informationListdataService.queryList(id);
+		if(part != null && part.size() > 0){
 			responseBody.setResult(new Result(Status.ERROR, "cantDelete" , "存在分期注资计划，不允许进行删除操作!"));
 			return responseBody;
 		}
-		
+		Project project = projectService.queryById(Long.valueOf(c.getProjectId()));
 		try {
-			Project project = new Project();
-			project = projectService.queryById(c.getProjectId());
-			
-			grantTotalService.deleteById(c.getId());
-			responseBody.setResult(new Result(Status.OK, "ok", "删除总注资计划失败!"));
+			//投资金额,估值安排所有值,投资方主体
+			String[] titleIds = {"3004","3012","3011","3010","3020"};
+			Set<String> set=new HashSet<String>();         
+			set.addAll(Arrays.asList(titleIds));
+			InformationResult informationResult = new InformationResult();
+			informationResult.setProjectId(c.getProjectId());
+			informationResult.setTitleIds(set);
+			informationResult.setIsValid("0");
+			//获取总注资计划的金额
+			List<InformationResult> list = informationResultService.queryList(informationResult);
+			if(list != null && list.size() > 0){
+				List<Long> idList = new ArrayList<Long>();
+				for(InformationResult ir : list){
+					idList.add(ir.getId());
+				}
+				informationResultService.deleteByIdInBatch(idList);
+			}
+			responseBody.setResult(new Result(Status.OK, "ok", "删除总注资计划成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", UrlNumber.three);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "删除总注资计划失败!"));

@@ -1,9 +1,12 @@
 
 function reloadData(searchPartMoney,pid){
 	var data = {};
-	  data.searchPartMoney=searchPartMoney;
+	  //data.searchPartMoney=searchPartMoney;
 	  data.projectId=pid;
-	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
+	  //sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
+	  
+	  sendPostRequestByJsonStr(Constants.sopEndpointURL+"/galaxy/grant/total/searchPart",JSON.stringify(data),queryBack);
+	  
 
 }
 function queryBack(data){
@@ -14,65 +17,56 @@ function queryBack(data){
 		return;
 	}else{ 
 	    var entityList = data.pageList;
+		var total = data.userData;
+		if(typeof(total.grantMoney)!="undefined"&&total.grantMoney!=null){
+			var kk=assembleHtml(total,1);
+			$("#tabApprAllList").append(kk);
+		}
 	    //暂无注资计划
 	    if(entityList.total==0){
 	    	var noContent='<div class="no_con" style="display: block;">没有找到匹配的记录</div>';
 	    	$("#tabApprAllList").append(noContent);
 	    }
-		if(typeof(entityList)!="underfined"&&entityList!=null){
-			var content=entityList.content;			
-			if(content.length>0){
-				for(var i=0;i<content.length;i++){
-					var grantTotal=content[i];
-					var _this=$("#tabApprAllList");
-					var kk=assembleHtml(grantTotal,i);
-					$("#tabApprAllList").append(kk);
-					var partList=grantTotal.partList;
-					if(null!=partList&&partList.length>0){
-						for(var k=0;k<partList.length;k++){
-							  var grantPart=partList[k];
-							  var o=_this;
-							  $("#tabApprSingleList_"+i+"").append(assembleSingleTabHtml(grantPart,grantTotal.grantName,i,k));
-							}
-						}else{
-							var noData =
-								'<tr>'+
-								 '<td colspan="6" class="no_info no_info01" style="text-align:center;"><p class="no_info_icon">没有找到匹配的记录</p></td>'+
-								' </tr>'; 			
-							 $("#tabApprSingleList_"+i+"").append(noData)
-						}
+		if(typeof(entityList)!="undefined"&&entityList!=null&&entityList.total > 0){
+			var partList=entityList.content;	
+			
+			var _this=$("#tabApprAllList");
+			if(null!=partList&&partList.length>0){
+				for(var k=0;k<partList.length;k++){
+					  var grantPart=partList[k];
+					  var o=_this;
+					  $("#tabApprSingleList_"+1+"").append(assembleSingleTabHtml(grantPart,null,1,k));
 					}
-					if(isEditable != 'true')
-					{
-					 	$("#tabApprAllList .b_agreement_r .rolehide").hide();
-					 	$("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
-					}
+				}else{
+					var noData =
+						'<tr>'+
+						 '<td colspan="6" class="no_info no_info01" style="text-align:center;"><p class="no_info_icon">没有找到匹配的记录</p></td>'+
+						' </tr>'; 			
+					 $("#tabApprSingleList_"+i+"").append(noData)
+				}
+			
+			if(isEditable != 'true')
+			{
+			 	$("#tabApprAllList .b_agreement_r .rolehide").hide();
+			 	$("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
 			}
 		}
 	}
 }
 function  assembleHtml(grantTotal,i){
-	var name=grantTotal.updatedUname;
-	if(typeof(name) == "undefined"){
-		name = grantTotal.createUname;
-	}
-	var subName = name;
-	if($(window).width()<1400){  //编辑人针对窄屏显示器截断显示
-		if(name.length>5){
-			subName=name.substring(0,5);
-		}
-	}	
+	
 	var html=
 		'<div class="agreement">'
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
 		     /*+'<h3>'+grantTotal.grantName+'</h3>'*/
-	         +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+fixSizeDecimal(grantTotal.grantMoney,4)+'</dd></dl>'
+	        /* +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+fixSizeDecimal(grantTotal.grantMoney,4)+'</dd></dl>'*/
+		     +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
             /* +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'*/
           +'</div>'    
          +'<div class="b_agreement_r fr">'
-            +'<span class="pbtn bluebtn rolehide" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期注资计划" data-total-name="'+grantTotal.grantName+'">添加分期注资计划</span>'
+            +'<span class="pbtn bluebtn rolehide" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+1+'" data-name="添加分期注资计划" data-total-name="'+1+'">添加分期注资计划</span>'
             +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="info" data-val="'+grantTotal.id+'"data-name="查看总注资计划">查看</label>'
             +'<label class="blue rolehide" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总注资计划">编辑</label>'
             +'<label class="blue rolehide" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
@@ -97,16 +91,22 @@ function  assembleHtml(grantTotal,i){
 } 
 
 function  assembleSingleTabHtml(grantPart,grantName,i,k){
+	 var fileNum = 0;
+	 if(grantPart.field5){
+		 fileNum = grantPart.field5;
+	 }
 	 var value='<tr>'	 
-		   +'<td><label class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.grantName+'</label></td>'
-		   +'<td>'+grantPart.grantDetail+'</td>'
-		   +'<td>'+fixSizeDecimal(grantPart.grantMoney,4)+'</td>'
-		   +'<td id="part_'+i+'_'+k+'">'+fixSizeDecimal(grantPart.actualMoney,4)+'</td>'
-		   +'<td>'+grantPart.fileNum+'</td>'                                 
-		   +'<td><label class="blue show-btn" href="/sop/html/actual_aging.html" data_type="info" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="查看分期注资计划" data-total-name="'+grantName+'">查看</label><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期注资计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
-		   if(grantPart.fileNum != 0){
+		   +'<td><label class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.field1+'</label></td>'
+		   +'<td>'+grantPart.field2+'</td>'
+		  /* +'<td>'+fixSizeDecimal(grantPart.field3,4)+'</td>'*/
+		  /* +'<td id="part_'+i+'_'+k+'">'+fixSizeDecimal(grantPart.actualMoney,4)+'</td>'*/
+		   +'<td>'+grantPart.field3+'</td>'  
+	        +'<td>'+grantPart.field4+'</td>' 
+	        +'<td>'+fileNum+'</td>' 
+		    +'<td><label class="blue show-btn" href="/sop/html/actual_aging.html" data_type="info" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.id+'" data-name="查看分期注资计划" data-total-name="'+grantPart.field1+'">查看</label><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.id+'" data-name="编辑分期注资计划" data-total-name="'+grantPart.field1+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
+		    /* if(grantPart.fileNum != 0){
 			   value +='<label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label></td>';
-		   }
+		   }*/
 		   value += '</tr>';
 	  return value;
 }
@@ -136,11 +136,12 @@ function del_appr(id){
 				layer.msg("删除成功");
 				$("#powindow").remove();
 				$("#popbg").remove();
-		        var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/null/"+pId;
+				initTabAppropriation(pId);
+		      /*  var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/null/"+pId;
 				$.getTabHtml({
 					url : url
 				});
-				reference(pId);
+				reference(pId);*/
 			}else{
 				$("#powindow").remove();
 				$("#popbg").remove();

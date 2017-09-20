@@ -60,8 +60,10 @@ public class InformationListdata extends PagableEntity implements Cloneable{
     private List<InformationListdata> startupList;
 
     private List<String> codes;
+    
+    private List<InformationFile> fileList;
 
-    private Set<String> ids;
+	private Set<String> ids;
 
     private String property;
 
@@ -402,6 +404,14 @@ public class InformationListdata extends PagableEntity implements Cloneable{
     public void setField5NotNull(Boolean field5NotNull) {
         this.field5NotNull = field5NotNull;
     }
+
+    public List<InformationFile> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<InformationFile> fileList) {
+		this.fileList = fileList;
+	}
 
     @Override
 	public Object clone() throws CloneNotSupportedException {  

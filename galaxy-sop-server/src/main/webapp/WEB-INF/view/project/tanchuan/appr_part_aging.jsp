@@ -5,48 +5,39 @@
 
 <!-- 校验 -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+<!-- 时间插件 -->
+<link href="/sop/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link href="/sop/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/sop/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" charset="UTF-8"></script>
+<script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
 	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="appr_aging">
 	           <form id="actual_aging_form">
-		            <dl class="fmdl fl_l  clearfix">
-		                <dt>协议名称：</dt>
+	               <dl class="fmdl fl_l  clearfix">
+	               <input type="hidden" id="projectId" name="projectId" value=""/>
+	               <input type="hidden" name="id" value=""/>
+		            <dt>分拨名称 ：</dt>
 		                <dd>
-		                	<span id="totalName">创业服务协议</span>
-		                	<input name="totalGrantId" id=totalGrantId type="hidden" value="${totalGrantId}"/>
-		                	<input name="id" id="partId" type="hidden" value=""/>
-		                	<input type="hidden" id="remainMoney" value="${remainMoney }"/>
-		                	<input type="hidden" id="totalMoney" value="${totalMoney }"/>
-		                	<input type="hidden" name="oldRemainMoney" id="oldRemainMoney" value=""/>
+		                	<div>
+		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    </div> 
 		                </dd>
 		            </dl>
-		            <dl class="fmdl fl_l  clearfix">
-	                <dt>投资方 ：</dt>
-	                <dd>
-	                	<div>
-	                        ${investors }
-	                    </div>
-	                </dd>
-	                </dl>
-	                <dl class="fmdl fl_l  clearfix">
-	                <dt>目标公司 ：</dt>
-	                <dd>
-	                	<div>
-	                	     ${projectCompany }
-	                    </div>
-	                </dd>
-	                </dl> 
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>计划注资时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                	    <input readonly id="field2" name="field2" data-name="field2" data-type="19" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/>
+		                    	<!-- <input readonly class="edittxt" id="grantDetail" data-name="field2" data-type="19" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/> -->
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -55,11 +46,19 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt " id="grantMoney" data-name="field3" data-type="19" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>万元</div> 
+		                </dd>
+		            </dl>
+		            <dl class="fmdl fl_l  clearfix">
+		              <dt>付款条件：</dt>
+		                <dd>
+		                	<div>
+		                    	<textarea class="team_textarea" data-name="field4" id="field4" data-type="19"></textarea>
+		                    </div> 
 		                </dd>
 		            </dl>
                  </form>
@@ -99,7 +98,7 @@
 	</div>
 	<script>
 	   $(function(){
-		   var remainMoney = '${remainMoney}';
+		   /* var remainMoney = '${remainMoney}';
 			  remainMoney = fixSizeDecimal(parseFloat(remainMoney),4);
 	          $("#formatRemainMoney").html(remainMoney);	
 	          var remainMoneyOld=$("#formatRemainMoney").text();
@@ -124,8 +123,77 @@
 	 				      }	 
 	 			 }
 			            
-		  })
+		  }) */
 		  
 	   });
+	   var data = {};
+	   var infoTableModelList = new Array();
+	   $("#win_ok_btn").click(function(){
+		    var key = keyJSON["b_part"];
+			var deleteids = deleteJSON["partDelFile"];
+			var projectId = $("#projectId").val();
+			data.projectId = projectId;
+			
+			var fileLength1 = $("#filelist tr").length;
+			var fields = $.find("input[type='text'][data-type],textarea");
+			var id = null;
+			var infoMode = {
+					titleId	: "3022",
+					subCode:"grant-part",
+					id:id,
+					rowId:id,
+					field5:parseInt(fileLength1) - 1
+			};
+			$.each(fields,function(){
+				var field = $(this);
+				var type = field.data('type');
+				var name = field.data('name');
+				
+				if(type==19)
+				{	
+					infoMode[name] = field.val();
+				}
+			});
+			if (infoMode != null) {
+				infoTableModelList.push(infoMode);
+		    } 
+			data.infoTableModelList = infoTableModelList;
+			
+			console.log("测试测试566:"+JSON.stringify(data));
+			var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
+			var params = {};
+			params.projectId =  projectInfo.id;
+			params.fileReidsKey = key;
+			params.deleteids = deleteids;
+			$("body").showLoading();
+			console.log("保存的 data");
+			console.log(data);
+			sendPostRequestByJsonObjNoCache(sendFileUrl,params,true,function(dataParam){
+				//进行上传
+				var result = dataParam.result.status;
+				if(result == "OK"){
+					sendPostRequestByJsonObjNoCache(
+							platformUrl.saveOrUpdateInfo , 
+							data,
+							true,
+							function(data) {
+								var result = data.result.status;
+								if (result == 'OK') {
+									$("#powindow").remove();
+									$("#popbg").remove();
+									$("body").hideLoading();
+									initTabAppropriation(pId);
+								} else {
+									layer.msg("操作失败!");
+								}
+						});
+				}else{
+					layer.msg("操作失败!");
+				}
+				
+			}); 
+	   	
+	   });
+
 	
 	</script>

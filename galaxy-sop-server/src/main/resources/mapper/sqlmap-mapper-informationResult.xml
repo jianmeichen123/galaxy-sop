@@ -126,7 +126,10 @@
 		<include refid="Base_Where_Clause" />
 	</delete>
 	
-	
+	 <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from information_result where id = #{id}
+	</delete>
 	 <!-- 更新 -->
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hologram.InformationResult">
 		update information_result

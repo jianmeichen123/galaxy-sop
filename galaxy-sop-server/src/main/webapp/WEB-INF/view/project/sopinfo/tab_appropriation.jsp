@@ -16,15 +16,15 @@
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
-                        <c:if test="${isEditable}">
+                      
+                        <c:if test="${isEditable && isExistFlag}">
                         <div class="btnbox_f btnbox_f1">
                             <span class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
                         </div>
                         </c:if>
                     </div>
                     <!-- 搜索条件 -->
-                    
-                    <div class="min_document fund_list clearfix">
+                   <!--  <div class="min_document fund_list clearfix">
                       <div class="bottom clearfix">
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划注资金额：</dt>
@@ -34,7 +34,7 @@
                           <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
                       </div>
-                    </div>  
+                    </div>   -->
                   <div id="tabApprAllList">
                    
                   </div>
@@ -47,6 +47,9 @@
           </div>
             
 <script>
+var key = Date.parse(new Date());
+var keyJSON={};
+var deleteJSON={};
 var isEditable = "${isEditable}";
 var isTransfering = "${fx:isTransfering(pid) }";
 var pId;
@@ -85,11 +88,11 @@ var searchPartMoney;
 			okback:function(){
 				$("#popup_name").html(_name);
 				if(data_on=="edit"){
-					sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+					//sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
 				}else{
 					 $("#totallId").val(0);
 				}
-				initDialogVal();
+				//initDialogVal();
 			}//模版反回成功执行	
 		});
 		return false;
@@ -104,14 +107,14 @@ var searchPartMoney;
 		var _data_type = $self.attr("data_type");
 		
 		var _id = $self.attr("data-id");
-		var _url=  Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAging'+"/"+_id;
+		var _url=  Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAging';
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
 		//查看分期计划
 		if(_data_type == "info"){
 			_url = Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAgingInfo'+"/"+_id;
 		}
-		
+		/* 
 		var isFlag = false;
 		
 		if(_data_type == "edit"){
@@ -122,7 +125,7 @@ var searchPartMoney;
 				} 
 			});
 			
-		}
+		} */
 		$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
@@ -132,7 +135,7 @@ var searchPartMoney;
 					if($("#popup_name").text()=="添加分期注资计划"){
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
-					  
+					$("#projectId").val(pId);
 					if(_data_type == "edit" || _data_type == "info"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
@@ -141,6 +144,11 @@ var searchPartMoney;
 							var result = data.result.status;
 							if(result == "OK"){
 								var grantPartInfo = data.entity;
+								$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
+								$("#actual_aging_container [data-name='field2']").val(grantPartInfo.field2);
+								$("#actual_aging_container [data-name='field3']").val(grantPartInfo.field3);
+								$("#actual_aging_container [data-name='field4']").val(grantPartInfo.field4);
+								/* 
 								$("#actual_aging_container [name='id']").val(grantPartInfo.id);
 								$("#actual_aging_container [name='totalGrantId']").val(grantPartInfo.totalGrantId);
 								
@@ -153,15 +161,13 @@ var searchPartMoney;
 									$("#grantMoney").html(fixSizeDecimal(grantPartInfo.grantMoney,4));
 									$("#oldRemainMoney").html(grantPartInfo.oldRemainMoney);
 								}
-								
-								
 								if(isFlag)
 								{
 									$("#actual_aging_container [name='grantMoney']").attr("type","hidden");
 									$("#editMoney").css('display','block');
 									$("#editMoney").html(grantPartInfo.grantMoney);
-								}
-								$.each(data.entity.files,function(){
+								} */
+								$.each(data.entity.fileList,function(){
 									var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
 									var htm = "<tr id='"+this.id+"tr'>"+
 													"<td>"+this.fileName+"."+this.fileSuffix+
@@ -174,7 +180,7 @@ var searchPartMoney;
 										htm+= "</tr>";
 									$("#filelist").append(htm);
 								});
-								toInitBachUpload();
+								/* toInitBachUpload(); */
 								var fileLen=$("#filelist tr:gt(0)").length;
 								if(fileLen==0){
 									$("#filelist").css("display","none");
@@ -185,7 +191,7 @@ var searchPartMoney;
 							}
 						});
 					
-						   var grantMoneyOld=$("#grantMoney").val();
+						 /*   var grantMoneyOld=$("#grantMoney").val();
 						 var remainMoney=Number(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
 						 if(!beforeSubmitById("actual_aging_container")){
@@ -209,13 +215,28 @@ var searchPartMoney;
 					 			      }	
 					 			 }
 					 			            
-					 		  })  
+					 		  })   */
 						 
 					}else{
 						$("#partId").remove();
-						toInitBachUpload();
+						 key = Date.parse(new Date());
+						 keyJSON["b_part"]=key;
+						 //toInitBachUpload();
+						 var params = {};
+						 params.fileReidsKey = key;
+						 params.projectId =  '${projectId}';
+						 params.titleId = "3022";
+						 //toBachUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',null,"textarea2","select_btn",null,"actual_aging_container",null,params,null,null);
+
+					
+						 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
+									null,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
+									params,"actual_aging_form",null,null);
+					
+					
+					
 					}
-					initDialogVal();	
+					//initDialogVal();	
 				}//模版反回成功执行	
 			});
 		
@@ -281,6 +302,118 @@ var searchPartMoney;
  	 });
  	  
  	  
+  }
+  
+  function toBachPartUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
+	  var params = {};
+		var uploader = new plupload.Uploader({
+			runtimes : 'html5,flash,silverlight,html4',
+			browse_button : selectBtnId, // you can pass an id...
+			//container: containerId, // ... or DOM Element itself
+			//multi_selection:false,
+			url : fileurl,
+			rename : true,
+			unique_names:true,
+			filters : {
+				max_file_size : '2mb',
+				mime_types: [
+						{title : "Image files", extensions : "jpg,png,gif,bmp"}
+				]
+			},
+			init: {
+				PostInit: function(up) {
+					params = paramsFunction;
+				},
+				BeforeUpload:function(up,file){
+					var name = file.name.replace(/\s+/g,"");
+					params["fileName"] = name;
+				},
+				FileUploaded:function(up,file,rtn){
+	             }, 
+				FilesAdded: function(up, files) {
+					var max_files = 10;
+					plupload.each(files, function(file) {
+						var fileLength = $("#"+fileListId+" tr:gt(0)").length;
+						var fileLength1 = $("#"+fileListId+" tr").length;
+						//console.log(fileLength1)
+						if(fileLength1>0){
+							$("#"+fileListId).css("display","block")
+						}
+						/**
+						 * 最多只能上传10个文件
+						 */
+	                    if (fileLength >= max_files) {
+	                    	uploader.removeFile(file);
+	                    	layer.msg("最多只能传10个文件!");
+							return;
+						}
+	                    /**
+	                     * 生成上传文件的列表
+	                     */
+					    var name =countSameSubFile(file,fileListId);
+					    file.name = name.replace(/\s+/g,"");;
+						$("#"+fieInputId).val($("#"+fieInputId).val()+" "+file.name);
+						$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+file.name+"</td><td>"+plupload.formatSize(file.size)+"</td><td><button type='button' id='"+file.id+"btn' onclick=delPart('"+file.id+"','"+file.name+"','"+fieInputId+"','partDelFile')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>"); 
+						params.newFileName = file.id;
+						up.settings.multipart_params = params;
+						uploader.start();
+					
+					});
+					
+				},
+				UploadProgress: function(up, file) {
+					 var percent = parseInt(file.percent)
+					 if(percent > 10){
+						 percent = parseInt(file.percent)-10;
+						 $("#"+file.id+"_progress").html('<span>'+ percent + "%</span>"); 
+					 }
+				},
+				UploadComplete: function(up, files){//所有都上传完成
+			    },
+				Error: function(up, err) {
+					if(err.code==-600){
+						layer.msg("图片不能大于2M");
+					}
+				}
+				
+			}
+		});
+		uploader.init();
+	}
+  
+  
+  /**
+   * 删除文件列表的文件
+   * @param id
+   * @param name
+   * @param fieInputId
+   */
+  function delPart(id,name,fieInputId,partDelFile){
+  	 if(deleteJSON[partDelFile]){
+         deleteJSON[partDelFile] = deleteJSON[partDelFile] +","+id;
+     }else{
+         deleteJSON[partDelFile] = id;
+     }
+  	 var params = {};
+	  params.projectId =  pId;
+	  params.fileReidsKey = key;
+	  params.newFileName = id;
+     //文件id
+     sendPostRequestByJsonObj(Constants.sopEndpointURL+'galaxy/informationFile/deleteRedisFile',params,function(data){
+			//进行上传
+			var result = data.status;
+			if(result == "OK"){
+			     //删除
+			     $("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
+				 $("#"+id+"tr").remove();
+			      var fieInputLen=$("tr[id]").length;
+			      if(fieInputLen==0){
+			      	$("#filelist").css("display","none");
+			      }
+			}else{
+				layer.msg("删除失败!");
+			}
+	  });
   }
    
    function queryBack1(data){
@@ -454,6 +587,7 @@ function del_grantPart(id){
 		}
 	});
 }
+
 
 </script>
 

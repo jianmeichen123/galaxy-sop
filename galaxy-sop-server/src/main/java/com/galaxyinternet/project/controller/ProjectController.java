@@ -4,8 +4,10 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +74,7 @@ import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hologram.InformationProgress;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.operationLog.OperationLogs;
@@ -118,6 +121,7 @@ import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.ProjectGradeService;
 import com.galaxyinternet.service.hologram.InformationProgressService;
+import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
 import com.galaxyinternet.utils.SopConstatnts;
 
@@ -125,6 +129,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
+import java.util.Set;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -179,6 +185,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private DictService dictService;
+	
+	@Autowired
+	private InformationResultService informationResultService;
 	
 	@Autowired
 	private JointDeliveryService jointDeliveryService;
@@ -3386,6 +3395,26 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		{
 			numOfShow = "2";
 		}
+		boolean isExistFlag = true;
+		//投资金额,估值安排所有值,投资方主体
+		String[] titleIds = {"3004","3012","3011","3010","3020"};
+		Set<String> set=new HashSet<String>();         
+		set.addAll(Arrays.asList(titleIds));
+		InformationResult informationResult = new InformationResult();
+		informationResult.setProjectId(Long.toString(pid));
+		informationResult.setTitleIds(set);
+		informationResult.setIsValid("0");
+		//获取总注资计划的金额
+		List<InformationResult> list = informationResultService.queryList(informationResult);
+		if(list != null && list.size() > 0){
+			for(InformationResult ir : list){
+				if(!StringUtils.isEmpty(ir.getContentDescribe1())){
+					isExistFlag = false;
+					break;
+				}
+			}
+		}
+		request.setAttribute("isExistFlag", isExistFlag);
 		request.setAttribute("numOfShow", numOfShow);
 		return "project/sopinfo/tab_appropriation";
 	}
