@@ -3116,8 +3116,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
         margin-bottom: 37px;
 	    margin-left: 77px;
 	    margin-top: -29px;
-	}
-	.check_result div#div_5{display:block; clear: both;}
+	}	
     .check_detail{
     	margin-bottom: -10px;
     }
@@ -3388,6 +3387,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
 #viewNotes-error{display:none;}
 #resultRadion.spresult div{margin-bottom:0;}
+#resultRadion.spresult div:last-child{clear: both;}
 .interviewee .viewTarget span{float: left;
     max-width: 239px;
     display: inline-block;
