@@ -215,12 +215,6 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=path %>/js/validate/lib/jq.validate.js'></script>
 <script type="text/javascript">
-$("input:radio[name='faFlag']").change(function() {
-	// 0 y; 1 n
-	var $selectedvalue = $("input:radio[name='faFlag']:checked").val();
-	radio_faFlag($selectedvalue);
-});
-
 	/**
 	 * @version 2016-06-21
 	 */
@@ -263,8 +257,6 @@ $("input:radio[name='faFlag']").change(function() {
    var TOKEN;
    var formData;
 	$(function(){
-		var $selectedvalue = $("input:radio[name='faFlag']:checked").val();
-		radio_faFlag($selectedvalue);
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
 		createMenus(5);
 		//获取TOKEN 用于验证表单提交
@@ -341,61 +333,7 @@ $("input:radio[name='faFlag']").change(function() {
 			},TOKEN);
 		}
 	}
-	
-	function setText(obj){
-		if(obj=="set"){
-			$("#faName").attr("style","display:inline-block;")
-			$("#faName").removeAttr("allowNULL");
-			$("#faName").focus();
-			if($("#faName").val()=="请输入FA名称"){
-				$("#faName").attr("style","color:#999;");
-			}
-		}else{
-			$('.tip-yellowsimple').remove();
-			$("#faName").val('');
-			$("#faName").attr("allowNULL","yes");
-			$("#faName").attr("style","display:none;");
-		}
-		
-	}
 
-/* 	$("#faName").keydown(function(){
-  		if(this.value=="请输入FA名称"){
-  			this.value = "";
-  		}
-  		if(this.value!="请输入FA名称"){
-  			$("#faName").attr("style","color:#333;");
-  		}
-		
-	}) */
-/* 	$("#faName").blur(function(){
-  		if(this.value==""){
-  			this.value = "请输入FA名称";
-  		}
-  		if(this.value=="请输入FA名称"){
-  			$("#faName").attr("style","color:#999;");
-  		}
-		
-	}) */
-	
-//是否为来源于中介
-function radio_faFlag(isContactsV){
-	console.log(isContactsV);
-	var phone = $("input[name='faName']");
-	if (isContactsV == 0 || isContactsV == '0') {
-		$(".tip-yellowsimple").each(function(){  //隐藏提示  
-            if($(this).children(".tip-inner").text()=="*不能以空格开头，字符最大长度为20"){
-            	$(this).remove();
-            }
-        }); 
-		$("input[name='faName']").hide();
-		$("input[name='faName']").attr({allowNULL:"yes"});
-	} else if (isContactsV == 1 || isContactsV == '1') {
-		$("input[name='faName']").attr('allowNULL','no');
-		$("input[name='faName']").show();
-	} 
-}
-	
 </script>
 
 </html>
