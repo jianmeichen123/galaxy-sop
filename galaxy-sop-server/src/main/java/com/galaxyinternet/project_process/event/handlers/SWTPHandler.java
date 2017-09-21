@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
-import com.galaxyinternet.common.dictEnum.DictEnum.NBPSResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.dictEnum.DictEnum.titleIdResult;
@@ -44,6 +43,7 @@ public class SWTPHandler implements ProgressChangeHandler
 	private MeetingSchedulingDao meetingSchedulingDao;
 	@Autowired
 	private InformationResultService informationResultService;
+	
 	@Override
 	public boolean support(ProgressChangeEvent event)
 	{
@@ -64,6 +64,10 @@ public class SWTPHandler implements ProgressChangeHandler
 			InformationResult selectById=new InformationResult();
 			selectById.setProjectId(project.getId().toString());
 			selectById.setTitleId(titleIdResult.LX.getCode());
+			String meetingResult = informationResultService.meetingResult(project.getId(), "LX");
+			if(!"".equals(meetingResult)){
+				hasPassedMeeting.setMeetingResult(meetingResult);
+			}
 			String contentChoose="";
 				if(hasPassedMeeting.getMeetingResult().equals(LXHResult.ST.getCode())){
 					contentChoose=LXHResult.ST.getConnect();

@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -28,15 +26,12 @@ import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
-import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.UserService;
@@ -61,8 +56,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	@Autowired
 	private Cache cache;
-	@Autowired
-	private IdeaService ideaService;
+	
 	
 	@Override
 	protected BaseDao<MeetingRecord, Long> getBaseDao() {
@@ -752,6 +746,5 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
            }
 		return map;
 	}
-	
 	
 }

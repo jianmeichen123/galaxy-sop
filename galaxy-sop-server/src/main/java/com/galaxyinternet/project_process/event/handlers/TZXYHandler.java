@@ -10,9 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.dictEnum.DictEnum.NBPSResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.TJHResult;
-import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.dictEnum.DictEnum.titleIdResult;
@@ -80,6 +78,10 @@ public class TZXYHandler implements ProgressChangeHandler
 			InformationResult selectById=new InformationResult();
 			selectById.setProjectId(project.getId().toString());
 			selectById.setTitleId(titleIdResult.TJ.getCode());
+			String meetingResult = informationResultService.meetingResult(project.getId(), "TJ");
+			if(!"".equals(meetingResult)){
+				mr.setMeetingResult(meetingResult);
+			}
 			String contentChoose="";
 			if(null!=queryList){
 			mr=queryList.get(0);
