@@ -1,7 +1,5 @@
 package com.galaxyinternet.project.service;
 
-import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
@@ -14,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -36,15 +33,12 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
-import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.framework.core.utils.ExceptionMessage;
-import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
@@ -577,24 +571,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	
 	@Override
 	public Page<Project> queryPageList(ProjectBo query, Pageable pageable) {
-		// TODO Auto-generated method stub
-		//条件查询项目成员
-		List<String> ids = new ArrayList<String>();
-		if(!StringUtils.isBlank(query.getProjectPerson())){
-			PersonPool pQuery = new PersonPool();
-			pQuery.setPersonName(query.getProjectPerson());
-			List<PersonPool> personPoolList = personPoolDao.selectProjectIdByPersonName(pQuery);
-			for(PersonPool personPool : personPoolList){
-				if(!ids.contains(personPool.getProjectId().toString())){
-					ids.add(personPool.getProjectId().toString());
-				}	
-			}
-			if(ids.size() > 0 ){
-				query.setIds(ids);
-			}else{
-				query.setStopSearch("true");
-			}
-		}
 		Page<Project> pageProject = super.queryPageList(query, pageable);
 		return pageProject;
 	}
