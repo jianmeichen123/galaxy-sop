@@ -2588,7 +2588,7 @@ dt[data-type='19']+dd .error{display:block;}
 .h_look table td,.h_edit table td{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;background-color: #f6f6f6;color:#999;border-bottom: 1px solid #fff;border-right: 1px solid #fff;}
 .h_look table th:last-child,.h_edit table th:last-child,.h_edit table td:last-child{border-right:0px;}
 .h_edit table li{position: relative;}
-table td:last-child{overflow:visible};
+table td[data-field-name='opt']{overflow:visible;padding:0px;};
 .h_edit table .h_radios input[type="radio"]{position: absolute;top:9px;}
 .fl_none{width:100%; margin-top:10px; display:block; position:relative;}
 /*float:none!important;  */
