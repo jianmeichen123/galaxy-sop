@@ -305,6 +305,7 @@ var pageId = "project";
 				$(this).siblings(".new_nputr").show();
 			}else{
 				$(this).siblings(".new_nputr").hide();
+				$(this).siblings(".new_nputr").val('');
 			}
 		})
 	});
