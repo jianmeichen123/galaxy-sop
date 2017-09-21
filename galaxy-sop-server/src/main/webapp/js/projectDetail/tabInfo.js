@@ -441,7 +441,6 @@ $(function(){
 				        arr[i]=obj;
 				}
 			}
-			   console.log(isDelete);
 			var formatData={"id":id,
 					       "projectName":pname,
 					       "industryOwn":industry_own,
@@ -480,7 +479,6 @@ $("select[name='projectSource']").change(function() {
 
 //是否为来源于中介
 function radio_faFlag(isContactsV){
-	console.log(isContactsV);
 	var phone = $("input[name='faName']");
 	if (isContactsV == 'projectSource:1') {
 		$("input[name='faName']").show();
