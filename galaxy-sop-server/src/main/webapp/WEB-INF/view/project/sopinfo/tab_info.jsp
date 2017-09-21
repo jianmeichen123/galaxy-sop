@@ -509,11 +509,16 @@
 		editCompany();		
 	});
 	$('.legal [data-btn="save"]').on('click',function(){
-		saveBaseInfo("company-info-form");
+		var projectCompany=$("input[name='projectCompany']").val();
+		var formationDate=$("input[name='formationDate']").val();
+		var companyLegal=$("input[name='companyLegal']").val();
 		$('.bj_hui_on').hide();
 	    $('.legal .show').show();
 		$('.legal .hidden').hide();
-		setTimeout(buildShareResult("4","5812"),500);   //法人信息保存刷新
+		saveBaseInfo("company-info-form",projectCompany,formationDate,companyLegal);
+		buildShareResult("4","5812");
+		
+		
 	});
 	$('.legal [data-btn="cancle"]').on('click',function(){
 		$('.bj_hui_on').hide();

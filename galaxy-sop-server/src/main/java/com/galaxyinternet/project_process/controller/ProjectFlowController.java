@@ -40,8 +40,6 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.fileWorktype;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
-import com.galaxyinternet.dao.sopfile.SopFileDao;
-import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -55,25 +53,19 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
-import com.galaxyinternet.model.hologram.InformationTitleRelate;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project_process.util.ProUtil;
-import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
-import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationResultService;
-import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 
 
 /**
@@ -113,25 +105,13 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 	private InterviewRecordService interviewRecordService;
 	
 	@Autowired
-	private MeetingSchedulingService meetingSchedulingService;
-	
-	@Autowired
 	private  SopFileService sopFileService;
 	
-	@Autowired
-	private DepartmentService departmentService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
-	@Autowired
-	private HandlerManager handlerManager;
 	
-	@Autowired
-	private SopFileDao sopFileDao;
-	
-	@Autowired
-	private SopTaskDao sopTaskDao;
 	@Autowired
 	private InformationResultService informationResultService;
 	@Override
@@ -548,6 +528,8 @@ public class ProjectFlowController extends BaseControllerImpl<Project, ProjectBo
 				return data;
 			}
 			projectService.reject(param.getProjectId());
+			//否决项目结果同步项目报告
+			informationResultService.updateRejestResut(project);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e)
 		{

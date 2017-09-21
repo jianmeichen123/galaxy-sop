@@ -807,6 +807,7 @@ table td select option{
 	text-align: left;
 	line-height:2;
 	font-size:12px;
+	margin-top:17px;
 }
 .radioShow label{
 	margin-left: 10px;
@@ -967,17 +968,16 @@ select::-ms-expand { display: none; }
 .icheckbox_flat-blue,
 .iradio_flat-blue {
     display: inline-block;
-    vertical-align: middle;
     margin: 0;
     padding: 0;
     width: 14px !important;
     height: 14px !important;
     background: url(../../img/seven_report/myBlue.png) no-repeat !important;
-    vertical-align: top;
     border: none;
     cursor: pointer;
     margin-left:3px;
-    vertical-align: middle;
+ 	vertical-align: top;
+    top: 6px;
 }
 .icheckbox_flat-blue{margin-left:5px;}
 .iradio_flat-blue.checked{

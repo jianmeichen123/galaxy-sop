@@ -11,14 +11,12 @@ import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.NBPSResult;
-import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.dictEnum.DictEnum.titleIdResult;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.WebUtils;
-import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.operationLog.UrlNumber;
@@ -80,6 +78,10 @@ public class CEOPSHandler implements ProgressChangeHandler
 		  //更新状态报告里面的状态
 			InformationResult selectById=new InformationResult();
 			selectById.setProjectId(project.getId().toString());
+			String meetingResult = informationResultService.meetingResult(project.getId(), "NP");
+			if(!"".equals(meetingResult)){
+				mr.setMeetingResult(meetingResult);
+			}
 			selectById.setTitleId(titleIdResult.NP.getCode());
 			String contentChoose="";
 				mr=queryList.get(0);

@@ -2,28 +2,27 @@ package com.galaxyinternet.hologram.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.bo.project.MeetingRecordBo;
+import com.galaxyinternet.common.dictEnum.DictEnum.LXHResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.NBPSResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.TJHResult;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
+import com.galaxyinternet.common.dictEnum.DictEnum.titleIdResult;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
-import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.hologram.InformationResult;
-import com.galaxyinternet.model.hologram.InformationTitleRelate;
-import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationResultService;
-import com.galaxyinternet.service.hologram.InformationTitleRelateService;
 
 @Service("informationResultService")
 public class InformationResultServiceImpl extends BaseServiceImpl<InformationResult> implements InformationResultService{
@@ -31,7 +30,7 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 	@Autowired
 	private InformationResultDao informationResultDao;
 	@Autowired
-	private InformationDictionaryService informationDictionaryService;
+	private MeetingRecordDao meetingRecordDao;
 	
 /*	@Autowired
 	private InformationTitleRelateService informationTitleRelateService;
@@ -42,76 +41,105 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 		// TODO Auto-generated method stub
 		return this.informationResultDao;
 	}
-
+	/**
+	 * @author jianemichen 
+	 * 新增会议根据不同会议类型将会议结果不同数据库
+	 * @serialData 2017-09-21 
+	 */
 	@Override
 	public int upResultByMeeting(MeetingRecord meetingRecord) {
 		// TODO Auto-generated method stub
-		//缓存获取数据字典对应值
-		//Map<String,Dict> parentDictMap = new HashMap<String,Dict>();
-		//添加会议类型不同，影响报告里面的相应的结果值
-		//事业部意见 titleId：1111
-		//立项委员会意见 titleId：1113
-		//投决会意见 titleId：1114
-	/*	InformationTitleRelate informationTitleRelate=new InformationTitleRelate();
-		informationTitleRelate.setParentId((long)7208);
-		informationTitleRelate.setReportType(4);
-		List<InformationTitleRelate> queryList = informationTitleRelateService.queryList(informationTitleRelate);
-		for(InformationTitleRelate info:queryList){
-			info
-		}*/
 		InformationResult result=new InformationResult();
 		InformationResult selectById=new InformationResult();
 		selectById.setProjectId(meetingRecord.getProjectId().toString());
+		String meetingResult = this.meetingResult(meetingRecord.getProjectId(), null);
+		if(!"".equals(meetingResult)){
+			meetingRecord.setMeetingResult(meetingResult);
+		}
 		String contentChoose="";
 		switch(meetingRecord.getMeetingType()){
 	       case "meetingType:1":
-	    	   if(meetingRecord.getMeetingResult().equals("meeting1Result:1")){
-	    		   contentChoose="1142";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting1Result:2")){
-	    		   contentChoose="1143";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting1Result:3")){
-	    		   contentChoose="1144";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting1Result:4")){
-	    		   contentChoose="1145";
+	    	   if(meetingRecord.getMeetingResult().equals(NBPSResult.ST.getCode())){
+	    		   contentChoose=NBPSResult.ST.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(NBPSResult.TZ.getCode())){
+	    		   contentChoose=NBPSResult.TZ.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(NBPSResult.GW.getCode())){
+	    		   contentChoose=NBPSResult.GW.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(NBPSResult.FJ.getCode())){
+	    		   contentChoose=NBPSResult.FJ.getConnect();
 	    	   }
-	    	   selectById.setTitleId("1111");
+	    	   selectById.setTitleId(titleIdResult.NP.getCode());
 	    	   result.setContentChoose(contentChoose);
 	    	    break;
 	       case "meetingType:3":
-	    	   if(meetingRecord.getMeetingResult().equals("meeting3Result:2")){
-	    		   contentChoose="1162";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting3Result:3")){
-	    		   contentChoose="1163";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting3Result:1")){
-	    		   contentChoose="1164";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting3Result:4")){
-	    		   contentChoose="1165";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting3Result:5")){
-	    		   contentChoose="1166";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting3Result:6")){
-	    		   contentChoose="1167";
+	    	   if(meetingRecord.getMeetingResult().equals(LXHResult.ST.getCode())){
+	    		   contentChoose=LXHResult.ST.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(LXHResult.TZ.getCode())){
+	    		   contentChoose=LXHResult.TZ.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(LXHResult.BCCL.getCode())){
+	    		   contentChoose=LXHResult.BCCL.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(LXHResult.GW.getCode())){
+	    		   contentChoose=LXHResult.GW.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(LXHResult.ZX.getCode())){
+	    		   contentChoose=LXHResult.ZX.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(LXHResult.FJ.getCode())){
+	    		   contentChoose=LXHResult.FJ.getConnect();
 	    	   }
-	    	   selectById.setTitleId("1113");
+	    	   selectById.setTitleId(titleIdResult.LX.getCode());
 	    	   result.setContentChoose(contentChoose);
 	    	    break;
 	       case "meetingType:4":
-	    	   if(meetingRecord.getMeetingResult().equals("meeting4Result:1")){
-	    		   contentChoose="1173";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting4Result:2")){
-	    		   contentChoose="1174";
-	    	   }else if(meetingRecord.getMeetingResult().equals("meeting4Result:3")){
-	    		   contentChoose="1177";
+	    	   if(meetingRecord.getMeetingResult().equals(TJHResult.TZ.getCode())){
+	    		   contentChoose=TJHResult.TZ.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(TJHResult.BCCL.getCode())){
+	    		   contentChoose=TJHResult.BCCL.getConnect();
+	    	   }else if(meetingRecord.getMeetingResult().equals(TJHResult.FJ.getCode())){
+	    		   contentChoose=TJHResult.FJ.getConnect();
 	    	   }
 	    	   result.setContentChoose(contentChoose);
-	    	   selectById.setTitleId("1114");
+	    	   selectById.setTitleId(titleIdResult.TJ.getCode());
 	    	    break;
 	    	default :
 	    		 break;
 	}
 		this.updateOrInsert(selectById,contentChoose);
 		
-		return 0;
+		return 1;
 	}
+	
+	/***
+	 * @author jianemichen
+	 * 点击“否决项目”按钮 结果同步到报告相应的字段
+	 * @serialData 2017-09-21
+	 */
+	@Override
+	public void updateRejestResut(Project project ){
+		String progress=project.getProjectProgress();
+		String titleId="";
+		String contentChoose="";
+		if(null!=progress){
+			if(progress.equals(projectProgress.内部评审.getCode())){
+				titleId=titleIdResult.NP.getCode();
+				contentChoose=NBPSResult.FJ.getConnect();
+			}else if(progress.equals(projectProgress.立项会.getCode())){
+				titleId=titleIdResult.LX.getCode();
+				contentChoose=LXHResult.FJ.getConnect();
+			}else if(progress.equals(projectProgress.投资决策会.getCode())){
+				titleId=titleIdResult.TJ.getCode();
+				contentChoose=TJHResult.FJ.getConnect();
+			}
+		}
+		InformationResult selectById=new InformationResult();
+		selectById.setProjectId(project.getId().toString());
+		selectById.setTitleId(titleId);
+		//数据库处理新增或者修改处理
+		this.updateOrInsert(selectById,contentChoose);
+	}
+	/**
+	 * @author jianemichen
+	 * 同步数据编辑新增处理
+	 * @serialData 2017-09-21
+	 */
 	@Override
 	public void updateOrInsert(InformationResult selectById,String contentChoose ){
 		User user = WebUtils.getUserFromSession();
@@ -136,5 +164,52 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 			}
 		}
 	}
+	
+	/**
+	 * 项目流程会议添加时候判断同步报告相应字段的值
+	 * @param projectId
+	 * @param passResult
+	 * @author jianmeichen
+	 * @serialData 
+	 *  return
+	 */
 
+	public String meetingResult(Long projectId,String passResult){
+		
+		MeetingRecordBo meetingBo=new MeetingRecordBo();
+		
+		MeetingRecord meeting=new MeetingRecord();
+		
+		meetingBo.setProjectId(projectId);
+		
+		String result="";
+		
+		if(null!=passResult&&!"".equals(passResult)){
+			
+			if(passResult.equals("NP")){
+				
+				meetingBo.setPassNPFlag("yes");
+				
+			}else if(passResult.equals("LX")){
+				
+				meetingBo.setPassLXFlag("yes");
+				
+			}else{
+				meetingBo.setMeetingResult(passResult);
+			}
+		}
+		meetingBo.setProperty("meeting_date");
+		meetingBo.setDirection("desc");
+		List<MeetingRecord> selectList = meetingRecordDao.selectList(meetingBo);
+		
+		if(null!=selectList&&!selectList.isEmpty()){
+			
+			meeting=selectList.get(0);
+			
+			result=meeting.getMeetingResult();
+		}
+		return result;
+	}
+	
+	
 }

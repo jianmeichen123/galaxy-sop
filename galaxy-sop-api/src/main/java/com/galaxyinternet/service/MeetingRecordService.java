@@ -42,6 +42,8 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	Long selectCount(MeetingRecordBo query);
 	
 	public void operateFlowMeeting(SopFile file,MeetingRecord meet);
+	
+	
 
 
 }
