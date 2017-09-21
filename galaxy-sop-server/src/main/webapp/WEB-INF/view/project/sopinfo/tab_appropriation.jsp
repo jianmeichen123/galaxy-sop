@@ -112,7 +112,7 @@ var searchPartMoney;
 		var _total_name = $self.attr("data-total-name");
 		//查看分期计划
 		if(_data_type == "info"){
-			_url = Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAgingInfo'+"/"+_id;
+			_url = Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAgingInfo';
 		}
 		/* 
 		var isFlag = false;
@@ -151,11 +151,18 @@ var searchPartMoney;
 							var result = data.result.status;
 							if(result == "OK"){
 								var grantPartInfo = data.entity;
-								$("#actual_aging_container [data-name='id']").val(grantPartInfo.id);
-								$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
-								$("#actual_aging_container [data-name='field2']").val(grantPartInfo.field2);
-								$("#actual_aging_container [data-name='field3']").val(grantPartInfo.field3);
-								$("#actual_aging_container [data-name='field4']").val(grantPartInfo.field4);
+								if(_data_type == "edit"){
+									$("#actual_aging_container [data-name='id']").val(grantPartInfo.id);
+									$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
+									$("#actual_aging_container [data-name='field2']").val(grantPartInfo.field2);
+									$("#actual_aging_container [data-name='field3']").val(grantPartInfo.field3);
+									$("#actual_aging_container [data-name='field4']").val(grantPartInfo.field4);
+								}else{
+									$("#grantName").html(grantPartInfo.field1);
+									$("#grantDetail").html(grantPartInfo.field2);
+									$("#grantMoney").html(grantPartInfo.field3);
+									$("#payCondition").html(grantPartInfo.field4);
+								}
 								/* 
 								$("#actual_aging_container [name='id']").val(grantPartInfo.id);
 								$("#actual_aging_container [name='totalGrantId']").val(grantPartInfo.totalGrantId);
@@ -250,11 +257,14 @@ var searchPartMoney;
 			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");
 			var _name= $self.attr("data-name");
 			var _flag= $self.attr("data-flag");
+			var _part_id = $self.attr("data-part-id");
+			alert(_part_id);
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
 					$("#partFlag").val(_flag);
+					$("#btn_add_appr_actual").attr("data-id",_part_id);
 					var  v=$("#partFlag").val();
 					$("#popup_name").html(_name);
 				}//模版反回成功执行	
@@ -574,7 +584,8 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			var url = searchPartMoney+'/'+'${pid}';
+			initTabAppropriation(pId);
+			/* var url = searchPartMoney+'/'+'${pid}';
 			var numOfShow = $("#tabApprAllList .agreement:visible").length;
 			if(numOfShow>0)
 			{
@@ -583,7 +594,7 @@ function del_grantPart(id){
 			}
 			$.getTabHtml({
 				url : Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+url
-			});
+			}); */
 		} else {
 			layer.msg(data.result.message);
 		}

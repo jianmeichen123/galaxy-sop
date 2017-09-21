@@ -96,37 +96,9 @@
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div>  	
 	</div>
+	  <script src="<%=path %>/js/partFile.js"></script>
 	<script>
-	   $(function(){
-		   /* var remainMoney = '${remainMoney}';
-			  remainMoney = fixSizeDecimal(parseFloat(remainMoney),4);
-	          $("#formatRemainMoney").html(remainMoney);	
-	          var remainMoneyOld=$("#formatRemainMoney").text();
-	         
-		  $("#grantMoney").blur(function(){
-			 var grantMoney=$("#grantMoney").val();
-			 if(!beforeSubmitById("actual_aging_container")){
-				 $("#formatRemainMoney").html(remainMoneyOld);
-	 				return false;
-	 			} 
-			 if(grantMoney<0){
-	 				$("#formatRemainMoney").html(remainMoney)
-	 			 }else{
-	 				var remainMoney = '${remainMoney}';
-	 				var sremainMoneyNew=remainMoney-Number(grantMoney);
-	 				remainMoneyNew = fixSizeDecimal(parseFloat(sremainMoneyNew),4);
-	 				
-	 				if( sremainMoneyNew < 0 || sremainMoneyNew == 0){
-	 				    $("#formatRemainMoney").html("0");
-	 				}else{
-	 				    $("#formatRemainMoney").html(remainMoneyNew);
-	 				      }	 
-	 			 }
-			            
-		  }) */
-		  
-	   });
-	   var data = {};
+	  /*  var data = {};
 	   var infoTableModelList = new Array();
 	   $("#win_ok_btn").click(function(){
 		    var key = keyJSON["b_part"];
@@ -219,7 +191,7 @@
 				
 			});
 	   	
-	   });
+	   }); */
 
 	
 	</script>

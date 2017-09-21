@@ -288,10 +288,10 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			userData.put("id", informationResult.getId());
 			userData.put("grantMoney", informationResult.getContentDescribe1());
 		    //查找分期
-			InformationListdata id = new InformationListdata();
-			id.setTitleId(3022l);
-			id.setProjectId(informationListdata.getProjectId());
-			gp = informationListdataService.queryList(id);
+			InformationListdata infordata = new InformationListdata();
+			infordata.setTitleId(3022l);
+			infordata.setProjectId(informationListdata.getProjectId());
+			gp = informationListdataService.queryList(infordata);
 			//分期列表
 			if(gp != null && gp.size() > 0){
 				List<InformationListdata> removedatalist = new ArrayList<InformationListdata>();

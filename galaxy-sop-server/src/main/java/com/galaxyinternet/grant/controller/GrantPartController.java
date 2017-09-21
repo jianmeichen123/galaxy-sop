@@ -101,16 +101,16 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/toApprPartAgingInfo/{tid}", method = RequestMethod.GET)
-	public String toApprActualAgingInfo(@PathVariable("tid") Long tid, HttpServletRequest request) {
-		GrantTotal total = grantTotalService.queryById(tid);
+	@RequestMapping(value = "/toApprPartAgingInfo", method = RequestMethod.GET)
+	public String toApprActualAgingInfo(HttpServletRequest request) {
+		/*GrantTotal total = grantTotalService.queryById(tid);
 		Project project = projectService.queryById(total.getProjectId());
 		double useMoney = grantPartService.calculateBelongToPartMoney(tid);
 		request.setAttribute("projectCompany", project.getProjectCompany());
 		request.setAttribute("investors", total.getInvestors());
 		request.setAttribute("totalGrantId", total.getId());
 		request.setAttribute("totalMoney", total.getGrantMoney());
-		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);
+		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);*/
 		return "project/tanchuan/appr_part_aging_info";
 	}
 	
@@ -219,27 +219,25 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
-	@RequestMapping(value = "/delGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<GrantPart> delGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
-		ResponseData<GrantPart> responseBody = new ResponseData<GrantPart>();
+	@RequestMapping(value = "/delGrantPart/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationListdata> delGrantPart(@PathVariable("id") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
 		if(StringUtils.isEmpty(grantPartid)){
 			responseBody.setResult(new Result(Status.ERROR,null, "参数丢失!"));
 			return responseBody;
 		}
 		try {
-			GrantActual ga = new GrantActual();
-			ga.setPartGrantId(grantPartid);
-			Long actual = grantActualService.queryCount(ga);
+			InformationListdata ga = new InformationListdata();
+			ga.setParentId(grantPartid);
+			ga.setCode("grant-actual");
+			Long actual = informationListdataService.queryCount(ga);
 			if(actual > 0){
 				responseBody.setResult(new Result(Status.ERROR,null, "存在实际注资,不允许进行删除操作"));
 				return responseBody;
 			}
-			GrantPart part = grantPartService.queryById(grantPartid);
-			GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
-			Project project = new Project();
-			project = projectService.queryById(total.getProjectId());
-			
-			grantPartService.deleteGrantPart(grantPartid);
+			InformationListdata part = informationListdataService.queryById(grantPartid);
+			Project project = projectService.queryById(part.getProjectId());
+			informationListdataService.deleteDataRelateFile(grantPartid);
 			responseBody.setResult(new Result(Status.OK, ""));
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.2", UrlNumber.three);
 		} catch (Exception e) {

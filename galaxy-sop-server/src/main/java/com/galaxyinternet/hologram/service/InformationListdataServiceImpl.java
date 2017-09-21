@@ -1,16 +1,20 @@
 package com.galaxyinternet.hologram.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationListdataRemark;
+import com.galaxyinternet.service.hologram.InformationFileService;
 import com.galaxyinternet.service.hologram.InformationListdataRemarkService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 
@@ -22,6 +26,9 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 
 	@Autowired
 	private InformationListdataRemarkService informationListdataRemarkService;
+	
+	@Autowired
+	InformationFileService informationFileService;
 	
 	@Override
 	protected BaseDao<InformationListdata, Long> getBaseDao() {
@@ -135,6 +142,24 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 	public double selectPartMoney(InformationListdata entity) {
 		// TODO Auto-generated method stub
 		return informationListdataDao.selectTotalMoney(entity);
+	}
+
+	@Override
+	@Transactional
+	public void deleteDataRelateFile(Long id) {
+		// TODO Auto-generated method stub
+		InformationListdata data = informationListdataDao.selectById(id);
+		if(data != null){
+			String fids = data.getRelateFileId();
+			if(StringUtils.isNotBlank(fids)){
+				String[] ids = fids.split(",");
+				for(int i = 0 ;i < ids.length;i++){
+					informationFileService.deleteById(Long.valueOf(ids[i]));
+				}
+				
+			}
+			informationListdataDao.deleteById(id);
+		}
 	}
 	
 	

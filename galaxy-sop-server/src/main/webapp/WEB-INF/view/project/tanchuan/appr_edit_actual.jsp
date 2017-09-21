@@ -24,125 +24,61 @@
 	        <div class="edit_actual"  style="min-width:600px;width:740px\9;">
 	            
 	            <dl class="fmdl fl_l  clearfix">
-	                <dt>协议名称 ：</dt>
-	                <dd>
-	                	<span id="label_protocol_name"></span>
-	                </dd>
-	            </dl>
-	            
-	            <dl class="fmdl fl_l  clearfix">
-	                <dt>投资方 ：</dt>
-	                <dd>
-	                	<span id="label_investors"></span>
-	                </dd>
-	            </dl>
-	            <dl class="fmdl fl_l  clearfix">
-	                <dt>目标公司 ：</dt>
-	                <dd>
-	                	<span id="label_projectCompany"></span>
-	                </dd>
-	            </dl>
-	            
-                <dl class="fmdl fl_l  clearfix">
-	                <dt>计划注资时间 ：</dt>
-	                <dd>
-	                	<div id="label_plan_grant_time"></div> 
-	                </dd>
-	            </dl>
-	            
-	            <div class="min clearfix">
-	            <dl class="fmdl fml clearfix" style="width:60%">
-	                <dt>实际注资日期 ：</dt>
-	                <dd id="div_label_actualTime">
-	                	<input type="text" class="datepicker txt time" readonly id="label_actualTime" name="actualTime"  style="height:23px;"/>
-	                </dd>
-	            </dl>
-	            
-	            <dl class="fmdl fl_l  clearfix">
-	                <dt>计划总注资金额 ：</dt>
-	                <dd>
-	                	<div id="label_plan_grant_money"></div> 
-	                </dd>
-	            </dl>
-	            </div>
-	            <!-- 
-	             <dl class="fmdl fl_l  clearfix">
-	                <dt>计划总注资金额：</dt>
-	                <dd>
-	                	<div id="label_finalContribution"></div> 
-	                </dd>
-	            </dl>
-	             -->
-	            
-	            <div class="min clearfix">
-	            <dl class="fmdl fl_l  clearfix" style="width:60%">
-	                <dt>股权占比：</dt>
-	                <dd>
-	                	<div id="label_finalShareRatio"></div> 
-	                </dd>
-	            </dl>
-	            <dl class="fmdl fl_l  clearfix">
-	                <dt>加速服务费占比：</dt>
-	                <dd>
-	                	<div id="label_serviceCharge"></div> 
-	                </dd>
-	            </dl>
-	            </div>			
-	            <div class="min clearfix">
-                <dl class="fmdl fl_l  clearfix" style="width:60%">
-	                <dt>实际注资金额 ：</dt>
-	                <dd>
-	                	<div id="label_grant_money">
-	                    	<input class="txt" id="form_grant_money" type="text" 
-	                    		valType="LIMIT_11_NUMBER" 
-	                    		msg="<font color=red>*</font>支持9位长度的四位小数">
-	                   		<span class='money'>万元</span>
-	                    </div> 
-                        <div class="gray" id="label_surplus_grant_money">剩余金额0万元</div> 
-	                </dd>
-	            </dl>
-	            
-	            <dl class="fmdl fl_l  clearfix">
-	                <dt>项目估值：</dt>
-	                <dd>
-	                	<div id="label_finalValuations"></div> 
-	                </dd>
-	            </dl>
-	            </div>
-	            <dl class="fmdl fl_l  clearfix" id="show_actual_file">
-	                <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+	               <input type="hidden" id="projectId" name="projectId" value=""/>
+	               <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
+	                <input type="hidden" id="parentId" name="parentId" value=""/>
+	                <input type="hidden" id="code" name="code" value="grant-actual"/>
+		            <dt>实际注资名称 ：</dt>
+		                <dd>
+		                	<div>
+		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    </div> 
+		                </dd>
+		            </dl>
+	                <dl class="fmdl fl_l  clearfix">
+		                <dt>实际注资时间 ：</dt>
+		                <dd>
+		                	<div>
+		                	    <input readonly id="field2" name="field2" data-name="field2" data-type="19" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/>
+		                    	<!-- <input readonly class="edittxt" id="grantDetail" data-name="field2" data-type="19" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/> -->
+		                    </div> 
+		                </dd>
+		            </dl>
+	                 <dl class="fmdl fl_l  clearfix">
+		                <dt>实际注资金额 ：</dt>
+		                <dd>
+		                	
+		                	<div class='moeny_all'>
+		                    	<input class=" txt " id="grantMoney" data-name="field3" data-type="19" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<span id="editMoney" class="bj_hui"></span>
+		                    	<span class='money'>万元</span>
+		                    </div> 
+	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>万元</div> 
+		                </dd>
+		            </dl>
+	            <dl class="fmdl fl_l" id="choose_up_file">
+		                 <dt>上传附件 ：</dt>
+		                 <div class="fmload clearfix">
+				            <dd>
+					        	<input  type="text"  class="txt" name="textarea2" id="textarea2" readonly="readonly"></input>
+					        </dd>
+					        <dd>
+					        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
+				    		</dd>
+				        </div>
+		            </dl>  
+		            <dl class="fmdl fl_l" id="show_up_file">
+		                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
 		                 <thead>
 		                    <tr>
 		                      <th style="width:265px;">文件名称</th>
 		                      <th style="width:105px" align="center">文件大小</th>
-		                      <!-- <th style="width:80px" align="center">操作</th>
-		                      <th style="width:80px" align="center">进度</th> -->
+		                      <th style="width:80px" align="center">操作</th>
+		                      <th style="width:80px" align="center">进度</th>
 		                    </tr>
 		                 </thead>
 		                 </table> 
-	            </dl>
-	            <!-- <div class="affrim_line"></div> -->
-	            <dl class="fmdl fl_l" id="choose_up_file">
-	                 <dt>上传附件 ：</dt>
-	                 <div class="fmload clearfix">
-			            <dd>
-				        	<input  type="text"  class="txt" name="textarea2" id="textarea2" readonly="readonly"></input>
-				        </dd>
-				        <dd>
-				        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn" style="position: relative; z-index: 1;">选择附件</a>
-			    		</dd>
-			        </div>
-	            </dl>  
-	            <dl class="fmdl fl_l" id="show_up_file" >
-	                 <table style="width:530px;margin: auto; display:block;" id="filelist"  cellspacing="0" cellpadding="0">
-	                    <tr>
-	                      <th style="width:265px;">文件名称</th>
-	                      <th style="width:105px" align="center">文件大小</th>
-	                      <th style="width:80px" align="center">操作</th>
-	                      <th style="width:80px" align="center">进度</th>
-	                    </tr>
-	                 </table> 
-	            </dl>
+		            </dl>
 	             
 	        </div>
 	    </div>
@@ -152,6 +88,7 @@
 	    </div>  
 	</form>	
 </div>
+  <script src="<%=path %>/js/partFile.js"></script>
 
 
 

@@ -1,5 +1,26 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.galaxyinternet.bo.GrantActualBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -15,6 +36,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantActual;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
@@ -26,27 +48,9 @@ import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.MathUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -67,6 +71,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private UserService userService;
 	@Autowired
 	private SopFileService sopFileService;
+	@Autowired
+	private InformationListdataService informationListdataService;
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
 		return this.grantActualService;
@@ -134,28 +140,21 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/searchActualList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<GrantActual> searchActualList(@RequestBody GrantActual actual,
+	public ResponseData<InformationListdata> searchActualList(@RequestBody InformationListdata actual,
 			HttpServletRequest request) {
-		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
-		if(actual.getPartGrantId() == null){
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
+		if(actual.getParentId()== null || actual.getProjectId() == null){
 			responseBody.setResult(new Result(Status.ERROR,"error" , "必要的参数丢失!"));
 			return responseBody;
 		}
 		try {
-			Page<GrantActual> actualPage = grantActualService.queryPageList(actual,
+			actual.setProperty(null);
+			actual.setDirection(null);
+			Page<InformationListdata> actualPage = informationListdataService.queryPageList(actual,
 					new PageRequest(actual.getPageNum(), 
 							actual.getPageSize(), 
 							Direction.fromString("desc"), 
-							"actual_time"));
-			List<GrantActual> ga = actualPage.getContent();
-			if(ga!=null && !ga.isEmpty()){
-				for(GrantActual gaa : actualPage.getContent()){
-					List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(gaa.getId());
-					if(sopDownLoadList != null){
-						gaa.setFileNum((byte) sopDownLoadList.size());
-					}
-				}
-			}
+							"created_time"));
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
 			_common_logger_.error("查询实际注资列表失败！查询条件：" + actual, e);
