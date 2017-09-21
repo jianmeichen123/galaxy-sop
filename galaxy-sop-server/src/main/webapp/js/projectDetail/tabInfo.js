@@ -402,7 +402,7 @@ $(function(){
 			var id=$("#pid").val();
 			var pname=$("#project_name_edit").val().trim();
 			var industry_own=$("#industry_own_sel").val().trim();
-			//var finance_status=$("#finance_status_sel").val().trim();  //本轮融资轮次
+			var finance_status=$("#finance_status_sel option:selected").attr("value");  //本轮融资轮次
 			//var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val().trim();
 			//var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val().trim();
 			//var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val().trim();
@@ -445,7 +445,7 @@ $(function(){
 			var formatData={"id":id,
 					       "projectName":pname,
 					       "industryOwn":industry_own,
-					    //   "financeStatus":finance_status,
+					       "financeStatus":finance_status,
 					    //   "projectValuations":project_valuations,
 					    //   "projectContribution" :project_contribution,
 					     //  "projectShareRatio":project_share_ratio,
