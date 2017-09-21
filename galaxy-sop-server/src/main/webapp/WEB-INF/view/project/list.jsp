@@ -92,20 +92,19 @@ var pageId = "project";
                   </dd>
                 </dl>
                   <dl class="fmdl fmdll clearfix">
-                  <dt>团队成员:</dt>
+                  <dt>团队成员：</dt>
                   <dd style="width:135px;">
                     <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" onkeyup="onkeyupall(this)" style="margin-left:0">
                   </dd>
                 </dl>
                  <dl class="fmdl fml  fmdll clearfix">
               		<dt >项目来源：</dt>
-              		<dd class="clearfix" style="width:300px;">
+              		<dd class="clearfix">
 		                <!-- <label><input type="radio" name="faFlag" value = "1"/>是</label>
 		                <label><input type="radio" name="faFlag" value = "0"/>否</label> -->
 		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
 	                    	<option value="">--请选择--</option>
 	                    </select>
-                     <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
 	            	</dd>
          		</dl> 
             </div>
@@ -263,7 +262,6 @@ var pageId = "project";
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		var projectPerson = $("input[name='projectPerson']").val();
 		var faFlag = $("select[name='faFlag']").val();
-		var faName=$("input[name='faName']").val();
 		
 		var formdata = {
 				_paramKey : 'projectList',
@@ -280,8 +278,7 @@ var pageId = "project";
 	        		createUid : createUid,
 	        		nameCodeLike : nameCodeLike,
 	        		projectPerson:projectPerson,
-	        		faFlag:faFlag,
-	        		faName:faName
+	        		faFlag:faFlag
 				}
 		}
 		var href_url=window.location;
@@ -305,7 +302,6 @@ var pageId = "project";
 				$(this).siblings(".new_nputr").show();
 			}else{
 				$(this).siblings(".new_nputr").hide();
-				$(this).siblings(".new_nputr").val('');
 			}
 		})
 	});
@@ -412,10 +408,6 @@ var pageId = "project";
 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
 	        		param.projectPerson = initParams.projectPerson;
 	        		$("input[name='projectPerson']").val(initParams.projectPerson);
-	        		if(initParams.faName!=""){
-	        			param.faName = initParams.faName;
-	        			$("input[name='faName']").val(initParams.faName);
-	        		}
 	        		var options = $("#data-table").bootstrapTable('getOptions');
 	 	        	options.pageNumber = initParams.pageNum - 1;
 	    		}
@@ -514,8 +506,6 @@ var pageId = "project";
 			}
 			$('input[name="nameCodeLike"]').val("");
 			$('input[name="projectPerson"]').val("");
-			$("input[name='faName']").val("");
-			$("input[name='faName']").hide();
 			$("#showResetBtn").val(0);
 			$("#resetBtn").addClass("none");
 		});
