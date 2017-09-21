@@ -541,22 +541,19 @@ var pageId = "project";
 	 * @version 2016-06-21
 	 */
 	function projectFaFormat(value,row,index){
+		console.log(row)
 		var retStr = '-';
-		if(row.faFlag=='1'){
-			retStr = "是";
-		}else if(row.faFlag=='0'){
-			retStr = '否';
-		}else{
-			/* if(row.faName.length>4){
-				var name=row.faName.slice(0,4) 
-				retStr="<div title='FA-"+row.faName+"'>FA-"+name+"</div>"
+		if(row.faFlag=='projectSource:1'){
+			if(row.faName && row.faName.length>4){
+				var faName=row.faName.substring(0,4);
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+faName+"</div>";
 			}else{
-				retStr="<div>FA-"+row.faName+"</div>"
-			} */
-			
+				retStr="<div title='"+row.faFlagStr+'-'+row.faName+"'>"+row.faFlagStr+'-'+row.faName+"</div>";
+			}
+		}else{
+			retStr = "<div title='"+row.faFlagStr+"'>"+row.faFlagStr+"</div>";
 		}
-		//alert(r)
-		return row.faFlagStr;
+		return retStr;
 	}
 	/**
 	 * 项目进度格式化
