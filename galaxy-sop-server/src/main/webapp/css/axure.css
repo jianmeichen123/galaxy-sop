@@ -3622,6 +3622,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  color:#b2b2b2;
  }
  .new_r_compile  .icon{margin-top:3px;}
- .team_info tr td{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+ .team_info tr td,.info_table[data-code="equity-structure"] td{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
  #company-info span.new_color_black{display: inline-block; width: 80%;}
  
