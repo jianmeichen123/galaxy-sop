@@ -14,7 +14,9 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.hologram.util.ExportDataConversionTask;
+import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.hologram.InformationFixedTable;
@@ -436,6 +438,12 @@ public class ReportExportServiceImpl implements ReportExportService {
                 item.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+item.getCreateId(), "realName"));
             }
 
+            if(item.getUpdateTime() != null){
+                item.setUpdateTimeStr(DateUtil.longToString(item.getUpdateTime()));
+            }else if(item.getCreateTime() != null){
+                item.setUpdateTimeStr(DateUtil.longToString(item.getCreateTime()));
+            }
+
             for(int i=1; i<11;i++){
                 try {
                     String tid = CacheOperationServiceImpl.table_remarkCode_field_tid.get(remarkCode).get(preField+i);
@@ -476,6 +484,21 @@ public class ReportExportServiceImpl implements ReportExportService {
             }
 
         }
+
+
+        /*
+         * 排序需求 写死
+         * equity_structure    field2
+         * investor_situation
+         */
+        ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();
+        if(map.containsKey("equity_structure")){
+            sortList.sortNumForNull((List<InformationListdata>)  map.get("equity_structure"),"field2","desc");
+        }
+        if(map.containsKey("investor_situation")){
+            sortList.sortNumForNull((List<InformationListdata>)  map.get("investor_situation"),"field4","desc");
+        }
+
 
         /*
          * 嵌套类表格写死
@@ -537,7 +560,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         if(type == 0 || type == 1 || type == 8 )
         {
             // 1:文本、 8:文本域(textarea)、
-            value = textConversion(value);
+            value = textConversion(fieldValue);
         }else  if( type == 2 || type == 14 )
         {
             // 2: 单选（Radio）、 14 单选（select）、

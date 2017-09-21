@@ -262,7 +262,8 @@ var pageId = "project";
 		var createUid = $("select[name='createUid']").val();
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		var projectPerson = $("input[name='projectPerson']").val();
-		var faFlag = $("input[name='faFlag']:checked").val();
+		var faFlag = $("select[name='faFlag']").val();
+		var faName=$("input[name='faName']").val();
 		
 		var formdata = {
 				_paramKey : 'projectList',
@@ -279,7 +280,8 @@ var pageId = "project";
 	        		createUid : createUid,
 	        		nameCodeLike : nameCodeLike,
 	        		projectPerson:projectPerson,
-	        		faFlag:faFlag
+	        		faFlag:faFlag,
+	        		faName:faName
 				}
 		}
 		var href_url=window.location;
@@ -303,6 +305,7 @@ var pageId = "project";
 				$(this).siblings(".new_nputr").show();
 			}else{
 				$(this).siblings(".new_nputr").hide();
+				$(this).siblings(".new_nputr").val('');
 			}
 		})
 	});
@@ -392,9 +395,13 @@ var pageId = "project";
 	        			param.projectProgress = initParams.projectProgress;
 	        			$("select[name='projectProgress']").val(initParams.projectProgress);
 	        		}
-	        		if(initParams.projectStatus != ''){
-	        			param.projectStatus = initParams.projectStatus;
-	        			$("select[name='projectStatus']").val(initParams.projectStatus);
+	        		if(initParams.faFlag != ''){
+	        			param.faFlag = initParams.faFlag;
+	        			$("select[name='faFlag']").val(initParams.faFlag);
+	        		}
+	        		if(initParams.financeStatus != ''){
+	        			param.financeStatus = initParams.financeStatus;
+	        			$("select[name='financeStatus']").val(initParams.financeStatus);
 	        		}
 	        		param.projectDepartid = initParams.projectDepartid;
 	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
@@ -405,8 +412,10 @@ var pageId = "project";
 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
 	        		param.projectPerson = initParams.projectPerson;
 	        		$("input[name='projectPerson']").val(initParams.projectPerson);
-	        		param.faFlag = initParams.faFlag;
-	        		$("input[name='faFlag'][value='"+initParams.faFlag+"']").prop("checked",true);
+	        		if(initParams.faName!=""){
+	        			param.faName = initParams.faName;
+	        			$("input[name='faName']").val(initParams.faName);
+	        		}
 	        		var options = $("#data-table").bootstrapTable('getOptions');
 	 	        	options.pageNumber = initParams.pageNum - 1;
 	    		}
@@ -416,7 +425,9 @@ var pageId = "project";
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
-	        	
+	        	if($("select[name='faFlag']").val()=="projectSource:1"){
+	        		$("input[name='faName']").show();
+	        	}
 	        	
 	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
 	    			if(initParams.pageNum==1){
@@ -485,6 +496,7 @@ var pageId = "project";
 			$("select[name='projectProgress']").val("");
 			$("select[name='projectStatus']").val("");
 			$("select[name='projectDepartid']").val("");
+			$("select[name='faFlag']").val("");
 			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
 			
 			if(typeof(did) == "undefined"){
@@ -501,8 +513,9 @@ var pageId = "project";
 				
 			}
 			$('input[name="nameCodeLike"]').val("");
-			$('input[name="faFlag"]').removeAttr("checked");
 			$('input[name="projectPerson"]').val("");
+			$("input[name='faName']").val("");
+			$("input[name='faName']").hide();
 			$("#showResetBtn").val(0);
 			$("#resetBtn").addClass("none");
 		});

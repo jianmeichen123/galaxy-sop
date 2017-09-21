@@ -19027,7 +19027,7 @@
                                             <w:kern w:val="0"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t><#if dbef.updatedTime??> ${dbef.updatedTime?string("yyyy-MM-dd")} <#elseif dbef.createdTime??>${dbef.createdTime?string("yyyy-MM-dd")}</#if></w:t>
+                                        <w:t>${dbef.updateTimeStr!"-"}</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -19287,7 +19287,7 @@
                                             <w:kern w:val="0"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t><#if daft.updatedTime??> ${daft.updatedTime?string("yyyy-MM-dd")} <#elseif daft.createdTime??>${daft.createdTime?string("yyyy-MM-dd")}</#if></w:t>
+                                        <w:t>${daft.updateTimeStr!"-"}</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -20003,7 +20003,7 @@
                             </w:tc>
                         </w:tr>
 
-                        <#list equity_structure?sort_by("field2")?reverse as estr>
+                        <#list equity_structure as estr>
                         <w:tr w:rsidR="00655433" w:rsidRPr="00655433" w:rsidTr="00B87C33">
                             <w:trPr>
                                 <w:trHeight w:val="450"/>
@@ -20329,7 +20329,7 @@
                                             <w:sz w:val="18"/>
                                             <w:szCs w:val="18"/>
                                         </w:rPr>
-                                        <w:t>投资金额（万元）</w:t>
+                                        <w:t>投资金额</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -20399,13 +20399,13 @@
                                             <w:sz w:val="18"/>
                                             <w:szCs w:val="18"/>
                                         </w:rPr>
-                                        <w:t>投后估值（万元）</w:t>
+                                        <w:t>投后估值</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
                         </w:tr>
 
-                        <#list investor_situation?sort_by("field4")?reverse as isit>
+                        <#list investor_situation as isit>
                         <w:tr w:rsidR="00655433" w:rsidRPr="00655433" w:rsidTr="00B54BA7">
                             <w:trPr>
                                 <w:trHeight w:val="675"/>
@@ -20506,7 +20506,7 @@
                                             <w:kern w:val="0"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t>${isit.field3!"-"}</w:t>
+                                        <w:t>${isit.field3!"-"}<#if isit.field3??>万${isit.field6!""}</#if></w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -20572,7 +20572,7 @@
                                             <w:kern w:val="0"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t>${isit.field5!"-"}</w:t>
+                                        <w:t>${isit.field5!"-"}<#if isit.field5??>万${isit.field6!""}</#if></w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>

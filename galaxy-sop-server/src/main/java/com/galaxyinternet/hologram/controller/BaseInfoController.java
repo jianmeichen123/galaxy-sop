@@ -1,39 +1,35 @@
 package com.galaxyinternet.hologram.controller;
 
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.DocExportUtil;
 import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.hologram.service.CacheOperationServiceImpl;
-import com.galaxyinternet.model.hologram.InformationDictionary;
-import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
-
+import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project.controller.ProjectProgressController;
+import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.hologram.CacheOperationService;
 import com.galaxyinternet.service.hologram.InformationDictionaryService;
 import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.service.hologram.InformationTitleService;
+import com.galaxyinternet.service.hologram.ReportExportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -50,38 +46,68 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
-	
-	
+
+	@Autowired
+	private CacheOperationService cacheOperationService;
+
+	@Autowired
+	private ReportExportService reportExportService;
+
 	@Autowired
 	private InformationResultService informationResultService;
-	
+
+	@Autowired
+	private ProjectService projectService;
+
+
+	@Value("${sop.oss.tempfile.path}")
+	private String tempfilePath;
+
+	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
+	public static final String temp2 = "qxbg-zh-temp.xml"; //综合
+	public static final String tempath = "/template";  //  模板地址
+
+
 	@Override
 	protected BaseService<InformationTitle> getBaseService() {
 		return this.informationTitleService;
 	}
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
+	/**
+	 * 7大报告 ： doc 下载
+	 */
+	@RequestMapping("/down/{pid}")
+	public void downDoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
+	{
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+		String currTime = System.currentTimeMillis()+"";
+
+		Project project = projectService.queryById(pid);
+		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO");
+
+		String fn1 = currTime + project.getProjectName() + "全息报告概览.docx";
+		String fn2 = currTime + project.getProjectName() + "全息报告内容.docx";
+		try {
+			DocExportUtil docExportUtil1 = new DocExportUtil(request,tempath, temp1, tempfilePath, fn1);
+			DocExportUtil docExportUtil2 = new DocExportUtil(request,tempath, temp2, tempfilePath, fn2);
+			docExportUtil1.createDoc(map);
+			docExportUtil2.createDoc(map);
+
+			String zipName = project.getProjectName() + "全息报告.zip";
+			List<String> fnlist = new ArrayList<>();
+			fnlist.add(fn1);
+			fnlist.add(fn2);
+			DocExportUtil.downZip(zipName,fnlist,currTime,tempfilePath,request,response);
+		} catch (Exception e) {
+			logger.error("downDoc ",e);
+		}
+	}
+
+
+
+
 }
 
 
