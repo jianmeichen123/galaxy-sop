@@ -485,6 +485,7 @@ var pageId = "project";
 			$("select[name='projectProgress']").val("");
 			$("select[name='projectStatus']").val("");
 			$("select[name='projectDepartid']").val("");
+			$("select[name='faFlag']").val("");
 			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
 			
 			if(typeof(did) == "undefined"){
@@ -501,8 +502,9 @@ var pageId = "project";
 				
 			}
 			$('input[name="nameCodeLike"]').val("");
-			$('input[name="faFlag"]').removeAttr("checked");
 			$('input[name="projectPerson"]').val("");
+			$("input[name='faName']").val("");
+			$("input[name='faName']").hide();
 			$("#showResetBtn").val(0);
 			$("#resetBtn").addClass("none");
 		});
