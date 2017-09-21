@@ -28,7 +28,7 @@
 	}, "不能以空格开头，字符最大长度为20");
 	//融资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("procontribution", function (value, element) {
-		var procontribution = /^(0(?:[.](?:[1-9]\d{0,3}|0[1-9]0{0,2}|0[1-9]{2}0{0,1}|0[1-9]{3}|0{2}[1-9]0{0,1}|0{2}[1-9]{2}|0{3}[1-9]))|([1-9][0-9]{0,8})|([1-9][0-9]{0,8}\.[0-9]{1,4}))$/;
+		var procontribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 		return this.optional(element) || (procontribution.test(value));
 	}, "支持四位小数");
 	//项目估值LIMIT_13_NUMBER
@@ -43,12 +43,12 @@
 	}, "0到100之间的四位小数");
 	//投资金额LIMIT_11_NUMBER
 	jQuery.validator.addMethod("finalContribution", function (value, element) {
-		var finalContribution = /^(0(?:[.](?:[1-9]\d{0,3}|0[1-9]0{0,2}|0[1-9]{2}0{0,1}|0[1-9]{3}|0{2}[1-9]0{0,1}|0{2}[1-9]{2}|0{3}[1-9]))|([1-9][0-9]{0,8})|([1-9][0-9]{0,8}\.[0-9]{1,4}))$/;
+		var finalContribution = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 		return this.optional(element) || (finalContribution.test(value));
 	}, "支持四位小数");
-	//项目估值LIMIT_11_NUMBER
+	//项目估值LIMIT_13_NUMBER
 	jQuery.validator.addMethod("finalValuations", function (value, element) {
-		var finalValuations = /^(0(?:[.](?:[1-9]\d{0,3}|0[1-9]0{0,2}|0[1-9]{2}0{0,1}|0[1-9]{3}|0{2}[1-9]0{0,1}|0{2}[1-9]{2}|0{3}[1-9]))|([1-9][0-9]{0,8})|([1-9][0-9]{0,8}\.[0-9]{1,4}))$/;
+		var finalValuations = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 		return this.optional(element) || (finalValuations.test(value));
 	}, "支持四位小数");
 	//股权占比
