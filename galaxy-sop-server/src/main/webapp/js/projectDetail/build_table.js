@@ -170,7 +170,7 @@ function editRow(ele)
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name));
+				ele.text(row.find("td[data-field-name='"+name+"']").text());
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();
