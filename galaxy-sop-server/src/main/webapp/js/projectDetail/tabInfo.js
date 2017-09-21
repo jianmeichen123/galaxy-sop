@@ -66,27 +66,6 @@ $(function(){
 				$("#finance_status_sel").find('option[text='+sel_val+']').attr("selected",true);
 			}
 		}
-		//项目来源字典回显
-	var map_projectSource = selectCache("projectSource");
-   	 function selectCache(name){
-   		    var map = {};
-   			sendGetRequest(platformUrl.searchDictionaryChildrenItems+name,null,
-   					function(data) {
-   						var result = data.result.status;
-   						if (result == 'OK')
-   						{
-   							var dataMap = data.userData;
-   						    var list=data.entityList;
-   						    var name=""
-   							$.each(list, function(i, value){
-   							     map[value.code]=value.name;
-   							});
-   						}
-   					})
-   					console.log(map)
-   					return map;
-   		}
-		
 	   /**
 		 * 加载项目详情数据
 		 */
@@ -117,7 +96,7 @@ $(function(){
 			$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":(projectInfo.finalShareRatio==0?"--":projectInfo.finalShareRatio));
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
-			$("#faName").text(projectInfo.faFlag=="projectSource:1"?"FA-"+projectInfo.faName:map_projectSource[projectInfo.faFlag]);
+			$("#faName").text(projectInfo.faFlag=="projectSource:1"?projectInfo.faFlagStr+'-'+projectInfo.faName:projectInfo.faFlagStr);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
 			var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
