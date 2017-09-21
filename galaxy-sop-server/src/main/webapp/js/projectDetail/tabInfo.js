@@ -460,8 +460,6 @@ $(function(){
                            "jointDeliveryList":arr,
                            "isDelete":isDelete
 			};
-			console.log("&&&&&&&&&&&&&&&&")
-			console.log(formatData)
 			return formatData;
 		}
 		function saveSuccess(){
@@ -503,8 +501,6 @@ function jointDeliveryList(list){
 }
 function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
-	console.log("领投合投 list");
-	console.log(list);
 for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
 	        +'<span><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'

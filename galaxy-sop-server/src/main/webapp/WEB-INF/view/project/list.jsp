@@ -541,7 +541,6 @@ var pageId = "project";
 	 * @version 2016-06-21
 	 */
 	function projectFaFormat(value,row,index){
-		console.log(row)
 		var retStr = '-';
 		if(row.faFlag=='projectSource:1'){
 			if(row.faName && row.faName.length>4){
