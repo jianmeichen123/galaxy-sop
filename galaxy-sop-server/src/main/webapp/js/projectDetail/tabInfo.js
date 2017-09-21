@@ -215,6 +215,7 @@ $(function(){
 			    	 * 查询项目来源
 			    	 * @version 2017-09-18
 			    	 */
+			    	$("select[name='projectSource'] option").not(":first").remove();  //加载前清空
 			    	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
 			    	
 			    	//initDialogVal();
