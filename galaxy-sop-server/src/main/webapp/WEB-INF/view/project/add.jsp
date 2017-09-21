@@ -75,7 +75,7 @@
                         <li>
                         <span class="basic_span"><em class="red">*</em>项目来源：</span>
                             <span class="m_r30" style="with:400px">
-	                            <select name="projectSource" class='new_nputr' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+	                            <select name="faFlag" class='new_nputr' valType="required" msg="<font color=red>*</font>项目来源不能为空">
 				                    	<option value="">--请选择--</option>
 				                   </select> 
 	                            <!--  <input type="radio" name="faFlag"  value="0"  checked="checked">否</span>
@@ -252,7 +252,7 @@
 	 * 获取项目来源下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");
 	
    var TOKEN;
    var formData;
@@ -280,7 +280,7 @@
 			$("#projectTypeTip").css("display","none");
 		});
 		//项目来源切换
-		$("select[name='projectSource']").change(function(){
+		$("select[name='faFlag']").change(function(){
 			var text=$(this).find("option:checked").text();
 			if(text=="FA"){
 				$(this).siblings(".new_nputr").show();
