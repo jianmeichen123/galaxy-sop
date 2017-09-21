@@ -797,7 +797,6 @@ function buildTable(sec,title)
 					$('.limit-number').each(function(){
 						var _this = $(this);
 						var tdText = _this.text();
-						console.log(tdText);
 						_this.attr('title',tdText);
 						//_this.setAttribute('title',"tdText");
 					})
@@ -868,7 +867,7 @@ function buildRow(row,showOpts,titleId)
 		}
 	};
 	//判断td的数量，判断宽度
-	var tdNumber = tr.children().length;
+/*	var tdNumber = tr.children().length;
 	var td = tr.children();
 	if(tdNumber===6){
 		for(var i=0;i<td.length;i++){
@@ -912,7 +911,7 @@ function buildRow(row,showOpts,titleId)
 			td.css('white-space','nowrap');
 			
 		}
-	};
+	};*/
 	
 	
 	
