@@ -75,10 +75,10 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 
 
 	/**
-	 * 7大报告 ： doc 下载
+	 * 全息报告 ： doc 下载
 	 */
-	@RequestMapping("/down/{pid}")
-	public void downDoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping("/downNO/{pid}")
+	public void downNOdoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
 	{
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 

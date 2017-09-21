@@ -495,16 +495,19 @@ function editRow(ele)
 			 if(txt=="查看"){
 					$("#detail-form").hide();
 					$(".button_affrim").hide();
+					$('#detail-form_look_over').show();
 					$("#delivery_popup_name").text("查看交割事项");
 					 $('#grant_popup_name').html('查看分期注资计划');
 					 $('#finace_popup_name').html('查看融资历史');
 					 $("#complete_title").html('查看综合竞争比较');
 					 $("#pop-title-gs").text('查看同类公司');
-					 $("#pop-title-time").text('查看里程碑和时间节点');
+					 $("#pop-title-time").text('查看融资的里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
+					 $("#pop-title-yy").html('查看关键运营指标变化');
 					  $(".appr_part_add").hide();   //添加实际注资计划按钮
 				}else{
 					$(".see_block").hide();
+					$('#detail-form_look_over').hide();
 					$("#delivery_popup_name").text("编辑交割事项");
 					 $('#grant_popup_name').html('编辑分期注资计划');
 					 $('#finace_popup_name').html('编辑融资历史');
@@ -697,7 +700,29 @@ function editRow(ele)
 				var len=$(this).val().length;
 				var initNum=$(this).siblings('.num_tj').find("span").text();
 				$(this).siblings('.num_tj').find("span").text(initNum-len);
-			})
+			});
+			//竞争对手的展示;
+			var myRow = $(ele).closest('tr');
+			var oppoPerson = myRow.find('td:eq(0)').text();
+			var degress = myRow.find('td:eq(1)').text();
+			var dangerRation = myRow.find('td:eq(2)').text();
+			var helpfullMethod = myRow.find('td:eq(3)').text();
+			var vervifyHas = myRow.find('td:eq(4)').text();
+			$('.oppostie_people').text(oppoPerson);
+			$('.win_degree').text(degress);
+			$('.danger_degree').text(dangerRation);
+			$('.helpful_method').text(helpfullMethod);
+			$('.verfify_orNot').text(vervifyHas);
+			//上一轮融资后关键运营指标变化
+			$('.index-name').text(oppoPerson);
+			$('.index-value').text(degress);
+			$('.current-value').text(dangerRation);
+			//融资的里程碑和时间点
+			$('.finicial-number').text(oppoPerson);
+			$('.milestone').text(degress);
+			$('.finicial-time').text(dangerRation);
+			
+			
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				//验证分期计划拨款金额是否大于剩余金额

@@ -103,10 +103,10 @@ function buildRow(row,showOpts,titleId)
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	if(isTransferings=="false"){
 		var td = $('<td data-field-name="opt"></td>');
-		td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">查看</em>');
+		td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">查看</label>');
 		if(isCreatedByUser=='true'){
-			td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">编辑</em>');
-			td.append('<em class="blue" data-btn="btn" onclick="delRow(this)">删除</em>');
+			td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">编辑</label>');
+			td.append('<label class="blue" data-btn="btn" onclick="delRow(this)">删除</label>');
 		}
 		tr.append(td);
 	}
@@ -170,7 +170,7 @@ function editRow(ele)
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name));
+				ele.text(row.find("td[data-field-name='"+name+"']").text());
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();
