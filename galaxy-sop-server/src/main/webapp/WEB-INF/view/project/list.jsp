@@ -102,7 +102,7 @@ var pageId = "project";
               		<dd class="clearfix" style="width:300px;">
 		                <!-- <label><input type="radio" name="faFlag" value = "1"/>是</label>
 		                <label><input type="radio" name="faFlag" value = "0"/>否</label> -->
-		                <select name="projectSource" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
+		                <select name="faFlag" class='new_nputr fl' valType="required" msg="<font color=red>*</font>项目来源不能为空">
 	                    	<option value="">--请选择--</option>
 	                    </select>
                      <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  valType="OTHER" regString="^[^\s](.{0,19})$" id="faName" msg="<font color=red>*</font>不能以空格开头，字符最大长度为20"/>
@@ -297,7 +297,7 @@ var pageId = "project";
 			info(pid);
 		}	
 		//项目来源切换
-		$("select[name='projectSource']").change(function(){
+		$("select[name='faFlag']").change(function(){
 			var text=$(this).find("option:checked").text();
 			if(text=="FA"){
 				$(this).siblings(".new_nputr").show();
@@ -341,7 +341,7 @@ var pageId = "project";
 	 * 查询项目来源
 	 * @version 2017-09-19
 	 */
-	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
+	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","faFlag");
 	$(function(){
 		//返回附带参数功能代码
 		var initParams,
