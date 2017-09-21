@@ -29,6 +29,7 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.ReportExportService;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
@@ -37,7 +38,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -742,9 +742,9 @@ public class ReportExportServiceImpl implements ReportExportService {
                 }
             }*/
             //== end ceshi
-
-            BASE64Encoder encoder=new BASE64Encoder();
-            return encoder.encode(data);
+            return Base64.encodeBase64String(data);
+            /*BASE64Encoder encoder=new BASE64Encoder();
+            return encoder.encode(data);*/
         }
     }
 
@@ -771,229 +771,5 @@ public class ReportExportServiceImpl implements ReportExportService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-    /**
-     * 1:文本、 8:文本域(textarea)、
-     * 2: 单选（Radio）、14 单选（select）
-     * map : code-value
-     */
-    public void singleValueCon(InformationTitle tempTitle, Map<String, Object> map, Map<Long, String> valueIdNameMap){
-        List<InformationResult> resultList = tempTitle.getResultList();
-        if(resultList!=null && !resultList.isEmpty())
-        {
-            InformationResult tempResult = resultList.get(0);
-            if(StringUtils.isNotBlank(tempResult.getContentChoose())){
-                String value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
-                if(StringUtils.isNotBlank(value)){
-                    map.put(tempTitle.getCode(), value);
-                }
-            }else if(StringUtils.isNotBlank(tempResult.getContentDescribe1())){
-                map.put(tempTitle.getCode(), tempResult.getContentDescribe1());
-            }
-        }
-    }
-    /**
-     * 3:复选（、 号连接）、4:级联选择（-  号连接）<br>
-     * map : code-value
-     * @param contact : 连接符号 、 -
-     */
-    public void type34ValueCon(InformationTitle tempTitle, Map<String, Object> map, Map<Long, String> valueIdNameMap, String contact){
-        List<InformationResult> resultList = tempTitle.getResultList();
-
-        String value = null;
-        if(resultList!=null && !resultList.isEmpty())
-        {
-            StringBuffer stringBuffer = new StringBuffer();
-            for(int i = 0; i<resultList.size(); i++)
-            {
-                if(resultList.get(i).getContentChoose() != null)
-                {
-                    value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-
-                    if(StringUtils.isNotBlank(value)){
-                        if(stringBuffer.length()>0){
-                            stringBuffer.append(contact).append(value);
-                        }else{
-                            stringBuffer.append(value);
-                        }
-                    }
-                }
-            }
-
-            if(stringBuffer.length()>0){
-                map.put(tempTitle.getCode(), stringBuffer.toString());
-            }
-        }
-    }
-    /**
-     * 5:单选带备注(textarea) 、6:复选带备注(textarea)
-     * map : code-value
-     */
-    public void type56ValueCon(InformationTitle tempTitle, Map<String, Object> map, Map<Long, String> valueIdNameMap){
-        List<InformationResult> resultList = tempTitle.getResultList();
-        if(resultList!=null && !resultList.isEmpty())
-        {
-            for(int i = 0; i<resultList.size(); i++)
-            {
-                if(resultList.get(i).getContentChoose() != null)
-                {
-                    String value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-                    if(StringUtils.isNotBlank(value)){
-                        map.put(tempTitle.getCode(), value);
-                        break;
-                    }
-                }
-            }
-        }
-    }
-    /**
-     * 12:单选带备注(input)--有 contentDescribe1 就不要 ContentChoose 、
-     * 13:复选带备注(input)--有 contentDescribe1 就不要 ContentChoose
-     * map : code-value
-     */
-    public void type1213ValueCon(InformationTitle tempTitle, Map<String, Object> map, Map<Long, String> valueIdNameMap){
-        List<InformationResult> resultList = tempTitle.getResultList();
-
-        String value = null;
-        String contact = "、";
-
-        if(resultList!=null && !resultList.isEmpty())
-        {
-            StringBuffer stringBuffer = new StringBuffer();
-
-            for(int i = 0; i<resultList.size(); i++)
-            {
-                value = null;
-                if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())){
-                    value = resultList.get(i).getContentDescribe1();
-                }else if(StringUtils.isNotBlank(resultList.get(i).getContentChoose()))
-                {
-                    if(StringUtils.isNotBlank(valueIdNameMap.get(new Long(resultList.get(i).getContentChoose())))){
-                        value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-                    }
-                }
-
-                if(value != null){
-                    if(stringBuffer.length()>0){
-                        stringBuffer.append(contact).append(value);
-                    }else{
-                        stringBuffer.append(value);
-                    }
-                }
-            }
-
-            if(stringBuffer.length()>0){
-                map.put(tempTitle.getCode(), stringBuffer.toString());
-            }
-        }
-    }
-    /**
-     * 15 一个标题带两个文本域(textarea)、
-     * map : code-List String
-     */
-    public void type15ValueCon(InformationTitle tempTitle, Map<String, Object> map){
-        List<InformationResult> resultList = tempTitle.getResultList();
-
-        List<String> mapValue = new ArrayList<>();
-
-        if(resultList!=null && !resultList.isEmpty())
-        {
-            for(int i = 0; i<resultList.size(); i++)
-            {
-                if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())){
-                    mapValue.add(resultList.get(i).getContentDescribe1());
-                }
-
-                if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe2())){
-                    mapValue.add(resultList.get(i).getContentDescribe2());
-                }
-            }
-
-            if(!mapValue.isEmpty()){
-                map.put(tempTitle.getCode(), mapValue);
-            }
-        }
-    }
-    /**
-     * 16 多个文本框内容--组装一条显示  str=str.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
-     * map : code-value
-     */
-    public void type16ValueCon(InformationTitle tempTitle, Map<String, Object> map){
-        List<InformationResult> resultList = tempTitle.getResultList();
-        if(resultList!=null && !resultList.isEmpty())
-        {
-            InformationResult tempResult = resultList.get(0);
-            if(StringUtils.isNotBlank(tempResult.getContentDescribe1()) && tempResult.getContentDescribe1().contains("sitg")){
-                String value = tempResult.getContentDescribe1().replace("<sitg>","（").replace("</sitg>","）");
-                map.put(tempTitle.getCode(), value);
-            }
-        }
-    }
-    /**
-     * 19：文本框输入题目答案带单位的处理；(input)，单位在 title.content <br>
-     * 20：文本框输入题目答案带单位的处理；(input)，单位在 title.content + result.ContentDescribe2
-     * map : code-value
-     */
-    public void type1920ValueCon(InformationTitle tempTitle, Map<String, Object> map){
-        List<InformationResult> resultList = tempTitle.getResultList();
-        if(resultList!=null && !resultList.isEmpty())
-        {
-            InformationResult tempResult = resultList.get(0);
-            if(StringUtils.isNotBlank(tempResult.getContentDescribe1())){
-                String unit = tempTitle.getContent();
-                if(StringUtils.isNotBlank(tempResult.getContentDescribe2())){
-                    unit += tempResult.getContentDescribe2().substring(0,tempResult.getContentDescribe2().indexOf("p"));
-                }
-                map.put(tempTitle.getCode(), tempResult.getContentDescribe1()+unit);
-            }
-        }
-    }
-
-
-
-/*
-    String field1 = null;
-    String field2 = null;
-    String field3 = null;
-    String field4 = null;
-    String field5 = null;
-    String field6 = null;
-    String field7 = null;
-    String field8 = null;
-    String field9 = null;
-    String field10 = null;
-
-
-    field1 = item.getField1();
-    field2 = item.getField2();
-    field3 = item.getField3();
-    field4 = item.getField4();
-    field5 = item.getField5();
-    field6 = item.getField6();
-    field7 = item.getField7();
-    field8 = item.getField8();
-    field9 = item.getField9();
-    field10 = item.getField10();
-
-            td.setField1(item.getField1());
-            td.setField2(tm.getField2());
-            td.setField3(tm.getField3());
-            td.setField4(tm.getField4());
-            td.setField5(tm.getField5());
-            td.setField6(tm.getField6());
-            td.setField7(tm.getField7());
-            td.setField8(tm.getField8());
-            td.setField9(tm.getField9());
-            td.setField10(tm.getField10());
-     */
 
 }
