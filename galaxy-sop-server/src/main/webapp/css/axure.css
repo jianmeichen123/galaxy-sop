@@ -1777,6 +1777,7 @@ word-wrap:break-word;
 .new_table_stock td {line-height:25px;}
 .new_table_stock span{  margin-top: 0px;}
 .legal{height: 125px;}
+.tabtable_con_on .legal{height: auto;}
 .hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 125px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
 .hidden td input,.legal_box input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}
 .legal .btn button{float: left;margin-left: 10px;}
@@ -3622,3 +3623,5 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  }
  .new_r_compile  .icon{margin-top:3px;}
  .team_info tr td{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+ #company-info span.new_color_black{display: inline-block; width: 80%;}
+ 
