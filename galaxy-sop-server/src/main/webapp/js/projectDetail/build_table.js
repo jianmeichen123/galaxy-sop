@@ -103,10 +103,10 @@ function buildRow(row,showOpts,titleId)
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
 	if(isTransferings=="false"){
 		var td = $('<td data-field-name="opt"></td>');
-		td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">查看</em>');
+		td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">查看</label>');
 		if(isCreatedByUser=='true'){
-			td.append('<em class="blue" data-btn="btn" onclick="editRow(this)">编辑</em>');
-			td.append('<em class="blue" data-btn="btn" onclick="delRow(this)">删除</em>');
+			td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">编辑</label>');
+			td.append('<label class="blue" data-btn="btn" onclick="delRow(this)">删除</label>');
 		}
 		tr.append(td);
 	}

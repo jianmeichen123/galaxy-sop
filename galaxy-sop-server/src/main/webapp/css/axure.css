@@ -3574,7 +3574,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .to-hide{display:none;}
 .fjxm_but{display:none;}
 .helpful_method,.max_this_width{max-width:66%;}
-.team_info label{margin-right:10px}
+.team_info label, .fina_history label, .info_table label{margin-right:10px}
 .exportReport{display:none;margin-top:10px;}
 .progress-contain{
 	display: inline-block;	
@@ -3621,3 +3621,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  color:#b2b2b2;
  }
  .new_r_compile  .icon{margin-top:3px;}
+ .team_info tr td{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
