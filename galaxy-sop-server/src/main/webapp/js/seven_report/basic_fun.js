@@ -700,7 +700,29 @@ function editRow(ele)
 				var len=$(this).val().length;
 				var initNum=$(this).siblings('.num_tj').find("span").text();
 				$(this).siblings('.num_tj').find("span").text(initNum-len);
-			})
+			});
+			//竞争对手的展示;
+			var myRow = $(ele).closest('tr');
+			var oppoPerson = myRow.find('td:eq(0)').text();
+			var degress = myRow.find('td:eq(1)').text();
+			var dangerRation = myRow.find('td:eq(2)').text();
+			var helpfullMethod = myRow.find('td:eq(3)').text();
+			var vervifyHas = myRow.find('td:eq(4)').text();
+			$('.oppostie_people').text(oppoPerson);
+			$('.win_degree').text(degress);
+			$('.danger_degree').text(dangerRation);
+			$('.helpful_method').text(helpfullMethod);
+			$('.verfify_orNot').text(vervifyHas);
+			//上一轮融资后关键运营指标变化
+			$('.index-name').text(oppoPerson);
+			$('.index-value').text(degress);
+			$('.current-value').text(dangerRation);
+			//融资的里程碑和时间点
+			$('.finicial-number').text(oppoPerson);
+			$('.milestone').text(degress);
+			$('.finicial-time').text(dangerRation);
+			
+			
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				//验证分期计划拨款金额是否大于剩余金额
