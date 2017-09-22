@@ -1,4 +1,17 @@
-   var data = {};
+   String.prototype.trim = function (char, type) {
+	   if (char) {
+	     if (type == 'left') {
+	       return this.replace(new RegExp('^\\'+char+'+', 'g'), '');
+	     } else if (type == 'right') {
+	       return this.replace(new RegExp('\\'+char+'+$', 'g'), '');
+	     }
+	     return this.replace(new RegExp('^\\'+char+'+|\\'+char+'+$', 'g'), '');
+	   }
+	   return this.replace(/^\s+|\s+$/g, '');
+	 };  
+
+
+var data = {};
    var infoTableModelList = new Array();
    $("#win_ok_btn").click(function(){
 	    var key = keyJSON["b_part"];
@@ -78,13 +91,12 @@
 				if(fids != null && fids != undefined){
 						fs=fs+","+fids;
 						if(fs.indexOf(',') != -1){
-							fs=fs.substring(fs.indexOf(',')+1, fs.length);
+							fs = fs.trim(',');
 						}
 				}
 				if(fs){
 					infoMode.relateFileId = fs;
 				}
-				
 				if (infoMode != null) {
 					infoTableModelList.push(infoMode);
 			    } 
