@@ -866,6 +866,55 @@ function buildRow(row,showOpts,titleId)
 		    tr.append(td);
 		}
 	};
+	//判断td的数量，判断宽度
+/*	var tdNumber = tr.children().length;
+	var td = tr.children();
+	if(tdNumber===6){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'16.6%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===5){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'20%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===4){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'25%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===3){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'33.3%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===2){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'50%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	}else if(tdNumber===8){
+		for(var i=0;i<td.length;i++){
+			td.css({width:'12.5%',overflow:"hidden"});
+			td.css('text-overflow','ellipsis');
+			td.css('white-space','nowrap');
+			
+		}
+	};*/
+	
+	
+	
 	
 	
 	return tr;
@@ -1985,6 +2034,54 @@ function editRow(ele)
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
+			//增加显示字段限制
+			var dataCode = $(ele).closest('table').attr('data-code');
+			//市场同类型公司估值参考
+			if(dataCode === 'valuation-reference'){
+				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,20);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})*/
+				  
+
+			};
+		//股权结构的合理性||股权结构table；
+			if(dataCode === 'share-holding'||dataCode === 'equity-structure'){
+				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,10);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})*/
+				  
+
+			};
+			//主要战略投资人
+			if(dataCode === 'investor-situation'){
+				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
+				targetTd.addClass('limit-number');
+				$('.limit-number').each(function(){
+					var _this = $(this);
+					var tdText = _this.text();
+					var limitTd = tdText.substr(0,10);
+					_this.text(limitTd)
+					console.log(limitTd);
+						
+				})*/
+				
+
+			};
+			
 			
 			
 			$.each($("#detail-form").find("input, select, textarea"),function(){
@@ -2085,6 +2182,7 @@ function editRow(ele)
 			$('.finicial-number').text(oppoPerson);
 			$('.milestone').text(degress);
 			$('.finicial-time').text(dangerRation);
+			
 			$("#detail-form input[name='index']").val(row.index());
 			$("#save-detail-btn").click(function(){
 				saveForm($("#detail-form"));
