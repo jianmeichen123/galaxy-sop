@@ -258,7 +258,6 @@ var searchPartMoney;
 			var _name= $self.attr("data-name");
 			var _flag= $self.attr("data-flag");
 			var _part_id = $self.attr("data-part-id");
-			alert(_part_id);
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
