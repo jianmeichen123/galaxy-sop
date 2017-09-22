@@ -5,6 +5,8 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="delivery_type" property="deliveryType" jdbcType="BIT" />
     <result column="delivery_name" property="deliveryName" jdbcType="VARCHAR" />
+     <result column="delivery_currency" property="deliveryCurrency" jdbcType="VARCHAR" />
+    
     <result column="delivery_amount" property="deliveryAmount" jdbcType="DECIMAL" />
     <result column="delivery_share_ratio" property="deliveryShareRatio" jdbcType="DECIMAL" />
     <result column="project_id" property="projectId" jdbcType="BIGINT" />
@@ -25,7 +27,7 @@
   </sql>
   
   <sql id="Base_Column_List" >
-    id, delivery_type, delivery_name, delivery_amount, delivery_share_ratio, project_id, 
+    id, delivery_type, delivery_name, delivery_amount, delivery_currency,delivery_share_ratio, project_id, 
     create_uid, create_time, update_time
   </sql>
   <!-- 根据ID查询 -->
@@ -44,11 +46,11 @@
  
   <insert id="insert" parameterType="com.galaxyinternet.model.project.JointDelivery" >
     insert into joint_delivery (id, delivery_type, delivery_name, 
-      delivery_amount, delivery_share_ratio, project_id, 
+      delivery_amount,delivery_currency, delivery_share_ratio, project_id, 
       create_uid, create_time, update_time
       )
     values (#{id,jdbcType=BIGINT}, #{deliveryType,jdbcType=BIT}, #{deliveryName,jdbcType=VARCHAR}, 
-      #{deliveryAmount,jdbcType=DECIMAL}, #{deliveryShareRatio,jdbcType=DECIMAL}, #{projectId,jdbcType=BIGINT}, 
+      #{deliveryAmount,jdbcType=DECIMAL},#{deliveryCurrency,jdbcType=VARCHAR}, #{deliveryShareRatio,jdbcType=DECIMAL}, #{projectId,jdbcType=BIGINT}, 
       #{createUid,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, #{updatedTime,jdbcType=BIGINT}
       )
   </insert>
@@ -64,6 +66,9 @@
       </if>
       <if test="deliveryAmount != null" >
         delivery_amount = #{deliveryAmount,jdbcType=DECIMAL},
+      </if>
+       <if test="deliveryCurrency != null" >
+        delivery_currency = #{deliveryCurrency,jdbcType=VARCHAR},
       </if>
       <if test="deliveryShareRatio != null" >
         delivery_share_ratio = #{deliveryShareRatio,jdbcType=DECIMAL},

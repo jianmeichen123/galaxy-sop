@@ -23,6 +23,8 @@ public class JointDelivery extends PagableEntity{
     private Long createTime;
 
     private Long updateTime;
+    
+    private String deliveryCurrency;
    
     public String getDeliveryType() {
 		return deliveryType;
@@ -87,4 +89,14 @@ public class JointDelivery extends PagableEntity{
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
     }
+
+	public String getDeliveryCurrency() {
+		return deliveryCurrency;
+	}
+
+	public void setDeliveryCurrency(String deliveryCurrency) {
+		this.deliveryCurrency = deliveryCurrency;
+	}
+    
+    
 }
