@@ -3,6 +3,7 @@ package com.galaxyinternet.touhou.controller;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,12 +34,16 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hologram.InformationFile;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.SopFileService;
+import com.galaxyinternet.service.hologram.InformationFileService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.utils.BatchUploadFile;
 
 
@@ -58,6 +63,10 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	private SopFileService sopFileService;
 	@Autowired
 	BatchUploadFile batchUpload;
+	@Autowired
+	private InformationListdataService informationListdataService;
+	@Autowired
+	InformationFileService informationFileService;
 	@Autowired
 	Cache cache;
 
@@ -98,27 +107,10 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 		return "project/tanchuan/delivery";
 	}
 	
-	/**
-	 * 弹窗   编辑事项 / 查看
-	 */
-/*	@RequestMapping(value = "/tomatterdeliver/{deliverid}", method = RequestMethod.GET)
-	public ModelAndView toMatterDeliver(@PathVariable("deliverid") Long deliverid,HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("project/tanchuan/delivery_matter");
-		Delivery deliver = deliveryService.selectDelivery(deliverid);
-		mv.addObject("deliverInfo", GSONUtil.toJson(deliver));
-		return mv;
-	}
-	@RequestMapping(value = "/tomatterdeliver/{deliverid}", method = RequestMethod.GET)
-	public String toMatterDeliver(@PathVariable("deliverid") Long deliverid,HttpServletRequest request) {
-		Delivery deliver = deliveryService.selectDelivery(deliverid);
-		request.setAttribute("deliverInfo", GSONUtil.toJson(deliver));
-		return "project/tanchuan/delivery_matter";
-	}
-	*/
+	
 	@RequestMapping(value = "/tomatterdeliver", method = RequestMethod.GET)
 	public String toMatterDeliver(HttpServletRequest request) {
-		return "project/tanchuan/delivery_matter";
+		return "project/tanchuan/delivery";
 	}
 	@RequestMapping(value = "/todeliverinfo", method = RequestMethod.GET)
 	public String toDeliverInfo(HttpServletRequest request) {
@@ -188,7 +180,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	public ResponseData<Delivery> delDelivery(@PathVariable("deliverid") Long deliverid,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
 		try {
-			deliveryService.delDeliveryById(deliverid);
+			informationListdataService.deleteDataRelateFile(deliverid);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "删除失败"));
@@ -202,12 +194,26 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/selectdelivery/{deliverid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Delivery> selectDelivery(@PathVariable("deliverid") Long deliverid,HttpServletRequest request,HttpServletResponse response ) {
-		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
+	public ResponseData<InformationListdata> selectDelivery(@PathVariable("deliverid") Long deliverid,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
 		try {
-			Delivery deliver = deliveryService.selectDelivery(deliverid);
-			responseBody.setEntity(deliver);
-			responseBody.setResult(new Result(Status.OK, ""));
+			
+			if(deliverid != null){
+				InformationListdata data = informationListdataService.queryById(deliverid);
+				if(!StringUtils.isEmpty(data.getRelateFileId())){
+					InformationFile file = new InformationFile();
+					file.setTitleId(data.getTitleId());
+					file.setProjectId(data.getProjectId());
+					file.setFileIds(Arrays.asList(data.getRelateFileId().split(",")));
+					List<InformationFile> fileList = informationFileService.queryList(file);
+					if(fileList != null && fileList.size() > 0){
+						data.setFileList(fileList);
+					}
+				}
+				
+				responseBody.setEntity(data);
+				responseBody.setResult(new Result(Status.OK, ""));
+			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
 			logger.error("delDelivery 查询失败",e);
@@ -217,7 +223,6 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	
 	/**
 	 *查询 事项列表
-	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryprodeliverypage", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<DeliveryBo> queryProDeliveryPage(HttpServletRequest request, @RequestBody DeliveryBo query) {
@@ -255,40 +260,64 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 		}
 		return responseBody;
 	}
-	
+	 */
 	/**
-	 * 批量下载
-	 * @param id
-	 * @param request
-	 * @param response
+	 * 实际注资记录列表查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryprodeliverypage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationListdata> queryprodeliverypage(@RequestBody InformationListdata delivery,
+			HttpServletRequest request) {
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
+		if(delivery.getTitleId()== null || delivery.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR,"error" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		try {
+			delivery.setProperty(null);
+			delivery.setDirection(null);
+			Page<InformationListdata> actualPage = informationListdataService.queryPageList(delivery,
+					new PageRequest(delivery.getPageNum(), 
+							delivery.getPageSize(), 
+							Direction.fromString("desc"), 
+							"created_time"));
+			responseBody.setPageList(actualPage);
+		} catch (Exception e) {
+			logger.error("查询交割前事项列表失败！查询条件：" + delivery, e);
+		}
+		return responseBody;
+	}
+	
+
+	/**
+	 * 文件下载
 	 */
 	@RequestMapping("/downloadBatchFile/{id}")
 	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
 	{
+		
 		if(id != null){
-			
-			Delivery delivery = deliveryService.queryById(id);
-			
-			List<Long> fileIdList = deliveryService.deliveryFileList(id);
-			SopFile sopfile = new SopFile();
-			if(fileIdList != null && fileIdList.size() > 0){
-				sopfile.setIds(fileIdList);
-			}
-			List<SopFile> sopFileList = sopFileService.queryList(sopfile);
-			List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
 			try {
-				if(sopFileList != null && sopFileList.size() > 0){
-					for(SopFile file:sopFileList){
-						SopDownLoad downloadEntity = new SopDownLoad();
-						downloadEntity.setFileName(file.getFileName());
-						downloadEntity.setFileSuffix("." + file.getFileSuffix());
-						downloadEntity.setFileSize(file.getFileLength());
-						downloadEntity.setFileKey(file.getFileKey());
-						sopDownLoadList.add(downloadEntity);
+				InformationListdata data = informationListdataService.queryById(id);
+				if(!StringUtils.isEmpty(data.getRelateFileId())){
+					InformationFile file = new InformationFile();
+					file.setTitleId(data.getTitleId());
+					file.setProjectId(data.getProjectId());
+					file.setFileIds(Arrays.asList(data.getRelateFileId().split(",")));
+					List<InformationFile> fileList = informationFileService.queryList(file);
+					List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
+					if(fileList != null && fileList.size() > 0){
+						for(InformationFile f:fileList){
+							SopDownLoad downloadEntity = new SopDownLoad();
+							downloadEntity.setFileName(f.getFileName());
+							downloadEntity.setFileSuffix("." + f.getFileSuffix());
+							downloadEntity.setFileSize(Long.valueOf(f.getFileLength()));
+							downloadEntity.setFileKey(f.getFileKey());
+							sopDownLoadList.add(downloadEntity);
+						}
 					}
-			
+					sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
 				}
-				sopFileService.downloadBatch(request, response, tempfilePath,delivery.getDelDescribe(),sopDownLoadList);
 			} catch (Exception e) {
 				logger.error("下载失败.",e);
 			}
