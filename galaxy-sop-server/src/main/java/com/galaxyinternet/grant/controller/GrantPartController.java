@@ -119,7 +119,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/selectGrantPart/{partid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InformationListdata> selectDelivery(@PathVariable("partid") Long partid,HttpServletRequest request,HttpServletResponse response ) {
+	public ResponseData<InformationListdata> selectGrantPart(@PathVariable("partid") Long partid,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
 		try {
 			if(partid != null){

@@ -1,5 +1,6 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantActual;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
@@ -48,6 +51,7 @@ import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.service.hologram.InformationFileService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.MathUtils;
@@ -73,6 +77,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private SopFileService sopFileService;
 	@Autowired
 	private InformationListdataService informationListdataService;
+	@Autowired
+	InformationFileService informationFileService;
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
 		return this.grantActualService;
@@ -165,6 +171,39 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	@RequestMapping(value="/toEditApprActual",method=RequestMethod.GET)
 	public String toEditApprActual(){
 		return "project/tanchuan/appr_edit_actual";
+	}
+	
+	/**
+	 *查询 事项
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/selectApprActual/{partid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationListdata> selectApprActual(@PathVariable("partid") Long partid,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
+		try {
+			if(partid != null){
+				InformationListdata data = informationListdataService.queryById(partid);
+				if(!StringUtils.isEmpty(data.getRelateFileId())){
+					InformationFile file = new InformationFile();
+					file.setTitleId(data.getTitleId());
+					file.setProjectId(data.getProjectId());
+					file.setFileIds(Arrays.asList(data.getRelateFileId().split(",")));
+					List<InformationFile> fileList = informationFileService.queryList(file);
+					if(fileList != null && fileList.size() > 0){
+						data.setFileList(fileList);
+					}
+				}
+				
+				responseBody.setEntity(data);
+				responseBody.setResult(new Result(Status.OK, ""));
+			}
+			
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
+			_common_logger_.error("grantPart 查询失败",e);
+		}
+		return responseBody;
 	}
 	
 	@ResponseBody
@@ -298,27 +337,28 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return responseBody;
 	}
 	
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.MESSAGE })
+	/**
+	 *删除
+	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
-	@RequestMapping(value="/deleteApprActual/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<GrantActual> deleteApprActual( @PathVariable Long id,HttpServletRequest request){
-		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
+	@RequestMapping(value = "/deleteApprActual/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InformationListdata> deleteApprActual(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<InformationListdata> responseBody = new ResponseData<InformationListdata>();
+		if(StringUtils.isEmpty(id)){
+			responseBody.setResult(new Result(Status.ERROR,null, "参数丢失!"));
+			return responseBody;
+		}
 		try {
-			
-			GrantActual actual = grantActualService.queryById(id);
-			GrantPart part = grantPartService.queryById(actual.getPartGrantId());
-			GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
-			Project project = projectService.queryById(total.getProjectId());
-			User blongUser = userService.queryById(project.getCreateUid());
-			
-			//grantActualService.deleteById(id);
-			grantActualService.deleteGrantActual(id);
-			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
+			InformationListdata part = informationListdataService.queryById(id);
+			Project project = projectService.queryById(part.getProjectId());
+			informationListdataService.deleteDataRelateFile(id);
 			responseBody.setResult(new Result(Status.OK, ""));
-		} catch (DaoException e) {
-			// TODO: handle exception
-			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
-			_common_logger_.error("删除错误", e);
+			User blongUser = userService.queryById(project.getCreateUid());
+			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "删除失败"));
+			_common_logger_.error("delGrantPart 删除失败",e);
 		}
 		return responseBody;
 	}

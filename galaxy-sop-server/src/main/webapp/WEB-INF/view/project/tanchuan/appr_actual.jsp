@@ -18,7 +18,7 @@
 	<div class="title_bj" id="popup_name">实际注资信息列表</div>
      
     <div class="addbutton btnbox_f1 clearfix margin_45">                        	
-        <span id="btn_add_appr_actual" data-btn="actual_win" style="display: none"  data-id="" data-type="add" resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际注资信息</span>        
+        <span id="btn_add_appr_actual" data-btn="actual_win" style="display: none"  data-id="" data-actual-id="" data-type="add" resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际注资信息</span>        
     </div>
     <div class="form clearfix">
         <div class="actual_all">
@@ -47,7 +47,6 @@
 	    function createDateFormat(value, row, index){
 	    	if(value && value != ''){
 	    		return value;
-	    		/* return time_zh(value, "年", "月", "日"); */
 	    	}else return '';
 	    }
 	    function grantMoneyFormat(value, row, index){
@@ -60,15 +59,15 @@
 	    	
 	    	if(isContainResourceByMark('edit_appr_actual') && isTransfering != 'true')
     		{
-	    		opts += '<span class="blue"  data-btn="actual_win" data-type="edit">编辑</span>';
+	    		opts += '<label class="editActualLink blue"  data-btn="actual_win" data-type="edit">编辑</label>';
     		}
 	    	if(isContainResourceByMark('delete_appr_actual') && isTransfering != 'true')
     		{
 	    		opts += '<label class="deleteActualLink blue"  href="javascript:void(0)">删除</label>';
     		}
-	    	/* if(row.fileNum && row.fileNum > 0){
+	    	if(row.field5 && row.field5 > 0){
 	    		opts += '<label class="downfile blue" href="javascript:void(0)">下载附件</label>';
-	    	} */
+	    	} 
 	    	
 		    return opts;
 		 }
@@ -83,19 +82,9 @@
 	    			}
 	    		},
 	    		'click .editActualLink' : function(e, value, row, index){
-	    			var formdata = {
-	    					parentId :	${partId},
-	    					actualId : row.id,
-	    					operatorFlag : 2,
-	    					callFuc : function(data){
-		    					 $('#actual-table').bootstrapTable('refresh',function(param){
-		    				        	param.partGrantId = ${partId};
-		    				        	return param;
-		    				        });
-		    					 flushData(${partId});
-		    					}
-	    			}
-	    			editApprActualDialog.init(formdata);
+	    			$("#btn_add_appr_actual").attr("data-actual-id",row.id);
+	    			$("#btn_add_appr_actual").attr("data-type","edit");
+	    			$("#btn_add_appr_actual").click();
 	    		},
 	    		'click .deleteActualLink'  : function(e, value, row, index){
 	    			layer.confirm('是否删除实际注资信息?', {
@@ -107,9 +96,8 @@
 		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
 		    	        		if(data.result.status=="OK"){
 		    	        			layer.msg("删除成功");
-	    	                		flushData(${partId});
-	    	                		//reference('${projectId}');
-		    	        			var options = $('#actual-table').bootstrapTable('getOptions');
+		    	        			$('#actual-table').bootstrapTable('refresh');
+		    	        			/* var options = $('#actual-table').bootstrapTable('getOptions');
 		    	                	var data = options.data;
 		    	                	var pageNum_ = options.pageNumber; 
 		    	                	
@@ -130,8 +118,6 @@
 	    	                			url : Constants.sopEndpointURL+"/galaxy/grant/actual/searchActualList",
 	    	                			sidePagination: 'server',
 	    	                			method : 'post',
-	    	                			sortOrder : 'desc',
-	    	                			sortName : 'updated_time',
 	    	                			pagination: true,
 	    	                	        search: false,
 	    	                	        queryParams:function(param){
@@ -145,7 +131,7 @@
 	    	                	     			 
 	    	                	     		});
 	    	                	        }
-	    	                	    });
+	    	                	    }); */
 		    	        			}else{
 		    						layer.msg(data.result.errorCode);
 		    					}
@@ -156,12 +142,9 @@
 		        		});
 	    		},
 				'click .showActualLink'  : function(e, value, row, index){
-					var formdata = {
-	    					parentId　:	${partId},
-	    					actualId : row.id,
-	    					operatorFlag : 3
-	    			}
-	    			editApprActualDialog.init(formdata);
+					$("#btn_add_appr_actual").attr("data-actual-id",row.id);
+	    			$("#btn_add_appr_actual").attr("data-type","info");
+	    			$("#btn_add_appr_actual").click();
 	    		}
 	    };
 	    $('#actual-table').bootstrapTable({
@@ -194,102 +177,97 @@
 				}	
 			});
 	    }
+	    
+	    var key = Date.parse(new Date());
+	    var keyJSON={};
+	    var deleteJSON={};
+    	$("[data-btn='actual_win']").on("click",function(){ 	
+    			var $self = $(this);
+    			var _id = $self.attr("data-id");
+    			var _url=  platformUrl.toEditApprActual;
+    			var _data_type = $self.attr("data-type");
+    			/* var _name= $self.attr("data-name");
+    			var _total_name = $self.attr("data-total-name");
+    			 */
+    			//查看
+    			if(_data_type == "info"){
+    				_url = Constants.sopEndpointURL+'/galaxy/grant/actual/toApprActualLook';
+    			}
+    			$.getHtml({
+    					url:_url,//模版请求地址
+    					data:"",//传递参数
+    					okback:function(){
+    						key = Date.parse(new Date());
+    						delete deleteJSON.partDelFile;
+    						
+    						$("#projectId").val(pId);
+    						$("#parentId").val(_id);
+    						 keyJSON["b_part"]=key;
+    						 var params = {};
+    						 params.fileReidsKey = key;
+    						 params.projectId =  pId;
+    						 params.titleId = "3022";
+    						if(_data_type == "edit" || _data_type == "info"){
+    							var _actual_id = $self.attr("data-actual-id");
+    							_url = Constants.sopEndpointURL + '/galaxy/grant/actual/selectApprActual/'+_actual_id;
+    							sendGetRequest(_url, {}, function(data){
+    								var result = data.result.status;
+    								if(result == "OK"){
+    									var grantActualInfo = data.entity;
+    									if(_data_type == "edit"){
+    										$("#form_edit_actual_dialog [data-name='id']").val(grantActualInfo.id);
+    										$("#form_edit_actual_dialog [data-name='field1']").val(grantActualInfo.field1);
+    										$("#form_edit_actual_dialog [data-name='field2']").val(grantActualInfo.field2);
+    										$("#form_edit_actual_dialog [data-name='field3']").val(grantActualInfo.field3);
+    									}else{
+    										$("#grantName").html(grantActualInfo.field1);
+    										$("#grantDetail").html(grantActualInfo.field2);
+    										$("#grantMoney").html(grantActualInfo.field3);
+    									}
+    									$("#btn_add_appr_actual").attr("data-actual-id","");
+						    			$("#btn_add_appr_actual").attr("data-type",""); 
+    									$.each(data.entity.fileList,function(){
+    										var but = "<button type='button' id='"+this.id+"btn' onclick=delPart('"+this.id+"','"+this.fileName+"','textarea2','partDelFile')>删除</button>" ;
+    										var htm = "<tr id='"+this.id+"tr'>"+
+    														"<td>"+this.fileName+"."+this.fileSuffix+
+    															"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+    														"</td>"+
+    														"<td>"+plupload.formatSize(this.fileLength)+"</td>";
+    											if(_data_type == "edit"){
+    												htm+=	"<td>"+ but +"</td><td>100%</td>";
+    											}			
+    											htm+= "</tr>";
+    										$("#filelist").append(htm);
+    									});
+    									var fileLen=$("#filelist tr:gt(0)").length;
+    									if(fileLen==0){
+    										$("#filelist").css("display","none");
+    									}
+    									 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
+    												null,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
+    												params,"actual_aging_form",null,null);
+    									
+    								}else{
+    									layer.msg(data.result.message);
+    								}
+    							});
+    						
+    						}else{
+    							$("#partId").remove();
+    							 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
+    										null,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
+    										params,"actual_aging_form",null,null);
+    						
+    						
+    						
+    						} 
+    					}//模版反回成功执行	
+    				});
+    			
+    		    return false;
+    		
+    	});
     </script>
-    <script type="text/javascript">
-    var key = Date.parse(new Date());
-    var keyJSON={};
-    var deleteJSON={};
-	    function init(){
-	    	$("[data-btn='actual_win']").on("click",function(){ 	
-	    	//$("#btn_add_appr_actual").click(function(){
-	    		   
-	    			var $self = $(this);
-	    			var _id = $self.attr("data-id");
-	    			var _url=  platformUrl.toEditApprActual;
-	    			var _data_type = "";
-	    			/* var _name= $self.attr("data-name");
-	    			var _total_name = $self.attr("data-total-name");
-	    			//查看分期计划
-	    			if(_data_type == "info"){
-	    				_url = Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAgingInfo';
-	    			} */
-	    			$.getHtml({
-	    					url:_url,//模版请求地址
-	    					data:"",//传递参数
-	    					okback:function(){
-	    						key = Date.parse(new Date());
-	    						delete deleteJSON.partDelFile;
-	    						
-	    						$("#projectId").val(pId);
-	    						$("#parentId").val(_id);
-	    						 keyJSON["b_part"]=key;
-	    						 var params = {};
-	    						 params.fileReidsKey = key;
-	    						 params.projectId =  pId;
-	    						 params.titleId = "3022";
-	    						if(_data_type == "edit" || _data_type == "info"){
-	    							var _part_id = $self.attr("data-part-id");
-	    							_url = Constants.sopEndpointURL + '/galaxy/grant/part/selectGrantPart/'+_part_id;
-	    							sendGetRequest(_url, {}, function(data){
-	    								var result = data.result.status;
-	    								if(result == "OK"){
-	    									var grantPartInfo = data.entity;
-	    									if(_data_type == "edit"){
-	    										$("#actual_aging_container [data-name='id']").val(grantPartInfo.id);
-	    										$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
-	    										$("#actual_aging_container [data-name='field2']").val(grantPartInfo.field2);
-	    										$("#actual_aging_container [data-name='field3']").val(grantPartInfo.field3);
-	    										$("#actual_aging_container [data-name='field4']").val(grantPartInfo.field4);
-	    									}else{
-	    										$("#grantName").html(grantPartInfo.field1);
-	    										$("#grantDetail").html(grantPartInfo.field2);
-	    										$("#grantMoney").html(grantPartInfo.field3);
-	    										$("#payCondition").html(grantPartInfo.field4);
-	    									}
-	    									$.each(data.entity.fileList,function(){
-	    										var but = "<button type='button' id='"+this.id+"btn' onclick=delPart('"+this.id+"','"+this.fileName+"','textarea2','partDelFile')>删除</button>" ;
-	    										var htm = "<tr id='"+this.id+"tr'>"+
-	    														"<td>"+this.fileName+"."+this.fileSuffix+
-	    															"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
-	    														"</td>"+
-	    														"<td>"+plupload.formatSize(this.fileLength)+"</td>";
-	    											if(_data_type == "edit"){
-	    												htm+=	"<td>"+ but +"</td><td>100%</td>";
-	    											}			
-	    											htm+= "</tr>";
-	    										$("#filelist").append(htm);
-	    									});
-	    									var fileLen=$("#filelist tr:gt(0)").length;
-	    									if(fileLen==0){
-	    										$("#filelist").css("display","none");
-	    									}
-	    									 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
-	    												null,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
-	    												params,"actual_aging_form",null,null);
-	    									
-	    								}else{
-	    									layer.msg(data.result.message);
-	    								}
-	    							});
-	    						
-	    						}else{
-	    							$("#partId").remove();
-	    							 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
-	    										null,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
-	    										params,"actual_aging_form",null,null);
-	    						
-	    						
-	    						
-	    						} 
-	    					}//模版反回成功执行	
-	    				});
-	    			
-	    		    return false;
-	    		
-	    	});
-	    }
-	    $(document).ready(init());
-    	
-    </script>
+   
   	
 </div>

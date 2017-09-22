@@ -40,7 +40,6 @@
 		                <dd>
 		                	<div>
 		                	    <input readonly id="field2" name="field2" data-name="field2" data-type="19" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/>
-		                    	<!-- <input readonly class="edittxt" id="grantDetail" data-name="field2" data-type="19" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/> -->
 		                    </div> 
 		                </dd>
 		            </dl>
