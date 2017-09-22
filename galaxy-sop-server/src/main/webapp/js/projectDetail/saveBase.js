@@ -49,9 +49,11 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
-					$("#projectCompany").text(val1);
-					$('#companyLegal').text(val3);
-					$('#formationDate').text(val2);
+					if(dom=='company-info-form'){
+						$("#projectCompany").text(val1);
+						$('#companyLegal').text(val3);
+						$('#formationDate').text(val2);
+					}
 				} else {
 					layer.msg("操作失败!");
 				}

@@ -622,28 +622,6 @@ function addRow(ele)
 		}//模版反回成功执行	
 	});
 }
-/**
- * 调用此方法渲染下拉框，需要注意几点：
- * 1，<dd class="clearfix" id="field5" data-type="radio">如果是单选需要在dd标签上面加上两个属性（id="field5" ，data-type="radio"）
- * 2，下拉框需要添加id属性，id的属性值跟name的值一样
- * 数据字典加载页面渲染
- */
-
-function selectContext(formId){
-	 var $fileds=$("#"+formId).find("select,dd[data-type='radio']");
-	 $.each($fileds,function(){
-		var field = $(this);
-		var titleId=$("#"+formId+" input[name='titleId']").val();
-		var subCode=$("#"+formId+" input[name='subCode']").val();
-		var filedName;
-	    if(field[0].tagName=="DD"){
-	    	filedName=field.attr("id");
-		}else if(field[0].tagName=="select"||field[0].tagName=="SELECT"){
-			filedName=field.attr("name");
-		}
-	    selectDirect(titleId,subCode,filedName);
-	})
-}
 
 function resizetable(table){
     var dict_map = {};

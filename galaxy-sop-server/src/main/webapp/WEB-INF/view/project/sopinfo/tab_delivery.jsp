@@ -18,6 +18,7 @@
 <style type="text/css">
 .bars{margin:0 !important;}
 </style>
+<script src="<%=path %>/js/partFile.js"></script>
 </head>
 
 
@@ -40,24 +41,22 @@
 				</div>
 				</c:if>
 				
-				<div class="min_document clearfix" id="custom-toolbar" style="display:none;" >
+				<!-- <div class="min_document clearfix" id="custom-toolbar" style="display:none;" >
 					<div class="bottom searchall clearfix">
-						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
+						<input type="hidden" id="projectId" name="projectId" value="">   项目id
 					</div>
-				</div>
-				
+				</div> -->
 				<table id="project_delivery_table" class="commonsize delivery"
 					data-page-list="[10, 20, 30]" 
-					data-url="<%=path%>/galaxy/delivery/queryprodeliverypage" 
 					data-id-field="id"
-					data-toolbar="#custom-toolbar">
+					data-toolbar="#custom-toolbar" data-show-refresh="true">
 					<thead>
 						<tr>
-							<th data-field="delDescribe" data-align="left" data-formatter="infoDeliverFormat" data-width="25%">事项简述</th>
-							<th data-field="del_status" data-align="left" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态<span></span></th>
+							<th data-field="field1" data-align="left" data-formatter="infoDeliverFormat" data-width="25%">事项简述</th>
+							<th data-field="field3" data-align="left" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态<span></span></th>
 							<th data-field="endByUname" data-align="left">编辑人</th>
 							<th data-field="updatedTime" data-align="left" data-formatter="longTime_Format" >编辑日期</th>
-							<th data-field="fileNum" data-align="left" data-formatter="notReturn_Format">附件数</th>
+							<th data-field="field5" data-align="left" data-formatter="notReturn_Format">附件数</th>
 							<th data-align="left" class="w_150" data-formatter="operFormat">操作</th>
 						</tr>
 					</thead>
@@ -85,7 +84,9 @@
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 
 <script>
-
+	var key = Date.parse(new Date());
+	var keyJSON={};
+	var deleteJSON={};
 	var proid = projectInfo.id;
 	var deliver_selectRow = null;
 	var isTransfering = "${fx:isTransfering(pid) }";
@@ -96,7 +97,7 @@ $(function(){
 	{
 		$("[data-btn='to_add_deliver']").addClass('limits_gray');
 	}
-	init_bootstrapTable('project_delivery_table',10);
+	/* init_bootstrapTable('project_delivery_table',10); */
 	$(".fixed-table-pagination").remove();
 	//刷新右侧投后运营简报信息
 	function check_tr(table){
@@ -144,49 +145,44 @@ $(function(){
 				okback:function(){
 					$("#popup_name").html(_name);
 					$("#deliver_form [name='projectId']").val(proid);
-					toInitBachUpload();
+					key = Date.parse(new Date());
+					delete deleteJSON.partDelFile;
+					 keyJSON["b_part"]=key;
+					 var params = {};
+					 params.fileReidsKey = key;
+					 params.projectId =  proid;
+					 params.titleId = "1810";
+					 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
+								null,"textarea2","select_btn","win_ok_btn","container","filelist",
+								params,"deliver_form",null,null);
 					$("#filelist").css("display","none")
 				}
 			});
 			return false;
 		});
 	}
+	
+	$('#project_delivery_table').bootstrapTable({
+		queryParamsType: 'size|page',
+		pageSize:5,
+		showRefresh : false ,
+		url : Constants.sopEndpointURL+"/galaxy/delivery/queryprodeliverypage",
+		sidePagination: 'server',
+		method : 'post',
+		//sortOrder : 'desc',
+		//sortName : 'updated_time',
+		pagination: true,
+	    search: false,
+	    queryParams:function(param){
+	    	param.titleId = '1810';
+	    	param.projectId = proid;
+	    	return param;
+	    },
+	    onLoadSuccess: function (data) {
+	    	
+	    }
+	});
 });	
-
-//获取 页面数据\保存数据
-function paramsContion(){
-	
-	if(!beforeSubmit()){
-		return false;
-	}
-	
-	var condition = JSON.parse($("#deliver_form").serializeObject());
-	condition.fileReidsKey = Date.parse(new Date());
-	condition.fileNum = $("#filelist").find("tr").length - 1;
-	
-	var oldFids=[];
-	var oldfileids = $("input[name='oldfileids']");
-	if(oldfileids && oldfileids.length > 0){
-		
-		$.each(oldfileids, function(i) { 
-			var idVal = oldfileids[i].value;
-		   	if(!isNaN(idVal)){
-		   		oldFids.push(idVal);
-		   	}
-		});
-		condition.fileIds = oldFids;
-	}
-	
-	return condition;
-}
-
-function toInitBachUpload(){
-	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
-					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
-					paramsContion,"deliver_form",saveCallBackFuc);
-}
-
-
 /**
  * 回调函数
  */
@@ -266,7 +262,7 @@ function operFormat(value,row,index){
 		content += edit;
 		content += del;
 	}
-	if(row.fileNum && row.fileNum != 0 && row.fileNum != '0'){
+	if(row.field5 && row.field5 != 0 && row.field5 != '0'){
 		content += downfile;
 	}
 	
@@ -279,8 +275,6 @@ function operFormat(value,row,index){
  */
  function deliverInfoEdit(selectRowId,type){
 		deliver_selectRow = $('#project_delivery_table').bootstrapTable('getRowByUniqueId', selectRowId);
-		//var $self = $(this);
-		//var _name= $self.attr("data-name");
 		var _url = Constants.sopEndpointURL + '/galaxy/delivery/tomatterdeliver';
 		if(type == 'v'){
 			_url = Constants.sopEndpointURL + '/galaxy/delivery/todeliverinfo';
@@ -289,88 +283,61 @@ function operFormat(value,row,index){
 			url:_url,
 			data:"",
 			okback:function(){
-				if(type == 'v'){
-					$("#popup_name").html("查看事项信息");
-					$("#deliver_form [name='delDescribe']").text(deliver_selectRow.delDescribe);
-					$("#deliver_form [name='details']").text(deliver_selectRow.details);
-					$("#deliver_form [name='delStatus']").text(deliver_selectRow.statusFormat);
-				}else{
+					key = Date.parse(new Date());
+					delete deleteJSON.partDelFile;
+					 keyJSON["b_part"]=key;
+					 var params = {};
+					 params.fileReidsKey = key;
+					 params.projectId =  proid;
+					 params.titleId = "1810";
 					_url = Constants.sopEndpointURL + '/galaxy/delivery/selectdelivery/'+selectRowId;
 					sendGetRequest(_url, {}, function(data){
 						var result = data.result.status;
 						if(result == "OK"){
 							var deliverInfo = data.entity;
-							$("#popup_name").html("编辑事项信息");
-							$("#deliver_form [name='id']").val(deliverInfo.id);
-							$("#deliver_form [name='projectId']").val(proid);
-							$("#deliver_form [name='delDescribe']").val(deliverInfo.delDescribe);
-							$("#deliver_form [name='details']").text(deliverInfo.details);
-							$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
-							$.each(data.entity.files,function(){
-								var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+							if(type != "v"){
+								$("#projectId").val(deliverInfo.projectId);
+								$("#deliver_form [data-name='id']").val(deliverInfo.id);
+								$("#deliver_form [data-name='field1']").val(deliverInfo.field1);
+								$("#deliver_form [data-name='field2']").val(deliverInfo.field2);
+								$("#deliver_form [data-name='field3']").val(deliverInfo.field3);
+							}else{
+								$("#delDescribe").html(deliverInfo.field1);
+								$("#details").html(deliverInfo.field2);
+								$("#delStatus").html(deliverInfo.field3);
+							}
+							$.each(data.entity.fileList,function(){
+								var but = "<button type='button' id='"+this.id+"btn' onclick=delPart('"+this.id+"','"+this.fileName+"','textarea2','partDelFile')>删除</button>" ;
 								var htm = "<tr id='"+this.id+"tr'>"+
 												"<td>"+this.fileName+"."+this.fileSuffix+
 													"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 												"</td>"+
-												"<td>"+plupload.formatSize(this.fileLength)+"</td>"+
-												"<td>"+ but +"</td>"+
-												"<td>100%</td>"+
-											"</tr>"
+												"<td>"+plupload.formatSize(this.fileLength)+"</td>";
+									if(type != "v"){
+										htm+=	"<td>"+ but +"</td><td>100%</td>";
+									}			
+									htm+= "</tr>";
 								$("#filelist").append(htm);
 							});
-							
-							toInitBachUpload();
 							var fileLen=$("#filelist tr:gt(0)").length;
-							//console.log(fileLen)
 							if(fileLen==0){
 								$("#filelist").css("display","none");
 							}
+							toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
+										null,"textarea2","select_btn","win_ok_btn","container","filelist",
+										params,"deliver_form",null,null);
+							
 							
 						}else{
 							layer.msg(data.result.message);
 						}
 					});
-				}
 				
 			}
 		});
 		return false;
 	}
 
-/**
- * 保存  事项
- */
-function save_deliver(){  
-	var content = paramsContion();
-	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/operdelivery'
-	sendPostRequestByJsonObj(_url, content, function(data){
-		if (data.result.status=="OK") {
-			layer.msg("保存成功");
-			removePop1();
-			$("#project_delivery_table").bootstrapTable('refresh');
-		} else {
-			layer.msg(data.result.message);
-		}
-	});
-}
-
-
-
-/**
- * 删除  事项
-
-function to_del_deliver(selectRowId){
-	var _url = Constants.sopEndpointURL + '/galaxy/delivery/todeldeliver/';
-	$.getHtml({
-		url:_url,
-		data:"",
-		okback:function(){
-			$("#popup_name").html("提示");
-			$("#del_deliver_id").val(selectRowId);
-		}
-	});
-	return false;
-} */
 function to_del_deliver(selectRowId){
 	layer.confirm('是否删除事项?',
 		{
@@ -395,7 +362,6 @@ function to_download_deliver(id){
 }
 
 function del_deliver(id){  
-	//var id = $("#del_deliver_id").val();
 	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/deldelivery/'+id;
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
