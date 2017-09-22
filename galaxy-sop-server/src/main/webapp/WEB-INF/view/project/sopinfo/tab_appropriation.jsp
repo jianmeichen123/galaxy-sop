@@ -413,7 +413,6 @@ var searchPartMoney;
 			//进行上传
 			var result = data.status;
 			if(result == "OK"){
-				  alert("成功")
 			     //删除
 			     $("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
 				 $("#"+id+"tr").remove();
