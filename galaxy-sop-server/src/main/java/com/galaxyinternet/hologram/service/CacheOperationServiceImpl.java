@@ -40,7 +40,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	
 	public static final String CACHE_KEY_VALUE_ID_NAME = "QXT_VALUE_ID_NAME"; //各区域块下的   题：value   ==  Map<Long,String>
 	
-	public static final String CACHE_KEY_VALUE_ID_LIST = "QXT_VALUE_ID_LIST"; //各区域块下的   题：value   ==  Map<Long,String>
+	//public static final String CACHE_KEY_VALUE_ID_LIST = "QXT_VALUE_ID_LIST"; //各区域块下的   题：value   ==  Map<Long,String>
 
 	
 	@Autowired
@@ -88,14 +88,6 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		tableRelationInti();
 		initReportsCodeIdsAndNum();
 		//initAreaTitleAndTValue();
-		//清理  initAreaTitleAndTValue 中的cache， 下个版本 1.7 后  删除该代码
-		Object getK = cache.get("QXT_PAGE_AREA_TITLE_KEYLIST");
-		if(getK != null){
-			List<String> cacheKey = (List<String>) getK;
-			for(String ak : cacheKey){
-				cache.remove("QXT_PAGE_AREA_TITLE_KEYLIST" +ak);
-			}
-		}
 	}
 	
 	
