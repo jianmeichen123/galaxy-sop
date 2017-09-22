@@ -221,6 +221,8 @@ $(function(){
 					}
 					
 					if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
+						console.log("##################")
+						console.log(projectInfo.jointDeliveryList)
 						jointDeliveryEdit(projectInfo.jointDeliveryList);
 					}
 				}else{
@@ -789,21 +791,36 @@ function jointDeliveryList(list){
 	   temp.append(html);
 	}	
 }
+var name_opt = new Array()
 function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
 	
 	for(var i=0;i<list.length;i++){
-		console.log(list[i].deliveryCurrency)
-				console.log(list[i].deliveryName)
 		var inputsRow='<div class="block_inputs">'
 	        +'<span><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
 	        +'<span><input placeholder="填写投资金额（万元）" value="'+list[i].deliveryAmount+'" name="deliveryAmount'+i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	        +'<span><select><option value="">'+list[i].deliveryCurrency+'</option></select></span>'
+	        +'<span><select class="money_select"><option value="">人民币</option><option value="">美元</option></select></span>'
 	        +'<span><input placeholder="填写占股比例（%）"  value="'+list[i].deliveryShareRatio+'" name="deliveryShareRatio'+i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	          +'<span class="del">删除</span>'
 	          +'</div>';
 		$(".inputsForm").append(inputsRow);
-	}
+		 name_opt.push(list[i].deliveryCurrency);
+	};
+	
+	$('.block_inputs').each(function(){
+		var index = $(this).index()
+		var _this = $(this);
+		
+		if(name_opt[index]==='人民币'){
+			_this.find('select option:eq(0)').attr('selected',true);
+		}else{
+			_this.find('select option:eq(1)').attr('selected',true);
+		}
+	});
+	
+	
+	
+	
 	//新增按钮显示隐藏
 	var inputsLength=$(".block_inputs").length;
 	if(inputsLength <10){
