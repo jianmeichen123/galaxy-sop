@@ -1,5 +1,6 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -402,10 +403,27 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	{
 		
 		if(id != null){
-			GrantActual grantActual = grantActualService.queryById(id);  //grantActual.getCreatedTime().toString()+
-			List<SopDownLoad> sopDownLoadList = grantActualService.queryActualDownFiles(id);
 			try {
-				sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
+				InformationListdata data = informationListdataService.queryById(id);
+				if(!StringUtils.isEmpty(data.getRelateFileId())){
+					InformationFile file = new InformationFile();
+					file.setTitleId(data.getTitleId());
+					file.setProjectId(data.getProjectId());
+					file.setFileIds(Arrays.asList(data.getRelateFileId().split(",")));
+					List<InformationFile> fileList = informationFileService.queryList(file);
+					List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
+					if(fileList != null && fileList.size() > 0){
+						for(InformationFile f:fileList){
+							SopDownLoad downloadEntity = new SopDownLoad();
+							downloadEntity.setFileName(f.getFileName());
+							downloadEntity.setFileSuffix("." + f.getFileSuffix());
+							downloadEntity.setFileSize(Long.valueOf(f.getFileLength()));
+							downloadEntity.setFileKey(f.getFileKey());
+							sopDownLoadList.add(downloadEntity);
+						}
+					}
+					sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
+				}
 			} catch (Exception e) {
 				_common_logger_.error("下载失败.",e);
 			}
