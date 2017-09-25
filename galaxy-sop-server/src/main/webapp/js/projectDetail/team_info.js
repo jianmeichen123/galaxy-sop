@@ -87,6 +87,11 @@ function buildMemberRow(headerList,row)
 {
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	tr.data("person",row);
+	if(row.other!=''){
+		row.field2=row.field2+"-"+row.other;
+	}else{
+		row.field2=row.field2;
+	}
     for(var key in row)
    	{
     	//设置data
@@ -100,23 +105,31 @@ function buildMemberRow(headerList,row)
         	if(row[key]){
                 //select字段在页面缓存根据id取value
                 if(key == "field2"){
-                	if(row[key]=="1363"){
-                		map_edu[row[key]]=row.other;
+                	console.log(row);
+                	if(row[key].indexOf("1363")>-1){
+                		var field=row.field2.split("-");
+                		if(field.length>1){
+                			map_edu[row[key]]=field[1];
+                		}
+                	}else{
+                		map_edu[row[key]]=map_edu[row[key]];
                 	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
-                		map_edu[row[key]]="未知";
+                		map_edu[row[key]]="—";
                 	}
+                	console.log("&&&&&&&&&&&&&");
+                	console.log(map_edu[row[key]])
                      tr.append('<td data-field-name="'+key+'">'+map_edu[row[key]]+'</td>');
                      return;
                 }else if(key == "field5"){
                 	if(map_pos[row[key]]==""||map_pos[row[key]]==undefined||map_pos[row[key]]=="undefined"){
-                		map_pos[row[key]]="未知"
+                		map_pos[row[key]]="—"
                 	}
                      tr.append('<td data-field-name="'+key+'">'+map_pos[row[key]]+'</td>');
                      return;
                 }else if(key == "field3"){
                 	if(map_sex[row[key]]==""||map_sex[row[key]]==undefined||map_sex[row[key]]=="undefined"){
-                		map_sex[row[key]]="未知"
+                		map_sex[row[key]]="—"
                 	}
                     tr.append('<td data-field-name="'+key+'">'+map_sex[row[key]]+'</td>');
                     return;
@@ -125,7 +138,7 @@ function buildMemberRow(headerList,row)
                 }
             }else{
                 tr.data(key,"未知");
-                tr.append('<td data-field-name="'+key+'">未知</td>');
+                tr.append('<td data-field-name="'+key+'">—</td>');
             }
         }
 
@@ -191,6 +204,7 @@ function editMemberRow(ele){
     var row = $(ele).closest('tr');
     var index = row.index();
     row.data("index",index);
+    var valNameOther=$(ele).closest("tr").find("td[data-field-name=\"field2\"]").text();
     $.getHtml({
 		url:"/sop/html/team_compile.html",//模版请求地址
 		data:"",//传递参数
@@ -202,7 +216,15 @@ function editMemberRow(ele){
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.val(row.data(name));
+				var valName=row.data(name);
+				if(typeof(row.data(name))=='string' && row.data(name).indexOf("1363")>-1){
+					valName=valName.split("-");
+					valNameNew=valName[0];
+					$("input[name='other']").show();
+				}else{
+					valNameNew=valName;
+				}
+				ele.val(valNameNew);
 				var tagName = $(this).get(0).tagName;
                 if(tagName=="SELECT"){
                     if(ele.val()==null){
@@ -210,6 +232,7 @@ function editMemberRow(ele){
                     }
                 }
 			});
+			$('input[name="other"]').val(valNameOther);
 			$("input:radio[name='field3'][data-value='" + row.data("field3") + "']").prop("checked", "checked");
             //填充学习经历
             var obj = row.data("person")
@@ -651,6 +674,11 @@ function saveTeamInfo(v){
 	$.each($("table.team_info"),function(){
 		$.each($(this).find('tr:gt(0)'),function(){
 			var row = $(this).data("person");
+			if(row.other!='' && row.other!=undefined){
+				row.field2=row.field2+"-"+row.other;
+			}else{
+				row.field2=row.field2;
+			}
 			if(row.id=="")
 			{
 				row.id=null;
@@ -664,7 +692,6 @@ function saveTeamInfo(v){
         alert("最多只能添加10条记录!")
         return false;
     }
-
     sendPostRequestByJsonObj(
     platformUrl.saveTeamMember,
     json,

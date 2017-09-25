@@ -57,7 +57,7 @@
 					<option value="EC专家顾问">EC专家顾问</option>
 					<option value="Other其他">Other其他</option> -->
 				</select>
-				<input class="txt" name="other" maxlength="20"/>
+				<input class="txt" name="other" maxlength="20" data-msg-required="<font color=red>*</font>请输入姓名"/>
    			</li>
    		</ul>
 		</form>
@@ -92,9 +92,21 @@
       var phone = /^[\+\-\(\)0-9]{0,40}$/;
    	return this.optional(element) || (phone.test(value));
     }, "手机格式不对");
+  //职位选择其他
+  $("select[name='field2']").change(function(){
+	  var val=$(this).find("option:selected").attr("value");
+	  if(val=='1363'){
+		  $(this).next('input[name="other"]').show();
+		  $(this).next('input[name="other"]').attr("required",true);
+	  }else{
+		  $(this).next('input[name="other"]').hide();
+		  $(this).next('input[name="other"]').removeAttr("required");
+	  }
+  })
 </script>
 <style>
 .team_compile_ul_l_dd{position:relative;}
 #field3-error{position:absolute;left:100px;width:100px;;}
+input[name='other']{display:none}
 </style>
 
