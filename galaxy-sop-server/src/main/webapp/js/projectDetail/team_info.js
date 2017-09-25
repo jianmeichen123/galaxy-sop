@@ -87,7 +87,7 @@ function buildMemberRow(headerList,row)
 {
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	tr.data("person",row);
-	if(row.other!=''){
+	if(row.other && row.other!=''){
 		row.field2=row.field2+"-"+row.other;
 	}else{
 		row.field2=row.field2;
@@ -105,20 +105,15 @@ function buildMemberRow(headerList,row)
         	if(row[key]){
                 //select字段在页面缓存根据id取value
                 if(key == "field2"){
-                	console.log(row);
                 	if(row[key].indexOf("1363")>-1){
                 		var field=row.field2.split("-");
                 		if(field.length>1){
                 			map_edu[row[key]]=field[1];
                 		}
-                	}else{
-                		map_edu[row[key]]=map_edu[row[key]];
                 	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
                 		map_edu[row[key]]="—";
                 	}
-                	console.log("&&&&&&&&&&&&&");
-                	console.log(map_edu[row[key]])
                      tr.append('<td data-field-name="'+key+'">'+map_edu[row[key]]+'</td>');
                      return;
                 }else if(key == "field5"){
@@ -253,6 +248,10 @@ function editMemberRow(ele){
                $("#team_work").append(work);
             }
             $("#save_person_learning").click(function(){
+            	if(!$("#detail-form").validate().form())
+        		{
+        			return;
+        		}
             	var v="保存成功";
                 saveTeamInfo(v);
             });
@@ -674,11 +673,6 @@ function saveTeamInfo(v){
 	$.each($("table.team_info"),function(){
 		$.each($(this).find('tr:gt(0)'),function(){
 			var row = $(this).data("person");
-			if(row.other!='' && row.other!=undefined){
-				row.field2=row.field2+"-"+row.other;
-			}else{
-				row.field2=row.field2;
-			}
 			if(row.id=="")
 			{
 				row.id=null;
