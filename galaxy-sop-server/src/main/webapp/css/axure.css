@@ -1745,9 +1745,11 @@ word-wrap:break-word;
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
 #tablePerson th,#project_delivery_table th,#meetGrid th,.fixed-table-container  table.info_table thead th{padding-left:30px;}
-#tablePerson th:last-child,#project_delivery_table th:last-child,#meetGrid th:last-child,.fixed-table-container  table.info_table thead th:last-child{padding-left:18px;}
+#project_delivery_table th:last-child,#meetGrid th:last-child,.fixed-table-container  table.info_table thead th:last-child{padding-left:18px;}
+#tablePerson th:last-child{padding-left: 5px!important;}
 #tablePerson td,#project_delivery_table td,#meetGrid td,.info_table td{padding-left:30px !important;}
-#tablePerson td:last-child,#project_delivery_table td:last-child,#meetGrid td:last-child,.info_table td:last-child{padding-left:18px !important;}
+#project_delivery_table td:last-child,#meetGrid td:last-child,.info_table td:last-child{padding-left:18px !important;}
+#tablePerson td:last-child{padding-left: 5px!important;}
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px; overflow:hidden;}
 .member .delivery a{margin-right: 10px;}

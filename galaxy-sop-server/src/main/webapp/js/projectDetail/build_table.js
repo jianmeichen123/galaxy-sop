@@ -8,7 +8,6 @@
 		sendGetRequest(platformUrl.getTitleResults+pid+"/"+projectInfo.id,null,function(data){
 	        var result = data.result.status;
 			var header=data.entityList;
-			console.log(data);
 			if(result=="OK"){
 		    	$.each(header,function(){
 		    		var _header =$(this);
@@ -175,7 +174,7 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				var val_text = row.data(name);
-				if(code="equity-structure"&&name=="field1"){
+				if(code=="equity-structure"&&name=="field1"){
 					ele.attr("title",val_text);
 				}
 				ele.text(val_text);
