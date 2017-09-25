@@ -79,6 +79,8 @@ var pageId = "project";
                   <dd>
                     <select name="financeStatus">
                       <option index="-1" value="">全部</option>
+                      <option index="" value="尚未获投">尚未获投</option>
+                      <option index="" value="不明确">不明确</option>
                     </select>
                   </dd>
                 </dl>
@@ -310,7 +312,17 @@ var pageId = "project";
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,CallBackB);
+	function CallBackB(data){
+	    var _dom=$("select[name='financeStatus']");
+	    var childNum = _dom.find("option").length;
+	    var entity=data.entity.childList[0];
+	    if(!childNum || childNum !=0 ){
+	    	$.each(entity.valueList,function(){
+	    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"'>"+this.name+"</option>");
+			});
+	    }
+	}
 	/**
 	 * 获取项目类型下拉项
 	 * @version 2016-06-21
