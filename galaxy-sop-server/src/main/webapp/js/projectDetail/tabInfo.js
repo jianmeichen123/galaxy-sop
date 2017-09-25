@@ -810,7 +810,6 @@ function jointDeliveryEdit(list){
 	$('.block_inputs').each(function(){
 		var index = $(this).index()
 		var _this = $(this);
-		
 		if(name_opt[index]==='人民币'){
 			_this.find('select option:eq(0)').attr('selected',true);
 		}else{
