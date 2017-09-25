@@ -3630,4 +3630,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .member table[data-code="equity-structure"] td，.financeHistoryTable td[data-field-name="field2"]{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
  
  #company-info span.new_color_black{display: inline-block; width: 80%;}
- 
+ #project-table tr td:nth-child(6) div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
