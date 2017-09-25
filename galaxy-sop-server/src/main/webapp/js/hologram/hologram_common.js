@@ -1995,6 +1995,9 @@ function editRow(ele)
 					 $("#pop-title-time").text('编辑里程碑和时间节点');
 					 $("#pop-title").text('编辑分期注资计划');
 				}
+			 if(code=="equity-structure"){
+					$(".form_textarea").remove();
+				}
 			$("#detail-form input[name='subCode']").val(code);
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
