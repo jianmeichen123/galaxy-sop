@@ -1107,7 +1107,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .studyxpricetc table{margin-bottom: 20px;}
 .btn_center{position: absolute;left: 50%;margin-left: -40px;}
 /* 股权结构弹窗 */
-#stock_form .form_textarea textarea,#detail-form .form_textarea textarea,#up_stock_form .form_textarea textarea{width:290px;height:100px;font-size: 12px !important;font-family: '宋体';}
+#stock_form .form_textarea textarea,#detail-form .form_textarea textarea,#up_stock_form .form_textarea textarea{width:290px;height:100px;font-size: 12px !important;font-family: '宋体';padding: 5px;}
 #stock_form .pubbtn,#up_stock_form .pubbtn{margin: 20px 20px 0 133px;}
 #stock_form .fffbtn,#up_stock_form .fffbtn{margin-left:0px;}
 #stock_form select,#up_stock_form select{width:150px;}
@@ -2366,6 +2366,7 @@ margin: 45px auto 30px;}
 .qualifications_all .fmdl{ width:100%; overflow:hidden;}
 .addPerson_all h3{font-size: 14px;line-height:28px;margin-bottom:10px;font-family: "Microsoft YaHei";border-bottom:1px solid #dadfe3;font-weight: normal;color:#2d3342;}
 .qualifications_all dd[name=field1]{word-break: normal;overflow: hidden;text-overflow: ellipsis;width: 165px;}
+.qualifications_all dd[name=field5]{width:70%;}
 .addPersontc dt,.qualificationstc dt,.stocktc dt{width:110px;text-align: right;}
 .finace_history_tc dt{width:142px;text-align: right;}
 .addPersontc dl{width:50%;margin-bottom: 10px;}

@@ -174,7 +174,7 @@ function editRow(ele)
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				var val_text = row.find("td[data-field-name='"+name+"']").text();
+				var val_text = row.data(name);
 				if(code="equity-structure"&&name=="field1"){
 					ele.attr("title",val_text);
 				}
