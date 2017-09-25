@@ -68,7 +68,7 @@
 	    </div>
 
 	    <div class="button_affrim">
-	         <a href="javascript:;" onclick="save()" class="register_all_input fr">保存</a>
+	         <a href="javascript:;" onclick="save()" class="register_all_affrim fl">保存</a>
 	        
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div> 
