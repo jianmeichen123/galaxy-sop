@@ -18,25 +18,12 @@
 	                    </div>
 	                </dd>
 	            </dl>
-	           <%--   <dl class="fmdl fl_l  clearfix">
-	                <dt>目标公司 ：</dt>
-	                <dd>
-	                	<div>
-	                    	<input class="edittxt" type="text" id="projectCompany" name="projectCompany" value="${projectCompany }" 
-	                    		maxLength="50"  valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>只能输入50个字符"/>
-	                    </div>
-	                </dd>
-	            </dl> --%>
                 <input type="hidden" name="projectId" id="projectId" value="${projectId}">
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划总注资金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
-	                    	<%-- <input class=" txt " type="text" id="grantMoney"  name="grantMoney"  
-	                    		value="${finalContributions}" onblur="set_finalValuations()"
-	                    		valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,4})$" 
-	                    		msg="<font color=red>*</font>支持9位长度的四位小数" /> --%>
-	                    	<input class=" txt " type="text" id="grantMoney" data-title-id="3004" value="${value3004}" data-result-id="${result3004}" data-type="19" name="1"  
+	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" value="${value3004}" data-result-id="${result3004}" data-type="19" name="1"  
 	                    		value="<fmt:formatNumber value="${finalContributions}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
 	                    		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
 	                    	<span class='money'>万元</span>
@@ -81,8 +68,6 @@
 	    </div>
 
 	    <div class="button_affrim">
-	         <!-- <span class="register_all_input fr h_save_btn" attr-save="apprGrantTotal" data-on="save">保存</span> -->
-	        <!-- <div class="register_all_input fr"><span class="h_save_btn">确定</span></div> -->
 	         <a href="javascript:;" onclick="save()" class="register_all_input fr">保存</a>
 	        
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>

@@ -66,35 +66,3 @@
 	        </div>
 	    </div>
 	</div>
-	<script>
-	 /*   $(function(){
-		   var remainMoney = '${remainMoney}';
-			  remainMoney = fixSizeDecimal(parseFloat(remainMoney),4);
-	          $("#formatRemainMoney").html(remainMoney);	
-	          var remainMoneyOld=$("#formatRemainMoney").text();
-	         
-		  $("#grantMoney").blur(function(){
-			 var grantMoney=$("#grantMoney").val();
-			 if(!beforeSubmitById("actual_aging_container")){
-				 $("#formatRemainMoney").html(remainMoneyOld);
-	 				return false;
-	 			} 
-			 if(grantMoney<0){
-	 				$("#formatRemainMoney").html(remainMoney)
-	 			 }else{
-	 				var remainMoney = '${remainMoney}';
-	 				var sremainMoneyNew=remainMoney-Number(grantMoney);
-	 				remainMoneyNew = fixSizeDecimal(parseFloat(sremainMoneyNew),4);
-	 				
-	 				if( sremainMoneyNew < 0 || sremainMoneyNew == 0){
-	 				    $("#formatRemainMoney").html("0");
-	 				}else{
-	 				    $("#formatRemainMoney").html(remainMoneyNew);
-	 				      }	 
-	 			 }
-			            
-		  })
-		  
-	   }); */
-	
-	</script>
