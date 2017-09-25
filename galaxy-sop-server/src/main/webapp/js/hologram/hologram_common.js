@@ -680,6 +680,11 @@ function buildMemberRow(headerList,row,showOpts)
 {
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	tr.data("person",row);
+	if(row.other && row.other!=''){
+		row.field2=row.field2+"-"+row.other;
+	}else{
+		row.field2=row.field2;
+	}
     for(var key in row)
    	{
     	//设置data
@@ -692,9 +697,15 @@ function buildMemberRow(headerList,row,showOpts)
         {
             if(row[key]){
                 //select字段在页面缓存根据id取value
-                if(key == "field2"){
+            	if(key == "field2"){
+                	if(row[key].indexOf("1363")>-1){
+                		var field=row.field2.split("-");
+                		if(field.length>1){
+                			map_edu[row[key]]=field[1];
+                		}
+                	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
-                		map_edu[row[key]]="未知"
+                		map_edu[row[key]]="未知";
                 	}
                      tr.append('<td data-field-name="'+key+'">'+map_edu[row[key]]+'</td>');
                      return;

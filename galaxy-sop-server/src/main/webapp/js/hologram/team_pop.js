@@ -75,6 +75,7 @@ function editMemberRow(ele){
     var row = $(ele).closest('tr');
     var index = row.index();
     row.data("index",index);
+    var valNameOther=$(ele).closest("tr").find("td[data-field-name=\"field2\"]").text();
     $.getHtml({
 		url:"/sop/html/team_compile.html",//模版请求地址
 		data:"",//传递参数
@@ -87,7 +88,15 @@ function editMemberRow(ele){
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.val(row.data(name));
+				var valName=row.data(name);
+				if(typeof(row.data(name))=='string' && row.data(name).indexOf("1363")>-1){
+					valName=valName.split("-");
+					valNameNew=valName[0];
+					$("input[name='other']").show();
+				}else{
+					valNameNew=valName;
+				}
+				ele.val(valNameNew);
 				var tagName = $(this).get(0).tagName;
                 if(tagName=="SELECT"){
                     if(ele.val()==null){
@@ -95,6 +104,7 @@ function editMemberRow(ele){
                     }
                 }
 			});
+			$('input[name="other"]').val(valNameOther);
 			$("input:radio[name='field3'][data-value='" + row.data("field3") + "']").prop("checked", "checked");
             //填充学习经历
             var obj = row.data("person")
