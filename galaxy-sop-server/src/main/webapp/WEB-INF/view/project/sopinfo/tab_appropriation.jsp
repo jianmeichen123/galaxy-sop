@@ -130,6 +130,7 @@ var searchPartMoney;
 		 $.each(trs,function(){ 
 			 sum+=Number($(this).find("td:nth-child(3)").text());
 		 })
+		 var valtr=$(this).closest('tr').find("td:nth-child(3)").text(); // 当前编辑的金额
 		$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
@@ -144,24 +145,44 @@ var searchPartMoney;
 					$("#projectId").val(pId);
 					 getTotalAppr(projectInfo.id);
 					//计算剩余金额
-		                var totalMoneyInit=$("#totalMoneyPart").val();
-		                $("#formatRemainMoney").text((Number(totalMoneyInit)-sum).toFixed(4)*10000/10000);
-		                $(".moeny_all input").on("blur",function(){
-		                	var val=$(this).val();
-		                	var errorTips=$(this).siblings(".error");
-		                	if(errorTips.is(":visible")){
-		                		val=0;
-		                		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
-		                		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
-		                	}else{
-		                		if(Number(totalMoneyInit)-sum-val>0){
-		                    		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
-		                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+		                var totalMoneyPart=$("#totalMoneyPart").val();
+		                $("#formatRemainMoney").text((Number(totalMoneyPart)-sum).toFixed(4)*10000/10000);
+		                if(_data_type=='add'){   //新增
+		                	 $(".moeny_all input").on("blur",function(){
+				                	var val=$(this).val();
+				                	var errorTips=$(this).siblings(".error");
+				                	if(errorTips.is(":visible")){
+				                		val=0;
+				                		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(4);
+				                		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+				                	}else{
+				                		if(Number(totalMoneyPart)-sum-val>0){
+				                    		var formatRemainMoneyVal=((Number(totalMoneyPart)*10000-sum*10000-val*10000)/10000).toFixed(4);
+				                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+				                    	}else{
+				                    		$("#formatRemainMoney").text(0);
+				                    	}
+				                	}
+				                }) 
+		                }else{   //查看+编辑
+		                	$(".moeny_all input").on("blur",function(){
+		                    	var val=$(this).val();
+		                    	var errorTips=$(this).siblings(".error");
+		                    	if(errorTips.is(":visible")){
+		                    		val=0;
+		                    		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+		                    		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
 		                    	}else{
-		                    		$("#formatRemainMoney").text(0);
+		                    		if(Number(totalMoneyPart)-(sum-Number(valtr))-val>0){
+		                        		var formatRemainMoneyval=((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000-val*10000)/10000).toFixed(4);
+		                        		$("#formatRemainMoney").text(formatRemainMoneyval*10000/10000);
+		                        	}else{
+		                        		$("#formatRemainMoney").text(0);
+		                        	}
 		                    	}
-		                	}
-		                }) 
+		                    })
+		                }
+		               
 		                
 					 keyJSON["b_part"]=key;
 					 var params = {};
@@ -176,8 +197,6 @@ var searchPartMoney;
 							var result = data.result.status;
 							if(result == "OK"){
 								var grantPartInfo = data.entity;
-								console.log("添加添加")
-								console.log(grantPartInfo)
 								if(_data_type == "edit"){
 									$("#actual_aging_container [data-name='id']").val(grantPartInfo.id);
 									$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
@@ -266,8 +285,6 @@ var searchPartMoney;
 						function(data){
 							if(data.result.status == "OK"){
 								if(typeof(data.userData) == "object"){
-									console.log("添加");
-									console.log(data);
 									if(data.userData.totalMoney || data.userData.remainMoney){
 										flag = true;
 										totalMoney = data.userData.totalMoney;
