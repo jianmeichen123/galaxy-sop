@@ -264,7 +264,7 @@ public class InfoProjectController  extends BaseControllerImpl<InformationData, 
 			response.setResult(new Result(Status.ERROR,"参数丢失."));
 		}
 		//投资金额,估值安排所有值,投资方主体
-		String[] titleIds = {"3004","3012","3011","3010","3009","3020"};
+		String[] titleIds = {"3004","3012","3011","3010","3020"};
 		Set<String> set=new HashSet<String>();         
 		set.addAll(Arrays.asList(titleIds));
 		try{
