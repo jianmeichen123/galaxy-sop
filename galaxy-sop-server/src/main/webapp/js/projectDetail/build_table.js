@@ -53,7 +53,11 @@ function buildTable(title)
 			{
 				tr +='<th data-field-name="updateUserName">编辑人</th>';
 				tr +='<th data-field-name="updateTimeStr">编辑日期</th>';
-			}	
+			}
+			if(header.titleId =='1906')
+			{
+				tr +='<th data-field-name="field5">备注</th>';
+			}
 			if(isTransferings=="false"){
 				tr +='<th data-field-name="opt">操作</th>'; 
 			}
