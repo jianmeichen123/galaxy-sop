@@ -3511,8 +3511,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("prograss", project.getProjectProgress());
 		request.setAttribute("projectName", project.getProjectName());
 
-		InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(null, projectId);
-		request.setAttribute("reportProgress", GSONUtil.toJson(reportProgress));
+		try
+		{
+			InformationProgress reportProgress = informationProgressService.initUsersAllReportProgressOfPro(null, projectId);
+			request.setAttribute("reportProgress", GSONUtil.toJson(reportProgress));
+		} catch (Exception e)
+		{
+			_common_logger_.error(e.getMessage(),e);
+		}
 		return "project/sopinfo/includeRight";
 	}
 	@ApiOperation("获取报告进度")

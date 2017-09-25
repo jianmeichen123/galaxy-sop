@@ -1,23 +1,5 @@
 package com.galaxyinternet.hologram.service;
 
-import com.aliyun.oss.ServiceException;
-import com.galaxyinternet.dao.hologram.InformationProgressDao;
-import com.galaxyinternet.dao.hologram.InformationTitleDao;
-import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
-import com.galaxyinternet.dao.project.ProjectDao;
-import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
-import com.galaxyinternet.hologram.util.ProgressRecursiveTask;
-import com.galaxyinternet.model.hologram.InformationProgress;
-import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.project.controller.ProjectProgressController;
-import com.galaxyinternet.service.hologram.InformationProgressService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.HashMap;
@@ -27,6 +9,26 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aliyun.oss.ServiceException;
+import com.galaxyinternet.dao.hologram.InformationProgressDao;
+import com.galaxyinternet.dao.hologram.InformationTitleDao;
+import com.galaxyinternet.dao.hologram.InformationTitleRelateDao;
+import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.hologram.util.ProgressRecursiveTask;
+import com.galaxyinternet.model.hologram.InformationProgress;
+import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.project.controller.ProjectProgressController;
+import com.galaxyinternet.service.hologram.InformationProgressService;
 
 @Service("com.galaxyinternet.service.hologram.InformationProgressService")
 public class InformationProgressServiceImpl extends BaseServiceImpl<InformationProgress> implements InformationProgressService {
@@ -147,7 +149,7 @@ public class InformationProgressServiceImpl extends BaseServiceImpl<InformationP
 			boolean isToEval = false;
 			if(code.equals("NO")){
 				Project pro = projectDao.selectById(proId);
-				if(pro.getFinanceStatus().equals( com.galaxyinternet.common.enums.DictEnum.financeStatus.种子轮.getCode())){
+				if(com.galaxyinternet.common.enums.DictEnum.financeStatus.种子轮.getCode().equals(pro.getFinanceStatus())){
 					isToEval = true;
 
 					//Set<Long> project_ids_no = new TreeSet<>();
