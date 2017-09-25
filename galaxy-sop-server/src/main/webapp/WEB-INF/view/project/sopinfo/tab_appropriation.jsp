@@ -43,7 +43,6 @@
                    <!--tab end-->
                  
           </div>
-            
 <script>
 var key = Date.parse(new Date());
 var keyJSON={};
@@ -124,6 +123,12 @@ var searchPartMoney;
 			});
 			
 		} */
+		//计算已有的计划金额
+		 var trs=$(".approp_table tbody").find("tr");
+		 var sum=0;
+		 $.each(trs,function(){ 
+			 sum+=Number($(this).find("td:nth-child(3)").text());
+		 })
 		$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
@@ -136,6 +141,27 @@ var searchPartMoney;
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
 					$("#projectId").val(pId);
+					 getTotalAppr(projectInfo.id);
+					//计算剩余金额
+		                var totalMoneyInit=$("#totalMoneyPart").val();
+		                $("#formatRemainMoney").text((Number(totalMoneyInit)-sum).toFixed(4)*10000/10000);
+		                $(".moeny_all input").on("blur",function(){
+		                	var val=$(this).val();
+		                	var errorTips=$(this).siblings(".error");
+		                	if(errorTips.is(":visible")){
+		                		val=0;
+		                		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
+		                		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+		                	}else{
+		                		if(Number(totalMoneyInit)-sum-val>0){
+		                    		var formatRemainMoneyVal=((Number(totalMoneyInit)*10000-sum*10000-val*10000)/10000).toFixed(4);
+		                    		$("#formatRemainMoney").text(formatRemainMoneyVal*10000/10000);
+		                    	}else{
+		                    		$("#formatRemainMoney").text(0);
+		                    	}
+		                	}
+		                }) 
+		                
 					 keyJSON["b_part"]=key;
 					 var params = {};
 					 params.fileReidsKey = key;
@@ -149,6 +175,8 @@ var searchPartMoney;
 							var result = data.result.status;
 							if(result == "OK"){
 								var grantPartInfo = data.entity;
+								console.log("添加添加")
+								console.log(grantPartInfo)
 								if(_data_type == "edit"){
 									$("#actual_aging_container [data-name='id']").val(grantPartInfo.id);
 									$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
@@ -206,33 +234,6 @@ var searchPartMoney;
 								layer.msg(data.result.message);
 							}
 						});
-					
-						 /*   var grantMoneyOld=$("#grantMoney").val();
-						 var remainMoney=Number(delCommas($("#formatRemainMoney").text()));
-						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
-						 if(!beforeSubmitById("actual_aging_container")){
-				 				return false;
-				 			} 
-						  $("#grantMoney").blur(function(){
-					 			 var grantMoney=$("#grantMoney").val();
-					 			 if(!beforeSubmitById("actual_aging_container")){
-					 				$("#formatRemainMoney").html(fixSizeDecimal(parseFloat(remainMoneyTotal),4));
-					 				return false;
-					 			} 
-					 			 if(grantMoney<0){
-					 				$("#formatRemainMoney").html(fixSizeDecimal(parseFloat(remainMoneyTotal),4))
-					 			 }else{
-					 				var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
-					 			      remainMoney = fixSizeDecimal(parseFloat(remainMoneyNew),4);
-					 			      if(remainMoneyNew<0 || remainMoneyNew==0){
-					 			    	  $("#formatRemainMoney").html("0");
-					 			      }else{
-					 			    	  $("#formatRemainMoney").html(remainMoney);
-					 			      }	
-					 			 }
-					 			            
-					 		  })   */
-						 
 					}else{
 						$("#partId").remove();
 						 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
@@ -248,6 +249,36 @@ var searchPartMoney;
 		
 	    return false;
 		});
+		
+		/**
+		 * 获取总注资计划并校验
+		 * @param projectId
+		 * @returns {Boolean}
+		 */
+		function getTotalAppr(projectId){
+			var flag = false;
+			var params={};
+			params.projectId = projectId;
+			sendPostRequestByJsonObj(
+						Constants.sopEndpointURL+'/galaxy/infoProject/getTotalAppr' , 
+						params,
+						function(data){
+							if(data.result.status == "OK"){
+								if(typeof(data.userData) == "object"){
+									console.log("添加");
+									console.log(data);
+									if(data.userData.totalMoney || data.userData.remainMoney){
+										flag = true;
+										totalMoney = data.userData.totalMoney;
+										remainMoney = data.userData.remainMoney == null ? 0 : data.userData.remainMoney;
+										$("#remainMoneyPart").val(remainMoney);
+										$("#totalMoneyPart").val(totalMoney);
+									}
+								}
+							}
+						});
+			return flag;
+		}
 
 		//实际注资信息列表
 		$("[data-btn='actual']").on("click",function(){ 
@@ -404,9 +435,9 @@ var searchPartMoney;
 
   //获取 页面数据\保存数据
 function paramsContion(){
-	 
-	if(!beforeSubmitById("actual_aging_container")){
-		return false;
+	if(!$("#actual_aging_form").validate().form())
+	{
+		return;
 	}
 	var partMoney = $("#grantMoney").val();
 	var grantDetail = $("#grantDetail").val();

@@ -74,15 +74,24 @@ var data = {};
 				infoMode[name] = field.val();
 			}
 		});
-		
+		//验证分期计划拨款金额是否大于剩余金额
+        var valInput=$(".moeny_all input").val();
+        var trs=$(".approp_table tbody").find("tr");
+        var sum=0;
+		 $.each(trs,function(){ 
+			 sum+=Number($(this).find("td:nth-child(3)").text());
+		 })
+		 var totalMoneyInit=$("#totalMoneyPart").val();
+        if(Number(valInput)>((Number(totalMoneyInit)*10000-sum*10000)/10000).toFixed(4)){
+        	layer.msg("分期注资金额之和大于总注资金额");
+			   return;
+        }
 		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
 		var params = {};
 		params.projectId =  projectInfo.id;
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
 		$("body").showLoading();
-		console.log("保存的 data"+JSON.stringify(params));
-		console.log(data);
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,false,function(dataParam){
 			//进行上传
 			var result = dataParam.result.status;
@@ -101,7 +110,6 @@ var data = {};
 					infoTableModelList.push(infoMode);
 			    } 
 				data.infoTableModelList = infoTableModelList;
-				console.log("测试测试566:"+JSON.stringify(data));
 				sendPostRequestByJsonObjNoCache(
 						platformUrl.saveOrUpdateInfo , 
 						data,
