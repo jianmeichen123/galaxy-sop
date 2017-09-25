@@ -2036,53 +2036,6 @@ function editRow(ele)
 			selectContext("detail-form");
 			//增加显示字段限制
 			var dataCode = $(ele).closest('table').attr('data-code');
-			//市场同类型公司估值参考
-			if(dataCode === 'valuation-reference'){
-				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
-				targetTd.addClass('limit-number');
-				$('.limit-number').each(function(){
-					var _this = $(this);
-					var tdText = _this.text();
-					var limitTd = tdText.substr(0,20);
-					_this.text(limitTd)
-					console.log(limitTd);
-						
-				})*/
-				  
-
-			};
-		//股权结构的合理性||股权结构table；
-			if(dataCode === 'share-holding'||dataCode === 'equity-structure'){
-				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
-				targetTd.addClass('limit-number');
-				$('.limit-number').each(function(){
-					var _this = $(this);
-					var tdText = _this.text();
-					var limitTd = tdText.substr(0,10);
-					_this.text(limitTd)
-					console.log(limitTd);
-						
-				})*/
-				  
-
-			};
-			//主要战略投资人
-			if(dataCode === 'investor-situation'){
-				/*var targetTd = $(ele).closest('table').find('tr').find('td:eq(0)');
-				targetTd.addClass('limit-number');
-				$('.limit-number').each(function(){
-					var _this = $(this);
-					var tdText = _this.text();
-					var limitTd = tdText.substr(0,10);
-					_this.text(limitTd)
-					console.log(limitTd);
-						
-				})*/
-				
-
-			};
-			
-			
 			
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
