@@ -174,7 +174,12 @@ function editRow(ele)
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.find("td[data-field-name='"+name+"']").text());
+				var val_text = row.find("td[data-field-name='"+name+"']").text();
+				if(code="equity-structure"&&name=="field1"){
+					ele.attr("title",val_text);
+				}
+				ele.text(val_text);
+
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();
