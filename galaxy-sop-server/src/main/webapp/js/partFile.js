@@ -81,11 +81,16 @@ var data = {};
 		 $.each(trs,function(){ 
 			 sum+=Number($(this).find("td:nth-child(3)").text());
 		 })
-		 var totalMoneyInit=$("#totalMoneyPart").val();
-        if(Number(valInput)>((Number(totalMoneyInit)*10000-sum*10000)/10000).toFixed(4)){
+		 var valtr=$("#valtr").val();   //当前编辑行的金额
+		 var totalMoneyPart=$("#totalMoneyPart").val();
+		 if(Number(valInput)>((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000).toFixed(4)){
+         	layer.msg("分期注资金额之和大于总注资金额");
+			   return;
+         }
+       /*if(Number(valInput)>((Number(totalMoneyPart)*10000-sum*10000)/10000).toFixed(4)){
         	layer.msg("分期注资金额之和大于总注资金额");
 			   return;
-        }
+        }*/
 		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
 		var params = {};
 		params.projectId =  projectInfo.id;

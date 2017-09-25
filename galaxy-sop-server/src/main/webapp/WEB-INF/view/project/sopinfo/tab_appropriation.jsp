@@ -165,6 +165,7 @@ var searchPartMoney;
 				                	}
 				                }) 
 		                }else{   //查看+编辑
+		                	$("#valtr").val(valtr);
 		                	$(".moeny_all input").on("blur",function(){
 		                    	var val=$(this).val();
 		                    	var errorTips=$(this).siblings(".error");
