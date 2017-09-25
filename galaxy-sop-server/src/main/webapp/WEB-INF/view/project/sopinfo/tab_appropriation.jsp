@@ -43,6 +43,7 @@
                    <!--tab end-->
                  
           </div>
+<script src="<%=path %>/js/partFile.js"></script>
 <script>
 var key = Date.parse(new Date());
 var keyJSON={};
