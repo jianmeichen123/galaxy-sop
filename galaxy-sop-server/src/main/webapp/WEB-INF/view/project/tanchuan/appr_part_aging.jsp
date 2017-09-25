@@ -19,6 +19,8 @@
 <script src="/sop/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
+		<input type="hidden" id="remainMoneyPart" value=""/>
+		<input type="hidden" id="totalMoneyPart" value=""/>
 	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="appr_aging">
 	           <form id="actual_aging_form">
@@ -28,7 +30,7 @@
 		            <dt>分拨名称 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="" maxLength="20" />
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -46,7 +48,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" data-name="field3" data-type="19" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt " id="grantMoney" data-name="field3" data-type="19" type="text" value="" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
@@ -96,5 +98,17 @@
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div>  	
 	</div>
-	  <script src="<%=path %>/js/partFile.js"></script>
+	 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>  
+	<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
+	<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
+	 <script src="<%=path %>/js/partFile.js"></script>
+		<script>
+	$(function(){
+		 $("#actual_aging_form").validate({});
+		$.validator.setDefaults({
+			errorElement:'span'
+		});
+	})
+
 	
+	</script>
