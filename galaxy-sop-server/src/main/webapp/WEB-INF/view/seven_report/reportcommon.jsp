@@ -50,7 +50,7 @@ position:absolute;
         			<li onclick="seven_link(7);">运营报告</li>
         		</ul>
         	</span>
-        	<a href="javascript:;" class="bluebtn ico tj exportReport">导出报告</a>
+        	<a href="javascript:;" onclick="downExport()" class="bluebtn ico tj exportReport">导出报告</a>
         	<!-- <span class="b_span"> 
 	        	<a href="#" onclick="back();">返回></a>
 			</span>  -->
@@ -193,6 +193,13 @@ function backList(url){   //返回项目列表页
 			forwardWithHeader(url);
 		}
 	}
+}
+
+/**
+ * 导出报告
+ */
+function downExport() {
+    window.location.href = platformUrl.downNOdoc + pid+"?sid="+sessionId+"&guid="+userId;
 }
 </script>
 
