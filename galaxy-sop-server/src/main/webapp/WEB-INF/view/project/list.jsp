@@ -416,12 +416,16 @@ var pageId = "project";
 	        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
 	        		param.createUid = initParams.createUid;
 	        		$("select[name='createUid']").val(initParams.createUid);
-	        		param.nameCodeLike = initParams.nameCodeLike;
-	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
-	        		param.projectPerson = initParams.projectPerson;
-	        		$("input[name='projectPerson']").val(initParams.projectPerson);
+	        		if(initParams.nameCodeLike !=''){
+	        			 param.nameCodeLike = initParams.nameCodeLike;
+	 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike); 
+	        		}
+	        		if(initParams.projectPerson !=''){
+	        			param.projectPerson = initParams.projectPerson;
+	        			$("input[name='projectPerson']").val(initParams.projectPerson); 
+	        		}
 	        		var options = $("#data-table").bootstrapTable('getOptions');
-	 	        	options.pageNumber = initParams.pageNum - 1;
+	 	        	options.pageNumber = initParams.pageNum - 1; 
 	    		}
 	        	return param;
 	        },
