@@ -67,7 +67,7 @@
                             </span>
                         	<span class="basic_span" style="width:105px;"><em class="red">*</em>本轮融资轮次：</span>
                             <span class="m_r30">
-								<select name="financeStatus" class='new_nputr' valtype="required" msg="<font color=red>*</font>本轮融资轮次不能为空">
+								<select name="financeStatus" class='new_nputr' valtype="required" msg="<font color=red>*</font>本轮融资轮次不能为空" data-title-id="1108" data-type="14">
 								<option value="">--请选择--</option>
 			                    </select>
 							</span>
@@ -305,16 +305,17 @@
 			$("#projectTypeTip").css("display","block");
 			return;
 		}
-		var nowFormData = $("#add_form").serializeObject();
-		if(formData != nowFormData){
+		var data1= JSON.stringify(getUpdateData());
+		if(formData != data1){
 			//获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,function(data){
 				TOKEN=data.TOKEN;
 				return TOKEN;
 			});
-		}
+		} 
+		
 		if(beforeSubmit()){
-			sendPostRequestBySignJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
+			sendPostRequestBySignJsonStr(platformUrl.addProject,data1, function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
@@ -325,15 +326,87 @@
 					}else if(data.result.errorCode == "mccf"){
 						layer.msg("项目名重复!");
 					}
-					formData = $("#add_form").serializeObject();
+					formData = JSON.stringify(getUpdateData());
 				}else{
-					//alert(11111);
-					//Constants.sopEndpointURL + "/galaxy/project/detail/"
+					saveBaseInfo("add_form",data.id);
 					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+ data.id);
 				}
 				
 			},TOKEN);
 		}
+	}
+	
+	function saveBaseInfo(dom,projectId){
+		var infoModeList = new Array();
+		var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
+		var data = {
+				projectId : projectId
+			};
+		$.each(fields,function(){
+			var field = $(this);
+			var type = field.data('type');
+			var sele = field.get(0).tagName;
+			var _resultId = field.attr("data-result-id");
+			if(_resultId==undefined){
+				_resultId=null;
+			}
+			var infoMode = {
+				titleId	: field.data('titleId'),
+				tochange:'true',
+				resultId:_resultId,
+				type : type
+			};
+			if(type==14 )
+			{
+				infoMode.value = field.val();
+			}	
+			if (infoMode != null) {
+		        infoModeList.push(infoMode);
+		    }
+			data.infoModeList = infoModeList;
+		});
+		sendPostRequestByJsonObjNoCache(
+				platformUrl.saveOrUpdateInfo , 
+				data,
+				true,
+				function(data) {
+					var result = data.result.status;
+					if (result == 'OK') {
+						
+					} else {
+						
+					}
+			});
+	}
+	
+	function getUpdateData(){  //获取保存数据
+		var projectType=$('input:radio[name="projectType"]:checked').val();
+		var projectName=$("#projectName").val().trim();
+		var createDate=$("#createDate").val().trim();
+		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");
+		var formatContribution=$("#formatContribution").val().trim();
+		var formatShareRatio=$("#formatShareRatio").val().trim();
+		var formatValuations=$("#formatValuations").val().trim();
+		var faFlag=$('select[name="faFlag"] option:selected').attr("value");
+		var faName="";
+		if(faFlag=='projectSource:1'){
+			faName=$("input[name='faName']").val();
+		}else{
+			faName="";
+		}
+		
+		var formatData={
+					   "projectType":projectType,
+				       "projectName":projectName,
+				       "createDate":createDate,
+				       "industryOwn":industryOwn,
+	  	               "faFlag":faFlag,
+	  	               "faName":faName,
+	  	               "formatContribution":formatContribution,
+	  	               "formatShareRatio":formatShareRatio,
+	  	               "formatValuations":formatValuations
+		};
+		return formatData;
 	}
 
 </script>
