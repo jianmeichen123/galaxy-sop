@@ -897,8 +897,9 @@ function buildMoneyResult(pid){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"--":title.resultList[0].contentDescribe1*100000/100000);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1*100000/100000).attr({"data-result-id":title.resultList[0].id});	
+								var _val = title.resultList[0].contentDescribe1
+								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"--":_val*100000/100000);
+								$("input[data-title-id='"+title.id+"']").val(_val==undefined ?"":_val*100000/100000).attr({"data-result-id":title.resultList[0].id});	
 							}
 						});
 					}
