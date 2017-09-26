@@ -316,8 +316,14 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 				
 				isr.setId(aresult.getId());
 				if(aresult.getContentChoose() != null){
-					isr.setValueId(Long.parseLong(aresult.getContentChoose()));
-					isr.setValueName(dict.get(isr.getValueId()));
+					if(!isNumeric(aresult.getContentChoose())){
+						isr.setValueId(null);
+						isr.setValueName(aresult.getContentChoose());
+					}else{
+						isr.setValueId(Long.parseLong(aresult.getContentChoose()));
+						isr.setValueName(dict.get(isr.getValueId()));
+					}
+					
 				}
 				isr.setContentDescribe1(aresult.getContentDescribe1());
 				isr.setContentDescribe2(aresult.getContentDescribe2());
@@ -1331,4 +1337,12 @@ public class InformationTitleServiceImpl extends BaseServiceImpl<InformationTitl
 			logger.error("Error:",e);
 		}
 	}
+	public static boolean isNumeric(String str){
+		 for (int i = str.length();--i>=0;){  
+		  if (!Character.isDigit(str.charAt(i))){
+		  return false;
+		  }
+		 }
+		 return true;
+		}
 }
