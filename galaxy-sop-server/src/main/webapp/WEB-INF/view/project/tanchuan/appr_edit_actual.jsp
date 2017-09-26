@@ -20,6 +20,7 @@
 <div class="addmentc" id="dialog_actual">
 	<form id="form_edit_actual_dialog">
 		<div class="title_bj popup_name_edit" id="label_pop_name">查看、添加、编辑实际注资信息</div>
+		<input type="hidden" id="newRemainMoneyActual" value=""/>
 	    <div class="form clearfix" id="container">
 	        <div class="edit_actual"  style="min-width:600px;width:740px\9;">
 	            
@@ -31,7 +32,7 @@
 		            <dt>实际注资名称 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="实际" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -48,7 +49,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" data-name="field3" data-type="19" type="text" value="" allownull="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt " id="grantMoney" data-name="field3" data-type="19" type="text" value="" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
@@ -87,7 +88,20 @@
 	    </div>  
 	</form>	
 </div>
+ <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>  
+	<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
+	<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
   <script src="<%=path %>/js/partFile.js"></script>
+  	<script>
+	$(function(){
+		 $("#form_edit_actual_dialog").validate({});
+		$.validator.setDefaults({
+			errorElement:'span'
+		});
+	})
+
+	
+	</script>
 
 
 

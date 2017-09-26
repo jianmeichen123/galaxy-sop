@@ -16,7 +16,8 @@
 </style>
 <div class="addmentc" style="max-height:350px;">
 	<div class="title_bj" id="popup_name">实际注资信息列表</div>
-     
+     <input type="hidden" id="remainMoneyActual" value=""/>
+	<input type="hidden" id="totalMoneyActual" value=""/>
     <div class="addbutton btnbox_f1 clearfix margin_45">                        	
         <span id="btn_add_appr_actual" data-btn="actual_win" style="display: none"  data-id="" data-actual-id="" data-type="add" resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际注资信息</span>        
     </div>
@@ -30,7 +31,8 @@
 				    <tr>
 			        	<!-- <th data-field="field1" data-formatter="grantMoneyFormat"  class="data-input" >实际注资金额（万元）</th>
 			        	<th data-field="field2" data-formatter="createDateFormat" class="data-input"  >实际注资日期<span></span></th> -->
-			        	<th data-field="field1" class="data-input" >实际注资金额（万元）</th>
+			        	<th data-field="field1" class="data-input" >实际注资名称</th>
+			        	<th data-field="field3" class="data-input" >实际注资金额（万元）</th>
 			        	<th data-field="field2" class="data-input"  >实际注资日期<span></span></th>
 			        	<th data-field="createUserName" class="data-input">注资人<span></span></th>
 			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder">操作</th>
@@ -82,6 +84,8 @@
 	    			}
 	    		},
 	    		'click .editActualLink' : function(e, value, row, index){
+	    			var valtr=$(this).closest('tr').find('td:nth-child(2)').text();
+	    			$("#btn_add_appr_actual").attr("data-value-row",valtr);  //当前行的实际注资金额
 	    			$("#btn_add_appr_actual").attr("data-actual-id",row.id);
 	    			$("#btn_add_appr_actual").attr("data-type","edit");
 	    			$("#btn_add_appr_actual").click();
@@ -149,9 +153,14 @@
     			var _id = $self.attr("data-id");
     			var _url=  platformUrl.toEditApprActual;
     			var _data_type = $self.attr("data-type");
-    			/* var _name= $self.attr("data-name");
-    			var _total_name = $self.attr("data-total-name");
-    			 */
+    			var _part_id = $self.attr("data-id");
+    			var formatRemainActualMoney=$("#totalMoneyActual").val();   //获取计划金额
+    			var valtrRow=$self.attr('data-value-row');   //获取当前行的实际注资金额
+    			//表格中的实际投资金额
+    			var sum=0;
+    			$.each($("#actual-table tbody tr"),function(){
+					 sum+=Number($(this).find("td:nth-child(2)").text());
+				 })
     			//查看
     			if(_data_type == "info"){
     				_url = Constants.sopEndpointURL+'/galaxy/grant/actual/toApprActualLook';
@@ -170,6 +179,45 @@
     						 params.fileReidsKey = key;
     						 params.projectId =  pId;
     						 params.titleId = "3022";
+    						//计算剩余金额
+    						 var data=getTotalApprActual(_part_id);
+    						 $("#remainMoney").val(data.remainMoney);
+    						 $("#remainMoneyActual").val(data.remainMoney);
+    						 $("#totalMoneyActual").val(data.totalMoney);
+    						 remainActualMoney=(Number(data.totalMoney)*10000-sum*10000)/10000;
+							 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
+    						 if(_data_type=='add'){   //添加
+        						 $("#grantMoney").on("blur",function(){
+        							 var val=$(this).val();
+        							 var errorTips=$(this).siblings(".error");
+        							 if(val>remainActualMoney){
+    									 $("#formatRemainMoney").text("0");
+    								 }else{
+    									 if(errorTips.is(":visible")){
+    										 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
+    									 }else{
+    										 var formatRemainActualMoney=remainActualMoney-val;
+    										 $("#formatRemainMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
+    									 }
+    								 }
+        						 })
+    						 }else{  //查看+编辑
+    							 $("#grantMoney").on("blur",function(){
+        							 var val=$(this).val();
+        							 var errorTips=$(this).siblings(".error");
+        							 if(val>remainActualMoney){
+    									 $("#formatRemainMoney").text("0");
+    								 }else{
+    									 if(errorTips.is(":visible")){
+    										 $("#formatRemainMoney").text((remainActualMoney+Number(valtrRow)).toFixed(4)*10000/10000);
+    									 }else{
+    										 var formatRemainActualMoney=remainActualMoney-val+Number(valtrRow);
+    										 $("#formatRemainMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
+    									 }
+    								 }
+        						 })
+    						 }
+    						    						 
     						if(_data_type == "edit" || _data_type == "info"){
     							var _actual_id = $self.attr("data-actual-id");
     							_url = Constants.sopEndpointURL + '/galaxy/grant/actual/selectApprActual/'+_actual_id;
@@ -230,6 +278,37 @@
     		    return false;
     		
     	});
+    	/**
+		 * 获取实际注资计划并校验
+		 * @param projectId
+		 * @returns {Boolean}
+		 */
+		function getTotalApprActual(id){
+			var flag = false;
+			var params={};
+			var dataMoney={};
+			params.id = id;
+			sendPostRequestByJsonObj(
+						Constants.sopEndpointURL+'/galaxy/infoProject/getTotalApprActual' , 
+						params,
+						function(data){
+							if(data.result.status == "OK"){
+								if(typeof(data.userData) == "object"){
+									console.log("shiji")
+									console.log(data)
+									if(data.userData.totalMoney || data.userData.remainMoney){
+										flag = true;
+										totalMoney = data.userData.totalMoney;
+										remainMoney = data.userData.remainMoney == null ? 0 : data.userData.remainMoney;
+										dataMoney.totalMoney=totalMoney;
+										dataMoney.remainMoney=remainMoney;
+									}
+								}
+							}
+						});
+
+			return dataMoney;
+		}
     </script>
    
   	

@@ -298,6 +298,37 @@ var searchPartMoney;
 						});
 			return flag;
 		}
+		/**
+		 * 获取实际注资计划并校验
+		 * @param projectId
+		 * @returns {Boolean}
+		 */
+		function getTotalApprActual(id){
+			var flag = false;
+			var params={};
+			var dataMoney={};
+			params.id = id;
+			sendPostRequestByJsonObj(
+						Constants.sopEndpointURL+'/galaxy/infoProject/getTotalApprActual' , 
+						params,
+						function(data){
+							if(data.result.status == "OK"){
+								if(typeof(data.userData) == "object"){
+									console.log("shiji")
+									console.log(data)
+									if(data.userData.totalMoney || data.userData.remainMoney){
+										flag = true;
+										totalMoney = data.userData.totalMoney;
+										remainMoney = data.userData.remainMoney == null ? 0 : data.userData.remainMoney;
+										dataMoney.totalMoney=totalMoney;
+										dataMoney.remainMoney=remainMoney;
+									}
+								}
+							}
+						});
+
+			return dataMoney;
+		}
 
 		//实际注资信息列表
 		$("[data-btn='actual']").on("click",function(){ 
@@ -314,6 +345,8 @@ var searchPartMoney;
 					$("#btn_add_appr_actual").attr("data-id",_part_id);
 					var  v=$("#partFlag").val();
 					$("#popup_name").html(_name);
+					var data=getTotalApprActual(_part_id);
+					$("#totalMoneyActual").val(data.totalMoney)
 				}//模版反回成功执行	
 			});
 			return false;
