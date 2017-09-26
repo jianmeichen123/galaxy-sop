@@ -327,7 +327,9 @@
 					}
 					formData = $("#add_form").serializeObject();
 				}else{
-					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
+					//alert(11111);
+					//Constants.sopEndpointURL + "/galaxy/project/detail/"
+					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+ data.id);
 				}
 				
 			},TOKEN);
