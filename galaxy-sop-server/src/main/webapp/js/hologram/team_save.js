@@ -111,6 +111,11 @@
             var tr = $('table[data-title-id="'+titleId+'"].editable').find('tr:eq('+index+')');
             tr.data("person",data);
             var i = tr.data("person");
+            if(row.other && row.other!=''){
+        		row.field2=row.field2+"-"+row.other;
+        	}else{
+        		row.field2=row.field2;
+        	}
             //解决字段无值列错位的问题
             for(var key in row)
             {
@@ -121,10 +126,19 @@
                 if(key.indexOf('field')>-1)
                 {
                     if(row[key]){
-                         if(key == "field2"){
-                             tr.find('td[data-field-name="'+key+'"]').text(map_edu[row[key]]);
+                    	if(key == "field2"){
+                        	if(row[key].indexOf("1363")>-1){
+                        		var field=row.field2.split("-");
+                        		if(field.length>1){
+                        			map_edu[row[key]]=field[1];
+                        		}
+                        	}
+                        	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
+                        		map_edu[row[key]]="—";
+                        	}
+                        	tr.find('td[data-field-name="'+key+'"]').text(map_edu[row[key]]);
                              return;
-                         }else if(key =="field5"){
+                        }else if(key =="field5"){
                              tr.find('td[data-field-name="'+key+'"]').text(map_pos[row[key]]);
                              return;
                          }else if(key =="field3"){

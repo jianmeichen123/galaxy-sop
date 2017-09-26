@@ -199,7 +199,6 @@ function editMemberRow(ele){
     var row = $(ele).closest('tr');
     var index = row.index();
     row.data("index",index);
-    var valNameOther=$(ele).closest("tr").find("td[data-field-name=\"field2\"]").text();
     $.getHtml({
 		url:"/sop/html/team_compile.html",//模版请求地址
 		data:"",//传递参数
@@ -208,6 +207,7 @@ function editMemberRow(ele){
 			$("#detail-form input[name='subCode']").val(row.parent().parent().attr('data-code'));
 			selectContext("detail-form");
 			$("#qualifications_popup_name").text("编辑简历");
+			var valNameOther;
 			$.each($("#detail-form").find("input, select, textarea"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
@@ -217,6 +217,9 @@ function editMemberRow(ele){
 					valNameNew=valName[0];
 					$("input[name='other']").show();
 					$("input[name='other']").attr('required',true);
+					if(valName[1] && valName[1] !=undefined){
+						valNameOther=valName[1];
+					}
 				}else{
 					valNameNew=valName;
 				}
