@@ -115,9 +115,9 @@ $(function(){
 			$("#createUname").text(projectInfo.createUname);
 			$("#projectCareerline").text(projectInfo.projectCareerline);
 			$("#projectType").text(projectInfo.type);
-			$("#project_contribution").text(typeof(projectInfo.projectContribution)=="undefined"?"--":(projectInfo.projectContribution==0?"--":projectInfo.projectContribution));
-			$("#project_valuations").text(typeof(projectInfo.projectValuations)=="undefined"?"--":(projectInfo.projectValuations==0?"--":projectInfo.projectValuations));
-			$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio));
+			$("#project_contribution").text(typeof(projectInfo.projectContribution)=="undefined"?"--":(projectInfo.projectContribution==0?"--":projectInfo.projectContribution*10000/10000));
+			$("#project_valuations").text(typeof(projectInfo.projectValuations)=="undefined"?"--":(projectInfo.projectValuations==0?"--":projectInfo.projectValuations*10000/10000));
+			$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio*10000/10000));
 			$("#projectProgress").text(projectInfo.progress);
 			$("#projectStatusDs").text(projectInfo.projectProgress=="projectProgress:10"?"":projectInfo.projectStatusDs);
 			$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
@@ -897,8 +897,8 @@ function buildMoneyResult(pid){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"--":title.resultList[0].contentDescribe1);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id});	
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"--":title.resultList[0].contentDescribe1*100000/100000);
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1*100000/100000).attr({"data-result-id":title.resultList[0].id});	
 							}
 						});
 					}
