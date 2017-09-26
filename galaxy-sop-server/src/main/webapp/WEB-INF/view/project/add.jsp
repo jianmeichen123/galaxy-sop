@@ -329,7 +329,7 @@
 					formData = JSON.stringify(getUpdateData());
 				}else{
 					saveBaseInfo("add_form",data.id);
-					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+ data.id);
+					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+ data.id + "?backurl=list");
 				}
 				
 			},TOKEN);

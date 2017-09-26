@@ -81,17 +81,22 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 
 
 function back(){
-	var flag=getCookieValue("cooki_flag");//处理待办任务页面不需要保存参数
-	console.log(flag);
-	if(null==flag||""==flag||flag=="undefined"){
-		setCookie("backProjectList", 'click',24,'/');
-	}else{
-		deleteCookie("cooki_flag","/");	
-	}
-	var href_url=getCookieValue("href_url");
-	if(href_url){
-		deleteCookie("href_url","/");
-		window.location=href_url;
+	var _url=window.location.href;
+	if(_url.indexOf('?backurl=list')>-1){  //新建项目入口
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl")
+	}else{   //列表页入口
+		var flag=getCookieValue("cooki_flag");//处理待办任务页面不需要保存参数
+		console.log(flag);
+		if(null==flag||""==flag||flag=="undefined"){
+			setCookie("backProjectList", 'click',24,'/');
+		}else{
+			deleteCookie("cooki_flag","/");	
+		}
+		var href_url=getCookieValue("href_url");
+		if(href_url){
+			deleteCookie("href_url","/");
+			window.location=href_url;
+		}
 	}
 }
 
