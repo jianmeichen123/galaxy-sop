@@ -16,25 +16,19 @@
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
-                      
-                        <c:if test="${isEditable && isExistFlag}">
-                        <div class="btnbox_f btnbox_f1">
-                            <span class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
-                        </div>
-                        </c:if>
+						<c:choose>
+						    <c:when test="${isEditable && isExistFlag}">
+						        <div class="btnbox_f btnbox_f1">
+		                            <span class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
+		                        </div>
+						    </c:when>
+						    <c:otherwise>
+						        <div class="btnbox_f btnbox_f1">
+		                            <span class="pbtn bluebtn h_bluebtn disabled" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
+		                        </div>
+						    </c:otherwise>
+						</c:choose>
                     </div>
-                    <!-- 搜索条件 -->
-                   <!--  <div class="min_document fund_list clearfix">
-                      <div class="bottom clearfix">
-                        <dl class="fmdl fmdll clearfix">
-                          <dt>计划注资金额：</dt>
-                          <dd>
-                            <input class=" txt " id="searchPartMoney" type="text" value="" onkeyup="value=value.replace(/[^\d.]/g,'')"/>
-                          </dd>
-                          <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
-                        </dl>
-                      </div>
-                    </div>   -->
                   <div id="tabApprAllList">
                    
                   </div>
