@@ -1094,7 +1094,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .emailtc .checkbox label input{margin: 2px 5px 0 0;}
 /* 添加团队成员信息弹窗 */
 .addmentc .left,.addmentc .right{width:390px;float: left;}
-.addmentc dl{margin:10px 0;overflow: hidden;}
+.addmentc dl{margin:10px 0 !important;overflow: hidden;}
 .addmentc dl dt,.addmentc dl dd{float: left;}
 .addmentc dl dt{width:120px;text-align: right;font-family: 'Microsoft YaHei';line-height: 30px;}
 .addmentc .fmdl dd .txt{ width:140px;font-size: 12px;font-family: '宋体';}

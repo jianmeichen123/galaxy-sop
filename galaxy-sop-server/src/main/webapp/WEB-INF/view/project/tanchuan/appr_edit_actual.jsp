@@ -19,7 +19,7 @@
 </style>
 <div class="addmentc" id="dialog_actual">
 	<form id="form_edit_actual_dialog">
-		<div class="title_bj popup_name_edit" id="label_pop_name">查看、添加、编辑实际注资信息</div>
+		<div class="title_bj popup_name_edit" id="label_pop_name">添加实际注资信息</div>
 		<input type="hidden" id="newRemainMoneyActual" value=""/>
 	    <div class="form clearfix" id="container">
 	        <div class="edit_actual"  style="min-width:600px;width:740px\9;">
@@ -93,12 +93,12 @@
 	<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
   <script src="<%=path %>/js/partFile.js"></script>
   	<script>
-	$(function(){
+	
 		 $("#form_edit_actual_dialog").validate({});
 		$.validator.setDefaults({
 			errorElement:'span'
 		});
-	})
+	
 
 	
 	</script>
