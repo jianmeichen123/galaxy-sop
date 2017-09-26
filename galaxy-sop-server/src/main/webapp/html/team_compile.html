@@ -101,6 +101,7 @@
 	  }else{
 		  $(this).next('input[name="other"]').hide();
 		  $(this).next('input[name="other"]').removeAttr("required");
+		  $(this).closest('li').find('.error').hide();
 	  }
   })
 </script>
