@@ -10,7 +10,7 @@
 	    <div class="form clearfix">
 	        <div class="edit_actual" id="info">
 	             <dl class="fmdl fl_l  clearfix">
-	                <dt>投资方 ：</dt>
+	                <dt>星河投资方主体 ：</dt>
 	                <dd>
 	                	<div>
 	                    	<input class="edittxt" type="text" data-title-id="3020" data-result-id="${result3020}" value="${value3020}" data-type="8" id="investors" name="3020" value="" maxLength="50"  
