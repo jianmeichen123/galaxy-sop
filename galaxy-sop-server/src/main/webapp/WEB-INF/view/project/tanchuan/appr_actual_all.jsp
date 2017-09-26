@@ -144,12 +144,11 @@
 	var infoModeList = new Array();
 	function save(){
 		
-			/*  if(!$("#actual_aging_form").validate().form())
+		 if(!$("#b_apprGrantTotal").validate().form())
 			{
-				alert('ddd')
-				return;
+				return false;
 				
-			}  */
+			}  
 		var fields = $.find("input[type='text'][data-title-id]");
 		$.each(fields,function(){
 			var field = $(this);
