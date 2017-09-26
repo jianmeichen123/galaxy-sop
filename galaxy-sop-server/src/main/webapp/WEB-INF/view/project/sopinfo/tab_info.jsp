@@ -514,7 +514,16 @@
 		var companyLegal=$("input[name='companyLegal']").val();
 		$('.bj_hui_on').hide();
 	    $('.legal .show').show();
-		$('.legal .hidden').hide();
+		$('.legal .hidden').hide();		
+		if(projectCompany==""){
+			projectCompany="—";
+		}
+		if(formationDate==""){
+			formationDate="—";
+		}
+		if(companyLegal==""){
+			companyLegal="—";
+		}
 		saveBaseInfo("company-info-form",projectCompany,formationDate,companyLegal);
 		buildShareResult("4","5812");
 		
