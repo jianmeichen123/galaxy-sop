@@ -128,7 +128,7 @@ public class DocExportUtil {
                                HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         response.setCharacterEncoding("utf-8");
-        response.setContentType("APPLICATION/OCTET-STREAM"); //msword
+        response.setContentType("application/x-download"); //msword
         response.setHeader("Content-Disposition","attachment; filename=" + getFileNameByBrowser(request,zipName));
 
         ZipOutputStream zos = null;
@@ -146,23 +146,20 @@ public class DocExportUtil {
                 int len = -1;
                 while ((len = is.read(buf)) != -1) {
                     zos.write(buf, 0, len);
-                    zos.flush();
                 }
+                zos.flush();
+                is.close();
+                zos.closeEntry();
             }
         } catch (Exception e) {
             throw new Exception("down zip err" , e);
         } finally {
             try {
-                is.close();
+            	zos.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            try {
-                zos.closeEntry();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
