@@ -10,10 +10,14 @@
 	   return this.replace(/^\s+|\s+$/g, '');
 	 };  
 
-
+	 $("#actual_aging_form").validate({rules:{grantMoney:{verify_94:true}}})
 var data = {};
    var infoTableModelList = new Array();
    $("#win_ok_btn").click(function(){
+	   if(!$("#actual_aging_form").validate().form())
+		{
+			return;
+		}
 	    var key = keyJSON["b_part"];
 		var deleteids = deleteJSON["partDelFile"];
 		var projectId = $("#projectId").val();
@@ -98,7 +102,7 @@ var data = {};
 		params.deleteids = deleteids;
 		$("body").showLoading();
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,false,function(dataParam){
-			//进行上传
+			//进行上传文件
 			var result = dataParam.result.status;
 			if(result == "OK"){
 				var fids = dataParam.entity.fids;
