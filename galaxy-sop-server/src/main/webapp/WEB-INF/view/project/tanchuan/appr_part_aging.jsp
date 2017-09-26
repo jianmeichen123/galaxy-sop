@@ -104,12 +104,8 @@
 	<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
 	 <script src="<%=path %>/js/partFile.js"></script>
 		<script>
-	$(function(){
 		 $("#actual_aging_form").validate({});
 		$.validator.setDefaults({
 			errorElement:'span'
 		});
-	})
-
-	
 	</script>

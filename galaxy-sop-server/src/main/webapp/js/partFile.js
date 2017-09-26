@@ -9,8 +9,6 @@
 	   }
 	   return this.replace(/^\s+|\s+$/g, '');
 	 };  
-
-	 $("#actual_aging_form").validate({rules:{grantMoney:{verify_94:true}}})
 var data = {};
    var infoTableModelList = new Array();
    $("#win_ok_btn").click(function(){
