@@ -286,6 +286,11 @@
 				$(this).siblings(".new_nputr").show();
 			}else{
 				$(this).siblings(".new_nputr").hide();
+				$(".tip-yellowsimple").each(function(){  //隐藏提示  
+		            if($(this).children(".tip-inner").text()=="*不能以空格开头，字符最大长度为20"){
+		            	$(this).remove();
+		            }
+		        }); 
 			}
 		})
 		
