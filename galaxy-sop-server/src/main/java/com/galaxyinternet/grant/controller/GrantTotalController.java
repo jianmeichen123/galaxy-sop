@@ -296,6 +296,13 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			if(gp != null && gp.size() > 0){
 				List<InformationListdata> removedatalist = new ArrayList<InformationListdata>();
 				for(InformationListdata item : gp){
+					item.setField4(null);
+					infordata.setParentId(item.getId());
+					infordata.setCode("grant-actual");
+		            Double money = informationListdataService.selectPartMoney(infordata);
+		            if(money != null && money.doubleValue() > 0){
+		            	item.setField4(money.toString());
+		            }
 					List<InformationListdata> datalist = new ArrayList<InformationListdata>();
 					//实际注资
 					for(InformationListdata data : gp)
@@ -308,6 +315,8 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 					ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();  
 					sortList.sort(datalist,"field2","asc");
 					item.setDataList(datalist);
+					
+					
 				}
 				gp.removeAll(removedatalist);
 			}
