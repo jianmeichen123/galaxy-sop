@@ -104,7 +104,6 @@ $(function(){
 			$("#end").hide();
 			$("#s").hide();
 		}
-		console.log(projectInfo)
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 			$("#project_name_title").text(projectInfo.projectName);
 			$("#project_name_t").text(projectInfo.projectName);
@@ -115,16 +114,16 @@ $(function(){
 			$("#createUname").text(projectInfo.createUname);
 			$("#projectCareerline").text(projectInfo.projectCareerline);
 			$("#projectType").text(projectInfo.type);
-			$("#project_contribution").text(typeof(projectInfo.projectContribution)=="undefined"?"--":(projectInfo.projectContribution==0?"--":projectInfo.projectContribution));
-			$("#project_valuations").text(typeof(projectInfo.projectValuations)=="undefined"?"--":(projectInfo.projectValuations==0?"--":projectInfo.projectValuations));
-			$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio));
+			$("#project_contribution").text(typeof(projectInfo.projectContribution)=="undefined"?"--":(projectInfo.projectContribution==0?"--":projectInfo.projectContribution*10000/10000));
+			$("#project_valuations").text(typeof(projectInfo.projectValuations)=="undefined"?"--":(projectInfo.projectValuations==0?"--":projectInfo.projectValuations*10000/10000));
+			$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio*10000/10000));
 			$("#projectProgress").text(projectInfo.progress);
 			$("#projectStatusDs").text(projectInfo.projectProgress=="projectProgress:10"?"":projectInfo.projectStatusDs);
 			$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
-			$("#finalValuations").text(typeof(projectInfo.finalValuations)=="undefined"?"--":(projectInfo.finalValuations==0?"--":projectInfo.finalValuations));
-			$("#finalContribution").text(typeof(projectInfo.finalContribution)=="undefined"?"--":(projectInfo.finalContribution==0?"--":projectInfo.finalContribution));
-			$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":(projectInfo.finalShareRatio==0?"--":projectInfo.finalShareRatio));
-			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
+			$("#finalValuations").text(typeof(projectInfo.finalValuations)=="undefined"?"--":(projectInfo.finalValuations==0?"--":projectInfo.finalValuations*10000/10000));
+			$("#finalContribution").text(typeof(projectInfo.finalContribution)=="undefined"?"--":(projectInfo.finalContribution==0?"--":projectInfo.finalContribution*10000/10000));
+			$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":(projectInfo.finalShareRatio==0?"--":projectInfo.finalShareRatio*10000/10000));
+			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge*10000/10000));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag=="projectSource:1"?"FA-"+projectInfo.faName:map_projectSource[projectInfo.faFlag]);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
@@ -874,8 +873,13 @@ function buildShareResult(reportType,relateId){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"—":title.resultList[0].contentDescribe1);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id});	
+								var _val = title.resultList[0].contentDescribe1;
+								//这个是公共的 所以需要判断ID
+								if ((title.id =="3004"||title.id =="3010"||title.id =="3011"||title.id =="3012")&&_val) {
+									_val=_val*10000/10000;
+								}
+								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"—":_val);
+								$("input[data-title-id='"+title.id+"']").val(_val).attr({"data-result-id":title.resultList[0].id});	
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—");
 							}
@@ -897,8 +901,9 @@ function buildMoneyResult(pid){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
 							if(null!=title.resultList&&title.resultList.length>0){
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"--":title.resultList[0].contentDescribe1);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr({"data-result-id":title.resultList[0].id});	
+								var _val = title.resultList[0].contentDescribe1;
+								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"--":_val*100000/100000);
+								$("input[data-title-id='"+title.id+"']").val(_val==undefined ?"":_val*100000/100000).attr({"data-result-id":title.resultList[0].id});	
 							}
 						});
 					}

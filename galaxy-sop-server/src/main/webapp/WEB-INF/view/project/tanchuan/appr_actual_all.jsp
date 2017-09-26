@@ -14,7 +14,7 @@
 	                <dd>
 	                	<div>
 	                    	<input class="edittxt" type="text" data-title-id="3020" data-result-id="${result3020}" value="${value3020}" data-type="8" id="investors" name="3020" value="" maxLength="50"  
-	                    		valType="OTHER" regString="^.{1,50}$" msg="<font color=red>*</font>只能输入50个字符"/>
+	                    		valType="OTHER" regString="^.{1,50}$" data-rule-verify_3020="true"  data-msg-verify_3020="<font color=red>*</font>只能输入50个字符 "/>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -25,7 +25,7 @@
 	                	<div id="setValue">
 	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" value="${value3004}" data-result-id="${result3004}" data-type="19" name="1"  
 	                    		value="<fmt:formatNumber value="${finalContributions}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
-	                    		allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+	                    		data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
 	                    	<span class='money'>万元</span>
 	                    </div> 
 	                </dd>
@@ -36,8 +36,7 @@
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" data-title-id="3010" data-result-id="${result3010}" value="${value3010}" data-type="19" size ="10" id="finalShareRatio" name="2" 
 	                    		value="<fmt:formatNumber value="${finalShareRatio}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
-	                    		maxLength="20"  allowNULL="no" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" 
-	                    		msg="<font color=red>*</font>0到100之间的四位小数" />
+	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3010="true"  data-msg-verify_3010="<font color=red>*</font>支持0到100之间的四位小数"/>
 	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
@@ -47,8 +46,7 @@
 	                <dd>
 	                	<div id="setValue"> <!-- regString="^(\d{1,2}(\.\d{1,4})?)$"   -->
 	                    	<input class="txt" type="text" data-title-id="3011" data-result-id="${result3011}" value="${value3011}" data-type="19" size ="10" id="serviceCharge" name="3" value="<fmt:formatNumber value="${serviceCharge}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
-	                    		maxLength="20"  allowNULL="no" valType="OTHER" regstring="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$"
-	                    		msg="<font color=red>*</font>0到5之间的四位小数" />
+	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3011="true"  data-msg-verify_3011="<font color=red>*</font>支持0到5之间的四位小数"/>
 	                    	<span class='money'>%</span>
 	                    </div>
 	                </dd>
@@ -58,7 +56,7 @@
 	                <dd>
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" data-title-id="3012" data-result-id="${result3012}" value="${value3012}" data-type="19" id="finalValuations" name="4" value="<fmt:formatNumber value="${finalValuations}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
-	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的四位小数"/>
+	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数" />
 	                    	<span class='money'>万元</span>
 	                    </div>
 	                </dd>
@@ -80,6 +78,10 @@
 <script src="<%=path %>/js/seven_report/save_ok.js" type="text/javascript"></script>     	
 	
 	<script>
+	 
+	
+	
+	
 	$(function(){
 		if($("#grantMoney").val() == '0.0' || $("#grantMoney").val() == '0.00' || $("#grantMoney").val() == '0.0000'){
 			$("#grantMoney").val(null);
@@ -141,6 +143,12 @@
 		};
 	var infoModeList = new Array();
 	function save(){
+		
+		 if(!$("#b_apprGrantTotal").validate().form())
+			{
+				return false;
+				
+			}  
 		var fields = $.find("input[type='text'][data-title-id]");
 		$.each(fields,function(){
 			var field = $(this);
@@ -168,7 +176,6 @@
 		});
 		data.infoModeList = infoModeList;
 		//JSON.stringify(jsonObj)
-		console.log("测试测试:"+JSON.stringify(data))
 		
 		sendPostRequestByJsonObjNoCache(
 				platformUrl.saveOrUpdateInfo , 
@@ -177,7 +184,6 @@
 				function(data) {
 					var result = data.result.status;
 					if (result == 'OK') {
-						console.log("-------------")
 						$("#powindow").remove();
 						$("#popbg").remove();
 						initTabAppropriation('${projectId}');
@@ -228,4 +234,13 @@
 
      return json;
 	}
+	
+	
+	
+	$("#b_apprGrantTotal").validate({});
+	 
+	$.validator.setDefaults({
+		errorElement:'span'
+	});
+	
 	</script>

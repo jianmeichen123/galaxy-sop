@@ -216,6 +216,7 @@ function editMemberRow(ele){
 					valName=valName.split("-");
 					valNameNew=valName[0];
 					$("input[name='other']").show();
+					$("input[name='other']").attr('required',true);
 				}else{
 					valNameNew=valName;
 				}
