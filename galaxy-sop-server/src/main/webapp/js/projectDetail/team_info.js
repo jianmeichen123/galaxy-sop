@@ -248,10 +248,10 @@ function editMemberRow(ele){
                $("#team_work").append(work);
             }
             $("#save_person_learning").click(function(){
-            	if(!$("#detail-form").validate().form())
-        		{
-        			return;
-        		}
+            	if(!$("#detail-form").validate().form()){
+            		return;
+            	}
+            	save_person();
             	var v="保存成功";
                 saveTeamInfo(v);
             });
@@ -637,6 +637,10 @@ function addRow(ele)
             $("input[name=updateTimeStr]").val(new Date().format("yyyy-MM-dd"));
             selectContext("detail-form");
             $("#save_person_learning").click(function(){
+            	if(!$("#detail-form").validate().form()){
+            		return;
+            	}
+            	save_person();
             	check_table_tr_edit(table);
                 var v="保存成功";
                 saveTeamInfo(v);
