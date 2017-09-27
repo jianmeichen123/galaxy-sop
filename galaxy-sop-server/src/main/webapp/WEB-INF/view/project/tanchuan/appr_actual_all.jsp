@@ -56,7 +56,7 @@
 	                <dd>
 	                	<div id="setValue">
 	                    	<input class="txt" type="text" data-title-id="3012" data-result-id="${result3012}" value="${value3012}" data-type="19" id="finalValuations" name="4" value="<fmt:formatNumber value="${finalValuations}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
-	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数" />
+	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_3012="true"  data-msg-verify_3012="<font color=red>*</font>支持13位长度的四位小数" />
 	                    	<span class='money'>万元</span>
 	                    </div>
 	                </dd>

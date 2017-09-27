@@ -1107,6 +1107,13 @@ function validate(){
 						"data-msg-verify_3011":"<font color=red>*</font>支持0到5之间的四位小数 "
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputDataId=='3012'){
+				var validte = {
+						"data-rule-verify_3012":"true",
+						"name":i,
+						"data-msg-verify_3012":"<font color=red>*</font>支持13位长度的四位小数 "
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRule=="2" && inputValRuleMark=="2"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
@@ -1310,6 +1317,11 @@ jQuery.validator.addMethod("verify_94", function(value, element) {
 	var verify_94 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_94.test(value));
 }, "支持9位长度的四位小数");
+//支持13位长度的四位小数
+jQuery.validator.addMethod("verify_3012", function(value, element) {
+	var verify_3012 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+	return this.optional(element) || (verify_3012.test(value));
+}, "支持13位长度的四位小数");
 //支持0到100之间的四位小数
 jQuery.validator.addMethod("verify_3010", function(value, element) {
 	var verify_3010 = /^(\d{1,2}(\.\d{1,4})?)$/;
