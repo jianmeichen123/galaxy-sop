@@ -149,7 +149,7 @@
                          }
                     }else{
                         tr.data(key,"未知");
-                        tr.find('td[data-field-name="'+key+'"]').text("未知");
+                        tr.find('td[data-field-name="'+key+'"]').text("—");
                     }
                 }
              })
