@@ -50,7 +50,7 @@ position:absolute;
         			<li onclick="seven_link(7);">运营报告</li>
         		</ul>
         	</span>
-        	
+			<a href="javascript:;" onclick="downExport()" class="bluebtn ico tj exportReport">导出报告</a>
         	<!-- <span class="b_span"> 
 	        	<a href="#" onclick="back();">返回></a>
 			</span>  -->
@@ -73,14 +73,9 @@ if(null==pid||typeof(pid)=="underfind"||pid==""){
 var projectInfo = '';
 sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 	projectInfo = data.entity;
-	console.log(projectInfo)
 });
-$("#project_name_title").text(projectInfo.projectName);
-var str=projectInfo.projectName;
-if((projectInfo.projectName!=undefined) && (projectInfo.projectName.length>24)){
-	str=projectInfo.projectName.substring(0,24);
-}
 
+$(function(){
 	var _href=window.location.href;
 	if(_href.indexOf("toEvalindex")>-1){
 		var report_type="评测报告";
@@ -97,7 +92,13 @@ if((projectInfo.projectName!=undefined) && (projectInfo.projectName.length>24)){
 	}else if(_href.indexOf("toOperation")>-1){
 		var report_type="运营报告";
 	}
+	
+	$("#project_name_title").text(projectInfo.projectName);
 	$(".report_type").text(report_type);
+	var str=projectInfo.projectName;
+	if((projectInfo.projectName!=undefined) && (projectInfo.projectName.length>24)){
+		str=projectInfo.projectName.substring(0,24);
+	}
 	divSelect();
 	function divSelect(){
 		$(".report_select").mouseover(function(){ 
@@ -120,7 +121,7 @@ if((projectInfo.projectName!=undefined) && (projectInfo.projectName.length>24)){
 			$(this).addClass("none");
 		}
 	})
-
+});
 function seven_link(data,url){
 	var _href=window.location.href;
 	if(data==1){
@@ -194,6 +195,14 @@ function backList(url){   //返回项目列表页
 		}
 	}
 }
+
+/**
+ * 导出报告
+ */
+function downExport() {
+    window.location.href = platformUrl.downNOdoc + pid+"?sid="+sessionId+"&guid="+userId;
+}
+
 </script>
 
 </html>

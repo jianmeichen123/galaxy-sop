@@ -3,7 +3,7 @@
 <mapper namespace="com.galaxyinternet.model.hologram.InformationTitle">
 
 	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
-	
+
 		<id column="id" 			jdbcType="BIGINT" 		property="id" />
 		<result column="parent_id"  jdbcType="VARCHAR" 		property="parentId" />
 		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
@@ -19,7 +19,7 @@
 		<result column="create_id" 	jdbcType="BIGINT" 		property="createId" />
 		<result column="updated_time" jdbcType="BIGINT" 	property="updatedTime" />
 		<result column="update_id" 	jdbcType="BIGINT" 		property="updateId" />
-		
+
 		<result column="is_must" 		jdbcType="INTEGER" 		property="isMust" />
 		<result column="val_rule" 	    jdbcType="VARCHAR" 		property="valRule" />
 		<result column="val_rule_mark" 	jdbcType="VARCHAR" 		property="valRuleMark" />
@@ -40,6 +40,14 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
+
+				<if test="titleIds != null">
+					and id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
 				<if test="parentId != null"> and  parent_id = #{parentId,jdbcType=VARCHAR} </if>
 				<if test="code != null"> and  code = #{code,jdbcType=VARCHAR} </if>
 				<if test="name != null"> and  name = #{name,jdbcType=VARCHAR} </if>
@@ -54,34 +62,34 @@
 				<if test="createId != null"> and  create_id = #{createId,jdbcType=BIGINT} </if>
 				<if test="updatedTime != null"> and  updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="updateId != null"> and  update_id = #{updateId,jdbcType=BIGINT} </if>
-				
+
 			</trim>
-			
+
 			<if test="idcodekey != null">
 				and (
-					id = #{idcodekey,jdbcType=BIGINT}
-					or 
-					code = #{idcodekey,jdbcType=VARCHAR}
+				id = #{idcodekey,jdbcType=BIGINT}
+				or
+				code = #{idcodekey,jdbcType=VARCHAR}
 				)
 			</if>
-			
+
 			<!-- <if test="idcodekey != null">
 				and (
 					id  LIKE '%${idcodekey}%'
 			 		<if test="escapeChar ">
-			 		  	escape '/' 
+			 		  	escape '/'
 			 		</if>
-					or 
+					or
 					code  LIKE '%${idcodekey}%'
 			 		<if test="escapeChar ">
-			 		  	escape '/' 
+			 		  	escape '/'
 			 		</if>
 				)
 			</if> -->
-			
+
 			<if test="sorting != null">order by ${sorting}</if>
 			<if test="property != null">order by ${property} ${direction}</if>
-			
+
 			<if test="offset != null and limit != null">
 				limit #{offset}, #{limit}
 			</if>
@@ -90,46 +98,46 @@
 
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hologram.InformationTitle">
-	    <![CDATA[
+		<![CDATA[
 	     insert into information_title (
-	     	id, 
-	     	parent_id, 
-	     	code, 
-			name, 
-			index_no, 
-			type, 
-			sign, 
-			content, 
+	     	id,
+	     	parent_id,
+	     	code,
+			name,
+			index_no,
+			type,
+			sign,
+			content,
 			is_show,
-			is_valid, 
+			is_valid,
 			placeholder,
-			created_time, 
-			create_id, 
-			updated_time, 
+			created_time,
+			create_id,
+			updated_time,
 			update_id
 		)
 		values (
-			#{id,jdbcType=BIGINT}, 
-			#{parentId,jdbcType=VARCHAR}, 
-			#{code,jdbcType=VARCHAR}, 
-			#{name,jdbcType=VARCHAR}, 
-			#{indexNo,jdbcType=DOUBLE}, 
-			#{type,jdbcType=INTEGER}, 
-			#{sign,jdbcType=INTEGER}, 
-			#{content,jdbcType=VARCHAR}, 
-			#{isShow,jdbcType=CHAR}, 
+			#{id,jdbcType=BIGINT},
+			#{parentId,jdbcType=VARCHAR},
+			#{code,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{indexNo,jdbcType=DOUBLE},
+			#{type,jdbcType=INTEGER},
+			#{sign,jdbcType=INTEGER},
+			#{content,jdbcType=VARCHAR},
+			#{isShow,jdbcType=CHAR},
 			#{isValid,jdbcType=INTEGER},
-			#{placeholder,jdbcType=VARCHAR}, 
-			#{createdTime,jdbcType=BIGINT}, 
-			#{createId,jdbcType=BIGINT}, 
-			#{updatedTime,jdbcType=BIGINT}, 
+			#{placeholder,jdbcType=VARCHAR},
+			#{createdTime,jdbcType=BIGINT},
+			#{createId,jdbcType=BIGINT},
+			#{updatedTime,jdbcType=BIGINT},
 			#{updateId,jdbcType=BIGINT}
 		)
 	    ]]>
 	</insert>
-	
-				
-				
+
+
+
 	<!-- 查询总数 -->
 	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
 		select count(id) from information_title
@@ -151,11 +159,11 @@
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
-		from information_title 
+		from information_title
 		where id = #{id}
 	</select>
-	
-	
+
+
 	<!-- 通过ID更新 -->
 	<update id="updateById" parameterType="com.galaxyinternet.model.hologram.InformationTitle">
 		update information_title
@@ -177,8 +185,8 @@
 		</set>
 		where id = #{id}
 	</update>
-	
-	
+
+
 	<!-- 更新 -->
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hologram.InformationTitle">
 		update information_title
@@ -201,31 +209,31 @@
 			</trim>
 		</where>
 	</update>
-	
-	
-	
-	
+
+
+
+
 	<!-- 删除 -->
 	<delete id="delete" parameterType="java.util.Map">
 		delete from information_title
 		<include refid="Base_Where_Clause" />
 	</delete>
-	
-	
-	
+
+
+
 	<!-- 根据ID删除 -->
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from information_title
 		where id = #{id}
 	</delete>
 
-	
-	
+
+
 	<!-- id, parent_id, code, name, index_no, type, sign, content,is_show, is_valid, placeholder -->
 	<select id="selectChildsByPid" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		id, parent_id, code, name,  type, sign, content,is_show, placeholder,is_must,val_rule,val_rule_mark,val_rule_formula
-		from information_title 
+		from information_title
 		<where>
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
@@ -240,7 +248,7 @@
 				<if test="createId != null"> and  create_id = #{createId,jdbcType=BIGINT} </if>
 				<if test="updateId != null"> and  update_id = #{updateId,jdbcType=BIGINT} </if>
 			</trim>
-			
+
 			<if test="sorting != null">order by ${sorting}</if>
 		</where>
 	</select>
@@ -262,11 +270,11 @@
 	</resultMap>
 	<select id="selectRelateTitle" resultMap="RelateMap" parameterType="java.util.Map">
 		SELECT
-		t.id, r.parent_id, r.code, CASE WHEN r.name IS NOT NULL THEN r.name ELSE t.name END AS name,  
+		t.id, r.parent_id, r.code, CASE WHEN r.name IS NOT NULL THEN r.name ELSE t.name END AS name,
 		t.type, t.sign, t.content,
 		t.is_show, t.placeholder,t.is_must,
 		t.val_rule,t.val_rule_mark,r.id AS relate_id,
-		g.sub_id 
+		g.sub_id
 		FROM information_title t
 		INNER JOIN information_title_relate r ON r.title_id = t.id
 		LEFT JOIN information_grade g ON r.id = g.title_relate_id
@@ -279,19 +287,19 @@
 				<if test="reportType != null"> and  r.report_type = #{reportType,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
-		<if test="sorting != null">order by ${sorting}</if>		
+		<if test="sorting != null">order by ${sorting}</if>
 	</select>
-	
+
 
 
 	<select id="selectFirstTitle" resultMap="BaseResultMap">
 		select
-			id, parent_id, code, name, index_no, type, sign, is_valid
-		from information_title 
+		id, parent_id, code, name, index_no, type, sign, is_valid
+		from information_title
 		where
-			parent_id is null
-			and is_show = 't'
-			and type is NULL
+		parent_id is null
+		and is_show = 't'
+		and type is NULL
 		<!-- order by index_no -->
 	</select>
 
@@ -303,6 +311,7 @@
 		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
 		<result column="type" 		jdbcType="INTEGER" 		property="type" />
 		<result column="sign" 		jdbcType="INTEGER" 		property="sign" />
+		<result column="content" 	jdbcType="VARCHAR" 		property="content" />
 
 		<collection property="resultList" ofType="com.galaxyinternet.model.hologram.InformationResult">
 			<id column="result_id" 				jdbcType="BIGINT" 		property="id" />
@@ -318,24 +327,79 @@
 
 	<select id="selectTitleOfResults" resultMap="Title_ResultMap" parameterType="java.util.Map">
 		select
-			title.id, title.code, title.name,title.type, title.sign,
-			result.id result_id, result.project_id, result.title_id, result.content_choose, result.content_describe1, result.content_describe2
+		title.id, title.code, title.name,title.type, title.sign, title.content,
+		result.id result_id, result.project_id, result.title_id, result.content_choose, result.content_describe1, result.content_describe2
 		FROM
-			information_title title
+		information_title title
 		LEFT JOIN information_result result ON title.id = result.title_id
 		<where>
-		<trim prefixOverrides="and">
-			<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
-			<if test="titleIds != null">
-				and title.id in
-				<foreach collection="titleIds" item="item" open="(" separator="," close=")">
-					#{item}
-				</foreach>
-			</if>
+			<trim prefixOverrides="and">
+				<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title.id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 
-			<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
-			<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
-		</trim>
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				and result.is_valid = 0
+				<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
+			</trim>
+		</where>
+	</select>
+
+
+
+	<resultMap id="Title_fileResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
+
+		<id column="id" 			jdbcType="BIGINT" 		property="id" />
+		<result column="code" 		jdbcType="VARCHAR" 		property="code" />
+		<result column="name" 		jdbcType="VARCHAR" 		property="name" />
+		<result column="type" 		jdbcType="INTEGER" 		property="type" />
+		<result column="sign" 		jdbcType="INTEGER" 		property="sign" />
+		<result column="content" 	jdbcType="VARCHAR" 		property="content" />
+
+		<collection property="fileList" ofType="com.galaxyinternet.model.hologram.InformationFile">
+			<id column="file_id" jdbcType="BIGINT" property="id" />
+			<result column="project_id" jdbcType="BIGINT" property="projectId" />
+			<result column="title_id" jdbcType="BIGINT" property="titleId" />
+			<result column="file_type" jdbcType="VARCHAR" property="fileType" />
+			<result column="file_length" jdbcType="VARCHAR" property="fileLength" />
+			<result column="file_key" jdbcType="VARCHAR" property="fileKey" />
+			<result column="file_name" jdbcType="VARCHAR" property="fileName" />
+			<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
+			<result column="bucket_name" jdbcType="VARCHAR" property="bucketName" />
+			<result column="new_file_name" jdbcType="VARCHAR" property="newFileName" />
+			<result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+			<result column="wide" jdbcType="VARCHAR" property="wide" />
+			<result column="high" jdbcType="VARCHAR" property="high" />
+		</collection>
+
+	</resultMap>
+
+
+	<select id="selectTitleOfFileResults" resultMap="Title_fileResultMap" parameterType="java.util.Map">
+		select
+		title.id, title.code, title.name,title.type, title.sign, title.content,
+		result.id file_id, result.project_id, result.title_id, result.file_type, result.file_length, result.file_key,
+		result.file_name, result.file_suffix, result.bucket_name,result.new_file_name, result.wide, result.high
+		FROM
+		information_title title
+		LEFT JOIN information_file result ON title.id = result.title_id
+		<where>
+			<trim prefixOverrides="and">
+				<if test="titleId != null"> and title.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleIds != null">
+					and title.id in
+					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="notAllNUll != null"> and (result.file_key is not null ) </if>
+			</trim>
 		</where>
 	</select>
 	<!--
@@ -465,9 +529,9 @@
 		FROM
 		(
 		select
-			title_id
+		title_id
 		FROM
-			information_result
+		information_result
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
@@ -494,9 +558,9 @@
 		FROM
 		(
 		select
-			result.title_id
+		result.title_id
 		FROM
-			information_listdata result
+		information_listdata result
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
@@ -523,14 +587,14 @@
 		FROM
 		(
 		select
-			result.title_id
+		result.title_id
 		FROM
-			information_fixed_table result
+		information_fixed_table result
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
 
-				 <if test="titleId != null"> and result.title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleId != null"> and result.title_id = #{titleId,jdbcType=BIGINT} </if>
 				<if test="titleIds != null">
 					and result.title_id in
 					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
@@ -552,14 +616,14 @@
 		FROM
 		(
 		select
-			result.title_id
+		result.title_id
 		FROM
-			information_file result
+		information_file result
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
 
-				 <if test="titleId != null"> and result.title_id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="titleId != null"> and result.title_id = #{titleId,jdbcType=BIGINT} </if>
 				<if test="titleIds != null">
 					and result.title_id in
 					<foreach collection="titleIds" item="item" open="(" separator="," close=")">
@@ -577,18 +641,18 @@
 
 	<select id="selectCountForRelateOfGrade" resultType="java.lang.Integer" parameterType="java.util.Map">
 		select
-			count(allresult.title_relate_id)
+		count(allresult.title_relate_id)
 		FROM
 		(
 		select
-			title_relate_id
+		title_relate_id
 		FROM
-			information_result_grade
+		information_result_grade
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
 
-				 <if test="titleRelateId != null"> and title_relate_id = #{titleRelateId,jdbcType=BIGINT} </if>
+				<if test="titleRelateId != null"> and title_relate_id = #{titleRelateId,jdbcType=BIGINT} </if>
 				<if test="titleRelateIds != null">
 					and title_relate_id in
 					<foreach collection="titleRelateIds" item="item" open="(" separator="," close=")">
@@ -637,32 +701,32 @@
 
 	<select id="selectCountForTitleOfResultsByRelate" resultType="java.lang.Integer" parameterType="java.util.Map">
 		SELECT
-			COUNT(allresult.id)
+		COUNT(allresult.id)
 		FROM (
-			SELECT
-				relate.id
-			FROM
-				information_title_relate relate
-			LEFT JOIN
-				information_result result
-			ON
-				relate.title_id = result.title_id
-			<where>
-				<trim prefixOverrides="and">
-					<if test="relateId != null"> and relate.id = #{titleId,jdbcType=BIGINT} </if>
-					<if test="relateIds != null">
-						and relate.id in
-						<foreach collection="relateIds" item="item" open="(" separator="," close=")">
-							#{item}
-						</foreach>
-					</if>
+		SELECT
+		relate.id
+		FROM
+		information_title_relate relate
+		LEFT JOIN
+		information_result result
+		ON
+		relate.title_id = result.title_id
+		<where>
+			<trim prefixOverrides="and">
+				<if test="relateId != null"> and relate.id = #{titleId,jdbcType=BIGINT} </if>
+				<if test="relateIds != null">
+					and relate.id in
+					<foreach collection="relateIds" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 
-					<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
-					<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
-					<!-- and result.is_valid = 0 -->
-				</trim>
-			</where>
-			GROUP BY relate.id
+				<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
+				<!-- and result.is_valid = 0 -->
+			</trim>
+		</where>
+		GROUP BY relate.id
 		) allresult
 	</select>
 

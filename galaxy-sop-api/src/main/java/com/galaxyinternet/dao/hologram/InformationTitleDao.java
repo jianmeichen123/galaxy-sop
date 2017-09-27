@@ -10,7 +10,7 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 
 	/**
 	 * 根据 code 、 id 父信息查询子code集合
-	 * 
+	 *
 	 */
 	List<InformationTitle> selectChildsByPid(Map<String, Object> params);
 
@@ -18,7 +18,7 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 	 * 查询 parentid 为空的 题， 即顶级目录
 	 */
 	List<InformationTitle> selectFirstTitle();
-	
+
 	public List<InformationTitle> selectRelateTitle(InformationTitle query);
 
 
@@ -26,6 +26,7 @@ public interface InformationTitleDao extends BaseDao<InformationTitle, Long>{
 	 * 根据 title id 查询results
 	 */
 	public List<InformationTitle> selectTitleOfResults(Map<String, Object> params);
+	public List<InformationTitle> selectTitleOfFileResults(Map<String, Object> params);
 	/**
 	 * 根据 title id 查询results,  统计 title 记录数
 	 */

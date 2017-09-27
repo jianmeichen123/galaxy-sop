@@ -1265,6 +1265,11 @@ var platformUrl = {
 	  * 获取报表分数
 	  */
 	 getScores : Constants.sopEndpointURL + "/galaxy/score/getScores",
+
+    /**
+     * 下载 全息报告doc
+     */
+    downNOdoc : Constants.sopEndpointURL + "/galaxy/binfo/downNO/",
 }
 
 /**
