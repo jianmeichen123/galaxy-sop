@@ -14,17 +14,21 @@
 var data = {};
    var infoTableModelList = new Array();
    $("#win_ok_btn").click(function(){
-
-	   if($("#form_edit_actual_dialog").size() == 0){
-		   if(!$("#actual_aging_form").validate().form()){
+	   if($('#deliver_form')){
+		   if(!$("#deliver_form").validate().form()){
 			   return
 		   }
 	   }else{
-		   if(!$("#form_edit_actual_dialog").validate().form()){
-			   return
+		   if($("#form_edit_actual_dialog").size() == 0){
+			   if(!$("#actual_aging_form").validate().form()){
+				   return
+			   }
+		   }else{
+			   if(!$("#form_edit_actual_dialog").validate().form()){
+				   return
+			   }
 		   }
 	   }
-	   
 	    var key = keyJSON["b_part"];
 		var deleteids = deleteJSON["partDelFile"];
 		var projectId = $("#projectId").val();

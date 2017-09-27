@@ -4,10 +4,6 @@
 %>
 
 <!-- 校验 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 
 <div class="addmentc">
@@ -22,13 +18,13 @@
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>
                 <dd>
-                    <input type="text" class="txt"  id="delDescribe" name="field1" data-name="field1" data-type="19" maxlength="24" valType="required" msg="<font color=red>*</font>事项简述不能为空" />
+                    <input type="text" class="txt"  id="delDescribe" name="field1" data-name="field1" data-type="19" maxlength="24" required/>
                 </dd>
             </dl>
             
             <dl class="fmdl fl_l">
                  <dt>详细内容：</dt>
-                 <dd><textarea class="area" name="field2" data-name="field2" data-type="19" id="details" cols="45" rows="5" maxlength="100" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea></dd>
+                 <dd><textarea class="area" name="field2" data-name="field2" data-type="19" id="details" cols="45" rows="5" maxlength="100" required></textarea></dd>
             </dl>
             
             <dl class="fmdl fl_l">
@@ -75,5 +71,13 @@
     </div>
   	
 </div>
+<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>  
+<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/partFile.js"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+<script>
+$("#deliver_form").validate({});
+$.validator.setDefaults({
+	errorElement:'span'
+});
+</script>
