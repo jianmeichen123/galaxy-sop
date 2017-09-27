@@ -49,7 +49,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" data-name="field3" data-type="19" type="text" value="" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt " name="grantMoney" id="grantMoney" data-name="field3" data-type="19" type="text" value="" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
@@ -93,7 +93,7 @@
 	<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
   <script src="<%=path %>/js/partFile.js"></script>
   	<script>
-	
+	alert('dddddddd')
 		 $("#form_edit_actual_dialog").validate({});
 		$.validator.setDefaults({
 			errorElement:'span'

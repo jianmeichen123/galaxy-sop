@@ -1319,7 +1319,7 @@ jQuery.validator.addMethod("verify_94", function(value, element) {
 }, "支持9位长度的四位小数");
 //支持13位长度的四位小数
 jQuery.validator.addMethod("verify_3012", function(value, element) {
-	var verify_3012 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,8})(\.\d{1,4})?)$/;
+	var verify_3012 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
 	return this.optional(element) || (verify_3012.test(value));
 }, "支持13位长度的四位小数");
 //支持0到100之间的四位小数

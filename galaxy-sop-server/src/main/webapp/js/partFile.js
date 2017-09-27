@@ -13,7 +13,9 @@
 
 var data = {};
    var infoTableModelList = new Array();
+  
    $("#win_ok_btn").click(function(){
+	   $("#form_edit_actual_dialog").validate({});
 	   if($('#deliver_form').length>0){  //交割前事项
 		   if(!$("#deliver_form").validate().form()){
 			   return
