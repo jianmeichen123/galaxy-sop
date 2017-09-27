@@ -12,7 +12,7 @@
 	        <div class="edit_actual">
 	            
 	            <dl class="fmdl fl_l  clearfix">
-	                <dt>投资方 ：</dt>
+	                <dt>星河投资方主体 ：</dt>
 	                <dd>
 	                	<span>${value3020}</span>
 	                </dd>
