@@ -519,12 +519,12 @@ function buildResults(sec,title,readonly)
 			{
 				if(title.id=="3012"){
 					if(nums && nums[1].length>4){
-						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":Number(num).toFixed(4));
+						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":Number(num).toFixed(4)*10000/10000);
 					}else{
-						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num);
+						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num*10000/10000);
 					}
 				}else{
-					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
 				}
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
 					$(".field[data-title-id='"+title.id+"']").next().show();
@@ -539,16 +539,16 @@ function buildResults(sec,title,readonly)
 				if(title.id=="3012"){
 					if(title.resultList[0].contentDescribe1){
 						if(nums && nums[1].length>4){
-							$("input[data-title-id='"+title.id+"']").val(Number(num).toFixed(4)).attr("resultId",result_id);
+							$("input[data-title-id='"+title.id+"']").val(Number(num).toFixed(4)*10000/10000).attr("resultId",result_id);
 						}else{
-							$("input[data-title-id='"+title.id+"']").val(num).attr("resultId",result_id);
+							$("input[data-title-id='"+title.id+"']").val(num*10000/10000).attr("resultId",result_id);
 						}
 					}else{
 						$("input[data-title-id='"+title.id+"']").val('').attr("resultId",result_id);
 					}
 					
 				}else{
-					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
+					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);
 				}
 			}
 		}
