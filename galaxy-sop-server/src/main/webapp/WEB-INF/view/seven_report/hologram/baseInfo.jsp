@@ -165,7 +165,13 @@ $(function() {
 					var textareaId=$("textarea").eq(i).attr("id");
 					autoTextarea(textareaId);
 				}
-				/* $('html,body').scrollTop(sTop);  //定位 */
+				//项目阶段select下拉特殊处理
+				if(id_code=='NO1_1'){
+					var valRound=$(".h_look dt[data-tid=\"1108\"]").siblings("dd").text();
+					if(valRound=='尚未获投' || valRound =='不明确'){
+						$('select[name="1108"]').find("option:first").removeClass('none');
+					}
+				}
 			}
 			//去除base_half 类名
 			if(_this.is(':hidden')){
@@ -207,6 +213,14 @@ $(function() {
                 var infoMode = null;
 				//判断是否到是select
 				if(sele=="SELECT"){
+					if(field.parent().get(0).name=='1108'){
+						if(valu==null){
+							var valRound=$(".h_look dt[data-tid=\"1108\"]").siblings("dd").text();
+							valu=valRound;
+						}else{
+							valu=field.val();
+						}
+					}
 					var _resultId = field.parent().attr("resultId");
 					infoMode = {
 							titleId : field.data('titleId'),

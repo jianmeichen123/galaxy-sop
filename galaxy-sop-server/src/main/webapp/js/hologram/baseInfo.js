@@ -251,7 +251,11 @@ function one_select_edit(title,inputtype,type){
 		}
 		
 	}else{
-		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
+		if(title.id=='1108'){
+			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' class='none'>请选择</option>";
+		}else{
+			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
+		}
     	$.each(values,function(i,o){
 			if(this.checked){
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
@@ -953,6 +957,8 @@ function type_14_html(title,mark){
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
+		console.log('&&&&&&&&&&&&')
+		console.log(title)
 		if(results && results[0] && results[0].valueName){
 			hresult = "<dd>"+results[0].valueName+"</dd>";
 		}
