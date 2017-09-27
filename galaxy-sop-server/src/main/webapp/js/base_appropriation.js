@@ -102,7 +102,7 @@ function  assembleSingleTabHtml(grantPart,grantName,i,k){
 		  /* +'<td id="part_'+i+'_'+k+'">'+fixSizeDecimal(grantPart.actualMoney,4)+'</td>'*/
 		   +'<td>'+grantPart.field3+'</td>'  
 		   if(grantPart.field4){
-			   value += '<td>'+grantPart.field4+'</td>' 
+			   value += '<td>'+grantPart.field4*10000/10000+'</td>' 
 		   }else{
 			   value += '<td></td>' 
 		   }

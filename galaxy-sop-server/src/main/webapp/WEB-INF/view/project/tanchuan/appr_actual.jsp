@@ -205,7 +205,7 @@
     							 $("#grantMoney").on("blur",function(){
         							 var val=$(this).val();
         							 var errorTips=$(this).siblings(".error");
-        							 if(val>remainActualMoney){
+        							 if(val>remainActualMoney+Number(valtrRow)){
     									 $("#formatRemainMoney").text("0");
     								 }else{
     									 if(errorTips.is(":visible")){
