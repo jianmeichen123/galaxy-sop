@@ -14,11 +14,11 @@
 var data = {};
    var infoTableModelList = new Array();
    $("#win_ok_btn").click(function(){
-	   if($('#deliver_form')){
+	   if($('#deliver_form').length>0){  //交割前事项
 		   if(!$("#deliver_form").validate().form()){
 			   return
 		   }
-	   }else{
+	   }else{//注资信息
 		   if($("#form_edit_actual_dialog").size() == 0){
 			   if(!$("#actual_aging_form").validate().form()){
 				   return
