@@ -689,7 +689,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         params.put("titleIds",ids);
         params.put("projectId",projectId);
         params.put("notAllNUll",true);
-        params.put("property","result.created_time ASC");
+        params.put("property","result.file_key ASC");
         List<InformationTitle> titleList = informationTitleDao.selectTitleOfFileResults(params);
 
         if(titleList == null || titleList.isEmpty()){
