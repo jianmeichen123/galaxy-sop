@@ -20741,7 +20741,7 @@
                         </w:pPr>
                         <w:r w:rsidRPr="00172C07">
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
@@ -20768,7 +20768,7 @@
                         </w:pPr>
                         <w:r w:rsidRPr="00172C07">
                             <w:rPr>
-                                <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
