@@ -171,7 +171,6 @@
     					okback:function(){
     						key = Date.parse(new Date());
     						delete deleteJSON.partDelFile;
-    						
     						$("#projectId").val(pId);
     						$("#parentId").val(_id);
     						 keyJSON["b_part"]=key;
@@ -202,6 +201,7 @@
     								 }
         						 })
     						 }else{  //查看+编辑
+    							 $('#label_pop_name').text('编辑实际注资信息');
     							 $("#grantMoney").on("blur",function(){
         							 var val=$(this).val();
         							 var errorTips=$(this).siblings(".error");
