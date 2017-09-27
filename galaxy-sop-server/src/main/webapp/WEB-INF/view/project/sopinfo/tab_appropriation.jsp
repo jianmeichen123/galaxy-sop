@@ -99,7 +99,7 @@ var searchPartMoney;
 	    	
 	    }
 		//编辑总注资计划
-		$("[data-btn='actual_aging']").on("click",function(){ 			
+		$("[data-btn='actual_aging']").on("click",function(){ 	
 		var $self = $(this);
 		var _data_type = $self.attr("data_type");
 		
@@ -130,6 +130,7 @@ var searchPartMoney;
 			 sum+=Number($(this).find("td:nth-child(3)").text());
 		 })
 		 var valtr=$(this).closest('tr').find("td:nth-child(3)").text(); // 当前编辑的金额
+		 var valActual=$(this).closest('tr').find("td:nth-child(4)").text();   //当前实际注资金额
 		$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
@@ -140,6 +141,10 @@ var searchPartMoney;
 					$("#totalName").html(_total_name);
 					if($("#popup_name").text()=="添加分期注资计划"){
 						$("#filelist").css("display","none");  //隐藏表头  
+					}
+					if(valActual>0){
+						$('#grantMoney').attr('readonly',true);
+						$('#grantMoney').addClass('disabled');
 					}
 					$("#projectId").val(pId);
 					 getTotalAppr(projectInfo.id);
