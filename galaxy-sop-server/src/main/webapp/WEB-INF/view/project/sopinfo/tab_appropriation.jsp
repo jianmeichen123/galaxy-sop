@@ -340,7 +340,11 @@ var searchPartMoney;
 					var  v=$("#partFlag").val();
 					$("#popup_name").html(_name);
 					var data=getTotalApprActual(_part_id);
-					$("#totalMoneyActual").val(data.totalMoney)
+					$("#totalMoneyActual").val(data.totalMoney);
+					$('.close[data-close="close"]').attr('data-actual','actualClose');
+					$('.close[data-actual="actualClose"]').click(function(){
+						initTabAppropriation(pId);
+					})
 				}//模版反回成功执行	
 			});
 			return false;
