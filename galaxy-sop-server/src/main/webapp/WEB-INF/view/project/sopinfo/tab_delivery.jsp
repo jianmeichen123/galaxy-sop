@@ -380,7 +380,39 @@ function del_deliver(id){
 	});
 }	
 
-
+/**
+ * 删除文件列表的文件
+ * @param id
+ * @param name
+ * @param fieInputId
+ */
+function delPart(id,name,fieInputId,partDelFile){
+	 if(deleteJSON[partDelFile]){
+       deleteJSON[partDelFile] = deleteJSON[partDelFile] +","+id;
+   }else{
+       deleteJSON[partDelFile] = id;
+   }
+	 var params = {};
+	  params.projectId =  proid;
+	  params.fileReidsKey = key;
+	  params.newFileName = id;
+   //文件id
+   sendPostRequestByJsonObj(Constants.sopEndpointURL+'galaxy/informationFile/deleteRedisFile',params,function(data){
+			//进行上传
+			var result = data.status;
+			if(result == "OK"){
+			     //删除
+			     $("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
+				 $("#"+id+"tr").remove();
+			      var fieInputLen=$("tr[id]").length;
+			      if(fieInputLen==0){
+			      	$("#filelist").css("display","none");
+			      }
+			}else{
+				layer.msg("删除失败!");
+			}
+	  });
+}
 
 
 	
