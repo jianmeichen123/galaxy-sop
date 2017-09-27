@@ -61,40 +61,11 @@ $(function(){
 		 * 组装数据
 		 */
 		function responseData(){
-			$("#describe_editor").val($("#describe_show").text());
-			$("#describe_editor2").html($("#describe2_show").html());
-			$("#company_editor").html($("#location_show").html());
-			$("#portrait_editor").html($("#portrait_show").html());
-			$("#business_editor").html($("#business_model_show").html());
-			$("#operation_editor").html($("#operational_data_show").html());
-			$("#industry_editor").html($("#industry_analysis_show").html());
-			$("#analysis_editor").html($("#analysis_show").html());
-			$("#next_financing_editor").html($("#next_financing_source_show").html());
 			var sel_val = $("#financeStatusDs").text();
 			if(sel_val!="A+轮"){
 				$("#finance_status_sel").find('option[text='+sel_val+']').attr("selected",true);
 			}
 		}
-		//项目来源字典回显
-	var map_projectSource = selectCache("projectSource");
-   	 function selectCache(name){
-   		    var map = {};
-   			sendGetRequest(platformUrl.searchDictionaryChildrenItems+name,null,
-   					function(data) {
-   						var result = data.result.status;
-   						if (result == 'OK')
-   						{
-   							var dataMap = data.userData;
-   						    var list=data.entityList;
-   						    var name=""
-   							$.each(list, function(i, value){
-   							     map[value.code]=value.name;
-   							});
-   						}
-   					})
-   					console.log(map)
-   					return map;
-   		}
 		
 	   /**
 		 * 加载项目详情数据
@@ -300,171 +271,6 @@ $(function(){
 				    }
 					 
 				}
-			if(projectInfo.projectDescribeFinancing){
-				console.log();
-				$("#describe_editor").val(delHtmlTag(projectInfo.projectDescribeFinancing));
-				$("#describe_show").html(projectInfo.projectDescribeFinancing);
-				$("#descript").hide();
-				$('.describe_show').show();
-				display_show("describe_show");
-			}else{
-				$('.describe_show').hide();
-				$("#describe_show").html('');
-			}
-			//业务亮点
-			if(projectInfo.projectDescribe){
-				$("#describe2_show").html(projectInfo.projectDescribe);
-				describeUm2.setContent(projectInfo.projectDescribe);
-				$("#descript").hide();
-				$('.describe_show').show();
-				display_show("describe2_show");
-				//单独控制展开收起
-				$("#describe2_show").css('height','70px');
-				var PH1=$("#describe_show").height();
-				var PH2=$("#describe2_show").height();
-				$(".describe_show").css('height',PH1+PH2+92);
-				$('.describe_show').delegate(".f4","click",function(){
-					$(this).hide();
-					$(this).siblings('.f3').show();
-					$('#describe2_show').css('height','auto');
-					var H1=$('#describe2_show').height();
-					$('.describe_show').css('height',PH1+H1+92);
-				}) 
-				$('.describe_show').delegate(".f3","click",function(){
-					$(this).hide();
-					$(this).siblings('.f4').show();
-					$("#describe_show").css('height',PH1);
-					$('#describe2_show').css('height','70px');
-					$('.describe_show').css('height',PH1+PH2+92);
-				}) 
-				
-				
-				//兼容历史数据-为空
-				if(!projectInfo.projectDescribe){
-					//$("#describe_show_div").hide();
-					$("#describe2_show").html('');
-					$("#describe_show").html(projectInfo.projectDescribeFinancing);
-				}
-				
-				
-			}else{
-				//历史数据-为空
-				if(!projectInfo.projectDescribeFinancing){
-					$('.describe_show').hide();
-					$("#describe2_show").html('');
-				}else{
-					//$("#describe2_show_div").hide();
-					$("#describe2_show").html('');
-				}
-				
-				
-			}
-			
-			if(projectInfo.projectBusinessModel){
-//				var um = UM.getEditor('business_editor');
-				businessUm.setContent(projectInfo.projectBusinessModel);
-				$("#business_model_show").html(projectInfo.projectBusinessModel)
-				$("#business_model").hide();
-				$('.business_model_show').show();
-				display_show("business_model_show");
-			}else{
-				$("#business_model_show").html('')
-				$('.business_model_show').hide();
-			}
-		  if(projectInfo.companyLocation){
-//				var um = UM.getEditor('company_editor');
-				companyUm.setContent(projectInfo.companyLocation);
-				$("#location_show").html(projectInfo.companyLocation)
-				$("#location").hide();
-				$('.location_show').show();
-				display_show("location_show");
-			}else{
-				$("#location_show").html('')
-				$('.location_show').hide();
-			}
-			if(projectInfo.userPortrait){
-//				var um = UM.getEditor('portrait_editor');
-				portraitUm.setContent(projectInfo.userPortrait);
-				$("#portrait_show").html(projectInfo.userPortrait);
-				$("#portrait").hide();
-				$(".portrait_show").show();
-				display_show("portrait_show");
-			}else{
-				$("#portrait_show").html('')
-				$(".portrait_show").hide();
-			}
-			if(projectInfo.prospectAnalysis){
-//				var um = UM.getEditor('analysis_editor');
-				analysisUm.setContent(projectInfo.prospectAnalysis);
-				$("#analysis_show").html(projectInfo.prospectAnalysis)
-				$("#analysis").hide();
-				$(".analysis_show").show();
-				display_show("analysis_show");
-			}else{
-				$("#analysis_show").html('');
-				$(".analysis_show").hide();
-			}
-			if(projectInfo.operationalData){
-//				var um = UM.getEditor('operation_editor');
-				operationUm.setContent(projectInfo.operationalData);
-				$("#operational_data_show").html(projectInfo.operationalData);
-				$("#operational_data").hide();
-				$(".operational_data_show").show();
-				display_show("operational_data_show");
-			}else{
-				$("#operational_data_show").html('');
-				$(".operational_data_show").hide();
-			}
-			if(projectInfo.industryAnalysis){
-//				var um = UM.getEditor('industry_editor');
-				industryUm.setContent(projectInfo.industryAnalysis);
-				$("#industry_analysis_show").html(projectInfo.industryAnalysis);
-				$("#industry_analysis").hide();
-				$(".industry_analysis_show").show();
-				display_show("industry_analysis_show");
-			}else{
-				$("#industry_analysis_show").html('');
-				$(".industry_analysis_show").hide();
-			}
-			if(projectInfo.nextFinancingSource){
-//				var um = UM.getEditor('next_financing_editor');
-				nextFinancingUm.setContent(projectInfo.nextFinancingSource);
-				$("#next_financing_source_show").html(projectInfo.nextFinancingSource);
-				$("#next_financing_source").hide();
-				$(".next_financing_source_show").show();
-				display_show("next_financing_source_show");
-			}else{
-				$("#next_financing_source_show").html('');
-				$(".next_financing_source_show").hide();
-			}
-
-
-			function  display_show(obj){
-				
-				var height=$('#'+obj).outerHeight();
-				if(height>100){
-					var str='';
-					str+='<span class="show_more">',
-					str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
-					str+='</span>';
-					$('#'+obj).parent().append(str);
-					$('#'+obj).css({'height':'100px','overflow':'hidden'});
-					$('#'+obj).parent().css('height','120px')
-				}
-			}
-			$('.new_top_color_new').delegate(".f4","click",function(){
-				$(this).hide();
-				$(this).parent().children('.f3').show();
-				$(this).parent().siblings('p').css('height','auto');
-				var H1=$(this).parent().siblings('p').height();
-				$(this).parent().parent().css('height',H1+20)
-			}) 
-			$('.new_top_color_new').delegate(".f3","click",function(){
-				$(this).hide();
-				$(this).parent().children('.f4').show();
-				$(this).parent().siblings('p').css('height','100px');
-				$(this).parent().parent().css('height','120px');
-			}) 
 			
 			//表格渲染 
 			info_table("NO9_1","融资历史：",$("table.fina_history"));
@@ -658,8 +464,6 @@ $(function(){
                            "jointDeliveryList":arr,
                            "isDelete":isDelete
 			};
-			console.log("&&&&&&&&&&&&&&&&")
-			console.log(formatData)
 			return formatData;
 		}
 		function saveSuccess(){
@@ -671,98 +475,6 @@ $(function(){
 			});
 		}
 
-
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_describe").click(function(){
-//			var um = UM.getEditor('describe_editor');
-			var projectDescribe = describeUm2.getContent();
-			var projectDescribeFinancing=$("#describe_editor");
-			var textarea=projectDescribeFinancing.val();
-			//var projectDescribeFinancing = describeUm2.getContent();
-			if(pid != '' && beforeSubmitById("updateProjectDescribe")){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe,"projectDescribeFinancing":textarea}, saveSuccess);
-			}
-		});
-
-
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_location").click(function(){
-//			var um = UM.getEditor('company_editor');
-			var companyLocation = companyUm.getContent();
-			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject,{"id" : pid, "companyLocation" : companyLocation}, saveSuccess);
-			}
-		});
-
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_portrait").click(function(){
-//			var um = UM.getEditor('portrait_editor');
-			var userPortrait = portraitUm.getContent();
-			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess);
-			}
-		});
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_business").click(function(){
-//			var um = UM.getEditor('business_editor');
-			var projectBusinessModel = businessUm.getContent();
-			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveSuccess);
-			}
-		});
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_operation").click(function(){
-//			var um = UM.getEditor('operation_editor');
-			var operationalData = operationUm.getContent();
-			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "operationalData" : operationalData}, saveSuccess);
-			}
-		});
-
-
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_industry").click(function(){
-//			var um = UM.getEditor('industry_editor');
-			var industryAnalysis = industryUm.getContent();
-			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "industryAnalysis" : industryAnalysis}, saveSuccess);
-			}
-		});
-
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_analysis").click(function(){
-//			var um = UM.getEditor('analysis_editor');
-			var prospectAnalysis = analysisUm.getContent();
-			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveSuccess);
-			}
-		});
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_next_financing").click(function(){
-//			var um = UM.getEditor('next_financing_editor');
-			var nextFinancingSource = nextFinancingUm.getContent();
-			if(pid != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess);
-			}
-			
-			
-		});
 });
 $("select[name='projectSource']").change(function() {
 	// 0 y; 1 n
