@@ -93,7 +93,6 @@
 	<script src="<%=path %>/js/hologram/hologram_common.js" type="text/javascript"></script>
   <script src="<%=path %>/js/partFile.js"></script>
   	<script>
-	alert('dddddddd')
 		 $("#form_edit_actual_dialog").validate({});
 		$.validator.setDefaults({
 			errorElement:'span'
