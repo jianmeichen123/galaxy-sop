@@ -333,11 +333,10 @@
 	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
 	        <tr>
 	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany" data-title-id="1814"></span></td>
-	            <!-- <td><span class="new_color_gray th">组织代码：</span><span class="new_color_black" id="projectCompanyCode"></span></td> -->
-	        	<td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"  data-title-id="1815"></span></td>	            
+        	    <td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"  data-title-id="1816"></span></td>
 	        </tr>
 	        <tr>
-	            <td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"  data-title-id="1816"></span></td>
+	       		 <td><span class="new_color_gray th">法人：</span><span class="new_color_black" id="companyLegal"  data-title-id="1815"></span></td>	      
 	        </tr>
 	    </table>                
 	</div>
