@@ -204,7 +204,6 @@ function one_select_edit(title,inputtype,type){
 	if(inputtype == 'radio'){
 		var li = "";
 		$.each(values,function(i,o){
-			console.log(title);
 			if(this.checked){
 				li +=  "<li><input type=\"radio\"   value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
 			}else
@@ -957,8 +956,6 @@ function type_14_html(title,mark){
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
-		console.log('&&&&&&&&&&&&')
-		console.log(title)
 		if(results && results[0] && results[0].valueName){
 			hresult = "<dd>"+results[0].valueName+"</dd>";
 		}
