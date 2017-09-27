@@ -125,7 +125,7 @@ $(function(){
 			$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":(projectInfo.finalShareRatio==0?"--":projectInfo.finalShareRatio*10000/10000));
 			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge*10000/10000));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
-			$("#faName").text(projectInfo.faFlag=="projectSource:1"?"FA-"+projectInfo.faName:map_projectSource[projectInfo.faFlag]);
+			$("#faName").text(projectInfo.faFlag=="projectSource:1"?projectInfo.faFlagStr+'-'+projectInfo.faName:projectInfo.faFlagStr);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
 			var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
@@ -247,6 +247,7 @@ $(function(){
 			    	 * 查询项目来源
 			    	 * @version 2017-09-18
 			    	 */
+			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
 			    	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
 			    	
 			    	//initDialogVal();
