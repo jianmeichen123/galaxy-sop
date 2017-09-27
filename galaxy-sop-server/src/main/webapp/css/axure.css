@@ -51,7 +51,7 @@ input.disabled{background-color: #000;}
 .orange{color:#ff955b;}
 .grey{color: #536379}
 .green{color: #009966;}
-.dis_gray{color: #b2b2b2!important;}
+.bluebtn.dis_gray{color: #b2b2b2!important;}
 .light_gray{color:#c9cbcf !important;}
 /*隐藏*/
 .none{ display:none !important; }
@@ -2029,9 +2029,11 @@ dl{position: relative;}
  #bar{height:8px;border-radius:5px;background:#529ae2;width:0;}
 /*运营分析*/
 #filelist button{background:transparent;border:0;color:#438ee1}
-#filelist th{background:#f9fafc;}
-#filelist{border:1px solid #ccd2d7 !important;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom:0;}
-.post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
+#filelist th{background:#f9fafc; padding: 0 10px;}
+#filelist td{padding: 0 10px;}
+#filelist{border:1px solid #ccd2d7 !important;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom:0;overflow: hidden;}
+.
+post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .post_operatetc_750{ width:750px;}
 #post-meeting-dialog{position:static !important;}
 .conference_all{ width:590px; margin:45px auto 30px;}
