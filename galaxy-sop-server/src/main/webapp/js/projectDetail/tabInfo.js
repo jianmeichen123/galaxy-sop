@@ -94,7 +94,7 @@ $(function(){
 			var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
-			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"--":(projectInfo.fModeRemark==0?"--":projectInfo.fModeRemark));
+			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":projectInfo.fModeRemark));
 			if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
 				jointDeliveryList(projectInfo.jointDeliveryList);
 				//列表无数据时不显示表格
