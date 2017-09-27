@@ -74,6 +74,7 @@ var searchPartMoney;
 		if(data_on=="info"){
 			_url=Constants.sopEndpointURL+'galaxy/grant/total/toActualTotalLook/'+id+"?pid=${pid}";
 		}
+		var trs=$('.approp_table tbody').find('tr').length;
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
@@ -81,6 +82,10 @@ var searchPartMoney;
 				$("#popup_name").html(_name);
 				if(data_on=="edit"){
 					//sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+					if(trs>0){
+						$("#setValue #grantMoney").attr('readonly',true);
+						$("#setValue #grantMoney").addClass('disabled');
+					}
 				}else{
 					 $("#totallId").val(0);
 				}
