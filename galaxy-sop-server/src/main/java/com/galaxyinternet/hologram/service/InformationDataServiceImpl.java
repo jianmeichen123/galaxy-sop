@@ -105,7 +105,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 
 			entity.setProjectId(projectId);
 			entity.setTitleId(model.getTitleId());
-			if (!StringEx.isNullOrEmpty(model.getValue()) && StringUtils.isNumeric(model.getValue())) {
+			//项目融资状态（阶段）可以为文本(尚未获投/不明确)
+			if (!StringEx.isNullOrEmpty(model.getValue()) && (StringUtils.isNumeric(model.getValue())||"1108".equals(model.getTitleId()))) {
 				entity.setContentChoose(model.getValue());
 			}
 			if (!StringEx.isNullOrEmpty(model.getRemark1())) {
