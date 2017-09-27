@@ -283,6 +283,7 @@ function operFormat(value,row,index){
 			url:_url,
 			data:"",
 			okback:function(){
+					$('#popup_name').text('编辑事项');
 					key = Date.parse(new Date());
 					delete deleteJSON.partDelFile;
 					 keyJSON["b_part"]=key;
