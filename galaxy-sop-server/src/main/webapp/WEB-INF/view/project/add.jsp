@@ -94,19 +94,19 @@
                         <li>
                             <span class="basic_span">融资金额：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的支持四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatContribution" data-title-id="1916" data-type="19" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持9位长度的支持四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
                             <span class="basic_span">出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" data-title-id="1917" data-type="19" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
                         <li>
                         	<span class="basic_span">项目估值：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_13_NUMBER" msg="<font color=red>*</font>支持13位长度的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatValuations" data-title-id="1943" data-type="19" name="formatValuations" allowNULL="yes" valType="LIMIT_13_NUMBER" msg="<font color=red>*</font>支持13位长度的四位小数"/>
                             </span>
                             <span class="m_r30">万元</span>
                         </li>
@@ -364,6 +364,8 @@
 			if(type==14 )
 			{
 				infoMode.value = field.val();
+			}else if(type==19){
+				infoMode.remark1 = field.val();
 			}	
 			if (infoMode != null) {
 		        infoModeList.push(infoMode);
@@ -389,9 +391,6 @@
 		var projectName=$("#projectName").val().trim();
 		var createDate=$("#createDate").val().trim();
 		var industryOwn=$('select[name="industryOwn"] option:selected').attr("value");
-		var formatContribution=$("#formatContribution").val().trim();
-		var formatShareRatio=$("#formatShareRatio").val().trim();
-		var formatValuations=$("#formatValuations").val().trim();
 		var faFlag=$('select[name="faFlag"] option:selected').attr("value");
 		var faName="";
 		if(faFlag=='projectSource:1'){
@@ -406,10 +405,7 @@
 				       "createDate":createDate,
 				       "industryOwn":industryOwn,
 	  	               "faFlag":faFlag,
-	  	               "faName":faName,
-	  	               "formatContribution":formatContribution,
-	  	               "formatShareRatio":formatShareRatio,
-	  	               "formatValuations":formatValuations
+	  	               "faName":faName
 		};
 		return formatData;
 	}
