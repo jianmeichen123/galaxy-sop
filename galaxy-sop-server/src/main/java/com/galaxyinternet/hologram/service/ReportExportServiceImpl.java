@@ -86,6 +86,8 @@ public class ReportExportServiceImpl implements ReportExportService {
 
 
     /*
+    <br/> <br>
+
     replace(/\<br\>/g,'\n')  <w:br />
     replace(/&nbsp;/g," ")
     replace(/&amp;/g,"&")
@@ -98,8 +100,13 @@ public class ReportExportServiceImpl implements ReportExportService {
             return text;
         }
 
-        String result = text.replace("<br>","<w:br />").replace("&nbsp;"," ")
-                .replace("&amp;","&").replace("&gt;",">").replace("&lt;","<");
+        String result = text.replace("<br/>","<w:br />")
+                .replace("<br>","<w:br />")
+                .replace("&nbsp;"," ")
+                //.replace("&amp;","&")
+                .replace("&gt;",">")
+                .replace("&lt;","<")
+                .replace("&","&amp;");
 
         return result;
     }
@@ -196,9 +203,11 @@ public class ReportExportServiceImpl implements ReportExportService {
             //project.setProjectCareerline(department.getName());
             map.put("NO1_1_4", department.getName());
 
-            User managerUser = userService.queryById(department.getManagerId());
-            //project.setHhrName(managerUser.getRealName());
-            map.put("NO1_1_3", managerUser.getRealName());
+            if(department.getManagerId()!=null){
+                User managerUser = userService.queryById(department.getManagerId());
+                //project.setHhrName(managerUser.getRealName());
+                map.put("NO1_1_3", managerUser.getRealName());
+            }
         }catch (Exception e){
             logger.error("projectTitleResult ",e);
             //throw new RuntimeException("ReportDataConversion projectTitleResult 项目基础信息查询失败",e);
@@ -315,6 +324,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                         value = null;
                         if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())){
                             value = resultList.get(i).getContentDescribe1();
+                            value = textConversion(value);
                         }else if(StringUtils.isNotBlank(resultList.get(i).getContentChoose()))
                         {
                             if(StringUtils.isNotBlank(valueIdNameMap.get(new Long(resultList.get(i).getContentChoose())))){
@@ -341,6 +351,23 @@ public class ReportExportServiceImpl implements ReportExportService {
                 {
                     // 15 一个标题带两个文本域(textarea)、
                     // map : code-List String
+                    Map<String,String> mapValue = new HashMap<>();
+                    for(int i = 0; i<resultList.size(); i++)
+                    {
+                        if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1()) && StringUtils.isBlank(mapValue.get("N1"))){
+                            mapValue.put("N1",textConversion(resultList.get(i).getContentDescribe1()));
+                        }
+
+                        if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe2())&& StringUtils.isBlank(mapValue.get("N2"))){
+                            mapValue.put("N2",textConversion(resultList.get(i).getContentDescribe2()));
+                        }
+                    }
+
+                    if(!mapValue.isEmpty()){
+                        map.put(tempTitle.getCode(), mapValue);
+                    }
+
+                    /*
                     List<String> mapValue = new ArrayList<>();
                     for(int i = 0; i<resultList.size(); i++)
                     {
@@ -355,7 +382,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
                     if(!mapValue.isEmpty()){
                         map.put(tempTitle.getCode(), mapValue);
-                    }
+                    }*/
                     //type15ValueCon(tempTitle, map);
                 }else if(tempTitle.getType().intValue() == 16 )
                 {
@@ -490,9 +517,11 @@ public class ReportExportServiceImpl implements ReportExportService {
          * 排序需求 写死
          * equity_structure    field2
          * investor_situation
+         *  && map.get("equity_structure")!=null && ((List<InformationListdata>)  map.get("equity_structure")).size() > 1
          */
         ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();
         if(map.containsKey("equity_structure")){
+
             sortList.sortNumForNull((List<InformationListdata>)  map.get("equity_structure"),"field2","desc");
         }
         if(map.containsKey("investor_situation")){
@@ -699,9 +728,10 @@ public class ReportExportServiceImpl implements ReportExportService {
     public String getImageStr(InformationFile informationFile){
         byte[] data=null;
 
-        OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), informationFile.getFileKey()));
         InputStream fis = null;
         try {
+            OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), informationFile.getFileKey()));
+
             fis = ossobjcet.getObjectContent();
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -716,7 +746,9 @@ public class ReportExportServiceImpl implements ReportExportService {
             logger.error("getImageStr err",e);
         } finally {
             try {
-                fis.close();
+                if(fis!=null){
+                    fis.close();
+                }
             } catch (IOException e1) {
                 logger.error("getImageStr err",e1);
             }

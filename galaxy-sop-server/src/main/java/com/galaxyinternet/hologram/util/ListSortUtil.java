@@ -1,16 +1,18 @@
 package com.galaxyinternet.hologram.util;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class ListSortUtil<T> {
-	 /** 
+    /**
      * @param targetList 目标排序List 
      * @param sortField 排序字段(实体类属性名) 
      * @param sortMode 排序方式（asc or  desc） 
-     */  
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public void sort(List<T> targetList, final String sortField, final String sortMode) {
 
@@ -49,8 +51,8 @@ public class ListSortUtil<T> {
                     Method method1 = ((T)obj1).getClass().getMethod(methodStr);
                     Method method2 = ((T)obj2).getClass().getMethod(methodStr);
 
-                    String v1 = (String) method1.invoke(((T) obj1))==null?0+"":(String) method1.invoke(((T) obj1));
-                    String v2 = (String) method2.invoke(((T) obj2))==null?0+"":(String) method2.invoke(((T) obj2));
+                    String v1 = StringUtils.isBlank((String) method1.invoke(((T) obj1)))?0+"":(String) method1.invoke(((T) obj1));
+                    String v2 = StringUtils.isBlank((String) method2.invoke(((T) obj2)))?0+"":(String) method2.invoke(((T) obj2));
 
                     Double d1 = Double.valueOf(v1);
                     Double d2 = Double.valueOf(v2);

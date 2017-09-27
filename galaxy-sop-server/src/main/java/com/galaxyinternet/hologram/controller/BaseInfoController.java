@@ -27,8 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -37,13 +36,13 @@ import java.util.Map;
 public class BaseInfoController  extends BaseControllerImpl<InformationTitle, InformationTitleBo> {
 
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
-	
+
 	@Autowired
 	private Cache cache;
-	
+
 	@Autowired
 	private InformationTitleService informationTitleService;
-	
+
 	@Autowired
 	private InformationDictionaryService informationDictionaryService;
 
@@ -64,7 +63,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	private String tempfilePath;
 
 	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
-	public static final String temp2 = "qxbg-zh-temp.xml"; //综合
+	public static final String temp2 = "qxbg-zh-temp-xia.xml"; //综合
 	public static final String tempath = "/template";  //  模板地址
 
 
@@ -87,19 +86,24 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		Project project = projectService.queryById(pid);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO");
 
-		String fn1 = currTime + project.getProjectName() + "全息报告概览.docx";
-		String fn2 = currTime + project.getProjectName() + "全息报告内容.docx";
+		String fn1 = project.getProjectName() + "全息报告概览.doc";
+		String fn2 = project.getProjectName() + "全息报告内容.doc";
+
+		String dfn1 = currTime + "qxgl.doc";
+		String dfn2 = currTime + "qxlr.doc";
+
 		try {
-			DocExportUtil docExportUtil1 = new DocExportUtil(request,tempath, temp1, tempfilePath, fn1);
-			DocExportUtil docExportUtil2 = new DocExportUtil(request,tempath, temp2, tempfilePath, fn2);
+			DocExportUtil docExportUtil1 = new DocExportUtil(request,tempath, temp1, tempfilePath, dfn1);
+			DocExportUtil docExportUtil2 = new DocExportUtil(request,tempath, temp2, tempfilePath, dfn2);
 			docExportUtil1.createDoc(map);
 			docExportUtil2.createDoc(map);
 
 			String zipName = project.getProjectName() + "全息报告.zip";
-			List<String> fnlist = new ArrayList<>();
-			fnlist.add(fn1);
-			fnlist.add(fn2);
-			DocExportUtil.downZip(zipName,fnlist,currTime,tempfilePath,request,response);
+			Map<String, String> dname_sname = new HashMap<>();
+			dname_sname.put(dfn1,fn1);
+			dname_sname.put(dfn2,fn2);
+
+			DocExportUtil.downZip(zipName,dname_sname,currTime,tempfilePath,request,response);
 		} catch (Exception e) {
 			logger.error("downDoc ",e);
 		}

@@ -16,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -124,11 +123,50 @@ public class DocExportUtil {
      * @param tempfilePath 要压缩的文件位置
      * @param response
      */
+    public static void downZip(String zipName, Map<String, String> dname_sname,String fnMark, String tempfilePath,
+                               HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("application/x-download"); //msword OCTET-STREAM
+        response.setHeader("Content-Disposition","attachment; filename=" + getFileNameByBrowser(request,zipName));
+
+        ZipOutputStream zos = null;
+        BufferedInputStream is = null;
+        try {
+            zos = new ZipOutputStream(response.getOutputStream());
+
+            ZipEntry ze = null;
+            byte[] buf = new byte[1024*2];
+            for (String f : dname_sname.keySet()) {
+                ze = new ZipEntry(dname_sname.get(f)); //tempfilePath + File.separator +
+                zos.putNextEntry(ze);
+
+                is = new BufferedInputStream(new FileInputStream(new File(tempfilePath,f)));
+                int len = -1;
+                while ((len = is.read(buf)) != -1) {
+                    zos.write(buf, 0, len);
+                }
+                zos.flush();
+                is.close();
+                zos.closeEntry();
+            }
+        } catch (Exception e) {
+            throw new Exception("down zip err" , e);
+        } finally {
+            try {
+                zos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    /*
     public static void downZip(String zipName, List<String> fileName,String fnMark, String tempfilePath,
                                HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         response.setCharacterEncoding("utf-8");
-        response.setContentType("application/x-download"); //msword
+        response.setContentType("application/x-download"); //msword OCTET-STREAM
         response.setHeader("Content-Disposition","attachment; filename=" + getFileNameByBrowser(request,zipName));
 
         ZipOutputStream zos = null;
@@ -155,13 +193,13 @@ public class DocExportUtil {
             throw new Exception("down zip err" , e);
         } finally {
             try {
-            	zos.close();
+                zos.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
-    }
+    }*/
 
     private static String getFileNameByBrowser(HttpServletRequest request,String fileName) {
         try {
