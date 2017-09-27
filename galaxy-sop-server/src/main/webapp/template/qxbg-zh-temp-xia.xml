@@ -15023,18 +15023,7 @@
                             </w:rPr>
                             <w:t>已经存在竞争的主要竞争对手是：</w:t>
                         </w:r>
-                    </w:p>
-                    <w:p w:rsidR="002C1A64" w:rsidRPr="002C1A64" w:rsidRDefault="00F05A02" w:rsidP="004C3F82">
-                        <w:pPr>
-                            <w:spacing w:line="360" w:lineRule="auto"/>
-                            <w:ind w:firstLine="420"/>
-                            <w:jc w:val="left"/>
-                            <w:rPr>
-                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                                <w:sz w:val="18"/>
-                                <w:szCs w:val="18"/>
-                            </w:rPr>
-                        </w:pPr>
+
                         <w:r>
                             <w:rPr>
                                 <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
@@ -15044,6 +15033,7 @@
                             <w:t>${NO5_4_1!"-"}</w:t>
                         </w:r>
                     </w:p>
+
                     <w:p w:rsidR="002C1A64" w:rsidRDefault="002C1A64" w:rsidP="002C1A64">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>

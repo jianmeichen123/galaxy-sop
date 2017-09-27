@@ -359,7 +359,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                         }
 
                         if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe2())&& StringUtils.isBlank(mapValue.get("N2"))){
-                            mapValue.put("N2",textConversion(resultList.get(i).getContentDescribe1()));
+                            mapValue.put("N2",textConversion(resultList.get(i).getContentDescribe2()));
                         }
                     }
 
