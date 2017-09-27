@@ -31,7 +31,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .fl{ float:left}
 .fr{ float:right}
 /*公用禁止点击*/
-.disabled{pointer-events: none;cursor: not-allowed;cursor:default;background-color: #d8d8d8 !important; -webkit-filter: grayscale(100%); 
+.disabled{pointer-events: none;cursor: not-allowed;cursor:default;background-color: #e8e8e9  !important; -webkit-filter: grayscale(100%); 
         -moz-filter: grayscale(100%); 
         -ms-filter: grayscale(100%); 
         -o-filter: grayscale(100%); 
@@ -51,6 +51,7 @@ input.disabled{background-color: #000;}
 .orange{color:#ff955b;}
 .grey{color: #536379}
 .green{color: #009966;}
+.dis_gray{color: #b2b2b2!important;}
 .light_gray{color:#c9cbcf !important;}
 /*隐藏*/
 .none{ display:none !important; }

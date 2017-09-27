@@ -24,7 +24,7 @@
 						    </c:when>
 						    <c:otherwise>
 						        <div class="btnbox_f btnbox_f1">
-		                            <span class="pbtn bluebtn h_bluebtn disabled" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
+		                            <span class="pbtn bluebtn h_bluebtn dis_gray disabled" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总注资计划'>添加总注资计划</span>
 		                        </div>
 						    </c:otherwise>
 						</c:choose>
