@@ -122,7 +122,7 @@
 	
 	<session-config>
 		<!-- 设置会话过期时间为2小时 -->
-		<session-timeout>120</session-timeout>
+		<session-timeout>7200</session-timeout>
 	</session-config>
 	
 	<!-- jetty测试，配置该fitler 支持spring session -->
