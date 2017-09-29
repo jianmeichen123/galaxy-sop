@@ -21,6 +21,8 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
 
     private ReportExportService reportExportService = SpringContextManager.getBean(ReportExportService.class);
 
+    private String tempfilePath;
+    private String currentMark;
     private String preCode;
     private Long proId;
     private Set<Long> ids;
@@ -28,8 +30,10 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
     private Map<Long, String> valueIdNameMap;
 
     public ExportDataConversionTask(){}
-    public ExportDataConversionTask(String preCode, Long proId,Set<Long> ids,String idType,Map<Long, String> valueIdNameMap){
+    public ExportDataConversionTask(String preCode, Long proId,Set<Long> ids,String idType,Map<Long, String> valueIdNameMap,String currentMark,String tempfilePath){
         super();
+        this.tempfilePath = tempfilePath;
+        this.currentMark = currentMark;
         this.preCode = preCode;
         this.proId = proId;
         this.ids = ids;
@@ -55,11 +59,11 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
             //Set<Long> resultGrage_ids = titletype_titleIds.get("resultGrage");
 
             List<ExportDataConversionTask> subTasks = new ArrayList<>();
-            subTasks.add(new ExportDataConversionTask(preCode,proId,project_ids,"project",valueIdNameMap));
-            subTasks.add(new ExportDataConversionTask(preCode,proId,result_ids,"result",valueIdNameMap));
-            subTasks.add(new ExportDataConversionTask(preCode,proId,listdata_ids,"listdata",valueIdNameMap));
-            subTasks.add(new ExportDataConversionTask(preCode,proId,fixedtable_ids,"fixedtable",valueIdNameMap));
-            subTasks.add(new ExportDataConversionTask(preCode,proId,file_ids,"file",valueIdNameMap));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,project_ids,"project",valueIdNameMap,currentMark,tempfilePath));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,result_ids,"result",valueIdNameMap,currentMark,tempfilePath));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,listdata_ids,"listdata",valueIdNameMap,currentMark,tempfilePath));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,fixedtable_ids,"fixedtable",valueIdNameMap,currentMark,tempfilePath));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,file_ids,"file",valueIdNameMap,currentMark,tempfilePath));
 
             invokeAll(subTasks);
 
@@ -82,7 +86,7 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
                         map = reportExportService.fixedtableTitleResult(ids,proId,valueIdNameMap);
                         break;
                     case "file" :
-                        map = reportExportService.fileTitleResult(ids,proId);
+                        map = reportExportService.fileTitleResult(ids,proId,currentMark,tempfilePath);
                         break;
                     default :
                         break;

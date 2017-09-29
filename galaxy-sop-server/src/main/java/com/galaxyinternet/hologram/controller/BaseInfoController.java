@@ -62,9 +62,9 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	@Value("${sop.oss.tempfile.path}")
 	private String tempfilePath;
 
-	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
-	public static final String temp2 = "qxbg-zh-temp-xia.xml"; //综合
-	public static final String tempath = "/template";  //  模板地址
+	public static final String temp1 = "qxbg_gl_temp";   //概览 .xml .docx
+	public static final String temp2 = "qxbg_lr_temp";   //内容 .xml .docx
+	public static final String tempath = "/template";    //  模板地址
 
 
 	@Override
@@ -72,11 +72,58 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		return this.informationTitleService;
 	}
 
-
 	/**
 	 * 全息报告 ： doc 下载
 	 */
 	@RequestMapping("/downNO/{pid}")
+	public void downNOdoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
+	{
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
+		String currTime = System.currentTimeMillis()+"";
+
+		Project project = projectService.queryById(pid);
+		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO",currTime,tempfilePath);
+
+		String fn1 = project.getProjectName() + "全息报告概览.docx";
+		String fn2 = project.getProjectName() + "全息报告内容.docx";
+
+		String dfn1 = currTime + "qxgl";
+		String dfn2 = currTime + "qxlr";
+
+		try {
+			/*
+			 * request
+			 * @param templatePath 模板文件位置
+			 * @param templateName  xml docx 模板文件名称
+			 * @param filePath 保存路径
+			 * @param fileName 保存名称, xml docx 模板生成的文件
+			 */
+			DocExportUtil docExportUtil1 = new DocExportUtil(request,tempath, temp1, tempfilePath, dfn1);
+			DocExportUtil docExportUtil2 = new DocExportUtil(request,tempath, temp2, tempfilePath, dfn2);
+			docExportUtil1.creatDocxAsZip(map,currTime);
+			docExportUtil2.creatDocxAsZip(map,currTime);
+
+			String zipName = project.getProjectName() + "全息报告.zip";
+			Map<String, String> dname_sname = new HashMap<>();
+			dname_sname.put(dfn1,fn1);
+			dname_sname.put(dfn2,fn2);
+
+			DocExportUtil.downZip(zipName,dname_sname,tempfilePath,request,response);
+		} catch (Exception e) {
+			logger.error("downDoc ",e);
+		}
+	}
+
+/*
+	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
+	public static final String temp2 = "qxbg-zh-temp-xia.xml"; //综合
+	public static final String tempath = "/template";  //  模板地址
+	*/
+	/**
+	 * 全息报告 ： doc 下载
+	 */
+	/*@RequestMapping("/downNO/{pid}")
 	public void downNOdoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
 	{
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -108,7 +155,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			logger.error("downDoc ",e);
 		}
 	}
-
+*/
 
 
 

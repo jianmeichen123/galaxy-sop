@@ -24,6 +24,7 @@ import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.FileUtilModel;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DepartmentService;
@@ -39,8 +40,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,7 +80,6 @@ public class ReportExportServiceImpl implements ReportExportService {
     private InformationTitleDao informationTitleDao;
     @Autowired
     private InformationListdataRemarkDao headerDao;
-
 
     @Autowired
     private Cache cache;
@@ -121,8 +127,9 @@ public class ReportExportServiceImpl implements ReportExportService {
      * ON  运营报告
      * EN  评测报告
      * CN  初评报告
+     * @param imageDir currentMark_tempName
      */
-    public Map<String, Object> titleAnswerConversionTask(Long uid, Project project, String preCode){
+    public Map<String, Object> titleAnswerConversionTask(Long uid, Project project, String preCode, String imageDir,String tempfilePath){
         Long btime = System.currentTimeMillis();
 
         Map<String, Object> map = new HashMap<>();
@@ -130,7 +137,7 @@ public class ReportExportServiceImpl implements ReportExportService {
             Map<Long, String> valueIdNameMap = (Map<Long, String>) cache.get(CacheOperationServiceImpl.CACHE_KEY_VALUE_ID_NAME);
 
             ForkJoinPool pool = GalaxyThreadPool.getForkJoinPool();
-            ExportDataConversionTask task = new ExportDataConversionTask(preCode,project.getId(),null,null,valueIdNameMap);
+            ExportDataConversionTask task = new ExportDataConversionTask(preCode,project.getId(),null,null,valueIdNameMap,imageDir,tempfilePath);
             ForkJoinTask<Map<String,Object>> result = pool.submit(task);
 
             map = result.get();
@@ -672,9 +679,133 @@ public class ReportExportServiceImpl implements ReportExportService {
         return map;
     }
 
-
     /**
      * 图片数据
+     * map code - list<FileUtilModel>
+     *@param currentMark  imageDir 图片存储路径 currentMark_tempName
+     NO4_1_2     rId101 2345 image101.png image105.png
+     NO4_2_2     rId201 2345 image201.png image10.png
+     NO4_2_5_3   rId301 2345 image301.png image15.png
+     NO4_2_6_3   rId401 2345 image401.png image20.png
+     NO9_3_7     rId501 2345 image501.png image25.png
+     */
+    public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId,String currentMark,String tempfilePath)
+            throws Exception
+    {
+        Map<String, Object> map = new HashMap<>();
+
+        if(ids == null || ids.isEmpty()){
+            return  map;
+        }
+
+        Map<String, Object> params = new HashMap<String,Object>();
+        params.put("titleIds",ids);
+        params.put("projectId",projectId);
+        params.put("notAllNUll",true);
+        params.put("property","result.file_key ASC");
+        List<InformationTitle> titleList = informationTitleDao.selectTitleOfFileResults(params);
+
+        if(titleList == null || titleList.isEmpty()){
+            return  map;
+        }
+
+        //String tempfilePath = SpringContextManager.getBean(SopFileController.class).getTempfilePath() ;
+        List<FileUtilModel> resultTemp = null;
+        int beSum = 0;
+        String ridMark = "";
+
+        InputStream fis = null;
+        OutputStream out = null;
+
+        for (InformationTitle temp : titleList)
+        {
+            List<InformationFile> resultList = temp.getFileList();
+
+            if(resultList!=null && !resultList.isEmpty() && StringUtils.isNotBlank(temp.getCode()))
+            {
+                resultTemp = new ArrayList<FileUtilModel>();
+                switch (temp.getCode()){
+                    case "NO4_1_2":
+                        beSum = 0;
+                        ridMark = "10";
+                        break;
+                    case "NO4_2_2":
+                        beSum = 5;
+                        ridMark = "20";
+                        break;
+                    case "NO4_2_5_3":
+                        beSum = 10;
+                        ridMark = "30";
+                        break;
+                    case "NO4_2_6_3":
+                        beSum = 15;
+                        ridMark = "40";
+                        break;
+                    case "NO9_3_7":
+                        beSum = 20;
+                        ridMark = "50";
+                        break;
+                    default:
+                        continue;
+                }
+
+                for (int i = 1; i < resultList.size()+1; i++)
+                {
+                    FileUtilModel am = new FileUtilModel();
+                    try {
+                        OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), resultList.get(i-1).getFileKey()));
+                        fis = ossobjcet.getObjectContent();
+
+                        File dir = new File(tempfilePath+ File.separator +currentMark);
+                        if(!dir.exists()){
+                            dir.mkdirs();
+                        }
+                        File outFile = new File(dir,"image"+ridMark+i+".png");
+                        out=new BufferedOutputStream(new FileOutputStream(outFile));
+
+                        byte[] buffer = new byte[1024*2];
+                        int len = -1;
+                        while ((len = fis.read(buffer)) != -1) {
+                            out.write(buffer,0,len);
+                        }
+                        out.flush();
+                        out.close();
+
+                        fis = new FileInputStream(outFile);
+                        BufferedImage src = javax.imageio.ImageIO.read(fis);
+                        am.setRid("rId"+ridMark+i);
+                        am.setHigh(src.getHeight()*10000);
+                        am.setWide(src.getWidth()*10000);
+
+                        fis.close();
+                    } catch (Exception e) {
+                        throw new RuntimeException("aliyun photo down to tempfilepaht err", e);
+                    } finally {
+                        try {
+                            if(out!=null){
+                                out.close();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if(fis!=null){
+                                fis.close();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    resultTemp.add(am);
+                }
+                map.put(temp.getCode(),resultTemp);
+            }
+        }
+        return map;
+    }
+    /**
+     * 图片数据 for doc
      * map code - map N1\N2\N3\N4
      */
     public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId){
@@ -683,12 +814,11 @@ public class ReportExportServiceImpl implements ReportExportService {
         if(ids == null || ids.isEmpty()){
             return  map;
         }
-
-
         Map<String, Object> params = new HashMap<String,Object>();
         params.put("titleIds",ids);
         params.put("projectId",projectId);
         params.put("notAllNUll",true);
+        params.put("property","result.file_key ASC");
         List<InformationTitle> titleList = informationTitleDao.selectTitleOfFileResults(params);
 
         if(titleList == null || titleList.isEmpty()){

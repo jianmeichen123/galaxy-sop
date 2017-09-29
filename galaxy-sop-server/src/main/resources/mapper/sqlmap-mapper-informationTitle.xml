@@ -401,6 +401,7 @@
 				<if test="notAllNUll != null"> and (result.file_key is not null ) </if>
 			</trim>
 		</where>
+		<if test="property != null">order by ${property}</if>
 	</select>
 	<!--
 	<select id="selectCountForTitleOfResults" resultType="java.lang.Integer" parameterType="java.util.Map">
