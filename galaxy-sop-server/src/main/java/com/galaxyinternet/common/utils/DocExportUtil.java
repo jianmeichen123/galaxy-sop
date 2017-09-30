@@ -83,7 +83,7 @@ public class DocExportUtil {
      * @param filePath 保存路径
      * @param fileName 保存名称, xml docx 模板生成的文件
      */
-    public void creatDocxAsZip(Map<String,Object> dataMap,String currentMark) throws Exception
+    public void creatDocxAsZip(Map<String,Object> dataMap,String currentMark,boolean hasImage) throws Exception
     {
         Writer out = null;
         ZipOutputStream zipout = null;
@@ -139,33 +139,34 @@ public class DocExportUtil {
             }
 
             //处理 docx 中的图片
-            File imageDir = new File(filePath+File.separator+currentMark);
+            if(hasImage){
+                File imageDir = new File(filePath+File.separator+currentMark);
 
-            if (imageDir.exists() && imageDir.isDirectory())
-            {
-                File[] pngs = imageDir.listFiles();
-                if (pngs != null)
+                if (imageDir.exists() && imageDir.isDirectory())
                 {
-                    for (File af : pngs)
+                    File[] pngs = imageDir.listFiles();
+                    if (pngs != null)
                     {
-                        imageIn = new BufferedInputStream(new FileInputStream(af));
-
-                        ze = new ZipEntry("word/media/"+af.getName());
-                        zipout.putNextEntry(ze);
-
-                        while ((len = imageIn.read(buffer)) != -1)
+                        for (File af : pngs)
                         {
-                            zipout.write(buffer, 0, len);
+                            imageIn = new BufferedInputStream(new FileInputStream(af));
+
+                            ze = new ZipEntry("word/media/"+af.getName());
+                            zipout.putNextEntry(ze);
+
+                            while ((len = imageIn.read(buffer)) != -1)
+                            {
+                                zipout.write(buffer, 0, len);
+                            }
+                            imageIn.close();
+                            zipout.closeEntry();
                         }
-                        imageIn.close();
-                        zipout.closeEntry();
                     }
                 }
             }
 
             zipout.flush();
             zipout.close();
-
         } catch (Exception e) {
             throw new Exception("down docx err" , e);
         } finally {

@@ -73,7 +73,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	}
 
 	/**
-	 * 全息报告 ： doc 下载
+	 * 全息报告 ： docx 下载
 	 */
 	@RequestMapping("/downNO/{pid}")
 	public void downNOdoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
@@ -101,8 +101,8 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			 */
 			DocExportUtil docExportUtil1 = new DocExportUtil(request,tempath, temp1, tempfilePath, dfn1);
 			DocExportUtil docExportUtil2 = new DocExportUtil(request,tempath, temp2, tempfilePath, dfn2);
-			docExportUtil1.creatDocxAsZip(map,currTime);
-			docExportUtil2.creatDocxAsZip(map,currTime);
+			docExportUtil1.creatDocxAsZip(map,currTime,false);
+			docExportUtil2.creatDocxAsZip(map,currTime,true);
 
 			String zipName = project.getProjectName() + "全息报告.zip";
 			Map<String, String> dname_sname = new HashMap<>();
