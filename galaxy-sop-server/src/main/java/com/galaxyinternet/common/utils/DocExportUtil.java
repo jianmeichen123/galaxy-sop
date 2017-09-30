@@ -138,7 +138,30 @@ public class DocExportUtil {
                 }
             }
 
+            //处理 docx 中的图片
+            File imageDir = new File(filePath+File.separator+currentMark);
 
+            if (imageDir.exists() && imageDir.isDirectory())
+            {
+                File[] pngs = imageDir.listFiles();
+                if (pngs != null)
+                {
+                    for (File af : pngs)
+                    {
+                        imageIn = new BufferedInputStream(new FileInputStream(af));
+
+                        ze = new ZipEntry("word/media/"+af.getName());
+                        zipout.putNextEntry(ze);
+
+                        while ((len = imageIn.read(buffer)) != -1)
+                        {
+                            zipout.write(buffer, 0, len);
+                        }
+                        imageIn.close();
+                        zipout.closeEntry();
+                    }
+                }
+            }
 
             zipout.flush();
             zipout.close();

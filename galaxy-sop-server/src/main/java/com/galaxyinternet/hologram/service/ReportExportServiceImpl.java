@@ -774,8 +774,8 @@ public class ReportExportServiceImpl implements ReportExportService {
                         fis = new FileInputStream(outFile);
                         BufferedImage src = javax.imageio.ImageIO.read(fis);
                         am.setRid("rId"+ridMark+i);
-                        am.setHigh(src.getHeight()*10000);
-                        am.setWide(src.getWidth()*10000);
+                        am.setHigh(src.getHeight()*4000);
+                        am.setWide(src.getWidth()*4000);
 
                         fis.close();
                     } catch (Exception e) {
