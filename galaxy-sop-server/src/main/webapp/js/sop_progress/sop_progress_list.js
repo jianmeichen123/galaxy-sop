@@ -608,7 +608,7 @@ function radionDiv(data){
 			lable='<label><input name="interviewResult" type="radio" value='+value.code+' />'+value.name+'</label>';
 		}
 		var htmlDiv= 
-		'<div id="div_'+i+'">'+lable
+		'<div id="div_'+i+'" class="clearfix">'+lable
 		     var parentCode=changeSelect(value);
 	       if(parentCode!=""){
 	    	   var htmlSelect='<div class="resel_box"><select required="required" disabled="disabled" class="disabled" name="'+parentCode+'" id="'+parentCode+'" data-msg-required="<font color=red>*</font><i></i>必选">'+
