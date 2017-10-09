@@ -343,6 +343,8 @@ function backInitTabPostMeeting(){
 	 var url=Constants.sopEndpointURL + "/galaxy/project/detail/" + projectId+"?back=operateList";
 	 forwardWithHeader(url);
 	 //Redirect(url);
+	 //history.back(-1);
+	 setCookie("backListOperation", '7',1,'/');
 }
 
 function Redirect(url) {

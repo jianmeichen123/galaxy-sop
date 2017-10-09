@@ -436,10 +436,14 @@
 		}
 	})
 	//运营数据分析返回
-	if(document.URL.indexOf("back=operateList")>0){
-		initTabPostMeeting();
-		$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
+	if(getCookieValue('backListOperation')=='7'){
+		if(document.URL.indexOf("back=operateList")>0){
+			initTabPostMeeting();
+			$(".projectDetail li").eq(7).addClass("on").siblings().removeClass("on");
+		} 
+		deleteCookie("backListOperation",'/');
 	}
+	
 	//新增添加合投机构
 	function addInputsRow(i){
 	     var inputsRow='<div class="block_inputs">'
