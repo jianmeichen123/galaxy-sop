@@ -463,7 +463,7 @@
 							<th data-field="type"  		class="data-input" data-width="6%">项目类型</th>
 							<th data-field="projectCareerline"  		class="data-input" data-width="13%" data-formatter="departmentFormatter" >事业部</th>
 							<th data-field="financeStatusDs"  		class="data-input"  data-width="6%">融资状态<span></span></th>
-							<th data-field="ctime"  		class="data-input sort" data-sortable="true" data-formatter="dateFormat" data-width="8%">注资时间<span></span></th>
+							<th data-field="ctime"  		class="data-input sort" data-sortable="true" data-formatter="dateFormat" data-width="9%">注资时间<span></span></th>
 							<th data-field="finalContribution"  		class="data-input" >投资金额(万)</th>
 						    <th data-field="finalShareRatio"  		class="data-input" data-formatter="finalShareRatioFormat"  data-width="8%">占比(%)</th>
 					        <th data-field="financeHistory"  		class="data-input" data-formatter="financeHistoryFormat"  data-width="6%">融资历史</th>
