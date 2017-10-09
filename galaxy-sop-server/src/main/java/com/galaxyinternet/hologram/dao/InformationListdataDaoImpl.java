@@ -5,6 +5,8 @@ import java.util.Map;
 import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.query.Query;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.hologram.InformationListdata;
 
@@ -24,5 +26,15 @@ public class InformationListdataDaoImpl extends BaseDaoImpl<InformationListdata,
 			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("sumPartMoney")), e);
 		}
 		
+	}
+
+	@Override
+	public double selectActualMoney(InformationListdata entity) {
+		try {
+			Map<String, Object> params = BeanUtils.toMap(entity);
+			return sqlSessionTemplate.selectOne(getSqlName("sumActualMoney"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("sumActualMoney")), e);
+		}
 	}
 }

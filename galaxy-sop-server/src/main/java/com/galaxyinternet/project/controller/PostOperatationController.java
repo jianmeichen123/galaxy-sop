@@ -38,6 +38,7 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
@@ -53,6 +54,7 @@ import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.touhou.controller.DeliveryController;
 import com.galaxyinternet.utils.BatchUploadFile;
 
@@ -75,6 +77,8 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	private UserRoleService userRoleService;
 	@Autowired
 	private SopFileService sopFileService;
+	@Autowired
+	private InformationListdataService informationListdataService;
 	@Autowired
 	BatchUploadFile batchUpload;
 	
@@ -335,11 +339,12 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 		data.putAttachmentItem("healthState", healthState);
 		
 		//交割前事项
-		Delivery deliveryQuery = new Delivery();
+		InformationListdata deliveryQuery = new InformationListdata();
 		deliveryQuery.setProjectId(projectId);
-		Long total = deliveryService.queryCount(deliveryQuery);
-		deliveryQuery.setDelStatus((byte) 1);
-		Long complete = deliveryService.queryCount(deliveryQuery);
+		deliveryQuery.setTitleId(1810L);
+		Long total = informationListdataService.queryCount(deliveryQuery);
+		deliveryQuery.setField3("2176");
+		Long complete = informationListdataService.queryCount(deliveryQuery);
 		
 		data.putAttachmentItem("total",total);
 		data.putAttachmentItem("complete",complete);
