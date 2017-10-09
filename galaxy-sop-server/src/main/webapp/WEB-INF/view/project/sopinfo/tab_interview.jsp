@@ -69,7 +69,7 @@
 							-->
 						</div>
 						</div>
-						<table id="projectProgress_1_table" class="commonsize"
+						<table id="tab_projectProgress_1_table" class="commonsize"
 							data-url="<%=path%>/galaxy/project/progress/queryInterview" 
 							data-id-field="id" 
 							data-toolbar="#projectProgress_1_table_custom-toolbar">
@@ -125,7 +125,7 @@ $(function(){
 		$("#tjftjl").addClass('limits_gray').removeAttr("onclick");
 	}
 	
-	$('#projectProgress_1_table').bootstrapTable({
+	$('#tab_projectProgress_1_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
 		pageList : [5, 10, 20 ],
@@ -140,7 +140,7 @@ $(function(){
         onLoadSuccess:function(data){
         	if(data.pageList.total>0 && isTransfering == 'true')
        		{
-        		$.each($('#projectProgress_1_table tr'),function(){
+        		$.each($('#tab_projectProgress_1_table tr'),function(){
         			var $this = $(this);
         			$this.find('td:last').addClass('limits_gray');
         			$this.find('td:last .edit').removeAttr('onclick');
@@ -258,11 +258,11 @@ function initViewUpload() {
 								   "overflow-y":"auto"
 								 });
 								toFormatNearNotes();
-								var _this = $("#projectProgress_1_table");
+								var _this = $("#tab_projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									removePop1();
 								}else{
-									$("#projectProgress_1_table").bootstrapTable('refresh');
+									$("#tab_projectProgress_1_table").bootstrapTable('refresh');
 									removePop1();
 								}
 							}
@@ -300,11 +300,11 @@ function initViewUpload() {
 						toshowbut();
 					} */
 					toFormatNearNotes();
-					var _this = $("#projectProgress_1_table");
+					var _this = $("#tab_projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
 						removePop1();
 					}else{
-						$("#projectProgress_1_table").bootstrapTable('refresh');
+						$("#tab_projectProgress_1_table").bootstrapTable('refresh');
 						removePop1();
 					}
 				}
@@ -344,7 +344,7 @@ function viewOperFormat(value,row,index){
 
 
 function notesInfoEdit(selectRowId,type){
-	interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
+	interviewSelectRow = $('#tab_projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
 	$.getHtml({
 		url:_url,
@@ -380,7 +380,7 @@ function interviewsave(){
 				   "overflow-x":"auto",
 				   "overflow-y":"auto"
 				 });
-				$("#projectProgress_1_table").bootstrapTable('refresh');
+				$("#tab_projectProgress_1_table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);
 				$("#hint_all").css("display","block");

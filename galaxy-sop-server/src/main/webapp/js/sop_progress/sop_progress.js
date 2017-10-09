@@ -26,7 +26,7 @@ function  progress(id,type){
 //因为太长放不下所以页码pageList改成不可选  如果产品需要就再改过来。
 function interviewList(){
 	$('#projectProgress_1_table').bootstrapTable('destroy');
-	$("#projectId").val(projectId);
+	$("#sop_projectId").val(projectId);
 	$('#projectProgress_1_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
@@ -79,7 +79,7 @@ function interviewList(){
 function meetList(type){
 	$('#projectProgress_1_table').bootstrapTable('destroy');
 	$("#meetingType").val(type);
-	$("#projectId").val(projectId);
+	$("#sop_projectId").val(projectId);
 	$('#projectProgress_1_table').bootstrapTable({
 		url:Constants.sopEndpointURL+'/galaxy/progress/p/queryMeet',
 		queryParamsType: 'size|page', // undefined

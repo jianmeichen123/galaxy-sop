@@ -791,9 +791,6 @@ $(function(){
 var reportProgress = '${reportProgress}';
 console.log(reportProgress);
 var progressObject = JSON.parse(reportProgress);
-/* console.log(typeof(progressObject));
-console.log(progressObject.no);
-console.log(Math.round(progressObject.no*100)); */
 var no = Math.round(progressObject.no*100);//全息报告
 var en = Math.round(progressObject.en*100);//评测报告
 var dn = Math.round(progressObject.dn*100);//尽调报告

@@ -28,7 +28,7 @@
 			<!-- 接触访谈信息 -->
 			<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" style="display:none; " >
 			<div class="bottom searchall clearfix">
-				<input type="hidden" id="projectId" name="projectId" value=""> <!-- 项目id -->
+				<input type="hidden" id="sop_projectId" name="projectId" value=""> <!-- 项目id -->
 				<input type="hidden" id="meetingType" name="meetingType" value="">
 			 
 			</div>
