@@ -91,23 +91,35 @@ var data = {};
 				infoMode[name] = field.val();
 			}
 		});
-		//验证分期计划拨款金额是否大于剩余金额
-        var valInput=$(".moeny_all input").val();
-        var trs=$(".approp_table tbody").find("tr");
-        var sum=0;
-		 $.each(trs,function(){ 
-			 sum+=Number($(this).find("td:nth-child(3)").text());
-		 })
-		 var valtr=$("#valtr").val();   //当前编辑行的金额
-		 var totalMoneyPart=$("#totalMoneyPart").val();
-		 if(Number(valInput)>((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000).toFixed(4)){
-         	layer.msg("分期注资金额之和大于总注资金额");
-			   return;
-         }
-       /*if(Number(valInput)>((Number(totalMoneyPart)*10000-sum*10000)/10000).toFixed(4)){
-        	layer.msg("分期注资金额之和大于总注资金额");
-			   return;
-        }*/
+		if(code=='grant-actual'){  
+			//验证实际注资计划拨款金额是否大于剩余金额
+	        var valInput=$(".moeny_all input").val();
+	        var trs=$("#actual-table tbody").find("tr");
+	        var sum=0;
+			 $.each(trs,function(){ 
+				 sum+=Number($(this).find("td:nth-child(2)").text());
+			 })
+			 var valtrActual=$("#valtrActual").val();   //当前编辑行的金额
+			 var totalMoneyActual=$("#totalRemainMoneyActual").val();
+			if(Number(valInput)>((Number(totalMoneyActual)*10000-(sum-Number(valtrActual))*10000)/10000).toFixed(4)){
+	         	layer.msg("实际注资金额之和大于分期注资金额");
+				   return;
+	         }
+		}else{   
+			//验证分期计划拨款金额是否大于剩余金额
+	        var valInput=$(".moeny_all input").val();
+	        var trs=$(".approp_table tbody").find("tr");
+	        var sum=0;
+			 $.each(trs,function(){ 
+				 sum+=Number($(this).find("td:nth-child(3)").text());
+			 })
+			 var valtr=$("#valtr").val();   //当前编辑行的金额
+			 var totalMoneyPart=$("#totalMoneyPart").val();
+			 if(Number(valInput)>((Number(totalMoneyPart)*10000-(sum-Number(valtr))*10000)/10000).toFixed(4)){
+	         	layer.msg("分期注资金额之和大于总注资金额");
+				   return;
+	         }
+		}
 		var sendFileUrl = Constants.sopEndpointURL+'galaxy/informationFile/operInformationFile';
 		var params = {};
 		params.projectId =  projectInfo.id;

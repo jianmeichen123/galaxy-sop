@@ -21,6 +21,8 @@
 	<form id="form_edit_actual_dialog">
 		<div class="title_bj popup_name_edit" id="label_pop_name">添加实际注资信息</div>
 		<input type="hidden" id="newRemainMoneyActual" value=""/>
+		<input type="hidden" id="totalRemainMoneyActual" value=""/>
+		<input type="hidden" id="valtrActual" value=""/>
 	    <div class="form clearfix" id="container">
 	        <div class="edit_actual"  style="min-width:600px;width:740px\9;">
 	            

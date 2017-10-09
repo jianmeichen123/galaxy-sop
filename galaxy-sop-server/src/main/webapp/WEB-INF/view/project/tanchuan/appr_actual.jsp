@@ -186,6 +186,7 @@
     						 remainActualMoney=(Number(data.totalMoney)*10000-sum*10000)/10000;
 							 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
     						 if(_data_type=='add'){   //添加
+    							$('#totalRemainMoneyActual').val(data.totalMoney);
         						 $("#grantMoney").on("blur",function(){
         							 var val=$(this).val();
         							 var errorTips=$(this).siblings(".error");
@@ -201,6 +202,8 @@
     								 }
         						 })
     						 }else{  //查看+编辑
+    							 $('#totalRemainMoneyActual').val(data.totalMoney);  //实际注资编辑总金额
+    							 $('#valtrActual').val(valtrRow);
     							 $('#label_pop_name').text('编辑实际注资信息');
     							 $("#grantMoney").on("blur",function(){
         							 var val=$(this).val();
