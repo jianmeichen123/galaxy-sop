@@ -57,7 +57,7 @@
 	    function operatorFormat(value, row, index){
 	    	var opts = '';
 	    	
-	    	opts += '<label class="showActualLink blue">查看</label>';
+	    	opts += '<label class="showActualLink blue" data-btn="actual_win" data-type="info">查看</label>';
 	    	
 	    	if(isContainResourceByMark('edit_appr_actual') && isTransfering != 'true')
     		{
@@ -87,8 +87,8 @@
 	    			var valtr=$(this).closest('tr').find('td:nth-child(2)').text();
 	    			$("#btn_add_appr_actual").attr("data-value-row",valtr);  //当前行的实际注资金额
 	    			$("#btn_add_appr_actual").attr("data-actual-id",row.id);
-	    			$("#btn_add_appr_actual").attr("data-type","edit");
-	    			$("#btn_add_appr_actual").click();
+	    		 	$("#btn_add_appr_actual").attr("data-type","edit"); 
+	    			$("#btn_add_appr_actual").click(); 
 	    		},
 	    		'click .deleteActualLink'  : function(e, value, row, index){
 	    			layer.confirm('是否删除实际注资信息?', {
@@ -110,8 +110,8 @@
 	    		},
 				'click .showActualLink'  : function(e, value, row, index){
 					$("#btn_add_appr_actual").attr("data-actual-id",row.id);
-	    			$("#btn_add_appr_actual").attr("data-type","info");
-	    			$("#btn_add_appr_actual").click();
+	    			$("#btn_add_appr_actual").attr("data-type","info"); 
+	    			$("#btn_add_appr_actual").click(); 
 	    		}
 	    };
 	    $('#actual-table').bootstrapTable({
@@ -185,23 +185,7 @@
     						 $("#totalMoneyActual").val(data.totalMoney);
     						 remainActualMoney=(Number(data.totalMoney)*10000-sum*10000)/10000;
 							 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
-    						 if(_data_type=='add'){   //添加
-    							$('#totalRemainMoneyActual').val(data.totalMoney);
-        						 $("#grantMoney").on("blur",function(){
-        							 var val=$(this).val();
-        							 var errorTips=$(this).siblings(".error");
-        							 if(val>remainActualMoney){
-    									 $("#formatRemainMoney").text("0");
-    								 }else{
-    									 if(errorTips.is(":visible")){
-    										 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
-    									 }else{
-    										 var formatRemainActualMoney=remainActualMoney-val;
-    										 $("#formatRemainMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
-    									 }
-    								 }
-        						 })
-    						 }else{  //查看+编辑
+    						 if(_data_type=='info' || _data_type=='edit'){   //查看+编辑
     							 $('#totalRemainMoneyActual').val(data.totalMoney);  //实际注资编辑总金额
     							 $('#valtrActual').val(valtrRow);
     							 $('#label_pop_name').text('编辑实际注资信息');
@@ -215,6 +199,22 @@
     										 $("#formatRemainMoney").text((remainActualMoney+Number(valtrRow)).toFixed(4)*10000/10000);
     									 }else{
     										 var formatRemainActualMoney=remainActualMoney-val+Number(valtrRow);
+    										 $("#formatRemainMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
+    									 }
+    								 }
+        						 })
+    						 }else{  //添加
+        						 $('#totalRemainMoneyActual').val(data.totalMoney);
+        						 $("#grantMoney").on("blur",function(){
+        							 var val=$(this).val();
+        							 var errorTips=$(this).siblings(".error");
+        							 if(val>remainActualMoney){
+    									 $("#formatRemainMoney").text("0");
+    								 }else{
+    									 if(errorTips.is(":visible")){
+    										 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
+    									 }else{
+    										 var formatRemainActualMoney=remainActualMoney-val;
     										 $("#formatRemainMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
     									 }
     								 }
