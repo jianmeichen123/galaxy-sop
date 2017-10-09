@@ -1316,8 +1316,8 @@ em{font-style: normal;}
 .erwmb img{margin-bottom:10px;}
 .erwm p,.erwm a{font-size:12px;font-family:"Microsoft YaHei";color:#7a8798;text-align:center;margin-bottom:6px;}
   */
-.erwm{position:relative;}
-.erwmfont{font-family:"Microsoft YaHei";line-height:24px;margin-right:30px;cursor:pointer;height:50px;display:inline-block;}
+.erwm{position:relative;margin-right:30px;}
+.erwmfont{font-family:"Microsoft YaHei";line-height:24px;cursor:pointer;height:27px;display:inline-block;}
 .erwm  .triangle{ width: 0;height: 0;font-size:0;display:inline-block;border-left: 6px solid transparent;border-right: 6px solid transparent;border-bottom: 8px solid #fff;position:absolute;top:-8px;left:154px;}
 .erwm_show{background:#fff;width:320px;box-shadow:0 0 5px #ccc;position:absolute;top:35px;left:-128px;display:none;}  
 .erwm_show ul{padding:20px 25px 0;}
