@@ -185,7 +185,7 @@ $(function() {
 	//通用保存
 	$('div').delegate(".h_save_btn", "click", function(event) {
 		var beroreCheck = false;
-		
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		var _this = $(this);
 		var id_code = $(this).attr('attr-save');
@@ -398,6 +398,7 @@ $(function() {
 				toggle_btn($('.anchor_btn span'),1);
 				$(".h_look .ismust").hide();
 				$(".h#"+id_code).css("background","#fff");
+				 $('html,body').scrollTop(sTop);  //定位
 			} else {
 				layer.msg('保存失败');
 			}
