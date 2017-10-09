@@ -83,8 +83,8 @@ var searchPartMoney;
 				if(data_on=="edit"){
 					//sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
 					if(trs>0){
-						$("#setValue #grantMoney").attr('readonly',true);
-						$("#setValue #grantMoney").addClass('disabled');
+						$("#setValue input#grantMoney").attr('readonly',true);
+						$("#setValue input#grantMoney").addClass('disabled');
 					}
 				}else{
 					 $("#totallId").val(0);
@@ -143,8 +143,8 @@ var searchPartMoney;
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
 					if(valActual>0){
-						$('#grantMoney').attr('readonly',true);
-						$('#grantMoney').addClass('disabled');
+						$('input#grantMoney').attr('readonly',true);
+						$('input#grantMoney').addClass('disabled');
 					}
 					$("#projectId").val(pId);
 					 getTotalAppr(projectInfo.id);
@@ -453,8 +453,8 @@ var searchPartMoney;
 				 $("#totallId").val(grantTotal.id);
 			 }
 			 if(grantTotal.is_edit==false){
-				 $("#grantMoney").attr("readonly","readonly");
-				 $("#grantMoney").css("background-color","#f8f8f8");
+				 $("input#grantMoney").attr("readonly","readonly");
+				 $("input#grantMoney").css("background-color","#f8f8f8");
 			 }
 			 if(null!=grantTotal){
 				 $("#info dd input")
