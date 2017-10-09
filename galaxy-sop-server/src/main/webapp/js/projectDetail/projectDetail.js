@@ -8,7 +8,13 @@
 //所有资源加载结束
 
 $(function(){
+	var defaultnum=0;
+	if(getCookieValue('backListOperation')=='7'){   //运营分析返回后切换
+		defaultnum=7;
+		deleteCookie("backListOperation",'/');
+	}
 	$('.projectDetail').tabLazyChange({
+		defaultnum:defaultnum,
 		onchangeSuccess:function(index){	
 			switch(index){
 				case 0: initTabInfo(projectId);  break;  //标签0:基本信息
