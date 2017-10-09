@@ -54,8 +54,8 @@
 						<tr>
 							<th data-field="field1" data-align="left" data-formatter="infoDeliverFormat" data-width="25%">事项简述</th>
 							<th data-field="field3" data-align="left" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态<span></span></th>
-							<th data-field="endByUname" data-align="left">编辑人</th>
-							<th data-field="updatedTime" data-align="left" data-formatter="longTime_Format" >编辑日期</th>
+							<th data-field="updateUserName" data-align="left">编辑人</th>
+							<th data-field="updateTimeStr" data-align="left">编辑日期</th>
 							<th data-field="field5" data-align="left" data-formatter="notReturn_Format">附件数</th>
 							<th data-align="left" class="w_150" data-formatter="operFormat">操作</th>
 						</tr>
@@ -201,6 +201,14 @@ function saveCallBackFuc(data){
  *  状态 format
  */
 function statusFormat(value,row,index){  
+	if(value){
+		if(value == '2176'){
+			return "已完成";
+		}
+		else{
+			return "未完成";
+		}
+	}
 	return row.statusFormat;
 }
 
@@ -306,7 +314,8 @@ function operFormat(value,row,index){
 								$("#deliver_form [data-name='id']").val(deliverInfo.id);
 								$("#deliver_form [data-name='field1']").val(deliverInfo.field1);
 								$("#deliver_form [data-name='field2']").val(deliverInfo.field2);
-								$("#deliver_form [data-name='field3']").val(deliverInfo.field3);
+								//$("#deliver_form [data-name='field3']").val(deliverInfo.field3);
+								$("#deliver_form").find("input[data-name='field3'][value="+deliverInfo.field3+"]").attr('checked','true');
 							}else{
 								$("#delDescribe").html(deliverInfo.field1);
 								$("#details").html(deliverInfo.field2);
