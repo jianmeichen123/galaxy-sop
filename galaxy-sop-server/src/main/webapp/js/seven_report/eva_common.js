@@ -1001,8 +1001,9 @@ $('div').delegate(".master_pic","click",function(){
 
 //表格预览 
 function income_table(){
-	$('.income_table').unbind().click(function(){
+	$('.income_table').click(function(){
 		$('.reasonable_stock').show();
+		$('.reasonable_stock').find("tbody").html("");
 		var _target = $(this);
 		var  leftNum = _target.offset().left-20;
 		var  topNum = _target.offset().top-188;
