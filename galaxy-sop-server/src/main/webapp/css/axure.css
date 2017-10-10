@@ -1014,7 +1014,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .pop{  position:absolute; left:0; top:0; z-index:1000; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
 .popzx{ z-index:9999}
 .pop .close{ position:absolute; right:8px; top:6px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
-.pop .poptxt{ position:relative; padding:10px}
+.pop .poptxt{ position:relative; padding:10px;max-height: 450px;overflow-y: auto;}
 /*请稍候*/
 .pop .popwait{ line-height:100px; font-size:20px; color:#999; text-align:center}
 .pop .ico{ background-image:url(../img/tcico.png)}
@@ -2587,6 +2587,7 @@ dt[data-type='19']+dd .error{display:block;}
 .h_remarks{color:#999;font-size: 12px;margin-top: 5px;}
 .h_edit .h_radios li{float: left;margin-right: 20px;position: relative;padding-left: 20px;}
 .h_edit .h_radios input[type="radio"]{position: absolute;top:2px;left: 0;}
+.h_edit .fixed_table .h_radios input[type="radio"]{top:8px;}
 .h_edit .h_radios input[type="text"]{margin:0;font-size:12px;font-family:"Microsoft YaHei";}
 .textarea_h{color:#666;width: 100%;min-height: 70px;border:1px solid #dadada; padding:8px 10px;box-sizing:border-box;overflow:hidden;font-size:12px; font-family:Microsoft YaHei;}
 .base_tab-content .base_team_look .num_tj{margin-right:10px;}
