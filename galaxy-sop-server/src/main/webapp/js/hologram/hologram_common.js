@@ -810,8 +810,8 @@ function buildTable(sec,title)
 					$('.limit-number').each(function(){
 						var _this = $(this);
 						var tdText = _this.text();
+						alert(tdText);
 						_this.attr('title',tdText);
-						//_this.setAttribute('title',"tdText");
 					})
 				};
 				//股权结构合理性
@@ -1968,7 +1968,7 @@ function saveRow(data)
 				}else if(titleId=="1906"){
 					tr.find('td[data-field-name=field1]').attr('title',data["field1"]);
 				}else if(titleId=="1912"){
-					tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]));
+					tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]);
 				}
 				
 			}
