@@ -865,7 +865,7 @@ function buildRow(row,showOpts,titleId)
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
 				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
-				tr.find('td:eq(0)').attr('title',row[num]);
+				//tr.find('td:eq(0)').attr('title',row[num]);
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
