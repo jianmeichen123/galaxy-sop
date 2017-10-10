@@ -6,4 +6,5 @@ import com.galaxyinternet.model.hologram.InformationListdata;
 public interface InformationListdataDao extends BaseDao<InformationListdata, Long>{
 
 	 double selectTotalMoney(InformationListdata entity);
+	 double selectActualMoney(InformationListdata entity);
 }

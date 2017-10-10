@@ -158,6 +158,7 @@ $(function() {
 		var save_this = $(this).parents('.radius');
 		var btn = this;
 		var id_code = $(this).attr('attr-save');
+		var sTop=$(window).scrollTop();
 		event.stopPropagation();
 		var sec = $(this).closest('form');
 		var fields = sec.find("input[type='text'],input:checked,textarea");
@@ -365,6 +366,7 @@ $(function() {
 								btn_disable(0);
 								mustData(projectInfo.id,0);
 							    toggle_btn($('.anchor_btn span'),1,save_this);
+							    $('html,body').scrollTop(sTop);  //定位
 							    //重新格式化表格,select radio 字段id转换value
 							    $('table').each(function(){
                                     resizetable($(this))

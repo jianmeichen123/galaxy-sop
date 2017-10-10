@@ -1606,7 +1606,7 @@ function save_cancel_show(data,status){
 		//多选
 		_this.find('.checked_div').each(function(){
 			$(this).find('dd').each(function(){
-				if($(this).html()!= '未选择' && $(this).hasClass('border_dd')){
+				if($(this).html()!= '' && $(this).hasClass('border_dd')){
 					$(this).parents('.mb_24').show();
 					 return false;
 				}else{

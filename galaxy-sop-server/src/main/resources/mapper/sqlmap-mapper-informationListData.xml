@@ -224,6 +224,17 @@
 		
 	</select>
 	
+	<!-- 计算金额 -->
+	<select id="sumActualMoney" resultType="java.lang.Double" parameterType="java.util.Map">
+		select IFNULL(sum(0+field_3), 0) from information_listdata 
+		<where>
+			<trim prefixOverrides="and">
+			   <if test="titleId != null"> and title_id = #{titleId,jdbcType=VARCHAR}</if>
+		       <if test="projectId != null"> and project_id = #{projectId,jdbcType=VARCHAR}</if>
+		       <if test="code != null"> and code = #{code,jdbcType=VARCHAR}</if>
+			</trim>
+		</where>
+	</select>
 	
 	<!-- 根据ID删除 -->
 	<delete id="deleteById" parameterType="java.lang.Long">

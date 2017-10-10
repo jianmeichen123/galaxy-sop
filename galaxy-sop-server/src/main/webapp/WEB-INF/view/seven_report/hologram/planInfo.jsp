@@ -97,6 +97,7 @@
 	});
 	//通用取消编辑
 	$('div').delegate(".h_cancel_btn","click",function(event){
+		var _this = $(this).parents(".radius");
 		var id_code = $(this).attr('attr-hide');
 		$('#'+id_code).show();
 		$('#b_'+id_code).remove();

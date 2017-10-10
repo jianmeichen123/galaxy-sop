@@ -29,8 +29,8 @@
             
             <dl class="fmdl fl_l">
                  <dt>完成情况：</dt>
-                 <dd><label for=""><input type="radio" name="field3" data-name="field3" data-type="19" value="0" checked="checked" >未完成</label></dd>
-                 <dd><label for=""><input type="radio" name="field3" data-name="field3" data-type="19" value="1">已完成</label></dd>
+                 <dd><label for=""><input type="radio" name="field3" data-name="field3" data-type="19" value="2175" checked="checked" >未完成</label></dd>
+                 <dd><label for=""><input type="radio" name="field3" data-name="field3" data-type="19" value="2176">已完成</label></dd>
             </dl>
             
             </form>

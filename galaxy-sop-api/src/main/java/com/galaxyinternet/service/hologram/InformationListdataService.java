@@ -16,5 +16,7 @@ public interface InformationListdataService extends BaseService<InformationListd
      
      double selectPartMoney(InformationListdata entity);
      
+     double selectActualMoney(InformationListdata entity);
+     
      void deleteDataRelateFile(Long id);
 }

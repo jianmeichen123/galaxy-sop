@@ -472,8 +472,26 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			return responseBody;
 		}
 		try {
-			Map<String,Object> setApprProcess = grantTotalService.setApprProcess(pid);
-			responseBody.setUserData(setApprProcess);
+			InformationResult informationResult = new InformationResult();
+			informationResult.setProjectId(String.valueOf(pid));
+			informationResult.setTitleId("3004");
+			informationResult.setIsValid("0");
+			Double sumPlanMoney = null;
+			//获取总注资计划的金额
+			List<InformationResult> list = informationResultService.queryList(informationResult);
+			if(list != null && list.size() > 0){
+				sumPlanMoney = Double.valueOf(list.get(0).getContentDescribe1());
+			}
+			Map<String,Object> map=new HashMap<String, Object>();
+			// TODO Auto-generated method stub
+			InformationListdata data = new InformationListdata();
+			data.setProjectId(pid);
+			data.setTitleId(3022l);
+			data.setCode("grant-actual");
+			Double sumProjectToActualMoney = informationListdataService.selectActualMoney(data);
+			map.put("sumPlanMoney", sumPlanMoney);
+			map.put("sumActualMoney", sumProjectToActualMoney);
+			responseBody.setUserData(map);
 			responseBody.setResult(new Result(Status.OK, "ok", "查询注资进度失败!"));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "查询注资进度失败!"));

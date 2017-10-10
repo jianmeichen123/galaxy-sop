@@ -53,7 +53,7 @@ var data = {};
 			 }
 			
 		});
-		var fields = $.find("input[type='text'][data-type],textarea");
+		var fields = $.find("input[type='text'][data-type],input:checked,textarea,radio");
 		var id =  $("#grantId").val();
 		var parentId = $("#parentId").val();
 		var code = $("#code").val();

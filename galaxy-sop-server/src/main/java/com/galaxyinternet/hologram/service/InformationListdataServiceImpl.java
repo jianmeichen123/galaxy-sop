@@ -161,6 +161,12 @@ public class InformationListdataServiceImpl extends BaseServiceImpl<InformationL
 			informationListdataDao.deleteById(id);
 		}
 	}
+
+	@Override
+	public double selectActualMoney(InformationListdata entity) {
+		// TODO Auto-generated method stub
+		return informationListdataDao.selectActualMoney(entity);
+	}
 	
 	
 }

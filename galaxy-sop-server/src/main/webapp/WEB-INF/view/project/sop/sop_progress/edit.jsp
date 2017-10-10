@@ -265,6 +265,7 @@ function initViewUpload() {
 				}
 				plupload.each(files, function(file) {
 					var size=up.settings.filters.max_file_size.replace("MB","");   
+					alert(size)
 					var fileSize = 0;
 					if (navigator.userAgent.indexOf('Mac') != -1) {
 						 fileSize = file.size / 1000;

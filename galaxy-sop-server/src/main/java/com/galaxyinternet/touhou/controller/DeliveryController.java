@@ -34,12 +34,14 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hologram.InformationFile;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.hologram.InformationFileService;
@@ -281,6 +283,14 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 							delivery.getPageSize(), 
 							Direction.fromString("desc"), 
 							"created_time"));
+			List<InformationListdata> content = actualPage.getContent();
+			if(content != null && content.size() > 0){
+				for(InformationListdata c : content){
+					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+c.getUpdateId(), "realName"));
+					c.setUpdateTimeStr(DateUtil.longToString(c.getUpdateTime()));
+				}
+				actualPage.setContent(content);
+			}
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
 			logger.error("查询交割前事项列表失败！查询条件：" + delivery, e);
