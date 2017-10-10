@@ -509,20 +509,21 @@ function buildResults(sec,title,readonly)
 		}
 		if(title.type == 19 )
 		{
-			if(title.id=="3012"){
+			/*if(title.id=="3012"){
 				var num =title.resultList[0].contentDescribe1;
 				if(num!=undefined && num!="" && num.indexOf(".")>-1){
 					var nums=num.split(".");
 				}
-			}
+			}*/
 			if(readonly == true)
 			{
 				if(title.id=="3012"){
-					if(nums && nums[1].length>4){
+					/*if(nums && nums[1].length>4){
 						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":Number(num).toFixed(4)*10000/10000);
 					}else{
 						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num*10000/10000);
-					}
+					}*/
+					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				}else{
 					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
 				}
@@ -538,11 +539,12 @@ function buildResults(sec,title,readonly)
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
 					if(title.resultList[0].contentDescribe1){
-						if(nums && nums[1].length>4){
+						/*if(nums && nums[1].length>4){
 							$("input[data-title-id='"+title.id+"']").val(Number(num).toFixed(4)*10000/10000).attr("resultId",result_id);
 						}else{
 							$("input[data-title-id='"+title.id+"']").val(num*10000/10000).attr("resultId",result_id);
-						}
+						}*/
+						$("input[data-title-id='"+title.id+"']").val(_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
 					}else{
 						$("input[data-title-id='"+title.id+"']").val('').attr("resultId",result_id);
 					}
@@ -1086,7 +1088,7 @@ function validate(){
 	 for(var i=0;i<inputs.length;i++){
 		 	var inputValRule=inputs.eq(i).attr("data-valrule");
 			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
-			var inputDataId = inputs.eq(i).attr('data-title-id');
+			//var inputDataId = inputs.eq(i).attr('data-title-id');
 			
 			if(inputValRule=="2" && inputValRuleMark=="3"){
 				var validate={
@@ -1097,7 +1099,7 @@ function validate(){
 						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputDataId=='3010'){
+			}/*else if(inputDataId=='3010'){
 				var validte = {
 						"data-rule-verify_3010":"true",
 						"name":i,
@@ -1118,7 +1120,7 @@ function validate(){
 						"data-msg-verify_3012":"<font color=red>*</font>支持13位长度的四位小数 "
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="2" && inputValRuleMark=="2"){
+			}*/else if(inputValRule=="2" && inputValRuleMark=="2"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-vinputValRule_1":"true",
