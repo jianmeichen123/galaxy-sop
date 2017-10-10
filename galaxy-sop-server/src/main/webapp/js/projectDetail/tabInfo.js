@@ -613,10 +613,10 @@ function buildMoneyResult(pid){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
 							if(null!=title.resultList&&title.resultList.length>0){
-								var _val = title.resultList[0].contentDescribe1;	
+								var _val = title.resultList[0].contentDescribe1;
 								_val=_parsefloat(_val);
-								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"—":_val);
-								$("input[data-title-id='"+title.id+"']").val(_val==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"—":_val);
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—")
 							}
