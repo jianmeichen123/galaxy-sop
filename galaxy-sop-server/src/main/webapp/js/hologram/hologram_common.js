@@ -565,8 +565,10 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
-				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
+				if(title.resultList[0].contentDescribe1 !=undefined){
 					$(".field[data-title-id='"+title.id+"']").next().show();
+				}else{
+					$(".field[data-title-id='"+title.id+"']").next().hide();
 				}
 			}
 			else
