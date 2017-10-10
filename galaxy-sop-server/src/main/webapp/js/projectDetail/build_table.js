@@ -141,6 +141,9 @@ function editRow(ele)
 					 $("#pop-title-share").text('查看股东');
 					
 				}else{
+					if(code='equity-structure'){
+		            	$('.form_textarea').show();
+		            }
 					$(".see_block").hide();
 					$("#delivery_popup_name").text("编辑交割事项");
 					 $('#grant_popup_name').html('编辑分期注资计划');
@@ -369,6 +372,9 @@ function addRow_sp(ele)
 		okback:function(){
             $('#qualifications_popup_name1').html('添加持股人');
             $('#finace_popup_name').html('添加融资历史');
+            if(code='equity-structure'){
+            	$('.form_textarea').show();
+            }
 			$(".see_block").hide();
             $("#detail-form input[name='projectId']").val(projectInfo.id);
             $("#detail-form input[name='titleId']").val(table.data('titleId'));
