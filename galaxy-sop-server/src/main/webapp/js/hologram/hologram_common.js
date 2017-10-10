@@ -851,6 +851,7 @@ function buildRow(row,showOpts,titleId)
 	{
 		//设置data
 		tr.data(key,row[key]);
+		tr.attr('title',row[key]);
 	}
 	$.each(ths,function()
 	{
@@ -1957,6 +1958,8 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
+				//ch当编辑时给每个td添加title属性
+				tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]);
 			}
 		}
 	}
