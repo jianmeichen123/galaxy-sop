@@ -180,7 +180,7 @@ function editRow(ele)
 				if(code=="equity-structure"&&name=="field1"){
 					ele.attr("title",val_text);
 				}
-				ele.text(val_text);
+				ele.text(row.data(name)==undefined?"":val_text);
 
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
