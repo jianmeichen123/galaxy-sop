@@ -853,7 +853,6 @@ function buildRow(row,showOpts,titleId)
 	{
 		//设置data
 		tr.data(key,row[key]);
-		tr.attr('title',row[key]);
 	}
 	$.each(ths,function()
 	{
@@ -861,7 +860,7 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+				tr.append('<td data-field-name="'+k+'" title="'+row[k]+'">'+_parsefloat(row[k])+'</td>');
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
