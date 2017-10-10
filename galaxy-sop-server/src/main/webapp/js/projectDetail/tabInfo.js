@@ -87,7 +87,7 @@ $(function(){
 			$("#projectType").text(projectInfo.type);
 			$("#projectProgress").text(projectInfo.progress);
 			$("#projectStatusDs").text(projectInfo.projectProgress=="projectProgress:10"?"":projectInfo.projectStatusDs);
-			$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
+			$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"-":projectInfo.financeStatusDs);
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag=="projectSource:1"?projectInfo.faFlagStr+'-'+projectInfo.faName:projectInfo.faFlagStr);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
