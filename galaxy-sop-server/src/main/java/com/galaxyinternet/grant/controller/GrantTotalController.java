@@ -480,7 +480,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			//获取总注资计划的金额
 			List<InformationResult> list = informationResultService.queryList(informationResult);
 			if(list != null && list.size() > 0){
-				sumPlanMoney = Double.valueOf(list.get(0).getContentDescribe1());
+				sumPlanMoney = Double.valueOf(list.get(0).getContentDescribe1()==null?"0":list.get(0).getContentDescribe1());
 			}
 			Map<String,Object> map=new HashMap<String, Object>();
 			// TODO Auto-generated method stub
