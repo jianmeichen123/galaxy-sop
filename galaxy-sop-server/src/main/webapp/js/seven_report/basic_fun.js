@@ -503,7 +503,7 @@ function editRow(ele)
 					 $("#pop-title-gs").text('查看同类公司');
 					 $("#pop-title-time").text('查看里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
-					 $("#pop-title-yy").html('查看关键运营指标变化');
+					 $("#pop-title-yy").html('查看运营指标变化');
 					  $(".appr_part_add").hide();   //添加实际注资计划按钮
 				}else{
 					$(".see_block").hide();
