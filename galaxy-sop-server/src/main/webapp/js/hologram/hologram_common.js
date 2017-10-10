@@ -258,7 +258,7 @@ function buildResults(sec,title,readonly)
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
 			}
 		}
 		if(title.type == 2)
@@ -493,8 +493,8 @@ function buildResults(sec,title,readonly)
 				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
 				var result_id = title.resultList[0].id;
-				textareas.eq(0).val(str).attr("resultId",result_id);
-				textareas.eq(1).val(str2).attr("resultId",result_id);
+				textareas.eq(0).val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
+				textareas.eq(1).val(title.resultList[0].contentDescribe2==undefined ?"":str2).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 16)
@@ -544,7 +544,7 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
-				$("textarea[data-title-id='"+title.id+"']").val(str).attr("resultId",result_id);
+				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 14)
@@ -572,7 +572,7 @@ function buildResults(sec,title,readonly)
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);			
 			}
 		}
 		if( title.type == 20)
@@ -598,7 +598,7 @@ function buildResults(sec,title,readonly)
 			{	
 				var result_id = title.resultList[0].id;	
 				var result_parentId = title.resultList[0].titleId
-				$("input[data-title-id='"+title.id+"']").val(_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
 				var str = title.resultList[0].contentDescribe2
 				var strs= new Array();
 				if(str!=null || str!=undefined){
