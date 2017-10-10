@@ -571,14 +571,14 @@ function editRow(ele)
 					}
 					var val=$(".see_block").find("dd[name='field6']").text();
 					if(row.data('field3')==""){
-						$(".see_block").find("dd[name='field3']").text(row.data('field3'));
+						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3')));
 					}else{
-						$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3'))+'万'+val);
 					}
 					if(row.data('field5')==""){
-						$(".see_block").find("dd[name='field5']").text(row.data('field5'));
+						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')));
 					}else{
-						$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5'))+'万'+val);
 					}
 					
 					
@@ -597,9 +597,9 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				if(row.data(name)==""){
-					ele.text(row.data(name));
+					ele.text(_parsefloat(row.data(name)));
 				}else{
-					ele.text(row.data(name)+'万元');
+					ele.text(_parsefloat(row.data(name))+'万元');
 					console.log(row)
 				}
 			})
@@ -608,10 +608,9 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				if(row.data(name)==""){
-					ele.text(row.data(name));
+					ele.text(_parsefloat(row.data(name)));
 				}else{
-					ele.text(row.data(name)+'%');
-					console.log(row.data(name))
+					ele.text(_parsefloat(row.data(name))+'%');
 				}
 			})
 			//融资查看弹窗-付款条件特殊处理
@@ -896,7 +895,7 @@ function saveRow(data)
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
 			{
 				tr.data(key,data[key]);
-				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
 			}
 		}
 		

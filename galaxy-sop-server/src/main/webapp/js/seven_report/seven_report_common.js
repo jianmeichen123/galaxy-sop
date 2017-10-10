@@ -185,12 +185,12 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").text(_parsefloat(title.resultList[0].contentDescribe1)==undefined ?"未填写":title.resultList[0].contentDescribe1);
 			}
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
 			}
 		}
 		if(title.type == 2)
@@ -564,10 +564,10 @@ function buildResults(sec,title,readonly)
 				if(str!=null || str!=undefined){
 					strs=str.split("p")
 				}
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
                     if (title.id == '1939' ){
-                        $(".field[data-title-id='1939']").text(title.resultList[0].contentDescribe1+title.content+strs[0])
+                        $(".field[data-title-id='1939']").text(_parsefloat(title.resultList[0].contentDescribe1)+title.content+strs[0])
                             //title.resultList[0].contentDescribe1 =
                     }else{
                         $(".field[data-title-id='"+title.id+"']").next().show();
@@ -592,7 +592,7 @@ function buildResults(sec,title,readonly)
 			{
 				var result_id = title.resultList[0].id;
 				var result_parentId = title.resultList[0].titleId
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
+				$("input[data-title-id='"+title.id+"']").val(_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
 				var str = title.resultList[0].contentDescribe2
 				var strs= new Array();
 				if(str!=null || str!=undefined){
@@ -854,7 +854,7 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
