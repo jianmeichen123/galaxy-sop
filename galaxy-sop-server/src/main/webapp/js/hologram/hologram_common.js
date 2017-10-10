@@ -1987,7 +1987,7 @@ function editRow(ele)
 					 $('#finace_popup_name').html('查看融资历史');
 					 $("#complete_title").html('查看综合竞争比较');
 					 $("#pop-title-gs").text('查看同类公司');
-					 $("#pop-title-time").text('查看融资的里程碑和时间节点');
+					 $("#pop-title-time").text('查看里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
 					 $("#pop-title-yy").html('查看关键运营指标变化');
 					
