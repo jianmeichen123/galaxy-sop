@@ -869,6 +869,7 @@ function buildRow(row,showOpts,titleId)
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
+			
 			//新增的时候添加title
 			if(titleId==='1325'){//股权结构合理性
 				var targetTd = tr.find('td[data-field-name="field1"]');

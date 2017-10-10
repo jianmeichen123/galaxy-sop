@@ -877,6 +877,7 @@ function saveForm(form)
     {
         var data = $(form).serializeObject();
         saveRow(data);
+        
     }
 }
 
