@@ -858,9 +858,14 @@ function buildRow(row,showOpts,titleId)
 	{
 		var $this = $(this);
 		var k  = $this.data('fieldName');
+		console.log(k)
+		if(k === 'field1'){
+			num = k;
+		}
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				tr.append('<td data-field-name="'+k+'" title="'+row[k]+'">'+_parsefloat(row[k])+'</td>');
+				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+				tr.find('td:eq(0)').attr('title',row[num]);
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
