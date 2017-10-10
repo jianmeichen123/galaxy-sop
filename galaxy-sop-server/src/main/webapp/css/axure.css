@@ -1014,8 +1014,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .pop{  position:absolute; left:0; top:0; z-index:1000; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
 .popzx{ z-index:9999}
 .pop .close{ position:absolute; right:8px; top:6px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
-.pop .poptxt{ position:relative; padding:10px;max-height: 450px;overflow-y: auto;}
-/*请稍候*/
+.pop .poptxt{ position:relative; padding:10px;}
 .pop .popwait{ line-height:100px; font-size:20px; color:#999; text-align:center}
 .pop .ico{ background-image:url(../img/tcico.png)}
 /*认领弹窗*/
@@ -2385,6 +2384,7 @@ margin: 45px auto 30px;}
 .qualifications{position: relative;min-height: 125px;}
 .qualifications .add{position: absolute;top: 8px;right: 10px;cursor:pointer;font-size: 12px;font-family: "宋体"}
 .qualificationstc,.stocktc{width:560px;}
+.qualificationstc{max-height:500px;overflow:auto;}
 .qualificationstc dl,.stocktc dl{margin-bottom: 10px;}
 .stocktc dd textarea{width:300px;height:50px;}
 /* 添加项目第二页提示框 */
