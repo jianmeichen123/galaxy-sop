@@ -493,6 +493,11 @@ function jointDeliveryList(list){
 	var temp=$("#jointDelivery");
 	temp.append(html);
 	for(var i=0;i<list.length;i++){
+		if(list[i].deliveryCurrency=="currency:1"){
+			list[i].deliveryCurrency='美元'
+		}else{
+			list[i].deliveryCurrency='人民币'
+		}
 	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryCurrency+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
 	   temp.append(html);
 	}	
