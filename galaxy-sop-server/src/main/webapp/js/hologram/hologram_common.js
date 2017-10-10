@@ -253,12 +253,12 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 			}
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
 			}
 		}
 		if(title.type == 2)
@@ -334,7 +334,7 @@ function buildResults(sec,title,readonly)
 				else
 				{
 					
-					$("input[data-id='"+title.id+"']").val(n.contentDescribe1);
+					$("input[data-id='"+title.id+"']").val(n.contentDescribe1==undefined ?"":n.contentDescribe1);
 				}
 			}
 			
@@ -493,8 +493,8 @@ function buildResults(sec,title,readonly)
 				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
 				var result_id = title.resultList[0].id;
-				textareas.eq(0).val(str).attr("resultId",result_id);
-				textareas.eq(1).val(str2).attr("resultId",result_id);
+				textareas.eq(0).val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
+				textareas.eq(1).val(title.resultList[0].contentDescribe2==undefined ?"":str2).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 16)
@@ -544,7 +544,7 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
-				$("textarea[data-title-id='"+title.id+"']").val(str).attr("resultId",result_id);
+				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 14)
@@ -565,14 +565,16 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
-				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
+				if(title.resultList[0].contentDescribe1 !=undefined){
 					$(".field[data-title-id='"+title.id+"']").next().show();
+				}else{
+					$(".field[data-title-id='"+title.id+"']").next().hide();
 				}
 			}
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);			
 			}
 		}
 		if( title.type == 20)
@@ -585,7 +587,7 @@ function buildResults(sec,title,readonly)
 					strs=str.split("p")
 				}
 				
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
 					$(".field[data-title-id='"+title.id+"']").next().show();
 					$(".field[data-title-id='"+title.id+"']").next().next().text(strs[0]).show();
@@ -598,7 +600,7 @@ function buildResults(sec,title,readonly)
 			{	
 				var result_id = title.resultList[0].id;	
 				var result_parentId = title.resultList[0].titleId
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
 				var str = title.resultList[0].contentDescribe2
 				var strs= new Array();
 				if(str!=null || str!=undefined){
@@ -808,8 +810,8 @@ function buildTable(sec,title)
 					$('.limit-number').each(function(){
 						var _this = $(this);
 						var tdText = _this.text();
+						alert(tdText);
 						_this.attr('title',tdText);
-						//_this.setAttribute('title',"tdText");
 					})
 				};
 				//股权结构合理性
@@ -856,8 +858,17 @@ function buildRow(row,showOpts,titleId)
 	{
 		var $this = $(this);
 		var k  = $this.data('fieldName');
+		/*if(k === 'field1'){
+			num = k;
+		}*/
 		if(k!="opt"){
-			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+			if(row[k]!=undefined && row[k]!=null){
+				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+				//tr.find('td:eq(0)').attr('title',row[num]);
+			}else{
+				tr.append('<td data-field-name="'+k+'"></td>');
+			}
+			
 		}
 			
 	});
@@ -1951,7 +1962,15 @@ function saveRow(data)
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
 			{
 				tr.data(key,data[key]);
-				tr.find('td[data-field-name="'+key+'"]').text(data[key]);
+				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
+				if(titleId=="1903"||titleId=="1908"){
+					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
+				}else if(titleId=="1906"){
+					tr.find('td[data-field-name=field1]').attr('title',data["field1"]);
+				}else if(titleId=="1912"){
+					tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]);
+				}
+				
 			}
 		}
 	}
@@ -1977,9 +1996,9 @@ function editRow(ele)
 					 $('#finace_popup_name').html('查看融资历史');
 					 $("#complete_title").html('查看综合竞争比较');
 					 $("#pop-title-gs").text('查看同类公司');
-					 $("#pop-title-time").text('查看融资的里程碑和时间节点');
+					 $("#pop-title-time").text('查看里程碑和时间节点');
 					 $("#pop-title").text('查看分期注资计划');
-					 $("#pop-title-yy").html('查看关键运营指标变化');
+					 $("#pop-title-yy").html('查看运营指标变化');
 					
 				}else{
 					$(".see_block").hide();
@@ -2011,7 +2030,7 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-					ele.val(row.data(name));
+					ele.val(_parsefloat(row.data(name)));
 				}
 			});
 			//查看显示
@@ -2028,14 +2047,18 @@ function editRow(ele)
 					}
 					var val=$(".see_block").find("dd[name='field6']").text();
 					if(row.data('field3')==""){
-						$(".see_block").find("dd[name='field3']").text(row.data('field3'));
+						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3')));
+					}else if(row.data('field3')==undefined || row.data('field3')==null){
+						$(".see_block").find("dd[name='field3']").text('');
 					}else{
-						$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3'))+'万'+val);
 					}
 					if(row.data('field5')==""){
-						$(".see_block").find("dd[name='field5']").text(row.data('field5'));
+						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')));
+					}else if(row.data('field5')==undefined || row.data('field5')==null){
+						$(".see_block").find("dd[name='field5']").text('');
 					}else{
-						$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')+'万'+val));
 					}
 					
 				});
@@ -2055,9 +2078,11 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				if(row.data(name)==""){
-					ele.text(row.data(name));
+					ele.text(_parsefloat(row.data(name)));
+				}else if(row.data(name)==undefined || row.data(name)==null){
+					ele.text("");
 				}else{
-					ele.text(row.data(name)+'万元');
+					ele.text(_parsefloat(row.data(name))+'万元');
 				}
 				
 			})
@@ -2066,9 +2091,11 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				if(row.data(name)==""){
-					ele.text(row.data(name));
+					ele.text(_parsefloat(row.data(name)));
+				}else if(row.data(name)==undefined || row.data(name)==null){
+					ele.text("");
 				}else{
-					ele.text(row.data(name)+'%');
+					ele.text(_parsefloat(row.data(name))+'%');
 				}
 				
 			})

@@ -28,6 +28,7 @@ import com.galaxyinternet.bo.GrantActualBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -36,6 +37,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.GrantActual;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
@@ -46,6 +48,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
@@ -80,6 +83,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private InformationListdataService informationListdataService;
 	@Autowired
 	InformationFileService informationFileService;
+	@Autowired
+	Cache cache;
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
 		return this.grantActualService;
@@ -162,6 +167,14 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 							actual.getPageSize(), 
 							Direction.fromString("desc"), 
 							"created_time"));
+			List<InformationListdata> content = actualPage.getContent();
+			if(content != null && content.size() > 0){
+				for(InformationListdata c : content){
+					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+c.getUpdateId(), "realName"));
+					c.setUpdateTimeStr(DateUtil.longToString(c.getUpdateTime()));
+				}
+				actualPage.setContent(content);
+			}
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
 			_common_logger_.error("查询实际注资列表失败！查询条件：" + actual, e);

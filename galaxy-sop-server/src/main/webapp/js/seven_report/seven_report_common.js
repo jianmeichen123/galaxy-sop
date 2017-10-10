@@ -185,12 +185,12 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").text(_parsefloat(title.resultList[0].contentDescribe1)==undefined ?"未填写":title.resultList[0].contentDescribe1);
 			}
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
 			}
 		}
 		if(title.type == 2)
@@ -258,7 +258,7 @@ function buildResults(sec,title,readonly)
 						$("input[data-title-id='"+n.titleId+"'][value='"+n.contentChoose+"']").attr('checked','true').siblings().removeAttr("checked");
 						$("input[data-title-id='"+n.titleId+"']").attr("resultId",result_id);
 					}else{
-						$("textarea[data-title-id='"+n.titleId+"']").val(str).attr("resultId",result_id);
+						$("textarea[data-title-id='"+n.titleId+"']").val(n.contentDescribe1==undefined ?"":str).attr("resultId",result_id);
 					}
 				
 					
@@ -281,7 +281,7 @@ function buildResults(sec,title,readonly)
 				else
 				{
 					
-					$("input[data-id='"+title.relateId+"']").val(n.contentDescribe1);
+					$("input[data-id='"+title.relateId+"']").val(n.contentDescribe1==undefined ?"":n.contentDescribe1);
 				}
 			}
 			
@@ -439,8 +439,8 @@ function buildResults(sec,title,readonly)
 				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
 				var result_id = title.resultList[0].id;
-				textareas.eq(0).val(str).attr("resultId",result_id);
-				textareas.eq(1).val(str2).attr("resultId",result_id);
+				textareas.eq(0).val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
+				textareas.eq(1).val(title.resultList[0].contentDescribe2==undefined ?"":str2).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 16)
@@ -490,7 +490,7 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
-				$("textarea[data-title-id='"+title.id+"']").val(str).attr("resultId",result_id);
+				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 14)
@@ -509,20 +509,21 @@ function buildResults(sec,title,readonly)
 		}
 		if(title.type == 19 )
 		{
-			if(title.id=="3012"){
+			/*if(title.id=="3012"){
 				var num =title.resultList[0].contentDescribe1;
 				if(num!=undefined && num!="" && num.indexOf(".")>-1){
 					var nums=num.split(".");
 				}
-			}
+			}*/
 			if(readonly == true)
 			{
 				if(title.id=="3012"){
-					if(nums && nums[1].length>4){
+					/*if(nums && nums[1].length>4){
 						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":Number(num).toFixed(4)*10000/10000);
 					}else{
 						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num*10000/10000);
-					}
+					}*/
+					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				}else{
 					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
 				}
@@ -538,17 +539,18 @@ function buildResults(sec,title,readonly)
 				var result_id = title.resultList[0].id;
 				if(title.id=="3012"){
 					if(title.resultList[0].contentDescribe1){
-						if(nums && nums[1].length>4){
+						/*if(nums && nums[1].length>4){
 							$("input[data-title-id='"+title.id+"']").val(Number(num).toFixed(4)*10000/10000).attr("resultId",result_id);
 						}else{
 							$("input[data-title-id='"+title.id+"']").val(num*10000/10000).attr("resultId",result_id);
-						}
+						}*/
+						$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
 					}else{
 						$("input[data-title-id='"+title.id+"']").val('').attr("resultId",result_id);
 					}
 					
 				}else{
-					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);
+					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);
 				}
 			}
 		}
@@ -562,10 +564,10 @@ function buildResults(sec,title,readonly)
 				if(str!=null || str!=undefined){
 					strs=str.split("p")
 				}
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
                     if (title.id == '1939' ){
-                        $(".field[data-title-id='1939']").text(title.resultList[0].contentDescribe1+title.content+strs[0])
+                        $(".field[data-title-id='1939']").text(_parsefloat(title.resultList[0].contentDescribe1)+title.content+strs[0])
                             //title.resultList[0].contentDescribe1 =
                     }else{
                         $(".field[data-title-id='"+title.id+"']").next().show();
@@ -590,7 +592,7 @@ function buildResults(sec,title,readonly)
 			{
 				var result_id = title.resultList[0].id;
 				var result_parentId = title.resultList[0].titleId
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1).attr("resultId",result_id);
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
 				var str = title.resultList[0].contentDescribe2
 				var strs= new Array();
 				if(str!=null || str!=undefined){
@@ -851,7 +853,11 @@ function buildRow(row,showOpts,titleId)
 		var $this = $(this);
 		var k  = $this.data('fieldName');
 		if(k!="opt"){
-			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+			if(row[k]!=undefined && row[k]!=null){
+				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+			}else{
+				tr.append('<td data-field-name="'+k+'"></td>');
+			}
 		}
 
 	});
@@ -1082,7 +1088,7 @@ function validate(){
 	 for(var i=0;i<inputs.length;i++){
 		 	var inputValRule=inputs.eq(i).attr("data-valrule");
 			var inputValRuleMark=inputs.eq(i).attr("data-valrulemark");
-			var inputDataId = inputs.eq(i).attr('data-title-id');
+			//var inputDataId = inputs.eq(i).attr('data-title-id');
 			
 			if(inputValRule=="2" && inputValRuleMark=="3"){
 				var validate={
@@ -1093,7 +1099,7 @@ function validate(){
 						"data-msg-vinputValRule_2":"<font color=red>*</font>支持0～999的整数"
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputDataId=='3010'){
+			}/*else if(inputDataId=='3010'){
 				var validte = {
 						"data-rule-verify_3010":"true",
 						"name":i,
@@ -1114,7 +1120,7 @@ function validate(){
 						"data-msg-verify_3012":"<font color=red>*</font>支持13位长度的四位小数 "
 				}
 				inputs.eq(i).attr(validate);
-			}else if(inputValRule=="2" && inputValRuleMark=="2"){
+			}*/else if(inputValRule=="2" && inputValRuleMark=="2"){
 				var validate={
 						//"regString":"^[0-9]{1,3}$",
 						"data-rule-vinputValRule_1":"true",

@@ -188,10 +188,10 @@ var data = {};
 				rename : true,
 				unique_names:true,
 				filters : {
-					max_file_size : '2mb',
-					mime_types: [
+					max_file_size : '25mb'
+					/*mime_types: [
 							{title : "Image files", extensions : "jpg,png,gif,bmp"}
-					]
+					]*/
 				},
 				init: {
 					PostInit: function(up) {
@@ -245,7 +245,7 @@ var data = {};
 				    },
 					Error: function(up, err) {
 						if(err.code==-600){
-							layer.msg("图片不能大于2M");
+							layer.msg("文件不能大于25M");
 						}
 					}
 					

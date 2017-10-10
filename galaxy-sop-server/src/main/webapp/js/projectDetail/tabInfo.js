@@ -493,6 +493,11 @@ function jointDeliveryList(list){
 	var temp=$("#jointDelivery");
 	temp.append(html);
 	for(var i=0;i<list.length;i++){
+		if(list[i].deliveryCurrency=="currency:1"){
+			list[i].deliveryCurrency='美元'
+		}else{
+			list[i].deliveryCurrency='人民币'
+		}
 	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryCurrency+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
 	   temp.append(html);
 	}	
@@ -580,10 +585,10 @@ function buildShareResult(reportType,relateId){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
 							if(null!=title.resultList&&title.resultList.length>0){
-								var _val = title.resultList[0].contentDescribe1;
+								var _val =title.resultList[0].contentDescribe1;								
 								//这个是公共的 所以需要判断ID
 								if ((title.id =="3004"||title.id =="3010"||title.id =="3011"||title.id =="3012")&&_val) {
-									_val=_val*10000/10000;
+									_val = _parsefloat(_val);
 								}
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"—":_val);
 								$("input[data-title-id='"+title.id+"']").val(_val).attr({"data-result-id":title.resultList[0].id});	
@@ -609,8 +614,9 @@ function buildMoneyResult(pid){
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val = title.resultList[0].contentDescribe1;
-								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"—":_val*100000/100000);
-								$("input[data-title-id='"+title.id+"']").val(_val==undefined ?"":_val*100000/100000).attr({"data-result-id":title.resultList[0].id});	
+								_val=_parsefloat(_val);
+								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"—":_val);
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—")
 							}
