@@ -222,6 +222,7 @@ $(function(){
 					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").attr("selected",true);
 					$("#faNameEdit").val(projectInfo.faName);
 					$("#faNameEdit").css("display","block");
+					$("#faNameEdit").attr('required','required');
 				}else{
 					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").attr("selected",true);
 					$("#faNameEdit").css("display","none");
