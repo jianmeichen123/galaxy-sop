@@ -245,7 +245,7 @@ var data = {};
 				    },
 					Error: function(up, err) {
 						if(err.code==-600){
-							layer.msg("图片不能大于25M");
+							layer.msg("文件不能大于25M");
 						}
 					}
 					
