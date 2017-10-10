@@ -99,7 +99,7 @@ function buildRow(row,showOpts,titleId)
 			if(row[k]==""||row[k]==undefined){
 				row[k]="—";
 			}
-			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
+			tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
 		}
 		
 	});
@@ -169,14 +169,14 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-					ele.val(row.data(name));
+					ele.val(_parsefloat(row.data(name)));
 				}
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				var val_text = row.data(name);
+				var val_text = _parsefloat(row.data(name));
 				if(code=="equity-structure"&&name=="field1"){
 					ele.attr("title",val_text);
 				}
@@ -191,14 +191,14 @@ function editRow(ele)
 					}
 					var val=$(".see_block").find("dd[name='field6']").text();
 					if(row.data('field3')==""){
-						$(".see_block").find("dd[name='field3']").text(row.data('field3'));
+						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3')));
 					}else{
-						$(".see_block").find("dd[name='field3']").text(row.data('field3')+'万'+val);
+						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3'))+'万'+val);
 					}
 					if(row.data('field5')==""){
-						$(".see_block").find("dd[name='field5']").text(row.data('field5'));
+						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')));
 					}else{
-						$(".see_block").find("dd[name='field5']").text(row.data('field5')+'万'+val);
+						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5'))+'万'+val);
 					}
 					
 				});
@@ -206,7 +206,7 @@ function editRow(ele)
 					var selectId=$(this).val();
 					var selectVal=$("#financeDetail").find("input[type='radio'][value='"+selectId+"']").parent().text();
 					if(row.data(name)==selectId){
-						ele.text(selectVal);
+						ele.text(_parsefloat(selectVal));
 					}
 				});
 				
@@ -230,9 +230,9 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				if(row.data(name)==""){
-					ele.text(row.data(name));
+					ele.text(_parsefloat(row.data(name)));
 				}else{
-					ele.text(row.data(name)+'%');
+					ele.text(_parsefloat(row.data(name))+'%');
 				}
 				
 			})
