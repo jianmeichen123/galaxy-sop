@@ -334,7 +334,7 @@ function buildResults(sec,title,readonly)
 				else
 				{
 					
-					$("input[data-id='"+title.id+"']").val(n.contentDescribe1);
+					$("input[data-id='"+title.id+"']").val(n.contentDescribe1==undefined ?"":n.contentDescribe1);
 				}
 			}
 			
