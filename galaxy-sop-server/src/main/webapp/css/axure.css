@@ -1786,6 +1786,7 @@ word-wrap:break-word;
 .legal{height: 125px;}
 .tabtable_con_on .legal{height: auto;}
 .hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 125px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
+.tabtable_con_on .hidden{border-top-left-radius: 6px; }
 .hidden td input,.legal_box input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}
 .legal .btn button{float: left;margin-left: 10px;}
 .stock .bars{margin:0 !important;}
@@ -1875,6 +1876,7 @@ word-wrap:break-word;
   position: absolute;
   background-color: #fff;
   width: 100%;
+  overflow: hidden;
 }
 .company_on,.portrayal_on,.product_on,.project_on,.operation_on,.industry_on,.next_financing_on,.analysis_on{ 
 	z-index:1000;
