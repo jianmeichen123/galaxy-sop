@@ -810,7 +810,6 @@ function buildTable(sec,title)
 					$('.limit-number').each(function(){
 						var _this = $(this);
 						var tdText = _this.text();
-						alert(tdText);
 						_this.attr('title',tdText);
 					})
 				};
@@ -1948,6 +1947,9 @@ function saveRow(data)
 {
 	data = JSON.parse(data);
 	var titleId = data.titleId;
+	var titleCode;
+	console.log(data)
+		
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
@@ -1963,12 +1965,15 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
-				if(titleId=="1903"||titleId=="1908"){
+				
+				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
-				}else if(titleId=="1906"){
+				}else if(titleId=="1920"){//市场同类公司估值参考
 					tr.find('td[data-field-name=field1]').attr('title',data["field1"]);
-				}else if(titleId=="1912"){
-					tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]);
+				}else if(titleId=='1325'){//股权结构合理性
+					tr.find('td[data-field-name=field1]').attr('title',data["field1"])
+				}else if(titleId=='1906'){//股权结构
+					tr.find('td[data-field-name=field1]').attr('title',data["field1"])
 				}
 				
 			}
