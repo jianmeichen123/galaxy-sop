@@ -554,7 +554,7 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-						ele.val(row.data(name));
+						ele.val(_parsefloat(row.data(name)));
 				}
 			});
 			//查看显示
