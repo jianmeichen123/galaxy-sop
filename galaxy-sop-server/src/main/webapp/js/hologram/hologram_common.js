@@ -1964,12 +1964,11 @@ function saveRow(data)
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
 				if(titleId=="1903"||titleId=="1908"){
-					alert(data[key]);
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
 				}else if(titleId=="1906"){
 					tr.find('td[data-field-name=field1]').attr('title',data["field1"]);
 				}else if(titleId=="1912"){
-					tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]);
+					tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]));
 				}
 				
 			}
