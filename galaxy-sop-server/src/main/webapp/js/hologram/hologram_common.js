@@ -334,7 +334,7 @@ function buildResults(sec,title,readonly)
 				else
 				{
 					
-					$("input[data-id='"+title.id+"']").val(n.contentDescribe1);
+					$("input[data-id='"+title.id+"']").val(n.contentDescribe1==undefined ?"":n.contentDescribe1);
 				}
 			}
 			
@@ -565,8 +565,10 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
-				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
+				if(title.resultList[0].contentDescribe1 !=undefined){
 					$(".field[data-title-id='"+title.id+"']").next().show();
+				}else{
+					$(".field[data-title-id='"+title.id+"']").next().hide();
 				}
 			}
 			else
@@ -851,6 +853,7 @@ function buildRow(row,showOpts,titleId)
 	{
 		//设置data
 		tr.data(key,row[key]);
+		tr.attr('title',row[key]);
 	}
 	$.each(ths,function()
 	{
@@ -1957,6 +1960,8 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
+				//ch当编辑时给每个td添加title属性
+				tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]);
 			}
 		}
 	}

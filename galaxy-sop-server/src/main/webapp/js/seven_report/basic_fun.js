@@ -896,6 +896,8 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
+				//ch当编辑时给每个td添加title属性
+				tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]); 
 			}
 		}
 		

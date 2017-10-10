@@ -314,12 +314,17 @@ function operFormat(value,row,index){
 								$("#deliver_form [data-name='id']").val(deliverInfo.id);
 								$("#deliver_form [data-name='field1']").val(deliverInfo.field1);
 								$("#deliver_form [data-name='field2']").val(deliverInfo.field2);
-								//$("#deliver_form [data-name='field3']").val(deliverInfo.field3);
 								$("#deliver_form").find("input[data-name='field3'][value="+deliverInfo.field3+"]").attr('checked','true');
 							}else{
 								$("#delDescribe").html(deliverInfo.field1);
 								$("#details").html(deliverInfo.field2);
-								$("#delStatus").html(deliverInfo.field3);
+								
+								if(deliverInfo.field3 == '2176'){
+									$("#delStatus").html('已完成');
+								}else{
+									$("#delStatus").html('未完成');
+								}
+								
 							}
 							$.each(data.entity.fileList,function(){
 								var but = "<button type='button' id='"+this.id+"btn' onclick=delPart('"+this.id+"','"+this.fileName+"','textarea2','partDelFile')>删除</button>" ;
