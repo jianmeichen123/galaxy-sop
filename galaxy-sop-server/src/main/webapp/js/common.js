@@ -4,7 +4,7 @@ $(document).ajaxSend(function(event, xhr, settings) {
 		xhr.setRequestHeader("pageId",pageId);
 	}
 });
-//去除小数点末尾无用0  9999999999999.9999 特殊处理
+//去除小数点末尾无用0  
 function _parsefloat(date){
 	var dd =  String(date).split(".");
 	if(dd.length>=2){
