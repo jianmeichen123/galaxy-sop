@@ -192,11 +192,15 @@ function editRow(ele)
 					var val=$(".see_block").find("dd[name='field6']").text();
 					if(row.data('field3')==""){
 						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3')));
+					}else if(row.data('field3')==undefined || row.data('field3')==null){
+						$(".see_block").find("dd[name='field3']").text('');
 					}else{
 						$(".see_block").find("dd[name='field3']").text(_parsefloat(row.data('field3'))+'万'+val);
 					}
 					if(row.data('field5')==""){
 						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')));
+					}else if(row.data('field5')==undefined || row.data('field5')==null){
+						$(".see_block").find("dd[name='field5']").text('');
 					}else{
 						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5'))+'万'+val);
 					}
@@ -220,6 +224,8 @@ function editRow(ele)
 				var name = ele.attr('name');
 				if(row.data(name)==""){
 					ele.text(row.data(name));
+				}else if(row.data(name)==undefined || row.data(name)==null){
+					ele.text("");
 				}else{
 					ele.text(row.data(name)+'万元');
 				}
@@ -231,6 +237,8 @@ function editRow(ele)
 				var name = ele.attr('name');
 				if(row.data(name)==""){
 					ele.text(_parsefloat(row.data(name)));
+				}else if(row.data(name)==undefined || row.data(name)==null){
+					ele.text("");
 				}else{
 					ele.text(_parsefloat(row.data(name))+'%');
 				}

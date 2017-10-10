@@ -190,7 +190,7 @@ function buildResults(sec,title,readonly)
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1)==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
 			}
 		}
 		if(title.type == 2)
