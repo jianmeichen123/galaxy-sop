@@ -903,8 +903,17 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
-				//ch当编辑时给每个td添加title属性
-				tr.find('td[data-field-name="'+key+'"]').attr('title',data[key]); 
+				//编辑的时候添加title显示
+				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
+					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
+				}else if(titleId=="1920"){//市场同类公司估值参考
+					tr.find('td[data-field-name=field1]').attr('title',data["field1"]);
+				}else if(titleId=='1325'){//股权结构合理性
+					tr.find('td[data-field-name=field1]').attr('title',data["field1"])
+				}else if(titleId=='1906'){//股权结构
+					tr.find('td[data-field-name=field1]').attr('title',data["field1"])
+				}
+				
 			}
 		}
 		

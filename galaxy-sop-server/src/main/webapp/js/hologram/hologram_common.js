@@ -848,6 +848,8 @@ function buildRow(row,showOpts,titleId)
 	var table =$('table[data-title-id="'+titleId+'"]:eq(0)');
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
+	var titleId = table.attr('data-title-id');
+	console.log(titleId)
 	for(var key in row)
 	{
 		//设置data
@@ -867,6 +869,18 @@ function buildRow(row,showOpts,titleId)
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
+			//新增的时候添加title
+			if(titleId==='1325'){//股权结构合理性
+				var targetTd = tr.find('td[data-field-name="field1"]');
+				targetTd.attr('title',targetTd.text());
+			}else if(titleId==='1908'){//主要战略投资人，财务投资人投资情况
+				var targetTd = tr.find('td[data-field-name="field2"]');
+				targetTd.attr('title',targetTd.text());
+			}else if(titleId==='1920'){//市场同类公司估值参考
+				var targetTd = tr.find('td[data-field-name="field1"]');
+				targetTd.attr('title',targetTd.text());
+			}
+			
 			
 		}
 			
@@ -1965,7 +1979,7 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
-				
+				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
 				}else if(titleId=="1920"){//市场同类公司估值参考
