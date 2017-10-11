@@ -191,6 +191,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private JointDeliveryService jointDeliveryService;
+	
 	 
 	@Resource(name ="utilsService")
 	private UtilsService utilsService;
@@ -349,6 +350,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 				final long id = projectService.newProject(project, file);
 				if (id > 0) {
+					
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
 					if(file!=null){

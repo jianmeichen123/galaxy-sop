@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.hr.PersonLearnDao;
 import com.galaxyinternet.dao.hr.PersonWorkDao;
@@ -39,6 +40,7 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.JointDelivery;
@@ -90,6 +92,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private PersonPoolDao personPoolDao;
 	@Autowired
 	private JointDeliveryDao jointDeliveryDao;
+	
+	@Autowired
+	private InformationResultDao informationResultDao;
 
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -207,6 +212,17 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			sopFileDao.insert(f);
 			f.setId(null);
 		/*}*/
+			User user = WebUtils.getUserFromSession();
+			Long userId = user != null ? user.getId() : null;
+			Long now = new Date().getTime();
+			InformationResult re=new InformationResult();
+			re.setTitleId("1108");
+			re.setProjectId(String.valueOf(id));
+			re.setContentChoose("尚未获投");
+			re.setCreatedTime(now);
+			re.setCreateId(userId.toString());
+			informationResultDao.insert(re);
+			
 		return id;
 	}
 
