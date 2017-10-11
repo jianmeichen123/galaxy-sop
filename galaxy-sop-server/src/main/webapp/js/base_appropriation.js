@@ -38,6 +38,7 @@ function queryBack(data){
 					  var grantPart=partList[k];
 					  var o=_this;					
 					  $("#tabApprSingleList_"+1+"").append(assembleSingleTabHtml(grantPart,null,1,k));
+						 //check_table_tr_edit( $("#tabApprSingleList_1"));
 					}
 				}else{
 					var noData =
@@ -46,7 +47,6 @@ function queryBack(data){
 						' </tr>'; 			
 					 $("#tabApprSingleList_"+i+"").append(noData);
 				}
-			
 			if(isEditable != 'true')
 			{
 			 	$("#tabApprAllList .b_agreement_r .rolehide").hide();
@@ -54,6 +54,7 @@ function queryBack(data){
 			}
 		}
 	}
+	$("body").css("overflow-y","auto");
 }
 function  assembleHtml(grantTotal,i){
 	

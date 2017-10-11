@@ -99,7 +99,7 @@ var searchPartMoney;
 	    	
 	    }
 		//编辑总注资计划
-		$("[data-btn='actual_aging']").on("click",function(){ 	
+		$("[data-btn='actual_aging']").on("click",function(){
 		if(!getTotalAppr(pId)){
 			 $.getHtml({
 					url:Constants.sopEndpointURL+'/html/beforeSave.html',  
