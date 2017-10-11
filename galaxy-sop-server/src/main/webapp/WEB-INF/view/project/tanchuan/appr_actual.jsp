@@ -32,7 +32,7 @@
 			        	<!-- <th data-field="field1" data-formatter="grantMoneyFormat"  class="data-input" >实际注资金额（万元）</th>
 			        	<th data-field="field2" data-formatter="createDateFormat" class="data-input"  >实际注资日期<span></span></th> -->
 			        	<th data-field="field1" class="data-input" >实际注资名称</th>
-			        	<th data-field="field3" class="data-input" >实际注资金额（万元）</th>
+			        	<th data-field="field3" class="data-input" data-formatter="actualMoneyFormat">实际注资金额（万元）</th>
 			        	<th data-field="field2" class="data-input"  >实际注资日期<span></span></th>
 			        	<th data-field="updateUserName" class="data-input">注资人<span></span></th>
 			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder">操作</th>
@@ -50,6 +50,9 @@
 	    	if(value && value != ''){
 	    		return value;
 	    	}else return '';
+	    }
+	    function actualMoneyFormat(value, row, index){
+	    	return _parsefloat(value);
 	    }
 	    function grantMoneyFormat(value, row, index){
 	    	return fixSizeDecimal(value,4);
@@ -232,11 +235,11 @@
     										$("#form_edit_actual_dialog [data-name='id']").val(grantActualInfo.id);
     										$("#form_edit_actual_dialog [data-name='field1']").val(grantActualInfo.field1);
     										$("#form_edit_actual_dialog [data-name='field2']").val(grantActualInfo.field2);
-    										$("#form_edit_actual_dialog [data-name='field3']").val(grantActualInfo.field3);
+    										$("#form_edit_actual_dialog [data-name='field3']").val(_parsefloat(grantActualInfo.field3));
     									}else{
     										$("#grantName").html(grantActualInfo.field1);
     										$("#grantDetail").html(grantActualInfo.field2);
-    										$("#grantMoney").html(grantActualInfo.field3);
+    										$("#grantMoney").html(_parsefloat(grantActualInfo.field3));
     									}
     									$("#btn_add_appr_actual").attr("data-actual-id","");
 						    			$("#btn_add_appr_actual").attr("data-type",""); 

@@ -23,8 +23,8 @@
 	                <dt>计划总注资金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
-	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" value="${value3004}" data-result-id="${result3004}" data-type="19" name="1"  
-	                    		value="<fmt:formatNumber value="${finalContributions}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
+	                    		<input class=" txt " type="text" id="grantMoney" data-title-id="3004" data-result-id="${result3004}" data-type="19" name="1"  
+	                    		value="<fmt:formatNumber value="${value3004}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>" onblur="set_finalValuations()"
 	                    		data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数" allowNULL="no" valType="LIMIT_11_NUMBER" />
 	                    	<span class='money'>万元</span>
 	                    </div> 
@@ -34,8 +34,8 @@
 	                <dt>股权占比 ：</dt>
 	                <dd>
 	                	<div id="setValue">
-	                    	<input class="txt" type="text" data-title-id="3010" data-result-id="${result3010}" value="${value3010}" data-type="19" size ="10" id="finalShareRatio" name="2" 
-	                    		value="<fmt:formatNumber value="${finalShareRatio}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
+	                    	<input class="txt" type="text" data-title-id="3010" data-result-id="${result3010}" data-type="19" size ="10" id="finalShareRatio" name="2" 
+	                    		value="<fmt:formatNumber value="${value3010}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>"  onblur="set_finalValuations()"
 	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3010="true"  data-msg-verify_3010="<font color=red>*</font>支持0到100之间的四位小数"/>
 	                    	<span class='money'>%</span>
 	                    </div>
@@ -45,7 +45,7 @@
 	                <dt>加速服务费占比 ：</dt>
 	                <dd>
 	                	<div id="setValue"> <!-- regString="^(\d{1,2}(\.\d{1,4})?)$"   -->
-	                    	<input class="txt" type="text" data-title-id="3011" data-result-id="${result3011}" value="${value3011}" data-type="19" size ="10" id="serviceCharge" name="3" value="<fmt:formatNumber value="${serviceCharge}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>" 
+	                    	<input class="txt" type="text" data-title-id="3011" data-result-id="${result3011}" data-type="19" size ="10" id="serviceCharge" name="3" value="<fmt:formatNumber value="${value3011}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>" 
 	                    		maxLength="20"  allowNULL="no" valType="OTHER"  data-rule-verify_3011="true"  data-msg-verify_3011="<font color=red>*</font>支持0到5之间的四位小数"/>
 	                    	<span class='money'>%</span>
 	                    </div>

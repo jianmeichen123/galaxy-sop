@@ -61,7 +61,7 @@ function  assembleHtml(grantTotal,i){
 		  +'<div class="b_agreement_l fl">'
 		     /*+'<h3>'+grantTotal.grantName+'</h3>'*/
 	        /* +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+fixSizeDecimal(grantTotal.grantMoney,4)+'</dd></dl>'*/
-		     +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
+		     +'<dl><dt>计划总注资金额（万元）：</dt><dd>'+_parsefloat(grantTotal.grantMoney)+'</dd></dl>'
             /* +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'*/
           +'</div>'    
@@ -100,9 +100,9 @@ function  assembleSingleTabHtml(grantPart,grantName,i,k){
 		   +'<td>'+grantPart.field2+'</td>'
 		  /* +'<td>'+fixSizeDecimal(grantPart.field3,4)+'</td>'*/
 		  /* +'<td id="part_'+i+'_'+k+'">'+fixSizeDecimal(grantPart.actualMoney,4)+'</td>'*/
-		   +'<td>'+grantPart.field3+'</td>'  
+		   +'<td>'+_parsefloat(grantPart.field3)+'</td>'  
 		   if(grantPart.field4){
-			   value += '<td>'+grantPart.field4*10000/10000+'</td>' 
+			   value += '<td>'+_parsefloat(grantPart.field4)+'</td>' 
 		   }else{
 			   value += '<td>—</td>' 
 		   }

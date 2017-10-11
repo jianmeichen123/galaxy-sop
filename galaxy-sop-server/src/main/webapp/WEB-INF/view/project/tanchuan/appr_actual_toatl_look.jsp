@@ -20,27 +20,27 @@
 	             <dl class="fmdl fl_l  clearfix">
 	                <dt>计划总注资金额：</dt>
 	                <dd>
-	                	<div><span><fmt:formatNumber value="${value3004}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
+	                	<div><span><fmt:formatNumber value="${value3004}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
 	                </dd>
 	            </dl>
                 
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>股权占比：</dt>
 	                <dd>
-	                	<div><span><fmt:formatNumber value="${value3010}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>%</span></div> 
+	                	<div><span><fmt:formatNumber value="${value3010}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>%</span></div> 
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>加速服务费占比：</dt>
 	                <dd>
-	                	<div><span><fmt:formatNumber value="${value3011}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>%</span></div> 
+	                	<div><span><fmt:formatNumber value="${value3011}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>%</span></div> 
 	                </dd>
 	            </dl>
 	            
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>项目估值：</dt>
 	                <dd>
-	                	<div><span><fmt:formatNumber value="${value3012}" pattern="#.####" minFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
+	                	<div><span><fmt:formatNumber value="${value3012}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
 	                </dd>
 	            </dl>
 	            

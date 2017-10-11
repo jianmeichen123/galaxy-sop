@@ -218,12 +218,12 @@ var searchPartMoney;
 									$("#actual_aging_container [data-name='id']").val(grantPartInfo.id);
 									$("#actual_aging_container [data-name='field1']").val(grantPartInfo.field1);
 									$("#actual_aging_container [data-name='field2']").val(grantPartInfo.field2);
-									$("#actual_aging_container [data-name='field3']").val(grantPartInfo.field3);
+									$("#actual_aging_container [data-name='field3']").val(_parsefloat(grantPartInfo.field3));
 									$("#actual_aging_container [data-name='field4']").val(grantPartInfo.field4);
 								}else{
 									$("#grantName").html(grantPartInfo.field1);
 									$("#grantDetail").html(grantPartInfo.field2);
-									$("#grantMoney").html(grantPartInfo.field3);
+									$("#grantMoney").html(_parsefloat(grantPartInfo.field3));
 									$("#payCondition").html(grantPartInfo.field4);
 								}
 								/* 
