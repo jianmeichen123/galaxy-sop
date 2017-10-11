@@ -185,7 +185,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(_parsefloat(title.resultList[0].contentDescribe1)==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				$(".field[data-title-id='"+title.id+"']").text(_parsefloat(title.resultList[0].contentDescribe1)==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 			}
 			else
 			{	
