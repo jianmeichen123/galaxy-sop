@@ -13,3 +13,6 @@ UPDATE `fx_db`.`information_title_relate` SET `title_id`='3001' WHERE `id`='7020
 
 update  fx_db.information_title_relate set code = REPLACE(code, 'FNO', 'FNO1_') where `report_type`=4;
 UPDATE `fx_db`.`information_title_relate` SET `code`='FNO1' WHERE `id`='7001';
+
+UPDATE `fx_db`.`dict` SET `is_delete`='1' WHERE `id`='209';
+UPDATE `fx_db`.`dict` SET `is_delete`='1' WHERE `id`='211';
