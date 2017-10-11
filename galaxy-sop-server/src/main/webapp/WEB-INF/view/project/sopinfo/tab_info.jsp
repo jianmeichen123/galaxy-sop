@@ -427,6 +427,7 @@
 	$("select[name='projectSource']").change(function(){
 		var text=$(this).find("option:checked").text();
 		if(text=="FA"){
+			$("#projectSource-error").hide();
 			$(this).siblings(".new_nputr").show();
 			$(this).siblings(".new_nputr").attr("required","required");
 		}else{

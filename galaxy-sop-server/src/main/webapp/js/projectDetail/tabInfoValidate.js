@@ -157,7 +157,7 @@
 				var sum=0;
 				$.each(prevEle,function(i,n){
 					if($(n).is(":visible")){
-						prevEleWid=$(n).width();
+						prevEleWid=$(n).outerWidth(true);
 					}else{
 						prevEleWid=0;
 					}
@@ -165,7 +165,7 @@
 				})
 				var top=$(prevEle).offset().top;
 				$(this).parent().css("position","relative");
-				$(this).css({"position":"absolute","top":"-2px","white-space":"nowrap","z-index":"2","border":"1px solid #c7bf93","padding":"3px 8px"})
+				$(this).css({"position":"absolute","left":sum,"top":"-2px","white-space":"nowrap","z-index":"2","border":"1px solid #c7bf93","padding":"3px 8px"})
 			}else{
 				$(this).css({"padding":"0","border":"0"})
 			}
