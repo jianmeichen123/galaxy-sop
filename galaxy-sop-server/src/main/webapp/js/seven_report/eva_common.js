@@ -412,9 +412,11 @@ function buildResult(title)
 					val="未填写";
 					currency_id="";
 				}else{
-					val=val+"万"+currency; 
+					val=_parsefloat(val)+"万"+currency; 
 				}
 				_ele.find("span").attr("currency",currency_id);
+			 }else if(type==1){
+				 val=_parsefloat(val);
 			 }
 			_ele.find("span").html(val);
 		}else{
@@ -1011,7 +1013,7 @@ function income_table(){
 		var tr_arry = _target.data("tr");
 		var tr_html="";
 		$.each(tr_arry,function(i,n){
-			tr_html+="<tr><td>"+n.field1+"</td><td>"+n.field2+"</td></tr>"
+			tr_html+="<tr><td>"+n.field1+"</td><td>"+_parsefloat(n.field2)+"</td></tr>"
 		})
 		$('.reasonable_stock').find("tbody").append(tr_html);
 		 
