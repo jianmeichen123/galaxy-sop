@@ -379,6 +379,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	*/
 	public static Map<String,Integer> code_titleNum = new HashMap<>();
 	public static Map<String,Map<String,Set<Long>>> code_titletype_titleIds = new HashMap<>();
+	public static Map<String,Map<String,Set<Long>>> code_titletype_titleIds_forAllgrade = new HashMap<>(); //打分报告所有题
 	// NO9_1 ： 历史上的融资及估值
 	public static Set<Long> NO9_1$tids$qx = new TreeSet<>();
 
@@ -404,6 +405,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		for(String code : pre_reports_codes){
 			Map<String, Set<Long>> titletype_titleIds = new HashMap<>();
 			titletype_titleIds.put("project", new TreeSet<Long>());      // title_id
+			//计数用relate—id，不然一个 rid 下有多个 title-id 会多数
 			titletype_titleIds.put("result", new TreeSet<Long>());       // NO:title_id ; other : relate_id
 			titletype_titleIds.put("listdata", new TreeSet<Long>());     // title_id
 			titletype_titleIds.put("fixedtable", new TreeSet<Long>());   // title_id
@@ -411,6 +413,20 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 			titletype_titleIds.put("resultGrage", new TreeSet<Long>()); // relate_id
 
 			code_titletype_titleIds.put(code,titletype_titleIds);
+		}
+
+		code_titletype_titleIds_forAllgrade = new HashMap<>();
+		for(String code : code_report$type$grade.keySet()){
+			Map<String, Set<Long>> titletype_titleIds = new HashMap<>();
+			titletype_titleIds.put("project", new TreeSet<Long>());      // title_id
+			//计数用relate—id，不然一个 rid 下有多个 title-id 会多数
+			titletype_titleIds.put("result", new TreeSet<Long>());       // title_id
+			titletype_titleIds.put("listdata", new TreeSet<Long>());     // title_id
+			titletype_titleIds.put("fixedtable", new TreeSet<Long>());   // title_id
+			titletype_titleIds.put("file", new TreeSet<Long>());         // title_id
+			titletype_titleIds.put("resultGrage", new TreeSet<Long>()); // relate_id
+
+			code_titletype_titleIds_forAllgrade.put(code,titletype_titleIds);
 		}
 	}
 
@@ -532,6 +548,18 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 				num += getNumForTypeIsNotNullByGrade(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
 
 				setCodeTypeTids(codeLike,  code_titletype_titleIds, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
+
+
+				project_ids.clear();
+				result_ids.clear();
+				listdata_ids.clear();
+				fixedtable_ids.clear();
+				file_ids.clear();
+				resultGrage_ids.clear();
+
+				getNumForTypeIsNotNull(title,project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids);
+				setCodeTypeTids(codeLike,  code_titletype_titleIds_forAllgrade, project_ids,result_ids,listdata_ids,fixedtable_ids,file_ids,resultGrage_ids);
+
 			}
 			/*System.err.println(codeLike + " tnum :  " + num);
 			System.err.println(codeLike + " ids :  " + code_titletype_titleIds.get(codeLike));*/
@@ -612,7 +640,11 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 					project_ids.add(titleId);
 					break;
 				default:
-					result_ids.add(title.getId());
+					if(StringUtils.isNotBlank(title.getRelateCode()) && (title.getRelateCode().startsWith("EN") ||title.getRelateCode().startsWith("CN"))){
+						result_ids.add(titleId);
+					}else {
+						result_ids.add(title.getId());
+					}
 					//if(null != title.getType() && result_titletype.contains(","+ title.getType() +",")){
 
 					//}
