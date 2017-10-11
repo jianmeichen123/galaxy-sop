@@ -871,6 +871,9 @@ function buildRow(row,showOpts,titleId)
 			}else if(titleId==='1920'){//市场同类公司估值参考
 				var targetTd = tr.find('td[data-field-name="field1"]');
 				targetTd.attr('title',targetTd.text());
+			}else if(titleId==='1906'){//市场同类公司估值参考
+				var targetTd = tr.find('td[data-field-name="field1"]');
+				targetTd.attr('title',targetTd.text());
 			}
 			
 			
