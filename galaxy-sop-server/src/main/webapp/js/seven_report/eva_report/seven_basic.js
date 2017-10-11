@@ -676,7 +676,7 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var currency_id = $(this).find("dd select").val();
 			var currency=$(this).find("dd select").find("option[data-id='"+currency_id+"']").text();
 			data_list.currency=currency+"p"+currency_id;
-			data_list.value=val+"万"+currency;			
+			data_list.value=_parsefloat(val)+"万"+currency;			
 			if(val==""||val==undefined){
 				data_list.value="未填写";
 				data_list.currency="";
@@ -827,9 +827,14 @@ $('div').delegate(".h_save_btn","click",function(event){
 			if(_code==dcode){
 				if(_type==1||_type==20||_type==8){	
 					if(_type==20){
-						_this.find("span").attr("currency",d_this.currency) 
+						_this.find("span").attr("currency",d_this.currency);
+						_this.find("span").html(d_this.value);
+					}else if(_type==1){
+						_this.find("span").html(_parsefloat(d_this.value));
+					}else{
+						_this.find("span").html(d_this.value);
 					}
-					_this.find("span").html(_parsefloat(d_this.value));
+					
 					Tfun_8(_this);
 				}else if(_type==14||_type==2||_type==12){
 					if(d_this.value!="请选择"){
