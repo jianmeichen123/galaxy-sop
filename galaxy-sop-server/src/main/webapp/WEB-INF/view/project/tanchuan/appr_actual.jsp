@@ -101,7 +101,11 @@
 		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
 		    	        		if(data.result.status=="OK"){
 		    	        			layer.msg("删除成功");
-		    	        			$('#actual-table').bootstrapTable('refresh');
+		    	        			 if ($('#actual-table').find("tbody tr").length<=1) {
+									       $('#actual-table').bootstrapTable('prevPage').bootstrapTable('refresh');
+									    }else{
+									    	$('#actual-table').bootstrapTable('refresh');
+									    }
 		    	        		}else{
 		    						layer.msg(data.result.errorCode);
 		    					}
