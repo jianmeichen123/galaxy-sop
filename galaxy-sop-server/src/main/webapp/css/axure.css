@@ -1704,8 +1704,9 @@ word-wrap:break-word;
 .compile_on_right_b{ background-color:#66b1f2; color:#fff; text-align:center; line-height:35px; height:35px; display:block;}
 .compile_on_right_q{ background-color:#fff; border:1px solid #ccd2d7; display:block; text-align:center; line-height:35px; height:35px;}
 .new_nputr{ line-height:24px; width:200px; color:#525662; font-size:12px; overflow:hidden; box-sizing: border-box;height:24px;border:1px solid #aaa;border-radius:4px;padding:0 5px !important;}
+#basicForm .new_nputr{margin-right:10px;}
 .new_nputr_number{width:90px; height:22px;line-height:22px; overflow:hidden;border:1px solid #aaa;border-radius:4px;padding-left:5px;}
-#faNameEdit.new_nputr{width:135px;}
+#faNameEdit.new_nputr{width:120px;}
 .no_con{height:105px;color:#aaa;font-size:12px;font-family:"宋体";background:url(../img/default.png) center 60px no-repeat;text-align:center;padding-top:120px;display:none;}
 .new_correlation_cen_con{height:225px;}
 .new_nputr[name="faName"]{display:none;}
@@ -2179,7 +2180,7 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
     cursor:default;
  }
  .mar_left{ float:left;margin-right:10px;}
- .mar_left input{margin-right:5px}
+ .mar_left input{margin-right:10px}
   /* 投后运营V2.3.91 */
 .ritmin .fund_list .bottom  dl dd .txt{width:130px;}
 .fund_list .cx{margin-left:10px;}
