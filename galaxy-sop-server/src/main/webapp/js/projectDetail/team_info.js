@@ -223,7 +223,7 @@ function editMemberRow(ele){
 				}else{
 					valNameNew=valName;
 				}
-				ele.val(valNameNew);
+				ele.val(row.data(name)==undefined?"":valNameNew);
 				var tagName = $(this).get(0).tagName;
                 if(tagName=="SELECT"){
                     if(ele.val()==null){
