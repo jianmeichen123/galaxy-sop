@@ -96,7 +96,7 @@ function buildRow(row,showOpts,titleId)
 		var $this = $(this);
 		var k = $this.data('fieldName');
 		if(k!="opt"){
-			if(row[k]==""||row[k]==undefined){
+			if(row[k]==""||row[k]==undefined || row[k]=='undefined'){
 				row[k]="—";
 			}
 			tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
@@ -169,7 +169,7 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-					ele.val(_parsefloat(row.data(name)));
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":_parsefloat(row.data(name)));
 				}
 			});
 			//查看显示
