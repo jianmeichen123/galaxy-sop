@@ -1704,8 +1704,9 @@ word-wrap:break-word;
 .compile_on_right_b{ background-color:#66b1f2; color:#fff; text-align:center; line-height:35px; height:35px; display:block;}
 .compile_on_right_q{ background-color:#fff; border:1px solid #ccd2d7; display:block; text-align:center; line-height:35px; height:35px;}
 .new_nputr{ line-height:24px; width:200px; color:#525662; font-size:12px; overflow:hidden; box-sizing: border-box;height:24px;border:1px solid #aaa;border-radius:4px;padding:0 5px !important;}
+#basicForm .new_nputr{margin-right:10px;}
 .new_nputr_number{width:90px; height:22px;line-height:22px; overflow:hidden;border:1px solid #aaa;border-radius:4px;padding-left:5px;}
-#faNameEdit.new_nputr{width:135px;}
+#faNameEdit.new_nputr{width:120px;}
 .no_con{height:105px;color:#aaa;font-size:12px;font-family:"宋体";background:url(../img/default.png) center 60px no-repeat;text-align:center;padding-top:120px;display:none;}
 .new_correlation_cen_con{height:225px;}
 .new_nputr[name="faName"]{display:none;}
@@ -2179,13 +2180,13 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
     cursor:default;
  }
  .mar_left{ float:left;margin-right:10px;}
- .mar_left input{margin-right:5px}
+ .mar_left input{margin-right:10px}
   /* 投后运营V2.3.91 */
 .ritmin .fund_list .bottom  dl dd .txt{width:130px;}
 .fund_list .cx{margin-left:10px;}
 .agreement{margin-bottom: 50px;}
 .b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
-#tabApprAllList .agreement .b_agreement{padding-top: 0px; margin-top:0;}
+#tabApprAllList .agreement .b_agreement{padding-top: 0px; margin-top:10px;}
 #tabApprAllList .agreement .b_agreement dl{margin-right:0;    margin-top: 17px;}
 .b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"Microsoft YaHei";}
 .b_agreement_r{width:29%;padding-top: 8px;}
@@ -2494,6 +2495,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .financing_t,.financing_t th,.financing_t td{ padding-left:5px; padding-right:5px; line-height:25px;}
 /*全息图 团队*/
 .team_porp{ width:700px; font-size:12px; max-height:460px; overflow-y:scroll; color:#666666;}
+.poptxt form{overflow:hidden;}
 .team_porp .fmdl{color:#666;font-size:12px;}
 .team_ico{background-image:url(../img/team_ico.png);}
 .team_tit{ overflow:hidden; margin-top:30px;}
@@ -2527,7 +2529,7 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .team_click a{margin-right:5px;}
 .team_textarea{ width:310px; height:75px !important; border: 1px solid #dadfe3;
     background: #ffffff;}
-.team_wid{ width:100%; overflow:hidden; margin-left:40px;}
+.team_wid{overflow:hidden; margin-left:40px;}
 .team_wid p{margin-bottom:10px;color: #2d3342;font-size: 14px; overflow:hidden;  line-height: 28px;}
 .team_wid_p span{ display:block; float:left; margin-right:10px;}
 .team_wid_p .error{ font-size: 12px; font-family: '宋体';}
@@ -3641,7 +3643,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  }
  .new_r_compile  .icon{margin-top:3px;}
  .team_info tr td,.info_table[data-code="equity-structure"] td{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.member table[data-code="equity-structure"] td，.financeHistoryTable td[data-field-name="field2"]{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.member table[data-code="equity-structure"] td,.financeHistoryTable td[data-field-name="field2"]{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
  
  #company-info span.new_color_black{display: inline-block; width: 80%;}
  #project-table tr td:nth-child(6) div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}

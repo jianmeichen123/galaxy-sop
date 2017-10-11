@@ -145,7 +145,7 @@
 	                             	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" >
 				                    	<option value="">--请选择--</option>
 				                    </select>
-	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-required="<font color=red>*</font><i></i>必填" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20"/>
+	                             <input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" />
 	                             </span>
                              </td>
                            </tr>
@@ -562,9 +562,6 @@
 	}
 	
 </script>
-<script type="text/javascript" src="<%=path %>/js/sop.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>

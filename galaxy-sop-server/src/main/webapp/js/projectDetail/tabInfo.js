@@ -495,7 +495,7 @@ function jointDeliveryList(list){
 	for(var i=0;i<list.length;i++){
 		if(list[i].deliveryCurrency=="currency:1"){
 			list[i].deliveryCurrency='美元'
-		}else{
+		}else if(list[i].deliveryCurrency=="currency:0"){
 			list[i].deliveryCurrency='人民币'
 		}
 	   var html="<tr><td>"+list[i].deliveryName+"</td><td>"+list[i].deliveryAmount+"</td><td>"+list[i].deliveryCurrency+"</td><td>"+list[i].deliveryShareRatio+"</td></tr>";
@@ -505,7 +505,6 @@ function jointDeliveryList(list){
 var name_opt = new Array()
 function jointDeliveryEdit(list){
 	$(".inputsForm").children(".block_inputs").remove(); 
-	
 	for(var i=0;i<list.length;i++){
 		var inputsRow='<div class="block_inputs">'
 	        +'<span><input placeholder="填写机构名称" data-id="'+list[i].id+'" value="'+list[i].deliveryName+'" class="name" name="deliveryName'+i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
@@ -521,7 +520,7 @@ function jointDeliveryEdit(list){
 	$('.block_inputs').each(function(){
 		var index = $(this).index()
 		var _this = $(this);
-		if(name_opt[index]==='currency:0'){
+		if(name_opt[index]==='currency:0' || name_opt[index]==='人民币'){
 			_this.find('select option:eq(0)').attr('selected',true);
 		}else{
 			_this.find('select option:eq(1)').attr('selected',true);

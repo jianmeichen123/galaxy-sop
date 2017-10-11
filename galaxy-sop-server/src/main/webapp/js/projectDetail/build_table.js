@@ -96,7 +96,7 @@ function buildRow(row,showOpts,titleId)
 		var $this = $(this);
 		var k = $this.data('fieldName');
 		if(k!="opt"){
-			if(row[k]==""||row[k]==undefined){
+			if(row[k]==""||row[k]==undefined || row[k]=='undefined'){
 				row[k]="—";
 			}
 			tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
@@ -141,7 +141,7 @@ function editRow(ele)
 					 $("#pop-title-share").text('查看股东');
 					
 				}else{
-					if(code='equity-structure'){
+					if(code=='equity-structure'){
 		            	$('.form_textarea').show();
 		            }
 					$(".see_block").hide();
@@ -169,7 +169,7 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else{
-					ele.val(_parsefloat(row.data(name)));
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":_parsefloat(row.data(name)));
 				}
 			});
 			//查看显示
@@ -441,37 +441,6 @@ function check_table_tr_edit(table){
 			$(table).closest(".tabtable_con_on").find(".bluebtn").show(); 
 		}
 }
-/**
- * 数据字典加载请求
- */
-function selectDirect(tittleId,subCode,filed){
-	sendGetRequest(platformUrl.getDirectory+ tittleId+'/'+subCode+"/"+filed,null,
-			function(data) {
-				var result = data.result.status;
-				if (result == 'OK')
-				{
-					var dataMap = data.userData;
-				    var $filed=$("[id='"+filed+"']");
-				    var list=dataMap[filed];
-				    var name=""
-				    $filed.children().remove();
-				    if($filed[0].tagName=="SELECT"){
-				    	$filed.append("<option value='' name='"+filed+"' data-name='请选择'>请选择</option>");
-				    }
-					$.each(list, function(i, value){
-                        if($filed[0].tagName=="SELECT"){
-                        	var code=value.code;
-                        	if(code.indexOf("currency")>-1){    //币种的请选择移除
-                        		$filed.find("option[data-name]").remove();
-                        	}
-                        	$filed.append("<option value="+value.id+"  name='"+filed+"'>"+value.name+"</option>");
-				    	}else if($filed[0].tagName=="DD"&&$filed.attr("data-type")=="radio"){
-				    			$filed.append("<label><input type='radio' value='"+value.id+"' data-remark='"+value.name+"' name='"+filed+"'>"+value.name+"</label>")
-				    	}
-					});
-				}
-			})
-	}
 var deletedRowIds = new Array();
 function delRow(ele)
 {
