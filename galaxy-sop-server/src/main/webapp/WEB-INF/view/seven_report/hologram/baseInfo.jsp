@@ -207,7 +207,6 @@ $(function() {
 			if (field.val() && field.val().length > 0) {
 				valu = field.val();
 			}
-			
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			if(_tochange && _tochange == 'true'){
                 var infoMode = null;
@@ -231,6 +230,9 @@ $(function() {
 						};
 				}else{
 					var _resultId = field.closest("dd").attr("resultId");
+					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
+						_resultId=null
+					}
 					infoMode = {
 							titleId : field.data('titleId'),
 							type : field.data('type'),
@@ -326,7 +328,8 @@ $(function() {
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		
+		console.log('22222222222')
+		console.log(data);
 		
 		if(beroreCheck){
 			event.stopPropagation();
