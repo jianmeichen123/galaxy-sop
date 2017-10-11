@@ -849,7 +849,6 @@ function buildRow(row,showOpts,titleId)
 	var ths =table.find("th") ;
 	var tr=$("<tr data-row-id='"+row.id+"'></tr>");
 	var titleId = table.attr('data-title-id');
-	console.log(titleId)
 	for(var key in row)
 	{
 		//设置data
