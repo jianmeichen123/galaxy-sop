@@ -562,9 +562,6 @@
 	}
 	
 </script>
-<script type="text/javascript" src="<%=path %>/js/sop.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_progress.js"></script>
-<script type="text/javascript" src="<%=path %>/js/sop_progress/sop_file.js"></script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
