@@ -2185,7 +2185,7 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .fund_list .cx{margin-left:10px;}
 .agreement{margin-bottom: 50px;}
 .b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
-#tabApprAllList .agreement .b_agreement{padding-top: 0px; margin-top:0;}
+#tabApprAllList .agreement .b_agreement{padding-top: 0px; margin-top:10px;}
 #tabApprAllList .agreement .b_agreement dl{margin-right:0;    margin-top: 17px;}
 .b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"Microsoft YaHei";}
 .b_agreement_r{width:29%;padding-top: 8px;}
