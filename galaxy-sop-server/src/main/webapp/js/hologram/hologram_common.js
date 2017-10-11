@@ -27,17 +27,17 @@ function edit_bsaicfun(data){
 	//change标识
 	if(data=="base"){
 		$("input").change(function(){
-			var _target=$(this).closest("div").find("dt");
+			var _target=$(this).closest("dd");
 			_target.attr("tochange",true);
 			
 		})
 		$("textarea").on("input",function(){
-			var _target=$(this).closest("div").find("dt");
+			var _target=$(this).closest("dd");
 			_target.attr("tochange",true);
 			
 		})
 		$("select").change(function(){
-			var _target=$(this).closest("div").find("dt");
+			var _target=$(this).closest("dd");
 			_target.attr("tochange",true);
 			
 		})

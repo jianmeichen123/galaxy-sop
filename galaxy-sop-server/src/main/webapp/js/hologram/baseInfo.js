@@ -225,11 +225,15 @@ function one_select_edit(title,inputtype,type){
 				"</dd>";	
 		}else if(type=='5'){
             var ddStr = "<dd class='fl_none'>" ;
+            console.log(title)
             if(title.resultList!=undefined){
             	if(title.resultList.length == 1){
-            		if(!title.resultList[0].valueId){
-            			ddStr = "<dd class='fl_none'>" ;
-					}
+            		ddStr = "<dd class='fl_none' resultId='"+title.resultList[0].id+"'>" ;
+            		/*if(!title.resultList[0].valueId){
+            			ddStr = "<dd class='fl_none' resultId='"+title.resultList[0].id+"'>" ;
+					}else{
+						ddStr = "<dd class='fl_none' resultId='"+title.resultList[0].id+"'>" ;
+					}*/
 				}else{
                     for(var i = 0;  i < title.resultList.length; i++ ){
                         if(title.resultList[i]){
