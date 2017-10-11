@@ -17,7 +17,9 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
+import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.common.enums.EnumUtil;
+import com.galaxyinternet.dao.hologram.InformationResultDao;
 import com.galaxyinternet.dao.idea.AbandonedDao;
 import com.galaxyinternet.dao.idea.IdeaDao;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
@@ -31,6 +33,7 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.idea.Abandoned;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -43,6 +46,7 @@ import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.ProgressLogService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.service.hologram.InformationResultService;
 import com.galaxyinternet.utils.CollectionUtils;
 @Service
 public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService {
@@ -65,7 +69,8 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 	private SopFileDao sopFileDao;
 	@Autowired
 	private ProgressLogService progressLogService;
-	
+	@Autowired
+	private InformationResultService informationResultService;
 	
 	@Override
 	protected BaseDao<Idea, Long> getBaseDao() {
@@ -240,6 +245,15 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 			project.setProjectCode(projectCode);
 			project.setFaFlag("projectSource:0");
 			projectService.newProject(project, null);
+			Long userId = user != null ? user.getId() : null;
+			Long now = new Date().getTime();
+			InformationResult re=new InformationResult();
+			re.setTitleId("1108");
+			re.setProjectId(String.valueOf(id));
+			re.setContentChoose("尚未获投");
+			re.setCreatedTime(now);
+			re.setCreateId(userId.toString());
+			informationResultService.insert(re);
 			idea.setProjectId(project.getId());
 			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
 			updateById(idea);

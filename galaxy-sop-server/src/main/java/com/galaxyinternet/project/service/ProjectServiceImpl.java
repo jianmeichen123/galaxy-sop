@@ -93,8 +93,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Autowired
 	private JointDeliveryDao jointDeliveryDao;
 	
-	@Autowired
-	private InformationResultDao informationResultDao;
+	
 
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -212,17 +211,6 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			sopFileDao.insert(f);
 			f.setId(null);
 		/*}*/
-			User user = WebUtils.getUserFromSession();
-			Long userId = user != null ? user.getId() : null;
-			Long now = new Date().getTime();
-			InformationResult re=new InformationResult();
-			re.setTitleId("1108");
-			re.setProjectId(String.valueOf(id));
-			re.setContentChoose("尚未获投");
-			re.setCreatedTime(now);
-			re.setCreateId(userId.toString());
-			informationResultDao.insert(re);
-			
 		return id;
 	}
 

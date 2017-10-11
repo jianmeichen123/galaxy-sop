@@ -449,7 +449,7 @@
 	     var inputsRow='<div class="block_inputs">'
 	          +'<span><input placeholder="填写机构名称" class="name" name="deliveryName_'+addInputs_i+'" required maxLength="50" data-msg-required="<font color=red>*</font><i></i>必填，且不超过50字" data-rule-delivery="true" data-msg-delivery="<font color=red>*</font><i></i>不能为空"/></span>'
 	          +'<span><input placeholder="填写投资金额（万元）" name="deliveryAmount_'+addInputs_i+'" required data-rule-amount="true" data-msg-required="<font color=red>*</font><i></i>支持0-1000000的四位小数" data-msg-amount="<font color=red>*</font><i></i>支持0-1000000的四位小数"/></span>'
-	          +'<span><select><option value="人民币">人民币</option><option value="美元">美元</option></select></span>'
+	          +'<span><select><option value="currency:0">人民币</option><option value="currency:1">美元</option></select></span>'
 	          +'<span><input placeholder="填写占股比例（%）" name="deliveryShareRatio_'+addInputs_i+'" required data-rule-share="true" data-msg-required="<font color=red>*</font><i></i>0到100之间的两位小数" data-msg-share="<font color=red>*</font><i></i>0到100之间的两位小数"/></span>'
 	            +'<span class="del">删除</span>'
 	            +'</div>';
