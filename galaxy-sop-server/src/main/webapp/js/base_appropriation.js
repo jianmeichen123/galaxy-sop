@@ -31,10 +31,12 @@ function queryBack(data){
 			var partList=entityList.content;	
 			
 			var _this=$("#tabApprAllList");
+			 console.log("noDatanoDatanoDatanoDatanoDatanoDatanoDatanoData")
+			 console.log(entityList)
 			if(null!=partList&&partList.length>0){
 				for(var k=0;k<partList.length;k++){
 					  var grantPart=partList[k];
-					  var o=_this;
+					  var o=_this;					
 					  $("#tabApprSingleList_"+1+"").append(assembleSingleTabHtml(grantPart,null,1,k));
 					}
 				}else{
@@ -42,7 +44,7 @@ function queryBack(data){
 						'<tr>'+
 						 '<td colspan="6" class="no_info no_info01" style="text-align:center;"><p class="no_info_icon">没有找到匹配的记录</p></td>'+
 						' </tr>'; 			
-					 $("#tabApprSingleList_"+i+"").append(noData)
+					 $("#tabApprSingleList_"+i+"").append(noData);
 				}
 			
 			if(isEditable != 'true')
@@ -100,9 +102,9 @@ function  assembleSingleTabHtml(grantPart,grantName,i,k){
 		   +'<td>'+grantPart.field2+'</td>'
 		  /* +'<td>'+fixSizeDecimal(grantPart.field3,4)+'</td>'*/
 		  /* +'<td id="part_'+i+'_'+k+'">'+fixSizeDecimal(grantPart.actualMoney,4)+'</td>'*/
-		   +'<td>'+_parsefloat(grantPart.field3)+'</td>'  
+		   +'<td>'+_parsefloat(Number(grantPart.field3))+'</td>'  
 		   if(grantPart.field4){
-			   value += '<td>'+_parsefloat(grantPart.field4)+'</td>' 
+			   value += '<td>'+_parsefloat(Number(grantPart.field4))+'</td>' 
 		   }else{
 			   value += '<td>—</td>' 
 		   }
