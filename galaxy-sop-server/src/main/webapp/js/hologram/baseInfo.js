@@ -205,7 +205,7 @@ function one_select_edit(title,inputtype,type){
 		var li = "";
 		$.each(values,function(i,o){
 			if(this.checked){
-				li +=  "<li><input type=\"radio\" resultId='"+title.resultList[0].id+"'  value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
+				li +=  "<li><input type=\"radio\"  value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' checked=\"true\" data-must='"+title.isMust+"'/>" + this.name  + "</li>";
 			}else
 				li +=  "<li><input type=\"radio\"   value='"+this.id+"' name='"+title.id+"' data-title-id='"+title.id+"' data-type='"+title.type+"' data-must='"+title.isMust+"' />" + this.name  + "</li>";
 		});
@@ -225,17 +225,15 @@ function one_select_edit(title,inputtype,type){
 				"</dd>";	
 		}else if(type=='5'){
             var ddStr = "<dd class='fl_none'>" ;
-
             if(title.resultList!=undefined){
             	if(title.resultList.length == 1){
             		if(!title.resultList[0].valueId){
-                        ddStr = "<dd class='fl_none'>" ;
+            			ddStr = "<dd class='fl_none'>" ;
 					}
 				}else{
                     for(var i = 0;  i < title.resultList.length; i++ ){
-                        if(title.resultList[i].i){
-                            ddStr = "<dd class='fl_none' resultId='"+title.resultList[i].id+"'>" ;
-                            break;
+                        if(title.resultList[i]){
+                        	ddStr = "<dd class='fl_none' resultId='"+title.resultList[i].id+"'>" ;
                         }
                     }
 				}
