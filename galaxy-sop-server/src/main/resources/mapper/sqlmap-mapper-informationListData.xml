@@ -231,6 +231,7 @@
 			<trim prefixOverrides="and">
 			   <if test="titleId != null"> and title_id = #{titleId,jdbcType=VARCHAR}</if>
 		       <if test="projectId != null"> and project_id = #{projectId,jdbcType=VARCHAR}</if>
+		       <if test="parentId != null"> and parent_id = #{parentId,jdbcType=VARCHAR}</if>
 		       <if test="code != null"> and code = #{code,jdbcType=VARCHAR}</if>
 			</trim>
 		</where>

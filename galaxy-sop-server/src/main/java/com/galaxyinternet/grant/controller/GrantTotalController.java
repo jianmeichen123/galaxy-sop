@@ -299,7 +299,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 					item.setField4(null);
 					infordata.setParentId(item.getId());
 					infordata.setCode("grant-actual");
-		            Double money = informationListdataService.selectPartMoney(infordata);
+		            Double money = informationListdataService.selectActualMoney(infordata);
 		            if(money != null && money.doubleValue() > 0){
 		            	item.setField4(money.toString());
 		            }
