@@ -267,14 +267,14 @@ function initViewUpload() {
 					var size=up.settings.filters.max_file_size.replace("MB","");   
 					var fileSize = 0;
 					if (navigator.userAgent.indexOf('Mac') != -1) {
-						 fileSize = file.size / 1000;
+						 fileSize = file.size / 1000/1000;
 						 if(parseInt(fileSize) > parseInt(size) * 1000){
 								layer.msg("最大支持"+size+"MB");
 								return false;
 						 }
 					} else {
-						 fileSize = file.size / 1024;
-						 if(parseInt(fileSize) > parseInt(size) * 1024){
+						 fileSize = file.size / 1024/1024;
+						 if(parseInt(fileSize) > parseInt(size)){
 								layer.msg("最大支持"+size+"MB");
 								return false;
 						 }
