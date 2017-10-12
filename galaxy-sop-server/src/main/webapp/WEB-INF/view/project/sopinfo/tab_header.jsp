@@ -30,8 +30,8 @@
 				<!-- <li data-tab="nav">全息报告</li> -->
 		</c:when>
 		<c:otherwise>
-				<li data-tab="nav" class="no" disabled="disabled">团队成员</li>
-				<li data-tab="nav" class="no" disabled="disabled">股权结构</li>
+				<!-- <li data-tab="nav" class="no" disabled="disabled">团队成员</li>
+				<li data-tab="nav" class="no" disabled="disabled">股权结构</li> -->
 				<li data-tab="nav" class="no" disabled="disabled">访谈记录</li>
 				<li data-tab="nav" class="no" disabled="disabled">会议纪要</li>	
 				<li data-tab="nav" class="no" disabled="disabled">交割前事项</li>
