@@ -326,7 +326,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 							sopDownLoadList.add(downloadEntity);
 						}
 					}
-					sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
+					sopFileService.downloadBatch(request, response, tempfilePath,"交割前事项",sopDownLoadList);
 				}
 			} catch (Exception e) {
 				logger.error("下载失败.",e);

@@ -2023,7 +2023,7 @@ dl{position: relative;}
 .statustc{ width:670px;}
 .status dl{ margin-bottom: 6px;}
 .status .fmdl dt{width:80px;text-align: right;} 
-.status .fmdl dd{width:560px;font-size:12px;}
+.status .fmdl dd{width:550px;font-size:12px;}
 .status .fmdl dd textarea{ height:150px; width:430px}
 .status .btnbox{width: 216px;margin:20px auto;}
 .status .btnbox .pubbtn{ margin:0 0 0 20px; display:inline-block; *display:inline; zoom:1;}
@@ -2199,7 +2199,8 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
 .proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
 .delivery td label.noMargin{margin:0;}
-#tabApprAllList .agreement{display:none;}
+#tabApprAllList .agreement{display:none;margin-bottom: 0px;}
+#tabApprAllList .agreement table{margin-bottom: 0px !important;}
 .show_total{font-size: 12px;font-family:"宋体";color:#8a97b9;margin-left:20px;}
 /*拨款弹窗*/
 .addbutton a {
@@ -3410,6 +3411,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 #resultRadion .reason_box,#resultRadion .resel_box{float:none;margin:0;display:inline-block;position:relative;}
 #viewNotes-error{display:none;}
 #resultRadion.spresult div{margin-bottom:0;}
+#resultRadion.spresults #div_2{margin-bottom:0;}
 #resultRadion.spresult div:last-child{clear: both;}
 .interviewee .viewTarget span{float: left;
     max-width: 239px;
