@@ -207,7 +207,7 @@ $(function() {
 			if (field.val() && field.val().length > 0) {
 				valu = field.val();
 			}
-			var _tochange =field.closest("dd").attr("tochange");
+			var _tochange =field.closest("div").find("dt").attr("tochange");
 			if(_tochange && _tochange == 'true'){
                 var infoMode = null;
 				//判断是否到是select
@@ -254,7 +254,7 @@ $(function() {
 				isActived = true;
 			} */
 			
-			var _tochange =field.closest("dd").attr("tochange");
+			var _tochange =field.closest("div").find("dt").attr("tochange");
 			if(_tochange==undefined){
 				_tochange=false;
 			}
@@ -287,7 +287,7 @@ $(function() {
 			var field = $(this);
 			var typ = field.data('type');
 			var name = field.data('name');
-			var _tochange =field.closest("dd").attr("tochange");
+			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
 			if(_resultId==undefined||_resultId=="undefined"){
 				_resultId=null
