@@ -37,8 +37,7 @@ function queryBack(data){
 				for(var k=0;k<partList.length;k++){
 					  var grantPart=partList[k];
 					  var o=_this;					
-					  $("#tabApprSingleList_"+1+"").append(assembleSingleTabHtml(grantPart,null,1,k));
-						 //check_table_tr_edit( $("#tabApprSingleList_1"));
+					  $("#tabApprSingleList_"+1+"").append(assembleSingleTabHtml(grantPart,null,1,k));						 
 					}
 				}else{
 					var noData =
@@ -55,7 +54,20 @@ function queryBack(data){
 		}
 	}
 	$("body").css("overflow-y","auto");
+	appr_check_table_tr( $("#tabApprSingleList_1"));
 }
+function appr_check_table_tr(table){
+	var trs=$(table).find("tr").length;
+	var limit=10;
+	if(trs>=limit){
+		$(table).closest(".agreement").find(".b_agreement .bluebtn").addClass("dis_gray disabled"); 
+		for(var i=trs-1;i>limit-1;i--){   //历史数据展示前10条
+			$(table).find("tr").eq(i).hide();
+		}
+	}else{
+		$(table).closest(".agreement").find(".b_agreement .bluebtn").removeClass("dis_gray disabled"); 
+	}
+};
 function  assembleHtml(grantTotal,i){
 	
 	var html=
