@@ -13,7 +13,7 @@ public interface InformationResultService extends BaseService<InformationResult>
 	
 	public void updateRejestResut(Project project );
 	
-	public String meetingResult(Long projectId,String passResult);
+	public String meetingResult(Long projectId,String passResult,String meetingType);
 	
 	
 	

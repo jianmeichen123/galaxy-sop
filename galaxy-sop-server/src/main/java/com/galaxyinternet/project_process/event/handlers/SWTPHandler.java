@@ -64,7 +64,7 @@ public class SWTPHandler implements ProgressChangeHandler
 			InformationResult selectById=new InformationResult();
 			selectById.setProjectId(project.getId().toString());
 			selectById.setTitleId(titleIdResult.LX.getCode());
-			String meetingResult = informationResultService.meetingResult(project.getId(), "LX");
+			String meetingResult = informationResultService.meetingResult(project.getId(), "LX",DictEnum.meetingType.立项会.getCode());
 			if(!"".equals(meetingResult)){
 				hasPassedMeeting.setMeetingResult(meetingResult);
 			}

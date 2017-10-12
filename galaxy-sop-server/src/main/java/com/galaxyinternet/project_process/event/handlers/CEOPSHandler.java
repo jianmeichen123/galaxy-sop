@@ -78,7 +78,7 @@ public class CEOPSHandler implements ProgressChangeHandler
 		  //更新状态报告里面的状态
 			InformationResult selectById=new InformationResult();
 			selectById.setProjectId(project.getId().toString());
-			String meetingResult = informationResultService.meetingResult(project.getId(), "NP");
+			String meetingResult = informationResultService.meetingResult(project.getId(), "NP",meetingType.内评会.getCode());
 			if(!"".equals(meetingResult)){
 				mr.setMeetingResult(meetingResult);
 			}

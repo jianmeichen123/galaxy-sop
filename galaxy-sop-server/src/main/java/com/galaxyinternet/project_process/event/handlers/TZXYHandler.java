@@ -78,7 +78,7 @@ public class TZXYHandler implements ProgressChangeHandler
 			InformationResult selectById=new InformationResult();
 			selectById.setProjectId(project.getId().toString());
 			selectById.setTitleId(titleIdResult.TJ.getCode());
-			String meetingResult = informationResultService.meetingResult(project.getId(), "TJ");
+			String meetingResult = informationResultService.meetingResult(project.getId(), "TJ",meetingType.投决会.getCode());
 			if(!"".equals(meetingResult)){
 				mr.setMeetingResult(meetingResult);
 			}

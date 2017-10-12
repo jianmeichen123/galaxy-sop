@@ -52,7 +52,7 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 		InformationResult result=new InformationResult();
 		InformationResult selectById=new InformationResult();
 		selectById.setProjectId(meetingRecord.getProjectId().toString());
-		String meetingResult = this.meetingResult(meetingRecord.getProjectId(), null);
+		String meetingResult = this.meetingResult(meetingRecord.getProjectId(), null,meetingRecord.getMeetingType());
 		if(!"".equals(meetingResult)){
 			meetingRecord.setMeetingResult(meetingResult);
 		}
@@ -148,6 +148,7 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 		List<InformationResult> reList=new ArrayList<InformationResult>();
 		InformationResult re=new InformationResult();
 		if(!"".equals(contentChoose)){
+			selectById.setNotNull(true);
 			reList = informationResultDao.selectList(selectById);
 			if(null!=reList&&!reList.isEmpty()){
 				re=reList.get(0);
@@ -174,7 +175,7 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 	 *  return
 	 */
 
-	public String meetingResult(Long projectId,String passResult){
+	public String meetingResult(Long projectId,String passResult,String meetingType){
 		
 		MeetingRecordBo meetingBo=new MeetingRecordBo();
 		
@@ -200,6 +201,7 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 		}
 		meetingBo.setProperty("meeting_date");
 		meetingBo.setDirection("desc");
+		meetingBo.setMeetingType(meetingType);
 		List<MeetingRecord> selectList = meetingRecordDao.selectList(meetingBo);
 		
 		if(null!=selectList&&!selectList.isEmpty()){
@@ -210,6 +212,7 @@ public class InformationResultServiceImpl extends BaseServiceImpl<InformationRes
 		}
 		return result;
 	}
+	
 	
 	
 }

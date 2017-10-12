@@ -248,9 +248,9 @@ public enum DictEnum {
 	}
 	//立项会结果
 		public enum LXHResult {
-			BCCL("补充材料","meeting3Result:1","1162"),
-			ST("闪投","meeting3Result:2","1163"),
-			TZ("投资","meeting3Result:3","1164"),
+			BCCL("补充材料","meeting3Result:1","1164"),
+			ST("闪投","meeting3Result:2","1162"),
+			TZ("投资","meeting3Result:3","1163"),
 			GW("观望","meeting3Result:4","1165"),
 			ZX("转向","meeting3Result:5","1166"),
 			FJ("否决","meeting3Result:6","1167");

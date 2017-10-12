@@ -39,6 +39,9 @@
 					#{item}
 					</foreach>
 				</if>
+				<if test="notNull == true">  and content_choose is not null </if>
+				
+				
 			</trim>
 			
 			<if test="sorting != null">order by ${sorting}</if>

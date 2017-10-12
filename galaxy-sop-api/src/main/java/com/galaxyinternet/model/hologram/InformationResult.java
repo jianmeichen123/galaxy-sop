@@ -40,6 +40,7 @@ public class InformationResult extends PagableEntity{
     private BigDecimal grade1;
     private BigDecimal grade2;
     
+    private boolean notNull;
     
     public Long getValueId() {
 		return valueId;
@@ -174,5 +175,15 @@ public class InformationResult extends PagableEntity{
 	{
 		this.grade2 = grade2;
 	}
+
+	public boolean isNotNull() {
+		return notNull;
+	}
+
+	public void setNotNull(boolean notNull) {
+		this.notNull = notNull;
+	}
+	
+	
     
 }
