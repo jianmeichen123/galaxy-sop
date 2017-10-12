@@ -18,12 +18,13 @@ function startbar(){
 	
 } 
 function setbar(){  
+	console.log(i)
 	if(100 -i >= 15){
 		 i+=15; 
 	}
     if(!isComplete)  
     {   
-        clearInterval(showbar);  
+    	window.clearInterval(showbar);  
     }  
     $("#filelist").find("tr").each(function(index,value){
     	if(index != 0){
@@ -153,6 +154,7 @@ var data = {};
 			if(result == "OK"){
 				isComplete = false;
 				i = 0;
+				window.clearInterval(showbar);  
 				$("#filelist").find("tr").each(function(index,value){
 				    	if(index != 0){
 						    $(this).children().eq(3).html('<span>'+ 100 + "%</span>"); 
@@ -206,7 +208,8 @@ var data = {};
    });
    
    function toBachPartUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
-		  var params = {};
+		i = 0;  
+	   var params = {};
 			var uploader = new plupload.Uploader({
 				runtimes : 'html5,flash,silverlight,html4',
 				browse_button : selectBtnId, // you can pass an id...
