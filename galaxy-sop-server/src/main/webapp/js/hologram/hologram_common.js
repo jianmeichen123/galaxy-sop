@@ -2080,7 +2080,7 @@ function editRow(ele)
 					}else if(row.data('field5')==undefined || row.data('field5')==null){
 						$(".see_block").find("dd[name='field5']").text('');
 					}else{
-						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5')+'万'+val));
+						$(".see_block").find("dd[name='field5']").text(_parsefloat(row.data('field5'))+'万'+val);
 					}
 					
 				});
