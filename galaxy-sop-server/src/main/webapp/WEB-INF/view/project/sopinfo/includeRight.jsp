@@ -799,7 +799,7 @@ var en = Math.round(progressObject.en*100);//评测报告
 var dn = Math.round(progressObject.dn*100);//尽调报告
 var pn = Math.round(progressObject.pn*100);//决策报告
 var cn = Math.round(progressObject.cn*100);//初评报告
-var gn = Math.round(progressObject.en*100);//融资报告
+var gn = Math.round(progressObject.gn*100);//融资报告
 var on = Math.round(progressObject.on*100);//运营报告
 
 
