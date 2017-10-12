@@ -285,29 +285,27 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
 	{
 		if(id != null){
-			
-			GrantPart grantPart = grantPartService.queryById(id);
-			
-			List<Long> fileIdList = grantPartService.grantPartFileList(id);
-			SopFile sopfile = new SopFile();
-			if(fileIdList != null && fileIdList.size() > 0){
-				sopfile.setIds(fileIdList);
-			}
-			List<SopFile> sopFileList = sopFileService.queryList(sopfile);
-			List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
 			try {
-				if(sopFileList != null && sopFileList.size() > 0){
-					for(SopFile file:sopFileList){
-						SopDownLoad downloadEntity = new SopDownLoad();
-						downloadEntity.setFileName(file.getFileName());
-						downloadEntity.setFileSuffix("." + file.getFileSuffix());
-						downloadEntity.setFileSize(file.getFileLength());
-						downloadEntity.setFileKey(file.getFileKey());
-						sopDownLoadList.add(downloadEntity);
+				InformationListdata data = informationListdataService.queryById(id);
+				if(!StringUtils.isEmpty(data.getRelateFileId())){
+					InformationFile file = new InformationFile();
+					file.setTitleId(data.getTitleId());
+					file.setProjectId(data.getProjectId());
+					file.setFileIds(Arrays.asList(data.getRelateFileId().split(",")));
+					List<InformationFile> fileList = informationFileService.queryList(file);
+					List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
+					if(fileList != null && fileList.size() > 0){
+						for(InformationFile f:fileList){
+							SopDownLoad downloadEntity = new SopDownLoad();
+							downloadEntity.setFileName(f.getFileName());
+							downloadEntity.setFileSuffix("." + f.getFileSuffix());
+							downloadEntity.setFileSize(Long.valueOf(f.getFileLength()));
+							downloadEntity.setFileKey(f.getFileKey());
+							sopDownLoadList.add(downloadEntity);
+						}
 					}
-			
+					sopFileService.downloadBatch(request, response, tempfilePath,"分期注资",sopDownLoadList);
 				}
-				sopFileService.downloadBatch(request, response, tempfilePath,grantPart.getGrantName(),sopDownLoadList);
 			} catch (Exception e) {
 				_common_logger_.error("下载失败.",e);
 			}

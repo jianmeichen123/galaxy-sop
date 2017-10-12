@@ -107,12 +107,8 @@ function  assembleHtml(grantTotal,i){
 
 function  assembleSingleTabHtml(grantPart,grantName,i,k){
 	 var fileNum = 0;
-	 var download ="";
 	 if(grantPart.field5!=0&&grantPart.field5!=undefined&&grantPart.field5!=""){
-		 download ='<label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label>';
 		 fileNum = grantPart.field5;
-	 }else{
-		 download="";
 	 }
 	 var value='<tr>'	 
 		   +'<td><label class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.field1+'</label></td>'
@@ -126,10 +122,10 @@ function  assembleSingleTabHtml(grantPart,grantName,i,k){
 			   value += '<td>—</td>' 
 		   }
 	 	   value +='<td>'+fileNum+'</td>' 
-		    +'<td><label class="blue show-btn" href="/sop/html/actual_aging.html" data_type="info" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.id+'" data-name="查看分期注资计划" data-total-name="'+grantPart.field1+'">查看</label><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.id+'" data-name="编辑分期注资计划" data-total-name="'+grantPart.field1+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>'+download;
-		    /* if(grantPart.fileNum != 0){
+		    +'<td><label class="blue show-btn" href="/sop/html/actual_aging.html" data_type="info" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.id+'" data-name="查看分期注资计划" data-total-name="'+grantPart.field1+'">查看</label><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.id+'" data-name="编辑分期注资计划" data-total-name="'+grantPart.field1+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
+		    if(grantPart.fileNum != 0){
 			   value +='<label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label></td>';
-		   }*/
+		   }
 		   value += '</tr>';
 	  return value;
 }
