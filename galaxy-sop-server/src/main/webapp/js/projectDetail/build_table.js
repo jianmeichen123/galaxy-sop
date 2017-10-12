@@ -434,8 +434,8 @@ function check_table_tr_edit(table){
 		}
 		if(trs>=limit){
 			$(table).closest(".tabtable_con_on").find(".bluebtn").hide(); 
-			for(var i=limit;i<trs-limit;i++){   //历史数据展示前10条
-				$(table).find("tr").eq(i).hide();
+			for(var i=trs-1;i>limit-1;i--){   //历史数据展示前10条
+				$(table).find("tbody tr").eq(i).hide();
 			}
 		}else{
 			$(table).closest(".tabtable_con_on").find(".bluebtn").show(); 
