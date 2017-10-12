@@ -31,8 +31,6 @@ function queryBack(data){
 			var partList=entityList.content;	
 			
 			var _this=$("#tabApprAllList");
-			 console.log("noDatanoDatanoDatanoDatanoDatanoDatanoDatanoData")
-			 console.log(entityList)
 			if(null!=partList&&partList.length>0){
 				for(var k=0;k<partList.length;k++){
 					  var grantPart=partList[k];
