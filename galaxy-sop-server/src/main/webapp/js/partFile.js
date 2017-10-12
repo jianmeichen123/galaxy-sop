@@ -10,29 +10,9 @@
 	   return this.replace(/^\s+|\s+$/g, '');
 	 };  
 
-var i=0;
-var isComplete = true;
-var showbar;
-function startbar(){  
-   showbar=setInterval("setbar()",1000);  
-	
-} 
-function setbar(){  
-	console.log(i)
-	if(100 -i >= 15){
-		 i+=15; 
-	}
-    if(!isComplete)  
-    {   
-    	window.clearInterval(showbar);  
-    }  
-    $("#filelist").find("tr").each(function(index,value){
-    	if(index != 0){
-		    $(this).children().eq(3).html('<span>'+ i + "%</span>"); 
-	    }
-	});
-}
+
 var data = {};
+var  showbar;
    var infoTableModelList = new Array();
   
    $("#win_ok_btn").click(function(){
@@ -148,7 +128,23 @@ var data = {};
 		params.deleteids = deleteids;
 		$("body").showLoading();
 		if(key){
-			startbar();
+			
+			var i=0;
+			var isComplete = true;
+			showbar=setInterval("setbar()",1000);  
+			console.log(i)
+			if(100 -i >= 15){
+				 i+=15; 
+			}
+		    if(!isComplete)  
+		    {   
+		    	window.clearInterval(showbar);  
+		    }  
+		    $("#filelist").find("tr").each(function(index,value){
+		    	if(index != 0){
+				    $(this).children().eq(3).html('<span>'+ i + "%</span>"); 
+			    }
+			});
 		}
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,false,function(dataParam){
 			//进行上传文件
@@ -210,7 +206,6 @@ var data = {};
    });
    
    function toBachPartUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun,id_code) {
-		i = 0;  
 	   var params = {};
 			var uploader = new plupload.Uploader({
 				runtimes : 'html5,flash,silverlight,html4',
