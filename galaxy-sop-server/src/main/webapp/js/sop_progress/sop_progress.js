@@ -199,6 +199,9 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	if(title=="编辑立项会会议记录"||title=="编辑内部评审会议记录"){
 		sp_class="spresult"
 	}
+	if(title=="编辑会后商务谈判会议记录"){
+			sp_class="spresults"
+		}
 	res.projectId = projectId;
 	res.id = selectRowId;
 	$.getHtml({
