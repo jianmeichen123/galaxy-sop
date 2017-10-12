@@ -155,7 +155,8 @@ $(function(){
 					 toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
 								null,"textarea2","select_btn","win_ok_btn","container","filelist",
 								params,"deliver_form",null,null);
-					$("#filelist").css("display","none")
+					$("#filelist").css("display","none");
+					check_tr($("#project_delivery_table tbody"));
 				}
 			});
 			return false;
@@ -164,7 +165,7 @@ $(function(){
 	
 	$('#project_delivery_table').bootstrapTable({
 		queryParamsType: 'size|page',
-		pageSize:5,
+		pageSize:10,
 		showRefresh : false ,
 		url : Constants.sopEndpointURL+"/galaxy/delivery/queryprodeliverypage",
 		sidePagination: 'server',
