@@ -126,14 +126,14 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		if(id == null){
 			return "project/tanchuan/appr_actual_total_look";
 		}
-		InformationResult c = informationResultService.queryById(id);
+		Project c = projectService.queryById(id);
 		if(c != null){
 			//投资金额,估值安排所有值,投资方主体
 			String[] titleIds = {"3004","3012","3011","3010","3020"};
 			Set<String> set=new HashSet<String>();         
 			set.addAll(Arrays.asList(titleIds));
 			InformationResult informationResult = new InformationResult();
-			informationResult.setProjectId(c.getProjectId());
+			informationResult.setProjectId(String.valueOf(c.getId()));
 			informationResult.setTitleIds(set);
 			informationResult.setIsValid("0");
 			//获取总注资计划的金额
@@ -275,18 +275,40 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			return responseBody;
 		}
 		
-		InformationResult informationResult = new InformationResult();
+		/*InformationResult informationResult = new InformationResult();
 		informationResult.setProjectId(Long.toString(informationListdata.getProjectId()));
 		informationResult.setTitleId("3004");
+		informationResult.setIsValid("0");*/
+		//投资金额,估值安排所有值,投资方主体
+		String[] titleIds = {"3004","3012","3011","3010","3020"};
+		Set<String> set=new HashSet<String>();         
+		set.addAll(Arrays.asList(titleIds));
+		InformationResult informationResult = new InformationResult();
+		informationResult.setProjectId(Long.toString(informationListdata.getProjectId()));
+		informationResult.setTitleIds(set);
 		informationResult.setIsValid("0");
 		//获取总注资计划的金额
 		List<InformationListdata> gp = null;
 		List<InformationResult> list = informationResultService.queryList(informationResult);
 		Map<String,Object> userData = new HashMap<String,Object>();
+		userData.put("grantMoney", 0);
+		userData.put("projectId", informationListdata.getProjectId());
+		//判断估值|星河主体等
+		boolean flag = false;
+		//获取总注资计划的金额
 		if(list != null && list.size() > 0){
-			informationResult = list.get(0);
-			userData.put("id", informationResult.getId());
-			userData.put("grantMoney", informationResult.getContentDescribe1());
+			for(InformationResult ir : list){
+				if(!StringUtils.isEmpty(ir.getContentDescribe1())){
+					flag = true;
+					userData.put("flag", flag);
+					if("3004".equals(ir.getTitleId())){
+						userData.put("id", ir.getId());
+						userData.put("grantMoney", ir.getContentDescribe1());
+					}
+				}
+			}
+		}
+		if(flag){
 		    //查找分期
 			InformationListdata infordata = new InformationListdata();
 			infordata.setTitleId(3022l);
@@ -377,11 +399,11 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = {  LogType.MESSAGE })
 	@ResponseBody
-	@RequestMapping(value = "/deleteGrantTotal/{tid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<GrantTotal> deleteGrantTotal(@PathVariable("tid") Long tid,
+	@RequestMapping(value = "/deleteGrantTotal/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantTotal> deleteGrantTotal(@PathVariable("pid") Long pid,
 			HttpServletRequest request) {
 		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
-		InformationResult c = informationResultService.queryById(tid);
+		Project c = projectService.queryById(pid);
 		if(c == null){
 			responseBody.setResult(new Result(Status.ERROR, "error" , "要删除的总注资记录不存在!"));
 			return responseBody;
@@ -389,20 +411,19 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		//查找分期
 		InformationListdata id = new InformationListdata();
 		id.setTitleId(3022l);
-		id.setProjectId(Long.valueOf(c.getProjectId()));
+		id.setProjectId(Long.valueOf(pid));
 		List<InformationListdata> part = informationListdataService.queryList(id);
 		if(part != null && part.size() > 0){
 			responseBody.setResult(new Result(Status.ERROR, "cantDelete" , "存在分期注资计划，不允许进行删除操作!"));
 			return responseBody;
 		}
-		Project project = projectService.queryById(Long.valueOf(c.getProjectId()));
 		try {
 			//投资金额,估值安排所有值,投资方主体
 			String[] titleIds = {"3004","3012","3011","3010","3020"};
 			Set<String> set=new HashSet<String>();         
 			set.addAll(Arrays.asList(titleIds));
 			InformationResult informationResult = new InformationResult();
-			informationResult.setProjectId(c.getProjectId());
+			informationResult.setProjectId(String.valueOf(c.getId()));
 			informationResult.setTitleIds(set);
 			informationResult.setIsValid("0");
 			//获取总注资计划的金额
@@ -415,7 +436,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 				informationResultService.deleteByIdInBatch(idList);
 			}
 			responseBody.setResult(new Result(Status.OK, "ok", "删除总注资计划成功!"));
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", UrlNumber.three);
+			ControllerUtils.setRequestParamsForMessageTip(request, null, c, "14.1", UrlNumber.three);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "删除总注资计划失败!"));
 			_common_logger_.error("删除总注资计划失败！", e);

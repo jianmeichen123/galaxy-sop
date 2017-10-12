@@ -72,7 +72,7 @@ var searchPartMoney;
 		var data_on=$self.attr("data-on");
 		var id=$self.attr("data-val");
 		if(data_on=="info"){
-			_url=Constants.sopEndpointURL+'galaxy/grant/total/toActualTotalLook/'+id+"?pid=${pid}";
+			_url=Constants.sopEndpointURL+'galaxy/grant/total/toActualTotalLook/${pid}';
 		}
 		var trs=$('.approp_table tbody').find('tr').length;
 		$.getHtml({

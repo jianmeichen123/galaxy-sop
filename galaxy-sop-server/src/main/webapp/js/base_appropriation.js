@@ -18,7 +18,7 @@ function queryBack(data){
 	}else{ 
 	    var entityList = data.pageList;
 		var total = data.userData;
-		if(typeof(total.grantMoney)!="undefined"&&total.grantMoney!=null){
+		if(total.flag){
 			var kk=assembleHtml(total,1);
 			$("#tabApprAllList").append(kk);
 		}
@@ -31,6 +31,8 @@ function queryBack(data){
 			var partList=entityList.content;	
 			
 			var _this=$("#tabApprAllList");
+			 console.log("noDatanoDatanoDatanoDatanoDatanoDatanoDatanoData")
+			 console.log(entityList)
 			if(null!=partList&&partList.length>0){
 				for(var k=0;k<partList.length;k++){
 					  var grantPart=partList[k];
@@ -82,7 +84,7 @@ function  assembleHtml(grantTotal,i){
             +'<span class="pbtn bluebtn rolehide" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+1+'" data-name="添加分期注资计划" data-total-name="'+1+'">添加分期注资计划</span>'
             +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="info" data-val="'+grantTotal.id+'"data-name="查看总注资计划">查看</label>'
             +'<label class="blue rolehide" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总注资计划">编辑</label>'
-            +'<label class="blue rolehide" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
+            +'<label class="blue rolehide" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.projectId+')" data-name="提示">删除</label>'
          +'</div>'
     +'</div>'                      
   //  <!--表格内容-->

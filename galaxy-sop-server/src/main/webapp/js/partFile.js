@@ -10,7 +10,27 @@
 	   return this.replace(/^\s+|\s+$/g, '');
 	 };  
 
-
+var i=0;
+var isComplete = true;
+var showbar;
+function startbar(){  
+   showbar=setInterval("setbar()",1000);  
+	
+} 
+function setbar(){  
+	if(100 -i >= 15){
+		 i+=15; 
+	}
+    if(!isComplete)  
+    {   
+        clearInterval(showbar);  
+    }  
+    $("#filelist").find("tr").each(function(index,value){
+    	if(index != 0){
+		    $(this).children().eq(3).html('<span>'+ i + "%</span>"); 
+	    }
+	});
+}
 var data = {};
    var infoTableModelList = new Array();
   
@@ -126,10 +146,18 @@ var data = {};
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
 		$("body").showLoading();
+		startbar();
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,false,function(dataParam){
 			//进行上传文件
 			var result = dataParam.result.status;
 			if(result == "OK"){
+				isComplete = false;
+				i = 0;
+				$("#filelist").find("tr").each(function(index,value){
+				    	if(index != 0){
+						    $(this).children().eq(3).html('<span>'+ 100 + "%</span>"); 
+					    }
+				});
 				var fids = dataParam.entity.fids;
 				if(fids != null && fids != undefined){
 						fs=fs+","+fids;
@@ -226,7 +254,7 @@ var data = {};
 						    var name =countSameSubFile(file,fileListId);
 						    file.name = name.replace(/\s+/g,"");;
 							$("#"+fieInputId).val($("#"+fieInputId).val()+" "+file.name);
-							$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+file.name+"</td><td>"+plupload.formatSize(file.size)+"</td><td><button type='button' id='"+file.id+"btn' onclick=delPart('"+file.id+"','"+file.name+"','"+fieInputId+"','partDelFile')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>"); 
+							$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+file.name+"</td><td>"+plupload.formatSize(file.size)+"</td><td><button type='button' id='"+file.id+"btn' onclick=delPart('"+file.id+"','"+file.name+"','"+fieInputId+"','partDelFile')>删除</button> </td><td id='"+file.id+"tr_progress'></td></tr>"); 
 							params.newFileName = file.id;
 							up.settings.multipart_params = params;
 							uploader.start();
@@ -235,11 +263,11 @@ var data = {};
 						
 					},
 					UploadProgress: function(up, file) {
-						 var percent = parseInt(file.percent)
+						/* var percent = parseInt(file.percent)
 						 if(percent > 10){
 							 percent = parseInt(file.percent)-10;
 							 $("#"+file.id+"_progress").html('<span>'+ percent + "%</span>"); 
-						 }
+						 }*/
 					},
 					UploadComplete: function(up, files){//所有都上传完成
 				    },
