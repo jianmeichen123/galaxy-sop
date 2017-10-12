@@ -2185,6 +2185,7 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .ritmin .fund_list .bottom  dl dd .txt{width:130px;}
 .fund_list .cx{margin-left:10px;}
 .agreement{margin-bottom: 50px;}
+#tabApprSingleList_1 .agreement,#tabApprSingleList_1 .agreement table{margin-bottom: 0px;}
 .b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
 #tabApprAllList .agreement .b_agreement{padding-top: 0px; margin-top:10px;}
 #tabApprAllList .agreement .b_agreement dl{margin-right:0;    margin-top: 17px;}
@@ -3648,3 +3649,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #company-info span.new_color_black{display: inline-block; width: 80%;}
  #project-table tr td:nth-child(6) div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
  #deliver_form label.error{background:none;color:#333;margin:0;padding:0}
+  .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;}
+ .pagebox .ritmin .tabtable #jointDelivery th:first-child{width:50%}
+ .pagebox .ritmin .tabtable #jointDelivery th:first-child+th+th{width:14%}
