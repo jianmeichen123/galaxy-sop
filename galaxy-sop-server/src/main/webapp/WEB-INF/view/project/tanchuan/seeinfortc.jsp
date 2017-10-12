@@ -26,7 +26,7 @@
         </dd>
       </dl> 
    </form>
-     <dl class="fmdl fl_l" id="show_up_file">
+    <!--  <dl class="fmdl fl_l" id="show_up_file">
            <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
            <thead>
               <tr>
@@ -35,7 +35,7 @@
               </tr>
            </thead>
            </table> 
-      </dl>
+      </dl> -->
   </div>
 	
 </div>

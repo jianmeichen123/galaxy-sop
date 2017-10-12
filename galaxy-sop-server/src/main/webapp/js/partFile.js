@@ -147,7 +147,9 @@ var data = {};
 		params.fileReidsKey = key;
 		params.deleteids = deleteids;
 		$("body").showLoading();
-		startbar();
+		if(key){
+			startbar();
+		}
 		sendPostRequestByJsonObjNoCache(sendFileUrl,params,false,function(dataParam){
 			//进行上传文件
 			var result = dataParam.result.status;

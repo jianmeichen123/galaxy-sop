@@ -316,6 +316,29 @@ function operFormat(value,row,index){
 								$("#deliver_form [data-name='field1']").val(deliverInfo.field1);
 								$("#deliver_form [data-name='field2']").val(deliverInfo.field2);
 								$("#deliver_form").find("input[data-name='field3'][value="+deliverInfo.field3+"]").attr('checked','true');
+							
+								$.each(data.entity.fileList,function(){
+									var but = "<button type='button' id='"+this.id+"btn' onclick=delPart('"+this.id+"','"+this.fileName+"','textarea2','partDelFile')>删除</button>" ;
+									var htm = "<tr id='"+this.id+"tr'>"+
+													"<td>"+this.fileName+"."+this.fileSuffix+
+														"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+													"</td>"+
+													"<td>"+plupload.formatSize(this.fileLength)+"</td>";
+										if(type != "v"){
+											htm+=	"<td>"+ but +"</td><td>100%</td>";
+										}			
+										htm+= "</tr>";
+									$("#filelist").append(htm);
+								});
+								var fileLen=$("#filelist tr:gt(0)").length;
+								if(fileLen==0){
+									$("#filelist").css("display","none");
+								}
+								toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
+											null,"textarea2","select_btn","win_ok_btn","container","filelist",
+											params,"deliver_form",null,null);
+								
+							
 							}else{
 								$("#delDescribe").html(deliverInfo.field1);
 								$("#details").html(deliverInfo.field2);
@@ -327,26 +350,6 @@ function operFormat(value,row,index){
 								}
 								
 							}
-							$.each(data.entity.fileList,function(){
-								var but = "<button type='button' id='"+this.id+"btn' onclick=delPart('"+this.id+"','"+this.fileName+"','textarea2','partDelFile')>删除</button>" ;
-								var htm = "<tr id='"+this.id+"tr'>"+
-												"<td>"+this.fileName+"."+this.fileSuffix+
-													"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
-												"</td>"+
-												"<td>"+plupload.formatSize(this.fileLength)+"</td>";
-									if(type != "v"){
-										htm+=	"<td>"+ but +"</td><td>100%</td>";
-									}			
-									htm+= "</tr>";
-								$("#filelist").append(htm);
-							});
-							var fileLen=$("#filelist tr:gt(0)").length;
-							if(fileLen==0){
-								$("#filelist").css("display","none");
-							}
-							toBachPartUpload(Constants.sopEndpointURL+'galaxy/informationFile/sendInformationByRedis',
-										null,"textarea2","select_btn","win_ok_btn","container","filelist",
-										params,"deliver_form",null,null);
 							
 							
 						}else{
