@@ -292,6 +292,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			infordata.setTitleId(3022l);
 			infordata.setProjectId(informationListdata.getProjectId());
 			gp = informationListdataService.queryList(infordata);
+			DecimalFormat df = new DecimalFormat("#.0000"); 
 			//分期列表
 			if(gp != null && gp.size() > 0){
 				List<InformationListdata> removedatalist = new ArrayList<InformationListdata>();
@@ -300,8 +301,10 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 					infordata.setParentId(item.getId());
 					infordata.setCode("grant-actual");
 		            Double money = informationListdataService.selectActualMoney(infordata);
+		           
 		            if(money != null && money.doubleValue() > 0){
-		            	item.setField4(money.toString());
+				        String m = df.format(money);
+		            	item.setField4(m);
 		            }
 					List<InformationListdata> datalist = new ArrayList<InformationListdata>();
 					//实际注资
