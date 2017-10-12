@@ -265,16 +265,19 @@ function initViewUpload() {
 				}
 				plupload.each(files, function(file) {
 					var size=up.settings.filters.max_file_size.replace("MB","");   
-					alert(size)
 					var fileSize = 0;
 					if (navigator.userAgent.indexOf('Mac') != -1) {
 						 fileSize = file.size / 1000;
+						 if(parseInt(fileSize) > parseInt(size) * 1000){
+								layer.msg("最大支持"+size+"MB");
+								return false;
+						 }
 					} else {
 						 fileSize = file.size / 1024;
-					}
-					if(parseInt(fileSize) > parseInt(size) * 1000){
-						layer.msg("最大支持"+size+"MB");
-						return false;
+						 if(parseInt(fileSize) > parseInt(size) * 1024){
+								layer.msg("最大支持"+size+"MB");
+								return false;
+						 }
 					}
 					$("#file_object").removeClass("no_bg");
 					$("#file_object").text(file.name);
