@@ -190,8 +190,8 @@
     						 $("#remainMoney").val(data.remainMoney);
     						 $("#remainMoneyActual").val(data.remainMoney);
     						 $("#totalMoneyActual").val(data.totalMoney);
-    						 remainActualMoney=(Number(data.totalMoney)*10000-sum*10000)/10000;
-							 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
+    						 //remainActualMoney=(Number(data.totalMoney)*10000-sum*10000)/10000;
+							 $("#formatRemainMoney").text(Number(data.remainMoney).toFixed(4)*10000/10000);
     						 if(_data_type=='info' || _data_type=='edit'){   //查看+编辑
     							 $('#totalRemainMoneyActual').val(data.totalMoney);  //实际注资编辑总金额
     							 $('#valtrActual').val(valtrRow);
@@ -199,13 +199,13 @@
     							 $("#grantMoney").on("blur",function(){
         							 var val=$(this).val();
         							 var errorTips=$(this).siblings(".error");
-        							 if(val>remainActualMoney+Number(valtrRow)){
+        							 if(val>Number(data.remainMoney)+Number(valtrRow)){
     									 $("#formatRemainMoney").text("0");
     								 }else{
     									 if(errorTips.is(":visible")){
-    										 $("#formatRemainMoney").text((remainActualMoney+Number(valtrRow)).toFixed(4)*10000/10000);
+    										 $("#formatRemainMoney").text((Number(data.remainMoney)+Number(valtrRow)).toFixed(4)*10000/10000);
     									 }else{
-    										 var formatRemainActualMoney=remainActualMoney-val+Number(valtrRow);
+    										 var formatRemainActualMoney=Number(data.remainMoney)-val+Number(valtrRow);
     										 $("#formatRemainMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
     									 }
     								 }
@@ -215,13 +215,13 @@
         						 $("#grantMoney").on("blur",function(){
         							 var val=$(this).val();
         							 var errorTips=$(this).siblings(".error");
-        							 if(val>remainActualMoney){
+        							 if(val>Number(data.remainMoney)){
     									 $("#formatRemainMoney").text("0");
     								 }else{
     									 if(errorTips.is(":visible")){
-    										 $("#formatRemainMoney").text(remainActualMoney.toFixed(4)*10000/10000);
+    										 $("#formatRemainMoney").text(Number(data.remainMoney).toFixed(4)*10000/10000);
     									 }else{
-    										 var formatRemainActualMoney=remainActualMoney-val;
+    										 var formatRemainActualMoney=Number(data.remainMoney)-val;
     										 $("#formatRemainMoney").text(formatRemainActualMoney.toFixed(4)*10000/10000);
     									 }
     								 }
