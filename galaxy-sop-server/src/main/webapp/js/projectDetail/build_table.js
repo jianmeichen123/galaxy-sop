@@ -178,12 +178,12 @@ function editRow(ele)
 					}
 				}else if (type=="input"){
 					if(code=="equity-structure"&&name=="field2"){
-						val_text = _parsefloat(val_text)
-						}
-						if(code=="finance-history"){
-							if(name=="field3"||name=="field4"||name=="field5")
-							val_text = _parsefloat(val_text);
-						}
+					val_text = _parsefloat(val_text)
+					}
+					if(code=="finance-history"){
+						if(name=="field3"||name=="field4"||name=="field5"){
+						val_text = _parsefloat(val_text);
+					}
 				}
 				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 			});
