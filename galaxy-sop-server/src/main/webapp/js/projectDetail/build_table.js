@@ -198,6 +198,14 @@ function editRow(ele)
 					ele.attr("title",val_text);
 				}
 				ele.text(row.data(name)==undefined?"":val_text);
+				//查看股权特殊处理select
+				$.each($(".see_share_block select"),function(){
+					var selectId=$(this).val();
+					var selectVal=$(".see_share_block select").find("option[value='"+selectId+"']").text();
+					if(row.data(name)==selectId && selectId!=""){
+						ele.text(selectVal);
+					}
+				});
 
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
