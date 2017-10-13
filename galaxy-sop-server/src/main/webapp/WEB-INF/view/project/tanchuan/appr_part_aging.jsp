@@ -60,7 +60,8 @@
 		              <dt>付款条件：</dt>
 		                <dd>
 		                	<div>
-		                    	<textarea class="team_textarea" data-name="field4" id="field4" data-type="19"></textarea>
+		                    	<textarea class="team_textarea" data-name="field4" id="field4" data-type="19" oninput="countChar('field4','label_now_next','2000')"></textarea>
+		                    	<p class="num_tj"><span for="" id="label_now_next">2000</span>/2000</p>
 		                    </div> 
 		                </dd>
 		            </dl>
