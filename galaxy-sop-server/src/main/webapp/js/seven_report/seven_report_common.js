@@ -695,7 +695,7 @@ function buildMemberRow(headerList,row,showOpts)
                  	if(row[key].indexOf("1363")>-1){
                  		var field=row.field2.split("-");
                  		if(field.length>1){
-                 			map_edu[row[key]]=field[1];
+                 			map_edu[row[key]]=row.field2.substring(5,row.field2.length);
                  		}
                  	}
                  	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){

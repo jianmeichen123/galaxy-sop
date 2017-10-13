@@ -108,7 +108,7 @@ function buildMemberRow(headerList,row)
                 	if(row[key].indexOf("1363")>-1){
                 		var field=row.field2.split("-");
                 		if(field.length>1){
-                			map_edu[row[key]]=field[1];
+                			map_edu[row[key]]=row.field2.substring(5,row.field2.length);
                 		}
                 	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
@@ -214,11 +214,12 @@ function editMemberRow(ele){
 				var valName=row.data(name);
 				if(typeof(row.data(name))=='string' && row.data(name).indexOf("1363")>-1){
 					valName=valName.split("-");
+					console.log(valName)
 					valNameNew=valName[0];
 					$("input[name='other']").show();
 					$("input[name='other']").attr('required',true);
 					if(valName[1] && valName[1] !=undefined){
-						valNameOther=valName[1];
+						valNameOther=row.data(name).substring(5,row.data(name).length);
 					}
 				}else{
 					valNameNew=valName;
