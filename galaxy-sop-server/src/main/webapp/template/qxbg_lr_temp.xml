@@ -13790,18 +13790,13 @@
                 <w:t>前三项核心竞争力：</w:t>
             </w:r>
         </w:p>
-        <w:p w:rsidR="00754446" w:rsidRPr="001E496E" w:rsidRDefault="00754446" w:rsidP="001E496E">
+        <w:p w:rsidR="00754446" w:rsidRPr="00754446" w:rsidRDefault="00754446" w:rsidP="004C3F82">
             <w:pPr>
-                <w:pStyle w:val="a5"/>
-                <w:numPr>
-                    <w:ilvl w:val="0"/>
-                    <w:numId w:val="12"/>
-                </w:numPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
-                <w:ind w:leftChars="200" w:left="780" w:firstLineChars="0"/>
+                <w:ind w:firstLine="420"/>
                 <w:jc w:val="left"/>
                 <w:rPr>
-                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
@@ -18076,23 +18071,18 @@
                 <w:t>风险解决方案是什么：</w:t>
             </w:r>
         </w:p>
-        <w:p w:rsidR="00783896" w:rsidRPr="00172C07" w:rsidRDefault="00783896" w:rsidP="00783896">
+        <w:p w:rsidR="00754446" w:rsidRPr="00754446" w:rsidRDefault="00754446" w:rsidP="004C3F82">
             <w:pPr>
-                <w:pStyle w:val="a5"/>
-                <w:numPr>
-                    <w:ilvl w:val="0"/>
-                    <w:numId w:val="5"/>
-                </w:numPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
-                <w:ind w:firstLineChars="0"/>
+                <w:ind w:firstLine="420"/>
                 <w:jc w:val="left"/>
                 <w:rPr>
-                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
             </w:pPr>
-            <w:r w:rsidRPr="00172C07">
+            <w:r w:rsidRPr="001E496E">
                 <w:rPr>
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="18"/>
@@ -18101,6 +18091,7 @@
                 <w:t>${NO8_1_8!"-"}</w:t>
             </w:r>
         </w:p>
+
         <w:p w:rsidR="00783896" w:rsidRPr="00B54BA7" w:rsidRDefault="001C305B" w:rsidP="00B54BA7">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
@@ -21653,23 +21644,18 @@
                 <w:t>三项重要的不确定性：</w:t>
             </w:r>
         </w:p>
-        <w:p w:rsidR="00783896" w:rsidRPr="00A040EA" w:rsidRDefault="00783896" w:rsidP="00783896">
+        <w:p w:rsidR="00754446" w:rsidRPr="00754446" w:rsidRDefault="00754446" w:rsidP="004C3F82">
             <w:pPr>
-                <w:pStyle w:val="a5"/>
-                <w:numPr>
-                    <w:ilvl w:val="0"/>
-                    <w:numId w:val="2"/>
-                </w:numPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
-                <w:ind w:firstLineChars="0"/>
+                <w:ind w:firstLine="420"/>
                 <w:jc w:val="left"/>
                 <w:rPr>
-                    <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体"/>
+                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
             </w:pPr>
-            <w:r w:rsidRPr="00A040EA">
+            <w:r w:rsidRPr="001E496E">
                 <w:rPr>
                     <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
                     <w:sz w:val="18"/>
@@ -21678,6 +21664,7 @@
                 <w:t>${NO9_3_6!"-"}</w:t>
             </w:r>
         </w:p>
+
         <w:p w:rsidR="00783896" w:rsidRDefault="00655433" w:rsidP="00655433">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
