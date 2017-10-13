@@ -176,7 +176,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 						uid = c.getUpdateId()==null?c.getCreateId():c.getUpdateId();
 					}
 					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+uid, "realName"));
-					c.setUpdateTimeStr(c.getUpdateTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
+					c.setUpdateTimeStr(c.getUpdateTime() == null ? DateUtil.longToString(c.getCreateTime()) : DateUtil.longToString(c.getUpdateTime()));
 				}
 				actualPage.setContent(content);
 			}

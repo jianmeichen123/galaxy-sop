@@ -287,7 +287,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 			if(content != null && content.size() > 0){
 				for(InformationListdata c : content){
 					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+c.getUpdateId(), "realName"));
-					c.setUpdateTimeStr(DateUtil.longToString(c.getUpdateTime()));
+					c.setUpdateTimeStr(c.getUpdateTime() == null ? DateUtil.longToString(c.getCreateTime()) : DateUtil.longToString(c.getUpdateTime()));
 				}
 				actualPage.setContent(content);
 			}
