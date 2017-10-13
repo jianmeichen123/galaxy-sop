@@ -178,9 +178,9 @@ var fileGrid = {
 			opts.push('<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">下载</a>');
 			return opts.join('');
 		}else if(!row.fileKey && row.isEdit == "true"){
-			if(isTransfing == false )
+			if(isTransfing == false && roleId=='17')
 			{
-				/*opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');*/
+				opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');
 			}
 			return opts.join('');
 		}else if(row.fileKey && row.fileValid==1  && row.isEdit == "false"){
