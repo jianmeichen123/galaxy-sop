@@ -1987,8 +1987,15 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				var val_text = data[key];
-				if(titleId=="1906"&&key=="field2"){
-					val_text = _parsefloat(val_text)
+				if(titleId=="1906"||titleId=="1920"){					
+					if(key=="field2"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+				if(titleId=="1548"){					
+					if(key=="field3"){
+						val_text = _parsefloat(val_text)
+					}
 				}
 				if(titleId=="1903"||titleId=="1908"){
 					if(key=="field3"||key=="field4"||key=="field5"){
@@ -2068,8 +2075,15 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else if (type=="input"){
-					if(code=="equity-structure"&&name=="field2"){
-					val_text = _parsefloat(val_text)
+					if(code=="equity-structure"||code=="valuation-reference"){
+						if(name=="field2"){
+							val_text = _parsefloat(val_text)
+						}					
+					}
+					if(code=="competition-comparison"){					
+						if(key=="field3"){
+							val_text = _parsefloat(val_text)
+						}
 					}
 					if(code=="finance-history"||code=="investor-situation"){
 						if(name=="field3"||name=="field4"||name=="field5")
@@ -2083,8 +2097,15 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				var val_text=  row.data(name);				
-				if(code=="equity-structure"&&name=="field2"){
-					val_text = _parsefloat(val_text)
+				if(code=="equity-structure"||code=="valuation-reference"){
+					if(name=="field2"){
+						val_text = _parsefloat(val_text)
+					}					
+				}
+				if(code=="competition-comparison"){					
+					if(key=="field3"){
+						val_text = _parsefloat(val_text)
+					}
 				}
 				if(code=="finance-history"||code=="investor-situation"){
 					if(name=="field3"||name=="field4"||name=="field5")
