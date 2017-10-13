@@ -186,11 +186,11 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				var val_text = row.data(name);
-					if(code=="equity-structure"&&k=="field2"){
+					if(code=="equity-structure"&&name=="field2"){
 						val_text = _parsefloat(val_text)
 					}
 					if(code=="finance-history"){
-						if(k=="field3"||k=="field4"||k=="field5")
+						if(name=="field3"||name=="field4"||name=="field5")
 						val_text = _parsefloat(val_text)
 					}
 
