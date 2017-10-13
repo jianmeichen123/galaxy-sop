@@ -99,7 +99,14 @@ function buildRow(row,showOpts,titleId)
 			if(row[k]==""||row[k]==undefined || row[k]=='undefined'){
 				row[k]="—";
 			}
-			tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+			if(titleId=="1906"&&k=="field2"){
+				row[k] = _parsefloat(row[k])
+			}
+			if(titleId=="1903"){
+				if(k=="field3"||k=="field4"||k=="field5")
+				row[k] = _parsefloat(row[k])
+			}
+			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
 		
 	});
@@ -168,15 +175,25 @@ function editRow(ele)
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else{
+				}else if (type=="input"){
 					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":_parsefloat(row.data(name)));
+				}else{
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":row.data(name));
 				}
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				var val_text = _parsefloat(row.data(name));
+				var val_text = row.data(name);
+					if(code=="equity-structure"&&k=="field2"){
+						val_text = _parsefloat(val_text)
+					}
+					if(code=="finance-history"){
+						if(k=="field3"||k=="field4"||k=="field5")
+						val_text = _parsefloat(val_text)
+					}
+
 				if(code=="equity-structure"&&name=="field1"){
 					ele.attr("title",val_text);
 				}
