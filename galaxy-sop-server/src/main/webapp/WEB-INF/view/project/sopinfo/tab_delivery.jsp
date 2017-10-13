@@ -110,6 +110,7 @@ $(function(){
 		
 	}
 	$("#project_delivery_table").on('load-success.bs.table',function(table,data){
+		$("body").css('overflow-y', 'auto');
 		check_tr($("#project_delivery_table tbody"));
 		if(data.pageList.total>0 && isTransfering == 'true')
 		{
