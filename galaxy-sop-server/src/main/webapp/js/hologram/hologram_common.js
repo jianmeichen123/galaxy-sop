@@ -863,8 +863,15 @@ function buildRow(row,showOpts,titleId)
 		}*/
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
-				//tr.find('td:eq(0)').attr('title',row[num]);
+				if(titleId=="1906"&&k=="field2"){
+					row[k] = _parsefloat(row[k])
+				}
+				if(titleId=="1903"||titleId=="1908"){
+					if(k=="field3"||k=="field4"||k=="field5")
+					row[k] = _parsefloat(row[k])
+				}
+				
+				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
@@ -2051,6 +2058,8 @@ function editRow(ele)
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
+				}else if (type=="input"){
+					ele.val(_parsefloat(row.data(name)));
 				}else{
 					ele.val(_parsefloat(row.data(name)));
 				}
@@ -2059,7 +2068,15 @@ function editRow(ele)
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name));
+				var val_text=  row.data(name);				
+				if(code=="equity-structure"&&name=="field2"){
+					val_text = _parsefloat(val_text)
+				}
+				if(code=="finance-history"||code=="investor-situation"){
+					if(name=="field3"||name=="field4"||name=="field5")
+					val_text = _parsefloat(val_text)
+				}
+				ele.text(val_text);
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();

@@ -856,7 +856,15 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+				if(titleId=="1906"&&k=="field2"){
+					row[k] = _parsefloat(row[k])
+				}
+				if(titleId=="1903"||titleId=="1908"){
+					if(k=="field3"||k=="field4"||k=="field5")
+					row[k] = _parsefloat(row[k])
+				}
+				
+				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
