@@ -103,7 +103,7 @@ public class ReportExportServiceImpl implements ReportExportService {
     */
     public String textConversion(String text){
         if(StringUtils.isBlank(text)){
-            return text;
+            return null;
         }
 
         String result = text.replace("<br/>","<w:br />")
@@ -604,7 +604,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                 value = valueIdNameMap.get(new Long(fieldValue));
             }
             if(StringUtils.isBlank(value)){
-                value = fieldValue;
+                value = textConversion(fieldValue);
             }
         }else if(type == 3 || type == 4 )
         {
