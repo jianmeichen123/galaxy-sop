@@ -863,8 +863,15 @@ function buildRow(row,showOpts,titleId)
 		}*/
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				if(titleId=="1906"&&k=="field2"){
-					row[k] = _parsefloat(row[k])
+				if(titleId=="1906"||titleId=="1920"){					
+					if(key=="field2"){
+						row[k] = _parsefloat(row[k])
+					}
+				}
+				if(titleId=="1548"){					
+					if(key=="field3"){
+						row[k] = _parsefloat(row[k])
+					}
 				}
 				if(titleId=="1903"||titleId=="1908"){
 					if(k=="field3"||k=="field4"||k=="field5")
