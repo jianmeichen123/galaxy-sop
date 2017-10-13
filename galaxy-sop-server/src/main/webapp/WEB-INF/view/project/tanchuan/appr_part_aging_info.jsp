@@ -14,7 +14,7 @@
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
 		<input type="hidden" id="remainMoneyPart" value=""/>
 		<input type="hidden" id="totalMoneyPart" value=""/>
-	    <div class="form clearfix" id="actual_aging_container">
+	    <div class="form clearfix grantPartTc" id="actual_aging_container">
 	        <div class="appr_aging">
 	           <form id="actual_aging_form">
 		           
@@ -46,7 +46,7 @@
 		            </dl>
 		             <dl class="fmdl fl_l  clearfix">
 		                 <dt>付款条件：</dt>
-		                <dd>
+		                <dd style='width:70%;'>
 		                	<div id="payCondition">
 		                    </div> 
 		                </dd>
