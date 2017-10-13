@@ -18778,7 +18778,7 @@
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
-                <w:t>融资历史：</w:t>
+                <w:t>融资历史：<#if !finance_history?? > - </#if> </w:t>
             </w:r>
         </w:p>
 
@@ -19176,7 +19176,7 @@
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
-                <w:t>完整股权结构：</w:t>
+                <w:t>完整股权结构：<#if !equity_structure?? > - </#if></w:t>
             </w:r>
         </w:p>
 
@@ -19539,7 +19539,7 @@
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
-                <w:t>主要战略投资人、财务投资人投资情况：</w:t>
+                <w:t>主要战略投资人、财务投资人投资情况：<#if !investor_situation?? > - </#if></w:t>
             </w:r>
         </w:p>
 
@@ -20747,7 +20747,7 @@
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
-                <w:t>市场同类公司估值参考：</w:t>
+                <w:t>市场同类公司估值参考：<#if !valuation_reference?? > - </#if></w:t>
             </w:r>
         </w:p>
 
@@ -21696,7 +21696,7 @@
                     <w:szCs w:val="18"/>
                 </w:rPr>
                 <w:lastRenderedPageBreak/>
-                <w:t>现金流量表：</w:t>
+                <w:t>现金流量表：<#if !NO9_3_7?? > - </#if></w:t>
             </w:r>
         </w:p>
 
