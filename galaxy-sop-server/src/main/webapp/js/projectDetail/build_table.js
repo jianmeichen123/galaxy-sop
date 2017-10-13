@@ -171,6 +171,7 @@ function editRow(ele)
 				var name = ele.attr('name');
 				var type=ele.attr('type');
 				var idVal=ele.attr('id');
+				var val_text =row.data(name);
 				if(type=="radio"){
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");

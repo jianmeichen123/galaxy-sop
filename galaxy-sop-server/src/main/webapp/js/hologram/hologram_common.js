@@ -2054,15 +2054,21 @@ function editRow(ele)
 				var name = ele.attr('name');
 				var type=ele.attr('type');
 				var idVal=ele.attr('id');
+				var val_text =row.data(name);
 				if(type=="radio"){
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
 				}else if (type=="input"){
-					ele.val(_parsefloat(row.data(name)));
-				}else{
-					ele.val(_parsefloat(row.data(name)));
+					if(code=="equity-structure"&&name=="field2"){
+					val_text = _parsefloat(val_text)
+					}
+					if(code=="finance-history"||code=="investor-situation"){
+						if(name=="field3"||name=="field4"||name=="field5")
+						val_text = _parsefloat(val_text);
+					}
 				}
+				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
