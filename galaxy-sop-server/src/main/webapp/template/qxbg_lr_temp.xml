@@ -7642,7 +7642,9 @@
                                 <w:szCs w:val="18"/>
                                 <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
                             </w:rPr>
-                            <w:t>${sup.field3!"-"}</w:t>
+                            <w:t>
+                                <#if sup.field3?? >担任职务为${sup.field3!"-"}，</#if><#if sup.field4?? >${sup.field4!"-"}，</#if><#if sup.field5?? >创立时股权比例为${sup.field5!"-"}，</#if><#if sup.field6?? >融资机构及金额、成功或失败或离职原因为${sup.field6!"-"}</#if>
+                            </w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -7666,7 +7668,7 @@
                                 <w:szCs w:val="18"/>
                                 <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
                             </w:rPr>
-                            <w:t>${sup.field7!"-"}</w:t>
+                            <w:t>项目概述：${sup.field7!"-"}</w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -18092,7 +18094,7 @@
             </w:r>
         </w:p>
 
-        <w:p w:rsidR="00783896" w:rsidRPr="00B54BA7" w:rsidRDefault="001C305B" w:rsidP="00B54BA7">
+        <wv">
             <w:pPr>
                 <w:spacing w:line="360" w:lineRule="auto"/>
                 <w:jc w:val="left"/>
