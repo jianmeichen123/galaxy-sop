@@ -167,6 +167,7 @@ function editRow(ele)
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
+				debugger;
 				var ele = $(this);
 				var name = ele.attr('name');
 				var type=ele.attr('type');
@@ -176,13 +177,15 @@ function editRow(ele)
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else if (type=="input"){
+				}else if (type=="text"){
 					if(code=="equity-structure"&&name=="field2"){
-					val_text = _parsefloat(val_text)
+						val_text = _parsefloat(val_text);
 					}
 					if(code=="finance-history"){
 						if(name=="field3"||name=="field4"||name=="field5"){
-						val_text = _parsefloat(val_text);
+							val_text = _parsefloat(val_text);
+						}
+						
 					}
 				}
 				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);

@@ -554,7 +554,7 @@ function editRow(ele)
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else if (type=="input"){
+				}else if (type=="text"){
 					if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
 						if(name=="field2"){
 							val_text = _parsefloat(val_text)
