@@ -518,9 +518,9 @@ function jointDeliveryEdit(list){
 		var index = $(this).index()
 		var _this = $(this);
 		if(name_opt[index]==='currency:0' || name_opt[index]==='人民币'){
-			_this.find('select option:eq(0)').attr('selected',true);
+			_this.find('select option:eq(0)').prop('selected',true);
 		}else{
-			_this.find('select option:eq(1)').attr('selected',true);
+			_this.find('select option:eq(1)').prop('selected',true);
 		}
 	});
 	
