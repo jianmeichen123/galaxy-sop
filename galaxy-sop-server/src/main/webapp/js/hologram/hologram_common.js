@@ -863,19 +863,19 @@ function buildRow(row,showOpts,titleId)
 		}*/
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				if(titleId=="1906"||titleId=="1920"){					
-					if(key=="field2"){
-						row[k] = _parsefloat(row[k])
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){			
+					if(k=="field2"){
+						row[k] = _parsefloat(row[k]);
 					}
 				}
 				if(titleId=="1548"){					
-					if(key=="field3"){
-						row[k] = _parsefloat(row[k])
+					if(k=="field3"){
+						row[k] = _parsefloat(row[k]);
 					}
 				}
 				if(titleId=="1903"||titleId=="1908"){
 					if(k=="field3"||k=="field4"||k=="field5")
-					row[k] = _parsefloat(row[k])
+					row[k] = _parsefloat(row[k]);
 				}
 				
 				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
@@ -1994,7 +1994,7 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				var val_text = data[key];
-				if(titleId=="1906"||titleId=="1920"){					
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
 					if(key=="field2"){
 						val_text = _parsefloat(val_text)
 					}
@@ -2082,13 +2082,13 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else if (type=="input"){
-					if(code=="equity-structure"||code=="valuation-reference"){
+					if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
 						if(name=="field2"){
 							val_text = _parsefloat(val_text)
 						}					
 					}
-					if(code=="competition-comparison"){					
-						if(key=="field3"){
+					if(code=="competition-comparison"){	
+						if(name=="field3"){	
 							val_text = _parsefloat(val_text)
 						}
 					}
@@ -2104,7 +2104,7 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				var val_text=  row.data(name);				
-				if(code=="equity-structure"||code=="valuation-reference"){
+				if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
 					if(name=="field2"){
 						val_text = _parsefloat(val_text)
 					}					

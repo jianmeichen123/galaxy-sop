@@ -555,13 +555,13 @@ function editRow(ele)
 						ele.attr("checked","chedcked");
 					}
 				}else if (type=="input"){
-					if(code=="equity-structure"||code=="valuation-reference"){
+					if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
 						if(name=="field2"){
 							val_text = _parsefloat(val_text)
 						}					
 					}
 					if(code=="competition-comparison"){					
-						if(key=="field3"){
+						if(name=="field3"){
 							val_text = _parsefloat(val_text)
 						}
 					}
@@ -577,13 +577,13 @@ function editRow(ele)
 				var ele = $(this);
 				var name = ele.attr('name');
 				var val_text=  row.data(name);				
-				if(code=="equity-structure"||code=="valuation-reference"){
+				if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
 					if(name=="field2"){
 						val_text = _parsefloat(val_text)
 					}					
 				}
 				if(code=="competition-comparison"){					
-					if(key=="field3"){
+					if(name=="field3"){
 						val_text = _parsefloat(val_text)
 					}
 				}
@@ -934,7 +934,7 @@ function saveRow(data)
 			{
 				tr.data(key,data[key]);
 				var val_text = data[key];
-				if(titleId=="1906"||titleId=="1920"){					
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
 					if(key=="field2"){
 						val_text = _parsefloat(val_text)
 					}
