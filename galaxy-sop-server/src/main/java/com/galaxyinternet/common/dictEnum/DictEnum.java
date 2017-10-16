@@ -676,7 +676,10 @@ public enum DictEnum {
 		业务尽职调查清单("业务尽职调查清单","fileWorktype:13"),
 		人力资源尽职调查清单("人力资源尽职调查清单","fileWorktype:14"),
 		法务尽职调查清单("法务尽职调查清单","fileWorktype:15"),
-		财务尽职调查清单("财务尽职调查清单","fileWorktype:16");
+		财务尽职调查清单("财务尽职调查清单","fileWorktype:16"),
+		立项报告("立项报告","fileWorktype:17"),
+		尽职调查启动会报告("尽职调查启动会报告","fileWorktype:18"),
+		尽职调查总结会报告("尽职调查总结会报告","fileWorktype:19");
 		
 		private String name;
 

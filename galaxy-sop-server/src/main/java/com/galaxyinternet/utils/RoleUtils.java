@@ -54,6 +54,9 @@ public class RoleUtils {
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true","false","true"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.商业计划.getCode(), "true","true","false","true"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务预测报告.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.立项报告.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.尽职调查启动会报告.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.尽职调查总结会报告.getCode(), "true","true","false","true"));
 		//HR总监
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true","false"));
