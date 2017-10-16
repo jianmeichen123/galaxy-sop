@@ -417,8 +417,8 @@ public class InformationDataServiceImpl extends BaseServiceImpl<InformationData>
 					if(tm.getId() == null){
 						//新增
 						td.setId(null);
-						entity.setUpdateId(userId);
-						entity.setUpdateTime(now);
+						td.setUpdateId(userId);
+						td.setUpdateTime(now);
 						listdataDao.insert(td);
 					}else{
 						//修改
