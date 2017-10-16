@@ -564,7 +564,7 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
+				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				if(title.resultList[0].contentDescribe1 !=undefined){
 					$(".field[data-title-id='"+title.id+"']").next().show();
 				}else{
@@ -574,7 +574,7 @@ function buildResults(sec,title,readonly)
 			else
 			{	
 				var result_id = title.resultList[0].id;				
-				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);			
+				$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);			
 			}
 		}
 		if( title.type == 20)
@@ -703,7 +703,7 @@ function buildMemberRow(headerList,row,showOpts)
                 	if(row[key].indexOf("1363")>-1){
                 		var field=row.field2.split("-");
                 		if(field.length>1){
-                			map_edu[row[key]]=field[1];
+                			map_edu[row[key]]=row.field2.substring(5,row.field2.length);
                 		}
                 	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
@@ -863,8 +863,22 @@ function buildRow(row,showOpts,titleId)
 		}*/
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
-				//tr.find('td:eq(0)').attr('title',row[num]);
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){			
+					if(k=="field2"){
+						row[k] = _parsefloat(row[k]);
+					}
+				}
+				if(titleId=="1548"){					
+					if(k=="field3"){
+						row[k] = _parsefloat(row[k]);
+					}
+				}
+				if(titleId=="1903"||titleId=="1908"){
+					if(k=="field3"||k=="field4"||k=="field5")
+					row[k] = _parsefloat(row[k]);
+				}
+				
+				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}
@@ -1302,11 +1316,16 @@ jQuery.validator.addMethod("verify_50_font", function(value, element) {
 	var verify_50_font = /^[^\s](.{0,49})$/;
 	return this.optional(element) || (verify_50_font.test(value));
 }, "不能超过50个字"); 
-//0到10之间的一位小数
+//0到10之间的整数
 jQuery.validator.addMethod("verify_10_1", function(value, element) { 
 	var verify_10_1 = /^([0-9]|10)$/;
 	return this.optional(element) || (verify_10_1.test(value));
 }, "0到10之间的整数"); 
+//0到10之间的一位小数
+jQuery.validator.addMethod("verify_10_01", function(value, element) { 
+	var verify_10_01 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
+	return this.optional(element) || (verify_10_01.test(value));
+}, "0到10之间的一位小数"); 
 //百分数
 jQuery.validator.addMethod("percentage", function(value, element) {   
 	var percentage = /^\d+(\.\d{2})?$/;
@@ -1965,8 +1984,6 @@ function saveRow(data)
 	data = JSON.parse(data);
 	var titleId = data.titleId;
 	var titleCode;
-	console.log(data)
-		
 	var index = data.index;
 	if(typeof index == 'undefined' || index == null || index == '')
 	{
@@ -1981,7 +1998,24 @@ function saveRow(data)
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
 			{
 				tr.data(key,data[key]);
-				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
+				var val_text = data[key];
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
+					if(key=="field2"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+				if(titleId=="1548"){					
+					if(key=="field3"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+				if(titleId=="1903"||titleId=="1908"){
+					if(key=="field3"||key=="field4"||key=="field5"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+
+				tr.find('td[data-field-name="'+key+'"]').text(val_text);
 				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);
@@ -2047,19 +2081,49 @@ function editRow(ele)
 				var name = ele.attr('name');
 				var type=ele.attr('type');
 				var idVal=ele.attr('id');
+				var val_text =row.data(name);
 				if(type=="radio"){
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else{
-					ele.val(_parsefloat(row.data(name)));
+				}else if (type=="text"){
+					if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
+						if(name=="field2"){
+							val_text = _parsefloat(val_text)
+						}					
+					}
+					if(code=="competition-comparison"){	
+						if(name=="field3"){	
+							val_text = _parsefloat(val_text)
+						}
+					}
+					if(code=="finance-history"||code=="investor-situation"){
+						if(name=="field3"||name=="field4"||name=="field5")
+						val_text = _parsefloat(val_text);
+					}
 				}
+				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name));
+				var val_text=  row.data(name);				
+				if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
+					if(name=="field2"){
+						val_text = _parsefloat(val_text)
+					}					
+				}
+				if(code=="competition-comparison"){					
+					if(key=="field3"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+				if(code=="finance-history"||code=="investor-situation"){
+					if(name=="field3"||name=="field4"||name=="field5")
+					val_text = _parsefloat(val_text)
+				}
+				ele.text(val_text);
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();

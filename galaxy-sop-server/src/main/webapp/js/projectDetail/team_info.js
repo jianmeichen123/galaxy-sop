@@ -108,7 +108,7 @@ function buildMemberRow(headerList,row)
                 	if(row[key].indexOf("1363")>-1){
                 		var field=row.field2.split("-");
                 		if(field.length>1){
-                			map_edu[row[key]]=field[1];
+                			map_edu[row[key]]=row.field2.substring(5,row.field2.length);
                 		}
                 	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
@@ -214,11 +214,12 @@ function editMemberRow(ele){
 				var valName=row.data(name);
 				if(typeof(row.data(name))=='string' && row.data(name).indexOf("1363")>-1){
 					valName=valName.split("-");
+					console.log(valName)
 					valNameNew=valName[0];
 					$("input[name='other']").show();
 					$("input[name='other']").attr('required',true);
 					if(valName[1] && valName[1] !=undefined){
-						valNameOther=valName[1];
+						valNameOther=row.data(name).substring(5,row.data(name).length);
 					}
 				}else{
 					valNameNew=valName;
@@ -409,7 +410,7 @@ function getStartupList(flag,startupList){
                         }
                     }
                     if(o.field5){
-                        ls.push("创立时股权比例为"+o.field5+"%")
+                        ls.push("创立时股权比例为"+_parsefloat(o.field5)+"%")
                     }
                     if(o.field6){
                         ls.push("成功或失败或离职的原因为"+o.field6)
@@ -609,7 +610,7 @@ function editStartup(ele){
                 $("#startup_form").find("[name='field2']").val(json["field2"]);
                 $("#startup_form").find("[name='field3']").val(div.attr("data-a"));
                 $("#startup_form").find("[name='field4'][data-value='" + div.attr("data-b") + "']").prop("checked", "checked");
-                $("#startup_form").find("[name='field5']").val(div.attr("data-c"));
+                $("#startup_form").find("[name='field5']").val(_parsefloat(div.attr("data-c")));
                 $("#startup_form").find("[name='field6']").val(div.attr("data-d"));
                 $("#startup_form").find("[name='field7']").text(json["field7"]);
      			//文本框剩余字数

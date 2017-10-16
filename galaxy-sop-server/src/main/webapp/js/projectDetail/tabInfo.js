@@ -63,7 +63,7 @@ $(function(){
 		function responseData(){
 			var sel_val = $("#financeStatusDs").text();
 			if(sel_val!="A+轮"){
-				$("#finance_status_sel").find('option[text='+sel_val+']').attr("selected",true);
+				$("#finance_status_sel").find('option[text='+sel_val+']').prop("selected",true);
 			}
 		}
 		
@@ -125,7 +125,6 @@ $(function(){
 				$('.bj_hui_on').show();
 				var width_fwb=$('.tabtable_con_on').width();
 				$('.width_fwb').css('width',(width_fwb-40));
-				responseData();   //反显数据
 				//投资形式切换
 				$(".new_table .mar_left>input").change(function(){
 					var val=$(this).val();
@@ -184,8 +183,6 @@ $(function(){
 					}
 					
 					if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!="financeMode:0"){
-						console.log("##################")
-						console.log(projectInfo.jointDeliveryList)
 						jointDeliveryEdit(projectInfo.jointDeliveryList);
 					}
 				}else{
@@ -219,12 +216,12 @@ $(function(){
 			    responseData()//数据反显
 			    radio_faFlag(projectInfo.faFlag);
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag=="projectSource:1"){
-					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").attr("selected",true);
+					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").prop("selected",true);
 					$("#faNameEdit").val(projectInfo.faName);
 					$("#faNameEdit").css("display","block");
 					$("#faNameEdit").attr('required','required');
 				}else{
-					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").attr("selected",true);
+					$("select[name='projectSource']").find("option[value='"+projectInfo.faFlag+"']").prop("selected",true);
 					$("#faNameEdit").css("display","none");
 				}
 			
@@ -521,9 +518,9 @@ function jointDeliveryEdit(list){
 		var index = $(this).index()
 		var _this = $(this);
 		if(name_opt[index]==='currency:0' || name_opt[index]==='人民币'){
-			_this.find('select option:eq(0)').attr('selected',true);
+			_this.find('select option:eq(0)').prop('selected',true);
 		}else{
-			_this.find('select option:eq(1)').attr('selected',true);
+			_this.find('select option:eq(1)').prop('selected',true);
 		}
 	});
 	

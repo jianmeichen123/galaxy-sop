@@ -356,6 +356,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				List<String> fileStatusList = new ArrayList<String>();
 				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
 				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+				fileStatusList.add(DictEnum.fileStatus.缺失.getCode());
+				fileStatusList.add(DictEnum.fileStatus.已放弃.getCode());
 				sopFile.setFileStatusList(fileStatusList);
 				sopFile.setFileValid(1);
 				

@@ -525,7 +525,7 @@ function buildResults(sec,title,readonly)
 					}*/
 					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				}else{
-					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1*10000/10000);
+					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				}
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
 					$(".field[data-title-id='"+title.id+"']").next().show();
@@ -550,7 +550,7 @@ function buildResults(sec,title,readonly)
 					}
 					
 				}else{
-					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":title.resultList[0].contentDescribe1*10000/10000).attr("resultId",result_id);
+					$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
 				}
 			}
 		}
@@ -695,7 +695,7 @@ function buildMemberRow(headerList,row,showOpts)
                  	if(row[key].indexOf("1363")>-1){
                  		var field=row.field2.split("-");
                  		if(field.length>1){
-                 			map_edu[row[key]]=field[1];
+                 			map_edu[row[key]]=row.field2.substring(5,row.field2.length);
                  		}
                  	}
                  	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
@@ -856,7 +856,22 @@ function buildRow(row,showOpts,titleId)
 		var k  = $this.data('fieldName');
 		if(k!="opt"){
 			if(row[k]!=undefined && row[k]!=null){
-				tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
+					if(k=="field2"){
+						row[k] = _parsefloat(row[k])
+					}
+				}
+				if(titleId=="1548"){					
+					if(k=="field3"){
+						row[k] = _parsefloat(row[k])
+					}
+				}
+				if(titleId=="1903"||titleId=="1908"){
+					if(k=="field3"||k=="field4"||k=="field5")
+					row[k] = _parsefloat(row[k])
+				}
+				
+				tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 			}else{
 				tr.append('<td data-field-name="'+k+'"></td>');
 			}

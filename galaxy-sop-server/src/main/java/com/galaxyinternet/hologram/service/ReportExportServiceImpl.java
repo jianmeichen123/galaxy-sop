@@ -103,7 +103,7 @@ public class ReportExportServiceImpl implements ReportExportService {
     */
     public String textConversion(String text){
         if(StringUtils.isBlank(text)){
-            return text;
+            return null;
         }
 
         String result = text.replace("<br/>","<w:br />")
@@ -456,8 +456,11 @@ public class ReportExportServiceImpl implements ReportExportService {
         String codeReplace = null;
         String preField = "field";
         List<InformationListdata> listDataResult = null;
+        boolean toAddd = false;
+
         for(InformationListdata item : listdataList)
         {
+            toAddd = false;
             listDataResult = null;
             if(StringUtils.isNotBlank(item.getCode())){
                 remarkCode = item.getCode();
@@ -487,10 +490,12 @@ public class ReportExportServiceImpl implements ReportExportService {
                     String methodStr="get"+newStr+i;
                     Method getMethod = InformationListdata.class.getMethod(methodStr);
                     String fieldValue = (String) getMethod.invoke(item);
-                    if(StringUtils.isNotBlank(fieldValue))
+                    if(null != fieldValue) //对 isBlank 的数据设置为null
                     {
                         String value = tableFieldValueCon(fieldValue, type==null?0:type, valueIdNameMap);
-
+                        if(StringUtils.isNotBlank(value)){
+                            toAddd = true;
+                        }
                         String setMethodStr = "set"+newStr+i;
                         Method setMethod = InformationListdata.class.getMethod(setMethodStr,String.class);
                         setMethod.invoke(item,value);
@@ -505,16 +510,18 @@ public class ReportExportServiceImpl implements ReportExportService {
                 item.setField1(tableFieldValueCon(item.getField1(), type==null?0:type, valueIdNameMap));
             }*/
 
-            if(map.containsKey(codeReplace)){
-                listDataResult = (List<InformationListdata>)  map.get(codeReplace);
+            if(toAddd){
+                if(map.containsKey(codeReplace)){
+                    listDataResult = (List<InformationListdata>)  map.get(codeReplace);
 
-                listDataResult.add(item);
-                //map.put(codeReplace,listDataResult);
-            }else{
-                listDataResult = new ArrayList<>();
+                    listDataResult.add(item);
+                    //map.put(codeReplace,listDataResult);
+                }else{
+                    listDataResult = new ArrayList<>();
 
-                listDataResult.add(item);
-                map.put(codeReplace,listDataResult);
+                    listDataResult.add(item);
+                    map.put(codeReplace,listDataResult);
+                }
             }
 
         }
@@ -604,7 +611,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                 value = valueIdNameMap.get(new Long(fieldValue));
             }
             if(StringUtils.isBlank(value)){
-                value = fieldValue;
+                value = textConversion(fieldValue);
             }
         }else if(type == 3 || type == 4 )
         {

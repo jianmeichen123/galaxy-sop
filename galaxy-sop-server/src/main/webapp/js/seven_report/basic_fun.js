@@ -549,19 +549,49 @@ function editRow(ele)
 				var name = ele.attr('name');
 				var type=ele.attr('type');
 				var idVal=ele.attr('id');
+				var val_text =row.data(name);
 				if(type=="radio"){
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else{
-						ele.val(_parsefloat(row.data(name)));
+				}else if (type=="text"){
+					if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
+						if(name=="field2"){
+							val_text = _parsefloat(val_text)
+						}					
+					}
+					if(code=="competition-comparison"){					
+						if(name=="field3"){
+							val_text = _parsefloat(val_text)
+						}
+					}
+					if(code=="finance-history"||code=="investor-situation"){
+						if(name=="field3"||name=="field4"||name=="field5")
+						val_text = _parsefloat(val_text);
+					}
 				}
+				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				ele.text(row.data(name));
+				var val_text=  row.data(name);				
+				if(code=="equity-structure"||code=="valuation-reference"||code=="share-holding"){
+					if(name=="field2"){
+						val_text = _parsefloat(val_text)
+					}					
+				}
+				if(code=="competition-comparison"){					
+					if(name=="field3"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+				if(code=="finance-history"||code=="investor-situation"){
+					if(name=="field3"||name=="field4"||name=="field5")
+					val_text = _parsefloat(val_text)
+				}
+				ele.text(val_text);
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){
 					var selectId=$(this).val();
@@ -903,7 +933,24 @@ function saveRow(data)
 			if(key.indexOf('field')>-1 || key == "updateTimeStr" || key == "updateUserName" || key == "updateTimeSign")
 			{
 				tr.data(key,data[key]);
-				tr.find('td[data-field-name="'+key+'"]').text(_parsefloat(data[key]));
+				var val_text = data[key];
+				if(titleId=="1906"||titleId=="1920"||titleId=="1325"){					
+					if(key=="field2"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+				if(titleId=="1548"){					
+					if(key=="field3"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+				if(titleId=="1903"||titleId=="1908"){
+					if(key=="field3"||key=="field4"||key=="field5"){
+						val_text = _parsefloat(val_text)
+					}
+				}
+
+				tr.find('td[data-field-name="'+key+'"]').text(val_text);
 				//编辑的时候添加title显示
 				if(titleId=="1908"){//主要战略投资人，财务投资人投资情况
 					tr.find('td[data-field-name=field2]').attr('title',data["field2"]);

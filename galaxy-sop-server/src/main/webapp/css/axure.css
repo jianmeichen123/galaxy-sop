@@ -3588,7 +3588,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .see_block .see_more{font-size:12px;font-family:"宋体";position:absolute;bottom:-15px;right:35px;}
 .see_block .see_more .blue{cursor:pointer;}
 .injection .see_block{position:relative;}
-.grantPartTc dd[name="field4"], .injection .fmdl dd[name="field4"]{word-break: break-all;} 
+.grantPartTc dd[name="field4"], .injection .fmdl dd[name="field4"],#payCondition{word-break: break-all;} 
 .see_block .appr_aging{width:100%;}
 /* V1.8 */
 .searchall_top select.new_nputr{margin-right:10px}

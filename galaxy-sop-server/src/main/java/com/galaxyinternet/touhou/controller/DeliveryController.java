@@ -287,7 +287,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 			if(content != null && content.size() > 0){
 				for(InformationListdata c : content){
 					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+c.getUpdateId(), "realName"));
-					c.setUpdateTimeStr(DateUtil.longToString(c.getUpdateTime()));
+					c.setUpdateTimeStr(c.getUpdatedTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
 				}
 				actualPage.setContent(content);
 			}
@@ -326,7 +326,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 							sopDownLoadList.add(downloadEntity);
 						}
 					}
-					sopFileService.downloadBatch(request, response, tempfilePath,"交割前事项",sopDownLoadList);
+					sopFileService.downloadBatch(request, response, tempfilePath,data.getField1(),sopDownLoadList);
 				}
 			} catch (Exception e) {
 				logger.error("下载失败.",e);

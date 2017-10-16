@@ -99,7 +99,14 @@ function buildRow(row,showOpts,titleId)
 			if(row[k]==""||row[k]==undefined || row[k]=='undefined'){
 				row[k]="—";
 			}
-			tr.append('<td data-field-name="'+k+'">'+_parsefloat(row[k])+'</td>');
+			if(titleId=="1906"&&k=="field2"){
+				row[k] = _parsefloat(row[k])
+			}
+			if(titleId=="1903"){
+				if(k=="field3"||k=="field4"||k=="field5")
+				row[k] = _parsefloat(row[k])
+			}
+			tr.append('<td data-field-name="'+k+'">'+row[k]+'</td>');
 		}
 		
 	});
@@ -160,27 +167,54 @@ function editRow(ele)
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
+				debugger;
 				var ele = $(this);
 				var name = ele.attr('name');
 				var type=ele.attr('type');
 				var idVal=ele.attr('id');
+				var val_text =row.data(name);
 				if(type=="radio"){
 					if(ele.val()==row.data(name)){
 						ele.attr("checked","chedcked");
 					}
-				}else{
-					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":_parsefloat(row.data(name)));
+				}else if (type=="text"){
+					if(code=="equity-structure"&&name=="field2"){
+						val_text = _parsefloat(val_text);
+					}
+					if(code=="finance-history"){
+						if(name=="field3"||name=="field4"||name=="field5"){
+							val_text = _parsefloat(val_text);
+						}
+						
+					}
 				}
+				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
 				var ele = $(this);
 				var name = ele.attr('name');
-				var val_text = _parsefloat(row.data(name));
+				var val_text = row.data(name);
+					if(code=="equity-structure"&&name=="field2"){
+						val_text = _parsefloat(val_text)
+					}
+					if(code=="finance-history"){
+						if(name=="field3"||name=="field4"||name=="field5")
+						val_text = _parsefloat(val_text)
+					}
+
 				if(code=="equity-structure"&&name=="field1"){
 					ele.attr("title",val_text);
 				}
 				ele.text(row.data(name)==undefined?"":val_text);
+				//查看股权特殊处理select
+				$.each($(".see_share_block select"),function(){
+					var selectId=$(this).val();
+					var selectVal=$(".see_share_block select").find("option[value='"+selectId+"']").text();
+					if(row.data(name)==selectId && selectId!=""){
+						ele.text(selectVal);
+					}
+				});
 
 				//历史融资特殊处理select,radio
 				$.each($("#financeDetail select"),function(){

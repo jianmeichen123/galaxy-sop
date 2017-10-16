@@ -304,7 +304,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 							sopDownLoadList.add(downloadEntity);
 						}
 					}
-					sopFileService.downloadBatch(request, response, tempfilePath,"分期注资",sopDownLoadList);
+					sopFileService.downloadBatch(request, response, tempfilePath,data.getField1(),sopDownLoadList);
 				}
 			} catch (Exception e) {
 				_common_logger_.error("下载失败.",e);

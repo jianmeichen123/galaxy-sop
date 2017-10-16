@@ -94,7 +94,7 @@ function editMemberRow(ele){
 					$("input[name='other']").show();
 					$("input[name='other']").attr('required',true);
 					if(valName[1] && valName[1] !=undefined){
-						valNameOther=valName[1];
+						valNameOther=row.data(name).substring(5,row.data(name).length);
 					}
 				}else{
 					valNameNew=valName;
