@@ -481,6 +481,12 @@ public class ReportExportServiceImpl implements ReportExportService {
                 item.setUpdateTimeStr(DateUtil.longToString(item.getCreateTime()));
             }
 
+            if(logger.isDebugEnabled()){
+                if("investor_situation".equals(codeReplace)){
+                    System.out.println();
+                }
+            }
+
             for(int i=1; i<11;i++){
                 try {
                     String tid = CacheOperationServiceImpl.table_remarkCode_field_tid.get(remarkCode).get(preField+i);
@@ -643,7 +649,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         {
             // 19：文本框输入题目答案带单位的处理；(input)，单位在 title.content <br>
             // 20：文本框输入题目答案带单位的处理；(input)，单位在 title.content + result.ContentDescribe2
-            value = fieldValue;
+            value = textConversion(fieldValue);
         }
         return value;
     }

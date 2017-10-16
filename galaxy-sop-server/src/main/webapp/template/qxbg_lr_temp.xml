@@ -19827,7 +19827,8 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t>${isit.field3!"-"}<#if isit.field3??>万${isit.field6!""} </#if> </w:t>
+                            <#-- <w:t>${isit.field3!"-"}<#if isit.field3??>万${isit.field6!""} </#if> </w:t> -->
+                            <w:t><#if isit.field3?? || isit.field6??> ${isit.field3!""}万${isit.field6!""} <#else>-</#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
@@ -19893,7 +19894,8 @@
                                 <w:kern w:val="0"/>
                                 <w:szCs w:val="21"/>
                             </w:rPr>
-                            <w:t>${isit.field5!"-"}<#if isit.field5??>万${isit.field6!""} </#if> </w:t>
+                            <#-- <w:t>${isit.field5!"-"}<#if isit.field5??>万${isit.field6!""} </#if> </w:t> -->
+                            <w:t><#if isit.field5?? || isit.field6??> ${isit.field5!""}万${isit.field6!""} <#else>-</#if></w:t>
                         </w:r>
                     </w:p>
                 </w:tc>
