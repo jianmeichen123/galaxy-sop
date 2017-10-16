@@ -167,7 +167,6 @@ function editRow(ele)
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
-				debugger;
 				var ele = $(this);
 				var name = ele.attr('name');
 				var type=ele.attr('type');
