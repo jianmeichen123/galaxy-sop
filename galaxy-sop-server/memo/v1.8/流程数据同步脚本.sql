@@ -44,7 +44,7 @@ select id, '1111', '1145', 0 as `is_valid`, project_time, create_uid from sop_pr
 
 -- 当项目在内部评审阶段，有会议记录的，则把最后添加（按会议时间）的会议记录的结果同步到全息报告>事业部意见
 insert into fx_db.information_result(`project_id`,`title_id`,`content_choose`,`is_valid`,`created_time`,`create_id`)
-SELECT b.project_id, '1111', 
+SELECT B.project_id, '1111', 
 (case when(A.meeting_result in ('meeting1Result:2','meetingResult:1')) then 1143    
 	when(A.meeting_result in ('meeting1Result:3','meetingResult:2')) then 1144 
 	when(A.meeting_result in ('meeting1Result:4','meetingResult:3')) then 1145
@@ -54,7 +54,7 @@ SELECT b.project_id, '1111',
 (select id from fx_db.sop_project where project_progress ='projectProgress:2' and project_status = 'projectStatus:0') 
 group by project_id
 ) B
-WHERE A.meeting_date = B.max_day
+WHERE A.meeting_date = B.max_day;
 
 -- 当项目已过立项会阶段，则同步到全息报告>立项委员会意见则为投资
 insert into fx_db.information_result(`project_id`,`title_id`,`content_choose`,`is_valid`,`created_time`,`create_id`)
@@ -66,7 +66,7 @@ select id, '1113', '1167', 0 as `is_valid`, project_time, create_uid from sop_pr
 
 -- 当项目在立项会阶段，有会议记录的，则把最后添加（按会议时间）的会议记录的结果同步到全息报告>立项委员会意见
 insert into fx_db.information_result(`project_id`,`title_id`,`content_choose`,`is_valid`,`created_time`,`create_id`)
-SELECT b.project_id, '1113', 
+SELECT B.project_id, '1113', 
 (case when(A.meeting_result = 'meeting3Result:1') then 1164    
 	when(A.meeting_result = 'meeting3Result:2') then 1162 
 	when(A.meeting_result = 'meeting3Result:3') then 1163
@@ -79,7 +79,7 @@ SELECT b.project_id, '1113',
 (select id from fx_db.sop_project where project_progress ='projectProgress:4' and project_status = 'projectStatus:0') 
 group by project_id
 ) B
-WHERE A.meeting_date = B.max_day
+WHERE A.meeting_date = B.max_day;
 
 -- 当项目已过投决会阶段，则同步到全息报告>投决会意见的数据为投资
 insert into fx_db.information_result(`project_id`,`title_id`,`content_choose`,`is_valid`,`created_time`,`create_id`)
@@ -92,7 +92,7 @@ select id, '1114', '1177', 0 as `is_valid`, project_time, create_uid from sop_pr
 
 -- 当项目在投决会阶段，有会议记录的，则把最后添加（按会议时间）的会议记录的结果同步到全息报告>投决会意见
 insert into fx_db.information_result(`project_id`,`title_id`,`content_choose`,`is_valid`,`created_time`,`create_id`)
-SELECT b.project_id, '1114', 
+SELECT B.project_id, '1114', 
 (case when(A.meeting_result in ('meetingResult:1','meeting4Result:1')) then 1173    
 	when(A.meeting_result in ('meetingResult:2','meeting4Result:2')) then 1174 
 	when(A.meeting_result in ('meetingResult:3','meeting4Result:3')) then 1177
@@ -102,4 +102,4 @@ SELECT b.project_id, '1114',
 (select id from fx_db.sop_project where project_progress ='projectProgress:7' and project_status = 'projectStatus:0') 
 group by project_id
 ) B
-WHERE A.meeting_date = B.max_day
+WHERE A.meeting_date = B.max_day;
