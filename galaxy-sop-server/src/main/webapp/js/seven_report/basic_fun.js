@@ -560,7 +560,7 @@ function editRow(ele)
 							val_text = _parsefloat(val_text)
 						}					
 					}
-					if(code=="competition-comparison"){					
+					if(code=="competition-comparison"||code=="grant-part"){					
 						if(name=="field3"){
 							val_text = _parsefloat(val_text)
 						}
@@ -585,7 +585,7 @@ function editRow(ele)
 						val_text = _parsefloat(val_text)
 					}					
 				}
-				if(code=="competition-comparison"){					
+				if(code=="competition-comparison"||code=="grant-part"){					
 					if(name=="field3"){
 						val_text = _parsefloat(val_text)
 					}
@@ -942,7 +942,7 @@ function saveRow(data)
 						val_text = _parsefloat(val_text)
 					}
 				}
-				if(titleId=="1548"){					
+				if(titleId=="1548"||titleId=="3022"){					
 					if(key=="field3"){
 						val_text = _parsefloat(val_text)
 					}
