@@ -209,7 +209,7 @@ function tabOperateChange(index){
 		      //获取已实际投资的金额之和
 				 var sum=0;
 				 $.each($("#appr_part .team_div"),function(){
-					 sum+=Number($(this).find("span[name='field3']").text());
+					 sum+=Number(_parsefloat($(this).find("span[name='field3']").text()));
 				 })
 				 //获取总金额
 				 var totalMoneyActual=$("#totalMoneyActual").val();

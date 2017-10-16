@@ -96,7 +96,7 @@ $(function(){
 					   //编辑数据
 					   div.find("[name='field1']").text(json['field1']);
 					   div.find("[name='field2']").text(json['field2']);
-					   div.find("[name='field3']").text(json['field3']);
+					   div.find("[name='field3']").text(_parsefloat(json['field3']));
 					   div.find("[name='code']").text(json['code']);
 				   }else{
 					   //新增数据

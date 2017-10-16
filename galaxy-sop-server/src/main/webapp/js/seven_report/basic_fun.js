@@ -708,7 +708,7 @@ function editRow(ele)
 							   }
 							   o.find("[name='field1']").text(row.field1);
 							   o.find("[name='field2']").text(row.field2);
-							   o.find("[name='field3']").text(row.field3);
+							   o.find("[name='field3']").text(_parsefloat(row.field3));
 							   o.find("[name='code']").text(row.code);
 							   $("#appr_part").append(o);
 							   if(txt=="查看"){   //查看时隐藏编辑，删除按钮
