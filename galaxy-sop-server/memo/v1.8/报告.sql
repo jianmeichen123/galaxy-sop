@@ -1,0 +1,1 @@
+UPDATE `fx_db`.`information_dictionary` SET `name`='新三板' WHERE `id`='2198';
