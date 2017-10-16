@@ -3654,3 +3654,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
   .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;}
  .pagebox .ritmin .tabtable #jointDelivery th:first-child{width:50%}
  .pagebox .ritmin .tabtable #jointDelivery th:first-child+th+th{width:14%}
+ .role_hide{display:none;}
