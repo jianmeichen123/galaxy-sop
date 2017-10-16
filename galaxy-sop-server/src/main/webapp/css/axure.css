@@ -39,6 +39,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
         _filter:none;
         border-color: #dadada!important;
         }
+.event_none{pointer-events: none;cursor: not-allowed;cursor:default;}
 input.disabled{background-color: #000;}
 /*背景图片*/
 .ico{ background-repeat:no-repeat}
@@ -2497,7 +2498,6 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .financing_t,.financing_t th,.financing_t td{ padding-left:5px; padding-right:5px; line-height:25px;}
 /*全息图 团队*/
 .team_porp{ width:700px; font-size:12px; max-height:460px; overflow-y:scroll; color:#666666;}
-.poptxt form{overflow-x:hidden;}
 .team_porp .fmdl{color:#666;font-size:12px;}
 .team_ico{background-image:url(../img/team_ico.png);}
 .team_tit{ overflow:hidden; margin-top:30px;}
@@ -3654,3 +3654,4 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
   .pagebox .ritmin .tabtable #jointDelivery td{padding:5px;line-height:1.5;}
  .pagebox .ritmin .tabtable #jointDelivery th:first-child{width:50%}
  .pagebox .ritmin .tabtable #jointDelivery th:first-child+th+th{width:14%}
+ .role_hide{display:none;}

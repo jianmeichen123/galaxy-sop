@@ -54,7 +54,7 @@ function queryBack(data){
 		}
 	}
 	$("body").css("overflow-y","auto");
-	appr_check_table_tr( $("#tabApprSingleList_1"));
+	//appr_check_table_tr( $("#tabApprSingleList_1"));
 }
 function appr_check_table_tr(table){
 	var trs=$(table).find("tr").length;

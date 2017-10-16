@@ -861,7 +861,7 @@ function buildRow(row,showOpts,titleId)
 						row[k] = _parsefloat(row[k])
 					}
 				}
-				if(titleId=="1548"){					
+				if(titleId=="1548"||titleId=="3022"){					
 					if(k=="field3"){
 						row[k] = _parsefloat(row[k])
 					}
@@ -1495,6 +1495,9 @@ function getTableRowLimit(code)
 	       break;
 	   case "operation-indices":
 	       num=20; 
+	       break;
+	   case "grant-part":
+	       num=Infinity; 
 	       break;
 	   default:
 		  num=10; 

@@ -285,12 +285,11 @@
 </div>
 
 <!--团队成员 -->
-	<div class="tabtable_con_on">
+	<div class="tabtable_con_on role_hide">
 	<div class="new_r_compile ">
 		<span class="new_ico_book team_group"></span> <span class="new_color size16">团队成员</span>
 	</div>
 	<input type="hidden" id="pid" name="id" value="${pid}" />
-	<c:if test="${aclViewProject==true}">
 		<div class="member">
 			<c:if test="${isEditable}">
 				<div class="top clearfix border-top">
@@ -311,12 +310,11 @@
 			<table cellspacing="0" class="table table-hover team_info info_table editable" data-code="team-members" data-title-id="1303"></table>
 	
 		</div>
-	</c:if>
 	</div>
 
 
 <!-- 法人信息 -->
-<div class="tabtable_con_on">
+<div class="tabtable_con_on role_hide">
 <div class="legal">
 	<div class="show">
 		<div class="title">
@@ -372,7 +370,7 @@
 
 
 <!--股权结构 -->
-<div class="tabtable_con_on member financeHistory">
+<div class="tabtable_con_on member financeHistory role_hide">
 	<div class='company_center'>
 		<div class="new_r_compile ">
 			<span class="new_ico_stock icon"></span> <span class="new_color size16">股权结构 </span>
@@ -395,7 +393,7 @@
 	</div>	
 </div>
 <!-- 融资历史 -->
-<div class="tabtable_con_on member financeHistory">
+<div class="tabtable_con_on member financeHistory role_hide">
 	<div class='company_center'>
 		<div class="new_r_compile ">
 			<span class="new_ico_history icon"></span> <span class="new_color size16">融资历史</span>
@@ -561,6 +559,7 @@
 		$('.legal .show').hide();
 		$('.legal .hidden').show();
 	}
+	
 	
 </script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>

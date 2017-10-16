@@ -560,7 +560,7 @@ function editRow(ele)
 							val_text = _parsefloat(val_text)
 						}					
 					}
-					if(code=="competition-comparison"){					
+					if(code=="competition-comparison"||code=="grant-part"){					
 						if(name=="field3"){
 							val_text = _parsefloat(val_text)
 						}
@@ -569,8 +569,11 @@ function editRow(ele)
 						if(name=="field3"||name=="field4"||name=="field5")
 						val_text = _parsefloat(val_text);
 					}
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+				}else{
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 				}
-				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+				
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
@@ -582,7 +585,7 @@ function editRow(ele)
 						val_text = _parsefloat(val_text)
 					}					
 				}
-				if(code=="competition-comparison"){					
+				if(code=="competition-comparison"||code=="grant-part"){					
 					if(name=="field3"){
 						val_text = _parsefloat(val_text)
 					}
@@ -705,7 +708,7 @@ function editRow(ele)
 							   }
 							   o.find("[name='field1']").text(row.field1);
 							   o.find("[name='field2']").text(row.field2);
-							   o.find("[name='field3']").text(row.field3);
+							   o.find("[name='field3']").text(_parsefloat(row.field3));
 							   o.find("[name='code']").text(row.code);
 							   $("#appr_part").append(o);
 							   if(txt=="查看"){   //查看时隐藏编辑，删除按钮
@@ -939,7 +942,7 @@ function saveRow(data)
 						val_text = _parsefloat(val_text)
 					}
 				}
-				if(titleId=="1548"){					
+				if(titleId=="1548"||titleId=="3022"){					
 					if(key=="field3"){
 						val_text = _parsefloat(val_text)
 					}

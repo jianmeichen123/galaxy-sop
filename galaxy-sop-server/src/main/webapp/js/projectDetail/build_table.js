@@ -57,9 +57,9 @@ function buildTable(title)
 			{
 				tr +='<th data-field-name="field5">备注</th>';
 			}
-			if(isTransferings=="false"){
-				tr +='<th data-field-name="opt">操作</th>'; 
-			}
+			
+			tr +='<th data-field-name="opt">操作</th>'; 
+			
 			tr+="</tr></thead>";
 			table.append(tr);
 		});
@@ -111,15 +111,13 @@ function buildRow(row,showOpts,titleId)
 		
 	});
 	var funFlg=$('table[data-title-id="'+titleId+'"]').attr("data-funFlag");
-	if(isTransferings=="false"){
-		var td = $('<td data-field-name="opt"></td>');
-		td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">查看</label>');
-		if(isCreatedByUser=='true'){
-			td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">编辑</label>');
-			td.append('<label class="blue" data-btn="btn" onclick="delRow(this)">删除</label>');
-		}
-		tr.append(td);
+	var td = $('<td data-field-name="opt"></td>');
+	td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">查看</label>');
+	if(isTransferings=="false" && isCreatedByUser=='true'){
+		td.append('<label class="blue" data-btn="btn" onclick="editRow(this)">编辑</label>');
+		td.append('<label class="blue" data-btn="btn" onclick="delRow(this)">删除</label>');
 	}
+	tr.append(td);
 	return tr;
 
 }
@@ -167,7 +165,6 @@ function editRow(ele)
 			$("#detail-form input[name='titleId']").val(row.parent().parent().attr("data-title-id"));
 			selectContext("detail-form");
 			$.each($("#detail-form").find("input, select, textarea"),function(){
-				debugger;
 				var ele = $(this);
 				var name = ele.attr('name');
 				var type=ele.attr('type');
@@ -187,8 +184,10 @@ function editRow(ele)
 						}
 						
 					}
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+				}else{
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 				}
-				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){

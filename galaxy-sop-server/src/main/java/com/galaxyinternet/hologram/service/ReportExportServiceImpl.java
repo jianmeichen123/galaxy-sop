@@ -481,6 +481,12 @@ public class ReportExportServiceImpl implements ReportExportService {
                 item.setUpdateTimeStr(DateUtil.longToString(item.getCreateTime()));
             }
 
+            if(logger.isDebugEnabled()){
+                if("investor_situation".equals(codeReplace)){
+                    System.out.println();
+                }
+            }
+
             for(int i=1; i<11;i++){
                 try {
                     String tid = CacheOperationServiceImpl.table_remarkCode_field_tid.get(remarkCode).get(preField+i);
@@ -607,7 +613,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         }else  if( type == 2 || type == 14 )
         {
             // 2: 单选（Radio）、 14 单选（select）、
-            if(StringUtils.isNumeric(fieldValue)){
+            if(StringUtils.isNotBlank(fieldValue) && StringUtils.isNumeric(fieldValue)){
                 value = valueIdNameMap.get(new Long(fieldValue));
             }
             if(StringUtils.isBlank(value)){
@@ -643,7 +649,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         {
             // 19：文本框输入题目答案带单位的处理；(input)，单位在 title.content <br>
             // 20：文本框输入题目答案带单位的处理；(input)，单位在 title.content + result.ContentDescribe2
-            value = fieldValue;
+            value = textConversion(fieldValue);
         }
         return value;
     }

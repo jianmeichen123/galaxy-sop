@@ -222,7 +222,7 @@ var initPage = {
 				var grayClass = "";
 				if(isTransferings=='true')
 				{
-					grayClass = " limits_gray";
+					grayClass = " limits_gray event_none";
 				}
 				if(data.result.errorCode=="null"){
 					$('.plan_name_all').hide();
