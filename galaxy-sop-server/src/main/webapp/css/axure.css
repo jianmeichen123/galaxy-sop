@@ -39,6 +39,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
         _filter:none;
         border-color: #dadada!important;
         }
+.event_none{pointer-events: none;cursor: not-allowed;cursor:default;}
 input.disabled{background-color: #000;}
 /*背景图片*/
 .ico{ background-repeat:no-repeat}
