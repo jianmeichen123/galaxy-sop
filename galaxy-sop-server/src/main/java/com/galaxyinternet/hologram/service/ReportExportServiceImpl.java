@@ -607,7 +607,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         }else  if( type == 2 || type == 14 )
         {
             // 2: 单选（Radio）、 14 单选（select）、
-            if(StringUtils.isNumeric(fieldValue)){
+            if(StringUtils.isNotBlank(fieldValue) && StringUtils.isNumeric(fieldValue)){
                 value = valueIdNameMap.get(new Long(fieldValue));
             }
             if(StringUtils.isBlank(value)){
