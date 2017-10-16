@@ -146,7 +146,7 @@ jQuery.validator.addMethod("viewTarget", function(value, element) {
 jQuery.validator.addMethod("reasonOther", function(value, element) {  
 	var reasonOther =/\s*\S+/;
 	return this.optional(element) || (reasonOther.test(value));
-}, "不能全为空格"); 
+}, "<font color=red>*</font><i></i>不能全为空格"); 
 
 initViewUpload();
 function initViewUpload() {
