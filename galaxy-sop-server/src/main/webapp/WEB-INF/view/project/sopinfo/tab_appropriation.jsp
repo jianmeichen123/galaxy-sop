@@ -220,6 +220,11 @@ var searchPartMoney;
 									$("#actual_aging_container [data-name='field2']").val(grantPartInfo.field2);
 									$("#actual_aging_container [data-name='field3']").val(_parsefloat(grantPartInfo.field3));
 									$("#actual_aging_container [data-name='field4']").val(grantPartInfo.field4);
+									//计算剩余字数
+									var textarea_h = $('.team_textarea');
+									var len=textarea_h.val().length;
+								    var initNum=textarea_h.siblings(".num_tj").find("span").text();
+								    textarea_h.siblings(".num_tj").find("span").text(initNum-len);
 								}else{
 									$("#grantName").html(grantPartInfo.field1);
 									$("#grantDetail").html(grantPartInfo.field2);
