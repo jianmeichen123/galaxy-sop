@@ -569,8 +569,11 @@ function editRow(ele)
 						if(name=="field3"||name=="field4"||name=="field5")
 						val_text = _parsefloat(val_text);
 					}
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+				}else{
+					ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
 				}
-				ele.val((row.data(name)==undefined || row.data(name)=="undefined")?"":val_text);
+				
 			});
 			//查看显示
 			$.each($(".see_block").find("dd[name]"),function(){
