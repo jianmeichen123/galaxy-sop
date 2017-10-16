@@ -15871,7 +15871,7 @@
         <w:tbl>
             <w:tblPr>
                 <w:tblW w:w="6369" w:type="dxa"/>
-                <w:tblLayout w:type="fixed"/>
+
                 <w:tblBorders>
                     <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                     <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
@@ -15880,6 +15880,7 @@
                     <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                     <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                 </w:tblBorders>
+                <w:tblLayout w:type="fixed"/>
                 <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0"
                            w:noVBand="1"/>
             </w:tblPr>
@@ -15897,12 +15898,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="841" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:left w:val="single" w:sz="8" w:space="0" w:color="auto"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1"
                                w:themeFillShade="F2"/>
                         <w:vAlign w:val="center"/>
@@ -15933,12 +15929,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="709" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1"
                                w:themeFillShade="F2"/>
                         <w:vAlign w:val="center"/>
@@ -15969,12 +15960,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="708" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1"
                                w:themeFillShade="F2"/>
                         <w:noWrap/>
@@ -16006,12 +15992,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="2835" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1"
                                w:themeFillShade="F2"/>
                         <w:noWrap/>
@@ -16043,12 +16024,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="1276" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="8" w:space="0" w:color="000000"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1"
                                w:themeFillShade="F2"/>
                         <w:noWrap/>
@@ -16087,12 +16063,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="841" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="nil"/>
-                            <w:left w:val="single" w:sz="8" w:space="0" w:color="auto"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                         <w:vAlign w:val="center"/>
                         <w:hideMark/>
@@ -16122,12 +16093,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="709" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="nil"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                         <w:vAlign w:val="center"/>
                         <w:hideMark/>
@@ -16159,12 +16125,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="708" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="nil"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                         <w:vAlign w:val="center"/>
                         <w:hideMark/>
@@ -16196,12 +16157,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="2835" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                         <w:noWrap/>
                         <w:vAlign w:val="center"/>
@@ -16234,12 +16190,7 @@
                 <w:tc>
                     <w:tcPr>
                         <w:tcW w:w="1276" w:type="dxa"/>
-                        <w:tcBorders>
-                            <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:left w:val="nil"/>
-                            <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                            <w:right w:val="single" w:sz="8" w:space="0" w:color="000000"/>
-                        </w:tcBorders>
+
                         <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                         <w:noWrap/>
                         <w:vAlign w:val="center"/>
