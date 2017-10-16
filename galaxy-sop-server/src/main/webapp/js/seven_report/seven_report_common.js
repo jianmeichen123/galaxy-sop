@@ -1496,6 +1496,9 @@ function getTableRowLimit(code)
 	   case "operation-indices":
 	       num=20; 
 	       break;
+	   case "grant-part":
+	       num=Infinity; 
+	       break;
 	   default:
 		  num=10; 
 	}
