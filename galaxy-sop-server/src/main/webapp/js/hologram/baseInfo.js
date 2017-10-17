@@ -1034,13 +1034,12 @@ function type_21_html(title,mark){
 		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select','select');
-		var res = "" ;
-		var i_val= title.resultList[0].contentDescribe1;
-		if(title.resultList==undefined||title.resultList[0].valueName!="其他"){
+		var res = "" ;		
+		if(title.resultList==undefined||(title.resultList!=undefined&&title.resultList[0].valueName!="其他")){
 			res="<input type=\"text\" class=\"txt disabled\"  disabled=\"disabled\" value=''  placeholder=\"其他类型请填写\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
 		}else{
-			res="<input type=\"text\" class=\"txt\" placeholder=\"其他类型请填写\" value='"+i_val+"' data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
-				
+			var i_val= title.resultList[0].contentDescribe1;
+			res="<input type=\"text\" class=\"txt\" placeholder=\"其他类型请填写\" value='"+i_val+"' data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
 		}
 		eresult+=res;
 		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
