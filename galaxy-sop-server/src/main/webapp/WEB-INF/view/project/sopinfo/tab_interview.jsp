@@ -77,7 +77,7 @@
 								<tr>
 									<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1 th_no1">访谈概况</th>
 									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈纪要</th>
-									<th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th>
+									<th data-field="oper" data-align="left" data-formatter="viewOperFormat2">操作</th>
 								</tr>
 							</thead>
 						</table>
@@ -332,7 +332,7 @@ function initViewUpload() {
 /**
  *  查看  or 编辑  
  */
-function viewOperFormat(value,row,index){  
+function viewOperFormat2(value,row,index){  
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit2('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
