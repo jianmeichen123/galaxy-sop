@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.dao.hologram.InformationFileDao;
+import com.galaxyinternet.dao.hologram.InformationListdataDao;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.ProjectDao;
@@ -18,6 +20,8 @@ import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.hologram.InformationFile;
+import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
@@ -46,6 +50,10 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	private SopVoucherFileDao sopVoucherFileDao;
 	@Autowired
 	private InterviewRecordDao interviewRecordDao;
+	@Autowired
+	private InformationListdataDao informationListdataDao;
+	@Autowired
+	private InformationFileDao informationFileDao;
 	
 	
 	@Override
@@ -128,6 +136,24 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		ir.setProjectId(project.getId());
 		ir.setCreatedId(createId);
 		interviewRecordDao.updateCreateUid(ir);
+		
+		/**交割前事项**/
+		InformationListdata ild = new InformationListdata();
+		ild.setProjectId(project.getId());
+		ild.setCreateId(createId);
+		ild.setUpdateId(createId);
+		ild.setTitleId(1810l);
+		informationListdataDao.updateCreateUid(ild);
+		
+		/**交割事件文件更新***/
+		InformationFile iF = new InformationFile();
+		iF.setProjectId(project.getId());
+		iF.setCreateId(createId);
+		iF.setUpdateId(createId);
+		iF.setTitleId(1810l);
+		informationFileDao.updateCreateUid(iF);
+		
+		
 		SopTask t = new SopTask();
 		t.setDepartmentId(departmentId);
 		t.setAssignUid(createId);

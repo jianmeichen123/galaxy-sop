@@ -3602,7 +3602,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .exportReport{display:none;margin-top:10px;}
 .progress-contain{
 	display: inline-block;	
-	max-width: 70px;
+	max-width: 75px;
 	width: auto;
     height: 4px;
     margin: 13px auto 0;

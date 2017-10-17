@@ -159,6 +159,9 @@ function switchTypeByMark(title,mark){
         case 15:   
         	html += type_15_html(title,mark);
             break;
+        case 21:   
+        	html += type_21_html(title,mark);
+            break;
         default:
             break;
     }
@@ -257,8 +260,8 @@ function one_select_edit(title,inputtype,type){
     	$.each(values,function(i,o){
 			if(this.checked){
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";
-			}else
-				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";
+			}else{
+				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' >"  + this.name + "</option>";}
 		});
     	if(title.resultList!=undefined){
     		eresult = 
@@ -1014,6 +1017,32 @@ function type_15_html(title,mark){
 		
 		return  "<div class=\"mb_24 clearfix\">" + htitle + "<br/>" + eresult + "</div>";
 	}
+}
+function type_21_html(title,mark){
+	console.log("!!!!");
+	console.log(title);
+	var htitle = "<dt class='select_21' data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
+	var has_beizhu = false;
+	if(mark == 's'){
+		var hresult = "<dd>未选择</dd>";
+		var results = title.resultList;
+		if(results && results[0] && results[0].valueName){
+			hresult = "<dd>"+results[0].valueName+"</dd>";
+		}
+		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
+	}else{
+		var eresult = one_select_edit(title,'select','select');
+		var res = "" ;
+		if(title.resultList==undefined){
+			res="<input type=\"text\" class=\"txt disabled\"  disabled=\"disabled\" value='' placeholder=\"其他类型请填写\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+		}else{
+			res="<input type=\"text\" class=\"txt\" value='' placeholder=\"其他类型请填写\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+				
+		}
+		eresult+=res;
+		return  "<div class=\"mb_24  clearfix\">" + htitle + eresult + "</div>";
+	}
+	
 }
 //下方保存按钮点击
 

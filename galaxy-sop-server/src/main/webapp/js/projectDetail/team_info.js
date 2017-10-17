@@ -108,7 +108,9 @@ function buildMemberRow(headerList,row)
                 		var field=row.field2.split("-");
                 		if(field.length>1){
                 			map_edu[row[key]]=row.field2.substring(5,row.field2.length);
-                		}
+                		}else{
+                    		map_edu[row[key]]="";
+                    	}
                 	}
                 	if(map_edu[row[key]]==""||map_edu[row[key]]==undefined||map_edu[row[key]]=="undefined"){
                 		map_edu[row[key]]="—";

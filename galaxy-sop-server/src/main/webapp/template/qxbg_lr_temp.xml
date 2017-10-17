@@ -4323,7 +4323,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>项目负责人：</w:t>
+                            <w:t>项目承做人：</w:t>
                         </w:r>
                         <w:r w:rsidRPr="001F727F">
                             <w:rPr>
@@ -4358,7 +4358,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>项目合伙人：</w:t>
+                            <w:t>事业部总经理：</w:t>
                         </w:r>
                         <w:r w:rsidRPr="001F727F">
                             <w:rPr>
@@ -4404,6 +4404,45 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <w:tr w:rsidR="00D217EF" w:rsidTr="00D217EF">
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="6610" w:type="dxa"/>
+                        <w:gridSpan w:val="2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="00D217EF" w:rsidRPr="00D217EF" w:rsidRDefault="00D217EF" w:rsidP="00EA749E">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:jc w:val="left"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                                <w:sz w:val="18"/>
+                                <w:szCs w:val="18"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001F727F">
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:sz w:val="18"/>
+                                <w:szCs w:val="18"/>
+                            </w:rPr>
+                            <w:t>项目承揽人：</w:t>
+                        </w:r>
+                        <w:r w:rsidRPr="001F727F">
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:sz w:val="18"/>
+                                <w:szCs w:val="18"/>
+                            </w:rPr>
+                            <w:t>${NO1_1_10!"-"}</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+
             <w:tr w:rsidR="00D217EF" w:rsidTr="00D217EF">
                 <w:tc>
                     <w:tcPr>
@@ -7704,8 +7743,29 @@
                 </w:rPr>
             </w:pPr>
         </w:p>
-        </#list>
-        </#if>
+</#list>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+</#if>
 
 
         <w:p w:rsidR="002D1D12" w:rsidRPr="00717A6B" w:rsidRDefault="002D1D12" w:rsidP="00EC1C9A">
@@ -11612,6 +11672,27 @@
             </w:r>
         </w:p>
 </#list>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
 </#if>
 
 
@@ -11933,6 +12014,27 @@
             </w:r>
         </w:p>
 </#list>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
 </#if>
 
 
@@ -12296,6 +12398,27 @@
             </w:r>
         </w:p>
 </#list>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
 </#if>
 
         <w:p w:rsidR="00DB0601" w:rsidRPr="00DB0601" w:rsidRDefault="00DB0601" w:rsidP="00DB0601">
@@ -12628,6 +12751,27 @@
             </w:r>
         </w:p>
 </#list>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
 </#if>
 
 
@@ -16221,7 +16365,28 @@
             </w:tr>
 </#list>
         </w:tbl>
-        </#if>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+</#if>
 
         <w:p w:rsidR="00754446" w:rsidRDefault="00754446" w:rsidP="00CF5F0D">
             <w:pPr>

@@ -371,7 +371,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 
 	titletype :
 		project     静态数据    "project"       ,11,
-		result      结果表      "result"        ,1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,
+		result      结果表      "result"        ,1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,21,
 		listdata    结果表      "listdata"      ,10,
 		fixedtable  结果表      "fixedtable"    ,9,
 		file        结果表	   "file"          ,7,
@@ -383,7 +383,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 	// NO9_1 ： 历史上的融资及估值
 	public static Set<Long> NO9_1$tids$qx = new TreeSet<>();
 
-	public static final String result_titletype = ",1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,";
+	public static final String result_titletype = ",1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,21,";
 	public static final String pre_reports_codes[] = new String[]{"NO","DN","PN","GN","ON","EN","CN"};
 
 	public static Map<String,String> code_report$type = new HashMap<>();
