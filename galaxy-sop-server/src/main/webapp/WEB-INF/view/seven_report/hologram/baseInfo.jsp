@@ -162,6 +162,8 @@ $(function() {
 					var s_res= $(this).find("option:selected").text();
 					if(s_res=="其他"){
 						$(this).parent().next().removeAttr("disabled").removeClass("disabled");
+					}else{
+						$(this).parent().next().attr("disabled","disabled").addClass("disabled");
 					}
 				})
 				btn_disable(1);
@@ -311,7 +313,7 @@ $(function() {
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
 			if(typ=="21"){
-				return false;
+				return;
 			}
 			if(_resultId==undefined||_resultId=="undefined"){
 				_resultId=null
@@ -333,15 +335,10 @@ $(function() {
 			if(typ == '12' || typ == '13' ){
 				var value = field.val();
 				var disabled = field.attr("disabled");
-				if(disabled && (disabled == true || disabled == "disabled")){  //其它未选中
+				if(disabled == "disabled"){  //其它未选中
 					infoMode.remark1 = null;
 				}else{
-					if(value.trim() && value.trim().length > 0){
-						infoMode.remark1 = value;
-					}else{
-						$(field.next()).show();
-						beroreCheck = true;
-					}
+					infoMode.remark1 = value;
 				}
 			}else if(typ == '15' && name == 'remark2'){
 				infoMode.remark2 = value;
@@ -411,7 +408,6 @@ $(function() {
 		{
 			return;
 		}
-		console.log(data);
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status; 
 			if (result == 'OK') {

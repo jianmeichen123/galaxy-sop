@@ -843,14 +843,13 @@ function type_12_html(title,mark){
 					}
 				}
 			}
-			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
-										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
+			toadd_li = "<input type=\"text\" class=\"txt\" value='"+ r_value +"'  data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\"  data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 			
 		}else{
-			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
+			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' " +
 							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}
-		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>其他项内容不能为空</span>";
+		//var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>其他项内容不能为空</span>";
 		var eresult = 
 			"<dd>" +
 				"<ul class=\"h_radios clearfix\">" +
@@ -858,7 +857,7 @@ function type_12_html(title,mark){
 				"</ul>" +
 			"</dd>";	
 		
-		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult + err + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle + eresult+"</div>";
 	}
 }
 
@@ -930,13 +929,13 @@ function type_13_html(title,mark){
 					}
 				}
 			}
-			toadd_li = "<input type=\"text\" resultId='"+result_id+"' class=\"txt\" value='"+ r_value +"'  onchange=\"javascript:$(this).next().hide();\" " +
+			toadd_li = "<input type=\"text\" resultId='"+result_id+"' data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\"   class=\"txt\" value='"+ r_value +"'" +
 										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}else{
-			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled' onchange=\"javascript:$(this).next().hide();\" " +
+			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled'" +
 							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}
-		var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>不能为空</span>";
+		//var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>不能为空</span>";
 		var eresult = 
 			"<dd>" +
 				"<ul class=\"h_radios h_edit_checkbox pro_innovation clearfix\">" +
@@ -944,7 +943,7 @@ function type_13_html(title,mark){
 				"</ul>" +
 			"</dd>";	
 			
-		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult + err + "</div>";
+		return  "<div class=\"mb_24 clearfix\">" + htitle  + eresult+"</div>";
 	}
 }
 
@@ -1019,24 +1018,28 @@ function type_15_html(title,mark){
 	}
 }
 function type_21_html(title,mark){
-	console.log("!!!!");
-	console.log(title);
 	var htitle = "<dt class='select_21' data-tid='"+title.id+"' data-must='"+title.isMust+"'  data-type='"+title.type+"'>"+title.name+"</dt>";
 	var has_beizhu = false;
 	if(mark == 's'){
 		var hresult = "<dd>未选择</dd>";
 		var results = title.resultList;
 		if(results && results[0] && results[0].valueName){
-			hresult = "<dd>"+results[0].valueName+"</dd>";
+			if(results[0].valueName=="其他"){
+				hresult = "<dd>"+results[0].contentDescribe1+"</dd>";
+			}else{
+				hresult = "<dd>"+results[0].valueName+"</dd>";
+			}
+			
 		}
 		return  "<div class=\"mb_24 base_half division_dd clearfix\">" + htitle + hresult + "</div>";
 	}else{
 		var eresult = one_select_edit(title,'select','select');
 		var res = "" ;
-		if(title.resultList==undefined){
-			res="<input type=\"text\" class=\"txt disabled\"  disabled=\"disabled\" value='' placeholder=\"其他类型请填写\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+		var i_val= title.resultList[0].contentDescribe1;
+		if(title.resultList==undefined||title.resultList[0].valueName!="其他"){
+			res="<input type=\"text\" class=\"txt disabled\"  disabled=\"disabled\" value=''  placeholder=\"其他类型请填写\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
 		}else{
-			res="<input type=\"text\" class=\"txt\" value='' placeholder=\"其他类型请填写\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+			res="<input type=\"text\" class=\"txt\" placeholder=\"其他类型请填写\" value='"+i_val+"' data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
 				
 		}
 		eresult+=res;
