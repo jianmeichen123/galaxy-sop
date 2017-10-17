@@ -252,11 +252,12 @@ function one_select_edit(title,inputtype,type){
 		}
 		
 	}else{
-		if(title.id=='1108'){
+		/*if(title.id=='1108'){
 			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' class='none'>请选择</option>";
 		}else{
 			var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
-		}
+		}*/
+		var li = "<option data-title-id='"+title.id+"' data-type='"+title.type+"' value='' >请选择</option>";
     	$.each(values,function(i,o){
 			if(this.checked){
 				li +=  "<option value='"+this.id+ "' data-title-id='"+title.id+"' data-type='"+title.type+"' selected=\"selected\" >"  + this.name + "</option>";

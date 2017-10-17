@@ -177,8 +177,8 @@ $(function() {
 				//项目阶段select下拉特殊处理
 				if(id_code=='NO1_1'){
 					var valRound=$(".h_look dt[data-tid=\"1108\"]").siblings("dd").text();
-					if(valRound=='尚未获投' || valRound =='不明确'){
-						$('select[name="1108"]').find("option:first").removeClass('none');
+					if(valRound!='尚未获投' && valRound !='不明确'){
+						$('select[name="1108"]').find("option:first").remove();
 					}
 				}
 			}
