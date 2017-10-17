@@ -210,11 +210,12 @@ public class ReportExportServiceImpl implements ReportExportService {
             //project.setProjectCareerline(department.getName());
             map.put("NO1_1_4", department.getName());
 
-            if(department.getManagerId()!=null){
+            //事业部总经理 - 11 select
+            /*if(department.getManagerId()!=null){
                 User managerUser = userService.queryById(department.getManagerId());
                 //project.setHhrName(managerUser.getRealName());
                 map.put("NO1_1_3", managerUser.getRealName());
-            }
+            }*/
         }catch (Exception e){
             logger.error("projectTitleResult ",e);
             //throw new RuntimeException("ReportDataConversion projectTitleResult 项目基础信息查询失败",e);
@@ -226,7 +227,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * result 结果表 结果查询封装
-     * title-type :  ,1,2,3,4,5,6,8,12,13,14,15,16,18,19,20,
+     * title-type :  ,1,2,3,4,5,6,8,12,13,14,15,16,18,19,20, 21
      * 【6 18 无】
      *
      */
@@ -319,7 +320,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                         }
                     }
                     //type56ValueCon(tempTitle, map, valueIdNameMap);
-                }else if(tempTitle.getType().intValue() == 12 || tempTitle.getType().intValue() == 13 )
+                }else if(tempTitle.getType().intValue() == 12 || tempTitle.getType().intValue() == 13 || tempTitle.getType().intValue() == 21 )
                 {
                     // 12:单选带备注(input)--有 contentDescribe1 就不要 ContentChoose 、
                     // 13:复选带备注(input)--有 contentDescribe1 就不要 ContentChoose

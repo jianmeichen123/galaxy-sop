@@ -4404,6 +4404,45 @@
                     </w:p>
                 </w:tc>
             </w:tr>
+
+            <w:tr w:rsidR="00D217EF" w:rsidTr="00D217EF">
+                <w:tc>
+                    <w:tcPr>
+                        <w:tcW w:w="6610" w:type="dxa"/>
+                        <w:gridSpan w:val="2"/>
+                        <w:vAlign w:val="center"/>
+                    </w:tcPr>
+                    <w:p w:rsidR="00D217EF" w:rsidRPr="00D217EF" w:rsidRDefault="00D217EF" w:rsidP="00EA749E">
+                        <w:pPr>
+                            <w:spacing w:line="360" w:lineRule="auto"/>
+                            <w:jc w:val="left"/>
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                                <w:sz w:val="18"/>
+                                <w:szCs w:val="18"/>
+                            </w:rPr>
+                        </w:pPr>
+                        <w:r w:rsidRPr="001F727F">
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:b/>
+                                <w:sz w:val="18"/>
+                                <w:szCs w:val="18"/>
+                            </w:rPr>
+                            <w:t>项目承揽人：</w:t>
+                        </w:r>
+                        <w:r w:rsidRPr="001F727F">
+                            <w:rPr>
+                                <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                <w:sz w:val="18"/>
+                                <w:szCs w:val="18"/>
+                            </w:rPr>
+                            <w:t>${NO1_1_10!"-"}</w:t>
+                        </w:r>
+                    </w:p>
+                </w:tc>
+            </w:tr>
+
             <w:tr w:rsidR="00D217EF" w:rsidTr="00D217EF">
                 <w:tc>
                     <w:tcPr>

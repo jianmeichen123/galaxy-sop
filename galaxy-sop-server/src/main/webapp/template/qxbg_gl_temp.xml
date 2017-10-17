@@ -254,7 +254,7 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>项目负责人：</w:t>
+                            <w:t>项目承做人：</w:t>
                         </w:r>
                         <w:proofErr w:type="gramStart"/>
                         <w:r w:rsidRPr="00BB0BEE">
@@ -323,7 +323,7 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>项目合伙人：</w:t>
+                            <w:t>事业部总经理：</w:t>
                         </w:r>
                         <w:r w:rsidRPr="00BB0BEE">
                             <w:rPr>
@@ -706,7 +706,7 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>项目负责人：</w:t>
+                            <w:t>项目承做人：</w:t>
                         </w:r>
                         <w:proofErr w:type="gramStart"/>
                         <w:r w:rsidRPr="00BB0BEE">
@@ -775,7 +775,7 @@
                                 <w:sz w:val="24"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>项目合伙人：</w:t>
+                            <w:t>事业部总经理：</w:t>
                         </w:r>
                         <w:r w:rsidRPr="00BB0BEE">
                             <w:rPr>
