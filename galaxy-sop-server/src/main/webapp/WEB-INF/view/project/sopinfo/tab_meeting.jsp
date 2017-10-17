@@ -366,7 +366,7 @@ function initMeetUpload() {
 
 //查看 or 编辑 会议纪要
 function meetOperFormat(value,row,index){
-	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
+	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit1('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
 	/* if(userId==row.uid && isTransfering == 'false'){
@@ -376,7 +376,7 @@ function meetOperFormat(value,row,index){
 }
 
 
-function notesInfoEdit(selectRowId,type){
+function notesInfoEdit1(selectRowId,type){
 	selectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
 	$.getHtml({

@@ -333,7 +333,7 @@ function initViewUpload() {
  *  查看  or 编辑  
  */
 function viewOperFormat(value,row,index){  
-	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
+	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit2('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
 	/* if(userId==row.createdId && isTransfering == 'false'){
@@ -343,7 +343,7 @@ function viewOperFormat(value,row,index){
 }
 
 
-function notesInfoEdit(selectRowId,type){
+function notesInfoEdit2(selectRowId,type){
 	interviewSelectRow = $('#tab_projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
 	$.getHtml({
