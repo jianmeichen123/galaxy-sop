@@ -88,7 +88,7 @@
 								<th data-field="meetinfo"  data-formatter="metcolumnFormat" data-class="no1_1 th_no1">会议概况</th>
 								<th data-field="meetingTypeStr"  data-class="no1_2">会议类型</th>
 								<th data-field="meetingNotes"  data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
-								<th data-field="oper"  data-formatter="meetOperFormat">操作</th>
+								<th data-field="oper"  data-formatter="meetOperFormat1">操作</th>
 							</tr>
 						</thead>
 					</table>
@@ -365,7 +365,7 @@ function initMeetUpload() {
 
 
 //查看 or 编辑 会议纪要
-function meetOperFormat(value,row,index){
+function meetOperFormat1(value,row,index){
 	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit1('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
