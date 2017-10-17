@@ -157,6 +157,13 @@ $(function() {
 					  var font_num = oldnum - $(this).val().length;
 					  $(this).siblings('p').find('label').html(font_num);
 				});
+				//21类型操作
+				$(".select_21").next().find("select").change(function(){
+					var s_res= $(this).find("option:selected").text();
+					if(s_res=="其他"){
+						$(this).parent().next().removeAttr("disabled").removeClass("disabled");
+					}
+				})
 				btn_disable(1);
 				edit_bsaicfun("base");
 				/*基本信息 多级联动change特殊  */
@@ -219,6 +226,16 @@ $(function() {
 						}else{
 							valu=field.val();
 						}
+					}else if(field.parent().get(0).name=='1118'){
+						valu=field.val();
+						var inpu = field.closest("dd").next();
+						var rvalue = inpu.val();
+						var disabled = inpu.attr("disabled");
+						if(disabled == "disabled"){  //其它未选中
+							
+						}else{
+							var remark=true
+						}
 					}
 					var _resultId = field.parent().attr("resultId");
 					infoMode = {
@@ -228,6 +245,10 @@ $(function() {
 							resultId:_resultId,
 							value : valu
 						};
+					if(remark==true){
+						infoMode.remark1=rvalue;
+					}
+					
 				}else{
 					var _resultId = field.closest("dd").attr("resultId");
 					if(_resultId==undefined  || _resultId=="undefined" || _resultId==""){
@@ -289,6 +310,9 @@ $(function() {
 			var name = field.data('name');
 			var _tochange =field.closest("div").find("dt").attr("tochange");
 			var _resultId = field.attr("resultId");
+			if(typ=="21"){
+				return false;
+			}
 			if(_resultId==undefined||_resultId=="undefined"){
 				_resultId=null
 			}
@@ -328,9 +352,6 @@ $(function() {
 			infoModeList.push(infoMode);
 		});
 		data.infoModeList = infoModeList;
-		console.log('22222222222')
-		console.log(data);
-		
 		if(beroreCheck){
 			event.stopPropagation();
 			return;
@@ -390,6 +411,7 @@ $(function() {
 		{
 			return;
 		}
+		console.log(data);
 		sendPostRequestByJsonObj(platformUrl.saveOrUpdateInfo, data, function(data) {
 			var result = data.result.status; 
 			if (result == 'OK') {
