@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
+import com.galaxyinternet.common.dictEnum.DictEnum.TJHResult;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
 import com.galaxyinternet.common.dictEnum.DictEnum.fileWorktype;
 import com.galaxyinternet.common.dictEnum.DictEnum.meetingResult;
@@ -78,7 +79,7 @@ public class GQJGHandler implements ProgressChangeHandler
 			MeetingRecordBo query = new MeetingRecordBo();
 			query.setProjectId(project.getId());
 			query.setMeetingType(meetingType.投决会.getCode());
-			query.setMeetingResult(meetingResult.通过.getCode());
+			query.setMeetingResult(TJHResult.TZ.getCode());
 			
 			Long count = meetingService.queryCount(query);
 			if(count.intValue()==0)
