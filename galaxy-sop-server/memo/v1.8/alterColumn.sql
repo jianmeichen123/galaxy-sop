@@ -4,3 +4,5 @@ CHANGE COLUMN `fa_flag` `fa_flag` VARCHAR(11) NOT NULL DEFAULT '0' COMMENT '项�
 ALTER TABLE `fx_db`.`joint_delivery` 
 ADD COLUMN `delivery_currency` VARCHAR(11) NULL DEFAULT NULL AFTER `delivery_amount`;
 
+ALTER TABLE `fx_db`.`information_listdata` 
+ADD COLUMN `relate_file_id` VARCHAR(50) NULL DEFAULT NULL COMMENT '关联文件表';
