@@ -196,8 +196,10 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	var res = {};
 	//立项会特殊类名
 	var sp_class="";
+	var spbtn_class="";
 	if(title=="编辑立项会会议记录"||title=="编辑内部评审会议记录"||title=="编辑投决会会议记录"){
-		sp_class="spresult"
+		sp_class="spresult";
+		spbtn_class="spsave_button"		
 	}
 	if(title=="编辑会后商务谈判会议记录"){
 			sp_class="spresults"
@@ -399,6 +401,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 						$("#select_btn").text("选择文件");
 					}
 					 $("#resultRadion").addClass(sp_class);
+					 $(".save_button").addClass(spbtn_class);
 					 $("#resultRadion input[type='radio']").click(function(){
 						 $("#resultRadion label.error").remove();
 					 })

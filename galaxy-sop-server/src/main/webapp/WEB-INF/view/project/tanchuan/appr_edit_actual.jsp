@@ -28,13 +28,15 @@
 	            
 	            <dl class="fmdl fl_l  clearfix">
 	               <input type="hidden" id="projectId" name="projectId" value=""/>
-	               <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
+	               <input type="hidden" id="grantId" data-name="id" name="id" value=""/>
 	                <input type="hidden" id="parentId" name="parentId" value=""/>
 	                <input type="hidden" id="code" name="code" value="grant-actual"/>
-		            <dt>实际注资名称 ：</dt>
+	                <input name="updateTimeSign" data-name="updateTimeSign" data-type="19" type="hidden" >
+        	        <input name="updateTimeStr" data-name="updateTimeStr" data-type="19" type="hidden" >
+		            <dt>实际注资名称1 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" type="text" value="实际" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
+		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" oninput="change(event)" onporpertychange="change(event)" type="text" value="实际" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -42,7 +44,7 @@
 		                <dt>实际注资时间 ：</dt>
 		                <dd>
 		                	<div>
-		                	    <input readonly id="field2" name="field2" data-name="field2" data-type="19" class="datepicker fl txt time"  type="text" data-date-format="yyyy-mm-dd"/>
+		                	    <input readonly id="field2" name="field2" data-name="field2" data-type="19" class="datepicker fl txt time"  onclick="change(event)" type="text" data-date-format="yyyy-mm-dd"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -51,7 +53,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " name="grantMoney" id="grantMoney" data-name="field3" data-type="19" type="text" value="" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
+		                    	<input class=" txt " name="grantMoney" id="grantMoney" data-name="field3" data-type="19" type="text" value="" oninput="change(event)" onporpertychange="change(event)" required data-rule-verify_94="true"  data-msg-verify_94="<font color=red>*</font>支持9位长度的四位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>万元</span>
 		                    </div> 
@@ -65,7 +67,7 @@
 					        	<input  type="text"  class="txt" name="textarea2" id="textarea2" readonly="readonly"></input>
 					        </dd>
 					        <dd>
-					        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
+					        	<a href="javascript:;"  class="register_all_affrim fl" onclick="change(event)" id="select_btn">选择附件</a>
 				    		</dd>
 				        </div>
 		            </dl>  
@@ -101,6 +103,11 @@
 		});
 	
 
+		function change(){
+			   var time = new Date().format("yyyy-MM-dd");
+			   $("input[name=updateTimeStr]").val(time);
+			   $("input[name=updateTimeSign]").val(1);
+		}
 	
 	</script>
 

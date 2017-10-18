@@ -211,9 +211,8 @@ function editMemberRow(ele){
 				var ele = $(this);
 				var name = ele.attr('name');
 				var valName=row.data(name);
-				if(typeof(row.data(name))=='string' && row.data(name).indexOf("1363")>-1){
+				if(typeof(row.data(name))=='string' && row.data(name).indexOf("1363-")>-1){
 					valName=valName.split("-");
-					console.log(valName)
 					valNameNew=valName[0];
 					$("input[name='other']").show();
 					$("input[name='other']").attr('required',true);

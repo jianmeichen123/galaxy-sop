@@ -27,7 +27,7 @@
 	           <form id="actual_aging_form">
 	               <dl class="fmdl fl_l  clearfix">
 	               <input type="hidden" id="projectId" name="projectId" value=""/>
-	               <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
+	               <input type="hidden" id="grantId" data-name="id" name="id" value=""/>
 		            <dt>分拨名称 ：</dt>
 		                <dd>
 		                	<div>
