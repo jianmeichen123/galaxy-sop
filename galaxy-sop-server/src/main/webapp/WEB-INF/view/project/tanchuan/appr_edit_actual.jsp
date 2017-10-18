@@ -28,7 +28,7 @@
 	            
 	            <dl class="fmdl fl_l  clearfix">
 	               <input type="hidden" id="projectId" name="projectId" value=""/>
-	               <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
+	               <input type="hidden" id="grantId" data-name="id" name="id" value=""/>
 	                <input type="hidden" id="parentId" name="parentId" value=""/>
 	                <input type="hidden" id="code" name="code" value="grant-actual"/>
 		            <dt>实际注资名称 ：</dt>
