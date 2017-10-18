@@ -3142,12 +3142,18 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	    margin-left: 77px;
 	    margin-top: -29px;
 	}	
+	.check_result div:last-child{
+	margin-bottom: 0px;
+	}
     .check_detail{
     	margin-bottom: -10px;
     }
     .save_button{
         text-align: center;
         margin-top: 40px;
+    }
+    .spsave_button{
+    margin-top: 93px;
     }
     .save_button a{
         display: inline-block;
