@@ -384,13 +384,13 @@ $(function(){
 	}
 		
 	//获取近期访谈、会议 记录
-	if(prograss != 'projectProgress:10' && (admin == 'true' || isGG == 'true'))
-	{
+	//if(prograss != 'projectProgress:10' && (admin == 'true' || isGG == 'true'))
+//	{
 
-		toFormatNearNotes();
+		//toFormatNearNotes();
 		//more 链接初始化
-		initMoreLine();
-	}
+		//initMoreLine();
+	//}
 	 setJgqrProgress();
 	 sendPostRequest(platformUrl.getApprProcess+"/"+proid,appropriationProcessBack);
 	 function appropriationProcessBack(data){
