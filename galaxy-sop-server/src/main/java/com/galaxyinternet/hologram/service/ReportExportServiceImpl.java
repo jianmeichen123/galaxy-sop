@@ -210,12 +210,12 @@ public class ReportExportServiceImpl implements ReportExportService {
             //project.setProjectCareerline(department.getName());
             map.put("NO1_1_4", department.getName());
 
-            //事业部总经理 - 11 select
-            /*if(department.getManagerId()!=null){
+            //事业部总经理
+            if(department.getManagerId()!=null){
                 User managerUser = userService.queryById(department.getManagerId());
                 //project.setHhrName(managerUser.getRealName());
                 map.put("NO1_1_3", managerUser.getRealName());
-            }*/
+            }
         }catch (Exception e){
             logger.error("projectTitleResult ",e);
             //throw new RuntimeException("ReportDataConversion projectTitleResult 项目基础信息查询失败",e);
@@ -253,6 +253,13 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         for(InformationTitle tempTitle : titleList)
         {
+
+            if(logger.isDebugEnabled()){
+                if("NO1_1_9".equals(tempTitle.getCode())){
+                    System.out.println();
+                }
+            }
+
             value = null;
             contact = "、";
 
