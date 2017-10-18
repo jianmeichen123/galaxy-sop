@@ -196,7 +196,7 @@ function notesInfoEdit(selectRowId,type,meetingType,title){
 	var res = {};
 	//立项会特殊类名
 	var sp_class="";
-	if(title=="编辑立项会会议记录"||title=="编辑内部评审会议记录"){
+	if(title=="编辑立项会会议记录"||title=="编辑内部评审会议记录"||title=="编辑投决会会议记录"){
 		sp_class="spresult"
 	}
 	if(title=="编辑会后商务谈判会议记录"){
