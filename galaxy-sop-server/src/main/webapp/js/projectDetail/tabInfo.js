@@ -22,15 +22,6 @@ $(function(){
 			$("#plan_name").parent('li').css("margin-right","0");
 		}
 		
-//		UM.getEditor('editor');
-		var describeUm2 = UM.getEditor('describe_editor2');
-		var companyUm = UM.getEditor('company_editor');
-		var portraitUm = UM.getEditor('portrait_editor');
-		var operationUm = UM.getEditor('operation_editor');
-		var businessUm = UM.getEditor('business_editor');
-		var industryUm = UM.getEditor('industry_editor');
-		var analysisUm = UM.getEditor('analysis_editor');
-		var nextFinancingUm = UM.getEditor('next_financing_editor');
 		//统一显示
 		 $('.edui-icon-fullscreen').on('click',function(){
 				$('body').css('padding-bottom','300px')
