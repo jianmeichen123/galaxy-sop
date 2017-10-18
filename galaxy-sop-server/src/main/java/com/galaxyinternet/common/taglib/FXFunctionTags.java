@@ -43,11 +43,11 @@ public class FXFunctionTags
 				ProjectService projectService = WebUtils.getBean(ProjectService.class);
 				if(projectService != null)
 				{
-					Project project = projectService.queryById(id);
-					if(project != null && project.getCreateUid() != null)
-					{
-						return project.getCreateUid().equals(user.getId());
-					}
+					Project query = new Project();
+					query.setCreateUid(user.getId());
+					query.setId(id);
+					long count = projectService.queryCount(query);
+					return count > 0L;
 				}
 			}
 		}
@@ -63,11 +63,11 @@ public class FXFunctionTags
 				ProjectService projectService = WebUtils.getBean(ProjectService.class);
 				if(projectService != null)
 				{
-					Project project = projectService.queryById(id);
-					if(project != null && project.getProjectDepartid() != null)
-					{
-						return project.getProjectDepartid().equals(user.getDepartmentId());
-					}
+					Project query = new Project();
+					query.setProjectDepartid(user.getDepartmentId());
+					query.setId(id);
+					long count = projectService.queryCount(query);
+					return count > 0L;
 				}
 			}
 		}

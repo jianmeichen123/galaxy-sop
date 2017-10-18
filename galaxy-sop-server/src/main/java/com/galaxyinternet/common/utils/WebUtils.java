@@ -12,7 +12,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.utils.BeanContextUtils;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.UserRoleService;
 
 public class WebUtils
 {
@@ -52,13 +51,9 @@ public class WebUtils
 	{
 		List<Long> roleIds = new ArrayList<Long>();
 		User user = getUserFromSession();
-		if(user != null && user.getId() != null)
+		if(user != null && user.getRoleIds() != null)
 		{
-			UserRoleService userRoleService = BeanContextUtils.getBean(UserRoleService.class, getRequest());
-			if(userRoleService != null)
-			{
-				roleIds = userRoleService.selectRoleIdByUserId(user.getId());
-			}
+			roleIds = user.getRoleIds();
 		}
 		return roleIds;
 	}
