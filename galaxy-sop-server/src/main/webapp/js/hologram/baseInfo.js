@@ -933,7 +933,7 @@ function type_13_html(title,mark){
 			toadd_li = "<input type=\"text\" resultId='"+result_id+"' data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\"   class=\"txt\" value='"+ r_value +"'" +
 										"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}else{
-			toadd_li = "<input type=\"text\" class=\"txt disabled\" value='"+ r_value +"' disabled='disabled'" +
+			toadd_li = "<input type=\"text\" class=\"txt disabled\" data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\" value='"+ r_value +"' disabled='disabled'" +
 							"data-title-id='"+title.id+"' data-type='"+title.type+"' placeholder='"+title.placeholder+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"'/>";
 		}
 		//var err = "<span class=\"error\" style=\"display:none;\"><font color=\"red\">*</font>不能为空</span>";
@@ -1037,7 +1037,7 @@ function type_21_html(title,mark){
 		var eresult = one_select_edit(title,'select','select');
 		var res = "" ;		
 		if(title.resultList==undefined||(title.resultList!=undefined&&title.resultList[0].valueName!="其他")){
-			res="<input type=\"text\" class=\"txt disabled\"  disabled=\"disabled\" value=''  placeholder=\"其他类型请填写\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
+			res="<input type=\"text\" class=\"txt disabled\"  disabled=\"disabled\" value=''  placeholder=\"其他类型请填写\" data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\" data-title-id='"+title.id+"'  data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' data-must='"+title.isMust+"' name='"+title.id+"' >"
 		}else{
 			var i_val= title.resultList[0].contentDescribe1;
 			res="<input type=\"text\" class=\"txt\" placeholder=\"其他类型请填写\" value='"+i_val+"' data-rule-required=\"true\" data-msg-required=\"<font color=red>*</font>不能为空\" data-title-id='"+title.id+"' data-type='"+title.type+"' maxlength='"+title.valRuleMark+"' value='"+title.contentDescribe1+"' data-must='"+title.isMust+"' name='"+title.id+"' >"	
