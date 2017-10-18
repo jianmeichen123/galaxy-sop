@@ -187,6 +187,10 @@ $(function() {
 				_this.parents('.h_look').siblings('.h_edit').find('.base_half').css('width','100%');
 				
 			}
+			var select_txt=$('select[name="1108"]').find("option:first").text();
+			if(select_txt!='请选择'){
+				$('.h_edit select[name="1108"]').find("option:first").css('color','#000');
+			}
 		})
 		
 	});
