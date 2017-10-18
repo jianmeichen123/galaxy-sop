@@ -140,9 +140,15 @@
 	}, "不能超过50个字"); 
 	//0到10之间的一位小数
 	jQuery.validator.addMethod("verify_10_1", function(value, element) { 
-		var verify_10_1 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
-		return this.optional(element) || (verify_10_1.test(value));
-	}, "0到10之间的一位小数"); 
+	var verify_10_1 = /^([0-9]|10)$/;
+	return this.optional(element) || (verify_10_1.test(value));
+}, "0到10之间的整数"); 
+//0到10之间的一位小数
+jQuery.validator.addMethod("verify_10_01", function(value, element) { 
+	var verify_10_01 = /^([0-9](\.\d{0,1})|\d{0,1}|10|10.0|0)$/;
+	return this.optional(element) || (verify_10_01.test(value));
+}, "0到10之间的一位小数"); 
+//百分数
 	//百分数
 	jQuery.validator.addMethod("percentage", function(value, element) {   
 		var percentage = /^\d+(\.\d{2})?$/;

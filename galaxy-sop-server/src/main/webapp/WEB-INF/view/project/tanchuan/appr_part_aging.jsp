@@ -22,12 +22,12 @@
 		<input type="hidden" id="remainMoneyPart" value=""/>
 		<input type="hidden" id="totalMoneyPart" value=""/>
 		<input type="hidden" id="valtr" value=""/>
-	    <div class="form clearfix" id="actual_aging_container">
+	    <div class="form clearfix grantPartTc" id="actual_aging_container">
 	        <div class="appr_aging">
 	           <form id="actual_aging_form">
 	               <dl class="fmdl fl_l  clearfix">
 	               <input type="hidden" id="projectId" name="projectId" value=""/>
-	               <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
+	               <input type="hidden" id="grantId" data-name="id" name="id" value=""/>
 		            <dt>分拨名称 ：</dt>
 		                <dd>
 		                	<div>

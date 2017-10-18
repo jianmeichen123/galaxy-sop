@@ -9,10 +9,10 @@
 <div class="addmentc">
 	<div class="title_bj" id="popup_name"></div>
 	
-    <div class="form clearfix" id="container">
-        <div class="conference_all">
+    <div class="form clearfix grantPartTc" id="container">
+        <div class="conference_all" >
         	<form id="deliver_form" >
-	        <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
+	        <input type="hidden" id="grantId" data-name="id" name="id" value=""/>
         	<input type="hidden" id="projectId" name="projectId" value="" />
         	<input type="hidden" id="titleId" name="titleId" value="1810" />
         	<input name="updateTimeSign" data-name="updateTimeSign" data-type="19" type="hidden" >

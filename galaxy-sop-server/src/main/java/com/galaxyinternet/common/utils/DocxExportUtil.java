@@ -14,14 +14,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 
-public class DocExportUtil {
+public class DocxExportUtil {
 
     /**
      * freemark模板配置
@@ -44,19 +47,18 @@ public class DocExportUtil {
     private HttpServletResponse response;
 
 
-
-    public DocExportUtil(){
+    public DocxExportUtil(){
         super();
     }
 
     /**
      * web使用
      * @param templatePath 模板文件位置
-     * @param templateName 模板文件名称
+     * @param templateName  xml docx 模板文件名称
      * @param filePath 保存路径
-     * @param fileName 保存名称
+     * @param fileName 保存名称, xml docx 模板生成的文件
      */
-    public DocExportUtil(HttpServletRequest request,String templatePath, String templateName, String filePath, String fileName) {
+    public DocxExportUtil(HttpServletRequest request, String templatePath, String templateName, String filePath, String fileName) {
         configuration=new Configuration(Configuration.VERSION_2_3_23);
         configuration.setDefaultEncoding("utf-8");
         configuration.setServletContextForTemplateLoading(request.getSession().getServletContext(),templatePath); // /template  是:/WebRoot/ftl
@@ -68,32 +70,117 @@ public class DocExportUtil {
         this.templateName = templateName;
         this.filePath = filePath;
         this.fileName = fileName;
+        this.request = request;
 
     }
 
-    public void createDoc(Map<String,Object> dataMap)  throws Exception {
-        Writer out = null;
-        try {
-            Template template = configuration.getTemplate(templateName); //.xml  .ftl
 
-            File outFile = new File(filePath,fileName);
+
+    /**
+     * map数据-> xml文件 ->docx文件
+     * @param templatePath 模板文件位置
+     * @param templateName  xml docx 模板文件名称
+     * @param filePath 保存路径
+     * @param fileName 保存名称, xml docx 模板生成的文件
+     */
+    public void creatDocxAsZip(Map<String,Object> dataMap,String currentMark,boolean hasImage) throws Exception
+    {
+        Writer out = null;
+        ZipOutputStream zipout = null;
+        try {
+            //map数据-> xml文件
+            Template template = configuration.getTemplate(templateName+".xml"); //.xml  .ftl
+
+            File outFile = new File(filePath,fileName+".xml");
 
             out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile), "utf-8"));
 
             template.process(dataMap, out);
+            out.flush();
+            out.close();
+
+            //生成 docx 文件
+            zipout = new ZipOutputStream(new FileOutputStream(new File(filePath,fileName+".docx")));
+
+            int len=-1;
+            ZipEntry ze = null;
+            InputStream imageIn = null;
+            byte[] buffer=new byte[1024*2];
+
+            //copy docx 文件中的其它配置文件，替换 data处理过的 document xml 文件
+            ZipFile zipFile = new ZipFile(new File(request.getSession().getServletContext().getRealPath("") + templatePath,templateName+".docx"));
+            Enumeration<? extends ZipEntry> zipEntrys =  zipFile.entries();
+
+            while(zipEntrys.hasMoreElements())
+            {
+                ze = zipEntrys.nextElement();
+
+                InputStream is = zipFile.getInputStream(ze);
+
+                zipout.putNextEntry(new ZipEntry(ze.toString()));
+
+                if("word/document.xml".equals(ze.toString()))
+                {
+                    InputStream in = new FileInputStream(outFile);
+                    while((len = in.read(buffer))!=-1)
+                    {
+                        zipout.write(buffer,0,len);
+                    }
+                    in.close();
+                    zipout.closeEntry();
+                }else {
+                    while((len = is.read(buffer))!=-1)
+                    {
+                        zipout.write(buffer,0,len);
+                    }
+                    is.close();
+                    zipout.closeEntry();
+                }
+            }
+
+            //处理 docx 中的图片
+            if(hasImage){
+                File imageDir = new File(filePath+File.separator+currentMark);
+
+                if (imageDir.exists() && imageDir.isDirectory())
+                {
+                    File[] pngs = imageDir.listFiles();
+                    if (pngs != null)
+                    {
+                        for (File af : pngs)
+                        {
+                            imageIn = new BufferedInputStream(new FileInputStream(af));
+
+                            ze = new ZipEntry("word/media/"+af.getName());
+                            zipout.putNextEntry(ze);
+
+                            while ((len = imageIn.read(buffer)) != -1)
+                            {
+                                zipout.write(buffer, 0, len);
+                            }
+                            imageIn.close();
+                            zipout.closeEntry();
+                        }
+                    }
+                }
+            }
+
+            zipout.flush();
+            zipout.close();
         } catch (Exception e) {
-            throw new Exception("down doc err" , e);
+            throw new Exception("down docx err" , e);
         } finally {
             try {
                 if(out!=null){
-                    out.flush();
+                    out.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             try {
-                if(out!=null) {
-                    out.close();
+                if(zipout!=null){
+                    zipout.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -102,13 +189,13 @@ public class DocExportUtil {
     }
 
     /**
-     * @param zipName 保存zip民称
+     * @param zipName 保存zip 名称
      * @param fileName 要压缩的文件名，
-     * @param fnMark   要压缩的文件名 要替换掉的标识，
+     * @param suffixMark   要压缩的文件名 的后缀 ".doc .docx"，
      * @param tempfilePath 要压缩的文件位置
      * @param response
      */
-    public static void downZip(String zipName, Map<String, String> dname_sname,String fnMark, String tempfilePath,
+    public static void downZip(String zipName, Map<String, String> dname_sname, String tempfilePath,
                                HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         response.setCharacterEncoding("utf-8");
@@ -126,7 +213,7 @@ public class DocExportUtil {
                 ze = new ZipEntry(dname_sname.get(f)); //tempfilePath + File.separator +
                 zos.putNextEntry(ze);
 
-                is = new BufferedInputStream(new FileInputStream(new File(tempfilePath,f)));
+                is = new BufferedInputStream(new FileInputStream(new File(tempfilePath,f+".docx")));
                 int len = -1;
                 while ((len = is.read(buf)) != -1) {
                     zos.write(buf, 0, len);
@@ -146,45 +233,6 @@ public class DocExportUtil {
 
         }
     }
-    /*
-    public static void downZip(String zipName, List<String> fileName,String fnMark, String tempfilePath,
-                               HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("application/x-download"); //msword OCTET-STREAM
-        response.setHeader("Content-Disposition","attachment; filename=" + getFileNameByBrowser(request,zipName));
-
-        ZipOutputStream zos = null;
-        BufferedInputStream is = null;
-        try {
-            zos = new ZipOutputStream(response.getOutputStream());
-
-            ZipEntry ze = null;
-            byte[] buf = new byte[1024*2];
-            for (String f : fileName) {
-                ze = new ZipEntry(f.replace(fnMark,"")); //tempfilePath + File.separator +
-                zos.putNextEntry(ze);
-
-                is = new BufferedInputStream(new FileInputStream(new File(tempfilePath,f)));
-                int len = -1;
-                while ((len = is.read(buf)) != -1) {
-                    zos.write(buf, 0, len);
-                }
-                zos.flush();
-                is.close();
-                zos.closeEntry();
-            }
-        } catch (Exception e) {
-            throw new Exception("down zip err" , e);
-        } finally {
-            try {
-                zos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-    }*/
 
     private static String getFileNameByBrowser(HttpServletRequest request,String fileName) {
         try {
@@ -205,6 +253,21 @@ public class DocExportUtil {
         //response.setHeader("Content-disposition","attachment;filename=" + URLEncoder.encode(str, "UTF-8"));// 设置头部信息
         return fileName;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

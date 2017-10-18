@@ -327,6 +327,7 @@ $(".new_poppage").on("click",function(){
 			//立项会特殊类名
 			if(_name=="添加立项会会议记录"||_name=="添加内部评审会议记录"||_name=="添加投决会会议记录"){
 				$("#resultRadion").addClass("spresult");
+				$(".save_button").addClass('spsave_button')
 			}
 			if(_name=="添加会后商务谈判会议记录"){
 				$("#resultRadion").addClass("spresults");

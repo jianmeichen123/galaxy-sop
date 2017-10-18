@@ -440,7 +440,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 							sopDownLoadList.add(downloadEntity);
 						}
 					}
-					sopFileService.downloadBatch(request, response, tempfilePath,"实际注资",sopDownLoadList);
+					sopFileService.downloadBatch(request, response, tempfilePath,data.getField1(),sopDownLoadList);
 				}
 			} catch (Exception e) {
 				_common_logger_.error("下载失败.",e);

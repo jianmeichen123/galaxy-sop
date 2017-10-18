@@ -1671,7 +1671,7 @@ word-wrap:break-word;
 .new_b_bottom ul li.new_b_li_two1{width:20%;}
 .new_b_bottom ul li.new_b_li_three1{width:50%;}
 .new_b_bottom  p{ margin-bottom:10px; width:100%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;  height:30px; line-height:30px;color:#7a8798; }
-.new_btn_right.tzlc_btn{margin-right: 10px;font-size: 12px;}
+.new_btn_right.tzlc_btn{margin-right: 20px;font-size: 12px;}
 .new_b_li_two{  text-align:center;}
 .new_b_li_three{ text-align:right; color:#999999;}
 .color_pass{ color:#00ba00}
@@ -2065,7 +2065,7 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
 .editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
-#show_up_file,#show_actual_file{max-height:100px;overflow-y:auto;overflow-x:hidden;}
+/* #show_up_file,#show_actual_file{max-height:100px;overflow-y:auto;overflow-x:hidden;} */
 #show_up_file table td{height:26px;line-height:26px;}
 .scroll_table .fixed-table-body{max-height:250px; overflow-y:auto;}
 #div_meetingNotes dd{width:490px;margin:0;}
@@ -2389,7 +2389,7 @@ margin: 45px auto 30px;}
 .qualifications{position: relative;min-height: 125px;}
 .qualifications .add{position: absolute;top: 8px;right: 10px;cursor:pointer;font-size: 12px;font-family: "宋体"}
 .qualificationstc,.stocktc{width:560px;}
-.qualificationstc{max-height:500px;overflow:auto;}
+.qualificationstc{max-height:500px;overflow-y:auto;overflow-x: hidden;}
 .qualificationstc dl,.stocktc dl{margin-bottom: 10px;}
 .stocktc dd textarea{width:300px;height:50px;}
 /* 添加项目第二页提示框 */
@@ -2565,8 +2565,9 @@ div[data-btn="page3"] .compile_on_left{margin-top:20px;}
 .h_edit input[type="text"],.h_edit select{padding-left:10px;width:270px;height:34px;border:1px solid #dadada;margin:-10px 10px 10px 0; }
 /* .line_input input[type="text"]{margin:10px 0px 0px 0;} */
 .h_edit input[type="text"],.h_edit select{margin-bottom:0; font-family:Microsoft YaHei;}
-.h_edit input[type="text"]{width:150px; font-family:Microsoft YaHei;}
-.base_tab-content .h_edit input[type="text"]{width:245px;}
+.h_edit select{height:36px;}
+.h_edit input[type="text"]{width:150px; font-family:Microsoft YaHei;vertical-align:middle;}
+.base_tab-content .h_edit input[type="text"]{width:205px;/* width:245px; */}
 .base_tab-content .h_edit select{width:259px;}
 dt[data-type='19']+dd .error{display:block;}
 .h_edit select option:nth-child(1){color:#d3d3d3;}
@@ -3141,12 +3142,18 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 	    margin-left: 77px;
 	    margin-top: -29px;
 	}	
+	.check_result div:last-child{
+	margin-bottom: 0px;
+	}
     .check_detail{
     	margin-bottom: -10px;
     }
     .save_button{
         text-align: center;
         margin-top: 40px;
+    }
+    .spsave_button{
+    margin-top: 93px;
     }
     .save_button a{
         display: inline-block;

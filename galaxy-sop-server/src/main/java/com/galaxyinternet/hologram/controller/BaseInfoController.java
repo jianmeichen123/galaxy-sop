@@ -4,6 +4,7 @@ package com.galaxyinternet.hologram.controller;
 import com.galaxyinternet.bo.hologram.InformationTitleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.DocExportUtil;
+import com.galaxyinternet.common.utils.DocxExportUtil;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.service.BaseService;
@@ -62,21 +63,23 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	@Value("${sop.oss.tempfile.path}")
 	private String tempfilePath;
 
-	public static final String temp1 = "qxbg_gl_temp";   //概览 .xml .docx
-	public static final String temp2 = "qxbg_lr_temp";   //内容 .xml .docx
-	public static final String tempath = "/template";    //  模板地址
-
 
 	@Override
 	protected BaseService<InformationTitle> getBaseService() {
 		return this.informationTitleService;
 	}
 
+
+	public static final String tempath = "/template";    //  模板地址
+
 	/**
 	 * 全息报告 ： docx 下载
 	 */
-	@RequestMapping("/downNO/{pid}")
-	public void downNOdoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
+	public static final String temp1x = "qxbg_gl_temp";   //概览 .xml .docx
+	public static final String temp2x = "qxbg_lr_temp";   //内容 .xml .docx
+
+	@RequestMapping("/downxNO/{pid}")
+	public void downNOdocx(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
 	{
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 
@@ -99,8 +102,8 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			 * @param filePath 保存路径
 			 * @param fileName 保存名称, xml docx 模板生成的文件
 			 */
-			DocExportUtil docExportUtil1 = new DocExportUtil(request,tempath, temp1, tempfilePath, dfn1);
-			DocExportUtil docExportUtil2 = new DocExportUtil(request,tempath, temp2, tempfilePath, dfn2);
+			DocxExportUtil docExportUtil1 = new DocxExportUtil(request,tempath, temp1x, tempfilePath, dfn1);
+			DocxExportUtil docExportUtil2 = new DocxExportUtil(request,tempath, temp2x, tempfilePath, dfn2);
 			docExportUtil1.creatDocxAsZip(map,currTime,false);
 			docExportUtil2.creatDocxAsZip(map,currTime,true);
 
@@ -109,21 +112,21 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			dname_sname.put(dfn1,fn1);
 			dname_sname.put(dfn2,fn2);
 
-			DocExportUtil.downZip(zipName,dname_sname,tempfilePath,request,response);
+			DocxExportUtil.downZip(zipName,dname_sname,tempfilePath,request,response);
 		} catch (Exception e) {
 			logger.error("downDoc ",e);
 		}
 	}
 
-/*
-	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
-	public static final String temp2 = "qxbg-zh-temp-xia.xml"; //综合
-	public static final String tempath = "/template";  //  模板地址
-	*/
+
+
+
 	/**
 	 * 全息报告 ： doc 下载
 	 */
-	/*@RequestMapping("/downNO/{pid}")
+	public static final String temp1 = "qxbg-hb-temp.xml"; //横板
+	public static final String temp2 = "qxbg-zh-temp-xia.xml"; //综合
+	@RequestMapping("/downNO/{pid}")
 	public void downNOdoc(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
 	{
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -131,7 +134,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 		String currTime = System.currentTimeMillis()+"";
 
 		Project project = projectService.queryById(pid);
-		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO");
+		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"NO",currTime,tempfilePath);
 
 		String fn1 = project.getProjectName() + "全息报告概览.doc";
 		String fn2 = project.getProjectName() + "全息报告内容.doc";
@@ -155,7 +158,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			logger.error("downDoc ",e);
 		}
 	}
-*/
+
 
 
 

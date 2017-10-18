@@ -9,7 +9,7 @@
 
 <div class="addmentc">
 		<div class="title_bj" id="popup_name_look">查看实际注资信息</div>
-	    <div class="form clearfix">
+	    <div class="form clearfix grantPartTc">
 	        <div class="edit_actual">
 	          
 	                <form id="actual_aging_form">

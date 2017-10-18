@@ -27,5 +27,6 @@ public interface ReportExportService {
     public Map<String,Object> listdataTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap);
     public Map<String,Object> fixedtableTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap);
     public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId,String currentMark,String tempfilePath) throws Exception;
+    public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId); //doc
 
 }
