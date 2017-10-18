@@ -15,22 +15,24 @@
 	        <input type="hidden" id="grantId" data-name="id" data-type="19" name="id" value=""/>
         	<input type="hidden" id="projectId" name="projectId" value="" />
         	<input type="hidden" id="titleId" name="titleId" value="1810" />
+        	<input name="updateTimeSign" data-name="updateTimeSign" data-type="19" type="hidden" >
+        	<input name="updateTimeStr" data-name="updateTimeStr" data-type="19" type="hidden" >
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>
                 <dd>
-                    <input type="text" class="txt"  id="delDescribe" name="field1" data-name="field1" data-type="19" maxlength="24" required/>
+                    <input type="text" class="txt"  id="delDescribe" name="field1" data-name="field1" data-type="19" oninput="change(event)" onporpertychange="change(event)" maxlength="24" required/>
                 </dd>
             </dl>
             
             <dl class="fmdl fl_l">
                  <dt>详细内容：</dt>
-                 <dd><textarea class="area" name="field2" data-name="field2" data-type="19" id="details" cols="45" rows="5" maxlength="100" required></textarea></dd>
+                 <dd><textarea class="area" name="field2" data-name="field2" data-type="19" id="details" cols="45" rows="5" maxlength="100" oninput="change(event);"  required></textarea></dd>
             </dl>
             
             <dl class="fmdl fl_l">
                  <dt>完成情况：</dt>
-                 <dd><label for=""><input type="radio" name="field3" data-name="field3" data-type="19" value="2175" checked="checked" >未完成</label></dd>
-                 <dd><label for=""><input type="radio" name="field3" data-name="field3" data-type="19" value="2176">已完成</label></dd>
+                 <dd><label for=""><input type="radio" name="field3" data-name="field3" onclick="change(event)" data-type="19" value="2175" checked="checked" >未完成</label></dd>
+                 <dd><label for=""><input type="radio" name="field3" data-name="field3" onclick="change(event)" data-type="19" value="2176">已完成</label></dd>
             </dl>
             
             </form>
@@ -45,7 +47,7 @@
 					        	<input  type="text"  class="txt" name="textarea2" id="textarea2" readonly="readonly"></input>
 					        </dd>
 					        <dd>
-					        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
+					        	<a href="javascript:;"  class="register_all_affrim fl" onclick="change(event)" id="select_btn">选择附件</a>
 				    		</dd>
 				        </div>
 		            </dl>  
@@ -80,4 +82,10 @@ $("#deliver_form").validate({});
 $.validator.setDefaults({
 	errorElement:'span'
 });
+
+function change(){
+	   var time = new Date().format("yyyy-MM-dd");
+	   $("input[name=updateTimeStr]").val(time);
+	   $("input[name=updateTimeSign]").val(1);
+}
 </script>

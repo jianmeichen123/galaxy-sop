@@ -54,7 +54,7 @@ var  showbar;
 			 }
 			
 		});
-		var fields = $.find("input[type='text'][data-type],input:checked,textarea,radio");
+		var fields = $.find("input[type='text'][data-type],input[type='hidden'][data-type],input:checked,textarea,radio");
 		var id =  $("#grantId").val();
 		var parentId = $("#parentId").val();
 		var code = $("#code").val();
@@ -172,6 +172,7 @@ var  showbar;
 					infoTableModelList.push(infoMode);
 			    } 
 				data.infoTableModelList = infoTableModelList;
+				//console.log(JSON.stringify(data));
 				sendPostRequestByJsonObjNoCache(
 						platformUrl.saveOrUpdateInfo , 
 						data,

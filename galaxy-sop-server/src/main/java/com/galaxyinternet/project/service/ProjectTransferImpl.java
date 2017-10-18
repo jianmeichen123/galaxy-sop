@@ -141,7 +141,7 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		InformationListdata ild = new InformationListdata();
 		ild.setProjectId(project.getId());
 		ild.setCreateId(createId);
-		ild.setUpdateId(createId);
+		//ild.setUpdateId(createId);
 		ild.setTitleId(1810l);
 		informationListdataDao.updateCreateUid(ild);
 		
@@ -149,7 +149,7 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		InformationFile iF = new InformationFile();
 		iF.setProjectId(project.getId());
 		iF.setCreateId(createId);
-		iF.setUpdateId(createId);
+		//iF.setUpdateId(createId);
 		iF.setTitleId(1810l);
 		informationFileDao.updateCreateUid(iF);
 		
