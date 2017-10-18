@@ -2389,7 +2389,7 @@ margin: 45px auto 30px;}
 .qualifications{position: relative;min-height: 125px;}
 .qualifications .add{position: absolute;top: 8px;right: 10px;cursor:pointer;font-size: 12px;font-family: "宋体"}
 .qualificationstc,.stocktc{width:560px;}
-.qualificationstc{max-height:500px;overflow:auto;}
+.qualificationstc{max-height:500px;overflow-y:auto;overflow-x: hidden;}
 .qualificationstc dl,.stocktc dl{margin-bottom: 10px;}
 .stocktc dd textarea{width:300px;height:50px;}
 /* 添加项目第二页提示框 */
