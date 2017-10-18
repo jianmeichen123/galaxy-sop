@@ -4307,12 +4307,12 @@
                             <w:tblStyle w:val="a6"/>
                             <w:tblW w:w="0" w:type="auto"/>
                             <w:tblBorders>
-                                <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                                <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                                <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                                <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                                <w:insideH w:val="none" w:sz="0" w:space="0" w:color="auto"/>
-                                <w:insideV w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                             </w:tblBorders>
                             <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
                         </w:tblPr>
@@ -4375,7 +4375,7 @@
                                             <w:sz w:val="18"/>
                                             <w:szCs w:val="18"/>
                                         </w:rPr>
-                                        <w:t>项目负责人：</w:t>
+                                        <w:t>项目承做人：</w:t>
                                     </w:r>
                                     <w:r w:rsidR="00EC3EFA">
                                         <w:rPr>
@@ -4410,7 +4410,7 @@
                                             <w:sz w:val="18"/>
                                             <w:szCs w:val="18"/>
                                         </w:rPr>
-                                        <w:t>项目合伙人：</w:t>
+                                        <w:t>事业部总经理：</w:t>
                                     </w:r>
                                     <w:r w:rsidR="00EC3EFA">
                                         <w:rPr>
@@ -4452,6 +4452,44 @@
                                             <w:szCs w:val="18"/>
                                         </w:rPr>
                                         <w:t>${NO1_1_4!"-"}</w:t>
+                                    </w:r>
+                                </w:p>
+                            </w:tc>
+                        </w:tr>
+
+                        <w:tr w:rsidR="00D217EF" w:rsidTr="00D217EF">
+                            <w:tc>
+                                <w:tcPr>
+                                    <w:tcW w:w="6610" w:type="dxa"/>
+                                    <w:gridSpan w:val="2"/>
+                                    <w:vAlign w:val="center"/>
+                                </w:tcPr>
+                                <w:p w:rsidR="00D217EF" w:rsidRPr="00D217EF" w:rsidRDefault="00D217EF" w:rsidP="00EA749E">
+                                    <w:pPr>
+                                        <w:spacing w:line="360" w:lineRule="auto"/>
+                                        <w:jc w:val="left"/>
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+                                            <w:sz w:val="18"/>
+                                            <w:szCs w:val="18"/>
+                                        </w:rPr>
+                                    </w:pPr>
+                                    <w:r w:rsidRPr="001F727F">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑" w:hint="eastAsia"/>
+                                            <w:b/>
+                                            <w:sz w:val="18"/>
+                                            <w:szCs w:val="18"/>
+                                        </w:rPr>
+                                        <w:t>项目承揽人：</w:t>
+                                    </w:r>
+                                    <w:r w:rsidR="002E6332">
+                                        <w:rPr>
+                                            <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+                                            <w:sz w:val="18"/>
+                                            <w:szCs w:val="18"/>
+                                        </w:rPr>
+                                        <w:t>${NO1_1_10!"-"}</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -5586,6 +5624,14 @@
                     <w:tbl>
                         <w:tblPr>
                             <w:tblStyle w:val="a6"/>
+                            <w:tblBorders>
+                                <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                            </w:tblBorders>
                             <w:tblW w:w="0" w:type="auto"/>
                             <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
                         </w:tblPr>
@@ -7177,6 +7223,14 @@
                     <w:tbl>
                         <w:tblPr>
                             <w:tblStyle w:val="a6"/>
+                            <w:tblBorders>
+                                <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                            </w:tblBorders>
                             <w:tblW w:w="0" w:type="auto"/>
                             <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
                         </w:tblPr>
@@ -7608,7 +7662,9 @@
                                             <w:szCs w:val="18"/>
                                             <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
                                         </w:rPr>
-                                        <w:t>${sup.field3!"-"}</w:t>
+                            <w:t>
+                                <#if sup.field3?? >担任职务为${sup.field3!"-"}，</#if><#if sup.field4?? >${sup.field4!"-"}，</#if><#if sup.field5?? >创立时股权比例为${sup.field5!"-"}，</#if><#if sup.field6?? >融资机构及金额、成功或失败或离职原因为${sup.field6!"-"}</#if>
+                            </w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -7632,7 +7688,7 @@
                                             <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
                                         </w:rPr>
                                         <w:lastRenderedPageBreak/>
-                                        <w:t>${sup.field7!"-"}</w:t>
+                                        <w:t>项目概述：${sup.field7!"-"}</w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -7653,7 +7709,28 @@
                         </w:pPr>
                     </w:p>
                     </#list>
-                </#if>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+</#if>
 
 
                     <w:p w:rsidR="002D1D12" w:rsidRPr="00717A6B" w:rsidRDefault="002D1D12" w:rsidP="00EC1C9A">
@@ -8862,6 +8939,14 @@
                         <w:tblPr>
                             <w:tblStyle w:val="a6"/>
                             <w:tblW w:w="0" w:type="auto"/>
+                            <w:tblBorders>
+                                <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                            </w:tblBorders>
                             <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
                         </w:tblPr>
                         <w:tblGrid>
@@ -11374,6 +11459,30 @@
                             <w:t>除去非主营业务外，运营数据曲线变化（细分项目、拆分到年度、月度、周、日）：</w:t>
                         </w:r>
                     </w:p>
+
+<#if !NO4_1_2?? >
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+<#else>
+
 <#if (NO4_1_2.N0)?? >
                     <w:p w:rsidR="00124EF5" w:rsidRDefault="00124EF5" w:rsidP="005841D0">
                         <w:pPr>
@@ -11680,6 +11789,8 @@
                         </w:r>
                     </w:p>
 </#if>
+</#if>
+
 
                     <w:p w:rsidR="00B0059A" w:rsidRPr="00B0059A" w:rsidRDefault="00B0059A" w:rsidP="00B0059A">
                         <w:pPr>
@@ -11921,7 +12032,28 @@
                             <w:t>收入数据曲线变化（细分项目、拆分到年度、月度、周、日）：</w:t>
                         </w:r>
                     </w:p>
-
+<#if !NO4_2_2?? >
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+<#else>
 <#if (NO4_2_2.N0)?? >
                     <w:p w:rsidR="005E6A87" w:rsidRDefault="00124EF5" w:rsidP="00E15A94">
                         <w:pPr>
@@ -12229,7 +12361,7 @@
                         </w:r>
                     </w:p>
 </#if>
-
+        </#if>
                     <w:p w:rsidR="00E15A94" w:rsidRPr="00E15A94" w:rsidRDefault="00E15A94" w:rsidP="00E15A94">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -12529,6 +12661,28 @@
                         </w:r>
                     </w:p>
 
+<#if !NO4_2_5_3?? >
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+<#else>
 <#if (NO4_2_5_3.N0)?? >
                     <w:p w:rsidR="00E15A94" w:rsidRDefault="009D5EC1" w:rsidP="005841D0">
                         <w:pPr>
@@ -12832,7 +12986,7 @@
                         </w:r>
                     </w:p>
 </#if>
-
+        </#if>
                     <w:p w:rsidR="009D5EC1" w:rsidRDefault="009D5EC1" w:rsidP="005841D0">
                         <w:pPr>
                             <w:spacing w:line="360" w:lineRule="auto"/>
@@ -13103,6 +13257,28 @@
                         </w:r>
                     </w:p>
 
+<#if !NO4_2_6_3?? >
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
+<#else>
 <#if (NO4_2_6_3.N0)?? >
                     <w:p w:rsidR="00DB0601" w:rsidRDefault="009D5EC1" w:rsidP="00DB0601">
                         <w:pPr>
@@ -13406,6 +13582,7 @@
                             </w:drawing>
                         </w:r>
                     </w:p>
+</#if>
 </#if>
                     <w:p w:rsidR="00DB0601" w:rsidRPr="00DB0601" w:rsidRDefault="00DB0601" w:rsidP="00DB0601">
                         <w:pPr>
@@ -16687,6 +16864,14 @@
                     <w:tbl>
                         <w:tblPr>
                             <w:tblW w:w="6369" w:type="dxa"/>
+                            <w:tblBorders>
+                                <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                            </w:tblBorders>
                             <w:tblLayout w:type="fixed"/>
                             <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
                         </w:tblPr>
@@ -16704,12 +16889,12 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="841" w:type="dxa"/>
-                                    <w:tcBorders>
+                                    <#-- <w:tcBorders>
                                         <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                                         <w:left w:val="single" w:sz="8" w:space="0" w:color="auto"/>
                                         <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
                                         <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                    </w:tcBorders>
+                                    </w:tcBorders> -->
                                     <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                                     <w:vAlign w:val="center"/>
                                     <w:hideMark/>
@@ -16739,12 +16924,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="709" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                                     <w:vAlign w:val="center"/>
                                     <w:hideMark/>
@@ -16774,12 +16953,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="708" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                                     <w:noWrap/>
                                     <w:vAlign w:val="center"/>
@@ -16810,12 +16983,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="2835" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                                     <w:noWrap/>
                                     <w:vAlign w:val="center"/>
@@ -16846,12 +17013,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="1276" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="8" w:space="0" w:color="000000"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="F2F2F2" w:themeFill="background1" w:themeFillShade="F2"/>
                                     <w:noWrap/>
                                     <w:vAlign w:val="center"/>
@@ -16889,12 +17050,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="841" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="nil"/>
-                                        <w:left w:val="single" w:sz="8" w:space="0" w:color="auto"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                                     <w:vAlign w:val="center"/>
                                     <w:hideMark/>
@@ -16924,12 +17079,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="709" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="nil"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                                     <w:vAlign w:val="center"/>
                                     <w:hideMark/>
@@ -16961,12 +17110,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="708" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="nil"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                                     <w:vAlign w:val="center"/>
                                     <w:hideMark/>
@@ -16998,12 +17141,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="2835" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="4" w:space="0" w:color="000000"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                                     <w:noWrap/>
                                     <w:vAlign w:val="center"/>
@@ -17036,12 +17173,6 @@
                             <w:tc>
                                 <w:tcPr>
                                     <w:tcW w:w="1276" w:type="dxa"/>
-                                    <w:tcBorders>
-                                        <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:left w:val="nil"/>
-                                        <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                                        <w:right w:val="single" w:sz="8" w:space="0" w:color="000000"/>
-                                    </w:tcBorders>
                                     <w:shd w:val="clear" w:color="auto" w:fill="auto"/>
                                     <w:noWrap/>
                                     <w:vAlign w:val="center"/>
@@ -17072,6 +17203,27 @@
                         </w:tr>
                         </#list>
                     </w:tbl>
+<#else>
+<w:p w:rsidR="00796AF9" w:rsidRDefault="000C4310" w:rsidP="000C4310">
+<w:pPr>
+    <w:spacing w:line="360" w:lineRule="auto"/>
+    <w:ind w:firstLine="420"/>
+    <w:jc w:val="left"/>
+    <w:rPr>
+        <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+</w:pPr>
+<w:r w:rsidRPr="00B55D46">
+    <w:rPr>
+        <w:rFonts w:ascii="华文楷体" w:eastAsia="华文楷体" w:hAnsi="华文楷体" w:hint="eastAsia"/>
+        <w:sz w:val="18"/>
+        <w:szCs w:val="18"/>
+    </w:rPr>
+    <w:t>-</w:t>
+</w:r>
+</w:p>
                     </#if>
 
                     <w:p w:rsidR="00754446" w:rsidRDefault="00754446" w:rsidP="00CF5F0D">
@@ -19561,7 +19713,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>融资历史：</w:t>
+                            <w:t>融资历史：<#if !finance_history?? > - </#if> </w:t>
                         </w:r>
                     </w:p>
 
@@ -19572,6 +19724,14 @@
                             <w:tblStyle w:val="a6"/>
                             <w:tblW w:w="6804" w:type="dxa"/>
                             <w:tblInd w:w="-5" w:type="dxa"/>
+                            <w:tblBorders>
+                                <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                                <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
+                            </w:tblBorders>
                             <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
                         </w:tblPr>
                         <w:tblGrid>
@@ -19956,7 +20116,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>完整股权结构：</w:t>
+                            <w:t>完整股权结构：<#if !equity_structure?? > - </#if> </w:t>
                         </w:r>
                     </w:p>
 
@@ -20615,7 +20775,8 @@
                                             <w:kern w:val="0"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t>${isit.field3!"-"}<#if isit.field3??>万${isit.field6!""}</#if></w:t>
+                                        <#-- <w:t>${isit.field3!"-"}<#if isit.field3??>万${isit.field6!""} </#if> </w:t> -->
+                                        <w:t><#if isit.field3?? || isit.field6??> ${isit.field3!""}万${isit.field6!""} <#else>-</#if></w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -20681,7 +20842,8 @@
                                             <w:kern w:val="0"/>
                                             <w:szCs w:val="21"/>
                                         </w:rPr>
-                                        <w:t>${isit.field5!"-"}<#if isit.field5??>万${isit.field6!""}</#if></w:t>
+                                        <#-- <w:t>${isit.field5!"-"}<#if isit.field5??>万${isit.field6!""} </#if> </w:t> -->
+                                        <w:t><#if isit.field5?? || isit.field6??> ${isit.field5!""}万${isit.field6!""} <#else>-</#if></w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>
@@ -21510,7 +21672,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>市场同类公司估值参考：</w:t>
+                            <w:t>市场同类公司估值参考：<#if !valuation_reference?? > - </#if></w:t>
                         </w:r>
                     </w:p>
 
@@ -22444,7 +22606,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>现金流量表：</w:t>
+                            <w:t>现金流量表：<#if !NO9_3_7?? > - </#if></w:t>
                         </w:r>
                     </w:p>
 
