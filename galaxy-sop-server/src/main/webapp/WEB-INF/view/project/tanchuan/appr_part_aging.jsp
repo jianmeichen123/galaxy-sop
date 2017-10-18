@@ -22,7 +22,7 @@
 		<input type="hidden" id="remainMoneyPart" value=""/>
 		<input type="hidden" id="totalMoneyPart" value=""/>
 		<input type="hidden" id="valtr" value=""/>
-	    <div class="form clearfix" id="actual_aging_container">
+	    <div class="form clearfix grantPartTc" id="actual_aging_container">
 	        <div class="appr_aging">
 	           <form id="actual_aging_form">
 	               <dl class="fmdl fl_l  clearfix">

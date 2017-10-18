@@ -23,7 +23,7 @@
 		<input type="hidden" id="newRemainMoneyActual" value=""/>
 		<input type="hidden" id="totalRemainMoneyActual" value=""/>
 		<input type="hidden" id="valtrActual" value=""/>
-	    <div class="form clearfix" id="container">
+	    <div class="form clearfix grantPartTc" id="container">
 	        <div class="edit_actual"  style="min-width:600px;width:740px\9;">
 	            
 	            <dl class="fmdl fl_l  clearfix">
