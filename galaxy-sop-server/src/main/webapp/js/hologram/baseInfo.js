@@ -232,6 +232,8 @@ function one_select_edit(title,inputtype,type){
             	if(title.resultList.length == 1){
             		if(!title.resultList[0].valueId){
             			ddStr = "<dd class='fl_none'>" ;
+					}else{
+						ddStr = "<dd class='fl_none' resultId='"+title.resultList[0].id+"'>" ;
 					}
 				}else{
                     for(var i = 0;  i < title.resultList.length; i++ ){
