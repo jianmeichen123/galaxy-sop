@@ -806,7 +806,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	             fiso.close();  
 			}
 			outzip.close();
-			this.downFile(response, strZipName,tempfilePath);    
+			this.downFile(response,request, strZipName,tempfilePath);    
 		}catch(Exception e){
 			throw new Exception(e);
 		}finally{
@@ -829,22 +829,31 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
      * @param response   
      * @param str   
      */    
-    private Result downFile(HttpServletResponse response, String str,String tempFilePath) {    
+    private Result downFile(HttpServletResponse response,HttpServletRequest request, String str,String tempFilePath) {    
     	Result result = new Result();
     	result.setStatus(Status.OK);
     	BufferedInputStream bins = null;
     	BufferedOutputStream bouts = null;
     	try {    
             String path = tempFilePath + str;    
-            File file = new File(path);    
+            File file = new File(path);  
+            String userAgent = request.getHeader("User-Agent"); 
             if (file.exists()) {    
+            	// 针对IE或者以IE为内核的浏览器：  
+                if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {  
+                    str = java.net.URLEncoder.encode(str, "UTF-8");  
+                } else {  
+                    // 非IE浏览器的处理：  
+                    str = new String(str.getBytes("UTF-8"), "ISO-8859-1");  
+                }  
                 bins = new BufferedInputStream(new FileInputStream(path));// 放到缓冲流里面    
                 bouts = new BufferedOutputStream(response.getOutputStream());    
-                response.setContentType("application/x-download");// 设置response内容的类型    
+                response.setContentType("application/x-download;charset=utf-8");// 设置response内容的类型    
                 response.setHeader(    
                         "Content-disposition",    
                         "attachment;filename="    
-                                + URLEncoder.encode(str, "UTF-8"));// 设置头部信息    
+                                + str);// 设置头部信息    
+                response.setCharacterEncoding("UTF-8");
                 int bytesRead = 0;    
                 byte[] buffer = new byte[1024 * 2];    
                 // 开始向网络传输文件流    
