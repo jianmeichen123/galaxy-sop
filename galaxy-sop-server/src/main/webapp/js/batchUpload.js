@@ -155,9 +155,10 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
  */
 function del(id,name,fieInputId){
     uploader.removeFile(id);
+    var table =  $("#"+id+"tr").closest("table");
     $("#"+id+"tr").remove();
     var textarea_str = "";
-    $("#filelist").find("tbody tr").each(function(index, el) {
+   table.find("tbody tr").each(function(index, el) {
 		var str = $(this).find('td').eq(0).text();
 		textarea_str+=str;
 	});

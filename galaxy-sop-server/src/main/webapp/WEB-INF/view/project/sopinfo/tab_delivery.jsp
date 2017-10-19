@@ -420,10 +420,11 @@ function delPart(id,name,fieInputId,partDelFile){
 			//进行上传
 			var result = data.status;
 			if(result == "OK"){
-			     //删除
+			     //删除			     
+			     var table =  $("#"+id+"tr").closest("table");
 				$("#"+id+"tr").remove();
 				var textarea_str = "";
-				 $("#filelist").find("tbody tr").each(function(index, el) {
+				table.find("tbody tr").each(function(index, el) {
 					var str = $(this).find('td').eq(0).text();
 					textarea_str+=str;
 				});
