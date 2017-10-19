@@ -13,7 +13,7 @@
 	<div class="editPostMeetingtc">
 		<div class="title_bj" id="popup_name">添加运营会议纪要</div>
 	    <div class="form clearfix grantPartTc">
-	        <div class="conference_all grantPartTc">
+	        <div class="conference_all">
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>会议时间 ：</dt>
 	                <dd >
