@@ -164,6 +164,7 @@ getData();
 		dtWidth();
 		btn_disable(0);
 		event.stopPropagation();
+		deleteJSON={};
 		//mustData(_this,1);
 		toggle_btn($('.anchor_btn span'),0,_this);
 		var code=_this.find("table").attr("data-code");

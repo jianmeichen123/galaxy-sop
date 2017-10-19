@@ -128,6 +128,7 @@ $('div').delegate(".h_cancel_btn","click",function(event){
 	btn_disable(0);
 	$(".h#a_"+id_code).css("background","#fff");
 	deletedRowIds = new Array();
+	deleteJSON={};
 	toggle_btn($('.anchor_btn span'),0,_this);
 	//团队
 	dtWidth();
