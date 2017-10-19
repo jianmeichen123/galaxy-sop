@@ -33,7 +33,7 @@
 	                <input type="hidden" id="code" name="code" value="grant-actual"/>
 	                <input name="updateTimeSign" data-name="updateTimeSign" data-type="19" type="hidden" >
         	        <input name="updateTimeStr" data-name="updateTimeStr" data-type="19" type="hidden" >
-		            <dt>实际注资名称1 ：</dt>
+		            <dt>实际注资名称 ：</dt>
 		                <dd>
 		                	<div>
 		                    	<input class="edittxt" id="grantDetail" data-name="field1" data-type="19" oninput="change(event)" onporpertychange="change(event)" type="text" value="实际" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>只能输入20个字符"/>
