@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
-	    <div class="form clearfix" id="actual_aging_container">
-	        <div class="conference_all appr_aging">
+	    <div class="form clearfix grantPartTc" id="actual_aging_container">
+	        <div class="conference_all appr_aging ">
 	           <form id="actual_aging_form">
 		            <dl class="fmdl fl_l  clearfix">
 		                <dt>协议名称 ：</dt>
@@ -54,7 +54,7 @@
 				        </div>
 		            </dl>  
 		            <dl class="fmdl fl_l" id="show_up_file">
-		                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+		                 <table style="width:500px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
 		                 <thead>
 		                    <tr>
 		                      <th style="width:265px;">文件名称</th>

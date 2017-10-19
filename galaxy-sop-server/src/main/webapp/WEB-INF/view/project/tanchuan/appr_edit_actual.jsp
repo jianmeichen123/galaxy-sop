@@ -72,7 +72,7 @@
 				        </div>
 		            </dl>  
 		            <dl class="fmdl fl_l" id="show_up_file">
-		                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+		                 <table style="width:500px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
 		                 <thead>
 		                    <tr>
 		                      <th style="width:265px;">文件名称</th>

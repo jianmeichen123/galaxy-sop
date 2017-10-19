@@ -13,7 +13,7 @@
 <div class="addmentc">
 	<div class="title_bj" id="popup_name"></div>
 	
-    <div class="form clearfix" id="container">
+    <div class="form clearfix grantPartTc" id="container">
         <div class="conference_all">
         	<form id="deliver_form" >
         	<input type="hidden" name="projectId" value="" />
@@ -53,7 +53,7 @@
 		        </div>
             </dl>  
             <dl class="fmdl fl_l" id="show_up_file">
-                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+                 <table style="width:500px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
                  <thead>
                     <tr>
                       <th style="width:265px;">文件名称</th>

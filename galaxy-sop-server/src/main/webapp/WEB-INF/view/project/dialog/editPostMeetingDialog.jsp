@@ -12,8 +12,8 @@
 	<form id="win_post_meeting_form" type="validate">
 	<div class="editPostMeetingtc">
 		<div class="title_bj" id="popup_name">添加运营会议纪要</div>
-	    <div class="form clearfix">
-	        <div class="conference_all">
+	    <div class="form clearfix grantPartTc">
+	        <div class="conference_all grantPartTc">
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>会议时间 ：</dt>
 	                <dd >
@@ -53,7 +53,7 @@
 
             <div style='display:block;' id="div_show_up_file">
             	<dl class="fmdl fl_l" id="show_up_file">
-	                 <table style="width:530px;margin: auto;" id="filelist" cellspacing="0" cellpadding="0">
+	                 <table style="width:500px;margin: auto;" id="filelist" cellspacing="0" cellpadding="0">
 	                    <tr>
 	                      <th style="width:265px;">文件名称</th>
 	                      <th style="width:105px" align="center">文件大小</th>

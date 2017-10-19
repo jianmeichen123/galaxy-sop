@@ -14,7 +14,7 @@
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
 		<input type="hidden" id="remainMoneyPart" value=""/>
 		<input type="hidden" id="totalMoneyPart" value=""/>
-	    <div class="form clearfix grantPartTc" id="actual_aging_container">
+	    <div class="form clearfix grantPartTc"  id="actual_aging_container">
 	        <div class="appr_aging">
 	           <form id="actual_aging_form">
 		           
@@ -53,7 +53,7 @@
 		            </dl>
                  </form>
 		            <dl class="fmdl fl_l" id="show_up_file">
-		                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+		                 <table style="width:500px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
 		                 <thead>
 		                    <tr>
 		                      <th style="width:265px;">文件名称</th>
