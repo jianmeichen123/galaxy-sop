@@ -256,6 +256,7 @@ var  showbar;
 						    file.name = name.replace(/\s+/g,"");;
 							$("#"+fieInputId).val($("#"+fieInputId).val()+" "+file.name);
 							$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+file.name+"</td><td>"+plupload.formatSize(file.size)+"</td><td><button type='button' id='"+file.id+"btn' onclick=delPart('"+file.id+"','"+file.name+"','"+fieInputId+"','partDelFile')>删除</button> </td><td id='"+file.id+"tr_progress'></td></tr>"); 
+							$("#textarea2").val("");
 							params.newFileName = file.id;
 							up.settings.multipart_params = params;
 							uploader.start();
