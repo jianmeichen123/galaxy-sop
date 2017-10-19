@@ -1189,6 +1189,13 @@ function validate(){
 						"data-msg-verify_40":"<font color=red>*</font>不能超过40字且不能全为空格"			
 				}
 				inputs.eq(i).attr(validate);
+			}else if(inputValRuleMark=="12"){
+				var validate={
+						"data-rule-verify_12":"true",
+						"name":i,
+						"data-msg-verify_12":"<font color=red>*</font>不能超过12字且不能全为空格"			
+				}
+				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="100"){
 				var validate={
 						"data-rule-verify_100":"true",
@@ -1299,6 +1306,10 @@ jQuery.validator.addMethod("verify_40", function(value, element) {
 	var verify_40 = /^(?!.{41}|^\s*$)/;
 	return this.optional(element) || (verify_40.test(value));
 }, "不能超过40字"); 
+jQuery.validator.addMethod("verify_12", function(value, element) {   
+	var verify_12 = /^(?!.{13}|^\s*$)/;
+	return this.optional(element) || (verify_12.test(value));
+}, "不能超过12字");
 //inputValRuleMark=="100"
 jQuery.validator.addMethod("verify_100", function(value, element) {  
 	var verify_100 = /^(?!.{101}|^\s*$)/;
@@ -1333,6 +1344,10 @@ jQuery.validator.addMethod("percentage", function(value, element) {
 	var percentage = /^\d+(\.\d{2})?$/;
 	return this.optional(element) || (percentage.test(value) && value>0 && value <=100);
 }, "只能是0～100的整数和两位小数"); 
+jQuery.validator.addMethod("empty", function(value, element) {   
+	var empty = /^\s*$/;
+	return this.optional(element) || (empty.test(value));
+}, "不能全为空格");
 //更新时间
 function updateInforTime(projectId,type){
 	var test={};

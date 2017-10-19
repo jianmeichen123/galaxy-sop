@@ -150,6 +150,7 @@ $(function() {
 				$(".h#"+id_code).css("background","#fafafa");
 				$(".bj_hui_on").show();
 				var sTop=$(window).scrollTop();
+				validate();
 				$.each($('.textarea_h'),function(i,data){
 					  $(this).val($(this).val().replace(/\<br\/\>/g,'\n'));
 					  $(this).val($(this).val().replace(/&nbsp;/g," "));
