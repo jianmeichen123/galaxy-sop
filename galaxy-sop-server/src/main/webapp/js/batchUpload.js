@@ -154,9 +154,14 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
  * @param fieInputId
  */
 function del(id,name,fieInputId){
-	$("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
     uploader.removeFile(id);
     $("#"+id+"tr").remove();
+    var textarea_str = "";
+    $("#"+id).closest("table").find("tbody tr").each(function(index, el) {
+		var str = $(this).find('td').eq(0).text();
+		textarea_str+=str;
+	});
+	$("#"+fieInputId).val(textarea_str);
     var fieInputLen=$("tr[id]").length;
     if(fieInputLen==0){
     	$("#filelist").css("display","none");

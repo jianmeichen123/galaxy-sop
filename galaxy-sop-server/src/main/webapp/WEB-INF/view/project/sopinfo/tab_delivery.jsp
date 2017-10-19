@@ -421,12 +421,17 @@ function delPart(id,name,fieInputId,partDelFile){
 			var result = data.status;
 			if(result == "OK"){
 			     //删除
-			     $("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
-				 $("#"+id+"tr").remove();
-			      var fieInputLen=$("tr[id]").length;
-			      if(fieInputLen==0){
-			      	$("#filelist").css("display","none");
-			      }
+				$("#"+id+"tr").remove();
+				var textarea_str = "";
+				 $("#"+id).closest("table").find("tbody tr").each(function(index, el) {
+					var str = $(this).find('td').eq(0).text();
+					textarea_str+=str;
+				});
+				$("#"+fieInputId).val(textarea_str);
+				var fieInputLen=$("tr[id]").length;
+				if(fieInputLen==0){
+					$("#filelist").css("display","none");
+				}
 			}else{
 				layer.msg("删除失败!");
 			}
