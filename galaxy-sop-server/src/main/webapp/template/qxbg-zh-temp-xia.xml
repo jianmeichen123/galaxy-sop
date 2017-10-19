@@ -19054,7 +19054,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>需要在交割前解决的事项：</w:t>
+                            <w:t>需要在交割前解决的事项：<#if !delivery_before?? >-</#if></w:t>
                         </w:r>
                     </w:p>
 
@@ -19314,7 +19314,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>：</w:t>
+                            <w:t>：<#if !delivery_after?? >-</#if></w:t>
                         </w:r>
                     </w:p>
 
@@ -20468,7 +20468,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>主要战略投资人、财务投资人投资情况：</w:t>
+                            <w:t>主要战略投资人、财务投资人投资情况：<#if !investor_situation?? >-</#if></w:t>
                         </w:r>
                     </w:p>
 
@@ -20957,7 +20957,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>上一轮融资后关键运营指标的变化：</w:t>
+                            <w:t>上一轮融资后关键运营指标的变化：<#if !operation_indices?? >-</#if></w:t>
                         </w:r>
                     </w:p>
 
@@ -22009,7 +22009,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>每次融资的里程碑和时间节点如何：</w:t>
+                            <w:t>每次融资的里程碑和时间节点如何：<#if !financing_milestone?? >-</#if></w:t>
                         </w:r>
                     </w:p>
 
