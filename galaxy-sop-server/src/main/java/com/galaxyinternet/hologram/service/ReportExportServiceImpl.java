@@ -114,6 +114,17 @@ public class ReportExportServiceImpl implements ReportExportService {
                 .replace("&lt;","<")
                 .replace("&","&amp;");
 
+        try{
+            Double.parseDouble(result);
+        }catch(NumberFormatException ex){
+            return result;
+        }
+
+        if(result.indexOf(".") > 0){
+            result = result.replaceAll("0+?$", "");//去掉多余的0
+            result = result.replaceAll("[.]$", "");//如最后一位是.则去掉
+        }
+
         return result;
     }
 
@@ -420,7 +431,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                         if(StringUtils.isNotBlank(tempResult.getContentDescribe2())){
                             unit += tempResult.getContentDescribe2().substring(0,tempResult.getContentDescribe2().indexOf("p"));
                         }
-                        map.put(tempTitle.getCode(), tempResult.getContentDescribe1()+unit);
+                        map.put(tempTitle.getCode(), textConversion(tempResult.getContentDescribe1())+unit);
                     }
                     //type1920ValueCon(tempTitle, map);
                 }
@@ -791,6 +802,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                         }
                         out.flush();
                         out.close();
+                        fis.close();
 
                         fis = new FileInputStream(outFile);
                         BufferedImage src = javax.imageio.ImageIO.read(fis);
