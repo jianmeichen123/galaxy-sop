@@ -445,9 +445,10 @@ var searchPartMoney;
 			var result = data.status;
 			if(result == "OK"){
 			     //删除
+			     var table = $("#"+id).closest("table");
 				 $("#"+id+"tr").remove();
 				var textarea_str = "";
-				 $("#"+id).closest("table").find("tbody tr").each(function(index, el) {
+				 table.find("tbody tr").each(function(index, el) {
 					var str = $(this).find('td').eq(0).text();
 					textarea_str+=str;
 				});
