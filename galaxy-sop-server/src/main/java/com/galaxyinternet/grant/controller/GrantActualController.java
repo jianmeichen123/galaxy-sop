@@ -38,6 +38,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.GrantActual;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
@@ -58,7 +59,6 @@ import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.InformationFileService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.utils.BatchUploadFile;
-import com.galaxyinternet.utils.ListSortUtil;
 import com.galaxyinternet.utils.MathUtils;
 
 
@@ -180,7 +180,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+uid, "realName"));
 					c.setUpdateTimeStr(c.getUpdatedTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
 				}
-				sortList.Sort(content,"time","asc");
+				sortList.sort(content,"time","asc");
 				actualPage.setContent(content);
 				
 			}

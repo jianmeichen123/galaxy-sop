@@ -9,6 +9,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.hologram.util.ListSortUtil;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
 import com.galaxyinternet.model.hologram.InformationListdata;
@@ -21,7 +22,6 @@ import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.service.hologram.InformationResultService;
-import com.galaxyinternet.utils.ListSortUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -337,13 +337,13 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 						  removedatalist.add(data);
 					  }
 					}
-					sortList.Sort(datalist,"time","asc");
+					sortList.sort(datalist,"time","asc");
 					item.setDataList(datalist);
 					
 					
 				}
 				gp.removeAll(removedatalist);
-				sortList.Sort(gp,"time","asc");
+				sortList.sort(gp,"time","asc");
 				
 			}
 		}
