@@ -509,12 +509,17 @@ function buildResults(sec,title,readonly)
 		}
 		if(title.type == 19 )
 		{
-			/*if(title.id=="3012"){
+			if(title.id=="3012"){
 				var num =title.resultList[0].contentDescribe1;
 				if(num!=undefined && num!="" && num.indexOf(".")>-1){
-					var nums=num.split(".");
+					var nums=String(num).split(".");
+					if(nums[0].length>9){
+						num=num;
+					}else{
+						num=Number(num).toFixed(4)
+					}
 				}
-			}*/
+			}
 			if(readonly == true)
 			{
 				if(title.id=="3012"){
@@ -523,7 +528,7 @@ function buildResults(sec,title,readonly)
 					}else{
 						$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":num*10000/10000);
 					}*/
-					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
+					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(num));
 				}else{
 					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
 				}
@@ -544,7 +549,7 @@ function buildResults(sec,title,readonly)
 						}else{
 							$("input[data-title-id='"+title.id+"']").val(num*10000/10000).attr("resultId",result_id);
 						}*/
-						$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(title.resultList[0].contentDescribe1)).attr("resultId",result_id);
+						$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_parsefloat(num)).attr("resultId",result_id);
 					}else{
 						$("input[data-title-id='"+title.id+"']").val('').attr("resultId",result_id);
 					}
