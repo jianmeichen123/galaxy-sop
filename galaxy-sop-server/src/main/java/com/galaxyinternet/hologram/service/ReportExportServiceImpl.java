@@ -415,8 +415,11 @@ public class ReportExportServiceImpl implements ReportExportService {
                     // 16 多个文本框内容--组装一条显示  str=str.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
                     // map : code-value
                     InformationResult tempResult = resultList.get(0);
-                    if(StringUtils.isNotBlank(tempResult.getContentDescribe1()) ){ // && tempResult.getContentDescribe1().contains("sitg")
-                        value = tempResult.getContentDescribe1().replace("<sitg>","（").replace("</sitg>","）");
+                    value = tempResult.getContentDescribe1();
+                    if(StringUtils.isNotBlank(value) ){
+                        if(tempResult.getContentDescribe1().contains("sitg")){
+                            value = value.replace("<sitg>","（").replace("</sitg>","）");
+                        }
                         map.put(tempTitle.getCode(), textConversion(value));
                     }
                     //type16ValueCon(tempTitle, map);
