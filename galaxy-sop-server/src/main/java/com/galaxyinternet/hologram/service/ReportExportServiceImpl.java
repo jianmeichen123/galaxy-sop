@@ -281,17 +281,27 @@ public class ReportExportServiceImpl implements ReportExportService {
             if(resultList!=null && !resultList.isEmpty())
             {
 
-                if(tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8
-                        || tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14 )
+                if(tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8 )
                 {
-                    // 1:文本、 2: 单选（Radio）、 8:文本域(textarea)、 14 单选（select）、
+                    // 1:文本、  8:文本域(textarea)、
                     //  map : code-value
                     InformationResult tempResult = resultList.get(0);
-                    if(StringUtils.isNotBlank(tempResult.getContentChoose()) && StringUtils.isNumeric(tempResult.getContentChoose())){
-                        value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
-                    }else{
-                        value = tempResult.getContentDescribe1();
-                        value = textConversion(value);
+                    value = textConversion(tempResult.getContentDescribe1());
+                    if(StringUtils.isNotBlank(value)){
+                        map.put(tempTitle.getCode(), value);
+                    }
+                    //singleValueCon(tempTitle, map, valueIdNameMap);
+                }else if(tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14 )
+                {
+                    //  2: 单选（Radio）、  14 单选（select）、
+                    //  map : code-value
+                    InformationResult tempResult = resultList.get(0);
+                    if(StringUtils.isNotBlank(tempResult.getContentChoose()) ){
+                        if(StringUtils.isNumeric(tempResult.getContentChoose())){
+                            value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
+                        }else{
+                            value = textConversion(tempResult.getContentChoose());
+                        }
                     }
 
                     if(StringUtils.isNotBlank(value)){
