@@ -42,7 +42,7 @@
 		            </dl>
                  </form>
 		            <dl class="fmdl fl_l" id="show_up_file">
-		                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+		                 <table style="width:460px;margin:0 40px 0 20px;" id="filelist"  cellspacing="0" cellpadding="0">
 		                 <thead>
 		                    <tr>
 		                      <th style="width:265px;">文件名称</th>

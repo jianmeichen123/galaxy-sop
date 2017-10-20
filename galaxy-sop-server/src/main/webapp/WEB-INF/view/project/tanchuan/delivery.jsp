@@ -26,7 +26,7 @@
             
             <dl class="fmdl fl_l">
                  <dt>详细内容：</dt>
-                 <dd><textarea class="area" name="field2" data-name="field2" data-type="19" id="details" cols="45" rows="5" maxlength="100" oninput="change(event);"  required></textarea></dd>
+                 <dd><textarea class="area delivery_textarea" name="field2" data-name="field2" data-type="19" id="details" cols="45" rows="5" maxlength="100" oninput="change(event);"  required></textarea></dd>
             </dl>
             
             <dl class="fmdl fl_l">
