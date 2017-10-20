@@ -55,7 +55,7 @@
 	                <dt>项目估值：</dt>
 	                <dd>
 	                	<div id="setValue">
-	                    	<input class="txt" type="text" data-title-id="3012" data-result-id="${result3012}" value="<fmt:formatNumber value="${value3012}" pattern="#.####" maxFractionDigits="4" />" data-type="19" id="finalValuations" name="4" value="" 
+	                    	<input class="txt" type="text" data-title-id="3012" data-result-id="${result3012}" data-type="19" id="finalValuations" name="4" value="" 
 	                    		maxLength="20"  allowNULL="no" valType="LIMIT_11_NUMBER" data-rule-verify_3012="true"  data-msg-verify_3012="<font color=red>*</font>支持13位长度的四位小数" />
 	                    	<span class='money'>万元</span>
 	                    </div>
@@ -242,5 +242,17 @@
 	$.validator.setDefaults({
 		errorElement:'span'
 	});
-	
+	//格式化项目估值
+	var _val='${value3012}';
+	if(_val.indexOf('.')>-1){
+		var num=_val.split('.');
+		if(num[0].length>9){
+			_val=_val;
+		}else{
+			_val=Number(_val).toFixed(4)
+		}
+	}
+	_val = _parsefloat(_val);
+	$('input[data-title-id="3012"]').val(_val);
+
 	</script>

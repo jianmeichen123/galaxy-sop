@@ -40,7 +40,7 @@
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>项目估值：</dt>
 	                <dd>
-	                	<div><span><fmt:formatNumber value="${value3012}" pattern="#.####" maxFractionDigits="4" > </fmt:formatNumber>万元</span></div> 
+	                	<div><span class='value3012'>万元</span></div> 
 	                </dd>
 	            </dl>
 	            
@@ -49,3 +49,17 @@
 	    </div>
 	    
 	</div>
+	<script>
+	//格式化项目估值
+	var _val='${value3012}';
+	if(_val.indexOf('.')>-1){
+		var num=_val.split('.');
+		if(num[0].length>9){
+			_val=_val;
+		}else{
+			_val=Number(_val).toFixed(4)
+		}
+	}
+	_val = _parsefloat(_val);
+	$('span.value3012').text(_val);
+	</script>
