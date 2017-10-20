@@ -4306,6 +4306,14 @@
                         <w:tblPr>
                             <w:tblStyle w:val="a6"/>
                             <w:tblW w:w="0" w:type="auto"/>
+                            <w:tblBorders>
+                                <w:top w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:left w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:bottom w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:right w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:insideH w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                                <w:insideV w:val="none" w:sz="0" w:space="0" w:color="auto"/>
+                            </w:tblBorders>
                             <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
                         </w:tblPr>
                         <w:tblGrid>
