@@ -168,7 +168,10 @@
 				infoMode.remark1 = field.val();
 				if(field.data('titleId') == "3004"){   //特殊处理决策里面的投资金额
 					infoMode.reportType=3;
-					infoMode.tochange=false;
+				    if(field.hasClass('disabled')){
+				    	infoMode.tochange=false;
+				    }
+					
 				}
 			}
 			if (infoMode != null) {
