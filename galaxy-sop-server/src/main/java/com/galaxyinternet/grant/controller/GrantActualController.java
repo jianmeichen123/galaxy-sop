@@ -58,6 +58,7 @@ import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.InformationFileService;
 import com.galaxyinternet.service.hologram.InformationListdataService;
 import com.galaxyinternet.utils.BatchUploadFile;
+import com.galaxyinternet.utils.ListSortUtil;
 import com.galaxyinternet.utils.MathUtils;
 
 
@@ -168,6 +169,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 							Direction.fromString("desc"), 
 							"created_time"));
 			List<InformationListdata> content = actualPage.getContent();
+			ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();  
 			if(content != null && content.size() > 0){
 				
 				for(InformationListdata c : content){
@@ -178,7 +180,9 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					c.setUpdateUserName((String)cache.hget(PlatformConst.CACHE_PREFIX_USER+uid, "realName"));
 					c.setUpdateTimeStr(c.getUpdatedTime() == null ? DateUtil.longToString(c.getCreatedTime()) : DateUtil.longToString(c.getUpdatedTime()));
 				}
+				sortList.Sort(content,"time","asc");
 				actualPage.setContent(content);
+				
 			}
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {

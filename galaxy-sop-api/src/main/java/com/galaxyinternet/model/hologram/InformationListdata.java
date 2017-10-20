@@ -1,9 +1,14 @@
 package com.galaxyinternet.model.hologram;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.CommonUtil;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 
 public class InformationListdata extends PagableEntity implements Cloneable{
 
@@ -60,6 +65,8 @@ public class InformationListdata extends PagableEntity implements Cloneable{
     private List<InformationListdata> studyList;
 
     private List<InformationListdata> startupList;
+    
+    private Long time;
 
     private List<String> codes;
     
@@ -114,7 +121,15 @@ public class InformationListdata extends PagableEntity implements Cloneable{
         return titleId;
     }
 
-    public void setTitleId(Long titleId) {
+    public Long getTime(){
+		return time;
+	}
+
+	public void setTime(Long time) {
+		this.time = time;
+	}
+
+	public void setTitleId(Long titleId) {
         this.titleId = titleId;
     }
 
@@ -146,7 +161,17 @@ public class InformationListdata extends PagableEntity implements Cloneable{
         return field2;
     }
 
-    public void setField2(String field2) {
+    public void setField2(String field2){
+    	if(field2 != null && StringUtils.isNotEmpty(field2)){
+    		if(CommonUtil.isValidDate(field2)){
+    			try {
+					this.time = DateUtil.convertStringToDate(field2).getTime();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	}
         this.field2 = field2;
     }
 
