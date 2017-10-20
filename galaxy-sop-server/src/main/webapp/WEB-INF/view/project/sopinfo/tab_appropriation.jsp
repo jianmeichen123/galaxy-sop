@@ -100,18 +100,7 @@ var searchPartMoney;
 	    }
 		//编辑总注资计划
 		$("[data-btn='actual_aging']").on("click",function(){
-		if(!getTotalAppr(pId)){
-			 $.getHtml({
-					url:Constants.sopEndpointURL+'/html/beforeSave.html',  
-					data:"",//传递参数
-					okback:function(){
-						$(".before_save_tc").addClass("stag_plan")
-						$(".before_save_btn").remove();
-						$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
-					}//模版反回成功执行	
-				});
-			  return false;
-		 }
+		
 		var $self = $(this);
 		var _data_type = $self.attr("data_type");
 		
@@ -122,6 +111,19 @@ var searchPartMoney;
 		//查看分期计划
 		if(_data_type == "info"){
 			_url = Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAgingInfo';
+		}else{
+			if(!getTotalAppr(pId)){
+				 $.getHtml({
+						url:Constants.sopEndpointURL+'/html/beforeSave.html',  
+						data:"",//传递参数
+						okback:function(){
+							$(".before_save_tc").addClass("stag_plan")
+							$(".before_save_btn").remove();
+							$(".deltc").html("<b class=\"null tips_d\">ico</b><span>无法添加分期注资计划,需要补全以下信息:投决会结果中的投资金额、估值安排、星河投资方主体</span>");
+						}//模版反回成功执行	
+					});
+				  return false;
+			 }
 		}
 		/* 
 		var isFlag = false;
