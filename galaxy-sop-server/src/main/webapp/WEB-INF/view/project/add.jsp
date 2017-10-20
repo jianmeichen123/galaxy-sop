@@ -333,15 +333,16 @@
 					}
 					formData = JSON.stringify(getUpdateData());
 				}else{
-					saveBaseInfo("add_form",data.id);
-					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+ data.id + "?backurl=list");
+					saveBaseInfo("add_form",data.id,data.id);
+					
 				}
 				
 			},TOKEN);
 		}
 	}
 	
-	function saveBaseInfo(dom,projectId){
+	function saveBaseInfo(dom,projectId,Id){
+		
 		var infoModeList = new Array();
 		var fields = $("#"+dom).find("input[data-title-id],select[data-title-id]");
 		var data = {
@@ -379,7 +380,7 @@
 				function(data) {
 					var result = data.result.status;
 					if (result == 'OK') {
-						
+						forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/"+Id+ "?backurl=list");
 					} else {
 						
 					}
