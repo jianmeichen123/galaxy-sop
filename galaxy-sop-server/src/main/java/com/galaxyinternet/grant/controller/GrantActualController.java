@@ -166,8 +166,8 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			Page<InformationListdata> actualPage = informationListdataService.queryPageList(actual,
 					new PageRequest(actual.getPageNum(), 
 							actual.getPageSize(), 
-							Direction.fromString("desc"), 
-							"created_time"));
+							Direction.fromString("asc"), 
+							"field_2"));
 			List<InformationListdata> content = actualPage.getContent();
 			ListSortUtil<InformationListdata> sortList = new ListSortUtil<InformationListdata>();  
 			if(content != null && content.size() > 0){
