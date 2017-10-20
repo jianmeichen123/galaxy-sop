@@ -31,11 +31,11 @@
 				    <tr>
 			        	<!-- <th data-field="field1" data-formatter="grantMoneyFormat"  class="data-input" >实际注资金额（万元）</th>
 			        	<th data-field="field2" data-formatter="createDateFormat" class="data-input"  >实际注资日期<span></span></th> -->
-			        	<th data-field="field1" class="data-input" >实际注资名称</th>
-			        	<th data-field="field3" class="data-input" data-formatter="actualMoneyFormat">实际注资金额（万元）</th>
-			        	<th data-field="field2" class="data-input"  >实际注资日期<span></span></th>
-			        	<th data-field="updateUserName" class="data-input">注资人<span></span></th>
-			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder">操作</th>
+			        	<th data-field="field1" class="data-input" data-width='25%'>实际注资名称</th>
+			        	<th data-field="field3" class="data-input" data-formatter="actualMoneyFormat" data-width='20%'>实际注资金额（万元）</th>
+			        	<th data-field="field2" class="data-input" data-width='13%' >实际注资日期<span></span></th>
+			        	<th data-field="updateUserName" class="data-input" data-width='20%'>注资人<span></span></th>
+			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width='27%'>操作</th>
  					</tr>	
  				</thead>
 			</table>

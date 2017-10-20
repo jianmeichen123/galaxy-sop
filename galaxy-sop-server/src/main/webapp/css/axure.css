@@ -2212,7 +2212,7 @@ post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
     margin-right: 10px;
 }
 
-.actual_all{width: 690px;height:250px; margin: 5px auto 30px;}
+.actual_all{width: 700px;height:250px; margin: 5px auto 30px;}
 .addmentc fmdl{margin: 0 0 15px;}
 .edittxt{width: 230px; font-size: 12px; line-height: 28px; height: 30px; 
 border: 1px solid #dadfe3;
@@ -2225,6 +2225,7 @@ margin: 45px auto 30px;}
 .actual_all th,.actual_all td{padding:0 5px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
 #actual-table td a,#actual-table td label{margin-right:10px;cursor:pointer;}
+#actual-table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .moeny_all .money ,#setValue .money ,#label_grant_money .money{ position: absolute; top: -39px;  left: 285px;}
 .bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 140px;    border: 1px solid #dadfe3; border-radius: 4px;
     padding: 0 4px;  font-size: 12px;}
@@ -2398,7 +2399,7 @@ margin: 45px auto 30px;}
 .addProject{background:#fff;border-radius:6px;margin-top:10px;}
 .financeHistoryTable th{white-space:nowrap;}
 .learning-table td,.sharestable td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.learning-table,.sharestable,.financeHistoryTable,.info_table{table-layout:fixed}
+.learning-table,.sharestable,.financeHistoryTable,.info_table,#actual-table{table-layout:fixed}
 .project_on .basic_span1{font-size:14px;margin:3px 10px;display:block;color:#3e4351}
 #step2 .tip-yellowsimple .tip-arrow-left,#shares_block_valiate .tip-arrow-left,#person_block_valiate .tip-arrow-left{margin-top:-12px;margin-left:-14px;}
 #step2 .tip-yellowsimple,#shares_block_valiate,#person_block_valiate{margin-left:10px;height:16px;}
