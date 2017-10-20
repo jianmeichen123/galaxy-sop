@@ -170,6 +170,8 @@ public class InformationListdata extends PagableEntity implements Cloneable{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+    		}else{
+    			this.time = 0l;
     		}
     	}
         this.field2 = field2;
