@@ -265,11 +265,14 @@ public class ReportExportServiceImpl implements ReportExportService {
         for(InformationTitle tempTitle : titleList)
         {
 
-            if(logger.isDebugEnabled()){
+            /*if(logger.isDebugEnabled()){
                 if("NO1_1_9".equals(tempTitle.getCode())){
                     System.out.println();
                 }
-            }
+                if(tempTitle.getType().intValue() == 16){
+                    System.out.println();
+                }
+            }*/
 
             value = null;
             contact = "、";
@@ -278,17 +281,27 @@ public class ReportExportServiceImpl implements ReportExportService {
             if(resultList!=null && !resultList.isEmpty())
             {
 
-                if(tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8
-                        || tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14 )
+                if(tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8 )
                 {
-                    // 1:文本、 2: 单选（Radio）、 8:文本域(textarea)、 14 单选（select）、
+                    // 1:文本、  8:文本域(textarea)、
                     //  map : code-value
                     InformationResult tempResult = resultList.get(0);
-                    if(StringUtils.isNotBlank(tempResult.getContentChoose())){
-                        value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
-                    }else{
-                        value = tempResult.getContentDescribe1();
-                        value = textConversion(value);
+                    value = textConversion(tempResult.getContentDescribe1());
+                    if(StringUtils.isNotBlank(value)){
+                        map.put(tempTitle.getCode(), value);
+                    }
+                    //singleValueCon(tempTitle, map, valueIdNameMap);
+                }else if(tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14 )
+                {
+                    //  2: 单选（Radio）、  14 单选（select）、
+                    //  map : code-value
+                    InformationResult tempResult = resultList.get(0);
+                    if(StringUtils.isNotBlank(tempResult.getContentChoose()) ){
+                        if(StringUtils.isNumeric(tempResult.getContentChoose())){
+                            value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
+                        }else{
+                            value = textConversion(tempResult.getContentChoose());
+                        }
                     }
 
                     if(StringUtils.isNotBlank(value)){
@@ -304,7 +317,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                     StringBuffer stringBuffer = new StringBuffer();
                     for(int i = 0; i<resultList.size(); i++)
                     {
-                        if(resultList.get(i).getContentChoose() != null)
+                        if(resultList.get(i).getContentChoose() != null  && StringUtils.isNumeric(resultList.get(i).getContentChoose()))
                         {
                             value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
 
@@ -328,7 +341,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                     //  map : code-value
                     for(int i = 0; i<resultList.size(); i++)
                     {
-                        if(resultList.get(i).getContentChoose() != null)
+                        if(resultList.get(i).getContentChoose() != null && StringUtils.isNumeric(resultList.get(i).getContentChoose()))
                         {
                             value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
                             if(StringUtils.isNotBlank(value)){
@@ -351,7 +364,7 @@ public class ReportExportServiceImpl implements ReportExportService {
                         if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())){
                             value = resultList.get(i).getContentDescribe1();
                             value = textConversion(value);
-                        }else if(StringUtils.isNotBlank(resultList.get(i).getContentChoose()))
+                        }else if(StringUtils.isNotBlank(resultList.get(i).getContentChoose()) && StringUtils.isNumeric(resultList.get(i).getContentChoose()))
                         {
                             if(StringUtils.isNotBlank(valueIdNameMap.get(new Long(resultList.get(i).getContentChoose())))){
                                 value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
@@ -415,8 +428,11 @@ public class ReportExportServiceImpl implements ReportExportService {
                     // 16 多个文本框内容--组装一条显示  str=str.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
                     // map : code-value
                     InformationResult tempResult = resultList.get(0);
-                    if(StringUtils.isNotBlank(tempResult.getContentDescribe1()) ){ // && tempResult.getContentDescribe1().contains("sitg")
-                        value = tempResult.getContentDescribe1().replace("<sitg>","（").replace("</sitg>","）");
+                    value = tempResult.getContentDescribe1();
+                    if(StringUtils.isNotBlank(value) ){
+                        if(tempResult.getContentDescribe1().contains("sitg")){
+                            value = value.replace("<sitg>","（").replace("</sitg>","）");
+                        }
                         map.put(tempTitle.getCode(), textConversion(value));
                     }
                     //type16ValueCon(tempTitle, map);
