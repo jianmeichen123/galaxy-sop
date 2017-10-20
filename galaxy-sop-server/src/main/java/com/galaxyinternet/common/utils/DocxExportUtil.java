@@ -90,14 +90,28 @@ public class DocxExportUtil {
         try {
             //map数据-> xml文件
             Template template = configuration.getTemplate(templateName+".xml"); //.xml  .ftl
-
             File outFile = new File(filePath,fileName+".xml");
-
             out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile), "utf-8"));
-
             template.process(dataMap, out);
             out.flush();
             out.close();
+
+            /*template = configuration.getTemplate("document.xml.rels"); //.xml  .ftl
+            File outFile_rels = new File(filePath,System.currentTimeMillis()+"document.xml.rels");
+            out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile_rels), "utf-8"));
+            template.process(dataMap, out);
+            out.flush();
+            out.close();
+            if("word/_rels/document.xml.rels".equals(ze.toString()))
+            {
+                InputStream in = new FileInputStream(outFile_rels);
+                while((len = in.read(buffer))!=-1)
+                {
+                    zipout.write(buffer,0,len);
+                }
+                in.close();
+                zipout.closeEntry();
+            }*/
 
             //生成 docx 文件
             zipout = new ZipOutputStream(new FileOutputStream(new File(filePath,fileName+".docx")));
@@ -114,9 +128,6 @@ public class DocxExportUtil {
             while(zipEntrys.hasMoreElements())
             {
                 ze = zipEntrys.nextElement();
-
-                InputStream is = zipFile.getInputStream(ze);
-
                 zipout.putNextEntry(new ZipEntry(ze.toString()));
 
                 if("word/document.xml".equals(ze.toString()))
@@ -129,6 +140,7 @@ public class DocxExportUtil {
                     in.close();
                     zipout.closeEntry();
                 }else {
+                    InputStream is = zipFile.getInputStream(ze);
                     while((len = is.read(buffer))!=-1)
                     {
                         zipout.write(buffer,0,len);

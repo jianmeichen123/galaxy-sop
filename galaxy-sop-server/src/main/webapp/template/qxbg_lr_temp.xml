@@ -3896,11 +3896,7 @@
         </w:sdt>
         <w:p w:rsidR="00016190" w:rsidRDefault="00016190" w:rsidP="003A2618">
             <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
+                <w:widowControl/>
                 <w:jc w:val="left"/>
                 <w:rPr>
                     <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
@@ -3908,321 +3904,14 @@
                     <w:szCs w:val="32"/>
                 </w:rPr>
             </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00016190" w:rsidRDefault="00016190" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
+            <w:r>
                 <w:rPr>
                     <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
                     <w:sz w:val="32"/>
                     <w:szCs w:val="32"/>
                 </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00DD5165" w:rsidRDefault="00DD5165" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00016190" w:rsidRDefault="00016190" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00016190" w:rsidRDefault="00016190" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
-        </w:p>
-        <w:p w:rsidR="00016190" w:rsidRDefault="00016190" w:rsidP="003A2618">
-            <w:pPr>
-                <w:tabs>
-                    <w:tab w:val="center" w:pos="4666"/>
-                    <w:tab w:val="right" w:pos="9332"/>
-                </w:tabs>
-                <w:ind w:firstLineChars="600" w:firstLine="1920"/>
-                <w:jc w:val="left"/>
-                <w:rPr>
-                    <w:rFonts w:ascii="微软雅黑" w:eastAsia="微软雅黑" w:hAnsi="微软雅黑"/>
-                    <w:sz w:val="32"/>
-                    <w:szCs w:val="32"/>
-                </w:rPr>
-            </w:pPr>
+                <w:br w:type="page"/>
+            </w:r>
         </w:p>
         <w:p w:rsidR="000540F6" w:rsidRPr="00EA749E" w:rsidRDefault="00950E0A" w:rsidP="00914446">
             <w:pPr>
@@ -4253,14 +3942,6 @@
             <w:tblPr>
                 <w:tblStyle w:val="a6"/>
                 <w:tblW w:w="0" w:type="auto"/>
-                <w:tblBorders>
-                    <w:top w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                    <w:left w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                    <w:bottom w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                    <w:right w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                    <w:insideH w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                    <w:insideV w:val="single" w:sz="4" w:space="0" w:color="auto"/>
-                </w:tblBorders>
                 <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0"
                            w:noVBand="1"/>
             </w:tblPr>
@@ -11630,7 +11311,7 @@
                     <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="7A27D148" wp14:editId="6494C020">
                         <wp:extent cx="${ps412.wide?c}" cy="${ps412.high?c}"/>
                         <wp:effectExtent l="19050" t="19050" r="12700" b="23495"/>
-                        <wp:docPr id="59" name="图片 59"/>
+                        <wp:docPr id="59${ps412_index}" name="图片 59"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                                                  noChangeAspect="1"/>
@@ -11651,7 +11332,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="4025743" cy="2119901"/>
+                                            <a:ext cx="${ps412.wide?c}" cy="${ps412.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -11972,7 +11653,7 @@
                     <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="29F0233A" wp14:editId="748B1F8B">
                         <wp:extent cx="${ps422.wide?c}" cy="${ps422.high?c}"/>
                         <wp:effectExtent l="19050" t="19050" r="13335" b="15240"/>
-                        <wp:docPr id="67" name="图片 67"/>
+                        <wp:docPr id="67${ps422_index}" name="图片 67"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                                                  noChangeAspect="1"/>
@@ -11993,7 +11674,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3635776" cy="2468703"/>
+                                            <a:ext cx="${ps422.wide?c}" cy="${ps422.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -12356,7 +12037,7 @@
                     <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="6163CDEC" wp14:editId="1C1D7FFC">
                         <wp:extent cx="${ps4253.wide?c}" cy="${ps4253.high?c}"/>
                         <wp:effectExtent l="19050" t="19050" r="16510" b="12700"/>
-                        <wp:docPr id="69" name="图片 69"/>
+                        <wp:docPr id="69${ps4253_index}" name="图片 69"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                                                  noChangeAspect="1"/>
@@ -12377,7 +12058,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3337293" cy="2517589"/>
+                                            <a:ext cx="${ps4253.wide?c}" cy="${ps4253.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -12709,7 +12390,7 @@
                     <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="4B032E18" wp14:editId="26338D25">
                         <wp:extent cx="${ps4263.wide?c}" cy="${ps4263.high?c}"/>
                         <wp:effectExtent l="19050" t="19050" r="27940" b="15875"/>
-                        <wp:docPr id="74" name="图片 74"/>
+                        <wp:docPr id="74${ps4263_index}" name="图片 74"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                                                  noChangeAspect="1"/>
@@ -12730,7 +12411,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3389540" cy="2905320"/>
+                                            <a:ext cx="${ps4263.wide?c}" cy="${ps4263.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>
@@ -18259,7 +17940,7 @@
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
-                <w:t>需要在交割前解决的事项：</w:t>
+                <w:t>需要在交割前解决的事项：<#if !delivery_before?? >-</#if></w:t>
             </w:r>
         </w:p>
 
@@ -18515,7 +18196,7 @@
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
-                <w:t>需要在交割后解决的事项：</w:t>
+                <w:t>需要在交割后解决的事项：<#if !delivery_after?? >-</#if></w:t>
             </w:r>
         </w:p>
 
@@ -20177,7 +19858,7 @@
                     <w:sz w:val="18"/>
                     <w:szCs w:val="18"/>
                 </w:rPr>
-                <w:t>上一轮融资后关键运营指标的变化：</w:t>
+                <w:t>上一轮融资后关键运营指标的变化：<#if !operation_indices?? >-</#if></w:t>
             </w:r>
         </w:p>
 
@@ -21246,7 +20927,7 @@
                     <w:szCs w:val="18"/>
                 </w:rPr>
                 <w:lastRenderedPageBreak/>
-                <w:t>每次融资的里程碑和时间节点如何：</w:t>
+                <w:t>每次融资的里程碑和时间节点如何：<#if !financing_milestone?? >-</#if></w:t>
             </w:r>
         </w:p>
 
@@ -21870,7 +21551,7 @@
                     <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="7923C417" wp14:editId="4D991625">
                         <wp:extent cx="${ps937.wide?c}" cy="${ps937.high?c}"/>
                         <wp:effectExtent l="19050" t="19050" r="10795" b="16510"/>
-                        <wp:docPr id="80" name="图片 80"/>
+                        <wp:docPr id="80${ps937_index}" name="图片 80"/>
                         <wp:cNvGraphicFramePr>
                             <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
                                                  noChangeAspect="1"/>
@@ -21891,7 +21572,7 @@
                                     <pic:spPr>
                                         <a:xfrm>
                                             <a:off x="0" y="0"/>
-                                            <a:ext cx="3477008" cy="2461217"/>
+                                            <a:ext cx="${ps937.wide?c}" cy="${ps937.high?c}"/>
                                         </a:xfrm>
                                         <a:prstGeom prst="rect">
                                             <a:avLst/>

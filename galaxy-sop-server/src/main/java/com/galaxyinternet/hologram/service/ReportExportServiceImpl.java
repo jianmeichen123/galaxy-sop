@@ -116,7 +116,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         try{
             Double.parseDouble(result);
-        }catch(NumberFormatException ex){
+        }catch(Exception ex){
             return result;
         }
 
@@ -713,7 +713,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
     /**
      * 图片数据
-     * map code - list<FileUtilModel>
+     * map code - list<FileUtilModel>   rels_no : rid 100+
      *@param currentMark  imageDir 图片存储路径 currentMark_tempName
      NO4_1_2     rId101 2345 image101.png image105.png
      NO4_2_2     rId201 2345 image201.png image10.png
@@ -837,6 +837,8 @@ public class ReportExportServiceImpl implements ReportExportService {
         }
         return map;
     }
+
+
     /**
      * 图片数据 for doc
      * map code - map N1\N2\N3\N4
@@ -966,5 +968,127 @@ public class ReportExportServiceImpl implements ReportExportService {
 
 
 
+
+    public Map<String,Object> fileTitleResultxx(Set<Long> ids,Long projectId,String currentMark,String tempfilePath)
+            throws Exception
+    {
+        Map<String, Object> map = new HashMap<>();
+
+        if(ids == null || ids.isEmpty()){
+            return  map;
+        }
+
+        Map<String, Object> params = new HashMap<String,Object>();
+        params.put("titleIds",ids);
+        params.put("projectId",projectId);
+        params.put("notAllNUll",true);
+        params.put("property","result.file_key ASC");
+        List<InformationTitle> titleList = informationTitleDao.selectTitleOfFileResults(params);
+
+        if(titleList == null || titleList.isEmpty()){
+            return  map;
+        }
+
+        //String tempfilePath = SpringContextManager.getBean(SopFileController.class).getTempfilePath() ;
+        List<FileUtilModel> resultTemp = null;
+        int beSum = 100;
+        //String ridMark = "";
+
+        InputStream fis = null;
+        OutputStream out = null;
+
+        for (InformationTitle temp : titleList)
+        {
+            List<InformationFile> resultList = temp.getFileList();
+
+            if(resultList!=null && !resultList.isEmpty() && StringUtils.isNotBlank(temp.getCode()))
+            {
+                resultTemp = new ArrayList<FileUtilModel>();
+                /*switch (temp.getCode()){
+                    case "NO4_1_2":
+                        beSum = 0;
+                        ridMark = "10";
+                        break;
+                    case "NO4_2_2":
+                        beSum = 5;
+                        ridMark = "20";
+                        break;
+                    case "NO4_2_5_3":
+                        beSum = 10;
+                        ridMark = "30";
+                        break;
+                    case "NO4_2_6_3":
+                        beSum = 15;
+                        ridMark = "40";
+                        break;
+                    case "NO9_3_7":
+                        beSum = 20;
+                        ridMark = "50";
+                        break;
+                    default:
+                        continue;
+                }*/
+
+                for (int i = 1; i < resultList.size()+1; i++)
+                {
+                    FileUtilModel am = new FileUtilModel();
+                    try {
+                        OSSObject ossobjcet = OSSFactory.getClientInstance().getObject(new GetObjectRequest(OSSFactory.getDefaultBucketName(), resultList.get(i-1).getFileKey()));
+                        fis = ossobjcet.getObjectContent();
+
+                        File dir = new File(tempfilePath+ File.separator +currentMark);
+                        if(!dir.exists()){
+                            dir.mkdirs();
+                        }
+                        File outFile = new File(dir,"image"+(++beSum)+".png");
+                        out=new BufferedOutputStream(new FileOutputStream(outFile));
+
+                        byte[] buffer = new byte[1024*2];
+                        int len = -1;
+                        while ((len = fis.read(buffer)) != -1) {
+                            out.write(buffer,0,len);
+                        }
+                        out.flush();
+                        out.close();
+                        fis.close();
+
+                        fis = new FileInputStream(outFile);
+                        BufferedImage src = javax.imageio.ImageIO.read(fis);
+                        am.setRid("rId"+beSum);
+                        am.setHigh(src.getHeight()*9525>2510000?2510000:src.getHeight()*9525);
+                        am.setWide(src.getWidth()*9525>3318000?3318000:src.getWidth()*9525);
+
+                        fis.close();
+                    } catch (Exception e) {
+                        throw new RuntimeException("aliyun photo down to tempfilepaht err", e);
+                    } finally {
+                        try {
+                            if(out!=null){
+                                out.close();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if(fis!=null){
+                                fis.close();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    resultTemp.add(am);
+                }
+                map.put(temp.getCode(),resultTemp);
+            }
+        }
+
+        if(beSum != 100){
+            map.put("rels_no",beSum);
+        }
+
+        return map;
+    }
 
 }
