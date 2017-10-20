@@ -560,15 +560,13 @@ function right(obj,type){
 	}else if(type=="input"){
 		var input = $(obj).closest("tr").find("input")
 		var val = input.val();
-		var maxlength = input.attr("maxlength");
-		var sval=val.replace(/\ +/g,"");
-		if(sval==""||val.length>maxlength){
+		var verify = /^(?!.{201}|^\s*$)/;
+		var accord=verify.test(val);
+		if(!accord&&val!=''){
 			input.focus();
 			input.blur();
 			var error=input.next(".error");
-			console.log(error.length);
-			(error.length<1||(error.length==1&&error.is(':hidden')))?input.after("<span id=\"-error\" class=\"error\">最多可以输入 200 个字符且不能全为空格</span>"):error.html("最多可以输入 200 个字符");
-			//input.next(".error").html("最多可以输入 200 个字符且不能全为空格")
+			(error.length<1||(error.length==1&&error.is(':hidden')))?input.after("<span id=\"-error\" class=\"error\">最多可以输入 200 个字符且不能全为空格</span>"):error.html("最多可以输入 200 个字符且不能全为空格");
 			return false;
 		}
 		var p = align_left.find('p');

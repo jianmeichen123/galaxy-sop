@@ -198,6 +198,7 @@ jQuery.validator.addMethod("percentage", function(value, element) {
 }, "只能是0～100的整数和两位小数"); 
 
 
+
 //打分报告正则
 function eva_validate(){
 	var scores = $(".score-columns").find("input[type='text']");
