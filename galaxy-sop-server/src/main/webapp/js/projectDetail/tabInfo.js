@@ -717,3 +717,29 @@ $("input[data-title-id]").on("input",function(){
 	$(this).attr("tochange",true);
 })
 $("input[data-title-id=\"1816\"]").attr("tochange",true);
+//div模拟select下拉框
+$(function(){ 
+	$(".input_select").click(function(){ 
+		var _this = $(this);
+		var ul = _this.parents('#dropdown').find('ul');
+		if(ul.css("display")=="none"){
+			_this.addClass('up');
+			ul.slideDown("fast");
+			ul.closest('tr').siblings('tr').find('#dropdown ul').slideUp('fast')
+		}else{ 
+		ul.slideUp("fast");
+		_this.removeClass('up');
+		//_this.addClass('input_select');
+		ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
+		} 
+	}); 
+	
+	$("#dropdown ul li").click(function(){ 
+		var target = $(this).closest('#dropdown').find('input');
+		target.removeClass('up')
+		var txt = $(this).text(); 
+		target.val(txt)
+		$("#dropdown ul").hide(); 
+}); 
+
+}); 

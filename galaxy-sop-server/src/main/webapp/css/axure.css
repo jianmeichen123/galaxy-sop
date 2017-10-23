@@ -3763,21 +3763,36 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;}
  .edit_basic_table tr{display:block;margin-top:20px;}
  .basic_mes_input{border:1px solid #999999;border-radius:2px;width:438px;height:31px;padding-left:8px;}
- .drop_down{width:438px;display: inline-grid;}
- .drop_down ul li{border-bottom:1px solid #d8d8d8;;}
- .dropdown{
-	position:relative;
-} 
+ #dropdown{width:438px;position:relative;display:inline;} 
 .input_select{
-	background: url(../img/down.png) no-repeat right 7px center	;
+	width:436px; 
+	height:30px; 
+	padding-left:10px; 
+	border:1px solid #999999; 
+	background: url(../img/base_info/down.png) no-repeat right 7px center;
+	border-radius:2px;
+	cursor:pointer;
+} 
+#dropdown ul{
+	width:446px; 
+	background:#fff; 
+	margin-top:2px;
+	border:1px solid #979797; 
+	position:absolute; 
+	display:none;
+	right:0px;
 	
 } 
-.dropdown ul{
-	position:absolute; 
-	display:none !important;
-} 
+#dropdown ul li{
+	height:30px; 
+	text-indent:10px;
+	padding-left: 1px;
+	border-bottom:1px solid #d8d8d8;
+	background:#fff; 
+	cursor:pointer;
+}
 .up{
-	background: url(../img/up.png) no-repeat center right 7px;
+	background: url(../img/base_info/up.png) no-repeat center right 7px;
 }
  
  

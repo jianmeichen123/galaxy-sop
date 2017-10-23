@@ -250,17 +250,35 @@
 					<tr>
 						<td>
 							<span style="display:inline-block">项目类型：</span>
-							<div class="drop_down">
-								<input type='text' value="请选择" class="basic_mes_input">
-								<ul>
-									<li>企业服务</li>
-									<li>数字娱乐</li>
-									<li>互联网教育</li>
-									<li>互联网医疗</li>
-							   </ul>
-							</div>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" value="请选择城市"/> 
+									<ul> 
+										<li>北京</li> 
+										<li>上海</li> 
+										<li>武汉</li> 
+										<li>广州</li> 
+									</ul> 
+							</div> 
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<span style="display:inline-block">项目类型：</span>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" value="请选择城市"/> 
+									<ul> 
+										<li>北京</li> 
+										<li>上海</li> 
+										<li>武汉</li> 
+										<li>广州</li> 
+									</ul> 
+							</div> 
+						</td>
+					</tr>
+					
+					
+					
+					
 					
 				</table>
 				
