@@ -3665,10 +3665,11 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  /*VI.1.9*/
  
  .tabinfo_con .edit{float:right; font-weight: normal;} 
- .tabinfo_con .oval{display:block;background:#0084f5;border-radius:9px;width:44px;line-height:18px;text-align:center;font-size:12px;color:#ffffff;}
+ .tabinfo_con .oval{display:block;background:#45aaff;border-radius:9px;width:44px;line-height:18px;text-align:center;font-size:12px;color:#ffffff;}
+ .tabinfo_con .oval：hover{background:#0084f5;}
  .tabinfo_con .con_box,.tabinfo_con .relative_box{position:relative;}
  .title_2 ,.title_3{font-weight:bold;}
- .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px soliod #ececec}
+ .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px solid #ececec;margin-bottom:39px}
  .tabinfo_con{margin-bottom:40px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:100%;padding:0 30px;}
  .tabtable_con_jbxx .title_3{font-size:12px;color:#333; padding-bottom:20px;}
  .tabinfo_con .three_part{width:100%;}
@@ -3691,18 +3692,21 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .relative_box{font-size:12px;color:#777acb;}
  .relative_box .rate{font-size:36px; line-height: 1;margin-bottom:19px; display: block;}
  .relative_box .oval,#invest_chart{position:absolute; right:30px;top:0;}
- #finance_chart,#invest_chart{width:48px;height:48px;position:absolute;}
+ #finance_chart,#invest_chart{width:54px;height:54px;position:absolute;}
  #finance_chart{right:40px;top:30px}
  .plan_infoC .img_box{background-position:-338px -96px;}
  .plan_infoC #plan_operator{margin:12px 0;}
- .plan_infoC #plan_operator a{display:block;margin:0; background:url(../img/base_info/base_icon.png) no-repeat -11px -96px;width: 26px;height: 26px;float:left;}
- .plan_infoC #plan_operator a.f2{width:35px;background-position:-69px -96px; margin:0 35px;}
- .plan_infoC #plan_operator a.new2{background-position:-134px -96px;}
+ .plan_infoC #plan_operator a{display:block;margin:0; background:url(../img/base_info/base_icon.png) no-repeat -11px -137px;width: 26px;height: 28px;float:left;}
+ .plan_infoC #plan_operator a.f2{width:35px;background-position:-69px -137px; margin:0 35px;}
+ .plan_infoC #plan_operator a.new2{background-position:-134px -137px;}
+ .plan_infoC #plan_operator a:hover{background-position:-11px -95px;}
+ .plan_infoC #plan_operator a.f2:hover{background-position:-69px -95px;}
+ .plan_infoC #plan_operator a.new2:hover{background-position:-134px -95px;}
  .invest_infoC .con_box.invest_money{border:0px;padding:0;height:196px;}
  .invest_infoC .invest_money p{display:bloxk;border:.5px solid #b2b2b2;border-radius:4px;font-size:12px;color:#777acb; padding:20px 0 20px 30px; height:48px;}
  .invest_money p:nth-child(1){margin-bottom:19px;}
  .invest_money p i{display:block; font-style: normal;}
- .invest_money p em{font-size:28px;color:#4f52a0;display:block;}
+ .invest_money p em{font-size:28px;color:#4f52a0;display:block;display: inline-block;}
  /* 头部 */
  .version19_detail_header_box{width:100%;background:#fff;padding-top:20px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:11;}
  .version19_detail_header .top div{margin-right:10px;}

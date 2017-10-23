@@ -37,18 +37,26 @@ $(function(){
 		/**
 		 * chart案例开始
 		 */
-		function base_chart(data_id,name){
+		function base_chart(data_id,name,border_color,pice_color,data){
 			var option = {
 			    series: [{
 			        name: name,
 			        type: 'pie',
-			        radius: '68%',
+			        radius: '90%',
 			        center: ['50%', '50%'],
 			        clockwise: false,
+			        legendHoverLink:false,
+			        hoverAnimation:false,
+			        silent:true,
+			        hoverOffset:0,
+			        selectedOffset:3,
+			        minAngle:10,
+			        
 			        data: [{
-			            value: 45,
+			            value: data[1],
 			        }, {
-			            value: 25,
+			            value: data[0],
+			            selected :true
 			        }],
 			        label: {
 			            normal: {
@@ -65,16 +73,20 @@ $(function(){
 			        },
 			        itemStyle: {
 			            normal: {
-			                borderWidth: 4,
-			                borderColor: '#ffffff',
+			                borderWidth: 0,
+			                borderColor: border_color,
+			            },
+			            emphasis : {
+			                borderWidth: 2,
+			                borderColor: border_color,
 			            }
 			        }
 			    }],
 			    color: [
-			        '#00acee',
-			        '#52cdd5'
+			        pice_color[0],
+			        pice_color[1]
 			    ],
-			    backgroundColor: '#fff'
+			    backgroundColor: 'none'
 			};
 			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
 				  { 
@@ -126,7 +138,8 @@ $(function(){
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag=="projectSource:1"?projectInfo.faFlagStr+'-'+projectInfo.faName:projectInfo.faFlagStr);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
-			base_chart("finance_chart","出让股份")
+			base_chart("finance_chart","出让股份","#fd88b8",['#ffbad7','#fff3f8'],[25,75]);
+			base_chart("invest_chart","出让股份","#fff",['#c4e4ff','#73bfff'],[25,75]);
 		    var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理

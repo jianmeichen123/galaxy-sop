@@ -87,11 +87,11 @@
 						<div class="con_box invest_money">
 							<p>
 								<i>投资金额</i>
-								<em>56397</em>
+								<em>56397</em>万元
 							</p> 
 							<p>
 								<i>项目估值</i>
-								<em>56397</em>
+								<em>56397</em>万元
 							</p> 
 						</div>
 					</li>			
