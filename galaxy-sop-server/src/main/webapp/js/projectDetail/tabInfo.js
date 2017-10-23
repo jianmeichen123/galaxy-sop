@@ -2,21 +2,6 @@ $(function(){
 		
 		var width_fwb=$('.tabtable_con_on').width();
 		$('.width_fwb').css('width',(width_fwb-20));
-
-		/*$("#faNameEdit").keydown(function(){
-				if(this.value=="请输入FA名称"){
-					this.value = "";
-				}
-			
-		})
-		$("#faNameEdit").blur(function(){
-				if(this.value==""){
-					this.value = "请输入FA名称";
-				}
-			
-		})*/
-		
-		
 		//未上传上传计划书，用于调样式
 		if($("#plan_name").text()==''){
 			$("#plan_name").parent('li').css("margin-right","0");
@@ -48,6 +33,64 @@ $(function(){
 		$("#project_name").attr("title",projectInfo.projectName);
 		
 		
+
+		/**
+		 * chart案例开始
+		 */
+		function base_chart(data_id,name){
+			var option = {
+			    series: [{
+			        name: name,
+			        type: 'pie',
+			        radius: '68%',
+			        center: ['50%', '50%'],
+			        clockwise: false,
+			        data: [{
+			            value: 45,
+			        }, {
+			            value: 25,
+			        }],
+			        label: {
+			            normal: {
+			                textStyle: {
+			                    color: '#999',
+			                    fontSize: 14,
+			                }
+			            }
+			        },
+			        labelLine: {
+			            normal: {
+			                show: false
+			            }
+			        },
+			        itemStyle: {
+			            normal: {
+			                borderWidth: 4,
+			                borderColor: '#ffffff',
+			            }
+			        }
+			    }],
+			    color: [
+			        '#00acee',
+			        '#52cdd5'
+			    ],
+			    backgroundColor: '#fff'
+			};
+			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+				  { 
+					option.tooltip.backgroundColor="#fff";
+				  }
+			var sdata_id = echarts.init(document.getElementById(data_id));
+			sdata_id.setOption(option, true);
+		}
+		
+		/**
+		 * chart案例结束
+		 */
+		
+		
+		
+		
 		/**
 		 * 组装数据
 		 */
@@ -56,6 +99,8 @@ $(function(){
 			if(sel_val!="A+轮"){
 				$("#finance_status_sel").find('option[text='+sel_val+']').prop("selected",true);
 			}
+
+			base_chart("finance_chart","出让股份")
 		}
 		
 	   /**
