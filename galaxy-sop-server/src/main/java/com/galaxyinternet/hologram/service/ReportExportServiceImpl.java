@@ -222,85 +222,23 @@ public class ReportExportServiceImpl implements ReportExportService {
             params.put("projectId",projectId);
             params.put("notAllNUll",true);
             List<InformationTitle> titleList = informationTitleDao.selectTitleOfResults(params);
-            if(titleList != null){
-                String value = null;
-                String contact = "、";
 
-                for(InformationTitle tempTitle : titleList){
+            if(titleList != null &&  !titleList.isEmpty()){
+                Object value = null;
 
+                for(InformationTitle tempTitle : titleList)
+                {
                     value = null;
-                    contact = "、";
-
                     List<InformationResult> resultList = tempTitle.getResultList();
                     if(resultList!=null && !resultList.isEmpty())
                     {
-
-                        if(tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8
-                                || tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14 )
-                        {
-                            // 1:文本、 2: 单选（Radio）、 8:文本域(textarea)、 14 单选（select）、
-                            //  map : code-value
-                            InformationResult tempResult = resultList.get(0);
-                            if(StringUtils.isNotBlank(tempResult.getContentChoose())){
-                                value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
-                            }else{
-                                value = tempResult.getContentDescribe1();
-                                value = textConversion(value);
-                            }
-
-                            if(StringUtils.isNotBlank(value)){
-                                map.put(tempTitle.getCode(), value);
-                            }
-                            //singleValueCon(tempTitle, map, valueIdNameMap);
-                        }else if(tempTitle.getType().intValue() == 3 || tempTitle.getType().intValue() == 4 )
-                        {
-                            // 3:复选（、 号连接）、4:级联选择（-  号连接）<br>
-                            // map : code-value
-                            contact = tempTitle.getType().intValue() == 3?"、":" - ";
-
-                            StringBuffer stringBuffer = new StringBuffer();
-                            for(int i = 0; i<resultList.size(); i++)
-                            {
-                                if(resultList.get(i).getContentChoose() != null)
-                                {
-                                    value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-
-                                    if(StringUtils.isNotBlank(value)){
-                                        if(stringBuffer.length()>0){
-                                            stringBuffer.append(contact).append(value);
-                                        }else{
-                                            stringBuffer.append(value);
-                                        }
-                                    }
-                                }
-                            }
-                            if(stringBuffer.length()>0){
-                                map.put(tempTitle.getCode(), stringBuffer.toString());
-                            }
-                            //type34ValueCon(tempTitle, map, valueIdNameMap,tempTitle.getType().intValue() == 3?"、":" - ");
-                        }else if(tempTitle.getType().intValue() == 5 || tempTitle.getType().intValue() == 6 )
-                        {
-                            // 5:单选带备注(textarea) 、【6:复选带备注(textarea) 无该类型】
-                            // 仅显示 选项
-                            //  map : code-value
-                            for(int i = 0; i<resultList.size(); i++)
-                            {
-                                if(resultList.get(i).getContentChoose() != null)
-                                {
-                                    value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-                                    if(StringUtils.isNotBlank(value)){
-                                        map.put(tempTitle.getCode(), value);
-                                        break;
-                                    }
-                                }
-                            }
-                            //type56ValueCon(tempTitle, map, valueIdNameMap);
+                        value = resultTypeConver(tempTitle,valueIdNameMap);
+                        if(value != null){
+                            map.put(tempTitle.getCode(), value);
                         }
                     }
                 }
             }
-
-
 
             Project project = projectDao.selectById(projectId);
             map.put("NO1_1_1", project.getProjectCode());
@@ -361,194 +299,18 @@ public class ReportExportServiceImpl implements ReportExportService {
             return  map;
         }
 
-        String value = null;
-        String contact = "、";
+        Object value = null;
 
         for(InformationTitle tempTitle : titleList)
         {
-
-            if(logger.isDebugEnabled()){
-                if("NO1_1_9".equals(tempTitle.getCode())){
-                    System.out.println();
-                }
-            }
-
             value = null;
-            contact = "、";
 
             List<InformationResult> resultList = tempTitle.getResultList();
             if(resultList!=null && !resultList.isEmpty())
             {
-
-                if(tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8 )
-                {
-                    // 1:文本、  8:文本域(textarea)、
-                    //  map : code-value
-                    InformationResult tempResult = resultList.get(0);
-                    value = textConversion(tempResult.getContentDescribe1());
-                    if(StringUtils.isNotBlank(value)){
-                        map.put(tempTitle.getCode(), value);
-                    }
-                    //singleValueCon(tempTitle, map, valueIdNameMap);
-                }else if(tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14 )
-                {
-                    //  2: 单选（Radio）、  14 单选（select）、
-                    //  map : code-value
-                    InformationResult tempResult = resultList.get(0);
-                    if(StringUtils.isNotBlank(tempResult.getContentChoose()) ){
-                        if(StringUtils.isNumeric(tempResult.getContentChoose())){
-                            value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
-                        }else{
-                            value = textConversion(tempResult.getContentChoose());
-                        }
-                    }
-
-                    if(StringUtils.isNotBlank(value)){
-                        map.put(tempTitle.getCode(), value);
-                    }
-                    //singleValueCon(tempTitle, map, valueIdNameMap);
-                }else if(tempTitle.getType().intValue() == 3 || tempTitle.getType().intValue() == 4 )
-                {
-                    // 3:复选（、 号连接）、4:级联选择（-  号连接）<br>
-                    // map : code-value
-                    contact = tempTitle.getType().intValue() == 3?"、":" - ";
-
-                    StringBuffer stringBuffer = new StringBuffer();
-                    for(int i = 0; i<resultList.size(); i++)
-                    {
-                        if(resultList.get(i).getContentChoose() != null  && StringUtils.isNumeric(resultList.get(i).getContentChoose()))
-                        {
-                            value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-
-                            if(StringUtils.isNotBlank(value)){
-                                if(stringBuffer.length()>0){
-                                    stringBuffer.append(contact).append(value);
-                                }else{
-                                    stringBuffer.append(value);
-                                }
-                            }
-                        }
-                    }
-                    if(stringBuffer.length()>0){
-                        map.put(tempTitle.getCode(), stringBuffer.toString());
-                    }
-                    //type34ValueCon(tempTitle, map, valueIdNameMap,tempTitle.getType().intValue() == 3?"、":" - ");
-                }else if(tempTitle.getType().intValue() == 5 || tempTitle.getType().intValue() == 6 )
-                {
-                    // 5:单选带备注(textarea) 、【6:复选带备注(textarea) 无该类型】
-                    // 仅显示 选项
-                    //  map : code-value
-                    for(int i = 0; i<resultList.size(); i++)
-                    {
-                        if(resultList.get(i).getContentChoose() != null && StringUtils.isNumeric(resultList.get(i).getContentChoose()))
-                        {
-                            value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-                            if(StringUtils.isNotBlank(value)){
-                                map.put(tempTitle.getCode(), value);
-                                break;
-                            }
-                        }
-                    }
-                    //type56ValueCon(tempTitle, map, valueIdNameMap);
-                }else if(tempTitle.getType().intValue() == 12 || tempTitle.getType().intValue() == 13 || tempTitle.getType().intValue() == 21 )
-                {
-                    // 12:单选带备注(input)--有 contentDescribe1 就不要 ContentChoose 、
-                    // 13:复选带备注(input)--有 contentDescribe1 就不要 ContentChoose
-                    // map : code-value
-                    StringBuffer stringBuffer = new StringBuffer();
-
-                    for(int i = 0; i<resultList.size(); i++)
-                    {
-                        value = null;
-                        if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())){
-                            value = resultList.get(i).getContentDescribe1();
-                            value = textConversion(value);
-                        }else if(StringUtils.isNotBlank(resultList.get(i).getContentChoose()) && StringUtils.isNumeric(resultList.get(i).getContentChoose()))
-                        {
-                            if(StringUtils.isNotBlank(valueIdNameMap.get(new Long(resultList.get(i).getContentChoose())))){
-                                value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
-                                if(value.contains("其他")){
-                                    continue;
-                                }
-                            }
-                        }
-
-                        if(value != null){
-                            if(stringBuffer.length()>0){
-                                stringBuffer.append(contact).append(value);
-                            }else{
-                                stringBuffer.append(value);
-                            }
-                        }
-                    }
-                    if(stringBuffer.length()>0){
-                        map.put(tempTitle.getCode(), stringBuffer.toString());
-                    }
-                    //type1213ValueCon(tempTitle, map, valueIdNameMap);
-                }else if(tempTitle.getType().intValue() == 15 )
-                {
-                    // 15 一个标题带两个文本域(textarea)、
-                    // map : code-List String
-                    Map<String,String> mapValue = new HashMap<>();
-                    for(int i = 0; i<resultList.size(); i++)
-                    {
-                        if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1()) && StringUtils.isBlank(mapValue.get("N1"))){
-                            mapValue.put("N1",textConversion(resultList.get(i).getContentDescribe1()));
-                        }
-
-                        if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe2())&& StringUtils.isBlank(mapValue.get("N2"))){
-                            mapValue.put("N2",textConversion(resultList.get(i).getContentDescribe2()));
-                        }
-                    }
-
-                    if(!mapValue.isEmpty()){
-                        map.put(tempTitle.getCode(), mapValue);
-                    }
-
-                    /*
-                    List<String> mapValue = new ArrayList<>();
-                    for(int i = 0; i<resultList.size(); i++)
-                    {
-                        if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())){
-                            mapValue.add(textConversion(resultList.get(i).getContentDescribe1()));
-                        }
-
-                        if(StringUtils.isNotBlank(resultList.get(i).getContentDescribe2())){
-                            mapValue.add(textConversion(resultList.get(i).getContentDescribe2()));
-                        }
-                    }
-
-                    if(!mapValue.isEmpty()){
-                        map.put(tempTitle.getCode(), mapValue);
-                    }*/
-                    //type15ValueCon(tempTitle, map);
-                }else if(tempTitle.getType().intValue() == 16 )
-                {
-                    // 16 多个文本框内容--组装一条显示  str=str.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
-                    // map : code-value
-                    InformationResult tempResult = resultList.get(0);
-                    value = tempResult.getContentDescribe1();
-                    if(StringUtils.isNotBlank(value) ){
-                        if(tempResult.getContentDescribe1().contains("sitg")){
-                            value = value.replace("<sitg>","（").replace("</sitg>","）");
-                        }
-                        map.put(tempTitle.getCode(), textConversion(value));
-                    }
-                    //type16ValueCon(tempTitle, map);
-                }else if(tempTitle.getType().intValue() == 19 || tempTitle.getType().intValue() == 20 )
-                {
-                    // 19：文本框输入题目答案带单位的处理；(input)，单位在 title.content <br>
-                    // 20：文本框输入题目答案带单位的处理；(input)，单位在 title.content + result.ContentDescribe2
-                    // map : code-value
-                    InformationResult tempResult = resultList.get(0);
-                    if(StringUtils.isNotBlank(tempResult.getContentDescribe1())){
-                        String unit = tempTitle.getContent();
-                        if(StringUtils.isNotBlank(tempResult.getContentDescribe2())){
-                            unit += tempResult.getContentDescribe2().substring(0,tempResult.getContentDescribe2().indexOf("p"));
-                        }
-                        map.put(tempTitle.getCode(), textConversion(tempResult.getContentDescribe1())+unit);
-                    }
-                    //type1920ValueCon(tempTitle, map);
+                value = resultTypeConver(tempTitle,valueIdNameMap);
+                if(value != null){
+                    map.put(tempTitle.getCode(), value);
                 }
             }
         }
@@ -560,7 +322,144 @@ public class ReportExportServiceImpl implements ReportExportService {
         String contact = "、";
         List<InformationResult> resultList = tempTitle.getResultList();
 
+        if(logger.isDebugEnabled()){
+            if("NO1_1_9".equals(tempTitle.getCode())){
+                System.out.println();
+            }
+        }
 
+        if(resultList!=null && !resultList.isEmpty()) {
+
+            if (tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8) {
+                // 1:文本、  8:文本域(textarea)、
+                //  map : code-value
+                InformationResult tempResult = resultList.get(0);
+                value = textConversion(tempResult.getContentDescribe1());
+            } else if (tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14) {
+                //  2: 单选（Radio）、  14 单选（select）、
+                //  map : code-value
+                InformationResult tempResult = resultList.get(0);
+                if (StringUtils.isNotBlank(tempResult.getContentChoose())) {
+                    if (StringUtils.isNumeric(tempResult.getContentChoose())) {
+                        value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
+                    } else {
+                        value = textConversion(tempResult.getContentChoose());
+                    }
+                }
+            } else if (tempTitle.getType().intValue() == 3 || tempTitle.getType().intValue() == 4) {
+                // 3:复选（、 号连接）、4:级联选择（-  号连接）<br>
+                // map : code-value
+                contact = tempTitle.getType().intValue() == 3 ? "、" : " - ";
+
+                StringBuffer stringBuffer = new StringBuffer();
+                for (int i = 0; i < resultList.size(); i++) {
+                    if (resultList.get(i).getContentChoose() != null && StringUtils.isNumeric(resultList.get(i).getContentChoose())) {
+                        value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
+
+                        if (StringUtils.isNotBlank(value)) {
+                            if (stringBuffer.length() > 0) {
+                                stringBuffer.append(contact).append(value);
+                            } else {
+                                stringBuffer.append(value);
+                            }
+                        }
+                    }
+                }
+                if (stringBuffer.length() > 0) {
+                    value = stringBuffer.toString();
+                }
+            } else if (tempTitle.getType().intValue() == 5 || tempTitle.getType().intValue() == 6) {
+                // 5:单选带备注(textarea) 、【6:复选带备注(textarea) 无该类型】
+                // 仅显示 选项
+                //  map : code-value
+                for (int i = 0; i < resultList.size(); i++) {
+                    if (resultList.get(i).getContentChoose() != null && StringUtils.isNumeric(resultList.get(i).getContentChoose())) {
+                        value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
+                        if (StringUtils.isNotBlank(value)) {
+                            break;
+                        }
+                    }
+                }
+            } else if (tempTitle.getType().intValue() == 12 || tempTitle.getType().intValue() == 13 || tempTitle.getType().intValue() == 21) {
+                // 12:单选带备注(input)--有 contentDescribe1 就不要 ContentChoose 、
+                // 13:复选带备注(input)--有 contentDescribe1 就不要 ContentChoose
+                // map : code-value
+                StringBuffer stringBuffer = new StringBuffer();
+
+                for (int i = 0; i < resultList.size(); i++) {
+                    value = null;
+                    if (StringUtils.isNotBlank(resultList.get(i).getContentDescribe1())) {
+                        value = resultList.get(i).getContentDescribe1();
+                        value = textConversion(value);
+                    } else if (StringUtils.isNotBlank(resultList.get(i).getContentChoose()) && StringUtils.isNumeric(resultList.get(i).getContentChoose())) {
+                        if (StringUtils.isNotBlank(valueIdNameMap.get(new Long(resultList.get(i).getContentChoose())))) {
+                            value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
+                            if (value.contains("其他")) {
+                                continue;
+                            }
+                        }
+                    }
+
+                    if (value != null) {
+                        if (stringBuffer.length() > 0) {
+                            stringBuffer.append(contact).append(value);
+                        } else {
+                            stringBuffer.append(value);
+                        }
+                    }
+                }
+
+                if (stringBuffer.length() > 0) {
+                    value = stringBuffer.toString();
+                }
+            } else if (tempTitle.getType().intValue() == 15) {
+                // 15 一个标题带两个文本域(textarea)、
+                // map : code-List String
+                Map<String, String> mapValue = new HashMap<>();
+                for (int i = 0; i < resultList.size(); i++) {
+                    if (StringUtils.isNotBlank(resultList.get(i).getContentDescribe1()) && StringUtils.isBlank(mapValue.get("N1"))) {
+                        mapValue.put("N1", textConversion(resultList.get(i).getContentDescribe1()));
+                    }
+
+                    if (StringUtils.isNotBlank(resultList.get(i).getContentDescribe2()) && StringUtils.isBlank(mapValue.get("N2"))) {
+                        mapValue.put("N2", textConversion(resultList.get(i).getContentDescribe2()));
+                    }
+                }
+
+                if (mapValue.isEmpty()) {
+                    return null;
+                } else {
+                    return mapValue;
+                }
+            } else if (tempTitle.getType().intValue() == 16) {
+                // 16 多个文本框内容--组装一条显示  str=str.replace(/<sitg>/g,'（').replace(/<\/sitg>/g,'）');
+                // map : code-value
+                InformationResult tempResult = resultList.get(0);
+                if (StringUtils.isNotBlank(tempResult.getContentDescribe1()))
+                {
+                    if (tempResult.getContentDescribe1().contains("sitg"))
+                    {
+                        value = tempResult.getContentDescribe1().replace("<sitg>", "（").replace("</sitg>", "）");
+                    }
+
+                    value = textConversion(tempResult.getContentDescribe1());
+                }
+            } else if (tempTitle.getType().intValue() == 19 || tempTitle.getType().intValue() == 20) {
+                // 19：文本框输入题目答案带单位的处理；(input)，单位在 title.content <br>
+                // 20：文本框输入题目答案带单位的处理；(input)，单位在 title.content + result.ContentDescribe2
+                // map : code-value
+                InformationResult tempResult = resultList.get(0);
+                if (StringUtils.isNotBlank(tempResult.getContentDescribe1()))
+                {
+                    String unit = tempTitle.getContent();
+                    if (StringUtils.isNotBlank(tempResult.getContentDescribe2()))
+                    {
+                        unit += tempResult.getContentDescribe2().substring(0, tempResult.getContentDescribe2().indexOf("p"));
+                    }
+                    value = textConversion(tempResult.getContentDescribe1()) + unit;
+                }
+            }
+        }
 
         return value;
     }
