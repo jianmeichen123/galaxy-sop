@@ -1612,6 +1612,7 @@ word-wrap:break-word;
 	height:140px;
 	border-top:1px solid #d6d8e1;
 }
+.line_ul_p{padding-left:10px;}
 .line_ul_p .line_ul_li{
 	margin-right:6px;
 }
