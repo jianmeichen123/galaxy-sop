@@ -523,10 +523,11 @@ function buildResults(sec,title,readonly)
 					}
 				   var div=$(".inputs_block").closest(".h_edit_txt");
 				   for(var j=0;j<div.children("dd").length;j++){
-					   div.children("dd").eq(j).find("input").val(inputsValueList[j]).attr("resultId",result_id);
+					   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
 					   
 				   }
 				}
+				$(".inputs_block").closest(".h_edit_txt").children("dd").find("input").attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 8)
