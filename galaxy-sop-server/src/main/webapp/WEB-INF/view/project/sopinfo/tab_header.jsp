@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
-<ul class="tablink tablinks projectDetail">
+<ul class="version19_tablink projectDetail clearfix">
 <%-- 	<li data-index="0"><a href="javascript:;" onClick="showTabs(${projectId},0)">基本信息</a></li> --%>
 		<li data-tab="nav">基本信息</li>
 	<c:choose>

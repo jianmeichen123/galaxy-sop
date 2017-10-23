@@ -3709,6 +3709,45 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_money p:nth-child(1){margin-bottom:19px;}
  .invest_money p i{display:block; font-style: normal;}
  .invest_money p em{font-size:28px;color:#4f52a0;display:block;}
+ /* 头部 */
+ .version19_detail_header_box{width:100%;background:#fff;padding-top:20px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:11;}
+ .version19_detail_header .top div{margin-right:10px;}
+ .version19_detail_header .two, .version19_detail_header .three{padding-top:6px;}
+.version19_detail_header .project_name_t{font-family:MicrosoftYaHei;font-size:32px;color:#202533;line-height:32px;text-align:left;}
+.version19_detail_header .two .middot{margin:0 5px;}
+.version19_detail_header .three{border-radius:10px;}
+.version19_detail_header .three span{display:inline-block;height:20px;line-height:20px;padding:0 10px;font-size:12px;color:#ffffff;border-radius:10px;margin-right:10px;}
+.version19_detail_header .three  .projectType{background:#73bfff;}
+.version19_detail_header .three  .faName{background:#ff966b;margin-right:0;}
+.version19_detail_header .middle{margin:20px 0;}
+.version19_detail_header .middle span{font-family:MicrosoftYaHei;font-size:12px;color:#939baf;line-height:12px;}
+ .version19_detail_header .top .four{margin-right:30px;}
+ .version19_detail_header .m_one{margin-right:10px;}
+.version19_detail_header .b_span{background-image:url(../img/base_info/base_icon.png);background-position: -45px -5px;width:34px;padding-left:34px;}
+.version19_blue_btn{border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:12px;line-height:32px;cursor:pointer;background-color:#3ca6ff;}
+.version19_blue_btn:hover,.version19_blue_btn:active{background-color:#0084f5;}
+.version19_edit_btn{font-size:12px;color:#45aaff;line-height:32px;margin-right:16px;cursor:pointer;}
+.pagebox .version19_ritmin{margin-top:220px;}
+.version19_new_right{margin-top:0;}
+.version19_tablink li{float:left;text-align:center;padding:0 2px 15px 2px;margin-right:40px;font-size:14px;color:#33363e;cursor:pointer;}
+.version19_tablink li.on{border-bottom:4px #45aaff solid;}
+.version19_tablink li.no{color:#d6d8e1;pointer-events:none;cursor:defalut;}
+/* 七大报告入口 */
+.sev_report .report_entrance{display:block;width:40px;height:40px;background:url(../img/base_info/report.png);margin:0 auto;}
+.sev_report .qx{background-position:-4px 0px;}
+.sev_report .pc{background-position:-87px 0px;}
+.sev_report .jd{background-position:-174px 0px;}
+.sev_report .jc{background-position:-256px 0px;}
+.sev_report .cp{background-position:-339px 0px;}
+.sev_report .rz{background-position:-424px 0px;}
+.sev_report .yy{background-position:-507px 0px;}
+.sev_report .seven_link_qx:hover .qx,.sev_report .seven_link_qx:active .qx{background-position:-4px -54px;}
+.sev_report .seven_link_pc:hover .pc,.sev_report .seven_link_pc:active.pc{background-position:-87px -54px;}
+.sev_report .seven_link_jd:hover .jd,.sev_report .seven_link_jd:active .jd{background-position:-174px -54px;}
+.sev_report .seven_link_jc:hover .jc,.sev_report .seven_link_jc:active .jc{background-position:-256px -54px;}
+.sev_report .seven_link_cp:hover .cp,.sev_report .seven_link_cp:active .cp{background-position:-339px -54px;}
+.sev_report .seven_link_rz:hover .rz,.sev_report .seven_link_rz:active .rz{background-position:-424px -54px;}
+.sev_report .seven_link_yy:hover .yy,.sev_report .seven_link_yy:active .yy{background-position:-507px -54px;}
  /*陈剑波修改*/
  .basic_message{width:600px;border-radius:0px;}
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}

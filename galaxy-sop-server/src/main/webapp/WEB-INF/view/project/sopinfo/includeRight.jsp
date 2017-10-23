@@ -105,8 +105,8 @@
 				<ul class="sev_report clearfix">
 				<c:choose>
 				 <c:when test="${(fx:hasRoles('1,2,18,19') || (fx:hasRole(3) && fx:inOwnDepart('project',pid) ) || (!fx:hasRole(4) &&fx:isForTask(pid)) || (fx:isCreatedByUser('project',pid) ))}">
-					<li class="seven_link1" onclick="seven_link(1);">
-						<img src="<%=path %>/img/seven_report/qx.png" />
+					<li class="seven_link1 seven_link_qx" onclick="seven_link(1);">
+						<span class='qx report_entrance'></span>
 						<span>全息报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -115,8 +115,8 @@
 							  <span class="percent_number"></span>
 						</div>
 					</li>
-					<li class="seven_link2" onclick="seven_link(2);">
-						<img src="<%=path %>/img/seven_report/pc.png" />
+					<li class="seven_link2 seven_link_pc" onclick="seven_link(2);">
+					<span class='pc report_entrance'></span>
 						<span>评测报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -125,8 +125,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link3" onclick="seven_link(3);">
-						<img src="<%=path %>/img/seven_report/jd.png" />
+					<li class="seven_link3 seven_link_jd" onclick="seven_link(3);">
+						<span class='jd report_entrance'></span>
 						<span>尽调报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -135,8 +135,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link4" onclick="seven_link(4);">
-						<img src="<%=path %>/img/seven_report/jc.png" />
+					<li class="seven_link4 seven_link_jc" onclick="seven_link(4);">
+						<span class='jc report_entrance'></span>
 						<span>决策报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -145,8 +145,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link5" onclick="seven_link(5);">
-						<img src="<%=path %>/img/seven_report/cp.png" />
+					<li class="seven_link5 seven_link_cp" onclick="seven_link(5);">
+						<span class='cp report_entrance'></span>
 						<span>初评报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -155,8 +155,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link6" onclick="seven_link(6);">
-						<img src="<%=path %>/img/seven_report/rz.png" />
+					<li class="seven_link6 seven_link_rz" onclick="seven_link(6);">
+						<span class='rz report_entrance'></span>
 						<span>融资报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -165,8 +165,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link7" onclick="seven_link(7);">
-						<img src="<%=path %>/img/seven_report/yy.png" />
+					<li class="seven_link7 seven_link_yy" onclick="seven_link(7);">
+						<span class='yy report_entrance'></span>
 						<span>运营报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  

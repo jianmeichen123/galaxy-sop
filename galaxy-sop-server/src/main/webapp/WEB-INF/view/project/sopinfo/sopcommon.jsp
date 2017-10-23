@@ -8,6 +8,14 @@
 	response.setHeader("Pragma","no-cache"); //HTTP 1.0    
 	response.setDateHeader ("Expires", 0); //prevents caching at the proxy server 
 %>
+	<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+  <c:set var="aclViewProject"
+	value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }"
+	scope="request" />
+	
+<c:set var="isEditable"
+	value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}"
+	scope="request" />
 <!doctype html>
 <html>
 <head>
@@ -31,23 +39,41 @@ position:absolute;
 </head>
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
-	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">工作桌面</a><img alt="" src="<%=path %>/img/arrow-brumd.png" class="arrow"/>
-	<c:choose>
-		 <c:when test="${empty sessionScope._curr_menu_ }"> 
-			<a href="#" onclick="projectList()">创投项目</a>
-	 	</c:when>
-		<c:otherwise>
-			<a href="#" onclick="projectList()">${sessionScope._curr_menu_ }</a>
-		</c:otherwise> 
-	</c:choose>
-	<img alt="" src="<%=path %>/img/arrow-brumd.png"  class="arrow"/><span id="project_name_title"></span></div>
-    	
-    	<div class="new_tit_b">
-        	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
-        	<span class="b_span"> 
-	        	<a href="#" onclick="back();">返回></a>
-			</span>
+<div class='version19_detail_header_box'>
+	<div class='version19_detail_header'>
+    	<div class="top clearfix">
+	    	<div class='fl one'>
+	    		<span class="project_name_t" id="project_name_t"></span>
+	    	</div>
+        	<div class='fl two'>
+        		<label class="" id="industryOwnDs" ></label><label class='middot'>&middot;</label><label class="" id="financeStatusDs"  data-title-id="1108"></label>
+        	</div>
+        	<div class='fl three'>
+        		<span class="projectType" id="projectType"></span>
+        		<span class="faName" id="faName" data-toggle="tooltip" data-placement="top" title='FA来源名称'></span>
+        	</div>
+        	<div class='fr four'>
+        		<c:if test="${isEditable}">
+					<span class="version19_edit_btn" data-name="basic" data-on="data-open">编辑</span>
+				</c:if>
+				<span class="b_span version19_blue_btn" onclick="back();">返回</span>
+        	</div>
         </div>
+        <div class='middle'>
+        	<span class='m_one'>
+        		<span>投资经理：</span>
+				<span id="createUname"></span><span>(</span><span id="projectCareerline"></span><span>)</span>
+        	</span>
+        	<span class='m_one'>
+        		<span>创建时间：</span>
+				<span id="create_date"></span>
+        	</span>
+        </div>
+        <!-- tab标签 -->
+		<jsp:include page="tab_header.jsp" flush="true"></jsp:include> 
+	</div>
+		
+</div>
 </body>
 <%-- <script src="<%=request.getContextPath() %>/js/cookie.js"></script> --%>
 <!-- 高管/投资经理 -->
@@ -113,6 +139,11 @@ $(function(){
 	   var url=Constants.sopEndpointURL+"/galaxy/index";
 	   forwardWithHeader(url);
     });
+    
+  //计算version19_detail_header的左边距
+	var  w_lft=$(".lft").width();
+  	$('.version19_detail_header').css({'padding-left':w_lft+40});
+  	$("[data-toggle='tooltip']").tooltip();//提示
 });
 /**
  * 面包屑
