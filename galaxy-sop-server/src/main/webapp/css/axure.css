@@ -1625,6 +1625,7 @@ word-wrap:break-word;
 }
 .line_ul_p span{
 	background:url(../img/base_info/Oval.png) 0px -7px no-repeat;
+	margin-bottom:5px;
 }
 .line_ul_p .gray_dot{
 	height:5px;
