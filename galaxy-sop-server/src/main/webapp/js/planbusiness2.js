@@ -16,17 +16,9 @@ var planGrid = {
 				},
 				operatorFormatter : function(value,row,index){
 					if(row.fileKey){
-						if(realName == '测试账号CEO'){
-							return [
-									'<a class="updatelink blue"  href="javascript:void(0)">更新</a><a class="downloadlink blue"  href="javascript:void(0)">下载</a>'
-								   ].join('');
-						}else{
-							return [
-									'<a class="downloadlink blue"  href="javascript:void(0)">下载</a>'
-								   ].join('');
-						}
-						
-
+						return [
+								'<a class="downloadlink blue"  href="javascript:void(0)">下载</a>'
+							   ].join('');
 					}
 				},
 				operatorEvent : {
