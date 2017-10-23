@@ -178,7 +178,7 @@
 					 </c:when>
 					 <c:otherwise>
 						<li class="seven_link1 gray_link1 gray">
-							<img src="<%=path %>/img/seven_report/qx_gray.png" />
+							<span class='qx report_entrance'></span>
 							<span>全息报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -188,7 +188,7 @@
 							</div>
 						</li>
 						<li class="seven_link2 gray_link2 gray">
-							<img src="<%=path %>/img/seven_report/pc_gray.png" />
+							<span class='pc report_entrance'></span>
 							<span>评测报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -198,7 +198,7 @@
 							</div>
 						</li>
 						<li class="seven_link3 gray_link3 gray">
-							<img src="<%=path %>/img/seven_report/jd_gray.png" />
+							<span class='jd report_entrance'></span>
 							<span>尽调报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -208,7 +208,7 @@
 							</div>
 						</li>
 						<li class="seven_link4 gray_link4 gray">
-							<img src="<%=path %>/img/seven_report/jd_gray.png" />
+							<span class='jc report_entrance'></span>
 							<span>决策报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -218,7 +218,7 @@
 							</div>
 						</li>
 						<li class="seven_link5 gray_link5 gray">
-							<img src="<%=path %>/img/seven_report/cp_gray.png" />
+							<span class='cp report_entrance'></span>
 							<span>初评报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -228,7 +228,7 @@
 							</div>
 						</li>
 						<li class="seven_link6 gray_link6 gray">
-							<img src="<%=path %>/img/seven_report/rz_gray.png" />
+							<span class='rz report_entrance'></span>
 							<span>融资报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -238,7 +238,7 @@
 							</div>
 						</li>
 						<li class="seven_link7 gray_link7 gray">
-							<img src="<%=path %>/img/seven_report/yy_gray.png" />
+							<span class='yy report_entrance'></span>
 							<span>运营报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
