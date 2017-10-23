@@ -225,9 +225,11 @@
 		</table>
 	</div>
 	<!-- 编辑页面 -->
-	<div class="basic_on basic_message">
-		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息</div>
+	<div class="basic_on basic_common_width">
 		<form id="basicForm" onsubmit="return false;">
+		<!-- 编辑基本信息 -->
+		<div class="basic_message">
+		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息</div>
 		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
 			<div class="basic_message_cont">
 				<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
@@ -251,12 +253,12 @@
 						<td>
 							<span style="display:inline-block">项目类型：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择城市"/> 
+								<input class="input_select" type="text" value="请选择"/> 
 									<ul> 
-										<li>北京</li> 
-										<li>上海</li> 
-										<li>武汉</li> 
-										<li>广州</li> 
+										<li>企业服务</li> 
+										<li>数字娱乐</li> 
+										<li>互联网教育</li> 
+										<li>互联网医疗</li> 
 									</ul> 
 							</div> 
 						</td>
@@ -265,25 +267,129 @@
 						<td>
 							<span style="display:inline-block">项目类型：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择城市"/> 
+								<input class="input_select" type="text" value="请选择"/> 
 									<ul> 
-										<li>北京</li> 
-										<li>上海</li> 
-										<li>武汉</li> 
-										<li>广州</li> 
+										<li>企业服务</li> 
+										<li>数字娱乐</li> 
+										<li>互联网教育</li> 
+										<li>互联网医疗</li> 
 									</ul> 
 							</div> 
 						</td>
 					</tr>
-					
-					
-					
-					
-					
+					<tr>
+						<td>
+							<span style="display:inline-block">融资轮次：</span>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" value="请选择"/> 
+									<ul> 
+										<li>企业服务</li> 
+										<li>数字娱乐</li> 
+										<li>互联网教育</li> 
+										<li>互联网医疗</li> 
+									</ul> 
+							</div> 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="display:inline-block">项目来源：</span>
+							<div id="dropdown"> 
+								<input class="input_select" type="text" value="请选择"/> 
+									<ul> 
+										<li>企业服务</li> 
+										<li>数字娱乐</li> 
+										<li>互联网教育</li> 
+										<li>互联网医疗</li> 
+									</ul> 
+							</div>
+							<input type="text" value="" class="basic_mes_input  input_FA"/>
+						</td>
+					</tr>
 				</table>
-				
+			<div class="btn btnbox basic_mes_button">
+              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
+              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+            </div> 
 			</div>
-	        <%-- <table width="600px" cellspacing="0" cellpadding="0" class="new_table edit_basic_table">
+	    </div>
+	    </div>
+	    <!-- 编辑融资计划 -->
+	 	   <div class="finacing_plan ">
+	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
+	 	   		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
+					<div class="basic_message_cont">
+						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
+							<tr>
+								<td>
+									<span>项目名称：</span>
+									<input type="text" value="2000" class="basic_mes_input">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>项目估值：</span>
+									<input type="text" value="9999" class="basic_mes_input">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>出让股份：</span>
+									<input type="text" value="" class="basic_mes_input" placeholder="出让股份(%)">
+								</td>
+							</tr>
+							
+						</table>
+					<div class="btn btnbox basic_mes_button">
+		              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
+		              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+		            </div> 
+					</div>
+	    	</div>
+	 	   </div>
+	 	   <!-- 编辑实际投资 -->
+			 	 <div class="finacing_plan real_investment">
+	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
+	 	   		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
+					<div class="basic_message_cont">
+						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
+							<tr>
+								<td>
+									<span>投资金额：</span>
+									<input type="text" value="2000" class="basic_mes_input real_ivestest_input" placeholder="万元">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>项目估值：</span>
+									<input type="text" value="9999" class="basic_mes_input real_ivestest_input">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>股权占比：</span>
+									<input type="text" value="" class="basic_mes_input real_ivestest_input" placeholder="股权占比(%)">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>加速服务费占比：</span>
+									<input type="text" value="3" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="">
+								</td>
+							</tr>
+							
+						</table>
+					<div class="btn btnbox basic_mes_button">
+		              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
+		              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+		            </div> 
+					</div>
+	    	</div>
+	 	   </div>  
+	 	   
+	    </form>
+	</div>
+	  <%-- <table width="600px" cellspacing="0" cellpadding="0" class="new_table edit_basic_table">
 	            <tr>
 	                <td><span class="new_color_gray">投资经理：</span><span>小王</span></td>
 	            </tr>
@@ -372,10 +478,6 @@
 	        		<div class="institutionBtn"><span class="pubbtn bluebtn">新增</span></div>
 	        	</div>
 	        </div> --%>
-	        
-	    </div>
-	    </form>
-	</div>
 </div>
 <!--商业计划书-->
 <div class="tabtable_con_on">
