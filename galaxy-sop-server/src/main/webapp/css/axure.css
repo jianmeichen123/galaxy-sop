@@ -1620,46 +1620,38 @@ word-wrap:break-word;
 	float:left;
 	width:14px;
 	margin-right:3%;
-  font-size: 12px;font-family: "宋体";
+  font-size: 12px;font-family: "MicrosoftYaHei";
   color:#536379;
 }
 .line_ul_p span{
-	background-image:url(../img/dot_ico.png);
-	background-repeat:no-repeat;
+	background:url(../img/base_info/Oval.png) 0px -7px no-repeat;
 }
 .line_ul_p .gray_dot{
-	background-position: -21px 0;
-	height:10px;
-	width:10px;
+	height:5px;
+	width:5px;
 	display:block;
 	margin-left:5px;
 	margin-top:-3px;
-}
-.one_dot{
-	background-position: 0px 0;
-	height:15px;
-	width:15px;
-	display:block;
-	margin-left:0px;
-	margin-top:-5px;
+	background-position: 0px 0px;
 }
 .green_dot .gray_dot{
-	background-position: -35px 0;
-	height:10px;
-	width:10px;
+	background-position: 0px -7px;
+	height:5px;
+	width:5px;
 	display:block;
 	margin-left:5px;
 	margin-top:-3px;
 }
-.line_ul_p .green_dot_color { color:#38c638;}
-.green_dot_on{ background-position: -51px 0;
+.line_ul_p .green_dot_color { color:#3ca6ff;position:relative;}
+.green_dot_on{ 
 	height:20px;
-	width:15px;
-	display:block;
-	margin-left:2px;
-	margin-top:-20px;
+	width:11px;
+	position:absolute;
+	top:-5px;
+	left:1px;
 }
-.new_btn,.new_btn_right{ width:100px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;}
+.line_ul_p .green_dot_on{background-position: 0px -19px;}
+.new_btn,.new_btn_right{ width:148px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;background:#3ca6ff;}
 .correlation{ border-top:1px solid #e4e4e4; background-color:#f7f7f7; height:40px; line-height:40px; text-indent:20px;font-size: 14px;font-family: "Microsoft YaHei";color:#333;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}
 .new_correlation_cen .new_btn{ float:left; margin-top:20px;}
@@ -3624,13 +3616,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .processcontainer{  
    width:40px;  
    height:4px;
-   background-color: #d8d8d8;  
+   background-color: #ececec;  
    border-radius: 6px;
    float: left;
  } 
  .processbar{  
-   background:#ffa985;
-   border:0px solid #ffa985;  
+   background:#73bfff;;
+   border:0px solid #73bfff;;  
    float:left; 
    height:100%;
    width:50px;  
@@ -3647,7 +3639,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
   font-size: 12px;
   margin-top: -6px;
   margin-left: 4px;
-  color:#ff7439;
+  color:#73bfff;
   font-family:'宋体';
 
  } 
@@ -3731,7 +3723,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .version19_new_right{margin-top:0;}
 .version19_tablink li{float:left;text-align:center;padding:0 2px 15px 2px;margin-right:40px;font-size:14px;color:#33363e;cursor:pointer;}
 .version19_tablink li.on{border-bottom:4px #45aaff solid;}
-.version19_tablink li.no{color:#d6d8e1;pointer-events:none;cursor:defalut;}
+.version19_tablink li.no{color:#B2B2B2;pointer-events:none;cursor:defalut;}
 /* 七大报告入口 */
 .sev_report .report_entrance{display:block;width:40px;height:40px;background:url(../img/base_info/report.png);margin:0 auto;}
 .sev_report .qx{background-position:-4px 0px;}
@@ -3748,6 +3740,13 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .seven_link_cp:hover .cp,.sev_report .seven_link_cp:active .cp{background-position:-339px -54px;}
 .sev_report .seven_link_rz:hover .rz,.sev_report .seven_link_rz:active .rz{background-position:-424px -54px;}
 .sev_report .seven_link_yy:hover .yy,.sev_report .seven_link_yy:active .yy{background-position:-507px -54px;}
+.sev_report .gray .qx{background-position:-4px 45px;}
+.sev_report .gray .pc{background-position:-87px 45px;}
+.sev_report .gray .jd{background-position:-174px 45px;}
+.sev_report .gray .jc{background-position:-256px 45px;}
+.sev_report .gray .cp{background-position:-339px 45px;}
+.sev_report .gray .rz{background-position:-424px 45px;}
+.sev_report .gray .yy{background-position:-507px 45px;}
  /*陈剑波修改*/
  .basic_message{width:600px;border-radius:0px;}
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
