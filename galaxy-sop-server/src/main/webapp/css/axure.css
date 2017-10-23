@@ -3775,10 +3775,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .basic_common_width{width:600px;}
 .basic_message{display:none;}
  .finacing_plan{height:318px;display:none;}
- .real_investment{display:block;}
+ .real_investment{display:block;height:505px;}
  .real_ivestest_input{width:400px;margin-left:38px;}
  .real_invest_short{margin-left:-4px;}
- 
+ .vest_span{display:inline-block;margin-left:36px;}
  
  
  

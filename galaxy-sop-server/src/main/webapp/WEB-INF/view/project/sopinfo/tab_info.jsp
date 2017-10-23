@@ -377,6 +377,26 @@
 									<input type="text" value="3" class="basic_mes_input real_ivestest_input real_invest_short" placeholder="">
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<span>投资形式：</span>
+									<span class="vest_span">
+										<label>
+											<input type="radio" value="" name="invest_form"/>
+											独投
+										</label>
+										<label>
+											<input type="radio" value="" name="invest_form"/>
+											领投
+										</label>
+										<label>
+											<input type="radio" value="" name="invest_form"/>
+											合投
+										</label>
+									
+									</span>
+								</td>
+							</tr>
 							
 						</table>
 					<div class="btn btnbox basic_mes_button">
