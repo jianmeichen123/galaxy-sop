@@ -99,13 +99,12 @@ $(function(){
 			if(sel_val!="A+轮"){
 				$("#finance_status_sel").find('option[text='+sel_val+']').prop("selected",true);
 			}
-
-			base_chart("finance_chart","出让股份")
 		}
 		
 	   /**
 		 * 加载项目详情数据
 		 */
+		
 		var projectPro = projectInfo.projectProgress;
 		if(projectPro=="projectProgress:10"){
 			$("#end").hide();
@@ -127,7 +126,8 @@ $(function(){
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag=="projectSource:1"?projectInfo.faFlagStr+'-'+projectInfo.faName:projectInfo.faFlagStr);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
-			var ht=projectProgress(data)
+			base_chart("finance_chart","出让股份")
+		    var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
 			$("#financeMode").text(typeof(projectInfo.fModeRemark)=="undefined"?"—":(projectInfo.fModeRemark==0?"—":projectInfo.fModeRemark));

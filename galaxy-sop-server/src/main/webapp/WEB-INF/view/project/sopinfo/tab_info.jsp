@@ -14,9 +14,137 @@
 	value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}"
 	scope="request" />
     <!-- 基本信息 -->
-	<div class="tabtable_con_jbxx">
+	<div class="tabtable_con_jbxx">	
+	<p class="title_2">基本信息</p>
 	<!-- 默认展示 -->
 	<div class="basic_center">
+	
+		<div class="tabinfo_con finance_infoC">
+			<p class="title_3">融资计划
+				<c:if test="${isEditable}">
+					<span class="new_fctbox"> 
+						<a href="javascript:;" class="edit" data-name="basic" data-on="data-open">编辑</a>
+					</span>
+				</c:if>
+			</p>
+			<ul class="clearfix three_part">
+				<li>
+					<div class="con_box">
+						<p>融资金额</p>
+						<p class="data_con">
+							<em>2345</em>
+							<span>万元</span>					
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="con_box">
+						<p>项目估值</p>
+						<p class="data_con">
+							<em>2345</em>
+							<span>万元</span>					
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="con_box">
+						<p>出让股份</p>
+						<p class="data_con">
+							<em>45%</em>				
+						</p>
+						<p id="finance_chart">
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="tabinfo_con clearfix">
+			<div class="invest_infoC">
+				<p class="title_3">实际投资
+					<c:if test="${isEditable}">
+						<span class="new_fctbox"> 
+							<a href="javascript:;" class="edit" data-name="basic" data-on="data-open">编辑</a>
+						</span>
+					</c:if>
+				</p>
+				<ul class="clearfix two_part">
+					<li>
+						<div class="con_box">
+							<div class="relative_box">						
+								<em class="oval" data-toggle="tooltip" data-placement="top" title="点击查看合投列表">合投</em>
+								<p class="img_box">
+								出让股份
+								</p>
+							</div>	
+							<div class="relative_box">
+								<em class="rate">45%</em>
+								<p>加速服务费占比：3%</p>
+								<p id="invest_chart"></p>
+							</div>
+						</div>
+					</li>
+					<li> 
+						<div class="con_box invest_money">
+							<p>
+								<i>投资金额</i>
+								<em>56397</em>
+							</p> 
+							<p>
+								<i>项目估值</i>
+								<em>56397</em>
+							</p> 
+						</div>
+					</li>			
+				</ul>
+			</div>
+			<div class="plan_infoC">
+				<p class="title_3">商业计划书
+					<c:if test="${isEditable}">
+						<span class="new_fctbox"> 
+							<a href="javascript:;" class="edit" data-name="basic" data-on="data-open">编辑</a>
+						</span>
+					</c:if>
+				</p>
+				<ul>
+					<li>
+						<div class="con_box">
+							<div class="relative_box">
+								<p class="img_box">
+								商业计划书
+								</p>
+								<div class="relative_box new_fctbox clearfix" id="plan_operator">
+									<a href="javascript:;" class="new1" data-btn="edit" id="upload_btn" data-toggle="tooltip" data-placement="top" title="更新"></a>
+									<a href="javascript:;" class="f2" data-btn="describe" id="download_btn" data-toggle="tooltip" data-placement="top" title="查看"></a>
+									<a href="javascript:;" class="new2" data-btn="describe" id="show_history_btn" data-toggle="tooltip" data-placement="top" title="查看历史"></a>
+								</div>
+								<p>更新时间：<em>2017-09-12</em></p>
+							</div>
+						</div>
+					</li>		
+				</ul>
+			</div>		
+		</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		<div class="new_r_compile_new">
 			<c:if test="${isEditable}">
 			<span class="new_fctbox"> 
@@ -588,6 +716,7 @@
 </script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
+<script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/build_table.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/team_info.js" type="text/javascript"></script>
