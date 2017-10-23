@@ -20,13 +20,14 @@ public interface ReportExportService {
      * CN  初评报告
      * @param currentMark imageDir currentMark_tempName
      */
-    public Map<String, Object> titleAnswerConversionTask(Long uid, Project project, String preCode, String currentMark,String tempfilePath);//currentMark_tempName
+    public Map<String, Object> titleAnswerConversionTask(Long uid, Project project, String preCode, String currentMark, String tempfilePath);//currentMark_tempName
 
-    public Map<String,Object> projectTitleResult(Set<Long> ids, Long projectId);
-    public Map<String,Object> resultTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap);
-    public Map<String,Object> listdataTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap);
-    public Map<String,Object> fixedtableTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap);
-    public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId,String currentMark,String tempfilePath) throws Exception;
-    public Map<String,Object> fileTitleResult(Set<Long> ids,Long projectId); //doc
+    public Map<String,Object> projectTitleResult(Set<Long> ids, Long projectId, Map<Long, String> valueIdNameMap);
+    public Map<String,Object> resultTitleResult(Set<Long> ids, Long projectId, Map<Long, String> valueIdNameMap, String precode);
+    public Map<String,Object> listdataTitleResult(Set<Long> ids, Long projectId, Map<Long, String> valueIdNameMap);
+    public Map<String,Object> fixedtableTitleResult(Set<Long> ids, Long projectId, Map<Long, String> valueIdNameMap);
+    public Map<String,Object> fileTitleResult(Set<Long> ids, Long projectId, String currentMark, String tempfilePath) throws Exception;
+    public Map<String,Object> fileTitleResult(Set<Long> ids, Long projectId); //doc
+    public Map<String,Object> titleScoreResult(Long projectId, String precode);
 
 }

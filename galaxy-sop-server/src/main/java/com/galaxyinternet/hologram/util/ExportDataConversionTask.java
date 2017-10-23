@@ -48,8 +48,14 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
         Map<String, Object> map = new HashMap<>();
 
         if(null == idType){
-
-            Map<String, Set<Long>> titletype_titleIds = CacheOperationServiceImpl.code_titletype_titleIds.get(StringUtils.isBlank(preCode)?"NO":preCode);
+            boolean isScore = false;
+            Map<String, Set<Long>> titletype_titleIds = null;
+            if(StringUtils.isNotBlank(preCode) && (preCode.startsWith("EN") ||preCode.startsWith("CN"))){
+                isScore = true;
+                titletype_titleIds = CacheOperationServiceImpl.code_titletype_titleIds_forAllgrade.get(preCode);
+            }else {
+                titletype_titleIds = CacheOperationServiceImpl.code_titletype_titleIds.get(preCode);
+            }
 
             Set<Long> project_ids = titletype_titleIds.get("project");
             Set<Long> result_ids = titletype_titleIds.get("result");
@@ -59,12 +65,14 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
             //Set<Long> resultGrage_ids = titletype_titleIds.get("resultGrage");
 
             List<ExportDataConversionTask> subTasks = new ArrayList<>();
-            subTasks.add(new ExportDataConversionTask(preCode,proId,project_ids,"project",valueIdNameMap,currentMark,tempfilePath));
-            subTasks.add(new ExportDataConversionTask(preCode,proId,result_ids,"result",valueIdNameMap,currentMark,tempfilePath));
-            subTasks.add(new ExportDataConversionTask(preCode,proId,listdata_ids,"listdata",valueIdNameMap,currentMark,tempfilePath));
-            subTasks.add(new ExportDataConversionTask(preCode,proId,fixedtable_ids,"fixedtable",valueIdNameMap,currentMark,tempfilePath));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,project_ids,"project",valueIdNameMap,null,null));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,result_ids,"result",valueIdNameMap,null,null));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,listdata_ids,"listdata",valueIdNameMap,null,null));
+            subTasks.add(new ExportDataConversionTask(preCode,proId,fixedtable_ids,"fixedtable",valueIdNameMap,null,null));
             subTasks.add(new ExportDataConversionTask(preCode,proId,file_ids,"file",valueIdNameMap,currentMark,tempfilePath));
-
+            if(isScore){
+                subTasks.add(new ExportDataConversionTask(preCode,proId,null,"score",null,null,null));
+            }
             invokeAll(subTasks);
 
             for(ExportDataConversionTask tem : subTasks){
@@ -74,10 +82,10 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
             try {
                 switch (idType){
                     case "project" :
-                        map = reportExportService.projectTitleResult(ids,proId);
+                        map = reportExportService.projectTitleResult(ids,proId,valueIdNameMap);
                         break;
                     case "result" :
-                        map = reportExportService.resultTitleResult(ids,proId,valueIdNameMap);
+                        map = reportExportService.resultTitleResult(ids,proId,valueIdNameMap,preCode);
                         break;
                     case "listdata" :
                         map = reportExportService.listdataTitleResult(ids,proId,valueIdNameMap);
@@ -86,9 +94,14 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
                         map = reportExportService.fixedtableTitleResult(ids,proId,valueIdNameMap);
                         break;
                     case "file" :
-                        //map = reportExportService.fileTitleResult(ids,proId,currentMark,tempfilePath);
-                        map = reportExportService.fileTitleResult(ids,proId);  //doc
+                        map = reportExportService.fileTitleResult(ids,proId,currentMark,tempfilePath);
+                        //map = reportExportService.fileTitleResult(ids,proId);  //doc
                         break;
+                    case "score" :
+                        map = reportExportService.titleScoreResult(proId,preCode);
+                        //map = reportExportService.fileTitleResult(ids,proId);  //doc
+                        break;
+
                     default :
                         break;
                 }

@@ -23,6 +23,7 @@ import com.galaxyinternet.model.hologram.InformationFixedTable;
 import com.galaxyinternet.model.hologram.InformationListdata;
 import com.galaxyinternet.model.hologram.InformationResult;
 import com.galaxyinternet.model.hologram.InformationTitle;
+import com.galaxyinternet.model.hologram.ScoreInfo;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.FileUtilModel;
 import com.galaxyinternet.model.user.User;
@@ -30,6 +31,7 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.hologram.ReportExportService;
+import com.galaxyinternet.service.hologram.ScoreInfoService;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -49,6 +51,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -84,6 +88,8 @@ public class ReportExportServiceImpl implements ReportExportService {
     @Autowired
     private Cache cache;
 
+    @Autowired
+    private ScoreInfoService scoreService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -173,8 +179,8 @@ public class ReportExportServiceImpl implements ReportExportService {
         Set<Long> file_ids = titletype_titleIds.get("file");
         //Set<Long> resultGrage_ids = titletype_titleIds.get("resultGrage");
 
-        Map<String, Object> map1 = projectTitleResult(project_ids,proId);
-        Map<String, Object> map2 = resultTitleResult(result_ids,proId,valueIdNameMap);
+        Map<String, Object> map1 = projectTitleResult(project_ids,proId,valueIdNameMap);
+        Map<String, Object> map2 = resultTitleResult(result_ids,proId,valueIdNameMap,preCode);
         Map<String, Object> map3 = listdataTitleResult(listdata_ids,proId, valueIdNameMap);
         Map<String, Object> map4 = fixedtableTitleResult(fixedtable_ids, proId, valueIdNameMap);
         Map<String, Object> map5 = fileTitleResult(file_ids, proId);
@@ -201,14 +207,101 @@ public class ReportExportServiceImpl implements ReportExportService {
      * 项目名称 NO1_1_1_n
      *
      */
-    public Map<String,Object> projectTitleResult(Set<Long> ids,Long projectId){
+    public Map<String,Object> projectTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap){
         Map<String, Object> map = new HashMap<>();
 
+        /* NO1_1_9
         if(ids == null || ids.isEmpty()){
             return  map;
-        }
+        }*/
+        String[] mustTitleCode = {"NO1_1_9"};
 
         try{
+            Map<String, Object> params = new HashMap<String,Object>();
+            params.put("codes",mustTitleCode);
+            params.put("projectId",projectId);
+            params.put("notAllNUll",true);
+            List<InformationTitle> titleList = informationTitleDao.selectTitleOfResults(params);
+            if(titleList != null){
+                String value = null;
+                String contact = "、";
+
+                for(InformationTitle tempTitle : titleList){
+
+                    value = null;
+                    contact = "、";
+
+                    List<InformationResult> resultList = tempTitle.getResultList();
+                    if(resultList!=null && !resultList.isEmpty())
+                    {
+
+                        if(tempTitle.getType().intValue() == 1 || tempTitle.getType().intValue() == 8
+                                || tempTitle.getType().intValue() == 2 || tempTitle.getType().intValue() == 14 )
+                        {
+                            // 1:文本、 2: 单选（Radio）、 8:文本域(textarea)、 14 单选（select）、
+                            //  map : code-value
+                            InformationResult tempResult = resultList.get(0);
+                            if(StringUtils.isNotBlank(tempResult.getContentChoose())){
+                                value = valueIdNameMap.get(new Long(tempResult.getContentChoose()));
+                            }else{
+                                value = tempResult.getContentDescribe1();
+                                value = textConversion(value);
+                            }
+
+                            if(StringUtils.isNotBlank(value)){
+                                map.put(tempTitle.getCode(), value);
+                            }
+                            //singleValueCon(tempTitle, map, valueIdNameMap);
+                        }else if(tempTitle.getType().intValue() == 3 || tempTitle.getType().intValue() == 4 )
+                        {
+                            // 3:复选（、 号连接）、4:级联选择（-  号连接）<br>
+                            // map : code-value
+                            contact = tempTitle.getType().intValue() == 3?"、":" - ";
+
+                            StringBuffer stringBuffer = new StringBuffer();
+                            for(int i = 0; i<resultList.size(); i++)
+                            {
+                                if(resultList.get(i).getContentChoose() != null)
+                                {
+                                    value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
+
+                                    if(StringUtils.isNotBlank(value)){
+                                        if(stringBuffer.length()>0){
+                                            stringBuffer.append(contact).append(value);
+                                        }else{
+                                            stringBuffer.append(value);
+                                        }
+                                    }
+                                }
+                            }
+                            if(stringBuffer.length()>0){
+                                map.put(tempTitle.getCode(), stringBuffer.toString());
+                            }
+                            //type34ValueCon(tempTitle, map, valueIdNameMap,tempTitle.getType().intValue() == 3?"、":" - ");
+                        }else if(tempTitle.getType().intValue() == 5 || tempTitle.getType().intValue() == 6 )
+                        {
+                            // 5:单选带备注(textarea) 、【6:复选带备注(textarea) 无该类型】
+                            // 仅显示 选项
+                            //  map : code-value
+                            for(int i = 0; i<resultList.size(); i++)
+                            {
+                                if(resultList.get(i).getContentChoose() != null)
+                                {
+                                    value = valueIdNameMap.get(new Long(resultList.get(i).getContentChoose()));
+                                    if(StringUtils.isNotBlank(value)){
+                                        map.put(tempTitle.getCode(), value);
+                                        break;
+                                    }
+                                }
+                            }
+                            //type56ValueCon(tempTitle, map, valueIdNameMap);
+                        }
+                    }
+                }
+            }
+
+
+
             Project project = projectDao.selectById(projectId);
             map.put("NO1_1_1", project.getProjectCode());
             map.put("NO1_1_1_n", project.getProjectName());
@@ -242,18 +335,27 @@ public class ReportExportServiceImpl implements ReportExportService {
      * 【6 18 无】
      *
      */
-    public Map<String,Object> resultTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap){
+    public Map<String,Object> resultTitleResult(Set<Long> ids,Long projectId, Map<Long, String> valueIdNameMap,String precode){
         Map<String, Object> map = new HashMap<>();
 
         if(ids == null || ids.isEmpty()){
             return  map;
         }
 
-        Map<String, Object> params = new HashMap<String,Object>();
-        params.put("titleIds",ids);
-        params.put("projectId",projectId);
-        params.put("notAllNUll",true);
-        List<InformationTitle> titleList = informationTitleDao.selectTitleOfResults(params);
+        List<InformationTitle> titleList = null;
+        if(null != precode && precode.equals("NO")){
+            Map<String, Object> params = new HashMap<String,Object>();
+            params.put("titleIds",ids);
+            params.put("projectId",projectId);
+            params.put("notAllNUll",true);
+            titleList = informationTitleDao.selectTitleOfResults(params);
+        }else{
+            Map<String, Object> params = new HashMap<String,Object>();
+            params.put("relateIds",ids);
+            params.put("projectId",projectId);
+            params.put("notAllNUll",true);
+            titleList = informationTitleDao.selectTitleOfResultsForRelate(params);
+        }
 
         if(titleList == null || titleList.isEmpty()){
             return  map;
@@ -265,14 +367,11 @@ public class ReportExportServiceImpl implements ReportExportService {
         for(InformationTitle tempTitle : titleList)
         {
 
-            /*if(logger.isDebugEnabled()){
+            if(logger.isDebugEnabled()){
                 if("NO1_1_9".equals(tempTitle.getCode())){
                     System.out.println();
                 }
-                if(tempTitle.getType().intValue() == 16){
-                    System.out.println();
-                }
-            }*/
+            }
 
             value = null;
             contact = "、";
@@ -456,7 +555,15 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         return map;
     }
+    public Object resultTypeConver(InformationTitle tempTitle,Map<Long, String> valueIdNameMap){
+        String value = null;
+        String contact = "、";
+        List<InformationResult> resultList = tempTitle.getResultList();
 
+
+
+        return value;
+    }
 
 
     /**
@@ -962,20 +1069,59 @@ public class ReportExportServiceImpl implements ReportExportService {
     }
 
 
-
-
-    //暂无
-    public Map<String,Object> resultGrageTitleResult(Set<Long> ids,Long projectId){
+    /**
+     * 分数查询 for doc
+     * map code - map  T + relate—id
+     */
+    public Map<String,Object> titleScoreResult(Long projectId,String precode){
         Map<String, Object> map = new HashMap<>();
 
-        if(ids == null || ids.isEmpty()){
-            return  map;
-        }
+        try {
+            Map<String,BigDecimal> scores = new HashMap<>();
+            ScoreInfo query = new ScoreInfo();
+            //query.setParentId(0l);
+            query.setReportType("EN".equals(precode)?1:6);
+            List<ScoreInfo> list = scoreService.queryList(query);
 
+            List<Long> relateIds = new ArrayList<>(list.size());
+            if(list != null && list.size()>0)
+            {
+                for(ScoreInfo item : list)
+                {
+                    if(item != null && item.getRelateId() != null)
+                    {
+                        relateIds.add(item.getRelateId());
+                    }
+                }
+            }
+            if(relateIds.size() > 0)
+            {
+                Map<String,BigDecimal> childrenScores = scoreService.calculateMutipleReport(relateIds, projectId);
+                scores.putAll(childrenScores);
+            }
+            roundHalfUp(scores);
+
+            for(Map.Entry<String, BigDecimal> item : scores.entrySet()){
+                map.put("T"+item.getKey(),item.getValue());
+            }
+        } catch (Exception e) {
+            logger.error("gradeTitleResult err",e);
+            throw new RuntimeException();
+        }
 
         return map;
     }
-
+    private void roundHalfUp(Map<String,BigDecimal> scores)
+    {
+        Set<Map.Entry<String, BigDecimal>> items = scores.entrySet();
+        for(Map.Entry<String, BigDecimal> item : items)
+        {
+            if(item.getValue() != null)
+            {
+                item.setValue(item.getValue().setScale(2, RoundingMode.HALF_UP));
+            }
+        }
+    }
 
 
 

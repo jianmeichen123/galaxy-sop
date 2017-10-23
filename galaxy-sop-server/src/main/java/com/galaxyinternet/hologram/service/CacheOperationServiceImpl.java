@@ -419,8 +419,7 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 		for(String code : code_report$type$grade.keySet()){
 			Map<String, Set<Long>> titletype_titleIds = new HashMap<>();
 			titletype_titleIds.put("project", new TreeSet<Long>());      // title_id
-			//计数用relate—id，不然一个 rid 下有多个 title-id 会多数
-			titletype_titleIds.put("result", new TreeSet<Long>());       // title_id
+			titletype_titleIds.put("result", new TreeSet<Long>());       // relate_id
 			titletype_titleIds.put("listdata", new TreeSet<Long>());     // title_id
 			titletype_titleIds.put("fixedtable", new TreeSet<Long>());   // title_id
 			titletype_titleIds.put("file", new TreeSet<Long>());         // title_id
@@ -640,11 +639,12 @@ public class CacheOperationServiceImpl implements CacheOperationService,Applicat
 					project_ids.add(titleId);
 					break;
 				default:
-					if(StringUtils.isNotBlank(title.getRelateCode()) && (title.getRelateCode().startsWith("EN") ||title.getRelateCode().startsWith("CN"))){
+					/*if(StringUtils.isNotBlank(title.getRelateCode()) && (title.getRelateCode().startsWith("EN") ||title.getRelateCode().startsWith("CN"))){
 						result_ids.add(titleId);
 					}else {
-						result_ids.add(title.getId());
-					}
+
+					}*/
+					result_ids.add(title.getId());
 					//if(null != title.getType() && result_titletype.contains(","+ title.getType() +",")){
 
 					//}

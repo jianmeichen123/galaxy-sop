@@ -341,6 +341,12 @@
 					#{item}
 				</foreach>
 			</if>
+			<if test="codes != null">
+				and title.code in
+				<foreach collection="codes" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
 
 			<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
 			and result.is_valid = 0
@@ -348,7 +354,29 @@
 		</trim>
 		</where>
 	</select>
+	<select id="selectTitleOfResultsForRelate" resultMap="Title_ResultMap" parameterType="java.util.Map">
+		select
+			relate.id, relate.code,  (CASE WHEN relate.name IS NULL THEN title.name ELSE  relate.name  END) NAME,
+			title.type, title.content, title.placeholder,
+			result.id result_id, result.project_id, result.title_id, result.content_choose, result.content_describe1, result.content_describe2
+		FROM
+			information_title_relate relate,information_title title,information_result result
+		<where>
+			relate.title_id = title.id
+			AND title.id = result.title_id
 
+			<if test="relateIds != null">
+				and relate.id in
+				<foreach collection="relateIds" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+
+			<if test="projectId != null"> and result.project_id = #{projectId,jdbcType=BIGINT} </if>
+			and result.is_valid = 0
+			<if test="notAllNUll != null"> and (result.content_choose is not null OR result.content_describe1 is not null OR result.content_describe2 is not null) </if>
+		</where>
+	</select>
 
 
 	<resultMap id="Title_fileResultMap" type="com.galaxyinternet.model.hologram.InformationTitle">
