@@ -97,21 +97,52 @@
 		</table>
 	</div>
 	<!-- 编辑页面 -->
-	<div class="basic_on">
-		<div class="title_bj_tzjl">编辑项目基本信息</div>
+	<div class="basic_on basic_message">
+		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息</div>
 		<form id="basicForm" onsubmit="return false;">
-		<div class="compile_on_center" id="updateProjectInfo">
-	        <div class="compile_on_right">
-	            <span class="pubbtn bluebtn"  data-on="save">保存</span>
-	            <span class="pubbtn fffbtn" data-name="basic" data-on="close">取消</span>
-	        </div> 
-	       <!--  <div class="new_r_compile new_bottom_color">
-				<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
-			</div>  -->
-	        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
+			<div class="basic_message_cont">
+				<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
+					<tr>
+						<td>
+							<span>投资经理：</span><span>小王</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>创建时间：</span><span>2017-10-23</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>项目名称：</span>
+							<input type="text" value="摩拜单车" class="basic_mes_input">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="display:inline-block">项目类型：</span>
+							<div class="drop_down">
+								<input type='text' value="请选择" class="basic_mes_input">
+								<ul>
+									<li>企业服务</li>
+									<li>数字娱乐</li>
+									<li>互联网教育</li>
+									<li>互联网医疗</li>
+							   </ul>
+							</div>
+						</td>
+					</tr>
+					
+				</table>
+				
+			</div>
+	        <%-- <table width="600px" cellspacing="0" cellpadding="0" class="new_table edit_basic_table">
 	            <tr>
-	                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" maxlength="24"  id="project_name_edit" name="projectName" required data-msg-required="<font color=red>*</font><i></i>项目名称不能为空"></input></span></td>
-	                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
+	                <td><span class="new_color_gray">投资经理：</span><span>小王</span></td>
+	            </tr>
+	            <tr>
+	            	<td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
 	            </tr>
 	            <tr>
 	                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black" id="projectType_edit"></span></td>
@@ -129,34 +160,32 @@
 	                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
 	            </tr>
 	            <tr>
-                             <td><span class="new_color_gray">本轮融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font><i></i>本轮融资轮次不能为空" ></select></span></td>
-                              <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
-                         </tr>
-                           <tr>
-                             <td>
-	                             <span class="new_color_gray">项目来源：</span>
-	                             <span class="mar_left">
-	                             	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" >
-				                    	<option value="">--请选择--</option>
-				                    </select>
-	                             	<input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" />
-	                             </span>
-                             </td>
-                           </tr>
-
+                     	 <td><span class="new_color_gray">融资轮次：</span><span><select class="new_nputr" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font><i></i>本轮融资轮次不能为空" ></select></span></td>
+                     	 <!-- <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td> -->
+               </tr>
+               <tr>
+                        <td>
+                         <span class="new_color_gray">项目来源：</span>
+                         <span class="mar_left">
+                         	<select name="projectSource" class='new_nputr fl' required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" >
+                   				<option value="">--请选择--</option>
+                  			 </select>
+                         	<input type="text" class="txt new_nputr fl"  placeholder="请输入FA名称"  name="faName"  id="faNameEdit" data-rule-faname="true" data-msg-faname="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" data-msg-required="<font color=red>*</font><i></i>不能以空格开头，字符最大长度为20" />
+                         </span>
+                        </td>
+               </tr>
                  <tr>
-                      <%-- <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><input id="remark" class="new_nputr text"  placeholder="最多输入50字" valType="OTHER" allowNULL="yes" regString="^[^\s](.{0,49})$" msg="<font color=red>*</font><i></i>不能超过50字符"></input></span></td>
-                      --%>
                       <td colspan="2"><span class="new_color_gray" style="width:60px;text-align:right;">备注：</span><span><input id="remark" class="new_nputr text"  placeholder="最多输入50字" maxLength = "50"></input></span></td>
                  </tr>
-	        </table>  
+	        </table>  --%> 
 	        
-	        <!--融资计划-->
-	        <div class="new_r_compile new_bottom_color">
+	        
+	        <!--编辑融资计划-->
+	       <!--  <div class="new_r_compile new_bottom_color">
 	            <span class="new_ico_financing"></span>
 	            <span class="new_color size16">融资计划</span>
-	        </div>  
-	       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+	        </div>  --> 
+	       <%-- <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 	            <tr>
 	                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" name="procontribution" data-rule-procontribution="true" data-msg-procontribution="<font color=red>*</font><i></i>支持9位长度的四位小数" data-title-id="1916"/>　&nbsp;万元</span></td>
 	                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" name="proshare" data-rule-proshare="true" data-msg-proshare="<font color=red>*</font><i></i>0到100之间的四位小数" data-title-id="1917"/>　&nbsp;%</span></td>
@@ -164,8 +193,8 @@
 	            <tr>
 	                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" name="provaluations" data-rule-provaluations="true" data-msg-provaluations="<font color=red>*</font><i></i>支持13位长度的四位小数" data-title-id="1943"/>&nbsp;　万元</span></td>
 	            </tr>
-	              </table>
-	        <!--实际投资-->
+	       </table> --%>
+	   <%--      <!--实际投资-->
 	        <div class="new_r_compile new_bottom_color">
 	            <span class="new_ico_practical"></span>
 	            <span class="new_color size16">实际投资</span>
@@ -196,7 +225,8 @@
 	        		<div class="inputsForm"></div>
 	        		<div class="institutionBtn"><span class="pubbtn bluebtn">新增</span></div>
 	        	</div>
-	        </div>
+	        </div> --%>
+	        
 	    </div>
 	    </form>
 	</div>

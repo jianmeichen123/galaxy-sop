@@ -3707,6 +3707,32 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_money p:nth-child(1){margin-bottom:19px;}
  .invest_money p i{display:block; font-style: normal;}
  .invest_money p em{font-size:28px;color:#4f52a0;display:block;}
+ /*陈剑波修改*/
+ .basic_message{width:600px;border-radius:0px;}
+ .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
+ .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
+ .edit_com_color{font-size:14px;color:#666666;height:552px;border:1px solid;}
+ .basic_message_cont{width:530px;margin:0 auto;height:100%;border:1px solid;}
+ .edit_basic_table{border:none;padding:0px !important;}
+ .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;}
+ .edit_basic_table tr{display:block;margin-top:20px;}
+ .basic_mes_input{border:1px solid #999999;border-radius:2px;width:438px;height:31px;padding-left:8px;}
+ .drop_down{width:438px;display: inline-grid;}
+ .drop_down ul li{border-bottom:1px solid #d8d8d8;;}
+ .dropdown{
+	position:relative;
+} 
+.input_select{
+	background: url(../img/down.png) no-repeat right 7px center	;
+	
+} 
+.dropdown ul{
+	position:absolute; 
+	display:none !important;
+} 
+.up{
+	background: url(../img/up.png) no-repeat center right 7px;
+}
  
  
  
