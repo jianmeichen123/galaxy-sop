@@ -214,7 +214,7 @@ var initPage = {
 					$('.plan_name_all').hide();
 					if(isCreatedByUser == 'true')
 					{
-						operatorDetailHtml ="<p class='no_plan'>暂无商业计划书，<a href='javascript:;' class='new1"+grayClass+"' data-btn='edit' id='upload_btn'>点我上传</a></p>";
+						operatorDetailHtml ="<p class='no_plan"+grayClass+"'>暂无商业计划书，<a href='javascript:;' class='new1' data-btn='edit' id='upload_btn'>点我上传</a></p>";
 					}else{
 						operatorDetailHtml ="<p class='no_plan'>暂无商业计划书</p>";
 					}
@@ -228,7 +228,7 @@ var initPage = {
 					//操作类型
 					if(isCreatedByUser == 'true')
 					{
-						operatorDetailHtml = "<a href='javascript:;' class='new1"+grayClass+"' data-btn='edit' id='upload_btn' data-toggle='tooltip' data-placement='top' title='更新'></a>" ;
+						operatorDetailHtml = "<span class='"+grayClass+"'><a href='javascript:;' class='new1' data-btn='edit' id='upload_btn' data-toggle='tooltip' data-placement='top' title='更新'></a></span>" ;
 					}
 					operatorDetailHtml += "<a href='javascript:;' class='f2' data-btn='describe' id='download_btn' data-toggle='tooltip' data-placement='top' title='查看'></a>" +
 										 "<a href='javascript:;' class='new2' data-btn='describe' id='show_history_btn' data-toggle='tooltip' data-placement='top' title='查看历史'></a>";
