@@ -1623,7 +1623,7 @@ word-wrap:break-word;
   font-size: 12px;font-family: "MicrosoftYaHei";
   color:#536379;
 }
-.line_ul_p li label{display:inline-block;width:14px;}
+.line_ul_p li label{display:inline-block;width:14px;text-align:center;}
 .line_ul_p span{
   background:url(../img/base_info/Oval.png) 0px -7px no-repeat;
   margin-bottom:5px;
@@ -1647,10 +1647,10 @@ word-wrap:break-word;
   height:20px;
   width:100%;
   position:absolute;
-  top:-5px;
+  top:-10px;
   left:1px;
 }
-.line_ul_p .green_dot_on{background-position: -38px -20px;}
+.line_ul_p .green_dot_on{background-position: -38px -15px;}
 .new_btn,.new_btn_right{ width:148px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;background:#3ca6ff;}
 .correlation{ border-top:1px solid #e4e4e4; background-color:#f7f7f7; height:40px; line-height:40px; text-indent:20px;font-size: 14px;font-family: "Microsoft YaHei";color:#333;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}
