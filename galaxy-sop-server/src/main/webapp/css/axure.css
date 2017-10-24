@@ -1683,9 +1683,7 @@ word-wrap:break-word;
     display: none;
 }
 .tabtable_con_jbxx{background-color: #fff;
-    overflow: hidden;
-    border-radius: 6px;
-    border-top-left-radius: 0;}
+    overflow: hidden;}
 .tabtable_con_jbxx table{padding:0px 20px 10px;}
 .compile_on_center{position: relative;}
 .compile_on_right{ position: absolute; right:20px; top: 12px;}
