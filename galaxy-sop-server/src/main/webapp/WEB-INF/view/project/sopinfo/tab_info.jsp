@@ -103,16 +103,7 @@
 				<ul>
 					<li>
 						<div class="con_box">
-							<div class="relative_box">
-								<p class="img_box">
-								商业计划书
-								</p>
-								<div class="relative_box new_fctbox clearfix" id="plan_operator">
-									<a href="javascript:;" class="new1" data-btn="edit" id="upload_btn" data-toggle="tooltip" data-placement="top" title="更新"></a>
-									<a href="javascript:;" class="f2" data-btn="describe" id="download_btn" data-toggle="tooltip" data-placement="top" title="查看"></a>
-									<a href="javascript:;" class="new2" data-btn="describe" id="show_history_btn" data-toggle="tooltip" data-placement="top" title="查看历史"></a>
-								</div>
-								<p>更新时间：<em>2017-09-12</em></p>
+							<div class="relative_box" id='business_plan'>
 							</div>
 						</div>
 					</li>		
@@ -708,6 +699,7 @@
      //投资机构是否删除字段标示
      var isDelete=[];
 	var projectInfo = ${proinfo};
+	$("[data-toggle='tooltip']").tooltip();//提示
 	//项目来源切换
 	$("select[name='projectSource']").change(function(){
 		var text=$(this).find("option:checked").text();

@@ -835,7 +835,7 @@ pre{white-space:pre-wrap;margin:0;}
 .tooltip-test{width:14px;display: inline-block;background: url(../img/tips.png) 0 4px no-repeat;font-size: 0;margin-left: 2px;}
 .tooltip {
   position: absolute;
-  z-index: 1070;
+  z-index: 11;
   display: block;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
@@ -3704,6 +3704,10 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_money p i{display:block; font-style: normal;}
  .invest_money p em{font-size:28px;color:#4f52a0;display:block;display: inline-block;}
  /* 头部 */
+ .relative_box .no_plan{width:150px;height:25px;background:url(../img/base_info/base_icon.png) -180px -70px no-repeat;color:#b2b2b2;margin:0 auto;text-align:center;padding-top:95px;}
+  .relative_box .no_plan a{font-family:'MicrosoftYaHei';font-size:12px;color:#45aaff;}
+ .relative_box .img_box{color:#4f52a0;}
+.relative_box .plan_update_time{color:#8b8db8;}
  .version19_detail_header_box{width:100%;background:#fff;padding-top:20px;box-shadow:0 1px 2px 0 rgba(153,153,153,0.50);position:fixed;top:50px;z-index:11;}
  .version19_detail_header .top div{margin-right:10px;}
  .version19_detail_header .two, .version19_detail_header .three{padding-top:6px;}
