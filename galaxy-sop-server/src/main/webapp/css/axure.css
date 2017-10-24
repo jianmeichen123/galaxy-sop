@@ -3598,7 +3598,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .to-hide{display:none;}
 .fjxm_but{display:none;}
 .helpful_method,.max_this_width{max-width:66%;}
-.team_info label:nth-child(1), .fina_history label:nth-child(1), .info_table label:nth-child(1){margin:0 20px;}
+.team_info label:nth-child(2), .fina_history label:nth-child(2), .info_table label:nth-child(2){margin:0 20px;}
 .exportReport{display:none;margin-top:10px;}
 .progress-contain{
 	display: inline-block;	
