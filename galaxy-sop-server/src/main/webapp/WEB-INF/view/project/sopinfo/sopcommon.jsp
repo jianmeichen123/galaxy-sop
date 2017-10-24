@@ -54,7 +54,7 @@ position:absolute;
         	</div>
         	<div class='fr four'>
         		<c:if test="${isEditable}">
-					<span class="version19_edit_btn" data-name="basic" data-on="data-open">编辑</span>
+					<span class="version19_edit_btn" data-name="basic"  data-on="data-open" data-cont="basic_message_current">编辑</span>
 				</c:if>
 				<span class="b_span version19_blue_btn" onclick="back();">返回</span>
         	</div>

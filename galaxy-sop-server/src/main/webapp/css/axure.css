@@ -3811,7 +3811,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .basic_common_width{width:600px;font-family:MicrosoftYaHei;border-radius:0px !important;}
 .basic_message{display:block;}
  .finacing_plan{height:318px;display:none;}
- .real_investment{display:block;height:505px;}
+ .real_investment{display:none;height:505px;}
  .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
  .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
  .title_bj_tzjl{font-family:MicrosoftYaHei-Bold;font-size:14px;}
@@ -3830,7 +3830,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .inves_add{width:29px;height:29px;cursor:pointer;margin-left: 114px;margin-top: 16px;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px}
  .inves_add:hover,.inves_add:active{background-position:-10px -58px;}
  .inver_button{margin-top:25px;}
- .real_investment{display:block;}
  .legal_person{height:318px;}
  .short_num{display:inline-block;margin-left:33px;width:auto !important;}
  .legal_input{margin-left:5px;}

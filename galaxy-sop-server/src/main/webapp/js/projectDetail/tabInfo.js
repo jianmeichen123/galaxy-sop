@@ -110,16 +110,16 @@ $(function(){
 			
         $("[data-on='data-open']").click(function (){
         	    isDelete=[];
-        	 
 				if($(this).hasClass('limits_gray'))
 				{
 					return;
 				}
-				var scroll_top=$(this).offset().top;
+				/*var scroll_top=$(this).offset().top;
 				 $('html,body').animate({  
 				        scrollTop: scroll_top
-				    }, 1000);   
-				var open=$(this).attr('data-name')
+				    }, 1000);  */ 
+				var open=$(this).attr('data-cont');
+				$('.'+open).show();
 				$('.'+open+'_on').show();
 				$('.'+open+'_center').hide();
 				$('.bj_hui_on').show();

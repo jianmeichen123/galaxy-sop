@@ -214,7 +214,7 @@
 	<div class="basic_on basic_common_width">
 		<form id="basicForm" onsubmit="return false;">
 		<!-- 编辑基本信息 -->
-		<div class="basic_message">
+		<div class="basic_message basic_message_current">
 		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息</div>
 		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
 			<div class="basic_message_cont">
