@@ -549,11 +549,8 @@ function buildShareResult(reportType,relateId){
 					{
 						$.each(entityList,function(){
 							var title = this;
-							var chart_id="finance_chart";
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
-							if(title.id=="3010"){
-								chart_id=="invest_chart";
-							}
+							
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val =title.resultList[0].contentDescribe1;	
 								//这个是公共的 所以需要判断ID
@@ -570,11 +567,8 @@ function buildShareResult(reportType,relateId){
 								}
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"—":_val);
 								$("input[data-title-id='"+title.id+"']").val(_val).attr({"data-result-id":title.resultList[0].id});	
-								base_chart(chart_id,"出让股份","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—");
-								base_chart(chart_id,"出让股份","#fd88b8",['#ffbad7','#fff3f8'],["0","100"]);
-								
 							}
 						});
 					}
@@ -592,14 +586,27 @@ function buildMoneyResult(pid){
 					{
 						$.each(entityList,function(){
 							var title = this;
+							var chart_id="";
+							if(title.id=="3010"){
+								chart_id=="invest_chart";
+							}else if(title.id=="1917"){
+								chart_id="finance_chart";
+							}
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val = title.resultList[0].contentDescribe1;
 								_val=_parsefloat(_val);
 								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"—":_val);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
+								if(chart_id!=""){
+									base_chart(chart_id,"出让股份","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
+								}
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—")
+								if(chart_id!=""){
+									base_chart(chart_id,"出让股份","#fd88b8",['#ffbad7','#fff3f8'],["0","100"]);
+								}
+								
 							}
 						});
 					}
