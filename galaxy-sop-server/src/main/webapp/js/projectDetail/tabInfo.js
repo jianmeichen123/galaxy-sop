@@ -681,6 +681,7 @@ $(function(){
  */
 function base_chart(data_id,name,border_color,pice_color,data){
 	var option = {
+		animation:false,
 	    series: [{
 	        name: name,
 	        type: 'pie',
