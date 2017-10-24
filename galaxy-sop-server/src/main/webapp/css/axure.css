@@ -3683,7 +3683,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .finance_infoC li:nth-child(2) .con_box{background:#fbae96;}
  .finance_infoC li:nth-child(3) .con_box{background:#fd88b8;}
  .finance_infoC li .con_box p:nth-child(1){line-height:1;padding-bottom:8px;}
- .finance_infoC .data_con em{font-size:36px;line-height:1;}
+ .finance_infoC .data_con em{font-size:36px;line-height:1;color:#fff;}
  .con_box .img_box{margin-bottom:8px; display:block;width:70px;padding-top:57px;background:url(../img/base_info/base_icon.png) no-repeat  -429px -93px;}
  .relative_box{font-size:12px;color:#777acb;}
  .relative_box .rate{font-size:36px; line-height: 1;margin-bottom:19px; display: block;}

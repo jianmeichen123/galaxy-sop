@@ -34,71 +34,7 @@ $(function(){
 		
 		
 
-		/**
-		 * chart案例开始
-		 */
-		function base_chart(data_id,name,border_color,pice_color,data){
-			var option = {
-			    series: [{
-			        name: name,
-			        type: 'pie',
-			        radius: '90%',
-			        center: ['50%', '50%'],
-			        clockwise: false,
-			        legendHoverLink:false,
-			        hoverAnimation:false,
-			        silent:true,
-			        hoverOffset:0,
-			        selectedOffset:3,
-			        minAngle:10,
-			        
-			        data: [{
-			            value: data[1],
-			        }, {
-			            value: data[0],
-			            selected :true
-			        }],
-			        label: {
-			            normal: {
-			                textStyle: {
-			                    color: '#999',
-			                    fontSize: 14,
-			                }
-			            }
-			        },
-			        labelLine: {
-			            normal: {
-			                show: false
-			            }
-			        },
-			        itemStyle: {
-			            normal: {
-			                borderWidth: 0,
-			                borderColor: border_color,
-			            },
-			            emphasis : {
-			                borderWidth: 2,
-			                borderColor: border_color,
-			            }
-			        }
-			    }],
-			    color: [
-			        pice_color[0],
-			        pice_color[1]
-			    ],
-			    backgroundColor: 'none'
-			};
-			if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
-				  { 
-					option.tooltip.backgroundColor="#fff";
-				  }
-			var sdata_id = echarts.init(document.getElementById(data_id));
-			sdata_id.setOption(option, true);
-		}
 		
-		/**
-		 * chart案例结束
-		 */
 		
 		
 		
@@ -138,8 +74,6 @@ $(function(){
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag=="projectSource:1"?projectInfo.faFlagStr+'-'+projectInfo.faName:projectInfo.faFlagStr);
 		    $("#remarkStr").text(projectInfo.remark==""?"无":(projectInfo.remark==null?"无":projectInfo.remark));
-			base_chart("finance_chart","出让股份","#fd88b8",['#ffbad7','#fff3f8'],[25,75]);
-			base_chart("invest_chart","出让股份","#fff",['#c4e4ff','#73bfff'],[25,75]);
 		    var ht=projectProgress(data)
 			//$("#insertImg").html(ht);
 			//详情展示投资形式处理
@@ -209,16 +143,9 @@ $(function(){
 				$("#createUname_edit").text(projectInfo.createUname);
 				$("#projectCareerline_edit").text(projectInfo.projectCareerline);
 				$("#projectType_edit").text(projectInfo.type);
-				//$("#project_contribution_edit").val(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
-				//$("#project_valuations_edit").val(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
-				//$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
 				$("#projectProgress_edit").text(projectInfo.progress);
 				$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
 				$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
-				//$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
-				//$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
-				//$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
-				//$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
 				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
 				//添加投资形式字段
 				if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!=""){
@@ -456,14 +383,6 @@ $(function(){
 			var id=$("#pid").val();
 			var pname=$("#project_name_edit").val().trim();
 			var industry_own=$("#industry_own_sel").val().trim();
-			//var finance_status=$("#finance_status_sel").val().trim();  //本轮融资轮次
-			//var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val().trim();
-			//var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val().trim();
-			//var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val().trim();
-			//var finalcontribution=$("#finalContribution_edit").val()==""?0:$("#finalContribution_edit").val().trim();
-			//var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
-			//var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
-			//var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
 			var faFlag=$('select[name="projectSource"] option:selected').attr("value");
 			var remark=$('#remark').val().trim();
 			var faName="";
@@ -499,14 +418,6 @@ $(function(){
 			var formatData={"id":id,
 					       "projectName":pname,
 					       "industryOwn":industry_own,
-					    //   "financeStatus":finance_status,
-					    //   "projectValuations":project_valuations,
-					    //   "projectContribution" :project_contribution,
-					     //  "projectShareRatio":project_share_ratio,
-					     //  "finalValuations":finalvaluations,//实际估值
-		                 //  "finalContribution":finalcontribution,//实际投资
-		  	             //  "finalShareRatio":finalshare_ratio,	//实际股权占比	
-		  	            //   "serviceCharge":serviceCharge,
 		  	               "faFlag":faFlag,
 		  	               "faName":faName,
 		  	               "remark":remark,
@@ -638,7 +549,11 @@ function buildShareResult(reportType,relateId){
 					{
 						$.each(entityList,function(){
 							var title = this;
+							var chart_id="finance_chart";
 							$("input[data-title-id='"+title.id+"']").attr({"data-type":title.type});	
+							if(title.id=="3010"){
+								chart_id=="invest_chart";
+							}
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val =title.resultList[0].contentDescribe1;	
 								//这个是公共的 所以需要判断ID
@@ -655,8 +570,11 @@ function buildShareResult(reportType,relateId){
 								}
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"—":_val);
 								$("input[data-title-id='"+title.id+"']").val(_val).attr({"data-result-id":title.resultList[0].id});	
+								base_chart(chart_id,"出让股份","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
 							}else{
 								$(".new_color_black[data-title-id='"+title.id+"']").text("—");
+								base_chart(chart_id,"出让股份","#fd88b8",['#ffbad7','#fff3f8'],["0","100"]);
+								
 							}
 						});
 					}
@@ -743,3 +661,69 @@ $(function(){
 }); 
 
 }); 
+
+/**
+ * chart案例开始
+ */
+function base_chart(data_id,name,border_color,pice_color,data){
+	var option = {
+	    series: [{
+	        name: name,
+	        type: 'pie',
+	        radius: '90%',
+	        center: ['50%', '50%'],
+	        clockwise: false,
+	        legendHoverLink:false,
+	        hoverAnimation:false,
+	        silent:true,
+	        hoverOffset:0,
+	        selectedOffset:3,
+	        minAngle:0,
+	        
+	        data: [{
+	            value: data[1],
+	        }, {
+	            value: data[0],
+	            selected :true
+	        }],
+	        label: {
+	            normal: {
+	                textStyle: {
+	                    color: '#999',
+	                    fontSize: 14,
+	                }
+	            }
+	        },
+	        labelLine: {
+	            normal: {
+	                show: false
+	            }
+	        },
+	        itemStyle: {
+	            normal: {
+	                borderWidth: 0,
+	                borderColor: border_color,
+	            },
+	            emphasis : {
+	                borderWidth: 2,
+	                borderColor: border_color,
+	            }
+	        }
+	    }],
+	    color: [
+	        pice_color[0],
+	        pice_color[1]
+	    ],
+	    backgroundColor: 'none'
+	};
+	if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion .split(";")[1].replace(/[ ]/g,"")=="MSIE8.0") 
+		  { 
+			option.tooltip.backgroundColor="#fff";
+		  }
+	var sdata_id = echarts.init(document.getElementById(data_id));
+	sdata_id.setOption(option, true);
+}
+
+/**
+ * chart案例结束
+ */

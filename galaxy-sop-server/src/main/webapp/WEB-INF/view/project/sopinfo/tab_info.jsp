@@ -32,7 +32,7 @@
 					<div class="con_box">
 						<p>融资金额</p>
 						<p class="data_con">
-							<em>2345</em>
+							<em class="new_color_black" id="project_contribution" data-title-id="1916"></em>
 							<span>万元</span>					
 						</p>
 					</div>
@@ -41,7 +41,7 @@
 					<div class="con_box">
 						<p>项目估值</p>
 						<p class="data_con">
-							<em>2345</em>
+							<em class="new_color_black" id="project_valuations" data-title-id="1943"></em>
 							<span>万元</span>					
 						</p>
 					</div>
@@ -50,9 +50,9 @@
 					<div class="con_box">
 						<p>出让股份</p>
 						<p class="data_con">
-							<em>45%</em>				
+							<em class="new_color_black" id="project_share_ratio" data-title-id="1917"></em>%				
 						</p>
-						<p id="finance_chart">
+						<p id="finance_chart" data-title-id="1917">
 						</p>
 					</div>
 				</li>
