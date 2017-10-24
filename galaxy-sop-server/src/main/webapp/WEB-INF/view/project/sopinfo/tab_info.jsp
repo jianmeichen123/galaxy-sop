@@ -563,9 +563,9 @@
 </div>
 
 <!--团队成员 -->
-	<div class="tabtable_con_on role_hide">
-	<div class="new_r_compile ">
-		<span class="new_ico_book team_group"></span> <span class="new_color size16">团队成员</span>
+	<div class="tabtable_con_on role_hide tabinfo_con team_infoC ">
+	<div class="new_r_compile title_3">
+		<span class="new_color size16">团队成员</span>
 	</div>
 	<input type="hidden" id="pid" name="id" value="${pid}" />
 		<div class="member">
@@ -585,7 +585,7 @@
 				
 				</table>
 			</div> -->
-			<table cellspacing="0" class="table table-hover team_info info_table editable" data-code="team-members" data-title-id="1303"></table>
+			<table cellspacing="0" class="table table-hover team_info  editable base_table" data-code="team-members" data-title-id="1303"></table>
 	
 		</div>
 	</div>
@@ -648,10 +648,10 @@
 
 
 <!--股权结构 -->
-<div class="tabtable_con_on member financeHistory role_hide">
+<div class="tabtable_con_on member financeHistory role_hide tabinfo_con equity_infoC">
 	<div class='company_center'>
 		<div class="new_r_compile ">
-			<span class="new_ico_stock icon"></span> <span class="new_color size16">股权结构 </span>
+			<span class="new_color size16 title_3">股权结构 </span>
 		</div>
 		<div class="top clearfix border-top">
         <!--按钮-->
@@ -665,7 +665,7 @@
 			<span class="ico_dot ico"></span>
 			<p id="location_show" class="clearfix"></p>
 			<div class="fixed-table-container">			
-				<table id="equity" cellspacing="0" class="table info_table" data-title-id="1906" parentid="1902" ></table>
+				<table id="equity" cellspacing="0" class="table  base_table" data-title-id="1906" parentid="1902" ></table>
 			</div>
 		</div>
 	</div>	
