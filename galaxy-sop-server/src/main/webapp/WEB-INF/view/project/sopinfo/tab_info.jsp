@@ -99,11 +99,6 @@
 			</div>
 			<div class="plan_infoC">
 				<p class="title_3">商业计划书
-					<c:if test="${isEditable}">
-						<span class="new_fctbox"> 
-							<a href="javascript:;" class="edit" data-name="basic" data-on="data-open">编辑</a>
-						</span>
-					</c:if>
 				</p>
 				<ul>
 					<li>
