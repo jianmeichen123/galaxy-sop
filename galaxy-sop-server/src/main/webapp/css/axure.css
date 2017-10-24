@@ -3693,8 +3693,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  #finance_chart{right:40px;top:30px}
  .plan_infoC .img_box{background-position:-341px -96px;}
  .plan_infoC #plan_operator{margin:12px 0;}
- .plan_infoC #plan_operator a{display:block;margin:0; background:url(../img/base_info/base_icon.png) no-repeat -11px -137px;width: 26px;height: 28px;float:left;}
- .plan_infoC #plan_operator a.f2{width:35px;background-position:-69px -137px; margin:0 35px;}
+ .plan_infoC #plan_operator a{display:block;margin:0; background:url(../img/base_info/base_icon.png) no-repeat -11px -137px;width: 26px;height: 28px;float:left;margin-right:35px;}
+ .plan_infoC #plan_operator a.f2{width:35px;background-position:-69px -137px;}
  .plan_infoC #plan_operator a.new2{background-position:-134px -137px;}
  .plan_infoC #plan_operator a:hover{background-position:-11px -95px;}
  .plan_infoC #plan_operator a.f2:hover{background-position:-69px -95px;}
