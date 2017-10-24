@@ -1612,47 +1612,45 @@ word-wrap:break-word;
 	height:140px;
 	border-top:1px solid #d6d8e1;
 }
-.line_ul_p{padding-left:10px;}
+.line_ul_p{padding-right:20px;}
 .line_ul_p .line_ul_li{
-	margin-right:6px;
+  margin-right:6px;
 }
-.new_right .line_ul_p li{line-height:18px;text-align:center;}
+.new_right .line_ul_p li{line-height:18px;text-align:right;}
 .line_ul_p li{
-	float:left;
-	width:14px;
-	margin-right:3%;
+  float:left;
+  width:9%;
   font-size: 12px;font-family: "MicrosoftYaHei";
   color:#536379;
 }
+.line_ul_p li label{display:inline-block;width:14px;}
 .line_ul_p span{
-	background:url(../img/base_info/Oval.png) 0px -7px no-repeat;
-	margin-bottom:5px;
+  background:url(../img/base_info/Oval.png) 0px -7px no-repeat;
+  margin-bottom:5px;
 }
 .line_ul_p .gray_dot{
-	height:5px;
-	width:5px;
-	display:block;
-	margin-left:5px;
-	margin-top:-3px;
-	background-position: 0px 0px;
+  height:5px;
+  width:100%;
+  display:block;
+  margin-top:-3px;
+  background-position: -41px 0px;
 }
 .green_dot .gray_dot{
-	background-position: 0px -7px;
-	height:5px;
-	width:5px;
-	display:block;
-	margin-left:5px;
-	margin-top:-3px;
+  background-position: -28px -8px;
+  height:5px;
+  width:100%;
+  display:block;
+  margin-top:-3px;
 }
 .line_ul_p .green_dot_color { color:#3ca6ff;position:relative;}
 .green_dot_on{ 
-	height:20px;
-	width:11px;
-	position:absolute;
-	top:-5px;
-	left:1px;
+  height:20px;
+  width:100%;
+  position:absolute;
+  top:-5px;
+  left:1px;
 }
-.line_ul_p .green_dot_on{background-position: 0px -19px;}
+.line_ul_p .green_dot_on{background-position: -38px -20px;}
 .new_btn,.new_btn_right{ width:148px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;background:#3ca6ff;}
 .correlation{ border-top:1px solid #e4e4e4; background-color:#f7f7f7; height:40px; line-height:40px; text-indent:20px;font-size: 14px;font-family: "Microsoft YaHei";color:#333;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}

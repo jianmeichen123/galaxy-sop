@@ -75,21 +75,20 @@
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
 			<div class="tq_div" style="display:none;">
-			<b class="sj_ico null">三角</b>
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
                 	<ul class="line_ul_p" id="lct_ul">
-                    	<li><span class="gray_dot"></span>接触访谈</li>
-                        <li><span class="gray_dot"></span>内部评审</li>
-                        <li><span class="gray_dot"></span>C<br/>E<br/>O评审</li>
-                        <li><span class="gray_dot"></span>立项会</li>
-                        <li><span class="gray_dot"></span>会后商务谈判</li>
-                        <li><span class="gray_dot"></span>投资意向书</li>
-                        <li><span class="gray_dot"></span>尽职调查</li>
-                        <li><span class="gray_dot"></span>投资决策会</li>
-                        <li><span class="gray_dot"></span>投资协议</li>
-                        <li><span class="gray_dot"></span>股权交割</li>
-                        <li><span class="gray_dot"></span>投后运营</li>
+                    	<li><span class="gray_dot"></span><label>接触访谈</label></li>
+                        <li><span class="gray_dot"></span><label>内部评审</label></li>
+                        <li><span class="gray_dot"></span><label>C<br/>E<br/>O评审</label></li>
+                        <li><span class="gray_dot"></span><label>立项会</label></li>
+                        <li><span class="gray_dot"></span><label>会后商务谈判</label></li>
+                        <li><span class="gray_dot"></span><label>投资意向书</label></li>
+                        <li><span class="gray_dot"></span><label>尽职调查</label></li>
+                        <li><span class="gray_dot"></span><label>投资决策会</label></li>
+                        <li><span class="gray_dot"></span><label>投资协议</label></li>
+                        <li><span class="gray_dot"></span><label>股权交割</label></li>
+                        <li><span class="gray_dot"></span><label>投后运营</label></li>
                     </ul>
                 </div>
                  <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
