@@ -119,7 +119,8 @@ $(function(){
 				        scrollTop: scroll_top
 				    }, 1000);  */ 
 				var open=$(this).attr('data-cont');
-				$('.'+open).show();
+				console.log(open)
+				$('.'+open+'_current').show();
 				$('.'+open+'_on').show();
 				$('.'+open+'_center').hide();
 				$('.bj_hui_on').show();
