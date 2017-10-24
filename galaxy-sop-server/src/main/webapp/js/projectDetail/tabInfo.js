@@ -142,11 +142,10 @@ $(function(){
 					popMiddle()
 				})
 				
-				$('.'+open+'_on').show();
-				$('.'+open+'_center').hide();
-				$('.bj_hui_on').show();
-				var width_fwb=$('.tabtable_con_on').width();
-				$('.width_fwb').css('width',(width_fwb-40));
+				/*$('.'+open+'_on').show();*/
+				/*$('.'+open+'_center').hide();*/
+				/*var width_fwb=$('.tabtable_con_on').width();
+				$('.width_fwb').css('width',(width_fwb-40));*/
 				//投资形式切换
 				$(".new_table .mar_left>input").change(function(){
 					var val=$(this).val();
