@@ -3809,7 +3809,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .basic_message{display:block;}
  .finacing_plan{height:318px;display:none;}
  .real_investment{display:block;height:505px;}
- .basic_common_width table tr td span,input,em{font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
+ .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
  .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
  .title_bj_tzjl{font-family:MicrosoftYaHei-Bold;font-size:14px;}
  .real_ivestest_input{width:400px;margin-left:38px;}
