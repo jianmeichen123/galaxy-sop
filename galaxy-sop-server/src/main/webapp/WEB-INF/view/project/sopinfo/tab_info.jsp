@@ -77,8 +77,8 @@
 								</p>
 							</div>	
 							<div class="relative_box">
-								<em class="rate">45%</em>
-								<p>加速服务费占比：3%</p>
+								<em class="rate new_color_black" id="finalShareRatio" data-title-id="3010"></em>
+								<p>加速服务费占比：<em class="new_color_black" id="serviceCharge" data-title-id="3011"></em></p>
 								<p id="invest_chart"></p>
 							</div>
 						</div>
@@ -87,11 +87,11 @@
 						<div class="con_box invest_money">
 							<p>
 								<i>投资金额</i>
-								<em>56397</em>万元
+								<em class="new_color_black" id="finalContribution" data-title-id="3004"></em>万元
 							</p> 
 							<p>
 								<i>项目估值</i>
-								<em>56397</em>万元
+								<em class="new_color_black" id="finalValuations" data-title-id="3012"></em>万元
 							</p> 
 						</div>
 					</li>			

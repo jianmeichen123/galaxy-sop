@@ -3687,7 +3687,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .finance_infoC .data_con em{font-size:36px;line-height:1;color:#fff;}
  .con_box .img_box{margin-bottom:8px; display:block;width:70px;padding-top:57px;background:url(../img/base_info/base_icon.png) no-repeat  -429px -93px;}
  .relative_box{font-size:12px;color:#777acb;}
- .relative_box .rate{font-size:36px; line-height: 1;margin-bottom:19px; display: block;}
+ .relative_box .rate{font-size:36px; line-height: 1;margin-bottom:19px; display: block;color:#4f52a0;}
+  .relative_box .rate+p em{color:#777acb;}
  .relative_box .oval,#invest_chart{position:absolute; right:30px;top:0;}
  #finance_chart,#invest_chart{width:54px;height:54px;position:absolute;}
  #finance_chart{right:40px;top:30px}
