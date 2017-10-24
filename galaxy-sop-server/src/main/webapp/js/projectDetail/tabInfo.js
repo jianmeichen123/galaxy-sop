@@ -18,6 +18,7 @@ $(function(){
 		//统一关
 		$('[data-on="close"]').on('click',function(){
 			var close=$(this).attr('data-name')
+			$('.'+close+'_current').hide();//basic_current
 			$('.'+close+'_on').hide();
 			$('.'+close+'_center').show();
 			$('.bj_hui_on').hide();
@@ -114,13 +115,33 @@ $(function(){
 				{
 					return;
 				}
-				/*var scroll_top=$(this).offset().top;
-				 $('html,body').animate({  
-				        scrollTop: scroll_top
-				    }, 1000);  */ 
 				var open=$(this).attr('data-cont');
+				var common = $(this).attr('data-name');
 				console.log(open)
+				//外层div一直显示 basic_on  show
+				$('.'+common+'_on').show();//basic_on
+				//内部弹窗根据条件显示
 				$('.'+open+'_current').show();
+				$('.bj_hui_on').show();//遮罩层
+				//浏览器窗口带下改变，弹层重新定位
+				popMiddle()
+				function popMiddle(){
+					var wh = parseInt($(".basic_common_width").outerWidth(true)),
+					ht = parseInt($(".basic_common_width").outerHeight(true));
+					var win_w = $(window).width(),
+					win_h = $(window).height(),
+					win_x = (win_w-wh)/2,
+					win_y = (win_h-ht)/2;
+					//弹出层定位+显示
+					$(".basic_common_width").Fixed({
+						x:win_x,
+						y:win_y
+					});
+				}
+				$(window).resize(function(){
+					popMiddle()
+				})
+				
 				$('.'+open+'_on').show();
 				$('.'+open+'_center').hide();
 				$('.bj_hui_on').show();

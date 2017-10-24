@@ -3789,7 +3789,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray .rz{background-position:-424px 45px;}
 .sev_report .gray .yy{background-position:-507px 45px;}
  /*陈剑波修改*/
- .basic_message{width:600px;border-radius:0px;height:552px;}
+ .basic_message{width:600px;border-radius:0px;height:552px;display:none;}
  .basic_mes_left{margin-left:8px;}
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
  .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
@@ -3809,7 +3809,6 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:12px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;}
 .basic_mes_button{display:flex;justify-content:center;margin-top:42px;}
 .basic_common_width{width:600px;font-family:MicrosoftYaHei;border-radius:0px !important;}
-.basic_message{display:block;}
  .finacing_plan{height:318px;display:none;}
  .real_investment{display:none;height:505px;}
  .basic_common_width table tr td span, .basic_common_width table input, .basic_common_width table em{font-family:MicrosoftYaHei;font-size:14px;color:#666666;}

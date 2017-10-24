@@ -23,7 +23,7 @@
 			<p class="title_3">融资计划
 				<c:if test="${isEditable}">
 					<span class="new_fctbox"> 
-						<a href="javascript:;" class="edit" data-name="basic" data-on="data-open">编辑</a>
+						<a href="javascript:;" class="edit" data-cont="finicial" data-name="basic" data-on="data-open">编辑</a>
 					</span>
 				</c:if>
 			</p>
@@ -63,7 +63,7 @@
 				<p class="title_3">实际投资
 					<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
-							<a href="javascript:;" class="edit" data-name="basic" data-on="data-open">编辑</a>
+							<a href="javascript:;" class="edit" data-cont="invest" data-name="basic" data-on="data-open">编辑</a>
 						</span>
 					</c:if>
 				</p>
@@ -211,10 +211,10 @@
 		</table>
 	</div>
 	<!-- 编辑页面 -->
-	<div class="basic_on basic_common_width message_current">
+	<div class="basic_on basic_common_width">
 		<form id="basicForm" onsubmit="return false;">
 		<!-- 编辑基本信息 -->
-		<div class="basic_message message_current">
+		<div class="basic_message message_current basic_current">
 		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息</div>
 		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
 			<div class="basic_message_cont">
@@ -294,15 +294,15 @@
 					</tr>
 				</table>
 			<div class="btn btnbox basic_mes_button">
-              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
-              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+              <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+              <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
             </div> 
 			</div>
 	    </div>
 	    </div>
 	    <!-- 编辑融资计划 -->
-	 	   <div class="finacing_plan ">
-	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
+	 	   <div class="finacing_plan finicial_current basic_current">
+	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划</div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
@@ -327,14 +327,14 @@
 							
 						</table>
 					<div class="btn btnbox basic_mes_button">
-		              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
-		              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+		             	 <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+              			 <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
 					</div>
 	    	</div>
 	 	   </div>
 	 	   <!-- 编辑实际投资 -->
-			 	 <div class="finacing_plan real_investment">
+			 	 <div class="finacing_plan real_investment invest_current basic_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
@@ -402,14 +402,14 @@
 							
 						</table>
 					<div class="btn btnbox basic_mes_button inver_button">
-		              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
-		              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+		              <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+              <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
 					</div>
 	    	</div>
 	 	   </div>  
 	 	   <!--编辑法人信息  -->
-	 	   <div class="legal_person">
+	 	   <div class="legal_person  basic_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑法人信息</div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
@@ -435,8 +435,8 @@
 							</tr>
 						</table>
 					<div class="btn btnbox basic_mes_button inver_button">
-		              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
-		              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+		              <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+              		  <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
 					</div>
 	    	</div>
