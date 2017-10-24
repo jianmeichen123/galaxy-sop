@@ -3787,14 +3787,15 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray .yy{background-position:-507px 45px;}
  /*陈剑波修改*/
  .basic_message{width:600px;border-radius:0px;height:552px;}
+ .basic_mes_left{margin-left:8px;}
  .title_bj_tzjl{background:url(../img/base_info/top-bj.png) no-repeat center center;font-size:14px;color:#ffffff;height:56px;line-height:56px;}
  .edit_icon_img{display:inline-block;width:20px;height:22px;vertical-align:middle;margin-right:13px;background:url(../img/base_info/edit_icon.png) no-repeat center center;}
  .edit_com_color{font-size:14px;color:#666666;height:552px;}
- .basic_message_cont{width:530px;margin:0 auto;height:100%;}
+ .basic_message_cont{width:542px;margin:0 auto;height:100%;}
  .edit_basic_table{border:none;padding:0px !important;}
  .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;}
  .edit_basic_table tr{display:block;margin-top:20px;}
- .basic_mes_input{border:1px solid #999999;border-radius:2px;width:438px;height:31px;padding-left:8px;}
+ .basic_mes_input{border:1px solid #999999;border-radius:2px;width:432px;height:31px;padding-left:8px;}
  #dropdown{width:438px;position:relative;display:inline;} 
 .input_select{width:436px;height:30px;padding-left:10px;border:1px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;} 
 #dropdown ul{width:446px; margin-top:2px;border:1px solid #979797; position:absolute; display:none;right:0px;background:#fff;z-index:999;/*如果去掉，ul则无法覆盖下面的input框  */} 
@@ -3804,13 +3805,39 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .version19_cancel_btn{background:#eef6fc;border-radius:2px;width:92px;height:32px;} 
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:12px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;}
 .basic_mes_button{display:flex;justify-content:center;margin-top:42px;}
-.basic_common_width{width:600px;}
-.basic_message{display:none;}
+.basic_common_width{width:600px;font-family:MicrosoftYaHei;border-radius:0px !important;}
+.basic_message{display:block;}
  .finacing_plan{height:318px;display:none;}
  .real_investment{display:block;height:505px;}
+ .basic_common_width table tr td span,input,em{font-family:MicrosoftYaHei;font-size:14px;color:#666666;}
+ .basic_common_width  table tr td label{font-family:PingFangSC-Regular;color:#333333;}
+ .title_bj_tzjl{font-family:MicrosoftYaHei-Bold;font-size:14px;}
  .real_ivestest_input{width:400px;margin-left:38px;}
  .real_invest_short{margin-left:-4px;}
- .vest_span{display:inline-block;margin-left:36px;}
+ .vest_span{display:inline-block;margin-left:20px;}
+ .inves_input{width:108px;height:28px;padding-left:8px;margin-left:-3px;}
+ .inves_select{width:68px;height:32px;background:transparent;-moz-appearance:none;-webkit-appearance:none;appearance:none;padding-left:6px !important;}
+ .select_cont{display:inline-block;position:relative;width:70px;height:32px;background:url('../img/base_info/down.png') no-repeat center right 10px;}
+ .select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 10px;}
+ select::-ms-expand { display: none; }
+ .inves_stock{width:68px;}
+ .input_stock_left{margin-left:36px;}
+ .inves_delete{display:inline-block;cursor:pointer;width:16px;height:16px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px}
+ .inves_delete:hover,.inves_delete:active{background-position:-78px -64px;}
+ .inves_add{width:29px;height:29px;cursor:pointer;margin-left: 114px;margin-top: 16px;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px}
+ .inves_add:hover,.inves_add:active{background-position:-10px -58px;}
+ .inver_button{margin-top:25px;}
+ .real_investment{display:block;}
+ .legal_person{height:318px;}
+ .short_num{display:inline-block;margin-left:33px;width:auto !important;}
+ .legal_input{margin-left:5px;}
+ .legal_date{display:inline-block;position:absolute;right:10px;top:7px;cursor:pointer;width:20px;height:20px;background:url('../img/base_info/pop_icon.png') no-repeat  -134px -14px}
+ .legal_date:hover,.legal_date:active{background-position:-134px -62px;}
+ .legal_person{display:none;}
+ .agency_institute{display:none;}
+ .radioclass{opacity:0;cursor:pointer;filter:alpha(opacity=0);}
+ .radio_cont{width:28px;height:12px;margin-left:16px;cursor:pointer;text-align:center;background:url('../img/base_info/radio_no_checked.png') no-repeat 0px 4px}
+ .radio_checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 4px}
  
  
  

@@ -221,12 +221,12 @@
 				<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 					<tr>
 						<td>
-							<span>投资经理：</span><span>小王</span>
+							<span>投资经理：</span><span class="basic_mes_left">小王</span>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<span>创建时间：</span><span>2017-10-23</span>
+							<span>创建时间：</span><span class="basic_mes_left">2017-10-23</span>
 						</td>
 					</tr>
 					<tr>
@@ -303,7 +303,7 @@
 	    <!-- 编辑融资计划 -->
 	 	   <div class="finacing_plan ">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
-	 	   		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
+	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
@@ -336,7 +336,7 @@
 	 	   <!-- 编辑实际投资 -->
 			 	 <div class="finacing_plan real_investment">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
-	 	   		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
+	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
@@ -367,31 +367,94 @@
 								<td>
 									<span>投资形式：</span>
 									<span class="vest_span">
-										<label>
-											<input type="radio" value="" name="invest_form"/>
+										<label class='radio_cont radio_checked'>
+											<input type="radio" value="" name="invest_form" class="radioclass"/>
 											独投
 										</label>
-										<label>
-											<input type="radio" value="" name="invest_form"/>
+										<label class='radio_cont'>
+											<input type="radio" value="" name="invest_form" class="radioclass"/>
 											领投
 										</label>
-										<label>
-											<input type="radio" value="" name="invest_form"/>
+										<label class='radio_cont'>
+											<input type="radio" value="" name="invest_form" class="radioclass"/>
 											合投
 										</label>
 									
 									</span>
 								</td>
 							</tr>
+							<tr>
+								<td>
+									<span>合投机构：</span>	
+									<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
+									<input type="text" placeholder="投资金额(万元)" class="inves_input">
+									<span class='select_cont'>
+										<select class="inves_select">
+											<option>人民币</option>
+											<option>美元</option>
+										</select>
+									</span>
+									<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
+									<em class="inves_delete"></em>
+									<div class="inves_add"></div>					
+								</td>
+							</tr>
 							
 						</table>
-					<div class="btn btnbox basic_mes_button">
+					<div class="btn btnbox basic_mes_button inver_button">
 		              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
 		              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
 		            </div> 
 					</div>
 	    	</div>
 	 	   </div>  
+	 	   <!--编辑法人信息  -->
+	 	   <div class="legal_person">
+	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑法人信息</div>
+	 	   		<div class="compile_on_center edit_com_color">
+					<div class="basic_message_cont">
+						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
+							<tr>
+								<td>
+									<span>公司名称：</span>
+									<input type="text" value="某某股份有限公司" class="basic_mes_input" placeholder="">
+								</td>
+							</tr>
+							<tr>
+								<td style="position:relative;">
+									<span>成立日期：</span>
+									<input type="text" value="" class="basic_mes_input ">
+									<i class="legal_date"></i>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span>法<em class="short_num">人:</em></span>
+									<input type="text" value="" class="basic_mes_input legal_input" placeholder="法人名称">
+								</td>
+							</tr>
+						</table>
+					<div class="btn btnbox basic_mes_button inver_button">
+		              <button href="javascript:;" class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
+		              <button href="javascript:;" class="pubbtn fffbtn version19_cancel_btn" data-btn="cancle">取消</button>
+		            </div> 
+					</div>
+	    	</div>
+	 	   </div>  
+	 	   
+	 	   <!-- 合投机构 --> 
+	 	   <div class="agency_institute">
+	 	   		<div class="title_bj_tzjl agency_radius">合投机构</div>
+	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
+					<div class="basic_message_cont">
+						 <table width="100%" cellspacing="0" cellpadding="0" id='jointDelivery' >
+							
+						</table>
+					
+					</div>
+	    	<!-- </div> -->
+	 	   </div>
+	 	  	
 	 	   
 	    </form>
 	</div>
