@@ -1738,10 +1738,10 @@ word-wrap:break-word;
 .sort .asc span,#data-table-bftjt .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
-#tablePerson th,#project_delivery_table th,#meetGrid th,.fixed-table-container  table.info_table thead th{padding-left:30px;}
+/* #tablePerson th,#project_delivery_table th,#meetGrid th,.fixed-table-container  table.info_table thead th{padding-left:30px;} */
 #project_delivery_table th:last-child,#meetGrid th:last-child,.fixed-table-container  table.info_table thead th:last-child{padding-left:18px;}
 #tablePerson th:last-child{padding-left: 5px!important;}
-#tablePerson td,#project_delivery_table td,#meetGrid td,.info_table td{padding-left:30px !important;}
+/* #tablePerson td,#project_delivery_table td,#meetGrid td,.info_table td{padding-left:30px !important;} */
 #project_delivery_table td:last-child,#meetGrid td:last-child,.info_table td:last-child{padding-left:18px !important;}
 #tablePerson td:last-child{padding-left: 5px!important;}
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
@@ -3646,7 +3646,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  }
  .new_r_compile  .icon{margin-top:3px;}
  .team_info tr td,.info_table[data-code="equity-structure"] td{table-layout:fixed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.member table[data-code="equity-structure"] td,.financeHistoryTable td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.member table[data-code="equity-structure"] td,.financeHistoryTable td,.financeHistoryTable th{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
  
  #company-info span.new_color_black{display: inline-block; width: 80%;}
  #project-table tr td:nth-child(6) div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -3659,15 +3659,16 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .select_21 + dd + input + span{color:#333;}
  .base_tab-content .h_edit .input_21{margin-right:0px;!important;float: left;}
  /*VI.1.9*/
- 
+ .tabinfo_con{margin:0; border-radius: 0px; }
  .tabinfo_con .edit{float:right; font-weight: normal;} 
  .tabinfo_con .oval{display:block;background:#45aaff;border-radius:9px;width:44px;line-height:18px;text-align:center;font-size:12px;color:#ffffff;}
  .tabinfo_con .oval：hover{background:#0084f5;}
  .tabinfo_con .con_box,.tabinfo_con .relative_box{position:relative;}
- .title_2 ,.title_3{font-weight:bold;border:0px!important;}
+ .title_2 ,.title_3{font-weight:bold;border:0px!important;padding:0;margin:0;font-size:12px;margin-bottom:20px;}
+ .title_3 .size16{padding:0;margin:0;font-size:12px;}
  .tabtable_con_jbxx .title_2{font-size:14px;color:#333;padding:28px 0 19px 60px; line-height:14px;text-align:left; background:url(../img/base_info/base_icon.png) no-repeat 21px 15px; border-bottom:1px solid #ececec;margin-bottom:39px}
- .tabinfo_con{margin-bottom:40px; box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:100%;padding:0 30px;}
- .tabtable_con_jbxx .title_3{font-size:12px;color:#333; padding-bottom:20px;}
+ .tabinfo_con{box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; width:100%;padding:0 30px; padding-bottom:40px; }
+ .tabtable_con_jbxx .title_3{font-size:12px;color:#333;}
  .tabinfo_con .three_part{width:100%;}
  .tabinfo_con .three_part li{color:#fff;float:left;box-sizing: border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box;}
  .tabinfo_con .three_part li:nth-child(1),.tabinfo_con .three_part li:nth-child(2){width:32%;padding-right:20px;}
@@ -3703,16 +3704,21 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_money p:nth-child(1){margin-bottom:19px;}
  .invest_money p i{display:block; font-style: normal;}
  .invest_money p em{font-size:28px;color:#4f52a0;display:block;display: inline-block;}
-  .tabinfo_con table.base_table{border:0.5px solid #b2b2b2;border-radius:2px!important;table-layout: fixed;}
- .tabinfo_con table.base_table label:nth-child(1){margin:0 20px;}
- .tabinfo_con .base_table th{border-bottom: 1px solid #f6f7fa;}
+ .tabinfo_con table.base_table{border:0.5px solid #d8d8d8;border-radius:2px!important;table-layout: fixed;}
+ .tabinfo_con table.base_table label:nth-child(2){margin:0 20px;}
+ .tabinfo_con .base_table th,.tabinfo_con .base_table td{border-bottom: .5px solid #d8d8d8;}
  .tabinfo_con .team_info.base_table th:nth-child(2){width:108px;} 
  .tabinfo_con .team_info.base_table th:nth-child(3){width:128px;}
+  .tabinfo_con .fina_history.base_table th:nth-child(6){width:60px;}
+  .tabinfo_con .fina_history.base_table th:nth-child(7){width:72px;}
  .tabinfo_con .base_table tr:last-child td{border-bottom-width:0px;}
- .tabinfo_con .base_table td,.tabinfo_con .base_table th{text-align:center;padding:0;-webkit-box-sizing: border-box;}
+ .tabinfo_con table.base_table td,.tabinfo_con table.base_table th{text-align:center;padding:0;-webkit-box-sizing: border-box;}
  .tabinfo_con .base_table tr td:first-child{text-align:left;padding-left:30px;}
- .tabinfo_con .base_table tr td:last-child,.base_table tr th:last-child{padding:0;padding-right:30px;}
+ .tabinfo_con .base_table tr td:last-child,.base_table tr th:last-child{padding:0;padding-right:30px;width:147px;}
  .tabinfo_con .base_table tr th:first-child{padding-left:30px;}
+ .tabinfo_con .border_bottom .btnbox_f{margin:0;}
+ .add_pro{background:#45aaff;border-radius:2px;width:110px;line-height:32px; color:#fff;font-size:14px;display:block;text-align:center;}
+ .add_pro em.plus{font-size: 18px;vertical-align: middle;display: inline-block;margin-top: -2px;}
  /* 头部 */
  .relative_box .no_plan{width:150px;height:25px;background:url(../img/base_info/base_icon.png) -180px -70px no-repeat;color:#b2b2b2;margin:0 auto;text-align:center;padding-top:95px;}
   .relative_box .no_plan a{font-family:'MicrosoftYaHei';font-size:12px;color:#45aaff;}

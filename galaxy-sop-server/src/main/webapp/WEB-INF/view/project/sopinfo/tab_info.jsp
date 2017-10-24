@@ -568,17 +568,7 @@
 		<span class="new_color size16">团队成员</span>
 	</div>
 	<input type="hidden" id="pid" name="id" value="${pid}" />
-		<div class="member">
-			<c:if test="${isEditable}">
-				<div class="top clearfix border-top">
-					<!--按钮-->
-					<div class="btnbox_f btnbox_f1 clearfix">
-						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="pubbtn bluebtn ico c4 add_prj add_profile" data-name="团队成员">添加</a>
-						<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
-					</div>
-				</div>
-			</c:if>
-			
+		<div>			
 			<!--表格内容-->
 			<!-- <div class="tab-pane active commonsize" id="view">
 				<table id="tablePerson"  data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
@@ -586,17 +576,24 @@
 				</table>
 			</div> -->
 			<table cellspacing="0" class="table table-hover team_info  editable base_table" data-code="team-members" data-title-id="1303"></table>
-	
+			<c:if test="${isEditable}">
+				<div class="top clearfix border_bottom">
+					<!--按钮-->
+					<div class="btnbox_f btnbox_f1 clearfix">
+						<a id="add_person_btn" href="javascript:;" onclick="addRow(this);" data-href='<%=path%>/html/team_compile.html' class="add_pro" data-name="团队成员"><em class="plus">+</em> 添加</a>
+						<!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
+					</div>
+				</div>
+			</c:if>
 		</div>
 	</div>
 
 
 <!-- 法人信息 -->
-<div class="tabtable_con_on role_hide">
+<div class="tabtable_con_on role_hide tabinfo_con">
 <div class="legal">
 	<div class="show">
-		<div class="title">
-	        <span class="new_ico_legal icon"></span>
+		<div class="title title_3">
 	        <span class="new_color size16">法人信息</span>
 	        <c:if test="${isEditable}">
 	        <div class="btn">
@@ -650,45 +647,45 @@
 <!--股权结构 -->
 <div class="tabtable_con_on member financeHistory role_hide tabinfo_con equity_infoC">
 	<div class='company_center'>
-		<div class="new_r_compile ">
+		<div class="new_r_compile title_3">
 			<span class="new_color size16 title_3">股权结构 </span>
-		</div>
-		<div class="top clearfix border-top">
-        <!--按钮-->
-	       <c:if test="${isEditable}">
-	          <div class="btnbox_f btnbox_f1 clearfix">
-	              <span href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_equity' onclick="addRow_sp(this)">添加</span>
-	          </div>
-	        </c:if>
-	    </div>
+		</div>		
 		<div class="location_show history_show new_ul_all">
 			<span class="ico_dot ico"></span>
 			<p id="location_show" class="clearfix"></p>
 			<div class="fixed-table-container">			
 				<table id="equity" cellspacing="0" class="table  base_table" data-title-id="1906" parentid="1902" ></table>
+			<div class="top clearfix border_bottom">
+        <!--按钮-->
+	       <c:if test="${isEditable}">
+	          <div class="btnbox_f btnbox_f1 clearfix">
+	              <a href="javascript:;" class="add_pro" id='add_equity' onclick="addRow_sp(this)"><em class="plus">+</em> 添加</a>
+	          </div>
+	        </c:if>
+	    </div>
 			</div>
 		</div>
 	</div>	
 </div>
 <!-- 融资历史 -->
-<div class="tabtable_con_on member financeHistory role_hide">
+<div class="tabtable_con_on member financeHistory role_hide tabinfo_con fHistory_infoC">
 	<div class='company_center'>
-		<div class="new_r_compile ">
-			<span class="new_ico_history icon"></span> <span class="new_color size16">融资历史</span>
-		</div>
-		<div class="top clearfix border-top">
-        <!--按钮-->
-	       <c:if test="${isEditable}">
-	          <div class="btnbox_f btnbox_f1 clearfix">
-	              <span href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" id='add_history' onclick="addRow_sp(this)">添加</span>
-	          </div>
-	        </c:if>
-	    </div>
+		<div class="new_r_compile title_3">
+			<span class="new_color size16 title_3">融资历史</span>
+		</div>		
 		<div class="location_show history_show new_ul_all">
 			<span class="ico_dot ico"></span>
 			<p id="location_show" class="clearfix"></p>
 			<div class="fixed-table-container">			
-				<table id="tablePerson" cellspacing="0" class="fina_history table info_table financeHistoryTable"  data-title-id="1903" parentid="1902" ></table>
+				<table id="tablePerson" cellspacing="0" class="fina_history table base_table financeHistoryTable"  data-title-id="1903" parentid="1902" ></table>
+				<div class="top clearfix border_bottom">
+		        <!--按钮-->
+			       <c:if test="${isEditable}">
+			          <div class="btnbox_f btnbox_f1 clearfix">
+			              <a href="javascript:;" class="add_pro" id='add_history' onclick="addRow_sp(this)"><em class="plus">+</em> 添加</a>
+			          </div>
+			        </c:if>
+		    </div>
 			</div>
 		</div>
 	</div>	
