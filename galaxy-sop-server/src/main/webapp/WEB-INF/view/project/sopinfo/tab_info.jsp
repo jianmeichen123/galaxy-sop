@@ -77,8 +77,8 @@
 								</p>
 							</div>	
 							<div class="relative_box">
-								<em class="rate new_color_black" id="finalShareRatio" data-title-id="3010"></em>
-								<p>加速服务费占比：<em class="new_color_black" id="serviceCharge" data-title-id="3011"></em></p>
+								<em class="rate new_color_black" id="finalShareRatio" data-title-id="3010"></em>%
+								<p>加速服务费占比：<em class="new_color_black" id="serviceCharge" data-title-id="3011"></em>%</p>
 								<p id="invest_chart"></p>
 							</div>
 						</div>
