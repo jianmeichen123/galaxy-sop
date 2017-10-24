@@ -3725,7 +3725,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .add_pro em.plus{font-size: 18px;vertical-align: middle;display: inline-block;margin-top: -2px;}
  .tabinfo_con .role_table{margin:0;}
  .tabinfo_con .role_table span{margin:0;}
- .role_table span{font-family:MicrosoftYaHei;color:#5a626d;}
+ .role_table span{font-family:MicrosoftYaHei;color:#333;}
  .role_table span.th{color:#5a626d;}
  /* 头部 */
   .relative_box .no_plan{width:150px;height:25px;background:url(../img/base_info/base_icon.png) -180px -70px no-repeat;color:#b2b2b2;margin:0 auto;text-align:center;padding-top:95px;}
