@@ -71,7 +71,7 @@
 					<li>
 						<div class="con_box">
 							<div class="relative_box">						
-								<em class="oval" data-toggle="tooltip" data-placement="top" title="点击查看合投列表">合投</em>
+								<em class="oval" data-toggle="tooltip" data-placement="top" data-trigger='hover' title="点击查看合投列表">合投</em>
 								<p class="img_box">
 								出让股份
 								</p>
