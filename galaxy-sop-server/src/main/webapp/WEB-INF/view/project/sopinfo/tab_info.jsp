@@ -593,19 +593,19 @@
 <div class="tabtable_con_on role_hide tabinfo_con">
 <div class="legal">
 	<div class="show">
-		<div class="title title_3">
+		<div class="title_3">
 	        <span class="new_color size16">法人信息</span>
 	        <c:if test="${isEditable}">
-	        <div class="btn">
 	         	<span class="new_fctbox">
-	            	<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+	            	<a href="javascript:;" class="edit" data-btn="edit">编辑</a>
 	         	</span>
-	        </div> 
 	        </c:if>
 	    </div>
-	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
+	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table role_table " id="company-info">
 	        <tr>
 	            <td><span class="new_color_gray th">公司名称：</span><span class="new_color_black" id="projectCompany" data-title-id="1814"></span></td>
+	        </tr>
+	        <tr>
         	    <td><span class="new_color_gray th">成立日期：</span><span class="new_color_black" id="formationDate"  data-title-id="1816"></span></td>
 	        </tr>
 	        <tr>

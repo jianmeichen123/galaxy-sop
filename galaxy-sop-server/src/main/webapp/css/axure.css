@@ -3700,6 +3700,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .plan_infoC #plan_operator a.f2:hover{background-position:-69px -95px;}
  .plan_infoC #plan_operator a.new2:hover{background-position:-134px -95px;}
  .invest_infoC .con_box.invest_money{border:0px;padding:0;height:196px;}
+ .pagebox .tabinfo_con table.base_table{border:0.5px solid #d8d8d8;border-radius:2px!important;table-layout: fixed;margin-bottom:20px;}
  .invest_infoC .invest_money p{display:bloxk;border:.5px solid #b2b2b2;border-radius:4px;font-size:12px;color:#777acb; padding:20px 0 20px 30px; height:48px;}
  .invest_money p:nth-child(1){margin-bottom:19px;}
  .invest_money p i{display:block; font-style: normal;}
@@ -3709,16 +3710,23 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con .base_table th,.tabinfo_con .base_table td{border-bottom: .5px solid #d8d8d8;}
  .tabinfo_con .team_info.base_table th:nth-child(2){width:108px;} 
  .tabinfo_con .team_info.base_table th:nth-child(3){width:128px;}
-  .tabinfo_con .fina_history.base_table th:nth-child(6){width:60px;}
-  .tabinfo_con .fina_history.base_table th:nth-child(7){width:72px;}
+ .tabinfo_con .fina_history.base_table th:nth-child(6){width:60px;}
+ .tabinfo_con .fina_history.base_table th:nth-child(7){width:72px;}
+ .tabinfo_con .equity_infoC .base_table th:nth-child(2+3){width:108px;}
  .tabinfo_con .base_table tr:last-child td{border-bottom-width:0px;}
  .tabinfo_con table.base_table td,.tabinfo_con table.base_table th{text-align:center;padding:0;-webkit-box-sizing: border-box;}
  .tabinfo_con .base_table tr td:first-child{text-align:left;padding-left:30px;}
  .tabinfo_con .base_table tr td:last-child,.base_table tr th:last-child{padding:0;padding-right:30px;width:147px;}
  .tabinfo_con .base_table tr th:first-child{padding-left:30px;}
  .tabinfo_con .border_bottom .btnbox_f{margin:0;}
+ .tabinfo_con table.base_table td,.tabinfo_con table.base_table th{color:#5a626d;text-align:center;padding:0;-webkit-box-sizing: border-box;}
+ .tabinfo_con table.base_table th{font-weight:bold;}
  .add_pro{background:#45aaff;border-radius:2px;width:110px;line-height:32px; color:#fff;font-size:14px;display:block;text-align:center;}
  .add_pro em.plus{font-size: 18px;vertical-align: middle;display: inline-block;margin-top: -2px;}
+ .tabinfo_con .role_table{margin:0;}
+ .tabinfo_con .role_table span{margin:0;}
+ .role_table span{font-family:MicrosoftYaHei;color:#5a626d;}
+ .role_table span.th{color:#5a626d;}
  /* 头部 */
   .relative_box .no_plan{width:150px;height:25px;background:url(../img/base_info/base_icon.png) -180px -70px no-repeat;color:#b2b2b2;margin:0 auto;text-align:center;padding-top:95px;}
 .relative_box .no_plan a{font-family:'MicrosoftYaHei';font-size:12px;color:#45aaff;}
