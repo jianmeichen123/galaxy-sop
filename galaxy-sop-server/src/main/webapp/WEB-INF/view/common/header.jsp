@@ -198,7 +198,7 @@ $(function(){
 			w_ritmin=w_ritmin-10;
 		}
         $(".floatBox").css("width",w_ritmin/2-20);
-        $(".pagebox .ritmin").css("margin","60px 0 0 9.375%");
+        $(".pagebox .ritmin").css("margin-left","9.375%");
         $(".pagebox .ritmin-index").css("margin","70px 0 0 9.375%");
         $(".pagebox .ritmin").css("width",w_ritmin);
         $(".pagebox .ritmin-index").css("width",w_ritmin);

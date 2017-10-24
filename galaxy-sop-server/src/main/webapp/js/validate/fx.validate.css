@@ -1,11 +1,13 @@
 
 .tooltip-inner {
   max-width: 200px;
-  padding: 3px 8px;
-  color: #000;
+  padding: 3px 10px;
+  color: #666;
   text-align: center;
-  background-color: #fff9c9;
-  border-radius: 4px;
+  /* background-color: #fff9c9; */
+  background-color:#fff;
+  box-shadow:0 1px 4px 1px rgba(0,0,0,0.20);
+  border-radius:2px;
 }
 .tooltip-arrow {
   position: absolute;

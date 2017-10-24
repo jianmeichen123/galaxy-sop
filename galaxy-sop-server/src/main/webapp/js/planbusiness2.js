@@ -194,21 +194,15 @@ var initPage = {
 			var uploadOperator;
 			var dom = $("#" + initPage.domId);
 			dom.html("");
-			var planNameHtml = "<li class='plan_name_all'><span id ='plan_name'></span></li>";
-			var planStatusHtml = "<li>" +
-								 	"<span class='new_color_gray'>状态：</span>" +
-								 	"<span class='new_color_black' id='plan_status'></span>" +
-								 "</li>";
-			var planUpdateTimeHtml = "<li>" +
-									 	"<span class='new_color_gray'>更新时间：</span>" +
-									 	"<span class='new_color_black' id='plan_update_time'></span>" +
-									 "</li>";
-			var operatorHtml = "<li class='new_ul_right'>" +
-									"<span class='new_fctbox' id='plan_operator'>" +
-									"</span>" +
-								"</li>";
+			var planNameHtml = "<div><span class='img_box'></span><p id ='plan_name'></p></div>";
+			var operatorHtml ="<div class='relative_box new_fctbox clearfix' id='plan_operator'>" +
+									"</div>" ;
+			var planUpdateTimeHtml = "<p class='plan_update_time'>更新时间：" +
+									 	"<em id='plan_update_time'></em>" +
+									 "</p>";
+
 			var operatorDetailHtml = "";
-			dom.html(planNameHtml + planStatusHtml + planUpdateTimeHtml + operatorHtml);
+			dom.html(planNameHtml  + operatorHtml + planUpdateTimeHtml);
 			if(data.result.status=="OK"){
 				//为空时候显示
 				var grayClass = "";
@@ -224,8 +218,9 @@ var initPage = {
 					dom.find("#plan_update_time").html("无");
 					if(isCreatedByUser == 'true')
 					{
-						operatorDetailHtml = "<a href='javascript:;' class='ico new1"+grayClass+"' data-btn='edit' id='upload_btn'>上传</a>";
+						operatorDetailHtml ="<p class='no_plan'>暂无商业计划书，<a href='javascript:;' class='new1"+grayClass+"' data-btn='edit' id='upload_btn'>点我上传</a></p>";
 					}
+					dom.html(operatorDetailHtml);
 				}else{
 					$('.plan_name_all').show();
 					//文档名称
@@ -237,13 +232,14 @@ var initPage = {
 					//操作类型
 					if(isCreatedByUser == 'true')
 					{
-						operatorDetailHtml = "<a href='javascript:;' class='ico new1"+grayClass+"' data-btn='edit' id='upload_btn'>更新</a>" ;
+						operatorDetailHtml = "<a href='javascript:;' class='new1"+grayClass+"' data-btn='edit' id='upload_btn' data-toggle='tooltip' data-placement='top' title='更新'></a>" ;
 					}
-					operatorDetailHtml += "<a href='javascript:;' class='ico f2' data-btn='describe' id='download_btn'>查看</a>" +
-										 "<a href='javascript:;' class='ico new2' data-btn='describe' id='show_history_btn'>查看历史</a>";
+					operatorDetailHtml += "<a href='javascript:;' class='f2' data-btn='describe' id='download_btn' data-toggle='tooltip' data-placement='top' title='查看'></a>" +
+										 "<a href='javascript:;' class='new2' data-btn='describe' id='show_history_btn' data-toggle='tooltip' data-placement='top' title='查看历史'></a>";
+					dom.find("#plan_operator").html(operatorDetailHtml);
 				}
 			}
-			dom.find("#plan_operator").html(operatorDetailHtml);
+			
 			var project = {
 					projectId : initPage.projectId,
 					projectName : initPage.projectName	
@@ -252,6 +248,7 @@ var initPage = {
 			//dom.find("#upload_btn").click(operatorFuc.uploadBusinessPlan);
 			dom.find("#download_btn").click(operatorFuc.downloadBusinessPlan);
 			dom.find("#show_history_btn").click(operatorFuc.businessPlanHistory);
+			$("[data-toggle='tooltip']").tooltip();//提示
 		}
 }
 

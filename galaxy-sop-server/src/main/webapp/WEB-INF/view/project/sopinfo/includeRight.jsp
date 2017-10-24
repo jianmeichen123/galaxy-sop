@@ -46,18 +46,17 @@
 						<div class="new_right_flow new_right_flow_after">
 		            	<div class="new_right_flow_line">
 		                	<ul class="line_ul_p" id="lct_ul">
-		                    	<li class="line_ul_li"><span class="one_dot"></span></li>
-		                    	<li><span class="gray_dot"></span>接触访谈</li>
-		                        <li><span class="gray_dot"></span>内部评审</li>
-		                        <li><span class="gray_dot"></span>C<br/>E<br/>O评审</li>
-		                        <li><span class="gray_dot"></span>立项会</li>
-		                        <li><span class="gray_dot"></span>会后商务谈判</li>
-		                        <li><span class="gray_dot"></span>投资意向书</li>
-		                        <li><span class="gray_dot"></span>尽职调查</li>
-		                        <li><span class="gray_dot"></span>投资决策会</li>
-		                        <li><span class="gray_dot"></span>投资协议</li>
-		                        <li><span class="gray_dot"></span>股权交割</li>
-		                        <li><span class="gray_dot on"></span>投后运营</li>
+		                    	<li><span class="gray_dot"></span><label>接触访谈</label></li>
+		                        <li><span class="gray_dot"></span><label>内部评审</label></li>
+		                        <li><span class="gray_dot"></span><label>C<br/>E<br/>O评审</label></li>
+		                        <li><span class="gray_dot"></span><label>立项会</label></li>
+		                        <li><span class="gray_dot"></span><label>会后商务谈判</label></li>
+		                        <li><span class="gray_dot"></span><label>投资意向书</label></li>
+		                        <li><span class="gray_dot"></span><label>尽职调查</label></li>
+		                        <li><span class="gray_dot"></span><label>投资决策会</label></li>
+		                        <li><span class="gray_dot"></span><label>投资协议</label></li>
+		                        <li><span class="gray_dot"></span><label>股权交割</label></li>
+		                        <li><span class="gray_dot on"></span><label>投后运营</label></li>
 		                    </ul>
 		                </div>
 		                 <span class="bluebtn new_btn_right tzlc_btn">进入投资流程</span>
@@ -76,22 +75,20 @@
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
 			<div class="tq_div" style="display:none;">
-			<b class="sj_ico null">三角</b>
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
                 	<ul class="line_ul_p" id="lct_ul">
-                    	<li class="line_ul_li"><span class="one_dot"></span></li>
-                    	<li><span class="gray_dot"></span>接触访谈</li>
-                        <li><span class="gray_dot"></span>内部评审</li>
-                        <li><span class="gray_dot"></span>C<br/>E<br/>O评审</li>
-                        <li><span class="gray_dot"></span>立项会</li>
-                        <li><span class="gray_dot"></span>会后商务谈判</li>
-                        <li><span class="gray_dot"></span>投资意向书</li>
-                        <li><span class="gray_dot"></span>尽职调查</li>
-                        <li><span class="gray_dot"></span>投资决策会</li>
-                        <li><span class="gray_dot"></span>投资协议</li>
-                        <li><span class="gray_dot"></span>股权交割</li>
-                        <li><span class="gray_dot"></span>投后运营</li>
+                    	<li><span class="gray_dot"></span><label>接触访谈</label></li>
+                        <li><span class="gray_dot"></span><label>内部评审</label></li>
+                        <li><span class="gray_dot"></span><label>C<br/>E<br/>O评审</label></li>
+                        <li><span class="gray_dot"></span><label>立项会</label></li>
+                        <li><span class="gray_dot"></span><label>会后商务谈判</label></li>
+                        <li><span class="gray_dot"></span><label>投资意向书</label></li>
+                        <li><span class="gray_dot"></span><label>尽职调查</label></li>
+                        <li><span class="gray_dot"></span><label>投资决策会</label></li>
+                        <li><span class="gray_dot"></span><label>投资协议</label></li>
+                        <li><span class="gray_dot"></span><label>股权交割</label></li>
+                        <li><span class="gray_dot"></span><label>投后运营</label></li>
                     </ul>
                 </div>
                  <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
@@ -105,8 +102,8 @@
 				<ul class="sev_report clearfix">
 				<c:choose>
 				 <c:when test="${(fx:hasRoles('1,2,18,19') || (fx:hasRole(3) && fx:inOwnDepart('project',pid) ) || (!fx:hasRole(4) &&fx:isForTask(pid)) || (fx:isCreatedByUser('project',pid) ))}">
-					<li class="seven_link1" onclick="seven_link(1);">
-						<img src="<%=path %>/img/seven_report/qx.png" />
+					<li class="seven_link1 seven_link_qx" onclick="seven_link(1);">
+						<span class='qx report_entrance'></span>
 						<span>全息报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -115,8 +112,8 @@
 							  <span class="percent_number"></span>
 						</div>
 					</li>
-					<li class="seven_link2" onclick="seven_link(2);">
-						<img src="<%=path %>/img/seven_report/pc.png" />
+					<li class="seven_link2 seven_link_pc" onclick="seven_link(2);">
+					<span class='pc report_entrance'></span>
 						<span>评测报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -125,8 +122,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link3" onclick="seven_link(3);">
-						<img src="<%=path %>/img/seven_report/jd.png" />
+					<li class="seven_link3 seven_link_jd" onclick="seven_link(3);">
+						<span class='jd report_entrance'></span>
 						<span>尽调报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -135,8 +132,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link4" onclick="seven_link(4);">
-						<img src="<%=path %>/img/seven_report/jc.png" />
+					<li class="seven_link4 seven_link_jc" onclick="seven_link(4);">
+						<span class='jc report_entrance'></span>
 						<span>决策报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -145,8 +142,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link5" onclick="seven_link(5);">
-						<img src="<%=path %>/img/seven_report/cp.png" />
+					<li class="seven_link5 seven_link_cp" onclick="seven_link(5);">
+						<span class='cp report_entrance'></span>
 						<span>初评报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -155,8 +152,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link6" onclick="seven_link(6);">
-						<img src="<%=path %>/img/seven_report/rz.png" />
+					<li class="seven_link6 seven_link_rz" onclick="seven_link(6);">
+						<span class='rz report_entrance'></span>
 						<span>融资报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -165,8 +162,8 @@
 							  <span class="percent_number"></span>
 						</div>	
 					</li>
-					<li class="seven_link7" onclick="seven_link(7);">
-						<img src="<%=path %>/img/seven_report/yy.png" />
+					<li class="seven_link7 seven_link_yy" onclick="seven_link(7);">
+						<span class='yy report_entrance'></span>
 						<span>运营报告</span>
 						<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -178,7 +175,7 @@
 					 </c:when>
 					 <c:otherwise>
 						<li class="seven_link1 gray_link1 gray">
-							<img src="<%=path %>/img/seven_report/qx_gray.png" />
+							<span class='qx report_entrance'></span>
 							<span>全息报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -188,7 +185,7 @@
 							</div>
 						</li>
 						<li class="seven_link2 gray_link2 gray">
-							<img src="<%=path %>/img/seven_report/pc_gray.png" />
+							<span class='pc report_entrance'></span>
 							<span>评测报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -198,7 +195,7 @@
 							</div>
 						</li>
 						<li class="seven_link3 gray_link3 gray">
-							<img src="<%=path %>/img/seven_report/jd_gray.png" />
+							<span class='jd report_entrance'></span>
 							<span>尽调报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -208,7 +205,7 @@
 							</div>
 						</li>
 						<li class="seven_link4 gray_link4 gray">
-							<img src="<%=path %>/img/seven_report/jd_gray.png" />
+							<span class='jc report_entrance'></span>
 							<span>决策报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -218,7 +215,7 @@
 							</div>
 						</li>
 						<li class="seven_link5 gray_link5 gray">
-							<img src="<%=path %>/img/seven_report/cp_gray.png" />
+							<span class='cp report_entrance'></span>
 							<span>初评报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -228,7 +225,7 @@
 							</div>
 						</li>
 						<li class="seven_link6 gray_link6 gray">
-							<img src="<%=path %>/img/seven_report/rz_gray.png" />
+							<span class='rz report_entrance'></span>
 							<span>融资报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  
@@ -238,7 +235,7 @@
 							</div>
 						</li>
 						<li class="seven_link7 gray_link7 gray">
-							<img src="<%=path %>/img/seven_report/yy_gray.png" />
+							<span class='yy report_entrance'></span>
 							<span>运营报告</span>	
 							<div class="progress-contain">
 							  <div class="processcontainer">  

@@ -91,19 +91,18 @@ function getProjectInfo(dtd)
 	<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
      
     <!--右中部内容-->
-<div class="ritmin">
+<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
+<div class="ritmin version19_ritmin">
  	
-    <jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
+    
         
 	<div class="new_left">
        	<div class="tabtable assessment label_static1"  data-id='tab-block'>
-          	<!-- tab标签 -->
-            <jsp:include page="tab_header.jsp" flush="true"></jsp:include> 			
 		</div>
 	</div>
     <!--右边-->
 <%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
-    <div class="new_right" id="new_right"></div>
+    <div class="new_right version19_new_right" id="new_right"></div>
         
 </div>
  
