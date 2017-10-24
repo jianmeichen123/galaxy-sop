@@ -3660,7 +3660,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .base_tab-content .h_edit .input_21{margin-right:0px;!important;float: left;}
  /*VI.1.9*/
  .tabinfo_con{margin:0; border-radius: 0px; }
- .tabinfo_con .edit{float:right; font-weight: normal;} 
+ .tabinfo_con .edit{float:right; font-weight: normal;font-family: MicrosoftYaHei;} 
  .tabinfo_con .oval{display:block;background:#45aaff;border-radius:9px;width:44px;line-height:18px;text-align:center;font-size:12px;color:#ffffff;}
  .tabinfo_con .oval：hover{background:#0084f5;}
  .tabinfo_con .con_box,.tabinfo_con .relative_box{position:relative;}
@@ -3706,6 +3706,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_money p i{display:block; font-style: normal;}
  .invest_money p em{font-size:28px;color:#4f52a0;display:block;display: inline-block;}
  .tabinfo_con table.base_table{border:0.5px solid #d8d8d8;border-radius:2px!important;table-layout: fixed;}
+ .tabinfo_con table.base_table label{font-family: MicrosoftYaHei;}
  .tabinfo_con table.base_table label:nth-child(2){margin:0 20px;}
  .tabinfo_con .base_table th,.tabinfo_con .base_table td{border-bottom: .5px solid #d8d8d8;}
  .tabinfo_con .team_info.base_table th:nth-child(2){width:108px;} 
