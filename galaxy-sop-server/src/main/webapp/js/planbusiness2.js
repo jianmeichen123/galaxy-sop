@@ -212,21 +212,17 @@ var initPage = {
 				}
 				if(data.result.errorCode=="null"){
 					$('.plan_name_all').hide();
-					//文档状态
-					dom.find("#plan_status").html("未上传");
-					//更新时间
-					dom.find("#plan_update_time").html("无");
 					if(isCreatedByUser == 'true')
 					{
 						operatorDetailHtml ="<p class='no_plan'>暂无商业计划书，<a href='javascript:;' class='new1"+grayClass+"' data-btn='edit' id='upload_btn'>点我上传</a></p>";
+					}else{
+						operatorDetailHtml ="<p class='no_plan'>暂无商业计划书</p>";
 					}
 					dom.html(operatorDetailHtml);
 				}else{
 					$('.plan_name_all').show();
 					//文档名称
 					dom.find("#plan_name").html("《"+data.entity.fileName+"."+data.entity.fileSuffix+"》");
-					//文档状态
-					dom.find("#plan_status").html(data.entity.fileStatusDesc);
 					//更新时间
 					dom.find("#plan_update_time").html(data.entity.createDate);
 					//操作类型
