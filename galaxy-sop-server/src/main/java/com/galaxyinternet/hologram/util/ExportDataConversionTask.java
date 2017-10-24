@@ -48,10 +48,10 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
         Map<String, Object> map = new HashMap<>();
 
         if(null == idType){
-            boolean isScore = false;
+            //boolean isScore = false;
             Map<String, Set<Long>> titletype_titleIds = null;
             if(StringUtils.isNotBlank(preCode) && (preCode.startsWith("EN") ||preCode.startsWith("CN"))){
-                isScore = true;
+                //isScore = true;
                 titletype_titleIds = CacheOperationServiceImpl.code_titletype_titleIds_forAllgrade.get(preCode);
             }else {
                 titletype_titleIds = CacheOperationServiceImpl.code_titletype_titleIds.get(preCode);
@@ -70,9 +70,9 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
             subTasks.add(new ExportDataConversionTask(preCode,proId,listdata_ids,"listdata",valueIdNameMap,null,null));
             subTasks.add(new ExportDataConversionTask(preCode,proId,fixedtable_ids,"fixedtable",valueIdNameMap,null,null));
             subTasks.add(new ExportDataConversionTask(preCode,proId,file_ids,"file",valueIdNameMap,currentMark,tempfilePath));
-            if(isScore){
+            /*if(isScore){
                 subTasks.add(new ExportDataConversionTask(preCode,proId,null,"score",null,null,null));
-            }
+            }*/
             invokeAll(subTasks);
 
             for(ExportDataConversionTask tem : subTasks){
@@ -97,10 +97,9 @@ public class ExportDataConversionTask extends RecursiveTask<Map<String,Object>>{
                         map = reportExportService.fileTitleResult(ids,proId,currentMark,tempfilePath);
                         //map = reportExportService.fileTitleResult(ids,proId);  //doc
                         break;
-                    case "score" :
+                    /*case "score" :
                         map = reportExportService.titleScoreResult(proId,preCode);
-                        //map = reportExportService.fileTitleResult(ids,proId);  //doc
-                        break;
+                        break;*/
 
                     default :
                         break;

@@ -178,6 +178,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 
 		Project project = projectService.queryById(pid);
 		Map<String,Object> map = reportExportService.titleAnswerConversionTask(user.getId(),project,"EN",currTime,tempfilePath);
+		map.putAll(reportExportService.titleScoreResult(pid,"EN"));
 
 		String fn1 = project.getProjectName() + "评测报告概览.docx";
 		String fn2 = project.getProjectName() + "评测报告内容.docx";
