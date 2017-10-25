@@ -33,7 +33,16 @@ $(function(){
 		$("#project_name").text(str);
 		$("#project_name").attr("title",projectInfo.projectName);
 		
-		
+		//chen{}
+		//radio自定义事件
+		$(".radio_cont").on("click",function(){
+			$(this).addClass("radio_checked").siblings().removeClass("radio_checked");
+			var index = $(this).index();
+			
+			
+			
+			
+		})
 
 		
 		

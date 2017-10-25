@@ -385,11 +385,6 @@
 									</span>
 								</td>
 							</tr>
-							<!-- <tr class="">
-								<td>
-													
-								</td>
-							</tr> -->
 						</table>
 						<div class="invest_institue">
 							<span>合投机构：</span>	
@@ -908,15 +903,7 @@
 		$('.legal .hidden').show();
 	}
 	
-	//chen
-	//radio自定义事件
-	$(".radio_cont").on("click",function(){
-		$(this).addClass("radio_checked").siblings().removeClass("radio_checked");
-		
-		
-		
-		
-	})
+	
 </script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
 <script type='text/javascript' src='<%=path%>/js/projectDetail/tabInfoValidate.js'></script>
