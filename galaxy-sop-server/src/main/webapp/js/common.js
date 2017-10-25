@@ -43,6 +43,8 @@ function change_number(date){
 			var dd2=dd.substring(leng-8,leng).substring(0,2);
 			dd=dd1+"."+dd2;
 			text="万亿";
+		}else{
+			dd=date;
 		}
 		var rarry=[dd,text]
 		return rarry;
