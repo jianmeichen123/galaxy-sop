@@ -110,27 +110,7 @@
 				</ul>
 			</div>		
 		</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 		<div class="new_r_compile_new">
 			<c:if test="${isEditable}">
 			<span class="new_fctbox"> 
