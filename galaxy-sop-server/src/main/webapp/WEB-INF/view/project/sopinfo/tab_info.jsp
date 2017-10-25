@@ -921,10 +921,18 @@
 		}else{
 			$('.invest_institue').hide();
 		}
-	})
+	});
+	
+
 $('.inves_add').on("click",function(){
 	$('.inves_add').before(inputContent);
 	$('.institue_content').show();
+	var inputContLength = $('.institue_content').length;
+	console.log(inputContLength);
+	if(inputContLength === 10){
+		$('.inves_add').hide();
+		return false;
+	}
 	
 });
 	
@@ -940,6 +948,10 @@ $('.inves_add').on("click",function(){
 function deleteRow(obj){
 	var _this = $(obj);
 	_this.closest('.institue_content').remove();
+	var inputContLength = $('.institue_content').length;
+	if(inputContLength <= 10){
+		$('.inves_add').show();
+	}
 }
 
 
