@@ -501,6 +501,13 @@
     	this.$toolbar.on("click","button[type='submit']",function(){
     		that.trigger("querySearch");
     	});
+    	this.$toolbar.on('keydown',function (e) {   //键盘回车搜索，leicj2017/10/25添加
+             var key = e.which;
+             if (key == 13) {
+                 e.preventDefault();
+                 that.trigger("querySearch");
+             }
+         });
     	this.$toolbar.on("click","a[action='querySearch']",function(){
     		that.trigger("querySearch");
     	});
