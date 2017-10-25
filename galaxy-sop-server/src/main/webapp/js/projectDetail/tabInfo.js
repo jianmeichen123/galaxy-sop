@@ -113,7 +113,9 @@ $(function(){
 				}
 				var open=$(this).attr('data-cont');
 				var common = $(this).attr('data-name');
-				console.log(open)
+				if(open==="invest"){
+					$(".basic_common_width").css('max-height','505px');
+				}
 				//外层div一直显示 basic_on  show
 				$('.'+common+'_on').show();//basic_on
 				//内部弹窗根据条件显示

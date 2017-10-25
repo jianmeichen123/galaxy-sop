@@ -338,7 +338,7 @@
 	 	   <!-- 编辑实际投资 -->
 			 	 <div class="finacing_plan real_investment invest_current basic_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
-	 	   		<div class="compile_on_center edit_com_color">
+	 	   		<div class="compile_on_center edit_com_color invest_max_height">
 					<div class="basic_message_cont">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
@@ -905,6 +905,7 @@
 		$('.legal .hidden').show();
 	}
 	
+	
 	//chen{}
 	//radio自定义事件
 	$(".radio_cont").on("click",function(){
@@ -922,21 +923,24 @@
 		}
 	})
 $('.inves_add').on("click",function(){
-	
-	$('.invest_institue').css('margin-top','20px');
 	$('.inves_add').before(inputContent);
 	$('.institue_content').show();
 	
 });
+	
 	//拼接出input一行
   var inputContent = '<div class="institue_content">'
-  +'<input type="text" placeholder="机构名称" class="inves_input input_stock_left">'
-  +'<input type="text" placeholder="投资金额(万元)" class="inves_input">'
-  +'<span class="select_cont"><select class="inves_select"><option>人民币</option><option>美元</option></select></span>'
-  +'<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">'
-  +'<em class="inves_delete"></em>'
-  +'</div> ';
-	
+					  +'<input type="text" placeholder="机构名称" class="inves_input input_stock_left">'
+					  +'<input type="text" placeholder="投资金额(万元)" class="inves_input">'
+					  +'<span class="select_cont"><select class="inves_select"><option>人民币</option><option>美元</option></select></span>'
+					  +'<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">'
+					  +'<em class="inves_delete" onclick="deleteRow(this)"></em>'
+					  +'</div> ';
+  
+function deleteRow(obj){
+	var _this = $(obj);
+	_this.closest('.institue_content').remove();
+}
 
 
   	

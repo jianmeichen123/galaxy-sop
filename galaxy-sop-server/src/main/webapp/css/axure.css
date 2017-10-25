@@ -3823,7 +3823,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .select_cont:hover,.select_cont:active{background:url('../img/base_info/down_hover.png') no-repeat center right 10px;}
  select::-ms-expand { display: none; }
  .inves_stock{width:68px;margin-left: 6px;}
- .input_stock_left{margin-left:36px;}
+ .input_stock_left{margin-left:41px;}
  .inves_delete{display:inline-block;cursor:pointer;width:16px;height:16px;margin-left: 4px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px}
  .inves_delete:hover,.inves_delete:active{background-position:-78px -64px;}
  .inves_add{display:inline-block;width:29px;height:29px;cursor:pointer;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px;vertical-align: text-bottom;margin-left: 37px;margin-top: 10px;}
@@ -3843,9 +3843,9 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_institue{display:none;}
  .inves_plan_btn{margin-top:36px;}
  .legal_button{margin-top:36px;}
- .institue_content{width: auto;height: auto;display:none;}
+ .institue_content{width: auto;height: auto;display:none;margin-top:10px;}
  .institue_inputs{display:inline-table;}
- 
+ .invest_max_height{max-height:365px;overflow:auto;}
  
  
  
