@@ -3828,7 +3828,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .inves_delete:hover,.inves_delete:active{background-position:-78px -64px;}
  .inves_add{width:29px;height:29px;cursor:pointer;margin-left: 114px;margin-top: 16px;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px}
  .inves_add:hover,.inves_add:active{background-position:-10px -58px;}
- .inver_button{margin-top:25px;}
+ .inver_button{margin-top:25px;margin-bottom:27px;}
  .legal_person{height:318px;}
  .short_num{display:inline-block;margin-left:33px;width:auto !important;}
  .legal_input{margin-left:5px;}
@@ -3841,8 +3841,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .radio_checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 4px}
  .relative_box .oval{cursor:pointer;}
  .invest_institue{display:none !important;}
- 
- 
+ .inves_plan_btn{margin-top:36px;}
+ .legal_button{margin-top:36px;}
  
  
  
