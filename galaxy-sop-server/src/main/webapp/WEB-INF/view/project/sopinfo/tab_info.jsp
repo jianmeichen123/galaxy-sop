@@ -251,7 +251,7 @@
 					</tr>
 					<tr>
 						<td>
-							<span style="display:inline-block">项目类型：</span>
+							<span style="display:inline-block">行业归属：</span>
 							<div id="dropdown"> 
 								<input class="input_select" type="text" value="请选择"/> 
 									<ul> 
@@ -383,7 +383,7 @@
 									</span>
 								</td>
 							</tr>
-							<tr>
+							<tr class="">
 								<td>
 									<span>合投机构：</span>	
 									<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
