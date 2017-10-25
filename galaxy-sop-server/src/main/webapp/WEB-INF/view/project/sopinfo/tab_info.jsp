@@ -663,7 +663,7 @@
 	        </tr>
 	    </table>                
 	</div>
-    <div class="hidden">
+<%--     <div class="hidden">
       <div class="title">
           <span class="new_ico_legal icon"></span>
           <span class="new_color size16">法人信息</span>
@@ -685,7 +685,7 @@
           </tr>
       </table>                    
       </form>
-  </div>
+  </div> --%>
 </div>
 </div>
 
