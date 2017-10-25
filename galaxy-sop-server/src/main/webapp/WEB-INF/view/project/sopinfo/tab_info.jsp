@@ -394,28 +394,29 @@
 		            </div> 
 	 	   </div>  
 	 	   <!--编辑法人信息  -->
-	 	   <div class="legal_person  basic_current legal_current">
+	 	  <div class="legal_person  basic_current legal_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑法人信息</div>
 	 	   		<div class="compile_on_center edit_com_color">
-					<div class="basic_message_cont">
+					<div class="basic_message_cont" id='company-info-form'>
+					 <input type="hidden" name="id" value="${projectId }">
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td>
 									<span>公司名称：</span>
-									<input type="text" value="某某股份有限公司" class="basic_mes_input" placeholder="">
+									<input type="text" value="" class="basic_mes_input" placeholder="请输入公司名称" name="projectCompany" maxlength="50" data-title-id="1814">
 								</td>
 							</tr>
 							<tr>
 								<td style="position:relative;">
 									<span>成立日期：</span>
-									<input type="text" value="" class="basic_mes_input ">
+									<input type="text" value="" class="basic_mes_input " name="formationDate" onkeydown="return false;"  data-title-id="1816">
 									<i class="legal_date"></i>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>法<em class="short_num">人:</em></span>
-									<input type="text" value="" class="basic_mes_input legal_input" placeholder="法人名称">
+									<input type="text" value="" class="basic_mes_input legal_input" placeholder="法人名称" name="companyLegal" maxlength="30"  data-title-id="1815">
 								</td>
 							</tr>
 						</table>
@@ -423,10 +424,10 @@
 					</div>
 	    	</div>
 	    			<div class="btn btnbox basic_mes_button legal_button">
-		              <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+		              <button  class="pubbtn bluebtn version19_save_btn" data-btn="save">保存</button>
               		  <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
-	 	   </div>  
+	 	   </div>   
 	 	   
 	 	   <!-- 合投机构 --> 
 	 	   <div class="agency_institute investTogether_current">
@@ -835,13 +836,15 @@
 		}
 		editCompany();		
 	});
-	$('.legal [data-btn="save"]').on('click',function(){
+	
+	/*编辑法人信息交互  */
+	$('.legal_current [data-btn="save"]').on('click',function(){
+		console.log(${projectId })
 		var projectCompany=$("input[name='projectCompany']").val();
 		var formationDate=$("input[name='formationDate']").val();
 		var companyLegal=$("input[name='companyLegal']").val();
 		$('.bj_hui_on').hide();
-	    $('.legal .show').show();
-		$('.legal .hidden').hide();		
+		$('.legal_current').hide();
 		if(projectCompany==""){
 			projectCompany="—";
 		}
@@ -856,12 +859,8 @@
 		
 		
 	});
-	$('.legal [data-btn="cancle"]').on('click',function(){
-		$('.bj_hui_on').hide();
-	    $('.legal .show').show();
-		$('.legal .hidden').hide();
-	});
-	$('#company-info-form [name="formationDate"]').datepicker({
+	//日期选择
+	$('.legal_current input[name="formationDate"]').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -874,6 +873,7 @@
 	    forceParse:false,
 	    currentText: 'Now'
 	});
+
 
 	
 	
