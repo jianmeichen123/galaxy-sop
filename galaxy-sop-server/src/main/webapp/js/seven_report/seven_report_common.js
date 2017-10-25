@@ -1353,13 +1353,31 @@ function validate(){
 				
 			}
 	 }
-
+	 var textareas=$('textarea');
+	 for(var i=0;i<textareas.length;i++){   //新增textarea不能全为空格1025
+		 var txtType=textareas.eq(i).attr("data-type");
+		 if(txtType==8 || txtType==15){
+			 var validate={
+						//"regString":"^[0-9]{1,3}$",
+						"data-rule-textarea_8":"true",
+						//"required":"required",
+						"name":i,
+						"data-msg-textarea_8":"<font color=red>*</font>不能全为空格"			
+				}
+			 textareas.eq(i).attr(validate);
+		 }
+	 }
 
 }
 //配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
 $.validator.setDefaults({
 	errorElement:'span'
 });
+//textareaType=="8"
+jQuery.validator.addMethod("textarea_8", function(value, element) {   
+	var textarea_8 =  /^(?!.{2001}|^\s*$)/;
+	return this.optional(element) || (textarea_8.test(value));
+}, "不能全为空格");
 //inputValRuleMark=="10,2"
 jQuery.validator.addMethod("verify_102", function(value, element) {
 	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
