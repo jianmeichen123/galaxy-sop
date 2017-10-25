@@ -87,11 +87,11 @@
 						<div class="con_box invest_money">
 							<p>
 								<i>投资金额</i>
-								<em class="new_color_black" id="finalContribution" data-title-id="3004"></em>万元
+								<em class="new_color_black" id="finalContribution" data-title-id="3004"></em><span>万元</span>
 							</p> 
 							<p>
 								<i>项目估值</i>
-								<em class="new_color_black" id="finalValuations" data-title-id="3012"></em>万元
+								<em class="new_color_black" id="finalValuations" data-title-id="3012"></em><span>万元</span>
 							</p> 
 						</div>
 					</li>			

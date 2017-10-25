@@ -591,9 +591,22 @@ function buildShareResult(reportType,relateId){
 									}
 									_val = _parsefloat(_val);
 								}
-								$(".new_color_black[data-title-id='"+title.id+"']").text(_val==undefined ?"—":_val);
+								if(_val==undefined){
+									_val="—"
+								}else{
+									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
+										var Tval= change_number(_val);
+										_val = _parsefloat(Tval[0]);
+										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
+									}
+								}
+								
+								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
 								$("input[data-title-id='"+title.id+"']").val(_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="3010"){
+									if(_val==undefined||_val=="—"){
+										_val=0;
+									}
 									base_chart("invest_chart"," ","#fd88b8",['#c4e4ff','#73bfff'],[_val,100-_val]);
 								}
 							}else{
@@ -623,10 +636,21 @@ function buildMoneyResult(pid){
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val = title.resultList[0].contentDescribe1;
 								_val=_parsefloat(_val);
-								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"—":_val);
+								if(_val==undefined){
+									_val="—"
+								}else{
+									if(title.id=="1916"||title.id=="1943"||title.id=="3004"||title.id=="3012"){
+										var Tval= change_number(_val);
+										_val = _parsefloat(Tval[0]);
+										$(".new_color_black[data-title-id='"+title.id+"']").next().text(Tval[1]+"元")
+									}
+								}
+								
+								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="1917"){
-									if(_val==undefined){_val=0;}
+									console.log(_val);
+									if(_val==undefined||_val=="—"){_val=0;}
 									base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
 								}
 							}else{
