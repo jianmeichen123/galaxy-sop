@@ -373,7 +373,7 @@
 											<input type="radio" value="" name="invest_form" class="radioclass"/>
 											独投
 										</label>
-										<label class='radio_cont'>
+										<label class='radio_cont' data-name="">
 											<input type="radio" value="" name="invest_form" class="radioclass"/>
 											领投
 										</label>
@@ -385,24 +385,29 @@
 									</span>
 								</td>
 							</tr>
-							<tr class="invest_institue">
+							<!-- <tr class="">
 								<td>
-									<span>合投机构：</span>	
-									<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
-									<input type="text" placeholder="投资金额(万元)" class="inves_input">
-									<span class='select_cont'>
-										<select class="inves_select">
-											<option>人民币</option>
-											<option>美元</option>
-										</select>
-									</span>
-									<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
-									<em class="inves_delete"></em>
-									<div class="inves_add"></div>					
+													
 								</td>
-							</tr>
-							
+							</tr> -->
 						</table>
+						<div class="invest_institue">
+							<span>合投机构：</span>	
+							<span class="inves_add"></span>
+							<div class="institue_content">
+								<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
+								<input type="text" placeholder="投资金额(万元)" class="inves_input">
+								<span class='select_cont'>
+									<select class="inves_select">
+										<option>人民币</option>
+										<option>美元</option>
+									</select>
+								</span>
+								<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
+								<em class="inves_delete"></em>
+							</div>	
+				
+						</div>
 					
 					</div>
 	    	</div>
@@ -907,6 +912,10 @@
 	//radio自定义事件
 	$(".radio_cont").on("click",function(){
 		$(this).addClass("radio_checked").siblings().removeClass("radio_checked");
+		
+		
+		
+		
 	})
 </script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
