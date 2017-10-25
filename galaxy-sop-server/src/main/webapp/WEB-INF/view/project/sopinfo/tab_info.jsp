@@ -878,13 +878,13 @@
 
 	
 	
-	/* function editCompany()
+	/*  function editCompany()
 	{
 		buildShareResult("4","5812");
-    	/* $('.bj_hui_on').show(); */
-		/* $('.legal .show').hide(); */
-		/* $('.legal .hidden').show(); */
-	} */
+    	 $('.bj_hui_on').show(); 
+		 $('.legal .show').hide(); 
+		 $('.legal .hidden').show(); 
+	}  */
 	
 	
 	//chen{}
