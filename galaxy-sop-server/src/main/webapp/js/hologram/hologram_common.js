@@ -564,9 +564,17 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
+				var _val = title.resultList[0].contentDescribe1;
+				if(_val==undefined){
+					_val="未填写"
+				}else{
+					var res = change_number(_val);
+					_val = _parsefloat(res[0]);
+					var moneyT = res[1];
+				}
+				$(".field[data-title-id='"+title.id+"']").text(_val);
 				if(title.resultList[0].contentDescribe1 !=undefined){
-					$(".field[data-title-id='"+title.id+"']").next().show();
+					$(".field[data-title-id='"+title.id+"']").next().text(moneyT+"元").show();
 				}else{
 					$(".field[data-title-id='"+title.id+"']").next().hide();
 				}
