@@ -552,7 +552,7 @@ function right(obj,type){
 		var val = $(obj).parent().parent().find("textarea").val();
 		val=val.replace(/\n|\r\n/g,"<br>")
 		val=val.replace(/\s/g,"&nbsp;");
-		if(val == null || val.length == 0)
+		if(val == null || val.length == 0 || textarea_show(val)==0)
 		{
 			val='未填写';
 		}
