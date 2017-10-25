@@ -327,7 +327,7 @@ public class ReportExportServiceImpl implements ReportExportService {
 
         List<InformationResult> resultList = tempTitle.getResultList();
 
-        if ( type == 0 ||type == 1 || type == 8)
+        if ( type == 0 ||type == 1 || type == 8 || type == 18)
         {
             // 1:文本、  8:文本域(textarea)、
             //  map : code-value
@@ -439,13 +439,13 @@ public class ReportExportServiceImpl implements ReportExportService {
             {
                 if (tempResult.getContentDescribe1().contains("sitg"))
                 {
-                    value = tempResult.getContentDescribe1().replace("<sitg>", "（").replace("</sitg>", "）");
+                    value = textConversion(tempResult.getContentDescribe1().replace("<sitg>", "（").replace("</sitg>", "）"));
+                }else{
+                    value = textConversion(tempResult.getContentDescribe1());
                 }
 
-                value = textConversion(tempResult.getContentDescribe1());
-
                 if("ENO1_1_4".equals(tempTitle.getCode()) && value.contains("，满足了（")){
-                    value = value.substring(value.lastIndexOf("，满足了（")-1,value.length());
+                    value = value.substring(value.lastIndexOf("，满足了（")+1,value.length());
                 }
             }
         } else if (type == 19 || type == 20) {
@@ -983,7 +983,7 @@ public class ReportExportServiceImpl implements ReportExportService {
         try {
             Map<String,BigDecimal> scores = new HashMap<>();
             ScoreInfo query = new ScoreInfo();
-            //query.setParentId(0l);
+            query.setParentId(0l);
             query.setReportType("EN".equals(precode)?1:6);
             List<ScoreInfo> list = scoreService.queryList(query);
 

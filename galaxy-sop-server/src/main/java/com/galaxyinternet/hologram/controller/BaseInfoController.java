@@ -70,13 +70,14 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	}
 
 
-	public static final String tempath = "/template";    //  模板地址
+
 
 	/**
 	 * 全息报告 ： docx 下载
 	 */
 	public static final String temp1x = "qxbg_gl_temp";   //概览 .xml .docx
 	public static final String temp2x = "qxbg_lr_temp";   //内容 .xml .docx
+	public static final String tempath = "/template";    //  模板地址
 
 	@RequestMapping("/downxNO/{pid}")
 	public void downNOdocx(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
@@ -117,10 +118,6 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			logger.error("downDoc ",e);
 		}
 	}
-
-
-
-
 	/**
 	 * 全息报告 ： doc 下载
 	 */
@@ -168,7 +165,7 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 	 */
 	public static final String temp1x_pc = "pcbg_gl_temp";   //概览 .xml .docx
 	public static final String temp2x_pc = "pcbg_lr_temp";   //内容 .xml .docx
-
+	public static final String tempath_pc = "/template/pcbg";    //  模板地址
 	@RequestMapping("/downxEN/{pid}")
 	public void downENdocx(@PathVariable("pid") Long pid, HttpServletRequest request, HttpServletResponse response)
 	{
@@ -194,8 +191,8 @@ public class BaseInfoController  extends BaseControllerImpl<InformationTitle, In
 			 * @param filePath 保存路径
 			 * @param fileName 保存名称, xml docx 模板生成的文件
 			 */
-			DocxExportUtil docExportUtil1 = new DocxExportUtil(request,tempath, temp1x_pc, tempfilePath, dfn1);
-			DocxExportUtil docExportUtil2 = new DocxExportUtil(request,tempath, temp2x_pc, tempfilePath, dfn2);
+			DocxExportUtil docExportUtil1 = new DocxExportUtil(request,tempath_pc, temp1x_pc, tempfilePath, dfn1);
+			DocxExportUtil docExportUtil2 = new DocxExportUtil(request,tempath_pc, temp2x_pc, tempfilePath, dfn2);
 			docExportUtil1.creatDocxAsZip(map,currTime,false);
 			docExportUtil2.creatDocxAsZip(map,currTime,true);
 

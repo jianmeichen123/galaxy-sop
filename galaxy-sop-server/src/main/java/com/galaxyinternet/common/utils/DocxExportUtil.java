@@ -96,15 +96,15 @@ public class DocxExportUtil {
             out.flush();
             out.close();
 
-            /*template = configuration.getTemplate("document.xml.rels"); //.xml  .ftl
-            File outFile_rels = new File(filePath,System.currentTimeMillis()+"document.xml.rels");
-            out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile_rels), "utf-8"));
+            /*template = configuration.getTemplate("pcbg_header2.xml"); //.xml  .ftl
+            File outFile_head2 = new File(filePath,System.currentTimeMillis()+"pcbg_header2.xml");
+            out=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile_head2), "utf-8"));
             template.process(dataMap, out);
             out.flush();
             out.close();
-            if("word/_rels/document.xml.rels".equals(ze.toString()))
+            else if("word/header2.xml".equals(ze.toString()))
             {
-                InputStream in = new FileInputStream(outFile_rels);
+                InputStream in = new FileInputStream(outFile_head2);
                 while((len = in.read(buffer))!=-1)
                 {
                     zipout.write(buffer,0,len);
