@@ -155,7 +155,7 @@
 							}
 							$(radioShow).find("input[value='"+titleValList[i]+"']").parent(".icheckbox_flat-blue").children("input").attr("checked",true);
 						}
-						var last_id=$(radioShow).children(".icheckbox_flat-blue:last").hasClass("checked");
+						var last_id=$(radioShow).children(".icheck:last").find('.icheckbox_flat-blue').hasClass("checked");
 						if(last_id){
 							$(radioShow).find(".others_text").show();
 							$(radioShow).find(".others_text").val(p_box.attr("data-remark"))
