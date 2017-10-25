@@ -620,12 +620,15 @@ function buildMoneyResult(pid){
 						$.each(entityList,function(){
 							var title = this;
 							$("input[data-title-id='"+title.id+"']").attr("data-type",title.type);	
+							
+							
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val = title.resultList[0].contentDescribe1;
 								_val=_parsefloat(_val);
 								$(".new_color_black[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"—":_val);
 								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="1917"){
+									if(_val==undefined){_val=0;}
 									base_chart("finance_chart"," ","#fd88b8",['#ffbad7','#fff3f8'],[_val,100-_val]);
 								}
 							}else{

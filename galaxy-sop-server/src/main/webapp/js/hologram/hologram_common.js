@@ -1136,7 +1136,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+						"data-msg-verify_102":"<font color=red>*</font>支持10位长度的两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="8,2"){
@@ -1152,7 +1152,7 @@ function validate(){
 				var validate={
 						"data-rule-verify_94":"true",
 						"name":i,
-						"data-msg-verify_94":"<font color=red>*</font>支持0～999999999的整数和四位小数"
+						"data-msg-verify_94":"<font color=red>*</font>支持9位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,4"){
@@ -1161,7 +1161,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_134":"<font color=red>*</font>支持0～9999999999999的整数和四位小数"
+						"data-msg-verify_134":"<font color=red>*</font>支持13位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
@@ -1261,7 +1261,7 @@ $.validator.setDefaults({
 jQuery.validator.addMethod("verify_102", function(value, element) {   
 	var verify_102 = /^(\d(\.\d{1,2})?|([1-9][0-9]{1,9})(\.\d{1,2})?)$/;
 	return this.optional(element) || (verify_102.test(value));
-}, "不能超过9999999999");
+}, "支持10位长度的两位小数");
 //inputValRuleMark=="13,4"
 jQuery.validator.addMethod("verify_134", function(value, element) {
 	var verify_n4 = /^(\d(\.\d{1,4})?|([1-9][0-9]{1,12})(\.\d{1,4})?)$/;
@@ -1288,12 +1288,12 @@ jQuery.validator.addMethod("vinputValRule_1", function(value, element) {
 }, "不能超过100")
 //vinputValRule=="3"
 jQuery.validator.addMethod("vinputValRule_3", function(value, element) {   
-	var vinputValRule_3 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
+	var vinputValRule_3 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (vinputValRule_3.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="3,2"
 jQuery.validator.addMethod("verify_32", function(value, element) {   
-	var verify_32 = /^(\d|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
+	var verify_32 = /^([1-9]|[1-9]\d?(\.\d{1,2})?|0\.\d{1,2}|100|100\.0{1,2})$/;
 	return this.optional(element) || (verify_32.test(value));
 }, "不能超过100"); 
 //inputValRuleMark=="5,2"
