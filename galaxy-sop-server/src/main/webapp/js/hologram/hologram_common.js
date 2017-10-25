@@ -588,6 +588,10 @@ function buildResults(sec,title,readonly)
 				}
 				
 				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
+				console.log("!@#$%$%^&");
+				console.log(strs[0])
+				console.log(strs[0].split("."));
+				debugger;
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
 					$(".field[data-title-id='"+title.id+"']").next().show();
 					$(".field[data-title-id='"+title.id+"']").next().next().text(strs[0]).show();
