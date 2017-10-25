@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
@@ -45,6 +46,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -53,6 +55,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
@@ -89,6 +92,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
+	@Autowired
+	private DictService dictService;
 	
 	@Override
 	protected BaseService<Project> getBaseService() {
@@ -480,9 +485,21 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	/**
 	 * 会议添加页面
 	 */
-	@RequestMapping(value = "/meetAddView", method = RequestMethod.GET)
-	public String meetAddView() {
-		return "meeting/meetingtc";
+	@RequestMapping(value = "/meetPreAdd", method = RequestMethod.GET)
+	public ModelAndView meetPreAdd() 
+	{
+		ModelAndView mv = new ModelAndView("meeting/preAdd");
+		List<Dict> dictList = dictService.selectByParentCode("meetingType");
+		mv.addObject("meetingType", dictList);
+		return mv;
+	}
+	@RequestMapping(value = "/meetAdd", method = RequestMethod.GET)
+	public ModelAndView meetAdd(Long projectId, String meetingType) 
+	{
+		ModelAndView mv = new ModelAndView("meeting/meetingtc");
+		Project project = projectService.queryById(projectId);
+		
+		return mv;
 	}
 	
 	

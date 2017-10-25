@@ -10,6 +10,7 @@
 <meta charset="utf-8">
 <title>星河投</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/jquery-ui.min.css" type="text/css" rel="stylesheet">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
@@ -19,6 +20,7 @@
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+<script src="<%=path%>/js/jquery-ui.min.js" type="text/javascript"></script>
 <style>
 .tab-pane table th:nth-child(3) {
     width: 55%;
@@ -85,6 +87,7 @@
                 <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码"  id="keyword" name="keyword" maxlength="100"/>  <!-- proNameCode -->
               </dd>
               <dd>
+               <a href="javascript:;" class="bluebtn ico cx" id="add-meeting-btn">新增</a>
                <a href="javascript:;" class="bluebtn ico cx" action="querySearch">搜索</a>
               </dd>
             </dl>
@@ -233,6 +236,16 @@ function initMeetTcVal(){
 	$("#btnNotBeUse").html("");
 	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
 	
+}
+$("#add-meeting-btn").click(function(){
+	showPreAddDialog();
+});
+function showPreAddDialog()
+{
+	var _url = "<%=path %>/galaxy/project/progress/meetPreAdd";
+	$.getHtml({
+		url:_url
+	});
 }
 </script>
 
