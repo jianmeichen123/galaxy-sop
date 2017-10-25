@@ -3807,7 +3807,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .input_FA{margin-left:77px;margin-top:10px;display:none;}
 .version19_cancel_btn{background:#eef6fc;border-radius:2px;width:92px;height:32px;font-size:14px;} 
 .version19_save_btn{margin-right:20px;border-radius:2px;height:32px;display:inline-block;color:#fff;font-size:14px;line-height:32px;cursor:pointer;background-color:#3ca6ff;width:92px;}
-.basic_mes_button{display:flex;justify-content:center;margin-top:42px;}
+.basic_mes_button{display:flex;justify-content:center;margin-top:63px;}
 .basic_common_width{width:600px;font-family:MicrosoftYaHei;border-radius:0px !important;}
  .finacing_plan{height:318px;display:none;}
  .real_investment{display:none; height:auto;max-height: 505px}

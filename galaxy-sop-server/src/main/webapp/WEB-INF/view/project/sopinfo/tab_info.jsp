@@ -293,12 +293,13 @@
 						</td>
 					</tr>
 				</table>
-			<div class="btn btnbox basic_mes_button">
+			
+			</div>
+	    </div>
+	   		<div class="btn btnbox basic_mes_button">
               <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
               <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
             </div> 
-			</div>
-	    </div>
 	    </div>
 	    <!-- 编辑融资计划 -->
 	 	   <div class="finacing_plan finicial_current basic_current">
@@ -326,12 +327,13 @@
 							</tr>
 							
 						</table>
-					<div class="btn btnbox basic_mes_button">
-		             	 <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
-              			 <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
-		            </div> 
+							
 					</div>
 	    	</div>
+	    			<div class="btn btnbox basic_mes_button">
+		             	 <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+              			 <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
+				    </div> 
 	 	   </div>
 	 	   <!-- 编辑实际投资 -->
 			 	 <div class="finacing_plan real_investment invest_current basic_current">
@@ -401,12 +403,13 @@
 							</tr>
 							
 						</table>
-					<div class="btn btnbox basic_mes_button inver_button">
+					
+					</div>
+	    	</div>
+	    			<div class="btn btnbox basic_mes_button inver_button">
 		              <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
             		  <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
-					</div>
-	    	</div>
 	 	   </div>  
 	 	   <!--编辑法人信息  -->
 	 	   <div class="legal_person  basic_current legal_current">
@@ -434,12 +437,13 @@
 								</td>
 							</tr>
 						</table>
-					<div class="btn btnbox basic_mes_button inver_button">
+					
+					</div>
+	    	</div>
+	    			<div class="btn btnbox basic_mes_button inver_button">
 		              <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
               		  <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 		            </div> 
-					</div>
-	    	</div>
 	 	   </div>  
 	 	   
 	 	   <!-- 合投机构 --> 
