@@ -586,14 +586,17 @@ function buildResults(sec,title,readonly)
 				if(str!=null || str!=undefined){
 					strs=str.split("p")
 				}
-				
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
-				console.log("!@#$%$%^&");
-				console.log(strs[0])
-				console.log(strs[0].split("."));
-				debugger;
-				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
-					$(".field[data-title-id='"+title.id+"']").next().show();
+				var _val = title.resultList[0].contentDescribe1;
+				if(_val==undefined){
+					_val="未填写"
+				}else{
+					var res = change_number(_val);
+					_val = _parsefloat(res[0]);
+					var moneyT = res[1];
+				}
+				$(".field[data-title-id='"+title.id+"']").text(_val);
+				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){					
+					$(".field[data-title-id='"+title.id+"']").next().text(moneyT).show();
 					$(".field[data-title-id='"+title.id+"']").next().next().text(strs[0]).show();
 				}else{
 					$(".field[data-title-id='"+title.id+"']").next().hide();
