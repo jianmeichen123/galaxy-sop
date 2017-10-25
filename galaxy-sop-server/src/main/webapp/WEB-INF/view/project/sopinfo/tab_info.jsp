@@ -874,10 +874,6 @@
 	    forceParse:false,
 	    currentText: 'Now'
 	});
-
-
-	
-	
 	/*  function editCompany()
 	{
 		buildShareResult("4","5812");

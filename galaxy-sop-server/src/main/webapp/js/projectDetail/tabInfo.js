@@ -117,7 +117,6 @@ $(function(){
 					$(".basic_common_width").css('max-height','505px');
 				};
 				if(open==="legal"){
-					alert('dd')
 					if($(this).hasClass('limits_gray'))
 					{
 						return;
@@ -533,12 +532,12 @@ function jointDeliveryEdit(list){
 	
 	
 	//新增按钮显示隐藏
-	var inputsLength=$(".block_inputs").length;
+/*	var inputsLength=$(".block_inputs").length;
 	if(inputsLength <10){
 		$(".institutionBtn span").show()
 	}else{
 		$(".institutionBtn span").hide()
-	}
+	}*/
 	//编辑验证样式调整
 	$.each($("#basicForm input"),function(){
 		$(this).on("blur",function(){
