@@ -403,6 +403,7 @@ function buildResult(title)
 	{
 		if(_sign=="sign_3"){
 			var val = results[0].contentDescribe1;
+			var a_val = results[0].contentDescribe1;
 			var currency_id = results[0].contentDescribe2;
 			if(currency_id!=undefined){
 				var currency=currency_id.split("p")[0];
@@ -410,11 +411,14 @@ function buildResult(title)
 			if(type == 20){
 				if(val==""||val==undefined){
 					val="未填写";
+					a_val="未填写";
 					currency_id="";
 				}else{
-					val=_parsefloat(val)+"万"+currency; 
+					var res = change_number(val);
+					val=_parsefloat(res[0])+res[1]+currency; 
+					a_val =_parsefloat(a_val)+"万"+currency;
 				}
-				_ele.find("span").attr("currency",currency_id);
+				_ele.find("span").attr("currency",currency_id).attr("value",a_val);
 			 }else if(type==1){
 				 val=_parsefloat(val);
 			 }
@@ -583,7 +587,8 @@ function getValues()
 				type:type
 			};		
 			text = _this.html();
-			if(type == 20){				
+			if(type == 20){		
+				text = _this.attr("value");
 				text=text.replace("万人民币","");
 				text=text.replace("万美元","");
 				model.remark2 =_this.attr("currency") ;

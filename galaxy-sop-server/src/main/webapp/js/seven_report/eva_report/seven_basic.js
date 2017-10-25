@@ -196,6 +196,8 @@
 							data_list.titleValue=titleValue;
 						}else if(type==13 || type==2){
 							data_list.titleValue=titleValue;
+						}else if(type==20){
+							data_list.val=span_this.attr("value");
 						}
 						data.push(data_list);
 					});
@@ -674,9 +676,12 @@ $('div').delegate(".h_save_btn","click",function(event){
 			var currency_id = $(this).find("dd select").val();
 			var currency=$(this).find("dd select").find("option[data-id='"+currency_id+"']").text();
 			data_list.currency=currency+"p"+currency_id;
-			data_list.value=_parsefloat(val)+"万"+currency;			
+			data_list.value=_parsefloat(val)+"万"+currency;	
+			var res = change_number(val);
+			data_list.Tvalue=_parsefloat(res[0])+res[1]+currency
 			if(val==""||val==undefined){
 				data_list.value="未填写";
+				data_list.Tvalue="未填写";
 				data_list.currency="";
 			}
 		}else if(data_type==14){
@@ -825,8 +830,10 @@ $('div').delegate(".h_save_btn","click",function(event){
 			if(_code==dcode){
 				if(_type==1||_type==20||_type==8){	
 					if(_type==20){
+						
 						_this.find("span").attr("currency",d_this.currency);
-						_this.find("span").html(d_this.value);
+						_this.find("span").attr("value",d_this.value);
+						_this.find("span").html(d_this.Tvalue)
 					}else if(_type==1){
 						_this.find("span").html(_parsefloat(d_this.value));
 					}else{
