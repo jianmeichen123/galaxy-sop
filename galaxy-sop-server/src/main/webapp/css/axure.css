@@ -3839,7 +3839,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .radioclass{opacity:0;cursor:pointer;filter:alpha(opacity=0);}
  .radio_cont{width:28px;height:12px;margin-left:16px;cursor:pointer;text-align:center;background:url('../img/base_info/radio_no_checked.png') no-repeat 0px 4px}
  .radio_checked{background:url('../img/base_info/radio_copy.png') no-repeat 0px 4px}
- 
+ .relative_box .oval{cursor:pointer;}
  
  
  
