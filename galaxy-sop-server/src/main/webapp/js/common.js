@@ -50,6 +50,16 @@ function change_number(date){
 		return rarry;
 	}
 }
+//七大报告文本框全为空格处理
+function textarea_show(contentDescribe){
+	if(contentDescribe){
+		contentDescribe=contentDescribe.replace(/<br\/>/g,'');
+		contentDescribe=contentDescribe.replace(/<br>/g,'');
+		contentDescribe=contentDescribe.replace(/&nbsp;/g,"");
+	}
+	var len=contentDescribe.length;
+	return len;
+}
 /**
  * 加密Ajax请求 jsonStr:json字符串 jsonObj:json对象
  */

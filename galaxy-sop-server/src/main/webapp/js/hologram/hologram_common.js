@@ -474,8 +474,10 @@ function buildResults(sec,title,readonly)
 			if(readonly == true)
 			{
 				var dds = $("dd[data-title-id='" + title.id + "']");
-				dds.eq(0).html(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
-				dds.eq(1).html(title.resultList[0].contentDescribe2==undefined ?"未填写":title.resultList[0].contentDescribe2);
+				var contentDescribe1=title.resultList[0].contentDescribe1;
+				var contentDescribe2=title.resultList[0].contentDescribe2;
+				dds.eq(0).html((contentDescribe1==undefined || textarea_show(contentDescribe1)==0)?"未填写":contentDescribe1);
+				dds.eq(1).html((contentDescribe2==undefined || textarea_show(contentDescribe2)==0)?"未填写":contentDescribe2);
 			}
 			else
 			{
@@ -493,8 +495,8 @@ function buildResults(sec,title,readonly)
 				}
 				var textareas = $("textarea[data-title-id='" + title.id + "'][data-type='15']");
 				var result_id = title.resultList[0].id;
-				textareas.eq(0).val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
-				textareas.eq(1).val(title.resultList[0].contentDescribe2==undefined ?"":str2).attr("resultId",result_id);
+				textareas.eq(0).val((title.resultList[0].contentDescribe1==undefined || textarea_show(title.resultList[0].contentDescribe1)==0)?"":str).attr("resultId",result_id);
+				textareas.eq(1).val((title.resultList[0].contentDescribe2==undefined || textarea_show(title.resultList[0].contentDescribe2)==0)?"":str2).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 16)
@@ -533,7 +535,8 @@ function buildResults(sec,title,readonly)
 		{
 			if(readonly == true)
 			{
-				$(".field[data-title-id='"+title.id+"']").html(title.resultList[0].contentDescribe1==undefined ?"未填写":title.resultList[0].contentDescribe1);
+				var contentDescribe=title.resultList[0].contentDescribe1;
+				$(".field[data-title-id='"+title.id+"']").html((contentDescribe==undefined || textarea_show(contentDescribe)==0) ?"未填写":title.resultList[0].contentDescribe1);
 			}
 			else
 			{
@@ -544,7 +547,7 @@ function buildResults(sec,title,readonly)
 					str=str.replace(/<br>/g,'\n');
 					str=str.replace(/&nbsp;/g," ");
 				}
-				$("textarea[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":str).attr("resultId",result_id);
+				$("textarea[data-title-id='"+title.id+"']").val((title.resultList[0].contentDescribe1==undefined || textarea_show(title.resultList[0].contentDescribe1)==0)?"":str).attr("resultId",result_id);
 			}
 		}
 		else if(title.type == 14)
