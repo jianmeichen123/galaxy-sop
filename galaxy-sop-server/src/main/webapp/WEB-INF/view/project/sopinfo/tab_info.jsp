@@ -71,7 +71,7 @@
 					<li>
 						<div class="con_box">
 							<div class="relative_box">						
-								<em class="oval" data-toggle="tooltip" data-placement="top" data-trigger='hover' title="点击查看合投列表">合投</em>
+								<em class="oval" data-toggle="tooltip" data-name="basic" data-on="data-open" data-cont="investTogether" data-placement="top" data-trigger='hover' title="点击查看合投列表">合投</em>
 								<p class="img_box">
 								出让股份
 								</p>
@@ -443,7 +443,7 @@
 	 	   </div>  
 	 	   
 	 	   <!-- 合投机构 --> 
-	 	   <div class="agency_institute">
+	 	   <div class="agency_institute investTogether_current">
 	 	   		<div class="title_bj_tzjl agency_radius">合投机构</div>
 	 	   		<!-- <div class="compile_on_center edit_com_color" id="updateProjectInfo"> -->
 					<div class="basic_message_cont">
@@ -660,7 +660,7 @@
 	        <span class="new_color size16">法人信息</span>
 	        <c:if test="${isEditable}">
 	         	<span class="new_fctbox">
-	            	<a href="javascript:;" class="edit" data-cont="legal" data-on="data-open">编辑</a>
+	            	<a href="javascript:;" class="edit" data-cont="legal" data-name="basic" data-on="data-open">编辑</a>
 	         	</span>
 	        </c:if>
 	    </div>
