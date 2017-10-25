@@ -387,7 +387,7 @@
 							</tr>
 						</table>
 						<div class="invest_institue">
-							<span>合投机构：</span>	
+							<span class="invest_type">合投机构：</span>	
 							<span class="inves_add"></span>
 							<div class="institue_content">
 								<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
@@ -902,6 +902,29 @@
 		$('.legal .show').hide();
 		$('.legal .hidden').show();
 	}
+	
+	//chen{}
+	//radio自定义事件
+	$(".radio_cont").on("click",function(){
+		$(this).addClass("radio_checked").siblings().removeClass("radio_checked");
+		//领投合投点击显示
+		var index = $(this).index();
+		if(index===1){
+			$('.invest_institue').show();
+			$(".invest_type").text('领投机构：');
+		}else if(index===2){
+			$('.invest_institue').show();
+			$(".invest_type").text('合投机构：');
+		}else{
+			$('.invest_institue').hide();
+		}
+		
+		
+		
+	})
+
+	
+	
 	
 	
 </script>
