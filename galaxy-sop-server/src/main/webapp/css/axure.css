@@ -3843,8 +3843,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .invest_institue{display:none;}
  .inves_plan_btn{margin-top:36px;}
  .legal_button{margin-top:36px;}
- .institue_content{display:none;}
- 
+ .institue_content{width: auto;height: auto;display:none;}
+ .institue_inputs{display:inline-table;}
  
  
  
