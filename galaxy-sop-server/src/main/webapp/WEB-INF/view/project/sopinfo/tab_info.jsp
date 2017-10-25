@@ -383,7 +383,7 @@
 									</span>
 								</td>
 							</tr>
-							<tr class="">
+							<tr class="invest_institue">
 								<td>
 									<span>合投机构：</span>	
 									<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
