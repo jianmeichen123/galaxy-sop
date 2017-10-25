@@ -590,6 +590,7 @@ function buildShareResult(reportType,relateId){
 										}
 									}
 									_val = _parsefloat(_val);
+									var I_val=_val;
 								}
 								if(_val==undefined){
 									_val="—"
@@ -602,7 +603,7 @@ function buildShareResult(reportType,relateId){
 								}
 								
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
-								$("input[data-title-id='"+title.id+"']").val(_val).attr({"data-result-id":title.resultList[0].id});	
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":I_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="3010"){
 									if(_val==undefined||_val=="—"){
 										_val=0;
@@ -636,6 +637,7 @@ function buildMoneyResult(pid){
 							if(null!=title.resultList&&title.resultList.length>0){
 								var _val = title.resultList[0].contentDescribe1;
 								_val=_parsefloat(_val);
+								var I_val=_val
 								if(_val==undefined){
 									_val="—"
 								}else{
@@ -647,7 +649,7 @@ function buildMoneyResult(pid){
 								}
 								
 								$(".new_color_black[data-title-id='"+title.id+"']").text(_val);
-								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":_val).attr({"data-result-id":title.resultList[0].id});	
+								$("input[data-title-id='"+title.id+"']").val(title.resultList[0].contentDescribe1==undefined ?"":I_val).attr({"data-result-id":title.resultList[0].id});	
 								if(title.id=="1917"){
 									console.log(_val);
 									if(_val==undefined||_val=="—"){_val=0;}

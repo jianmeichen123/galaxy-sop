@@ -289,20 +289,20 @@
 						<table width='100%' cellspacing='0' cellpadding='0' class="edit_basic_table">
 							<tr>
 								<td>
-									<span>项目名称：</span>
-									<input type="text" value="2000" class="basic_mes_input">
+									<span>融资金额：</span>
+									<input type="text" class="basic_mes_input" data-title-id="1916">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>项目估值：</span>
-									<input type="text" value="9999" class="basic_mes_input">
+									<input type="text" class="basic_mes_input" data-title-id="1943">
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span>出让股份：</span>
-									<input type="text" value="" class="basic_mes_input" placeholder="出让股份(%)">
+									<input type="text" class="basic_mes_input" placeholder="出让股份(%)" data-title-id="1917">
 								</td>
 							</tr>
 							
