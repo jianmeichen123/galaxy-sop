@@ -115,7 +115,19 @@ $(function(){
 				var common = $(this).attr('data-name');
 				if(open==="invest"){
 					$(".basic_common_width").css('max-height','505px');
+				};
+				if(open==="legal"){
+					alert('dd')
+					if($(this).hasClass('limits_gray'))
+					{
+						return;
+					}
+					buildShareResult("4","5812");
+					
 				}
+				
+				
+				
 				//外层div一直显示 basic_on  show
 				$('.'+common+'_on').show();//basic_on
 				//内部弹窗根据条件显示
@@ -140,10 +152,7 @@ $(function(){
 					popMiddle()
 				})
 				
-				/*$('.'+open+'_on').show();*/
-				/*$('.'+open+'_center').hide();*/
-				/*var width_fwb=$('.tabtable_con_on').width();
-				$('.width_fwb').css('width',(width_fwb-40));*/
+				
 				//投资形式切换
 				$(".new_table .mar_left>input").change(function(){
 					var val=$(this).val();

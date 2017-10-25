@@ -827,17 +827,18 @@
 	var isTransfering = "${fx:isTransfering(pid) }";
 	if(isTransfering == 'true')
 	{
-		$('.legal [data-btn="edit"]').addClass('limits_gray');
+		$('.legal [data-on="data-open"]').addClass('limits_gray');
 	}
-	$('.legal [data-btn="edit"]').on('click',function(){
+/* 	$('.legal [data-btn="edit"]').on('click',function(){
+		alert('cdddd')
 		if($(this).hasClass('limits_gray'))
 		{
 			return;
 		}
 		editCompany();		
-	});
+	}); */
 	
-	/*编辑法人信息交互  */
+	/*编辑法人信息保存方法交互  */
 	$('.legal_current [data-btn="save"]').on('click',function(){
 		console.log(${projectId })
 		var projectCompany=$("input[name='projectCompany']").val();
@@ -877,13 +878,13 @@
 
 	
 	
-	function editCompany()
+	/* function editCompany()
 	{
 		buildShareResult("4","5812");
-    	$('.bj_hui_on').show();
-		$('.legal .show').hide();
-		$('.legal .hidden').show();
-	}
+    	/* $('.bj_hui_on').show(); */
+		/* $('.legal .show').hide(); */
+		/* $('.legal .hidden').show(); */
+	} */
 	
 	
 	//chen{}
