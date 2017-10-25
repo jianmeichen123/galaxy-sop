@@ -3826,7 +3826,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .input_stock_left{margin-left:36px;}
  .inves_delete{display:inline-block;cursor:pointer;width:16px;height:16px;vertical-align: text-bottom;background:url('../img/base_info/pop_icon.png') no-repeat  -78px -16px}
  .inves_delete:hover,.inves_delete:active{background-position:-78px -64px;}
- .inves_add{display:inline-block;width:29px;height:29px;cursor:pointer;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px}
+ .inves_add{display:inline-block;width:29px;height:29px;cursor:pointer;background:url('../img/base_info/pop_icon.png') no-repeat  -10px -10px;vertical-align: text-bottom;margin-left: 37px;margin-top: 10px;}
  .inves_add:hover,.inves_add:active{background-position:-10px -58px;}
  .inver_button{margin-top:25px;margin-bottom:27px;}
  .legal_person{height:318px;}
