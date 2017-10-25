@@ -387,19 +387,21 @@
 							</tr>
 						</table>
 						<div class="invest_institue">
-							<span class="invest_type">合投机构：</span>	
-							<span class="inves_add"></span>
-							<div class="institue_content">
-								<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
-								<input type="text" placeholder="投资金额(万元)" class="inves_input">
-								<span class='select_cont'>
-									<select class="inves_select">
-										<option>人民币</option>
-										<option>美元</option>
-									</select>
-								</span>
-								<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
-								<em class="inves_delete"></em>
+							<span class="invest_type">合投机构：</span>
+							<div class="institue_inputs">
+								<div class="institue_content">
+									<input type="text" placeholder="机构名称" class="inves_input input_stock_left">
+									<input type="text" placeholder="投资金额(万元)" class="inves_input">
+									<span class='select_cont'>
+										<select class="inves_select">
+											<option>人民币</option>
+											<option>美元</option>
+										</select>
+									</span>
+									<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">
+									<em class="inves_delete"></em>
+								</div>	
+								<span class="inves_add"></span>
 							</div>	
 				
 						</div>
@@ -918,11 +920,11 @@
 		}else{
 			$('.invest_institue').hide();
 		}
-		
-		
-		
 	})
-
+$('.inves_add').on("click",function(){
+	$('.institue_content').show();
+	$('.invest_institue').css('margin-top','20px');
+})
 	
 	
 	
