@@ -530,10 +530,18 @@ function buildResults(sec,title,readonly)
 					}*/
 					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined || title.resultList[0].contentDescribe1=="" ?"未填写":_parsefloat(num));
 				}else{
-					$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
+					var _val = title.resultList[0].contentDescribe1;
+					if(_val==undefined){
+						_val="未填写"
+					}else{
+						var res = change_number(_val);
+						_val = _parsefloat(res[0]);
+						var moneyT = res[1];
+					}
+					$(".field[data-title-id='"+title.id+"']").text(_val);
 				}
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
-					$(".field[data-title-id='"+title.id+"']").next().show();
+					$(".field[data-title-id='"+title.id+"']").next().text(moneyT).show();
 				}
 				if(title.resultList[0].contentDescribe1=='' || title.resultList[0].contentDescribe1==undefined){
 					$(".field[data-title-id='"+title.id+"']").siblings(".news_table").hide();
@@ -569,13 +577,20 @@ function buildResults(sec,title,readonly)
 				if(str!=null || str!=undefined){
 					strs=str.split("p")
 				}
-				$(".field[data-title-id='"+title.id+"']").text(title.resultList[0].contentDescribe1==undefined ?"未填写":_parsefloat(title.resultList[0].contentDescribe1));
+				var _val = title.resultList[0].contentDescribe1;
+				if(_val==undefined){
+					_val="未填写"
+				}else{
+					var res = change_number(_val);
+					_val = _parsefloat(res[0]);
+					var moneyT = res[1];
+				}
+				$(".field[data-title-id='"+title.id+"']").text(_val);
 				if($(".field[data-title-id='"+title.id+"']").text() !='未填写'){
                     if (title.id == '1939' ){
-                        $(".field[data-title-id='1939']").text(_parsefloat(title.resultList[0].contentDescribe1)+title.content+strs[0])
-                            //title.resultList[0].contentDescribe1 =
+                        $(".field[data-title-id='1939']").text(_val+moneyT+strs[0]);
                     }else{
-                        $(".field[data-title-id='"+title.id+"']").next().show();
+                        $(".field[data-title-id='"+title.id+"']").next().text(moneyT).show();
                         $(".field[data-title-id='"+title.id+"']").next().next().text(strs[0]).show();
 
                     }
@@ -1194,7 +1209,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"
+						"data-msg-verify_102":"<font color=red>*</font>支持10位长度的两位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="8,2"){
@@ -1212,7 +1227,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_94":"<font color=red>*</font>支持0～999999999的整数和四位小数"
+						"data-msg-verify_94":"<font color=red>*</font>支持9位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="13,4"){
@@ -1221,7 +1236,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_134":"<font color=red>*</font>支持0～9999999999999的整数和四位小数"
+						"data-msg-verify_134":"<font color=red>*</font>支持13位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){

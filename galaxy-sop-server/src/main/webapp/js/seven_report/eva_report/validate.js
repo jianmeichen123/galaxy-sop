@@ -46,7 +46,7 @@ function validate(){
 						"name":i,
 						//"required":"required",
 						//"regString":"^(([1-9][0-9]{0,9})|([0-9]{1,10}\.[1-9]{1,2})|([0-9]{1,10}\.[0][1-9]{1})|([0-9]{1,10}\.[1-9]{1}[0])|([1-9][0-9]{0,9}\.[0][0]))$",
-						"data-msg-verify_102":"<font color=red>*</font>支持0～9999999999的整数和两位小数"			
+						"data-msg-verify_102":"<font color=red>*</font>支持10位长度的两位小数"			
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="8,2"){
@@ -62,7 +62,7 @@ function validate(){
 				var validate={
 						"data-rule-verify_94":"true",
 						"name":i,
-						"data-msg-verify_94":"<font color=red>*</font>支持0～999999999的整数和四位小数"
+						"data-msg-verify_94":"<font color=red>*</font>支持9位长度的四位小数"
 				}
 				inputs.eq(i).attr(validate);
 			}else if(inputValRuleMark=="3,2"){
