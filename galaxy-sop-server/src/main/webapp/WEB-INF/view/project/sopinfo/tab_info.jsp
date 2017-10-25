@@ -214,7 +214,7 @@
 	<div class="basic_on basic_common_width">
 		<form id="basicForm" onsubmit="return false;">
 		<!-- 编辑基本信息 -->
-		<div class="basic_message message_current">
+		<div class="basic_message message_current basic_current">
 		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑基本信息</div>
 		<div class="compile_on_center edit_com_color" id="updateProjectInfo">
 			<div class="basic_message_cont">
@@ -301,7 +301,7 @@
 	    </div>
 	    </div>
 	    <!-- 编辑融资计划 -->
-	 	   <div class="finacing_plan finicial_current">
+	 	   <div class="finacing_plan finicial_current basic_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑融资计划</div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
@@ -334,7 +334,7 @@
 	    	</div>
 	 	   </div>
 	 	   <!-- 编辑实际投资 -->
-			 	 <div class="finacing_plan real_investment invest_current">
+			 	 <div class="finacing_plan real_investment invest_current basic_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑实际投资</div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
@@ -409,7 +409,7 @@
 	    	</div>
 	 	   </div>  
 	 	   <!--编辑法人信息  -->
-	 	   <div class="legal_person  legal_current">
+	 	   <div class="legal_person  basic_current legal_current">
 	 	   		<div class="title_bj_tzjl"><span class="edit_icon_img"></span>编辑法人信息</div>
 	 	   		<div class="compile_on_center edit_com_color">
 					<div class="basic_message_cont">
