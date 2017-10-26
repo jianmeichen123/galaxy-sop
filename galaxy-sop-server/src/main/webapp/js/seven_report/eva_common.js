@@ -524,12 +524,20 @@ function buildResult(title)
 						}
 					}
 				}
-				if(sum>0){
+				if(val.indexOf("<sitg>")==-1){
 					if($(this).data("relateId")=="1006"||$(this).data("relateId")=="9006"){
 						val=val.split("</sitg>）的产品或服务，");
 						val = val[1];
 					}
 					$(this).html(val);
+				}else{
+					if(sum>0){
+						if($(this).data("relateId")=="1006"||$(this).data("relateId")=="9006"){
+							val=val.split("</sitg>）的产品或服务，");
+							val = val[1];
+						}
+						$(this).html(val);
+					}
 				}
 			})
 			
