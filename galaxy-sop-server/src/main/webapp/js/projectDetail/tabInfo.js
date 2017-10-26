@@ -184,7 +184,10 @@ $(function(){
 				$("#projectProgress_edit").text(projectInfo.progress);
 				$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
 				$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
-				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
+				$("#industry_own_sel").val(projectInfo.industryOwnDs);
+				$("#finance_status_sel").val(projectInfo.financeStatusDs)
+				$("input[name='projectSource']").val(projectInfo.faFlagStr).attr('data-flag',projectInfo.faFlag);
+				//$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
 				//添加投资形式字段
 				if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!=""){
 					var financeForms=$("input[name='investForm']");
@@ -251,6 +254,62 @@ $(function(){
 				}
 			
 			})
+			function callBackSelect(data,domId){
+        	if(domId='finance_status_sel'){
+        		 var _dom=$("#finance_status_sel").next('ul');
+ 		        _dom.html("");
+ 		        //_dom.append('<option value="">--请选择--</option>');
+	 		    var childNum = _dom.find("option").length;
+	 		    var valueId=$("#financeStatusDs").attr("value");
+	 		    var resultId=$("#financeStatusDs").attr("data-result-id");
+	 		    var entity=data.entity.childList[0];
+	 		    _dom.attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
+	 		    if(!childNum || childNum !=0 ){
+	 		    	$.each(entity.valueList,function(){ 
+	 		    		_dom.append("<li value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
+	 					
+	 				});
+	 		    }
+	 		    $("select[data-title-id]").change(function(){
+	 		    	$(this).attr("tochange",true)
+	 		    })
+        	}else if(domId=='industry_own_sel'){
+        		 var _dom=$("#industry_own_sel").next('ul');
+		           _dom.html("");
+		           //_dom.append('<option value="">--请选择--</option>');
+		       var childNum = _dom.find("option").length;
+			    if(!childNum || childNum !=0 ){
+			    	$.each(data.entityList,function(){
+							if(this.code==p){
+								_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
+							}else{
+								_dom.append("<li value='"+this.code+"'>"+this.name+"</li>");
+							}
+					});
+			    }
+        	}else if(domId=='projectSource'){
+        		var _dom=$("input[name='projectSource']").next('ul');
+		           _dom.html("");
+		           //_dom.append('<option value="">--请选择--</option>');
+		       var childNum = _dom.find("option").length;
+			    if(!childNum || childNum !=0 ){
+			    	$.each(data.entityList,function(){
+							if(this.code==p){
+								_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
+							}else{
+								_dom.append("<li index='"+this.value+"' value='"+this.code+"'>"+this.name+"</li>");
+							}
+					});
+			    }
+        	}
+        	$("#dropdown ul li").click(function(){
+				var target = $(this).closest('#dropdown').find('input');
+				target.removeClass('up')
+				var txt = $(this).text(); 
+				target.val(txt)
+				$("#dropdown ul").hide(); 
+        	});
+        }
 				function CallBackB(data){
 			    var _dom=$("#finance_status_sel").next('ul');
 			        _dom.html("");
@@ -269,6 +328,13 @@ $(function(){
 			    $("select[data-title-id]").change(function(){
 			    	$(this).attr("tochange",true)
 			    })
+				$("#dropdown ul li").click(function(){
+					var target = $(this).closest('#dropdown').find('input');
+					target.removeClass('up')
+					var txt = $(this).text(); 
+					target.val(txt)
+					$("#dropdown ul").hide(); 
+			});
 				 
 			}
 			function CallBackA(data){
@@ -285,10 +351,16 @@ $(function(){
 								}
 						});
 				    }
+					$("#dropdown ul li").click(function(){
+						var target = $(this).closest('#dropdown').find('input');
+						target.removeClass('up')
+						var txt = $(this).text(); 
+						target.val(txt)
+						$("#dropdown ul").hide(); 
+				});
 					 
 				}
 			function CallBackC(data){
-				console.log(data)
 			       var _dom=$("input[name='projectSource']").next('ul');
 			           _dom.html("");
 			           //_dom.append('<option value="">--请选择--</option>');
@@ -302,7 +374,23 @@ $(function(){
 								}
 						});
 				    }
-					 
+					$("#dropdown ul li").click(function(){
+						var target = $(this).closest('#dropdown').find('input');
+						target.removeClass('up')
+						var txt = $(this).text(); 
+						var faFlag=$(this).attr('value');
+						target.val(txt).attr('data-flag',faFlag);
+						$("#dropdown ul").hide(); 
+						if(txt=="FA"){
+							$("#projectSource-error").hide();
+							$(this).closest('td').find(".input_FA").show();
+							$(this).closest('td').find(".input_FA").attr("required","required");
+						}else{
+							$(this).closest('td').find(".input_FA").hide();
+							$(this).closest('td').find(".input_FA").remove("required");
+							$("#faNameEdit-error").hide();
+						}
+				});
 				}
 			//表格渲染 
 			info_table("NO9_1","融资历史：",$("table.fina_history"));
@@ -445,9 +533,8 @@ $(function(){
 		function getUpdateData(){
 			var id=$("#pid").val();
 			var pname=$("#project_name_edit").val().trim();
-			var industry_own=$("#industry_own_sel").val().trim();
-			var faFlag=$('select[name="projectSource"] option:selected').attr("value");
-			var remark=$('#remark').val().trim();
+			var industry_own=$("#industry_own_sel").val();
+			var faFlag=$('input[name="projectSource"]').attr('data-flag');
 			var faName="";
 			if(faFlag=='projectSource:1'){
 				faName=$("#faNameEdit").val();
@@ -483,11 +570,11 @@ $(function(){
 					       "industryOwn":industry_own,
 		  	               "faFlag":faFlag,
 		  	               "faName":faName,
-		  	               "remark":remark,
 		  	               "financeMode":investForm,
                            "jointDeliveryList":arr,
                            "isDelete":isDelete
 			};
+			console.log(formatData);
 			return formatData;
 		}
 		function saveSuccess(){
@@ -730,7 +817,7 @@ $("input[data-title-id]").on("input",function(){
 $("input[data-title-id=\"1816\"]").attr("tochange",true);
 //div模拟select下拉框
 $(function(){ 
-	$(".input_select").click(function(){ 
+	$(".input_select").click(function(e){ 
 		var _this = $(this);
 		var ul = _this.parents('#dropdown').find('ul');
 		if(ul.css("display")=="none"){
@@ -743,16 +830,16 @@ $(function(){
 		//_this.addClass('input_select');
 		ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
 		} 
+		$(document).on("click", function(){
+			if(ul.css("display")!="none"){
+				ul.slideUp("fast");
+				_this.removeClass('up');
+				ul.closest('tr').siblings('tr').find('dropdown>ul').hide()
+			}
+			
+	    });
+		 e.stopPropagation();
 	}); 
-	
-	$("#dropdown ul li").click(function(){ 
-		var target = $(this).closest('#dropdown').find('input');
-		target.removeClass('up')
-		var txt = $(this).text(); 
-		target.val(txt)
-		$("#dropdown ul").hide(); 
-}); 
-
 }); 
 
 /**
