@@ -17,12 +17,11 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
 
 
-
+<form id="meeting-form" class="myprojecttc new_poptxt myproject_add"  type="validate">
 <div class="title_bj">添加${meetingTypeDesc}记录</div>
-<form id="meeting-form">
 <input type="hidden" name="projectId" value="${projectId }">
 <input type="hidden" name="meetingType" value="${meetingType }">
-<div class="meetingtc margin_45" id="add_meet_tc">
+<div class="tab_con">
 	<div class="min clearfix">
 		<dl class="fmdl fml clearfix">
 			<dt>会议时间：</dt>
@@ -52,14 +51,24 @@
     </dl>
     <dl class="fmdl clearfix check_result">
         <dt id="toobar_result">会议结论：</dt>
-        <dd id="resultRadion" class="spresults">
-       	<c:forEach var="result" items="${meetingResultList }">
+        <c:choose>
+        	<c:when test="${meetingType=='meetingType:2' }">
+        <dd id="resultRadion">	
+        	</c:when>
+        	<c:when test="${meetingType=='meetingType:5' }">
+        <dd id="resultRadion" class="spresults">	
+        	</c:when>
+        	<c:otherwise>
+        <dd id="resultRadion" class="spresult">
+        	</c:otherwise>
+        </c:choose>
+       	<c:forEach var="result" items="${meetingResultList }" varStatus="status">
+       		<div class="clearfix" id="div_${status.index }">
        		<c:choose>
-       			<c:when test="${result.code=='meeting1Result:4' or result.code=='meeting3Result:6' or result.code=='meeting4Result:3' or result.code=='meeting5Result:2'}">
-       			<div class="clearfix">
-       				<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="result.code" />${result.name}</label>
+       			<c:when test="${result.code=='meeting1Result:4' or result.code=='meeting3Result:6' or result.code=='meeting4Result:3' or result.code=='meeting5Result:2' or result.code=='meetingResult:3'}">
+       				<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="${result.code}" />${result.name}</label>
        				<div class="resel_box">
-       					<select required="required" disabled="disabled" class="disabled" name="meetingVetoReason" id="meetingVetoReason" data-msg-required="<font color=red>*</font><i></i>必选">
+       					<select required="required" disabled="disabled" class="disabled" name="resultReason" id="meetingVetoReason" data-msg-required="<font color=red>*</font><i></i>必选">
 	           				<option value="">请选择原因</option>
 	           				<c:forEach var="item" items="${meetingVetoReason }">
 	           				<option value="${item.code }">${item.name }</option>
@@ -67,15 +76,13 @@
 	           			</select>
 	           		</div>
 	         		<div class="reason_box">
-	         			<input type="text" disabled="disabled" name="meetingVetoReasonOther" id="meetingVetoReasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true">
+	         			<input type="text" disabled="disabled" name="reasonOther" id="meetingVetoReasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true">
 	         		</div>
-       			</div>
        			</c:when>
        			<c:when test="${result.code=='meetingResult:2'}">
-       			<div class="clearfix">
-       				<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="result.code" />${result.name}</label>
+       				<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="${result.code}" />${result.name}</label>
        				<div class="resel_box">
-       					<select required="required" disabled="disabled" class="disabled" name="meetingUndeterminedReason" id="meetingUndeterminedReason" data-msg-required="<font color=red>*</font><i></i>必选">
+       					<select required="required" disabled="disabled" class="disabled" name="resultReason" id="meetingUndeterminedReason" data-msg-required="<font color=red>*</font><i></i>必选">
 	           				<option value="">请选择原因</option>
 	           				<c:forEach var="item" items="${meetingUndeterminedReason }">
 	           				<option value="${item.code }">${item.name }</option>
@@ -83,15 +90,13 @@
 	           			</select>
 	           		</div>
 	         		<div class="reason_box">
-	         			<input type="text" disabled="disabled" name="meetingUndeterminedReasonOther" id="meetingUndeterminedReason" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true">
+	         			<input type="text" disabled="disabled" name="reasonOther" id="meetingUndeterminedReason" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true">
 	         		</div>
-       			</div>
        			</c:when>
        			<c:when test="${result.code=='meeting5Result:1'}">
-       			<div class="clearfix">
-       				<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="result.code" />${result.name}</label>
+       				<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="${result.code}" />${result.name}</label>
        				<div class="resel_box">
-       					<select required="required" disabled="disabled" class="disabled" name="meetingFollowingReason" id="meetingFollowingReason" data-msg-required="<font color=red>*</font><i></i>必选">
+       					<select required="required" disabled="disabled" class="disabled" name="resultReason" id="meetingFollowingReason" data-msg-required="<font color=red>*</font><i></i>必选">
 	           				<option value="">请选择原因</option>
 	           				<c:forEach var="item" items="${meetingFollowingReason }">
 	           				<option value="${item.code }">${item.name }</option>
@@ -99,23 +104,22 @@
 	           			</select>
 	           		</div>
 	         		<div class="reason_box">
-	         			<input type="text" disabled="disabled" name="meetingFollowingReasonOther" id="meetingFollowingReasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true">
+	         			<input type="text" disabled="disabled" name="reasonOther" id="meetingFollowingReasonOther" class="txt disabled" placeholder="请填写其它原因" data-msg-required="<font color=red>*</font><i></i>必填" maxlength="50" data-rule-reasonOther="true">
 	         		</div>
-       			</div>
        			</c:when>
        			
        			<c:otherwise>
-	        		<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="result.code" />${result.name}</label>
+        			<label><input name="meetingResult" type="radio" required data-msg-required="<font color=red>*</font><i></i>必选" value="${result.code}" />${result.name}</label>
        			</c:otherwise>
        		</c:choose>
-       	
+       		</div>
        	</c:forEach>
             
         </dd>
     </dl>
-    <div class="btnbox" id="btnNotBeUse">
-    	<a href="javascript:;" class="pubbtn bluebtn" id="savemeet">保存</a>
-    	<a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+    <div class="save_button mt_50">
+    	<button type=button id="save_interview" class="pubbtn bluebtn">保存</button>
+        <a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
     </div>
 </div>	
 </form>
