@@ -837,7 +837,9 @@ $('div').delegate(".h_save_btn","click",function(event){
 					}else if(_type==1){
 						_this.find("span").html(_parsefloat(d_this.value));
 					}else{
-						_this.find("span").html(d_this.value);
+						if(textarea_show(d_this.value)>0){
+							_this.find("span").html(d_this.value);
+						}
 					}
 					
 					Tfun_8(_this);

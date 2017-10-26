@@ -419,10 +419,18 @@ function buildResult(title)
 					a_val =_parsefloat(a_val)+"万"+currency;
 				}
 				_ele.find("span").attr("currency",currency_id).attr("value",a_val);
+				_ele.find("span").html(val);
 			 }else if(type==1){
 				 val=_parsefloat(val);
-			 }
-			_ele.find("span").html(val);
+				 _ele.find("span").html(val);
+			 }else if(type==8){
+				if(textarea_show(val)>0){
+					_ele.find("span").html(val);
+				}
+			}else{
+				_ele.find("span").html(val);
+			}
+			
 		}else{
 			if(type==8){
 				if(textarea_show(results[0].contentDescribe1)>0){
