@@ -206,6 +206,11 @@
 					</tr>
 					<tr>
 						<td>
+							<span>项目类型：</span><span class="basic_mes_left" id="projectType_edit">2017-10-23</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<span>创建时间：</span><span class="basic_mes_left">2017-10-23</span>
 						</td>
 					</tr>
@@ -213,20 +218,6 @@
 						<td>
 							<span>项目名称：</span>
 							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font><i></i>项目名称不能为空" aria-required="true"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span style="display:inline-block">项目类型：</span>
-							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择"/> 
-									<ul class='base_select_ul'> 
-										<li>企业服务</li> 
-										<li>数字娱乐</li> 
-										<li>互联网教育</li> 
-										<li>互联网医疗</li> 
-									</ul> 
-							</div> 
 						</td>
 					</tr>
 					<tr>
