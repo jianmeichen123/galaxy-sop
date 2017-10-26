@@ -3789,6 +3789,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
 .sev_report .gray .cp{background-position:-339px 45px;}
 .sev_report .gray .rz{background-position:-424px 45px;}
 .sev_report .gray .yy{background-position:-507px 45px;}
+.base_select_ul{max-height:250px;overflow-y:auto;}
  /*陈剑波修改*/
  .basic_message{width:600px;border-radius:0px;height:552px;display:none;}
  .basic_mes_left{margin-left:8px;}

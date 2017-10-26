@@ -233,7 +233,8 @@ $(function(){
 			    	 * @version 2017-09-18
 			    	 */
 			    	$("select[name='projectSource'] option").not(":first").remove();   //项目来源加载前清空
-			    	 createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
+			    	sendGetRequest(platformUrl.searchDictionaryChildrenItems+"projectSource", null,CallBackC);
+			    	// createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectSource","projectSource");
 			    	
 			    	//initDialogVal();
 		    	}
@@ -251,9 +252,9 @@ $(function(){
 			
 			})
 				function CallBackB(data){
-			    var _dom=$("#finance_status_sel");
+			    var _dom=$("#finance_status_sel").next('ul');
 			        _dom.html("");
-			        _dom.append('<option value="">--请选择--</option>');
+			        //_dom.append('<option value="">--请选择--</option>');
 			    var childNum = _dom.find("option").length;
 			    var valueId=$("#financeStatusDs").attr("value");
 			    var resultId=$("#financeStatusDs").attr("data-result-id");
@@ -261,7 +262,7 @@ $(function(){
 			    _dom.attr({"data-title-id":entity.titleId,"data-type":entity.type,"data-result-id":resultId});
 			    if(!childNum || childNum !=0 ){
 			    	$.each(entity.valueList,function(){ 
-			    		_dom.append("<option value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</option>");
+			    		_dom.append("<li value='"+this.id+"' data-title-id='"+this.titleId+"' text='"+this.name+"'>"+this.name+"</li>");
 						
 					});
 			    }
@@ -271,22 +272,38 @@ $(function(){
 				 
 			}
 			function CallBackA(data){
-			       var _dom=$("#industry_own_sel");
+			       var _dom=$("#industry_own_sel").next('ul');
 			           _dom.html("");
-			           _dom.append('<option value="">--请选择--</option>');
+			           //_dom.append('<option value="">--请选择--</option>');
 			       var childNum = _dom.find("option").length;
 				    if(!childNum || childNum !=0 ){
 				    	$.each(data.entityList,function(){
 								if(this.code==p){
-									_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
+									_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
 								}else{
-									_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
+									_dom.append("<li value='"+this.code+"'>"+this.name+"</li>");
 								}
 						});
 				    }
 					 
 				}
-			
+			function CallBackC(data){
+				console.log(data)
+			       var _dom=$("input[name='projectSource']").next('ul');
+			           _dom.html("");
+			           //_dom.append('<option value="">--请选择--</option>');
+			       var childNum = _dom.find("option").length;
+				    if(!childNum || childNum !=0 ){
+				    	$.each(data.entityList,function(){
+								if(this.code==p){
+									_dom.append("<li selected value='"+this.code+"'>"+this.name+"</li>");
+								}else{
+									_dom.append("<li index='"+this.value+"' value='"+this.code+"'>"+this.name+"</li>");
+								}
+						});
+				    }
+					 
+				}
 			//表格渲染 
 			info_table("NO9_1","融资历史：",$("table.fina_history"));
 			info_table("NO9_1","股权结构：",$("#equity"));
