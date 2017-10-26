@@ -738,19 +738,6 @@
      var isDelete=[];
 	var projectInfo = ${proinfo};
 	$("[data-toggle='tooltip']").tooltip();//提示
-	//项目来源切换
-	$("select[name='projectSource']").change(function(){
-		var text=$(this).find("option:checked").text();
-		if(text=="FA"){
-			$("#projectSource-error").hide();
-			$(this).siblings(".new_nputr").show();
-			$(this).siblings(".new_nputr").attr("required","required");
-		}else{
-			$(this).siblings(".new_nputr").hide();
-			$(this).siblings(".new_nputr").remove("required");
-			$("#faNameEdit-error").hide();
-		}
-	})
 	//运营数据分析返回
 /* 	if(getCookieValue('backListOperation')=='7'){
 		 if(document.URL.indexOf("back=operateList")>0){

@@ -381,8 +381,16 @@ $(function(){
 						var faFlag=$(this).attr('value');
 						target.val(txt).attr('data-flag',faFlag);
 						$("#dropdown ul").hide(); 
+						if(txt=="FA"){
+							$("#projectSource-error").hide();
+							$(this).closest('td').find(".input_FA").show();
+							$(this).closest('td').find(".input_FA").attr("required","required");
+						}else{
+							$(this).closest('td').find(".input_FA").hide();
+							$(this).closest('td').find(".input_FA").remove("required");
+							$("#faNameEdit-error").hide();
+						}
 				});
-					 
 				}
 			//表格渲染 
 			info_table("NO9_1","融资历史：",$("table.fina_history"));
