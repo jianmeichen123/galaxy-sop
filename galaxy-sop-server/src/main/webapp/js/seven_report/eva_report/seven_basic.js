@@ -304,7 +304,7 @@
 							}
 						   var div=$(".h_edit_txt");
 						   for(var j=0;j<div.children("dd").length;j++){
-							   div.children("dd").eq(j).find("input").val(inputsValueList[j]);
+							   div.children("dd").eq(j).find("input").val(inputsValueList[j].trim());
 							   
 						   }
 						}
@@ -883,14 +883,25 @@ $('div').delegate(".h_save_btn","click",function(event){
 					var sp_dds = $(".content_16 p[data-relate-id='1006'],.content_16 p[data-relate-id='9006']");
 					/*str=str.replace(/\n|\r\n/g,"<br>")
 					str=str.replace(/\s/g,"&nbsp;");*/
+					console.log(str)
+					if(str !=undefined && str.indexOf("<sitg>")>-1){
+						var conStr=str.split("<sitg>");
+						var sum=0;
+					   for(var i=0;i<conStr.length;i++){
+							if(conStr[i].indexOf("</sitg>")>-1){
+								var inputsValueLen=conStr[i].substring(0,conStr[i].indexOf("</sitg>")).trim().length;
+								sum +=inputsValueLen
+							}
+						}
+					}
 					if(str){
 						str1=str.replace(/<sitg>/g,'（<sitg>');
 						str1=str1.replace(/<\/sitg>/g,'<\/sitg>）');						
 					} 
 					sp_str1=str1.split("</sitg>）的产品或服务，");
 					sp_str1=sp_str1[1];					
-					dds.html(d_this.remark1==undefined ?"未填写":str1);
-					sp_dds.html(d_this.remark1==undefined ?"未填写":sp_str1);
+					dds.html((d_this.remark1==undefined || sum==0 )?"未填写":str1);
+					sp_dds.html((d_this.remark1==undefined || sum==0 )?"未填写":sp_str1);
 					dds.attr("data-remark",str);
 					Tfun_8(dds)
 				}else if(_type==10){

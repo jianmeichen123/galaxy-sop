@@ -52,12 +52,15 @@ function change_number(date){
 }
 //七大报告文本框全为空格处理
 function textarea_show(contentDescribe){
+	var len=0;
 	if(contentDescribe){
 		contentDescribe=contentDescribe.replace(/<br\/>/g,'');
 		contentDescribe=contentDescribe.replace(/<br>/g,'');
 		contentDescribe=contentDescribe.replace(/&nbsp;/g,"");
+		len=contentDescribe.length;
+	}else{
+		len=0;
 	}
-	var len=contentDescribe.length;
 	return len;
 }
 /**
