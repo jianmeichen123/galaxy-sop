@@ -797,12 +797,6 @@
 			$(this).show()
 		}
 		//新增验证样式调整
-		$.each($("#basicForm input"),function(){
-			$(this).on("blur",function(){
-				labelPosition();
-			})
-		})
-	})
 	//删除
 	/* $(document).on('click','.block_inputs .del',function(){
 		var input1=$(this).siblings("span:first").children("input:first").attr("data-id");

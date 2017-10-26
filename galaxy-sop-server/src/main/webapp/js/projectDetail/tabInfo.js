@@ -391,7 +391,6 @@ $(function(){
 			if(s_type=="finance"){
 				if(!$("#basicForm").validate().form())
 				{
-					labelPosition();
 					return;
 				}
 				data="";
@@ -403,7 +402,6 @@ $(function(){
 			
 			if(!$("#basicForm").validate().form())
 			{
-				labelPosition();
 				return;
 			}
 			saveBaseInfo("basicForm");
@@ -550,13 +548,6 @@ function jointDeliveryEdit(list){
 	}else{
 		$(".institutionBtn span").hide()
 	}*/
-	//编辑验证样式调整
-	$.each($("#basicForm input"),function(){
-		$(this).on("blur",function(){
-			labelPosition();
-		})
-	})
-}
 //本轮融资轮次
 /*sendGetRequest(platformUrl.queryAllTitleValues+'FNO1?reportType=4', null,
 		function(data) {
