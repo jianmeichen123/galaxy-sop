@@ -324,7 +324,7 @@
 							<tr>
 								<td>
 									<span>投资金额：</span>
-									<input type="text" value="2000" class="basic_mes_input real_ivestest_input" placeholder="万元">
+									<input type="text" value="" class="basic_mes_input real_ivestest_input new_nputr_number" placeholder="投资金额万元" size="20" id="finalContribution_edit" name="finalContribution" data-rule-finalContribution="true" data-msg-finalContribution="<font color=red>*</font><i></i>支持9位长度的四位小数"  data-title-id="3004"/>
 								</td>
 							</tr>
 							<tr>
