@@ -28,7 +28,10 @@ import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum.meetingType;
+import com.galaxyinternet.common.dictEnum.DictEnum.projectProgress;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -494,11 +497,50 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return mv;
 	}
 	@RequestMapping(value = "/meetAdd", method = RequestMethod.GET)
-	public ModelAndView meetAdd(Long projectId, String meetingType) 
+	public ModelAndView meetAdd(Long projectId, String type) 
 	{
-		ModelAndView mv = new ModelAndView("meeting/meetingtc");
+		ModelAndView mv = new ModelAndView("meeting/error");
 		Project project = projectService.queryById(projectId);
+		String progress = project.getProjectProgress();
+		String businessTypeCode = project.getBusinessTypeCode();
+		if(!validMeetingType(progress, type, businessTypeCode))
+		{
+			mv.addObject("msg", "项目未到此阶段");
+			return mv;
+		}
+		mv = new ModelAndView("meeting/add");
+		mv.addObject("meetingType", type);
+		mv.addObject("meetingTypeDesc", meetingType.getNameByCode(type));
 		
+		String resultParentCode = "meetingResult";
+		if(meetingType.会后商务谈判.getCode().equals(type))
+		{
+			resultParentCode = "meeting5Result";
+		}
+		else if(meetingType.投决会.getCode().equals(type))
+		{
+			resultParentCode = "meeting4Result";
+		}
+		else if(meetingType.立项会.getCode().equals(type))
+		{
+			resultParentCode = "meeting3Result";
+		}
+		else if(meetingType.内评会.getCode().equals(type))
+		{
+			resultParentCode = "meeting1Result";
+		}
+		//会议结论
+		List<Dict> meetingResultList = dictService.selectByParentCode(resultParentCode);
+		mv.addObject("meetingResultList", meetingResultList);
+		//否决原因
+		List<Dict> meetingVetoReason = dictService.selectByParentCode("meetingVetoReason");
+		mv.addObject("meetingVetoReason", meetingVetoReason);
+		//待定原因
+		List<Dict> meetingUndeterminedReason = dictService.selectByParentCode("meetingUndeterminedReason");
+		mv.addObject("meetingUndeterminedReason", meetingUndeterminedReason);
+		//跟进中原因
+		List<Dict> meetingFollowingReason = dictService.selectByParentCode("meetingFollowingReason");
+		mv.addObject("meetingFollowingReason", meetingFollowingReason);
 		return mv;
 	}
 	
@@ -1260,6 +1302,66 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		return responseBody;
+	}
+	/**
+	 * 根据项目阶段验证是否能添加会议到项目
+	 * 接触访谈 -> 内部评审 -> CEO评审 -> 立项会 -> 会后商务谈判 -> 投资意向书（投资） -> 尽职调查 -> 投决会 -> 投资协议 -> 股权交割
+	 * 接触访谈 -> 内部评审 -> CEO评审 -> 立项会 -> 会后商务谈判 -> 投资协议（闪投） -> 尽职调查 -> 投决会 -> 股权交割
+	 * @return
+	 */
+	private boolean validMeetingType(String progress, String type, String businessTypeCode)
+	{
+		if(projectProgress.股权交割.getCode().equals(progress) || projectProgress.投资决策会.getCode().equals(progress))
+		{
+			return true;
+		}
+		if(meetingType.投决会.getCode().equals(type))
+		{
+			if(SopConstant.BUSINESS_TYPE_TZ.equals(businessTypeCode)
+					&& projectProgress.投资协议.getCode().equals(progress)
+					)
+			{
+				return true;
+			}
+		}
+		else if(meetingType.会后商务谈判.getCode().equals(type))
+		{
+			if(projectProgress.会后商务谈判.getCode().equals(progress) ||
+				projectProgress.投资意向书.getCode().equals(progress) ||
+				projectProgress.尽职调查.getCode().equals(progress) ||	
+				projectProgress.尽职调查.getCode().equals(progress) ||
+				projectProgress.投资协议.getCode().equals(progress)
+					)
+			{
+				return true;
+			}
+		}
+		else if(meetingType.立项会.getCode().equals(type))
+		{
+			if(!projectProgress.接触访谈.getCode().equals(progress) &&
+					!projectProgress.内部评审.getCode().equals(progress) &&
+					!projectProgress.CEO评审.getCode().equals(progress)
+					)
+				{
+					return true;
+				}
+		}
+		else if(meetingType.CEO评审.getCode().equals(type))
+		{
+			if(!projectProgress.接触访谈.getCode().equals(progress) &&
+					!projectProgress.内部评审.getCode().equals(progress))
+				{
+					return true;
+				}
+		}
+		else if(meetingType.内评会.getCode().equals(type))
+		{
+			if(!projectProgress.接触访谈.getCode().equals(progress) )
+				{
+					return true;
+				}
+		}
+		return false;
 	}
 	
 	

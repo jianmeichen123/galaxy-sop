@@ -18,7 +18,9 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-
+<script type="text/javascript">
+var pageId = "meetView";
+</script>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <script src="<%=path%>/js/jquery-ui.min.js" type="text/javascript"></script>
 <style>
@@ -87,7 +89,9 @@
                 <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码"  id="keyword" name="keyword" maxlength="100"/>  <!-- proNameCode -->
               </dd>
               <dd>
+              <c:if test="${fx:hasPremission('meetingRecord_add')}">
                <a href="javascript:;" class="bluebtn ico cx" id="add-meeting-btn">新增</a>
+              </c:if>
                <a href="javascript:;" class="bluebtn ico cx" action="querySearch">搜索</a>
               </dd>
             </dl>

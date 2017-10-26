@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript">
-var pageId = "meeting_add";
+var pageId = "meetingRecord_add";
 </script>
 <div class="title_bj">新增会议记录</div>
 <form id="meeting_per_add_form">
@@ -49,7 +49,15 @@ var pageId = "meeting_add";
 </div>
 </form>
 <script>
-
+$( "#meeting_per_add_form #projectName" ).blur(function(){
+	var val = $(this).val();
+	if(val == '')
+	{
+		$( "#meeting_per_add_form #projectId" ).val('');
+		$( "#meeting_per_add_form #createUname" ).text('');
+    	$( "#meeting_per_add_form #projectCareerline" ).text('');
+	}
+});
 $( "#meeting_per_add_form #projectName" ).autocomplete({
     source: function( req, resp ){
     	var val = $( "#meeting_per_add_form #projectName" ).val();
@@ -107,13 +115,13 @@ $( "#meeting_per_add_form #projectName" ).autocomplete({
 	  var url = Constants.sopEndpointURL+"/galaxy/project/progress/meetAdd";
 	  var data = {
 			projectId:  projectId,
-			meetingType: meetingType
+			type: meetingType
 	  };
 	  $.getHtml({
 			url:url,
 			data:data,
 			okback:function(){
-				$("#dialog-btns #cancel-btn").click();
+				//$("#dialog-btns #cancel-btn").click();
 			}
 		});
   }

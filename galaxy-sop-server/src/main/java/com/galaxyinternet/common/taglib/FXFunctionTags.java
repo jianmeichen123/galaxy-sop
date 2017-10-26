@@ -5,6 +5,7 @@ import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
@@ -177,6 +178,23 @@ public class FXFunctionTags
 		}
 
 		return true;
+	}
+	
+	public static boolean hasPremission(String resourceMark)
+	{
+		User user = WebUtils.getUserFromSession();
+		List<PlatformResource> resources = user.getAllResourceToUser();
+		if(resources != null && resources.size() >0)
+		{
+			for(PlatformResource resource : resources)
+			{
+				if(resourceMark != null && resourceMark.equals(resource.getResourceMark()))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }
