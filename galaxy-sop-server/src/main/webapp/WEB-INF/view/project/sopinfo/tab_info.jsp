@@ -212,7 +212,7 @@
 					<tr>
 						<td>
 							<span>项目名称：</span>
-							<input type="text" value="摩拜单车" class="basic_mes_input">
+							<input type="text" value="" class="basic_mes_input" maxlength="24" name="projectName" id="project_name_edit" required data-msg-required="<font color=red>*</font><i></i>项目名称不能为空" aria-required="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -233,7 +233,7 @@
 						<td>
 							<span style="display:inline-block">行业归属：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择"/> 
+								<input class="input_select" type="text" value="请选择" id="industry_own_sel" name="industryOwn" required data-msg-required="<font color=red>*</font><i></i>行业归属不能为空" aria-required="true"/> 
 									<ul> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -247,7 +247,7 @@
 						<td>
 							<span style="display:inline-block">融资轮次：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择"/> 
+								<input class="input_select" type="text" value="请选择" id="finance_status_sel" name="financeStatus" required data-msg-required="<font color=red>*</font><i></i>融资轮次不能为空" aria-required="true" data-title-id="1108" data-type="14"/> 
 									<ul> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
@@ -261,7 +261,7 @@
 						<td>
 							<span style="display:inline-block">项目来源：</span>
 							<div id="dropdown"> 
-								<input class="input_select" type="text" value="请选择"/> 
+								<input class="input_select" type="text" value="请选择" name="projectSource" required data-msg-required="<font color=red>*</font><i></i>项目来源不能为空" aria-required="true"/> 
 									<ul> 
 										<li>企业服务</li> 
 										<li>数字娱乐</li> 
