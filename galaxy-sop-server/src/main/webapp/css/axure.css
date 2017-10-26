@@ -3798,7 +3798,7 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .basic_message_cont{width:542px;margin:0 auto;height:100%;}
  .edit_basic_table{border:none;padding:0px !important;}
  .edit_basic_table td{border:none;font-size:14px;color:#666666;height:auto !important;}
- .edit_basic_table tr{display:block;margin-top:20px;}
+ .edit_basic_table tr{display:block;margin-top:16px;}
  .basic_mes_input{border:1px solid #999999;border-radius:2px;width:432px;height:31px;padding-left:8px;}
  #dropdown{width:438px;position:relative;display:inline;} 
 .input_select{width:436px;height:30px;padding-left:10px;border:1px solid #999999;background: url(../img/base_info/down.png) no-repeat right 7px center;border-radius:2px;cursor:pointer;} 
