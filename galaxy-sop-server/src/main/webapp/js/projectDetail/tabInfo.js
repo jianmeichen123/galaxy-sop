@@ -184,7 +184,10 @@ $(function(){
 				$("#projectProgress_edit").text(projectInfo.progress);
 				$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
 				$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
-				$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
+				$("#industry_own_sel").val(projectInfo.industryOwnDs);
+				$("#finance_status_sel").val(projectInfo.financeStatusDs)
+				$("input[name='projectSource']").val(projectInfo.faFlagStr)
+				//$("#remark").val(projectInfo.remark==null?"":projectInfo.remark);
 				//添加投资形式字段
 				if(projectInfo.financeMode!=undefined&&projectInfo.financeMode!=""){
 					var financeForms=$("input[name='investForm']");
