@@ -49,6 +49,10 @@ function saveBaseInfo(dom,val1,val2,val3){
 				var result = data.result.status;
 				if (result == 'OK') {
 					layer.msg('保存成功');
+					if(dom=="basicForm"&&val1=="finance"){
+						$(".bj_hui_on").hide();
+						buildMoneyResult("1915");
+					}
 					if(dom=='company-info-form'){
 						$("#projectCompany").text(val1);
 						$('#companyLegal').text(val3);

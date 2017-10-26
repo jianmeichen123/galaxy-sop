@@ -311,7 +311,7 @@
 					</div>
 	    	</div>
 	    			<div class="btn btnbox basic_mes_button inves_plan_btn">
-		             	 <button  class="pubbtn bluebtn version19_save_btn" data-on="save">保存</button>
+		             	 <button  class="pubbtn bluebtn version19_save_btn" data-on="save" save_type="finance">保存</button>
               			 <button  class="pubbtn fffbtn version19_cancel_btn" data-name='basic' data-on="close" >取消</button>
 				    </div> 
 	 	   </div>

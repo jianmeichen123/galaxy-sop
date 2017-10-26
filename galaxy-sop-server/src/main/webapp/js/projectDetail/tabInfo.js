@@ -386,26 +386,29 @@ $(function(){
 			}
 		}
 		$("[data-on='save']").click(function(){
-			var data=getUpdateData();
+			var s_type=$(this).attr("save_type");
+			var data="";
+			if(s_type=="finance"){
+				data="";
+			}else{
+				data=getUpdateData();
+			}
 			
 			if(!$("#basicForm").validate().form())
 			{
 				labelPosition();
 				return;
 			}
-			saveBaseInfo("basicForm");
-					sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
-						//console.log(data1);
-						if(data2.result.status=="OK"){
-							layer.msg(data2.result.message);
-							initTabInfo(data.id);
-						}else {
-								layer.msg(data2.result.message);
-						}
-						
-//						window.location.reload();
-						
-					});
+			saveBaseInfo("basicForm",s_type);
+			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
+				if(data2.result.status=="OK"){
+					layer.msg(data2.result.message);
+					initTabInfo(data.id);
+				}else {
+						layer.msg(data2.result.message);
+				}
+				
+			});
 				
 			
 			//typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0

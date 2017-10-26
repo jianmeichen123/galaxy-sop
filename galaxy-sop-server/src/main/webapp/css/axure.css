@@ -3710,8 +3710,8 @@ label.error i{position:absolute;left:-8px;top:5px;width:10px;height:15px;backgro
  .tabinfo_con table.base_table label{font-family: MicrosoftYaHei;color:#45aaff;}
  .tabinfo_con table.base_table label:nth-child(2){margin:0 20px;}
  .tabinfo_con .base_table th,.tabinfo_con .base_table td{border-bottom: .5px solid #d8d8d8;}
- .tabinfo_con .team_info.base_table th:nth-child(2){width:108px;} 
- .tabinfo_con .team_info.base_table th:nth-child(3){width:128px;}
+ .tabinfo_con .team_info.base_table th:nth-child(3){width:108px;} 
+ .tabinfo_con .team_info.base_table th:nth-child(4){width:128px;}
  .tabinfo_con .fina_history.base_table th:nth-child(6){width:60px;}
  .tabinfo_con .fina_history.base_table th:nth-child(7){width:72px;}
  .tabinfo_con.equity_infoC .base_table th:nth-child(2){width:108px;} 
