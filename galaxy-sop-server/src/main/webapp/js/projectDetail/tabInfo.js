@@ -390,6 +390,8 @@ $(function(){
 			var data="";
 			if(s_type=="finance"){
 				data="";
+				saveBaseInfo("basicForm",s_type);
+				return;
 			}else{
 				data=getUpdateData();
 			}
@@ -399,7 +401,7 @@ $(function(){
 				labelPosition();
 				return;
 			}
-			saveBaseInfo("basicForm",s_type);
+			saveBaseInfo("basicForm");
 			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data2){
 				if(data2.result.status=="OK"){
 					layer.msg(data2.result.message);

@@ -51,6 +51,7 @@ function saveBaseInfo(dom,val1,val2,val3){
 					layer.msg('保存成功');
 					if(dom=="basicForm"&&val1=="finance"){
 						$(".bj_hui_on").hide();
+						$("#basicForm").hide();
 						buildMoneyResult("1915");
 					}
 					if(dom=='company-info-form'){
