@@ -1868,7 +1868,7 @@ word-wrap:break-word;
   position: absolute;
   background-color: #fff;
   width: 100%;
-  overflow: hidden;
+ /*  overflow: hidden; */
 }
 .company_on,.portrayal_on,.product_on,.project_on,.operation_on,.industry_on,.next_financing_on,.analysis_on{ 
 	z-index:1000;
