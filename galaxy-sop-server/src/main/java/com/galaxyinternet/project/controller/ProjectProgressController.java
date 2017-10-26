@@ -484,7 +484,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public String meetView() {
 		return "meeting/view";
 	}
-	
+	/**
+	 * 会议'更多...'链接
+	 */
+	@RequestMapping(value = "/meetAddView", method = RequestMethod.GET)
+	public String meetAddView()
+	{
+		return "meeting/meetingtc";
+	}
 	/**
 	 * 会议添加页面
 	 */
