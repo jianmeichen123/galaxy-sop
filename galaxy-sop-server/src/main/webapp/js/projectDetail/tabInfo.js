@@ -24,6 +24,7 @@ $(function(){
 			$('.bj_hui_on').hide();
 			$('.tip-yellowsimple').hide();
 			$("label.error").hide();
+			$("body").css('overflow-y','auto');
 		})
 		
 		//项目名称截断
@@ -134,6 +135,7 @@ $(function(){
 				//内部弹窗根据条件显示
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
+				$("body").css('overflow','hidden');
 				//浏览器窗口带下改变，弹层重新定位
 				popMiddle()
 				function popMiddle(){
