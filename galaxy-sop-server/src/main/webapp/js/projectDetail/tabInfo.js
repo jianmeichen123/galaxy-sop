@@ -117,6 +117,10 @@ $(function(){
 					$(".basic_common_width").css('max-height','505px');
 				};
 				if(open==="legal"){
+					var companyName= $('#projectCompany').text();
+					console.log(companyName);
+					$('.basic_mes_input').val('222');
+					//console.log($('input[name="projectCompany"]'))
 					if($(this).hasClass('limits_gray'))
 					{
 						return;
@@ -125,10 +129,8 @@ $(function(){
 					
 				}
 				
-				
-				
 				//外层div一直显示 basic_on  show
-				$('.'+common+'_on').show();//basic_on
+				$('.'+common+'_on').show();
 				//内部弹窗根据条件显示
 				$('.'+open+'_current').show();
 				$('.bj_hui_on').show();//遮罩层
@@ -153,7 +155,7 @@ $(function(){
 				
 				
 				//投资形式切换
-				$(".new_table .mar_left>input").change(function(){
+				/*$(".new_table .mar_left>input").change(function(){
 					var val=$(this).val();
 					$(".institutionBtn span").css('margin-top','0');
 					if(val=="financeMode:0"){
@@ -165,7 +167,7 @@ $(function(){
 						$(".institution").show();
 						$(".institution .new_color_gray").text("合投机构：");
 					}
-				});
+				});*/
 				buildMoneyResult("1915");  //融资计划
 				buildShareResult("4","3002");  //实际投资
 				buildShareResult("4","3008");  //实际投资

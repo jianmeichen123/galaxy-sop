@@ -804,7 +804,7 @@
 		})
 	})
 	//删除
-	$(document).on('click','.block_inputs .del',function(){
+	/* $(document).on('click','.block_inputs .del',function(){
 		var input1=$(this).siblings("span:first").children("input:first").attr("data-id");
 		if(null!=input1){
 			isDelete.push(input1);
@@ -821,7 +821,7 @@
 		}else{
 			$(".institutionBtn span").css("margin-top","0")
 		}
-	});
+	}); */
 	
 	/* 股权结构 */
 	var isTransfering = "${fx:isTransfering(pid) }";
@@ -836,7 +836,7 @@
 			return;
 		}
 		editCompany();		
-	}); */
+	}); 
 	
 	/*编辑法人信息保存方法交互  */
 	$('.legal_current [data-btn="save"]').on('click',function(){
@@ -900,7 +900,7 @@
 		}
 	});
 	
-
+//实际注资添加按钮
 $('.inves_add').on("click",function(){
 	$('.inves_add').before(inputContent);
 	$('.institue_content').show();
@@ -921,7 +921,7 @@ $('.inves_add').on("click",function(){
 					  +'<input type="text" placeholder="股权占比(%)" class="inves_input inves_stock">'
 					  +'<em class="inves_delete" onclick="deleteRow(this)"></em>'
 					  +'</div> ';
-  
+  //实际注资删除按钮
 function deleteRow(obj){
 	var _this = $(obj);
 	_this.closest('.institue_content').remove();
