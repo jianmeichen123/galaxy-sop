@@ -924,23 +924,6 @@ function deleteRow(obj){
 		$('.inves_add').show();
 	}
 }
-
-
-  	
-	  
-	  
-	  
-	  
-	
-	
-	
-
-
-
-
-	
-	
-	
 	
 </script>
 <script type='text/javascript' src='<%=path%>/js/validate/jquery.validate.min.js'></script>
